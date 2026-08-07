@@ -25,13 +25,26 @@ type Props = RequiredProps & OptionalProps;
  * This component does not accept box props - just recreate it if needed
  */
 export const SearchBar = (props: Props, content) => {
-  const { autoFocus, noIcon = false, onSearch, placeholder = 'Search...', query = '', style } = props;
+  const {
+    autoFocus,
+    noIcon = false,
+    onSearch,
+    placeholder = 'Search...',
+    query = '',
+    style,
+  } = props;
 
   return (
     <Stack fill style={style}>
       <Stack.Item>{!noIcon && <Icon name="search" />}</Stack.Item>
       <Stack.Item grow>
-        <Input autoFocus={autoFocus} fluid onInput={(e, value) => onSearch(value)} placeholder={placeholder} value={query} />
+        <Input
+          autoFocus={autoFocus}
+          fluid
+          onInput={(e, value) => onSearch(value)}
+          placeholder={placeholder}
+          value={query}
+        />
       </Stack.Item>
     </Stack>
   );

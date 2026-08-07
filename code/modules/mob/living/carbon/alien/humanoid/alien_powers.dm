@@ -8,7 +8,7 @@ Doesn't work on other aliens/AI.*/
 /datum/action/alien
 	name = "Alien Power"
 	background_icon_state = "bg_alien"
-	icon_icon = 'icons/hud/actions/actions_xeno.dmi'
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
 	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
 	/// How much plasma this action uses.
@@ -190,7 +190,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Corrosive Acid"
 	desc = "Drench an object in acid, destroying it over time."
 	button_icon_state = "alien_acid"
-	plasma_cost = 200
+	plasma_cost = 50
 
 /datum/action/alien/acid/corrosion/set_click_ability(mob/on_who)
 	. = ..()
@@ -216,7 +216,11 @@ Doesn't work on other aliens/AI.*/
 	return ..()
 
 /datum/action/alien/acid/corrosion/on_activate(mob/user, atom/target)
-	if(!target.acid_act(200, 1000))
+	if(iscarbon(target))
+		//This is blocked by virtually any clothing which is destroyed if possible, but will still do 60 damage without any.
+		target.acid_act(50, 50)
+
+	else if(!target.acid_act(200, 1000))
 		to_chat(owner, ("<span class='noticealien'>You cannot dissolve this object.</span>"))
 		return FALSE
 
@@ -233,6 +237,9 @@ Doesn't work on other aliens/AI.*/
 	plasma_cost = 50
 
 /datum/action/alien/acid/neurotoxin/is_available()
+	var/mob/living/carbon/as_carbon = owner
+	if(istype(as_carbon) && as_carbon.is_mouth_covered(ITEM_SLOT_MASK))
+		return FALSE
 	return ..() && isturf(owner.loc)
 
 /datum/action/alien/acid/neurotoxin/set_click_ability(mob/on_who)
@@ -258,30 +265,49 @@ Doesn't work on other aliens/AI.*/
 	update_buttons()
 	on_who.update_icons()
 
-/datum/action/alien/acid/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/action/alien/acid/neurotoxin/InterceptClickOn(mob/living/clicker, params, atom/target)
 	. = ..()
 	if(!.)
-		unset_click_ability(caller, refund_cooldown = FALSE)
+		unset_click_ability(clicker, refund_cooldown = FALSE)
 		return FALSE
 
 	// We do this in InterceptClickOn() instead of Activate()
 	// because we use the click parameters for aiming the projectile
 	// (or something like that)
-	var/turf/user_turf = caller.loc
-	var/turf/target_turf = get_step(caller, target.dir) // Get the tile infront of the move, based on their direction
-	if(!isturf(target_turf))
-		return FALSE
+	var/turf/user_turf = clicker.loc
+	// Get the actual target's location for recoil direction (works in zero‑g)
+	var/atom/real_target = target
+	var/turf/target_turf = get_turf(real_target)
+	if(!target_turf)
+		target_turf = get_step(user_turf, clicker.dir) // fallback
 
 	var/modifiers = params2list(params)
-	caller.visible_message(
-		("<span class='danger'>[caller] spits neurotoxin!</span>"),
+	clicker.visible_message(
+		("<span class='danger'>[clicker] spits neurotoxin!</span>"),
 		("<span class='alienalert'>You spit neurotoxin.</span>"),
 	)
-	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(caller.loc)
-	neurotoxin.preparePixelProjectile(target, caller, modifiers)
-	neurotoxin.firer = caller
+	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(clicker.loc)
+	neurotoxin.preparePixelProjectile(target, clicker, modifiers)
+	neurotoxin.firer = clicker
 	neurotoxin.fire()
-	caller.newtonian_move(get_dir(target_turf, user_turf))
+
+	// FIX: Recoil only in zero‑gravity – use .has_gravity() on the atoms
+	var/shooter_has_gravity = clicker.has_gravity()
+	var/target_has_gravity = target_turf.has_gravity()
+	if(!shooter_has_gravity || !target_has_gravity)
+		// Zero‑gravity: push the shooter away from the target
+		var/recoil_dir = get_dir(target_turf, user_turf) // opposite direction of fire
+		if(recoil_dir && recoil_dir != 0)
+			var/turf/push_turf = get_step(user_turf, recoil_dir)
+			if(push_turf)
+				clicker.throw_at(push_turf, 2, 1, spin = FALSE, diagonals_first = TRUE)
+			else
+				step(clicker, recoil_dir)
+		else
+			// Fallback to original newtonian_move (for compatibility)
+			clicker.newtonian_move(get_dir(target_turf, user_turf))
+	// else: both have gravity → no recoil
+
 	return TRUE
 
 // Has to return TRUE, otherwise is skipped.
@@ -358,14 +384,14 @@ Doesn't work on other aliens/AI.*/
 
 /// Gets the plasma level of this carbon's plasma vessel, or -1 if they don't have one
 /mob/living/carbon/proc/getPlasma()
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = get_organ_by_type(/obj/item/organ/alien/plasmavessel)
 	if(!vessel)
 		return -1
 	return vessel.stored_plasma
 
 /// Adjusts the plasma level of the carbon's plasma vessel if they have one
 /mob/living/carbon/proc/adjustPlasma(amount)
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+	var/obj/item/organ/alien/plasmavessel/vessel = get_organ_by_type(/obj/item/organ/alien/plasmavessel)
 	if(!vessel)
 		return FALSE
 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)

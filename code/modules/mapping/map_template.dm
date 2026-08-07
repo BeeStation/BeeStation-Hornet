@@ -9,6 +9,9 @@
 	var/keep_cached_map = FALSE
 	var/station_id = null // used to override the root id when generating
 
+	///Default area associated with the map template
+	var/default_area
+
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
 
@@ -77,9 +80,6 @@
 	// first or not.  Its defined In Initialize yet its run first in templates
 	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
-	// We have to do this hack here because its the ONLY place we can get the
-	// meta data from the template so we can properly set up the area
-	SSnetworks.assign_areas_root_ids(areas, src)
 	// If the world is starting up stop here and the world will do the rest
 	if(!SSatoms.initialized)
 		return
@@ -114,7 +114,15 @@
 	var/y = round((world.maxy - height)/2)
 
 	var/datum/space_level/level = SSmapping.add_new_zlevel(name, level_traits, orbital_body_type = orbital_body_type, contain_turfs = FALSE)
-	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top, new_z = TRUE)
+	var/datum/parsed_map/parsed = load_map(
+		file(mappath),
+		x,
+		y,
+		level.z_value,
+		no_changeturf = (SSatoms.initialized == INITIALIZATION_INSSATOMS),
+		place_on_top = should_place_on_top,
+		new_z = TRUE,
+	)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return FALSE
@@ -146,12 +154,10 @@
 	if(T.y+height > world.maxy)
 		return
 
-	var/list/border = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
-							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
 	// Cache for sonic speed
 	var/list/to_rebuild = SSair.adjacent_rebuild
 	// iterate over turfs in the border and clear them from active atmos processing
-	for(var/turf/border_turf as anything in border)
+	for(var/turf/border_turf as anything in CORNER_BLOCK_OFFSET(T, width + 2, height + 2, -1, -1))
 		SSair.remove_from_active(border_turf)
 		to_rebuild -= border_turf
 		for(var/turf/sub_turf as anything in border_turf.atmos_adjacent_turfs)
@@ -213,6 +219,6 @@
 
 //for your ever biggening badminnery kevinz000
 //❤ - Cyberboss
-/proc/load_new_z_level(var/file, var/name, orbital_body_type)
+/proc/load_new_z_level(file, name, orbital_body_type)
 	var/datum/map_template/template = new(file, name)
 	template.load_new_z(orbital_body_type = orbital_body_type)

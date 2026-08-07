@@ -6,7 +6,7 @@
 	species = "cocoapod"
 	plantname = "Cocao Tree"
 	product = /obj/item/food/grown/cocoapod
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 2
@@ -49,7 +49,7 @@
 	foodtypes = FRUIT
 	tastes = list("vanilla" = 1)
 	distill_reagent = /datum/reagent/consumable/vanilla //Takes longer, but you can get even more vanilla from it.
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/seeds/cocoapod/bungotree
 	name = "pack of bungo tree seeds"
@@ -58,7 +58,7 @@
 	species = "bungotree"
 	plantname = "Bungo Tree"
 	product = /obj/item/food/grown/bungofruit
-	lifespan = 30
+	lifespan = 120
 	maturation = 4
 	yield = 3
 	production = 7
@@ -82,7 +82,7 @@
 	juice_typepath = /datum/reagent/consumable/bungojuice
 	tastes = list("bungo" = 2, "tropical fruitiness" = 1)
 	distill_reagent = null
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/bungopit
 	seed = /obj/item/seeds/cocoapod/bungotree

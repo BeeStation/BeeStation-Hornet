@@ -18,7 +18,6 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 25
 	extra_price = 50
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "magivend-light-mask"
 
 /datum/armor/vending_magivend

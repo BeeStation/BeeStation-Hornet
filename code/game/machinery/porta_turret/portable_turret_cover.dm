@@ -5,6 +5,7 @@
 
 /obj/machinery/porta_turret_cover
 	name = "turret"
+	desc = "A covered turret that shoots at its enemies."
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turretCover"
 	layer = HIGH_OBJ_LAYER
@@ -23,16 +24,17 @@
 //>necessary
 //I'm not fixing it because i'm fucking bored of this code already, but someone should just reroute these to the parent turret's procs.
 
-/obj/machinery/porta_turret_cover/attack_silicon(mob/user)
-	. = ..()
-	if(.)
-		return
+/obj/machinery/porta_turret_cover/attack_ai(mob/user)
+	return ..() || parent_turret.attack_ai(user)
 
-	return parent_turret.attack_ai(user)
+/obj/machinery/porta_turret_cover/attack_robot(mob/user)
+	return ..() || parent_turret.attack_robot(user)
 
-/obj/machinery/porta_turret_cover/attack_hand(mob/user, modifiers)
+/obj/machinery/porta_turret_cover/attack_hand(mob/user, list/modifiers)
 	return ..() || parent_turret.attack_hand(user, modifiers)
 
+/obj/machinery/porta_turret_cover/attack_ghost(mob/user)
+	return ..() || parent_turret.attack_ghost(user)
 
 /obj/machinery/porta_turret_cover/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && !parent_turret.on)
@@ -80,9 +82,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 
 /obj/machinery/porta_turret_cover/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	return parent_turret.attack_hulk(user)
-
-/obj/machinery/porta_turret_cover/can_be_overridden()
-	. = 0
 
 /obj/machinery/porta_turret_cover/should_emag(mob/user)
 	return parent_turret.should_emag(user)

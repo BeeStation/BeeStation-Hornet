@@ -33,6 +33,8 @@ GLOBAL_PROTECT(href_token)
 	var/datum/filter_editor/filteriffic
 	var/datum/particle_editor/particool
 
+	var/datum/pathfind_debug/path_debug
+
 	/// Player panel
 	var/datum/admin_player_panel/player_panel
 
@@ -78,7 +80,8 @@ GLOBAL_PROTECT(href_token)
 		message_admins("[key_name_admin(usr)][msg]")
 		log_admin("[key_name(usr)][msg]")
 		return QDEL_HINT_LETMELIVE
-	. = ..()
+	QDEL_NULL(path_debug)
+	return ..()
 
 /datum/admins/proc/activate()
 	if(IsAdminAdvancedProcCall())
@@ -101,6 +104,7 @@ GLOBAL_PROTECT(href_token)
 		return
 	GLOB.deadmins[target] = src
 	GLOB.admin_datums -= target
+	QDEL_NULL(path_debug)
 	deadmined = TRUE
 	var/client/C
 	if ((C = owner) || (C = GLOB.directory[target]))
@@ -129,6 +133,10 @@ GLOBAL_PROTECT(href_token)
 		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
 		owner.remove_verb(/client/proc/readmin)
 		owner.update_special_keybinds()
+		if(rank.rights & R_DEBUG)
+			winset(owner, "menudebug", "parent=\"menu\";name=\"&Debug\";command=\"\"")
+			winset(owner, "menuoptions", "parent=\"menu\";name=\"&Options and Messages\";command=\".options\";category=\"&Debug\"")
+			winset(owner, "menuprofiler", "parent=\"menu\";name=\"&Profiler\";command=\".profile\";category=\"&Debug\"")
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
@@ -138,6 +146,8 @@ GLOBAL_PROTECT(href_token)
 		log_admin("[key_name(usr)][msg]")
 		return
 	if(owner)
+		if((rank.rights & R_DEBUG) && length(winexists(owner, "menudebug")))
+			winset(owner, "menudebug", "parent=")
 		GLOB.admins -= owner
 		owner.remove_admin_verbs()
 		owner.holder = null

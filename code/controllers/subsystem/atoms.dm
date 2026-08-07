@@ -1,8 +1,15 @@
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
-	init_order = INIT_ORDER_ATOMS
-	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/economy,
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/processing/greyscale,
+		/datum/controller/subsystem/vis_overlays,
+		/datum/controller/subsystem/xenoarchaeology,
+		/datum/controller/subsystem/zcopy,
+	)
+	ss_flags = SS_NO_FIRE
 
 	/// A stack of list(source, desired initialized state)
 	/// We read the source of init changes from the last entry, and assert that all changes will come with a reset
@@ -33,7 +40,7 @@ SUBSYSTEM_DEF(atoms)
 			SSasync_map_generator.fire()
 			sleep(0.5)
 		while (length(SSasync_map_generator.executing_generators) > 0)
-		to_chat(world, span_boldannounce("Map generators completed, initializing atoms.</bold>"))
+		to_chat(world, span_boldannounce("Map generators completed, initializing atoms."))
 
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
@@ -55,7 +62,7 @@ SUBSYSTEM_DEF(atoms)
 	var/late_loader_len = late_loaders.len
 	#endif
 	if(late_loaders.len)
-		for(var/atom/A as() in late_loaders)
+		for(var/atom/A as anything in late_loaders)
 			//I hate that we need this
 			if(QDELETED(A))
 				continue
@@ -123,52 +130,6 @@ SUBSYSTEM_DEF(atoms)
 
 	testing("Initialized [count] atoms")
 
-/// Init this specific atom
-/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, list/arguments)
-	var/the_type = A.type
-	if(QDELING(A))
-		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
-		return TRUE
-
-	// This is handled and battle tested by dreamchecker. Limit to UNIT_TESTS just in case that ever fails.
-	#ifdef UNIT_TESTS
-	var/start_tick = world.time
-	#endif
-
-	var/result = A.Initialize(arglist(arguments))
-
-	#ifdef UNIT_TESTS
-	if(start_tick != world.time)
-		BadInitializeCalls[the_type] |= BAD_INIT_SLEPT
-	#endif
-
-	var/qdeleted = FALSE
-
-	switch(result)
-		if (INITIALIZE_HINT_NORMAL)
-			// pass
-		if(INITIALIZE_HINT_LATELOAD)
-			if(arguments[1]) //mapload
-				late_loaders += A
-			else
-				A.LateInitialize()
-		if(INITIALIZE_HINT_QDEL)
-			qdel(A)
-			return TRUE //Don't need to check anything else since we know it's deleted already
-		else
-			BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
-
-	if(!A)	//possible harddel
-		qdeleted = TRUE
-	else if(!(A.flags_1 & INITIALIZED_1))
-		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
-	else
-		SEND_SIGNAL(A,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
-		if(created_atoms && from_template && ispath(the_type, /atom/movable))//we only want to populate the list with movables
-			created_atoms += A.GetAllContents()
-
-	return qdeleted || QDELING(A)
-
 /datum/controller/subsystem/atoms/proc/map_loader_begin(source)
 	set_tracked_initalized(INITIALIZATION_INSSATOMS, source)
 
@@ -211,7 +172,7 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/proc/setupGenetics()
 	var/list/mutations = subtypesof(/datum/mutation)
 	shuffle_inplace(mutations)
-	for(var/datum/generecipe/GR as() in subtypesof(/datum/generecipe))
+	for(var/datum/generecipe/GR as anything in subtypesof(/datum/generecipe))
 		GLOB.mutation_recipes[initial(GR.required)] = initial(GR.result)
 	for(var/i in 1 to length(mutations))
 		var/path = mutations[i] //byond gets pissy when we do it in one line

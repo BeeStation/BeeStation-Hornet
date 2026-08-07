@@ -190,9 +190,9 @@
 	for(var/mob/living/L in view(7, src))
 		if(L.mind)
 			mobss += L
-	for(var/turf/turf as() in turfs)
+	for(var/turf/turf as anything in turfs)
 		var/visible = FALSE
-		for(var/mob/living/L as() in mobss)
+		for(var/mob/living/L as anything in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
 		if(!visible)
@@ -258,13 +258,13 @@
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
 	mobchatspan = "chaplain"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
 	maxHealth = 60
 	mobchatspan = "researchdirector"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
@@ -282,14 +282,14 @@
 	req_cultists = 9//if a cultist invokes this, it acts like an invocation rune by asking them to check this.
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "Cluwne"
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	pixel_x = -32
 	pixel_y = -32
 	rune_in_use = FALSE
 	can_be_scribed = FALSE
 
 /obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
 			to_chat(user, span_clowntext("It's not within your power to erase the [LOWER_TEXT(cultist_name)]."))
@@ -303,23 +303,23 @@
 		return
 	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
-	if(!cluwne && !iscultist(user))
+	if(!cluwne && !IS_CULTIST(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(CLUWNEMUT))
+			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(/datum/mutation/cluwne))
 				to_chat(user, span_warning("We need a connection! One of the honkmother's manifested forms!"))
 			else
 				to_chat(user, span_warning("You touch the crayon drawing, and feel somewhat foolish."))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)// NO MIMES
+		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.has_status_effect(/datum/status_effect/silenced))// NO MIMES
 			to_chat(user, span_warning("The quiet cannot comprehend [src]."))
 			return
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
 			to_chat(user, span_warning("You're too disgusted by [src] to even consider touching it."))
 			return
-		if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(CLUWNEMUT))
+		if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(/datum/mutation/cluwne))
 			var/list/invokers = can_invoke(user)
 			if(invokers.len >= 5)
 				to_chat(user, span_warning("Honestly, this is so simple even a baby could do it!"))
@@ -327,7 +327,7 @@
 			else
 				to_chat(user, span_warning("This would be no fun without at least five people on the rune!"))
 			return
-		if(iscultist(H)) //cultists are good at this kind of magic, so they can use it too
+		if(IS_CULTIST(H)) //cultists are good at this kind of magic, so they can use it too
 			var/list/invokers = can_invoke(user)
 			if(invokers.len >= req_cultists)
 				invoke(invokers)
@@ -357,14 +357,14 @@
 		invokers += L
 	return invokers
 
-/obj/effect/rune/cluwne/invoke(var/list/invokers)
+/obj/effect/rune/cluwne/invoke(list/invokers)
 	..()
 	rune_in_use = TRUE
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne
 		FC.dontkill = FALSE
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
-	color = RUNE_COLOR_SUMMON
+	color = COLOR_VIBRANT_LIME
 	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
@@ -374,7 +374,7 @@
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
 			continue
-		H.adjust_blindness(10)
+		H.adjust_temp_blindness(20 SECONDS)
 		if(prob(10))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)

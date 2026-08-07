@@ -125,9 +125,12 @@
 					return
 
 			var/new_sec_level = SSsecurity_level.text_level_to_number(params["newSecurityLevel"])
-			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
+			var/current_sec_level = SSsecurity_level.get_current_level_as_number()
+			if (current_sec_level > SEC_LEVEL_BLACK)
+				to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 				return
-			if (SSsecurity_level.get_current_level_as_number() == new_sec_level)
+			if (current_sec_level == new_sec_level)
 				return
 
 			SSsecurity_level.set_level(new_sec_level)
@@ -138,7 +141,7 @@
 			// Only notify people if an actual change happened
 			log_game("[key_name(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
-			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has changed the security level to [params["newSecurityLevel"]] with [src] at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+			deadchat_broadcast(" has changed the security level to [params["newSecurityLevel"]] with [src] at [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type=DEADCHAT_ANNOUNCEMENT)
 
 			alert_level_tick += 1
 			. = TRUE
@@ -175,7 +178,7 @@
 
 			var/associates = emagged ? "the Syndicate": "CentCom"
 			usr.log_talk(message, LOG_SAY, tag = "message to [associates]")
-			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has messaged [associates], \"[message]\" at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+			deadchat_broadcast(" has messaged [associates], \"[message]\" at [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type = DEADCHAT_ANNOUNCEMENT)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("purchaseShuttle")
@@ -254,7 +257,7 @@
 			minor_announce(message, title = "Outgoing message to allied station", html_encode = FALSE)
 			usr.log_talk(message, LOG_SAY, tag="message to the other server")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has sent a message to the other server.")
-			deadchat_broadcast(span_deadsaybold("[usr.real_name] has sent an outgoing message to the other station(s)."), usr)
+			deadchat_broadcast(" has sent an outgoing message to the other station(s).</span>", "<span class='bold'>[usr.real_name]", usr, message_type = DEADCHAT_ANNOUNCEMENT)
 
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
@@ -267,7 +270,6 @@
 			if (newState == STATE_BUYING_SHUTTLE && can_buy_shuttles(usr) != TRUE)
 				return
 			set_state(usr, newState)
-			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("setStatusMessage")
 			if (!authenticated(usr))
@@ -278,7 +280,6 @@
 			log_game("[key_name(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
 			post_status("message", line_one, line_two)
 			last_status_display = list(line_one, line_two)
-			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("setStatusPicture")
 			if (!authenticated(usr))
@@ -301,7 +302,6 @@
 							post_status("alert", "greenalert")
 				else
 					post_status("alert", picture)
-			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("toggleAuthentication")
 			// Log out if we're logged in
@@ -336,12 +336,12 @@
 				revoke_maint_all_access()
 				log_game("[key_name(usr)] disabled emergency maintenance access.")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] disabled emergency maintenance access.")
-				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] disabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+				deadchat_broadcast(" disabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type = DEADCHAT_ANNOUNCEMENT)
 			else
 				make_maint_all_access()
 				log_game("[key_name(usr)] enabled emergency maintenance access.")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] enabled emergency maintenance access.")
-				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] enabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
+				deadchat_broadcast(" enabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")].", span_name("[usr.real_name]"), usr, message_type = DEADCHAT_ANNOUNCEMENT)
 		// Request codes for the Captain's Spare ID safe.
 		if("requestSafeCodes")
 			if(SSjob.assigned_captain)
@@ -436,10 +436,10 @@
 			data["shuttleCalled"] = TRUE
 			data["shuttleRecallable"] = SSshuttle.canRecall()
 
-		if (SSshuttle.emergencyCallAmount)
+		if (SSshuttle.emergency_call_amount)
 			data["shuttleCalledPreviously"] = TRUE
-			if (SSshuttle.emergencyLastCallLoc)
-				data["shuttleLastCalled"] = format_text(SSshuttle.emergencyLastCallLoc.name)
+			if (SSshuttle.emergency_last_call_loc)
+				data["shuttleLastCalled"] = format_text(SSshuttle.emergency_last_call_loc.name)
 
 		switch (ui_state)
 			if (STATE_MESSAGES)
@@ -483,7 +483,7 @@
 	return data
 
 /obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui)
-	play_click_sound(user)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "CommunicationsConsole")
@@ -512,7 +512,7 @@
 /// Returns TRUE if the user can buy shuttles.
 /// If they cannot, returns FALSE or a string detailing why.
 /obj/machinery/computer/communications/proc/can_buy_shuttles(mob/user)
-	if (!SSmapping.config.allow_custom_shuttles)
+	if (!SSmapping.current_map.allow_custom_shuttles)
 		return FALSE
 	if (!authenticated_as_non_silicon_captain(user))
 		return FALSE
@@ -546,14 +546,28 @@
 	if(!SScommunications.can_announce(user, is_ai))
 		to_chat(user, span_alert("Intercomms recharging. Please stand by."))
 		return
-	var/input = stripped_input(user, "Please choose a message to announce to the station crew.", "What?")
+	var/input = tgui_input_text(user, "Please choose a message to announce to the station crew.", "Make Priority Announcement")
 	if(!input || !user.canUseTopic(src, !issilicon(usr)))
 		return
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, span_warning("You cannot send an announcement that contains prohibited words."))
 		return
+	if(user.try_speak(input))
+		//Adds slurs and so on. Someone should make this use languages too.
+		var/list/input_data = user.treat_message(input)
+		input = input_data["message"]
+	else
+		//No cheating, mime/random mute guy!
+		input = "..."
+		user.visible_message(
+			span_notice("You leave the mic on in awkward silence..."),
+			span_notice("[user] holds down [src]'s announcement button, leaving the mic on in awkward silence."),
+			span_hear("You hear an awkward silence, somehow."),
+			vision_distance = 4,
+		)
+
 	SScommunications.make_announcement(user, is_ai, input, null, syndicate)
-	deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] made a priority announcement from [span_name("[get_area_name(usr, TRUE)]")]."), user)
+	deadchat_broadcast(" made a priority announcement from [span_name("[get_area_name(user, TRUE)]")].", span_name("[user.real_name]"), user, message_type=DEADCHAT_ANNOUNCEMENT)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)
 

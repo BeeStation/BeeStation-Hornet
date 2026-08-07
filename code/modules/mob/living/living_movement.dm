@@ -61,23 +61,20 @@
 	if(.)
 		return
 	if(mover.throwing)
-		return (!density || (body_position == LYING_DOWN) || (mover.throwing.thrower == src && !ismob(mover)))
+		var/mob/thrower = mover.throwing.get_thrower()
+		return (!density || (body_position == LYING_DOWN) || (thrower == src && !ismob(mover)))
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover) && (mover in buckled_mobs))
 		return TRUE
 	return !mover.density || body_position == LYING_DOWN
 
-/mob/living/toggle_move_intent()
-	. = ..()
-	update_move_intent_slowdown()
-
 /mob/living/update_config_movespeed()
 	update_move_intent_slowdown()
 	return ..()
 
 /mob/living/proc/update_move_intent_slowdown()
-	add_movespeed_modifier((m_intent == MOVE_INTENT_WALK)? /datum/movespeed_modifier/config_walk_run/walk : /datum/movespeed_modifier/config_walk_run/run)
+	add_movespeed_modifier((move_intent == MOVE_INTENT_WALK)? /datum/movespeed_modifier/config_walk_run/walk : /datum/movespeed_modifier/config_walk_run/run)
 
 /mob/living/proc/update_turf_movespeed(turf/open/T)
 	if(isopenturf(T))

@@ -26,7 +26,7 @@
 	juice_typepath = /datum/reagent/consumable/corn_starch
 	tastes = list("corn" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/whiskey
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/corn/make_microwaveable()
 	AddElement(/datum/element/microwavable, /obj/item/food/popcorn)
@@ -35,16 +35,16 @@
 	name = "corn cob"
 	desc = "A reminder of meals gone by."
 	icon_state = "corncob"
-	item_state = "corncob"
+	inhand_icon_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 
 /obj/item/grown/corncob/attackby(obj/item/W, mob/user, params)
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		to_chat(user, span_notice("You use [W] to fashion a pipe out of the corn cob!"))
-		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
+		new /obj/item/cigarette/pipe/cobpipe (user.loc)
 		qdel(src)
 	else
 		return ..()
@@ -65,13 +65,13 @@
 	name = "snap corn"
 	desc = "A cob with snap pops."
 	icon_state = "snapcorn"
-	item_state = "corncob"
+	inhand_icon_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 	var/snap_pops = 1
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/grown/snapcorn/add_juice()
 	..()

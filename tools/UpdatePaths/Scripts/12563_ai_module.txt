@@ -1,0 +1,5 @@
+/obj/item/aiModule/zeroth/oneHuman : /obj/item/ai_module/zeroth/onehuman{@OLD}
+/obj/item/aiModule/supplied/protectStation : /obj/item/ai_module/supplied/protect_station{@OLD}
+/obj/item/aiModule/core/full/maintain : /obj/item/ai_module/core/full/efficiency{@OLD}
+
+/obj/item/aiModule/@SUBTYPES : /obj/item/ai_module/@SUBTYPES{@OLD}

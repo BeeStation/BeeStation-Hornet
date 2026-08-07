@@ -1,25 +1,30 @@
 /obj/item/storage
+	abstract_type = /obj/item/storage
 	name = "storage"
 	icon = 'icons/obj/storage/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	var/rummage_if_nodrop = TRUE
-	var/component_type = /datum/component/storage/concrete
 	var/empty = FALSE
 	/// Should we preload the contents of this type?
 	/// BE CAREFUL, THERE'S SOME REALLY NASTY SHIT IN THIS TYPEPATH
 	/// SANTA IS EVIL
 	var/preload = FALSE
-
-/obj/item/storage/get_dumping_location(obj/item/storage/source,mob/user)
-	return src
+	/// What storage type to use for this item
+	var/datum/storage/storage_type = /datum/storage
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
-	if(!empty)
-		PopulateContents()
 
-/obj/item/storage/ComponentInitialize()
-	AddComponent(component_type)
+	if(!istype(atom_storage))
+		create_storage(storage_type = storage_type)
+
+	if(empty)
+		return
+
+	PopulateContents()
+
+	for (var/obj/item/item in src)
+		item.item_flags |= IN_STORAGE
 
 /obj/item/storage/AllowDrop()
 	return FALSE
@@ -41,8 +46,7 @@
 
 /obj/item/storage/doStrip(mob/who)
 	if(HAS_TRAIT(src, TRAIT_NODROP) && rummage_if_nodrop)
-		var/datum/component/storage/CP = GetComponent(/datum/component/storage)
-		CP.do_quick_empty()
+		atom_storage.remove_all()
 		return TRUE
 	return ..()
 
@@ -52,10 +56,9 @@
 /obj/item/storage/proc/PopulateContents()
 
 /obj/item/storage/proc/emptyStorage()
-	var/datum/component/storage/ST = GetComponent(/datum/component/storage)
-	ST.do_quick_empty()
+	atom_storage.remove_all()
 
-/obj/item/storage/on_object_saved(var/depth = 0)
+/obj/item/storage/on_object_saved(depth = 0)
 	if(depth >= 10)
 		return ""
 	var/dat = ""
@@ -107,3 +110,17 @@
 /// Don't do anything stupid, please
 /obj/item/storage/proc/get_types_to_preload()
 	return
+
+/// Removes an item or puts it in mouth from the contents, if any
+/obj/item/storage/proc/quick_remove_item(obj/item/grabbies, mob/user, equip_to_mouth =  FALSE)
+	var/obj/item/finger = locate(grabbies) in contents
+	if(!finger)
+		return
+	if(!equip_to_mouth)
+		if(atom_storage.remove_single(user, finger, drop_location()))
+			user.put_in_hands(finger)
+		return
+	if(user.equip_to_slot_if_possible(finger, ITEM_SLOT_MASK, qdel_on_fail = FALSE, disable_warning = TRUE))
+		finger.forceMove(user)
+		return
+	balloon_alert(user, "mouth is covered!")

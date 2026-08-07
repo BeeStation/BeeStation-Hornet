@@ -3,11 +3,13 @@
 INITIALIZE_IMMEDIATE(/mob/dead)
 
 /mob/dead
+	abstract_type = /mob/dead
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	move_resist = INFINITY
 	throwforce = 0
 
 /mob/dead/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -25,16 +27,8 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/canUseStorage()
 	return FALSE
 
-/mob/dead/dust(just_ash, drop_items, force)	//ghosts can't be vaporised.
-	return
-
-/mob/dead/gib()		//ghosts can't be gibbed.
-	return
-
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
-	if(!SSticker.hide_mode)
-		tab_data["Game Mode"] = GENERATE_STAT_TEXT("[GLOB.master_mode]")
 
 	if(SSticker.HasRoundStarted())
 		return tab_data
@@ -49,11 +43,13 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	return tab_data
 
+#define SERVER_HOPPER_TRAIT "server_hopper"
+
 /mob/dead/proc/server_hop()
 	set category = "OOC"
 	set name = "Server Hop"
 	set desc= "Jump to the other server"
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM)) // in case the round is ending and a cinematic is already playing we don't wanna clash with that (yes i know)
 		return
 	var/list/csa = CONFIG_GET(keyed_list/server_hop)
 	var/pick
@@ -78,9 +74,9 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	to_chat(C, span_notice("Sending you to [pick]."))
 	new /atom/movable/screen/splash(null, C)
 
-	notransform = TRUE
-	sleep(29)	//let the animation play
-	notransform = FALSE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, SERVER_HOPPER_TRAIT)
+	sleep(2.9 SECONDS) //let the animation play
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, SERVER_HOPPER_TRAIT)
 
 	if(!C)
 		return
@@ -89,16 +85,22 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	C << link("[addr]")
 
-/mob/dead/proc/update_z(new_z) // 1+ to register, null to unregister
-	if (registered_z != new_z)
-		if (registered_z)
-			SSmobs.dead_players_by_zlevel[registered_z] -= src
-		if (client)
-			if (new_z)
-				SSmobs.dead_players_by_zlevel[new_z] += src
-			registered_z = new_z
-		else
-			registered_z = null
+#undef SERVER_HOPPER_TRAIT
+
+/**
+ * updates the Z level for dead players
+ * If they don't have a new z, we'll keep the old one, preventing bugs from ghosting and re-entering, among others
+ */
+/mob/dead/proc/update_z(new_z)
+	if(registered_z == new_z)
+		return
+	if(registered_z)
+		SSmobs.dead_players_by_zlevel[registered_z] -= src
+	if(isnull(client))
+		registered_z = null
+		return
+	registered_z = new_z
+	SSmobs.dead_players_by_zlevel[new_z] += src
 
 /mob/dead/Login()
 	. = ..()

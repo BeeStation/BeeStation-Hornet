@@ -40,12 +40,12 @@
 			"description" = initial(quirk.desc),
 			"icon" = initial(quirk.icon),
 			"name" = quirk_name,
-			"value" = initial(quirk.value),
+			"value" = initial(quirk.quirk_value),
 			"path" = quirk
 		)
 
 	return list(
-		"max_positive_quirks" = MAX_QUIRKS,
+		"max_positive_quirks" = MAX_POSITIVE_QUIRKS,
 		"quirk_info" = quirk_info,
 		"quirk_blacklist" = SSquirks.quirk_blacklist,
 	)
@@ -66,6 +66,7 @@
 
 	preferences.all_quirks = new_quirks
 	preferences.mark_undatumized_dirty_character()
+	preferences.character_preview_view?.update_body()
 	return TRUE
 
 /datum/preference_middleware/quirks/proc/remove_quirk(list/params, mob/user)
@@ -84,6 +85,7 @@
 
 	preferences.all_quirks = new_quirks
 	preferences.mark_undatumized_dirty_character()
+	preferences.character_preview_view?.update_body()
 	return TRUE
 
 /datum/preference_middleware/quirks/proc/get_selected_quirks()

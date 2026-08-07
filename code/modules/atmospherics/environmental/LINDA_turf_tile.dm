@@ -1,13 +1,15 @@
 /turf
-	//used for temperature calculations in superconduction
+	///used for temperature calculations in superconduction
 	var/thermal_conductivity = 0.05
+	/// Amount of heat necessary to activate some atmos processes (there is a weird usage of this var because is compared directly to the temperature instead of heat energy)
 	var/heat_capacity = INFINITY //This should be opt in rather then opt out
+	/// Archived version of the temperature on a turf
 	var/temperature_archived
 
-	///list of turfs adjacent to us that air can flow onto
+	/// List of turfs adjacent to us that air can flow onto
 	var/list/atmos_adjacent_turfs
 
-	//used to determine whether we should archive
+	/// Used to determine whether we should archive
 	var/archived_cycle = 0
 	var/current_cycle = 0
 
@@ -18,34 +20,36 @@
 	 * If someone will place 0 of some gas there, SHIT WILL BREAK. Do not do that.
 	**/
 	var/initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	//approximation of MOLES_O2STANDARD and MOLES_N2STANDARD pending byond allowing constant expressions to be embedded in constant strings
-	// If someone will place 0 of some gas there, SHIT WILL BREAK. Do not do that.
 
 /turf/open
-	//used for spacewind
-	///Pressure difference between two turfs
+	// Used for spacewind
+	/// Pressure difference between two turfs
 	var/pressure_difference = 0
-	///Where the difference come from (from higher pressure to lower pressure)
+	/// Where the difference come from (from higher pressure to lower pressure)
 	var/pressure_direction = 0
 
-	///Excited group we are part of
+	/// Excited group we are part of
 	var/datum/excited_group/excited_group
-	///Are we active?
+	/// Are we active?
 	var/excited = FALSE
-	///Our gas mix
+	/// Our gas mix
 	var/datum/gas_mixture/turf/air
 
-	///If there is an active hotspot on us store a reference to it here
+	/// If there is an active hotspot on us store a reference to it here
 	var/obj/effect/hotspot/active_hotspot
-	/// air will slowly revert to initial_gas_mix
+	/// Air will slowly revert to initial_gas_mix
 	var/planetary_atmos = FALSE
-	/// once our paired turfs are finished with all other shares, do one 100% share
-	/// exists so things like space can ask to take 100% of a tile's gas
+	/// Once our paired turfs are finished with all other shares, do one 100% share
+	/// Exists so things like space can ask to take 100% of a tile's gas
 	var/run_later = FALSE
 
-	///gas IDs of current active gas overlays
+	/// Gas IDs of current active gas overlays
 	var/list/atmos_overlay_types
 	var/significant_share_ticker = 0
+
+	/// The cooldown on playing a fire starting sound each time a tile is ignited
+	COOLDOWN_DECLARE(fire_puff_cooldown)
+
 	#ifdef TRACK_MAX_SHARE
 	var/max_share = 0
 	#endif
@@ -64,7 +68,7 @@
 	if(active_hotspot)
 		QDEL_NULL(active_hotspot)
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/turf/open/near_turf in atmos_adjacent_turfs)
+	for(var/turf/open/near_turf as anything in atmos_adjacent_turfs)
 		SSair.add_to_active(near_turf)
 	return ..()
 
@@ -167,10 +171,10 @@
 			src.atmos_overlay_types = null
 		return
 
-	var/list/gases = air.gases
+	var/list/moles = air.moles
 
 	var/list/new_overlay_types
-	GAS_OVERLAYS(gases, new_overlay_types)
+	GAS_OVERLAYS(moles, new_overlay_types)
 
 	if (atmos_overlay_types)
 		for(var/overlay in atmos_overlay_types-new_overlay_types) //doesn't remove overlays that would only be added
@@ -273,9 +277,6 @@
 			continue
 		#endif
 
-		if(!istype(enemy_tile))
-			continue
-
 		// This var is only rarely set, exists so turfs can request to share at the end of our sharing
 		// We need this so we can assume share is communative, which we need to do to avoid a hellish amount of garbage_collect()s
 		if(enemy_tile.run_later)
@@ -303,7 +304,7 @@
 				our_excited_group = excited_group //update our cache
 		if(our_excited_group && enemy_excited_group && enemy_tile.excited) //If you're both excited, no need to compare right?
 			should_share_air = TRUE
-		else if(our_air.compare(enemy_air, ARCHIVE)) //Lets see if you're up for it
+		else if(our_air.compare(enemy_air, cmp_archive = TRUE)) //Lets see if you're up for it
 			SSair.add_to_active(enemy_tile) //Add yourself young man
 			var/datum/excited_group/existing_group = our_excited_group || enemy_excited_group || new
 			if(!our_excited_group)
@@ -331,7 +332,7 @@
 		var/datum/gas_mixture/planetary_mix = SSair.planetary[initial_gas_mix]
 		// archive ourself again so we don't accidentally share more gas than we currently have
 		LINDA_CYCLE_ARCHIVE(src)
-		if(our_air.compare(planetary_mix, ARCHIVE))
+		if(our_air.compare(planetary_mix, cmp_archive = TRUE))
 			if(!our_excited_group)
 				var/datum/excited_group/new_group = new
 				new_group.add_turf(src)
@@ -394,7 +395,7 @@
 
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
 	set waitfor = FALSE
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_PRESSURE_PUSH) & COMSIG_MOVABLE_BLOCKS_PRESSURE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_PRESSURE_PUSH) & COMSIG_ATOM_BLOCKS_PRESSURE)
 		return
 	var/const/PROBABILITY_OFFSET = 25
 	var/const/PROBABILITY_BASE_PRECENT = 75
@@ -467,7 +468,7 @@
 	var/datum/gas_mixture/shared_mix = new
 
 	//make local for sanic speed
-	var/list/shared_gases = shared_mix.gases
+	var/list/shared_cached_moles = shared_mix.moles
 	var/list/turf_list = src.turf_list
 	var/turflen = turf_list.len
 	var/imumutable_in_group = FALSE
@@ -481,14 +482,14 @@
 			if(istype(group_member.air, /datum/gas_mixture/immutable))
 				imumutable_in_group = TRUE
 				shared_mix.copy_from(group_member.air) //This had better be immutable young man
-				shared_gases = shared_mix.gases //update the cache
+				shared_cached_moles = shared_mix.moles //update the cache
 				break
 			// If we're planetary use THAT mix, and stop here
 			if(group_member.planetary_atmos)
 				imumutable_in_group = TRUE
 				var/datum/gas_mixture/planetary_mix = SSair.planetary[group_member.initial_gas_mix]
 				shared_mix.copy_from(planetary_mix)
-				shared_gases = shared_mix.gases // Cache update
+				shared_cached_moles = shared_mix.moles // Cache update
 				break
 		//"borrowing" this code from merge(), I need to play with the temp portion. Lets expand it out
 		//temperature = (giver.temperature * giver_heat_capacity + temperature * self_heat_capacity) / combined_heat_capacity
@@ -496,15 +497,13 @@
 		energy += mix.temperature * capacity
 		heat_cap += capacity
 
-		var/list/giver_gases = mix.gases
-		for(var/giver_id in giver_gases)
-			ASSERT_GAS_IN_LIST(giver_id, shared_gases)
-			shared_gases[giver_id][MOLES] += giver_gases[giver_id][MOLES]
+		for(var/gas_id, amount in mix.moles)
+			shared_cached_moles[gas_id] += amount
 
 	if(!imumutable_in_group)
 		shared_mix.temperature = energy / heat_cap
-		for(var/id in shared_gases)
-			shared_gases[id][MOLES] /= turflen
+		for(var/gas_id in shared_cached_moles)
+			shared_cached_moles[gas_id] /= turflen
 		shared_mix.garbage_collect()
 
 	for(var/turf/open/group_member as anything in turf_list)

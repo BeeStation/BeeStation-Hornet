@@ -44,12 +44,14 @@
 	icon_state = base_icon_state
 	return ..()
 
-/obj/machinery/harvester/open_machine(drop = TRUE)
+/obj/machinery/harvester/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(panel_open)
 		return
 	. = ..()
 	warming_up = FALSE
 	harvesting = FALSE
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/attack_hand, "Toggle Open")
 
 /obj/machinery/harvester/attack_hand(mob/user, list/modifiers)
 	if(state_open)
@@ -76,7 +78,7 @@
 				say("Subject may not have abiotic items on.")
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 				return
-	if(!(MOB_ORGANIC in C.mob_biotypes))
+	if(!(C.mob_biotypes & MOB_ORGANIC))
 		say("Subject is not organic.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return

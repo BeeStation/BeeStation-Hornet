@@ -30,7 +30,7 @@
 /obj/effect/sound_emitter/singularity_act()
 	return
 
-/obj/effect/sound_emitter/singularity_pull()
+/obj/effect/sound_emitter/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/sound_emitter/examine(mob/user)
@@ -60,16 +60,16 @@
 
 /obj/effect/sound_emitter/proc/edit_emitter(mob/user)
 	var/dat = ""
-	dat += "<b>Label:</b> <a href='?src=\ref[src];edit_label=1'>[maptext ? maptext : "No label set!"]</a><br>"
+	dat += "<b>Label:</b> <a href='byond://?src=\ref[src];edit_label=1'>[maptext ? maptext : "No label set!"]</a><br>"
 	dat += "<br>"
-	dat += "<b>Sound File:</b> <a href='?src=\ref[src];edit_sound_file=1'>[sound_file ? sound_file : "No file chosen!"]</a><br>"
-	dat += "<b>Volume:</b> <a href='?src=\ref[src];edit_volume=1'>[sound_volume]%</a><br>"
+	dat += "<b>Sound File:</b> <a href='byond://?src=\ref[src];edit_sound_file=1'>[sound_file ? sound_file : "No file chosen!"]</a><br>"
+	dat += "<b>Volume:</b> <a href='byond://?src=\ref[src];edit_volume=1'>[sound_volume]%</a><br>"
 	dat += "<br>"
-	dat += "<b>Mode:</b> <a href='?src=\ref[src];edit_mode=1'>[motus_operandi]</a><br>"
+	dat += "<b>Mode:</b> <a href='byond://?src=\ref[src];edit_mode=1'>[motus_operandi]</a><br>"
 	if(motus_operandi != SOUND_EMITTER_LOCAL)
-		dat += "<b>Range:</b> <a href='?src=\ref[src];edit_range=1'>[emitter_range]</a>[emitter_range == SOUND_EMITTER_RADIUS ? "<a href='?src=\ref[src];edit_radius=1'>[play_radius]-tile radius</a>" : ""]<br>"
+		dat += "<b>Range:</b> <a href='byond://?src=\ref[src];edit_range=1'>[emitter_range]</a>[emitter_range == SOUND_EMITTER_RADIUS ? "<a href='byond://?src=\ref[src];edit_radius=1'>[play_radius]-tile radius</a>" : ""]<br>"
 	dat += "<br>"
-	dat += "<a href='?src=\ref[src];play=1'>Play Sound</a> (interrupts other sound emitter sounds)"
+	dat += "<a href='byond://?src=\ref[src];play=1'>Play Sound</a> (interrupts other sound emitter sounds)"
 	var/datum/browser/popup = new(user, "emitter", "", 500, 600)
 	popup.set_content(dat)
 	popup.open()
@@ -126,24 +126,30 @@
 	edit_emitter(user) //Refresh the UI to see our changes
 
 /obj/effect/sound_emitter/proc/activate(mob/user)
-	var/list/hearing_mobs = list()
 	if(motus_operandi == SOUND_EMITTER_LOCAL)
 		playsound(src, sound_file, sound_volume, FALSE)
 		return
-	switch(emitter_range)
-		if(SOUND_EMITTER_RADIUS)
-			for(var/mob/M in GLOB.player_list)
-				if(get_dist(src, M) <= play_radius)
-					hearing_mobs += M
-		if(SOUND_EMITTER_ZLEVEL)
-			for(var/mob/M in GLOB.player_list)
-				if(M.get_virtual_z_level() == get_virtual_z_level())
-					hearing_mobs += M
-		if(SOUND_EMITTER_GLOBAL)
-			hearing_mobs = GLOB.player_list.Copy()
-	for(var/mob/M in hearing_mobs)
-		if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
-			M.playsound_local(M, sound_file, sound_volume, FALSE, channel = CHANNEL_ADMIN, pressure_affected = FALSE)
+
+	var/list/mob/hearing_mobs = list()
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		if(emitter_range == SOUND_EMITTER_RADIUS && get_dist(src, player_mob) > play_radius)
+			continue
+		if(emitter_range == SOUND_EMITTER_ZLEVEL && player_mob.get_virtual_z_level() != get_virtual_z_level())
+			continue
+		hearing_mobs += player_mob
+
+	var/turf/our_turf = get_turf(src)
+	for(var/mob/hearing_mob as anything in hearing_mobs)
+		hearing_mob.playsound_local(
+			turf_source = our_turf,
+			soundin = sound_file,
+			vol = sound_volume,
+			vary = FALSE,
+			channel = CHANNEL_ADMIN,
+			pressure_affected = FALSE,
+			volume_preference = /datum/preference/numeric/volume/sound_midi_volume,
+		)
+
 	if(user)
 		log_admin("[ADMIN_LOOKUPFLW(user)] activated a sound emitter with file \"[sound_file]\" at [AREACOORD(src)]")
 	flick("shield1", src)

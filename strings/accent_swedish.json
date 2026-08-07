@@ -1,0 +1,46 @@
+{
+	"words": {
+		"the": "zee",
+		"this": "dis",
+		"that": "dat",
+		"thank you": ["tack", "tack själv"],
+		"yes": "ja",
+		"no": "nej",
+		"hello": ["hej", "hallå"],
+		"goodbye": ["hej då", "farväl"],
+		"please": "var snäll",
+		"my": "min",
+		"your": "din",
+		"i am": "ja am",
+		"is": "iss",
+		"me": "mig",
+		"you": "du",
+		"are": "ar",
+		"what": "vat",
+		"with": "mit",
+		"can": "kan"
+},
+	"start": {
+		"th": "t"
+},
+	"end": {
+		"ing": "ink",
+		"ed": "et",
+		"cer": "sah",
+		"er": "a",
+		"s": "s"
+},
+	"syllables": {
+		"w": "v",
+		"j": "y",
+		"bo": "bjo",
+		"oo": "u",
+		"cc": "ss",
+		"ee": "i",
+		"th": "t",
+		"ou": "u",
+		"ar": "a",
+		"ow": "o",
+		"ck": "k"
+}
+}

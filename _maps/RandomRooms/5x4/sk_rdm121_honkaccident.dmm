@@ -46,7 +46,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "l" = (
-/obj/effect/spawner/lootdrop/clowntrap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -76,7 +76,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "O" = (
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating{
 	burnt = 1
 	},

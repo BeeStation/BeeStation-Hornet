@@ -9,7 +9,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "e" = (

@@ -15,11 +15,7 @@
 "f" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/open/floor/plating{

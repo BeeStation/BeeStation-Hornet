@@ -4,6 +4,7 @@
 	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/doorway_marker
@@ -12,15 +13,20 @@
 	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/random/ruinloot
+	name = "random ruin loot spawner"
+	icon_state = "box"
 
 //Basic loot, utility and maybe some weapons
 //Shouldnt contain illegal tech
-/obj/effect/spawner/lootdrop/ruinloot/basic
+/obj/effect/spawner/random/ruinloot/basic
 	loot = list(
 		"" = 12,
-		/obj/item/melee/classic_baton/police = 3,
-		/obj/item/melee/classic_baton/police/telescopic = 2,
+		/obj/item/melee/baton = 3,
+		/obj/item/melee/baton/telescopic = 2,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/firstaid/toxin = 1,
 		/obj/item/storage/firstaid/brute = 1,
@@ -28,7 +34,7 @@
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/storage/belt/utility/full = 1,
 		/obj/item/shield/riot/tele = 1,
-		/obj/item/melee/baton/loaded = 1,
+		/obj/item/melee/baton/security/loaded = 1,
 		/obj/item/gun/energy/e_gun/mini = 1,
 		/obj/item/seeds/random = 1,
 		/obj/item/gun/energy/floragun = 1,
@@ -37,7 +43,7 @@
 	)
 
 //Medical stuff
-/obj/effect/spawner/lootdrop/ruinloot/medical
+/obj/effect/spawner/random/ruinloot/medical
 	loot = list(
 		"" = 13,
 		/obj/item/storage/firstaid/regular = 1,
@@ -70,17 +76,17 @@
 	)
 
 //Science stuff
-/obj/effect/spawner/lootdrop/ruinloot/science
+/obj/effect/spawner/random/ruinloot/science
 	loot = list(
 		"" = 18,
 		/obj/item/laser_pointer = 3,
 		/obj/item/storage/toolbox/mechanical = 2,
-		/obj/item/paicard = 5,
+		/obj/item/pai_card = 5,
 		/obj/item/nanite_remote = 3,
 		/obj/item/nanite_scanner = 3,
 		/obj/item/disk/tech_disk = 5,
 		/obj/item/assembly/prox_sensor = 6,
-		/obj/item/bodypart/r_arm/robot = 4,
+		/obj/item/bodypart/arm/right/robot = 4,
 		/obj/item/gun/energy/wormhole_projector = 1,
 		/obj/item/assembly/flash/handheld/weak = 2,
 		/obj/item/stock_parts/cell/high = 1,
@@ -106,8 +112,8 @@
 		/obj/item/gps/science = 3,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
-		/obj/item/modular_computer/tablet/pda/roboticist = 3,
-		/obj/item/modular_computer/tablet/pda/science = 3,
+		/obj/item/modular_computer/tablet/pda/preset/roboticist = 3,
+		/obj/item/modular_computer/tablet/pda/preset/science = 3,
 		/obj/item/pinpointer/crew = 4,
 		/obj/item/reactive_armour_shell = 1,
 		/obj/item/anomaly_neutralizer = 1,
@@ -121,11 +127,11 @@
 	)
 
 //Security stuff
-/obj/effect/spawner/lootdrop/ruinloot/security
+/obj/effect/spawner/random/ruinloot/security
 	loot = list(
 		"" = 18,
 		/obj/item/assembly/flash/handheld = 4,
-		/obj/item/melee/baton/loaded = 3,
+		/obj/item/melee/baton/security/loaded = 3,
 		/obj/item/restraints/handcuffs = 4,
 		/obj/item/storage/lockbox/loyalty = 1,
 		/obj/item/storage/box/handcuffs = 2,
@@ -138,7 +144,7 @@
 		/obj/item/clothing/suit/armor/vest = 2,
 		/obj/item/clothing/suit/armor/bulletproof = 1,
 		/obj/item/storage/secure/briefcase = 1,
-		/obj/item/reagent_containers/cup/rag = 1,
+		/obj/item/rag = 1,
 		/obj/item/reagent_containers/cup/bottle/chloralhydrate = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,
@@ -148,7 +154,7 @@
 	)
 
 //Armory stuff
-/obj/effect/spawner/lootdrop/ruinloot/armory
+/obj/effect/spawner/random/ruinloot/armory
 	loot = list(
 		"" = 30,
 		/obj/item/gun/energy/disabler = 5,
@@ -158,7 +164,7 @@
 		/obj/item/gun/ballistic/automatic/wt550 = 1,
 		/obj/item/gun/grenadelauncher/security = 1,
 		/obj/item/key/security = 5,
-		/obj/effect/spawner/lootdrop/armory_contraband = 1,
+		/obj/effect/spawner/random/contraband/armory = 1,
 		/obj/item/clothing/suit/armor/laserproof = 1,
 		/obj/item/gun/energy/ionrifle = 2,
 		/obj/item/gun/energy/temperature = 2,
@@ -181,11 +187,11 @@
 	)
 
 //Important stuff like research disks
-/obj/effect/spawner/lootdrop/ruinloot/important
+/obj/effect/spawner/random/ruinloot/important
 	loot = list(
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
-		/obj/item/xenoartifact = 6,
+		/obj/item/xenoartifact/pre_labeled = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)

@@ -1,0 +1,318 @@
+2021-11-01:
+  Ivniinvi:
+  - rscadd: Banning panel suppression check is now silent
+  KubeRoot:
+  - bugfix: Fixed R&D Console
+  jupyterkat:
+  - rscadd: tgui rd consoles
+2021-11-02:
+  Ivniinvi:
+  - bugfix: Carp space suit no longer looks like you're doing the cha-cha slide.
+  KubeRoot:
+  - bugfix: Circuit imprinters and omnilathes are usable without a console, as was
+      presumably intended when to them via consoles was removed.
+  MNarath1:
+  - rscadd: RD now has exploration coms
+  - tweak: RD now can now edit exploration dock access
+2021-11-03:
+  KubeRoot:
+  - bugfix: The R&D Console no longer crashes when trying to analyze an item with
+      no reclaimable materials.
+  MNarath1:
+  - bugfix: traitor bluespace shuttle capsule can now be used on supercruise asteroid
+      zlevel
+2021-11-04:
+  KubeRoot:
+  - tweak: Protolathes and circuit imprinters are no longer dependent on R&D consoles.
+      This addresses issues with people being unable to print with them in some cases.
+  TheFakeElon:
+  - server: Patches multiple security vulnerabilities
+2021-11-05:
+  Benbot16:
+  - bugfix: clientless mobs should no longer cause TGUI runtimes
+  GregTheEgg42069:
+  - rscadd: dark fairy  grass
+  KubeRoot:
+  - bugfix: Removed a few duplicate cables from maps
+  - bugfix: Organic Space Suit no longer overdoses you on salbutamol.
+  Nyksia:
+  - bugfix: fixes alien eggs from disappearing before hugger spawns
+  ghost:
+  - rscadd: 'New Wizard Spell : Lesser Summon Bees.'
+  mc_meiler:
+  - bugfix: fixed oozelings going below 0% blood
+2021-11-06:
+  Archanial:
+  - bugfix: fixed next map loading
+  Crossedfall:
+  - rscadd: Explorers now require 3-days on the server and 5-hours of Crew experience
+      before they can be selected
+  francinum:
+  - refactor: Firelocks have received significant changes.
+  - rscadd: Swipe your ID card on them to attempt to open them without a crowbar.
+  - balance: Only engineering personnel may open a firedoor with an ID if the other
+      side is considerably dangerous, marked with blue lights on the door sprite itself.
+  - balance: Crowbars still work, the speed depends on their state.
+  - rscadd: Security and engineering can tell who attempted to open a firelock by
+      using a multitool on it.
+  - soundadd: Firedoors have sounds for opening and closing.
+  - bugfix: firedoor description fixed to reflect new changes.
+2021-11-07:
+  Archanial:
+  - bugfix: fixed maps AGAIN
+  - bugfix: fixed lowmemory mode
+  Crossedfall:
+  - config: Squid & fly have been removed as selectable species
+  Ivniinvi:
+  - tweak: Mind Crawler now plays when the hostile environment is triggered.
+  Sarchutar:
+  - bugfix: silicons can remotely open windoors again
+  St0rmC4st3r:
+  - bugfix: People no longer get stuck on walls of an empty z-level.
+  benbot16:
+  - code_imp: Fixes another runtime in TGUI with clientless mobs
+  francinum:
+  - balance: Janitors are now expected to use their actual wet floor signs. Their
+      supply and cost have been adjusted accordingly.
+2021-11-08:
+  Ivniinvi:
+  - tweak: Emergency pod helmets no longer provide flash protection.
+  Kapu1178:
+  - rscdel: Squidpeople, their mutation toxin, and Rlyehian.
+  benbot16:
+  - code_imp: Fixes modular consoles teleporting intellicards/IDs to cyborgs and AIs
+      who try to eject them
+  silicons, ninjanomnom, ported by Lattekat:
+  - refactor: projectiles now use a new hit detection system that doesn't rely on
+      quirks in movement code to work, and is easier(?) to work with
+  - refactor: pass_flags_self now handles determining if something with specific pass_flags
+      can cross something, by default.
+  - bugfix: 'piercing projectiles (see: penetrating snipers) work again'
+  - tweak: projectile permutated/impacted list is reset on ricochets, meaning reflected
+      projectiles can potentially hit something again if it pierced it the first time.
+  zeskorion:
+  - rscadd: diseases can now mutate new symptoms when transmitted between hosts
+  - rscadd: crew can now spawn with dormant viruses, which a virologist can extract
+      with an extrapolator or blood sample
+  - rscadd: adds randomized virus cures
+  - tweak: nerfs maintenance diseases to compensate for the above disease extraction
+      methods
+  - tweak: removes RNG involved in the fourth, fifth, and sixth symptoms added to
+      a virus
+  - bugfix: fixes a bug when determining severity of a severity 5 symptom
+  - bugfix: syringes now properly interact with extrapolators
+  - bugfix: dirty syringes now transfer diseases again. yay?
+  - bugfix: fixes disease severity calculations that got stealth removed.
+2021-11-09:
+  Sarchutar, Crossedfall:
+  - bugfix: roundstart_no_hard_check config option is working now
+  - config: Commented config option for `roundstart_no_hard_check`
+  TheChaser212:
+  - bugfix: Fixed mindless mobs updating objectives when they cryo
+  TheFakeElon:
+  - code_imp: protects global filename regex
+2021-11-10:
+  Dejaku51:
+  - bugfix: Now multiple medibots can heal you during the round!
+  KubeRoot:
+  - rscadd: Protolathes, techfabs and circuit imprinters have a brand new tgui interface
+  PerishedFraud:
+  - bugfix: fixed hierophant trophy.
+  ivanmixo:
+  - bugfix: The xenomorph queen no longer blocks the shuttle if it's not on the station's
+      Z level
+  mcmeiler:
+  - rscadd: mobs which prime grenades now have this logged in individual logs.
+  rkvothe14:
+  - bugfix: Discovery Scanner is no longer able to scan holographic pets.
+  - bugfix: DNA Probe no longer gets animal DNA from holographic pets.
+2021-11-11:
+  Archanial:
+  - bugfix: fixed runtime when translating empty messages
+  - rscadd: Ghost plush.
+  KubeRoot:
+  - bugfix: Research tiers are now calculated correctly. This means you now correctly
+      need 20% of a tier's nodes researched before the global research tier advances
+      to it.
+  - bugfix: fixed armory spelling
+  PestoVerde322:
+  - imageadd: harmonizes the sprites related to the Ore Redemption machine and ending
+      machine sprites with the rest.
+  Pirill:
+  - rscadd: Adds eleven more possible Ethereal colours and renames the existing ones
+      to match
+  St0rmC4st3r:
+  - tweak: Changed the layout of the Deltastation exploration shuttle.
+  - bugfix: Added lights to Deltastation exploration office.
+  francinum:
+  - refactor: Gun weilding's internal mechanisms have been changed to be more reliable.
+      It no longer plays a sound either. Or spawns an offhand object.
+  ike709:
+  - rscadd: Updated the contributing guidelines.
+  zeskorion:
+  - balance: nerfs death nettles. they are now no more powerful than a fire axe
+2021-11-12:
+  KubeRoot:
+  - bugfix: Clicking things with a biobag now works correctly.
+  MNarath1, JustANormalHooman:
+  - tweak: Reproductive extracts are now on the lower item layer
+  - bugfix: you can feed reproductive extracts with the biobag again
+  - refactor: refractors reproductive extract and biobag interaction
+  Penwin0:
+  - bugfix: Xeno Egg sprites now properly update
+  zeskorion:
+  - bugfix: sentient diseases are curable again
+  - bugfix: viruses no longer become mutable on transmission
+2021-11-13:
+  Archanial:
+  - bugfix: hangover spawns now delete themselves
+  - tweak: structure spawners are dense now
+  FriendlyContractor:
+  - rscadd: Morph will perform powerfull ambush attack on players tricked into interacting
+      with it
+  Ivniinvi:
+  - tweak: A bunch of BoxStation disposals pipes have been repiped.
+  - bugfix: RnD, Toxins, Genetics, CMO Office, and Testing Range pipes now actually
+      work on BoxStation.
+  Raven-Industries:
+  - bugfix: fixes mapverb
+2021-11-14:
+  Coiax, Cenrus, Supernovaa41, Mothblocks, RandomGamer123:
+  - rscadd: Uplink implant choice in preferences. deducts 3 TC when used.
+  - bugfix: Uplinks will now be implanted internally if the game can't find anywhere
+      to put it
+  - rscadd: Population restricted uplink equipment will now automatically unlock when
+      enough players are active
+  - bugfix: Fixed syndicate uplink UI not having a name
+  Ivniinvi:
+  - bugfix: The latejoin menu no longer mislabels Cargo as Command
+  ivanmixo:
+  - rscdel: owospeak doesn't have the funny word in it anymore
+  - bugfix: fixes blood and sleepypen interaction
+2021-11-15:
+  Kapu1178:
+  - balance: IPCs bleed 10x slower
+  - bugfix: IPCs no longer get heart attacks.
+  - bugfix: IPC hearts will now automatically restart after being EMP'd.
+  KubeRoot:
+  - bugfix: Research Console now accurately displays technology costs.
+  - rscadd: Research Console now displays the current tech tier and the tiers of research
+      nodes.
+  - bugfix: Research Console no longer freezes for long periods of time when uploading
+      a lot of research from a disk.
+  - bugfix: Supercruise tech disks now upload correctly without workarounds.
+  KubeRoot, stylemistake:
+  - bugfix: Sections in TGUI should now behave more consistently, especially when
+      nested
+2021-11-16:
+  Penwin0:
+  - balance: makes gaseous pores confuse instead of sleep and makes it cheaper  chemicals
+      wise
+2021-11-17:
+  Archanial:
+  - bugfix: fixed stealthmin nicknames loading
+  - refactor: defines most loaded files
+  KubeRoot:
+  - bugfix: Techfab no longer has two buttons for the "Computer Parts" category
+  francinum:
+  - bugfix: You can walk over chasms again. The way this works is honestly super nasty
+      but it's good enough.
+2021-11-18:
+  Ivniinvi:
+  - rscadd: Traitor & Changeling and Revolution now have Title Cards
+2021-11-19:
+  Ivniinvi:
+  - bugfix: Fixed floating light switch on Meta
+  - code_imp: Painting names are now subject to the IC Filter.
+  - bugfix: Safety Moth poster doesn't lie to you anymore.
+  - bugfix: 'Random Room #032 will no longer cause a runtime during mapload by initializing
+      a decal inside a crate.'
+  MCterra10:
+  - server: fixes runtime due to legacy topic requests, adds fallback for spacestation13.com
+      player counts
+  ivanmixo:
+  - rscadd: Legcuffs now show up in examine
+  - rscadd: You can now see what type of restraint the mob is restrained with
+2021-11-20:
+  ImSynthex:
+  - rscadd: You can now sort Mentor PMs in tgchat
+  - bugfix: Fixed tgchat sorting for radio channels
+2021-11-21:
+  Crossedfall:
+  - bugfix: Atmos reactions correctly processes on Linux hosts now
+  ImSynthex:
+  - bugfix: Mentor PMs are now turned on by default in tgchat sorting
+2021-11-22:
+  Hardly:
+  - rscdel: Removed mindread mutation.
+  zeskorion:
+  - rscdel: removes deepfrying items to destroy them. you can now eat them out of
+      the crust, or just clean them off
+2021-11-23:
+  Pirill:
+  - rscadd: Adds bamboo walls, mats, benches, stools and a headspike variant
+  - imageadd: Recolours and resprites the existing bamboo items to match the new palette
+  - bugfix: Fixes an issue making bamboo walls delete the girder, as well as a headspike
+      runtime
+2021-11-24:
+  ivanmixo:
+  - rscadd: Rabbit ears now adapt to the wearer's hairstyle like kitty ears do
+  mcmeiler:
+  - tweak: Say messages ending in "~" no longer have a period appended to them.
+2021-11-25:
+  Zonespace27:
+  - balance: Heretics no longer gib their sacrifice targets, instead spilling out
+      their internal organs.
+  desluOs:
+  - bugfix: lights no longer break when moving into different containers
+  zeskorion:
+  - bugfix: clockwork virus is no longer fucky when it comes to your brain
+  - tweak: several symptom stats have been changed. check the wiki!
+  - tweak: necrotizing fasciitis has been reworked into hemorrhaging fasciitis, a
+      blood loss based symptom.
+  - tweak: self respiration no longer causes farting
+  - tweak: Thermal retrostable displacement places landmarks less often and should
+      now be a lot less annoying to use
+  - tweak: pituitary disruption no longer creates tumors from mindless creatures or
+      nonhumans, nor does it replace organs
+  - tweak: Hyperperspiration no longer causes puddles if it has cleaning sweat
+  - tweak: symptoms have had their levels changed on a large scale
+  - tweak: wizarditis no longer gives armored wizard clothes
+  - tweak: biometallic replication now loses all of its upsides when cured
+  - bugfix: fixes a few minor symptom things
+2021-11-26:
+  St0rmC4st3r:
+  - tweak: Experimental dissection now gives discovery points.
+2021-11-27:
+  Crossedfall:
+  - server: Yarn has been upgraded to 3.1.1
+  francinum:
+  - config: the Patreon donators list can now be used as a whitelist.
+2021-11-28:
+  Archanial:
+  - bugfix: fixed loading empty whitelist
+  - rscadd: Special circuit imprinter subtype for engineering
+  Penwin0:
+  - bugfix: Flashes actually run out of charges went EMPed
+2021-11-29:
+  zeskorion:
+  - rscadd: examining an item now tells its blocking ability, blocking arc, and the
+      force string you see on a mouse over
+  - balance: shields can now block projectiles again
+  - balance: blocking has been nerfed on many items
+  - balance: blocking itself has had a minor nerf- blocking an attack delays your
+      next action as if you have hit with a melee attack
+2021-11-30:
+  DatBoiTim:
+  - rscadd: Ninja allegiance logging to random event spawn.
+  Ivniinvi:
+  - bugfix: Atmos Techs can now override firedoors.
+  St0rmC4st3r:
+  - tweak: The pod recovery ship has been replaced with one that supports up to 6
+      pods.
+  francinum:
+  - config: A new config has been added to make setting notes to expire a more intentional
+      action.
+  heepox:
+  - rscadd: Syndicate Uniform Supplies crate to EMAG:ed cargo console containing three
+      sets of syndicate clothing and equipment to wear. Costs 3000.

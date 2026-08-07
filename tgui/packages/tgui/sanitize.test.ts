@@ -9,7 +9,8 @@ describe('sanitizeText', () => {
   });
 
   it('should sanitize advanced HTML input when advHtml flag is true', () => {
-    const input = '<b>Hello, world!</b><iframe src="https://example.com"></iframe>';
+    const input =
+      '<b>Hello, world!</b><iframe src="https://example.com"></iframe>';
     const expected = '<b>Hello, world!</b>';
     const result = sanitizeText(input, true);
     expect(result).toBe(expected);
@@ -24,9 +25,11 @@ describe('sanitizeText', () => {
   });
 
   it('should allow advanced HTML tags when advTags array is provided and advHtml flag is true', () => {
-    const input = '<b>Hello, world!</b><iframe src="https://example.com"></iframe>';
+    const input =
+      '<b>Hello, world!</b><iframe src="https://example.com"></iframe>';
     const advTags = ['iframe'];
-    const expected = '<b>Hello, world!</b><iframe src="https://example.com"></iframe>';
+    const expected =
+      '<b>Hello, world!</b><iframe src="https://example.com"></iframe>';
     const result = sanitizeText(input, true, undefined, undefined, advTags);
     expect(result).toBe(expected);
   });

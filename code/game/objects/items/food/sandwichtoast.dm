@@ -14,6 +14,20 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/obj/item/food/griddle_toast
+	name = "griddle toast"
+	desc = "Thick cut bread, griddled to perfection."
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "griddle_toast"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/vitamin = 3
+	)
+	tastes = list("toast" = 1)
+	foodtypes = GRAIN
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_MASK
+	crafting_complexity = FOOD_COMPLEXITY_3
+
 /obj/item/food/grilled_cheese_sandwich
 	name = "grilled cheese sandwich"
 	desc = "A warm, melty sandwich that goes perfectly with tomato soup."

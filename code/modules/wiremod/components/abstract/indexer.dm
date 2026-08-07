@@ -6,6 +6,7 @@
 /obj/item/circuit_component/indexer
 	display_name = "Indexer Component"
 	desc = "A component base used to access specified indexes of a list; it doesn't work by itself."
+	category = "Abstract"
 
 	/// The input port
 	var/datum/port/input/list_port
@@ -72,5 +73,5 @@
 
 	calculate_output(index, list_input)
 
-/obj/item/circuit_component/indexer/proc/calculate_output(var/index, var/list/list_input)
+/obj/item/circuit_component/indexer/proc/calculate_output(index, list/list_input)
 	return

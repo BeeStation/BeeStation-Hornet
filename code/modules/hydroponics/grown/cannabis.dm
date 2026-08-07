@@ -17,6 +17,7 @@
 						/obj/item/seeds/cannabis/white,
 						/obj/item/seeds/cannabis/ultimate)
 	reagents_add = list(/datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.35) // gives u the munchies
+	trade_flags = TRADE_CONTRABAND
 
 
 /obj/item/seeds/cannabis/rainbow
@@ -95,6 +96,7 @@
 	foodtypes = VEGETABLES //i dont really know what else weed could be to be honest
 	tastes = list("cannabis" = 1)
 	wine_power = 20
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/grown/cannabis/rainbow
 	seed = /obj/item/seeds/cannabis/rainbow
@@ -102,7 +104,7 @@
 	desc = "Is it supposed to be glowing like that...?"
 	icon_state = "megacannabis"
 	wine_power = 60
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/cannabis/death
 	seed = /obj/item/seeds/cannabis/death
@@ -110,7 +112,7 @@
 	desc = "Looks a bit dark. Oh well."
 	icon_state = "blackcannabis"
 	wine_power = 40
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/cannabis/white
 	seed = /obj/item/seeds/cannabis/white
@@ -118,7 +120,7 @@
 	desc = "It feels smooth and nice to the touch."
 	icon_state = "whitecannabis"
 	wine_power = 10
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/cannabis/ultimate
 	seed = /obj/item/seeds/cannabis/ultimate
@@ -128,4 +130,4 @@
 	bite_consumption_mod = 2 // Ingesting like 40 units of drugs in 1 bite at 100 potency
 	max_volume = 420
 	wine_power = 90
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

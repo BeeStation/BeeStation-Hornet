@@ -1,12 +1,12 @@
 PROCESSING_SUBSYSTEM_DEF(dcs)
 	name = "Datum Component System"
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	wait = 1 SECONDS
 
 	var/list/elements_by_type = list()
 
 /datum/controller/subsystem/processing/dcs/Recover()
-	comp_lookup = SSdcs.comp_lookup
+	_listen_lookup = SSdcs._listen_lookup
 
 /datum/controller/subsystem/processing/dcs/proc/GetElement(list/arguments)
 	var/datum/element/eletype = arguments[1]

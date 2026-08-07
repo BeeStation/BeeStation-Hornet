@@ -25,6 +25,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 #define MAX_SPARKS 10 //max possible sparks
 /datum/effect_system
+	abstract_type = /datum/effect_system
 	var/number = 3
 	var/cardinals_only = FALSE
 	var/turf/location
@@ -68,7 +69,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/step_delay = 5
 
 	var/datum/move_loop/loop = SSmove_manager.move(effect, direction, step_delay, timeout = step_delay * step_amt, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(decrement_total_effect))
+	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(decrement_total_effect))
 
 /datum/effect_system/proc/decrement_total_effect(datum/source)
 	SIGNAL_HANDLER

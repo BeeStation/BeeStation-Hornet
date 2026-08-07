@@ -1,0 +1,42 @@
+{
+	"words": {
+		"the": "l'",
+		"a": "un",
+		"of": "de",
+		"yes": "oui",
+		"no": "non",
+		"okay": "bon",
+		"ok": "bon",
+		"bye": ["bon voyage", "adieu", "au revoir"],
+		"captain": "capitaine",
+		"friend": "ami",
+		"good": "bon",
+		"hello": ["'allo", "bonjour", "salut"],
+		"my": "mon",
+		"security": "securite",
+		"shit": "merde",
+		"asshole": "putain",
+		"holy shit": "saperlipopette",
+		"thanks": "merci",
+		"thank you": "Merci beaucoup",
+		"tomato": "tomate",
+		"wine": "vin",
+		"fuck you": "va te faire enculer",
+		"right?": "n'est pas?"
+},
+
+	"end": {
+		"ty": "té",
+		"ion": "ión"
+},
+
+	"start": {
+		"h": "'",
+		"th": "'z"
+},
+
+	"syllables": {
+		"th": "'z"
+}
+
+}

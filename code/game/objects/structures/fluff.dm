@@ -50,12 +50,6 @@
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper_open"
 
-/obj/structure/fluff/broken_flooring
-	name = "broken tiling"
-	desc = "A segment of broken flooring."
-	icon = 'icons/obj/brokentiling.dmi'
-	icon_state = "corner"
-
 /obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
 	name = "drake statue"
 	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
@@ -77,7 +71,6 @@
 	icon = 'icons/obj/bus.dmi'
 	icon_state = null
 	density = TRUE
-	anchored = TRUE
 	deconstructible = FALSE
 
 /obj/structure/fluff/bus/dense
@@ -128,7 +121,6 @@
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "error"
-	anchored = TRUE
 	density = TRUE
 
 /obj/structure/fluff/divine/nexus
@@ -180,7 +172,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_HEDGE_FLUFF)
 	canSmoothWith = list(SMOOTH_GROUP_HEDGE_FLUFF)
 	density = TRUE
-	anchored = TRUE
 	deconstructible = FALSE
 
 /obj/structure/fluff/hedge/opaque //useful for mazes and such
@@ -191,4 +182,22 @@
 	icon_state = "fan_tiny"
 	name = "environmental regulation system"
 	desc = "A vent nested into the wall, managing the airflow between the rooms"
-	anchored = TRUE
+
+/obj/structure/fluff/rug
+	icon = 'icons/obj/rug.dmi'
+	icon_state = "tiger_rug"
+	name = "tiger rug"
+	desc = "A huge rug made out of tiger skin. Was this a real tiger?"
+	pixel_x = -32
+	pixel_y = -16
+	plane = FLOOR_PLANE
+	anchored = FALSE
+	deconstructible = FALSE
+
+/obj/structure/fluff/broken_canister_frame
+	name = "broken canister frame"
+	desc = "A torn apart canister. It looks like some metal can be salvaged with a wrench."
+	icon_state = "broken_canister"
+	anchored = FALSE
+	density = TRUE
+	deconstructible = TRUE

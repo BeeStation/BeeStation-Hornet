@@ -1,7 +1,20 @@
-import { Box, Button, Dropdown, LabeledList, NumberInput, Section, Stack } from '../components';
+import { useState } from 'react';
+import { Dropdown } from 'tgui-core/components';
 
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
+import {
+  AtmosHandbookContent,
+  atmosHandbookHooks,
+} from './common/AtmosHandbook';
 import { Gasmix, GasmixParser } from './common/GasmixParser';
 
 type Chamber = {
@@ -21,8 +34,12 @@ export const AtmosControlConsole = (props) => {
     control: boolean;
   }>();
   const chambers = data.chambers || [];
-  const [chamberId, setChamberId] = useLocalState('chamberID', chambers[0]?.id);
-  const selectedChamber = chambers.length === 1 ? chambers[0] : chambers.find((chamber) => chamber.id === chamberId);
+  const [chamberId, setChamberId] = useState(chambers[0]?.id);
+  const selectedChamber =
+    chambers.length === 1
+      ? chambers[0]
+      : chambers.find((chamber) => chamber.id === chamberId);
+  const [setActiveGasId, setActiveReactionId] = atmosHandbookHooks();
   return (
     <Window width={550} height={350}>
       <Window.Content scrollable>
@@ -32,15 +49,33 @@ export const AtmosControlConsole = (props) => {
               width="100%"
               options={chambers.map((chamber) => chamber.name)}
               selected={selectedChamber?.name}
-              onSelected={(value) => setChamberId(chambers.find((chamber) => chamber.name === value)?.id || chambers[0].id)}
+              onSelected={(value) =>
+                setChamberId(
+                  chambers.find((chamber) => chamber.name === value)?.id ||
+                    chambers[0].id,
+                )
+              }
             />
           </Section>
         )}
         <Section
           title={selectedChamber ? selectedChamber.name : 'Chamber Reading'}
-          buttons={!!data.reconnecting && <Button icon="undo" content="Reconnect" onClick={() => act('reconnect')} />}>
+          buttons={
+            !!data.reconnecting && (
+              <Button
+                icon="undo"
+                content="Reconnect"
+                onClick={() => act('reconnect')}
+              />
+            )
+          }
+        >
           {!!selectedChamber && !!selectedChamber.gasmix ? (
-            <GasmixParser gasmix={selectedChamber.gasmix} />
+            <GasmixParser
+              gasmix={selectedChamber.gasmix}
+              gasesOnClick={setActiveGasId}
+              reactionOnClick={setActiveReactionId}
+            />
           ) : (
             <Box italic> {'No Sensors Detected!'}</Box>
           )}
@@ -53,8 +88,16 @@ export const AtmosControlConsole = (props) => {
                   <LabeledList>
                     <LabeledList.Item label="Input Injector">
                       <Button
-                        icon={selectedChamber.input_info.active ? 'power-off' : 'times'}
-                        content={selectedChamber.input_info.active ? 'Injecting' : 'Off'}
+                        icon={
+                          selectedChamber.input_info.active
+                            ? 'power-off'
+                            : 'times'
+                        }
+                        content={
+                          selectedChamber.input_info.active
+                            ? 'Injecting'
+                            : 'Off'
+                        }
                         selected={selectedChamber.input_info.active}
                         onClick={() =>
                           act('toggle_input', {
@@ -89,8 +132,14 @@ export const AtmosControlConsole = (props) => {
                   <LabeledList>
                     <LabeledList.Item label="Output Regulator">
                       <Button
-                        icon={selectedChamber.output_info.active ? 'power-off' : 'times'}
-                        content={selectedChamber.output_info.active ? 'Open' : 'Closed'}
+                        icon={
+                          selectedChamber.output_info.active
+                            ? 'power-off'
+                            : 'times'
+                        }
+                        content={
+                          selectedChamber.output_info.active ? 'Open' : 'Closed'
+                        }
                         selected={selectedChamber.output_info.active}
                         onClick={() =>
                           act('toggle_output', {
@@ -123,6 +172,7 @@ export const AtmosControlConsole = (props) => {
             </Stack>
           </Section>
         )}
+        <AtmosHandbookContent />
       </Window.Content>
     </Window>
   );

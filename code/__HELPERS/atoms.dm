@@ -1,5 +1,5 @@
 /// Gets all contents of contents and returns them all in a list.
-/atom/proc/GetAllContents(var/T, ignore_flag_1)
+/atom/proc/GetAllContents(T, ignore_flag_1)
 	var/list/processing_list = list(src)
 	var/list/assembled = list()
 	if(T)
@@ -19,6 +19,17 @@
 				processing_list += A.contents
 			assembled += A
 	return assembled
+
+///identical to get_all_contents but returns a list of atoms of the type passed in the argument.
+/atom/proc/GetAllContentsType(type)
+	var/list/processing_list = list(src)
+	. = list()
+	while(length(processing_list))
+		var/atom/checked_atom = processing_list[1]
+		processing_list.Cut(1, 2)
+		processing_list += checked_atom.contents
+		if(istype(checked_atom, type))
+			. += checked_atom
 
 /// Gets all contents of contents and returns them all in a list, ignoring a chosen typecache.
 //Update GetAllContentsIgnoring to get_all_contents_ignoring so it easier to read in
@@ -50,18 +61,22 @@
 /proc/can_see(atom/source, atom/target, length=7) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
+	if(get_dist(source, target) > length)
+		return FALSE
+	if(current == target_turf)
+		return TRUE
 	var/steps = 1
-	if(current != target_turf)
+	if(current == target_turf)//they are on the same turf, source can see the target
+		return TRUE
+	current = get_step_towards(current, target_turf)
+	while(current != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current))
+			return FALSE
 		current = get_step_towards(current, target_turf)
-		while(current != target_turf)
-			if(steps > length)
-				return FALSE
-			if(IS_OPAQUE_TURF(current))
-				return FALSE
-			current = get_step_towards(current, target_turf)
-			steps++
+		steps++
 	return TRUE
-
 
 ///Get the cardinal direction between two atoms
 /proc/get_cardinal_dir(atom/start, atom/end)
@@ -80,7 +95,7 @@
 		return 0
 	. = bounds_dist(start, end) + sqrt((((start.pixel_x + end.pixel_x) ** 2) + ((start.pixel_y + end.pixel_y) ** 2)))
 	if(centered)
-		. += world.icon_size
+		. += ICON_SIZE_ALL
 
 /**
  * Check if there is already a wall item on the turf loc
@@ -268,8 +283,8 @@
 
 ///Creates new items inside an atom based on a list
 /proc/generate_items_inside(list/items_list, where_to)
-	for(var/each_item in items_list)
-		for(var/i in 1 to items_list[each_item])
+	for(var/each_item, item_amount in items_list)
+		for(var/i = 1 to item_amount)
 			new each_item(where_to)
 
 ///Returns the atom type in the specified loc
@@ -340,6 +355,12 @@
 	var/icon_width = icon_dimensions["width"]
 	var/icon_height = icon_dimensions["height"]
 	return list(
-		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
-		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
+		"x" = icon_width > ICON_SIZE_X && pixel_x != 0 ? (icon_width - ICON_SIZE_X) * 0.5 : 0,
+		"y" = icon_height > ICON_SIZE_Y && pixel_y != 0 ? (icon_height - ICON_SIZE_Y) * 0.5 : 0,
 	)
+
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}

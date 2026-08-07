@@ -4,11 +4,11 @@
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "EVA plasma envirosuit"
 	desc = "A special plasma containment suit designed to be space-worthy, as well as worn over other clothing. Like its smaller counterpart, it can automatically extinguish the wearer in a crisis, and holds twice as many charges."
-	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
+	allowed = list(/obj/item/gun, /obj/item/ammo_casing, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
 	armor_type = /datum/armor/eva_plasmaman
 	resistance_flags = FIRE_PROOF
 	icon_state = "plasmaman_suit"
-	item_state = "plasmaman_suit"
+	inhand_icon_state = "plasmaman_suit"
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 10
@@ -37,7 +37,7 @@
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
 			H.visible_message(span_warning("[H]'s suit automatically extinguishes [H.p_them()]!"),span_warning("Your suit automatically extinguishes you."))
-			H.ExtinguishMob()
+			H.extinguish_mob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 
 
@@ -48,33 +48,32 @@
 	icon = 'icons/obj/clothing/head/plasmaman_hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/plasmaman_head.dmi'
 	icon_state = "helmet"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 	greyscale_colors = "#DF5900#A349A4#DF5900"
 	greyscale_config = /datum/greyscale_config/plasmaman_helmet_default
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
 	strip_delay = 80
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	armor_type = /datum/armor/space_plasmaman
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_on = FALSE
-	var/helmet_on = FALSE
-	var/smile = FALSE
-	var/smile_color = "#FF0000"
-	var/smile_state = "envirohelm_smile"
-	var/visor_state = "enviro_visor"
-	var/lamp_functional = TRUE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEEYES|HIDEFACE|HIDEFACIALHAIR
-
+	var/helmet_on = FALSE
+	var/smile = FALSE
+	var/smile_color = COLOR_RED
+	var/smile_state = "envirohelm_smile"
+	var/visor_state = "enviro_visor"
+	var/lamp_functional = TRUE
 
 /datum/armor/space_plasmaman
 	bio = 100
@@ -85,6 +84,10 @@
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	visor_toggling()
+	update_appearance()
+
+/obj/item/clothing/head/helmet/space/plasmaman/add_stabilizer()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = FALSE)
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
@@ -105,13 +108,12 @@
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 	update_icon()
-	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
 	update_overlays()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
+		H.update_worn_head()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
@@ -119,19 +121,34 @@
 		lamp_functional = TRUE
 		qdel(item)
 		to_chat(user, span_notice("You repair the broken headlamp!"))
-	if(istype(item, /obj/item/toy/crayon))
-		if(smile)
-			to_chat(user, span_notice("Seems like someone already drew something on the helmet's visor."))
-		else
-			var/obj/item/toy/crayon/CR = item
-			to_chat(user, span_notice("You start drawing a smiley face on the helmet's visor.."))
-			if(do_after(user, 25, target = src))
-				smile = TRUE
-				smile_color = CR.paint_color
-				to_chat(user, "You draw a smiley on the helmet visor.")
-				update_icon()
-				update_button_icons(user)
+	if(!istype(item, /obj/item/toy/crayon))
 		return
+	if(smile)
+		to_chat(user, span_warning("Seems like someone already drew something on [src]'s visor!"))
+		return
+
+	var/obj/item/toy/crayon/crayon = item
+	to_chat(user, span_notice("You start drawing a smiley face on the helmet's visor.."))
+	if(do_after(user, 2.5 SECONDS, target = src))
+		smile = TRUE
+		smile_color = crayon.paint_color
+		to_chat(user, "You draw a smiley on the helmet visor.")
+		update_appearance()
+
+/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/user, slot)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/lungs/living_lungs = human_user.get_organ_slot(ORGAN_SLOT_LUNGS)
+	//Early return if its not on the head slot, on a mob that breathes plasma
+	if(slot != ITEM_SLOT_HEAD || living_lungs.breathing_class == /datum/breathing_class/plasma || ishumantesting(human_user))
+		return
+
+	user.dropItemToGround(src)
+	user.balloon_alert(user, "incompatible biology!")
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+	to_chat(user, span_danger("[src] buzzes smartly as it detaches from [user]'s head."))
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
@@ -144,15 +161,14 @@
 			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_light", item_layer)
 		if(!up)
 			. += mutable_appearance('icons/mob/clothing/head/plasmaman_head.dmi', visor_state + "_weld", item_layer)
-		if(attached_hat)
-			. += attached_hat.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/wash(clean_types)
-	. = ..()
-	if(smile && (clean_types & CLEAN_TYPE_PAINT))
+	. = NONE
+	if(smile && (clean_types & CLEAN_TYPE_HARD_DECAL))
 		smile = FALSE
-		update_icon()
-		return TRUE
+		update_appearance(UPDATE_OVERLAYS)
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	. |= ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
@@ -172,8 +188,7 @@
 		set_light_on(FALSE)
 
 	update_icon()
-	user.update_inv_head() //So the mob overlay updates
-	update_button_icons(user)
+	user.update_worn_head() //So the mob overlay updates
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/smash_headlamp()
 	if(!lamp_functional)
@@ -186,8 +201,7 @@
 	to_chat(usr, span_danger("The [src]'s headlamp is smashed to pieces!"))
 	lamp_functional = FALSE
 	update_icon()
-	usr.update_inv_head() //So the mob overlay updates
-	update_button_icons(usr)
+	usr.update_worn_head() //So the mob overlay updates
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
@@ -269,7 +283,6 @@
 
 /datum/armor/plasmaman_engineering
 	bio = 100
-	rad = 10
 	fire = 100
 	acid = 75
 	bleed = 10
@@ -311,16 +324,15 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
-	attached_hat = hat
-	hat.forceMove(src)
-	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
 	name = "designer envirosuit helmet"
 	desc = "A Plasmi-Deluxe envirosuit helmet with gold woven into the fabric. A designer model like this is probably worth a pretty penny."
 	greyscale_colors = "#C47D0C#C47D0C#C47D0C"
+	custom_price = 4500
 
 /obj/item/clothing/head/helmet/space/plasmaman/curator
 	name = "curator's envirosuit helmet"
@@ -331,7 +343,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "prototype_envirohelm"
-	item_state = "prototype_envirohelm"
+	inhand_icon_state = "prototype_envirohelm"
 	smile_state = "prototype_smile"
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany
@@ -359,7 +371,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "mime_envirohelm"
-	item_state = "mime_envirohelm"
+	inhand_icon_state = "mime_envirohelm"
 	visor_state = "mime_visor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
@@ -371,7 +383,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "honk_envirohelm"
-	item_state = "honk_envirohelm"
+	inhand_icon_state = "honk_envirohelm"
 	smile_state = "clown_smile"
 	visor_state = "clown_visor"
 
@@ -503,7 +515,6 @@
 
 /datum/armor/mark2_engineering
 	bio = 100
-	rad = 10
 	fire = 100
 	acid = 75
 	bleed = 10
@@ -609,6 +620,12 @@
 	desc = "A new plasmaman envirohelmet designed for the bartenders, with a top-hat affixed to the top."
 	greyscale_colors = "#E6E6E6#A349A4"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)
+
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/mime
 	name = "mime's envirosuit helmet"
 	desc = "A new plasmaman envirohelmet designed for the mimes."
@@ -618,7 +635,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "mime_mark2"
-	item_state = "mime_mark2"
+	inhand_icon_state = "mime_mark2"
 	visor_state = "mime_visor_mk2"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/clown
@@ -630,16 +647,8 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "clown_mark2"
-	item_state = "clown_mark2"
+	inhand_icon_state = "clown_mark2"
 	visor_state = "clown_visor_mk2"
-
-/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
-	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
-	attached_hat = hat
-	hat.forceMove(src)
-	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
 
 // The Protective helmet variants
 /obj/item/clothing/head/helmet/space/plasmaman/protective
@@ -712,7 +721,6 @@
 
 /datum/armor/protective_engineering
 	bio = 100
-	rad = 10
 	fire = 100
 	acid = 75
 	bleed = 10
@@ -819,8 +827,6 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
-	attached_hat = hat
-	hat.forceMove(src)
-	update_icon()
-	add_verb(/obj/item/clothing/head/helmet/space/verb/unattach_hat)
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)

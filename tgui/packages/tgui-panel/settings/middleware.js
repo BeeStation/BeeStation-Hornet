@@ -5,10 +5,17 @@
  */
 
 import { storage } from 'common/storage';
+
 import { setClientTheme } from '../themes';
-import { loadSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from './actions';
-import { selectSettings } from './selectors';
+import {
+  addHighlightSetting,
+  loadSettings,
+  removeHighlightSetting,
+  updateHighlightSetting,
+  updateSettings,
+} from './actions';
 import { FONTS_DISABLED } from './constants';
+import { selectSettings } from './selectors';
 
 const setGlobalFontSize = (fontSize) => {
   document.documentElement.style.setProperty('font-size', fontSize + 'px');
@@ -45,7 +52,7 @@ export const settingsMiddleware = (store) => {
         setClientTheme(theme);
       } else if (type === loadSettings.type) {
         updateSettings({
-          theme: 'dark',
+          theme: 'blue',
         });
       }
       // Pass action to get an updated state

@@ -22,16 +22,16 @@
 		return
 	close_machine(target)
 
-/obj/machinery/abductor/experiment/open_machine()
+/obj/machinery/abductor/experiment/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(!state_open && !panel_open)
 		..()
 
-/obj/machinery/abductor/experiment/close_machine(mob/target)
+/obj/machinery/abductor/experiment/close_machine(mob/target, density_to_set = TRUE)
 	for(var/A in loc)
 		if(isabductor(A))
 			return
 	if(state_open && !panel_open)
-		..(target)
+		..()
 
 /obj/machinery/abductor/experiment/relaymove(mob/living/user, direction)
 	if(user.stat != CONSCIOUS)
@@ -129,7 +129,7 @@
 		return "Specimen deceased."
 	var/obj/item/organ/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
-		say("Experimental dissection not detected!")
+		say("No glands detected!")
 		return "No glands detected!"
 	if(H.mind != null && H.ckey != null)
 		LAZYINITLIST(abductee_minds)
@@ -145,8 +145,8 @@
 			if(3)
 				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
+
 		user_abductor.team.abductees += H.mind
-		H.mind.add_antag_datum(/datum/antagonist/abductee)
 
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()

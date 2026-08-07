@@ -19,6 +19,10 @@
 ///Slightly slower, higher in memory. Just not optimal
 //#define REFERENCE_TRACKING_DEBUG
 
+///Skips over a bunch of types that are "unlikely" to have any hanging refs,
+///MASSIVELY speeding up finding references. Relatively speaking. The reftracker is still not very fast.
+//#define FAST_REFERENCE_TRACKING
+
 ///Run a lookup on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
@@ -26,11 +30,28 @@
 #define FIND_REF_NO_CHECK_TICK
 #endif //ifdef GC_FAILURE_HARD_LOOKUP
 
+// Log references in their own file, rather then in runtimes.log
+//#define REFERENCE_TRACKING_LOG_APART
 #endif //ifdef REFERENCE_TRACKING
 
-//#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
-//#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
+// Displays static object lighting updates
+// Also enables some debug vars on sslighting that can be used to modify
+// How extensively we prune lighting corners to update
+//#define VISUALIZE_LIGHT_UPDATES
+
+// Highlights atmos active turfs in green
+//#define VISUALIZE_ACTIVE_TURFS
+// Allows max share tracking, for use in the atmos debugging ui
+//#define TRACK_MAX_SHARE
 #endif //ifdef TESTING
+
+/// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only
+/// All connecting users will be forced to use external auth. If external auth is not enabled in the config, the connection is blindly trusted.
+/// DO NOT ENABLE THIS FLAG ON PRODUCTION WITHOUT EXTERNAL AUTH SET UP
+/// Toggle ENABLE_GUEST_EXTERNAL_AUTH to require external auth, otherwise CKEYs are blindly trusted!
+/// This flag also forcibly enables guest connections, because every client has its key reassigned on login.
+/// This flag also disables BYOND account age checks, BYOND Key change verification, and makes the config flag use_account_age_for_jobs useless.
+//#define DISABLE_BYOND_AUTH
 
 /// Enables BYOND TRACY, which allows profiling using Tracy.
 /// The prof.dll/libprof.so must be built and placed in the repo folder.
@@ -40,7 +61,8 @@
 /////////////////////// ZMIMIC
 
 ///Enables Multi-Z lighting
-#define ZMIMIC_LIGHT_BLEED
+/// Doesn't work and causes artifacts when lights are deleted
+//#define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
 //#define PROFILE_MAPLOAD_INIT_ATOM
@@ -58,12 +80,25 @@
 #define REFERENCE_TRACKING
 // actually look for refs
 #define GC_FAILURE_HARD_LOOKUP
+// Log references in their own file
+#define REFERENCE_TRACKING_LOG_APART
+// use fast reftracking
+#define FAST_REFERENCE_TRACKING
 #endif // REFERENCE_DOING_IT_LIVE
 
-#ifdef REFERENCE_TRACKING_FAST
+/// Sets up the reftracker to be used locally, to hunt for hard deletions
+/// Errors are logged to [log_dir]/harddels.log
+//#define REFERENCE_TRACKING_STANDARD
+#ifdef REFERENCE_TRACKING_STANDARD
+// compile the backend
 #define REFERENCE_TRACKING
-#define REFERENCE_TRACKING_DEBUG
-#endif
+// actually look for refs
+#define GC_FAILURE_HARD_LOOKUP
+// spend ALL our time searching, not just part of it
+#define FIND_REF_NO_CHECK_TICK
+// Log references in their own file
+#define REFERENCE_TRACKING_LOG_APART
+#endif // REFERENCE_TRACKING_STANDARD
 
 /// If this is uncommented, force our verb processing into just the 2% of a tick
 /// We normally reserve for it
@@ -79,6 +114,10 @@
 #warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
 #endif
 
+// If defined, we will compile with FULL timer debug info, rather then a limited scope
+// Be warned, this increases timer creation cost by 5x
+// #define TIMER_DEBUG
+
 /// If this is uncommented, Autowiki will generate edits and shut down the server.
 /// Prefer the autowiki build target instead.
 // #define AUTOWIKI
@@ -88,38 +127,27 @@
 #endif				// 1 to use the default behaviour;
 					// 2 for preloading absolutely everything;
 
-//#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
 	#warn WARNING: Compiling with LOWMEMORYMODE.
 	#ifdef FORCE_MAP
-	#warn WARNING: FORCE_MAP is already defined.
+		#warn WARNING: FORCE_MAP is already defined.
 	#else
-	#define FORCE_MAP "runtimestation"
+		#define FORCE_MAP "runtimestation"
+	#endif
+	#ifdef CIBUILDING
+		#error LOWMEMORYMODE is enabled, disable this!
 	#endif
 #endif
 
-//TODO Remove the SDMM check when it supports 1568
-#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
-//Don't forget to update this part
-#error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
-#error You need version 514.1583 or higher.
-#endif
-
-//Update this whenever the byond version is stable so people stop updating to hilariously broken versions
-#define MAX_COMPILER_VERSION 515
-#define MAX_COMPILER_BUILD 1700
-#if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (515.1700)! Stability is not guaranteed.
-#endif
-//Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
-#if DM_VERSION >= 514 && DM_BUILD >= 1556
 #define SENDMAPS_PROFILE
-#endif
-
 
 //Additional code for the above flags.
 #ifdef TESTING
 #warn compiling in TESTING mode. testing() debug messages will be visible.
+
+#ifdef CIBUILDING
+#error TESTING is enabled, disable this!
+#endif
 #endif
 
 #ifdef CIBUILDING
@@ -127,15 +155,22 @@
 #endif
 
 #ifdef CITESTING
-#define TESTING
+	#define TESTING
 #endif
 
 #if defined(UNIT_TESTS)
-//Hard del testing defines
-#define REFERENCE_TRACKING
-#define REFERENCE_TRACKING_DEBUG
-#define FIND_REF_NO_CHECK_TICK
-#define GC_FAILURE_HARD_LOOKUP
+	//Hard del testing defines
+	#define REFERENCE_TRACKING
+	#define REFERENCE_TRACKING_DEBUG
+	#define FIND_REF_NO_CHECK_TICK
+	#define GC_FAILURE_HARD_LOOKUP
+	//Test at full capacity, the extra cost doesn't matter
+	#define TIMER_DEBUG
+
+	// Checks if unit tests are being run locally or well, not
+	#if !defined(CIBUILDING) && !defined(SPACEMAN_DMM) && !defined(OPENDREAM)
+		#define RUNNING_LOCAL_TESTS
+	#endif
 #endif
 
 #ifdef TGS
@@ -143,11 +178,10 @@
 #define CBT
 #endif
 
-
-//Someone else should probably update this once LINDA is fully merged. Probably Bacon or Crossed.
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+	#warn You are building with OpenDream. Remember to build TGUI manually.
+	#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
-#warn Building with Dream Maker is no longer supported and will result in missing interface files.
-#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
+	#warn Building with Dream Maker is no longer supported and will result in missing interface files.
+	#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif

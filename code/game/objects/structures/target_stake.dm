@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_stake"
 	density = FALSE
-	flags_1 = CONDUCT_1
+	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	can_buckle = TRUE
 	max_buckled_mobs = 1
 	buckle_lying = 0
@@ -43,7 +43,7 @@
 	if(istype(T) && user.transferItemToLoc(T, drop_location()))
 		pinned_target = T
 		T.pinnedLoc = src
-		T.density = TRUE
+		T.set_density(TRUE)
 		T.layer = OBJ_LAYER + 0.01
 		handle_density()
 		to_chat(user, span_notice("You slide the target into the stake."))

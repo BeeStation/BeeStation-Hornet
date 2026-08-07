@@ -1,4 +1,5 @@
 /obj/item/food/spaghetti
+	abstract_type = /obj/item/food/spaghetti
 	name = "Spaghetti Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/spaghetti.dmi'
@@ -20,7 +21,7 @@
 	tastes = list("pasta" = 1)
 	crafting_complexity = FOOD_COMPLEXITY_1
 
-/obj/item/food/spaghetti/make_bakeable()
+/obj/item/food/spaghetti/raw/make_bakeable()
 	AddComponent(/datum/component/bakeable, /obj/item/food/spaghetti/boiledspaghetti, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
 
 /obj/item/food/spaghetti/raw/make_microwaveable()

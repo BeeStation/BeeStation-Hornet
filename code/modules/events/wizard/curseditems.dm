@@ -24,7 +24,7 @@
 		if("swords")
 			loadout[TOBITSHIFT(ITEM_SLOT_HANDS) + 1] = /obj/item/katana/cursed
 		if("bigfatdoobie")
-			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/clothing/mask/cigarette/rollie/trippy
+			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/cigarette/rollie/trippy
 			ruins_spaceworthiness = 1
 		if("boxing")
 			loadout[TOBITSHIFT(ITEM_SLOT_MASK) + 1] = /obj/item/clothing/mask/luchador
@@ -40,7 +40,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(ruins_spaceworthiness && !is_station_level(H.z) || isspaceturf(H.loc) || isplasmaman(H))
 			continue	//#savetheminers
-		if(ruins_wizard_loadout && iswizard(H))
+		if(ruins_wizard_loadout && IS_WIZARD(H))
 			continue
 		if(item_set == "catgirls2015") //Wizard code means never having to say you're sorry
 			H.gender = FEMALE

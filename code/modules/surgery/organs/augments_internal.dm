@@ -1,15 +1,14 @@
 
 /obj/item/organ/cyberimp
+	abstract_type = /obj/item/organ/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
 	visual = FALSE
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
-	var/implant_color = "#FFFFFF"
+	organ_flags = ORGAN_ROBOTIC
+	var/implant_color = COLOR_WHITE
 	var/implant_overlay
-	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
-/obj/item/organ/cyberimp/New(var/mob/M = null)
+/obj/item/organ/cyberimp/New(mob/M = null)
 	if(iscarbon(M))
 		src.Insert(M)
 	if(implant_overlay)
@@ -34,9 +33,11 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	var/stun_amount = 200/severity
-	owner.Stun(stun_amount)
-	to_chat(owner, span_warning("Your body seizes up!"))
+	if(prob(30/severity))
+		owner.drop_all_held_items()
+		owner.Knockdown((6 SECONDS)/severity)
+		owner.set_jitter_if_lower((8 SECONDS)/severity)
+		to_chat(owner, span_warning("Your body seizes up!"))
 
 
 /obj/item/organ/cyberimp/brain/anti_drop
@@ -57,7 +58,7 @@
 		var/list/hold_list = owner.get_empty_held_indexes()
 		if(LAZYLEN(hold_list) == owner.held_items.len)
 			to_chat(owner, span_notice("You are not holding any items, your hands relax..."))
-			active = 0
+			active = FALSE
 			stored_items = list()
 		else
 			for(var/obj/item/I in stored_items)
@@ -69,19 +70,9 @@
 
 
 /obj/item/organ/cyberimp/brain/anti_drop/emp_act(severity)
-	. = ..()
-	if(!owner || . & EMP_PROTECT_SELF)
-		return
-	var/range = severity ? 10 : 5
-	var/atom/A
 	if(active)
 		release_items()
-	for(var/obj/item/I in stored_items)
-		A = pick(oview(range))
-		I.throw_at(A, range, 2)
-		to_chat(owner, span_warning("Your [owner.get_held_index_name(owner.get_held_index_of_item(I))] spasms and throws the [I.name]!"))
-	stored_items = list()
-
+	..()
 
 /obj/item/organ/cyberimp/brain/anti_drop/proc/release_items()
 	for(var/obj/item/I in stored_items)
@@ -89,7 +80,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(active)
 		ui_action_click()
 	..()
@@ -97,7 +88,7 @@
 /obj/item/organ/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
-	implant_color = "#FFFF00"
+	implant_color = COLOR_YELLOW
 	slot = ORGAN_SLOT_BRAIN_ANTISTUN
 
 	var/static/list/signalCache = list(
@@ -109,13 +100,13 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
 	. = ..()
-	UnregisterSignal(M, signalCache)
+	UnregisterSignal(implant_owner, signalCache)
 
-/obj/item/organ/cyberimp/brain/anti_stun/Insert()
+/obj/item/organ/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
 	. = ..()
-	RegisterSignals(owner, signalCache, PROC_REF(on_signal))
+	RegisterSignals(receiver, signalCache, PROC_REF(on_signal))
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
 	SIGNAL_HANDLER
@@ -130,18 +121,8 @@
 		owner.SetImmobilized(0)
 		owner.SetParalyzed(0)
 
-/obj/item/organ/cyberimp/brain/anti_stun/emp_act(severity)
-	. = ..()
-	if((organ_flags & ORGAN_FAILING) || . & EMP_PROTECT_SELF)
-		return
-	organ_flags |= ORGAN_FAILING
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
-
-/obj/item/organ/cyberimp/brain/anti_stun/proc/reboot()
-	organ_flags &= ~ORGAN_FAILING
-
 /obj/item/organ/cyberimp/brain/anti_stun/syndicate
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 
 
 /obj/item/organ/cyberimp/brain/linkedsurgery
@@ -153,9 +134,13 @@
 	var/static/datum/techweb/linked_techweb
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/LateInitialize()
 	. = ..()
-	if(isnull(linked_techweb))
-		linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
 	for(var/i in linked_techweb.researched_designs)

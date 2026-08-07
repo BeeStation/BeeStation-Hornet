@@ -9,19 +9,18 @@
 	icon_state = "mimite"
 	icon_living = "mimite"
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	combat_mode = TRUE
 	melee_damage = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	deathmessage = "splatters into a pile of black gunk!"
+	death_message = "splatters into a pile of black gunk!"
 	del_on_death = TRUE
 
 	speed = 3
 	maxHealth = 50
 	health = 50
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 	wander = FALSE
 
 	vision_range = 4
@@ -33,7 +32,7 @@
 	speak_emote = list("chitters")
 	taunt_chance = 30
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_MIMIC)
@@ -41,19 +40,19 @@
 	gold_core_spawnable = NO_SPAWN
 	hardattacks = TRUE
 
-	discovery_points = 8000
+	discovery_points = TECHWEB_TIER_4_POINTS
 
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/anomaly,
-	/obj/eldritch/narsie,
-	/obj/effect,
-	/obj/machinery,
-	/obj/structure,
-	/obj/item/radio/intercom,
-	/mob/camera,
-	/obj/item/storage/secure/safe,
-	/mob/living
+		/atom/movable/screen,
+		/obj/anomaly,
+		/obj/eldritch/narsie,
+		/obj/effect,
+		/obj/machinery,
+		/obj/structure,
+		/obj/item/radio/intercom,
+		/mob/camera,
+		/obj/item/storage/secure/safe,
+		/mob/living,
 	))
 	var/atom/movable/form = null
 	var/morphed = FALSE
@@ -74,32 +73,35 @@
 	. = ..()
 	AddElement(/datum/element/point_of_interest)
 	GLOB.all_mimites += src
-	var/image/I = image(icon = 'icons/mob/hud.dmi', icon_state = "hudcultist", layer = DATA_HUD_PLANE, loc = src)
+	var/image/I = image(icon = 'icons/mob/huds/hud.dmi', icon_state = "hud_mimite", layer = DATA_HUD_PLANE, loc = src)
 	I.alpha = 200
 	I.appearance_flags = RESET_ALPHA
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hudcultist", I)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/mimites, "hud_mimite", I)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/mimite/examine(mob/user)
-	if(morphed && replicate && venthunt)
-		. = form.examine(user)
-		if(get_dist(user,src)<=4)
-			. += span_warning("It doesn't look quite right...")
-	else
-		. = ..()
+	if(!morphed || !replicate || !venthunt)
+		return ..()
+
+	. = form.examine(user)
+	if(get_dist(user, src) <= 4)
+		. += span_warning("It doesn't look quite right...")
 
 /mob/living/simple_animal/hostile/mimite/med_hud_set_health()
+	//we hide medical hud while morphed
 	if(morphed && !isliving(form))
-		var/image/holder = hud_list[HEALTH_HUD]
-		holder.icon_state = null
-		return //we hide medical hud while morphed
-	..()
+		set_hud_image_inactive(HEALTH_HUD)
+		return
+	. = ..()
+	set_hud_image_active(HEALTH_HUD)
 
 /mob/living/simple_animal/hostile/mimite/med_hud_set_status()
+	//we hide medical hud while morphed
 	if(morphed && !isliving(form))
-		var/image/holder = hud_list[STATUS_HUD]
-		holder.icon_state = null
-		return //we hide medical hud while morphed
-	..()
+		set_hud_image_inactive(STATUS_HUD)
+		return
+	. = ..()
+	set_hud_image_active(STATUS_HUD)
 
 /mob/living/simple_animal/hostile/mimite/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
@@ -137,7 +139,7 @@
 	aggro_vision_range = 1
 	return
 
-/mob/living/simple_animal/hostile/mimite/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/mimite/proc/restore(intentional = FALSE)
 	if(!morphed)
 		if(intentional)
 			to_chat(src, span_warning("You're already in your normal form!"))
@@ -172,12 +174,12 @@
 	..()
 	restore()
 
-/mob/living/simple_animal/hostile/mimite/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/mimite/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(.)
 		if(!morphed)
 			var/list/things = list()
-			for(var/atom/A as() in view(src))
+			for(var/atom/A as anything in view(src))
 				if(allowed(A))
 					things += A
 			if(LAZYLEN(things) >= 1)

@@ -6,8 +6,8 @@
 
 	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
 */
-/mob/living/silicon/ai/DblClickOn(var/atom/A, params)
-	if(control_disabled || incapacitated())
+/mob/living/silicon/ai/DblClickOn(atom/A, params)
+	if(control_disabled || incapacitated)
 		return
 
 	if(ismob(A))
@@ -15,10 +15,15 @@
 	else if(!ismachinery(A))	//Getting the camera moved just because you double click on something to interact with it is annoying as hell
 		eyeobj.move_camera_by_click(A)
 
-/mob/living/silicon/ai/ClickOn(var/atom/A, params)
+/mob/living/silicon/ai/ClickOn(atom/A, params)
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
+
+	var/list/modifiers = params2list(params)
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+		return
 
 	if(!can_interact_with(A))
 		return
@@ -34,7 +39,7 @@
 	if(check_click_intercept(params,A))
 		return
 
-	if(control_disabled || incapacitated())
+	if(control_disabled || incapacitated)
 		return
 
 	var/turf/pixel_turf = get_turf_pixel(A)
@@ -51,7 +56,6 @@
 			send2tgs_adminless_only("NOCHEAT", message)
 		return
 
-	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
@@ -95,7 +99,7 @@
 	The below is only really for safety, or you can alter the way
 	it functions and re-insert it above.
 */
-/mob/living/silicon/ai/UnarmedAttack(atom/A)
+/mob/living/silicon/ai/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	A.attack_ai(src)
 
 /mob/living/silicon/ai/RangedAttack(atom/A)
@@ -124,13 +128,13 @@
 	for AI shift, ctrl, and alt clicking.
 */
 
-/mob/living/silicon/ai/CtrlShiftClickOn(var/atom/A)
+/mob/living/silicon/ai/CtrlShiftClickOn(atom/A)
 	A.AICtrlShiftClick(src)
-/mob/living/silicon/ai/ShiftClickOn(var/atom/A)
+/mob/living/silicon/ai/ShiftClickOn(atom/A)
 	A.AIShiftClick(src)
-/mob/living/silicon/ai/CtrlClickOn(var/atom/A)
+/mob/living/silicon/ai/CtrlClickOn(atom/A)
 	A.AICtrlClick(src)
-/mob/living/silicon/ai/AltClickOn(var/atom/A)
+/mob/living/silicon/ai/AltClickOn(atom/A)
 	A.AIAltClick(src)
 
 /*
@@ -232,5 +236,5 @@
 // Override TurfAdjacent for AltClicking
 //
 
-/mob/living/silicon/ai/TurfAdjacent(var/turf/T)
+/mob/living/silicon/ai/TurfAdjacent(turf/T)
 	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))

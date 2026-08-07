@@ -1,6 +1,5 @@
 /mob/living/brain
 	var/obj/item/mmi/container = null
-	var/timeofhostdeath = 0
 	var/emp_damage = 0//Handles a type of MMI damage
 	var/datum/dna/stored/stored_dna // dna var for brain. Used to store dna, brain dna is not considered like actual dna, brain.has_dna() returns FALSE.
 	stat = DEAD //we start dead by default
@@ -27,7 +26,7 @@
 		stored_dna.species = new rando_race()
 
 /mob/living/brain/Destroy()
-	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
+	if(key) //If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
 		if(stat != DEAD)
 			death(TRUE)
 		if(mind)	//You aren't allowed to return to brains that don't exist
@@ -91,6 +90,3 @@
 	if(istype(loc, /obj/item/organ/brain))
 		var/obj/item/organ/brain/B = loc
 		. = B.traumas
-
-/mob/living/brain/soul_departed()
-	return !key && !get_ghost(FALSE, TRUE)

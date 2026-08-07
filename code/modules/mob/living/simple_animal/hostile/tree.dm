@@ -30,31 +30,35 @@
 	emote_taunt = list("growls")
 	taunt_chance = 20
 
-	atmos_requirements = list("min_oxy" = 2, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 5
+	atmos_requirements = list("min_oxy" = 2, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 2.5
 	minbodytemp = 0
 	maxbodytemp = 1200
 
 	faction = list(FACTION_PLANTS)
-	deathmessage = "is hacked into pieces!"
+	death_message = "is hacked into pieces!"
 	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
-/mob/living/simple_animal/hostile/tree/Life()
+/mob/living/simple_animal/hostile/tree/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
-	if(isopenturf(loc))
-		var/turf/open/T = src.loc
-		if(T.air)
-			var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, T.air)
-			if(co2 > 0)
-				if(prob(25))
-					var/amt = min(co2, 9)
-					T.air.gases[/datum/gas/carbon_dioxide][MOLES] += -amt
-					T.atmos_spawn_air("[GAS_O2]=[amt];[TURF_TEMPERATURE(T20C)]")
+	if(!.) //dead or deleted
+		return
+	if(!isopenturf(loc))
+		return
+	var/turf/open/our_turf = src.loc
+	if(!our_turf.air?.moles[/datum/gas/carbon_dioxide])
+		return
+	var/datum/gas_mixture/our_air = our_turf.air
+	var/co2 = our_air.moles[/datum/gas/carbon_dioxide]
+	if(co2 > 0 && DT_PROB(13, delta_time))
+		var/amt = min(co2, 9)
+		our_air.adjust_gas(/datum/gas/carbon_dioxide, -amt)
+		our_turf.atmos_spawn_air("[GAS_O2]=[amt];TEMP=293.15")
 
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"

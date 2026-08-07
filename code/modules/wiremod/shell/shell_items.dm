@@ -50,7 +50,7 @@
 	screw_delay = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/shell/server/ComponentInitialize()
+/obj/item/shell/server/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 
@@ -62,7 +62,7 @@
 	screw_delay = 10 SECONDS
 	w_class = WEIGHT_CLASS_GIGANTIC
 
-/obj/item/shell/airlock/ComponentInitialize()
+/obj/item/shell/airlock/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE) // that you even are allowed to carry around an airlock frame is weird.
 

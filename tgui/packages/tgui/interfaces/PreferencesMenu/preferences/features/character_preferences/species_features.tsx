@@ -1,4 +1,13 @@
-import { FeatureColorInput, Feature, FeatureChoiced, FeatureValueProps, FeatureButtonedDropdownInput, StandardizedPalette } from '../base';
+import {
+  Feature,
+  FeatureChoiced,
+  FeatureColorInput,
+  FeatureValueProps,
+} from '../base';
+import {
+  FeatureButtonedDropdownInput,
+  StandardizedPalette,
+} from '../dropdowns';
 
 const eyePresets = {
   // these need to be short color (3 byte) compatible
@@ -212,5 +221,10 @@ export const feature_human_ears: FeatureChoiced = {
 
 export const feature_insect_type: FeatureChoiced = {
   name: 'Insect Type',
+  component: FeatureButtonedDropdownInput,
+};
+
+export const feature_moth_eyes: FeatureChoiced = {
+  name: 'Eye Type',
   component: FeatureButtonedDropdownInput,
 };

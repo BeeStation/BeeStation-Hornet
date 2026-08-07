@@ -1,40 +1,49 @@
 /datum/job/lawyer
 	title = JOB_NAME_LAWYER
 	description = "Ensure Security follows Space Law and Standard Operating Procedure perfectly, represent your clients in trials and other legal troubles, make sure the crew is treated fairly by the men in red."
-	department_for_prefs = DEPT_NAME_CIVILIAN
+	department_for_prefs = DEPARTMENT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#dddddd"
-	var/lawyers = 0 //Counts lawyer amount
+	exp_granted_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/lawyer
 
 	base_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_CIV
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Magistrate"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)
 
-	minimal_lightup_areas = list(/area/lawoffice)
+	minimal_lightup_areas = list(/area/station/service/lawoffice)
+
+	manuscript_jobs = list(
+		JOB_NAME_LAWYER,
+		JOB_NAME_DETECTIVE, // a lawyer should also know how to collect evidences
+		JOB_NAME_CURATOR
+	)
 
 /datum/outfit/job/lawyer
 	name = JOB_NAME_LAWYER
 	jobtype = /datum/job/lawyer
 
 	id = /obj/item/card/id/job/lawyer
-	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	belt = /obj/item/modular_computer/tablet/pda/preset/lawyer
 	ears = /obj/item/radio/headset/headset_srvsec
 	uniform = /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
 	suit = /obj/item/clothing/suit/toggle/lawyer
@@ -46,8 +55,8 @@
 	chameleon_extras = /obj/item/stamp/law
 
 
-/datum/outfit/job/lawyer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/job/lawyer/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return ..()
 
 	var/static/use_purple_suit = FALSE //If there is one lawyer, they get the default blue suit. If another lawyer joins the round, they start with a purple suit.

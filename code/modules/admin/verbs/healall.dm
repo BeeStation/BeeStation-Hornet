@@ -14,4 +14,4 @@
 	log_admin("[key_name_admin(usr)] healed all living mobs")
 	to_chat(world, "<b>The gods have miraculously given everyone new life!</b>")
 	for(var/mob/living/M in GLOB.mob_living_list)
-		M.revive(TRUE, TRUE)
+		M.revive(ADMIN_HEAL_ALL)

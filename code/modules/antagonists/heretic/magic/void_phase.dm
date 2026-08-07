@@ -3,8 +3,8 @@
 	desc = "Let's you blink to your pointed destination, causes 3x3 aoe damage bubble \
 		around your pointed destination and your current location. \
 		It has a minimum range of 3 tiles and a maximum range of 9 tiles."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "voidblink"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
@@ -21,13 +21,13 @@
 	/// The radius of damage around the void bubble
 	var/damage_radius = 1
 
-/datum/action/spell/pointed/void_phase/pre_cast(atom/cast_on)
+/datum/action/spell/pointed/void_phase/pre_cast(mob/user, atom/target)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	if(owner && get_dist(get_turf(owner), get_turf(cast_on)) < min_cast_range)
-		cast_on.balloon_alert(owner, "too close!")
+	if(owner && get_dist(user, target) < min_cast_range)
+		user.balloon_alert(owner, "too close!")
 		return . | SPELL_CANCEL_CAST
 
 /datum/action/spell/pointed/void_phase/on_cast(mob/user, atom/target)
@@ -43,12 +43,12 @@
 	playsound(targeted_turf, 'sound/magic/voidblink.ogg', 60, FALSE)
 
 	for(var/mob/living/living_mob in range(damage_radius, source_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 
 	for(var/mob/living/living_mob in range(damage_radius, targeted_turf))
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE))
+		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == user || living_mob.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
 			continue
 		living_mob.apply_damage(40, BRUTE)
 

@@ -7,7 +7,7 @@ export const Crayon = (props) => {
   const capOrChanges = data.has_cap || data.can_change_colour;
   const drawables = data.drawables || [];
   return (
-    <Window width={600} height={600}>
+    <Window width={600} height={600} theme="generic">
       <Window.Content scrollable>
         {!!capOrChanges && (
           <Section title="Basic">
@@ -21,7 +21,10 @@ export const Crayon = (props) => {
                 />
               </LabeledList.Item>
             </LabeledList>
-            <Button content="Select New Color" onClick={() => act('select_colour')} />
+            <Button
+              content="Select New Color"
+              onClick={() => act('select_colour')}
+            />
           </Section>
         )}
         <Section title="Stencil">
@@ -49,7 +52,9 @@ export const Crayon = (props) => {
         </Section>
         <Section title="Text">
           <LabeledList>
-            <LabeledList.Item label="Current Buffer">{data.text_buffer}</LabeledList.Item>
+            <LabeledList.Item label="Current Buffer">
+              {data.text_buffer}
+            </LabeledList.Item>
           </LabeledList>
           <Button content="New Text" onClick={() => act('enter_text')} />
         </Section>

@@ -1,4 +1,5 @@
 /obj/item/organ/cyberimp/chest
+	abstract_type = /obj/item/organ/cyberimp/chest
 	name = "cybernetic torso implant"
 	desc = "Implants for the organs in your torso."
 	icon_state = "chest_implant"
@@ -11,19 +12,26 @@
 	icon_state = "chest_implant"
 	implant_color = "#00AA00"
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
-	var/synthesizing = 0
-	var/poison_amount = 5
+	var/synthesizing = FALSE
+	var/malfunctioning = FALSE
 	slot = ORGAN_SLOT_STOMACH_AID
 
-/obj/item/organ/cyberimp/chest/nutriment/on_life()
+/obj/item/organ/cyberimp/chest/nutriment/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(synthesizing)
 		return
 
-	if(owner.nutrition <= hunger_threshold)
+	if(malfunctioning && owner.nutrition >= hunger_threshold)
+		synthesizing = TRUE
+		to_chat(owner, span_warning("You feel like your insides are burning."))
+		owner.adjust_nutrition(-50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 2 MINUTES)
+
+	else if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
 		to_chat(owner, span_notice("You feel less hungry..."))
-		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
+		owner.adjust_nutrition(25 * delta_time)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 5 SECONDS)
 
 /obj/item/organ/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
@@ -32,9 +40,8 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	owner.reagents.add_reagent(/datum/reagent/toxin/bad_food, poison_amount / severity)
-	to_chat(owner, span_warning("You feel like your insides are burning."))
-
+	if(prob(30/severity))
+		malfunctioning = TRUE
 
 /obj/item/organ/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -42,7 +49,6 @@
 	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
-	poison_amount = 10
 
 /obj/item/organ/cyberimp/chest/reviver
 	name = "Reviver implant"
@@ -54,7 +60,8 @@
 	var/reviving = FALSE
 	COOLDOWN_DECLARE(reviver_cooldown)
 
-/obj/item/organ/cyberimp/chest/reviver/on_life()
+/obj/item/organ/cyberimp/chest/reviver/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(reviving)
 		switch(owner.stat)
 			if(UNCONSCIOUS, HARD_CRIT)
@@ -75,46 +82,33 @@
 			to_chat(owner, span_notice("You feel a faint buzzing as your reviver implant starts patching your wounds..."))
 
 /obj/item/organ/cyberimp/chest/reviver/proc/heal()
+	var/need_mob_update = FALSE
 	if(owner.getOxyLoss())
-		owner.adjustOxyLoss(-5)
+		need_mob_update += owner.adjustOxyLoss(-5, updating_health = FALSE)
 		revive_cost += 5
 	if(owner.getBruteLoss())
-		owner.adjustBruteLoss(-2)
+		need_mob_update += owner.adjustBruteLoss(-2, updating_health = FALSE)
 		revive_cost += 40
 	if(owner.getFireLoss())
-		owner.adjustFireLoss(-2)
+		need_mob_update += owner.adjustFireLoss(-2, updating_health = FALSE)
 		revive_cost += 40
 	if(owner.getToxLoss())
-		owner.adjustToxLoss(-1)
+		need_mob_update += owner.adjustToxLoss(-1, updating_health = FALSE)
 		revive_cost += 40
+	if(need_mob_update)
+		owner.updatehealth()
 
 /obj/item/organ/cyberimp/chest/reviver/emp_act(severity)
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-
-	if(reviving)
-		revive_cost += 200
-	else
-		reviver_cooldown += 20 SECONDS
-
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		if(H.stat != DEAD && prob(50 / severity) && H.can_heartattack())
-			H.set_heartattack(TRUE)
-			to_chat(H, span_userdanger("You feel a horrible agony in your chest!"))
-			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
-
-/obj/item/organ/cyberimp/chest/reviver/proc/undo_heart_attack()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
-		return
-	H.set_heartattack(FALSE)
-	if(H.stat == CONSCIOUS)
-		to_chat(H, span_notice("You feel your heart beating again!"))
+	if(prob(30/severity))
+		to_chat(owner, span_userdanger("You feel a sharp pain in your chest, your reviver implant seems to have shorted out!"))
+		owner.Knockdown((3 SECONDS))
+		Destroy()
 
 /obj/item/organ/cyberimp/chest/reviver/syndicate
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 
 /obj/item/organ/cyberimp/chest/thrusters
 	name = "implantable thrusters set"
@@ -130,7 +124,7 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
@@ -153,14 +147,16 @@
 		on = TRUE
 		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
 			ion_trail.start()
-			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
+			RegisterSignal(owner, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
+			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			if(!silent)
 				to_chat(owner, span_notice("You turn your thrusters set on."))
 	else
 		ion_trail.stop()
-		owner.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/cybernetic)
 		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(owner, COMSIG_MOVABLE_SPACEMOVE)
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/cybernetic)
 		if(!silent)
 			to_chat(owner, span_notice("You turn your thrusters set off."))
 		on = FALSE
@@ -174,6 +170,12 @@
 	SIGNAL_HANDLER
 
 	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE)
+
+/obj/item/organ/cyberimp/chest/thrusters/proc/spacemove_react(mob/user, movement_dir)
+	SIGNAL_HANDLER
+
+	if(on && movement_dir)
+		return COMSIG_MOVABLE_STOP_SPACEMOVE
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!on || !owner)

@@ -81,7 +81,11 @@ const InputDisplay = (props) => {
             <Box bold color="label">
               Name
             </Box>
-            <Input fluid value={input.name} onChange={(e) => setInput({ ...input, name: e.target.value })} />
+            <Input
+              fluid
+              value={input.name}
+              onChange={(e) => setInput({ ...input, name: e.target.value })}
+            />
           </Tooltip>
         </Stack.Item>
         <Stack.Item>
@@ -89,7 +93,13 @@ const InputDisplay = (props) => {
             <Box bold color="label">
               Description
             </Box>
-            <Input fluid value={input.description} onChange={(e) => setInput({ ...input, description: e.target.value })} />
+            <Input
+              fluid
+              value={input.description}
+              onChange={(e) =>
+                setInput({ ...input, description: e.target.value })
+              }
+            />
           </Tooltip>
         </Stack.Item>
         <Stack.Item>
@@ -97,7 +107,11 @@ const InputDisplay = (props) => {
             <Box bold color="label">
               OOC Comments
             </Box>
-            <Input fluid value={input.comments} onChange={(e) => setInput({ ...input, comments: e.target.value })} />
+            <Input
+              fluid
+              value={input.comments}
+              onChange={(e) => setInput({ ...input, comments: e.target.value })}
+            />
           </Tooltip>
         </Stack.Item>
       </Stack>
@@ -113,7 +127,10 @@ const ButtonsDisplay = (props) => {
     <Section fill>
       <Stack>
         <Stack.Item>
-          <Button onClick={() => act('save', { candidate: input })} tooltip="Saves your candidate data locally.">
+          <Button
+            onClick={() => act('save', { candidate: input })}
+            tooltip="Saves your candidate data locally."
+          >
             SAVE
           </Button>
         </Stack.Item>
@@ -127,7 +144,8 @@ const ButtonsDisplay = (props) => {
                 comments: data.default_comments,
               });
             }}
-            tooltip="Loads saved candidate data, if any.">
+            tooltip="Loads saved candidate data, if any."
+          >
             LOAD
           </Button>
         </Stack.Item>
@@ -137,7 +155,8 @@ const ButtonsDisplay = (props) => {
               act('submit', {
                 candidate: input,
               })
-            }>
+            }
+          >
             SUBMIT
           </Button>
         </Stack.Item>
@@ -146,7 +165,8 @@ const ButtonsDisplay = (props) => {
             disabled={!data.ready}
             color="bad"
             onClick={() => act('delete')}
-            tooltip="Removes you from the candidate pool">
+            tooltip="Removes you from the candidate pool"
+          >
             DELETE
           </Button>
         </Stack.Item>

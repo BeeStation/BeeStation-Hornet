@@ -9,6 +9,13 @@
 		if(L.body_zone == zone)
 			return L
 
+///Replaces a single limb and deletes the old one if there was one
+/mob/living/carbon/proc/del_and_replace_bodypart(obj/item/bodypart/new_limb, special)
+	var/obj/item/bodypart/old_limb = get_bodypart(new_limb.body_zone)
+	if(old_limb)
+		qdel(old_limb)
+	new_limb.try_attach_limb(src, special = special)
+
 /mob/living/carbon/has_hand_for_held_index(i)
 	if(!i)
 		return FALSE
@@ -24,7 +31,7 @@
 
 /mob/living/carbon/get_active_hand()
 	var/which_hand = BODY_ZONE_PRECISE_L_HAND
-	if(!(active_hand_index % 2))
+	if(!(active_hand_index % RIGHT_HANDS))
 		which_hand = BODY_ZONE_PRECISE_R_HAND
 	return get_bodypart(check_zone(which_hand))
 
@@ -35,13 +42,13 @@
 
 /mob/living/carbon/has_left_hand(check_disabled = TRUE)
 	for(var/obj/item/bodypart/hand_instance in hand_bodyparts)
-		if(!(hand_instance.held_index % 2) || (check_disabled && hand_instance.bodypart_disabled))
+		if(!(hand_instance.held_index % RIGHT_HANDS) || (check_disabled && hand_instance.bodypart_disabled))
 			continue
 		return TRUE
 	return FALSE
 
 /mob/living/carbon/alien/larva/has_left_hand()
-	return 1
+	return TRUE
 
 
 /mob/proc/has_right_hand(check_disabled = TRUE)
@@ -50,7 +57,7 @@
 
 /mob/living/carbon/has_right_hand(check_disabled = TRUE)
 	for(var/obj/item/bodypart/hand_instance in hand_bodyparts)
-		if(hand_instance.held_index % 2 || (check_disabled && hand_instance.bodypart_disabled))
+		if(hand_instance.held_index % RIGHT_HANDS || (check_disabled && hand_instance.bodypart_disabled))
 			continue
 		return TRUE
 	return FALSE
@@ -60,10 +67,7 @@
 	return 1
 
 
-/mob/living/proc/get_missing_limbs()
-	return list()
-
-/mob/living/carbon/get_missing_limbs()
+/mob/living/carbon/proc/get_missing_limbs()
 	RETURN_TYPE(/list)
 	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	for(var/zone in full)
@@ -105,12 +109,12 @@
 
 ///Remove all embedded objects from all limbs on the carbon mob
 /mob/living/carbon/proc/remove_all_embedded_objects()
-	for(var/obj/item/bodypart/L as() in bodyparts)
+	for(var/obj/item/bodypart/L as anything in bodyparts)
 		for(var/obj/item/I in L.embedded_objects)
 			remove_embedded_object(I)
 
 /mob/living/carbon/proc/has_embedded_objects(include_harmless=FALSE)
-	for(var/obj/item/bodypart/L as() in bodyparts)
+	for(var/obj/item/bodypart/L as anything in bodyparts)
 		for(var/obj/item/I in L.embedded_objects)
 			if(!include_harmless && I.isEmbedHarmless())
 				continue
@@ -120,108 +124,75 @@
 //
 // FUCK YOU AUGMENT CODE - With love, Kapu
 /mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)
-	var/obj/item/bodypart/L
+	var/path = dna.species.bodypart_overrides[zone]
+	var/obj/item/bodypart/new_bodypart = new path()
+	return new_bodypart
+
+/mob/living/carbon/alien/larva/newBodyPart(zone)
+	var/obj/item/bodypart/new_bodypart
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			new_bodypart = new /obj/item/bodypart/head/larva()
+		if(BODY_ZONE_CHEST)
+			new_bodypart = new /obj/item/bodypart/chest/larva()
+	. = new_bodypart
+
+/mob/living/carbon/alien/humanoid/newBodyPart(zone)
+	var/obj/item/bodypart/new_bodypart
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
-			L = new dna.species.species_l_arm()
+			new_bodypart = new /obj/item/bodypart/arm/left/alien()
 		if(BODY_ZONE_R_ARM)
-			L = new dna.species.species_r_arm()
+			new_bodypart = new /obj/item/bodypart/arm/right/alien()
 		if(BODY_ZONE_HEAD)
-			L = new dna.species.species_head()
+			new_bodypart = new /obj/item/bodypart/head/alien()
 		if(BODY_ZONE_L_LEG)
-			L = new dna.species.species_l_leg()
+			new_bodypart = new /obj/item/bodypart/leg/left/alien()
 		if(BODY_ZONE_R_LEG)
-			L = new dna.species.species_r_leg()
+			new_bodypart = new /obj/item/bodypart/leg/right/alien()
 		if(BODY_ZONE_CHEST)
-			L = new dna.species.species_chest()
-	. = L
+			new_bodypart = new /obj/item/bodypart/chest/alien()
+	if(new_bodypart)
+		new_bodypart.update_limb(is_creating = TRUE)
 
-/mob/living/carbon/monkey/newBodyPart(zone, robotic, fixed_icon)
-	var/obj/item/bodypart/L
-	switch(zone)
-		if(BODY_ZONE_L_ARM)
-			L = new /obj/item/bodypart/l_arm/monkey()
-		if(BODY_ZONE_R_ARM)
-			L = new /obj/item/bodypart/r_arm/monkey()
-		if(BODY_ZONE_HEAD)
-			L = new /obj/item/bodypart/head/monkey()
-		if(BODY_ZONE_L_LEG)
-			L = new /obj/item/bodypart/l_leg/monkey()
-		if(BODY_ZONE_R_LEG)
-			L = new /obj/item/bodypart/r_leg/monkey()
-		if(BODY_ZONE_CHEST)
-			L = new /obj/item/bodypart/chest/monkey()
-	if(L)
-		L.update_limb(fixed_icon, src)
-		if(robotic)
-			L.change_bodypart_status(BODYTYPE_ROBOTIC)
-	. = L
+/// Makes sure that the owner's bodytype flags match the flags of all of it's parts and organs
+/mob/living/carbon/proc/synchronize_bodytypes()
+	var/all_limb_flags = NONE
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		//for(var/obj/item/organ/external/ext_organ as anything in limb.external_organs)
+		//	all_limb_flags |= ext_organ.external_bodytypes
+		all_limb_flags |= limb.bodytype
 
-/mob/living/carbon/alien/larva/newBodyPart(zone, robotic, fixed_icon)
-	var/obj/item/bodypart/L
-	switch(zone)
-		if(BODY_ZONE_HEAD)
-			L = new /obj/item/bodypart/head/larva()
-		if(BODY_ZONE_CHEST)
-			L = new /obj/item/bodypart/chest/larva()
-	if(L)
-		L.update_limb(fixed_icon, src)
-		if(robotic)
-			L.change_bodypart_status(BODYTYPE_ROBOTIC)
-	. = L
+	bodytype = all_limb_flags
 
-/mob/living/carbon/alien/humanoid/newBodyPart(zone, robotic, fixed_icon)
-	var/obj/item/bodypart/L
-	switch(zone)
-		if(BODY_ZONE_L_ARM)
-			L = new /obj/item/bodypart/l_arm/alien()
-		if(BODY_ZONE_R_ARM)
-			L = new /obj/item/bodypart/r_arm/alien()
-		if(BODY_ZONE_HEAD)
-			L = new /obj/item/bodypart/head/alien()
-		if(BODY_ZONE_L_LEG)
-			L = new /obj/item/bodypart/l_leg/alien()
-		if(BODY_ZONE_R_LEG)
-			L = new /obj/item/bodypart/r_leg/alien()
-		if(BODY_ZONE_CHEST)
-			L = new /obj/item/bodypart/chest/alien()
-	if(L)
-		L.update_limb(fixed_icon, src)
-		if(robotic)
-			L.change_bodypart_status(BODYTYPE_ROBOTIC)
-	. = L
-
-
-/proc/skintone2hex(skin_tone, include_tag = TRUE)
+/proc/skintone2hex(skin_tone)
 	. = 0
 	switch(skin_tone)
 		if("caucasian1")
-			. = "ffe0d1"
+			. = "#ffe0d1"
 		if("caucasian2")
-			. = "fcccb3"
+			. = "#fcccb3"
 		if("caucasian3")
-			. = "e8b59b"
+			. = "#e8b59b"
 		if("latino")
-			. = "d9ae96"
+			. = "#d9ae96"
 		if("mediterranean")
-			. = "c79b8b"
+			. = "#c79b8b"
 		if("asian1")
-			. = "ffdeb3"
+			. = "#ffdeb3"
 		if("asian2")
-			. = "e3ba84"
+			. = "#e3ba84"
 		if("arab")
-			. = "c4915e"
+			. = "#c4915e"
 		if("indian")
-			. = "b87840"
+			. = "#b87840"
 		if("african1")
-			. = "754523"
+			. = "#754523"
 		if("african2")
-			. = "471c18"
+			. = "#471c18"
 		if("albino")
-			. = "fff4e6"
+			. = "#fff4e6"
 		if("orange")
-			. = "ffc905"
+			. = "#ffc905"
 		if("pink")
-			. = "D7377D"
-	if(include_tag && .)
-		return "#" + .
+			. = "#D7377D"

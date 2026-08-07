@@ -3,25 +3,25 @@
 	var/list/content = list()
 	for(var/datum/team/T in GLOB.antagonist_teams)
 		content += "<h3>[T.name] - [T.type]</h3>"
-		content += "<a href='?_src_=holder;[HrefToken()];team_command=rename_team;team=[REF(T)]'>Rename</a>"
-		content += "<a href='?_src_=holder;[HrefToken()];team_command=delete_team;team=[REF(T)]'>Delete</a>"
-		content += "<a href='?_src_=holder;[HrefToken()];team_command=communicate;team=[REF(T)]'>Communicate</a>"
+		content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=rename_team;team=[REF(T)]'>Rename</a>"
+		content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=delete_team;team=[REF(T)]'>Delete</a>"
+		content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=communicate;team=[REF(T)]'>Communicate</a>"
 		for(var/command in T.get_admin_commands())
-			content += "<a href='?src=[REF(T)];command=[command]'>[command]</a>"
+			content += "<a href='byond://?src=[REF(T)];command=[command]'>[command]</a>"
 		content += "<br>"
 		content += "Objectives:<br><ol>"
 		for(var/datum/objective/O in T.objectives)
 			content += "<li>[O.explanation_text] - "
-			content += "<a href='?_src_=holder;[HrefToken()];team_command=edit_objective;team=[REF(T)];tobjective=[REF(O)]'>Edit</a>"
-			content += "<a href='?_src_=holder;[HrefToken()];team_command=remove_objective;team=[REF(T)];tobjective=[REF(O)]'>Remove</a>"
+			content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=edit_objective;team=[REF(T)];tobjective=[REF(O)]'>Edit</a>"
+			content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=remove_objective;team=[REF(T)];tobjective=[REF(O)]'>Remove</a>"
 			content += "</li>"
-		content += "</ol><a href='?_src_=holder;[HrefToken()];team_command=add_objective;team=[REF(T)]'>Add Objective</a><br>"
+		content += "</ol><a href='byond://?_src_=holder;[HrefToken()];team_command=add_objective;team=[REF(T)]'>Add Objective</a><br>"
 		content += "Members: <br><ul>"
 		for(var/datum/mind/M in T.members)
-			content += "<li>[M.name] - <a href='?_src_=holder;[HrefToken()];team_command=remove_member;team=[REF(T)];tmember=[REF(M)]'>Remove Member</a></li>"
-		content += "</ul><a href='?_src_=holder;[HrefToken()];team_command=add_member;team=[REF(T)]'>Add Member</a>"
+			content += "<li>[M.name] - <a href='byond://?_src_=holder;[HrefToken()];team_command=remove_member;team=[REF(T)];tmember=[REF(M)]'>Remove Member</a></li>"
+		content += "</ul><a href='byond://?_src_=holder;[HrefToken()];team_command=add_member;team=[REF(T)]'>Add Member</a>"
 		content += "<hr>"
-	content += "<a href='?_src_=holder;[HrefToken()];team_command=create_team'>Create Team</a><br>"
+	content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=create_team'>Create Team</a><br>"
 	return content.Join()
 
 
@@ -38,7 +38,7 @@
 	var/team_name = stripped_input(user,"Team name ?")
 	if(!team_name)
 		return
-	var/datum/team/custom/T = new()
+	var/datum/team/T = new()
 	T.name = team_name
 
 	message_admins("[key_name_admin(usr)] created new [name] antagonist team.")
@@ -64,12 +64,7 @@
 	log_admin("Team Message: [key_name(usr)] -> [name] team : [message]")
 
 /datum/team/proc/admin_add_objective(mob/user)
-	//any antag with get_team == src => add objective to that antag
-	//otherwise create new custom antag
-	if(!GLOB.admin_objective_list)
-		generate_admin_objective_list()
-
-	var/selected_type = input("Select objective type:", "Objective type") as null|anything in GLOB.admin_objective_list
+	var/selected_type = tgui_input_list(usr, "Select objective type:", "Objective type", GLOB.admin_objective_list)
 	selected_type = GLOB.admin_objective_list[selected_type]
 	if (!selected_type)
 		return
@@ -101,10 +96,7 @@
 	log_admin("[key_name(usr)] added objective \"[O.explanation_text]\" to [name]")
 
 /datum/team/proc/admin_edit_objective(mob/user,datum/objective/old_objective)
-	if(!GLOB.admin_objective_list)
-		generate_admin_objective_list()
-
-	var/selected_type = input("Select objective type:", "Objective type") as null|anything in GLOB.admin_objective_list
+	var/selected_type = tgui_input_list(usr, "Select objective type:", "Objective type", GLOB.admin_objective_list)
 	selected_type = GLOB.admin_objective_list[selected_type]
 	if (!selected_type)
 		return
@@ -186,39 +178,3 @@
 
 /datum/team/proc/get_admin_commands()
 	return list()
-
-//Custom team subtype created by the panel, allow forcing hud for the team for now
-/datum/team/custom
-	var/datum/atom_hud/antag/custom_hud
-	var/custom_hud_state = "traitor"
-
-/datum/team/custom/add_member(datum/mind/new_member)
-	. = ..()
-	if(custom_hud)
-		custom_hud.join_hud(new_member.current)
-		set_antag_hud(new_member.current,custom_hud_state)
-
-/datum/team/custom/remove_member(datum/mind/member)
-	. = ..()
-	if(custom_hud)
-		custom_hud.leave_hud(member.current)
-
-/datum/team/custom/get_admin_commands()
-	. = ..()
-	.["Force HUD"] = CALLBACK(src,PROC_REF(admin_force_hud))
-
-//This is here if you want admin created teams to tell each other apart easily.
-/datum/team/custom/proc/admin_force_hud(mob/user)
-	var/list/possible_icons = icon_states('icons/mob/hud.dmi')
-	var/new_hud_state = input(user,"Choose hud icon state","Custom HUD","traitor") as null|anything in sort_list(possible_icons)
-	if(!new_hud_state)
-		return
-	//suppose could ask for color too
-	custom_hud_state = new_hud_state
-	custom_hud = new
-	custom_hud.self_visible = TRUE
-	GLOB.huds += custom_hud //Make it show in admin hud
-
-	for(var/datum/mind/M in members)
-		custom_hud.join_hud(M.current)
-		set_antag_hud(M.current,custom_hud_state)

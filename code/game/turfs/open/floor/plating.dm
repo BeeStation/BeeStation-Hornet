@@ -70,7 +70,8 @@
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
 				return
-	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
+	var/is_left_cliking = LAZYACCESS(params2list(params), LEFT_CLICK)
+	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes && is_left_cliking)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
 			return
@@ -82,7 +83,7 @@
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
-					PlaceOnTop(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
+					place_on_top(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 					R.use(1)
 					to_chat(user, span_notice("You reinforce the floor."))
@@ -99,7 +100,7 @@
 			to_chat(user, span_notice("You begin reinforcing the floor to secure the plating.."))
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/prison))
-					PlaceOnTop(/turf/open/floor/prison, flags = CHANGETURF_INHERIT_AIR)
+					place_on_top(/turf/open/floor/prison, flags = CHANGETURF_INHERIT_AIR)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 					R.use(1)
 					to_chat(user, span_notice("You secure the plating."))

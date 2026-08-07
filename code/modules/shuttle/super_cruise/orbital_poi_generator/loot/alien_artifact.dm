@@ -10,16 +10,13 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && L.mind?.assigned_role != JOB_NAME_CURATOR)
+	if(istype(L) && !is_curator_job(L.mind?.assigned_role))
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)
 			. += "[src] likely does something when [verb]."
 
-/obj/item/alienartifact/ComponentInitialize()
-	AddComponent(/datum/component/discoverable, 10000, TRUE)
-
-/obj/item/alienartifact/objective/ComponentInitialize()
+/obj/item/alienartifact/objective/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
@@ -31,7 +28,7 @@
 		var/picked_type = pick(subtypesof(/datum/artifact_effect))
 		var/valid = TRUE
 		var/datum/artifact_effect/effect = new picked_type
-		for(var/datum/artifact_effect/old_effect as() in effects)
+		for(var/datum/artifact_effect/old_effect as anything in effects)
 			//Cant have the same one twice
 			if(istype(old_effect, picked_type))
 				valid = FALSE
@@ -48,6 +45,8 @@
 			effect.Initialize(src)
 			effects += effect
 
+	AddComponent(/datum/component/discoverable, TECHWEB_TIER_5_POINTS, TRUE)
+
 /obj/item/alienartifact/Destroy()
 	. = ..()
 	QDEL_LIST(effects)
@@ -62,7 +61,6 @@
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
@@ -135,11 +133,11 @@
 //===================
 
 /datum/artifact_effect/inducespasm
-	signal_types = list(COMSIG_PARENT_EXAMINE)
+	signal_types = list(COMSIG_ATOM_EXAMINE)
 	effect_act_descs = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
-	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(do_effect))
+	RegisterSignal(source, COMSIG_ATOM_EXAMINE, PROC_REF(do_effect))
 
 /datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
 	if(ishuman(observer))
@@ -157,6 +155,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
+	SHOULD_CALL_PARENT(FALSE)
 	monitor = _monitor
 	callback = _callback
 	monitor?.hasprox_receiver = src
@@ -166,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Destroy()
 	QDEL_NULL(monitor)
-	QDEL_NULL(callback)
+	callback = null
 	return ..()
 
 /datum/artifact_effect/projreflect
@@ -269,7 +268,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 	for(var/obj/item/card/id/id_card in things_in_view)
 		idcards += id_card
 	var/list/accesses_to_add = get_all_accesses()
-	for(var/obj/item/card/id/id_card as() in idcards)
+	for(var/obj/item/card/id/id_card as anything in idcards)
 		if(length(id_card.access))
 			id_card.access -= pick(id_card.access)
 			id_card.access |= pick(accesses_to_add)
@@ -300,7 +299,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	GLOB.destabliization_exits += source
 
 /datum/artifact_effect/reality_destabilizer/Destroy()
-	for(var/atom/movable/AM as() in contained_things)
+	for(var/atom/movable/AM as anything in contained_things)
 		if(istype(get_area(AM), /area/tear_in_reality))
 			AM.forceMove(get_turf(source_object))
 	contained_things.Cut()
@@ -402,7 +401,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
-		/datum/gas/nitryl = 1
+		/datum/gas/nitrium = 1
 	)
 	var/datum/gas/input
 	var/datum/gas/output
@@ -418,10 +417,11 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(GET_MOLES(input_id, air), 5)
+	var/moles = min(air.moles[input_id], 5)
 	if(moles)
-		air.gases[input_id][MOLES] += -moles
-		air.gases[output_id][MOLES] += moles
+		// adjust_multiple_gases() isn't used here because BYOND is HORRIBLE and will convert the var names when used as keys to strings
+		air.adjust_gas(input_id, -moles)
+		air.adjust_gas(output_id, moles)
 
 //===================
 // Recharger
@@ -438,7 +438,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	for(var/atom/movable/thing in view(3, T))
 		var/obj/item/stock_parts/cell/C = thing.get_cell()
 		if(C)
-			C.give(250 * delta_time)
+			C.give(25 * delta_time)
 			thing.update_icon()
 
 //===================
@@ -490,16 +490,16 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	log_attack("[key_name_admin(pulser)] activated an insanity pulse at [COORD(T)]. [first_time ? " (Effects were unknown)" : " (Artifact had been activated before)"]")
 	message_admins("[ADMIN_LOOKUPFLW(pulser)] activated an insanity pulse [first_time ? " (Effects were unknown)" : " (Artifact had been activated before)"].")
 	if(first_time)
-		var/research_reward = rand(5000, 20000)
-		SSresearch.science_tech.add_points_all(research_reward)
+		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+		science_web.add_points_all(rand(5000, 20000))
 	first_time = FALSE
 
 	// center does strong effect. If purser is with someone, they'll all be the victims.
 	for(var/mob/living/center_turf_mob in T.get_all_mobs())
-		center_turf_mob.adjust_blindness(300)
+		center_turf_mob.adjust_temp_blindness(30 SECONDS)
 		center_turf_mob.Stun(100)
 		center_turf_mob.emote("scream")
-		center_turf_mob.hallucination = 500
+		center_turf_mob.set_hallucinations(10 MINUTES)
 
 	// non-center will not be that strong
 	sends_insanity_pulse(T, pulse_power, 1)

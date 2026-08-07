@@ -18,7 +18,7 @@
 /obj/item/ammo_casing/energy/laser/anti_creature
 	projectile_type = /obj/projectile/beam/laser/anti_creature
 	select_name = "anti-creature"
-	e_cost = 40
+	e_cost = 400 WATT
 
 /obj/projectile/beam/laser/anti_creature
 	damage = 15
@@ -35,12 +35,12 @@
 
 /obj/item/ammo_casing/energy/laser/cutting
 	projectile_type = /obj/projectile/beam/laser/cutting
-	select_name = "cutting laser"
-	e_cost = 30
+	select_name = "demolition"
+	e_cost = 300 WATT
 
 /obj/projectile/beam/laser/cutting
 	damage = 5
-	icon_state = "heavylaser"
+	icon_state = "plasmacutter"
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	impact_type = /obj/effect/projectile/impact/heavy_laser
@@ -59,7 +59,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_kill
 	projectile_type = /obj/projectile/beam/laser/exploration_kill
 	select_name = "KILL"
-	e_cost = 80
+	e_cost = 800 WATT
 
 /obj/projectile/beam/laser/exploration_kill
 	damage = 30
@@ -82,7 +82,7 @@
 /obj/item/ammo_casing/energy/laser/exploration_destroy
 	projectile_type = /obj/projectile/beam/laser/exploration_destroy
 	select_name = "DESTROY"
-	e_cost = 120
+	e_cost = 1200 WATT
 
 /obj/projectile/beam/laser/exploration_destroy
 	damage = 20
@@ -107,3 +107,96 @@
 	desc = "An exploration-fitted laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
 	pin = /obj/item/firing_pin/off_station
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature)
+
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg
+	name = "multi-purpose energy gun"
+	desc = "An energy gun with three firing modes useful in a variety of situations."
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/cyborg, /obj/item/ammo_casing/energy/laser/cutting/cyborg, /obj/item/ammo_casing/energy/lasergun/cyborg)
+	gun_charge = 10 KILOWATT
+	fire_rate = 1		//One shots per second
+	charge_delay = 9	//Fully charged in 90 seconds
+	w_class = WEIGHT_CLASS_LARGE //Same weight as disabler, for the slightly higher slowdown while active
+	can_charge = FALSE
+	use_cyborg_cell = TRUE
+	requires_wielding = FALSE
+	pin = /obj/item/firing_pin
+	actions_types = list(/datum/action/sentry_toggle)
+	/// Whether sentry mode has been voluntarily toggled on by the borg
+	var/sentry_toggled = FALSE
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/add_seclight_point()
+	return
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/process(delta_time)
+	//The next process tick after the gun is fully charged, we disengage sentry mode (unless voluntarily toggled)
+	if(cell.percent() != 100 || sentry_toggled)
+		return ..()
+
+	var/mob/living/silicon/robot/borg = get(loc, /mob/living/silicon/robot)
+
+	if(borg?.has_status_effect(/datum/status_effect/cyborg_sentry))
+		borg.remove_status_effect(/datum/status_effect/cyborg_sentry)
+		to_chat(borg, span_notice("Your gun has fully recharged. Sentry mode automatically disengaged."))
+		borg.balloon_alert(borg, "sentry mode auto-OFF")
+	. = ..()
+
+/obj/item/gun/energy/e_gun/mini/exploration/cyborg/on_chamber_fired()
+	var/mob/living/silicon/robot/R
+	if(iscyborg(loc)) //Gun can only be fired from the main bar.
+		R = loc
+		R.apply_status_effect(/datum/status_effect/cyborg_sentry)
+	. = ..()
+
+//Standard disabler round
+/obj/item/ammo_casing/energy/disabler/cyborg
+	e_cost = 500 WATT	//20 shot capacity
+
+//Rechargeable taser electrode for cyborg use.
+/obj/item/ammo_casing/energy/electrode/cyborg
+	projectile_type = /obj/projectile/energy/electrode/cyborg
+	e_cost = 2000 WATT	// probably around 4-5 shot capacity
+
+//Does 5 damage to mobs and 70 to objects, with exception to blobs
+/obj/item/ammo_casing/energy/laser/cutting/cyborg
+	e_cost = 250 WATT	//40 shot capacity
+
+// Much weaker but more reliable, as this is their primary way of attack, and they can recharge it.
+/// Why yes, if they tase someone with this, others won't be able to tase the target with actually good tasers! So this could count as sabotage :)
+/obj/projectile/energy/electrode/cyborg
+	max_duration = 30 SECONDS
+	tase_stamina = 30
+	piercing = TRUE
+	range = 6	// We give the victim a single tile of visibility, so you could still cheese a static borg.
+
+// Sentry Mode Toggle Action
+/datum/action/sentry_toggle
+	name = "Toggle Sentry Mode"
+	desc = "Toggle your armor plating on or off. Activating sentry mode grants significant armor at the cost of movement speed. Sentry mode is automatically forced on while your gun is recharging after firing."
+	button_icon = 'icons/hud/screen_alert.dmi'
+	button_icon_state = "sentry"
+
+/datum/action/sentry_toggle/on_activate(mob/user, atom/target)
+	if(!iscyborg(user))
+		return
+	var/mob/living/silicon/robot/our_borgie = user
+	var/obj/item/gun/energy/e_gun/mini/exploration/cyborg/gun = target
+	if(!istype(gun))
+		return
+
+	gun.sentry_toggled = !gun.sentry_toggled
+	if(gun.sentry_toggled)
+		if(our_borgie.has_status_effect(/datum/status_effect/cyborg_sentry))
+			to_chat(our_borgie, span_warning("Sentry mode will remain active once fully charged."))
+			our_borgie.balloon_alert(our_borgie, "sentry mode ON")
+		else
+			our_borgie.apply_status_effect(/datum/status_effect/cyborg_sentry)
+			to_chat(our_borgie, span_notice("You engage your armor plating, granting you armor at the cost of movement speed."))
+	else
+		//Only remove sentry if the gun is fully charged (not forced by firing)
+		if(gun.cell && gun.cell.percent() == 100)
+			our_borgie.remove_status_effect(/datum/status_effect/cyborg_sentry)
+			to_chat(our_borgie, span_notice("You disengage your armor plating, restoring your movement speed."))
+		else
+			to_chat(our_borgie, span_warning("Your gun is still recharging! Sentry mode will automatically deactivate once fully charged."))
+			our_borgie.balloon_alert(our_borgie, "sentry mode OFF")

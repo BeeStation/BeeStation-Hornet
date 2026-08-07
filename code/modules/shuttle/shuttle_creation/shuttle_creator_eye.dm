@@ -37,7 +37,7 @@
 	else
 		sprint = initial
 
-/mob/camera/ai_eye/remote/shuttle_creation/proc/can_move_to(var/turf/T)
+/mob/camera/ai_eye/remote/shuttle_creation/proc/can_move_to(turf/T)
 	var/origin_x = source_turf.x
 	var/origin_y = source_turf.y
 	var/change_X = abs(origin_x - T.x)
@@ -48,7 +48,7 @@
 	..()
 	if(eye_user?.client)
 		eye_user.client.images -= user_image
-		var/image/I = image(icon, loc, icon_state, FLY_LAYER, dir)
+		var/image/I = image(icon, loc, icon_state, FLY_LAYER, dir) // this isn't actually for remote eye. The image is drawn over turf.
 		I.plane = MASSIVE_OBJ_PLANE
 		user_image = I
 		eye_user.client.images += user_image

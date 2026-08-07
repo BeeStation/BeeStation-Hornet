@@ -117,7 +117,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 	var/list/data = list()
 	data["min_age"] = AGE_MIN
 	data["max_age"] = AGE_MAX
-	data["character_preview_view"] = character_preview_view.assigned_map
 	return data
 
 /obj/machinery/computer/records/security/ui_act(action, list/params, datum/tgui/ui)
@@ -127,6 +126,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 	var/mob/user = ui.user
 	var/datum/record/crew/target_record
+
+	if (!authenticated || issilicon(user)) // Silicons are forbidden from editing records.
+		return FALSE
+
+	if (action == "set_amount")
+		set_print_amount(sanitize_integer(params["new_amount"]))
+		return TRUE
+
 	if(params["record_ref"])
 		target_record = locate(params["record_ref"]) in GLOB.manifest.general
 	if(!target_record)
@@ -134,7 +141,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 
 	switch(action)
 		if("add_crime")
-			target_record.add_crime(user, params["name"], params["fine"], params["details"], src)
+			target_record.add_crime(user, sanitize_ic(params["name"]), sanitize_integer(params["fine"]), sanitize_ic(params["details"]), src)
 			return TRUE
 
 		if("delete_record")
@@ -142,7 +149,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			return TRUE
 
 		if("edit_crime")
-			target_record.edit_crime(user, params["name"], params["description"], params["crime_ref"])
+			target_record.edit_crime(user, sanitize_ic(params["name"]), sanitize_ic(params["description"]), params["crime_ref"])
 			return TRUE
 
 		if("invalidate_crime")
@@ -154,23 +161,36 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 			return TRUE
 
 		if("print_record")
-			print_record(user, target_record, params["alias"], params["desc"], params["head"], params["type"])
+			print_record(user, target_record, sanitize_ic(params["alias"]), sanitize_ic(params["desc"]), sanitize_ic(params["head"]), sanitize_ic(params["type"]))
 			return TRUE
 
 		if("set_note")
-			target_record.set_security_note(params["security_note"])
+			target_record.set_security_note(sanitize_ic(params["security_note"]))
 			return TRUE
 
 		if("set_wanted")
-			target_record.set_wanted_status(params["status"])
-			return TRUE
-
-		if("set_amount")
-			set_print_amount(params["new_amount"])
+			target_record.set_wanted_status(sanitize_ic(params["status"]))
 			return TRUE
 
 	return FALSE
 
+/obj/machinery/computer/records/security/can_edit_field(field)
+	switch (field)
+		if ("name")
+			return TRUE
+		if ("rank")
+			return TRUE
+		if ("age")
+			return TRUE
+		if ("species")
+			return TRUE
+		if ("gender")
+			return TRUE
+		if ("fingerprint")
+			return TRUE
+		if ("security_note")
+			return TRUE
+	return FALSE
 
 // Changing how many posters to print.
 /obj/machinery/computer/records/security/proc/set_print_amount(new_amount)
@@ -393,7 +413,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/records/security)
 		if(sec_record.wanted_status != status_to_set)
 			successful_set++
 			names_of_entries += target["name"]
-		sec_record.wanted_status = status_to_set
+		sec_record.set_wanted_status(src, status_to_set)
 
 	if(successful_set > 0)
 		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)

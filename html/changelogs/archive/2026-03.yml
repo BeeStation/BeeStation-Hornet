@@ -1,0 +1,301 @@
+2026-03-01:
+  mrmanlikesbt:
+  - config: the repository's dynamic storyteller config is now up to date with the
+      live server
+2026-03-02:
+  Absolucy:
+  - bugfix: Digital clocks now process on the correct subsystem.
+  Tsar-Salat:
+  - bugfix: stamina damagetype does stuff again
+  - bugfix: abductor baton stuns paralyze again
+  - server: damage unit test supports simplemobs, as well as the stamina and cloneloss
+      damagetypes
+2026-03-03:
+  WhiskeyMarten:
+  - rscadd: Made Geneticist and Paramedic available on Echostation. Geneticist is
+      locked to 1 slot.
+  mrmanlikesbt, Kapu:
+  - bugfix: Fixed explosions being able to destroy turfs that have a structure on
+      top of them (mainly windows and doors)
+2026-03-04:
+  rkz, zephyr:
+  - server: autogenerates python path
+2026-03-06:
+  mrmanlikesbt:
+  - code_imp: Poll configs now use constructors instead of manually setting the config's
+      parameters
+  - bugfix: Fixed several ghost polls not working
+  - bugfix: Fixed xenomorphs and spiders not having the vent overlay when spawning
+      inside of a vent
+  mrmanlikesbt, rkz, Ghommie, SmArtKar, Pickle-Coding, grungussuss, LemonInTheDark, Floofies, vinylspiders, san7890:
+  - code_imp: 'Added an easy define for reference tracking: REFERENCE_TRACKING_STANDARD'
+  - admin: Removed the SMES deletion admin message. Player deconstruction still sends
+      an admin message though
+  - spellcheck: Taser cartridges and heavy bone armor now follow naming conventions
+      (they're no longer capitalized)
+  - bugfix: Fixed color weirdness/bugs when being spawned in as a human from being
+      a ghost
+  - bugfix: Fixed plates spawning their shards inside of walls when thrown at them
+  - bugfix: Fixed emitters not requiring power
+  - bugfix: Fixed the SMES panel open overlay
+  - bugfix: Fixed a runtime when non humanoids tried to use the *wing emote
+  - bugfix: Fixed not being able to jump to things on the spawner panel
+  - bugfix: Fixed runtimes when having the Multilingual quirk set to random
+  - bugfix: Fixed tablets runtiming when destroyed
+  - bugfix: Fixed revenants spawning in with human names
+  - bugfix: Fixed cryo grenades being able to cool their contents to below 2.7 kelvin
+  - bugfix: Fixed light eaters making a blunt sound when slashing creatures
+  - bugfix: Fixed nightmares being able to shadow walk into lit environments
+  - bugfix: Fixed nightmares being able to shadow walk over glass floors
+  - bugfix: Fixed turkeys looking like chickens
+  - bugfix: Fixed the PAI holochassis going on cooldown forever
+  - bugfix: Fixed PAIs not being able to change their holochassis form
+  - bugfix: Fixed PAIs never being able to wake up if they fall unconscious
+  - bugfix: Fixed the NTNet Diagnostics and Monitoring app
+  - bugfix: Fixed diona nymphs chittering when using a pre-defined emote
+  - bugfix: Fixed mechs not being immune to ash storms
+  - bugfix: Fixed MMIs and positronic brains not getting the "You survived!" beecoin
+      reward at roundend
+  - bugfix: Fixed dead or otherwise unconscious people showing displaying a "John
+      Nanotrasen looks at Jane Syndicate" message.
+  - bugfix: Fixed the malf AI roundend report displaying "The name has failed/succeeded"
+  - bugfix: Fixed various missing typepaths in random maintenance rooms. This means
+      that one maintenance room is no longer spaced (it still is, but the windows
+      are actually there now)
+  - bugfix: Fixed the MOD longfall module
+  - bugfix: Fixed the mime's vow of silence. Additionally, once you break it your
+      vow, you will lose your mime powers forever.
+  - bugfix: Fixed the french beret not applying the french accent to its wearer
+  - bugfix: Fixed not being able to throw clockcult weapons
+  - bugfix: Fixed various UIs using the new computer theme.
+  - bugfix: Fixed bone armor not being able to hold bone weapons
+  - bugfix: Fixed monkeys not taking damage when burning
+  - bugfix: Fixed abductors and ninjas having their crew character's name show up
+      in the round end screen
+  - bugfix: Fixed the first death message showing up in the round end discord message
+      even if nobody died
+  - bugfix: Fixed a hard delete with the connect_loc element
+  - bugfix: Fixed some nullrod variants not having icons on the radial menu variant
+      select
+  - bugfix: Fixed the ninja plant explosive always failing
+2026-03-08:
+  DrDuckedGoose:
+  - tweak: Improved species height code
+  - rscadd: Added support for directions in species height code
+  - rscadd: Added support for unique maps in species height code
+  Fikou, r1ks-iwnl:
+  - balance: Removed healing amplification from BDM's trophy.
+  - bugfix: Fixed BDM trophy damage overlay making you near blind if you have oxy
+      damage.
+  - bugfix: Fixed BDM trophy making you unconscious if you have 5 or more oxy damage.
+  Isaacnml:
+  - bugfix: Exploration blackbox objectives can be tracked by GPS/Hardsuits once again
+2026-03-10:
+  Isaac:
+  - balance: Melee swarmers now deal stamina damage instead of straight up shocking
+      you
+  - balance: Ranged swarmers (red ones) now shoot less lethal ammo instead of just
+      lasers
+  PatienceStPim:
+  - bugfix: Lizards and psyphozas can get their mutations unlocked again
+  - bugfix: Scanners not working after injecting enzymes in genetics
+  Tsar-Salat:
+  - refactor: species damage mods are now limb-based
+  - bugfix: damage mods work again, IPCs ignore stamina damage
+2026-03-14:
+  Isaacnml:
+  - balance: Cult doors no longer paralyze you upon being thrown, now they knock you
+      down
+  - bugfix: Cult doors will no longer throw you away just for looking at them
+2026-03-15:
+  ? r1ks-iwnl, GoldenAlpharex, cacogen, Superlagg, neopythagorean, SuperNovaa41, StrangeWeirdKitten,
+    Kocma-san, GreytideSkye, vinylspiders, norsvenska, 00-Steven, MrMelbert
+  : - rscadd: Added new keywords (%d, %date, %t, %time) for fields
+    - rscadd: You can now stamp papers while blind.
+    - spellcheck: Photocopier finally learned about %date and %time, and changed the
+        forms' fields to accommodate them.
+    - bugfix: Fixes preloaded clipboards
+    - bugfix: Clearing paper, like by splashing it with ethanol, actually resets its
+        icon state to the cleared version.
+    - bugfix: Photocopying no longer removes the stamp overlays from the original
+        paper, and actually copies them to the copy.
+    - bugfix: Paper that's on a clipboard doesn't need to be poked to realise that
+        its appearance has changed and to properly display it on a clipboard.
+    - bugfix: You finally figured that using a stamp on a clipboard was more important
+        than using the pen that's currently attached to it. Congratulations!
+    - bugfix: Hitting cancel when renaming a paper now actually cancels the operation.
+    - code_imp: Added support for preventing a pen from being removed from a clipboard.
+2026-03-16:
+  DrDuckedGoose:
+  - bugfix: Fix Height Maps
+2026-03-18:
+  Isaacnml:
+  - spellcheck: Poison is spelled correctly upon failling the poison directive
+  PatienceStPim:
+  - rscadd: Cargo now gets bounties for mutations.
+  mrmanlikesbt:
+  - bugfix: Fixed the roundend message sometimes not being sent to the discord OOC
+      channel
+  - rscadd: Players now have the option to remain anonymous when starting a vote.
+  - bugfix: Fixed being able to call a shuttle vote when it's unable to come.
+  - bugfix: Fixed the space dragon ruleset not putting the chosen player into the
+      dragon's body.
+  - tweak: Dynamic no longer sends a storyteller vote if there is only one storyteller
+      to vote for.
+  rkz, tralezab, san7890, Ben10Omintrix, Vekter, vinylspiders, SmArtKar:
+  - rscadd: Mining/Explo headsets now allow you to make callouts via pointing. You
+      can use them to communicate with fellow jobbers!
+  - rscadd: Mining headsets keep your voice loud and clear in low-pressure environments
+      (not vacuum!)
+  - rscadd: adds ~~sex~~ make children behavior to basic mob ai. Ian is no longer
+      gelded from his conversion from simplemob to basicmob
+  - rscadd: tailed_defender lizard trait is now on their brain
+  - rscadd: cultists can now convert pets to their side
+  - rscadd: adds support for renaming pets without collars. Ashwalkers have this by
+      default. (Goliaths aren't basicmobs though yet, sorry)
+  - bugfix: Basic Mobs are now able to deathgasp.
+  - refactor: refactors pet collars and cultist pets into elements
+  - refactor: cats are now basic pets. please report any bugs.
+  - rscadd: Added a new hostile variant of cats, "feral cats".
+  - rscadd: Added a new traitor item, "feral cat grenades". For 5 TC, you too can
+      throw a grenade at someone and make five cats maul them to death.
+  - bugfix: fixes a hard del with thrown items
+2026-03-19:
+  Isaacnml:
+  - bugfix: The syndicate has fixed their chameleon technology for engineering models
+  WhiskeyMarten:
+  - bugfix: Replaced improper marker beacons on Cardinal with the correct variant.
+2026-03-20:
+  Isaac:
+  - bugfix: Hangover trait should  stop putting you into crit anymore roundstart
+  - bugfix: Net caster projectiles no longer make you bleed
+  - bugfix: You can no longer buckle yourself to a chair that has a dense object ontop
+      of it
+  - bugfix: Cats are no longer trapped in their houses, they'll wander back out
+  - bugfix: Cats are no longer sent into cat hell if the house they were residing
+      in was destroyed
+  - balance: Labor camp teleporter console now uses security access instead of armory,
+      security officers can access it
+  - spellcheck: Added a small text on the resin mister module, hinting where upgrades
+      should be placed at
+  - code_imp: Light replacer afterattack is more readable and accepts hitting light
+      fixtures directly
+  - bugfix: You can buckle onto objects if there's a directional window on the same
+      tile again
+2026-03-22:
+  BotTierPC:
+  - rscadd: Added new lobby screen artworks courtesy of the recent art event held
+      on Beestation Forums
+  ? rkz, TiviPlus, Mothblocks, zxaber, mc-oofert, san7890, Sealed101, ChungusGamer666,
+    dragomagol, Profakos, LemonInTheDark, MTandi, GPeckman, etherware-novice, SapphicOverlord
+  : - rscadd: Mech interfaces have been converted to TGUI
+    - rscadd: Mechs no longer have RNG chances to completely ignore attacks
+    - rscadd: Mech armor will now directly add armor instead increasing deflection
+        chance
+    - rscadd: Mechs now have slots for equipping "power", "utility" and "armor" modules
+    - rscadd: Mechs now use left and right click to use the left and right weapons
+        respectively
+    - rscadd: Mech internal damage no longer requires low HP and instead now requires
+        a minimum damage in an attack to consider it
+    - rscdel: tesla power module has been removed
+    - bugfix: admin uis now work on mech equipment properly
+    - bugfix: Fixed gygax smash not logging the driver
+    - bugfix: Fixed mechs being punched using power but punching as a mech not using
+        power
+    - bugfix: Fixed mechs not taking damage from mech punches if punched while having
+        no power
+    - bugfix: Fixed weapon damage types only being respected for mech punches sometimes
+    - bugfix: Fixed toxins mech damage mode playing sounds on punches despite doing
+        nothing
+    - admin: mech punches will now ALWAYS be logged, even against objects
+    - refactor: Refactored mech radio into a utility module, adding extra slot to
+        all mechs
+    - refactor: Refactored mech air tank into a utility module with an air pump, adding
+        extra slot to all mechs
+    - refactor: Refactored mech cabin air - there is now a button to seal or unseal
+        cabin to make it airtight or exchanging gases with the environment
+    - refactor: Removed mech maintenance UI Access is set in mech UI, and parts are
+        ejected with a crowbar
+    - rscadd: Mech now has wires and can be hacked
+    - rscadd: Roboticists now can see suit and mech wires
+    - rscadd: Mechs now require manipulator stock part and it affects movement power
+        usage instead of scanning module
+    - rscadd: Scanning module absence doesnt block mech movement and hides some UI
+        data instead.
+    - rscadd: Hitting mech with ID card now toggles ID lock on/off if the card has
+        required access
+    - bugfix: Fixed concealed weapon bay not being concealed on mech examine
+    - bugfix: Fixed mech radio not changing frequency
+    - bugfix: Fixed mech launcher type weapons ignoring specified cooldown
+    - bugfix: Fixed mech launcher type weapons not using specified power amount
+    - bugfix: Fixed mech temperature regulator ignoring gas heat capacity
+    - bugfix: Fixed mech stopping processing other things while not heating internal
+        air
+    - bugfix: Fixed mech being able to leave transit tube in transit
+    - bugfix: Fixed mech internal damage flags working incorrectly
+    - bugfix: Fixed Gygax leg overloading being useless
+    - bugfix: Fixed mechs ignoring their stock parts on creation. Syndicate mechs
+        now stronger against lasers and consume less energy on move. Upgrading from
+        tier 1 to tier 2 doesn't make mech consume MORE energy than before the upgrade.
+    - balance: Rebalanced mech energy drain with part upgrades. Base energy drain
+        reduced by 50%, 33%, 25% with upgrades and applies to movement (manipulator
+        rating), phasing, punching, light (Capacitor rating).
+    - balance: Hydraulic clamp now can force open airlocks
+    - balance: Made mech RCS pack consume reasonable amount of gas
+    - code_imp: Fixed some other minor bugs and made some minor changes in the mech
+        code
+    - rscadd: Mechs now have a weapons safety, which can be toggled with the Middle
+        Mouse button. Don't worry, it defaults to off.
+    - rscadd: All mechs now use the mouse reticle, and the reticle is disabled when
+        weapons safety is turned on.
+    - bugfix: AIs have had their mech abilities resolved. With weapons safety off,
+        equipment is used. With weapons safety on, AI clicks are used.
+    - bugfix: Fixes getting AIs with cores getting gibbed if their mech theyre controlling
+        is destroyed
+    - refactor: un-nested and removed the working, medical, and combat mech subtypes.
+        Merged vars into parent mech type.
+    - balance: The Mecha Extinguisher equipment is now classified as utility.
+    - balance: The Mecha Extinguisher now puts out fires in a 3x3 square (centered
+        on the mech). However, it also only has five uses now. Save it for emergencies!
+    - rscadd: completely overhauls mech construction code. It will now use balloon
+        alerts, and always show next steps. No more wiki needed.
+    - refactor: flick_overlay is an atom proc
+    - balance: mech wire panels can no longer be accessed while the mech is occupied
+    - balance: mech equipment attachment delays only apply to occupied mechs
+2026-03-26:
+  Rukofamicom:
+  - bugfix: honey now works as intended again healing a moderately high amount of
+      damage while also providing a moderately high amount of nutrition. It will no
+      longer send you into glycemic shock from a single honeycomb, but you can still
+      expect to get fat if you eat a few in a short span of time.
+  TsunamiAnt:
+  - balance: Made the NPS slightly worse against armor. Finally.
+  - refactor: Armor penetration calculations are now based on a multiplicative model.
+      Nothing should have changed from this.
+2026-03-30:
+  Tsar-Salat:
+  - bugfix: fixes some instances of mobs not handling fed food correctly
+  - bugfix: fixes some instances of simple_animals not handling buckling-to correctly
+  mrmanlikesbt:
+  - bugfix: Fixed a flaky mecha_damage unit test
+  mrmanlikesbt, san7890, Inari-Whitebear:
+  - code_imp: Removed the unused BEING_SHOCKED obj_flag
+  - code_imp: Moved CONDUCT_1 to a CONDUCTS_ELECTRICITY obj_flag
+  - code_imp: TESLA_IGNORE_1 has been replaced with TRAIT_TESLA_SHOCKIMMUNE
+2026-03-31:
+  TsunamiAnt, Absolucy, TheCarnalest, mrmanlikesbt:
+  - rscadd: 'Added new vampire abilities and mechanics:'
+  - rscadd: Added sol damage, mitigated by being in a locker, coffin, or maints.
+  - rscadd: Added a humanity system to vampires.
+  - rscadd: Added Princes and Scourges to vampires. Vote now, for your new Prince-ident.
+  - tweak: Vampires now level disciplines not powers, and all the powers adjust with
+      the disciplines.
+  - balance: Vampires now need to drink from other players to be able to level up.
+  - balance: Touched like, all the vampire powers. All of them.
+  - refactor: Completely redid how the entire vampire antagonist is organized internally,
+      now based on disciplines.
+  - admin: Added new vampire logging entries for admin visibility. Specifically command
+      ability stuff is important.
+  - admin: Added more vampire antag admin tools and configuration.
+  r1ks-iwnl:
+  - bugfix: Fixed blood splatters spawning from a mob contained in an object.

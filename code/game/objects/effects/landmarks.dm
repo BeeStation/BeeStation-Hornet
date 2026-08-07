@@ -10,7 +10,7 @@
 /obj/effect/landmark/singularity_act()
 	return
 
-/obj/effect/landmark/singularity_pull()
+/obj/effect/landmark/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark)
@@ -64,6 +64,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/janitor
 	name = "Janitor"
 	icon_state = "Janitor"
+
+/obj/effect/landmark/start/prisoner
+	name = "Prisoner"
+	icon_state = "prisoner"
+	jobspawn_override = TRUE
+	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/cargo_technician
 	name = "Cargo Technician"
@@ -198,7 +204,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/ai/after_round_start()
 	if(latejoin_active && !used)
-		new /obj/structure/AIcore/latejoin_inactive(loc)
+		new /obj/structure/ai_core/latejoin_inactive(loc)
 	return ..()
 
 /obj/effect/landmark/start/ai/secondary
@@ -217,10 +223,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
-	var/datum/job/J = SSjob.GetJob(job)
+	var/datum/job/J = SSjob.get_job(job)
 	J.total_positions += 1
-	J.spawn_positions += 1
-	SSjob.job_manager_blacklisted -= J.title
+	J.job_flags &= ~JOB_CANNOT_OPEN_SLOTS
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
@@ -252,26 +257,32 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/depsec
 	name = "department_sec"
 	icon_state = "Security Officer"
+	/// What department this spawner is for
+	var/department
 
 /obj/effect/landmark/start/depsec/Initialize(mapload)
 	. = ..()
-	GLOB.department_security_spawns += src
+	LAZYADDASSOCLIST(GLOB.department_security_spawns, department, src)
 
 /obj/effect/landmark/start/depsec/Destroy()
-	GLOB.department_security_spawns -= src
+	LAZYREMOVEASSOC(GLOB.department_security_spawns, department, src)
 	return ..()
 
 /obj/effect/landmark/start/depsec/supply
 	name = "supply_sec"
+	department = SEC_DEPT_SUPPLY
 
 /obj/effect/landmark/start/depsec/medical
 	name = "medical_sec"
+	department = SEC_DEPT_MEDICAL
 
 /obj/effect/landmark/start/depsec/engineering
 	name = "engineering_sec"
+	department = SEC_DEPT_ENGINEERING
 
 /obj/effect/landmark/start/depsec/science
 	name = "science_sec"
+	department = SEC_DEPT_SCIENCE
 
 //Antagonist spawns
 
@@ -325,18 +336,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/latejoin/Initialize(mapload)
 	..()
 	SSjob.latejoin_trackers += loc
-	return INITIALIZE_HINT_QDEL
-
-/obj/effect/landmark/prisonspawn
-	name = "prisonspawn"
-	icon_state = "error"
-	/* Milviu's sin
-	icon_state = "prison_spawn"
-	*/
-
-/obj/effect/landmark/prisonspawn/Initialize(mapload)
-	..()
-	GLOB.prisonspawn += loc
 	return INITIALIZE_HINT_QDEL
 
 //space carps, magicarps, lone ops, slaughter demons, possibly revenants spawn here
@@ -514,18 +513,62 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 /obj/effect/spawner/hangover_spawn
 	name = "hangover spawner"
 
-/obj/effect/spawner/hangover_spawn/Initialize(mapload)
-	..()
-	if(prob(60))
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-	if(prob(70))
-		var/bottle_count = pick(10;1, 5;2, 2;3)
-		for(var/index in 1 to bottle_count)
-			var/obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty/B = new(get_turf(src))
-			B.pixel_x += rand(-6, 6)
-			B.pixel_y += rand(-6, 6)
-	return INITIALIZE_HINT_QDEL
+	/// A list of everything this hangover spawn created as part of the hangover station trait
+	var/list/hangover_debris = list()
 
+	/// A list of everything this hangover spawn created as part of the birthday station trait
+	var/list/party_debris = list()
+
+/obj/effect/spawner/hangover_spawn/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/spawner/hangover_spawn/LateInitialize()
+	. = ..()
+	// Birthday
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
+		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src))
+		var/list/bonus_confetti = GLOB.alldirs
+		for(var/confettis in bonus_confetti)
+			var/party_turf_to_spawn_on = get_step(src, confettis)
+			if(!isopenturf(party_turf_to_spawn_on))
+				continue
+			var/dense_object = FALSE
+			for(var/atom/content in party_turf_to_spawn_on)
+				if(content.density)
+					dense_object = TRUE
+					break
+			if(dense_object)
+				continue
+			if(prob(50))
+				party_debris += new /obj/effect/decal/cleanable/confetti(party_turf_to_spawn_on)
+			if(prob(10))
+				party_debris += new /obj/item/toy/balloon(party_turf_to_spawn_on)
+	// Hangover
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		if(prob(60))
+			hangover_debris += new /obj/effect/decal/cleanable/vomit(get_turf(src))
+		if(prob(70))
+			var/bottle_count = rand(1, 3)
+			for(var/index in 1 to bottle_count)
+				var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
+				if(!isopenturf(turf_to_spawn_on))
+					continue
+				var/dense_object = FALSE
+				for(var/atom/content in turf_to_spawn_on.contents)
+					if(content.density)
+						dense_object = TRUE
+						break
+				if(dense_object)
+					continue
+				hangover_debris += new /obj/item/reagent_containers/cup/glass/bottle/beer/almost_empty(turf_to_spawn_on)
+
+	qdel(src)
+
+/obj/effect/spawner/hangover_spawn/Destroy()
+	hangover_debris = null
+	party_debris = null
+	return ..()
 
 //Landmark that creates destinations for the navigate verb to path to
 /obj/effect/landmark/navigate_destination
@@ -537,8 +580,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 	/// If you want to use a dedicated name for a specific area, set this value in DMM.
 	/// example) navigation_id = "Bartender's storage"
 	var/navigation_id
-
-	// Note: if multiple area needs a standard name, use "navigation_area_name"
 
 /obj/effect/landmark/navigate_destination/Initialize(mapload)
 	. = ..()
@@ -553,7 +594,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/landmark/ruin)
 			stack_trace("The navigation landmark failed to get an area.")
 			qdel(src)
 			return
-		navigation_id = linked_area.get_navigation_area_name()
+		navigation_id = linked_area.name
 	if(!navigation_id)
 		navigation_id = "Unnamed area"
 

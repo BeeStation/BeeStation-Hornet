@@ -13,11 +13,10 @@
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
-			cell = W
+			set_cell(W)
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [src.name]!",\
 				span_notice("You insert the power cell."))
-			chargecount = 0
 			update_appearance()
 	else if (W.GetID())
 		togglelock(user)
@@ -94,8 +93,7 @@
 				return
 			var/obj/item/stock_parts/cell/crap/empty/C = new(src)
 			C.forceMove(src)
-			cell = C
-			chargecount = 0
+			set_cell(C)
 			user.visible_message(span_notice("[user] fabricates a weak power cell and places it into [src]."), \
 			span_warning("Your [P.name] whirs with strain as you create a weak power cell and place it into [src]!"))
 			update_appearance()
@@ -147,54 +145,104 @@
 
 	if(isethereal(user))
 		var/mob/living/carbon/human/H = user
-		var/datum/species/ethereal/E = H.dna.species
-		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-		if((E.drain_time < world.time) && LAZYACCESS(modifiers, RIGHT_CLICK) && stomach)
+		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(!stomach)
+			return
+		// Maximum values for percentage calculation
+		var/max_hunger = NUTRITION_LEVEL_FED       // typically 600
+		var/max_apc_charge = cell ? cell.maxcharge : 100
+
+		// Continuous loop
+		var/keep_going = TRUE
+		while(keep_going)
+			// Check if user is still in the same tile and alive/conscious
+			if(QDELETED(H) || H.stat != CONSCIOUS || get_dist(H, src) > 1)
+				keep_going = FALSE
+				break
+
+			if(H.combat_mode)  // Drain APC → gain hunger
+				// ethereals can't drain APCs under half charge, this is so that they are forced to look to alternative power sources if the station is running low
+				if(!cell || cell.charge < max_apc_charge * 0.5)
+					to_chat(H, span_warning("The APC's inner circuitry prevent you from draining anymore."))
+					break
+				// Check if Ethereal is already at max hunger (prevent overflow)
+				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
+					to_chat(H, span_warning("You are already fully charged! Cannot drain more."))
+					break
+			else  // Give power to APC → lose hunger
+				// Need at least 10% Ethereal hunger to give
+				if(H.nutrition < max_hunger * 0.1)
+					to_chat(H, span_warning("You don't have enough energy to transfer."))
+					break
+				// APC must have room for 10% more charge
+				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
+					to_chat(H, span_warning("The APC cannot accept more charge."))
+					break
+
+			// Start the transfer
 			if(H.combat_mode)
-				if(cell.charge <= (cell.maxcharge / 2)) // ethereals can't drain APCs under half charge, this is so that they are forced to look to alternative power sources if the station is running low
-					to_chat(H, "<span class='warning'>The APC's syphon safeties prevent you from draining power!</span>")
-					return
-				E.drain_time = world.time + APC_DRAIN_TIME
-				to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
-				while(do_after(user, APC_DRAIN_TIME, target = src))
-				E.drain_time = world.time + APC_DRAIN_TIME
-				if(do_after(user, APC_DRAIN_TIME, target = src))
-					if(cell.charge <= (cell.maxcharge / 2))
-						return
-					if(istype(stomach))
-						to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
-						stomach.adjust_charge(APC_POWER_GAIN)
-						cell.charge -= APC_POWER_GAIN
-					else
-						to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
-				return
+				to_chat(H, span_notice("You start draining energy from the APC."))
 			else
-				if(cell.charge >= cell.maxcharge - APC_POWER_GAIN)
-					to_chat(H, "<span class='warning'>The APC can't receive anymore power!</span>")
-					return
-				if(stomach.charge < APC_POWER_GAIN)
-					to_chat(H, "<span class='warning'>Your charge is too low!</span>")
-					return
-				E.drain_time = world.time + APC_DRAIN_TIME
-				to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-				if(do_after(user, APC_DRAIN_TIME, target = src))
-					if((cell.charge >= (cell.maxcharge - APC_POWER_GAIN)) || (stomach.charge < APC_POWER_GAIN))
-						to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
-						return
-					if(istype(stomach))
-						to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
-						stomach.adjust_charge(-APC_POWER_GAIN)
-						cell.charge += APC_POWER_GAIN
-					else
-						to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
-				return
+				to_chat(H, span_notice("You start transferring some of your energy to the APC."))
+
+			// Perform the do_after (user must stand still for APC_DRAIN_TIME)
+			if(!do_after(H, APC_DRAIN_TIME, target = src, progress = TRUE))
+				to_chat(H, span_warning("You stop interacting with the APC."))
+				break
+
+			// Small chance of electrocution during the process (15%)
+			if(prob(15))
+				H.visible_message(span_danger("[H] gets shocked by [src]!"), \
+								  span_userdanger("You are jolted by an electrical discharge from [src]!"))
+				playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE)
+				do_sparks(3, TRUE, src)
+				H.electrocute_act(rand(5, 15), src, siemens_coeff = 0.5, flags = SHOCK_NOGLOVES)
+				// Shock does not interrupt the transfer; it's just an additional hazard.
+
+			// Re-check conditions after the delay (they might have changed)
+			if(H.combat_mode)  // Drain
+				if(!cell || cell.charge < max_apc_charge * 0.5)
+					to_chat(H, span_warning("The APC no longer has enough charge to drain."))
+					break
+				if(H.nutrition >= max_hunger - (max_hunger * 0.1))
+					to_chat(H, span_warning("You are already fully charged!"))
+					break
+				// Perform drain
+				var/hunger_gain = max_hunger * 0.1
+				H.adjust_nutrition(hunger_gain)
+				cell.charge = max(0, cell.charge - (max_apc_charge * 0.1))
+				to_chat(H, span_notice("You drain energy from the APC."))
+				H.balloon_alert(H, "Drained APC (+10% energy)")
+				playsound(src, 'sound/machines/defib_charge.ogg', 30, TRUE)
+				update_icon()
+			else  // Give
+				if(H.nutrition < max_hunger * 0.1)
+					to_chat(H, span_warning("You no longer have enough energy to transfer."))
+					break
+				if(!cell || cell.charge >= max_apc_charge - (max_apc_charge * 0.1))
+					to_chat(H, span_warning("The APC cannot accept more charge."))
+					break
+				// Perform give
+				var/hunger_loss = max_hunger * 0.1
+				H.adjust_nutrition(-hunger_loss)
+				cell.charge = min(max_apc_charge, cell.charge + (max_apc_charge * 0.1))
+				to_chat(H, span_notice("You transfer some of your energy to the APC."))
+				H.balloon_alert(H, "Transferred energy (+10% APC)")
+				playsound(src, 'sound/machines/defib_charge.ogg', 30, TRUE)
+				update_icon()
+
+			// Small delay to prevent infinite loop if something fails
+			sleep(1) // Let other processes run
+
+		return
 
 	if(opened && (!issilicon(user)))
 		if(cell)
 			user.visible_message("[user] removes \the [cell] from [src]!",span_notice("You remove \the [cell]."))
-			user.put_in_hands(cell)
-			cell.update_appearance()
-			src.cell = null
+			var/obj/item/stock_parts/cell/removed_cell = cell
+			set_cell(null)
+			user.put_in_hands(removed_cell)
+			removed_cell.update_appearance()
 			charging = APC_NOT_CHARGING
 			src.update_appearance()
 		return
@@ -212,6 +260,57 @@
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
+
+/obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
+	try_rped_swap(replacer_tool, user)
+	return TRUE
+
+/obj/machinery/power/apc/proc/try_rped_swap(obj/item/storage/part_replacer/replacer, mob/living/user)
+	var/is_bluespace = istype(replacer, /obj/item/storage/part_replacer/bluespace)
+
+	if(!opened && !is_bluespace)
+		to_chat(user, span_warning("You need to open [src]'s cover first!"))
+		return
+
+	if(machine_stat & MAINT)
+		to_chat(user, span_warning("There is no connector for a power cell!"))
+		return
+
+	if(replacer.works_from_distance)
+		to_chat(user, display_parts(user))
+
+	var/current_rating = cell?.rating || 0
+	var/obj/item/stock_parts/cell/best_cell
+
+	for(var/obj/item/stock_parts/cell/candidate in replacer)
+		if(candidate.rating <= current_rating)
+			continue
+		if(!best_cell || candidate.rating > best_cell.rating)
+			best_cell = candidate
+		else if(candidate.rating == best_cell.rating && candidate.charge > best_cell.charge)
+			best_cell = candidate // We choose the best one and the best one that is fully charged if there is one
+
+	if(!best_cell)
+		return
+
+	if(is_bluespace && (best_cell.rigged || best_cell.corrupted))
+		best_cell.charge = best_cell.maxcharge
+		best_cell.explode() // bomba (reused from regular corrupted RPED exchange)
+		return
+
+	var/obj/item/stock_parts/cell/old_cell = cell
+	set_cell(best_cell)
+	best_cell.forceMove(src)
+	cell.update_appearance()
+
+	if(old_cell)
+		old_cell.forceMove(replacer)
+
+	charging = APC_NOT_CHARGING
+	update_appearance()
+
+	to_chat(user, span_notice("[capitalize("[old_cell || "empty slot"]")] replaced with [best_cell]."))
+	replacer.play_rped_sound()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(IsAdminGhost(user))

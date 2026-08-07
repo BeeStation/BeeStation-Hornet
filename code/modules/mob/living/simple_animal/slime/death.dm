@@ -13,7 +13,7 @@
 				qdel(R)
 			var/datum/action/innate/slime/evolve/E = new
 			E.Grant(src)
-			revive(full_heal = 1)
+			revive(HEAL_ALL)
 			regenerate_icons()
 			update_name()
 			return
@@ -25,9 +25,6 @@
 	set_stat(DEAD)
 	cut_overlays()
 
-	if(SSticker.mode)
-		SSticker.mode.check_win()
-
 	return ..(gibbed)
 
 /mob/living/simple_animal/slime/gib()
@@ -36,7 +33,7 @@
 
 
 /mob/living/simple_animal/slime/Destroy()
-	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/X as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/camera_advanced/xenobio))
 		if(src in X.stored_slimes)
 			X.stored_slimes -= src
 	if(stat != DEAD)

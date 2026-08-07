@@ -31,3 +31,9 @@
 #define COMSIG_SWOOP_INVULNERABILITY_STARTED "mob_swoop_invulnerability_started"
 /// From base of /datum/action/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
 #define COMSIG_LAVA_ARENA_FAILED "mob_lava_arena_failed"
+
+/// From /datum/action/cooldown/manual_heart/Activate(): ()
+#define COMSIG_HEART_MANUAL_PULSE "heart_manual_pulse"
+
+///Called when a changeling uses its transform ability (source = carbon), from /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)
+#define COMSIG_CHANGELING_TRANSFORM "changeling_transform"

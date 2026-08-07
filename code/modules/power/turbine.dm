@@ -275,7 +275,7 @@
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
 	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["online"] = compressor?.starter
-	data["power"] = display_power(compressor?.turbine?.lastgen)
+	data["power"] = display_power_persec(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
 	data["temp"] = compressor?.gas_contained.temperature
 	return data
@@ -319,15 +319,15 @@
 
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	if(id)
-		for(var/obj/machinery/power/compressor/C in GLOB.machines)
+		for(var/obj/machinery/power/compressor/C as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/compressor))
 			if(C.comp_id == id)
 				compressor = C
 				return
 	// Couldn't find compressor, time to do search indiscriminately
 	compressor = locate(/obj/machinery/power/compressor) in range(7, src)
 
-/obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TurbineComputer")
@@ -341,7 +341,7 @@
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
 	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["online"] = compressor?.starter
-	data["power"] = display_power(compressor?.turbine?.lastgen)
+	data["power"] = display_power_persec(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
 	data["temp"] = compressor?.gas_contained.temperature
 	return data

@@ -3,14 +3,18 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
-	status = ORGAN_ROBOTIC
-	organ_flags = NONE
+	organ_flags = ORGAN_ROBOTIC // weird?
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
-	var/cooldown_low = 300
-	var/cooldown_high = 300
-	var/next_activation = 0
-	var/uses // -1 For infinite
+
+	/// The minimum time between activations
+	var/cooldown_low = 30 SECONDS
+	/// The maximum time between activations
+	var/cooldown_high = 30 SECONDS
+	/// The cooldown for activations
+	COOLDOWN_DECLARE(activation_cooldown)
+	/// The number of remaining uses this gland has.
+	var/uses = 0 // -1 For infinite
 	var/human_only = FALSE
 	var/active = FALSE
 
@@ -24,7 +28,7 @@
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
-	if((user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING)) || isobserver(user))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
@@ -36,20 +40,20 @@
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1
-	next_activation = world.time + rand(cooldown_low,cooldown_high)
+
+	owner?.mind?.add_antag_datum(/datum/antagonist/abductee)
+
+	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
-	var/image/holder = owner.hud_list[GLAND_HUD]
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(active_mind_control)
-		holder.icon_state = "hudgland_active"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_active")
 	else if(mind_control_uses)
-		holder.icon_state = "hudgland_ready"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_ready")
 	else
-		holder.icon_state = "hudgland_spent"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_spent")
 
 /obj/item/organ/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
@@ -59,7 +63,7 @@
 	to_chat(owner, "[span_mindcontrol("[command]")]")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
-	deadchat_broadcast(span_deadsay("[span_name("[user]")] sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
+	deadchat_broadcast(" sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]", span_name("[user]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
 	update_gland_hud()
 	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command
@@ -72,38 +76,43 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	active = 0
+/obj/item/organ/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE, pref_load = FALSE)
+	. = ..()
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
+	gland_owner.mind?.remove_antag_datum(/datum/antagonist/abductee)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.remove_from_hud(owner)
+	hud.remove_atom_from_hud(gland_owner)
 	clear_mind_control()
-	..()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
+	. = ..()
+	if(!.)
+		return
+
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(owner)
+	hud.add_atom_to_hud(gland_owner)
 	update_gland_hud()
 
-/obj/item/organ/heart/gland/on_life()
+/obj/item/organ/heart/gland/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
-	if(next_activation <= world.time)
+	if(COOLDOWN_FINISHED(src, activation_cooldown))
 		activate()
 		uses--
-		next_activation  = world.time + rand(cooldown_low,cooldown_high)
+		COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/heart/gland/proc/activate()
 	return
@@ -132,13 +141,15 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/gland/slime/on_insert(mob/living/carbon/gland_owner)
+	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+	. = ..()
+	if(!owner) // Add null check
+		return
 	owner.faction -= FACTION_SLIME
 	owner.remove_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
@@ -172,10 +183,10 @@
 				H.Stun(50)
 			if(2)
 				to_chat(H, span_warning("You hear an annoying buzz in your head."))
-				H.confused += 15
+				H.adjust_confusion(15 SECONDS)
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			if(3)
-				H.hallucination += 60
+				H.adjust_hallucinations(120 SECONDS)
 
 /obj/item/organ/heart/gland/pop
 	true_name = "anthropmorphic translocator"
@@ -189,7 +200,7 @@
 
 /obj/item/organ/heart/gland/pop/activate()
 	to_chat(owner, span_notice("You feel unlike yourself."))
-	randomize_human(owner)
+	randomize_human(owner, TRUE)
 	var/species = pick(list(/datum/species/human, /datum/species/lizard, /datum/species/moth, /datum/species/fly))
 	owner.set_species(species)
 
@@ -203,8 +214,8 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/heart/gland/ventcrawling/activate()
-	to_chat(owner, span_notice("You feel very stretchy."))
-	owner.ventcrawler = VENTCRAWLER_ALWAYS
+	to_chat(owner, span_notice("You feel very stretchy. You could probably fit in that vent, if you tried..."))
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 /obj/item/organ/heart/gland/viral
 	true_name = "contamination incubator"
@@ -299,13 +310,13 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/heart/gland/electric/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
+/obj/item/organ/heart/gland/electric/on_insert(mob/living/carbon/gland_owner)
+	. = ..()
+	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/heart/gland/electric/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
-	..()
+/obj/item/organ/heart/gland/electric/on_remove(mob/living/carbon/gland_owner)
+	. = ..()
+	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
 /obj/item/organ/heart/gland/electric/activate()
 	owner.visible_message(span_danger("[owner]'s skin starts emitting electric arcs!"),\
@@ -314,7 +325,7 @@
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/heart/gland/electric/proc/zap()
-	tesla_zap(owner, 4, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN)
+	tesla_zap(owner, 4, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
 /obj/item/organ/heart/gland/chem
@@ -334,7 +345,7 @@
 /obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)
 	owner.reagents.add_reagent(chem_to_add, 2)
-	owner.adjustToxLoss(-2, TRUE, TRUE)
+	owner.adjustToxLoss(-2, forced = TRUE)
 	..()
 
 /obj/item/organ/heart/gland/plasma
@@ -356,5 +367,5 @@
 	owner.visible_message(span_danger("[owner] vomits a cloud of plasma!"))
 	var/turf/open/T = get_turf(owner)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=50;TEMP=[T20C]")
+		T.atmos_spawn_air("[GAS_PLASMA]=50;TEMP=[T20C]")
 	owner.vomit()

@@ -2,10 +2,11 @@
 
 /atom/movable/screen/pai
 	icon = 'icons/hud/screen_pai.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/required_software
 
 /atom/movable/screen/pai/Click()
-	if(isobserver(usr) || usr.incapacitated())
+	if(isobserver(usr) || usr.incapacitated)
 		return FALSE
 	var/mob/living/silicon/pai/pAI = usr
 	if(required_software && !pAI.software.Find(required_software))
@@ -276,6 +277,6 @@
 	var/mob/living/silicon/pai/owner = mymob
 	for(var/atom/movable/screen/pai/button in static_inventory)
 		if(button.required_software)
-			button.color = owner.software.Find(button.required_software) ? null : "#808080"
+			button.color = owner.software.Find(button.required_software) ? null : COLOR_GRAY
 
 #undef PAI_MISSING_SOFTWARE_MESSAGE

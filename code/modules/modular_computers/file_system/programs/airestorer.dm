@@ -2,15 +2,14 @@
 	filename = "aidiag"
 	filedesc = "AI Integrity Restorer"
 	category = PROGRAM_CATEGORY_ROBO
-	program_icon_state = "generic"
+	program_icon_state = "ai_restorer_off"
 	extended_desc = "This program is capable of reconstructing damaged AI systems. Requires direct AI connection via intellicard slot."
 	size = 12
-	requires_ntnet = FALSE
-	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
-	transfer_access = list(ACCESS_HEADS)
-	available_on_ntnet = TRUE
+	transfer_access = list(ACCESS_HEADS, ACCESS_ROBOTICS, ACCESS_RESEARCH)
 	tgui_id = "NtosAiRestorer"
 	program_icon = "laptop-code"
+	hardware_requirement = MC_AI
+	power_consumption = 100 WATT
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
@@ -73,14 +72,18 @@
 		ai_slot.locked = FALSE
 		restoring = FALSE
 		return
-	ai_slot.locked =TRUE
-	A.adjustOxyLoss(-1, 0)
-	A.adjustFireLoss(-1, 0)
-	A.adjustToxLoss(-1, 0)
-	A.adjustBruteLoss(-1, 0)
+	ai_slot.locked = TRUE
+	A.adjustOxyLoss(-5, FALSE)
+	A.adjustFireLoss(-5, FALSE)
+	A.adjustBruteLoss(-5, FALSE)
+
+	// Please don't forget to update health, otherwise the below if statements will probably always fail.
 	A.updatehealth()
+
 	if(A.health >= 0 && A.stat == DEAD)
 		A.revive()
+		cardhold.update_appearance()
+
 	// Finished restoring
 	if(A.health >= 100)
 		ai_slot.locked = FALSE
@@ -98,6 +101,9 @@
 	data["ejectable"] = TRUE
 	data["AI_present"] = FALSE
 	data["error"] = null
+	program_icon_state = "ai_restorer_off"
+	update_computer_icon()
+
 	if(!aicard)
 		data["error"] = "Please insert an intelliCard."
 	else
@@ -114,6 +120,9 @@
 				data["health"] = (AI.health + 100) / 2
 				data["isDead"] = AI.stat == DEAD
 				data["laws"] = AI.laws.get_law_list(include_zeroth = 1)
+				program_icon_state = "ai_restorer"
+				update_computer_icon()
+
 
 	return data
 

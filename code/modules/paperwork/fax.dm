@@ -63,11 +63,8 @@
 
 /obj/machinery/fax/Initialize(mapload)
 	. = ..()
-	GLOB.fax_machines += src
-	if(!fax_id)
-		fax_id = SSnetworks.assign_random_name()
-	if(!fax_name)
-		fax_name = "Unregistered Fax Machine " + fax_id
+	fax_id ||= assign_random_name()
+	fax_name ||= "Unregistered Fax Machine [fax_id]"
 	wires = new /datum/wires/fax(src)
 
 	radio = new(src)
@@ -79,7 +76,7 @@
 	// Mapping Error checking
 	if(!mapload)
 		return
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if(fax == src) // skip self
 			continue
 		if(fax.fax_name == fax_name)
@@ -87,7 +84,6 @@
 			CRASH("Duplicate fax_name [fax.fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
 
 /obj/machinery/fax/Destroy()
-	GLOB.fax_machines -= src
 	QDEL_NULL(loaded_item_ref)
 	QDEL_NULL(wires)
 	QDEL_NULL(radio)
@@ -205,7 +201,7 @@
 		user.visible_message(span_notice("[user] cleans \the [src]."), span_notice("You clean \the [src]."))
 		jammed = FALSE
 		return TRUE
-	if(istype(item, /obj/item/soap) || istype(item, /obj/item/reagent_containers/cup/rag))
+	if(istype(item, /obj/item/soap) || istype(item, /obj/item/rag))
 		var/cleanspeed = 50
 		if(istype(item, /obj/item/soap))
 			var/obj/item/soap/used_soap = item
@@ -233,6 +229,8 @@
  * This list expands if you snip a particular wire.
  */
 /obj/machinery/fax/proc/is_allowed_type(obj/item/item)
+	if(item?.GetComponent(/datum/component/xenoartifact))
+		return FALSE
 	if(is_type_in_list(item, allowed_types))
 		return TRUE
 	if(!allow_exotic_faxes)
@@ -249,7 +247,7 @@
 /obj/machinery/fax/ui_data(mob/user)
 	var/list/data = list()
 	//Record a list of all existing faxes.
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if(fax.fax_id == fax_id) //skip yourself
 			continue
 		if(!fax.visible_to_network) //skip invisible fax machines
@@ -319,7 +317,7 @@
 			log_fax(fax_paper, params["id"], params["name"])
 			loaded_item_ref = null
 
-			for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+			for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 				if(fax.radio_channel == RADIO_CHANNEL_CENTCOM)
 					fax.receive(fax_paper, fax_name)
 					break
@@ -354,7 +352,7 @@
  * * id - The network ID of the fax machine you want to send the item to.
  */
 /obj/machinery/fax/proc/send(obj/item/loaded, id)
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if(fax.fax_id != id)
 			continue
 		if(!fax.visible_to_network) //skip fax machines meant to be invisible
@@ -481,7 +479,7 @@
  * * new_fax_name - The text of the name to be checked for a match.
  */
 /obj/machinery/fax/proc/fax_name_exist(new_fax_name)
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		if (fax.fax_name == new_fax_name)
 			return TRUE
 	return FALSE
@@ -512,7 +510,7 @@
 /obj/machinery/fax/centcom/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_cent
+	radio.keyslot = /obj/item/encryptionkey/headset_cent
 	radio.recalculateChannels()
 
 /obj/machinery/fax/bridge
@@ -523,7 +521,7 @@
 /obj/machinery/fax/bridge/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_com
+	radio.keyslot = /obj/item/encryptionkey/headset_com
 	radio.recalculateChannels()
 
 /obj/machinery/fax/cargo
@@ -534,7 +532,7 @@
 /obj/machinery/fax/cargo/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
+	radio.keyslot = /obj/item/encryptionkey/headset_cargo
 	radio.recalculateChannels()
 
 /obj/machinery/fax/eng
@@ -545,7 +543,7 @@
 /obj/machinery/fax/eng/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_eng
+	radio.keyslot = /obj/item/encryptionkey/headset_eng
 	radio.recalculateChannels()
 
 /obj/machinery/fax/law
@@ -556,7 +554,7 @@
 /obj/machinery/fax/law/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_srvsec
+	radio.keyslot = /obj/item/encryptionkey/headset_srvsec
 	radio.recalculateChannels()
 
 /obj/machinery/fax/med
@@ -567,7 +565,7 @@
 /obj/machinery/fax/med/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_med
+	radio.keyslot = /obj/item/encryptionkey/headset_med
 	radio.recalculateChannels()
 
 /obj/machinery/fax/sci
@@ -578,7 +576,7 @@
 /obj/machinery/fax/sci/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.keyslot = /obj/item/encryptionkey/headset_sci
 	radio.recalculateChannels()
 
 /obj/machinery/fax/sec
@@ -589,7 +587,7 @@
 /obj/machinery/fax/sec/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sec
+	radio.keyslot = /obj/item/encryptionkey/headset_sec
 	radio.recalculateChannels()
 
 /obj/machinery/fax/service
@@ -600,5 +598,5 @@
 /obj/machinery/fax/service/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = new /obj/item/encryptionkey/headset_service
+	radio.keyslot = /obj/item/encryptionkey/headset_service
 	radio.recalculateChannels()

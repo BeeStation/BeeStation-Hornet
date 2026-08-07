@@ -104,7 +104,7 @@
 	generate_glands()
 
 /obj/machinery/smartfridge/abductor/proc/generate_glands()
-	for(var/each as() in shuffle(subtypesof(/obj/item/organ/heart/gland)))
+	for(var/each as anything in shuffle(subtypesof(/obj/item/organ/heart/gland)))
 		for(var/i in 1 to rand(2, 7))
 			var/obj/item/organ/heart/gland/each_gland = new each
 			each_gland.name = each_gland.true_name
@@ -140,7 +140,7 @@
 	var/obj/item/organ/heart/gland/organ = gone
 	organ.organ_flags &= ~ORGAN_FROZEN
 	organ.organ_flags &= ~ORGAN_FAILING
-	organ.setOrganDamage(-200)
+	organ.set_organ_damage(-200)
 	organ.name = initial(organ.name)
 
 /obj/machinery/smartfridge/abductor/update_icon()

@@ -1,0 +1,266 @@
+2024-12-02:
+  Dejaku51:
+  - rscadd: Added NTNet relay to runtime station
+  Programs-The-Station:
+  - tweak: Budget Constraints Clarified in the RBMK Fuel Rod Crate
+  Therealdoooc213:
+  - bugfix: alien weeds no longer hover above openspace tiles
+  - tweak: hand teleporters are no longer available via science lootdrop spawners,
+      now replaced with a portal gun
+  - rscadd: ninja dojo now has newfood oven & griddle
+  Tsar-Salat:
+  - bugfix: removes references to obsolete polycrystals
+2024-12-03:
+  ? AnturK, Mooshimi, nikothedude, lebedev, kawoppi, RunKitenzRComing, DrDiasyl, larentoun,
+    Mothblocks, jlsnow301, MrMelbert, Sadboysuss, XeonMations
+  : - bugfix: Fixed custom emotes not showing up when a person is deaf.
+    - refactor: Refactored some emote code.
+    - rscadd: People wearing a security mask now have a special deathgasp.
+    - rscadd: Added *smirk emote.
+    - rscadd: Added *sweat, which is the same as *sweatdrop.
+  ClownMoff:
+  - imageadd: 'Updates the sprites for the following drinks when poured on a glass:
+      Beer, Between the sheets, Margarita, Manly Dorf, Syndicate Bomb'
+  PowerfulBacon:
+  - tweak: Moved a cable on deltastation supermatter's APC so that 2 wires don't overlap
+      at the terminal.
+  XeonMations:
+  - balance: Eating the chef's food now provides small buffs to you.
+2024-12-04:
+  XeonMations:
+  - bugfix: Fixed food buff durations being way too long.
+2024-12-05:
+  Absolucy:
+  - bugfix: The Chat Highlights chat settings work again.
+  - bugfix: Readded the High Contrast chat toggle, which was accidentally removed,
+      although still functioning (you just couldn't change it)
+  - bugfix: Readded the Stat Tab Mode setting, albeit just under "General" settings
+      rather than its own "Stat Tab" area.
+  Absolucy, XeonMations:
+  - balance: Cluwnes can now be fixed using DNA nullifiers or genetics consoles (mutadone
+      won't work). This will also get rid of their cursed cluwne clothing, although
+      you will still need to fix the brain damage caused by the mutation. A variant
+      with the old behavior that prevents normal removal is still available for admin
+      (ab)use.
+  - tweak: Cluwne clothes now drop when cured.
+  PowerfulBacon:
+  - tweak: Turned down the volume of the heavy gunner's minigun.
+2024-12-06:
+  Marshmellow105:
+  - tweak: Ashwalker camp overhaul
+  Therealdoooc213:
+  - bugfix: trashbags no longer display baguettes on worn icon
+  XeonMations:
+  - balance: Dionae now take 5 seconds to assimilate nymphs on the ground.
+2024-12-07:
+  Geatish, dejaku51:
+  - bugfix: Changling last resort now works properly
+  Ghommie, LemonInTheDark, Kylerace, vinylspiders, MrMelbert, Fikou, AnturK, ShizCalev, OrionTheFox, XeonMations:
+  - bugfix: Gravity generator now shows repair instructions on examine
+  - rscadd: Proper functionality for upside down gravity, and high gravity situations
+  - refactor: Gravity is now event based, meaning you should have less downtime from
+      moving into a weightless area and your gravity status changing.
+  PowerfulBacon:
+  - balance: Derringer now uses the highly lethal .357 rounds.
+  - rscdel: Removes the now pointless .38 ammo from the uplink, and removes the now-unused
+      EMP .38 ammo.
+  Programs-The-Station:
+  - balance: Through Bluespace Magic, NT Engineering has removed the Shield Satellite's
+      Deploy time.
+  Therealdoooc213:
+  - tweak: ERT engi's have experimental tools now
+  XeonMations:
+  - bugfix: Fixed reagent grinders being unable to juice things.
+  rkz, ZephyrTFA, Fikou:
+  - refactor: refactored armor into subtypes.
+  - refactor: rolls permeability var into armor
+  - code_imp: unit tests against armor application
+2024-12-08:
+  PowerfulBacon:
+  - balance: Changeling armblade buffed to 30 damage
+  - balance: Changeling armor no longer slows you down
+  - balance: Teratoma and changeling armour no longer require absorbs to use.
+  - balance: Adds a limit of 2 living teratomas to changelings.
+  - balance: Teratomas will now share DNA with the person that made them, which opens
+      the way for detective work and changeling confusion counter-play.
+2024-12-09:
+  Bolgarich:
+  - soundadd: Nar'sie now plays music when it spawns in
+  Dejaku51:
+  - rscadd: Added QUICKSTART define which lets developers quickly start the round
+  - code_imp: changed genesis call folder to use ~~ instead
+  PowerfulBacon:
+  - bugfix: Fixes weapon slowdown applying while the gun is worn in a belt or backpack
+      slot.
+2024-12-10:
+  BarteG44:
+  - rscadd: Added new Alphabet decals for mapping
+  Therealdoooc213:
+  - rscadd: New emote for lizards, "swipes"
+  - soundadd: tail_swipe1.ogg & tail_swipe2.ogg
+2024-12-13:
+  Therealdoooc213:
+  - balance: brig physicians medical access has been moved into skeleton crew access.
+  - balance: brig physicians locker now spawns with 1 of every type of station medkit
+      (again)
+2024-12-14:
+  h42:
+  - bugfix: Easter bunnies place down easter eggs instead of errors again.
+2024-12-15:
+  Tsar-Salat:
+  - refactor: genericizes how turfs handle armor
+  - bugfix: fix ripley goliath armor runtime
+  - bugfix: fix armor tag examination runtime
+2024-12-16:
+  Rukofamicom:
+  - tweak: limbs are now disabled upon taking 40 damage instead of 50.
+  - balance: This means stamina weapons can be strategically used to disable limbs
+      without chest-aimed full stamcrit always being the better option.
+  - balance: This also means it is somewhat easier for sharp weapons to de-limb.
+2024-12-22:
+  BarteG44:
+  - bugfix: fixes not being able to buckle to the weight lifting machines and their
+      animations
+  - bugfix: fixes the exercised status not giving stamina damage resistance
+  - bugfix: fixes the guillotine having the wrong offset
+  - tweak: increases the amount of exercise you get from weight lifting machines
+  - rscadd: makes gym equipment constructable via the construction menu
+  PowerfulBacon:
+  - bugfix: Fixes echostation disposals resulting in random testing failures.
+  Therealdoooc213:
+  - tweak: Subtle messages, telepathy, and headset messages now show a balloon alert
+  - bugfix: you can no longer get to centcom with warped runes
+  Tsar-Salat:
+  - bugfix: fixes segmented turf textures applying to nonsegmented turfs... very ugly...
+2024-12-24:
+  BarteG44:
+  - tweak: Removes the second wire from the c4 charge
+  DeltaFire15:
+  - balance: keycard authentication devices require an ID to use.
+  - balance: IDs used to initiate / confirm keycard auth events must not be the same
+      ID.
+  PowerfulBacon:
+  - rscadd: Clients running 515 will now be able to see icons in the alt-click stat
+      panel menu.
+  Rukofamicom:
+  - balance: 'Completely overhauled dismemberment and weapon sharpness. Weapons now
+      have four levels of sharpness: Blunt, Sharp, Dismember and Easy Dismember.'
+  - balance: Blunt weapons are now only able to cause dismemberment on species that
+      have the easy dismemberment trait, all of which can easily regenerate or otherwise
+      slap their dismembered limb back into place.
+  - balance: Species with the easy dismemberment trait (Skeletons, IPCs, Oozelings)
+      have a chance equal to the damage received to lose a targetted limb as long
+      as the limb was already damaged before being struck.
+  - balance: Ordinary sharp weapons such as knives and surgical tools can only dismember
+      a dead target.
+  - balance: Large weapons such as swords, axes and chainsaws are only able to dismember
+      a limb which has already been fully disabled. This means that it will take at
+      least three hits with a fire axe to take someone's leg off.
+  - balance: Bladed energy weapons have a chance equal to their damage to dismember
+      a targetted limb regardless of how much damage it has taken, in addition to
+      being guaranteed to dismember a limb that has been fully disabled by damage.
+      The nightmare's light eater is the only non-energy weapon in this group right
+      now.
+  - balance: Mobs cannot be decapitated through the simplified mechanics while they
+      are fully conscious - they must at minimum be asleep or in crit in order for
+      dismemberment to apply when targetting someone's head for balance reasons.
+  Therealdoooc213:
+  - tweak: the blackbox is now a large item
+  XeonMations:
+  - bugfix: Fixed AIs being unable to select a crew member as a hologram.
+  - refactor: TGUI-ified the AI hologram selection menu.
+  XeonMations, ManiacalAnxiety, therealdoooc213:
+  - bugfix: Split personalities can no longer throw out their original body's mind
+      out of their own body permenantly.
+  XeonMations, timothymtorres:
+  - bugfix: Fixed a lot of oversights related to gravity, such as lavaland not having
+      gravity or simplemobs floating roundstart.
+  - bugfix: You can no longer defy gravity through the power of love
+  rkz, Ebb-Real, AnturK:
+  - rscadd: GAGSifies bandanas
+  - refactor: refactors large mob icons to no longer need snowflaked .dmi sizes. Just
+      edit a variable
+  rkz, MrMelbert, Cyberboss:
+  - refactor: refactored language holders, species changes will no longer delete all
+      known languages
+  - refactor: refactored tongue language lists to kill typecache nonsense and handle
+      subtypes sanely
+  - code_imp: unit tests language transfers
+  - code_imp: fix config errors before /world/New()
+  rkz, haukeschaumann, JohnFulpWillard, jlsnow301, Crumpaloo, San7890, MrStonedOne, Lilah Novi:
+  - bugfix: fix custom typing indicators. Cyborgs, xenos, and lawyers (among others)
+      now have unique typing indicators again after 3 years.
+  - rscadd: new *Animated* typing indicator sprites
+  - rscadd: typing in the command bar will now activate typing indicator.
+  - code_imp: traitified a typing indicator var
+2024-12-25:
+  BarteG44:
+  - bugfix: fixes the techfab's cryo syringe description
+  HowToLoLu:
+  - bugfix: The keypad buttons on nuke interfaces no longer clip into the other buttons
+  - bugfix: Fixed an improperly handled list "required_organs" in species code
+  Therealdoooc213:
+  - tweak: wipe core is now in AI commands
+  rkz, ninjanomnom, ModDownloading, Mothblocks, IndieanaJones, Timothymtorres, Ghommie, grungussus:
+  - rscadd: Emotes can now be bound to keybindings
+  - tweak: emotes now have a set amount (5) you can do before that emote is on cooldown
+  - tweak: audio emotes besides scream will no longer pierce walls
+  - tweak: jump emote now costs minor stamina
+  - tweak: lowered cost of stamina from F jumping
+2024-12-26:
+  BarteG44:
+  - balance: Restricts the Telecrystal Fuel Rod to Engineers and Atmos techs
+  PowerfulBacon:
+  - rscdel: Removes the steal plasma canister objective
+  Rukofamicom:
+  - bugfix: Fixed an oversight in the dismemberment PR that allowed players to be
+      disembowled in a single hit. Players will need to be at least unconscious or
+      in crit before disembowling may occur.
+  XeonMations:
+  - bugfix: The syndicate lavaland base's explosives are no longer able to be picked
+      up.
+  rkz, LemonInTheDark:
+  - code_imp: optimized a slow unit test. Speedup CI a lot.
+2024-12-27:
+  Therealdoooc213:
+  - bugfix: ERT shuttles can now fit into the metastation docking port
+  XeonMations:
+  - balance: Getting yourself EMP'd with a robotic limb will no longer hardstun you,
+      instead it will disable the limb.
+2024-12-28:
+  Dejaku51:
+  - bugfix: fix RnD servers working while in maintenance mode
+  - bugfix: fix Tcomms monitoring app not finding any servers
+  - bugfix: fix Tcomms overheat again
+  Therealdoooc213:
+  - rscadd: All maps now use lone operative landmark spawners.
+  XeonMations:
+  - bugfix: Mute people can now make audible sounds again.
+  - code_imp: Fixed some warnings in the compiler
+  Xeonmations:
+  - bugfix: Fixed pressing M making two menus popup.
+  - rscdel: Removed a deprecated emote menu popup.
+2024-12-29:
+  Dejaku51:
+  - rscadd: Autowiki
+2024-12-31:
+  Dejaku51:
+  - admin: added bitfield panel to machine_stat var in VV
+  itsmeow, jlsnow301, esainane, Watermelon914, ZephyrTFA, san7890, Cyberboss, stylemistake, AnturK, lebedev, KoJIT2009:
+  - tweak: The TGUI Blue Screen will now always include the correct in-universe year.
+  - tweak: TGUI Dropdowns will now highlight the currently selected item inside the
+      dropdown
+  - tweak: Gas bars shown inside TGUI have more distinct colors.
+  - refactor: Converted many core TGUI files to typescript
+  - bugfix: Dropdown prev/next buttons will now work even if nothing is initially
+      selected.
+  - bugfix: External TGChat links starting with www will no longer open incorrectly.
+  - code_imp: Added string capitalization utils to TGUI
+  - code_imp: Renamed goon style folder to tgchat
+  - code_imp: All TGUI component files that return JSX have been renamed from .js
+      to .jsx
+  - code_imp: Updated several TGUI dependencies.
+  - code_imp: TGUI should build faster.
+  - tweak: Dropped IE8 transpilation support from TGUI, since IE8 doesn't work currently
+      anyway.
+  - bugfix: Updated TGUI initialization hook to work with newer browsers (OpenDream/Webview2)

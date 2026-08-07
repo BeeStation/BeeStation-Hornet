@@ -15,7 +15,7 @@ its mentors, not actual dangerous perms
 		return
 
 	var/html = "<h1>Mentor Panel</h1>\n"
-	html += "<A HREF='?mentor_edit=add'>Add a Mentor</A>\n"
+	html += "<A HREF='BYOND://?mentor_edit=add'>Add a Mentor</A>\n"
 	html += "<table style='width: 100%' border=1>\n"
 	html += "<tr><th>Mentor Ckey</th><th>Remove</th></tr>\n"
 
@@ -25,11 +25,11 @@ its mentors, not actual dangerous perms
 		qdel(query_mentor_list)
 	query_mentor_list.Execute()
 	while(query_mentor_list.NextRow())
-		html += "<tr><td>[query_mentor_list.item[1]]</td><td><A HREF='?mentor_edit=remove;mentor_ckey=[query_mentor_list.item[1]]'>X</A></td></tr>\n"
+		html += "<tr><td>[query_mentor_list.item[1]]</td><td><A HREF='BYOND://?mentor_edit=remove;mentor_ckey=[query_mentor_list.item[1]]'>X</A></td></tr>\n"
 
 	html += "</table>"
 
-	usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
+	usr << browse(HTML_SKELETON(html),"window=editmentors;size=1000x650")
 	qdel(query_mentor_list)
 
 /client/Topic(href, href_list)

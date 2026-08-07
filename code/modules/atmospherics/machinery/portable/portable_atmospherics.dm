@@ -7,7 +7,7 @@
 	max_integrity = 250
 	armor_type = /datum/armor/machinery_portable_atmospherics
 	anchored = FALSE
-	interacts_with_air = TRUE
+	layer = ABOVE_OBJ_LAYER
 
 	///Stores the gas mixture of the portable component. Don't access this directly, use return_air() so you support the temporary processing it provides
 	var/datum/gas_mixture/air_contents
@@ -27,10 +27,8 @@
 	/// Max amount of pressure allowed inside of the canister before it starts to break. [PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT] is special value meaning we are immune.
 	var/pressure_limit = 500000
 
-
 /datum/armor/machinery_portable_atmospherics
 	energy = 100
-	rad = 100
 	fire = 60
 	acid = 30
 
@@ -64,6 +62,19 @@
 	if(!excited)
 		return PROCESS_KILL
 	excited = FALSE
+
+/obj/machinery/portable_atmospherics/welder_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(user.combat_mode)
+		return FALSE //We're attacking the machine.
+
+	if((atom_integrity < max_integrity) || (machine_stat & BROKEN))
+		to_chat(user, span_notice("You begin welding [src] back together..."))
+		if(I.use_tool(src, user, 3 SECONDS, volume=50))
+			update_integrity(max_integrity)
+			to_chat(user, span_notice("You weld [src] back together."))
+			return TRUE
+
 
 /// Take damage if a variable is exceeded. Damage is equal to temp/limit * heat/limit.
 /// The damage multiplier is treated as 1 if something is being ignored while the other one is exceeded.
@@ -179,9 +190,9 @@
 		investigate_log("had its internal [holding] swapped with [new_tank] by [key_name(user)].", INVESTIGATE_ATMOS)
 		to_chat(user, span_notice("In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank]."))
 		user.put_in_hands(holding)
-		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(holding, COMSIG_QDELETING)
 		holding = new_tank
-		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
+		RegisterSignal(holding, COMSIG_QDELETING, PROC_REF(unregister_holding))
 	else if(holding)//we remove a tank
 		investigate_log("had its internal [holding] removed by [key_name(user)].", INVESTIGATE_ATMOS)
 		to_chat(user, span_notice("You remove [holding] from [src]."))
@@ -189,16 +200,16 @@
 			user.put_in_hands(holding)
 		else
 			holding.forceMove(get_turf(src))
-		UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(holding, COMSIG_QDELETING)
 		holding = null
 	else if(new_tank)//we insert the tank
 		investigate_log("had [new_tank] inserted into it by [key_name(user)].", INVESTIGATE_ATMOS)
 		to_chat(user, span_notice("You insert [new_tank] into [src]."))
 		holding = new_tank
-		RegisterSignal(holding, COMSIG_PARENT_QDELETING, PROC_REF(unregister_holding))
+		RegisterSignal(holding, COMSIG_QDELETING, PROC_REF(unregister_holding))
 
 	SSair.start_processing_machine(src)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
@@ -248,20 +259,7 @@
 /obj/machinery/portable_atmospherics/proc/unregister_holding()
 	SIGNAL_HANDLER
 
-	UnregisterSignal(holding, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(holding, COMSIG_QDELETING)
 	holding = null
-
-
-/obj/machinery/portable_atmospherics/welder_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(user.combat_mode)
-		return FALSE //We're attacking the machine.
-
-	if(atom_integrity < max_integrity)
-		to_chat(user, span_notice("You begin welding [src] back together..."))
-		if(I.use_tool(src, user, 3 SECONDS, volume=50))
-			update_integrity(max_integrity)
-			to_chat(user, span_notice("You weld [src] back together."))
-			return TRUE
 
 #undef PORTABLE_ATMOS_IGNORE_ATMOS_LIMIT

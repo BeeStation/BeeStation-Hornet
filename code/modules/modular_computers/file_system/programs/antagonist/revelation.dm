@@ -1,10 +1,10 @@
-/datum/computer_file/program/revelation
+/datum/computer_file/program/revelation //Sadly theres not yet anything super interesting we can do with this program, since the incentive to open programs is negletable
 	filename = "revelation"
 	filedesc = "Revelation"
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "hostile"
 	extended_desc = "This virus can destroy hard drive of system it is executed on. It may be obfuscated to look like another non-malicious program. Once armed, it will destroy the system upon next execution."
-	size = 13
+	size = 8
 	requires_ntnet = FALSE
 	available_on_ntnet = FALSE
 	available_on_syndinet = TRUE
@@ -32,7 +32,7 @@
 		computer.update_icon()
 		var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 		var/obj/item/computer_hardware/battery/battery_module = computer.all_components[MC_CELL]
-		var/obj/item/computer_hardware/recharger/recharger = computer.all_components[MC_CHARGE]
+		var/obj/item/computer_hardware/recharger/recharger = computer.all_components[MC_CHARGER]
 		qdel(hard_drive)
 		computer.take_damage(25, BRUTE, 0, 0)
 		if(battery_module && prob(25))

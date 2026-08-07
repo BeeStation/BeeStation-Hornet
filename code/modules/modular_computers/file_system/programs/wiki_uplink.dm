@@ -7,6 +7,7 @@
 	tgui_id = "NtosDatabank"
 	program_icon = "book"
 	size = 2
+	power_consumption = 10 WATT
 
 /datum/computer_file/program/databank_uplink/ui_data(mob/user)
 	var/list/data = list()

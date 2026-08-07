@@ -35,5 +35,5 @@
 
 /datum/action/spell/aoe/sacred_flame/on_cast(mob/living/user, atom/target)
 	. = ..()
-	user.IgniteMob()
+	user.ignite_mob()
 	to_chat(user, "<span class='danger'>You feel a roaring flame build up inside you!</span>")

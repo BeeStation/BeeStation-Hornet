@@ -1,7 +1,7 @@
 //general stuff
 /// Return `number` if it is in the range `min to max`, otherwise `default`
-/proc/sanitize_integer(number, min=0, max=1, default=0)
-	if(isnum_safe(number))
+/proc/sanitize_integer(number, min=0, max=INFINITY, default=0)
+	if(IS_FINITE(number))
 		number = round(number)
 		if(min <= number && number <= max)
 			return number
@@ -9,7 +9,7 @@
 
 /// Return `float` if it is in the range `min to max`, otherwise `default`
 /proc/sanitize_float(number, min=0, max=1, accuracy=0.1, default=0)
-	if(isnum_safe(number))
+	if(IS_FINITE(number))
 		number = round(number, accuracy)
 		if(round(min, accuracy) <= number && number <= round(max, accuracy))
 			return number
@@ -52,8 +52,7 @@
 				return default
 	return default
 
-/// Return `color` if it is a valid hex color, otherwise `default`
-/proc/sanitize_hexcolor(color, desired_format = 3, include_crunch = FALSE, default)
+/proc/sanitize_hexcolor(color, desired_format = DEFAULT_HEX_COLOR_LEN, include_crunch = TRUE, default)
 	var/crunch = include_crunch ? "#" : ""
 	if(!istext(color))
 		color = ""
@@ -70,11 +69,11 @@
 		char = color[i]
 		i += length(char)
 		switch(text2ascii(char))
-			if(48 to 57)		//numbers 0 to 9
+			if(48 to 57) //numbers 0 to 9
 				. += char
-			if(97 to 102)		//letters a to f
+			if(97 to 102) //letters a to f
 				. += char
-			if(65 to 70)		//letters A to F
+			if(65 to 70) //letters A to F
 				char = LOWER_TEXT(char)
 				. += char
 			else

@@ -20,8 +20,8 @@
 	bubble_icon = "alien"
 	combat_mode = TRUE
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 15
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 7.5
 	faction = list(FACTION_ALIEN)
 	status_flags = CANPUSH
 	minbodytemp = 0
@@ -29,12 +29,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	unique_name = 1
 	gold_core_spawnable = NO_SPAWN
-	deathsound = 'sound/voice/hiss6.ogg'
-	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
+	death_sound = 'sound/voice/hiss6.ogg'
+	death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	chat_color = "#9EE08F"
 	mobchatspan = "alienmobsay"
 
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone
@@ -145,12 +145,12 @@
 /mob/living/simple_animal/hostile/alien/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(2)
-		throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(20)
-		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 	else
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"

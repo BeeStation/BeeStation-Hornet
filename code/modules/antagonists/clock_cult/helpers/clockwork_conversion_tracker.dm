@@ -6,7 +6,7 @@ GLOBAL_VAR(critical_servant_count)
 
 GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 
-//If there is a clockcult team (clockcult gamemode), add them to the team
+//If there is a clockcult team, add them to the team
 /proc/add_servant_of_ratvar(mob/M, add_team = TRUE, silent=FALSE, servant_type = /datum/antagonist/servant_of_ratvar, datum/team/clock_cult/team = null)
 	if(!istype(M))
 		return

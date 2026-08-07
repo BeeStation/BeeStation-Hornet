@@ -68,15 +68,15 @@
 /datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	if(HAS_TRAIT(target, TRAIT_BLIND))
+	if(target.is_blind())
 		return
 
-	if(!target.getorganslot(ORGAN_SLOT_EYES))
+	if(!target.get_organ_slot(ORGAN_SLOT_EYES))
 		return
 
 	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
 	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
-	target.blur_eyes(10)
+	target.set_eye_blur_if_lower(20 SECONDS)
 
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Ashen Passage"
@@ -196,7 +196,7 @@
 		return
 
 	target.adjust_fire_stacks(1)
-	target.IgniteMob()
+	target.ignite_mob()
 
 /datum/heretic_knowledge/spell/flame_birth
 	name = "Nightwatcher's Rebirth"
@@ -258,3 +258,7 @@
 	screen_wide_fire_spell.Grant(user)
 	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/ash_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)

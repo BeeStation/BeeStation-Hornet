@@ -7,7 +7,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "ad" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ae" = (
@@ -98,7 +98,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "aB" = (
-/obj/machinery/power/supermatter_crystal/shard/hugbox/fakecrystal,
+/obj/machinery/power/supermatter_crystal/hugbox,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "aD" = (
@@ -322,9 +322,10 @@
 /area/shuttle/escape)
 "Jo" = (
 /obj/machinery/door/airlock/external{
-	name = "Emergency Launch Catwalk";
-	req_access_txt = "10;13"
+	name = "Emergency Launch Catwalk"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)

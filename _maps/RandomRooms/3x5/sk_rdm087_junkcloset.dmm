@@ -38,7 +38,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -52,7 +52,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/item/stack/sheet/mineral/copper,
 /obj/item/stack/sheet/mineral/copper,
 /obj/item/stack/sheet/mineral/copper,
@@ -66,7 +66,7 @@
 /area/template_noop)
 "k" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 

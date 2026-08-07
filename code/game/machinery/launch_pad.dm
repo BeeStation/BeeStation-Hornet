@@ -31,22 +31,22 @@
 /obj/machinery/launchpad/Initialize(mapload)
 	. = ..()
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 
 	var/image/holder = hud_list[DIAG_LAUNCHPAD_HUD]
 	var/mutable_appearance/MA = new /mutable_appearance()
 	MA.icon = 'icons/effects/effects.dmi'
 	MA.icon_state = "launchpad_target"
 	MA.layer = ABOVE_OPEN_TURF_LAYER
-	MA.plane = 0
+	MA.plane = GAME_PLANE
 	holder.appearance = MA
 
 	update_indicator()
 
 /obj/machinery/launchpad/Destroy()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_from_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/machinery/launchpad/examine(mob/user)
@@ -285,6 +285,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 	else
 		return ..()
 
+/obj/machinery/launchpad/briefcase/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.use_cache()
+	context.add_attack_hand_action("Pickup")
+	context.add_left_click_item_action("Link", /obj/item/launchpad_remote)
+
 //Briefcase item that contains the launchpad.
 /obj/item/storage/briefcase/launchpad
 	var/obj/machinery/launchpad/briefcase/pad
@@ -312,7 +317,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 		pad.update_indicator()
 		pad.closed = FALSE
 		user.transferItemToLoc(src, pad, TRUE)
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
+		atom_storage.close_all()
 
 /obj/item/storage/briefcase/launchpad/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/launchpad_remote))

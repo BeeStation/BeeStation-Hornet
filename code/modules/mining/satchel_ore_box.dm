@@ -8,6 +8,7 @@
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
+	custom_price = 160
 	var/static/list/typecache_to_take
 
 /obj/structure/ore_box/Initialize(mapload)
@@ -19,16 +20,12 @@
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
 		ui_update()
-	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
-		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src)
+	else if(W.atom_storage)
+		W.atom_storage.remove_type(/obj/item/stack/ore, src, INFINITY, TRUE, FALSE, user, null)
 		to_chat(user, span_notice("You empty the ore in [W] into \the [src]."))
 		ui_update()
 	else
 		return ..()
-
-/obj/structure/ore_box/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.01) //please datum mats no more cancer
 
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	if(I.use_tool(src, user, 50, volume=50))

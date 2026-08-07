@@ -1,8 +1,9 @@
-import { useBackend } from '../../backend';
-import { Box, Stack, Button } from '../../components';
+import { classes, shallowDiffers } from 'common/react';
 import { Component } from 'react';
-import { shallowDiffers } from '../../../common/react';
-import { ABSOLUTE_Y_OFFSET, noop } from './constants';
+import { Box, Button, Stack } from 'tgui/components';
+
+import { useBackend } from '../../backend';
+import { ABSOLUTE_Y_OFFSET } from './constants';
 import { Port } from './Port';
 
 export class ObjectComponent extends Component {
@@ -90,7 +91,7 @@ export class ObjectComponent extends Component {
       x,
       y,
       index,
-      color = 'blue',
+      category = 'Unassigned',
       removable,
       ui_buttons,
       locations,
@@ -127,8 +128,16 @@ export class ObjectComponent extends Component {
         top={`${y_pos}px`}
         onMouseDown={this.handleStartDrag}
         onMouseUp={this.handleStopDrag}
-        onComponentWillUnmount={this.handleDrag}>
-        <Box backgroundColor={color} py={1} px={1} className="ObjectComponent__Titlebar">
+        onComponentWillUnmount={this.handleDrag}
+      >
+        <Box
+          py={1}
+          px={1}
+          className={classes([
+            'ObjectComponent__Titlebar',
+            `ObjectComponent__Category__${category}`,
+          ])}
+        >
           <Stack>
             <Stack.Item grow={1} basis="content" unselectable="on">
               {name}
@@ -138,8 +147,8 @@ export class ObjectComponent extends Component {
                 <Stack.Item key={icon}>
                   <Button
                     icon={icon}
-                    color="transparent"
                     compact
+                    color="transparent"
                     onClick={() =>
                       act('perform_action', {
                         component_id: index,
@@ -151,9 +160,9 @@ export class ObjectComponent extends Component {
               ))}
             <Stack.Item>
               <Button
-                color="transparent"
                 icon="info"
                 compact
+                color="transparent"
                 onClick={(e) =>
                   act('set_examined_component', {
                     component_id: index,
@@ -166,22 +175,34 @@ export class ObjectComponent extends Component {
             {!!removable && (
               <Stack.Item>
                 <Button
-                  color="transparent"
                   icon="times"
                   compact
-                  onClick={() => act('detach_component', { component_id: index })}
+                  color="transparent"
+                  onClick={() =>
+                    act('detach_component', { component_id: index })
+                  }
                 />
               </Stack.Item>
             )}
           </Stack>
         </Box>
-        <Box className="ObjectComponent__Content" unselectable="on" py={1} px={1}>
+        <Box
+          className="ObjectComponent__Content"
+          unselectable="on"
+          py={1}
+          px={1}
+        >
           <Stack>
             <Stack.Item grow={1} basis="content">
               <Stack vertical fill>
                 {input_ports.map((port, portIndex) => (
                   <Stack.Item key={portIndex}>
-                    <Port port={port} portIndex={portIndex + 1} componentId={index} {...PortOptions} />
+                    <Port
+                      port={port}
+                      portIndex={portIndex + 1}
+                      componentId={index}
+                      {...PortOptions}
+                    />
                   </Stack.Item>
                 ))}
               </Stack>
@@ -190,7 +211,13 @@ export class ObjectComponent extends Component {
               <Stack vertical>
                 {output_ports.map((port, portIndex) => (
                   <Stack.Item key={portIndex}>
-                    <Port port={port} portIndex={portIndex + 1} componentId={index} {...PortOptions} isOutput />
+                    <Port
+                      port={port}
+                      portIndex={portIndex + 1}
+                      componentId={index}
+                      {...PortOptions}
+                      isOutput
+                    />
                   </Stack.Item>
                 ))}
               </Stack>

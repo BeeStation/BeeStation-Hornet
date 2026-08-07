@@ -270,7 +270,7 @@
 	trigger_cost = 0
 	trigger_cooldown = 5
 
-	var/list/static/allowed_species = list()
+	var/static/list/allowed_species = list()
 
 /datum/nanite_program/sensor/species/New()
 	if(!length(allowed_species))
@@ -398,7 +398,7 @@
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
-		if(NOBLOOD in host_human.dna?.species?.species_traits)
+		if(HAS_TRAIT(host_human, TRAIT_NOBLOOD))
 			return FALSE
 
 /datum/nanite_program/sensor/blood/check_event()

@@ -1,0 +1,6 @@
+/mob/living/simple_animal/chicken/turkey : /mob/living/simple_animal/turkey{@OLD}
+/obj/item/paicard : /obj/item/pai_card{@OLD}
+/obj/item/bedsheet/random/double : /obj/item/bedsheet/double/random{@OLD}
+/obj/structure/closet/firecloset/full : /obj/structure/closet/firecloset{@OLD}
+/obj/item/clothing/head/welding : /obj/item/clothing/head/utility/welding{@OLD}
+/turf/open/floor/iron/airless/dark : /turf/open/floor/iron/dark/airless{@OLD}

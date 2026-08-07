@@ -1,4 +1,5 @@
-import { FeatureChoiced, FeatureButtonedDropdownInput } from '../base';
+import { FeatureChoiced } from '../base';
+import { FeatureButtonedDropdownInput } from '../dropdowns';
 
 export const body_model: FeatureChoiced = {
   name: 'Body Type',

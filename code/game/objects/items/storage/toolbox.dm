@@ -3,10 +3,10 @@
 	desc = "Danger. Very robust."
 	icon = 'icons/obj/storage/toolbox.dmi'
 	icon_state = "toolbox_default"
-	item_state = "toolbox_default"
+	inhand_icon_state = "toolbox_default"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 12
 	throwforce = 12
 	throw_speed = 2
@@ -22,6 +22,7 @@
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	custom_price = 50
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
@@ -31,6 +32,8 @@
 			if(prob(1))
 				latches = "triple_latch"
 	update_icon()
+
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/storage/toolbox/update_overlays()
 	. = ..()
@@ -45,7 +48,7 @@
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
 	icon_state = "red"
-	item_state = "toolbox_red"
+	inhand_icon_state = "toolbox_red"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/emergency/PopulateContents()
@@ -70,7 +73,7 @@
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
-	item_state = "toolbox_blue"
+	inhand_icon_state = "toolbox_blue"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical/PopulateContents()
@@ -93,7 +96,7 @@
 	icon_state = "toolbox_blue_old"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	desc = "It may be rusted shut, but it's still an important keepsake."
 	force = 5
 	throw_speed = 2
@@ -107,7 +110,7 @@
 	name = "toolbox"
 	desc = "A old, blue toolbox, it looks robust."
 	icon_state = "oldtoolboxclean"
-	item_state = "toolbox_blue"
+	inhand_icon_state = "toolbox_blue"
 	has_latches = FALSE
 	force = 19
 	throwforce = 22
@@ -139,34 +142,33 @@
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
 	icon_state = "yellow"
-	item_state = "toolbox_yellow"
+	inhand_icon_state = "toolbox_yellow"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/electrical/PopulateContents()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
 	new /obj/item/screwdriver(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+		new /obj/item/stack/cable_coil(src, MAXCOIL)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
 	icon_state = "syndicate"
-	item_state = "toolbox_syndi"
+	inhand_icon_state = "toolbox_syndi"
 	force = 15
 	throwforce = 18
 	material_flags = NONE
+	trade_flags = TRADE_CONTRABAND
 
-/obj/item/storage/toolbox/syndicate/ComponentInitialize()
+/obj/item/storage/toolbox/syndicate/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.silent = TRUE
+	atom_storage.silent = TRUE
 
 /obj/item/storage/toolbox/syndicate/PopulateContents()
 	new /obj/item/screwdriver/nuke(src)
@@ -180,16 +182,15 @@
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
 	icon_state = "blue"
-	item_state = "toolbox_blue"
+	inhand_icon_state = "toolbox_blue"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/drone/PopulateContents()
-	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src,MAXCOIL,pickedcolor)
+	new /obj/item/stack/cable_coil(src,MAXCOIL)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 
@@ -197,7 +198,7 @@
 	name = "brass box"
 	desc = "A huge brass box with several indentations in its surface."
 	icon_state = "brassbox"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = null
 	has_latches = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -206,12 +207,11 @@
 	attack_verb_simple = list("robust")
 	material_flags = NONE
 
-/obj/item/storage/toolbox/brass/ComponentInitialize()
+/obj/item/storage/toolbox/brass/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 28
-	STR.max_items = 28
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 28
+	atom_storage.max_slots = 28
 
 /obj/item/storage/toolbox/brass/prefilled/PopulateContents()
 	new /obj/item/screwdriver/brass(src)
@@ -228,34 +228,33 @@
 	name = "artistic toolbox"
 	desc = "A toolbox painted bright green. Why anyone would store art supplies in a toolbox is beyond you, but it has plenty of extra space."
 	icon_state = "green"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
 	material_flags = NONE
 
-/obj/item/storage/toolbox/artistic/ComponentInitialize()
+/obj/item/storage/toolbox/artistic/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 20
-	STR.max_items = 10
+	atom_storage.max_total_storage = 20
+	atom_storage.max_slots = 10
 
 /obj/item/storage/toolbox/artistic/PopulateContents()
 	new /obj/item/storage/crayons(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil/red(src)
-	new /obj/item/stack/cable_coil/yellow(src)
-	new /obj/item/stack/cable_coil/blue(src)
-	new /obj/item/stack/cable_coil/green(src)
-	new /obj/item/stack/cable_coil/pink(src)
-	new /obj/item/stack/cable_coil/orange(src)
-	new /obj/item/stack/cable_coil/cyan(src)
-	new /obj/item/stack/cable_coil/white(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil(src)
 
 /obj/item/storage/toolbox/ammo
 	name = "ammo box (7.62mm)"
 	desc = "It contains a few clips."
 	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "ammobox"
-	item_state = "ammobox"
+	inhand_icon_state = "ammobox"
 	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
 	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
 
@@ -272,11 +271,10 @@
 	name = "ammo crate (.38)"
 	desc = "It contains a few boxes of bullets."
 
-/obj/item/storage/toolbox/ammo/c38/ComponentInitialize()
+/obj/item/storage/toolbox/ammo/c38/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 10
-	STR.max_items = 5
+	atom_storage.max_total_storage = 10
+	atom_storage.max_slots = 5
 
 /obj/item/storage/toolbox/ammo/c38/PopulateContents()
 	new /obj/item/ammo_box/c38/box(src)

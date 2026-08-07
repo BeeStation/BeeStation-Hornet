@@ -1,0 +1,91 @@
+@keyframes colourCycle {
+  0% {
+    color: #00dfff;
+  }
+  25% {
+    color: #00ff00;
+  }
+  50% {
+    color: #ffea00;
+  }
+  75% {
+    color: #ff6b00;
+  }
+  100% {
+    color: #ff006e;
+  }
+}
+
+@keyframes blinkCursor {
+  0%,
+  50% {
+    visibility: visible;
+  }
+  51%,
+  100% {
+    visibility: hidden;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px #38f5ff;
+  }
+  50% {
+    box-shadow: 0 0 15px #38f5ff;
+  }
+  100% {
+    box-shadow: 0 0 5px #38f5ff;
+  }
+}
+
+.ascii-logo-line {
+  font-family: monospace;
+  animation: colourCycle 2s linear infinite;
+  white-space: pre;
+}
+
+.script-line {
+  font-family: monospace;
+  color: #00ff00;
+  white-space: pre;
+}
+
+.cursor {
+  animation: blinkCursor 1s steps(1) infinite;
+}
+
+.progress-bar {
+  font-family: monospace;
+  color: #00ff00;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .bar-fill {
+    white-space: pre;
+  }
+
+  .bar-percent {
+    margin-left: 0.5rem;
+  }
+}
+
+.detonate-button {
+  margin-top: 1rem;
+  background-color: black;
+  border: 1px solid #38f5ff;
+  color: #38f5ff;
+  font-family: monospace;
+  padding: 0.4rem 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: 0 0 5px #38f5ff;
+  animation: glowPulse 2s ease-in-out infinite;
+
+  &:hover {
+    background-color: #111;
+    box-shadow: 0 0 20px #38f5ff;
+  }
+}

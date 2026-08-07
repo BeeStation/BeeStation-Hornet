@@ -26,14 +26,13 @@
 	unsuitable_atmos_damage = 0
 	wander = FALSE
 	speed = 0
-	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	sight = (SEE_TURFS | SEE_OBJS)
 	status_flags = (CANPUSH | CANSTUN | CANKNOCKDOWN)
 	gender = NEUTER
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	speak_emote = list("chirps")
 	speech_span = SPAN_ROBOT
 	bubble_icon = "machine"
@@ -41,7 +40,7 @@
 	mob_size = MOB_SIZE_SMALL
 	has_unlimited_silicon_privilege = 1
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD, ANTAG_HUD)
+	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD)
 	unique_name = TRUE
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 	dextrous = TRUE
@@ -99,8 +98,11 @@
 
 	alert_drones(DRONE_NET_CONNECT)
 
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 
 	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER), list(z))
 	RegisterSignal(listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
@@ -109,21 +111,15 @@
 	listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/datum/alarm_listener, allow_alarm_changes))
 
 /mob/living/simple_animal/drone/med_hud_set_health()
-	var/image/holder = hud_list[DIAG_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
-	holder.icon_state = "huddiag[RoundDiagBar(health/maxHealth)]"
+	set_hud_image_state(DIAG_HUD, "huddiag[RoundDiagBar(health/maxHealth)]")
 
 /mob/living/simple_animal/drone/med_hud_set_status()
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(stat == DEAD)
-		holder.icon_state = "huddead2"
-	else if(incapacitated())
-		holder.icon_state = "hudoffline"
+		set_hud_image_state(DIAG_STAT_HUD, "huddead2")
+	else if(incapacitated)
+		set_hud_image_state(DIAG_STAT_HUD, "hudoffline")
 	else
-		holder.icon_state = "hudstat"
+		set_hud_image_state(DIAG_STAT_HUD, "hudstat")
 
 /mob/living/simple_animal/drone/Destroy()
 	GLOB.drones_list -= src
@@ -164,20 +160,20 @@
 	dust()
 
 /mob/living/simple_animal/drone/examine(mob/user)
-	. = list("<span class='info'>This is [icon2html(src, user)] \a <b>[src]</b>!")
+	. = list()
 
 	//Hands
 	for(var/obj/item/I in held_items)
 		if(!(I.item_flags & ABSTRACT))
-			. += "It has [I.get_examine_string(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
+			. += "It has [I.examine_title(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
 
 	//Internal storage
 	if(internal_storage && !(internal_storage.item_flags & ABSTRACT))
-		. += "It is holding [internal_storage.get_examine_string(user)] in its internal storage."
+		. += "It is holding [internal_storage.examine_title(user)] in its internal storage."
 
 	//Cosmetic hat - provides no function other than looks
 	if(head && !(head.item_flags & ABSTRACT))
-		. += "It is wearing [head.get_examine_string(user)] on its head."
+		. += "It is wearing [head.examine_title(user)] on its head."
 
 	//Braindead
 	if(!client && stat != DEAD)
@@ -231,12 +227,6 @@
 /mob/living/simple_animal/drone/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
 	if(affect_silicon)
 		return ..()
-
-/mob/living/simple_animal/drone/mob_negates_gravity()
-	return !isspaceturf(get_turf(src)) //We don't mimick gravity on space turfs
-
-/mob/living/simple_animal/drone/has_gravity(turf/T)
-	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/drone/experience_pressure_difference(pressure_difference, direction)
 	return

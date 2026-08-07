@@ -156,7 +156,8 @@
 			/turf/open/space,
 			/turf/open/chasm,
 			/turf/open/lava,
-			/turf/open/openspace))
+			/turf/open/openspace,
+		))
 
 
 	last_expand = world.time + rand(growth_cooldown_low, growth_cooldown_high)
@@ -173,8 +174,6 @@
 				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 				base_icon_state = "weeds3"
 
-/obj/structure/alien/weeds/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/alien/weeds/proc/expand()
@@ -269,9 +268,6 @@
 	proximity_monitor = new(src, status == GROWN ? 1 : 0)
 	if(status == BURST)
 		atom_integrity = integrity_failure * max_integrity
-
-/obj/structure/alien/egg/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/alien/egg/update_icon()
@@ -294,7 +290,7 @@
 	. = ..()
 	if(.)
 		return
-	if(user.getorgan(/obj/item/organ/alien/plasmavessel))
+	if(user.get_organ_by_type(/obj/item/organ/alien/plasmavessel))
 		switch(status)
 			if(BURSTING)
 				to_chat(user, span_notice("The egg is in process of hatching."))
@@ -363,7 +359,7 @@
 			return
 
 		var/mob/living/carbon/C = AM
-		if(C.stat == CONSCIOUS && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
+		if(C.stat == CONSCIOUS && C.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo))
 			return
 
 		Burst(kill=FALSE)

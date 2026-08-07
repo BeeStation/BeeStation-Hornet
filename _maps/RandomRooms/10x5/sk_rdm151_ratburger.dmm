@@ -3,17 +3,17 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "g" = (
-/obj/structure/window/reinforced/spawner,
-/mob/living/simple_animal/mouse/gray,
+/obj/structure/window/reinforced/spawner/directional/south,
+/mob/living/basic/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (
@@ -31,7 +31,7 @@
 /area/template_noop)
 "l" = (
 /obj/machinery/microwave,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
@@ -42,7 +42,7 @@
 	pixel_y = 6
 	},
 /obj/item/food/burger/rat,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "o" = (
@@ -63,9 +63,9 @@
 	},
 /area/template_noop)
 "r" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/window/reinforced/spawner/east,
-/mob/living/simple_animal/mouse/brown,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
+/mob/living/basic/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
 "y" = (
@@ -74,27 +74,27 @@
 	},
 /area/template_noop)
 "z" = (
-/mob/living/simple_animal/mouse/brown,
+/mob/living/basic/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "B" = (
-/mob/living/simple_animal/mouse/white,
+/mob/living/basic/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner/east,
-/mob/living/simple_animal/mouse/gray,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/mob/living/basic/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "D" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -7;
@@ -154,7 +154,7 @@
 /area/template_noop)
 "L" = (
 /obj/machinery/door/window/eastright,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/basic/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "M" = (
@@ -174,7 +174,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
@@ -182,7 +182,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/rack,
 /obj/item/storage/box/ingredients/carnivore,
 /obj/item/food/bun,
@@ -195,14 +195,14 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "V" = (
-/obj/structure/window/reinforced/spawner/north,
-/mob/living/simple_animal/mouse/white,
+/obj/structure/window/reinforced/spawner/directional/north,
+/mob/living/basic/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
 "W" = (
 /obj/structure/rack,
-/obj/item/stack/cable_coil/blue,
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/knife/butcher,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/open/floor/plating{

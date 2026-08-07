@@ -17,10 +17,10 @@
 	RegisterSignal(target, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
 
 	if(!ispath(result_typepath, default_typepath))
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+		RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/element/microwavable/Detach(datum/source)
-	UnregisterSignal(source, list(COMSIG_ITEM_MICROWAVE_ACT, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(source, list(COMSIG_ITEM_MICROWAVE_ACT, COMSIG_ATOM_EXAMINE))
 	return ..()
 
 /**
@@ -43,12 +43,11 @@
 	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, source, efficiency)
 
 	if(IS_EDIBLE(result))
-		if(microwaver && microwaver.mind)
-			ADD_TRAIT(result, TRAIT_FOOD_CHEF_MADE, REF(microwaver.mind))
-
+		SSblackbox.record_feedback("tally", "food_made", 1, result.type)
 		source.reagents?.trans_to(result, source.reagents.total_volume)
 
-		SSblackbox.record_feedback("tally", "food_made", 1, result.type)
+		if(microwaver && microwaver.mind)
+			ADD_TRAIT(result, TRAIT_FOOD_CHEF_MADE, REF(microwaver.mind))
 
 	qdel(source)
 
@@ -72,6 +71,6 @@
 	SIGNAL_HANDLER
 
 	if(initial(result_typepath.gender) == PLURAL)
-		examine_list += "<span class='notice'>[source] can be ["<span class='bold'>microwaved</span>"] into [initial(result_typepath.name)].</span>"
+		examine_list += span_notice("[source] can be [span_bold("microwaved")] into some [initial(result_typepath.name)].")
 	else
-		examine_list += "<span class='notice'>[source] can be ["<span class='bold'>microwaved</span>"] into \a [initial(result_typepath.name)].</span>"
+		examine_list += span_notice("[source] can be [span_bold("microwaved")] into \a [initial(result_typepath.name)].")

@@ -490,7 +490,7 @@
 
 	for(var/obj/machinery/door/airlock/airlock as anything in (internal_airlocks + external_airlocks))
 		airlock.set_cycle_pump(src)
-		RegisterSignal(airlock, COMSIG_PARENT_QDELETING, PROC_REF(unlink_airlock))
+		RegisterSignal(airlock, COMSIG_QDELETING, PROC_REF(unlink_airlock))
 		if (airlock in external_airlocks)
 			INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, secure_close))
 		else if(open_airlock_on_cycle)
@@ -554,7 +554,7 @@
 
 ///Find airlocks and link up with them
 /obj/machinery/atmospherics/components/unary/airlock_pump/proc/unlink_airlock(airlock)
-	UnregisterSignal(airlock, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(airlock, COMSIG_QDELETING)
 
 	if(airlock in internal_airlocks)
 		internal_airlocks.Remove(airlock)
@@ -568,7 +568,7 @@
 ///Break the cycling setup
 /obj/machinery/atmospherics/components/unary/airlock_pump/proc/break_all_links()
 	for(var/obj/machinery/door/airlock/airlock as anything in (internal_airlocks + external_airlocks))
-		UnregisterSignal(airlock, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(airlock, COMSIG_QDELETING)
 
 	external_airlocks = list()
 	internal_airlocks = list()

@@ -6,8 +6,8 @@
 	name = "gibtonite ore"
 	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under space law."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "Gibtonite ore"
-	item_state = "Gibtonite ore"
+	icon_state = "gibtonite"
+	inhand_icon_state = "gibtonite"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
 	var/primed = FALSE
@@ -16,13 +16,12 @@
 	var/attacher = "UNKNOWN"
 	var/det_timer
 
-/obj/item/gibtonite/ComponentInitialize()
+/obj/item/gibtonite/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 
 /obj/item/gibtonite/Destroy()
-	qdel(wires)
-	wires = null
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/item/gibtonite/attackby(obj/item/I, mob/user, params)
@@ -70,7 +69,7 @@
 	if(!primed)
 		primed = TRUE
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg',50,1)
-		icon_state = "Gibtonite active"
+		icon_state = "gibtonite_active"
 		var/notify_admins = FALSE
 		if(z != 5)//Only annoy the admins ingame if we're triggered off the mining zlevel
 			notify_admins = TRUE

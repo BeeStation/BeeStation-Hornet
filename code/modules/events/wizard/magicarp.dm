@@ -38,36 +38,63 @@
 	health = 50
 	random_color = FALSE
 	gold_core_spawnable = NO_SPAWN
-	var/allowed_projectile_types = list(/obj/projectile/magic/animate, /obj/projectile/magic/resurrection,
-	/obj/projectile/magic/death, /obj/projectile/magic/teleport, /obj/projectile/magic/door, /obj/projectile/magic/fireball,
-	/obj/projectile/magic/spellblade, /obj/projectile/magic/arcane_barrage)
-	discovery_points = 3000
+
+	/// List of all projectiles we can fire.
+	/// Non-static, because subtypes can have their own lists.
+	var/list/allowed_projectile_types = list(
+		/obj/projectile/magic/animate,
+		/obj/projectile/magic/arcane_barrage,
+		/obj/projectile/magic/change,
+		/obj/projectile/magic/healing,
+		/obj/projectile/magic/death,
+		/obj/projectile/magic/teleport,
+		/obj/projectile/magic/door,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/spellblade,
+		)
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/carp/ranged/Initialize(mapload)
 	projectiletype = pick(allowed_projectile_types)
-	. = ..()
+	return ..()
+
+/mob/living/simple_animal/hostile/carp/cayenne/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos
 	name = "chaos magicarp"
 	desc = "50% carp, 100% magic, 150% horrible."
-	color = "#00FFFF"
+	color = COLOR_CYAN
 	maxHealth = 75
 	health = 75
 	gold_core_spawnable = NO_SPAWN
-	discovery_points = 5000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/Shoot()
 	projectiletype = pick(allowed_projectile_types)
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/carp/ranged/xenobio
 	desc = "45% magic, 50% carp, 5% slime, 100% horrible."
-	allowed_projectile_types = list( /obj/projectile/magic/animate, /obj/projectile/magic/teleport, /obj/projectile/magic/door, /obj/projectile/magic/fireball,
-	/obj/projectile/magic/spellblade, /obj/projectile/magic/arcane_barrage)
 	gold_core_spawnable = HOSTILE_SPAWN
+
+	allowed_projectile_types = list(
+		/obj/projectile/magic/animate,
+		/obj/projectile/magic/teleport,
+		/obj/projectile/magic/door,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/arcane_barrage
+	)
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/xenobio
 	desc = "95% magic, 50% carp, 5% slime, 150% horrible."
-	allowed_projectile_types = list( /obj/projectile/magic/animate, /obj/projectile/magic/teleport, /obj/projectile/magic/door, /obj/projectile/magic/fireball,
-	/obj/projectile/magic/spellblade, /obj/projectile/magic/arcane_barrage)
+	allowed_projectile_types = list(
+		/obj/projectile/magic/animate,
+		/obj/projectile/magic/teleport,
+		/obj/projectile/magic/door,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/arcane_barrage
+	)
 	gold_core_spawnable = HOSTILE_SPAWN

@@ -33,11 +33,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/blackbox/objective/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
-	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
-
 /obj/item/blackbox/objective/proc/setup_recover(linked_mission)
 	AddComponent(/datum/component/recoverable, linked_mission)
 
@@ -54,12 +49,14 @@
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
+	parent.AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000,9999)]", TRUE)
+	parent.AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
 
 /datum/component/recoverable/proc/attack_self(mob/user)
 	var/atom/movable/pA = parent
 	var/turf/T = get_turf(parent)
 	var/area/A = T.loc
-	if(istype(A, /area/bridge) && is_station_level(T.z))
+	if(istype(A, /area/station/command) && is_station_level(T.z))
 		initiate_recovery()
 	else
 		pA.say("Blackbox must be recovered at the station's bridge.")
@@ -79,36 +76,35 @@
 	else
 		parentobj.say("Non-priority item recovered, dispensing 2000 credit reward.")
 		new /obj/item/stack/spacecash/c1000(get_turf(parent), 2)
+
 	//Fly away
-	var/mutable_appearance/balloon
-	var/mutable_appearance/balloon2
-	var/obj/effect/extraction_holder/holder_obj = new(parentobj.loc)
+	var/obj/effect/extraction_holder/holder_obj = new(get_turf(parentobj))
 	holder_obj.appearance = parentobj.appearance
 	parentobj.forceMove(holder_obj)
-	balloon2 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_expand")
+
+	var/mutable_appearance/balloon2 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_expand", appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | KEEP_APART)
 	balloon2.pixel_y = 10
-	balloon2.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	holder_obj.add_overlay(balloon2)
-	sleep(4)
-	balloon = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_balloon")
+
+	sleep(0.4 SECONDS)
+
+	var/mutable_appearance/balloon = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_balloon", appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | KEEP_APART)
 	balloon.pixel_y = 10
-	balloon.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	holder_obj.cut_overlay(balloon2)
 	holder_obj.add_overlay(balloon)
-	playsound(holder_obj.loc, 'sound/items/fultext_deploy.ogg', 50, 1, -3)
-	animate(holder_obj, pixel_z = 10, time = 20)
-	sleep(20)
-	animate(holder_obj, pixel_z = 15, time = 10)
-	sleep(10)
-	animate(holder_obj, pixel_z = 10, time = 10)
-	sleep(10)
-	animate(holder_obj, pixel_z = 15, time = 10)
-	sleep(10)
-	animate(holder_obj, pixel_z = 10, time = 10)
-	sleep(10)
-	playsound(holder_obj.loc, 'sound/items/fultext_launch.ogg', 50, 1, -3)
-	animate(holder_obj, pixel_z = 1000, time = 30)
-	sleep(30)
+	playsound(holder_obj.loc, 'sound/items/fultext_deploy.ogg', vol = 50, vary = TRUE, extrarange = -3)
+
+	animate(holder_obj, pixel_y = 10, time = 2 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = 5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -5, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+
+	playsound(holder_obj.loc, 'sound/items/fultext_launch.ogg', vol = 50, vary = TRUE, extrarange = -3)
+	animate(holder_obj, pixel_y = 1000, time = 3 SECONDS, flags = ANIMATION_RELATIVE)
+
+	sleep(3 SECONDS)
+
 	qdel(parent)
 	qdel(holder_obj)
 	qdel(src)

@@ -66,7 +66,7 @@
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/trickyspawner/zombie,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 

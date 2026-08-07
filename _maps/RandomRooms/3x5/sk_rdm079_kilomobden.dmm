@@ -16,7 +16,7 @@
 	},
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/wood,
 /area/template_noop)
 "g" = (
@@ -46,7 +46,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "u" = (

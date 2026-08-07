@@ -1,5 +1,17 @@
 import { useBackend, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+  Table,
+  Tabs,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -24,14 +36,19 @@ export const CargoContent = (props) => {
       <CargoStatus />
       <Section fitted>
         <Tabs>
-          <Tabs.Tab icon="list" selected={tab === 'catalog'} onClick={() => setTab('catalog')}>
+          <Tabs.Tab
+            icon="list"
+            selected={tab === 'catalog'}
+            onClick={() => setTab('catalog')}
+          >
             Catalog
           </Tabs.Tab>
           <Tabs.Tab
             icon="envelope"
             textColor={tab !== 'requests' && requests.length > 0 && 'yellow'}
             selected={tab === 'requests'}
-            onClick={() => setTab('requests')}>
+            onClick={() => setTab('requests')}
+          >
             Requests ({requests.length})
           </Tabs.Tab>
           {!requestonly && (
@@ -39,7 +56,8 @@ export const CargoContent = (props) => {
               icon="shopping-cart"
               textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
               selected={tab === 'cart'}
-              onClick={() => setTab('cart')}>
+              onClick={() => setTab('cart')}
+            >
               Checkout ({cart.length})
             </Tabs.Tab>
           )}
@@ -54,25 +72,46 @@ export const CargoContent = (props) => {
 
 const CargoStatus = (props) => {
   const { act, data } = useBackend();
-  const { away, docked, loan, loan_dispatched, location, message, points, requestonly, can_send } = data;
+  const {
+    away,
+    docked,
+    loan,
+    loan_dispatched,
+    location,
+    message,
+    points,
+    requestonly,
+    can_send,
+  } = data;
   return (
     <Section
       title="Cargo"
       buttons={
         <Box fontFamily="verdana" inline bold>
-          <AnimatedNumber value={points} format={(value) => formatMoney(value)} />
+          <AnimatedNumber
+            value={points}
+            format={(value) => formatMoney(value)}
+          />
           {' credits'}
         </Box>
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Shuttle">
-          {(docked && !requestonly && can_send && <Button content={location} onClick={() => act('send')} />) || location}
+          {(docked && !requestonly && can_send && (
+            <Button content={location} onClick={() => act('send')} />
+          )) ||
+            location}
         </LabeledList.Item>
         <LabeledList.Item label="CentCom Message">{message}</LabeledList.Item>
         {!!loan && !requestonly && (
           <LabeledList.Item label="Loan">
             {(!loan_dispatched && (
-              <Button content="Loan Shuttle" disabled={!(away && docked)} onClick={() => act('loan')} />
+              <Button
+                content="Loan Shuttle"
+                disabled={!(away && docked)}
+                onClick={() => act('loan')}
+              />
             )) || <Box color="bad">Loaned to Centcom</Box>}
           </LabeledList.Item>
         )}
@@ -81,15 +120,35 @@ const CargoStatus = (props) => {
   );
 };
 
+const searchSupplies = (supplies, search) => {
+  const query = search.toLowerCase();
+  return supplies
+    .flatMap((category) => category.packs)
+    .filter(
+      (pack) =>
+        pack.name?.toLowerCase().includes(query) ||
+        pack.desc?.toLowerCase().includes(query),
+    )
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 25);
+};
+
 export const CargoCatalog = (props) => {
   const { express, canOrder = true } = props;
   const { act, data } = useBackend();
   const { self_paid, app_cost, points } = data;
   const supplies = Object.values(data.supplies);
-  const [activeSupplyName, setActiveSupplyName] = useSharedState('supply', supplies[0]?.name);
-  const activeSupply = supplies.find((supply) => {
-    return supply.name === activeSupplyName;
-  });
+  const [activeSupplyName, setActiveSupplyName] = useSharedState(
+    'supply',
+    supplies[0]?.name,
+  );
+  const [searchText, setSearchText] = useSharedState('search_text', '');
+
+  const searching = searchText.length > 0;
+  const activeSupply = searching
+    ? { packs: searchSupplies(supplies, searchText) }
+    : supplies.find((supply) => supply.name === activeSupplyName);
+
   return (
     <Section
       title="Catalog"
@@ -97,24 +156,54 @@ export const CargoCatalog = (props) => {
         !express && (
           <>
             <CargoCartButtons />
-            <Button.Checkbox ml={2} content="Buy Privately" checked={self_paid} onClick={() => act('toggleprivate')} />
+            <Button.Checkbox
+              ml={2}
+              content="Buy Privately"
+              checked={self_paid}
+              onClick={() => act('toggleprivate')}
+            />
           </>
         )
-      }>
+      }
+    >
       <Flex>
         <Flex.Item ml={-1} mr={1}>
+          <Stack.Item mb={1}>
+            <Stack align="baseline">
+              <Stack.Item ml={0.5}>
+                <Icon name="search" />
+              </Stack.Item>
+              <Stack.Item grow>
+                <Input
+                  fluid
+                  placeholder="Search..."
+                  value={searchText}
+                  onInput={(e, value) => setSearchText(value)}
+                />
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
           <Tabs vertical>
             {supplies.map((supply) => (
               <Tabs.Tab
                 key={supply.name}
-                selected={supply.name === activeSupplyName}
-                onClick={() => setActiveSupplyName(supply.name)}>
+                selected={!searching && supply.name === activeSupplyName}
+                onClick={() => {
+                  setActiveSupplyName(supply.name);
+                  setSearchText('');
+                }}
+              >
                 {supply.name} ({supply.packs.length})
               </Tabs.Tab>
             ))}
           </Tabs>
         </Flex.Item>
         <Flex.Item grow={1} basis={0}>
+          {searching && activeSupply.packs.length === 0 && (
+            <Box color="label" mt={2}>
+              No results for &quot;{searchText}&quot;.
+            </Box>
+          )}
           <Table>
             {activeSupply?.packs.map((pack) => {
               const tags = [];
@@ -139,13 +228,24 @@ export const CargoCatalog = (props) => {
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
-                      disabled={!canOrder || (express && points && points < pack.cost && pack.supply > 0)}
+                      disabled={
+                        !canOrder ||
+                        (express &&
+                          points &&
+                          points < pack.cost &&
+                          pack.supply > 0)
+                      }
                       onClick={() =>
                         act('add', {
                           id: pack.id,
                         })
-                      }>
-                      {formatMoney(self_paid || app_cost ? Math.round(pack.cost * 1.1) : pack.cost)}
+                      }
+                    >
+                      {formatMoney(
+                        self_paid || app_cost
+                          ? Math.round(pack.cost * 1.1)
+                          : pack.cost,
+                      )}
                       {' cr'}
                     </Button>
                   </Table.Cell>
@@ -167,7 +267,17 @@ const CargoRequests = (props) => {
   return (
     <Section
       title="Active Requests"
-      buttons={!requestonly && <Button icon="times" content="Clear" color="transparent" onClick={() => act('denyall')} />}>
+      buttons={
+        !requestonly && (
+          <Button
+            icon="times"
+            content="Clear"
+            color="transparent"
+            onClick={() => act('denyall')}
+          />
+        )
+      }
+    >
       {requests.length === 0 && <Box color="good">No Requests</Box>}
       {requests.length > 0 && (
         <Table>
@@ -232,9 +342,15 @@ const CargoCartButtons = (props) => {
       <Box inline mx={1}>
         {cart.length === 0 && 'Cart is empty'}
         {cart.length === 1 && '1 item'}
-        {cart.length >= 2 && cart.length + ' items'} {total > 0 && `(${formatMoney(total)} cr)`}
+        {cart.length >= 2 && cart.length + ' items'}{' '}
+        {total > 0 && `(${formatMoney(total)} cr)`}
       </Box>
-      <Button icon="times" color="transparent" content="Clear" onClick={() => act('clear')} />
+      <Button
+        icon="times"
+        color="transparent"
+        content="Clear"
+        onClick={() => act('clear')}
+      />
     </>
   );
 };
@@ -254,7 +370,9 @@ const CargoCart = (props) => {
                 #{entry.id}
               </Table.Cell>
               <Table.Cell>{entry.object}</Table.Cell>
-              <Table.Cell collapsing>{!!entry.paid && <b>[Paid Privately]</b>}</Table.Cell>
+              <Table.Cell collapsing>
+                {!!entry.paid && <b>[Paid Privately]</b>}
+              </Table.Cell>
               <Table.Cell fontFamily="verdana" collapsing textAlign="right">
                 {formatMoney(entry.cost)} cr
               </Table.Cell>

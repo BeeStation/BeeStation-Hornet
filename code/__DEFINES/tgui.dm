@@ -42,6 +42,14 @@
 	"%7b%22type%22%3a%22[type]%22%7d" \
 )
 
+/**
+ * Gets a ui_state that checks to see if the user has specific admin permissions.
+ *
+ * Arguments:
+ * * required_perms: Which admin permission flags to check the user for, such as [R_ADMIN]
+ */
+#define ADMIN_STATE(required_perms) (GLOB.admin_states[required_perms] ||= new /datum/ui_state/admin_state(required_perms))
+
 /// Telemetry
 
 /**
@@ -53,7 +61,7 @@
 /**
  * Maximum time allocated for sending a telemetry packet.
  */
-#define TGUI_TELEMETRY_RESPONSE_WINDOW 2 MINUTES
+#define TGUI_TELEMETRY_RESPONSE_WINDOW (2 MINUTES)
 
 /// Telemetry statuses
 #define TGUI_TELEMETRY_STAT_NOT_REQUESTED 0 //Not Yet Requested
@@ -66,10 +74,3 @@
 #define TGUI_TELEM_CKEY_WARNING "TELEM_CKEY_TEXT"
 #define TGUI_TELEM_IP_WARNING "TELEM_IP_TEXT"
 #define TGUI_TELEM_CID_WARNING "TELEM_CID_TEXT"
-
-//unmagic-strings for types of polls
-#define POLLTYPE_OPTION "OPTION"
-#define POLLTYPE_TEXT "TEXT"
-#define POLLTYPE_RATING "NUMVAL"
-#define POLLTYPE_MULTI "MULTICHOICE"
-#define POLLTYPE_IRV "IRV"

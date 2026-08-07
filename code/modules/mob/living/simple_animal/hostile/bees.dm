@@ -33,25 +33,21 @@
 	response_harm_simple = "squash"
 	maxHealth = 6
 	health = 6
-	spacewalk = TRUE
 	faction = list(FACTION_HOSTILE)
 	move_to_delay = 0
 	obj_damage = 0
-	ventcrawler = VENTCRAWLER_ALWAYS
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 	//Spaceborn beings don't get hurt by space
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	del_on_death = TRUE
 
@@ -65,7 +61,9 @@
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
 	. = ..()
+	add_traits(list(TRAIT_VENTCRAWLER_ALWAYS, TRAIT_SPACEWALK), INNATE_TRAIT)
 	generate_bee_visuals()
+	AddComponent(/datum/component/clickbox, x_offset = -2, y_offset = -2)
 	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
@@ -267,7 +265,7 @@
 	name = "queen bee"
 	desc = "She's the queen of bees, BZZ BZZ!"
 	icon_state = "queen_item"
-	item_state = ""
+	inhand_icon_state = ""
 	icon = 'icons/mob/bees.dmi'
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
@@ -327,7 +325,7 @@
 /mob/living/simple_animal/hostile/poison/bees/space
 	name = "killer space bee"
 	desc = "I mean, killer is 'IN' the name..."
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
 

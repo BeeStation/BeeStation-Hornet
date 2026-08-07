@@ -7,13 +7,24 @@
 
 /datum/species/moth
 	name = "\improper Mothman"
-	plural_form = "Mothpeople"
+	plural_form = "Mothmen"
 	id = SPECIES_MOTH
-	bodyflag = FLAG_MOTH
-	default_color = "00FF00"
-	species_traits = list(LIPS, NOEYESPRITES, HAS_MARKINGS)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
-	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None", "body_size" = "Normal")
+	species_traits = list(
+		LIPS,
+		HAS_MARKINGS,
+		MUTANT_COLOR,
+	)
+	inherent_traits = list(
+		TRAIT_TACKLING_WINGED_ATTACKER
+	)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
+	mutant_bodyparts = list(
+		"moth_wings" = "Plain",
+		"moth_antennae" = "Plain",
+		"moth_markings" = SPRITE_ACCESSORY_NONE,
+		"moth_eyes" = "Default",
+		"body_size" = "Normal"
+	)
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -24,40 +35,46 @@
 	mutanttongue = /obj/item/organ/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
-	inert_mutation = STRONGWINGS
+	inert_mutation = /datum/mutation/strongwings
 	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
-	species_chest = /obj/item/bodypart/chest/moth
-	species_head = /obj/item/bodypart/head/moth
-	species_l_arm = /obj/item/bodypart/l_arm/moth
-	species_r_arm = /obj/item/bodypart/r_arm/moth
-	species_l_leg = /obj/item/bodypart/l_leg/moth
-	species_r_leg = /obj/item/bodypart/r_leg/moth
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/moth,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/moth,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/moth,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/moth,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/moth,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/moth,
+	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/moth/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.moth_first)]"
-
-	if(lastname)
-		. += " [lastname]"
-	else
-		. += " [pick(GLOB.moth_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
-/datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.adjustToxLoss(3 * REM * delta_time)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return FALSE
 	return ..()
-/datum/species/moth/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 9 //flyswatters deal 10x damage to moths
-	return 0
+
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	if(human_who_gained_species.dna?.features["moth_eyes"] == "Domestic")
+		mutanteyes = /obj/item/organ/eyes/moth/domestic
+	else
+		mutanteyes = /obj/item/organ/eyes/moth
+	if(!pref_load)
+		human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+
+/datum/species/moth/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
+
+/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 10 // Yes, a 10x damage modifier
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
 	return 'sound/emotes/moth/mothlaugh.ogg'
@@ -84,11 +101,11 @@
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/cocoon/on_activate()
 	var/mob/living/carbon/H = owner
-	var/obj/item/organ/wingcheck = H.getorgan(/obj/item/organ/wings/moth)
+	var/obj/item/organ/wingcheck = H.get_organ_by_type(/obj/item/organ/wings/moth)
 	if(!wingcheck) //This is to stop easy organ farms
 		to_chat(H, span_warning("You don't have any wings to regenerate!"))
 		return
@@ -105,7 +122,7 @@
 		if(!ismoth(H))
 			to_chat(H, span_warning("You have lost your mandibles and cannot weave anymore!."))
 			return
-		if(H.incapacitated())
+		if(H.incapacitated)
 			to_chat(H, span_warning("You cannot weave a cocoon in your current state."))
 			return
 		if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
@@ -116,7 +133,7 @@
 		H.forceMove(C)
 		H.Sleeping(20, FALSE)
 		C.done_regenerating = FALSE
-		H.apply_status_effect(STATUS_EFFECT_COCOONED)
+		H.apply_status_effect(/datum/status_effect/cocooned)
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
@@ -132,12 +149,12 @@
 //Removes moth from cocoon, restores burnt wings
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
-		if(!H.has_status_effect(STATUS_EFFECT_COCOONED))
+		if(!H.has_status_effect(/datum/status_effect/cocooned))
 			return
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
 		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
 			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
-			var/obj/item/organ/wings/moth/W = H.getorgan(/obj/item/organ/wings/moth)
+			var/obj/item/organ/wings/moth/W = H.get_organ_by_type(/obj/item/organ/wings/moth)
 			if(W)
 				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
 				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
@@ -170,10 +187,10 @@
 	else
 		visible_message(span_danger("[src] is torn open, harming the Mothperson within!"))
 	for(var/mob/living/carbon/human/H in contents)
-		if(H.has_status_effect(STATUS_EFFECT_COCOONED) && !done_regenerating)
+		if(H.has_status_effect(/datum/status_effect/cocooned) && !done_regenerating)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
 			H.SetSleeping(0, FALSE)
-		H.remove_status_effect(STATUS_EFFECT_COCOONED)
+		H.remove_status_effect(/datum/status_effect/cocooned)
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
 		H.forceMove(loc)
@@ -230,3 +247,7 @@
 	)
 
 	return to_add
+
+/datum/species/moth/prepare_human_for_preview(mob/living/carbon/human/human)
+	human.dna.features["mcolor"] = "#f4d697"
+	human.update_body(TRUE)

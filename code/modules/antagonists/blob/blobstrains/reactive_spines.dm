@@ -15,7 +15,7 @@
 	if(damage && damage_type == BRUTE && B.get_integrity() - damage > 0) //is there any damage, is it brute, and will we be alive
 		if(damage_flag == MELEE)
 			B.visible_message(span_boldwarning("The blob retaliates, lashing out!"))
-		for(var/atom/A as() in range(1, B))
+		for(var/atom/A as anything in range(1, B))
 			A.blob_act(B)
 	return ..()
 
@@ -23,7 +23,7 @@
 	name = "Reactive Spines"
 	taste_description = "rock"
 	color = "#9ACD32"
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/reactive_spines/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	if(M.stat == DEAD || istype(M, /mob/living/simple_animal/hostile/blob))

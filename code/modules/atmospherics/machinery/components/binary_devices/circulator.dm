@@ -5,26 +5,20 @@
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger."
 	icon_state = "circ-off-0"
-
-	var/active = FALSE
-
-	var/last_pressure_delta = 0
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
-
+	vent_movement = VENTCRAWL_CAN_SEE
 	density = TRUE
-
 	circuit = /obj/item/circuitboard/machine/circulator
 
+	var/active = FALSE
+	var/last_pressure_delta = 0
 	var/flipped = 0
 	var/mode = CIRCULATOR_HOT
 	var/obj/machinery/power/generator/generator
 
 /obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
-
-/obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+	AddElement(/datum/element/simple_rotation)
 
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold

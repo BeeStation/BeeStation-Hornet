@@ -19,8 +19,7 @@
 		return FALSE
 	return TRUE
 
-
-/// Installs component.
+/// Installs a component.
 /obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
 	if(!can_install_component(install, user))
 		return FALSE
@@ -35,15 +34,20 @@
 			install.forceMove(get_turf(user))
 			return FALSE
 
+	force_install_component(install, user)
+	to_chat(user, span_notice("You install \the [install] into \the [src]."))
+	ui_update()
+
+	return TRUE
+
+/// Installs a component. Now without sleeping!
+/obj/item/modular_computer/proc/force_install_component(obj/item/computer_hardware/install, mob/living/user)
 	if(install.expansion_hw)
 		LAZYSET(expansion_bays, install.device_type, install)
 	all_components[install.device_type] = install
-
-	to_chat(user, span_notice("You install \the [install] into \the [src]."))
 	install.holder = src
 	install.forceMove(src)
 	install.on_install(src, user)
-	return TRUE
 
 /// Uninstalls component.
 /obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/yeet, mob/living/user = null, put_in_hands)
@@ -61,6 +65,7 @@
 	if(enabled && !use_power())
 		shutdown_computer()
 	update_icon()
+	ui_update()
 	return TRUE
 
 /// This isn't the "uninstall fully" proc, it just makes the computer lose all its references to the component
@@ -77,5 +82,13 @@
 	for(var/i in all_components)
 		var/obj/component = all_components[i]
 		if(component.name == name)
+			return component
+	return null
+
+/// Checks all hardware pieces to determine if name type, if yes, returns the hardware piece, otherwise returns null
+/obj/item/modular_computer/proc/find_hardware_by_type(device_type)
+	for(var/i in all_components)
+		var/obj/item/computer_hardware/component = all_components[i]
+		if(component.device_type == device_type)
 			return component
 	return null

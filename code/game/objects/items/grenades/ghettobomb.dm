@@ -6,13 +6,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
+	icon_state_preview = "ied_preview"
+	inhand_icon_state = "flashbang"
 	icon_state_preview = "chemg" // a black stick is bad to recognise as a preview
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	active = 0
 	det_time = 50

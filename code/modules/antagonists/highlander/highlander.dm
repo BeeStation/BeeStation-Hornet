@@ -4,7 +4,6 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/highlander/apply_innate_effects(mob/living/mob_override)
@@ -15,7 +14,7 @@
 	var/mob/living/L = owner.current || mob_override
 	REMOVE_TRAIT(L, TRAIT_NOGUNS, "highlander")
 
-/datum/antagonist/highlander/proc/forge_objectives()
+/datum/antagonist/highlander/forge_objectives()
 	var/datum/objective/steal/steal_objective = new
 	steal_objective.owner = owner
 	steal_objective.set_target(new /datum/objective_item/steal/nukedisc)
@@ -43,7 +42,7 @@
 	if(!istype(H))
 		return
 
-	for(var/obj/item/I in H.get_equipped_items(TRUE))
+	for(var/obj/item/I in H.get_equipped_items(INCLUDE_POCKETS))
 		qdel(I)
 	for(var/obj/item/I in H.held_items)
 		qdel(I)
@@ -60,7 +59,7 @@
 	W.access |= get_all_centcom_access()
 	W.assignment = "Highlander"
 	W.registered_name = H.real_name
-	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER_TRAIT)
 	W.update_label(H.real_name)
 	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 

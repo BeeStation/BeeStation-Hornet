@@ -16,9 +16,6 @@
 
 	welded = FALSE
 
-	interacts_with_air = TRUE
-
-
 	///Indicates that the direction of the pump, if ATMOS_DIRECTION_SIPHONING is siphoning, if ATMOS_DIRECTION_RELEASING is releasing
 	var/pump_direction = ATMOS_DIRECTION_RELEASING
 	///Set the maximum allowed external pressure
@@ -129,9 +126,6 @@
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
-
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/can_crawl_through()
-	return !(machine_stat & BROKEN) && !welded
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))

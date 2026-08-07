@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe
-	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
+	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
 	damage_deflection = 12
 	/// Temporary holder for gases in the absence of a pipenet
 	var/datum/gas_mixture/air_temporary
@@ -12,6 +12,9 @@
 	var/datum/pipenet/parent = null
 
 	paintable = TRUE
+
+	/// Determines if this pipe will be given gas visuals
+	var/has_gas_visuals = TRUE
 
 	//Buckling
 	can_buckle = 1
@@ -43,34 +46,6 @@
 
 	return ..()
 
-/obj/machinery/atmospherics/pipe/Destroy()
-	QDEL_NULL(parent)
-	return ..()
-
-/obj/machinery/atmospherics/pipe/proc/update_pipe_icon()
-	switch(initialize_directions)
-		if(NORTH, EAST, SOUTH, WEST) // Pipes with only a single connection aren't handled by this system
-			icon = null
-			return
-		else
-			icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
-	var/connections = NONE
-	var/bitfield = NONE
-	for(var/i in 1 to device_type)
-		if(!nodes[i])
-			continue
-		var/obj/machinery/atmospherics/node = nodes[i]
-		var/connected_dir = get_dir(src, node)
-		connections |= connected_dir
-	bitfield = CARDINAL_TO_FULLPIPES(connections)
-	bitfield |= CARDINAL_TO_SHORTPIPES(initialize_directions & ~connections)
-	icon_state = "[bitfield]_[piping_layer]"
-
-/obj/machinery/atmospherics/pipe/update_icon()
-	update_pipe_icon()
-	update_layer()
-	return ..()
-
 /obj/machinery/atmospherics/proc/update_node_icon()
 	for(var/i in 1 to device_type)
 		if(nodes[i])
@@ -83,6 +58,20 @@
 		pipe_color = paint_color
 		update_node_icon()
 	return paintable
+
+/obj/machinery/atmospherics/pipe/Destroy()
+	QDEL_NULL(parent)
+
+	//releaseAirToTurf()
+
+	var/turf/local_turf = loc
+	for(var/obj/machinery/meter/meter in local_turf)
+		if(meter.target != src)
+			continue
+		var/obj/item/pipe_meter/meter_object = new (local_turf)
+		meter.transfer_fingerprints_to(meter_object)
+		qdel(meter)
+	return ..()
 
 //-----------------
 // PIPENET STUFF
@@ -129,10 +118,43 @@
 	return parent
 
 /obj/machinery/atmospherics/pipe/replace_pipenet(datum/pipenet/old_pipenet, datum/pipenet/new_pipenet)
+	if(parent && has_gas_visuals)
+		vis_contents -= parent.GetGasVisual('icons/obj/atmospherics/pipes/!pipe_gas_overlays.dmi')
+
 	parent = new_pipenet
+
+	if(parent && has_gas_visuals) // null is a valid argument here
+		vis_contents += parent.GetGasVisual('icons/obj/atmospherics/pipes/!pipe_gas_overlays.dmi')
 
 /obj/machinery/atmospherics/pipe/return_pipenets()
 	. = list(parent)
+
+//--------------------
+// APPEARANCE STUFF
+
+/obj/machinery/atmospherics/pipe/update_icon()
+	update_pipe_icon()
+	update_layer()
+	return ..()
+
+/obj/machinery/atmospherics/pipe/proc/update_pipe_icon()
+	switch(initialize_directions)
+		if(NORTH, EAST, SOUTH, WEST) // Pipes with only a single connection aren't handled by this system
+			icon = null
+			return
+		else
+			icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
+	var/connections = NONE
+	var/bitfield = NONE
+	for(var/i in 1 to device_type)
+		if(!nodes[i])
+			continue
+		var/obj/machinery/atmospherics/node = nodes[i]
+		var/connected_dir = get_dir(src, node)
+		connections |= connected_dir
+	bitfield = CARDINAL_TO_FULLPIPES(connections)
+	bitfield |= CARDINAL_TO_SHORTPIPES(initialize_directions & ~connections)
+	icon_state = "[bitfield]_[piping_layer]"
 
 /obj/machinery/atmospherics/pipe/update_layer()
 	layer = (HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE) ? ABOVE_OPEN_TURF_LAYER : initial(layer)) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE + (GLOB.pipe_colors_ordered[pipe_color] * 0.0001)

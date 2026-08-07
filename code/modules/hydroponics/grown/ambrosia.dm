@@ -29,7 +29,7 @@
 	species = "ambrosiavulgaris"
 	plantname = "Ambrosia Vulgaris"
 	product = /obj/item/food/grown/ambrosia/vulgaris
-	lifespan = 60
+	lifespan = 240
 	endurance = 25
 	yield = 6
 	potency = 5
@@ -62,7 +62,7 @@
 	desc = "Eating this makes you feel immortal!"
 	icon_state = "ambrosiadeus"
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 //Ambrosia Gaia
 /obj/item/seeds/ambrosia/gaia
@@ -77,7 +77,7 @@
 	rarity = 30 //These are some pretty good plants right here
 	genes = list()
 	weed_rate = 4
-	weed_chance = 100
+	weed_chance = 15
 
 /obj/item/food/grown/ambrosia/gaia
 	name = "ambrosia gaia branch"
@@ -88,4 +88,4 @@
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 70
 	wine_flavor = "the earthmother's blessing"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

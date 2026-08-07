@@ -352,15 +352,15 @@
 
 /datum/gear/uniform/rank/medical/scrubs_blue
 	display_name = "medical scrubs, baby blue"
-	path = /obj/item/clothing/under/rank/medical/doctor/blue
+	path = /obj/item/clothing/under/rank/medical/scrubs/blue
 
 /datum/gear/uniform/rank/medical/scrubs_green
 	display_name = "medical scrubs, green"
-	path = /obj/item/clothing/under/rank/medical/doctor/green
+	path = /obj/item/clothing/under/rank/medical/scrubs/green
 
 /datum/gear/uniform/rank/medical/scrubs_purple
 	display_name = "medical scrubs, purple"
-	path = /obj/item/clothing/under/rank/medical/doctor/purple
+	path = /obj/item/clothing/under/rank/medical/scrubs/purple
 
 //ENGINEERING ALT UNIS
 
@@ -389,9 +389,4 @@
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
-	cost = 7500
-
-/datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
-	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500

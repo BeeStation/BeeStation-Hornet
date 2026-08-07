@@ -1,10 +1,24 @@
-import { Button, TextArea, Section, BlockQuote, NoticeBox } from '../components';
-import { Window } from '../layouts';
 import { useBackend } from '../backend';
+import {
+  BlockQuote,
+  Button,
+  NoticeBox,
+  Section,
+  TextArea,
+} from '../components';
+import { Window } from '../layouts';
 
 export const Interview = (props) => {
   const { act, data } = useBackend();
-  const { welcome_message, questions, read_only, queue_pos, is_admin, status, connected } = data;
+  const {
+    welcome_message,
+    questions,
+    read_only,
+    queue_pos,
+    is_admin,
+    status,
+    connected,
+  } = data;
 
   const rendered_status = (status) => {
     switch (status) {
@@ -13,7 +27,12 @@ export const Interview = (props) => {
       case 'interview_denied':
         return <NoticeBox danger>This interview was denied.</NoticeBox>;
       default:
-        return <NoticeBox info>Your answers have been submitted. You are position {queue_pos} in queue.</NoticeBox>;
+        return (
+          <NoticeBox info>
+            Your answers have been submitted. You are position {queue_pos} in
+            queue.
+          </NoticeBox>
+        );
     }
   };
 
@@ -30,19 +49,37 @@ export const Interview = (props) => {
           title="Questionnaire"
           buttons={
             <span>
-              <Button content={read_only ? 'Submitted' : 'Submit'} onClick={() => act('submit')} disabled={read_only} />
+              <Button
+                content={read_only ? 'Submitted' : 'Submit'}
+                onClick={() => act('submit')}
+                disabled={read_only}
+              />
               {!!is_admin && status === 'interview_pending' && (
                 <span>
-                  <Button content="Admin PM" enabled={connected} onClick={() => act('adminpm')} />
-                  <Button content="Approve" color="good" onClick={() => act('approve')} />
-                  <Button content="Deny" color="bad" onClick={() => act('deny')} />
+                  <Button
+                    content="Admin PM"
+                    enabled={connected}
+                    onClick={() => act('adminpm')}
+                  />
+                  <Button
+                    content="Approve"
+                    color="good"
+                    onClick={() => act('approve')}
+                  />
+                  <Button
+                    content="Deny"
+                    color="bad"
+                    onClick={() => act('deny')}
+                  />
                 </span>
               )}
             </span>
-          }>
+          }
+        >
           {!read_only && (
             <p>
-              Please answer the following questions, and press submit when you are satisfied with your answers.
+              Please answer the following questions, and press submit when you
+              are satisfied with your answers.
               <br />
               <br />
               <b>You will not be able to edit your answers after submitting.</b>
@@ -51,7 +88,9 @@ export const Interview = (props) => {
           {questions.map(({ qidx, question, response }) => (
             <Section key={qidx} title={`Question ${qidx}`}>
               <p>{question}</p>
-              {(read_only && <BlockQuote>{response || 'No response.'}</BlockQuote>) || (
+              {(read_only && (
+                <BlockQuote>{response || 'No response.'}</BlockQuote>
+              )) || (
                 <TextArea
                   value={response}
                   fluid

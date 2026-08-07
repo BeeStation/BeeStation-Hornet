@@ -2,19 +2,19 @@
 "w" = (
 /obj/structure/table/debug,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "y" = (
 /turf/open/floor/carpet/debug,
-/area/space)
+/area/misc/space)
 "z" = (
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "A" = (
 /turf/closed/wall/debug,
-/area/space)
+/area/misc/space)
 "T" = (
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 z

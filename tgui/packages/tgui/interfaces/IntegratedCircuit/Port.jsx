@@ -1,5 +1,6 @@
-import { Stack, Icon } from '../../components';
 import { Component, createRef } from 'react';
+
+import { Icon, Stack } from '../../components';
 import { DisplayName } from './DisplayName';
 
 export class Port extends Component {
@@ -14,17 +15,20 @@ export class Port extends Component {
   }
 
   handlePortMouseDown(e) {
-    const { port, portIndex, componentId, isOutput, onPortMouseDown } = this.props;
+    const { port, portIndex, componentId, isOutput, onPortMouseDown } =
+      this.props;
     onPortMouseDown(portIndex, componentId, port, isOutput, e);
   }
 
   handlePortMouseUp(e) {
-    const { port, portIndex, componentId, isOutput, onPortMouseUp } = this.props;
+    const { port, portIndex, componentId, isOutput, onPortMouseUp } =
+      this.props;
     onPortMouseUp(portIndex, componentId, port, isOutput, e);
   }
 
   handlePortRightClick(e) {
-    const { port, portIndex, componentId, isOutput, onPortRightClick } = this.props;
+    const { port, portIndex, componentId, isOutput, onPortRightClick } =
+      this.props;
     onPortRightClick(portIndex, componentId, port, isOutput, e);
   }
 
@@ -49,7 +53,12 @@ export class Port extends Component {
       <Stack {...rest} justify={isOutput ? 'flex-end' : 'flex-start'}>
         {!!isOutput && (
           <Stack.Item>
-            <DisplayName port={port} isOutput={isOutput} componentId={componentId} portIndex={portIndex} />
+            <DisplayName
+              port={port}
+              isOutput={isOutput}
+              componentId={componentId}
+              portIndex={portIndex}
+            />
           </Stack.Item>
         )}
         <Stack.Item>
@@ -59,13 +68,19 @@ export class Port extends Component {
             position="relative"
             onMouseDown={this.handlePortMouseDown}
             onContextMenu={this.handlePortRightClick}
-            onMouseUp={this.handlePortMouseUp}>
+            onMouseUp={this.handlePortMouseUp}
+          >
             <span ref={this.iconRef} className="ObjectComponent__PortPos" />
           </Icon>
         </Stack.Item>
         {!isOutput && (
           <Stack.Item>
-            <DisplayName port={port} isOutput={isOutput} componentId={componentId} portIndex={portIndex} />
+            <DisplayName
+              port={port}
+              isOutput={isOutput}
+              componentId={componentId}
+              portIndex={portIndex}
+            />
           </Stack.Item>
         )}
       </Stack>

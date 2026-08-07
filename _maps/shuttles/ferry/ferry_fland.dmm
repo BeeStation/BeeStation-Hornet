@@ -117,7 +117,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "D" = (
@@ -177,7 +177,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "J" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "L" = (

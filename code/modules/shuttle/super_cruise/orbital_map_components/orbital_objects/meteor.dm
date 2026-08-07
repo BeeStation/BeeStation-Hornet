@@ -62,10 +62,10 @@
 			return
 		var/datum/space_level/space_level = pick(z_linked.linked_z_level)
 		//Check protected levels
-		if(space_level.traits[ZTRAIT_CENTCOM] || space_level.traits[ZTRAIT_REEBE])
+		if(space_level.traits[ZTRAIT_CENTCOM])
 			return
 		//Check level flags for planetary bodies
-		if(space_level.traits[ZTRAIT_MINING] || (space_level.traits[ZTRAIT_STATION] && SSmapping.config.planetary_station))
+		if(space_level.traits[ZTRAIT_MINING] || (space_level.traits[ZTRAIT_STATION] && SSmapping.current_map.planetary_station))
 			for(var/i in 1 to 5)
 				meteor_impact(locate(rand(10, world.maxx - 10), rand(10, world.maxx-10), space_level.z_value))
 		else
@@ -81,8 +81,8 @@
 /datum/orbital_object/meteor/proc/meteor_impact(turf/T)
 	//Make it so meteors fall from high Z and will impact the top Z-Levels first
 	var/turf/target_turf = T
-	var/turf/next = target_turf.above()
+	var/turf/next = GET_TURF_ABOVE(target_turf)
 	while (next != null)
 		target_turf = next
-		next = target_turf.above()
+		next = GET_TURF_ABOVE(target_turf)
 	new /obj/effect/falling_meteor(target_turf, meteor_types ? pick(meteor_types) : null)

@@ -2,14 +2,14 @@
 	status = LIGHT_BROKEN
 	icon_state = "tube-broken"
 
+/obj/machinery/light/burned
+	status = LIGHT_BURNED
+	icon_state = "tube-burned"
+
 /obj/machinery/light/built
 	icon_state = "tube-empty"
 	start_with_cell = FALSE
-
-/obj/machinery/light/built/Initialize(mapload)
-	. = ..()
 	status = LIGHT_EMPTY
-	update(FALSE, TRUE)
 
 /obj/machinery/light/no_nightlight
 	nightshift_enabled = FALSE
@@ -46,6 +46,8 @@
 /obj/machinery/light/small
 	icon_state = "bulb"
 	base_state = "bulb"
+	idle_power_usage = 0.014 KILOWATT
+	active_power_usage = 0.14 KILOWATT //they're way dimmer than light tubes but use only 20 watts less than tubes' 220, this changes that
 	fitting = "bulb"
 	brightness = 6
 	desc = "A small lighting fixture."
@@ -56,14 +58,22 @@
 	status = LIGHT_BROKEN
 	icon_state = "bulb-broken"
 
+/obj/machinery/light/small/burned
+	status = LIGHT_BURNED
+	icon_state = "bulb-burned"
+
 /obj/machinery/light/small/built
 	icon_state = "bulb-empty"
 	start_with_cell = FALSE
-
-/obj/machinery/light/small/built/Initialize(mapload)
-	. = ..()
 	status = LIGHT_EMPTY
-	update(FALSE, TRUE)
+
+/obj/machinery/light/small/red
+	bulb_colour = COLOR_VIVID_RED
+	nightshift_allowed = FALSE
+
+/obj/machinery/light/small/red/dim
+	brightness = 2
+	bulb_power = 0.8
 
 /obj/machinery/light/small/blacklight
 	bulb_colour = "#A700FF"
@@ -76,6 +86,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light, 0)
 
 // ---- Broken tube
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/broken, 0)
+
+// ---- Burned tube
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/burned, 0)
 
 // ---- Tube construct
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/light_construct, 0)
@@ -116,6 +129,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/built, 0)
 
 // ---- Broken bulbs
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/broken, 0)
+
+// ---- Burned bulb
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/burned, 0)
+
+// ---- Red bulbs
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/dim, 0)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/red, 0)
+
+// ---- Red dim bulbs
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/red/dim, 0)
 
 // ---- Blacklight bulbs
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small/blacklight, 0)

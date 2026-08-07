@@ -8,10 +8,12 @@
 	var/url
 	/// If present response body will be saved to this file.
 	var/output_file
+	/// Timeout in seconds before the HTTP requests exits without a response
+	var/timeout_seconds
 
 	var/_raw_response
 
-/datum/http_request/proc/prepare(method, url, body = "", list/headers, output_file)
+/datum/http_request/proc/prepare(method, url, body = "", list/headers, output_file, timeout_seconds)
 	if (!length(headers))
 		headers = ""
 	else
@@ -22,6 +24,7 @@
 	src.body = body
 	src.headers = headers
 	src.output_file = output_file
+	src.timeout_seconds = timeout_seconds
 
 /datum/http_request/proc/execute_blocking()
 	_raw_response = rustg_http_request_blocking(method, url, body, headers, build_options())
@@ -39,8 +42,14 @@
 		in_progress = TRUE
 
 /datum/http_request/proc/build_options()
+	var/list/options = list()
 	if(output_file)
-		return json_encode(list("output_filename"=output_file,"body_filename"=null))
+		options["output_filename"] = output_file
+		options["body_filename"] = null
+	if(timeout_seconds)
+		options["timeout_seconds"] = timeout_seconds
+	if(length(options))
+		return json_encode(options)
 	return null
 
 /datum/http_request/proc/is_complete()
@@ -73,12 +82,12 @@
 
 	return R
 
-/datum/http_request/proc/get_request(url, list/headers)
+/datum/http_request/proc/get_request(url, list/headers, timeout_seconds)
 	var/datum/http_request/request = new()
 
 	if (!length(headers))
 		headers = ""
-	request.prepare(RUSTG_HTTP_METHOD_GET, url, body, headers)
+	request.prepare(RUSTG_HTTP_METHOD_GET, url, body, headers, timeout_seconds=timeout_seconds)
 	request.begin_async()
 	UNTIL(request.is_complete())
 	var/datum/http_response/results = request.into_response()

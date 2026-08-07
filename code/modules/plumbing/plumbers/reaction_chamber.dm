@@ -26,6 +26,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
 	if(reagents.total_volume == 0 && emptying) //we were emptying, but now we aren't
 		emptying = FALSE
 		reagents.flags |= NO_REACT
+	ui_update()
 
 /obj/machinery/plumbing/reaction_chamber/power_change()
 	. = ..()
@@ -33,6 +34,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
 		icon_state = initial(icon_state) + "_on"
 	else
 		icon_state = initial(icon_state)
+	ui_update()
 
 
 /obj/machinery/plumbing/reaction_chamber/ui_state(mob/user)
@@ -43,7 +45,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
 	if(!ui)
 		ui = new(user, src, "ChemReactionChamber")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/plumbing/reaction_chamber/ui_data(mob/user)
 	var/list/data = list()
@@ -72,3 +73,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/reaction_chamber)
 				if(input_amount)
 					required_reagents[input_reagent] = input_amount
 					. = TRUE
+	ui_update()

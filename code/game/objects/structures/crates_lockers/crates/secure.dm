@@ -8,8 +8,7 @@
 	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
-	damage_deflection = 25
-
+	damage_deflection = 20
 
 /datum/armor/crate_secure
 	melee = 30
@@ -53,6 +52,19 @@
 	icon_state = "secgear_crate"
 	icon_door = "secgear_crate"
 
+/obj/structure/closet/crate/secure/gear/debug_mech
+	name = "debug mech equipment"
+	storage_capacity = 300 // unit test blames extreme amount
+
+/obj/structure/closet/crate/secure/gear/debug_mech/PopulateContents()
+	. = ..()
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment as anything in valid_subtypesof(/obj/item/mecha_parts/mecha_equipment))
+		new equipment(src)
+	new /obj/item/stack/sheet/animalhide/goliath_hide(src, 5)
+	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
+
 /obj/structure/closet/crate/secure/hydroponics
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
 	name = "secure hydroponics crate"
@@ -72,7 +84,7 @@
 
 /obj/structure/closet/crate/secure/freezer/pizza/PopulateContents()
 	. = ..()
-	new /obj/effect/spawner/lootdrop/pizzaparty(src)
+	new /obj/effect/spawner/random/food_or_drink/pizzaparty(src)
 
 /obj/structure/closet/crate/secure/engineering
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."

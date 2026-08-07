@@ -1,5 +1,3 @@
-GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
-
 /datum/crew_manifest/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_CREW_MANIFEST_UPDATE, PROC_REF(on_manifest_update))
@@ -12,7 +10,10 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 	return GLOB.always_state
 
 /datum/crew_manifest/ui_status(mob/user, datum/ui_state/state)
-	var/static/list/allowed_mobs_typecache = typecacheof(list(/mob/dead, /mob/living/silicon))
+	var/static/list/allowed_mobs_typecache = typecacheof(list(
+		/mob/dead,
+		/mob/living/silicon,
+	))
 	return is_type_in_typecache(user, allowed_mobs_typecache) ? UI_INTERACTIVE : UI_CLOSE
 
 /datum/crew_manifest/ui_interact(mob/user, datum/tgui/ui)
@@ -27,7 +28,7 @@ GLOBAL_DATUM_INIT(crew_manifest_tgui, /datum/crew_manifest, new)
 		"command" = list(
 			"name" = "Command",
 			"huds" = GLOB.command_huds,
-			"jobs" = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND),
+			"jobs" = SSdepartment.get_job_titles_by_dept_id(DEPARTMENT_NAME_COMMAND),
 			"order" = SSjob.chain_of_command
 		),
 		"order" = ordering,

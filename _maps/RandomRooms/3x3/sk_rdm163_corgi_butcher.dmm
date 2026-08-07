@@ -1,14 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/mob/living/simple_animal/pet/dog/corgi,
+/mob/living/basic/pet/dog/corgi,
 /obj/structure/bed/dogbed,
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	req_access_txt = "1"
 	},
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/item/toy/plush/nukeplushie,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
@@ -49,13 +47,13 @@
 /obj/structure/sign/poster/official/ian{
 	pixel_y = 32
 	},
-/mob/living/simple_animal/pet/dog/corgi,
+/mob/living/basic/pet/dog/corgi,
 /obj/structure/bed/dogbed,
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	req_access_txt = "1"
 	},
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/toy/plush/lizard_plushie,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
@@ -65,9 +63,7 @@
 /obj/machinery/door/window/westleft{
 	req_access_txt = "1"
 	},
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},

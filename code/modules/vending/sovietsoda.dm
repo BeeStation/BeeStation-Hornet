@@ -10,7 +10,6 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 1
 	extra_price = 1
-	dept_req_for_free = NO_FREEBIES
 	light_color = COLOR_PALE_ORANGE
 
 /obj/item/vending_refill/sovietsoda

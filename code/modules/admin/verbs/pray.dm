@@ -6,12 +6,15 @@
 		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
+	if(isnewplayer(src))
+		return
+
 	msg = copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	if(!msg)
 		return
 	log_prayer("[src.key]/([src.name]): [msg]")
 	if(usr.client)
-		if(usr.client.prefs.muted & MUTE_PRAY)
+		if(usr.client.player_details.muted & MUTE_PRAY)
 			to_chat(usr, span_danger("You cannot pray (muted)."))
 			return
 		if(src.client.handle_spam_prevention(msg,MUTE_PRAY))
@@ -27,7 +30,7 @@
 		prayer_type = "CHAPLAIN PRAYER"
 		if(GLOB.deity)
 			deity = GLOB.deity
-	else if(iscultist(usr))
+	else if(IS_CULTIST(usr))
 		cross.icon_state = "tome"
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
@@ -56,7 +59,7 @@
 	GLOB.requests.message_centcom(sender.client, msg)
 	msg = span_adminnotice("<b><font color=orange>CENTCOM:</font>[ADMIN_FULLMONTY(sender)] [ADMIN_CENTCOM_REPLY(sender)]:</b> [msg]")
 	to_chat(GLOB.admins, msg)
-	for(var/obj/machinery/computer/communications/console in GLOB.machines)
+	for(var/obj/machinery/computer/communications/console in GLOB.shuttle_caller_list)
 		console.override_cooldown()
 
 /// Used by communications consoles to message the Syndicate
@@ -65,7 +68,7 @@
 	GLOB.requests.message_syndicate(sender.client, msg)
 	msg = span_adminnotice("<b><font color=crimson>SYNDICATE:</font>[ADMIN_FULLMONTY(sender)] [ADMIN_SYNDICATE_REPLY(sender)]:</b> [msg]")
 	to_chat(GLOB.admins, msg)
-	for(var/obj/machinery/computer/communications/console in GLOB.machines)
+	for(var/obj/machinery/computer/communications/console in GLOB.shuttle_caller_list)
 		console.override_cooldown()
 
 /// Used by communications consoles to request the nuclear launch codes
@@ -74,5 +77,5 @@
 	GLOB.requests.nuke_request(sender.client, msg)
 	msg = span_adminnotice("<b><font color=orange>NUKE CODE REQUEST:</font>[ADMIN_FULLMONTY(sender)] [ADMIN_CENTCOM_REPLY(sender)] [ADMIN_SET_SD_CODE]:</b> [msg]")
 	to_chat(GLOB.admins, msg)
-	for(var/obj/machinery/computer/communications/console in GLOB.machines)
+	for(var/obj/machinery/computer/communications/console in GLOB.shuttle_caller_list)
 		console.override_cooldown()

@@ -12,6 +12,8 @@
 #define PAINT_LARGE_HORIZONTAL	2
 #define PAINT_LARGE_HORIZONTAL_ICON	'icons/effects/96x32.dmi'
 
+#define AVAILABLE_SPRAYCAN_SPACE 8 // enough to fill one radial menu page
+
 /*
  * Crayons
  */
@@ -31,7 +33,7 @@
 	attack_verb_continuous = list("attacks", "colours")
 	attack_verb_simple = list("attack", "colour")
 	grind_results = list()
-	var/paint_color = "#FF0000" //RGB
+	var/paint_color = COLOR_RED //RGB
 
 	var/drawtype
 	var/text_buffer = ""
@@ -87,7 +89,15 @@
 
 	dye_color = crayon_color
 
+	if(can_change_colour)
+		AddComponent(/datum/component/palette, AVAILABLE_SPRAYCAN_SPACE, paint_color)
+
 	refill()
+
+/obj/item/toy/crayon/set_painting_tool_color(chosen_color)
+	. = ..()
+	paint_color = chosen_color
+	update_appearance()
 
 /obj/item/toy/crayon/proc/refill()
 	if(charges == -1)
@@ -217,8 +227,10 @@
 	.["current_colour"] = paint_color
 
 /obj/item/toy/crayon/ui_act(action, list/params)
-	if(..())
+	. = ..()
+	if(.)
 		return
+
 	switch(action)
 		if("toggle_cap")
 			if(has_cap)
@@ -236,14 +248,7 @@
 			else
 				paint_mode = PAINT_NORMAL
 		if("select_colour")
-			if(can_change_colour)
-				var/chosen_colour = tgui_color_picker(usr,"","Choose Color",paint_color)
-
-				if (!isnull(chosen_colour))
-					paint_color = chosen_colour
-					. = TRUE
-				else
-					. = FALSE
+			. = can_change_colour && pick_painting_tool_color(usr, paint_color)
 		if("enter_text")
 			var/txt = stripped_input(usr,"Choose what to write.",
 				"Scribbles",default = text_buffer)
@@ -338,8 +343,8 @@
 	var/clicky
 
 	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
-		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 
 	if(pre_noise)
 		audible_message(span_notice("You hear spraying."))
@@ -478,7 +483,7 @@
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
-	paint_color = "#FFFFFF"
+	paint_color = COLOR_WHITE
 	crayon_color = "white"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
 	dye_color = DYE_WHITE
@@ -486,7 +491,7 @@
 /obj/item/toy/crayon/mime
 	icon_state = "crayonmime"
 	desc = "A very sad-looking crayon."
-	paint_color = "#FFFFFF"
+	paint_color = COLOR_WHITE
 	crayon_color = "mime"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/invisible = 1.5)
 	charges = -1
@@ -502,7 +507,7 @@
 	charges = -1
 
 /obj/item/toy/crayon/rainbow/afterattack(atom/target, mob/user, proximity, params)
-	paint_color = rgb(rand(0,255), rand(0,255), rand(0,255))
+	set_painting_tool_color(rgb(rand(0,255), rand(0,255), rand(0,255)))
 	. = ..()
 
 /*
@@ -515,12 +520,11 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 15
 
 /obj/item/storage/crayons/Initialize(mapload)
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 7
-	STR.set_holdable(list(/obj/item/toy/crayon))
+	create_storage(canhold = list(/obj/item/toy/crayon))
+	return ..()
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
@@ -577,7 +581,7 @@
 	paint_color = null
 	drawtype = "splatter"
 
-	item_state = "spraycan"
+	inhand_icon_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	desc = "A metallic container containing tasty paint."
@@ -600,7 +604,11 @@
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	if(!spraycan_touch_normally)
-		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
+		spraycan_touch_normally = typecacheof(list(
+			/obj/machinery/modular_fabricator/autolathe,
+			/obj/structure/closet,
+			/obj/machinery/disposal,
+		))
 
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
@@ -618,7 +626,7 @@
 		if(pre_noise || post_noise)
 			playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		if(can_change_colour)
-			paint_color = "#C0C0C0"
+			set_painting_tool_color(COLOR_SILVER)
 		update_icon()
 		if(actually_paints)
 			H.lip_style = "spray_face"
@@ -634,10 +642,8 @@
 	. = ..()
 	// If default crayon red colour, pick a more fun spraycan colour
 	if(!paint_color)
-		paint_color = pick("#DA0000","#FF9300","#FFF200","#A8E61D","#00B7EF",
-		"#DA00FF")
+		set_painting_tool_color(pick("#DA0000", "#FF9300", "#FFF200", "#A8E61D", "#00B7EF", "#DA00FF"))
 	refill()
-	update_icon()
 
 
 /obj/item/toy/crayon/spraycan/examine(mob/user)
@@ -648,12 +654,12 @@
 		. += "It is empty."
 	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"].")
 
-/obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return ..()
 
 	if(is_capped)
-		if(is_type_in_typecache(target, spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
+		if(is_type_in_typecache(target, spraycan_touch_normally) || target.atom_storage)
 			return ..()
 		to_chat(user, span_warning("Take the cap off first!"))
 		return
@@ -670,10 +676,10 @@
 		to_chat(target, span_userdanger("[user] sprays [src] into your face!"))
 
 		if(C.client)
-			C.blur_eyes(3)
-			C.adjust_blindness(1)
+			C.set_eye_blur_if_lower(6 SECONDS)
+			C.adjust_temp_blindness(2 SECONDS)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
-			C.confused = max(C.confused, 3)
+			C.set_confusion_if_lower(3 SECONDS)
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
 			var/mob/living/carbon/human/H = C
@@ -728,6 +734,9 @@
 
 	. = ..()
 
+/obj/item/toy/crayon/spraycan/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	return is_capped
+
 /obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = is_capped ? icon_capped : icon_uncapped
 	return ..()
@@ -775,7 +784,7 @@
 	charges = 100
 	reagent_contents = list(/datum/reagent/clf3 = 1)
 	actually_paints = FALSE
-	paint_color = "#000000"
+	paint_color = COLOR_BLACK
 
 /obj/item/toy/crayon/spraycan/lubecan
 	name = "slippery spraycan"
@@ -800,7 +809,7 @@
 	use_overlays = FALSE
 
 	can_change_colour = FALSE
-	paint_color = "#FFFFFF" //RGB
+	paint_color = COLOR_WHITE
 
 	pre_noise = FALSE
 	post_noise = FALSE
@@ -823,3 +832,5 @@
 #undef PAINT_NORMAL
 #undef PAINT_LARGE_HORIZONTAL
 #undef PAINT_LARGE_HORIZONTAL_ICON
+
+#undef AVAILABLE_SPRAYCAN_SPACE

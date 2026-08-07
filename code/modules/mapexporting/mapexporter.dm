@@ -24,11 +24,11 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 ))
 
 //Converts a list of turfs into TGM file format
-/proc/convert_map_to_tgm(var/list/map,\
-						var/save_flag = SAVE_ALL, \
-						var/shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, \
-						var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"),\
-						var/list/obj_blacklist = list())
+/proc/convert_map_to_tgm(list/map,\
+						save_flag = SAVE_ALL, \
+						shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, \
+						list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"),\
+						list/obj_blacklist = list())
 	//Calculate the bounds
 	var/minx = 1024
 	var/miny = 1024
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 
 	//Step 0: Calculate the amount of letters we need (26 ^ n > turf count)
 	var/turfsNeeded = width * height
-	var/layers = FLOOR(log(GLOB.save_file_chars.len, turfsNeeded) + 0.999,1)
+	var/layers = floor(log(GLOB.save_file_chars.len, turfsNeeded) + 0.999)
 
 	//Step 1: Run through the area and generate file data
 	var/list/header_chars	= list()	//The characters of the header
@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				location = /area/template_noop
 				objects = list()
 			//Ignore things in space, must be a space turf and the area has to be empty space
-			else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
+			else if(istype(place, /turf/open/space) && istype(AR, /area/misc/space) && !(save_flag & SAVE_SPACE))
 				place = /turf/template_noop
 				location = /area/template_noop
 			//Stuff to add
@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	return "[header][contents]"
 
 //Sorts maps in terms of their positions, so scrambled / odd shaped maps can be saved
-/proc/sort_map(var/list/map, minx, miny, maxx, maxy)
+/proc/sort_map(list/map, minx, miny, maxx, maxy)
 	var/width = maxx - minx + 1
 	var/height = maxy - miny + 1
 	var/allTurfs = new/list(width, height)
@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	return allTurfs
 
 //vars_to_save = list() to save all vars
-/proc/generate_tgm_metadata(var/atom/O, var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
+/proc/generate_tgm_metadata(atom/O, list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
 	var/dat = ""
 	var/data_to_add = list()
 	for(var/V in O.vars)
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			value = sanitize_simple(value, list("{"="", "}"="", "\""="", ";"="", ","=""))
 		else if(isicon(value) || isfile(value))
 			symbol = "'"
-		else if(!(isnum_safe(value) || ispath(value)))
+		else if(!(IS_FINITE(value) || ispath(value)))
 			continue
 		//Prevent symbols from being because otherwise you can name something [";},/obj/item/gun/energy/laser/instakill{name="da epic gun] and spawn yourself an instakill gun.
 		data_to_add += "[V] = [symbol][value][symbol]"
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/output = ""
 	for(var/i in 1 to layers)
 		var/l = GLOB.save_file_chars.len
-		var/c = FLOOR((index-1) / (l ** (i - 1)), 1)
+		var/c = floor((index-1) / (l ** (i - 1)))
 		c = (c % l) + 1
 		output = "[GLOB.save_file_chars[c]][output]"
 	return output

@@ -12,7 +12,6 @@
 	refill_canister = /obj/item/vending_refill/coffee
 	default_price = 10
 	extra_price = 25
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "coffee-light-mask"
 	light_color = COLOR_DARK_MODERATE_ORANGE
 

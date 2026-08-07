@@ -1,6 +1,6 @@
 /mob/living/silicon/ai/proc/get_camera_list()
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for (var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		L.Add(C)
 
 	camera_sort(L)
@@ -8,8 +8,9 @@
 	var/list/T = list()
 
 	for (var/obj/machinery/camera/C in L)
-		var/list/tempnetwork = C.network&src.network
-		if (tempnetwork.len)
+		if(!(is_station_level(C.z) || is_mining_level(C.z)))
+			continue
+		if (L.len)
 			T["[C.c_tag][(C.can_use() ? null : " (Deactivated)")]"] = C
 
 	return T
@@ -98,12 +99,11 @@
 		if (human_target.get_face_name() == human_target.real_name)
 			track_time -= 1 SECONDS
 		// Check for sensor beacon
-		var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS)
-		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (nanite_sensors || HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)))
+		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && HAS_TRAIT(human_target, TRAIT_TRACKED_SENSORS))
 			// Check for a uniform if not using nanites
 			// If the GPS is on, track instantly
 			var/obj/item/clothing/under/uniform = human_target.w_uniform
-			if (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS)
+			if (HAS_TRAIT_FROM(human_target, TRAIT_TRACKED_SENSORS, NANITES_TRAIT) || uniform.sensor_mode >= SENSOR_COORDS)
 				track_time = 0
 	if (!instant_track && !ishuman(target))
 		// Animals are easy to track
@@ -131,7 +131,7 @@
 		return
 	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals
 		ai_stop_tracking()
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(tracking_target_qdeleted))
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(tracking_target_qdeleted))
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(ai_actual_track))
 	ai_tracking_target = target
 	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
@@ -141,8 +141,8 @@
 	SIGNAL_HANDLER
 	ai_stop_tracking()
 
-/mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
-	UnregisterSignal(ai_tracking_target, COMSIG_PARENT_QDELETING)
+/mob/living/silicon/ai/proc/ai_stop_tracking(reacquire_failed = FALSE) //stops ai tracking
+	UnregisterSignal(ai_tracking_target, COMSIG_QDELETING)
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
 	ai_tracking_target = null
 	if(reacquire_timer)

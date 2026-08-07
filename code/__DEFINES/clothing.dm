@@ -1,6 +1,4 @@
 //suit sensors: sensor_mode defines
-/// Suit sensor was not changed by user
-#define SENSOR_NOT_SET -1
 /// Suit sensor is turned off
 #define SENSOR_OFF 0
 /// Suit sensor displays the mob as alive or dead
@@ -19,3 +17,8 @@
 #define HAS_SENSORS 1
 /// Suit sensor is present and is forced to display information (used on prisoner jumpsuits)
 #define LOCKED_SENSORS 2
+
+/// Wrapper for adding clothing based traits
+#define ADD_CLOTHING_TRAIT(mob, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[REF(src)]")
+/// Wrapper for removing clothing based traits
+#define REMOVE_CLOTHING_TRAIT(mob, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[REF(src)]")

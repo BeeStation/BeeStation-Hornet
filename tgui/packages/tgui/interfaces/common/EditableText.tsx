@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Input, Stack, Box, Button } from 'tgui/components';
+import { Box, Button, Input, Stack } from 'tgui/components';
 
 type Props = {
   color?: string;
@@ -24,7 +24,10 @@ export const EditableText = (props: Props) => {
   if (!field) return <> </>;
 
   const { act } = useBackend();
-  const [editing, setEditing] = useLocalState<boolean>(`editing_${field}`, false);
+  const [editing, setEditing] = useLocalState<boolean>(
+    `editing_${field}`,
+    false,
+  );
 
   return editing ? (
     <Input
@@ -35,7 +38,11 @@ export const EditableText = (props: Props) => {
       onEscape={() => setEditing(false)}
       onEnter={(event, value) => {
         setEditing(false);
-        act('edit_field', { field: field, record_ref: target_ref, value: value });
+        act('edit_field', {
+          field: field,
+          record_ref: target_ref,
+          value: value,
+        });
       }}
       value={text}
     />
@@ -51,7 +58,8 @@ export const EditableText = (props: Props) => {
             textDecorationThickness: '1px',
             textUnderlineOffset: '1px',
           }}
-          onClick={() => setEditing(true)}>
+          onClick={() => setEditing(true)}
+        >
           {!text ? '(none)' : text}
         </Box>
       </Stack.Item>
@@ -60,7 +68,13 @@ export const EditableText = (props: Props) => {
           color="transparent"
           icon="backspace"
           ml={1}
-          onClick={() => act('edit_field', { field: field, record_ref: target_ref, value: '' })}
+          onClick={() =>
+            act('edit_field', {
+              field: field,
+              record_ref: target_ref,
+              value: '',
+            })
+          }
           tooltip="Clear"
           tooltipPosition="bottom"
         />

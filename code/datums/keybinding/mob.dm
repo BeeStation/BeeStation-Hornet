@@ -103,10 +103,10 @@
 	return TRUE
 
 /datum/keybinding/mob/move_up
-	keys = list("F")
+	keys = list()
 	name = "move up"
 	full_name = "Move Up"
-	description = "Try moving upwards."
+	description = "Attempts to move upwards."
 	keybind_signal = COMSIG_KB_MOB_MOVEUP_DOWN
 
 /datum/keybinding/mob/move_up/down(client/user)
@@ -128,10 +128,10 @@
 	return TRUE
 
 /datum/keybinding/mob/move_down
-	keys = list("C")
+	keys = list()
 	name = "move down"
 	full_name = "Move Down"
-	description = "Try moving downwards."
+	description = "Attempts to move downards."
 	keybind_signal = COMSIG_KB_MOB_MOVEDOWN_DOWN
 
 /datum/keybinding/mob/move_down/down(client/user)
@@ -141,6 +141,58 @@
 	if(isliving(user.mob))
 		var/mob/living/L = user.mob
 		L.zMove(DOWN, TRUE)
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, DOWN)
+		if(!istype(new_turf))
+			to_chat(user.mob, span_warning("There is nothing below you!"))
+			return
+		user.mob.Move(new_turf, DOWN)
+	return TRUE
+
+/datum/keybinding/mob/move_look_up
+	keys = list("CtrlF", "Northeast") // Northeast: Page-up
+	name = "move or look up"
+	full_name = "Move/Look Up"
+	description = "Move upwards if you are capable, otherwise looks up instead."
+	keybind_signal = COMSIG_KB_MOB_MOVEUP_DOWN
+
+/datum/keybinding/mob/move_look_up/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		if (!L.zMove(UP, FALSE))
+			L.look_up()
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, UP)
+		if(!istype(new_turf))
+			to_chat(user.mob, span_warning("There is nothing above you!"))
+			return
+		user.mob.Move(new_turf, UP)
+	return TRUE
+
+/datum/keybinding/mob/move_look_down
+	keys = list("CtrlC", "Southeast") // Southeast: Page-down
+	name = "move or look down"
+	full_name = "Move/Look Down"
+	description = "Move downwards if you are capable, otherwise looks down instead."
+	keybind_signal = COMSIG_KB_MOB_MOVEDOWN_DOWN
+
+/datum/keybinding/mob/move_look_down/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		if (!L.zMove(DOWN, FALSE))
+			L.look_down()
 	else if(isobserver(user.mob))
 		var/turf/original = get_turf(user.mob)
 		if(!istype(original))
@@ -223,43 +275,6 @@
 		user.mob.dropItemToGround(I)
 	return TRUE
 
-/datum/keybinding/mob/toggle_move_intent
-	keys = list("Alt")
-	name = "toggle_move_intent"
-	full_name = "Hold to toggle move intent"
-	description = "Held down to cycle to the other move intent, release to cycle back"
-	keybind_signal = COMSIG_KB_MOB_TOGGLEMOVEINTENT_DOWN
-
-/datum/keybinding/mob/toggle_move_intent/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.toggle_move_intent()
-	return TRUE
-
-/datum/keybinding/mob/toggle_move_intent/up(client/user)
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.toggle_move_intent()
-	return TRUE
-
-/datum/keybinding/mob/toggle_move_intent_alternative
-	keys = list("Unbound")
-	name = "toggle_move_intent_alt"
-	full_name = "press to cycle move intent"
-	description = "Pressing this cycle to the opposite move intent, does not cycle back"
-	keybind_signal = COMSIG_KB_MOB_TOGGLEMOVEINTENTALT_DOWN
-
-/datum/keybinding/mob/toggle_move_intent_alternative/down(client/user)
-	. = ..()
-	if(.)
-		return
-	var/mob/M = user.mob
-	M.toggle_move_intent()
-	return TRUE
-
 /datum/keybinding/mob/prevent_movement
 	keys = list("Ctrl")
 	name = "block_movement"
@@ -278,6 +293,34 @@
 	if(.)
 		return
 	user.movement_locked = FALSE
+
+/datum/keybinding/living/view_pet_data
+	keys = list("Shift")
+	name = "view_pet_commands"
+	full_name = "View Pet Commands"
+	description = "Hold down to see all the commands you can give your pets!"
+	keybind_signal = COMSIG_KB_LIVING_VIEW_PET_COMMANDS
+
+/datum/keybinding/mob/show_extended_screentips
+	keys = list("Shift")
+	name = "show_extended_screentips"
+	full_name = "Show Extended Screentips"
+	description = "While held, screentip information about construction and deconstruction will be shown on the screen."
+	keybind_signal = COMSIG_KB_MOB_EXTENDEDSCREENTIPS_DOWN
+
+/datum/keybinding/mob/show_extended_screentips/down(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = TRUE
+	user.mob.refresh_self_screentips()
+
+/datum/keybinding/mob/show_extended_screentips/up(client/user)
+	. = ..()
+	if (.)
+		return
+	user.show_extended_screentips = FALSE
+	user.mob.refresh_self_screentips()
 
 /**
  * ===========================

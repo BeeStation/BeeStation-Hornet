@@ -1,11 +1,11 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$elevator-gray: #636363 !default;
-$elevator-gray-fg: #909090 !default;
-$elevator-label: #202020 !default;
-$elevator-text: #ffffff !default;
-$elevator-selected: #e2e2e2 !default;
+$elevator-gray: hsl(0, 0%, 38.8%) !default;
+$elevator-gray-fg: hsl(0, 0%, 56.5%) !default;
+$elevator-label: hsl(0, 0%, 12.5%) !default;
+$elevator-text: hsl(0, 0%, 100%) !default;
+$elevator-selected: hsl(0, 0%, 88.6%) !default;
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -19,10 +19,18 @@ $elevator-selected: #e2e2e2 !default;
 
 .theme-elevator {
   body {
-    background: linear-gradient(to bottom, #bcc6cc, #eee, #bcc6cc);
+    background: linear-gradient(
+      to bottom,
+      hsl(202.5, 13.6%, 76.9%),
+      #eee,
+      hsl(202.5, 13.6%, 76.9%)
+    );
   }
   // Components
-  @include meta.load-css('../components/Button.scss', $with: ('color-default': $elevator-gray-fg));
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: ('color-default': $elevator-gray-fg)
+  );
 
   .button-container {
     background-color: $elevator-label;
@@ -51,22 +59,37 @@ $elevator-selected: #e2e2e2 !default;
       height: $button-height;
       width: $button-height;
       border-radius: $button-height;
-      background: linear-gradient(to bottom, #7b7f81, #b9b9b9, #7b7f81);
+      background: linear-gradient(
+        to bottom,
+        hsl(200, 2.4%, 49.4%),
+        hsl(0, 0%, 72.5%),
+        hsl(200, 2.4%, 49.4%)
+      );
       border: 3px solid $elevator-gray;
       &.Button--disabled {
         background-color: $elevator-gray-fg !important;
       }
       &.Button--selected {
         border-color: $elevator-selected;
-        box-shadow: inset 0px 0px 5px $elevator-selected, 0px 0px 5px $elevator-selected;
+        box-shadow:
+          inset 0px 0px 5px $elevator-selected,
+          0px 0px 5px $elevator-selected;
         &:after {
           background-color: $elevator-selected;
           box-shadow: 0px 0px 5px $elevator-selected;
         }
       }
-      transition: 0.1s linear border-color, 0.1s ease background, 0.1s linear box-shadow;
+      transition:
+        0.1s linear border-color,
+        0.1s ease background,
+        0.1s linear box-shadow;
       &:hover {
-        background: linear-gradient(to bottom, #7b7f81, #a8a7a7, #7b7f81);
+        background: linear-gradient(
+          to bottom,
+          hsl(200, 2.4%, 49.4%),
+          hsl(0, 0.6%, 65.7%),
+          hsl(200, 2.4%, 49.4%)
+        );
       }
       &:after {
         content: '';
@@ -76,7 +99,7 @@ $elevator-selected: #e2e2e2 !default;
         padding: 0;
         margin: 0;
         border-radius: 5px;
-        background-color: #636363;
+        background-color: hsl(0, 0%, 38.8%);
         position: absolute;
         top: 50%;
         left: 50%;

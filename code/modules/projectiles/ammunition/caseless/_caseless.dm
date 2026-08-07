@@ -3,7 +3,7 @@
 	firing_effect_type = null
 	heavy_metal = FALSE
 
-/obj/item/ammo_casing/caseless/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, spread_multiplier = 1, atom/fired_from)
+/obj/item/ammo_casing/caseless/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
 	if (!..()) //failed firing
 		return FALSE
 	if(istype(fired_from, /obj/item/gun))
@@ -13,6 +13,6 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/ammo_casing/caseless/update_icon()
-	..()
+/obj/item/ammo_casing/caseless/update_icon_state()
+	. = ..()
 	icon_state = "[initial(icon_state)]"

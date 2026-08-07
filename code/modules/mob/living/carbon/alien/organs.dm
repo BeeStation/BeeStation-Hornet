@@ -17,9 +17,12 @@
 
 	/// The current amount of stored plasma.
 	var/stored_plasma = 100
+	/// The maximum plasma this organ can store.
 	var/max_plasma = 250
-	var/heal_rate = 5
-	var/plasma_rate = 10
+	/// The rate this organ regenerates its owners health at per damage type per second.
+	var/heal_rate = 2.5
+	/// The rate this organ regenerates plasma at per second.
+	var/plasma_rate = 5
 
 /obj/item/organ/alien/plasmavessel/large
 	name = "large plasma vessel"
@@ -27,10 +30,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	stored_plasma = 200
 	max_plasma = 500
-	plasma_rate = 15
+	plasma_rate = 7.5
 
 /obj/item/organ/alien/plasmavessel/large/queen
-	plasma_rate = 20
+	plasma_rate = 10
 
 /obj/item/organ/alien/plasmavessel/small
 	name = "small plasma vessel"
@@ -38,7 +41,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	stored_plasma = 100
 	max_plasma = 150
-	plasma_rate = 5
+	plasma_rate = 2.5
 
 /obj/item/organ/alien/plasmavessel/small/tiny
 	name = "tiny plasma vessel"
@@ -47,35 +50,36 @@
 	max_plasma = 100
 	actions_types = list(/datum/action/alien/transfer)
 
-/obj/item/organ/alien/plasmavessel/on_life()
+/obj/item/organ/alien/plasmavessel/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	//If there are alien weeds on the ground then heal if needed or give some plasma
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
 		if(owner.health >= owner.maxHealth)
-			owner.adjustPlasma(plasma_rate)
+			owner.adjustPlasma(plasma_rate * delta_time)
 		else
 			var/heal_amt = heal_rate
 			if(!isalien(owner))
 				heal_amt *= 0.2
-			owner.adjustPlasma(plasma_rate*0.5)
-			owner.adjustBruteLoss(-heal_amt)
-			owner.adjustFireLoss(-heal_amt)
-			owner.adjustOxyLoss(-heal_amt)
-			owner.adjustCloneLoss(-heal_amt)
+			owner.adjustPlasma(0.5 * plasma_rate * delta_time)
+			owner.adjustBruteLoss(-heal_amt * delta_time)
+			owner.adjustFireLoss(-heal_amt * delta_time)
+			owner.adjustOxyLoss(-heal_amt * delta_time)
+			owner.adjustCloneLoss(-heal_amt * delta_time)
 	else
-		owner.adjustPlasma(plasma_rate * 0.1)
+		owner.adjustPlasma(0.1 * plasma_rate * delta_time)
 
-/obj/item/organ/alien/plasmavessel/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/alien/plasmavessel/on_insert(mob/living/carbon/organ_owner)
 	. = ..()
-	if(!isalien(M))
+	if(!isalien(organ_owner))
 		return
-	var/mob/living/carbon/alien/A = M
+	var/mob/living/carbon/alien/A = organ_owner
 	A.updatePlasmaDisplay()
 
-/obj/item/organ/alien/plasmavessel/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/alien/plasmavessel/on_remove(mob/living/carbon/organ_owner)
 	. = ..()
-	if(!isalien(M))
+	if(!isalien(organ_owner))
 		return
-	var/mob/living/carbon/alien/A = M
+	var/mob/living/carbon/alien/A = organ_owner
 	A.updatePlasmaDisplay()
 
 #define QUEEN_DEATH_DEBUFF_DURATION 2400
@@ -89,9 +93,9 @@
 	actions_types = list(/datum/action/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
-/obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	M.faction |= FACTION_ALIEN
-	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
+/obj/item/organ/alien/hivenode/on_insert(mob/living/carbon/organ_owner)
+	organ_owner.faction |= FACTION_ALIEN
+	ADD_TRAIT(organ_owner, TRAIT_XENO_IMMUNE, "xeno immune")
 	return ..()
 
 /obj/item/organ/alien/hivenode/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
@@ -114,9 +118,9 @@
 		owner.emote("scream")
 		owner.Paralyze(100)
 
-	owner.jitteriness += 30
-	owner.confused += 30
-	owner.stuttering += 30
+	owner.adjust_jitter(1 MINUTES)
+	owner.adjust_confusion(30 SECONDS)
+	owner.adjust_stutter(1 MINUTES)
 
 	recent_queen_death = TRUE
 	owner.throw_alert("alien_noqueen", /atom/movable/screen/alert/alien_vulnerable)

@@ -1,0 +1,498 @@
+2019-12-01:
+  AffectedArc07:
+  - rscadd: There is now a verb to force-recreate your chat object
+  AnturK and harmonyn:
+  - bugfix: Cards Against Spess works again. Find decks at your local library.
+  - rscadd: Hourglasses now available in library game vending machine.
+  Cenrus:
+  - imagedel: Some unused/duplicate changeling icons.
+  - tweak: surgical drapes and syringes can be printed by medlathe
+  Fhaxiris, Mark Suckerberg:
+  - rscadd: You cut slice peoples throats now. Select the head on harm intent while
+      they are sleeping, in critical, or neck grabbed.
+  MMMiracles:
+  - rscadd: Paywall firing pins! Force people to properly buy/rent your guns before
+      they try to use them on you! Found where regular firing pins are sold.
+  Mark Suckerberg and Thatguythere03:
+  - rscadd: turkies
+  - soundadd: turky noises
+  MarkSuckerberg:
+  - rscadd: an IC filter. Will likely be only used for MRP, though.
+  - server: IC filter words need to put in the respective config file.
+  - bugfix: some meta atmospherics pipes
+  Moccha-Bee:
+  - rscadd: Whitespace trimming is good overall. And an additional "utf-8" enforcement.
+  - bugfix: Keeps max subtract below current power
+  - bugfix: Makes a few slight improvements to vo- er, gulp_size code.
+  - bugfix: Holodeck buttons now work properly. Fire the torpedos right away!
+  - rscadd: Removed .dm files from _maps folder
+  - rscadd: Health analyzer font scaling hotfix
+  MrDoomBringer/Mark Suckerberg:
+  - imageadd: RCDs have cool animations now. Check it out!
+  SteelSlayer/Mark Suckerberg:
+  - admin: 'Adds a new server restart option: regular restart with a custom delay
+      time that the user can specify'
+  The-BobGuy:
+  - admin: Admins can now pick solo abductor in traitor panel.
+  nemvar:
+  - imageadd: added inhands for the cautery, retractor, drapes and hemostat.
+2019-12-02:
+  Garen:
+  - bugfix: You can no longer do custom emotes with fists of the north star.
+  Vorak2:
+  - rscadd: Adds a Fast Food restaurant in space
+2019-12-06:
+  123chess456:
+  - rscadd: Every xenobiology slime chamber on Box Station now has an individual light,
+      making it easier to see slimes. MetaStation has also gained a more powerful
+      lightbulb in the Xenobiology test chamber.
+  - balance: Animal Hospital has been massively upgraded with a chemistry kit, monkey
+      cubes, and rescue gear allowing it to potentially save the dead and dying of
+      Lavaland. It is no longer the useless monument to cancer rat it once was.
+  AnturK:
+  - bugfix: ghost orbit is now animated properly again
+  - bugfix: Ash lizards can no longer endlessly sacrifice mobs at their nest
+  Arkatos:
+  - rscadd: Added SlimeHUD, which means slimes will have their own custom health display
+      indicator and red corner injury overlay
+  Arkatos and harmonyn:
+  - imageadd: Added new action buttons icons for all mime spells.
+  - rscadd: After receiving many complaints about mimes who never pantomime, Nanotrasen
+      has liquidated its mime personnel and hired new mimes who know more routines.
+  - rscadd: 'The mime gets the choice of two new spells: Invisible Chair and Invisible
+      Box. They work much like the Invisible Wall spell does and disappear after a
+      short span of time. The invisible chair can be buckled to like usual chairs;
+      the box works like a standard inventory box item.'
+  - tweak: Mime spells are now granted via a spellbook that starts out in the mime's
+      inventory. Mimes can choose one of these three.
+  AsciiSquid:
+  - rscadd: Added a limit modifier that reduces the number of traitors spawned during
+      a brothers+traitors round
+  AzlanonPC:
+  - rscadd: Updated the free golem's ship to look a lot better and have more room.
+  Cenrus:
+  - tweak: Dwarfs are now more robust.
+  - rscadd: Updates recon, stealth, hacker, bond, sabotage, mad scientist, bee, and
+      mr freeze bundles with several new items (most already in code) to make them
+      less trash.
+  - rscadd: Bee Sword (literally just a yellow, weaker esword variant, needed it for
+      another piece of code)
+  - rscadd: A weaker variant of the decloner gun.
+  - soundadd: Add match strike sound.
+  Dennok:
+  - rscadd: Bluespace Navigation Gigabeacon
+  - rscadd: Navigation computer now use trait blacklist to filter out z levels to
+      where it can't place custom dock.
+  MarkSuckerberg:
+  - rscadd: two new levels of symptoms, 0 and 9, with 0 being joke-y diseases made
+      from virus food mixed with liquid laughter, and 9, which can be made with the
+      limited supply of highly unstable virus food now found in the virology freezer
+  - code_imp: the heal symptom which was previously level 0 is now level -1.
+  - rscadd: New virology symptoms, including Pierrot's throat, neural degeneration,
+      beesease, ductapod, irradiant cells, and wizarditis.
+  - tweak: changed Alkali Perspiration, Autophageocytosis Necrosis, and Acute Respiratory
+      Distress Syndrome to be level 9 symptoms per zesk's request
+  - tweak: There is now a cap on the number of chickens, slimes, and monkeycube monkeys
+      that can be alive at once. No more crashing the server with 200 monkeys/chickens.
+  - admin: Trialmins and any other admin with +ADMIN can now delay round end instead
+      of needing +SERVER.
+  Moccha-Bee:
+  - bugfix: Fixes being able to exploit fully upgraded destructive analyzers to multiply
+      materials
+  - bugfix: purges unclear janitor var.
+  - bugfix: Bank accounts should display the correct names for non-humans who join
+      as command roles when Enforce Human Authority is enabled.
+  - bugfix: Geiger counter will display the correct contamination values now
+  - bugfix: Fixes gun overlays not updating when the cell is deleted
+  Morair:
+  - bugfix: Ghost won't be able to prevent nuke ops from war.
+  Naksu:
+  - rscdel: Removed individual buttons text in crayon/spraycan UI, speeding it up.
+  - bugfix: Text mode buffer is actually visible in the UI.
+  - tweak: Last letter of a text mode buffer no longer rotates out to be replaced
+      with "a", allowing the text mode to be used for individual symbols.
+  - bugfix: the nuclear disk is now abductor-proof.
+  ShizCalev:
+  - bugfix: Setting a defibrillator unit on fire will now make it's paddles appear
+      on fire too when pulled out!
+  - bugfix: Setting defibrillator paddles on fire will now cause the flames to run
+      along it's cables and set the main unit on fire as well.
+  Skoglol and Nemvar:
+  - rscadd: Added gutlunch babies.
+  - bugfix: Gutlunches now actually reproduce.
+  - rscadd: You can now craft a firebrand with two pieces of wood.
+  - rscadd: 'A new objective type: "Protect Object". Please use it at leasure for
+      badminnery.'
+  - rscadd: Ashlizards are now more savage and like stuff like sacrificing and head
+      spikes.
+  - rscadd: You can now craft bolas and spears with sinew restraints.
+  - bugfix: Goliaths sacrificed at the ashwalker tendril now drop a hide plate.
+  - tweak: Replaced the water tank in the ashlizard base with a puddle.
+  Sneeker134, Kryonism and Urumasi:
+  - rscadd: Added caps to plastic bottles that prevent spilling when screwed on.
+  - rscadd: Added a relic water bottle to the lavaland chest pool.
+  - code_imp: Reagent fill code has been moved to reagent_containers and made more
+      generic
+  - rscadd: Fancy drink bottles can now be crafted.
+  - rscadd: Blank drink bottles are now available in the booze-o-mat.
+  - rscadd: Hooch & moonshine have their own bottles.
+  - tweak: moonshine is now clear, rather than brown.
+  - rscadd: New fiery drink, Mauna Loa, added to game.
+  Tlaltecuhtli:
+  - tweak: conveyor belt now are stacks instead of single item
+  - tweak: conveyor crate has 30 belts
+  - tweak: printing a conveyor costs 3000 metal
+  - bugfix: fixes a missing vendor board option
+  XDTM:
+  - bugfix: swappers now work again
+  bobbahbrown:
+  - tweak: Deaths are now logged to the game log.
+  ghost:
+  - balance: Radio jammers fully halt outgoing communications now.
+  nemvar:
+  - bugfix: a bunch of sword icons
+  zeskorion:
+  - tweak: increased all of the new symptom's speeds
+  - tweak: also changed revitiligo's stats so it's no longer a duplicate of coughing.
+  zxaber:
+  - balance: Utility mechs no longer automatically get beacons.
+  - balance: Tracking beacons no longer delete themselves when EMPing a mech, and
+      instead have a ten-second cooldown in-between EMPs. They also now do heavy EMP
+      damage rather than light.
+  - balance: Mechs that take EMP damage lose the use of their weapons and equipment
+      temporarily. Movement and abilities are not effected.
+  - balance: Mechs taking EMP damage no longer roll for a random malfunction.
+2019-12-08:
+  4dplanner:
+  - bugfix: between the sheets heals carbons
+  - tweak: colossus chest is intangible to colossus bolts
+  A-lexa:
+  - admin: Build mode disables ghost click to teleport
+  AffectedArc07:
+  - tweak: The jobs menu has been given a new coat of paint. Yay.
+  Angust:
+  - bugfix: fixed the sugar sack to stop looking like the rice sack
+  AnturK:
+  - bugfix: Magic missile works properly now
+  Cenrus:
+  - rscadd: You can now unfasten the loom.
+  - code_imp: Various changes to the loom and its products.
+  - bugfix: You can no longer get more cloth from the loom than you should be able
+      to.
+  Eaglendia:
+  - rscadd: You can light a cigar on the supermatter shard. Handle with care!
+  Garen7:
+  - tweak: Lesser form lings can now toggle augmented vision
+  - bugfix: You can no longer turn back into human form as a lesser form ling while
+      ventcrawling
+  - bugfix: Stuns and Reagents are now passed when transforming into a monkey or human
+  Incoming5643:
+  - rscadd: After a very long period of being broken, the training bomb in security
+      finally works properly again.
+  - tweak: Syndicate bomb cores have become a little more robust in their operation.
+      Defused but still cored bombs are no longer inert and can be set again. Would
+      be heroes are advised to cut out and dispose of bomb cores, and dismantle unneeded
+      bomb shells to be absolutely sure.
+  Naksu:
+  - balance: Blob rerolls now give the blob 4 different options to choose from, rather
+      than forcing a single random one.
+  - bugfix: corpses no longer feel, light-headed or otherwise
+  Putnam3145:
+  - tweak: All departments can now print basic power cells from their respective techfab.
+  Tlaltecuhtli:
+  - bugfix: cargo ripley can be actually constructed with what you get from the crate
+  - bugfix: adds the right crate type to monkey cube and hydroponics refill crates
+  - tweak: readds the bulk wt550 ammo crate
+  - tweak: adds a laser pointer to the bureaucracy crate
+  - tweak: changes med supply crate to have rng medical things
+  WJohn:
+  - bugfix: Raven emergency shuttle's turrets no longer shoot at ian.
+  actioninja, stylemistake, nightred, Arkatos1, TheVekter:
+  - rscadd: The Keycard Authentication Device and Implanter Chairs now have TGUI-Next
+      interfaces.
+  - rscadd: Updated mech bay power consoles to tgui-next
+  - rscadd: Nuke UI has been completely reworked for tgui-next
+  - bugfix: Interfaces featuring the Input component (such as the syndicate uplink)
+      on tgui-next now properly function on IE8/WINE again.
+  - rscadd: Equipment reclaimer station now uses tgui-next UI.
+  - rscadd: Ore Box uses tgui-next now
+  harmonyn:
+  - admin: TP now shows the names of blood brothers' brothers.
+  kriskog:
+  - bugfix: Communications console window no longer updates, won't steal focus anymore.
+  - bugfix: windoors can now be closed manually after bumping open without having
+      them close again.
+  nemvar:
+  - bugfix: The CNS rebooter now purges stuns after 4 seconds of not being stunned,
+      instead of doing nothing.
+  qwertyquerty:
+  - bugfix: BeeBot no longer shows up in the contrib credits
+  - soundadd: whyban roundend sound
+  skogkol:
+  - bugfix: Added a bunch of previously missing adjacency checks to ui window actions
+      and alt clicks.
+  zeskorion:
+  - tweak: buffed symptom to be an indirect healing symptom
+  - bugfix: fixed virus timing
+2019-12-16:
+  AaronTheIdiot:
+  - tweak: Changed the Syndicate base to look more evil.
+  AzlanonPC:
+  - imageadd: Berets got a new coat of paint, and oracle job berets got a full rework.
+  Cenrus:
+  - bugfix: Deletes the visible pipe corner by the BoxStation engine.
+  Fikou:
+  - rscadd: The clown planet has returned into orbit of space station 13. We see it
+      now turned into a more planetary shape, and seems to be guarding some beast...
+  Firecage:
+  - rscadd: Mining Cyborgs are now able to choose which icon they want upon picking
+      their module. Either the Lavaland Mining Cyborg icon, the Asteroid Mining Cyborg
+      icon, or the Spider Mining Cyborg icon.
+  - tweak: Mining Cyborg Lavaproof Tracks upgrade is renamed to Mining Cyborg Lavaproof
+      Chassis.
+  MarkSuckerberg:
+  - admin: Those with R_ADMIN can now also restart the server.
+  Mickyan:
+  - rscadd: Added the Pushover and Frail negative quirks
+  Moccha-Bee:
+  - rscadd: Added headcrabs back to the golden slime pool.
+  Naksu:
+  - refactor: Refactored examine-code
+  PKPenguin321:
+  - rscadd: Surgical drills have a fun new suicide.
+  PumpkinSoup/Shapsy:
+  - rscadd: Nanotrasen is now hiring underpaid interns to go on high risk missions
+      with nothing more than batons and mosins. Go sign up NOW if you want to horribly
+      die on a xenomorph outbreak!
+  Rockdtben and WJohnston:
+  - rscadd: Created a minimalist font.
+  - rscadd: Security can put custom headings on wanter/missing posters.
+  - rscadd: Security can now print out Missing Persons Posters
+  Skoglol:
+  - bugfix: Silicon can once again adjust security and medical record at range.
+  SomeAngryMiner:
+  - imageadd: Bluespace navigation beacons now have a new fancy model, more visually
+      pleasing and intuitive, with the bonus of also providing light.
+  loserXD:
+  - imageadd: 32 more emojis
+  monster860:
+  - bugfix: random parallax works now
+2019-12-17:
+  Crossedfall:
+  - config: Enabled to option to allow players to see their own notes.
+  nemvar:
+  - tweak: Some small changes to the mech HMTL windows.
+  - code_imp: Changed a lot of code around mech topic.
+  plapatin, sprites by cogwerks and edited by mrdoombringer:
+  - rscadd: vomi/tg/oose
+2019-12-21:
+  4dplanner:
+  - bugfix: spectral blade should now behave better
+  81Denton:
+  - rscadd: tesloose/singuloose notification
+  - rscadd: Notifications now only flash the window if it's something ghosts can interact
+      with, like ghost roles, magic eightballs, summon runes etc.
+  - rscadd: Added headers to events so they don't all show up as "body created"
+  AnturK:
+  - bugfix: random parallax layers will reset after server restart
+  Cenrus:
+  - rscadd: The goose is loose in Box and Delta
+  - tweak: 'CentCom: Made the ERT pod doors and vault shutters bomb proof. Replaced
+      loose CentCom ID cards with a box of IDs.'
+  - bugfix: you can now read paper stuck to airlocks again.
+  - bugfix: brig phys get medical themed bags.
+  - rscadd: Oxygen deprivation treatment kits now contain two dexalin medipens
+  - imageadd: dexpen sprites
+  - bugfix: Fixes the windows in the free golem ship
+  LordZanos:
+  - bugfix: beesease advanced symptoms
+  MarkSuckerberg:
+  - rscadd: Brig Physicians, for when half of your security department is dying and
+      nobody knows medical.
+  - bugfix: Paramedics' secHUD icons show up again.
+  - rscadd: Dexalin and Dexalin Plus, chems you may or may not recognize. In short,
+      they heal oxydamage.
+  - rscadd: Hepanephrodaxon, a chem for healing liver damage. For when someone hits
+      the hooch a little *too* hard.
+  - rscadd: Carthatoline, an anti-toxin slightly better than charcoal or anti-toxin
+      itself, used for when you don't want to go all out with pen acid.
+  - rscdel: Removes headslugs from the gold xenobio pool until they get fixed or rebalanced.
+  Mickyan:
+  - rscadd: DIY Dish Drive Kit now available at your local bardrobe. Start saving
+      those tips!
+  - tweak: The Dish Drive no longer sends reusable items into the disposal bin
+  Moccha-Bee:
+  - bugfix: Fixed blood-drunk miner trophy slowdown bug.
+  Ryll/Shaps, Mark Suckerberg:
+  - rscadd: You can now beat on vending machines to try and knock loose free stuff!
+      You can also almost kill yourself doing it, so it's your call if your life is
+      worth ten bucks.
+  Theos:
+  - rscadd: Adds high-fiving.
+  Ty-The-Smonk:
+  - rscadd: Descriptions for every crossbreed's effect (minus recurring because its
+      self explanatory).
+  carlarctg:
+  - tweak: traitor stimulants syringe is now traitor stimulants medipen, no changes
+      otherwise
+  ike709:
+  - rscdel: Miasma can no longer be a roundstart lavaland gas.
+  zeskorion:
+  - rscadd: 'New symptom: SBG syndrome. Looks spooky but is actually harmless'
+  - rscadd: ported /tg/ style cures
+  - tweak: changed inneffective symptoms to work as intended
+  - balance: removed redundant viro traitor items and increased experimental disease
+      cost
+  - bugfix: fixed ducatopod and bee infestation's thresholds
+2019-12-22:
+  AsciiSquid:
+  - tweak: squids can now pick the color they change into
+  Indie-ana Jones & Meyhazah (Ported by Mark Suckerberg):
+  - rscadd: 'New lavaland ruin: Pulsating Tumor'
+  - rscadd: 'New lavaland enemies: Lavaland Elites'
+  - rscadd: 'New Lavaland Elite: Goliath Broodmother'
+  - rscadd: 'New Lavaland Elite: Pandora'
+  - rscadd: 'New Lavaland Elite: Legionnaire'
+  - rscadd: 'New Lavaland Elite: Herald'
+  - imageadd: Added lavaland elite sprites and pulsating tumor sprites
+  - imageadd: New lavaland loot sprites
+  - imageadd: Elite ability sprites
+  MarkSuckerberg:
+  - bugfix: clown shoes are actually cured once diseases with ductapod are cured
+  - tweak: advanced virus food is now locked behind a uranium "wall." You need to
+      mix the roundstart bottle viro gets with 20u of uranium for it to work!
+  - rscadd: viral base, which if added to 20u of uranium becomes normal advanced virus
+      food.
+  - code_imp: changed advanced virus food to be a subset of virus food and not adminorizine,
+      also renamed advanced virus food.
+  NoxVS:
+  - rscadd: New chaplain armor using unused crusader armor
+  ike709:
+  - rscadd: You can now buy an actual antag token from the beecoin shop. Yes, really.
+      It's under OOC.
+  - rscadd: Playing any station role without dying, logging out, going AFK, or suiciding
+      at the start will increase your odds of rolling antag in a later round. The
+      job you choose does not matter, even assistant.
+  zeskorion:
+  - bugfix: the oopsie spawned of my own hubris and ten days of pent up annoyance
+  - bugfix: SBG spawns now
+2019-12-27:
+  123chess456:
+  - rscadd: All Nanotrasen brand space station brigs are now equipped with an easily
+      accessible surgical table, operating computer, and surgical tools! Locations
+      may vary by station type.
+  Akrilla:
+  - tweak: Buffs up the Syndicate cigarettes to give about 15u of omnizine over two
+      minutes.
+  - code_imp: Allows for cigarettes to give all their chems over their lifetime with
+      a new var.
+  AnturK, Mark Suckerberg:
+  - rscadd: RCS Thrusters for mechs can now be printed from an exosuit fabricator
+      after the relevant research has been done. They'll eat up the gas in your mech's
+      air tank, though, so don't go overboard with their use!
+  - tweak: Mechs that use built-in thrusters (Dark Gygax, Marauder, etc) will now
+      start with the thrusters enabled. The thruster action button is gone, but you
+      can still toggle them in the View Status popout if you feel the need to. Note
+      that these built-in thrusters are still ion-based, and will not deplete your
+      air supply.
+  - tweak: Mechs using thrusters to move will no longer make stomp sounds.
+  Cenrus:
+  - rscadd: new admin only gamemode where anyone can be a traitor/changeling.
+  - rscadd: adds copper to KSS13
+  Cenrus - MetaStation changes:
+  - tweak: changed some carpets on the bridge.
+  - bugfix: There is now a scrubber in the engineering foyer.
+  - rscadd: adds photocopier to HoP office and moved Ian to his bed.
+  - rscadd: 'hydroponics has a fancier entrance remove: remove unintended circuit
+      board in abandoned robotics.'
+  - rscadd: Add a laptop vendor in the science lobby
+  - rscadd: Add science goggles in virology
+  - tweak: moved a space carp spawner so it doesn't depressurize Xenobiology every
+      shift.
+  Dennok:
+  - bugfix: No more cargo pod steal shuttle ports.
+  Dennok and ninjanomnom:
+  - bugfix: Shuttles no longer ruin areas on lavaland after taking off.
+  JJRcop:
+  - rscdel: Removed text macros from the chem dispenser.
+  - rscadd: Replaced with dispenser input recording macros.
+  - bugfix: chem dispenser macros
+  Kerbin-Fiber:
+  - tweak: The mining base is now bigger! Slighty. The security room in the gulag
+      now connects the gulag to the mining base. It also now has a window to keep
+      watch of prisoners.
+  - bugfix: Rogue gases should stop coming into the mining base and gulag.
+  Kmc2000:
+  - rscadd: Added speedwagon's hat to the game.
+  SomeAngryMiner:
+  - rscadd: Emergency response teams and Deathsquads now start with integrated jetpack
+      upgrades on their suits. dont forget those oxygen tanks!
+  - imageadd: Mining scanners now have new looks, including specifics for manual and
+      advanced scanners!
+  - bugfix: Greyscale IPC chassis is no longer invisible on the chest and arms
+  - imagedel: the unused bamboo dmi no longer exists, since their components already
+      exist on their respective dmis.
+  TGstation, ported by ike709:
+  - rscadd: 'A bunch of fixes and code improvements from TG. experimental: Tons of
+      things have been converted to movespeed modifiers. Things may break.'
+  - bugfix: Blood-red hardsuits now properly update their slowdown when you toggle
+      helmet modes
+  - bugfix: Bear traps and bolas apply slowdown correctly again
+  - bugfix: removing legcuffs from others updates their speed
+  - bugfix: losing legcuffs to dismemberment updates your speed
+  - bugfix: removing legcuffs with freedom implant updates your speed
+  - bugfix: The slowdown from grabbing someone no longer applies when you're floating
+  - bugfix: Chopping off all your legs and growing a few dozen arms no longer turns
+      you into the fastest monstrosity this side of the milky way
+  - bugfix: Lacking legs/arms no longer slows you down if you're weren't using them
+      to move anyway
+  - bugfix: Held items that slow you down now affect all mobs instead of just humanoids
+  - bugfix: Equipment with slowdown now affects you from any slot instead of just
+      suits, shoes, and back slots
+  - balance: Items that slow you down no longer only apply when there's gravity, they
+      now apply any time you aren't floating. This means your inconvenient suit will
+      slow you down in 0 gravity as long as you're using magboots
+  - bugfix: medical wrench no longer dupes on suicide
+  Vorak2:
+  - rscadd: puts a new burger where the roboburger was in fast food ruin
+  covertcorvid:
+  - bugfix: Travis's JSON map check no longer fails when confronted with multiple
+      maps
+  - config: Modified check_grep.sh CI script
+  ike709:
+  - rscadd: You can no longer commit suicide in the first 15 minutes of the round
+      on Sage. Consider using the cryopods or contacting admins instead.
+2019-12-29:
+  Arkatos:
+  - tweak: Sentient Lavaland Elites will now give a ghost orbit notification. ARE
+      YOU NOT ENTERTAINED?!
+  Cenrus:
+  - rscadd: BeeBot has been added to the AI random name roster
+  - rscadd: Bees can ventcrawl
+  Guestratem:
+  - rscadd: New attack which targets the groin with a conditional damage modifier
+      for if the target is male or not.
+  SomeAngryMiner:
+  - rscadd: EMT and brig physician stuff have a new coat of paint.
+  - rscadd: New envirosuits for brig physicians and EMTs
+  - rscadd: Ancient Rigsuit got their old sprite replaced. the legacy suit sprite
+      is still on files, though.
+  Vorak2:
+  - rscadd: Added more plushies to macspace
+  ike709:
+  - rscadd: 'New researchable machine: Bluespace Miner. Slowly creates materials out
+      of nothing and adds them to a linked ore silo.'
+  zeskorion:
+  - tweak: carp syndiekit now has a sentience potion and a dehydrated carp. you know
+      what to do
+  - balance: carp hardsuit no longer has negative armor
+  - bugfix: Set kinetic speargun to pressure setting 2, the spears are now fast enough
+      to embed as intended (100%. They're a throwing star subtype). a once jokingly
+      weak weapon is now quite robust
+  - tweak: magspears and throwing stars now make a slash instead of an impact sound
+      on hit
+  - tweak: kinetic speargun can now also fire normal spears and metal rods. oh, and
+      katanas.
+  - tweak: backpack quiver now holds 30 magspears. magspears are now bulky.
+  - imageadd: small change to carp hardsuit
+  - config: felinids no longer available roundstart

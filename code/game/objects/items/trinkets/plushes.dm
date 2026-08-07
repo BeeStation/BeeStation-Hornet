@@ -39,6 +39,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, squeak_override)
 	AddElement(/datum/element/bed_tuckable, 6, -5, 90)
+	AddElement(/datum/element/toy_talk)
 
 	//have we decided if Pinocchio goes in the blue or pink aisle yet?
 	if(gender == NEUTER)
@@ -118,7 +119,7 @@
 		to_chat(user, span_notice("You try to pet [src], but it has no stuffing. Aww..."))
 
 /obj/item/toy/plush/attackby(obj/item/I, mob/living/user, params)
-	if(I.is_sharp())
+	if(I.get_sharpness())
 		if(!grenade)
 			if(!stuffed)
 				to_chat(user, span_warning("You already murdered it!"))
@@ -367,13 +368,19 @@
 	if(mood_message)
 		desc += mood_message
 	return ..()
+
 /obj/item/toy/plush/carpplushie
 	name = "space carp plushie"
 	desc = "An adorable stuffed toy that resembles a space carp."
-	icon_state = "carpplush"
+	icon_state = "map_plushie_carp"
+	greyscale_config = /datum/greyscale_config/plush_carp
+	greyscale_colors = "#cc99ff#000000"
 	attack_verb_continuous = list("bites", "eats", "fin slaps")
 	attack_verb_simple = list("bite", "eat", "fin slap")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
+/obj/item/toy/plush/carpplushie/regular
+	greyscale_colors = "#cc99ff#000000"
 
 /obj/item/toy/plush/bubbleplush
 	name = "\improper Bubblegum plushie"
@@ -391,7 +398,7 @@
 	var/obj/item/toy/plush/narplush/clash_target
 	gender = MALE	//he's a boy, right?
 
-/obj/item/toy/plush/plushvar/Moved()
+/obj/item/toy/plush/plushvar/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(clash_target)
 		return
@@ -487,7 +494,7 @@
 	if(IS_CULTIST(user))
 		. += span_warning("She has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!")
 
-/obj/item/toy/plush/narplush/Moved()
+/obj/item/toy/plush/narplush/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	var/obj/item/toy/plush/plushvar/P = locate() in range(1, src)
 	if(P && istype(P.loc, /turf/open) && !P.clash_target && !clashing)
@@ -504,20 +511,21 @@
 	attack_verb_continuous = list("claws", "hisses", "tail slaps")
 	attack_verb_simple = list("claw", "hiss", "tail slap")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/toy/plush/lizard_plushie/Initialize(mapload)
 	. = ..()
 	if(!greyscale_colors)
 		// Generate a random valid lizard color for our plushie friend
 		var/generated_lizard_color = "#" + random_color()
-		var/temp_hsv = RGBtoHSV(generated_lizard_color)
+		var/list/lizard_hsv = rgb2hsv(generated_lizard_color)
 
 		// If our color is too dark, use the classic green lizard plush color
-		if(ReadHSV(temp_hsv)[3] < ReadHSV("#7F7F7F")[3])
+		if(lizard_hsv[3] < 50)
 			generated_lizard_color = "#66ff33"
 
 		// Set our greyscale colors to the lizard color we made + black eyes
-		set_greyscale(colors = list(generated_lizard_color, "#000000"))
+		set_greyscale(colors = list(generated_lizard_color, COLOR_BLACK))
 
 // Preset lizard plushie that uses the original lizard plush green. (Or close to it)
 /obj/item/toy/plush/lizard_plushie/green
@@ -540,7 +548,9 @@
 /obj/item/toy/plush/snakeplushie
 	name = "snake plushie"
 	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
-	icon_state = "snakeplush"
+	icon_state = "map_plushie_snake"
+	greyscale_config = /datum/greyscale_config/plush_snake
+	greyscale_colors = "#99ff99#000000"
 	attack_verb_continuous = list("bites", "hisses", "tail slaps")
 	attack_verb_simple = list("bite", "hiss", "tail slap")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
@@ -588,6 +598,7 @@
 	item_flags = ABSTRACT
 
 /obj/item/toy/plush/slimeplushie/random/Initialize(mapload)
+	. = ..()
 	var sloime_type = pick(subtypesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random/)
 	new sloime_type(loc)
 	return INITIALIZE_HINT_QDEL
@@ -622,7 +633,7 @@
 	desc = "An ancient plushie that has grown enlightened to the true nature of reality."
 	icon_state = "awakeplush"
 
-/obj/item/toy/plush/awakenedplushie/ComponentInitialize()
+/obj/item/toy/plush/awakenedplushie/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/edit_complainer)
 
@@ -677,6 +688,7 @@
 	item_flags = ABSTRACT
 
 /obj/item/toy/plush/moth/random/Initialize(mapload)
+	. = ..()
 	var moff_type = pick(subtypesof(/obj/item/toy/plush/moth) - /obj/item/toy/plush/moth/random/)
 	new moff_type(loc)
 	return INITIALIZE_HINT_QDEL
@@ -836,6 +848,13 @@
 	..()
 	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "big_plush")
 
+/obj/item/toy/plush/donkpocket
+	name = "donk pocket plushie"
+	desc = "The stuffed companion of choice for the seasoned traitor."
+	icon_state = "donkpocket"
+	attack_verb_continuous = list("donks")
+	attack_verb_simple = list("donk")
+
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"
 	desc = "Hgrgrhrhg cuter."
@@ -895,7 +914,7 @@
 	if(!length(item_list))
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
-	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated && in_range(M,src))
 		for(var/V in plushie_list)
 			var/atom/A = V
 			if(initial(A.name) == choice)
@@ -912,7 +931,7 @@
 	var/static/list/item_list
 	if(!item_list)
 		item_list = list()
-		for(var/obj/item/toy/plush/I as() in plushie_list)
+		for(var/obj/item/toy/plush/I as anything in plushie_list)
 			var/image/plushie_icon = image(initial(I.icon), initial(I.icon_state))
 			var/datum/radial_menu_choice/choice = new
 			choice.image = plushie_icon

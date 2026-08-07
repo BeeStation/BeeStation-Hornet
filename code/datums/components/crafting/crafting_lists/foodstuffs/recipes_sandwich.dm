@@ -9,7 +9,7 @@
 		/obj/item/food/meat/steak = 1, //that's one hell of a sandwich if it needs a whole steak
 		/obj/item/food/cheese/wedge = 1
 	)
-	subcategory = CAT_SANDWICH
+	category = CAT_SANDWICH
 
 /datum/crafting_recipe/food/cheese_sandwich
 	name = "Cheese sandwich"
@@ -18,7 +18,7 @@
 		/obj/item/food/breadslice/plain = 2,
 		/obj/item/food/cheese/wedge = 2
 	)
-	subcategory = CAT_SANDWICH
+	category = CAT_SANDWICH
 
 /datum/crafting_recipe/food/slimesandwich
 	name = "Jelly sandwich"
@@ -27,7 +27,7 @@
 		/datum/reagent/toxin/slimejelly = 5,
 		/obj/item/food/breadslice/plain = 2,
 	)
-	subcategory = CAT_SANDWICH
+	category = CAT_SANDWICH
 
 /datum/crafting_recipe/food/cherrysandwich
 	name = "Jelly sandwich"
@@ -36,7 +36,7 @@
 		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/food/breadslice/plain = 2,
 	)
-	subcategory = CAT_SANDWICH
+	category = CAT_SANDWICH
 
 /datum/crafting_recipe/food/notasandwich
 	name = "Not a sandwich"
@@ -45,7 +45,7 @@
 		/obj/item/food/breadslice/plain = 2,
 		/obj/item/clothing/mask/fakemoustache = 1
 	)
-	subcategory = CAT_SANDWICH
+	category = CAT_SANDWICH
 
 /datum/crafting_recipe/food/hotdog
 	name = "Hot dog"
@@ -55,4 +55,4 @@
 		/obj/item/food/bun = 1,
 		/obj/item/food/sausage = 1
 	)
-	subcategory = CAT_SANDWICH
+	category = CAT_SANDWICH

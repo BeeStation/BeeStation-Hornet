@@ -1,20 +1,10 @@
-/client
-	/**
-	 * Assoc list with all the active maps - when a screen obj is added to
-	 * a map, it's put in here as well.
-	 *
-	 * Format: list(<mapname> = list(/atom/movable/screen))
-	 */
-	var/list/screen_maps = list()
-
 /**
- * A screen object, which acts as a container for turfs and other things
- * you want to show on the map, which you usually attach to "vis_contents".
+ * Assoc list with all the active maps - when a screen obj is added to
+ * a map, it's put in here as well.
+ *
+ * Format: list(<mapname> = list(/atom/movable/screen))
  */
-/atom/movable/screen/map_view
-	// Map view has to be on the lowest plane to enable proper lighting
-	layer = GAME_PLANE
-	plane = GAME_PLANE
+/client/var/list/screen_maps = list()
 
 /**
  * A generic background object.
@@ -121,8 +111,8 @@
 	if(!popup_name)
 		return
 	clear_map("[popup_name]_map")
-	var/x_value = world.icon_size * tilesize * width
-	var/y_value = world.icon_size * tilesize * height
+	var/x_value = ICON_SIZE_X * tilesize * width
+	var/y_value = ICON_SIZE_Y * tilesize * height
 	var/map_name = create_popup(popup_name, x_value, y_value)
 
 	var/atom/movable/screen/background/background = new

@@ -57,7 +57,7 @@
 
 /datum/outfit/blasto
 	name = "Blasto"
-	head = /obj/item/clothing/head/beret/navy
+	head = /obj/item/clothing/head/beret
 	uniform = /obj/item/clothing/under/suit/navy
 	suit = /obj/item/clothing/suit/jacket/miljacket
 
@@ -161,7 +161,7 @@
 /obj/item/storage/belt/military/gang
 	name = "badass belt"
 	icon_state = "gangbelt"
-	item_state = "gang"
+	inhand_icon_state = "gang"
 	desc = "The belt buckle simply reads 'BAMF'."
 
 /obj/item/clothing/mask/gskull

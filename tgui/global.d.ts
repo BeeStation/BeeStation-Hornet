@@ -50,9 +50,9 @@ type ByondType = {
   IS_BYOND: boolean;
 
   /**
-   * Version of Trident engine of Internet Explorer. Null if N/A.
+   * Version of Blink engine of WebView2. Null if N/A.
    */
-  TRIDENT: number | null;
+  BLINK: number | null;
 
   /**
    * If `true`, unhandled errors and common mistakes result in a blue screen
@@ -171,6 +171,11 @@ type ByondType = {
    * Loads a script into the document.
    */
   loadJs(url: string): void;
+
+  /**
+   * Maps icons to their ref
+   */
+  iconRefMap: Record<string, string>;
 };
 
 /**
@@ -183,4 +188,13 @@ interface Window {
   Byond: ByondType;
   __store__: Store<unknown, AnyAction>;
   __augmentStack__: (store: Store) => StackAugmentor;
+
+  // IE IndexedDB stuff.
+  msIndexedDB: IDBFactory;
+  msIDBTransaction: IDBTransaction;
+
+  // 516 byondstorage API.
+  hubStorage: Storage;
+  domainStorage: Storage;
+  serverStorage: Storage;
 }

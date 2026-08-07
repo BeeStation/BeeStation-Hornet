@@ -22,7 +22,7 @@
 		return
 	RegisterSignal(implant, COMSIG_IMPLANT_IMPLANTED, PROC_REF(on_implant_implantation))
 	RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, PROC_REF(on_implant_removal))
-	RegisterSignal(implant, COMSIG_PARENT_QDELETING, PROC_REF(on_implant_destruction))
+	RegisterSignal(implant, COMSIG_QDELETING, PROC_REF(on_implant_destruction))
 
 	implants += implant
 
@@ -34,7 +34,7 @@
 
 	RegisterSignal(target, COMSIG_MOB_STATCHANGE, PROC_REF(on_user_statchange))
 
-/datum/deathrattle_group/proc/on_implant_removal(obj/item/implant/implant, mob/living/source, silent = FALSE, special = 0)
+/datum/deathrattle_group/proc/on_implant_removal(obj/item/implant/implant, mob/living/source, silent = FALSE, removed = FALSE)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_MOB_STATCHANGE)

@@ -9,14 +9,14 @@
 /obj/item/ammo_casing/a357/match
 	name = ".357 match bullet casing"
 	desc = "A .357 bullet casing, manufactured to exceedingly high standards."
-	caliber = "357"
 	projectile_type = /obj/projectile/bullet/a357/match
 
 /obj/item/ammo_casing/a357/improv
 	name = "improv .357 bullet casing"
 	desc = "An improvised .357 bullet casing."
-	projectile_type = /obj/projectile/bullet/a357/improv
-	variance = 15
+	projectile_type = /obj/projectile/bullet/a357
+	variance = 8
+	gun_damage = 50
 
 // 7.62x38mmR (Nagant Revolver)
 
@@ -42,13 +42,11 @@
 /obj/item/ammo_casing/c38/hotshot
 	name = ".38 Hot Shot bullet casing"
 	desc = "A .38 Hot Shot bullet casing."
-	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38/hotshot
 
 /obj/item/ammo_casing/c38/iceblox
 	name = ".38 Iceblox bullet casing"
 	desc = "A .38 Iceblox bullet casing."
-	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38/iceblox
 
 /obj/item/ammo_casing/c38/match
@@ -80,15 +78,15 @@
 /obj/item/ammo_casing/c38/improv
 	name = "improv .38 bullet casing"
 	desc = "An improvised .38 bullet casing."
-	caliber = "38"
-	projectile_type = /obj/projectile/bullet/c38/improv
-	variance = 10
+	projectile_type = /obj/projectile/bullet/c38
+	variance = 5
+	gun_damage = 50
 
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"
 	icon_state = null
 	desc = "You shouldn't be seeing this."
-	caliber = "mime"
+	caliber = "38"
 	projectile_type = /obj/projectile/bullet/c38/mime
 	exists = FALSE
 

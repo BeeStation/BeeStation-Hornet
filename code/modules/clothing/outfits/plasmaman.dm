@@ -356,3 +356,12 @@
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
+
+/datum/outfit/plasmaman/prisoner
+	name = "Prisoner Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective)

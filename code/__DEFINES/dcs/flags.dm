@@ -10,7 +10,7 @@
 
 // /datum/element flags
 /// Causes the detach proc to be called when the host object is being deleted
-#define ELEMENT_DETACH		(1 << 0)
+#define ELEMENT_DETACH (1 << 0)
 /**
  * Only elements created with the same arguments given after `id_arg_index` share an element instance
  * The arguments are the same when the text and number values are the same and all other values have the same ref
@@ -22,15 +22,15 @@
 
 // How multiple components of the exact same type are handled in the same datum
 /// old component is deleted (default)
-#define COMPONENT_DUPE_HIGHLANDER		0
+#define COMPONENT_DUPE_HIGHLANDER 0
 /// duplicates allowed
-#define COMPONENT_DUPE_ALLOWED			1
+#define COMPONENT_DUPE_ALLOWED 1
 /// new component is deleted
-#define COMPONENT_DUPE_UNIQUE			2
+#define COMPONENT_DUPE_UNIQUE 2
 /// old component is given the initialization args of the new
-#define COMPONENT_DUPE_UNIQUE_PASSARGS	4
+#define COMPONENT_DUPE_UNIQUE_PASSARGS 4
 /// each component of the same type is consulted as to whether the duplicate should be allowed
-#define COMPONENT_DUPE_SELECTIVE		5
+#define COMPONENT_DUPE_SELECTIVE 5
 
 //Redirection component init flags
 #define REDIRECT_TRANSFER_WITH_TURF 1
@@ -40,8 +40,11 @@
 #define ARCH_MAXDROP "max_drop_amount"				//each item's max drop amount
 
 //Ouch my toes!
-#define CALTROP_BYPASS_SHOES 1
-#define CALTROP_IGNORE_WALKERS 2
+#define CALTROP_BYPASS_SHOES (1 << 0)
+#define CALTROP_IGNORE_WALKERS (1 << 1)
+#define CALTROP_SILENT (1 << 2)
+#define CALTROP_NOSTUN (1 << 3)
+#define CALTROP_NOCRAWL (1 << 4)
 
 //Ingredient type in datum/component/customizable_reagent_holder
 #define CUSTOM_INGREDIENT_TYPE_EDIBLE 1

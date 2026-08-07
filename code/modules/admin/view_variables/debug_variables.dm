@@ -55,10 +55,10 @@
 	var/name_part = VV_HTML_ENCODE(name)
 	if(level > 0 || islist(owner)) //handling keys in assoc lists
 		if(istype(name,/datum))
-			name_part = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(name)]'>[VV_HTML_ENCODE(name)] [REF(name)]</a>"
+			name_part = "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(name)]'>[VV_HTML_ENCODE(name)] [REF(name)]</a>"
 		else if(islist(name))
 			var/list/list_value = name
-			name_part = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(name)]'> /list ([length(list_value)]) [REF(name)]</a>"
+			name_part = "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(name)]'> /list ([length(list_value)]) [REF(name)]</a>"
 
 	. = "[.][name_part] = "
 
@@ -74,28 +74,43 @@
 		return span_value("null")
 
 	if(iscolortext(value))
-		return span_value("\"[value]\" <span class='colorbox' style='background-color:[value]'>_________</span>")
+		var/colortext = value // linter blames using 'datum/value' from parameter
+		return span_value("\"[colortext]\" <span class='colorbox' style='background-color:[("#" == colortext[1]) ? "" : "#"][colortext];'>_________</span>")
 
 	if(istext(value))
 		return span_value("\"[VV_HTML_ENCODE(value)]\"")
 
-	if(isicon(value))
+	if(isnum(value) && istext(name) && GLOB.bitfields[name])
+		var/list/matching_bitflags = get_matching_bitflags(name, value)
+
+		if(!isnull(matching_bitflags))
+			if(length(matching_bitflags))
+				return "[VV_HTML_ENCODE(matching_bitflags.Join(", "))]"
+			return "NONE"
+
+	// Warning - isicon(value) is misleading
+	// 		isicon('some.dmi') => returns TRUE
+	// 		isicon(/icon[0xINSTANCE]) => returns TRUE
+	// So, You have no idea what it exactly is!!!!!
+	if(is_icondmi(value))
 		#ifdef VARSICON
-		var/icon/icon_value = icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp[REF(icon_value)][rnd].png"
-		usr << browse_rsc(icon_value, rname)
-		return "([span_value("[value]")]) <img class=icon src=\"[rname]\">"
+		var/md5_id = "tmp.[md5("[value]")].[md5(REF(value))]"
+		var/rname = "[md5_id].png"
+		usr << browse_rsc(value, rname)
+		return "/dmi_file ([span_value("'[value]'")]) <img class=icon src=\"[rname]\">"
 		#else
-		return "/icon ([span_value("[value]")])"
+		return "/dmi_file ([span_value("'[value]'")])"
 		#endif
+	if(is_icondatum(value))
+		var/icon/icon_value = value
+		return "[icon_value]</br>[icon_value.write_vv_button()]</br>[span_value_top("[icon_value.get_vv_data()]")]"
 
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance ([span_value("[get_appearance_vv_summary_name(value)]")]) [REF(value)]</a>"
 
 	if(isimage(value))
 		var/image/image = value
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] ([span_value("[get_appearance_vv_summary_name(image)]")]) [REF(value)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] ([span_value("[get_appearance_vv_summary_name(image)]")]) [REF(value)]</a>"
 
 	// fun fact: there are two types of /filters. `/filters(/filters(), /filters(), ...)`
 	// isfilter() doesn't know if it's a parent filter(that has [/filters]s inside of itself), or a child filter
@@ -132,7 +147,7 @@
 				special_list_secure_level \
 				? "dmlist_origin_ref=[REF(owner)];dmlist_varname=[name]" \
 				: "Vars=[REF(value)]"
-			a_open = "<a href='?_src_=vars;[HrefToken()];[href_reference_string]'>"
+			a_open = "<a href='byond://?_src_=vars;[HrefToken()];[href_reference_string]'>"
 			a_close = "</a>"
 
 		var/should_fold_list_items = (display_flags & VV_ALWAYS_CONTRACT_LIST) || length(list_value) > VV_BIG_SIZED_LIST_THRESHOLD
@@ -154,27 +169,17 @@
 
 			return "[a_open][list_type] ([length(list_value)])[a_close]<ul>[items.Join()]</ul>"
 
-	if(name in GLOB.bitfields)
-		var/list/flags = list()
-		for (var/i in GLOB.bitfields[name])
-			if (value & GLOB.bitfields[name][i])
-				flags += i
-		if(length(flags))
-			return "[VV_HTML_ENCODE(jointext(flags, ", "))]"
-		else
-			return "NONE"
-	else
-		return span_value("[VV_HTML_ENCODE(value)]")
+	return span_value("[VV_HTML_ENCODE(value)]")
 
 /datum/proc/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	if("[src]" != "[type]") // If we have a name var, let's use it.
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[src] [type] [REF(src)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[src] [type] [REF(src)]</a>"
 	else
-		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[type] [REF(src)]</a>"
+		return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(src)]'>[type] [REF(src)]</a>"
 
 /datum/weakref/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	. = ..()
-	return "[.] <a href='?_src_=vars;[HrefToken()];Vars=[reference]'>(Resolve)</a>"
+	return "[.] <a href='byond://?_src_=vars;[HrefToken()];Vars=[reference]'>(Resolve)</a>"
 
 /matrix/debug_variable_value(name, level, datum/owner, sanitize, display_flags)
 	return {"<span class='value'>

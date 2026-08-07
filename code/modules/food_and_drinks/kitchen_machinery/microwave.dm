@@ -153,11 +153,9 @@
 	for (var/atom/movable/ingredient as anything in ingredients)
 		var/image/ingredient_overlay = image(ingredient, src)
 
-		var/icon/ingredient_icon = icon(ingredient.icon, ingredient.icon_state)
-
 		ingredient_overlay.transform = ingredient_overlay.transform.Scale(
-			MICROWAVE_INGREDIENT_OVERLAY_SIZE / ingredient_icon.Width(),
-			MICROWAVE_INGREDIENT_OVERLAY_SIZE / ingredient_icon.Height(),
+			MICROWAVE_INGREDIENT_OVERLAY_SIZE / ingredient.get_cached_width(),
+			MICROWAVE_INGREDIENT_OVERLAY_SIZE / ingredient.get_cached_height(),
 		)
 
 		ingredient_overlay.pixel_y = -4
@@ -278,7 +276,7 @@
 			to_chat(user, span_warning("You need more space cleaner!"))
 		return TRUE
 
-	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/cup/rag))
+	if(istype(O, /obj/item/soap) || istype(O, /obj/item/rag))
 		var/cleanspeed = 50
 		if(istype(O, /obj/item/soap))
 			var/obj/item/soap/used_soap = O
@@ -303,7 +301,7 @@
 			if(ingredients.len >= max_n_of_items)
 				balloon_alert(user, "it's full!")
 				return TRUE
-			if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
+			if(T.atom_storage.attempt_remove(S, src))
 				loaded++
 				ingredients += S
 		if(loaded)
@@ -332,6 +330,7 @@
 			balloon_alert(user, "it's empty!")
 			return
 		cook(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/microwave/ui_interact(mob/user)
 	. = ..()

@@ -1,52 +1,68 @@
-// A special GetAllContents that doesn't search past things with rad insulation
-// Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
-// The ignore list makes those objects never return at all
-/proc/get_rad_contents(atom/location)
-	var/static/list/ignored_things = typecacheof(list(
-		/mob/dead,
-		/mob/camera,
-		/mob/living/simple_animal/revenant,
-		/obj/effect,
-		/obj/docking_port,
-		/atom/movable/lighting_object,
-		/obj/projectile,
-		/obj/structure/chisel_message,
-		/mob/living/simple_animal/eminence
-		))
-	var/list/processing_list = list(location)
-	. = list()
-	while(processing_list.len)
-		var/atom/thing = processing_list[1]
-		processing_list -= thing
-		if(thing == null)
-			continue
-		if(ignored_things[thing.type])
-			continue
-		. += thing
-		if((thing.rad_flags & RAD_PROTECT_CONTENTS) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
-			continue
-		processing_list += thing.contents
+/// Whether or not it's possible for this atom to be irradiated
+#define CAN_IRRADIATE(atom) (ishuman(##atom) || isitem(##atom))
 
-/proc/radiation_pulse(atom/source, intensity, range_modifier, log=FALSE, can_contaminate=TRUE)
-	if(!SSradiation.can_fire)
+/// Sends out a pulse of radiation, eminating from the source.
+/// Radiation is performed by collecting all radiatables within the max range (0 means source only, 1 means adjacent, etc),
+/// then makes their way towards them. A number, starting at 1, is multiplied
+/// by the insulation amounts of whatever is in the way (for example, walls lowering it down).
+/// If this number hits equal or below the threshold, then the target can no longer be irradiated.
+/// If the number is above the threshold, then the chance is the chance that the target will be irradiated.
+/// As a consumer, this means that max_range going up usually means you want to lower the threshold too,
+/// as well as the other way around.
+/// If max_range is high, but threshold is too high, then it usually won't reach the source at the max range in time.
+/// If max_range is low, but threshold is too low, then it basically guarantees everyone nearby, even if there's walls
+/// and such in the way, can be irradiated.
+/// You can also pass in a minimum exposure time. If this is set, then this radiation pulse
+/// will not irradiate the source unless they have been around *any* radioactive source for that
+/// period of time.
+/proc/radiation_pulse(
+	atom/source,
+	max_range,
+	threshold,
+	intensity = DEFAULT_RADIATION_INTENSITY,
+	minimum_exposure_time = 0,
+)
+	if(!SSradiation.can_fire || intensity <= 0)
 		return
 
-	var/list/things = get_rad_contents(isturf(source) ? source : get_turf(source)) //copypasta because I don't want to put special code in waves to handle their origin
-	for(var/k in 1 to things.len)
-		var/atom/thing = things[k]
-		if(!thing)
-			continue
-		thing.rad_act(intensity)
+	var/datum/radiation_pulse_information/pulse_information = new
+	pulse_information.source_ref = WEAKREF(source)
+	pulse_information.max_range = max_range
+	pulse_information.threshold = threshold
+	pulse_information.intensity = intensity
+	pulse_information.minimum_exposure_time = minimum_exposure_time
+	pulse_information.turfs_to_process = RANGE_TURFS(max_range, source)
 
-	if(intensity >= RAD_WAVE_MINIMUM) // Don't bother to spawn rad waves if they're just going to immediately go out
-		new /datum/radiation_wave(source, intensity, range_modifier, can_contaminate)
-
-		var/static/last_huge_pulse = 0
-		if(intensity > 3000 && world.time > last_huge_pulse + 200)
-			last_huge_pulse = world.time
-			log = TRUE
-		if(log)
-			var/turf/_source_T = isturf(source) ? source : get_turf(source)
-			log_game("Radiation pulse with intensity: [intensity] and range modifier: [range_modifier] in [loc_name(_source_T)] ")
+	SSradiation.processing += pulse_information
 
 	return TRUE
+
+/datum/radiation_pulse_information
+	var/datum/weakref/source_ref
+	var/max_range
+	var/threshold
+	var/intensity
+	var/minimum_exposure_time
+	var/list/turfs_to_process
+
+#define MEDIUM_RADIATION_THRESHOLD_RANGE 0.5
+#define EXTREME_RADIATION_INTENSITY 30
+
+/// Gets the perceived "danger" of radiation pulse, given the threshold to the target.
+/// Returns a RADIATION_DANGER_* define, see [code/__DEFINES/radiation.dm]
+/proc/get_perceived_radiation_danger(datum/radiation_pulse_information/pulse_information, insulation_to_target)
+	if (insulation_to_target > pulse_information.threshold)
+		// We could get irradiated! Scale based off of the intensity
+		if (pulse_information.intensity >= EXTREME_RADIATION_INTENSITY)
+			return PERCEIVED_RADIATION_DANGER_EXTREME
+		else
+			return PERCEIVED_RADIATION_DANGER_HIGH
+	else
+		// We're out of the threshold from being irradiated, but by how much?
+		if (insulation_to_target / pulse_information.threshold <= MEDIUM_RADIATION_THRESHOLD_RANGE)
+			return PERCEIVED_RADIATION_DANGER_MEDIUM
+		else
+			return PERCEIVED_RADIATION_DANGER_LOW
+
+#undef MEDIUM_RADIATION_THRESHOLD_RANGE
+#undef EXTREME_RADIATION_INTENSITY

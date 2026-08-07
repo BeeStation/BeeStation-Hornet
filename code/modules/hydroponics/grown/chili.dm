@@ -6,7 +6,7 @@
 	species = "chili"
 	plantname = "Chili Plants"
 	product = /obj/item/food/grown/chili
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 4
@@ -35,7 +35,7 @@
 	species = "chiliice"
 	plantname = "Ice Pepper Plants"
 	product = /obj/item/food/grown/icepepper
-	lifespan = 25
+	lifespan = 100
 	maturation = 4
 	production = 4
 	rarity = 20
@@ -50,7 +50,7 @@
 	bite_consumption_mod = 5
 	foodtypes = FRUIT
 	wine_power = 30
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Ghost Chili
 /obj/item/seeds/chili/ghost
@@ -77,7 +77,7 @@
 	bite_consumption_mod = 5
 	foodtypes = FRUIT
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/ghost_chili/attack_hand(mob/user, list/modifiers)
 	. = ..()

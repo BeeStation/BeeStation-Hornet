@@ -41,7 +41,7 @@
 		var/list/_L = target.status_traits; \
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
-			target_heap += source;\
+			target_heap |= source;\
 		} else { \
 			_L[_trait] = list(source); \
 			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(_trait), _trait); \
@@ -62,10 +62,10 @@
 		var/list/_L = _target.status_traits; \
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
-			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority);\
+			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
 		} else { \
 			target_heap = list(); \
-			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority);\
+			ADD_HEAP(target_heap, new /datum/trait/priority(source, _trait_value, _trait_priority), priority, /datum/trait/priority);\
 			_L[_trait] = target_heap;\
 			SEND_SIGNAL(_target, SIGNAL_ADDTRAIT(_trait), _trait); \
 			SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
@@ -157,7 +157,7 @@
 			for (var/datum/trait/_trait_datum as anything in _trait_list) { \
 				var/_T = _trait_datum.source;\
 				if (##_condition) { \
-					REMOVE_HEAP(_trait_list, _trait_datum, priority); \
+					REMOVE_HEAP(_trait_list, _trait_datum, priority, /datum/trait/priority); \
 					if (length(_trait_list) && _trait_list[1] != _cached_source) {\
 						SEND_SIGNAL(_target, SIGNAL_UPDATETRAIT(_trait), _trait); \
 					}\
@@ -298,6 +298,10 @@
 /// Checks if the mob has the specified trait from any source except from the ones specified
 /// Slightly slower than HAS_TRAIT and should be avoided when proc-overhead matters (roughly >1000 calls per second)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits && ____has_trait_not_from(target, trait, source))
+/// A simple helper for checking traits in a mob's mind
+#define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
+/// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
 
 GLOBAL_DATUM_INIT(_trait_located, /datum/trait, null)
 

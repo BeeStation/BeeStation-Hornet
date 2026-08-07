@@ -18,7 +18,7 @@
 
 /datum/component/food_storage/Initialize(_minimum_weight_class = WEIGHT_CLASS_SMALL, _bad_chance = 0, _good_chance = 100)
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(try_inserting_item))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY_SECONDARY, PROC_REF(try_inserting_item))
 	RegisterSignal(parent, COMSIG_CLICK_CTRL, PROC_REF(try_removing_item))
 	RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(consume_food_storage))
 
@@ -29,7 +29,7 @@
 	bad_chance_of_discovery = _bad_chance
 	good_chance_of_discovery = _good_chance
 
-/datum/component/food_storage/Destroy(force, silent)
+/datum/component/food_storage/Destroy(force)
 	if(stored_item)
 		stored_item.forceMove(stored_item.drop_location())
 		stored_item.dropped()

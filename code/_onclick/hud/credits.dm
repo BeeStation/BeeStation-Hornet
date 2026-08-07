@@ -1,6 +1,6 @@
 #define CREDIT_ROLL_SPEED 60
 #define CREDIT_SPAWN_SPEED 4
-#define CREDIT_ANIMATE_HEIGHT (16 * world.icon_size) //13 would cause credits to get stacked at the top of the screen, so we let them go past the top edge
+#define CREDIT_ANIMATE_HEIGHT (16 * ICON_SIZE_Y) //13 would cause credits to get stacked at the top of the screen, so we let them go past the top edge
 #define CREDIT_EASE_DURATION 12
 
 GLOBAL_LIST(end_titles)
@@ -8,7 +8,7 @@ GLOBAL_LIST(end_titles)
 /proc/RollCredits()
 	set waitfor = FALSE
 	if(!GLOB.end_titles)
-		GLOB.end_titles = SSticker.mode.generate_credit_text()
+		GLOB.end_titles = SSticker.generate_credit_text()
 		GLOB.end_titles += "<br>"
 		GLOB.end_titles += "<br>"
 
@@ -38,7 +38,7 @@ GLOBAL_LIST(end_titles)
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
-			C.screen += new /atom/movable/screen/credit/title_card(null, null, SSticker.mode.title_icon)
+			C.screen += new /atom/movable/screen/credit/title_card(null, null, null)
 	sleep(CREDIT_SPAWN_SPEED * 3)
 	for(var/i in 1 to GLOB.end_titles.len)
 		var/C = GLOB.end_titles[i]
@@ -50,7 +50,7 @@ GLOBAL_LIST(end_titles)
 
 
 /proc/create_credit(credit)
-	new /atom/movable/screen/credit(null, credit)
+	new /atom/movable/screen/credit(null, null, credit)
 
 /atom/movable/screen/credit
 	icon_state = "blank"
@@ -62,11 +62,11 @@ GLOBAL_LIST(end_titles)
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
 
-/atom/movable/screen/credit/Initialize(mapload, credited)
+/atom/movable/screen/credit/Initialize(mapload, datum/hud/hud_owner, credited)
 	. = ..()
 	maptext = MAPTEXT("<font face='Verdana'>[credited]</font>")
-	maptext_height = world.icon_size * 2
-	maptext_width = world.icon_size * 13
+	maptext_height = ICON_SIZE_Y * 2
+	maptext_width = ICON_SIZE_X * 13
 	var/matrix/M = matrix(transform)
 	M.Translate(0, CREDIT_ANIMATE_HEIGHT)
 	animate(src, transform = M, time = CREDIT_ROLL_SPEED)
@@ -86,12 +86,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
 
 /atom/movable/screen/credit/title_card
 	icon = 'icons/title_cards.dmi'
+	icon_state = "ss13"
 	screen_loc = "4,1"
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit/title_card)
 
-/atom/movable/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
-	icon_state = title_icon_state
+/atom/movable/screen/credit/title_card/Initialize(mapload, datum/hud/hud_owner, credited)
 	. = ..()
 	maptext = null
 

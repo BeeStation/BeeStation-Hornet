@@ -51,7 +51,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 
 	expand(current_size)
 
-	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
+	for(var/obj/machinery/power/singularity_beacon/singubeacon as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/singularity_beacon))
 		if(singubeacon.active)
 			new_component.target = singubeacon
 			break
@@ -137,7 +137,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 		return
 	time_since_act = 0
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, min(5000, (energy*4.5)+1000), RAD_DISTANCE_COEFFICIENT*0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	dissipate(delta_time)
@@ -382,7 +381,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 		C.visible_message(span_warning("[C]'s skin bursts into flame!"), \
 							span_userdanger("You feel an inner fire as your skin bursts into flames!"))
 		C.adjust_fire_stacks(5)
-		C.IgniteMob()
+		C.ignite_mob()
 	return
 
 

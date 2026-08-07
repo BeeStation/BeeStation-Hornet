@@ -8,17 +8,19 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/epilepsy/on_life()
-	if(prob(1 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
+/datum/mutation/epilepsy/on_life(delta_time, times_fired)
+	if(DT_PROB(0.5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS)
 		owner.visible_message(span_danger("[owner] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
-		owner.Jitter(1000 * GET_MUTATION_POWER(src))
+		owner.set_jitter(2000 SECONDS * GET_MUTATION_POWER(src)) //yes this number looks crazy but the jitter animations are amplified based on the duration.
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
 		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 9 SECONDS)
 
 /datum/mutation/epilepsy/proc/jitter_less()
-	if(owner)
-		owner.jitteriness = 10
+	if(QDELETED(owner))
+		return
+
+	owner.set_jitter(20 SECONDS)
 
 
 //Unstable DNA induces random mutations!
@@ -33,12 +35,15 @@
 		return
 	var/mob/new_mob
 	if(prob(95))
-		if(prob(50))
-			new_mob = owner.easy_randmut(NEGATIVE + MINOR_NEGATIVE)
-		else
-			new_mob = owner.randmuti()
+		switch(rand(1,3))
+			if(1)
+				new_mob = owner.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
+			if(2)
+				new_mob = owner.random_mutate_unique_identity()
+			if(3)
+				new_mob = owner.random_mutate_unique_features()
 	else
-		new_mob = owner.easy_randmut(POSITIVE)
+		new_mob = owner.easy_random_mutate(POSITIVE)
 	if(new_mob && ismob(new_mob))
 		owner = new_mob
 	. = owner
@@ -53,8 +58,8 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/cough/on_life()
-	if(prob(5 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
+/datum/mutation/cough/on_life(delta_time, times_fired)
+	if(DT_PROB(2.5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS)
 		owner.drop_all_held_items()
 		owner.emote("cough")
 		if(GET_MUTATION_POWER(src) > 1)
@@ -67,11 +72,11 @@
 	desc = "Subject is easily terrified, and may suffer from hallucinations."
 	quality = NEGATIVE
 
-/datum/mutation/paranoia/on_life()
-	if(prob(5) && owner.stat == CONSCIOUS)
+/datum/mutation/paranoia/on_life(delta_time, times_fired)
+	if(DT_PROB(2.5, delta_time) && owner.stat == CONSCIOUS)
 		owner.emote("scream")
 		if(prob(25))
-			owner.hallucination += 20
+			owner.adjust_hallucinations(40 SECONDS)
 
 //Dwarfism shrinks your body and lets you pass tables.
 /datum/mutation/dwarfism
@@ -80,25 +85,26 @@
 	quality = POSITIVE
 	difficulty = 16
 	instability = 5
-	conflicts = list(GIGANTISM)
+	conflicts = list(/datum/mutation/gigantism)
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	owner.resize = 0.8
-	owner.update_transform()
+	ADD_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
+	owner.update_transform(0.8)
 	passtable_on(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	owner.resize = 1.25
-	owner.update_transform()
+	REMOVE_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
+	owner.update_transform(1.25)
 	passtable_off(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
-
 
 //Clumsiness has a very large amount of small drawbacks depending on item.
 /datum/mutation/clumsy
@@ -114,21 +120,18 @@
 	quality = NEGATIVE
 	synchronizer_coeff = 1
 
-/datum/mutation/tourettes/on_life()
-	if(prob(10 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS && !owner.IsStun())
+/datum/mutation/tourettes/on_life(delta_time, times_fired)
+	if(DT_PROB(5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS && !owner.IsStun())
 		owner.Stun(20)
 		switch(rand(1, 3))
 			if(1)
 				owner.emote("twitch")
 			if(2 to 3)
 				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced="tourette's syndrome")
-		var/x_offset_old = owner.pixel_x
-		var/y_offset_old = owner.pixel_y
-		var/x_offset = owner.pixel_x + rand(-2, 2)
-		var/y_offset = owner.pixel_y + rand(-1, 1)
-		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 1)
-		animate(owner, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
-
+		var/x_offset = rand(-2, 2)
+		var/y_offset = rand(-1, 1)
+		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(owner, pixel_x = -x_offset, pixel_y = -y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 
 //Deafness makes you deaf.
 /datum/mutation/deaf
@@ -158,8 +161,15 @@
 	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
-	if(istype(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
+	if(owner.stat == DEAD)
+		return
+	. = ..()
+	if(.)
+		return
+	if(QDELETED(owner))
+		return
+
+	owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
 
 /datum/mutation/glow
 	name = "Glowy"
@@ -167,7 +177,7 @@
 	quality = POSITIVE
 	instability = 5
 	power_coeff = 1
-	conflicts = list(ANTIGLOWY)
+	conflicts = list(/datum/mutation/glow/anti)
 	var/glow_power = 2.5
 	var/glow_range = 2.5
 	var/glow_color
@@ -205,7 +215,7 @@
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
 	glow_power = -1.5
-	conflicts = list(GLOWY)
+	conflicts = list(/datum/mutation/glow)
 	locked = TRUE
 
 /datum/mutation/glow/anti/get_glow_color()
@@ -233,10 +243,10 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/fire/on_life()
-	if(prob((1+(100-dna.stability)/10)) * GET_MUTATION_SYNCHRONIZER(src))
+/datum/mutation/fire/on_life(delta_time, times_fired)
+	if(DT_PROB((0.05+(100-dna.stability)/19.5) * GET_MUTATION_SYNCHRONIZER(src), delta_time))
 		owner.adjust_fire_stacks(2 * GET_MUTATION_POWER(src))
-		owner.IgniteMob()
+		owner.ignite_mob()
 
 /datum/mutation/fire/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -263,8 +273,8 @@
 	power_coeff = 1
 	var/warpchance = 0
 
-/datum/mutation/badblink/on_life()
-	if(prob(warpchance))
+/datum/mutation/badblink/on_life(delta_time, times_fired)
+	if(DT_PROB(warpchance, delta_time))
 		var/warpmessage = pick(
 			span_warning("With a sickening 720 degree twist of their back, [owner] vanishes into thin air."),
 			span_warning("[owner] does some sort of strange backflip into another dimension. It looks pretty painful."),
@@ -278,17 +288,18 @@
 		warpchance = 0
 		owner.visible_message(span_danger("[owner] appears out of nowhere!"))
 	else
-		warpchance += 0.25 * GET_MUTATION_ENERGY(src)
+		warpchance += 0.0625 * GET_MUTATION_ENERGY(src) * delta_time
 
 /datum/mutation/acidflesh
 	name = "Acidic Flesh"
 	desc = "Subject has acidic chemicals building up underneath their skin. This is often lethal."
 	quality = NEGATIVE
 	difficulty = 18//high so it's hard to unlock and use on others
+	/// The cooldown for the warning message
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/mutation/acidflesh/on_life()
-	if(prob(25))
+/datum/mutation/acidflesh/on_life(delta_time, times_fired)
+	if(DT_PROB(13, delta_time))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(owner, span_danger("Your acid flesh bubbles..."))
 			COOLDOWN_START(src, message_cooldown, 20 SECONDS)
@@ -302,20 +313,22 @@
 	desc = "The cells within the subject spread out to cover more area, making them appear larger."
 	quality = MINOR_NEGATIVE
 	difficulty = 12
-	conflicts = list(DWARFISM)
+	conflicts = list(/datum/mutation/dwarfism)
 
 /datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	owner.resize = 1.25
-	owner.update_transform()
+	ADD_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
+	owner.update_transform(1.25)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 
 /datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
-	owner.resize = 0.8
-	owner.update_transform()
+	REMOVE_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
+	owner.update_transform(0.8)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/spastic
@@ -327,12 +340,12 @@
 /datum/mutation/spastic/on_acquiring()
 	if(..())
 		return
-	owner.apply_status_effect(STATUS_EFFECT_SPASMS)
+	owner.apply_status_effect(/datum/status_effect/spasms)
 
 /datum/mutation/spastic/on_losing()
 	if(..())
 		return
-	owner.remove_status_effect(STATUS_EFFECT_SPASMS)
+	owner.remove_status_effect(/datum/status_effect/spasms)
 
 /datum/mutation/extrastun
 	name = "Two Left Feet"
@@ -365,7 +378,7 @@
 /datum/mutation/strongwings/on_acquiring()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!wings)
 		to_chat(owner, span_warning("You don't have wings to strengthen!"))
 		return
@@ -384,7 +397,7 @@
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(!wings)
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
@@ -399,7 +412,7 @@
 
 /datum/mutation/strongwings/modify()
 	..()
-	var/obj/item/organ/wings/bee/bee_wings = owner.getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
 /datum/mutation/catclaws

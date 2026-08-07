@@ -8,6 +8,7 @@
 /obj/item/circuit_component/round
 	display_name = "Round"
 	desc = "A component capable of cutting off messy decimal values off a number."
+	category = "Math"
 
 	/// The input port
 	var/datum/port/input/input
@@ -51,8 +52,8 @@
 		if(COMP_ROUND_ROUND)
 			value = round(value,1)
 		if(COMP_ROUND_FLOOR)
-			value = FLOOR(value,1)
+			value = floor(value)
 		if(COMP_ROUND_CEIL)
-			value = CEILING(value,1)
+			value = ceil(value)
 
 	output.set_output(value)

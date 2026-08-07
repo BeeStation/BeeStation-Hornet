@@ -165,6 +165,30 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 	return locate(x,y,target_atom.z)
 
+/**
+ * Get ranged target turf, but with direct targets as opposed to directions
+ *
+ * Starts at atom starting_atom and gets the exact angle between starting_atom and target
+ * Moves from starting_atom with that angle, Range amount of times, until it stops, bound to map size
+ * Arguments:
+ * * starting_atom - Initial Firer / Position
+ * * target - Target to aim towards
+ * * range - Distance of returned target turf from starting_atom
+ * * offset - Angle offset, 180 input would make the returned target turf be in the opposite direction
+ */
+/proc/get_ranged_target_turf_direct(atom/starting_atom, atom/target, range, offset)
+	var/angle = ATAN2(target.x - starting_atom.x, target.y - starting_atom.y)
+	if(offset)
+		angle += offset
+	var/turf/starting_turf = get_turf(starting_atom)
+	for(var/i in 1 to range)
+		var/turf/check = locate(starting_atom.x + cos(angle) * i, starting_atom.y + sin(angle) * i, starting_atom.z)
+		if(!check)
+			break
+		starting_turf = check
+
+	return starting_turf
+
 /// returns turf relative to target_atom offset in dx and dy tiles, bound to map limits
 /proc/get_offset_target_turf(atom/target_atom, dx, dy)
 	var/x = min(world.maxx, max(1, target_atom.x + dx))
@@ -193,16 +217,16 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/pixel_y_offset = checked_atom.pixel_y + atom_matrix.get_y_shift()
 
 	//Irregular objects
-	var/list/icon_dimensions = get_icon_dimensions(checked_atom.icon)
+	var/list/icon_dimensions = get_icon_dimensions_pure(checked_atom.icon)
 	var/checked_atom_icon_height = icon_dimensions["width"]
 	var/checked_atom_icon_width = icon_dimensions["height"]
-	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
-		pixel_x_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
-		pixel_y_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+	if(checked_atom_icon_height != ICON_SIZE_Y || checked_atom_icon_width != ICON_SIZE_X)
+		pixel_x_offset += ((checked_atom_icon_width / ICON_SIZE_X) - 1) * (ICON_SIZE_X * 0.5)
+		pixel_y_offset += ((checked_atom_icon_height / ICON_SIZE_Y) - 1) * (ICON_SIZE_Y * 0.5)
 
 	//DY and DX
-	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
-	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
+	var/rough_x = round(round(pixel_x_offset, ICON_SIZE_X) / ICON_SIZE_X)
+	var/rough_y = round(round(pixel_y_offset, ICON_SIZE_Y) / ICON_SIZE_Y)
 
 	//Find coordinates
 	var/turf/atom_turf = get_turf(checked_atom) //use checked_atom's turfs, as it's coords are the same as checked_atom's AND checked_atom's coords are lost if it is inside another atom
@@ -231,8 +255,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 	click_turf_y = origin.y + text2num(click_turf_y[1]) - round(actual_view[2] / 2) - 1
 
 	var/turf/click_turf = locate(clamp(click_turf_x, 1, world.maxx), clamp(click_turf_y, 1, world.maxy), click_turf_z)
-	LAZYSET(modifiers, ICON_X, "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * world.icon_size)]")
-	LAZYSET(modifiers, ICON_Y, "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * world.icon_size)]")
+	LAZYSET(modifiers, ICON_X, "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * ICON_SIZE_X)]")
+	LAZYSET(modifiers, ICON_Y, "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * ICON_SIZE_Y)]")
 	return click_turf
 
 //Currently not used
@@ -332,62 +356,56 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if (length(turfs))
 		return pick(turfs)
 
-///Returns a random turf or turf list on the station, excludes dense turfs (like walls) and areas with valid_territory set to FALSE
+/**
+ * Returns a random turf or turf list on the station, excludes dense turfs (like walls) and areas with valid_territory set to FALSE
+ * This is an expensive proc. USE SPARINGLY PLEASE!
+ */
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
-	var/list/picked_turfs = list()
-	var/list/turf_list = list()
-	for(var/area/A as() in areas_to_pick_from)
-		turf_list += get_area_turfs(A)
-	while(turf_list.len && length(picked_turfs) < amount)
-		var/I = rand(1, length(turf_list))
-		var/turf/checked_turf = turf_list[I]
-		var/area/turf_area = get_area(checked_turf)
-		if(!checked_turf.density && (turf_area.area_flags & VALID_TERRITORY) && !isgroundlessturf(checked_turf))
+	var/list/turf/all_station_turfs = list()
+	for(var/area/area_to_search as anything in areas_to_pick_from)
+		if(area_to_search.area_flags & VALID_TERRITORY)
+			all_station_turfs += get_area_turfs(area_to_search)
+
+	var/list/turf/picked_turfs = list()
+	while(length(all_station_turfs) && length(picked_turfs) < amount)
+		var/turf/checked_turf = pick_n_take(all_station_turfs)
+
+		if(!checked_turf.density && !isgroundlessturf(checked_turf))
 			var/clear = TRUE
 			for(var/obj/checked_object in checked_turf)
 				if(checked_object.density)
 					clear = FALSE
 					break
 			if(clear)
-				picked_turfs |= checked_turf
-			turf_list.Cut(I,I+1)
+				picked_turfs += checked_turf
 		CHECK_TICK
-	if(!picked_turfs.len)
+
+	if(!length(picked_turfs))
 		return null
 	if(amount == 1)
-		return picked_turfs[1]
+		return pick(picked_turfs)
 	return picked_turfs
 
 /**
- * Checks whether the target turf is in a valid state to accept a directional window
- * or other directional pseudo-dense object such as railings.
+ * Checks whether the target turf is in a valid state to accept a directional construction
+ * such as windows or railings.
  *
- * Returns FALSE if the target turf cannot accept a directional window or railing.
+ * Returns FALSE if the target turf cannot accept a directional construction.
  * Returns TRUE otherwise.
  *
  * Arguments:
- * * dest_turf - The destination turf to check for existing windows and railings
+ * * dest_turf - The destination turf to check for existing directional constructions
  * * test_dir - The prospective dir of some atom you'd like to put on this turf.
  * * is_fulltile - Whether the thing you're attempting to move to this turf takes up the entire tile or whether it supports multiple movable atoms on its tile.
  */
-/proc/valid_window_location(turf/dest_turf, test_dir, is_fulltile = FALSE)
+/proc/valid_build_direction(turf/dest_turf, test_dir, is_fulltile = FALSE)
 	if(!dest_turf)
 		return FALSE
 	for(var/obj/turf_content in dest_turf)
-		if(istype(turf_content, /obj/machinery/door/window))
-			if((turf_content.dir == test_dir) || is_fulltile)
+		if(turf_content.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			if(is_fulltile)  // for making it so fulltile things can't be built over directional things--a special case
 				return FALSE
-		if(istype(turf_content, /obj/structure/windoor_assembly))
-			var/obj/structure/windoor_assembly/windoor_assembly = turf_content
-			if(windoor_assembly.dir == test_dir || is_fulltile)
-				return FALSE
-		if(istype(turf_content, /obj/structure/window))
-			var/obj/structure/window/window_structure = turf_content
-			if(window_structure.dir == test_dir || window_structure.fulltile || is_fulltile)
-				return FALSE
-		if(istype(turf_content, /obj/structure/railing))
-			var/obj/structure/railing/rail = turf_content
-			if(rail.dir == test_dir || is_fulltile)
+			if(turf_content.dir == test_dir)
 				return FALSE
 	return TRUE
 
@@ -395,23 +413,26 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// It's probably not safe if it's not a floor.
 	if(!istype(floor))
 		return FALSE
-	var/datum/gas_mixture/air = floor.air
-	// Certainly unsafe if it completely lacks air.
-	if(QDELETED(air))
+
+	var/datum/gas_mixture/floor_gas_mixture = floor.air
+	if(!floor_gas_mixture)
 		return FALSE
-	// Can most things breathe?
-	for(var/id in air.gases)
-		if(id in GLOB.hardcoded_gases)
-			continue
+
+	var/static/list/gases_to_check = list(
+		/datum/gas/oxygen = list(16, 100),
+		/datum/gas/nitrogen,
+		/datum/gas/carbon_dioxide = list(0, 10)
+	)
+	if(!floor_gas_mixture.check_gases(gases_to_check))
 		return FALSE
-	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
+
+	// Aim for goldilocks temperatures and pressure
+	if(!ISINRANGE(floor_gas_mixture.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
 		return FALSE
-	var/temperature = air.temperature
-	if(temperature <= 270 || temperature >= 360)
+	var/pressure = floor_gas_mixture.return_pressure()
+	if(!ISINRANGE(pressure, HAZARD_LOW_PRESSURE, HAZARD_HIGH_PRESSURE))
 		return FALSE
-	var/pressure = air.return_pressure()
-	if(pressure <= 20 || pressure >= 550)
-		return FALSE
+
 	return TRUE
 
 /// returns a turf that isn't holy from the list

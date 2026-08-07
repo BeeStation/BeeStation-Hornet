@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	desc = "A sentient bluespace crystallization of someone's willpower, this being will forever protect and serve its host, standing guard until the last embers of their life are extinguished."
 	speak_emote = list("emanates", "radiates")
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 	bubble_icon = "guardian"
 	response_help_continuous = "passes through"
 	response_help_simple = "pass through"
@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	is_flying_animal = TRUE // Immunity to chasms and landmines, etc.
 	no_flying_animation = TRUE
 	attack_sound = "punch"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	attack_verb_continuous = "punches"
@@ -43,10 +43,10 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/holoparasite
 	dextrous_hud_type = /datum/hud/holoparasite
-	chat_color = "#ffffff"
+	chat_color = COLOR_WHITE
 	mobchatspan = "holoparasite"
 	faction = list()
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 	see_in_dark = 10
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/**
@@ -106,11 +106,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/holoparasite_stats/_stats)
 	. = ..()
-	if(!istype(_summoner))
-		stack_trace("Holoparasite initialized without a valid summoner!")
-		return INITIALIZE_HINT_QDEL
 	if(!istype(_stats))
 		stack_trace("Holoparasite initialized without valid stats!")
 		return INITIALIZE_HINT_QDEL
@@ -124,14 +121,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		set_name(_name, internal = TRUE)
 	if(length(_notes))
 		notes = _notes
-	set_summoner(_summoner)
 	stats = _stats
 	stats.apply(src)
 	set_battlecry(pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT"), silent = TRUE)
-	if(length(_key))
-		key = _key
 	RegisterSignal(src, COMSIG_LIVING_PRE_WABBAJACKED, PROC_REF(on_pre_wabbajacked))
-	tracking_beacon = LoadComponent(/datum/component/tracking_beacon, REF(parent_holder), null, parent_holder.get_monitor(), FALSE, accent_color, TRUE, TRUE)
 	ADD_LUM_SOURCE(src, LUM_SOURCE_INNATE)
 
 /mob/living/simple_animal/hostile/holoparasite/Destroy()
@@ -141,6 +134,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	if(tracking_beacon)
 		QDEL_NULL(tracking_beacon)
 	return ..()
+
+/mob/living/simple_animal/hostile/holoparasite/mind_initialize()
+	. = ..()
+	if(!summoner)
+		return
+	// Enslave the holoparasite's mind to the summoner.
+	mind.enslave_mind_to_creator(summoner)
+	// This is a nested tally list, just in case that future jobs rework ever gets merged.
+	SSblackbox.record_feedback("nested tally", "holoparasite_summoner_special_roles", 1, summoner.special_role ? list(summoner.special_role) : list("(none)"))
 
 /mob/living/simple_animal/hostile/holoparasite/Login()
 	var/datum/antagonist/holoparasite/first_time_show_popup
@@ -170,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		var/ability_info = stats.ability.notify_user()
 		if(length(ability_info))
 			stat_popups += "[span_holoparasitebig("Ability: <b>[stats.ability.name]</b>")]\n[ability_info]"
-	for(var/datum/holoparasite_ability/lesser/lability as() in stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lability as anything in stats.lesser_abilities)
 		var/ability_info = lability.notify_user()
 		if(length(ability_info))
 			stat_popups += "[span_holoparasitebig("Lesser Ability: <b>[lability.name]</b>")]\n[ability_info]"
@@ -179,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		stat_popups += "[span_holoparasitebig("Weapon: <b>[stats.weapon.name]</b>")]\n[weapon_info]"
 	if(length(stat_popups))
 		info_block += list(span_info("================"), span_bigboldinfo("\[ABILITY NOTES\]"), "[stat_popups.Join("\n[span_info("====")]\n")]")
-	to_chat(src, EXAMINE_BLOCK(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
+	to_chat(src, examine_block(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
 
 /mob/living/simple_animal/hostile/holoparasite/Life()
 	. = ..()
@@ -210,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	set hidden = TRUE
 	to_chat(src, span_warning("You cannot commit suicide! Reset yourself (or contact an admin) if you wish to stop being a holoparasite!"))
 
-/mob/living/simple_animal/hostile/holoparasite/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/hostile/holoparasite/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	return FALSE
 
 /mob/living/simple_animal/hostile/holoparasite/can_use_guns(obj/item/gun)
@@ -220,7 +222,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	to_chat(src, span_warning("You can't fire \the [gun]!"))
 	return FALSE // No... just... no.
 
-/mob/living/simple_animal/hostile/holoparasite/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
+/mob/living/simple_animal/hostile/holoparasite/Hear(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods, message_range)
 	var/datum/antagonist/traitor/summoner_traitor = summoner?.has_antag_datum(/datum/antagonist/traitor)
 	if(summoner_traitor?.has_codewords)
 		raw_message = GLOB.syndicate_code_phrase_regex.Replace(raw_message, span_blue("$1"))
@@ -234,7 +236,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 			. += span_holoparasite("<b>WEAPON:</b> [stats.weapon.name] - [replacetext(stats.weapon.desc, "$theme", LOWER_TEXT(theme.name))]")
 		if(stats.ability)
 			. += span_holoparasite("<b>SPECIAL ABILITY:</b> [stats.ability.name] - [replacetext(stats.ability.desc, "$theme", LOWER_TEXT(theme.name))]")
-		for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
+		for(var/datum/holoparasite_ability/lesser/ability as anything in stats.lesser_abilities)
 			. += span_holoparasite("<b>LESSER ABILITY:</b> [ability.name] - [replacetext(ability.desc, "$theme", LOWER_TEXT(theme.name))]")
 		. += "<span data-component=\"RadarChart\" data-width=\"300\" data-height=\"300\" data-area-color=\"[accent_color]\" data-axes=\"Damage,Defense,Speed,Potential,Range\" data-stages=\"1,2,3,4,5\" data-values=\"[stats.damage],[stats.defense],[stats.speed],[stats.potential],[stats.range]\" />"
 

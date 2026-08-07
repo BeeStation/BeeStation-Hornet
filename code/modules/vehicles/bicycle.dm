@@ -2,19 +2,15 @@
 	name = "bicycle"
 	desc = "Keep away from electricity."
 	icon_state = "bicycle"
-	fall_off_if_missing_arms = TRUE
 
-/obj/vehicle/ridden/bicycle/Initialize(mapload)
-	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
-	D.vehicle_move_delay = 0
+/obj/vehicle/ridden/bicycle/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/bicycle)
 
-
-/obj/vehicle/ridden/bicycle/tesla_act() // :::^^^)))
+/obj/vehicle/ridden/bicycle/zap_act(power, zap_flags) // :::^^^)))
 	name = "fried bicycle"
 	desc = "Well spent."
 	color = rgb(63, 23, 4)
 	can_buckle = FALSE
-	for(var/m in buckled_mobs)
-		unbuckle_mob(m,1)
+
+	for(var/mob/person in buckled_mobs)
+		unbuckle_mob(person, TRUE)

@@ -137,7 +137,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "K" = (
-/obj/item/stack/cable_coil/blue,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
@@ -145,7 +145,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "N" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (

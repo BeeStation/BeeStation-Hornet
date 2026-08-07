@@ -67,17 +67,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/computer/arena/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	LoadDefaultArenas()
-	GenerateAntagHuds()
-
-/obj/machinery/computer/arena/proc/GenerateAntagHuds()
-	for(var/team in teams)
-		var/datum/atom_hud/antag/teamhud = team_huds[team]
-		if(!teamhud) //These will be shared between arenas because this stuff is expensive and cross arena fighting is not a thing anyway
-			teamhud = new
-			teamhud.icon_color = team_colors[team]
-			GLOB.huds += teamhud
-			team_huds[team] = teamhud
-			team_hud_index[team] = length(GLOB.huds)
 
 /**
   * Loads the arenas from _maps directory.
@@ -90,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	var/list/default_arenas = flist(arena_dir)
 	for(var/arena_file in default_arenas)
 		var/simple_name = replacetext(replacetext(arena_file,arena_dir,""),".dmm","")
-		add_new_arena_template(null,arena_dir + arena_file,simple_name)
+		INVOKE_ASYNC(src, PROC_REF(add_new_arena_template), null, arena_dir + arena_file, simple_name)
 
 /obj/machinery/computer/arena/proc/get_landmark_turf(landmark_tag)
 	for(var/obj/effect/landmark/arena/L in GLOB.landmarks_list)
@@ -141,8 +130,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 
 
 /obj/machinery/computer/arena/proc/add_new_arena_template(user,fname,friendly_name)
-	if(!fname)
-		fname = input(user, "Upload dmm file to use as arena template","Upload Map Template") as null|file
 	if(!fname)
 		return
 	if(!friendly_name)
@@ -199,10 +186,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	M.faction += team //In case anyone wants to add team based stuff to arena special effects
 	M.key = ckey
 
-	var/datum/atom_hud/antag/team_hud = team_huds[team]
-	team_hud.join_hud(M)
-	set_antag_hud(M,"arena",team_hud_index[team])
-
 /obj/machinery/computer/arena/proc/change_outfit(mob/user,team)
 	outfits[team] = user.client.robust_dress_shop()
 
@@ -228,7 +211,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	set_doors(closed = TRUE)
 
 /obj/machinery/computer/arena/proc/get_spawn(team)
-	for(var/obj/machinery/arena_spawn/A in GLOB.machines)
+	for(var/obj/machinery/arena_spawn/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/arena_spawn))
 		if(A.arena_id == arena_id && A.team == team)
 			return A
 
@@ -262,7 +245,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 
 
 /obj/machinery/computer/arena/proc/set_doors(closed = FALSE)
-	for(var/obj/machinery/door/poddoor/D in GLOB.machines) //I really dislike pathing of these
+	for(var/obj/machinery/door/poddoor/D as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor)) //I really dislike pathing of these
 		if(D.id != arena_id)
 			continue
 		if(closed)
@@ -279,7 +262,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 		return
 
 	if(href_list["upload"])
-		add_new_arena_template(user)
+		var/fname = input(user, "Upload dmm file to use as arena template","Upload Map Template") as null|file
+		add_new_arena_template(user, fname)
 	if(href_list["change_arena"])
 		load_arena(href_list["change_arena"],user)
 	if(href_list["toggle_spawn"])
@@ -336,8 +320,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/computer/arena/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	. = ..()
 	var/list/dat = list()
-	dat += "<div>Spawning is currently [ready_to_spawn ? span_good("enabled") : span_bad("disabled")] <a href='?src=[REF(src)];toggle_spawn=1'>Toggle</a></div>"
-	dat += "<div><a href='?src=[REF(src)];start=1'>[start_time ? "Stop countdown" : "Start!"]</a></div>"
+	dat += "<div>Spawning is currently [ready_to_spawn ? span_good("enabled") : span_bad("disabled")] <a href='byond://?src=[REF(src)];toggle_spawn=1'>Toggle</a></div>"
+	dat += "<div><a href='byond://?src=[REF(src)];start=1'>[start_time ? "Stop countdown" : "Start!"]</a></div>"
 	for(var/team in teams)
 		dat += "<h2>[capitalize(team)] team:</h2>"
 		dat += "<ul>"
@@ -351,28 +335,28 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 				else
 					player_status = M.stat == DEAD ? "Dead" : "Alive"
 				dat += "<li>[ckey] - [player_status] - "
-				dat += "<a href='?src=[REF(src)];follow=[REF(M)]'>FLW</a>"
-				dat += "<a href='?src=[REF(src)];member_action=remove;team=[team];ckey=[ckey]'>Remove</a>"
+				dat += "<a href='byond://?src=[REF(src)];follow=[REF(M)]'>FLW</a>"
+				dat += "<a href='byond://?src=[REF(src)];member_action=remove;team=[team];ckey=[ckey]'>Remove</a>"
 				//Add more per player features here
 				dat += "</li>"
 		dat += "</ul>"
 		dat += "<div> Team Outfit : [outfits[team] ? outfits[team] : default_outfit]</div>"
-		dat += "<a href='?src=[REF(src)];team_action=loadteam;team=[team]'>Load team</a>"
-		dat += "<a href='?src=[REF(src)];team_action=addmember;team=[team]'>Add member</a>"
-		dat += "<a href='?src=[REF(src)];team_action=outfit;team=[team]'>Change Outfit</a>"
+		dat += "<a href='byond://?src=[REF(src)];team_action=loadteam;team=[team]'>Load team</a>"
+		dat += "<a href='byond://?src=[REF(src)];team_action=addmember;team=[team]'>Add member</a>"
+		dat += "<a href='byond://?src=[REF(src)];team_action=outfit;team=[team]'>Change Outfit</a>"
 		//Add more per team features here
 
 	dat += "Current arena: [current_arena_template]"
 	dat += "<h2>Arena List:</h2>"
 	for(var/A in arena_templates)
-		dat += "<a href='?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
+		dat += "<a href='byond://?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
 	dat += "<hr>"
-	dat += "<a href='?src=[REF(src)];upload=1'>Upload new arena</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];upload=1'>Upload new arena</a><br>"
 	dat += "<hr>"
 	//Special actions
-	dat += "<a href='?src=[REF(src)];special=reset'>Reset Arena.</a><br>"
-	dat += "<a href='?src=[REF(src)];special=randomarena'>Load random arena.</a><br>"
-	dat += "<a href='?src=[REF(src)];special=spawntrophy'>Spawn trophies for survivors.</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];special=reset'>Reset Arena.</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];special=randomarena'>Load random arena.</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];special=spawntrophy'>Spawn trophies for survivors.</a><br>"
 
 	var/datum/browser/popup = new(user, "arena controller", "Arena Controller", 500, 600)
 	popup.set_content(dat.Join())
@@ -404,7 +388,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 /obj/machinery/arena_spawn/proc/get_controller()
 	if(_controller && !QDELETED(_controller) && _controller.arena_id == arena_id)
 		return _controller
-	for(var/obj/machinery/computer/arena/A in GLOB.machines)
+	for(var/obj/machinery/computer/arena/A as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/arena))
 		if(A.arena_id == arena_id)
 			_controller = A
 			return _controller

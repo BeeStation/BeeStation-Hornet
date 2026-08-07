@@ -3,12 +3,10 @@
 This component makes it possible to make things edible. What this means is that you can take a bite or force someone to take a bite (in the case of items).
 These items take a specific time to eat, and can do most of the things our original food items could.
 
-Behavior that's still missing from this component that original food items had that should either be put into seperate components or somewhere else:
+Behavior that's still missing from this component that original food items had that should either be put into separate components or somewhere else:
 	Components:
 	Drying component (jerky etc)
 	Processable component (Slicing and cooking behavior essentialy, making it go from item A to B when conditions are met.)
-	Microwavability component
-	Frying component
 
 	Misc:
 	Something for cakes (You can store things inside)
@@ -34,7 +32,7 @@ Behavior that's still missing from this component that original food items had t
 	var/datum/callback/pre_eat
 	///Callback to be ran before composting something, in case you don't want a piece of food to be compostable for some reason.
 	var/datum/callback/on_compost
-	///Callback to be ran for when you take a bite of something
+	///Callback to be ran for when you finish eating something
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
 	var/datum/callback/on_consume
@@ -79,15 +77,14 @@ Behavior that's still missing from this component that original food items had t
 	src.tastes = string_assoc_list(tastes)
 	src.check_liked = check_liked
 
-	setup_initial_reagents(initial_reagents)
-
 /datum/component/edible/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(use_by_animal))
 	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(on_craft))
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(on_processed))
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
+	RegisterSignal(parent, COMSIG_FOOD_FEED_ITEM, PROC_REF(feed_to_item))
 
 	if(isturf(parent))
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
@@ -113,11 +110,12 @@ Behavior that's still missing from this component that original food items had t
 		COMSIG_ATOM_CHECKPARTS,
 		COMSIG_ATOM_CREATEDBY_PROCESSING,
 		COMSIG_ATOM_ENTERED,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_EDIBLE_ON_COMPOST,
 		COMSIG_FOOD_INGREDIENT_ADDED,
 		COMSIG_ITEM_ATTACK,
 		COMSIG_ITEM_FRIED,
 		COMSIG_ITEM_USED_AS_INGREDIENT,
-		COMSIG_PARENT_EXAMINE,
 	))
 
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
@@ -139,7 +137,7 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/after_eat,
 	datum/callback/on_consume,
 	datum/callback/check_liked,
-	)
+)
 
 	// If we got passed an old comp, take only the values that will not override our current ones
 	if(old_comp)
@@ -197,12 +195,12 @@ Behavior that's still missing from this component that original food items had t
 	// add newly passed in reagents
 	setup_initial_reagents(initial_reagents)
 
-/datum/component/edible/Destroy(force, silent)
-	QDEL_NULL(pre_eat)
-	QDEL_NULL(on_compost)
-	QDEL_NULL(after_eat)
-	QDEL_NULL(on_consume)
-	QDEL_NULL(check_liked)
+/datum/component/edible/Destroy(force)
+	pre_eat = null
+	on_compost = null
+	after_eat = null
+	on_consume = null
+	check_liked = null
 	return ..()
 
 /// Sets up the initial reagents of the food.
@@ -223,10 +221,10 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
+	var/atom/owner = parent
 	if(foodtypes)
 		var/list/types = bitfield_to_list(foodtypes, FOOD_FLAGS)
-		examine_list += "<span class='notice'>It is [LOWER_TEXT(english_list(types))].</span>"
-	var/atom/owner = parent
+		examine_list += span_notice("It is [LOWER_TEXT(english_list(types))].")
 
 	var/quality = get_perceived_food_quality(user)
 	if(quality > 0)
@@ -237,7 +235,7 @@ Behavior that's still missing from this component that original food items had t
 	else if (quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
 		examine_list += span_warning("You find this meal disgusting!")
 	else
-		examine_list += span_green("You find this meal inedible.")
+		examine_list += span_warning("You find this meal inedible.")
 
 	var/datum/mind/mind = user.mind
 	if(mind && HAS_TRAIT_FROM(owner, TRAIT_FOOD_CHEF_MADE, REF(mind)))
@@ -248,11 +246,11 @@ Behavior that's still missing from this component that original food items had t
 			if(0)
 				pass()
 			if(1)
-				examine_list += "<span class='notice'>[parent] was bitten by someone!</span>"
+				examine_list += span_notice("[owner] was bitten by someone!")
 			if(2, 3)
-				examine_list += "<span class='notice'>[parent] was bitten [bitecount] times!</span>"
+				examine_list += span_notice("[owner] was bitten [bitecount] times!")
 			else
-				examine_list += "<span class='notice'>[parent] was bitten multiple times!</span>"
+				examine_list += span_notice("[owner] was bitten multiple times!")
 
 /datum/component/edible/proc/use_from_hand(obj/item/source, mob/living/M, mob/living/user)
 	SIGNAL_HANDLER
@@ -353,7 +351,7 @@ Behavior that's still missing from this component that original food items had t
 			eater.visible_message(span_notice("[eater] [eatverb]s \the [parent]."), span_notice("You [eatverb] \the [parent]."))
 		else if(fullness > 500 && fullness < 600)
 			eater.visible_message(span_notice("[eater] unwillingly [eatverb]s a bit of \the [parent]."), span_notice("You unwillingly [eatverb] a bit of \the [parent]."))
-		else if(fullness > (600 * (1 + eater.overeatduration / 2000)))	// The more you eat - the more you can eat
+		else if(fullness > (600 * (1 + eater.overeatduration / (4000 SECONDS))))	// The more you eat - the more you can eat
 			eater.visible_message(span_warning("[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!"), span_warning("You cannot force any more of \the [parent] to go down your throat!"))
 			return
 
@@ -361,7 +359,7 @@ Behavior that's still missing from this component that original food items had t
 		if(isbrain(eater))
 			to_chat(feeder, span_warning("[eater] doesn't seem to have a mouth!"))
 			return
-		if(fullness <= (600 * (1 + eater.overeatduration / 1000)))
+		if(fullness <= (600 * (1 + eater.overeatduration / (2000 SECONDS))))
 			eater.visible_message(
 				span_danger("[feeder] attempts to feed [eater] [parent]."), \
 				span_userdanger("[feeder] attempts to feed you [parent].")
@@ -442,9 +440,9 @@ Behavior that's still missing from this component that original food items had t
 		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""
-	if(C.is_mouth_covered(head_only = 1))
+	if(C.is_mouth_covered(ITEM_SLOT_HEAD))
 		covered = "headgear"
-	else if(C.is_mouth_covered(mask_only = 1))
+	else if(C.is_mouth_covered(ITEM_SLOT_MASK))
 		covered = "mask"
 	if(covered)
 		var/who = (isnull(feeder) || eater == feeder) ? "your" : "[eater.p_their()]"
@@ -476,11 +474,11 @@ Behavior that's still missing from this component that original food items had t
 	if(!ishuman(eater))
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
-	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = human_eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
-		if(foodtypes & tongue.toxic_food)
+		if(foodtypes & tongue.toxic_foodtypes)
 			to_chat(human_eater, span_warning("You don't feel so good..."))
 			human_eater.adjust_disgust(25 + 30 * fraction)
 		return // Later checks are irrelevant if you have ageusia
@@ -525,15 +523,15 @@ Behavior that's still missing from this component that original food items had t
 			if(FOOD_TOXIC)
 				return TOXIC_FOOD_QUALITY_THRESHOLD
 
-	var/obj/item/organ/tongue/tongue = eater.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/tongue = eater.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(ishuman(eater))
-		if(count_matching_foodtypes(foodtypes, tongue?.toxic_food)) //if the food is toxic, we don't care about anything else
+		if(count_matching_foodtypes(foodtypes, tongue?.toxic_foodtypes)) //if the food is toxic, we don't care about anything else
 			return TOXIC_FOOD_QUALITY_THRESHOLD
 		if(HAS_TRAIT(eater, TRAIT_AGEUSIA)) //if you can't taste it, it doesn't taste good
 			return 0
 
-	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_food)
-	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_food)
+	food_quality += DISLIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.disliked_foodtypes)
+	food_quality += LIKED_FOOD_QUALITY_CHANGE * count_matching_foodtypes(foodtypes, tongue?.liked_foodtypes)
 
 	return food_quality
 
@@ -552,6 +550,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(parent, COMSIG_FOOD_CONSUMED, eater, feeder)
 
 	on_consume?.Invoke(eater, feeder)
+	if (QDELETED(parent)) // might be destroyed by the callback
+		return
 
 	to_chat(feeder, span_warning("There is nothing left of [parent], oh no!"))
 	if(isturf(parent))
@@ -576,6 +576,19 @@ Behavior that's still missing from this component that original food items had t
 	if(bitecount >= 5)
 		var/satisfaction_text = pick("burps from enjoyment.", "yaps for more!", "woofs twice.", "looks at the area where \the [parent] was.")
 		L.manual_emote(satisfaction_text)
+		qdel(parent)
+
+///Ability to feed food to items?
+/datum/component/edible/proc/feed_to_item(datum/source, atom/movable/eater)
+	SIGNAL_HANDLER
+
+	if(bitecount == 0 || prob(50))
+		eater.visible_message("[eater] nibbles away at \the [parent].", allow_inside_usr = TRUE)
+	bitecount++
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	if(bitecount >= 5)
+		var/satisfaction_text = pick("burps from enjoyment.", "looks at the area where \the [parent] was.")
+		eater.visible_message("[eater] [satisfaction_text]", allow_inside_usr = TRUE)
 		qdel(parent)
 
 ///Ability to feed food to puppers

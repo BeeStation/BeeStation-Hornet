@@ -1,6 +1,7 @@
 /datum/martial_art/psychotic_brawling
 	name = "Psychotic Brawling"
 	id = MARTIALART_PSYCHOBRAWL
+	bypass_blocking = FALSE
 
 /datum/martial_art/psychotic_brawling/disarm_act(mob/living/A, mob/living/D)
 	if(HAS_TRAIT(A, TRAIT_PACIFISM))

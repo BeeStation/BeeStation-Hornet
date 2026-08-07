@@ -25,6 +25,8 @@
 	var/operating = FALSE
 	var/glass = FALSE
 	var/welded = FALSE
+	/// Whether this door has a panel or not; FALSE also stops the examine blurb about the panel from showing up
+	var/has_access_panel = TRUE
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE // Emergency access override
 	var/sub_door = FALSE // true if it's meant to go under another door.
@@ -37,6 +39,8 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/open_speed = 5
+	/// Whether or not this door can be opened through a door remote, ever
+	var/opens_with_door_remote = FALSE
 
 
 /datum/armor/machinery_door
@@ -45,7 +49,6 @@
 	laser = 20
 	energy = 20
 	bomb = 10
-	rad = 100
 	fire = 80
 	acid = 70
 
@@ -54,7 +57,6 @@
 	set_init_door_layer()
 	update_freelook_sight()
 	air_update_turf(TRUE, TRUE)
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
@@ -74,7 +76,8 @@
 			. += span_notice("Due to a security threat, its access requirements have been lifted!")
 		else
 			. += span_notice("In the event of a red alert, its access requirements will automatically lift.")
-		. += span_notice("Its maintenance panel is <b>screwed</b> in place.")
+	if(has_access_panel)
+		. += span_notice("Its maintenance panel is [panel_open ? "open" : "<b>screwed</b> in place"].")
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
@@ -89,7 +92,6 @@
 
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
-	GLOB.airlocks -= src
 	if(spark_system)
 		qdel(spark_system)
 		spark_system = null
@@ -124,7 +126,6 @@
 			open()
 		else
 			do_animate("deny")
-		return
 
 /obj/machinery/door/Move()
 	var/turf/T = loc
@@ -203,30 +204,32 @@
 	return
 
 
-/obj/machinery/door/proc/try_to_crowbar(obj/item/acting_object, mob/user)
+/obj/machinery/door/proc/try_to_crowbar(obj/item/acting_object, mob/user, forced = FALSE)
 	return
 
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
-	try_to_weld(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	if (!user.combat_mode)
+		try_to_weld(tool, user)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
-	if(user.combat_mode)
+	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
 		return
-
-	var/forced_open = HAS_TRAIT(tool, TRAIT_DOOR_PRYER) ? TRUE : FALSE
-	try_to_crowbar(tool, user, forced_open)
+	try_to_crowbar(tool, user)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/door/attackby(obj/item/I, mob/living/user, params)
-	if(!user.combat_mode && istype(I, /obj/item/fireaxe))
-		try_to_crowbar(I, user, FALSE)
+/obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(!user.combat_mode && HAS_TRAIT(attacking_item, TRAIT_DOOR_PRYER))
+		try_to_crowbar(attacking_item, user, forced = TRUE)
 		return TRUE
-	else if(I.item_flags & NOBLUDGEON || user.combat_mode)
+	else if(!user.combat_mode && istype(attacking_item, /obj/item/fireaxe))
+		try_to_crowbar(attacking_item, user, forced = FALSE)
+		return TRUE
+	else if(attacking_item.item_flags & NOBLUDGEON || user.combat_mode)
 		return ..()
-	else if(!user.combat_mode && istype(I, /obj/item/stack/sheet/wood))
-		return ..() // we need this so our can_barricade element can be called using COMSIG_PARENT_ATTACKBY
-	else if(try_to_activate_door(I, user))
+	else if(!user.combat_mode && istype(attacking_item, /obj/item/stack/sheet/wood))
+		return ..() // we need this so our can_barricade element can be called using COMSIG_ATOM_ATTACKBY
+	else if(try_to_activate_door(attacking_item, user))
 		return TRUE
 	return ..()
 
@@ -235,8 +238,9 @@
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act_secondary(mob/living/user, obj/item/tool)
-	var/forced_open = HAS_TRAIT(tool, TRAIT_DOOR_PRYER) ? TRUE : FALSE
-	try_to_crowbar(tool, user, forced_open)
+	if(HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
+		return
+	try_to_crowbar(tool, user)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
@@ -396,7 +400,7 @@
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
 
-/obj/machinery/door/get_dumping_location(obj/item/storage/source,mob/user)
+/obj/machinery/door/get_dumping_location()
 	return null
 
 /obj/machinery/door/proc/lock()

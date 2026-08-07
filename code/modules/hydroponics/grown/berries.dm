@@ -6,7 +6,7 @@
 	species = "berry"
 	plantname = "Berry Bush"
 	product = /obj/item/food/grown/berries
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 2
@@ -51,7 +51,7 @@
 	tastes = list("poison-berry" = 1)
 	distill_reagent = null
 	wine_power = 35
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Death Berries
 /obj/item/seeds/berry/death
@@ -61,7 +61,7 @@
 	species = "deathberry"
 	plantname = "Death Berry Bush"
 	product = /obj/item/food/grown/berries/death
-	lifespan = 30
+	lifespan = 120
 	potency = 50
 	mutatelist = null
 	reagents_add = list(/datum/reagent/toxin/coniine = 0.08, /datum/reagent/toxin/staminatoxin = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
@@ -78,7 +78,7 @@
 	tastes = list("death-berry" = 1)
 	distill_reagent = null
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Glow Berries
 /obj/item/seeds/berry/glow
@@ -88,7 +88,7 @@
 	species = "glowberry"
 	plantname = "Glow-Berry Bush"
 	product = /obj/item/food/grown/berries/glow
-	lifespan = 30
+	lifespan = 120
 	endurance = 25
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/glow/white, /datum/plant_gene/trait/repeated_harvest)
@@ -105,7 +105,7 @@
 	tastes = list("glow-berry" = 1)
 	distill_reagent = null
 	wine_power = 60
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Cherries
 /obj/item/seeds/cherry
@@ -115,7 +115,7 @@
 	species = "cherry"
 	plantname = "Cherry Tree"
 	product = /obj/item/food/grown/cherries
-	lifespan = 35
+	lifespan = 140
 	endurance = 35
 	maturation = 5
 	production = 5
@@ -161,7 +161,7 @@
 	grind_results = list(/datum/reagent/consumable/bluecherryjelly = 0)
 	tastes = list("blue cherry" = 1)
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 //Cherry Bulbs
 /obj/item/seeds/cherry/bulb
@@ -187,7 +187,7 @@
 	grind_results = list(/datum/reagent/consumable/cherryjelly = 0)
 	tastes = list("cherry" = 1)
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Grapes
 /obj/item/seeds/grape
@@ -197,7 +197,7 @@
 	species = "grape"
 	plantname = "Grape Vine"
 	product = /obj/item/food/grown/grapes
-	lifespan = 50
+	lifespan = 200
 	endurance = 25
 	maturation = 3
 	production = 5
@@ -243,4 +243,4 @@
 	bite_consumption_mod = 3
 	tastes = list("green grape" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/cognac
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

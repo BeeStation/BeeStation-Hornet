@@ -3,6 +3,8 @@
 	bite_consumption_mod = 3
 	foodtypes = VEGETABLES
 	wine_power = 40
+	/// Default mushroom icon for recipes that need any mushroom
+	icon_state = "plumphelmet"
 
 // Reishi
 /obj/item/seeds/reishi
@@ -12,7 +14,8 @@
 	species = "reishi"
 	plantname = "Reishi"
 	product = /obj/item/food/grown/mushroom/reishi
-	lifespan = 35
+	lifespan = 140
+	trade_flags = TRADE_CONTRABAND
 	endurance = 35
 	maturation = 10
 	production = 5
@@ -28,6 +31,7 @@
 	name = "reishi"
 	desc = "<I>Ganoderma lucidum</I>: A special fungus known for its medicinal and stress relieving properties."
 	icon_state = "reishi"
+	trade_flags = TRADE_CONTRABAND
 
 // Fly Amanita
 /obj/item/seeds/amanita
@@ -37,7 +41,8 @@
 	species = "amanita"
 	plantname = "Fly Amanitas"
 	product = /obj/item/food/grown/mushroom/amanita
-	lifespan = 50
+	lifespan = 200
+	trade_flags = TRADE_CONTRABAND
 	endurance = 35
 	maturation = 10
 	production = 5
@@ -53,6 +58,7 @@
 	name = "fly amanita"
 	desc = "<I>Amanita Muscaria</I>: Learn poisonous mushrooms by heart. Only pick mushrooms you know."
 	icon_state = "amanita"
+	trade_flags = TRADE_CONTRABAND
 
 // Destroying Angel
 /obj/item/seeds/angel
@@ -62,7 +68,7 @@
 	species = "angel"
 	plantname = "Destroying Angels"
 	product = /obj/item/food/grown/mushroom/angel
-	lifespan = 50
+	lifespan = 200
 	endurance = 35
 	maturation = 12
 	production = 5
@@ -80,7 +86,7 @@
 	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amatoxins."
 	icon_state = "angel"
 	wine_power = 60
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Liberty Cap
 /obj/item/seeds/liberty
@@ -90,6 +96,7 @@
 	species = "liberty"
 	plantname = "Liberty-Caps"
 	product = /obj/item/food/grown/mushroom/libertycap
+	trade_flags = TRADE_CONTRABAND
 	maturation = 7
 	production = 1
 	yield = 5
@@ -105,6 +112,7 @@
 	desc = "<I>Psilocybe Semilanceata</I>: Liberate yourself!"
 	icon_state = "libertycap"
 	wine_power = 80
+	trade_flags = TRADE_CONTRABAND
 
 // Plump Helmet
 /obj/item/seeds/plump
@@ -114,6 +122,7 @@
 	species = "plump"
 	plantname = "Plump-Helmet Mushrooms"
 	product = /obj/item/food/grown/mushroom/plumphelmet
+	trade_flags = TRADE_CONTRABAND
 	maturation = 8
 	production = 1
 	yield = 4
@@ -130,6 +139,7 @@
 	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
 	icon_state = "plumphelmet"
 	distill_reagent = /datum/reagent/consumable/ethanol/manly_dorf
+	trade_flags = TRADE_CONTRABAND
 
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
@@ -139,7 +149,7 @@
 	species = "walkingmushroom"
 	plantname = "Walking Mushrooms"
 	product = /obj/item/food/grown/mushroom/walkingmushroom
-	lifespan = 30
+	lifespan = 120
 	endurance = 30
 	maturation = 5
 	yield = 1
@@ -154,7 +164,7 @@
 	desc = "<I>Plumus Locomotus</I>: The beginning of the great walk."
 	icon_state = "walkingmushroom"
 	can_distill = FALSE
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/mushroom/walkingmushroom/attack_self(mob/user)
 	if(isspaceturf(user.loc))
@@ -176,7 +186,7 @@
 	species = "chanter"
 	plantname = "Chanterelle Mushrooms"
 	product = /obj/item/food/grown/mushroom/chanterelle
-	lifespan = 35
+	lifespan = 140
 	endurance = 20
 	maturation = 7
 	production = 1
@@ -202,7 +212,7 @@
 	species = "jupitercup"
 	plantname = "Jupiter Cups"
 	product = /obj/item/food/grown/mushroom/jupitercup
-	lifespan = 40
+	lifespan = 160
 	production = 4
 	endurance = 8
 	yield = 4
@@ -224,7 +234,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	name = "jupiter cup"
 	desc = "A strange red mushroom, its surface is moist and slick. You wonder how many tiny worms have met their fate inside."
 	icon_state = "jupitercup"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Glowshroom
 /obj/item/seeds/glowshroom
@@ -234,7 +244,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	species = "glowshroom"
 	plantname = "Glowshrooms"
 	product = /obj/item/food/grown/mushroom/glowshroom
-	lifespan = 100 //ten times that is the delay
+	lifespan = 400 //ten times that is the delay
+	trade_flags = TRADE_CONTRABAND
 	endurance = 30
 	maturation = 15
 	production = 1
@@ -254,7 +265,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	icon_state = "glowshroom"
 	var/effect_path = /obj/structure/glowshroom
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/grown/mushroom/glowshroom/attack_self(mob/user)
 	if(isspaceturf(user.loc))
@@ -299,7 +311,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	icon_state = "glowcap"
 	effect_path = /obj/structure/glowshroom/glowcap
 	tastes = list("glowcap" = 1)
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 //Shadowshroom
 /obj/item/seeds/glowshroom/shadowshroom
@@ -322,7 +334,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	effect_path = /obj/structure/glowshroom/shadowshroom
 	tastes = list("shadow" = 1, "mushroom" = 1)
 	wine_power = 60
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/mushroom/glowshroom/shadowshroom/attack_self(mob/user)
 	. = ..()

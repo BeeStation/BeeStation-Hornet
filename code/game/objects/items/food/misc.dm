@@ -60,24 +60,34 @@
 	food_reagents = list(/datum/reagent/toxin/bad_food = 30)
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
+	preserved_food = TRUE //Can't decompose any more than this
+	/// Variable that holds the reference to the stink lines we get when we're moldy, yucky yuck
+	var/stink_particles
+
+/obj/item/food/badrecipe/moldy
+	name = "moldy mess"
+	desc = "A rancid, disgusting culture of mold and ants. Somewhere under there, at <i>some point,</i> there was food."
+	food_reagents = list(/datum/reagent/consumable/mold = 30)
+	preserved_food = FALSE
+	ant_attracting = TRUE
+	decomp_type = null
+	decomposition_time = 30 SECONDS
+	stink_particles = /particles/stink
+
+/obj/item/food/badrecipe/moldy/bacteria
+	name = "bacteria rich moldy mess"
+	desc = "Not only is this rancid lump of disgusting bile crawling with insect life, but it is also teeming with various microscopic cultures. <i>It moves when you're not looking.</i>"
 
 /obj/item/food/badrecipe/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_GRILL_PROCESS, PROC_REF(OnGrill))
+	if(stink_particles)
+		particles = new stink_particles
 
 ///Prevents grilling burnt shit from well, burning.
 /obj/item/food/badrecipe/proc/OnGrill()
+	SIGNAL_HANDLER
 	return COMPONENT_HANDLED_GRILLING
-
-/obj/item/food/badrecipe/burn()
-	if(QDELETED(src))
-		return
-	var/turf/T = get_turf(src)
-	var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(T)
-	A.desc += "\nLooks like this used to be \an [name] some time ago."
-	if(resistance_flags & ON_FIRE)
-		SSfire_burning.processing -= src
-	qdel(src)
 
 // We override the parent procs here to prevent burned messes from cooking into burned messes.
 /obj/item/food/badrecipe/make_grillable()
@@ -93,7 +103,7 @@
 		/datum/reagent/toxin = 2,
 	)
 	tastes = list("cobwebs" = 1)
-	foodtypes = MEAT | TOXIC// | BUGS
+	foodtypes = MEAT | TOXIC | BUGS
 	w_class = WEIGHT_CLASS_TINY
 	crafting_complexity = FOOD_COMPLEXITY_1
 
@@ -107,7 +117,7 @@
 		/datum/reagent/toxin = 4,
 	)
 	tastes = list("cobwebs" = 1, "guts" = 2)
-	foodtypes = MEAT | TOXIC// | BUGS
+	foodtypes = MEAT | TOXIC | BUGS
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/melonfruitbowl
@@ -157,7 +167,7 @@
 	name = "Powercrepe"
 	desc = "With great power, comes great crepes.  It looks like a pancake filled with jelly but packs quite a punch."
 	icon_state = "powercrepe"
-	item_state = "powercrepe"
+	inhand_icon_state = "powercrepe"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 5,
@@ -165,9 +175,10 @@
 	)
 	force = 30
 	throwforce = 15
-	block_level = 2
-	block_upgrade_walk = 1
-	block_power = 55
+	canblock = TRUE
+	block_power = 0
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBLOCKABLE
+
 	attack_weight = 2
 	armour_penetration = 80
 	//wound_bonus = -50
@@ -200,6 +211,7 @@
 	tastes = list("butter" = 1)
 	foodtypes = DAIRY
 	w_class = WEIGHT_CLASS_SMALL
+	dog_fashion = /datum/dog_fashion/head/butter
 
 /obj/item/food/butter/examine(mob/user)
 	. = ..()
@@ -334,3 +346,22 @@
 	tastes = list()
 	icon_state = "onigiri"
 	desc = "A ball of cooked rice surrounding a filling formed into a triangular shape and wrapped in seaweed."
+
+/obj/item/food/coconutflesh //for when a coconut has been cut with a knife or hatchet
+	name = "coconut flesh"
+	desc = "The white flesh of a coconut."
+	icon_state = "coconutflesh"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 0.2,
+	)
+	tastes = list("coconut" = 1)
+	foodtypes = FRUIT
+	food_flags = FOOD_FINGER_FOOD
+	juice_typepath = /datum/reagent/consumable/coconutjuice
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/coconutflesh/empty // Chem less version used in coconut spliting
+	food_reagents = list()
+
+

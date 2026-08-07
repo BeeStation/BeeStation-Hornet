@@ -13,7 +13,7 @@
 #define ATMOS_GAS_MONITOR_BZ GAS_BZ
 #define ATMOS_GAS_MONITOR_H2 GAS_HYDROGEN
 #define ATMOS_GAS_MONITOR_HYPERNOBLIUM GAS_HYPER_NOBLIUM
-#define ATMOS_GAS_MONITOR_NITRYL GAS_NITRYL
+#define ATMOS_GAS_MONITOR_NITRIUM GAS_NITRIUM
 #define ATMOS_GAS_MONITOR_PLUOXIUM GAS_PLUOXIUM
 #define ATMOS_GAS_MONITOR_TRITIUM GAS_TRITIUM
 #define ATMOS_GAS_MONITOR_H2O GAS_WATER_VAPOR
@@ -23,17 +23,6 @@
 #define ATMOS_GAS_MONITOR_DISTRO "distro"
 #define ATMOS_GAS_MONITOR_WASTE "waste"
 #define ATMOS_GAS_MONITOR_ENGINE "engine"
-
-
-///maps a chamber id to its air sensor
-#define CHAMBER_SENSOR_FROM_ID(chamber_id) ((chamber_id) + "_sensor")
-///maps an air sensor's chamber id to its input valve[ i.e. outlet_injector] id
-#define CHAMBER_INPUT_FROM_ID(chamber_id) ((chamber_id) + "_in")
-///maps an air sensor's chamber id to its output valve[i.e. vent pump] id
-#define CHAMBER_OUTPUT_FROM_ID(chamber_id) ((chamber_id) + "_out")
-
-///list of all air sensor's created round start
-GLOBAL_LIST_EMPTY(map_loaded_sensors)
 
 // Human-readble names of these funny tags.
 GLOBAL_LIST_INIT(station_gas_chambers, list(
@@ -45,7 +34,7 @@ GLOBAL_LIST_INIT(station_gas_chambers, list(
 	ATMOS_GAS_MONITOR_CO2 = "Carbon Dioxide Supply",
 	ATMOS_GAS_MONITOR_BZ = "BZ Supply",
 	ATMOS_GAS_MONITOR_HYPERNOBLIUM = "Hypernoblium Supply",
-	ATMOS_GAS_MONITOR_NITRYL = "Nitryl Supply",
+	ATMOS_GAS_MONITOR_NITRIUM = "Nitrium Supply",
 	ATMOS_GAS_MONITOR_PLUOXIUM = "Pluoxium Supply",
 	ATMOS_GAS_MONITOR_TRITIUM = "Tritium Supply",
 	ATMOS_GAS_MONITOR_H2O = "Water Vapor Supply",

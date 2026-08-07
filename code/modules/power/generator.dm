@@ -119,7 +119,7 @@
 
 		t += "<div class='statusDisplay'>"
 
-		t += "Output: [display_power(lastgenlev)]"
+		t += "Output: [display_power_persec(lastgenlev)]"
 
 		t += "<BR>"
 
@@ -139,7 +139,7 @@
 	else
 		t += span_bad("Unable to locate any parts!")
 	if(include_link)
-		t += "<BR><A href='?src=[REF(src)];close=1'>Close</A>"
+		t += "<BR><A href='byond://?src=[REF(src)];close=1'>Close</A>"
 
 	return t
 
@@ -220,9 +220,6 @@
 /obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)
 	default_deconstruction_crowbar(I)
 	return TRUE
-
-/obj/machinery/power/generator/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/power/generator/on_deconstruction()
 	kill_circs()

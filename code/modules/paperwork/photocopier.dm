@@ -44,6 +44,10 @@
 	var/busy = FALSE
 	/// Variable needed to determine the selected category of forms on Photocopier.js
 	var/category
+	/// Name of the blank chosen
+	var/print_name
+	/// Info of the blank chosen
+	var/list/print_info = list()
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -80,6 +84,8 @@
 	var/list/data = list()
 	data["has_item"] = !copier_empty()
 	data["num_copies"] = num_copies
+	data["isAI"] = istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot)
+	data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
 
 	try
 		var/list/blanks = json_decode(file2text("config/blanks.json"))
@@ -95,10 +101,6 @@
 	if(photo_copy)
 		data["is_photo"] = TRUE
 		data["color_mode"] = color_mode
-		data["isAI"] = TRUE
-		data["can_AI_print"] = toner_cartridge ? toner_cartridge.charges >= PHOTO_TONER_USE : FALSE
-	else
-		data["isAI"] = FALSE
 
 	if(toner_cartridge)
 		data["has_toner"] = TRUE
@@ -205,16 +207,11 @@
 			if(toner_cartridge.charges - PAPER_TONER_USE < 0)
 				to_chat(usr, span_warning("There is not enough toner in [src] to print the form, please replace the cartridge."))
 				return FALSE
+			// Save name/info in machine vars so callback can access them
+			print_name = sanitize(params["name"])
+			print_info = params["info"]
 			do_copy_loop(CALLBACK(src, PROC_REF(make_blank_print)), usr)
-			var/obj/item/paper/printblank = new /obj/item/paper (loc)
-			var/printname = sanitize(params["name"])
-			var/list/printinfo
-			for(var/infoline as anything in params["info"])
-				printinfo += infoline
-			printblank.name = printname
-			printblank.add_raw_text(printinfo)
-			printblank.update_appearance()
-			return printblank
+			return TRUE
 
 /**
  * Determines if the photocopier has enough toner to create `num_copies` amount of copies of the currently inserted item.
@@ -243,7 +240,10 @@
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
 			break
-		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE)
+		if(attempt_charge(src, user) & COMPONENT_OBJ_CANCEL_CHARGE) // The user has no id, or not suficient funds, or no account.
+			var/mob/living/L = user
+			if(!L.get_idcard(TRUE) && !(istype(L.pulling, /obj/item/card/id)))
+				to_chat(user, span_warning("You need to have a valid ID card equipped or pulled to use the photocopier."))
 			break
 		addtimer(copy_cb, i SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), i SECONDS)
@@ -312,9 +312,15 @@
  * The procedure is called when printing a blank to write off toner consumption.
  */
 /obj/machinery/photocopier/proc/make_blank_print()
-	if(!toner_cartridge)
+	if(!toner_cartridge || toner_cartridge.charges < PAPER_TONER_USE)
 		return
 	toner_cartridge.charges -= PAPER_TONER_USE
+
+	var/obj/item/paper/printblank = new /obj/item/paper(loc)
+	printblank.name = print_name
+	for(var/line as anything in print_info)
+		printblank.add_raw_text(line)
+	printblank.update_appearance()
 
 /**
  * Handles the copying of an ass photo.
@@ -395,7 +401,7 @@
 		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))
 				return
-			paper_copy = O
+			photo_copy = O
 			do_insertion(O, user)
 		else
 			to_chat(user, span_warning("There is already something in [src]!"))

@@ -163,7 +163,7 @@
 	//Find a list of valid rooms.
 	var/list/valid_ruins = list()
 	//Get all loaded ruins
-	for(var/datum/map_template/ruin_part/ruin_part as() in valid_ruin_parts)
+	for(var/datum/map_template/ruin_part/ruin_part as anything in valid_ruin_parts)
 		//Get every connection point in the loaded ruin
 		for(var/connection_point in ruin_part.connection_points)
 			var/splitconn = splittext(connection_point, "_")
@@ -259,7 +259,7 @@
 
 	//If its a loot room, remove all loot rooms.
 	if(ruin_part.loot_room)
-		for(var/datum/map_template/ruin_part/otherpart as() in valid_ruin_parts)
+		for(var/datum/map_template/ruin_part/otherpart as anything in valid_ruin_parts)
 			if(otherpart.loot_room)
 				valid_ruin_parts.Remove(otherpart)
 	//Otherwise subtract it from amount used
@@ -348,17 +348,7 @@
 				valid = FALSE
 		if(valid)
 			new /obj/machinery/door/airlock/hatch(T)
-			switch(placed_room_entrances[door_pos])
-				if(SOUTH, NORTH)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(NORTH)
-					b2.setDir(SOUTH)
-				if(EAST, WEST)
-					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-					b1.setDir(EAST)
-					b2.setDir(WEST)
+			new /obj/machinery/door/firedoor(T)
 
 	//Repopulate areas
 	require_area_resort()
@@ -438,10 +428,10 @@
 	for(var/i in 1 to rand(1, 5))
 		var/objective_turf = pick(floor_turfs)
 		var/split_loc = splittext(objective_turf, "_")
-		new /obj/effect/spawner/lootdrop/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
+		new /obj/effect/spawner/random/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 
 	//Spawn dead mosb
-	for(var/mob/M as() in SSzclear.nullspaced_mobs)
+	for(var/mob/M as anything in SSzclear.nullspaced_mobs)
 		var/objective_turf = pick(floor_turfs)
 		var/split_loc = splittext(objective_turf, "_")
 		M.forceMove(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
@@ -459,11 +449,11 @@
 
 /proc/pick_weight_ruin(list/L)
 	var/total = 0
-	for (var/list/ruin_part as() in L)
+	for (var/list/ruin_part as anything in L)
 		total += ruin_part["weight"]
 
 	total *= rand()
-	for (var/list/ruin_part as() in L)
+	for (var/list/ruin_part as anything in L)
 		total -= ruin_part["weight"]
 		if (total <= 0)
 			return ruin_part

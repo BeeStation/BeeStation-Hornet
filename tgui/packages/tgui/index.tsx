@@ -8,10 +8,13 @@
 import './styles/main.scss';
 import './styles/themes/abductor.scss';
 import './styles/themes/admin.scss';
+import './styles/themes/cardboard.scss';
 import './styles/themes/cardtable.scss';
 import './styles/themes/clockwork.scss';
+import './styles/themes/computer.scss';
 import './styles/themes/elevator.scss';
 import './styles/themes/hackerman.scss';
+import './styles/themes/login.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/narsie.scss';
 import './styles/themes/neutral.scss';
@@ -40,45 +43,40 @@ import './styles/themes/generic.scss';
 import './styles/themes/generic-yellow.scss';
 import './styles/themes/paper.scss';
 import './styles/themes/retro.scss';
+import './styles/themes/spooky.scss';
 import './styles/themes/syndicate.scss';
 import './styles/themes/thinktronic-classic.scss';
 
-import { configureStore } from './store';
-
-import { captureExternalLinks } from './links';
-import { createRenderer } from './renderer';
 import { perf } from 'common/perf';
+import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+
+import { App } from './App';
+import { setGlobalStore } from './backend';
 import { setupGlobalEvents } from './events';
 import { setupHotKeys } from './hotkeys';
-import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
-import { setGlobalStore } from './backend';
+import { captureExternalLinks } from './links';
+import { render } from './renderer';
+import { configureStore } from './store';
 
-perf.mark('inception', window.performance?.timing?.navigationStart);
+perf.mark('inception', window.performance?.timeOrigin);
 perf.mark('init');
 
 const store = configureStore();
 
-const renderApp = createRenderer(() => {
-  setGlobalStore(store);
-
-  const { getRoutedComponent } = require('./routes');
-  const Component = getRoutedComponent(store);
-  return <Component />;
-});
-
-const setupApp = () => {
+function setupApp() {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
     return;
   }
 
+  setGlobalStore(store);
+
   setupGlobalEvents();
   setupHotKeys();
   captureExternalLinks();
 
-  // Re-render UI on store updates
-  store.subscribe(renderApp);
+  store.subscribe(() => render(<App />));
 
   // Dispatch incoming messages as store actions
   Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
@@ -86,10 +84,10 @@ const setupApp = () => {
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
-    module.hot.accept(['./components', './debug', './layouts', './routes'], () => {
-      renderApp();
+    module.hot.accept(['./debug', './layouts', './routes', './App'], () => {
+      render(<App />);
     });
   }
-};
+}
 
 setupApp();

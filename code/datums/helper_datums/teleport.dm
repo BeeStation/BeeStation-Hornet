@@ -21,7 +21,7 @@
 	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_GATEWAY)
 		var/cur_zlevel = cur_turf.get_virtual_z_level()
 		var/dest_zlevel = dest_turf.get_virtual_z_level()
-		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+		for (var/obj/machinery/bluespace_anchor/anchor as anything in GLOB.active_bluespace_anchors)
 			var/anchor_zlevel = anchor.get_virtual_z_level()
 			// Not in range of our current turf or destination turf
 			if((cur_zlevel != anchor_zlevel || get_dist(cur_turf, anchor) > anchor.range) && (dest_zlevel != anchor_zlevel || get_dist(dest_turf, anchor) > anchor.range))
@@ -83,15 +83,14 @@
  */
 /proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, bypass_area_restriction = FALSE, teleport_mode = TELEPORT_ALLOW_ALL, ignore_check_teleport = FALSE, no_wake = FALSE)
 	// teleporting most effects just deletes them
-	var/static/list/delete_atoms = typecacheof(list(
-		/obj/effect,
-	)) - typecacheof(list(
-		/obj/effect/dummy/chameleon,
-		/obj/effect/wisp,
-		/obj/effect/mob_spawn,
-		/obj/effect/warp_cube,
-		/obj/effect/extraction_holder,
-		/obj/effect/anomaly,
+	var/static/list/delete_atoms = zebra_typecacheof(list(
+		/obj/effect = TRUE,
+		/obj/effect/dummy/chameleon = FALSE,
+		/obj/effect/wisp = FALSE,
+		/obj/effect/mob_spawn = FALSE,
+		/obj/effect/warp_cube = FALSE,
+		/obj/effect/extraction_holder = FALSE,
+		/obj/effect/anomaly = FALSE,
 	))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
@@ -189,11 +188,8 @@
 		var/turf/open/floor/F = random_location
 		if(!is_turf_safe(F))
 			continue
-		if(extended_safety_checks)
-			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
-				var/turf/open/lava/L = F
-				if(!L.is_safe())
-					continue
+		if(extended_safety_checks && islava(F) && !HAS_TRAIT(F, TRAIT_LAVA_STOPPED)) //chasms aren't /floor, and so are pre-filtered
+			continue
 		// Check that we're not warping onto a table or window
 		if(!dense_atoms)
 			var/density_found = FALSE
@@ -212,7 +208,7 @@
 	//Return only open turfs unless none are available
 	var/list/safe_turfs = list()
 	var/list/posturfs = list()
-	for(var/turf/T as() in RANGE_TURFS(precision, center))
+	for(var/turf/T as anything in RANGE_TURFS(precision, center))
 		if(T.is_transition_turf())
 			continue // Avoid picking these.
 		var/area/A = T.loc
@@ -229,7 +225,7 @@
 
 /proc/wizarditis_teleport(mob/living/carbon/affected_mob)
 	var/list/theareas = get_areas_in_range(80, affected_mob)
-	for(var/area/space/S in theareas)
+	for(var/area/misc/space/S in theareas)
 		theareas -= S
 
 	if(!length(theareas))
@@ -267,7 +263,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	hud_possible = list(DIAG_WAKE_HUD)
+	hud_possible = list(BLUESPACE_WAKE_HUD)
 	var/turf/destination
 	var/has_hud_icon = FALSE
 
@@ -283,9 +279,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 	. = ..()
 	src.destination = destination
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-	var/image/holder = hud_list[DIAG_WAKE_HUD]
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
+	var/image/holder = hud_list[BLUESPACE_WAKE_HUD]
 	var/mutable_appearance/MA = new /mutable_appearance()
 	MA.icon = 'icons/effects/effects.dmi'
 	MA.icon_state = "bluestream"
@@ -296,8 +292,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
 
 /obj/effect/temp_visual/teleportation_wake/Destroy()
 	if (has_hud_icon)
-		for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-			diag_hud.remove_from_hud(src)
+		var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+		diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/effect/temp_visual/portal_opening
@@ -381,12 +377,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
  */
 /proc/do_dash(atom/movable/AM, turf/current_turf, turf/target_turf, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
 	// current loc
-	if(!istype(current_turf) || is_away_level(current_turf.z) || is_centcom_level(current_turf.z))
+	if(!istype(current_turf) || is_away_level(current_turf.z))
 		return
+
+	// Centcom dashes dont work, unless you are dashing BOTH from and to the shuttle
+	if(is_centcom_level(current_turf.z))
+		var/area/current_area = current_turf.loc
+		var/area/target_area = target_turf.loc
+		if(!istype(current_area, /area/shuttle/escape) || !istype(target_area, /area/shuttle/escape))
+			return
 
 	// getline path
 	var/turf/landing_turf = current_turf
-	var/list/path = getline(current_turf, target_turf)
+	var/list/path = get_line(current_turf, target_turf)
 	path -= current_turf
 	// iterate
 	for (var/turf/checked_turf in path)

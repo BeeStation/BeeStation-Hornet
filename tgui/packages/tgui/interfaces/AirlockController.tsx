@@ -1,6 +1,5 @@
-import { Box, Button, Icon, LabeledList, Section } from '../components';
-
 import { useBackend } from '../backend';
+import { Box, Button, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type AirlockControllerData = {
@@ -21,23 +20,32 @@ export const AirlockController = (props) => {
   const { data } = useBackend<AirlockControllerData>();
   const { airlockState, pumpStatus, interiorStatus, exteriorStatus } = data;
   const currentStatus: AirlockStatus = getAirlockStatus(airlockState);
-  const nameToUpperCase = (str: string) => str.replace(/^\w/, (c) => c.toUpperCase());
+  const nameToUpperCase = (str: string) =>
+    str.replace(/^\w/, (c) => c.toUpperCase());
 
   return (
     <Window width={500} height={190}>
       <Window.Content>
         <Section title="Airlock Status" buttons={<AirLockButtons />}>
           <LabeledList>
-            <LabeledList.Item label="Current Status">{currentStatus.primary}</LabeledList.Item>
+            <LabeledList.Item label="Current Status">
+              {currentStatus.primary}
+            </LabeledList.Item>
             <LabeledList.Item label="Chamber Pressure">
               <PressureIndicator currentStatus={currentStatus} />
             </LabeledList.Item>
-            <LabeledList.Item label="Control Pump">{nameToUpperCase(pumpStatus)}</LabeledList.Item>
+            <LabeledList.Item label="Control Pump">
+              {nameToUpperCase(pumpStatus)}
+            </LabeledList.Item>
             <LabeledList.Item label="Interior Door">
-              <Box color={interiorStatus === 'open' && 'good'}>{nameToUpperCase(interiorStatus)}</Box>
+              <Box color={interiorStatus === 'open' && 'good'}>
+                {nameToUpperCase(interiorStatus)}
+              </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Exterior Door">
-              <Box color={exteriorStatus === 'open' && 'good'}>{nameToUpperCase(exteriorStatus)}</Box>
+              <Box color={exteriorStatus === 'open' && 'good'}>
+                {nameToUpperCase(exteriorStatus)}
+              </Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>

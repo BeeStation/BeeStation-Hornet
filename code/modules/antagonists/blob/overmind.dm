@@ -21,25 +21,29 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	faction = list(FACTION_BLOB)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = /datum/hud/blob_overmind
-	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
+	var/obj/structure/blob/special/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
 	var/max_blob_points = OVERMIND_MAX_POINTS_DEFAULT
 	var/last_attack = 0
-	var/datum/blobstrain/blobstrain
+	var/datum/blobstrain/reagent/blobstrain
 	var/list/blob_mobs = list()
+	/// A list of all blob structures
+	var/list/all_blobs = list()
 	var/list/resource_blobs = list()
+	var/list/factory_blobs = list()
+	var/list/node_blobs = list()
 	var/free_strain_rerolls = OVERMIND_STARTING_REROLLS
 	var/last_reroll_time = 0 //time since we last rerolled, used to give free rerolls
-	var/nodes_required = 1 //if the blob needs nodes to place resource and factory blobs
-	var/placed = 0
-	var/manualplace_min_time = OVERMIND_STARTING_MIN_PLACE_TIME // Some time to get your bearings
-	var/autoplace_max_time = OVERMIND_STARTING_AUTO_PLACE_TIME // Automatically place the core in a random spot
+	var/nodes_required = TRUE //if the blob needs nodes to place resource and factory blobs
+	var/placed = FALSE
+	var/manualplace_min_time = OVERMIND_STARTING_MIN_PLACE_TIME	// Some time to get your bearings
+	var/autoplace_max_time = OVERMIND_STARTING_AUTO_PLACE_TIME	// Automatically place the core in a random spot
 	var/list/blobs_legit = list()
 	var/max_count = 0 //The biggest it got before death
 	var/blobwincount = OVERMIND_WIN_CONDITION_AMOUNT
 	var/victory_in_progress = FALSE
 	var/rerolling = FALSE
-	var/announcement_size = OVERMIND_ANNOUNCEMENT_MIN_SIZE
+	var/announcement_size = OVERMIND_ANNOUNCEMENT_MIN_SIZE // Announce the biohazard when this size is reached
 	var/announcement_time
 	var/has_announced = FALSE
 
@@ -68,6 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	announcement_time = world.time + OVERMIND_ANNOUNCEMENT_MAX_TIME
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	GLOB.blob_telepathy_mobs |= src
 
 /mob/camera/blob/proc/validate_location()
 	var/turf/T = get_turf(src)
@@ -176,7 +181,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 			main_objective.completed = TRUE
 	to_chat(world, "<B>[real_name] consumed the station in an unstoppable tide!</B>")
 	SSticker.news_report = BLOB_WIN
-	SSticker.force_ending = 1
+	SSticker.force_ending = FORCE_END_ROUND
 
 /mob/camera/blob/Destroy()
 	QDEL_NULL(blobstrain)
@@ -190,11 +195,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 		if(BM)
 			BM.overmind = null
 			BM.update_icons()
+	for(var/obj/structure/blob/blob_structure as anything in all_blobs)
+		blob_structure.overmind = null
+	all_blobs = null
+	resource_blobs = null
+	factory_blobs = null
+	node_blobs = null
+	blob_mobs = null
 	GLOB.overminds -= src
 	QDEL_LIST_ASSOC_VAL(strain_choices)
 
 	SSshuttle.clearHostileEnvironment(src)
 	STOP_PROCESSING(SSobj, src)
+	GLOB.blob_telepathy_mobs -= src
 
 	return ..()
 
@@ -225,12 +238,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 	blob_points = clamp(blob_points + points, 0, max_blob_points)
 	hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>")
 
-/mob/camera/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/camera/blob/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if (!message)
 		return
 
 	if (src.client)
-		if(client.prefs.muted & MUTE_IC)
+		if(client.player_details.muted & MUTE_IC)
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
 		if (src.client.handle_spam_prevention(message,MUTE_IC))
@@ -247,21 +272,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/blob)
 
 	if (!message)
 		return
-	if(CHAT_FILTER_CHECK(message))
-		to_chat(usr, span_warning("Your message contains forbidden words."))
-		return
-	message = treat_message_min(message)
-	src.log_talk(message, LOG_SAY, tag="blob")
 
-	var/message_a = say_quote(message)
-	var/rendered = span_big("<font color=\"#EE4000\"><b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a]</font>")
-
-	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))
-			to_chat(M, rendered)
-		if(isobserver(M))
-			var/link = FOLLOW_LINK(M, src)
-			to_chat(M, "[link] [rendered]")
+	var/list/message_mods = list()
+	var/adjusted_message = check_for_custom_say_emote(message, message_mods)
+	log_sayverb_talk(message, message_mods, tag = "blob hivemind telepathy")
+	var/messagepart = generate_messagepart(adjusted_message, message_mods = message_mods)
+	var/rendered = span_big(span_blob("<b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [messagepart]"))
+	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, src, MESSAGE_TYPE_RADIO)
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return

@@ -4,12 +4,11 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your throat is burning!</span>"
-	text_lose_indication = "<span class='notice'>Your throat is cooling down.</span>"
 	power_path = /datum/action/spell/cone/staggered/fire_breath
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
+	species_allowed = list(SPECIES_LIZARD)
 
 /datum/mutation/firebreath/modify()
 	. = ..()
@@ -53,8 +52,8 @@
 		return
 
 	our_lizard.adjust_fire_stacks(cone_levels)
-	our_lizard.IgniteMob()
-	to_chat(our_lizard, ("<span class='warning'>Something in front of your mouth catches fire!</span>"))
+	our_lizard.ignite_mob()
+	to_chat(our_lizard, span_warning("Something in front of your mouth catches fire!"))
 
 /datum/action/spell/cone/staggered/fire_breath/post_cast(mob/user, atom/target)
 	. = ..()
@@ -86,7 +85,7 @@
 	// The actual burn damage application is not blocked by fireproofing, like space dragons.
 	target_mob.apply_damage(max(10, 40 - (5 * level)), BURN)
 	target_mob.adjust_fire_stacks(max(2, 5 - level))
-	target_mob.IgniteMob()
+	target_mob.ignite_mob()
 
 /datum/action/spell/cone/staggered/firebreath/do_obj_cone_effect(obj/target_obj, atom/caster, level)
 	// Further out objects experience less exposed_temperature and exposed_volume

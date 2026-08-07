@@ -18,7 +18,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
 	anchored = FALSE
@@ -36,7 +36,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	bot_core_type = /obj/machinery/bot_core/medbot
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
-	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
+	data_hud_type = TRAIT_MEDICAL_HUD
 	path_image_color = "#DDDDFF"
 	var/obj/item/reagent_containers/reagent_glass = null //Can be set to draw from this for reagents.
 	var/healthanalyzer = /obj/item/healthanalyzer
@@ -44,7 +44,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/mob/living/carbon/patient = null
 	var/mob/living/carbon/oldpatient = null
-	var/oldloc = null
 	var/last_found = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
@@ -58,8 +57,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/tipped_status = MEDBOT_PANIC_NONE
 	///The name we got when we were tipped
 	var/tipper_name
-	///The last time we were tipped/righted and said a voice line, to avoid spam
-	var/last_tipping_action_voice = 0
+	///Cooldown to track last time we were tipped/righted and said a voice line, to avoid spam
+	COOLDOWN_DECLARE(last_tipping_action_voice)
 	var/shut_up = 0 //self explanatory :)
 	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
@@ -135,10 +134,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		skin = new_skin
 	update_appearance()
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
-	linked_techweb = SSresearch.science_tech
 
 	if(mapload)
 		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
@@ -147,11 +145,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	medibot_counter = GLOB.medibot_unique_id_gen
 	GLOB.medibot_unique_id_gen++
 
+	AddComponent(/datum/component/tippable, \
+		tip_time = 3 SECONDS, \
+		untip_time = 3 SECONDS, \
+		self_right_time = 3.5 MINUTES, \
+		pre_tipped_callback = CALLBACK(src, PROC_REF(pre_tip_over)), \
+		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
+		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)))
+
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/bot/medbot/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
 	set_patient(null)
 	oldpatient = null
-	oldloc = null
 	last_found = world.time
 	COOLDOWN_RESET(src, declare_cooldown)
 	update_icon()
@@ -172,6 +184,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/attack_paw(mob/user)
 	return attack_hand(user)
+
+REGISTER_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
+DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		linked_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -224,6 +244,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		if("synth_epi")
 			synth_epi = !synth_epi
 		if("sync_tech")
+			if(!linked_techweb)
+				to_chat(usr, span_notice("No research techweb connected."))
+				return
 			var/old_eff = efficiency
 			var/tech_boosters
 			for(var/i in linked_techweb.researched_designs)
@@ -272,21 +295,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/proc/reskin(mob/M)
 	var/skinlist = list(
-		MEDBOT_SKIN_DEFAULT = image(icon = 'icons/mob/aibots.dmi', icon_state = "firstaid_arm"),
-		MEDBOT_SKIN_BRUTE= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_brute"),
-		MEDBOT_SKIN_BURN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_burn"),
-		MEDBOT_SKIN_TOXIN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_tox"),
-		MEDBOT_SKIN_OXY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_oxy"),
-		MEDBOT_SKIN_SURGERY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_surgery"),
-		MEDBOT_SKIN_ADVANCED= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_advanced"),
-		MEDBOT_SKIN_RADIATION= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_rad")
+		MEDBOT_SKIN_DEFAULT = image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "firstaid_arm"),
+		MEDBOT_SKIN_BRUTE= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_brute"),
+		MEDBOT_SKIN_BURN= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_burn"),
+		MEDBOT_SKIN_TOXIN= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_tox"),
+		MEDBOT_SKIN_OXY= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_oxy"),
+		MEDBOT_SKIN_SURGERY= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_surgery"),
+		MEDBOT_SKIN_ADVANCED= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_advanced"),
+		MEDBOT_SKIN_RADIATION= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_rad")
 	)
 	if(emagged)
-		skinlist +=list(MEDBOT_SKIN_SYNDI= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_syndi"),
-			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/aibots.dmi', icon_state = "medskin_bezerk")
+		skinlist +=list(MEDBOT_SKIN_SYNDI= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "kit_skin_syndi"),
+			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/silicon/aibots.dmi', icon_state = "medskin_bezerk")
 			)
 	var/choice = show_radial_menu(M, src, skinlist, radius = 42, require_near = TRUE)
-	if(choice && !M.incapacitated() && in_range(M,src))
+	if(choice && !M.incapacitated && in_range(M,src))
 		skin = choice
 		update_icon()
 
@@ -321,38 +344,60 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	else
 		return
 
-/mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
-	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
-	user.visible_message(span_danger("[user] tips over [src]!"), span_danger("You tip [src] over!"))
+/*
+ * Proc used in a callback for before this medibot is tipped by the tippable component.
+ *
+ * user - the mob who is tipping us over
+ */
+/mob/living/simple_animal/bot/medbot/proc/pre_tip_over(mob/user)
+	if(!COOLDOWN_FINISHED(src, last_tipping_action_voice))
+		return
+
+	COOLDOWN_START(src, last_tipping_action_voice, 15 SECONDS) // message for tipping happens when we start interacting, message for righting comes after finishing
+	var/static/list/messagevoice = list(
+		"Hey, wait..." = 'sound/voice/medbot/hey_wait.ogg',
+		"Please don't..." = 'sound/voice/medbot/please_dont.ogg',
+		"I trusted you..." = 'sound/voice/medbot/i_trusted_you.ogg',
+		"Nooo..." = 'sound/voice/medbot/nooo.ogg',
+		"Oh fuck-" = 'sound/voice/medbot/oh_fuck.ogg',
+		)
+	var/message = pick(messagevoice)
+	speak(message)
+	playsound(src, messagevoice[message], 70, FALSE)
+
+/*
+ * Proc used in a callback for after this medibot is tipped by the tippable component.
+ *
+ * user - the mob who tipped us over
+ */
+/mob/living/simple_animal/bot/medbot/proc/after_tip_over(mob/user)
 	tipped = TRUE
-	var/matrix/mat = transform
-	transform = mat.Turn(180)
 	tipper_name = user.name
+	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 
-/mob/living/simple_animal/bot/medbot/proc/set_right(mob/user)
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
+/*
+ * Proc used in a callback for after this medibot is righted, either by themselves or by a mob, by the tippable component.
+ *
+ * user - the mob who righted us. Can be null.
+ */
+/mob/living/simple_animal/bot/medbot/proc/after_righted(mob/user)
 	var/list/messagevoice
-
 	if(user)
-		user.visible_message(span_notice("[user] sets [src] right-side up!"), span_green("You set [src] right-side up!"))
 		if(user.name == tipper_name)
 			messagevoice = list("I forgive you." = 'sound/voice/medbot/forgive.ogg')
 		else
 			messagevoice = list("Thank you!" = 'sound/voice/medbot/thank_you.ogg', "You are a good person." = 'sound/voice/medbot/youre_good.ogg')
 	else
-		visible_message(span_notice("[src] manages to writhe wiggle enough to right itself."))
 		messagevoice = list("Fuck you." = 'sound/voice/medbot/fuck_you.ogg', "Your behavior has been reported, have a nice day." = 'sound/voice/medbot/reported.ogg')
 
 	tipper_name = null
-	if(world.time > last_tipping_action_voice + 15 SECONDS)
-		last_tipping_action_voice = world.time
+	if(COOLDOWN_FINISHED(src, last_tipping_action_voice))
+		COOLDOWN_START(src, last_tipping_action_voice, 15 SECONDS)
 		var/message = pick(messagevoice)
 		speak(message)
 		playsound(src, messagevoice[message], 70)
 	tipped_status = MEDBOT_PANIC_NONE
 	tipped = FALSE
-	transform = matrix()
 
 /// if someone tipped us over, check whether we should ask for help or just right ourselves eventually
 /mob/living/simple_animal/bot/medbot/proc/handle_panic()
@@ -372,7 +417,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 			messagevoice = list("Is this the end?" = 'sound/voice/medbot/is_this_the_end.ogg', "Nooo!" = 'sound/voice/medbot/nooo.ogg')
 		if(MEDBOT_PANIC_END)
 			speak("PSYCH ALERT: Crewmember [tipper_name] recorded displaying antisocial tendencies by torturing bots in [get_area(src)]. Please schedule psych evaluation.", radio_channel)
-			set_right() // strong independent medbot
 
 	if(prob(tipped_status))
 		do_jitter_animation(tipped_status * 0.1)
@@ -434,7 +478,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 	if(QDELETED(patient))
 		if(!shut_up && prob(1))
 			if(emagged && prob(30))
-				var/list/i_need_scissors = list('sound/voice/medbot/fuck_you.ogg', 'sound/voice/medbot/im_different.ogg', 'sound/voice/medbot/shindemashou.ogg') //some lines removed because they are very LRP/meta, doesn't fit with bee
+				var/list/i_need_scissors = list(
+					'sound/voice/medbot/fuck_you.ogg',
+					'sound/voice/medbot/im_different.ogg',
+					'sound/voice/medbot/shindemashou.ogg'
+				)
 				playsound(src, pick(i_need_scissors), 70)
 			else
 				var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/medbot/radar.ogg',"There's always a catch, and I'm the best there is." = 'sound/voice/medbot/catch.ogg',"I knew it, I should've been a plastic surgeon." = 'sound/voice/medbot/surgeon.ogg',"What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/medbot/flies.ogg',"Delicious!" = 'sound/voice/medbot/delicious.ogg', "Why are we still here? Just to suffer?" = 'sound/voice/medbot/why.ogg')
@@ -442,7 +490,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 				speak(message)
 				playsound(src, messagevoice[message], 50)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
-		set_patient(scan(/mob/living/carbon/human, oldpatient, scan_range))
+		set_patient(scan(list(/mob/living/carbon/human), oldpatient, scan_range))
 
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
@@ -463,10 +511,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 		return
 
 	if(patient && path.len == 0 && (get_dist(src,patient) > 1))
-		path = get_path_to(src, patient, 30,id=access_card)
+		path = get_path_to(src, patient, max_distance=30, access=access_card.GetAccess())
 		mode = BOT_MOVING
 		if(!path.len) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, patient, 30,1,id=access_card)
+			path = get_path_to(src, patient, max_distance=30, mintargetdist=1, access=access_card.GetAccess())
 			if(!path.len) //Do not chase a patient we cannot reach.
 				soft_reset()
 
@@ -538,31 +586,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 	return FALSE // we shouldn't get random TRUE cases
 
-/mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H, modifiers)
-	if(DOING_INTERACTION_WITH_TARGET(H, src))
-		to_chat(H, span_warning("You're already interacting with [src]."))
-		return
-	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !tipped)
-		H.visible_message(span_danger("[H] begins tipping over [src]."), span_warning("You begin tipping over [src]..."))
-
-		if(world.time > last_tipping_action_voice + 15 SECONDS)
-			last_tipping_action_voice = world.time // message for tipping happens when we start interacting, message for righting comes after finishing
-			var/list/messagevoice = list("Hey, wait..." = 'sound/voice/medbot/hey_wait.ogg',"Please don't..." = 'sound/voice/medbot/please_dont.ogg',"I trusted you..." = 'sound/voice/medbot/i_trusted_you.ogg', "Nooo..." = 'sound/voice/medbot/nooo.ogg', "Oh fuck-" = 'sound/voice/medbot/oh_fuck.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(src, messagevoice[message], 70, FALSE)
-
-		if(do_after(H, 3 SECONDS, target=src))
-			tip_over(H)
-
-	else if(!H.combat_mode && tipped)
-		H.visible_message(span_notice("[H] begins righting [src]."), span_notice("You begin righting [src]..."))
-		if(do_after(H, 3 SECONDS, target=src))
-			set_right(H)
-	else
-		..()
-
-/mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(iscarbon(A))
@@ -577,7 +601,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view())
 	..()
-	if(!is_blind(src))
+	if(!is_blind())
 		chemscan(src, A)
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
@@ -622,7 +646,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 					break
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
-			if(C.maxHealth - C.health < heal_threshold)
+			if(C.maxHealth - C.get_organic_health() < heal_threshold)
 				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)"))
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)
@@ -706,11 +730,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/medbot)
 
 /mob/living/simple_animal/bot/medbot/proc/set_patient(new_patient)
 	if(patient)
-		REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 		oldpatient = patient
 	patient = new_patient
-	if(patient)
-		ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(!COOLDOWN_FINISHED(src, declare_cooldown))

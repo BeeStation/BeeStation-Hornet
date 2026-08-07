@@ -1,0 +1,178 @@
+2020-02-01:
+  zeskorion:
+  - tweak: capitalist golems now spawn with sunglasses instead of a tophat and monocle,
+      to fit their new, more executive-style look
+  - imageadd: new capitalist, communist, bananium, alien alloy, and normal golem sprites
+2020-02-03:
+  MarkSuckerberg:
+  - bugfix: If you put a cakehat on Ian's head, it actually appears now.
+2020-02-07:
+  Crossedfall:
+  - bugfix: Atmospheric reaction priority works correctly now, this means hypernob
+      will stop all reactions and reactions should generally be more consistent between
+      rounds.
+  St0rmC4st3r:
+  - tweak: chainsaws are now viewed as regular saws in surgery
+  - refactor: changed how non-ghetto surgery tools are marked for usability in surgery
+  TheChaser212:
+  - rscadd: Genetics consoles can store more mutations and chromosomes with better
+      parts
+  - tweak: Lots of other small changes to genetics
+  zeskorion:
+  - rscadd: confuseimmune and nostamcrit traits
+  - tweak: hulk and bath salts bypass stamina damage
+2020-02-08:
+  derpymcfuckwit:
+  - rscadd: Goliath Cloak fire proof yee
+2020-02-09:
+  XDTM:
+  - rscadd: Cloners now have the option to "Empty Clone" a record, creating a mindless
+      replica of that person.
+  - rscadd: To aid the above function, cloners can now do Body-Only scans, which can
+      be used to create empty clones but not real clones, but bypass the sentience
+      restrictions on scans. They can also be deleted without requiring access.
+2020-02-10:
+  Kmc2000:
+  - bugfix: Multiz gravity works
+  PowerfulBacon:
+  - admin: Changed secret traitor all button's objective to be a choice of objectives.
+  TheChaser212:
+  - tweak: Ethereals will now keep charging at a lightbulb until they move away
+2020-02-14:
+  PowerfulBacon:
+  - bugfix: Admin-Edit objectives is now down by the admin selecting rather than the
+      person the objective is given to
+  - admin: Added in the ability to choose antag type to traitor all secret
+  - admin: Added in the ability to choose the antag percentage to traitor all secret
+  TheChaser212:
+  - rscadd: Adds the Autodoc which can be made after researching experimental surgery
+  Vasily2013:
+  - tweak: Changed cameras to autoname variety, so they now name based off of area
+  - tweak: changed APCs to autoname variety, also forcing many to move out of maintenance
+      and thus enabling the AI to access them
+  - tweak: 'makes some areas of the pipe net once again connect to the main net. Remove:
+      some superfilous pipes that were bypassed at one point during an atmos rework'
+  ike709:
+  - bugfix: Fixed multi-z photography.
+2020-02-18:
+  TheChaser212:
+  - bugfix: Autodocs no longer destroy brains
+  - bugfix: Autodocs now harm undismemberable mobs when emagged
+2020-02-19:
+  2cwldys:
+  - rscadd: Finger snapping. use *snap to snap your fingers.
+  - soundadd: Two distinct finger snapping sounds
+2020-02-20:
+  Dallen999:
+  - rscadd: 'Captains Display Case: req_access_txt = "20"'
+  EOBGames:
+  - rscadd: The crew has finally remembered how to sing. Simply use % to start singing
+      your favourite tune!
+  St0rmC4st3r:
+  - rscadd: Added the PTSD
+  - rscadd: Added the optical ecto-scanner, which allows to see ghost-like entities.
+  - rscadd: Added the ghostbuster-themed kit to the curator's heroic beacon.
+  - bugfix: Fixed a bug that prevented anyone from feeling taste. Now you can tell
+      that your drink has cyanide in it.
+  enthethan:
+  - tweak: remakes cyanide
+2020-02-21:
+  Dallen999:
+  - tweak: Throat slicing with sharp items changed from harm intent to grab.
+2020-02-24:
+  Bastian0930:
+  - rscdel: Nanotrasen has removed the Spirit Board from the curators spectral kit,
+      on suspicion of black magic! The board still exists, however...
+  Cenrus:
+  - tweak: Gateway skeleton starts with an exile implant
+  Crossedfall:
+  - bugfix: BYOND 513.1506+ versions supported now (Failed to locate IsInContainer
+      error fix)
+  Shroopy:
+  - rscadd: Added wire to medbay to allow charging of storage and security post APC's
+  TheChaser212:
+  - rscadd: Anomaly cores now have effects when attached to other assemblies
+  derpymcfuckwit:
+  - tweak: swat mask has same armor values as explorer now
+  zeskorion:
+  - rscadd: Super Glue
+  - rscadd: Bluespace Compression device
+  - imagedel: icons for both
+  - tweak: buffs most armor against Energy
+  - rscadd: tend wounds surgery
+  - rscadd: Anesthesia now has a use
+  - tweak: turns self_operable to true on many surgeries
+  - balance: self surgery now has a significant penalty, which can be reduced by using
+      a mirror
+  - balance: nerfs to all surgery tables but abductor table to encourage sterilizer/anesthesia
+  - balance: taser no longer hardstuns
+  - rscadd: Thermal Retrostable Displacement, a new burn healing symptom
+  - rscadd: Pituitary Disruption, a new brute healing symptom
+  - rscadd: Organic Flux Induction, a cell damage healing symptom
+  - rscadd: Hyperperspiration, a toxin healing symptom
+  - rscadd: tumor monky ghostrole. may need some text tweaking- right now it's told
+      to kill it's daddy or the virologist, and then itself.
+  - rscadd: ports Polyvitiligo add:adds most non-level nine new symptoms to sentient
+      disease
+  - rscdel: Choking symptom
+  - rscdel: Dizziness symptom
+  - rscdel: all conditional heal symptoms
+  - rscdel: that metabolism symptom
+  - tweak: a metric fuckload of symptom stats.
+  - tweak: added fart atmos to self respiration
+  - tweak: adds a beneficial threshold to DNA saboteur
+  - tweak: spontaneous combustion does more damage to fat people
+  - imageadd: tumor monky codersprites
+2020-02-25:
+  Cenrus:
+  - tweak: Romerol is no longer role restricted to the CMO and Virologist.
+2020-02-26:
+  AWalton:
+  - rscadd: Heaters/freezers now support ctrl clicking to turn on and alt clicking
+      to min/max target temperature.
+  - rscadd: Heaters/freezers now shows target temperature and part status on examine.
+  - rscadd: Ctrl+shift+click PDA to eject cartridge
+  - rscadd: Clicking PDA with cartridge swaps out current cartridge
+  - rscadd: Remove Cartridge verb for people using the right-click menu or the Object
+      tab
+  - rscadd: PDA toggle light action button
+  - bugfix: PDA UI now updates when ejecting or inserting cartridge or ejecting ID
+  enthethan:
+  - tweak: 'Stimulants: 35 stamina regeneration'
+  - tweak: 'Changeling Adrenaline: 15 stamina regeneration'
+  - tweak: 'Meth: 30 stamina regeneration'
+  - tweak: 'Crank: 15 stamina regeneration + 0.75 tox damage and a chance to stop
+      to scratch your skin dealing a small amount of brute damage'
+  - tweak: 'Aranesp: 25 stamina regeneration'
+  - tweak: 'Ephidrine: 10 stamina regeneration'
+  zeskorion:
+  - bugfix: no more popping your dental implant pills during the surgery
+  - bugfix: no more eating your eyeballs when trying to put them back in
+  - tweak: mechanical organ manipulation is now easy to do again
+2020-02-27:
+  AWalton:
+  - balance: Halved syndicate combat defibrillator recharge time (now 2.5 seconds)
+  - balance: Harm intent defibrillator heart attack takes half as much time.
+  - rscadd: 'New status effect: Convulsions. 40% chance to drop your inhand item every
+      tick.'
+  - balance: EMP'd/emagged defibs now knock people down for 7.5 seconds, deal 80 stamina
+      damage, and convulse for 15 seconds.
+  - balance: Removes the stun from Krav Maga and makes it a high duration knockdown
+      with stamina damage (20-30), respecting chest armor for the damage.
+  - rscadd: Disarm intent is now a nonlethal jab that does (5-10) stamina damage.
+      If used on people who are prone, it does (10-15) stamina damage. It also has
+      a chance to completely disarm someone based on the amount of stamina damage
+      they have.
+  - balance: Krav Maga harm stomps/punches now respect armor and have a variance of
+      (5-10) for punches and (5-10+5) for stomps.
+  Kerbin-Fiber:
+  - bugfix: Due to a fabrication error, Plumbing Construction device blueprints have
+      been sourced somewhere else. Certain plumbing machinery will no longer have
+      to be put backwards for use.
+  TheNeoGamer42:
+  - tweak: Cloners now need some synthflesh to operate.
+  - rscadd: Clonepods now have 100u of synthflesh in them at roundstart
+  - tweak: Roundstart cloning is now 100% speed instead of 200% (slower cloning roundstart)
+  zeskorion:
+  - rscadd: legion transformation disease
+  - balance: Legion core is no longer a fucking aheal

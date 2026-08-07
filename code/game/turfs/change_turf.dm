@@ -2,11 +2,16 @@
 GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	/turf/open/space,
 	/turf/baseturf_bottom,
-	)))
+)))
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object))
+	var/static/list/ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/obj/effect/landmark,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+	))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -64,6 +69,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 // Creates a new turf
 // new_baseturfs can be either a single type or list of types, formated the same as baseturfs. see turf.dm
 /turf/proc/ChangeTurf(path, list/new_baseturfs, flags)
+	SHOULD_NOT_SLEEP(TRUE)
+
 	switch(path)
 		if(null)
 			return
@@ -90,8 +97,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_rcd_memory = rcd_memory
 	var/old_opacity = opacity
 
-	// Z-Mimic: copy above
-	var/old_above = above
+	// Dynamic Z-Linking
+	var/turf/old_above = above
+	var/turf/old_below = below
+	var/old_zdepth = z_depth
 
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
@@ -107,17 +116,35 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	changing_turf = TRUE
 	qdel(src) //Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
+	var/list/old_listen_lookup = _listen_lookup?.Copy()
+	var/list/old_signal_procs = _signal_procs?.Copy()
+
+	var/old_atoms_state = SSatoms.initialized
+	// Disable initialisation for the atom
+	SSatoms.initialized = INITIALIZATION_INSSATOMS
 	var/turf/new_turf = new path(src)
+	// Store initialisation state
+	SSatoms.initialized = old_atoms_state
+
+	// These need to be set prior to initialisation, otherwise we will have to regenerate
+	// zmimic twice for turfs that are linked to other locations.
+	new_turf.above = old_above
+	old_above?.below = new_turf
+	new_turf.below = old_below
+	old_below?.above = new_turf
+	new_turf.z_depth = old_zdepth
+
+	// Initialize the atom manually
+	var/is_mapload = old_atoms_state == INITIALIZATION_INNEW_MAPLOAD
+	SSatoms.InitAtom(src, new_turf, list(is_mapload))
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
-	if(old_comp_lookup)
-		LAZYOR(new_turf.comp_lookup, old_comp_lookup)
+	if(old_listen_lookup)
+		LAZYOR(new_turf._listen_lookup, old_listen_lookup)
 	if(old_signal_procs)
-		LAZYOR(new_turf.signal_procs, old_signal_procs)
+		LAZYOR(new_turf._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(new_turf)
@@ -126,8 +153,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		new_turf.baseturfs = baseturfs_string_list(new_baseturfs, new_turf)
 	else
 		new_turf.baseturfs = baseturfs_string_list(old_baseturfs, new_turf) //Just to be safe
-
-	new_turf.above = old_above
 
 	new_turf.explosion_id = old_exi
 	new_turf.explosion_level = old_exl
@@ -146,17 +171,30 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	dynamic_lumcount = old_dynamic_lumcount
 
 	if(SSlighting.initialized)
-		lighting_object = old_lighting_object
+		// Fullbright tiles should never have lighting objects
+		if(fullbright_type == FULLBRIGHT_NONE)
+			// Should have a lighting object if we never had one
+			if(old_lighting_object)
+				lighting_object = old_lighting_object
+			else
+				new /atom/movable/lighting_object(src)
+		else if (old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
 		//Bacon's Starlight lighting
 		if(fullbright_type != old_fullbright_type)
-			if (!fullbright_type)
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+			var/area/our_area = loc
+			if(fullbright_type)
+				if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
+					add_overlay(GLOB.starlight_overlay)
+			else if(!our_area.area_has_base_lighting)
+				add_overlay(GLOB.fullbright_overlay)
+
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
@@ -199,123 +237,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		flags |= CHANGETURF_RECALC_ADJACENT
 	return ..()
 
-// Take off the top layer turf and replace it with the next baseturf down
-/turf/proc/ScrapeAway(amount=1, flags)
-	if(!amount)
-		return
-	if(length(baseturfs))
-		var/list/new_baseturfs = baseturfs.Copy()
-		var/turf_type = new_baseturfs[max(1, new_baseturfs.len - amount + 1)]
-		while(ispath(turf_type, /turf/baseturf_skipover))
-			amount++
-			if(amount > new_baseturfs.len)
-				CRASH("The bottommost baseturf of a turf is a skipover [src]([type])")
-			turf_type = new_baseturfs[max(1, new_baseturfs.len - amount + 1)]
-		new_baseturfs.len -= min(amount, new_baseturfs.len - 1) // No removing the very bottom
-		if(new_baseturfs.len == 1)
-			new_baseturfs = new_baseturfs[1]
-		return ChangeTurf(turf_type, new_baseturfs, flags)
-
-	if(baseturfs == type)
-		return src
-
-	return ChangeTurf(baseturfs, baseturfs, flags) // The bottom baseturf will never go away
-
-// Take the input as baseturfs and put it underneath the current baseturfs
-// If fake_turf_type is provided and new_baseturfs is not the baseturfs list will be created identical to the turf type's
-// If both or just new_baseturfs is provided they will be inserted below the existing baseturfs
-/turf/proc/PlaceOnBottom(list/new_baseturfs, turf/fake_turf_type)
-	if(fake_turf_type)
-		if(!new_baseturfs)
-			if(!length(baseturfs))
-				baseturfs = list(baseturfs)
-			var/list/old_baseturfs = baseturfs.Copy()
-			assemble_baseturfs(fake_turf_type)
-			if(!length(baseturfs))
-				baseturfs = list(baseturfs)
-			baseturfs = baseturfs_string_list((baseturfs - (baseturfs & GLOB.blacklisted_automated_baseturfs)) + old_baseturfs, src)
-			return
-		else if(!length(new_baseturfs))
-			new_baseturfs = list(new_baseturfs, fake_turf_type)
-		else
-			new_baseturfs += fake_turf_type
-	if(!length(baseturfs))
-		baseturfs = list(baseturfs)
-	baseturfs = baseturfs_string_list(new_baseturfs + baseturfs, src)
-
-// Make a new turf and put it on top
-// The args behave identical to PlaceOnBottom except they go on top
-// Things placed on top of closed turfs will ignore the topmost closed turf
-// Returns the new turf
-/turf/proc/PlaceOnTop(list/new_baseturfs, turf/fake_turf_type, flags)
-	var/area/turf_area = loc
-	if(new_baseturfs && !length(new_baseturfs))
-		new_baseturfs = list(new_baseturfs)
-	flags = turf_area.PlaceOnTopReact(src, new_baseturfs, fake_turf_type, flags) // A hook so areas can modify the incoming args
-
-	var/turf/newT
-	if(flags & CHANGETURF_SKIP) // We haven't been initialized
-		if(flags_1 & INITIALIZED_1)
-			stack_trace("CHANGETURF_SKIP was used in a PlaceOnTop call for a turf that's initialized. This is a mistake. [src]([type])")
-		assemble_baseturfs()
-	if(fake_turf_type)
-		if(!new_baseturfs) // If no baseturfs list then we want to create one from the turf type
-			if(!length(baseturfs))
-				baseturfs = list(baseturfs)
-			var/list/old_baseturfs = baseturfs.Copy()
-			if(!istype(src, /turf/closed))
-				old_baseturfs += type
-			newT = ChangeTurf(fake_turf_type, null, flags)
-			newT.assemble_baseturfs(initial(fake_turf_type.baseturfs)) // The baseturfs list is created like roundstart
-			if(!length(newT.baseturfs))
-				newT.baseturfs = list(baseturfs)
-			// The old baseturfs are put underneath, and we sort out the unwanted ones
-			newT.baseturfs = baseturfs_string_list(old_baseturfs + (newT.baseturfs - GLOB.blacklisted_automated_baseturfs), newT)
-			return newT
-		if(!length(baseturfs))
-			baseturfs = list(baseturfs)
-		if(!istype(src, /turf/closed))
-			new_baseturfs = list(type) + new_baseturfs
-		baseturfs = baseturfs_string_list(baseturfs + new_baseturfs, src)
-		return ChangeTurf(fake_turf_type, null, flags)
-	if(!length(baseturfs))
-		baseturfs = list(baseturfs)
-	if(!istype(src, /turf/closed))
-		baseturfs = baseturfs_string_list(baseturfs + type, src)
-	var/turf/change_type
-	if(length(new_baseturfs))
-		change_type = new_baseturfs[new_baseturfs.len]
-		new_baseturfs.len--
-		if(new_baseturfs.len)
-			baseturfs = baseturfs_string_list(baseturfs + new_baseturfs, src)
-	else
-		change_type = new_baseturfs
-	return ChangeTurf(change_type, null, flags)
-
-// Copy an existing turf and put it on top
-// Returns the new turf
-/turf/proc/CopyOnTop(turf/copytarget, ignore_bottom=1, depth=INFINITY, copy_air = FALSE)
-	var/list/new_baseturfs = list()
-	new_baseturfs += baseturfs
-	new_baseturfs += type
-
-	if(depth)
-		var/list/target_baseturfs
-		if(length(copytarget.baseturfs))
-			// with default inputs this would be Copy(clamp(2, -INFINITY, baseturfs.len))
-			// Don't forget a lower index is lower in the baseturfs stack, the bottom is baseturfs[1]
-			target_baseturfs = copytarget.baseturfs.Copy(clamp(1 + ignore_bottom, 1 + copytarget.baseturfs.len - depth, copytarget.baseturfs.len))
-		else if(!ignore_bottom)
-			target_baseturfs = list(copytarget.baseturfs)
-		if(target_baseturfs)
-			target_baseturfs -= new_baseturfs & GLOB.blacklisted_automated_baseturfs
-			new_baseturfs += target_baseturfs
-
-	var/turf/newT = copytarget.copyTurf(src, copy_air)
-	newT.baseturfs = baseturfs_string_list(new_baseturfs, newT)
-	return newT
-
-
 //If you modify this function, ensure it works correctly with lateloaded map templates.
 /turf/proc/AfterChange(flags, oldType) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
@@ -353,7 +274,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		return
 
 	var/datum/gas_mixture/total = new//Holders to assimilate air from nearby turfs
-	var/list/total_gases = total.gases
 	//Stolen blatently from self_breakdown
 	var/list/turf_list = atmos_adjacent_turfs + src
 	var/turflen = turf_list.len
@@ -370,14 +290,13 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		energy += mix.temperature * capacity
 		heat_cap += capacity
 
-		var/list/giver_gases = mix.gases
-		for(var/giver_id in giver_gases)
-			ASSERT_GAS_IN_LIST(giver_id, total_gases)
-			total_gases[giver_id][MOLES] += giver_gases[giver_id][MOLES]
+		for(var/giver_id, amount in mix.moles)
+			total.adjust_gas(giver_id, amount)
 
 	total.temperature = energy / heat_cap
-	for(var/id in total_gases)
-		total_gases[id][MOLES] /= turflen
+	var/list/cached_total_moles = total.moles
+	for(var/id in cached_total_moles)
+		cached_total_moles[id] /= turflen
 
 	for(var/t in turf_list)
 		var/turf/open/T = t

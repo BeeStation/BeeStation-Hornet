@@ -106,7 +106,7 @@ https://github.com/tgstation/tgstation-server
 BeeStation currently comes equipped with these maps.
 
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
-* [CorgStation](https://wiki.beestation13.com/view/CorgsStation)
+* [CardStation](https://wiki.beestation13.com/view/CardStation)
 * [DeltaStation](https://wiki.beestation13.com/view/DeltaStation)
 * [FlandStation](https://wiki.beestation13.com/view/FlandStation)
 * [KiloStation](https://wiki.beestation13.com/view/KiloStation)

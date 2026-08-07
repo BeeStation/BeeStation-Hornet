@@ -17,6 +17,10 @@
 	  */
 	var/gc_destroyed
 
+	/// Open uis owned by this datum
+	/// Lazy, since this case is semi rare
+	var/list/open_uis
+
 	/// Active timers with this datum as the target
 	var/list/active_timers
 	/// Status traits attached to this datum. associative list of the form: list(trait name (string) = list(source1, source2, source3,...))
@@ -33,9 +37,9 @@
 	  *
 	  * Lazy associated list in the structure of `signal:registree/list of registrees`
 	  */
-	var/list/comp_lookup
+	var/list/_listen_lookup
 	/// Lazy associated list in the structure of `signals:proctype` that are run when the datum receives that signal
-	var/list/list/datum/callback/signal_procs
+	var/list/list/datum/callback/_signal_procs
 
 	/// Datum level flags
 	var/datum_flags = NONE
@@ -56,8 +60,12 @@
 	var/list/cooldowns
 
 #ifdef REFERENCE_TRACKING
-	var/running_find_references
+	/// When was this datum last touched by a reftracker?
+	/// If this value doesn't match with the start of the search
+	/// We know this datum has never been seen before, and we should check it
 	var/last_find_references = 0
+	/// How many references we're trying to find when searching
+	var/references_to_clear = 0
 	#ifdef REFERENCE_TRACKING_DEBUG
 	///Stores info about where refs are found, used for sanity checks and testing
 	var/list/found_refs
@@ -71,6 +79,20 @@
 #ifdef DATUMVAR_DEBUGGING_MODE
 	var/list/cached_vars
 #endif
+	///The layout pref we take from the player looking at this datum's UI to know what layout to give.
+	var/datum/preference/choiced/layout_prefs_used = /datum/preference/choiced/tgui_layout
+
+	/**
+	 * Parent types.
+	 *
+	 * Abstract-ness is a meta-property of a class that is used to indicate
+	 * that the class is intended to be used as a base class for others, and
+	 * should not (or cannot) be instantiated.
+	 * We have no such language concept in DM, and so we provide a datum member
+	 * that can be used to hint at abstractness for circumstances where we would
+	 * like that to be the case, such as base behavior providers.
+	 */
+	var/abstract_type = /datum
 
 /**
  * Called when a href for this datum is clicked
@@ -98,6 +120,7 @@
   * Returns QDEL_HINT_QUEUE
   */
 /datum/proc/Destroy(force=FALSE, ...)
+	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 	tag = null
 	datum_flags &= ~DF_USE_TAG //In case something tries to REF us
@@ -137,7 +160,7 @@
 ///Only override this if you know what you're doing. You do not know what you're doing
 ///This is a threat
 /datum/proc/clear_signal_refs()
-	var/list/lookup = comp_lookup
+	var/list/lookup = _listen_lookup
 	if(lookup)
 		for(var/sig in lookup)
 			var/list/comps = lookup[sig]
@@ -147,10 +170,10 @@
 			else
 				var/datum/component/comp = comps
 				comp.UnregisterSignal(src, sig)
-		comp_lookup = lookup = null
+		_listen_lookup = lookup = null
 
-	for(var/target in signal_procs)
-		UnregisterSignal(target, signal_procs[target])
+	for(var/target in _signal_procs)
+		UnregisterSignal(target, _signal_procs[target])
 
 #ifdef DATUMVAR_DEBUGGING_MODE
 /datum/proc/save_vars()
@@ -294,6 +317,6 @@
 	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"
 
 /// Intercept click on when registered as a click intercept
-/datum/proc/InterceptClickOn(mob/living/caller, params, atom/target)
+/datum/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
 	SHOULD_NOT_SLEEP(TRUE)
 	return FALSE

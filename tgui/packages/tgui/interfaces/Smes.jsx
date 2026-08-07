@@ -1,10 +1,15 @@
 import { useBackend } from '../backend';
-import { Box, Button, Flex, LabeledList, ProgressBar, Section, Slider } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Slider,
+} from '../components';
 import { formatPower } from '../format';
 import { Window } from '../layouts';
-
-// Common power multiplier
-const POWER_MUL = 1e3;
 
 export const Smes = (props) => {
   const { act, data } = useBackend();
@@ -23,32 +28,42 @@ export const Smes = (props) => {
     outputLevelMax,
     outputUsed,
   } = data;
-  const inputState = (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
-  const outputState = (outputting && 'good') || (charge > 0 && 'average') || 'bad';
+  const inputState =
+    (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
+  const outputState =
+    (outputting && 'good') || (charge > 0 && 'average') || 'bad';
   return (
-    <Window width={340} height={350}>
+    <Window width={340} height={365}>
       <Window.Content>
         <Section title="Stored Energy">
           <ProgressBar
-            value={capacityPercent * 0.01}
+            value={capacityPercent * 0.01} // Convert % to 0–1 range for the bar
             ranges={{
               good: [0.5, Infinity],
               average: [0.15, 0.5],
               bad: [-Infinity, 0.15],
             }}
           />
+          <Box mt={1}>Stored: {charge}</Box>
         </Section>
         <Section title="Input">
           <LabeledList>
             <LabeledList.Item
               label="Charge Mode"
               buttons={
-                <Button icon={inputAttempt ? 'sync-alt' : 'times'} selected={inputAttempt} onClick={() => act('tryinput')}>
+                <Button
+                  icon={inputAttempt ? 'sync-alt' : 'times'}
+                  selected={inputAttempt}
+                  onClick={() => act('tryinput')}
+                >
                   {inputAttempt ? 'Auto' : 'Off'}
                 </Button>
-              }>
+              }
+            >
               <Box color={inputState}>
-                {(capacityPercent >= 100 && 'Fully Charged') || (inputting && 'Charging') || 'Not Charging'}
+                {(capacityPercent >= 100 && 'Fully Charged') ||
+                  (inputting && 'Charging') ||
+                  'Not Charging'}
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Input">
@@ -75,16 +90,16 @@ export const Smes = (props) => {
                 </Flex.Item>
                 <Flex.Item grow={1} mx={1}>
                   <Slider
-                    value={inputLevel / POWER_MUL}
-                    fillValue={inputAvailable / POWER_MUL}
+                    value={inputLevel / 1000}
+                    fillValue={inputAvailable / 1000}
                     minValue={0}
-                    maxValue={inputLevelMax / POWER_MUL}
+                    maxValue={inputLevelMax / 1000}
                     step={5}
                     stepPixelSize={4}
-                    format={(value) => formatPower(value * POWER_MUL, 1)}
+                    format={(value) => formatPower(value * 1000, 1)}
                     onDrag={(e, value) =>
                       act('input', {
-                        target: value * POWER_MUL,
+                        target: value * 1000,
                       })
                     }
                   />
@@ -111,7 +126,9 @@ export const Smes = (props) => {
                 </Flex.Item>
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="Available">{formatPower(inputAvailable)}</LabeledList.Item>
+            <LabeledList.Item label="Available">
+              {formatPower(inputAvailable)}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Output">
@@ -119,11 +136,22 @@ export const Smes = (props) => {
             <LabeledList.Item
               label="Output Mode"
               buttons={
-                <Button icon={outputAttempt ? 'power-off' : 'times'} selected={outputAttempt} onClick={() => act('tryoutput')}>
+                <Button
+                  icon={outputAttempt ? 'power-off' : 'times'}
+                  selected={outputAttempt}
+                  onClick={() => act('tryoutput')}
+                >
                   {outputAttempt ? 'On' : 'Off'}
                 </Button>
-              }>
-              <Box color={outputState}>{outputting ? 'Sending' : charge > 0 ? 'Not Sending' : 'No Charge'}</Box>
+              }
+            >
+              <Box color={outputState}>
+                {outputting
+                  ? 'Sending'
+                  : charge > 0
+                    ? 'Not Sending'
+                    : 'No Charge'}
+              </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Output">
               <Flex inline width="100%">
@@ -149,15 +177,15 @@ export const Smes = (props) => {
                 </Flex.Item>
                 <Flex.Item grow={1} mx={1}>
                   <Slider
-                    value={outputLevel / POWER_MUL}
+                    value={outputLevel / 1000}
                     minValue={0}
-                    maxValue={outputLevelMax / POWER_MUL}
+                    maxValue={outputLevelMax / 1000}
                     step={5}
                     stepPixelSize={4}
-                    format={(value) => formatPower(value * POWER_MUL, 1)}
+                    format={(value) => formatPower(value * 1000, 1)}
                     onDrag={(e, value) =>
                       act('output', {
-                        target: value * POWER_MUL,
+                        target: value * 1000,
                       })
                     }
                   />
@@ -184,7 +212,9 @@ export const Smes = (props) => {
                 </Flex.Item>
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="Outputting">{formatPower(outputUsed)}</LabeledList.Item>
+            <LabeledList.Item label="Outputting">
+              {formatPower(outputUsed)}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Window.Content>

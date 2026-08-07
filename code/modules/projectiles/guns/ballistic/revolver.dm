@@ -16,6 +16,7 @@
 	fire_rate = 1.5 //slower than normal guns due to the damage factor
 	var/spin_delay = 10
 	var/recent_spin = 0
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/revolver/chamber_round(spin_cylinder = TRUE)
 	if(spin_cylinder)
@@ -106,6 +107,7 @@
 		"The Peacemaker" = "detective_peacemaker",
 		"Black Panther" = "detective_panther"
 	)
+	trade_flags = NONE
 
 /obj/item/gun/ballistic/revolver/detective/cowboy
 	name = "sheriff's revolver"
@@ -133,8 +135,8 @@
 		)
 	. = ..()
 
-/obj/item/gun/ballistic/revolver/detective/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	if(magazine.caliber != initial(magazine.caliber))
+/obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+	if (chambered && chambered.caliber == "357")
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, span_userdanger("[src] blows up in your face!"))
@@ -142,12 +144,12 @@
 			explosion(src, 0, 0, 1, 1)
 			user.dropItemToGround(src)
 			return 0
-	..()
+	return ..()
 
 /obj/item/gun/ballistic/revolver/detective/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(magazine.caliber == "38")
+	if("38" in magazine.caliber)
 		to_chat(user, span_notice("You begin to reinforce the barrel of [src]..."))
 		if(magazine.ammo_count())
 			afterattack(user, user)	//you know the drill
@@ -157,7 +159,7 @@
 			if(magazine.ammo_count())
 				to_chat(user, span_warning("You can't modify it!"))
 				return TRUE
-			magazine.caliber = "357"
+			magazine.caliber = list("357")
 			src.caliber = magazine.caliber
 			fire_rate = 1 //worse than a nromal .357
 			fire_sound = 'sound/weapons/revolver357shot.ogg'
@@ -173,7 +175,7 @@
 			if(magazine.ammo_count())
 				to_chat(user, span_warning("You can't modify it!"))
 				return
-			magazine.caliber = "38"
+			magazine.caliber = list("38")
 			src.caliber = magazine.caliber
 			fire_rate = initial(fire_rate)
 			fire_sound = 'sound/weapons/revolver38shot.ogg'
@@ -213,6 +215,7 @@
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism requiring you to spin the chamber before each trigger pull."
 	icon_state = "russianrevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
+	trade_flags = NONE
 	var/spun = FALSE
 
 /obj/item/gun/ballistic/revolver/russian/do_spin()
@@ -220,7 +223,7 @@
 	spun = TRUE
 
 /obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, params)
-	..()
+	. = ..()
 	if(get_ammo() > 0)
 		spin()
 	update_icon()
@@ -232,12 +235,15 @@
 		spin()
 		spun = TRUE
 		return
-	..()
+	return ..()
 
-/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
-	. = ..(null, user, flag, params)
+/// No, we don't parent call. Because guncode is stupid and trash. Enjoy
+/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, click_parameters)
 
-	if(flag)
+	if(proximity_flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.combat_mode) // Flogging action
 				return
@@ -274,7 +280,7 @@
 		user.visible_message(span_danger("*click*"))
 		playsound(src, dry_fire_sound, 30, TRUE)
 
-/obj/item/gun/ballistic/revolver/russian/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/ballistic/revolver/russian/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	add_fingerprint(user)
 	playsound(src, dry_fire_sound, 30, TRUE)
 	user.visible_message(span_danger("[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"))
@@ -286,6 +292,8 @@
 /obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/ballistic/revolver/russian/soul/shoot_self(mob/living/user)
 	..()
@@ -299,13 +307,14 @@
 	clumsy_check = 0
 
 /obj/item/gun/ballistic/revolver/reverse/can_trigger_gun(mob/living/user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) || (user.mind && user.mind.assigned_role == JOB_NAME_CLOWN))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) || is_clown_job(user.mind?.assigned_role))
 		return ..()
 	if(process_fire(user, user, FALSE, null, BODY_ZONE_HEAD))
 		user.visible_message(span_warning("[user] somehow manages to shoot [user.p_them()]self in the face!"), span_userdanger("You somehow shoot yourself in the face! How the hell?!"))
 		user.emote("scream")
 		user.drop_all_held_items()
 		user.Paralyze(80)
+	return FALSE
 
 /obj/item/gun/ballistic/revolver/mime
 	name = "finger gun"
@@ -322,6 +331,7 @@
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
+	can_gunpoint = FALSE
 
 /obj/item/gun/ballistic/revolver/mime/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("Your fingergun is out of ammo!"))
@@ -332,4 +342,5 @@
 
 //The Lethal Version from Advanced Mimery
 /obj/item/gun/ballistic/revolver/mime/magic
+	can_gunpoint = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

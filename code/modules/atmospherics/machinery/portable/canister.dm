@@ -17,6 +17,7 @@
 	integrity_failure = 0.4
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	req_access = list()
+	custom_price = 25
 
 	var/icon/canister_overlay_file = 'icons/obj/atmospherics/canisters.dmi'
 
@@ -45,7 +46,6 @@
 	laser = 50
 	energy = 100
 	bomb = 10
-	rad = 100
 	fire = 80
 	acid = 50
 
@@ -61,7 +61,7 @@
 		create_gas()
 
 	if(ispath(gas_type, /datum/gas))
-		desc = "[GLOB.meta_gas_info[gas_type][META_GAS_NAME]]. [GLOB.meta_gas_info[gas_type][META_GAS_DESC]]"
+		desc = "[GLOB.meta_gas_info[META_GAS_NAME][gas_type]]. [GLOB.meta_gas_info[META_GAS_DESC][gas_type]]"
 
 	var/random_quality = rand()
 	pressure_limit = initial(pressure_limit) * (1 + 0.2 * random_quality)
@@ -266,14 +266,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	else if(valve_open && holding)
 		user.investigate_log("started a transfer into [holding].", INVESTIGATE_ATMOS)
 
-/obj/machinery/portable_atmospherics/canister/process(seconds_per_tick)
+/obj/machinery/portable_atmospherics/canister/process(delta_time)
 	if(!shielding_powered)
 		return
 
 	var/our_pressure = air_contents.return_pressure()
 	var/our_temperature = air_contents.return_temperature()
 	var/energy_factor = round(log(10, max(our_pressure - pressure_limit, 1)) + log(10, max(our_temperature - temp_limit, 1)))
-	var/energy_consumed = energy_factor * 250 * seconds_per_tick
+	var/energy_consumed = energy_factor * 250 * delta_time
 
 	if(!energy_consumed)
 		return
@@ -435,13 +435,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	output += "[key_name(user)] <b>opened</b> a canister [wire_pulsed ? "via wire pulse" : ""] that contains the following:"
 	var/list/admin_output = list()
 	admin_output += "[ADMIN_LOOKUPFLW(user)] <b>opened</b> a canister [wire_pulsed ? "via wire pulse" : ""] that contains the following at [ADMIN_VERBOSEJMP(src)]:"
-	var/list/gases = air_contents.gases
+	var/list/cached_moles = air_contents.moles
+	var/list/cached_gas_name = GAS_META[META_GAS_NAME]
+	var/list/cached_gas_danger = GAS_META[META_GAS_DANGER]
+	var/list/cached_gas_visible = GAS_META[META_GAS_MOLES_VISIBLE]
 	var/danger = FALSE
-	for(var/gas_index in 1 to length(gases))
-		var/list/gas_info = gases[gases[gas_index]]
-		var/list/meta = gas_info[GAS_META]
-		var/name = meta[META_GAS_NAME]
-		var/moles = gas_info[MOLES]
+	for(var/gas_index in 1 to length(cached_moles))
+		var/gas_id = cached_moles[gas_index]
+		var/name = cached_gas_name[gas_id]
+		var/moles = cached_moles[gas_id]
 
 		output += "[name]: [moles] moles."
 		if(gas_index <= 5) //the first five gases added
@@ -449,7 +451,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		else if(gas_index == 6) // anddd the warning
 			admin_output += "Too many gases to log. Check investigate log."
 		//if moles_visible is undefined, default to default visibility
-		if(meta[META_GAS_DANGER] && moles > (meta[META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE))
+		if(cached_gas_danger[gas_id] && moles > (cached_gas_visible[gas_id] || MOLES_GAS_VISIBLE))
 			danger = TRUE
 
 	if(danger) //sent to admin's chat if contains dangerous gases
@@ -524,17 +526,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 		if(!attached_can.holding)
 			var/list/danger = list()
 			var/datum/gas_mixture/attached_can_air = attached_can.return_air()
-			for(var/id in attached_can_air.gases)
-				if(!(GLOB.meta_gas_info[id][META_GAS_DANGER]))
+			for(var/gas_type, amount in attached_can_air.moles)
+				if(!GLOB.meta_gas_info[META_GAS_DANGER][gas_type])
 					continue
-				if(attached_can_air.gases[id][MOLES] > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-					danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = attached_can_air.gases[id][MOLES] //ex. "plasma" = 20
+				if(amount > (GLOB.meta_gas_info[META_GAS_MOLES_VISIBLE][gas_type] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+					danger[GLOB.meta_gas_info[META_GAS_NAME][gas_type]] = amount //ex. "plasma" = 20
 
-			if(danger.len && attached_can.valve_open)
+			if(length(danger) && attached_can.valve_open)
 				message_admins("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [ADMIN_VERBOSEJMP(attached_can)]:")
 				log_admin("[parent.get_creator_admin()]'s circuit opened a canister that contains the following at [AREACOORD(attached_can)]:")
-				for(var/name in danger)
-					var/msg = "[name]: [danger[name]] moles."
+				for(var/name, amount in danger)
+					var/msg = "[name]: [amount] moles."
 					log_admin(msg)
 					message_admins(msg)
 		attached_can.toggle_valve()
@@ -547,90 +549,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 /obj/machinery/portable_atmospherics/canister/air
 	name = "air canister"
-	desc = "Pre-mixed air."
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#c6c0b5"
 
 /obj/machinery/portable_atmospherics/canister/bz
 	name = "\improper BZ canister"
-	desc = "BZ, a powerful hallucinogenic nerve agent."
 	gas_type = /datum/gas/bz
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#9b5d7f#d0d2a0"
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "co2 canister"
-	desc = "Carbon dioxide. What the fuck is carbon dioxide?"
 	gas_type = /datum/gas/carbon_dioxide
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#4e4c48"
 
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "n2 canister"
-	desc = "Nitrogen gas. Reportedly useful for something."
 	gas_type = /datum/gas/nitrogen
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#d41010"
 
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
 	name = "n2o canister"
-	desc = "Nitrous oxide gas. Known to cause drowsiness."
 	gas_type = /datum/gas/nitrous_oxide
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#c63e3b#f7d5d3"
 
-/obj/machinery/portable_atmospherics/canister/nitryl
-	name = "nitryl canister"
-	desc = "Nitryl gas. Feels great 'til the acid eats your lungs."
-	gas_type = /datum/gas/nitryl
+/obj/machinery/portable_atmospherics/canister/nitrium
+	name = "Nitrium canister"
+	gas_type = /datum/gas/nitrium
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#7b4732"
 
 /obj/machinery/portable_atmospherics/canister/nob
 	name = "hyper-noblium canister"
-	desc = "Hyper-Noblium. More noble than all other gases."
 	gas_type = /datum/gas/hypernoblium
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#6399fc#b2b2b2"
 
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "o2 canister"
-	desc = "Oxygen. Necessary for human life."
 	gas_type = /datum/gas/oxygen
 	greyscale_config = /datum/greyscale_config/canister/stripe
 	greyscale_colors = "#2786e5#e8fefe"
 
 /obj/machinery/portable_atmospherics/canister/pluoxium
 	name = "pluoxium canister"
-	desc = "Pluoxium. Like oxygen, but more bang for your buck."
 	gas_type = /datum/gas/pluoxium
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#2786e5"
 
-/obj/machinery/portable_atmospherics/canister/stimulum
-	name = "stimulum canister"
-	desc = "Stimulum. High energy gas, high energy people."
-	gas_type = /datum/gas/stimulum
-	greyscale_config = /datum/greyscale_config/canister
-	greyscale_colors = "#9b5d7f"
-
 /obj/machinery/portable_atmospherics/canister/plasma
 	name = "plasma canister"
-	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	gas_type = /datum/gas/plasma
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#f64300#000000"
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "tritium canister"
-	desc = "Tritium. Inhalation might cause irradiation."
 	gas_type = /datum/gas/tritium
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
-	desc = "Water Vapor. We get it, you vape."
 	gas_type = /datum/gas/water_vapor
 	filled = 1
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
@@ -638,7 +621,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 
 /obj/machinery/portable_atmospherics/canister/fusion_test
 	name = "fusion test canister"
-	desc = "Don't be a badmin."
 	temp_limit = 1e12
 	pressure_limit = 1e14
 
@@ -649,23 +631,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(!gas_type)
 		return
-	air_contents.add_gas(gas_type)
-	air_contents.gases[gas_type][MOLES] = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.adjust_gas(gas_type, (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature))
 	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/air/create_gas()
-	air_contents.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.adjust_multiple_gases(list(
+		/datum/gas/oxygen = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature),
+		/datum/gas/nitrogen = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature),
+	))
 	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/canister/fusion_test/create_gas()
-	air_contents.add_gases(/datum/gas/carbon_dioxide, /datum/gas/tritium)
-	air_contents.gases[/datum/gas/carbon_dioxide][MOLES] = 300
-	air_contents.gases[/datum/gas/tritium][MOLES] = 300
-	air_contents.temperature = 10000
+	air_contents.adjust_multiple_gases(list(
+		/datum/gas/carbon_dioxide = 300,
+		/datum/gas/tritium = 300,
+	))
+	air_contents.set_temperature(10000)
 	SSair.start_processing_machine(src)
-
 
 #undef CAN_DEFAULT_RELEASE_PRESSURE
 #undef TEMPERATURE_RESISTANCE

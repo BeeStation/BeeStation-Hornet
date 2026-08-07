@@ -58,7 +58,7 @@
 /// How long it takes a powereater to drain or charge APCs. Also used as a spam limiter.
 #define APC_DRAIN_TIME (7.5 SECONDS)
 /// How much powereater species gain/drain from APCs.
-#define APC_POWER_GAIN 200
+#define APC_POWER_GAIN 2 KILOWATT
 
 // Wires & EMPs:
 /// The wire value used to reset the APCs wires after one's EMPed.
@@ -81,11 +81,9 @@
 #define UPSTATE_BROKE (1<<3)
 /// The APC is undergoing maintenance.
 #define UPSTATE_MAINT (1<<4)
-/// The APC is emagged or malfed.
-#define UPSTATE_BLUESCREEN (1<<5)
 /// The APCs wires are exposed.
-#define UPSTATE_WIREEXP (1<<6)
-#define UPSTATE_ALLGOOD	(1<<7)
+#define UPSTATE_WIREEXP (1<<5)
+#define UPSTATE_ALLGOOD	(1<<6)
 
 // update_overlay
 // Bitflags:

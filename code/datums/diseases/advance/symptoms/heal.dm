@@ -1,6 +1,7 @@
 #define TELEPORT_COOLDOWN 60 SECONDS
 
 /datum/symptom/heal
+	abstract_type = /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
 	desc = "You should not be seeing this."
 	stealth = 0
@@ -103,10 +104,12 @@
 	if(A.stealth >= 2)
 		deathgasp = TRUE
 
-/datum/symptom/heal/coma/on_stage_change(new_stage, datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
+/datum/symptom/heal/coma/on_stage_change(datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
 	if(!..())
 		return FALSE
-	if(A.stage <= 3)
+	if(A.stage >= 4 && stabilize)
+		ADD_TRAIT(A.affected_mob, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
+	else
 		REMOVE_TRAIT(A.affected_mob, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
 	return TRUE
 
@@ -117,8 +120,6 @@
 
 /datum/symptom/heal/coma/CanHeal(datum/disease/advance/A)
 	var/mob/living/M = A.affected_mob
-	if(stabilize)
-		ADD_TRAIT(M, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
 	if(HAS_TRAIT(M, TRAIT_DEATHCOMA))
 		return power
 	if(M.IsSleeping())
@@ -159,8 +160,8 @@
 	if(!parts.len)
 		return
 
-	for(var/obj/item/bodypart/L in parts)
-		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, BODYTYPE_ORGANIC))
+	for(var/obj/item/bodypart/bodypart in parts)
+		if(bodypart.heal_damage(heal_amt/parts.len, heal_amt/parts.len, required_bodytype = BODYTYPE_ORGANIC))
 			M.update_damage_overlays()
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
@@ -202,12 +203,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshold)
-		M.heal_overall_damage(power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_damage(power, required_bodytype = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshold)
-		M.heal_overall_damage(burn = power, required_status = BODYTYPE_ORGANIC)
+		M.heal_overall_damage(burn = power, required_bodytype = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -253,10 +254,9 @@
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
 	if(!istype(C))
 		return
-	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
-	if(triple_metabolism)
-		C.reagents.metabolize(C, can_overdose=TRUE)
-	C.overeatduration = max(C.overeatduration - 2, 0)
+	var/metabolic_boost = triple_metabolism ? 2 : 1
+	C.reagents.metabolize(C, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	C.overeatduration = max(C.overeatduration - 4 SECONDS, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
 	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
 	if(prob(2) && C.stat != DEAD)
@@ -367,7 +367,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
-			M.adjust_fire_stacks(-5)
+			M.adjust_wet_stacks(5)
 			if(!ammonia && prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
@@ -395,6 +395,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	name = "Sweatsplash"
 
 /obj/effect/sweatsplash/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
 
@@ -465,7 +466,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 					do_sparks(5, FALSE, M)
 					if(burnheal)
-						M.adjust_fire_stacks(-10)
+						M.adjust_wet_stacks(10)
 					location_return = null
 					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN)
 			if(COOLDOWN_FINISHED(src, teleport_cooldown))
@@ -519,8 +520,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	ownermind = M.mind
 	if(!A.carrier && !A.dormant)
 		sizemult = clamp((0.5 + A.stage_rate / 10), 1.1, 1.5)
-		M.resize = sizemult
-		M.update_transform()
+		M.update_transform(sizemult)
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
@@ -537,16 +537,16 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					if(prob(60) && M.mind && ishuman(M))
 						if(tetsuo && prob(15))
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
-								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-							if(MOB_ROBOTIC in A.infectable_biotypes)
+								new /obj/effect/spawner/random/medical/teratoma/major/clown(M.loc)
+							if(A.infectable_biotypes & MOB_ROBOTIC)
 								new /obj/effect/decal/cleanable/robot_debris(M.loc)
-								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
-						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
+								new /obj/effect/spawner/random/medical/teratoma/robot(M.loc)
+						new /obj/effect/spawner/random/medical/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35) && M.mind && ishuman(M) && M.stat != DEAD)
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
-						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+						new /obj/effect/spawner/random/medical/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
@@ -570,7 +570,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									M.grab_ghost()
 								break
 			if(bruteheal)
-				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
+				M.heal_overall_damage(2 * power, required_bodytype = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
@@ -582,8 +582,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, span_notice("You lose your balance and stumble as you shrink, and your legs come out from underneath you!"))
-	M.resize = 1/sizemult
-	M.update_transform()
+	M.update_transform(1/sizemult)
 
 #undef TELEPORT_COOLDOWN
 
@@ -602,7 +601,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
-	var/bloodtypearchive
+	var/datum/blood_type/bloodtypearchive
 	var/bruteheal = FALSE
 	var/aggression = FALSE
 	var/vampire = FALSE
@@ -640,7 +639,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = "U"
+		H.dna.blood_type = /datum/blood_type/universal
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -675,7 +674,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
-						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
+						M.heal_overall_damage(2, required_bodytype = BODYTYPE_ORGANIC)
 					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
@@ -700,10 +699,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/possibledist = power + 1
 		if(M.get_blood_id() != /datum/reagent/blood)
 			possibledist = 1
-		if(!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))) //if you dont have blood, well... sucks to be you
+		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
-				H.revive(0)
+				H.revive()
 				H.visible_message(span_warning("[H.name]'s skin takes on a rosy hue as they begin moving. They live again!"), span_userdanger("As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood."))
 				bloodpoints = 0
 				return 0
@@ -749,7 +748,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
-					if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
+					if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 						continue
 					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
 						candidates += C
@@ -768,10 +767,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = M
 		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
+			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
 				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message(span_warning("Wounds open on [C.name]'s skin as [H.name] grips them tightly!"), span_userdanger("You begin bleeding at [H.name]'s touch!"))
-			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))
+			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -815,7 +814,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
-			if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
+			if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 				continue
 			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_id() == H.get_blood_id())
 				var/amt = (2 * power)
@@ -865,7 +864,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(A.stage_rate >= 6)
 		power += 1
 
-/datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
+/datum/symptom/parasite/proc/isslimetarget(mob/living/carbon/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M))
 		return TRUE
@@ -982,30 +981,30 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(2 to 3)
 			if(prob(power) && M.stat)
-				M.Jitter(2 * power)
+				M.set_jitter_if_lower(4 SECONDS * power)
 				M.emote("twitch")
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
 			M.adjustStaminaLoss((-5 * power), 0)
-			M.drowsyness = max(0, M.drowsyness - 10 * power)
+			M.set_drowsiness_if_lower(4 SECONDS * power)
 			M.AdjustSleeping(-10 * power)
 			M.AdjustUnconscious(-10 * power)
 			if(prob(power) && prob(50))
 				if(M.stat)
 					M.emote("twitch")
-					M.Jitter(2 * power)
+					M.set_jitter_if_lower(4 SECONDS * power)
 				to_chat(M, span_notice("[pick("You feel nervous...", "You feel anxious.", "You feel like everything is moving in slow motion.")]"))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/nervous)
 			if(M.satiety > NUTRITION_LEVEL_HUNGRY - (30 * power))
 				M.satiety = max(NUTRITION_LEVEL_HUNGRY - (30 * power), M.satiety - (2 * power))
 			if(prob(25))
-				M.Jitter(2 * power)
+				M.set_jitter_if_lower(4 SECONDS * power)
 			if(clearcc)
 				var/realpower = power
 				if(prob(power) && prob(50))
 					realpower = power + 10
 					if(M.stat)
 						M.emote("scream")
-					M.hallucination = min(40, M.hallucination + (5 * power))
+					M.adjust_hallucinations_up_to(8 SECONDS, (10 * power) SECONDS)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/paranoid)
 				M.AdjustAllImmobility((realpower * -10),TRUE)

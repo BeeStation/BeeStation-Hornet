@@ -35,22 +35,16 @@
 /obj/machinery/computer/cargo/Initialize(mapload)
 	. = ..()
 	radio = new /obj/item/radio/headset/headset_cargo(src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, PROC_REF(update_static_ui))
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, TYPE_PROC_REF(/datum, update_static_data_for_all_viewers))
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/machinery/computer/cargo/proc/update_static_ui()
-	for (var/datum/tgui/open_window as() in SStgui.get_all_open_uis(src))
-		update_static_data(null, open_window)
-
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
 	if(contraband)
 		. |= EXPORT_CONTRABAND
-	if(obj_flags & EMAGGED)
-		. |= EXPORT_EMAG
 
 /obj/machinery/computer/cargo/on_emag(mob/user)
 	..()
@@ -69,6 +63,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/cargo/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Cargo")
@@ -91,7 +86,7 @@
 	var/message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
 		message = SSshuttle.centcom_message
-	if(SSshuttle.supplyBlocked)
+	if(SSshuttle.supply_blocked)
 		message = blockade_warning
 	data["message"] = message
 	data["cart"] = list()
@@ -151,7 +146,7 @@
 			if(!SSshuttle.supply.canMove())
 				say(safety_warning)
 				return
-			if(SSshuttle.supplyBlocked)
+			if(SSshuttle.supply_blocked)
 				say(blockade_warning)
 				return
 			if(SSshuttle.supply.getDockedId() == "supply_home")
@@ -167,7 +162,7 @@
 		if("loan")
 			if(!SSshuttle.shuttle_loan)
 				return
-			if(SSshuttle.supplyBlocked)
+			if(SSshuttle.supply_blocked)
 				say(blockade_warning)
 				return
 			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)

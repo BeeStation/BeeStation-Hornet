@@ -25,9 +25,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/table/wood/bar,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 4
 	},
@@ -42,7 +40,7 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
-/obj/item/reagent_containers/cup/rag{
+/obj/item/rag{
 	pixel_x = 10;
 	pixel_y = 1
 	},
@@ -56,9 +54,7 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -66,9 +62,7 @@
 /area/template_noop)
 "l" = (
 /obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -82,11 +76,7 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -129,9 +119,7 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "w" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/effect/spawner/structure/random_piano,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -166,7 +154,7 @@
 /area/template_noop)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /obj/effect/holodeck_effect/random_book,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -258,7 +246,7 @@
 /area/template_noop)
 "T" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/item/cigarette/pipe,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

@@ -1,20 +1,21 @@
 /datum/job/chief_engineer
 	title = JOB_NAME_CHIEFENGINEER
 	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
-	department_for_prefs = DEPT_NAME_ENGINEERING
+	department_for_prefs = DEPARTMENT_NAME_ENGINEERING
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffeeaa"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 7
 	exp_requirements = 1200
-	exp_type = EXP_TYPE_ENGINEERING
-	exp_type_department = EXP_TYPE_ENGINEERING
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_ENGINEERING
+	exp_granted_type = EXP_TYPE_COMMAND
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_engineer
 
@@ -24,7 +25,10 @@
 						ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_WEAPONS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_ENG | DEPT_BITFLAG_COM
+	departments_list = list(
+		/datum/department_group/engineering,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_ENG_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -32,13 +36,24 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chief_engineer
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
+	minimal_lightup_areas = list(/area/station/command/heads_quarters/chief, /area/station/engineering/atmos)
+
+	manuscript_jobs = list(
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN
+	)
+
+/datum/job/chief_engineer/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER
@@ -46,29 +61,32 @@
 
 	id = /obj/item/card/id/job/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	l_pocket = /obj/item/modular_computer/tablet/pda/heads/chief_engineer
+	l_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/chief_engineer
 	ears = /obj/item/radio/headset/heads/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/utility/hardhat/white
 	gloves = /obj/item/clothing/gloves/color/black
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
+	backpack_contents = list(/obj/item/melee/baton/telescopic=1)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
+	messenger = /obj/item/storage/backpack/messenger/eng
+
 	box = /obj/item/storage/box/survival/engineer
+
 	pda_slot = ITEM_SLOT_LPOCKET
 	chameleon_extras = /obj/item/stamp/chief_engineer
 
-/datum/outfit/job/chief_engineer/rig
-	name = "Chief Engineer (Hardsuit)"
+/datum/outfit/job/chief_engineer/mod
+	name = "Chief Engineer (MODsuit)"
 
-	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
-	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/advanced
 	glasses = /obj/item/clothing/glasses/meson/engine
 	gloves = /obj/item/clothing/gloves/color/yellow
 	head = null
+	mask = /obj/item/clothing/mask/breath
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	internals_slot = ITEM_SLOT_SUITSTORE

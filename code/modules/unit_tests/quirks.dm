@@ -4,10 +4,7 @@
 /datum/unit_test/quirk_icons/Run()
 	var/list/used_icons = list()
 
-	for (var/datum/quirk/quirk_type as anything in subtypesof(/datum/quirk))
-		if (initial(quirk_type.abstract_parent_type) == quirk_type)
-			continue
-
+	for (var/datum/quirk/quirk_type as anything in valid_subtypesof(/datum/quirk))
 		var/icon = initial(quirk_type.icon)
 
 		if (isnull(icon))

@@ -4,7 +4,7 @@
 	desc = "Used to send criminals to the Labor Camp."
 	icon_screen = "explosive"
 	icon_keyboard = "security_key"
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(ACCESS_SECURITY)
 	circuit = /obj/item/circuitboard/computer/gulag_teleporter_console
 	light_color = LIGHT_COLOR_RED
 	var/default_goal = 200
@@ -22,6 +22,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GulagTeleporterConsole")
@@ -92,7 +93,7 @@
 			return TRUE
 		if("set_goal")
 			var/new_goal = text2num(params["value"])
-			if(!isnum_safe(new_goal) || !contained_id)
+			if(!IS_FINITE(new_goal) || !contained_id)
 				return
 			if(!new_goal)
 				new_goal = default_goal

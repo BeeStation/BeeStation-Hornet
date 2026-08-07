@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(augury)
 	name = "Augury"
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/watchers = list()
@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(augury)
 	var/biggest_doom
 	var/biggest_threat
 
-	for(var/datum/d as() in doombringers)
+	for(var/datum/d as anything in doombringers)
 		if(QDELETED(d))
 			doombringers -= d
 			continue
@@ -31,19 +31,17 @@ SUBSYSTEM_DEF(augury)
 			biggest_threat = threat
 
 	if(length(doombringers))
-		for(var/mob/dead/observer/O in GLOB.player_list)
-			if(!(O in observers_given_action))
-				var/datum/action/augury/A = new
-				A.Grant(O)
-				observers_given_action += O
+		for(var/mob/dead/observer/observer in GLOB.player_list - observers_given_action)
+			var/datum/action/augury/action = new()
+			action.Grant(observer)
+			observers_given_action += observer
 	else
-		for(var/mob/dead/observer/O as() in observers_given_action)
-			for(var/datum/action/augury/A in O.actions)
-				qdel(A)
-				O.actions -= A
-			observers_given_action -= O
+		for(var/mob/dead/observer/observer in observers_given_action)
+			for(var/datum/action/augury/action in observer.actions)
+				qdel(action)
+			observers_given_action -= observer
 
-	for(var/mob/dead/observer/W as() in watchers)
+	for(var/mob/dead/observer/W as anything in watchers)
 		if(QDELETED(W))
 			watchers -= W
 			continue
@@ -52,7 +50,7 @@ SUBSYSTEM_DEF(augury)
 
 /datum/action/augury
 	name = "Auto Follow Debris"
-	icon_icon = 'icons/obj/meteor.dmi'
+	button_icon = 'icons/obj/meteor.dmi'
 	button_icon_state = "flaming"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	toggleable = TRUE

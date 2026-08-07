@@ -9,7 +9,6 @@
 	verb_say = "states coldly"
 	var/cooldown = 10
 	var/next_announce = 0
-	var/integrated = FALSE
 	var/max_dist = 150
 	/// Number which will be part of the name of the next record, increased by one for each already created record
 	var/record_number = 1
@@ -25,7 +24,7 @@
 	printer_ready = world.time + PRINTER_TIMEOUT
 	// Alt clicking when unwrenched does not rotate. (likely from UI not returning the mouse click)
 	// Also there is no sprite change for rotation dir, this shouldn't even have a rotate component tbh
-	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(RotationMessage)))
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotation))
 
 /datum/tachyon_record
 	var/name = "Log Recording"
@@ -48,19 +47,19 @@
 /obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	data["records"] = list()
-	for(var/datum/tachyon_record/R in records)
+	for(var/datum/tachyon_record/record in records)
 		var/list/record_data = list(
-			name = R.name,
-			timestamp = R.timestamp,
-			coordinates = R.coordinates,
-			displacement = R.displacement,
-			factual_epicenter_radius = R.factual_radius["epicenter_radius"],
-			factual_outer_radius = R.factual_radius["outer_radius"],
-			factual_shockwave_radius = R.factual_radius["shockwave_radius"],
-			theory_epicenter_radius = R.theory_radius["epicenter_radius"],
-			theory_outer_radius = R.theory_radius["outer_radius"],
-			theory_shockwave_radius = R.theory_radius["shockwave_radius"],
-			ref = REF(R)
+			name = record.name,
+			timestamp = record.timestamp,
+			coordinates = record.coordinates,
+			displacement = record.displacement,
+			factual_epicenter_radius = record.factual_radius["epicenter_radius"],
+			factual_outer_radius = record.factual_radius["outer_radius"],
+			factual_shockwave_radius = record.factual_radius["shockwave_radius"],
+			theory_epicenter_radius = record.theory_radius["epicenter_radius"],
+			theory_outer_radius = record.theory_radius["outer_radius"],
+			theory_shockwave_radius = record.theory_radius["shockwave_radius"],
+			ref = REF(record)
 		)
 		data["records"] += list(record_data)
 	return data
@@ -130,15 +129,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 		return
 	return ..()
 
-/obj/machinery/doppler_array/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
-/obj/machinery/doppler_array/proc/RotationMessage(mob/user)
+/obj/machinery/doppler_array/proc/post_rotation(mob/user, degrees)
 	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
-	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
+	playsound(src, 'sound/items/screwdriver2.ogg', 50, TRUE)
 
-/obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
-													took,orig_dev_range,orig_heavy_range,orig_light_range,explosion_index)
+/obj/machinery/doppler_array/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 	SIGNAL_HANDLER
 
 	if(machine_stat & NOPOWER)
@@ -156,17 +151,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 
 	if(distance > max_dist)
 		return FALSE
-	if(!(direct & dir) && !integrated)
+	if(!(direct & dir))
 		return FALSE
 
-	var/datum/tachyon_record/R = new /datum/tachyon_record()
-	R.name = "Log Recording #[record_number]"
-	R.timestamp = station_time_timestamp()
-	R.coordinates = "[epicenter.x], [epicenter.y]"
-	R.displacement = took
-	R.factual_radius["epicenter_radius"] = devastation_range
-	R.factual_radius["outer_radius"] = heavy_impact_range
-	R.factual_radius["shockwave_radius"] = light_impact_range
+	var/datum/tachyon_record/new_record = new /datum/tachyon_record()
+	new_record.name = "Log Recording #[record_number]"
+	new_record.timestamp = station_time_timestamp()
+	new_record.coordinates = "[epicenter.x], [epicenter.y]"
+	new_record.displacement = took
+	new_record.factual_radius["epicenter_radius"] = devastation_range
+	new_record.factual_radius["outer_radius"] = heavy_impact_range
+	new_record.factual_radius["shockwave_radius"] = light_impact_range
 
 	var/list/messages = list("Explosive disturbance detected.",
 							"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
@@ -175,15 +170,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	// If the bomb was capped, say its theoretical size.
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
 		messages += "Theoretical: Epicenter radius: [orig_dev_range]. Outer radius: [orig_heavy_range]. Shockwave radius: [orig_light_range]."
-		R.theory_radius["epicenter_radius"] = orig_dev_range
-		R.theory_radius["outer_radius"] = orig_heavy_range
-		R.theory_radius["shockwave_radius"] = orig_light_range
+		new_record.theory_radius["epicenter_radius"] = orig_dev_range
+		new_record.theory_radius["outer_radius"] = orig_heavy_range
+		new_record.theory_radius["shockwave_radius"] = orig_light_range
 
 	for(var/message in messages)
 		say(message)
 
 	record_number++
-	records += R
+	records += new_record
 	//Update to viewers
 	ui_update()
 
@@ -206,65 +201,100 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	else
 		icon_state = "[initial(icon_state)]-off"
 
-//Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
-/obj/machinery/doppler_array/integrated
-	name = "integrated tachyon-doppler module"
-	integrated = TRUE
-	max_dist = 21 //Should detect most explosions in hearing range.
-	use_power = NO_POWER_USE
-
 /obj/machinery/doppler_array/research
 	name = "tachyon-doppler research array"
 	desc = "A specialized tachyon-doppler bomb detection array that uses the results of the highest yield of explosions for research."
 	var/datum/techweb/linked_techweb
 
-/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
-		took, orig_dev_range, orig_heavy_range, orig_light_range) //probably needs a way to ignore admin explosives later on
+/obj/machinery/doppler_array/research/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+
+//Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
+/obj/machinery/doppler_array/integrated
+	name = "integrated tachyon-doppler module"
+	max_dist = 21
+	use_power = NO_POWER_USE
+	var/obj/item/clothing/head/helmet/space/hardsuit/suit
+
+/obj/machinery/doppler_array/integrated/New(hardsuit)
+	. = ..()
+	suit = hardsuit
+
+/obj/machinery/doppler_array/integrated/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
+	var/turf/zone = suit.loc
+	if(!zone || zone?.get_virtual_z_level() != epicenter.get_virtual_z_level())
+		return FALSE
+
+	if(next_announce > world.time)
+		return FALSE
+	next_announce = world.time + cooldown
+
+	var/distance = get_dist(epicenter, zone)
+	if(distance > max_dist)
+		return FALSE
+
+	var/list/messages = list(
+		"Explosive disturbance detected.",
+		"Epicenter at: grid ([epicenter.x], [epicenter.y]). Temporal displacement of tachyons: [took] seconds.",
+		"Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].",
+	)
+	for(var/message in messages)
+		say(message)
+
+//probably needs a way to ignore admin explosives later on
+/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	. = ..()
 	if(!.)
 		return
 	if(!istype(linked_techweb))
 		say("Warning: No linked research system!")
 		return
-
-	var/general_point_gain = 0
-	var/discovery_point_gain = 0
-
-	/*****The Point Calculator*****/
-
 	if(orig_light_range < 10)
 		say("Explosion not large enough for research calculations.")
 		return
-	else if(orig_light_range < 4500)
-		general_point_gain = (83300 * orig_light_range) / (orig_light_range + 3000)
-	else
-		general_point_gain = TECHWEB_BOMB_POINTCAP
-
-	/*****The Point Capper*****/
-	if(general_point_gain > linked_techweb.largest_bomb_value)
-		if(general_point_gain <= TECHWEB_BOMB_POINTCAP || linked_techweb.largest_bomb_value < TECHWEB_BOMB_POINTCAP)
-			var/old_tech_largest_bomb_value = linked_techweb.largest_bomb_value //held so we can pull old before we do math
-			linked_techweb.largest_bomb_value = general_point_gain
-			general_point_gain -= old_tech_largest_bomb_value
-			general_point_gain = min(general_point_gain,TECHWEB_BOMB_POINTCAP)
-		else
-			linked_techweb.largest_bomb_value = TECHWEB_BOMB_POINTCAP
-			general_point_gain = 1000
-		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
-		if(D)
-			D.adjust_money(general_point_gain)
-			discovery_point_gain = general_point_gain * 0.5
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, general_point_gain)
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
-
-			say("Explosion details and mixture analyzed and sold to the highest bidder for $[general_point_gain], with a reward of [general_point_gain] General Research points and [discovery_point_gain] Discovery Research points.")
-
-	else //you've made smaller bombs
+	if(orig_light_range <= linked_techweb.largest_bomb_value)
 		say("Data already captured. Aborting.")
 		return
 
-/obj/machinery/doppler_array/research/science/Initialize(mapload)
-	. = ..()
-	linked_techweb = SSresearch.science_tech
+	var/prev_largest_bomb_value = linked_techweb.largest_bomb_value
+	linked_techweb.largest_bomb_value = orig_light_range
+
+	/***** The Point Calculator *****/
+
+	var/general_point_gain = 0
+	var/money_gain = 0
+	if(orig_light_range < 4500)
+		general_point_gain = round((833 * orig_light_range) / (orig_light_range + 30))
+		money_gain = round((83300 * orig_light_range) / (orig_light_range + 3000))
+	else
+		general_point_gain = TECHWEB_BOMB_POINTCAP
+		money_gain = TECHWEB_BOMB_MONEYCAP
+
+	var/prev_general_point_gain = 0
+	var/prev_money_gain = 0
+	if(prev_largest_bomb_value) // prevent division by zero
+		if(prev_largest_bomb_value < 4500)
+			prev_general_point_gain = (833 * prev_largest_bomb_value) / (prev_largest_bomb_value + 30)
+			prev_money_gain = (83300 * prev_largest_bomb_value) / (prev_largest_bomb_value + 3000)
+		else
+			prev_general_point_gain = TECHWEB_BOMB_POINTCAP
+			prev_money_gain = TECHWEB_BOMB_MONEYCAP
+
+	general_point_gain -= prev_general_point_gain
+	money_gain -= prev_money_gain
+
+	/***** Give Points and $$$ *****/
+
+	var/discovery_point_gain = general_point_gain
+	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, general_point_gain)
+	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
+
+	var/datum/bank_account/science_bank = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
+	science_bank?.adjust_money(money_gain)
+
+	say("Explosion details and mixture analyzed [science_bank ? "and sold to the highest bidder for [money_gain]cr, " : ""]\
+		with a reward of [general_point_gain] [TECHWEB_POINT_TYPE_GENERIC] and [discovery_point_gain] [TECHWEB_POINT_TYPE_DISCOVERY].")
 
 #undef PRINTER_TIMEOUT

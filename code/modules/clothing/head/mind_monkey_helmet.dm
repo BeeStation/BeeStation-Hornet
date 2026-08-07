@@ -15,7 +15,7 @@
 	compile_monkey_icon()
 	if(ismob(loc))
 		var/mob/mob = loc
-		mob.update_inv_head()
+		mob.update_worn_head()
 
 /obj/item/clothing/head/helmet/monkey_sentience_helmet/update_icon_state()
 	. = ..()
@@ -25,7 +25,9 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	if(!ismonkey(user) || user.key)
+	if(!iscarbon(user))
+		return
+	if(!HAS_TRAIT(user, TRAIT_PRIMITIVE) || user.key)
 		to_chat(user, span_boldnotice("You feel a stabbing pain in the back of your head for a moment."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
@@ -35,19 +37,22 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/user)
 	if (user.stat) //Checks if the monkey is dead.
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE) //If so, buzz and do not poll ghosts
 		return
 	user.visible_message(span_warning("[src] powers up!"))
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	var/list/candidates = poll_candidates_for_mob(
-		question = "Do you want to play as a mind magnified monkey?",
-		jobban_type = ROLE_MONKEY_HELMET,
-		role_preference_key = null,
-		poll_time = 100,
-		target_mob = user,
-		ignore_category = POLL_IGNORE_MONKEY_HELMET)
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_MONKEY_HELMET,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_MONKEY_HELMET,
+		jump_target = user,
+		role_name_text = "mind magnified monkey",
+		alert_pic = src,
+		amount_to_pick = 1,
+	)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died
 	if(QDELETED(src) || !user || magnification || user.stat)
@@ -56,12 +61,12 @@
 		user.visible_message(span_notice("[src] powers down!"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
-	if(!candidates.len)
+	if(!candidate)
 		user.visible_message(span_notice("[src] falls silent. Maybe you should try again later?"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
-	var/mob/picked = pick(candidates)
-	user.key = picked.key
+
+	user.key = candidate.key
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	RegisterSignal(magnification.current, COMSIG_MOB_LOGOUT, PROC_REF(disconnect))

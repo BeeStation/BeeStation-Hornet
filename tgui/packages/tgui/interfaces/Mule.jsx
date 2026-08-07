@@ -1,5 +1,14 @@
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Button, Dropdown, Grid, Input, LabeledList, ProgressBar, Section, Flex } from '../components';
+import {
+  Button,
+  Flex,
+  Input,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
@@ -38,8 +47,12 @@ export const Mule = (props) => {
                 onClick={() => act('power')}
               />
             )
-          }>
-          <ProgressBar value={cell ? cellPercent / 100 : 0} color={cell ? 'good' : 'bad'} />
+          }
+        >
+          <ProgressBar
+            value={cell ? cellPercent / 100 : 0}
+            color={cell ? 'good' : 'bad'}
+          />
           <Flex mt={1}>
             <Flex.Item grow={1} basis={0}>
               <LabeledList>
@@ -50,7 +63,10 @@ export const Mule = (props) => {
             </Flex.Item>
             <Flex.Item grow={1} basis={0}>
               <LabeledList>
-                <LabeledList.Item label="Load" color={load ? 'good' : 'average'}>
+                <LabeledList.Item
+                  label="Load"
+                  color={load ? 'good' : 'average'}
+                >
                   {load || 'None'}
                 </LabeledList.Item>
               </LabeledList>
@@ -62,13 +78,29 @@ export const Mule = (props) => {
             title="Controls"
             buttons={
               <>
-                {!!load && <Button icon="eject" content="Unload" onClick={() => act('unload')} />}
-                {!!haspai && <Button icon="eject" content="Eject PAI" onClick={() => act('ejectpai')} />}
+                {!!load && (
+                  <Button
+                    icon="eject"
+                    content="Unload"
+                    onClick={() => act('unload')}
+                  />
+                )}
+                {!!haspai && (
+                  <Button
+                    icon="eject"
+                    content="Eject PAI"
+                    onClick={() => act('ejectpai')}
+                  />
+                )}
               </>
-            }>
+            }
+          >
             <LabeledList>
               <LabeledList.Item label="ID">
-                <Input value={id} onChange={(e, value) => act('setid', { value })} />
+                <Input
+                  value={id}
+                  onChange={(e, value) => act('setid', { value })}
+                />
               </LabeledList.Item>
               <LabeledList.Item label="Destination">
                 <Dropdown
@@ -78,7 +110,11 @@ export const Mule = (props) => {
                   width="150px"
                   onSelected={(value) => act('destination', { value })}
                 />
-                <Button icon="stop" content="Stop" onClick={() => act('stop')} />
+                <Button
+                  icon="stop"
+                  content="Stop"
+                  onClick={() => act('stop')}
+                />
                 <Button icon="play" content="Go" onClick={() => act('go')} />
               </LabeledList.Item>
               <LabeledList.Item label="Home">
@@ -89,14 +125,30 @@ export const Mule = (props) => {
                   width="150px"
                   onSelected={(value) => act('destination', { value })}
                 />
-                <Button icon="home" content="Go Home" onClick={() => act('home')} />
+                <Button
+                  icon="home"
+                  content="Go Home"
+                  onClick={() => act('home')}
+                />
               </LabeledList.Item>
               <LabeledList.Item label="Settings">
-                <Button.Checkbox checked={autoReturn} content="Auto-Return" onClick={() => act('autoret')} />
+                <Button.Checkbox
+                  checked={autoReturn}
+                  content="Auto-Return"
+                  onClick={() => act('autoret')}
+                />
                 <br />
-                <Button.Checkbox checked={autoPickup} content="Auto-Pickup" onClick={() => act('autopick')} />
+                <Button.Checkbox
+                  checked={autoPickup}
+                  content="Auto-Pickup"
+                  onClick={() => act('autopick')}
+                />
                 <br />
-                <Button.Checkbox checked={reportDelivery} content="Report Delivery" onClick={() => act('report')} />
+                <Button.Checkbox
+                  checked={reportDelivery}
+                  content="Report Delivery"
+                  onClick={() => act('report')}
+                />
               </LabeledList.Item>
             </LabeledList>
           </Section>

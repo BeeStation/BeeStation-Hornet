@@ -3,24 +3,23 @@
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
+	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
 	// Managed by the limb overlay system
-	blocks_emissive = FALSE
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
-		/obj/item/bodypart/l_arm/monkey,
-		/obj/item/bodypart/r_arm/monkey,
-		/obj/item/bodypart/r_leg/monkey,
-		/obj/item/bodypart/l_leg/monkey
+		/obj/item/bodypart/arm/left/monkey,
+		/obj/item/bodypart/arm/right/monkey,
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
 	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
@@ -59,6 +58,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	create_bodyparts()
 	create_internal_organs()
 
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_NUDE, INNATE_TRAIT)
+
 	. = ..()
 
 	if (cubespawned)
@@ -72,8 +73,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	create_dna()
 	dna.initialize_dna(random_blood_type())
 	AddComponent(/datum/component/bloodysoles/feet)
-	//Set offsets here, DONT mess with monkey species, we use human anyway.
-	dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-4), OFFSET_HEAD = list(0,-4), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_BAREFOOT, 1, 2)
@@ -97,7 +96,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	internal_organs += new /obj/item/organ/appendix
 	internal_organs += new /obj/item/organ/lungs
 	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain
+	internal_organs += new /obj/item/organ/brain/primate
 	internal_organs += new /obj/item/organ/tongue
 	internal_organs += new /obj/item/organ/eyes
 	internal_organs += new /obj/item/organ/ears
@@ -129,8 +128,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed Genomes"] = GENERATE_STAT_TEXT("[changeling.absorbed_genomes]")
+			tab_data["Absorbed Humans"] = GENERATE_STAT_TEXT("[changeling.absorbed_people]")
 	return tab_data
 
 
@@ -184,11 +184,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 
 	return threatcount
 
-/mob/living/carbon/monkey/IsVocal()
-	if(!getorganslot(ORGAN_SLOT_LUNGS))
-		return 0
-	return 1
-
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
 
@@ -198,10 +193,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
-		var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
-		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
-		helmet.attack_self(src) // todo encapsulate toggle
+		INVOKE_ASYNC(src, PROC_REF(give_ape_escape_helmet))
 
+/// Gives our funny monkey an Ape Escape hat reference
+/mob/living/carbon/monkey/angry/proc/give_ape_escape_helmet()
+	var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
+	equip_to_slot_or_del(helmet, ITEM_SLOT_HEAD)
+	helmet.attack_self(src) // todo encapsulate toggle
 
 //Special monkeycube subtype to track the number of them and prevent spam
 /mob/living/carbon/monkey/cube/Initialize(mapload)
@@ -224,10 +222,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
-	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
-	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	butcher_results = list(/obj/effect/spawner/random/medical/teratoma/minor = 5, /obj/effect/spawner/random/medical/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/random/medical/teratoma/minor
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
+					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
 	var/creator_key = null
 
@@ -251,13 +249,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	species_traits = list(HAIR_COLOR, FACIAL_HAIR_COLOR, LIPS)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NONECRODISEASE
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NOT_TRANSMORPHIC,
 	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -265,12 +264,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 
-	species_chest = /obj/item/bodypart/chest/monkey/teratoma
-	species_head = /obj/item/bodypart/head/monkey/teratoma
-	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
-	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
-	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
-	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey/teratoma
+	)
 
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"
@@ -281,9 +282,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	if(!QDELETED(src))
 		qdel(src)
 
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
-
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE
 
@@ -292,3 +290,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+
+/mob/living/carbon/monkey/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "monkey_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
+
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
+
+	return GLOB.fire_appearances[fire_icon]

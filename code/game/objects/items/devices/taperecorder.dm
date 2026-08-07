@@ -3,7 +3,7 @@
 	desc = "A device that can record to cassette tapes, and play them. It automatically translates the content in playback."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_empty"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	worn_icon_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -124,7 +124,7 @@
 
 /obj/item/taperecorder/proc/can_use(mob/user)
 	if(user && ismob(user))
-		if(!user.incapacitated())
+		if(!user.incapacitated)
 			return TRUE
 	return FALSE
 
@@ -157,11 +157,14 @@
 	return ..()
 
 
-/obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
+/obj/item/taperecorder/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, spans, list/message_mods = list(), message_range)
 	. = ..()
+	if(message_mods[MODE_RELAY])
+		return
+
 	if(mytape && recording)
 		mytape.timestamp += mytape.used_capacity
-		mytape.storedinfo += "\[[time2text(mytape.used_capacity,"mm:ss")]\] [message]"
+		mytape.storedinfo += "\[[time2text(mytape.used_capacity,"mm:ss")]\] [raw_message]"
 
 /obj/item/taperecorder/verb/record()
 	set name = "Start Recording"
@@ -261,7 +264,7 @@
 			balloon_alert(usr, "recording ended")
 			sleep(1 SECONDS)
 			break
-		say("[mytape.storedinfo[i]]")
+		say("[mytape.storedinfo[i]]", sanitize=FALSE, message_mods = list(MODE_SEQUENTIAL = TRUE))//We want to display this properly, don't double encode
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(1 SECONDS)
@@ -269,7 +272,7 @@
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14 SECONDS)
 			sleep(1 SECONDS)
-			say("Skipping [playsleepseconds/10] seconds of silence.")
+			say("Skipping [playsleepseconds/10] seconds of silence.", message_mods = list(MODE_SEQUENTIAL = TRUE))
 			playsleepseconds = 1 SECONDS
 		i++
 
@@ -373,7 +376,7 @@
 	desc = "A magnetic tape that can hold up to ten minutes of content on either side."
 	icon_state = "tape_white"
 	icon = 'icons/obj/device.dmi'
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY

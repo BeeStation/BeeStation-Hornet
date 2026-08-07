@@ -3,6 +3,7 @@ import { BooleanLike } from 'common/react';
 export type SecurityRecordsData = {
   character_preview_view: string;
   authenticated: BooleanLike;
+  is_silicon: BooleanLike;
   amount: number;
   available_statuses: string[];
   current_user: string;

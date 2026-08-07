@@ -52,7 +52,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 
 /turf/open/indestructible/sound/pool/Entered(atom/movable/AM)
 	. = ..()
-	AM.wash(CLEAN_TYPE_WEAK)
+	AM.wash(CLEAN_WASH)
 	if(isliving(AM))
 		var/datum/component/swimming/S = AM.GetComponent(/datum/component/swimming) //You can't get in the pool unless you're swimming.
 		if(!S)
@@ -123,7 +123,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(ishuman(user))
 		var/mob/living/carbon/human/F = user
 		var/datum/species/SS = F.dna.species
-		if(MOB_ROBOTIC in SS.inherent_biotypes)  //ZAP goes the IPC!
+		if(SS.inherent_biotypes & MOB_ROBOTIC)  //ZAP goes the IPC!
 			zap = 2 //You can protect yourself from water damage with thick clothing.
 		if(F.head && isclothing(F.head))
 			var/obj/item/clothing/CH = F.head
@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	current_temperature += delta
 	current_temperature = clamp(current_temperature, T0C, desired_temperature)
 	var/trans_amount = reagents.total_volume / pool.len //Split up the reagents equally.
-	for(var/turf/open/indestructible/sound/pool/water as() in pool)
+	for(var/turf/open/indestructible/sound/pool/water as anything in pool)
 		if(reagents.reagent_list.len)
 			water.set_colour(mix_color_from_reagents(reagents.reagent_list))
 		else

@@ -1,0 +1,461 @@
+2024-10-01:
+  Aramix:
+  - balance: replaced ninja's teleport with a dash similar to syndicate experimental
+      teleporter's, but instead of telefrag, it automatically attacks every mob encountered
+      with the sword, unless on help intent
+  - balance: energy katana damage nerfed from 40 to 25
+  - balance: ninja dash charges no longer recharge in parallel, now recharging one
+      at a time
+  - balance: ninja dash can now be stopped by a functional bluespace anchor
+  - bugfix: fixed runtimes causing loss of functionality or of visual effects with
+      energy katana dash
+  - bugfix: ninja suit examine now properly shows related stats when initialized
+  - refactor: extracted the logic in syndicate experimental teleporter's attempt_teleport
+      into a generalized and parametrizable do_dash proc
+  - code_imp: rewrote syndicate experimental teleporter and ninja dash to use the
+      new do_dash proc
+  HowToLoLu:
+  - bugfix: The Chat Client program now uses chat filters fully.
+  - tweak: PDAs now use OOC filtering instead, allowing for netspeak \o/.
+  Szyszkrzyneczka:
+  - rscdel: Removes the devil
+  Therealdoooc:
+  - rscadd: Adds the Nymph Swarm event, a new way for ghosts to get into the round
+      (or a new food source)
+  xXPawnStarrXx, ktlwjec:
+  - rscadd: Most pies can now be sliced rather than being consumed whole.
+2024-10-02:
+  Szyszkrzyneczka:
+  - rscdel: Removes hivemind
+2024-10-03:
+  Therealdoooc:
+  - bugfix: gluttony's blessing disease no longer shows a entire code string as its
+      cure
+  XeonMations:
+  - bugfix: Fixed the stunbaton's balloon alert message.
+  h42:
+  - bugfix: Nostalgic winter coats have the correct color hoods
+  - imageadd: Re-added some sprites for the nostalgic winter coat hoods
+  - spellcheck: renamed the old cargo coat to "nostalgic cargo winter coat"
+2024-10-04:
+  PowerfulBacon:
+  - tweak: Improves compilation times by ~2.3 seconds by removing unnecessary build
+      process overhead.
+  - code_imp: Significant code improvements on the tonfa.
+  - balance: Tonfa no longer causes unconciousness or paralysis, instead using regular
+      stamina damage.
+  - balance: Tonfa's damage has been standardised to make it easier to balance.
+  - balance: Tonfa leg attack causes knockdown and pushback if the target has enough
+      stamina damage.
+  - balance: Tonfa is now the same size as the baton
+  rkz,  AMonkeyThatCodes, Kryson, Ghommie:
+  - rscadd: Adds Ovens, a new way of cooking.
+  - rscadd: Does mapchanges to accommodate new oven machines
+  - rscadd: Converts cakes, pies, bread and pizza all to baking cook method.
+  - rscadd: New sprites for pizza and some cooking ingredients
+  - bugfix: fixes some recipes
+  - code_imp: kitchen icon file & folder reorg
+  - tweak: minor repathing of knife code
+2024-10-05:
+  ClownMoff:
+  - bugfix: Fixes security locker in medbay outpost being the science one
+  - bugfix: Fixes missplaced chem storage fridge on medbay protolathe room and replaces
+      it for a preloaded one.
+  - rscadd: Adds the missing preloaded chem storage fridge for the public in chemistry
+  - bugfix: Fixes service maintenance door problems
+  - bugfix: Fixes the detective not having access to the morgue
+  HowToLoLu:
+  - bugfix: Removed unused variable in tonfa code
+  XeonMations:
+  - spellcheck: Renamed space heaters to portable thermomachines
+  ktlwjec:
+  - rscadd: A sink has been installed in Boxstation kitchen.
+2024-10-06:
+  BarteG44:
+  - tweak: Replaces 17 reinforced walls in Meta's maintenance with normal walls
+2024-10-08:
+  PowerfulBacon:
+  - bugfix: Properly updates ninja movement speed when the suit activates.
+  Therealdoooc:
+  - bugfix: Revolutionary now appears in the correct section in antag preferences
+  rkz, Trigg, Stylemistake, Arkatos:
+  - admin: made the Select Equipment context menu command have a TGUI menu
+  - admin: TGUIs custom outfit creator
+2024-10-10:
+  Aramix:
+  - bugfix: MULEbots can now have their wires hacked again when using wire-related
+      tools
+  PowerfulBacon:
+  - tweak: Changes the red alert status panel display sprite
+  Rukofamicom:
+  - rscadd: Added a new voting system. Players will find a new button in their status
+      tab for voting to end the current round which they can use at any time instead
+      of needing to wait. The required percentage of players for the vote to succeed
+      decays as the round goes on, and the button first becomes visible only after
+      the shuttle is available.
+  - tweak: Dead players can now vote to end a round
+  ktlwjec:
+  - bugfix: You can see food placed in microwaves again.
+  rkz, zxaber, sealed101:
+  - balance: Introduces an ammo management system for mech ballistics & missiles.
+      Bullets are no longer auto-refilled by consuming a mechs energy, but instead
+      rely on an internal cache. This cache can be refilled to up to 4x its gun capacity.
+      A depleted cache must be refilled with special ammo boxes.
+  - rscadd: Adds mech ammo boxes to Mechfabricators, Security Lathes, and Syndicate
+      Bundles.
+  - rscadd: Readds station-researchable missiles, the Breaching missile! Used to breach
+      walls.
+  - tweak: tweaks mech projectile values
+2024-10-11:
+  MarkusLarsson421:
+  - tweak: Standardized all Security Outposts to use Security access along with the
+      related Head of Staff for the department they are in.
+  PowerfulBacon:
+  - balance: Removes hard-stun from Mjolnir every time you take a hit from it.
+  mystery3525:
+  - code_imp: Added signal handlers for attack_ai(), attack_robot(), and interact()
+  - bugfix: Interaction with cameras and buttons not working.
+  rkz, coiledlamb, MTandi:
+  - imageadd: added new salt, pepper, and empty shaker sprites.
+  - imageadd: Resprited most condiment containers
+  - imageadd: Added sprites for cooking oil, ketchup, bbq, jelly, honey & hotsauce
+      condiment bottles
+  - imageadd: Replaced old condiment bottles with the newer bottles in Condi Master
+  - rscdel: Condiment containers no longer change icon when their main ingredient
+      changes (eg. salt saker no longer turns into flour sack when you refill it with
+      flour)
+  - rscadd: Condiment bottle style can be specified when creating via CondiMaster
+  - bugfix: Name given to bottle created through CondiMaster now actually applied
+      to it
+  - bugfix: Name given to condiment container by pen persists when container contents
+      changed
+2024-10-12:
+  PowerfulBacon:
+  - code_imp: Modifies the github workflows so that unmergable PRs become stale.
+  rkz, cacogen, Vladoricious, MrMelbert, jacklecroy:
+  - tweak: Cargo pizza crate now picks randomly from a list of most pizzas (non-repeating)
+  - bugfix: Cargo pizza crate pizza boxes now display their tags correctly
+  - rscadd: New box tags for pizzas that previously lacked them
+  - rscadd: Pizza bomb variant that starts armed (look for the "Meat Explosion" box
+      tag)
+  - bugfix: The food processor no longer strips chemicals from the things you put
+      inside
+  - bugfix: A bun will no longer disappear if you add an ingredient to it while it
+      is in your hand.
+  - bugfix: Custom burgers will no longer disappear from adding too many ingredients.
+2024-10-13:
+  Absolucy, LT3, san7890, Melbert, Aylong:
+  - rscadd: Gave announcements an eyecandy makeover!
+  BarteG44:
+  - bugfix: fixes the broken cargo tech alt jumpsuit style
+  BeeLover66:
+  - bugfix: Uplink failsafe code no longer has a chance of being the same as the unlock
+      code
+  - bugfix: Uplink failsafe code is now shown properly on the traitor UI panel
+  - bugfix: Uplink unlock and failsafe codes are formatted properly for the pen uplink
+  - bugfix: Buying a failsafe for an implant uplink now shows an error message
+  ClownMoff:
+  - tweak: 'CorgStation: Swaps the position of brig medbay and armory'
+  - tweak: 'CorgStation: Gives the HoS room the proper shutters'
+  ClownMoff, EOBGames,CoiledLamb:
+  - rscadd: Adds a new CTF map!
+  - rscadd: Ports containers from /TG/
+  - imageadd: Adds a custom sprite for red/team spawn icons
+  MarkusLarsson421:
+  - bugfix: Fixed Security Checkpoints access requirements.
+  PowerfulBacon:
+  - bugfix: Fixes toxins test site camera.
+  - bugfix: Fixes Radstation security output medbay telescreen.
+  - bugfix: Detective's room telescreens are now station cameras and not thunderdome
+      monitors
+  RDS88-beeman:
+  - bugfix: Doctor's bags are no longer invisible on your belt. Now you can see the
+      cool sprite that someone made!
+  - rscadd: Syndicate Traitors can now purchase a medkit at the low low cost of 2
+      telecrystals. Contains medicine for emergency healing.
+  - bugfix: The government will no longer steal all but one of your plastic stack
+      when you add it to a lathe. Chemists rejoice!
+  Rukofamicom:
+  - bugfix: Humanoids now gib properly again
+  Tsar-Salat:
+  - tweak: Allows equipping of det should holster in belt again. You can also wear
+      it in exosuit or suit storage slot.
+  TsunamiAnt:
+  - admin: Man UP! smite for admins.
+  XeonMations:
+  - bugfix: Fixed gibbed dionae deleting items.
+  mystery3525:
+  - rscadd: Cyborgs can now harvest plants from the hydroponics bin.
+  - rscadd: AI and Cyborgs can now toggle floodlights.
+  rkv, LemonInTheDark, kriskog:
+  - bugfix: fix stasis bed bucklecuff escaping
+  - bugfix: fix chair bucklecuff escaping
+  - code_imp: potentially addresses some hardeletes in progressbar code
+  - code_imp: stoplag no longer stops lag in unit tests (it can hardelete)
+  - code_imp: Refactored the incapacitated proc to skip optional arguments and use
+      the named arguments properly to improve readability.
+2024-10-14:
+  PowerfulBacon:
+  - bugfix: Github issues will correctly be marked as stale after 30 days instead
+      of 7
+2024-10-16:
+  BeeLover66:
+  - bugfix: Radio channels no longer always default to common when no encryption key
+      is installed
+2024-10-18:
+  ktlwjec:
+  - bugfix: Breaking grilles no longer drop invisible rods.
+  rkz, Ryll/Shaps, LemonInTheDark, Couls, JohnFulpWillard, OnlineGirlfriend:
+  - refactor: repaths drinks and reagent containers to a centralized file. Food reagent_containers
+      no longer exist.
+  - bugfix: fixed a few outlying food checks that still expected reagent_containers
+  - bugfix: fixed caltrop bug with plates
+  - bugfix: hot chocolate no longer spontaneously becomes chocolate milk when put
+      in a different container
+  - code_imp: moves hot chocolate, tea, coffee "food" recipes to drink recipes
+  - tweak: hot chocolate now inherits milk's healing (its made from milk, get it?)
+  - tweak: caltrop now applies to broken bottles
+  - tweak: drinking from used glasses can now pass diseases, same as food. Bartenders!
+      Clean your glasses!
+  - tweak: adds soda shaking. Shaking/throwing a soda around before opening may make
+      it erupt when opened.
+  - rscadd: soda shaking noises
+2024-10-19:
+  ClownMoff:
+  - rscadd: 'FlandStation: Adds a missing oven on the kitchen'
+  - rscdel: 'FlandStation: Deletes one of the 2 deepfryers on the kitchen.'
+  MarkusLarsson421:
+  - bugfix: Changed Robotic Head from bulky to normal.
+  Rukofamicom:
+  - config: The percentage of votes required to leave now starts at 70% instead of
+      75%
+  - config: Auto-transfer reminders to vote now happen every 40 minutes, and decay
+      of the required votes to leave now begins at 40 minutes instead of 60.
+  - config: These changes mean the maximum round length before a shuttle is forcibly
+      called is now 3 hours instead of 3.5.
+  Sarchutar:
+  - bugfix: Deconverting clock cultists now show a message when it was successful
+  - bugfix: Fixed ERT hardsuit lights not being able to be turned on
+  - bugfix: Fixed ERT hardsuit helmets turning into engineering ones when the light
+      is turned on
+  Therealdoooc213:
+  - rscdel: Removes LRPspeak from hallucinations
+  - rscadd: New hallucination types!
+  rkz, Kylerace, TemporalOroboros:
+  - refactor: moves integrity down to the /atom level
+  - refactor: desnowflakes gas tank items to use integrity
+  - bugfix: gas tanks now release their contents if destroyed
+2024-10-20:
+  EvilDragonfiend:
+  - bugfix: fixed map adjustment is being applied to wrong station maps
+  RKz, itsmeowdev, LemonInTheDark, Timberpoes, Actioninja, monster860:
+  - rscadd: adds smooth movement
+  - rscadd: smooth movement is the clean gliding of items, mobs, or structures across
+      turfs. This will apply to you moving around the station, as well as items. Its
+      implementation will be most noticeable in zero gravity.
+  - bugfix: fixes infinite duplication bug regarding space movement of items and "phantom
+      pickups"
+  - config: updates default server to 60 fps, from 20 fps
+  - tweak: defaults camera acceleration to FALSE. If you are playing an eyeobj mob
+      like a camera console, AI, or blob overmind and it looks really bad, turn off
+      your camera acceleration. CamE looks terrible on my high-end pc, but fine on
+      my laptop, so user experience may vary.
+2024-10-21:
+  Rukofamicom:
+  - bugfix: fixed a game-crashing bug with the syndicate explosive walls
+  - bugfix: fixed gibtonite rocks remaining behind after blowing up indefinitely
+2024-10-22:
+  BarteG44:
+  - bugfix: fixed emitter welding
+  - bugfix: fixed cult robes using the wrong hood
+  Dejaku51:
+  - rscadd: camera shake on fire
+  - tweak: BSA tgui panel has been upgraded!
+  - balance: removed ability to rapid fire BSA
+  - balance: BSA now requires 20MW to shoot
+  - bugfix: can hear BSA sounds once again!
+  - bugfix: fixes charging making it charge the correct way
+  - code_imp: kW MW GW defines now added
+  MarkusLarsson421:
+  - rscadd: Added anomaly cores to the Cargo bounty.
+  - rscadd: Added cores to be sellable, including ones made from the SM.
+  - balance: Added another method for Cargo to get fat stacks of cash.
+  - balance: Gave anomaly cores a non-bounty sell value, even ones made by the SM.
+  NotRanged:
+  - rscadd: Emitters now fire hitscan lasers!
+  - bugfix: Hitscan projectiles now reflect correctly
+  Programs-The-Station:
+  - tweak: Adds the ability to set Conveyor Belt direction directly from USB circuit
+      Connections
+  Sarchutar, tralezab, Timberpoes, CoffeeDragon16, san7890, MrMelbert, Arkatos1:
+  - rscadd: Wizard Spellbook TGUI, with a randomizer and four presets
+  - bugfix: slaughter demon bottles and apprentice contracts now give back their full
+      point amount when refunded
+  - bugfix: refunding a laughter demon doesn't raise the buy limit of slaughter demons
+      anymore
+  - bugfix: liches and mindswapped wizard can use their spellbook again
+  Tsar-Salat:
+  - bugfix: the oven tray should no longer appear above the oven when it should be
+      inside
+  - bugfix: only roundstart ovens start with trays inside. Make them from autolathes.
+  - bugfix: ovens obey pass flags
+  - code_imp: fixes drinks updatepaths
+  ktlwjec:
+  - spellcheck: Adds descriptions to chav and wacky genes.
+2024-10-23:
+  rkz, Ghommie, GoldenAlpharex, Sealed101:
+  - tweak: makes Dullahans undead, like the other halloween races.
+  - rscadd: Added ventriloquism to disembodied heads.
+  - bugfix: Dullahans won't gib when their head is thrown in a recycler, ahealed or
+      have their limbs regenerated somehow.
+  - bugfix: Dullahans' heads can now be picked up.
+  - bugfix: Fixes dullahans being unable to receive visible/hearable messages (excluding
+      chat messages)
+  - refactor: Refactored Dullahans in many areas to fix many, many of their bugs and
+      glitches and ensure an actually functional experience playing as one, while
+      also improving as much code as I could along the way.
+  - bugfix: Dullahans only hear speech through their head (not sounds, sadly, someone
+      else would have to tell me how to do that because I otherwise really wouldn't
+      know how to do it in a sane way), they speak through their head, runechat-included.
+  - bugfix: When you spawn a Dullahan, you're set to look through the Dullahan's eyes
+      (so from their head), and that doesn't reset when you log off and back in, or
+      admin-ghost and come back in your body.
+  - bugfix: When you're looking through your head, your view will no longer be reset
+      to your body upon entering a locker, which is nice to avoid not being blind
+      while looking through your body.
+  - bugfix: Dullahan heads no longer look completely lifeless and without organs.
+      They have eyes that don't look dead and that even match the player's intended
+      eye color.
+  - bugfix: Dullahan can now properly examine things from their head's view.
+  - bugfix: Dullahan heads now speak with the proper name of their owner, instead
+      of having a random name attached to it at round-start.
+  - bugfix: Dullahan heads are also now properly named too.
+  - bugfix: Dullahans can now properly whisper, sing and do all these funny things
+      that they were unable to do before.
+  - bugfix: Dullahans can now succumb in hardcrit by whispering, as intended. This
+      potentially fixes other species that worked similarly not being able to succumb,
+      like abductors.
+  - bugfix: When switching from Dullahans to a different species, your old head will
+      no longer stay behind.
+2024-10-24:
+  carlarctg:
+  - rscadd: New medibot syndicate type!
+  - balance: The Syndicate Infiltraitor and the Ninja Dojo now spawn with syndicate
+      medibots, Oppenheimer and Hijikata respectively.
+  - bugfix: medibots now properly spawn with correct icons
+  ktlwjec:
+  - bugfix: Radiation and fire closet build results work as expected.
+2024-10-25:
+  ClownMoff:
+  - tweak: adds the old bananium turf sprite back
+  PowerfulBacon:
+  - balance: Removes the effects that makes you unable to self-tend shortly after
+      self-tending with ointment and bruise packs.
+  - balance: Adds a significant combat debuff when self-tending with ointment and
+      bruise-packs.
+  RDS88-beeman:
+  - balance: Pickaxes are faster now, you can put your back into it! Granted, putting
+      your back into it tends to tire you out, so watch out for that.
+  Tsar-Salat:
+  - bugfix: fixes some important clothing variables not being passed during changeling
+      transformation
+  - bugfix: enforces drop deletion on all changeling items
+2024-10-26:
+  Therealdoooc213:
+  - balance: paramedics no longer start with full doctors bags, they have a custom
+      one now
+  - tweak: paramedics start with degraded medhud sunglasses
+2024-10-27:
+  ClownMoff:
+  - rscadd: 'BoxStation: Added new decals.'
+  - rscadd: 'BoxStation: Added  folders in lobby and psychiatrist room.'
+  - rscdel: 'BoxStation: Deleted an extra crew sensors computer.'
+  - tweak: 'BoxStation: Moves the delivery beacon in medbay from the surgery theatre
+      to the surgery room.'
+  - tweak: 'BoxStation: Adjusts the coldroom MuleBot dock a little .'
+  - tweak: 'BoxStation:  Changes the medical records laptop for a computer to replace
+      the duplicate crew sensors computer.'
+  - tweak: 'BoxStation: Puts the chemistry fridge for medbay staff in an place that
+      can be accessed inside chemistry and moves the medbay storage slightly to accomodate
+      this change.'
+  - tweak: 'BoxStation: Puts the correct floor type in the mulebot delivery place
+      in the bar and kitchen coldroom.'
+  - tweak: 'BoxStation: Fixed a mapping error where the kitchen area would reach the
+      customer area in front of it, allowing chefs to CQC outside the kitchen.'
+  - tweak: 'BoxStation: Moves the organ fridge for surgery to a place that can be
+      accessed inside and outside surgery.'
+  - tweak: 'BoxStation: Moves a NanoMed in the treatment center to a better location.'
+  - tweak: 'BoxStation: Organizes the treatment center in medbay around for a better
+      layout.'
+  - tweak: 'BoxStation: Swaps a lot of reinforced windows for normal windows in service
+      and medbay area.'
+  - bugfix: 'BoxStation: Fixes the service maintenance not being accesible by having
+      maintenance access'
+  - bugfix: 'BoxStation: Fixes the morgue door not working due to an error in the
+      access'
+  - bugfix: 'BoxStation: Adds maintenance area the bar backroom airlock.'
+  MarkusLarsson421:
+  - rscdel: Removed unused maintenance room details.
+  - bugfix: Fixed maintenance room incorrect path name.
+  - rscadd: Added Kilo themed maintenance room.
+  ktlwjec:
+  - bugfix: Bronze desk bell will not change color while ringing.
+2024-10-28:
+  MarkusLarsson421:
+  - bugfix: Added oven to gen pop donut workshop.
+  Tsar-Salat:
+  - rscadd: ashlanders are now a valid target for dissection surgery
+2024-10-29:
+  BarteG44:
+  - bugfix: fixed spray paint's cap not working properly
+  HowToLoLu:
+  - config: Database version is now 7.3
+  mystery3525, with a little help from AnturK:
+  - rscadd: Gateway teleportation to the Lavaland base and vice-versa, through the
+      old refinery room. You can teleport people, mobs (except megafauna and ashwalkers),
+      goods and supplies through.
+  - rscadd: Gateway access to miners and the QM, with access to cargo techs on skeleton
+      crew.
+  - balance: The Gateway needs to be activated on BOTH SIDES to work, so someone still
+      needs to go down there and turn it on, and it can be turned off from either
+      side as well.
+  - balance: Swarmers now need the (station-side) gateway to be on in order to spawn!
+  - rscadd: To compensate, access requirements have been loosened on the lavaland
+      base to mimic station access.
+  - rscdel: All other usages of the gateway (Ruins and random maints).
+  - rscdel: Swarmers fabricator (unused)
+  rkz, actioninja, PrefabQuasar, Bjarl, rye-rice, Infared_Baron, MemedHams, Apogee-Dev:
+  - rscadd: Adds Holofields from shiptest. A static machine that will generate a field
+      between two points. Now installed throughout Fland and its exploration shuttle
+      as a proof of concept.
+  - refactor: refactored shieldwall generator code
+  - balance: reverted ATMOS Holofan projector to pre-monstermos max signs of 3
+2024-10-30:
+  BarteG44:
+  - spellcheck: fixed the capacitor securing step in a ripley
+  - bugfix: fixed cargo jumpsuit sprite
+  - bugfix: fixed wooden airlock assemblies
+  MarkusLarsson421:
+  - rscadd: TriaMed bag (40u Bicaridine, 40u Kelotane, 20u Epi).
+  - balance: Chemists start with a TriaMed bag and also one in their preloaded fridges.
+  - balance: Replaces all Medbay Medibots with filled (TriaMed) variants.
+  ktlwjec:
+  - bugfix: You can change your hairstyle using magic mirrors.
+  - tweak: Cyborg Hyperkinetic Dampening projector deactivates when put away.
+  - bugfix: Stops the cyborg Hyperkinetic Dampening projector field being visible
+      sometimes when the projector is deleted.
+2024-10-31:
+  Aramix:
+  - bugfix: fixed being unable to toggle mulebot power or auto-return
+  - bugfix: fixed getting irrelevant "access denied" messages in chat whenever trying
+      to change settings of an unlocked bot that you normally don't have access to
+  - bugfix: silicons don't have to unlock bots to change their settings anymore
+  - code_imp: cleaned up bot access code
+  - code_imp: changed ui_act() return value to TRUE if unsuccessful or interrupted
+      (as previously expected in some places)
+  Therealdoooc213:
+  - balance: syndicate hardsuits are fully acid proof now
+  XeonMations:
+  - bugfix: Fixed a missing icon for greyscale tapes
+  ktlwjec:
+  - bugfix: Helmet of justice will no longer be invisible when turned on.

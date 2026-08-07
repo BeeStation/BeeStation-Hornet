@@ -62,8 +62,8 @@
 	data["master"] = list()
 	data["ram"] = ram
 	data["refresh_spam"] = refresh_spam
-	if(master)
-		data["master"]["name"] = master
+	if(master_name)
+		data["master"]["name"] = master_name
 		data["master"]["dna"] = master_dna
 	return data
 
@@ -145,11 +145,9 @@
 		if("medical_hud")
 			medHUD = !medHUD
 			if(medHUD)
-				var/datum/atom_hud/med = GLOB.huds[med_hud]
-				med.add_hud_to(src)
+				ADD_TRAIT(src, TRAIT_MEDICAL_HUD, SILICON_HUD_TRAIT)
 			else
-				var/datum/atom_hud/med = GLOB.huds[med_hud]
-				med.remove_hud_from(src)
+				REMOVE_TRAIT(src, TRAIT_MEDICAL_HUD, SILICON_HUD_TRAIT)
 		if("newscaster")
 			newscaster.ui_interact(src)
 		if("photography_module")
@@ -173,15 +171,21 @@
 		if("security_hud")
 			secHUD = !secHUD
 			if(secHUD)
-				var/datum/atom_hud/sec = GLOB.huds[sec_hud]
-				sec.add_hud_to(src)
+				ADD_TRAIT(src, TRAIT_SECURITY_HUD, SILICON_HUD_TRAIT)
 			else
-				var/datum/atom_hud/sec = GLOB.huds[sec_hud]
-				sec.remove_hud_from(src)
+				REMOVE_TRAIT(src, TRAIT_SECURITY_HUD, SILICON_HUD_TRAIT)
 		if("universal_translator")
 			if(!languages_granted)
 				grant_all_languages(source = LANGUAGE_SOFTWARE)
 				languages_granted = TRUE
+		if("digital_messenger")
+			var/mob/living/silicon/pai/pAI = usr
+			if(!pAI.modularInterface.turn_on(pAI, open_ui = FALSE))
+				return FALSE
+			var/obj/item/computer_hardware/hard_drive/drive = pAI.modularInterface.all_components[MC_HDD]
+			for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
+				pAI.modularInterface.open_program(pAI, app)
+				pAI.modularInterface.interact(pAI)
 		if("wipe_core")
 			var/confirm = alert(src, "Are you certain you want to wipe yourself?", "Personality Wipe", "Yes", "No")
 			if(confirm == "Yes")
@@ -194,7 +198,7 @@
 	return TRUE
 
 /mob/living/silicon/pai/proc/check_radial_menu(atom/anchor)
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(get_turf(src) != get_turf(anchor))
 		return FALSE

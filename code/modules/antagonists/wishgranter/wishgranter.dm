@@ -4,17 +4,16 @@
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
-/datum/antagonist/wishgranter/proc/forge_objectives()
-	var/datum/objective/elimination/highlander/elimination_objective = new
-	elimination_objective.owner = owner
-	objectives += elimination_objective
-	log_objective(owner, elimination_objective.explanation_text)
+/datum/antagonist/wishgranter/forge_objectives()
+	add_objective(new /datum/objective/elimination/highlander())
 
 /datum/antagonist/wishgranter/on_gain()
-	owner.special_role = "Avatar of the Wish Granter"
-	forge_objectives()
 	. = ..()
+	owner.special_role = "Avatar of the Wish Granter"
+	if(give_objectives)
+		forge_objectives()
 	give_powers()
 
 /datum/antagonist/wishgranter/greet()
@@ -27,7 +26,7 @@
 	var/mob/living/carbon/C = owner.current
 	if(!C.has_dna())
 		return
-	C.dna.add_mutation(HULK)
-	C.dna.add_mutation(XRAY)
-	C.dna.add_mutation(SPACEMUT)
-	C.dna.add_mutation(TK)
+	C.dna.add_mutation(/datum/mutation/hulk)
+	C.dna.add_mutation(/datum/mutation/thermal/x_ray)
+	C.dna.add_mutation(/datum/mutation/space_adaptation)
+	C.dna.add_mutation(/datum/mutation/telekinesis)

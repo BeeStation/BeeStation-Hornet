@@ -2,13 +2,15 @@
 	slot_flags = ITEM_SLOT_BACK
 	worn_icon_state = null
 	icon_state = "staff"
-	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	inhand_icon_state = "staff"
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
-	block_power = 20 //staffs can block shit if you're walking
-	block_upgrade_walk = 1
+	max_charges = 10
+
+	canblock = TRUE
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -16,25 +18,25 @@
 	fire_sound = 'sound/magic/staff_change.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
-	item_state = "staffofchange"
+	inhand_icon_state = "staffofchange"
 
-/obj/item/gun/magic/staff/animate
-	name = "staff of animation"
-	desc = "An artefact that spits bolts of life-force which causes objects which are hit by it to animate and come to life! This magic doesn't affect machines."
+/obj/item/gun/magic/staff/dismember
+	name = "staff of dismemberment"
+	desc = "An artefact that spits bolts of malefic energy which causes arms and legs to fly right off of its victimse."
 	fire_sound = 'sound/magic/staff_animation.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/animate
-	icon_state = "staffofanimation"
-	item_state = "staffofanimation"
+	ammo_type = /obj/item/ammo_casing/magic/dismember
+	icon_state = "staffofdismember"
+	inhand_icon_state = "staffofdismember"
 
-/obj/item/gun/magic/staff/healing
-	name = "staff of healing"
-	desc = "An artefact that spits bolts of restoring magic which can remove ailments of all kinds and even raise the dead."
+/obj/item/gun/magic/staff/potential
+	name = "staff of latent potential"
+	desc = "An artefact that will unlock someone's greatest potential, or take it away again. Not everyone is destined for greatness."
 	fire_sound = 'sound/magic/staff_healing.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/heal
-	icon_state = "staffofhealing"
-	item_state = "staffofhealing"
+	ammo_type = /obj/item/ammo_casing/magic/potential
+	icon_state = "staffofpotential"
+	inhand_icon_state = "staffofpotential"
 
-/obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
+/obj/item/gun/magic/staff/potential/handle_suicide() //Stops people trying to commit suicide to heal themselves
 	return
 
 /obj/item/gun/magic/staff/chaos
@@ -43,35 +45,35 @@
 	fire_sound = 'sound/magic/staff_chaos.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/chaos
 	icon_state = "staffofchaos"
-	item_state = "staffofchaos"
-	max_charges = 10
+	inhand_icon_state = "staffofchaos"
 	recharge_rate = 2
 	no_den_usage = 1
-	var/allowed_projectile_types = list(
-		/obj/projectile/magic/change,
+	/// Static list of all projectiles we can fire from our staff.
+	/// Doesn't contain all subtypes of magic projectiles, unlike what it looks like
+	var/static/list/allowed_projectile_types = list(
 		/obj/projectile/magic/animate,
-		/obj/projectile/magic/resurrection,
-		/obj/projectile/magic/death,
-		/obj/projectile/magic/teleport,
-		/obj/projectile/magic/door,
-		/obj/projectile/magic/fireball,
-		/obj/projectile/magic/spellblade,
-		/obj/projectile/magic/arcane_barrage,
-		/obj/projectile/magic/locker,
-		/obj/projectile/magic/flying,
-		/obj/projectile/magic/bounty,
 		/obj/projectile/magic/antimagic,
+		/obj/projectile/magic/arcane_barrage,
+		/obj/projectile/magic/bounty,
+		/obj/projectile/magic/change,
+		/obj/projectile/magic/death,
+		/obj/projectile/magic/door,
 		/obj/projectile/magic/fetch,
-		/obj/projectile/magic/sapping,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/flying,
+		/obj/projectile/magic/locker,
 		/obj/projectile/magic/necropotence,
-		/obj/projectile/magic,
+		/obj/projectile/magic/healing,
+		/obj/projectile/magic/sapping,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/teleport,
+		/obj/projectile/magic/wipe,
 		/obj/projectile/temp/chill,
-		/obj/projectile/magic/wipe
 	)
 
-/obj/item/gun/magic/staff/chaos/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	chambered.projectile_type = pick(allowed_projectile_types)
-	. = ..()
+	return ..()
 
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
@@ -79,8 +81,7 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/door
 	icon_state = "staffofdoor"
-	item_state = "staffofdoor"
-	max_charges = 10
+	inhand_icon_state = "staffofdoor"
 	recharge_rate = 2
 	no_den_usage = 1
 
@@ -90,9 +91,10 @@
 	fire_sound = 'sound/items/airhorn.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/honk
 	icon_state = "honker"
-	item_state = "honker"
+	inhand_icon_state = "honker"
 	max_charges = 4
-	recharge_rate = 8
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
@@ -100,25 +102,22 @@
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/spellblade
 	icon_state = "spellblade"
-	item_state = "spellblade"
+	inhand_icon_state = "spellblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 20
 	armour_penetration = 75
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
+	custom_price = 40000
+	max_demand = 2
 
 /obj/item/gun/magic/staff/spellblade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 15, 125, 0, hitsound)
-
-/obj/item/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
 
 /obj/item/gun/magic/staff/locker
 	name = "staff of the locker"
@@ -126,9 +125,8 @@
 	fire_sound = 'sound/magic/staff_change.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/locker
 	icon_state = "locker"
-	item_state = "locker"
+	inhand_icon_state = "locker"
 	worn_icon_state = "lockerstaff"
-	max_charges = 6
 	recharge_rate = 4
 
 //yes, they don't have sounds. they're admin staves, and their projectiles will play the chaos bolt sound anyway so why bother?
@@ -139,7 +137,7 @@
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/flying
 	icon_state = "staffofflight"
-	item_state = "staffofflight"
+	inhand_icon_state = "staffofflight"
 	worn_icon_state = "flightstaff"
 
 /obj/item/gun/magic/staff/sapping
@@ -148,7 +146,7 @@
 	fire_sound = 'sound/magic/staff_change.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/sapping
 	icon_state = "staffofsapping"
-	item_state = "staffofsapping"
+	inhand_icon_state = "staffofsapping"
 	worn_icon_state = "staff"
 
 /obj/item/gun/magic/staff/necropotence
@@ -157,7 +155,7 @@
 	fire_sound = 'sound/magic/staff_change.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/necropotence
 	icon_state = "staffofnecropotence"
-	item_state = "staffofnecropotence"
+	inhand_icon_state = "staffofnecropotence"
 	worn_icon_state = "necrostaff"
 
 /obj/item/gun/magic/staff/wipe
@@ -166,5 +164,5 @@
 	fire_sound = 'sound/magic/staff_change.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/wipe
 	icon_state = "staffofwipe"
-	item_state = "staffofwipe"
+	inhand_icon_state = "staffofwipe"
 	worn_icon_state = "wipestaff"

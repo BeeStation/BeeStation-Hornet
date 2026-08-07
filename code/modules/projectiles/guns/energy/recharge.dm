@@ -6,7 +6,7 @@
 	base_icon_state = "kineticgun"
 	desc = "A self recharging gun. Holds one shot at a time."
 	automatic_charge_overlays = FALSE
-	cell_type = /obj/item/stock_parts/cell/emproof
+	gun_charge = 5000 WATT
 	/// If set to something, instead of an overlay, sets the icon_state directly.
 	var/no_charge_state
 	/// Does it hold charge when not put away?
@@ -14,7 +14,7 @@
 	/// How much time we need to recharge
 	var/recharge_time = 1.6 SECONDS
 	/// Sound we use when recharged
-	var/recharge_sound = 'sound/weapons/kenetic_reload.ogg'
+	var/recharge_sound = 'sound/weapons/kinetic_reload.ogg'
 	/// An ID for our recharging timer.
 	var/recharge_timerid
 	/// Do we recharge slower with more of our type?
@@ -25,7 +25,7 @@
 	if(!holds_charge)
 		empty()
 
-/obj/item/gun/energy/recharge/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+/obj/item/gun/energy/recharge/after_live_shot_fired(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	. = ..()
 	attempt_reload()
 
@@ -41,8 +41,8 @@
 		// calls dropped().
 		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 0.1 SECONDS)
 
-/obj/item/gun/energy/recharge/process_chamber()
-	. = ..()
+/obj/item/gun/energy/recharge/on_chamber_fired()
+	..()
 	attempt_reload()
 
 /obj/item/gun/energy/recharge/proc/empty_if_not_held()
@@ -76,8 +76,9 @@
 	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), set_recharge_time * carried, TIMER_STOPPABLE)
 	user?.client?.give_cooldown_cursor(set_recharge_time * carried + 1)
 
-/obj/item/gun/energy/recharge/emp_act(severity)
-	return
+/obj/item/gun/energy/recharge/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/recharge/proc/reload()
 	cell.give(cell.maxcharge)
@@ -94,15 +95,18 @@
 
 /obj/item/gun/energy/recharge/update_icon_state()
 	. = ..()
-	if(no_charge_state && !can_shoot())
-		icon_state = no_charge_state
+	if(no_charge_state)
+		if(can_shoot())
+			icon_state = base_icon_state
+		else
+			icon_state = no_charge_state
 
 /obj/item/gun/energy/recharge/ebow
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists."
 	icon_state = "crossbow"
 	base_icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	no_charge_state = "crossbow_empty"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=2000)
@@ -139,7 +143,7 @@
 	name = "gamma bow"
 	desc = "A weapon favored by Madmen."
 	icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
 	recharge_time = 250
 

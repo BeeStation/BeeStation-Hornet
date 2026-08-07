@@ -6,9 +6,9 @@
 	desc = "A hereditary mutation characterized by its signature speech disorder."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/nervousness/on_life()
-	if(prob(10))
-		owner.stuttering = max(10, owner.stuttering)
+/datum/mutation/nervousness/on_life(delta_time, times_fired)
+	if(DT_PROB(5, delta_time))
+		owner.set_stutter_if_lower(20 SECONDS)
 
 /datum/mutation/wacky
 	name = "Wacky"
@@ -112,76 +112,18 @@
 	desc = "A horrible mutation originating from the distant past. Thought to be eradicated after the incident in 2037."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/swedish/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/mutation/swedish/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-/datum/mutation/swedish/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message)
-		message = replacetext(message,"w","v")
-		message = replacetext(message,"j","y")
-		message = replacetext(message,"a",pick("å","ä","æ","a"))
-		message = replacetext(message,"bo","bjo")
-		message = replacetext(message,"o",pick("ö","ø","o"))
-		if(prob(30))
-			message += " Bork[pick("",", bork",", bork, bork")]!"
-		speech_args[SPEECH_MESSAGE] = trim(message)
+/datum/mutation/swedish/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, file_path = SWEDISH_TALK_FILE)
 
 /datum/mutation/chav
 	name = "Chav"
 	desc = "A mutation that causes the user to construct sentences in a more rudimentary manner."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/chav/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/mutation/chav/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-/datum/mutation/chav/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/whole_words = strings(BRIISH_TALK_FILE, "words")
-		var/list/british_sounds = strings(BRIISH_TALK_FILE, "sounds")
-		var/list/british_appends = strings(BRIISH_TALK_FILE, "appends")
-
-		for(var/key in whole_words)
-			var/value = whole_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-		for(var/key in british_sounds)
-			var/value = british_sounds[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, "[uppertext(key)]", "[uppertext(value)]")
-			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
-			message = replacetextEx(message, "[key]", "[value]")
-
-		if(prob(8))
-			message += pick(british_appends)
-	speech_args[SPEECH_MESSAGE] = trim(message)
+/datum/mutation/chav/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, file_path = ROADMAN_TALK_FILE)
 
 
 /datum/mutation/elvis
@@ -190,44 +132,20 @@
 	quality = MINOR_NEGATIVE
 	locked = TRUE
 
-/datum/mutation/elvis/on_life()
+/datum/mutation/elvis/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, file_path = ELVIS_TALK_FILE)
+
+/datum/mutation/elvis/on_life(delta_time, times_fired)
 	switch(pick(1,2))
 		if(1)
-			if(prob(15))
+			if(DT_PROB(7.5, delta_time))
 				var/list/dancetypes = list("swinging", "fancy", "stylish", "20'th century", "jivin'", "rock and roller", "cool", "salacious", "bashing", "smashing")
 				var/dancemoves = pick(dancetypes)
 				owner.visible_message("<b>[owner]</b> busts out some [dancemoves] moves!")
 		if(2)
-			if(prob(15))
+			if(DT_PROB(7.5, delta_time))
 				owner.visible_message("<b>[owner]</b> [pick("jiggles their hips", "rotates their hips", "gyrates their hips", "taps their foot", "dances to an imaginary song", "jiggles their legs", "snaps their fingers")]!")
-
-/datum/mutation/elvis/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/mutation/elvis/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-/datum/mutation/elvis/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message)
-		message = " [message] "
-		message = replacetext(message," i'm not "," I ain't ")
-		message = replacetext(message," girl ",pick(" honey "," baby "," baby doll "))
-		message = replacetext(message," man ",pick(" son "," buddy "," brother"," pal "," friendo "))
-		message = replacetext(message," out of "," outta ")
-		message = replacetext(message," thank you "," thank you, thank you very much ")
-		message = replacetext(message," thanks "," thank you, thank you very much ")
-		message = replacetext(message," what are you "," whatcha ")
-		message = replacetext(message," yes ",pick(" sure", "yea "))
-		message = replacetext(message," muh valids "," my kicks ")
-		speech_args[SPEECH_MESSAGE] = trim(message)
-
 
 /datum/mutation/stoner
 	name = "Stoner"
@@ -250,31 +168,6 @@
 	desc = "A horrific genetic condition suffered in ancient times."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/medieval/on_acquiring(mob/living/carbon/owner)
-	if(..())
-		return
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/mutation/medieval/on_losing(mob/living/carbon/owner)
-	if(..())
-		return
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-/datum/mutation/medieval/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/whole_words = strings(MEDIEVAL_SPEECH_FILE, "words")
-
-		for(var/key in whole_words)
-			var/value = whole_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-	speech_args[SPEECH_MESSAGE] = trim(message)
+/datum/mutation/medieval/New(class, timer, datum/mutation/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, file_path = MEDIEVAL_SPEECH_FILE)

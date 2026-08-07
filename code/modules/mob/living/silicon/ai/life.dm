@@ -1,11 +1,8 @@
-/mob/living/silicon/ai/Life(delta_time)
+/mob/living/silicon/ai/Life(delta_time = SSMOBS_DT, times_fired)
 	if (stat == DEAD)
 		return
 		//Being dead doesn't mean your temperature never changes
-
-	handle_status_effects(delta_time)
-
-	handle_traits(delta_time)
+		//who did this shit I hate you
 
 	if(malfhack?.aidisabled)
 		deltimer(malfhacking)
@@ -26,16 +23,16 @@
 			to_chat(src, span_warning("Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable."))
 			adjustOxyLoss(200)
 		else
-			battery --
+			battery--
 	else
 		// Gain Power
 		if (battery < 200)
-			battery ++
+			battery++
 
 	if(!lacks_power())
 		var/area/home = get_area(src)
 		if(home.powered(AREA_USAGE_EQUIP))
-			home.use_power(1000, AREA_USAGE_EQUIP)
+			home.use_power(500 * delta_time, AREA_USAGE_EQUIP)
 
 		if(aiRestorePowerRoutine >= POWER_RESTORATION_SEARCH_APC)
 			ai_restore_power()
@@ -54,16 +51,16 @@
 			return !T || !A || ((!A.power_equip || isspaceturf(T)) && !is_type_in_list(loc, list(/obj/item, /obj/vehicle/sealed/mecha)))
 
 /mob/living/silicon/ai/updatehealth()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss())
 	update_stat()
 	diag_hud_set_health()
 	disconnect_shell()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/silicon/ai/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD)
@@ -83,10 +80,7 @@
 		sight = sight&~SEE_OBJS
 		see_in_dark = 0
 
-	if(see_override)
-		see_invisible = see_override
-	sync_lighting_plane_alpha()
-
+	return ..()
 
 /mob/living/silicon/ai/proc/start_RestorePowerRoutine()
 	to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
@@ -141,7 +135,7 @@
 				sleep(50)
 				to_chat(src, "Receiving control information from APC.")
 				sleep(2)
-				to_chat(src, "<A HREF=?src=[REF(src)];emergencyAPC=[TRUE]>APC ready for connection.</A>")
+				to_chat(src, "<a href='byond://?src=[REF(src)];emergencyAPC=[TRUE]'>APC ready for connection.</a>")
 				apc_override = theAPC
 				theAPC.ui_interact(src)
 				setAiRestorePowerRoutine(POWER_RESTORATION_APC_FOUND)
@@ -157,14 +151,14 @@
 		else
 			to_chat(src, span_notice("Alert cancelled. Power has been restored without our assistance."))
 		setAiRestorePowerRoutine(POWER_RESTORATION_OFF)
-		set_blindness(0)
+		remove_status_effect(/datum/status_effect/temporary_blindness)
 		apc_override = null
 		update_sight()
 
 /mob/living/silicon/ai/proc/ai_lose_power()
 	disconnect_shell()
 	setAiRestorePowerRoutine(POWER_RESTORATION_START)
-	adjust_blindness(1)
+	adjust_temp_blindness(2 SECONDS)
 	update_sight()
 	to_chat(src, span_alert("You've lost power!"))
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)

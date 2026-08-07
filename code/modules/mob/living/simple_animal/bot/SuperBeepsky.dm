@@ -1,11 +1,11 @@
 /mob/living/simple_animal/bot/secbot/grievous //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
 	name = "General Beepsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "grievous"
 	health = 150
 	maxHealth = 150
-	baton_type = /obj/item/melee/transforming/energy/sword/saber
+	baton_type = /obj/item/melee/energy/sword/saber
 	base_speed = 4 //he's a fast fucker
 	var/obj/item/weapon
 	var/block_chance = 50
@@ -26,7 +26,7 @@
 	noloot = TRUE
 	faction = list(FACTION_SYNDICATE)
 
-/mob/living/simple_animal/bot/secbot/grievous/nullcrate/ComponentInitialize()
+/mob/living/simple_animal/bot/secbot/grievous/nullcrate/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
 
@@ -45,7 +45,7 @@
 /mob/living/simple_animal/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
 	weapon = new baton_type(src)
-	weapon.attack_self(src)
+	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item, attack_self), src)
 
 /mob/living/simple_animal/bot/secbot/grievous/Destroy()
 	QDEL_NULL(weapon)

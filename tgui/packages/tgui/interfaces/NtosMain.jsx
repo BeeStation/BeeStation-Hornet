@@ -27,7 +27,12 @@ export const NtosMain = (props) => {
       <NtosWindow.Content scrollable>
         {!!has_light && (
           <Section>
-            <Button width="144px" icon="lightbulb" selected={light_on} onClick={() => act('PC_toggle_light')}>
+            <Button
+              width="144px"
+              icon="lightbulb"
+              selected={light_on}
+              onClick={() => act('PC_toggle_light')}
+            >
               Flashlight: {light_on ? 'ON' : 'OFF'}
             </Button>
             <Button ml={1} onClick={() => act('PC_light_color')}>
@@ -54,15 +59,21 @@ export const NtosMain = (props) => {
                       content="Imprint"
                       disabled={
                         !proposed_login.IDName ||
-                        (proposed_login.IDName === login.IDName && proposed_login.IDJob === login.IDJob)
+                        (proposed_login.IDName === login.IDName &&
+                          proposed_login.IDJob === login.IDJob)
                       }
                       onClick={() => act('PC_Imprint_ID', { name: 'ID' })}
                     />
-                    <ButtonCheckbox checked={auto_imprint} content="Auto" onClick={() => act('PC_Toggle_Auto_Imprint')} />
+                    <ButtonCheckbox
+                      checked={auto_imprint}
+                      content="Auto"
+                      onClick={() => act('PC_Toggle_Auto_Imprint')}
+                    />
                   </>
                 )}
               </>
-            }>
+            }
+          >
             <Table>
               <Table.Row>
                 ID Name: {login.IDName}
@@ -172,7 +183,11 @@ export const NtosMain = (props) => {
         {!!disk && (
           <Section
             // pain
-            title={disk_name ? disk_name.substring(0, disk_name.length - 5) : 'No Job Disk Inserted'}
+            title={
+              disk_name
+                ? disk_name.substring(0, disk_name.length - 5)
+                : 'No Job Disk Inserted'
+            }
             buttons={
               <Button
                 icon="eject"
@@ -180,7 +195,8 @@ export const NtosMain = (props) => {
                 disabled={!disk_name}
                 onClick={() => act('PC_Eject_Disk', { name: 'job disk' })}
               />
-            }>
+            }
+          >
             <Table>
               {disk_programs.map((program) => (
                 <Table.Row key={program.name}>

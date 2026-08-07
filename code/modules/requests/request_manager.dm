@@ -23,7 +23,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	/// List where requests can be accessed by ID
 	var/list/requests_by_id = list()
 
-/datum/request_manager/Destroy(force, ...)
+/datum/request_manager/Destroy(force)
 	QDEL_LIST(requests)
 	return ..()
 
@@ -76,6 +76,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/message_centcom(client/C, message)
 	request_for_client(C, REQUEST_CENTCOM, message)
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
 
 /**
  * Creates a request for a Syndicate message
@@ -86,7 +89,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/message_syndicate(client/C, message)
 	request_for_client(C, REQUEST_SYNDICATE, message)
-
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
 /**
  * Creates a request for the nuclear self destruct codes
  *
@@ -96,7 +101,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/nuke_request(client/C, message)
 	request_for_client(C, REQUEST_NUKE, message)
-
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
 /**
  * Creates a request for fax answer
  *
@@ -106,7 +113,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  */
 /datum/request_manager/proc/fax_request(client/requester, message, additional_info)
 	request_for_client(requester, REQUEST_FAX, message, additional_info)
-
+	for(var/client/admin in GLOB.admins)
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
+			SEND_SOUND(admin, sound('sound/misc/compiler-stage1.ogg'))
 /**
  * Creates a request and registers the request with all necessary internal tracking lists
  *
@@ -131,7 +140,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 		ui.open()
 
 /datum/request_manager/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/request_manager/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
@@ -212,7 +221,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				to_chat(usr, "You cannot set the nuke code for a non-nuke-code-request request!")
 				return TRUE
 			var/code = random_code(5)
-			for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
+			for(var/obj/machinery/nuclearbomb/selfdestruct/SD as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/selfdestruct))
 				SD.r_code = code
 			message_admins("[key_name_admin(usr)] has set the self-destruct code to \"[code]\".")
 			return TRUE

@@ -19,9 +19,9 @@
 SUBSYSTEM_DEF(timer)
 	name = "Timer"
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
-	init_order = INIT_ORDER_TIMER
 	priority = FIRE_PRIORITY_TIMER
-	flags = SS_TICKER|SS_NO_INIT
+	ss_flags = SS_TICKER|SS_NO_INIT
+	init_stage = INITSTAGE_EARLY
 
 	var/list/datum/timedevent/second_queue = list() //awe, yes, you've had first queue, but what about second queue?
 	var/list/hashes = list()
@@ -499,11 +499,18 @@ SUBSYSTEM_DEF(timer)
   * If the timed event is tracking client time, it will be added to a special bucket.
   */
 /datum/timedevent/proc/bucketJoin()
-	// Generate debug-friendly name for timer
+#if defined(TIMER_DEBUG)
+	// Generate debug-friendly name for timer, more complex but also more expensive
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
 	name = "Timer: [id] ([FAST_REF(src)]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield_to_list(flags, bitfield_flags), ", ")], \
 		callBack: [FAST_REF(callBack)], callBack.object: [callBack.object][FAST_REF(callBack.object)]([getcallingtype()]), \
 		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+#else
+	// Generate a debuggable name for the timer, simpler but wayyyy cheaper, string generation is a bitch and this saves a LOT of time
+	name = "Timer: [id] ([text_ref(src)]), TTR: [timeToRun], wait:[wait] Flags: [flags], \
+		callBack: [text_ref(callBack)], callBack.object: [callBack.object]([getcallingtype()]), \
+		callBack.delegate:[callBack.delegate], source: [source]"
+#endif
 
 	if (bucket_joined)
 		stack_trace("Bucket already joined! [name]")
@@ -565,6 +572,7 @@ SUBSYSTEM_DEF(timer)
  * * callback the callback to call on timer finish
  * * wait deciseconds to run the timer for
  * * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+ * * timer_subsystem the subsystem to insert this timer into
  */
 /proc/_addtimer(datum/callback/callback, wait = 0, flags = 0, datum/controller/subsystem/timer/timer_subsystem, file, line)
 	if (!callback)
@@ -577,7 +585,7 @@ SUBSYSTEM_DEF(timer)
 		CRASH("addtimer called with a callback assigned to a qdeleted object. It was called with a [callback] callback [callback.object]. Calling file [file] at [line]!")
 
 	if (flags & TIMER_CLIENT_TIME) // REALTIMEOFDAY has a resolution of 1 decisecond
-		wait = max(CEILING(wait, 1), 1) // so if we use tick_lag timers may be inserted in the "past"
+		wait = max(ceil(wait), 1) // so if we use tick_lag timers may be inserted in the "past"
 	else
 		wait = max(CEILING(wait, world.tick_lag), world.tick_lag)
 
@@ -655,6 +663,32 @@ SUBSYSTEM_DEF(timer)
 	if(!timer || timer.spent)
 		return null
 	return timer.timeToRun - (timer.flags & TIMER_CLIENT_TIME ? REALTIMEOFDAY : world.time)
+
+/**
+ * Update the delay on an existing LOOPING timer
+ * Will come into effect on the next process
+ *
+ * Arguments:
+ * * id a timerid or a /datum/timedevent
+ * * new_wait the new wait to give this looping timer
+ */
+/proc/updatetimedelay(id, new_wait, datum/controller/subsystem/timer/timer_subsystem)
+	if (!id)
+		return
+	if (id == TIMER_ID_NULL)
+		CRASH("Tried to update the wait of null timerid. Use TIMER_STOPPABLE flag")
+	if (istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		timer.wait = new_wait
+		return
+	timer_subsystem = timer_subsystem || SStimer
+	//id is string
+	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
+	if(!timer || timer.spent)
+		return
+	if(!(timer.flags & TIMER_LOOP))
+		CRASH("Tried to update the wait of a non looping timer. This is not supported")
+	timer.wait = new_wait
 
 #undef BUCKET_LEN
 #undef BUCKET_POS

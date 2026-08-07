@@ -18,6 +18,8 @@ GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 /// Global assoc list of required mapping items, [item typepath] to [required item datum].
 GLOBAL_LIST_EMPTY(required_map_items)
 
+GLOBAL_LIST_EMPTY(test_run_times)
+
 /// A list of every test that is currently focused.
 /// Use the PERFORM_ALL_TESTS macro instead.
 GLOBAL_VAR_INIT(focused_tests, focused_tests())
@@ -25,34 +27,37 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 /proc/focused_tests()
 	var/list/focused_tests = list()
 	for (var/datum/unit_test/unit_test as anything in subtypesof(/datum/unit_test) - /datum/unit_test/map_test)
-		if (initial(unit_test.focus))
+		if (unit_test::test_flags & UNIT_TEST_FOCUS)
 			focused_tests += unit_test
 
-	return focused_tests.len > 0 ? focused_tests : null
+	return length(focused_tests) ? focused_tests : null
 
 /datum/unit_test
-	//Bit of metadata for the future maybe
-	var/list/procs_tested
+	abstract_type = /datum/unit_test
 
+	/// Behavior flags for this unit test
+	var/test_flags = UNIT_TEST_BASIC
+	/// The priority of the test, the larger it is the later it fires
+	var/priority = TEST_DEFAULT
+	/// How many times this unit test will run. Use the TEST_REPEAT() macro
+	var/times_to_run = 1
+
+	// internal shit
+	/// If this test has passed or not
+	var/succeeded = TRUE
 	/// The bottom left floor turf of the testing zone
 	var/turf/run_loc_floor_bottom_left
-
 	/// The top right floor turf of the testing zone
 	var/turf/run_loc_floor_top_right
-	///The priority of the test, the larger it is the later it fires
-	var/priority = TEST_DEFAULT
-	//internal shit
-	var/focus = FALSE
-	var/succeeded = TRUE
+	/// A list of instances created by this unit test. Use allocate()
 	var/list/allocated
+	/// Lazy list of why this unit test failed.
 	var/list/fail_reasons
 
-	/// Do not instantiate if type matches this
-	var/abstract_type = /datum/unit_test
-
-	/// List of atoms that we don't want to ever initialize in an agnostic context, like for Create and Destroy. Stored on the base datum for usability in other relevant tests that need this data.
+	/// List of atoms that we don't want to ever initialize in an agnostic context, like for Create and Destroy.
+	/// Stored on the base datum for usability in other relevant tests that need this data.
 	var/static/list/uncreatables = null
-
+	/// Reference to the blank z-level containing our testing enviroment
 	var/static/datum/space_level/reservation
 
 /proc/cmp_unit_test_priority(datum/unit_test/a, datum/unit_test/b)
@@ -115,7 +120,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 /// Resets the air of our testing room to its default
 /datum/unit_test/proc/restore_atmos()
 	var/area/working_area = run_loc_floor_bottom_left.loc
-	var/list/turf/to_restore = working_area.get_contained_turfs()
+	var/list/turf/to_restore = working_area.get_turfs_from_all_zlevels()
 	for(var/turf/open/restore in to_restore)
 		var/datum/gas_mixture/GM = SSair.parse_gas_string(restore.initial_gas_mix, /datum/gas_mixture/turf)
 		restore.copy_air(GM)
@@ -127,6 +132,9 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 		TEST_FAIL("[icon] is not an icon.")
 		return
 
+	if (!icon.Width())
+		TEST_FAIL("The icon provided to [name] has no width.")
+
 	var/path_prefix = replacetext(replacetext("[type]", "/datum/unit_test/", ""), "/", "_")
 	name = replacetext(name, "/", "_")
 
@@ -136,29 +144,40 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 		var/data_filename = "data/screenshots/[path_prefix]_[name].png"
 		fcopy(icon, data_filename)
 		log_test("\t[path_prefix]_[name] was found, putting in data/screenshots")
-	else if (fexists("code"))
+
+		if (!length(file(data_filename)))
+			TEST_FAIL("No data generated for icon [data_filename]")
+	else
+#ifndef CIBUILDING
 		// We are probably running in a local build
 		fcopy(icon, filename)
-		TEST_FAIL("Screenshot for [name] did not exist. One has been created.")
-	else
+		log_test("Screenshot for [name] did not exist. One has been created at [filename].")
+#else
 		// We are probably running in real CI, so just pretend it worked and move on
 		fcopy(icon, "data/screenshots_new/[path_prefix]_[name].png")
 
 		log_test("\t[path_prefix]_[name] was put in data/screenshots_new")
 
+		if (!length(file("data/screenshots_new/[path_prefix]_[name].png")))
+			TEST_FAIL("No data generated for icon data/screenshots_new/[path_prefix]_[name].png")
+#endif
+
 /// Helper for screenshot tests to take an image of an atom from all directions and insert it into one icon
-/datum/unit_test/proc/get_flat_icon_for_all_directions(atom/thing, no_anim = TRUE)
+/datum/unit_test/proc/get_flat_icon_for_all_directions(atom/thing, no_anim = TRUE, override_plane = null)
 	var/icon/output = icon('icons/effects/effects.dmi', "nothing")
 
+	if (!istype(thing))
+		TEST_FAIL("Non atom provided to get_flat_icon_for_all_directions, was: '[thing]'")
+
 	for (var/direction in GLOB.cardinals)
-		var/icon/partial = getFlatIcon(thing, defdir = direction, no_anim = no_anim)
+		var/icon/partial = getFlatIcon(thing, defdir = direction, no_anim = no_anim, override_plane = override_plane)
 		output.Insert(partial, dir = direction)
 
 	return output
 
 /// Logs a test message. Will use GitHub action syntax found at https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
 /datum/unit_test/proc/log_for_test(text, priority, file, line)
-	var/map_name = SSmapping.config.map_name
+	var/map_name = SSmapping.current_map.map_name
 
 	// Need to escape the text to properly support newlines.
 	var/annotation_text = replacetext(text, "%", "%25")
@@ -174,14 +193,14 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 	GLOB.current_test = test
 	var/duration = REALTIMEOFDAY
-	var/skip_test = (test_path in SSmapping.config.skipped_tests)
+	var/skip_test = (test_path in SSmapping.current_map.skipped_tests)
 	var/test_output_desc = "[test_path]"
 	var/message = ""
 
 	log_world("::group::[test_path]")
 
 	if(skip_test)
-		log_world("[TEST_OUTPUT_YELLOW("SKIPPED")] Skipped run on map [SSmapping.config.map_name].")
+		log_world("[TEST_OUTPUT_YELLOW("SKIPPED")] Skipped run on map [SSmapping.current_map.map_name].")
 
 	else
 
@@ -210,6 +229,8 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 			log_test(message)
 
 		test_output_desc += " [duration / 10]s"
+		if(duration > 10)
+			GLOB.test_run_times[test_path] = duration
 		if (test.succeeded)
 			log_world("[TEST_OUTPUT_GREEN("PASS")] [test_output_desc]")
 
@@ -239,14 +260,43 @@ that means the proc needs to be defined prior to everything else.
 
 	log_world("Starting unit tests run...")
 
-	var/list/tests_to_run = subtypesof(/datum/unit_test)
+	// Find our primary unit test map & find out if we are the secondary
+	var/datum/map_config/primary_unit_test_map
+	var/is_secondary_unit_test_map = FALSE
+	var/found_secondary_unit_test_map = FALSE
+	for(var/map_name, _map_config in config.maplist)
+		var/datum/map_config/map_config = _map_config
+		if(map_config.is_unit_test_map)
+			primary_unit_test_map = map_config
+		if(!LAZYLEN(map_config.skipped_tests) && !found_secondary_unit_test_map)
+			found_secondary_unit_test_map = TRUE
+			if(SSmapping.current_map.map_name == map_name)
+				is_secondary_unit_test_map = TRUE
+
+	var/list/tests_to_run = list()
 	var/list/focused_tests = list()
-	for (var/_test_to_run in tests_to_run)
-		var/datum/unit_test/test_to_run = _test_to_run
-		if (initial(test_to_run.focus))
-			focused_tests += test_to_run
+	for (var/datum/unit_test/potential_test as anything in subtypesof(/datum/unit_test))
+// if you're doing this locally, do ALL of it
+// otherwise, we gotta split em up
+#ifndef RUNNING_LOCAL_TESTS
+		// If the test has [UNIT_TEST_DEBUG_MAP_ONLY] and we aren't the primary unit test map, skip it.
+		// HOWEVER, some unit tests are incompatible with the primary testing map, so we must offload them a secondary one with no blacklisted tests.
+		// If we didn't find a primary unit test map then we are likely a solo runner.
+		if((potential_test::test_flags & UNIT_TEST_DEBUG_MAP_ONLY) && \
+			!isnull(primary_unit_test_map) && \
+			!SSmapping.current_map.is_unit_test_map && \
+			!(primary_unit_test_map.skipped_tests?.Find(potential_test) && is_secondary_unit_test_map) \
+		)
+			continue
+#endif
+		if (potential_test::test_flags & UNIT_TEST_FOCUS)
+			focused_tests += potential_test
+			continue
+		tests_to_run += potential_test
 	if(length(focused_tests))
 		tests_to_run = focused_tests
+
+	primary_unit_test_map = null // I'm paranoid
 
 	sortTim(tests_to_run, GLOBAL_PROC_REF(cmp_unit_test_priority))
 
@@ -254,16 +304,24 @@ that means the proc needs to be defined prior to everything else.
 
 	//Hell code, we're bound to end the round somehow so let's stop if from ending while we work
 	SSticker.delay_end = TRUE
-	for(var/unit_path in tests_to_run)
-		CHECK_TICK //We check tick first because the unit test we run last may be so expensive that checking tick will lock up this loop forever
-		RunUnitTest(unit_path, test_results)
+	for(var/datum/unit_test/unit_path as anything in tests_to_run)
+		var/loop_count = unit_path::times_to_run
+		for(var/i in 1 to loop_count)
+			CHECK_TICK //We check tick first because the unit test we run last may be so expensive that checking tick will lock up this loop forever
+			RunUnitTest(unit_path, test_results)
 	SSticker.delay_end = FALSE
+
+	log_world("::group::Expensive Unit Test Times")
+	sortTim(GLOB.test_run_times, cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
+	for(var/type, duration in GLOB.test_run_times)
+		log_world("[type] took [duration/10]s")
+	log_world("::endgroup::")
 
 	var/file_name = "data/unit_tests.json"
 	fdel(file_name)
 	file(file_name) << json_encode(test_results)
 
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = ADMIN_FORCE_END_ROUND
 	//We have to call this manually because del_text can preceed us, and SSticker doesn't fire in the post game
 	SSticker.declare_completion()
 

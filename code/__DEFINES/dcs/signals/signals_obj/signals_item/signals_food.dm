@@ -32,7 +32,11 @@
 
 // Grilling foods (griddle, grill, and bonfire)
 ///Called when an object is placed onto a griddle
-#define COMSIG_ITEM_GRILL_PLACED_ON "item_placed_on_griddle"
+#define COMSIG_ITEM_GRILL_PLACED "item_placed_on_griddle"
+///Called when a griddle is turned on
+#define COMSIG_ITEM_GRILL_TURNED_ON "item_grill_turned_on"
+///Called when a griddle is turned off
+#define COMSIG_ITEM_GRILL_TURNED_OFF "item_grill_turned_off"
 ///Called when an object is grilled ontop of a griddle
 #define COMSIG_ITEM_GRILL_PROCESS "item_griddled"
 	/// Return to not burn the item
@@ -59,7 +63,9 @@
 	// Used to stop food from being composted.
 	#define COMPONENT_EDIBLE_BLOCK_COMPOST 1
 
-//Drink
+///Called when we try to feed food to an object
+#define COMSIG_FOOD_FEED_ITEM "feed_item"
 
+//Drink
 ///from base of obj/item/reagent_containers/cup/attack(): (mob/M, mob/user)
 #define COMSIG_GLASS_DRANK "glass_drank"

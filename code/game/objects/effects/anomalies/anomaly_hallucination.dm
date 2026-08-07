@@ -1,49 +1,42 @@
 /obj/effect/anomaly/hallucination
 	name = "hallucination anomaly"
-	icon_state = "hallucination_anomaly"
-	aSignal = /obj/item/assembly/signaler/anomaly/hallucination
+	icon_state = "hallucination"
+	anomaly_core = /obj/item/assembly/signaler/anomaly/hallucination
 
 	COOLDOWN_DECLARE(pulse_cooldown)
+	/// How many seconds between each small hallucination pulses
 	var/pulse_interval = 5 SECONDS
+	/// Messages sent to people feeling the pulses
+	var/static/list/messages = list(
+		span_warning("You feel your conscious mind fall apart!"),
+		span_warning("Reality warps around you!"),
+		span_warning("Something's wispering around you!"),
+		span_warning("You are going insane!"),
+	)
 
-/obj/effect/anomaly/hallucination/anomalyEffect(delta_time)
+/obj/effect/anomaly/hallucination/anomaly_process(delta_time)
 	. = ..()
-
-	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
+	var/turf/our_turf = get_turf(src)
+	if(!COOLDOWN_FINISHED(src, pulse_cooldown) || !istype(our_turf))
 		return
 	COOLDOWN_START(src, pulse_cooldown, pulse_interval)
 
-	var/turf/open/our_turf = get_turf(src)
-	if(!isturf(our_turf))
-		return
-	hallucination_pulse(our_turf, 5)
+	visible_hallucination_pulse(
+		center = our_turf,
+		radius = 5,
+		hallucination_duration = 50 SECONDS,
+		hallucination_max_duration = 5 MINUTES,
+		optional_messages = messages,
+	)
 
 /obj/effect/anomaly/hallucination/detonate()
 	var/turf/open/our_turf = get_turf(src)
-	if(!isturf(our_turf))
-		return
-	hallucination_pulse(our_turf, 10)
-	our_turf.generate_fake_pierced_realities(max_spawned_faked)
 
-/proc/hallucination_pulse(turf/location, range, strength = 50)
-	for(var/mob/living/carbon/human/near in view(location, range))
-		// If they are immune to hallucinations
-		if (HAS_TRAIT(near, TRAIT_MADNESS_IMMUNE) || (near.mind && HAS_TRAIT(near.mind, TRAIT_MADNESS_IMMUNE)))
-			continue
-
-		// Blind people don't get hallucinations
-		if (near.is_blind())
-			continue
-
-		// Everyone else
-		var/dist = sqrt(1 / max(1, get_dist(near, location)))
-		near.hallucination += strength * dist
-		near.hallucination = clamp(near.hallucination, 0, 150)
-		var/list/messages = list(
-			"You feel your conscious mind fall apart!",
-			"Reality warps around you!",
-			"Something's wispering around you!",
-			"You are going insane!",
-			"What was that?!"
-		)
-		to_chat(near, span_warning("[pick(messages)]"))
+	hallucination_pulse(
+		center = our_turf,
+		radius = 15,
+		hallucination_duration = 50 SECONDS,
+		hallucination_max_duration = 5 MINUTES,
+		optional_messages = messages,
+	)
+	generate_fake_pierced_realities(center_turf = our_turf, max_amount = max_spawned_faked)

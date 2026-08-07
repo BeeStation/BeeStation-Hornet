@@ -27,11 +27,11 @@ SUBSYSTEM_DEF(nightshift)
 	priority_announce(message, sound='sound/misc/notice2.ogg', sender_override="Automated Lighting System Announcement")
 
 /datum/controller/subsystem/nightshift/proc/check_nightshift()
-	var/emergency = SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED
+	var/emergency = SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_YELLOW
 	var/announcing = TRUE
 	var/time = station_time()
 	var/night_time = (time < nightshift_end_time) || (time > nightshift_start_time)
-	if(!SSmapping.config.allow_night_lighting)
+	if(!SSmapping.current_map.allow_night_lighting)
 		if(night_time)
 			night_time = FALSE
 			update_nightshift(night_time, FALSE)
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(nightshift)
 
 /datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE, resumed = FALSE)
 	if(!resumed)
-		currentrun = GLOB.apcs_list.Copy()
+		currentrun = SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc)
 		nightshift_active = active
 		if(announce)
 			if (active)

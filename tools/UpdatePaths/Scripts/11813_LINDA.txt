@@ -45,9 +45,6 @@
 
 /obj/machinery/atmospherics/components/unary/@SUBTYPES{frequency=@ANY} : /obj/machinery/atmospherics/components/unary/@SUBTYPES{@OLD; frequency=@SKIP}
 
-/obj/machinery/pipedispenser : /obj/machinery/pipe_dispenser{@OLD}
-/obj/machinery/pipedispenser/@SUBTYPES : /obj/machinery/pipe_dispenser/@SUBTYPES{@OLD}
-
 /obj/machinery/airalarm/server{dir=1} : /obj/machinery/airalarm/directional/north{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
 /obj/machinery/airalarm/server{dir=2} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks
 /obj/machinery/airalarm/server{dir=@UNSET} : /obj/machinery/airalarm/directional/south{@OLD;dir=@SKIP;pixel_y=@SKIP}, /obj/effect/mapping_helpers/airalarm/tlv_no_checks

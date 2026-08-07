@@ -1,9 +1,12 @@
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
-	init_order = INIT_ORDER_AIR
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+	)
 	priority = FIRE_PRIORITY_AIR
 	wait = 0.5 SECONDS
-	flags = SS_BACKGROUND
+	ss_flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/cached_cost = 0
@@ -53,6 +56,9 @@ SUBSYSTEM_DEF(air)
 	var/list/queued_for_activation
 	var/display_all_groups = FALSE
 
+	var/list/reaction_handbook
+	var/list/gas_handbook
+
 	// Supercruise Z-pausing
 	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
 	var/list/unpausing_z_levels = list()
@@ -101,6 +107,7 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets()
 	setup_turf_visuals()
 	process_adjacent_rebuild()
+	atmos_handbooks_init()
 	return SS_INIT_SUCCESS
 
 
@@ -364,9 +371,11 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/datum/excited_group/EG = currentrun[currentrun.len]
 		currentrun.len--
+		var/volatile_reaction = EG.turf_reactions & VOLATILE_REACTION
 		EG.breakdown_cooldown++
-		EG.dismantle_cooldown++
-		if(EG.breakdown_cooldown >= EXCITED_GROUP_BREAKDOWN_CYCLES)
+		if(!volatile_reaction)
+			EG.dismantle_cooldown++
+		if(EG.breakdown_cooldown >= EXCITED_GROUP_BREAKDOWN_CYCLES && !volatile_reaction)
 			EG.self_breakdown(poke_turfs = TRUE)
 		else if(EG.dismantle_cooldown >= EXCITED_GROUP_DISMANTLE_CYCLES && !(EG.turf_reactions & (REACTING | STOP_REACTIONS)))
 			EG.dismantle()
@@ -431,7 +440,7 @@ SUBSYSTEM_DEF(air)
 			border += item
 
 			net.air.volume += item.volume
-			item.parent = net
+			item.replace_pipenet(item.parent, net)
 
 			if(item.air_temporary)
 				net.air.merge(item.air_temporary)
@@ -534,8 +543,7 @@ SUBSYSTEM_DEF(air)
 			if(enemy_tile.current_cycle == -INFINITY)
 				continue
 			// .air instead of .return_air() because we can guarentee that the proc won't do anything
-			if(potential_diff.air.compare(enemy_tile.air, MOLES))
-				//testing("Active turf found. Return value of compare(): [T.air.compare(enemy_tile.air, MOLES)]")
+			if(potential_diff.air.compare(enemy_tile.air, FALSE))
 				if(!potential_diff.excited)
 					potential_diff.excited = TRUE
 					SSair.active_turfs += potential_diff
@@ -687,11 +695,12 @@ GLOBAL_LIST_EMPTY(colored_images)
 		gas -= "TEMP"
 	else // if we do not have a temp in the new gas mix lets assume room temp.
 		canonical_mix.temperature = T20C
+	var/list/cached_moles = canonical_mix.moles
 	for(var/id in gas)
 		var/path = id
 		if(!ispath(path))
 			path = gas_id2path(path) //a lot of these strings can't have embedded expressions (especially for mappers), so support for IDs needs to stick around
-		SET_MOLES(path, canonical_mix, text2num(gas[id]))
+		cached_moles[path] = text2num(gas[id])
 
 	if(istype(canonical_mix, /datum/gas_mixture/immutable))
 		return canonical_mix

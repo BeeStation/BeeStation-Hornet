@@ -322,7 +322,7 @@
 
 
 //assignment:	<variable name> '=' expression
-/datum/SDQL_parser/proc/assignment(var/i, var/list/node, var/list/assignment_list = list())
+/datum/SDQL_parser/proc/assignment(i, list/node, list/assignment_list = list())
 	assignment_list += token(i)
 
 	if(token(i + 1) == ".")
@@ -439,7 +439,7 @@
 	return i + 1
 
 //array:	'[' expression_list ']'
-/datum/SDQL_parser/proc/array(var/i, var/list/node)
+/datum/SDQL_parser/proc/array(i, list/node)
 	// Arrays get turned into this: list("[", list(exp_1a = exp_1b, ...), ...), "[" is to mark the next node as an array.
 	if(token(i)[1] != "\[")
 		parse_error("Expected an array but found '[token(i)]'")
@@ -492,7 +492,7 @@
 	return i + 1
 
 //selectors_array:	'@[' object_selectors ']'
-/datum/SDQL_parser/proc/selectors_array(var/i, var/list/node)
+/datum/SDQL_parser/proc/selectors_array(i, list/node)
 	if(token(i) == "@\[")
 		node += token(i++)
 		if(token(i) != "]")
@@ -605,11 +605,11 @@
 		node += "null"
 		i++
 
-	else if(LOWER_TEXT(copytext(token(i), 1, 3)) == "0x" && isnum_safe(hex2num(copytext(token(i), 3))))//3 == length("0x") + 1
+	else if(LOWER_TEXT(copytext(token(i), 1, 3)) == "0x" && IS_FINITE(hex2num(copytext(token(i), 3))))//3 == length("0x") + 1
 		node += hex2num(copytext(token(i), 3))
 		i++
 
-	else if(isnum_safe(text2num(token(i))))
+	else if(IS_FINITE(text2num(token(i))))
 		node += text2num(token(i))
 		i++
 

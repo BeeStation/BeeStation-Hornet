@@ -1,0 +1,363 @@
+2020-11-01:
+  francinum:
+  - bugfix: No more instagib glass tables.
+  r1ks-iwnl:
+  - rscadd: Paramedics now have EVA access
+2020-11-02:
+  LastCrusader105:
+  - tweak: Moved the engineering shower heads outside of the blast doors
+  Moccha-Bee:
+  - rscadd: Contaminated objects will now glow bright green until cleaned, remember
+      to quarantine rouge free golems.
+  - tweak: Buffed rad goggles in general, the text lasts longer, is brighter, and
+      will show more then twice as far away
+  - bugfix: Fixed the text from radiation goggles not showing above mobs
+  PowerfulBacon:
+  - rscadd: Felinids can laugh
+  eeSPee:
+  - rscadd: Limbsnakes - new changeling abilty
+2020-11-03:
+  Archanial:
+  - admin: Reply pop-up in stealth mode will no longer reveal your orinigal ckey.
+  PowerfulBacon:
+  - tweak: Syndicate encryption key is restricted on incursion gamemode
+  - tweak: Syndicate mega bundle is no longer restricted on incursion gamemode.
+  Victor239:
+  - rscadd: Small tweaks to brig phys locker and loadout.
+  ivanmixo:
+  - tweak: Airlocks to bridge and other high security areas such as the heads' offices,
+      EVA, teleporter and gateway now start reinforced with plasteel.
+2020-11-04:
+  PowerfulBacon:
+  - tweak: Changed the view width to 17x15
+  - bugfix: Mirage borders sometimes not working properly
+  - code_imp: Proper zooming out procs.
+  That0nePerson:
+  - bugfix: fixes icon issue with "The Mad's labcoat"
+  qwertyquerty:
+  - tweak: Made auto viewport fit default
+2020-11-05:
+  Krysonism:
+  - bugfix: fixed a gulag stacking machine exploit that would let you farm points
+      with minimal or no ores mined.
+  NotRanged, Gandalf2k15:
+  - tweak: Changed explosion sound code to be more noticeable and terrifying throughout
+      the station during siginificant explosive events.
+  PowerfulBacon:
+  - rscdel: Removed the old autolathe UI
+  - rscadd: TGUI autolathe UI
+  - tweak: Multiple users can browse autolathe UI without seeing the same tabs.
+  - rscadd: You can now eject materials from an autolathe
+  - rscadd: You can now queue items in an autolathe
+  - rscadd: You can now toggle continuous fabrication mode on an autolathe queue,
+      or an item in the autolathe queue meaning it will build repeatedly until the
+      autolathe runs out of materials.
+  - rscadd: Trigger build wire on autolathes
+  - rscadd: Autolathe queue
+  - rscadd: Autolathe ejection direction.
+2020-11-06:
+  Autisem:
+  - bugfix: assembly's now can be interacted with while inside other objects like
+      TTV
+  Victor239:
+  - rscadd: The name and job of the announcer are now shown on announcements.
+  zeskorion:
+  - code_imp: pepper proofing now checks eye and mouth covering instead of a snowflake
+      flag
+  - bugfix: spraypaint now uses eye covering instead of flash protection
+2020-11-07:
+  Archanial:
+  - rscdel: Major and minor crimes are gone.
+  - tweak: Adding a crime recond in sechuds in only 1 pop-up now.
+  - rscadd: You can add details to a crime separately.
+  - refactor: Cleaned up sec console code and hud glasses code.
+2020-11-08:
+  Archanial:
+  - tweak: Cyborgs no longer get confused after getting flashed/flashbanged.
+  PerishedFraud:
+  - rscadd: Some new items in the mining vendor.
+  - tweak: Some prices changed in the mining vendor, can also eat through explorer
+      mask.
+  eeSPee:
+  - tweak: Guns no longer use changeNext_move
+  park66665:
+  - bugfix: 'no more with exponential thermal energy, fusion now correctly produces
+      heat: supply plasma to your nuclear fusion ''reactor'', dammit!'
+  - balance: in an attempt to preserve fun, I tweaked some numbers and logics in fusion
+      to create some healthy fun
+  - rscdel: e30 fusion
+  - balance: rad now scales with fusion temperature, which means that you will get
+      meager rads if you are bad at fusion (e.g. canister fusion), or stronger rads
+      than before if you manage to keep a strong and robust fusion
+  - rscadd: in order to help you gauge the strength of your fusion, fusion-derived
+      nuclear particles (aka radballs) are color-coded; and adjective-coded, so you
+      can also gauge how damned you are after being hit by a radball
+  - refactor: lightly refactored fusion code in general
+2020-11-09:
+  That0nePerson:
+  - rscadd: Adds weed killer spray to janiborg
+  - rscadd: Adds acid spray to emagged janiborg
+  - refactor: Refactors cyborg spray bottles
+  super12pl:
+  - balance: Makes searing tools small sized item
+2020-11-10:
+  LemonInTheDark:
+  - bugfix: You will keep your angle when you drift through space now. Oh and immovable
+      rods do the same, so things might get a bit more messy then usual.
+  TheChosenEvilOne, Skoglol, Cenrus, and others:
+  - bugfix: Dynamic mode fixes
+  - bugfix: Revolution ending dynamic earlier than expected
+  - rscadd: Clockwork Cult and Abductors have been implemented into dynamic mode
+  - rscadd: The revolution gamemode will no longer be selected if there are no head
+      of staff players
+  - rscadd: Dynamic added to secret rotation
+2020-11-11:
+  Archanial:
+  - admin: More botany logging.
+  Naevii:
+  - tweak: Updated RD cloak sprite
+  PowerfulBacon:
+  - rscadd: Nanotrasen battle royale.
+  - tweak: Replaced syndicate playing cards with a maintenance loot spawn.
+  - rscadd: Adds small recoil to shotguns.
+  - tweak: Integration cogs suppress APC power warnings.
+2020-11-13:
+  PowerfulBacon:
+  - bugfix: Fixes statues being able to move while looked at.
+  ike709:
+  - tweak: Updated extools
+2020-11-14:
+  ? ''
+  : - tweak: removes access levels from VIP
+  Archanial:
+  - rscadd: Teratomas are actual antagonists now!
+  - rscadd: You can now make someone teratoma in traitor panel.
+  - tweak: Teratomas cannot be made into a human with DNA sting or by mutadone!
+  - refactor: fixed some shitcode in monkey (who cares).
+  Isy232:
+  - rscadd: Botany's biogenerator can now produce toolbelts.
+  MNarath1:
+  - bugfix: Fixes Abductor locker to be animated and animates the alien locker
+  Phil Smith, Golgor:
+  - rscadd: The Crazy Hamburger recipe
+  - imageadd: Crazy Hamburger sprite by Golgor
+  Victor239:
+  - balance: Absorbing another changeling made more rewarding again.
+  - tweak: Fleshmend is now an active ability rather than passive heal again.
+  - tweak: Augmented Eyesight now blocks flashes again.
+  - tweak: Organic Flesh suit now only costs 1 point, has less slowdown and is armoured.
+  - rscadd: Radios now make noises when you use them
+  jupyterkat:
+  - bugfix: Stasis beds now stop diseases from progressing
+2020-11-15:
+  BeloneX:
+  - tweak: xeno queens can smack the emergency shuttle console to clear the xeno hostile
+      environment rather than waiting it out
+  - tweak: Xeno queens will delay the escape shuttle for a while unless they are killed
+  - tweak: the shuttle will get auto called at the end of the timer if the queen is
+      alive and it hasn't been called already to prevent super xeno extended rounds
+  Ohagi-Chan:
+  - tweak: Science outpost doors now allow miners to travel a little more freely.
+  - tweak: Hermits no longer wake up to discover that their cave is flooded with toxic
+      gas.
+  PowerfulBacon:
+  - bugfix: Red and blue cubes respect no_teleport
+  - rscdel: SRM-8 Missile Rack can no longer be printed.
+  - bugfix: Reebe void is now jaunt proof
+  - bugfix: Prosperity prisms now heal servants.
+  Victor239:
+  - tweak: Alloys are now given their proper names in the techfab.
+2020-11-16:
+  ike709:
+  - bugfix: Fixed being able to put intercoms and other anchored objects inside of
+      trash bags.
+  qwertyquerty:
+  - bugfix: Fixes ambience runtime
+2020-11-17:
+  Archanial:
+  - bugfix: Brig Physician can no longer be a traitor.
+  Crossedfall:
+  - tweak: Updated the rust-g dependency
+  Froststahr:
+  - bugfix: Station goals are buyable again
+  - rscadd: You also get a centcomm report telling you what the goal is, in absence
+      of the intercept report.
+  PowerfulBacon:
+  - bugfix: Fixes a runtime issue with invalid research design disk.
+  Sinmero:
+  - tweak: Round will not end the instant all heretics are dead
+  - tweak: Adds heretics to the endgame credits
+  eeSPee:
+  - bugfix: you no longer get IC muted for forced speech
+  qwertyquerty:
+  - tweak: Explosions throw farther
+  - tweak: Explosions throw all movable atoms
+  r1ks-iwnl:
+  - rscadd: Runechat text will be displayed even when inside another object such as
+      lockers or crates.
+2020-11-18:
+  'Azarak, Zandario ':
+  - rscadd: PDA now have sounds.
+  PowerfulBacon:
+  - admin: Allows resizing of the ticket messenger
+  uomo91:
+  - bugfix: Fixed "Show All" tab in player panel logs being broken.
+  - bugfix: Whispers, OOC, and various other things display differently in logs, visually
+      distinguishing them from say logs.
+  - refactor: Player panel logs will now show all logs chronologically, so you'll
+      see commingled say and attack logs if you're on the "Show All" tab, etc...
+2020-11-19:
+  FriendlyContractor:
+  - tweak: Radio jammer is now part of contractor kit standard loadout
+  - tweak: Tweaks contractor kit starting items pool by removing useless items and
+      adding some new
+  'TheChosenEvilOne ':
+  - bugfix: Dynamic midround traitor triggered by roundstart traitor ruleset no longer
+      ignores protected roles.
+2020-11-20:
+  Archanial:
+  - admin: Setting default gamemode now requires dbranks.
+  Crossedfall:
+  - server: libmariadb.dll is no longer a required static file
+  Isy232:
+  - balance: Departmental budget money increases are now static and are no longer
+      exploitable.
+  MNarath1:
+  - rscadd: animated crates
+  PowerfulBacon:
+  - tweak: Radios now only play to the person wearing the headset / holding the radio.
+  Victor239:
+  - rscadd: Glass shards can now be made by using glass in-hand.
+  eeSPee:
+  - tweak: recycler will no longer grind down raw/material stacks
+  francinum:
+  - rscdel: Exolocomotive Xenomitosis has been removed.
+2020-11-21:
+  KreeperHLC:
+  - tweak: AltClick on things that use AltClick no longer opens the contens of the
+      turf
+  PowerfulBacon:
+  - tweak: Eminence no longer blocks bullets.
+  - bugfix: Autolathe nolonger opens when something is printed.
+  francinum:
+  - balance: Mindswapping with a slaughter demon is a terrible idea.
+  jlsnow301:
+  - rscadd: Confirmation dialogue on harvesting replica pod seeds without soul
+  - rscadd: You can now scan replica pod seeds with an analyzer (plant/forensic) to
+      read the injected DNA
+  - bugfix: Removed a nonfunctional alert in this process
+2020-11-22:
+  Archanial:
+  - bugfix: You can't remove syringes while dead.
+  Nathan_does_voices:
+  - rscadd: New arrival sound made by Nathan_does_voices (be sure to look him up on
+      instagram or tik tok!)
+  PowerfulBacon:
+  - rscadd: Ratvar now fights Narsie
+  - rscadd: Cult will not end the round on summon if clockcult exists.
+  - tweak: Becoming a clockie counts towards the sacrifice objective.
+  - bugfix: Report of clockcult shows 180 seconds instead of 1800 seconds
+  - bugfix: Removes the delay between clockwork gateway opening and rat'var appearing
+  Victor239:
+  - bugfix: Fixes not being able to use syringes on arms and legs whilst wearing an
+      armour vest.
+  eeSPee:
+  - balance: cult floor is atmosproof
+  - balance: artificer magic missile no longer stuns cultists
+2020-11-24:
+  MNarath1:
+  - bugfix: invisible Crates
+  jupyterkat:
+  - bugfix: revs and engraved messages can't get irradiated anymore
+2020-11-25:
+  Chessus:
+  - tweak: Tweaked Dexlin
+  PowerfulBacon:
+  - bugfix: Chat will no longer linkify links unless specified to
+  Triiodine:
+  - rscadd: Added 16 new random maintenance rooms, 8 10x10s, and 8 10x5s
+  park66665:
+  - bugfix: fixed a minor /datum/looping_sound-related memory leak
+2020-11-26:
+  EdgeLordExe:
+  - rscadd: Dominant Adamantine Extracts!
+  - rscadd: Grey - Slowly feeds all slimes in the area, effect blocked by walls
+  - rscadd: Orange - Ignites anyone in range of the crystal, heats surrounding air
+      to 500k. Effect blocked by walls
+  - rscadd: Purple - Restores 1 of a random damage type to everything in range every
+      time it ticks, including brain and cell damage
+  - rscadd: Blue - Stabilizes atmos in effect range to the standard O2/N2 mixture,
+      and stabilizes temperature to 300k. Effect blocked by walls
+  - rscadd: Metal - just like Purple but affects only borgs
+  - rscadd: Dark Purple - Consumes plasma in the air, converting it into plasma sheets.
+      Crystal releases and ignites a small amount of plasma when destroyed
+  - rscadd: Dark Blue - Cleans and dries tiles in the area
+  - rscadd: Silver - Plants grow slightly faster, and prevents pests from growing
+      at all.
+  - rscadd: Bluespace - Acts as a beacon to other crystals of this type. Click with
+      an empty hand to teleport between them
+  - rscadd: Sepia - Everything in the area is under the effect simmiliar to Stasis
+      (Real stasis is a hardstun)
+  - rscadd: Cerulean - Adjacent tiles will gradually grow slime crystals, up to a
+      maximum stack of 5 in each tile. slime crystals may be combined with any material
+      sheet to increase its stack size by 5.
+  - rscadd: Pyrite - Causes floor tiles to be randomly colored within area of effect
+  - rscadd: Red - Crystal cleans blood from the ground in a wide radius, and may store
+      up to 300u of gathered blood. Crystal may be interacted with to consume some
+      blood and create a piece of "meat" or a random, functional organ. Containers
+      may also be used on the crystal to transfer blood directly out of it.
+  - rscadd: Green - Crystal stores one random mutation from the last player who interacted
+      with it (starts with none). Players standing within the effect radius are gradually
+      cured of mutations, but will be forcefully given the mutation stored in the
+      crystal
+  - rscadd: Pink - Everyone within range of the crystal is pacified (effects identical
+      to pacifist trait).
+  - rscadd: Gold - Click crystal with empty hand to be transformed into a random pet-type
+      simplemob. Leave crystal's area of effect to revert
+  - rscadd: Oil - Lubes tiles within area of effect.
+  - rscadd: Black - Players standing within two tiles of the crystal will begin slowly
+      transforming into a random slimeperson. Has no effect on slimepeople.
+  - rscadd: Adamantine - Makes everyone slightly more resistant in an area around
+      it.
+  - rscadd: Rainbow - Does nothing on its own, but will accept Crystalized extracts
+      to begin emitting the same effect as the consumed extract, allowing for multiple
+      different effects in the same space
+  - bugfix: fixes adamantine crossbreeds
+2020-11-27:
+  EdgeLordExe:
+  - bugfix: further fixes adamantines as per documentation in the bounty.
+  park66665:
+  - bugfix: stack max_amount is now enforced more thoroughly
+2020-11-28:
+  Froststahr:
+  - rscadd: Emags allow traitors to anonymously purchase any shuttle they want without
+      ID! Screwdrivers can be used on circuit boards as well, but adequate access
+      is still required in that case.
+  - tweak: The name of the authorizer, not the buyer, is printed on purchase of a
+      shuttle.
+  - tweak: Unsafe shuttles are now unavailable for purchase without emags/hacking.
+  LastCrusader105:
+  - tweak: tweaked piping
+  - bugfix: fixed chapel mail system
+  PowerfulBacon:
+  - rscadd: Ambient fading
+  - rscadd: Sound effect subsystem
+  SmArtKar:
+  - imageadd: Added old engine floor icon_state
+  jupyterkat:
+  - admin: restart votes check for active deadmins
+2020-11-29:
+  IndieanaJones:
+  - rscadd: Blob Zombies can now be controlled by Ghosts
+  - tweak: Blobs cannot understand or speak languages anymore and are default to blob
+      hivemind so no .b anymore for blobber or blob zombie
+  - balance: Makes Blob structurs Lavaproof so no blob kill with lavastaff
+  - tweak: Blob announcement now at size 75 or after 10 minutes
+  Jakecantcode:
+  - rscadd: Added charcoal pen that can be crafted from ash and wood
+  bloons3:
+  - tweak: changed admin logging for items
+  francinum:
+  - rscdel: Skewium has been removed.
+  super12pl:
+  - config: Removes Jungle Fever from rotation.

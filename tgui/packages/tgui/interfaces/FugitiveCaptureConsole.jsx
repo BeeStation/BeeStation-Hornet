@@ -1,10 +1,17 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section } from '../components';
+import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const FugitiveCaptureConsole = (_) => {
   const { act, data } = useBackend();
-  const { linked = false, locked = false, open = false, prisoner_valid = false, prisoner_ref = null, targets = [] } = data;
+  const {
+    linked = false,
+    locked = false,
+    open = false,
+    prisoner_valid = false,
+    prisoner_ref = null,
+    targets = [],
+  } = data;
   return (
     <Window width={380} height={300} theme="neutral">
       <Window.Content scrollable>
@@ -12,7 +19,12 @@ export const FugitiveCaptureConsole = (_) => {
           title="Containment Console"
           buttons={
             <>
-              <Button content={open ? 'Open' : 'Closed'} disabled={locked} selected={open} onClick={() => act('toggle_open')} />
+              <Button
+                content={open ? 'Open' : 'Closed'}
+                disabled={locked}
+                selected={open}
+                onClick={() => act('toggle_open')}
+              />
               <Button
                 icon={locked ? 'lock' : 'unlock'}
                 content={locked ? 'Locked' : 'Unlocked'}
@@ -21,20 +33,32 @@ export const FugitiveCaptureConsole = (_) => {
                 onClick={() => act('toggle_lock')}
               />
             </>
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item
               label="Fugitive Containment Chamber"
               color={linked ? 'good' : 'bad'}
-              buttons={!linked && <Button content="Reconnect" onClick={() => act('scan')} />}>
+              buttons={
+                !linked && (
+                  <Button content="Reconnect" onClick={() => act('scan')} />
+                )
+              }
+            >
               {linked ? 'Connected' : 'Not Connected'}
             </LabeledList.Item>
           </LabeledList>
         </Section>
         {targets.map((fugitive) => (
-          <Section title={`Wanted Fugitive: ${fugitive.name}`} key={fugitive.ref}>
+          <Section
+            title={`Wanted Fugitive: ${fugitive.name}`}
+            key={fugitive.ref}
+          >
             <LabeledList>
-              <LabeledList.Item label="Status" color={fugitive.captured || !fugitive.living ? 'good' : 'bad'}>
+              <LabeledList.Item
+                label="Status"
+                color={fugitive.captured || !fugitive.living ? 'good' : 'bad'}
+              >
                 {fugitive.captured
                   ? fugitive.captured_living
                     ? 'Captured (Alive)'
@@ -43,9 +67,15 @@ export const FugitiveCaptureConsole = (_) => {
                     ? 'At Large'
                     : 'Dead'}
               </LabeledList.Item>
-              {fugitive.location ? <LabeledList.Item label="Last known location">{fugitive.location}</LabeledList.Item> : null}
+              {fugitive.location ? (
+                <LabeledList.Item label="Last known location">
+                  {fugitive.location}
+                </LabeledList.Item>
+              ) : null}
             </LabeledList>
-            {prisoner_valid && prisoner_ref === fugitive.ref && prisoner_ref !== null ? (
+            {prisoner_valid &&
+            prisoner_ref === fugitive.ref &&
+            prisoner_ref !== null ? (
               <Button
                 fluid
                 mt={1}

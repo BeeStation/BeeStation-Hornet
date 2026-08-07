@@ -1,28 +1,44 @@
 /obj/item/bodypart/head/moth
-	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
+	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_greyscale = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_state = "moth_head"
 	limb_id = SPECIES_MOTH
 	is_dimorphic = FALSE
-	should_draw_greyscale = FALSE
+	should_draw_greyscale = TRUE
+	head_flags = HEAD_EYESPRITES
+
 /obj/item/bodypart/chest/moth
-	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
+	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_greyscale = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_state = "moth_chest_m"
 	limb_id = SPECIES_MOTH
 	is_dimorphic = TRUE
-	should_draw_greyscale = FALSE
+	should_draw_greyscale = TRUE
 
-/obj/item/bodypart/l_arm/moth
-	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
+/obj/item/bodypart/arm/left/moth
+	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_greyscale = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_state = "moth_l_arm"
 	limb_id = SPECIES_MOTH
-	should_draw_greyscale = FALSE
-/obj/item/bodypart/r_arm/moth
-	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
-	limb_id = SPECIES_MOTH
-	should_draw_greyscale = FALSE
-/obj/item/bodypart/l_leg/moth
-	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
-	limb_id = SPECIES_MOTH
-	should_draw_greyscale = FALSE
+	should_draw_greyscale = TRUE
 
-/obj/item/bodypart/r_leg/moth
-	static_icon = 'icons/mob/species/moth/bodyparts.dmi'
+/obj/item/bodypart/arm/right/moth
+	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_greyscale = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_state = "moth_r_arm"
 	limb_id = SPECIES_MOTH
-	should_draw_greyscale = FALSE
+	should_draw_greyscale = TRUE
+
+/obj/item/bodypart/leg/left/moth
+	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_greyscale = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_state = "moth_l_leg"
+	limb_id = SPECIES_MOTH
+	should_draw_greyscale = TRUE
+
+/obj/item/bodypart/leg/right/moth
+	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_greyscale = 'icons/mob/human/species/moth/bodyparts.dmi'
+	icon_state = "moth_r_leg"
+	limb_id = SPECIES_MOTH
+	should_draw_greyscale = TRUE

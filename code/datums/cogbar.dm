@@ -26,7 +26,7 @@
 
 	add_cog_to_user()
 
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_delete))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_user_delete))
 
 
 /datum/cogbar/Destroy()
@@ -52,7 +52,7 @@
 		unique = TRUE,
 		alpha = 0,
 	)
-	cog.pixel_y = world.icon_size + offset_y
+	cog.pixel_y = ICON_SIZE_Y + offset_y
 	animate(cog, alpha = 255, time = COGBAR_ANIMATION_TIME)
 
 	if(isnull(user_client))

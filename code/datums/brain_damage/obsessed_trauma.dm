@@ -41,7 +41,7 @@
 	antagonist.forge_objectives(obsession)
 	antagonist.greet()
 
-/datum/brain_trauma/special/obsessed/on_life()
+/datum/brain_trauma/special/obsessed/on_life(delta_time, times_fired)
 	var/mob/living/obsession_body = obsession.current
 	if(!istype(obsession_body) || obsession_body.stat == DEAD)
 		viewing = FALSE
@@ -53,12 +53,12 @@
 	viewing = (owner in oviewers(7, obsession_body))
 	if(viewing)
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/creeping, obsession.name)
-		total_time_creeping += 2 SECONDS
+		total_time_creeping += delta_time SECONDS
 		if(!revealed && (total_time_creeping >= OBSESSION_REVEAL_TIME))
 			reveal()
 		time_spent_away = 0
 		if(attachedobsessedobj)//if an objective needs to tick down, we can do that since traumas coexist with the antagonist datum
-			attachedobsessedobj.timer -= 2 SECONDS //mob subsystem ticks every 2 seconds(?), remove 20 deciseconds from the timer. sure, that makes sense.
+			attachedobsessedobj.timer -= delta_time SECONDS //mob subsystem ticks every 2 seconds(?), remove 20 deciseconds from the timer. sure, that makes sense.
 	else
 		out_of_view()
 
@@ -71,7 +71,8 @@
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()
-	UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
+	if(obsession)
+		UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
 	antagonist?.trauma = null
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 
@@ -107,12 +108,12 @@
 	var/list/viable_minds = list()
 	for(var/mob/living/carbon/human/potential_target in GLOB.player_list)
 		var/turf/target_turf = get_turf(potential_target)
-		if(potential_target != owner && potential_target.mind && potential_target.stat != DEAD && potential_target.client && !potential_target.client.is_afk() && SSjob.name_occupations[potential_target.mind.assigned_role] && target_turf && is_station_level(target_turf.z))
+		if(potential_target != owner && potential_target.mind && potential_target.stat != DEAD && potential_target.client && !potential_target.client.is_afk() && SSjob.name_occupations[potential_target.mind.assigned_role.title] && target_turf && is_station_level(target_turf.z))
 			viable_minds += potential_target.mind
 	for(var/datum/mind/possible_target in viable_minds)
 		var/weight = 10
 		// MUCH less likely to get a target who's probably going to be off-station for most of the round
-		if(possible_target.assigned_role in list(JOB_NAME_EXPLORATIONCREW, JOB_NAME_SHAFTMINER))
+		if(possible_target.assigned_role.title in list(JOB_NAME_EXPLORATIONCREW, JOB_NAME_SHAFTMINER))
 			weight = 1
 		possible_targets[possible_target] = weight
 	if(length(possible_targets))

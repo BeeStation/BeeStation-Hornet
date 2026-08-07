@@ -1,4 +1,5 @@
 /datum/emote/silicon
+	abstract_type = /datum/emote/silicon
 	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon, /mob/living/simple_animal/hostile/mining_drone)
 	emote_type = EMOTE_AUDIBLE
 
@@ -51,8 +52,8 @@
 	message = "plays a sad trombone..."
 	sound = 'sound/misc/sadtrombone.ogg'
 
-/datum/emote/silicon/warn
-	key = "warn"
+/datum/emote/silicon/alarm
+	key = "alarm"
 	message = "blares an alarm!"
 	sound = 'sound/machines/warning-buzzer.ogg'
 

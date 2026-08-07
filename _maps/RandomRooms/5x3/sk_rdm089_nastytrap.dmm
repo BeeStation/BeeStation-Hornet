@@ -80,7 +80,7 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/effect/spawner/lootdrop/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (

@@ -4,7 +4,7 @@
 	icon_state = "frog"
 	icon_living = "frog"
 	icon_dead = "frog_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("ribbit","croak")
 	speak_language = /datum/language/metalanguage
 	emote_see = list("hops in a circle.", "shakes.")
@@ -22,7 +22,6 @@
 	response_harm_continuous = "splats"
 	response_harm_simple = "splat"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/effects/reee.ogg'
 	butcher_results = list(/obj/item/food/nugget = 1)
@@ -33,6 +32,9 @@
 
 /mob/living/simple_animal/hostile/retaliate/frog/Initialize(mapload)
 	. = ..()
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
 	if(prob(1))
 		name = "rare frog"
 		desc = "It seems a little smug."

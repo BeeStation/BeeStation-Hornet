@@ -89,7 +89,8 @@
 				/turf/open/openspace,
 				/turf/open/floor/plating/beach,
 				/turf/open/indestructible,
-				/turf/open/floor/prison))
+				/turf/open/floor/prison,
+			))
 			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
@@ -100,7 +101,7 @@
 		var/turf/T = safepick(validturfs)
 		if(T)
 			if(istype(T, /turf/open/floor/plating))
-				T.PlaceOnTop(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
+				T.place_on_top(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
 			else
 				T.ChangeTurf(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
 		else

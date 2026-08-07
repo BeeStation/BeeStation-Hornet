@@ -1,4 +1,5 @@
 /obj/item/organ/cyberimp/arm
+	abstract_type = /obj/item/organ/cyberimp/arm
 	name = "arm-mounted implant"
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
 	zone = BODY_ZONE_R_ARM
@@ -97,7 +98,8 @@
 
 /obj/item/organ/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += span_info("[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
+	if(IS_ROBOTIC_ORGAN(src))
+		. += span_info("[src] is assembled in the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.")
 
 /obj/item/organ/cyberimp/arm/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -112,40 +114,34 @@
 	to_chat(user, span_notice("You modify [src] to be installed on the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."))
 	update_icon()
 
-/obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/user, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/cyberimp/arm/on_insert(mob/living/carbon/arm_owner)
 	. = ..()
-	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
-	register_hand(user, owner.hand_bodyparts[side])
-	RegisterSignal(user, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
-	RegisterSignal(user, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(limb_attached))
+	RegisterSignal(arm_owner, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(on_limb_attached))
+	RegisterSignal(arm_owner, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+	on_limb_attached(arm_owner, arm_owner.hand_bodyparts[zone == BODY_ZONE_R_ARM ? RIGHT_HANDS : LEFT_HANDS])
 
-/obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/user, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/arm/on_remove(mob/living/carbon/arm_owner)
+	. = ..()
 	Retract()
-	unregister_hand(user)
-	UnregisterSignal(user, list(COMSIG_KB_MOB_DROPITEM_DOWN, COMSIG_CARBON_POST_ATTACH_LIMB))
-	..()
+	UnregisterSignal(arm_owner, list(COMSIG_CARBON_POST_ATTACH_LIMB, COMSIG_KB_MOB_DROPITEM_DOWN))
+	on_limb_detached(hand)
 
-/obj/item/organ/cyberimp/arm/proc/register_hand(mob/living/carbon/user, obj/item/bodypart/new_hand)
-	if(!istype(new_hand, /obj/item/bodypart/l_arm) && !istype(new_hand, /obj/item/bodypart/r_arm))
+/obj/item/organ/cyberimp/arm/proc/on_limb_attached(mob/living/carbon/source, obj/item/bodypart/limb)
+	SIGNAL_HANDLER
+	if(!limb || QDELETED(limb) || limb.body_zone != zone)
 		return
-	hand = new_hand
-	RegisterSignal(hand, COMSIG_BODYPART_REMOVED, PROC_REF(limb_removed))
-	RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
-
-/obj/item/organ/cyberimp/arm/proc/unregister_hand(mob/living/carbon/user)
 	if(hand)
-		UnregisterSignal(hand, list(COMSIG_ITEM_ATTACK_SELF, COMSIG_BODYPART_REMOVED))
-		hand = null
+		on_limb_detached(hand)
+	RegisterSignal(limb, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self))
+	RegisterSignal(limb, COMSIG_BODYPART_REMOVED, PROC_REF(on_limb_detached))
+	hand = limb
 
-/obj/item/organ/cyberimp/arm/proc/limb_attached(mob/living/carbon/source, obj/item/bodypart/new_limb, special)
+/obj/item/organ/cyberimp/arm/proc/on_limb_detached(obj/item/bodypart/source)
 	SIGNAL_HANDLER
-	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
-	if(source.hand_bodyparts[side] == new_limb)
-		register_hand(source, new_limb)
-
-/obj/item/organ/cyberimp/arm/proc/limb_removed(obj/item/bodypart/source, mob/living/carbon/old_owner, dismembered)
-	SIGNAL_HANDLER
-	unregister_hand(source)
+	if(source != hand || QDELETED(hand))
+		return
+	UnregisterSignal(hand, list(COMSIG_ITEM_ATTACK_SELF, COMSIG_BODYPART_REMOVED))
+	hand = null
 
 /obj/item/organ/cyberimp/arm/proc/on_item_attack_self()
 	SIGNAL_HANDLER
@@ -164,38 +160,47 @@
 		return //How did we even get here
 	if(hand != host.hand_bodyparts[host.active_hand_index])
 		return //wrong hand
-	Retract()
+	if(Retract())
+		return COMSIG_KB_ACTIVATED
 
 /obj/item/organ/cyberimp/arm/emp_act(severity)
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF|| !IS_ROBOTIC_ORGAN(src))
 		return
-	if(prob(15/severity) && owner)
+	if(prob(80/severity) && owner)
 		to_chat(owner, span_warning("The electro magnetic pulse causes [src] to malfunction!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
+		owner.drop_all_held_items()
+		Extend(pick(contents))
 
 /obj/item/organ/cyberimp/arm/proc/Retract()
 	if(!active_item || (active_item in src))
-		return
+		return FALSE
+	if(owner)
+		owner.visible_message(
+			span_notice("[owner] retracts [active_item] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+			span_notice("[active_item] snaps back into your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+			span_hear("You hear a short mechanical noise."),
+		)
 
-	owner.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
-		span_notice("[active_item] snaps back into your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
-		span_italics("You hear a short mechanical noise."))
+		owner.transferItemToLoc(active_item, src, TRUE)
+	else
+		active_item.forceMove(src)
 
-	owner.transferItemToLoc(active_item, src, TRUE)
-	REMOVE_TRAIT(active_item, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+	UnregisterSignal(active_item, COMSIG_ITEM_ATTACK_SELF)
 	active_item = null
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
+	return TRUE
 
-/obj/item/organ/cyberimp/arm/proc/Extend(var/obj/item/item)
+/obj/item/organ/cyberimp/arm/proc/Extend(obj/item/item)
 	if(!(item in src))
 		return
 
 	active_item = item
-	ADD_TRAIT(active_item, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
 	active_item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	ADD_TRAIT(active_item, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	active_item.slot_flags = null
 	active_item.set_custom_materials(null)
 
@@ -248,27 +253,11 @@
 	else
 		Retract()
 
-
-/obj/item/organ/cyberimp/arm/gun/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(30/severity) && owner && !(organ_flags & ORGAN_FAILING))
-		Retract()
-		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!"))
-		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!"))
-		owner.adjust_fire_stacks(20)
-		owner.IgniteMob()
-		owner.adjustFireLoss(25)
-		organ_flags |= ORGAN_FAILING
-
-
 /obj/item/organ/cyberimp/arm/gun/laser
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."
 	icon_state = "arm_laser"
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 	items_to_create = list(/obj/item/gun/energy/laser/mounted)
 
 /obj/item/organ/cyberimp/arm/gun/laser/l
@@ -292,8 +281,14 @@
 /obj/item/organ/cyberimp/arm/toolset
 	name = "integrated toolset implant"
 	desc = "A stripped-down version of the engineering cyborg toolset, designed to be installed on subject's arm. Contains advanced versions of every tool."
-	items_to_create = list(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/cyborg,
-		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
+	items_to_create = list(
+		/obj/item/screwdriver/cyborg,
+		/obj/item/wrench/cyborg,
+		/obj/item/weldingtool/cyborg,
+		/obj/item/crowbar/cyborg,
+		/obj/item/wirecutters/cyborg,
+		/obj/item/multitool/cyborg,
+	)
 
 /obj/item/organ/cyberimp/arm/toolset/l
 	zone = BODY_ZONE_L_ARM
@@ -315,8 +310,8 @@
 /obj/item/organ/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal and highly dangerous cybernetic implant that can project a deadly blade of concentrated energy."
-	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/blade/hardlight)
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
+	items_to_create = list(/obj/item/melee/energy/blade/hardlight)
 
 /obj/item/organ/cyberimp/arm/medibeam
 	name = "integrated medical beamgun"
@@ -349,14 +344,14 @@
 /obj/item/organ/cyberimp/arm/baton
 	name = "arm electrification implant"
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
-	syndicate_implant = TRUE
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 	items_to_create = list(/obj/item/borg/stun)
 
 /obj/item/organ/cyberimp/arm/combat
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
-	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/assembly/flash/armimplant)
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
+	items_to_create = list(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/assembly/flash/armimplant)
 
 /obj/item/organ/cyberimp/arm/combat/Initialize(mapload)
 	. = ..()
@@ -370,7 +365,22 @@
 /obj/item/organ/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
-	items_to_create = list(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/surgical_drapes)
+	items_to_create = list(
+		/obj/item/surgical_drapes,
+		/obj/item/retractor/augment,
+		/obj/item/hemostat/augment,
+		/obj/item/cautery/augment,
+		/obj/item/scalpel/augment,
+		/obj/item/circular_saw/augment,
+		/obj/item/blood_filter/augment,
+		/obj/item/surgicaldrill/augment,
+	)
+
+/obj/item/organ/cyberimp/arm/surgery/on_emag(mob/user)
+	..()
+	to_chat(user, span_notice("You unlock [src] integrated combat knife!"))
+	var/obj/item/knife/combat/cyborg/knife = new(src)
+	items_list.Insert(1, WEAKREF(knife))
 
 /obj/item/organ/cyberimp/arm/power_cord
 	name = "power cord implant"
@@ -381,9 +391,9 @@
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
-	icon_state = "implant-esaw_0"
-	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/sword/esaw/implant)
+	icon_state = "implant-esaw"
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
+	items_to_create = list(/obj/item/melee/energy/sword/esaw/implant)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade
 	name = "arm-mounted hydraulic blade"

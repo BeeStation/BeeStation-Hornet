@@ -136,7 +136,6 @@
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 
 /obj/structure/fence/door/proc/update_door_status()
-	density = !density
 	icon_state = density ? "door_closed" : "door_opened"
 
 /obj/structure/fence/door/proc/can_open(mob/user)

@@ -19,7 +19,7 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/remains/human,
 /obj/effect/trap/nexus/trickyspawner/spookyskeleton,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},

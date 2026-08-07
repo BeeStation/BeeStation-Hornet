@@ -2,10 +2,10 @@
 	name = "Assembly"
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "holder"
-	item_state = "assembly"
+	inhand_icon_state = "assembly"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -15,7 +15,7 @@
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/item/assembly_holder/Destroy()
 	QDEL_LAZYLIST(assemblies)
@@ -39,7 +39,7 @@
 			var/obj/item/assembly/timer/timer = assembly
 			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
-/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	on_move(old_loc, movement_dir)
 
@@ -55,7 +55,7 @@
 	SSblackbox.record_feedback("tally", "assembly_made", 1, "[initial(A.name)]-[initial(A2.name)]")
 
 // on_attach: Pass on_attach message to child assemblies
-/obj/item/assembly_holder/proc/on_attach(var/obj/structure/reagent_dispensers/rig)
+/obj/item/assembly_holder/proc/on_attach(obj/structure/reagent_dispensers/rig)
 	var/obj/item/newloc = loc
 	if(!newloc.IsSpecialAssembly() && !newloc.IsAssemblyHolder())
 		return
@@ -98,7 +98,7 @@
 	update_appearance()
 
 /obj/item/assembly_holder/proc/attach(obj/item/assembly/A, mob/user)
-	if(!A.remove_item_from_storage(src))
+	if(!A.remove_item_from_storage(src, user))
 		if(user)
 			user.transferItemToLoc(A, src)
 		else
@@ -157,9 +157,6 @@
 		return
 
 	return ..()
-
-/obj/item/assembly_holder/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool)
 	if(..())

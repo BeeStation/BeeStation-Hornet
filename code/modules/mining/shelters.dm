@@ -10,7 +10,10 @@
 	. = ..()
 	blacklisted_turfs = typecacheof(/turf/closed)
 	whitelisted_turfs = list()
-	banned_areas = typecacheof(list(/area/shuttle, /area/tear_in_reality))
+	banned_areas = typecacheof(list(
+		/area/shuttle,
+		/area/tear_in_reality,
+	))
 	banned_objects = list()
 
 /datum/map_template/shelter/proc/check_deploy(turf/deploy_location)
@@ -118,3 +121,9 @@
 	shelter_id = "shelter_theta"
 	description = "A large party area fit for station parties."
 	mappath = "_maps/templates/shelter_7.dmm"
+
+/datum/map_template/shelter/shuttleh
+	name = "Shuttle Husk"
+	shelter_id = "shuttle_husk"
+	description = "The husk of what used to be an exploration shuttle, all of the useful parts were sold already."
+	mappath = "_maps/templates/shuttle_husk.dmm"

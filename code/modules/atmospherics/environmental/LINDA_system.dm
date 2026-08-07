@@ -54,21 +54,9 @@
 	var/list/atmos_adjacent_turfs = src.atmos_adjacent_turfs
 	var/canpass = CANATMOSPASS(src, src, FALSE)
 	// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
-	var/list/z_traits = SSmapping.multiz_levels[z]
 	for(var/direction in GLOB.cardinals_multiz)
-		// Yes this is a reimplementation of get_step_mutliz. It's faster tho. fuck you
-		// Oh also yes UP and DOWN do just point to +1 and -1 and not z offsets
-		// Multiz is shitcode welcome home
-		var/turf/current_turf = (direction & (UP|DOWN)) ? \
-			(direction & UP) ? \
-				(z_traits[Z_LEVEL_UP]) ? \
-					(get_step(locate(x, y, z + 1), NONE)) : \
-				(null) : \
-				(z_traits[Z_LEVEL_DOWN]) ? \
-					(get_step(locate(x, y, z - 1), NONE)) : \
-				(null) : \
-			(get_step(src, direction))
-		if(!isopenturf(current_turf)) // not interested in you brother
+		var/turf/current_turf = get_step_multiz(src, direction)
+		if(!isopenturf(current_turf))
 			continue
 		// The assumption is that ONLY DURING INIT if two tiles have the same cycle, there's no way canpass(a->b) will be different then canpass(b->a), so this is faster
 		// Saves like 1.2 seconds

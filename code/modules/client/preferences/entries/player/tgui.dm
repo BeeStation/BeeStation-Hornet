@@ -1,12 +1,28 @@
-/datum/preference/toggle/tgui_fancy
-	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	db_key = "tgui_fancy"
+/// Changes layout in some UI's, like Vending, Smartfridge etc. Making it list or grid
+/datum/preference/choiced/tgui_layout
+	db_key = "tgui_layout"
 	preference_type = PREFERENCE_PLAYER
+	disable_serialization = TRUE //Will break during the TM otherwise
 
-/datum/preference/toggle/tgui_fancy/apply_to_client(client/client, value)
+/datum/preference/choiced/tgui_layout/init_possible_values()
+	return list(
+		TGUI_LAYOUT_GRID,
+		TGUI_LAYOUT_LIST,
+	)
+
+/datum/preference/choiced/tgui_layout/create_default_value()
+	return TGUI_LAYOUT_LIST
+
+/datum/preference/choiced/tgui_layout/apply_to_client(client/client, value)
 	for (var/datum/tgui/tgui as anything in client.mob?.tgui_open_uis)
 		// Force it to reload either way
 		tgui.update_static_data(client.mob)
+
+/datum/preference/choiced/tgui_layout/smartfridge
+	db_key = "tgui_layout_smartfridge"
+
+/datum/preference/choiced/tgui_layout/create_default_value()
+	return TGUI_LAYOUT_GRID
 
 /datum/preference/toggle/tgui_lock
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES

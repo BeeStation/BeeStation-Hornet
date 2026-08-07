@@ -38,7 +38,7 @@
 	return TRUE
 
 /datum/keybinding/living/toggle_combat_mode
-	keys = list("`")
+	keys = list("F")
 	name = "toggle_combat_mode"
 	full_name = "Toggle Combat Mode"
 	description = "Toggles combat mode. Like Help/Harm but cooler."
@@ -80,8 +80,44 @@
 	var/mob/living/user_mob = user.mob
 	user_mob.set_combat_mode(FALSE, silent = FALSE)
 
+/datum/keybinding/living/toggle_move_intent
+	keys = list("Alt")
+	name = "toggle_move_intent"
+	full_name = "Hold to toggle move intent"
+	description = "Held down to cycle to the other move intent, release to cycle back"
+	keybind_signal = COMSIG_KB_LIVING_TOGGLEMOVEINTENT_DOWN
+
+/datum/keybinding/living/toggle_move_intent/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/M = user.mob
+	M.toggle_move_intent()
+	return TRUE
+
+/datum/keybinding/living/toggle_move_intent/up(client/user)
+	. = ..()
+	var/mob/living/M = user.mob
+	M.toggle_move_intent()
+	return TRUE
+
+/datum/keybinding/living/toggle_move_intent_alternative
+	keys = list("Unbound")
+	name = "toggle_move_intent_alt"
+	full_name = "press to cycle move intent"
+	description = "Pressing this cycle to the opposite move intent, does not cycle back"
+	keybind_signal = COMSIG_KB_LIVING_TOGGLEMOVEINTENTALT_DOWN
+
+/datum/keybinding/living/toggle_move_intent_alternative/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/M = user.mob
+	M.toggle_move_intent()
+	return TRUE
+
 /datum/keybinding/living/look_up
-	keys = list("L")
+	keys = list()
 	name = "look up"
 	full_name = "Look Up"
 	description = "Look up at the next z-level. Only works if below any nearby open space within a 3x3 square."
@@ -104,7 +140,7 @@
 	return TRUE
 
 /datum/keybinding/living/look_down
-	keys = list(";")
+	keys = list()
 	name = "look down"
 	full_name = "Look Down"
 	description = "Look down at the previous z-level. Only works if above any nearby open space within a 3x3 square."

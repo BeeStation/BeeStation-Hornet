@@ -12,7 +12,7 @@
 	var/charges = INFINITY
 	var/antimagic_flags = MAGIC_RESISTANCE
 
-	var/list/static/ignore_typecache
+	var/static/list/ignore_typecache
 	var/list/mob/immune_minds = list()
 
 	var/sparks = TRUE
@@ -28,7 +28,8 @@
 	if(!ignore_typecache)
 		ignore_typecache = typecacheof(list(
 			/obj/effect,
-			/mob/dead))
+			/mob/dead,
+		))
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered)

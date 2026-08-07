@@ -105,12 +105,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/confirm = input("[choice.ckey] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
-	var/obj/item/paicard/card = new(T)
+	var/obj/item/pai_card/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.name = capped_input(choice, "Enter your pAI name:", "pAI Name", "Personal AI")
 	pai.real_name = pai.name
 	pai.ckey = choice.ckey
-	card.setPersonality(pai)
+	card.set_personality(pai)
 	SSpai.candidates.Remove(SSpai.candidates[choice.ckey])
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -207,7 +207,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
 					qdel(card.stored_card)
 					if(card)
-						card.try_insert(id, H)
+						card.application_attackby(id, H)
 				else if(istype(worn, /obj/item/storage/wallet))
 					var/obj/item/storage/wallet/W = worn
 					W.front_id = id
@@ -286,7 +286,17 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/areas_with_LS = list()
 	var/list/areas_with_intercom = list()
 	var/list/areas_with_camera = list()
-	var/list/station_areas_blacklist = typecacheof(list(/area/holodeck/rec_center, /area/shuttle, /area/engine/supermatter, /area/science/test_area, /area/space, /area/solar, /area/mine, /area/ruin, /area/asteroid))
+	var/list/station_areas_blacklist = typecacheof(list(
+		/area/station/holodeck/rec_center,
+		/area/shuttle,
+		/area/station/engineering/supermatter,
+		/area/station/science/test_area,
+		/area/misc/space,
+		/area/station/solars,
+		/area/mine,
+		/area/ruin,
+		/area/centcom/asteroid,
+	))
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		to_chat(usr, "Game still loading, please hold!")
@@ -312,7 +322,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_all.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/power/apc/APC in GLOB.apcs_list)
+	for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
 		var/area/A = APC.area
 		if(!A)
 			dat += "Skipped over [APC] in invalid location, [APC.loc]."
@@ -323,7 +333,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_multiple_APCs.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/airalarm/AA in GLOB.machines)
+	for(var/obj/machinery/airalarm/AA as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/airalarm))
 		var/area/A = get_area(AA)
 		if(!A) //Make sure the target isn't inside an object, which results in runtimes.
 			dat += "Skipped over [AA] in invalid location, [AA.loc].<br>"
@@ -332,7 +342,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_air_alarm.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			dat += "Skipped over [RC] in invalid location, [RC.loc].<br>"
@@ -341,7 +351,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_RC.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			dat += "Skipped over [L] in invalid location, [L.loc].<br>"
@@ -350,7 +360,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_light.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			dat += "Skipped over [LS] in invalid location, [LS.loc].<br>"
@@ -359,7 +369,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_LS.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/item/radio/intercom/I in GLOB.machines)
+	for(var/obj/item/radio/intercom/I as anything in GLOB.intercoms_list)
 		var/area/A = get_area(I)
 		if(!A)
 			dat += "Skipped over [I] in invalid location, [I.loc].<br>"
@@ -368,7 +378,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_intercom.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		var/area/A = get_area(C)
 		if(!A)
 			dat += "Skipped over [C] in invalid location, [C.loc].<br>"
@@ -510,65 +520,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	return dresscode
 
-/client/proc/startSinglo()
-
-	set category = "Debug"
-	set name = "Start Singularity"
-	set desc = "Sets up the singularity and all machines to get power flowing through the station"
-
-	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
-		return
-
-	for(var/obj/machinery/power/emitter/E in GLOB.machines)
-		if(E.anchored)
-			E.active = 1
-
-	for(var/obj/machinery/field/generator/F in GLOB.machines)
-		if(F.active == 0)
-			F.set_anchored(TRUE)
-			F.active = 1
-			F.state = 2
-			F.power = 250
-			F.warming_up = 3
-			F.start_fields()
-			F.update_icon()
-
-	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
-			if(G.anchored)
-				var/obj/anomaly/singularity/S = new /obj/anomaly/singularity(get_turf(G), 50)
-//				qdel(G)
-				S.energy = 1750
-				S.current_size = 7
-				S.icon = 'icons/effects/224x224.dmi'
-				S.icon_state = "singularity_s7"
-				S.pixel_x = -96
-				S.pixel_y = -96
-				S.grav_pull = 0
-				//S.consume_range = 3
-				S.dissipate = 0
-				//S.dissipate_delay = 10
-				//S.dissipate_track = 0
-				//S.dissipate_strength = 10
-
-	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
-		if(Rad.anchored)
-			if(!Rad.loaded_tank)
-				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				var/datum/gas_mixture/plasma_air = Plasma.return_air()
-				SET_MOLES(/datum/gas/plasma, plasma_air, 70)
-
-				Rad.drainratio = 0
-				Rad.loaded_tank = Plasma
-				Plasma.forceMove(Rad)
-
-			if(!Rad.active)
-				Rad.toggle_power()
-
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
-		if(SMES.anchored)
-			SMES.input_attempt = 1
-
 /client/proc/cmd_debug_mob_lists()
 	set category = "Debug"
 	set name = "Debug Mob Lists"
@@ -586,7 +537,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if("Dead Mobs")
 			to_chat(usr, jointext(GLOB.dead_mob_list,","))
 		if("Clients")
-			to_chat(usr, jointext(GLOB.clients,","))
+			to_chat(usr, jointext(GLOB.clients_unsafe,","))
 		if("Joined Clients")
 			to_chat(usr, jointext(GLOB.joined_player_list,","))
 
@@ -622,7 +573,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	dellog += "</ol>"
 
-	usr << browse(dellog.Join(), "window=dellog")
+	usr << browse(HTML_SKELETON(dellog.Join()), "window=dellog")
 
 /client/proc/cmd_display_overlay_log()
 	set category = "Debug"
@@ -636,7 +587,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Display Initialize() Log"
 	set desc = "Displays a list of things that didn't handle Initialize() properly"
 
-	usr << browse(replacetext(SSatoms.InitLog(), "\n", "<br>"), "window=initlog")
+	var/datum/browser/browser = new(usr, "initlog", "Initialize Log", 500, 500)
+	browser.set_content(replacetext(SSatoms.InitLog(), "\n", "<br>"))
+	browser.open()
 
 /client/proc/debug_huds(i as num)
 	set category = "Debug"
@@ -691,15 +644,19 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		exists[L.ruin_template] = landmark
 
 	var/list/names = list()
-	names += "---- Dynamic Levels ----"
-	for(var/name in SSmapping.space_ruins_templates)
-		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_DYNAMIC_LEVEL, /area/space)
-	names += "---- Lava Ruins ----"
-	for(var/name in SSmapping.lava_ruins_templates)
-		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
+	var/list/themed_names
+	for (var/theme in SSmapping.themed_ruins)
+		names += "---- [theme] ----"
+		themed_names = list()
+		for (var/name in SSmapping.themed_ruins[theme])
+			var/datum/map_template/ruin/ruin = SSmapping.themed_ruins[theme][name]
+			if(names[name])
+				name = "[theme] [name]"
+			themed_names[name] = list(ruin, theme, list(ruin.default_area))
+		names += sort_list(themed_names)
 
-	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in sort_list(names)
-	var/data = names[ruinname]
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Spawn Ruin", names)
+	var/list/data = names[ruinname]
 	if (!data)
 		return
 	var/datum/map_template/ruin/template = data[1]
@@ -739,6 +696,23 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	queries.Cut()
 
 	message_admins("[key_name_admin(src)] ran [val] empty queries.")
+
+/client/proc/test_pathfinding()
+	set category = "Debug"
+	set name = "Toggle Pathfind Testing"
+	set desc = "Enables/Disables pathfinding testing action buttons"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Pathfind Testing")
+	log_admin("[key_name(src)] [holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools")
+	message_admins(span_adminnotice("[key_name_admin(src)] [holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools."))
+
+	if(!holder.path_debug)
+		holder.path_debug = new(holder)
+	else
+		QDEL_NULL(holder.path_debug)
 
 /client/proc/generate_ruin()
 	set category = "Debug"
@@ -888,14 +862,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	var/datum/gas_mixture/C_air = C.return_air()
 
-	SET_MOLES(gas_to_add, C_air, amount)
-
-	C_air.temperature = (temp)
-	C.update_icon()
+	C_air.set_gas(gas_to_add, amount)
+	C_air.set_temperature(temp)
+	C.update_appearance()
 
 	message_admins(span_adminnotice("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp]."))
 	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
-
 
 /client/proc/give_all_spells_touch()
 	set category = "Debug"
@@ -1033,13 +1005,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/bucket_list_output = generate_timer_source_output(SStimer.bucket_list)
 	var/second_queue = generate_timer_source_output(SStimer.second_queue)
 
-	usr << browse({"
+	var/datum/browser/browser = new(usr, "check_timer_sources", "Timer Sources", 700, 700)
+	browser.set_content({"
 		<h3>bucket_list</h3>
 		[bucket_list_output]
 
 		<h3>second_queue</h3>
 		[second_queue]
-	"}, "window=check_timer_sources;size=700x700")
+	"})
+	browser.open()
 
 /proc/generate_timer_source_output(list/datum/timedevent/events)
 	var/list/per_source = list()
@@ -1204,12 +1178,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Asset caching is disabled in the config!"))
 		return
 	var/regenerated = 0
-	for(var/datum/asset/A as() in subtypesof(/datum/asset))
-		if(!initial(A.cross_round_cachable))
+	for(var/datum/asset/target_spritesheet as anything in valid_subtypesof(/datum/asset))
+		if(!initial(target_spritesheet.cross_round_cachable))
 			continue
-		if(A == initial(A._abstract))
-			continue
-		var/datum/asset/asset_datum = GLOB.asset_datums[A]
+		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
 		asset_datum.regenerate()
 		regenerated++
 	to_chat(usr, span_notice("Regenerated [regenerated] asset\s."))
@@ -1222,9 +1194,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Smart asset caching is disabled in the config!"))
 		return
 	var/cleared = 0
-	for(var/datum/asset/spritesheet_batched/A as() in subtypesof(/datum/asset/spritesheet_batched))
-		if(A == initial(A._abstract))
-			continue
-		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(A.name)].json")
+	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in valid_subtypesof(/datum/asset/spritesheet_batched))
+		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
 		cleared++
 	to_chat(usr, span_notice("Cleared [cleared] asset\s."))

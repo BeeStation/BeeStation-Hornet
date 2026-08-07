@@ -33,7 +33,7 @@
 /obj/structure/closet/crate/critter/update_icon()
 	. = ..()
 
-/obj/structure/closet/crate/critter/animate_door(var/closing = FALSE)
+/obj/structure/closet/crate/critter/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -58,7 +58,6 @@
 	is_animating_door = FALSE
 	vis_contents -= door_obj
 	update_icon()
-	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/crate/critter/get_door_transform(crateanim_1, crateanim_2)
 	var/matrix/M = matrix()

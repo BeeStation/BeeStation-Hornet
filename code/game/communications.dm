@@ -127,6 +127,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 ))
 
 /datum/radio_frequency
+	/// The frequency of this radio frequency. Of course.
 	var/frequency
 	/// List of filters -> list of devices
 	var/list/list/datum/weakref/devices = list()
@@ -174,6 +175,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 					continue
 			device.receive_signal(signal)
 
+/// Handles adding a listener to the radio frequency.
 /datum/radio_frequency/proc/add_listener(obj/device, filter as text|null)
 	if (!filter)
 		filter = "_default"
@@ -186,7 +188,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 		devices[filter] = devices_line = list()
 	devices_line += new_listener
 
-
+/// Handles removing a listener from this radio frequency.
 /datum/radio_frequency/proc/remove_listener(obj/device)
 	for(var/devices_filter in devices)
 		var/list/devices_line = devices[devices_filter]
@@ -196,7 +198,10 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 		if(!devices_line.len)
 			devices -= devices_filter
 
-
+/**
+ * Proc for reacting to a received `/datum/signal`. To be implemented as needed,
+ * does nothing by default.
+ */
 /obj/proc/receive_signal(datum/signal/signal)
 	return
 

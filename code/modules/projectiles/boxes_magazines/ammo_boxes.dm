@@ -77,6 +77,18 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
 
+/obj/item/ammo_box/x200law
+	name = "ammo box (x200 LAW NPS)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/x200law
+	max_ammo = 16
+
+/obj/item/ammo_box/taser
+	name = "ammo box (Taser Loads)"
+	icon_state = "tasebox"
+	ammo_type = /obj/item/ammo_casing/taser
+	max_ammo = 10
+
 /obj/item/ammo_box/pouch/c9mm
 	name = "ammo pouch (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm

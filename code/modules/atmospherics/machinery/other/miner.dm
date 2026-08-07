@@ -5,7 +5,6 @@
 #define GASMINER_POWER_KPA 3
 #define GASMINER_POWER_FULLSCALE 4
 
-
 /obj/machinery/atmospherics/miner
 	name = "gas miner"
 	desc = "Gasses mined from the gas giant below (above?) flow out through this massive vent."
@@ -13,14 +12,13 @@
 	icon_state = "miner"
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
-	interacts_with_air = TRUE
 	var/spawn_id = null
 	var/spawn_temp = T20C
 	/// Moles of gas to spawn per second
 	var/spawn_mol = MOLES_CELLSTANDARD * 5
 	var/max_ext_mol = INFINITY
 	var/max_ext_kpa = 6500
-	var/overlay_color = "#FFFFFF"
+	var/overlay_color = COLOR_WHITE
 	var/active = TRUE
 	var/power_draw = 0
 	var/power_draw_static = 2000
@@ -134,15 +132,14 @@
 	if(!isopenturf(O))
 		return FALSE
 	var/datum/gas_mixture/merger = new
-	merger.assert_gas(spawn_id)
-	merger.gases[spawn_id][MOLES] = spawn_mol * delta_time
+	merger.moles[spawn_id] = spawn_mol * delta_time
 	merger.temperature = spawn_temp
 	O.assume_air(merger)
 
 /obj/machinery/atmospherics/miner/attack_silicon(mob/living/silicon/user)
 	if(broken)
-		to_chat(user, "[src] seems to be broken. Its debug interface outputs: [broken_message]")
-	..()
+		to_chat(user, span_warning("[src] seems to be broken. Its debug interface outputs: [broken_message]"))
+	return ..()
 
 /obj/machinery/atmospherics/miner/n2o
 	name = "\improper N2O Gas Miner"
@@ -161,7 +158,7 @@
 
 /obj/machinery/atmospherics/miner/plasma
 	name = "\improper Plasma Gas Miner"
-	overlay_color = "#FF0000"
+	overlay_color = COLOR_RED
 	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/carbon_dioxide
@@ -189,15 +186,10 @@
 	overlay_color = "#00a6e7"
 	spawn_id = /datum/gas/hypernoblium
 
-/obj/machinery/atmospherics/miner/nitryl
-	name = "\improper Nitryl Gas Miner"
-	overlay_color = "#5e4000"
-	spawn_id = /datum/gas/nitryl
-
-/obj/machinery/atmospherics/miner/stimulum
-	name = "\improper Stimulum Gas Miner"
-	overlay_color = "#c9c9c9"
-	spawn_id = /datum/gas/stimulum
+/obj/machinery/atmospherics/miner/nitrium
+	name = "\improper Nitrium Gas Miner"
+	overlay_color = "#752b00"
+	spawn_id = /datum/gas/nitrium
 
 /obj/machinery/atmospherics/miner/pluoxium
 	name = "\improper Pluoxium Gas Miner"
@@ -226,7 +218,7 @@
 
 /obj/machinery/atmospherics/miner/station/plasma
 	name = "\improper Plasma Gas Miner"
-	overlay_color = "#FF0000"
+	overlay_color = COLOR_RED
 	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/station/carbon_dioxide

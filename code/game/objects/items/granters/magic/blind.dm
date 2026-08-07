@@ -16,4 +16,4 @@
 /obj/item/book/granter/action/spell/blind/recoil(mob/living/user)
 	. = ..()
 	to_chat(user, ("<span class='warning'>You go blind!</span>"))
-	user.set_blindness(100)
+	user.adjust_temp_blindness(20 SECONDS)

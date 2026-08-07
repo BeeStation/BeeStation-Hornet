@@ -42,6 +42,8 @@
 		SEND_SIGNAL(src, COMSIG_CLICK, location, control, params, usr)
 
 		usr.ClickOn(src, params)
+		// Refresh the screentips
+		refresh_screentips()
 
 /atom/DblClick(location,control,params)
 	if(flags_1 & INITIALIZED_1)
@@ -69,7 +71,7 @@
 		return
 	next_click = world.time + 1
 
-	if(check_click_intercept(params,A) || notransform)
+	if(check_click_intercept(params,A) || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	var/list/modifiers = params2list(params)
@@ -102,7 +104,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_STASIS))
+	if(INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS|INCAPABLE_STASIS))
 		return
 
 	face_atom(A)
@@ -128,11 +130,11 @@
 	if(W == A)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			W.attack_self_secondary(src, modifiers)
-			update_inv_hands()
+			update_held_items()
 			return
 		else
 			W.attack_self(src, modifiers)
-			update_inv_hands()
+			update_held_items()
 			return
 
 	//These are always reachable.
@@ -151,6 +153,12 @@
 	if(!loc.AllowClick())
 		return
 
+	// In a storage item with a disassociated storage parent
+	var/obj/item/item_atom = A
+	if(istype(item_atom))
+		if((item_atom.item_flags & IN_STORAGE) && (item_atom.loc.flags_1 & HAS_DISASSOCIATED_STORAGE_1))
+			UnarmedAttack(item_atom, TRUE, modifiers)
+
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
@@ -162,12 +170,21 @@
 	else
 		if(W)
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				// Try the ranged attack first
+				var/ranged_attack_result = W.ranged_attack_secondary(A, src, params)
+
+				// Defer to normal ranged attack
+				if (ranged_attack_result == SECONDARY_ATTACK_CALL_NORMAL)
+					if (W.ranged_attack(A, src, params))
+						return
+
 				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
 
 				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
 					W.afterattack(A, src, FALSE, params)
 			else
-				W.afterattack(A,src,0,params)
+				if (!W.ranged_attack(A, src, params))
+					W.afterattack(A,src,0,params)
 		else
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				ranged_secondary_attack(A, modifiers)
@@ -211,7 +228,7 @@
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
 
-			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1)) //Directly accessible atoms
+			if(isturf(target) || isturf(target.loc) || HasDirectAccess(target) || (ismovable(target) && target.flags_1 & IS_ONTOP_1) || target.loc?.atom_storage) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
@@ -221,7 +238,7 @@
 				continue
 
 			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
-			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
+			if(target.loc.atom_storage)
 				next += target.loc
 
 		checking = next
@@ -368,7 +385,7 @@
 		ML.pulled(src)
 
 /mob/living/CtrlClick(mob/user)
-	if(!isliving(user) || !user.CanReach(src) || user.incapacitated())
+	if(!isliving(user) || !user.CanReach(src) || user.incapacitated)
 		return ..()
 
 	if(world.time < user.next_move)
@@ -383,7 +400,7 @@
 
 /mob/living/carbon/CtrlClick(mob/user)
 
-	if(!iscarbon(user) || !user.CanReach(src) || user.incapacitated())
+	if(!iscarbon(user) || !user.CanReach(src) || user.incapacitated)
 		return ..()
 
 	if(world.time < user.next_move)
@@ -465,7 +482,7 @@
 	return
 
 /mob/proc/ShiftMiddleClickOn(atom/A, params)
-	src.pointed(A, params)
+	src._pointed(A, params)
 	return
 
 /atom/proc/CtrlShiftClick(mob/user)
@@ -537,15 +554,15 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
 
-#define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / world.icon_size)
-#define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32)			//Not using world.icon_size on purpose.
+#define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / ICON_SIZE_ALL)
+#define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32) //Not using world.icon_size on purpose. //Ok well I trust you!
 
 /atom/movable/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
 	var/icon/newicon = icon('icons/hud/screen_gen.dmi', "catcher")
 	var/ox = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_x)
 	var/oy = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_y)
-	var/px = view_size_x * world.icon_size
-	var/py = view_size_y * world.icon_size
+	var/px = view_size_x * ICON_SIZE_X
+	var/py = view_size_y * ICON_SIZE_Y
 	var/sx = min(MAX_SAFE_BYOND_ICON_SCALE_PX, px)
 	var/sy = min(MAX_SAFE_BYOND_ICON_SCALE_PX, py)
 	newicon.Scale(sx, sy)

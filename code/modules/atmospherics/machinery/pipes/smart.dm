@@ -1,4 +1,7 @@
-GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)))
+GLOBAL_LIST_INIT(atmos_components, typecacheof(list(
+	/obj/machinery/atmospherics,
+)))
+
 //Smart pipes... or are they?
 /obj/machinery/atmospherics/pipe/smart
 	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
@@ -15,7 +18,7 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)
 	var/connections = NONE
 
 /obj/machinery/atmospherics/pipe/smart/update_pipe_icon()
-	icon = 'icons/obj/atmospherics/pipes/pipes_bitmask.dmi'
+	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
 
 	//find all directions this pipe is connected with other nodes
 	connections = NONE
@@ -97,7 +100,3 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2
 	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
 	icon_state = "manifold4w-2"
-
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubber/hidden/layer4
-	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
-	icon_state = "manifold4w-4"

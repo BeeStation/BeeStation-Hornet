@@ -1,8 +1,9 @@
 GLOBAL_LIST_INIT(creamable, typecacheof(list(
 	/mob/living/carbon/human,
 	/mob/living/carbon/monkey,
-	/mob/living/simple_animal/pet/dog/corgi,
-	/mob/living/silicon/ai)))
+	/mob/living/basic/pet/dog/corgi,
+	/mob/living/silicon/ai,
+)))
 
 /**
   * # Creamed component
@@ -37,7 +38,7 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 	var/atom/A = parent
 	A.add_overlay(creamface)
 
-/datum/component/creamed/Destroy(force, silent)
+/datum/component/creamed/Destroy(force)
 	var/atom/A = parent
 	A.cut_overlay(creamface)
 	qdel(creamface)

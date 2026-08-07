@@ -8,11 +8,11 @@
 	. = ..()
 	if(!ishuman(target))
 		return ELEMENT_INCOMPATIBLE
-	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(try_repair))
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(try_repair))
 
 /datum/element/mechanical_repair/Detach(datum/source, ...)
 	. = ..()
-	UnregisterSignal(source, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(source, COMSIG_ATOM_ATTACKBY)
 
 /datum/element/mechanical_repair/proc/try_repair(datum/source, obj/item/I, mob/living/user)
 	var/mob/living/carbon/human/target = source

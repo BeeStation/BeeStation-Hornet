@@ -11,6 +11,7 @@
 	icon_dead = "xpod-dead"
 	icon_harvest = "xpod-harvest"
 	growthstages = 4
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/seeds/random/Initialize(mapload)
 	. = ..()
@@ -26,7 +27,7 @@
 	name = "strange plant"
 	desc = "What could this even be?"
 	icon_state = "crunchy"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/food/grown/random/Initialize(mapload)
 	. = ..()

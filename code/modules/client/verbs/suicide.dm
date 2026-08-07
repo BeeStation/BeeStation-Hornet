@@ -9,7 +9,7 @@
 
 /mob/living/carbon/set_suicide(suicide_state) //you thought that box trick was pretty clever, didn't you? well now hardmode is on, boyo.
 	. = ..()
-	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/B = get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(B)
 		B.suicided = suicide_state
 
@@ -20,13 +20,6 @@
 			mmi.brain.suicided = suicide_state
 		if(mmi.brainmob)
 			mmi.brainmob.suiciding = suicide_state
-
-/mob/living/carbon/human/virtual_reality/set_suicide(suicide_state)
-	return
-
-/mob/living/carbon/human/virtual_reality/canSuicide()
-	to_chat(src, span_warning("I'm sorry [first_name()], I'm afraid you can't do that."))
-	return
 
 /mob/living/carbon/human/verb/suicide()
 	set hidden = 1
@@ -119,8 +112,8 @@
 		return
 	if(confirm == "Yes")
 		set_suicide(TRUE)
-		visible_message(span_danger("[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live."), \
-						span_userdanger("[src]'s brain is growing dull and lifeless. [p_they(TRUE)] look[p_s()] like [p_theyve()] lost the will to live."))
+		visible_message(span_danger("[src]'s brain is growing dull and lifeless. [p_They()] look[p_s()] like [p_theyve()] lost the will to live."), \
+						span_userdanger("[src]'s brain is growing dull and lifeless. [p_They()] look[p_s()] like [p_theyve()] lost the will to live."))
 
 		suicide_log()
 

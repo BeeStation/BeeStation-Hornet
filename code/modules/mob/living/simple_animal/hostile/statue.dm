@@ -9,7 +9,7 @@
 	icon_dead = "human_male"
 	gender = NEUTER
 	combat_mode = TRUE
-	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_INORGANIC | MOB_HUMANOID
 
 	response_help_continuous = "touches"
 	response_help_simple = "touch"
@@ -27,14 +27,13 @@
 	attack_verb_simple = "claw"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_STATUE)
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
-	hud_possible = list(ANTAG_HUD)
 
 	see_in_dark = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -53,13 +52,13 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_4_POINTS
 
 // No movement while seen code.
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 
-/mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
+/mob/living/simple_animal/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
 	// Give spells
 	var/datum/action/spell/aoe/flicker_lights/flicker = new(src)
@@ -86,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 		return 0
 	return ..()
 
-/mob/living/simple_animal/hostile/statue/Life()
+/mob/living/simple_animal/hostile/statue/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(!client && target) // If we have a target and we're AI controlled
 		var/mob/watching = can_be_seen()
@@ -135,16 +134,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.is_blind())
 				return M
 		for(var/obj/vehicle/sealed/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
-			for(var/O in M.occupants)
-				var/mob/mechamob = O
+			for(var/mob/mechamob as anything in M.occupants)
 				if(mechamob?.client && !mechamob.is_blind())
 					return mechamob
 	return null
 
 // Cannot talk
 
-/mob/living/simple_animal/hostile/statue/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	return 0
+/mob/living/simple_animal/hostile/statue/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	return
 
 // Turn to dust when gibbed
 
@@ -218,4 +216,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	return things
 
 /datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
-	victim.set_blindness(4)
+	victim.adjust_temp_blindness(8 SECONDS)

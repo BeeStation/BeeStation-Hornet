@@ -189,7 +189,7 @@
 	wielder = user
 	wielded = TRUE
 	ADD_TRAIT(parent, TRAIT_WIELDED, REF(src))
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(unreference_wielder))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(unreference_wielder))
 
 	if(!auto_wield)
 		RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, PROC_REF(on_swap_hands))
@@ -228,7 +228,7 @@
 
 /datum/component/two_handed/proc/unreference_wielder()
 	SIGNAL_HANDLER
-	UnregisterSignal(wielder, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(wielder, COMSIG_QDELETING)
 	wielder = null
 
 /**
@@ -270,9 +270,9 @@
 	// Update icons
 	parent_item.update_icon()
 	if(wielder.get_item_by_slot(ITEM_SLOT_BACK) == parent)
-		wielder.update_inv_back()
+		wielder.update_worn_back()
 	else
-		wielder.update_inv_hands()
+		wielder.update_held_items()
 
 	// if the item requires two handed drop the item on unwield
 	if(require_twohands)
@@ -397,3 +397,6 @@
 	. = ..()
 	if(wielded && !user.is_holding(src))
 		qdel(src)
+
+/obj/item/offhand/attack(mob/living/target, mob/living/user)
+	return

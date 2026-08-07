@@ -22,7 +22,7 @@
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
 	radio = new(src)
-	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.keyslot = /obj/item/encryptionkey/headset_sci
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
@@ -55,6 +55,8 @@
 		ectoplasmic_residues[activator.ckey] = TRUE
 		activator.log_message("activated an ecto sniffer", LOG_ATTACK)
 		addtimer(CALLBACK(src, PROC_REF(clear_residue), activator.ckey), 30 SECONDS)
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/ecto_sniffer, "Toggle")
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
 	. = ..()

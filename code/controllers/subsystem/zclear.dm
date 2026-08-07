@@ -1,5 +1,5 @@
-#define CLEAR_TURF_PROCESSING_TIME (120 SECONDS)	//Time it takes to clear all turfs
-#define CHECK_ZLEVEL_TICKS (5 SECONDS)			//Every 5 seconds check if a tracked z-level is free.
+#define CLEAR_TURF_PROCESSING_TIME (120 SECONDS) //Time it takes to clear all turfs
+#define CHECK_ZLEVEL_TICKS (5 SECONDS) //Every 5 seconds check if a tracked z-level is free.
 
 GLOBAL_LIST_EMPTY(zclear_atoms)
 GLOBAL_LIST_EMPTY(zclear_blockers)
@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(zclear)
 	name = "Z-Clear"
 	wait = 1
 
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME
 
 	//List of z-levels to be auto-wiped when they are left
@@ -35,17 +35,31 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/New()
 	. = ..()
-	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /atom/movable/mirage_holder))
+	ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/mob/camera,
+		/mob/dview,
+		/atom/movable/lighting_object,
+		/atom/movable/mirage_holder
+	))
 
 /datum/controller/subsystem/zclear/Recover()
-	if(!islist(autowipe)) autowipe = list()
+	if(!islist(autowipe))
+		autowipe = list()
 	autowipe |= SSzclear.autowipe
-	if(!islist(free_levels)) free_levels = list()
+
+	if(!islist(free_levels))
+		free_levels = list()
 	free_levels |= SSzclear.free_levels
-	if(!islist(processing_levels)) processing_levels = list()
+
+	if(!islist(processing_levels))
+		processing_levels = list()
 	processing_levels |= SSzclear.processing_levels
-	if(!islist(ignored_atoms)) ignored_atoms = list()
+
+	if(!islist(ignored_atoms))
+		ignored_atoms = list()
 	ignored_atoms |= SSzclear.ignored_atoms
+
 	nullspaced_mobs |= SSzclear.nullspaced_mobs
 	docking_levels |= SSzclear.docking_levels
 	announced_zombie_levels |= SSzclear.announced_zombie_levels
@@ -53,12 +67,12 @@ SUBSYSTEM_DEF(zclear)
 /datum/controller/subsystem/zclear/fire(resumed)
 	if(times_fired % CHECK_ZLEVEL_TICKS == 0)
 		check_for_empty_levels()
-	for(var/datum/zclear_data/cleardata as() in processing_levels)
+	for(var/datum/zclear_data/cleardata as anything in processing_levels)
 		continue_wipe(cleardata)
 
-/*
+/**
  * Checks for empty z-levels and wipes them.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/check_for_empty_levels()
 	var/list/active_levels = list()
 	//Levels that have living mobs
@@ -66,26 +80,30 @@ SUBSYSTEM_DEF(zclear)
 	//Levels with mobs dead/alive
 	var/list/mob_levels = list()
 	//Check active mobs
-	for(var/mob/living/L as () in GLOB.mob_list)
+	for(var/mob/living/L as anything in GLOB.mob_list)
 		if(!L)
 			continue
 		//Dead mobs get sent to new ruins
-		if(L.ckey || L.mind || L.client)
-			var/turf/T = get_turf(L)
-			mob_levels["[T.z]"] = TRUE
-			if(L.stat != DEAD)
-				active_levels["[T.z]"] = TRUE
-				living_levels["[T.z]"] = TRUE
+		if(!L.ckey && !L.mind && !L.client)
+			continue
+
+		var/turf/T = get_turf(L)
+		if(isnull(T))
+			continue
+		mob_levels["[T.z]"] = TRUE
+		if(L.stat != DEAD)
+			active_levels["[T.z]"] = TRUE
+			living_levels["[T.z]"] = TRUE
 	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
 			active_levels["[bomb.z]"] = TRUE
-			living_levels["[bomb.z]"] = TRUE	//Dont perform mob saving actions on mobs about to be blown to smitherines.
+			living_levels["[bomb.z]"] = TRUE //Dont perform mob saving actions on mobs about to be blown to smitherines.
 	//Block z-clear from these levels.
-	for(var/atom/A as() in GLOB.zclear_blockers)
+	for(var/atom/A as anything in GLOB.zclear_blockers)
 		active_levels["[A.z]"] = TRUE
 	//Check for shuttles
-	for(var/obj/docking_port/mobile/M in SSshuttle.mobile)
+	for(var/obj/docking_port/mobile/M in SSshuttle.mobile_docking_ports)
 		active_levels["[M.z]"] = TRUE
 		//Check shuttle destination
 		if(M.destination)
@@ -103,7 +121,7 @@ SUBSYSTEM_DEF(zclear)
 		active_levels["[docking_level]"] = TRUE
 		living_levels["[docking_level]"] = TRUE
 
-	for(var/datum/space_level/level as() in autowipe)
+	for(var/datum/space_level/level as anything in autowipe)
 		if(!level)
 			autowipe -= level
 
@@ -131,11 +149,14 @@ SUBSYSTEM_DEF(zclear)
 /datum/controller/subsystem/zclear/proc/unkeep_z(z_level)
 	docking_levels -= z_level
 
-/*
+/datum/controller/subsystem/zclear/proc/add_free_zlevel(for_shuttles)
+	return SSmapping.add_new_zlevel("Dynamic level #[LAZYLEN(free_levels) + 1]", ZTRAITS_DYNAMIC, orbital_body_type = null)
+
+/**
  * Returns a free space level.
  * After a 60 second grace period of allocation, the z-level will be put back into the pool of z-levels to clear.
  * Will create a new z-level if none are available.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/get_free_z_level()
 	while(LAZYLEN(free_levels))
 		var/datum/space_level/picked_level = pick(free_levels)
@@ -145,14 +166,14 @@ SUBSYSTEM_DEF(zclear)
 		addtimer(CALLBACK(src, PROC_REF(begin_tracking), picked_level), 60 SECONDS)
 		//Check if the z-level is actually free. (Someone might have drifted into the z-level.)
 		var/free = TRUE
-		for(var/mob/living/L in GLOB.player_list)
-			var/turf/T = get_turf(L)
-			if(T.z == picked_level.z_value)
+		for(var/mob/living/person in GLOB.player_list)
+			if(person.z == picked_level.z_value)
 				free = FALSE
 				break
 		if(free)
 			return picked_level
-	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
+
+	var/datum/space_level/picked_level = add_free_zlevel()
 	addtimer(CALLBACK(src, PROC_REF(begin_tracking), picked_level), 60 SECONDS)
 	message_admins("SSORBITS: Created a new dynamic free level ([LAZYLEN(free_levels)] now created) as none were available at the time.")
 	return picked_level
@@ -176,7 +197,7 @@ SUBSYSTEM_DEF(zclear)
 	var/section_process_time = CLEAR_TURF_PROCESSING_TIME * 0.5 //There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
 
 	//Divide the turfs into groups
-	var/group_size = CEILING(turfs.len / section_process_time, 1)
+	var/group_size = ceil(turfs.len / section_process_time)
 	var/list/current_group = list()
 	for(var/i in 1 to turfs.len)
 		var/turf/T = turfs[i]
@@ -205,9 +226,9 @@ SUBSYSTEM_DEF(zclear)
 	//Unannounce zombie level
 	announced_zombie_levels["[z_level]"] = FALSE
 
-/*
+/**
  * Continues the process of wiping a z-level.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/continue_wipe(datum/zclear_data/cleardata)
 	var/list_element = (cleardata.process_num % (CLEAR_TURF_PROCESSING_TIME * 0.5)) + 1
 	switch(cleardata.process_num)
@@ -222,7 +243,7 @@ SUBSYSTEM_DEF(zclear)
 			LAZYREMOVE(processing_levels, cleardata)
 			//Finalize area
 			SSair.unpause_z(cleardata.zvalue)
-			var/area/spaceA = GLOB.areas_by_type[/area/space]
+			var/area/misc/spaceA = GLOB.areas_by_type[/area/misc/space]
 			spaceA.reg_in_areas_in_z()	//<< Potentially slow proc
 			if(cleardata.completion_callback)
 				cleardata.completion_callback.Invoke(cleardata.zvalue)
@@ -231,23 +252,23 @@ SUBSYSTEM_DEF(zclear)
 			if(length(nullspaced_mobs))
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
-				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || !M.soul_departed())
+				for(var/mob/M as anything in nullspaced_mobs)
+					if(M.key || !M.get_ghost(FALSE, TRUE))
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
 				if(valid)
 					priority_announce("Sensors indicate that multiple crewmembers have been lost at an abandoned station. They can potentially be recovered by flying to the nearest derelict station and locating their bodies.\n[nullspaced_mob_names]")
 	cleardata.process_num ++
 
-/*
+/**
  * Deletes all the atoms within a given turf.
-*/
+ */
 /datum/controller/subsystem/zclear/proc/clear_turf_atoms(list/turfs)
 	//Clear atoms
-	for(var/turf/T as() in turfs)
+	for(var/turf/T as anything in turfs)
 		var/max_iterations = 3
 		var/list/allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
-		while (max_iterations -- > 0 && length(allowed_contents))
+		while (max_iterations-- > 0 && length(allowed_contents))
 			// Remove all atoms except abstract mobs
 			for(var/i in 1 to allowed_contents.len)
 				var/thing = allowed_contents[i]
@@ -270,50 +291,50 @@ SUBSYSTEM_DEF(zclear)
 							//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 							random_teleport_atom(M)
 							M.Knockdown(5)
-							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind."))
+							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here emanate no more and you get the horrible feeling that you have been left behind."))
 					else
 						delete_atom(thing)
 				else
 					delete_atom(thing)
 			allowed_contents = typecache_filter_list_reverse(T.contents, ignored_atoms)
 
-/*
+/**
  * DELETES AN ATOM OR TELEPORTS IT TO A RANDOM LOCATION IF IT IS INDESTRUCTIBLE
-*/
-/datum/controller/subsystem/zclear/proc/delete_atom(atom/A)
+ */
+/datum/controller/subsystem/zclear/proc/delete_atom(atom/to_delete)
 	//Dont delete indestructible items, but indestructible structures can go
-	if(isitem(A))
-		var/obj/O = A
+	if(isitem(to_delete))
+		var/obj/item/item = to_delete
 		//Handled by the mob
-		if(ismob(O.loc))
+		if(ismob(item.loc))
 			return
-		if(O.resistance_flags & INDESTRUCTIBLE)
-			random_teleport_atom(A)
+		if(item.resistance_flags & INDESTRUCTIBLE)
+			random_teleport_atom(item)
 			return
 	//Force delete effects and docking ports, normal delete everything else.
 	//Probably gunna cause problems in testing.
-	qdel(A, force = (iseffect(A) || istype(A, /obj/docking_port)))
+	qdel(to_delete, force = (iseffect(to_delete) || istype(to_delete, /obj/docking_port)))
 
-/*
+/**
  * Randomly teleports an atom to a random z-level
  * Copy and paste of turf/open/space/transit, could probably be a global proc
-*/
+ */
 /datum/controller/subsystem/zclear/proc/random_teleport_atom(atom/movable/AM)
 	set waitfor = FALSE
 	if(!AM || istype(AM, /obj/docking_port))
 		return
 	if(AM.loc != get_turf(AM)) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
 		return					// Don't move multi tile objects if their origin isnt in transit
-	var/max = world.maxx-TRANSITIONEDGE
-	var/min = 1+TRANSITIONEDGE
+	var/max = world.maxx - TRANSITIONEDGE
+	var/min = 1 + TRANSITIONEDGE
 
 	var/list/possible_transitions = list()
-	for(var/datum/space_level/D as() in SSmapping.z_list)
-		if (D.linkage == CROSSLINKED)
-			possible_transitions += D.z_value
+	for(var/datum/space_level/space_level as anything in SSmapping.z_list)
+		if (space_level.linkage == CROSSLINKED)
+			possible_transitions += space_level.z_value
 
 	if(!length(possible_transitions))
-		possible_transitions = list(SSmapping.empty_space)
+		possible_transitions = list(SSmapping.empty_space.z_value)
 
 	var/_z = pick(possible_transitions)
 
@@ -326,7 +347,7 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
-	for(var/turf/T as() in turfs)
+	for(var/turf/T as anything in turfs)
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T
@@ -334,10 +355,10 @@ SUBSYSTEM_DEF(zclear)
 		else
 			newT = T.ChangeTurf(/turf/open/space, /turf/baseturf_bottom, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
 		var/area/old_area = newT.loc
-		if(!istype(newT.loc, /area/space))
-			var/area/newA = GLOB.areas_by_type[/area/space]
+		if(!istype(newT.loc, /area/misc/space))
+			var/area/newA = GLOB.areas_by_type[/area/misc/space]
 			newT.change_area(old_area, newA)
-		newT.flags_1 &= ~NO_RUINS_1
+		newT.turf_flags &= ~NO_RUINS
 		new_turfs += newT
 	return new_turfs
 

@@ -48,9 +48,9 @@ Difficulty: Very Hard
 	achievement_type = /datum/award/achievement/boss/colussus_kill
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
-	deathsound = 'sound/magic/demon_dies.ogg'
+	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
+	death_message = "disintegrates, leaving a glowing core in its wake."
+	death_sound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							   /datum/action/innate/megafauna_attack/aoe_attack,
 							   /datum/action/innate/megafauna_attack/shotgun,
@@ -64,28 +64,28 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now firing in a spiral.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
 	chosen_message = span_colossus("You are now firing in all directions.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "shotgun"
 	chosen_message = span_colossus("You are now firing shotgun shots where you aim.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon = 'icons/obj/guns/projectile.dmi'
 	button_icon_state = "pistol"
 	chosen_message = span_colossus("You are now firing in alternating cardinal directions.")
 	chosen_attack_num = 4
@@ -172,11 +172,11 @@ Difficulty: Very Hard
 	telegraph()
 	ranged_cooldown = world.time + 30
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.mind)
-			if(istype(H.mind.martial_art, /datum/martial_art/the_sleeping_carp))
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/victim)
+	if(ishuman(victim))
+		var/mob/living/carbon/human/human_victim = victim
+		if(human_victim.mind)
+			if(istype(human_victim.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
@@ -245,7 +245,7 @@ Difficulty: Very Hard
 		sleep(1)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum_safe(set_angle) && (!marker || marker == loc))
+	if(!IS_FINITE(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
@@ -267,7 +267,7 @@ Difficulty: Very Hard
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = get_angle(src, target_turf)
-	if(isnum_safe(set_angle))
+	if(IS_FINITE(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 	for(var/i in colossus_shotgun_shot_angles)
@@ -351,6 +351,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	pixel_y = -4
 	use_power = NO_POWER_USE
 	opacity = FALSE
+	base_build_path = /obj/machinery/smartfridge/black_box
 	var/memory_saved = FALSE
 	var/list/stored_items = list()
 	var/list/blacklist = list()
@@ -466,6 +467,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	use_power = NO_POWER_USE
 	anchored = FALSE
 	density = TRUE
+	custom_price = 40000
+	max_demand = 2
 	var/activation_method
 	var/list/possible_methods = list(ACTIVATE_TOUCH, ACTIVATE_SPEECH, ACTIVATE_HEAT, ACTIVATE_BULLET, ACTIVATE_ENERGY, ACTIVATE_BOMB, ACTIVATE_MOB_BUMP, ACTIVATE_WEAPON, ACTIVATE_MAGIC)
 
@@ -487,8 +490,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		. += observer_desc
 		. += "It is activated by [activation_method]."
 
-/obj/machinery/anomalous_crystal/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
-	..()
+/obj/machinery/anomalous_crystal/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, spans, list/message_mods = list(), message_range)
+	. = ..()
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
 
@@ -499,7 +502,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	ActivationReaction(user, ACTIVATE_TOUCH)
 
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
-	if(I.is_hot())
+	if(I.get_temperature())
 		ActivationReaction(user, ACTIVATE_HEAT)
 	else
 		ActivationReaction(user, ACTIVATE_WEAPON)
@@ -538,12 +541,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
 	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.dropItemToGround(W)
-		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
-		C.equip(H)
-		affected_targets.Add(H)
+		var/mob/living/carbon/human/new_clown = user
+		for(var/obj/item/to_strip in new_clown)
+			new_clown.dropItemToGround(to_strip)
+		new_clown.dress_up_as_job(SSjob.get_job_type(/datum/job/clown))
+		affected_targets.Add(new_clown)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	observer_desc = "This crystal warps the area around it to a theme."
@@ -653,20 +655,23 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_sound = 'sound/hallucinations/growl1.ogg'
 
 /obj/machinery/anomalous_crystal/dark_reprise/ActivationReaction(mob/user, method)
-	if(..())
-		for(var/i in range(1, src))
-			if(isturf(i))
-				new /obj/effect/temp_visual/cult/sparks(i)
+	. = ..()
+	if(!.)
+		return
+	for(var/atom/thing as anything in range(1, src))
+		if(isturf(thing))
+			new /obj/effect/temp_visual/cult/sparks(thing)
+			continue
+
+		if(ishuman(thing))
+			var/mob/living/carbon/human/to_revive = thing
+			if(to_revive.stat != DEAD)
 				continue
-			if(ishuman(i))
-				var/mob/living/carbon/human/H = i
-				if(H.stat == DEAD)
-					H.set_species(/datum/species/shadow, 1)
-					H.regenerate_limbs()
-					H.regenerate_organs()
-					H.revive(1,0)
-					ADD_TRAIT(H, TRAIT_BADDNA, MAGIC_TRAIT) //Free revives, but significantly limits your options for reviving except via the crystal
-					H.grab_ghost(force = TRUE)
+			to_revive.set_species(/datum/species/shadow, TRUE)
+			to_revive.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE)
+			//Free revives, but significantly limits your options for reviving except via the crystal
+			//except JK who cares about BADDNA anymore. this even heals suicides.
+			ADD_TRAIT(to_revive, TRAIT_BADDNA, MAGIC_TRAIT)
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
 	observer_desc = "This crystal allows ghosts to turn into a fragile creature that can heal people."
@@ -678,7 +683,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(..() && !ready_to_deploy)
 		AddElement(/datum/element/point_of_interest)
 		ready_to_deploy = TRUE
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=[REF(src)];ghostjoin=1>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
+		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href='byond://?src=[REF(src)];ghostjoin=1'>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	. = ..()
@@ -718,7 +723,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	density = FALSE
 	is_flying_animal = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	verb_say = "warps"
@@ -743,8 +747,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	. = ..()
 	remove_verb(/mob/living/verb/pulled)
 	remove_verb(/mob/verb/me_verb)
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	add_traits(list(TRAIT_MEDICAL_HUD, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()
@@ -774,7 +777,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		/obj/item/disk/nuclear,
 		/obj/projectile,
 		/obj/item/spellbook,
-		/obj/item/dice/d20/fate
+		/obj/item/dice/d20/fate,
 	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
@@ -829,17 +832,16 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/structure/closet/stasis/Initialize(mapload)
 	. = ..()
-	if(isanimal(loc))
+	if(isanimal_or_basicmob(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/L = arrived
-		L.notransform = 1
-		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
-		L.status_flags |= GODMODE
+		L.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		L.mind.transfer_to(holder_animal)
 		var/datum/action/exit_possession/P = new /datum/action/exit_possession
 		P.Grant(holder_animal)
@@ -848,9 +850,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
-		L.status_flags &= ~GODMODE
-		L.notransform = 0
+		L.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		if(holder_animal)
 			var/datum/action/exit_possession/P = new /datum/action/exit_possession
 			P.Remove(holder_animal)
@@ -860,16 +860,13 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			L.death(FALSE)
 	..()
 
-/obj/structure/closet/stasis/emp_act()
-	return
-
 /obj/structure/closet/stasis/ex_act()
 	return
 
 /datum/action/exit_possession
 	name = "Exit Possession"
 	desc = "Exits the body you are possessing. They will explode violently when this occurs."
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "exit_possession"
 
 /datum/action/exit_possession/is_available()

@@ -1,5 +1,12 @@
-import { KEY_BACKSPACE, KEY_DELETE, KEY_DOWN, KEY_TAB, KEY_UP } from 'common/keycodes';
-import { isAlphanumeric, getHistoryLength } from '../helpers';
+import {
+  KEY_BACKSPACE,
+  KEY_DELETE,
+  KEY_DOWN,
+  KEY_TAB,
+  KEY_UP,
+} from 'common/keycodes';
+
+import { getHistoryLength, isAlphanumeric } from '../helpers';
 import { Modal } from '../types';
 
 /**
@@ -9,7 +16,11 @@ import { Modal } from '../types';
  * BKSP/DEL - Resets history counter and checks window size.
  * TYPING - When users key, it tells byond that it's typing.
  */
-export const handleKeyDown = function (this: Modal, event: KeyboardEvent, value: string) {
+export const handleKeyDown = function (
+  this: Modal,
+  event: KeyboardEvent,
+  value: string,
+) {
   const { channel } = this.state;
   const { radioPrefix } = this.fields;
   if (!event.keyCode) {

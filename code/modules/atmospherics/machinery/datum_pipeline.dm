@@ -1,5 +1,7 @@
 /datum/pipenet
+	/// The gases contained within this pipeline
 	var/datum/gas_mixture/air
+	/// The gas_mixtures of objects directly connected to this pipeline
 	var/list/datum/gas_mixture/other_airs
 
 	var/list/obj/machinery/atmospherics/pipe/members
@@ -8,6 +10,10 @@
 	/// We're essentially caching this to avoid needing to filter over it when processing our machines
 	var/list/obj/machinery/atmospherics/components/require_custom_reconcilation
 
+	/// The weighted color blend of the gas mixture in this pipeline
+	var/gasmix_color
+	/// A named list of icon_file:overlay_object that gets automatically colored when the gasmix_color updates
+	var/list/gas_visuals
 
 	///Should we equalize air amoung all our members?
 	var/update = TRUE
@@ -19,6 +25,7 @@
 	members = list()
 	other_atmos_machines = list()
 	require_custom_reconcilation = list()
+	gas_visuals = list()
 	SSair.networks += src
 
 /datum/pipenet/Destroy()
@@ -42,11 +49,13 @@
 
 	reconcile_air()
 	update = air.react(src)
+	CalculateGasmixColor(air)
 
 /datum/pipenet/proc/set_air(datum/gas_mixture/new_air)
 	if(new_air == air)
 		return
 	air = new_air
+	CalculateGasmixColor(air)
 
 ///Preps a pipenet for rebuilding, inserts it into the rebuild queue
 /datum/pipenet/proc/build_pipenet(obj/machinery/atmospherics/base)
@@ -57,13 +66,13 @@
 		volume = considered_pipe.volume
 		members += considered_pipe
 		if(considered_pipe.air_temporary)
-			air = considered_pipe.air_temporary
+			set_air(considered_pipe.air_temporary)
 			considered_pipe.air_temporary = null
 	else
 		add_machinery_member(base)
 
 	if(!air)
-		air = new
+		set_air(new /datum/gas_mixture)
 
 	air.volume = volume
 	SSair.add_to_expansion(src, base)
@@ -244,12 +253,13 @@
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0
 
-	var/list/total_gases = list()
-
 	var/volume_sum = 0
 
 	var/static/process_id = 0
 	process_id = (process_id + 1) % (SHORT_REAL_LIMIT - 1)
+	var/datum/gas_mixture/total_gas_mixture = new
+	var/list/total_cached_moles = total_gas_mixture.moles
+	var/list/cached_specific_heat = GAS_META[META_GAS_SPECIFIC_HEAT]
 
 	for(var/datum/gas_mixture/gas_mixture as anything in gas_mixture_list)
 		// Ensure we never walk the same mix twice
@@ -261,14 +271,11 @@
 
 		// This is sort of a combined merge + heat_capacity calculation
 
-		var/list/giver_gases = gas_mixture.gases
-		var/heat_capacity = 0
+		var/list/giver_cached_moles = gas_mixture.moles
+		var/heat_capacity = values_dot(giver_cached_moles, cached_specific_heat)
 		//gas transfer
-		for(var/giver_id in giver_gases)
-			var/giver_gas_data = giver_gases[giver_id]
-			ASSERT_GAS_IN_LIST(giver_id, total_gases)
-			total_gases[giver_id][MOLES] += giver_gas_data[MOLES]
-			heat_capacity += giver_gas_data[MOLES] * giver_gas_data[GAS_META][META_GAS_SPECIFIC_HEAT]
+		for(var/gas_id, amount in giver_cached_moles)
+			total_cached_moles[gas_id] += amount
 
 		total_heat_capacity += heat_capacity
 		total_thermal_energy += gas_mixture.temperature * heat_capacity
@@ -276,11 +283,78 @@
 	if(volume_sum == 0)
 		return
 
-	var/datum/gas_mixture/total_gas_mixture = new(volume_sum)
+	total_gas_mixture.volume = volume_sum
 	total_gas_mixture.temperature = total_heat_capacity ? (total_thermal_energy / total_heat_capacity) : 0
-	total_gas_mixture.gases = total_gases
 	total_gas_mixture.garbage_collect()
 
 	//Update individual gas_mixtures by volume ratio
 	for(var/datum/gas_mixture/gas_mixture as anything in gas_mixture_list)
 		gas_mixture.copy_from_ratio(total_gas_mixture, gas_mixture.volume / volume_sum)
+
+//--------------------
+// GAS VISUALS STUFF
+//
+// Gas visuals use direct color + alpha on the gas_visual object rather than
+// a color filter + KEEP_APART.
+// Color filters are expensive.
+// KEEP_APART forces a separate render.
+
+/**
+ * Used to create and/or get the gas visual overlay created using the given icon file.
+ * The color is automatically kept up to date and expected to be used as a vis_contents object.
+ */
+/datum/pipenet/proc/GetGasVisual(icon/icon_file)
+	if(gas_visuals[icon_file])
+		return gas_visuals[icon_file]
+
+	var/obj/effect/abstract/gas_visual/new_overlay = new()
+	new_overlay.icon = icon_file
+	new_overlay.change_color(gasmix_color)
+
+	gas_visuals[icon_file] = new_overlay
+	return new_overlay
+
+/// Called when the gasmix color has changed and the gas visuals need to be updated.
+/datum/pipenet/proc/UpdateGasVisuals()
+	for(var/icon/source as anything in gas_visuals)
+		var/obj/effect/abstract/gas_visual/overlay = gas_visuals[source]
+		overlay.change_color(gasmix_color)
+
+/// After updating, this proc handles looking at the new gas mixture and blends the colors together according to percentage of the gas mix.
+/datum/pipenet/proc/CalculateGasmixColor(datum/gas_mixture/source)
+	SIGNAL_HANDLER
+
+	var/current_weight = 0
+	var/current_color
+	for(var/_gas_path, gas_weight in air.moles)
+		if(!gas_weight)
+			continue
+		var/datum/gas/gas_path = _gas_path
+		var/gas_color = initial(gas_path.primary_color)
+		current_weight += gas_weight
+		if(!current_color)
+			current_color = gas_color
+		else
+			current_color = BlendHSV(current_color, gas_color, gas_weight / current_weight)
+
+	if(!current_color)
+		current_color = COLOR_BLACK
+	else
+		// Empty weight is prety much arbitrary, just tuned to make the color change from black reasonably quickly without hitting max color immediately
+		var/empty_weight = (air.volume * 1.5 - current_weight) / 10
+		if(empty_weight > 0)
+			current_color = BlendHSV(COLOR_BLACK, current_color, current_weight / (empty_weight + current_weight))
+
+	if(gasmix_color != current_color)
+		gasmix_color = current_color
+		UpdateGasVisuals()
+
+/obj/effect/abstract/gas_visual
+	appearance_flags = RESET_COLOR
+	vis_flags = VIS_INHERIT_ICON_STATE | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	color = COLOR_BLACK
+
+/obj/effect/abstract/gas_visual/proc/change_color(new_color)
+	if(!new_color)
+		new_color = COLOR_BLACK
+	animate(src, color = new_color, time = 0.5 SECONDS)

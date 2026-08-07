@@ -6,16 +6,18 @@
 
 /obj/item/airlock_painter
 	name = "airlock painter"
-	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob. Alt-Click to remove the ink cartridge."
+	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
-	item_state = "paint_sprayer"
+	inhand_icon_state = "paint_sprayer"
 	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 15
 
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	usesound = 'sound/effects/spray2.ogg'
@@ -90,7 +92,7 @@
 		return TRUE
 
 /obj/item/airlock_painter/suicide_act(mob/living/user)
-	var/obj/item/organ/lungs/L = user.getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs/L = user.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(can_use(user) && L)
 		user.visible_message(span_suicide("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -185,10 +187,11 @@
 
 /obj/item/airlock_painter/decal
 	name = "decal painter"
-	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed. Alt-Click to remove the ink cartridge."
+	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "decal_sprayer"
-	item_state = "decal_sprayer"
+	inhand_icon_state = "decal_sprayer"
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 	initial_ink_type = /obj/item/toner/large
 	/// The current direction of the decal being printed
@@ -343,7 +346,7 @@
 		if("pick custom color")
 			if(supports_custom_color)
 				var/chosen_color = tgui_color_picker(usr, "Pick new color", "[src]", COLOR_YELLOW)
-				if(!chosen_color || QDELETED(src) || usr.incapacitated() || !usr.is_holding(src))
+				if(!chosen_color || QDELETED(src) || usr.incapacitated || !usr.is_holding(src))
 					return
 				stored_custom_color = chosen_color
 				stored_color = chosen_color
@@ -395,7 +398,8 @@
 
 /obj/item/airlock_painter/decal/tile
 	name = "tile sprayer"
-	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed. Alt-Click to change design."
+	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon_state = "tile_sprayer"
 	stored_dir = 2
 	stored_color = "#D4D4D432"
@@ -477,7 +481,7 @@
 		render_alpha = text2num(tile_type.rgba_regex.group[2], 16)
 
 	var/datum/universal_icon/colored_icon = uni_icon('icons/turf/decals.dmi', source_decal, dir=source_dir)
-	colored_icon.blend_color("#ffffff" + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
+	colored_icon.blend_color(COLOR_WHITE + num2hex(clamp(render_alpha, 0, 255), 2), ICON_MULTIPLY)
 	if(color == "custom")
 		colored_icon.blend_color("#0e0f0f", ICON_MULTIPLY)
 	else

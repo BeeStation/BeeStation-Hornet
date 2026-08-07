@@ -7,6 +7,7 @@
 /obj/item/circuit_component/arbitrary_input_amount/list_constructor
 	display_name = "List Constructor"
 	desc = "A component that creates a list from given inputs"
+	category = "List"
 
 	power_usage_per_input = 5 //Large cost
 

@@ -1,4 +1,5 @@
 /datum/emote/living/carbon/human
+	abstract_type = /datum/emote/living/carbon/human
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 
 /// The time it takes for the crying visual to be removed
@@ -8,6 +9,7 @@
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries"
+	message_mime = "sobs silently."
 	emote_type = EMOTE_VISIBLE //Cry in silence as you should.
 
 /datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
@@ -147,8 +149,9 @@
 	key_third_person = "salutes"
 	message = "salutes"
 	message_param = "salutes to %t"
-	emote_type = EMOTE_VISIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	hands_use_check = TRUE
+	sound = 'sound/emotes/salute.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
@@ -171,19 +174,19 @@
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
 	if(!tail)
 		return
 	tail.toggle_wag(H)
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
 	var/mob/living/carbon/human/H = user
-	return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+	return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
+	var/obj/item/organ/tail/tail = H.get_organ_slot(ORGAN_SLOT_TAIL)
 	if(tail?.is_wagging(H))
 		. = null
 
@@ -195,8 +198,8 @@
 
 /datum/emote/living/carbon/human/wing/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	H.Togglewings()
+	var/mob/living/carbon/carbon_user = user
+	carbon_user.Togglewings()
 
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
@@ -207,28 +210,23 @@
 		. = "closes " + message
 
 /datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional, params)
-	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species)
-		if(H.dna.features["wings"] != "None")
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		var/obj/item/organ/wings/wings = carbon_user.get_organ_slot(ORGAN_SLOT_WINGS)
+		if(istype(wings))
 			return TRUE
-		if(H.dna.features["moth_wings"] != "None")
-			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
-			if(istype(wings))
-				if(wings.flight_level >= WINGS_FLYING)
-					return TRUE
 	return FALSE
 
-/mob/living/carbon/human/proc/Togglewings()
+/mob/living/carbon/proc/Togglewings(silent = FALSE)
 	if(!dna || !dna.species)
 		return FALSE
-	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
 		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
 			return FALSE
-		if(wings.toggleopen(src))
+		if(wings.toggleopen(src, silent))
 			return TRUE
 	return FALSE
-
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"
@@ -257,8 +255,8 @@
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/tongue/T = user.getorganslot(ORGAN_SLOT_TONGUE)
-	if(T.status == ORGAN_ROBOTIC)
+	var/obj/item/organ/tongue/T = user.get_organ_slot(ORGAN_SLOT_TONGUE)
+	if(IS_ROBOTIC_ORGAN(T))
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/beep
@@ -266,6 +264,7 @@
 	key_third_person = "beeps"
 	message = "beeps"
 	message_param = "beeps at %t"
+	sound = 'sound/machines/twobeep.ogg'
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/robot_tongue/boop
@@ -275,98 +274,78 @@
 	sound = 'sound/machines/boop.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/beep/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/machines/twobeep.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/buzz
 	key = "buzz"
 	key_third_person = "buzzes"
 	message = "buzzes"
 	message_param = "buzzes at %t"
+	sound = 'sound/machines/buzz-sigh.ogg'
 	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/carbon/human/robot_tongue/buzz/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/buzz2
 	key = "buzz2"
 	message = "buzzes twice"
+	sound = 'sound/machines/buzz-two.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/buzz2/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/machines/buzz-two.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/chime
 	key = "chime"
 	key_third_person = "chimes"
 	message = "chimes"
+	sound = 'sound/machines/chime.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/chime/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/machines/chime.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/ping
 	key = "ping"
 	key_third_person = "pings"
 	message = "pings"
 	message_param = "pings at %t"
+	sound = 'sound/machines/ping.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/ping/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/machines/ping.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/dwoop
 	key = "dwoop"
 	key_third_person = "dwoops"
 	message = "emits a dwoop sound."
+	sound = 'sound/emotes/dwoop.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/dwoop/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/emotes/dwoop.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/slowclap
 	key = "slowclap"
 	key_third_person = "activates their slow clap processor."
 	message = "activates their slow clap processor."
+	sound = 'sound/machines/slowclap.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/slowclap/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/machines/slowclap.ogg', 50)
 
 // Clown Robotic Tongue ONLY. Henk.
 
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	if(user.mind.assigned_role == JOB_NAME_CLOWN)
+	if(user.mind.assigned_role.title == JOB_NAME_CLOWN)
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk
 	key = "honk"
 	key_third_person = "honks"
 	message = "honks"
+	sound = 'sound/items/bikehorn.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/clown/honk/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/items/bikehorn.ogg', 50)
 
 /datum/emote/living/carbon/human/robot_tongue/clown/sad
 	key = "sad"
 	key_third_person = "plays a sad trombone"
 	message = "plays a sad trombone"
+	sound = 'sound/misc/sadtrombone.ogg'
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/robot_tongue/clown/sad/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/misc/sadtrombone.ogg', 50)
 
 /datum/emote/living/carbon/human/diona
 	// allow mothroach as well as human base mob - species check is done in can_run_emote

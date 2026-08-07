@@ -35,33 +35,33 @@
 #define VV_BIG_SIZED_LIST_THRESHOLD 50
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
-#define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
+#define IS_VALID_ASSOC_KEY(V) (!IS_FINITE(V))		//hhmmm..
 
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(target, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[REF(target)]"
 #define VV_HREF_TARGETREF_INTERNAL(targetref, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[targetref]"
-#define VV_HREF_TARGET(target, href_key, text) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)]'>[text]</a>"
-#define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
-#define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
-#define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
+#define VV_HREF_TARGET(target, href_key, text) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)]'>[text]</a>"
+#define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
+#define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='byond://[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
+#define VV_HREF_TARGETREF_1V(targetref, href_key, text, varname) "<a href='byond://[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"
 //! Non-standard helper for special list vv. this doesn't use VV_HK_TARGET and REF because special list doesn't work in a sane sense.
-#define VV_HREF_SPECIAL(dmlist_origin_ref, href_action, text, list_index, dmlist_varname) "<a href='?_src_=vars;[HrefToken()];[href_action]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
-#define VV_HREF_SPECIAL_MENU(dmlist_origin_ref, href_action, dmlist_varname) "?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname]"
+#define VV_HREF_SPECIAL(dmlist_origin_ref, href_action, text, list_index, dmlist_varname) "<a href='byond://?_src_=vars;[HrefToken()];[href_action]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname];[VV_HK_VARNAME]=[list_index]'>[text]</a>"
+#define VV_HREF_SPECIAL_MENU(dmlist_origin_ref, href_action, dmlist_varname) "byond://?_src_=vars;[HrefToken()];[href_action]=TRUE;[VV_HK_DO_LIST_EDIT]=TRUE;dmlist_origin_ref=[dmlist_origin_ref];dmlist_varname=[dmlist_varname]"
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
 
 //Helper for getting something to vv_do_topic in general
-#define VV_TOPIC_LINK(datum, href_key, text) "<a href='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"
+#define VV_TOPIC_LINK(datum, href_key, text) "<a href='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"
 
 //Helpers for vv_get_dropdown()
-#define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
+#define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
 //Same with VV_DROPDOWN_OPTION, but global proc doesn't have src
-#define VV_DROPDOWN_OPTION_APPEARANCE(thing, href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(thing)]'>[name]</option>"
+#define VV_DROPDOWN_OPTION_APPEARANCE(thing, href_key, name) . += "<option value='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(thing)]'>[name]</option>"
 
 // VV HREF KEYS
 #define VV_HK_TARGET "target"
-#define VV_HK_VARNAME "targetvar"		//name or index of var for 1 variable targetting hrefs.
+#define VV_HK_VARNAME "targetvar"		//name or index of var for 1 variable targeting hrefs.
 
 // vv_do_list() keys
 #define VV_HK_LIST_ADD "listadd"
@@ -93,6 +93,8 @@
 // /datum/weakref
 #define VV_HK_WEAKREF_RESOLVE "weakref_resolve"
 
+// /icon
+#define VV_HK_VIEW_ICON "view_icon"
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
@@ -101,7 +103,7 @@
 #define VV_HK_TRIGGER_EMP "empulse"
 #define VV_HK_TRIGGER_EXPLOSION "explode"
 #define VV_HK_AUTO_RENAME "auto_rename"
-#define VV_HK_RADIATE "radiate"
+#define VV_HK_IRRADIATE "irradiate"
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
@@ -110,10 +112,7 @@
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
-// /datum/gas_mixture
-#define VV_HK_SET_MOLES "set_moles"
-#define VV_HK_EMPTY "empty"
-#define VV_HK_SET_TEMPERATURE "set_temp"
+// /turf
 #define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj
@@ -128,7 +127,7 @@
 #define VV_HK_ADD_IMPLANT_TOOL	"add_implant_tool"
 #define VV_HK_DEL_IMPLANT_TOOL	"del_implant_tool"
 
-// /obj/machinery/vendor/exploration
+// /obj/machinery/gear_requisition/exploration
 #define VV_ID_GIVE_EXPLO_POINT "id_give_explo_points"
 
 // /obj/machinery/computer/rdconsole
@@ -149,12 +148,16 @@
 #define VV_HK_DIRECT_CONTROL "direct_control"
 #define VV_HK_GIVE_DIRECT_CONTROL "give_direct_control"
 #define VV_HK_OFFER_GHOSTS "offer_ghosts"
+#define VV_HK_GIVE_HALLUCINATION "give_hallucination"
+#define VV_HK_GIVE_DELUSION_HALLUCINATION "give_hallucination_delusion"
+
+// /mob/living
+#define VV_HK_GIVE_SPEECH_IMPEDIMENT "impede_speech"
 
 // /mob/living/carbon
 #define VV_HK_MAKE_AI "aiify"
 #define VV_HK_MODIFY_BODYPART "mod_bodypart"
 #define VV_HK_MODIFY_ORGANS "organs_modify"
-#define VV_HK_HALLUCINATION "force_hallucinate"
 #define VV_HK_MARTIAL_ART "give_martial_art"
 #define VV_HK_GIVE_TRAUMA "give_trauma"
 #define VV_HK_CURE_TRAUMA "cure_trauma"
@@ -188,24 +191,22 @@
 #define VV_ALWAYS_CONTRACT_LIST (1<<0)
 #define VV_READ_ONLY (1<<1)
 
-
-#define VV_LIST_PROTECTED (1) /// Can not vv the list. Doing vv this list is not safe.
-#define VV_LIST_READ_ONLY (2) /// Can vv the list, but can not edit.
-#define VV_LIST_EDITABLE (3) /// Can vv the list, and edit.
+#define VV_LIST_PROTECTED (1) //! Can not vv the list. Doing vv this list is not safe.
+#define VV_LIST_READ_ONLY (2) //! Can vv the list, but can not edit.
+#define VV_LIST_EDITABLE (3) //! Can vv the list, and edit.
 
 // Becomes read only at live, editable at debug, dynamically
-#ifdef DEBUG
-#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (3)
+#if defined(LOWMEMORYMODE) || defined(QUICKSTART)
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (VV_LIST_EDITABLE)
 #else
-#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (2)
+#define VV_LIST_READ_ONLY___DEBUG_EDITABLE (VV_LIST_READ_ONLY)
 #endif
-
 /// A list of all the special byond lists that need to be handled different by vv.
 /// manually adding var name is recommanded.
 GLOBAL_LIST_INIT(vv_special_lists, list(
 	// /datum
 	"vars" = VV_LIST_READ_ONLY,
-	// /atom
+	// /atoms
 	"overlays" = VV_LIST_EDITABLE,
 	"underlays" = VV_LIST_EDITABLE,
 	"vis_contents" = VV_LIST_EDITABLE,
@@ -220,7 +221,6 @@ GLOBAL_LIST_INIT(vv_special_lists, list(
 	"screen" = VV_LIST_EDITABLE,
 ))
 // NOTE: this is highly attached to how /datum/vv_ghost works.
-
 
 #ifndef DEBUG
 GLOBAL_PROTECT(vv_special_lists) // changing this in live server is a bad idea

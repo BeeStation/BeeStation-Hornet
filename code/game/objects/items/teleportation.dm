@@ -16,10 +16,9 @@
 	desc = "Used to track portable teleportation beacons and targets with embedded tracking implants."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
-	var/temp = null
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throw_speed = 3
@@ -51,7 +50,7 @@
 			var/turf/tr = get_turf(W)
 
 			// Make sure it's on a turf and that its Z-level matches the tracker's Z-level
-			if (tr && tr.z == sr.z)
+			if (tr && tr.get_virtual_z_level() == sr.get_virtual_z_level())
 				// Get the distance between the beacon's turf and our turf
 				var/distance = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
 
@@ -102,7 +101,7 @@
 	desc = "A portable item using blue-space technology."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hand_tele"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throwforce = 0
@@ -126,6 +125,7 @@
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
 	active_portal_pairs = list()
+	AddElement(/datum/element/trackable)
 
 /obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
 	if(try_dispel_portal(target, user))
@@ -151,7 +151,7 @@
 		return
 	// Add on teleport targets
 	var/list/L = list()
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
+	for(var/obj/machinery/computer/teleporter/com as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/teleporter))
 		var/atom/target = com.target_ref?.resolve()
 		if(!target)
 			com.target_ref = null
@@ -173,7 +173,7 @@
 		L["Slipspace Wake [++i] ([range])"] = wake
 	// Add on a random turf nearby
 	var/list/turfs = list()
-	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
+	for(var/turf/T as anything in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
 			continue	//putting them at the edge is dumb
 		if(T.y>world.maxy-8 || T.y<8)
@@ -184,8 +184,8 @@
 		turfs += T
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
-	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in L
-	if (!t1 || user.get_active_held_item() != src || user.incapacitated())
+	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
+	if (!t1 || user.get_active_held_item() != src || user.incapacitated)
 		return
 	if(active_portal_pairs.len >= max_portal_pairs)
 		user.show_message(span_notice("\The [src] is recharging!"))
@@ -261,7 +261,7 @@
 		var/obj/item/bodypart/head/head = itemUser.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
 			head.drop_limb()
-			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_DYNAMIC_LEVEL, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
+			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_EMPTY, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
 			head.forceMove(locate(rand(1, world.maxx), rand(1, world.maxy), pick(safeLevels)))
 			itemUser.visible_message(span_suicide("The portal snaps closed taking [user]'s head with it!"))
 		else
@@ -279,7 +279,7 @@
 		using the device far exceeds that of what Nanotrasen has been able to produce, mainly due to the fact that the Syndicate don't see it as an unwanted side effect."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi_tele"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throwforce = 5
@@ -329,15 +329,19 @@
 	check_charges()
 
 /obj/item/teleporter/emp_act(severity)
-	if(prob(50 / severity))
-		if(istype(loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/user = loc
-			to_chat(user, span_danger("[src] buzzes and activates!"))
-			attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
-		else
-			visible_message(span_warning("[src] activates and blinks out of existence!"))
-			do_sparks(2, 1, src)
-			qdel(src)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!prob(50 / severity))
+		return
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/user = loc
+		to_chat(user, span_danger("[src] buzzes and activates!"))
+		attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
+	else
+		visible_message(span_warning("[src] activates and blinks out of existence!"))
+		do_sparks(2, 1, src)
+		qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)

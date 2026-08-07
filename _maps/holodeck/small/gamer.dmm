@@ -11,7 +11,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "i" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
@@ -33,7 +33,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "y" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 9
 	},

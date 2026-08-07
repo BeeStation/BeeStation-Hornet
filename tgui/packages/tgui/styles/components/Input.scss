@@ -7,9 +7,11 @@
 @use '../functions.scss' as *;
 
 $text-color: base.$color-fg !default;
-$background-color: #0a0a0a !default;
-$border-color: #88bfff !default;
+$background-color: hsl(0, 0%, 3.9%) !default;
+$border-color: hsl(212.3, 100%, 76.7%) !default;
 $border-radius: base.$border-radius !default;
+$input-height: 17px !default;
+$font-size: 12px !default;
 
 .Input {
   position: relative;
@@ -22,7 +24,7 @@ $border-radius: base.$border-radius !default;
   background-color: $background-color;
   padding: 0 base.em(4px);
   margin-right: base.em(2px);
-  line-height: base.em(17px);
+  line-height: base.em($input-height);
   overflow: visible;
 }
 
@@ -46,9 +48,9 @@ $border-radius: base.$border-radius !default;
   border: 0;
   outline: 0;
   width: 100%;
-  font-size: base.em(12px);
-  line-height: base.em(17px);
-  height: base.em(17px);
+  font-size: base.em($font-size);
+  line-height: base.em($input-height);
+  height: base.em($input-height);
   margin: 0;
   padding: 0 0.5em;
   font-family: Verdana, sans-serif;
@@ -56,6 +58,7 @@ $border-radius: base.$border-radius !default;
   color: $text-color;
   color: inherit;
 
+  &::placeholder,
   &:-ms-input-placeholder {
     font-style: italic;
     color: #777;

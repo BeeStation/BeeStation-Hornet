@@ -4,16 +4,17 @@
 	duration = 5 MINUTES // Same as food mood buffs
 	status_type = STATUS_EFFECT_REPLACE // Only one food buff allowed
 	alert_type = /atom/movable/screen/alert/status_effect/food
+	show_duration = TRUE
 	/// Buff power equal to food complexity (1 to 5)
 	var/strength
 
 /datum/status_effect/food/on_creation(mob/living/new_owner, timeout = 1, strength = 1)
+	. = ..()
 	src.strength = strength
 	if(isnum(timeout))
 		duration *= timeout
 	if(istype(linked_alert, /atom/movable/screen/alert/status_effect/food))
 		linked_alert.icon_state = "[linked_alert.base_icon_state]_[strength]"
-	. = ..()
 
 /atom/movable/screen/alert/status_effect/food
 	name = "Hand-crafted meal"

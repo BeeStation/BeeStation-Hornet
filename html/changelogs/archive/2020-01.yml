@@ -1,0 +1,182 @@
+2020-01-02:
+  Kerbin-Fiber:
+  - bugfix: Multitools no longer runtime on examine.
+  Sparrowbird611:
+  - tweak: Makes radioactive medical scanner a role restricted item (For Chief Medical
+      Officer, Medical Doctor, and Roboticist).
+  - tweak: Makes the brain washing disk usable by all roles.
+  Vorak2:
+  - rscadd: A hollow asteroid have arrived in the system Scans show it is hollow and
+      strange energy Readings are originating from the rock.
+  - rscadd: Our sensors have recently found an abandoned storage location where rare
+      items were stored. It seems the Power is completely out so you will have to
+      Power it up to get in
+  covertcorvid:
+  - bugfix: corrected powersink behavior where APC cell has less than 50 watts left
+      to drain
+  zeskorion:
+  - rscadd: there is now a way to activate autophageocytosis necrosis' zombie threshold
+2020-01-03:
+  Cenrus:
+  - tweak: DeltaStation now shows up in map rotation at 50 players.
+  ike709:
+  - rscadd: Admins can now specify a minimum playtime requirement to vote in a server
+      poll.
+  zeskorion:
+  - rscadd: Readds Viral aggressive metabolism
+2020-01-04:
+  Okand37 and Cenrus:
+  - rscadd: Kilo Station has returned to active map rotation on BeeStation Sage
+  zeskorion:
+  - bugfix: zombievirus works properly now. for the record, the part that was broken
+      was the shit that was there. not my own code. thanks for the help, mark
+  - bugfix: SBG death roaches work properly now
+  - bugfix: alkali perspiration actually works as advertised now
+  - code_imp: adds OnDeath proc for diseases
+  - rscadd: toy holoparasite
+  - tweak: changed gravity holopara flavor text
+  - imageadd: empty clown deck and clown hypo
+2020-01-06:
+  Altoids1:
+  - imageadd: Space dolphin sprites.
+  - rscadd: Space dolphins and a new event which causes them to spawn in pods around
+      the station.
+  Denton, Traelezab, and Fikou:
+  - rscadd: Ghosts will now be notified whenever fugitive hunters are ready to spawn
+  - bugfix: Added missing destinations for refugee hunter shuttles.
+  - tweak: Added two EVA crates to the space cop shuttle.
+  - rscadd: There is a new fugitive hunter, the bounty hunters! They're barely better
+      than space pirates!
+  - rscadd: The russian shuttle has undergone some changes, namely the removal of
+      the ripley, and the addition of space suits.
+  - rscdel: The cultists have lost their god, RIP yalp elor.
+  - tweak: Other various improvements like different huds for the hunters and fugitives,
+      a less threatening announcement message, and more.
+  Sparrowbird611:
+  - rscadd: The Wizard Federation has released the fifth edition of the Wizard's Handbook,
+      altering the following items and spells.
+  - rscadd: Mastercraft wizard armor now comes with a breath mask and a nigh infinite
+      oxygen tank, as well as a built in jetpack.
+  - balance: 'spell card: Cooldown raised to 9 seconds, but price reduced to 1 magic
+      point. Deals brute instead of burn now.'
+  - balance: 'Lightning bolt: Price decreased to 2 magic points, cooldown decreased
+      to 15 seconds. Robeless.'
+  - balance: 'Fireball: Cooldown increased 18 seconds. Robed.'
+  - balance: 'Spacetime distortion: Cooldown increased to 45 seconds, now requires
+      an invocation to cast (can''t be cast while muted). Robeless.'
+  - balance: 'The traps: Robeless.'
+  - balance: 'Bind soul: Price increased to 3 magic points.'
+  - balance: Minimum cooldown adjusted for all spells listed.
+  Swindly, Wesoda25, Kriskog, MrPerson, Buggy123, Firecage:
+  - rscadd: BSA can now delete singularities if you land a hit on it.
+  - bugfix: RCD animations no longer will be sucked by the singulo while operating.
+      Scientists Amazed.
+  - tweak: removing encryption keys will now attempt to put them in your hand before
+      dropping to the floor.
+  - bugfix: Santa got their Santa school diploma (again). it will now properly spawn
+      presents on its bag, be able to tell whats inside, but not open them. No more
+      pulse rifle santa.
+  - bugfix: spawner female characters no longer start with gorgeous dwarven beards.
+  ike709:
+  - rscadd: Number of players connected is now always listed on the Status panel.
+2020-01-07:
+  Crossedfall:
+  - rscadd: Crewsimov as a possible default law
+  zeskorion:
+  - tweak: adds a cooldown to area creation
+2020-01-13:
+  Cenrus:
+  - config: Enabled extended mode on BeeStation Sage
+  Skoglol:
+  - bugfix: Voice of god no longer causes you to get muted.
+  qwertyquerty:
+  - bugfix: Local jobbans work again
+2020-01-14:
+  jlsnow301:
+  - rscadd: RPD's are now in Pubby SM room.
+  - rscadd: New cryogenic sleeper in Medbay for those pesky SSD clones.
+  - tweak: Fixed a power cable running into the NW solar.
+  - tweak: Coolant piping for SM is now very similar to other maps.
+  zeskorion:
+  - rscadd: Heart Disease symptom
+  - rscadd: angry heart simplemob
+  - tweak: cluwne mutation is now obtainable
+  - imageadd: cluwne mask and shoes
+2020-01-23:
+  Guestratem:
+  - tweak: prevents moving the academy wizard to the den
+  - code_imp: updates checks to prevent players from curbstomping themselves
+  PowerfulBacon:
+  - tweak: Made the sub-grenade explosion quieter
+  - tweak: Only 1 disco ball is created, rather than >20 which filled the hallways
+  - tweak: The chat message is now sent less frequently to prevent a ridiculous level
+      of chat spam.
+  - balance: Mindshielded persons are now unaffected
+  - tweak: Non-Ethereals with the social anxiety trait will now drop their items and
+      say a message showing their discomfort.
+  - imageadd: Added disco and disco_grenade to grenade.dmi
+  - rscadd: Adds dance grenade to dmi so code can compile
+  TheChaser212:
+  - rscadd: Change a plant's information by using a pen on the seed
+  - tweak: Hydroponics trays now show what is planted
+  - bugfix: Sugarcane seeds added to the megaseed vendor
+  WhyIsCaeciliusTaken:
+  - balance: Increased the cost of Resonant Shriek from 1 to 2
+  - balance: reduced the amount of frost oil cryo sting injects per use, but also
+      reduced chemicals cost
+  - balance: Increased chemical cost of fleshmend from 20 to 25
+  - balance: Reduced Brute/Oxy heal per tick from 10 to 6
+  - balance: increased chemical cost of lesser form and weighted more of the total
+      cost to the activation rather than the deactivation
+  derpymcfuckwit:
+  - balance: Goliath Cloak is now viable and HECK armor was buffed
+  qwertyquerty:
+  - code_imp: Adds random rooms folder to travis map compile check
+  - code_imp: Travis works again
+  zeskorion:
+  - tweak: Confusion now only works if running
+  - tweak: lower blob chance
+  - tweak: higher pop requisites for appendicitis and brain trauma
+  - tweak: lower min time for space dragons
+  - tweak: lower min time for abductors
+  - tweak: better disease event
+  - tweak: shuffle minds will no longer occur
+  - bugfix: simple fix to sepchems
+2020-01-25:
+  PowerfulBacon:
+  - balance: Ethereal Dance Grenade price reduced from 7TC to 4TC
+  TheChaser212:
+  - rscadd: Adds chem recording
+  Vasily2013:
+  - rscadd: new 3x3 maint rooms for the random generator.
+  zeskorion:
+  - rscadd: 6 new random room spawner subtypes
+  - rscadd: random maint room templates
+  - rscadd: 'new random maint box station map for testing random rooms (note: does
+      not have a 10x5 room)'
+  - config: Map rotation yeaaaah
+2020-01-28:
+  TheChaser212:
+  - rscadd: You can now make IPC organs in the exosuit fabricator by researching IPC
+      parts
+  - bugfix: Power cord now only works with the ipc stomach
+2020-01-29:
+  123chess456:
+  - rscadd: Standard model serviceborgs now have access to absinthe and triple sec
+      in their shaker.
+  zeskorion:
+  - rscadd: blasma tinfoil hat
+  - tweak: tinfoil hat can now be crafted without an autolathe
+2020-01-30:
+  123chess456:
+  - refactor: The code for serviceborg shaker reagents has been refactored and reagents
+      are now sorted differently. Specifically, all alcoholic reagents are listed
+      first alphabetically, then all non-alcoholic reagents are listed afterwards
+      also alphabetically.
+  Cenrus:
+  - config: Temporarily disables KiloStation due to frequent crashing.
+  zeskorion:
+  - tweak: baseball bat no longer stunlocks
+  - balance: baseball bat has higher damage to compensate for the hit delay. It has
+      a lower throwing force, though- throwforce was higher than melee for some odd
+      reason

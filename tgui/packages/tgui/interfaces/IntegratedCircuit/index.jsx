@@ -1,11 +1,12 @@
-import { useBackend } from '../../backend';
-import { Input, InfinitePlane, Stack, Box, Button, Section } from '../../components';
 import { Component } from 'react';
-import { Layout, Window } from '../../layouts';
+
 import { resolveAsset } from '../../assets';
+import { useBackend } from '../../backend';
+import { Box, Button, InfinitePlane, Input, Stack } from '../../components';
+import { Window } from '../../layouts';
 import { CircuitInfo } from './CircuitInfo';
-import { NULL_REF, ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { Connections } from './Connections';
+import { ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { ObjectComponent } from './ObjectComponent';
 import { VariableMenu } from './VariableMenu';
 
@@ -65,7 +66,9 @@ export class IntegratedCircuit extends Component {
     if (
       isNaN(position.x) ||
       isNaN(position.y) ||
-      (lastPosition && lastPosition.x === position.x && lastPosition.y === position.y)
+      (lastPosition &&
+        lastPosition.x === position.x &&
+        lastPosition.y === position.y)
     ) {
       return;
     }
@@ -256,42 +259,45 @@ export class IntegratedCircuit extends Component {
         width={600}
         height={600}
         buttons={
-          <Box width="160px" position="absolute" top="5px" height="22px">
-            <Stack>
-              <Stack.Item grow basis="content">
-                <Input
-                  fluid
-                  placeholder="Circuit Name"
-                  value={display_name}
-                  onChange={(e, value) => act('set_display_name', { display_name: value })}
-                />
-              </Stack.Item>
-              <Stack.Item basis="24px">
+          <Stack>
+            <Stack.Item grow basis="content">
+              <Input
+                placeholder="Circuit Name"
+                value={display_name}
+                onChange={(e, value) =>
+                  act('set_display_name', { display_name: value })
+                }
+              />
+            </Stack.Item>
+            <Stack.Item basis="24px">
+              <Button
+                color="transparent"
+                icon="cog"
+                selected={menuOpen}
+                onClick={() =>
+                  this.setState((state) => ({
+                    menuOpen: !state.menuOpen,
+                  }))
+                }
+              />
+            </Stack.Item>
+            {!!is_admin && (
+              <Stack.Item>
                 <Button
-                  position="absolute"
-                  top={0}
                   color="transparent"
-                  icon="cog"
-                  selected={menuOpen}
-                  onClick={() =>
-                    this.setState((state) => ({
-                      menuOpen: !state.menuOpen,
-                    }))
-                  }
+                  onClick={() => act('save_circuit')}
+                  icon="save"
                 />
               </Stack.Item>
-              {!!is_admin && (
-                <Stack.Item>
-                  <Button position="absolute" top={0} color="transparent" onClick={() => act('save_circuit')} icon="save" />
-                </Stack.Item>
-              )}
-            </Stack>
-          </Box>
-        }>
+            )}
+          </Stack>
+        }
+      >
         <Window.Content
           style={{
             backgroundImage: 'none',
-          }}>
+          }}
+        >
           <InfinitePlane
             width="100%"
             height="100%"
@@ -300,7 +306,8 @@ export class IntegratedCircuit extends Component {
             onZoomChange={this.handleZoomChange}
             onBackgroundMoved={this.handleBackgroundMoved}
             initialLeft={screen_x}
-            initialTop={screen_y}>
+            initialTop={screen_y}
+          >
             {components.map(
               (comp, index) =>
                 comp && (
@@ -314,7 +321,7 @@ export class IntegratedCircuit extends Component {
                     onPortRightClick={this.handlePortRightClick}
                     onPortMouseUp={this.handlePortUp}
                   />
-                )
+                ),
             )}
             <Connections connections={connections} />
           </InfinitePlane>
@@ -330,7 +337,15 @@ export class IntegratedCircuit extends Component {
             />
           )}
           {!!menuOpen && (
-            <Box position="absolute" bottom={0} left={0} height="50%" minHeight="300px" width="100%" backgroundColor="#202020">
+            <Box
+              position="absolute"
+              bottom={0}
+              left={0}
+              height="50%"
+              minHeight="300px"
+              width="100%"
+              backgroundColor="#202020"
+            >
               <VariableMenu
                 variables={variables}
                 types={global_basic_types}

@@ -24,6 +24,7 @@
 	density = TRUE
 	max_integrity = 500
 	armor_type = /datum/armor/structure_particle_accelerator
+	custom_price = 350
 
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = PA_CONSTRUCTION_UNSECURED
@@ -60,7 +61,7 @@
 
 /obj/structure/particle_accelerator/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/structure/particle_accelerator/set_anchored(anchorvalue)
 	. = ..()

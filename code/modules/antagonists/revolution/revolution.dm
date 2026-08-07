@@ -12,27 +12,21 @@
 	antagpanel_category = "Revolution"
 	banning_key = ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
-	var/hud_type = "rev"
-	var/datum/team/revolution/rev_team
+	antag_hud_name = "rev"
 	required_living_playtime = 0
+	var/datum/team/revolution/rev_team
 
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
-	. = ..()
-	if(.)
-		if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			return FALSE
-		if(new_owner.unconvertable)
-			return FALSE
-		if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
-			return FALSE
+	if(new_owner.assigned_role.job_flags & JOB_HEAD_OF_STAFF)
+		return FALSE
+	if(new_owner.unconvertable)
+		return FALSE
+	if(new_owner.current && HAS_TRAIT(new_owner.current, TRAIT_MINDSHIELD))
+		return FALSE
+	return ..()
 
 /datum/antagonist/rev/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_rev_icons_added(M)
-
-/datum/antagonist/rev/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_rev_icons_removed(M)
+	add_team_hud(mob_override || owner.current)
 
 /datum/antagonist/rev/proc/equip_rev()
 	return
@@ -58,7 +52,7 @@
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
 	if(!new_team)
 		//For now only one revolution at a time
-		for(var/datum/antagonist/rev/head/H in GLOB.antagonists)
+		for(var/datum/antagonist/rev/head/H in GLOB.active_antagonists)
 			if(!H.owner)
 				continue
 			if(H.rev_team)
@@ -159,25 +153,16 @@
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
-	hud_type = "rev_head"
+	antag_hud_name = "rev_head"
 	banning_key = ROLE_REV_HEAD
-	required_living_playtime = 4
+	required_living_playtime = 8
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
 
 /datum/antagonist/rev/head/antag_listing_name()
 	return ..() + "(Leader)"
-
-/datum/antagonist/rev/proc/update_rev_icons_added(mob/living/M)
-	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
-	revhud.join_hud(M)
-	set_antag_hud(M,hud_type)
-
-/datum/antagonist/rev/proc/update_rev_icons_removed(mob/living/M)
-	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
-	revhud.leave_hud(M)
-	set_antag_hud(M, null)
 
 /datum/antagonist/rev/proc/can_be_converted(mob/living/candidate)
 	if(!candidate.mind)
@@ -193,11 +178,9 @@
 	if(!can_be_converted(rev_mind.current))
 		return FALSE
 	if(stun)
-		if(iscarbon(rev_mind.current))
-			var/mob/living/carbon/carbon_mob = rev_mind.current
-			carbon_mob.silent = max(carbon_mob.silent, 5)
-			carbon_mob.flash_act(1, 1)
-		rev_mind.current.Stun(100)
+		rev_mind.current.set_silence_if_lower(10 SECONDS)
+		rev_mind.current.flash_act(1, 1)
+		rev_mind.current.Stun(10 SECONDS)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
 	rev_mind.special_role = ROLE_REV
 	return TRUE
@@ -303,8 +286,8 @@
 			var/list/datum/mind/promotable = list()
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
-				if(khrushchev.current && !khrushchev.current.incapacitated() && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
-					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
+				if(khrushchev.current && !khrushchev.current.incapacitated && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
+					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/roundstart/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev
 						else
@@ -338,24 +321,11 @@
 
 /// Updates the state of the world depending on if revs won or loss.
 /// Returns who won, at which case this method should no longer be called.
-/// If revs_win_injection_amount is passed, then that amount of threat will be added if the revs win.
-/datum/team/revolution/proc/process_victory(revs_win_injection_amount)
+/datum/team/revolution/proc/process_victory()
 	if (check_rev_victory())
 		return REVOLUTION_VICTORY
 	else if (check_heads_victory())
 		return STATION_VICTORY
-
-/// Mutates the ticker to report that the revs have won
-/datum/team/revolution/proc/round_result(finished)
-	if (finished == REVOLUTION_VICTORY)
-		SSticker.mode_result = "win - heads killed"
-		SSticker.news_report = REVS_WIN
-	else if (finished == STATION_VICTORY)
-		SSticker.mode_result = "loss - rev heads killed"
-		SSticker.news_report = REVS_LOSE
-	else
-		SSticker.mode_result = "minor win - station forced to be abandoned"
-		SSticker.news_report = STATION_EVACUATED
 
 /datum/team/revolution/roundend_report()
 	if(!members.len && !ex_headrevs.len)
@@ -438,19 +408,16 @@
 	for(var/datum/mind/N in SSjob.get_living_heads())
 		var/mob/M = N.current
 		if(M)
-			heads_report += "<tr><td><a href='?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a>[M.client ? "" : " <i>(No Client)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-			heads_report += "<td><A href='?priv_msg=[M.ckey]'>PM</A></td>"
-			heads_report += "<td><A href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a></td>"
+			heads_report += "<tr><td><a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a>[M.client ? "" : " <i>(No Client)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+			heads_report += "<td><A href='byond://?priv_msg=[M.ckey]'>PM</A></td>"
+			heads_report += "<td><A href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a></td>"
 			var/turf/mob_loc = get_turf(M)
 			heads_report += "<td>[mob_loc.loc]</td></tr>"
 		else
-			heads_report += "<tr><td><a href='?_src_=vars;[HrefToken()];Vars=[REF(N)]'>[N.name]([N.key])</a><i>Head body destroyed!</i></td>"
-			heads_report += "<td><A href='?priv_msg=[N.key]'>PM</A></td></tr>"
+			heads_report += "<tr><td><a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(N)]'>[N.name]([N.key])</a><i>Head body destroyed!</i></td>"
+			heads_report += "<td><A href='byond://?priv_msg=[N.key]'>PM</A></td></tr>"
 	heads_report += "</table>"
 	return common_part + heads_report
-
-/datum/team/revolution/is_gamemode_hero()
-	return SSticker.mode.name == "revolution"
 
 /datum/objective/revolution
 	name = "revolution"

@@ -10,3 +10,6 @@
 
 /datum/movespeed_modifier/holopara_frenzy/major
 	multiplicative_slowdown = -1.5
+
+/datum/movespeed_modifier/tree_slowdown
+	multiplicative_slowdown = 10

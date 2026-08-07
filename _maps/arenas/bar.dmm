@@ -5,7 +5,7 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "w" = (
 /obj/structure/table,
 /obj/item/reagent_containers/condiment/peppermill{
@@ -16,18 +16,18 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "x" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "z" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "B" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks,
@@ -36,44 +36,44 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "C" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "D" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "F" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "I" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "J" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "K" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "L" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/shaker,
@@ -85,30 +85,30 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "M" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "O" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "R" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "S" = (
 /obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "T" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks/beer,
@@ -117,32 +117,32 @@
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "U" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "V" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "X" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 "Z" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
-/area/tdome/arena)
+/area/centcom/tdome/arena)
 
 (1,1,1) = {"
 C

@@ -20,7 +20,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		switch(length(buttons))
 			if(1)
 				return alert(user, message, title, buttons[1])
@@ -60,7 +60,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(length(buttons) == 2)
 			return alert(user, message, title, buttons[1], buttons[2])
 		if(length(buttons) == 3)
@@ -102,10 +102,10 @@
 		start_time = world.time
 		QDEL_IN(src, timeout)
 
-/datum/tgui_modal/Destroy(force, ...)
+/datum/tgui_modal/Destroy(force)
 	SStgui.close_uis(src)
-	QDEL_NULL(buttons)
-	. = ..()
+	buttons?.Cut()
+	return ..()
 
 /**
  * Waits for a user's response to the tgui_modal's prompt before returning. Returns early if
@@ -176,9 +176,9 @@
 	..(user, message, title, buttons, timeout, autofocus)
 	src.callback = callback
 
-/datum/tgui_modal/async/Destroy(force, ...)
-	QDEL_NULL(callback)
-	. = ..()
+/datum/tgui_modal/async/Destroy(force)
+	callback = null
+	return ..()
 
 /datum/tgui_modal/async/set_choice(choice)
 	. = ..()

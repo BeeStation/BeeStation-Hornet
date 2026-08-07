@@ -1,5 +1,5 @@
-import { Box, Section, Stack } from '../../components';
 import { resolveAsset } from '../../assets';
+import { Box, Section, Stack } from '../../components';
 
 type Props = {
   name: string;
@@ -19,7 +19,10 @@ export const AntagInfoHeader = (props: Props) => {
               as="img"
               src={resolveAsset(asset)}
               width="64px"
-              style={{ msInterpolationMode: 'nearest-neighbor', imageRendering: 'pixelated' }}
+              style={{
+                msInterpolationMode: 'nearest-neighbor',
+                imageRendering: 'pixelated',
+              }}
             />
           </Stack.Item>
         )}

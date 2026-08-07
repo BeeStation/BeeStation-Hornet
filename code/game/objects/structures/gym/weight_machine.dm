@@ -57,21 +57,18 @@
 	qdel(overlay)
 	return ..()
 
-/obj/structure/weightmachine/wrench_act(mob/living/user, obj/item/I)
-	if (default_unfasten_wrench(user, I, 50) == 2 && anchored)
+/obj/structure/weightmachine/wrench_act(mob/living/user, obj/item/tool)
+	if (default_unfasten_wrench(user, tool, 50) == 2 && anchored)
 		setDir(SOUTH)
 	unbuckle_all_mobs()
 	return TRUE
 
-/obj/structure/weightmachine/screwdriver_act(mob/living/user, obj/item/I)
+/obj/structure/weightmachine/screwdriver_act(mob/living/user, obj/item/tool)
 	to_chat(user, span_notice("You begin to take apart [src]..."))
-	if(I.use_tool(src, user, 40, volume=50))
+	if(tool.use_tool(src, user, 4 SECONDS, volume=50))
 		to_chat(user, span_notice("You deconstruct [src]."))
 		qdel(src)
 	return TRUE
-
-/obj/structure/weightmachine/buckle_mob(mob/living/buckled, force, check_loc, needs_anchored = TRUE)
-	. = ..()
 
 /obj/structure/weightmachine/post_buckle_mob(mob/living/buckled)
 	weight_action.Grant(buckled)
@@ -97,7 +94,7 @@
 			user.client.give_award(/datum/award/achievement/misc/weights, user)
 		if(ishuman(user))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-			user.apply_status_effect(STATUS_EFFECT_EXERCISED, 40)
+			user.apply_status_effect(/datum/status_effect/exercised, 40)
 	end_workout()
 
 /obj/structure/weightmachine/proc/end_workout()
@@ -105,15 +102,16 @@
 	STOP_PROCESSING(SSobj, src)
 	icon_state = initial(icon_state)
 
-/obj/structure/weightmachine/process(seconds_per_tick)
+/obj/structure/weightmachine/process(delta_time)
 	if(!has_buckled_mobs())
 		end_workout()
 		return FALSE
 	var/mob/living/user = buckled_mobs[1]
 	flick("[base_icon_state]-u", src)
-	animate(user, pixel_y = pixel_shift_y, time = 4, SINE_EASING)
+	animate(user, pixel_y = pixel_shift_y, time = 0.4 SECONDS, SINE_EASING)
 	playsound(user, 'sound/machines/creak.ogg', 60, TRUE)
-	animate(pixel_y = user.base_pixel_y, time = 4, SINE_EASING)
+	animate(pixel_y = user.base_pixel_y, time = 0.4 SECONDS, SINE_EASING)
+
 	return TRUE
 
 /**
@@ -135,7 +133,7 @@
 	icon_state = "barbell"
 	lefthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/weightlifting.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 16
 	throwforce = 16
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -147,7 +145,7 @@
 	throw_range = 2
 	slowdown = 2
 
-/obj/item/barbell/ComponentInitialize()
+/obj/item/barbell/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, block_power_unwielded=block_power, block_power_wielded=block_power)
 

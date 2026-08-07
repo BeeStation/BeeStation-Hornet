@@ -1,7 +1,3 @@
-#define MUSICIAN_HEARCHECK_MINDELAY 4
-#define MUSIC_MAXLINES 1000
-#define MUSIC_MAXLINECHARS 300
-
 /**
   * # Song datum
   *
@@ -161,7 +157,7 @@
 	var/list/old = hearing_mobs.Copy()
 	hearing_mobs.len = 0
 	var/turf/source = get_turf(parent)
-	for(var/mob/M in get_hearers_in_view(instrument_range, source, SEE_INVISIBLE_MAXIMUM))
+	for(var/mob/M in get_hearers_in_view(instrument_range, source))
 		hearing_mobs[M] = get_dist(M, source)
 	var/list/exited = old - hearing_mobs
 	for(var/i in exited)

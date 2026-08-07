@@ -1,8 +1,8 @@
 /datum/action/spell/jaunt/ethereal_jaunt/ash
 	name = "Ashen Passage"
 	desc = "A short range spell that allows you to pass unimpeded through walls."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "ash_shift"
 	sound = null
 

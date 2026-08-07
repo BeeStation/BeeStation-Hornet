@@ -1,5 +1,6 @@
 
 /obj/item/food/bread
+	abstract_type = /obj/item/food/bread
 	name = "bread?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -20,10 +21,11 @@
 
 /obj/item/food/bread/make_processable()
 	if (slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
-		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/breadslice
+	abstract_type = /obj/item/food/breadslice
 	name = "breadslice?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -54,6 +56,10 @@
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/bread/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 8)
 
+// special subtype we use for the "Bread" Admin Smite (or the breadify proc)
+/obj/item/food/bread/plain/smite
+	desc = "If you hold it up to your ear, you can hear the screams of the damned."
+
 /obj/item/food/breadslice/plain
 	name = "bread slice"
 	desc = "A slice of home."
@@ -62,15 +68,16 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2
 	)
+	decomp_type = /obj/item/food/breadslice/moldy
 	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/breadslice/plain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_STACK)
 
-/*
- * REAL MOLDY FOOD. We just cant support it right now. Start porting after newfood is complete
- *
+/obj/item/food/breadslice/plain/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/griddle_toast, rand(15 SECONDS, 25 SECONDS), TRUE, TRUE)
+
 /obj/item/food/breadslice/moldy
 	name = "moldy 'bread' slice"
 	desc = "Entire stations have been ripped apart arguing whether this is still good to eat."
@@ -88,11 +95,6 @@
 	name = "bacteria-rich moldy 'bread' slice"
 	desc = "Something (possibly necroyeast) has caused this bread to rise in a macabre state of unlife. \
 		It lurchs about when unattended. You might want to locate a priest if you see this. Or maybe a flamethrower."
-
-/obj/item/food/breadslice/moldy/bacteria/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MOLD, CELL_VIRUS_TABLE_GENERIC, rand(2, 4), 25)
-*/
 
 /obj/item/food/bread/meat
 	name = "meatbread loaf"
@@ -296,7 +298,7 @@
 	desc = "Bon appetit!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = "baguette"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
@@ -326,7 +328,7 @@
 	desc = "Alas, it is limited."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "garlicbread"
-	item_state = null
+	inhand_icon_state = null
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
@@ -366,6 +368,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-/obj/item/food/butterdog/ComponentInitialize()
+/obj/item/food/butterdog/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 8 SECONDS)

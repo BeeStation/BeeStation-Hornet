@@ -5,13 +5,10 @@
 	program_icon_state = "generic"
 	requires_ntnet = TRUE
 	size = 4
-
 	extended_desc = "An app used to change the message on the station status displays."
 	tgui_id = "NtosStatus"
-
-	usage_flags = PROGRAM_ALL
-	available_on_ntnet = FALSE
-
+	transfer_access = list(ACCESS_HEADS)
+	power_consumption = 60 WATT
 	var/upper_text = ""
 	var/lower_text = ""
 

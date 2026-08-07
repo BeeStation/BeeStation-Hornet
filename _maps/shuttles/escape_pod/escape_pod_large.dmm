@@ -13,7 +13,7 @@
 /area/shuttle/pod_1)
 "u" = (
 /obj/structure/grille,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "A" = (

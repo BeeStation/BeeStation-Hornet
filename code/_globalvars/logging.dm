@@ -4,6 +4,9 @@ GLOBAL_PROTECT(log_directory)
 GLOBAL_VAR(world_game_log)
 GLOBAL_PROTECT(world_game_log)
 
+GLOBAL_VAR(world_dynamic_log)
+GLOBAL_PROTECT(world_dynamic_log)
+
 GLOBAL_VAR(world_objective_log)
 GLOBAL_PROTECT(world_objective_log)
 
@@ -12,6 +15,9 @@ GLOBAL_PROTECT(world_runtime_log)
 
 GLOBAL_VAR(world_qdel_log)
 GLOBAL_PROTECT(world_qdel_log)
+
+GLOBAL_VAR(world_signal_log)
+GLOBAL_PROTECT(world_signal_log)
 
 GLOBAL_VAR(world_attack_log)
 GLOBAL_PROTECT(world_attack_log)
@@ -127,7 +133,7 @@ GLOBAL_PROTECT(picture_logging_id)
 GLOBAL_VAR(picture_logging_prefix)
 GLOBAL_PROTECT(picture_logging_prefix)
 /////
-#ifdef REFERENCE_DOING_IT_LIVE
+#ifdef REFERENCE_TRACKING_LOG_APART
 GLOBAL_LIST_EMPTY(harddel_log)
 GLOBAL_PROTECT(harddel_log)
 #endif

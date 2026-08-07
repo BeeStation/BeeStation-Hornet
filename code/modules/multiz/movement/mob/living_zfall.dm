@@ -1,9 +1,7 @@
 /mob/living/can_zFall(turf/source, turf/target, direction)
-	if(!..())
-		return FALSE
 	if(buckled && !buckled.can_zFall(source, target, direction))
 		return FALSE
-	return TRUE
+	return ..()
 
 /mob/living/onZImpact(turf/T, levels)
 	if(!isgroundlessturf(T))
@@ -23,8 +21,11 @@
 	return (levels * 15) ** 1.4
 
 /// Called when a successful zimpact (landing) occurs
-/mob/living/proc/ZImpactDamage(turf/T, levels)
-	apply_general_zimpact_damage(T, levels)
+/mob/living/proc/ZImpactDamage(turf/impacted_turf, levels)
+	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
+	if(. & NO_Z_IMPACT_DAMAGE)
+		return
+	apply_general_zimpact_damage(impacted_turf, levels)
 
 /// Generic proc for most living things taking fall damage. Will attempt splitting between legs, if the mob has any.
 /mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
@@ -44,8 +45,13 @@
 	Knockdown(levels * 50)
 
 // Let the species handle it instead
-/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
+/mob/living/carbon/human/ZImpactDamage(turf/impacted_turf, levels)
 	var/datum/species/species_datum = dna?.species
 	if(!istype(species_datum))
 		return ..()
-	species_datum.z_impact_damage(src, T, levels)
+
+	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
+	if(. & NO_Z_IMPACT_DAMAGE)
+		return
+
+	species_datum.z_impact_damage(src, impacted_turf, levels)

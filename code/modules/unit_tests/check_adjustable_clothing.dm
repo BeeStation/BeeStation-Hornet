@@ -1,7 +1,7 @@
 /datum/unit_test/adjustable_clothing/Run()
 	var/list/failing = list()
 	var/list/valid_states = icon_states('icons/mob/clothing/under/suits.dmi')
-	for(var/obj/item/clothing/under/path as() in subtypesof(/obj/item/clothing/under))
+	for(var/obj/item/clothing/under/path as anything in subtypesof(/obj/item/clothing/under))
 		if(initial(path.can_adjust))
 			//Check for adjustable clothing
 			//Get the item colour

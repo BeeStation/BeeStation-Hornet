@@ -17,7 +17,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 //FALSE = no subtypes, strict exact type pathing (or the type doesn't have subtypes)
 //TRUE = Yes subtypes
 //NULL = User cancelled at the prompt or invalid type given
-/client/proc/vv_subtype_prompt(var/type)
+/client/proc/vv_subtype_prompt(type)
 	if (!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
@@ -125,7 +125,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 	for (var/i in 1 to L.len)
 		var/key = L[i]
 		var/value
-		if (is_normal_list && !isnum_safe(key))
+		if (is_normal_list && !IS_FINITE(key))
 			value = L[key]
 		if (value == null)
 			value = "null"

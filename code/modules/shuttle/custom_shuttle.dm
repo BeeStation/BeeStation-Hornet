@@ -5,7 +5,6 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
-	req_access = list( )
 	possible_destinations = "whiteship_home"
 
 	var/datum/weakref/designator_ref = null
@@ -87,14 +86,14 @@
 	return shuttle
 
 //Consumes fuel and reduces thrust of engines that run out of fuel
-/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/consume_fuel(var/multiplier = 1)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/consume_fuel(multiplier = 1)
 	//Reset stats
 	calculated_dforce = 0
 	calculated_acceleration = 0
 	calculated_engine_count = 0
 	calculated_consumption = 0
 	//Consume fuel
-	for(var/obj/machinery/shuttle/engine/E as() in shuttle_engines)
+	for(var/obj/machinery/shuttle/engine/E as anything in shuttle_engines)
 		var/valid_thruster = FALSE
 		//Void thrusters don't need heaters
 		if(E.needs_heater)
@@ -146,7 +145,7 @@
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/proc/get_fuel()
 	var/amount = 0
-	for(var/obj/machinery/shuttle/engine/E as() in shuttle_engines)
+	for(var/obj/machinery/shuttle/engine/E as anything in shuttle_engines)
 		var/obj/machinery/atmospherics/components/unary/shuttle/heater/shuttle_heater = E.attached_heater?.resolve()
 		if(!shuttle_heater)
 			continue
@@ -155,11 +154,11 @@
 		amount += moles
 	return amount
 
-/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/linkShuttle(var/new_id)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/linkShuttle(new_id)
 	shuttleId = new_id
 	shuttlePortId = "[shuttleId]_custom_dock"
 
-/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/calculateStats(var/useFuel = FALSE)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/calculateStats(useFuel = FALSE)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
 		return FALSE

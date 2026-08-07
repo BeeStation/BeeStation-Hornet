@@ -1,11 +1,11 @@
 /obj/effect/anomaly/blood
 	name = "blood anomaly"
-	icon_state = "blood_anomaly"
+	icon_state = "blood"
 	density = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/blood
+	anomaly_core = /obj/item/assembly/signaler/anomaly/blood
 	var/sucking = FALSE
 
-/obj/effect/anomaly/blood/anomalyEffect(delta_time)
+/obj/effect/anomaly/blood/anomaly_process(delta_time)
 	if (sucking)
 		return
 	..()

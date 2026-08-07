@@ -13,7 +13,7 @@
 	maxHealth = 250
 	health = 250
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 
 	melee_damage = 10
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -21,7 +21,7 @@
 	speak_emote = list("creaks")
 	taunt_chance = 30
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_MIMIC)
@@ -30,7 +30,7 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 4000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/spawaning_obj_type = null
 
@@ -102,7 +102,7 @@
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = TRUE
 
-/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	trigger()
 	. = ..()
 
@@ -150,16 +150,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 	if(!CopyObject(original, creator, destroy_original))
 		stack_trace("something's wrong to create a mimic. It failed to mimic something - [original].")
 
-/mob/living/simple_animal/hostile/mimic/copy/Life()
+/mob/living/simple_animal/hostile/mimic/copy/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(idledamage && !target && !mind) //Objects eventually revert to normal if no one is around to terrorize
-		adjustBruteLoss(1)
+		adjustBruteLoss(0.5 * delta_time)
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
 
 /mob/living/simple_animal/hostile/mimic/copy/ListTargets()
 	. = ..()
 	return . - creator
+
+/mob/living/simple_animal/hostile/mimic/copy/wabbajack(what_to_randomize, change_flags = WABBAJACK)
+	visible_message(span_warning("[src] resists polymorphing into a new creature!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)

@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/turf/baseturf_bottom,
 	/turf/open/space,
 	/turf/open/lava,
-	/turf/open/floor/dock/drydock
+	/turf/open/floor/dock/drydock,
 )))
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
@@ -15,8 +15,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
-	icon = 'icons/effects/landmarks_static.dmi'
-	icon_state = "pinonfar"
+	icon = 'icons/effects/docking_ports.dmi'
+	icon_state = "static"
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
@@ -67,8 +67,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 /obj/docking_port/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	return
 
-/obj/docking_port/singularity_pull()
+/obj/docking_port/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
+
 /obj/docking_port/singularity_act()
 	return 0
 
@@ -97,7 +98,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		)
 
 //returns the dwidth, dheight, width, and height in that order of the union bounds of all shuttles relative to our shuttle.
-/obj/docking_port/proc/return_union_bounds(var/list/obj/docking_port/others)
+/obj/docking_port/proc/return_union_bounds(list/obj/docking_port/others)
 	var/list/coords =  return_union_coords(others, 0, 0, NORTH)
 	var/X0 = min(coords[1],coords[3]) //This will be the negative dwidth of the combined bounds
 	var/Y0 = min(coords[2],coords[4]) //This will be the negative dheight of the combined bounds
@@ -106,7 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	return list(-X0, -Y0, X1-X0+1,Y1-Y0+1)
 
 //Returns the the bounding box fully containing all provided docking ports
-/obj/docking_port/proc/return_union_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+/obj/docking_port/proc/return_union_coords(list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -131,7 +132,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		)
 
 //Returns the bounding box containing only the intersection of all provided docking ports
-/obj/docking_port/proc/return_intersect_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+/obj/docking_port/proc/return_intersect_coords(list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -235,15 +236,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/stationary/Initialize(mapload)
 	..()
-	SSshuttle.stationary += src
+	SSshuttle.stationary_docking_ports += src
 	if(!id)
-		id = "[SSshuttle.stationary.len]"
+		id = "[SSshuttle.stationary_docking_ports.len]"
 	if(name == "dock")
-		name = "dock[SSshuttle.stationary.len]"
+		name = "dock[SSshuttle.stationary_docking_ports.len]"
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
-			T.flags_1 |= NO_RUINS_1
+			T.turf_flags |= NO_RUINS
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -254,18 +255,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/stationary/LateInitialize()
 	. = ..()
-	if(SSshuttle.shuttles_loaded)
+	if(SSshuttle.initialized)
 		load_roundstart()
-
 
 /obj/docking_port/stationary/Destroy(force)
 	if(force)
-		SSshuttle.stationary -= src
+		SSshuttle.stationary_docking_ports -= src
 	. = ..()
 
 /obj/docking_port/stationary/proc/load_roundstart()
 	if(json_key)
-		var/sid = SSmapping.config.shuttles[json_key]
+		var/sid = SSmapping.current_map.shuttles[json_key]
 		roundstart_template = SSmapping.shuttle_templates[sid]
 		if(!roundstart_template)
 			CRASH("json_key:[json_key] value \[[sid]\] resulted in a null shuttle template for [src]")
@@ -287,13 +287,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/stationary/transit/Initialize(mapload)
 	. = ..()
-	SSshuttle.transit += src
+	SSshuttle.transit_docking_ports += src
 
 /obj/docking_port/stationary/transit/Destroy(force=FALSE)
 	if(force)
 		if(docked)
 			log_world("A transit dock was destroyed while something was docked to it.")
-		SSshuttle.transit -= src
+		SSshuttle.transit_docking_ports -= src
 		if(owner)
 			if(owner.assigned_transit == src)
 				owner.assigned_transit = null
@@ -305,7 +305,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 /obj/docking_port/mobile
 	name = "shuttle"
-	icon_state = "pinonclose"
+	icon_state = "mobile"
 
 	var/area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
 
@@ -373,11 +373,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	var/dynamic_id = FALSE
 
 /obj/docking_port/mobile/proc/register()
-	SSshuttle.mobile |= src
+	SSshuttle.mobile_docking_ports |= src
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
-		SSshuttle.mobile -= src
+		SSshuttle.mobile_docking_ports -= src
 		destination = null
 		previous = null
 		QDEL_NULL(assigned_transit)		//don't need it where we're goin'!
@@ -390,7 +390,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
 	return shuttle_areas[get_area(A)]
 
-/obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
+/obj/docking_port/mobile/proc/add_turf(turf/T, area/shuttle/A)
 	if(!shuttle_areas[A]) //Invalid area
 		return TRUE
 
@@ -431,7 +431,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	current_area.contents -= T
 	T.change_area(current_area, A)
 
-/obj/docking_port/mobile/proc/remove_turf(var/turf/T)
+/obj/docking_port/mobile/proc/remove_turf(turf/T)
 
 	var/area/shuttle/A = get_area(T)
 	var/area/shuttle/new_area = underlying_turf_area[T]
@@ -553,12 +553,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	. = ..()
 
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[SSshuttle.mobile_docking_ports.len]"
 	else if(dynamic_id)
-		name = "[name] [SSshuttle.mobile.len]"
-		id = "[id][SSshuttle.mobile.len]"
+		name = "[name] [SSshuttle.mobile_docking_ports.len]"
+		id = "[id][SSshuttle.mobile_docking_ports.len]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[SSshuttle.mobile_docking_ports.len]"
 
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
@@ -596,7 +596,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 
 // Called after the shuttle is loaded from template
 /obj/docking_port/mobile/proc/linkup(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
-	var/list/static/shuttle_id = list()
+	var/static/list/shuttle_id = list()
 	var/idnum = ++shuttle_id[template]
 	if(idnum > 1)
 		if(id == initial(id))
@@ -754,7 +754,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		if(!all_shuttle_areas[oldT?.loc])
 			continue
 		var/area/old_area = oldT.loc
-		for(var/obj/docking_port/mobile/bottom_shuttle as() in all_towed_shuttles)
+		for(var/obj/docking_port/mobile/bottom_shuttle as anything in all_towed_shuttles)
 			if(bottom_shuttle.underlying_turf_area[oldT])
 				var/area/underlying_area = bottom_shuttle.underlying_turf_area[oldT]
 				oldT.change_area(old_area, underlying_area)
@@ -780,7 +780,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 			if(M.mind && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE
 			// Ghostize them and put them in nullspace stasis (for stat & possession checks)
-			M.notransform = TRUE
+			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, REF(src))
 			M.ghostize(FALSE)
 			M.moveToNullspace()
 
@@ -818,7 +818,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 	return ripple_turfs
 
 /obj/docking_port/mobile/proc/check_poddoors()
-	for(var/obj/machinery/door/poddoor/shuttledock/pod in GLOB.airlocks)
+	for(var/obj/machinery/door/poddoor/shuttledock/pod as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor/shuttledock))
 		pod.check()
 
 /obj/docking_port/mobile/proc/dock_id(id)
@@ -918,7 +918,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 		shuttle_area.parallax_movedir = FALSE
 	if(assigned_transit && assigned_transit.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
-	for (var/mob/M as() in SSmobs.clients_by_zlevel[z])
+	for (var/mob/M as anything in SSmobs.clients_by_zlevel[z])
 		var/area/A = get_area(M)
 		if(!A)
 			continue
@@ -1095,7 +1095,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 				break
 
 	if(distant_source)
-		for(var/mob/M as() in SSmobs.clients_by_zlevel[z])
+		for(var/mob/M as anything in SSmobs.clients_by_zlevel[z])
 			var/dist_far = get_dist(M, distant_source)
 			//Cannot hear shuttles from other shuttles
 			if(M.get_virtual_z_level() != get_virtual_z_level())

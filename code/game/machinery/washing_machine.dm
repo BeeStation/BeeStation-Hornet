@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
-		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel,
+		DYE_HOP = /obj/item/clothing/under/rank/civilian/hop,
 		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security,
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/skirt,
 		DYE_LAW = /obj/item/clothing/under/suit/black/skirt,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain/skirt,
-		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt,
+		DYE_HOP = /obj/item/clothing/under/rank/civilian/hop/skirt,
 		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security/skirt,
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
@@ -136,17 +136,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 	DYE_REGISTRY_BERET = list(
-		DYE_WHITE = /obj/item/clothing/head/beret/color,
 		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret/mime,
 		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
-		DYE_QM = /obj/item/clothing/head/beret/supply,
+		DYE_QM = /obj/item/clothing/head/beret/cargo,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
-		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
+		DYE_CAPTAIN = /obj/item/clothing/head/hats/caphat/beret,
 		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
-		DYE_RD = /obj/item/clothing/head/beret/sci,
-		DYE_CMO = /obj/item/clothing/head/beret/cmo,
+		DYE_RD = /obj/item/clothing/head/beret/science,
+		DYE_CMO = /obj/item/clothing/head/beret/medical/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
 	DYE_REGISTRY_FANNYPACK = list(
@@ -270,7 +269,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	desc = "[initial(target_type.desc)] The colors look a little dodgy."
 	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
-/obj/item/proc/appearance_change(var/obj/item/target_type)
+/obj/item/proc/appearance_change(obj/item/target_type)
 	if(initial(target_type.greyscale_config) && initial(target_type.greyscale_colors))
 		set_greyscale(
 			colors=initial(target_type.greyscale_colors),
@@ -287,7 +286,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	add_atom_colour(initial(target_type.color), FIXED_COLOUR_PRIORITY)
 	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
+	inhand_icon_state = initial(target_type.inhand_icon_state)
 	worn_icon_state = initial(target_type.worn_icon_state)
 	inhand_x_dimension = initial(target_type.inhand_x_dimension)
 	inhand_y_dimension = initial(target_type.inhand_y_dimension)
@@ -301,7 +300,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	new /obj/item/food/meat/slab/corgi(loc)
 	qdel(src)
 
-/obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
+/obj/item/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
 	..()
 	held_mob.machine_wash(WM)
 	qdel(src)
@@ -309,6 +308,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
+	gib()
+
+/mob/living/basic/pet/machine_wash(obj/machinery/washing_machine/washer)
+	washer.bloody_mess = TRUE
 	gib()
 
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
@@ -408,7 +411,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W
@@ -452,7 +455,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(istype(L, /mob/living/simple_animal/pet))
+			if(istype(L, /mob/living/simple_animal/pet) || istype(L, /mob/living/basic/pet))
 				L.forceMove(src)
 				update_appearance()
 		return
@@ -498,7 +501,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/stack/sheet/iron(drop_location(), 2)
 	qdel(src)
 
-/obj/machinery/washing_machine/open_machine(drop = 1)
+/obj/machinery/washing_machine/open_machine(drop = TRUE, density_to_set = FALSE)
 	..()
 	set_density(TRUE) //because machinery/open_machine() sets it to FALSE
 	color_source = null

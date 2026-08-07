@@ -65,6 +65,35 @@
 	shuttle_call_time_mod = ALERT_COEFF_BLUE
 
 /**
+ * YELLOW
+ *
+ * The station is sawed in half.
+ */
+/datum/security_level/yellow
+	name = "yellow (Engineering)"
+	announcement_color = "yellow"
+	sound = 'sound/misc/yellowalert.ogg'
+	number_level = SEC_LEVEL_YELLOW
+	lowering_to_configuration_key = /datum/config_entry/string/alert_engineering
+	elevating_to_configuration_key = /datum/config_entry/string/alert_engineering
+	shuttle_call_time_mod = ALERT_COEFF_BLUE
+
+/**
+ * CYAN
+ *
+ * The station is undergoing stupid virologist syndrome
+ * Blame bacon for this not being called cyan alert.
+ */
+/datum/security_level/cyan
+	name = "yellow (Medical)"
+	announcement_color = "cyan"
+	sound = 'sound/misc/cyanalert.ogg'
+	number_level = SEC_LEVEL_CYAN
+	lowering_to_configuration_key = /datum/config_entry/string/alert_medical
+	elevating_to_configuration_key = /datum/config_entry/string/alert_medical
+	shuttle_call_time_mod = ALERT_COEFF_BLUE
+
+/**
  * RED
  *
  * Hostile threats
@@ -79,6 +108,61 @@
 	shuttle_call_time_mod = ALERT_COEFF_RED
 
 /**
+ * GAMMA
+ *
+ * ERT enroute, station is in a critical situation
+ */
+/datum/security_level/gamma
+	name = "gamma"
+	announcement_color = "darkred"
+	sound = 'sound/misc/gamma.ogg'
+	number_level = SEC_LEVEL_EPSILON
+	lowering_to_configuration_key = /datum/config_entry/string/alert_gamma
+	elevating_to_configuration_key = /datum/config_entry/string/alert_gamma
+	shuttle_call_time_mod = ALERT_COEFF_RED
+
+/**
+ * BLACK
+ *
+ * We are under fucking attack.
+ */
+/datum/security_level/black
+	name = "black"
+	announcement_color = "black"
+	sound = 'sound/misc/black.ogg'
+	number_level = SEC_LEVEL_BLACK
+	lowering_to_configuration_key = /datum/config_entry/string/alert_black
+	elevating_to_configuration_key = /datum/config_entry/string/alert_black
+	shuttle_call_time_mod = ALERT_COEFF_RED
+
+/**
+ * EPSILON
+ *
+ * You done fucked up, now centcom's angry. Deathsquad incoming.
+ */
+/datum/security_level/epsilon
+	name = "epsilon"
+	announcement_color = "purple"
+	sound = 'sound/misc/epsilon.ogg'
+	number_level = SEC_LEVEL_EPSILON
+	elevating_to_configuration_key = /datum/config_entry/string/alert_epsilon
+	shuttle_call_time_mod = ALERT_COEFF_RED
+
+/**
+ * LAMBDA
+ *
+ * heretic ascension, cult win, magic shit won
+ */
+/datum/security_level/lambda
+	name = "lambda"
+	announcement_color = "purple"
+	sound = 'sound/misc/lambda.ogg'
+	number_level = SEC_LEVEL_LAMBDA
+	lowering_to_configuration_key = /datum/config_entry/string/alert_lambda
+	elevating_to_configuration_key = /datum/config_entry/string/alert_lambda
+	shuttle_call_time_mod = ALERT_COEFF_DELTA
+
+/**
  * DELTA
  *
  * Station destruction is imminent
@@ -88,5 +172,6 @@
 	announcement_color = "purple"
 	sound = 'sound/misc/airraid.ogg' // Air alarm to signify importance
 	number_level = SEC_LEVEL_DELTA
+	lowering_to_configuration_key = /datum/config_entry/string/alert_delta
 	elevating_to_configuration_key = /datum/config_entry/string/alert_delta
 	shuttle_call_time_mod = ALERT_COEFF_DELTA

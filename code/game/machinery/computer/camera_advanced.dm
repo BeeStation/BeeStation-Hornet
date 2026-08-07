@@ -1,13 +1,17 @@
+/// Checks if z is allowed(or not) by list/allowed_z. If the list has zero length, we regard that as allowed
+#define IS_Z_ALLOWED(comp, my_z) (!length(comp.allowed_z) || (my_z in comp.allowed_z))
+
 /obj/machinery/computer/camera_advanced
 	name = "advanced camera console"
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
-	var/list/z_lock = list() // Lock use to these z levels
+	var/list/allowed_z = list() // Lock use to these z levels
 	var/lock_override = NONE
 	var/mob/camera/ai_eye/remote/eyeobj
 	var/mob/living/current_user = null
-	var/list/networks = list("ss13")
+	var/list/compatible_camera_networks = list(CAMERA_NETWORK_STATION)
+	var/create_camera_mob_on_computer = FALSE // Xenobio console needs this
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
 	///Camera action button to move up a Z level
@@ -33,16 +37,13 @@
 
 /obj/machinery/computer/camera_advanced/Initialize(mapload)
 	. = ..()
-	for(var/i in networks)
-		networks -= i
-		networks += LOWER_TEXT(i)
 	if(lock_override)
 		if(lock_override & CAMERA_LOCK_STATION)
-			z_lock |= SSmapping.levels_by_trait(ZTRAIT_STATION)
+			allowed_z |= SSmapping.levels_by_trait(ZTRAIT_STATION)
 		if(lock_override & CAMERA_LOCK_MINING)
-			z_lock |= SSmapping.levels_by_trait(ZTRAIT_MINING)
+			allowed_z |= SSmapping.levels_by_trait(ZTRAIT_MINING)
 		if(lock_override & CAMERA_LOCK_CENTCOM)
-			z_lock |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
+			allowed_z |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
 
 /obj/machinery/computer/camera_advanced/attack_ghost(mob/dead/observer/ghost)
 	. = ..()
@@ -79,14 +80,15 @@
 		eyeobj.visible_icon = TRUE
 		eyeobj.invisibility = INVISIBILITY_OBSERVER
 		if(current_user) // indent is correct: do not transfer ghosts unless it's revealed
-			current_user.transfer_observers_to(eyeobj)
+			current_user.transfer_observers_to(eyeobj, temporary = TRUE)
 
 /obj/machinery/computer/camera_advanced/proc/ConcealCameraMob()
 	if(reveal_camera_mob && eyeobj)
 		eyeobj.visible_icon = FALSE
 		eyeobj.invisibility = INVISIBILITY_ABSTRACT
 	if(current_user && eyeobj) // indent is correct: transfer ghosts when nobody uses
-		eyeobj.transfer_observers_to(current_user)
+		eyeobj.send_observers_back_to_original_orbit() // send ghosts back to their original orbit
+		eyeobj.transfer_observers_to(current_user) // if a ghost started observing an eye at first, the return proc won't work.
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -106,7 +108,7 @@
 		actions += move_down_action
 
 /obj/machinery/proc/remove_eye_control(mob/living/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // this should be stated at parent
 	CRASH("[type] does not implement ai eye handling")
 
 /obj/machinery/computer/camera_advanced/remove_eye_control(mob/living/user)
@@ -116,11 +118,10 @@
 		var/datum/action/A = V
 		A.Remove(user)
 	actions.Cut()
-	for(var/V in eyeobj.visibleCameraChunks)
-		var/datum/camerachunk/C = V
-		C.remove(eyeobj)
+	for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
+		camerachunk.remove(eyeobj)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	if(user.client)
-		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
 		user.client.view_size.unsupress()
@@ -136,7 +137,7 @@
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated() )
+	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated )
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
@@ -161,6 +162,15 @@
 		return FALSE
 	return ..()
 
+/obj/machinery/computer/camera_advanced/xenobio/can_use(mob/user)
+	var/area/myarea = get_area(src)
+	if(myarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
+		to_chat(user, span_warning("[myarea.name] is not allowed for the Xenobiology. Please rebuild the console at somewhere else."))
+		return FALSE
+	return ..()
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
+
 /obj/machinery/computer/camera_advanced/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
@@ -178,33 +188,45 @@
 		CreateEye()
 
 	if(!eyeobj.eye_initialized)
-		var/camera_location
 		var/turf/myturf = get_turf(src)
-		if(eyeobj.use_static != FALSE)
-			if((!z_lock.len || (myturf.z in z_lock)) && GLOB.cameranet.checkTurfVis(myturf))
-				camera_location = myturf
-			else
-				for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-					if(!C.can_use() || z_lock.len && !(C.z in z_lock))
-						continue
-					var/list/network_overlap = networks & C.network
-					if(network_overlap.len)
-						camera_location = get_turf(C)
-						break
-		else
-			camera_location = myturf
-			if(z_lock.len && !(myturf.z in z_lock))
-				camera_location = locate(round(world.maxx/2), round(world.maxy/2), z_lock[1])
+		var/turf/camera_location = myturf
 
-		if(camera_location)
+		if(create_camera_mob_on_computer) // ignore the logic below that calculates the camera location
+			pass()
+		else if(!eyeobj.use_static && !IS_Z_ALLOWED(src, myturf.z))
+			camera_location = locate(round(world.maxx/2), round(world.maxy/2), allowed_z[1])
+
+		else if(eyeobj.use_static)
+			for(var/obj/machinery/camera/each_camera as anything in GLOB.cameranet.cameras)
+				// Putthing these in a condition line makes it hard to read.
+				var/result = \
+					(!IS_Z_ALLOWED(src, each_camera.z) || \
+					!length(each_camera.network) || \
+					!length(each_camera.network & compatible_camera_networks) || \
+					!each_camera.can_use() || \
+					!eyeobj.is_valid_area(get_area(each_camera)))
+				if(result)
+					continue
+				camera_location = get_turf(each_camera)
+				break
+
+		if(isturf(camera_location))
+			var/area/myarea = get_area(camera_location)
+			if(!eyeobj.is_valid_area(get_area(camera_location)))
+				stack_trace("The camera console([src]) wants to create the camera eye at improper area: [myarea.name]. Redirecting to the camera console loc.")
+				camera_location = myturf
+				if(get_area(camera_location) == myarea)
+					stack_trace("Camera eye (of [src]) is created at the improper area despite the code tried to redirect its spawn turf.")
+			if(!IS_Z_ALLOWED(src, camera_location.z))
+				stack_trace("Camera eye (of [src]) is created at a not-allowed z.")
 			eyeobj.eye_initialized = TRUE
-			give_eye_control(L)
-			eyeobj.setLoc(camera_location)
-		else
-			user.unset_machine()
-	else
-		give_eye_control(L)
-		eyeobj.setLoc(eyeobj.loc)
+			eyeobj.abstract_move(camera_location)
+
+	if(!eyeobj.eye_initialized)
+		user.unset_machine()
+		CRASH("Failed to initialize eyeobj.")
+
+	give_eye_control(L)
 
 /obj/machinery/computer/camera_advanced/proc/start_observe(mob/user)
 	if(!user.client || !eyeobj)
@@ -221,20 +243,26 @@
 	if(user.client)
 		if(eyeobj.visible_icon)
 			user.client.images += camera_sprite_for_observers
-		user.reset_perspective(eyeobj)
+		user.set_mob_eye_to(eyeobj)
 		if(should_supress_view_changes)
 			user.client.view_size.supress()
+		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
+			camerachunk.single_add(eyeobj, user.client)
+		user.transfer_observers_to(eyeobj, temporary = TRUE)
 	RegisterSignals(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED), PROC_REF(stop_observe))
 
 /obj/machinery/computer/camera_advanced/proc/stop_observe(mob/user)
 	SIGNAL_HANDLER
 
 	camera_observers -= user
+	user.set_mob_eye_to(MOB_EYE_SELF)
 	if(user.client)
+		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
+			camerachunk.single_remove(eyeobj, user.client)
+		user.client.view_size.unsupress()
 		if(camera_sprite_for_observers)
 			user.client.images -= camera_sprite_for_observers
-		user.reset_perspective()
-		user.client.view_size.unsupress()
+		eyeobj.send_observers_back_to_original_orbit(user) // return my ghosts back, leaving others there.
 	UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED))
 
 /obj/machinery/computer/camera_advanced/proc/shoo_all_observers()
@@ -248,16 +276,18 @@
 	return //AIs would need to disable their own camera procs to use the console safely. Bugs happen otherwise.
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
+	if(!user.client)
+		return
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
 	RevealCameraMob()
 	user.remote_control = eyeobj
-	user.reset_perspective(eyeobj)
-	eyeobj.setLoc(eyeobj.loc)
+	user.set_mob_eye_to(eyeobj)
 	if(should_supress_view_changes )
 		user.client.view_size.supress()
+	eyeobj.setLoc(get_turf(eyeobj)) // This forcefully puts camera noise. I hate this exists here, but necessary.
 
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(remove_eye_control))
 
@@ -291,7 +321,7 @@
 		return eye_user.client
 	return null
 
-/mob/camera/ai_eye/remote/setLoc(destination)
+/mob/camera/ai_eye/remote/setLoc(turf/destination, force_update = FALSE)
 	if(eye_user)
 		destination = get_turf(destination)
 		if (destination)
@@ -302,12 +332,13 @@
 		update_ai_detect_hud()
 
 		if(use_static)
-			GLOB.cameranet.visibility(src, GetViewerClient(), null, use_static)
+			GLOB.cameranet.update_camera_visibility(src, GetViewerClient(), null, use_static)
 
-		if(visible_icon && eye_user.client)
-			eye_user.client.images -= user_image
-			user_image = image(icon,loc,icon_state,FLY_LAYER)
-			eye_user.client.images += user_image
+		if(visible_icon)
+			if(!user_image)
+				user_image = image(icon, src, icon_state, FLY_LAYER)
+			if(eye_user.client)
+				eye_user.client.images |= user_image
 
 /mob/camera/ai_eye/remote/relaymove(mob/living/user, direction)
 	if(direction == UP || direction == DOWN)
@@ -332,7 +363,7 @@
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/on_activate()
@@ -344,7 +375,7 @@
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/on_activate()
@@ -355,8 +386,8 @@
 
 	var/list/L = list()
 
-	for (var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
-		if(origin.z_lock.len && !(cam.z in origin.z_lock))
+	for (var/obj/machinery/camera/cam as anything in GLOB.cameranet.cameras)
+		if(!IS_Z_ALLOWED(origin, cam.z) || !remote_eye.is_valid_area(get_area(cam)))
 			continue
 		L.Add(cam)
 
@@ -365,7 +396,7 @@
 	var/list/T = list()
 
 	for (var/obj/machinery/camera/netcam in L)
-		var/list/tempnetwork = netcam.network & origin.networks
+		var/list/tempnetwork = netcam.network & origin.compatible_camera_networks
 		if (length(tempnetwork))
 			if(!netcam.c_tag)
 				continue
@@ -389,7 +420,7 @@
 
 /datum/action/innate/camera_multiz_up
 	name = "Move up a floor"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_up"
 
 /datum/action/innate/camera_multiz_up/on_activate()
@@ -404,7 +435,7 @@
 
 /datum/action/innate/camera_multiz_down
 	name = "Move down a floor"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_down"
 
 /datum/action/innate/camera_multiz_down/on_activate()
@@ -415,3 +446,5 @@
 		to_chat(owner, span_notice("You move downwards."))
 	else
 		to_chat(owner, span_notice("You couldn't move downwards!"))
+
+#undef IS_Z_ALLOWED

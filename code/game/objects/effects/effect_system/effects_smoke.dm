@@ -12,7 +12,7 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	animate_movement = 0
+	animate_movement = FALSE
 	var/amount = 4
 	var/lifetime = 5
 	var/opaque = 1 //whether the smoke can block the view when in enough amountz
@@ -36,13 +36,11 @@
 	. = ..()
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 	// Smoke out any mobs on initialise
 	for (var/mob/living/target in loc)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
+		target.apply_status_effect(/datum/status_effect/smoke)
 
-/obj/effect/particle_effect/smoke/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -67,7 +65,7 @@
 	if (!istype(target))
 		return
 	// Mobs inside the smoke get slowed if they can't see through it
-	target.apply_status_effect(STATUS_EFFECT_SMOKE)
+	target.apply_status_effect(/datum/status_effect/smoke)
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
@@ -169,30 +167,48 @@
 	var/weldvents = TRUE
 	var/distcheck = TRUE
 
-/datum/effect_system/smoke_spread/freezing/proc/Chilled(turf/open/T)
-	if(!istype(T))
+/**
+ * Chills an open turf.
+ *
+ * Forces the air temperature to a specific value.
+ * Transmutes all of the plasma in the air into nitrogen.
+ * Extinguishes all fires and burning objects/mobs in the turf.
+ * May freeze all vents and vent scrubbers shut.
+ *
+ * Arguments:
+ * - [chilly][/turf/open]: The open turf to chill
+ */
+/datum/effect_system/smoke_spread/freezing/proc/chill_turf(turf/open/chilly)
+	if(!istype(chilly))
 		return
-	if(T.air)
-		var/datum/gas_mixture/G = T.air
-		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			G.temperature = temperature
-		T.air_update_turf(FALSE, FALSE)
-		for(var/obj/effect/hotspot/H in T)
-			qdel(H)
-		if(G.gases[/datum/gas/plasma][MOLES])
-			ADD_MOLES(/datum/gas/nitrogen, G, G.gases[/datum/gas/plasma][MOLES])
-			G.gases[/datum/gas/plasma][MOLES] = 0
 
-	if (weldvents)
-		for(var/obj/machinery/atmospherics/components/unary/U in T)
-			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
-				U.welded = TRUE
-				U.update_icon()
-				U.visible_message(span_danger("[U] was frozen shut!"))
-	for(var/mob/living/L in T)
-		L.ExtinguishMob()
-	for(var/obj/item/Item in T)
-		Item.extinguish()
+	if(chilly.air)
+		var/datum/gas_mixture/air = chilly.air
+		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+			air.temperature = temperature
+
+		if(air.moles[/datum/gas/plasma])
+			var/mole_count = air.moles[/datum/gas/plasma]
+			air.adjust_gas(/datum/gas/nitrogen, mole_count)
+			air.adjust_gas(/datum/gas/plasma, -mole_count)
+			air.garbage_collect()
+
+		for(var/obj/effect/hotspot/fire in chilly)
+			qdel(fire)
+		chilly.air_update_turf(FALSE, FALSE)
+
+	if(weldvents)
+		for(var/obj/machinery/atmospherics/components/unary/comp in chilly)
+			if(!isnull(comp.welded) && !comp.welded) //must be an unwelded vent pump or vent scrubber.
+				comp.welded = TRUE
+				comp.update_appearance()
+				comp.visible_message(span_danger("[comp] is frozen shut!"))
+
+	// Extinguishes everything in the turf
+	for(var/mob/living/potential_tinder in chilly)
+		potential_tinder.extinguish_mob()
+	for(var/obj/item/potential_tinder in chilly)
+		potential_tinder.extinguish()
 
 /datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0, circle = TRUE)
 	..(radius, loca, circle)
@@ -200,9 +216,9 @@
 
 /datum/effect_system/smoke_spread/freezing/start()
 	if(blast)
-		for(var/turf/open/T in RANGE_TURFS(blast, location))
-			Chilled(T)
-	..()
+		for(var/turf/T in RANGE_TURFS(blast, location))
+			chill_turf(T)
+	return ..()
 
 /datum/effect_system/smoke_spread/freezing/decon
 	temperature = T20C
@@ -298,7 +314,7 @@
 			contained = "\[[contained]\]"
 
 		var/where = "[AREACOORD(location)]"
-		if(carry.my_atom.fingerprintslast)
+		if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
 			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
@@ -344,3 +360,11 @@
 	smoke.effect_type = smoke_type
 	smoke.set_up(range, location)
 	smoke.start()
+
+/obj/effect/particle_effect/smoke/chem/quick
+	lifetime = 2 //under lifetime 1, this kills itself the first time it processes, not working. i hate smoke code
+	opaque = FALSE
+	alpha = 100
+
+/datum/effect_system/smoke_spread/chem/quick
+	effect_type = /obj/effect/particle_effect/smoke/chem/quick

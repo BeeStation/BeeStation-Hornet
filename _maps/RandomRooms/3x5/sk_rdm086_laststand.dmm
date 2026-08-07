@@ -7,7 +7,7 @@
 "b" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -32,7 +32,7 @@
 /area/template_noop)
 "g" = (
 /obj/item/ammo_casing/shotgun/improvised,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
@@ -51,7 +51,7 @@
 /area/template_noop)
 "i" = (
 /obj/item/trash/raisins,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -65,7 +65,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (

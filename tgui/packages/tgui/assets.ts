@@ -4,14 +4,15 @@
  * @license MIT
  */
 
-import { Action, AnyAction, Middleware } from '../common/redux';
-
 import { Dispatch } from 'common/redux';
+
+import { Action, AnyAction, Middleware } from '../common/redux';
 
 const EXCLUDED_PATTERNS = [/v4shim/i];
 export const loadedMappings: Record<string, string> = {};
 
-export const resolveAsset = (name: string): string => loadedMappings[name] || name;
+export const resolveAsset = (name: string): string =>
+  loadedMappings[name] || name;
 
 export const assetMiddleware: Middleware =
   (storeApi) =>
