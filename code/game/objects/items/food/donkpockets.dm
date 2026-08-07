@@ -24,7 +24,6 @@
 	/// The reagents that most child types add when microwaved. Needed because you can't override static lists.
 	var/static/list/child_added_reagents = list(/datum/reagent/medicine/omnizine = 2)
 
-//donk pockets cook quick... try not to burn them using an unoptimal tool
 /obj/item/food/donkpocket/make_bakeable()
 	AddComponent(/datum/component/bakeable, warm_type, rand(baking_time_short, baking_time_long), TRUE, TRUE, added_reagents)
 
@@ -46,7 +45,11 @@
 	baking_time_short = 10 SECONDS
 	baking_time_long = 15 SECONDS
 
-/obj/item/food/donkpocket/dankpocket
+///Burning one isn't a positive result, so it gets no reagents carried over.
+/obj/item/food/donkpocket/warm/make_bakeable()
+	AddComponent(/datum/component/bakeable, warm_type, rand(baking_time_short, baking_time_long), FALSE)
+
+/obj/item/food/donkpocket/dank
 	name = "\improper Dank-pocket"
 	desc = "The food of choice for the seasoned botanist."
 	icon_state = "dankpocket"
@@ -57,7 +60,7 @@
 	)
 	tastes = list("meat" = 2, "dough" = 2)
 	foodtypes = GRAIN | VEGETABLES
-	warm_type = /obj/item/food/donkpocket/warm/dankpocket
+	warm_type = /obj/item/food/donkpocket/warm/dank
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/donkpocket/dank/make_bakeable()
@@ -66,7 +69,7 @@
 /obj/item/food/donkpocket/dank/make_microwaveable()
 	AddElement(/datum/element/microwavable, warm_type, child_added_reagents)
 
-/obj/item/food/donkpocket/warm/dankpocket
+/obj/item/food/donkpocket/warm/dank
 	name = "warm Dank-pocket"
 	desc = "The food of choice for the baked botanist."
 	icon_state = "dankpocket"

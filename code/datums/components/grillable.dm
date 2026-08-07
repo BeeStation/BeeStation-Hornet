@@ -66,6 +66,8 @@
 
 /// Signal proc for [COMSIG_ITEM_GRILL_TURNED_ON], starts the grilling process.
 /datum/component/grillable/proc/on_grill_turned_on(datum/source)
+	SIGNAL_HANDLER
+
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_grilled_item_overlay))
 
 	var/atom/atom_parent = parent
@@ -73,6 +75,8 @@
 
 /// Signal proc for [COMSIG_ITEM_GRILL_TURNED_OFF], stops the grilling process.
 /datum/component/grillable/proc/on_grill_turned_off(datum/source)
+	SIGNAL_HANDLER
+
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
 
 	var/atom/atom_parent = parent

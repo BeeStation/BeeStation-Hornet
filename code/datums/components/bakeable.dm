@@ -17,7 +17,7 @@
 	/// Reagents that should be added to the result
 	var/list/added_reagents
 
-/datum/component/bakeable/Initialize(bake_result, required_bake_time, positive_result, use_large_steam_sprit, list/added_reagents)
+/datum/component/bakeable/Initialize(bake_result, required_bake_time, positive_result, use_large_steam_sprite, list/added_reagents)
 	. = ..()
 	if(!isitem(parent)) //Only items support baking at the moment
 		return COMPONENT_INCOMPATIBLE
@@ -58,7 +58,7 @@
 		who_baked_us = REF(baker.mind)
 
 ///Ran every time an item is baked by something
-/datum/component/bakeable/proc/on_bake(datum/source, atom/used_oven, delta_time` = 1)
+/datum/component/bakeable/proc/on_bake(datum/source, atom/used_oven, delta_time = 1)
 	SIGNAL_HANDLER
 
 	// Let our signal know if we're baking something good or ... burning something

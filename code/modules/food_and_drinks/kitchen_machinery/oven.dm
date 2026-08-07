@@ -95,15 +95,15 @@
 
 
 /obj/machinery/oven/attackby(obj/item/I, mob/user, params)
-	if(open && !used_tray && istype(I, /obj/item/plate/oven_tray))
-		if(user.transferItemToLoc(I, src, silent = FALSE))
-			to_chat(user, span_notice("You put [I] in [src]."))
-			add_tray_to_oven(I, user)
-	else
+	if(!open || used_tray || !istype(I, /obj/item/plate/oven_tray))
 		return ..()
 
+	if(user.transferItemToLoc(I, src, silent = FALSE))
+		to_chat(user, span_notice("You put [I] in [src]."))
+		add_tray_to_oven(I)
+
 ///Adds a tray to the oven, making sure the shit can get baked.
-/obj/machinery/oven/proc/add_tray_to_oven(obj/item/plate/oven_tray, mob/baker)
+/obj/machinery/oven/proc/add_tray_to_oven(obj/item/plate/oven_tray)
 	used_tray = oven_tray
 
 	if(!open)
