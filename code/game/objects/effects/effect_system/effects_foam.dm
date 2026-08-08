@@ -95,6 +95,19 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
+/obj/effect/particle_effect/foam/metal/resin/halon
+	name = "halon foam"
+
+/obj/effect/particle_effect/foam/metal/resin/halon/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/atmos_sensitive) // Doesn't dissolve in heat.
+
+/obj/effect/particle_effect/foam/metal/resin/halon/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return FALSE // Doesn't dissolve in heat.
+
+/obj/effect/particle_effect/foam/metal/resin/halon/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	return // Doesn't dissolve in heat.
+
 /obj/effect/particle_effect/foam/metal/resin/chainreact
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
@@ -140,6 +153,7 @@
 			new /obj/structure/foamedmetal/iron(get_turf(src))
 		if(RESIN_FOAM)
 			new /obj/structure/foamedmetal/resin(get_turf(src))
+
 		if(RESIN_FOAM_CHAINREACT)
 			new /obj/structure/foamedmetal/resin/chainreact(get_turf(src))
 	flick("[icon_state]-disolve", src)
@@ -245,14 +259,14 @@
 	effect_type = /obj/effect/particle_effect/foam
 	var/metal = 0
 
-
 /datum/effect_system/foam_spread/metal
 	effect_type = /obj/effect/particle_effect/foam/metal
-
 
 /datum/effect_system/foam_spread/metal/smart
 	effect_type = /obj/effect/particle_effect/foam/smart
 
+/datum/effect_system/foam_spread/metal/halon
+	effect_type = /obj/effect/particle_effect/foam/metal/resin/halon
 
 /datum/effect_system/foam_spread/long
 	effect_type = /obj/effect/particle_effect/foam/long_life
@@ -276,7 +290,7 @@
 		location = get_turf(loca)
 
 	amount = round(sqrt(amt / 2), 1)
-	carry.copy_to(chemholder, carry.total_volume)
+	carry?.copy_to(chemholder, carry.total_volume)
 
 /datum/effect_system/foam_spread/metal/set_up(amt=5, loca, datum/reagents/carry = null, metaltype)
 	..()
@@ -354,6 +368,7 @@
 		/datum/gas/nitrogen,
 		/datum/gas/oxygen,
 		/datum/gas/pluoxium,
+		/datum/gas/halon,
 	))
 
 /obj/structure/foamedmetal/resin/Initialize(mapload)

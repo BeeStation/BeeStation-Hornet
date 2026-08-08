@@ -19,6 +19,13 @@
 	falloff_distance = 5
 	vary = TRUE
 
+/datum/looping_sound/hypertorus
+	mid_sounds = list('sound/machines/hypertorus/loops/hypertorus_nominal.ogg')
+	mid_length = 6 SECONDS
+	volume = 55
+	extra_range = 15
+	vary = TRUE
+
 /datum/looping_sound/generator
 	start_sound = 'sound/machines/generator/generator_start.ogg'
 	start_length = 0.4 SECONDS

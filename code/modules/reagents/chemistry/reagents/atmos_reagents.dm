@@ -31,11 +31,10 @@
 		affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitrium)
 	// Whether they go back to huffing too soon, or they have just started huffing, this calculation will handle stamina restoration and exhaustion both.
 	else
-		affected_mob.adjustStaminaLoss((clamp((-30 + current_cycle), -2, 5)) * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.adjustStaminaLoss((clamp((-30 + current_cycle), -2, 5)) * REM * delta_time, required_biotype = affected_biotype)
 		if(!warned && current_cycle >= 31)
 			to_chat(affected_mob, span_danger("Your body aches!"))
 			warned = TRUE
-		return UPDATE_MOB_HEALTH
 
 /datum/reagent/nitrium/overdose_start(mob/living/carbon/affected_mob)
 	//Because otherwise it lasts for a punishingly long time if an overdose is reached
@@ -69,4 +68,107 @@
 		warned = TRUE
 
 	if(affected_mob.adjustStaminaLoss((clamp((-10 + current_cycle), -8, 3)) * REM * delta_time, updating_stamina = FALSE))
+		return UPDATE_MOB_HEALTH
+
+/datum/reagent/freon
+	name = "Freon"
+	description = "A powerful heat absorbent."
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM  // Because nitrium/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	color = "#90560B"
+	taste_description = "burning"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+
+/datum/reagent/freon/on_mob_metabolize(mob/living/breather)
+	. = ..()
+	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
+
+/datum/reagent/freon/on_mob_end_metabolize(mob/living/breather)
+	. = ..()
+	breather.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
+
+/datum/reagent/halon
+	name = "Halon"
+	description = "A fire suppression gas that removes oxygen and cools down the area"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	color = "#216fa3"
+	taste_description = "minty"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	metabolized_traits = list(TRAIT_RESISTHEAT)
+
+/datum/reagent/halon/on_mob_metabolize(mob/living/breather)
+	. = ..()
+	breather.add_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+
+/datum/reagent/halon/on_mob_end_metabolize(mob/living/breather)
+	. = ..()
+	breather.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+
+/datum/reagent/healium
+	name = "Healium"
+	description = "A powerful sleeping agent with healing properties"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	color = "#0fd668"
+	taste_description = "rubbery"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+
+/datum/reagent/healium/on_mob_end_metabolize(mob/living/breather)
+	. = ..()
+	breather.SetSleeping(1 SECONDS)
+
+/datum/reagent/healium/on_mob_life(mob/living/breather, delta_time, times_fired)
+	. = ..()
+	breather.SetSleeping(30 SECONDS)
+	var/need_mob_update = breather.adjustFireLoss(-2 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += breather.adjustToxLoss(-5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += breather.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	if(need_mob_update)
+		return UPDATE_MOB_HEALTH
+
+/datum/reagent/hypernoblium
+	name = "Hyper-Noblium"
+	description = "A suppressive gas that stops gas reactions on those who inhale it."
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM // Because nitrium/freon/hyper-nob are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	color = "#072669"
+	taste_description = "searingly cold"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+
+/datum/reagent/hypernoblium/on_mob_life(mob/living/carbon/breather, delta_time, times_fired)
+	. = ..()
+	if(isplasmaman(breather))
+		breather.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/hypernob_protection)
+
+/datum/reagent/pluoxium
+	name = "Pluoxium"
+	description = "A gas that is eight times more efficient than O2 at lung diffusion with organ healing properties on sleeping patients."
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	color = COLOR_GRAY
+	taste_description = "irradiated air"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+
+/datum/reagent/pluoxium/on_mob_life(mob/living/carbon/breather, delta_time, times_fired)
+	. = ..()
+	if(!HAS_TRAIT(breather, TRAIT_KNOCKEDOUT))
+		return
+
+	for(var/obj/item/organ/organ_being_healed as anything in breather.internal_organs)
+		if(!organ_being_healed.damage)
+			continue
+		organ_being_healed.apply_organ_damage(-0.5 * REM * delta_time, required_organ_flag = ORGAN_ORGANIC)
+
+/datum/reagent/zauker
+	name = "Zauker"
+	description = "An unstable gas that is toxic to all living beings."
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	color = "#9126e9"
+	taste_description = "bitter"
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	affected_biotype = MOB_ORGANIC | MOB_INORGANIC | MOB_BUG // "toxic to all living beings"
+
+/datum/reagent/zauker/on_mob_life(mob/living/breather, delta_time, times_fired)
+	. = ..()
+	var/need_mob_update = breather.adjustBruteLoss(6 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += breather.adjustOxyLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update += breather.adjustFireLoss(2 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	need_mob_update += breather.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	if(need_mob_update)
 		return UPDATE_MOB_HEALTH

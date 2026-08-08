@@ -146,8 +146,24 @@
 	name = "BZ Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/bz_tank
 
+/obj/item/circuitboard/computer/atmos_control/freon_tank
+	name = "Freon Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/freon_tank
+
+/obj/item/circuitboard/computer/atmos_control/halon_tank
+	name = "Halon Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/halon_tank
+
+/obj/item/circuitboard/computer/atmos_control/healium_tank
+	name = "Healium Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/healium_tank
+
+/obj/item/circuitboard/computer/atmos_control/hydrogen_tank
+	name = "Hydrogen Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/hydrogen_tank
+
 /obj/item/circuitboard/computer/atmos_control/hypernoblium_tank
-	name = "Hypernoblium Supply Control"
+	name = "Hyper-Noblium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/hypernoblium_tank
 
 /obj/item/circuitboard/computer/atmos_control/nitrium_tank
@@ -158,6 +174,10 @@
 	name = "Pluoxium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/pluoxium_tank
 
+/obj/item/circuitboard/computer/atmos_control/proto_nitrate_tank
+	name = "Proto-Nitrate Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/proto_nitrate_tank
+
 /obj/item/circuitboard/computer/atmos_control/tritium_tank
 	name = "Tritium Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/tritium_tank
@@ -165,6 +185,18 @@
 /obj/item/circuitboard/computer/atmos_control/water_vapor
 	name = "Water Vapor Supply Control"
 	build_path = /obj/machinery/computer/atmos_control/water_vapor
+
+/obj/item/circuitboard/computer/atmos_control/zauker_tank
+	name = "Zauker Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/zauker_tank
+
+/obj/item/circuitboard/computer/atmos_control/helium_tank
+	name = "Helium Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/helium_tank
+
+/obj/item/circuitboard/computer/atmos_control/antinoblium_tank
+	name = "Anti-Noblium Supply Control"
+	build_path = /obj/machinery/computer/atmos_control/antinoblium_tank
 
 /obj/item/circuitboard/computer/auxiliary_base
 	name = "Auxiliary Base Management Console"
@@ -329,7 +361,7 @@
 	build_path = /obj/machinery/computer/pod/old/syndicate
 
 /obj/item/circuitboard/computer/terminal
-	name = "Terminal (Computer Board)"
+	name = "Terminal"
 	build_path = /obj/machinery/computer/terminal
 
 //Medical

@@ -104,7 +104,7 @@
 	for(var/obj/item/embedded in embedded_objects)
 		embedded.forceMove(src) // It'll self remove via signal reaction, just need to move it
 	if(!phantom_owner.has_embedded_objects())
-		phantom_owner.clear_alert("embeddedobject")
+		phantom_owner.clear_alert(ALERT_EMBEDDED_OBJECT)
 		SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 	if(!special)

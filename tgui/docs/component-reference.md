@@ -40,6 +40,7 @@ Make sure to add new items to this list if you document new components.
   - [`NoticeBox`](#noticebox)
   - [`NumberInput`](#numberinput)
   - [`ProgressBar`](#progressbar)
+  - [`RoundGauge`](#roundgauge)
   - [`Section`](#section)
   - [`Slider`](#slider)
   - ['Stack'](#stack)

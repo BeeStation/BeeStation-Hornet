@@ -48,3 +48,22 @@
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ATMOS_PACKPACK_EFFICIENCY_UPGRADE)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
+
+/datum/techweb_node/fusion
+	id = TECHWEB_NODE_FUSION
+	tech_tier = 4
+	display_name = "Fusion"
+	description = "Investigating fusion reactor technology to achieve sustainable and efficient energy production through controlled plasma reactions involving noble gases."
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
+	design_ids = list(
+		"hfr_core",
+		"hfr_corner",
+		"hfr_fuel_input",
+		"hfr_interface",
+		"hfr_moderator_input",
+		"hfr_waste_output",
+		"crystallizer",
+		"electrolyzer",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING)

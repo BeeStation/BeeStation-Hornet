@@ -868,8 +868,7 @@
 
 /datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/need_mob_update
-	need_mob_update = affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	var/need_mob_update = affected_mob.adjustBruteLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustFireLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += affected_mob.adjustOxyLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)

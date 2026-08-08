@@ -32,17 +32,28 @@
 	if (cached_moles[/datum/gas/oxygen] < 0.5)
 		return
 
-	var/plas_trit_threshold = (cached_moles[/datum/gas/plasma] > 0.5 || cached_moles[/datum/gas/tritium] > 0.5)
+	var/plas_trit_h2_threshold = (\
+		   cached_moles[/datum/gas/plasma] > 0.5\
+		|| cached_moles[/datum/gas/tritium] > 0.5\
+		|| cached_moles[/datum/gas/hydrogen] > 0.5)
+	var/freon_threshold = (cached_moles[/datum/gas/freon] > 0.5)
 	if(active_hotspot)
 		if(soh)
-			if(plas_trit_threshold)
+			if(plas_trit_h2_threshold)
 				if(active_hotspot.temperature < exposed_temperature)
+					active_hotspot.temperature = exposed_temperature
+				if(active_hotspot.volume < exposed_volume)
+					active_hotspot.volume = exposed_volume
+			else if(freon_threshold)
+				if(active_hotspot.temperature > exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
 		return
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && plas_trit_threshold)
+	if (((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && plas_trit_h2_threshold) || \
+		((exposed_temperature < FREON_MAXIMUM_BURN_TEMPERATURE) && freon_threshold))
+
 		new /obj/effect/hotspot(src, exposed_volume * 25, exposed_temperature)
 		SSair.add_to_active(src)
 
@@ -56,6 +67,7 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "light"
 	layer = GASFIRE_LAYER
+	plane = ABOVE_GAME_PLANE
 	blend_mode = BLEND_ADD
 	light_system = MOVABLE_LIGHT
 	light_range = LIGHT_RANGE_FIRE
@@ -78,7 +90,9 @@
 	/// Whether the hotspot becomes passive and follows the gasmix temp instead of changing it.
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
-	/// The group of hotspots we are a part of
+	///Are we burning freon?
+	var/cold_fire = FALSE
+	///the group of hotspots we are a part of
 	var/datum/hot_group/our_hot_group
 
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
@@ -88,6 +102,8 @@
 		volume = starting_volume
 	if(!isnull(starting_temperature))
 		temperature = starting_temperature
+		if(temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+			cold_fire = TRUE
 
 	var/turf/open/our_turf = loc
 	//on creation we check adjacent turfs for hot spot to start grouping, if surrounding do not have hot spots we create our own
@@ -167,7 +183,7 @@
 	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95)
 
 	//Passive mode
-	if(bypassing)
+	if(bypassing || cold_fire)
 		reference = location.air // Our color and volume will depend on the turf's gasmix
 	//Active mode
 	else
@@ -186,6 +202,9 @@
 		temperature = reference.temperature
 
 	// Handles the burning of atoms.
+	if(cold_fire)
+		return TRUE
+
 	for(var/A in location)
 		var/atom/AT = A
 		if(!QDELETED(AT) && AT != src)
@@ -207,7 +226,12 @@
 	var/heat_a = 255
 	var/greyscale_fire = 1 //This determines how greyscaled the fire is.
 
-	if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
+	if(cold_fire)
+		heat_r = 0
+		heat_g = LERP(255, temperature, 1.2)
+		heat_b = LERP(255, temperature, 0.9)
+		heat_a = 100
+	else if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
 		var/normal_amt = gauss_lerp(temperature, 1000, 3000)
 		heat_r = LERP(heat_r,255,normal_amt)
 		heat_g = LERP(heat_g,255,normal_amt)
@@ -273,12 +297,16 @@
 	if(location.excited_group)
 		location.excited_group.reset_cooldowns()
 
-	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
+	cold_fire = FALSE
+	if(temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+		cold_fire = TRUE
+
+	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST && !cold_fire) || (volume <= 1))
 		qdel(src)
 		return
 
 	//Not enough / nothing to burn
-	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
+	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium) && INSUFFICIENT(/datum/gas/hydrogen) && INSUFFICIENT(/datum/gas/freon)) || INSUFFICIENT(/datum/gas/oxygen))
 		qdel(src)
 		return
 
@@ -286,11 +314,14 @@
 
 	if(bypassing)
 		set_fire_stage("heavy")
-		location.burn_tile()
+		if(!cold_fire)
+			location.burn_tile()
 
 		//Possible spread due to radiated heat.
-		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
+		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD || cold_fire)
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
+			if(cold_fire)
+				radiated_temperature = location.air.temperature * COLD_FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/t in location.atmos_adjacent_turfs)
 				var/turf/open/T = t
 				if(!T.active_hotspot)
@@ -327,7 +358,7 @@
 
 /obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(isliving(arrived))
+	if(isliving(arrived) && !cold_fire)
 		var/mob/living/immolated = arrived
 		immolated.fire_act(temperature, volume)
 
@@ -344,13 +375,13 @@
 
 /datum/looping_sound/fire
 	mid_sounds = list(
-		'sound/effects/fireclip1.ogg' = 1,
-		'sound/effects/fireclip2.ogg' = 1,
-		'sound/effects/fireclip3.ogg' = 1,
-		'sound/effects/fireclip4.ogg' = 1,
-		'sound/effects/fireclip5.ogg' = 1,
-		'sound/effects/fireclip6.ogg' = 1,
-		'sound/effects/fireclip7.ogg' = 1,
+		'sound/effects/fireclip1.ogg',
+		'sound/effects/fireclip2.ogg',
+		'sound/effects/fireclip3.ogg',
+		'sound/effects/fireclip4.ogg',
+		'sound/effects/fireclip5.ogg',
+		'sound/effects/fireclip6.ogg',
+		'sound/effects/fireclip7.ogg',
 	)
 	volume = 20
 	mid_length = 2 SECONDS
