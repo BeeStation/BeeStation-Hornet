@@ -548,3 +548,7 @@
 /area/ruin/space/has_grav/storage/power3
 	name = "storage Crates"
 	icon_state = "green"
+
+/area/ruin/space/has_grav/syndiesat
+	name = "Syndicate Satellite"
+	area_flags = NOT_SAFE_AREA
