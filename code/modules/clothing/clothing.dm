@@ -96,19 +96,8 @@
 	var/datum/weakref/clothing
 
 /obj/item/food/clothing/make_edible()
-	AddComponent(/datum/component/edible,\
-		initial_reagents = food_reagents,\
-		food_flags = food_flags,\
-		foodtypes = foodtypes,\
-		volume = max_volume,\
-		eat_time = eat_time,\
-		tastes = tastes,\
-		eatverbs = eatverbs,\
-		bite_consumption = bite_consumption,\
-		microwaved_type = microwaved_type,\
-		junkiness = junkiness,\
-		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
-		after_eat = CALLBACK(src, PROC_REF(after_eat)))
+	. = ..()
+	AddComponent(/datum/component/edible, after_eat = CALLBACK(src, PROC_REF(after_eat)))
 
 /obj/item/food/clothing/proc/pre_eat(mob/eater)
 	var/obj/item/organ/tongue/tongue = eater?.get_organ_slot(ORGAN_SLOT_TONGUE)

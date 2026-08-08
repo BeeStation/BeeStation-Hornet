@@ -162,26 +162,23 @@
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_2
 
-/obj/item/food/fortunecookie/make_edible()
-	AddComponent(/datum/component/edible, \
-		initial_reagents = food_reagents, \
-		food_flags = food_flags, \
-		foodtypes = foodtypes, \
-		volume = max_volume, \
-		eat_time = eat_time, \
-		tastes = tastes, \
-		eatverbs = eatverbs,\
-		bite_consumption = bite_consumption, \
-		microwaved_type = microwaved_type, \
-		junkiness = junkiness, \
-		on_consume = CALLBACK(src, PROC_REF(on_consume)), \
-	)
+/obj/item/food/fortunecookie/proc/get_fortune()
+	var/atom/drop_location = drop_location()
 
-/obj/item/food/fortunecookie/proc/on_consume(mob/user)
-	var/obj/item/paper/fortune = locate(/obj/item/paper) in src.contents
-	if(fortune)
-		if(user)
-			user.put_in_hands(fortune)
+	var/obj/item/paper/fortune = locate(/obj/item/paper) in src
+	// If a fortune exists, use that.
+	if (fortune)
+		fortune.forceMove(drop_location)
+		return fortune
+
+	// Otherwise, use a generic one
+	var/obj/item/paper/paperslip/fortune/fortune_slip = new trash_type(drop_location)
+	// if someone adds lottery tickets in the future, be sure to add random numbers to this
+	return fortune_slip
+
+/obj/item/food/fortunecookie/make_leave_trash()
+	if(trash_type)
+		AddElement(/datum/element/food_trash, trash_type, food_flags, TYPE_PROC_REF(/obj/item/food/fortunecookie, get_fortune))
 
 /obj/item/food/cookie/sugar
 	name = "sugar cookie"
