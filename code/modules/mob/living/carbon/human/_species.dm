@@ -13,8 +13,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/id
 	///This is the fluff name. They are displayed on health analyzers and in the character setup menu. Leave them generic for other servers to customize.
 	var/name
-	/// The formatting of the name of the species in plural context. Defaults to "[name]\s" if unset.
-	/// Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
+	/**
+	 * The formatting of the name of the species in plural context. Defaults to "[name]\s" if unset.
+	 *  Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
+	 */
 	var/plural_form
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
@@ -22,10 +24,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//The maximum number of bodyparts this species can have.
 	var/max_bodypart_count = 6
 
-	///This allows races to have specific hair colors. If null, it uses the H's hair/facial hair colors. If "mutcolor", it uses the H's mutant_color. If "fixedmutcolor", it uses fixedmutcolor
-	var/hair_color
+	/// This allows races to have specific hair colors.
+	/// If null, it uses the mob's hair/facial hair colors.
+	/// If USE_MUTANT_COLOR, it uses the mob's mutant_color.
+	/// If USE_FIXED_MUTANT_COLOR, it uses fixedmutcolor
+	var/hair_color_mode
 	///The alpha used by the hair. 255 is completely solid, 0 is invisible.
 	var/hair_alpha = 255
+	///The alpha used by the facial hair. 255 is completely solid, 0 is invisible.
+	var/facial_hair_alpha = 255
 
 	///This is used for children, it will determine their default limb ID for use of examine. See examine.dm.
 	var/examine_limb_id
@@ -34,8 +41,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// The color used for blush overlay
 	var/blush_color = COLOR_BLUSH_PINK
-	///Does the species use skintones or not? As of now only used by humans.
-	var/use_skintones = FALSE
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
 	var/datum/reagent/exotic_blood
 	///If your race uses a non standard bloodtype (A+, O-, AB-, etc). For example, lizards have L type blood.
@@ -111,8 +116,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Does our species have colors for its damage overlays?
 	var/use_damage_color = TRUE
 
-	// species-only traits. Can be found in DNA.dm
-	var/list/species_traits = list()
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
 	/// List of biotypes the mob belongs to. Used by diseases.
@@ -464,15 +467,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	if((AGENDER in species_traits))
-		C.gender = PLURAL
-
-	if(inherent_biotypes & MOB_INORGANIC && !(old_species.inherent_biotypes & MOB_INORGANIC)) // if the mob was previously not of the MOB_INORGANIC biotype when changing to MOB_INORGANIC
-		C.adjustToxLoss(-C.getToxLoss(), forced = TRUE) // clear the organic toxin damage upon turning into a MOB_INORGANIC, as they are now immune
 
 	C.mob_biotypes = inherent_biotypes
 
-	if(old_species.type != type)
+	if(pref_load || old_species.type != type)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
@@ -481,39 +479,27 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Drop the items the new species can't wear
 	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
 
+	//Assigns exotic blood type if the species has one
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = get_blood_type(exotic_bloodtype)
-
-	if(NOMOUTH in species_traits)
-		for(var/obj/item/bodypart/head/head in C.bodyparts)
-			head.mouth = FALSE
+	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
+	//(why the fuck is blood type not tied to a DNA block?)
+	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
+		C.dna.blood_type = random_blood_type()
 
 	if(length(inherent_traits))
 		C.add_traits(inherent_traits, SPECIES_TRAIT)
-
-	if(TRAIT_VIRUSIMMUNE in inherent_traits)
-		for(var/datum/disease/A in C.diseases)
-			A.cure(FALSE)
 
 	//if we can't have the disease, dont keep it
 	for(var/datum/disease/disease in C.diseases)
 		if(!(disease.infectable_biotypes & inherent_biotypes))
 			disease.cure(FALSE)
 
-	if(TRAIT_TOXIMMUNE in inherent_traits)
-		C.setToxLoss(0, TRUE, TRUE)
-
-	if(TRAIT_NOMETABOLISM in inherent_traits)
-		C.reagents.end_metabolization(C, keep_liverless = TRUE)
-
-	if(TRAIT_GENELESS in inherent_traits)
-		C.dna.remove_all_mutations() // Radiation immune mobs can't get mutations normally
-
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown=speedmod)
+	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown = speedmod)
 
 	// All languages associated with this language holder are added with source [LANGUAGE_SPECIES]
 	// rather than source [LANGUAGE_ATOM], so we can track what to remove if our species changes again
@@ -532,10 +518,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(TRUE)
 	if(C.dna.species.exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
-
-	if(NOMOUTH in species_traits)
-		for(var/obj/item/bodypart/head/head in C.bodyparts)
-			head.mouth = TRUE
 
 	for(var/X in inherent_traits)
 		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
@@ -567,171 +549,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
-/datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
-	H.remove_overlay(HAIR_LAYER)
-	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
-	if(!HD) //Decapitated
-		return
-
-	if(HAS_TRAIT(H, TRAIT_HUSK))
-		return
-	var/datum/sprite_accessory/S
-	var/list/standing = list()
-
-	var/hair_hidden = FALSE //ignored if the matching dynamic_X_suffix is non-empty
-	var/facialhair_hidden = FALSE // ^
-
-	var/dynamic_hair_suffix = "" //if this is non-null, and hair+suffix matches an iconstate, then we render that hair instead
-	var/dynamic_fhair_suffix = ""
-
-	//for augmented heads
-	if(!IS_ORGANIC_LIMB(HD))
-		return
-
-	//we check if our hat or helmet hides our facial hair.
-	if(H.head)
-		var/obj/item/I = H.head
-		if(isclothing(I))
-			var/obj/item/clothing/C = I
-			dynamic_fhair_suffix = C.dynamic_fhair_suffix
-		if(I.flags_inv & HIDEFACIALHAIR)
-			facialhair_hidden = TRUE
-
-	if(H.wear_mask)
-		var/obj/item/I = H.wear_mask
-		if(isclothing(I))
-			var/obj/item/clothing/C = I
-			dynamic_fhair_suffix = C.dynamic_fhair_suffix //mask > head in terms of facial hair
-		if(I.flags_inv & HIDEFACIALHAIR)
-			facialhair_hidden = TRUE
-
-	if(H.facial_hair_style && (FACIAL_HAIR_COLOR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
-		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
-		if(S?.icon_state)
-
-			//List of all valid dynamic_fhair_suffixes
-			var/static/list/fextensions
-			if(!fextensions)
-				var/icon/fhair_extensions = icon('icons/mob/facialhair_extensions.dmi')
-				fextensions = list()
-				for(var/s in fhair_extensions.IconStates(1))
-					fextensions[s] = TRUE
-				qdel(fhair_extensions)
-
-			//Is hair+dynamic_fhair_suffix a valid iconstate?
-			var/fhair_state = S.icon_state
-			var/fhair_file = S.icon
-			if(fextensions[fhair_state+dynamic_fhair_suffix])
-				fhair_state += dynamic_fhair_suffix
-				fhair_file = 'icons/mob/facialhair_extensions.dmi'
-
-			var/mutable_appearance/facial_overlay = mutable_appearance(fhair_file, fhair_state, CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-
-			if(!forced_colour)
-				if(hair_color)
-					if(hair_color == "mutcolor")
-						facial_overlay.color = H.dna.features["mcolor"]
-					else if (hair_color =="fixedmutcolor")
-						facial_overlay.color = fixed_mut_color
-					else
-						facial_overlay.color = hair_color
-				else
-					facial_overlay.color = H.facial_hair_color
-			else
-				facial_overlay.color = forced_colour
-
-			facial_overlay.alpha = hair_alpha
-
-			standing += facial_overlay
-			standing += emissive_blocker(facial_overlay.icon, facial_overlay.icon_state, facial_overlay.layer, facial_overlay.alpha)
-
-	if(H.head)
-		var/obj/item/I = H.head
-		if(isclothing(I) && !istype(I, /obj/item/clothing/head/wig))
-			var/obj/item/clothing/C = I
-			dynamic_hair_suffix = C.dynamic_hair_suffix
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = TRUE
-
-	if(H.wear_mask)
-		var/obj/item/I = H.wear_mask
-		if(!dynamic_hair_suffix && isclothing(I)) //head > mask in terms of head hair
-			var/obj/item/clothing/C = I
-			dynamic_hair_suffix = C.dynamic_hair_suffix
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = TRUE
-
-	if(!hair_hidden || dynamic_hair_suffix)
-		var/mutable_appearance/hair_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
-		if(!hair_hidden && !H.get_organ_slot(ORGAN_SLOT_BRAIN) && !HAS_TRAIT(H, TRAIT_NOBLOOD))
-			hair_overlay.icon = 'icons/mob/human/human_face.dmi'
-			hair_overlay.icon_state = "debrained"
-
-		else if((H.hair_style && (HAIR_COLOR in species_traits)))
-			var/current_hair_style = H.hair_style
-			var/current_hair_color = H.hair_color
-			var/current_gradient_style = H.gradient_style
-			var/current_gradient_color = H.gradient_color
-			S = GLOB.hair_styles_list[current_hair_style]
-			if(S?.icon_state)
-
-				//List of all valid dynamic_hair_suffixes
-				var/static/list/extensions
-				if(!extensions)
-					var/icon/hair_extensions = icon('icons/mob/hair_extensions.dmi') //hehe
-					extensions = list()
-					for(var/s in hair_extensions.IconStates(1))
-						extensions[s] = TRUE
-					qdel(hair_extensions)
-
-				//Is hair+dynamic_hair_suffix a valid iconstate?
-				var/hair_state = S.icon_state
-				var/hair_file = S.icon
-				if(extensions[hair_state+dynamic_hair_suffix])
-					hair_state += dynamic_hair_suffix
-					hair_file = 'icons/mob/hair_extensions.dmi'
-
-				hair_overlay.icon = hair_file
-				hair_overlay.icon_state = hair_state
-
-				if(!forced_colour)
-					if(hair_color)
-						if(hair_color == "mutcolor")
-							hair_overlay.color = H.dna.features["mcolor"]
-						else if(hair_color == "fixedmutcolor")
-							hair_overlay.color = fixed_mut_color
-						else
-							hair_overlay.color = hair_color
-					else
-						hair_overlay.color = current_hair_color
-					//Gradients
-					var/gradient_style = current_gradient_style
-					var/gradient_color = current_gradient_color
-					if(gradient_style)
-						var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
-						var/icon/temp = icon(gradient.icon, gradient.icon_state)
-						var/icon/temp_hair = icon(hair_file, hair_state)
-						temp.Blend(temp_hair, ICON_ADD)
-						gradient_overlay.icon = temp
-						gradient_overlay.color = gradient_color
-
-				else
-					hair_overlay.color = forced_colour
-
-				hair_overlay.alpha = hair_alpha
-				HD.worn_mask_offset?.apply_offset(hair_overlay)
-
-		if(hair_overlay.icon)
-			standing += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, hair_overlay.layer, hair_overlay.alpha)
-			standing += hair_overlay
-			standing += gradient_overlay
-
-	if(standing.len)
-		H.overlays_standing[HAIR_LAYER] = standing
-
-	H.apply_overlay(HAIR_LAYER)
-
 /*
  * Handles lipstick, having no eyes, eye color, undergarnments like underwear, undershirts, and socks, and body layers.
  * Calls [handle_mutant_bodyparts][/datum/species/proc/handle_mutant_bodyparts]
@@ -754,7 +571,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					standing += eye_overlay
 
 		// organic body markings (oh my god this is terrible please rework this to be done on the limbs themselves i beg you)
-		if(HAS_MARKINGS in species_traits)
+		if(HAS_TRAIT(species_human, TRAIT_HAS_MARKINGS))
 			var/obj/item/bodypart/chest/chest = species_human.get_bodypart(BODY_ZONE_CHEST)
 			var/obj/item/bodypart/arm/right/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
 			var/obj/item/bodypart/arm/left/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
@@ -791,7 +608,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 	//Underwear, Undershirts & Socks
-	if(!(NO_UNDERWEAR in species_traits))
+	if(!(HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR)))
 		if(species_human.underwear && !(species_human.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
 			var/mutable_appearance/underwear_overlay
@@ -812,7 +629,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
-		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
+		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodytype & BODYTYPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -1100,17 +917,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(!forced_colour)
 					switch(S.color_src)
 						if(MUTANT_COLOR)
-							if(fixed_mut_color)
-								accessory_overlay.color = fixed_mut_color
-							else
-								accessory_overlay.color = H.dna.features["mcolor"]
+							accessory_overlay.color = fixed_mut_color || H.dna.features["mcolor"]
 						if(HAIR_COLOR)
-							if(hair_color == "mutcolor")
-								accessory_overlay.color = H.dna.features["mcolor"]
-							else
-								accessory_overlay.color = H.hair_color
+							accessory_overlay.color = get_fixed_hair_color(H) || H.hair_color
 						if(FACIAL_HAIR_COLOR)
-							accessory_overlay.color = H.facial_hair_color
+							accessory_overlay.color = get_fixed_hair_color(H) || H.facial_hair_color
 						if(EYE_COLOR)
 							accessory_overlay.color = H.eye_color_left
 				else
@@ -1150,13 +961,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		H.setOxyLoss(0)
-		H.losebreath = 0
-
-		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
-		if((H.health <= H.crit_threshold) && takes_crit_damage)
-			H.adjustBruteLoss(0.5 * delta_time)
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && H.stat != DEAD && (H.health <= H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+		H.adjustBruteLoss(0.5 * delta_time)
+	// TODO: Move buddy to external organs when possible
 	if(H.get_organ_by_type(/obj/item/organ/wings))
 		handle_flight(H)
 
@@ -1517,7 +1324,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		source.vomit(10, TRUE)
 
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
-		if(!(source.hair_style == "Bald") && (HAIR_COLOR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
+		var/obj/item/bodypart/head/head = source.get_bodypart(BODY_ZONE_HEAD)
+		if(!(source.hair_style == "Bald") && (head?.head_flags & HEAD_HAIR|HEAD_FACIAL_HAIR) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
 			to_chat(source, span_danger("Your hair starts to fall out in clumps."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
@@ -1533,9 +1341,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/go_bald(mob/living/carbon/human/target)
 	if(QDELETED(target)) //may be called from a timer
 		return
-	target.facial_hair_style = "Shaved"
-	target.hair_style = "Bald"
-	target.update_hair()
+	target.set_facial_hairstyle("Shaved", update = FALSE)
+	target.set_hairstyle("Bald", update = TRUE) //This calls update_body_parts()
 
 ////////////////
 // MOVE SPEED //
@@ -2355,7 +2162,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
-			|| (preference.relevant_species_trait in species_traits) \
+			|| (preference.relevant_inherent_trait in inherent_traits) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 		)
 			features += preference.db_key
@@ -2894,3 +2701,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/check_head_flags(check_flags = NONE)
 	var/obj/item/bodypart/head/fake_head = bodypart_overrides[BODY_ZONE_HEAD]
 	return (initial(fake_head.head_flags) & check_flags)
+
+/**
+ * Get what hair color is used by this species for a mob.
+ *
+ * Arguments
+ * * for_mob - The mob to get the hair color for. Required.
+ *
+ * Returns a color string or null.
+ */
+/datum/species/proc/get_fixed_hair_color(mob/living/carbon/human/for_mob)
+	ASSERT(!isnull(for_mob))
+	switch(hair_color_mode)
+		if(USE_MUTANT_COLOR)
+			return for_mob.dna.features["mcolor"]
+		if(USE_FIXED_MUTANT_COLOR)
+			return fixed_mut_color
+
+	return null

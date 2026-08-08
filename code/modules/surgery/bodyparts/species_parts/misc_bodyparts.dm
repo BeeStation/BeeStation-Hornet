@@ -8,6 +8,7 @@
 	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
 	burn_modifier = 1.5
+	bodypart_traits = list(TRAIT_NO_UNDERWEAR)
 
 /obj/item/bodypart/arm/left/snail
 	limb_id = SPECIES_SNAIL
@@ -31,6 +32,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	head_flags = NONE
+	bodypart_traits = list(TRAIT_NO_MOUTH)
 
 /obj/item/bodypart/chest/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -58,7 +60,7 @@
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
-	head_flags = HEAD_EYECOLOR | HEAD_EYESPRITES
+	head_flags = HEAD_EYECOLOR | HEAD_EYESPRITES | HEAD_HAIR | HEAD_FACIAL_HAIR
 
 /obj/item/bodypart/chest/slime
 	limb_id = SPECIES_SLIMEPERSON
@@ -113,6 +115,7 @@
 	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	head_flags = HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES
 
 
 /obj/item/bodypart/chest/zombie
@@ -159,7 +162,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
-	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON
@@ -226,32 +229,39 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
 
 /obj/item/bodypart/chest/skeleton
 	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/left/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/right/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem
