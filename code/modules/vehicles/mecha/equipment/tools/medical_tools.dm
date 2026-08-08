@@ -209,7 +209,7 @@
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Injecting [patient] with [to_inject] units of [R.name].")]")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].", LOG_MECHA)
 		log_combat(chassis.occupants, patient, "injected", "[name] ([R] - [to_inject] units)")
-		SG.reagents.trans_id_to(patient,R.type,to_inject)
+		SG.reagents.trans_to(patient, to_inject, target_id = R.type)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist(mob/living/user)
 	go_out()

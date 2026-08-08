@@ -78,7 +78,8 @@
 	var/atom/baked_result = new bake_result(used_tray)
 	if(baked_result.reagents && positive_result) //make space and tranfer reagents if it has any & the resulting item isn't bad food or other bad baking result
 		baked_result.reagents.clear_reagents()
-		original_object.reagents.trans_to(baked_result, original_object.reagents.total_volume)
+		if(original_object.reagents)
+			original_object.reagents.trans_to(baked_result, original_object.reagents.total_volume)
 		if(added_reagents) // Add any new reagents that should be added
 			baked_result.reagents.add_reagent_list(added_reagents)
 

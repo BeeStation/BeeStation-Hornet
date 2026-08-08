@@ -106,10 +106,11 @@
 		if(original_object.custom_materials)
 			grilled_result.set_custom_materials(original_object.custom_materials)
 
-	if(IsEdible(grilled_result) && positive_result)
+	if(IsEdible(grilled_result) && grilled_result.reagents && positive_result)
 		BLACKBOX_LOG_FOOD_MADE(grilled_result.type)
 		grilled_result.reagents.clear_reagents()
-		original_object.reagents?.trans_to(grilled_result, original_object.reagents.total_volume)
+		if(original_object.reagents)
+			original_object.reagents.trans_to(grilled_result, original_object.reagents.total_volume)
 		if(added_reagents) // Add any new reagents that should be added
 			grilled_result.reagents.add_reagent_list(added_reagents)
 

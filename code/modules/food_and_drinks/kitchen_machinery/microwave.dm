@@ -88,10 +88,7 @@
 	return ..()
 
 /obj/machinery/microwave/Destroy()
-	// Emptied first because qdelling an ingredient hits Exited(), which edits the list as we go
-	var/list/lost_ingredients = ingredients.Copy()
-	ingredients.Cut()
-	QDEL_LIST(lost_ingredients)
+	QDEL_LIST(ingredients)
 	QDEL_NULL(wires)
 	QDEL_NULL(soundloop)
 	return ..()
@@ -401,9 +398,10 @@
 
 /obj/machinery/microwave/proc/eject()
 	var/atom/drop_loc = drop_location()
-	// Copied because forceMove hits Exited(), which pulls the ingredient out of the list as we go
-	for(var/atom/movable/movable_ingredient as anything in ingredients.Copy())
-		movable_ingredient.forceMove(drop_loc)
+	// Iterate a copy: forceMove() fires Exited(), same mid-loop removal problem as loop_finish()
+	for(var/obj/item/item_ingredient as anything in ingredients.Copy())
+		item_ingredient.forceMove(drop_loc)
+		item_ingredient.dropped() //Mob holders can be on the ground if we don't do this
 	open(autoclose = 1.4 SECONDS)
 
 /obj/machinery/microwave/proc/start_cycle(mob/user)
@@ -522,7 +520,8 @@
 	operating = FALSE
 
 	var/iron_amount = 0
-	// Copied because microwave_act() qdels the ingredient, which pulls it out of the list as we go
+	// Iterate a copy: microwave_act() qdels the source, which fires Exited() and removes it from
+	// ingredients mid-loop. DM walks lists by index, so every second ingredient would be skipped.
 	for(var/obj/item/cooked_item in ingredients.Copy())
 		var/sigreturn = cooked_item.microwave_act(src, cooker, randomize_pixel_offset = ingredients.len)
 		if(sigreturn & COMPONENT_MICROWAVE_SUCCESS)

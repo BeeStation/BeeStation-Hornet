@@ -45,10 +45,11 @@
 	var/efficiency = istype(used_microwave) ? used_microwave.efficiency : 1
 	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, source, efficiency)
 
-	if(IS_EDIBLE(result) && (result_typepath != default_typepath))
+	if(IS_EDIBLE(result) && result.reagents && (result_typepath != default_typepath))
 		BLACKBOX_LOG_FOOD_MADE(result.type)
 		result.reagents.clear_reagents()
-		source.reagents?.trans_to(result, source.reagents.total_volume)
+		if(source.reagents)
+			source.reagents.trans_to(result, source.reagents.total_volume)
 		if(added_reagents) // Add any new reagents that should be added
 			result.reagents.add_reagent_list(added_reagents)
 
