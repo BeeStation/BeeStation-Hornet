@@ -28,3 +28,18 @@
   - rscadd: adds memory system for the security dog. Picks from a list of names and
       basetypes. Keeping the dog alive for the round will ensure it passes into the
       next.
+2026-08-05:
+  Isaac:
+  - rscadd: You can now search by name for cargo packs
+  Isaac, Schoolboy215:
+  - rscadd: RPED can now interact with APC's to change their battery
+  - bugfix: APC's wont throw runtimes whenever they have no cell installed
+2026-08-06:
+  rkz, Lemon, Mothblocks, ZephyrTFA, TemporalOroboros, Ryll:
+  - server: shaves 6 seconds off of init through overlay optimization
+  - bugfix: base64 callers have been triple checked and no longer can send malformed
+      or nonexistent images. This fixes admin Outfit selection icons, destructive
+      analyzer, crafting menu recipes, etcetera...
+  - bugfix: If you aim at something through cameras you will now aim at the thing
+      you aimed at from the perspective of yourself instead of the camera you were
+      using to aim.

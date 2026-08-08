@@ -203,6 +203,9 @@
 		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
+	if(cell)
+		component_parts -= cell
+		QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/power/apc/proc/assign_to_area(area/target_area = get_area(src))
@@ -246,7 +249,7 @@
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)
-		cell = null
+		set_cell(null)
 		charging = APC_NOT_CHARGING
 		update_appearance()
 		updateUsrDialog()
@@ -254,14 +257,15 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	alarm_manager = new(src)
+	component_parts = list()
 
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		cell = new cell_type
-		cell.charge = start_charge * cell.maxcharge / 100	// (convert percentage to actual value)
+		set_cell(new cell_type)
+		cell.charge = start_charge * cell.maxcharge / 100
 
 	var/area/our_area = loc.loc
 
@@ -414,6 +418,13 @@
 
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
+
+/obj/machinery/power/apc/proc/set_cell(obj/item/stock_parts/cell/new_cell)
+	if(cell)
+		component_parts -= cell
+	cell = new_cell
+	if(cell)
+		component_parts |= cell
 
 /// Used for unlocked apc helper, which unlocks the apc.
 /obj/machinery/power/apc/proc/unlock()
@@ -568,17 +579,21 @@
 		main_status = APC_NO_POWER
 
 	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
-	// TODO: Not having it require cell
-	lighting = update_channel(lighting, light_power_req,
-		(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
-		(environ_power_req + equip_power_req),
-		TRUE) // only lighting triggers alarms
+	if (cell)
+		lighting = update_channel(lighting, light_power_req,
+			(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+			(environ_power_req + equip_power_req),
+			TRUE) // only lighting triggers alarms
 
-	equipment = update_channel(equipment, equip_power_req,
-		(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+		equipment = update_channel(equipment, equip_power_req,
+			(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
 
-	environ = update_channel(environ, environ_power_req,
-		(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+		environ = update_channel(environ, environ_power_req,
+			(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+	else
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
