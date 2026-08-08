@@ -178,11 +178,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
-"ba" = (
-/obj/structure/table/wood/bar,
-/obj/effect/spawner/random/entertainment/gambling,
-/turf/open/floor/carpet/grimy,
-/area/shuttle/escape)
 "bc" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
@@ -352,6 +347,17 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
+"dM" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Brig"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "ek" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/drinks{
@@ -424,6 +430,11 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"iN" = (
+/obj/structure/table/wood/bar,
+/obj/effect/spawner/random/entertainment/gambling,
+/turf/open/floor/carpet/grimy,
+/area/shuttle/escape)
 "jv" = (
 /obj/machinery/status_display/evac/directional/north,
 /obj/machinery/light/small,
@@ -468,6 +479,13 @@
 	dir = 1
 	},
 /turf/open/floor/wood,
+/area/shuttle/escape)
+"pR" = (
+/obj/structure/mirror/directional/north{
+	pixel_y = 32
+	},
+/obj/structure/sink/directional/south,
+/turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "rb" = (
 /obj/machinery/door/airlock{
@@ -514,6 +532,26 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"ux" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
+"wB" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Cockpit"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "wI" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
@@ -542,6 +580,11 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"zp" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "zE" = (
 /obj/machinery/light,
 /obj/machinery/newscaster/directional/south,
@@ -564,11 +607,6 @@
 	desc = "The apex of the bar experience, this one comes with a belt."
 	},
 /turf/open/floor/wood,
-/area/shuttle/escape)
-"BP" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/reinforced/shuttle,
-/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "Cv" = (
 /obj/machinery/flasher{
@@ -629,14 +667,15 @@
 /obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
-"GY" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Cockpit"
+"HB" = (
+/obj/effect/spawner/structure/random_piano,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron,
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "JC" = (
 /obj/structure/table/wood/bar,
@@ -651,10 +690,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"KT" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Lq" = (
 /obj/structure/table/wood/bar{
 	boot_dir = 8
@@ -665,16 +700,9 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"LQ" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
+"MW" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "NU" = (
 /obj/structure/chair/fancy/comfy{
@@ -697,13 +725,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
-"PN" = (
-/obj/structure/mirror/directional/north{
-	pixel_y = 32
-	},
-/obj/structure/sink/directional/south,
-/turf/open/floor/iron/freezer,
-/area/shuttle/escape)
 "Qu" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -722,17 +743,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"Rk" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Brig"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/shuttle/escape)
 "Rl" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/machinery/status_display/evac/directional/north,
@@ -743,16 +753,6 @@
 	pixel_y = -32
 	},
 /turf/open/floor/wood,
-/area/shuttle/escape)
-"Tc" = (
-/obj/effect/spawner/structure/random_piano,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/structure/sign/nanotrasen{
-	pixel_y = 32
-	},
-/turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "Vx" = (
 /obj/machinery/light{
@@ -816,13 +816,13 @@ aa
 ab
 ab
 ab
-LQ
+ux
 ab
 Py
 ab
-KT
-KT
-KT
+MW
+MW
+MW
 ab
 kK
 ab
@@ -868,20 +868,20 @@ hM
 ab
 kS
 aW
-ba
+iN
 bL
 bO
 bQ
 kS
 ab
-PN
+pR
 ab
 ab
-BP
+zp
 bE
 "}
 (4,1,1) = {"
-KT
+MW
 af
 am
 ar
@@ -898,21 +898,21 @@ bP
 bQ
 rp
 ab
-PN
+pR
 rb
 Xg
-BP
+zp
 bE
 "}
 (5,1,1) = {"
-KT
+MW
 ag
 an
 as
 ab
-KT
-Rk
-KT
+MW
+dM
+MW
 ae
 kS
 gl
@@ -925,11 +925,11 @@ ab
 jv
 ab
 ab
-BP
+zp
 bE
 "}
 (6,1,1) = {"
-KT
+MW
 ah
 an
 at
@@ -949,15 +949,15 @@ QE
 GA
 hb
 Xg
-BP
+zp
 bE
 "}
 (7,1,1) = {"
-KT
+MW
 ag
 mB
 Gr
-GY
+wB
 Cv
 kS
 hI
@@ -973,11 +973,11 @@ ae
 ab
 ab
 ab
-BP
+zp
 bE
 "}
 (8,1,1) = {"
-KT
+MW
 ai
 ao
 NU
@@ -997,7 +997,7 @@ ab
 tB
 bw
 bz
-BP
+zp
 bE
 "}
 (9,1,1) = {"
@@ -1006,7 +1006,7 @@ ae
 ap
 au
 ab
-Tc
+HB
 Fm
 JC
 ox
@@ -1021,7 +1021,7 @@ FR
 DY
 bi
 bS
-BP
+zp
 bE
 "}
 (10,1,1) = {"
@@ -1041,7 +1041,7 @@ hS
 Zw
 xh
 kj
-KT
+MW
 br
 cb
 bU
@@ -1054,21 +1054,21 @@ aa
 aa
 aa
 ab
-KT
+MW
 ab
-KT
-ab
-ab
-ab
-KT
-KT
-KT
+MW
 ab
 ab
 ab
-KT
+MW
+MW
+MW
 ab
-KT
+ab
+ab
+MW
+ab
+MW
 ab
 aa
 "}

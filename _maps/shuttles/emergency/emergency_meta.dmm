@@ -79,24 +79,10 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"at" = (
-/obj/machinery/status_display/evac{
-	dir = 8;
-	pixel_x = 32
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "au" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"av" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aw" = (
@@ -137,18 +123,6 @@
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
-/area/shuttle/escape)
-"aE" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 1
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/computer/station_alert{
@@ -261,15 +235,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"bf" = (
-/obj/machinery/door/airlock/external{
-	name = "Emergency Recovery Airlock"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron/white,
-/area/shuttle/escape)
 "bh" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -358,10 +323,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/shuttle/escape)
-"bz" = (
-/obj/structure/sink/directional/east,
-/turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "bA" = (
 /obj/effect/turf_decal/stripes/line{
@@ -714,15 +675,6 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
-"ef" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/iron,
-/area/shuttle/escape)
 "eB" = (
 /turf/open/floor/iron/dark/corner{
 	dir = 4
@@ -751,16 +703,12 @@
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"gU" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit"
+"gV" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/iron,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "hJ" = (
 /obj/machinery/light{
@@ -768,6 +716,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
+/area/shuttle/escape)
+"hR" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/window/reinforced/spawner/directional/north{
+	pixel_y = 1
+	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "ig" = (
 /obj/machinery/camera/directional/east,
@@ -801,6 +761,13 @@
 /obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"lO" = (
+/obj/machinery/status_display/evac{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "mg" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
@@ -826,27 +793,23 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"ph" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 1
+"pb" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig"
 	},
-/turf/open/floor/grass/no_border,
-/area/shuttle/escape)
-"pq" = (
-/obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron,
+/area/shuttle/escape)
+"qB" = (
+/obj/machinery/door/airlock/external{
+	name = "Emergency Recovery Airlock"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "re" = (
 /obj/effect/decal/cleanable/dirt,
@@ -881,6 +844,18 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"tX" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north{
+	pixel_y = 1
+	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "uw" = (
 /obj/structure/chair/fancy/shuttle{
@@ -981,6 +956,18 @@
 "Ce" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
+"CQ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/structure/sign/warning/no_smoking{
+	pixel_y = -32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "DK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/newscaster/directional/west,
@@ -1008,10 +995,28 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/shuttle/escape)
+"Fl" = (
+/obj/machinery/door/airlock/command{
+	name = "Emergency Recovery Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "Gk" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
+/area/shuttle/escape)
+"Hv" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"IC" = (
+/obj/structure/sink/directional/east,
+/turf/open/floor/iron/white/smooth_large,
 /area/shuttle/escape)
 "Kc" = (
 /obj/machinery/light{
@@ -1026,10 +1031,6 @@
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
-/area/shuttle/escape)
-"Li" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "Ls" = (
 /obj/structure/chair/fancy/shuttle{
@@ -1053,16 +1054,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"MO" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Ns" = (
 /obj/machinery/door/airlock/external{
@@ -1089,17 +1080,15 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/shuttle/escape)
-"QP" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/structure/sign/warning/no_smoking{
-	pixel_y = -32
-	},
-/turf/open/floor/mineral/plastitanium,
+"QU" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Rg" = (
 /obj/structure/table,
@@ -1107,7 +1096,14 @@
 /obj/machinery/status_display/ai/directional/east,
 /turf/open/floor/iron/dark/side,
 /area/shuttle/escape)
-"Ro" = (
+"RM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/escape)
+"Sd" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -1115,13 +1111,6 @@
 	pixel_y = 1
 	},
 /turf/open/floor/grass/no_border,
-/area/shuttle/escape)
-"RM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/turf/open/floor/iron,
 /area/shuttle/escape)
 "Sy" = (
 /obj/machinery/door/firedoor,
@@ -1146,6 +1135,25 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/side,
+/area/shuttle/escape)
+"TS" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/shuttle/escape)
+"Ud" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/warning/no_smoking{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ui" = (
 /turf/open/floor/iron/dark/corner{
@@ -1192,18 +1200,6 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"Xr" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced/spawner/directional/north{
-	pixel_y = 1
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/grass/no_border,
-/area/shuttle/escape)
 "Yp" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
@@ -1219,20 +1215,24 @@
 /obj/structure/bed/roller,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"YU" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/leafybush,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north{
+	pixel_y = 1
+	},
+/turf/open/floor/grass/no_border,
+/area/shuttle/escape)
 "Zo" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"ZP" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/bot,
-/obj/structure/sign/warning/no_smoking{
-	pixel_y = 32
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ZQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1261,17 +1261,17 @@ aa
 (2,1,1) = {"
 aa
 ad
-av
-av
-av
-av
-av
+gV
+gV
+gV
+gV
+gV
 ad
-av
-av
-av
-av
-av
+gV
+gV
+gV
+gV
+gV
 ad
 aa
 "}
@@ -1279,21 +1279,21 @@ aa
 ad
 ad
 ad
-Li
-Li
-Li
+Hv
+Hv
+Hv
 ad
 ad
 ad
-Li
-Li
-Li
+Hv
+Hv
+Hv
 ad
 ad
 ad
 "}
 (4,1,1) = {"
-Li
+Hv
 EG
 al
 aw
@@ -1307,10 +1307,10 @@ RM
 RM
 bd
 DK
-Li
+Hv
 "}
 (5,1,1) = {"
-Li
+Hv
 TI
 am
 aq
@@ -1324,10 +1324,10 @@ hJ
 bQ
 bQ
 bQ
-bf
+qB
 "}
 (6,1,1) = {"
-Li
+Hv
 Qj
 an
 ax
@@ -1341,10 +1341,10 @@ Ce
 bQ
 bQ
 bQ
-bf
+qB
 "}
 (7,1,1) = {"
-Li
+Hv
 Rg
 ao
 bZ
@@ -1352,20 +1352,20 @@ ax
 ig
 dE
 wY
-pq
+Fl
 cb
 ad
 ZQ
 by
 by
-Li
+Hv
 "}
 (8,1,1) = {"
 ad
 ad
 ad
 ad
-gU
+TS
 ad
 ad
 ad
@@ -1395,7 +1395,7 @@ bD
 ad
 "}
 (10,1,1) = {"
-Li
+Hv
 cO
 bY
 LY
@@ -1403,30 +1403,30 @@ LY
 LY
 eB
 cO
-ef
+pb
 bU
 cl
 df
 bU
 bE
-Li
+Hv
 "}
 (11,1,1) = {"
 ad
 mg
 bV
 bN
-aE
+tX
 aT
 ar
 bN
-Li
+Hv
 bi
 nd
 SV
 bU
 bF
-Li
+Hv
 "}
 (12,1,1) = {"
 rl
@@ -1450,7 +1450,7 @@ ad
 uD
 bV
 bN
-Ro
+Sd
 aT
 ar
 aS
@@ -1475,29 +1475,29 @@ ad
 Ml
 bj
 bu
-bz
+IC
 bH
 ad
 "}
 (15,1,1) = {"
 ad
-ZP
+Ud
 bV
 bN
-ph
+YU
 aT
 ar
 bN
-Li
+Hv
 sb
 bk
 Vs
 bl
 bI
-Li
+Hv
 "}
 (16,1,1) = {"
-Li
+Hv
 aT
 bV
 aP
@@ -1511,18 +1511,18 @@ bl
 ve
 jb
 bJ
-Li
+Hv
 "}
 (17,1,1) = {"
-Li
+Hv
 aT
 bV
 bN
-MO
+QU
 aT
 ar
 bN
-Li
+Hv
 cW
 mV
 wj
@@ -1531,7 +1531,7 @@ bK
 ad
 "}
 (18,1,1) = {"
-Li
+Hv
 aT
 bV
 bN
@@ -1539,20 +1539,20 @@ bL
 aT
 ar
 bN
-Li
+Hv
 bj
 wu
 bl
 bl
 Eg
-Li
+Hv
 "}
 (19,1,1) = {"
 ad
 rp
 bV
 bN
-Ro
+Sd
 aT
 ar
 fi
@@ -1562,7 +1562,7 @@ wu
 bl
 bl
 bM
-Li
+Hv
 "}
 (20,1,1) = {"
 Vh
@@ -1575,7 +1575,7 @@ ar
 uw
 ba
 ad
-Li
+Hv
 Sy
 Sy
 ba
@@ -1586,7 +1586,7 @@ ad
 aT
 bV
 bN
-Xr
+hR
 aT
 ar
 ja
@@ -1613,7 +1613,7 @@ bw
 as
 be
 ca
-Li
+Hv
 "}
 (23,1,1) = {"
 ad
@@ -1630,17 +1630,17 @@ be
 re
 be
 bP
-Li
+Hv
 "}
 (24,1,1) = {"
 ad
 Kc
 bW
 aA
-at
+lO
 dy
 bW
-QP
+CQ
 ad
 aG
 bq
@@ -1652,17 +1652,17 @@ ad
 (25,1,1) = {"
 ad
 ad
-Li
-Li
+Hv
+Hv
 ad
-Li
-Li
+Hv
+Hv
 ad
 ad
 ad
-Li
-Li
-Li
+Hv
+Hv
+Hv
 ad
 ad
 "}

@@ -225,37 +225,37 @@
 /obj/structure/shuttle/engine/propulsion/right,
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
-"cD" = (
-/obj/structure/table/wood,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/wood,
+"cd" = (
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"gO" = (
+"uB" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"Bq" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/transport)
-"sQ" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/vending/autodrobe,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"xL" = (
+"FN" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/vending_refill/snack,
 /turf/open/floor/wood,
 /area/shuttle/transport)
-"yj" = (
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/mineral/titanium/blue,
+"MW" = (
+/obj/structure/table/wood,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/wood,
 /area/shuttle/transport)
-"yW" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/transport)
-"Aw" = (
+"Ps" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/vending/clothing,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"RC" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/vending/autodrobe,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 
@@ -318,8 +318,8 @@ ac
 af
 bh
 bh
-sQ
-Aw
+RC
+Ps
 as
 aB
 as
@@ -411,11 +411,11 @@ aa
 ap
 ap
 av
-cD
-cD
+MW
+MW
 aS
-cD
-xL
+MW
+FN
 aM
 ad
 aa
@@ -484,7 +484,7 @@ aa
 aa
 ap
 aE
-yj
+cd
 aE
 aM
 ad
@@ -500,9 +500,9 @@ aa
 aa
 aa
 aa
-yW
+uB
 aE
-yj
+cd
 aE
 ad
 aa
@@ -518,7 +518,7 @@ aa
 aa
 aa
 aa
-yW
+uB
 aE
 aE
 aE
@@ -558,7 +558,7 @@ ad
 aF
 aE
 aT
-yW
+uB
 aa
 aa
 aa
@@ -608,11 +608,11 @@ aa
 aa
 aa
 aa
-gO
+Bq
 aI
 aE
 aW
-gO
+Bq
 aa
 aa
 aa
@@ -680,11 +680,11 @@ aa
 aa
 aa
 aa
-gO
+Bq
 aJ
 aE
 aW
-gO
+Bq
 aa
 aa
 aa
@@ -735,9 +735,9 @@ aa
 aa
 aa
 ad
-gO
+Bq
 aO
-gO
+Bq
 ad
 aa
 aa

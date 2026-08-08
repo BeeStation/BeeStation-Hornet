@@ -13,10 +13,6 @@
 "ad" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/djstation/solars)
-"ae" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/misc/space/nearstation)
 "af" = (
 /turf/closed/wall,
 /area/ruin/space/djstation)
@@ -51,34 +47,6 @@
 /area/ruin/space/djstation)
 "am" = (
 /obj/item/extinguisher,
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"an" = (
-/obj/machinery/power/smes/magical{
-	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
-	name = "power storage unit"
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"ao" = (
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"ap" = (
-/obj/machinery/power/apc{
-	name = "Worn-out APC";
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/ruin/space/djstation)
-"aq" = (
-/obj/item/storage/box/lights/mixed,
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = -32
-	},
-/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
 "as" = (
@@ -117,10 +85,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"aB" = (
-/obj/effect/spawner/random/structure/crate_abandoned,
-/turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
 "aC" = (
 /obj/machinery/light_switch{
@@ -174,11 +138,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/djstation)
-"aP" = (
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
 "aQ" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
@@ -231,10 +190,6 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
-"aZ" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating/airless,
-/area/misc/space/nearstation)
 "ba" = (
 /turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
@@ -243,23 +198,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"bc" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"bd" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/rack,
-/obj/item/clothing/under/costume/soviet,
-/obj/item/clothing/head/costume/ushanka,
-/turf/open/floor/iron/cafeteria,
-/area/ruin/space/djstation)
-"be" = (
-/obj/structure/sink/directional/east,
-/obj/machinery/light/small,
-/turf/open/floor/iron/freezer,
 /area/ruin/space/djstation)
 "bf" = (
 /obj/structure/toilet{
@@ -289,13 +227,17 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
-"bj" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/structure/disposaloutlet,
-/turf/open/floor/plating/airless,
-/area/misc/space/nearstation)
+"dJ" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/rack,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/head/costume/ushanka,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/djstation)
+"dQ" = (
+/obj/effect/spawner/random/structure/crate_abandoned,
+/turf/open/floor/carpet/grimy,
+/area/ruin/space/djstation)
 "dT" = (
 /obj/structure/chair{
 	dir = 1
@@ -308,11 +250,33 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
+"lD" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/ruin/space/djstation)
+"mW" = (
+/obj/machinery/power/apc{
+	name = "Worn-out APC";
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/ruin/space/djstation)
 "om" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
+/area/ruin/space/djstation)
+"sG" = (
+/obj/structure/sink/directional/east,
+/obj/machinery/light/small,
+/turf/open/floor/iron/freezer,
+/area/ruin/space/djstation)
+"tS" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "Cf" = (
 /obj/structure/table,
@@ -331,16 +295,52 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/djstation)
+"Fd" = (
+/obj/machinery/power/smes/magical{
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
+	name = "power storage unit"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/ruin/space/djstation)
+"Fk" = (
+/obj/item/storage/box/lights/mixed,
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = -32
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/ruin/space/djstation)
+"Iu" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/misc/space/nearstation)
+"II" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
 "OV" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
+"Pg" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/iron/cafeteria,
+/area/ruin/space/djstation)
 "Rq" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/djstation)
+"Tx" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating/airless,
+/area/misc/space/nearstation)
 
 (1,1,1) = {"
 aa
@@ -362,7 +362,7 @@ ag
 ag
 af
 aa
-ae
+Iu
 aa
 aa
 aa
@@ -386,10 +386,10 @@ om
 Cf
 OV
 aW
-aZ
-aZ
-aZ
-bj
+Tx
+Tx
+Tx
+II
 aa
 "}
 (3,1,1) = {"
@@ -411,8 +411,8 @@ Rq
 Rq
 hL
 af
-ae
-ae
+Iu
+Iu
 aa
 aa
 aa
@@ -422,7 +422,7 @@ aa
 aa
 aa
 aa
-ae
+Iu
 ab
 ac
 ad
@@ -446,8 +446,8 @@ aa
 aa
 aa
 aa
-ae
-ae
+Iu
+Iu
 ab
 ac
 ad
@@ -462,7 +462,7 @@ Rq
 Rq
 aX
 ba
-be
+sG
 af
 aa
 aa
@@ -504,7 +504,7 @@ ah
 ah
 am
 ah
-ap
+mW
 af
 au
 aw
@@ -529,12 +529,12 @@ ah
 ah
 ah
 ah
-aq
+Fk
 af
 av
 aw
 aH
-aP
+tS
 aw
 bb
 bg
@@ -552,9 +552,9 @@ af
 ai
 ah
 aj
-an
-ao
-ao
+Fd
+lD
+lD
 at
 aw
 aw
@@ -586,7 +586,7 @@ aw
 aH
 aR
 aw
-bc
+Pg
 bh
 af
 af
@@ -611,7 +611,7 @@ aw
 aw
 aw
 aY
-bd
+dJ
 aw
 bi
 ah
@@ -645,9 +645,9 @@ af
 (13,1,1) = {"
 aa
 aa
-ae
-ae
-ae
+Iu
+Iu
+Iu
 ab
 ac
 ad
@@ -657,7 +657,7 @@ ac
 ab
 aa
 af
-aB
+dQ
 aK
 aS
 af
@@ -672,7 +672,7 @@ aa
 aa
 aa
 aa
-ae
+Iu
 ab
 ac
 ad
@@ -697,7 +697,7 @@ aa
 aa
 aa
 aa
-ae
+Iu
 ab
 ac
 ad
@@ -711,8 +711,8 @@ aD
 aK
 aU
 af
-ae
-ae
+Iu
+Iu
 aa
 aa
 aa
@@ -778,13 +778,13 @@ aa
 aa
 aa
 aa
-ae
-ae
+Iu
+Iu
 aa
-ae
+Iu
 aa
 aa
-ae
+Iu
 aa
 aa
 aa

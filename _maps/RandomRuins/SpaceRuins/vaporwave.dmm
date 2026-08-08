@@ -1,11 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/open/space,
-/area/misc/space)
-"b" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/misc/space/nearstation)
 "c" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/asteroid/airless,
@@ -209,51 +202,58 @@
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
-"X" = (
+"T" = (
+/obj/structure/lattice,
+/turf/open/space,
+/area/misc/space/nearstation)
+"V" = (
 /obj/effect/spawner/structure/random_piano,
 /obj/structure/window/spawner/directional/west,
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
+"X" = (
+/turf/open/space,
+/area/misc/space)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
-a
-a
-a
+X
+X
+X
+X
+X
+X
+T
+X
+X
+X
+X
+X
+X
+X
+X
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-a
+X
+X
+X
+X
+X
 d
 c
 d
-a
-b
-a
-a
-a
-a
-a
+X
+T
+X
+X
+X
+X
+X
 "}
 (3,1,1) = {"
-a
-a
-a
-a
+X
+X
+X
+X
 d
 d
 c
@@ -262,14 +262,14 @@ d
 c
 d
 d
-a
-a
-a
+X
+X
+X
 "}
 (4,1,1) = {"
-a
-a
-a
+X
+X
+X
 d
 d
 d
@@ -280,13 +280,13 @@ e
 d
 d
 d
-a
-a
+X
+X
 "}
 (5,1,1) = {"
-a
-a
-a
+X
+X
+X
 d
 f
 f
@@ -298,11 +298,11 @@ g
 A
 d
 d
-a
+X
 "}
 (6,1,1) = {"
-a
-a
+X
+X
 c
 d
 f
@@ -315,15 +315,15 @@ f
 R
 d
 d
-a
+X
 "}
 (7,1,1) = {"
-a
-b
+X
+T
 c
 e
 g
-X
+V
 S
 S
 S
@@ -335,8 +335,8 @@ d
 d
 "}
 (8,1,1) = {"
-a
-a
+X
+X
 d
 d
 f
@@ -352,8 +352,8 @@ A
 d
 "}
 (9,1,1) = {"
-a
-a
+X
+X
 d
 d
 f
@@ -369,8 +369,8 @@ I
 d
 "}
 (10,1,1) = {"
-a
-a
+X
+X
 d
 c
 f
@@ -386,8 +386,8 @@ E
 I
 "}
 (11,1,1) = {"
-a
-a
+X
+X
 d
 c
 g
@@ -403,8 +403,8 @@ E
 I
 "}
 (12,1,1) = {"
-a
-a
+X
+X
 d
 c
 g
@@ -420,8 +420,8 @@ A
 A
 "}
 (13,1,1) = {"
-b
-b
+T
+T
 c
 e
 f
@@ -437,8 +437,8 @@ d
 d
 "}
 (14,1,1) = {"
-a
-a
+X
+X
 d
 d
 g
@@ -451,11 +451,11 @@ g
 R
 d
 d
-a
+X
 "}
 (15,1,1) = {"
-a
-a
+X
+X
 d
 d
 f
@@ -468,12 +468,12 @@ g
 A
 d
 d
-a
+X
 "}
 (16,1,1) = {"
-a
-a
-a
+X
+X
+X
 d
 d
 d
@@ -484,15 +484,15 @@ e
 d
 d
 d
-a
-a
+X
+X
 "}
 (17,1,1) = {"
-a
-a
-a
-a
-a
+X
+X
+X
+X
+X
 d
 c
 d
@@ -501,40 +501,40 @@ c
 d
 d
 d
-a
-a
+X
+X
 "}
 (18,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
+X
+X
+X
+X
+X
+X
+T
 d
 d
 d
 d
-a
-a
-a
-a
+X
+X
+X
+X
 "}
 (19,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
-a
-a
-a
+X
+X
+X
+X
+X
+X
+T
+X
+X
+X
+X
+X
+X
+X
+X
 "}
