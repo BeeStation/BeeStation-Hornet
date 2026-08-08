@@ -34,7 +34,7 @@
 	if(ismob(parent))
 		RegisterSignal(parent, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
+		RegisterSignal(parent, COMSIG_ITEM_INTERACTING_WITH_ATOM, PROC_REF(on_interaction))
 
 /datum/component/cleaner/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -46,23 +46,31 @@
  * Handles the COMSIG_LIVING_UNARMED_ATTACK signal used for cleanbots
  * Redirects to afterattack, while setting parent (the bot) as user.
  */
-/datum/component/cleaner/proc/on_unarmed_attack(datum/source, atom/target, proximity_flags, list/modifiers)
+/datum/component/cleaner/proc/on_unarmed_attack(datum/source, atom/target, proximity_flags, modifiers)
 	SIGNAL_HANDLER
-	on_afterattack(source, target, parent, proximity_flags, modifiers)
+	if(on_interaction(source, source, target, modifiers) & ITEM_INTERACT_ANY_BLOCKER)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	return NONE
 
-/datum/component/cleaner/proc/on_afterattack(datum/source, atom/target, mob/user, proximity_flag, list/modifiers)
+/**
+ * Handles the COMSIG_ITEM_INTERACTING_WITH_ATOM signal by calling the clean proc.
+ */
+/datum/component/cleaner/proc/on_interaction(datum/source, mob/living/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
-	if(!proximity_flag)
-		return
+
+	if(isitem(source) && SHOULD_SKIP_INTERACTION(target, source, user))
+		return NONE
 
 	var/call_wash = TRUE
 	if(pre_clean_callback)
 		var/callback_return = pre_clean_callback.Invoke(source, target, user)
 		if(callback_return & CLEAN_BLOCKED)
-			return
+			return (callback_return & CLEAN_DONT_BLOCK_INTERACTION) ? NONE : ITEM_INTERACT_BLOCKING
 		if(callback_return & CLEAN_NO_WASH)
 			call_wash = FALSE
-	INVOKE_ASYNC(src, PROC_REF(clean), source, target, user, call_wash) //signal handlers can't have do_afters inside of them
+
+	INVOKE_ASYNC(src, PROC_REF(clean), source, target, user, call_wash)
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Cleans something using this cleaner.
