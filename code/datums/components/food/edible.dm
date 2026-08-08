@@ -77,6 +77,9 @@ Behavior that's still missing from this component that original food items had t
 	src.tastes = string_assoc_list(tastes)
 	src.check_liked = check_liked
 
+	// add newly passed in reagents
+	setup_initial_reagents(initial_reagents)
+
 /datum/component/edible/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(use_by_animal))
