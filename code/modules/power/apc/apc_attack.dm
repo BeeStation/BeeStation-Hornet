@@ -13,7 +13,7 @@
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
-			cell = W
+			set_cell(W)
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [src.name]!",\
 				span_notice("You insert the power cell."))
@@ -93,7 +93,7 @@
 				return
 			var/obj/item/stock_parts/cell/crap/empty/C = new(src)
 			C.forceMove(src)
-			cell = C
+			set_cell(C)
 			user.visible_message(span_notice("[user] fabricates a weak power cell and places it into [src]."), \
 			span_warning("Your [P.name] whirs with strain as you create a weak power cell and place it into [src]!"))
 			update_appearance()
@@ -239,9 +239,10 @@
 	if(opened && (!issilicon(user)))
 		if(cell)
 			user.visible_message("[user] removes \the [cell] from [src]!",span_notice("You remove \the [cell]."))
-			user.put_in_hands(cell)
-			cell.update_appearance()
-			src.cell = null
+			var/obj/item/stock_parts/cell/removed_cell = cell
+			set_cell(null)
+			user.put_in_hands(removed_cell)
+			removed_cell.update_appearance()
 			charging = APC_NOT_CHARGING
 			src.update_appearance()
 		return
@@ -259,6 +260,57 @@
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
+
+/obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
+	try_rped_swap(replacer_tool, user)
+	return TRUE
+
+/obj/machinery/power/apc/proc/try_rped_swap(obj/item/storage/part_replacer/replacer, mob/living/user)
+	var/is_bluespace = istype(replacer, /obj/item/storage/part_replacer/bluespace)
+
+	if(!opened && !is_bluespace)
+		to_chat(user, span_warning("You need to open [src]'s cover first!"))
+		return
+
+	if(machine_stat & MAINT)
+		to_chat(user, span_warning("There is no connector for a power cell!"))
+		return
+
+	if(replacer.works_from_distance)
+		to_chat(user, display_parts(user))
+
+	var/current_rating = cell?.rating || 0
+	var/obj/item/stock_parts/cell/best_cell
+
+	for(var/obj/item/stock_parts/cell/candidate in replacer)
+		if(candidate.rating <= current_rating)
+			continue
+		if(!best_cell || candidate.rating > best_cell.rating)
+			best_cell = candidate
+		else if(candidate.rating == best_cell.rating && candidate.charge > best_cell.charge)
+			best_cell = candidate // We choose the best one and the best one that is fully charged if there is one
+
+	if(!best_cell)
+		return
+
+	if(is_bluespace && (best_cell.rigged || best_cell.corrupted))
+		best_cell.charge = best_cell.maxcharge
+		best_cell.explode() // bomba (reused from regular corrupted RPED exchange)
+		return
+
+	var/obj/item/stock_parts/cell/old_cell = cell
+	set_cell(best_cell)
+	best_cell.forceMove(src)
+	cell.update_appearance()
+
+	if(old_cell)
+		old_cell.forceMove(replacer)
+
+	charging = APC_NOT_CHARGING
+	update_appearance()
+
+	to_chat(user, span_notice("[capitalize("[old_cell || "empty slot"]")] replaced with [best_cell]."))
+	replacer.play_rped_sound()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(IsAdminGhost(user))

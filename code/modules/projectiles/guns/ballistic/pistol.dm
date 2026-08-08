@@ -139,12 +139,12 @@
 	trade_flags = NONE
 	var/stripe_state = "officer_com"
 
-/obj/item/gun/ballistic/automatic/pistol/service/update_icon()
+/obj/item/gun/ballistic/automatic/pistol/service/update_overlays()
 	. = ..()
 	var/mutable_appearance/stripe = mutable_appearance(icon, stripe_state)
 	if (bolt_locked)
 		stripe.pixel_x = -5
-	add_overlay(stripe)
+	. += stripe
 
 /obj/item/gun/ballistic/automatic/pistol/service/captain
 	stripe_state = "officer_com"
