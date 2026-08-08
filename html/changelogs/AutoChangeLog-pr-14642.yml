@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - server: maplints are now only ran on maps that have actually had changes made
-      to them as apposed to all maps.
