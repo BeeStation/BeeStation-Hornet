@@ -90,6 +90,14 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"aG" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/window/reinforced/shuttle,
+/turf/open/floor/grass,
+/area/shuttle/escape)
 "aH" = (
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
@@ -169,6 +177,14 @@
 /obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
+/area/shuttle/escape)
+"aI" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/window/reinforced/shuttle,
+/turf/open/floor/grass,
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/chair/fancy/shuttle{
@@ -318,6 +334,23 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"bj" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/obj/item/folder/yellow,
+/obj/item/pen,
+/obj/item/hand_labeler_refill,
+/obj/structure/sign/warning/no_smoking/circle{
+	pixel_x = -32
+	},
+/obj/item/radio/intercom{
+	name = "Station Intercom";
+	pixel_y = -26
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "bk" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
@@ -354,6 +387,19 @@
 "br" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
+"bs" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/shuttle/engine/heater,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"bt" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/shuttle/engine/heater,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "bu" = (
 /turf/template_noop,
 /area/template_noop)
@@ -361,20 +407,6 @@
 /obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"cn" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "cC" = (
 /obj/structure/table/reinforced,
@@ -391,40 +423,13 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"eL" = (
-/obj/structure/window/reinforced/shuttle,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"fF" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/reinforced/shuttle,
-/turf/open/floor/grass,
-/area/shuttle/escape)
-"hf" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/reinforced/shuttle,
-/turf/open/floor/grass,
-/area/shuttle/escape)
-"jn" = (
-/obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock"
+"fg" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
-/turf/open/floor/iron,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "mG" = (
 /obj/item/scalpel{
@@ -480,13 +485,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"rj" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Holding Area"
+"sC" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/mineral/plastitanium/red/brig,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "sO" = (
 /obj/machinery/shower{
@@ -529,29 +538,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"Dm" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/shuttle/engine/heater,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
+"Dr" = (
+/obj/structure/window/reinforced/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Eg" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron,
-/area/shuttle/escape)
-"EW" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -569,23 +564,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/shuttle/escape)
-"JK" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/pen,
-/obj/item/hand_labeler_refill,
-/obj/structure/sign/warning/no_smoking/circle{
-	pixel_x = -32
-	},
-/obj/item/radio/intercom{
-	name = "Station Intercom";
-	pixel_y = -26
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
 /area/shuttle/escape)
 "KO" = (
 /obj/item/storage/firstaid/toxin,
@@ -605,17 +583,25 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"Ls" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/iron/white,
+/area/shuttle/escape)
 "Lt" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/shuttle/escape)
-"LM" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/shuttle/engine/heater,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "LO" = (
 /obj/item/storage/firstaid/fire,
@@ -677,6 +663,20 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"Rm" = (
+/obj/machinery/door/airlock/command{
+	name = "Emergency Recovery Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "RT" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -731,13 +731,13 @@
 aa
 aa
 aa
-cn
+Ls
 ac
 Mg
 aa
-eL
-eL
-eL
+Dr
+Dr
+Dr
 aa
 wN
 ac
@@ -753,7 +753,7 @@ aa
 ad
 ak
 al
-eL
+Dr
 az
 aD
 aJ
@@ -761,20 +761,20 @@ aJ
 aJ
 aD
 az
-eL
+Dr
 az
 bd
-JK
+bj
 aa
 br
 bv
 "}
 (3,1,1) = {"
-eL
+Dr
 ae
 al
 al
-rj
+fg
 RT
 Tg
 Tg
@@ -786,16 +786,16 @@ Ui
 aW
 be
 bk
-eL
-LM
+Dr
+bs
 bv
 "}
 (4,1,1) = {"
-eL
+Dr
 ae
 al
 al
-eL
+Dr
 RT
 aF
 aK
@@ -807,8 +807,8 @@ Ui
 aX
 bf
 bl
-eL
-Dm
+Dr
+bt
 bv
 "}
 (5,1,1) = {"
@@ -816,38 +816,38 @@ aa
 af
 al
 ar
-eL
+Dr
 RT
-hf
+aG
 aL
-fF
+aI
 aM
-hf
+aG
 eC
-eL
+Dr
 aY
 bg
 bm
 aa
-Dm
+bt
 bv
 "}
 (6,1,1) = {"
 ac
-eL
-jn
-eL
+Dr
+Rm
+Dr
 aw
 uy
 aH
-hf
+aG
 aO
-fF
+aI
 aH
 Sv
 aU
 aZ
-eL
+Dr
 aZ
 aZ
 br
@@ -858,28 +858,28 @@ aa
 rd
 Bj
 qB
-eL
+Dr
 RT
-fF
+aI
 aM
-hf
+aG
 aL
-fF
+aI
 eC
-eL
+Dr
 nP
 sO
 mG
 aa
-Dm
+bt
 bv
 "}
 (8,1,1) = {"
-eL
+Dr
 BS
 LT
 Bj
-EW
+sC
 RT
 aJ
 aN
@@ -891,16 +891,16 @@ Eg
 Lt
 Lt
 YJ
-eL
-Dm
+Dr
+bt
 bv
 "}
 (9,1,1) = {"
-eL
+Dr
 Sa
 Bj
 Pn
-eL
+Dr
 RT
 Tg
 Tg
@@ -912,12 +912,12 @@ Eg
 Lt
 Lt
 Tw
-eL
-Dm
+Dr
+bt
 bv
 "}
 (10,1,1) = {"
-eL
+Dr
 NX
 cC
 Pw
@@ -929,7 +929,7 @@ aF
 aF
 aF
 aS
-eL
+Dr
 HX
 KO
 LO
@@ -939,16 +939,16 @@ bv
 "}
 (11,1,1) = {"
 aa
-eL
-eL
+Dr
+Dr
 aa
 ac
 aa
-eL
-eL
-eL
-eL
-eL
+Dr
+Dr
+Dr
+Dr
+Dr
 aa
 ac
 aa

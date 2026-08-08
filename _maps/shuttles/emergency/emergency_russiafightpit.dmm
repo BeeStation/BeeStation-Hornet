@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/rust,
 /area/shuttle/escape)
@@ -138,6 +134,10 @@
 "ax" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"ay" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/engine,
+/area/shuttle/escape)
 "az" = (
 /obj/item/tank/internals/oxygen,
 /turf/open/floor/engine,
@@ -224,6 +224,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"aS" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/engine,
+/area/shuttle/escape)
 "aT" = (
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/engine,
@@ -247,6 +252,11 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"aY" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/engine,
+/area/shuttle/escape)
 "aZ" = (
 /obj/effect/decal/cleanable/shreds,
 /obj/machinery/door/window{
@@ -254,9 +264,46 @@
 	},
 /turf/open/floor/engine,
 /area/shuttle/escape)
+"ba" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/engine,
+/area/shuttle/escape)
+"bb" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/engine,
+/area/shuttle/escape)
+"bc" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"bd" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "be" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"bf" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"bg" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bh" = (
@@ -411,6 +458,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"bK" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/shuttle/engine/heater,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "bL" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating/airless,
@@ -454,13 +506,13 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"gy" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Glorious Leaders"
+"hP" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Airlock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/firedoor,
-/turf/open/floor/mineral/titanium,
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "iJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -469,40 +521,14 @@
 /obj/item/clothing/gloves/fingerless,
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"lb" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"mr" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
+"sP" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "wq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/optable,
 /turf/open/floor/iron,
-/area/shuttle/escape)
-"zC" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Brig"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/firedoor,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"Au" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "Dd" = (
 /obj/machinery/door/airlock/security/glass{
@@ -511,30 +537,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"Eo" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/engine,
-/area/shuttle/escape)
-"EB" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/engine,
-/area/shuttle/escape)
 "Ge" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"Nd" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/engine,
-/area/shuttle/escape)
-"NX" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/engine,
 /area/shuttle/escape)
 "OL" = (
 /obj/machinery/door/airlock/security/glass{
@@ -543,22 +551,21 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"OW" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
+"OT" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Glorious Leaders"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/firedoor,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"SF" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Emergency Shuttle Brig"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"Qd" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/shuttle/engine/heater,
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"Sh" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/engine,
 /area/shuttle/escape)
 "Vh" = (
 /obj/docking_port/mobile/emergency{
@@ -575,13 +582,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
-"ZX" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -591,13 +591,13 @@ aa
 ad
 ab
 ad
-Au
+hP
 ab
 Vh
 ad
-ac
-ac
-ac
+sP
+sP
+sP
 ad
 Ge
 ad
@@ -666,11 +666,11 @@ aH
 aP
 ab
 ax
-lb
-lb
-lb
-lb
-lb
+bc
+bc
+bc
+bc
+bc
 aR
 Dd
 bx
@@ -685,26 +685,26 @@ ab
 ai
 an
 ad
-ac
-zC
-ac
+sP
+SF
+sP
 ad
 bN
-ZX
-ZX
-ZX
-ZX
-ZX
+bd
+bd
+bd
+bd
+bd
 ax
 ad
 bR
 by
 bH
-Qd
+bK
 bL
 "}
 (6,1,1) = {"
-ac
+sP
 ae
 aj
 ao
@@ -724,15 +724,15 @@ ab
 by
 bx
 bI
-Qd
+bK
 bL
 "}
 (7,1,1) = {"
-ac
+sP
 af
 ak
 ak
-gy
+OT
 ax
 aJ
 aJ
@@ -740,29 +740,29 @@ aJ
 aJ
 be
 ax
-lb
-lb
-lb
+bc
+bc
+bc
 ax
 ab
 bz
 bx
 bI
-Qd
+bK
 bL
 "}
 (8,1,1) = {"
-ac
+sP
 ag
 ak
 ap
 ab
-NX
-NX
-NX
-EB
-Eo
-OW
+ay
+ay
+ay
+aS
+aY
+bf
 ax
 ax
 ax
@@ -772,11 +772,11 @@ bv
 ad
 ad
 ad
-Qd
+bK
 bL
 "}
 (9,1,1) = {"
-ac
+sP
 af
 al
 aq
@@ -796,11 +796,11 @@ ad
 bA
 bD
 bA
-Qd
+bK
 bL
 "}
 (10,1,1) = {"
-ac
+sP
 ah
 ak
 aq
@@ -809,18 +809,18 @@ aA
 aL
 aB
 aK
-Nd
-mr
+ba
+bg
 ax
 ax
 ax
 bq
 ax
-ac
+sP
 bB
 bB
 bJ
-Qd
+bK
 bL
 "}
 (11,1,1) = {"
@@ -833,7 +833,7 @@ aB
 aA
 aA
 aT
-Sh
+bb
 bh
 ax
 bm
@@ -844,7 +844,7 @@ OL
 bB
 bB
 bF
-Qd
+bK
 bL
 "}
 (12,1,1) = {"
@@ -857,14 +857,14 @@ aC
 aK
 bM
 aQ
-Nd
+ba
 bh
 ax
 bn
 bp
 aR
 ax
-ac
+sP
 bB
 bB
 bD
@@ -931,13 +931,13 @@ aE
 aE
 aE
 ad
-ac
-ac
-ac
+sP
+sP
+sP
 ad
 ad
 ad
-ac
+sP
 ad
 aa
 aa

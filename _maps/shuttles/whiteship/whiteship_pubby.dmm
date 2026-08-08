@@ -5,10 +5,33 @@
 "b" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
-"o" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Shuttle Airlock"
+"c" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/small{
+	dir = 1
 	},
+/obj/machinery/power/smes/engineering{
+	charge = 1e+006
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"d" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"e" = (
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"f" = (
+/obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -18,7 +41,46 @@
 	},
 /turf/open/floor/pod,
 /area/shuttle/abandoned)
-"t" = (
+"g" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/abandoned)
+"h" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"i" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"j" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/clothing/suit/space/hardsuit/mining,
+/obj/item/tank/internals/oxygen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"k" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/plating/airless,
+/area/shuttle/abandoned)
+"l" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
@@ -26,11 +88,107 @@
 /obj/effect/decal/cleanable/xenoblood/xgibs/larva/body,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
-"u" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
-/turf/open/floor/plating,
+"m" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds/node,
+/turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
-"w" = (
+"n" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"p" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/open/floor/iron/cafeteria,
+/area/shuttle/abandoned)
+"q" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Shuttle Airlock"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
+/turf/open/floor/pod,
+/area/shuttle/abandoned)
+"r" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/abandoned)
+"s" = (
+/obj/structure/bed,
+/obj/item/bedsheet/qm,
+/obj/item/gun/ballistic/automatic/pistol/m1911{
+	pixel_y = -8;
+	pixel_x = 3
+	},
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"v" = (
+/obj/machinery/door/airlock/external,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 4;
+	dynamic_id = 1;
+	height = 9;
+	id = "whiteship";
+	launch_status = 0;
+	name = "White Ship";
+	port_direction = 4;
+	width = 9
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/pod,
+/area/shuttle/abandoned)
+"x" = (
+/obj/structure/aquarium,
+/obj/item/fish_feed{
+	pixel_x = 10;
+	pixel_y = 19
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"y" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"z" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/shuttle/abandoned)
+"D" = (
+/obj/machinery/computer/shuttle_flight/white_ship,
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"G" = (
 /obj/effect/turf_decal/siding/thinplating,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -52,119 +210,27 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
-"x" = (
-/obj/structure/aquarium,
-/obj/item/fish_feed{
-	pixel_x = 10;
-	pixel_y = 19
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"y" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/turf/open/floor/iron/cafeteria,
-/area/shuttle/abandoned)
-"z" = (
-/obj/machinery/door/airlock/external,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 4;
-	dynamic_id = 1;
-	height = 9;
-	id = "whiteship";
-	launch_status = 0;
-	name = "White Ship";
-	port_direction = 4;
-	width = 9
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"A" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Shuttle Airlock"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"C" = (
+"H" = (
 /obj/effect/turf_decal/siding/thinplating,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/chair/stool/bar/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
-"D" = (
-/obj/effect/turf_decal/siding/thinplating,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/structure/closet/secure_closet/freezer{
-	locked = 0;
-	name = "fridge"
+"P" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Shuttle Airlock"
 	},
-/obj/item/storage/box/donkpockets/donkpocketpizza,
-/obj/item/food/tofu/prison,
-/obj/item/food/tofu/prison,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/cafeteria,
-/area/shuttle/abandoned)
-"E" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/small{
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/power/smes/engineering{
-	charge = 1e+006
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
-"F" = (
-/obj/structure/shuttle/engine/heater{
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/plating/airless,
+/turf/open/floor/pod,
 /area/shuttle/abandoned)
-"G" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"H" = (
-/obj/structure/table,
-/obj/item/storage/fish_case/random{
-	pixel_x = 5;
-	pixel_y = 8
-	},
-/obj/item/storage/box/aquarium_props{
-	pixel_y = -1;
-	pixel_x = -5
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/toy/figure/qm{
-	pixel_x = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"J" = (
+"R" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
@@ -184,23 +250,7 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
-"K" = (
-/obj/structure/bed,
-/obj/item/bedsheet/qm,
-/obj/item/gun/ballistic/automatic/pistol/m1911{
-	pixel_y = -8;
-	pixel_x = 3
-	},
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"L" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned)
-"N" = (
+"U" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
 	},
@@ -214,98 +264,48 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
-"O" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/abandoned)
-"Q" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
-/mob/living/simple_animal/hostile/alien/sentinel,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds/node,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"R" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/shuttle/abandoned)
-"S" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"T" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"U" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
-"W" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/mining,
-/obj/item/tank/internals/oxygen,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
-/area/shuttle/abandoned)
 "X" = (
-/obj/machinery/atmospherics/components/tank/air{
-	dir = 1
+/obj/structure/table,
+/obj/item/storage/fish_case/random{
+	pixel_x = 5;
+	pixel_y = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/item/storage/box/aquarium_props{
+	pixel_y = -1;
+	pixel_x = -5
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
-"Y" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/toy/figure/qm{
+	pixel_x = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
 "Z" = (
-/obj/machinery/computer/shuttle_flight/white_ship,
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 1
+/obj/effect/turf_decal/siding/thinplating,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/closet/secure_closet/freezer{
+	locked = 0;
+	name = "fridge"
 	},
+/obj/item/storage/box/donkpockets/donkpocketpizza,
+/obj/item/food/tofu/prison,
+/obj/item/food/tofu/prison,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/smooth,
+/turf/open/floor/iron/cafeteria,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
 a
 a
 b
-u
-u
-u
+d
+d
+d
 b
 a
 a
@@ -313,88 +313,88 @@ a
 (2,1,1) = {"
 a
 a
-O
-Z
-N
-J
-O
+r
+D
+U
+R
+r
 a
 a
 "}
 (3,1,1) = {"
 a
 b
-O
-O
-o
-O
-O
+r
+r
+P
+r
+r
 b
 a
 "}
 (4,1,1) = {"
 b
-O
-D
-G
-t
+r
+Z
+h
+l
 b
-H
-O
+X
+r
 b
 "}
 (5,1,1) = {"
-u
+d
+p
+H
+i
+m
+q
 y
-C
-U
-Q
-A
-T
 x
-u
+d
 "}
 (6,1,1) = {"
-O
-O
-w
-W
-Y
+r
+r
+G
+j
+n
 b
-K
-O
-O
+s
+r
+r
 "}
 (7,1,1) = {"
-F
-O
-O
-O
-S
-O
-O
-O
-F
+k
+r
+r
+r
+f
+r
+r
+r
+k
 "}
 (8,1,1) = {"
-L
-F
-O
-E
-R
-X
-O
-F
-L
+g
+k
+r
+c
+z
+e
+r
+k
+g
 "}
 (9,1,1) = {"
 a
-L
-O
+g
+r
 b
-z
+v
 b
-O
-L
+r
+g
 a
 "}

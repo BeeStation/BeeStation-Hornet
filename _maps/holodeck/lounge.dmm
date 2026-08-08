@@ -1,4 +1,15 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table/wood/bar,
+/obj/item/rag{
+	pixel_x = 10;
+	pixel_y = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "b" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/holofloor{
@@ -24,17 +35,6 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"e" = (
-/obj/structure/table/wood/bar,
-/obj/item/rag{
-	pixel_x = 10;
-	pixel_y = 1
-	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
@@ -42,6 +42,12 @@
 	dir = 9;
 	icon_state = "wood"
 	},
+/area/template_noop)
+"h" = (
+/obj/structure/table/wood,
+/obj/item/cigarette/pipe,
+/obj/effect/holodeck_effect/random_book,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
@@ -68,6 +74,8 @@
 /area/template_noop)
 "n" = (
 /obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/wood/bar,
+/obj/item/storage/box/cups,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -91,15 +99,16 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "r" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/chair/stool/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
 "s" = (
-/obj/structure/table/wood/poker,
-/obj/item/cigarette/pipe,
+/obj/structure/table/wood/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -123,8 +132,11 @@
 	},
 /area/template_noop)
 "v" = (
-/obj/effect/spawner/structure/random_piano,
-/turf/open/floor/holofloor/carpet,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
 /area/template_noop)
 "w" = (
 /obj/structure/table/wood,
@@ -137,10 +149,11 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "y" = (
-/obj/structure/table/wood,
-/obj/item/cigarette/pipe,
-/obj/effect/holodeck_effect/random_book,
-/turf/open/floor/holofloor/carpet,
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
 /area/template_noop)
 "z" = (
 /turf/open/floor/holofloor{
@@ -151,13 +164,6 @@
 "A" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"B" = (
-/obj/structure/sink/directional/west,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -184,6 +190,13 @@
 "F" = (
 /turf/open/floor/holofloor{
 	icon_state = "stairs-r"
+	},
+/area/template_noop)
+"H" = (
+/obj/structure/sink/directional/west,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
 	},
 /area/template_noop)
 "I" = (
@@ -242,15 +255,19 @@
 	},
 /area/template_noop)
 "Q" = (
-/obj/structure/table/wood/bar,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/spawner/structure/random_piano,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"S" = (
+/obj/structure/table/wood/poker,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
-"S" = (
+"T" = (
 /obj/structure/table/wood/poker,
+/obj/item/cigarette/pipe,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -271,23 +288,6 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"W" = (
-/obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"X" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/table/wood/bar,
-/obj/item/storage/box/cups,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 
 (1,1,1) = {"
 K
@@ -298,8 +298,8 @@ z
 z
 V
 t
-B
-e
+H
+a
 "}
 (2,1,1) = {"
 f
@@ -319,21 +319,21 @@ u
 u
 z
 z
-n
-W
-Q
+v
+r
+s
 c
-X
+n
 "}
 (4,1,1) = {"
 m
 S
 U
 o
-r
+y
 w
 N
-v
+Q
 q
 x
 "}
@@ -352,7 +352,7 @@ p
 (6,1,1) = {"
 m
 P
-s
+T
 o
 z
 F
@@ -366,7 +366,7 @@ z
 I
 I
 z
-r
+y
 J
 q
 q
@@ -378,7 +378,7 @@ b
 z
 z
 z
-r
+y
 D
 q
 q
@@ -390,10 +390,10 @@ A
 z
 z
 z
-r
+y
 O
 q
 E
 E
-y
+h
 "}

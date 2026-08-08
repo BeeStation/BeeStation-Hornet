@@ -1,4 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/turf/open/space/basic,
+/area/misc/space)
 "cd" = (
 /obj/effect/decal/cleanable/ash{
 	pixel_x = -8;
@@ -26,6 +29,10 @@
 	},
 /turf/open/floor/vault/sandstone,
 /area/heretic_sacrifice/rust)
+"fh" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/heretic_sacrifice/rust)
 "gJ" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/ashplanet/rocky{
@@ -38,6 +45,11 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/indestructible/necropolis/air,
 /area/heretic_sacrifice/flesh)
+"jg" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/rust,
+/area/heretic_sacrifice/rust)
 "jB" = (
 /obj/machinery/light/very_dim/directional/south,
 /turf/open/floor/plating/beach/sand,
@@ -54,6 +66,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /turf/open/floor/vault/sandstone,
+/area/heretic_sacrifice/rust)
+"mG" = (
+/obj/effect/turf_decal/weather,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating/rust,
 /area/heretic_sacrifice/rust)
 "mR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -140,9 +157,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/indestructible/necropolis/air,
 /area/heretic_sacrifice/flesh)
-"sj" = (
-/turf/closed/indestructible/riveted,
-/area/misc/space)
 "ui" = (
 /turf/open/floor/stone,
 /area/heretic_sacrifice/flesh)
@@ -150,6 +164,10 @@
 /obj/effect/turf_decal/trimline/brown/corner{
 	dir = 1
 	},
+/turf/open/floor/plating/rust,
+/area/heretic_sacrifice/rust)
+"uT" = (
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/rust,
 /area/heretic_sacrifice/rust)
 "vs" = (
@@ -261,14 +279,12 @@
 	slowdown = 0
 	},
 /area/heretic_sacrifice/ash)
-"DN" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating/rust,
-/area/heretic_sacrifice/rust)
 "ER" = (
 /turf/open/floor/vault/sandstone,
 /area/heretic_sacrifice/rust)
+"Fd" = (
+/turf/closed/indestructible/riveted,
+/area/misc/space)
 "Gl" = (
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
@@ -367,9 +383,6 @@
 	},
 /turf/open/floor/plating,
 /area/heretic_sacrifice/rust)
-"LW" = (
-/turf/open/space/basic,
-/area/misc/space)
 "Mf" = (
 /obj/effect/decal/cleanable/ash/large,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -393,10 +406,6 @@
 	slowdown = 0
 	},
 /area/heretic_sacrifice/ash)
-"NN" = (
-/obj/structure/cable/yellow,
-/turf/open/floor/plating/rust,
-/area/heretic_sacrifice/rust)
 "OD" = (
 /obj/effect/landmark/heretic,
 /turf/open/floor/plating/dirt/jungle/wasteland,
@@ -478,10 +487,6 @@
 /obj/machinery/light/very_dim/directional/north,
 /turf/open/floor/fakespace,
 /area/heretic_sacrifice/void)
-"Uk" = (
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/heretic_sacrifice/rust)
 "UO" = (
 /obj/effect/landmark/heretic/rust,
 /turf/open/floor/plating,
@@ -520,11 +525,6 @@
 /obj/effect/gibspawner/generic/animal,
 /turf/open/floor/stone,
 /area/heretic_sacrifice/flesh)
-"XT" = (
-/obj/effect/turf_decal/weather,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating/rust,
-/area/heretic_sacrifice/rust)
 "Yp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/necropolis/air,
@@ -534,70 +534,70 @@
 /area/heretic_sacrifice/ash)
 
 (1,1,1) = {"
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 "}
 (2,1,1) = {"
-LW
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-LW
+ab
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+ab
 "}
 (3,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 ZA
 ZA
@@ -610,7 +610,7 @@ ZA
 ZA
 ZA
 ZA
-sj
+Fd
 La
 La
 La
@@ -623,12 +623,12 @@ La
 La
 La
 La
-sj
-LW
+Fd
+ab
 "}
 (4,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 wS
@@ -641,7 +641,7 @@ Pl
 wS
 Pl
 ZA
-sj
+Fd
 La
 AO
 AO
@@ -654,12 +654,12 @@ AO
 Wb
 Wb
 La
-sj
-LW
+Fd
+ab
 "}
 (5,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 wS
 nG
@@ -672,7 +672,7 @@ Qi
 nG
 Kz
 ZA
-sj
+Fd
 La
 AO
 Wb
@@ -685,12 +685,12 @@ AO
 AO
 Wb
 La
-sj
-LW
+Fd
+ab
 "}
 (6,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 cd
@@ -703,7 +703,7 @@ Pl
 TC
 Pl
 ZA
-sj
+Fd
 La
 Wb
 cW
@@ -716,12 +716,12 @@ AO
 AO
 AO
 La
-sj
-LW
+Fd
+ab
 "}
 (7,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 Pl
@@ -734,7 +734,7 @@ Pl
 Pl
 Pl
 ZA
-sj
+Fd
 La
 AO
 Wb
@@ -747,12 +747,12 @@ AO
 AO
 Wb
 La
-sj
-LW
+Fd
+ab
 "}
 (8,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 Pl
@@ -765,7 +765,7 @@ Pl
 lz
 lz
 ZA
-sj
+Fd
 La
 AO
 AO
@@ -778,12 +778,12 @@ AO
 Wb
 jB
 La
-sj
-LW
+Fd
+ab
 "}
 (9,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 Pl
@@ -796,7 +796,7 @@ Pl
 lz
 Pl
 ZA
-sj
+Fd
 La
 Ue
 AO
@@ -809,12 +809,12 @@ AO
 Wb
 Wb
 La
-sj
-LW
+Fd
+ab
 "}
 (10,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 Pl
@@ -827,7 +827,7 @@ Pl
 pN
 Pl
 ZA
-sj
+Fd
 La
 AO
 AO
@@ -840,12 +840,12 @@ AO
 Wb
 Wb
 La
-sj
-LW
+Fd
+ab
 "}
 (11,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 gJ
@@ -858,7 +858,7 @@ Pl
 Kz
 Pl
 ZA
-sj
+Fd
 La
 Wb
 AO
@@ -871,12 +871,12 @@ AO
 AO
 Wb
 La
-sj
-LW
+Fd
+ab
 "}
 (12,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 wS
 nG
@@ -889,7 +889,7 @@ QL
 nG
 wS
 ZA
-sj
+Fd
 La
 Wb
 Wb
@@ -902,12 +902,12 @@ Wb
 AO
 AO
 La
-sj
-LW
+Fd
+ab
 "}
 (13,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 Pl
 wS
@@ -920,7 +920,7 @@ Pl
 wS
 Pl
 ZA
-sj
+Fd
 La
 Wb
 Xk
@@ -933,12 +933,12 @@ qn
 Wb
 AO
 La
-sj
-LW
+Fd
+ab
 "}
 (14,1,1) = {"
-LW
-sj
+ab
+Fd
 ZA
 ZA
 ZA
@@ -951,7 +951,7 @@ ZA
 ZA
 ZA
 ZA
-sj
+Fd
 La
 La
 La
@@ -964,43 +964,43 @@ La
 La
 La
 La
-sj
-LW
+Fd
+ab
 "}
 (15,1,1) = {"
-LW
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-LW
+ab
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+ab
 "}
 (16,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 WD
 WD
@@ -1013,7 +1013,7 @@ WD
 WD
 WD
 WD
-sj
+Fd
 HQ
 HQ
 HQ
@@ -1026,25 +1026,25 @@ HQ
 HQ
 HQ
 HQ
-sj
-LW
+Fd
+ab
 "}
 (17,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 dZ
 dZ
 dZ
 ER
 Je
-Uk
+fh
 Xr
 Xr
 Xr
 Xr
 WD
-sj
+Fd
 HQ
 St
 ui
@@ -1057,25 +1057,25 @@ St
 ui
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (18,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 dZ
 AN
 mb
 HE
 oh
-Uk
+fh
 Xr
 ps
 AN
 Xr
 WD
-sj
+Fd
 HQ
 Xt
 cS
@@ -1088,25 +1088,25 @@ Xt
 Vd
 ui
 HQ
-sj
-LW
+Fd
+ab
 "}
 (19,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 ER
-XT
-DN
-Uk
-Uk
-NN
+mG
+jg
+fh
+fh
+uT
 By
 dZ
 pt
 ER
 WD
-sj
+Fd
 HQ
 St
 CB
@@ -1119,12 +1119,12 @@ hZ
 ui
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (20,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 Se
 mR
@@ -1137,7 +1137,7 @@ ER
 ps
 Je
 WD
-sj
+Fd
 HQ
 St
 ui
@@ -1150,12 +1150,12 @@ RW
 RW
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (21,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 Xr
 mZ
@@ -1168,7 +1168,7 @@ Xr
 Se
 Se
 WD
-sj
+Fd
 HQ
 St
 RW
@@ -1181,12 +1181,12 @@ St
 RW
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (22,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 Se
 Se
@@ -1199,7 +1199,7 @@ Se
 zU
 Xr
 WD
-sj
+Fd
 HQ
 St
 RW
@@ -1212,12 +1212,12 @@ JJ
 ui
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (23,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 Xr
 oh
@@ -1230,7 +1230,7 @@ Xr
 Xr
 HE
 WD
-sj
+Fd
 HQ
 St
 ui
@@ -1243,12 +1243,12 @@ ui
 ui
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (24,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 ps
 Se
@@ -1261,7 +1261,7 @@ ps
 pt
 ER
 WD
-sj
+Fd
 HQ
 hZ
 ui
@@ -1274,12 +1274,12 @@ rP
 ui
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (25,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 Je
 AN
@@ -1292,7 +1292,7 @@ ER
 AN
 ER
 WD
-sj
+Fd
 HQ
 RW
 KO
@@ -1305,12 +1305,12 @@ RW
 cS
 ui
 HQ
-sj
-LW
+Fd
+ab
 "}
 (26,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 ER
 pt
@@ -1323,7 +1323,7 @@ Je
 ER
 Xr
 WD
-sj
+Fd
 HQ
 St
 ui
@@ -1336,12 +1336,12 @@ Yp
 Xt
 St
 HQ
-sj
-LW
+Fd
+ab
 "}
 (27,1,1) = {"
-LW
-sj
+ab
+Fd
 WD
 WD
 WD
@@ -1354,7 +1354,7 @@ WD
 WD
 WD
 WD
-sj
+Fd
 HQ
 HQ
 HQ
@@ -1367,68 +1367,68 @@ HQ
 HQ
 HQ
 HQ
-sj
-LW
+Fd
+ab
 "}
 (28,1,1) = {"
-LW
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-sj
-LW
+ab
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+Fd
+ab
 "}
 (29,1,1) = {"
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
-LW
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 "}

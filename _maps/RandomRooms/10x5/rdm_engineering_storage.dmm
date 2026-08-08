@@ -21,6 +21,10 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"e" = (
+/obj/item/clothing/head/utility/welding,
+/turf/open/floor/plating,
+/area/template_noop)
 "f" = (
 /obj/machinery/shieldgen{
 	anchored = 1
@@ -35,6 +39,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -74,15 +82,15 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"w" = (
+/obj/effect/spawner/random/techstorage/engineering_all,
+/turf/open/floor/plating,
+/area/template_noop)
 "x" = (
 /obj/machinery/power/emitter{
 	dir = 4;
 	anchored = 1
 	},
-/turf/open/floor/plating,
-/area/template_noop)
-"B" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
@@ -122,11 +130,7 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
-"J" = (
-/obj/item/clothing/head/utility/welding,
-/turf/open/floor/plating,
-/area/template_noop)
-"O" = (
+"L" = (
 /obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -135,10 +139,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/box,
-/turf/open/floor/plating,
-/area/template_noop)
-"Q" = (
-/obj/effect/spawner/random/techstorage/engineering_all,
 /turf/open/floor/plating,
 /area/template_noop)
 "S" = (
@@ -197,41 +197,41 @@ I
 (3,1,1) = {"
 l
 S
-Q
+w
 X
 l
 "}
 (4,1,1) = {"
 l
-J
+e
 x
 c
 l
 "}
 (5,1,1) = {"
 u
-O
+L
 V
-O
+L
 D
 "}
 (6,1,1) = {"
 H
 j
 j
-Q
+w
 q
 "}
 (7,1,1) = {"
 l
 d
 Y
-B
+k
 l
 "}
 (8,1,1) = {"
 l
-Q
+w
 F
 C
 l
@@ -240,7 +240,7 @@ l
 a
 V
 j
-O
+L
 g
 "}
 (10,1,1) = {"

@@ -1,44 +1,34 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"b" = (
+"a" = (
 /obj/structure/lattice/catwalk,
-/obj/effect/spawner/random/maintenance,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"o" = (
-/obj/machinery/portable_thermomachine,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/template_noop)
-"r" = (
+"d" = (
 /obj/machinery/power/solar_control,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"s" = (
-/obj/machinery/power/smes,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/template_noop)
-"u" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/template_noop)
-"v" = (
+"e" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/cable/yellow,
+/obj/item/stack/rods/ten,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"x" = (
+"i" = (
 /obj/structure/cable,
 /obj/machinery/power/solar/fake,
 /turf/open/floor/iron/dark/airless,
 /area/template_noop)
-"B" = (
+"n" = (
 /obj/machinery/power/terminal{
 	dir = 1
 	},
@@ -47,29 +37,50 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"C" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/obj/item/stack/cable_coil,
+"o" = (
+/obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"E" = (
+"q" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/machinery/power/smes,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
-"I" = (
-/obj/structure/cable/yellow,
-/obj/item/stack/rods/ten,
+"G" = (
+/obj/item/stack/cable_coil,
+/obj/structure/lattice/catwalk,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"J" = (
+"H" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
@@ -78,27 +89,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"L" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/template_noop)
-"M" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/decoration/glowstick/lit,
-/turf/open/floor/plating,
-/area/template_noop)
 "N" = (
 /obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
-/area/template_noop)
-"O" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "P" = (
@@ -106,86 +98,94 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/template_noop)
-"U" = (
-/obj/item/stack/cable_coil,
+"R" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable,
+/obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"X" = (
+"T" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
 o
-u
+W
 N
 v
 v
 "}
 (2,1,1) = {"
-x
-x
-x
-x
+i
+i
+i
+i
 N
 "}
 (3,1,1) = {"
-E
-O
-L
-O
+F
+a
+H
+a
 P
 "}
 (4,1,1) = {"
-x
-x
-x
-x
-M
+i
+i
+i
+i
+y
 "}
 (5,1,1) = {"
-b
+T
 v
 K
-U
-O
+G
+a
 "}
 (6,1,1) = {"
-X
-I
+q
+h
 s
-B
+n
 P
 "}
 (7,1,1) = {"
-x
-x
-x
-x
-O
+i
+i
+i
+i
+a
 "}
 (8,1,1) = {"
-E
-J
+F
+e
 P
 P
-O
+a
 "}
 (9,1,1) = {"
-x
-x
-x
-x
-C
+i
+i
+i
+i
+R
 "}
 (10,1,1) = {"
-r
+d
 P
 P
-L
+H
 v
 "}

@@ -1,4 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/machinery/status_display/evac{
+	pixel_x = 33;
+	pixel_y = -32
+	},
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
 "e" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -10,7 +17,7 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/tech,
 /area/shuttle/mining)
-"g" = (
+"q" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
@@ -19,12 +26,10 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/mining)
-"k" = (
-/obj/effect/turf_decal/caution/stand_clear,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/tech/grid,
+"s" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining)
-"p" = (
+"v" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
 	pixel_x = -5;
@@ -38,18 +43,29 @@
 	},
 /turf/open/floor/iron/tech,
 /area/shuttle/mining)
-"s" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+"x" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
-"t" = (
+"z" = (
+/obj/structure/closet/crate/miningcar{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/machinery/camera/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/effect/turf_decal/loading_area,
+/obj/item/storage/pod/unlocked{
+	pixel_x = -25
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/mining)
+"C" = (
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/shuttle/mining)
-"B" = (
-/obj/effect/spawner/structure/window/survival_pod,
-/turf/open/floor/plating,
 /area/shuttle/mining)
 "D" = (
 /obj/effect/turf_decal/box,
@@ -66,18 +82,11 @@
 "K" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/mining)
-"L" = (
+"N" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/shuttle/mining)
-"N" = (
-/obj/machinery/status_display/evac{
-	pixel_x = 33;
-	pixel_y = -32
-	},
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining)
 "O" = (
 /obj/structure/chair/fancy/shuttle{
@@ -85,19 +94,6 @@
 	},
 /obj/effect/turf_decal/box/white,
 /turf/open/floor/iron/tech,
-/area/shuttle/mining)
-"R" = (
-/obj/structure/closet/crate/miningcar{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/machinery/camera/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/effect/turf_decal/loading_area,
-/obj/item/storage/pod/unlocked{
-	pixel_x = -25
-	},
-/turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "S" = (
 /obj/machinery/door/airlock/survival_pod/glass,
@@ -113,7 +109,11 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
-"V" = (
+"U" = (
+/obj/effect/spawner/structure/window/survival_pod,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"Y" = (
 /obj/structure/ore_box,
 /obj/item/shovel{
 	pixel_x = 4;
@@ -133,45 +133,45 @@
 (1,1,1) = {"
 K
 s
-B
-B
-B
-N
+U
+U
+U
+b
 K
 "}
 (2,1,1) = {"
-L
-R
-k
+N
+z
+x
 e
 e
 I
 s
 "}
 (3,1,1) = {"
-L
-g
-k
+N
+q
+x
 f
 D
-t
-B
+C
+U
 "}
 (4,1,1) = {"
-L
-V
-k
+N
+Y
+x
 O
 O
-p
+v
 s
 "}
 (5,1,1) = {"
 K
 s
 S
-B
-B
+U
+U
 s
 K
 "}

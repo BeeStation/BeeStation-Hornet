@@ -1,16 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"e" = (
-/turf/open/floor/holofloor/chess_black,
+"a" = (
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
-"h" = (
+"b" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"c" = (
 /obj/structure/chess/checker/whiteman,
 /turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"j" = (
-/obj/structure/chess/checker/blackman,
+"d" = (
 /turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"q" = (
+"g" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -21,143 +24,140 @@
 /obj/structure/chess/checker/whiteking,
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"D" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/holofloor/wood,
-/area/template_noop)
-"G" = (
-/turf/open/floor/holofloor/chess_white,
-/area/template_noop)
-"H" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/turf/open/floor/holofloor/wood,
-/area/template_noop)
-"L" = (
-/turf/open/floor/holofloor/wood,
-/area/template_noop)
-"O" = (
+"y" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"P" = (
+"z" = (
 /obj/effect/turf_decal/siding/wood,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"J" = (
+/turf/open/floor/holofloor/chess_white,
+/area/template_noop)
+"M" = (
+/obj/structure/chess/checker/blackman,
+/turf/open/floor/holofloor/chess_black,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-L
-O
-O
-O
-O
-O
-O
-O
-O
-L
+a
+y
+y
+y
+y
+y
+y
+y
+y
+a
 "}
 (2,1,1) = {"
-P
-G
-j
-G
-e
-G
-h
-G
-h
-D
+b
+J
+M
+J
+d
+J
+c
+J
+c
+O
 "}
 (3,1,1) = {"
-P
-j
-G
-j
-G
-e
-G
-h
-G
-D
+b
+M
+J
+M
+J
+d
+J
+c
+J
+O
 "}
 (4,1,1) = {"
-P
-G
-j
-G
-e
-G
-h
-G
-h
-D
+b
+J
+M
+J
+d
+J
+c
+J
+c
+O
 "}
 (5,1,1) = {"
-P
-j
-G
-j
-G
-e
-G
-h
-G
-D
+b
+M
+J
+M
+J
+d
+J
+c
+J
+O
 "}
 (6,1,1) = {"
-P
-G
-j
-G
-e
-G
-h
-G
-h
-D
+b
+J
+M
+J
+d
+J
+c
+J
+c
+O
 "}
 (7,1,1) = {"
-P
-j
-G
-j
-G
-e
-G
-h
-G
-D
+b
+M
+J
+M
+J
+d
+J
+c
+J
+O
 "}
 (8,1,1) = {"
-P
-G
-j
-G
-e
-G
-h
-G
-h
-D
+b
+J
+M
+J
+d
+J
+c
+J
+c
+O
 "}
 (9,1,1) = {"
-H
-j
-G
-j
-G
-e
-G
-h
-G
-q
+z
+M
+J
+M
+J
+d
+J
+c
+J
+g
 "}

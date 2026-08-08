@@ -354,6 +354,10 @@
 	dir = 4
 	},
 /area/shuttle/escape)
+"br" = (
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "bs" = (
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/dirt,
@@ -409,15 +413,6 @@
 	dir = 6
 	},
 /area/shuttle/escape)
-"bC" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "bD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -439,15 +434,6 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"bH" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "bJ" = (
 /obj/structure/rack,
@@ -573,6 +559,31 @@
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
+"ci" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"cj" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"ck" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "cn" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
@@ -590,21 +601,19 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
+"cA" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "cE" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"cF" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 10
-	},
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "cP" = (
 /obj/structure/sign/departments/cargo,
@@ -919,6 +928,22 @@
 /obj/structure/sign/departments/engineering,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
+"dC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dD" = (
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "dH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -934,6 +959,14 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dJ" = (
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dL" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "escape_cockpit_windows";
+	name = "Cockpit Blast Door"
+	},
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dQ" = (
@@ -961,6 +994,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"dU" = (
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "dV" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -975,6 +1012,65 @@
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
+"dX" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 50;
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/stack/sheet/iron/fifty{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dY" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/turf_decal/bot,
+/obj/item/stack/sheet/plastitaniumglass{
+	amount = 20;
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dZ" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/metalfoam,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ea" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/turf_decal/bot,
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"eb" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ec" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "ed" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
@@ -983,11 +1079,57 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"ee" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_thermomachine,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ef" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"eg" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/lights/tubes,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"eh" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/structure/table/reinforced,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ei" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/table/reinforced,
+/obj/item/multitool,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "ej" = (
 /obj/machinery/porta_turret/syndicate/energy/raven{
 	dir = 6
 	},
 /turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"ek" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "el" = (
 /turf/open/floor/plating/airless,
@@ -1023,25 +1165,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"ex" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"fh" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_white,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "fy" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -1049,15 +1172,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"gE" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Holding Area"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1086,14 +1200,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"kd" = (
-/obj/structure/cable/yellow,
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 22
+"kr" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit"
 	},
-/obj/machinery/atmospherics/components/tank/air,
-/turf/open/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "kw" = (
 /obj/structure/chair/office{
@@ -1142,23 +1255,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"lM" = (
-/obj/structure/sign/warning/electric_shock{
-	pixel_y = 32
+"lz" = (
+/obj/structure/cable,
+/obj/machinery/power/terminal{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"lS" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "mk" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1169,6 +1274,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"nc" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "on" = (
 /obj/machinery/door/airlock/external{
 	name = "Emegency Shuttle External Airlock"
@@ -1176,19 +1290,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"oq" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/storage/toolbox/mechanical,
-/obj/structure/table/reinforced,
-/obj/item/multitool,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ou" = (
@@ -1207,29 +1308,13 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"rA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"rR" = (
-/obj/structure/cable,
-/obj/machinery/power/terminal{
-	dir = 1
+"qz" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"sy" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "sH" = (
@@ -1258,10 +1343,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"tO" = (
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "tX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1271,12 +1352,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"uo" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "uO" = (
 /obj/structure/rack,
@@ -1292,6 +1367,15 @@
 "vc" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"vD" = (
+/obj/structure/cable/yellow,
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = 22
+	},
+/obj/machinery/atmospherics/components/tank/air,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "vE" = (
 /obj/effect/turf_decal/stripes/white/end{
@@ -1343,6 +1427,17 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"yl" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 10
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "yB" = (
 /obj/machinery/recharger{
@@ -1417,17 +1512,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"Ct" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "CE" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
@@ -1450,6 +1534,15 @@
 /area/shuttle/escape)
 "DS" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"Et" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "ED" = (
@@ -1521,6 +1614,17 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"Ie" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "Jn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -1550,23 +1654,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"JI" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"JK" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"KJ" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Ld" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -1577,15 +1664,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Ly" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/obj/structure/table/reinforced,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "LG" = (
 /obj/machinery/status_display/evac{
@@ -1625,38 +1703,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"Nc" = (
-/obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"NU" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/chair/fancy/shuttle{
+"Nk" = (
+/obj/structure/sign/warning/electric_shock{
+	pixel_y = 32
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 6
-	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Ot" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Ow" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Pm" = (
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "Po" = (
 /obj/structure/chair/office{
@@ -1664,13 +1723,6 @@
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"Pr" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/box/lights/tubes,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "PE" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
@@ -1688,10 +1740,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
 	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"PM" = (
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Qo" = (
@@ -1712,14 +1760,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"QC" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "escape_cockpit_windows";
-	name = "Cockpit Blast Door"
-	},
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "QD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -1729,6 +1769,17 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"QI" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 6
+	},
+/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "Rw" = (
 /obj/effect/turf_decal/stripes/white/corner{
@@ -1740,12 +1791,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"RA" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
-/obj/machinery/power/port_gen/pacman,
-/obj/effect/turf_decal/bot,
+"RC" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "RS" = (
@@ -1765,20 +1813,6 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"Ut" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"UQ" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/box/metalfoam,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Vm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1788,20 +1822,15 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"Vt" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
+"Vw" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit"
 	},
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"VH" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "VM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1820,22 +1849,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"Xg" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 50;
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/structure/table/reinforced,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Xn" = (
 /obj/machinery/light{
 	dir = 1
@@ -1843,22 +1856,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"Xv" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/turf_decal/bot,
-/obj/item/stack/sheet/plastitaniumglass{
-	amount = 20;
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/structure/table/reinforced,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Xw" = (
@@ -1900,14 +1897,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
-"YT" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
 "Ze" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -1916,6 +1905,17 @@
 "Zg" = (
 /obj/effect/turf_decal/stripes/white/corner,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
+"ZJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -1964,7 +1964,7 @@ aa
 aa
 aa
 aH
-PM
+br
 ax
 ax
 bU
@@ -1973,7 +1973,7 @@ Mk
 kI
 cE
 ax
-PM
+br
 ax
 cT
 Ic
@@ -1982,7 +1982,7 @@ kI
 bU
 ax
 ax
-PM
+br
 dW
 aa
 aa
@@ -2051,7 +2051,7 @@ ax
 ax
 dH
 dJ
-Xg
+dX
 ax
 dW
 aa
@@ -2068,7 +2068,7 @@ bu
 aY
 aZ
 bD
-PM
+br
 tX
 Qo
 cf
@@ -2078,23 +2078,23 @@ vc
 vc
 vc
 cU
-PM
+br
 eq
 GN
 dv
 ax
 dI
 dJ
-Xv
+dY
 ax
 el
 en
 "}
 (6,1,1) = {"
 aa
-QC
-QC
-QC
+dL
+dL
+dL
 ax
 ax
 aQ
@@ -2102,13 +2102,13 @@ aY
 aY
 aY
 bE
-gE
+nc
 mk
-fh
-cF
-bH
-bH
-bH
+ci
+yl
+qz
+qz
+qz
 xL
 xL
 xL
@@ -2119,14 +2119,14 @@ xL
 ld
 PE
 dJ
-UQ
-JK
+dZ
+ek
 el
 el
 "}
 (7,1,1) = {"
-QC
-QC
+dL
+dL
 aj
 ap
 ay
@@ -2136,30 +2136,30 @@ aX
 aY
 bv
 bF
-PM
+br
 mk
-YT
-YT
-bC
-YT
-YT
+cj
+cj
+cA
+cj
+cj
 vc
 vc
 cV
-PM
+br
 sH
 lt
 dw
 dB
 Xn
 dJ
-uo
-JK
+ea
+ek
 em
 aa
 "}
 (8,1,1) = {"
-QC
+dL
 ac
 wS
 Ak
@@ -2185,15 +2185,15 @@ ax
 Gd
 ax
 ax
-lM
+Nk
 dT
-VH
-JK
+eb
+ek
 em
 aa
 "}
 (9,1,1) = {"
-QC
+dL
 ad
 kw
 ar
@@ -2201,16 +2201,16 @@ aA
 yU
 ax
 ax
-gE
+nc
 ax
 ax
 bO
 vc
-fh
-fh
-fh
-fh
-fh
+ci
+ci
+ci
+ci
+ci
 Zg
 ax
 cW
@@ -2218,33 +2218,33 @@ db
 dj
 vc
 ax
-Ut
-rR
-tO
-RA
-JK
+dC
+lz
+dU
+ec
+ek
 el
 en
 "}
 (10,1,1) = {"
-QC
+dL
 ae
 dn
 as
 aB
 aJ
-Ow
+kr
 bb
 lr
-sy
+Vw
 RS
 vc
 vc
-YT
-YT
-YT
-bC
-YT
+cj
+cj
+cj
+cA
+cj
 LN
 cQ
 cY
@@ -2252,7 +2252,7 @@ dc
 dk
 vc
 ax
-Pm
+dD
 AX
 dJ
 ax
@@ -2261,7 +2261,7 @@ el
 el
 "}
 (11,1,1) = {"
-QC
+dL
 af
 kw
 at
@@ -2286,33 +2286,33 @@ vc
 vc
 HE
 ax
-kd
-Nc
-Pm
+vD
+RC
+dD
 ed
 ax
 ax
 aa
 "}
 (12,1,1) = {"
-QC
+dL
 ag
 Yo
 au
 aD
 aL
-Ow
+kr
 bc
 vE
-sy
+Vw
 th
 Yy
 vc
-lS
-fh
-fh
-fh
-fh
+ck
+ci
+ci
+ci
+ci
 do
 cS
 dl
@@ -2320,7 +2320,7 @@ ar
 cX
 vc
 ax
-rA
+dF
 ye
 dJ
 ax
@@ -2329,7 +2329,7 @@ el
 en
 "}
 (13,1,1) = {"
-QC
+dL
 ah
 kw
 ar
@@ -2337,16 +2337,16 @@ aE
 uO
 ax
 ax
-Ct
+ZJ
 ax
 ax
 bR
 vc
-YT
-YT
-YT
-YT
-YT
+cj
+cj
+cj
+cj
+cj
 Qo
 ax
 cZ
@@ -2354,16 +2354,16 @@ dd
 dm
 Yy
 ax
-Ut
-ex
-tO
-RA
-JK
+dC
+Ie
+dU
+ec
+ek
 el
 el
 "}
 (14,1,1) = {"
-QC
+dL
 ai
 ze
 Po
@@ -2389,16 +2389,16 @@ ax
 Gd
 ax
 ax
-lM
+Nk
 dJ
-KJ
-JK
+ee
+ek
 em
 aa
 "}
 (15,1,1) = {"
-QC
-QC
+dL
+dL
 ao
 aw
 aG
@@ -2408,33 +2408,33 @@ be
 bf
 bz
 bJ
-PM
+br
 Jp
-fh
-fh
-fh
-fh
-lS
+ci
+ci
+ci
+ci
+ck
 vc
 vc
 bO
-PM
+br
 WN
 gR
 dx
 dB
 Xn
 dJ
-JI
-JK
+ef
+ek
 em
 aa
 "}
 (16,1,1) = {"
 aa
-QC
-QC
-QC
+dL
+dL
+dL
 ax
 ax
 aU
@@ -2444,11 +2444,11 @@ bf
 bK
 vG
 FI
-YT
-NU
-Vt
-Vt
-Vt
+cj
+QI
+Et
+Et
+Et
 xL
 xL
 xL
@@ -2459,8 +2459,8 @@ xL
 ld
 qd
 dJ
-Pr
-JK
+eg
+ek
 el
 en
 "}
@@ -2476,7 +2476,7 @@ bg
 bf
 bA
 bL
-PM
+br
 FI
 Zg
 Db
@@ -2486,14 +2486,14 @@ vc
 vc
 vc
 cU
-PM
+br
 Qz
 CE
 dy
 ax
 dQ
 dT
-Ly
+eh
 ax
 el
 el
@@ -2527,7 +2527,7 @@ ax
 ax
 dR
 dJ
-oq
+ei
 ax
 ej
 aa
@@ -2576,7 +2576,7 @@ aa
 aa
 aa
 aN
-PM
+br
 ax
 ax
 cc
@@ -2585,7 +2585,7 @@ PJ
 ED
 cE
 ax
-PM
+br
 ax
 cE
 Xx
@@ -2594,7 +2594,7 @@ QD
 cc
 ax
 ax
-PM
+br
 ej
 aa
 aa
