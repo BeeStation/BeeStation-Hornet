@@ -2,13 +2,6 @@
 "ab" = (
 /turf/template_noop,
 /area/lavaland/surface/outdoors)
-"ae" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "aj" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
@@ -30,11 +23,6 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"aY" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/light,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "bm" = (
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
@@ -42,27 +30,14 @@
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/ruin/powered/seedvault)
-"ck" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/door/poddoor{
-	id = "lifebring4"
-	},
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "cp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"de" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 4
-	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
-/obj/machinery/door/poddoor{
-	id = "lifebring"
-	},
-/turf/open/floor/plating,
+"cI" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "dw" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -77,14 +52,28 @@
 "dM" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/ruin/powered/seedvault)
-"dX" = (
-/obj/machinery/light/broken{
-	dir = 1
-	},
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/sink/directional/south,
+"dQ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/grass,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"dR" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"dV" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "en" = (
 /obj/effect/decal/cleanable/dirt,
@@ -92,19 +81,7 @@
 /obj/structure/flora/ash/strange,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"eP" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/food_or_drink/seed_vault,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/random/food_or_drink/seed_vault,
-/obj/effect/spawner/random/food_or_drink/seed_vault,
-/obj/item/stack/medical/gauze,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"fe" = (
+"eE" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -116,6 +93,27 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
+"fw" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"fy" = (
+/obj/machinery/door/poddoor{
+	id = "lifebring1"
+	},
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"fz" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "fC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -123,16 +121,15 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"gT" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+"gY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"hj" = (
-/obj/machinery/door/airlock/survival_pod,
+"ho" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "ht" = (
 /obj/structure/table/wood,
@@ -159,11 +156,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"iQ" = (
-/obj/effect/decal/cleanable/dirt/dust,
+"iS" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/retaliate/frog{
+	attacked_sound = 'sound/effects/huuu.ogg';
+	name = "Phyllis ";
+	pixel_y = 12;
+	stepped_sound = null
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "ja" = (
 /obj/structure/chair/office,
@@ -177,10 +180,10 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"ji" = (
+"jd" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "jm" = (
 /obj/structure/table,
@@ -195,15 +198,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
+"jO" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "jY" = (
 /obj/machinery/atmospherics/components/tank/air,
 /obj/structure/closet,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"jZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "kb" = (
@@ -216,16 +220,22 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"kc" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "kq" = (
 /obj/structure/flora/ash/strange,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"kt" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod,
+"kE" = (
+/obj/machinery/door/poddoor{
+	id = "lifebring5"
+	},
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "kG" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -248,26 +258,49 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"mE" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/turf_decal/bot,
+"ml" = (
+/obj/structure/table,
+/obj/item/storage/bag/plants{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/storage/bag/plants{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/storage/bag/plants/portaseeder{
+	pixel_x = 17;
+	pixel_y = 2
+	},
+/obj/item/storage/bag/plants/portaseeder{
+	pixel_x = 10;
+	pixel_y = -1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"mM" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/food_or_drink/seed_vault,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/random/food_or_drink/seed_vault,
-/obj/effect/spawner/random/food_or_drink/seed_vault,
-/turf/open/floor/pod,
+"mt" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "mW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival,
+/area/ruin/powered/seedvault)
+"ne" = (
+/obj/machinery/door/poddoor{
+	id = "lifebring2"
+	},
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"nr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "nO" = (
 /obj/structure/table,
@@ -286,7 +319,119 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"oj" = (
+"oa" = (
+/obj/machinery/light/broken,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"oc" = (
+/obj/machinery/light/broken{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/sink/directional/south,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"of" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"pQ" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"qm" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"qK" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"qR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/stairs/left{
+	dir = 8
+	},
+/area/lavaland/surface/outdoors)
+"rb" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"rW" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"sn" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/clothing/under/rank/civilian/hydroponics{
+	pixel_x = 4;
+	pixel_y = 1
+	},
+/obj/item/clothing/under/rank/civilian/hydroponics{
+	pixel_x = 1;
+	pixel_y = -2
+	},
+/obj/item/clothing/under/rank/civilian/hydroponics,
+/obj/item/clothing/under/rank/civilian/hydroponics{
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"sM" = (
+/obj/item/kirbyplants,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"sN" = (
+/obj/machinery/smartfridge,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"tE" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/door/airlock/survival_pod,
+/turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
+"tK" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"uB" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/template_noop/open,
+/area/lavaland/surface/outdoors)
+"vd" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/lighter{
@@ -309,115 +454,17 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"os" = (
-/obj/structure/chair/office{
+"vt" = (
+/obj/machinery/light/broken{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"pQ" = (
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"qn" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"qz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"qR" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/stairs/left{
-	dir = 8
-	},
-/area/lavaland/surface/outdoors)
-"qX" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"rb" = (
-/obj/machinery/hydroponics/constructable,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"rF" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/blood/old,
-/obj/machinery/light/small/broken{
-	dir = 8
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"sn" = (
-/obj/structure/closet/crate/hydroponics,
-/obj/item/clothing/under/rank/civilian/hydroponics{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/item/clothing/under/rank/civilian/hydroponics{
-	pixel_x = 1;
-	pixel_y = -2
-	},
-/obj/item/clothing/under/rank/civilian/hydroponics,
-/obj/item/clothing/under/rank/civilian/hydroponics{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"sG" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"sM" = (
-/obj/item/kirbyplants,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"sN" = (
-/obj/machinery/smartfridge,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"sU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"tg" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"tE" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/machinery/door/airlock/survival_pod,
-/turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
-"uB" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/template_noop/open,
-/area/lavaland/surface/outdoors)
 "vw" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/pod,
@@ -438,11 +485,10 @@
 	},
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
-"wP" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/structure/sink/directional/south,
+"wz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "wW" = (
@@ -470,6 +516,18 @@
 /obj/structure/beebox/unwrenched,
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
+"xT" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"xU" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
 "yc" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -478,18 +536,9 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"yq" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring1"
-	},
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
-"yE" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+"yx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
+/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "yG" = (
 /obj/structure/chair/office{
@@ -525,14 +574,40 @@
 	},
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
-"zr" = (
+"zh" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"zH" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/belt/utility,
+/obj/item/storage/box/lights/mixed,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"zL" = (
+/obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"AF" = (
+"zO" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/open/floor/grass,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"Ar" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Bd" = (
 /obj/structure/railing,
@@ -540,18 +615,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/lavaland/surface/outdoors)
-"Be" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
-"Cv" = (
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Da" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder{
@@ -571,6 +634,19 @@
 /obj/item/caution,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"DC" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"DK" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "DN" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -618,36 +694,18 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"Em" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Ex" = (
 /obj/item/kirbyplants,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Fr" = (
+"EX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/utility,
-/obj/item/storage/box/lights/mixed,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
-"FB" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"FJ" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring2"
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light/small/broken{
+	dir = 8
 	},
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/turf/open/floor/plating,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "FY" = (
 /turf/template_noop/closed,
@@ -670,16 +728,16 @@
 	},
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
+"Gn" = (
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
 "Gt" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/stairs/right{
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
-"Gz" = (
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "GA" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt,
@@ -689,6 +747,12 @@
 "GC" = (
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
+"Hs" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "Ih" = (
 /obj/machinery/light/broken{
 	dir = 8
@@ -723,6 +787,11 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"Is" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/light,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "ID" = (
 /turf/open/floor/grass,
 /area/lavaland/surface/outdoors)
@@ -750,21 +819,22 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"JD" = (
-/obj/machinery/light/broken,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/pod,
+"Jy" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/door/poddoor{
+	id = "lifebring4"
+	},
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "JM" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"Kj" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring5"
-	},
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/turf/open/floor/plating,
+"Ky" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "KA" = (
 /obj/structure/railing{
@@ -774,12 +844,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"KD" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/door/airlock/survival_pod,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "KJ" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers{
@@ -811,15 +875,16 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"KX" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Lb" = (
 /obj/machinery/light/broken,
 /obj/machinery/chem_dispenser/mutagensaltpeter,
 /turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"Lj" = (
+/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "Lp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -837,19 +902,22 @@
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"LK" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "LM" = (
 /obj/structure/flora/ausbushes/leafybush,
 /turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"LQ" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"LZ" = (
+/obj/machinery/door/poddoor{
+	id = "lifebring3"
+	},
+/obj/structure/window/reinforced/shuttle/survival_pod,
+/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "Mc" = (
 /obj/structure/rack,
@@ -859,21 +927,25 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"Mp" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/obj/machinery/door/poddoor{
+	id = "lifebring"
+	},
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
 "MJ" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/ruin/powered/seedvault)
 "ML" = (
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"MU" = (
+"MN" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "MZ" = (
@@ -883,6 +955,12 @@
 	},
 /obj/machinery/door/airlock/survival_pod,
 /turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
+"Nd" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "Nn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -917,10 +995,12 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"NC" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
+"NB" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/structure/sink/directional/south,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "NF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -935,43 +1015,30 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"NK" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/retaliate/frog{
-	attacked_sound = 'sound/effects/huuu.ogg';
-	name = "Phyllis ";
-	pixel_y = 12;
-	stepped_sound = null
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "NL" = (
 /obj/structure/shuttle/engine/huge{
 	dir = 4
 	},
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"NO" = (
+"NN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/open/floor/grass,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"Oe" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "Po" = (
 /obj/machinery/computer/monitor/secret{
 	dir = 4
 	},
 /turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
-"Pp" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Pv" = (
 /obj/structure/chair/office{
@@ -981,12 +1048,6 @@
 	dir = 4
 	},
 /turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
-"Pz" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "PU" = (
 /obj/machinery/light/small,
@@ -1006,65 +1067,35 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
-"Qb" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/grass,
+"Qt" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Qu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/lavaland/surface/outdoors)
-"QJ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
-"QK" = (
-/obj/structure/table,
-/obj/item/storage/bag/plants{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/storage/bag/plants{
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/obj/item/storage/bag/plants/portaseeder{
-	pixel_x = 17;
-	pixel_y = 2
-	},
-/obj/item/storage/bag/plants/portaseeder{
-	pixel_x = 10;
-	pixel_y = -1
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "QT" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Rf" = (
-/obj/effect/decal/cleanable/dirt/dust,
+"QV" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Rh" = (
-/obj/machinery/door/poddoor{
-	id = "lifebring3"
-	},
-/obj/structure/window/reinforced/shuttle/survival_pod,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
-"Rt" = (
+"Re" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"Rf" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Rv" = (
@@ -1088,17 +1119,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"SC" = (
-/obj/machinery/light/broken{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "SK" = (
 /obj/machinery/light{
 	dir = 1
@@ -1112,26 +1132,14 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Tk" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"Tu" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"Tv" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "TG" = (
 /obj/machinery/vending/hydroseeds,
 /obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"TX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Ud" = (
@@ -1175,6 +1183,12 @@
 	},
 /turf/template_noop/open,
 /area/ruin/powered/seedvault)
+"Vj" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "VX" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -1198,13 +1212,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Wm" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Wr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -1219,19 +1226,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"Xx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"YM" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Zi" = (
@@ -1253,11 +1247,17 @@
 /obj/structure/beebox/unwrenched,
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
-"Zl" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
+"Zr" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/item/stack/medical/gauze,
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "ZS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1282,10 +1282,10 @@ ab
 ab
 FY
 FY
-yq
-yq
-yq
-yq
+fy
+fy
+fy
+fy
 FY
 FY
 ab
@@ -1304,10 +1304,10 @@ ab
 FY
 FY
 dM
-yq
+fy
 wa
 Po
-yq
+fy
 dM
 FY
 FY
@@ -1369,12 +1369,12 @@ Ih
 yc
 dM
 ht
-Tv
-sU
-Rt
-MU
-KX
-zr
+Ky
+jd
+fz
+dV
+cI
+yx
 vw
 dM
 Da
@@ -1391,15 +1391,15 @@ fC
 Ec
 dM
 SK
-sG
+Re
 ML
 UB
 pQ
 ML
-AF
+xT
 Lb
 dM
-wP
+NB
 Rf
 Im
 dM
@@ -1407,88 +1407,88 @@ FY
 "}
 (7,1,1) = {"
 FY
-FJ
+ne
 fk
 NF
-ji
-hj
-qn
-jZ
-Pz
-NK
-qz
-Pz
-gT
-Zl
-hj
-iQ
+tK
+Lj
+kc
+wz
+mt
+iS
+nr
+mt
+MN
+LQ
+Lj
+Vj
 RR
 Ns
-Rh
+LZ
 FY
 "}
 (8,1,1) = {"
 FY
-FJ
+ne
 fk
 lF
-JD
+oa
 sN
 QT
 LM
 ML
-Cv
-fe
+dR
+eE
 ML
 bm
 Ud
 MJ
-SC
+vt
 is
 LG
-Rh
+LZ
 FY
 "}
 (9,1,1) = {"
 FY
-FJ
+ne
 zb
 Lp
 sn
-Gz
+Gn
 al
 bm
 Nn
-Pp
-mE
+rW
+QV
 Nn
 UQ
 TG
-Gz
+Gn
 Io
 yM
 VX
-Rh
+LZ
 FY
 "}
 (10,1,1) = {"
 dM
 MJ
 dM
-Gz
+Gn
 dM
 sN
 wW
 Jr
 bm
-qX
-kt
+Ar
+jO
 JM
 Rv
 IL
 MJ
 dM
-Gz
+Gn
 dM
 MJ
 dM
@@ -1498,42 +1498,42 @@ dM
 jY
 Us
 Ed
-Tk
-KD
-NO
-ji
-Tu
-YM
-LK
-gT
-ji
-tg
-KD
-Wm
-yE
-rF
+qm
+Hs
+zh
+tK
+ho
+DC
+zO
+MN
+tK
+Nd
+Hs
+fw
+NN
+EX
 jm
 dM
 "}
 (12,1,1) = {"
 dM
 vK
-Be
-QJ
-Fr
-Gz
+dQ
+xU
+zH
+Gn
 Ex
-sG
+Re
 dK
 rb
 GA
 Nn
-Qb
+DK
 Ex
-Gz
+Gn
 Ds
-FB
-ae
+gY
+Oe
 PU
 dM
 "}
@@ -1545,40 +1545,40 @@ Nz
 mW
 MJ
 MJ
-dX
+oc
 bm
 DN
 Nn
 bm
-aY
+Is
 MJ
 MJ
 dM
-mM
-eP
+qK
+Zr
 KU
 dM
 "}
 (14,1,1) = {"
 MJ
-de
-de
-de
+Mp
+Mp
+Mp
 MJ
 GC
-Kj
-QK
-os
-Em
-Xx
-NC
-oj
-ck
+kE
+ml
+of
+Qt
+TX
+zL
+vd
+Jy
 UY
 MJ
-de
-de
-de
+Mp
+Mp
+Mp
 MJ
 "}
 (15,1,1) = {"
@@ -1588,14 +1588,14 @@ GC
 NL
 aj
 GC
-Kj
+kE
 nO
 ZS
 Wr
 UL
 ja
 KJ
-ck
+Jy
 GC
 aj
 GC

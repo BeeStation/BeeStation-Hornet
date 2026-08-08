@@ -1,15 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/table/wood/bar,
-/obj/item/rag{
-	pixel_x = 10;
-	pixel_y = 1
-	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "b" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/holofloor{
@@ -35,6 +24,17 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"e" = (
+/obj/structure/table/wood/bar,
+/obj/item/rag{
+	pixel_x = 10;
+	pixel_y = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
@@ -43,22 +43,9 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"h" = (
-/obj/structure/table/wood,
-/obj/item/cigarette/pipe,
-/obj/effect/holodeck_effect/random_book,
-/turf/open/floor/holofloor/carpet,
-/area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
 /obj/item/reagent_containers/cup/glass/shaker,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"j" = (
-/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -72,16 +59,15 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"l" = (
-/obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced/spawner/directional/east,
+"m" = (
+/obj/structure/chair/wood,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
-"m" = (
-/obj/structure/chair/wood,
+"n" = (
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -104,6 +90,21 @@
 "q" = (
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
+"r" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"s" = (
+/obj/structure/table/wood/poker,
+/obj/item/cigarette/pipe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "t" = (
 /obj/structure/table/wood/bar,
 /obj/item/book/manual/wiki/barman_recipes,
@@ -121,6 +122,10 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"v" = (
+/obj/effect/spawner/structure/random_piano,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
 "w" = (
 /obj/structure/table/wood,
 /obj/item/instrument/saxophone,
@@ -129,6 +134,12 @@
 "x" = (
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"y" = (
+/obj/structure/table/wood,
+/obj/item/cigarette/pipe,
+/obj/effect/holodeck_effect/random_book,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "z" = (
@@ -140,6 +151,13 @@
 "A" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"B" = (
+/obj/structure/sink/directional/west,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -166,22 +184,6 @@
 "F" = (
 /turf/open/floor/holofloor{
 	icon_state = "stairs-r"
-	},
-/area/template_noop)
-"G" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/table/wood/bar,
-/obj/item/storage/box/cups,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"H" = (
-/obj/structure/sink/directional/west,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
 	},
 /area/template_noop)
 "I" = (
@@ -239,8 +241,9 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"R" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+"Q" = (
+/obj/structure/table/wood/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -248,14 +251,6 @@
 /area/template_noop)
 "S" = (
 /obj/structure/table/wood/poker,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"T" = (
-/obj/structure/table/wood/poker,
-/obj/item/cigarette/pipe,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -276,17 +271,22 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"Y" = (
-/obj/structure/table/wood/bar,
+"W" = (
+/obj/structure/chair/stool/bar,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
-"Z" = (
-/obj/effect/spawner/structure/random_piano,
-/turf/open/floor/holofloor/carpet,
+"X" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/wood/bar,
+/obj/item/storage/box/cups,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
 /area/template_noop)
 
 (1,1,1) = {"
@@ -298,8 +298,8 @@ z
 z
 V
 t
-H
-a
+B
+e
 "}
 (2,1,1) = {"
 f
@@ -319,21 +319,21 @@ u
 u
 z
 z
-j
-l
-Y
+n
+W
+Q
 c
-G
+X
 "}
 (4,1,1) = {"
 m
 S
 U
 o
-R
+r
 w
 N
-Z
+v
 q
 x
 "}
@@ -352,7 +352,7 @@ p
 (6,1,1) = {"
 m
 P
-T
+s
 o
 z
 F
@@ -366,7 +366,7 @@ z
 I
 I
 z
-R
+r
 J
 q
 q
@@ -378,7 +378,7 @@ b
 z
 z
 z
-R
+r
 D
 q
 q
@@ -390,10 +390,10 @@ A
 z
 z
 z
-R
+r
 O
 q
 E
 E
-h
+y
 "}

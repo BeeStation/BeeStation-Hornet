@@ -2,47 +2,21 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "gibbl1"
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
 "ad" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
-"af" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 2
+"br" = (
+/obj/machinery/power/smes/engineering{
+	charge = 1e+006
 	},
-/turf/open/floor/iron/dark/textured,
-/area/shuttle/abandoned)
-"ag" = (
-/obj/machinery/computer/mech_bay_power_console{
-	dir = 4
+/turf/open/floor/iron/ridged/steel{
+	color = "#808080"
 	},
-/turf/open/floor/iron/dark/textured,
 /area/shuttle/abandoned)
-"ah" = (
-/obj/structure/closet/syndicate/personal,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"aj" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned)
-"al" = (
+"bz" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
 	},
@@ -53,28 +27,98 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"am" = (
-/obj/structure/fluff/hedge,
-/obj/structure/railing{
-	dir = 9
+"cC" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"ar" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/hatch{
-	name = "Probe Access"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+	name = "Probe Cockpit"
 	},
 /turf/open/floor/pod,
 /area/shuttle/abandoned)
-"as" = (
+"ei" = (
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/item/ammo_casing/shotgun/buckshot,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/shuttle/abandoned)
+"fd" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 2
+	},
+/turf/open/floor/iron/dark/textured,
+/area/shuttle/abandoned)
+"fM" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/syndicate{
+	pixel_y = 10
+	},
+/obj/item/weldingtool/mini{
+	pixel_y = -1;
+	pixel_x = -3
+	},
+/obj/item/multitool{
+	pixel_x = 9;
+	pixel_y = -6
+	},
+/turf/open/floor/iron/dark/textured,
+/area/shuttle/abandoned)
+"gf" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 6
+	},
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 4
+	},
+/obj/machinery/vending/toyliberationstation,
+/obj/item/toy/plush/nukeplushie{
+	pixel_y = 20;
+	pixel_x = 11
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"gs" = (
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "splatter1"
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"hd" = (
+/obj/effect/turf_decal/bot_red/left,
+/obj/structure/crate_shelf,
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"hB" = (
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "trails_2"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"iq" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
 	},
@@ -86,7 +130,67 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"at" = (
+"js" = (
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 8;
+	dynamic_id = 1;
+	height = 16;
+	id = "whiteship";
+	launch_status = 0;
+	name = "NT Recovery White-Ship";
+	port_direction = 8;
+	width = 13
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/pod,
+/area/shuttle/abandoned)
+"jU" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"kJ" = (
+/obj/machinery/door/poddoor{
+	id = "cerewhiteleft"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"lH" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -6
+	},
+/obj/item/folder/syndicate/red{
+	pixel_y = 8;
+	pixel_x = 8
+	},
+/obj/item/stamp/syndicate{
+	pixel_x = 8
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"lK" = (
 /obj/structure/crate_shelf,
 /obj/structure/railing{
 	dir = 4
@@ -99,17 +203,119 @@
 /obj/effect/mapping_helpers/crate_shelf_loader,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
-"au" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 9
+"mU" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/dark/corner,
+/obj/effect/turf_decal/edges/techfloor,
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/abandoned)
+"ne" = (
+/obj/structure/closet/syndicate/personal,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"nM" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	name = "Probe Port Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/pod,
+/area/shuttle/abandoned)
+"oe" = (
+/obj/structure/filingcabinet,
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 2
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"og" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"oH" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
 /obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
-"av" = (
+"oO" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "gibbl1"
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"pf" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/iron/dark/textured,
+/area/shuttle/abandoned)
+"pz" = (
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/robot_debris/up,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"pH" = (
+/obj/effect/turf_decal/edges/techfloor,
+/obj/machinery/computer/shuttle_flight/white_ship{
+	dir = 1
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"pM" = (
+/obj/structure/filingcabinet{
+	pixel_x = 8
+	},
+/obj/structure/filingcabinet{
+	pixel_x = -8
+	},
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 2
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"qv" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"qC" = (
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 4
+	},
+/obj/structure/chair/office{
+	name = "tactical swivel chair";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"qO" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 5
 	},
@@ -121,44 +327,121 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
-"aw" = (
-/obj/structure/filingcabinet,
-/obj/structure/railing{
-	dir = 8
+"sg" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"sN" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 6
+	},
+/obj/machinery/computer/camera_advanced/syndie{
+	dir = 1
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"tj" = (
+/obj/structure/chair/fancy/shuttle{
+	name = "tactical chair"
+	},
+/obj/effect/turf_decal/trimline/dark_red,
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/open/floor/iron/ridged/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"ue" = (
+/obj/structure/filingcabinet/medical{
+	pixel_x = -8
+	},
+/obj/structure/filingcabinet/security{
+	pixel_x = 8
 	},
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/abandoned)
-"ax" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"az" = (
-/obj/machinery/button/door{
-	id = "cerewhiteleft";
-	name = "Cargo Blast Door Toggle";
-	pixel_x = -24
-	},
-/obj/structure/crate_shelf,
-/obj/effect/turf_decal/siding/dark/end,
-/obj/effect/mapping_helpers/crate_shelf_loader,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"aA" = (
+"up" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/effect/decal/cleanable/robot_debris/down,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"aB" = (
+"uw" = (
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"vf" = (
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "trails_1"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"wb" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 5
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/fax{
+	syndicate_network = 1;
+	allow_exotic_faxes = 1;
+	name = "Donk Co. Fax Machine"
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"xE" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"xI" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/machinery/door/airlock/hatch{
+	name = "Probe Access"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/pod,
+/area/shuttle/abandoned)
+"xJ" = (
+/obj/structure/cable,
+/obj/machinery/computer/monitor/secret{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"yt" = (
+/obj/structure/mecha_wreckage/gygax,
+/turf/open/floor/mech_bay_recharge_floor{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"Cp" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
@@ -177,108 +460,7 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
-"aC" = (
-/obj/structure/filingcabinet,
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 2
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"aD" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"aE" = (
-/obj/structure/filingcabinet{
-	pixel_x = 8
-	},
-/obj/structure/filingcabinet{
-	pixel_x = -8
-	},
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 2
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"aF" = (
-/obj/machinery/door/poddoor{
-	id = "cerewhiteleft"
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
-"aG" = (
-/obj/structure/cable,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"aI" = (
-/obj/structure/cable,
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
-	},
-/obj/item/wrench,
-/turf/open/floor/catwalk_floor,
-/area/shuttle/abandoned)
-"aK" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/machinery/door/airlock/hatch{
-	name = "Probe Access"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"aN" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
-	dir = 4
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -7;
-	pixel_y = 7
-	},
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = 9;
-	pixel_y = -14
-	},
-/turf/open/floor/catwalk_floor,
-/area/shuttle/abandoned)
-"aO" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 5
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/fax{
-	syndicate_network = 1;
-	allow_exotic_faxes = 1;
-	name = "Donk Co. Fax Machine"
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"aP" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable,
-/turf/open/floor/catwalk_floor,
-/area/shuttle/abandoned)
-"aQ" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/stormtrooper,
-/obj/item/ammo_casing/shotgun/buckshot{
-	pixel_x = -19;
-	pixel_y = 4
-	},
-/turf/open/floor/catwalk_floor,
-/area/shuttle/abandoned)
-"aR" = (
+"DI" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 10
 	},
@@ -305,7 +487,52 @@
 	color = "#808080"
 	},
 /area/shuttle/abandoned)
-"aS" = (
+"Fi" = (
+/turf/open/floor/iron/stairs{
+	dir = 4
+	},
+/area/shuttle/abandoned)
+"Fj" = (
+/obj/machinery/atmospherics/components/tank/air{
+	dir = 1
+	},
+/obj/structure/cable/pink,
+/obj/machinery/power/apc/syndicate/directional/south,
+/turf/open/floor/iron/ridged/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"FJ" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 9
+	},
+/obj/effect/turf_decal/siding/dark/corner,
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"FT" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/obj/effect/turf_decal/edges/techfloor,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/abandoned)
+"Gi" = (
+/obj/structure/table/reinforced,
+/obj/item/taperecorder{
+	pixel_y = 6;
+	pixel_x = 7
+	},
+/obj/item/blackbox{
+	pixel_y = 2;
+	pixel_x = -9
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"Gz" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
@@ -324,7 +551,53 @@
 	color = "#808080"
 	},
 /area/shuttle/abandoned)
-"aT" = (
+"Ho" = (
+/obj/machinery/button/door{
+	id = "cerewhiteleft";
+	name = "Cargo Blast Door Toggle";
+	pixel_x = -24
+	},
+/obj/structure/crate_shelf,
+/obj/effect/turf_decal/siding/dark/end,
+/obj/effect/mapping_helpers/crate_shelf_loader,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"Jb" = (
+/obj/effect/turf_decal/edges/techfloor/corners,
+/turf/open/floor/iron/grid/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"Jq" = (
+/obj/structure/fluff/hedge,
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"KC" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured,
+/area/shuttle/abandoned)
+"KL" = (
+/obj/machinery/light/small/directional/north{
+	bulb_colour = "#A10606"
+	},
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/bot_red/left,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/open/floor/iron/ridged/steel{
+	color = "#808080"
+	},
+/area/shuttle/abandoned)
+"KO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -332,33 +605,195 @@
 	color = "#808080"
 	},
 /area/shuttle/abandoned)
-"aU" = (
-/obj/machinery/power/smes/engineering{
-	charge = 1e+006
+"KU" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/machinery/door/airlock/hatch{
+	name = "Probe Access"
 	},
-/turf/open/floor/iron/ridged/steel{
-	color = "#808080"
-	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/pod,
 /area/shuttle/abandoned)
-"aX" = (
-/obj/effect/turf_decal/edges/techfloor{
+"Lg" = (
+/obj/structure/crate_shelf,
+/obj/structure/railing{
 	dir = 6
 	},
-/obj/machinery/computer/camera_advanced/syndie{
+/obj/effect/turf_decal/siding/dark/end,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"Mo" = (
+/obj/machinery/light{
 	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"MU" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 10
+	},
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 8
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "trails_1"
+	},
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"Nb" = (
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"Nc" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 4
 	},
 /turf/open/floor/iron/grid/steel{
 	color = "#808080"
 	},
 /area/shuttle/abandoned)
-"ba" = (
+"NK" = (
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 9
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"NL" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new/dark,
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden,
+/turf/open/floor/iron/dark,
+/area/shuttle/abandoned)
+"Oi" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/stormtrooper,
+/obj/item/ammo_casing/shotgun/buckshot{
+	pixel_x = -19;
+	pixel_y = 4
+	},
+/turf/open/floor/catwalk_floor,
+/area/shuttle/abandoned)
+"Op" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
+	dir = 5
+	},
+/obj/item/storage/pod{
+	pixel_x = 5;
+	pixel_y = -28
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"Pn" = (
+/obj/effect/turf_decal/edges/techfloor,
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 1
+	},
+/turf/open/floor/iron/tech/grid,
+/area/shuttle/abandoned)
+"QH" = (
+/turf/open/floor/iron/stairs{
+	dir = 8
+	},
+/area/shuttle/abandoned)
+"Rs" = (
+/obj/structure/filingcabinet,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark/end{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/abandoned)
+"Sj" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor,
+/area/shuttle/abandoned)
+"Sk" = (
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/shuttle/abandoned)
+"SI" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_y = 4;
+	pixel_x = -6
+	},
+/obj/item/multitool{
+	pixel_x = 7
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"SK" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/plating/airless,
+/area/shuttle/abandoned)
+"SS" = (
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/item/wrench,
+/turf/open/floor/catwalk_floor,
+/area/shuttle/abandoned)
+"UC" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/abandoned)
-"bb" = (
-/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
+"Vz" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
+	dir = 4
+	},
+/obj/item/ammo_casing/shotgun/buckshot{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/ammo_casing/shotgun/buckshot{
+	pixel_x = 9;
+	pixel_y = -14
+	},
+/turf/open/floor/catwalk_floor,
 /area/shuttle/abandoned)
-"bG" = (
+"VQ" = (
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
+/area/shuttle/abandoned)
+"Wd" = (
 /obj/structure/table/reinforced,
 /obj/item/screwdriver/nuke{
 	pixel_y = -17;
@@ -382,32 +817,7 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/shuttle/abandoned)
-"bV" = (
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 8;
-	dynamic_id = 1;
-	height = 16;
-	id = "whiteship";
-	launch_status = 0;
-	name = "NT Recovery White-Ship";
-	port_direction = 8;
-	width = 13
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"cH" = (
-/obj/structure/crate_shelf,
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/effect/turf_decal/siding/dark/end,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"ep" = (
+"Wk" = (
 /obj/effect/turf_decal/edges/techfloor,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -415,282 +825,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/abandoned)
-"gA" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 10
-	},
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/dark_red/line{
-	dir = 8
-	},
+"XG" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "trails_1"
-	},
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"gK" = (
-/obj/effect/turf_decal/edges/techfloor/corners,
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"hR" = (
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "trails_2"
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"kX" = (
-/turf/closed/wall/r_wall/syndicate/nodiagonal,
-/area/shuttle/abandoned)
-"mG" = (
-/obj/machinery/light/small/directional/north{
-	bulb_colour = "#A10606"
-	},
-/obj/machinery/suit_storage_unit/syndicate,
-/obj/effect/turf_decal/bot_red/left,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/open/floor/iron/ridged/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"nr" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/dark_red/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 4
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"pm" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor,
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/abandoned)
-"sX" = (
-/turf/open/floor/iron/stairs{
-	dir = 8
-	},
-/area/shuttle/abandoned)
-"sY" = (
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 4
-	},
-/obj/structure/chair/office{
-	name = "tactical swivel chair";
-	dir = 4
-	},
-/obj/effect/decal/cleanable/oil,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"vk" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/shuttle/abandoned)
-"wf" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"yn" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -6
-	},
-/obj/item/multitool{
-	pixel_x = 7
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"yr" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/dark_red/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"zc" = (
-/obj/structure/filingcabinet/medical{
-	pixel_x = -8
-	},
-/obj/structure/filingcabinet/security{
-	pixel_x = 8
-	},
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"zs" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden,
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"zI" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"AO" = (
-/obj/structure/cable,
-/obj/machinery/computer/monitor/secret{
-	dir = 8
-	},
-/obj/structure/railing{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"Cf" = (
-/turf/open/floor/iron/stairs{
-	dir = 4
-	},
-/area/shuttle/abandoned)
-"Cu" = (
-/obj/effect/turf_decal/siding/dark,
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "splatter1"
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"CH" = (
-/obj/structure/table/reinforced,
-/obj/item/taperecorder{
-	pixel_y = 6;
-	pixel_x = 7
-	},
-/obj/item/blackbox{
-	pixel_y = 2;
-	pixel_x = -9
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"DG" = (
-/obj/machinery/atmospherics/components/tank/air{
-	dir = 1
-	},
-/obj/structure/cable/pink,
-/obj/machinery/power/apc/syndicate/directional/south,
-/turf/open/floor/iron/ridged/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"Ec" = (
-/obj/structure/mecha_wreckage/gygax,
-/turf/open/floor/mech_bay_recharge_floor{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"Ew" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/abandoned)
-"GQ" = (
-/obj/structure/chair/fancy/shuttle{
-	name = "tactical chair"
-	},
-/obj/effect/turf_decal/trimline/dark_red,
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-/turf/open/floor/iron/ridged/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"HT" = (
-/obj/effect/turf_decal/bot_red/left,
-/obj/structure/crate_shelf,
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/crate_shelf_loader,
-/obj/effect/mapping_helpers/crate_shelf_loader,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"LF" = (
-/obj/effect/turf_decal/edges/techfloor,
-/obj/machinery/computer/shuttle_flight/white_ship{
-	dir = 1
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
-/area/shuttle/abandoned)
-"Mj" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/airlock/external{
-	name = "Probe Port Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"Na" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "trails_1"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"OZ" = (
+"XT" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 9
 	},
@@ -701,73 +840,7 @@
 	color = "#808080"
 	},
 /area/shuttle/abandoned)
-"Pj" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/robot_debris/down,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"PN" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"QH" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 9
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"QL" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/effect/decal/cleanable/robot_debris,
-/turf/open/floor/iron/dark/textured,
-/area/shuttle/abandoned)
-"RU" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/dark_red/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"SG" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/syndicate{
-	pixel_y = 10
-	},
-/obj/item/weldingtool/mini{
-	pixel_y = -1;
-	pixel_x = -3
-	},
-/obj/item/multitool{
-	pixel_x = 9;
-	pixel_y = -6
-	},
-/turf/open/floor/iron/dark/textured,
-/area/shuttle/abandoned)
-"SX" = (
-/obj/effect/turf_decal/edges/techfloor,
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 1
-	},
-/turf/open/floor/iron/tech/grid,
-/area/shuttle/abandoned)
-"Ts" = (
-/obj/effect/turf_decal/siding/dark/end{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/robot_debris/up,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/abandoned)
-"TQ" = (
+"Ym" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
@@ -778,84 +851,11 @@
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/abandoned)
-"Uc" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
-/obj/item/ammo_casing/shotgun/buckshot,
-/turf/open/floor/catwalk_floor/iron_dark,
-/area/shuttle/abandoned)
-"UI" = (
+"Zl" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 6
-	},
-/obj/effect/turf_decal/siding/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/dark_red/line{
 	dir = 4
-	},
-/obj/machinery/vending/toyliberationstation,
-/obj/item/toy/plush/nukeplushie{
-	pixel_y = 20;
-	pixel_x = 11
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"Wj" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/hatch{
-	name = "Probe Cockpit"
-	},
-/turf/open/floor/pod,
-/area/shuttle/abandoned)
-"Wk" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
-	dir = 5
-	},
-/obj/item/storage/pod{
-	pixel_x = 5;
-	pixel_y = -28
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"Wp" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"YT" = (
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 6
-	},
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -6
-	},
-/obj/item/folder/syndicate/red{
-	pixel_y = 8;
-	pixel_x = 8
-	},
-/obj/item/stamp/syndicate{
-	pixel_x = 8
-	},
-/turf/open/floor/iron/grid/steel{
-	color = "#808080"
-	},
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -864,11 +864,11 @@ aa
 aa
 aa
 ad
-aj
-kX
-aF
-ba
-ba
+SK
+VQ
+kJ
+UC
+UC
 aa
 aa
 aa
@@ -880,14 +880,14 @@ aa
 aa
 aa
 ad
-aj
-kX
-ba
-kX
-SX
-ah
-kX
-ba
+SK
+VQ
+UC
+VQ
+Pn
+ne
+VQ
+UC
 aa
 aa
 aa
@@ -897,15 +897,15 @@ aa
 (3,1,1) = {"
 aa
 ad
-aj
-kX
-ba
-HT
-az
-SX
-aG
-aI
-ba
+SK
+VQ
+UC
+hd
+Ho
+Pn
+XG
+SS
+UC
 aa
 aa
 aa
@@ -913,163 +913,163 @@ aa
 aa
 "}
 (4,1,1) = {"
-ba
-ba
-ba
-ba
-ba
-as
-aA
-ep
+UC
+UC
+UC
+UC
+UC
+iq
+Nb
 Wk
-kX
-kX
-Mj
-ba
-ba
+Op
+VQ
+VQ
+nM
+UC
+UC
 aa
 aa
 "}
 (5,1,1) = {"
-ba
-af
-Ec
-ag
-ba
-at
-cH
-Cf
-AO
-ba
-mG
-aP
-aU
-ba
+UC
+fd
+yt
+KC
+UC
+lK
+Lg
+Fi
+xJ
+UC
+KL
+Sj
+br
+UC
 aa
 aa
 "}
 (6,1,1) = {"
-ba
-Wp
-Ts
-al
-bb
-au
-aB
-yr
-gA
-aK
-aN
-aQ
-DG
-ba
+UC
+qv
+pz
+bz
+uw
+FJ
+Cp
+oH
+MU
+KU
+Vz
+Oi
+Fj
+UC
 aa
 aa
 "}
 (7,1,1) = {"
-bV
-aD
-hR
-Na
-ar
-Cu
-vk
-Uc
-zs
-kX
-ba
-Wj
-ba
-ba
-ba
+js
+og
+hB
+vf
+xI
+gs
+Sk
+ei
+NL
+VQ
+UC
+cC
+UC
+UC
+UC
 aa
 "}
 (8,1,1) = {"
-ba
-Pj
-sY
-PN
-bb
-av
-RU
-RU
-UI
-ba
-OZ
-nr
-aS
-aR
-bb
+UC
+up
+qC
+Zl
+uw
+qO
+jU
+jU
+gf
+UC
+XT
+Nc
+Gz
+DI
+uw
 aa
 "}
 (9,1,1) = {"
-ba
-SG
-bG
-QL
-ba
-aw
-aC
-sX
-am
-ba
-wf
-aT
-GQ
-LF
-bb
+UC
+fM
+Wd
+pf
+UC
+Rs
+oe
+QH
+Jq
+UC
+sg
+KO
+tj
+pH
+uw
 aa
 "}
 (10,1,1) = {"
-ba
-ba
-ba
-ba
-ba
-ax
-aD
-Ew
-QH
-ba
-zI
-gK
-ab
-aX
-bb
+UC
+UC
+UC
+UC
+UC
+Mo
+og
+FT
+NK
+UC
+xE
+Jb
+oO
+sN
+uw
 aa
 "}
 (11,1,1) = {"
 aa
 ad
-aj
-kX
-ba
-zc
-aE
-pm
-yn
-ba
-aO
-YT
-kX
-bb
-ba
+SK
+VQ
+UC
+ue
+pM
+mU
+SI
+UC
+wb
+lH
+VQ
+uw
+UC
 aa
 "}
 (12,1,1) = {"
 aa
 aa
 ad
-aj
-kX
-ba
-kX
-TQ
-CH
-ba
-ba
-ba
-ba
+SK
+VQ
+UC
+VQ
+Ym
+Gi
+UC
+UC
+UC
+UC
 aa
 aa
 aa
@@ -1080,11 +1080,11 @@ aa
 aa
 aa
 ad
-aj
-kX
-bb
-bb
-ba
+SK
+VQ
+uw
+uw
+UC
 aa
 aa
 aa

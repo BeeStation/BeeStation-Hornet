@@ -1,15 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/open/floor/holofloor/wood,
+"e" = (
+/turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"c" = (
+"h" = (
 /obj/structure/chess/checker/whiteman,
 /turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"d" = (
+"j" = (
+/obj/structure/chess/checker/blackman,
 /turf/open/floor/holofloor/chess_black,
 /area/template_noop)
-"g" = (
+"q" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -20,144 +21,143 @@
 /obj/structure/chess/checker/whiteking,
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"v" = (
+"D" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"z" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/obj/structure/chess/checker/blackking,
-/turf/open/floor/holofloor/wood,
-/area/template_noop)
-"I" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/holofloor/wood,
-/area/template_noop)
-"J" = (
+"G" = (
 /turf/open/floor/holofloor/chess_white,
 /area/template_noop)
+"H" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/obj/structure/chess/checker/blackking,
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
 "L" = (
+/turf/open/floor/holofloor/wood,
+/area/template_noop)
+"O" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /turf/open/floor/holofloor/wood,
 /area/template_noop)
-"M" = (
-/obj/structure/chess/checker/blackman,
-/turf/open/floor/holofloor/chess_black,
+"P" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-a
 L
+O
+O
+O
+O
+O
+O
+O
+O
 L
-L
-L
-L
-L
-L
-L
-a
 "}
 (2,1,1) = {"
-I
-J
-M
-J
-d
-J
-c
-J
-c
-v
+P
+G
+j
+G
+e
+G
+h
+G
+h
+D
 "}
 (3,1,1) = {"
-I
-M
-J
-M
-J
-d
-J
-c
-J
-v
+P
+j
+G
+j
+G
+e
+G
+h
+G
+D
 "}
 (4,1,1) = {"
-I
-J
-M
-J
-d
-J
-c
-J
-c
-v
+P
+G
+j
+G
+e
+G
+h
+G
+h
+D
 "}
 (5,1,1) = {"
-I
-M
-J
-M
-J
-d
-J
-c
-J
-v
+P
+j
+G
+j
+G
+e
+G
+h
+G
+D
 "}
 (6,1,1) = {"
-I
-J
-M
-J
-d
-J
-c
-J
-c
-v
+P
+G
+j
+G
+e
+G
+h
+G
+h
+D
 "}
 (7,1,1) = {"
-I
-M
-J
-M
-J
-d
-J
-c
-J
-v
+P
+j
+G
+j
+G
+e
+G
+h
+G
+D
 "}
 (8,1,1) = {"
-I
-J
-M
-J
-d
-J
-c
-J
-c
-v
+P
+G
+j
+G
+e
+G
+h
+G
+h
+D
 "}
 (9,1,1) = {"
-z
-M
-J
-M
-J
-d
-J
-c
-J
-g
+H
+j
+G
+j
+G
+e
+G
+h
+G
+q
 "}

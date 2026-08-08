@@ -3,9 +3,6 @@
 /obj/machinery/door/airlock/gold,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"cf" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
 "ct" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -54,13 +51,6 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
-/area/shuttle/escape)
-"gh" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "gk" = (
 /obj/structure/closet/crate/internals,
@@ -118,13 +108,109 @@
 	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
-"oH" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+"nl" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/floor/plating/airless,
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 1
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/obj/item/cigarette/cigar/cohiba{
+	pixel_x = 8
+	},
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "oJ" = (
 /obj/machinery/computer/emergency_shuttle{
@@ -183,9 +269,9 @@
 	},
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
-"xm" = (
-/obj/effect/spawner/structure/window/reinforced/shuttle,
-/turf/open/floor/plating,
+"xi" = (
+/obj/machinery/vending/boozeomat,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "xR" = (
 /obj/machinery/light{
@@ -282,10 +368,6 @@
 	},
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
-"HP" = (
-/obj/machinery/vending/boozeomat,
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
 "IK" = (
 /obj/item/scalpel{
 	pixel_y = 12
@@ -307,110 +389,6 @@
 "Jn" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/turf/open/floor/carpet/black,
-/area/shuttle/escape)
-"Js" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 8
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = -5;
-	pixel_y = 9
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 1
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 8
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 8
-	},
-/obj/item/cigarette/cigar/cohiba{
-	pixel_x = 8
 	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
@@ -446,6 +424,17 @@
 	pixel_x = -6
 	},
 /turf/open/floor/carpet/royalblue,
+/area/shuttle/escape)
+"Ke" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Lw" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Security"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "LQ" = (
 /obj/structure/statue/sandstone/venus,
@@ -492,6 +481,14 @@
 /area/shuttle/escape)
 "PH" = (
 /turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"Qk" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "Rv" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -540,6 +537,9 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
+"XL" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
 "XP" = (
 /obj/structure/table/wood/fancy/cyan,
 /obj/item/defibrillator/loaded,
@@ -551,7 +551,7 @@
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
-"ZW" = (
+"Zo" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Cockpit"
 	},
@@ -568,11 +568,11 @@ DN
 at
 DN
 lt
-xm
-xm
-xm
-xm
-xm
+Ke
+Ke
+Ke
+Ke
+Ke
 Hb
 DN
 Hb
@@ -582,22 +582,22 @@ fI
 "}
 (2,1,1) = {"
 DN
-cf
+XL
 Tx
 Tx
 Tx
 SP
-xm
+Ke
 qn
-Js
+nl
 EG
 Nn
 mK
-Js
+nl
 qn
 Jn
 qn
-cf
+XL
 DN
 fI
 "}
@@ -608,7 +608,7 @@ SP
 SP
 SP
 SP
-gh
+Lw
 qn
 VZ
 qn
@@ -619,7 +619,7 @@ qn
 qn
 qn
 Hk
-oH
+Qk
 Rv
 "}
 (4,1,1) = {"
@@ -629,7 +629,7 @@ SP
 SP
 SP
 SP
-xm
+Ke
 qn
 RK
 RK
@@ -640,7 +640,7 @@ qn
 qn
 qn
 gk
-oH
+Qk
 Rv
 "}
 (5,1,1) = {"
@@ -650,7 +650,7 @@ Tx
 Tx
 Tx
 Tx
-xm
+Ke
 wn
 RK
 RK
@@ -661,26 +661,26 @@ ru
 qn
 qn
 kg
-oH
+Qk
 Rv
 "}
 (6,1,1) = {"
 DN
-xm
-xm
-xm
-xm
-xm
-cf
+Ke
+Ke
+Ke
+Ke
+Ke
+XL
 LQ
 RK
 RK
 RK
 qn
 qn
-cf
-xm
-xm
+XL
+Ke
+Ke
 DN
 zb
 Yv
@@ -699,11 +699,11 @@ qn
 qn
 qn
 VZ
-xm
+Ke
 eX
 ww
 AU
-oH
+Qk
 Rv
 "}
 (8,1,1) = {"
@@ -720,11 +720,11 @@ ga
 ga
 ga
 qn
-xm
+Ke
 PH
 PH
 HN
-oH
+Qk
 Rv
 "}
 (9,1,1) = {"
@@ -745,7 +745,7 @@ Pk
 PH
 PH
 pr
-oH
+Qk
 Rv
 "}
 (10,1,1) = {"
@@ -762,7 +762,7 @@ ga
 ga
 ga
 qn
-xm
+Ke
 Eq
 PH
 pr
@@ -787,7 +787,7 @@ Pk
 PH
 PH
 pr
-oH
+Qk
 Rv
 "}
 (12,1,1) = {"
@@ -804,11 +804,11 @@ ga
 ga
 ga
 qn
-xm
+Ke
 XP
 PH
 PH
-oH
+Qk
 Rv
 "}
 (13,1,1) = {"
@@ -825,30 +825,30 @@ qn
 qn
 qn
 VZ
-xm
+Ke
 IK
 xR
 vI
-oH
+Qk
 Rv
 "}
 (14,1,1) = {"
 DN
-xm
-xm
-xm
-xm
-xm
-cf
+Ke
+Ke
+Ke
+Ke
+Ke
+XL
 yG
 sV
 sV
 sV
 qn
 qn
-cf
-xm
-xm
+XL
+Ke
+Ke
 DN
 zb
 Yv
@@ -860,7 +860,7 @@ rt
 rt
 rt
 rt
-xm
+Ke
 wn
 sV
 sV
@@ -871,7 +871,7 @@ ct
 qn
 qn
 kg
-oH
+Qk
 Rv
 "}
 (16,1,1) = {"
@@ -881,7 +881,7 @@ rt
 rt
 rt
 Bb
-xm
+Ke
 qn
 sV
 sV
@@ -892,7 +892,7 @@ qn
 qn
 qn
 gk
-oH
+Qk
 Rv
 "}
 (17,1,1) = {"
@@ -902,7 +902,7 @@ yE
 yE
 yE
 yE
-ZW
+Zo
 qn
 VZ
 qn
@@ -913,27 +913,27 @@ qn
 qn
 qn
 Hk
-oH
+Qk
 Rv
 "}
 (18,1,1) = {"
 DN
-HP
+xi
 oJ
 Xc
 yx
 JO
-xm
+Ke
 qn
-Js
+nl
 mK
 hG
 mK
-Js
+nl
 qn
 NH
 qn
-cf
+XL
 DN
 fI
 "}
@@ -946,14 +946,14 @@ DN
 DN
 DN
 DN
-xm
-xm
-xm
-xm
-xm
-xm
+Ke
+Ke
+Ke
+Ke
+Ke
+Ke
 DN
-xm
+Ke
 DN
 fI
 fI
