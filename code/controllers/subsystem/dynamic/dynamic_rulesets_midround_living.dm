@@ -81,7 +81,7 @@
 	if(. != DYNAMIC_EXECUTE_SUCCESS)
 		return .
 	for(var/mob/chosen_candidate in chosen_candidates)
-		var/datum/antagonist/cult/Candidate = chosen_candidate.mind?.has_antag_datum(/datum/antagonist/cult)
+		var/datum/antagonist/cult/Candidate = IS_CULTIST(chosen_candidate)
 		if(Candidate)
 			Candidate.rune_power = 2 // They count as 2 towards runes, so they have less issue getting the cult going alone
 	return .
