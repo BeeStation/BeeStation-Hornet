@@ -43,3 +43,7 @@
   - bugfix: If you aim at something through cameras you will now aim at the thing
       you aimed at from the perspective of yourself instead of the camera you were
       using to aim.
+2026-08-08:
+  mrmanlikesbt:
+  - server: maplints are now only ran on maps that have actually had changes made
+      to them as apposed to all maps.
