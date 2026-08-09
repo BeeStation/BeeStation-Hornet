@@ -285,6 +285,13 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define ELECTRICAL_APC_DRAIN_TIME (3 SECONDS)
 #define ELECTRICAL_APC_POWER_GAIN (0.1 * STANDARD_ETHEREAL_CHARGE)
 #define ELECTRICAL_APC_ALERT_DELAY (0.75 SECONDS)
+// Charge lost to an EMP, divided by the EMP's severity.
+#define ETHEREAL_EMP_CHARGE_LOSS (0.5 * STANDARD_ETHEREAL_CHARGE)
+// Minimum power a discharge has to carry before tesla_zap will bother arcing.
+#define ETHEREAL_ZAP_CUTOFF (0.1 * STANDARD_ETHEREAL_CHARGE)
+// Charge spent per zap when an ethereal is in a pool, and the power that zap carries.
+#define ETHEREAL_POOL_ZAP_COST (0.15 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_POOL_ZAP_POWER (0.3 * STANDARD_ETHEREAL_CHARGE)
 
 /*
 #define CRYSTALIZE_COOLDOWN_LENGTH 120 SECONDS

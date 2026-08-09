@@ -10,6 +10,8 @@
 	var/drain_time = 0
 	//Boolean so we can avoid ten morbillion typechecks between Ethereal or IPC
 	var/biological = TRUE
+	/// Whilst discharging, prevent multiple life() calls
+	var/discharging = FALSE
 
 /obj/item/organ/stomach/electrical/Initialize(mapload)
 	. = ..()
@@ -58,7 +60,7 @@
 		if(-INFINITY to ETHEREAL_CHARGE_NONE)
 			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/emptycell/ethereal)
 			if(carbon.health > 10.5)
-				carbon.apply_damage(0.65, damage_taken, null, null, carbon)
+				carbon.apply_damage(0.65 * delta_time, damage_taken, null, null, carbon)
 		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
 			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/lowcell/ethereal, 3)
 			if(carbon.health > 10.5)
@@ -67,17 +69,21 @@
 			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/lowcell/ethereal, 2)
 		if(ETHEREAL_CHARGE_FULL to ETHEREAL_CHARGE_OVERLOAD)
 			carbon.throw_alert("ethereal_overcharge", /atom/movable/screen/alert/ethereal_overcharge, 1)
-			carbon.apply_damage(0.2, damage_taken, null, null, carbon)
+			carbon.apply_damage(0.2 * delta_time, damage_taken, null, null, carbon)
 		if(ETHEREAL_CHARGE_OVERLOAD to ETHEREAL_CHARGE_DANGEROUS)
 			carbon.throw_alert("ethereal_overcharge", /atom/movable/screen/alert/ethereal_overcharge, 2)
 			carbon.apply_damage(0.325 * delta_time, damage_taken, null, null, carbon)
-			if(DT_PROB(5, delta_time)) // 5% each seacond for ethereals to explosively release excess energy if it reaches dangerous levels
-				discharge_process(carbon)
+			if(!discharging && DT_PROB(5, delta_time)) // 5% each second for ethereals to explosively release excess energy if it reaches dangerous levels
+				INVOKE_ASYNC(src, PROC_REF(discharge_process), carbon) //Keep this async
 		else
 			carbon.clear_alert("ethereal_charge")
 			carbon.clear_alert("ethereal_overcharge")
 
 /obj/item/organ/stomach/electrical/proc/discharge_process(mob/living/carbon/carbon)
+	if(discharging)
+		return
+	discharging = TRUE
+
 	to_chat(carbon, span_warning("You begin to lose control over your charge!"))
 	carbon.visible_message(span_danger("[carbon] begins to spark violently!"))
 
@@ -85,30 +91,34 @@
 	overcharge = overcharge || mutable_appearance('icons/effects/effects.dmi', "electricity", EFFECTS_LAYER)
 	carbon.add_overlay(overcharge)
 
-	if(do_after(carbon, 5 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM|IGNORE_INCAPACITATED)))
-		if(ishuman(carbon))
-			var/mob/living/carbon/human/human = carbon
-			if(human.dna?.species)
-				//fixed_mut_color is also ethereal color (for some reason)
-				carbon.flash_lighting_fx(5, 7, human.dna.species.fixed_mut_color ? human.dna.species.fixed_mut_color : human.dna.features["mcolor"])
+	var/held = do_after(carbon, 5 SECONDS, timed_action_flags = (IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM|IGNORE_INCAPACITATED))
+	carbon.cut_overlay(overcharge)
+	discharging = FALSE
+	if(!held)
+		return
 
-		playsound(carbon, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-		carbon.cut_overlay(overcharge)
-		// Only a small amount of the energy gets discharged as the zap. The rest dissipates as heat. Keeps the damage and energy from the zap the same regardless of what STANDARD_CELL_CHARGE is.
-		var/discharged_energy = -adjust_charge(ETHEREAL_CHARGE_FULL - cell.charge) * min(7500 / STANDARD_CELL_CHARGE, 1)
-		tesla_zap(source = carbon, zap_range = 2, power = discharged_energy, cutoff = 1 MEGAWATT, zap_flags = ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN | ZAP_ALLOW_DUPLICATES)
-		adjust_charge(ETHEREAL_CHARGE_FULL - discharged_energy)
-		carbon.visible_message(span_danger("[carbon] violently discharges energy!"), span_warning("You violently discharge energy!"))
+	if(ishuman(carbon))
+		var/mob/living/carbon/human/human = carbon
+		if(human.dna?.species)
+			//fixed_mut_color is also ethereal color (for some reason)
+			carbon.flash_lighting_fx(5, 7, human.dna.species.fixed_mut_color ? human.dna.species.fixed_mut_color : human.dna.features["mcolor"])
 
-		if(prob(10)) //chance of developing heart disease to dissuade overcharging oneself
-			var/datum/disease/D = new /datum/disease/heart_failure
-			carbon.ForceContractDisease(D)
-			to_chat(carbon, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
-			carbon.playsound_local(carbon, 'sound/effects/singlebeat.ogg', 100, 0)
+	playsound(carbon, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+	var/vented_energy = -adjust_charge(ETHEREAL_CHARGE_FULL - cell.charge)
+	var/discharged_energy = vented_energy * min(7500 / STANDARD_CELL_CHARGE, 1)
+	tesla_zap(source = carbon, zap_range = 2, power = discharged_energy, cutoff = ETHEREAL_ZAP_CUTOFF, zap_flags = ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN)
+	carbon.visible_message(span_danger("[carbon] violently discharges energy!"), span_warning("You violently discharge energy!"))
 
-		carbon.Paralyze(100)
+	if(prob(10)) //chance of developing heart disease to dissuade overcharging oneself
+		var/datum/disease/D = new /datum/disease/heart_failure
+		carbon.ForceContractDisease(D)
+		to_chat(carbon, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
+		carbon.playsound_local(carbon, 'sound/effects/singlebeat.ogg', 100, 0)
 
-/obj/item/organ/stomach/electrical/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
+	carbon.Paralyze(100)
+
+// Signal is (shock_damage, source, siemens_coeff, flags)
+/obj/item/organ/stomach/electrical/proc/on_electrocute(datum/source, shock_damage, shock_source, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
 	if(flags & SHOCK_ILLUSION)
 		return
@@ -141,3 +151,10 @@
 	name = "biological battery"
 	icon_state = "stomach-p" //Welp. At least it's more unique in functionaliy.
 	desc = "A crystal-like organ that stores the electric charge of ethereals."
+
+// Snowflake code while organs live in nullspace
+/obj/item/organ/stomach/electrical/ethereal/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	adjust_charge(-ETHEREAL_EMP_CHARGE_LOSS / severity)

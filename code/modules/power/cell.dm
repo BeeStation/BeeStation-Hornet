@@ -232,8 +232,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 		var/our_charge = charge
 		var/scaled_stomach_used_charge = stomach_cell.used_charge() / ETHEREAL_CELL_POWER_GAIN_FACTOR
 		var/potential_charge = min(our_charge, scaled_stomach_used_charge)
-		var/to_drain = min(ETHEREAL_CELL_POWER_DRAIN, potential_charge)
-		var/energy_drained = use(to_drain, force = TRUE)
+		// work out the drain before spending it
+		var/energy_drained = min(ETHEREAL_CELL_POWER_DRAIN, potential_charge)
+		if(!use(energy_drained, force = TRUE))
+			balloon_alert(user, "can't draw from it!")
+			return
 		used_stomach.adjust_charge(energy_drained * ETHEREAL_CELL_POWER_GAIN_FACTOR)
 		update_appearance(UPDATE_OVERLAYS)
 
