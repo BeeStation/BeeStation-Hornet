@@ -343,6 +343,7 @@
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
 	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
+	return TRUE
 
 /datum/status_effect/hippocratic_oath/on_remove()
 	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))

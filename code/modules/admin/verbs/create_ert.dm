@@ -157,7 +157,7 @@
 			ert_antag.random_names = template.random_names
 
 			ert_operative.mind.add_antag_datum(ert_antag,ert_team)
-			ert_operative.mind.set_assigned_role(ert_antag.name)
+			ert_operative.mind.set_assigned_role(SSjob.get_job_type(/datum/job/ert_generic))
 
 			//Logging and cleanup
 			log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
@@ -215,7 +215,6 @@
 
 	equipAntagOnDummy(mannequin, ert)
 
-	COMPILE_OVERLAYS(mannequin)
 	CHECK_TICK
 	var/icon/preview_icon = icon('icons/effects/effects.dmi', "nothing")
 	preview_icon.Scale(48+32, 16+32)

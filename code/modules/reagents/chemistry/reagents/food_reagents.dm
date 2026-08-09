@@ -27,9 +27,12 @@
 	. = ..()
 	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER))
 		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.adjust_nutrition(nutriment_factor * REM * delta_time)
+	var/mob/living/carbon/human/H = affected_mob
+	// If non-ethereal gets ethereal stomach they cannot eat
+	var/obj/item/organ/stomach/electrical/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach) && H.dna?.species?.id != SPECIES_ETHEREAL)
+		return
+	H.adjust_nutrition(nutriment_factor * REM * delta_time)
 
 /datum/reagent/consumable/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -64,7 +67,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(DT_PROB(30, delta_time))
+	if(DT_PROB(30, delta_time)) //scp13 optimization
 		if(affected_mob.heal_bodypart_damage(brute = brute_heal * REM * delta_time, burn = burn_heal * REM * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC))
 			return UPDATE_MOB_HEALTH
 
@@ -766,7 +769,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "pure electrictiy"
+	taste_description = "pure electricity"
 
 /datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume) //can't be on life because of the way blood works.
 	. = ..()

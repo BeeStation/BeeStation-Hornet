@@ -22,7 +22,7 @@
 		. += span_cult(vampire_desc)
 	if(IS_VASSAL(user) && vassal_desc)
 		. += span_cult(vassal_desc)
-	if(IS_CURATOR(user) && curator_desc)
+	if(is_curator_job(user?.mind?.assigned_role) && curator_desc)
 		. += span_cult(curator_desc)
 
 /// This handles bolting down the structure.
@@ -402,7 +402,7 @@
 		return
 	for(var/mob/living/carbon/nearby_people in viewers(7, src))
 		/// We don't want vampires or vassals affected by this
-		if(HAS_MIND_TRAIT(nearby_people, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(nearby_people))
+		if(HAS_MIND_TRAIT(nearby_people, TRAIT_VAMPIRE_ALIGNED) || is_curator_job(nearby_people?.mind?.assigned_role))
 			continue
 		nearby_people.set_hallucinations_if_lower(10 SECONDS)
 		SEND_SIGNAL(nearby_people, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)

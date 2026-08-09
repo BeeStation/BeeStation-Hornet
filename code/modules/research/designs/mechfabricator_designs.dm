@@ -1106,6 +1106,12 @@
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 500)
 	build_path = /obj/item/mod/module/magnetic_harness
 
+/datum/design/module/mod_reinforced_plating
+	name = "MOD Module: Reinforced Plating"
+	id = "mod_reinforced_plating"
+	materials = list(/datum/material/iron = 3000, /datum/material/silver = 1200, /datum/material/titanium = 1000, /datum/material/plasma = 500)
+	build_path = /obj/item/mod/module/reinforced_plating
+
 /datum/design/module/mod_tether
 	name = "MOD Module: Emergency Tether"
 	id = "mod_tether"

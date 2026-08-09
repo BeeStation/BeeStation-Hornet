@@ -18,7 +18,7 @@
 	combat_mode = TRUE
 	hud_type = /datum/hud/minebot
 	// Atmos
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	// Health/damage
 	health = 125
@@ -92,7 +92,7 @@
 
 	// Setup access
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/M = SSjob.GetJob(JOB_NAME_SHAFTMINER)
+	var/datum/job/M = SSjob.get_job(JOB_NAME_SHAFTMINER)
 	access_card.access = M.get_access()
 
 

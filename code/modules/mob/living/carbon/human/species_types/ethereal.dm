@@ -8,7 +8,7 @@
 	mutantstomach = /obj/item/organ/stomach/electrical/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
-	exotic_bloodtype = "E"
+	exotic_bloodtype = "LE"
 	siemens_coeff = 0.5 //They thrive on energy
 	attack_type = BURN //burn bish
 	species_traits = list(

@@ -14,7 +14,7 @@
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	combat_mode = TRUE
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	status_flags = CANPUSH
 	del_on_death = TRUE
@@ -29,7 +29,7 @@
 	setup_visuals()
 
 /mob/living/simple_animal/hostile/zombie/proc/setup_visuals()
-	var/datum/job/job = SSjob.GetJob(zombiejob)
+	var/datum/job/job = SSjob.get_job(zombiejob)
 
 	var/datum/outfit/outfit = new job.outfit
 	outfit.l_hand = null
@@ -38,7 +38,6 @@
 	var/mob/living/carbon/human/dummy/dummy = new
 	dummy.equipOutfit(outfit)
 	dummy.set_species(/datum/species/zombie)
-	COMPILE_OVERLAYS(dummy)
 	icon = getFlatIcon(dummy)
 	qdel(dummy)
 

@@ -1,0 +1,49 @@
+2026-08-01:
+  Isaac, necromanceranne, DaydreamIQ:
+  - balance: 'Splits the nuclear operative combat medical kit into two versions: basic
+      and premium.'
+  - balance: Basic contains mix chem patches for burn and brute, some spare atropine
+      autoinjectors, price is unchanged).
+  - balance: The premium kit is a far more useful full suite of advanced medical equipment,
+      MODsuit modules, medical supplies and cybernetic implants, including the combat
+      hypospray and a few smaller extra ones to give to your teammates, a combat defib
+      MOD module and a MOD medbeam gun, price changed to 25 to make up for the extra
+      stuff.
+  - balance: microbombs automatically explode upon death, UNLESS you have atropine
+      inside you at the moment of death
+  - rscadd: Modsuit Medbeam module, an integrated medbeam gun into your suit with
+      some small drawbacks
+  TealSeer:
+  - code_imp: Fixed webpack bundling TGUI being interpreted as an error by vscode
+2026-08-02:
+  r1ks-iwnl:
+  - bugfix: Fixes power monitors displaying nothing
+2026-08-03:
+  mrmanlikesbt, Absolucy, MrMelbert:
+  - admin: The beaker panel actually works now and is TGUI
+  mrmanlikesbt, Pickle-Coding, TheBoondock, antropod, SmArtKar:
+  - code_imp: Atmospherics has received some backend code cleanup and optimizations.
+2026-08-04:
+  Tsar-Salat:
+  - rscadd: adds memory system for the security dog. Picks from a list of names and
+      basetypes. Keeping the dog alive for the round will ensure it passes into the
+      next.
+2026-08-05:
+  Isaac:
+  - rscadd: You can now search by name for cargo packs
+  Isaac, Schoolboy215:
+  - rscadd: RPED can now interact with APC's to change their battery
+  - bugfix: APC's wont throw runtimes whenever they have no cell installed
+2026-08-06:
+  rkz, Lemon, Mothblocks, ZephyrTFA, TemporalOroboros, Ryll:
+  - server: shaves 6 seconds off of init through overlay optimization
+  - bugfix: base64 callers have been triple checked and no longer can send malformed
+      or nonexistent images. This fixes admin Outfit selection icons, destructive
+      analyzer, crafting menu recipes, etcetera...
+  - bugfix: If you aim at something through cameras you will now aim at the thing
+      you aimed at from the perspective of yourself instead of the camera you were
+      using to aim.
+2026-08-08:
+  mrmanlikesbt:
+  - server: maplints are now only ran on maps that have actually had changes made
+      to them as apposed to all maps.

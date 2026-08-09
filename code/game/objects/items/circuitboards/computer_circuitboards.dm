@@ -36,10 +36,10 @@
 	var/counting = 1
 	var/list/dept_list = list(
 		NONE, // This means ALL department - don't be scared.
-		DEPT_BITFLAG_SEC,
-		DEPT_BITFLAG_MED,
-		DEPT_BITFLAG_SCI,
-		DEPT_BITFLAG_ENG)
+		DEPARTMENT_BITFLAG_SECURITY,
+		DEPARTMENT_BITFLAG_MEDICAL,
+		DEPARTMENT_BITFLAG_SCIENCE,
+		DEPARTMENT_BITFLAG_ENGINEERING)
 	var/list/dept_list_name = list(
 		"General",
 		"Security",

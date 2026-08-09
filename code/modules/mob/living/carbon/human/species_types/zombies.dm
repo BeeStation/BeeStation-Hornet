@@ -102,6 +102,7 @@
 		// INFECTIOUS UNIQUE
 		TRAIT_STABLEHEART, // Replacement for noblood. Infectious zombies can bleed but don't need their heart.
 		TRAIT_STABLELIVER, // Not necessary but for consistency with above
+		TRAIT_NOBLOOD,
 	)
 	// Infectious zombies have slow legs
 	bodypart_overrides = list(

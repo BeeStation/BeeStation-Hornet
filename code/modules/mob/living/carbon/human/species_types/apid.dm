@@ -72,9 +72,9 @@
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		affected.adjustToxLoss(3 * REM * delta_time)
 
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
-	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
+/datum/species/apid/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null) // For roundstart
+	. = ..()
+	equipping.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)

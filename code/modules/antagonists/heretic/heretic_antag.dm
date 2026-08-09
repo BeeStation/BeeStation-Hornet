@@ -392,7 +392,7 @@
 			continue
 		if(possible_target == owner)
 			continue
-		if(!SSjob.name_occupations[possible_target.assigned_role])
+		if(!SSjob.name_occupations[possible_target.assigned_role.title])
 			continue
 		var/turf/player_loc = get_turf(player)
 		if(!is_station_level(player_loc.z))
@@ -504,7 +504,7 @@
 		return
 	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
 		to_chat(owner.current, span_danger("The Mansus has modified your targets. Go find them!"))
-		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
+		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role.title || "human"]."))
 	add_sacrifice_target(new_target)
 
 /*
@@ -564,7 +564,7 @@
 			var/datum/mind/actual_target = ref.resolve()
 			if(istype(actual_target))
 				continue
-			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
+			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role.title || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
 

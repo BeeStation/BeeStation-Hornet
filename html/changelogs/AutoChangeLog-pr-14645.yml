@@ -1,0 +1,12 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - balance: Headcrabs are now immune to indirect gunfire
+  - bugfix: Swarmers can only place one barricade per tile again
+  - bugfix: Blood Bags can only be drank from by vampires
+  - bugfix: Module ore bag shouldn't void materials anymore
+  - bugfix: Modsuit reinforced plating will properly slow you down per piece equipped,
+      instead of constantly slowing you down
+  - bugfix: Venus Human Traps wont be able to keep their vine beam connected to something
+      through a wall
+  - bugfix: Wizard Modsuit shouldn't keep spamming the shield recharging sound anymore
