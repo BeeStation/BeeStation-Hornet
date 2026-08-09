@@ -58,7 +58,7 @@
 /datum/component/cleaner/proc/on_interaction(datum/source, mob/living/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
 
-	if(isitem(source) && user.combat_mode)
+	if(isitem(source) && SHOULD_SKIP_INTERACTION(target, user))
 		return NONE
 
 	var/call_wash = TRUE

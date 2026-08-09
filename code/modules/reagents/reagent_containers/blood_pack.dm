@@ -7,7 +7,7 @@
 	var/datum/blood_type/blood_type = null
 	var/unique_blood = null
 	var/labelled = 0
-	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
+	initial_reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
 	fill_icon_thresholds = list(10, 40, 60, 80, 100, 120, 140, 160, 180, 200)
 
 /obj/item/reagent_containers/blood/Initialize(mapload)

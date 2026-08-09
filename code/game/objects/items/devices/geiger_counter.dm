@@ -51,7 +51,7 @@
 			icon_state = "geiger_on_4"
 		if(PERCEIVED_RADIATION_DANGER_EXTREME)
 			icon_state = "geiger_on_5"
-	. = ..()
+	return ..()
 
 /obj/item/geiger_counter/attack_self(mob/user)
 	scanning = !scanning
@@ -61,19 +61,16 @@
 	else
 		qdel(GetComponent(/datum/component/geiger_sound))
 
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	user.balloon_alert(user, "switched [scanning ? "on" : "off"]")
 
-/obj/item/geiger_counter/afterattack(atom/target, mob/living/user, list/modifiers)
-	. = ..()
-	if(user.combat_mode)
-		return
+/obj/item/geiger_counter/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(SHOULD_SKIP_INTERACTION(interacting_with, user) || !CAN_IRRADIATE(interacting_with))
+		return NONE
 
-	if(!CAN_IRRADIATE(target))
-		return
-
-	user.visible_message(span_notice("[user] scans [target] with [src]."), span_notice("You scan [target]'s radiation levels with [src]..."))
-	addtimer(CALLBACK(src, PROC_REF(scan), target, user), 2 SECONDS, TIMER_UNIQUE) // Let's not have spamming GetAllContents
+	user.visible_message(span_notice("[user] scans [interacting_with] with [src]."), span_notice("You scan [interacting_with]'s radiation levels with [src]..."))
+	addtimer(CALLBACK(src, PROC_REF(scan), interacting_with, user), 20, TIMER_UNIQUE) // Let's not have spamming GetAllContents
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/geiger_counter/equipped(mob/user, slot, initial)
 	. = ..()

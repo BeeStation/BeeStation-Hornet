@@ -35,3 +35,9 @@
 
 /// Combination flag for any item interaction that blocks the rest of the attack chain
 #define ITEM_INTERACT_ANY_BLOCKER (ITEM_INTERACT_SUCCESS | ITEM_INTERACT_BLOCKING)
+
+/**
+ * A helper for checking if an item interaction should be skipped.
+ * This is only used explicitly because some interactions may not want to ever be skipped.
+ */
+#define SHOULD_SKIP_INTERACTION(target, user) (HAS_TRAIT(target, TRAIT_COMBAT_MODE_SKIP_INTERACTION) && user.combat_mode)

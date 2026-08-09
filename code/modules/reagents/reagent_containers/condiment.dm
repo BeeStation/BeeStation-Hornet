@@ -13,7 +13,7 @@
 	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	obj_flags = UNIQUE_RENAME
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	volume = 50
@@ -38,34 +38,33 @@
 	user.visible_message(span_suicide("[user] is trying to eat the entire [src]! It looks like [user.p_they()] forgot how food works!"))
 	return OXYLOSS
 
-/obj/item/reagent_containers/condiment/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/condiment/proc/try_eat(atom/target, mob/living/user)
+	if(!canconsume(target, user))
+		return ITEM_INTERACT_BLOCKING
 
-	if(!reagents || !reagents.total_volume)
-		to_chat(user, span_warning("None of [src] left, oh no!"))
-		return 0
-
-	if(!canconsume(M, user))
-		return 0
-
-	if(M == user)
-		user.visible_message(span_notice("[user] swallows some of the contents of \the [src]."), \
-			span_notice("You swallow some of the contents of \the [src]."))
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(target == user)
+		user.visible_message(
+			span_notice("[user] swallows some of the contents of \the [src]."),
+			span_notice("You swallow some of the contents of \the [src]."),
+		)
 	else
-		M.visible_message(span_warning("[user] attempts to feed [M] from [src]."), \
-			span_warning("[user] attempts to feed you from [src]."))
-		if(!do_after(user, 3 SECONDS, target = M))
-			return
+		target.visible_message(
+			span_warning("[user] attempts to feed [target] from [src]."),
+			span_warning("[user] attempts to feed you from [src]."),
+		)
+		if(!do_after(user, 3 SECONDS, target))
+			return ITEM_INTERACT_BLOCKING
 		if(!reagents || !reagents.total_volume)
-			return // The condiment might be empty after the delay.
-		M.visible_message(span_warning("[user] fed [M] from [src]."), \
-			span_warning("[user] fed you from [src]."))
-		log_combat(user, M, "fed", reagents.log_list())
-
-	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.expose(M, INGEST, fraction)
-	reagents.trans_to(M, 10, transfered_by = user)
-	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
-	return 1
+			return ITEM_INTERACT_BLOCKING // The condiment might be empty after the delay.
+		target.visible_message(
+			span_warning("[user] fed [target] from [src]."),
+			span_warning("[user] fed you from [src]."),
+		)
+		log_combat(user, target, "fed", reagents.get_reagent_log_string())
+	reagents.trans_to(target, 10, transfered_by = user, method = INGEST)
+	playsound(target, 'sound/items/drink.ogg', rand(10, 50), TRUE)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/reagent_containers/condiment/afterattack(obj/target, mob/user , proximity)
 	. = ..()
@@ -149,18 +148,18 @@
 	desc = "Salt. From dead crew, presumably."
 	return (TOXLOSS)
 
-/obj/item/reagent_containers/condiment/saltshaker/afterattack(obj/target, mob/living/user, proximity)
+/obj/item/reagent_containers/condiment/saltshaker/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
-	if(!proximity)
+	if((. & ITEM_INTERACT_ANY_BLOCKER) || !isturf(target))
 		return
-	if(isturf(target))
-		if(!reagents.has_reagent(/datum/reagent/consumable/sodiumchloride, 2))
-			to_chat(user, span_warning("You don't have enough salt to make a pile!"))
-			return
-		user.visible_message(span_notice("[user] shakes some salt onto [target]."), span_notice("You shake some salt onto [target]."))
-		reagents.remove_reagent(/datum/reagent/consumable/sodiumchloride, 2)
-		new/obj/effect/decal/cleanable/food/salt(target)
+	if(!reagents.has_reagent(/datum/reagent/consumable/sodiumchloride, 2))
+		to_chat(user, span_warning("You don't have enough salt to make a pile!"))
 		return
+
+	user.visible_message(span_notice("[user] shakes some salt onto [target]."), span_notice("You shake some salt onto [target]."))
+	reagents.remove_reagent(/datum/reagent/consumable/sodiumchloride, 2)
+	new /obj/effect/decal/cleanable/food/salt(target)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/reagent_containers/condiment/peppermill
 	name = "pepper mill"
@@ -401,29 +400,25 @@
 /obj/item/reagent_containers/condiment/pack/update_icon()
 	return
 
-/obj/item/reagent_containers/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
-	return
+/obj/item/reagent_containers/condiment/pack/try_eat(atom/target, mob/living/user)
+	return NONE
 
-/obj/item/reagent_containers/condiment/pack/afterattack(obj/target, mob/user , proximity)
-	if(!proximity)
-		return
-
+/obj/item/reagent_containers/condiment/pack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(IS_EDIBLE(target))
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("You tear open [src], but there's nothing in it."))
 			qdel(src)
-			return
+			return ITEM_INTERACT_BLOCKING
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
 			to_chat(user, span_warning("You tear open [src], but [target] is stacked so high that it just drips off!") )
 			qdel(src)
-			return
-		else
-			to_chat(user, span_notice("You tear open [src] above [target] and the condiments drip onto it."))
-			src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
-			qdel(src)
-			return
-	. = ..()
+			return ITEM_INTERACT_BLOCKING
+		to_chat(user, span_notice("You tear open [src] above [target] and the condiments drip onto it."))
+		reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+		qdel(src)
+		return ITEM_INTERACT_SUCCESS
+	return ..()
 
 /obj/item/reagent_containers/condiment/pack/on_reagent_change(changetype)
 	if(reagents.reagent_list.len > 0)

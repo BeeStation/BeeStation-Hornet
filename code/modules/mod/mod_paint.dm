@@ -11,7 +11,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "paintkit"
 	var/obj/item/mod/control/editing_mod
-	var/atom/movable/screen/color_matrix_proxy_view/proxy_view
+	var/atom/movable/screen/map_view/proxy_view
 	var/list/current_color
 
 /obj/item/mod/paint/Initialize(mapload)
@@ -23,32 +23,6 @@
 	. += span_notice("<b>Left-click</b> a MODsuit to change skin.")
 	. += span_notice("<b>Right-click</b> a MODsuit to recolor.")
 
-/obj/item/mod/paint/pre_attack(atom/attacked_atom, mob/living/user, list/modifiers)
-	if(!istype(attacked_atom, /obj/item/mod/control))
-		return ..()
-	var/obj/item/mod/control/mod = attacked_atom
-	if(mod.active || mod.activating)
-		balloon_alert(user, "unit active!")
-		return TRUE
-	paint_skin(mod, user)
-
-/obj/item/mod/paint/pre_attack_secondary(atom/attacked_atom, mob/living/user, list/modifiers)
-	if(!istype(attacked_atom, /obj/item/mod/control))
-		return ..()
-	var/obj/item/mod/control/mod = attacked_atom
-	if(mod.active || mod.activating)
-		balloon_alert(user, "unit active!")
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	if(editing_mod)
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	editing_mod = mod
-	proxy_view = new()
-	proxy_view.appearance = editing_mod.appearance
-	proxy_view.color = null
-	proxy_view.register_to_client(user.client)
-	ui_interact(user)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
 /obj/item/mod/paint/ui_interact(mob/user, datum/tgui/ui)
 	if(!editing_mod)
 		return
@@ -56,6 +30,7 @@
 	if(!ui)
 		ui = new(user, src, "MODpaint", name)
 		ui.open()
+		proxy_view.display_to(user, ui.window)
 
 /obj/item/mod/paint/ui_host()
 	return editing_mod

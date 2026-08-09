@@ -62,68 +62,98 @@
 /obj/item/delivery/can_be_package_wrapped()
 	return FALSE
 
-/obj/item/stack/package_wrap/afterattack(obj/target, mob/user, proximity)
-	. = ..()
-	if(!proximity)
-		return
-	if(!istype(target))
-		return
-	if(target.anchored)
-		return
+/obj/item/stack/package_wrap/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isobj(interacting_with))
+		return NONE
+	var/obj/interacting_obj = interacting_with
 
-	if(isitem(target))
-		var/obj/item/I = target
-		if(!I.can_be_package_wrapped())
-			return
-		if(user.is_holding(I))
-			if(!user.dropItemToGround(I))
-				return
-		else if(!isturf(I.loc))
-			return
+	if(interacting_obj.anchored)
+		return NONE
+
+	if(isitem(interacting_obj))
+		var/obj/item/item = interacting_obj
+		if(!item.can_be_package_wrapped())
+			if(SHOULD_SKIP_INTERACTION(interacting_obj, user))
+				return NONE // put it in the bag instead of yelling
+			balloon_alert(user, "can't be wrapped!")
+			return ITEM_INTERACT_BLOCKING
+		if(user.is_holding(item))
+			if(!user.dropItemToGround(item))
+				return ITEM_INTERACT_BLOCKING
+		else if(!isturf(item.loc))
+			return ITEM_INTERACT_BLOCKING
+
 		if(use(1))
-			var/obj/item/delivery/small/P = new(get_turf(I.loc))
-			if(user.Adjacent(I))
-				P.add_fingerprint(user)
-				I.add_fingerprint(user)
-				user.put_in_hands(P)
-			I.forceMove(P)
-			var/size = round(I.w_class)
-			P.name = "[weight_class_to_text(size)] parcel"
-			P.w_class = size
+			var/obj/item/delivery/small/parcel = new(get_turf(item.loc))
+			if(user.Adjacent(item))
+				parcel.add_fingerprint(user)
+				item.add_fingerprint(user)
+				user.put_in_hands(parcel)
+			item.forceMove(parcel)
+			var/size = round(item.w_class)
+			if(istype(item, /obj/item/disk))
+				parcel.base_icon_state = "deliveryfloppy"
+				parcel.name = "floppy disk parcel"
+			else
+				parcel.base_icon_state = "deliverypackage[size]"
+				parcel.name = "[weight_class_to_text(size)] parcel"
+			parcel.w_class = size
 			size = min(size, 5)
-			P.base_icon_state = "deliverypackage[size]"
-			P.update_icon()
-
-	else if(istype (target, /obj/structure/closet))
-		var/obj/structure/closet/O = target
-		if(O.opened)
-			return
-		if(!O.delivery_icon) //no delivery icon means unwrappable closet (e.g. body bags)
-			to_chat(user, span_warning("You can't wrap this!"))
-			return
-		if(use(3))
-			var/obj/item/delivery/big/P = new(get_turf(O.loc))
-			P.base_icon_state = O.delivery_icon
-			P.update_icon()
-			P.drag_slowdown = O.drag_slowdown
-			O.forceMove(P)
-			P.add_fingerprint(user)
-			O.add_fingerprint(user)
+			parcel.update_appearance(UPDATE_ICON)
 		else
-			to_chat(user, span_warning("You need more paper!"))
-			return
-	else
-		to_chat(user, span_warning("The object you are trying to wrap is unsuitable for the sorting machinery!"))
-		return
+			return ITEM_INTERACT_BLOCKING
 
-	user.visible_message(span_notice("[user] wraps [target]."))
-	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
+	else if(istype(interacting_obj, /obj/structure/closet))
+		var/obj/structure/closet/closet = interacting_obj
+		if(closet.opened)
+			balloon_alert(user, "can't wrap while open!")
+			return ITEM_INTERACT_BLOCKING
+		if(!closet.delivery_icon) //no delivery icon means unwrappable closet (e.g. body bags)
+			balloon_alert(user, "can't wrap!")
+			return ITEM_INTERACT_BLOCKING
+		if(use(3))
+			var/obj/item/delivery/big/parcel = new(get_turf(closet.loc))
+			var/mob/being_pulled_by = closet.pulledby
+			being_pulled_by?.start_pulling(parcel)
+			parcel.base_icon_state = closet.delivery_icon
+			parcel.update_appearance(UPDATE_ICON)
+			parcel.drag_slowdown = closet.drag_slowdown
+			closet.forceMove(parcel)
+			parcel.add_fingerprint(user)
+			closet.add_fingerprint(user)
+		else
+			balloon_alert(user, "not enough paper!")
+			return ITEM_INTERACT_BLOCKING
+
+	else if(istype(interacting_obj,  /obj/machinery/portable_atmospherics))
+		var/obj/machinery/portable_atmospherics/portable_atmospherics = interacting_obj
+		if(portable_atmospherics.anchored)
+			balloon_alert(user, "can't wrap while anchored!")
+			return ITEM_INTERACT_BLOCKING
+		if(use(3))
+			var/obj/item/delivery/big/parcel = new(get_turf(portable_atmospherics.loc))
+			parcel.base_icon_state = "deliverybox"
+			parcel.update_icon()
+			parcel.drag_slowdown = portable_atmospherics.drag_slowdown
+			portable_atmospherics.forceMove(parcel)
+			parcel.add_fingerprint(user)
+			portable_atmospherics.add_fingerprint(user)
+		else
+			balloon_alert(user, "not enough paper!")
+			return ITEM_INTERACT_BLOCKING
+
+	else
+		balloon_alert(user, "can't wrap!")
+		return ITEM_INTERACT_BLOCKING
+
+	user.visible_message(span_notice("[user] wraps [interacting_obj]."))
+	user.log_message("has used [name] on [key_name(interacting_obj)]", LOG_ATTACK, color="blue")
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/stack/package_wrap/use(used, transfer = FALSE, check = TRUE)
-	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
-		new /obj/item/c_tube(T)
+		new /obj/item/c_tube(drop_location())
 
 /obj/item/stack/package_wrap/small
 	desc = "You can use this to wrap items in. This roll looks a bit skimpy."

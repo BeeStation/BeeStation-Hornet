@@ -32,19 +32,6 @@
 	volume = 50
 	custom_price = PAYCHECK_MEDIUM * 0.9
 
-/obj/item/reagent_containers/cup/glass/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
-	if(bartender_check(target) && ranged)
-		return
-	SplashReagents(target, ranged, override_spillable = TRUE)
-	var/obj/item/broken_bottle/B = new(loc)
-	if(!ranged && thrower)
-		thrower.put_in_hands(B)
-	B.mimic_broken(src, target)
-	B.inhand_icon_state = broken_inhand_icon_state
-
-	qdel(src)
-	target.Bumped(B)
-
 /obj/item/reagent_containers/cup/glass/bottle/try_splash(mob/living/user, atom/target)
 
 	if(!target || !isliving(target))
@@ -437,8 +424,7 @@
 	desc = "Finely sourced from only the most pretentious French vineyards."
 	icon_state = "champagne_bottle"
 	base_icon_state = "champagne_bottle"
-	reagent_flags = TRANSPARENT
-	//spillable = FALSE //This bottle should really be using a cork, but we'll leave it alone for now
+	initial_reagent_flags = TRANSPARENT
 	list_reagents = list(/datum/reagent/consumable/ethanol/champagne = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/blazaam
@@ -473,7 +459,7 @@
 	icon_state = "vodkabottle"
 	list_reagents = list()
 	var/active = FALSE
-	var/list/accelerants = list(
+	var/static/list/accelerants = list(
 		/datum/reagent/consumable/ethanol,
 		/datum/reagent/fuel,
 		/datum/reagent/clf3,
@@ -493,29 +479,32 @@
 		if(istype(B, /obj/item/reagent_containers/cup/glass/bottle/juice))
 			desc += " You're not sure if making this out of a carton was the brightest idea."
 			isGlass = FALSE
-	return
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/smash(atom/target, mob/thrower, ranged = FALSE)
-	var/firestarter = 0
+	var/firestarter = FALSE
 	for(var/datum/reagent/contained_reagent in reagents.reagent_list)
 		for(var/accelerant_type in accelerants)
 			if(istype(contained_reagent, accelerant_type))
-				firestarter = 1
+				firestarter = TRUE
 				break
+	. = ..()
 	if(firestarter && active)
-		target.fire_act()
+		if(!QDELETED(target))
+			target.fire_act()
 		new /obj/effect/hotspot(get_turf(target))
-	..()
 
-/obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, list/modifiers)
-	if(I.get_temperature() && !active)
-		active = TRUE
-		log_bomber(user, "has primed a", src, "for detonation")
+/obj/item/reagent_containers/cup/glass/bottle/molotov/item_interaction(mob/living/user, obj/item/item, list/modifiers)
+	if(item.get_temperature() < FIRE_MINIMUM_TEMPERATURE_TO_EXIST || active)
+		return NONE
 
-		to_chat(user, span_info("You light [src] on fire."))
-		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
-		if(!isGlass)
-			addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
+	active = TRUE
+	log_bomber(user, "has primed a", src, "for detonation")
+
+	to_chat(user, span_info("You light [src] on fire."))
+	add_overlay(custom_fire_overlay || GLOB.fire_overlay)
+	if(!isGlass)
+		addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/proc/explode()
 	if(!active)
@@ -525,11 +514,11 @@
 		for(var/i in 1 to 2)
 			if(istype(target, /obj/item/storage))
 				target = target.loc
-		SplashReagents(target, override_spillable = TRUE)
+		splash_reagents(target, allow_closed_splash = TRUE)
 		target.fire_act()
 	qdel(src)
 
-/obj/item/reagent_containers/cup/glass/bottle/molotov/attack_self(mob/user)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/attack_self(mob/user, list/modifiers)
 	if(active)
 		if(!isGlass)
 			to_chat(user, span_danger("The flame's spread too far on it!"))

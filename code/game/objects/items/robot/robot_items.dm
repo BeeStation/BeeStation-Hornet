@@ -857,12 +857,14 @@
 ***********************************************************************/
 //These are tools that can hold only specific items. For example, the mediborg and service borg get one that can only hold reagent containers
 
-/obj/item/borg/apparatus/
+/obj/item/borg/apparatus
 	name = "unknown storage apparatus"
 	desc = "This device seems nonfunctional."
 	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "hugmodule"
+	/// The item stored inside of this apparatus
 	var/obj/item/stored
+	/// Whitelist of types allowed in this apparatus
 	var/list/storable = list()
 
 /obj/item/borg/apparatus/Initialize(mapload)
@@ -870,9 +872,8 @@
 	RegisterSignal(loc.loc, COMSIG_BORG_SAFE_DECONSTRUCT, PROC_REF(safedecon))
 
 /obj/item/borg/apparatus/Destroy()
-	if(stored)
-		qdel(stored)
-	. = ..()
+	QDEL_NULL(stored)
+	return ..()
 
 ///If we're safely deconstructed, we put the item neatly onto the ground, rather than deleting it.
 /obj/item/borg/apparatus/proc/safedecon()
@@ -886,7 +887,7 @@
 	if(gone == stored) //sanity check
 		UnregisterSignal(stored, COMSIG_ATOM_UPDATE_ICON)
 		stored = null
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	return ..()
 
 ///A right-click verb, for those not using hotkey mode.
@@ -897,12 +898,14 @@
 	if(usr != loc || !stored)
 		return
 	stored.forceMove(get_turf(usr))
-	return
 
-/obj/item/borg/apparatus/attack_self(mob/living/silicon/robot/user)
-	if(!stored)
+/obj/item/borg/apparatus/get_proxy_attacker_for(atom/target, mob/user)
+	return stored || ..() // Use the stored item if available
+
+/obj/item/borg/apparatus/attack_self(mob/living/user, list/modifiers)
+	if(!stored || !issilicon(user))
 		return ..()
-	stored.attack_self(user)
+	stored.attack_self(user, modifiers)
 
 //Alt click drops stored item
 /obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
@@ -912,30 +915,36 @@
 		return ..()
 	stored.forceMove(get_turf(user))
 
-/obj/item/borg/apparatus/pre_attack(atom/A, mob/living/user, list/modifiers)
-	if(!stored)
-		var/itemcheck = FALSE
-		for(var/i in storable)
-			if(istype(A, i))
-				itemcheck = TRUE
-				break
-		if(itemcheck)
-			var/obj/item/O = A
-			O.forceMove(src)
-			stored = O
-			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, TYPE_PROC_REF(/atom, update_icon))
-			update_icon()
-			return
-	else
-		stored.melee_attack_chain(user, A, modifiers)
-		return
-	return ..()
+/obj/item/borg/apparatus/pre_attack(atom/target, mob/living/user, list/modifiers)
+	if(istype(target.loc, /mob/living/silicon/robot) || istype(target.loc, /obj/item/robot_model) || HAS_TRAIT(target, TRAIT_NODROP))
+		return ..() // Borgs should not be grabbing their own modules
 
-/obj/item/borg/apparatus/attackby(obj/item/W, mob/user, list/modifiers)
-	if(stored)
-		W.melee_attack_chain(user, stored, modifiers)
-		return
-	return ..()
+	if(!is_type_in_list(target, storable))
+		return ..()
+
+	var/obj/item/item_target = target
+	item_target.forceMove(src)
+	stored = item_target
+	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_stored_updated_icon))
+	update_appearance(UPDATE_ICON)
+	return TRUE
+
+/**
+ * Updates the appearance of the apparatus when the stored object's icon gets updated.
+ *
+ * Returns NONE as we have not done anything to the stored object itself,
+ * which is where this signal that this handler intercepts is sent from.
+ */
+/obj/item/borg/apparatus/proc/on_stored_updated_icon(datum/source, updates)
+	SIGNAL_HANDLER
+	update_appearance(UPDATE_ICON)
+	return NONE
+
+/obj/item/borg/apparatus/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!stored)
+		return NONE
+	tool.melee_attack_chain(user, stored, modifiers)
+	return ITEM_INTERACT_SUCCESS
 
 ////////////////////
 //container holder//
@@ -947,13 +956,6 @@
 	icon_state = "borg_beaker_apparatus"
 	storable = list(/obj/item/reagent_containers/cup)
 	var/defaultcontainer = /obj/item/reagent_containers/cup/beaker
-
-/obj/item/borg/apparatus/container/Destroy()
-	if(stored)
-		var/obj/item/reagent_containers/C = stored
-		C.SplashReagents(get_turf(src))
-		QDEL_NULL(stored)
-	. = ..()
 
 /obj/item/borg/apparatus/container/examine()
 	. = ..()
@@ -986,18 +988,17 @@
 
 /obj/item/borg/apparatus/container/attack_self(mob/living/silicon/robot/user)
 	if(!stored)
-		var/newcontainer = new defaultcontainer(src)
-		stored = newcontainer
-		to_chat(user, span_notice("You synthesize a new [newcontainer]!"))
-		playsound(src, 'sound/machines/click.ogg', 10, 1)
+		stored = new defaultcontainer(src)
+		to_chat(user, span_notice("You synthesize a new [stored]!"))
+		playsound(src, 'sound/machines/click.ogg', 10, TRUE)
 		update_icon()
 		return
-	if(stored && !user.client?.keys_held["Alt"] && user.combat_mode)
+	if(!user.client?.keys_held["Alt"] && user.combat_mode)
 		var/obj/item/reagent_containers/C = stored
-		C.SplashReagents(get_turf(user))
+		C.splash_reagents(get_turf(user), user)
 		loc.visible_message(span_notice("[user] spills the contents of the [C] all over the floor."))
 		return
-	. = ..()
+	return ..()
 
 /obj/item/borg/apparatus/container/extra
 	name = "container storage apparatus"

@@ -444,10 +444,9 @@
 		. += span_notice("You need to insert \a [english_list(core_list, and_text = " or ")] for this module to function.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
-	if(!core)
-		balloon_alert(mod.wearer, "no core!")
-		return
-	return ..()
+	if(core)
+		return ..()
+	balloon_alert(mod.wearer, "no core!")
 
 /obj/item/mod/module/anomaly_locked/on_process(delta_time)
 	. = ..()
@@ -455,9 +454,7 @@
 		return FALSE
 
 /obj/item/mod/module/anomaly_locked/on_active_process(delta_time)
-	if(!core)
-		return FALSE
-	return TRUE
+	return !!core
 
 /obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(item.type in accepted_anomalies)

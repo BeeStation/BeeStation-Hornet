@@ -20,6 +20,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	desc = "A simple match stick, used for lighting fine smokables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unlit"
+	inhand_icon_state = "cigoff"
+	base_icon_state = "match"
 	w_class = WEIGHT_CLASS_TINY
 	heat = 1000
 	throw_verb = "flick"
@@ -31,6 +33,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/burnt = FALSE
 	/// How long the match lasts in seconds
 	var/smoketime = 10 SECONDS
+	/// If the match is broken
+	var/broken = FALSE
 
 /obj/item/match/process(delta_time)
 	smoketime -= delta_time * (1 SECONDS)
@@ -42,21 +46,58 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/match/fire_act(exposed_temperature, exposed_volume)
 	matchignite()
 
+/obj/item/match/update_name(updates)
+	. = ..()
+	if(lit)
+		name = "lit [initial(name)]"
+	else if(burnt)
+		name = "burnt [initial(name)]"
+	else if(broken)
+		name = "broken [initial(name)]"
+	else
+		name = "[initial(name)]"
+
+/obj/item/match/update_desc(updates)
+	. = ..()
+	if(lit)
+		desc = "[initial(desc)] This one is lit."
+	else if(burnt)
+		desc = "[initial(desc)] This one has seen better days."
+	else if(broken)
+		desc = "[initial(desc)] This one is broken."
+	else
+		desc = initial(desc)
+
+/obj/item/match/update_icon_state()
+	. = ..()
+	if(lit)
+		icon_state = "[base_icon_state]_lit"
+		inhand_icon_state = "cigon"
+		return
+
+	if(burnt)
+		icon_state = "[base_icon_state]_burnt"
+	else if(broken)
+		icon_state = "[base_icon_state]_broken"
+	else
+		icon_state = "[base_icon_state]_unlit"
+	inhand_icon_state = "cigoff"
+
 /obj/item/match/proc/matchignite()
-	if(lit || burnt)
+	if(lit || burnt || broken)
 		return
 
 	playsound(src, 'sound/items/match_strike.ogg', 15, TRUE)
 	lit = TRUE
-	icon_state = "match_lit"
 	damtype = BURN
 	force = 3
 	hitsound = 'sound/items/welder.ogg'
-	inhand_icon_state = "cigon"
-	name = "lit [initial(name)]"
-	desc = "A [initial(name)]. This one is lit."
 	attack_verb_continuous = string_list(list("burns", "singes"))
 	attack_verb_simple = string_list(list("burn", "singe"))
+	if(isliving(loc))
+		var/mob/living/male_model = loc
+		if(male_model.fire_stacks && !(male_model.on_fire))
+			male_model.ignite_mob()
 	START_PROCESSING(SSobj, src)
 	update_appearance()
 
@@ -68,13 +109,23 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	burnt = TRUE
 	damtype = BRUTE
 	force = initial(force)
-	icon_state = "match_burnt"
-	inhand_icon_state = "cigoff"
-	name = "burnt [initial(name)]"
-	desc = "A [initial(name)]. This one has seen better days."
 	attack_verb_continuous = string_list(list("flicks"))
 	attack_verb_simple = string_list(list("flick"))
 	STOP_PROCESSING(SSobj, src)
+	update_appearance()
+
+/obj/item/match/proc/snap()
+	if(broken)
+		return
+	if(lit)
+		matchburnout()
+
+	playsound(src, 'sound/effects/snap.ogg', 15, TRUE)
+	broken = TRUE
+	attack_verb_continuous = string_list(list("flicks"))
+	attack_verb_simple = string_list(list("flick"))
+	STOP_PROCESSING(SSobj, src)
+	update_appearance()
 
 /obj/item/match/extinguish()
 	. = ..()
@@ -84,30 +135,23 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	matchburnout()
 	return ..()
 
-/obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!isliving(M))
+/obj/item/match/attack(mob/living/target_mob, mob/living/carbon/user)
+	if(!isliving(target_mob))
 		return
-	if(lit && M.ignite_mob())
-		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
-		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 
-	var/obj/item/cigarette/cig = help_light_cig(M)
+	if(lit && target_mob.ignite_mob())
+		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(target_mob)] on fire with [src] at [AREACOORD(user)]")
+		user.log_message("set [key_name(target_mob)] on fire with [src]", LOG_ATTACK)
+
+	var/obj/item/cigarette/cig = help_light_cig(target_mob)
 	if(!lit || !cig || user.combat_mode)
-		..()
-		return
+		return ..()
 
 	if(cig.lit)
 		to_chat(user, span_warning("\The [cig] is already lit!"))
-	if(M == user)
-		cig.attackby(src, user)
-	else
-		if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
-			message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
-			log_game("[cig] that contains plasma was lit by [key_name(user)] for [key_name(M)]!")
-		if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
-			message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
-			log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-		cig.light(span_notice("[user] holds \the [src] out for [M], and lights [M.p_their()] [cig.name]."))
+		return
+
+	cig.attempt_light(user, src, target_mob == user ? null : span_notice("[user] holds [src] out for [target_mob], and lights [cig]."))
 
 /// Finds a cigarette on another mob to help light.
 /obj/item/proc/help_light_cig(mob/living/M)
@@ -248,28 +292,36 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	user.visible_message(span_suicide("[user] is huffing [src] as quickly as [user.p_they()] can! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer."))
 	return (TOXLOSS|OXYLOSS)
 
-/obj/item/cigarette/attackby(obj/item/W, mob/user, list/modifiers)
-	if(lit)
-		return ..()
+/obj/item/cigarette/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	return attempt_light(user, tool)
 
-	var/lighting_text = W.ignition_effect(src, user)
-	if(!lighting_text)
-		return ..()
+/obj/item/cigarette/proc/attempt_light(mob/living/user, obj/item/tool, text_override = null)
+	if(lit)
+		return NONE
+
+	if(isnull(text_override))
+		text_override = tool.ignition_effect(src, user)
+		if(!text_override)
+			return NONE
+	// Maybe jank, but the reason it's like this is that you can ignore ignition_effect() and also provide no text by giving an empty string to text_override, while still lighting.
 
 	if(!check_oxygen(user)) //cigarettes need oxygen
 		balloon_alert(user, "no air!")
-		return ..()
+		return ITEM_INTERACT_BLOCKING
 
-	if(smoketime > 0)
-		if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
-			message_admins("[src] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
-			log_game("[src] that contains plasma was lit by  [key_name(user)]!")
-		if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
-			message_admins("[src] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
-			log_game("[src] that contains fuel was lit by [key_name(user)]!")
-		light(lighting_text)
-	else
+	if(!smoketime)
 		to_chat(user, span_warning("There is nothing to smoke!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+		message_admins("[src] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
+		log_game("[src] that contains plasma was lit by [key_name(user)]!")
+	if(reagents.get_reagent_amount(/datum/reagent/fuel))
+		message_admins("[src] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
+		log_game("[src] that contains fuel was lit by [key_name(user)]!")
+
+	light(text_override)
+	return ITEM_INTERACT_SUCCESS
 
 /// Checks that we have enough air to smoke
 /obj/item/cigarette/proc/check_oxygen(mob/user)
@@ -485,41 +537,29 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	qdel(src)
 	playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
 
-/obj/item/cigarette/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M))
+/obj/item/cigarette/attack(mob/living/target_mob, mob/living/carbon/user)
+	if(!iscarbon(target_mob))
 		return ..()
-	if(M.on_fire && !lit)
-		if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+
+	var/mob/living/carbon/fire_guy = target_mob
+	if(fire_guy.on_fire && !lit)
+		if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
 			message_admins("[src] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
 			log_game("[src] that contains plasma was lit by [key_name(user)]!")
-		if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
+		if(reagents.get_reagent_amount(/datum/reagent/fuel))
 			message_admins("[src] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
 			log_game("[src] that contains fuel was lit by [key_name(user)]!")
-		light(span_notice("[user] lights [src] with [M]'s burning body. What a cold-blooded badass."))
+		light(span_notice("[user] lights [src] with [fire_guy]'s burning body. What a cold-blooded badass."))
 		return
-	var/obj/item/cigarette/cig = help_light_cig(M)
+	var/obj/item/cigarette/cig = help_light_cig(fire_guy)
 	if(!lit || !cig || user.combat_mode)
 		return ..()
 
 	if(cig.lit)
 		to_chat(user, span_warning("The [cig.name] is already lit!"))
-	if(M == user)
-		if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
-			message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
-			log_game("[cig] that contains plasma was lit by [key_name(user)]!")
-		if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
-			message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
-			log_game("[cig] that contains fuel was lit by [key_name(user)]!")
-		cig.attackby(src, user)
-	else
-		if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
-			message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
-			log_game("[cig] that contains plasma was lit by [key_name(user)] for [key_name(M)]!")
-		if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
-			message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
-			log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-		cig.light(span_notice("[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name]."))
+		return
 
+	cig.attempt_light(user, src, fire_guy == user ? null : span_notice("[user] holds \the [src] out for [fire_guy], and lights [fire_guy.p_their()] [cig.name]."))
 
 /obj/item/cigarette/fire_act(exposed_temperature, exposed_volume)
 	if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
@@ -781,7 +821,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	lit = FALSE
 	if(done_early)
 		user.visible_message(span_notice("[user] puts out [src]."), span_notice("You put out [src]."))
-
 	else
 		if(user)
 			to_chat(user, span_notice("Your [name] goes out."))
@@ -790,38 +829,37 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(cig_smoke)
 
-/obj/item/cigarette/pipe/attackby(obj/item/thing, mob/user, list/modifiers)
-	if(!istype(thing, /obj/item/food/grown))
+/obj/item/cigarette/pipe/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/food/grown))
 		return ..()
 
-	var/obj/item/food/grown/to_smoke = thing
 	if(packeditem)
 		to_chat(user, span_warning("It is already packed!"))
-		return
-	if(!HAS_TRAIT(to_smoke, TRAIT_DRIED))
+		return ITEM_INTERACT_BLOCKING
+
+	if(!HAS_TRAIT(tool, TRAIT_DRIED))
 		to_chat(user, span_warning("It has to be dried first!"))
-		return
+		return ITEM_INTERACT_BLOCKING
 
-	to_chat(user, span_notice("You stuff [to_smoke] into [src]."))
+	to_chat(user, span_notice("You stuff [tool] into [src]."))
 	smoketime = 13 MINUTES
-	packeditem = to_smoke.name
-	update_name()
-	if(to_smoke.reagents)
-		to_smoke.reagents.trans_to(src, to_smoke.reagents.total_volume, transfered_by = user)
-	qdel(to_smoke)
-
+	packeditem = tool.name
+	update_appearance(UPDATE_NAME)
+	tool.reagents?.trans_to(src, tool.reagents.total_volume, transfered_by = user)
+	qdel(tool)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/cigarette/pipe/attack_self(mob/user)
+	if(!packeditem || lit)
+		return ..()
+
 	var/atom/location = drop_location()
-	if(packeditem && !lit)
-		to_chat(user, span_notice("You empty [src] onto [location]."))
-		new /obj/effect/decal/cleanable/ash(location)
-		packeditem = null
-		smoketime = 0
-		reagents.clear_reagents()
-		update_name()
-		return
-	return ..()
+	to_chat(user, span_notice("You empty [src] onto [location]."))
+	new /obj/effect/decal/cleanable/ash(location)
+	packeditem = null
+	smoketime = 0
+	reagents.clear_reagents()
+	update_appearance(UPDATE_NAME)
 
 /obj/item/cigarette/pipe/make_cig_smoke()
 	cig_smoke = new(src, /particles/smoke/cig/pipe)

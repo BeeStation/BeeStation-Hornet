@@ -9,21 +9,27 @@
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
 
-/obj/structure/mop_bucket/attackby(obj/item/attacking_item, mob/user, list/modifiers)
-	if(attacking_item.is_drainable() && attacking_item.reagents.total_volume > 0)
-		update_appearance(UPDATE_OVERLAYS)
-		return FALSE // we want to continue the attack chain
+/obj/item/modular_computer/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_right_click_item_action("Wet mop", /obj/item/mop)
+	context.add_right_click_item_action("Fill mop bucket", /obj/item/reagent_containers)
 
-	if(!istype(attacking_item, /obj/item/mop))
-		return ..()
+/obj/structure/mop_bucket/item_interaction_secondary(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/mop))
+		return NONE
+
+	if(tool.reagents.total_volume >= tool.reagents.maximum_volume)
+		balloon_alert(user, "already soaked!")
+		return ITEM_INTERACT_BLOCKING
 
 	if(reagents.total_volume < 1)
-		to_chat(user, span_warn("[src] is out of water!"))
-		return TRUE
-	else if(reagents.trans_to(attacking_item, 5, transfered_by = user))
-		to_chat(user, span_notice("You wet [attacking_item] in [src]."))
-		playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
-		update_appearance(UPDATE_OVERLAYS)
+		balloon_alert(user, "empty!")
+		return ITEM_INTERACT_BLOCKING
+
+	reagents.trans_to(tool, tool.reagents.maximum_volume, transfered_by = user)
+	balloon_alert(user, "doused mop")
+	playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
+	update_appearance(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/mop_bucket/update_overlays()
 	. = ..()

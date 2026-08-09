@@ -526,22 +526,19 @@
 		new /obj/item/reagent_containers/cup/glass/sillycup( src )
 
 /obj/item/storage/box/donkpockets
-
-/obj/item/storage/box/donkpockets/PopulateContents()
-	for(var/i in 1 to 6)
-		new donktype(src)
-
-/obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
 	desc = "Instructions: Heat in microwave. Product will stay perpetually warmed with cutting edge Donk Co. technology."
 	icon_state = "donkpocketbox"
-	illustration=null
+	illustration = null
 	var/donktype = /obj/item/food/donkpocket
-	donktype = /obj/item/food/donkpocket
 
 /obj/item/storage/box/donkpockets/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/donkpocket))
+
+/obj/item/storage/box/donkpockets/PopulateContents()
+	for(var/i in 1 to 6)
+		new donktype(src)
 
 /obj/item/storage/box/donkpockets/donkpocketspicy
 	name = "box of spicy-flavoured donk-pockets"
@@ -634,11 +631,13 @@
 		new /obj/item/modular_computer/tablet/pda(src)
 	new /obj/item/computer_hardware/hard_drive/role/head(src)
 
-	var/newcart = pick(	/obj/item/computer_hardware/hard_drive/role/engineering,
-						/obj/item/computer_hardware/hard_drive/role/security,
-						/obj/item/computer_hardware/hard_drive/role/medical,
-						/obj/item/computer_hardware/hard_drive/role/signal/toxins,
-						/obj/item/computer_hardware/hard_drive/role/cargo_technician)
+	var/newcart = pick(
+		/obj/item/computer_hardware/hard_drive/role/engineering,
+		/obj/item/computer_hardware/hard_drive/role/security,
+		/obj/item/computer_hardware/hard_drive/role/medical,
+		/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+		/obj/item/computer_hardware/hard_drive/role/cargo_technician,
+	)
 	new newcart(src)
 
 /obj/item/storage/box/silver_ids
@@ -868,15 +867,11 @@
 	. = ..()
 	atom_storage.max_slots = 10
 	atom_storage.set_holdable(list(/obj/item/match))
+	AddElement(/datum/element/ignites_matches)
 
 /obj/item/storage/box/matches/PopulateContents()
 	for(var/i in 1 to 10)
 		new /obj/item/match(src)
-
-/obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, list/modifiers)
-	if(istype(W, /obj/item/match))
-		W.matchignite()
-		playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
 
 /obj/item/storage/box/lights
 	name = "box of replacement bulbs"

@@ -35,8 +35,9 @@
 
 /obj/machinery/iv_drip/atom_destruction()
 	if(beaker)
-		beaker.forceMove(drop_location())
-		beaker.SplashReagents(drop_location())
+		var/atom/drop_loc = drop_location()
+		beaker.forceMove(drop_loc)
+		beaker.splash_reagents(drop_loc)
 		beaker.visible_message(span_notice("[beaker] falls to the ground from the destroyed IV drip."))
 		beaker = null
 	return ..()

@@ -275,7 +275,7 @@ Behavior that's still missing from this component that original food items had t
 
 	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
 	qdel(parent)
-	return COMPONENT_SUCCESFUL_MICROWAVE
+	return COMPONENT_MICROWAVE_SUCCESS
 
 ///Corrects the reagents on the newly cooked food
 /datum/component/edible/proc/on_microwave_cooked(datum/source, obj/item/source_item, cooking_efficiency = 1)

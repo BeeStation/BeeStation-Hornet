@@ -11,7 +11,7 @@
 	volume = 30
 	possible_transfer_amounts = list(1,5,15)
 	resistance_flags = ACID_PROOF
-	reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = 0
 	var/infinite = FALSE
@@ -19,8 +19,10 @@
 /obj/item/reagent_containers/hypospray/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
-	inject(M, user)
+/obj/item/reagent_containers/hypospray/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isliving(interacting_with))
+		return NONE
+	return inject(interacting_with, user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
 
 ///Handles all injection checks, injection and logging.
 /obj/item/reagent_containers/hypospray/proc/inject(mob/living/M, mob/user)
@@ -137,7 +139,7 @@
 	volume = 13
 	possible_transfer_amounts = list(5)
 	ignore_flags = 1 //so you can medipen through hardsuits
-	reagent_flags = DRAWABLE
+	initial_reagent_flags = DRAWABLE
 	flags_1 = null
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
 	custom_price = 40
@@ -309,7 +311,7 @@
 	inhand_icon_state = "gorillapen"
 	volume = 5
 	ignore_flags = 0
-	reagent_flags = NONE
+	initial_reagent_flags = NONE
 	list_reagents = list(/datum/reagent/magillitis = 5)
 
 /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator

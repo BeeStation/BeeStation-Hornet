@@ -2,11 +2,11 @@
 #define LIQUID 2
 #define GAS 3
 
+// Flags to interact with reagents in the holder
 /// Makes it possible to add reagents through droppers and syringes.
 #define INJECTABLE (1<<0)
 /// Makes it possible to remove reagents through syringes.
 #define DRAWABLE (1<<1)
-
 /// Makes it possible to add reagents through any reagent container.
 #define REFILLABLE (1<<2)
 /// Makes it possible to remove reagents through any reagent container.
@@ -14,16 +14,23 @@
 /// Allows items to be dunked into this container for transfering reagents. Used in conjunction with the dunkable component.
 #define DUNKABLE (1<<4)
 
-// Used on containers which you want to be able to see the reagents off.
+// Flags to examine reagents in the container
+/// Used on containers which you want to be able to see the reagents of.
 #define TRANSPARENT (1<<5)
-// For non-transparent containers that still have the general amount of reagents in them visible.
+/// For non-transparent containers that still have the general amount of reagents in them visible.
 #define AMOUNT_VISIBLE (1<<6)
-// Applied to a reagent holder, the contents will not react with each other.
+
+// Reaction flags
+/// Applied to a reagent holder, the contents will not react with each other.
 #define NO_REACT (1<<7)
 
+// Special properties
 /// Used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 #define ABSOLUTELY_GRINDABLE (1<<8)
-
+/// If the holder is a sealed container - Used if you don't want reagent contents boiling out (plasma, specifically, in which case it only bursts out when at ignition temperatures)
+#define SEALED_CONTAINER (1<<9)
+/// Prevents splashing for open reagent containers
+#define NO_SPLASH (1<<10)
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER (REFILLABLE | DRAINABLE | TRANSPARENT)
 
@@ -92,6 +99,8 @@
 //Used in holder.dm/equlibrium.dm to set values and volume limits
 ///the minimum volume of reagents than can be operated on.
 #define CHEMICAL_QUANTISATION_LEVEL 0.0001
+///Sanity check limit to clamp chems to sane amounts and prevent rounding errors during transfer.
+#define CHEMICAL_VOLUME_ROUNDING 0.01
 /// the default temperature at which chemicals are added to reagent holders at
 #define DEFAULT_REAGENT_TEMPERATURE 300
 

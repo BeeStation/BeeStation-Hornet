@@ -10,6 +10,8 @@
 	. = ..()
 	create_reagents(5, OPENCONTAINER)
 	AddComponent(/datum/component/cleaner, 3 SECONDS, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean)))
+	AddElement(/datum/element/reagents_exposed_on_fire)
+	AddElement(/datum/element/reagents_item_heatable)
 
 /obj/item/rag/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

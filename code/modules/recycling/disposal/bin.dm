@@ -44,9 +44,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	trunk_check()
 
 	air_contents = new /datum/gas_mixture()
-	//gas.volume = 1.05 * CELLSTANDARD
 	update_appearance()
-
+	ADD_TRAIT(src, TRAIT_COMBAT_MODE_SKIP_INTERACTION, INNATE_TRAIT)
 	return INITIALIZE_HINT_LATELOAD //we need turfs to have air
 
 /obj/machinery/disposal/proc/trunk_check()
@@ -64,6 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	eject()
 	if(trunk)
 		trunk.linked = null
+		trunk = null
 	return ..()
 
 /obj/machinery/disposal/return_air()

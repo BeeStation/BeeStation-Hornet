@@ -15,16 +15,14 @@
 	var/list/possible_transfer_amounts = list(5,10,15,20,25,30)
 	///The amount of reagents this can hold
 	var/volume = 30
-	///Holder for the reagent flags
-	var/reagent_flags
+	/// The base reagent flags that our reagent datum takes on when created
+	var/initial_reagent_flags = NONE
 	///The reagents the container has
 	var/list/list_reagents
 	///The disease this container holds
 	var/spawned_disease
 	///The amount of the disease
 	var/disease_amount = 20
-	///Is this container spillable (by throwing, etc)
-	var/spillable = FALSE
 	/**
 	 * The different thresholds at which the reagent fill overlay will change. See reagentfillings.dmi.
 	 *
@@ -46,9 +44,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
-	if(IS_FINITE(vol) && vol > 0)
+	if(isnum(vol) && vol > 0)
 		volume = vol
-	create_reagents(volume, reagent_flags)
+	if(!force)
+		item_flags |= NOBLUDGEON
+	create_reagents(volume, initial_reagent_flags)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease()
 		var/list/data = list("viruses"= list(F))
@@ -56,27 +56,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if(!label_name)
 		label_name = name
 	add_initial_reagents()
+	AddElement(/datum/element/reagents_exposed_on_fire)
 
 /obj/item/reagent_containers/examine()
 	. = ..()
 	if(has_variable_transfer_amount)
 		if(possible_transfer_amounts.len > 1)
-			. += "<span class='notice'>Left-click or right-click in-hand to increase or decrease its transfer amount.</span>"
+			. += span_notice("Left-click or right-click in-hand to increase or decrease its transfer amount.")
 		else if(possible_transfer_amounts.len)
-			. += "<span class='notice'>Left-click or right-click in-hand to view its transfer amount.</span>"
-
-/obj/item/reagent_containers/attack(mob/living/target_mob, mob/living/user, list/modifiers)
-	if (!user.combat_mode)
-		return
-	return ..()
+			. += span_notice("Left-click or right-click in-hand to view its transfer amount.")
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
-/obj/item/reagent_containers/attack_self(mob/user)
+/obj/item/reagent_containers/attack_self(mob/user, list/modifiers)
+	if(reagents.flags & SEALED_CONTAINER)
+		return TRUE
 	if(has_variable_transfer_amount)
 		change_transfer_amount(user, FORWARD)
+		return TRUE
 
 /obj/item/reagent_containers/attack_self_secondary(mob/user)
 	if(has_variable_transfer_amount)
@@ -101,15 +100,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	balloon_alert(user, "transferring [amount_per_transfer_from_this]u")
 	mode_change_message(user)
 
-/obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
-	if (try_splash(user, target))
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+/obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!user.combat_mode)
+		return NONE // non-combat-mode-rmb allows for stuff like opening containers or attacking (bottle breaking)
+	if(try_splash(user, interacting_with))
+		return ITEM_INTERACT_SUCCESS
+	return NONE
 
-	return ..()
-
-/// Tries to splash the target. Used on both right-click and normal click when in combat mode.
+/// Tries to splash the target, called when right-clicking with a reagent container.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
-	if (!spillable)
+	if (!is_open_container() || (reagents.flags & NO_SPLASH))
 		return FALSE
 
 	if (!reagents?.total_volume)
@@ -117,7 +117,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 	var/punctuation = ismob(target) ? "!" : "."
 
-	var/reagent_text
+	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(
 		span_danger("[user] splashes the contents of [src] onto [target][punctuation]"),
 		span_danger("You splash the contents of [src] onto [target][punctuation]"),
@@ -127,27 +127,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if (ismob(target))
 		var/mob/target_mob = target
 		target_mob.show_message(
-			span_userdanger("[user] splash the contents of [src] onto you!"),
+			span_userdanger("[user] splashes the contents of [src] onto you!"),
 			MSG_VISUAL,
 			span_userdanger("You feel drenched!"),
 		)
 
-	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
-		reagent_text += "[reagent] ([num2text(reagent.volume)]),"
+	playsound(target, 'sound/effects/slosh.ogg', 25, TRUE)
 
-	var/mob/thrown_by = thrownby?.resolve()
-	if(isturf(target) && reagents.reagent_list.len && thrown_by)
-		log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
-		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
+	var/mutable_appearance/splash_animation = mutable_appearance('icons/effects/effects.dmi', "splash")
+	if(isturf(target))
+		splash_animation.icon_state = "splash_floor"
+	splash_animation.color = mix_color_from_reagents(reagents.reagent_list)
+	target.flick_overlay_view(splash_animation, 1 SECONDS)
 
 	reagents.expose(target, TOUCH)
-	log_combat(user, target, "splashed", reagent_text)
+	log_combat(user, target, "splashed", reagents.get_reagent_log_string())
 	reagents.clear_reagents()
 
 	return TRUE
 
 /obj/item/reagent_containers/proc/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
+		return FALSE
+	if(!reagents?.total_volume)
+		to_chat(user, span_warning("[src] is empty!"))
 		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""
@@ -167,13 +170,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 		return FALSE
 	return TRUE
 
-/obj/item/reagent_containers/fire_act(exposed_temperature, exposed_volume)
-	reagents.expose_temperature(exposed_temperature)
-	return ..()
+/// Sets reagent flags to the passed flags outright
+/obj/item/reagent_containers/proc/update_container_flags(new_flags)
+	reagents.flags = new_flags
+
+/// Adds the passed flags to the current reagent flags
+/obj/item/reagent_containers/proc/add_container_flags(new_flags)
+	reagents.flags |= new_flags
+
+/// Resets to base flags
+/obj/item/reagent_containers/proc/reset_container_flags()
+	reagents.flags = initial_reagent_flags
 
 /obj/item/reagent_containers/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	SplashReagents(hit_atom, TRUE)
+	splash_reagents(hit_atom, throwingdatum?.get_thrower(), was_thrown = TRUE, allow_closed_splash = FALSE)
 
 /obj/item/reagent_containers/proc/bartender_check(atom/target)
 	. = FALSE
@@ -181,47 +192,55 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if(target.CanPass(src, get_dir(target, src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 
-/obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE, override_spillable = FALSE)
-	if(!reagents || !reagents.total_volume || (!spillable && !override_spillable))
+/**
+ * Attempts to splash the reagents in the container onto the target.
+ *
+ * * target - The target to splash the reagents onto.
+ * * throwingdatum - The throwingdatum behind the throw if the
+ */
+/obj/item/reagent_containers/proc/splash_reagents(atom/target, mob/splasher, was_thrown = FALSE, allow_closed_splash = FALSE)
+	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash) || (reagents.flags & NO_SPLASH))
 		return
-	var/mob/thrown_by = thrownby?.resolve()
 
 	if(ismob(target) && target.reagents)
-		if(thrown)
-			reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target
+		var/splash_multiplier = 1
+		if(was_thrown)
+			splash_multiplier *= (rand(5,10) * 0.1) //Not all of it makes contact with the target
+		var/turf_splash_multiplier = 1 - splash_multiplier
 		var/mob/M = target
-		var/R
-		target.visible_message(span_danger("[M] has been splashed with something!"), \
-						span_userdanger("[M] has been splashed with something!"))
-		for(var/datum/reagent/A in reagents.reagent_list)
-			R += "[A.type]  ([num2text(A.volume)]),"
+		var/turf/target_turf = get_turf(target)
+		target.visible_message(
+			span_danger("[M] is splashed with something!"),
+			span_userdanger("[M] is splashed with something!"),
+		)
+		if(splasher)
+			log_combat(splasher, M, "splashed", src, "containing [reagents.get_reagent_log_string()] [was_thrown ? "(thrown)" : ""]")
+		reagents.expose(target, TOUCH, splash_multiplier)
+		if(turf_splash_multiplier > 0)
+			reagents.expose(target_turf, TOUCH, turf_splash_multiplier) // 1 - splash_multiplier because it's what didn't hit the target
 
-		if(thrownby)
-			log_combat(thrown_by, M, "splashed", R)
-		reagents.expose(target, TOUCH)
-
-	else if(bartender_check(target) && thrown)
-		visible_message(span_notice("[src] lands onto the [target.name] without spilling a single drop."))
+	else if(bartender_check(target, splasher) && was_thrown)
+		visible_message(span_notice("[src] lands onto \the [target] without spilling a single drop."))
 		return
 
 	else
-		if(isturf(target) && length(reagents.reagent_list) && thrown_by)
-			log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]", "in [AREACOORD(target)]")
-			log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
-			message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
+		if(isturf(target) && length(reagents.reagent_list) && splasher)
+			log_combat(splasher, target, "splashed [english_list(reagents.reagent_list)]", src, "in [AREACOORD(target)] [was_thrown ? "(thrown)" : ""]")
+			message_admins("[ADMIN_LOOKUPFLW(splasher)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
 		visible_message(span_notice("[src] spills its contents all over [target]."))
 		reagents.expose(target, TOUCH)
 		if(QDELETED(src))
 			return
 
+	playsound(target, 'sound/effects/slosh.ogg', 25, TRUE)
+
+	var/mutable_appearance/splash_animation = mutable_appearance('icons/effects/effects.dmi', "splash")
+	if(isturf(target))
+		splash_animation.icon_state = "splash_floor"
+	splash_animation.color = mix_color_from_reagents(reagents.reagent_list)
+	target.flick_overlay_view(splash_animation, 1 SECONDS)
+
 	reagents.clear_reagents()
-
-/obj/item/reagent_containers/microwave_act(obj/machinery/microwave/M)
-	reagents.expose_temperature(1000)
-	return ..()
-
-/obj/item/reagent_containers/fire_act(temperature, volume)
-	reagents.expose_temperature(temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
 	update_appearance()
@@ -251,3 +270,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if(label_icon && (name != initial(name) || desc != initial(desc)))
 		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
 		. += label
+
+/obj/item/reagent_containers/proc/try_refill(atom/target, mob/living/user)
+	if(!reagents.total_volume)
+		to_chat(user, span_warning("[src] is empty!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(target.reagents.holder_full())
+		to_chat(user, span_warning("[target] is full."))
+		return ITEM_INTERACT_BLOCKING
+
+	var/trans = round(reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
+	playsound(target.loc, "liquid_pour", 50, TRUE)
+	if(trans)
+		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/reagent_containers/proc/try_drain(atom/target, mob/living/user)
+	if(!target.reagents.total_volume)
+		to_chat(user, span_warning("[target] is empty and can't be refilled!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(reagents.holder_full())
+		to_chat(user, span_warning("[src] is full."))
+		return ITEM_INTERACT_BLOCKING
+
+	var/trans = round(target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user), CHEMICAL_VOLUME_ROUNDING)
+	playsound(target.loc, "liquid_pour", 50, TRUE)
+	to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS

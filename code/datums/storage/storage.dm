@@ -119,6 +119,7 @@
 		qdel(src)
 		return
 
+	ADD_TRAIT(resolve_parent, TRAIT_COMBAT_MODE_SKIP_INTERACTION, REF(src))
 	RegisterSignals(resolve_parent, list(COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_ATTACK_HAND), PROC_REF(on_attack))
 	RegisterSignal(resolve_parent, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
 	RegisterSignal(resolve_parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(on_mousedropped_onto))
