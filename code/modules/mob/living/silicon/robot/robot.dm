@@ -765,7 +765,6 @@
 		cell = null
 	// Call destroy() before deleting to ensure that the borg's brain stays connected
 	qdel(src)
-	qdel(src)
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
