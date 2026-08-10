@@ -38,7 +38,7 @@
 	// Setup signals for spade behaviour
 	RegisterSignal(plant_item, COMSIG_ATOM_AFTER_ATTACKEDBY, PROC_REF(catch_attackby))
 	// Setup for investigation
-	RegisterSignal(plant_item, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(catch_observer))
+	RegisterSignal(plant_item, COMSIG_ATOM_EXAMINE, PROC_REF(catch_observer))
 	//Species ID setup
 	if(!_species_id)
 		compile_species_id()
@@ -61,15 +61,20 @@
 	return ..()
 
 /// Mostly for admin investigation and curious ghosts
-/datum/component/plant/proc/catch_observer(datum/source, mob/dead/observer/ghost)
+/datum/component/plant/proc/catch_observer(datum/source, mob/looker, list/examine_text)
 	SIGNAL_HANDLER
 
-	var/dialogue = "<b>[plant_item.name]</b>\n"
+	if(!isobserver(looker))
+		return
+	var/dialogue = "<span class='plant_scan'>"
+	dialogue = "[dialogue]<b>[plant_item.name]</b>"
 	for(var/datum/plant_feature/feature as anything in plant_features)
-		dialogue = "[dialogue] [feature.name]\n"
+		dialogue = "[dialogue]<span class='plant_sub'>[feature.name]([feature.species_name])\n"
 		for(var/datum/plant_trait/trait as anything in feature.plant_traits)
-			dialogue = "[dialogue]	[trait.name]\n"
-	to_chat(ghost, span_notice(dialogue))
+			dialogue = "[dialogue]	[trait.get_name(TRUE)]\n"
+		dialogue = "[dialogue]</span>"
+	dialogue = "[dialogue]</span>"
+	to_chat(looker, span_notice(dialogue))
 
 ///Item interactions for plants that aren't covered by the individual plant_features
 /datum/component/plant/proc/catch_attackby(datum/source, obj/item, mob/living/user, proximity_flag, click_parameters)

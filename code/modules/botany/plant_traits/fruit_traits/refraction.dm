@@ -24,6 +24,12 @@
 		grid_y = SSbotany.refraction_reagents["[level]"][reagent][GRID_REAGENT_POSITION][2]
 	refraction_reagent = text2path(SSbotany.refraction_coords["[level]"]["[grid_x]:[grid_y]"])
 	name = "[name] ([level])([grid_x], [grid_y])"
+	// Volume preview
+	var/datum/plant_feature/fruit/fruit_parent = _parent
+	desc = "[istype(parent) ? "([(REFRACTION_REAGENT_BASE * parent.trait_power) * fruit_parent.total_volume]u) " : ""][REFRACTION_REAGENT_BASE * parent.trait_power * 100]% of reagents is this reagent."
+
+/datum/plant_trait/refraction/get_name(peek = FALSE)
+	return peek ? "[name] ([initial(refraction_reagent.name)])" : name
 
 /datum/plant_trait/refraction/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
 	var/datum/plant_trait/new_trait = _trait || new type(_parent, grid_x, grid_y, level)
@@ -57,5 +63,5 @@
 		target_volume = fruit_feature.total_volume
 	else if(istype(_fruit_parent))
 		target_volume = _fruit_parent.reagents?.maximum_volume
-	fruit.reagents?.add_reagent(refraction_reagent, (0.05 * parent.trait_power) * target_volume)
+	fruit.reagents?.add_reagent(refraction_reagent, (REFRACTION_REAGENT_BASE * parent.trait_power) * target_volume)
 

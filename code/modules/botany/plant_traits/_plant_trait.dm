@@ -41,6 +41,10 @@
 	//Return genetic budget
 	parent?.adjust_genetic_budget(genetic_cost, src)
 
+// Use this to implement admin tools
+/datum/plant_trait/proc/get_name(peek = FALSE)
+	return peek ? name : name
+
 /datum/plant_trait/proc/get_ui_stats()
 	return list(list("trait_name" = name, "trait_desc" = desc, "trait_ref" = REF(src), "dictionary_name" = name, "trait_id" = get_id(), "can_copy" = can_copy, "can_remove" = can_remove, "scales" = scales))
 

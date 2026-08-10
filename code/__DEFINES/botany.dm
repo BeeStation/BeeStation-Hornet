@@ -10,6 +10,9 @@
 ///Plant data format
 #define PLANT_DATA(title, data) list("data_title" = title, "data_field" = data)
 
+/// Base % for refraction reagents
+#define REFRACTION_REAGENT_BASE 0.1
+
 //Reagent grid stuff
 	//Minimum grid size length / width
 #define MAX_REAGENT_GRID 33

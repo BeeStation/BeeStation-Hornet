@@ -39,7 +39,13 @@
 
 // Special variant for lavland, shhh
 /datum/plant_feature/body/tuber/lavaland
+	yields = PLANT_BODY_YIELD_SMALL
 	plant_needs = list() // I wonder how long it will take people to abuse this
+	dictionary_override = /datum/plant_feature/body/tuber
+
+// Cactus variant
+/datum/plant_feature/body/tuber/cactus
+	yields = PLANT_BODY_YIELD_SMALL
 	dictionary_override = /datum/plant_feature/body/tuber
 
 /*

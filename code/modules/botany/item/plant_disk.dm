@@ -22,7 +22,7 @@
 	name = "plant disk"
 	if(istype(saved, /datum/plant_trait))
 		var/datum/plant_trait/trait = saved
-		name = "[initial(name)] - [trait.name]"
+		name = "[initial(name)] - [trait.get_name()]"
 	else if(istype(saved, /datum/plant_feature))
 		var/datum/plant_feature/feature = saved
 		name = "[initial(name)] - [feature.name]([feature.species_name])"

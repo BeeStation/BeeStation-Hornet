@@ -108,7 +108,7 @@
 	//Traits
 	var/grouping = ""
 	for(var/datum/plant_trait/trait as anything in plant_traits)
-		grouping += "[trait.name]\n"
+		grouping += "[trait.get_name()]\n"
 	dialogue += grouping
 	//generic shared info - This can be a little duplicate when compared with get_ui_data() but it'll be good to keep this seperate for future additions
 	grouping = ""

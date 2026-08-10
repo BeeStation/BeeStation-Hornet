@@ -106,7 +106,8 @@
 		/obj/item/lighter,
 		/obj/item/cigarette/pipe/cobpipe,
 		/obj/item/cigarette/rollie,//dudeweedlmao
-		/obj/item/gun/energy/floragun
+		/obj/item/gun/energy/floragun,
+		/obj/item/construction/plumbing/botany
 		))
 
 /obj/item/storage/belt/utility/chief

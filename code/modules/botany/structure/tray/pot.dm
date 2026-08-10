@@ -28,6 +28,9 @@
 	var/datum/component/plant/plant_comp = leaving.GetComponent(/datum/component/plant)
 	if(!plant_comp)
 		return
+//Body - Refund a yield since we going to merc one - Do this here to avoid problems with plant suicide
+	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant_comp.plant_features
+	body_feature.yields += 1
 //Fruit - Don't allow people to game pot's pause function
 	//Deleted all fruit
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features
@@ -37,9 +40,6 @@
 		fruit_feature?.fruits -= fruit
 		qdel(fruit)
 	SEND_SIGNAL(plant_comp, COMSIG_PLANT_ACTION_HARVEST)
-//Body - Refund a yield since we just merc'd one
-	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant_comp.plant_features
-	body_feature.yields += 1
 
 /obj/item/plant_tray/pot/proc/catch_pause(datum/source)
 	SIGNAL_HANDLER
