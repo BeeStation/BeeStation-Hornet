@@ -19,12 +19,8 @@
 	/// How much stability does this gas contribute to the CDR
 	var/stability_val = 0
 
-/datum/condensate_gas/nitrium
-	gas_path = /datum/gas/nitrium
-	decays_into = /datum/gas/tritium
-	threshold = 10
-	decay_flux_mult = 10
-	stability_val = 0.1
+// Decay Line (Normal): Tritium -> Plasma -> NO2 -> Oxygen -> CO2 -> Nitrogen
+// Decay Line (Exotic): Nitrium -> BZ -> H2O -> Pluoxium -> Hypernob
 
 /datum/condensate_gas/tritium
 	gas_path = /datum/gas/tritium
@@ -35,52 +31,58 @@
 
 /datum/condensate_gas/plasma
 	gas_path = /datum/gas/plasma
-	decays_into = /datum/gas/bz
+	decays_into = /datum/gas/nitrous_oxide
 	threshold = 100
 	decay_flux_mult = 2
 	stability_val = 0.5
-
-/datum/condensate_gas/bz
-	gas_path = /datum/gas/bz
-	decays_into = /datum/gas/nitrous_oxide
-	threshold = 200
-	decay_flux_mult = 1
-	stability_val = 0.75
 
 /datum/condensate_gas/nitrous_oxide
 	gas_path = /datum/gas/nitrous_oxide
 	decays_into = /datum/gas/oxygen
 	threshold = 400
 	decay_flux_mult = 1
-	stability_val = 0.9
+	stability_val = 1
 
 /datum/condensate_gas/oxygen
 	gas_path = /datum/gas/oxygen
-	decays_into = /datum/gas/water_vapor
+	decays_into = /datum/gas/carbon_dioxide
 	threshold = 1000
 	decay_flux_mult = 1
-	stability_val = 1
-
-/datum/condensate_gas/water_vapor
-	gas_path = /datum/gas/water_vapor
-	decays_into = /datum/gas/carbon_dioxide
-	threshold = 600
-	decay_flux_mult = 5
-	stability_val = 2
+	stability_val = 5
 
 /datum/condensate_gas/carbon_dioxide
 	gas_path = /datum/gas/carbon_dioxide
 	decays_into = /datum/gas/nitrogen
 	threshold = 100
 	decay_flux_mult = 10
-	stability_val = 5
+	stability_val = 20
 
 /datum/condensate_gas/nitrogen
 	gas_path = /datum/gas/nitrogen
-	decays_into = /datum/gas/pluoxium
 	threshold = 50
 	decay_flux_mult = 20
-	stability_val = 8
+	stability_val = 35
+
+/datum/condensate_gas/nitrium
+	gas_path = /datum/gas/nitrium
+	decays_into = /datum/gas/bz
+	threshold = 10
+	decay_flux_mult = 10
+	stability_val = 0.1
+
+/datum/condensate_gas/bz
+	gas_path = /datum/gas/bz
+	decays_into = /datum/gas/water_vapor
+	threshold = 200
+	decay_flux_mult = 1
+	stability_val = 0.75
+
+/datum/condensate_gas/water_vapor
+	gas_path = /datum/gas/water_vapor
+	decays_into = /datum/gas/pluoxium
+	threshold = 600
+	decay_flux_mult = 5
+	stability_val = 2
 
 /datum/condensate_gas/pluoxium
 	gas_path = /datum/gas/pluoxium

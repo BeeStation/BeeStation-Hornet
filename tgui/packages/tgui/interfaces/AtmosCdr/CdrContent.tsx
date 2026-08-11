@@ -89,13 +89,6 @@ export const CdrContent = (props: CdrData) => {
               onClick={() => act('activate')}
             />
           </LabeledControls.Item>
-          <LabeledControls.Item minWidth="66px" label="Harvester Connection">
-            <Button
-              icon={''}
-              content={'Reconnect Harvesters'}
-              onClick={() => act('reconnect')}
-            />
-          </LabeledControls.Item>
           <LabeledControls.Item minWidth="66px" label="Metal. Ratio">
             <Knob
               size={1.25}
@@ -180,7 +173,7 @@ export const CdrContent = (props: CdrData) => {
                   key={'Core Instability'}
                   label={'Core Instability'}
                 >
-                  {core_instability.toFixed(0)}
+                  {(core_stability ? core_instability / core_stability : 0).toFixed(0)}
                 </LabeledList.Item>
                 <LabeledList.Item
                   key={'Delta Stability'}

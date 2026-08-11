@@ -1,6 +1,10 @@
+//TODO: make failure more interesting
+//TODO: make it produce power directly
+//TODO: make instructions sheet
+
 /obj/machinery/atmospherics/components/unary/cdr
 	name = "Condensate Decay Reactor"
-	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases."
+	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases. Use a multitool to deactivate."
 	icon = 'icons/obj/machines/cdr.dmi'
 	icon_state = "cdr"
 	density = TRUE
@@ -45,8 +49,6 @@
 	var/static/gl_cdr_uid = 1
 	/// The soundloop to play while active
 	var/datum/looping_sound/cdr/soundloop
-	/// Currently linked flux_harvesters
-	var/list/obj/machinery/power/energy_accumulator/flux_harvester/linked_harvesters = list()
 	///The internal gas_mixture
 	var/datum/gas_mixture/core_composition
 	/// For admin logging
@@ -70,8 +72,6 @@
 	radio.recalculateChannels()
 
 /obj/machinery/atmospherics/components/unary/cdr/Destroy()
-	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
-		harvester.parent = null
 	QDEL_NULL(soundloop)
 	QDEL_NULL(radio)
 	return ..()
@@ -79,7 +79,6 @@
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
 	if(!activated)
 		return
-	process_harvesters()
 
 /obj/machinery/atmospherics/components/unary/cdr/process_atmos()
 	update_parents() //needs to process constantly for gases to not get stuck
@@ -182,9 +181,6 @@
 		if("change_parabolic_setting")
 			parabolic_setting = clamp(text2num(params["change_parabolic_setting"]), 0.1, 1)
 			return TRUE
-		if("reconnect")
-			link_harvesters()
-			return TRUE
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/activate()
 	if(activated || !is_operational)
@@ -214,14 +210,6 @@
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
 		stability_value += GET_MOLES(gastype, core_composition) * cdr_gas?.stability_val
 	return stability_value * get_temp_stab_factor()
-
-/obj/machinery/atmospherics/components/unary/cdr/proc/link_harvesters()
-	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
-		harvester.parent = null
-		linked_harvesters -= harvester
-	for(var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in orange(5, src))
-		linked_harvesters += harvester
-		harvester.parent = src
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
 	var/n2o_mols = GET_MOLES(/datum/gas/nitrous_oxide, core_composition)
@@ -296,8 +284,8 @@
 	COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
-	investigate_log("failed and spawned a temporary singularity. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
-	new /obj/anomaly/singularity/temporary(get_turf(src), 500)
+	investigate_log("failed. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+	//TODO: do something
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_toroid()
@@ -343,34 +331,5 @@
 		core_composition.garbage_collect()
 		turf_mix.garbage_collect()
 
-/obj/machinery/atmospherics/components/unary/cdr/proc/process_harvesters()
-	var/power_left = flux * CDR_FLUX_TO_POWER
-	for (var/obj/machinery/power/energy_accumulator/flux_harvester/harvester in linked_harvesters)
-		power_left -= harvester.add_power(power_left)
-
 /obj/machinery/atmospherics/components/unary/cdr/proc/set_flux(flux_to_add)
 	flux = flux_to_add * toroid_flux_mult
-
-/obj/machinery/power/energy_accumulator/flux_harvester
-	name = "magnetic flux harvester"
-	desc = "Uses advanced wire coils to harvest magnetic flux efficiently."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "flux_harvester"
-	circuit = /obj/item/circuitboard/machine/flux_harvester
-	var/max_harvested = 1 GIGAWATT
-	var/obj/machinery/atmospherics/components/unary/cdr/parent = null
-
-/obj/machinery/power/energy_accumulator/flux_harvester/Destroy()
-	parent?.linked_harvesters -= src
-	return ..()
-
-/obj/machinery/power/energy_accumulator/flux_harvester/screwdriver_act(mob/living/user, obj/item/tool)
-	return default_deconstruction_screwdriver(user, "flux_harvester-o", "flux_harvester", tool)
-
-/obj/machinery/power/energy_accumulator/flux_harvester/crowbar_act(mob/living/user, obj/item/tool)
-	return default_deconstruction_crowbar(tool)
-
-/obj/machinery/power/energy_accumulator/flux_harvester/proc/add_power(power)
-	var/excess = max(power - max_harvested, 0)
-	stored_energy += min(power, max_harvested)
-	return excess
