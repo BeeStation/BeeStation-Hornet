@@ -59,6 +59,10 @@
       through a wall
   - bugfix: Wizard Modsuit shouldn't keep spamming the shield recharging sound anymore
 2026-08-11:
+  mrmanlikesbt:
+  - code_imp: Fixed the remaining improper `Destroy()` calls across the codebase
+  mrmanlikesbt, Qustinnus, Capsandi, the-og-gear, atlasle, Kayozz:
+  - bugfix: Fixed the ambient buzz persisting in space
   rkz, nightred, Ghommie, kapu1178, vinylspiders, Melbert, cruix, smartkar:
   - rscadd: adds a new system for obscuring hair with helmets through masking
   - rscadd: facial hair now supports gradients
