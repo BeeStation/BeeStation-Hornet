@@ -3,9 +3,8 @@
 	name = "\improper Lizardperson"
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
-	species_traits = list(
-		MUTANT_COLOR,
-		LIPS
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
@@ -103,14 +102,11 @@
 	name = "Ash Walker"
 	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
-	species_traits = list(
-		MUTANT_COLOR,
-		LIPS,
-		NO_UNDERWEAR
-	)
 	inherent_traits = list(
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_VIRUSIMMUNE,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_UNDERWEAR,
 	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker

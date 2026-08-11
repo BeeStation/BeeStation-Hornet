@@ -35,11 +35,13 @@
 	)
 	if(!gasmix)
 		return
-	for(var/gas_path in gasmix.gases)
+	var/list/cached_gas_id = GAS_META[META_GAS_ID]
+	var/list/cached_gas_name = GAS_META[META_GAS_NAME]
+	for(var/gas_path, amount in gasmix.moles)
 		.["gases"] += list(list(
-			gasmix.gases[gas_path][GAS_META][META_GAS_ID],
-			gasmix.gases[gas_path][GAS_META][META_GAS_NAME],
-			gasmix.gases[gas_path][MOLES],
+			cached_gas_id[gas_path],
+			cached_gas_name[gas_path],
+			amount,
 		))
 	for(var/datum/gas_reaction/reaction_result as anything in gasmix.reaction_results)
 		.["reactions"] += list(list(
@@ -69,15 +71,15 @@ GLOBAL_LIST_EMPTY(gas_handbook)
 
 	for (var/datum/gas/gas_path as anything in subtypesof(/datum/gas))
 		var/list/gas_info = list()
-		var/list/meta_information = GLOB.meta_gas_info[gas_path]
-		if(!meta_information)
+		var/list/meta_information = GLOB.meta_gas_info
+		if(!meta_information[META_GAS_ID])
 			continue
-		gas_info["id"] = meta_information[META_GAS_ID]
-		gas_info["name"] = meta_information[META_GAS_NAME]
-		gas_info["description"] = meta_information[META_GAS_DESC]
-		gas_info["specific_heat"] = meta_information[META_GAS_SPECIFIC_HEAT]
-		gas_info["gasrig_shielding_power"] = meta_information[META_GAS_RIG_SHIELDING_POWER]
-		gas_info["gasrig_shielding_modifier"] = meta_information[META_GAS_RIG_SHIELDING_MODIFIER]
+		gas_info["id"] = meta_information[META_GAS_ID][gas_path]
+		gas_info["name"] = meta_information[META_GAS_NAME][gas_path]
+		gas_info["description"] = meta_information[META_GAS_DESC][gas_path]
+		gas_info["specific_heat"] = meta_information[META_GAS_SPECIFIC_HEAT][gas_path]
+		gas_info["gasrig_shielding_power"] = meta_information[META_GAS_RIG_SHIELDING_POWER][gas_path]
+		gas_info["gasrig_shielding_modifier"] = meta_information[META_GAS_RIG_SHIELDING_MODIFIER][gas_path]
 		gas_info["reactions"] = list()
 		momentary_gas_list[gas_path] = gas_info
 
@@ -139,55 +141,7 @@ GLOBAL_LIST_EMPTY(gas_handbook)
 
 /proc/print_gas_mixture(datum/gas_mixture/gas_mixture)
 	var/message = "TEMPERATURE: [gas_mixture.temperature]K, QUANTITY: [gas_mixture.total_moles()] mols, VOLUME: [gas_mixture.volume]L; "
-	for(var/key in gas_mixture.gases)
-		var/list/gaslist = gas_mixture.gases[key]
-		message += "[gaslist[GAS_META][META_GAS_ID]]=[gaslist[MOLES]] mols;"
+	var/list/cached_gas_id = GAS_META[META_GAS_ID]
+	for(var/gas_id, amount in gas_mixture.moles)
+		message += "[cached_gas_id[gas_id]]=[amount] mols;"
 	return message
-
-/proc/log_atmos(text, datum/gas_mixture/gas_mixture)
-	var/message = "[text]\"[print_gas_mixture(gas_mixture)]\""
-	//Cache commonly accessed information.
-	var/list/gases = gas_mixture.gases //List of gas datum paths that are associated with a list of information related to the gases.
-	var/heat_capacity = gas_mixture.heat_capacity()
-	var/temperature = gas_mixture.return_temperature()
-	var/thermal_energy = temperature * heat_capacity
-	var/volume = gas_mixture.return_volume()
-	var/pressure = gas_mixture.return_pressure()
-	var/total_moles = gas_mixture.total_moles()
-	///The total value of the gas mixture in credits.
-	var/total_value = 0
-	var/list/specific_gas_data = list()
-
-	//Gas specific information assigned to each gas.
-	for(var/datum/gas/gas_path as anything in gases)
-		var/list/gas = gases[gas_path]
-		var/moles = gas[MOLES]
-		var/composition = moles / total_moles
-		var/energy = temperature * moles * gas[GAS_META][META_GAS_SPECIFIC_HEAT]
-		var/value = initial(gas_path.base_value) * moles
-		total_value += value
-		specific_gas_data[gas[GAS_META][META_GAS_NAME]] = list(
-			"moles" = moles,
-			"composition" = composition,
-			"molar concentration" = moles / volume,
-			"partial pressure" = composition * pressure,
-			"energy" = energy,
-			"energy density" = energy / volume,
-			"value" = value,
-		)
-
-	log_game(
-		list(
-			message,
-			"total moles" = total_moles,
-			"volume" = volume,
-			"molar density" = total_moles / volume,
-			"temperature" = temperature,
-			"pressure" = pressure,
-			"heat capacity" = heat_capacity,
-			"energy" = thermal_energy,
-			"energy density" = thermal_energy / volume,
-			"value" = total_value,
-			"gases" = specific_gas_data,
-		)
-	)

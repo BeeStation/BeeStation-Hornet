@@ -11,13 +11,11 @@
 	var/mob/living/carbon/human/dummy/consistent/brother1 = new
 	var/mob/living/carbon/human/dummy/consistent/brother2 = new
 
-	brother1.hair_style = "Pigtails"
-	brother1.hair_color = "#553322"
-	brother1.update_hair()
+	brother1.set_hairstyle("Pigtails", update = FALSE)
+	brother1.set_haircolor("#553322", update = TRUE)
 
-	brother2.hair_style = "Gelled Spikes"
-	brother2.hair_color = "#A55A3B"
-	brother2.update_hair()
+	brother1.set_hairstyle("Gelled Spikes", update = FALSE)
+	brother1.set_haircolor("#A55A3B", update = TRUE)
 
 	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)
 	brother1_icon.Blend(icon('icons/effects/blood.dmi', "maskblood"), ICON_OVERLAY)

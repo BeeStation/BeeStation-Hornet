@@ -41,17 +41,24 @@
 /obj/effect/particle_effect/foam/firefighting/process()
 	..()
 
-	var/turf/open/T = get_turf(src)
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && T.air)
-		qdel(hotspot)
-		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
-		REMOVE_MOLES(/datum/gas/plasma, G, plas_amt)
-		absorbed_plasma += plas_amt
-		if(G.temperature > T20C)
-			G.temperature = max(G.return_temperature()/2,T20C)
-		T.air_update_turf(FALSE, FALSE)
+	var/turf/open/location = loc
+	if(!istype(location))
+		return
+
+	var/obj/effect/hotspot/hotspot = locate() in location
+	if(!hotspot || !location.air)
+		return
+
+	qdel(hotspot)
+	var/datum/gas_mixture/air = location.air
+	if (air.moles[/datum/gas/plasma])
+		var/scrub_amt = min(30, air.moles[/datum/gas/plasma]) //Absorb some plasma
+		air.adjust_gas(/datum/gas/plasma, -scrub_amt)
+		absorbed_plasma += scrub_amt
+	if (air.temperature > T20C)
+		air.temperature = max(air.temperature / 2, T20C)
+	air.garbage_collect()
+	location.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/foam/firefighting/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -343,30 +350,42 @@
 	alpha = 120
 	max_integrity = 10
 
+	var/static/list/ignored_gases = typecacheof(list(
+		/datum/gas/nitrogen,
+		/datum/gas/oxygen,
+		/datum/gas/pluoxium,
+	))
+
 /obj/structure/foamedmetal/resin/Initialize(mapload)
 	. = ..()
-	if(isopenturf(loc))
-		var/turf/open/O = loc
-		O.ClearWet()
-		if(O.air)
-			var/datum/gas_mixture/G = O.air
-			G.temperature = T20C
-			for(var/obj/effect/hotspot/H in O)
-				qdel(H)
-			for(var/I in G.gases)
-				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
-					continue
-				SET_MOLES(I , G, 0)
+	var/turf/open/location = loc
+	if(!istype(location))
+		return
 
-		for(var/obj/machinery/atmospherics/components/unary/U in O)
-			if(!U.welded)
-				U.welded = TRUE
-				U.update_icon()
-				U.visible_message(span_danger("[U] sealed shut!"))
-		for(var/mob/living/L in O)
-			L.extinguish_mob()
-		for(var/obj/item/Item in O)
-			Item.extinguish()
+	location.ClearWet()
+	location.temperature = T20C
+	if(location.air)
+		var/datum/gas_mixture/air = location.air
+		air.temperature = T20C
+		for(var/obj/effect/hotspot/fire in location)
+			qdel(fire)
+
+		var/list/cached_moles = air.moles
+		for(var/gas_id in cached_moles)
+			if(!(ignored_gases[gas_id]))
+				cached_moles[gas_id] = 0
+		air.garbage_collect()
+
+	for(var/obj/machinery/atmospherics/components/unary/comp in location)
+		if(!comp.welded)
+			comp.welded = TRUE
+			comp.update_appearance()
+			comp.visible_message(span_danger("[comp] sealed shut!"))
+
+	for(var/mob/living/potential_tinder in location)
+		potential_tinder.extinguish_mob()
+	for(var/obj/item/potential_tinder in location)
+		potential_tinder.extinguish()
 
 /obj/structure/foamedmetal/resin/chainreact
 	name = "\improper Advanced ATMOS Resin"

@@ -820,6 +820,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 15
+	added_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1640,9 +1641,8 @@
 	if(method == TOUCH || method == VAPOR)
 		if(ishuman(exposed_mob) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/exposed_human = exposed_mob
-			exposed_human.hair_color = "#9922ff"
-			exposed_human.facial_hair_color = "#9922ff"
-			exposed_human.update_hair()
+			exposed_human.set_facial_haircolor("#9922ff", update = FALSE)
+			exposed_human.set_haircolor(color) //this will call update_body_parts()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

@@ -2,18 +2,28 @@ Any time you make a change to the schema files, remember to increment the databa
 
 The latest database version is 7.8; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (7, 8);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (7, 9);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 8);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 9);
 
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
-Version 7.8, 1 August 2026, by r1ks-iwnl
+Version 7.9, 1 August 2026, by r1ks-iwnl
 Adds Flavor Text
 
 ALTER TABLE `SS13_characters`
 	ADD COLUMN IF NOT EXISTS `flavor_text` VARCHAR(400) COLLATE 'utf8mb4_general_ci' AFTER `age`;
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+Version 7.8, 27 July 2026, by boneyards
+Adds Facial Hair Gradient preference columns
+
+ALTER TABLE `SS13_characters`
+	ADD COLUMN IF NOT EXISTS `facial_hair_gradient` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `facial_style_name`,
+	ADD COLUMN IF NOT EXISTS `facial_hair_gradient_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci' AFTER `facial_hair_gradient`;
 
 -----------------------------------------------------
 

@@ -95,7 +95,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BOMBIMMUNE "bomb_immunity"
 #define TRAIT_GENELESS "geneless"
 #define TRAIT_RADHEALER "rad_healer"
-#define TRAIT_VIRUSIMMUNE		"virus_immunity"
+/// Can't be given viruses
+#define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// Won't become a husk under any circumstances
+#define TRAIT_UNHUSKABLE "trait_unhuskable"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
 #define TRAIT_NOFIRE "nonflammable"
@@ -108,16 +111,49 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_VIP "vip_member"
 /// Prevents plasmamen from self-igniting
 #define TRAIT_NOSELFIGNITION "no_selfignition"
-#define TRAIT_NOGUNS			"no_guns"
+#define TRAIT_NOGUNS "no_guns"
+/// Species with this trait are genderless
+#define TRAIT_AGENDER "agender"
+/// Species with this trait use skin tones for coloration
+#define TRAIT_USES_SKINTONES "uses_skintones"
+/// Species with this trait have markings (this SUCKS, remove this later in favor of bodypart overlays)
+#define TRAIT_HAS_MARKINGS "has_markings"
+/// Species with this trait use mutant colors for coloration
+#define TRAIT_MUTANT_COLORS "mutcolors"
+/// Species with this trait have mutant colors that cannot be chosen by the player, nor altered ingame by external means
+#define TRAIT_FIXED_MUTANT_COLORS "fixed_mutcolors"
+/// Humans with this trait won't get bloody hands, nor bloody feet
+#define TRAIT_NO_BLOOD_OVERLAY "no_blood_overlay"
+/// Humans with this trait cannot have underwear
+#define TRAIT_NO_UNDERWEAR "no_underwear"
+/// Humans with this trait cannot have socks
+#define TRAIT_NO_SOCKS "no_socks"
+/// This carbon doesn't show an overlay when they have no brain
+#define TRAIT_NO_DEBRAIN_OVERLAY "no_debrain_overlay"
+/// Humans with this trait cannot get augmentation surgery
+#define TRAIT_NO_AUGMENTS "no_augments"
+/// No eating, bitch
+#define TRAIT_NO_MOUTH "no_mouth"
+/// Will revive if healed beyond a certain threshold
+#define TRAIT_REVIVESBYHEALING "revivesbyhealing"
+/// Shitty trait that hooks into preferences, allowing plasmamen to choose their helmet... seriously?
+#define TRAIT_ENVIROSUIT "envirosuit"
+/// Doesnt process reagents
+#define TRAIT_NOREAGENTS "no_reagents"
+/// Is not effected by flashes
+#define TRAIT_NOFLASH "no_flash"
 ///This carbon doesn't get hungry
 #define TRAIT_NOHUNGER "no_hunger"
 ///This carbon doesn't bleed
 #define TRAIT_NOBLOOD "noblood"
+/// This just means that the carbon will always have functional liverless metabolism
+#define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+/// Humans with this trait cannot be turned into zombies
+#define TRAIT_NO_ZOMBIFY "no_zombify"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 // This race can't become a vampire, changeling antagonist or be copied by a changeling.
 #define TRAIT_NOT_TRANSMORPHIC "not_transmorphic"
-#define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
 #define TRAIT_TOXIMMUNE			"toxin_immune"
@@ -136,7 +172,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
 /// Stops all slipping and sliding from ocurring
-#define TRAIT_NOSLIPALL "noslip_all"
+#define TRAIT_NO_SLIP_ALL "noslip_all"
 //Inherent trait preventing effects of stasis on a mob
 #define TRAIT_NOSTASIS "no_stasis"
 #define TRAIT_MARTIAL_ARTS_IMMUNE "martial_arts_immune" // nobody can use martial arts on this mob
@@ -150,6 +186,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHIFTY_EYES "shifty_eyes"
 /// Tells us that the mob currently has the fire_handler/wet_stacks status effect
 #define TRAIT_IS_WET "is_wet"
+
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
@@ -513,6 +550,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN_VOICE "unknown_voice"
 /// Spoken voice always matches any worn ID. If no worn ID, defaults to actual name.
 #define TRAIT_VOICE_MATCHES_ID "voice_matches_id"
+
+/// If the mob has this trait and die, their bomb implant doesn't detonate automatically. It must be consciously activated.
+#define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
 
 /// We are ignoring gravity
 #define TRAIT_IGNORING_GRAVITY "ignores_gravity"
