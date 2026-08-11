@@ -45020,10 +45020,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/fore)
-"pwv" = (
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/plating,
-/area/station/maintenance/port/aft)
 "pwx" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -83944,7 +83940,7 @@ rwb
 iya
 umF
 jZK
-pwv
+gvq
 glH
 gvq
 iRd
