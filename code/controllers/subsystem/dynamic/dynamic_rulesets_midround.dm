@@ -34,6 +34,7 @@
 	points_cost = 40
 	weight = 2
 	ruleset_flags = CANNOT_REPEAT | NO_TRANSFER_RULESET
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/pirates/allowed(require_drafted = TRUE)
 	if(!SSmapping.empty_space)

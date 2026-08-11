@@ -188,6 +188,7 @@
 	antag_datum = /datum/antagonist/wizard
 	points_cost = 50
 	weight = 4
+	minimum_players_required = 20
 
 /datum/dynamic_ruleset/midround/ghost/wizard/get_poll_icon()
 	return /obj/item/clothing/head/wizard
@@ -341,6 +342,7 @@
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
 	weight = 4
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
 	return /obj/item/energy_katana
@@ -364,6 +366,7 @@
 	antag_datum = /datum/antagonist/nightmare
 	points_cost = 40
 	weight = 4
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/ghost/nightmare/get_poll_icon()
 	return /obj/item/light_eater
@@ -396,6 +399,7 @@
 	points_cost = 30
 	weight = 4
 	use_spawn_locations = FALSE
+	minimum_players_required = 6
 
 	var/has_made_leader = FALSE
 	var/datum/team/abductor_team/team
@@ -427,6 +431,7 @@
 	points_cost = 30
 	weight = 4
 	use_spawn_locations = FALSE
+	minimum_players_required = 6
 
 	var/datum/team/abductor_team/team
 
@@ -451,6 +456,7 @@
 	antag_datum = /datum/antagonist/revenant
 	points_cost = 30
 	weight = 4
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/ghost/revenant/get_poll_icon()
 	return /mob/living/simple_animal/revenant
@@ -493,6 +499,7 @@
 	drafted_players_amount = 2
 	points_cost = 40
 	weight = 4
+	minimum_players_required = 10
 
 	var/datum/team/spiders/team
 
@@ -548,6 +555,7 @@
 	antag_datum = /datum/antagonist/swarmer
 	points_cost = 40
 	weight = 4
+	minimum_players_required = 6
 
 	var/announce_probability = 25
 
@@ -582,6 +590,7 @@
 	antag_datum = /datum/antagonist/morph
 	points_cost = 30
 	weight = 4
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/ghost/morph/get_poll_icon()
 	return /mob/living/simple_animal/hostile/morph
@@ -609,6 +618,7 @@
 	antag_datum = /datum/antagonist/prisoner
 	points_cost = 30
 	weight = 4
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/ghost/prisoners/get_poll_icon()
 	return /obj/item/card/id/prisoner
@@ -648,6 +658,7 @@
 	antag_datum = /datum/antagonist/fugitive
 	points_cost = 30
 	weight = 4
+	minimum_players_required = 6
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_poll_icon()
 	return /obj/item/clothing/mask/gas/tiki_mask
