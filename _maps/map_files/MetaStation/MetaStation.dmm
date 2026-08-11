@@ -5844,16 +5844,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
-"ctv" = (
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/structure/sign/poster/contraband/clown{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/random/opposingcorners{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/station/service/theater/backstage)
 "ctG" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Port Primary Hallway - Starboard"
@@ -6897,6 +6887,9 @@
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6
+	},
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
 "cOm" = (
@@ -7937,15 +7930,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
-"diR" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Three"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	cycle_id = "escape-pod-3"
-	},
-/turf/open/floor/plating,
-/area/misc/space)
 "diX" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/white{
@@ -17632,13 +17616,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command)
-"gAH" = (
-/obj/item/cigbutt{
-	pixel_y = -11;
-	pixel_x = -3
-	},
-/turf/closed/wall,
-/area/station/security/detectives_office)
 "gAW" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -30919,6 +30896,7 @@
 /area/station/maintenance/starboard)
 "laP" = (
 /obj/structure/fluff/hedge/opaque,
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/carpet/red,
 /area/station/service/bar)
 "laQ" = (
@@ -61611,9 +61589,6 @@
 	},
 /turf/open/floor/wood,
 /area/station/command/corporate_showroom)
-"vnM" = (
-/turf/closed/wall,
-/area/misc/space)
 "vnS" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow,
@@ -66087,7 +66062,6 @@
 	dir = 8
 	},
 /obj/item/food/baguette,
-/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/white,
 /area/station/service/theater/backstage)
 "wTS" = (
@@ -101085,7 +101059,7 @@ fBT
 vVi
 kan
 xZU
-gAH
+xZU
 hqf
 vPU
 voS
@@ -103424,7 +103398,7 @@ pTw
 bNO
 rco
 lSS
-ctv
+vHY
 pTw
 laP
 rlf
@@ -107483,9 +107457,9 @@ feE
 feE
 feE
 vUJ
-vnM
-diR
-vnM
+vUJ
+jsR
+vUJ
 vUJ
 hHk
 tFu
@@ -111376,7 +111350,7 @@ pdM
 mhL
 pmq
 aHM
-doC
+sJP
 sJP
 moi
 gYt
@@ -111633,7 +111607,7 @@ sug
 sug
 imP
 lKw
-doC
+sJP
 nsT
 rjj
 xQw
@@ -111890,7 +111864,7 @@ fQU
 knC
 diz
 ubd
-doC
+sJP
 kyU
 vPj
 vPj
@@ -112147,7 +112121,7 @@ nMP
 hRi
 qdj
 ubd
-doC
+sJP
 fok
 tgA
 cIk
@@ -112404,7 +112378,7 @@ dtX
 dtX
 qdj
 rXJ
-doC
+sJP
 xpa
 qgp
 gbi

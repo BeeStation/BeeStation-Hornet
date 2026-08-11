@@ -14,7 +14,7 @@
 		The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. \
 		As you open your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
 		Work as a team with your fellow survivors and do not abandon them."
-	assignedrole = "Ancient Crew"
+	spawner_job_path = /datum/job/ancient_crew
 	use_cooldown = TRUE
 	banType = ROLE_ANCIENT_CREW
 
@@ -86,7 +86,7 @@
 	short_desc = "You are a staff member of a top-of-the-line space hotel!"
 	flavour_text = "You are a staff member of a top-of-the-line space hotel! Cater to guests and make sure the manager doesn't fire you."
 	important_info = "DON'T leave the hotel"
-	assignedrole = "Hotel Staff"
+	spawner_job_path = /datum/job/hotel_staff
 	use_cooldown = TRUE
 	banType = ROLE_HOTEL_STAFF
 

@@ -862,14 +862,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	var/datum/gas_mixture/C_air = C.return_air()
 
-	SET_MOLES(gas_to_add, C_air, amount)
-
-	C_air.temperature = (temp)
-	C.update_icon()
+	C_air.set_gas(gas_to_add, amount)
+	C_air.set_temperature(temp)
+	C.update_appearance()
 
 	message_admins(span_adminnotice("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp]."))
 	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
-
 
 /client/proc/give_all_spells_touch()
 	set category = "Debug"

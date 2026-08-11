@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
 	// Do NOT call ui_assets until the jobs are loaded.
-	if(!length(SSjob.occupations))
+	if(!length(SSjob.joinable_occupations))
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -228,8 +228,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["character_preview_view"] = character_preview_view.assigned_map
-	data["overflow_role"] = SSjob.GetJobType(SSjob.overflow_role).title
+	data["character_preview_view"] = character_preview_view?.assigned_map
+	data["overflow_role"] = SSjob.get_job_type(SSjob.overflow_role).title
 	data["window"] = current_window
 
 	data["content_unlocked"] = unlock_content
@@ -446,8 +446,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.real_name = character.real_name
 
 	if(icon_updates)
-		character.icon_render_keys = list() // turns out if you don't set this to null update_body_parts does nothing, since it assumes the operation was cached
-		character.update_body()
-		character.update_hair()
+		character.icon_render_keys = list()
+		character.update_body(is_creating = TRUE)
 		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model
 		character.dna.update_body_size(TRUE)

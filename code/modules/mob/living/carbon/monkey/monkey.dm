@@ -96,7 +96,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	internal_organs += new /obj/item/organ/appendix
 	internal_organs += new /obj/item/organ/lungs
 	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain
+	internal_organs += new /obj/item/organ/brain/primate
 	internal_organs += new /obj/item/organ/tongue
 	internal_organs += new /obj/item/organ/eyes
 	internal_organs += new /obj/item/organ/ears
@@ -249,7 +249,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(HAIR_COLOR, FACIAL_HAIR_COLOR, LIPS)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
@@ -258,7 +257,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
 	) //Made of mutated cells
-	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	changesource_flags = MIRROR_BADMIN
 	mutantbrain = /obj/item/organ/brain/tumor

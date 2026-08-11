@@ -776,7 +776,7 @@
 		if(full_heal_flags & HEAL_ADMIN)
 			get_up(TRUE)
 		update_sight()
-		clear_alert("not_enough_oxy")
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		reload_fullscreen()
 		. = TRUE
 		if(excess_healing)
@@ -1417,8 +1417,7 @@
 
 			// Randomize everything but the species, which was already handled above.
 			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
-			new_human.update_hair()
-			new_human.update_body() // is_creating = TRUE
+			new_human.update_body(is_creating = TRUE)
 			new_human.dna.update_dna_identity()
 			new_mob = new_human
 
@@ -1467,11 +1466,6 @@
 	// Well, no mmind, guess we should try to move a key over
 	else if(key)
 		new_mob.key = key
-
-/mob/living/can_block_magic(casted_magic_flags)
-	. = ..()
-	if(.)
-		return
 
 /mob/living/proc/unfry_mob() //Callback proc to tone down spam from multiple sizzling frying oil dipping.
 	REMOVE_TRAIT(src, TRAIT_OIL_FRIED, "cooking_oil_react")
@@ -2217,8 +2211,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(mind && mind.special_role && !(mind.datum_flags & DF_VAR_EDITED))
 		exp_list[mind.special_role] = minutes
 
-	if(mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
-		exp_list[mind.assigned_role] = minutes
+	if(mind.assigned_role.title in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
+		exp_list[mind.assigned_role.title] = minutes
 
 	return exp_list
 

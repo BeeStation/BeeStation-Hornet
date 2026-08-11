@@ -2,11 +2,13 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "\improper Apid"
 	id = SPECIES_APID
-	species_traits = list(LIPS,MUTANT_COLOR)
-	inherent_traits = list(TRAIT_BEEFRIEND)
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_BEEFRIEND,
+	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
-	hair_color = "fixedmutcolor"
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -72,9 +74,9 @@
 		return FALSE
 	return ..()
 
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
-	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
+/datum/species/apid/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null) // For roundstart
+	. = ..()
+	equipping.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)

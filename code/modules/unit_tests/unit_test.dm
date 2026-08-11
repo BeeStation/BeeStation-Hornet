@@ -27,33 +27,37 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 /proc/focused_tests()
 	var/list/focused_tests = list()
 	for (var/datum/unit_test/unit_test as anything in subtypesof(/datum/unit_test) - /datum/unit_test/map_test)
-		if (initial(unit_test.focus))
+		if (unit_test::test_flags & UNIT_TEST_FOCUS)
 			focused_tests += unit_test
 
-	return focused_tests.len > 0 ? focused_tests : null
+	return length(focused_tests) ? focused_tests : null
 
 /datum/unit_test
 	abstract_type = /datum/unit_test
 
-	//Bit of metadata for the future maybe
-	var/list/procs_tested
+	/// Behavior flags for this unit test
+	var/test_flags = UNIT_TEST_BASIC
+	/// The priority of the test, the larger it is the later it fires
+	var/priority = TEST_DEFAULT
+	/// How many times this unit test will run. Use the TEST_REPEAT() macro
+	var/times_to_run = 1
 
+	// internal shit
+	/// If this test has passed or not
+	var/succeeded = TRUE
 	/// The bottom left floor turf of the testing zone
 	var/turf/run_loc_floor_bottom_left
-
 	/// The top right floor turf of the testing zone
 	var/turf/run_loc_floor_top_right
-	///The priority of the test, the larger it is the later it fires
-	var/priority = TEST_DEFAULT
-	//internal shit
-	var/focus = FALSE
-	var/succeeded = TRUE
+	/// A list of instances created by this unit test. Use allocate()
 	var/list/allocated
+	/// Lazy list of why this unit test failed.
 	var/list/fail_reasons
 
-	/// List of atoms that we don't want to ever initialize in an agnostic context, like for Create and Destroy. Stored on the base datum for usability in other relevant tests that need this data.
+	/// List of atoms that we don't want to ever initialize in an agnostic context, like for Create and Destroy.
+	/// Stored on the base datum for usability in other relevant tests that need this data.
 	var/static/list/uncreatables = null
-
+	/// Reference to the blank z-level containing our testing enviroment
 	var/static/datum/space_level/reservation
 
 /proc/cmp_unit_test_priority(datum/unit_test/a, datum/unit_test/b)
@@ -160,7 +164,6 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 /// Helper for screenshot tests to take an image of an atom from all directions and insert it into one icon
 /datum/unit_test/proc/get_flat_icon_for_all_directions(atom/thing, no_anim = TRUE, override_plane = null)
-	COMPILE_OVERLAYS(thing)
 	var/icon/output = icon('icons/effects/effects.dmi', "nothing")
 
 	if (!istype(thing))
@@ -257,14 +260,43 @@ that means the proc needs to be defined prior to everything else.
 
 	log_world("Starting unit tests run...")
 
-	var/list/tests_to_run = subtypesof(/datum/unit_test)
+	// Find our primary unit test map & find out if we are the secondary
+	var/datum/map_config/primary_unit_test_map
+	var/is_secondary_unit_test_map = FALSE
+	var/found_secondary_unit_test_map = FALSE
+	for(var/map_name, _map_config in config.maplist)
+		var/datum/map_config/map_config = _map_config
+		if(map_config.is_unit_test_map)
+			primary_unit_test_map = map_config
+		if(!LAZYLEN(map_config.skipped_tests) && !found_secondary_unit_test_map)
+			found_secondary_unit_test_map = TRUE
+			if(SSmapping.current_map.map_name == map_name)
+				is_secondary_unit_test_map = TRUE
+
+	var/list/tests_to_run = list()
 	var/list/focused_tests = list()
-	for (var/_test_to_run in tests_to_run)
-		var/datum/unit_test/test_to_run = _test_to_run
-		if (initial(test_to_run.focus))
-			focused_tests += test_to_run
+	for (var/datum/unit_test/potential_test as anything in subtypesof(/datum/unit_test))
+// if you're doing this locally, do ALL of it
+// otherwise, we gotta split em up
+#ifndef RUNNING_LOCAL_TESTS
+		// If the test has [UNIT_TEST_DEBUG_MAP_ONLY] and we aren't the primary unit test map, skip it.
+		// HOWEVER, some unit tests are incompatible with the primary testing map, so we must offload them a secondary one with no blacklisted tests.
+		// If we didn't find a primary unit test map then we are likely a solo runner.
+		if((potential_test::test_flags & UNIT_TEST_DEBUG_MAP_ONLY) && \
+			!isnull(primary_unit_test_map) && \
+			!SSmapping.current_map.is_unit_test_map && \
+			!(primary_unit_test_map.skipped_tests?.Find(potential_test) && is_secondary_unit_test_map) \
+		)
+			continue
+#endif
+		if (potential_test::test_flags & UNIT_TEST_FOCUS)
+			focused_tests += potential_test
+			continue
+		tests_to_run += potential_test
 	if(length(focused_tests))
 		tests_to_run = focused_tests
+
+	primary_unit_test_map = null // I'm paranoid
 
 	sortTim(tests_to_run, GLOBAL_PROC_REF(cmp_unit_test_priority))
 
@@ -272,9 +304,11 @@ that means the proc needs to be defined prior to everything else.
 
 	//Hell code, we're bound to end the round somehow so let's stop if from ending while we work
 	SSticker.delay_end = TRUE
-	for(var/unit_path in tests_to_run)
-		CHECK_TICK //We check tick first because the unit test we run last may be so expensive that checking tick will lock up this loop forever
-		RunUnitTest(unit_path, test_results)
+	for(var/datum/unit_test/unit_path as anything in tests_to_run)
+		var/loop_count = unit_path::times_to_run
+		for(var/i in 1 to loop_count)
+			CHECK_TICK //We check tick first because the unit test we run last may be so expensive that checking tick will lock up this loop forever
+			RunUnitTest(unit_path, test_results)
 	SSticker.delay_end = FALSE
 
 	log_world("::group::Expensive Unit Test Times")

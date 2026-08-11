@@ -586,9 +586,8 @@
 			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity, 2*acidity)
 				emote("scream")
-				facial_hair_style = "Shaved"
-				hair_style = "Bald"
-				update_hair()
+				set_facial_hairstyle("Shaved", update = FALSE)
+				set_hairstyle("Bald") //This calls update_body_parts()
 				ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 
 		update_damage_overlays()
@@ -614,12 +613,12 @@
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-	if(mind)
-		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
+	switch(mind?.assigned_role.type)
+		if(/datum/job/chief_engineer, /datum/job/station_engineer)
 			. = 100
-		if(mind.assigned_role == JOB_NAME_CLOWN)
+		if(/datum/job/clown)
 			. = rand(-1000, 1000)
-	..()
+	..() //Called afterwards because getting the mind after getting gibbed is sketchy
 
 /mob/living/carbon/human/help_shake_act(mob/living/carbon/M)
 	if(!istype(M))

@@ -338,8 +338,8 @@
 		var/datum/species/new_species = human_new_body.dna.species
 		var/datum/species/old_species = human_old_body.dna.species
 
-		new_species.species_traits += TRAIT_DRINKSBLOOD
-		old_species.species_traits -= TRAIT_DRINKSBLOOD
+		new_species.inherent_traits += TRAIT_DRINKSBLOOD
+		old_species.inherent_traits -= TRAIT_DRINKSBLOOD
 
 		new_species.punchdamage = old_species.punchdamage
 		old_species.punchdamage = initial(old_species.punchdamage)
@@ -443,8 +443,8 @@
 			var/list/vassal_report = list()
 			vassal_report += "<b>[vassal.owner.name]</b>"
 
-			if(vassal.owner.assigned_role)
-				vassal_report += " the [vassal.owner.assigned_role]"
+			if(!is_unassigned_job(vassal.owner.assigned_role))
+				vassal_report += " the [vassal.owner.assigned_role.title]"
 			report += vassal_report.Join()
 
 	if(objectives_complete)
@@ -466,7 +466,7 @@
 	// Species traits
 	if(ishuman(user) && user.dna)
 		var/datum/species/user_species = user.dna.species
-		user_species.species_traits += TRAIT_DRINKSBLOOD
+		user_species.inherent_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
 		user.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST // Vampires have inherent stamina resistance
 		user.dna.remove_all_mutations()
@@ -516,7 +516,7 @@
 	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		var/mob/living/carbon/human/human_user = user
-		user_species.species_traits -= TRAIT_DRINKSBLOOD
+		user_species.inherent_traits -= TRAIT_DRINKSBLOOD
 		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits

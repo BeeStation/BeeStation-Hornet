@@ -4,9 +4,9 @@
 
 /proc/make_datum_references_lists()
 	//hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hairstyles_list, GLOB.hairstyles_male_list, GLOB.hairstyles_female_list)
 	//facial hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hairstyles_list, GLOB.facial_hairstyles_male_list, GLOB.facial_hairstyles_female_list)
 	//underwear
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
@@ -63,11 +63,7 @@
 	sort_list(GLOB.surgeries_list, /proc/cmp_typepaths_asc)
 	GLOB.emote_list = init_emote_list()
 
-	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
-	for(var/path in subtypesof(/datum/sprite_accessory/hair_gradient))
-		var/datum/sprite_accessory/hair_gradient/H = new path()
-		GLOB.hair_gradients_list[H.name] = H
-
+	init_hair_gradients()
 	// Keybindings
 	init_keybindings()
 
@@ -75,6 +71,15 @@
 	init_crafting_recipes_atoms()
 
 	init_religion_sects()
+
+/// Hair Gradients - Initialise all /datum/sprite_accessory/gradient into an list indexed by gradient-style name
+/proc/init_hair_gradients()
+	for(var/path in subtypesof(/datum/sprite_accessory/gradient))
+		var/datum/sprite_accessory/gradient/gradient = new path()
+		if(gradient.gradient_category  & GRADIENT_APPLIES_TO_HAIR)
+			GLOB.hair_gradients_list[gradient.name] = gradient
+		if(gradient.gradient_category & GRADIENT_APPLIES_TO_FACIAL_HAIR)
+			GLOB.facial_hair_gradients_list[gradient.name] = gradient
 
 /// Inits crafting recipe lists
 /proc/init_crafting_recipes(list/crafting_recipes)
@@ -216,7 +221,7 @@
 /proc/init_subtypes(prototype, list/L)
 	if(!istype(L))
 		L = list()
-	for(var/path in subtypesof(prototype))
+	for(var/path in valid_subtypesof(prototype))
 		L += new path()
 	return L
 

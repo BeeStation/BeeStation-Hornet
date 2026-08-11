@@ -25,17 +25,20 @@
 #define DNA_BLOCK_SIZE 3
 #define DNA_BLOCK_SIZE_COLOR DEFAULT_HEX_COLOR_LEN
 
-#define DNA_UNI_IDENTITY_BLOCKS 10
-#define DNA_HAIR_COLOR_BLOCK 1
-#define DNA_FACIAL_HAIR_COLOR_BLOCK 2
-#define DNA_SKIN_TONE_BLOCK 3
-#define DNA_EYE_COLOR_LEFT_BLOCK 4
-#define DNA_EYE_COLOR_RIGHT_BLOCK 5
-#define DNA_GENDER_BLOCK 6
-#define DNA_FACIAL_HAIR_STYLE_BLOCK 7
-#define DNA_HAIR_STYLE_BLOCK 8
-#define DNA_HAIR_GRADIENT_COLOR_BLOCK 9
-#define DNA_HAIR_GRADIENT_STYLE_BLOCK 10
+#define DNA_GENDER_BLOCK 1
+#define DNA_SKIN_TONE_BLOCK 2
+#define DNA_EYE_COLOR_LEFT_BLOCK 3
+#define DNA_EYE_COLOR_RIGHT_BLOCK 4
+#define DNA_HAIRSTYLE_BLOCK 5
+#define DNA_HAIR_COLOR_BLOCK 6
+#define DNA_FACIAL_HAIRSTYLE_BLOCK 7
+#define DNA_FACIAL_HAIR_COLOR_BLOCK 8
+#define DNA_HAIRSTYLE_GRADIENT_BLOCK 9
+#define DNA_HAIR_COLOR_GRADIENT_BLOCK 10
+#define DNA_FACIAL_HAIRSTYLE_GRADIENT_BLOCK 11
+#define DNA_FACIAL_HAIR_COLOR_GRADIENT_BLOCK 12
+
+#define DNA_UNI_IDENTITY_BLOCKS 12
 
 #define DNA_FEATURE_BLOCKS 29
 #define DNA_MUTANT_COLOR_BLOCK 1
@@ -85,38 +88,6 @@
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
-
-//! ## species traits for mutantraces
-#define LIPS 5
-#define NOZOMBIE 8
-#define NO_UNDERWEAR 9
-//Flashing has no effect
-#define NOFLASH 11
-// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define DYNCOLORS 12
-// No sex!
-#define AGENDER 13
-// DO NOT PROCESS REAGENTS
-#define NOREAGENTS 15
-// Will revive on heal when healing and total HP > 0.
-#define REVIVESBYHEALING 16
-// Can't be husked.
-#define NOHUSK 17
-#define NOMOUTH 18
-// You cannot wear socks.
-#define NOSOCKS 19
-// spawns with an envirosuit
-#define ENVIROSUIT 20
-//No augments
-#define NOAUGMENTS 21
-
-/// Used for determining which wounds are applicable to this species.
-/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
-// #define HAS_FLESH 23 [add if we ever port TGs wound system]
-/// if we have bones (can suffer bone wounds)
-// #define HAS_BONE 24 [add if we ever port TGs wound system]
-/// If we have a limb-specific overlay sprite
-#define HAS_MARKINGS 25
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

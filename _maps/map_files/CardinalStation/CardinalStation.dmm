@@ -1632,8 +1632,7 @@
 	},
 /obj/effect/turf_decal/edges/techfloor,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5;
-	hide = 0
+	dir = 5
 	},
 /turf/open/floor/iron/techmaint{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -2158,8 +2157,7 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
@@ -5621,9 +5619,6 @@
 /area/station/security/courtroom)
 "bqO" = (
 /obj/machinery/telecomms/hub/preset,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 1
-	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "bqP" = (
@@ -5687,9 +5682,8 @@
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue,
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -6089,6 +6083,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/alphabet/letter_m/quarter{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_corner{
@@ -7248,11 +7245,6 @@
 /area/station/engineering/storage_shared)
 "bLI" = (
 /obj/structure/cable/yellow,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/mapping_helpers/atmos_auto_connect,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 8
-	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/science/server)
 "bLN" = (
@@ -10205,7 +10197,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 4
+	},
 /turf/open/floor/iron/techmaint{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -16560,6 +16554,9 @@
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/mapping_helpers/make_non_slip,
 /obj/effect/turf_decal/tile/dark/fourcorners,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -19389,6 +19386,9 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -21012,6 +21012,9 @@
 "eWG" = (
 /obj/machinery/telecomms/server/presets/common,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "eWK" = (
@@ -22864,6 +22867,9 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 6
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/tcommsat/computer)
 "ftR" = (
@@ -23354,6 +23360,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "fAl" = (
@@ -23368,11 +23375,13 @@
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 5
-	},
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -24210,6 +24219,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -24544,9 +24556,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 8
-	},
 /obj/machinery/door/window/brigdoor/westleft{
 	name = "Telecomms Server Room";
 	req_one_access_txt = "19; 61"
@@ -24560,6 +24569,11 @@
 	},
 /obj/structure/cable,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -27837,6 +27851,7 @@
 "gCF" = (
 /obj/machinery/telecomms/receiver/preset_right,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "gCI" = (
@@ -30249,6 +30264,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "hfY" = (
@@ -30989,6 +31005,9 @@
 "hqA" = (
 /obj/machinery/telecomms/server/presets/command,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "hqG" = (
@@ -33683,10 +33702,9 @@
 	},
 /obj/effect/landmark/blobstart,
 /obj/machinery/holopad,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
-	dir = 8
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -33732,6 +33750,9 @@
 "hVZ" = (
 /obj/machinery/telecomms/bus/preset_three,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "hWb" = (
@@ -34701,8 +34722,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/table_frame,
-/obj/structure/fluff/fans,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "iir" = (
@@ -35417,10 +35439,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/tcommsat/computer)
 "iqH" = (
@@ -35597,7 +35618,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/item/toy/figure/engineer,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "irW" = (
@@ -38514,6 +38534,9 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -39964,6 +39987,8 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/tcommsat/computer)
 "jrc" = (
@@ -41761,6 +41786,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -48302,15 +48330,13 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
-	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/mapping_helpers/make_non_slip,
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/floor/iron/large{
@@ -49294,12 +49320,12 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
-	dir = 6
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 8
 	},
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/iron/tech,
 /area/station/science/server)
 "lBM" = (
@@ -49387,6 +49413,9 @@
 "lDc" = (
 /obj/machinery/telecomms/bus/preset_two,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "lDd" = (
@@ -51624,6 +51653,9 @@
 "men" = (
 /obj/machinery/telecomms/server/presets/supply,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "met" = (
@@ -52062,6 +52094,9 @@
 "mkl" = (
 /obj/machinery/telecomms/processor/preset_four,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "mkt" = (
@@ -54167,8 +54202,8 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/hidden{
-	dir = 8
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/server)
@@ -55115,9 +55150,6 @@
 /area/station/science/lobby)
 "mTu" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 4
@@ -55125,6 +55157,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/landmark/navigate_destination,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/tcommsat/computer)
 "mTv" = (
@@ -57384,6 +57419,8 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -60453,6 +60490,7 @@
 "ohy" = (
 /obj/machinery/telecomms/broadcaster/preset_right,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "ohE" = (
@@ -60943,11 +60981,13 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22";
-	pixel_y = 8
-	},
 /obj/structure/railing/perspective/black,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8;
+	name = "output gas connector port"
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/tcommsat/computer)
 "onW" = (
@@ -63066,7 +63106,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -64393,14 +64432,12 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 1;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/mapping_helpers/make_non_slip,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -68075,6 +68112,7 @@
 "pZw" = (
 /obj/machinery/telecomms/server/presets/medical,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "pZB" = (
@@ -68477,8 +68515,7 @@
 /obj/effect/turf_decal/edges/techfloor,
 /obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -68518,6 +68555,10 @@
 	pixel_y = 9
 	},
 /obj/structure/cable/yellow,
+/obj/item/toy/figure/engineer{
+	pixel_y = -8;
+	pixel_x = -9
+	},
 /turf/open/floor/iron/tech/grid,
 /area/station/engineering/storage)
 "qeI" = (
@@ -69223,9 +69264,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
-	hide = 0
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/techmaint{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -69260,8 +69299,7 @@
 	},
 /obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4;
-	hide = 0
+	dir = 4
 	},
 /turf/open/floor/iron/techmaint{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -75245,6 +75283,9 @@
 "rIi" = (
 /obj/machinery/telecomms/processor/preset_one,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "rIl" = (
@@ -82845,8 +82886,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6;
-	hide = 0
+	dir = 6
 	},
 /turf/open/floor/iron/techmaint{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -83267,17 +83307,14 @@
 /turf/open/floor/iron/techmaint,
 /area/station/maintenance/department/bridge)
 "tDx" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
-	dir = 1;
-	hide = 0
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
 	},
-/turf/open/floor/iron/techmaint{
-	initial_gas_mix = "n2=100;TEMP=80"
-	},
-/area/station/science/server)
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/station/tcommsat/server)
 "tDy" = (
 /turf/closed/wall,
 /area/station/maintenance/solars/starboard/aft)
@@ -88002,8 +88039,7 @@
 /area/station/maintenance/department/cargo)
 "uJB" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/table_frame,
-/obj/structure/fluff/fans,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "uJC" = (
@@ -91556,8 +91592,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -91638,7 +91675,6 @@
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -91893,6 +91929,9 @@
 	},
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron/tech,
 /area/station/science/server)
 "vEk" = (
@@ -93262,22 +93301,9 @@
 /turf/open/floor/iron/dark,
 /area/station/science/xenobiology)
 "vUp" = (
-/obj/effect/turf_decal/siding/thinplating_new/dark,
-/obj/effect/turf_decal/siding/thinplating_new/dark{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark/fourcorners,
-/obj/effect/turf_decal/tile/monorust,
-/obj/effect/turf_decal/guideline/guideline_in/darkblue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 8
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/large{
-	initial_gas_mix = "n2=100;TEMP=80"
-	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "vUt" = (
 /obj/structure/chair{
@@ -94549,6 +94575,8 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/turf_decal/guideline/guideline_in/darkblue,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -96681,10 +96709,10 @@
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 8
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -97915,11 +97943,10 @@
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 10
-	},
 /obj/machinery/light_switch/directional/east,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -99460,6 +99487,8 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -128664,7 +128693,7 @@ gDA
 mlI
 gVa
 txI
-tDx
+qnL
 cvt
 qnL
 atK
@@ -130780,7 +130809,7 @@ fvO
 erD
 opx
 mkl
-uJB
+vUp
 wkM
 cEc
 xqM
@@ -131297,8 +131326,8 @@ hVZ
 uJB
 ntF
 nwn
-vUp
-iim
+xqM
+tDx
 rIi
 sxe
 erD

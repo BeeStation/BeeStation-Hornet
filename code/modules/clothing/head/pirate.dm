@@ -35,4 +35,3 @@
 	desc = "Yarr."
 	icon_state = "bandana"
 	inhand_icon_state = null
-	dynamic_hair_suffix = ""

@@ -34,7 +34,6 @@
 	var/limb_id = SPECIES_HUMAN
 	//Defines what sprite the limb should use if it is also sexually dimorphic.
 	var/limb_gender = "m"
-	var/uses_mutcolor = TRUE //Does this limb have a greyscale version?
 	///Is there a sprite difference between male and female?
 	var/is_dimorphic = FALSE
 	///The actual color a limb is drawn as, set by /proc/update_limb()
@@ -101,7 +100,6 @@
 	var/px_x = 0
 	var/px_y = 0
 
-	var/species_flags_list = list()
 	///the type of damage overlay (if any) to use when this bodypart is bruised/burned.
 	var/dmg_overlay_type = "human"
 
@@ -411,7 +409,7 @@
 			update_disabled()
 		if(updating_health)
 			owner.updatehealth()
-		if(owner.dna?.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
+		if(HAS_TRAIT(owner, TRAIT_REVIVESBYHEALING))
 			if(owner.health > 0 && owner.stat == DEAD)
 				owner.revive()
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
@@ -642,7 +640,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(IS_ORGANIC_LIMB(src))
-		if(HAS_TRAIT(owner, TRAIT_HUSK))
+		if(!(bodypart_flags & BODYPART_UNHUSKABLE) && owner && HAS_TRAIT(owner, TRAIT_HUSK))
 			dmg_overlay_type = "" //no damage overlay shown when husked
 			is_husked = TRUE
 		else
@@ -652,7 +650,7 @@
 	if(variable_color)
 		draw_color = variable_color
 	else if(should_draw_greyscale)
-		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color = species_color || (skin_tone ? skintone2hex(skin_tone) : null)
 	else
 		draw_color = null
 
@@ -663,26 +661,21 @@
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
 
-	var/datum/species/owner_species = human_owner.dna.species
-	species_flags_list = owner_species.species_traits
 	limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
-	if(owner_species.use_skintones)
+	if(HAS_TRAIT(human_owner, TRAIT_USES_SKINTONES))
 		skin_tone = human_owner.skin_tone
+	else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
+		skin_tone = ""
+		var/datum/species/owner_species = human_owner.dna.species
+		use_damage_color = owner_species.use_damage_color
+		species_color = owner_species.fixed_mut_color || human_owner.dna.features["mcolor"]
 	else
 		skin_tone = ""
-
-	use_damage_color = owner_species.use_damage_color
-	if(((MUTANT_COLOR in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
-		if(owner_species.fixed_mut_color)
-			species_color = owner_species.fixed_mut_color
-		else
-			species_color = human_owner.dna.features["mcolor"]
-	else
-		species_color = null
+		species_color = ""
 
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
 
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()

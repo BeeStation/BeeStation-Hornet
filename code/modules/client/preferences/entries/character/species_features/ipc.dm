@@ -41,7 +41,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
-	priority = PREFERENCE_PRIORITY_EYE_COLOR
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/color/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
@@ -101,7 +101,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
-	priority = PREFERENCE_PRIORITY_HAIR_COLOR
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/color/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))
