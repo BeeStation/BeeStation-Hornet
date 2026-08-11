@@ -23138,6 +23138,9 @@
 	req_access_txt = "27";
 	specialfunctions = 4
 	},
+/obj/item/reagent_containers/cup/glass/bottle/holywater{
+	pixel_x = -8
+	},
 /turf/open/floor/carpet/black,
 /area/station/service/chapel/office)
 "igF" = (
@@ -56185,6 +56188,13 @@
 /area/station/engineering/atmos)
 "uUU" = (
 /obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = -8;
+	pixel_y = 17
+	},
 /turf/open/floor/carpet/black,
 /area/station/service/chapel/office)
 "uVc" = (
@@ -60222,9 +60232,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/storage)
-"wpY" = (
-/turf/open/floor/plating,
-/area/misc/space/nearstation)
 "wqF" = (
 /obj/structure/closet/crate/radiation,
 /obj/effect/spawner/random/engineering/material_cheap,
@@ -83246,8 +83253,8 @@ xie
 wyg
 wyg
 wyg
-wpY
-bbZ
+wyg
+omP
 dVt
 dVt
 omP
