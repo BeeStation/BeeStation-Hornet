@@ -14236,7 +14236,6 @@
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "eXv" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/siding/brown/corner,
 /turf/open/floor/iron/chapel{
 	dir = 1
@@ -15934,8 +15933,7 @@
 /area/station/security/execution/education)
 "fEa" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/effect/turf_decal/tile/white/opposingcorners,
