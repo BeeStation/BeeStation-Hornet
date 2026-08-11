@@ -11,6 +11,17 @@
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=world.time)
 	return time2text(wtime, format, NO_TIMEZONE)
 
+/// Returns UTC timestamp with the specifified format, with optionally deciseconds or optional IC time (year offset), AKA Nanotrasen Standard Time (NST)
+/proc/server_timestamp(format = "hh:mm:ss", show_ds, ic_time, twelve_hour_clock)
+	var/time_string = twelve_hour_clock ? time_to_twelve_hour(format, world.timeofday, world.timezone) : time2text(world.timeofday, format, world.timezone)
+	if(ic_time && findtext(format, "YYYY")) //if we have a year, replace the year
+		time_string = replacetext_char(time_string, "[GLOB.year_integer]", CURRENT_STATION_YEAR)
+	return show_ds ? "[time_string]:[world.timeofday % 10]" : time_string
+
+/// Returns timestamp since the round started, AKA Pay Time (PT)
+/proc/round_timestamp(format = "hh:mm:ss", wtime = STATION_TIME_PASSED())
+	return time2text(wtime, format, NO_TIMEZONE)
+
 ///returns the current IC station time in a world.time format
 /proc/station_time(wtime = world.time)
 	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % (24 HOURS)
@@ -39,8 +50,11 @@
 
 /// returns timestamp in a sql and a not-quite-compliant ISO 8601 friendly format
 /proc/SQLtime(timevar)
-	return time2text(timevar || world.timeofday, "YYYY-MM-DD hh:mm:ss")
+	return time2text(timevar || world.timeofday, "YYYY-MM-DD hh:mm:ss", world.timezone)
 
+/// Returns the time in an ISO-8601 friendly format. Used when dumping data into external services such as ElasticSearch
+/proc/iso_timestamp(timevar)
+	return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss", world.timezone)
 
 GLOBAL_VAR_INIT(midnight_rollovers, 0)
 GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
@@ -93,7 +107,19 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 		hourT = " and [hour] hour[(hour != 1)? "s":""]"
 	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
 
-
-/// Returns the time in an ISO-8601 friendly format. Used when dumping data into external services such as ElasticSearch
-/proc/iso_timestamp(timevar)
-	return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss")
+/**
+ * Converts a time expressed in deciseconds (like world.time) to the 12-hour time format.
+ * the format arg is the format passed down to time2text() (e.g. "hh:mm" is hours and minutes but not seconds).
+ * the timezone is the time value offset from the local time. It's to be applied outside time2text() to get the AM/PM right.
+ */
+/proc/time_to_twelve_hour(format = "hh:mm:ss", time = STATION_TIME_PASSED(), timezone = NO_TIMEZONE)
+	time = MODULUS(time + (timezone * (1 HOURS)), 24 HOURS)
+	var/am_pm = "AM"
+	if(time > 12 HOURS)
+		am_pm = "PM"
+		if(time > 13 HOURS)
+			time -= 12 HOURS // e.g. 4:16 PM but not 00:42 PM
+	else if (time < 1 HOURS)
+		time += 12 HOURS // e.g. 12.23 AM
+	//set NO_TIMEZONE because we've already applied the timezone above.
+	return "[time2text(time, format, NO_TIMEZONE)] [am_pm]"

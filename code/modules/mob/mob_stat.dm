@@ -232,10 +232,17 @@
  */
 /mob/proc/get_stat_tab_status()
 	var/list/tab_data = list()
-	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.current_map?.map_name || "Loading..."]")
+	var/datum/map_config/current_map = SSmapping.current_map
+	tab_data["Map"] = GENERATE_STAT_TEXT("[current_map?.map_name || "Loading..."]")
+	if(current_map?.feedback_link)
+		tab_data["Map Feedback"] = GENERATE_STAT_BUTTON("Leave feedback on [current_map.map_name]", "openMapFeedback")
+	if(current_map?.mapping_url)
+		tab_data["Web Map"] = GENERATE_STAT_BUTTON("View [current_map.map_name] in your browser", "openWebMap")
 	var/datum/map_config/cached = SSmap_vote.next_map_config
+
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
+
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
@@ -471,6 +478,12 @@
 						to_chat(src, span_warning("Your issue has already been resolved!"))
 				else
 					to_chat(src, span_warning("You are sending messages too fast!"))
+		if("openMapFeedback")
+			var/feedback_link = SSmapping.current_map?.feedback_link
+			if(feedback_link)
+				client << link(feedback_link)
+		if("openWebMap")
+			client.open_webmap()
 		if("start_br")
 			if(client.holder && check_rights(R_FUN))
 				client.battle_royale()

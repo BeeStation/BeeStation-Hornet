@@ -643,4 +643,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This should not be used on clothing_traits, but should be applied to the clothing itself.
 #define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
 
+/// Applied to a /datum/hud that is currently displaying an escape menu
+#define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
+
 // END TRAIT DEFINES

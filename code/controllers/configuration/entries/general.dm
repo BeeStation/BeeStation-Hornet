@@ -274,6 +274,10 @@
 
 /datum/config_entry/string/gamelogurl
 
+/datum/config_entry/string/webmap_url
+	//ex: "https://webmap.affectedarc07.co.uk/maps/tgstation/"
+	default = ""
+
 /datum/config_entry/number/githubrepoid
 	config_entry_value = null
 	min_val = 0

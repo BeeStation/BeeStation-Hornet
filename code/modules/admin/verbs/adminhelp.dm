@@ -164,9 +164,11 @@ AUTH_CLIENT_VERB(adminhelp)
 	return TRUE
 
 /datum/help_ticket/admin/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
-	if(heard_by_no_admins && usr && usr.ckey != initiator_ckey)
-		heard_by_no_admins = FALSE
-		send2tgs(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
+	if (!isnull(usr) && usr.ckey != initiator_ckey)
+		admins_involved |= usr.ckey
+		if(heard_by_no_admins)
+			heard_by_no_admins = FALSE
+			send2tgs(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
 	..()
 
 /datum/help_ticket/admin/TimeoutVerb()
@@ -213,7 +215,6 @@ AUTH_CLIENT_VERB(adminhelp)
 		to_chat(initiator,
 			type = message_type,
 			html = span_adminnotice("PM to-<b>Admins</b>: [span_linkify("[sanitized_msg]")]"))
-
 
 /datum/help_ticket/admin/proc/FullMonty(ref_src)
 	if(!ref_src)

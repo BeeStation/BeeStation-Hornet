@@ -94,6 +94,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	for(var/mytype in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/rendering_plate)
 		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
+		instance.set_hud(src)
 		instance.backdrop(mymob)
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
@@ -166,7 +167,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	if(!screenmob.client)
 		return FALSE
 
-	screenmob.client.screen = list()
+	screenmob.client.clear_screen()
 	screenmob.client.apply_clickcatcher()
 
 	var/display_hud_version = version

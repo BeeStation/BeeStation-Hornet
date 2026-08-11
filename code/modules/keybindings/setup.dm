@@ -52,7 +52,6 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
-		winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
 	if(hotkeys)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
@@ -132,3 +131,12 @@
 						winset(src, "[setname]-msay", "parent=[setname];name=[key];command=[msay]")
 					else
 						winset(src, "[setname]-msay", "parent=null")
+
+/// Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
+/client/proc/reset_held_keys()
+	for(var/key in keys_held)
+		keyUp(key)
+
+	//In case one got stuck and the previous loop didn't clean it, somehow.
+	for(var/key in key_combos_held)
+		keyUp(key_combos_held[key])

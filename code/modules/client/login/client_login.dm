@@ -278,12 +278,10 @@
 		generate_clickcatcher()
 		apply_clickcatcher()
 
-	if(authenticated && prefs && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
+	if(authenticated && prefs && prefs.lastchangelog != GLOB.changelog_hash) //the escape menu highlights its changelog button so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."))
 		if(CONFIG_GET(flag/aggressive_changelog))
 			changelog()
-		else
-			winset(src, "infowindow.changelog", "font-style=bold")
 
 	send_client_messages()
 

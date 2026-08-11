@@ -91,7 +91,7 @@
 	swap_hand.screen_loc = ui_holopara_swap_r
 	static_inventory += swap_hand
 
-	owner.client.screen = list()
+	owner.client.clear_screen()
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv

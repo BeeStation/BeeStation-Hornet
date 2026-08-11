@@ -109,20 +109,28 @@
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
+	if(!islist(new_verbs))
+		new_verbs = list(new_verbs)
 	if(!tgui_only)
 		verbs += new_verbs
 	add_verbs(new_verbs)
-	return ..(new_verbs)
+	. = ..(new_verbs)
+	if(!tgui_only)
+		SEND_SIGNAL(src, COMSIG_CLIENT_VERB_ADDED, new_verbs)
 
 /client/remove_verb(old_verbs, tgui_only = FALSE)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
+	if(!islist(old_verbs))
+		old_verbs = list(old_verbs)
 	if(!tgui_only)
 		verbs -= old_verbs
 	remove_verbs(old_verbs)
-	return ..(old_verbs)
+	. = ..(old_verbs)
+	if(!tgui_only)
+		SEND_SIGNAL(src, COMSIG_CLIENT_VERB_REMOVED, old_verbs)
 
 /mob/remove_verb(old_verbs, tgui_only = FALSE)
 	if(IsAdminAdvancedProcCall())
