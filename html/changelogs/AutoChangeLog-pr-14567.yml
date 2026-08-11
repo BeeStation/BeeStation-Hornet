@@ -1,0 +1,10 @@
+author: rkz, nightred, Ghommie, kapu1178, vinylspiders, Melbert, cruix, smartkar
+delete-after: true
+changes:
+  - rscadd: adds a new system for obscuring hair with helmets through masking
+  - rscadd: facial hair now supports gradients
+  - bugfix: Cleaned up the gain of the no breath trait to clear moods and alerts
+  - refactor: skintones are now a trait rather than species variable
+  - refactor: removes species_trait and other deprecated methods of passing traits/flags
+  - refactor: finished head_flags system. Swapping to different species heads will
+      keep their features (eyecolor, lips, eyeholes, etcetera)
