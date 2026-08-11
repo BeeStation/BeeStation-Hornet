@@ -1,6 +1,7 @@
 //Alphabetical order of civilian jobs.
 
 /obj/item/clothing/under/rank/civilian
+	abstract_type = /obj/item/clothing/under/rank/civilian
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
 
@@ -19,7 +20,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/bartender/purple
@@ -45,7 +46,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/chef
@@ -61,7 +62,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/altchef
@@ -70,39 +71,50 @@
 	icon_state = "altchef"
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel
-	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
-	name = "head of personnel's jumpsuit"
+/obj/item/clothing/under/rank/civilian/hop
+	name = "head of personnel's uniform"
+	desc = "A slick uniform worn by those to earn the position of \"Head of Personnel\"."
 	icon_state = "hop"
 	inhand_icon_state = "b_suit"
-	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel/skirt
-	name = "head of personnel's jumpskirt"
-	desc = "It's a jumpskirt worn by someone who works in the position of \"Head of Personnel\"."
+/obj/item/clothing/under/rank/civilian/hop/skirt
+	name = "head of personnel's skirt"
+	desc = "A slick uniform and skirt combo worn by those to earn the position of \"Head of Personnel\"."
 	icon_state = "hop_skirt"
 	inhand_icon_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel/alt
-	name = "head of personnel's teal jumpsuit"
-	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
-	icon_state = "teal_suit"
-	inhand_icon_state = "g_suit"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt
-	name = "head of personnel's teal jumpskirt"
-	desc = "A teal skirt and yellow necktie. An authoritative yet tacky ensemble."
-	icon_state = "teal_suit_skirt"
-	inhand_icon_state = "g_suit"
-	can_adjust = FALSE
+/obj/item/clothing/under/rank/civilian/hop/dress
+	name = "head of personnel's dress uniform"
+	desc = "Feminine fashion for the style conscious Head of Personnel."
+	icon_state = "hop_dress"
+	body_parts_covered = CHEST|GROIN|ARMS
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	dying_key = DYE_REGISTRY_JUMPSKIRT
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+
+/obj/item/clothing/under/rank/civilian/hop/formal
+	name = "head of personnel's formal uniform"
+	desc = "A stylish choice for a formal occasion."
+	icon_state = "hop_formal"
+
+/obj/item/clothing/under/rank/civilian/hop/whimsy
+	name = "head of personnel's suit"
+	desc = "A blue sweater and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
+	icon_state = "hop_whimsy"
+	inhand_icon_state = "hop_whimsy"
+
+/obj/item/clothing/under/rank/civilian/hop/oldman
+	name = "old man's suit"
+	desc = "A classic suit for the older gentleman with built in back support."
+	icon_state = "oldman"
+
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
+	name = "head of personnel's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold office. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hop_turtle"
 
 /obj/item/clothing/under/rank/civilian/hydroponics
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
@@ -123,7 +135,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/janitor
@@ -144,7 +156,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/janitor/maid
@@ -171,7 +183,7 @@
 	icon_state = "lawyer_black_skirt"
 	inhand_icon_state = "lawyer_black"
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/lawyer/female
@@ -184,7 +196,7 @@
 	icon_state = "black_suit_fem_skirt"
 	inhand_icon_state = "bl_suit"
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	can_adjust = FALSE
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
@@ -198,7 +210,7 @@
 	icon_state = "lawyer_red_skirt"
 	inhand_icon_state = "lawyer_red"
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/lawyer/blue
@@ -211,7 +223,7 @@
 	icon_state = "lawyer_blue_skirt"
 	inhand_icon_state = "lawyer_blue"
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
@@ -230,7 +242,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/lawyer/purpsuit
@@ -248,5 +260,5 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT

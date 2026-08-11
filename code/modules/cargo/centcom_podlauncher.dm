@@ -40,7 +40,7 @@
 	))
 	var/turf/oldTurf //Keeps track of where the user was at if they use the "teleport to centcom" button, so they can go back
 	var/client/owner_client //client of whoever is using this datum
-	var/area/centcom/supplypod/loading/bay //What bay we're using to launch shit from.
+	var/area/centcom/central_command_areas/supplypod/loading/bay //What bay we're using to launch shit from.
 	var/bayNumber //Quick reference to what bay we're in. Usually set to the loading_id variable for the related area type
 	var/customDropoff = FALSE
 	var/picking_dropoff_turf = FALSE
@@ -66,10 +66,7 @@
 
 	var/obj/structure/closet/supplypod/centcompod/temp_pod //The temporary pod that is modified by this datum, then cloned. The buildObject() clone of this pod is what is launched
 	// Stuff needed to render the map
-	var/map_name
-	var/atom/movable/screen/map_view/cam_screen
-	var/datum/remote_view/remote_view
-	var/atom/movable/screen/background/cam_background
+	var/atom/movable/screen/map_view/camera/cam_screen
 	var/tabIndex = 1
 	var/renderLighting = FALSE
 
@@ -84,9 +81,9 @@
 	else
 		var/mob/user_mob = user
 		owner_client = user_mob.client //if its a mob, assign the mob's client to owner_client
-	bay =  locate(/area/centcom/supplypod/loading/one) in GLOB.areas //Locate the default bay (one) from the centcom map
+	bay =  locate(/area/centcom/central_command_areas/supplypod/loading/one) in GLOB.areas //Locate the default bay (one) from the centcom map
 	bayNumber = bay.loading_id //Used as quick reference to what bay we're taking items from
-	var/area/pod_storage_area = locate(/area/centcom/supplypod/pod_storage) in GLOB.areas
+	var/area/pod_storage_area = locate(/area/centcom/central_command_areas/supplypod/pod_storage) in GLOB.areas
 	temp_pod = new(pick(get_area_turfs(pod_storage_area))) //Create a new temp_pod in the podStorage area on centcom (so users are free to look at it and change other variables if needed)
 	orderedArea = createOrderedArea(bay) //Order all the turfs in the selected bay (top left to bottom right) to a single list. Used for the "ordered" mode (launchChoice = 1)
 	selector = new(null, owner_client.mob)
@@ -96,31 +93,25 @@
 	refreshBay()
 	ui_interact(owner_client.mob)
 
-/datum/centcom_podlauncher/proc/initMap()
-	if(remote_view)
-		QDEL_NULL(remote_view)
+/datum/centcom_podlauncher/proc/initMap(datum/tgui/ui)
+	if(cam_screen)
+		QDEL_NULL(cam_screen)
 
-	map_name = "admin_supplypod_bay_[REF(src)]_map"
+	var/map_name = "admin_supplypod_bay_[REF(src)]_map"
 	// Initialize map objects
 	cam_screen = new
-	cam_screen.name = "screen"
-	cam_screen.assigned_map = map_name
-	cam_screen.del_on_map_removal = TRUE
-	cam_screen.screen_loc = "[map_name]:1,1"
-	remote_view = new(map_name)
-	cam_background = new
-	cam_background.assigned_map = map_name
-	cam_background.del_on_map_removal = TRUE
-	refreshView()
-	owner_client.register_map_obj(cam_screen)
-	remote_view.join(owner_client)
-	owner_client.register_map_obj(cam_background)
+	cam_screen.generate_view(map_name)
 
+	if (!ui)
+		ui = ui_interact(owner_client.mob)
+	cam_screen.display_to(owner_client.mob, ui.window)
+
+	refreshView()
 
 /datum/centcom_podlauncher/ui_state(mob/user)
 	if (SSticker.current_state >= GAME_STATE_FINISHED)
 		return GLOB.always_state //Allow the UI to be given to players by admins after roundend
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/centcom_podlauncher/ui_assets(mob/user)
 	return list(
@@ -134,10 +125,11 @@
 		ui = new(user, src, "CentcomPodLauncher")
 		ui.open()
 		refreshView()
+	return ui
 
 /datum/centcom_podlauncher/ui_static_data(mob/user)
 	var/list/data = list()
-	data["mapRef"] = map_name
+	data["mapRef"] = cam_screen.assigned_map
 	data["defaultSoundVolume"] = initial(temp_pod.soundVolume) //default volume for pods
 	return data
 
@@ -187,7 +179,7 @@
 	data["soundVolume"] = temp_pod.soundVolume //Admin sound to play when the pod leaves
 	return data
 
-/datum/centcom_podlauncher/ui_act(action, params)
+/datum/centcom_podlauncher/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(. || !owner_client.holder)
 		return
@@ -293,7 +285,7 @@
 					boomInput.Add(input("Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", "[expNames[i]] Range",  0) as null|num)
 					if (isnull(boomInput[i]))
 						return
-					if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
+					if (!IS_FINITE(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
 						alert(usr, "That wasn't a number! Value set to default (zero) instead.")
 						boomInput = 0
 				explosionChoice = 1
@@ -315,7 +307,7 @@
 				var/damageInput = input("Enter the amount of brute damage dealt by getting hit","How much damage to deal",  0) as null|num
 				if (isnull(damageInput))
 					return
-				if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
+				if (!IS_FINITE(damageInput)) //Sanitize the input for damage to deal.s
 					alert(usr, "That wasn't a number! Value set to default (zero) instead.")
 					damageInput = 0
 				damageChoice = 1
@@ -506,7 +498,7 @@
 			refreshView()
 			. = TRUE
 		if("refreshView")
-			initMap()
+			initMap(ui)
 			refreshView()
 			. = TRUE
 		if("renderLighting")
@@ -534,10 +526,6 @@
 
 /datum/centcom_podlauncher/ui_close(mob/user, datum/tgui/tgui) //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	QDEL_NULL(temp_pod)
-	remote_view?.leave(user.client)
-	QDEL_NULL(cam_screen)
-	QDEL_NULL(remote_view)
-	QDEL_NULL(cam_background)
 	qdel(src)
 
 /datum/centcom_podlauncher/proc/setupViewPod()
@@ -559,9 +547,7 @@
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
+	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
 /datum/centcom_podlauncher/proc/updateCursor(forceClear = FALSE) //Update the mouse of the user
 	if (!owner_client) //Can't update the mouse icon if the client doesnt exist!
@@ -610,7 +596,7 @@
 			else
 				return //if target is null and we don't have a specific target, cancel
 			if (effectAnnounce)
-				deadchat_broadcast(span_deadsay("A special package is being launched at the station!"), turf_target = target_turf)
+				deadchat_broadcast("A special package is being launched at the station!", turf_target = target, message_type=DEADCHAT_ANNOUNCEMENT)
 
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target_turf)
@@ -653,15 +639,15 @@
 	preLaunch()	//Fill acceptable turfs from orderedArea, then fill launchList from acceptableTurfs (see proc for more info)
 	refreshView()
 
-/area/centcom/supplypod/pod_storage/Initialize(mapload) //temp_pod holding area
+/area/centcom/central_command_areas/supplypod/pod_storage/Initialize(mapload) //temp_pod holding area
 	. = ..()
 	var/obj/imgbound = locate() in locate(200,SUPPLYPOD_X_OFFSET*-4.5, 1)
 	call(GLOB.podlauncher, "RegisterSignal")(imgbound, "ct[GLOB.podstyles[14][9]]", "[GLOB.podstyles[14][10]]dlauncher")
 
 /datum/centcom_podlauncher/proc/createOrderedArea(area/area_to_order) //This assumes the area passed in is a continuous square
 	if (isnull(area_to_order)) //If theres no supplypod bay mapped into centcom, throw an error
-		to_chat(owner_client.mob, "No /area/centcom/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
-		CRASH("No /area/centcom/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
+		to_chat(owner_client.mob, "No /area/centcom/central_command_areas/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
+		CRASH("No /area/centcom/central_command_areas/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
 	orderedArea = list()
 	if (length(area_to_order.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
 		var/startX = area_to_order.contents[1].x //Create the four values (we do it off a.contents[1] so they have some sort of arbitrary initial value. They should be overwritten in a few moments)
@@ -720,7 +706,7 @@
 		return
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = DuplicateObject(temp_pod) //Duplicate the temp_pod (which we have been varediting or configuring with the UI) and store the result
 	toLaunch.update_icon()//we update_icon() here so that the door doesnt "flicker on" right after it lands
-	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding]
+	var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding]
 	toLaunch.forceMove(shippingLane)
 	if (launchClone) //We arent launching the actual items from the bay, rather we are creating clones and launching those
 		if(launchRandomItem)
@@ -799,6 +785,7 @@
 	QDEL_NULL(temp_pod) //Delete the temp_pod
 	QDEL_NULL(selector) //Delete the selector effect
 	QDEL_NULL(indicator)
+	QDEL_NULL(cam_screen)
 	return ..()
 
 /datum/centcom_podlauncher/proc/supplypod_punish_log(turf/target_turf, list/nearby_mobs, list/targeted_mobs, list/pod_contents)

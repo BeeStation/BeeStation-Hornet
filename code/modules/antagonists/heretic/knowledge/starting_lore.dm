@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
  */
 /proc/initialize_starting_knowledge()
 	. = list()
-	for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
+	for(var/datum/heretic_knowledge/knowledge as anything in valid_subtypesof(/datum/heretic_knowledge))
 		if(initial(knowledge.route) == HERETIC_PATH_START)
 			. += knowledge
 
@@ -177,9 +177,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		return FALSE
 	if(!new_heart.useable)
 		return FALSE
-	if(new_heart.status != ORGAN_ORGANIC)
-		return FALSE
-	if(new_heart.organ_flags & (ORGAN_SYNTHETIC|ORGAN_FAILING))
+	if(new_heart.organ_flags & (ORGAN_ROBOTIC|ORGAN_FAILING))
 		return FALSE
 
 	return TRUE

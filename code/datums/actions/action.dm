@@ -4,6 +4,7 @@
  * A simple base for an modular behavior attached to atom or datum.
  */
 /datum/action
+	abstract_type = /datum/action
 	/// The name of the action
 	var/name = "Generic Action"
 	/// The description of what the action does
@@ -11,7 +12,7 @@
 	/// The datum the action is attached to. If the master datum is deleted, the action is as well.
 	/// Set in New() via the proc link_to().
 	/// DO NOT ASSIGN TO THIS VARIABLE, ASSIGN IT ON /NEW()
-	VAR_PRIVATE/datum/master
+	VAR_FINAL/datum/master
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// This is who currently owns the action, and most often, this is who is using the action if it is triggered
@@ -78,7 +79,7 @@
 	/// If the ability is currently active or not
 	VAR_PRIVATE/active = FALSE
 	/// If we require a target and are a toggleable button, we track a reference to the
-	/// object that we are targetting.
+	/// object that we are targeting.
 	VAR_PRIVATE/datum/selected_target = null
 	/// Overlay currently applied to this action
 	VAR_PRIVATE/mutable_appearance/timer_overlay
@@ -350,8 +351,7 @@
 	return TRUE
 
 /datum/action/proc/update_buttons(status_only, force)
-	for(var/datum/hud/hud in viewers)
-		var/atom/movable/screen/movable/button = viewers[hud]
+	for(var/datum/hud/hud, button in viewers)
 		update_button(button, status_only, force)
 
 /datum/action/proc/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
@@ -406,7 +406,7 @@
 		timer_overlay.maptext_height = 64
 		timer_overlay.maptext_x = -8
 		timer_overlay.maptext_y = -6
-	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[FLOOR((next_use_time - world.time)/10, 1)]</span></center>"
+	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[floor((next_use_time - world.time)/10)]</span></center>"
 	if (new_maptext != timer_overlay.maptext || force)
 		button.cut_overlay(timer_overlay)
 		timer_overlay.maptext = new_maptext

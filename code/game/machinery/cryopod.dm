@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/computer/cryopod
 	name = "cryogenic oversight console"
 	desc = "An interface between crew and the cryogenic storage oversight systems."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cellconsole_1"
 
 	base_icon_state = null
@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
 		/obj/item/mmi,
-		/obj/item/paicard,
+		/obj/item/pai_card,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	return control_computer_weakref != null
 
-/obj/machinery/cryopod/close_machine(mob/user)
+/obj/machinery/cryopod/close_machine(mob/user, density_to_set = TRUE)
 	if(!control_computer_weakref)
 		find_control_computer(TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
 
-/obj/machinery/cryopod/open_machine()
+/obj/machinery/cryopod/open_machine(drop = TRUE, density_to_set = FALSE)
 	..()
 	ghost_offering = FALSE
 	icon_state = "cryopod-open"
@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
 
 /obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
-	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your character will be automatically offered to other players.", "Leave Game", list("Yes", "No")) != "Yes")
 		if (target.client)
 			open_machine()
 			return
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	offer_control_persistently(target)
 
 /obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
-	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your character will be automatically offered to other players.", "Leave Game", list("Yes", "No")) != "Yes")
 		if (target.client)
 			open_machine()
 			return
@@ -309,7 +309,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	var/mob/living/mob_occupant = occupant
 
-	if(mob_occupant.mind && mob_occupant.mind.assigned_role)
+	if(mob_occupant.mind && !is_unassigned_job(mob_occupant.mind.assigned_role))
 		//Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
@@ -317,14 +317,14 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from manifest.
 
 	var/announce_rank = null
-	for(var/datum/record/crew/R as() in GLOB.manifest.general)
+	for(var/datum/record/crew/R as anything in GLOB.manifest.general)
 		if((R.name == mob_occupant.real_name))
 			announce_rank = R.rank
 			qdel(R)
 
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/record/R as() in cloner.records)
+	for(var/obj/machinery/computer/cloning/cloner as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/cloning))
+		for(var/datum/record/R as anything in cloner.records)
 			if(R.name == mob_occupant.real_name)
 				cloner.records.Remove(R)
 
@@ -335,14 +335,13 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	else
 		control_computer.frozen_crew += "[mob_occupant.real_name]"
 
-	if(GLOB.announcement_systems.len)
-		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		if(mob_occupant.job == JOB_NAME_CAPTAIN)
-			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
-		else
-			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
-		visible_message(span_notice("\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage."))
-
+	if(issilicon(mob_occupant))
+		aas_config_announce(/datum/aas_config_entry/intelligence_storage, list("SILICON" = mob_occupant.real_name))
+	else if(mob_occupant.job == JOB_NAME_CAPTAIN)
+		// for when the admins do a stupid british gimmick that makes 0 sense cough
+		minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")
+	else
+		aas_config_announce(/datum/aas_config_entry/cryo, list("PERSON" = mob_occupant.real_name, "RANK" = announce_rank))
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
 		if(W.loc.loc && (( W.loc.loc == loc ) || (W.loc.loc == control_computer)))
@@ -400,7 +399,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	name = initial(name)
 
 /obj/machinery/cryopod/MouseDrop_T(mob/living/target, mob/user)
-	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
 	if(!target.mind)
@@ -424,7 +423,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
-	if(!target || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
+	if(!target || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 		//rerun the checks in case of shenanigans
 

@@ -49,7 +49,7 @@
 	jitter = 5
 	range = 8
 	icon_state = "spark"
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 
 /obj/projectile/bullet/pellet
 	var/tile_dropoff = 0.75

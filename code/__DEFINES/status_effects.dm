@@ -41,20 +41,59 @@
 #define CURSE_GRASPING (1<<2)
 
 //Incapacitated status effect flags
-/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
-#define IGNORE_RESTRAINTS (1<<0)
-/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
-#define IGNORE_STASIS (1<<1)
-/// If the incapacitated status effect will ignore a mob being agressively grabbed
-#define IGNORE_GRAB (1<<2)
+/// If the mob is normal incapacitated. Should never need this, just avoids issues if we ever overexpand this
+#define TRADITIONAL_INCAPACITATED (1<<0)
+/// If the incapacitated status effect is being caused by restraints (handcuffs)
+#define INCAPABLE_RESTRAINTS (1<<1)
+/// If the incapacitated status effect is being caused by stasis (stasis beds)
+#define INCAPABLE_STASIS (1<<2)
+/// If the incapacitated status effect is being caused by being agressively grabbed
+#define INCAPABLE_GRAB (1<<3)
+
+/// Checks to see if a mob would be incapacitated even while ignoring some types
+/// Does this by inverting the passed in flags and seeing if we're still incapacitated
+#define INCAPACITATED_IGNORING(mob, flags) (mob.incapacitated & ~(flags))
+
+/// Max amounts of fire stacks a mob can get
+#define MAX_FIRE_STACKS 20
+/// If a mob has a higher threshold than this, the icon shown will be increased to the big fire icon.
+#define MOB_BIG_FIRE_STACK_THRESHOLD 3
 
 // Grouped effect sources, see also code/__DEFINES/traits.dm
-#define STASIS_MACHINE_EFFECT "stasis_machine"
 
+#define STASIS_MACHINE_EFFECT "stasis_machine"
+#define STASIS_SHAPECHANGE_EFFECT "stasis_shapechange"
 #define STASIS_ADMIN "stasis_admin"
 
-// Stasis helpers
-#define STASIS_SHAPECHANGE_EFFECT "stasis_shapechange"
+/// Causes the mob to become blind via the passed source
+#define become_blind(source) apply_status_effect(/datum/status_effect/grouped/blindness, source)
+/// Causes the mob to become blind via the passed source, using a custom fullscreen overlay instead of the default
+#define become_blind_with_overlay(source, overlay_type) apply_status_effect(/datum/status_effect/grouped/blindness, source, overlay_type)
+/// Cures the mob's blindness from the passed source, removing blindness wholesale if no sources are left
+#define cure_blind(source) remove_status_effect(/datum/status_effect/grouped/blindness, source)
+
+/// Is the mob blind?
+#define is_blind(...) has_status_effect(/datum/status_effect/grouped/blindness)
+/// Is the mob blind from the passed source or sources?
+#define is_blind_from(sources) has_status_effect_from_source(/datum/status_effect/grouped/blindness, sources)
+
+/// Causes the mob to become nearsighted via the passed source
+#define become_nearsighted(source) apply_status_effect(/datum/status_effect/grouped/nearsighted, source)
+/// Cures the mob's nearsightedness from the passed source, removing nearsighted wholesale if no sources are left
+#define cure_nearsighted(source) remove_status_effect(/datum/status_effect/grouped/nearsighted, source)
+
+/// Is the mob nearsighted?
+#define is_nearsighted(...) has_status_effect(/datum/status_effect/grouped/nearsighted)
+/// Is the mob nearsigthed from the passed source or sources?
+#define is_nearsighted_from(sources) has_status_effect_from_source(/datum/status_effect/grouped/nearsighted, sources)
+/// Is the mob nearsighted CURRENTLY?
+/// This check fails if the mob is nearsighted but is wearing glasses,
+/// While is_nearsighted will always succeed even if they are wearing glasses.
+/mob/proc/is_nearsighted_currently()
+	var/datum/status_effect/grouped/nearsighted/nearsight = has_status_effect(/datum/status_effect/grouped/nearsighted)
+	if(isnull(nearsight))
+		return FALSE
+	return nearsight.should_be_nearsighted()
 
 #define ISADVANCEDTOOLUSER(mob) (HAS_TRAIT(mob, TRAIT_ADVANCEDTOOLUSER) && !HAS_TRAIT(mob, TRAIT_DISCOORDINATED_TOOL_USER))
 
@@ -122,10 +161,35 @@
 #define set_confusion(duration) set_timed_status_effect(duration, /datum/status_effect/confusion)
 #define set_confusion_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/confusion, TRUE)
 
+#define adjust_drugginess(duration) adjust_timed_status_effect(duration, /datum/status_effect/drugginess)
+#define adjust_drugginess_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/drugginess, up_to)
+#define set_drugginess(duration) set_timed_status_effect(duration, /datum/status_effect/drugginess)
+#define set_drugginess_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/drugginess, TRUE)
+
+#define adjust_silence(duration) adjust_timed_status_effect(duration, /datum/status_effect/silenced)
+#define adjust_silence_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/silenced, up_to)
+#define set_silence(duration) set_timed_status_effect(duration, /datum/status_effect/silenced)
+#define set_silence_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/silenced, TRUE)
+
 #define adjust_hallucinations(duration) adjust_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define adjust_hallucinations_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/hallucination, up_to)
 #define set_hallucinations(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define set_hallucinations_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination, TRUE)
 
+#define adjust_drowsiness(duration) adjust_timed_status_effect(duration, /datum/status_effect/drowsiness)
+#define adjust_drowsiness_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/drowsiness, up_to)
+#define set_drowsiness(duration) set_timed_status_effect(duration, /datum/status_effect/drowsiness)
+#define set_drowsiness_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/drowsiness, TRUE)
+
 #define adjust_pacifism(duration) adjust_timed_status_effect(duration, /datum/status_effect/pacify)
 #define set_pacifism(duration) set_timed_status_effect(duration, /datum/status_effect/pacify)
+
+#define adjust_eye_blur(duration) adjust_timed_status_effect(duration, /datum/status_effect/eye_blur)
+#define adjust_eye_blur_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/eye_blur, up_to)
+#define set_eye_blur(duration) set_timed_status_effect(duration, /datum/status_effect/eye_blur)
+#define set_eye_blur_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/eye_blur, TRUE)
+
+#define adjust_temp_blindness(duration) adjust_timed_status_effect(duration, /datum/status_effect/temporary_blindness)
+#define adjust_temp_blindness_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/temporary_blindness, up_to)
+#define set_temp_blindness(duration) set_timed_status_effect(duration, /datum/status_effect/temporary_blindness)
+#define set_temp_blindness_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/temporary_blindness, TRUE)

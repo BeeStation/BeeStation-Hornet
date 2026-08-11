@@ -19,11 +19,15 @@ export const ObjectivesSection = (props: Props) => {
   return (
     <Section fill title="Objectives" scrollable>
       <Stack vertical>
-        <Stack.Item bold>Your current objectives:</Stack.Item>
         <Stack.Item>
           {(!objectives && 'None!') ||
             objectives.map((objective) => (
-              <Stack.Item key={objective.count}>
+              <Stack.Item
+                key={objective.count}
+                style={{
+                  margin: '6px',
+                }}
+              >
                 #{objective.count}:{' '}
                 <span
                   // eslint-disable-next-line react/no-danger

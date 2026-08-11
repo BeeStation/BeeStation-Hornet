@@ -4,8 +4,6 @@
 	icon_state = "crown"
 	armor_type = /datum/armor/costume_crown
 	resistance_flags = FIRE_PROOF
-	dynamic_hair_suffix = ""
-
 
 /datum/armor/costume_crown
 	melee = 15

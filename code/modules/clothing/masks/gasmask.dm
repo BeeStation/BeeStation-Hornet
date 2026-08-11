@@ -99,7 +99,7 @@
 	mask_designs["The Lunatic"] = image(icon = src.icon, icon_state = "trickymask")
 
 /obj/item/clothing/mask/gas/clown_hat/ui_action_click(mob/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		return
 	var/list/options = list()
 	options["True Form"] = "clown"
@@ -113,7 +113,7 @@
 	if(!choice)
 		return FALSE
 
-	if(src && choice && !user.incapacitated() && in_range(user,src))
+	if(src && choice && !user.incapacitated && in_range(user,src))
 		icon_state = options[choice]
 		user.update_worn_mask()
 		for(var/X in actions)
@@ -151,7 +151,7 @@
 	mask_designs["Excité"] = image(icon = src.icon, icon_state = "sexymime")
 
 /obj/item/clothing/mask/gas/mime/ui_action_click(mob/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		return
 
 	var/list/options = list()
@@ -164,7 +164,7 @@
 	if(!choice)
 		return FALSE
 
-	if(src && choice && !user.incapacitated() && in_range(user,src))
+	if(src && choice && !user.incapacitated && in_range(user,src))
 		icon_state = options[choice]
 		user.update_worn_mask()
 		for(var/X in actions)
@@ -267,22 +267,25 @@
 /obj/item/clothing/mask/gas/old/modulator
 	name = "modified gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
-	voice_change = TRUE
 	chosen_tongue = /obj/item/organ/tongue/robot
-
-/obj/item/clothing/mask/gas/old/modulator/get_name(mob/user, default_name)
-	return voice_change ? "Unknown" : default_name
+	clothing_traits = list(TRAIT_UNKNOWN_VOICE)
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
 	. = ..()
 	. += span_notice("It was modified to make the user's voice sound robotic.")
-	. += "The modulator is currently [voice_change ? "<b>ON</b>" : "<b>OFF</b>"]."
+	. += "The modulator is currently [(TRAIT_UNKNOWN_VOICE in clothing_traits) ? "<b>ON</b>" : "<b>OFF</b>"]."
 
 /obj/item/clothing/mask/gas/old/modulator/attack_self(mob/user)
-	voice_change = !voice_change
-	to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
+	var/on = (TRAIT_UNKNOWN_VOICE in clothing_traits)
+	if(on)
+		detach_clothing_traits(TRAIT_UNKNOWN_VOICE)
+	else
+		attach_clothing_traits(TRAIT_UNKNOWN_VOICE)
+	on = !on
+	to_chat(user, span_notice("The modulator is now [on ? "on" : "off"]!"))
+	return TRUE
 
 /obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		voice_change = !voice_change
-		to_chat(user, span_notice("The modulator is now [voice_change ? "on" : "off"]!"))
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
+	attack_self(user)

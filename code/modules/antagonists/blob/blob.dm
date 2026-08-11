@@ -5,7 +5,7 @@
 	show_to_ghosts = TRUE
 	banning_key = ROLE_BLOB
 	ui_name = "AntagInfoBlob"
-	required_living_playtime = 4
+	required_living_playtime = 0
 
 	var/datum/action/innate/blobpop/pop_action
 	var/starting_points_human_blob = OVERMIND_STARTING_POINTS
@@ -78,7 +78,7 @@
 	button_icon_state = "blob"
 
 /datum/action/innate/blobpop/on_activate()
-	var/mob/old_body = owner
+	var/mob/living/old_body = owner
 	if(!owner)
 		return
 

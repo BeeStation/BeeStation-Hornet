@@ -40,19 +40,12 @@
 
 /datum/holoparasite_ability/major/healing/apply()
 	..()
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(owner)
 	heal_clone = (master_stats.potential >= 5)
 	heal_debuffs = (master_stats.potential >= 3)
 	purge_toxins = (master_stats.defense >= 3)
 	heal_amt = CEILING(max(master_stats.potential * 0.8, 2) + 3, 0.5)
-	effect_heal_amt = CEILING(max(master_stats.potential * 0.85, 1), 1)
-	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REAGENTS_EFFECT_MULTIPLIER, 0.5)
-
-/datum/holoparasite_ability/major/healing/remove()
-	..()
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.remove_hud_from(owner)
+	effect_heal_amt = ceil(max(master_stats.potential * 0.85, 1))
+	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REM, 0.5)
 
 /datum/holoparasite_ability/major/healing/register_signals()
 	..()
@@ -115,11 +108,11 @@
 	var/actual_purge_amt = purge_amt
 	if(!owner.is_manifested())
 		actual_heal_amt = CEILING(max(heal_amt * 0.5, 2), 0.5)
-		actual_effect_heal_amt = CEILING(max(effect_heal_amt * 0.45, 1), 1)
+		actual_effect_heal_amt = ceil(max(effect_heal_amt * 0.45, 1))
 		actual_purge_amt = CEILING(max(purge_amt * 0.5, 1), 0.5)
 	else if(target.stat && !owner.has_matching_summoner(target))
 		actual_heal_amt = CEILING(heal_amt * 1.25, 0.5)
-		actual_effect_heal_amt = CEILING(heal_amt * 1.25, 1)
+		actual_effect_heal_amt = ceil(heal_amt * 1.25)
 		actual_purge_amt = CEILING(purge_amt * 1.25, 0.5)
 	var/old_health = target.health
 	var/old_brute = target.getBruteLoss()
@@ -157,12 +150,14 @@
 		if(length(reagents_purged))
 			SSblackbox.record_feedback("nested tally", "holoparasite_reagents_purged", 1, reagents_purged)
 	if(heal_debuffs)
-		target.restoreEars()
+		var/obj/item/organ/ears/ears = target.get_organ_slot(ORGAN_SLOT_EARS)
+		if(istype(ears))
+			ears.adjustEarDamage(-4, -4)
 		var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 		if(istype(eyes))
 			eyes.apply_organ_damage(-actual_heal_amt)
-		target.adjust_blindness(-actual_effect_heal_amt)
-		target.adjust_blurriness(-actual_effect_heal_amt)
+		target.adjust_temp_blindness(-actual_effect_heal_amt * 2)
+		target.adjust_eye_blur(-actual_effect_heal_amt * 2)
 		target.adjust_disgust(-actual_effect_heal_amt)
 		target.adjust_dizzy(-actual_effect_heal_amt * 2) //Status's used to tick every 2 seconds before conversion to status effects, so we double them
 		target.adjust_confusion(-actual_effect_heal_amt * 2)

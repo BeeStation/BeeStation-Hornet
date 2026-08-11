@@ -65,14 +65,18 @@
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/stoned
 	status_type = STATUS_EFFECT_REFRESH
-	var/original_eye_color
+	var/original_eye_color_left
+	var/original_eye_color_right
 
 /datum/status_effect/stoned/on_apply()
 	if(!ishuman(owner))
 		return FALSE
 	var/mob/living/carbon/human/human_owner = owner
+	original_eye_color_left = human_owner.eye_color_left
+	original_eye_color_right = human_owner.eye_color_right
 	human_owner.add_movespeed_modifier(/datum/movespeed_modifier/reagent/cannabis) //slows you down
-	human_owner.eye_color = BLOODCULT_EYE //makes cult eyes less obvious
+	human_owner.eye_color_left = BLOODCULT_EYE //makes cult eyes less obvious
+	human_owner.eye_color_right = BLOODCULT_EYE //makes cult eyes less obvious
 	human_owner.update_body() //updates eye color
 	human_owner.add_traits(list(TRAIT_CLUMSY, TRAIT_BLOODSHOT_EYES), TRAIT_STATUS_EFFECT(id)) // impairs motor coordination and dilates blood vessels in eyes
 	SEND_SIGNAL(human_owner, COMSIG_ADD_MOOD_EVENT, "stoned", /datum/mood_event/stoned) //improves mood
@@ -84,7 +88,8 @@
 		return
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/cannabis)
-	human_owner.eye_color = original_eye_color
+	human_owner.eye_color_left = original_eye_color_left
+	human_owner.eye_color_right = original_eye_color_right
 	human_owner.update_body()
 	human_owner.remove_traits(list(TRAIT_CLUMSY, TRAIT_BLOODSHOT_EYES), TRAIT_STATUS_EFFECT(id))
 	SEND_SIGNAL(human_owner, COMSIG_CLEAR_MOOD_EVENT, "stoned")

@@ -12,7 +12,6 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
-	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -74,6 +73,14 @@
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
 
+/obj/item/clothing/head/hats/hopcap/beret
+	name = "head of personnel's beret"
+	desc = "For doing paperwork with style."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#3e6588#ECF1F8"
+
 //Chaplain
 
 /datum/armor/hats_hopcap
@@ -127,11 +134,9 @@
 	bleed = 20
 
 /obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
-	. = ..()
-
 	create_storage(storage_type = /datum/storage/pockets/small/fedora/detective)
-
 	new /obj/item/reagent_containers/cup/glass/flask/det(src)
+	return ..()
 
 /obj/item/clothing/head/fedora/det_hat/examine(mob/user)
 	. = ..()
@@ -155,7 +160,7 @@
 		flip(user)
 
 /obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
-	if(!user.incapacitated() && adjustable == TRUE)
+	if(!user.incapacitated && adjustable == TRUE)
 		adjusted = !adjusted
 		if(adjusted)
 			worn_icon_state = aura_icon_on
@@ -188,7 +193,7 @@
 
 /obj/item/clothing/head/beret/color
 	name = "white beret"
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 
 /obj/item/clothing/head/beret/rainbow
 	name = "rainbow beret"
@@ -224,7 +229,6 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
 
@@ -511,11 +515,11 @@
 
 /obj/item/clothing/head/beret/medical/cmo
 	name = "chief medical officer beret"
-	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
+	desc = "A beret in a distinct surgical turquoise!"
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#73B1D7#FFFFFF"
+	greyscale_colors = "#5EB8B8#FFFFFF"
 	armor_type = /datum/armor/beret_cmo
 
 /datum/armor/beret_cmo
@@ -578,11 +582,58 @@
 	desc = "You got red text today kid, but it doesn't mean you have to like it."
 	icon_state = "curator"
 
-//Medical
+/obj/item/clothing/head/helmet/monsterhunter_hat
+	name = "monster hunter hat"
+	desc = "This hat saw much use back in the day."
+	icon_state = "monsterhunterhat"
+	inhand_icon_state = null
+	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEEYES
+	armor_type = /datum/armor/helmet_chaplain
+	strip_delay = 80
+	dog_fashion = null
 
+//Medical
 /datum/armor/beret_supply
 	fire = 10
 
+/obj/item/clothing/head/utility/surgerycap
+	name = "blue surgery cap"
+	icon_state = "surgicalcap"
+	desc = "A blue medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+	flags_inv = HIDEHAIR //Cover your head doctor!
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/head/utility/surgerycap/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "loosening" : "tightening"] strings...")
+	if(!do_after(user, 3 SECONDS, src))
+		return
+	flags_inv ^= HIDEHAIR
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened "] strings")
+	return TRUE
+
+/obj/item/clothing/head/utility/surgerycap/examine(mob/user)
+	. = ..()
+	. += span_notice("Use in hand to [flags_inv & HIDEHAIR ? "loosen" : "tighten"] the strings.")
+
+/obj/item/clothing/head/utility/surgerycap/purple
+	name = "burgundy surgery cap"
+	icon_state = "surgicalcapwine"
+	desc = "A burgundy medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+
+/obj/item/clothing/head/utility/surgerycap/green
+	name = "green surgery cap"
+	icon_state = "surgicalcapgreen"
+	desc = "A green medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+
+/obj/item/clothing/head/utility/surgerycap/cmo
+	name = "turquoise surgery cap"
+	icon_state = "surgicalcapcmo"
+
+	desc = "The CMO's medical surgery cap to prevent their hair from entering the insides of the patient!"
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
 	desc = "A navy SpacePol sergeant's beret."
@@ -655,7 +706,7 @@
 
 /obj/item/clothing/head/beret/highlander/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 
 
 //CentCom

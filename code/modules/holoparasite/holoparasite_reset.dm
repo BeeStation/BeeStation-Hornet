@@ -48,12 +48,14 @@
 	if(being_reset)
 		return
 	being_reset = TRUE
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_HOLOPARASITE
-	config.poll_time = 30 SECONDS
-	config.jump_target = src
-	config.role_name_text = "[summoner.name]'s [real_name], a [theme.name]"
-	config.alert_pic = /mob/living/simple_animal/hostile/holoparasite
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_HOLOPARASITE,
+		poll_time = 30 SECONDS,
+		jump_target = src,
+		role_name_text = "[summoner.name]'s [real_name], a [theme.name]",
+		alert_pic = /mob/living/simple_animal/hostile/holoparasite,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	being_reset = FALSE
 	if(!candidate)

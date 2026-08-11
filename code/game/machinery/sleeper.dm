@@ -83,7 +83,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
-	max_vials = 5 + E
+	max_vials = initial(max_vials) - 1 + E
 	efficiency = initial(efficiency) * sqrt(I)
 	available_chems = list()
 
@@ -134,12 +134,12 @@
 		container_resist(user)
 
 //Note: open_machine and close_machine already ui_update()
-/obj/machinery/sleeper/open_machine()
+/obj/machinery/sleeper/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(!state_open && !panel_open)
 		flick("[initial(icon_state)]-anim", src)
 		..()
 
-/obj/machinery/sleeper/close_machine(mob/user)
+/obj/machinery/sleeper/close_machine(mob/user, density_to_set = TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
 		flick("[initial(icon_state)]-anim", src)
 		..(user)
@@ -240,7 +240,7 @@
 	//Display the names of the inserted vials
 	data["chems"] = list()
 	var/i = 1
-	for(var/obj/item/reagent_containers/chem_vial as() in inserted_vials)
+	for(var/obj/item/reagent_containers/chem_vial as anything in inserted_vials)
 		var/chem_name = chem_vial.renamedByPlayer ? chem_vial.name : chem_vial.label_name || chem_vial.name
 		data["chems"] += list(list("name" = chem_name, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents?.total_volume || 0))
 		i++
@@ -376,7 +376,11 @@
 		/datum/reagent/medicine/oculine = 100,
 		/datum/reagent/medicine/inacusiate = 100,
 		/datum/reagent/medicine/mannitol = 100)
+	max_vials = 7
 	synthesizing = TRUE
+
+/obj/machinery/sleeper/clockwork/RefreshParts()
+	return // nah
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"

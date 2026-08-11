@@ -73,7 +73,7 @@
 	attack_sound = 'sound/weapons/smash.ogg'
 	combat_mode = TRUE
 	loot = null
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	minbodytemp = 0
 	status_flags = CANPUSH
@@ -81,7 +81,6 @@
 	dodging = TRUE
 	rapid_melee = 2
 	hardattacks = TRUE
-	spacewalk = TRUE
 	footstep_type = FOOTSTEP_MOB_SHOE
 	vision_range = 1
 	aggro_vision_range = 10
@@ -91,6 +90,9 @@
 	speak_chance = 25
 	taunt_chance = 55
 
+/mob/living/simple_animal/hostile/banassistant/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/banassistant/ListTargets()
 	if(smitetarget && !QDELETED(smitetarget))

@@ -6,10 +6,13 @@
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
+/mob/living/simple_animal/slime/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
 
 /mob/living/simple_animal/slime/Life(delta_time = SSMOBS_DT, times_fired)
 	set invisibility = 0
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	alpha = 255
 	if(transformeffects & SLIME_EFFECT_BLACK)
@@ -18,9 +21,17 @@
 	if(!.)
 		return
 
-	if(buckled)
+	// We get some passive bruteloss healing if we're not dead
+	if(stat != DEAD && DT_PROB(16, delta_time))
+		var/heal = 0.5
+		if(transformeffects & SLIME_EFFECT_PURPLE)
+			heal += 0.25
+		adjustBruteLoss(-heal * delta_time)
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
+		random_colour()
+	if(isliving(buckled))
 		handle_feeding(delta_time, times_fired)
-	if(stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
+	if(stat != CONSCIOUS) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 		return
 	handle_nutrition(delta_time, times_fired)
 	if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
@@ -106,13 +117,15 @@
 				adjustBruteLoss(round(sqrt(bodytemperature)) * delta_time)
 
 	if(stat != DEAD)
-		var/bz_percentage = environment.total_moles() ? (GET_MOLES(/datum/gas/bz, environment) / environment.total_moles()) : 0
+		var/bz_percentage = environment.total_moles() ? (environment.moles[/datum/gas/bz] / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			var/amt = is_adult ? 30 : 15
-			var/plas_amt = min(amt,GET_MOLES(/datum/gas/plasma, environment))
-			REMOVE_MOLES(/datum/gas/plasma, environment, plas_amt)
-			ADD_MOLES(/datum/gas/oxygen, environment, plas_amt)
+			var/plas_amt = min(amt, environment.moles[/datum/gas/plasma])
+			environment.adjust_multiple_gases(list(
+				/datum/gas/plasma = -plas_amt,
+				/datum/gas/oxygen = plas_amt,
+			))
 			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		switch(stat)
@@ -132,21 +145,7 @@
 	updatehealth()
 
 
-	return //TODO: DEFERRED
-
-/mob/living/simple_animal/slime/handle_status_effects(delta_time, times_fired)
-	..()
-	if(!stat && DT_PROB(16, delta_time))
-		var/heal = 0.5
-		if(transformeffects & SLIME_EFFECT_PURPLE)
-			heal += 0.25
-		adjustBruteLoss(-heal * delta_time)
-	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
-		random_colour()
-
 /mob/living/simple_animal/slime/proc/handle_feeding(delta_time, times_fired)
-	if(!isliving(buckled))
-		return
 	alpha = 255
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)
@@ -175,12 +174,16 @@
 		"A sharp, deep pain bathes every inch of your body!")]</span>")
 
 	var/bonus_damage = 1
+	var/need_mob_update
 	if(transformeffects & SLIME_EFFECT_RED)
 		bonus_damage *= 1.1
-	M.adjustCloneLoss(4*bonus_damage)
-	M.adjustToxLoss(2*bonus_damage)
+	need_mob_update = M.adjustCloneLoss(4 * bonus_damage, updating_health = FALSE)
+	need_mob_update += M.adjustToxLoss(2 * bonus_damage, updating_health = FALSE)
 	if(ismonkey(M))
-		M.adjustCloneLoss(monkey_bonus_damage*bonus_damage)
+		need_mob_update += M.adjustCloneLoss(monkey_bonus_damage*bonus_damage, updating_health = FALSE)
+
+	if(need_mob_update)
+		M.updatehealth()
 
 	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-2.5 * delta_time)

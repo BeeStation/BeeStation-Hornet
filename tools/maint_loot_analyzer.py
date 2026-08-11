@@ -10,20 +10,20 @@ import sys
 def extract_weights_from_dm(filepath="code/_globalvars/lists/maintenance_loot.dm"):
     """Extract weight definitions from maintenance_loot.dm"""
     weights = {}
-    
+
     # Pattern to match #define statements like: #define maint_trash_weight 4500
     weight_pattern = re.compile(r'#define\s+(maint_\w+_weight)\s+(\d+)')
-    
+
     # Handle relative path from tools directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
     repo_root = os.path.dirname(script_dir)
     full_path = os.path.join(repo_root, filepath)
-    
+
     if not os.path.exists(full_path):
         print(f"Error: Could not find {filepath}")
         print(f"Looked in: {full_path}")
         sys.exit(1)
-    
+
     with open(full_path, 'r', encoding='utf-8') as f:
         for line in f:
             match = weight_pattern.match(line.strip())
@@ -31,7 +31,7 @@ def extract_weights_from_dm(filepath="code/_globalvars/lists/maintenance_loot.dm
                 weight_name = match.group(1).upper()  # Convert to uppercase
                 weight_value = int(match.group(2))
                 weights[weight_name] = weight_value
-    
+
     return weights
 
 # Automatically extract weights from the DM file
@@ -60,7 +60,6 @@ categories = {
         "subcategories": {
             "Tools": 1,
             "Equipment": 1,
-            "Xenoartifacts": 2,
             "Construction/Crafting": 1,
             "Medical/Chemicals": 1,
             "Food": 1,
@@ -75,6 +74,7 @@ categories = {
             "Construction/Crafting": 8,
             "Medical/Chemicals": 8,
             "Food": 8,
+            "Xenoartifacts": 6,
             "Modsuits": 4,
             "Music": 2,
             "Fakeout items": 1

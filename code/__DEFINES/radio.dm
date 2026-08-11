@@ -66,7 +66,7 @@
 // Frequencies are always odd numbers and range from 1339 to 1599.
 
 #define FREQ_SYNDICATE 1213  //!  Nuke op comms frequency, dark brown
-#define FREQ_UPLINK 1214   //!  Dummy channel for headset uplink
+#define FREQ_UPLINK 1214   //!  Dummy channel for headset uplink. Not seen in game.
 #define FREQ_CTF_RED 1215  //!  CTF red team comms frequency, red
 #define FREQ_CTF_BLUE 1217  //!  CTF blue team comms frequency, blue
 #define FREQ_CENTCOM 1337  //!  CentCom comms frequency, gray

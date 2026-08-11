@@ -21,16 +21,29 @@
 	// Organs are put in nullspace, but this breaks circuit interactions
 	forceMove(receiver)
 
-/obj/item/organ/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
+/obj/item/organ/cyberimp/bci/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	if (owner)
 		// Otherwise say_dead will be called.
 		// It's intentional that a circuit for a dead person does not speak from the shell.
 		if (owner.stat == DEAD)
 			return
 
-		owner.say(message, forced = "circuit speech")
-	else
-		return ..()
+		forced = "circuit speech"
+		return owner.say(arglist(args))
+
+	return ..()
 
 /obj/item/circuit_component/equipment_action/bci
 	display_name = "BCI Action"
@@ -427,7 +440,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 		say("Occupant has been injected with [bci_to_implant].")
 		bci_to_implant.Insert(carbon_occupant)
 
-/obj/machinery/bci_implanter/open_machine()
+/obj/machinery/bci_implanter/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(state_open)
 		return FALSE
 
@@ -435,7 +448,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return TRUE
 
-/obj/machinery/bci_implanter/close_machine(mob/living/carbon/user)
+/obj/machinery/bci_implanter/close_machine(mob/living/carbon/user, density_to_set = TRUE)
 	if(!state_open)
 		return FALSE
 

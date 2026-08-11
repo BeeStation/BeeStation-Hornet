@@ -1,5 +1,6 @@
 //Glasses
 /obj/item/clothing/glasses
+	abstract_type = /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -15,7 +16,6 @@
 	var/invis_override = 0 //Override to allow glasses to set higher than normal see_invis
 	var/lighting_alpha
 	var/list/icon/current = list() //the current hud icons
-	var/vision_correction = 0 //does wearing these glasses correct some of our vision defects?
 	var/glass_colour_type //colors your vision when worn
 	var/force_glass_colour = FALSE	//Should the user be forced to see the colour?
 	var/emissive_state = null
@@ -48,6 +48,7 @@
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
+	alternate_worn_layer = up ? ABOVE_BODY_FRONT_HEAD_LAYER : null
 	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
 		vision_flags ^= initial(vision_flags)
 	if(visor_vars_to_toggle & VISOR_DARKNESSVIEW)
@@ -69,8 +70,8 @@
 			if(H.glasses == src)
 				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_act(visual = 1)
-				H.adjust_blindness(3)
-				H.blur_eyes(5)
+				H.adjust_temp_blindness(6 SECONDS)
+				H.set_eye_blur_if_lower(10 SECONDS)
 				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
@@ -101,9 +102,10 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
+	desc = "Do the impossible, see the invisible!"
 	icon_state = "garm"
 	inhand_icon_state = "garm"
-	desc = "Do the impossible, see the invisible!"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -119,7 +121,7 @@
 	icon_state = "prescmeson"
 	inhand_icon_state = "glasses"
 	emissive_state = "prehud_emissive"
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -149,7 +151,7 @@
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
 	armor_type = /datum/armor/science_prescription
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 
 /datum/armor/science_prescription
@@ -196,14 +198,15 @@
 	name = "eyepatch"
 	desc = "Yarr."
 	icon_state = "eyepatch"
-	inhand_icon_state = "eyepatch"
+	inhand_icon_state = null
+	dog_fashion = /datum/dog_fashion/head/eyepatch
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	inhand_icon_state = "headset" // lol
-	vision_correction = 1
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
@@ -222,9 +225,10 @@
 
 /obj/item/clothing/glasses/material/mining/gar
 	name = "gar material scanner"
+	desc = "Do the impossible, see the invisible!"
 	icon_state = "garm"
 	inhand_icon_state = "garm"
-	desc = "Do the impossible, see the invisible!"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 20
 	throw_speed = 4
@@ -240,28 +244,46 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	inhand_icon_state = "glasses"
-	vision_correction = 1 //corrects nearsightedness
+	flags_cover = GLASSESCOVERSEYES
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+
+/obj/item/clothing/glasses/regular/atom_destruction(damage_flag)
+	. = ..()
+	detach_clothing_traits(TRAIT_NEARSIGHTED_CORRECTED)
+
+/obj/item/clothing/glasses/regular/welder_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(damaged_clothes == CLOTHING_PRISTINE)
+		return
+	if(!I.tool_start_check(user, amount=1))
+		return
+	if(I.use_tool(src, user, 10, volume=30))
+		user.visible_message(span_notice("[user] welds [src] back together."),\
+					span_notice("You weld [src] back together."))
+		repair()
+		return TRUE
+
+/obj/item/clothing/glasses/regular/repair()
+	. = ..()
+	attach_clothing_traits(TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/regular/jamjar
 	name = "jamjar glasses"
 	desc = "Also known as Virginity Protectors."
 	icon_state = "jamjar_glasses"
 	inhand_icon_state = "jamjar_glasses"
-	vision_correction = 1
 
 /obj/item/clothing/glasses/regular/hipster
 	name = "hipster glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
-	inhand_icon_state = "hipster_glasses"
-	vision_correction = 1
+	inhand_icon_state = null
 
 /obj/item/clothing/glasses/regular/circle
 	name = "circle glasses"
 	desc = "Why would you wear something so controversial yet so brave?"
 	icon_state = "circle_glasses"
-	inhand_icon_state = "circle_glasses"
-	vision_correction = 1
+	inhand_icon_state = null
 
 /obj/item/clothing/glasses/sunglasses/circle_sunglasses
 	name = "circle sunglasses"
@@ -292,25 +314,12 @@
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 
-/obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
-	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-
-/obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.glasses != src)
-			return
-		else
-			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
 	desc = "Go beyond impossible and kick reason to the curb!  Has enhanced shielding which blocks flashes."
 	icon_state = "garb"
 	inhand_icon_state = "garb"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -416,36 +425,22 @@
 	icon_state = "blindfold"
 	inhand_icon_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 3
-	darkness_view = 1
+	flags_cover = GLASSESCOVERSEYES
+	tint = INFINITY // You WILL Be blind, no matter what
 	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/glasses/blindfold/white
 	name = "blind personnel blindfold"
 	desc = "Indicates that the wearer suffers from blindness."
 	icon_state = "blindfoldwhite"
-	inhand_icon_state = "blindfoldwhite"
+	inhand_icon_state = null
 	var/colored_before = FALSE
 
 /obj/item/clothing/glasses/blindfold/white/visual_equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
-		update_icon(user=user)
+	if(ishuman(user) && (slot & ITEM_SLOT_EYES) && !colored_before)
+		add_atom_colour(BlendRGB(user.eye_color_left, user.eye_color_right, 0.5), FIXED_COLOUR_PRIORITY)
 		user.update_worn_glasses() //Color might have been changed by update_icon.
-	..()
-
-/obj/item/clothing/glasses/blindfold/white/update_icon(updates=ALL, mob/living/carbon/human/user)
-	if(ishuman(user) && !colored_before)
-		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
-		colored_before = TRUE
-
-/obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
-	if(!isinhands && ishuman(loc) && !colored_before)
-		var/mob/living/carbon/human/H = loc
-		var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/eyes.dmi', "blindfoldwhite", item_layer)
-		M.appearance_flags |= RESET_COLOR
-		M.color = "#[H.eye_color]"
-		. += M
+	return ..()
 
 /obj/item/clothing/glasses/sunglasses/advanced/big
 	icon_state = "bigsunglasses"
@@ -476,23 +471,7 @@
 	name = "chameleon thermals"
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-
-	var/datum/action/item_action/chameleon/change/chameleon_action
-
-/obj/item/clothing/glasses/thermal/syndi/Initialize(mapload)
-	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/clothing/glasses
-	chameleon_action.chameleon_name = "Glasses"
-	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
-	add_item_action(chameleon_action)
-
-/obj/item/clothing/glasses/thermal/syndi/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
+	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "thermoncle"
@@ -559,7 +538,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	custom_price = 10000
 	max_demand = 10
-	vision_correction = 1  // why should the eye of a god have bad vision?
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED) // why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)

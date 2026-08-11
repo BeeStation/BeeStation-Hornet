@@ -3,10 +3,9 @@
 /obj/machinery/modular_computer
 	name = "modular computer"
 	desc = "An advanced computer."
-
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5								// A flag that describes this device type
-	var/last_power_usage = 0							// Power usage during last tick
+	idle_power_usage = 5
+	var/last_power_usage = 0 // Power usage during last tick
 
 	// Modular computers can run on various devices. Each DEVICE (Laptop, Console, Tablet,..)
 	// must have it's own DMI file. Icon states must be called exactly the same in all files, but may look differently
@@ -14,14 +13,21 @@
 
 	icon = null
 	icon_state = null
-	var/screen_icon_state_menu = "menu"					// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
-	var/screen_icon_screensaver = "standby"				// Icon state overlay when the computer is powered, but not 'switched on'.
-	var/max_hardware_size = 0							// Maximal hardware size. Currently, tablets have 1, laptops 2 and consoles 3. Limits what hardware types can be installed.
-	var/steel_sheet_cost = 10							// Amount of steel sheets refunded when disassembling an empty frame of this computer.
-	var/light_strength = 0								// Light luminosity when turned on
-	var/base_power_usage = 100							// Power usage when the computer is open (screen is active) and can be interacted with. Remember hardware can use power too.
+	/// Icon state overlay when the computer is turned on, but no program is loaded that would override the screen.
+	var/screen_icon_state_menu = "menu"
+	/// Icon state overlay when the computer is powered, but not 'switched on'.
+	var/screen_icon_screensaver = "standby"
+	/// Maximal hardware size. Currently, tablets have 1, laptops 2 and consoles 3. Limits what hardware types can be installed
+	var/max_hardware_size = 0
+	/// Amount of steel sheets refunded when disassembling an empty frame of this computer.
+	var/steel_sheet_cost = 10
+	/// Light luminosity when turned on
+	var/light_strength = 2
+	/// Power usage when the computer is open (screen is active) and can be interacted with. Remember hardware can use power too.
+	var/base_power_usage = 100
 
-	var/obj/item/modular_computer/processor/cpu = null				// CPU that handles most logic while this type only handles power and other specific things.
+	///CPU that handles most logic while this type only handles power and other specific things.
+	var/obj/item/modular_computer/processor/cpu
 
 /obj/machinery/modular_computer/Initialize(mapload)
 	. = ..()
@@ -29,7 +35,8 @@
 	cpu.physical = src
 
 /obj/machinery/modular_computer/Destroy()
-	QDEL_NULL(cpu)
+	if(!QDELETED(cpu))
+		QDEL_NULL(cpu)
 	return ..()
 
 /obj/machinery/modular_computer/examine(mob/user)

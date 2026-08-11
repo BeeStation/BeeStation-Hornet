@@ -6,24 +6,24 @@
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.
 // Hands and feet have 2.5%, arms and legs 7.5%, each of the torso parts has 15% and the head has 30%
-#define THERMAL_PROTECTION_HEAD			0.3
-#define THERMAL_PROTECTION_CHEST		0.15
-#define THERMAL_PROTECTION_GROIN		0.15
-#define THERMAL_PROTECTION_LEG_LEFT		0.075
-#define THERMAL_PROTECTION_LEG_RIGHT	0.075
-#define THERMAL_PROTECTION_FOOT_LEFT	0.025
-#define THERMAL_PROTECTION_FOOT_RIGHT	0.025
-#define THERMAL_PROTECTION_ARM_LEFT		0.075
-#define THERMAL_PROTECTION_ARM_RIGHT	0.075
-#define THERMAL_PROTECTION_HAND_LEFT	0.025
-#define THERMAL_PROTECTION_HAND_RIGHT	0.025
+#define THERMAL_PROTECTION_HEAD 0.3
+#define THERMAL_PROTECTION_CHEST 0.15
+#define THERMAL_PROTECTION_GROIN 0.15
+#define THERMAL_PROTECTION_LEG_LEFT 0.075
+#define THERMAL_PROTECTION_LEG_RIGHT 0.075
+#define THERMAL_PROTECTION_FOOT_LEFT 0.025
+#define THERMAL_PROTECTION_FOOT_RIGHT 0.025
+#define THERMAL_PROTECTION_ARM_LEFT 0.075
+#define THERMAL_PROTECTION_ARM_RIGHT 0.075
+#define THERMAL_PROTECTION_HAND_LEFT 0.025
+#define THERMAL_PROTECTION_HAND_RIGHT 0.025
 
 /mob/living/carbon/human/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	. = ..()
+
 	if(QDELETED(src))
 		return FALSE
 
@@ -52,9 +52,7 @@
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 
-	if(stat != DEAD)
-		return 1
-
+	return stat != DEAD
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/chest_covered = FALSE
@@ -68,14 +66,6 @@
 	if(chest_covered && head_covered)
 		return ONE_ATMOSPHERE
 	return pressure
-
-
-/mob/living/carbon/human/handle_traits(delta_time, times_fired)
-	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
-	return ..()
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
@@ -96,13 +86,13 @@
 		var/datum/species/S = dna.species
 
 		if(S.breathid == GAS_O2)
-			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == GAS_PLASMA)
-			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
+			throw_alert(ALERT_NOT_ENOUGH_PLASMA, /atom/movable/screen/alert/not_enough_plas)
 		else if(S.breathid == "co2")
-			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
+			throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
 		else if(S.breathid == "n2")
-			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
+			throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
 	else
@@ -149,22 +139,6 @@
 /mob/living/carbon/human/get_body_temp_cold_damage_limit()
 	return dna.species.bodytemp_cold_damage_limit
 
-///FIRE CODE
-/mob/living/carbon/human/handle_fire(delta_time, times_fired)
-	. = ..()
-	if(.) //if the mob isn't on fire anymore
-		return
-
-	if(dna)
-		. = dna.species.handle_fire(src, delta_time, times_fired) //do special handling based on the mob's species. TRUE = they are immune to the effects of the fire.
-
-	if(!last_fire_update)
-		last_fire_update = fire_stacks
-	if((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM && last_fire_update <= HUMAN_FIRE_STACK_ICON_NUM) || (fire_stacks <= HUMAN_FIRE_STACK_ICON_NUM && last_fire_update > HUMAN_FIRE_STACK_ICON_NUM))
-		last_fire_update = fire_stacks
-		update_fire()
-
-
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
@@ -175,20 +149,6 @@
 			thermal_protection += (head.max_heat_protection_temperature * THERMAL_PROTECTION_HEAD)
 	thermal_protection = round(thermal_protection)
 	return thermal_protection
-
-/mob/living/carbon/human/IgniteMob()
-	//If have no DNA or can be Ignited, call parent handling to light user
-	//If firestacks are high enough
-	if(!dna || dna.species.CanIgniteMob(src))
-		return ..()
-	. = FALSE //No ignition
-
-/mob/living/carbon/human/ExtinguishMob()
-	if(!dna || !dna.species.ExtinguishMob(src))
-		last_fire_update = null
-		..()
-//END FIRE CODE
-
 
 //This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, CHEST, GROIN, etc. See setup.dm for the full list)
 /mob/living/carbon/human/proc/get_heat_protection_flags(temperature) //Temperature is the temperature you're being exposed to.

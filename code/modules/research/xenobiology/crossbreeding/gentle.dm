@@ -31,7 +31,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/slimecross/gentle)
 		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
 
 /obj/item/slimecross/gentle/proc/preactivate_core(mob/living/carbon/user)
-	if(user.incapacitated() || !iscarbon(user))
+	if(user.incapacitated || !iscarbon(user))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, use_cooldown))
 		to_chat(user, span_notice("[src] isn't ready yet!"))

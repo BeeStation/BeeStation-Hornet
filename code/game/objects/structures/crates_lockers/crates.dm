@@ -83,7 +83,6 @@
 	is_animating_door = FALSE
 	vis_contents -= door_obj
 	update_icon()
-	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/crate/get_door_transform(crateanim_1, crateanim_2)
 	var/matrix/M = matrix()
@@ -116,7 +115,7 @@
 	var/mob/living/user = usr
 	if(!isliving(user))
 		return // Ghosts busted.
-	if(!isturf(user.loc) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
+	if(!isturf(user.loc) || user.incapacitated || !(user.mobility_flags & MOBILITY_STAND))
 		return // If the user is in a weird state, don't bother trying.
 	if(get_dist(user, src) != 1 || get_dist(drop_atom, user) != 1)
 		return // Check whether the user is next to the shelf and if the crate is next to the user.
@@ -228,11 +227,11 @@
 	. = ..()
 	new /obj/item/reagent_containers/blood(src)
 	new /obj/item/reagent_containers/blood(src)
-	new /obj/item/reagent_containers/blood/AMinus(src)
-	new /obj/item/reagent_containers/blood/BMinus(src)
-	new /obj/item/reagent_containers/blood/BPlus(src)
-	new /obj/item/reagent_containers/blood/OMinus(src)
-	new /obj/item/reagent_containers/blood/OPlus(src)
+	new /obj/item/reagent_containers/blood/a_minus(src)
+	new /obj/item/reagent_containers/blood/b_minus(src)
+	new /obj/item/reagent_containers/blood/b_plus(src)
+	new /obj/item/reagent_containers/blood/o_minus(src)
+	new /obj/item/reagent_containers/blood/o_plus(src)
 	new /obj/item/reagent_containers/blood/lizard(src)
 	new /obj/item/reagent_containers/blood/synthetic(src)
 	new /obj/item/reagent_containers/blood/ethereal(src)
@@ -289,22 +288,6 @@
 	name = "science crate"
 	desc = "A science crate."
 	icon_state = "sci_crate"
-
-/obj/structure/closet/crate/science/debug
-	name = "science crate"
-	desc = "debug cyborg modules."
-	icon_state = "sci_crate"
-
-/obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug/PopulateContents()
-	..()
-	new /obj/item/robot_model/standard(src)
-	new /obj/item/robot_model/peacekeeper(src)
-	new /obj/item/robot_model/miner(src)
-	new /obj/item/robot_model/medical(src)
-	new /obj/item/robot_model/janitor(src)
-	new /obj/item/robot_model/engineering(src)
-	new /obj/item/robot_model/clown(src)
-	new /obj/item/robot_model/service(src)
 
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"

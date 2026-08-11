@@ -69,10 +69,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	else
 		return ..()
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/item/veilrender/vealrender
@@ -334,7 +334,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
-		if(I.is_hot())
+		if(I.get_temperature())
 			to_chat(target, span_userdanger("You suddenly feel very hot"))
 			target.adjust_bodytemperature(50)
 			GiveHint(target)
@@ -345,7 +345,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		else if(istype(I, /obj/item/bikehorn))
 			to_chat(target, span_userdanger("HONK"))
 			SEND_SOUND(target, 'sound/items/airhorn.ogg')
-			target.adjustEarDamage(0,3)
+			var/obj/item/organ/ears/ears = user.get_organ_slot(ORGAN_SLOT_EARS)
+			if(ears)
+				ears.adjustEarDamage(0, 3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
@@ -359,7 +361,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)
-		user.reset_perspective(null)
+		user.set_mob_eye_to(MOB_EYE_SELF)
 		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user)
@@ -399,9 +401,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 				log_game("[key_name(user)] made [key_name(target)] say [wgw] with a voodoo doll.")
 			if(BODY_ZONE_PRECISE_EYES)
 				user.set_machine(src)
-				user.reset_perspective(target)
+				user.set_mob_eye_to(target)
 				spawn(100)
-					user.reset_perspective(null)
+					user.set_mob_eye_to(MOB_EYE_SELF)
 					user.unset_machine()
 			if(BODY_ZONE_R_LEG,BODY_ZONE_L_LEG)
 				to_chat(user, span_notice("You move the doll's legs around."))
@@ -444,7 +446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
 		target.adjust_fire_stacks(20)
-		target.IgniteMob()
+		target.ignite_mob()
 		GiveHint(target,1)
 	return ..()
 
@@ -469,7 +471,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	var/mob/living/carbon/last_user
 
 /obj/item/warpwhistle/proc/interrupted(mob/living/carbon/user)
-	if(!user || QDELETED(src) || user.notransform)
+	if(!user || QDELETED(src) || HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
 		on_cooldown = FALSE
 		return TRUE
 	return FALSE

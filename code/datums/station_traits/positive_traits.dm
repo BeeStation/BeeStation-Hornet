@@ -12,15 +12,18 @@
 	if(!COOLDOWN_FINISHED(src, party_cooldown))
 		return
 
-	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
+	var/turf/turf = get_safe_random_station_turfs(GLOB.bar_areas)
+	if(!turf)
+		return
 
-	var/turf/turf = get_safe_random_station_turfs(pick(GLOB.bar_areas))
+	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
 
 	var/obj/structure/closet/supplypod/centcompod/drop_pod = new()
 	var/obj/item/pizzabox/pizza_to_spawn = pick(list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/mushroom, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable)) //no pineapple pizza you monster
 	new pizza_to_spawn(drop_pod)
 	for(var/i in 1 to 6)
 		new /obj/item/reagent_containers/cup/glass/bottle/beer(drop_pod)
+
 	new /obj/effect/pod_landingzone(turf, drop_pod)
 
 /datum/station_trait/galactic_grant
@@ -88,12 +91,12 @@
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
 
-/datum/station_trait/scarves/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/M, joined_late)
+/datum/station_trait/scarves/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
 	SIGNAL_HANDLER
 
 	var/scarf_type = pick(scarves)
 
-	living_mob.equip_to_slot_or_del(new scarf_type(living_mob), ITEM_SLOT_NECK)
+	spawned.equip_to_slot_or_del(new scarf_type(spawned), ITEM_SLOT_NECK, initial = FALSE)
 
 /datum/station_trait/filled_maint
 	name = "Filled up maintenance"

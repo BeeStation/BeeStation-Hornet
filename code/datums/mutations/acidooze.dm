@@ -39,7 +39,7 @@
 /obj/item/melee/touch_attack/mutation/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || !isoozeling(user))
 		return
-	if(!target || user.incapacitated())
+	if(!target || user.incapacitated)
 		return FALSE
 	var/acid_volume = base_acid_volume
 	var/blood_cost = base_blood_cost

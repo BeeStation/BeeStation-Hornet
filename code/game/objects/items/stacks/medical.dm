@@ -205,7 +205,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/medical)
 	merge_type = /obj/item/stack/medical/gauze
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.get_sharpness())
 		if(get_amount() < 2)
 			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return

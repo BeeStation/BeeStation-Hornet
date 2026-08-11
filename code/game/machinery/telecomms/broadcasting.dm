@@ -154,6 +154,9 @@
 				if(independent_radio.independent && independent_radio.can_receive(frequency, signal_reaches_every_z_level))
 					radios += independent_radio
 
+	for(var/obj/item/radio/called_radio as anything in radios)
+		called_radio.on_receive_message(data)
+
 	// From the list of radios, find all mobs who can hear those.
 	var/list/receive = get_hearers_in_radio_ranges(radios)
 
@@ -171,7 +174,6 @@
 	// Always call this on the virtualspeaker to avoid issues.
 	var/spans = data["spans"]
 	var/list/message_mods = data["mods"]
-	var/rendered = virt.compose_message(virt, language, message, frequency, spans)
 	var/list/show_overhead_message_to = list()
 
 	for(var/atom/movable/hearer as anything in receive)
@@ -183,7 +185,7 @@
 			var/mob/M = hearer
 			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
-		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
+		hearer.Hear(virt, language, message, frequency, spans, message_mods, message_range = INFINITY)
 	if(length(show_overhead_message_to))
 		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
 

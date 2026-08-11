@@ -1,3 +1,6 @@
+/datum/bounty/item/assistant
+	abstract_type = /datum/bounty/item/assistant
+
 /datum/bounty/item/assistant/scooter
 	name = "Scooter"
 	description = "Nanotrasen has determined walking to be wasteful. Ship a scooter to CentCom to speed operations up."
@@ -21,7 +24,7 @@
 	description = "CentCom demands a stunprod to use against dissidents. Craft one, then ship it."
 	reward = 1300
 	wanted_types = list(
-		/obj/item/melee/baton/cattleprod = TRUE,
+		/obj/item/melee/baton/security/cattleprod = TRUE,
 	)
 
 /datum/bounty/item/assistant/soap

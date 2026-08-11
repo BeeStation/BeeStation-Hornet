@@ -6,6 +6,7 @@
 
 ///Abstract class to allow us to easily create all the generic "normal" food without too much copy pasta of adding more components
 /obj/item/food
+	abstract_type = /obj/item/food
 	name = "food"
 	desc = "you eat this"
 	resistance_flags = FLAMMABLE
@@ -115,11 +116,10 @@
 	else
 		var/turf/T = get_turf(src)
 		new /obj/item/food/badrecipe(T)
-		if(resistance_flags & ON_FIRE)
-			SSfire_burning.processing -= src
+		..()
 		qdel(src)
 
-/obj/item/food/attackby(obj/item/attacking_item, mob/living/user)
+/obj/item/food/attackby(obj/item/attacking_item, mob/user, params)
 	. = ..()
 	if(istype(attacking_item, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What would you like to name your masterpiece?", "Name:", name || "Food", MAX_MESSAGE_LEN)

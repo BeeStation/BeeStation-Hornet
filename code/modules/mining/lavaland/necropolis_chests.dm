@@ -489,7 +489,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, (MAGIC_RESISTANCE_HOLY))
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -524,16 +524,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 	setDir(user.dir)
 
 	user.forceMove(src)
-	user.notransform = TRUE
-	ADD_TRAIT(user, TRAIT_GODMODE, "[type]")
+	user.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), REF(src))
 
 	can_destroy = FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(unvanish), user), 10 SECONDS)
 
 /obj/effect/immortality_talisman/proc/unvanish(mob/user)
-	REMOVE_TRAIT(user, TRAIT_GODMODE, "[type]")
-	user.notransform = FALSE
+	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), REF(src))
 	user.forceMove(get_turf(src))
 
 	user.visible_message(span_danger("[user] pops back into reality!"))
@@ -543,7 +541,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 /obj/effect/immortality_talisman/attackby()
 	return
 
-/obj/effect/immortality_talisman/singularity_pull()
+/obj/effect/immortality_talisman/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/immortality_talisman/Destroy(force)
@@ -599,6 +597,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	max_demand = 10
 
 /obj/item/book_of_babel/attack_self(mob/user)
+	if(user.is_blind())
+		to_chat(user, span_warning("You are blind and can't read anything!"))
+		return FALSE
 	if(!user.can_read(src))
 		return FALSE
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
@@ -681,7 +682,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	to_chat(user, span_notice("You unfold the ladder. It extends much farther than you were expecting."))
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i) || is_debug_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_away_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -911,7 +912,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	inhand_icon_state = "spectral"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
 	w_class = WEIGHT_CLASS_BULKY
@@ -1025,15 +1026,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	switch(random)
 		if(1)
 			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
-			H.dna.features = list("body_size" = "Normal", "mcolor" = "A02720", "tail_lizard" = "Dark Tiger", "tail_human" = "None", "snout" = "Sharp", "horns" = "Curled", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "Long", "body_markings" = "Dark Tiger Body", "legs" = "Digitigrade Legs")
-			H.eye_color = "fee5a3"
+			H.dna.features = list(
+				"body_size" = "Normal",
+				"mcolor" = "#A02720",
+				"tail_lizard" = "Dark Tiger",
+				"tail_human" = "None",
+				"snout" = "Sharp",
+				"horns" = "Curled",
+				"ears" = "None",
+				"wings" = "None",
+				"frills" = "None",
+				"spines" = "Long",
+				"body_markings" = "Dark Tiger Body",
+				"legs" = DIGITIGRADE_LEGS,
+			)
+			H.eye_color_left = "#FEE5A3"
+			H.eye_color_right = "#FEE5A3"
 			H.set_species(/datum/species/lizard)
 		if(2)
 			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))
 			H.set_species(/datum/species/skeleton)
 		if(3)
 			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
-			H.weather_immunities |= "lava"
+			ADD_TRAIT(H, TRAIT_LAVA_IMMUNE, type)
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
@@ -1164,7 +1179,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "blood contract"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
-	color = "#FF0000"
+	color = COLOR_RED
 	desc = "Mark your target for death."
 	custom_price = 40000
 	max_demand = 2
@@ -1268,7 +1283,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.dropItemToGround(I)
-	for(var/turf/T as() in RANGE_TURFS(1, user))
+	for(var/turf/T as anything in RANGE_TURFS(1, user))
 		var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, TRUE)
 		B.damage = 0
 	user.dropItemToGround(src) //Drop us last, so it goes on top of their stuff
@@ -1423,10 +1438,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		user.log_message("teleported self from [AREACOORD(source)] to [beacon]", LOG_GAME)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
-		for(var/turf/t as() in RANGE_TURFS(1, T))
+		for(var/turf/t as anything in RANGE_TURFS(1, T))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //blasts produced will not hurt allies
 			B.damage = 30
-		for(var/turf/t as() in RANGE_TURFS(1, source))
+		for(var/turf/t as anything in RANGE_TURFS(1, source))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
 		for(var/mob/living/L in hearers(1, source))

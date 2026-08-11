@@ -102,7 +102,7 @@
 	if(.)
 		return
 
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 
 	switch(action)

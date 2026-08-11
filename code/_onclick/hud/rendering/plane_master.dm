@@ -59,11 +59,9 @@
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion) && !low_graphics_quality)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
-	if(istype(mymob) && mymob.eye_blurry)
-		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
 /atom/movable/screen/plane_master/data_hud
-	name = "data_hud plane master"
+	name = "data hud plane master"
 	plane = DATA_HUD_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
@@ -123,6 +121,7 @@
 	plane = LIGHTING_PLANE_ADDITIVE
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	alpha = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
 
 /atom/movable/screen/plane_master/additive_lighting/backdrop(mob/mymob)
 	. = ..()
@@ -147,13 +146,8 @@
 
 /atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
 	. = ..()
-	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
-	if (low_graphics_quality)
-		add_filter("guassian_blur", 1, gauss_blur_filter(1))
-	else
-		add_filter("guassian_blur", 1, gauss_blur_filter(6))
 	// Default the colour to whatever the parallax is currently
-	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
+	transition_colour(src, GLOB.starlight_colour, 0.1 SECONDS)
 	// Transition the colour to whatever the global tells us to go to
 	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour), override = TRUE)
 
@@ -194,6 +188,20 @@
 /atom/movable/screen/plane_master/parallax_white
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
+
+/atom/movable/screen/plane_master/pipecrawl
+	name = "pipecrawl plane master"
+	plane = PIPECRAWL_IMAGES_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/pipecrawl/Initialize(mapload)
+	. = ..()
+	// Makes everything on this plane slightly brighter
+	// Has a nice effect, makes thing stand out
+	color = list(1.2,0,0,0, 0,1.2,0,0, 0,0,1.2,0, 0,0,0,1, 0,0,0,0)
+	// This serves a similar purpose, I want the pipes to pop
+	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = "#0000007A"))
 
 /atom/movable/screen/plane_master/camera_static
 	name = "camera static plane master"
@@ -303,9 +311,8 @@
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
 
-/obj/screen/plane_master/excited_turfs
+/atom/movable/screen/plane_master/excited_turfs
 	name = "atmos excited turfs"
 	plane = ATMOS_GROUP_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 	alpha = 0

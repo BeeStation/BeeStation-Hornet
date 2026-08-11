@@ -1,4 +1,5 @@
 /obj/item/food/burger
+	abstract_type = /obj/item/food/burger
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "hburger"
 	bite_consumption = 3

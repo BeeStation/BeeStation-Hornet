@@ -12,4 +12,4 @@
 		return
 	var/mob/living/L = target
 	L.adjust_fire_stacks(level)
-	L.IgniteMob()
+	L.ignite_mob()

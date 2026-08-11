@@ -20,7 +20,7 @@
 #define NEW_SS_GLOBAL(varname) if(varname != src){if(istype(varname)){Recover();qdel(varname);}varname = src;}
 
 #define START_PROCESSING(Processor, Datum) if (!(Datum.datum_flags & DF_ISPROCESSING)) {Datum.datum_flags |= DF_ISPROCESSING;Processor.processing += Datum}
-#define STOP_PROCESSING(Processor, Datum) Datum.datum_flags &= ~DF_ISPROCESSING;Processor.processing -= Datum
+#define STOP_PROCESSING(Processor, Datum) Datum.datum_flags &= ~DF_ISPROCESSING;Processor.processing -= Datum;Processor.currentrun -= Datum
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 
@@ -116,3 +116,21 @@
 
 //If the MC goes for longer than 5 seconds, provide a warning for investigation
 #define MASTER_CONTROLLER_DELAY_WARN_TIME 2 SECONDS
+
+#define AI_CONTROLLER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/ai_controllers/##X);\
+/datum/controller/subsystem/ai_controllers/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id=#X;\
+}\
+/datum/controller/subsystem/ai_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/ai_controllers/##X
+
+#define UNPLANNED_CONTROLLER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/unplanned_controllers/##X);\
+/datum/controller/subsystem/unplanned_controllers/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id=#X;\
+}\
+/datum/controller/subsystem/unplanned_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/unplanned_controllers/##X

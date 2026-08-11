@@ -10,10 +10,15 @@
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
 
-	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
+	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
 	//initialize limbs first
 	create_bodyparts()
+
+	// This needs to be called very very early in human init (before organs / species are created at the minimum)
+	setup_organless_effects()
+	// Physiology needs to be created before species, as some species modify physiology
+	setup_physiology()
 
 	setup_human_dna()
 
@@ -25,7 +30,6 @@
 
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
-	physiology = new()
 
 	. = ..()
 
@@ -44,6 +48,19 @@
 		AddComponent(/datum/component/mood)
 
 	GLOB.human_list += src
+	add_traits(list(TRAIT_CAN_MOUNT_HUMANS, TRAIT_CAN_MOUNT_CYBORGS), INNATE_TRAIT)
+
+/mob/living/carbon/human/proc/setup_physiology()
+	physiology = new()
+
+/// This proc is for holding effects applied when a mob is missing certain organs
+/// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
+/// Gaining said organs removes these effects
+/mob/living/carbon/human/proc/setup_organless_effects()
+	// All start without eyes, and get them via set species
+	become_blind(NO_EYES)
+	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
+	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
@@ -84,7 +101,8 @@
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
+			tab_data["Absorbed Genomes"] = GENERATE_STAT_TEXT("[changeling.absorbed_genomes]")
+			tab_data["Absorbed Humans"] = GENERATE_STAT_TEXT("[changeling.absorbed_people]")
 	return tab_data
 
 // called when something steps onto a human
@@ -95,12 +113,6 @@
 	if(istype(C))
 		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
-
-/mob/living/carbon/human/reset_perspective(atom/new_eye, force_reset = FALSE)
-	if(dna?.species?.prevent_perspective_change && !force_reset) // This is in case a species needs to prevent perspective changes in certain cases
-		update_fullscreen()
-		return
-	return ..()
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(href_list["see_id"])
@@ -122,7 +134,7 @@
 		if(!same_id || (text2num(href_list["examine_time"]) + viable_time) < world.time)
 			to_chat(viewer, span_notice("You don't have that good of a memory. Examine [p_them()] again."))
 			return
-		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		if(!isobserver(viewer) && HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 			to_chat(viewer, span_notice("You can't make out that ID anymore."))
 			return
 		if(!isobserver(viewer) && get_dist(viewer, src) > ID_EXAMINE_DISTANCE + 1) // leeway, ignored if the viewer is a ghost
@@ -214,7 +226,7 @@
 				var/status = ""
 				if(getBruteLoss())
 					to_chat(human_user, "<b>Physical trauma analysis:</b>")
-					for(var/obj/item/bodypart/BP as() in bodyparts)
+					for(var/obj/item/bodypart/BP as anything in bodyparts)
 						var/brutedamage = BP.brute_dam
 						if(brutedamage > 0)
 							status = "received minor physical injuries."
@@ -229,7 +241,7 @@
 							to_chat(human_user, "<span class='[span]'>[BP] appears to have [status]</span>")
 				if(getFireLoss())
 					to_chat(human_user, "<b>Analysis of skin burns:</b>")
-					for(var/obj/item/bodypart/BP as() in bodyparts)
+					for(var/obj/item/bodypart/BP as anything in bodyparts)
 						var/burndamage = BP.burn_dam
 						if(burndamage > 0)
 							status = "signs of minor burns."
@@ -301,7 +313,7 @@
 					investigate_log("SecHUD auto-crime | Added to [target_record.name] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 
 				investigate_log("has been set from [target_record.wanted_status] to [new_status] via HUD by [key_name(human_user)].", INVESTIGATE_RECORDS)
-				target_record.wanted_status = new_status
+				target_record.set_wanted_status(human_user, new_status)
 				update_matching_security_huds(target_record.name)
 				return
 
@@ -477,22 +489,21 @@
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
 	if(dna.features["body_model"] == MALE)
-		facial_hair_style = "Full Beard"
+		set_facial_hairstyle("Full Beard", update = FALSE)
 	else
-		facial_hair_style = "Shaved"
-	hair_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
+		set_facial_hairstyle("Shaved", update = FALSE)
+	set_hairstyle(pick("Bedhead", "Bedhead 2", "Bedhead 3"), update = FALSE)
 	underwear = "Nude"
 	socks = "Nude"
-	update_body()
-	update_hair()
+	update_body(is_creating = TRUE)
 
-/mob/living/carbon/human/singularity_pull(S, current_size)
-	..()
+/mob/living/carbon/human/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_THREE)
 		for(var/obj/item/hand in held_items)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2) && dropItemToGround(hand))
 				step_towards(hand, src)
-				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
+				to_chat(src, span_warning("\The [singularity] pulls \the [hand] from your grip!"))
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
 
@@ -518,7 +529,7 @@
 			return FALSE
 
 		if (target.is_mouth_covered())
-			to_chat(src, span_warning("Remove [p_their()] mask first!"))
+			to_chat(src, span_warning("Remove [target.p_their()] mask first!"))
 			return FALSE
 
 		if (!get_organ_slot(ORGAN_SLOT_LUNGS))
@@ -591,24 +602,14 @@
 	return TRUE
 
 /**
-  * Cleans the lips of any lipstick. Returns TRUE if the lips had any lipstick and was thus cleaned
-  */
-/mob/living/carbon/human/proc/clean_lips()
-	if(isnull(lip_style) && lip_color == initial(lip_color))
-		return FALSE
-	lip_style = null
-	lip_color = initial(lip_color)
-	update_body()
-	return TRUE
-
-/**
   * Called on the COMSIG_COMPONENT_CLEAN_FACE_ACT signal
   */
 /mob/living/carbon/human/proc/clean_face(datum/source, clean_types)
+	SIGNAL_HANDLER
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
-	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
+	if(glasses && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
 		update_worn_glasses()
 		. = TRUE
 
@@ -651,21 +652,30 @@
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
 /mob/living/carbon/human/proc/electrocution_animation(anim_duration)
-	//Handle mutant parts if possible
-	if(dna?.species)
-		add_atom_colour("#000000", TEMPORARY_COLOUR_PRIORITY)
-		var/static/mutable_appearance/electrocution_skeleton_anim
-		if(!electrocution_skeleton_anim)
-			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
-			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
-		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
+	var/mutable_appearance/zap_appearance
 
-	else //or just do a generic animation
-		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
+	// If we have a species, we need to handle mutant parts and stuff
+	if(dna?.species)
+		add_atom_colour(COLOR_BLACK, TEMPORARY_COLOUR_PRIORITY)
+		var/static/mutable_appearance/shock_animation_dna
+		if(!shock_animation_dna)
+			shock_animation_dna = mutable_appearance(icon, "electrocuted_base")
+			shock_animation_dna.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_dna
+
+	// Otherwise do a generic animation
+	else
+		var/static/mutable_appearance/shock_animation_generic
+		if(!shock_animation_generic)
+			shock_animation_generic = mutable_appearance(icon, "electrocuted_generic")
+			shock_animation_generic.appearance_flags |= RESET_COLOR|KEEP_APART
+		zap_appearance = shock_animation_generic
+
+	add_overlay(zap_appearance)
+	addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), zap_appearance), anim_duration)
 
 /mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
-	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_BLACK)
 	cut_overlay(MA)
 
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
@@ -698,11 +708,6 @@
 		crew_record.name = newname
 	if(locked_record)
 		locked_record.name = newname
-
-/mob/living/carbon/human/get_total_tint()
-	. = ..()
-	if(glasses)
-		. += glasses.tint
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client || !hud_used)
@@ -757,7 +762,7 @@
 
 /mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
 	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
-		for(var/datum/mutation/human/existing_mutation in dna.mutations)
+		for(var/datum/mutation/existing_mutation in dna.mutations)
 			if(existing_mutation.quality != POSITIVE)
 				dna.remove_mutation(existing_mutation.name)
 
@@ -766,9 +771,6 @@
 		heat_exposure_stacks = 0
 
 	return ..()
-
-/mob/living/carbon/human/is_literate()
-	return TRUE
 
 /mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
 	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
@@ -991,7 +993,7 @@
 	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		to_chat(src, span_notice("You can't fireman carry [target] while they're standing!"))
 		return
 
@@ -1013,7 +1015,7 @@
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB) || target.buckled)
 		target.visible_message(span_warning("[target] can't hang on to [src]!"))
 		return
 
@@ -1029,21 +1031,20 @@
 		visible_message(span_warning("[target] fails to climb onto [src]!"))
 		return
 
-	if(target.incapacitated(IGNORE_GRAB) || incapacitated(IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(target, INCAPABLE_GRAB) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		target.visible_message(span_warning("[target] can't hang onto [src]!"))
 		return
 
 	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
 
 
-/mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
-	if(!is_type_in_typecache(target, can_ride_typecache))
-		target.visible_message(span_warning("[target] really can't seem to mount [src]."))
-		return
-
-	if(!force)//humans are only meant to be ridden through piggybacking and special cases
-		return
-
+/mob/living/carbon/human/is_buckle_possible(mob/living/target, force, check_loc)
+	if(!HAS_TRAIT(target, TRAIT_CAN_MOUNT_HUMANS))
+		target.visible_message(span_warning("[target] really can't seem to mount [src]..."))
+		return FALSE
+	// if you don't invoke it with forced, IE via piggyback / fireman, always fail
+	if(!force)
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/updatehealth()
@@ -1094,8 +1095,8 @@
 /mob/living/carbon/human/get_exp_list(minutes)
 	. = ..()
 
-	if(mind.assigned_role in SSjob.name_occupations)
-		.[mind.assigned_role] = minutes
+	if(mind.assigned_role.title in SSjob.name_occupations)
+		.[mind.assigned_role.title] = minutes
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

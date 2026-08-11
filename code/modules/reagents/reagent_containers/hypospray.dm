@@ -60,7 +60,7 @@
 	set name = "Empty Hypospray"
 	set category = "Object"
 	set src in usr
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
@@ -74,6 +74,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
@@ -84,6 +88,15 @@
 	possible_transfer_amounts = list(10,15,30,45)
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/stabilizing_nanites = 15)
+
+/obj/item/reagent_containers/hypospray/combat/empty
+	list_reagents = null
+
+/obj/item/reagent_containers/hypospray/combat/smaller // Just a worst version of the regular combat hypospray, you get a bunch of them for free in the medical bundle
+	desc = "A modified air-needle autoinjector, used by operatives to quickly heal injuries in combat. This modified version has a smaller capacity, and doesn't come pre-loaded."
+	list_reagents = null
+	volume = 30
+	possible_transfer_amounts = list(5,10,30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	name = "experimental combat stimulant injector"

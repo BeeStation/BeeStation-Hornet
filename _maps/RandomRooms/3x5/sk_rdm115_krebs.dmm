@@ -57,7 +57,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,

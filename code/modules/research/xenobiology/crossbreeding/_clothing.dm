@@ -26,7 +26,7 @@ Slimecrossing Armor
 	if(slot == ITEM_SLOT_MASK)
 		ADD_TRAIT(user, TRAIT_NOBREATH, "breathmask_[REF(src)]")
 		user.failed_last_breath = FALSE
-		user.clear_alert("not_enough_oxy")
+		user.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		user.apply_status_effect(/datum/status_effect/rebreathing)
 
 /obj/item/clothing/mask/nobreath/dropped(mob/living/carbon/human/user)
@@ -43,7 +43,7 @@ Slimecrossing Armor
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "prismglasses"
 	actions_types = list(/datum/action/item_action/change_prism_colour, /datum/action/item_action/place_light_prism)
-	var/glasses_color = "#FFFFFF"
+	var/glasses_color = COLOR_WHITE
 
 /obj/item/clothing/glasses/prism_glasses/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -109,7 +109,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	slot_flags = ITEM_SLOT_HEAD
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
-	dynamic_hair_suffix = ""
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY

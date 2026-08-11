@@ -1,4 +1,5 @@
 /mob/living/carbon/alien
+	abstract_type = /mob/living/carbon/alien
 	name = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = FEMALE //All xenos are girls!!
@@ -19,13 +20,13 @@
 	heat_protection = 0.5 // minor heat insulation
 
 	var/leaping = FALSE
-	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
 
 	create_bodyparts() //initialize bodyparts
+
 	create_internal_organs()
 
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
@@ -78,29 +79,28 @@ Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
-	if(!client)
+	if (!client)
 		return
-	for(var/i in GLOB.mob_living_list)
-		var/mob/living/L = i
-		if(HAS_TRAIT(L, TRAIT_XENO_HOST))
-			var/obj/item/organ/body_egg/alien_embryo/A = L.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo)
-			if(A)
-				var/I = image('icons/mob/alien.dmi', loc = L, icon_state = "infected[A.stage]")
-				client.images += I
 
+	for (var/mob/living/target as anything in GLOB.mob_living_list)
+		if(HAS_TRAIT(target, TRAIT_XENO_HOST))
+			var/obj/item/organ/body_egg/alien_embryo/embryo = target.get_organ_by_type(/obj/item/organ/body_egg/alien_embryo)
+			if(embryo)
+				client.images += image('icons/mob/alien.dmi', loc = target, icon_state = "infected[embryo.stage]")
 
 /*----------------------------------------
 Proc: RemoveInfectionImages()
 Des: Removes all infected images from the alien.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/RemoveInfectionImages()
-	if(client)
-		for(var/image/I in client.images)
-			var/searchfor = "infected"
-			if(findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
-				client.images -= I
-				qdel(I)
-	return
+	if(!client)
+		return
+	var/list/image/to_remove
+	for(var/image/client_image as anything in client.images)
+		var/searchfor = "infected"
+		if(findtext(client_image.icon_state, searchfor, 1, length(searchfor) + 1))
+			to_remove += client_image
+	client.images -= to_remove
 
 /mob/living/carbon/alien/canBeHandcuffed()
 	if(num_hands < 2)
@@ -116,6 +116,7 @@ Des: Removes all infected images from the alien.
 	if(!alien_name_regex.Find(name))
 		new_xeno.name = name
 		new_xeno.real_name = real_name
+
 	if(mind)
 		mind.transfer_to(new_xeno)
 	qdel(src)

@@ -14,18 +14,23 @@
 	if(. != VOTE_AVAILABLE)
 		return .
 
-	if(!SSshuttle.canEvac() && SSshuttle.emergency.mode != SHUTTLE_RECALL)
-		return "The shuttle has already been called"
+	if(!SSticker.HasRoundStarted())
+		return "The round hasn't started."
+
+	// canEvac() always returns a truthy value. (TRUE or a string with the reason why the shuttle can't be called)
+	var/evac_result = SSshuttle.canEvac()
+	if(evac_result != TRUE)
+		return evac_result
 
 /datum/vote/shuttle_vote/finalize_vote(winning_option)
 	if(winning_option == CHOICE_SHUTTLE)
 		if(SSshuttle.emergency.mode == SHUTTLE_RECALL)
 			SSshuttle.emergency.mode = SHUTTLE_IDLE
 			//This is slightly hacky, but shuttles cannot be called while in recall
-			//All other modes prevent calling as well, but this is because the shuttle is already doing its thing and emergencyNoRecall ensures it succeeds
+			//All other modes prevent calling as well, but this is because the shuttle is already doing its thing and emergency_no_recall ensures it succeeds
 
-		SSshuttle.requestEvac(null, "Crew Transfer Requested.")
-		SSshuttle.emergencyNoRecall = TRUE
+		SSshuttle.call_evac_shuttle("Crew Transfer Requested.")
+		SSshuttle.emergency_no_recall = TRUE
 		SSautotransfer.can_fire = FALSE
 		return
 

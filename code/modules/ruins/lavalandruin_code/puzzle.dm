@@ -160,10 +160,10 @@
 		var/y = width - round((id - 1) / width)
 		var/x = ((id - 1) % width) + 1
 
-		var/x_start = 1 + (x - 1) * world.icon_size
-		var/x_end = x_start + world.icon_size - 1
-		var/y_start = 1 + ((y - 1) * world.icon_size)
-		var/y_end = y_start + world.icon_size - 1
+		var/x_start = 1 + (x - 1) * ICON_SIZE_X
+		var/x_end = x_start + ICON_SIZE_X - 1
+		var/y_start = 1 + ((y - 1) * ICON_SIZE_Y)
+		var/y_end = y_start + ICON_SIZE_Y - 1
 
 		var/icon/T = new(base_icon)
 		T.Crop(x_start,y_start,x_end,y_end)
@@ -173,7 +173,7 @@
 	//Setup random empty tile
 	empty_tile_id = pick_n_take(left_ids)
 	var/turf/empty_tile_turf = get_turf_for_id(empty_tile_id)
-	empty_tile_turf.PlaceOnTop(floor_type,null,CHANGETURF_INHERIT_AIR)
+	empty_tile_turf.place_on_top(floor_type,null,CHANGETURF_INHERIT_AIR)
 	var/mutable_appearance/MA = new(puzzle_pieces["[empty_tile_id]"])
 	MA.layer = empty_tile_turf.layer + 0.1
 	empty_tile_turf.add_overlay(MA)
@@ -182,7 +182,7 @@
 	var/list/empty_spots = left_ids.Copy()
 	for(var/spot_id in empty_spots)
 		var/turf/T = get_turf_for_id(spot_id)
-		T = T.PlaceOnTop(floor_type,null,CHANGETURF_INHERIT_AIR)
+		T = T.place_on_top(floor_type,null,CHANGETURF_INHERIT_AIR)
 		var/obj/structure/puzzle_element/E = new element_type(T)
 		elements += E
 		var/chosen_id = pick_n_take(left_ids)
@@ -241,7 +241,7 @@
 		animate(src, pixel_x=rand(-5,5), pixel_y=rand(-2,2), time=1)
 	QDEL_IN(src,COLLAPSE_DURATION)
 
-/obj/structure/puzzle_element/Moved()
+/obj/structure/puzzle_element/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	source.validate()
 
@@ -291,7 +291,7 @@
 
 /obj/effect/sliding_puzzle/prison/dispense_reward()
 	prisoner.forceMove(get_turf(src))
-	prisoner.notransform = FALSE
+	REMOVE_TRAIT(prisoner, TRAIT_NO_TRANSFORM, element_type)
 	prisoner = null
 
 //Some armor so it's harder to kill someone by mistake.
@@ -343,7 +343,7 @@
 		return FALSE
 
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
-	prisoner.notransform = TRUE
+	ADD_TRAIT(prisoner, TRAIT_NO_TRANSFORM, cube.element_type)
 	prisoner.forceMove(cube)
 	to_chat(prisoner,span_userdanger("You're trapped by the prison cube! You will remain trapped until someone solves it."))
 

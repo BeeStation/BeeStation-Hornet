@@ -189,9 +189,9 @@
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
 	for(var/obj/item/stack/stored_ore as anything in ores)
-		if(!ore.can_merge(stored_ore))
+		if(!stored_ore.can_merge(ore))
 			continue
-		ore.merge(stored_ore)
+		stored_ore.merge(ore)
 		if(QDELETED(ore))
 			return
 		break
@@ -401,14 +401,12 @@
 		))
 
 /obj/item/mod/module/ash_accretion/on_part_activation()
-	mod.wearer.weather_immunities += "ash"
-	mod.wearer.weather_immunities += "snow"
+	mod.wearer.add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), REF(src))
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
 
 /obj/item/mod/module/ash_accretion/on_part_deactivation(deleting = FALSE)
-	mod.wearer.weather_immunities -= "ash"
-	mod.wearer.weather_immunities -= "snow"
+	mod.wearer.remove_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), REF(src))
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(mod, COMSIG_MOD_UPDATE_SPEED)
 	if(!traveled_tiles)
@@ -485,13 +483,9 @@
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
-	mod.wearer.base_pixel_y -= 4
-	animate(mod.wearer, animate_time, pixel_y = mod.wearer.base_pixel_y, flags = ANIMATION_PARALLEL)
+	mod.wearer.add_offsets(REF(src), y_add = -4)
 	mod.wearer.SpinAnimation(1.5)
-	mod.wearer.weather_immunities += "lava"
-	ADD_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, REF(src))
-	ADD_TRAIT(mod.wearer, TRAIT_FORCED_STANDING, REF(src))
-	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPALL, REF(src))
+	mod.wearer.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NO_SLIP_ALL), REF(src))
 	mod.wearer.RemoveElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	mod.wearer.AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, sound_vary = TRUE)
 	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/sphere)
@@ -500,13 +494,9 @@
 /obj/item/mod/module/sphere_transform/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
-	mod.wearer.base_pixel_y = 0
-	animate(mod.wearer, animate_time, pixel_y = mod.wearer.base_pixel_y)
+	mod.wearer.remove_offsets(REF(src))
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
-	mod.wearer.weather_immunities -= "lava"
-	REMOVE_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, REF(src))
-	REMOVE_TRAIT(mod.wearer, TRAIT_FORCED_STANDING, REF(src))
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPALL, REF(src))
+	mod.wearer.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NO_SLIP_ALL), REF(src))
 	mod.wearer.remove_movespeed_mod_immunities(REF(src), /datum/movespeed_modifier/damage_slowdown)
 	mod.wearer.RemoveElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, sound_vary = TRUE)
 	mod.wearer.AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)

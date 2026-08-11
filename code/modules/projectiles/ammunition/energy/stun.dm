@@ -1,5 +1,5 @@
 /obj/item/ammo_casing/energy/electrode
-	name = "Taser cartridge"
+	name = "taser cartridge"
 	desc = "Standard-issue APS-Arc taser cartridge. Easily repacked with pre-prepared load-assemblies. Some text is stamped into the polymer body: 'ATTENTION: DO NOT LOSE.'"
 	icon_state = "taser_cartridge"
 	projectile_type = /obj/projectile/energy/electrode

@@ -6,7 +6,7 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "e" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/sign/warning/vacuum{
@@ -16,7 +16,7 @@
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -36,7 +36,7 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "m" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating{
@@ -56,7 +56,7 @@
 "p" = (
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "s" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
@@ -65,7 +65,7 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "z" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating{
@@ -75,16 +75,16 @@
 "B" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "D" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "E" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "F" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
@@ -101,7 +101,7 @@
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 "K" = (
 /obj/machinery/light,
 /turf/open/floor/plating,
@@ -134,7 +134,7 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/space/basic,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 a

@@ -118,6 +118,9 @@
 			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_RINGTONE, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
 				ui.close(can_be_suspended = FALSE)
 				return
+			if(SEND_SIGNAL(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE, computer, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
+				ui.close(can_be_suspended = FALSE)
+				return
 			ringtone = new_ringtone
 			return TRUE
 		if("PDA_ringer_status")
@@ -162,7 +165,7 @@
 			for(var/obj/item/modular_computer/mc in GetViewableDevices())
 				targets += mc
 
-			if(targets.len > 0)
+			if(length(targets))
 				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay))
 					computer.balloon_alert_to_viewers("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds.")
 					to_chat(usr, span_warning("Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * drive.spam_delay - world.time)/10] seconds."))
@@ -237,7 +240,7 @@
 
 	data["owner"] = computer.saved_identification
 	// Convert the photo object into a file so it can be rendered properly in Show Messages
-	for(var/list/message as() in messages)
+	for(var/list/message as anything in messages)
 		var/datum/picture/pic = message["photo_obj"]
 		if(!message["photo"] && istype(pic))
 			message["photo"] = pda_rsc_image(pic, message["ref"], user)
@@ -296,7 +299,7 @@
 	return sanitize(message)
 
 /datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
-	if(!targets.len)
+	if(!length(targets))
 		return FALSE
 	var/target_name = length(targets) == 1 ? targets[1].saved_identification : "Everyone"
 	var/message = msg_input(user, target_name)
@@ -423,10 +426,11 @@
 	else if(computer)
 		L = get(computer, /mob/living/silicon)
 
-	if(L && (L.stat == CONSCIOUS || L.stat == SOFT_CRIT))
+	if(L && L.stat < UNCONSCIOUS && L.is_literate())
 		var/reply = "(<a href='byond://?src=[REF(src)];choice=Message;skiprefresh=1;target=[signal.data["ref"]]'>Reply</a>)"
 		var/hrefstart
 		var/hrefend
+
 		if (isAI(L))
 			hrefstart = "<a href='byond://?src=[REF(L)];track=[html_encode(signal.data["name"])]'>"
 			hrefend = "</a>"
@@ -439,7 +443,6 @@
 			inbound_message = emoji_parse(inbound_message)
 
 		to_chat(L, span_infoplain("[icon2html(src)] <b>PDA message from [hrefstart][signal.data["name"]] ([signal.data["job"]])[hrefend], </b>[inbound_message] [reply]"))
-
 
 	if (ringer_status)
 		computer.ring(ringtone)

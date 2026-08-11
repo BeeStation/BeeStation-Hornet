@@ -1,4 +1,5 @@
 /obj/item/clothing/under/shorts
+	abstract_type = /obj/item/clothing/under/shorts
 	name = "athletic shorts"
 	desc = "95% Polyester, 5% Spandex!"
 	icon = 'icons/obj/clothing/under/shorts_pants_shirts.dmi'
@@ -6,7 +7,7 @@
 	gender = PLURAL
 	body_parts_covered = GROIN
 	female_sprite_flags = NO_FEMALE_UNIFORM
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	can_adjust = FALSE
 
 /obj/item/clothing/under/shorts/red

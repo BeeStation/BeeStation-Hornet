@@ -25,7 +25,7 @@
 			SSmodular_computers.intrusion_detection_enabled = !SSmodular_computers.intrusion_detection_enabled
 			return TRUE
 		if("toggle_relay")
-			var/obj/machinery/ntnet_relay/target_relay = locate(params["ref"]) in GLOB.ntnet_relays
+			var/obj/machinery/ntnet_relay/target_relay = locate(params["ref"]) in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/ntnet_relay)
 			if(!istype(target_relay))
 				return
 			target_relay.set_relay_enabled(!target_relay.relay_enabled)
@@ -52,7 +52,7 @@
 	var/list/data = list()
 
 	data["ntnetrelays"] = list()
-	for(var/obj/machinery/ntnet_relay/relays as anything in GLOB.ntnet_relays)
+	for(var/obj/machinery/ntnet_relay/relays as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/ntnet_relay))
 		var/list/relay_data = list()
 		relay_data["is_operational"] = !!relays.is_operational
 		relay_data["name"] = relays.name
@@ -66,11 +66,11 @@
 	data["ntnetlogs"] = list()
 	for(var/i in SSmodular_computers.logs)
 		var/log_entry = i
-		var/log_color = "#ffffff"  //default white
+		var/log_color = COLOR_WHITE  //default white
 		var/entry_lower = LOWER_TEXT(log_entry)	// This will make sure lower case and upper case are treated the same for this purpose
 		// very simple keyword‑based colouring
 		if(findtext(entry_lower, "alert") || findtext(entry_lower, "warning"))
-			log_color = "#ff0000" // red for alerts (detected threat)
+			log_color = COLOR_RED // red for alerts (detected threat)
 		else if(findtext(entry_lower, "sysnotice") || findtext(entry_lower, "advisory"))
 			log_color = "#ffaa00" // amber for notices (suspicious activity)
 		else if(findtext(entry_lower, "message logged") || findtext(entry_lower, "msg log") || findtext(entry_lower, "transmission"))

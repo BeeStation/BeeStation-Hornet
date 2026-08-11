@@ -18,7 +18,7 @@
 		return
 	var/part_reference = display_names[pick]
 	var/obj/item/part = locate(part_reference) in parts
-	if(!istype(part) || user.incapacitated())
+	if(!istype(part) || user.incapacitated)
 		return
 	if(activating)
 		balloon_alert(user, "currently [active ? "unsealing" : "sealing"]!")

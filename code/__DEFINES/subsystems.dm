@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 6
+#define DB_MINOR_VERSION 8
 
 
 //! ## Timing subsystem
@@ -121,10 +121,11 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
+#define FIRE_PRIORITY_UNPLANNED_NPC 3
+#define FIRE_PRIORITY_IDLE_NPC 		5
 #define FIRE_PRIORITY_SCREENTIPS	5	// Don't spend a lot of time on this
 #define FIRE_PRIORITY_STAT			10
 #define FIRE_PRIORITY_AMBIENCE		10
-#define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_SERVER_MAINT	10
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_VIS			10
@@ -141,16 +142,16 @@
 #define FIRE_PRIORITY_PATHFINDING 23
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
-#define FIRE_PRIORITY_SPACEDRIFT	30
-#define FIRE_PRIORITY_ZFALL         30
-#define FIRE_PRIOTITY_SMOOTHING		35
-#define FIRE_PRIORITY_NETWORKS		40
-#define FIRE_PRIORITY_OBJ			40
-#define FIRE_PRIORITY_ORBITS		40
-#define FIRE_PRIORITY_ACID			40
-#define FIRE_PRIOTITY_BURNING		40
-#define FIRE_PRIORITY_DEFAULT		50
-#define FIRE_PRIORITY_INSTRUMENTS	80
+#define FIRE_PRIORITY_SPACEDRIFT 30
+#define FIRE_PRIORITY_ZFALL 30
+#define FIRE_PRIOTITY_SMOOTHING 35
+#define FIRE_PRIORITY_NETWORKS 40
+#define FIRE_PRIORITY_OBJ 40
+#define FIRE_PRIORITY_ORBITS 40
+#define FIRE_PRIORITY_ACID 40
+#define FIRE_PRIORITY_BURNING 40
+#define FIRE_PRIORITY_DEFAULT 50
+#define FIRE_PRIORITY_INSTRUMENTS 80
 #define FIRE_PRIORITY_PRIORITY_EFFECTS 90
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_ASSETS		105
@@ -216,36 +217,13 @@
 /// For admin forcing roundend, can be used to distinguish the two
 #define ADMIN_FORCE_END_ROUND 2
 
-//! ## Overlays subsystem
-
-/// Compile all the overlays for an atom from the cache lists
-#define COMPILE_OVERLAYS(A)\
-	if (A) {\
-		var/list/ad = A.add_overlays;\
-		var/list/rm = A.remove_overlays;\
-		if(LAZYLEN(rm)){\
-			A.overlays -= rm;\
-			rm.Cut();\
-		}\
-		if(LAZYLEN(ad)){\
-			A.overlays |= ad;\
-			ad.Cut();\
-		}\
-		for(var/I in A.alternate_appearances){\
-			var/datum/atom_hud/alternate_appearance/AA = A.alternate_appearances[I];\
-			if(AA.transfer_overlays){\
-				AA.copy_overlays(A, TRUE);\
-			}\
-		}\
-		A.flags_1 &= ~OVERLAY_QUEUED_1;\
-	}
-
 /**
 	Create a new timer and add it to the queue.
 	* Arguments:
 	* * callback the callback to call on timer finish
 	* * wait deciseconds to run the timer for
 	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+	* * timer_subsystem the subsystem to insert this timer into
 */
 #define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
 

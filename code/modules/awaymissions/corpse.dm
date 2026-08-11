@@ -28,7 +28,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/burn_damage = 0
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
-	var/assignedrole
+	/// Typepath indicating the kind of job datum this ert member will have.
+	var/spawner_job_path = /datum/job/ghost_role
 	var/show_flavour = TRUE
 	var/banType
 	var/ghost_usable = TRUE
@@ -115,15 +116,12 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 			if(!A)
 				A = MM.add_antag_datum(/datum/antagonist/custom)
 				//Don't delay roundend with ghost role created antags
-				A.delay_roundend = FALSE
-				A.prevent_roundtype_conversion = FALSE
 			for(var/objective in objectives)
-				var/datum/objective/O = new/datum/objective(objective)
+				var/datum/objective/O = new(objective)
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
-		if(assignedrole)
-			M.mind.assigned_role = assignedrole
+		M.mind.set_assigned_role(SSjob.get_job_type(spawner_job_path))
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -143,7 +141,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/id_job = null			//Such as JOB_NAME_CLOWN or "Chef." This just determines what the ID reads as, not their access
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_NAME_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
-	assignedrole = "Ghost Role"
+	spawner_job_path = /datum/job/ghost_role
 
 	var/husk = null
 	//these vars are for lazy mappers to override parts of the outfit
@@ -168,7 +166,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/suit_store = -1
 
 	var/hair_style
-	var/facial_hair_style
+	var/facial_hairstyle
 	var/skin_tone
 
 /obj/effect/mob_spawn/human/Initialize(mapload)
@@ -192,10 +190,10 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		H.hair_style = hair_style
 	else
 		H.hair_style = random_hair_style(H.gender)
-	if(facial_hair_style)
-		H.facial_hair_style = facial_hair_style
+	if(facial_hairstyle)
+		H.facial_hairstyle = facial_hairstyle
 	else
-		H.facial_hair_style = random_facial_hair_style(H.gender)
+		H.facial_hairstyle = random_facial_hairstyle(H.gender)
 	if(skin_tone)
 		H.skin_tone = skin_tone
 	else
@@ -206,7 +204,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
-			if(!isnum_safe(T))
+			if(!IS_FINITE(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
 		if(disable_pda)
@@ -218,12 +216,12 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 			// Using crew monitors to find corpses while creative makes finding certain ruins too easy.
 			var/obj/item/clothing/under/C = H.w_uniform
 			if(istype(C))
-				C.update_sensors(NO_SENSORS)
+				C.set_sensor_mode(NO_SENSORS)
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/datum/job/J in SSjob.occupations)
+			for(var/datum/job/J in SSjob.all_occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break
@@ -254,7 +252,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type = /mob/living/basic/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/sleeper.dmi'

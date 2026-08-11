@@ -101,7 +101,7 @@
 	/// Datum that holds the canpass info of this pathing attempt. This is what CanAstarPass sees
 	var/datum/can_pass_info/pass_info
 
-/datum/pathfind/Destroy(force, ...)
+/datum/pathfind/Destroy(force)
 	. = ..()
 	SSpathfinder.active_pathing -= src
 	SSpathfinder.currentrun -= src
@@ -339,7 +339,7 @@
 	src.has_gravity = construct_from.has_gravity()
 	if(ismob(construct_from))
 		var/mob/living/mob_construct = construct_from
-		src.incapacitated = mob_construct.incapacitated()
+		src.incapacitated = mob_construct.incapacitated
 		if(mob_construct.buckled)
 			src.buckled_info = new(mob_construct.buckled, access, no_id, call_depth + 1)
 	if(isobserver(construct_from))

@@ -1,6 +1,6 @@
 /obj/item/bodypart/head/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_head"
 	limb_id = "synth" //Overriden in /species/ipc/replace_body()
 	is_dimorphic = FALSE
@@ -14,9 +14,16 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+	head_flags = NONE
+	bodypart_flags = BODYPART_UNHUSKABLE
+	bodypart_traits = list(TRAIT_NO_MOUTH)
+
 /obj/item/bodypart/chest/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_chest"
 	limb_id = "synth"
 	is_dimorphic = FALSE
@@ -31,9 +38,14 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/arm/left/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_l_arm"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -47,9 +59,14 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/arm/right/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_r_arm"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -63,9 +80,14 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/leg/left/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_l_leg"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -79,9 +101,14 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/leg/right/ipc
-	icon_static = 'icons/mob/species/ipc/bodyparts.dmi'
-	icon = 'icons/mob/species/ipc/bodyparts.dmi'
+	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
+	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_r_leg"
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
@@ -94,3 +121,8 @@
 	light_burn_msg = "burned"
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
+
+	burn_modifier = 1.5
+	brute_modifier = 1.5
+	stamina_modifier = 0
+	bodypart_flags = BODYPART_UNHUSKABLE

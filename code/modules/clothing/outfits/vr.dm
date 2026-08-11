@@ -6,7 +6,7 @@
 	id = /obj/item/card/id
 
 /datum/outfit/vr/pre_equip(mob/living/carbon/human/H)
-	H.dna.species.before_equip_job(null, H)
+	H.dna.species.pre_equip_species_outfit(null, H)
 
 /datum/outfit/vr/post_equip(mob/living/carbon/human/H)
 	var/obj/item/card/id/id = H.wear_id
@@ -27,7 +27,7 @@
 
 /datum/outfit/vr/syndicate/post_equip(mob/living/carbon/human/H)
 	. = ..()
-	var/obj/item/uplink/U = new /obj/item/uplink/nuclear_restricted(H, H.key, 80)
+	var/obj/item/uplink/U = new /obj/item/uplink/nuclear_restricted(H, H, 80)
 	H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
 	W.implant(H)

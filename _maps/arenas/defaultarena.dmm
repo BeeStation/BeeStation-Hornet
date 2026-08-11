@@ -2,19 +2,19 @@
 "e" = (
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron/techmaint,
-/area/space)
+/area/misc/space)
 "h" = (
 /turf/open/floor/monotile/steel,
-/area/space)
+/area/misc/space)
 "x" = (
 /turf/open/floor/iron/techmaint,
-/area/space)
+/area/misc/space)
 "W" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 W

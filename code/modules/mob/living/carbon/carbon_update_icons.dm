@@ -2,33 +2,6 @@
 	..()
 	update_body()
 
-//IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
-/mob/living/carbon/update_transform()
-	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/final_pixel_y = pixel_y
-	var/final_dir = dir
-	var/changed = 0
-	if(lying_angle != lying_prev && rotate_on_lying)
-		changed++
-		ntransform.TurnTo(lying_prev , lying_angle)
-		if(!lying_angle) //Lying to standing
-			final_pixel_y = base_pixel_y
-		else //if(lying != 0)
-			if(lying_prev == 0) //Standing to lying
-				pixel_y = base_pixel_y
-				final_pixel_y = base_pixel_y + PIXEL_Y_OFFSET_LYING
-				if(dir & (EAST|WEST)) //Facing east or west
-					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
-	if(resize != RESIZE_DEFAULT_SIZE)
-		changed++
-		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
-
-	if(changed)
-		SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
-		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
-	UPDATE_OO_IF_PRESENT
-
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
 
@@ -45,13 +18,12 @@
 	return FALSE
 
 /mob/living/carbon/regenerate_icons()
-	if(notransform)
-		return 1
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
 	update_held_items()
 	update_worn_handcuffs()
 	update_worn_legcuffs()
-	update_fire()
-
+	update_appearance(UPDATE_OVERLAYS)
 
 /mob/living/carbon/update_held_items()
 	remove_overlay(HANDS_LAYER)
@@ -83,15 +55,18 @@
 	overlays_standing[HANDS_LAYER] = hands
 	apply_overlay(HANDS_LAYER)
 
+/mob/living/carbon/get_fire_overlay(stacks, on_fire)
+	var/fire_icon = "human_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
 
-/mob/living/carbon/update_fire(fire_icon = "Generic_mob_burning")
-	remove_overlay(FIRE_LAYER)
-	if(on_fire || islava(loc))
-		var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, -FIRE_LAYER)
-		new_fire_overlay.appearance_flags = RESET_COLOR
-		overlays_standing[FIRE_LAYER] = new_fire_overlay
+	if(!GLOB.fire_appearances[fire_icon])
+		GLOB.fire_appearances[fire_icon] = mutable_appearance(
+			'icons/mob/effects/onfire.dmi',
+			fire_icon,
+			-HIGHEST_LAYER,
+			appearance_flags = RESET_COLOR | KEEP_APART,
+		)
 
-	apply_overlay(FIRE_LAYER)
+	return GLOB.fire_appearances[fire_icon]
 
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
@@ -224,77 +199,137 @@
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
 //Clothing layer is the layer that clothing would usually appear on
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
+	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
 	. = list()
+	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
-/mob/living/carbon/update_body()
-	update_body_parts()
+/mob/living/carbon/update_body(is_creating = FALSE)
+	if(!ismonkey(src))
+		dna.species.handle_body(src)
+		dna.update_body_size()
+	update_body_parts(is_creating)
 
+///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.
+///Returns an integer representing the number of limbs that were updated.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
-	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	var/list/needs_update = list()
-	var/limb_count_update = FALSE
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
-		var/old_key = icon_render_keys?[BP.body_zone]
-		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
-		if(!(icon_render_keys[BP.body_zone] == old_key))
-			needs_update += BP
+	var/limb_count_update = 0
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 
+		var/old_key = icon_render_keys?[limb.body_zone]
+		icon_render_keys[limb.body_zone] = (limb.is_husked) ? limb.generate_husk_key().Join() : limb.generate_icon_key().Join() //Generates a key for the current bodypart
 
+		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
+			needs_update += limb
+
+	limb_count_update += length(needs_update)
 	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
-		limb_count_update = TRUE
-		for(var/X in missing_bodyparts)
-			icon_render_keys -= X
+	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
+		limb_count_update += 1
+		for(var/missing_limb in missing_bodyparts)
+			icon_render_keys -= missing_limb
 
-	if(!needs_update.len && !limb_count_update)
+	. = limb_count_update
+	if(!.)
 		return
-
-	remove_overlay(BODYPARTS_LAYER)
-
 
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP in needs_update)
-			var/bp_icon = BP.get_limb_icon()
-			new_limbs += bp_icon
-			limb_icon_cache[icon_render_keys[BP.body_zone]] = bp_icon
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		if(limb in needs_update)
+			var/bodypart_icon = limb.get_limb_icon()
+			new_limbs += bodypart_icon
+			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon //Caches the icon with the bodypart key, as it is new
 		else
-			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
+			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
+
+	remove_overlay(BODYPARTS_LAYER)
 
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
 
-
 /////////////////////////
 // Limb Icon Cache 2.0 //
 /////////////////////////
 //Updated by Kapu#1178
-/*
-	Called from update_body_parts() these procs handle the limb icon cache.
-	the limb icon cache adds an icon_render_key to a human mob, it represents:
-	- Gender, if applicable
-	- The ID of the limb
-	- Draw color, if applicable
-	These procs only store limbs as to increase the number of matching icon_render_keys
-	This cache exists because drawing 6/7 icons for humans constantly is quite a waste
-	See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
-*/
-/mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
-	if(BP.is_dimorphic)
-		. += "[BP.limb_gender]-"
-	. += "[BP.limb_id]"
-	. += "-[BP.body_zone]"
-	if(BP.should_draw_greyscale && BP.draw_color)
-		. += "-[BP.draw_color]"
+/**
+ * Called from update_body_parts() these procs handle the limb icon cache.
+ * the limb icon cache adds an icon_render_key to a human mob, it represents:
+ * - Gender, if applicable
+ * - The ID of the limb
+ * - Draw color, if applicable
+ * These procs only store limbs as to increase the number of matching icon_render_keys
+ * This cache exists because drawing 6/7 icons for humans constantly is quite a waste
+ * See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
+**/
+/obj/item/bodypart/proc/generate_icon_key()
+	RETURN_TYPE(/list)
+	. = list()
+	if(is_dimorphic)
+		. += "[limb_gender]-"
+	. += "[limb_id]"
+	. += "-[body_zone]"
+	if(should_draw_greyscale && draw_color)
+		. += "-[draw_color]"
+	/*
+	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
+		if(!overlay.can_draw_on_bodypart(src, owner))
+			continue
+		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		. += "-[human_owner.mob_height]"
+	*/
+	return .
 
-/mob/living/carbon/proc/generate_husk_key(obj/item/bodypart/BP)
-	. += "[BP.husk_type]"
+///Generates a cache key specifically for husks
+/obj/item/bodypart/proc/generate_husk_key()
+	RETURN_TYPE(/list)
+	. = list()
+	. += "[limb_id]-"
+	. += "[husk_type]"
 	. += "-husk"
-	. += "-[BP.body_zone]"
+	. += "-[body_zone]"
+	return .
+
+/obj/item/bodypart/head/generate_icon_key()
+	. = ..()
+	if(lip_style)
+		. += "-[lip_style]"
+		. += "-[lip_color]"
+
+	if(facial_hair_hidden)
+		. += "-FACIAL_HAIR_HIDDEN"
+	else
+		. += "-[facial_hairstyle]"
+		. += "-[override_hair_color || fixed_hair_color || facial_hair_color]"
+		. += "-[facial_hair_alpha]"
+		if(gradient_styles?[GRADIENT_FACIAL_HAIR_KEY])
+			. += "-[gradient_styles[GRADIENT_FACIAL_HAIR_KEY]]"
+			. += "-[gradient_colors[GRADIENT_FACIAL_HAIR_KEY]]"
+
+	if(show_eyeless)
+		. += "-SHOW_EYELESS"
+	if(show_debrained)
+		. += "-SHOW_DEBRAINED"
+		return .
+
+	if(hair_hidden)
+		. += "-HAIR_HIDDEN"
+	else
+		. += "-[hair_style]"
+		. += "-[override_hair_color || fixed_hair_color || hair_color]"
+		. += "-[hair_alpha]"
+		if(gradient_styles?[GRADIENT_HAIR_KEY])
+			. += "-[gradient_styles[GRADIENT_HAIR_KEY]]"
+			. += "-[gradient_colors[GRADIENT_HAIR_KEY]]"
+		if(LAZYLEN(hair_masks))
+			. += "-[jointext(hair_masks, "-")]"
+
+	return .

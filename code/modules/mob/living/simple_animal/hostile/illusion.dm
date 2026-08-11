@@ -19,7 +19,7 @@
 	var/mob/living/parent_mob
 	var/multiply_chance = 0 //if we multiply on hit
 	del_on_death = TRUE
-	deathmessage = "vanishes into thin air! It was a fake!"
+	death_message = "vanishes into thin air! It was a fake!"
 
 
 /mob/living/simple_animal/hostile/illusion/Life(delta_time = SSMOBS_DT, times_fired)

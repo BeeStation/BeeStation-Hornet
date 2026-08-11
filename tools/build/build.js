@@ -71,6 +71,7 @@ export const DmMapsIncludeTarget = new Juke.Target({
   executes: async () => {
     const folders = [
       ...Juke.glob('_maps/map_files/**/modular_pieces/*.dmm'),
+      ...Juke.glob('_maps/RandomRooms/**/*.dmm'),
       ...Juke.glob('_maps/RandomRuins/**/*.dmm'),
       ...Juke.glob('_maps/RandomZLevels/**/*.dmm'),
       ...Juke.glob('_maps/shuttles/**/*.dmm'),
@@ -87,7 +88,7 @@ export const DmMapsIncludeTarget = new Juke.Target({
 export const DmTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
-    get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
+    get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
@@ -137,7 +138,7 @@ export const DmTestTarget = new Juke.Target({
 export const AutowikiTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
-    get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
+    get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
   outputs: [
     'data/autowiki_edits.txt',

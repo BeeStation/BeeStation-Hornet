@@ -26,13 +26,13 @@
 	projectile_type = /obj/projectile/bullet/mime
 	projectile_amount = 3
 
-/datum/action/spell/pointed/projectile/finger_guns/can_invoke(feedback = TRUE)
+/datum/action/spell/pointed/projectile/finger_guns/try_invoke(feedback = TRUE)
 	if(invocation_type == INVOCATION_EMOTE)
 		if(!ishuman(owner))
 			return FALSE
 
 		var/mob/living/carbon/human/human_owner = owner
-		if(human_owner.incapacitated())
+		if(human_owner.incapacitated)
 			if(feedback)
 				to_chat(owner, ("<span class='warning'>You can't properly point your fingers while incapacitated.</span>"))
 			return FALSE

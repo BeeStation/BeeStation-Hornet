@@ -51,8 +51,11 @@
 		name = dryname
 		desc = drydesc
 		bloodiness = 0
-		var/temp_color = ReadHSV(RGBtoHSV(color || COLOR_WHITE))
-		color = HSVtoRGB(hsv(temp_color[1], temp_color[2], max(temp_color[3] - 100,min(temp_color[3],10))))
+		var/list/temp_color = rgb2hsv(color || COLOR_WHITE)
+		temp_color[3] = max(temp_color[3] - 100, min(temp_color[3], 10))
+		color = hsv2rgb(temp_color)
+		if(blood_state == "LE")
+			set_light(0)   // remove glow when dry
 		STOP_PROCESSING(SSobj, src)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
@@ -106,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/old)
 /obj/effect/decal/cleanable/blood/trail_holder/glowy
 	light_power = 0.5
 	light_range = 0.25
-	light_color = "#7fff7f"
+	light_color = COLOR_ETHEREAL_BLOOD
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -339,9 +342,9 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 			else if(species == SPECIES_MONKEY)
 				. += "[icon2html('icons/mob/monkey.dmi', user, "monkey1")] Some <B>monkey feet</B>."
 			else if(species == SPECIES_HUMAN)
-				. += "[icon2html('icons/mob/species/human/bodyparts.dmi', user, "default_human_l_leg")] Some <B>human feet</B>."
+				. += "[icon2html('icons/mob/human/bodyparts.dmi', user, "default_human_l_leg")] Some <B>human feet</B>."
 			else
-				. += "[icon2html('icons/mob/species/human/bodyparts.dmi', user, "[species]_l_leg")] Some <B>[species] feet</B>."
+				. += "[icon2html('icons/mob/human/bodyparts.dmi', user, "[species]_l_leg")] Some <B>[species] feet</B>."
 
 /obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/C)
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us

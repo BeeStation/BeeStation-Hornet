@@ -98,7 +98,7 @@
 			to_chat(C, span_userdanger("The divine explosion sears you!"))
 			C.Paralyze(40)
 			C.adjust_fire_stacks(5)
-			C.IgniteMob()
+			C.ignite_mob()
 
 /datum/chemical_reaction/plasma
 	name = "Plasma Flash"
@@ -544,7 +544,7 @@
 		return
 	var/turf/open/T = get_turf(holder.my_atom)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=[created_volume];TEMP=1000")
+		T.atmos_spawn_air("[GAS_PLASMA]=[created_volume];TEMP=1000")
 	holder.clear_reagents()
 	return
 

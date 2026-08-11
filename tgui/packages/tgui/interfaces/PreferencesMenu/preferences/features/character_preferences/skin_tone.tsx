@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { useMemo } from 'react';
 import { Box, Dropdown, Stack } from 'tgui-core/components';
 
@@ -15,7 +15,7 @@ type HexValue = {
 };
 
 const sortHexValues = (array: [string, HexValue][]) =>
-  sortBy(array, ([_, hexValue]) => -hexValue.lightness);
+  sortBy(array, [([_, hexValue]) => -hexValue.lightness]);
 
 const StandardizedPalette = (props: {
   choices: string[];

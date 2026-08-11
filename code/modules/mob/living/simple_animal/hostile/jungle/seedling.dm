@@ -158,7 +158,7 @@
 			K.transform = final
 			living_target.adjustFireLoss(30)
 			living_target.adjust_fire_stacks(0.2)//Just here for the showmanship
-			living_target.IgniteMob()
+			living_target.ignite_mob()
 			playsound(living_target,'sound/weapons/sear.ogg', 50, 1)
 			addtimer(CALLBACK(src, PROC_REF(AttackRecovery)), 5)
 			return
@@ -199,7 +199,7 @@
 		update_icons()
 		Goto(target, move_to_delay, minimum_distance)
 
-/mob/living/simple_animal/hostile/jungle/seedling/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/jungle/seedling/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = ..()
 	if(combatant_state == SEEDLING_STATE_ACTIVE && beam_debuff_target)
 		beam_debuff_target.remove_status_effect(/datum/status_effect/seedling_beam_indicator)

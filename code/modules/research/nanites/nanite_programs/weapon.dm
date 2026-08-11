@@ -89,9 +89,9 @@
 /datum/nanite_program/explosive/proc/boom()
 	var/nanite_amount = nanites.nanite_volume
 	var/max_nanites = nanites.max_nanites
-	var/dev_range = FLOOR(nanite_amount/(max_nanites * 0.4), 1) - 1
-	var/heavy_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
-	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.1), 1) - 1
+	var/dev_range = floor(nanite_amount/(max_nanites * 0.4)) - 1
+	var/heavy_range = floor(nanite_amount/(max_nanites * 0.2)) - 1
+	var/light_range = floor(nanite_amount/(max_nanites * 0.1)) - 1
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 
@@ -128,8 +128,8 @@
 	empulse(host_mob, 1, 2)
 
 /datum/nanite_program/pyro/active_effect()
-	host_mob.fire_stacks += 1
-	host_mob.IgniteMob()
+	host_mob.adjust_fire_stacks(1)
+	host_mob.ignite_mob()
 
 /datum/nanite_program/pyro
 	name = "Sub-Dermal Combustion"
@@ -143,8 +143,8 @@
 	return ..()
 
 /datum/nanite_program/pyro/active_effect()
-	host_mob.fire_stacks += 1
-	host_mob.IgniteMob()
+	host_mob.adjust_fire_stacks(1)
+	host_mob.ignite_mob()
 
 /datum/nanite_program/cryo
 	name = "Cryogenic Treatment"

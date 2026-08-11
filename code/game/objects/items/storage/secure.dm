@@ -110,7 +110,7 @@
 				if (length(code) > 5)
 					code = "ERROR"
 		add_fingerprint(usr)
-		for(var/mob/M as() in viewers(1, get_turf(src)))
+		for(var/mob/M as anything in viewers(1, get_turf(src)))
 			if ((M.client && M.machine == src))
 				attack_self(M)
 			return
@@ -159,7 +159,7 @@
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/ballistic/automatic/pistol(src)
 	new /obj/item/suppressor(src)
-	new /obj/item/melee/classic_baton/police/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/bodybag(src)
 	new /obj/item/soap/nanotrasen(src)

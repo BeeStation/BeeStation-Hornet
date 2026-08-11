@@ -1,14 +1,15 @@
 SUBSYSTEM_DEF(npcpool)
 	name = "NPC Pool"
-	flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
+	ss_flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
 	priority = FIRE_PRIORITY_NPC
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/currentrun = list()
 
-/datum/controller/subsystem/npcpool/stat_entry()
+/datum/controller/subsystem/npcpool/stat_entry(msg)
 	var/list/activelist = GLOB.simple_animals[AI_ON]
-	. = ..("NPCS:[activelist.len]")
+	msg = "NPCS:[length(activelist)]"
+	return ..()
 
 /datum/controller/subsystem/npcpool/fire(resumed = FALSE)
 
@@ -23,12 +24,12 @@ SUBSYSTEM_DEF(npcpool)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 
-		if(!SA)
-			stack_trace("Null entry found at GLOB.simple_animals\[AI_ON\]. Null entries will be purged. Yell at coderbus. Subsystem will try to continue.")
-			list_clear_nulls(GLOB.simple_animals[AI_ON])
+		if (QDELETED(SA)) // Some issue causes nulls to get into this list some times. This keeps it running, but the bug is still there.
+			GLOB.simple_animals[AI_ON] -= SA
+			stack_trace("Found a null in simple_animals active list [SA.type]!")
 			continue
 
-		if(!SA.ckey && !SA.notransform)
+		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()
 			if(SA.stat != DEAD)

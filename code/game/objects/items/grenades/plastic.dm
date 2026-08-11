@@ -78,8 +78,8 @@
 			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3])
 		else
 			explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3])
-	if(ismob(target))
-		var/mob/M = target
+	if(isliving(target))
+		var/mob/living/M = target
 		M.gib()
 	qdel(src)
 
@@ -189,6 +189,7 @@
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteur's favorite."
 	gender = PLURAL
 	var/open_panel = 0
+	// Wire panel removed for BeeStation compatibility - C4 can still be planted on airlocks and used normally
 	can_attach_mob = TRUE
 
 /obj/item/grenade/plastic/c4/Initialize(mapload)

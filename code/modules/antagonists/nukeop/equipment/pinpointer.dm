@@ -15,21 +15,26 @@
 		else
 			msg = "Its tracking indicator is blank."
 	. += msg
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
 		if(bomb.timing)
 			. += "Extreme danger. Arming signal detected. Time remaining: [bomb.get_time_left()]."
 
 /obj/item/pinpointer/nuke/process()
-	..()
-	if(active) // If shit's going down
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.nuke_list)
-			if(bomb.timing)
-				if(!alert)
-					alert = TRUE
-					playsound(src, 'sound/items/nuke_toy_lowpower.ogg', 50, 0)
-					if(isliving(loc))
-						var/mob/living/L = loc
-						to_chat(L, span_userdanger("Your [name] vibrates and lets out a tinny alarm. Uh oh."))
+	. = ..()
+	if(!active) // If shit's going down
+		return
+
+	for(var/obj/machinery/nuclearbomb/bomb as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
+		if(!bomb.timing)
+			continue
+		if(alert)
+			continue
+
+		alert = TRUE
+		playsound(src, 'sound/items/nuke_toy_lowpower.ogg', 50, 0)
+		if(isliving(loc))
+			var/mob/living/L = loc
+			to_chat(L, span_userdanger("Your [name] vibrates and lets out a tinny alarm. Uh oh."))
 
 /obj/item/pinpointer/nuke/scan_for_target()
 	target = null
@@ -41,9 +46,9 @@
 			for(var/mob/living/silicon/ai/A as anything in GLOB.ai_list)
 				if(A.nuking)
 					target = A
-			for(var/obj/machinery/power/apc/A as anything in GLOB.apcs_list)
-				if(A.malfhack && A.occupier)
-					target = A
+			for(var/obj/machinery/power/apc/apc as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
+				if(apc.malfhack && apc.occupier)
+					target = apc
 		if(TRACK_INFILTRATOR)
 			target = SSshuttle.getShuttle("syndicate")
 	..()

@@ -60,7 +60,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	if(C.is_eyes_covered())
 		C.visible_message(span_danger("[C]'s eye protection blocks the sand!"), span_warning("Your eye protection blocks the sand!"))
 		return
-	C.adjust_blurriness(6)
+	C.adjust_eye_blur(12 SECONDS)
 	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
 	C.adjust_confusion(5 SECONDS)
 	to_chat(C, span_userdanger("\The [src] gets into your eyes! The pain, it burns!"))

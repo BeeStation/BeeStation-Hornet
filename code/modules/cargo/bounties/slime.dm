@@ -1,4 +1,5 @@
 /datum/bounty/item/slime
+	abstract_type = /datum/bounty/item/slime
 	reward = 3000
 
 /datum/bounty/item/slime/New()

@@ -1,6 +1,3 @@
-import { toFixed } from 'common/math';
-
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -8,7 +5,10 @@ import {
   LabeledList,
   NoticeBox,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const ExosuitControlConsole = (props) => {
@@ -26,7 +26,7 @@ export const ExosuitControlConsole = (props) => {
               <>
                 <Button
                   icon="envelope"
-                  content="Send Message"
+                  content="Message"
                   disabled={!mech.pilot}
                   onClick={() =>
                     act('send_message', {
@@ -82,13 +82,17 @@ export const ExosuitControlConsole = (props) => {
                   'Not Equipped'}
               </LabeledList.Item>
               <LabeledList.Item label="Pilot">
-                {mech.pilot || 'None'}
+                {(mech.pilot.length > 0 &&
+                  mech.pilot.map((pilot) => (
+                    <Box key={pilot} inline>
+                      {pilot}
+                      {mech.pilot.length > 1 ? '|' : ''}
+                    </Box>
+                  ))) ||
+                  'None'}
               </LabeledList.Item>
               <LabeledList.Item label="Location">
                 {mech.location || 'Unknown'}
-              </LabeledList.Item>
-              <LabeledList.Item label="Active Equipment">
-                {mech.active_equipment || 'None'}
               </LabeledList.Item>
               {mech.cargo_space >= 0 && (
                 <LabeledList.Item label="Used Cargo Space">

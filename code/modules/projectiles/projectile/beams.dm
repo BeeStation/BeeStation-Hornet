@@ -35,7 +35,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.IgniteMob()
+		M.ignite_mob()
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
@@ -46,6 +46,9 @@
 
 /obj/projectile/beam/weak
 	damage = 12
+
+/obj/projectile/beam/cyborg
+	damage = 15
 
 /obj/projectile/beam/weak/shotgun
 	damage = 18

@@ -19,9 +19,8 @@
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_held_items()
-	H.hair_style = "Messy"
-	H.hair_color = "431"
-	H.update_hair()
+	H.set_hairstyle("Messy", update = FALSE)
+	H.set_haircolor("#443311", update = TRUE)
 
 /datum/role_preference/roundstart/changeling
 	name = "Changeling"
@@ -35,11 +34,11 @@
 	var/icon/final_icon = render_preview_outfit(/datum/outfit/medical_doctor_changeling_preview)
 	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)
 
-	final_icon.Shift(WEST, world.icon_size / 2)
-	final_icon.Shift(EAST, world.icon_size / 2)
+	final_icon.Shift(WEST, ICON_SIZE_ALL / 2)
+	final_icon.Shift(EAST, ICON_SIZE_ALL / 2)
 
-	split_icon.Shift(EAST, world.icon_size / 2)
-	split_icon.Shift(WEST, world.icon_size / 2)
+	split_icon.Shift(EAST, ICON_SIZE_ALL / 2)
+	split_icon.Shift(WEST, ICON_SIZE_ALL / 2)
 
 	final_icon.Blend(split_icon, ICON_OVERLAY)
 
@@ -53,61 +52,10 @@
 	r_hand = /obj/item/melee/arm_blade
 
 /datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.dna.features["mcolor"] = "8d8"
+	H.dna.features["mcolor"] = "#88dd88"
 	H.dna.features["horns"] = "Short"
 	H.dna.features["frills"] = "Simple"
 	H.set_species(/datum/species/lizard)
-
-/datum/role_preference/roundstart/blood_brother
-	name = "Blood Brother"
-	description = "Team up with other crew members as blood brothers to combine the strengths \
-	of your departments, break each other out of prison, and overwhelm the station."
-	antag_datum = /datum/antagonist/brother
-
-/datum/role_preference/roundstart/blood_brother/get_preview_icon()
-	var/mob/living/carbon/human/dummy/consistent/brother1 = new
-	var/mob/living/carbon/human/dummy/consistent/brother2 = new
-
-	brother1.hair_style = "Pigtails"
-	brother1.hair_color = "532"
-	brother1.update_hair()
-
-	brother2.dna.features["moth_antennae"] = "Plain"
-	brother2.dna.features["moth_markings"] = "None"
-	brother2.dna.features["moth_wings"] = "Plain"
-	brother2.set_species(/datum/species/moth)
-
-	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)
-	brother1_icon.Blend(icon('icons/effects/blood.dmi', "maskblood"), ICON_OVERLAY)
-	brother1_icon.Shift(WEST, 8)
-
-	var/icon/brother2_icon = render_preview_outfit(/datum/outfit/job/scientist, brother2)
-	brother2_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-	brother2_icon.Shift(EAST, 8)
-
-	var/icon/final_icon = brother1_icon
-	final_icon.Blend(brother2_icon, ICON_OVERLAY)
-
-	qdel(brother1)
-	qdel(brother2)
-
-	return finish_preview_icon(final_icon)
-
-/datum/role_preference/roundstart/vampire
-	name = "Vampire"
-	description = "After your death, you awaken to see yourself as an undead monster. \n\
-		Scrape by Space Station 13, or take it over, vassalizing your way!"
-	antag_datum = /datum/antagonist/vampire
-
-/datum/role_preference/roundstart/vampire/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
-	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
-
-	return finish_preview_icon(icon)
-
-/datum/outfit/vampire
-	name = "Vampire outfit (Preview only)"
-	suit = /obj/item/clothing/suit/costume/dracula
 
 /datum/role_preference/roundstart/blood_cultist
 	name = "Blood Cultist"
@@ -147,7 +95,8 @@
 	l_hand = /obj/item/shield/mirror
 
 /datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.eye_color = BLOODCULT_EYE
+	H.eye_color_left = BLOODCULT_EYE
+	H.eye_color_right = BLOODCULT_EYE
 	H.update_body()
 
 /datum/role_preference/roundstart/clock_cultist
@@ -193,7 +142,7 @@
 	// Otherwise, the R gets cut off.
 	final_icon.Scale(64, 64)
 
-	var/icon/rev_head_icon = icon('icons/mob/hud.dmi', "rev_head")
+	var/icon/rev_head_icon = icon('icons/mob/huds/hud.dmi', "rev_head")
 	rev_head_icon.Scale(48, 48)
 	rev_head_icon.Crop(1, 1, 64, 64)
 	rev_head_icon.Shift(EAST, 10)
@@ -204,8 +153,7 @@
 
 /datum/role_preference/roundstart/revolutionary/proc/make_assistant_icon(hair_style)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
-	assistant.hair_style = hair_style
-	assistant.update_hair()
+	assistant.set_hairstyle(hair_style, update = TRUE)
 
 	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)
 	assistant_icon.ChangeOpacity(0.5)
@@ -264,8 +212,8 @@
 	var/icon/background = icon(foreground)
 	background.Blend(rgb(206, 206, 206, 220), ICON_MULTIPLY)
 
-	final_icon.Blend(background, ICON_OVERLAY, -world.icon_size / 4, 0)
-	final_icon.Blend(background, ICON_OVERLAY, world.icon_size / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, -ICON_SIZE_X / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, ICON_SIZE_X / 4, 0)
 	final_icon.Blend(foreground, ICON_OVERLAY, 0, 0)
 
 	return finish_preview_icon(final_icon)
@@ -301,6 +249,18 @@
 		Choose between a variety of powerful spells in order to cause chaos among Space Station 13."
 	antag_datum = /datum/antagonist/wizard
 	preview_outfit = /datum/outfit/wizard
+
+/datum/role_preference/roundstart/vampire
+	name = "Vampire Court"
+	description = "Multiple vampires rise together at the start of the round. \n\
+		Choose a Clan, build a secret vampire society, compete for the title of Prince, \
+		and maintain the Masquerade."
+	antag_datum = /datum/antagonist/vampire
+
+/datum/role_preference/roundstart/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	return finish_preview_icon(icon)
 
 /datum/role_preference/roundstart/malfunctioning_ai
 	name = "Malfunctioning AI"

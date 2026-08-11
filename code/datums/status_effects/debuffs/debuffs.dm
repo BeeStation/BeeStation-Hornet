@@ -11,7 +11,7 @@
 	var/needs_update_stat = FALSE
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
@@ -31,14 +31,10 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/incapacitating/stun/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 
@@ -78,18 +74,11 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/incapacitating/paralyzed/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	return ..()
-
 
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
@@ -152,7 +141,6 @@
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
 
-
 		if(health_ratio > 0.8)
 			var/healing = -0.2
 			if((locate(/obj/structure/bed) in owner.loc))
@@ -162,10 +150,10 @@
 					healing -= 0.1
 
 			var/need_mob_update = FALSE
-			need_mob_update += owner.adjustBruteLoss(healing, updating_health = FALSE)
-			need_mob_update += owner.adjustFireLoss(healing, updating_health = FALSE)
-			need_mob_update += owner.adjustToxLoss(healing * 0.5, updating_health = FALSE, forced = TRUE)
-			need_mob_update += owner.adjustStaminaLoss(healing, updating_health = FALSE)
+			need_mob_update += owner.adjustBruteLoss(healing, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += owner.adjustFireLoss(healing, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC)
+			need_mob_update += owner.adjustToxLoss(healing * 0.5, updating_health = FALSE, forced = TRUE, required_biotype = MOB_ORGANIC)
+			need_mob_update += owner.adjustStaminaLoss(healing, updating_stamina = FALSE)
 			if(need_mob_update)
 				owner.updatehealth()
 
@@ -196,7 +184,7 @@
 		var/delta = world.time - last_dead_time
 		var/new_timeofdeath = owner.timeofdeath + delta
 		owner.timeofdeath = new_timeofdeath
-		owner.tod = station_time_timestamp(wtime=new_timeofdeath)
+		owner.station_timestamp_timeofdeath = station_time_timestamp(wtime=new_timeofdeath)
 		last_dead_time = null
 	if(owner.stat == DEAD)
 		last_dead_time = world.time
@@ -206,6 +194,7 @@
 	if(.)
 		update_time_of_death()
 		owner.reagents?.end_metabolization(owner, FALSE)
+		owner.update_incapacitated()
 		SEND_SIGNAL(owner, COMSIG_LIVING_ENTER_STASIS)
 
 /datum/status_effect/grouped/stasis/on_apply()
@@ -213,13 +202,19 @@
 	if(!.)
 		return
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.add_filter("stasis_status_ripple", 2, list("type" = "ripple", "flags" = WAVE_BOUNDED, "radius" = 0, "size" = 2))
+	var/filter = owner.get_filter("stasis_status_ripple")
+	animate(filter, radius = 0, time = 0.2 SECONDS, size = 2, easing = JUMP_EASING, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(radius = 32, time = 1.5 SECONDS, size = 0)
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.remove_filter("stasis_status_ripple")
 	update_time_of_death()
+	owner.update_incapacitated()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
 
@@ -228,7 +223,30 @@
 	desc = "Your biological functions have halted. You could live forever this way, but it's pretty boring."
 	icon_state = "stasis"
 
-//GOLEM GANG
+//BOLA TRACKING
+
+/datum/status_effect/bola
+	id = "bola"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	var/obj/item/linked_bola
+
+/datum/status_effect/bola/on_creation(mob/living/new_owner, bola_duration, obj/item/bola)
+	linked_bola = bola
+	duration = bola_duration
+	return ..()
+
+/datum/status_effect/bola/on_remove()
+	var/mob/living/carbon/carbon_owner = owner
+	if(carbon_owner?.legcuffed == linked_bola)
+		var/turf/owner_turf = get_turf(carbon_owner)
+		linked_bola.forceMove(owner_turf)
+		carbon_owner.legcuffed = null
+		carbon_owner.update_worn_legcuffs()
+
+/datum/status_effect/bola/Destroy()
+	. = ..()
+	linked_bola = null
 
 //OTHER DEBUFFS
 /datum/status_effect/strandling //get it, strand as in durathread strand + strangling = strandling hahahahahahahahahahhahahaha i want to die
@@ -237,11 +255,11 @@
 	alert_type = /atom/movable/screen/alert/status_effect/strandling
 
 /datum/status_effect/strandling/on_apply()
-	ADD_TRAIT(owner, TRAIT_MAGIC_CHOKE, "dumbmoron")
+	ADD_TRAIT(owner, TRAIT_MAGIC_CHOKE, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 /datum/status_effect/strandling/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_MAGIC_CHOKE, "dumbmoron")
+	REMOVE_TRAIT(owner, TRAIT_MAGIC_CHOKE, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 /atom/movable/screen/alert/status_effect/strandling
@@ -298,7 +316,7 @@
 	. = ..()
 	if(usr != owner)
 		return
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		return
 	var/list/syringes = list()
 	if(iscarbon(owner))
@@ -344,9 +362,12 @@
 	for(var/obj/item/his_grace/HG in owner.held_items)
 		qdel(src)
 		return
-	owner.adjustBruteLoss(0.1)
-	owner.adjustFireLoss(0.1)
-	owner.adjustToxLoss(0.2, TRUE, TRUE)
+	var/need_mob_update
+	need_mob_update = owner.adjustBruteLoss(0.04 * seconds_between_ticks, updating_health = FALSE)
+	need_mob_update += owner.adjustFireLoss(0.04 * seconds_between_ticks, updating_health = FALSE)
+	need_mob_update += owner.adjustToxLoss(0.08 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
+	if(need_mob_update)
+		owner.updatehealth()
 
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
@@ -376,13 +397,13 @@
 		hammer_synced = new_hammer_synced
 
 /datum/status_effect/crusher_mark/on_apply()
-	if(owner.mob_size >= MOB_SIZE_LARGE)
-		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
-		owner.underlays += marked_underlay
-		return TRUE
-	return FALSE
+	if(owner.mob_size < MOB_SIZE_LARGE)
+		return FALSE
+	marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
+	marked_underlay.pixel_x = -owner.pixel_x
+	marked_underlay.pixel_y = -owner.pixel_y
+	owner.underlays += marked_underlay
+	return TRUE
 
 /datum/status_effect/crusher_mark/Destroy()
 	hammer_synced = null
@@ -517,12 +538,12 @@
 	alert_type = null
 
 /datum/status_effect/gonbola_pacify/on_apply()
-	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MUTE, TRAIT_JOLLY), TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MUTE), TRAIT_STATUS_EFFECT(id))
 	to_chat(owner, span_notice("You suddenly feel at peace and feel no need to make any sudden or rash actions."))
 	return ..()
 
 /datum/status_effect/gonbola_pacify/on_remove()
-	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MUTE, TRAIT_JOLLY), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MUTE), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/trance
 	id = "trance"
@@ -570,15 +591,18 @@
 /datum/status_effect/trance/get_examine_text()
 	return span_warning("[owner.p_They()] seem[owner.p_s()] slow and unfocused.")
 
-/datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args, list/spans, list/message_mods = list())
+/datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
 
-	if(!owner.can_hear())
+	if(!owner.can_hear() || owner == hearing_args[HEARING_SPEAKER])
 		return
-	if(hearing_args[HEARING_SPEAKER] == owner)
-		return
+
+	var/mob/hearing_speaker = hearing_args[HEARING_SPEAKER]
 	var/mob/living/carbon/C = owner
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //clear previous hypnosis
+	// The brain trauma itself does its own set of logging, but this is the only place the source of the hypnosis phrase can be found.
+	C.log_message("has been hypnotized by the phrase '[hearing_args[HEARING_RAW_MESSAGE]]' spoken by [key_name(hearing_speaker)]", LOG_ATTACK)
+	hearing_speaker.log_message("has hypnotized [key_name(C)] with the phrase '[hearing_args[HEARING_RAW_MESSAGE]]'", LOG_ATTACK, log_globally = FALSE)
 	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, gain_trauma), hypnosis_type, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
 	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living, Stun), 60, TRUE, TRUE), 15) //Take some time to think about it
 	qdel(src)
@@ -603,7 +627,7 @@
 					to_chat(owner, span_warning("Your leg spasms!"))
 					step(owner, pick(GLOB.cardinals))
 			if(2)
-				if(owner.incapacitated())
+				if(owner.incapacitated)
 					return
 				var/obj/item/I = owner.get_active_held_item()
 				if(I)
@@ -632,7 +656,7 @@
 				owner.ClickOn(owner)
 				owner.set_combat_mode(FALSE)
 			if(5)
-				if(owner.incapacitated())
+				if(owner.incapacitated)
 					return
 				var/obj/item/I = owner.get_active_held_item()
 				var/list/turf/targets = list()
@@ -672,7 +696,7 @@
 
 /datum/status_effect/dna_melt
 	id = "dna_melt"
-	duration = 600
+	duration = 60 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now
@@ -719,14 +743,14 @@
 //Clock cult
 /datum/status_effect/interdiction
 	id = "interdicted"
-	duration = 25
+	duration = 2.6 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/interdiction
 	var/running_toggled = FALSE
 
 /datum/status_effect/interdiction/tick()
-	if(owner.m_intent == MOVE_INTENT_RUN)
+	if(owner.move_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
 		owner.adjust_confusion_up_to(10 SECONDS, max_duration = 10 SECONDS)
 		running_toggled = TRUE
@@ -735,7 +759,7 @@
 
 /datum/status_effect/interdiction/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
-	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
+	if(running_toggled && owner.move_intent == MOVE_INTENT_WALK)
 		owner.toggle_move_intent(owner)
 
 /atom/movable/screen/alert/status_effect/interdiction
@@ -757,25 +781,42 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
-				fake_msg = pick(span_warning(pick("Your head hurts.", "Your head pounds.")),
-				span_warning(pick("You're having difficulty breathing.", "Your breathing becomes heavy.")),
-				span_warning(pick("You feel dizzy.", "Your head spins.")),
-				span_warning(pick("You swallow excess mucus.", "You lightly cough.")),
-				span_warning(pick("Your head hurts.", "Your mind blanks for a moment.")),
-				span_warning(pick("Your throat hurts.", "You clear your throat.")))
+				fake_msg = pick(
+					"Your head hurts.",
+					"Your head pounds.",
+					"You're having difficulty breathing.",
+					"Your breathing becomes heavy.",
+					"You feel dizzy.",
+					"Your head spins.",
+					"You swallow excess mucus.",
+					"You lightly cough.",
+					"Your head hurts.",
+					"Your mind blanks for a moment.",
+					"Your throat hurts.",
+					"You clear your throat.",
+				)
+				fake_msg = span_warning(fake_msg)
 		if(301 to 600)
 			if(prob(2))
-				fake_msg = pick(span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"),
-				span_warning("[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]"),
-				span_warning("You feel very [pick("dizzy","woozy","faint")]."),
-				span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"),
-				span_warning("You nod off for a moment."))
+				fake_msg = pick(
+					"Your head hurts a lot.",
+					"Your head pounds incessantly.",
+					"Your windpipe feels like a straw.",
+					"Your breathing becomes tremendously difficult.",
+					"You feel very [pick("dizzy", "woozy", "faint")].",
+					"You hear a ringing in your ear.",
+					"Your ears pop.",
+					"You nod off for a moment.",
+				)
+				fake_msg = span_warning(fake_msg)
 		else
 			if(prob(3))
 				if(prob(50))// coin flip to throw a message or an emote
-					fake_msg = pick(span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"),
-					span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"),
-					span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"))
+					fake_msg = pick(
+						span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"),
+						span_userdanger("[pick("Your lungs hurt!", "It hurts to breathe!")]"),
+						span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"),
+					)
 				else
 					fake_emote = pick("cough", "sniff", "sneeze")
 
@@ -998,7 +1039,7 @@
 
 /datum/status_effect/cyborg_malfunction
 	id = "cyborg_malfunction"
-	duration = MALFUNCTION_DURATION
+	duration = 30 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
 	status_type = STATUS_EFFECT_REFRESH
 
@@ -1020,7 +1061,7 @@
 
 /datum/status_effect/cyborg_malfunction/vine
 	id = "cyborg_malfunction_vine"
-	duration = MALFUNCTION_DURATION_VINE
+	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/malfunction_vine
 
 /atom/movable/screen/alert/status_effect/malfunction_vine
@@ -1084,9 +1125,7 @@
 	var/turf/open/turfie = get_turf(owner)
 	turfie.take_temperature(-40)
 	owner.adjust_bodytemperature(-20)
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.silent += 4
+	owner.adjust_silence(10 SECONDS)
 	return ..()
 
 /datum/status_effect/amok
@@ -1135,14 +1174,14 @@
 	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
 	owner.update_icon()
-	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.become_blind(id)
 	return TRUE
 
 /datum/status_effect/cloudstruck/on_remove()
 	. = ..()
 	if(QDELETED(owner))
 		return
-	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.cure_blind(id)
 	if(owner)
 		owner.overlays -= mob_overlay
 		owner.update_icon()
@@ -1197,14 +1236,15 @@
 /datum/status_effect/ants/proc/ants_washed()
 	SIGNAL_HANDLER
 	owner.remove_status_effect(/datum/status_effect/ants)
-	//return COMPONENT_CLEANED
+	return COMPONENT_CLEANED
 
 /datum/status_effect/ants/get_examine_text()
 	return span_warning("[owner.p_They()] [owner.p_are()] covered in ants!")
 
 /datum/status_effect/ants/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/victim = owner
-	victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.004),0.1))) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
+	var/need_mob_update
+	need_mob_update = victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.0016) * seconds_between_ticks, 0.1)), updating_health = FALSE) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
 	if(victim.stat <= SOFT_CRIT) //Makes sure people don't scratch at themselves while they're in a critical condition
 		if(prob(15))
 			switch(rand(1,2))
@@ -1217,20 +1257,22 @@
 				if (1 to 8) //16% Chance
 					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
 					to_chat(victim, span_danger("You scratch at the ants on your scalp!"))
-					hed.receive_damage(1,0)
+					need_mob_update += hed.receive_damage(brute = 0.4 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if (9 to 29) //40% chance
 					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
 					to_chat(victim, span_danger("You scratch at the ants on your arms!"))
-					arm.receive_damage(3,0)
+					need_mob_update += arm.receive_damage(brute = 1.2 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if (30 to 49) //38% chance
 					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
 					to_chat(victim, span_danger("You scratch at the ants on your leg!"))
-					leg.receive_damage(3,0)
+					need_mob_update += leg.receive_damage(brute = 1.2 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if(50) // 2% chance
 					to_chat(victim, span_danger("You rub some ants away from your eyes!"))
-					victim.blur_eyes(3)
+					victim.set_eye_blur_if_lower(6 SECONDS)
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
+	if(need_mob_update)
+		victim.updatehealth()
 	if(ants_remaining <= 0 || victim.stat >= HARD_CRIT)
 		victim.remove_status_effect(/datum/status_effect/ants) //If this person has no more ants on them or are dead, they are no longer affected.
 
@@ -1299,11 +1341,11 @@
 		qdel(src)
 		return
 	src.target_dna = new target_dna.type
-	target_dna.copy_dna(src.target_dna)
+	target_dna.copy_dna_to(src.target_dna)
 	charge_left = rand(45, 90)
 	if(original_dna)
 		src.original_dna = new original_dna.type
-		original_dna.copy_dna(src.original_dna)
+		original_dna.copy_dna_to(src.original_dna)
 	src.already_applied = already_applied
 	return ..()
 
@@ -1318,7 +1360,7 @@
 		return
 	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
-		carbon_owner.dna.copy_dna(original_dna)
+		carbon_owner.dna.copy_dna_to(original_dna)
 	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
 	if(!already_applied)
 		apply_dna(target_dna)
@@ -1399,9 +1441,6 @@
 /// Helper proc that causes the mob to do a stagger animation.
 /// Doesn't change significantly, just meant to represent swaying back and forth
 /mob/living/proc/do_stagger_animation()
-	var/normal_pos = base_pixel_x + body_position_pixel_x_offset
-	var/jitter_right = normal_pos + 4
-	var/jitter_left = normal_pos - 4
-	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
-	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
+	animate(src, pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)

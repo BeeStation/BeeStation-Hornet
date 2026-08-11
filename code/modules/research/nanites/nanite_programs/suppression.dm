@@ -10,7 +10,7 @@
 
 /datum/nanite_program/sleepy/on_trigger(comm_message)
 	to_chat(host_mob, span_warning("You start to feel very sleepy..."))
-	host_mob.drowsyness += 20
+	host_mob.adjust_drowsiness(40 SECONDS)
 	addtimer(CALLBACK(host_mob, TYPE_PROC_REF(/mob/living, Sleeping), 200), rand(60,200))
 
 /datum/nanite_program/paralyzing
@@ -162,7 +162,7 @@
 	trigger_cooldown = 20
 	rogue_types = list(/datum/nanite_program/brain_misfire, /datum/nanite_program/brain_decay)
 	var/notice_colour = "#6c8086"
-	COOLDOWN_STATIC_DECLARE(ghost_notification_time) // to prevent ghost spam
+	STATIC_COOLDOWN_DECLARE(ghost_notification_time) // to prevent ghost spam
 
 /datum/nanite_program/comm/voice/register_extra_settings()
 	. = ..()
@@ -282,7 +282,7 @@
 			if("Health")
 				extra_settings[NES_HALLUCINATION_DETAIL] = new /datum/nanite_extra_setting/type("random", list("random","critical","dead","healthy"))
 			if("Alert")
-				extra_settings[NES_HALLUCINATION_DETAIL] = new /datum/nanite_extra_setting/type("random", list("random","not_enough_oxy","not_enough_tox","not_enough_co2","too_much_oxy","too_much_co2","too_much_tox","newlaw","nutrition","charge","gravity","fire","locked","hacked","temphot","tempcold","pressure"))
+				extra_settings[NES_HALLUCINATION_DETAIL] = new /datum/nanite_extra_setting/type("random", list("random",ALERT_NOT_ENOUGH_OXYGEN,ALERT_NOT_ENOUGH_PLASMA,ALERT_NOT_ENOUGH_CO2,ALERT_TOO_MUCH_OXYGEN,ALERT_TOO_MUCH_CO2,ALERT_TOO_MUCH_PLASMA,"newlaw","nutrition","charge","gravity","fire","locked","hacked","temphot","tempcold","pressure"))
 			else
 				extra_settings.Remove(NES_HALLUCINATION_DETAIL)
 

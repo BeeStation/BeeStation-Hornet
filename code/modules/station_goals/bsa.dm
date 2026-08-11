@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)
 		"We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.",
 		"",
 		"Base parts are available for shipping via cargo.",
-		"-Nanotrasen Naval Command</blockquote>",
+		"<i>- Nanotrasen Naval Command</i></blockquote>",
 	).Join("\n")
 
 /datum/station_goal/bluespace_cannon/on_report()
@@ -233,7 +233,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	add_overlay(top_layer)
 	top_layer.icon_state = "top_[dir2text(dir)]"
 
-	var/charge_quarter = FLOOR(cell.percent() / 25, 1)
+	var/charge_quarter = floor(cell.percent() / 25)
 	var/charge_sound = 'sound/machines/apc/PowerSwitch_Off.ogg'
 	if(charge_quarter >= 1)
 		add_overlay("[base_battery_icon_state]_25")
@@ -326,7 +326,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	terminal.add_load(power + idle_power_usage)
 	cell.give(avail_charge)
 	update_appearance(UPDATE_OVERLAYS)
-	last_charge_quarter = FLOOR(cell.percent() / 25, 1)
+	last_charge_quarter = floor(cell.percent() / 25)
 	ui_update()
 
 /obj/structure/filler
@@ -360,6 +360,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 	return GLOB.physical_state
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")

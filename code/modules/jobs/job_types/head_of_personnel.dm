@@ -1,19 +1,21 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
 	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
-	department_for_prefs = DEPT_NAME_CAPTAIN
+	department_for_prefs = DEPARTMENT_NAME_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ddddff"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 10
 	exp_requirements = 600
-	exp_type = EXP_TYPE_COMMAND
+	exp_required_type = EXP_TYPE_CREW
+	exp_required_type_department = EXP_TYPE_SERVICE
+	exp_granted_type = EXP_TYPE_COMMAND
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_personnel
@@ -64,20 +66,25 @@
 	)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_COM | DEPT_BITFLAG_SRV
+	departments_list = list(
+		/datum/department_group/service,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
+
+	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/hop, /area/security/nuke_storage)
+	minimal_lightup_areas = list(/area/station/command/heads_quarters/hop, /area/station/ai_monitored/command/nuke_storage)
 
 	manuscript_jobs = list(
 		JOB_NAME_HEADOFPERSONNEL,
@@ -105,20 +112,27 @@
 /datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
 	return minimal_lightup_areas | GLOB.command_lightup_areas
 
+/datum/job/head_of_personnel/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
+
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel
-	belt = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel
-	l_pocket = /obj/item/dog_bone
-	ears = /obj/item/radio/headset/heads/head_of_personnel
-	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
-	shoes = /obj/item/clothing/shoes/sneakers/brown
-	head = /obj/item/clothing/head/hats/hopcap
+	uniform = /obj/item/clothing/under/rank/civilian/hop
 	backpack_contents = list(
 		/obj/item/storage/box/ids=1,
-		/obj/item/melee/classic_baton/police/telescopic=1
+		/obj/item/melee/baton/telescopic=1
 	)
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_personnel
+	ears = /obj/item/radio/headset/heads/head_of_personnel
+	head = /obj/item/clothing/head/hats/hopcap
+	l_pocket = /obj/item/dog_bone
+	shoes = /obj/item/clothing/shoes/laceup
+	suit = /obj/item/clothing/suit/armor/vest/hop
 
-	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)
+	chameleon_extras = list(
+		/obj/item/gun/energy/e_gun,
+		/obj/item/stamp/head_of_personnel
+	)

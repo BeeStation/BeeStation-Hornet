@@ -2,17 +2,7 @@
 	name = "\improper Integrated Positronic Chassis"
 	plural_form = "IPCs"
 	id = SPECIES_IPC
-	bodyflag = FLAG_IPC
 	sexes = FALSE
-	species_traits = list(
-		NOEYESPRITES,
-		NOZOMBIE,
-		MUTCOLORS,
-		REVIVESBYHEALING,
-		NOHUSK,
-		NOMOUTH,
-		MUTCOLORS
-	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
@@ -26,8 +16,13 @@
 		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE,
 		TRAIT_NOSOFTCRIT,
+		TRAIT_NO_ZOMBIFY,
 		TRAIT_NO_DNA_COPY,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_REVIVESBYHEALING,
+		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -40,15 +35,17 @@
 	mutantlungs = null
 	mutantappendix = null
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
-	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
+	mutant_bodyparts = list(
+		"mcolor" = "#7D7D7D",
+		"ipc_screen" = "Static",
+		"ipc_antenna" = "None",
+		"ipc_chassis" = "Morpheus Cyberkinetics (Custom)"
+	)
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
 	//IPCs are extremely fragile, but do not go into softcrit and can be repaired with relative ease
-	burnmod = 1.5
-	brutemod = 1.5
 	clonemod = 0
-	staminamod = 0 //IPCs don't get tired
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
@@ -136,7 +133,7 @@
 		return
 	var/mob/living/carbon/human/H = owner
 	H.dna.features["ipc_screen"] = screen_choice
-	H.eye_color = sanitize_hexcolor(color_choice)
+	H.eye_color_left = sanitize_hexcolor(color_choice)
 	H.update_body()
 
 /obj/item/apc_powercord
@@ -232,25 +229,6 @@
 	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
 	return
 
-/datum/species/ipc/spec_attacked_by(obj/item/item, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/ipc)
-	//Need to make sure it wasn't blocked somehow
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(istype(item, /obj/item/melee/baton) && item.damtype == STAMINA)
-		if(!affecting)
-			affecting = ipc.bodyparts[1]
-		var/hit_area = parse_zone(affecting.body_zone)
-		var/def_zone = affecting.body_zone
-
-		//We check STAMINA armor because it's still a stun baton, but we are converting it to burn damage because it's a conductive robot that is immune to STAMINA.
-		var/armor_block = ipc.run_armor_check(affecting, STAMINA, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),item.armour_penetration)
-
-		//All in all this does 16.5 burn damage to an IPC if using a standard 40 stamina stun baton.
-		ipc.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
-		apply_damage((item.force/4), BURN, def_zone, armor_block, ipc)
-
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
 
 	H.notify_ghost_cloning("You have been repaired!")
@@ -288,15 +266,10 @@
 
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		BP.uses_mutcolor = chassis_of_choice.color_src ? TRUE : FALSE
-		if(BP.uses_mutcolor)
-			BP.should_draw_greyscale = TRUE
-			BP.species_color = C.dna?.features["mcolor"]
-
-		BP.limb_id = chassis_of_choice.limbs_id
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		BP.change_appearance(icon = BP.icon_static, id = chassis_of_choice.limbs_id, greyscale = !!chassis_of_choice.color_src)
 
 /datum/species/ipc/get_species_description()
 	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \

@@ -79,7 +79,7 @@
 
 /obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
-	take_damage(amt, BRUTE)
+	take_damage(amt, BRUTE, attack_dir = REVERSE_DIR(direction))
 
 /obj/attack_slime(mob/living/simple_animal/slime/user, list/modifiers)
 	if(!user.is_adult)
@@ -132,30 +132,21 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 //// FIRE
 
 /obj/fire_act(exposed_temperature, exposed_volume)
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
-			return
-	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
+		return
+	var/potential_damage = 0.02 * exposed_temperature
+	if(exposed_temperature && !(resistance_flags & FIRE_PROOF) && (potential_damage > damage_deflection))
+		take_damage(clamp(potential_damage, 0, 20), BURN, FIRE, 0)
+	if(QDELETED(src))
+		return
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
-		resistance_flags |= ON_FIRE
-		SSfire_burning.processing[src] = src
-		update_appearance()
-		return 1
+		AddComponent(/datum/component/burning, custom_fire_overlay || GLOB.fire_overlay, burning_particles)
+		return TRUE
 	return ..()
 
-//called when the obj is destroyed by fire
+/// Should be called when the atom is destroyed by fire, comparable to acid_melt() proc
 /obj/proc/burn()
-	if(resistance_flags & ON_FIRE)
-		SSfire_burning.processing -= src
 	deconstruct(FALSE)
-
-/obj/proc/extinguish()
-	if(resistance_flags & ON_FIRE)
-		resistance_flags &= ~ON_FIRE
-		update_icon()
-		SSfire_burning.processing -= src
 
 ///Called when the obj is hit by a tesla bolt.
 /obj/zap_act(power, zap_flags)
@@ -171,9 +162,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob in buckled_mobs)
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
-
-/obj/proc/reset_shocked()
-	obj_flags &= ~BEING_SHOCKED
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)

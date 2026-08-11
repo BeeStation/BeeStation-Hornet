@@ -17,7 +17,7 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 14
 	atom_storage.max_slots = 4
-	atom_storage.locked = FALSE
+	atom_storage.locked = TRUE
 
 /obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
 	var/locked = atom_storage.locked

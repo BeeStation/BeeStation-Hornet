@@ -7,6 +7,7 @@
 #define SODA_FIZZINESS_SHAKE 5
 
 /obj/item/reagent_containers/cup/soda_cans
+	abstract_type = /obj/item/reagent_containers/cup/soda_cans
 	name = "soda can"
 	icon = 'icons/obj/drinks/soda.dmi'
 	icon_state_preview = "cola"

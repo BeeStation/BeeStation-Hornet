@@ -7,6 +7,7 @@
 	icon_living = "headcrab"
 	icon_dead = "headcrab_dead"
 	gender = NEUTER
+	density = FALSE
 	health = 50
 	maxHealth = 50
 	melee_damage = 10
@@ -23,7 +24,7 @@
 	var/datum/mind/origin
 	/// Set to true once we've implanted our egg
 	var/egg_lain = FALSE
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/headcrab/Initialize(mapload)
 	. = ..()

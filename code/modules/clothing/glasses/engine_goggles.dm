@@ -25,7 +25,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -53,7 +53,8 @@
 		if(H.glasses == src)
 			H.update_sight()
 
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
+	update_mob()
 	update_action_buttons()
 
 /obj/item/clothing/glasses/meson/engine/attack_self(mob/user)
@@ -78,19 +79,20 @@
 		return
 	var/list/shuttle_areas = port.shuttle_areas
 	for(var/area/region as anything in shuttle_areas)
-		for(var/turf/place as anything in region.get_contained_turfs())
-			if(get_dist(user, place) > 7)
-				continue
-			var/image/pic
-			if(isshuttleturf(place))
-				pic = new('icons/turf/overlays.dmi', place, "greenOverlay", AREA_LAYER)
-			else
-				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
-			flick_overlay(pic, list(user.client), 8)
+		for (var/list/zlevel_turfs as anything in region.get_zlevel_turf_lists())
+			for (var/turf/place as anything in zlevel_turfs)
+				if(get_dist(user, place) > 7)
+					continue
+				var/image/pic
+				if(isshuttleturf(place))
+					pic = new('icons/turf/overlays.dmi', place, "greenOverlay", AREA_LAYER)
+				else
+					pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
+				flick_overlay_global(pic, list(user.client), 8)
 
-/obj/item/clothing/glasses/meson/engine/update_icon()
+/obj/item/clothing/glasses/meson/engine/update_icon_state()
+	. = ..()
 	icon_state = "trayson-[mode]"
-	update_mob()
 
 /obj/item/clothing/glasses/meson/engine/proc/update_mob()
 	inhand_icon_state = icon_state

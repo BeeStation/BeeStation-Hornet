@@ -193,7 +193,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				FireHim = TRUE
 			if(3)
 				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
-				BadBoy.flags |= SS_NO_FIRE
+				BadBoy.ss_flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(GLOB.admins, span_boldannounce("[msg]"))
 			log_world(msg)
@@ -282,11 +282,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Topological sorting algorithm end
 
 	if(length(subsystems) != length(sorted_subsystems))
-		var/list/circular_dependency = subsystems.Copy() - sorted_subsystems
+		var/list/circular_dependency = subsystems - sorted_subsystems
 		var/list/debug_msg = list()
 		var/list/usr_msg = list()
 		for(var/datum/controller/subsystem/subsystem as anything in circular_dependency)
-			usr_msg += "[subsystem.name]"
+			usr_msg += subsystem.name
 
 		var/list/datum/controller/subsystem/nodes = list(circular_dependency[1])
 		var/list/loop = list()
@@ -377,7 +377,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS_INIT_NO_NEED,
 	)
 
-	if (subsystem.flags & SS_NO_INIT || subsystem.initialized) //Don't init SSs with the corresponding flag or if they already are initialized
+	if (subsystem.ss_flags & SS_NO_INIT || subsystem.initialized) //Don't init SSs with the corresponding flag or if they already are initialized
 		return
 
 	current_initializing_subsystem = subsystem
@@ -483,7 +483,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/timer = world.time
 	for (var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
-		if (SS.flags & SS_NO_FIRE)
+		if (SS.ss_flags & SS_NO_FIRE)
 			continue
 		if (SS.init_stage > init_stage)
 			continue
@@ -491,12 +491,21 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		SS.queue_next = null
 		SS.queue_prev = null
 		SS.state = SS_IDLE
-		if ((SS.flags & (SS_TICKER|SS_BACKGROUND)) == SS_TICKER)
+		if ((SS.ss_flags & (SS_TICKER|SS_BACKGROUND)) == SS_TICKER)
 			tickersubsystems += SS
 			// Timer subsystems aren't allowed to bunch up, so we offset them a bit
-			timer += world.tick_lag * rand(0, 1)
+			timer += TICKS2DS(rand(0, 1))
 			SS.next_fire = timer
 			continue
+
+		// Now, we have to set starting next_fires for all our new non ticker kids
+		if(SS.init_stage == init_stage - 1 && (SS.runlevels & current_runlevel))
+			// Give em a random offset so things don't clump up too bad
+			var/delay = SS.wait
+			if(SS.ss_flags & SS_TICKER)
+				delay = TICKS2DS(delay)
+			// Gotta convert to ticks cause rand needs integers
+			SS.next_fire = world.time + TICKS2DS(rand(0, DS2TICKS(min(delay, 2 SECONDS))))
 
 		var/ss_runlevels = SS.runlevels
 		var/added_to_any = FALSE
@@ -595,7 +604,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 					//we only want to offset it if it's new and also behind
 					if(SS.next_fire > world.time || (SS in old_subsystems))
 						continue
-					SS.next_fire = world.time + world.tick_lag * rand(0, DS2TICKS(min(SS.wait, 2 SECONDS)))
+					// If they're new, give em a random offset so things don't clump up too bad
+					var/delay = SS.wait
+					if(SS.ss_flags & SS_TICKER)
+						delay = TICKS2DS(delay)
+					SS.next_fire = world.time + TICKS2DS(rand(0, DS2TICKS(min(delay, 2 SECONDS))))
 
 			subsystems_to_check = current_runlevel_subsystems
 		else
@@ -689,10 +702,12 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 		if (SS.next_fire > world.time)
 			continue
-		SS_flags = SS.flags
+		SS_flags = SS.ss_flags
 		if (SS_flags & SS_NO_FIRE)
 			subsystemstocheck -= SS
 			continue
+		// If we're keeping timing and running behind,
+		// fire at most 25% faster then normal to try and make up the gap without spamming
 		if ((SS_flags & (SS_TICKER|SS_KEEP_TIMING)) == SS_KEEP_TIMING && SS.last_fire + (SS.wait * 0.75) > world.time)
 			continue
 		if (SS.postponed_fires >= 1)
@@ -741,7 +756,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			if (ran && TICK_USAGE > TICK_LIMIT_RUNNING)
 				break
 
-			queue_node_flags = queue_node.flags
+			queue_node_flags = queue_node.ss_flags
 			queue_node_priority = queue_node.queued_priority
 
 			if(!(queue_node_flags & SS_TICKER) && skip_ticks)
@@ -942,8 +957,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/mc_tick/proc/get_stat_text()
 	var/list/output = list()
 	var/list/tickers = list()
-	for (var/datum/controller/subsystem/ss as() in fired_subsystems)
-		if (ss.flags & SS_TICKER)
+	for (var/datum/controller/subsystem/ss as anything in fired_subsystems)
+		if (ss.ss_flags & SS_TICKER)
 			tickers += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
 		else
 			output += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"

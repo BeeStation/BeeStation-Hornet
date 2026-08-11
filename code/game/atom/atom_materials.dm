@@ -15,6 +15,8 @@
 
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(list/materials, multiplier = 1)
+	if((custom_materials == materials) && multiplier == 1) //Easy way to know no changes are being made.
+		return
 
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)

@@ -24,13 +24,11 @@
 
 /obj/item/bedsheet/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/surgery_initiator)
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
 
-/obj/item/bedsheet/attack(mob/living/M, mob/user)
-	attempt_initiate_surgery(src, M, user)
-
 /obj/item/bedsheet/attack_self(mob/user)
-	if(!user.CanReach(src))		//No telekenetic grabbing.
+	if(!user.CanReach(src)) //No telekinetic grabbing.
 		return
 	if(!user.dropItemToGround(src))
 		return
@@ -46,7 +44,7 @@
 	return
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.get_sharpness())
 		var/turf/T = get_turf(src)
 		var/obj/item/stack/sheet/cotton/cloth/C = new (T, 3)
 		if(QDELETED(C))

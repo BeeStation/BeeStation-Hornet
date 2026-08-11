@@ -3,6 +3,7 @@
 //They cannot be cured with chemicals, and require brain recalibration to solve.
 
 /datum/brain_trauma/severe
+	abstract_type = /datum/brain_trauma/severe
 	resilience = TRAUMA_RESILIENCE_SURGERY
 
 /datum/brain_trauma/severe/mute
@@ -129,18 +130,19 @@
 		return
 
 	var/sleep_chance = 1
-	if(owner.m_intent == MOVE_INTENT_RUN)
+	var/drowsy = !!owner.has_status_effect(/datum/status_effect/drowsiness)
+	if(owner.move_intent == MOVE_INTENT_RUN)
 		sleep_chance += 2
-	if(owner.drowsyness)
+	if(drowsy)
 		sleep_chance += 3
 
 	if(DT_PROB(0.5 * sleep_chance, delta_time))
 		to_chat(owner, span_warning("You fall asleep."))
-		owner.Sleeping(60)
+		owner.Sleeping(6 SECONDS)
 
-	else if(!owner.drowsyness && DT_PROB(sleep_chance, delta_time))
+	else if(!drowsy && DT_PROB(sleep_chance, delta_time))
 		to_chat(owner, span_warning("You feel tired..."))
-		owner.drowsyness += 10
+		owner.adjust_drowsiness(20 SECONDS)
 
 /datum/brain_trauma/severe/monophobia
 	name = "Monophobia"
@@ -167,9 +169,10 @@
 		stress = max(stress - (2 * delta_time), 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
+	var/check_radius = 7
 	if(owner.is_blind())
-		return TRUE
-	for(var/mob/living/M in oview(7, owner))
+		check_radius = 1
+	for(var/mob/living/M in oview(check_radius, owner))
 		if(istype(M, /mob/living/simple_animal/pet) || istype(M, /mob/living/basic/pet) || M.ckey)
 			return FALSE
 	return TRUE

@@ -162,13 +162,16 @@
 	id = "life_drain"
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 0.3 SECONDS
+	tick_interval = 0.4 SECONDS
 	duration = 10 SECONDS
 	var/datum/beam/drain_beam
 	var/mob/living/carbon/wizard
 	var/obj/item/gun/magic/wand/drain/wand
 
 /datum/status_effect/life_drain/on_creation(mob/living/new_owner, mob/living/firer, fired_from, duration_override)
+	. = ..()
+	if(!.)
+		return
 	if(isnull(firer) || isnull(fired_from) || !iscarbon(firer) || !iscarbon(new_owner))
 		qdel(src)
 		return
@@ -178,7 +181,6 @@
 	drain_beam = wizard.Beam(new_owner, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 12 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
 	RegisterSignal(drain_beam, COMSIG_QDELETING, PROC_REF(end_drain))
 	new_owner.visible_message(span_warningbold("[wizard] begins draining the life force from [new_owner]!"), span_warningbold("[wizard] is draining your life force! You need to get away from them to stop it!"))
-	. = ..()
 
 /datum/status_effect/life_drain/on_apply()
 	. = ..()
@@ -660,8 +662,8 @@
 	var/datum/brain_trauma/special/imaginary_friend/trapped_owner/trauma = M.gain_trauma(/datum/brain_trauma/special/imaginary_friend/trapped_owner)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
-	if(M.mind?.assigned_role)
-		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
+	if(M.mind && !is_unassigned_job(M.mind.assigned_role))
+		poll_message = "[poll_message] Job:[M.mind.assigned_role.title]."
 	if(M.mind?.special_role)
 		poll_message = "[poll_message] Status:[M.mind.special_role]."
 	else if(M.mind)
@@ -669,13 +671,15 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/datum/poll_config/config = new()
-	config.question = poll_message
-	config.check_jobban = ban_key
-	config.poll_time = 10 SECONDS
-	config.jump_target = M
-	config.role_name_text = "ghost possession"
-	config.alert_pic = M
+	var/datum/poll_config/config = new(
+		question = poll_message,
+		check_jobban = ban_key,
+		poll_time = 10 SECONDS,
+		jump_target = M,
+		role_name_text = "ghost possession",
+		alert_pic = M,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 	if(M.stat == DEAD)//boo.
 		return
@@ -685,7 +689,6 @@
 		M.key = candidate.key
 
 		trauma.friend.key = oldkey
-		trauma.friend.reset_perspective(null)
 		trauma.friend.Show()
 		trauma.friend_initialized = TRUE
 
@@ -729,7 +732,7 @@
 		return FALSE
 	return ..()
 
-/obj/projectile/magic/aoe/Moved(atom/OldLoc, Dir)
+/obj/projectile/magic/aoe/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(trail)
 		create_trail()
@@ -829,7 +832,7 @@
 	if(isliving(target))
 		var/mob/living/target_mob = target
 		target_mob.fire_stacks += 5 //One stop drop and roll can put this out, two if it spreads during the knockdown
-		target_mob.IgniteMob()
+		target_mob.ignite_mob()
 
 	explosion(
 		target_turf,
@@ -873,7 +876,7 @@
 	knockdown = 50
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
-	antimagic_flags = MAGIC_RESISTANCE_HOLY
+	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
 	ignored_factions = list("cult")
 	range = 15
 	speed = 7

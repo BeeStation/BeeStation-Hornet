@@ -29,25 +29,4 @@
 /mob/living/carbon/human/cure_husk(list/sources)
 	. = ..()
 	if(.)
-		update_hair()
-
-/mob/living/carbon/human/become_husk(source)
-	if(NOHUSK in dna.species.species_traits)
-		cure_husk()
-		return
-	. = ..()
-	if(.)
-		update_hair()
-
-/mob/living/carbon/human/set_drugginess(amount)
-	..()
-	if(!amount)
-		remove_language(/datum/language/beachbum, source = LANGUAGE_DRUGGY)
-
-/mob/living/carbon/human/adjust_drugginess(amount)
-	..()
-	if(!dna.check_mutation(/datum/mutation/stoner))
-		if(druggy)
-			grant_language(/datum/language/beachbum, source = LANGUAGE_DRUGGY)
-		else
-			remove_language(/datum/language/beachbum, source = LANGUAGE_DRUGGY)
+		update_body_parts()

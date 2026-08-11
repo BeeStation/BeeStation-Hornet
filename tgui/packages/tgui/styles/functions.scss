@@ -26,24 +26,13 @@
 //  Color
 // --------------------------------------------------------
 
-// Increases perceptual color lightness.
-@function lighten($color, $percent) {
-  $scaled: hsl(
-    color.channel($color, 'hue', $space: hsl),
-    color.channel($color, 'saturation', $space: hsl),
-    color.channel($color, 'lightness', $space: hsl) * (1 + num($percent))
-  );
-  $mixed: color.mix(hsl(0, 0%, 100%), $color, 100% * num($percent));
-  @return color.mix($scaled, $mixed, 75%);
-}
-
 // Returns the NTSC luminance of `$color` as a float (between 0 and 1).
 // 1 is pure white, 0 is pure black.
 @function luminance($color) {
   $colors: (
-    'red': color.red($color),
-    'green': color.green($color),
-    'blue': color.blue($color),
+    'red': color.channel($color, 'red', $space: rgb),
+    'green': color.channel($color, 'green', $space: rgb),
+    'blue': color.channel($color, 'blue', $space: rgb),
   );
 
   @each $name, $value in $colors {
@@ -78,17 +67,17 @@
 }
 
 @function apca-linearize($c) {
-  $c: $c / 255;
+  $c: math.div($c, 255);
   @if ($c <= 0.04045) {
-    @return $c / 12.92;
+    @return math.div($c, 12.92);
   }
-  @return math.pow(($c + 0.055) / 1.055, 2.4);
+  @return math.pow(math.div($c + 0.055, 1.055), 2.4);
 }
 
 @function apca-luminance($color) {
-  $r: apca-linearize(color.red($color));
-  $g: apca-linearize(color.green($color));
-  $b: apca-linearize(color.blue($color));
+  $r: apca-linearize(color.channel($color, 'red', $space: rgb));
+  $g: apca-linearize(color.channel($color, 'green', $space: rgb));
+  $b: apca-linearize(color.channel($color, 'blue', $space: rgb));
 
   // APCA-specific coefficients
   @return (0.2126729 * $r) + (0.7151522 * $g) + (0.072175 * $b);

@@ -21,16 +21,17 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		return MAP_ERROR
 	var/list/possible_spawns = list()//Some xeno spawns are in some spots that will instantly kill the refugees, like atmos
 	for(var/turf/X in GLOB.xeno_spawn)
-		if(istype(X.loc, /area/maintenance))
+		if(istype(X.loc, /area/station/maintenance))
 			possible_spawns += X
 	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_FUGITIVE
-	config.role_name_text = "fugitive"
-	config.alert_pic = /obj/item/clothing/mask/gas/tiki_mask
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_FUGITIVE,
+		role_name_text = "fugitive",
+		alert_pic = /obj/item/clothing/mask/gas/tiki_mask,
+	)
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
@@ -41,7 +42,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 
 /proc/spawn_fugitives(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/list/possible_backstories = list()
-	for(var/type_key as() in GLOB.fugitive_types)
+	for(var/type_key as anything in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
 		// without this second check it will filter out "safe" backstories even if there are enough players to fill it
 		if(length(candidates) > F.max_amount_allowed && F.max_amount_allowed < MAXIMUM_TOTAL_FUGITIVES)
@@ -82,7 +83,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_FUGITIVE
+	player_mind.set_assigned_role(SSjob.get_job_type(/datum/job/fugitive))
 	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory
@@ -100,12 +101,13 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/datum/poll_config/config = new()
-	config.question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?"
-	config.check_jobban = ROLE_FUGITIVE_HUNTER
-	config.poll_time = 15 SECONDS
-	config.role_name_text = backstory.name
-	config.alert_pic = /obj/item/melee/baton
+	var/datum/poll_config/config = new(
+		question = "The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?",
+		check_jobban = ROLE_FUGITIVE_HUNTER,
+		poll_time = 15 SECONDS,
+		role_name_text = backstory.name,
+		alert_pic = /obj/item/melee/baton,
+	)
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
@@ -132,7 +134,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	// Leader goes first, so this is the first one taken
 	if(istype(leader_spawn))
 		announce_fugitive_pod(leader_spawn, candidates)
-	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as() in spawners)
+	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as anything in spawners)
 		announce_fugitive_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 

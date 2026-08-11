@@ -125,7 +125,7 @@
 	if(slot == ITEM_SLOT_FEET)
 		if(enabled_waddle)
 			waddle = user.AddComponent(/datum/component/waddling)
-		if(user.mind && user.mind.assigned_role == JOB_NAME_CLOWN)
+		if(is_clown_job(user.mind?.assigned_role))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "clownshoes", /datum/mood_event/clownshoes)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/living/carbon/user)
@@ -133,7 +133,7 @@
 	QDEL_NULL(waddle)
 	if(user.shoes != src)
 		return
-	if(user.mind && user.mind.assigned_role == JOB_NAME_CLOWN)
+	if(is_clown_job(user.mind?.assigned_role))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "clownshoes")
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
@@ -173,6 +173,7 @@
 	. = ..()
 
 	create_storage(storage_type = /datum/storage/pockets/shoes)
+
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
@@ -220,11 +221,11 @@
 /obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_FEET)
-		ADD_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+		ADD_TRAIT(user, TRAIT_NO_SLIP_ALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/winterboots/noslip/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_NO_SLIP_ALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
@@ -336,11 +337,13 @@
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
+	ADD_TRAIT(user, TRAIT_MOVE_FLOATING, LEAPING_TRAIT)  //Throwing itself doesn't protect mobs against lava (because gulag).
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = TRAIT_CALLBACK_REMOVE(user, TRAIT_MOVE_FLOATING, LEAPING_TRAIT)))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message(span_warning("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
+		REMOVE_TRAIT(user, TRAIT_MOVE_FLOATING, LEAPING_TRAIT)
 		to_chat(user, span_warning("Something prevents you from dashing forward!"))
 
 /obj/item/clothing/shoes/singery

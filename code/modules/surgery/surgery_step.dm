@@ -1,25 +1,31 @@
 /datum/surgery_step
 	var/name
-	var/list/implements = list()	//format is path = probability of success. alternatively
-	var/implement_type = null		//the current type of implement used. This has to be stored, as the actual typepath of the tool may not match the list type.
-	var/accept_hand = FALSE				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
-	var/accept_any_item = FALSE			//does the surgery step accept any item? If true, ignores implements. Compatible with require_hand.
-	var/time = 10					//how long does the step take?
-	var/repeatable = FALSE				//can this step be repeated? Make shure it isn't last step, or it used in surgery with `can_cancel = 1`. Or surgion will be stuck in the loop
-	var/list/chems_needed = list()  //list of chems needed to complete the step. Even on success, the step will have no effect if there aren't the chems required in the mob.
-	var/require_all_chems = TRUE    //any on the list or all on the list?
+	var/list/implements = list() //format is path = probability of success. alternatively
+	var/implement_type = null //the current type of implement used. This has to be stored, as the actual typepath of the tool may not match the list type.
+	var/accept_hand = FALSE //does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
+	var/accept_any_item = FALSE //does the surgery step accept any item? If true, ignores implements. Compatible with require_hand.
+	var/time = 10 //how long does the step take?
+	var/repeatable = FALSE //can this step be repeated? Make shure it isn't last step, or else the surgeon will be stuck in the loop
+	var/list/chems_needed = list() //list of chems needed to complete the step. Even on success, the step will have no effect if there aren't the chems required in the mob.
+	var/require_all_chems = TRUE //any on the list or all on the list?
+	var/silicons_obey_prob = FALSE
 	var/preop_sound //Sound played when the step is started
 	var/success_sound //Sound played if the step succeeded
 	var/failure_sound //Sound played if the step fails
 
 /datum/surgery_step/proc/try_op(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	var/success = FALSE
+	if(surgery.organ_to_manipulate && !target.get_organ_slot(surgery.organ_to_manipulate))
+		to_chat(user, span_warning("[target] seems to be missing the organ necessary to complete this surgery!"))
+		return FALSE
 
 	if(accept_hand)
 		if(!tool)
 			success = TRUE
 		if(iscyborg(user))
-			success = TRUE
+			var/mob/living/silicon/robot/borg = user
+			if(istype(borg.module_active, /obj/item/borg/cyborghug))
+				success = TRUE
 
 	if(accept_any_item)
 		if(tool && tool_check(user, tool))
@@ -41,10 +47,10 @@
 					break
 
 	if(success)
-		if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
+		if(get_location_accessible(target, target_zone) || (surgery.surgery_flags & SURGERY_IGNORE_CLOTHES))
 			initiate(user, target, target_zone, tool, surgery, try_to_fail)
 		else
-			to_chat(user, span_warning("You need to expose [target]'s [parse_zone(target_zone)] to perform surgery on it!"))
+			to_chat(user, span_warning("You need to expose [target]'s [target.parse_zone_with_bodypart(target_zone)] to perform surgery on it!"))
 		return TRUE	//returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
@@ -113,7 +119,7 @@
 
 	if(do_after(user, modded_time, target = target))
 
-		if((prob(100 - fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
+		if((prob(100-fail_prob) || (iscyborg(user) && !silicons_obey_prob)) && chem_check(target) && !try_to_fail)
 
 			if(success(user, target, target_zone, tool, surgery))
 				play_success_sound(user, target, target_zone, tool, surgery)
@@ -158,9 +164,13 @@
 /datum/surgery_step/proc/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = TRUE)
 	//SEND_SIGNAL(user, COMSIG_MOB_SURGERY_STEP_SUCCESS, src, target, target_zone, tool, surgery, default_display_results)
 	if(default_display_results)
-		display_results(user, target, span_notice("You succeed."),
-			span_notice("[user] succeeds."),
-			span_notice("[user] finishes."))
+		display_results(
+			user,
+			target,
+			span_notice("You succeed."),
+			span_notice("[user] succeeds!"),
+			span_notice("[user] finishes."),
+		)
 	return TRUE
 
 /datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -178,7 +188,10 @@
 		if(75 to 99)
 			screwedmessage = " This is practically impossible in these conditions..."
 
-	display_results(user, target, span_warning("You screw up![screwedmessage]"),
+	display_results(
+		user,
+		target,
+		span_warning("You screw up![screwedmessage]"),
 		span_warning("[user] screws up!"),
 		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
 	return FALSE

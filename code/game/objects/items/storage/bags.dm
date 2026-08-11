@@ -20,6 +20,7 @@
 
 //  Generic non-item
 /obj/item/storage/bag
+	abstract_type = /obj/item/storage/bag
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/bag/Initialize(mapload)
@@ -299,7 +300,7 @@
 	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
 /obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)
@@ -390,7 +391,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=3000)
 
@@ -398,7 +399,7 @@
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
 	atom_storage.set_holdable(list(
-		/obj/item/clothing/mask/cigarette,
+		/obj/item/cigarette,
 		/obj/item/food,
 		/obj/item/kitchen,
 		/obj/item/lighter,

@@ -32,7 +32,7 @@
 			to_chat(src, span_warning("Your armor softens the blow!"))
 	return armor
 
-/// Get the armour value for a specific damage type, targetting a particular zone.
+/// Get the armour value for a specific damage type, targeting a particular zone.
 /// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
 /// type: The damage type to test for. Must not be null.
 /// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
@@ -50,11 +50,33 @@
 /mob/living/proc/get_ear_protection()
 	return 0
 
-/mob/living/proc/is_mouth_covered(head_only = 0, mask_only = 0)
-	return FALSE
+/**
+ * Checks if our mob has their mouth covered.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD] and [ITEM_SLOT_MASK].
+ *  (so if you check all slots, it'll return head, then mask)
+ *That is also the priority order
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Returns a truthy value (a ref to what is covering mouth), or a falsey value (null)
+ */
+/mob/living/proc/is_mouth_covered(check_flags = ALL)
+	return null
 
-/mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
-	return FALSE
+/**
+ * Checks if our mob has their eyes covered.
+ *
+ * Note that we only care about [ITEM_SLOT_HEAD], [ITEM_SLOT_MASK], and [ITEM_SLOT_GLASSES].
+ * That is also the priority order (so if you check all slots, it'll return head, then mask, then glasses)
+ *
+ * Arguments
+ * * check_flags: What item slots should we check?
+ *
+ * Returns a truthy value (a ref to what is covering eyes), or a falsey value (null)
+ */
+/mob/living/proc/is_eyes_covered(check_flags = ALL)
+	return null
 
 /mob/living/proc/on_hit(obj/projectile/P)
 	return BULLET_ACT_HIT
@@ -86,12 +108,16 @@
 				return 0
 
 /mob/living/proc/set_combat_mode(new_mode, silent = TRUE)
+
 	if(combat_mode == new_mode)
 		return
 	. = combat_mode
 	combat_mode = new_mode
 	if(hud_used?.action_intent)
 		hud_used.action_intent.update_appearance()
+
+	set_combat_indicator(new_mode)
+
 	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
 		return
 	if(combat_mode)
@@ -134,7 +160,7 @@
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
-			if(!incapacitated(IGNORE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
 			return 1
@@ -145,7 +171,7 @@
 /mob/living/fire_act()
 	. = ..()
 	adjust_fire_stacks(3)
-	IgniteMob()
+	ignite_mob()
 
 /**
  * Called when this mob is grabbed by another mob.
@@ -166,6 +192,7 @@
 		to_chat(user, span_notice("You don't want to risk hurting [src]!"))
 		return FALSE
 	grippedby(user)
+	update_incapacitated()
 
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/user, instant = FALSE)
@@ -223,7 +250,7 @@
 			to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
 			if(!buckled && !density)
 				Move(user.loc)
-	user.set_pull_offsets(src, grab_state)
+	user.set_pull_offsets(src, user.grab_state)
 	return TRUE
 
 
@@ -271,6 +298,15 @@
 
 /mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
+
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
+
 	var/martial_result = user.apply_martial_art(src, modifiers)
 	if (martial_result != MARTIAL_ATTACK_INVALID)
 		return martial_result
@@ -290,8 +326,8 @@
 		to_chat(user, "<span class='notice'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
-		to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+	if(user.is_mouth_covered(ITEM_SLOT_MASK))
+		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	log_combat(user, src, "attacked")
@@ -357,9 +393,10 @@
 
 ///As the name suggests, this should be called to apply electric shocks.
 /mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
+		return FALSE
 	shock_damage *= siemens_coeff
-	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
+	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
@@ -369,11 +406,12 @@
 		adjustFireLoss(shock_damage)
 	else
 		adjustStaminaLoss(shock_damage)
-	visible_message(
-		span_danger("[src] was shocked by \the [source]!"), \
-		span_userdanger("You feel a powerful shock coursing through your body!"), \
-		span_hear("You hear a heavy electrical crack.") \
-	)
+	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
+		visible_message(
+			span_danger("[src] was shocked by \the [source]!"),
+			span_userdanger("You feel a powerful shock coursing through your body!"),
+			span_hear("You hear a heavy electrical crack."),
+		)
 	return shock_damage
 
 /mob/living/emp_act(severity)
@@ -382,13 +420,6 @@
 		return
 	for(var/obj/O in contents)
 		O.emp_act(severity)
-
-///Called whenever a mob is hit with any electric baton to handle jittering and stuttering
-/mob/living/proc/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
-	if(!user.combat_mode)
-		return
-	apply_damage(initial(batong.force), initial(batong.damtype), affecting, armour_block)
-	playsound(src, initial(batong.hitsound), batong.get_clamped_volume(), TRUE)
 
 /*
  * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
@@ -492,7 +523,7 @@
 		if(locate(/obj/structure/lattice) in range(1, get_turf(src)))
 			is_holding = TRUE
 		else
-			for (var/turf/T as() in RANGE_TURFS(1, src))
+			for (var/turf/T as anything in RANGE_TURFS(1, src))
 				if (T.density)
 					is_holding = TRUE
 					break
@@ -621,3 +652,10 @@
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, method, reagents[R], show_message, touch_protection, affecting)
+
+/// Simplified ricochet angle calculation for mobs (also the base version doesn't work on mobs)
+/mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)
+	var/face_angle = get_angle_raw(ricocheting_projectile.x, ricocheting_projectile.pixel_x, ricocheting_projectile.pixel_y, ricocheting_projectile.p_y, x, y, pixel_x, pixel_y)
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180)))
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE

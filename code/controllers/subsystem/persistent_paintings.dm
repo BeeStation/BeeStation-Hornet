@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(persistent_paintings)
 	dependencies = list(
 		/datum/controller/subsystem/persistence,
 	)
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 	/// A list of painting frames that this controls
 	var/list/obj/structure/sign/painting/painting_frames = list()
@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(persistent_paintings)
 	/// A list of /datum/paintings saved or ready to be saved this round.
 	var/list/paintings = list()
 
-/datum/controller/subsystem/persistent_paintings/Initialize(start_timeofday)
+/datum/controller/subsystem/persistent_paintings/Initialize()
 	var/json_file = file("data/paintings.json")
 	if(fexists(json_file))
 		var/list/raw_data = update_format(json_decode(file2text(json_file)))

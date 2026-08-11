@@ -14,7 +14,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner capable of distinguishing vital signs of the subject. Has a side button to scan for chemicals"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
@@ -42,6 +42,8 @@
 */
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
+	if(!user.can_read(src))
+		return
 
 	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
 
@@ -68,6 +70,9 @@
 	add_fingerprint(user)
 
 /obj/item/healthanalyzer/attack_secondary(mob/living/victim, mob/living/user, params)
+	if(!user.can_read(src))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
 	chemscan(user, victim)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -88,7 +93,7 @@
  * tochat - Whether to immediately post the result into the chat of the user, otherwise it will return the results.
  */
 /proc/healthscan(mob/user, mob/living/target, mode = SCANNER_VERBOSE, advanced = FALSE, tochat = TRUE)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	// the final list of strings to render
@@ -109,8 +114,9 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/humantarget = target
-		if(humantarget.undergoing_cardiac_arrest() && humantarget.stat != DEAD)
-			render_list += "<span class='alert ml-1'><b>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</b></span>\n"
+		var/obj/item/organ/heart/heart = humantarget.get_organ_slot(ORGAN_SLOT_HEART)
+		if(heart && !heart.beating)
+			render_list += "<span class='alert ml-1'><b>No cardiac activity detected. Apply defibrillation or other electric shock immediately!</b></span>\n"
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode, tochat)
 
@@ -169,8 +175,8 @@
 		if(istype(ears))
 			if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, GENETIC_MUTATION))
 				render_list += "<span class='alert ml-2'>Subject is genetically deaf.\n</span>"
-			//else if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, EAR_DAMAGE))
-			//	render_list += "<span class='alert ml-2'>Subject is deaf from ear damage.\n</span>"
+			else if(HAS_TRAIT_FROM(carbontarget, TRAIT_DEAF, EAR_DAMAGE))
+				render_list += "<span class='alert ml-2'>Subject is deaf from ear damage.\n</span>"
 			else if(HAS_TRAIT(carbontarget, TRAIT_DEAF))
 				render_list += "<span class='alert ml-2'>Subject is deaf.\n</span>"
 			else
@@ -184,7 +190,7 @@
 		if(istype(eyes))
 			if(carbontarget.is_blind())
 				render_list += "<span class='alert ml-2'>Subject is blind.\n</span>"
-			else if(HAS_TRAIT(carbontarget, TRAIT_NEARSIGHT))
+			else if(carbontarget.is_nearsighted())
 				render_list += "<span class='alert ml-2'>Subject is nearsighted.\n</span>"
 
 	// Body part damage report
@@ -200,10 +206,10 @@
 							<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>\
 							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td></tr>\
 							<tr><td><font color='#ff3333'><b>Overall:</b></font></td>\
-							<td><font color='#ff3333'><b>[CEILING(brute_loss,1)]</b></font></td>\
-							<td><font color='#ff9933'><b>[CEILING(fire_loss,1)]</b></font></td>\
-							<td><font color='#00cc66'><b>[CEILING(tox_loss,1)]</b></font></td>\
-							<td><font color='#33ccff'><b>[CEILING(oxy_loss,1)]</b></font></td></tr>"
+							<td><font color='#ff3333'><b>[ceil(brute_loss)]</b></font></td>\
+							<td><font color='#ff9933'><b>[ceil(fire_loss)]</b></font></td>\
+							<td><font color='#00cc66'><b>[ceil(tox_loss)]</b></font></td>\
+							<td><font color='#33ccff'><b>[ceil(oxy_loss)]</b></font></td></tr>"
 
 			if(mode == SCANNER_VERBOSE)
 				for(var/obj/item/bodypart/limb as anything in damaged)
@@ -211,8 +217,8 @@
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.name)]:</font></td>"
 					else
 						dmgreport += "<tr><td><font color='#cc3333'>[capitalize(limb.plaintext_zone)]:</font></td>"
-					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[CEILING(limb.brute_dam,1)]" : "0"]</font></td>"
-					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td></tr>"
+					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[ceil(limb.brute_dam)]" : "0"]</font></td>"
+					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[ceil(limb.burn_dam)]" : "0"]</font></td></tr>"
 			dmgreport += "</font></table>"
 			render_list += dmgreport // tables do not need extra linebreak
 		for(var/obj/item/bodypart/limb as anything in carbontarget.bodyparts)
@@ -236,7 +242,7 @@
 				if (status != "")
 					render = TRUE
 					toReport += "<tr><td><font color='#cc3333'>[organ.name]:</font></td>\
-						[advanced ? "<td><font color='#ff3333'>[CEILING(organ.damage,1)]</font></td>" : ""]\
+						[advanced ? "<td><font color='#ff3333'>[ceil(organ.damage)]</font></td>" : ""]\
 						<td>[status]</td></tr>"
 
 			var/missing_organs = list()
@@ -281,7 +287,6 @@
 			|| targetspecies.mutantheart != initial(targetspecies.mutantheart) \
 			|| targetspecies.mutanteyes != initial(targetspecies.mutanteyes) \
 			|| targetspecies.mutantears != initial(targetspecies.mutantears) \
-			|| targetspecies.mutanthands != initial(targetspecies.mutanthands) \
 			|| targetspecies.mutanttongue != initial(targetspecies.mutanttongue) \
 			|| targetspecies.mutantliver != initial(targetspecies.mutantliver) \
 			|| targetspecies.mutantstomach != initial(targetspecies.mutantstomach) \
@@ -306,8 +311,8 @@
 		render_list += "<span class='info ml-1'>[body_temperature_message]</span>\n"
 
 	// Time of death
-	if(target.tod && (target.stat == DEAD || ((HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !advanced)))
-		render_list += "<span class='info ml-1'>Time of Death: [target.tod]</span>\n"
+	if(target.station_timestamp_timeofdeath && (target.stat == DEAD || ((HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !advanced)))
+		render_list += "<span class='info ml-1'>Time of Death: [target.station_timestamp_timeofdeath]</span>\n"
 		var/tdelta = round(world.time - target.timeofdeath)
 		render_list += "<span class='alert ml-1'><b>Subject died [DisplayTimeText(tdelta)] ago.</b></span>\n"
 
@@ -356,7 +361,7 @@
 			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
 
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
-				render_list += "<span class='alert ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
+				render_list += "<span class='info ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
@@ -369,7 +374,7 @@
 		var/mob/living/carbon/carbontarget = target
 		var/cyberimp_detect
 		for(var/obj/item/organ/cyberimp/cyberimp in carbontarget.internal_organs)
-			if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
+			if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.examine_title(user)]" : ", [cyberimp.examine_title(user)]"]"
 		if(cyberimp_detect)
 			render_list += "<span class='notice ml-1'>Detected cybernetic modifications:</span>\n"
@@ -383,7 +388,7 @@
 		return(jointext(render_list, ""))
 
 /proc/chemscan(mob/living/user, mob/living/target)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(istype(target) && target.reagents)

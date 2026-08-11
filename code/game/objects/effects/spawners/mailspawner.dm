@@ -132,7 +132,7 @@
 /obj/effect/spawner/mail/science/Initialize(mapload)
 	var/static/list/mail_science= pick(
 		/obj/item/laser_pointer,
-		/obj/item/paicard,
+		/obj/item/pai_card,
 		/obj/item/nanite_remote,
 		/obj/item/nanite_scanner,
 		/obj/item/disk/tech_disk,

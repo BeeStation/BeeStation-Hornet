@@ -57,8 +57,7 @@
 	if(user && check_pop())
 		to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
-	for(var/V in GLOB.syndicate_shuttle_boards)
-		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
+	for(var/obj/item/circuitboard/computer/syndicate_shuttle/board as anything in GLOB.syndicate_shuttle_boards)
 		board.challenge = TRUE
 
 	GLOB.shuttle_docking_jammed = TRUE
@@ -95,8 +94,7 @@
 	if(world.time-SSticker.round_start_time > CHALLENGE_TIME_LIMIT)
 		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make do with what you have on hand.")
 		return FALSE
-	for(var/V in GLOB.syndicate_shuttle_boards)
-		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
+	for(var/obj/item/circuitboard/computer/syndicate_shuttle/board as anything in GLOB.syndicate_shuttle_boards)
 		if(board.moved)
 			to_chat(user, "The shuttle has already been moved! You have forfeit the right to declare war.")
 			return FALSE

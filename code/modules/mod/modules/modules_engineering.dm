@@ -167,14 +167,12 @@
 
 /obj/item/mod/module/rad_protection/on_part_activation()
 	AddComponent(/datum/component/geiger_sound)
-	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, REF(src))
 	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
 	for(var/obj/item/part in mod.get_parts(all = TRUE))
 		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
 
 /obj/item/mod/module/rad_protection/on_part_deactivation(deleting = FALSE)
 	qdel(GetComponent(/datum/component/geiger_sound))
-	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, REF(src))
 	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
 	for(var/obj/item/part in mod.get_parts(all = TRUE))
 		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
@@ -239,7 +237,7 @@
 ///Resin Mister - Sprays resin over an area.
 /obj/item/mod/module/mister/atmos
 	name = "\improper MOD resin mister module"
-	desc = "An atmospheric resin mister, able to fix up areas quickly."
+	desc = "An atmospheric resin mister, able to fix up areas quickly, it has a small slot allowing for disk upgrades."
 	device = /obj/item/extinguisher/mini/nozzle/mod
 	volume = 250
 

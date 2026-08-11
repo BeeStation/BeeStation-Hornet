@@ -7,13 +7,12 @@
 /mob/living/simple_animal/bot/firebot
 	name = "\improper Firebot"
 	desc = "A little fire extinguishing bot. He looks rather anxious."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "firebot0"
 	density = FALSE
 	anchored = FALSE
 	health = 25
 	maxHealth = 25
-	spacewalk = TRUE
 
 	radio_key = /obj/item/encryptionkey/headset_eng
 	radio_channel = RADIO_CHANNEL_ENGINEERING
@@ -41,9 +40,10 @@
 
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	update_icon()
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_STATIONENGINEER)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 
@@ -61,7 +61,7 @@
 	internal_ext.max_water = INFINITY
 	internal_ext.refill()
 
-/mob/living/simple_animal/bot/firebot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/firebot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))

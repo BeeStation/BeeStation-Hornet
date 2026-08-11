@@ -126,7 +126,7 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
 /* Plasteel */
 
 GLOBAL_LIST_INIT(plasteel_recipes, list ( \
-	new/datum/stack_recipe("AI core", /obj/structure/AIcore, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF, time = 5, category = CAT_ROBOT),
+	new/datum/stack_recipe("AI core", /obj/structure/ai_core, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF, time = 5, category = CAT_ROBOT),
 	new/datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 5, crafting_flags = NONE, category = CAT_CHEMISTRY),
 	new/datum/stack_recipe("dock tile", /obj/item/stack/tile/dock, 1, 4, 20, crafting_flags = NONE, category = CAT_TILES),
 	new/datum/stack_recipe("dry dock tile", /obj/item/stack/tile/drydock, 2, 4, 20, crafting_flags = NONE, category = CAT_TILES),
@@ -193,14 +193,3 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/bronze)
-
-/* Fleshy Mass */
-
-GLOBAL_LIST_INIT(fleshymass_recipes, list ( \
-	new/datum/stack_recipe("Persuasion rack", /obj/structure/vampire/vassalrack, 10, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
-	new/datum/stack_recipe("Candelabrum", /obj/structure/vampire/candelabrum, 10, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
-	new/datum/stack_recipe("Blood throne", /obj/structure/vampire/bloodthrone, 20, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
-	new/datum/stack_recipe("Meat coffin", /obj/structure/closet/crate/coffin/meatcoffin, 20, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
-))
-
-STACKSIZE_MACRO(/obj/item/stack/sheet/fleshymass)

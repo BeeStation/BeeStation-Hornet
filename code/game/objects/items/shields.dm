@@ -1,4 +1,5 @@
 /obj/item/shield
+	abstract_type = /obj/item/shield
 	name = "shield"
 	icon = 'icons/obj/shields.dmi'
 	canblock = TRUE

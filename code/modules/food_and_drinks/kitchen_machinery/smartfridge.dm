@@ -731,7 +731,7 @@
 
 /obj/machinery/smartfridge/organ/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(istype(gone))
+	if(isorgan(gone))
 		var/obj/item/organ/organ = gone
 		organ.organ_flags &= ~ORGAN_FROZEN
 

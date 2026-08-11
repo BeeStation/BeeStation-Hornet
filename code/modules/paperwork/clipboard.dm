@@ -55,6 +55,7 @@
 	to_chat(user, span_notice("You remove [paper] from [src]."))
 	var/obj/item/paper/toppaper = toppaper_ref?.resolve()
 	if(paper == toppaper)
+		UnregisterSignal(toppaper, COMSIG_ATOM_UPDATED_ICON)
 		toppaper_ref = null
 		var/obj/item/paper/newtop = locate(/obj/item/paper) in src
 		if(newtop && (newtop != paper))
@@ -75,7 +76,10 @@
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(pen)
-		remove_pen(user)
+		if(integrated_pen)
+			to_chat(user, span_warning("You can't seem to find a way to remove [src]'s [pen]."))
+		else
+			remove_pen(user)
 
 /obj/item/clipboard/update_icon()
 	cut_overlays()
@@ -95,6 +99,9 @@
 		//Add paper into the clipboard
 		if(!user.transferItemToLoc(weapon, src))
 			return
+		if(toppaper)
+			UnregisterSignal(toppaper, COMSIG_ATOM_UPDATED_ICON)
+		RegisterSignal(weapon, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_top_paper_change))
 		toppaper_ref = WEAKREF(weapon)
 		to_chat(user, span_notice("You clip [weapon] onto [src]."))
 	else if(istype(weapon, /obj/item/pen) && !pen)
@@ -121,6 +128,7 @@
 	// prepare data for TGUI
 	var/list/data = list()
 	data["pen"] = "[pen]"
+	data["integrated_pen"] = integrated_pen
 
 	var/obj/item/paper/toppaper = toppaper_ref?.resolve()
 	data["top_paper"] = "[toppaper]"
@@ -148,7 +156,10 @@
 		// Take the pen out
 		if("remove_pen")
 			if(pen)
-				remove_pen(usr)
+				if(!integrated_pen)
+					remove_pen(usr)
+				else
+					to_chat(usr, span_warning("You can't seem to find a way to remove [src]'s [pen]."))
 				. = TRUE
 		// Take paper out
 		if("remove_paper")
@@ -179,12 +190,20 @@
 				update_icon()
 				. = TRUE
 
+/**
+ * This is a simple proc to handle calling update_icon() upon receiving the top paper's `COMSIG_ATOM_UPDATE_APPEARANCE`.
+ */
+/obj/item/clipboard/proc/on_top_paper_change()
+	SIGNAL_HANDLER
+	update_appearance()
+
 /obj/item/clipboard/preloaded
-	var/list/papers_to_add = list(/obj/item/paper,/obj/item/paper,/obj/item/paper) //Default to 3 sheets of blank paper
+	var/list/papers_to_add = list(/obj/item/paper, /obj/item/paper, /obj/item/paper) //Default to 3 sheets of blank paper
 
 /obj/item/clipboard/preloaded/Initialize(mapload)
 	//Fill the clipboard with new papers
-	for(var/obj/item/paper/paper in papers_to_add)
+	for(var/papers_added in papers_to_add)
+		var/obj/item/paper = new papers_added(src)
 		if(!toppaper_ref)
 			toppaper_ref = WEAKREF(paper)
 

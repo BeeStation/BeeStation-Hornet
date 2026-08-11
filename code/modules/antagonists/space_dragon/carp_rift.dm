@@ -126,7 +126,7 @@
 		if("carp" in hostilehere.faction)
 			hostilehere.adjustHealth(-10)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(hostilehere))
-			H.color = "#0000FF"
+			H.color = COLOR_BLUE
 
 	// If we're fully charged, just start mass spawning carp and move around.
 	if(charge_state == CHARGE_COMPLETED)

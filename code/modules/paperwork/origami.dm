@@ -69,13 +69,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/origami)
 		internalPaper.attackby(P, user) //spoofed attack to update internal paper.
 		update_icon()
 
-	else if(P.is_hot())
+	else if(P.get_temperature())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
 				span_userdanger("You miss [src] and accidentally light yourself on fire!"))
 			user.dropItemToGround(P)
 			user.adjust_fire_stacks(1)
-			user.IgniteMob()
+			user.ignite_mob()
 			return
 
 		if(!(in_range(user, src))) //to prevent issues as a result of telepathically lighting a paper

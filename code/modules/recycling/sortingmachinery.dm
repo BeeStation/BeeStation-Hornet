@@ -110,7 +110,7 @@
 			to_chat(user, span_notice("*[tag]*"))
 			sort_tag = dest_tagger.currTag
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, TRUE)
-			update_appearance()
+			update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/pen))
 		if(!user.is_literate())
@@ -130,6 +130,7 @@
 		if(wrapping_paper.use(3))
 			user.visible_message(span_notice("[user] wraps the package in festive paper!"))
 			giftwrapped = TRUE
+			update_appearance(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_warning("You need more paper!"))
 
@@ -142,7 +143,7 @@
 			return
 		user.visible_message(span_notice("[user] attaches [item] to [src]."), span_notice("You attach [item] to [src]."))
 		note = item
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/sales_tagger))
 		var/obj/item/sales_tagger/sales_tagger = item
@@ -165,7 +166,7 @@
 			if(HAS_TRAIT(wrapped_item, TRAIT_NO_BARCODES))
 				continue
 			wrapped_item.AddComponent(/datum/component/pricetag, sticker.payments_acc, sales_tagger.cut_multiplier)
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/barcode))
 		var/obj/item/barcode/stickerA = item
@@ -183,7 +184,7 @@
 			if(HAS_TRAIT(wrapped_item, TRAIT_NO_BARCODES))
 				continue
 			wrapped_item.AddComponent(/datum/component/pricetag, sticker.payments_acc, sticker.cut_multiplier)
-		update_appearance()
+		update_appearance(UPDATE_OVERLAYS)
 
 	else
 		return ..()
@@ -250,7 +251,7 @@
 	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/dest_tagger/borg

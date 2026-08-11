@@ -7,7 +7,7 @@
 	. = ..()
 	switch(sentience_retention)
 		if (SENTIENCE_RETAIN)
-			if (playable)	//so the alert goes through for observing ghosts
+			if (playable) //so the alert goes through for observing ghosts
 				set_playable(playable_bantype)
 		if (SENTIENCE_FORCE)
 			set_playable(playable_bantype)
@@ -59,7 +59,6 @@
 		SSmobs.update_spawners()
 	else // it's spawned but someone occupied already
 		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something Interesting!")
-
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."

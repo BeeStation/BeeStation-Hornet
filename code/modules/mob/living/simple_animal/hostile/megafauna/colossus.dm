@@ -49,8 +49,8 @@ Difficulty: Very Hard
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
 	loot = list(/obj/effect/spawner/random/unsorted/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
-	deathsound = 'sound/magic/demon_dies.ogg'
+	death_message = "disintegrates, leaving a glowing core in its wake."
+	death_sound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							   /datum/action/innate/megafauna_attack/aoe_attack,
 							   /datum/action/innate/megafauna_attack/shotgun,
@@ -172,11 +172,11 @@ Difficulty: Very Hard
 	telegraph()
 	ranged_cooldown = world.time + 30
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.mind)
-			if(istype(H.mind.martial_art, /datum/martial_art/the_sleeping_carp))
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/victim)
+	if(ishuman(victim))
+		var/mob/living/carbon/human/human_victim = victim
+		if(human_victim.mind)
+			if(istype(human_victim.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
@@ -245,7 +245,7 @@ Difficulty: Very Hard
 		sleep(1)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum_safe(set_angle) && (!marker || marker == loc))
+	if(!IS_FINITE(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
@@ -267,7 +267,7 @@ Difficulty: Very Hard
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = get_angle(src, target_turf)
-	if(isnum_safe(set_angle))
+	if(IS_FINITE(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 	for(var/i in colossus_shotgun_shot_angles)
@@ -490,8 +490,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		. += observer_desc
 		. += "It is activated by [activation_method]."
 
-/obj/machinery/anomalous_crystal/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
-	..()
+/obj/machinery/anomalous_crystal/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, spans, list/message_mods = list(), message_range)
+	. = ..()
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
 
@@ -502,7 +502,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	ActivationReaction(user, ACTIVATE_TOUCH)
 
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
-	if(I.is_hot())
+	if(I.get_temperature())
 		ActivationReaction(user, ACTIVATE_HEAT)
 	else
 		ActivationReaction(user, ACTIVATE_WEAPON)
@@ -541,12 +541,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
 	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.dropItemToGround(W)
-		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
-		C.equip(H)
-		affected_targets.Add(H)
+		var/mob/living/carbon/human/new_clown = user
+		for(var/obj/item/to_strip in new_clown)
+			new_clown.dropItemToGround(to_strip)
+		new_clown.dress_up_as_job(SSjob.get_job_type(/datum/job/clown))
+		affected_targets.Add(new_clown)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	observer_desc = "This crystal warps the area around it to a theme."
@@ -748,10 +747,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	. = ..()
 	remove_verb(/mob/living/verb/pulled)
 	remove_verb(/mob/verb/me_verb)
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
-
-	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	add_traits(list(TRAIT_MEDICAL_HUD, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()
@@ -839,13 +835,13 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(isanimal_or_basicmob(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/L = arrived
-		L.notransform = 1
-		L.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
+		L.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		L.mind.transfer_to(holder_animal)
 		var/datum/action/exit_possession/P = new /datum/action/exit_possession
 		P.Grant(holder_animal)
@@ -854,8 +850,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
-		L.notransform = 0
+		L.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_MUTE, TRAIT_GODMODE), STASIS_MUTE)
 		if(holder_animal)
 			var/datum/action/exit_possession/P = new /datum/action/exit_possession
 			P.Remove(holder_animal)
@@ -864,9 +859,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			L.investigate_log("has died from [src].", INVESTIGATE_DEATHS)
 			L.death(FALSE)
 	..()
-
-/obj/structure/closet/stasis/emp_act()
-	return
 
 /obj/structure/closet/stasis/ex_act()
 	return

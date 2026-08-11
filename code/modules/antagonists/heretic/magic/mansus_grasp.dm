@@ -13,6 +13,7 @@
 	invocation_type = INVOCATION_SHOUT
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
+	antimagic_flags = (MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE)
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 
@@ -84,7 +85,7 @@
 	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
 	remove_hand_with_no_refund(user)
 
-/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/user)
+/obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] covers [user.p_their()] face with [user.p_their()] sickly-looking hand! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	var/datum/action/spell/touch/mansus_grasp/source = spell_which_made_us?.resolve()

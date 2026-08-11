@@ -84,8 +84,6 @@
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	armor_type = /datum/armor/utility_bomb_hood
 	flags_inv = HIDEFACE|HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD

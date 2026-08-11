@@ -68,3 +68,11 @@
 		/obj/effect/spawner/random/entertainment/lighter = 5,
 		/obj/effect/spawner/random/food_or_drink/booze = 5,
 	)
+
+/obj/effect/spawner/random/contraband/cayennelottery
+	name = "cayenne lottery spawner (25% chance)"
+	icon_state = "prisoner_shoes"
+	loot = list(
+		/obj/item/toy/plush/carpplushie/dehy_carp = 6,
+		/obj/item/toy/plush/carpplushie/dehy_carp/cayenne = 2,
+	)

@@ -18,6 +18,7 @@
 	low_threshold_cleared = span_info("The last bouts of pain in your stomach have died out.")
 
 	var/disgust_metabolism = 1
+	var/operated = FALSE
 
 /obj/item/organ/stomach/on_life(delta_time, times_fired)
 	. = ..()
@@ -68,7 +69,7 @@
 			disgusted.set_dizzy_if_lower(10 SECONDS)
 		if(disgust >= DISGUST_LEVEL_DISGUSTED)
 			if(DT_PROB(13, delta_time))
-				disgusted.blur_eyes(3) //We need to add more shit down here
+				disgusted.set_eye_blur_if_lower(6 SECONDS) //We need to add more shit down here
 
 		disgusted.adjust_disgust(-0.25 * disgust_metabolism * delta_time)
 
@@ -165,8 +166,7 @@
 	attack_verb_continuous = list("assault and batteries")
 	attack_verb_simple = list("assault and battery")
 	desc = "A micro-cell, for IPC use. Do not swallow."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	max_charge = 2750 //50 nutrition from 250 charge
 	charge = 2750
 
@@ -205,7 +205,7 @@
 	name = "cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
 /obj/item/organ/stomach/cybernetic/upgraded

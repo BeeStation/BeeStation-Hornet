@@ -83,7 +83,7 @@
 	if(world.time <= usr.next_move)
 		return 1
 
-	if(usr.incapacitated(IGNORE_STASIS))
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_STASIS))
 		return 1
 
 	if(ismob(usr))
@@ -119,7 +119,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(usr.incapacitated() || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(usr.incapacitated || (isobserver(usr) && !IsAdminGhost(usr)))
 		return TRUE
 	var/area/A = get_area(usr)
 	if(!A.outdoors)
@@ -176,7 +176,7 @@
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
-			if(hud?.mymob.incapacitated())
+			if(hud?.mymob.incapacitated)
 				inv_item.apply_outline(COLOR_RED_GRAY)
 			else
 				inv_item.apply_outline()
@@ -210,9 +210,9 @@
 	item_overlay.alpha = 92
 
 	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
-		item_overlay.color = "#FF0000"
+		item_overlay.color = COLOR_RED
 	else
-		item_overlay.color = "#00ff00"
+		item_overlay.color = COLOR_VIBRANT_LIME
 
 	cut_overlay(object_overlay)
 	object_overlay = item_overlay
@@ -253,7 +253,7 @@
 		return TRUE
 	if(world.time <= user.next_move)
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 	if (ismecha(user.loc)) // stops inventory actions in a mech
 		return TRUE
@@ -366,15 +366,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	toggle(usr)
 
 /atom/movable/screen/mov_intent/update_icon_state()
-	switch(hud?.mymob?.m_intent)
+	if(!hud || !hud.mymob || !isliving(hud.mymob))
+		return
+	var/mob/living/living_hud_owner = hud.mymob
+	switch(living_hud_owner.move_intent)
 		if(MOVE_INTENT_WALK)
 			icon_state = "walking"
 		if(MOVE_INTENT_RUN)
 			icon_state = "running"
 	return ..()
 
-/atom/movable/screen/mov_intent/proc/toggle(mob/user)
-	if(isobserver(user))
+/atom/movable/screen/mov_intent/proc/toggle(mob/living/user)
+	if(!istype(user))
 		return
 	user.toggle_move_intent(user)
 
@@ -576,6 +579,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if(choice != selecting)
 		selecting = choice
 		update_icon()
+		SEND_SIGNAL(user, COMSIG_MOB_SELECTED_ZONE_SET, choice)
 
 	return TRUE
 
@@ -725,10 +729,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/splash)
 
 	holder.screen += src
 
-/atom/movable/screen/splash/proc/Fade(out, qdel_after = TRUE)
+/atom/movable/screen/splash/proc/fade(out, qdel_after = TRUE)
 	if(QDELETED(src))
 		return
 	if(out)
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		animate(src, alpha = 0, time = 30)
 	else
 		alpha = 0

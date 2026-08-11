@@ -75,7 +75,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 40
 	throwforce = 10
@@ -109,7 +109,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/claymore/highlander //ALL COMMENTS MADE REGARDING THIS SWORD MUST BE MADE IN ALL CAPS
 	desc = "<b><i>THERE CAN BE ONLY ONE, AND IT WILL BE YOU!!!</i></b>\nActivate it in your hand to point to the nearest victim."
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = DROPDEL | ISWEAPON //dropdel occurs because you lost an arm
 	slot_flags = null
 	light_range = 3
@@ -120,7 +120,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/claymore/highlander/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/claymore/highlander/Destroy()
@@ -144,12 +144,18 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/claymore/highlander/pickup(mob/living/user)
 	. = ..()
 	to_chat(user, span_notice("The power of Scotland protects you! You are shielded from all stuns and knockdowns."))
-	user.add_stun_absorption("highlander", INFINITY, 1, " is protected by the power of Scotland!", "The power of Scotland absorbs the stun!", " is protected by the power of Scotland!")
-	user.ignore_slowdown(HIGHLANDER)
+	user.ignore_slowdown(HIGHLANDER_TRAIT)
+	user.add_stun_absorption(
+		source = HIGHLANDER_TRAIT,
+		message = span_warning("%EFFECT_OWNER is protected by the power of Scotland!"),
+		self_message = span_boldwarning("The power of Scotland absorbs the stun!"),
+		examine_message = span_warning("%EFFECT_OWNER_THEYRE protected by the power of Scotland!"),
+	)
 
 /obj/item/claymore/highlander/dropped(mob/living/user)
 	. = ..()
-	user.unignore_slowdown(HIGHLANDER)
+	user.unignore_slowdown(HIGHLANDER_TRAIT)
+	user.remove_stun_absorption(HIGHLANDER_TRAIT)
 
 /obj/item/claymore/highlander/examine(mob/user)
 	. = ..()
@@ -242,9 +248,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	force = 15
+	force = 18
 	throwforce = 10
-	armour_penetration = 15
+	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -264,7 +270,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 40
 	throwforce = 10
@@ -300,9 +306,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
+	icon = 'icons/obj/weapons/spear.dmi'
 	icon_state = "wiredrod"
 	inhand_icon_state = "rods"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 9
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
@@ -326,7 +333,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		to_chat(user, span_notice("You fasten the glass shard to the top of the rod with the cable."))
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+		var/obj/item/melee/baton/security/cattleprod/P = new /obj/item/melee/baton/security/cattleprod
 
 		remove_item_from_storage(user)
 
@@ -395,7 +402,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharp, concealable, spring-loaded knife with a long blade."
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	force = 3
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
@@ -492,8 +499,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	custom_price = 20
 
-	force = 5
-	throwforce = 5
+	force = 10
+	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines", "thrashes")
@@ -523,7 +530,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	custom_price = 30
 
 /obj/item/staff/broom
-	force = 5
+	force = 10
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon = 'icons/obj/wizard.dmi'
@@ -539,7 +546,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	inhand_icon_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 5
+	force = 10
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
@@ -628,7 +635,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/mounted_chainsaw/super
 	name = "mounted super energy chainsaw"
 	desc = "A super energy chainsaw that has replaced your arm."
-	force = 60
+	force = 45
 	armour_penetration = 75
 	hitsound = 'sound/weapons/energychainsaw_hit1.ogg'
 
@@ -646,7 +653,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/super/attack(mob/living/target)
 	..()
-	target.Knockdown(4)
+	target.Knockdown(1 SECONDS)
 
 /obj/item/statuebust
 	name = "bust"
@@ -902,6 +909,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/table_smacks_left = 3
 
 /obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
+	. = ..()
+	SEND_SIGNAL(M, COMSIG_LIVING_SLAPPED, user)
+
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M
 		if(L && L.dna && L.dna.species)

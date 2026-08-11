@@ -1,12 +1,14 @@
 //Preferences stuff
 	//Hairstyles
-GLOBAL_LIST_EMPTY(hair_styles_list)			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_EMPTY(hair_styles_male_list)		//stores only hair names
-GLOBAL_LIST_EMPTY(hair_styles_female_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(hairstyles_list)			//stores /datum/sprite_accessory/hair indexed by name
+GLOBAL_LIST_EMPTY(hairstyles_male_list)		//stores only hair names
+GLOBAL_LIST_EMPTY(hairstyles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(facial_hairstyles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
+GLOBAL_LIST_EMPTY(facial_hairstyles_male_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(facial_hairstyles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/gradient indexed by name
+GLOBAL_LIST_EMPTY(facial_hair_gradients_list)
+
 	//Underwear
 GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
 GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
@@ -44,11 +46,8 @@ GLOBAL_LIST_EMPTY(wings_open_list)
 GLOBAL_LIST_EMPTY(moth_wings_list)
 GLOBAL_LIST_EMPTY(moth_wings_roundstart_list)//this lacks the blacklisted wings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_antennae_list)
-GLOBAL_LIST_EMPTY(moth_antennae_roundstart_list)//this lacks the blacklisted antennae such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_markings_list)
-GLOBAL_LIST_EMPTY(moth_markings_roundstart_list)//this lacks the blacklisted markings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_wingsopen_list)
-GLOBAL_LIST_EMPTY(caps_list)
 GLOBAL_LIST_EMPTY(ipc_screens_list)
 GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
@@ -68,28 +67,60 @@ GLOBAL_LIST_EMPTY(diona_pbody_list)
 
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
-	"Cyan" = "00ffff",
-	"Dark Green" = "0ab432",
-	"Dark Teal" = "5ea699",
-	"Denim Blue" = "3399ff",
-	"Gray" = "979497",
-	"Green" = "97ee63",
-	"Lavender" = "d1acff",
-	"Maroon" = "9c3030",
-	"Orange" = "f69c28",
-	"Orchid Purple" = "ee82ee",
-	"Powder Blue" = "95e5ff",
-	"Purple" = "a42df7",
-	"Red" = "ff3131",
-	"Rose" = "ff92b6",
-	"Royal Blue" = "5860f5",
-	"Sandy Yellow" = "ffefa5",
-	"Sea Green" = "37835b",
-	"Spring Green" = "00fa9a",
-	"Yellow" = "fbdf56",
+	"Cyan" = "#00ffff",
+	"Dark Green" = "#0ab432",
+	"Dark Teal" = "#5ea699",
+	"Denim Blue" = "#3399ff",
+	"Gray" = "#979497",
+	"Green" = "#97ee63",
+	"Lavender" = "#d1acff",
+	"Maroon" = "#9c3030",
+	"Orange" = "#f69c28",
+	"Orchid Purple" = "#ee82ee",
+	"Powder Blue" = "#95e5ff",
+	"Purple" = "#a42df7",
+	"Red" = "#ff3131",
+	"Rose" = "#ff92b6",
+	"Royal Blue" = "#5860f5",
+	"Sandy Yellow" = "#ffefa5",
+	"Sea Green" = "#37835b",
+	"Spring Green" = "#00fa9a",
+	"Yellow" = "#fbdf56",
 ))
 
-GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
+//stores the ghost forms that support directional sprites
+GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
+	"catghost",
+	"ghost_black",
+	"ghost_blazeit",
+	"ghost_blue",
+	"ghost_camo",
+	"ghost_cyan",
+	"ghost_dblue",
+	"ghost_dcyan",
+	"ghost_dgreen",
+	"ghost_dpink",
+	"ghost_dred",
+	"ghost_dyellow",
+	"ghost_fire",
+	"ghost_funkypurp",
+	"ghost_green",
+	"ghost_grey",
+	"ghost_mellow",
+	"ghost_pink",
+	"ghost_pinksherbert",
+	"ghost_purpleswirl",
+	"ghost_rainbow",
+	"ghost_red",
+	"ghost_yellow",
+	"ghost",
+	"ghostian",
+	"ghostian2",
+	"ghostking",
+	"skeleghost",
+))
+
+//stores the ghost forms that support hair and other such things
 GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost",
 	"ghost_red",
@@ -114,8 +145,8 @@ GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost_pinksherbert",
 	"ghost_blazeit",
 	"ghost_mellow",
-	"ghost_camo",))
-	//stores the ghost forms that support hair and other such things
+	"ghost_camo",
+))
 
 GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",
@@ -183,22 +214,9 @@ GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_ENGINEERING,
 	SEC_DEPT_MEDICAL,
 	SEC_DEPT_NONE,
-	SEC_DEPT_RANDOM,
 	SEC_DEPT_SCIENCE,
 	SEC_DEPT_SUPPLY
 )))
-
-
-GLOBAL_LIST_INIT(backbaglist, list(
-	DBACKPACK,
-	DDUFFELBAG,
-	DSATCHEL,
-	GBACKPACK,
-	GDUFFELBAG,
-	GSATCHEL,
-	LSATCHEL
-))
-
 
 GLOBAL_LIST_INIT(jumpsuitlist, list(
 	PREF_SKIRT,
@@ -207,17 +225,15 @@ GLOBAL_LIST_INIT(jumpsuitlist, list(
 
 // What we show to the user
 GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(
-	UPLINK_IMPLANT_WITH_PRICE,
 	UPLINK_PDA,
-	UPLINK_PEN,
 	UPLINK_RADIO,
+	UPLINK_PEN
 ))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
 GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
-	UPLINK_IMPLANT,
 	UPLINK_PDA,
-	UPLINK_PEN,
 	UPLINK_RADIO,
+	UPLINK_PEN
 ))
 
 	//Female Uniforms
@@ -338,6 +354,17 @@ GLOBAL_LIST_INIT(accents, list(
 	"Roadman" = ROADMAN_TALK_FILE,
 ))
 
+GLOBAL_LIST_INIT(accents_donator, list(
+	"Cajun" = CAJUN_TALK_FILE,
+	"Texan" = TEXAN_TALK_FILE,
+	"South Metro" = SOUTHMETRO_TALK_FILE,
+	"Big Apple" = BIGAPPLE_TALK_FILE,
+	"Russian" = RUSSIAN_TALK_FILE,
+	"Dutch" = DUTCH_TALK_FILE,
+	"Finnish" = FINNISH_TALK_FILE,
+	"Irish" = IRISH_TALK_FILE,
+))
+
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/storage/fancy/cigarettes/cigpack_midori,
@@ -349,7 +376,7 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/cigars,
 	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
 	/obj/item/storage/fancy/cigarettes/cigars/havana,
-	/obj/item/clothing/mask/vape
+	/obj/item/vape
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(
@@ -373,54 +400,54 @@ GLOBAL_LIST_INIT(junkie_drugs, list(
 
 /// Naturally occuring hair colours
 GLOBAL_LIST_INIT(natural_hair_colours, list(
-	"f0e2ba",
-	"f4eede",
-	"c3a87c",
-	"ecd19d",
-	"feedb8",
-	"A0785F",
-	"996F53",
-	"60463D",
-	"9E7046",
-	"9B7257",
-	"523F38",
-	"50362F",
-	"A55A3B",
-	"4D3B2C",
-	"312016",
-	"432C20",
-	"2C1C11",
-	"2E3239",
-	"693822",
-	"663423"
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+	"#A0785F",
+	"#996F53",
+	"#60463D",
+	"#9E7046",
+	"#9B7257",
+	"#523F38",
+	"#50362F",
+	"#A55A3B",
+	"#4D3B2C",
+	"#312016",
+	"#432C20",
+	"#2C1C11",
+	"#2E3239",
+	"#693822",
+	"#663423"
 ))
 
 /// Hair colours that aren't naturaly but relatively normal (I'll save the anime hair colours for custom characters)
 GLOBAL_LIST_INIT(female_dyed_hair_colours, list(
-	"733338",
-	"593333",
-	"401B24",
-	"492D38",
-	"3E262D",
+	"#733338",
+	"#593333",
+	"#401B24",
+	"#492D38",
+	"#3E262D",
 ))
 
 GLOBAL_LIST_INIT(secondary_dye_hair_colours, list(
-	"f0e2ba",
-	"f4eede",
-	"c3a87c",
-	"ecd19d",
-	"feedb8",
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
 ))
 
 GLOBAL_LIST_INIT(secondary_dye_female_hair_colours, list(
-	"f0e2ba",
-	"f4eede",
-	"c3a87c",
-	"ecd19d",
-	"feedb8",
-	"733338",
-	"593333",
-	"401B24",
-	"492D38",
-	"3E262D",
+	"#f0e2ba",
+	"#f4eede",
+	"#c3a87c",
+	"#ecd19d",
+	"#feedb8",
+	"#733338",
+	"#593333",
+	"#401B24",
+	"#492D38",
+	"#3E262D",
 ))

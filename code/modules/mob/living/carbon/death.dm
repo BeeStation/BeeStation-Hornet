@@ -2,7 +2,6 @@
 	if(stat == DEAD)
 		return
 
-	silent = FALSE
 	losebreath = 0
 
 	if(!gibbed)
@@ -54,6 +53,6 @@
 
 
 /mob/living/carbon/spread_bodyparts()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		BP.drop_limb()
 		BP.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)

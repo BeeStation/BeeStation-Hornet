@@ -15,8 +15,8 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	var/alt_sound = null
 
 /obj/item/storage/part_replacer/Initialize(mapload)
-	. = ..()
 	create_storage(storage_type = /datum/storage/rped)
+	return ..()
 
 /obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, params)
 	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))
@@ -215,10 +215,19 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
+/obj/item/storage/part_replacer/bluespace/cyborg
+	name = "bluespace rapid part exchange device"
+	desc = "Special mechanical module made to store, sort, and apply standard machine parts. Now with bluespace technology!"
+	icon_state = "borgbsrped"
+	inhand_icon_state = "RPED"
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+
 /proc/cmp_rped_sort(obj/item/A, obj/item/B)
 	return B.get_part_rating() - A.get_part_rating()
 
 /obj/item/stock_parts
+	abstract_type = /obj/item/stock_parts
 	name = "stock part"
 	desc = "What?"
 	icon = 'icons/obj/stock_parts.dmi'
@@ -385,6 +394,11 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	custom_materials = list(/datum/material/iron=80)
 
 // Subspace stock parts
+
+/obj/item/stock_parts/subspace
+	abstract_type = /obj/item/stock_parts/subspace
+	name = "subspace stock part"
+	desc = "What?"
 
 /obj/item/stock_parts/subspace/ansible
 	name = "subspace ansible"

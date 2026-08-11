@@ -122,13 +122,13 @@
 
 /obj/item/storage/box/mime/attack_hand(mob/user, list/modifiers)
 	..()
-	if(user.mind.miming)
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		alpha = 255
 
-/obj/item/storage/box/mime/Moved(oldLoc, dir)
-	if (iscarbon(oldLoc))
+/obj/item/storage/box/mime/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if (iscarbon(old_loc))
 		alpha = 0
-	..()
+	return ..()
 
 //Disk boxes
 
@@ -225,12 +225,16 @@
 	new /obj/item/radio/off(src)
 
 // Syndie survival box
-/obj/item/storage/box/survival/syndie //why is this its own thing if it's just the engi box with a syndie mask and medipen?
+/obj/item/storage/box/survival/syndie // Has actual changes apart from just a different engineering box
 	name = "extended-capacity survival box"
-	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank."
+	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank and a handy guide on survival"
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	internal_type = /obj/item/tank/internals/emergency_oxygen/engi
-	medipen_type = null
+	medipen_type =  /obj/item/reagent_containers/hypospray/medipen/atropine
+
+/obj/item/storage/box/survival/syndie/PopulateContents()
+	..()
+	new /obj/item/paper/fluff/operative(src)
 
 // Security survival box
 /obj/item/storage/box/survival/security
@@ -806,6 +810,33 @@
 	for(var/i in 1 to 7)
 		new /obj/item/storage/pill_bottle(src)
 
+/obj/item/storage/box/evilmeds
+	name = "box of premium medicine"
+	desc = "Contains a large number of beakers filled with premium medical supplies. Straight from Interdyne Pharmaceutics!"
+	icon_state = "syndiebox"
+	illustration = "beaker"
+
+/obj/item/storage/box/evilmeds/PopulateContents()
+	var/static/list/items_inside = list(
+		/obj/item/reagent_containers/cup/beaker/meta/omnizine = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/sal_acid = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/oxandrolone = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/pen_acid = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/atropine = 1,
+		/obj/item/reagent_containers/cup/beaker/stabilizing_nanites = 1, // They only get 50 of this, it's quite potent
+		/obj/item/reagent_containers/cup/beaker/meta/rezadone = 1,
+	)
+	generate_items_inside(items_inside, src)
+
+/obj/item/storage/box/combathypos
+	name = "box of combat hyposprays"
+	desc = "Contains a small quantity of combat hyposprays, they do seem of a smaller quantity"
+	icon_state = "syndiebox"
+
+/obj/item/storage/box/combathypos/PopulateContents() // You get atleast one for each member, aswell as an extra one
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/hypospray/combat/smaller(src)
+
 /obj/item/storage/box/snappops
 	name = "snap pop box"
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
@@ -1171,7 +1202,7 @@
 	new /obj/item/circuitboard/machine/protolathe(src)
 	new /obj/item/circuitboard/machine/destructive_analyzer(src)
 	new /obj/item/circuitboard/machine/circuit_imprinter(src)
-	new /obj/item/circuitboard/computer/rdconsole(src)
+	new /obj/item/circuitboard/computer/rdconsole/unlocked(src)
 
 /obj/item/storage/box/silver_sulf
 	name = "box of silver sulfadiazine patches"
@@ -1254,39 +1285,45 @@
 	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/material/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/stack/sheet/iron/fifty=1, \
-		/obj/item/stack/sheet/glass/fifty=1,\
-		/obj/item/stack/sheet/rglass=50,\
-		/obj/item/stack/sheet/mineral/copper/fifty=1,\
-		/obj/item/stack/sheet/plasmaglass=50,\
-		/obj/item/stack/sheet/plasmarglass=50,\
-		/obj/item/stack/sheet/titaniumglass=50,\
-		/obj/item/stack/sheet/plastitaniumglass=50,\
-		/obj/item/stack/sheet/plasteel=50,\
-		/obj/item/stack/sheet/mineral/plastitanium=50,\
-		/obj/item/stack/sheet/mineral/titanium=50,\
-		/obj/item/stack/sheet/mineral/gold=50,\
-		/obj/item/stack/sheet/mineral/silver=50,\
-		/obj/item/stack/sheet/mineral/uranium=50,\
-		/obj/item/stack/sheet/mineral/plasma=50,\
-		/obj/item/stack/sheet/mineral/diamond=50,\
-		/obj/item/stack/ore/bluespace_crystal/refined=50,\
-		/obj/item/stack/sheet/mineral/bananium=50,\
-		/obj/item/stack/sheet/plastic/fifty=1,\
-		/obj/item/stack/sheet/runed_metal/fifty=1,\
-		/obj/item/stack/sheet/brass/fifty=1,\
-		/obj/item/stack/sheet/mineral/abductor=50,\
-		/obj/item/stack/sheet/mineral/adamantine=50,\
-		/obj/item/stack/sheet/wood=50,\
-		/obj/item/stack/sheet/cotton/cloth=50,\
-		/obj/item/stack/sheet/leather=50,\
-		/obj/item/stack/sheet/bone=12,\
-		/obj/item/stack/sheet/cardboard/fifty=1,\
-		/obj/item/stack/sheet/mineral/sandstone=50,\
-		/obj/item/stack/sheet/snow=50
-		)
-	generate_items_inside(items_inside,src)
+	var/static/list/items_inside
+	items_inside ||= list(
+		/obj/item/stack/sheet/iron = 50,
+		/obj/item/stack/sheet/glass = 50,
+		/obj/item/stack/sheet/rglass = 50,
+		/obj/item/stack/sheet/mineral/copper = 50,
+		/obj/item/stack/sheet/plasmaglass = 50,
+		/obj/item/stack/sheet/plasmarglass = 50,
+		/obj/item/stack/sheet/titaniumglass = 50,
+		/obj/item/stack/sheet/plastitaniumglass = 50,
+		/obj/item/stack/sheet/plasteel = 50,
+		/obj/item/stack/sheet/mineral/plastitanium = 50,
+		/obj/item/stack/sheet/mineral/titanium = 50,
+		/obj/item/stack/sheet/mineral/gold = 50,
+		/obj/item/stack/sheet/mineral/silver = 50,
+		/obj/item/stack/sheet/mineral/uranium = 50,
+		/obj/item/stack/sheet/mineral/plasma = 50,
+		/obj/item/stack/sheet/mineral/diamond = 50,
+		/obj/item/stack/ore/bluespace_crystal/refined = 50,
+		/obj/item/stack/sheet/mineral/bananium = 50,
+		/obj/item/stack/sheet/plastic = 50,
+		/obj/item/stack/sheet/runed_metal = 50,
+		/obj/item/stack/sheet/brass = 50,
+		/obj/item/stack/sheet/mineral/abductor = 50,
+		/obj/item/stack/sheet/mineral/adamantine = 50,
+		/obj/item/stack/sheet/wood = 50,
+		/obj/item/stack/sheet/cotton/cloth = 50,
+		/obj/item/stack/sheet/leather = 50,
+		/obj/item/stack/sheet/bone = 12,
+		/obj/item/stack/sheet/cardboard = 50,
+		/obj/item/stack/sheet/mineral/sandstone = 50,
+		/obj/item/stack/sheet/snow = 50,
+	)
+
+	for(var/obj/item/stack/stack_type as anything in items_inside)
+		var/amt = items_inside[stack_type]
+		new stack_type(src, amt, FALSE)
+
+// except iron, glass, copper, plastic, runed metal, brass, and carboard
 
 /obj/item/storage/box/deputy
 	name = "box of deputy armbands"
@@ -1298,16 +1335,6 @@
 	for(var/i in 1 to 4)
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/deputy(src)
-
-/obj/item/storage/box/vouchers
-	name = "box of security vouchers"
-	desc = "To be issued to new recruits only."
-	icon_state = "secbox"
-	illustration = "writing_syndie"
-
-/obj/item/storage/box/vouchers/PopulateContents()
-	for(var/i in 1 to 4)
-		new /obj/item/mining_voucher/security(src)
 
 /obj/item/storage/box/radiokey
 	name = "box of generic radio keys"

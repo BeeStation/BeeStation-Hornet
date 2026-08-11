@@ -20,8 +20,11 @@
 /datum/action/spell/basic_heal/on_cast(mob/living/user, atom/target)
 	. = ..()
 	user.visible_message(
-		"<span class='warning'>A wreath of gentle light passes over [user]!</span>",
-		"<span class='notice'>You wreath yourself in healing light!</span>",
+		span_warning("A wreath of gentle light passes over [user]!"),
+		span_notice("You wreath yourself in healing light!"),
 	)
-	user.adjustBruteLoss(-brute_to_heal, FALSE)
-	user.adjustFireLoss(-burn_to_heal)
+	var/need_mob_update = FALSE
+	need_mob_update += user.adjustBruteLoss(-brute_to_heal, updating_health = FALSE)
+	need_mob_update += user.adjustFireLoss(-burn_to_heal, updating_health = FALSE)
+	if(need_mob_update)
+		user.updatehealth()

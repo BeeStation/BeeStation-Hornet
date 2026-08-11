@@ -1,6 +1,7 @@
 /* Null hide */
 
 /obj/item/stack/sheet/animalhide
+	abstract_type = /obj/item/stack/sheet/animalhide
 	name = "hide"
 	desc = "Something went wrong."
 	icon_state = "sheet-hide"
@@ -146,7 +147,7 @@
 //Step one to make leather - dehairing
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
-	if(W.is_sharp())
+	if(W.get_sharpness())
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		user.visible_message("[user] starts cutting hair off \the [src].", span_notice("You start cutting the hair off \the [src]..."), span_italics("You hear the sound of a knife rubbing against flesh."))
 		if(do_after(user, 50, target = src))

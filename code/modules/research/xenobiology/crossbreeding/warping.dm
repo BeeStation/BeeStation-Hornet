@@ -41,7 +41,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/warped_rune/Moved(atom/OldLoc, Dir)
+/obj/effect/warped_rune/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	rune_turf = get_turf(src)
 
@@ -182,7 +182,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/orangespace/do_effect(mob/user)
 	var/obj/structure/bonfire/bluespace/B = new (rune_turf)
-	B.StartBurning()
+	B.start_burning()
 	. = ..()
 
 /obj/item/slimecross/warping/purple
@@ -488,11 +488,11 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	desc = "Who shall we be today? they asked, but not even the canvas would answer."
 	icon_state = "rune_pyrite"
 	remove_on_activation = FALSE
-	var/colour = "#FFFFFF"
+	var/colour = COLOR_WHITE
 
 /obj/effect/warped_rune/pyritespace/Initialize(mapload)
 	. = ..()
-	colour = pick("#FFFFFF", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#FF00FF")
+	colour = pick(COLOR_WHITE, COLOR_RED, "#FFA500", COLOR_YELLOW, COLOR_VIBRANT_LIME, COLOR_BLUE, "#4B0082", COLOR_MAGENTA)
 
 /obj/effect/warped_rune/pyritespace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(isliving(AM))
@@ -515,7 +515,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
-		for(var/obj/item/I in H.get_equipped_items(TRUE))
+		for(var/obj/item/I in H.get_equipped_items(INCLUDE_POCKETS))
 			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()
 		for(var/obj/item/I in H.held_items)
@@ -794,7 +794,6 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /area/warped_room
 	name = "warped room"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -805,12 +804,8 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 ///creates the warped room and place an exit rune to exit the room
 /obj/effect/warped_rune/rainbowspace/Initialize(mapload)
 	. = ..()
-	if(!GLOB.warped_room)
-		GLOB.warped_room = new
-		///current x,y,z location of the reserved space for the rune room
-		var/datum/turf_reservation/room_reservation = SSmapping.RequestBlockReservation(GLOB.warped_room.width, GLOB.warped_room.height) //monkey sees valid location
-		GLOB.warped_room.load(locate(room_reservation.bottom_left_coords[1], room_reservation.bottom_left_coords[2], room_reservation.bottom_left_coords[3]))//monkey room activate
-		GLOB.warped_room.exit_rune = new (locate(room_reservation.bottom_left_coords[1] + 3, room_reservation.bottom_left_coords[2] + 6, room_reservation.bottom_left_coords[3]))
+	if(isnull(GLOB.warped_room))
+		INVOKE_ASYNC(src, PROC_REF(generate_warped_room))
 	GLOB.warped_room.rainbow_runes += src
 
 /obj/effect/warped_rune/rainbowspace/do_effect(mob/user)
@@ -820,12 +815,19 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 		customer.forceMove(get_turf(GLOB.warped_room.exit_rune))
 	if(tp_mob)
 		playsound(rune_turf, dir_sound, 20, TRUE)
-	. = ..()
+	return ..()
 
-///Will delete the room when the rune is destroyed if no customer is left in the room.
+/// Will delete the room when the rune is destroyed if no customer is left in the room.
 /obj/effect/warped_rune/rainbowspace/Destroy()
 	GLOB.warped_room?.rainbow_runes -= src
 	return ..()
+
+/obj/effect/warped_rune/rainbowspace/proc/generate_warped_room()
+	GLOB.warped_room = new()
+	// current x,y,z location of the reserved space for the rune room
+	var/datum/turf_reservation/room_reservation = SSmapping.request_turf_block_reservation(GLOB.warped_room.width, GLOB.warped_room.height) // monkey sees valid location
+	GLOB.warped_room.load(locate(room_reservation.bottom_left_coords[1], room_reservation.bottom_left_coords[2], room_reservation.bottom_left_coords[3])) // monkey room activate
+	GLOB.warped_room.exit_rune = new (locate(room_reservation.bottom_left_coords[1] + 3, room_reservation.bottom_left_coords[2] + 6, room_reservation.bottom_left_coords[3]))
 
 ///anyone on the exit rune when it is used will be teleported to the rune that was used to teleport to the warped room
 /obj/effect/warped_room_exit/attack_hand(mob/living/user)
@@ -844,3 +846,4 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 		tp_mob = TRUE
 	if(tp_mob)
 		playsound(get_turf(src), 'sound/effects/phasein.ogg', 20, TRUE)
+

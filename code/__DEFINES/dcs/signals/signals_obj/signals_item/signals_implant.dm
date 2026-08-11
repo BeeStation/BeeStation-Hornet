@@ -4,7 +4,7 @@
 
 // /obj/item/implant signals
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"			//! from base of /obj/item/implant/proc/activate(): ()
-#define COMSIG_IMPLANT_IMPLANTING "implant_implanting"			//! from base of /obj/item/implant/proc/implant(): (list/args)
+#define COMSIG_IMPLANT_IMPLANTING "implant_implanting"			//! from base of /obj/item/implant/proc/implant(): (mob/living/user, mob/living/target)
 	#define COMPONENT_STOP_IMPLANTING 1
 #define COMSIG_IMPLANT_OTHER "implant_other"					//! called on already installed implants when a new one is being added in /obj/item/implant/proc/implant(): (list/args, obj/item/implant/new_implant)
 	//#define COMPONENT_STOP_IMPLANTING 1 //The name makes sense for both
@@ -16,5 +16,5 @@
 /// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
 #define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
 
-/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+/// called on implants, after an implant has been removed: (mob/living/source, silent, removed)
 #define COMSIG_IMPLANT_REMOVED "implant_removed"

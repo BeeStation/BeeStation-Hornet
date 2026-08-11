@@ -41,7 +41,7 @@
 		real_wall.ScrapeAway()
 		var/turf/underneath = get_turf(src)
 		if(!isfloorturf(underneath)) //These can only be built on floors anyway, but the linter screams at me because space is left behind when they are forcibly deleted under some arcane conditions I can't replicate.
-			underneath.PlaceOnTop(/turf/open/floor/plating)
+			underneath.place_on_top(/turf/open/floor/plating)
 	real_wall = null
 	return ..()
 
@@ -77,7 +77,7 @@
 
 /obj/structure/falsewall/proc/place_real_wall()
 	var/turf/our_turf = get_turf(src) //Get the turf the false wall is on and temporarily store it
-	real_wall = our_turf.PlaceOnTop(walltype) //Place the real wall where the false wall is
+	real_wall = our_turf.place_on_top(walltype) //Place the real wall where the false wall is
 
 /obj/structure/falsewall/update_icon()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	if(opening)
@@ -160,9 +160,10 @@
 	return null
 
 /obj/structure/falsewall/reinforced/attackby(obj/item/tool, mob/user)
-	..()
 	if(tool.tool_behaviour == TOOL_WIRECUTTER)
 		dismantle(user, TRUE, tool)
+		return TRUE
+	return ..()
 
 /*
  * Uranium Falsewalls
@@ -226,7 +227,7 @@
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)
+	if(W.get_temperature() > 300)
 		if(plasma_ignition(6, user))
 			new /obj/structure/girder/displaced(loc)
 

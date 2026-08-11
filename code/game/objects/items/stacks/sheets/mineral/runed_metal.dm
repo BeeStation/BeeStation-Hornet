@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 		req_amount = 3, \
 		time = 4 SECONDS, \
 		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \
-		desc = span_cultbold("Altar: Can make Eldritch Whetstones, Construct Shells, and Flasks of Unholy Water."), \
+		desc = span_cultbold("Altar: Can make Eldritch Whetstones, Construct Shells, Runic Golem Shells and Flasks of Unholy Water."), \
 		required_noun = "runed metal sheet", \
 		category = CAT_CULT, \
 	), \
@@ -41,6 +41,16 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \
 		desc = span_cultbold("Daemon Forge: Can make Nar'Sien Hardened Armor, Flagellant's Robes, \
 			and Eldritch Longswords. Emits Light."), \
+		required_noun = "runed metal sheet", \
+		category = CAT_CULT, \
+	), \
+		new /datum/stack_recipe/radial( \
+		title = "runic golem shell", \
+		result_type = /obj/item/golem_shell/runic, \
+		req_amount = 10, \
+		time = 4 SECONDS, \
+		crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, \
+		desc = span_cultbold("Runic Golem Shell: Place a soulstone inside to activate the golem and bring it to life."), \
 		required_noun = "runed metal sheet", \
 		category = CAT_CULT, \
 	), \
@@ -94,7 +104,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	var/area/user_area = get_area(user)
 
 	var/is_valid_turf = user_turf && (is_station_level(user_turf.z) || is_mining_level(user_turf.z))
-	var/is_valid_area = user_area && (user_area.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))
+	var/is_valid_area = user_area && (user_area.area_flags & CULT_PERMITTED)
 
 	if(!is_valid_turf || !is_valid_area)
 		to_chat(user, span_warning("The veil is not weak enough here."))

@@ -1,24 +1,29 @@
 /datum/job/curator
 	title = JOB_NAME_CURATOR
 	description = "Be in charge of maintaining the library, engage in peace talks with alien races using your knowledge of all languages, cosplay to your heart's content."
-	department_for_prefs = DEPT_NAME_CIVILIAN
+	department_for_prefs = DEPARTMENT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
-	selection_color = "#dddddd"
+	selection_color = "#bbe291"
 	exp_requirements = 60
-	exp_type = EXP_TYPE_CREW
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/curator
 
 	base_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_CIV
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Veteran Adventurer"
 
 	species_outfits = list(
@@ -28,9 +33,11 @@
 	biohazard = 10
 
 	minimal_lightup_areas = list(
-		/area/library,
-		/area/construction/mining/aux_base
+		/area/station/service/library,
+		/area/station/construction/mining/aux_base
 	)
+
+	voice_of_god_power = 1.5
 
 	// The power that curator can write a manuscript as any job is written in 'manuscript_writing.dm'
 	// manuscript_jobs = list()
@@ -51,7 +58,8 @@
 	backpack_contents = list(
 		/obj/item/choice_beacon/radial/hero = 1,
 		/obj/item/soapstone = 1,
-		/obj/item/barcodescanner = 1
+		/obj/item/barcodescanner = 1,
+		/obj/item/book/kindred = 1,
 	)
 
 /datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)

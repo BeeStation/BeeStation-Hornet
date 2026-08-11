@@ -25,7 +25,9 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	if(!ismonkey(user) || user.key)
+	if(!iscarbon(user))
+		return
+	if(!HAS_TRAIT(user, TRAIT_PRIMITIVE) || user.key)
 		to_chat(user, span_boldnotice("You feel a stabbing pain in the back of your head for a moment."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
@@ -35,19 +37,21 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/user)
 	if (user.stat) //Checks if the monkey is dead.
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE) //If so, buzz and do not poll ghosts
 		return
 	user.visible_message(span_warning("[src] powers up!"))
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_MONKEY_HELMET
-	config.poll_time = 10 SECONDS
-	config.ignore_category = POLL_IGNORE_MONKEY_HELMET
-	config.jump_target = user
-	config.role_name_text = "mind magnified monkey"
-	config.alert_pic = src
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_MONKEY_HELMET,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_MONKEY_HELMET,
+		jump_target = user,
+		role_name_text = "mind magnified monkey",
+		alert_pic = src,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died

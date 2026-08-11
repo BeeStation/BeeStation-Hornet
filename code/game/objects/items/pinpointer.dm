@@ -4,7 +4,7 @@
 	desc = "A handheld tracking device that locks onto certain signals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	inhand_icon_state = "electronic"
@@ -179,7 +179,7 @@
 
 	var/mob/living/L = given_there
 
-	if(HAS_TRAIT(L, TRAIT_NANITE_SENSORS) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
+	if(HAS_TRAIT_FROM(L, TRAIT_TRACKED_SENSORS, NANITES_TRAIT) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
 		return TRUE
 
 	if(!ishuman(L)) // now human-only part. non-humans should have passed this from above already.
@@ -256,7 +256,7 @@
 		return
 
 	var/A = input(user, "Person to track", "Pinpoint") in sort_list(names)
-	if(!A || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated())
+	if(!A || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated)
 		return
 
 	target = names[A]

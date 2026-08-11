@@ -37,7 +37,7 @@
 
 /datum/round_event/portal_storm/setup()
 	storm = mutable_appearance('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball_fast", FLY_LAYER)
-	storm.color = "#00FF00"
+	storm.color = COLOR_VIBRANT_LIME
 
 	number_of_bosses = 0
 	for(var/boss in boss_types)
@@ -53,7 +53,7 @@
 	while(number_of_hostiles > hostiles_spawn.len)
 		hostiles_spawn += get_random_station_turf()
 
-	next_boss_spawn = startWhen + CEILING(2 * number_of_hostiles / number_of_bosses, 1)
+	next_boss_spawn = startWhen + ceil(2 * number_of_hostiles / number_of_bosses)
 
 /datum/round_event/portal_storm/announce(fake)
 	set waitfor = 0
@@ -96,7 +96,7 @@
 		log_game("Portal Storm failed to spawn effect due to an invalid location.")
 		return
 	T = get_step(T, SOUTHWEST) //align center of image with turf
-	flick_overlay_static(storm, T, 15)
+	T.flick_overlay_static(storm, 15)
 	playsound(T, 'sound/magic/lightningbolt.ogg', rand(80, 100), 1)
 
 /datum/round_event/portal_storm/proc/spawn_hostile()
@@ -109,7 +109,7 @@
 		return 0
 
 	if(activeFor == next_boss_spawn)
-		next_boss_spawn += CEILING(number_of_hostiles / number_of_bosses, 1)
+		next_boss_spawn += ceil(number_of_hostiles / number_of_bosses)
 		return 1
 
 /datum/round_event/portal_storm/proc/time_to_end()

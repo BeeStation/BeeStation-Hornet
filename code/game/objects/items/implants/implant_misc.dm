@@ -106,7 +106,6 @@
 	var/obj/item/radio/radio
 	var/radio_key
 	var/subspace_transmission = FALSE
-	var/radio_silent = TRUE
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "walkietalkie"
 
@@ -124,7 +123,6 @@
 	radio.name = "internal radio"
 	radio.subspace_transmission = subspace_transmission
 	radio.canhear_range = -1
-	radio.radio_silent = radio_silent
 	if(radio_key)
 		radio.keyslot = new radio_key
 	radio.recalculateChannels()
@@ -143,7 +141,7 @@
 
 /obj/item/implant/radio/slime
 	name = "slime radio"
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "adamantine_resonator"
 	radio_key = /obj/item/encryptionkey/headset_sci
 	subspace_transmission = TRUE

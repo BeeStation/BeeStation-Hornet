@@ -32,7 +32,7 @@ Bonus
 	bodies = list("Ditz")
 	var/brain_damage = FALSE
 	threshold_desc = "<b>Resistance 6:</b> Causes brain damage over time.<br>\
-						<b>Transmission 6:</b> Increases confusion duration.<br>\
+						<b>Transmission 6:</b> Increases confusion duration and strength.<br>\
 						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
@@ -64,9 +64,8 @@ Bonus
 				to_chat(M, span_warning("[pick("Your head hurts.", "Your mind blanks for a moment.")]"))
 		else
 			to_chat(M, span_userdanger("You can't think straight!"))
-			M.adjust_confusion(8 SECONDS * power)
+			M.adjust_confusion_up_to(16 SECONDS * power, 30 SECONDS)
 			if(brain_damage)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN,3 * power, 80)
 				M.updatehealth()
-
 	return

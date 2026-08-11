@@ -2,38 +2,29 @@
 	name = "Nuclear Operative"
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
-	banning_key = ROLE_OPERATIVE
+	banning_key = ROLE_NUCLEAR_OPERATIVE
 	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
 	ui_name = "AntagInfoNukeOp"
+	faction = FACTION_SYNDICATE
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	antag_hud_name = "synd"
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
 
-/datum/antagonist/nukeop/proc/update_synd_icons_added(mob/living/M)
-	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-	opshud.join_hud(M)
-	set_antag_hud(M, "synd")
-
-/datum/antagonist/nukeop/proc/update_synd_icons_removed(mob/living/M)
-	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-	opshud.leave_hud(M)
-	set_antag_hud(M, null)
-
 /datum/antagonist/nukeop/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_synd_icons_added(M)
-	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
+	var/mob/living/current_mob = mob_override || owner.current
+	ADD_TRAIT(current_mob, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
+	add_team_hud(current_mob, /datum/antagonist/nukeop)
 	owner.remove_all_quirks()
 
 /datum/antagonist/nukeop/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_synd_icons_removed(M)
-	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
+	var/mob/living/current_mob = mob_override || owner.current
+	REMOVE_TRAIT(current_mob, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
 
 /datum/antagonist/nukeop/proc/equip_op()
 	if(!ishuman(owner.current))
@@ -81,14 +72,14 @@
 /datum/antagonist/nukeop/proc/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
 		nuke_team.memorized_code = random_code(5)
-		var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in GLOB.nuke_list
+		var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/syndicate)
 		if(nuke)
 			nuke_team.tracked_nuke = nuke
 			if(nuke.r_code == "ADMIN")
 				nuke.r_code = nuke_team.memorized_code
 			else //Already set by admins/something else?
 				nuke_team.memorized_code = nuke.r_code
-			for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
+			for(var/obj/machinery/nuclearbomb/beer/beernuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/beer))
 				if(beernuke.r_code == "ADMIN")
 					beernuke.r_code = nuke_team.memorized_code
 		else
@@ -101,11 +92,10 @@
 		if(istype(human_to_rename)) // Reinforcements get a real name
 			var/first_name = pick(GLOB.operative_aliases)
 			var/chosen_name = "[first_name] [nuke_team.syndicate_name]"
-			human_to_rename.fully_replace_character_name(human_to_rename.real_name, chosen_name)
+			human_to_rename.fully_replace_character_name(null, chosen_name)
 		else
-			var/number = 1
-			number = nuke_team.members.Find(owner)
-			owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
+			var/number = nuke_team.members.Find(owner)
+			owner.current.fully_replace_character_name(null, "[nuke_team.syndicate_name] Operative #[number]")
 
 /datum/antagonist/nukeop/proc/memorize_code()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
@@ -121,7 +111,7 @@
 	else
 		to_chat(owner, "You were not assigned a frequency for your hardsuits beacons. You will have to coordinate with each other to decide a frequency to use.")
 
-/datum/antagonist/nukeop/proc/forge_objectives()
+/datum/antagonist/nukeop/forge_objectives()
 	if(!give_objectives)
 		return
 	if(nuke_team)
@@ -139,7 +129,7 @@
 /datum/antagonist/nukeop/create_team(datum/team/nuclear/new_team)
 	if(!new_team)
 		if(!always_new_team)
-			for(var/datum/antagonist/nukeop/N in GLOB.antagonists)
+			for(var/datum/antagonist/nukeop/N in GLOB.active_antagonists)
 				if(!N.owner)
 					continue
 				if(N.nuke_team)
@@ -154,7 +144,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_OPERATIVE
+	new_owner.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")
@@ -169,7 +159,7 @@
 
 /datum/antagonist/nukeop/proc/admin_tell_code(mob/admin)
 	var/code
-	for (var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+	for (var/obj/machinery/nuclearbomb/bombue as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
 		if (length(bombue.r_code) <= 5 && bombue.r_code != initial(bombue.r_code))
 			code = bombue.r_code
 			break
@@ -199,11 +189,12 @@
 			H.update_icons()
 
 /datum/antagonist/nukeop/leader/give_alias()
-	title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
-	if(nuke_team && nuke_team.syndicate_name)
-		owner.current.real_name = "[nuke_team.syndicate_name] [title]"
+	title ||= pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
+	. = ..()
+	if(ishuman(owner.current))
+		owner.current.fully_replace_character_name(owner.current.real_name, "[title] [owner.current.real_name]")
 	else
-		owner.current.real_name = "Syndicate [title]"
+		owner.current.fully_replace_character_name(owner.current.real_name, "[nuke_team.syndicate_name] [title]")
 
 /datum/antagonist/nukeop/leader/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
@@ -228,16 +219,18 @@
 	syndicate_name = new_name
 	name = "Family [syndicate_name]"
 	for(var/datum/mind/synd_mind in members)
-		var/mob/living/carbon/human/human_to_rename = synd_mind.current
-		if(!istype(human_to_rename))
-			continue
-		var/first_name = pick(GLOB.operative_aliases)
-		var/chosen_name = "[first_name] [syndicate_name]"
-		human_to_rename.fully_replace_character_name(human_to_rename.real_name, chosen_name)
+		var/datum/antagonist/nukeop/nukie_ref = synd_mind.has_antag_datum(/datum/antagonist/nukeop)
+		nukie_ref?.give_alias()
 
 /datum/antagonist/nukeop/leader/proc/ask_name()
 	var/randomname = pick(GLOB.last_names)
-	var/newname = stripped_input(owner.current,"You are the nuke operative [title]. Please choose a last name for your family.", "Name change",randomname)
+	var/newname = tgui_input_text(
+		owner.current,
+		"You are the nuclear operative [title]. Please choose a last name for your family.",
+		"Name change",
+		randomname,
+		max_length = MAX_NAME_LEN,
+	)
 	if (!newname)
 		newname = randomname
 	else
@@ -256,7 +249,7 @@
 /datum/antagonist/nukeop/lone/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
 		nuke_team.memorized_code = random_code(5)
-		var/obj/machinery/nuclearbomb/selfdestruct/nuke = locate() in GLOB.nuke_list
+		var/obj/machinery/nuclearbomb/selfdestruct/nuke = locate() in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/selfdestruct)
 		if(nuke)
 			nuke_team.tracked_nuke = nuke
 			if(nuke.r_code == "ADMIN")
@@ -273,6 +266,7 @@
 	.["lone"] = TRUE
 
 /datum/antagonist/nukeop/reinforcement
+	name = "Nuclear Operative Reinforcement"
 	send_to_spawnpoint = FALSE
 	nukeop_outfit = /datum/outfit/syndicate/no_crystals
 
@@ -394,10 +388,10 @@
 	var/purchases = ""
 	var/TC_uses = 0
 	var/effective_tc = 0
-	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
+	LAZYINITLIST(GLOB.uplink_logs_by_key)
 	for(var/I in members)
 		var/datum/mind/syndicate = I
-		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
+		var/datum/uplink_log/H = GLOB.uplink_logs_by_key[syndicate.key]
 		if(H)
 			TC_uses += H.total_spent
 			effective_tc += H.effective_amount
@@ -477,7 +471,7 @@
 		R.use_command = TRUE
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
-		var/obj/item/U = new uplink_type(H, H.key, tc)
+		var/obj/item/U = new uplink_type(H, H, tc)
 		H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
 
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)

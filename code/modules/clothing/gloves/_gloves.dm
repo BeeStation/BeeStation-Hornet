@@ -1,4 +1,5 @@
 /obj/item/clothing/gloves
+	abstract_type = /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
@@ -12,9 +13,12 @@
 	attack_verb_simple = list("challenge")
 	strip_delay = 20
 	equip_delay_other = 40
+	dying_key = DYE_REGISTRY_GLOVES
+
 	// Path variable. If defined, will produced the type through interaction with wirecutters.
 	var/cut_type = null
-	dying_key = DYE_REGISTRY_GLOVES
+	/// Used for handling bloody gloves leaving behind bloodstains on objects. Will be decremented whenever a bloodstain is left behind, and be incremented when the gloves become bloody.
+	var/transfer_blood = 0
 
 /obj/item/clothing/gloves/wash(clean_types)
 	. = ..()
@@ -27,7 +31,7 @@
 	return OXYLOSS
 
 /obj/item/clothing/gloves/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = list()
+	. = ..()
 	if(!isinhands)
 		return
 

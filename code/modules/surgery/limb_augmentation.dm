@@ -15,9 +15,9 @@
 
 
 /datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(NOAUGMENTS in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_AUGMENTS))
 		to_chat(user, span_warning("[target] cannot be augmented!"))
-		return -1
+		return SURGERY_STEP_FAIL
 	if(istype(tool, /obj/item/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
@@ -48,15 +48,21 @@
 
 /datum/surgery/augmentation
 	name = "Augmentation"
+	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB | SURGERY_REQUIRES_REAL_LIMB
+	possible_locs = list(
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+	)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/replace_limb
 	)
-	target_mobtypes = list(/mob/living/carbon/human)
-	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
-	requires_real_bodypart = TRUE
 
 //SURGERY STEP SUCCESSES
 
@@ -69,14 +75,24 @@
 			tool = tool.contents[1]
 		if(istype(tool) && user.temporarilyRemoveItemFromInventory(tool))
 			if(!tool.replace_limb(target))
-				display_results(user, target, span_warning("You fail in replacing [target]'s [parse_zone(target_zone)]! Their body has rejected [tool]!"),
+				display_results(
+					user,
+					target,
+					span_warning("You fail in replacing [target]'s [parse_zone(target_zone)]! Their body has rejected [tool]!"),
 					span_warning("[user] fails to replace [target]'s [parse_zone(target_zone)]!"),
-					span_warning("[user] fails to replaces [target]'s [parse_zone(target_zone)]!"))
+					span_warning("[user] fails to replaces [target]'s [parse_zone(target_zone)]!"),
+				)
 				tool.forceMove(target.loc)
 				return
-		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
-			"[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!",
-			"[user] successfully augments [target]'s [parse_zone(target_zone)]!")
+		if(tool.check_for_frankenstein(target))
+			tool.bodypart_flags |= BODYPART_IMPLANTED
+		display_results(
+			user,
+			target,
+			span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
+			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!"),
+			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)]!"),
+		)
 		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] COMBAT MODE: [uppertext(user.combat_mode)]")
 	else
 		to_chat(user, span_warning("[target] has no organic [parse_zone(target_zone)] there!"))

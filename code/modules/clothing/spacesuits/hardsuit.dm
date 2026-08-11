@@ -458,7 +458,7 @@
 	inhand_icon_state = "mining_hardsuit"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_mining
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -658,13 +658,12 @@
 	hardsuit_type = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = ACID_PROOF
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_syndi
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 	cell = /obj/item/stock_parts/cell/super
-	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
 	slowdown = 0.5
 	actions_types = list(
 		/datum/action/item_action/toggle_spacesuit,
@@ -906,7 +905,7 @@
 	name = "medical hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	inhand_icon_state = "medical_hardsuit"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
@@ -950,7 +949,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
-	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_DIAGNOSTIC_HUD)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
@@ -974,24 +973,12 @@
 	. = ..()
 	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.add_hud_to(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
-
 /obj/item/clothing/suit/space/hardsuit/research_director
 	icon_state = "hardsuit-rd"
 	name = "prototype hardsuit"
 	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
 	inhand_icon_state = "hardsuit-rd"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
@@ -1029,7 +1016,7 @@
 	name = "security hardsuit"
 	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments."
 	inhand_icon_state = "sec_hardsuit"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
@@ -1075,7 +1062,7 @@
 /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	icon_state = "hardsuit-hos"
 	name = "head of security's hardsuit"
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments. This one has markings for the head of security."
 	armor_type = /datum/armor/security_head_of_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
@@ -1170,60 +1157,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
 	cell = /obj/item/stock_parts/cell/upgraded/plus
 
-	//Clown
-/obj/item/clothing/head/helmet/space/hardsuit/clown
-	name = "cosmohonk hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low-humor environment. Has radiation shielding."
-	icon_state = "hardsuit0-clown"
-	inhand_icon_state = "hardsuit0-clown"
-	armor_type = /datum/armor/hardsuit_clown
-	hardsuit_type = "clown"
-
-
-/datum/armor/hardsuit_clown
-	melee = 30
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/clown
-	name = "cosmohonk hardsuit"
-	desc = "A special suit that protects against hazardous, low humor environments. Has radiation shielding. Only a true clown can wear it."
-	icon_state = "hardsuit-clown"
-	inhand_icon_state = "clown_hardsuit"
-	armor_type = /datum/armor/hardsuit_clown
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/clown
-
-
-/datum/armor/hardsuit_clown
-	melee = 30
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
-	if(!..() || !ishuman(M))
-		return FALSE
-	var/mob/living/carbon/human/H = M
-	if (!H.mind)
-		return FALSE
-	if(H.mind.assigned_role == JOB_NAME_CLOWN)
-		return TRUE
-	else
-		return FALSE
-
 	//Old Prototype
 /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	name = "prototype RIG hardsuit helmet"
@@ -1281,7 +1214,7 @@
 	icon_state = "hardsuit-hos"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	allowed = null
-	supports_variations = DIGITIGRADE_VARIATION
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
@@ -1336,7 +1269,7 @@
 	allowed = null
 	greyscale_config = /datum/greyscale_config/ctf_standard
 	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
-	greyscale_colors = "#ffffff"
+	greyscale_colors = COLOR_WHITE
 	clothing_flags = THICKMATERIAL
 
 	///Icon state to be fed into the shielded component

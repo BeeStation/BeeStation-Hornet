@@ -26,7 +26,7 @@
 	armor_type = /datum/armor/clothing_under/syndicate_bloodred
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	can_adjust = FALSE
-	supports_variations = NONE
+	supports_variations_flags = NONE
 
 /datum/armor/clothing_under/syndicate_bloodred
 	melee = 10
@@ -104,9 +104,24 @@
 	armor_type = /datum/armor/syndicate_rus_army
 	resistance_flags = NONE
 
-
 /datum/armor/syndicate_rus_army
 	melee = 5
 	bio = 10
 	stamina = 10
 	bleed = 15
+
+/obj/item/clothing/under/syndicate/scrubs
+	name = "tactical scrubs"
+	desc = "A deep burgundy set of scrubs, made tactically for tactical reasons."
+	icon = 'icons/obj/clothing/under/medical.dmi'
+	worn_icon = 'icons/mob/clothing/under/medical.dmi'
+	icon_state = "scrubswine"
+	can_adjust = FALSE
+	supports_variations_flags = NONE
+	armor_type = /datum/armor/clothing_under/syndicate_scrubs
+
+/datum/armor/clothing_under/syndicate_scrubs
+	melee = 10
+	bio = 50
+	fire = 50
+	acid = 40

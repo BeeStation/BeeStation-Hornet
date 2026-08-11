@@ -1,7 +1,7 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "\improper honkbot"
 	desc = "A little robot. It looks happy with its bike horn."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
 	anchored = FALSE
@@ -17,7 +17,7 @@
 	bot_core_type = /obj/machinery/bot_core/honkbot
 	window_id = "autohonk"
 	window_name = "Honkomatic Bike Horn Unit v1.0.7"
-	data_hud_type = DATA_HUD_SECURITY_BASIC // show jobs
+	data_hud_type = TRAIT_SECURITY_HUD_ID_ONLY
 	path_image_color = "#FF69B4"
 
 	var/honksound = 'sound/items/bikehorn.ogg' //customizable sound
@@ -42,7 +42,7 @@
 	update_icon()
 	auto_patrol = TRUE
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_CLOWN)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_CLOWN)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 
@@ -128,7 +128,7 @@
 		retaliate(Proj.firer)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(!on)
 		return
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
@@ -184,7 +184,9 @@
 	if(spam_flag == 0)
 		if(ishuman(C))
 			C.set_stutter_if_lower(40 SECONDS)
-			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
+			var/obj/item/organ/ears/target_ears = C.get_organ_slot(ORGAN_SLOT_EARS)
+			if(target_ears && !HAS_TRAIT(C, TRAIT_DEAF))
+				target_ears.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.set_jitter_if_lower(100 SECONDS)
 			C.Paralyze(60)
 			var/mob/living/carbon/human/H = C

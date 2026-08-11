@@ -10,7 +10,7 @@
 	speak_emote = list("warbles", "quavers")
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	faction = list(FACTION_MINING, FACTION_ASHWALKER)
 	density = FALSE
 	speak_chance = 1
@@ -37,7 +37,7 @@
 	search_objects = 3 //Ancient simplemob AI shitcode. This makes them ignore all other mobs.
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
-	deathmessage = "is pulped into bugmash."
+	death_message = "is pulped into bugmash."
 
 	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
@@ -86,12 +86,11 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
 	gender = MALE
+	initial_size = 0.85
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
 	. = ..()
 	add_atom_colour(pick("#E39FBB", "#D97D64", "#CF8C4A"), FIXED_COLOUR_PRIORITY)
-	resize = 0.85
-	update_transform()
 
 //Lady gutlunch. They make the babby.
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen
@@ -102,14 +101,13 @@
 	name = "grublunch"
 	wanted_objects = list() //They don't eat.
 	gold_core_spawnable = NO_SPAWN
+	initial_size = 0.45
 	var/growth = 0
 
 //Baby gutlunch
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize(mapload)
 	. = ..()
 	add_atom_colour("#9E9E9E", FIXED_COLOUR_PRIORITY) //Somewhat hidden
-	resize = 0.45
-	update_transform()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life(delta_time = SSMOBS_DT, times_fired)
 	..()

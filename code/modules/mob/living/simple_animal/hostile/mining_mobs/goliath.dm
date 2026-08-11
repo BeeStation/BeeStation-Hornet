@@ -37,7 +37,7 @@
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 	footstep_type = FOOTSTEP_MOB_HEAVY
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
@@ -76,7 +76,7 @@
 		icon_state = icon_aggro
 		pre_attack = 0
 
-/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	ranged_cooldown -= 10
 	handle_preattack()
 	. = ..()
@@ -110,7 +110,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, PROC_REF(tamed)))
+	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/goliath_saddle))
@@ -120,7 +120,7 @@
 		return ..()
 
 	if(can_saddle && do_after(user,55,target=src))
-		user.visible_message("<span class='notice'>You manage to put [O] on [src], you can now ride [p_them()].</span>")
+		user.visible_message(span_notice("You manage to put [O] on [src], you can now ride [p_them()]."))
 		qdel(O)
 		saddled = TRUE
 		can_buckle = TRUE
@@ -131,7 +131,7 @@
 		user.visible_message(span_warning("[src] is rocking around! You can't put the saddle on!"))
 	..()
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/proc/tamed(mob/living/tamer)
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/tamed(mob/living/tamer, atom/food)
 	can_saddle = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)

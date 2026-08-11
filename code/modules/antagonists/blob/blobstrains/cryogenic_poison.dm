@@ -25,8 +25,10 @@
 	M.apply_damage(0.2*reac_volume, BRUTE)
 
 /datum/reagent/blob/cryogenic_poison/on_mob_life(mob/living/carbon/exposed_mob, delta_time, times_fired)
-	exposed_mob.adjustBruteLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, FALSE)
-	exposed_mob.adjustFireLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, FALSE)
-	exposed_mob.adjustToxLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, FALSE)
-	. = 1
-	..()
+	. = ..()
+	var/need_mob_update
+	need_mob_update = exposed_mob.adjustBruteLoss(0.5 * REM * delta_time, updating_health = FALSE)
+	need_mob_update += exposed_mob.adjustFireLoss(0.5 * REM * delta_time, updating_health = FALSE)
+	need_mob_update += exposed_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		. = UPDATE_MOB_HEALTH

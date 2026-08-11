@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/cup
+	abstract_type = /obj/item/reagent_containers/cup
 	name = "glass"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
@@ -42,19 +43,19 @@
 		return
 
 	if(HAS_TRAIT(H, TRAIT_AGEUSIA))
-		if(drink_type & T.toxic_food)
+		if(drink_type & T.toxic_foodtypes)
 			to_chat(H, span_warning("You don't feel so good..."))
 			H.adjust_disgust(25 + 30 * fraction)
 	else
-		if(drink_type & T.toxic_food)
+		if(drink_type & T.toxic_foodtypes)
 			to_chat(H, span_warning("What the hell was that thing?!"))
 			H.adjust_disgust(25 + 30 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
-		else if(drink_type & T.disliked_food)
+		else if(drink_type & T.disliked_foodtypes)
 			to_chat(H, span_notice("That didn't taste very good..."))
 			H.adjust_disgust(11 + 15 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
-		else if(drink_type & T.liked_food)
+		else if(drink_type & T.liked_foodtypes)
 			to_chat(H, span_notice("I love this taste!"))
 			H.adjust_disgust(-5 + -2.5 * fraction)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
@@ -137,7 +138,7 @@
 		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 
 /obj/item/reagent_containers/cup/attackby(obj/item/attacking_item, mob/user, params)
-	var/hotness = attacking_item.is_hot()
+	var/hotness = attacking_item.get_temperature()
 	if(hotness && reagents)
 		reagents.expose_temperature(hotness)
 		to_chat(user, span_notice("You heat [name] with [attacking_item]!"))
@@ -254,6 +255,27 @@
 
 /obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
+
+/obj/item/reagent_containers/cup/beaker/meta/omnizine
+	list_reagents = list(/datum/reagent/medicine/omnizine = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/sal_acid
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/oxandrolone
+	list_reagents = list(/datum/reagent/medicine/oxandrolone = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/pen_acid
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/atropine
+	list_reagents = list(/datum/reagent/medicine/atropine = 180)
+
+/obj/item/reagent_containers/cup/beaker/stabilizing_nanites
+	list_reagents = list(/datum/reagent/medicine/stabilizing_nanites = 50)
+
+/obj/item/reagent_containers/cup/beaker/meta/rezadone
+	list_reagents = list(/datum/reagent/medicine/rezadone = 180)
 
 /obj/item/reagent_containers/cup/beaker/sulfuric
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
@@ -438,7 +460,7 @@
 	volume = 5000
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 5000)
 
-/obj/item/reagent_containers/cup/saline/Moved(atom/OldLoc, Dir)
+/obj/item/reagent_containers/cup/saline/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if (loc && !istype(loc, /obj/machinery/iv_drip/saline))
 		qdel(src)
 		return

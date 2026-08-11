@@ -320,7 +320,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "Zs" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/template_noop)
 

@@ -53,6 +53,9 @@
     $with: ('background-color': hsl(0, 94.7%, 14.9%))
   );
 
+  // Interfaces
+  @include meta.load-css('../interfaces/Uplink.scss');
+
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');

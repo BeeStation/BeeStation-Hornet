@@ -15,7 +15,7 @@
 	///Weakref to the mob that has planted the charge
 	var/datum/weakref/detonator
 	///The only area that the charge is allowed to be planted, and detonated in (defaulting to space)
-	var/area/detonation_area = /area/space/nearstation
+	var/area/detonation_area = /area/misc/space/nearstation
 
 /obj/item/grenade/plastic/ninja/Destroy()
 	detonator = null
@@ -73,6 +73,11 @@
 		return
 	if (isnull(ninja))
 		return
+	var/datum/antagonist/ninja/ninja_antag = IS_SPACE_NINJA(ninja)
+	if (isnull(ninja_antag))
+		return
+	var/datum/objective/plant_explosive/objective = locate() in ninja_antag.objectives
+	objective?.completed = TRUE
 
 /**
  * check_loc

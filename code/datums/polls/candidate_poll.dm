@@ -89,6 +89,7 @@
 			return FALSE
 
 	signed_up += candidate
+	RegisterSignal(candidate, COMSIG_PREQDELETED, PROC_REF(on_candidate_deleted))
 	if(!silent)
 		to_chat(candidate, span_notice(response_messages[POLL_RESPONSE_SIGNUP]))
 		// Sign them up for any other polls with the same mob type
@@ -113,6 +114,7 @@
 		return FALSE
 
 	signed_up -= candidate
+	UnregisterSignal(candidate, COMSIG_PREQDELETED)
 	if(!silent)
 		to_chat(candidate, span_danger(response_messages[POLL_RESPONSE_UNREGISTERED]))
 
@@ -122,6 +124,10 @@
 	for(var/atom/movable/screen/alert/poll_alert/linked_button as anything in alert_buttons)
 		linked_button.update_candidates_number_overlay()
 	return TRUE
+
+/datum/candidate_poll/proc/on_candidate_deleted(datum/candidate)
+	SIGNAL_HANDLER
+	remove_candidate(candidate, TRUE)
 
 /datum/candidate_poll/proc/do_never_for_this_round(mob/candidate)
 	var/list/ignore_list = GLOB.poll_ignore[config.ignore_category]
@@ -140,6 +146,7 @@
 	for(var/mob/candidate as anything in signed_up)
 		if(isnull(candidate.key) || isnull(candidate.client))
 			signed_up -= candidate
+			UnregisterSignal(candidate, COMSIG_PREQDELETED)
 
 /datum/candidate_poll/proc/time_left()
 	return config.poll_time - (world.time - time_started)

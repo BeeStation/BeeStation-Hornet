@@ -251,7 +251,7 @@
 	DA.update_name()
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
-	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+	if(C.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		if(plasma_ignition(6, user))
 			PlasmaBurn()
 	else
@@ -359,19 +359,19 @@
 	note_attachment = "bottom"
 	panel_attachment = "bottom"
 
-/obj/machinery/door/airlock/arrivals_external
+/obj/machinery/door/airlock/external/arrivals
 	name = "arrivals airlock"
-	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	protected_door = TRUE
-	anim_parts = "top=0,16;bottom=0,-16"
-	note_attachment = "bottom"
-	panel_attachment = "bottom"
+
+// Access free external airlocks
+/obj/machinery/door/airlock/external/ruin
 
 /obj/machinery/door/airlock/external/glass
+	name = "external glass airlock"
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/external/glass/ruin
 
 //////////////////////////////////
 /*
@@ -503,6 +503,7 @@
 /obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	new openingoverlaytype(loc)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
 	return (IS_CULTIST(user) && !isAllPowerCut())
@@ -517,23 +518,32 @@
 /obj/machinery/door/airlock/cult/hasPower()
 	return TRUE
 
-/obj/machinery/door/airlock/cult/allowed(mob/living/L)
+/obj/machinery/door/airlock/cult/allowed(mob/living/creature)
 	if(!density)
-		return 1
-	if(friendly || IS_CULTIST(L) || istype(L, /mob/living/simple_animal/shade) || isconstruct(L))
+		return TRUE
+
+	if(friendly || IS_CULTIST(creature) || isshade(creature) || isconstruct(creature))
 		if(!stealthy)
 			new openingoverlaytype(loc)
-		return 1
-	else
-		if(!stealthy)
+		return TRUE
+	return FALSE
+
+/obj/machinery/door/airlock/cult/Bumped(atom/movable/bumper)
+	. = ..()
+	if(!density)
+		return
+
+	if(isliving(bumper))
+		var/mob/living/victim = bumper
+		if(!allowed(victim))
+			if(stealthy)
+				return
 			new /obj/effect/temp_visual/cult/sac(loc)
-			var/atom/throwtarget
-			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-			SEND_SOUND(L, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
-			flash_color(L, flash_color="#960000", flash_time=20)
-			L.Paralyze(40)
-			L.throw_at(throwtarget, 5, 1,src)
-		return 0
+			var/atom/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(victim, src)))
+			SEND_SOUND(victim, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
+			flash_color(victim, flash_color="#960000", flash_time=20)
+			victim.Knockdown(4 SECONDS) // This will still stun you if you hit a wall
+			victim.throw_at(throwtarget, 5, 1, src)
 
 /obj/machinery/door/airlock/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
@@ -552,9 +562,6 @@
 	update_icon()
 
 /obj/machinery/door/airlock/cult/narsie_act()
-	return
-
-/obj/machinery/door/airlock/cult/emp_act(severity)
 	return
 
 /obj/machinery/door/airlock/cult/friendly

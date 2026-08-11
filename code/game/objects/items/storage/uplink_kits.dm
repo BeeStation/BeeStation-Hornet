@@ -137,7 +137,7 @@
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
 			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
-			new /obj/item/reagent_containers/cup/rag(src)
+			new /obj/item/rag(src)
 			new /obj/item/encryptionkey/syndicate(src)
 
 		if("ninja")
@@ -163,7 +163,7 @@
 			new /obj/item/clothing/suit/hooded/carp_costume/spaceproof(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
-			new /obj/item/toy/plush/carpplushie/dehy_carp(src)
+			new /obj/effect/spawner/random/contraband/cayennelottery(src)
 			new /obj/item/slimepotion/slime/sentience(src)
 
 		if("mad_scientist")
@@ -185,7 +185,7 @@
 		if("bee")
 			new /obj/item/paper/fluff/bee_objectives(src) // 0 tc (motivation)
 			new /obj/item/clothing/suit/hooded/bee_costume/syndie(src) // 0 tc
-			new /obj/item/clothing/mask/rat/bee(src) // 0 tc
+			new /obj/item/clothing/mask/animal/small/bee(src) // 0 tc
 			new /obj/item/storage/belt/fannypack/yellow(src) // 0 tc
 			new /obj/item/storage/box/syndie_kit/bee_grenades(src) // 15 tc
 			new /obj/item/reagent_containers/cup/bottle/beesease(src) // 10 tc?
@@ -273,7 +273,7 @@
 /obj/item/storage/box/syndie_kit/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
 	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
-	new /obj/item/melee/classic_baton/retractible_stun/contractor_baton(src)
+	new /obj/item/melee/baton/telescopic/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
 	var/list/item_list = list(
@@ -315,7 +315,7 @@
 	for(var/i in 1 to 5)
 		new /obj/item/paper(src)
 	var/obj/item/paper/construction/redpaper = new /obj/item/paper/construction(src)
-	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
+	redpaper.color = COLOR_RED //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
 	name = "freedom implant box"

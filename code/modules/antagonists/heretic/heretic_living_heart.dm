@@ -21,7 +21,7 @@
 	action = new(organ_parent)
 	action.Grant(organ_parent.owner)
 
-/datum/component/living_heart/Destroy(force, silent)
+/datum/component/living_heart/Destroy(force)
 	QDEL_NULL(action)
 	return ..()
 
@@ -57,7 +57,7 @@
 /datum/component/living_heart/proc/on_organ_replaced(obj/item/organ/source, obj/item/organ/replacement)
 	SIGNAL_HANDLER
 
-	if(replacement.status != ORGAN_ORGANIC || (replacement.organ_flags & ORGAN_SYNTHETIC))
+	if(IS_ROBOTIC_ORGAN(replacement))
 		qdel(src)
 		return
 

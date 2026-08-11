@@ -1,0 +1,23 @@
+{
+	"Name": "Beestation",
+	"Description": "A classic experience, roundstart antagonists are the same type and midrounds are random and ignore the station's state.",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 1,
+		"roundstart_divergence_percent_upper": 1,
+		"supplementary_points_per_ready": 1,
+		"supplementary_points_per_unready": 0,
+		"midround_grace_period": 12000,
+		"midround_linear_delta": 0,
+		"midround_linear_delta_forced": 0.7,
+		"midround_dead_security_delta": 0,
+		"midround_living_delta": 0,
+        "midround_observer_delta": 0,
+        "midround_dead_delta": 0,
+		"midround_light_end_time": 36000,
+		"midround_medium_end_time": 72000,
+		"midround_light_starting_chance": 60,
+		"midround_medium_starting_chance": 30,
+		"midround_heavy_starting_chance": 10,
+		"midround_medium_increase_ratio": 0.5
+	}
+}

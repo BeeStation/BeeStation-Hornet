@@ -162,7 +162,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	apply_status_effect(dna?.species?.bleed_effect || /datum/status_effect/bleeding, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
-		blur_eyes(1)
+		set_eye_blur_if_lower(2 SECONDS)
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
 		to_chat(src, "[span_userdanger("[blood.name] starts rushing out of the open wound!")]")
 
@@ -326,12 +326,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				//adjustOxyLoss(round(0.01 * (BLOOD_VOLUME_NORMAL - blood_volume) * delta_time, 1))
 				if(DT_PROB(2.5, delta_time))
-					blur_eyes(6)
+					set_eye_blur_if_lower(12 SECONDS)
 					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				//adjustOxyLoss(2.5 * delta_time)
 				if(DT_PROB(15, delta_time))
-					blur_eyes(6)
+					set_eye_blur_if_lower(12 SECONDS)
 					Unconscious(rand(3,6))
 					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
@@ -355,7 +355,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
-		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD))
 			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
@@ -501,9 +501,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if (!T)
 		T = get_turf(src)
-	if(T && !isturf(T))
-		T = get_turf(T)
-	if (!T || isgroundlessturf(T))
+	if (!isturf(T) || isgroundlessturf(T))
 		return
 
 	var/list/temp_blood_DNA
@@ -522,6 +520,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		else
 			drop = new(T, get_static_viruses())
 			drop.transfer_mob_blood_dna(src)
+			// ADD GLOW FOR ETHEREAL DRIPS
+			if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+				drop.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
 			return
 
 	// Find a blood decal or create a new one.
@@ -537,6 +538,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
+	// ADD GLOW FOR ETHEREAL SPLATTERS
+	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		B.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)
 
@@ -547,6 +551,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
 	if(!T)
 		T = get_turf(src)
+	if(!isturf(T) || isgroundlessturf(T))
+		return
 	var/obj/effect/decal/cleanable/xenoblood/B = locate() in T.contents
 	if(!B)
 		B = new(T)
@@ -555,6 +561,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 /mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip)
 	if(!T)
 		T = get_turf(src)
+	if(!isturf(T) || isgroundlessturf(T))
+		return
 	var/obj/effect/decal/cleanable/oil/B = locate() in T.contents
 	if(!B)
 		B = new(T)

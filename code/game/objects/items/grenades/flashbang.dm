@@ -98,7 +98,7 @@
 		return
 	do_sparks(rand(5, 9), FALSE, src)
 	playsound(flashbang_turf, 'sound/weapons/flashbang.ogg', 50, TRUE, 8, 0.9)
-	new /obj/effect/dummy/lighting_obj (flashbang_turf, LIGHT_COLOR_WHITE, (flashbang_range + 2), 2, 1)
+	new /obj/effect/dummy/lighting_obj (flashbang_turf, COLOR_WHITE, (flashbang_range + 2), 2, 1)
 	for(var/mob/living/M in get_hearers_in_view(flashbang_range, flashbang_turf))
 		pop(get_turf(M), M)
 	qdel(src)
@@ -122,7 +122,7 @@
 		M.Paralyze(20)
 		M.Knockdown(200)
 		M.soundbang_act(1, 200, 10, 15)
-		if(M.apply_damages(10, 10))
+		if(M.apply_damages(brute = 10, burn = 10))
 			to_chat(M, span_userdanger("The blast from \the [src] bruises and burns you!"))
 
 	// only checking if they're on top of the tile, cause being one tile over will be its own punishment

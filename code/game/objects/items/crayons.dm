@@ -23,17 +23,17 @@
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
+	w_class = WEIGHT_CLASS_TINY
+	attack_verb_continuous = list("attacks", "colours")
+	attack_verb_simple = list("attack", "colour")
+	grind_results = list()
 
 	var/icon_capped
 	var/icon_uncapped
 	var/use_overlays = FALSE
 
 	var/crayon_color = "red"
-	w_class = WEIGHT_CLASS_TINY
-	attack_verb_continuous = list("attacks", "colours")
-	attack_verb_simple = list("attack", "colour")
-	grind_results = list()
-	var/paint_color = "#FF0000" //RGB
+	var/paint_color = COLOR_RED //RGB
 
 	var/drawtype
 	var/text_buffer = ""
@@ -343,8 +343,8 @@
 	var/clicky
 
 	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
-		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 
 	if(pre_noise)
 		audible_message(span_notice("You hear spraying."))
@@ -483,7 +483,7 @@
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
-	paint_color = "#FFFFFF"
+	paint_color = COLOR_WHITE
 	crayon_color = "white"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
 	dye_color = DYE_WHITE
@@ -491,7 +491,7 @@
 /obj/item/toy/crayon/mime
 	icon_state = "crayonmime"
 	desc = "A very sad-looking crayon."
-	paint_color = "#FFFFFF"
+	paint_color = COLOR_WHITE
 	crayon_color = "mime"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/invisible = 1.5)
 	charges = -1
@@ -523,8 +523,8 @@
 	custom_price = 15
 
 /obj/item/storage/crayons/Initialize(mapload)
-	. = ..()
 	create_storage(canhold = list(/obj/item/toy/crayon))
+	return ..()
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
@@ -610,11 +610,6 @@
 			/obj/machinery/disposal,
 		))
 
-/obj/item/toy/crayon/spraycan/add_context_self(datum/screentip_context/context, mob/user, atom/target)
-
-	context.add_left_click_action("Paint")
-	context.add_right_click_action("Copy color")
-
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
 
@@ -631,12 +626,10 @@
 	if(pre_noise || post_noise)
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 	if(can_change_colour)
-		set_painting_tool_color("#C0C0C0")
+		set_painting_tool_color(COLOR_SILVER)
 	update_icon()
 	if(actually_paints)
-		H.lip_style = "spray_face"
-		H.lip_color = paint_color
-		H.update_body()
+		H.update_lips("spray_face", paint_color)
 	var/used = use_charges(user, 10, FALSE)
 	var/fraction = min(1, used / reagents.maximum_volume)
 	reagents.expose(user, VAPOR, fraction * volume_multiplier)
@@ -681,16 +674,14 @@
 		to_chat(target, span_userdanger("[user] sprays [src] into your face!"))
 
 		if(C.client)
-			C.blur_eyes(3)
-			C.adjust_blindness(1)
+			C.set_eye_blur_if_lower(6 SECONDS)
+			C.adjust_temp_blindness(2 SECONDS)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.set_confusion_if_lower(3 SECONDS)
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
-			var/mob/living/carbon/human/H = C
-			H.lip_style = "spray_face"
-			H.lip_color = paint_color
-			H.update_body()
+			var/mob/living/carbon/human/human_target = C
+			human_target.update_lips("spray_face", paint_color)
 
 		. = use_charges(user, 10, FALSE)
 		var/fraction = min(1, . / reagents.maximum_volume)
@@ -759,7 +750,12 @@
 		var/obj/item/bodypart/limb = target
 		if(!IS_ORGANIC_LIMB(limb))
 			var/list/skins = list()
-			var/static/list/style_list_icons = list("standard" = 'icons/mob/augmentation/augments.dmi', "engineer" = 'icons/mob/augmentation/augments_engineer.dmi', "security" = 'icons/mob/augmentation/augments_security.dmi', "mining" = 'icons/mob/augmentation/augments_mining.dmi')
+			var/static/list/style_list_icons = list(
+				"standard" = 'icons/mob/augmentation/augments.dmi',
+				"engineer" = 'icons/mob/augmentation/augments_engineer.dmi',
+				"security" = 'icons/mob/augmentation/augments_security.dmi',
+				"mining" = 'icons/mob/augmentation/augments_mining.dmi'
+			)
 			for(var/skin_option in style_list_icons)
 				var/image/part_image = image(icon = style_list_icons[skin_option], icon_state = "[limb.limb_id]_[limb.body_zone]")
 				if(limb.aux_zone) //Hands
@@ -823,7 +819,7 @@
 	charges = 100
 	reagent_contents = list(/datum/reagent/clf3 = 1)
 	actually_paints = FALSE
-	paint_color = "#000000"
+	paint_color = COLOR_BLACK
 
 /obj/item/toy/crayon/spraycan/lubecan
 	name = "slippery spraycan"
@@ -848,7 +844,7 @@
 	use_overlays = FALSE
 
 	can_change_colour = FALSE
-	paint_color = "#FFFFFF" //RGB
+	paint_color = COLOR_WHITE
 
 	pre_noise = FALSE
 	post_noise = FALSE

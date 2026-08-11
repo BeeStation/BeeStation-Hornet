@@ -1,6 +1,6 @@
 //From NSV13
 //Credit to oraclestation for the idea! This just a recode...
-// Recode CanAllowThrough() at some point, it won't allow ridden vehicles
+// Recode CanAllowThrough() at some point, it won't allow ridden vehicles //no
 
 /obj/machinery/turnstile
 	name = "turnstile"
@@ -161,7 +161,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -285,9 +285,13 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	// Let everything through in 1 direction
+
+	// Nerds get to go one way
 	if(mover.dir == dir)
-		return TRUE
+		// But only if they're actually facing the turnstile
+		if(is_source_facing_target(mover, src))
+			return TRUE
+
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
 	// - Mobs with security access that are buckled to a vehicle
@@ -416,7 +420,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	crime_list = list()
 	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 	message_admins(span_boldannounce("Failed to read the space_law config file! Defaulting to hardcoded datums.")) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+	for (var/datum/crime/crime_path as anything in subtypesof(/datum/crime))
 		// Ignore this crime, it is abstract
 		if (isnull(initial(crime_path.name)))
 			continue
@@ -589,26 +593,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	if(desired_crime)
 		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
 		if(target_record)
-			target_record.wanted_status = WANTED_PRISONER
+			target_record.set_wanted_status(user, WANTED_PRISONER)
 			var/datum/crime_record/new_crime = new(desired_crime, null, "General Populace")
 			target_record.crimes += new_crime
 			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [target_record.name] by [key_name(user)]", INVESTIGATE_RECORDS)
 			say("Criminal record for [target_record.name] successfully updated.")
 			update_matching_security_huds(target_record.name)
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_WANTED_STATUS_CHANGED, target_record, user, target_record.wanted_status)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
 	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 600 ] minutes.")
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/600]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>Nanotrasen Disciplinary council.</p>")
 	paperwork.update_appearance()
-	desired_name = null
-	desired_details = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	next_print = world.time + 5 SECONDS
-
-
-
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PRISONER_REGISTERED, user, desired_name, desired_crime, desired_sentence)
+	desired_name = null
+	desired_details = null
 
 /obj/machinery/genpop_interface/ui_act(action, params)
 	if(buildstage != 2 & panel_open)
@@ -741,7 +744,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 
 		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)
 		if(R)
-			R.wanted_status = WANTED_DISCHARGED
+			R.set_wanted_status(src, WANTED_DISCHARGED)
 
 		if(isliving(loc))
 			to_chat(loc, span_boldnotice("You have served your sentence! You may now exit prison through the turnstiles and collect your belongings."))

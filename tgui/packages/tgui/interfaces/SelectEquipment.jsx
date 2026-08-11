@@ -1,8 +1,18 @@
-import { filter, map, sortBy, uniq } from 'common/collections';
-import { createSearch } from 'common/string';
+import { sortBy, uniq } from 'es-toolkit';
+import { filter, map } from 'es-toolkit/compat';
+import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Input, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
 // here's an important mental define:
@@ -32,7 +42,7 @@ export const SelectEquipment = (props) => {
   ]);
   const [tab] = useOutfitTabs(categories);
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const searchFilter = createSearch(
     searchText,
     (entry) => entry.name + entry.path,
@@ -43,9 +53,11 @@ export const SelectEquipment = (props) => {
       filter(outfits, (entry) => entry.category === tab),
       searchFilter,
     ),
-    (entry) => !entry.favorite,
-    (entry) => !entry.priority,
-    (entry) => entry.name,
+    [
+      (entry) => !entry.favorite,
+      (entry) => !entry.priority,
+      (entry) => entry.name,
+    ],
   );
 
   const getOutfitEntry = (current_outfit) =>
@@ -65,13 +77,13 @@ export const SelectEquipment = (props) => {
                   autoFocus
                   placeholder="Search"
                   value={searchText}
-                  onInput={(e, value) => setSearchText(value)}
+                  onChange={(e, value) => setSearchText(value)}
                 />
               </Stack.Item>
               <Stack.Item>
                 <DisplayTabs categories={categories} />
               </Stack.Item>
-              <Stack.Item mt={0} grow={1} basis={0}>
+              <Stack.Item grow={1} basis={0}>
                 <OutfitDisplay entries={visibleOutfits} currentTab={tab} />
               </Stack.Item>
             </Stack>
@@ -90,6 +102,10 @@ export const SelectEquipment = (props) => {
                     m={0}
                     src={`data:image/jpeg;base64,${icon64}`}
                     height="100%"
+                    style={{
+                      msInterpolationMode: 'nearest-neighbor',
+                      imageRendering: 'pixelated',
+                    }}
                   />
                 </Section>
               </Stack.Item>

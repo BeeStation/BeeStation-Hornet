@@ -49,14 +49,14 @@
 		//Coolsound for indication
 		playsound(get_turf(target), 'sound/magic/mandswap.ogg', 50, TRUE)
 	//swap damage
-		var/a_damage = victim_a.get_damage_amount(damage_type)
-		var/b_damage = victim_b.get_damage_amount(damage_type)
+		var/a_damage = victim_a.get_current_damage_of_type(damage_type)
+		var/b_damage = victim_b.get_current_damage_of_type(damage_type)
 
-		victim_a.apply_damage_type(a_damage*-1, damage_type) //Heal
-		victim_b.apply_damage_type(b_damage*-1, damage_type)
+		victim_a.heal_damage_type(a_damage*1, damage_type) //Heal
+		victim_b.heal_damage_type(b_damage*1, damage_type)
 
-		victim_a.apply_damage_type(b_damage, damage_type) //Apply
-		victim_b.apply_damage_type(a_damage, damage_type)
+		victim_a.apply_damage(b_damage, damage_type) //Apply
+		victim_b.apply_damage(a_damage, damage_type)
 
 		victim_a.updatehealth()
 		victim_b.updatehealth()

@@ -1,28 +1,28 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "f" = (
 /turf/closed/wall/r_wall,
-/area/space)
+/area/misc/space)
 "n" = (
 /turf/open/floor/iron,
-/area/space)
+/area/misc/space)
 "q" = (
 /turf/open/floor/monofloor{
 	dir = 1
 	},
-/area/space)
+/area/misc/space)
 "D" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/asteroid,
-/area/space)
+/area/misc/space)
 "S" = (
 /turf/open/floor/plating/asteroid,
-/area/space)
+/area/misc/space)
 "U" = (
 /turf/open/floor/monofloor,
-/area/space)
+/area/misc/space)
 "V" = (
 /turf/open/lava,
-/area/space)
+/area/misc/space)
 
 (1,1,1) = {"
 S

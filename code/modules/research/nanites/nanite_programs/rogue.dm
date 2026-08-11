@@ -77,7 +77,7 @@
 			if(2)
 				host_mob.adjust_confusion(10 SECONDS)
 			if(3)
-				host_mob.drowsyness += 10
+				host_mob.adjust_drowsiness(20 SECONDS)
 			if(4)
 				host_mob.adjust_slurring(20 SECONDS)
 
@@ -92,12 +92,12 @@
 /datum/nanite_program/skin_decay/active_effect()
 	host_mob.adjustBruteLoss(0.25)
 	if(prob(5)) //itching
-		var/picked_bodypart = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
-		var/obj/item/bodypart/bodypart = host_mob.get_bodypart(picked_bodypart)
-		var/can_scratch = !host_mob.incapacitated() && get_location_accessible(host_mob, picked_bodypart)
+		var/obj/item/bodypart/bodypart = host_mob.get_bodypart(host_mob.get_random_valid_zone())
+		if(!isnull(bodypart))
+			var/can_scratch = !host_mob.incapacitated && get_location_accessible(host_mob, bodypart.body_zone)
 
-		host_mob.visible_message("[can_scratch ? span_warning("[host_mob] scratches [host_mob.p_their()] [bodypart.name].") : ""]",\
-		span_warning("Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]"))
+			host_mob.visible_message("[can_scratch ? span_warning("[host_mob] scratches [host_mob.p_their()] [bodypart.name].") : ""]",\
+			span_warning("Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]"))
 
 //Generic nerve-affecting programs will decay into this
 /datum/nanite_program/nerve_decay

@@ -3,8 +3,7 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
-	status = ORGAN_ROBOTIC
-	organ_flags = NONE
+	organ_flags = ORGAN_ROBOTIC // weird?
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
 
@@ -49,15 +48,12 @@
 /obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
-	var/image/holder = owner.hud_list[GLAND_HUD]
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(active_mind_control)
-		holder.icon_state = "hudgland_active"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_active")
 	else if(mind_control_uses)
-		holder.icon_state = "hudgland_ready"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_ready")
 	else
-		holder.icon_state = "hudgland_spent"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_spent")
 
 /obj/item/organ/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
@@ -67,7 +63,7 @@
 	to_chat(owner, "[span_mindcontrol("[command]")]")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
-	deadchat_broadcast(span_deadsay("[span_name("[user]")] sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
+	deadchat_broadcast(" sent an abductor mind control message to [span_name("[owner]")]: [span_boldmessage("[command]")]", span_name("[user]"), follow_target = owner, turf_target = get_turf(owner), message_type = DEADCHAT_REGULAR)
 	update_gland_hud()
 	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command
@@ -85,9 +81,9 @@
 	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
+	gland_owner.mind?.remove_antag_datum(/datum/antagonist/abductee)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	gland_owner?.mind?.remove_antag_datum(/datum/antagonist/abductee)
-	hud.remove_from_hud(gland_owner)
+	hud.remove_atom_from_hud(gland_owner)
 	clear_mind_control()
 
 /obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
@@ -98,7 +94,7 @@
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(gland_owner)
+	hud.add_atom_to_hud(gland_owner)
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
@@ -349,7 +345,7 @@
 /obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)
 	owner.reagents.add_reagent(chem_to_add, 2)
-	owner.adjustToxLoss(-2, TRUE, TRUE)
+	owner.adjustToxLoss(-2, forced = TRUE)
 	..()
 
 /obj/item/organ/heart/gland/plasma
@@ -371,5 +367,5 @@
 	owner.visible_message(span_danger("[owner] vomits a cloud of plasma!"))
 	var/turf/open/T = get_turf(owner)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=50;TEMP=[T20C]")
+		T.atmos_spawn_air("[GAS_PLASMA]=50;TEMP=[T20C]")
 	owner.vomit()

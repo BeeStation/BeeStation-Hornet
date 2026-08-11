@@ -30,6 +30,8 @@
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
 	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(user, damage_radius))
+		if(nearby_living.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+			continue
 		nearby_living.apply_damage(30, BRUTE)
 
 /datum/action/spell/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 0)
@@ -47,13 +49,14 @@
 
 	return things
 
-// For the actual cast, we microstun people nearby and pull them in
 /datum/action/spell/aoe/void_pull/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
+
+	if(victim.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+		return
 	// If the victim's within the stun radius, they're stunned / knocked down
 	if(get_dist(victim, caster) < stun_radius)
 		victim.AdjustKnockdown(3 SECONDS)
 		victim.AdjustParalyzed(0.5 SECONDS)
-
 	// Otherwise, they take a few steps closer
 	for(var/i in 1 to 3)
 		victim.forceMove(get_step_towards(victim, caster))

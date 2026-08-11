@@ -1,4 +1,5 @@
 /datum/plant_gene
+	abstract_type = /datum/plant_gene
 	var/name
 	var/mutability_flags = PLANT_GENE_EXTRACTABLE | PLANT_GENE_REMOVABLE ///These flags tells the genemodder if we want the gene to be extractable, only removable or neither.
 
@@ -27,6 +28,7 @@
 
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
 /datum/plant_gene/core
+	abstract_type = /datum/plant_gene/core
 	var/value
 
 /datum/plant_gene/core/get_name()
@@ -320,12 +322,12 @@
 
 /datum/plant_gene/trait/glow/white
 	name = "White Bioluminescence"
-	glow_color = "#FFFFFF"
+	glow_color = COLOR_WHITE
 
 /datum/plant_gene/trait/glow/red
 	//Colored versions of bioluminescence.
 	name = "Red Bioluminescence"
-	glow_color = "#FF3333"
+	glow_color = COLOR_RED_LIGHT
 
 /datum/plant_gene/trait/glow/yellow
 	//not the disgusting glowshroom yellow hopefully

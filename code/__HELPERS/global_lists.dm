@@ -4,9 +4,9 @@
 
 /proc/make_datum_references_lists()
 	//hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hairstyles_list, GLOB.hairstyles_male_list, GLOB.hairstyles_female_list)
 	//facial hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hairstyles_list, GLOB.facial_hairstyles_male_list, GLOB.facial_hairstyles_female_list)
 	//underwear
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
@@ -29,13 +29,9 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines_animated, GLOB.animated_spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_roundstart_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_roundstart_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wingsopen, GLOB.moth_wingsopen_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
@@ -59,19 +55,15 @@
 	for(var/spath in subtypesof(/datum/species))
 		var/datum/species/S = new spath()
 		GLOB.species_list[S.id] = spath
-	sort_list(GLOB.species_list)
+	sort_list(GLOB.species_list, /proc/cmp_typepaths_asc)
 
 	//Surgeries
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
-	sort_list(GLOB.surgeries_list)
+	sort_list(GLOB.surgeries_list, /proc/cmp_typepaths_asc)
 	GLOB.emote_list = init_emote_list()
 
-	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
-	for(var/path in subtypesof(/datum/sprite_accessory/hair_gradient))
-		var/datum/sprite_accessory/hair_gradient/H = new path()
-		GLOB.hair_gradients_list[H.name] = H
-
+	init_hair_gradients()
 	// Keybindings
 	init_keybindings()
 
@@ -80,11 +72,18 @@
 
 	init_religion_sects()
 
+/// Hair Gradients - Initialise all /datum/sprite_accessory/gradient into an list indexed by gradient-style name
+/proc/init_hair_gradients()
+	for(var/path in subtypesof(/datum/sprite_accessory/gradient))
+		var/datum/sprite_accessory/gradient/gradient = new path()
+		if(gradient.gradient_category  & GRADIENT_APPLIES_TO_HAIR)
+			GLOB.hair_gradients_list[gradient.name] = gradient
+		if(gradient.gradient_category & GRADIENT_APPLIES_TO_FACIAL_HAIR)
+			GLOB.facial_hair_gradients_list[gradient.name] = gradient
+
 /// Inits crafting recipe lists
 /proc/init_crafting_recipes(list/crafting_recipes)
-	for(var/path in subtypesof(/datum/crafting_recipe))
-		if(ispath(path, /datum/crafting_recipe/stack))
-			continue
+	for(var/path in valid_subtypesof(/datum/crafting_recipe))
 		var/datum/crafting_recipe/recipe = new path()
 		var/is_cooking = (recipe.category in GLOB.crafting_category_food)
 		recipe.reqs = sort_list(recipe.reqs, GLOBAL_PROC_REF(cmp_crafting_req_priority))
@@ -222,7 +221,7 @@
 /proc/init_subtypes(prototype, list/L)
 	if(!istype(L))
 		L = list()
-	for(var/path in subtypesof(prototype))
+	for(var/path in valid_subtypesof(prototype))
 		L += new path()
 	return L
 

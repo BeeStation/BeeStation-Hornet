@@ -218,17 +218,6 @@
 	desc = "The air around you is hazardously thick. A fire suit would protect you."
 	icon_state = "highpressure"
 
-/atom/movable/screen/alert/blind
-	name = "Blind"
-	desc = "You can't see! This may be caused by a genetic defect, eye trauma, being unconscious, \
-or something covering your eyes."
-	icon_state = "blind"
-
-/atom/movable/screen/alert/high
-	name = "High"
-	desc = "Whoa man, you're tripping balls! Careful you don't get addicted... if you aren't already."
-	icon_state = "high"
-
 /atom/movable/screen/alert/hypnosis
 	name = "Hypnosis"
 	desc = "Something's hypnotizing you, but you're not really sure about what."
@@ -290,13 +279,20 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/fire/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist() || L != owner)
+	if(!isliving(owner))
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.mobility_flags & MOBILITY_MOVE)
-		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
+	var/mob/living/living_owner = owner
+	if(!living_owner.can_resist())
+		return
 
+	living_owner.changeNext_move(CLICK_CD_RESIST)
+	if(!(living_owner.mobility_flags & MOBILITY_MOVE))
+		return
+
+	return handle_stop_drop_roll(owner)
+
+/atom/movable/screen/alert/fire/proc/handle_stop_drop_roll(mob/living/roller)
+	return roller.resist_fire()
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
@@ -735,7 +731,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		if (time_left_overlay)
 			cut_overlay(time_left_overlay)
 		time_left_overlay = new
-		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[CEILING(timeleft / (1 SECONDS), 1)]</b></span>")
+		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[ceil(timeleft / (1 SECONDS))]</b></span>")
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 19)
 		add_overlay(time_left_overlay)
 	else

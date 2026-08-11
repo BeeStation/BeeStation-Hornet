@@ -46,7 +46,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
-						mob_data["job"] = H.mind.assigned_role
+						mob_data["job"] = H.mind.assigned_role.title
 					else
 						mob_data["job"] = "Unknown"
 					mob_data["species"] = H.dna.species.name
@@ -112,7 +112,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 	var/list/greentexters = list()
 
-	for(var/datum/antagonist/A as() in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 
@@ -135,7 +135,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		var/greentexted = TRUE
 
 		if(A.objectives.len)
-			for(var/datum/objective/O as() in A.objectives)
+			for(var/datum/objective/O as anything in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
 
 				if (result == "FAIL")
@@ -152,7 +152,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 						greentexters |= C
 
 	for (var/client/C in greentexters)
-		C.process_greentext()
+		C.give_award(/datum/award/achievement/misc/greentext, C.mob)
 
 
 
@@ -214,12 +214,12 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		if(C)
 
 			C?.process_endround_metacoin()
-			C?.playtitlemusic(40)
+			C?.play_title_music(volume_multiplier = 0.5)
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
-					for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+					for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
 						if(CO.check_completion())
@@ -241,10 +241,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		for(var/m in GLOB.player_list)
-			var/mob/M = m
-			H.add_hud_to(M)
+	for(var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antagonist_hud in GLOB.active_alternate_appearances)
+		for(var/mob/player as anything in GLOB.player_list)
+			antagonist_hud.show_to(player)
 
 	CHECK_TICK
 
@@ -263,7 +262,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		if(!(A.name in total_antagonists))
@@ -273,7 +272,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	//Process veteran achievements
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		var/hours = round(C?.get_exp_living(TRUE)/60)
 		if(hours > 1000)
 			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
@@ -364,7 +363,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		parts += "[GLOB.TAB]Survival Rate: <B>[popcount[POPCOUNT_SURVIVORS]] ([PERCENT(popcount[POPCOUNT_SURVIVORS]/total_players)]%)</B>"
 		if(SSblackbox.first_death)
 			var/list/ded = SSblackbox.first_death
-			if(ded.len)
+			if(length(ded))
 				parts += "[GLOB.TAB]First Death: <b>[ded["name"]], [ded["role"]], at [ded["area"]]. Damage taken: [ded["damage"]].[ded["last_words"] ? " Their last words were: \"[ded["last_words"]]\"" : ""]</b>"
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
@@ -372,43 +371,22 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	parts += "[GLOB.TAB]Dynamic Storyteller: <b>[SSdynamic.current_storyteller?["Name"] || "None"]</b>"
 
 	// Roundstart
-	var/list/roundstart_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.roundstart_executed_rulesets)
-		if(roundstart_rule_counts[rule])
-			roundstart_rule_counts[rule]++
-		else
-			roundstart_rule_counts[rule] = 1
+	if(length(SSdynamic.gamemode_executed_rulesets))
+		parts += "[GLOB.TAB]Gamemode:"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
-	if(length(roundstart_rule_counts))
-		parts += "[GLOB.TAB]Executed roundstart rulesets:"
-		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
+	// Supplementary
+	if(length(SSdynamic.executed_supplementary_rulesets))
+		parts += "[GLOB.TAB]Supplementary Antagonists:"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_supplementary_rulesets)
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
 	// Midround
-	var/list/midround_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
-		if(midround_rule_counts[rule])
-			midround_rule_counts[rule]++
-		else
-			midround_rule_counts[rule] = 1
-
-	if(length(midround_rule_counts))
-		parts += "[GLOB.TAB]Executed midround rulesets:"
-		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
-
-	// Latejoin
-	var/list/latejoin_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.latejoin_executed_rulesets)
-		if(latejoin_rule_counts[rule])
-			latejoin_rule_counts[rule]++
-		else
-			latejoin_rule_counts[rule] = 1
-
-	if(length(latejoin_rule_counts))
-		parts += "[GLOB.TAB]Executed latejoin rulesets:"
-		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
+	if(length(SSdynamic.midround_executed_rulesets))
+		parts += "[GLOB.TAB]Notable Round Events:"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
+			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
 	return parts.Join("<br>")
 
@@ -459,7 +437,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+				for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] [span_greentext("<B>Success!</B>")]<br>"
 					else
@@ -546,7 +524,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		/datum/bank_account/department,
 		/datum/bank_account/remote,
 	))
-	for(var/datum/bank_account/current_acc as anything in SSeconomy.bank_accounts)
+	for(var/datum/bank_account/current_acc as anything in flatten_list(SSeconomy.bank_accounts_by_id))
 		if(typecache_bank[current_acc.type])
 			continue
 		station_vault += current_acc.account_balance
@@ -605,7 +583,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			continue
 		all_teams |= A
 
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		all_antagonists |= A
@@ -683,13 +661,13 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
 			custom_title = I.assignment // get the custom title
-		if(custom_title == mind.assigned_role) // non-custom title, lame
+		if(custom_title == mind.assigned_role.title) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
 			custom_title = R.rank // get a custom title from manifest
-		if(custom_title == mind.assigned_role) // lame...
+		if(custom_title == mind.assigned_role.title) // lame...
 			return
 
 	if(custom_title)
@@ -697,16 +675,11 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role || ply.special_role)
-		if(ply.assigned_role != "Unassigned")
-			jobtext = ply.assigned_role
-		if(!jobtext)
-			jobtext = ply.special_role
-		if(jobtext)
-			jobtext = " the <b>[jobtext]</b>"
+	if(!is_unassigned_job(ply.assigned_role))
+		jobtext = " the <b>[ply.assigned_role.title]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
-	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and [ply.current?.p_they() || "they"]"
+	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.cryoed)
 		text += " [span_bluetext("entered cryosleep")]"
 	else if(ply.current)
@@ -739,7 +712,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		return
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective as() in objectives)
+	for(var/datum/objective/objective as anything in objectives)
 		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 
@@ -825,46 +798,52 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	discordmsg += "Dynamic Storyteller: [SSdynamic.current_storyteller?["Name"] || "None"]\n"
 
 	// Roundstart
-	var/list/roundstart_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.roundstart_executed_rulesets)
-		if(roundstart_rule_counts[rule])
-			roundstart_rule_counts[rule]++
-		else
-			roundstart_rule_counts[rule] = 1
+	if(length(SSdynamic.gamemode_executed_rulesets))
+		discordmsg += "Gamemode:\n"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
-	if(length(roundstart_rule_counts))
-		discordmsg += "Executed roundstart rulesets:\n"
-		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
-			discordmsg += "[rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+	// Supplementary
+	if(length(SSdynamic.executed_supplementary_rulesets))
+		discordmsg += "Supplementary Antagonists:\n"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_supplementary_rulesets)
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
 	// Midround
-	var/list/midround_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
-		if(midround_rule_counts[rule])
-			midround_rule_counts[rule]++
+	if(length(SSdynamic.midround_executed_rulesets))
+		discordmsg += "Notable Round Events:\n"
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
+			if (rule.removed)
+				discordmsg += "- ~~**[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]~~\n"
+			else
+				discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
+
+	// Unaccounted for antagonists
+	var/list/unaccounted_antagonists = list()
+	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
+		if (antagonist.spawning_ruleset || !antagonist.name || !antagonist.owner)
+			continue
+		if (unaccounted_antagonists[antagonist.name])
+			unaccounted_antagonists[antagonist.name] = unaccounted_antagonists[antagonist.name] + 1
 		else
-			midround_rule_counts[rule] = 1
+			unaccounted_antagonists[antagonist.name] = 1
 
-	if(length(midround_rule_counts))
-		discordmsg += "Executed midround rulesets:\n"
-		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
-			discordmsg += "[rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
-
-	// Latejoin
-	var/list/latejoin_rule_counts = list()
-	for(var/datum/dynamic_ruleset/rule in SSdynamic.latejoin_executed_rulesets)
-		if(latejoin_rule_counts[rule])
-			latejoin_rule_counts[rule]++
-		else
-			latejoin_rule_counts[rule] = 1
-
-	if(length(latejoin_rule_counts))
-		discordmsg += "Executed latejoin rulesets:\n"
-		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
-			discordmsg += "[rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
+	if (length(unaccounted_antagonists))
+		discordmsg += "Other Antagonists:\n"
+		for (var/antag_name, count in unaccounted_antagonists)
+			if (count > 1)
+				discordmsg += "- **[antag_name]** (x[count]):\n"
+			else
+				discordmsg += "- **[antag_name]**:\n"
 
 	var/list/ded = SSblackbox.first_death
-	if(ded)
+	if(length(ded))
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
 		var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
 		discordmsg += "[last_words]\n"

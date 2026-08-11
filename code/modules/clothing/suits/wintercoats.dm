@@ -115,7 +115,7 @@
 	inhand_icon_state = "coatdetective"
 	allowed = list(
 		/obj/item/tank/internals,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/baton,
 		/obj/item/gun/ballistic/revolver/detective,
 		/obj/item/detective_scanner,
 		/obj/item/flashlight,
@@ -217,7 +217,7 @@
 		/obj/item/dnainjector,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/paper,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
@@ -248,6 +248,32 @@
 /obj/item/clothing/head/hooded/winterhood/medical
 	icon_state = "winterhood_medical"
 
+// Chief Medical Officer
+/obj/item/clothing/suit/hooded/wintercoat/medical/cmo
+	name = "chief medical officer's winter coat"
+	desc = "A winter coat in a vibrant shade of blue with a small silver caduceus instead of a plastic zipper tab. The normal liner is replaced with an exceptionally thick, soft layer of fur."
+	icon_state = "coatcmo"
+	inhand_icon_state = null
+	armor_type = /datum/armor/medical_cmo
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/cmo
+
+/datum/armor/medical_cmo
+	bio = 50
+	fire = 20
+	acid = 30
+
+/obj/item/clothing/suit/hooded/wintercoat/medical/cmo/Initialize(mapload)
+	. = ..()
+	allowed += list(
+		/obj/item/melee/baton/telescopic,
+	)
+
+/obj/item/clothing/head/hooded/winterhood/medical/cmo
+	desc = "A blue winter coat hood."
+	icon_state = "hood_cmo"
+	armor_type = /datum/armor/medical_cmo
+
+
 /obj/item/clothing/suit/hooded/wintercoat/virologist
 	name = "virology winter coat"
 	icon_state = "coatviro"
@@ -256,7 +282,7 @@
 		/obj/item/analyzer,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/paper,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
@@ -302,7 +328,7 @@
 		/obj/item/analyzer,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/paper,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
@@ -349,7 +375,7 @@
 		/obj/item/analyzer,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,
-		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/paper,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
@@ -384,7 +410,7 @@
 	name = "science winter coat"
 	icon_state = "coatscience"
 	inhand_icon_state = "coatscience"
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/cup/bottle, /obj/item/reagent_containers/cup/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/baton/telescopic, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	armor_type = /datum/armor/wintercoat_science
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
 

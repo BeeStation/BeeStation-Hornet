@@ -30,7 +30,7 @@
 	//Landmarking
 	landmark = new(component_parent?.parent)
 
-/datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/sentient/Destroy(force)
 	QDEL_NULL(sentience)
 	QDEL_NULL(mob_spawner)
 	QDEL_NULL(landmark)
@@ -41,13 +41,15 @@
 		sentience.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
-	var/datum/poll_config/config = new()
-	config.question = "Do you want to play as the maleviolent force inside the [component_parent?.parent]?"
-	config.check_jobban = ROLE_SENTIENT_XENOARTIFACT
-	config.poll_time = 10 SECONDS
-	config.jump_target = component_parent?.parent
-	config.role_name_text = "[component_parent?.parent]"
-	config.alert_pic = component_parent?.parent
+	var/datum/poll_config/config = new(
+		question = "Do you want to play as the malevolent force inside the [component_parent?.parent]?",
+		check_jobban = ROLE_SENTIENT_XENOARTIFACT,
+		poll_time = 10 SECONDS,
+		jump_target = component_parent?.parent,
+		role_name_text = "[component_parent?.parent]",
+		alert_pic = component_parent?.parent,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = component_parent?.parent)
 	if(candidate && component_parent?.parent)
 		if(istype(candidate) && candidate.ckey)
@@ -78,7 +80,7 @@
 	to_chat(sentience, span_notice("Your traits are: \n"))
 	var/trait_dialogue = ""
 	for(var/index in component_parent.traits_catagories)
-		for(var/datum/xenoartifact_trait/T as() in component_parent.traits_catagories[index])
+		for(var/datum/xenoartifact_trait/T as anything in component_parent.traits_catagories[index])
 			to_chat(sentience, span_notice("[T.label_name]\n"))
 			var/trait_name = T.label_name
 			trait_name = replacetext(trait_name, "Δ", "delta")
@@ -101,7 +103,7 @@
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
 	name = "Sentient Xenoartifact"
-	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
+	short_desc = "You're a malevolent sentience, possessing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
 	ghost_usable = TRUE

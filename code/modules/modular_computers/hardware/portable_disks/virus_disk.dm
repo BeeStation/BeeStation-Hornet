@@ -184,12 +184,8 @@
 		return
 	var/lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	to_chat(user, span_notice("The unlock code to the target is: [lock_code]"))
-	var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
-	if(!hidden_uplink)
-		hidden_uplink = target.AddComponent(/datum/component/uplink)
-		hidden_uplink.unlock_code = lock_code
-	else
-		hidden_uplink.hidden_crystals += hidden_uplink.telecrystals //Temporarially hide the PDA's crystals, so you can't steal telecrystals.
+	var/datum/component/uplink/hidden_uplink = target.AddComponent(/datum/component/uplink, directive_flags = NONE)
+	hidden_uplink.unlock_code = lock_code
 	hidden_uplink.telecrystals = telecrystals
 	telecrystals = 0
 	hidden_uplink.active = TRUE

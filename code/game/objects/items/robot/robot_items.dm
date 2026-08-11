@@ -2,8 +2,8 @@
 						Cyborg Spec Items
 ***********************************************************************/
 /obj/item/borg
+	abstract_type = /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
-
 
 /obj/item/borg/stun
 	name = "electrically-charged arm"
@@ -973,7 +973,6 @@
 	. = ..()
 	var/mutable_appearance/arm = mutable_appearance(icon = icon, icon_state = "borg_beaker_apparatus_arm")
 	if(stored)
-		COMPILE_OVERLAYS(stored)
 		stored.pixel_x = 0
 		stored.pixel_y = 0
 		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
@@ -1024,7 +1023,6 @@
 	. = ..()
 	var/mutable_appearance/arm = mutable_appearance(icon, "borg_hardware_apparatus_arm1")
 	if(stored)
-		COMPILE_OVERLAYS(stored)
 		stored.pixel_x = -3
 		stored.pixel_y = 0
 		if(!istype(stored, /obj/item/circuitboard))
@@ -1060,7 +1058,7 @@
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
-	/obj/item/clothing/mask/cigarette,
+	/obj/item/cigarette,
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/reagent_containers/cup/beaker,
 	/obj/item/reagent_containers/cup/bottle,

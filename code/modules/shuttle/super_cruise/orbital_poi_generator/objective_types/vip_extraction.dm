@@ -132,4 +132,4 @@
 	belt = /obj/item/storage/belt/utility/full/engi
 	id = /obj/item/card/id
 	head = /obj/item/clothing/head/helmet
-	l_hand = /obj/item/melee/baton/loaded
+	l_hand = /obj/item/melee/baton/security/loaded

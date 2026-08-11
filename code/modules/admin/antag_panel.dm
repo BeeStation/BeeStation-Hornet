@@ -22,7 +22,7 @@ GLOBAL_VAR(antag_prototypes)
 		qdel(new_antag)
 
 /datum/antagonist/proc/antag_panel()
-	var/antag_panel_title = "<span style='font-size: 20px; margin: 8px; height: 0px; display: block;'><b> Antagonist Info : [name];</b></span>"
+	var/antag_panel_title = "<span style='font-size: 20px; margin: 8px; height: 0px; display: block;'><b> Antagonist Info : [name]</b></span>"
 	var/list/commands = list()
 	for(var/command in get_admin_commands())
 		commands += "<a href='byond://?src=[REF(src)];command=[command]'>[command]</a>"
@@ -94,7 +94,7 @@ GLOBAL_VAR(antag_prototypes)
 
 	var/out = "[TOOLTIP_CSS_SETUP]<span style='font-size: 24px; margin: 8px; height: 0px; display: block;'><B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]</span><br>"
 	out += " - Mind currently owned by key: [full_key()] [active?"(synced)":"(not synced)"]<br>"
-	out += " - Assigned role: [assigned_role]. <a href='byond://?src=[REF(src)];role_edit=1'>Edit</a><br>"
+	out += " - Assigned role: [assigned_role.title]. <a href='byond://?src=[REF(src)];role_edit=1'>Edit</a><br>"
 	out += " - Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
 
 	var/special_statuses = get_special_statuses()
@@ -102,15 +102,16 @@ GLOBAL_VAR(antag_prototypes)
 		out += " - Special Statuses: [special_statuses]<br>"
 
 	//// Initializing antag panel texts ////
-	if(!GLOB.antag_prototypes)
+	if(!length(GLOB.antag_prototypes))
 		GLOB.antag_prototypes = list()
 		for(var/antag_type in subtypesof(/datum/antagonist))
-			var/datum/antagonist/A = new antag_type
-			var/cat_id = A.antagpanel_category
+			var/datum/antagonist/each_antag = new antag_type
+			GLOB.active_antagonists -= each_antag // This is automatically added by /datum/antagonist/New - manually removing this.
+			var/cat_id = each_antag.antagpanel_category
 			if(!GLOB.antag_prototypes[cat_id])
-				GLOB.antag_prototypes[cat_id] = list(A)
+				GLOB.antag_prototypes[cat_id] = list(each_antag)
 			else
-				GLOB.antag_prototypes[cat_id] += A
+				GLOB.antag_prototypes[cat_id] += each_antag
 	sortTim(GLOB.antag_prototypes,GLOBAL_PROC_REF(cmp_text_asc),associative=TRUE)
 
 	var/list/sections = list()

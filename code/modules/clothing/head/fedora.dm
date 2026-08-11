@@ -8,8 +8,8 @@
 
 /obj/item/clothing/head/fedora/Initialize(mapload)
 	. = ..()
-
-	create_storage(storage_type = /datum/storage/pockets/small/fedora)
+	if(!istype(atom_storage))
+		create_storage(storage_type = /datum/storage/pockets/small/fedora)
 
 /obj/item/clothing/head/fedora/suicide_act(mob/living/user)
 	if(user.gender == FEMALE)
@@ -18,5 +18,5 @@
 	user.visible_message(span_suicide("[user] is donning [src]! It looks like [user.p_theyre()] trying to be nice to girls."))
 	user.say("M'lady.", forced = "fedora suicide")
 	sleep(10)
-	H.facial_hair_style = "Neckbeard"
+	H.facial_hairstyle = "Neckbeard"
 	return BRUTELOSS

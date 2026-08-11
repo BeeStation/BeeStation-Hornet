@@ -4,37 +4,33 @@
 	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
 	icon_state = "lattice-255"
 	base_icon_state = "lattice"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	density = FALSE
 	anchored = TRUE
 	armor_type = /datum/armor/structure_lattice
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
-	var/number_of_rods = 1
-	//	flags = CONDUCT_1
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
+	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	z_flags = Z_BLOCK_OUT_DOWN
-
+	var/number_of_rods = 1
+	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_HYPERSPACE_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED)
 
 /datum/armor/structure_lattice
 	melee = 50
 	fire = 80
 	acid = 50
 
-/obj/structure/lattice/examine(mob/user)
-	. = ..()
-	. += deconstruction_hints(user)
-
-/obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
-
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
-	for(var/obj/structure/lattice/LAT in loc)
-		if(LAT != src)
-			QDEL_IN(LAT, 0)
+	if (length(give_turf_traits))
+		give_turf_traits = string_list(give_turf_traits)
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
+/obj/structure/lattice/examine(mob/user)
+	. = ..()
+	. += span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/blob_act(obj/structure/blob/B)
 	return
@@ -67,10 +63,10 @@
 		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		var/turf/T = src.loc
-		T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		T.place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE
 
-/obj/structure/lattice/singularity_pull(S, current_size)
+/obj/structure/lattice/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()

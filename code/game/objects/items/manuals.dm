@@ -6,27 +6,6 @@
 	due_date = 0 // Game time in 1/10th seconds
 	unique = TRUE   // FALSE - Normal book, TRUE - Should not be treated as normal book, unable to be copied, unable to be modified
 
-/obj/item/book/manual/hydroponics_pod_people
-	name = "The Human Harvest - From seed to market"
-	icon_state ="bookHydroponicsPodPeople"
-	author = "Farmer John" // Whoever wrote the paper or book, can be changed by pen or PC. It is not automatically assigned.
-	title = "The Human Harvest - From seed to market"
-	//book contents below
-	dat = {"<h3>Growing Humans</h3>
-
-				Why would you want to grow humans? Well I'm expecting most readers to be in the slave trade, but a few might actually
-				want to revive fallen comrades. Growing pod people is easy, but prone to disaster.
-				<p>
-				<ol>
-				<li>Find a dead person who is in need of cloning. </li>
-				<li>Take a blood sample with a syringe. </li>
-				<li>Inject a seed pack with the blood sample. </li>
-				<li>Plant the seeds. </li>
-				<li>Tend to the plants water and nutrition levels until it is time to harvest the cloned human.</li>
-				</ol>
-				<p>
-				It really is that easy! Good luck!"}
-
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	icon_state ="book"
@@ -239,7 +218,7 @@
 
 /obj/item/book/manual/wiki/security_space_law/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
-	if (target != user && isliving(target) && (user.mind.assigned_role == JOB_NAME_LAWYER || user.mind.assigned_role == JOB_NAME_HEADOFPERSONNEL))
+	if (target != user && isliving(target) && (is_lawyer_job(user.mind.assigned_role) || is_head_of_personnel_job(user.mind.assigned_role)))
 		INVOKE_ASYNC(src, PROC_REF(deconvert_target), user, target)
 
 /obj/item/book/manual/wiki/security_space_law/proc/deconvert_target(mob/living/user, mob/living/target)

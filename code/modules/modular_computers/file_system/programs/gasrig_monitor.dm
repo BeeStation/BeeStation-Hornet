@@ -16,7 +16,7 @@
 
 /datum/computer_file/program/gasrig_monitor/on_start(mob/user)
 	..()
-	for(var/obj/machinery/atmospherics/gasrig/core/rig_core in GLOB.machines)
+	for(var/obj/machinery/atmospherics/gasrig/core/rig_core as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/gasrig/core))
 		gasrig = rig_core
 		return TRUE
 	return FALSE

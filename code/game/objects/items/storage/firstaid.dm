@@ -450,7 +450,7 @@
 /obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
 	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
-	atom_storage.max_slots = 7
+	atom_storage.max_slots = 12
 	atom_storage.max_total_storage = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
@@ -491,11 +491,36 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/defibrillator/compact/combat/loaded = 1,
-		/obj/item/reagent_containers/hypospray/combat = 1,
-		/obj/item/reagent_containers/pill/patch/styptic = 2,
-		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
-		/obj/item/clothing/glasses/hud/health/night = 1)
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/storage/pill_bottle/patches/mixbrute = 1, // They no longer get a hypo with stabilizing nanites, so this is the replacement
+		/obj/item/storage/pill_bottle/patches/mixburn = 1,
+		/obj/item/stack/medical/gauze = 2,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 2,
+		/obj/item/clothing/glasses/hud/health/night = 1,
+	)
+	generate_items_inside(items_inside,src)
+
+/obj/item/storage/firstaid/tactical/premium
+	name = "premium combat medical kit"
+
+/obj/item/storage/firstaid/tactical/premium/PopulateContents()
+	if(empty)
+		return
+	var/static/list/items_inside = list(
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/storage/pill_bottle/patches/mixbrute = 1,
+		/obj/item/storage/pill_bottle/patches/mixburn= 1,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/mod/module/thread_ripper = 1,
+		/obj/item/mod/module/surgical_processor/preloaded = 1,
+		/obj/item/mod/module/defibrillator/combat = 1,
+		/obj/item/autosurgeon/syndicate/surgerytoolset = 1,
+		/obj/item/reagent_containers/hypospray/combat/empty = 1,
+		/obj/item/storage/box/evilmeds = 1,
+		/obj/item/clothing/glasses/hud/health/night/science = 1,
+	)
 	generate_items_inside(items_inside,src)
 
 //infiltrator kit, buyable by traitors
@@ -557,7 +582,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	obj_flags = UNIQUE_RENAME
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
@@ -566,10 +590,26 @@
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
 
-/obj/item/storage/pill_bottle/Initialize(mapload)
-	. = ..()
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.set_holdable(list(/obj/item/reagent_containers/pill))
+
+/obj/item/storage/pill_bottle/attackby(obj/item/P, mob/user, params)
+	// Allow labeling with a pen
+	if(istype(P, /obj/item/pen))
+		if(!user.is_literate())
+			to_chat(user, span_notice("You scribble illegibly on [src]!"))
+			return
+		var/new_label = stripped_input(user, "What would you like to label the bottle?", name, null, MAX_NAME_LEN)
+		if(!new_label || user.get_active_held_item() != P || !user.canUseTopic(src, BE_CLOSE))
+			return
+		if(new_label)
+			name = "[initial(name)] ([new_label])"
+		else
+			name = initial(name)
+		return
+
+	// For any other item, let the parent storage handle it
+	return ..()
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -654,6 +694,22 @@
 	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/pill/patch/styptic(src)
+
+/obj/item/storage/pill_bottle/patches/mixbrute
+	name = "bottle of premium brute patches"
+	desc = "Contains patches loaded with advanced medicine used for treating brute damage."
+
+/obj/item/storage/pill_bottle/patches/mixbrute/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/pill/patch/mixbrute(src)
+
+/obj/item/storage/pill_bottle/patches/mixburn
+	name = "bottle of premium burn patches"
+	desc = "Contains patches loaded with advanced medicine used for treating burn damage."
+
+/obj/item/storage/pill_bottle/patches/mixburn/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/pill/patch/mixburn(src)
 
 /obj/item/storage/pill_bottle/zoom
 	name = "suspicious pill bottle"

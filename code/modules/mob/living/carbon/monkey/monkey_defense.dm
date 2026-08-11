@@ -152,6 +152,7 @@
 	..()
 	if(QDELETED(src))
 		return
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			gib()
@@ -160,23 +161,29 @@
 		if (EXPLODE_HEAVY)
 			take_overall_damage(60, 60)
 			damage_clothes(200, BRUTE, BOMB)
-			adjustEarDamage(30, 120)
+			if (ears && !HAS_TRAIT_FROM_ONLY(src, TRAIT_DEAF, EAR_DAMAGE))
+				ears.adjustEarDamage(30, 120)
 			Unconscious(200)
 
 		if(EXPLODE_LIGHT)
 			take_overall_damage(30, 0)
 			damage_clothes(50, BRUTE, BOMB)
-			adjustEarDamage(15,60)
+			if (ears && !HAS_TRAIT_FROM_ONLY(src, TRAIT_DEAF, EAR_DAMAGE))
+				ears.adjustEarDamage(15,60)
 			Unconscious(160)
 
 
 	//attempt to dismember bodyparts
 	if(severity <= 2)
 		var/max_limb_loss = round(4/severity) //so you don't lose four limbs at severity 3.
-		for(var/obj/item/bodypart/BP as() in bodyparts)
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
 			if(prob(50/severity) && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()
 				max_limb_loss--
 				if(!max_limb_loss)
 					break
+
+/mob/living/carbon/monkey/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)
+	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		adjust_bodytemperature(BODYTEMP_HEATING_MAX * delta_time)

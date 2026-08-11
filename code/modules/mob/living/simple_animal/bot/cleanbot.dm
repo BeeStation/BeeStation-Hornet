@@ -2,7 +2,7 @@
 /mob/living/simple_animal/bot/cleanbot
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "cleanbot0"
 	density = FALSE
 	anchored = FALSE
@@ -37,7 +37,7 @@
 	get_targets()
 	icon_state = "cleanbot[on]"
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_JANITOR)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_JANITOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 	GLOB.janitor_devices += src
@@ -202,7 +202,7 @@
 	if(pests)
 		target_types += list(
 			/mob/living/basic/cockroach,
-			/mob/living/simple_animal/mouse,
+			/mob/living/basic/mouse,
 			/obj/effect/decal/cleanable/ants,
 		)
 
@@ -217,7 +217,7 @@
 
 	target_types = typecacheof(target_types)
 
-/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A, proximity_flag)
+/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(ismopable(A))
@@ -238,7 +238,7 @@
 		visible_message(span_danger("[src] sprays hydrofluoric acid at [A]!"))
 		playsound(src, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 		A.acid_act(75, 10)
-	else if(istype(A, /mob/living/basic/cockroach) || istype(A, /mob/living/simple_animal/mouse))
+	else if(istype(A, /mob/living/basic/cockroach) || ismouse(A))
 		var/mob/living/simple_animal/M = target
 		if(!M.stat)
 			visible_message(span_danger("[src] smashes [target] with its mop!"))
@@ -341,7 +341,7 @@
 	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 
-/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A, proximity_flag)
+/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(istype(A, /obj/effect/decal/cleanable))
 		set_anchored(TRUE)
 		icon_state = "larry-c"
@@ -352,7 +352,7 @@
 		visible_message(span_danger("[src] sprays hydrofluoric acid at [A]!"))
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 		A.acid_act(75, 10)
-	else if(istype(A, /mob/living/basic/cockroach) || istype(A, /mob/living/simple_animal/mouse))
+	else if(istype(A, /mob/living/basic/cockroach) || ismouse(A))
 		var/mob/living/simple_animal/M = target
 		if(!M.stat)
 			visible_message(span_danger("[src] smashes [target] with its mop!"))

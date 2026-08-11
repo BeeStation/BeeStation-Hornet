@@ -13,10 +13,10 @@ jobs:
   show_screenshot_test_results:
     if: ( !contains(github.event.head_commit.message, '[ci skip]') && github.event.workflow_run.run_attempt == 1 )
     name: Show Screenshot Test Results
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Prepare module
         run: |
           # This is needed because node-fetch needs import and doesn't work with require :/

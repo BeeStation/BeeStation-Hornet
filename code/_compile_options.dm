@@ -19,6 +19,10 @@
 ///Slightly slower, higher in memory. Just not optimal
 //#define REFERENCE_TRACKING_DEBUG
 
+///Skips over a bunch of types that are "unlikely" to have any hanging refs,
+///MASSIVELY speeding up finding references. Relatively speaking. The reftracker is still not very fast.
+//#define FAST_REFERENCE_TRACKING
+
 ///Run a lookup on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
@@ -26,10 +30,19 @@
 #define FIND_REF_NO_CHECK_TICK
 #endif //ifdef GC_FAILURE_HARD_LOOKUP
 
+// Log references in their own file, rather then in runtimes.log
+//#define REFERENCE_TRACKING_LOG_APART
 #endif //ifdef REFERENCE_TRACKING
 
-//#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
-//#define TRACK_MAX_SHARE	//Allows max share tracking, for use in the atmos debugging ui
+// Displays static object lighting updates
+// Also enables some debug vars on sslighting that can be used to modify
+// How extensively we prune lighting corners to update
+//#define VISUALIZE_LIGHT_UPDATES
+
+// Highlights atmos active turfs in green
+//#define VISUALIZE_ACTIVE_TURFS
+// Allows max share tracking, for use in the atmos debugging ui
+//#define TRACK_MAX_SHARE
 #endif //ifdef TESTING
 
 /// Disables hub authentication. This must be done at compile time due to /client::authenticate being read-only
@@ -67,12 +80,25 @@
 #define REFERENCE_TRACKING
 // actually look for refs
 #define GC_FAILURE_HARD_LOOKUP
+// Log references in their own file
+#define REFERENCE_TRACKING_LOG_APART
+// use fast reftracking
+#define FAST_REFERENCE_TRACKING
 #endif // REFERENCE_DOING_IT_LIVE
 
-#ifdef REFERENCE_TRACKING_FAST
+/// Sets up the reftracker to be used locally, to hunt for hard deletions
+/// Errors are logged to [log_dir]/harddels.log
+//#define REFERENCE_TRACKING_STANDARD
+#ifdef REFERENCE_TRACKING_STANDARD
+// compile the backend
 #define REFERENCE_TRACKING
-#define REFERENCE_TRACKING_DEBUG
-#endif
+// actually look for refs
+#define GC_FAILURE_HARD_LOOKUP
+// spend ALL our time searching, not just part of it
+#define FIND_REF_NO_CHECK_TICK
+// Log references in their own file
+#define REFERENCE_TRACKING_LOG_APART
+#endif // REFERENCE_TRACKING_STANDARD
 
 /// If this is uncommented, force our verb processing into just the 2% of a tick
 /// We normally reserve for it
@@ -101,16 +127,15 @@
 #endif				// 1 to use the default behaviour;
 					// 2 for preloading absolutely everything;
 
-//#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
 	#warn WARNING: Compiling with LOWMEMORYMODE.
 	#ifdef FORCE_MAP
-	#warn WARNING: FORCE_MAP is already defined.
+		#warn WARNING: FORCE_MAP is already defined.
 	#else
-	#define FORCE_MAP "runtimestation"
+		#define FORCE_MAP "runtimestation"
 	#endif
 	#ifdef CIBUILDING
-	#error LOWMEMORYMODE is enabled, disable this!
+		#error LOWMEMORYMODE is enabled, disable this!
 	#endif
 #endif
 
@@ -130,17 +155,22 @@
 #endif
 
 #ifdef CITESTING
-#define TESTING
+	#define TESTING
 #endif
 
 #if defined(UNIT_TESTS)
-//Hard del testing defines
-#define REFERENCE_TRACKING
-#define REFERENCE_TRACKING_DEBUG
-#define FIND_REF_NO_CHECK_TICK
-#define GC_FAILURE_HARD_LOOKUP
-//Test at full capacity, the extra cost doesn't matter
-#define TIMER_DEBUG
+	//Hard del testing defines
+	#define REFERENCE_TRACKING
+	#define REFERENCE_TRACKING_DEBUG
+	#define FIND_REF_NO_CHECK_TICK
+	#define GC_FAILURE_HARD_LOOKUP
+	//Test at full capacity, the extra cost doesn't matter
+	#define TIMER_DEBUG
+
+	// Checks if unit tests are being run locally or well, not
+	#if !defined(CIBUILDING) && !defined(SPACEMAN_DMM) && !defined(OPENDREAM)
+		#define RUNNING_LOCAL_TESTS
+	#endif
 #endif
 
 #ifdef TGS
@@ -148,11 +178,10 @@
 #define CBT
 #endif
 
-
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#warn You are building with OpenDream. Remember to build TGUI manually.
-#warn You can do this by running tgui-build.cmd from the bin directory.
+	#warn You are building with OpenDream. Remember to build TGUI manually.
+	#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
-#warn Building with Dream Maker is no longer supported and will result in missing interface files.
-#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
+	#warn Building with Dream Maker is no longer supported and will result in missing interface files.
+	#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif

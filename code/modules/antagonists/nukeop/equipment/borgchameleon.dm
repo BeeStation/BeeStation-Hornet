@@ -2,7 +2,7 @@
 	name = "cyborg chameleon projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
@@ -13,6 +13,7 @@
 	var/active = FALSE
 	var/activationCost = 300
 	var/activationUpkeep = 50
+	var/disguise_name = "Engineering"
 	var/disguise = "engineer"
 	var/mob/listeningTo
 	var/static/list/signalCache = list( // list here all signals that should break the camouflage
@@ -87,6 +88,7 @@
 	src.user = user
 	savedName = user.name
 	user.name = friendlyName
+	user.model.name = capitalize(disguise_name)
 	user.model.cyborg_base_icon = disguise
 	user.bubble_icon = "robot"
 	active = TRUE
@@ -106,6 +108,7 @@
 		listeningTo = null
 	do_sparks(5, FALSE, user)
 	user.name = savedName
+	user.model.name = initial(user.model.name)
 	user.model.cyborg_base_icon = initial(user.model.cyborg_base_icon)
 	user.bubble_icon = "syndibot"
 	active = FALSE

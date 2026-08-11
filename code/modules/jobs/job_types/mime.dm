@@ -1,12 +1,13 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
 	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_NAME_SERVICE
+	department_for_prefs = DEPARTMENT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#dddddd"
+	exp_granted_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/mime
 
@@ -16,31 +17,38 @@
 	)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
 	display_order = JOB_DISPLAY_ORDER_MIME
+	departments_list = list(
+		/datum/department_group/service,
+		)
+
+	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Fool"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mime
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+	minimal_lightup_areas = list(
+		/area/station/service/theater
+	)
 
 	manuscript_jobs = list(
 		JOB_NAME_MIME,
 		JOB_NAME_COOK // the cultural power of french cuisine
 	)
 
-/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+	voice_of_god_power = 0.5 //Why are you speaking
+	voice_of_god_silence_power = 3
+
+/datum/job/mime/after_spawn(mob/living/spawned, client/player_client)
 	. = ..()
-	if(!ishuman(H))
+	if(!ishuman(spawned))
 		return
-	if(!M.client || on_dummy)
-		return
-	H.apply_pref_name(/datum/preference/name/mime, preference_source)
+	spawned.apply_pref_name(/datum/preference/name/mime, player_client)
 
 
 /datum/outfit/job/mime
@@ -75,7 +83,6 @@
 	if(H.mind)
 		var/datum/action/spell/vow_of_silence/vow = new(H.mind)
 		vow.Grant(H)
-		H.mind.miming = 1
 
 /obj/item/book/mimery
 	name = "Guide to Dank Mimery"
@@ -130,7 +137,7 @@
 		return FALSE
 	if(!user.is_holding(src))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!user.mind)
 		return FALSE

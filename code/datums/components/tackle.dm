@@ -75,7 +75,7 @@
 	if(LAZYACCESS(modifiers, ALT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 
-	if(!user.throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated())
+	if(!user.throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated)
 		return
 
 	if(!clicked_atom || !(isturf(clicked_atom) || isturf(clicked_atom.loc)))
@@ -408,7 +408,7 @@
 			defense_mod += 5
 
 		var/obj/item/organ/tail/lizard/el_tail = tackle_target.get_organ_slot(ORGAN_SLOT_TAIL)
-		if(HAS_TRAIT(tackle_target, TRAIT_TACKLING_TAILED_DEFENDER) && !el_tail)
+		if(HAS_MIND_TRAIT(tackle_target, TRAIT_TACKLING_TAILED_DEFENDER) && !el_tail)
 			defense_mod -= 1
 		if(el_tail && el_tail.is_wagging()) // lizard tail wagging is robust and can swat away assailants!
 			defense_mod += 1
@@ -614,7 +614,7 @@
 		user.Paralyze(1 SECONDS)
 		user.Knockdown(3 SECONDS)
 		windscreen_casualty.take_damage(30 * speed)
-		user.adjustStaminaLoss(10 * speed, updating_health=FALSE)
+		user.adjustStaminaLoss(10 * speed, updating_stamina=FALSE)
 		user.adjustBruteLoss(5 * speed)
 
 ///Check to see if we hit a table, and if so, make a big mess!
@@ -655,7 +655,7 @@
 
 	owner.visible_message("<span class='danger'>[owner] trips over [kevved] and slams into it face-first[HOW_big_of_a_miss_did_we_just_make]!</span>",
 						"<span class='userdanger'>You trip over [kevved] and slam into it face-first[HOW_big_of_a_miss_did_we_just_make]!</span>")
-	owner.adjustStaminaLoss(15 + messes.len * 2, updating_health = FALSE)
+	owner.adjustStaminaLoss(15 + messes.len * 2, updating_stamina = FALSE)
 	owner.adjustBruteLoss(8 + messes.len, updating_health = FALSE)
 	owner.Paralyze(0.4 SECONDS * messes.len) // .4 seconds of paralyze for each thing you knock around
 	owner.Knockdown(2 SECONDS + 0.4 SECONDS * messes.len) // 2 seconds of knockdown after the paralyze

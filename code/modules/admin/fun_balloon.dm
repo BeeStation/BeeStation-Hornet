@@ -52,12 +52,13 @@
 	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
-	var/datum/poll_config/config = new()
-	config.question = "Would you like to be [span_notice(group_name)]?"
-	config.check_jobban = ROLE_SENTIENCE
-	config.poll_time = 10 SECONDS
-	config.role_name_text = "sentience fun balloon"
-	config.alert_pic = src
+	var/datum/poll_config/config = new(
+		question = "Would you like to be [span_notice(group_name)]?",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		role_name_text = "sentience fun balloon",
+		alert_pic = src,
+	)
 	var/list/candidates = SSpolling.poll_ghosts_for_targets(config, bodies)
 	while(LAZYLEN(candidates) && LAZYLEN(bodies))
 		var/mob/dead/observer/candidate = pick_n_take(candidates)
@@ -100,7 +101,7 @@
 
 /obj/effect/station_crash/Initialize(mapload)
 	..()
-	for(var/S in SSshuttle.stationary)
+	for(var/S in SSshuttle.stationary_docking_ports)
 		var/obj/docking_port/stationary/SM = S
 		if(SM.id == "emergency_home")
 			var/new_dir = turn(SM.dir, 180)
@@ -169,7 +170,7 @@
 		B.mineEffect(M)
 
 
-/area/shuttle_arena
+/area/shuttle/shuttle_arena
 	name = "arena"
 	default_gravity = STANDARD_GRAVITY
 	requires_power = FALSE

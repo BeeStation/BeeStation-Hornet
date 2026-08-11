@@ -8,7 +8,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
@@ -39,7 +39,7 @@
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 	..()
 
-	if(!user.canUseTopic(src, BE_CLOSE))
+	if(!user.canUseTopic(src, BE_CLOSE) || !user.can_read(src))
 		return
 
 	if(cooldown)
@@ -52,25 +52,32 @@
 
 	playsound(src, 'sound/effects/pop.ogg', 100)
 	var/area/user_area = T.loc
-	var/datum/weather/ongoing_weather = null
 
 	if(!user_area.outdoors)
 		to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
 		return
 
-	for(var/V in SSweather.processing)
-		var/datum/weather/W = V
-		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && !(W.stage == END_STAGE))
-			ongoing_weather = W
-			break
+	var/datum/weather/ongoing_weather = null
+	for(var/datum/weather/possible_weather as anything in SSweather.processing)
+		if(!(possible_weather.weather_flags & WEATHER_BAROMETER))
+			continue
+		if(!(T.z in possible_weather.impacted_z_levels))
+			continue
+		if(!istype(user_area, possible_weather.area_type))
+			continue
+		if(possible_weather.stage == END_STAGE)
+			continue
+
+		ongoing_weather = possible_weather
+		break
 
 	if(ongoing_weather)
-		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
+		if(ongoing_weather.stage == MAIN_STAGE || ongoing_weather.stage == WIND_DOWN_STAGE)
 			to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
 			return
 
 		to_chat(user, span_notice("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
-		if(ongoing_weather.aesthetic)
+		if(!(ongoing_weather.weather_flags & WEATHER_MOBS))
 			to_chat(user, span_warning("[src]'s barometer function says that the next storm will breeze on by."))
 	else
 		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
@@ -79,6 +86,7 @@
 			to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
 		else
 			to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
+
 	cooldown = TRUE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 
@@ -184,10 +192,10 @@
 		if(total_moles > 0)
 			message += span_notice("Moles: [round(total_moles, 0.01)] mol")
 
-			var/list/cached_gases = air.gases
-			for(var/id in cached_gases)
-				var/gas_concentration = cached_gases[id][MOLES]/total_moles
-				message += span_notice("[cached_gases[id][GAS_META][META_GAS_NAME]]: [round(cached_gases[id][MOLES], 0.01)] mol ([round(gas_concentration*100, 0.01)] %)")
+			var/list/cached_gas_name = GAS_META[META_GAS_NAME]
+			for(var/id, amount in air.moles)
+				var/gas_concentration = amount / total_moles
+				message += span_notice("[cached_gas_name[id]]: [round(amount, 0.01)] mol ([round(gas_concentration*100, 0.01)] %)")
 			message += span_notice("Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
 			message += span_notice("Volume: [volume] L")
 			message += span_notice("Pressure: [round(pressure, 0.01)] kPa")

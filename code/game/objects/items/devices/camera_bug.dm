@@ -49,7 +49,7 @@
 
 /obj/item/camera_bug/ui_interact(mob/user = usr)
 	. = ..()
-	var/datum/browser/popup = new(user, "camerabug","Camera Bug",nref=src)
+	var/datum/browser/popup = new(user, "camerabug", "Camera Bug", source = src)
 	popup.set_content(menu(get_cameras()))
 	popup.open()
 
@@ -58,7 +58,7 @@
 	interact(user)
 
 /obj/item/camera_bug/check_eye(mob/user)
-	if ( loc != user || user.incapacitated() || user.is_blind() || !current )
+	if ( loc != user || user.incapacitated || user.is_blind() || !current )
 		user.unset_machine()
 		return 0
 	var/turf/T_user = get_turf(user.loc)
@@ -69,16 +69,18 @@
 		user.unset_machine()
 		return 0
 	return 1
+
 /obj/item/camera_bug/on_unset_machine(mob/user)
-	user.reset_perspective(null)
+	user.set_mob_eye_to(MOB_EYE_SELF)
 
 /obj/item/camera_bug/proc/get_cameras()
+	var/static/list/camera_bug_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MINE, CAMERA_NETWORK_LABOR, CAMERA_NETWORK_TOXINS_TEST)
 	if( world.time > (last_net_update + 100))
 		bugged_cameras = list()
-		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+		for(var/obj/machinery/camera/camera as anything in GLOB.cameranet.cameras)
 			if(camera.machine_stat || !camera.can_use())
 				continue
-			if(length(list("ss13","mine", "rd", "labor", "toxins", "minisat") & camera.network))
+			if(length(camera_bug_networks & camera.network))
 				var/datum/weakref/camera_ref = WEAKREF(camera)
 				if(!camera_ref || !camera.c_tag)
 					continue
@@ -214,7 +216,7 @@
 				return
 			track_mode = BUGMODE_MONITOR
 			current = camera
-			usr.reset_perspective(null)
+			usr.set_mob_eye_to(MOB_EYE_SELF)
 			interact()
 	if("track" in href_list)
 		var/list/seen = get_seens()
@@ -257,7 +259,7 @@
 			current = camera
 			spawn(6)
 				if(src.check_eye(usr))
-					usr.reset_perspective(camera)
+					usr.set_mob_eye_to(camera)
 					interact()
 				else
 					usr.unset_machine()

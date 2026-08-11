@@ -113,7 +113,7 @@
 			if(affecting.receive_damage(1, 0))
 				H.update_damage_overlays()
 	else if(ismouse(target))
-		var/mob/living/simple_animal/mouse/M = target
+		var/mob/living/basic/mouse/M = target
 		visible_message(span_boldannounce("SPLAT!"))
 		M.splat()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
@@ -178,7 +178,7 @@
 			if(!(MM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 				if(ishuman(AM))
 					var/mob/living/carbon/H = AM
-					if(H.m_intent == MOVE_INTENT_RUN)
+					if(H.move_intent == MOVE_INTENT_RUN)
 						INVOKE_ASYNC(src, PROC_REF(triggered), H)
 						H.visible_message(span_warning("[H] accidentally steps on [src]."), \
 											span_warning("You accidentally step on [src]"))

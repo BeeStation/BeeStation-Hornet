@@ -9,7 +9,7 @@
 	worn_icon_state = "welder"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	flags_1 = CONDUCT_1
+	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 5
@@ -70,7 +70,7 @@
 	. = ..()
 	if(change_icons)
 		var/ratio = get_fuel() / max_fuel
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[initial(icon_state)][ratio]"
 	if(welding)
 		. += "[initial(icon_state)]-on"
@@ -78,7 +78,7 @@
 
 /obj/item/weldingtool/process(delta_time)
 	if(welding)
-		force = 15
+		force = 12
 		damtype = BURN
 		burned_fuel_for += delta_time
 		if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
@@ -134,7 +134,7 @@
 		if (!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
 			handle_fuel_and_temps(1, user)
 			var/mob/living/attacked_mob = attacked_atom
-			if(attacked_mob.IgniteMob())
+			if(attacked_mob.ignite_mob())
 				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
 				log_game("[key_name(user)] set [key_name(attacked_mob)] on fire with [src] at [AREACOORD(user)]")
 
@@ -153,7 +153,7 @@
 
 		if(!QDELETED(attacked_atom) && isliving(attacked_atom)) // can't ignite something that doesn't exist
 			var/mob/living/attacked_mob = attacked_atom
-			if(attacked_mob.IgniteMob())
+			if(attacked_mob.ignite_mob())
 				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(attacked_mob)] on fire with [src] at [AREACOORD(user)].")
 				log_game("set [key_name(attacked_mob)] on fire with [src]")
 
@@ -225,7 +225,7 @@
 		if(get_fuel() >= 1)
 			balloon_alert(user, "You turn [src] on.")
 			playsound(loc, acti_sound, 50, 1)
-			force = 15
+			force = 12
 			damtype = BURN
 			hitsound = 'sound/items/welder.ogg'
 			update_icon()
@@ -252,7 +252,7 @@
 	. = ..()
 	. += "It contains [get_fuel()] unit\s of fuel out of [max_fuel]."
 
-/obj/item/weldingtool/is_hot()
+/obj/item/weldingtool/get_temperature()
 	return welding * heat
 
 //Returns whether or not the welding tool is currently on.

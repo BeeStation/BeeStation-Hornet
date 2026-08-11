@@ -65,7 +65,7 @@
 	switch(action)
 		if("jump")
 			if(MS)
-				if (isdatum(MS))
+				if (!isatom(MS))
 					return
 				usr.forceMove(get_turf(MS))
 				. = TRUE

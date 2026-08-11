@@ -11,6 +11,7 @@
 /obj/machinery/telecomms/bus
 	name = "bus mainframe"
 	icon_state = "bus"
+	base_icon_state = "bus"
 	desc = "A mighty piece of hardware used to send massive amounts of data quickly."
 	telecomms_type = /obj/machinery/telecomms/bus
 	density = TRUE

@@ -39,3 +39,47 @@
 	var/include_in_spawners = FALSE
 	/// Can we right click to dismiss this poll?
 	var/can_hide = FALSE
+
+/datum/poll_config/New(
+	question = null,
+	role = null,
+	check_jobban = null,
+	poll_time = 30 SECONDS,
+	silent = FALSE,
+	ignore_category = null,
+	flash_window = TRUE,
+	alert_pic = null,
+	atom/jump_target = null,
+	role_name_text = null,
+	list/custom_response_messages = null,
+	start_signed_up = FALSE,
+	amount_to_pick = 0,
+	chat_text_border_icon,
+	announce_chosen = TRUE,
+	datum/callback/check_candidate = null,
+	auto_add_type = POLL_AUTO_ADD_NONE,
+	requires_confirmation = FALSE,
+	include_in_spawners = FALSE,
+	can_hide = FALSE,
+)
+	src.question = question
+	src.role = role
+	src.check_jobban = check_jobban
+	src.poll_time = poll_time
+	src.silent = silent
+	src.ignore_category = ignore_category
+	src.flash_window = flash_window
+	src.alert_pic = alert_pic
+	src.jump_target = jump_target
+	src.role_name_text = role_name_text
+	src.custom_response_messages = custom_response_messages
+	src.start_signed_up = start_signed_up
+	src.amount_to_pick = amount_to_pick
+	src.chat_text_border_icon = chat_text_border_icon
+	src.announce_chosen = announce_chosen
+	src.check_candidate = check_candidate
+	src.auto_add_type = auto_add_type
+	src.requires_confirmation = requires_confirmation
+	src.include_in_spawners = include_in_spawners
+	src.can_hide = can_hide
+	return ..()

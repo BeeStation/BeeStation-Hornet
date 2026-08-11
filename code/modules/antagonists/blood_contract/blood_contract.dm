@@ -29,7 +29,7 @@
 	if(!istype(H))
 		return
 
-	H.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY)
+	H.add_atom_colour(COLOR_RED, ADMIN_COLOUR_PRIORITY)
 
 	var/obj/effect/mine/pickup/bloodbath/B = new(H)
 	B.duration = duration

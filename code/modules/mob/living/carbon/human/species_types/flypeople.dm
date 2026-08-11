@@ -1,15 +1,11 @@
 /datum/species/fly
 	name = "Flyperson"
 	plural_form = "Flypeople"
-	id = SPECIES_FLY
-	bodyflag = FLAG_FLY
-	species_traits = list(
-		NOEYESPRITES,
-		NO_UNDERWEAR,
-		TRAIT_BEEFRIEND
-	)
+	id = SPECIES_FLYPERSON
 	inherent_traits = list(
-		TRAIT_TACKLING_FRAIL_ATTACKER
+		TRAIT_TACKLING_FRAIL_ATTACKER,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_BEEFRIEND,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	meat = /obj/item/food/meat/slab/human/mutant/fly
@@ -19,8 +15,6 @@
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
-	burnmod = 1.4
-	brutemod = 1.4
 	speedmod = 0.7
 
 	bodypart_overrides = list(
@@ -36,7 +30,7 @@
 
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER * delta_time)
+		H.adjustToxLoss(3 * REM * delta_time)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
 		return TRUE
 	if(istype(chem, /datum/reagent/consumable))
@@ -58,22 +52,26 @@
 	if(!istype(type_selection))
 		return
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		BP.uses_mutcolor = !!type_selection.color_src
-		if(BP.uses_mutcolor)
-			BP.should_draw_greyscale = TRUE
-			BP.species_color = C.dna?.features["mcolor"]
-		// Hardcoded bullshit that will probably break. Woo shitcode. Bee insect_type has dimorphic parts while flies do not.
-		BP.is_dimorphic = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
-
-		BP.limb_id = type_selection.limbs_id
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[type_selection.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		// Bee insect_type has dimorphic parts while flies do not.
+		var/is_dimorphic_part = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
+		BP.change_appearance(icon = BP.icon_static, id = type_selection.limbs_id, greyscale = !!type_selection.color_src, dimorphic = is_dimorphic_part)
 
-/datum/species/fly/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 29 //Flyswatters deal 30x damage to flypeople.
-	return 0
+/datum/species/fly/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+
+/datum/species/fly/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
+
+/datum/species/fly/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 30 // Yes, a 30x damage modifier
 
 /datum/species/fly/get_species_description()
 	return "With no official documentation or knowledge of the origin of \

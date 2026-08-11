@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/heart
 	name = "Heart"
 	desc = "A living heart. It's angry!"
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "heart-on"
 	icon_living = "heart-on"
 	icon_dead = "heart-on"
@@ -28,10 +28,10 @@
 	attack_same = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	see_in_dark = NIGHTVISION_FOV_RANGE
-	deathmessage = "falls lifeless."
+	death_message = "falls lifeless."
 	del_on_death = TRUE
 	loot = list(/obj/item/organ/heart)
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 150
 	maxbodytemp = 500
 

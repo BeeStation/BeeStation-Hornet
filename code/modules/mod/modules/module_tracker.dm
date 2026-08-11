@@ -17,9 +17,9 @@
 	///frequency we start on, can be null, will then only show global beacons until manually changed (ERTs set theirs when spawning)
 	var/frequency
 	///the color of the tracking beacon
-	var/beacon_color =  "#ffffff"
+	var/beacon_color =  COLOR_WHITE
 	///the color of the tracking beacon if it is on a different z level
-	var/beacon_zdiff_color = "#ffffff"
+	var/beacon_zdiff_color = COLOR_WHITE
 	///is the hud visible? stored so it doesn't activate with the helmet if it was previously disabled
 	var/hud_visible = TRUE
 
@@ -173,7 +173,7 @@
 	beacon_zdiff_color = "#6a9e2f"
 
 /obj/item/mod/module/tracking_beacon/centcom/deathsquad
-	beacon_color = "#000000"
+	beacon_color = COLOR_BLACK
 	beacon_zdiff_color = "#292828"
 
 /obj/item/mod/module/tracking_beacon/centcom/clown

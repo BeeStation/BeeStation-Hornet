@@ -16,8 +16,11 @@
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
 #define ROLE_TRAITOR "Traitor"
-#define ROLE_OPERATIVE "Nuclear Operative"
+#define ROLE_NUCLEAR_OPERATIVE "Nuclear Operative"
 #define ROLE_CLOWN_OPERATIVE "Clown Operative"
+#define ROLE_LONE_OPERATIVE "Lone Operative"
+#define ROLE_SANTA "Santa"
+#define ROLE_SERVANT_GOLEM "Servant Golem"
 #define ROLE_CHANGELING "Changeling"
 #define ROLE_WIZARD "Wizard"
 #define ROLE_MALF "Malfunctioning AI"
@@ -36,7 +39,6 @@
 #define ROLE_OBSESSED "Obsessed"
 #define ROLE_SPACE_DRAGON "Space Dragon"
 #define ROLE_INTERNAL_AFFAIRS "Internal Affairs Agent"
-#define ROLE_GANG "Gangster"
 #define ROLE_HOLOPARASITE "Holoparasite"
 #define ROLE_TERATOMA "Teratoma"
 #define ROLE_SPIDER "Spider"
@@ -45,8 +47,9 @@
 #define ROLE_NIGHTMARE "Nightmare"
 #define ROLE_SPACE_PIRATE "Space Pirate"
 #define ROLE_FUGITIVE "Fugitive"
-#define ROLE_FUGITIVE_HUNTER "Fugitive Hunter"
-#define ROLE_SLAUGHTER_DEMON "Slaughter Demon"
+#define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
+#define ROLE_GHOST_ROLE "Ghost Role"
+#define ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
 #define ROLE_PYRO_SLIME "Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET "Sentient Monkey"
@@ -57,7 +60,7 @@
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_TRAITOR,
-	ROLE_OPERATIVE,
+	ROLE_NUCLEAR_OPERATIVE,
 	ROLE_CLOWN_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
@@ -77,7 +80,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_OBSESSED,
 	ROLE_SPACE_DRAGON,
 	ROLE_INTERNAL_AFFAIRS,
-	ROLE_GANG,
 	ROLE_HOLOPARASITE,
 	ROLE_TERATOMA,
 	ROLE_SPIDER,
@@ -131,6 +133,20 @@ GLOBAL_LIST_INIT(forced_bannable_roles, list(
 #define ROLE_SURVIVALIST		"Exploration Survivalist"
 #define ROLE_EXPLORATION_VIP	"Exploration VIP"
 #define ROLE_SENTIENT_XENOARTIFACT "Sentient Xenoartifiact"
+#define ROLE_BATTLECRUISER_CREW		"Battlecruiser Crew"
+#define ROLE_BATTLECRUISER_CAPTAIN	"Battlecruiser Captain"
+#define ROLE_ESCAPED_PRISONER		"Escaped Prisoner"
+#define ROLE_EXILE					"Exile"
+#define ROLE_MAINTENANCE_DRONE		"Maintenance Drone"
+#define ROLE_SKELETON				"Skeleton"
+#define ROLE_SPACE_BAR_PATRON		"Space Bar Patron"
+#define ROLE_SPACE_BARTENDER		"Space Bartender"
+#define ROLE_SPACE_DOCTOR			"Space Doctor"
+#define ROLE_SPACE_SYNDICATE		"Space Syndicate"
+#define ROLE_SYNDICATE_CYBERSUN		"Cybersun Operative"
+#define ROLE_SYNDICATE_CYBERSUN_CAPTAIN "Cybersun Commander"
+#define ROLE_VENUSHUMANTRAP			"Venus Human Trap"
+#define ROLE_ZOMBIE					"Zombie"
 
 /// Any ghost role that is not really an antagonist or doesn't antagonize (lavaland, sentience potion, etc)
 GLOBAL_LIST_INIT(ghost_role_bannable_roles, list(
@@ -183,12 +199,21 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	// If this is per character, check if it's disabled. Otherwise continue and check the global value
 	if(initial(pref.per_character))
 		var/role_preference_value = src.prefs.role_preferences["[role_preference_key]"]
-		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
-			return FALSE
+		if (pref.default_enabled)
+			if(isnum(role_preference_value) && !role_preference_value)
+				return FALSE
+		else
+			if(isnum(role_preference_value) && role_preference_value)
+				return TRUE
+	// Handle global preferences
 	var/role_preference_value = src.prefs.role_preferences_global["[role_preference_key]"]
-	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
-		return FALSE
-	return TRUE
+	if (pref.default_enabled)
+		if(isnum(role_preference_value) && !role_preference_value)
+			return FALSE
+	else
+		if(isnum(role_preference_value) && role_preference_value)
+			return TRUE
+	return pref.default_enabled
 
 /// If the client given is fit for a given role based on the arguments passed
 /// banning_key: ROLE_X used for this role - to check if the player is banned.
@@ -243,20 +268,18 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 
 #define ROLE_PREFERENCE_CATEGORY_ROUNDSTART "Roundstart Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND "Midround Antagonists"
-#define ROLE_PREFERENCE_CATEGORY_LATEJOIN "Latejoin Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY "Supplementary Antagonists"
 
 GLOBAL_LIST_INIT(role_preference_categories, list(
 	ROLE_PREFERENCE_CATEGORY_ROUNDSTART,
 	ROLE_PREFERENCE_CATEGORY_MIDROUND,
-	ROLE_PREFERENCE_CATEGORY_LATEJOIN,
+	ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY,
 ))
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())
 
 /proc/init_role_preference_entries()
 	var/list/output = list()
-	for (var/datum/role_preference/preference_type as anything in subtypesof(/datum/role_preference))
-		if (initial(preference_type.abstract_type) == preference_type)
-			continue
+	for (var/datum/role_preference/preference_type as anything in valid_subtypesof(/datum/role_preference))
 		output[preference_type] = new preference_type
 	return output

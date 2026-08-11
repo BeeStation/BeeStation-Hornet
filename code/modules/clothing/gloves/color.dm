@@ -1,4 +1,5 @@
 /obj/item/clothing/gloves/color
+	abstract_type = /obj/item/clothing/gloves/color
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves provide protection against electric shock."
@@ -17,32 +18,38 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
-	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
+	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY)))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
-/obj/item/clothing/gloves/color/black/dropped(mob/living/carbon/user)
-	..()
-	if(user.gloves != src)
+/obj/item/clothing/gloves/color/black/dropped(mob/user)
+	. = ..()
+	if(!iscarbon(user))
 		return
-	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
+	var/mob/living/carbon/carbon_user = user
+	if(carbon_user.gloves != src)
+		return
+	if(carbon_user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
+		SEND_SIGNAL(carbon_user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
-		if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
+		if(is_assistant_job(user.mind?.assigned_role))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
-		if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+		if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
-/obj/item/clothing/gloves/color/yellow/dropped(mob/living/carbon/user)
-	..()
-	if(user.gloves != src)
+/obj/item/clothing/gloves/color/yellow/dropped(mob/user)
+	. = ..()
+	if(!iscarbon(user))
 		return
-	if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
-	if(user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
+	var/mob/living/carbon/carbon_user = user
+	if(carbon_user.gloves != src)
+		return
+	if(is_assistant_job(carbon_user.mind?.assigned_role))
+		SEND_SIGNAL(carbon_user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
+	if(carbon_user.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
+		SEND_SIGNAL(carbon_user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
 
 
 /obj/item/clothing/gloves/color/fyellow //Cheap Chinese Crap
@@ -203,32 +210,11 @@
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
 	armor_type = /datum/armor/color_latex
-	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
+	clothing_traits = list(TRAIT_QUICK_CARRY)
 	resistance_flags = NONE
-	var/carrytrait = TRAIT_QUICKER_CARRY
-
 
 /datum/armor/color_latex
 	bio = 100
-
-/obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
-	..()
-	if(slot == ITEM_SLOT_GLOVES)
-		ADD_TRAIT(user, carrytrait, CLOTHING_TRAIT)
-
-/obj/item/clothing/gloves/color/latex/dropped(mob/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.gloves != src)
-			return
-		else
-			REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
-
-/obj/item/clothing/gloves/color/latex/atom_break()
-	. = ..()
-	if(ishuman(loc))
-		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
@@ -236,7 +222,7 @@
 	icon_state = "nitrile"
 	inhand_icon_state = "nitrilegloves"
 	worn_icon_state = "nitrilegloves"
-	carrytrait = TRAIT_QUICKER_CARRY
+	clothing_traits = list(TRAIT_QUICKER_CARRY, TRAIT_FASTMED)
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

@@ -23,7 +23,7 @@
 	combat_mode = FALSE
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
-	deathmessage = "spits up the contents of its stomach before dying!"
+	death_message = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
@@ -76,6 +76,6 @@
 	visible_message(span_danger("The [P.name] was repelled by [name]'s girth!"))
 	return BULLET_ACT_BLOCK
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	vision_range = 9
 	. = ..()

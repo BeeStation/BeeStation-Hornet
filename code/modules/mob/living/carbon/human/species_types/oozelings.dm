@@ -1,22 +1,17 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	bodyflag = FLAG_OOZELING
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		NOAUGMENTS
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_AUGMENTS,
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
@@ -89,11 +84,11 @@
 	if(!atmos_sealed)
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
-			if(GET_MOLES(/datum/gas/water_vapor, environment) >= 1)
+			if(environment.moles[/datum/gas/water_vapor] >= 1)
 				H.blood_volume -= 15
 				if(prob(50))
 					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
-			if(H.blood_volume <= 672 && GET_MOLES(/datum/gas/plasma, environment) >= 1)
+			if(H.blood_volume <= 672 && environment.moles[/datum/gas/plasma] >= 1)
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, span_danger("You feel drained!"))
@@ -201,7 +196,7 @@
 			target.visible_message(span_notice("[user] extingushes [target] with a hug!"), span_boldnotice("[user] extingushes you with a hug!"), span_italics("You hear a fire sizzle out."))
 			target.fire_stacks = max(target.fire_stacks - 5, 0)
 			if(target.fire_stacks <= 0)
-				target.ExtinguishMob()
+				target.extinguish_mob()
 		else
 			target.visible_message(span_notice("[target] wriggles out of [user]'s close hug!"), span_notice("You wriggle out of [user]'s close hug."))
 

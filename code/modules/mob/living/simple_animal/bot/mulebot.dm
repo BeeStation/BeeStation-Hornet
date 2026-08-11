@@ -71,7 +71,7 @@
 
 	wires = new /datum/wires/mulebot(src)
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_CARGOTECHNICIAN)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 
@@ -366,7 +366,7 @@
 	if (!istype(L))
 		return
 
-	if(user.incapacitated() || (istype(L) && L.body_position == LYING_DOWN))
+	if(user.incapacitated || (istype(L) && L.body_position == LYING_DOWN))
 		return
 
 	if(!istype(AM) || isdead(AM) || iscameramob(AM) || istype(AM, /obj/effect/dummy/phased_mob))
@@ -470,7 +470,7 @@
 	B.setDir(direct)
 	bloodiness--
 
-/mob/living/simple_animal/bot/mulebot/Moved()
+/mob/living/simple_animal/bot/mulebot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		for(var/mob/living/carbon/human/future_pancake in loc)
@@ -725,7 +725,7 @@
 
 // player on mulebot attempted to move
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/living/user, direction)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(load == user)
 		unload(0)
@@ -783,7 +783,7 @@
 	if(load)
 		unload()
 
-/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
@@ -791,7 +791,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/mulebot/insertpai(mob/user, obj/item/paicard/card)
+/mob/living/simple_animal/bot/mulebot/insertpai(mob/user, obj/item/pai_card/card)
 	. = ..()
 	if(.)
 		visible_message("[src]'s safeties are locked on.")

@@ -1,11 +1,12 @@
 /mob/living/carbon/alien/humanoid
+	abstract_type = /mob/living/carbon/alien/humanoid
 	name = "alien"
 	icon_state = "alien"
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/food/meat/slab/xeno = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	limb_destroyer = TRUE
 	hud_type = /datum/hud/alien
-	deathsound = 'sound/voice/hiss6.ogg'
+	death_sound = 'sound/voice/hiss6.ogg'
 	bodyparts = list(
 		/obj/item/bodypart/chest/alien,
 		/obj/item/bodypart/head/alien,

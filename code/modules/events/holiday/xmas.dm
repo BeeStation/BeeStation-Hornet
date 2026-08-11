@@ -103,11 +103,13 @@
 	priority_announce("Santa is coming to town!", "Unknown Transmission", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/santa/start()
-	var/datum/poll_config/config = new()
-	config.question = "Santa is coming to town! Do you want to be Santa?"
-	config.poll_time = 15 SECONDS
-	config.role_name_text = "santa"
-	config.alert_pic = /obj/item/clothing/head/costume/santa
+	var/datum/poll_config/config = new(
+		question = "Santa is coming to town! Do you want to be Santa?",
+		poll_time = 15 SECONDS,
+		role_name_text = "santa",
+		alert_pic = /obj/item/clothing/head/costume/santa,
+		amount_to_pick = 1,
+	)
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 	if(candidate)

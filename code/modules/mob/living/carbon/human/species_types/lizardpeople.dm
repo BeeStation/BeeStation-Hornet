@@ -3,27 +3,22 @@
 	name = "\improper Lizardperson"
 	plural_form = "Lizardfolk"
 	id = SPECIES_LIZARD
-	bodyflag = FLAG_LIZARD
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		LIPS
-	)
 	inherent_traits = list(
-		TRAIT_TACKLING_TAILED_DEFENDER
+		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
 		"tail_lizard" = "Smooth",
 		"snout" = "Round",
-		"horns" = "None",
-		"frills" = "None",
-		"spines" = "None",
-		"body_markings" = "None",
+		"horns" = SPRITE_ACCESSORY_NONE,
+		"frills" = SPRITE_ACCESSORY_NONE,
+		"spines" = SPRITE_ACCESSORY_NONE,
+		"body_markings" = SPRITE_ACCESSORY_NONE,
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
+	mutantbrain = /obj/item/organ/brain/lizard
 	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
 	heatmod = 0.67
@@ -107,16 +102,12 @@
 	name = "Ash Walker"
 	id = SPECIES_LIZARD_ASH
 	examine_limb_id = SPECIES_LIZARD
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		LIPS,
-		NO_UNDERWEAR
-	)
 	inherent_traits = list(
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_VIRUSIMMUNE
-		)
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_UNDERWEAR,
+	)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
 	mutantbrain = /obj/item/organ/brain/primitive

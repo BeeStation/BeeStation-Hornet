@@ -400,7 +400,7 @@
 	var/oldgroup = keyed_creatures[creature]
 	var/newgroup = round(get_angle(mod.wearer, creature) / (360 / radar_slices)) + 1
 	if(oldgroup)
-		if(creature.stat == DEAD || get_dist(get_turf(mod.wearer), get_turf(creature)) > world.view)
+		if(creature.stat == DEAD || get_dist(get_turf(mod.wearer), get_turf(creature)) > 7)
 			sorted_creatures[oldgroup] -= creature
 			keyed_creatures -= creature
 			UnregisterSignal(creature, COMSIG_MOVABLE_MOVED)
@@ -446,3 +446,48 @@
 	to_chat(mod.wearer, span_notice("You slam your fist into the ground, sending out a sonic wave that detects [detect_living_creatures()] living beings nearby!"))
 	for(var/mob/living/creature as anything in keyed_creatures)
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
+/obj/item/mod/module/reinforced_plating
+	name = "\improper MOD reinforced plating module"
+	desc = "Additional armor plating integrated into the suit. Increases protection at the cost of mobility."
+	icon_state = "armor_plating"
+	module_type = MODULE_PASSIVE
+	complexity = 3
+	required_slots = list(ITEM_SLOT_BACK)
+	incompatible_modules = list(/obj/item/mod/module/reinforced_plating, /obj/item/mod/module/mod_switch)
+	var/datum/armor/armor_mod = /datum/armor/mod_reinforced_plating
+	var/slowdown_per_part = 0.1
+
+/datum/armor/mod_reinforced_plating
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+
+/obj/item/mod/module/reinforced_plating/on_install()
+	. = ..()
+	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
+
+/obj/item/mod/module/reinforced_plating/on_uninstall(deleting = FALSE)
+	UnregisterSignal(mod, COMSIG_MOD_UPDATE_SPEED)
+	return ..()
+
+/obj/item/mod/module/reinforced_plating/proc/on_update_speed(datum/source, list/module_slowdowns, prevent_slowdown)
+	SIGNAL_HANDLER
+	if(prevent_slowdown)
+		return
+	var/sealed_count = 0
+	for(var/datum/mod_part/part_datum as anything in mod.get_part_datums(all = TRUE))
+		if(part_datum.sealed)
+			sealed_count++
+	module_slowdowns += slowdown_per_part * sealed_count
+
+/obj/item/mod/module/reinforced_plating/on_equip()
+	. = ..()
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
+		part.set_armor(part.get_armor().add_other_armor(armor_mod))
+
+/obj/item/mod/module/reinforced_plating/on_unequip()
+	. = ..()
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
+		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))

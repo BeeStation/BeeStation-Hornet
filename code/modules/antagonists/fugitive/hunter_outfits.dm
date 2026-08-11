@@ -26,7 +26,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	mask = /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	l_pocket = /obj/item/melee/classic_baton/police/telescopic
+	l_pocket = /obj/item/melee/baton/telescopic
 
 /datum/outfit/spacepol/officer
 	name = "Spacepol Officer"
@@ -137,7 +137,7 @@
 /datum/outfit/bounty/gunner
 	name = "Bounty Hunter - Heavy Weapons Synth"
 
-	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	mask = /obj/item/cigarette/cigar/cohiba
 	uniform = /obj/item/clothing/under/color/white
 	belt = /obj/item/storage/belt/military
 	suit = /obj/item/clothing/suit/armor/riot

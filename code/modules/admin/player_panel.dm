@@ -114,7 +114,7 @@
 				data_entry["external_display_name"] = player.client.external_display_name
 				data_entry["formatted_external_display_name"] = player.client.external_method.format_display_name(player.client.external_display_name)
 			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
-				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
+				data_entry["living_playtime"] = floor(player.client.prefs.exp[EXP_TYPE_LIVING] / 60)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)
@@ -156,7 +156,7 @@
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
 	data["search_text"] = search_text
-	data["update_interval"] = isnum_safe(update_interval) ? update_interval : 5
+	data["update_interval"] = IS_FINITE(update_interval) ? update_interval : 5
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
@@ -223,7 +223,7 @@
 	else
 		target_mob = get_mob_by_ckey(target_ckey)
 	if(!target_mob)
-		for(var/mob/M as() in GLOB.mob_list)
+		for(var/mob/M as anything in GLOB.mob_list)
 			if(M?.ckey == target_ckey)
 				target_mob = M
 	if(!target_mob)
@@ -334,5 +334,7 @@
 	// Scale it up
 	transform.scale(16, 16)
 
-	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
-		insert_icon("antag-hud-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))
+	for (var/icon_state_name in icon_states('icons/mob/huds/antag_hud.dmi'))
+		var/datum/universal_icon/antag_icon = uni_icon('icons/mob/huds/antag_hud.dmi', icon_state_name)
+		antag_icon.transform = transform
+		insert_icon("antag-hud-[icon_state_name]", antag_icon)

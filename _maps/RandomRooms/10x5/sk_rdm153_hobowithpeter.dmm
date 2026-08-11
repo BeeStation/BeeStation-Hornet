@@ -176,7 +176,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/template_noop)
 "X" = (

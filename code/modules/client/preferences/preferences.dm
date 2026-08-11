@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// If the last save was a success or not. True for success, false for fail.
 	var/fail_state = TRUE
 
-/datum/preferences/Destroy(force, ...)
+/datum/preferences/Destroy(force)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
 	QDEL_NULL(character_data)
@@ -171,7 +171,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// The database won't have the correct name yet, so manually load it, if it changed.
 	if(fresh_character)
 		update_current_character_profile()
-	create_character_preview_view()
 
 	save_locked = FALSE
 
@@ -188,21 +187,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
 	// Do NOT call ui_assets until the jobs are loaded.
-	if(!length(SSjob.occupations))
+	if(!length(SSjob.joinable_occupations))
 		return
-
-	// If you leave and come back, re-register the character preview. This also runs the first time it's opened
-	if (!isnull(character_preview_view) && istype(user.client) && !(character_preview_view in user.client.screen))
-		character_preview_view.register_to_client(user.client)
-
-	// Just force an update for funsies
-	character_preview_view.update_body()
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		create_character_preview_view(user)
 		ui = new(user, src, "PreferencesMenu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
+		character_preview_view.display_to(user, ui.window)
 
 /datum/preferences/ui_state(mob/user)
 	return GLOB.always_state
@@ -234,8 +228,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["character_preview_view"] = character_preview_view.assigned_map
-	data["overflow_role"] = SSjob.GetJob(SSjob.overflow_role).title
+	data["character_preview_view"] = character_preview_view?.assigned_map
+	data["overflow_role"] = SSjob.get_job_type(SSjob.overflow_role).title
 	data["window"] = current_window
 
 	data["content_unlocked"] = unlock_content
@@ -339,14 +333,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (isnull(requested_preference))
 				return FALSE
 
-			if (!istype(requested_preference, /datum/preference/color) \
-				&& !istype(requested_preference, /datum/preference/color_legacy) \
-			)
+			if (!istype(requested_preference, /datum/preference/color))
 				return FALSE
 
 			var/default_value = read_preference(requested_preference.type)
-			if (istype(requested_preference, /datum/preference/color_legacy))
-				default_value = expand_three_digit_color(default_value)
 
 			// Yielding
 			var/new_color = tgui_color_picker(
@@ -387,8 +377,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	save_locked = TRUE
 	save_character()
 	save_preferences()
-	character_preview_view.unregister_from_client(user.client)
 	save_locked = FALSE
+	QDEL_NULL(character_preview_view)
+
+/datum/preferences/proc/create_character_preview_view(mob/user)
+	character_preview_view = new(null, null, src)
+	character_preview_view.generate_view("character_preview_[REF(character_preview_view)]_map")
+	character_preview_view.update_body()
 
 /datum/preferences/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()
@@ -451,8 +446,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.real_name = character.real_name
 
 	if(icon_updates)
-		character.icon_render_keys = list() // turns out if you don't set this to null update_body_parts does nothing, since it assumes the operation was cached
-		character.update_body()
-		character.update_hair()
+		character.icon_render_keys = list()
+		character.update_body(is_creating = TRUE)
 		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model
 		character.dna.update_body_size(TRUE)

@@ -4,6 +4,7 @@
 *
 ******************************************/
 
+@use 'sass:color';
 @use 'sass:map';
 
 html,
@@ -561,6 +562,20 @@ em {
   font-weight: bold;
 }
 
+.traitor_objective {
+  display: block;
+  font-size: large;
+  font-family: monospace;
+  color: #f08181;
+  background-color: #000000;
+  border: 1px solid #f08181;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .userdanger {
   color: hsl(0, 73.6%, 44.5%);
   font-weight: bold;
@@ -645,10 +660,19 @@ em {
   font-weight: bold;
 }
 
+.hear {
+  color: hsl(227, 87.7%, 68%);
+  font-style: italic;
+}
+
 .usernotice {
   color: hsl(227, 87.7%, 68%);
   font-weight: bold;
   font-size: 24px;
+}
+
+.subtlenotice {
+  color: hsl(211, 63.4%, 50.8%);
 }
 
 .adminnotice {
@@ -666,6 +690,17 @@ em {
   text-align: center;
   background-color: black;
   border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.testmerge_message {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid rgb(240, 160, 62);
   border-radius: 10px;
   padding: 10px;
   margin: 10px 20px;
@@ -813,6 +848,21 @@ em {
   font-size: 24px;
   font-weight: bold;
   font-style: italic;
+}
+
+.awe {
+  color: hsl(227, 87.7%, 68%);
+  animation: aweGlow 2s ease-in-out infinite;
+}
+
+@keyframes aweGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgb(255, 131, 197);
+  }
+  50% {
+    text-shadow: 0 0 16px rgb(255, 0, 136);
+  }
 }
 
 .deconversion_message {
@@ -1720,11 +1770,17 @@ $border-width-px: $border-width * 1px;
   }
 
   .chat_alert_#{$color-name} .minor_announcement_text {
-    background-color: darken(map.get($alert-stripe-colors, $color-name), 5);
+    background-color: color.adjust(
+      map.get($alert-stripe-colors, $color-name),
+      $lightness: -5%
+    );
   }
 
   .chat_alert_#{$color-name} .major_announcement_text {
-    background-color: darken(map.get($alert-stripe-colors, $color-name), 5);
+    background-color: color.adjust(
+      map.get($alert-stripe-colors, $color-name),
+      $lightness: -5%
+    );
   }
 }
 

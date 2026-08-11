@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
-		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel,
+		DYE_HOP = /obj/item/clothing/under/rank/civilian/hop,
 		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security,
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/skirt,
 		DYE_LAW = /obj/item/clothing/under/suit/black/skirt,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain/skirt,
-		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt,
+		DYE_HOP = /obj/item/clothing/under/rank/civilian/hop/skirt,
 		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security/skirt,
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	new /obj/item/food/meat/slab/corgi(loc)
 	qdel(src)
 
-/obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
+/obj/item/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
 	..()
 	held_mob.machine_wash(WM)
 	qdel(src)
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W
@@ -501,7 +501,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/stack/sheet/iron(drop_location(), 2)
 	qdel(src)
 
-/obj/machinery/washing_machine/open_machine(drop = 1)
+/obj/machinery/washing_machine/open_machine(drop = TRUE, density_to_set = FALSE)
 	..()
 	set_density(TRUE) //because machinery/open_machine() sets it to FALSE
 	color_source = null

@@ -49,15 +49,22 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/datum/poll_config/config = new()
-	config.check_jobban = ROLE_SPACE_PIRATE
-	config.poll_time = 15 SECONDS
-	config.role_name_text = "pirate crew"
-	config.alert_pic = /obj/item/stack/sheet/mineral/gold
+	var/datum/poll_config/config = new(
+		check_jobban = ROLE_SPACE_PIRATE,
+		poll_time = 15 SECONDS,
+		role_name_text = "pirate crew",
+		alert_pic = /obj/item/stack/sheet/mineral/gold,
+	)
 	var/list/candidates = SSpolling.poll_ghost_candidates(config)
 	shuffle_inplace(candidates)
 
-	var/datum/map_template/shuttle/pirate/default/ship = new
+	var/datum/map_template/shuttle/pirate/ship
+	var/total_players = GLOB.clients.len
+	if(total_players < 12)
+		ship = new /datum/map_template/shuttle/pirate/bratica()
+	else
+		ship = new /datum/map_template/shuttle/pirate/default()
+
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
 	var/z = SSmapping.empty_space.z_value
@@ -133,11 +140,12 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 //interrupt_research
 /obj/machinery/shuttle_scrambler/proc/interrupt_research()
-	for(var/obj/machinery/rnd/server/S in GLOB.machines)
-		if(S.machine_stat & (NOPOWER|BROKEN))
+	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+	for(var/obj/machinery/rnd/server/research_server as anything in science_web.techweb_servers)
+		if(research_server.machine_stat & (NOPOWER|BROKEN|EMPED))
 			continue
-		S.emp_act(1)
-		new /obj/effect/temp_visual/emp(get_turf(S))
+		research_server.emp_act(EMP_LIGHT)
+		new /obj/effect/temp_visual/emp(get_turf(research_server))
 
 /obj/machinery/shuttle_scrambler/proc/dump_loot(mob/user)
 	if(credits_stored)	// Prevents spamming empty holochips
@@ -263,7 +271,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 /obj/machinery/computer/piratepad_control/LateInitialize()
 	. = ..()
 	if(cargo_hold_id)
-		for(var/obj/machinery/piratepad/P in GLOB.machines)
+		for(var/obj/machinery/piratepad/P as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/piratepad))
 			if(P.cargo_hold_id == cargo_hold_id)
 				set_pad(P)
 				return
@@ -288,6 +296,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	return GLOB.default_state
 
 /obj/machinery/computer/piratepad_control/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CargoHoldTerminal")
@@ -401,6 +410,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 
 /// This only serves to be a parent type to all pirate exports for purposes of find_loot
 /datum/export/pirate
+	abstract_type = /datum/export/pirate
 
 /datum/export/pirate/proc/find_loot()
 	return
@@ -420,15 +430,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 
 /datum/export/pirate/ransom/get_cost(atom/movable/AM)
 	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
+	if(H.stat != CONSCIOUS || !H.mind) //mint condition only
 		return 0
 	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
+	else if(H.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
+		return 3000
 	else
-		if(H.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			return 3000
-		else
-			return 1000
+		return 1000
 
 /datum/export/pirate/parrot
 	cost = 2000
