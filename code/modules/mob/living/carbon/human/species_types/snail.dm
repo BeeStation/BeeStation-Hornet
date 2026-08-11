@@ -2,9 +2,9 @@
 	name = "Snailperson"
 	plural_form = "Snailpeople"
 	id = SPECIES_SNAIL
-	species_traits = list(
-		MUTANT_COLOR,
-		NO_UNDERWEAR
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_SLIP_ALL,
 	)
 	attack_verb = "slap"
 	coldmod = 0.5 //snails only come out when its cold and wet
@@ -42,12 +42,12 @@
 	if(!istype(bag, /obj/item/storage/backpack/snail))
 		if(C.dropItemToGround(bag)) //returns TRUE even if its null
 			C.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(C), ITEM_SLOT_BACK)
-	ADD_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+	ADD_TRAIT(C, TRAIT_NO_SLIP_ALL, SPECIES_TRAIT)
 
 /datum/species/snail/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	qdel(C.GetComponent(/datum/component/snailcrawl))
-	REMOVE_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_NO_SLIP_ALL, SPECIES_TRAIT)
 	var/obj/item/storage/backpack/bag = C.get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(bag, /obj/item/storage/backpack/snail))
 		bag.emptyStorage()

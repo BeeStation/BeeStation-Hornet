@@ -2,7 +2,7 @@
 	db_key = "feature_mcolor"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	relevant_species_trait = MUTANT_COLOR
+	relevant_inherent_trait = TRAIT_MUTANT_COLORS
 
 /datum/preference/color/mutant_color/create_default_value()
 	return sanitize_hexcolor("[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]")

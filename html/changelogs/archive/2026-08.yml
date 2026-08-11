@@ -47,3 +47,23 @@
   mrmanlikesbt:
   - server: maplints are now only ran on maps that have actually had changes made
       to them as apposed to all maps.
+2026-08-09:
+  Isaacnml:
+  - balance: Headcrabs are now immune to indirect gunfire
+  - bugfix: Swarmers can only place one barricade per tile again
+  - bugfix: Blood Bags can only be drank from by vampires
+  - bugfix: Module ore bag shouldn't void materials anymore
+  - bugfix: Modsuit reinforced plating will properly slow you down per piece equipped,
+      instead of constantly slowing you down
+  - bugfix: Venus Human Traps wont be able to keep their vine beam connected to something
+      through a wall
+  - bugfix: Wizard Modsuit shouldn't keep spamming the shield recharging sound anymore
+2026-08-11:
+  rkz, nightred, Ghommie, kapu1178, vinylspiders, Melbert, cruix, smartkar:
+  - rscadd: adds a new system for obscuring hair with helmets through masking
+  - rscadd: facial hair now supports gradients
+  - bugfix: Cleaned up the gain of the no breath trait to clear moods and alerts
+  - refactor: skintones are now a trait rather than species variable
+  - refactor: removes species_trait and other deprecated methods of passing traits/flags
+  - refactor: finished head_flags system. Swapping to different species heads will
+      keep their features (eyecolor, lips, eyeholes, etcetera)

@@ -21,7 +21,7 @@
 		H.mind.special_role = ROLE_SANTA
 
 	H.hair_style = "Long Hair 3"
-	H.facial_hair_style = "Beard (Full)"
+	H.facial_hairstyle = "Beard (Full)"
 	H.hair_color = COLOR_WHITE
 	H.facial_hair_color = COLOR_WHITE
-	H.update_hair()
+	H.update_body_parts(update_limb_data = TRUE)

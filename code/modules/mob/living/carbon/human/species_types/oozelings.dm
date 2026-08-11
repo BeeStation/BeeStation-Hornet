@@ -1,20 +1,17 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	species_traits = list(
-		MUTANT_COLOR,
-		HAIR_COLOR,
-		FACIAL_HAIR_COLOR,
-		NOAUGMENTS
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_AUGMENTS,
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
