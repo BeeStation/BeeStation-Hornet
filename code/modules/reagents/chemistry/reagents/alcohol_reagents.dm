@@ -2711,14 +2711,12 @@
 	if(DT_PROB(10, delta_time))
 		affected_human.age += 1
 		if(affected_human.age > 70)
-			affected_human.facial_hair_color = "#CCCCCC"
-			affected_human.hair_color = "#CCCCCC"
-			affected_human.update_hair()
+			affected_human.set_facial_haircolor("#cccccc", update = FALSE)
+			affected_human.set_haircolor("#cccccc", update = TRUE)
 			if(affected_human.age > 100)
 				affected_human.become_nearsighted(type)
 				if(affected_human.gender == MALE)
-					affected_human.facial_hair_style = "Beard (Very Long)"
-					affected_human.update_hair()
+					affected_human.set_facial_hairstyle("Beard (Very Long)", update = TRUE)
 
 				if(affected_human.age > 969) //Best not let people get older than this or i might incur G-ds wrath
 					affected_human.visible_message(span_notice("[affected_human] becomes older than any man should be.. and crumbles into dust!"))

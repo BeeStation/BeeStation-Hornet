@@ -26,7 +26,7 @@
 
 	// Things that we should be more careful about to make realistic characters
 	H.hair_style = random_hair_style(H.gender)
-	H.facial_hair_style = random_facial_hair_style(H.gender)
+	H.facial_hairstyle = random_facial_hairstyle(H.gender)
 	// Randomized humans get more unique hair styles than the preference editor
 	// since they are usually important characters, and as we know from anime
 	// important characters always have colourful hair
@@ -36,7 +36,7 @@
 		hsl[1] = CLAMP01(hsl[1] + (rand(-6, 6)/360))
 		hsl[2] = CLAMP01(hsl[2] + (rand(-4, 4)/100))
 		hsl[3] = CLAMP01(hsl[3] + (rand(-2, 2)/100))
-		H.gradient_color = rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSL)
+		H.gradient_color[GRADIENT_HAIR_KEY] = rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSL)
 	else
 		// Copy the behaviour of the preferences selection
 		// Hair colour
@@ -50,17 +50,17 @@
 					H.hair_color = pick(GLOB.natural_hair_colours)
 		// Gradient colour
 		if (prob(40))
-			H.gradient_color = H.hair_color
+			H.gradient_color[GRADIENT_HAIR_KEY] = H.hair_color
 		else
 			switch (H.gender)
 				if (MALE)
-					H.gradient_color = pick(GLOB.secondary_dye_hair_colours)
+					H.gradient_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours)
 				else
-					H.gradient_color = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
+					H.gradient_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
 	// Facial hair colour
 	H.facial_hair_color = H.hair_color
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = H.gender)
-	H.gradient_style = gradient_style.name
+	H.gradient_style[GRADIENT_HAIR_KEY] = gradient_style.name
 
 	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
 	H.dna.features["mcolor"] = "#[random_color()]"
@@ -88,7 +88,6 @@
 	H.dna.features["diona_eyes"] = pick(GLOB.diona_eyes_list)
 	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
 
-	H.update_body()
-	H.update_hair()
+	H.update_body(is_creating = TRUE)
 	H.dna.species.spec_updatehealth(H)
 

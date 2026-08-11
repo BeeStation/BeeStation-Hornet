@@ -12,4 +12,4 @@
 
 	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 	var/datum/species/species = GLOB.species_prototypes[species_type]
-	return !(NO_UNDERWEAR in species.species_traits)
+	return !(TRAIT_NO_UNDERWEAR in species.inherent_traits)

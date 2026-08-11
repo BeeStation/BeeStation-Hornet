@@ -15,9 +15,9 @@
 
 
 /datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(NOAUGMENTS in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_AUGMENTS))
 		to_chat(user, span_warning("[target] cannot be augmented!"))
-		return -1
+		return SURGERY_STEP_FAIL
 	if(istype(tool, /obj/item/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
