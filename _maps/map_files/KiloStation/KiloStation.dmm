@@ -25894,8 +25894,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/shuttledock)
 "jii" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
@@ -33518,6 +33516,10 @@
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)

@@ -233,7 +233,11 @@
 /area/station/commons/dorms)
 "aeA" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/aug_manipulator,
+/obj/structure/table,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
