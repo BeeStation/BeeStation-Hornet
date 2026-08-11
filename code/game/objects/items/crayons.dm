@@ -652,6 +652,40 @@
 		. += "It is empty."
 	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"]. Right-click a colored object to match its existing color.")
 
+/obj/item/toy/crayon/spraycan/add_context_self(datum/screentip_context/context, mob/user)
+	if(has_cap)
+		context.add_alt_click_action("[is_capped ? "Take cap off" : "Put cap on"]")
+
+/obj/item/toy/crayon/spraycan/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+	if(target == src)
+		return
+
+	if(is_capped)
+		context.add_left_click_action("Spray", "capped", FALSE)
+		context.add_right_click_action("Match colour", "capped", FALSE)
+		return
+
+	if(charges != -1 && !charges_left)
+		context.add_left_click_action("Spray", "empty", FALSE)
+		context.add_right_click_action("Match colour", "empty", FALSE)
+		return
+
+	var/handled_secondary = FALSE
+	if(isbodypart(target) && actually_paints)
+		var/obj/item/bodypart/limb = target
+		if(!IS_ORGANIC_LIMB(limb))
+			context.add_right_click_action("Restyle limb")
+			handled_secondary = TRUE
+	if(!handled_secondary)
+		context.add_right_click_action("Match colour")
+
+	if(iscarbon(target))
+		context.add_left_click_action("Spray in face")
+	else if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
+		context.add_left_click_action("Coat with paint")
+	else if(isValidSurface(target))
+		context.add_left_click_action("Draw [drawtype]")
+
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return ..()
