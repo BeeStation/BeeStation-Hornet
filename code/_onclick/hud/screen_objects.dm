@@ -450,10 +450,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if (master && !istype(master))
 		CRASH("Attempting to create a backpack close without referencing a storage datum.")
 
-/atom/movable/screen/storage/attackby(location, control, list/modifiers)
+/atom/movable/screen/storage/Click(location, control, params)
 	var/datum/storage/storage_master = master
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
