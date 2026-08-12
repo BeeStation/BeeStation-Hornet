@@ -7,20 +7,17 @@
 	name = "Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
-	species_traits = list(
-		MUTANT_COLOR,
-		HAIR_COLOR,
-		FACIAL_HAIR_COLOR,
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
-		TRAIT_NOBLOOD
+		TRAIT_NOBLOOD,
+		TRAIT_MUTANT_COLORS,
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	mutanteyes = /obj/item/organ/eyes/jelly
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies

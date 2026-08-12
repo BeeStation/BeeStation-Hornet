@@ -44,7 +44,7 @@
 /datum/antagonist/obsessed/greet()
 	if(!trauma?.obsession)
 		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/antag/creepalert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, span_userdanger("You are the Obsessed!"))
 	to_chat(owner, span_bold("Realization floods over you and everything that's happened this shift makes sense."))
 	to_chat(owner, span_bold("[trauma.obsession.name] has no idea how much danger they're in and you're the only person that can be there for them."))

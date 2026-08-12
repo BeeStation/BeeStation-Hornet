@@ -9,13 +9,9 @@
 	name = "\improper Mothman"
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
-	species_traits = list(
-		LIPS,
-		HAS_MARKINGS,
-		MUTANT_COLOR,
-	)
 	inherent_traits = list(
-		TRAIT_TACKLING_WINGED_ATTACKER
+		TRAIT_MUTANT_COLORS,
+		TRAIT_HAS_MARKINGS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	mutant_bodyparts = list(

@@ -162,8 +162,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	death_cloud_size = 0
 	icon = H.icon
 	icon_state = "zombie"
-	H.hair_style = null
-	H.update_hair()
+	H.set_hairstyle("Bald", update = TRUE)
 	H.forceMove(src)
 	oldguy = H
 	update_icons()
