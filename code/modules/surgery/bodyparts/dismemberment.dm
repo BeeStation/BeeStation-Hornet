@@ -261,7 +261,6 @@
 
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_ATTACH_LIMB, src, special)
 	moveToNullspace()
-	set_owner(new_limb_owner)
 	new_limb_owner.add_bodypart(src)
 
 	if(special) //non conventional limb attachment

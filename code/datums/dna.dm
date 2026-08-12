@@ -555,6 +555,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /mob/living/brain/set_species(datum/species/mrace, icon_update = 1)
@@ -577,7 +578,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			return
 		death_sound = new_race.deathsound
 
-		dna.species.on_species_loss(src, new_race, pref_load)
+		if (dna.species.properly_gained)
+			dna.species.on_species_loss(src, new_race, pref_load)
+			
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
