@@ -245,64 +245,59 @@
 			return ..()
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
-	if(..())
-		return TRUE
 	if(seconds_electrified && get_charge() && shock(user))
-		return TRUE
-	if(open)
-		if(!core)
-			balloon_alert(user, "no core!")
-			return TRUE
-		balloon_alert(user, "removing core...")
-		wrench.play_tool_sound(src, 100)
-		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
-			balloon_alert(user, "interrupted!")
-			return TRUE
-		wrench.play_tool_sound(src, 100)
-		balloon_alert(user, "core removed")
-		core.forceMove(drop_location())
-		update_charge_alert()
-		return TRUE
-	return ..()
+		return ITEM_INTERACT_BLOCKING
+	if(!open)
+		return NONE
+
+	if(!core)
+		balloon_alert(user, "no core!")
+		return ITEM_INTERACT_BLOCKING
+	balloon_alert(user, "removing core...")
+	wrench.play_tool_sound(src, 100)
+	if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
+		balloon_alert(user, "interrupted!")
+		return ITEM_INTERACT_BLOCKING
+	wrench.play_tool_sound(src, 100)
+	balloon_alert(user, "core removed")
+	core.forceMove(drop_location())
+	update_charge_alert()
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/screwdriver)
-	. = ..()
-	if(.)
-		return TRUE
 	if(active || activating || ai_controller)
 		balloon_alert(user, "unit active!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+		return ITEM_INTERACT_BLOCKING
 	if(isAI(ai_assistant) && locked && !open)
 		balloon_alert(user, "suit locked, consult onboard AI!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+		return ITEM_INTERACT_BLOCKING
 	if(SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVAL, user) & MOD_CANCEL_REMOVAL)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+		return ITEM_INTERACT_BLOCKING
 	balloon_alert(user, "[open ? "closing" : "opening"] cover...")
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
 			balloon_alert(user, "unit active!")
-			return TRUE
+			return ITEM_INTERACT_SUCCESS
 		screwdriver.play_tool_sound(src, 100)
 		balloon_alert(user, "cover [open ? "closed" : "opened"]")
 		open = !open
 	else
 		balloon_alert(user, "interrupted!")
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
-	. = ..()
 	if(!open)
 		balloon_alert(user, "cover closed!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+		return ITEM_INTERACT_BLOCKING
 	if(!allowed(user))
 		balloon_alert(user, "insufficient access!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return
+		return ITEM_INTERACT_BLOCKING
 	if(length(modules))
 		var/list/removable_modules = list()
 		for(var/obj/item/mod/module/module as anything in modules)
@@ -311,15 +306,15 @@
 			removable_modules += module
 		var/obj/item/mod/module/module_to_remove = tgui_input_list(user, "Which module to remove?", "Module Removal", removable_modules)
 		if(!module_to_remove?.mod)
-			return FALSE
+			return ITEM_INTERACT_BLOCKING
 		uninstall(module_to_remove)
 		module_to_remove.forceMove(drop_location())
 		crowbar.play_tool_sound(src, 100)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVED, user)
-		return TRUE
+		return ITEM_INTERACT_SUCCESS
 	balloon_alert(user, "no modules!")
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-	return FALSE
+	return ITEM_INTERACT_BLOCKING
 
 // Makes use of tool act to prevent shoving stuff into our internal storage
 /obj/item/mod/control/tool_act(mob/living/user, obj/item/tool, list/modifiers)
@@ -389,13 +384,9 @@
 	return cell
 
 /obj/item/mod/control/GetAccess()
-	if(ai_controller)
-		if(req_access)
-			return req_access.Copy()
-		else
-			return ..()
-	else
-		return ..()
+	if(ai_controller && req_access)
+		return req_access.Copy()
+	return ..()
 
 /obj/item/mod/control/on_emag(mob/user)
 	..()
