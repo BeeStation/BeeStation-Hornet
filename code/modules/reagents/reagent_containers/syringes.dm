@@ -10,12 +10,8 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
-	/// needed for delayed drawing of blood
-	var/busy = FALSE
 	/// does it pierce through thick clothes when shot with syringe gun
 	var/proj_piercing = FALSE
-	/// standard flag (this var exists so we can inherit projectile penetration if parent is set to it)
-	var/proj_var = INJECT_TRY_SHOW_ERROR_MESSAGE
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	initial_reagent_flags = TRANSPARENT
 	var/list/datum/disease/syringe_diseases = list()
@@ -39,19 +35,14 @@
 			continue
 		syringe_diseases += D
 
-/obj/item/reagent_containers/syringe/proc/try_syringe(atom/target, mob/user, proximity)
-	if(busy)
-		return FALSE
-	if(!proximity)
-		return FALSE
+/obj/item/reagent_containers/syringe/proc/try_syringe(atom/target, mob/user)
 	if(!target.reagents)
 		return FALSE
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		//if(proj_piercing)
-		//	proj_var = INJECT_TRY_SHOW_ERROR_MESSAGE
-		if(!living_target.can_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE | (proj_piercing ? INJECT_CHECK_PENETRATE_THICK : 0)))
+		var/flags = INJECT_TRY_SHOW_ERROR_MESSAGE | (proj_piercing ? INJECT_CHECK_PENETRATE_THICK : NONE)
+		if(!living_target.can_inject(user, injection_flags = flags))
 			return FALSE
 
 	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)

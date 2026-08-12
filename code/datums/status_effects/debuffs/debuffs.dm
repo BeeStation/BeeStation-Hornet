@@ -305,7 +305,6 @@
 	syringe.reagents.expose(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
 	syringe.reagents.trans_to(owner, amount * injectmult)
 
-
 /atom/movable/screen/alert/syringe
 	name = "Embedded Syringe"
 	desc = "A syringe has embedded itself into your body, injecting its reagents! click this icon to carefully remove the syringe."
