@@ -1332,6 +1332,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
 
+/mob/living/carbon/proc/add_unarmed_damage_to_arms(amount)
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage += amount
+
+/mob/living/carbon/proc/get_unarmed_damage()
+	var/total_damage = 0
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				total_damage += arm.unarmed_damage
+	return (total_damage/2) // average the two arms together
+
 /**
  * This proc is used to determine whether or not the mob can handle touching a burning object.
  */
