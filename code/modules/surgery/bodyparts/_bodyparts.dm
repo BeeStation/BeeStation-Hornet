@@ -664,23 +664,22 @@
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
 
-	//Monkeys only create their DNA after carbon/Initialize() has already drawn them once, so there's nothing to inherit from yet.
-	if(human_owner.dna)
-		limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
-		if(HAS_TRAIT(human_owner, TRAIT_USES_SKINTONES))
-			skin_tone = human_owner.skin_tone
-		else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
-			skin_tone = ""
-			var/datum/species/owner_species = human_owner.dna.species
-			use_damage_color = owner_species.use_damage_color
-			species_color = owner_species.fixed_mut_color || human_owner.dna.features["mcolor"]
-		else
-			skin_tone = ""
-			species_color = ""
+	if(!ismonkey(human_owner)) //temporary. Fuck monkeys
+		limb_gender = (human_owner.physique == MALE) ? "m" : "f"
+	if(HAS_TRAIT(human_owner, TRAIT_USES_SKINTONES))
+		skin_tone = human_owner.skin_tone
+	else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
+		skin_tone = ""
+		var/datum/species/owner_species = human_owner.dna.species
+		use_damage_color = owner_species.use_damage_color
+		species_color = owner_species.fixed_mut_color || human_owner.dna.features["mcolor"]
+	else
+		skin_tone = ""
+		species_color = ""
 
-		draw_color = variable_color
-		if(should_draw_greyscale) //Should the limb be colored?
-			draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
+	draw_color = variable_color
+	if(should_draw_greyscale) //Should the limb be colored?
+		draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
 
 	recolor_external_organs()
 	return TRUE

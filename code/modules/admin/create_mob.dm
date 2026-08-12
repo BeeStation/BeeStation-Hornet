@@ -11,13 +11,11 @@
 	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=425x475")
 
 /proc/randomize_human(mob/living/carbon/human/H, unique = FALSE)
-	H.gender = pick(MALE, FEMALE)
+	H.gender = H.dna.species.sexes ? pick(MALE, FEMALE, PLURAL) : PLURAL
+	H.physique = H.gender
 	H.real_name = H.generate_random_mob_name()
 	H.name = H.real_name
-	H.underwear = random_underwear(H.gender)
-	H.socks = random_socks(H.gender)
-	H.undershirt = random_undershirt(H.undershirt)
-	H.underwear_color = "#[random_color()]"
+	H.dna.species.randomize_active_underwear_only(H)
 	H.skin_tone = pick(GLOB.skin_tones)
 	var/random_eye_color = random_eye_color()
 	H.eye_color_left = random_eye_color
@@ -60,7 +58,7 @@
 	// Facial hair colour
 	H.facial_hair_color = H.hair_color
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = H.gender)
-	H.gradient_style[GRADIENT_HAIR_KEY] = gradient_style.name
+	H.gradient_style[GRADIENT_HAIR_KEY] = gradient_style?.name || SPRITE_ACCESSORY_NONE
 
 	// Mutant randomizing, doesn't affect the mob appearance unless it's the specific mutant.
 	H.dna.features["mcolor"] = "#[random_color()]"
@@ -77,7 +75,6 @@
 	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
 	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
 	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
-	H.dna.features["body_model"] = H.gender
 	H.dna.features["psyphoza_cap"] = pick(GLOB.psyphoza_cap_list)
 	H.dna.features["diona_leaves"] = pick(GLOB.diona_leaves_list)
 	H.dna.features["diona_thorns"] = pick(GLOB.diona_thorns_list)

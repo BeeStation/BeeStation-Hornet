@@ -148,7 +148,7 @@ There are several things that need to be remembered:
 		var/mutable_appearance/uniform_overlay
 
 		if(dna?.species.sexes)
-			if(dna.features["body_model"] == FEMALE && uniform.female_sprite_flags != NO_FEMALE_UNIFORM)
+			if(physique  == FEMALE && uniform.female_sprite_flags != NO_FEMALE_UNIFORM)
 				uniform_overlay = uniform.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/default.dmi', isinhands = FALSE, femaleuniform = uniform.female_sprite_flags, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
