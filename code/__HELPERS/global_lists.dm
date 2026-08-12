@@ -19,6 +19,15 @@
 
 	init_religion_sects()
 
+/// Hair Gradients - Initialise all /datum/sprite_accessory/gradient into an list indexed by gradient-style name
+/proc/init_hair_gradients()
+	for(var/path in subtypesof(/datum/sprite_accessory/gradient))
+		var/datum/sprite_accessory/gradient/gradient = new path()
+		if(gradient.gradient_category  & GRADIENT_APPLIES_TO_HAIR)
+			SSaccessories.hair_gradients_list[gradient.name] = gradient
+		if(gradient.gradient_category & GRADIENT_APPLIES_TO_FACIAL_HAIR)
+			SSaccessories.facial_hair_gradients_list[gradient.name] = gradient
+
 /// Inits crafting recipe lists
 /proc/init_crafting_recipes(list/crafting_recipes)
 	for(var/path in valid_subtypesof(/datum/crafting_recipe))
@@ -159,7 +168,7 @@
 /proc/init_subtypes(prototype, list/L)
 	if(!istype(L))
 		L = list()
-	for(var/path in subtypesof(prototype))
+	for(var/path in valid_subtypesof(prototype))
 		L += new path()
 	return L
 

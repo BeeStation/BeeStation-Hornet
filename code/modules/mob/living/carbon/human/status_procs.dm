@@ -30,11 +30,3 @@
 	. = ..()
 	if(.)
 		update_body_parts()
-
-/mob/living/carbon/human/become_husk(source)
-	if(HAS_TRAIT(src, TRAIT_NOHUSK))
-		cure_husk()
-		return
-	. = ..()
-	if(.)
-		update_body_parts()

@@ -58,7 +58,6 @@ export const eye_color: Feature<string> = {
 };
 
 const hairPresets = {
-  // these need to be short color (3 byte) compatible
   '#111111': 'Black',
   '#222222': 'Off Black',
   '#332222': 'Deep Brown',
@@ -130,14 +129,13 @@ export const facial_hair_color: Feature<string> = {
   },
 };
 
-/*
 export const facial_hair_gradient: FeatureChoiced = {
-  name: 'Facial hair gradient',
+  name: 'Facial Hair Gradient',
   component: FeatureButtonedDropdownInput,
 };
 
 export const facial_hair_gradient_color: Feature<string> = {
-  name: 'Facial hair gradient color',
+  name: 'Facial Hair Gradient Color',
   small_supplemental: false,
   predictable: false,
   component: (props: FeatureValueProps<string>) => {
@@ -159,7 +157,6 @@ export const facial_hair_gradient_color: Feature<string> = {
     );
   },
 };
-*/
 
 export const hair_color: Feature<string> = {
   name: 'Hair Color',

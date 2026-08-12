@@ -88,7 +88,6 @@
 	var/obj/item/clothing/suit/hooded/suit
 	clothing_flags = SNUG_FIT
 
-
 /obj/item/clothing/head/hooded/Destroy()
 	suit = null
 	return ..()

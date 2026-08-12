@@ -9,7 +9,6 @@
 		TRAIT_NOHUNGER,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NOBLOOD,
-		TRAIT_NOMOUTH
 	)
 	mutanttongue = /obj/item/organ/tongue/abductor
 	mutantstomach = null

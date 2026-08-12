@@ -1433,9 +1433,6 @@
 		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(src.owner)].", INVESTIGATE_ENGINES)
 		tear.retrieve_consumed_items()
 
-	else if(href_list["beakerpanel"])
-		beaker_panel_act(href_list)
-
 	else if(href_list["reloadpolls"])
 		GLOB.polls.Cut()
 		GLOB.active_polls.Cut()

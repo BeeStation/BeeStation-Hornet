@@ -73,7 +73,7 @@ AUTH_CLIENT_VERB(adminhelp)
 /// Ticket List UI
 
 /datum/help_ui/admin/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/help_ui/admin/get_data_glob()
 	return GLOB.ahelp_tickets
@@ -123,7 +123,7 @@ AUTH_CLIENT_VERB(adminhelp)
 	return !!GLOB.admin_datums[user.ckey] && check_rights(R_ADMIN)
 
 /datum/help_ticket/admin/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/help_ticket/admin/reply(whom, msg)
 	usr.client.cmd_ahelp_reply_instant(whom, msg)

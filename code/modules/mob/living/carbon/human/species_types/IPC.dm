@@ -19,11 +19,10 @@
 		TRAIT_NO_ZOMBIFY,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_MUTANT_COLORS,
-		TRAIT_NOHUSK,
-		TRAIT_NOMOUTH,
 		TRAIT_REVIVESBYHEALING,
 		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -266,16 +265,10 @@
 
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = SSaccessories.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		BP.should_draw_greyscale = chassis_of_choice.color_src ? TRUE : FALSE
-		if(BP.should_draw_greyscale)
-			BP.species_color = C.dna?.features[FEATURE_MUTANT_COLOR]
-		else
-			BP.species_color = null
-
-		BP.limb_id = chassis_of_choice.limbs_id
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		BP.change_appearance(icon = BP.icon_static, id = chassis_of_choice.limbs_id, greyscale = !!chassis_of_choice.color_src)
 
 /datum/species/ipc/get_species_description()
 	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \

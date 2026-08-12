@@ -171,13 +171,10 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 			. += "Current clone cycle is [round(get_completion())]% complete."
 
 /obj/machinery/clonepod/return_air()
-	// We want to simulate the clone not being in contact with
-	// the atmosphere, so we'll put them in a constant pressure
-	// nitrogen. They don't need to breathe while cloning anyway.
-	var/static/datum/gas_mixture/immutable/planetary/cloner/GM //global so that there's only one instance made for all cloning pods
-	if(!GM)
-		GM = new
-	return GM
+	var/datum/gas_mixture/nitrogen_atmosphere = new
+	nitrogen_atmosphere.set_gas(/datum/gas/nitrogen, 104)
+	nitrogen_atmosphere.temperature = T20C
+	return nitrogen_atmosphere
 
 /obj/machinery/clonepod/proc/get_completion()
 	. = FALSE

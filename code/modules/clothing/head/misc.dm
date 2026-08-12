@@ -14,7 +14,6 @@
 	attack_verb_simple = list("warn", "caution", "smash")
 	resistance_flags = NONE
 
-
 /obj/item/clothing/head/cowboy
 	name = "ranching hat"
 	desc = "King of the plains, the half cow half man mutant, the cowboy."

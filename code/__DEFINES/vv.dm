@@ -112,10 +112,7 @@
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
-// /datum/gas_mixture
-#define VV_HK_SET_MOLES "set_moles"
-#define VV_HK_EMPTY "empty"
-#define VV_HK_SET_TEMPERATURE "set_temp"
+// /turf
 #define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj

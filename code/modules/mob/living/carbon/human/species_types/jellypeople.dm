@@ -10,7 +10,9 @@
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
 		TRAIT_TOXINLOVER,
-		TRAIT_NOBLOOD,
+		TRAIT_NOFIRE,
+		TRAIT_EASYDISMEMBER,
+		TRAIT_NOHAIRLOSS,
 	)
 	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150

@@ -103,14 +103,6 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-/// Used for determining which wounds are applicable to this species.
-/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
-// #define HAS_FLESH 23 [add if we ever port TGs wound system]
-/// if we have bones (can suffer bone wounds)
-// #define HAS_BONE 24 [add if we ever port TGs wound system]
-/// If we have a limb-specific overlay sprite
-#define HAS_MARKINGS 25
-
 //organ slots
 #define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
 #define ORGAN_SLOT_APPENDIX "appendix"

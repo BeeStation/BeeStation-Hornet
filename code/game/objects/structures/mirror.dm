@@ -176,6 +176,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 
 			if(HAS_TRAIT(H, TRAIT_USES_SKINTONES))
 				var/new_s_tone = tgui_input_list(H, "Choose your skin tone", "Race change", GLOB.skin_tones)
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return
+
 				if(new_s_tone)
 					H.skin_tone = new_s_tone
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)

@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["character_preview_view"] = character_preview_view.assigned_map
+	data["character_preview_view"] = character_preview_view?.assigned_map
 	data["overflow_role"] = SSjob.get_job_type(SSjob.overflow_role).title
 	data["window"] = current_window
 

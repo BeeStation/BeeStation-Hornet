@@ -74,7 +74,7 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_JUMPSUIT
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/choiced/jumpsuit_style/init_possible_values()
 	return list(
@@ -140,6 +140,7 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	can_randomize = FALSE
+	informed = TRUE
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.undershirt_list)

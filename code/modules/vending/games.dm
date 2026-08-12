@@ -25,6 +25,7 @@
 				/obj/item/canvas/nineteen_nineteen = 5,
 				/obj/item/canvas/twentythree_nineteen = 5,
 				/obj/item/canvas/twentythree_twentythree = 5,
+				/obj/item/canvas/twentyfour_twentyfour = 5,
 			),
 		),
 		list(
@@ -35,24 +36,23 @@
 				/obj/item/camera_film = 5,
 				/obj/item/dyespray = 3,
 				/obj/item/hourglass = 2,
-				/obj/item/razor = 3,
-				/obj/item/storage/pill_bottle/dice = 10,
 				/obj/item/storage/box/yatzy = 3,
 				/obj/item/chess_board = 1,
 				/obj/item/chess_board/checkers = 1,
+				/obj/item/razor = 3,
+				/obj/item/storage/pill_bottle/dice = 10,
 			),
 		),
 	)
 	contraband = list(
 		/obj/item/dice/fudge = 9,
 		/obj/item/instrument/musicalmoth = 1
-		)
+	)
 	premium = list(
-		/obj/item/melee/skateboard/pro = 3,
-		/obj/item/clothing/shoes/wheelys= 3,
-		/obj/item/canvas/twentyfour_twentyfour = 5,
 		/obj/item/airlock_painter = 1,
-		/obj/item/melee/skateboard/hoverboard = 1
+		/obj/item/clothing/shoes/wheelys = 3,
+		/obj/item/melee/skateboard/pro = 3,
+		/obj/item/melee/skateboard/hoverboard = 1,
 	)
 	refill_canister = /obj/item/vending_refill/games
 	default_price = 10

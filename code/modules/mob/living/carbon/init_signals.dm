@@ -5,6 +5,8 @@
 	//Traits that register add and remove
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_AGENDER), PROC_REF(on_agender_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_AGENDER), PROC_REF(on_agender_trait_loss))
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_MOUTH), PROC_REF(on_no_mouth_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NO_MOUTH), PROC_REF(on_no_mouth_trait_loss))
 
 	//Traits that register add only
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath_trait_gain))
@@ -40,6 +42,29 @@
 			gender = FEMALE
 		else
 			gender = PLURAL
+
+/**
+ * On gain of TRAIT_NO_MOUTH
+ *
+ * I have no mouth and I must sob
+ */
+/mob/living/carbon/proc/on_no_mouth_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	for(var/obj/item/bodypart/head/head in bodyparts)
+		head.mouth = FALSE
+
+/**
+ * On gain of TRAIT_NO_MOUTH
+ *
+ * Waaaaah 😭
+ */
+/mob/living/carbon/proc/on_no_mouth_trait_loss(datum/source)
+	SIGNAL_HANDLER
+
+	for(var/obj/item/bodypart/head/head in bodyparts)
+		head.mouth = TRUE
+
 
 /**
  * On gain of TRAIT_NOBREATH
@@ -79,9 +104,8 @@
  */
 /mob/living/carbon/proc/on_liverless_metabolism_trait_gain(datum/source)
 	SIGNAL_HANDLER
-
-	//for(var/addiction_type in subtypesof(/datum/addiction))
-	//	mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
+	for(var/addiction_type in subtypesof(/datum/addiction))
+		mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
 
 	reagents.end_metabolization(keep_liverless = TRUE)
 
@@ -115,3 +139,4 @@
 	SIGNAL_HANDLER
 
 	dna?.remove_all_mutations()
+

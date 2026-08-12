@@ -1,4 +1,4 @@
-/proc/generate_icon_with_head_accessory(datum/sprite_accessory/sprite_accessory)
+/proc/generate_icon_with_head_accessory(datum/sprite_accessory/sprite_accessory, y_offset = 0)
 	var/static/datum/universal_icon/head_icon
 	if (isnull(head_icon))
 		head_icon = uni_icon('icons/mob/human/bodyparts_greyscale.dmi', "human_head_m")
@@ -9,6 +9,8 @@
 		ASSERT(istype(sprite_accessory))
 
 		var/datum/universal_icon/head_accessory_icon = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
+		if(y_offset)
+			head_accessory_icon.shift(NORTH, y_offset, ICON_SIZE_X, ICON_SIZE_Y)
 		head_accessory_icon.blend_color(COLOR_DARK_BROWN, ICON_MULTIPLY)
 		final_icon.blend_icon(head_accessory_icon, ICON_OVERLAY)
 
@@ -18,11 +20,11 @@
 	return final_icon
 
 /datum/preference/color/eye_color
+	priority = PREFERENCE_PRIORITY_BODYPARTS
 	db_key = "eye_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_head_flag = HEAD_EYECOLOR
-	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
 /datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
@@ -60,6 +62,7 @@
 	should_generate_icons = TRUE
 	relevant_head_flag = HEAD_FACIAL_HAIR
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
+	informed = TRUE
 
 /datum/preference/choiced/facial_hairstyle/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.facial_hairstyles_list)
@@ -101,6 +104,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_FACIAL_HAIR
+	informed = TRUE
 
 /datum/preference/color/facial_hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_haircolor(value, update = TRUE)
@@ -108,7 +112,6 @@
 /datum/preference/color/facial_hair_color/create_informed_default_value(datum/preferences/preferences)
 	return preferences.read_preference(/datum/preference/color/hair_color) || random_hair_color()
 
-/*
 /datum/preference/choiced/facial_hair_gradient
 	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE
 	category = PREFERENCE_CATEGORY_FEATURES
@@ -118,8 +121,6 @@
 	relevant_head_flag = HEAD_FACIAL_HAIR
 	can_randomize = FALSE
 	should_generate_icons = TRUE
-	//temporary fix
-	disable_serialization = TRUE
 
 /datum/preference/choiced/facial_hair_gradient/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.facial_hair_gradients_list)
@@ -172,9 +173,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient_color"
 	relevant_head_flag = HEAD_FACIAL_HAIR
-	//temporary fix
-	disable_serialization = TRUE
-
+	
 /datum/preference/color/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_color(new_color = value, update = FALSE)
 
@@ -185,13 +184,13 @@
 	if (!..(preferences))
 		return FALSE
 	return preferences.read_preference(/datum/preference/choiced/facial_hair_gradient) != /datum/sprite_accessory/gradient/none::name
-*/
 
 /datum/preference/color/hair_color
 	db_key = "hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_HAIR
+	informed = TRUE
 	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 
 /datum/preference/color/hair_color/has_relevant_feature(datum/preferences/preferences)
@@ -222,7 +221,8 @@
 	return assoc_to_keys_features(SSaccessories.hairstyles_list)
 
 /datum/preference/choiced/hairstyle/icon_for(value)
-	return generate_icon_with_head_accessory(SSaccessories.hairstyles_list[value])
+	var/datum/sprite_accessory/hair/hairstyle = SSaccessories.hairstyles_list[value]
+	return generate_icon_with_head_accessory(hairstyle, hairstyle?.y_offset)
 
 /datum/preference/choiced/hairstyle/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hairstyle(value, update = FALSE)

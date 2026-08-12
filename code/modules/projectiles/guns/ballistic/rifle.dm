@@ -16,10 +16,6 @@
 	tac_reloads = FALSE
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/ballistic/rifle/update_icon()
-	..()
-	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
-
 /obj/item/gun/ballistic/rifle/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
 		if(!is_wielded)

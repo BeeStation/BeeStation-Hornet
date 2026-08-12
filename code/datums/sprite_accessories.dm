@@ -911,6 +911,7 @@
 
 /datum/sprite_accessory/gradient
 	icon = 'icons/mob/hair_gradients.dmi'
+	use_default = FALSE
 	///whether this gradient applies to hair and/or beards. Some gradients do not work well on beards.
 	var/gradient_category = GRADIENT_APPLIES_TO_HAIR|GRADIENT_APPLIES_TO_FACIAL_HAIR
 
@@ -937,6 +938,7 @@
 /datum/sprite_accessory/gradient/reflected
 	name = "Reflected"
 	icon_state = "reflected_high"
+	use_default = TRUE
 	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
 /datum/sprite_accessory/gradient/reflected/beard

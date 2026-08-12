@@ -4,6 +4,7 @@
 	id = SPECIES_SNAIL
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_SLIP_ALL,
 		TRAIT_NO_UNDERWEAR,
 	)
 	coldmod = 0.5 //snails only come out when its cold and wet
@@ -39,12 +40,12 @@
 	if(!istype(bag, /obj/item/storage/backpack/snail))
 		if(new_snailperson.dropItemToGround(bag)) //returns TRUE even if its null
 			new_snailperson.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(new_snailperson), ITEM_SLOT_BACK)
-	ADD_TRAIT(new_snailperson, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+	ADD_TRAIT(new_snailperson, TRAIT_NO_SLIP_ALL, SPECIES_TRAIT)
 
 /datum/species/snail/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	qdel(C.GetComponent(/datum/component/snailcrawl))
-	REMOVE_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_NO_SLIP_ALL, SPECIES_TRAIT)
 	var/obj/item/storage/backpack/bag = C.get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(bag, /obj/item/storage/backpack/snail))
 		bag.emptyStorage()

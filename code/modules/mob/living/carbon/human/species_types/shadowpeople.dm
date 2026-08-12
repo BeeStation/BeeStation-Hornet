@@ -136,7 +136,7 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_NOT_TRANSMORPHIC,
-		TRAIT_NOFLASH
+		TRAIT_NOFLASH,
 	)
 
 	mutantheart = /obj/item/organ/heart/nightmare

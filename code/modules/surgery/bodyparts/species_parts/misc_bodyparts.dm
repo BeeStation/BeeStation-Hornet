@@ -10,6 +10,7 @@
 	is_dimorphic = FALSE
 	wing_types = NONE
 	burn_modifier = 1.5
+	bodypart_traits = list(TRAIT_NO_UNDERWEAR)
 
 /obj/item/bodypart/arm/left/snail
 	limb_id = SPECIES_SNAIL
@@ -43,6 +44,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	head_flags = NONE
+	bodypart_traits = list(TRAIT_NO_MOUTH)
 
 /obj/item/bodypart/chest/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -198,7 +200,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
-	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON
@@ -276,33 +278,39 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 	head_flags = NONE
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/chest/skeleton
 	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 	wing_types = list(/obj/item/organ/wings/skeleton)
 
 /obj/item/bodypart/arm/left/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/right/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem

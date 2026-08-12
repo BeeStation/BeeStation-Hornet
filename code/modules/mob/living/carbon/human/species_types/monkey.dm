@@ -8,9 +8,10 @@
 	meat = /obj/item/food/meat/slab/monkey
 	changesource_flags = MIRROR_BADMIN
 	inherent_traits = list(
-		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_BLOOD_OVERLAY,
 		TRAIT_NO_AUGMENTS,
+		TRAIT_NO_BLOOD_OVERLAY,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_VENTCRAWLER_NUDE,
 	)
 

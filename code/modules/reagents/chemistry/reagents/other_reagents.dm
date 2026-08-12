@@ -461,7 +461,7 @@
 	if(method == PATCH || method == VAPOR)
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 
-		if(exposed_human.dna.species.id == SPECIES_HUMAN)
+		if(HAS_TRAIT(exposed_human, TRAIT_USES_SKINTONES))
 			switch(exposed_human.skin_tone)
 				if("african1")
 					exposed_human.skin_tone = "african2"
@@ -842,12 +842,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("o2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_O2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/oxygen/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("o2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_O2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/copper
 	name = "Copper"
@@ -877,12 +877,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("n2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_N2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrogen/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("n2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_N2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/hydrogen
 	name = "Hydrogen"
@@ -1372,12 +1372,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("co2=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_CO2]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/carbondioxide/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("co2=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_CO2]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide
 	name = "Nitrous Oxide"
@@ -1391,12 +1391,12 @@
 /datum/reagent/nitrous_oxide/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
 	if(exposed_obj && reac_volume)
-		exposed_obj.atmos_spawn_air("n2o=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_obj.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("n2o=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == VAPOR)
@@ -1760,12 +1760,11 @@
 	var/list/potential_colors = list("#00aadd","#aa00ff","#ff7733","#dd1144","#dd1144","#00bb55","#00aadd","#ff7733","#ffcc22","#008844","#0055ee","#dd2222","#ffaa00") // fucking hair code
 	taste_description = "sourness"
 
-/datum/reagent/hair_dye/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.set_facial_haircolor(pick(potential_colors), update = FALSE)
-			H.set_haircolor(pick(potential_colors)) //this will call update_body_parts()
+/datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR || ishuman(exposed_mob))
+		var/mob/living/carbon/human/exposed_human = exposed_mob
+		exposed_human.set_facial_haircolor(pick(potential_colors), update = FALSE)
+		exposed_human.set_haircolor(pick(potential_colors), update = TRUE)
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"
@@ -1833,12 +1832,10 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "funky sugar"
 
-/datum/reagent/barbers_afro_mania/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.hairstyle = "Afro (Large)"
-			H.update_body_parts()
+/datum/reagent/barbers_afro_mania/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+		var/mob/living/carbon/human/exposed_human = exposed_mob
+		exposed_human.set_hairstyle("Afro (Large)", update = TRUE)
 
 /datum/reagent/barbers_shaving_aid
 	name = "Barber's Shaving Aid"
@@ -1851,9 +1848,8 @@
 /datum/reagent/barbers_shaving_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.set_hairstyle("Bald 2", update = FALSE)
 		exposed_human.set_facial_hairstyle("Shaved", update = FALSE)
-		exposed_human.update_body_parts()
+		exposed_human.set_hairstyle("Bald 2", update = TRUE)
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"

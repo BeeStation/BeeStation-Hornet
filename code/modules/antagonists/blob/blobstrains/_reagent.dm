@@ -20,12 +20,9 @@
 
 // These can only be applied by blobs. They are what (reagent) blobs are made out of.
 /datum/reagent/blob
-	name = "Unknown"
-	description = "shouldn't exist and you should adminhelp immediately."
 	color = COLOR_WHITE
 	chemical_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bad code and slime"
-
 
 /datum/reagent/blob/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	if(M.stat == DEAD || istype(M, /mob/living/simple_animal/hostile/blob))

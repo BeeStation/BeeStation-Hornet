@@ -4,7 +4,6 @@
 	icon_state = "kitty"
 	color = "#999999"
 
-
 	dog_fashion = /datum/dog_fashion/head/kitty
 
 /obj/item/clothing/head/costume/kitty/Initialize(mapload)
@@ -19,7 +18,6 @@
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
 	clothing_flags = SNUG_FIT
-
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
 

@@ -472,7 +472,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	C.mob_biotypes = inherent_biotypes
 	C.butcher_results = knife_butcher_results?.Copy()
 
-	if(old_species.type != type)
+	if(pref_load || old_species.type != type)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)
@@ -487,10 +487,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//(why the fuck is blood type not tied to a DNA block?)
 	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
-
-	if(TRAIT_NOMOUTH in inherent_traits)
-		for(var/obj/item/bodypart/head/head in C.bodyparts)
-			head.mouth = FALSE
 
 	add_body_markings(C)
 
@@ -536,11 +532,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	human.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay removed.
 	human.butcher_results = null
-	if(TRAIT_NOMOUTH in inherent_traits)
-		for(var/obj/item/bodypart/head/head in human.bodyparts)
-			head.mouth = TRUE
 
-	for(var/trait  in inherent_traits)
+	for(var/trait in inherent_traits)
 		REMOVE_TRAIT(human, trait , SPECIES_TRAIT)
 
 	//If their inert mutation is not the same, swap it out
@@ -620,7 +613,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					working_shirt = mutable_appearance(undershirt.icon, undershirt.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 				standing += working_shirt
 
-		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(TRAIT_NOSOCKS in inherent_traits))
+		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
 			var/datum/sprite_accessory/socks/socks = SSaccessories.socks_list[species_human.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -865,7 +858,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(TRUE)
 	if(H.stat == DEAD)
 		return
-	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health < H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health <= H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		H.adjustBruteLoss(0.5 * delta_time)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
@@ -2482,6 +2475,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/check_head_flags(check_flags = NONE)
 	var/obj/item/bodypart/head/fake_head = bodypart_overrides[BODY_ZONE_HEAD]
 	return (initial(fake_head.head_flags) & check_flags)
+
 /**
  * Get what hair color is used by this species for a mob.
  *

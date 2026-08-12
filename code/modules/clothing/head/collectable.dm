@@ -52,7 +52,6 @@
 	icon_state = "slime"
 	clothing_flags = SNUG_FIT
 
-
 /obj/item/clothing/head/collectable/xenom
 	name = "collectable xenomorph helmet"
 	desc = "Hiss hiss hiss!"
@@ -98,7 +97,6 @@
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "policehelm"
-
 
 	dog_fashion = /datum/dog_fashion/head/warden
 
@@ -149,7 +147,6 @@
 	icon_state = "kitty"
 	inhand_icon_state = null
 	clothing_flags = SNUG_FIT
-
 	dog_fashion = /datum/dog_fashion/head/kitty
 
 /obj/item/clothing/head/collectable/rabbitears
@@ -158,7 +155,6 @@
 	icon_state = "bunny"
 	inhand_icon_state = null
 	clothing_flags = SNUG_FIT
-
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
 /obj/item/clothing/head/collectable/wizard
@@ -185,7 +181,6 @@
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "hoscap"
-
 
 /obj/item/clothing/head/collectable/HoP
 	name = "collectable HoP hat"

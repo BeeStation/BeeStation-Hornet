@@ -6,7 +6,7 @@
 	should_draw_greyscale = FALSE
 	head_flags = HEAD_LIPS|HEAD_EYEHOLES|HEAD_DEBRAIN
 	brute_modifier = 0.8
-	head_flags = NONE
+	head_flags = HEAD_LIPS|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/apid
 	icon_static = 'icons/mob/human/species/apid/bodyparts.dmi'

@@ -78,7 +78,6 @@
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
-
 	dog_fashion = /datum/dog_fashion/head/nurse
 
 /obj/item/clothing/head/hats/bowler
@@ -117,7 +116,6 @@
 	name = "jester hat"
 	desc = "A hat with bells, to add some merriness to the suit."
 	icon_state = "jester_hat"
-
 
 /obj/item/clothing/head/costume/jester/alt
 	icon_state = "jester2"

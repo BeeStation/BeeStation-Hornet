@@ -109,11 +109,10 @@
 		ethereal.set_haircolor(current_color, override = TRUE,  update = TRUE)
 	else
 		ethereal_light.set_light_on(FALSE)
-		var/dead_color = COLOR_GRAY
-		fixed_mut_color = dead_color
+		fixed_mut_color = COLOR_GRAY
 		ethereal.update_body()
-		ethereal.set_facial_haircolor(dead_color, override = TRUE, update = FALSE)
-		ethereal.set_haircolor(dead_color, override = TRUE, update = TRUE)
+		ethereal.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(COLOR_GRAY, override = TRUE, update = TRUE)
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity, protection)
 	SIGNAL_HANDLER

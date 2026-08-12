@@ -5,6 +5,7 @@
 	sexes = FALSE
 	meat = /obj/item/food/pieslice/pumpkin
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_BEEFRIEND,
 		TRAIT_MUTANT_COLORS,
 	)

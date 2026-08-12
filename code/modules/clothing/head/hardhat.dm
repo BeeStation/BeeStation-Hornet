@@ -9,6 +9,7 @@
 	inhand_icon_state = null
 	armor_type = /datum/armor/utility_hardhat
 	flags_inv = NONE
+	hair_mask = HAIR_MASK_HIDE_ABOVE_45_DEG_MEDIUM
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
@@ -187,6 +188,7 @@
 	inhand_icon_state = null
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	hair_mask = ""
 	clothing_flags = SNUG_FIT
 	armor_type = /datum/armor/hardhat_pumpkinhead
 	light_range = 2 //luminosity when on
@@ -206,8 +208,8 @@
 	inhand_icon_state = null
 	hat_type = "reindeer"
 	flags_inv = 0
+	hair_mask = ""
 	armor_type = /datum/armor/none
 	light_range = 1 //luminosity when on
-
 
 	dog_fashion = /datum/dog_fashion/head/reindeer

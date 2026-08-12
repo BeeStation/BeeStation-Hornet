@@ -51,19 +51,12 @@
 	if(!istype(type_selection))
 		return
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		BP.should_draw_greyscale = !!type_selection.color_src
-		if(BP.should_draw_greyscale)
-			BP.species_color = C.dna?.features[FEATURE_MUTANT_COLOR]
-		else
-			BP.species_color = null
-
-		// Hardcoded bullshit that will probably break. Woo shitcode. Bee insect_type has dimorphic parts while flies do not.
-		BP.is_dimorphic = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
-
-		BP.limb_id = type_selection.limbs_id
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[type_selection.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		// Bee insect_type has dimorphic parts while flies do not.
+		var/is_dimorphic_part = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
+		BP.change_appearance(icon = BP.icon_static, id = type_selection.limbs_id, greyscale = !!type_selection.color_src, dimorphic = is_dimorphic_part)
 
 /datum/species/fly/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()

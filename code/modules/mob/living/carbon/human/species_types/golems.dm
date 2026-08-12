@@ -342,6 +342,24 @@
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
 	id = SPECIES_GOLEM_ALLOY
+	inherent_traits = list(
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOFIRE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_MUTANT_COLORS,
+	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/tongue/abductor
 	info_text = "As an " + span_danger("Alloy Golem") + ", you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
@@ -639,7 +657,22 @@
 	id = SPECIES_GOLEM_BANANIUM
 	fixed_mut_color = "#ffff00"
 	inherent_traits = list(
-		TRAIT_NO_UNDERWEAR
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOFIRE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_MUTANT_COLORS,
 	)
 	meat = /obj/item/stack/ore/bananium
 	mutanttongue = /obj/item/organ/tongue/golem/bananium
@@ -726,9 +759,23 @@
 	sexes = FALSE
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
 	inherent_traits = list(
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOFIRE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
-	) //no mutcolors
+	)
 	prefix = "Runic"
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
@@ -800,10 +847,25 @@
 	id = SPECIES_GOLEM_CLOCKWORK
 	info_text = span_boldalloy("As a " + span_danger("Clockwork Golem") + ", you are faster than other types of golems. On death, you will break down into scrap.")
 	inherent_traits = list(
+		TRAIT_RESISTHEAT,
+		TRAIT_NOBREATH,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOFIRE,
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
+		TRAIT_MUTANT_COLORS,
 		TRAIT_NOFLASH,
 	)
-	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	damage_modifier = 20 //Reinforced, but much less so to allow for fast movement
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
@@ -870,6 +932,7 @@
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_UNDERWEAR,
 	)
 	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	damage_modifier = 15 //feels no pain, but not too resistant
@@ -1145,6 +1208,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOFLASH,
 	)
 	fixed_mut_color = null
 	damage_modifier = 25
@@ -1245,7 +1310,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	id = SPECIES_GOLEM_BONE
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
-	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone
 	sexes = FALSE
 	fixed_mut_color = null
@@ -1262,7 +1327,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_FAKEDEATH,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_NOFLASH
+		TRAIT_NOFLASH,
 	)
 	species_language_holder = /datum/language_holder/golem/bone
 	info_text = "As a " + span_danger("Bone Golem") + ", You have a powerful spell that lets you chill your enemies with fear, and milk heals you! Just make sure to watch our for bone-hurting juice."

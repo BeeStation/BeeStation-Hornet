@@ -9,6 +9,7 @@
 	burn_modifier = 1.5
 	brute_modifier = 1.5
 	head_flags = HEAD_EYESPRITES
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/chest/plasmaman
 	icon = 'icons/mob/human/species/plasmaman/bodyparts.dmi'
@@ -29,8 +30,9 @@
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
-	burn_modifier = 1.5
-	brute_modifier = 1.5
+	brute_modifier = 1.5 //Plasmemes are weak
+	burn_modifier = 1.5 //Plasmemes are weak
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/plasmaman
 	icon = 'icons/mob/human/species/plasmaman/bodyparts.dmi'
@@ -39,8 +41,9 @@
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
-	burn_modifier = 1.5
-	brute_modifier = 1.5
+	brute_modifier = 1.5 //Plasmemes are weak
+	burn_modifier = 1.5 //Plasmemes are weak
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/plasmaman
 	icon = 'icons/mob/human/species/plasmaman/bodyparts.dmi'
@@ -49,8 +52,9 @@
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
-	burn_modifier = 1.5
-	brute_modifier = 1.5
+	brute_modifier = 1.5 //Plasmemes are weak
+	burn_modifier = 1.5 //Plasmemes are weak
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/right/plasmaman
 	icon = 'icons/mob/human/species/plasmaman/bodyparts.dmi'
@@ -59,5 +63,6 @@
 	limb_id = SPECIES_PLASMAMAN
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
-	burn_modifier = 1.5
-	brute_modifier = 1.5
+	brute_modifier = 1.5 //Plasmemes are weak
+	burn_modifier = 1.5 //Plasmemes are weak
+	bodypart_flags = BODYPART_UNHUSKABLE

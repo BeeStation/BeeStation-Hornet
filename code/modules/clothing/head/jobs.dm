@@ -13,7 +13,6 @@
 	strip_delay = 10
 	equip_delay_other = 10
 
-
 	dog_fashion = /datum/dog_fashion/head/chef
 
 /obj/item/clothing/head/utility/chefhat/suicide_act(mob/living/user)
@@ -230,7 +229,6 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-
 	dying_key = DYE_REGISTRY_CAP
 
 

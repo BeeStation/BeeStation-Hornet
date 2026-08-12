@@ -211,31 +211,28 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// The default priority level
 #define PREFERENCE_PRIORITY_DEFAULT 1
 
-/// The priority at which the hotkey preference is set, required for TGUI say special macros
-#define PREFERENCE_PRIORITY_HOTKEYS 2
-
 /// The priority at which species runs, needed for external organs to apply properly.
 #define PREFERENCE_PRIORITY_SPECIES 2
 
+/**
+ * Some preferences get applied directly to bodyparts (anything head_flags related right now).
+ * These must apply after species, as species gaining might replace the bodyparts of the human.
+ */
+#define PREFERENCE_PRIORITY_BODYPARTS 3
+
 /// The priority at which gender is determined, needed for proper randomization.
-#define PREFERENCE_PRIORITY_GENDER 3
+#define PREFERENCE_PRIORITY_GENDER 4
 
 /// The priority at which body type is decided, applied after gender so we can
 /// support the "use gender" option.
-#define PREFERENCE_PRIORITY_BODY_TYPE 4
+#define PREFERENCE_PRIORITY_BODY_TYPE 5
 
 /// Used for preferences that rely on body setup being finalized.
-#define PREFERENCE_PRIORITY_LATE_BODY_TYPE 5
-
-/// The priority at which eye color is applied, needed so IPCs get the right screen color.
-#define PREFERENCE_PRIORITY_EYE_COLOR 6
+#define PREFERENCE_PRIORITY_LATE_BODY_TYPE 6
 
 /// The priority at which hair color is applied, needed so IPCs get the right antenna color.
 /// Dependant on gender to create an informed value
 #define PREFERENCE_PRIORITY_HAIR_COLOR 7
-
-/// Dependant on gender to create an informed value
-#define PREFERENCE_PRIORITY_JUMPSUIT 4
 
 /// Dependant on hair colour to create an informed value
 #define PREFERENCE_PRIORITY_FACIAL_COLOR 8

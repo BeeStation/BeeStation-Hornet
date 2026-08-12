@@ -23,7 +23,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
-		TRAIT_NOSTASIS,
+		TRAIT_NO_ZOMBIFY,
 		// HIGH FUNCTIONING UNIQUE
 		TRAIT_NOBLOOD,
 	)
@@ -75,7 +75,6 @@
 	examine_limb_id = SPECIES_ZOMBIE
 	damage_modifier = 20 // 120 damage to KO a zombie, which kills it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
-	var/muthands_path = /obj/item/mutant_hand/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	inherent_traits = list(
@@ -95,6 +94,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
+		TRAIT_NO_ZOMBIFY,
 		// INFECTIOUS UNIQUE
 		TRAIT_STABLEHEART, // Replacement for noblood. Infectious zombies can bleed but don't need their heart.
 		TRAIT_STABLELIVER, // Not necessary but for consistency with above
@@ -109,6 +109,8 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/zombie/infectious,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie/infectious,
 	)
+
+	var/muthands_path = /obj/item/mutant_hand/zombie
 
 /datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()

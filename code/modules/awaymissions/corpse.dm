@@ -166,7 +166,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/suit_store = -1
 
 	var/hair_style
-	var/facial_hair_style
+	var/facial_hairstyle
 	var/skin_tone
 
 /obj/effect/mob_spawn/human/Initialize(mapload)
@@ -190,8 +190,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		H.hairstyle = hair_style
 	else
 		H.hairstyle = random_hairstyle(H.gender)
-	if(facial_hair_style)
-		H.facial_hairstyle = facial_hair_style
+	if(facial_hairstyle)
+		H.facial_hairstyle = facial_hairstyle
 	else
 		H.facial_hairstyle = random_facial_hairstyle(H.gender)
 	if(skin_tone)

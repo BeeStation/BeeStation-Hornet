@@ -87,13 +87,13 @@
 
 	switch(human_species.breathid)
 		if(GAS_O2)
-			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		if(GAS_PLASMA)
-			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
+			throw_alert(ALERT_NOT_ENOUGH_PLASMA, /atom/movable/screen/alert/not_enough_plas)
 		if(GAS_CO2)
-			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
+			throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
 		if(GAS_N2)
-			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
+			throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 	return FALSE
 
 /// Environment handlers for species

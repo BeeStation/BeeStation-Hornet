@@ -246,7 +246,6 @@
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
 
-
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
 	armor_type = /datum/armor/bee_costume_syndie

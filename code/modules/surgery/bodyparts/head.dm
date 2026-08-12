@@ -34,16 +34,18 @@
 	/// Hair style
 	var/hairstyle = "Bald"
 	/// Hair colour and style
-	var/hair_color = "#000000"
+	var/hair_color = COLOR_BLACK
 	/// Hair alpha
 	var/hair_alpha = 255
 	/// Is the hair currently hidden by something?
 	var/hair_hidden = FALSE
+	/// Lazy initialized hashset of all hair masks that should be applied
+	var/list/hair_masks
 
 	///Facial hair style
 	var/facial_hairstyle = "Shaved"
 	///Facial hair color
-	var/facial_hair_color = "#000000"
+	var/facial_hair_color = COLOR_BLACK
 	///Facial hair alpha
 	var/facial_hair_alpha = 255
 	///Is the facial hair currently hidden by something?
@@ -212,7 +214,7 @@
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
-	head_flags = HEAD_EYECOLOR
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

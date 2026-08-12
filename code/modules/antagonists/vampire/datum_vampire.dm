@@ -335,10 +335,14 @@
 	var/mob/living/carbon/human/human_old_body = old_body
 
 	if(ishuman(human_new_body))
+		human_new_body.dna.species.inherent_traits += TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_new_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
+
+
 	if(ishuman(human_old_body))
+		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage)
