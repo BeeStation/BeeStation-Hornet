@@ -71,3 +71,8 @@
   - refactor: removes species_trait and other deprecated methods of passing traits/flags
   - refactor: finished head_flags system. Swapping to different species heads will
       keep their features (eyecolor, lips, eyeholes, etcetera)
+2026-08-12:
+  h42, rkz:
+  - bugfix: Made custom bread slices edible.
+  mrmanlikesbt:
+  - bugfix: Fixed gas types not showing up in portable scrubbers
