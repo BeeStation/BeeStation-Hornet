@@ -1129,21 +1129,28 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /// Returns null if passed object is not a filepath or icon with a valid DMI file
 /proc/icon_metadata(file)
 	var/static/list/icon_metadata_cache = list()
+	var/static/list/failed_metadata = list()
 	if(istype(file, /datum/universal_icon))
 		var/datum/universal_icon/u_icon = file
 		file = u_icon.icon_file
 	var/file_string = "[file]"
 	if(!istext(file) && !(isfile(file) && length(file_string)))
 		return null
+	if(failed_metadata[file_string])
+		return null
 	var/list/cached_metadata = icon_metadata_cache[file_string]
 	if(islist(cached_metadata))
 		return cached_metadata
+
+	// it will decode to text, trust
 	var/list/metadata_result = rustg_dmi_read_metadata(file_string)
 	if(!islist(metadata_result) || !length(metadata_result))
-		CRASH("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
-	else
-		icon_metadata_cache[file_string] = metadata_result
-		return metadata_result
+		failed_metadata[file_string] = TRUE
+		stack_trace("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
+		return null
+
+	icon_metadata_cache[file_string] = metadata_result
+	return metadata_result
 
 /// Checks whether a given icon state exists in a given icon file. If `file` and `state` both exist,
 /// this will return `TRUE` - otherwise, it will return `FALSE`.
@@ -1151,21 +1158,14 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /// If you want a stack trace to be output when the given state/file doesn't exist, use
 /// `/proc/icon_exists_or_scream()`.
 /proc/icon_exists(file, state)
-	var/static/list/icon_states_cache = list()
 	if(isnull(file) || isnull(state))
 		return FALSE //This is common enough that it shouldn't panic, imo.
 
-	if(isnull(icon_states_cache[file]))
-		icon_states_cache[file] = list()
-		var/file_string = "[file]"
-		if(isfile(file) && length(file_string)) // ensure that it's actually a file, and not a runtime icon
-			for(var/istate in json_decode(rustg_dmi_icon_states(file_string)))
-				icon_states_cache[file][istate] = TRUE
-		else // Otherwise, we have to use the slower BYOND proc
-			for(var/istate in icon_states(file))
-				icon_states_cache[file][istate] = TRUE
-
-	return !isnull(icon_states_cache[file][state])
+	var/list/states = GLOB.icon_states_cache_lookup[file]
+	if(isnull(states))
+		compile_icon_states_cache(file)
+		states = GLOB.icon_states_cache_lookup[file]
+	return !isnull(states[state])
 
 /// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
 /// specified file or state doesn't exist.
@@ -1176,7 +1176,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		return TRUE
 
 	var/static/list/screams = list()
-	if(!isnull(screams[file]))
+	if(isnull(screams[file]))
 		screams[file] = TRUE
 		stack_trace("State [state] in file [file] does not exist.")
 
