@@ -1,0 +1,4 @@
+author: h42, rkz
+delete-after: true
+changes:
+  - bugfix: Made custom bread slices edible.
