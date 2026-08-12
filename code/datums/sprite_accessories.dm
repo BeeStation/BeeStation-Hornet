@@ -213,6 +213,10 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/allthefuzz
+	name = "All The Fuzz"
+	icon_state = "hair_allthefuzz"
+
 /datum/sprite_accessory/hair/antenna
 	name = "Ahoge"
 	icon_state = "hair_antenna"
@@ -239,6 +243,11 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "hair_bedheadv3"
 	use_default_gender = NEUTER
 
+/datum/sprite_accessory/hair/bedheadv4
+	name = "Bedhead 4x"
+	icon_state = "hair_bedheadv4"
+	use_default_gender = NEUTER
+
 /datum/sprite_accessory/hair/bedheadlong
 	name = "Long Bedhead"
 	icon_state = "hair_long_bedhead"
@@ -247,6 +256,11 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/hair/bedheadfloorlength
 	name = "Floorlength Bedhead"
 	icon_state = "hair_floorlength_bedhead"
+	use_default_gender = FEMALE
+
+/datum/sprite_accessory/hair/badlycut
+	name = "Shorter Long Bedhead"
+	icon_state = "hair_verybadlycut"
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/beehive
@@ -369,23 +383,13 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/hair/manbun
 	name = "Bun (Manbun)"
 	icon_state = "hair_manbun"
-	hair_appendages_inner = list("hair_cornrowtail_a1" = HAIR_APPENDAGE_HANGING_FRONT)
-	hair_appendages_outer = list("hair_cornrowtail_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_inner = list("hair_manbun_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_manbun_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = MALE
 
 /datum/sprite_accessory/hair/tightbun
 	name = "Bun (Tight)"
 	icon_state = "hair_tightbun"
-	use_default_gender = FEMALE
-
-/datum/sprite_accessory/hair/bun2
-	name = "Bun Head 2"
-	icon_state = "hair_bunhead2"
-	use_default_gender = FEMALE
-
-/datum/sprite_accessory/hair/bun3
-	name = "Bun Head 3"
-	icon_state = "hair_bun3"
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/business
@@ -412,6 +416,14 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Buzzcut"
 	icon_state = "hair_buzzcut"
 	use_default_gender = MALE
+
+/datum/sprite_accessory/hair/chinbob
+	name = "Chin-Length Bob Cut"
+	icon_state = "hair_chinbob"
+
+/datum/sprite_accessory/hair/comet
+	name = "Comet"
+	icon_state = "hair_comet"
 
 /datum/sprite_accessory/hair/cia
 	name = "CIA"
@@ -491,6 +503,11 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	hair_appendages_inner = list("hair_doublebun_a1" = HAIR_APPENDAGE_REAR)
 	hair_appendages_outer = list("hair_doublebun_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
+
+/datum/sprite_accessory/hair/doublespikes
+	name = "Double Spikes"
+	icon_state = "hair_doublespikes"
+	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/dreadlocks
 	name = "Dreadlocks"
@@ -732,12 +749,17 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "hair_reversemohawk"
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/reversemohawkold
+	name = "Mohawk (Reverse, Old)"
+	icon_state = "hair_reversemohawkold"
+	use_default_gender = MALE
+
 /datum/sprite_accessory/hair/shavedmohawk
 	name = "Mohawk (Shaved)"
 	icon_state = "hair_shavedmohawk"
 	use_default_gender = MALE
 
-/datum/sprite_accessory/hair/shavedmohawk
+/datum/sprite_accessory/hair/unshavenmohawk
 	name = "Mohawk (Unshaven)"
 	icon_state = "hair_unshaven_mohawk"
 	use_default_gender = MALE
@@ -776,6 +798,10 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Over Eye"
 	icon_state = "hair_shortovereye"
 	use_default_gender = MALE
+
+/datum/sprite_accessory/hair/hair_overeyetwo
+	name = "Over Eye 2"
+	icon_state = "hair_overeyetwo"
 
 /datum/sprite_accessory/hair/oxton
 	name = "Oxton"
@@ -1110,11 +1136,16 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "hair_topknot"
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/toriyama
+	name = "Toriyama"
+	icon_state = "hair_toriyama"
+	use_default_gender = NEUTER
+
 /datum/sprite_accessory/hair/tressshoulder
 	name = "Tress Shoulder"
 	icon_state = "hair_tressshoulder"
 	hair_appendages_inner = list("hair_tressshoulder_a1" = HAIR_APPENDAGE_HANGING_FRONT)
-	hair_appendages_outer = list("hair_tressshoulder_a10" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_tressshoulder_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/trimmed
@@ -1452,6 +1483,14 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/facial_hair/watson
 	name = "Moustache (Watson)"
 	icon_state = "facial_watson"
+
+/datum/sprite_accessory/facial_hair/handlebar
+	name = "Moustache (Handlebar)"
+	icon_state = "facial_handlebar"
+
+/datum/sprite_accessory/facial_hair/handlebar2
+	name = "Moustache (Handlebar 2)"
+	icon_state = "facial_handlebar2"
 
 /datum/sprite_accessory/facial_hair/elvis
 	name = "Sideburns (Elvis)"
