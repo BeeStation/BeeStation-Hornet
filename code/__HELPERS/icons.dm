@@ -415,9 +415,8 @@ world
 	var/render_icon = curicon
 
 	if (render_icon)
-		var/curstates = icon_states(curicon)
-		if(!(curstate in curstates))
-			if ("" in curstates)
+		if(!icon_exists(curicon, curstate))
+			if(icon_exists(curicon, ""))
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -1152,12 +1151,36 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /// If you want a stack trace to be output when the given state/file doesn't exist, use
 /// `/proc/icon_exists_or_scream()`.
 /proc/icon_exists(file, state)
+	var/static/list/icon_states_cache = list()
 	if(isnull(file) || isnull(state))
 		return FALSE //This is common enough that it shouldn't panic, imo.
 
-	if(isnull(GLOB.icon_states_cache_lookup[file]))
-		compile_icon_states_cache(file)
-	return !isnull(GLOB.icon_states_cache_lookup[file][state])
+	if(isnull(icon_states_cache[file]))
+		icon_states_cache[file] = list()
+		var/file_string = "[file]"
+		if(isfile(file) && length(file_string)) // ensure that it's actually a file, and not a runtime icon
+			for(var/istate in json_decode(rustg_dmi_icon_states(file_string)))
+				icon_states_cache[file][istate] = TRUE
+		else // Otherwise, we have to use the slower BYOND proc
+			for(var/istate in icon_states(file))
+				icon_states_cache[file][istate] = TRUE
+
+	return !isnull(icon_states_cache[file][state])
+
+/// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
+/// specified file or state doesn't exist.
+///
+/// Stack traces will only be output once for each file.
+/proc/icon_exists_or_scream(file, state)
+	if(icon_exists(file, state))
+		return TRUE
+
+	var/static/list/screams = list()
+	if(!isnull(screams[file]))
+		screams[file] = TRUE
+		stack_trace("State [state] in file [file] does not exist.")
+
+	return FALSE
 
 /// Cached, rustg-based alternative to icon_states()
 /proc/icon_states_fast(file)

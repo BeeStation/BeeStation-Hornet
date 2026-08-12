@@ -1005,6 +1005,13 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	synchronize_bodytypes()
 
+///Updates the bodypart speed modifier based on our bodyparts.
+/mob/living/carbon/proc/update_bodypart_movespeed_contribution()
+	var/final_modification = 0
+	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
+		final_modification += bodypart.movespeed_contribution
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bodypart, update = TRUE, multiplicative_slowdown = final_modification)
+
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)
 		var/obj/item/organ/I = X
@@ -1296,9 +1303,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	return ..()
 
 /mob/living/carbon/get_attack_type()
-	var/datum/species/species = dna?.species
-	if (species)
-		return species.attack_type
+	if(has_active_hand())
+		var/obj/item/bodypart/arm/active_arm = get_active_hand()
+		return active_arm.attack_type
 	return ..()
 
 /mob/living/carbon/proc/_signal_body_part_update(datum/source)

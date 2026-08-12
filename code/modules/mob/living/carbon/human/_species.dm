@@ -8,9 +8,21 @@ GLOBAL_LIST_EMPTY(uncommon_roundstart_languages)
 /// An assoc list of species types to their features (from get_features())
 GLOBAL_LIST_EMPTY(features_by_species)
 
+/**
+ * # species datum
+ *
+ * Datum that handles different species in the game.
+ *
+ * This datum handles species in the game, such as lizardpeople, mothmen, zombies, skeletons, etc.
+ * It is used in [carbon humans][mob/living/carbon/human] to determine various things about them, like their food preferences, if they have biological genders, their damage resistances, and more.
+ *
+ */
+/datum/species
 /datum/species
 	///If the game needs to manually check your race to do something not included in a proc here, it will use this.
 	var/id
+	///This is used for children, it will determine their default limb ID for use of examine. See [/mob/living/carbon/human/proc/examine].
+	var/examine_limb_id
 	///This is the fluff name. They are displayed on health analyzers and in the character setup menu. Leave them generic for other servers to customize.
 	var/name
 	/**
@@ -18,6 +30,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	 *  Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	 */
 	var/plural_form
+
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
 
@@ -34,8 +47,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///The alpha used by the facial hair. 255 is completely solid, 0 is invisible.
 	var/facial_hair_alpha = 255
 
-	///This is used for children, it will determine their default limb ID for use of examine. See examine.dm.
-	var/examine_limb_id
 	///Never, Optional, or Forced digi legs?
 	var/digitigrade_customization = DIGITIGRADE_NEVER
 
@@ -78,7 +89,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/list/forced_features = list()	// A list of features forced on characters
 
-	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	/**
 	 * Percentage modifier for overall defense of the race, or less defense, if it's negative
 	 * THIS MODIFIES ALL DAMAGE TYPES.
@@ -99,7 +109,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
 	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
 	var/allow_numbers_in_name // Can this species use numbers in its name?
-	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
+	/// A path to an outfit that is important for species life e.g. plasmaman outfit
+	var/datum/outfit/outfit_important_for_life
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
 
 	/// The natural temperature for a body
@@ -116,19 +127,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
-	/// List of biotypes the mob belongs to. Used by diseases.
+	/// Bitflags of biotypes the mob belongs to. Used by diseases.
 	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
 
-	///Punch-specific attack verb.
-	var/attack_verb = "punch"
-	/// The visual effect of the attack.
-	var/attack_effect = ATTACK_EFFECT_PUNCH
-	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
-	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
-
-	//Breathing! Most changes are in mutantlungs, though
+	///What gas does this species breathe? Used by suffocation screen alerts, most of actual gas breathing is handled by mutantlungs. See [life.dm][code/modules/mob/living/carbon/human/life.dm]
 	var/breathid = GAS_O2
 
 	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
@@ -193,6 +197,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/New()
 	if(!plural_form)
 		plural_form = "[name]\s"
+	if(!examine_limb_id)
+		examine_limb_id = id
+
 	return ..()
 
 /// Gets a list of all species available to choose in roundstart.
@@ -500,8 +507,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown = speedmod)
-
 	// All languages associated with this language holder are added with source [LANGUAGE_SPECIES]
 	// rather than source [LANGUAGE_ATOM], so we can track what to remove if our species changes again
 	var/datum/language_holder/gaining_holder = GLOB.prototype_language_holders[species_language_holder]
@@ -536,8 +541,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			C.faction -= i
-
-	C.remove_movespeed_modifier(/datum/movespeed_modifier/species)
 
 	// Removes all languages previously associated with [LANGUAGE_SPECIES], gaining our new species will add new ones back
 	var/datum/language_holder/losing_holder = GLOB.prototype_language_holders[species_language_holder]
@@ -962,7 +965,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH) && H.stat != DEAD && (H.health <= H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+	SHOULD_CALL_PARENT(TRUE)
+	if(H.stat == DEAD)
+		return
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health <= H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		H.adjustBruteLoss(0.5 * delta_time)
 	// TODO: Move buddy to external organs when possible
 	if(H.get_organ_by_type(/obj/item/organ/wings))
@@ -986,10 +992,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	H.spawn_gibs(no_bodyparts)
 	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
-	return
-
-/datum/species/proc/auto_equip(mob/living/carbon/human/H)
-	// handles the equipping of species-specific gear
 	return
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
@@ -1417,11 +1419,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(attacker_style?.harm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
 
-	var/atk_verb = user.dna.species.attack_verb
-	var/atk_effect = user.dna.species.attack_effect
-	if(target.body_position == LYING_DOWN)
-		atk_verb = "kick"
-		atk_effect = ATTACK_EFFECT_KICK
+	var/obj/item/organ/brain/brain = user.get_organ_slot(ORGAN_SLOT_BRAIN)
+	var/obj/item/bodypart/attacking_bodypart
+	if(brain)
+		attacking_bodypart = brain.get_attacking_limb(target)
+	if(!attacking_bodypart)
+		attacking_bodypart = user.get_active_hand()
+	var/atk_verb = attacking_bodypart.unarmed_attack_verb
+	var/atk_effect = attacking_bodypart.unarmed_attack_effect
 
 	if(atk_effect == ATTACK_EFFECT_BITE)
 		if(user.is_mouth_covered(ITEM_SLOT_MASK))
@@ -1429,12 +1434,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return FALSE
 	user.do_attack_animation(target, atk_effect)
 
-	var/damage = user.dna.species.punchdamage
+	var/damage = attacking_bodypart.unarmed_damage
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 
 	if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
-		playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
+		playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, 1, -1)
 		target.visible_message(
 			span_danger("[user]'s [atk_verb] misses [target]!"),
 			span_danger("You avoid [user]'s [atk_verb]!"),
@@ -1448,7 +1453,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/armor_block = target.run_armor_check(affecting, MELEE)
 
-	playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
+	playsound(target.loc, attacking_bodypart.unarmed_attack_sound, 25, 1, -1)
 
 	target.visible_message(
 		span_danger("[user] [atk_verb]ed [target]!"), \
@@ -1466,13 +1471,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(user.limb_destroyer)
 		target.dismembering_strike(user, affecting.body_zone)
 
+	var/attack_direction = get_dir(user, target)
+	var/attack_type = attacking_bodypart.attack_type
 	if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-		target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
-		if((damage * 1.5) >= 9)
+		if((damage) >= 9)
 			target.force_say()
 		log_combat(user, target, "kicked", "punch")
+		target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 	else//other attacks deal full raw damage + 1.5x in stamina damage
-		target.apply_damage(damage, attack_type, affecting, armor_block)
+		target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 		target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 		if(damage >= 9)
 			target.force_say()
@@ -1583,7 +1590,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						human.w_uniform.add_mob_blood(human)
 						human.update_worn_undersuit()
 
-	human.send_item_attack_message(weapon, user, hit_area)
+	human.send_item_attack_message(weapon, user, hit_area, affecting)
 	var/damage_dealt = human.apply_damage(
 		damage = weapon.force,
 		damagetype = weapon.damtype,
@@ -1642,14 +1649,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	// called before a projectile hit
 	return 0
-
-/////////////
-//BREATHING//
-/////////////
-
-/datum/species/proc/breathe(mob/living/carbon/human/H)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		return TRUE
 
 //////////////////////////
 // ENVIRONMENT HANDLERS //
@@ -1730,9 +1729,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	// Get the insulation value based on the area's temp
 	var/thermal_protection = humi.get_insulation_protection(area_temp)
+	var/original_bodytemp = humi.bodytemperature
 
 	// Changes to the skin temperature based on the area
-	var/area_skin_diff = area_temp - humi.bodytemperature
+	var/area_skin_diff = area_temp - original_bodytemp
 	if(!humi.on_fire || area_skin_diff > 0)
 		// change rate of 0.05 as area temp has large impact on the surface
 		var/area_skin_change = get_temp_change_amount(area_skin_diff, 0.05 * delta_time)
@@ -1752,7 +1752,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Core to skin temp transfer, when not on fire
 	if(!humi.on_fire)
 		// Get the changes to the skin from the core temp
-		var/core_skin_diff = humi.coretemperature - humi.bodytemperature
+		var/core_skin_diff = humi.coretemperature - original_bodytemp
 		// change rate of 0.045 to reflect temp back to the skin at the slight higher rate then core to skin
 		var/core_skin_change = (1 + thermal_protection) * get_temp_change_amount(core_skin_diff, 0.045 * delta_time)
 
@@ -1791,7 +1791,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			humi.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 
 	// Body temperature is too cold, and we do not have resist traits
-	else if(humi.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
+	else if(bodytemp < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
 		// clear any hot moods and apply cold mood
 		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
 		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
@@ -2071,14 +2071,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/toggle_flight(mob/living/carbon/human/H)
 	if(!HAS_TRAIT_FROM(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT))
 		stunmod *= 2
-		speedmod -= 0.35
+		H.add_movespeed_modifier(/datum/movespeed_modifier/species_flight)
 		ADD_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
 		H.pass_flags |= PASSTABLE
 		if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
 			H.Togglewings()
 	else
 		stunmod *= 0.5
-		speedmod += 0.35
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_flight)
 		REMOVE_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
 		H.pass_flags &= ~PASSTABLE
 		if((H.dna.species.mutant_bodyparts["wingsopen"]) || (H.dna.species.mutant_bodyparts["moth_wingsopen"]))
@@ -2246,15 +2246,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Returns a list, or null if they have no diet.
  */
 /datum/species/proc/get_species_diet()
-	if(TRAIT_NOHUNGER in inherent_traits)
+	if((TRAIT_NOHUNGER in inherent_traits) || !mutanttongue)
 		return null
 
 	var/list/food_flags = FOOD_FLAGS
+	var/obj/item/organ/tongue/fake_tongue = mutanttongue
 
 	return list(
-		"liked_food" = bitfield_to_list(initial(mutanttongue.liked_foodtypes), food_flags),
-		"disliked_food" = bitfield_to_list(initial(mutanttongue.disliked_foodtypes), food_flags),
-		"toxic_food" = bitfield_to_list(initial(mutanttongue.toxic_foodtypes), food_flags),
+		"liked_food" = bitfield_to_list(initial(fake_tongue.liked_foodtypes), food_flags),
+		"disliked_food" = bitfield_to_list(initial(fake_tongue.disliked_foodtypes), food_flags),
+		"toxic_food" = bitfield_to_list(initial(fake_tongue.toxic_foodtypes), food_flags),
 	)
 
 /**
@@ -2284,7 +2285,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// and language perk last, as it comes at the end of the perks list
 	species_perks += create_pref_unique_perks()
 	species_perks += create_pref_blood_perks()
-	species_perks += create_pref_combat_perks()
 	species_perks += create_pref_damage_perks()
 	species_perks += create_pref_temperature_perks()
 	species_perks += create_pref_traits_perks()
@@ -2321,25 +2321,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  */
 /datum/species/proc/create_pref_unique_perks()
 	return null
-
-/**
- * Adds adds any perks related to combat.
- * For example, the damage type of their punches.
- *
- * Returns a list containing perks, or an empty list.
- */
-/datum/species/proc/create_pref_combat_perks()
-	var/list/to_add = list()
-
-	if(attack_type != BRUTE)
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
-			SPECIES_PERK_ICON = "fist-raised",
-			SPECIES_PERK_NAME = "Elemental Attacker",
-			SPECIES_PERK_DESC = "[plural_form] deal [attack_type] damage with their punches instead of brute.",
-		))
-
-	return to_add
 
 /**
  * Adds adds any perks related to sustaining damage.

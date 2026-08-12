@@ -9,7 +9,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
@@ -22,13 +21,11 @@
 	)
 	mutantheart = null
 	mutantlungs = null
-	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
+	inherent_biotypes = MOB_HUMANOID|MOB_MINERAL
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
 	mutanttongue = /obj/item/organ/tongue/golem
-	speedmod = 2
 	damage_modifier = 55
 	siemens_coeff = 0
-	punchdamage = 11
 	no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	sexes = FALSE
@@ -102,7 +99,6 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
 		TRAIT_PIERCEIMMUNE,
@@ -179,7 +175,6 @@
 	name = "Gold Golem"
 	id = SPECIES_GOLEM_GOLD
 	fixed_mut_color = "#cccc00"
-	speedmod = 1
 	damage_modifier = 25 //down from 55
 	meat = /obj/item/stack/ore/gold
 	info_text = "As a " + span_danger("Gold Golem") + ", you are faster but less resistant than the average golem."
@@ -222,7 +217,6 @@
 	name = "Copper Golem"
 	id = SPECIES_GOLEM_COPPER
 	fixed_mut_color = "#d95802"
-	speedmod = 1.5
 	damage_modifier = 30
 	meat = /obj/item/stack/ore/copper
 	siemens_coeff = 1 //set as conductive, next line sets shock immunity
@@ -233,7 +227,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
@@ -258,12 +251,8 @@
 	id = SPECIES_GOLEM_PLASTEEL
 	fixed_mut_color = "#bbbbbb"
 	stunmod = 0.4
-	punchdamage = 18
-	speedmod = 4 //pretty fucking slow
 	meat = /obj/item/stack/ore/iron
 	info_text = "As a " + span_danger("Plasteel Golem") + ", you are slower, but harder to stun, and hit very hard when punching. You also magnetically attach to surfaces and so don't float without gravity and cannot have positions swapped with other beings."
-	attack_verb = "smash"
-	attack_sound = 'sound/effects/meteorimpact.ogg' //hits pretty hard
 	prefix = "Plasteel"
 	special_names = null
 
@@ -352,7 +341,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
@@ -365,7 +353,6 @@
 	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/tongue/abductor
-	speedmod = 1 //faster
 	info_text = "As an " + span_danger("Alloy Golem") + ", you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
@@ -381,6 +368,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
@@ -399,7 +387,6 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER
@@ -421,6 +408,7 @@
 	)
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -481,7 +469,6 @@
 	meat = /obj/item/stack/ore/glass //this is sand
 	damage_modifier = 0
 	info_text = "As a " + span_danger("Sand Golem") + ", you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
-	attack_sound = 'sound/effects/shovel_dig.ogg'
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
 
@@ -519,7 +506,6 @@
 	meat = /obj/item/shard
 	damage_modifier = 0
 	info_text = "As a " + span_danger("Glass Golem") + ", you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
-	attack_sound = 'sound/effects/glassbr2.ogg'
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
 
@@ -562,8 +548,6 @@
 	fixed_mut_color = "#3333ff"
 	meat = /obj/item/stack/ore/bluespace_crystal
 	info_text = "As a " + span_danger("Bluespace Golem") + ", you are spatially unstable: You will teleport when hit, and you can teleport manually at a long distance."
-	attack_verb = "bluespace punch"
-	attack_sound = 'sound/effects/phasein.ogg'
 	prefix = "Bluespace"
 	special_names = list("Crystal", "Polycrystal")
 
@@ -659,7 +643,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
@@ -670,12 +653,9 @@
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_MUTANT_COLORS,
 	)
-	punchdamage = 0
 	meat = /obj/item/stack/ore/bananium
 	mutanttongue = /obj/item/organ/tongue/golem/bananium
 	info_text = "As a " + span_danger("Bananium Golem") + ", you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
-	attack_verb = "honk"
-	attack_sound = 'sound/items/airhorn2.ogg'
 	prefix = "Bananium"
 	special_names = null
 
@@ -756,7 +736,6 @@
 	name = "Runic Golem"
 	id = SPECIES_GOLEM_RUNIC
 	sexes = FALSE
-	speedmod = 0
 	info_text = "As a " + span_danger("Runic Golem") + ", you possess eldritch powers granted by the Elder Goddess Nar'Sie."
 	inherent_traits = list(
 		TRAIT_RESISTHEAT,
@@ -765,7 +744,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
@@ -854,7 +832,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
@@ -868,10 +845,7 @@
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	damage_modifier = 20 //Reinforced, but much less so to allow for fast movement
-	attack_verb = "smash"
-	attack_sound = 'sound/magic/clockwork/anima_fragment_attack.ogg'
 	sexes = FALSE
-	speedmod = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
@@ -920,7 +894,6 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
@@ -948,7 +921,6 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
@@ -956,8 +928,6 @@
 	)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	damage_modifier = 15 //feels no pain, but not too resistant
-	speedmod = 1 // not as heavy as stone
-	punchdamage = 6
 	prefix = "Cloth"
 	special_names = null
 
@@ -1127,7 +1097,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
@@ -1222,7 +1191,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
@@ -1232,14 +1200,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
 	)
-	attack_verb = "whips"
-	attack_sound = 'sound/weapons/whip.ogg'
-	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	fixed_mut_color = null
 	damage_modifier = 25
 	heatmod = 2
-	speedmod = 1.5
-	punchdamage = 6
 	var/last_creation = 0
 	var/brother_creation_cooldown = 300
 
@@ -1286,7 +1249,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
@@ -1296,7 +1258,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	fixed_mut_color = "#624a2e"
 	info_text = "As a " + span_danger("Leather Golem") + ", you are flammable, but you can grab things with incredible ease, allowing all your grabs to start at a strong level."
 	grab_sound = 'sound/weapons/whipgrab.ogg'
-	attack_sound = 'sound/weapons/whip.ogg'
 
 /datum/species/golem/durathread
 	name = "Durathread Golem"
@@ -1309,7 +1270,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
@@ -1350,7 +1310,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
@@ -1446,7 +1405,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_RESISTCOLD,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
