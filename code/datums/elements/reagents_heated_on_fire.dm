@@ -22,4 +22,4 @@
 	SIGNAL_HANDLER
 
 	source.reagents?.expose_temperature(1000)
-	return COMPONENT_MICROWAVE_SUCCESS
+	return COMPONENT_SUCCESFUL_MICROWAVE
