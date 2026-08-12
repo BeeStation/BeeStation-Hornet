@@ -227,20 +227,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_style)
-					H.hair_style = new_style
+					H.set_hairstyle(new_style)
 			else
 				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color", H.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_hair_color)
-					H.hair_color = sanitize_hexcolor(new_hair_color)
+					H.set_haircolor(sanitize_hexcolor(new_hair_color))
 					H.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 				if(H.gender == "male")
 					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color", H.facial_hair_color)
 					if(new_face_color)
-						H.facial_hair_color = sanitize_hexcolor(new_face_color)
+						H.set_facial_haircolor(sanitize_hexcolor(new_face_color))
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
-			H.update_body_parts()
 
 		if(BODY_ZONE_PRECISE_EYES)
 			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color", H.eye_color_left)

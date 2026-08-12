@@ -26,7 +26,9 @@
 	prepare_huds() //Prevents a nasty runtime on human init
 
 	if(dna.species)
-		set_species(dna.species.type) //This generates new limbs based on the species, beware.
+		set_species(dna.species.type, icon_update = FALSE) //carbon/Initialize will call update_body()
+		//set species enables and disables the flag. Just to be sure, we re-enable it now until it's removed by the parent call.
+		living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call

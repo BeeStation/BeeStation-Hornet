@@ -611,6 +611,16 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The highest most layer for mob overlays
 #define HIGHEST_LAYER 1
 
+//Bitflags for the layers a bodypart overlay can draw on (can be drawn on multiple layers)
+/// Draws overlay on the BODY_FRONT_LAYER
+#define EXTERNAL_FRONT (1 << 0)
+/// Draws overlay on the BODY_ADJ_LAYER
+#define EXTERNAL_ADJACENT (1 << 1)
+/// Draws overlay on the BODY_BEHIND_LAYER
+#define EXTERNAL_BEHIND (1 << 2)
+/// Draws organ on all EXTERNAL layers
+#define ALL_EXTERNAL_OVERLAYS EXTERNAL_FRONT | EXTERNAL_ADJACENT | EXTERNAL_BEHIND
+
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
 //IT DOESN'T OK, IT MEANS "UNDER"

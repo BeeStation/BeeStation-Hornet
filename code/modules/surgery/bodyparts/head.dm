@@ -74,8 +74,6 @@
 
 	var/mouth = TRUE
 
-	var/is_blushing = FALSE
-
 	/// Offset to apply to equipment worn on the ears
 	var/datum/worn_feature_offset/worn_ears_offset
 	/// Offset to apply to equipment worn on the eyes
@@ -200,26 +198,10 @@
 	if(ishuman(owner)) //No MONKEYS!!!
 		update_hair_and_lips(dropping_limb, is_creating)
 
-	is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
-
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	. = ..()
 
-	// Blush emote overlay
-	if (is_blushing)
-		var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_ADJ_LAYER)) //should appear behind the eyes
-		var/blush_color = COLOR_BLUSH_PINK
-		if(ishuman(owner))
-			var/mob/living/carbon/human/species_human = owner
-			if(species_human?.dna?.species.blush_color)
-				blush_color = species_human.dna.species.blush_color
-
-		blush_overlay.color = blush_color
-		worn_face_offset?.apply_offset(blush_overlay)
-		. += blush_overlay
-
 	. += get_hair_and_lips_icon(dropped)
-
 	// We need to get the eyes if we are dropped (ugh)
 	if(dropped)
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src

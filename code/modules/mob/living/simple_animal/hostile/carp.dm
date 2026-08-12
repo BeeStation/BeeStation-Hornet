@@ -68,12 +68,12 @@
 	)
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
-	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)  //Need to set before init cause if we init in hyperspace we get dragged before the trait can be added
+	. = ..()
+	add_traits(list(TRAIT_HEALS_FROM_CARP_RIFTS, TRAIT_SPACEWALK), INNATE_TRAIT)
 	if(random_color)
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)
-	. = ..()
 	make_tameable()
 
 /mob/living/simple_animal/hostile/carp/proc/make_tameable()

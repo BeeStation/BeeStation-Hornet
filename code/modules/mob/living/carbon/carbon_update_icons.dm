@@ -247,6 +247,7 @@
 		else
 			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
 
+
 	remove_overlay(BODYPARTS_LAYER)
 
 	if(new_limbs.len)
@@ -277,15 +278,10 @@
 	. += "-[body_zone]"
 	if(should_draw_greyscale && draw_color)
 		. += "-[draw_color]"
-	/*
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
 		if(!overlay.can_draw_on_bodypart(src, owner))
 			continue
 		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		. += "-[human_owner.mob_height]"
-	*/
 	return .
 
 ///Generates a cache key specifically for husks

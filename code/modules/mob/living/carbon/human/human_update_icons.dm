@@ -849,7 +849,7 @@ generate/load female uniform sprites matching all previously decided variables
 
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 
-	if (!istype(my_head))
+	if(!istype(my_head))
 		return
 
 	my_head.update_limb(is_creating = update_limb_data)

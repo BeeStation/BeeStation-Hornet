@@ -115,6 +115,9 @@
 	/// So we know if we need to scream if this limb hits max damage
 	var/last_maxed
 
+	///A list of all bodypart overlays to draw
+	var/list/bodypart_overlays = list()
+
 	/// Traits that are given to the holder of the part. If you want an effect that changes this, don't add directly to this. Use the add_bodypart_trait() proc
 	var/list/bodypart_traits = list()
 	/// The name of the trait source that the organ gives. Should not be altered during the events of gameplay, and will cause problems if it is.
@@ -661,28 +664,33 @@
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
 
-	limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
-	if(HAS_TRAIT(human_owner, TRAIT_USES_SKINTONES))
-		skin_tone = human_owner.skin_tone
-	else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
-		skin_tone = ""
-		var/datum/species/owner_species = human_owner.dna.species
-		use_damage_color = owner_species.use_damage_color
-		species_color = owner_species.fixed_mut_color || human_owner.dna.features["mcolor"]
-	else
-		skin_tone = ""
-		species_color = ""
+	//Monkeys only create their DNA after carbon/Initialize() has already drawn them once, so there's nothing to inherit from yet.
+	if(human_owner.dna)
+		limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
+		if(HAS_TRAIT(human_owner, TRAIT_USES_SKINTONES))
+			skin_tone = human_owner.skin_tone
+		else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
+			skin_tone = ""
+			var/datum/species/owner_species = human_owner.dna.species
+			use_damage_color = owner_species.use_damage_color
+			species_color = owner_species.fixed_mut_color || human_owner.dna.features["mcolor"]
+		else
+			skin_tone = ""
+			species_color = ""
 
-	draw_color = variable_color
-	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
+		draw_color = variable_color
+		if(should_draw_greyscale) //Should the limb be colored?
+			draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
+
+	recolor_external_organs()
+	return TRUE
 
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()
 	SHOULD_CALL_PARENT(TRUE)
 
 	cut_overlays()
-	var/list/standing = get_limb_icon(TRUE)
+	var/list/standing = get_limb_icon(dropped = TRUE)
 	if(!standing.len)
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
@@ -758,6 +766,41 @@
 		if(aux_zone)
 			aux.color = draw_color
 
+	// And finally put bodypart_overlays on if not husked
+	if(!is_husked)
+		//Draw external organs like horns and frills
+		for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
+			if(!overlay.can_draw_on_bodypart(src, owner))
+				continue
+			//Some externals have multiple layers for background, foreground and between
+			for(var/external_layer in overlay.all_layers)
+				if(overlay.layers & external_layer)
+					. += overlay.get_overlay(external_layer, src)
+
+	return .
+
+///Add a bodypart overlay and call the appropriate update procs
+/obj/item/bodypart/proc/add_bodypart_overlay(datum/bodypart_overlay/overlay, update = TRUE)
+	bodypart_overlays += overlay
+	overlay.added_to_limb(src)
+	if(!update)
+		return
+	if(!owner)
+		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
+
+///Remove a bodypart overlay and call the appropriate update procs
+/obj/item/bodypart/proc/remove_bodypart_overlay(datum/bodypart_overlay/overlay, update = TRUE)
+	bodypart_overlays -= overlay
+	overlay.removed_from_limb(src)
+	if(!update)
+		return
+	if(!owner)
+		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
+
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -777,6 +820,11 @@
 /obj/item/bodypart/proc/_unembed_object(obj/item/unembed)
 	embedded_objects -= unembed
 
+///Loops through all of the bodypart's external organs and update's their color.
+/obj/item/bodypart/proc/recolor_external_organs()
+	for(var/datum/bodypart_overlay/mutant/overlay in bodypart_overlays)
+		overlay.inherit_color(src, force = TRUE)
+
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)
 	var/icon_holder
@@ -795,10 +843,10 @@
 	if(!isnull(dimorphic))
 		is_dimorphic = dimorphic
 
-	if(owner)
-		owner.update_body_parts()
-	else
+	if(!owner)
 		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
 
 	//This foot gun needs a safety
 	if(!icon_exists(icon_holder, "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"))
@@ -813,7 +861,7 @@
 	is_dimorphic = initial(is_dimorphic)
 	should_draw_greyscale = initial(should_draw_greyscale)
 
-	if(owner)
-		owner.update_body_parts()
-	else
+	if(!owner)
 		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()

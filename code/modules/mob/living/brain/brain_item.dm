@@ -116,7 +116,8 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_body_parts()
+	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		brain_owner.update_body_parts()
 
 /obj/item/organ/brain/on_insert(mob/living/carbon/organ_owner, special)
 	// Are we inserting into a new mob from a head?

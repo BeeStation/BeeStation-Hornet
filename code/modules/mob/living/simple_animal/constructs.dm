@@ -76,6 +76,7 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
+	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_SPACEWALK), INNATE_TRAIT)
 	for(var/spell in construct_spells)
 		var/datum/action/new_spell = new spell(src)
 		new_spell.Grant(src)
