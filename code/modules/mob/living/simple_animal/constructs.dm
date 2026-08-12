@@ -240,6 +240,7 @@
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	construct_spells = list(
 		/datum/action/spell/jaunt/ethereal_jaunt/shift,
 		/datum/action/innate/cult/create_rune/tele,
@@ -429,6 +430,7 @@
 	attack_verb_continuous = "butchers"
 	attack_verb_simple = "butcher"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	construct_spells = list(
 		/datum/action/spell/aoe/area_conversion,
 		/datum/action/spell/forcewall/cult,

@@ -90,8 +90,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/oxymod = 1
 	var/clonemod = 1
 	var/toxmod = 1
-	var/attack_type = BRUTE //Type of damage attack does
-	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
 	var/inert_mutation 	= /datum/mutation/dwarfism //special mutation that can be found in the genepool. Dont leave empty or changing species will be a headache
@@ -123,7 +121,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
 
-	var/attack_verb = "punch"	// punch-specific attack verb
+	///Punch-specific attack verb.
+	var/attack_verb = "punch"
+	/// The visual effect of the attack.
+	var/attack_effect = ATTACK_EFFECT_PUNCH
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
 	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
 
@@ -1384,8 +1385,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message(span_warning("[target] blocks [user]'s grab!"), \
-						span_userdanger("You block [user]'s grab!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
+		target.visible_message(
+			span_warning("[target] blocks [user]'s grab!"),
+			span_userdanger("You block [user]'s grab!"),
+			span_hear("You hear a swoosh!"),
+			COMBAT_MESSAGE_RANGE,
+			user
+		)
 		to_chat(user, span_warning("Your grab at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.grab_act(user,target) == MARTIAL_ATTACK_SUCCESS)
@@ -1397,75 +1403,93 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) && !attacker_style?.pacifist_style)
 		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return FALSE
+
 	if(target.check_block())
-		target.visible_message(span_warning("[target] blocks [user]'s attack!"), \
-						span_userdanger("You block [user]'s attack!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
+		target.visible_message(
+			span_warning("[target] blocks [user]'s attack!"),
+			span_userdanger("You block [user]'s attack!"),
+			span_hear("You hear a swoosh!"),
+			COMBAT_MESSAGE_RANGE,
+			user
+		)
 		to_chat(user, span_warning("Your attack at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.harm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
-	else
 
-		var/atk_verb = user.dna.species.attack_verb
-		if(target.body_position == LYING_DOWN)
-			atk_verb = ATTACK_EFFECT_KICK
+	var/atk_verb = user.dna.species.attack_verb
+	var/atk_effect = user.dna.species.attack_effect
+	if(target.body_position == LYING_DOWN)
+		atk_verb = "kick"
+		atk_effect = ATTACK_EFFECT_KICK
 
-		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
-			if(ATTACK_EFFECT_KICK)
-				user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-			if(ATTACK_EFFECT_SLASH, ATTACK_EFFECT_CLAW)//smh
-				user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
-			if(ATTACK_EFFECT_SMASH)
-				user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
-			else
-				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-
-		var/damage = user.dna.species.punchdamage
-
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
-
-		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
-			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
-			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
-							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_warning("Your [atk_verb] misses [target]!"))
-			log_combat(user, target, "attempted to punch")
+	if(atk_effect == ATTACK_EFFECT_BITE)
+		if(user.is_mouth_covered(ITEM_SLOT_MASK))
+			to_chat(user, "<span class='warning'>You can't [atk_verb] with your mouth covered!</span>")
 			return FALSE
+	user.do_attack_animation(target, atk_effect)
 
-		var/armor_block = target.run_armor_check(affecting, MELEE)
+	var/damage = user.dna.species.punchdamage
 
-		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 
-		target.visible_message(span_danger("[user] [atk_verb]ed [target]!"), \
-						span_userdanger("You're [atk_verb]ed by [user]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, span_danger("You [atk_verb] [target]!"))
+	if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+		playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
+		target.visible_message(
+			span_danger("[user]'s [atk_verb] misses [target]!"),
+			span_danger("You avoid [user]'s [atk_verb]!"),
+			span_hear("You hear a swoosh!"),
+			COMBAT_MESSAGE_RANGE,
+			user
+		)
+		to_chat(user, span_warning("Your [atk_verb] misses [target]!"))
+		log_combat(user, target, "attempted to punch")
+		return FALSE
 
-		target.lastattacker = user.real_name
-		target.lastattackerckey = user.ckey
-		user.dna.species.spec_unarmedattack(user, target)
+	var/armor_block = target.run_armor_check(affecting, MELEE)
 
-		if(user.limb_destroyer)
-			target.dismembering_strike(user, affecting.body_zone)
+	playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
-		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
-			if((damage * 1.5) >= 9)
-				target.force_say()
-			log_combat(user, target, "kicked", "punch")
-		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
-			if(damage >= 9)
-				target.force_say()
-			log_combat(user, target, "punched", "punch")
+	target.visible_message(
+		span_danger("[user] [atk_verb]ed [target]!"), \
+		span_userdanger("You're [atk_verb]ed by [user]!"),
+		span_hear("You hear a sickening sound of flesh hitting flesh!"),
+		COMBAT_MESSAGE_RANGE,
+		user
+	)
+	to_chat(user, span_danger("You [atk_verb] [target]!"))
+
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
+	user.dna.species.spec_unarmedattack(user, target)
+
+	if(user.limb_destroyer)
+		target.dismembering_strike(user, affecting.body_zone)
+
+	if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
+		target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+		if((damage * 1.5) >= 9)
+			target.force_say()
+		log_combat(user, target, "kicked", "punch")
+	else//other attacks deal full raw damage + 1.5x in stamina damage
+		target.apply_damage(damage, attack_type, affecting, armor_block)
+		target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+		if(damage >= 9)
+			target.force_say()
+		log_combat(user, target, "punched", "punch")
 
 /datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target, modifiers)
 	return FALSE
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message(span_warning("[user]'s shove is blocked by [target]!"), \
-						span_danger("You block [user]'s shove!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
+		target.visible_message(
+			span_warning("[user]'s shove is blocked by [target]!"), \
+			span_danger("You block [user]'s shove!"),
+			span_hear("You hear a swoosh!"),
+			COMBAT_MESSAGE_RANGE,
+			user
+		)
 		to_chat(user, span_warning("Your shove at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.disarm_act(user,target) == MARTIAL_ATTACK_SUCCESS)

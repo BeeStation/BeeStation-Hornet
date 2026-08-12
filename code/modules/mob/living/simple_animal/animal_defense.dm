@@ -175,7 +175,9 @@
 
 /mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	if(!no_effect && !visual_effect_icon && melee_damage)
-		if(melee_damage < 10)
+		if(attack_vis_effect && !iswallturf(A)) // override the standard visual effect.
+			visual_effect_icon = attack_vis_effect
+		else if(melee_damage < 10)
 			visual_effect_icon = ATTACK_EFFECT_PUNCH
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
