@@ -501,7 +501,7 @@
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#E1E1E1#EDCC6A"
+	greyscale_colors = "#E1E1E1#A3EAFF"
 	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
 
