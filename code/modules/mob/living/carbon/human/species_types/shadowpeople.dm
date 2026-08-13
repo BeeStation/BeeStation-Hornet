@@ -36,6 +36,7 @@
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
@@ -377,6 +378,7 @@
 
 
 /datum/species/shadow/blessed/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
