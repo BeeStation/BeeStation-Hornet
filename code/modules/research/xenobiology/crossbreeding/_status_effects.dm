@@ -446,49 +446,34 @@
 //////////////////STABILIZED EXTRACTS//////////////////
 ///////////////////////////////////////////////////////
 
-/atom/movable/screen/alert/status_effect/stabilized
-	name = "Stabilized"
-	icon_state = "template"
-
 /datum/status_effect/stabilized //The base stabilized extract effect, has no effect of its' own.
 	id = "stabilizedbase"
 	duration = STATUS_EFFECT_PERMANENT
-	alert_type = /atom/movable/screen/alert/status_effect/stabilized
-	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
 	/// Item which provides this buff
 	var/obj/item/slimecross/stabilized/linked_extract
 	/// Colour of the extract providing the buff
 	var/colour = "null"
 
-/datum/status_effect/stabilized/proc/link_extract(obj/item/slimecross/stabilized/linked_extract)
-	src.linked_extract = linked_extract
-	if (linked_extract && linked_alert)
-		linked_alert.name = linked_extract.name
-		linked_alert.desc = linked_extract.desc
-		linked_alert.add_overlay(linked_extract)
-
 /datum/status_effect/stabilized/on_creation(mob/living/new_owner, obj/item/slimecross/stabilized/linked_extract)
-	src.link_extract(linked_extract)
+	src.linked_extract = linked_extract
 	return ..()
 
-/datum/status_effect/stabilized/tick(seconds_between_ticks)
-	if (duration != STATUS_EFFECT_PERMANENT)
-		return ..()
+/datum/status_effect/stabilized/tick()
 	if(isnull(linked_extract))
-		duration = world.time + 15 SECONDS
-		START_PROCESSING(SSfastprocess, src)
-		return ..()
+		qdel(src)
+		return
 	if(linked_extract.get_held_mob() == owner)
 		return
 	owner.balloon_alert(owner, "[colour] extract faded!")
 	if(!QDELETED(linked_extract))
 		linked_extract.linked_effect = null
 		START_PROCESSING(SSobj,linked_extract)
-	duration = world.time + 15 SECONDS
-	START_PROCESSING(SSfastprocess, src)
+	qdel(src)
 
 /datum/status_effect/stabilized/null //This shouldn't ever happen, but just in case.
 	id = "stabilizednull"
+
 
 //Stabilized effects start below.
 /datum/status_effect/stabilized/grey

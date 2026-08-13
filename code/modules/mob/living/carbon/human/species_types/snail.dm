@@ -6,10 +6,7 @@
 		TRAIT_MUTANT_COLORS,
 		TRAIT_NO_SLIP_ALL,
 	)
-	attack_verb = "slap"
 	coldmod = 0.5 //snails only come out when its cold and wet
-	speedmod = 2
-	punchdamage = 3
 	siemens_coeff = 2 //snails are mostly water
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE //snails are hermaphrodites
