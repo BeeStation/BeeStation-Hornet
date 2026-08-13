@@ -12,21 +12,19 @@
 
 	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
-	//initialize limbs first
-	create_bodyparts()
-
 	// This needs to be called very very early in human init (before organs / species are created at the minimum)
 	setup_organless_effects()
 	// Physiology needs to be created before species, as some species modify physiology
 	setup_physiology()
 
+	create_dna()
+	dna.species.create_fresh_body(src)
 	setup_human_dna()
 
+	create_carbon_reagents()
+	set_species(dna.species.type)
 
 	prepare_huds() //Prevents a nasty runtime on human init
-
-	if(dna.species)
-		set_species(dna.species.type) //This generates new limbs based on the species, beware.
 
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
@@ -64,7 +62,6 @@
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
-	create_dna(src)
 	randomize_human(src)
 	dna.initialize_dna()
 
@@ -1116,9 +1113,10 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
-/mob/living/carbon/human/species/Initialize(mapload, specific_race)
-	. = ..()
-	set_species(race || specific_race)
+/mob/living/carbon/human/species/create_dna()
+	dna = new /datum/dna(src)
+	if (!isnull(race))
+		dna.species = new race
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor

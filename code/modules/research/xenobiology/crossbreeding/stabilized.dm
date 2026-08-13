@@ -47,26 +47,13 @@ Stabilized extracts:
 	var/static/list/effects = subtypesof(/datum/status_effect/stabilized)
 	for(var/datum/status_effect/stabilized/effect as anything in effects)
 		if(initial(effect.colour) != colour)
-			//Does the holder already have a different stabilized effect?
-			if(holder.has_status_effect(effect))
-				holder.visible_message("[src] dissolves as you pick it up, overpowered by the [effect.colour] extract you already have!")
-				qdel(src)
-				return PROCESS_KILL
 			continue
 		effectpath = effect
-
-	var/datum/status_effect/stabilized/current_effect = holder.has_status_effect(effectpath)
-	if(!current_effect)
-		// No effect exists, apply it
-		holder.apply_status_effect(effectpath, src)
-		return PROCESS_KILL
-	else if(current_effect.duration != STATUS_EFFECT_PERMANENT)
-		// Effect exists but is temporary (fading), refresh it to permanent
-		holder.apply_status_effect(effectpath, src)
-		return PROCESS_KILL
-
-	// Effect exists and is permanent, do nothing or the extract will break because it relies on the status effect to start processing again.
-	// Users will not carry two of the same extract for long, so do not kill processing here.
+		break
+	if (holder.has_status_effect(effectpath))
+		return
+	holder.apply_status_effect(effectpath, src)
+	return PROCESS_KILL
 
 //Colors and subtypes:
 /obj/item/slimecross/stabilized/grey

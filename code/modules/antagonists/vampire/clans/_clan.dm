@@ -61,7 +61,7 @@
 		if(unmasked.owner.current)
 			on_vampire_broke_masquerade(vampiredatum.owner.current, unmasked)
 
-	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/vampires/VampireAlert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/effects/antag/vampire/VampireAlert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(vampiredatum.owner.current, span_narsiesmall("I remember now. I belong with the [name]..."))
 
 /datum/vampire_clan/proc/on_apply()
@@ -187,7 +187,7 @@
 
 	if(ishuman(vampiredatum.owner.current))
 		var/mob/living/carbon/human/vampire_human = vampiredatum.owner.current
-		vampire_human.dna.species.punchdamage += 0.5
+		vampire_human.add_unarmed_damage_to_arms(0.5)
 
 	// We're almost done - Spend your Rank now.
 	vampiredatum.vampire_level++

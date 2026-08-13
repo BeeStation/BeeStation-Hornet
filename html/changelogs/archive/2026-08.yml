@@ -59,6 +59,10 @@
       through a wall
   - bugfix: Wizard Modsuit shouldn't keep spamming the shield recharging sound anymore
 2026-08-11:
+  mrmanlikesbt:
+  - code_imp: Fixed the remaining improper `Destroy()` calls across the codebase
+  mrmanlikesbt, Qustinnus, Capsandi, the-og-gear, atlasle, Kayozz:
+  - bugfix: Fixed the ambient buzz persisting in space
   rkz, nightred, Ghommie, kapu1178, vinylspiders, Melbert, cruix, smartkar:
   - rscadd: adds a new system for obscuring hair with helmets through masking
   - rscadd: facial hair now supports gradients
@@ -67,3 +71,32 @@
   - refactor: removes species_trait and other deprecated methods of passing traits/flags
   - refactor: finished head_flags system. Swapping to different species heads will
       keep their features (eyecolor, lips, eyeholes, etcetera)
+2026-08-12:
+  h42, rkz:
+  - bugfix: Made custom bread slices edible.
+  mrmanlikesbt:
+  - bugfix: Fixed gas types not showing up in portable scrubbers
+2026-08-13:
+  BotTierPC:
+  - bugfix: Putting a head on a spike now properly displays the head used.
+  - bugfix: Interrogation telescreens are now working again
+  Tsar-Salat:
+  - rscadd: 2022 Reproductive extract behavior has been reimplemented. They now output
+      the given slime's colored extracts when fed monkey cubes. Reproductive extract
+      cooldown has been reduced to the same value as before.
+  - balance: mobs are no longer limited to holding one stabilized extract
+  - balance: stabilized extracts now removed and gain their effect immediately upon
+      holding/dropping.
+  mrmanlikesbt:
+  - code_imp: DEBUG is no longer defined on the live server
+  rkz, VinylSpiders, jlsnow301:
+  - code_imp: made icons faster, made SelectEquipment menu faster
+  rkz, mothblocks, itseasytosee, LikeLakers2, Ghommie:
+  - rscadd: carbons and most simple mobs should now have attack visuals
+  - refactor: species movespeed is now tied to limbs. New limbs, different movespeed
+  - refactor: species attacktypes/sounds now tie to what they attack with. i.e. lizards
+      dont slash if they have human arms
+  - code_imp: validates a bunch of icons
+  - code_imp: swaps MOB_INORGANIC for MOB_MINERAL. It seemed to have some odd crossovers
+      with people mistakenly thinking it should be tied to IPCs, despite IPCs already
+      having their related MOB_ROBOTIC. This is now just the golem/statue bit

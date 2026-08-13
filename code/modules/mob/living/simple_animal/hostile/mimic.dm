@@ -13,7 +13,7 @@
 	maxHealth = 250
 	health = 250
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
+	mob_biotypes = NONE
 
 	melee_damage = 10
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -38,6 +38,7 @@
 /mob/living/simple_animal/hostile/mimic/crate
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
 	wander = FALSE
