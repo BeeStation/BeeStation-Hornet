@@ -62,6 +62,7 @@
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#0070B7#FFCE5B"
 	hair_mask = /datum/hair_mask/standard_hat_middle
 
 //Head of Personnel

@@ -64,7 +64,7 @@
 
 	return ..()
 
-obj/item/clothing/head/helmet/sec/attack_self(mob/user)
+/obj/item/clothing/head/helmet/sec/attack_self(mob/user)
 	. = ..()
 	if(.)
 		return
