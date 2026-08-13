@@ -100,7 +100,8 @@
 				return
 			H.apply_status_effect(/datum/status_effect/planthealing)
 
-/datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
+/datum/species/diona/proc/drone_state_check(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
@@ -149,6 +150,7 @@
 	split_ability.Grant(H)
 	partition_ability = new
 	partition_ability.Grant(H)
+	RegisterSignal(H, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(drone_state_check))
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -160,6 +162,8 @@
 	for(var/status_effect as anything in H.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
 			H.remove_status_effect(/datum/status_effect/planthealing)
+
+	UnregisterSignal(H, COMSIG_LIVING_HEALTH_UPDATE)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
