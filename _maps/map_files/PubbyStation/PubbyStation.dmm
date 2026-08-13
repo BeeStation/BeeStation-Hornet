@@ -3797,9 +3797,9 @@
 /turf/open/floor/engine,
 /area/station/science/storage)
 "bkM" = (
-/obj/machinery/fax{
-	name = "Security Fax Machine";
-	fax_name = "Security"
+/obj/machinery/fax/sec{
+	fax_name = "Detective's Office";
+	name = "Detective's Fax Machine"
 	},
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -8999,10 +8999,7 @@
 	pixel_y = -5
 	},
 /obj/item/clothing/under/misc/mailman,
-/obj/machinery/fax{
-	name = "Cargo Fax Machine";
-	fax_name = "Cargo"
-	},
+/obj/machinery/fax/cargo,
 /turf/open/floor/iron/techmaint,
 /area/station/cargo/storage)
 "ddo" = (
@@ -20642,10 +20639,7 @@
 /area/station/cargo/storage)
 "hjt" = (
 /obj/structure/table/reinforced,
-/obj/machinery/fax{
-	name = "Bridge Fax Machine";
-	fax_name = "Bridge"
-	},
+/obj/machinery/fax/bridge,
 /obj/item/folder/yellow{
 	pixel_y = 4
 	},
@@ -28644,10 +28638,7 @@
 /area/station/command/heads_quarters/cmo)
 "kiU" = (
 /obj/structure/table/wood,
-/obj/machinery/fax{
-	name = "Lawyer Fax Machine";
-	fax_name = "Lawyer"
-	},
+/obj/machinery/fax/law,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
@@ -28988,10 +28979,7 @@
 	pixel_x = 0.1;
 	pixel_y = 10
 	},
-/obj/machinery/fax{
-	name = "Medical Fax Machine";
-	fax_name = "Medical"
-	},
+/obj/machinery/fax/med,
 /obj/structure/railing{
 	pixel_y = 22;
 	pixel_x = 0.1
@@ -39651,10 +39639,7 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/fax{
-	name = "Engineering Fax Machine";
-	fax_name = "Engineering"
-	},
+/obj/machinery/fax/eng,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
@@ -54679,9 +54664,9 @@
 /turf/open/floor/grass,
 /area/station/service/hydroponics)
 "usJ" = (
-/obj/machinery/fax{
-	name = "Monastery Fax Machine";
-	fax_name = "Monastery"
+/obj/machinery/fax/service{
+	fax_name = "Monastery";
+	name = "Monastery Fax Machine"
 	},
 /obj/structure/table/wood/fancy,
 /turf/open/floor/wood,
@@ -55308,10 +55293,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/light,
-/obj/machinery/fax{
-	name = "Science Fax Machine";
-	fax_name = "Science"
-	},
+/obj/machinery/fax/sci,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
@@ -62533,9 +62515,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/fax{
-	name = "Detective's Fax Machine";
-	fax_name = "Detective's Office"
+/obj/machinery/fax/sec{
+	fax_name = "Detective's Office";
+	name = "Detective's Fax Machine"
 	},
 /obj/item/food/grown/flower/poppy{
 	pixel_y = 7;
