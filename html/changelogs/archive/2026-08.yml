@@ -91,3 +91,12 @@
   - code_imp: DEBUG is no longer defined on the live server
   rkz, VinylSpiders, jlsnow301:
   - code_imp: made icons faster, made SelectEquipment menu faster
+  rkz, mothblocks, itseasytosee, LikeLakers2, Ghommie:
+  - rscadd: carbons and most simple mobs should now have attack visuals
+  - refactor: species movespeed is now tied to limbs. New limbs, different movespeed
+  - refactor: species attacktypes/sounds now tie to what they attack with. i.e. lizards
+      dont slash if they have human arms
+  - code_imp: validates a bunch of icons
+  - code_imp: swaps MOB_INORGANIC for MOB_MINERAL. It seemed to have some odd crossovers
+      with people mistakenly thinking it should be tied to IPCs, despite IPCs already
+      having their related MOB_ROBOTIC. This is now just the golem/statue bit
