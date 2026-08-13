@@ -37209,11 +37209,10 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/syndiesat)
 "nuZ" = (
-/obj/effect/turf_decal/tile/yellow/half{
-	dir = 8
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/open/floor/iron/dark/smooth_half,
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light_switch/directional/north,
+/turf/open/floor/plating,
 /area/station/science/shuttle)
 "nvA" = (
 /obj/machinery/camera/directional/west{
@@ -41338,7 +41337,7 @@
 /obj/item/storage/firstaid/brute,
 /obj/item/stack/medical/gauze,
 /obj/item/reagent_containers/medspray/synthflesh,
-/obj/structure/closet/crate/freezer,
+/obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
@@ -63844,10 +63843,11 @@
 /turf/open/floor/iron/dark/textured_half,
 /area/station/engineering/main)
 "xCK" = (
-/obj/machinery/field/generator,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light_switch/directional/north,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/yellow/half{
+	dir = 8
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/open/floor/iron/dark/smooth_half,
 /area/station/science/shuttle)
 "xCP" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
@@ -96473,7 +96473,7 @@ iOK
 mHr
 xzN
 usp
-nuZ
+xCK
 mHr
 iOK
 iOK
@@ -99812,7 +99812,7 @@ iOK
 iOK
 mHr
 mHr
-xCK
+nuZ
 bfH
 oMm
 kXt
