@@ -7750,8 +7750,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/landmark/start/security_officer,
 /obj/structure/chair/office{
-	dir = 8;
-	pixel_y = 0
+	dir = 8
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
@@ -15771,8 +15770,7 @@
 /area/station/command/gateway)
 "fzR" = (
 /obj/structure/chair/office{
-	dir = 8;
-	pixel_y = 0
+	dir = 8
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/office)
