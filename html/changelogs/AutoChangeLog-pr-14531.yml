@@ -1,9 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - rscadd: 2022 Reproductive extract behavior has been reimplemented. They now output
-      the given slime's colored extracts when fed monkey cubes. Reproductive extract
-      cooldown has been reduced to the same value as before.
-  - balance: mobs are no longer limited to holding one stabilized extract
-  - balance: stabilized extracts now removed and gain their effect immediately upon
-      holding/dropping.
