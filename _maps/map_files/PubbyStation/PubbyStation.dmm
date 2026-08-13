@@ -37218,6 +37218,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/syndiesat)
+"nuZ" = (
+/obj/effect/turf_decal/tile/yellow/half{
+	dir = 8
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/open/floor/iron/dark/smooth_half,
+/area/station/science/shuttle)
 "nvA" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Prison - Visitation - Public"
@@ -57045,6 +57052,7 @@
 	dir = 4;
 	name = "Telecommunication Distro Isolation Valve"
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron,
 /area/station/engineering/transit_tube)
 "vkg" = (
@@ -63851,12 +63859,11 @@
 /turf/open/floor/iron/dark/textured_half,
 /area/station/engineering/main)
 "xCK" = (
-/obj/machinery/light/small{
-	dir = 8;
-	light_color = "d8b1b1"
-	},
-/turf/closed/wall,
-/area/station/service/library/lounge)
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light_switch/directional/north,
+/turf/open/floor/plating,
+/area/station/science/shuttle)
 "xCP" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 4
@@ -84655,7 +84662,7 @@ nnx
 nnx
 nnx
 nnx
-xCK
+otB
 xsO
 jIx
 xsO
@@ -96481,7 +96488,7 @@ iOK
 mHr
 xzN
 usp
-hRr
+nuZ
 mHr
 iOK
 iOK
@@ -99820,7 +99827,7 @@ iOK
 iOK
 mHr
 mHr
-rvy
+xCK
 bfH
 oMm
 kXt
