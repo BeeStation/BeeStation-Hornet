@@ -104,6 +104,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isslimeperson(A) (is_species(A, /datum/species/oozeling/slime))
 #define isluminescent(A) (is_species(A, /datum/species/oozeling/luminescent))
 #define isstargazer(A) (is_species(A, /datum/species/oozeling/stargazer))
+#define isjellyperson(A) (isslimeperson(A) || isluminescent(A) || isstargazer(A)) //Every special snowflake slime/ooze/jelly whatever. Basically everyone EXCEPT oozelings
 #define isoozeling(A) (is_species(A, /datum/species/oozeling))
 #define iszombie(A) (is_species(A, /datum/species/zombie))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))

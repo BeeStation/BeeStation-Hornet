@@ -29,7 +29,7 @@
 	ADD_TRAIT(vampiredatum.owner.current, TRAIT_XRAY_VISION, TRAIT_VAMPIRE)
 	vampiredatum.owner.current.update_sight()
 
-	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/ambience/antag/creepalert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/effects/antag/creepalert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(vampiredatum.owner.current, span_hypnophrase("Welcome, childe of Malkav..."))
 
 /datum/vampire_clan/malkavian/Destroy(force)
