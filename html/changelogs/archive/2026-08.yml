@@ -76,3 +76,6 @@
   - bugfix: Made custom bread slices edible.
   mrmanlikesbt:
   - bugfix: Fixed gas types not showing up in portable scrubbers
+2026-08-13:
+  mrmanlikesbt:
+  - code_imp: DEBUG is no longer defined on the live server

@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - code_imp: DEBUG is no longer defined on the live server
