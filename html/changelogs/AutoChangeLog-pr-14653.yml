@@ -1,0 +1,5 @@
+author: BotTierPC
+delete-after: true
+changes:
+  - bugfix: Putting a head on a spike now properly displays the head used.
+  - bugfix: Interrogation telescreens are now working again
