@@ -5252,8 +5252,9 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/food_cart,
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/structure/table,
+/obj/machinery/fax/service,
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "bOO" = (
@@ -18555,6 +18556,7 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
+/obj/machinery/food_cart,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "gvF" = (
@@ -59079,6 +59081,7 @@
 	specialfunctions = 4;
 	pixel_x = 26
 	},
+/obj/machinery/recharger,
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/monastery)
 "vSl" = (
