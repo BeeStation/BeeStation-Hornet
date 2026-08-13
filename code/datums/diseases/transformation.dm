@@ -201,13 +201,12 @@
 
 	switch(stage)
 		if(1)
-			if(ishuman(affected_mob) && affected_mob.dna)
-				if(affected_mob.dna.species.id == "slime" || affected_mob.dna.species.id == "stargazer" || affected_mob.dna.species.id == "lum")
-					stage = 5
+			if(isjellyperson(affected_mob))
+				stage = 5
 		if(3)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
-				if(human.dna.species.id != "slime" && affected_mob.dna.species.id != "stargazer" && affected_mob.dna.species.id != "lum")
+				if(!ismonkey(human) && !isjellyperson(human))
 					human.set_species(/datum/species/oozeling/slime)
 
 /datum/disease/transformation/corgi
