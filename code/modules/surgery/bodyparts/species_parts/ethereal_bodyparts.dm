@@ -3,6 +3,9 @@
 	limb_id = SPECIES_ETHEREAL
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	attack_type = BURN // bish buzz
+	unarmed_attack_sound = 'sound/weapons/etherealhit.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	brute_modifier = 1.25 //ethereal are weak to brute damage
 	head_flags = HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_DEBRAIN
 
@@ -32,6 +35,10 @@
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
+	attack_type = BURN //burn bish
+	unarmed_attack_verb = "burn"
+	unarmed_attack_sound = 'sound/weapons/etherealhit.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /obj/item/bodypart/arm/left/ethereal/update_limb(dropping_limb, is_creating)
@@ -45,6 +52,10 @@
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
+	attack_type = BURN // bish buzz
+	unarmed_attack_verb = "burn"
+	unarmed_attack_sound = 'sound/weapons/etherealhit.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /obj/item/bodypart/arm/right/ethereal/update_limb(dropping_limb, is_creating)
@@ -58,6 +69,9 @@
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
+	attack_type = BURN // bish buzz
+	unarmed_attack_sound = 'sound/weapons/etherealhit.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /obj/item/bodypart/leg/left/ethereal/update_limb(dropping_limb, is_creating)
@@ -71,6 +85,9 @@
 	icon_greyscale = 'icons/mob/human/species/ethereal/bodyparts.dmi'
 	limb_id = SPECIES_ETHEREAL
 	dmg_overlay_type = null
+	attack_type = BURN // bish buzz
+	unarmed_attack_sound = 'sound/weapons/etherealhit.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
 	brute_modifier = 1.25 //ethereal are weak to brute damage
 
 /obj/item/bodypart/leg/right/ethereal/update_limb(dropping_limb, is_creating)

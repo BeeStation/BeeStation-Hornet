@@ -159,17 +159,19 @@
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
-		brainmob.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
+		brainmob?.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
 		return
+
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
 	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
+
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
 		if(!brainmob.stored_dna)
@@ -551,3 +553,11 @@
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
 	else
 		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
+
+/// This proc lets the mob's brain decide what bodypart to attack with in an unarmed strike.
+/obj/item/organ/brain/proc/get_attacking_limb(mob/living/carbon/human/target)
+	var/obj/item/bodypart/arm/active_hand = owner.get_active_hand()
+	if(target.body_position == LYING_DOWN && owner.usable_legs)
+		var/obj/item/bodypart/found_bodypart = owner.get_bodypart((active_hand.held_index % 2) ? BODY_ZONE_L_LEG : BODY_ZONE_R_LEG)
+		return found_bodypart || active_hand
+	return active_hand
