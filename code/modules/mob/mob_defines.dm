@@ -209,6 +209,3 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/active_thinking_indicator
 	/// Should shift be used to open the context menu?
 	var/shift_to_open_context_menu = TRUE
-
-	///How effectively this mob uses tools
-	var/tool_proficiency = 1

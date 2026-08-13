@@ -84,8 +84,8 @@
 		var/mob/living/carbon/carbon_mob = target_mob
 		carbon_mob.transfer_blood_to(src, force / 2, TRUE)
 
-	user.adjustBruteLoss(FLOOR(-src.reagents.total_volume, 1))
-	user.adjustFireLoss(FLOOR(-src.reagents.total_volume * 0.25, 1)) //less effective at healing burn
+	user.adjustBruteLoss(floor(-src.reagents.total_volume))
+	user.adjustFireLoss(floor(-src.reagents.total_volume * 0.25)) //less effective at healing burn
 	reagents.clear_reagents()
 
 /datum/status_effect/ipc_upgrade/deployable/blood_drive

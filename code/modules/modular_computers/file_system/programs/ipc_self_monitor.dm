@@ -48,9 +48,7 @@
 
 /datum/computer_file/program/ipc_self_monitor/ui_static_data(mob/user)
 	var/list/data = list()
-	if(!tablet.tablet_owner)
-		return data
-	data["name"] = tablet.tablet_owner.real_name
+	data["name"] = tablet.tablet_owner?.real_name
 	return data
 
 /datum/computer_file/program/ipc_self_monitor/ui_act(action, list/params)

@@ -341,6 +341,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/ipc)
 		stack_trace("[type] initialized outside of an IPC, deleting.")
 		return INITIALIZE_HINT_QDEL
 
+/obj/item/modular_computer/tablet/ipc/Destroy()
+	tablet_owner = null
+	..()
+
 GLOBAL_LIST_EMPTY(PDAs)
 
 // Round start tablets

@@ -795,8 +795,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * * user the mob to check for tool proficiency
  */
 /obj/item/proc/get_toolspeed(mob/user)
-	if(user)
-		return toolspeed * user.tool_proficiency
+	if(isliving(user))
+		var/mob/living/living_user = user
+		return toolspeed * living_user.tool_proficiency
 	return toolspeed
 
 /**
