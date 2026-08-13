@@ -1365,6 +1365,7 @@
 /area/station/security/interrogation
 	name = "\improper Interrogation Room"
 	icon_state = "interrogation"
+	camera_networks = list(CAMERA_NETWORK_INTERROGATION)
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/security/interrogation/Exited(atom/movable/a, atom/oldloc)
