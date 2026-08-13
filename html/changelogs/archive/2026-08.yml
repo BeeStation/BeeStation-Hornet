@@ -77,5 +77,10 @@
   mrmanlikesbt:
   - bugfix: Fixed gas types not showing up in portable scrubbers
 2026-08-13:
+  BotTierPC:
+  - bugfix: Putting a head on a spike now properly displays the head used.
+  - bugfix: Interrogation telescreens are now working again
   mrmanlikesbt:
   - code_imp: DEBUG is no longer defined on the live server
+  rkz, VinylSpiders, jlsnow301:
+  - code_imp: made icons faster, made SelectEquipment menu faster
