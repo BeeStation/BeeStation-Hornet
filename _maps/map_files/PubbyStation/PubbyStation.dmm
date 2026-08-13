@@ -8509,6 +8509,7 @@
 	name = "Shuttle Dock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/science/shuttle)
 "cTG" = (
@@ -56446,6 +56447,7 @@
 "vaF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer1,
+/obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/station/science/shuttle)
 "vaQ" = (
@@ -61329,9 +61331,8 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating/airless,
-/area/misc/space/nearstation)
+/area/station/maintenance/disposal/incinerator)
 "wOu" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -96222,7 +96223,7 @@ nnx
 nnx
 mHr
 eHh
-iOh
+bTA
 qvk
 mHr
 nnx
@@ -96479,7 +96480,7 @@ iOK
 iOK
 mHr
 xzN
-hGM
+usp
 hRr
 mHr
 iOK
@@ -96736,7 +96737,7 @@ nnx
 nnx
 dWI
 tkw
-hGM
+usp
 hRr
 dWI
 sNu
@@ -96993,7 +96994,7 @@ nnx
 nnx
 dWI
 tkw
-iOh
+bTA
 hRr
 dWI
 pvs
