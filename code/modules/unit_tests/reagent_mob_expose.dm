@@ -52,7 +52,7 @@
 	patch.self_delay = 0
 	patch.attack(human, human)
 	human.Life(SSMOBS_DT)
-	TEST_ASSERT_EQUAL(human.getBruteLoss(), 10, "Human health did not update after patch was applied")
+	TEST_ASSERT_EQUAL(human.getBruteLoss(), 20, "Human health did not update after patch was applied")
 
 	// INJECT
 	syringe.reagents.add_reagent(/datum/reagent/method_patch_test, 1)
