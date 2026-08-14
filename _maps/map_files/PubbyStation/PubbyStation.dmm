@@ -4303,6 +4303,11 @@
 /area/station/security/prison)
 "bvy" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/machinery/light_switch{
+	dir = 9;
+	pixel_x = 24;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/dark/textured,
 /area/station/security/execution/education)
 "bvF" = (
@@ -9395,6 +9400,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating/airless,
 /area/misc/space/nearstation)
+"dlv" = (
+/obj/effect/spawner/random/trash/mopbucket,
+/turf/open/floor/plating,
+/area/station/maintenance/port/lesser)
 "dlB" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -50693,8 +50702,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/storage)
 "sOM" = (
-/obj/effect/spawner/random/trash/grille_or_waste,
-/obj/structure/cable/yellow,
+/obj/effect/spawner/random/trash/mess,
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
 "sOP" = (
@@ -65905,9 +65913,6 @@
 /obj/item/toy/figure/detective{
 	pixel_y = 17
 	},
-/obj/machinery/light_switch/directional/south{
-	pixel_x = -10
-	},
 /obj/structure/closet/secure_closet/detective,
 /obj/item/camera/detective,
 /obj/item/reagent_containers/cup/glass/flask/det{
@@ -65919,6 +65924,7 @@
 /obj/item/restraints/handcuffs,
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/grimy,
 /area/station/security/detectives_office/private_investigators_office)
 "yid" = (
@@ -83746,7 +83752,7 @@ xio
 yiB
 omP
 lDa
-wyg
+sOM
 dxi
 fmE
 omP
@@ -84260,7 +84266,7 @@ foO
 omP
 omP
 vFW
-wyg
+vFW
 aVl
 njm
 omP
@@ -84515,9 +84521,9 @@ dOr
 dOr
 dOr
 dOr
+dlv
 wyg
-wyg
-wyg
+vFW
 aVl
 omP
 omP
@@ -85287,7 +85293,7 @@ ald
 bvy
 fDj
 daO
-wyg
+sOM
 ayG
 eWi
 dxi
@@ -85545,8 +85551,8 @@ aRD
 aRD
 aRD
 lDa
-sOM
-sOM
+vFW
+vFW
 dxi
 omP
 nnx
