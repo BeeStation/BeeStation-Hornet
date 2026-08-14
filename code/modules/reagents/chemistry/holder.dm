@@ -226,7 +226,7 @@
 		R = target
 		target_atom = R.my_atom
 	else
-		if(!ignore_stomach && (method & INGEST) && istype(target, /mob/living/carbon))
+		if(!ignore_stomach && (method == INGEST) && istype(target, /mob/living/carbon))
 			var/mob/living/carbon/eater = target
 			var/obj/item/organ/stomach/belly = eater.get_organ_slot(ORGAN_SLOT_STOMACH)
 			if(!belly)
@@ -810,8 +810,10 @@
 
 	return A.expose_reagents(reagents, src, method, volume_modifier, show_message, affecting)
 
-/// Same as [/datum/reagents/proc/expose] but only for one reagent
-/datum/reagents/proc/expose_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
+/**
+  * Same as [/datum/reagents/proc/expose] but only for one reagent.
+  */
+/datum/reagents/proc/expose_single(datum/reagent/R, atom/A, method = TOUCH, reac_volume = 1, show_message = TRUE)
 	if(isnull(A))
 		return null
 
@@ -821,7 +823,7 @@
 		return null
 
 	// Yes, we need the parentheses.
-	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, method, volume_modifier, show_message)
+	return A.expose_reagents(list((R) = reac_volume), src, method, 1, show_message)
 
 /// Is this holder full or not
 /datum/reagents/proc/holder_full()

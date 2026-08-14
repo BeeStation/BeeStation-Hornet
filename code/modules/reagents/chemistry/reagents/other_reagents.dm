@@ -1771,7 +1771,7 @@
 	taste_description = "sourness"
 
 /datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR || ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_facial_haircolor(pick(potential_colors), update = FALSE)
 		exposed_human.set_haircolor(pick(potential_colors), update = TRUE)
@@ -1785,7 +1785,7 @@
 	taste_description = "sourness"
 
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		var/datum/sprite_accessory/hair/picked_hair = GLOB.hairstyles_list[pick(GLOB.hairstyles_list)]
 		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hairstyles_list[pick(GLOB.facial_hairstyles_list)]
@@ -1801,7 +1801,7 @@
 	taste_description = "sourness"
 
 /datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR || ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_facial_hairstyle("Beard (Very Long)", update = FALSE)
 		exposed_human.set_hairstyle("Very Long Hair", update = TRUE)
@@ -1828,7 +1828,7 @@
 	taste_description = "funky sugar"
 
 /datum/reagent/barbers_afro_mania/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_hairstyle("Afro (Large)", update = TRUE)
 
@@ -1841,7 +1841,7 @@
 	taste_description = "hairloss"
 
 /datum/reagent/barbers_shaving_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
 		exposed_human.set_facial_hairstyle("Shaved", update = FALSE)
 		exposed_human.set_hairstyle("Bald 2", update = TRUE)

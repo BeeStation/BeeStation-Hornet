@@ -5,9 +5,9 @@
 
 /datum/reagent/method_patch_test/expose_mob(mob/living/target, method = PATCH, reac_volume, show_message = TRUE)
 	. = ..()
-	if(method & PATCH)
+	if(method == PATCH)
 		target.setBruteLoss(20)
-	if(method & INJECT)
+	if(method == INJECT)
 		target.setBruteLoss(10)
 
 /datum/unit_test/reagent_mob_expose/Run()

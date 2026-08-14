@@ -166,7 +166,7 @@
 		return
 
 	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
-	if(method & TOUCH)
+	if(method == TOUCH)
 		burn_damage *= max(1 - touch_protection, 0)
 	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
@@ -773,7 +773,7 @@
 
 /datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume) //can't be on life because of the way blood works.
 	. = ..()
-	if(!(method & (INGEST|INJECT|PATCH)) || !iscarbon(exposed_mob))
+	if(!(method in list(INGEST, INJECT, PATCH)) || !iscarbon(exposed_mob))
 		return
 
 	var/mob/living/carbon/exposed_carbon = exposed_mob
