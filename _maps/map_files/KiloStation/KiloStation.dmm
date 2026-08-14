@@ -1034,7 +1034,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig_physician,
 /turf/open/floor/iron/dark,
 /area/station/security/office)
 "aAU" = (
@@ -13807,10 +13806,14 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/research)
 "fbZ" = (
-/obj/item/kirbyplants/random,
-/obj/effect/spawner/random/maintenance,
-/turf/open/floor/prison,
-/area/station/security/prison)
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/station/commons/cryopods)
 "fcJ" = (
 /obj/machinery/photocopier,
 /obj/machinery/requests_console{
@@ -32980,18 +32983,10 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/storage)
 "lyd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/station/commons/locker)
+/obj/item/kirbyplants/random,
+/obj/effect/spawner/random/maintenance,
+/turf/open/floor/prison,
+/area/station/security/prison)
 "lyl" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L1"
@@ -50320,14 +50315,18 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/research)
 "rmw" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/computer/cryopod{
-	pixel_y = 25
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
 	},
-/turf/open/floor/iron/showroomfloor,
-/area/station/commons/cryopods)
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/station/commons/locker)
 "rmG" = (
 /obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -90905,7 +90904,7 @@ aQg
 pmc
 neG
 lWl
-rmw
+fbZ
 fVz
 fTz
 mCU
@@ -91160,7 +91159,7 @@ pbi
 vRb
 iAN
 mzP
-lyd
+rmw
 kGm
 tMf
 lQI
@@ -93232,7 +93231,7 @@ ooQ
 bAr
 gBm
 qAw
-fbZ
+lyd
 eRW
 cFa
 pnn
