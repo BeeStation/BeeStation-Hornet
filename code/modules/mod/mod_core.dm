@@ -251,27 +251,27 @@
 	var/charge_modifier = 0.1
 
 /obj/item/mod/core/ethereal/charge_source()
-	var/obj/item/organ/stomach/electrical/ethereal/ethereal_stomach = mod.wearer.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/electrical/ethereal_stomach = mod.wearer.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(!istype(ethereal_stomach))
 		return
 	return ethereal_stomach
 
 /obj/item/mod/core/ethereal/charge_amount()
-	var/obj/item/organ/stomach/electrical/ethereal/charge_source = charge_source()
+	var/obj/item/organ/stomach/electrical/charge_source = charge_source()
 	return charge_source?.cell.charge || ETHEREAL_CHARGE_NONE
 
 /obj/item/mod/core/ethereal/max_charge_amount()
 	return 2000
 
 /obj/item/mod/core/ethereal/add_charge(amount)
-	var/obj/item/organ/stomach/electrical/ethereal/charge_source = charge_source()
+	var/obj/item/organ/stomach/electrical/charge_source = charge_source()
 	if(isnull(charge_source))
 		return FALSE
 	charge_source.adjust_charge(amount * charge_modifier)
 	return TRUE
 
 /obj/item/mod/core/ethereal/subtract_charge(amount)
-	var/obj/item/organ/stomach/electrical/ethereal/charge_source = charge_source()
+	var/obj/item/organ/stomach/electrical/charge_source = charge_source()
 	if(isnull(charge_source))
 		return FALSE
 	charge_source.adjust_charge(-amount * charge_modifier)
@@ -281,7 +281,7 @@
 	return charge_amount() >= amount*charge_modifier
 
 /obj/item/mod/core/ethereal/update_charge_alert()
-	var/obj/item/organ/stomach/electrical/ethereal/charge_source = charge_source()
+	var/obj/item/organ/stomach/electrical/charge_source = charge_source()
 	if(charge_source)
 		mod.wearer.clear_alert("mod_charge")
 		return

@@ -6,12 +6,18 @@
 	organ_traits = list(TRAIT_NOHUNGER) // We have our own hunger mechanic.
 	/// Where the energy of the stomach is stored.
 	var/obj/item/stock_parts/cell/cell
+	/// Charge lost per life.
+	var/discharge_rate = 5e-4 * STANDARD_ETHEREAL_CHARGE
 	/// Spam limiter for APC interactions.
 	var/drain_time = 0
 	//Boolean so we can avoid ten morbillion typechecks between Ethereal or IPC
 	var/biological = TRUE
 	/// Whilst discharging, prevent multiple life() calls
 	var/discharging = FALSE
+	/// Peak movement penalty for 0 charge remaining
+	var/low_charge_slowdown = 1.5
+	/// Has it run dry
+	var/in_brownout = FALSE
 
 /obj/item/organ/stomach/electrical/Initialize(mapload)
 	. = ..()
@@ -24,28 +30,31 @@
 
 /obj/item/organ/stomach/electrical/on_life(delta_time, times_fired)
 	. = ..()
-	adjust_charge(-ETHEREAL_DISCHARGE_RATE * delta_time)
+	adjust_charge(-discharge_rate * delta_time)
 	handle_charge(owner, delta_time, times_fired)
 
-/obj/item/organ/stomach/electrical/Insert(mob/living/carbon/carbon, special = 0, drop_if_replaced)
+/obj/item/organ/stomach/electrical/on_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
-	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
+	RegisterSignal(organ_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
+	RegisterSignal(organ_owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
+	update_powered_organs(organ_owner)
 
-/obj/item/organ/stomach/electrical/Remove(mob/living/carbon/carbon, special = 0, pref_load)
-	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
-	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
+/obj/item/organ/stomach/electrical/on_remove(mob/living/carbon/organ_owner, special)
+	. = ..()
+	UnregisterSignal(organ_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	UnregisterSignal(organ_owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 
-	carbon.clear_alert("ethereal_charge")
-	carbon.clear_alert("ethereal_overcharge")
-
-	return ..()
+	exit_brownout(organ_owner)
+	organ_owner.remove_movespeed_modifier(/datum/movespeed_modifier/low_charge)
+	organ_owner.clear_alert(ALERT_ETHEREAL_CHARGE)
+	organ_owner.clear_alert(ALERT_ETHEREAL_OVERCHARGE)
+	update_powered_organs(organ_owner)
 
 /obj/item/organ/stomach/electrical/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
 	adjust_charge(amount / 3.5)
 
-/**Changes the energy of the crystal stomach.
+/**Changes the energy of the electrical stomach.
 * Args:
 * - amount: The change of the energy, in joules.
 * Returns: The amount of energy that actually got changed in joules.
@@ -56,28 +65,64 @@
 
 /obj/item/organ/stomach/electrical/proc/handle_charge(mob/living/carbon/carbon, delta_time, times_fired)
 	var/damage_taken = biological ? TOX : BURN
+
+	handle_low_charge(carbon)
+
 	switch(cell.charge)
 		if(-INFINITY to ETHEREAL_CHARGE_NONE)
-			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/emptycell/ethereal)
-			if(carbon.health > 10.5)
-				carbon.apply_damage(0.65 * delta_time, damage_taken, null, null, carbon)
+			carbon.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/emptycell/ethereal)
 		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
-			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/lowcell/ethereal, 3)
-			if(carbon.health > 10.5)
-				carbon.apply_damage(0.325 * delta_time, damage_taken, null, null, carbon)
+			carbon.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/lowcell/ethereal, 3)
 		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
-			carbon.throw_alert("ethereal_charge", /atom/movable/screen/alert/lowcell/ethereal, 2)
+			carbon.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/lowcell/ethereal, 2)
 		if(ETHEREAL_CHARGE_FULL to ETHEREAL_CHARGE_OVERLOAD)
-			carbon.throw_alert("ethereal_overcharge", /atom/movable/screen/alert/ethereal_overcharge, 1)
-			carbon.apply_damage(0.2 * delta_time, damage_taken, null, null, carbon)
+			carbon.throw_alert(ALERT_ETHEREAL_OVERCHARGE, /atom/movable/screen/alert/ethereal_overcharge, 1)
+			carbon.apply_damage(0.2 * delta_time, damage_taken, null, null)
 		if(ETHEREAL_CHARGE_OVERLOAD to ETHEREAL_CHARGE_DANGEROUS)
-			carbon.throw_alert("ethereal_overcharge", /atom/movable/screen/alert/ethereal_overcharge, 2)
-			carbon.apply_damage(0.325 * delta_time, damage_taken, null, null, carbon)
+			carbon.throw_alert(ALERT_ETHEREAL_OVERCHARGE, /atom/movable/screen/alert/ethereal_overcharge, 2)
+			carbon.apply_damage(0.325 * delta_time, damage_taken, null, null)
 			if(!discharging && DT_PROB(5, delta_time)) // 5% each second for ethereals to explosively release excess energy if it reaches dangerous levels
 				INVOKE_ASYNC(src, PROC_REF(discharge_process), carbon) //Keep this async
 		else
-			carbon.clear_alert("ethereal_charge")
-			carbon.clear_alert("ethereal_overcharge")
+			carbon.clear_alert(ALERT_ETHEREAL_CHARGE)
+			carbon.clear_alert(ALERT_ETHEREAL_OVERCHARGE)
+
+/obj/item/organ/stomach/electrical/proc/handle_low_charge(mob/living/carbon/carbon)
+	if(cell.charge <= ETHEREAL_CHARGE_NONE)
+		enter_brownout(carbon)
+	else
+		exit_brownout(carbon)
+
+	if(cell.charge >= ETHEREAL_CHARGE_LOWPOWER)
+		carbon.remove_movespeed_modifier(/datum/movespeed_modifier/low_charge)
+		return
+	carbon.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/low_charge, multiplicative_slowdown = low_charge_slowdown * (1 - (cell.charge / ETHEREAL_CHARGE_LOWPOWER)))
+
+/obj/item/organ/stomach/electrical/proc/enter_brownout(mob/living/carbon/carbon)
+	if(in_brownout)
+		return
+	in_brownout = TRUE
+	carbon.drop_all_held_items()
+	on_brownout_start(carbon)
+	update_powered_organs(carbon)
+
+/obj/item/organ/stomach/electrical/proc/exit_brownout(mob/living/carbon/carbon)
+	if(!in_brownout)
+		return
+	in_brownout = FALSE
+	on_brownout_end(carbon)
+	update_powered_organs(carbon)
+
+/obj/item/organ/stomach/electrical/proc/update_powered_organs(mob/living/carbon/carbon)
+	var/obj/item/organ/heart/ethereal/core = carbon?.get_organ_slot(ORGAN_SLOT_HEART)
+	if(istype(core))
+		core.refresh_light_color(carbon)
+
+/obj/item/organ/stomach/electrical/proc/on_brownout_start(mob/living/carbon/carbon)
+	return
+
+/obj/item/organ/stomach/electrical/proc/on_brownout_end(mob/living/carbon/carbon)
+	return
 
 /obj/item/organ/stomach/electrical/proc/discharge_process(mob/living/carbon/carbon)
 	if(discharging)
@@ -138,6 +183,26 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
+	/// store the previous display
+	var/screen_before_brownout
+
+/obj/item/organ/stomach/electrical/ipc/on_brownout_start(mob/living/carbon/carbon)
+	if(isnull(carbon.dna))
+		return
+	screen_before_brownout = carbon.dna.features["ipc_screen"]
+	carbon.dna.features["ipc_screen"] = null
+	carbon.update_body()
+
+/obj/item/organ/stomach/electrical/ipc/on_brownout_end(mob/living/carbon/carbon)
+	if(isnull(carbon.dna))
+		return
+	carbon.dna.features["ipc_screen"] = screen_before_brownout
+	screen_before_brownout = null
+	carbon.update_body()
+
+//getter so we don't grab the dead screen
+/obj/item/organ/stomach/electrical/ipc/proc/get_true_screen(mob/living/carbon/carbon)
+	return in_brownout ? screen_before_brownout : carbon.dna?.features["ipc_screen"]
 
 /obj/item/organ/stomach/electrical/ipc/emp_act(severity)
 	. = ..()

@@ -103,7 +103,9 @@
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
-	saved_screen = C.dna.features["ipc_screen"]
+	// access cell over DNA is intended, otherwise a dead screen gets saved T-T
+	var/obj/item/organ/stomach/electrical/ipc/battery = C.get_organ_slot(ORGAN_SLOT_STOMACH)
+	saved_screen = istype(battery) ? battery.get_true_screen(C) : C.dna.features["ipc_screen"]
 	C.dna.features["ipc_screen"] = "BSOD"
 	C.update_body()
 	addtimer(CALLBACK(src, PROC_REF(post_death), C), 5 SECONDS)

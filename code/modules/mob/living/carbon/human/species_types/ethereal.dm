@@ -36,32 +36,16 @@
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
 	)
 
-	var/current_color
-	var/default_color
-	var/EMPeffect = FALSE
-	var/emageffect = FALSE
-	var/obj/effect/dummy/lighting_obj/ethereal_light
-
-/datum/species/ethereal/Destroy(force)
-	if(ethereal_light)
-		QDEL_NULL(ethereal_light)
-	return ..()
-
 /datum/species/ethereal/on_species_gain(mob/living/carbon/human/new_ethereal, datum/species/old_species, pref_load)
 	. = ..()
 	if(!ishuman(new_ethereal))
 		return
-	default_color = new_ethereal.dna.features["ethcolor"]
 	RegisterSignal(new_ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(new_ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
-	RegisterSignal(new_ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-	RegisterSignal(new_ethereal, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(refresh_light_color))
-	ethereal_light = new_ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
-	refresh_light_color(new_ethereal)
 	new_ethereal.set_safe_hunger_level()
 
-	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
-	ethereal_heart.ethereal_color = default_color
+	var/obj/item/organ/heart/ethereal/core = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	core?.sync_color(new_ethereal)
 
 	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
 		if(limb.limb_id == SPECIES_ETHEREAL)
@@ -71,53 +55,13 @@
 	UnregisterSignal(former_ethereal, list(
 		COMSIG_ATOM_SHOULD_EMAG,
 		COMSIG_ATOM_ON_EMAG,
-		COMSIG_ATOM_EMP_ACT,
-		COMSIG_LIVING_HEALTH_UPDATE,
 	))
-	QDEL_NULL(ethereal_light)
 	return ..()
-
-/datum/species/ethereal/proc/refresh_light_color(mob/living/carbon/human/ethereal)
-	SIGNAL_HANDLER
-	if(isnull(ethereal_light))
-		return
-	if(ethereal.stat != DEAD && !EMPeffect)
-		var/healthpercent = max(ethereal.health, 0) / 100
-		if(!emageffect)
-			var/static/list/skin_color = rgb2num("#eda495")
-			var/list/colors = rgb2num(ethereal.dna.features["ethcolor"])
-			var/list/built_color = list()
-			for(var/i in 1 to 3)
-				built_color += skin_color[i] + ((colors[i] - skin_color[i]) * healthpercent)
-			current_color = rgb(built_color[1], built_color[2], built_color[3])
-
-		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
-		ethereal_light.set_light_on(TRUE)
-		fixed_mut_color = current_color
-		ethereal.update_body()
-		ethereal.set_facial_haircolor(current_color, override = TRUE, update = FALSE)
-		ethereal.set_haircolor(current_color, override = TRUE,  update = TRUE)
-	else
-		ethereal_light.set_light_on(FALSE)
-		fixed_mut_color = COLOR_GRAY
-		ethereal.update_body()
-		ethereal.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
-		ethereal.set_haircolor(COLOR_GRAY, override = TRUE, update = TRUE)
-
-/datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/source, severity, protection)
-	SIGNAL_HANDLER
-	EMPeffect = TRUE
-	refresh_light_color(source)
-	to_chat(source, span_notice("You feel the light of your body leave you."))
-	switch(severity)
-		if(EMP_LIGHT)
-			addtimer(CALLBACK(src, PROC_REF(stop_emp), source), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 10 seconds
-		if(EMP_HEAVY)
-			addtimer(CALLBACK(src, PROC_REF(stop_emp), source), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 20 seconds
 
 /datum/species/ethereal/proc/should_emag(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
-	return !(!emageffect || !istype(H)) // signal is inverted
+	var/obj/item/organ/heart/ethereal/core = H?.get_organ_slot(ORGAN_SLOT_HEART)
+	return !(!core?.emag_effect || !istype(H)) // signal is inverted
 
 /datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user, obj/item/card/emag/hacker)
 	SIGNAL_HANDLER
@@ -130,28 +74,25 @@
 		else
 			hacker.use_charge()
 
-	emageffect = TRUE
+	var/obj/item/organ/heart/ethereal/core = H.get_organ_slot(ORGAN_SLOT_HEART)
+	core?.set_emagged(TRUE, H)
 	if(user)
 		to_chat(user, span_notice("You tap [H] on the back with your card."))
 	H.visible_message(span_danger("[H] starts flickering in an array of colors!"))
 	handle_emag(H)
 	addtimer(CALLBACK(src, PROC_REF(stop_emag), H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
 
-/datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/ethereal)
-	EMPeffect = FALSE
-	refresh_light_color(ethereal)
-	to_chat(ethereal, span_notice("You feel more energized as your shine comes back."))
-
 /datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/ethereal)
-	if(!emageffect)
+	var/obj/item/organ/heart/ethereal/core = ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	if(!core?.emag_effect)
 		return
-	current_color = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)] //Picks a random colour from the Ethereal colour list
-	refresh_light_color(ethereal)
+	//Picks a random colour from the Ethereal colour list
+	core.flicker_to(GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)], ethereal)
 	addtimer(CALLBACK(src, PROC_REF(handle_emag), ethereal), 0.5 SECONDS)
 
 /datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/ethereal)
-	emageffect = FALSE
-	refresh_light_color(ethereal)
+	var/obj/item/organ/heart/ethereal/core = ethereal.get_organ_slot(ORGAN_SLOT_HEART)
+	core?.set_emagged(FALSE, ethereal)
 	ethereal.visible_message(span_danger("[ethereal] stops flickering and goes back to their normal state!"))
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)

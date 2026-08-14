@@ -292,6 +292,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // Charge spent per zap when an ethereal is in a pool, and the power that zap carries.
 #define ETHEREAL_POOL_ZAP_COST (0.15 * STANDARD_ETHEREAL_CHARGE)
 #define ETHEREAL_POOL_ZAP_POWER (0.3 * STANDARD_ETHEREAL_CHARGE)
+// Charge gained per unit of liquid electricity ingested.
+#define ETHEREAL_LIQUID_ELECTRICITY_GAIN (0.03 * STANDARD_ETHEREAL_CHARGE)
 
 /*
 #define CRYSTALIZE_COOLDOWN_LENGTH 120 SECONDS
@@ -438,8 +440,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
-#define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
-#define ETHEREAL_DISCHARGE_RATE (1e-3 * STANDARD_ETHEREAL_CHARGE) // Rate at which ethereal stomach charge decreases
+#define HUNGER_FACTOR 0.08 //factor at which mob nutrition decreases
 #define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
 
 // Eye protection

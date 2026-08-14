@@ -777,9 +777,9 @@
 		return
 
 	var/mob/living/carbon/exposed_carbon = exposed_mob
-	var/obj/item/organ/stomach/electrical/ethereal/stomach = exposed_carbon.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/electrical/stomach = exposed_carbon.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(stomach))
-		stomach.adjust_charge(reac_volume * 30 * ETHEREAL_DISCHARGE_RATE)
+		stomach.adjust_charge(reac_volume * ETHEREAL_LIQUID_ELECTRICITY_GAIN)
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

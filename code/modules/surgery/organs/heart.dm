@@ -233,18 +233,132 @@
 	visual = TRUE //This is used by the ethereal species for color
 	desc = "A crystal-like organ that functions similarly to a heart for Ethereals."
 
-	///Color of the heart, is set by the species on gain
+	///Color of the heart, overwritten from owner's dna upon init
 	var/ethereal_color = "#9c3030"
+	///The colour we are currently glowing
+	var/current_color
+	///Set while an EMP has dumped glow
+	var/emp_effect = FALSE
+	///Set while an emag is flickering
+	var/emag_effect = FALSE
+	///The glow...
+	var/obj/effect/dummy/lighting_obj/ethereal_light
+	///stores last color, save us some processing
+	var/last_rendered_color
 
 /obj/item/organ/heart/ethereal/Initialize(mapload)
 	. = ..()
 	add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
 	update_appearance()
 
+/obj/item/organ/heart/ethereal/Destroy()
+	QDEL_NULL(ethereal_light)
+	return ..()
+
+/obj/item/organ/heart/ethereal/on_insert(mob/living/carbon/organ_owner, special)
+	. = ..()
+	ethereal_light = organ_owner.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
+	RegisterSignal(organ_owner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(refresh_light_color))
+	RegisterSignal(organ_owner, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
+	if(isethereal(organ_owner) && ethereal_color == initial(ethereal_color))
+		sync_color(organ_owner)
+	else
+		refresh_light_color(organ_owner)
+
+/obj/item/organ/heart/ethereal/on_remove(mob/living/carbon/organ_owner, special)
+	. = ..()
+	UnregisterSignal(organ_owner, list(COMSIG_LIVING_HEALTH_UPDATE, COMSIG_ATOM_EMP_ACT))
+	QDEL_NULL(ethereal_light)
+	last_rendered_color = null
+	// No more cool glow heart, gray upon you
+	if(!isethereal(organ_owner))
+		return
+	organ_owner.dna?.species?.fixed_mut_color = COLOR_GRAY
+	organ_owner.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+	organ_owner.set_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+	organ_owner.update_body()
+
+/// Needs electric stomach to be powered
+/obj/item/organ/heart/ethereal/proc/has_power()
+	if(owner?.visual_only_organs)
+		return TRUE
+	var/obj/item/organ/stomach/electrical/battery = owner?.get_organ_slot(ORGAN_SLOT_STOMACH)
+	return istype(battery) && !battery.in_brownout
+
+/obj/item/organ/heart/ethereal/proc/get_body_color()
+	return ethereal_light?.light_on ? current_color : COLOR_GRAY
+
+/obj/item/organ/heart/ethereal/proc/refresh_light_color(mob/living/carbon/human/ethereal)
+	SIGNAL_HANDLER
+	if(isnull(ethereal_light) || !ishuman(ethereal))
+		return
+
+	var/lit = ethereal.stat != DEAD && !emp_effect && has_power()
+	if(lit)
+		var/healthpercent = max(ethereal.health, 0) / 100
+		if(!emag_effect)
+			var/static/list/skin_color = rgb2num("#eda495")
+			var/list/colors = rgb2num(ethereal_color)
+			var/list/built_color = list()
+			for(var/i in 1 to 3)
+				built_color += skin_color[i] + ((colors[i] - skin_color[i]) * healthpercent)
+			current_color = rgb(built_color[1], built_color[2], built_color[3])
+		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
+		ethereal_light.set_light_on(TRUE)
+	else
+		ethereal_light.set_light_on(FALSE)
+
+	var/body_color = get_body_color()
+	if(body_color == last_rendered_color)
+		return
+	last_rendered_color = body_color
+
+	if(isethereal(ethereal))
+		ethereal.dna?.species?.fixed_mut_color = body_color
+		ethereal.set_facial_haircolor(body_color, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(body_color, override = TRUE, update = FALSE)
+
+	ethereal.update_body()
+
+/obj/item/organ/heart/ethereal/proc/on_emp_act(mob/living/carbon/human/source, severity, protection)
+	SIGNAL_HANDLER
+	var/was_lit = ethereal_light?.light_on
+	emp_effect = TRUE
+	refresh_light_color(source)
+	if(was_lit)
+		to_chat(source, span_notice("You feel the light of your body leave you."))
+	switch(severity)
+		if(EMP_LIGHT)
+			addtimer(CALLBACK(src, PROC_REF(stop_emp), source), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+		if(EMP_HEAVY)
+			addtimer(CALLBACK(src, PROC_REF(stop_emp), source), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/obj/item/organ/heart/ethereal/proc/stop_emp(mob/living/carbon/human/ethereal)
+	emp_effect = FALSE
+	refresh_light_color(ethereal)
+	if(ethereal_light?.light_on)
+		to_chat(ethereal, span_notice("You feel more energized as your shine comes back."))
+
+/obj/item/organ/heart/ethereal/proc/sync_color(mob/living/carbon/human/ethereal)
+	var/dna_color = ethereal.dna?.features["ethcolor"]
+	if(dna_color)
+		ethereal_color = dna_color
+		add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
+		update_appearance()
+	refresh_light_color(ethereal)
+
+/obj/item/organ/heart/ethereal/proc/set_emagged(new_value, mob/living/carbon/human/ethereal)
+	emag_effect = new_value
+	refresh_light_color(ethereal)
+
+/obj/item/organ/heart/ethereal/proc/flicker_to(new_color, mob/living/carbon/human/ethereal)
+	current_color = new_color
+	refresh_light_color(ethereal)
+
 /obj/item/organ/heart/ethereal/update_overlays()
 	. = ..()
 	var/mutable_appearance/shine = mutable_appearance(icon, icon_state = "[base_icon_state]_overlay-[beating ? "on" : "off"]")
-	shine.appearance_flags = RESET_COLOR //No color on this, just pure white
+	shine.appearance_flags = RESET_COLOR //white
 	. += shine
 
 /obj/item/organ/heart/diona
