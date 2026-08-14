@@ -2366,6 +2366,15 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood/broken,
 /area/station/security/courtroom)
+"aNw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/sign/departments/minsky/research/dorms/directional/north,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "aNA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/biogenerator,
@@ -3004,7 +3013,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
 "aVz" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/grunge{
 	name = "Kitchen"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -9400,10 +9409,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating/airless,
 /area/misc/space/nearstation)
-"dlv" = (
-/obj/effect/spawner/random/trash/mopbucket,
-/turf/open/floor/plating,
-/area/station/maintenance/port/lesser)
 "dlB" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -15527,6 +15532,9 @@
 	name = "Recreation Lounge APC";
 	pixel_y = 24
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation/entertainment)
 "fuq" = (
@@ -18084,13 +18092,12 @@
 /area/station/service/lawoffice)
 "gnK" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck,
-/obj/item/razor{
-	pixel_y = 1;
-	pixel_x = 9
+/obj/item/clothing/under/suit/black_really{
+	pixel_x = 5;
+	pixel_y = 2
 	},
-/obj/item/handmirror{
-	pixel_x = -6
+/obj/item/cane{
+	pixel_y = 4
 	},
 /turf/open/floor/carpet/green,
 /area/station/commons/fitness/recreation/entertainment)
@@ -18556,8 +18563,6 @@
 "gvp" = (
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable/yellow,
-/obj/effect/turf_decal/bot,
-/obj/machinery/food_cart,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "gvF" = (
@@ -18818,14 +18823,11 @@
 /turf/open/floor/plating,
 /area/station/maintenance/fore/greater)
 "gAM" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
+/obj/effect/turf_decal/tile/neutral/fourcorners{
+	color = "#36454F"
 	},
-/obj/effect/decal/fakestairs/newstairs{
-	dir = 8
-	},
-/obj/structure/platform/white/stair_cutoff,
-/turf/open/floor/iron,
+/obj/structure/sign/departments/minsky/research/dorms/directional/west,
+/turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation/entertainment)
 "gAO" = (
 /obj/structure/cable/yellow,
@@ -20845,10 +20847,10 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft/greater)
 "hnr" = (
-/obj/machinery/chem_master/condimaster,
 /obj/machinery/camera/directional/south{
 	c_tag = "Kitchen - Coldroom"
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "hnt" = (
@@ -27981,11 +27983,11 @@
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "jYz" = (
-/obj/machinery/microwave,
-/obj/structure/table,
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/microwave,
+/obj/structure/table,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "jYA" = (
@@ -33370,9 +33372,9 @@
 	pixel_y = -3
 	},
 /obj/item/lipstick/random,
-/obj/item/lipstick/random{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/toy/cards/deck{
+	pixel_x = 13;
+	pixel_y = 4
 	},
 /turf/open/floor/carpet/green,
 /area/station/commons/fitness/recreation/entertainment)
@@ -33382,10 +33384,9 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/lesser)
 "lVp" = (
-/obj/structure/chair/stool,
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
+/obj/structure/sign/poster/ripped/directional/south,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "lVB" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -38820,6 +38821,10 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/fourcorners,
+/obj/item/food/canned/peaches{
+	pixel_x = -6;
+	pixel_y = 10
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "ohn" = (
@@ -39017,8 +39022,8 @@
 /turf/open/floor/plating,
 /area/station/cargo/exploration_prep)
 "olY" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Kitchen Maintenance"
+/obj/machinery/door/airlock/grunge{
+	name = "Kitchen Maintanence"
 	},
 /obj/structure/cable/yellow,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -39713,11 +39718,9 @@
 /turf/open/floor/plating,
 /area/station/cargo/miningoffice)
 "oBM" = (
-/obj/structure/chair/fancy/bench{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/effect/turf_decal/tile/white/opposingcorners,
+/obj/structure/sink/kitchen/directional/east,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "oBY" = (
@@ -40376,19 +40379,16 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/table/wood,
-/obj/item/clothing/under/suit/black_really{
-	pixel_x = 7
-	},
-/obj/item/cane,
 /obj/item/paper_bin{
-	pixel_x = -8;
 	pixel_y = 5
 	},
 /obj/item/pen/fourcolor{
-	pixel_y = 5;
-	pixel_x = -9
+	pixel_y = 5
 	},
-/obj/item/laser_pointer/purple,
+/obj/item/laser_pointer/purple{
+	pixel_x = 1;
+	pixel_y = -17
+	},
 /turf/open/floor/carpet/green,
 /area/station/commons/fitness/recreation/entertainment)
 "oRx" = (
@@ -40489,15 +40489,21 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/lesser)
 "oTc" = (
-/obj/structure/chair/fancy/bench{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/toy/plush/lizard_plushie{
+	name = "Eats-The-Trash";
+	desc = "This appears to be a highly realistic lizard plushie , as it smells like most lizards you meet."
+	},
+/obj/structure/closet/crate/trashcart/filled,
+/obj/item/wirebrush{
+	name = "tooth brush";
+	desc = "A tool that is used to scrub the gunk thoroughly off teeth. Not a suprise its seldom used"
+	},
 /turf/open/floor/prison,
 /area/station/security/prison)
 "oTx" = (
@@ -41657,7 +41663,8 @@
 	dir = 4
 	},
 /obj/structure/chair{
-	dir = 1
+	dir = 2;
+	pixel_x = -1
 	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
@@ -47952,6 +47959,7 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/office)
 "rOo" = (
+/obj/effect/turf_decal/bot,
 /obj/machinery/icecream_vat,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
@@ -49237,7 +49245,7 @@
 /area/station/science/robotics/lab)
 "slO" = (
 /obj/effect/turf_decal/bot,
-/obj/item/kirbyplants/random,
+/obj/machinery/chem_master/condimaster,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "slX" = (
@@ -49885,6 +49893,10 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez{
+	pixel_w = 9;
+	pixel_y = 6
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "sze" = (
@@ -50038,11 +50050,7 @@
 /area/station/cargo/exploration_prep)
 "sBQ" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/table,
-/obj/item/food/canned/peaches{
-	pixel_x = -6;
-	pixel_y = 10
-	},
+/obj/structure/bookcase/random/fiction,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "sBS" = (
@@ -52276,6 +52284,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/reagent_containers/cup/glass/shaker{
+	pixel_x = -16;
+	pixel_y = 7
+	},
 /turf/open/floor/iron/dark,
 /area/station/service/bar)
 "tsf" = (
@@ -52416,8 +52428,9 @@
 /area/station/ai_monitored/command/storage/eva)
 "tuO" = (
 /obj/structure/flora/rock{
-	name = "pet rock";
-	desc = "Some sort of giant rock which a previous botanist dragged in, seems like nobody has dared to move it since"
+	name = "igneous pet rock";
+	desc = "A sort of giant rhyolite which a previous botanist dragged in, you think this rock would be a pretty cool and awesome guy if it could speak";
+	color = "#FECC68"
 	},
 /obj/item/sticker/sticky_note{
 	pixel_x = 6;
@@ -54662,9 +54675,9 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/lesser)
 "usI" = (
-/obj/structure/sink/kitchen/directional/east,
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
+/obj/effect/spawner/random/trash/mopbucket,
+/turf/open/floor/plating,
+/area/station/maintenance/port/lesser)
 "usJ" = (
 /obj/machinery/fax/service{
 	fax_name = "Monastery";
@@ -57412,7 +57425,6 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/station/service/chapel/monastery)
 "vqS" = (
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen/coldroom)
 "vqW" = (
@@ -61017,7 +61029,7 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/has_grav/syndiesat)
 "wHY" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock{
 	name = "Service Door"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -64246,10 +64258,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/station/command/heads_quarters/cmo)
-"xIt" = (
-/obj/structure/sink/directional/west,
-/turf/open/floor/grass,
-/area/station/service/hydroponics)
 "xIu" = (
 /obj/machinery/door/poddoor{
 	id = "executionspaceblast2";
@@ -65348,17 +65356,7 @@
 /area/station/hallway/primary/aft)
 "xZr" = (
 /obj/effect/turf_decal/tile/red/fourcorners,
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/reagent_containers/cup/bottle/nutrient/ez{
-	pixel_w = 9;
-	pixel_y = 6
-	},
-/obj/item/food/canned/beefbroth/maint{
-	pixel_y = 5;
-	pixel_x = -12
-	},
+/obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "xZw" = (
@@ -84521,7 +84519,7 @@ dOr
 dOr
 dOr
 dOr
-dlv
+usI
 wyg
 vFW
 aVl
@@ -92013,7 +92011,7 @@ bfN
 bxd
 xNh
 sXP
-usI
+ujN
 bmM
 jJL
 hRB
@@ -94327,9 +94325,9 @@ xUl
 gvp
 vqH
 sXP
-xIt
 ujN
-lVp
+ujN
+uag
 aNA
 asE
 kAx
@@ -102278,7 +102276,7 @@ acy
 bUN
 jwL
 nMw
-oJj
+aNw
 ivG
 ebY
 wFZ
@@ -103308,7 +103306,7 @@ gAO
 vuZ
 qTa
 uNp
-ebY
+lVp
 wFZ
 wFZ
 rjH
@@ -104847,7 +104845,7 @@ nnl
 lby
 rwJ
 qON
-qON
+gAM
 lTv
 spl
 qON
@@ -111005,7 +111003,7 @@ xzx
 gbA
 xzx
 fun
-gAM
+sdg
 wfA
 iEc
 sdg
