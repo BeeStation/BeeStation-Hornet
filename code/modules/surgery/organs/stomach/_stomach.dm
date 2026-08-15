@@ -91,19 +91,8 @@
 		return
 
 	//We are checking if we have nutriment in a damaged stomach.
-	var/datum/reagent/nutri = locate(/datum/reagent/consumable/nutriment) in reagents.reagent_list
-	//No nutriment found lets exit out
-	if(!nutri)
-		return
-
-	// remove the food reagent amount
-	var/nutri_vol = nutri.volume
-	var/amount_food = food_reagents[nutri.type]
-	if(amount_food)
-		nutri_vol = max(nutri_vol - amount_food, 0)
-
-	// found nutriment was stomach food reagent
-	if(!(nutri_vol > 0))
+	var/nutri_vol = get_free_nutriment_volume()
+	if(!nutri_vol)
 		return
 
 	//The stomach is damage has nutriment but low on theshhold, lo prob of vomit
@@ -116,6 +105,14 @@
 	if(damage > high_threshold && DT_PROB(0.05 * damage * nutri_vol * nutri_vol, delta_time))
 		body.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = damage)
 		to_chat(body, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
+
+///Nutriment in the stomach, besides the organ's own food reagents. 0 if empty.
+/obj/item/organ/stomach/proc/get_free_nutriment_volume()
+	var/datum/reagent/nutri = locate(/datum/reagent/consumable/nutriment) in reagents.reagent_list
+	if(!nutri)
+		return 0
+	var/amount_food = food_reagents[nutri.type]
+	return amount_food ? max(nutri.volume - amount_food, 0) : nutri.volume
 
 /obj/item/organ/stomach/proc/handle_hunger(mob/living/carbon/human/human, delta_time, times_fired)
 	if(HAS_TRAIT(human, TRAIT_NOHUNGER))
@@ -137,7 +134,7 @@
 		var/hunger_rate = HUNGER_FACTOR
 		var/datum/component/mood/mood = human.GetComponent(/datum/component/mood)
 		if(mood && mood.sanity > SANITY_DISTURBED)
-			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 to 0.75
+			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 at SANITY_DISTURBED down to 0.7 at SANITY_MAXIMUM
 		// Whether we cap off our satiety or move it towards 0
 		if(human.satiety > MAX_SATIETY)
 			human.satiety = MAX_SATIETY
@@ -164,14 +161,14 @@
 	//metabolism change
 	if(human.nutrition > NUTRITION_LEVEL_FAT)
 		human.metabolism_efficiency = 1
-	else if(human.nutrition > NUTRITION_LEVEL_FED && human.satiety > 80)
+	else if(human.nutrition > NUTRITION_LEVEL_FED && human.satiety > SATIETY_WELL_NOURISHED)
 		if(human.metabolism_efficiency != 1.25)
-			to_chat(human, span_notice("You feel vigorous."))
+			to_chat(human, span_nicegreen("You feel vigorous. Your body burns through chemicals quickly and holds its temperature easily."))
 			human.metabolism_efficiency = 1.25
 	else if(human.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		if(human.metabolism_efficiency != 0.8)
-			to_chat(human, span_notice("You feel sluggish."))
-		human.metabolism_efficiency = 0.8
+			to_chat(human, span_warning("You feel sluggish. Chemicals linger in your system and you struggle to keep warm."))
+			human.metabolism_efficiency = 0.8
 	else
 		if(human.metabolism_efficiency == 1.25)
 			to_chat(human, span_notice("You no longer feel vigorous."))
@@ -190,6 +187,42 @@
 			human.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			human.throw_alert("nutrition", /atom/movable/screen/alert/starving)
+
+	handle_hunger_pangs(human, delta_time)
+
+///Your stomach craves sustenance (no one looks at the HUD)
+/obj/item/organ/stomach/proc/handle_hunger_pangs(mob/living/carbon/human/human, delta_time)
+	if(human.stat != CONSCIOUS)
+		return
+
+	var/growl_chance = 0
+	switch(human.nutrition)
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			growl_chance = 0.4
+		if(0 to NUTRITION_LEVEL_STARVING)
+			growl_chance = 1
+
+	if(growl_chance && DT_PROB(growl_chance, delta_time))
+		human.audible_message(
+			span_warning("[human]'s stomach growls."),
+			hearing_distance = 2,
+			self_message = span_warning("Your stomach growls."),
+			audible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
+		)
+
+	if(human.nutrition >= NUTRITION_LEVEL_STARVING)
+		return
+
+	// Check for any reagents, to skip people who get to zero and then eat
+	if(get_free_nutriment_volume())
+		return
+
+	// Eat. Your. Food.
+	if(DT_PROB(0.3, delta_time))
+		human.visible_message(
+			span_warning("[human] dry heaves!"),
+			span_userdanger("You dry heave, but there's nothing in your stomach to bring up."),
+		)
 
 ///for when mood is disabled and hunger should handle slowdowns
 /obj/item/organ/stomach/proc/handle_hunger_slowdown(mob/living/carbon/human/human)

@@ -262,6 +262,11 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define NUTRITION_LEVEL_START_MIN 250
 #define NUTRITION_LEVEL_START_MAX 400
 
+//Multiplier on natural stamina regen at 0 nutrition
+#define STAMINA_HUNGER_FLOOR 0.6
+//Multiplier on natural stamina regen while satiety is above 80
+#define STAMINA_SATIETY_BONUS 1.1
+
 //Disgust levels for humans
 #define DISGUST_LEVEL_MAXEDOUT 150
 #define DISGUST_LEVEL_DISGUSTED 75

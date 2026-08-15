@@ -296,10 +296,23 @@
 	//Increase damage the more stam damage
 	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
 	stam_heal_multiplier = clamp(total_stamina_loss / 50, 1, 2)
+	//How well fed we are scales natural recovery. Never touch forced stamcrit however
+	var/nutrition_coeff = bodyparts_with_stam ? get_stamina_nutrition_coeff() : 1
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.needs_processing)
-			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1))))
+			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier * nutrition_coeff) / max(bodyparts_with_stam, 1))))
+
+/**
+ * Multiplier on natural stamina regeneration from how well fed we are
+ * Returns 1 for anything with no stomach(or non-traditional hunger), since nothing would ever refill nutrition
+ */
+/mob/living/carbon/proc/get_stamina_nutrition_coeff()
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER) || !get_organ_slot(ORGAN_SLOT_STOMACH))
+		return 1
+	. = min(STAMINA_HUNGER_FLOOR + ((1 - STAMINA_HUNGER_FLOOR) * nutrition / NUTRITION_LEVEL_FED), 1)
+	if(satiety > SATIETY_WELL_NOURISHED)
+		. *= STAMINA_SATIETY_BONUS
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)
 	if(stat == DEAD)

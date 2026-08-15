@@ -293,7 +293,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 					nutrition_ratio = 0.8
 				else
 					nutrition_ratio = 1
-			if(satiety > 80)
+			if(satiety > SATIETY_WELL_NOURISHED)
 				nutrition_ratio *= 1.25
 			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
 			blood_volume = min(blood_volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)

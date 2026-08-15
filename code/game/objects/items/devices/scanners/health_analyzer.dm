@@ -302,6 +302,49 @@
 		else
 			render_list += "<span class='info ml-1'>[core_temperature_message]</span>\n"
 
+		// Nutrition. Not applicable for those which traditional hunger is not :P
+		if(!HAS_TRAIT(humantarget, TRAIT_NOHUNGER) && humantarget.get_organ_slot(ORGAN_SLOT_STOMACH))
+			var/nutrition_tier
+			var/nutrition_alert = FALSE
+			switch(humantarget.nutrition)
+				if(NUTRITION_LEVEL_FULL to INFINITY)
+					nutrition_tier = "Overfed"
+				if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+					nutrition_tier = "Well fed"
+				if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+					nutrition_tier = "Fed"
+				if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+					nutrition_tier = "Peckish"
+				if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+					nutrition_tier = "Hungry"
+				else
+					nutrition_tier = "Starving"
+					nutrition_alert = TRUE
+
+			var/nutrition_message = "Nutrition: [nutrition_tier]"
+			if(advanced)
+				nutrition_message += " ([round(humantarget.nutrition)])"
+				if(humantarget.metabolism_efficiency != 1)
+					nutrition_message += " - metabolic rate [round(humantarget.metabolism_efficiency * 100)]%"
+				var/stamina_coeff = humantarget.get_stamina_nutrition_coeff()
+				if(stamina_coeff != 1)
+					nutrition_message += ", stamina recovery [round(stamina_coeff * 100)]%"
+				if(humantarget.nutrition < NUTRITION_LEVEL_WELL_FED)
+					nutrition_message += ", blood regeneration reduced"
+			render_list += "<span class='[nutrition_alert ? "alert" : "info"] ml-1'>[nutrition_message]</span>\n"
+
+			if(advanced)
+				if(humantarget.satiety > 0)
+					var/nourished_message = "Subject is well nourished: organ healing and disease resistance improved"
+					if(humantarget.satiety > SATIETY_WELL_NOURISHED)
+						nourished_message += ", blood regeneration boosted"
+					render_list += "<span class='info ml-1'>[nourished_message].</span>\n"
+				else if(humantarget.satiety < 0)
+					var/junk_message = "Poor diet detected: hunger accelerated"
+					if(humantarget.satiety <= SATIETY_JUNK_FOOD)
+						junk_message += ", cardiac risk elevated"
+					render_list += "<span class='alert ml-1'>[junk_message].</span>\n"
+
 	var/body_temperature_message = "Body temperature: [round(target.bodytemperature-T0C, 0.1)] &deg;C ([round(target.bodytemperature*1.8-459.67,0.1)] &deg;F)"
 	if(target.bodytemperature >= target.get_body_temp_heat_damage_limit())
 		render_list += "<span class='alert ml-1'>☼ [body_temperature_message] ☼</span>\n"
