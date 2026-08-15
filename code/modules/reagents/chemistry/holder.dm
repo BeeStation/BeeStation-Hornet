@@ -162,15 +162,8 @@
 
 /// Get the name of the reagent there is the most of in this holder
 /datum/reagents/proc/get_master_reagent_name()
-	var/list/cached_reagents = reagent_list
-	var/datum/reagent/master
-	var/max_volume = 0
-	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.volume > max_volume)
-			max_volume = reagent.volume
-			master = reagent
-
-	return master
+	var/datum/reagent/master = get_master_reagent()
+	return master?.name
 
 /// Get the id of the reagent there is the most of in this holder
 /datum/reagents/proc/get_master_reagent_id()
