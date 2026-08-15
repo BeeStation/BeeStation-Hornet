@@ -5,10 +5,8 @@
 	var/layers
 	///List of all possible layers. Used for looping through in drawing
 	var/static/list/all_layers = list(EXTERNAL_FRONT, EXTERNAL_ADJACENT, EXTERNAL_BEHIND)
-
 	///Key of the icon states of all the sprite_datums for easy caching
 	var/cache_key = ""
-
 	/// Whether the overlay blocks emissive light
 	var/blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
@@ -16,7 +14,9 @@
 /datum/bodypart_overlay/proc/get_overlay(layer, obj/item/bodypart/limb)
 	layer = bitflag_to_layer(layer)
 	var/image/main_image = get_image(layer, limb)
+
 	color_image(main_image, layer, limb)
+
 	if(blocks_emissive == EMISSIVE_BLOCK_NONE || !limb)
 		return main_image
 

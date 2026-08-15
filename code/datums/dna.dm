@@ -218,8 +218,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_MUTANT_COLOR_BLOCK] = sanitize_hexcolor(features["mcolor"], include_crunch = FALSE)
 	if(features["ethcolor"])
 		L[DNA_ETHEREAL_COLOR_BLOCK] = sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE)
-	if(features["body_markings"])
-		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.body_markings_list.Find(features["body_markings"]), GLOB.body_markings_list.len)
+	if(features["lizard_markings"])
+		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.lizard_markings_list.Find(features["lizard_markings"]), GLOB.lizard_markings_list.len)
 	if(features["tail_lizard"])
 		L[DNA_LIZARD_TAIL_BLOCK] = construct_block(GLOB.tails_list_lizard.Find(features["tail_lizard"]), GLOB.tails_list_lizard.len)
 	if(features["snout"])
@@ -392,7 +392,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_ETHEREAL_COLOR_BLOCK)
 			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE))
 		if(DNA_LIZARD_MARKINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.body_markings_list.Find(features["body_markings"]), GLOB.body_markings_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.lizard_markings_list.Find(features["lizard_markings"]), GLOB.lizard_markings_list.len))
 		if(DNA_LIZARD_TAIL_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.tails_list_lizard.Find(features["tail_lizard"]), GLOB.tails_list_lizard.len))
 		if(DNA_SNOUT_BLOCK)
@@ -580,7 +580,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 		if (dna.species.properly_gained)
 			dna.species.on_species_loss(src, new_race, pref_load)
-			
+
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
@@ -697,8 +697,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		dna.features["mcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
 	if(dna.features["ethcolor"])
 		dna.features["ethcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_ETHEREAL_COLOR_BLOCK))
-	if(dna.features["body_markings"])
-		dna.features["body_markings"] = GLOB.body_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), GLOB.body_markings_list.len)]
+	if(dna.features["lizard_markings"])
+		dna.features["lizard_markings"] = GLOB.lizard_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), GLOB.lizard_markings_list.len)]
 	if(dna.features["tail_lizard"])
 		dna.features["tail_lizard"] = GLOB.tails_list_lizard[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_TAIL_BLOCK), GLOB.tails_list_lizard.len)]
 	if(dna.features["snout"])
@@ -766,13 +766,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		organ_eyes.old_eye_color_right = eye_color_right
 
 	if(icon_update)
-		if(mutcolor_update)
-			update_body(is_creating = TRUE)
-		else
-			update_body()
+		update_body(is_creating = mutcolor_update)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
-
 
 /mob/proc/domutcheck()
 	return

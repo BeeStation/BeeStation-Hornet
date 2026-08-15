@@ -709,7 +709,13 @@
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
 
-	recolor_external_organs()
+	// Recolors mutant overlays to match new mutant colors
+	for(var/datum/bodypart_overlay/mutant/overlay in bodypart_overlays)
+		overlay.inherit_color(src, force = TRUE)
+	// Ensures marking overlays are updated accordingly as well
+	for(var/datum/bodypart_overlay/simple/body_marking/marking in bodypart_overlays)
+		marking.set_appearance(human_owner.dna.features[marking.dna_feature_key], species_color)
+
 	return TRUE
 
 //to update the bodypart's icon when not attached to a mob
@@ -831,6 +837,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	drop_organs()
+	
 	return ..()
 
 /// INTERNAL PROC, DO NOT USE
@@ -845,11 +852,6 @@
 /// Cleans up any attachment we have to the embedded object, removes it from our list
 /obj/item/bodypart/proc/_unembed_object(obj/item/unembed)
 	embedded_objects -= unembed
-
-///Loops through all of the bodypart's external organs and update's their color.
-/obj/item/bodypart/proc/recolor_external_organs()
-	for(var/datum/bodypart_overlay/mutant/overlay in bodypart_overlays)
-		overlay.inherit_color(src, force = TRUE)
 
 ///A multi-purpose setter for all things immediately important to the icon and iconstate of the limb.
 /obj/item/bodypart/proc/change_appearance(icon, id, greyscale, dimorphic)

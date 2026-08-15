@@ -13,9 +13,11 @@
 		"horns" = SPRITE_ACCESSORY_NONE,
 		"frills" = SPRITE_ACCESSORY_NONE,
 		"spines" = SPRITE_ACCESSORY_NONE,
-		"body_markings" = SPRITE_ACCESSORY_NONE,
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
+	)
+	body_markings = list(
+		/datum/bodypart_overlay/simple/body_marking/lizard = SPRITE_ACCESSORY_NONE,
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutantbrain = /obj/item/organ/brain/lizard

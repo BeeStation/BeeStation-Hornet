@@ -159,6 +159,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Replaces default wings with a different organ. (There should be no default wings, only those on moths & apids, thus null)
 	var/obj/item/organ/wings/mutantwings = null
 
+	/// Store body marking defines. See mobs.dm for bitflags
+	var/list/body_markings = list()
+
 	//Bitflag that controls what in game ways can select this species as a spawnable source
 	//Think magic mirror and pride mirror, slime extract, ERT etc, see defines
 	//in __DEFINES/mobs.dm, defaults to NONE, so people actually have to think about it
@@ -516,6 +519,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
 
+	add_body_markings(C)
+
 	if(length(inherent_traits))
 		C.add_traits(inherent_traits, SPECIES_TRAIT)
 
@@ -576,6 +581,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/i in inherent_factions)
 			C.faction -= i
 
+	remove_body_markings(C)
+
 	// Removes all languages previously associated with [LANGUAGE_SPECIES], gaining our new species will add new ones back
 	var/datum/language_holder/losing_holder = GLOB.prototype_language_holders[species_language_holder]
 	for(var/language in losing_holder.understood_languages)
@@ -609,43 +616,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				eye_organ.refresh(call_update = FALSE)
 				for(var/eye_overlay in eye_organ.generate_body_overlay(species_human))
 					standing += eye_overlay
-
-		// organic body markings (oh my god this is terrible please rework this to be done on the limbs themselves i beg you)
-		if(HAS_TRAIT(species_human, TRAIT_HAS_MARKINGS))
-			var/obj/item/bodypart/chest/chest = species_human.get_bodypart(BODY_ZONE_CHEST)
-			var/obj/item/bodypart/arm/right/right_arm = species_human.get_bodypart(BODY_ZONE_R_ARM)
-			var/obj/item/bodypart/arm/left/left_arm = species_human.get_bodypart(BODY_ZONE_L_ARM)
-			var/obj/item/bodypart/leg/right/right_leg = species_human.get_bodypart(BODY_ZONE_R_LEG)
-			var/obj/item/bodypart/leg/left/left_leg = species_human.get_bodypart(BODY_ZONE_L_LEG)
-			var/datum/sprite_accessory/markings = GLOB.moth_markings_list[species_human.dna.features["moth_markings"]]
-			var/markings_icon_state = markings.icon_state
-			if(ismoth(species_human) && HAS_TRAIT(species_human, TRAIT_MOTH_BURNT))
-				markings_icon_state = "burnt_off"
-
-			if(noggin && (IS_ORGANIC_LIMB(noggin)))
-				var/mutable_appearance/markings_head_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_head", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += markings_head_overlay
-
-			if(chest && (IS_ORGANIC_LIMB(chest)))
-				var/mutable_appearance/markings_chest_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_chest", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += markings_chest_overlay
-
-			if(right_arm && (IS_ORGANIC_LIMB(right_arm)))
-				var/mutable_appearance/markings_r_arm_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_r_arm", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += markings_r_arm_overlay
-
-			if(left_arm && (IS_ORGANIC_LIMB(left_arm)))
-				var/mutable_appearance/markings_l_arm_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_l_arm", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += markings_l_arm_overlay
-
-			if(right_leg && (IS_ORGANIC_LIMB(right_leg)))
-				var/mutable_appearance/markings_r_leg_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_r_leg", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += markings_r_leg_overlay
-
-			if(left_leg && (IS_ORGANIC_LIMB(left_leg)))
-				var/mutable_appearance/markings_l_leg_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_l_leg", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += markings_l_leg_overlay
-
 
 	//Underwear, Undershirts & Socks
 	if(!(HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR)))
@@ -871,8 +841,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.horns_list[H.dna.features["horns"]]
 				if("ears")
 					S = GLOB.ears_list[H.dna.features["ears"]]
-				if("body_markings")
-					S = GLOB.body_markings_list[H.dna.features["body_markings"]]
 				if("wings")
 					S = GLOB.wings_list[H.dna.features["wings"]]
 				if("wingsopen")
@@ -891,8 +859,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
-				if("moth_markings")
-					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 				if("ipc_screen")
 					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
 				if("ipc_antenna")
@@ -986,7 +952,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.apply_overlay(BODY_BEHIND_LAYER)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
-
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
 //number in their sprite name, which causes issues when those numbers change.
@@ -2235,6 +2200,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
 			|| (preference.relevant_inherent_trait in inherent_traits) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
+			|| (preference.relevant_body_markings in body_markings) \
 		)
 			features += preference.db_key
 
@@ -2771,3 +2737,25 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return fixed_mut_color
 
 	return null
+
+/// Add species appropriate body markings
+/datum/species/proc/add_body_markings(mob/living/carbon/human/hooman)
+	for(var/markings_type in body_markings) //loop through possible species markings
+		var/datum/bodypart_overlay/simple/body_marking/markings = new markings_type() // made to die... mostly because we cant use initial on lists but its convenient and organized
+		var/accessory_name = hooman.dna.features[markings.dna_feature_key] || body_markings[markings_type] //get the accessory name from dna
+		for(var/obj/item/bodypart/part as anything in markings.applies_to) //check through our limbs
+			var/obj/item/bodypart/people_part = hooman.get_bodypart(initial(part.body_zone)) // and see if we have a compatible marking for that limb
+			if(isnull(people_part))
+				continue
+
+			var/datum/bodypart_overlay/simple/body_marking/overlay = new markings_type()
+			overlay.set_appearance(accessory_name, hooman.dna.features["mcolor"])
+			people_part.add_bodypart_overlay(overlay)
+
+		qdel(markings)
+
+/// Remove body markings
+/datum/species/proc/remove_body_markings(mob/living/carbon/human/hooman)
+	for(var/obj/item/bodypart/part as anything in hooman.bodyparts)
+		for(var/datum/bodypart_overlay/simple/body_marking/marking in part.bodypart_overlays)
+			part.remove_bodypart_overlay(marking)

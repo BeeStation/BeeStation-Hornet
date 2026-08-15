@@ -1953,24 +1953,24 @@
 // MutantParts Definitions //
 /////////////////////////////
 
-/datum/sprite_accessory/body_markings
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+/datum/sprite_accessory/lizard_markings
+	icon = 'icons/mob/human/species/lizard/lizard_markings.dmi'
 
-/datum/sprite_accessory/body_markings/none
+/datum/sprite_accessory/lizard_markings/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
-/datum/sprite_accessory/body_markings/dtiger
+/datum/sprite_accessory/lizard_markings/dtiger
 	name = "Dark Tiger Body"
 	icon_state = "dtiger"
 	gender_specific = 1
 
-/datum/sprite_accessory/body_markings/ltiger
+/datum/sprite_accessory/lizard_markings/ltiger
 	name = "Light Tiger Body"
 	icon_state = "ltiger"
 	gender_specific = 1
 
-/datum/sprite_accessory/body_markings/lbelly
+/datum/sprite_accessory/lizard_markings/lbelly
 	name = "Light Belly"
 	icon_state = "lbelly"
 	gender_specific = 1
@@ -1980,6 +1980,9 @@
 
 /datum/sprite_accessory/tails_animated
 	icon = 'icons/mob/mutant_bodyparts.dmi'
+
+/datum/sprite_accessory/tails/lizard
+	icon = 'icons/mob/human/species/lizard/lizard_tails.dmi'
 
 /datum/sprite_accessory/tails/lizard/smooth
 	name = "Smooth"
@@ -2044,7 +2047,7 @@
 	color_src = null
 
 /datum/sprite_accessory/snouts
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/snouts/sharp
 	name = "Sharp"
@@ -2063,7 +2066,7 @@
 	icon_state = "roundlight"
 
 /datum/sprite_accessory/horns
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/horns/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2180,7 +2183,7 @@
 	dimension_y = 34
 
 /datum/sprite_accessory/frills
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/frills/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2199,10 +2202,10 @@
 	icon_state = "aqua"
 
 /datum/sprite_accessory/spines
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
 
 /datum/sprite_accessory/spines_animated
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
 
 /datum/sprite_accessory/spines/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2252,8 +2255,8 @@
 	name = "Aquatic"
 	icon_state = "aqua"
 
-/datum/sprite_accessory/legs 	//legs are a special case, they aren't actually sprite_accessories but are updated with them.
-	icon = null					//These datums exist for selecting legs on preference, and little else
+/datum/sprite_accessory/legs //legs are a special case, they aren't actually sprite_accessories but are updated with them.
+	icon = null //These datums exist for selecting legs on preference, and little else
 
 /datum/sprite_accessory/legs/none
 	name = "Normal Legs"
