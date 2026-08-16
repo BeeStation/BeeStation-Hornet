@@ -1,10 +1,6 @@
 SUBSYSTEM_DEF(overlays)
 	name = "Overlay"
-	ss_flags = SS_TICKER
-	wait = 1
-	priority = FIRE_PRIORITY_OVERLAYS
-
-	var/list/queue
+	ss_flags = SS_NO_FIRE|SS_NO_INIT
 	var/list/stats
 
 	// If the overlay set currently being considered contains a manglable overlay.
@@ -12,58 +8,13 @@ SUBSYSTEM_DEF(overlays)
 	var/context_needs_automangle
 
 /datum/controller/subsystem/overlays/PreInit()
-	queue = list()
 	stats = list()
-
-/datum/controller/subsystem/overlays/Initialize()
-	initialized = TRUE
-	fire(mc_check = FALSE)
-	return SS_INIT_SUCCESS
-
-
-/datum/controller/subsystem/overlays/stat_entry()
-	. = ..("Ov:[length(queue)]")
-
 
 /datum/controller/subsystem/overlays/Shutdown()
 	rustg_file_append(render_stats(stats), "[GLOB.log_directory]/overlay.log")
 
-
 /datum/controller/subsystem/overlays/Recover()
-	queue = SSoverlays.queue
-
-
-/datum/controller/subsystem/overlays/fire(resumed = FALSE, mc_check = TRUE)
-	var/list/queue = src.queue
-	var/static/count = 0
-	if (count)
-		var/c = count
-		count = 0 //so if we runtime on the Cut, we don't try again.
-		queue.Cut(1,c+1)
-
-	for (var/atom/atom_to_compile as anything in queue)
-		count++
-		if(!atom_to_compile)
-			continue
-		if(length(atom_to_compile.overlays) >= MAX_ATOM_OVERLAYS)
-			//Break it real GOOD
-			stack_trace("Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.")
-			atom_to_compile.overlays.Cut()
-			continue
-		STAT_START_STOPWATCH
-		COMPILE_OVERLAYS(atom_to_compile)
-		UNSETEMPTY(atom_to_compile.add_overlays)
-		UNSETEMPTY(atom_to_compile.remove_overlays)
-		STAT_STOP_STOPWATCH
-		STAT_LOG_ENTRY(stats, atom_to_compile.type)
-		if(mc_check)
-			if(MC_TICK_CHECK)
-				break
-		else
-			CHECK_TICK
-	if (count)
-		queue.Cut(1,count+1)
-		count = 0
+	stats = SSoverlays.stats
 
 /// Converts an overlay list into text for debug printing
 /// Of note: overlays aren't actually mutable appearances, they're just appearances
@@ -93,96 +44,63 @@ SUBSYSTEM_DEF(overlays)
 // If the overlay has a planeset (e.g., emissive), mark for ZM mangle. This won't catch overlays on overlays, but the flag can just manually be set in that case.
 #define ZM_AUTOMANGLE(target) if ((target):plane != FLOAT_PLANE) { SSoverlays.context_needs_automangle = TRUE; }
 
-/atom/proc/build_appearance_list(old_overlays)
-	var/static/image/appearance_bro = new()
-	var/list/new_overlays = list()
-
-	for (var/overlay in (islist(old_overlays) ? old_overlays : list(old_overlays)))
+/atom/proc/build_appearance_list(build_overlays)
+	if (!islist(build_overlays))
+		build_overlays = list(build_overlays)
+	for (var/overlay in build_overlays)
 		if(!overlay)
+			build_overlays -= overlay
 			continue
 		if (istext(overlay))
-			new_overlays += iconstate2appearance(icon, overlay)
+			build_overlays -= overlay
+			build_overlays += iconstate2appearance(icon, overlay)
 		else if(isicon(overlay))
-			new_overlays += icon2appearance(overlay)
-		else
-			if(isloc(overlay))
-				var/atom/A = overlay
-				if (A.flags_1 & OVERLAY_QUEUED_1)
-					COMPILE_OVERLAYS(A)
-			appearance_bro.appearance = overlay //this works for images and atoms too!
-			if(!ispath(overlay))
-				var/image/I = overlay
-				appearance_bro.dir = I.dir
-			new_overlays += appearance_bro.appearance
-	return new_overlays
+			build_overlays -= overlay
+			build_overlays += icon2appearance(overlay)
+	return build_overlays
 
 // The same as the above, but with ZM_AUTOMANGLE.
-/atom/movable/build_appearance_list(old_overlays)
-	var/static/image/appearance_bro = new()
-	var/list/new_overlays = list()
-
-	for (var/overlay in (islist(old_overlays) ? old_overlays : list(old_overlays)))
+/atom/movable/build_appearance_list(build_overlays)
+	if (!islist(build_overlays))
+		build_overlays = list(build_overlays)
+	for (var/overlay in build_overlays)
 		if(!overlay)
+			build_overlays -= overlay
 			continue
-		var/image/new_overlay
 		if (istext(overlay))
-			new_overlay = iconstate2appearance(icon, overlay)
+			build_overlays -= overlay
+			overlay = iconstate2appearance(icon, overlay)
+			build_overlays += overlay
 		else if(isicon(overlay))
-			new_overlay = icon2appearance(overlay)
-		else
-			if(isloc(overlay))
-				var/atom/A = overlay
-				if (A.flags_1 & OVERLAY_QUEUED_1)
-					COMPILE_OVERLAYS(A)
-			appearance_bro.appearance = overlay //this works for images and atoms too!
-			if(!ispath(overlay))
-				var/image/I = overlay
-				appearance_bro.dir = I.dir
-			new_overlay = appearance_bro.appearance
-		if(new_overlay)
-			new_overlays += new_overlay
-			ZM_AUTOMANGLE(new_overlay)
-	return new_overlays
+			build_overlays -= overlay
+			overlay = icon2appearance(overlay)
+			build_overlays += overlay
+		ZM_AUTOMANGLE(overlay)
+	return build_overlays
 
-#define NOT_QUEUED_ALREADY (!(flags_1 & OVERLAY_QUEUED_1))
-#define QUEUE_FOR_COMPILE flags_1 |= OVERLAY_QUEUED_1; SSoverlays.queue += src;
 /atom/proc/cut_overlays()
-	LAZYINITLIST(remove_overlays)
-	LAZYINITLIST(add_overlays)
-	remove_overlays = overlays.Copy()
-	add_overlays.Cut()
-
-	//If not already queued for work and there are overlays to remove
-	if(NOT_QUEUED_ALREADY && remove_overlays.len)
-		QUEUE_FOR_COMPILE
+	STAT_START_STOPWATCH
+	overlays = null
+	POST_OVERLAY_CHANGE(src)
+	STAT_STOP_STOPWATCH
+	STAT_LOG_ENTRY(SSoverlays.stats, type)
 
 // This one gets to be done the sane way because it shouldn't be as hot as the others.
 /atom/movable/cut_overlays()
 	..()
 	zmm_flags &= ~ZMM_AUTOMANGLE
 
-/atom/proc/cut_overlay(list/overlays)
+/atom/proc/cut_overlay(list/remove_overlays)
 	if(!overlays)
 		return
 	SSoverlays.context_needs_automangle = FALSE
-	overlays = build_appearance_list(overlays)
-	LAZYINITLIST(add_overlays) //always initialized after this point
-	LAZYINITLIST(remove_overlays)
-	var/a_len = add_overlays.len
-	var/r_len = remove_overlays.len
+	STAT_START_STOPWATCH
+	overlays -= build_appearance_list(remove_overlays)
+	POST_OVERLAY_CHANGE(src)
+	STAT_STOP_STOPWATCH
+	STAT_LOG_ENTRY(SSoverlays.stats, type)
 
-	remove_overlays += overlays
-	add_overlays -= overlays
-
-	var/fa_len = add_overlays.len
-	var/fr_len = remove_overlays.len
-
-
-	//If not already queued and there is work to be done
-	if(NOT_QUEUED_ALREADY && (fa_len != a_len || fr_len != r_len))
-		QUEUE_FOR_COMPILE
-
-/atom/movable/cut_overlay(list/overlays)
+/atom/movable/cut_overlay(list/remove_overlays)
 	..()
 	// If we removed an automangle-eligible overlay and have automangle enabled, reevaluate automangling.
 	if (!SSoverlays.context_needs_automangle || !(zmm_flags & ZMM_AUTOMANGLE))
@@ -205,7 +123,7 @@ SUBSYSTEM_DEF(overlays)
 	else
 		zmm_flags &= ~ZMM_AUTOMANGLE
 
-/atom/proc/add_overlay(list/overlays)
+/atom/proc/add_overlay(list/add_overlays)
 	if(!overlays)
 		return
 
@@ -213,44 +131,46 @@ SUBSYSTEM_DEF(overlays)
 	var/is_movable = istype(src, /atom/movable)
 
 	SSoverlays.context_needs_automangle = FALSE
-	overlays = build_appearance_list(overlays)
+	STAT_START_STOPWATCH
+	overlays += build_appearance_list(add_overlays)
+	VALIDATE_OVERLAY_LIMIT(src)
 	if (SSoverlays.context_needs_automangle && is_movable)
 		// This is a movable flag.
 		src:zmm_flags |= ZMM_AUTOMANGLE
 
-	LAZYINITLIST(add_overlays) //always initialized after this point
-	var/a_len = add_overlays.len
+	POST_OVERLAY_CHANGE(src)
+	STAT_STOP_STOPWATCH
+	STAT_LOG_ENTRY(SSoverlays.stats, type)
 
-
-	add_overlays += overlays
-	var/fa_len = add_overlays.len
-	if(NOT_QUEUED_ALREADY && fa_len != a_len)
-		QUEUE_FOR_COMPILE
-
-/atom/proc/copy_overlays(atom/other, cut_old)	//copys our_overlays from another atom
+/atom/proc/copy_overlays(atom/other, cut_old) //copys our_overlays from another atom
 	if(!other)
 		if(cut_old)
 			cut_overlays()
 		return
 
+	STAT_START_STOPWATCH
 	var/list/cached_other = other.overlays.Copy()
-	if(cached_other)
-		if (istype(src, /atom/movable))
-			for (var/i in 1 to length(cached_other))
-				var/image/I = cached_other[i]
-				if (I.plane != FLOAT_PLANE)
-					src:zmm_flags |= ZMM_AUTOMANGLE
-					break
-		if(cut_old || !LAZYLEN(overlays))
-			remove_overlays = overlays
-		add_overlays = cached_other
-		if(NOT_QUEUED_ALREADY)
-			QUEUE_FOR_COMPILE
-	else if(cut_old)
-		cut_overlays()
-
-#undef NOT_QUEUED_ALREADY
-#undef QUEUE_FOR_COMPILE
+	if(cached_other && istype(src, /atom/movable))
+		for (var/i in 1 to length(cached_other))
+			var/image/I = cached_other[i]
+			if (I.plane != FLOAT_PLANE)
+				src:zmm_flags |= ZMM_AUTOMANGLE
+				break
+	if(cut_old)
+		if(cached_other)
+			overlays = cached_other
+		else
+			overlays = null
+		VALIDATE_OVERLAY_LIMIT(src)
+		POST_OVERLAY_CHANGE(src)
+		STAT_STOP_STOPWATCH
+		STAT_LOG_ENTRY(SSoverlays.stats, type)
+	else if(cached_other)
+		overlays += cached_other
+		VALIDATE_OVERLAY_LIMIT(src)
+		POST_OVERLAY_CHANGE(src)
+		STAT_STOP_STOPWATCH
+		STAT_LOG_ENTRY(SSoverlays.stats, type)
 
 //TODO: Better solution for these?
 /image/proc/add_overlay(x)

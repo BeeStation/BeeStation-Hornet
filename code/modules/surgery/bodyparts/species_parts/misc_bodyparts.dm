@@ -2,27 +2,39 @@
 /obj/item/bodypart/head/snail
 	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
+	head_flags = HEAD_EYESPRITES|HEAD_DEBRAIN
 	burn_modifier = 1.5
 
 /obj/item/bodypart/chest/snail
 	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
 	burn_modifier = 1.5
+	bodypart_traits = list(TRAIT_NO_UNDERWEAR)
 
 /obj/item/bodypart/arm/left/snail
 	limb_id = SPECIES_SNAIL
+	unarmed_attack_verb = "slap"
+	unarmed_attack_effect = ATTACK_EFFECT_DISARM
+	unarmed_damage = 2 //snails are soft and squishy
 	burn_modifier = 1.5
 
 /obj/item/bodypart/arm/right/snail
 	limb_id = SPECIES_SNAIL
+	unarmed_attack_verb = "slap"
+	unarmed_attack_effect = ATTACK_EFFECT_DISARM
+	unarmed_damage = 2 //snails are soft and squishy
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/left/snail
 	limb_id = SPECIES_SNAIL
+	unarmed_damage = 2 //snails are soft and squishy
+	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/right/snail
 	limb_id = SPECIES_SNAIL
+	unarmed_damage = 2 //snails are soft and squishy
+	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 ///ABDUCTOR
@@ -31,6 +43,7 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	head_flags = NONE
+	bodypart_traits = list(TRAIT_NO_MOUTH)
 
 /obj/item/bodypart/chest/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -40,10 +53,12 @@
 /obj/item/bodypart/arm/left/abductor
 	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 
 /obj/item/bodypart/arm/right/abductor
 	limb_id = SPECIES_ABDUCTOR
 	should_draw_greyscale = FALSE
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
 
 /obj/item/bodypart/leg/left/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -58,7 +73,7 @@
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
-	head_flags = HEAD_EYECOLOR | HEAD_EYESPRITES
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/slime
 	limb_id = SPECIES_SLIMEPERSON
@@ -86,6 +101,7 @@
 	limb_id = SPECIES_LUMINESCENT
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
+	head_flags = HEAD_ALL_FEATURES
 
 /obj/item/bodypart/chest/luminescent
 	limb_id = SPECIES_LUMINESCENT
@@ -113,7 +129,7 @@
 	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-
+	head_flags = HEAD_EYESPRITES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/zombie
 	limb_id = SPECIES_ZOMBIE
@@ -139,18 +155,22 @@
 /obj/item/bodypart/leg/left/zombie/infectious
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.8 //braaaaains
 
 /obj/item/bodypart/leg/right/zombie/infectious
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.8 //braaaaains
 
 /obj/item/bodypart/leg/left/zombie/viral
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0 //braaaaains
 
 /obj/item/bodypart/leg/right/zombie/viral
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0 //braaaaains
 
 ///FLY
 /obj/item/bodypart/head/fly
@@ -159,7 +179,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
-	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES
+	head_flags = HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_DEBRAIN
 
 /obj/item/bodypart/chest/fly
 	limb_id = SPECIES_FLYPERSON
@@ -183,12 +203,14 @@
 /obj/item/bodypart/leg/left/fly
 	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.35
 	burn_modifier = 1.4
 	brute_modifier = 1.4
 
 /obj/item/bodypart/leg/right/fly
 	limb_id = SPECIES_FLYPERSON
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.35
 	burn_modifier = 1.4
 	brute_modifier = 1.4
 
@@ -203,6 +225,7 @@
 	limb_id = SPECIES_SHADOW
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	bodypart_traits = list(TRAIT_NO_JUMPSUIT)
 
 /obj/item/bodypart/arm/left/shadow
 	limb_id = SPECIES_SHADOW
@@ -220,38 +243,51 @@
 	limb_id = SPECIES_SHADOW
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/arm/left/shadow/nightmare
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
+
+/obj/item/bodypart/arm/right/shadow/nightmare
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
+
 ///SKELETON
 /obj/item/bodypart/head/skeleton
 	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	head_flags = NONE
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/chest/skeleton
 	limb_id = SPECIES_SKELETON
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/left/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/arm/right/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/right/skeleton
 	limb_id = SPECIES_SKELETON
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 ///GOLEMS (i hate xenobio)
 /obj/item/bodypart/head/golem
@@ -267,40 +303,50 @@
 	limb_id = SPECIES_GOLEM
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
+	bodypart_traits = list(TRAIT_NO_JUMPSUIT)
 
 /obj/item/bodypart/arm/left/golem
 	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
+	unarmed_damage = 11 // I'd like to take the moment that maintaining all of these random ass golem species is hell and oranges was right
 
 /obj/item/bodypart/arm/right/golem
 	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
+	bodypart_traits = list(TRAIT_CHUNKYFINGERS)
+	unarmed_damage = 11
+	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/left/golem
 	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
+	unarmed_damage = 11
+	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/right/golem
 	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
+	unarmed_damage = 11
+	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/left/golem/gold
+	movespeed_contribution = 0.5
 
 /obj/item/bodypart/leg/right/golem/gold
+	movespeed_contribution = 0.5
 
 /obj/item/bodypart/leg/left/golem/copper
+	movespeed_contribution = 0.75
 
 /obj/item/bodypart/leg/right/golem/copper
+	movespeed_contribution = 0.75
 
-/obj/item/bodypart/leg/left/golem/copper
-
-/obj/item/bodypart/leg/right/golem/copper
-
-///
+///Alloy
 /obj/item/bodypart/head/golem/alloy
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
@@ -317,9 +363,11 @@
 
 /obj/item/bodypart/leg/left/golem/alloy
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.5 //faster
 
 /obj/item/bodypart/leg/right/golem/alloy
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.5 //faster
 
 //Wood
 /obj/item/bodypart/head/golem/wood
@@ -362,10 +410,16 @@
 /obj/item/bodypart/arm/left/golem/bananium
 	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
 
 /obj/item/bodypart/arm/right/golem/bananium
 	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
 
 /obj/item/bodypart/leg/left/golem/bananium
 	limb_id = "ba_golem"
@@ -380,27 +434,33 @@
 	limb_id = "cultgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0
 
 /obj/item/bodypart/chest/golem/runic
 	limb_id = "cultgolem"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0
 
 /obj/item/bodypart/arm/left/golem/runic
 	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0
 
 /obj/item/bodypart/arm/right/golem/runic
 	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0
 
 /obj/item/bodypart/leg/left/golem/runic
 	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0
 
 /obj/item/bodypart/leg/right/golem/runic
 	limb_id = "cultgolem"
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0
 
 ///
 /obj/item/bodypart/head/golem/clock
@@ -419,21 +479,25 @@
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	movespeed_contribution = 0
 
 /obj/item/bodypart/arm/right/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	movespeed_contribution = 0
 
 /obj/item/bodypart/leg/left/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	movespeed_contribution = 0
 
 /obj/item/bodypart/leg/right/golem/clock
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	movespeed_contribution = 0
 
 ///
 /obj/item/bodypart/head/golem/cloth
@@ -451,21 +515,27 @@
 /obj/item/bodypart/arm/left/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
+	unarmed_damage = 6
 	burn_modifier = 2 // don't get burned
 
 /obj/item/bodypart/arm/right/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
+	unarmed_damage = 6
 	burn_modifier = 2 // don't get burned
 
 /obj/item/bodypart/leg/left/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
+	unarmed_damage = 6
+	movespeed_contribution = 0.5 // not as heavy as stone
 	burn_modifier = 2 // don't get burned
 
 /obj/item/bodypart/leg/right/golem/cloth
 	limb_id = "clothgolem"
 	should_draw_greyscale = FALSE
+	unarmed_damage = 6
+	movespeed_contribution = 0.5 // not as heavy as stone
 	burn_modifier = 2 // don't get burned
 
 ///
@@ -484,20 +554,37 @@
 /obj/item/bodypart/arm/left/golem/cardboard
 	limb_id = "c_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "whip"
+	unarmed_attack_sound = 'sound/weapons/whip.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
+	unarmed_damage = 6
 	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/right/golem/cardboard
 	limb_id = "c_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "whip"
+	unarmed_attack_sound = 'sound/weapons/whip.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
+	unarmed_damage = 6
+	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/left/golem/cardboard
 	limb_id = "c_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_sound = 'sound/weapons/whip.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
+	unarmed_damage = 6
+	movespeed_contribution = 0.75
 	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/right/golem/cardboard
 	limb_id = "c_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_sound = 'sound/weapons/whip.ogg'
+	unarmed_miss_sound = 'sound/weapons/etherealmiss.ogg'
+	unarmed_damage = 6
+	movespeed_contribution = 0.75
 	burn_modifier = 1.25
 
 ///
@@ -595,15 +682,27 @@
 	brute_modifier = 0.5
 
 /obj/item/bodypart/arm/left/golem/uranium
+	attack_type = BURN
+	unarmed_attack_verb = "burn"
+	unarmed_attack_sound = 'sound/weapons/sear.ogg'
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 /obj/item/bodypart/arm/right/golem/uranium
+	attack_type = BURN
+	unarmed_attack_verb = "burn"
+	unarmed_attack_sound = 'sound/weapons/sear.ogg'
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/left/golem/uranium
+	attack_type = BURN
+	unarmed_attack_sound = 'sound/weapons/sear.ogg'
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/right/golem/uranium
+	attack_type = BURN
+	unarmed_attack_sound = 'sound/weapons/sear.ogg'
 	brute_modifier = 0.5
 
 //Sand
@@ -658,12 +757,28 @@
 
 //Plasteel
 /obj/item/bodypart/arm/left/golem/plasteel
+	unarmed_attack_verb = "smash"
+	unarmed_attack_effect = ATTACK_EFFECT_SMASH
+	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg' //hits pretty hard
+	unarmed_damage = 18
 
 /obj/item/bodypart/arm/right/golem/plasteel
+	unarmed_attack_verb = "smash"
+	unarmed_attack_effect = ATTACK_EFFECT_SMASH
+	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
+	unarmed_damage = 18
+	movespeed_contribution = 2 //pretty fucking slow
 
 /obj/item/bodypart/leg/left/golem/plasteel
+	unarmed_attack_effect = ATTACK_EFFECT_SMASH
+	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
+	unarmed_damage = 18
+	movespeed_contribution = 2 //pretty fucking slow
 
 /obj/item/bodypart/leg/right/golem/plasteel
+	unarmed_attack_effect = ATTACK_EFFECT_SMASH
+	unarmed_attack_sound = 'sound/effects/meteorimpact.ogg'
+	unarmed_damage = 18
 
 
 //Titanium
@@ -735,11 +850,19 @@
 /obj/item/bodypart/arm/left/pumpkin_man
 	limb_id = "pumpkin_man"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "punch"
+	unarmed_attack_effect = ATTACK_EFFECT_PUNCH
+	unarmed_attack_sound = 'sound/weapons/punch1.ogg'
+	unarmed_miss_sound = 'sound/weapons/punchmiss.ogg'
 	burn_modifier = 1.25
 
 /obj/item/bodypart/arm/right/pumpkin_man
 	limb_id = "pumpkin_man"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "punch"
+	unarmed_attack_effect = ATTACK_EFFECT_PUNCH
+	unarmed_attack_sound = 'sound/weapons/punch1.ogg'
+	unarmed_miss_sound = 'sound/weapons/punchmiss.ogg'
 	burn_modifier = 1.25
 
 /obj/item/bodypart/leg/left/pumpkin_man

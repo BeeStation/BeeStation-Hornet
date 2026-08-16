@@ -1,20 +1,16 @@
 /datum/species/ethereal
 	name = "\improper Ethereal"
 	id = SPECIES_ETHEREAL
-	attack_verb = "burn"
-	attack_sound = 'sound/weapons/etherealhit.ogg'
-	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
 	exotic_bloodtype = "LE"
 	siemens_coeff = 0.5 //They thrive on energy
-	attack_type = BURN //burn bish
-	species_traits = list(
-		DYNCOLORS,
-		AGENDER,
-		HAIR_COLOR
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_FIXED_MUTANT_COLORS,
+		TRAIT_AGENDER,
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
@@ -26,8 +22,9 @@
 	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
 	// Cold temperatures hurt faster as it is harder to move with out the heat energy
 	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
-	hair_color = "fixedmutcolor"
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	hair_alpha = 140
+	facial_hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
 	inert_mutation = /datum/mutation/overload
 
@@ -70,6 +67,10 @@
 	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
 	ethereal_heart.ethereal_color = default_color
 
+	for(var/obj/item/bodypart/limb as anything in new_ethereal.bodyparts)
+		if(limb.limb_id == SPECIES_ETHEREAL)
+			limb.update_limb(is_creating = TRUE)
+
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_ON_EMAG)
@@ -94,11 +95,15 @@
 		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
 		ethereal_light.set_light_on(TRUE)
 		fixed_mut_color = current_color
+		ethereal.update_body()
+		ethereal.set_facial_haircolor(current_color, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(current_color, override = TRUE,  update = TRUE)
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = COLOR_GRAY
-	ethereal.update_body()
-	//ethereal.update_hair()
+		ethereal.update_body()
+		ethereal.set_facial_haircolor(COLOR_GRAY, override = TRUE, update = FALSE)
+		ethereal.set_haircolor(COLOR_GRAY, override = TRUE, update = TRUE)
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity, protection)
 	SIGNAL_HANDLER
@@ -218,6 +223,12 @@
 			SPECIES_PERK_ICON = "lightbulb",
 			SPECIES_PERK_NAME = "Disco Ball",
 			SPECIES_PERK_DESC = "Ethereals passively generate their own light.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "fist-raised",
+			SPECIES_PERK_NAME = "Elemental Attacker",
+			SPECIES_PERK_DESC = "Ethereals deal burn damage with their punches instead of brute.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

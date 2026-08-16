@@ -189,9 +189,9 @@
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
 	for(var/obj/item/stack/stored_ore as anything in ores)
-		if(!ore.can_merge(stored_ore))
+		if(!stored_ore.can_merge(ore))
 			continue
-		ore.merge(stored_ore)
+		stored_ore.merge(ore)
 		if(QDELETED(ore))
 			return
 		break
@@ -485,7 +485,7 @@
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
 	mod.wearer.add_offsets(REF(src), y_add = -4)
 	mod.wearer.SpinAnimation(1.5)
-	mod.wearer.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NOSLIPALL), REF(src))
+	mod.wearer.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NO_SLIP_ALL), REF(src))
 	mod.wearer.RemoveElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	mod.wearer.AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, sound_vary = TRUE)
 	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/sphere)
@@ -496,7 +496,7 @@
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
 	mod.wearer.remove_offsets(REF(src))
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
-	mod.wearer.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NOSLIPALL), REF(src))
+	mod.wearer.remove_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_HANDS_BLOCKED, TRAIT_FORCED_STANDING, TRAIT_NO_SLIP_ALL), REF(src))
 	mod.wearer.remove_movespeed_mod_immunities(REF(src), /datum/movespeed_modifier/damage_slowdown)
 	mod.wearer.RemoveElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, sound_vary = TRUE)
 	mod.wearer.AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)

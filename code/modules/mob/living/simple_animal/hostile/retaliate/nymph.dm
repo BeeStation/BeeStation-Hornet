@@ -361,7 +361,7 @@
 	. = ..()
 	M.muck()
 	held_mob.adjustFireLoss(50)
-	Destroy()
+	qdel(src)
 
 /obj/item/mob_holder/nymph/release(display_messages = TRUE, delete_mob = FALSE)
 	on_head = FALSE

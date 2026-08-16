@@ -7,12 +7,14 @@
 	icon_living = "headcrab"
 	icon_dead = "headcrab_dead"
 	gender = NEUTER
+	density = FALSE
 	health = 50
 	maxHealth = 50
 	melee_damage = 10
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
 	attack_sound = 'sound/weapons/bite.ogg'
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	faction = list(FACTION_NEUTRAL)
 	robust_searching = 1
 	stat_attack = DEAD

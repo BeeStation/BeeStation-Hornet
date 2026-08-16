@@ -3,13 +3,6 @@
 	plural_form = "IPCs"
 	id = SPECIES_IPC
 	sexes = FALSE
-	species_traits = list(
-		NOZOMBIE,
-		MUTANT_COLOR,
-		REVIVESBYHEALING,
-		NOHUSK,
-		NOMOUTH
-	)
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
@@ -23,8 +16,13 @@
 		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE,
 		TRAIT_NOSOFTCRIT,
+		TRAIT_NO_ZOMBIFY,
 		TRAIT_NO_DNA_COPY,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_REVIVESBYHEALING,
+		TRAIT_NO_DEBRAIN_OVERLAY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -37,7 +35,12 @@
 	mutantlungs = null
 	mutantappendix = null
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
-	mutant_bodyparts = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
+	mutant_bodyparts = list(
+		"mcolor" = "#7D7D7D",
+		"ipc_screen" = "Static",
+		"ipc_antenna" = "None",
+		"ipc_chassis" = "Morpheus Cyberkinetics (Custom)"
+	)
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
@@ -46,7 +49,6 @@
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
-	attack_sound = 'sound/items/trayhit1.ogg'
 	allow_numbers_in_name = TRUE
 	deathsound = "sound/voice/borg_deathsound.ogg"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
@@ -264,14 +266,9 @@
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
-		BP.uses_mutcolor = chassis_of_choice.color_src ? TRUE : FALSE
-		if(BP.uses_mutcolor)
-			BP.should_draw_greyscale = TRUE
-			BP.species_color = C.dna?.features["mcolor"]
-
-		BP.limb_id = chassis_of_choice.limbs_id
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		BP.change_appearance(icon = BP.icon_static, id = chassis_of_choice.limbs_id, greyscale = !!chassis_of_choice.color_src)
 
 /datum/species/ipc/get_species_description()
 	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \

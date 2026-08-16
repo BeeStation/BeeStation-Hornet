@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	attack_verb_continuous = "slices"
 	attack_verb_simple = "slice"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	chat_color = "#CAA25B"
 	mobchatspan = "brassmobsay"
 	obj_damage = 80

@@ -2,14 +2,17 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "\improper Apid"
 	id = SPECIES_APID
-	species_traits = list(LIPS,MUTANT_COLOR)
-	inherent_traits = list(TRAIT_BEEFRIEND)
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_BEEFRIEND,
+	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
-	hair_color = "fixedmutcolor"
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+	mutant_bodyparts = list(
+		"apid_stripes" = "thick",
+		"apid_headstripes" = "thick",
+		"apid_antenna" = "curled"
+	)
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
