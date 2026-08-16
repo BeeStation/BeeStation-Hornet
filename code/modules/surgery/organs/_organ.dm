@@ -128,6 +128,12 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
+	//TEMP - kl remove
+	// Has to run after COMSIG_ORGAN_IMPLANTED, which is what imprints the sprite datum onto the
+	// overlay. Attaching any earlier redraws the limb against an overlay with nothing to draw.
+	if(bodypart_overlay)
+		get_bodypart_owner(organ_owner)?.add_bodypart_overlay(bodypart_overlay)
+
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -167,6 +173,9 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
+
+	if(bodypart_overlay)
+		get_bodypart_owner(organ_owner)?.remove_bodypart_overlay(bodypart_overlay)
 
 	if(!special)
 		organ_owner.hud_used?.update_locked_slots()

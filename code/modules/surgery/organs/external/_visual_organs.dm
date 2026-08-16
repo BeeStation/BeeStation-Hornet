@@ -25,6 +25,15 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	///If not null, overrides the appearance with this sprite accessory datum
 	var/sprite_accessory_override
 
+//TEMP - kl remove
+///The limb we draw on. Organs sit in nullspace and are tracked by reference, so there's no stored
+///limb to read - we resolve it from the owner instead. Pass owner_override when calling from a
+///removal hook, where owner has already been cleared.
+/obj/item/organ/proc/get_bodypart_owner(mob/living/carbon/owner_override)
+	RETURN_TYPE(/obj/item/bodypart)
+	var/mob/living/carbon/resolved_owner = owner_override || owner
+	return resolved_owner?.get_bodypart(deprecise_zone(zone))
+
 /**accessory_type is optional if you haven't set sprite_datums for the object, and is used mostly to generate sprite_datums from a persons DNA
 * For _mob_sprite we make a distinction between "Round Snout" and "round". Round Snout is the name of the sprite datum, while "round" would be part of the sprite
 * I'm sorry
@@ -84,7 +93,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person?
 		owner.update_body_parts()
 	else
-		bodypart_owner?.update_icon_dropped() //are we in a limb?
+		get_bodypart_owner()?.update_icon_dropped() //are we in a limb?
 
 /obj/item/organ/update_overlays()
 	. = ..()
@@ -95,4 +104,4 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	//Build the mob sprite and use it as our overlay
 	for(var/external_layer in bodypart_overlay.all_layers)
 		if(bodypart_overlay.layers & external_layer)
-			. += bodypart_overlay.get_overlay(external_layer, bodypart_owner)
+			. += bodypart_overlay.get_overlay(external_layer, get_bodypart_owner())

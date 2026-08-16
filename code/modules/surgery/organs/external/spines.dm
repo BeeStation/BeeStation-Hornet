@@ -16,16 +16,18 @@
 
 	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
 
-/obj/item/organ/spines/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
+/obj/item/organ/spines/on_insert(mob/living/carbon/receiver, special)
 	// If we have a tail, attempt to add a tail spines overlay
-	var/obj/item/organ/tail/our_tail = receiver.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	our_tail?.try_insert_tail_spines(our_tail.bodypart_owner)
+	var/obj/item/organ/tail/our_tail = receiver?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(our_tail)
+		our_tail.try_insert_tail_spines(our_tail.get_bodypart_owner(receiver))
 	return ..()
 
-/obj/item/organ/spines/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/spines/on_remove(mob/living/carbon/organ_owner, special)
 	// If we have a tail, remove any tail spines overlay
-	var/obj/item/organ/tail/our_tail = organ_owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	our_tail?.remove_tail_spines(our_tail.bodypart_owner)
+	var/obj/item/organ/tail/our_tail = organ_owner?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(our_tail)
+		our_tail.remove_tail_spines(our_tail.get_bodypart_owner(organ_owner))
 	return ..()
 
 ///Bodypart overlay for spines
@@ -38,9 +40,4 @@
 	return GLOB.spines_list
 
 /datum/bodypart_overlay/mutant/spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
-	return ..() && !(owner.wear_suit?.flags_inv & HIDEJUMPSUIT)
-
-/datum/bodypart_overlay/mutant/spines/set_dye_color(new_color, obj/item/organ/tail/organ)
-	var/obj/item/organ/tail/tail = organ?.owner?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	tail?.tail_spines_overlay?.set_dye_color(new_color, organ)
-	return ..()
+	return ..() && !jumpsuit_hidden(owner)
