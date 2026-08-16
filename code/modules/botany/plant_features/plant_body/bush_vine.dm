@@ -145,6 +145,7 @@
 	species_name = "aculeatum rubi sp."
 	icon_state = "big_fingers_3"
 	mutations = list(/datum/plant_feature/body/bush_vine/nettle)
+	trait_power = 3
 
 /datum/plant_feature/body/bush_vine/nettle/thistle
 	name = "thistle bush"

@@ -46,6 +46,10 @@
 	//Build a pot mask
 	mask = icon('icons/obj/hydroponics/features/pots.dmi', "pot_mask")
 
+/mob/living/simple_animal/bot/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)]"
+
 /mob/living/simple_animal/bot/turtle/Destroy(force)
 	. = ..()
 	QDEL_NULL(mask)
