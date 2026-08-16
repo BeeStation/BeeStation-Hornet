@@ -699,7 +699,7 @@
 		return FALSE
 	if(islizard(user))
 		var/mob/living/carbon/human/H = user
-		return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+		return istype(H?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 

@@ -67,6 +67,9 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
+	if(bodypart_overlay)
+		setup_bodypart_overlay()
+
 /*
  * Insert the organ into the select mob.
  *
@@ -234,6 +237,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+	bodypart_overlay?.imprint_on_next_insertion = TRUE
 
 //See above
 /obj/item/organ/proc/enter_wardrobe()
@@ -406,3 +410,15 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		status = "<font color='#ffcc33'>Mildly Damaged</font>"
 
 	return status
+
+/// Get all possible organ slots by checking every organ, and then store it and give it whenever needed
+/proc/get_all_slots()
+	var/static/list/all_organ_slots = list()
+
+	if(!all_organ_slots.len)
+		for(var/obj/item/organ/an_organ as anything in subtypesof(/obj/item/organ))
+			if(!initial(an_organ.slot))
+				continue
+			all_organ_slots |= initial(an_organ.slot)
+
+	return all_organ_slots

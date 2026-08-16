@@ -152,27 +152,33 @@
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
-	message = "wags their tail"
+	message = "their tail."
 	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H?.get_organ_slot(ORGAN_SLOT_TAIL)
-	if(!tail)
-		return
-	tail.toggle_wag(H)
-
-/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
-	var/mob/living/carbon/human/H = user
-	return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+	var/obj/item/organ/tail/oranges_accessory = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	//I am so sorry my son
+	//We bypass helpers here cause we already have the tail
+	if(oranges_accessory.wag_flags & WAG_WAGGING) //We verified the tail exists in can_run_emote()
+		oranges_accessory.stop_wag(user)
+	else
+		oranges_accessory.start_wag(user)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/tail/tail = H.get_organ_slot(ORGAN_SLOT_TAIL)
-	if(tail?.is_wagging(H))
-		. = null
+	var/obj/item/organ/tail/oranges_accessory = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(oranges_accessory.wag_flags & WAG_WAGGING)
+		. = "stops wagging " + message
+	else
+		. = "wags " + message
+
+/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check, intentional)
+	var/obj/item/organ/tail/tail = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(tail?.wag_flags & WAG_ABLE)
+		return ..()
+	return FALSE
+
 
 /datum/emote/living/carbon/human/wing
 	key = "wing"

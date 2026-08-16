@@ -24,6 +24,8 @@
 #define ORGAN_UNREMOVABLE (1<<8)
 /// Can't be seen by scanners, doesn't anger body purists
 #define ORGAN_HIDDEN (1<<9)
+/// This is an external organ, not an inner one. Used in several checks.
+#define ORGAN_EXTERNAL (1<<13)
 
 /// Helper to figure out if a limb is organic
 #define IS_ORGANIC_LIMB(limb) (limb.bodytype & BODYTYPE_ORGANIC)

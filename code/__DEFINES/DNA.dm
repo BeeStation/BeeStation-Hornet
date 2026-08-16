@@ -40,16 +40,15 @@
 
 #define DNA_UNI_IDENTITY_BLOCKS 12
 
-#define DNA_FEATURE_BLOCKS 29
 #define DNA_MUTANT_COLOR_BLOCK 1
 #define DNA_ETHEREAL_COLOR_BLOCK 2
 #define DNA_LIZARD_MARKINGS_BLOCK 3
-#define DNA_LIZARD_TAIL_BLOCK 4
-#define DNA_SNOUT_BLOCK 5
-#define DNA_HORNS_BLOCK 6
-#define DNA_FRILLS_BLOCK 7
-#define DNA_SPINES_BLOCK 8
-#define DNA_HUMAN_TAIL_BLOCK 9
+#define DNA_TAIL_BLOCK 4
+#define DNA_LIZARD_TAIL_BLOCK 5
+#define DNA_SNOUT_BLOCK 6
+#define DNA_HORNS_BLOCK 7
+#define DNA_FRILLS_BLOCK 8
+#define DNA_SPINES_BLOCK 9
 #define DNA_EARS_BLOCK 10
 #define DNA_MOTH_WINGS_BLOCK 11
 #define DNA_MOTH_ANTENNAE_BLOCK 12
@@ -70,6 +69,9 @@
 #define DNA_DIONA_ANTENNAE_BLOCK 27
 #define DNA_DIONA_EYES_BLOCK 28
 #define DNA_DIONA_PBODY_BLOCK 29
+
+/// Total amount of DNA blocks, must be equal to the highest DNA block number
+#define DNA_FEATURE_BLOCKS 29
 
 #define DNA_SEQUENCE_LENGTH 4
 #define DNA_MUTATION_BLOCKS 8
@@ -112,13 +114,16 @@
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
-#define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_WINGS "wings"
 #define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
 #define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
+
+/// Organ slot external
+#define ORGAN_SLOT_EXTERNAL_TAIL "tail"
+#define ORGAN_SLOT_EXTERNAL_SPINES "spines"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100

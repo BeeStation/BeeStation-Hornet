@@ -4,7 +4,7 @@
 	///Icon state of the overlay
 	var/icon_state
 	///Icon of the overlay
-	var/icon
+	var/icon = 'icons/mob/human/species/misc/bodypart_overlay_simple.dmi'
 	///Color we apply to our overlay (none by default)
 	var/draw_color
 
@@ -12,4 +12,10 @@
 	return mutable_appearance(icon, icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
 
 /datum/bodypart_overlay/simple/color_image(image/overlay, layer, obj/item/bodypart/limb)
+
 	overlay.color = draw_color
+
+/datum/bodypart_overlay/simple/generate_icon_cache()
+	. = ..()
+
+	. += "[icon_state]"

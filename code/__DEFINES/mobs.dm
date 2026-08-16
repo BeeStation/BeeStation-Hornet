@@ -101,7 +101,7 @@
 ///The limb fits the monkey mold.
 #define BODYTYPE_MONKEY (1<<4)
 ///The limb is snouted.
-//#define BODYTYPE_SNOUTED (1<<5)
+#define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
 #define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
 ///The limb is from a xenomorph.

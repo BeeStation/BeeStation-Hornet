@@ -58,8 +58,13 @@
 	var/overlay_alpha = 255
 	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
+	/// The width of the sprite in pixels. Used to center it if necessary.
 	var/dimension_x = 32
+	/// The height of the sprite in pixels. Used to center it if necessary.
 	var/dimension_y = 32
+	/// Determines if this is considered "sane" for the purpose of [/proc/randomize_human_normie]
+	/// Basically this is to blacklist the extremely wacky stuff from being picked in random human generation.
+	var/natural_spawn = TRUE
 	var/center = FALSE	//Should we center the sprite?
 	var/limbs_id // The limbs id supplied for full-body replacing features.
 	/// Is this sprite accessory okay to use for a default option
@@ -135,16 +140,19 @@
 	name = "Bedhead 3"
 	icon_state = "hair_bedheadv3"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/bedheadlong
 	name = "Long Bedhead"
 	icon_state = "hair_long_bedhead"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/bedheadfloorlength
 	name = "Floorlength Bedhead"
 	icon_state = "hair_floorlength_bedhead"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/beehive
 	name = "Beehive"
@@ -446,6 +454,7 @@
 	icon_state = "hair_bigflattop"
 	use_default = FALSE
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/gelled
 	name = "Gelled Back"
@@ -521,6 +530,7 @@
 	name = "Joestar"
 	icon_state = "hair_joestar"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/keanu
 	name = "Keanu Hair"
@@ -591,26 +601,31 @@
 	name = "Mohawk"
 	icon_state = "hair_d"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/nitori
 	name = "Nitori"
 	icon_state = "hair_nitori"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/reversemohawk
 	name = "Mohawk (Reverse)"
 	icon_state = "hair_reversemohawk"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/shavedmohawk
 	name = "Mohawk (Shaved)"
 	icon_state = "hair_shavedmohawk"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/shavedmohawk
 	name = "Mohawk (Unshaven)"
 	icon_state = "hair_unshaven_mohawk"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/moustache
 	name = "Moustache"
@@ -631,6 +646,7 @@
 	name = "Odango"
 	icon_state = "hair_odango"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/ombre
 	name = "Ombre"
@@ -671,16 +687,19 @@
 	name = "Pigtails"
 	icon_state = "hair_kagami"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/pigtail
 	name = "Pigtails 2"
 	icon_state = "hair_pigtails"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/pigtail2
 	name = "Pigtails 3"
 	icon_state = "hair_pigtails2"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/pixie
 	name = "Pixie Cut"
@@ -1152,6 +1171,7 @@
 /datum/sprite_accessory/facial_hair/brokenman
 	name = "Beard (Broken Man)"
 	icon_state = "facial_brokenman"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/facial_hair/chinstrap
 	name = "Beard (Chinstrap)"
@@ -1196,6 +1216,7 @@
 /datum/sprite_accessory/facial_hair/martialartist
 	name = "Beard (Martial Artist)"
 	icon_state = "facial_martialartist"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/facial_hair/chinlessbeard
 	name = "Beard (Chinless Beard)"
@@ -1963,32 +1984,32 @@
 /datum/sprite_accessory/lizard_markings/dtiger
 	name = "Dark Tiger Body"
 	icon_state = "dtiger"
-	gender_specific = 1
+	gender_specific = TRUE
 
 /datum/sprite_accessory/lizard_markings/ltiger
 	name = "Light Tiger Body"
 	icon_state = "ltiger"
-	gender_specific = 1
+	gender_specific = TRUE
 
 /datum/sprite_accessory/lizard_markings/lbelly
 	name = "Light Belly"
 	icon_state = "lbelly"
-	gender_specific = 1
+	gender_specific = TRUE
 
 /datum/sprite_accessory/tails
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-
-/datum/sprite_accessory/tails_animated
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	/// Describes which tail spine sprites to use, if any.
+	var/spine_key = NONE
 
 /datum/sprite_accessory/tails/lizard
 	icon = 'icons/mob/human/species/lizard/lizard_tails.dmi'
+	spine_key = SPINE_KEY_LIZARD
+
+/datum/sprite_accessory/tails/lizard/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/tails/lizard/smooth
-	name = "Smooth"
-	icon_state = "smooth"
-
-/datum/sprite_accessory/tails_animated/lizard/smooth
 	name = "Smooth"
 	icon_state = "smooth"
 
@@ -1996,15 +2017,7 @@
 	name = "Dark Tiger"
 	icon_state = "dtiger"
 
-/datum/sprite_accessory/tails_animated/lizard/dtiger
-	name = "Dark Tiger"
-	icon_state = "dtiger"
-
 /datum/sprite_accessory/tails/lizard/ltiger
-	name = "Light Tiger"
-	icon_state = "ltiger"
-
-/datum/sprite_accessory/tails_animated/lizard/ltiger
 	name = "Light Tiger"
 	icon_state = "ltiger"
 
@@ -2012,39 +2025,30 @@
 	name = "Spikes"
 	icon_state = "spikes"
 
-/datum/sprite_accessory/tails_animated/lizard/spikes
-	name = "Spikes"
-	icon_state = "spikes"
+/datum/sprite_accessory/tails/human
 
 /datum/sprite_accessory/tails/human/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
-
-/datum/sprite_accessory/tails_animated/human/none
-	name = SPRITE_ACCESSORY_NONE
-	icon_state = "none"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/tails/human/cat
 	name = "Cat"
 	icon_state = "cat"
 	color_src = HAIR_COLOR
 
-/datum/sprite_accessory/tails_animated/human/cat
-	name = "Cat"
-	icon_state = "cat"
-	color_src = HAIR_COLOR
+/datum/sprite_accessory/tails/monkey
 
-/datum/sprite_accessory/tails/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
+/datum/sprite_accessory/tails/monkey/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
+	natural_spawn = FALSE
 
-/datum/sprite_accessory/tails_animated/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
+/datum/sprite_accessory/tails/monkey/default
+	name = "Monkey"
+	icon = 'icons/mob/human/species/monkey/monkey_tail.dmi'
+	icon_state = "default"
+	color_src = FALSE
 
 /datum/sprite_accessory/snouts
 	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
@@ -2204,14 +2208,14 @@
 /datum/sprite_accessory/spines
 	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
 
-/datum/sprite_accessory/spines_animated
-	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
-
 /datum/sprite_accessory/spines/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
-/datum/sprite_accessory/spines_animated/none
+/datum/sprite_accessory/tail_spines
+	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
+
+/datum/sprite_accessory/tail_spines/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
@@ -2219,7 +2223,7 @@
 	name = "Short"
 	icon_state = "short"
 
-/datum/sprite_accessory/spines_animated/short
+/datum/sprite_accessory/tail_spines/short
 	name = "Short"
 	icon_state = "short"
 
@@ -2227,7 +2231,7 @@
 	name = "Short + Membrane"
 	icon_state = "shortmeme"
 
-/datum/sprite_accessory/spines_animated/shortmeme
+/datum/sprite_accessory/tail_spines/shortmeme
 	name = "Short + Membrane"
 	icon_state = "shortmeme"
 
@@ -2235,7 +2239,7 @@
 	name = "Long"
 	icon_state = "long"
 
-/datum/sprite_accessory/spines_animated/long
+/datum/sprite_accessory/tail_spines/long
 	name = "Long"
 	icon_state = "long"
 
@@ -2243,15 +2247,15 @@
 	name = "Long + Membrane"
 	icon_state = "longmeme"
 
-/datum/sprite_accessory/spines_animated/longmeme
+/datum/sprite_accessory/tail_spines/longmeme
 	name = "Long + Membrane"
 	icon_state = "longmeme"
 
-/datum/sprite_accessory/spines/aqautic
+/datum/sprite_accessory/spines/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
 
-/datum/sprite_accessory/spines_animated/aqautic
+/datum/sprite_accessory/tail_spines/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
 
