@@ -68,7 +68,7 @@
 	icon_state = "labcoat_job"
 	greyscale_config = /datum/greyscale_config/labcoat
 	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
-	greyscale_colors = "#EEEEEE#BB0000#BB0000#CC0000"
+	greyscale_colors = "#EEEEEE#DD0000#DD0000#EE0000"
 	armor_type = /datum/armor/labcoat_brig_physician
 
 /datum/armor/labcoat_brig_physician
