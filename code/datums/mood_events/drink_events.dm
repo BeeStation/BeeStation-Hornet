@@ -5,6 +5,7 @@
 	var/datum/bodypart_overlay/simple/emote/blush_overlay
 
 /datum/mood_event/drunk/add_effects(drunkness)
+	update_change(drunkness)
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/human_owner = owner
