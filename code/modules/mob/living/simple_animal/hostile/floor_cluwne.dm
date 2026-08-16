@@ -23,6 +23,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	health = 250
 	speed = -1
 	attack_sound = 'sound/items/bikehorn.ogg'
+	attack_vis_effect = null
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/animal/cluwne)

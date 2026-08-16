@@ -138,8 +138,8 @@
 	var/cached_gas_info = GLOB.meta_gas_info
 	for(var/gas_path, gas_id in cached_gas_info[META_GAS_ID])
 		data["filter_types"] += list(list(
-			"gasId" = gas_id,
-			"gasName" = cached_gas_info[META_GAS_NAME][gas_path],
+			"gas_id" = gas_id,
+			"gas_name" = cached_gas_info[META_GAS_NAME][gas_path],
 			"enabled" = (gas_path in scrubbing)
 		))
 

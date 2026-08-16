@@ -12,7 +12,6 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
-	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -230,7 +229,6 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
 
@@ -503,7 +501,7 @@
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#E1E1E1#EDCC6A"
+	greyscale_colors = "#E1E1E1#A3EAFF"
 	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
 

@@ -81,8 +81,6 @@ Contains:
 	icon_state = "beret_badge"
 	inhand_icon_state = null
 	greyscale_colors = "#397F3F#FFCE5B"
-	dynamic_hair_suffix = "+generic"
-	dynamic_fhair_suffix = "+generic"
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	flags_inv = 0
 	armor_type = /datum/armor/space_beret

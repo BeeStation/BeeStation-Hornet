@@ -242,7 +242,7 @@
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
-	if(!ishuman(wielder))
+	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
 		return
 	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
 		bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))

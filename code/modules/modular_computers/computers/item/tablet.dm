@@ -334,6 +334,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	comp_light_luminosity = 2.3
 	max_hardware_size = WEIGHT_CLASS_TINY
+	allow_chunky = TRUE
 
 	var/default_disk = 0
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.

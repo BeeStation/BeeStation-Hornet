@@ -168,4 +168,6 @@
 	if(!reagents?.total_volume)
 		to_chat(victim, span_warning("[src] is empty!"))
 		return FALSE
+	if(!IS_VAMPIRE(victim))
+		return FALSE
 	return TRUE

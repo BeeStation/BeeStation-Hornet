@@ -73,7 +73,7 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_JUMPSUIT
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/choiced/jumpsuit_style/init_possible_values()
 	return list(
@@ -106,7 +106,6 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_SOCKS
 
 /datum/preference/choiced/socks/init_possible_values()
 	return assoc_to_keys_features(GLOB.socks_list)
@@ -138,7 +137,7 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_UNDERSHIRT
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	return assoc_to_keys_features(GLOB.undershirt_list)
@@ -180,7 +179,6 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_UNDERWEAR
 
 /datum/preference/choiced/underwear/init_possible_values()
 	return assoc_to_keys_features(GLOB.underwear_list)
@@ -205,7 +203,7 @@
 
 	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 	var/datum/species/species = GLOB.species_prototypes[species_type]
-	return !(NO_UNDERWEAR in species.species_traits)
+	return !(TRAIT_NO_UNDERWEAR in species.inherent_traits)
 
 /datum/preference/choiced/underwear/compile_constant_data()
 	var/list/data = ..()

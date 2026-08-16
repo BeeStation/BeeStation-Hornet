@@ -172,7 +172,7 @@
 		if (!_effects_activated)
 			on_active_effects?.Invoke(wearer, current_integrity)
 			_effects_activated = TRUE
-	if (current_integrity < max_integrity)
+	if (charge_recovery && current_integrity < max_integrity)
 		START_PROCESSING(SSdcs, src)
 
 /datum/component/shielded/proc/set_charge(new_value)
@@ -181,7 +181,7 @@
 	// activate cooldown after updating the charge
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
 	// Start processing if we need to charge up
-	if (current_integrity < max_integrity)
+	if (charge_recovery && current_integrity < max_integrity)
 		START_PROCESSING(SSdcs, src)
 
 /// Check if we've been equipped to a valid slot to shield
