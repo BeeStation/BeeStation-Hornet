@@ -95,11 +95,9 @@
 		/datum/blood_type/lizard
 	)
 /datum/blood_type/ethereal
-	name = "E"
-	blood_color = "#7fff7f"
-	compatible_types = list(
-		/datum/blood_type/ethereal
-	)
+	name = "LE"
+	blood_color = COLOR_ETHEREAL_BLOOD
+	compatible_types = list(/datum/blood_type/ethereal)
 	glowy = TRUE
 
 /datum/blood_type/synthetic //Blood for synthetic/robotic species

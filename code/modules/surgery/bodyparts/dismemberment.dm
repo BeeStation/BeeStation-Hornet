@@ -123,8 +123,6 @@
 	update_icon_dropped()
 	phantom_owner.update_health_hud() //update the healthdoll
 	phantom_owner.update_body()
-	phantom_owner.update_hair()
-
 	if(!special)
 		phantom_owner.hud_used?.update_locked_slots()
 
@@ -263,7 +261,6 @@
 
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_ATTACH_LIMB, src, special)
 	moveToNullspace()
-	set_owner(new_limb_owner)
 	new_limb_owner.add_bodypart(src)
 
 	if(special) //non conventional limb attachment
@@ -286,7 +283,6 @@
 	new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
 	new_limb_owner.updatehealth()
 	new_limb_owner.update_body()
-	new_limb_owner.update_hair()
 	new_limb_owner.update_damage_overlays()
 	if(!special)
 		new_limb_owner.hud_used?.update_locked_slots()
@@ -298,6 +294,7 @@
 	var/real_name = src.real_name
 
 	. = ..()
+
 	if(!.)
 		return
 
@@ -322,15 +319,6 @@
 		new_head_owner.real_name = real_name
 	real_name = ""
 
-	if(!special && ishuman(new_head_owner))
-		var/mob/living/carbon/human/H = new_head_owner
-		H.hair_color = hair_color
-		H.hair_style = hair_style
-		H.facial_hair_color = facial_hair_color
-		H.facial_hair_style = facial_hair_style
-		H.lip_style = lip_style
-		H.lip_color = lip_color
-
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/P in src)
 		for(var/datum/action/item_action/hands_free/activate_pill/AP in P.actions)
@@ -338,9 +326,20 @@
 			AP.Grant(new_head_owner)
 			break
 
+	///Transfer existing hair properties to the new human.
+	if(!special && ishuman(new_head_owner))
+		var/mob/living/carbon/human/H = new_head_owner
+		H.hair_color = hair_color
+		H.hair_style = hair_style
+		H.facial_hairstyle = facial_hairstyle
+		H.facial_hair_color = facial_hair_color
+		H.gradient_style = gradient_styles.Copy()
+		H.gradient_color = gradient_colors.Copy()
+		H.lip_style = lip_style
+		H.lip_color = lip_color
+
 	new_head_owner.updatehealth()
 	new_head_owner.update_body()
-	new_head_owner.update_hair()
 	new_head_owner.update_damage_overlays()
 
 /mob/living/carbon/proc/regenerate_limbs(list/excluded_zones = list())

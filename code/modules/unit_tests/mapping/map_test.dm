@@ -1,4 +1,6 @@
 /datum/unit_test/map_test
+	abstract_type = /datum/unit_test/map_test
+	test_flags = UNIT_TEST_MAP_TEST
 	priority = TEST_MAPPING
 
 /datum/unit_test/map_test/Run()

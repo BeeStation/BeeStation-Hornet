@@ -2,12 +2,10 @@
 	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
-	species_traits = list(
-		NO_UNDERWEAR,
-		TRAIT_BEEFRIEND
-	)
 	inherent_traits = list(
-		TRAIT_TACKLING_FRAIL_ATTACKER
+		TRAIT_TACKLING_FRAIL_ATTACKER,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_BEEFRIEND,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	meat = /obj/item/food/meat/slab/human/mutant/fly
@@ -17,7 +15,6 @@
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
-	speedmod = 0.7
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/fly,
@@ -55,16 +52,11 @@
 		return
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
-		BP.uses_mutcolor = !!type_selection.color_src
-		if(BP.uses_mutcolor)
-			BP.should_draw_greyscale = TRUE
-			BP.species_color = C.dna?.features["mcolor"]
-		// Hardcoded bullshit that will probably break. Woo shitcode. Bee insect_type has dimorphic parts while flies do not.
-		BP.is_dimorphic = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
-
-		BP.limb_id = type_selection.limbs_id
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[type_selection.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		// Bee insect_type has dimorphic parts while flies do not.
+		var/is_dimorphic_part = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
+		BP.change_appearance(icon = BP.icon_static, id = type_selection.limbs_id, greyscale = !!type_selection.color_src, dimorphic = is_dimorphic_part)
 
 /datum/species/fly/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
 	. = ..()

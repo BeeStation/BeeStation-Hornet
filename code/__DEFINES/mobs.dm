@@ -62,8 +62,8 @@
 // Mob bio-type flags
 /// The mob is organic, can heal from medical sutures.
 #define MOB_ORGANIC (1 << 0)
-/// The mob isn't organic. For example, golems and IPCs.
-#define MOB_INORGANIC (1 << 1)
+///The mob is of a rocky make, most likely a golem. Iron within, iron without!
+#define MOB_MINERAL (1 << 1)
 /// The mob is a synthetic lifeform, like station borgs.
 #define MOB_ROBOTIC (1 << 2)
 /// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
@@ -520,6 +520,17 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
+
+//defines for gradient_color and gradient_styles list access keys
+#define GRADIENT_HAIR_KEY 1
+#define GRADIENT_FACIAL_HAIR_KEY 2
+
+// /datum/sprite_accessory/gradient defines
+#define GRADIENT_APPLIES_TO_HAIR (1<<0)
+#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
+
+// Hair masks
+#define HAIR_MASK_HIDE_ABOVE_45_DEG_MEDIUM "hide_above_45deg"
 
 #define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 

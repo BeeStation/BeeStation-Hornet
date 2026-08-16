@@ -40,18 +40,20 @@
 		user.put_in_hands(bomb)
 		user.visible_message(span_warning("[user] detaches [bomb] from [src]."))
 		bomb = null
-	update_icon()
+	update_appearance()
 	return ..()
 
-/obj/item/gun/blastcannon/update_icon()
-	if(bomb)
-		icon_state = icon_state_loaded
-		name = "blast cannon"
-		desc = "A makeshift device used to concentrate a bomb's blast energy to a narrow wave."
-	else
-		icon_state = initial(icon_state)
-		name = initial(name)
-		desc = initial(desc)
+/obj/item/gun/blastcannon/update_icon_state()
+	. = ..()
+	icon_state = bomb ? icon_state_loaded : initial(icon_state)
+
+/obj/item/gun/blastcannon/update_name(updates)
+	name = bomb ? "blast cannon" : initial(name)
+	return ..()
+
+/obj/item/gun/blastcannon/update_desc(updates)
+	desc = bomb ? "A makeshift device used to concentrate a bomb's blast energy to a narrow wave." : initial(desc)
+	return ..()
 
 /obj/item/gun/blastcannon/attackby(obj/item/transfer_valve/bomb_to_attach, mob/user)
 	if(!istype(bomb_to_attach))
@@ -66,7 +68,7 @@
 
 	user.visible_message(span_warning("[user] attaches [bomb_to_attach] to [src]!"))
 	bomb = bomb_to_attach
-	update_icon()
+	update_appearance()
 	return TRUE
 
 //returns the third value of a bomb blast
@@ -93,7 +95,7 @@
 	var/power = bomb? calculate_bomb() : debug_power
 	power = min(power, max_power)
 	QDEL_NULL(bomb)
-	update_icon()
+	update_appearance()
 	var/heavy = power * 0.25
 	var/medium = power * 0.5
 	var/light = power

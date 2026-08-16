@@ -5844,16 +5844,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
-"ctv" = (
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/structure/sign/poster/contraband/clown{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/random/opposingcorners{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/station/service/theater/backstage)
 "ctG" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Port Primary Hallway - Starboard"
@@ -6896,6 +6886,9 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
+	},
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6
 	},
 /turf/open/floor/iron/cafeteria,
 /area/station/service/kitchen)
@@ -17623,13 +17616,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command)
-"gAH" = (
-/obj/item/cigbutt{
-	pixel_y = -11;
-	pixel_x = -3
-	},
-/turf/closed/wall,
-/area/station/security/detectives_office)
 "gAW" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -30910,6 +30896,7 @@
 /area/station/maintenance/starboard)
 "laP" = (
 /obj/structure/fluff/hedge/opaque,
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/carpet/red,
 /area/station/service/bar)
 "laQ" = (
@@ -66075,7 +66062,6 @@
 	dir = 8
 	},
 /obj/item/food/baguette,
-/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/white,
 /area/station/service/theater/backstage)
 "wTS" = (
@@ -101073,7 +101059,7 @@ fBT
 vVi
 kan
 xZU
-gAH
+xZU
 hqf
 vPU
 voS
@@ -103412,7 +103398,7 @@ pTw
 bNO
 rco
 lSS
-ctv
+vHY
 pTw
 laP
 rlf

@@ -68,8 +68,8 @@
 	return pressure
 
 /mob/living/carbon/human/breathe()
-	if(!dna.species.breathe(src))
-		..()
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH))
+		return ..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
@@ -86,13 +86,13 @@
 		var/datum/species/S = dna.species
 
 		if(S.breathid == GAS_O2)
-			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == GAS_PLASMA)
-			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
+			throw_alert(ALERT_NOT_ENOUGH_PLASMA, /atom/movable/screen/alert/not_enough_plas)
 		else if(S.breathid == "co2")
-			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
+			throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
 		else if(S.breathid == "n2")
-			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
+			throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
 	else

@@ -4,8 +4,11 @@ import {
   Box,
   Button,
   Flex,
+  Icon,
+  Input,
   LabeledList,
   Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
@@ -117,6 +120,19 @@ const CargoStatus = (props) => {
   );
 };
 
+const searchSupplies = (supplies, search) => {
+  const query = search.toLowerCase();
+  return supplies
+    .flatMap((category) => category.packs)
+    .filter(
+      (pack) =>
+        pack.name?.toLowerCase().includes(query) ||
+        pack.desc?.toLowerCase().includes(query),
+    )
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 25);
+};
+
 export const CargoCatalog = (props) => {
   const { express, canOrder = true } = props;
   const { act, data } = useBackend();
@@ -126,9 +142,13 @@ export const CargoCatalog = (props) => {
     'supply',
     supplies[0]?.name,
   );
-  const activeSupply = supplies.find((supply) => {
-    return supply.name === activeSupplyName;
-  });
+  const [searchText, setSearchText] = useSharedState('search_text', '');
+
+  const searching = searchText.length > 0;
+  const activeSupply = searching
+    ? { packs: searchSupplies(supplies, searchText) }
+    : supplies.find((supply) => supply.name === activeSupplyName);
+
   return (
     <Section
       title="Catalog"
@@ -148,12 +168,30 @@ export const CargoCatalog = (props) => {
     >
       <Flex>
         <Flex.Item ml={-1} mr={1}>
+          <Stack.Item mb={1}>
+            <Stack align="baseline">
+              <Stack.Item ml={0.5}>
+                <Icon name="search" />
+              </Stack.Item>
+              <Stack.Item grow>
+                <Input
+                  fluid
+                  placeholder="Search..."
+                  value={searchText}
+                  onInput={(e, value) => setSearchText(value)}
+                />
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
           <Tabs vertical>
             {supplies.map((supply) => (
               <Tabs.Tab
                 key={supply.name}
-                selected={supply.name === activeSupplyName}
-                onClick={() => setActiveSupplyName(supply.name)}
+                selected={!searching && supply.name === activeSupplyName}
+                onClick={() => {
+                  setActiveSupplyName(supply.name);
+                  setSearchText('');
+                }}
               >
                 {supply.name} ({supply.packs.length})
               </Tabs.Tab>
@@ -161,6 +199,11 @@ export const CargoCatalog = (props) => {
           </Tabs>
         </Flex.Item>
         <Flex.Item grow={1} basis={0}>
+          {searching && activeSupply.packs.length === 0 && (
+            <Box color="label" mt={2}>
+              No results for &quot;{searchText}&quot;.
+            </Box>
+          )}
           <Table>
             {activeSupply?.packs.map((pack) => {
               const tags = [];

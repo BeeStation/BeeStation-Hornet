@@ -11,9 +11,10 @@
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH // I always thought they bit. Guess I was wrong.
 	speak_emote = list("screams")
 	gold_core_spawnable = HOSTILE_SPAWN
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list(FACTION_NETHER)
 	hardattacks = TRUE
@@ -87,10 +88,10 @@
 		'sound/voice/human/manlaugh1.ogg',
 		'sound/voice/human/womanlaugh.ogg',
 		'sound/weapons/sear.ogg',
-		'sound/ambience/antag/clockcultalr.ogg',
-		'sound/ambience/antag/ling_aler.ogg',
-		'sound/ambience/antag/tatoralert.ogg',
-		'sound/ambience/antag/monkey.ogg',
+		'sound/effects/antag/clockcultalr.ogg',
+		'sound/effects/antag/ling_aler.ogg',
+		'sound/effects/antag/tatoralert.ogg',
+		'sound/effects/antag/monkey.ogg',
 		'sound/mecha/nominal.ogg',
 		'sound/mecha/weapdestr.ogg',
 		'sound/mecha/critdestr.ogg',
@@ -189,7 +190,7 @@
 		'sound/machines/honkbot_evil_laugh.ogg',
 		'sound/machines/juicer.ogg',
 		'sound/machines/ping.ogg',
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		'sound/machines/synth_no.ogg',
 		'sound/machines/synth_yes.ogg',
 		'sound/machines/terminal_alert.ogg',

@@ -267,3 +267,7 @@ GLOBAL_LIST_INIT(ai_employers, list(
 
 /// Is this item available for the toxin directive?
 #define STEAL_DIRECTIVE_TOXIN (1 << 0)
+
+// Swarmers
+// ------------------------------------
+#define SWARMER_SHELL_COST 20

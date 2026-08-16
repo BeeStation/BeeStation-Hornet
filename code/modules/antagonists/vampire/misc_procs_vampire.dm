@@ -45,7 +45,7 @@
 		return
 	masquerade_infractions++
 
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/effects/antag/vampire/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	if(masquerade_infractions >= 3)
 		break_masquerade()

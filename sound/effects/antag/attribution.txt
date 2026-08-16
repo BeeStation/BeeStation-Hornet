@@ -1,0 +1,9 @@
+sound/effects/antag/assimilation.ogg is Alien Spaceship UFO Sound effect, by Daniel Simon (http://soundbible.com/2213-Alien-Spaceship-UFO.html). It has been licensed under CC-BY 3.0 license, found here: https://creativecommons.org/licenses/by/3.0/
+	It has been cropped for use ingame, and also fades out
+Source file downloaded from https://www.newgrounds.com/audio/listen/74946
+
+sound/effects/antag/abductee.ogg is from "Warp SFX" https://freesound.org/people/Breviceps/sounds/453391 (CC0)
+
+sound/effects/antag/brainwash.ogg is from "nog.wav" https://freesound.org/people/_NOMINAL_/sounds/124602 (CC-BY 3.0)
+
+sound/effects/antag/hypnosis.ogg is from "Flashback.wav" https://freesound.org/people/Sclolex/sounds/342103 (CC0)

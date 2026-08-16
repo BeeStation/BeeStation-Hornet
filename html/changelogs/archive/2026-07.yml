@@ -128,3 +128,67 @@
   - bugfix: Fixes summon magic and summon guns
   - refactor: Refactored wizard rituals (events/ghosts/guns/magic/madness) to reduce
       code copy+paste.
+2026-07-21:
+  cursedkiller:
+  - bugfix: Ethereal Blood Electrocutes again!
+  - bugfix: Revenant blight stamcrits properly
+  - bugfix: Xenomorphs can now spit in space to change directions and Improved Jump
+      Code
+  - bugfix: Zombies no longer keep brains traumas nor pass out from bloodloss
+  - bugfix: Animal Hospital doctors got their clothes back
+  - bugfix: Pill bottles can be renamed again
+  - bugfix: Lavaland Syndicate base's have power now
+  - bugfix: Gridcheck now properly disables APC's
+2026-07-22:
+  Isaac:
+  - rscadd: Mod Reinforced Armor plating, providing 20 armor against most damage,
+      non stackable
+  SunShine214:
+  - rscadd: IPC brains can now be repaired with a multitool, replacing brain surgery
+      for them.
+  - rscdel: Removed brain recalibration and organic healing surgeries from IPCs.
+  - tweak: Adjusted flavor text on IPC brains.
+  - bugfix: Fixed IPC organ manipulation.
+  WhiskeyMarten:
+  - bugfix: Fixed a few mapping mistakes on Meta and Rad.
+  - bugfix: Fixes deactivated swarmer shells being worth 50 resources, rather than
+      the 20 used to create them.
+  - tweak: Swarmers are no longer able to eat Air Alarms, Reflectors, or the Communications
+      Console.
+2026-07-23:
+  St0rmC4st3r:
+  - bugfix: Posters can be once again cut down and put back up.
+2026-07-25:
+  mrmanlikesbt:
+  - bugfix: Fixed some random maintenance rooms
+  mrmanlikesbt, TealSeer, LemonInTheDark:
+  - server: Most unit tests are now only ran on runtimestation during GitHub integration
+      tests.
+  - server: The janky actions unit test now has its work split up across all of the
+      integration tests that it's running alongside.
+2026-07-27:
+  Isaac:
+  - bugfix: Radstation telecommunications HE should cover the entire room
+  - bugfix: Radstation Telecommunications is now encased in reinforced walls instead
+      of regular walls
+  - bugfix: Cardstation Telecommunications now has HE
+  - bugfix: Cardstation R&D Server no longer has the plasma canister alongside the
+      servers
+  - bugfix: Moves some areas around in both syndicate lavaland bases so the turrets
+      can actually be turned off by their turret control
+2026-07-28:
+  BotTierPC:
+  - rscadd: Monkey Sentience Helmets now work on any mob with a primate brain and
+      never a soul
+  - tweak: Monkeys now spawn with the Primate brain organ
+2026-07-29:
+  jlsnow301, Programs-the-Station:
+  - bugfix: TGUI Titlebars with Buttons in them work once again.
+2026-07-30:
+  BotTierPC:
+  - bugfix: Fixes pointing. Shift+Middleclick now points again instead of bringing
+      up a text input dialogue
+  mrmanlikesbt:
+  - bugfix: Fixed the pre-round timer moving 25% faster than it should've been
+  - config: Alongside the above fix, the pre-round timer has been reduced to 3.5 minutes
+      to stay (mostly) accurate to the previous actual time

@@ -4,7 +4,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 
 /datum/admin_secrets/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/admin_secrets/ui_interact(mob/user, datum/tgui/ui)
 	if(!check_rights(0))
@@ -623,8 +623,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Dwarf Beards"))
 			for(var/mob/living/carbon/human/B in GLOB.carbon_list)
-				B.facial_hair_style = "Dward Beard"
-				B.update_hair()
+				B.set_facial_hairstyle("Dward Beard", update = TRUE)
 			message_admins("[key_name_admin(usr)] activated dorf mode")
 
 		if("onlyone")
