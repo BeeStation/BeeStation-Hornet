@@ -14,7 +14,7 @@
 	if (!..(value))
 		return FALSE
 
-	if (is_color_dark_with_saturation(value))
+	if (is_color_dark_with_saturation(value, 15))
 		return FALSE
 
 	return TRUE
