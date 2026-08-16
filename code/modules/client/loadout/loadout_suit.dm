@@ -14,9 +14,14 @@
 	path = /obj/item/clothing/suit/hazardvest/brig_physician
 	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
 
-/datum/gear/suit/labcoat/brig_doc
-	display_name = "brig physician's labcoat"
+/datum/gear/suit/labcoat/brig_doc_jacket
+	display_name = "brig physician's jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/brig_physician
+	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
+
+/datum/gear/suit/labcoat/brig_doc_labcoat
+	display_name = "brig physician's labcoat"
+	path = /obj/item/clothing/suit/toggle/labcoat/brig_physician2
 	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/labcoat/paramedic
