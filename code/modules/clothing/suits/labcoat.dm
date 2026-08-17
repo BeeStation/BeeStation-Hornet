@@ -58,6 +58,7 @@
 
 /obj/item/clothing/suit/toggle/labcoat/brig_physician
 	name = "brig physician's jacket"
+	desc = "A dark red jacket for brig physicians with reflective stripes."
 	icon_state = "labcoat_sec"
 	inhand_icon_state = null
 	armor_type = /datum/armor/labcoat_brig_physician
