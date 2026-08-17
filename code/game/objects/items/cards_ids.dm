@@ -200,7 +200,10 @@
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
-	QDEL_LIST(access_grants)
+	var/list/grants = access_grants
+	access_grants = null
+	for(var/datum/access_grant/grant as anything in grants)
+		qdel(grant)
 	return ..()
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
@@ -240,7 +243,7 @@
 		log_access_change(removed, source, user, granting = FALSE)
 	return TRUE
 
-/// Writes one ID log line for a change to this card's access: who, whose card, what, and from where.
+/// Writes one ID log line for a change to this card's access: who, what, and where
 /obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
 	var/list/descriptions = get_access_descs(changed_access)
 	var/actor = user ? key_name(user) : "Something"
@@ -253,9 +256,9 @@
  * Returns the grant, so the caller can revoke() it early (i.e. on a condition change)
  * Arguments:
  * * access_to_grant - a single access or a list of them.
- * * source - what issued the grant, for the log.
- * * user - who issued it, for the log.
- * * duration - lifespan in deciseconds. 0 or null means persistence until revocation
+ * * source - what issued the grant
+ * * user - who issued it
+ * * duration - lifespan in deciseconds. 0 or null means indefinite
  * * grace_period - deciseconds the access lingers after expiry/revocation. 0 means immediate
  */
 /obj/item/card/id/proc/grant_temporary_access(access_to_grant, source, mob/user, duration, grace_period = 0)
@@ -264,42 +267,24 @@
 	var/datum/access_grant/grant = new(src, access_to_grant, source, duration, grace_period)
 	LAZYADD(access_grants, grant)
 	log_access_change(access_to_grant, "[source] (temporary[duration ? ", expires in [DisplayTimeText(duration)]" : ""])", user, granting = TRUE)
-	notify_holder(span_notice("[src] pings - temporary access to [grant.access_names()] granted[duration ? ", expiring in [DisplayTimeText(duration)]" : ""]."))
+	notify_holder(span_notice("[src] pings, temporary access to [grant.access_names()] granted[duration ? ", expiring in [DisplayTimeText(duration)]" : ""]."))
 	return grant
 
 /**
  * Revokes a temporary access grant from grant_temporary_access, whether on expiry or earlier
- * With a grace period the access lingers, so the grant stays until then
  * Arguments:
  * * grant - the grant to revoke.
- * * reason - short note on why, folded into the log (e.g. "expired", "revoked").
+ * * reason - why, folded into the log (e.g. "expired", "revoked").
  * * grace - deciseconds to linger before cutting access. Null uses the grant's own grace period.
  */
 /obj/item/card/id/proc/revoke_temporary_access(datum/access_grant/grant, reason = "revoked", grace = null)
-	if(!(grant in access_grants))
-		return
-	if(isnull(grace))
-		grace = grant.grace_period
-	if(grace > 0 && !grant.revoking)
-		grant.revoking = TRUE
-		if(grant.timer_id)
-			deltimer(grant.timer_id)
-		grant.timer_id = addtimer(CALLBACK(src, PROC_REF(revoke_temporary_access), grant, reason, 0), grace, TIMER_STOPPABLE)
-		log_access_change(grant.accesses, "[grant.source] (temporary access [reason], ends in [DisplayTimeText(grace)])", null, granting = FALSE)
-		notify_holder(span_warning("[src] pings - temporary access to [grant.access_names()] ends in [DisplayTimeText(grace)]."))
-		return
-	log_access_change(grant.accesses, "[grant.source] (temporary access [reason])", null, granting = FALSE)
-	notify_holder(span_warning("[src] pings - temporary access to [grant.access_names()] [reason]."))
-	LAZYREMOVE(access_grants, grant)
-	qdel(grant)
+	grant?.revoke(reason, grace)
 
-/// Sends a message to the mob carrying this card, if any. Walks out of any wallet or bag it sits in.
 /obj/item/card/id/proc/notify_holder(message)
 	var/mob/holder = get(src, /mob)
 	if(holder)
 		to_chat(holder, message)
 
-/// A temporary grant of access to an ID card. Auto-expires after a duration, or lives until revoked
 /datum/access_grant
 	/// The card this grant belongs to
 	var/obj/item/card/id/card
@@ -307,11 +292,11 @@
 	var/list/accesses
 	/// What issued the grant, kept for the revocation log line
 	var/source
-	/// Timer id for auto-expiry, then for the grace period once revoking. Null if the grant is open-ended
+	/// Timer id for auto-expiry, then for the grace period once revoking. Null if the grant is indefinite
 	var/timer_id
-	/// Deciseconds the access lingers after expiry/revocation before it is cut
+	/// Deciseconds the access lingers after expiry/revocation
 	var/grace_period = 0
-	/// TRUE once revocation has begun and we are waiting out the grace period
+	/// TRUE once revocation has begun, and until grace period finishes
 	var/revoking = FALSE
 
 /datum/access_grant/New(obj/item/card/id/card, list/accesses, source, duration, grace_period = 0)
@@ -324,25 +309,45 @@
 		timer_id = addtimer(CALLBACK(src, PROC_REF(expire)), duration, TIMER_STOPPABLE)
 
 /datum/access_grant/Destroy()
-	if(timer_id)
-		deltimer(timer_id)
-	card = null
+	deltimer(timer_id)
+	timer_id = null
+	if(card)
+		LAZYREMOVE(card.access_grants, src)
+		card = null
 	return ..()
 
-/// Called by the expiry timer.
 /datum/access_grant/proc/expire()
 	timer_id = null
-	card?.revoke_temporary_access(src, "expired")
+	revoke("expired")
 
-/// Ends this grant early. Pass grace to override the grant's own grace period.
+/// Ends this grant, either now or after a grace period
 /datum/access_grant/proc/revoke(reason = "revoked", grace = null)
-	card?.revoke_temporary_access(src, reason, grace)
+	if(QDELETED(src))
+		return
+	if(isnull(grace))
+		grace = grace_period
+	if(grace <= 0 || revoking)
+		finish_revoke(reason)
+		return
+	revoking = TRUE
+	deltimer(timer_id)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke), reason), grace, TIMER_STOPPABLE)
+	announce_revocation("[reason], ends in [DisplayTimeText(grace)]", "ends in [DisplayTimeText(grace)]")
 
-/// Human-readable names of this grant's accesses.
+/datum/access_grant/proc/finish_revoke(reason = "revoked")
+	announce_revocation(reason, reason)
+	qdel(src)
+
+/datum/access_grant/proc/announce_revocation(note, phrase)
+	if(!card)
+		return
+	card.log_access_change(accesses, "[source] (temporary access [note])", null, granting = FALSE)
+	card.notify_holder(span_warning("[card] pings, temporary access to [access_names()] [phrase]."))
+
 /datum/access_grant/proc/access_names()
 	return english_list(get_access_descs(accesses))
 
-/// One-line examine description: what access this grant provides and how long is left on it.
+/// what access this grant provides and how long is left on it.
 /datum/access_grant/proc/get_examine_text()
 	var/timing
 	if(revoking)
