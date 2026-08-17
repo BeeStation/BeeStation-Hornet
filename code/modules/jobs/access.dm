@@ -148,26 +148,12 @@
 	. = ..()
 	src.id = id
 
-/// Every /datum/access singleton, keyed by the access as text.
 GLOBAL_LIST_INIT(access_datums, generate_access_datums())
-/// Assoc list of flag tier -> its accesses. Keyed by the flag as text.
-GLOBAL_LIST_INIT(accesses_by_flag, list(
-	"[ACCESS_FLAG_COMMON]" = COMMON_ACCESS,
-	"[ACCESS_FLAG_COMMAND]" = COMMAND_ACCESS,
-	"[ACCESS_FLAG_PRV_COMMAND]" = PRIVATE_COMMAND_ACCESS,
-	"[ACCESS_FLAG_CAPTAIN]" = CAPTAIN_ACCESS,
-	"[ACCESS_FLAG_CENTCOM]" = CENTCOM_ACCESS,
-	"[ACCESS_FLAG_SYNDICATE]" = SYNDICATE_ACCESS,
-	"[ACCESS_FLAG_AWAY]" = AWAY_ACCESS,
-	"[ACCESS_FLAG_SPECIAL]" = CULT_ACCESS,
-))
 
-/// Builds the GLOB.access_datums singletons from the flag tiers and description table.
-/proc/generate_access_datums()
-	var/list/datums = list()
+GLOBAL_LIST_INIT(accesses_by_flag, generate_accesses_by_flag())
 
-	// Flag tiers. Local copy so we don't depend on GLOB init order.
-	var/list/flag_tiers = list(
+/proc/generate_accesses_by_flag()
+	return list(
 		"[ACCESS_FLAG_COMMON]" = COMMON_ACCESS,
 		"[ACCESS_FLAG_COMMAND]" = COMMAND_ACCESS,
 		"[ACCESS_FLAG_PRV_COMMAND]" = PRIVATE_COMMAND_ACCESS,
@@ -177,6 +163,11 @@ GLOBAL_LIST_INIT(accesses_by_flag, list(
 		"[ACCESS_FLAG_AWAY]" = AWAY_ACCESS,
 		"[ACCESS_FLAG_SPECIAL]" = CULT_ACCESS,
 	)
+
+/proc/generate_access_datums()
+	var/list/datums = list()
+
+	var/list/flag_tiers = generate_accesses_by_flag()
 	for(var/flag_key in flag_tiers)
 		var/flag = text2num(flag_key)
 		for(var/access in flag_tiers[flag_key])
@@ -284,42 +275,24 @@ GLOBAL_LIST_INIT(accesses_by_flag, list(
 
 	return datums
 
-/**
- * Returns the access flag tier (ACCESS_FLAG_*) associated with any given access level, or NONE if it has none.
- *
- * Arguments:
- * * access - Access as either pure number or as a string representation of the number.
- */
+/// Returns the access flag tier (ACCESS_FLAG_*) for an access level, or NONE if it isn't in a tier. Takes a number or a string.
 /proc/get_access_flag(access)
 	var/datum/access/access_datum = GLOB.access_datums["[access]"]
 	return access_datum?.flag
 
-/**
- * Returns the description associated with any given access level, or null if it has none.
- *
- * Arguments:
- * * access - Access as either pure number or as a string representation of the number.
- */
+/// Returns the description for an access level, or null if it has none. Takes a number or a string.
 /proc/get_access_desc(access)
 	var/datum/access/access_datum = GLOB.access_datums["[access]"]
 	return access_datum?.desc
 
-/**
- * Returns a list of descriptions for a list of accesses, falling back to the raw access for any without one.
- * Arguments:
- * * accesses - A list of access levels.
- */
+/// Returns descriptions for a list of accesses, falling back to the raw access for any without one.
 /proc/get_access_descs(list/accesses)
 	var/list/descriptions = list()
 	for(var/access in accesses)
 		descriptions += get_access_desc(access) || "[access]"
 	return descriptions
 
-/**
- * Returns the list of all accesses associated with any given access flag tier.
- *
- * Arguments:
- * * flag - The flag to get access for as either a pure number or string representation of the flag.
- */
+/// Returns a copy of every access in the given flag tier. Takes a number or a string.
 /proc/get_flag_access_list(flag)
-	return GLOB.accesses_by_flag["[flag]"]
+	var/list/flag_access = GLOB.accesses_by_flag["[flag]"]
+	return flag_access?.Copy()

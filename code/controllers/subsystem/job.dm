@@ -914,6 +914,9 @@ SUBSYSTEM_DEF(job)
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
 /datum/controller/subsystem/job/proc/promote_to_captain(mob/living/carbon/human/new_captain, acting_captain = FALSE)
+	if(!new_captain)
+		CRASH("Cannot promote to captain: null mob passed.")
+
 	var/id_safe_code = SSjob.spare_id_safe_code
 
 	if(!id_safe_code)
@@ -937,8 +940,7 @@ SUBSYSTEM_DEF(job)
 	var/obj/item/id_slot = new_captain.get_item_by_slot(ITEM_SLOT_ID)
 	if(id_slot)
 		var/obj/item/card/id/id_card = id_slot.GetID()
-		if(!(ACCESS_HEADS in id_card.access))
-			LAZYADD(id_card.access, ACCESS_HEADS)
+		id_card?.add_access(ACCESS_HEADS, acting_captain ? "acting captaincy" : "captaincy")
 
 	assigned_captain = TRUE
 

@@ -214,15 +214,11 @@
 /obj/item/card/id/proc/get_sechud_icon_state()
 	return hud_state || JOB_HUD_UNKNOWN
 
-/**
- * Grants access to this card and logs it. Use this instead of editing access directly.
- * Arguments:
- * * access_to_add - a single access or a list of them.
- * * source - what granted the access, for the log.
- * * user - who made the change, for the log.
- * * should_log - set FALSE when the caller writes its own log line for the change.
- */
+/// Grants access to this card and logs it
+/// Takes a single access or a list of them
 /obj/item/card/id/proc/add_access(access_to_add, source, mob/user, should_log = TRUE)
+	if(isnull(access_to_add))
+		return FALSE
 	if(!islist(access_to_add))
 		access_to_add = list(access_to_add)
 	var/list/added = access_to_add - access
@@ -231,15 +227,11 @@
 		log_access_change(added, source, user, granting = TRUE)
 	return TRUE
 
-/**
- * Revokes access from this card and logs it. Use this instead of editing access directly.
- * Arguments:
- * * access_to_remove - a single access or a list of them.
- * * source - what revoked the access, for the log.
- * * user - who made the change, for the log.
- * * should_log - set FALSE when the caller writes its own log line for the change.
- */
+/// Revokes access from this card and logs it
+/// Takes a single access or a list of them
 /obj/item/card/id/proc/remove_access(access_to_remove, source, mob/user, should_log = TRUE)
+	if(isnull(access_to_remove))
+		return FALSE
 	if(!islist(access_to_remove))
 		access_to_remove = list(access_to_remove)
 	var/list/removed = access & access_to_remove
@@ -247,20 +239,6 @@
 	if(should_log && length(removed))
 		log_access_change(removed, source, user, granting = FALSE)
 	return TRUE
-
-/**
- * Tallies up all accesses on this card whose flag tier is greater than or equal to access_flag.
- *
- * Returns the number of accesses matching access_flag or a higher tier.
- * Arguments:
- * * access_flag - The minimum access flag tier required for an access to be counted.
- */
-/obj/item/card/id/proc/tally_access(access_flag = NONE)
-	var/tally = 0
-	for(var/each_access in access)
-		if(get_access_flag(each_access) >= access_flag)
-			tally++
-	return tally
 
 /// Writes one ID log line for a change to this card's access: who, whose card, what, and from where.
 /obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
@@ -310,8 +288,7 @@
 		log_access_change(grant.accesses, "[grant.source] (temporary access [reason], ends in [DisplayTimeText(grace)])", null, granting = FALSE)
 		notify_holder(span_warning("[src] pings - temporary access to [grant.access_names()] ends in [DisplayTimeText(grace)]."))
 		return
-	if(!grant.revoking)
-		log_access_change(grant.accesses, "[grant.source] (temporary access [reason])", null, granting = FALSE)
+	log_access_change(grant.accesses, "[grant.source] (temporary access [reason])", null, granting = FALSE)
 	notify_holder(span_warning("[src] pings - temporary access to [grant.access_names()] [reason]."))
 	LAZYREMOVE(access_grants, grant)
 	qdel(grant)

@@ -649,7 +649,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated)
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
-					if(!is_centcom && (get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
+					if(!is_centcom && (get_access_flag(access_type) & ACCESS_FLAG_CENTCOM_LEVEL))
 						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
 						return
 					if(access_allowed == 1)

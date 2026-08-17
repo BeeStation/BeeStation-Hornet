@@ -153,6 +153,9 @@
 /// Bitflag for Special accesses that ordinaryily shouldn't be on ID cards. See CULT_ACCESS.
 #define ACCESS_FLAG_SPECIAL (1 << 7)
 
+/// Every access flag tier that only a CentCom ID console may manipulate.
+#define ACCESS_FLAG_CENTCOM_LEVEL (ACCESS_FLAG_CENTCOM | ACCESS_FLAG_SYNDICATE | ACCESS_FLAG_AWAY | ACCESS_FLAG_SPECIAL)
+
 /// Departmental/general/common area accesses. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_COMMON)
 #define COMMON_ACCESS list( \
 	ACCESS_MECH_MINING, \
@@ -303,6 +306,8 @@
 #define REGION_COMMAND "Command"
 /// Name for the Centcom region.
 #define REGION_CENTCOM "Central Command"
+/// Name for the region holding syndicate, away mission and cult accesses.
+#define REGION_OTHER "??? (Admin)"
 
 /// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSdepartment.station_regions.
 #define REGION_AREA_STATION list( \

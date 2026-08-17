@@ -194,7 +194,7 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(!is_centcom && (get_access_flag(access_type) >= ACCESS_FLAG_CENTCOM))
+			if(!is_centcom && (get_access_flag(access_type) & ACCESS_FLAG_CENTCOM_LEVEL))
 				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
 			var/access_source = "[user_id_card] via a portable ID console at [AREACOORD(usr)]"
@@ -247,22 +247,23 @@
 
 
 
-/**
- * Returns the list of region names (matching SSdepartment region strings) that this console is
- * currently permitted to grant or revoke as a whole.
- */
+/// Returns the region names this console is currently permitted to grant or revoke as a whole.
 /datum/computer_file/program/card_mod/proc/get_accessible_regions()
-	if(is_centcom)
-		return list(REGION_CENTCOM)
-	var/list/region_access = list()
+	var/list/permitted_regions = list()
 	for(var/datum/department_group/dept as anything in SSdepartment.get_department_by_bitflag(accessible_region_bitflag))
-		if(dept.access_group_name)
-			region_access |= dept.access_group_name
+		if(dept.access_region)
+			permitted_regions |= dept.access_region
+
 	var/list/accessible = list()
 	for(var/region in SSdepartment.station_regions)
-		if((minor || department_bitflag) && !(region in region_access))
+		if((minor || department_bitflag) && !(region in permitted_regions))
 			continue
 		accessible += region
+
+	if(is_centcom)
+		accessible += REGION_CENTCOM
+		accessible += REGION_OTHER
+
 	return accessible
 
 /datum/computer_file/program/card_mod/ui_static_data(mob/user)

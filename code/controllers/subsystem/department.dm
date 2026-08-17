@@ -104,13 +104,13 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
-	/// Maps a region string to the department datums that make it up. Access is pulled live from their department_access. Keys are region strings, values are lists of /datum/department_group.
+	/// assoc list of region string
 	var/list/region_to_departments = list()
-	/// Dictionary of CentCom/ERT job accesses. Keys are job names. Values are lists of accesses.
+	/// Dictionary of CentCom/ERT job accesses
 	var/list/accesses_by_centcom_job = list()
-	/// Helper list containing all station regions.
+	/// Helper list containing all station regions
 	var/list/station_regions = list()
-	/// Specially formatted list for sending access levels to tgui interfaces.
+	/// Specially formatted list for sending access levels to tgui interfaces
 	var/list/all_region_access_tgui = list()
 
 	/// department datums in access manipulation - actually manual sort
@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(department)
 
 	return SS_INIT_SUCCESS
 
-/// Builds the region -> department mapping used by get_region_access_list(). Access lists are read live from each department's department_access.
+/// Builds region department mapping
 /datum/controller/subsystem/department/proc/setup_region_lists()
 	// Region name strings, kept ordered define for UI ordering
 	station_regions = REGION_AREA_STATION
@@ -177,9 +177,8 @@ SUBSYSTEM_DEF(department)
 		if(dept.is_station)
 			station_access_departments += dept
 		if(dept.access_region)
-			region_to_departments[dept.access_region] = list(dept)
+			LAZYORASSOCLIST(region_to_departments, dept.access_region, dept)
 
-	// Aggregate regions are unions of several departments. They are all station depts, and all access-granting depts
 	region_to_departments[REGION_ALL_STATION] = station_access_departments
 	region_to_departments[REGION_ALL_GLOBAL] = all_access_departments
 
@@ -205,12 +204,7 @@ SUBSYSTEM_DEF(department)
 	accesses_by_centcom_job["Comedy Response Officer"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
 	accesses_by_centcom_job["HONK Squad Trooper"] = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
 
-/**
- * Builds and returns a list of accesses from a list of regions.
- *
- * Arguments:
- * * regions - A list of region defines.
- */
+/// Builds and returns a list of accesses from a list of region defines.
 /datum/controller/subsystem/department/proc/get_region_access_list(list/regions)
 	if(!length(regions))
 		return
@@ -223,12 +217,7 @@ SUBSYSTEM_DEF(department)
 
 	return built_region_list
 
-/**
- * Returns the CentCom access levels allotted to a given CentCom/ERT job.
- *
- * Arguments:
- * * job - The job name to get CentCom access for.
- */
+/// Returns a copy of the CentCom access levels allotted to a given CentCom/ERT job name.
 /datum/controller/subsystem/department/proc/get_centcom_access_list(job)
 	var/list/centcom_access = accesses_by_centcom_job[job]
 	return centcom_access?.Copy()
@@ -344,9 +333,9 @@ SUBSYSTEM_DEF(department)
 
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
-	/// A list of the accesses people in this department generally have. Region access reads from here live; the REGION_ACCESS_* / *_ACCESS defines only seed it.
+	/// list of access that belongs to this department
 	var/list/department_access = list()
-	/// The access region (REGION_*) this department represents. Null if not it's own region
+	/// the access region (REGION_*) this department makes up. Null if it isn't one
 	var/access_region
 	/// if TRUE, restricts CentCom only
 	var/access_filter
@@ -674,6 +663,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "??? (Admin)"
 	// department_access Combined in New() rather than inline
+	access_region = REGION_OTHER
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
