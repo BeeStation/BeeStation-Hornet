@@ -398,8 +398,7 @@
 
 /obj/machinery/microwave/proc/eject()
 	var/atom/drop_loc = drop_location()
-	// Iterate a copy: forceMove() fires Exited(), same mid-loop removal problem as loop_finish()
-	for(var/obj/item/item_ingredient as anything in ingredients.Copy())
+	for(var/obj/item/item_ingredient as anything in ingredients)
 		item_ingredient.forceMove(drop_loc)
 		item_ingredient.dropped() //Mob holders can be on the ground if we don't do this
 	open(autoclose = 1.4 SECONDS)
@@ -520,9 +519,7 @@
 	operating = FALSE
 
 	var/iron_amount = 0
-	// Iterate a copy: microwave_act() qdels the source, which fires Exited() and removes it from
-	// ingredients mid-loop. DM walks lists by index, so every second ingredient would be skipped.
-	for(var/obj/item/cooked_item in ingredients.Copy())
+	for(var/obj/item/cooked_item in ingredients)
 		var/sigreturn = cooked_item.microwave_act(src, cooker, randomize_pixel_offset = ingredients.len)
 		if(sigreturn & COMPONENT_MICROWAVE_SUCCESS)
 			if(isstack(cooked_item))

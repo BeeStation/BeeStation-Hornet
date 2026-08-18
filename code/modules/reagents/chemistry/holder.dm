@@ -258,8 +258,7 @@
 /datum/reagents/proc/remove_all(amount = 1)
 	if(total_volume > 0)
 		var/part = amount / total_volume
-		//copy: remove_reagent() runs update_total(), which can drop entries out from under us
-		for(var/datum/reagent/reagent as anything in reagent_list.Copy())
+		for(var/datum/reagent/reagent as anything in reagent_list)
 			remove_reagent(reagent.type, reagent.volume * part)
 
 		update_total()
@@ -409,8 +408,7 @@
 	if(!round_robin)
 		var/part = isnull(target_id) ? (amount / total_volume) : 1
 		var/transfer_amount
-		//copy: remove_reagent() runs update_total(), which drops drained entries out from under us
-		for(var/reagent in cached_reagents.Copy())
+		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
 			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
 				continue
@@ -439,8 +437,7 @@
 				break
 	else
 		var/to_transfer = amount
-		//copy: remove_reagent() runs update_total(), which drops drained entries out from under us
-		for(var/reagent in cached_reagents.Copy())
+		for(var/reagent in cached_reagents)
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
@@ -514,8 +511,7 @@
 	if(!total_volume)
 		return
 	var/change = (multiplier - 1) //Get the % change
-	//copy: remove_reagent() runs update_total(), which can drop entries out from under us
-	for(var/datum/reagent/T in cached_reagents.Copy())
+	for(var/datum/reagent/T in cached_reagents)
 		if(change > 0)
 			add_reagent(T.type, T.volume * change)
 		else
