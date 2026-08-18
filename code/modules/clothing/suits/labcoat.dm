@@ -57,9 +57,19 @@
 	inhand_icon_state = null
 
 /obj/item/clothing/suit/toggle/labcoat/brig_physician
-	name = "security medic's labcoat"
+	name = "brig physician's jacket"
+	desc = "A dark red jacket for brig physicians with reflective stripes."
 	icon_state = "labcoat_sec"
 	inhand_icon_state = null
+	armor_type = /datum/armor/labcoat_brig_physician
+
+/obj/item/clothing/suit/toggle/labcoat/brig_physician2
+	name = "brig physician's labcoat"
+	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulder."
+	icon_state = "labcoat_job"
+	greyscale_config = /datum/greyscale_config/labcoat
+	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
+	greyscale_colors = "#EEEEEE#DD0000#DD0000#EE0000"
 	armor_type = /datum/armor/labcoat_brig_physician
 
 /datum/armor/labcoat_brig_physician

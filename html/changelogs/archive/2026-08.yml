@@ -110,3 +110,7 @@
   - bugfix: Made some small alterations and fixes to Kilostation's prison.
   - bugfix: Fixed some stray cable on Kilostation, and plating in Boxstation's dorms.
   - bugfix: Removed an extra air alarm in xenobio on Kilostation.
+2026-08-18:
+  RasmusDJ:
+  - rscadd: Added new labcoat for the brig physician
+  - bugfix: fixed the old labcoat for the brig physician, and renamed it to "jacket"
