@@ -51,7 +51,6 @@
 	if (istype(eyes_organ))
 		if (!initial(eyes_organ.eye_color_left))
 			eyes_organ.eye_color_left = value
-		eyes_organ.old_eye_color_left = value
 
 /datum/preference/color/ipc_screen_color/create_default_value()
 	return COLOR_WHITE
