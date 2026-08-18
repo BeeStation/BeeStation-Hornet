@@ -155,8 +155,6 @@
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_organ_flag = organtype)
-		M.adjustOrganLoss(ORGAN_SLOT_TAIL, -1, required_organ_flag = organtype)
-		M.adjustOrganLoss(ORGAN_SLOT_WINGS, -1, required_organ_flag = organtype)
 		if(curing)
 			for(var/datum/disease/D in M.diseases)
 				if(istype(D, /datum/disease/appendicitis) || istype(D, /datum/disease/heart_failure))
@@ -178,7 +176,7 @@
 						O = new S.mutantstomach()
 					else
 						O = new()
-					O.Insert(M, drop_if_replaced = FALSE)
+					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 200)
 					return
 				if(!M.get_organ_by_type(/obj/item/organ/lungs) && !(TRAIT_NOBREATH in S.inherent_traits))
@@ -187,12 +185,12 @@
 						O = new S.mutantlungs()
 					else
 						O = new()
-					O.Insert(M, drop_if_replaced = FALSE)
+					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
 				if(!M.get_organ_by_type(/obj/item/organ/heart) && !HAS_TRAIT(S, TRAIT_NOBLOOD))
 					var/obj/item/organ/heart/O = new()
-					O.Insert(M, drop_if_replaced = FALSE)
+					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)
 					return
 				if(!M.get_organ_by_type(/obj/item/organ/liver) && !(TRAIT_LIVERLESS_METABOLISM in S.inherent_traits))
@@ -201,17 +199,8 @@
 						O = new S.mutantliver()
 					else
 						O = new()
-					O.Insert(M, drop_if_replaced = FALSE)
+					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
-				if(!M.get_organ_by_type(/obj/item/organ/wings))
-					if(S.mutantwings)
-						var/obj/item/organ/wings/O = new S.mutantwings()
-						O.Insert(M, drop_if_replaced = FALSE)
-						M.adjustOrganLoss(ORGAN_SLOT_WINGS, 200)
-						M.visible_message(span_notice("[M] sprouts a new pair of wings!"), span_userdanger("You sprout a new pair of wings!."))
-						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
-						M.add_splatter_floor(get_turf(M))
-						return
 	if(prob(2) && M.stat != DEAD)
 		to_chat(M, span_notice("[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]"))

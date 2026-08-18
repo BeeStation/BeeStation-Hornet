@@ -30,7 +30,8 @@
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/spreading_modifier = 1
 	var/danger = DISEASE_NONTHREAT
-	var/list/required_organs = list()
+	/// If the disease requires an organ for the effects to function, robotic organs are immune to disease unless inorganic biology symptom is present
+	var/required_organ
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
 	var/infectable_biotypes = MOB_ORGANIC //if the disease can spread on organics, synthetics, or undead
@@ -70,8 +71,13 @@
 ///Proc to process the disease and decide on whether to advance, cure or make the sympthoms appear. Returns a boolean on whether to continue acting on the symptoms or not.
 /datum/disease/proc/stage_act(delta_time, times_fired)
 	var/mob/living/L = affected_mob
-	if(IS_IN_STASIS(L))
+	if(HAS_TRAIT(L, TRAIT_STASIS))
 		return
+
+	if(required_organ)
+		if(!has_required_infectious_organ(affected_mob, required_organ))
+			cure()
+			return FALSE
 
 	if(has_cure())
 		if(DT_PROB(cure_chance, delta_time))
@@ -171,7 +177,7 @@
 		"bypasses_immunity",
 		"spreading_modifier",
 		"danger",
-		"required_organs",
+		"required_organ",
 		"needs_all_cures",
 		"strain_data",
 		"infectable_biotypes",

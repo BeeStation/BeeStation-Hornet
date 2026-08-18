@@ -530,22 +530,24 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	return .
 
 /obj/item/melee/baton/telescopic/suicide_act(mob/living/user)
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/brain/B = H.get_organ_by_type(/obj/item/organ/brain)
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/brain/our_brain = human_user.get_organ_by_type(/obj/item/organ/brain)
 
 	user.visible_message(span_suicide("[user] stuffs [src] up [user.p_their()] nose and presses the 'extend' button! It looks like [user.p_theyre()] trying to clear [user.p_their()] mind."))
-	if(!active)
-		src.attack_self(user)
-	else
-		playsound(src, on_sound, 50, 1)
+	if(active)
+		playsound(src, on_sound, 50, TRUE)
 		add_fingerprint(user)
-	sleep(3)
-	if (!QDELETED(H))
-		if(!QDELETED(B))
-			H.internal_organs -= B
-			qdel(B)
-		new /obj/effect/gibspawner/generic(H.drop_location(), H)
-		return BRUTELOSS
+	else
+		attack_self(user)
+
+	sleep(0.3 SECONDS)
+	if (QDELETED(human_user))
+		return
+	if(!QDELETED(our_brain))
+		human_user.organs -= our_brain
+		qdel(our_brain)
+	new /obj/effect/gibspawner/generic(human_user.drop_location(), human_user)
+	return BRUTELOSS
 
 /obj/item/melee/baton/telescopic/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
 	// Telescopic baton: No stamina damage, only trip on legs and disarm on arms.

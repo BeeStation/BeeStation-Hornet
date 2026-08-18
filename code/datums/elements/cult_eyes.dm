@@ -27,13 +27,14 @@
 		return
 
 	ADD_TRAIT(target, TRAIT_UNNATURAL_RED_GLOWY_EYES, CULT_TRAIT)
-	if (ishuman(target))
-		var/mob/living/carbon/human/human_parent = target
-		human_parent.eye_color_left = BLOODCULT_EYE
-		human_parent.eye_color_right = BLOODCULT_EYE
-		human_parent.dna.update_ui_block(DNA_EYE_COLOR_LEFT_BLOCK)
-		human_parent.dna.update_ui_block(DNA_EYE_COLOR_RIGHT_BLOCK)
-		human_parent.update_body()
+	if (!ishuman(target))
+		return
+	var/mob/living/carbon/human/human_parent = target
+	human_parent.eye_color_left = BLOODCULT_EYE
+	human_parent.eye_color_right = BLOODCULT_EYE
+	human_parent.dna.update_ui_block(DNA_EYE_COLOR_LEFT_BLOCK)
+	human_parent.dna.update_ui_block(DNA_EYE_COLOR_RIGHT_BLOCK)
+	human_parent.update_body()
 
 /**
  * Detach proc

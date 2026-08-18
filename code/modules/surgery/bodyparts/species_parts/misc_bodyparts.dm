@@ -8,6 +8,7 @@
 /obj/item/bodypart/chest/snail
 	limb_id = SPECIES_SNAIL
 	is_dimorphic = FALSE
+	wing_types = NONE
 	burn_modifier = 1.5
 	bodypart_traits = list(TRAIT_NO_UNDERWEAR)
 
@@ -15,25 +16,25 @@
 	limb_id = SPECIES_SNAIL
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
-	unarmed_damage = 2 //snails are soft and squishy
+	unarmed_damage = 3 //snails are soft and squishy
 	burn_modifier = 1.5
 
 /obj/item/bodypart/arm/right/snail
 	limb_id = SPECIES_SNAIL
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
-	unarmed_damage = 2 //snails are soft and squishy
+	unarmed_damage = 3
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/left/snail
 	limb_id = SPECIES_SNAIL
-	unarmed_damage = 2 //snails are soft and squishy
+	unarmed_damage = 3
 	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/right/snail
 	limb_id = SPECIES_SNAIL
-	unarmed_damage = 2 //snails are soft and squishy
+	unarmed_damage = 3
 	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
@@ -49,6 +50,7 @@
 	limb_id = SPECIES_ABDUCTOR
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/abductor
 	limb_id = SPECIES_ABDUCTOR
@@ -79,6 +81,7 @@
 	limb_id = SPECIES_SLIMEPERSON
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/slime
 	limb_id = SPECIES_SLIMEPERSON
@@ -107,6 +110,7 @@
 	limb_id = SPECIES_LUMINESCENT
 	is_dimorphic = TRUE
 	dmg_overlay_type = null
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/luminescent
 	limb_id = SPECIES_LUMINESCENT
@@ -135,6 +139,7 @@
 	limb_id = SPECIES_ZOMBIE
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/zombie
 	limb_id = SPECIES_ZOMBIE
@@ -172,6 +177,26 @@
 	should_draw_greyscale = FALSE
 	movespeed_contribution = 0 //braaaaains
 
+/obj/item/bodypart/leg/left/zombie/infectious
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.8 //braaaaains
+
+/obj/item/bodypart/leg/right/zombie/infectious
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.8 //braaaaains
+
+/obj/item/bodypart/leg/left/zombie/viral
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	movespeed_contribution = 0 //braaaaains
+
+/obj/item/bodypart/leg/right/zombie/viral
+	limb_id = SPECIES_ZOMBIE
+	should_draw_greyscale = FALSE
+	movespeed_contribution = 0 //braaaaains
+
 ///FLY
 /obj/item/bodypart/head/fly
 	limb_id = SPECIES_FLYPERSON
@@ -187,6 +212,7 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.4
 	brute_modifier = 1.4
+	wing_types = list(/obj/item/organ/wings/fly)
 
 /obj/item/bodypart/arm/left/fly
 	limb_id = SPECIES_FLYPERSON
@@ -264,6 +290,7 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = null
 	bodypart_flags = BODYPART_UNHUSKABLE
+	wing_types = list(/obj/item/organ/wings/skeleton)
 
 /obj/item/bodypart/arm/left/skeleton
 	limb_id = SPECIES_SKELETON
@@ -304,6 +331,7 @@
 	is_dimorphic = FALSE
 	dmg_overlay_type = null
 	bodypart_traits = list(TRAIT_NO_JUMPSUIT)
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/golem
 	bodytype = BODYTYPE_GOLEM | BODYTYPE_ORGANIC
@@ -698,11 +726,13 @@
 /obj/item/bodypart/leg/left/golem/uranium
 	attack_type = BURN
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 /obj/item/bodypart/leg/right/golem/uranium
 	attack_type = BURN
 	unarmed_attack_sound = 'sound/weapons/sear.ogg'
+	unarmed_damage = 8
 	brute_modifier = 0.5
 
 //Sand
@@ -819,6 +849,26 @@
 
 /obj/item/bodypart/leg/right/golem/plastitanium
 	burn_modifier = 0.8
+
+/obj/item/bodypart/arm/left/golem/bananium
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
+
+/obj/item/bodypart/arm/right/golem/bananium
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
+
+/obj/item/bodypart/leg/right/golem/bananium
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
+
+/obj/item/bodypart/leg/left/golem/bananium
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
 
 /// Pumpkin people
 

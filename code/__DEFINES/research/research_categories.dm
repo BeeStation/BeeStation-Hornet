@@ -78,8 +78,8 @@
 #define RND_CATEGORY_PROTOCOL_NANITES "Protocol Nanites"
 
 // Limb Categories
-#define RND_CATEGORY_DIGITIGRADE "digitigrade"
-#define RND_CATEGORY_OTHER "other"
+#define RND_CATEGORY_LIMBS_DIGITIGRADE "digitigrade"
+#define RND_CATEGORY_LIMBS_OTHER "other"
 
 // Computer Categories
 #define RND_CATEGORY_COMPUTER_BOARDS "Computer Boards"

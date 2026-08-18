@@ -109,10 +109,14 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
+
+/// From base of atom/setDir(): (old_dir, new_dir). Called before the direction changes
+#define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_face_atom"
+	#define COMPONENT_ATOM_BLOCK_DIR_CHANGE (1<<0)
 ///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
 ///from base of atom/setDir(): (old_dir, new_dir). Called after the direction changes.
-#define COMSIG_ATOM_POST_DIR_CHANGE "atom_dir_change"
+#define COMSIG_ATOM_POST_DIR_CHANGE "atom_post_dir_change"
 
 ///from base of atom/movable/keybind_face_direction(): (dir). Called before turning with the movement lock key.
 #define COMSIG_MOVABLE_KEYBIND_FACE_DIR "keybind_face_dir"

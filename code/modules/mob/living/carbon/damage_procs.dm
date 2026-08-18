@@ -16,7 +16,7 @@
 	// Otherwise if def zone is null, we'll get a random bodypart / zone to hit.
 	// ALso we'll automatically covnert string def zones into bodyparts to pass into parent call.
 	else if(!isbodypart(def_zone))
-		var/random_zone = check_zone(def_zone || ran_zone(def_zone))
+		var/random_zone = check_zone(def_zone || get_random_valid_zone(def_zone))
 		def_zone = get_bodypart(random_zone) || bodyparts[1]
 
 	. = ..()
@@ -41,7 +41,6 @@
 	// depending on the species, it will run the corresponding apply_damage code there
 	if(stat != DEAD && (damagetype==BRUTE || damagetype==BURN) && damage>10 && prob(10+damage/2))
 		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
-
 	// Add relevant DR modifiers into blocked value to pass to parent
 	blocked += physiology?.damage_resistance
 	blocked += dna?.species?.damage_modifier
@@ -330,9 +329,9 @@
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
 		var/stamina_was = picked.stamina_dam
+
 		var/damage_before = picked.get_damage(TRUE)
 
-		// disabling wounds from these for now cuz your entire body snapping cause your heart stopped would suck
 		update |= picked.receive_damage(brute = brute_per_part, burn = burn_per_part, stamina = stamina_per_part, blocked = FALSE, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
 
 		. -= picked.get_damage(TRUE) - damage_before

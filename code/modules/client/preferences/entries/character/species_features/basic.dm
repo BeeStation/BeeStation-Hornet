@@ -65,10 +65,10 @@
 	informed = TRUE
 
 /datum/preference/choiced/facial_hairstyle/init_possible_values()
-	return assoc_to_keys_features(GLOB.facial_hairstyles_list)
+	return assoc_to_keys_features(SSaccessories.facial_hairstyles_list)
 
 /datum/preference/choiced/facial_hairstyle/icon_for(value)
-	return generate_icon_with_head_accessory(GLOB.facial_hairstyles_list[value])
+	return generate_icon_with_head_accessory(SSaccessories.facial_hairstyles_list[value])
 
 /datum/preference/choiced/facial_hairstyle/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hairstyle(value, update = FALSE)
@@ -83,7 +83,7 @@
 	if(!gender || !species_real || !species_real.sexes)
 		return ..()
 
-	var/datum/sprite_accessory/picked_beard = pick_default_accessory(GLOB.facial_hairstyles_list, null, 0, gender)
+	var/datum/sprite_accessory/picked_beard = pick_default_accessory(SSaccessories.facial_hairstyles_list, null, 0, gender)
 	if(!picked_beard)
 		return ..()
 	if(picked_beard?.locked) // Invalid, go with god(bald)
@@ -99,7 +99,7 @@
 	return data
 
 /datum/preference/color/facial_hair_color
-	priority = PREFERENCE_PRIORITY_LATE_BODY_TYPE // Need to happen after hair color is set so we can match by default
+	priority = PREFERENCE_PRIORITY_FACIAL_COLOR // Need to happen after hair color is set so we can match by default
 	db_key = "facial_hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
@@ -123,13 +123,13 @@
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/facial_hair_gradient/init_possible_values()
-	return assoc_to_keys_features(GLOB.facial_hair_gradients_list)
+	return assoc_to_keys_features(SSaccessories.facial_hair_gradients_list)
 
 /datum/preference/choiced/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_style(new_style = value, update = FALSE)
 
 /datum/preference/choiced/facial_hair_gradient/icon_for(value)
-	var/datum/sprite_accessory/gradient_accessory = GLOB.facial_hair_gradients_list[value]
+	var/datum/sprite_accessory/gradient_accessory = SSaccessories.facial_hair_gradients_list[value]
 	if (!gradient_accessory || gradient_accessory.icon_state == "none")
 		return uni_icon('icons/mob/landmarks.dmi', "x")
 
@@ -138,7 +138,7 @@
 	final_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
 
 	// Use a standard facial hair style for the preview
-	var/datum/sprite_accessory/facial_hair_accessory = GLOB.facial_hairstyles_list["Beard (Full)"] || GLOB.facial_hairstyles_list["Beard (Cropped Fullbeard)"]
+	var/datum/sprite_accessory/facial_hair_accessory = SSaccessories.facial_hairstyles_list["Beard (Full)"] || SSaccessories.facial_hairstyles_list["Beard (Cropped Fullbeard)"]
 	if (facial_hair_accessory)
 		var/datum/universal_icon/base_facial_hair_icon = uni_icon(facial_hair_accessory.icon, facial_hair_accessory.icon_state)
 		base_facial_hair_icon.blend_color("#080501", ICON_MULTIPLY)
@@ -173,6 +173,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "facial_hair_gradient_color"
 	relevant_head_flag = HEAD_FACIAL_HAIR
+	
 /datum/preference/color/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_color(new_color = value, update = FALSE)
 
@@ -190,7 +191,10 @@
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_HAIR
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_BODY_TYPE
+	priority = PREFERENCE_PRIORITY_HAIR_COLOR
+
+/datum/preference/color/hair_color/has_relevant_feature(datum/preferences/preferences)
+	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
 
 /datum/preference/color/hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
@@ -209,13 +213,15 @@
 	should_generate_icons = TRUE
 	relevant_head_flag = HEAD_HAIR
 	preference_spritesheet = PREFERENCE_SHEET_HUGE
-	informed = TRUE
+
+/datum/preference/choiced/hairstyle/has_relevant_feature(datum/preferences/preferences)
+	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
 
 /datum/preference/choiced/hairstyle/init_possible_values()
-	return assoc_to_keys_features(GLOB.hairstyles_list)
+	return assoc_to_keys_features(SSaccessories.hairstyles_list)
 
 /datum/preference/choiced/hairstyle/icon_for(value)
-	var/datum/sprite_accessory/hair/hairstyle = GLOB.hairstyles_list[value]
+	var/datum/sprite_accessory/hair/hairstyle = SSaccessories.hairstyles_list[value]
 	return generate_icon_with_head_accessory(hairstyle, hairstyle?.y_offset)
 
 /datum/preference/choiced/hairstyle/apply_to_human(mob/living/carbon/human/target, value)
@@ -231,7 +237,7 @@
 	if(!gender || !species_real || !species_real.sexes)
 		return ..()
 
-	var/datum/sprite_accessory/picked_hair = pick_default_accessory(GLOB.hairstyles_list, null, 0, gender)
+	var/datum/sprite_accessory/picked_hair = pick_default_accessory(SSaccessories.hairstyles_list, null, 0, gender)
 	if(!picked_hair)
 		return ..()
 	if(picked_hair?.locked) // Invalid, go with god(bald)
@@ -257,13 +263,13 @@
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/hair_gradient/init_possible_values()
-	return assoc_to_keys_features(GLOB.hair_gradients_list)
+	return assoc_to_keys_features(SSaccessories.hair_gradients_list)
 
 /datum/preference/choiced/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient_style(new_style = value, update = FALSE)
 
 /datum/preference/choiced/hair_gradient/icon_for(value)
-	var/datum/sprite_accessory/gradient_accessory = GLOB.hair_gradients_list[value]
+	var/datum/sprite_accessory/gradient_accessory = SSaccessories.hair_gradients_list[value]
 	if (!gradient_accessory || gradient_accessory.icon_state == "none")
 		return uni_icon('icons/mob/landmarks.dmi', "x")
 
@@ -272,7 +278,7 @@
 	final_icon.blend_color(skintone2hex("caucasian1"), ICON_MULTIPLY)
 
 	// Use a standard hair style for the preview
-	var/datum/sprite_accessory/hair_accessory = GLOB.hairstyles_list["Very Long Hair 2"] || GLOB.hairstyles_list["Short Hair"]
+	var/datum/sprite_accessory/hair_accessory = SSaccessories.hairstyles_list["Very Long Hair 2"] || SSaccessories.hairstyles_list["Short Hair"]
 	if (hair_accessory)
 		var/datum/universal_icon/base_hair_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state)
 		base_hair_icon.blend_color("#080501", ICON_MULTIPLY)
@@ -302,7 +308,7 @@
 	return data
 
 /datum/preference/color/hair_gradient
-	priority = PREFERENCE_PRIORITY_BODY_TYPE
+	priority = PREFERENCE_PRIORITY_GRADIENT_COLOR
 	db_key = "gradient_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES

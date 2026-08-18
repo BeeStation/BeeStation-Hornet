@@ -8,12 +8,6 @@
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
 
-/obj/item/clothing/head/equipped(mob/user, slot)
-	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
-		var/mob/living/carbon/human/H = user
-		H.update_worn_head()
-
 /obj/item/clothing/head/dropped(mob/user)
 	..()
 	if(ishuman(user))

@@ -31,7 +31,7 @@
 		balloon_alert(user, "The limb is missing.")
 		return
 	if(!IS_ORGANIC_LIMB(affecting))
-		balloon_alert(user, "[src] doesn't work on robotic limbs.")
+		balloon_alert(user, "[src] won't work on an inorganic limb!")
 		return
 	perform_application(L, user, affecting)
 

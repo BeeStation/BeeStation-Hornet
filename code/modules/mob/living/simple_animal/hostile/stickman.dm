@@ -46,7 +46,7 @@
 	icon_state = "stickdog"
 	icon_living = "stickdog"
 	icon_dead = "stickdog_dead"
-	mob_biotypes = MOB_HUMANOID
+	mob_biotypes = MOB_BEAST
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/stickman)
 

@@ -90,7 +90,7 @@
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in O.organs)
 			var/obj/item/organ/I = X
 			I.Remove(O, 1)
 
@@ -102,7 +102,7 @@
 				changeling.purchased_powers[hf.type] = hf
 				changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in organs)
 			var/obj/item/organ/I = X
 			int_organs += I
 			I.Remove(src, 1)
@@ -120,7 +120,7 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in O.organs)
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -242,7 +242,7 @@
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in O.organs)
 			var/obj/item/organ/I = X
 			I.Remove(O, 1)
 
@@ -254,7 +254,7 @@
 				changeling.purchased_powers[hf.type] = hf
 				changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in organs)
 			var/obj/item/organ/I = X
 			int_organs += I
 			I.Remove(src, 1)
@@ -272,7 +272,7 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in O.organs)
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))
@@ -388,7 +388,7 @@
 			IMP.transfer_implant(src, O)
 
 	if(tr_flags & TR_KEEPORGANS)
-		for(var/X in O.internal_organs)
+		for(var/X in O.organs)
 			var/obj/item/organ/I = X
 			I.Remove(O, 1)
 
@@ -400,7 +400,7 @@
 					changeling.purchased_powers -= HF.type
 					changeling.regain_powers()
 
-		for(var/X in internal_organs)
+		for(var/X in organs)
 			var/obj/item/organ/I = X
 			int_organs += I
 			I.Remove(src, 1)
@@ -419,7 +419,7 @@
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
 		BP.drop_limb(1)
 		if(!(tr_flags & TR_KEEPORGANS)) //we didn't already get rid of the organs of the newly spawned mob
-			for(var/X in O.internal_organs)
+			for(var/X in O.organs)
 				var/obj/item/organ/G = X
 				if(BP.body_zone == check_zone(G.zone))
 					if(mind && mind.has_antag_datum(/datum/antagonist/changeling) && istype(G, /obj/item/organ/brain))

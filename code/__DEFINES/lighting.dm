@@ -116,6 +116,8 @@ do { \
 	}; \
 } while (FALSE)
 
+/// Luminosity source for IPC screens, snowflake I know
+#define LUM_SOURCE_IPC_SCREEN (1 << 5)
 /// Innate lum source that cannot be removed
 #define LUM_SOURCE_INNATE (1 << 4)
 /// Luminosity source for glasses

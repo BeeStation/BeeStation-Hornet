@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	required_organ = ORGAN_SLOT_EYES
 	prefixes = list("Eye ")
 	bodies = list("Blind")
 	suffixes = list(" Blindness")

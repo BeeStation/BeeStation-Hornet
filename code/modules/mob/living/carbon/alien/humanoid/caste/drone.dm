@@ -11,9 +11,9 @@
 	return ..()
 
 /mob/living/carbon/alien/humanoid/drone/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel/large
-	internal_organs += new /obj/item/organ/alien/resinspinner
-	internal_organs += new /obj/item/organ/alien/acid
+	organs += new /obj/item/organ/alien/plasmavessel/large
+	organs += new /obj/item/organ/alien/resinspinner
+	organs += new /obj/item/organ/alien/acid
 	return ..()
 
 /datum/action/alien/evolve_to_praetorian

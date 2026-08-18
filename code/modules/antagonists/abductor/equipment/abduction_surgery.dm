@@ -26,13 +26,15 @@
 
 /datum/surgery_step/extract_organ
 	name = "remove heart"
-	accept_hand = 1
 	time = 32
+	implements = list(
+		TOOL_HEMOSTAT = 100,
+	)
 	var/obj/item/organ/IC = null
 	var/list/organ_types = list(/obj/item/organ/heart)
 
 /datum/surgery_step/extract_organ/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	for(var/atom/A in target.internal_organs)
+	for(var/atom/A in target.organs)
 		if(A.type in organ_types)
 			IC = A
 			break
@@ -60,5 +62,5 @@
 	user.visible_message("[user] inserts [tool] into [target].", span_notice("You insert [tool] into [target]."))
 	user.temporarilyRemoveItemFromInventory(tool, TRUE)
 	var/obj/item/organ/heart/gland/gland = tool
-	gland.Insert(target, 2)
-	return 1
+	gland.Insert(target, special = TRUE, movement_flags = FROM_ABDUCTOR_SURGERY)
+	return TRUE

@@ -723,11 +723,11 @@
 		repair_rate = max(0, STANDARD_ORGAN_HEALING * (B.rating - 1) * 0.5)
 
 /obj/machinery/smartfridge/organ/process(delta_time)
-	for(var/organ in contents)
-		var/obj/item/organ/O = organ
-		if(!istype(O))
-			return
-		O.apply_organ_damage(-repair_rate * delta_time)
+	for(var/obj/item/organ/target_organ in contents)
+		if(!target_organ.damage)
+			continue
+
+		target_organ.apply_organ_damage(-repair_rate * target_organ.maxHealth * delta_time, required_organ_flag = ORGAN_ORGANIC)
 
 /obj/machinery/smartfridge/organ/Exited(atom/movable/gone, direction)
 	. = ..()

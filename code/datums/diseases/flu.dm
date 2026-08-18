@@ -10,7 +10,7 @@
 	spreading_modifier = 0.75
 	desc = "If left untreated the subject will feel quite unwell."
 	danger = DISEASE_MINOR
-
+	required_organ = ORGAN_SLOT_LUNGS
 
 /datum/disease/flu/stage_act(delta_time, times_fired)
 	. = ..()

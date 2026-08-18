@@ -47,7 +47,7 @@
 
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 
-/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.set_safe_hunger_level()
 
@@ -110,12 +110,7 @@
 	. = ..()
 	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
-/datum/species/plasmaman/qualifies_for_rank(datum/job/rank, list/features)
-	if(rank in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
-		return 0
-	if(is_clown_job(rank) || is_mime_job(rank))//No funny bussiness
-		return 0
-	return ..()
+
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)

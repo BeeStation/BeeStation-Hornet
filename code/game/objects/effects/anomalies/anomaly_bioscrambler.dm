@@ -17,10 +17,6 @@
 
 	var/range = 5
 
-/obj/effect/anomaly/bioscrambler/Initialize(mapload, new_lifespan, spawned_fake_harvested)
-	. = ..()
-	COOLDOWN_START(src, pulse_cooldown, pulse_interval) // give them time to react
-
 /obj/effect/anomaly/bioscrambler/anomaly_process(delta_time)
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
@@ -37,10 +33,7 @@
 
 	var/list/mob/living/carbon/affected = list()
 	for(var/mob/living/carbon/target in nearby_things)
-		// probability should linearly scale from no protection at 30 to guaranteed at 90 bio armor
-		var/protection_chance = (target.getarmor(type = BIO) - 30) * (100 / (90 - 30))
-		if(prob(protection_chance))
-			to_chat(target, span_notice("Your armor protects you from [owner]!"))
+		if(target.run_armor_check(attack_flag = BIO, absorb_text = "Your armor protects you from [owner]!") >= 100)
 			continue //We are protected
 
 		// Add target

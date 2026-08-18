@@ -137,10 +137,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
 
 
-/// The key used for sprite accessories that should never actually be applied to the player.
-#define SPRITE_ACCESSORY_NONE "None"
-
-
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1
 #define RANDOM_DISABLED 2
@@ -234,8 +230,18 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// Used for preferences that rely on body setup being finalized.
 #define PREFERENCE_PRIORITY_LATE_BODY_TYPE 6
 
+/// The priority at which hair color is applied, needed so IPCs get the right antenna color.
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_HAIR_COLOR 7
+
+/// Dependant on hair colour to create an informed value
+#define PREFERENCE_PRIORITY_FACIAL_COLOR 8
+
+/// Dependant on hair colour and gender to create an informed value
+#define PREFERENCE_PRIORITY_GRADIENT_COLOR 9
+
 /// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 7
+#define PREFERENCE_PRIORITY_NAMES 10
 
 /// The maximum preference priority, keep this updated, but don't use it for `priority`.
 #define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
@@ -246,3 +252,6 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// For main feature preferences, this key refers to a feature considered supplemental.
 /// For instance, hair color being supplemental to hair.
 #define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"
+
+/// The key used for sprite accessories that should never actually be applied to the player.
+#define SPRITE_ACCESSORY_NONE "None"

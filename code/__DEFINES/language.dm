@@ -60,7 +60,6 @@
 #define LANGUAGE_HOLOPARA "holoparasite"
 #define LANGUAGE_BABEL "babel"
 #define LANGUAGE_VAMPIRE "vampire"
-#define LANGUAGE_CHANGELING "changeling"
 
 // Language flags. Used in granting and removing languages.
 /// This language can be spoken.

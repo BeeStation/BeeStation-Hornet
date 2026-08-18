@@ -4,7 +4,6 @@
 	icon_state = "heart-on"
 	base_icon_state = "heart"
 
-	visual = FALSE
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_HEART
 	item_flags = NO_BLOOD_ON_ITEM
@@ -33,10 +32,10 @@
 	. = ..()
 	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
 
-/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/Remove(mob/living/carbon/heartless, special, movement_flags)
+	. = ..()
 	if(!special)
-		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
 
 /obj/item/organ/heart/proc/stop_if_unowned()
 	if(QDELETED(src))
@@ -47,7 +46,8 @@
 /obj/item/organ/heart/attack_self(mob/user)
 	..()
 	if(!beating)
-		user.visible_message(span_notice("[user] squeezes [src] to make it beat again!"), span_notice("You squeeze [src] to make it beat again!"))
+		user.visible_message("<span class='notice'>[user] squeezes [src] to \
+			make it beat again!</span>",span_notice("You squeeze [src] to make it beat again!"))
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
@@ -61,7 +61,7 @@
 	update_appearance()
 	return TRUE
 
-/obj/item/organ/heart/on_eat_from(eater, feeder)
+/obj/item/organ/heart/OnEatFrom(eater, feeder)
 	. = ..()
 	beating = FALSE
 	update_appearance()
@@ -76,28 +76,28 @@
 		failed = FALSE
 		var/sound/slowbeat = sound('sound/health/slowbeat.ogg', repeat = TRUE)
 		var/sound/fastbeat = sound('sound/health/fastbeat.ogg', repeat = TRUE)
-		var/mob/living/carbon/H = owner
 
-		if(H.health <= H.crit_threshold && beat != BEAT_SLOW)
+		if(owner.health <= owner.crit_threshold && beat != BEAT_SLOW)
 			beat = BEAT_SLOW
-			H.playsound_local(get_turf(H), slowbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
+			owner.playsound_local(get_turf(owner), slowbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
 			to_chat(owner, span_notice("You feel your heart slow down."))
-		if(beat == BEAT_SLOW && H.health > H.crit_threshold)
-			H.stop_sound_channel(CHANNEL_HEARTBEAT)
+		if(beat == BEAT_SLOW && owner.health > owner.crit_threshold)
+			owner.stop_sound_channel(CHANNEL_HEARTBEAT)
 			beat = BEAT_NONE
 
-		if(H.has_status_effect(/datum/status_effect/jitter))
-			if(H.health > HEALTH_THRESHOLD_FULLCRIT && (!beat || beat == BEAT_SLOW))
-				H.playsound_local(get_turf(H),fastbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
+		if(owner.has_status_effect(/datum/status_effect/jitter))
+			if(owner.health > HEALTH_THRESHOLD_FULLCRIT && (!beat || beat == BEAT_SLOW))
+				owner.playsound_local(get_turf(owner),fastbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
 				beat = BEAT_FAST
 
 		else if(beat == BEAT_FAST)
-			H.stop_sound_channel(CHANNEL_HEARTBEAT)
+			owner.stop_sound_channel(CHANNEL_HEARTBEAT)
 			beat = BEAT_NONE
 
-	if(organ_flags & ORGAN_FAILING)	//heart broke, stopped beating, death imminent
+	if(organ_flags & ORGAN_FAILING && owner.can_heartattack() && !(HAS_TRAIT(src, TRAIT_STABLEHEART))) //heart broke, stopped beating, death imminent
 		if(owner.stat == CONSCIOUS)
-			owner.visible_message(span_userdanger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"))
+			owner.visible_message(span_danger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"), \
+				span_userdanger("You feel a terrible pain in your chest, as if your heart has stopped!"))
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
@@ -120,23 +120,21 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
-/obj/item/organ/heart/cursed/attack_self(mob/user)
-	. = ..()
-	playsound(user,'sound/effects/singlebeat.ogg',40,1)
-	user.temporarilyRemoveItemFromInventory(src, TRUE)
-	Insert(user)
+/obj/item/organ/heart/cursed/attack(mob/living/carbon/human/accursed, mob/living/carbon/human/user, obj/target)
+	if(accursed == user && istype(accursed))
+		playsound(user,'sound/effects/singlebeat.ogg',40,TRUE)
+		user.temporarilyRemoveItemFromInventory(src, TRUE)
+		Insert(user)
+	else
+		return ..()
 
-/obj/item/organ/heart/cursed/on_insert(mob/living/carbon/accursed)
+/obj/item/organ/heart/cursed/on_mob_insert(mob/living/carbon/accursed, special = FALSE, movement_flags)
 	. = ..()
 	accursed.AddComponent(/datum/component/manual_heart, pump_delay = pump_delay, blood_loss = blood_loss, heal_brute = heal_brute, heal_burn = heal_burn, heal_oxy = heal_oxy)
 
-/obj/item/organ/heart/cursed/Remove(mob/living/carbon/accursed, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/cursed/on_mob_remove(mob/living/carbon/accursed, special = FALSE, movement_flags)
 	. = ..()
 	qdel(accursed.GetComponent(/datum/component/manual_heart))
-
-/datum/client_colour/cursed_heart_blood
-	priority = 100 //it's an indicator you're dying, so it's very high priority
-	colour = "red"
 
 /obj/item/organ/heart/cybernetic
 	name = "cybernetic heart"
@@ -144,6 +142,7 @@
 	icon_state = "heart-c-on"
 	base_icon_state = "heart-c"
 	organ_flags = ORGAN_ROBOTIC
+
 	var/dose_available = TRUE
 	var/rid = /datum/reagent/medicine/epinephrine
 	var/ramount = 10
@@ -179,7 +178,7 @@
 	name = "upgraded cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
 	icon_state = "heart-c-u-on"
-	base_icon_state = "heart-c-u"
+	base_icon_state = "heart-c-u2"
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
@@ -188,7 +187,7 @@
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
-	organ_flags = ORGAN_ROBOTIC  //the power of freedom prevents heart attacks
+	organ_flags = ORGAN_ROBOTIC //the power of freedom prevents heart attacks
 	/// The cooldown until the next time this heart can give the host an adrenaline boost.
 	COOLDOWN_DECLARE(adrenaline_cooldown)
 

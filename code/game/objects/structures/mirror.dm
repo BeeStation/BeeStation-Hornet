@@ -38,16 +38,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 		switch(choice)
 			if("Hair")
 				//handle normal hair
-				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hairstyles_list, H.hair_style)
+				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", SSaccessories.hairstyles_list, H.hairstyle)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return	//no tele-grooming
+				if(HAS_TRAIT(H, TRAIT_SHAVED))
+					to_chat(H, span_notice("If only growing back facial hair were that easy for you..."))
+					return TRUE
 				if(new_style)
 					H.set_hairstyle(new_style, update = TRUE)
 			if("Facial")
 				//handle facial hair
-				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hairstyles_list, H.facial_hairstyle)
+				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", SSaccessories.facial_hairstyles_list, H.facial_hairstyle)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return	//no tele-grooming
+				if(HAS_TRAIT(H, TRAIT_BALD))
+					to_chat(H, span_notice("If only growing back hair were that easy for you..."))
+					return TRUE
 				if(new_style)
 					H.set_facial_hairstyle(new_style, update = TRUE)
 
@@ -178,16 +184,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
-				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", H.dna.features["mcolor"])
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", H.dna.features[FEATURE_MUTANT_COLOR])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
 					var/list/mutant_hsv = rgb2hsv(new_mutantcolor)
 
 					if(mutant_hsv[3] >= 50) // mutantcolors must be bright
-						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
+						H.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(new_mutantcolor)
 						H.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
-
 					else
 						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))
 
@@ -195,22 +200,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			H.update_mutations_overlay() // no hulk lizard
 
 		if("gender")
-			if(!(H.gender in list("male", "female"))) //blame the patriarchy
+			if(!(H.gender in list(MALE, FEMALE))) //blame the patriarchy
 				return
-			if(H.gender == "male")
-				if(alert(H, "Become a Witch?", "Confirmation", "Yes", "No") == "Yes")
+			if(H.gender == MALE)
+				if(tgui_alert(H, "Become a Witch?", "Confirmation", list("Yes", "No")) == "Yes")
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
-					H.gender = "female"
+					H.gender = FEMALE
 					to_chat(H, span_notice("Man, you feel like a woman!"))
 				else
 					return
 
 			else
-				if(alert(H, "Become a Warlock?", "Confirmation", "Yes", "No") == "Yes")
+				if(tgui_alert(H, "Become a Warlock?", "Confirmation", list("Yes", "No")) == "Yes")
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
-					H.gender = "male"
+					H.gender = MALE
 					to_chat(H, span_notice("Whoa man, you feel like a man!"))
 				else
 					return
@@ -223,22 +228,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(hairchoice == "Style") //So you just want to use a mirror then?
-				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", GLOB.hairstyles_list, H.hair_style)
+				var/new_style = tgui_input_list(user, "Select a hair style", "Hair Style", SSaccessories.hairstyles_list, H.hairstyle)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_style)
-					H.hair_style = new_style
+					H.hairstyle = new_style
 			else
-				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color", H.hair_color)
+				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color",H.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_hair_color)
-					H.hair_color = sanitize_hexcolor(new_hair_color)
+					H.set_haircolor(sanitize_hexcolor(new_hair_color), update = FALSE)
 					H.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
-				if(H.gender == "male")
-					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color", H.facial_hair_color)
+				if(H.gender == MALE)
+					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color",H.facial_hair_color)
 					if(new_face_color)
-						H.facial_hair_color = sanitize_hexcolor(new_face_color)
+						H.set_facial_haircolor(sanitize_hexcolor(new_face_color), update = FALSE)
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
 			H.update_body_parts()
 

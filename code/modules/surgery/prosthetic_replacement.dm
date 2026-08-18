@@ -56,7 +56,7 @@
 			if(ishuman(target))
 				var/mob/living/carbon/human/human_target = target
 				var/obj/item/bodypart/chest/target_chest = human_target.get_bodypart(BODY_ZONE_CHEST)
-				if(!(bodypart_to_attach.bodytype & target_chest.acceptable_bodytype))
+				if((!(bodypart_to_attach.bodyshape & target_chest.acceptable_bodyshape)) && (!(bodypart_to_attach.bodytype & target_chest.acceptable_bodytype)))
 					to_chat(user, span_warning("[bodypart_to_attach] doesn't match the patient's morphology."))
 					return SURGERY_STEP_FAIL
 				if(bodypart_to_attach.check_for_frankenstein(target))
@@ -124,27 +124,18 @@
 			span_notice("[user] finishes attaching [tool]!"),
 			span_notice("[user] finishes the attachment procedure!"),
 		)
+		var/obj/item/new_arm
 		if(istype(tool, /obj/item/chainsaw/energy/doom))
-			qdel(tool)
-			var/obj/item/mounted_chainsaw/super/new_arm = new(target)
-			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
-			target.cauterise_wounds()
-			return
+			new_arm = new /obj/item/mounted_chainsaw/super(target)
 		else if(istype(tool, /obj/item/chainsaw/energy))
-			qdel(tool)
-			var/obj/item/mounted_chainsaw/energy/new_arm = new(target)
-			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
-			target.cauterise_wounds()
-			return
+			new_arm = new /obj/item/mounted_chainsaw/energy(target)
 		else if(istype(tool, /obj/item/chainsaw))
-			qdel(tool)
-			var/obj/item/mounted_chainsaw/normal/new_arm = new(target)
-			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
-			target.cauterise_wounds()
-			return
+			new_arm = new /obj/item/mounted_chainsaw/normal(target)
 		else if(istype(tool, /obj/item/melee/synthetic_arm_blade))
+			new_arm = new /obj/item/melee/arm_blade(target, TRUE, TRUE)
+
+		if(new_arm)
 			qdel(tool)
-			var/obj/item/melee/arm_blade/new_arm = new(target,TRUE,TRUE)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			target.cauterise_wounds()
 			return

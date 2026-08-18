@@ -5,11 +5,12 @@
 		TRAIT_GENELESS,
 		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_TOXIMMUNE,
-		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOFIRE,
+		TRAIT_NOFLASH,
 		TRAIT_NOHUNGER,
+		TRAIT_NOREAGENTS,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_RADIMMUNE,
@@ -18,17 +19,10 @@
 		TRAIT_RESISTHEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
-		TRAIT_RADIMMUNE,
-		TRAIT_NOFIRE,
-		TRAIT_PIERCEIMMUNE,
-		TRAIT_NOHUNGER,
 		TRAIT_LIMBATTACHMENT,
-		TRAIT_NOCLONELOSS,
 		TRAIT_NOBLOOD,
-		TRAIT_NOREAGENTS,
-		TRAIT_NOFLASH,
 	)
-	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
+	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	meat = null
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantstomach = null
@@ -50,7 +44,7 @@
 	)
 	examine_limb_id = SPECIES_HUMAN
 
-/datum/species/android/on_species_gain(mob/living/carbon/C)
+/datum/species/android/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	C.set_safe_hunger_level()

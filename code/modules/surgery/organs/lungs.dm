@@ -3,11 +3,9 @@
 #define BREATH_PLASMA	/datum/breathing_class/plasma
 
 /obj/item/organ/lungs
-	var/failed = FALSE
-	var/operated = FALSE	//whether we can still have our damages fixed through surgery
 	name = "lungs"
 	icon_state = "lungs"
-	visual = FALSE
+
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LUNGS
 	gender = PLURAL
@@ -22,6 +20,8 @@
 	low_threshold_cleared = span_info("You can breathe normally again.")
 	high_threshold_cleared = span_info("The constriction around your chest loosens as your breathing calms down.")
 
+	var/failed = FALSE
+	var/operated = FALSE //whether we can still have our damages fixed through surgery
 
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/medicine/salbutamol = 5)
 

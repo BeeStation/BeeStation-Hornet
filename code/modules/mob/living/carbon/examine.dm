@@ -428,7 +428,7 @@
 	. = list()
 
 	var/list/cybers = list()
-	for(var/obj/item/organ/cyberimp/cyberimp in internal_organs)
+	for(var/obj/item/organ/cyberimp/cyberimp in organs)
 		if(IS_ROBOTIC_ORGAN(cyberimp) && !(cyberimp.organ_flags & ORGAN_HIDDEN))
 			cybers += cyberimp.examine_title(user)
 	if(length(cybers))

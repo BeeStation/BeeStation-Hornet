@@ -4,16 +4,15 @@
 //Slime people are able to split like slimes, retaining a single mind that can swap between bodies at will, even after death.
 
 /datum/species/oozeling/slime
-	name = "Slimeperson"
+	name = "\improper Slimeperson"
 	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_TOXINLOVER,
-		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
-		TRAIT_NOBLOOD,
-		TRAIT_MUTANT_COLORS,
+		TRAIT_NOHAIRLOSS,
 	)
 	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
@@ -44,18 +43,18 @@
 	C.blood_volume = min(C.blood_volume, BLOOD_VOLUME_NORMAL)
 	..()
 
-/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/new_slimeperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
-	if(ishuman(C))
+	if(ishuman(new_slimeperson))
 		slime_split = new
-		slime_split.Grant(C)
+		slime_split.Grant(new_slimeperson)
 		swap_body = new
-		swap_body.Grant(C)
+		swap_body.Grant(new_slimeperson)
 
 		if(!bodies || !bodies.len)
-			bodies = list(C)
+			bodies = list(new_slimeperson)
 		else
-			bodies |= C
+			bodies |= new_slimeperson
 
 /datum/species/oozeling/slime/spec_death(gibbed, mob/living/carbon/human/H)
 	if(slime_split)
@@ -137,7 +136,7 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
+	spare.dna.features[FEATURE_MUTANT_COLOR] = "#[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]"
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)
@@ -208,8 +207,7 @@
 			continue
 
 		var/list/L = list()
-		// HTML colors need a # prefix
-		L["htmlcolor"] = body.dna.features["mcolor"]
+		L["htmlcolor"] = body.dna.features[FEATURE_MUTANT_COLOR]
 		L["area"] = get_area_name(body, TRUE)
 		var/stat = "error"
 		switch(body.stat)
@@ -340,7 +338,7 @@
 	QDEL_NULL(extract_minor)
 	return ..()
 
-/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species)
+/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	glow = new_jellyperson.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	update_glow(new_jellyperson)
@@ -371,7 +369,7 @@
 /datum/species/oozeling/luminescent/proc/update_glow(mob/living/carbon/human/glowie, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features["mcolor"])
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, glowie.dna.features[FEATURE_MUTANT_COLOR])
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
@@ -507,7 +505,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	/// Special "project thought" telepathy action for stargazers.
 	var/datum/action/innate/project_thought/project_action
 
-/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	project_action = new(src)
 	project_action.Grant(grant_to)

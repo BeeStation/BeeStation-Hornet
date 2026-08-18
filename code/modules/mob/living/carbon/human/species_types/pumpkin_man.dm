@@ -2,11 +2,12 @@
 	name = "\improper Pumpkinperson"
 	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
-	sexes = 0
+	sexes = FALSE
 	meat = /obj/item/food/pieslice/pumpkin
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
 		TRAIT_BEEFRIEND,
+		TRAIT_MUTANT_COLORS,
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
 	heatmod = 1.5
@@ -34,7 +35,8 @@
 		return TRUE
 	return ..()
 
-/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/*
+/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving
@@ -43,6 +45,7 @@
 /datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
+*/
 
 /datum/species/pumpkin_man/spec_life(mob/living/carbon/human/H)
 	. = ..()
@@ -61,7 +64,7 @@
 			H.adjustOxyLoss(-1)
 
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		H.take_overall_damage(2,0)
+		H.take_overall_damage(brute = 2, required_bodytype = BODYTYPE_ORGANIC)
 
 /datum/species/pumpkin_man/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
@@ -108,6 +111,7 @@
 
 	return to_add
 
+/*
 //Handler for face carving!
 /datum/species/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
 	//Check if the item is sharp - give owner a random face if applicable
@@ -128,11 +132,12 @@
 			M.update_body_parts_head_only()
 			to_chat(_user, span_notice("You carve a face into [_source]."))
 			//Adjust the tongue
-			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
+			var/obj/item/organ/tongue/diona/pumpkin/P = M.organs_slot[ORGAN_SLOT_TONGUE]
 			if(istype(P))
 				P?.carved = TRUE
 		else
 			to_chat(_user, span_warning("You fail to carve a face into [_source]!"))
+*/
 
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"

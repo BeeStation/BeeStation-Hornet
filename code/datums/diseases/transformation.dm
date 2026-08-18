@@ -119,7 +119,7 @@
 	stage4	= list(span_danger("Your skin feels very loose."), span_danger("You can feel... something...inside you."))
 	stage5	= list(span_danger("Your skin feels as if it's about to burst off!"))
 	new_form = /mob/living/silicon/robot
-	infectable_biotypes = MOB_ORGANIC | MOB_UNDEAD |  MOB_ROBOTIC
+	infectable_biotypes = MOB_ORGANIC|MOB_UNDEAD|MOB_ROBOTIC
 	bantype = JOB_NAME_CYBORG
 
 

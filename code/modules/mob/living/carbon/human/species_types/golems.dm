@@ -10,14 +10,13 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOFIRE,
 		TRAIT_RADIMMUNE,
-		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_JUMPSUIT,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_DNA_COPY,
 		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_UNDERWEAR,
 	)
 	mutantheart = null
 	mutantlungs = null
@@ -77,7 +76,7 @@
 	special_names = null
 	examine_limb_id = SPECIES_GOLEM
 
-/datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE)
 
@@ -131,7 +130,7 @@
 		H.adjust_fire_stacks(0.5 * delta_time)
 	..()
 
-/datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		ignite = new
@@ -202,7 +201,7 @@
 	special_names = list("Surfer", "Chariot", "Lining")
 	examine_limb_id = SPECIES_GOLEM
 
-/datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 
@@ -255,6 +254,15 @@
 	info_text = "As a " + span_danger("Plasteel Golem") + ", you are slower, but harder to stun, and hit very hard when punching. You also magnetically attach to surfaces and so don't float without gravity and cannot have positions swapped with other beings."
 	prefix = "Plasteel"
 	special_names = null
+	examine_limb_id = SPECIES_GOLEM
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/plasteel,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/plasteel,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/plasteel,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/plasteel,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
+	)
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/plasteel,
@@ -268,7 +276,7 @@
 /datum/species/golem/plasteel/negates_gravity(mob/living/carbon/human/H)
 	return TRUE
 
-/datum/species/golem/plasteel/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plasteel/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	ADD_TRAIT(C, TRAIT_NOMOBSWAP, SPECIES_TRAIT) //THE WALL THE WALL THE WALL
 
@@ -295,7 +303,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/titanium
 	)
 
-/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	ADD_TRAIT(C, TRAIT_ASHSTORM_IMMUNE, SPECIES_TRAIT)
 
@@ -322,7 +330,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/plastitanium
 	)
 
-/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	C.add_traits(list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE), SPECIES_TRAIT)
 
@@ -440,8 +448,18 @@
 	fixed_mut_color = "#77ff00"
 	meat = /obj/item/stack/ore/uranium
 	info_text = "As an " + span_danger("Uranium Golem") + ", you emit radiation pulses every once in a while. It won't harm fellow golems, but organic lifeforms will be affected."
+	damage_modifier = 40
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
+	examine_limb_id = SPECIES_GOLEM
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/uranium,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/uranium,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/uranium,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/uranium,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/uranium,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/uranium,
+	)
 
 	examine_limb_id = SPECIES_GOLEM
 	bodypart_overrides = list(
@@ -587,7 +605,7 @@
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		unstable_teleport = new
@@ -636,6 +654,7 @@
 /datum/species/golem/bananium
 	name = "Bananium Golem"
 	id = SPECIES_GOLEM_BANANIUM
+	fixed_mut_color = "#ffff00"
 	inherent_traits = list(
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
@@ -658,14 +677,14 @@
 	info_text = "As a " + span_danger("Bananium Golem") + ", you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	prefix = "Bananium"
 	special_names = null
-
+	examine_limb_id = SPECIES_GOLEM
 	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/bananium,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/bananium,
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/bananium,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/bananium,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem,
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/bananium,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/bananium
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/bananium,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem,
 	)
 
 	/// Cooldown for producing honks
@@ -677,7 +696,7 @@
 	/// Same as the uranium golem. I'm pretty sure this is vestigial.
 	var/active = FALSE
 
-/datum/species/golem/bananium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/bananium/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	COOLDOWN_START(src, honkooldown, 0)
 	COOLDOWN_START(src, banana_cooldown, banana_delay)
@@ -752,7 +771,6 @@
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_MUTANT_COLORS,
 		TRAIT_NOFLASH,
 	)
 	prefix = "Runic"
@@ -786,7 +804,7 @@
 	new /obj/effect/decal/cleanable/blood/splatter(get_turf(body))
 	body.dust()
 
-/datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/golem/runic/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	// Create our species specific spells here.
 	// Note we link them to the mob, not the mind,
@@ -862,12 +880,12 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/clock
 	)
 
-/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
+/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
-	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/species/golem/clockwork/on_species_loss(mob/living/carbon/human/H)
-	UnregisterSignal(H, COMSIG_MOB_SAY)
+/datum/species/golem/clockwork/on_species_loss(mob/living/carbon/C)
+	UnregisterSignal(C, COMSIG_MOB_SAY)
 	. = ..()
 
 /datum/species/golem/clockwork/proc/handle_speech(datum/source, list/speech_args)
@@ -922,11 +940,11 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_NO_UNDERWEAR,
 	)
-	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
+	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	damage_modifier = 15 //feels no pain, but not too resistant
 	prefix = "Cloth"
 	special_names = null
@@ -940,7 +958,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cloth
 	)
 
-/datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
 
@@ -1186,6 +1204,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	prefix = "Cardboard"
 	special_names = list("Box")
 	info_text = "As a " + span_danger("Cardboard Golem") + ", you aren't very strong, but you are a bit quicker and can easily create more brethren by using cardboard on yourself."
+
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RESISTCOLD,
@@ -1195,7 +1214,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOFLASH,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
@@ -1207,12 +1227,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	var/brother_creation_cooldown = 300
 
 	bodypart_overrides = list(
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cardboard,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/cardboard,
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/golem/cardboard,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/golem/cardboard,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/golem/cardboard,
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/cardboard,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cardboard
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/cardboard,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/golem/cardboard,
 	)
 
 /datum/species/golem/cardboard/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
@@ -1274,7 +1294,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOFLASH,
@@ -1331,7 +1350,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/bone
 	)
 
-/datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	..()
 	if(ishuman(C))
 		bonechill = new
@@ -1409,7 +1428,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_NO_UNDERWEAR,
 	)
@@ -1437,7 +1455,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	new /obj/item/food/grown/carrot(get_turf(H))
 	qdel(H)
 
-/datum/species/golem/snow/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
+/datum/species/golem/snow/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	ADD_TRAIT(grant_to, TRAIT_SNOWSTORM_IMMUNE, SPECIES_TRAIT)
 

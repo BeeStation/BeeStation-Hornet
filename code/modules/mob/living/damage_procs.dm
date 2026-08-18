@@ -1,4 +1,3 @@
-
 /**
  * Applies damage to this mob.
  *
@@ -182,8 +181,7 @@
 		total_damage += apply_damage(brain, BRAIN, def_zone, blocked)
 	return total_damage
 
-
-
+/// applies various common status effects or common hardcoded mob effects
 /mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE)
 	var/hit_percent = (100-blocked)/100
 	if(!effect || (hit_percent <= 0))
@@ -334,11 +332,12 @@
 	if(updating_health)
 		updatehealth()
 
+
 /mob/living/proc/getToxLoss()
 	return toxloss
 
-/mob/living/proc/can_adjust_tox_loss(amount, forced, required_biotype)
-	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE) || !(mob_biotypes & required_biotype)))
+/mob/living/proc/can_adjust_tox_loss(amount, forced, required_biotype = ALL)
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE) || !(mob_biotypes & required_biotype))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_TOX_DAMAGE, TOX, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return FALSE
@@ -372,7 +371,7 @@
 	return fireloss
 
 /mob/living/proc/can_adjust_fire_loss(amount, forced, required_bodytype)
-	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE)))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BURN_DAMAGE, BURN, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return FALSE
@@ -391,7 +390,7 @@
 
 /mob/living/proc/setFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype = ALL)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
-		return
+		return 0
 	. = fireloss
 	fireloss = amount
 	. -= fireloss

@@ -465,7 +465,7 @@
 	// Species traits
 	if(ishuman(user) && user.dna)
 		var/datum/species/user_species = user.dna.species
-		user_species.inherent_traits += TRAIT_DRINKSBLOOD
+		user_species.inherent_traits += TRAIT_DRINKS_BLOOD
 		for(var/obj/item/bodypart/arm in user.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage += 2
@@ -517,7 +517,7 @@
 	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		var/mob/living/carbon/human/human_user = user
-		user_species.inherent_traits -= TRAIT_DRINKSBLOOD
+		user_species.inherent_traits -= TRAIT_DRINKS_BLOOD
 		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits
@@ -622,7 +622,7 @@
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
 	var/mob/living/carbon/carbon_owner = owner.current //only carbons have dna now, so we have to typecast
-	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
+	if(carbon_owner.can_mutate())
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 

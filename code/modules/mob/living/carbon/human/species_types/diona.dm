@@ -4,19 +4,19 @@
 	id = SPECIES_DIONA
 	sexes = FALSE //no sex for bug/plant people!
 	inherent_traits = list(
-		TRAIT_MUTANT_COLORS,
+		TRAIT_AGENDER,
 		TRAIT_BEEFRIEND,
+		TRAIT_MUTANT_COLORS,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
-		TRAIT_AGENDER,
-		TRAIT_NO_SOCKS,
-		TRAIT_UNHUSKABLE,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOHUSK
 	)
-	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
+	inherent_biotypes = MOB_HUMANOID|MOB_ORGANIC|MOB_BUG
 	mutant_bodyparts = list(
 		"diona_leaves",
 		"diona_thorns",
@@ -27,7 +27,13 @@
 		"diona_eyes",
 		"diona_pbody"
 	)
-	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
+	mutant_organs = list(
+		/obj/item/organ/nymph_organ/r_arm,
+		/obj/item/organ/nymph_organ/l_arm,
+		/obj/item/organ/nymph_organ/l_leg,
+		/obj/item/organ/nymph_organ/r_leg,
+		/obj/item/organ/nymph_organ/chest
+	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
@@ -39,7 +45,7 @@
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
-	deathsound = "sound/emotes/diona/death.ogg"
+	death_sound = "sound/emotes/diona/death.ogg"
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -147,23 +153,23 @@
 	QDEL_NULL(H)
 	return
 
-/datum/species/diona/on_species_gain(mob/living/carbon/human/H)
+/datum/species/diona/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	split_ability = new
-	split_ability.Grant(H)
+	split_ability.Grant(C)
 	partition_ability = new
-	partition_ability.Grant(H)
+	partition_ability.Grant(C)
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+/datum/species/diona/on_species_loss(mob/living/carbon/C, datum/species/new_species, pref_load)
 	. = ..()
-	split_ability.Remove(H)
+	split_ability.Remove(C)
 	QDEL_NULL(split_ability)
-	partition_ability.Remove(H)
+	partition_ability.Remove(C)
 	QDEL_NULL(partition_ability)
 	qdel(drone_ref)
-	for(var/status_effect as anything in H.status_effects)
+	for(var/status_effect as anything in C.status_effects)
 		if(status_effect == /datum/status_effect/planthealing)
-			H.remove_status_effect(/datum/status_effect/planthealing)
+			C.remove_status_effect(/datum/status_effect/planthealing)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -278,7 +284,7 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
 		return
@@ -293,10 +299,6 @@
 	qdel(body_part)
 	qdel(src)
 	organ_owner.update_body()
-
-/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, FALSE)
-	forceMove(LB)
 
 /obj/item/organ/nymph_organ/r_arm
 	zone = BODY_ZONE_R_ARM

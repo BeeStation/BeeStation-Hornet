@@ -71,7 +71,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 		SSmobs.cubemonkeys += src
 
 	create_dna()
-	dna.initialize_dna(random_blood_type())
+	dna.initialize_dna(random_blood_type(), randomize_features = FALSE)
 	AddComponent(/datum/component/bloodysoles/feet)
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
@@ -93,15 +93,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	return ..()
 
 /mob/living/carbon/monkey/create_internal_organs()
-	internal_organs += new /obj/item/organ/appendix
-	internal_organs += new /obj/item/organ/lungs
-	internal_organs += new /obj/item/organ/heart
-	internal_organs += new /obj/item/organ/brain/primate
-	internal_organs += new /obj/item/organ/tongue
-	internal_organs += new /obj/item/organ/eyes
-	internal_organs += new /obj/item/organ/ears
-	internal_organs += new /obj/item/organ/liver
-	internal_organs += new /obj/item/organ/stomach
+	organs += new /obj/item/organ/appendix
+	organs += new /obj/item/organ/lungs
+	organs += new /obj/item/organ/heart
+	organs += new /obj/item/organ/brain/primate
+	organs += new /obj/item/organ/tongue
+	organs += new /obj/item/organ/eyes
+	organs += new /obj/item/organ/ears
+	organs += new /obj/item/organ/liver
+	organs += new /obj/item/organ/stomach
 	..()
 
 /mob/living/carbon/monkey/on_reagent_change()
@@ -139,6 +139,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	set category = "IC"
 	internal = null
 	return
+
+/mob/living/carbon/monkey/can_use_guns(obj/item/G)
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, "<span class='warning'>You are unable to fire this!</span>")
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return FALSE
@@ -184,8 +190,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 
 	return threatcount
 
-/mob/living/carbon/monkey/can_use_guns(obj/item/G)
-	return TRUE
 
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
@@ -250,11 +254,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	name = "Teratoma"
 	id = "teratoma"
 	inherent_traits = list(
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NO_BLOOD_OVERLAY,
+		TRAIT_NO_AUGMENTS,
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
 	) //Made of mutated cells
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey

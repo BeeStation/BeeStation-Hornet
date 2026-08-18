@@ -25,6 +25,7 @@
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	hair_alpha = 140
 	facial_hair_alpha = 140
+
 	swimming_component = /datum/component/swimming/ethereal
 	inert_mutation = /datum/mutation/overload
 
@@ -50,18 +51,16 @@
 		QDEL_NULL(ethereal_light)
 	return ..()
 
-/datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
+/datum/species/ethereal/on_species_gain(mob/living/carbon/human/new_ethereal, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	if(!ishuman(new_ethereal))
 		return
-	var/mob/living/carbon/human/ethereal = new_ethereal
-	default_color = ethereal.dna.features["ethcolor"]
-	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
-	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
-	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-	ethereal_light = ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
-	spec_updatehealth(ethereal)
-
+	default_color = new_ethereal.dna.features[FEATURE_ETHEREAL_COLOR]
+	RegisterSignal(new_ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
+	RegisterSignal(new_ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
+	RegisterSignal(new_ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
+	ethereal_light = new_ethereal.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
+	spec_updatehealth(new_ethereal)
 	new_ethereal.set_safe_hunger_level()
 
 	var/obj/item/organ/heart/ethereal/ethereal_heart = new_ethereal.get_organ_slot(ORGAN_SLOT_HEART)
@@ -76,17 +75,27 @@
 	UnregisterSignal(C, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
 	QDEL_NULL(ethereal_light)
+	//Is this physiology setter bad and hacky?
+	//Yes. But ethereals suck ass and its better than the alternative of someone
+	//getting stuck with double fucking burn damage when swapping to another species.
+	C.physiology.brute_mod = 1
 	return ..()
+
+/datum/species/ethereal/randomize_features()
+	var/list/features = ..()
+	features[FEATURE_ETHEREAL_COLOR] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+	return features
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
 	if(!ethereal_light)
 		return
+
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)
 			var/static/list/skin_color = rgb2num("#eda495")
-			var/list/colors = rgb2num(ethereal.dna.features["ethcolor"])
+			var/list/colors = rgb2num(ethereal.dna.features[FEATURE_ETHEREAL_COLOR])
 			var/list/built_color = list()
 			for(var/i in 1 to 3)
 				built_color += skin_color[i] + ((colors[i] - skin_color[i]) * healthpercent)
@@ -146,7 +155,7 @@
 /datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
 	if(!emageffect)
 		return
-	current_color = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)] //Picks a random colour from the Ethereal colour list
+	current_color = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 	spec_updatehealth(H)
 	addtimer(CALLBACK(src, PROC_REF(handle_emag), H), 5) //Call ourselves every 0.5 seconds to change color
 
@@ -168,12 +177,12 @@
 		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
-				H.apply_damage(0.65, TOX, null, null, H)
+				H.apply_damage(0.65, TOX)
 			H.physiology.brute_mod = 1.75
 		else
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
 			if(H.health > 10.5)
-				H.apply_damage(1, TOX, null, null, H)
+				H.apply_damage(1, TOX)
 			H.physiology.brute_mod = 2
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)

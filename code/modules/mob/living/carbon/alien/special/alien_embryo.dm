@@ -74,10 +74,10 @@
 		for(var/datum/surgery/operations as anything in owner.surgeries)
 			if(operations.location != BODY_ZONE_CHEST)
 				continue
-			if(!istype(operations.get_surgery_step(), /datum/surgery_step/manipulate_organs/internal))
+			if(!ispath(operations.steps[operations.status], /datum/surgery_step/manipulate_organs/internal))
 				continue
-				attempt_grow(kill_on_success = FALSE)
-				return
+			attempt_grow(kill_on_success = FALSE)
+			return
 		attempt_grow()
 
 /obj/item/organ/body_egg/alien_embryo/proc/attempt_grow(kill_on_success = TRUE)

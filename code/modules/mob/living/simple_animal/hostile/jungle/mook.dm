@@ -13,7 +13,7 @@
 	icon_state = "mook"
 	icon_living = "mook"
 	icon_dead = "mook_dead"
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	SET_BASE_PIXEL(-16, -8)
 	maxHealth = 45
 	health = 45

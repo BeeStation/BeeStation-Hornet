@@ -18,7 +18,7 @@
 
 	for (var/obj/item/I in resolve_parent.contents)
 		I.add_mob_blood(implantee)
-	atom_storage.remove_all()
+	atom_storage.remove_all(implantee)
 	implantee.visible_message(span_warning("A bluespace pocket opens around [src] as it exits [implantee], spewing out its contents and rupturing the surrounding tissue!"))
 	implantee.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
 	qdel(atom_storage)
