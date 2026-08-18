@@ -1219,7 +1219,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		. = TRUE
 
 	// Check and wash stuff that can be covered
-	var/list/obscured = check_obscured_slots()
+	var/obscured = check_obscured_slots()
 
 	if(!(obscured & ITEM_SLOT_HEAD) && head?.wash(clean_types))
 		update_worn_head()
