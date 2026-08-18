@@ -179,7 +179,7 @@
 			body_icon.blend_icon(uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
 
 		body_icon_with_tail = body_icon.copy()
-		body_icon_with_tail.blend_icon(uni_icon('icons/mob/human/species/lizard/lizard_tails.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
+		body_icon_with_tail.blend_icon(uni_icon('icons/mob/human/species/lizard/lizard_tails.dmi', "m_tail_lizard_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
 
 	var/datum/universal_icon/icon_with_changes = show_tail ? body_icon_with_tail.copy() : body_icon.copy()
 
