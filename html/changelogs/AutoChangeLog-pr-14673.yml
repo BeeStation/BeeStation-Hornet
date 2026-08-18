@@ -1,5 +1,0 @@
-author: RasmusDJ
-delete-after: true
-changes:
-  - rscadd: Added new labcoat for the brig physician
-  - bugfix: fixed the old labcoat for the brig physician, and renamed it to "jacket"
