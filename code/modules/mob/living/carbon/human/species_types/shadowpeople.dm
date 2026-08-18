@@ -10,14 +10,12 @@
 	id = SPECIES_SHADOW
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(
-		NOFLASH
-	)
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NOBLOOD,
+		TRAIT_NOFLASH
 	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -38,6 +36,7 @@
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
@@ -105,10 +104,6 @@
 	name = "Nightmare"
 	id = SPECIES_NIGHTMARE
 	no_equip_flags = ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOFLASH
-	)
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -124,6 +119,8 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOFLASH,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -381,6 +378,7 @@
 
 
 /datum/species/shadow/blessed/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()

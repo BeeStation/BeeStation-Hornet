@@ -334,18 +334,17 @@
 	var/mob/living/carbon/human/human_new_body = new_body
 	var/mob/living/carbon/human/human_old_body = old_body
 
-	if(ishuman(human_new_body) && ishuman(human_old_body))
-		var/datum/species/new_species = human_new_body.dna.species
-		var/datum/species/old_species = human_old_body.dna.species
+	if(ishuman(human_new_body))
+		human_new_body.dna.species.inherent_traits += TRAIT_DRINKSBLOOD
+		for(var/obj/item/bodypart/arm in human_new_body.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
 
-		new_species.species_traits += TRAIT_DRINKSBLOOD
-		old_species.species_traits -= TRAIT_DRINKSBLOOD
-
-		new_species.punchdamage = old_species.punchdamage
-		old_species.punchdamage = initial(old_species.punchdamage)
-	else if(ishuman(human_new_body))
-		var/datum/species/new_species = human_new_body.dna.species
-		new_species.punchdamage += 2
+	if(ishuman(human_old_body))
+		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
+		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				arm.unarmed_damage = initial(arm.unarmed_damage)
 		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
 
 
@@ -366,7 +365,7 @@
 
 	owner.announce_objectives()
 
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/effects/antag/vampire/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
@@ -466,8 +465,10 @@
 	// Species traits
 	if(ishuman(user) && user.dna)
 		var/datum/species/user_species = user.dna.species
-		user_species.species_traits += TRAIT_DRINKSBLOOD
-		user_species.punchdamage += 2
+		user_species.inherent_traits += TRAIT_DRINKSBLOOD
+		for(var/obj/item/bodypart/arm in user.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				arm.unarmed_damage += 2
 		user.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST // Vampires have inherent stamina resistance
 		user.dna.remove_all_mutations()
 
@@ -516,7 +517,7 @@
 	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		var/mob/living/carbon/human/human_user = user
-		user_species.species_traits -= TRAIT_DRINKSBLOOD
+		user_species.inherent_traits -= TRAIT_DRINKSBLOOD
 		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits

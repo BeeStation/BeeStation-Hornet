@@ -86,6 +86,7 @@
 	melee_damage = 3
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	response_disarm_continuous = "shoos"
 	response_disarm_simple = "shoo"
 	response_harm_continuous = "steps on"

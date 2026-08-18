@@ -13,7 +13,7 @@
 	abstract_type = /area/station/maintenance
 	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
-	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
+	ambient_buzz = 'sound/ambience/maintenance/source_corridor2.ogg'
 	ambient_buzz_vol = 20
 	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | XENOBIOLOGY_CONSOLE_DISALLOWED
 	rare_ambient_sounds = list(
@@ -25,8 +25,8 @@
 		'sound/items/welder2.ogg',
 		'sound/items/crowbar.ogg',
 		'sound/items/deconstruct.ogg',
-		'sound/ambience/source_holehit3.ogg',
-		'sound/ambience/cavesound3.ogg',
+		'sound/ambience/maintenance/source_holehit3.ogg',
+		'sound/ambience/misc/cavesound3.ogg',
 	)
 	min_ambience_cooldown = 20 SECONDS
 	max_ambience_cooldown = 35 SECONDS
@@ -377,7 +377,7 @@
 	abstract_type = /area/station/command
 	name = "Command"
 	icon_state = "command"
-	ambientsounds = list('sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/misc/signal.ogg')
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
@@ -1113,7 +1113,7 @@
 /area/station/medical/abandoned
 	name = "\improper Abandoned Medbay"
 	icon_state = "abandoned_medbay"
-	ambientsounds = list('sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/misc/signal.ogg')
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/medical/medbay/balcony
@@ -1365,6 +1365,7 @@
 /area/station/security/interrogation
 	name = "\improper Interrogation Room"
 	icon_state = "interrogation"
+	camera_networks = list(CAMERA_NETWORK_INTERROGATION)
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/security/interrogation/Exited(atom/movable/a, atom/oldloc)
@@ -1393,7 +1394,7 @@
 /area/station/security/detectives_office
 	name = "\improper Detective's Office"
 	icon_state = "detective"
-	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
+	ambientsounds = list('sound/ambience/security/ambidet1.ogg','sound/ambience/security/ambidet2.ogg','sound/ambience/security/ambidet3.ogg','sound/ambience/security/ambidet4.ogg')
 
 /area/station/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
 	..()
@@ -1719,14 +1720,14 @@
 	abstract_type = /area/station/tcommsat
 	icon_state = "tcomsatcham"
 	ambientsounds = list(
-		'sound/ambience/ambisin2.ogg',
-		'sound/ambience/signal.ogg',
-		'sound/ambience/signal.ogg',
-		'sound/ambience/ambigen10.ogg',
-		'sound/ambience/ambitech.ogg',
-		'sound/ambience/ambitech2.ogg',
-		'sound/ambience/ambitech3.ogg',
-		'sound/ambience/ambimystery.ogg'
+		'sound/ambience/engineering/ambisin2.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/general/ambigen10.ogg',
+		'sound/ambience/engineering/ambitech.ogg',
+		'sound/ambience/engineering/ambitech2.ogg',
+		'sound/ambience/engineering/ambitech3.ogg',
+		'sound/ambience/misc/ambimystery.ogg'
 	)
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."

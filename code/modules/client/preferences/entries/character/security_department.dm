@@ -5,15 +5,9 @@
 	preference_type = PREFERENCE_CHARACTER
 	db_key = "preferred_security_department"
 
-// This is what that #warn wants you to remove :)
 /datum/preference/choiced/security_department/deserialize(input, datum/preferences/preferences)
 	if (!(input in GLOB.security_depts_prefs))
 		return SEC_DEPT_NONE
-	if (istext(input))
-		switch (input)
-			//This shouldnt have been valid for a long time and wouldnt have done anything, but it could still mess with prefs, so just make sure
-			if ("random")
-				input = SEC_DEPT_NONE
 
 	return ..()
 

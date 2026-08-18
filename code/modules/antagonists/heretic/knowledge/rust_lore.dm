@@ -264,7 +264,7 @@
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
 	announcement_text = "Fear the decay, for the Rustbringer, %USER% has ascended! None shall escape the corrosion!"
-	announcement_sound = 'sound/ambience/antag/heretic/ascend_rust.ogg'
+	announcement_sound = 'sound/effects/antag/heretic/ascend_rust.ogg'
 	route = HERETIC_PATH_RUST
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
@@ -276,7 +276,7 @@
 		TRAIT_SLEEPIMMUNE,
 		TRAIT_PUSHIMMUNE,
 		TRAIT_SHOCKIMMUNE,
-		TRAIT_NOSLIPALL,
+		TRAIT_NO_SLIP_ALL,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,

@@ -4,7 +4,9 @@
 
 /area/ruin/powered/clownplanet
 	name = "\improper Clown Planet"
-	ambientsounds = list('sound/ambience/clown.ogg')
+	ambientsounds = list(
+		'sound/music/lobby_music/clown.ogg',
+	)
 
 /area/ruin/powered/animal_hospital
 
@@ -35,7 +37,7 @@
 	name = "Secret Base"
 	icon_state = "dk_yellow"
 	ambience_index = AMBIENCE_DANGER
-	ambient_buzz = 'sound/ambience/magma.ogg'
+	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
 	ambient_buzz_vol = 10
 
 /area/ruin/syndicate_lava_base/brig
@@ -98,9 +100,9 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambient_buzz = 'sound/ambience/magma.ogg'
+	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
 	ambient_buzz_vol = 10
 
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
-	ambient_buzz = 'sound/ambience/magma.ogg'
+	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
