@@ -200,8 +200,7 @@
  * * [data][list] - additional data to add
  */
 /datum/reagents/proc/add_reagent_list(list/list_reagents, list/data = null)
-	for(var/r_id in list_reagents)
-		var/amt = list_reagents[r_id]
+	for(var/r_id, amt in list_reagents)
 		add_reagent(r_id, amt, data)
 
 /**
