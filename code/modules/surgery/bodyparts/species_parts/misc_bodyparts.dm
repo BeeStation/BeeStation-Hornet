@@ -17,7 +17,6 @@
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
 	unarmed_damage = 3 //snails are soft and squishy
-	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 /obj/item/bodypart/arm/right/snail
@@ -25,17 +24,18 @@
 	unarmed_attack_verb = "slap"
 	unarmed_attack_effect = ATTACK_EFFECT_DISARM
 	unarmed_damage = 3
-	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/left/snail
 	limb_id = SPECIES_SNAIL
 	unarmed_damage = 3
+	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 /obj/item/bodypart/leg/right/snail
 	limb_id = SPECIES_SNAIL
 	unarmed_damage = 3
+	movespeed_contribution = 3 //disgustingly slow
 	burn_modifier = 1.5
 
 ///ABDUCTOR
@@ -160,18 +160,22 @@
 /obj/item/bodypart/leg/left/zombie/infectious
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.8 //braaaaains
 
 /obj/item/bodypart/leg/right/zombie/infectious
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0.8 //braaaaains
 
 /obj/item/bodypart/leg/left/zombie/viral
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0 //braaaaains
 
 /obj/item/bodypart/leg/right/zombie/viral
 	limb_id = SPECIES_ZOMBIE
 	should_draw_greyscale = FALSE
+	movespeed_contribution = 0 //braaaaains
 
 /obj/item/bodypart/leg/left/zombie/infectious
 	limb_id = SPECIES_ZOMBIE
@@ -356,6 +360,7 @@
 	limb_id = SPECIES_GOLEM
 	dmg_overlay_type = null
 	unarmed_damage = 11
+	movespeed_contribution = 1
 
 /obj/item/bodypart/leg/left/golem/gold
 	movespeed_contribution = 0.5
@@ -369,7 +374,7 @@
 /obj/item/bodypart/leg/right/golem/copper
 	movespeed_contribution = 0.75
 
-//Alloy
+///Alloy
 /obj/item/bodypart/head/golem/alloy
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
@@ -419,33 +424,6 @@
 	should_draw_greyscale = FALSE
 	burn_modifier = 1.25
 
-//Wood
-/obj/item/bodypart/head/golem/wood
-	is_dimorphic = FALSE
-	should_draw_greyscale = FALSE
-	burn_modifier = 1.25
-
-/obj/item/bodypart/chest/golem/wood
-	is_dimorphic = FALSE
-	should_draw_greyscale = FALSE
-	burn_modifier = 1.25
-
-/obj/item/bodypart/arm/left/golem/wood
-	should_draw_greyscale = FALSE
-	burn_modifier = 1.25
-
-/obj/item/bodypart/arm/right/golem/wood
-	should_draw_greyscale = FALSE
-	burn_modifier = 1.25
-
-/obj/item/bodypart/leg/left/golem/wood
-	should_draw_greyscale = FALSE
-	burn_modifier = 1.25
-
-/obj/item/bodypart/leg/right/golem/wood
-	should_draw_greyscale = FALSE
-	burn_modifier = 1.25
-
 ///
 /obj/item/bodypart/head/golem/bananium
 	limb_id = "ba_golem"
@@ -460,10 +438,16 @@
 /obj/item/bodypart/arm/left/golem/bananium
 	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
 
 /obj/item/bodypart/arm/right/golem/bananium
 	limb_id = "ba_golem"
 	should_draw_greyscale = FALSE
+	unarmed_attack_verb = "honk"
+	unarmed_attack_sound = 'sound/items/airhorn2.ogg'
+	unarmed_damage = 0
 
 /obj/item/bodypart/leg/left/golem/bananium
 	limb_id = "ba_golem"
@@ -523,6 +507,7 @@
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	movespeed_contribution = 0
 
 /obj/item/bodypart/arm/right/golem/clock
 	limb_id = "clockgolem"
@@ -540,6 +525,7 @@
 	limb_id = "clockgolem"
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = "synth"
+	movespeed_contribution = 0
 
 ///
 /obj/item/bodypart/head/golem/cloth

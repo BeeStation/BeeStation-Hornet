@@ -126,4 +126,4 @@
 	L.setDir(dir)
 	L.Stun(20, ignore_canstun = TRUE)
 	visible_message(span_notice("[src] grows up into [L]."))
-	Destroy()
+	qdel(src)

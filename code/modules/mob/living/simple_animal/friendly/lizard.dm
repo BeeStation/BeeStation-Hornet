@@ -10,6 +10,7 @@
 	faction = list(FACTION_NEUTRAL)
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	melee_damage = 1
 	response_help_continuous = "pets"
 	response_help_simple = "pet"

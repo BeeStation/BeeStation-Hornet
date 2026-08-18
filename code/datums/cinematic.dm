@@ -238,7 +238,7 @@
 	flick("intro_nuke",screen)
 	sleep(35)
 	flick("station_intact",screen)
-	cinematic_sound(sound('sound/ambience/signal.ogg'))
+	cinematic_sound(sound('sound/ambience/misc/signal.ogg'))
 	sleep(100)
 
 /datum/cinematic/nuke_far

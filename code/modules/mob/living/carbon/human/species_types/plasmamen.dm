@@ -14,7 +14,7 @@
 		TRAIT_ENVIROSUIT,
 		TRAIT_UNHUSKABLE,
 	)
-	inherent_biotypes = MOB_MINERAL|MOB_HUMANOID
+	inherent_biotypes = MOB_HUMANOID|MOB_MINERAL
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman

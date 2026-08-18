@@ -24,7 +24,7 @@
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
-	//attack_vis_effect = ATTACK_EFFECT_BITE
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	butcher_results = list(/obj/effect/decal/cleanable/ants = 3) //It's just a bunch of ants glued together into a larger ant
 	response_help_continuous = "pets"
 	response_help_simple = "pet"

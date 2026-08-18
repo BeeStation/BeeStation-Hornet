@@ -169,7 +169,7 @@
 	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
 	damage_modifier = 0
-	inherent_biotypes = MOB_ORGANIC|MOB_UNDEAD|MOB_HUMANOID //mob organic, so still susceptible to the disease that created it
+	inherent_biotypes = MOB_ORGANIC | MOB_UNDEAD |  MOB_HUMANOID //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	muthands_path = /obj/item/mutant_hand/zombie/infectious
 

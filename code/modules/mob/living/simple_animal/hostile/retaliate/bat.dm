@@ -22,6 +22,7 @@
 	pass_flags = PASSTABLE
 	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/weapons/bite.ogg'
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mob_size = MOB_SIZE_TINY

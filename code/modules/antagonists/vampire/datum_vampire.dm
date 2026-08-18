@@ -340,7 +340,6 @@
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
 
-
 	if(ishuman(human_old_body))
 		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
@@ -366,7 +365,7 @@
 
 	owner.announce_objectives()
 
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/effects/antag/vampire/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
