@@ -1,7 +1,0 @@
-author: rkz, smartkar, melbert
-delete-after: true
-changes:
-  - rscadd: A carbons eyes close if unconscious or dead, and reopen when not
-  - code_imp: refactors eye color handling
-  - bugfix: fixes wheelchair bug that immobilized wheelchair'd mobs, they can do more
-      stuff now
