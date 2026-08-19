@@ -42,6 +42,14 @@
 	var/list/firealarms = list()
 	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
 	var/list/active_alarms = list()
+	/// If TRUE this area is left blank on rendered minimaps, and is not reported as a region.
+	var/skip_minimap_rendering = FALSE
+	/// Department this area belongs to, for the alert map's zoomed-out labels
+	var/minimap_department
+	/// If TRUE the department's zoomed-out label should sit here
+	var/minimap_department_anchor = FALSE
+	/// Whether this area is meant to hold an atmosphere at all
+	var/expects_atmosphere = TRUE
 	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing. Fire alarms and fire locks will set and clear alarms.
 	var/datum/alarm_handler/alarm_manager
 	/// The current alarm fault status
