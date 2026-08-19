@@ -370,6 +370,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
  * * subsystem - the subsystem to initialize.
  */
 /datum/controller/master/proc/init_subsystem(datum/controller/subsystem/subsystem)
+	set category = CATEGORY_NO_RUNTIME_LOOP // DO NOT REMOVE THIS - This is used in runtime tracy
 	var/static/list/valid_results = list(
 		SS_INIT_FAILURE,
 		SS_INIT_NONE,
@@ -449,6 +450,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Starts the mc, and sticks around to restart it if the loop ever ends.
 /datum/controller/master/proc/StartProcessing(delay)
+	set category = CATEGORY_NO_RUNTIME_LOOP // DO NOT REMOVE THIS - This is used in runtime tracy
 	set waitfor = 0
 	if(delay)
 		sleep(delay)
@@ -473,6 +475,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Main loop.
 /datum/controller/master/proc/Loop(init_stage)
+	set category = CATEGORY_NO_RUNTIME_LOOP // DO NOT REMOVE THIS - This is used in runtime tracy
 	. = -1
 	//Prep the loop (most of this is because we want MC restarts to reset as much state as we can, and because
 	//	local vars rock
