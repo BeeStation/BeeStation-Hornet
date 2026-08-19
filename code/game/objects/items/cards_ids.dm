@@ -175,6 +175,8 @@
 	var/list/access = list()
 	/// Mapping aid for access
 	var/access_txt
+	/// Active temporary access grants (/datum/access_grant). Surfaced through GetAccess(), kept out of access.
+	var/list/access_grants
 
 	/// The HUD given to our wearer
 	var/hud_state = JOB_HUD_UNKNOWN
@@ -198,6 +200,10 @@
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	var/list/grants = access_grants
+	access_grants = null
+	for(var/datum/access_grant/grant as anything in grants)
+		qdel(grant)
 	return ..()
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
@@ -206,6 +212,151 @@
 		if(temp != JOB_HUD_UNKNOWN)
 			hud_state = temp
 	// This is needed for some irregular jobs
+
+/// Returns the sechud icon state.
+/obj/item/card/id/proc/get_sechud_icon_state()
+	return hud_state || JOB_HUD_UNKNOWN
+
+/// Grants access to this card and logs it
+/// Takes a single access or a list of them
+/obj/item/card/id/proc/add_access(access_to_add, source, mob/user, should_log = TRUE)
+	if(isnull(access_to_add))
+		return FALSE
+	if(!islist(access_to_add))
+		access_to_add = list(access_to_add)
+	var/list/added = access_to_add - access
+	access |= access_to_add
+	if(should_log && length(added))
+		log_access_change(added, source, user, granting = TRUE)
+	return TRUE
+
+/// Revokes access from this card and logs it
+/// Takes a single access or a list of them
+/obj/item/card/id/proc/remove_access(access_to_remove, source, mob/user, should_log = TRUE)
+	if(isnull(access_to_remove))
+		return FALSE
+	if(!islist(access_to_remove))
+		access_to_remove = list(access_to_remove)
+	var/list/removed = access & access_to_remove
+	access -= access_to_remove
+	if(should_log && length(removed))
+		log_access_change(removed, source, user, granting = FALSE)
+	return TRUE
+
+/// Writes one ID log line for a change to this card's access: who, what, and where
+/obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
+	var/list/descriptions = get_access_descs(changed_access)
+	var/actor = user ? key_name(user) : "Something"
+	var/action = granting ? "added" : "removed"
+	var/preposition = granting ? "to" : "from"
+	log_id("[actor] [action] [english_list(descriptions)] [preposition] [src] ([registered_name || "unregistered"])[source ? " via [source]" : ""].")
+
+/**
+ * Grants temporary access to this card. Will show up in get_access(), but we need to ensure we stay out of permanent list
+ * Returns the grant, so the caller can revoke() it early (i.e. on a condition change)
+ * Arguments:
+ * * access_to_grant - a single access or a list of them.
+ * * source - what issued the grant
+ * * user - who issued it
+ * * duration - lifespan in deciseconds. 0 or null means indefinite
+ * * grace_period - deciseconds the access lingers after expiry/revocation. 0 means immediate
+ */
+/obj/item/card/id/proc/grant_temporary_access(access_to_grant, source, mob/user, duration, grace_period = 0)
+	if(!islist(access_to_grant))
+		access_to_grant = list(access_to_grant)
+	var/datum/access_grant/grant = new(src, access_to_grant, source, duration, grace_period)
+	LAZYADD(access_grants, grant)
+	log_access_change(access_to_grant, "[source] (temporary[duration ? ", expires in [DisplayTimeText(duration)]" : ""])", user, granting = TRUE)
+	notify_holder(span_notice("[src] pings, temporary access to [grant.access_names()] granted[duration ? ", expiring in [DisplayTimeText(duration)]" : ""]."))
+	return grant
+
+/**
+ * Revokes a temporary access grant from grant_temporary_access, whether on expiry or earlier
+ * Arguments:
+ * * grant - the grant to revoke.
+ * * reason - why, folded into the log (e.g. "expired", "revoked").
+ * * grace - deciseconds to linger before cutting access. Null uses the grant's own grace period.
+ */
+/obj/item/card/id/proc/revoke_temporary_access(datum/access_grant/grant, reason = "revoked", grace = null)
+	grant?.revoke(reason, grace)
+
+/obj/item/card/id/proc/notify_holder(message)
+	var/mob/holder = get(src, /mob)
+	if(holder)
+		to_chat(holder, message)
+
+/datum/access_grant
+	/// The card this grant belongs to
+	var/obj/item/card/id/card
+	/// The accesses this grant provides
+	var/list/accesses
+	/// What issued the grant, kept for the revocation log line
+	var/source
+	/// Timer id for auto-expiry, then for the grace period once revoking. Null if the grant is indefinite
+	var/timer_id
+	/// Deciseconds the access lingers after expiry/revocation
+	var/grace_period = 0
+	/// TRUE once revocation has begun, and until grace period finishes
+	var/revoking = FALSE
+
+/datum/access_grant/New(obj/item/card/id/card, list/accesses, source, duration, grace_period = 0)
+	. = ..()
+	src.card = card
+	src.accesses = accesses.Copy()
+	src.source = source
+	src.grace_period = grace_period
+	if(duration)
+		timer_id = addtimer(CALLBACK(src, PROC_REF(expire)), duration, TIMER_STOPPABLE)
+
+/datum/access_grant/Destroy()
+	deltimer(timer_id)
+	timer_id = null
+	if(card)
+		LAZYREMOVE(card.access_grants, src)
+		card = null
+	return ..()
+
+/datum/access_grant/proc/expire()
+	timer_id = null
+	revoke("expired")
+
+/// Ends this grant, either now or after a grace period
+/datum/access_grant/proc/revoke(reason = "revoked", grace = null)
+	if(QDELETED(src))
+		return
+	if(isnull(grace))
+		grace = grace_period
+	if(grace <= 0 || revoking)
+		finish_revoke(reason)
+		return
+	revoking = TRUE
+	deltimer(timer_id)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke), reason), grace, TIMER_STOPPABLE)
+	announce_revocation("[reason], ends in [DisplayTimeText(grace)]", "ends in [DisplayTimeText(grace)]")
+
+/datum/access_grant/proc/finish_revoke(reason = "revoked")
+	announce_revocation(reason, reason)
+	qdel(src)
+
+/datum/access_grant/proc/announce_revocation(note, phrase)
+	if(!card)
+		return
+	card.log_access_change(accesses, "[source] (temporary access [note])", null, granting = FALSE)
+	card.notify_holder(span_warning("[card] pings, temporary access to [access_names()] [phrase]."))
+
+/datum/access_grant/proc/access_names()
+	return english_list(get_access_descs(accesses))
+
+/// what access this grant provides and how long is left on it.
+/datum/access_grant/proc/get_examine_text()
+	var/timing
+	if(revoking)
+		timing = "ending in [DisplayTimeText(timeleft(timer_id))]"
+	else if(timer_id)
+		timing = "expires in [DisplayTimeText(timeleft(timer_id))]"
+	else
+		timing = "active until revoked"
+	return "Temporary access to [access_names()] ([timing])."
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
@@ -394,6 +545,8 @@
 	. = ..()
 	if(!user.can_read(src))
 		return
+	for(var/datum/access_grant/grant as anything in access_grants)
+		. += span_notice(grant.get_examine_text())
 	if(!electric)  // forces off bank info for paper slip
 		return .
 	if(registered_account)
@@ -428,7 +581,12 @@
 		. += span_info("There is no registered account linked to this card. Alt-Click to add one.")
 
 /obj/item/card/id/GetAccess()
-	return access
+	if(!LAZYLEN(access_grants))
+		return access
+	var/list/all_access = access.Copy()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		all_access |= grant.accesses
+	return all_access
 
 /obj/item/card/id/GetID()
 	return src
@@ -640,7 +798,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
-	access = get_every_access()
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_GLOBAL))
 	registered_account = SSeconomy.get_budget_account(ACCOUNT_VIP_ID)
 	. = ..()
 
@@ -670,7 +828,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/centcom/Initialize(mapload)
-	access = get_all_centcom_access()
+	access = SSdepartment.get_region_access_list(list(REGION_CENTCOM))
 	. = ..()
 
 /obj/item/card/id/ert
@@ -682,7 +840,7 @@ do { \
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/ert/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))+SSdepartment.get_centcom_access_list(JOB_ERT_COMMANDER)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Security
@@ -691,7 +849,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Security/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))+SSdepartment.get_centcom_access_list(JOB_ERT_OFFICER)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Engineer
@@ -700,7 +858,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Engineer/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("eng")-ACCESS_CHANGE_IDS
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))+SSdepartment.get_centcom_access_list(JOB_ERT_ENGINEER)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Medical
@@ -709,7 +867,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Medical/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION)) +SSdepartment.get_centcom_access_list(JOB_ERT_MEDICAL_DOCTOR)-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Janitor
@@ -718,7 +876,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
-	access = get_all_accesses()
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	. = ..()
 
 /obj/item/card/id/ert/clown
@@ -727,7 +885,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/clown/Initialize(mapload)
-	access = get_all_accesses()
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	. = ..()
 
 /obj/item/card/id/ert/kudzu
@@ -736,7 +894,7 @@ do { \
 	icon_state = "ert"
 
 /obj/item/card/id/ert/kudzu/Initialize(mapload)
-	access = get_all_accesses()
+	access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	. = ..()
 
 /obj/item/card/id/ert/lawyer
@@ -1159,7 +1317,7 @@ do { \
 	name = "Job card (Med) - CMO"
 	icon_state = "cmo"
 	assignment = JOB_NAME_CHIEFMEDICALOFFICER
-	hud_state = JOB_HUD_CHEIFMEDICALOFFICIER
+	hud_state = JOB_HUD_CHIEFMEDICALOFFICER
 
 /obj/item/card/id/job/medical_doctor
 	name = "Job card (Med) - Medical Doctor"
@@ -1315,8 +1473,7 @@ do { \
 		if(!idcard.electric)
 			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
-		for(var/give_access in access)
-			idcard.access |= give_access
+		idcard.add_access(access.Copy(), "\a [name]", user)
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))

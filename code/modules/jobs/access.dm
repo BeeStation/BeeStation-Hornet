@@ -129,184 +129,170 @@
 /obj/proc/check_access_ntnet(list/passkey)
 	return check_access_list(passkey)
 
-/proc/get_centcom_access(job)
-	switch(job)
-		if(JOB_CENTCOM_VIP)
-			return list(ACCESS_CENT_GENERAL)
-		if(JOB_CENTCOM_CUSTODIAN)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if(JOB_CENTCOM_THUNDERDOME_OVERSEER)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
-		if(JOB_CENTCOM_OFFICIAL)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
-		if("CentCom Intern")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
-		if("CentCom Head Intern")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
-		if(JOB_CENTCOM_MEDICAL_DOCTOR)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
-		if(JOB_ERT_DEATHSQUAD)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if(JOB_CENTCOM_RESEARCH_OFFICER)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
-		if("Special Ops Officer")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if(JOB_CENTCOM_ADMIRAL)
-			return get_all_centcom_access()
-		if(JOB_CENTCOM_COMMANDER)
-			return get_all_centcom_access()
-		if(JOB_ERT_COMMANDER)
-			return get_ert_access("commander")
-		if(JOB_ERT_OFFICER )
-			return get_ert_access("sec")
-		if(JOB_ERT_ENGINEER)
-			return get_ert_access("eng")
-		if(JOB_ERT_MEDICAL_DOCTOR)
-			return get_ert_access("med")
-		if(JOB_CENTCOM_BARTENDER)
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
-		if("Comedy Response Officer")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
-		if("HONK Squad Trooper")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
+/// Returns the SecHUD job icon state for whatever this object's ID card is, if it has one.
+/obj/item/proc/get_sechud_job_icon_state()
+	var/obj/item/card/id/id_card = GetID()
 
-/proc/get_all_accesses()
-	var/list/access_list = list() // do not do this as a static - SSdepartment might return a modified station access list
-	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_STATIONS))
-		access_list += dept_datum.access_list
-	return access_list
+	return id_card?.get_sechud_icon_state() || "hudno_id"
 
-/proc/get_all_centcom_access()
-	var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_CENTCOM)[1]
-	return dept_datum.access_list.Copy()
+/// Static metadata for one access level. One instance per access in GLOB.access_datums, keyed by the access as text.
+/datum/access
+	/// The numeric access level.
+	var/id
+	/// Text description of what this access unlocks. Null for internal accesses.
+	var/desc
+	/// The access flag tier (ACCESS_FLAG_*) this belongs to. NONE if it isn't in a tier.
+	var/flag = NONE
 
-/proc/get_all_centcom_admin_access() // exists to filter some href exploit. feel free to remove this if there's a better solution
-	var/list/access_list = list()
-	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_CENTCOM + DEPARTMENT_BITFLAG_OTHER))
-		access_list += dept_datum.access_list
-	return access_list
+/datum/access/New(id)
+	. = ..()
+	src.id = id
 
-/proc/get_ert_access(class)
-	switch(class)
-		if("commander")
-			return get_all_centcom_access()
-		if("sec")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING)
-		if("eng")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if("med")
-			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING)
+GLOBAL_LIST_INIT(access_datums, generate_access_datums())
 
-/proc/get_all_syndicate_access()
-	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
+GLOBAL_LIST_INIT(accesses_by_flag, generate_accesses_by_flag())
 
-/proc/get_all_away_access()
-	return list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINTENANCE, ACCESS_AWAY_MEDICAL, ACCESS_AWAY_SEC, ACCESS_AWAY_ENGINEERING, ACCESS_AWAY_GENERIC1, ACCESS_AWAY_GENERIC2, ACCESS_AWAY_GENERIC3, ACCESS_AWAY_GENERIC4)
+/proc/generate_accesses_by_flag()
+	return list(
+		"[ACCESS_FLAG_COMMON]" = COMMON_ACCESS,
+		"[ACCESS_FLAG_COMMAND]" = COMMAND_ACCESS,
+		"[ACCESS_FLAG_PRV_COMMAND]" = PRIVATE_COMMAND_ACCESS,
+		"[ACCESS_FLAG_CAPTAIN]" = CAPTAIN_ACCESS,
+		"[ACCESS_FLAG_CENTCOM]" = CENTCOM_ACCESS,
+		"[ACCESS_FLAG_SYNDICATE]" = SYNDICATE_ACCESS,
+		"[ACCESS_FLAG_AWAY]" = AWAY_ACCESS,
+		"[ACCESS_FLAG_SPECIAL]" = CULT_ACCESS,
+	)
 
-/proc/get_every_access()
-	return get_all_accesses() + get_all_centcom_access() + get_all_syndicate_access() + get_all_away_access() + ACCESS_BLOODCULT + ACCESS_CLOCKCULT
+/proc/generate_access_datums()
+	var/list/datums = list()
 
+	var/list/flag_tiers = generate_accesses_by_flag()
+	for(var/flag_key in flag_tiers)
+		var/flag = text2num(flag_key)
+		for(var/access in flag_tiers[flag_key])
+			var/datum/access/access_datum = datums["[access]"]
+			if(!access_datum)
+				access_datum = new(access)
+				datums["[access]"] = access_datum
+			access_datum.flag = flag
 
-GLOBAL_LIST_INIT(access_desc_list, list( \
-	"[ACCESS_SERVICE]" = "Service",
-	"[ACCESS_CARGO]" = "Cargo Bay",
-	"[ACCESS_SECURITY]" = "Security",
-	"[ACCESS_BRIG]" = "Holding Cells",
-	"[ACCESS_COURT]" = "Courtroom",
-	"[ACCESS_FORENSICS_LOCKERS]" = "Forensics",
-	"[ACCESS_MEDICAL]" = "Medical",
-	"[ACCESS_GENETICS]" = "Genetics Lab",
-	"[ACCESS_MORGUE]" = "Morgue",
-	"[ACCESS_TOX]" = "R&D Lab",
-	"[ACCESS_TOX_STORAGE]" = "Toxins Lab",
-	"[ACCESS_CHEMISTRY]" = "Chemistry Lab",
-	"[ACCESS_BRIGPHYS]" = "Brig Physician",
-	"[ACCESS_RD]" = "RD Office",
-	"[ACCESS_BAR]" = "Bar",
-	"[ACCESS_JANITOR]" = "Custodial Closet",
-	"[ACCESS_ENGINE]" = "Engineering",
-	"[ACCESS_ENGINE_EQUIP]" = "Power and Engineering Equipment",
-	"[ACCESS_MAINT_TUNNELS]" = "Maintenance",
-	"[ACCESS_EXTERNAL_AIRLOCKS]" = "External Airlocks",
-	"[ACCESS_CHANGE_IDS]" = "ID Console",
-	"[ACCESS_AI_UPLOAD]" = "AI Chambers",
-	"[ACCESS_TELEPORTER]" = "Teleporter",
-	"[ACCESS_EVA]" = "EVA",
-	"[ACCESS_HEADS]" = "Bridge",
-	"[ACCESS_CAPTAIN]" = "Captain",
-	"[ACCESS_ALL_PERSONAL_LOCKERS]" = "Personal Lockers",
-	"[ACCESS_CHAPEL_OFFICE]" = "Chapel Office",
-	"[ACCESS_TECH_STORAGE]" = "Technical Storage",
-	"[ACCESS_ATMOSPHERICS]" = "Atmospherics",
-	"[ACCESS_CREMATORIUM]" = "Crematorium",
-	"[ACCESS_ARMORY]" = "Armory",
-	"[ACCESS_CONSTRUCTION]" = "Construction",
-	"[ACCESS_KITCHEN]" = "Kitchen",
-	"[ACCESS_HYDROPONICS]" = "Hydroponics",
-	"[ACCESS_LIBRARY]" = "Library",
-	"[ACCESS_LAWYER]" = "Law Office",
-	"[ACCESS_ROBOTICS]" = "Robotics",
-	"[ACCESS_VIROLOGY]" = "Virology",
-	"[ACCESS_CMO]" = "CMO Office",
-	"[ACCESS_QM]" = "Quartermaster",
-	"[ACCESS_EXPLORATION]" = "Exploration Dock",
-	"[ACCESS_SURGERY]" = "Surgery",
-	"[ACCESS_THEATRE]" = "Theatre",
-	"[ACCESS_RESEARCH]" = "Science",
-	"[ACCESS_RD_SERVER]" = "Research Server Room",
-	"[ACCESS_MINING]" = "Mining",
-	"[ACCESS_MAILSORTING]" = "Cargo Office",
-	"[ACCESS_VAULT]" = "Main Vault",
-	"[ACCESS_MINING_STATION]" = "Mining EVA",
-	"[ACCESS_XENOBIOLOGY]" = "Xenobiology Lab",
-	"[ACCESS_HOP]" = "HoP Office",
-	"[ACCESS_HOS]" = "HoS Office",
-	"[ACCESS_CE]" = "CE Office",
-	"[ACCESS_RC_ANNOUNCE]" = "RC Announcements",
-	"[ACCESS_KEYCARD_AUTH]" = "Keycode Auth.",
-	"[ACCESS_TCOMSAT]" = "Telecommunications",
-	"[ACCESS_GATEWAY]" = "Gateway",
-	"[ACCESS_SEC_DOORS]" = "Brig",
-	"[ACCESS_SEC_RECORDS]" = "Security Records",
-	"[ACCESS_MINERAL_STOREROOM]" = "Mineral Storage",
-	"[ACCESS_MINISAT]" = "AI Satellite",
-	"[ACCESS_WEAPONS]" = "Weapon Permit",
-	"[ACCESS_NETWORK]" = "Network Access",
-	"[ACCESS_CLONING]" = "Cloning Room",
-	"[ACCESS_MECH_MINING]" = "Mining Mech Access",
-	"[ACCESS_MECH_MEDICAL]" = "Medical Mech Access",
-	"[ACCESS_MECH_SECURITY]" = "Security Mech Access",
-	"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
-	"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
-	"[ACCESS_AUX_BASE]" = "Auxiliary Base",
-	"[ACCESS_CENT_GENERAL]" = "Code Grey (General)",
-	"[ACCESS_CENT_THUNDER]" = "Code Yellow (Thunder)",
-	"[ACCESS_CENT_STORAGE]" = "Code Orange (Storage)",
-	"[ACCESS_CENT_LIVING]" = "Code Green (Service)",
-	"[ACCESS_CENT_MEDICAL]" = "Code White (Medical)",
-	"[ACCESS_CENT_TELEPORTER]" = "Code Blue (Teleporter)",
-	"[ACCESS_CENT_SPECOPS]" = "Code Black (SpecOps)",
-	"[ACCESS_CENT_CAPTAIN]" = "Code Gold (Executive)",
-	"[ACCESS_CENT_BAR]" = "Code Scotch (Bar)",
-	"[ACCESS_PRISONER]" = "Prisoner",
-	"[ACCESS_SYNDICATE]" = "Syndicate",
-	"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
-	"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",
-	"[ACCESS_BLOODCULT]" = "Bloodcult",
-	"[ACCESS_CLOCKCULT]" = "Clockcult"))
+	// Descriptions. Accesses with a desc but no tier still get a datum.
+	var/list/descriptions = list(
+		"[ACCESS_CARGO]" = "Cargo Bay",
+		"[ACCESS_SERVICE]" = "Service",
+		"[ACCESS_SECURITY]" = "Security",
+		"[ACCESS_BRIG]" = "Holding Cells",
+		"[ACCESS_COURT]" = "Courtroom",
+		"[ACCESS_FORENSICS_LOCKERS]" = "Forensics",
+		"[ACCESS_MEDICAL]" = "Medical",
+		"[ACCESS_GENETICS]" = "Genetics Lab",
+		"[ACCESS_CLONING]" = "Cloning Room",
+		"[ACCESS_MORGUE]" = "Morgue",
+		"[ACCESS_TOX]" = "R&D Lab",
+		"[ACCESS_TOX_STORAGE]" = "Toxins Lab",
+		"[ACCESS_EXPLORATION]" = "Exploration Dock",
+		"[ACCESS_RD_SERVER]" = "Research Server Room",
+		"[ACCESS_CHEMISTRY]" = "Chemistry Lab",
+		"[ACCESS_RD]" = "RD Office",
+		"[ACCESS_BAR]" = "Bar",
+		"[ACCESS_JANITOR]" = "Custodial Closet",
+		"[ACCESS_ENGINE]" = "Engineering",
+		"[ACCESS_ENGINE_EQUIP]" = "Power and Engineering Equipment",
+		"[ACCESS_MAINT_TUNNELS]" = "Maintenance",
+		"[ACCESS_EXTERNAL_AIRLOCKS]" = "External Airlocks",
+		"[ACCESS_CHANGE_IDS]" = "ID Console",
+		"[ACCESS_AI_UPLOAD]" = "AI Chambers",
+		"[ACCESS_TELEPORTER]" = "Teleporter",
+		"[ACCESS_EVA]" = "EVA",
+		"[ACCESS_HEADS]" = "Bridge",
+		"[ACCESS_CAPTAIN]" = "Captain",
+		"[ACCESS_ALL_PERSONAL_LOCKERS]" = "Personal Lockers",
+		"[ACCESS_CHAPEL_OFFICE]" = "Chapel Office",
+		"[ACCESS_TECH_STORAGE]" = "Technical Storage",
+		"[ACCESS_ATMOSPHERICS]" = "Atmospherics",
+		"[ACCESS_CREMATORIUM]" = "Crematorium",
+		"[ACCESS_ARMORY]" = "Armory",
+		"[ACCESS_CONSTRUCTION]" = "Construction",
+		"[ACCESS_KITCHEN]" = "Kitchen",
+		"[ACCESS_HYDROPONICS]" = "Hydroponics",
+		"[ACCESS_LIBRARY]" = "Library",
+		"[ACCESS_LAWYER]" = "Law Office",
+		"[ACCESS_ROBOTICS]" = "Robotics",
+		"[ACCESS_VIROLOGY]" = "Virology",
+		"[ACCESS_CMO]" = "CMO Office",
+		"[ACCESS_QM]" = "Quartermaster",
+		"[ACCESS_SURGERY]" = "Surgery",
+		"[ACCESS_THEATRE]" = "Theatre",
+		"[ACCESS_RESEARCH]" = "Science",
+		"[ACCESS_MINING]" = "Mining",
+		"[ACCESS_MAILSORTING]" = "Cargo Office",
+		"[ACCESS_VAULT]" = "Main Vault",
+		"[ACCESS_MINING_STATION]" = "Mining EVA",
+		"[ACCESS_XENOBIOLOGY]" = "Xenobiology Lab",
+		"[ACCESS_HOP]" = "HoP Office",
+		"[ACCESS_HOS]" = "HoS Office",
+		"[ACCESS_CE]" = "CE Office",
+		"[ACCESS_RC_ANNOUNCE]" = "RC Announcements",
+		"[ACCESS_KEYCARD_AUTH]" = "Keycode Auth.",
+		"[ACCESS_TCOMSAT]" = "Telecommunications",
+		"[ACCESS_GATEWAY]" = "Gateway",
+		"[ACCESS_SEC_DOORS]" = "Brig",
+		"[ACCESS_SEC_RECORDS]" = "Security Records",
+		"[ACCESS_BRIGPHYS]" = "Brig Physician",
+		"[ACCESS_MINERAL_STOREROOM]" = "Mineral Storage",
+		"[ACCESS_MINISAT]" = "AI Satellite",
+		"[ACCESS_WEAPONS]" = "Weapon Permit",
+		"[ACCESS_NETWORK]" = "Network Access",
+		"[ACCESS_MECH_MINING]" = "Mining Mech Access",
+		"[ACCESS_MECH_MEDICAL]" = "Medical Mech Access",
+		"[ACCESS_MECH_SECURITY]" = "Security Mech Access",
+		"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
+		"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
+		"[ACCESS_AUX_BASE]" = "Auxiliary Base",
+		"[ACCESS_CENT_GENERAL]" = "Code Grey",
+		"[ACCESS_CENT_THUNDER]" = "Code Yellow",
+		"[ACCESS_CENT_STORAGE]" = "Code Orange",
+		"[ACCESS_CENT_LIVING]" = "Code Green",
+		"[ACCESS_CENT_MEDICAL]" = "Code White",
+		"[ACCESS_CENT_TELEPORTER]" = "Code Blue",
+		"[ACCESS_CENT_SPECOPS]" = "Code Black",
+		"[ACCESS_CENT_CAPTAIN]" = "Code Gold",
+		"[ACCESS_CENT_BAR]" = "Code Scotch",
+		"[ACCESS_PRISONER]" = "Prisoner",
+		"[ACCESS_SYNDICATE]" = "Syndicate",
+		"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
+		"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",
+		"[ACCESS_BLOODCULT]" = "Bloodcult",
+		"[ACCESS_CLOCKCULT]" = "Clockcult",
+	)
+	for(var/access_key in descriptions)
+		var/datum/access/access_datum = datums[access_key]
+		if(!access_datum)
+			access_datum = new(text2num(access_key))
+			datums[access_key] = access_datum
+		access_datum.desc = descriptions[access_key]
 
-/proc/get_access_desc(access_code)
-	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
+	return datums
 
+/// Returns the access flag tier (ACCESS_FLAG_*) for an access level, or NONE if it isn't in a tier. Takes a number or a string.
+/proc/get_access_flag(access)
+	var/datum/access/access_datum = GLOB.access_datums["[access]"]
+	return access_datum?.flag
 
-/proc/get_all_centcom_jobs()
-	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
+/// Returns the description for an access level, or null if it has none. Takes a number or a string.
+/proc/get_access_desc(access)
+	var/datum/access/access_datum = GLOB.access_datums["[access]"]
+	return access_datum?.desc
 
-/obj/item/proc/get_item_job_icon() //Used in secHUD icon generation (the new one)
-	var/obj/item/card/id/I = GetID()
-	if(!I)
-		return
-	var/I_hud = I.hud_state
-	if(I_hud)
-		return I_hud
-	return "unknown"
+/// Returns descriptions for a list of accesses, falling back to the raw access for any without one.
+/proc/get_access_descs(list/accesses)
+	var/list/descriptions = list()
+	for(var/access in accesses)
+		descriptions += get_access_desc(access) || "[access]"
+	return descriptions
+
+/// Returns a copy of every access in the given flag tier. Takes a number or a string.
+/proc/get_flag_access_list(flag)
+	var/list/flag_access = GLOB.accesses_by_flag["[flag]"]
+	return flag_access?.Copy()

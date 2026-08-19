@@ -517,17 +517,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
 		if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
 			continue
-		if(!length(each_dept.access_list) || (!is_centcom && each_dept.access_filter))
+		if(!length(each_dept.department_access) || (!is_centcom && each_dept.access_filter))
 			continue
 		var/card_html = "<div class='idc-dept' style='border-top-color:[each_dept.dept_colour]'>"
-		card_html += "<div class='idc-dept-head'>[each_dept.access_group_name]<span class='idc-dept-count'>[length(each_dept.access_list)]</span></div>"
-		for(var/each_access in each_dept.access_list)
+		card_html += "<div class='idc-dept-head'>[each_dept.access_group_name]<span class='idc-dept-count'>[length(each_dept.department_access)]</span></div>"
+		for(var/each_access in each_dept.department_access)
 			if(each_access in inserted_modify_id.access)
 				card_html += "<a class='idc-access-item granted' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[get_access_desc(each_access)]</a>"
 			else
 				card_html += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[get_access_desc(each_access)]</a>"
 		card_html += "</div>"
-		access_cards += list(list("html" = card_html, "weight" = length(each_dept.access_list) + 2))
+		access_cards += list(list("html" = card_html, "weight" = length(each_dept.department_access) + 2))
 
 	var/accesses = ""
 	accesses += "<div class='idc-section'><h4>Access</h4><div class='idc-section-body'>"
@@ -649,15 +649,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated)
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
-					if(!is_centcom && (access_type in get_all_centcom_admin_access()))
+					if(!is_centcom && (get_access_flag(access_type) & ACCESS_FLAG_CENTCOM_LEVEL))
 						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
 						return
 					if(access_allowed == 1)
-						inserted_modify_id.access |= access_type
-						log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						inserted_modify_id.add_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
 					else
-						inserted_modify_id.access -= access_type
-						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						inserted_modify_id.remove_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
 					playsound(src, "terminal_type", 50, FALSE)
 					inserted_modify_id.update_label()
 					// Refresh only the access grid :)
@@ -675,7 +673,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
-					inserted_modify_id.access -= get_all_accesses()
+					inserted_modify_id.remove_access(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
 
 					// These lines are to make an individual to an assistant
 					if(B)
@@ -704,8 +702,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
 						updateUsrDialog()
 						return
-					inserted_modify_id.access -= get_all_accesses()
-					inserted_modify_id.access |= jobdatum.get_access()
+					inserted_modify_id.remove_access(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+					inserted_modify_id.add_access(jobdatum.get_access(), should_log = FALSE)
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment

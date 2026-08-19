@@ -70,7 +70,7 @@
 /obj/machinery/computer/communications/on_emag(mob/user)
 	..()
 	if (authenticated)
-		authorize_access = get_all_accesses()
+		authorize_access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	to_chat(user, span_danger("You scramble the communication routing circuits!"))
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 
@@ -314,7 +314,7 @@
 
 			if (obj_flags & EMAGGED)
 				authenticated = TRUE
-				authorize_access = get_all_accesses()
+				authorize_access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 				authorize_name = "Unknown"
 				to_chat(usr, span_warning("[src] lets out a quiet alarm as its login is overridden."))
 				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
@@ -322,7 +322,7 @@
 				var/obj/item/card/id/id_card = usr.get_idcard(hand_first = TRUE)
 				if (check_access(id_card))
 					authenticated = TRUE
-					authorize_access = id_card.access
+					authorize_access = id_card.access.Copy()
 					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
 
 			state = STATE_MESSAGES
