@@ -10,7 +10,7 @@
 		. = ..()
 	else
 		//Reagent processing needs to come before breathing, to prevent edge cases.
-		//handle_dead_metabolization(delta_time, times_fired) //Dead metabolization first since it can modify life metabolization.
+		handle_dead_metabolization(delta_time, times_fired) //Dead metabolization first since it can modify life metabolization.
 		handle_organs(delta_time, times_fired)
 
 		. = ..()
@@ -20,10 +20,10 @@
 		if(.) //not dead
 			handle_blood(delta_time, times_fired)
 
-		if(stat != DEAD) //Handle brain damage
-			for(var/T in get_traumas())
-				var/datum/brain_trauma/BT = T
-				BT.on_life(delta_time, times_fired)
+		if(stat != DEAD) // still not dead (blood could have changed that)
+			for(var/key in mind?.addiction_points)
+				GLOB.addictions[key].process_addiction(src, delta_time)
+			handle_brain_damage(delta_time)
 
 		if(stat != DEAD && has_dna())
 			for(var/datum/mutation/HM as anything in dna.mutations)
@@ -37,10 +37,6 @@
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
 
-	if(. && mind) //. == not dead
-		for(var/key in mind.addiction_points)
-			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
-			addiction.process_addiction(src, delta_time, times_fired)
 	if(stat != DEAD)
 		return TRUE
 
@@ -300,10 +296,23 @@
 	//Increase damage the more stam damage
 	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
 	stam_heal_multiplier = clamp(total_stamina_loss / 50, 1, 2)
+	//How well fed we are scales natural recovery. Never touch forced stamcrit however
+	var/nutrition_coeff = bodyparts_with_stam ? get_stamina_nutrition_coeff() : 1
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.needs_processing)
-			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1))))
+			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier * nutrition_coeff) / max(bodyparts_with_stam, 1))))
+
+/**
+ * Multiplier on natural stamina regeneration from how well fed we are
+ * Returns 1 for anything with no stomach(or non-traditional hunger), since nothing would ever refill nutrition
+ */
+/mob/living/carbon/proc/get_stamina_nutrition_coeff()
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER) || !get_organ_slot(ORGAN_SLOT_STOMACH))
+		return 1
+	. = min(STAMINA_HUNGER_FLOOR + ((1 - STAMINA_HUNGER_FLOOR) * nutrition / NUTRITION_LEVEL_FED), 1)
+	if(satiety > SATIETY_WELL_NOURISHED)
+		. *= STAMINA_SATIETY_BONUS
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)
 	if(stat == DEAD)
@@ -372,6 +381,19 @@
 	for(var/datum/mutation/HM as anything in dna.mutations)
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
+
+/**
+ * Handles calling metabolization for dead people.
+ * Due to how reagent metabolization code works this couldn't be done anywhere else.
+ *
+ * Arguments:
+ * - delta_time: The amount of time that has elapsed since the last tick.
+ * - times_fired: The number of times SSmobs has ticked.
+ */
+/mob/living/carbon/proc/handle_dead_metabolization(delta_time, times_fired)
+	if (stat != DEAD)
+		return
+	reagents.metabolize(src, delta_time, times_fired, can_overdose = TRUE, liverless = TRUE, dead = TRUE) // Your liver doesn't work while you're dead.
 
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
@@ -504,31 +526,72 @@
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
 		bodytemperature = clamp(bodytemperature + amount, min_temp, max_temp)
 
+///////////
+//Stomach//
+///////////
+
+/mob/living/carbon/get_fullness()
+	var/fullness = nutrition
+
+	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!belly) //nothing to see here if we do not have a stomach
+		return fullness
+
+	for(var/bile in belly.reagents.reagent_list)
+		var/datum/reagent/bits = bile
+		if(istype(bits, /datum/reagent/consumable))
+			var/datum/reagent/consumable/goodbit = bile
+			fullness += goodbit.get_nutriment_factor(src) * goodbit.volume / goodbit.metabolization_rate
+			continue
+		fullness += 0.6 * bits.volume / bits.metabolization_rate //not food takes up space
+
+	return fullness
+
+/mob/living/carbon/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
+	. = ..()
+	if(.)
+		return
+	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!belly)
+		return FALSE
+	return belly.reagents.has_reagent(reagent, amount, needs_metabolizing)
+
 /////////
 //LIVER//
 /////////
 
-///Decides if the liver is failing or not.
+///Check to see if we have the liver, if not automatically gives you last-stage effects of lacking a liver.
+
 /mob/living/carbon/proc/handle_liver(delta_time, times_fired)
-	if(!dna)
+	if(isnull(has_dna()))
 		return
+
 	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
-	if(!liver)
-		liver_failure(delta_time, times_fired)
+	if(liver)
+		return
+
+	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
+	reagents.metabolize(src, delta_time, times_fired, can_overdose = TRUE, liverless = TRUE)
+
+	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_LIVERLESS_METABOLISM))
+		return
+
+	adjustToxLoss(0.6 * delta_time, forced = TRUE)
+	adjustOrganLoss(pick(ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_STOMACH, ORGAN_SLOT_EYES, ORGAN_SLOT_EARS), 0.5* delta_time)
 
 /mob/living/carbon/proc/undergoing_liver_failure()
 	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
-	if(liver && (liver.organ_flags & ORGAN_FAILING))
+	if(liver?.organ_flags & ORGAN_FAILING)
 		return TRUE
 
-/mob/living/carbon/proc/liver_failure(delta_time, times_fired)
-	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
-	reagents.metabolize(src, delta_time, times_fired, can_overdose=FALSE, liverless = TRUE)
-	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_LIVERLESS_METABOLISM))
-		return
-	adjustToxLoss(2 * delta_time, TRUE,  TRUE)
-	if(DT_PROB(15, delta_time))
-		to_chat(src, span_warning("You feel a stabbing pain in your abdomen!"))
+////////////////
+//BRAIN DAMAGE//
+////////////////
+
+/mob/living/carbon/proc/handle_brain_damage(seconds_per_tick)
+	for(var/T in get_traumas())
+		var/datum/brain_trauma/BT = T
+		BT.on_life(seconds_per_tick)
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

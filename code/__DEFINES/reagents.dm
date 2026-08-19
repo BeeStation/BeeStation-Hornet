@@ -95,6 +95,9 @@
 /// the default temperature at which chemicals are added to reagent holders at
 #define DEFAULT_REAGENT_TEMPERATURE 300
 
+//reagent bitflags, used for altering how they works
+///allows on_mob_dead() if present in a dead body
+#define REAGENT_DEAD_PROCESS (1<<0)
 /// If present, when metabolizing out of a mob, we divide by the mob's metabolism rather than multiply.
 /// Without this flag: Higher metabolism means the reagent exits the system faster.
 /// With this flag: Higher metabolism means the reagent exits the system slower.

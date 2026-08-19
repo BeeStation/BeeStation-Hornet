@@ -136,6 +136,11 @@
 	multiplicative_slowdown = 1.5
 	blacklisted_movetypes = FLOATING
 
+/// Carbon equivalent of nopowercell (except cool and variable)
+/datum/movespeed_modifier/low_charge
+	variable = TRUE
+	blacklisted_movetypes = FLOATING
+
 /datum/movespeed_modifier/visible_hunger
 	id = MOVESPEED_ID_VISIBLE_HUNGER
 	movetypes = (~FLYING)
