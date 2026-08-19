@@ -1218,35 +1218,34 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		update_worn_back(0)
 		. = TRUE
 
-	if(head?.wash(clean_types))
+	// Check and wash stuff that can be covered
+	var/obscured = check_obscured_slots()
+
+	if(!(obscured & ITEM_SLOT_HEAD) && head?.wash(clean_types))
 		update_worn_head()
 		. = TRUE
 
-	// Check and wash stuff that can be covered
-	var/list/obscured = check_obscured_slots()
-
-	// If the eyes are covered by anything but glasses, that thing will be covering any potential glasses as well.
-	if(glasses && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
+	if(is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses?.wash(clean_types))
 		update_worn_glasses()
 		. = TRUE
 
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_MASK) && wear_mask?.wash(clean_types))
 		update_worn_mask()
 		. = TRUE
 
-	if(ears && !(ITEM_SLOT_EARS in obscured) && ears.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_EARS) && ears?.wash(clean_types))
 		update_worn_ears()
 		. = TRUE
 
-	if(wear_neck && !(ITEM_SLOT_NECK in obscured) && wear_neck.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_NECK) && wear_neck?.wash(clean_types))
 		update_worn_neck()
 		. = TRUE
 
-	if(shoes && !(ITEM_SLOT_FEET in obscured) && shoes.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_FEET) && shoes?.wash(clean_types))
 		update_worn_shoes()
 		. = TRUE
 
-	if(gloves && !(ITEM_SLOT_GLOVES in obscured) && gloves.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_GLOVES) && gloves?.wash(clean_types))
 		update_worn_gloves()
 		. = TRUE
 

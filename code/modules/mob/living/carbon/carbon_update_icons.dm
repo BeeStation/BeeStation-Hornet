@@ -152,7 +152,8 @@
 	if(head)
 		if(update_obscured)
 			update_obscured_slots(head.flags_inv)
-		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+		if(!(check_obscured_slots() & ITEM_SLOT_HEAD))
+			overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		update_hud_head(head)
 
 	apply_overlay(HEAD_LAYER)
