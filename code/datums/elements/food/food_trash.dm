@@ -22,10 +22,13 @@
 		RegisterSignal(target, COMSIG_ITEM_ATTACK_SELF, PROC_REF(open_trash))
 	if(flags & FOOD_TRASH_POPABLE)
 		RegisterSignal(target, COMSIG_FOOD_CROSSED, PROC_REF(food_crossed))
-	RegisterSignal(target, COMSIG_ITEM_ON_GRIND, PROC_REF(generate_trash))
-	RegisterSignal(target, COMSIG_ITEM_ON_JUICE, PROC_REF(generate_trash))
-	RegisterSignal(target, COMSIG_ITEM_USED_AS_INGREDIENT, PROC_REF(generate_trash))
-	RegisterSignal(target, COMSIG_ITEM_ON_COMPOSTED, PROC_REF(generate_trash))
+	RegisterSignals(target, list(
+		COMSIG_ITEM_ON_GRIND,
+		COMSIG_ITEM_ON_JUICE,
+		COMSIG_ITEM_USED_AS_INGREDIENT,
+		COMSIG_ITEM_ON_COMPOSTED,
+		COMSIG_MOVABLE_SPLAT,
+	), PROC_REF(generate_trash))
 
 /datum/element/food_trash/Detach(datum/target)
 	. = ..()
@@ -37,6 +40,7 @@
 		COMSIG_ITEM_ON_JUICE,
 		COMSIG_ITEM_USED_AS_INGREDIENT,
 		COMSIG_ITEM_ON_COMPOSTED,
+		COMSIG_MOVABLE_SPLAT,
 	))
 
 /datum/element/food_trash/proc/generate_trash(datum/source, mob/living/eater, mob/living/feeder)

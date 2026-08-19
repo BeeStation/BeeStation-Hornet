@@ -822,6 +822,14 @@
 
 /// Pumpkin people
 
+/datum/bodypart_overlay/simple/pumpkin_face
+	icon = 'icons/mob/pumpkin_faces.dmi'
+	icon_state = "blank"
+	layers = EXTERNAL_ADJACENT
+
+/datum/bodypart_overlay/simple/pumpkin_face/generate_icon_cache()
+	return list(icon_state)
+
 /obj/item/bodypart/head/pumpkin_man
 	limb_id = "pumpkin_man"
 	is_dimorphic = FALSE
@@ -829,17 +837,21 @@
 	burn_modifier = 1.25
 	head_flags = HEAD_EYECOLOR
 	///Carved overlay
-	var/image/carved_overlay
+	var/datum/bodypart_overlay/simple/pumpkin_face/carved_overlay
 
 /obj/item/bodypart/head/pumpkin_man/Initialize(mapload)
-	carved_overlay = image('icons/mob/pumpkin_faces.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-	. = ..() // set after carved_overlay is set
-
-/obj/item/bodypart/head/pumpkin_man/get_limb_icon(dropped)
+	carved_overlay = new()
+	add_bodypart_overlay(carved_overlay, update = FALSE)
 	. = ..()
-	if(owner)
-		owner.cut_overlay(carved_overlay)
-	. += carved_overlay
+
+/obj/item/bodypart/head/pumpkin_man/proc/set_carved_face(face_state)
+	if(carved_overlay.icon_state == face_state)
+		return
+	carved_overlay.icon_state = face_state
+	if(!owner)
+		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
 
 /obj/item/bodypart/chest/pumpkin_man
 	limb_id = "pumpkin_man"

@@ -43,25 +43,23 @@
 	if(!GLOB.underwear_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Nude"
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Nude"
 
 /proc/random_socks(gender)
 	if(!GLOB.socks_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Nude"
 
 /proc/random_features(gender)
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
-	if(!GLOB.tails_roundstart_list_human.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human)
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	if(!GLOB.snouts_list.len)
@@ -76,8 +74,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
 	if(!GLOB.legs_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
-	if(!GLOB.body_markings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.body_markings_list)
+	if(!GLOB.lizard_markings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/lizard_markings, GLOB.lizard_markings_list)
 	if(!GLOB.wings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
 	if(!GLOB.moth_wings_list.len)
@@ -134,7 +132,7 @@
 		"ears" = SPRITE_ACCESSORY_NONE,
 		"frills" = pick(GLOB.frills_list),
 		"spines" = pick(GLOB.spines_list),
-		"body_markings" = pick(GLOB.body_markings_list),
+		"lizard_markings" = pick(GLOB.lizard_markings_list),
 		"legs" = "Normal Legs",
 		"moth_wings" = pick(GLOB.moth_wings_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
@@ -146,7 +144,6 @@
 		"apid_antenna" = pick(GLOB.apid_antenna_list),
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
-		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
 		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
 		"diona_leaves" = pick(GLOB.diona_leaves_list),
 		"diona_thorns" = pick(GLOB.diona_thorns_list),
@@ -161,11 +158,11 @@
 
 /proc/random_hair_style(gender)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hairstyles_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Bald"
 
 /proc/random_facial_hairstyle(gender)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hairstyles_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Shaved"
 
 GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",

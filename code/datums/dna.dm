@@ -183,11 +183,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	switch(holder.gender)
 		if(MALE)
-			L[DNA_GENDER_BLOCK] = construct_block(G_MALE, 3)
+			L[DNA_GENDER_BLOCK] = construct_block(G_MALE, GENDERS)
 		if(FEMALE)
-			L[DNA_GENDER_BLOCK] = construct_block(G_FEMALE, 3)
+			L[DNA_GENDER_BLOCK] = construct_block(G_FEMALE, GENDERS)
 		else
-			L[DNA_GENDER_BLOCK] = construct_block(G_PLURAL, 3)
+			L[DNA_GENDER_BLOCK] = construct_block(G_PLURAL, GENDERS)
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		if(!GLOB.hairstyles_list.len)
@@ -218,8 +218,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_MUTANT_COLOR_BLOCK] = sanitize_hexcolor(features["mcolor"], include_crunch = FALSE)
 	if(features["ethcolor"])
 		L[DNA_ETHEREAL_COLOR_BLOCK] = sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE)
-	if(features["body_markings"])
-		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.body_markings_list.Find(features["body_markings"]), GLOB.body_markings_list.len)
+	if(features["lizard_markings"])
+		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.lizard_markings_list.Find(features["lizard_markings"]), GLOB.lizard_markings_list.len)
+	if(features["tail_human"])
+		L[DNA_TAIL_BLOCK] = construct_block(GLOB.tails_list_human.Find(features["tail_human"]), GLOB.tails_list_human.len)
 	if(features["tail_lizard"])
 		L[DNA_LIZARD_TAIL_BLOCK] = construct_block(GLOB.tails_list_lizard.Find(features["tail_lizard"]), GLOB.tails_list_lizard.len)
 	if(features["snout"])
@@ -230,8 +232,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_FRILLS_BLOCK] = construct_block(GLOB.frills_list.Find(features["frills"]), GLOB.frills_list.len)
 	if(features["spines"])
 		L[DNA_SPINES_BLOCK] = construct_block(GLOB.spines_list.Find(features["spines"]), GLOB.spines_list.len)
-	if(features["tail_human"])
-		L[DNA_HUMAN_TAIL_BLOCK] = construct_block(GLOB.tails_list_human.Find(features["tail_human"]), GLOB.tails_list_human.len)
 	if(features["ears"])
 		L[DNA_EARS_BLOCK] = construct_block(GLOB.ears_list.Find(features["ears"]), GLOB.ears_list.len)
 	if(features["moth_wings"] != "Burnt Off")
@@ -364,11 +364,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_GENDER_BLOCK)
 			switch(H.gender)
 				if(MALE)
-					set_uni_identity_block(blocknumber, construct_block(G_MALE, 3))
+					set_uni_identity_block(blocknumber, construct_block(G_MALE, GENDERS))
 				if(FEMALE)
-					set_uni_identity_block(blocknumber, construct_block(G_FEMALE, 3))
+					set_uni_identity_block(blocknumber, construct_block(G_FEMALE, GENDERS))
 				else
-					set_uni_identity_block(blocknumber, construct_block(G_PLURAL, 3))
+					set_uni_identity_block(blocknumber, construct_block(G_PLURAL, GENDERS))
 		if(DNA_FACIAL_HAIRSTYLE_BLOCK)
 			set_uni_identity_block(blocknumber, construct_block(GLOB.facial_hairstyles_list.Find(H.facial_hairstyle), length(GLOB.facial_hairstyles_list)))
 		if(DNA_HAIRSTYLE_BLOCK)
@@ -392,7 +392,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_ETHEREAL_COLOR_BLOCK)
 			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE))
 		if(DNA_LIZARD_MARKINGS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.body_markings_list.Find(features["body_markings"]), GLOB.body_markings_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.lizard_markings_list.Find(features["lizard_markings"]), GLOB.lizard_markings_list.len))
 		if(DNA_LIZARD_TAIL_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.tails_list_lizard.Find(features["tail_lizard"]), GLOB.tails_list_lizard.len))
 		if(DNA_SNOUT_BLOCK)
@@ -403,7 +403,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			set_uni_feature_block(blocknumber, construct_block(GLOB.frills_list.Find(features["frills"]), GLOB.frills_list.len))
 		if(DNA_SPINES_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.spines_list.Find(features["spines"]), GLOB.spines_list.len))
-		if(DNA_HUMAN_TAIL_BLOCK)
+		if(DNA_TAIL_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.tails_list_human.Find(features["tail_human"]), GLOB.tails_list_human.len))
 		if(DNA_EARS_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.ears_list.Find(features["ears"]), GLOB.ears_list.len))
@@ -663,13 +663,13 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)
 	if(!has_dna())
 		return
-	switch(deconstruct_block(get_uni_identity_block(DNA_GENDER_BLOCK), 3))
+	switch(deconstruct_block(get_uni_identity_block(DNA_GENDER_BLOCK), GENDERS))
 		if(G_MALE)
-			set_gender(MALE, TRUE, forced = TRUE)
+			gender = MALE
 		if(G_FEMALE)
-			set_gender(FEMALE, TRUE, forced = TRUE)
+			gender = FEMALE
 		else
-			set_gender(PLURAL, TRUE, forced = TRUE)
+			gender = PLURAL
 
 /mob/living/carbon/human/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)
 	..()
@@ -697,8 +697,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		dna.features["mcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
 	if(dna.features["ethcolor"])
 		dna.features["ethcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_ETHEREAL_COLOR_BLOCK))
-	if(dna.features["body_markings"])
-		dna.features["body_markings"] = GLOB.body_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), GLOB.body_markings_list.len)]
+	if(dna.features["lizard_markings"])
+		dna.features["lizard_markings"] = GLOB.lizard_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_MARKINGS_BLOCK), GLOB.lizard_markings_list.len)]
 	if(dna.features["tail_lizard"])
 		dna.features["tail_lizard"] = GLOB.tails_list_lizard[deconstruct_block(get_uni_feature_block(features, DNA_LIZARD_TAIL_BLOCK), GLOB.tails_list_lizard.len)]
 	if(dna.features["snout"])
@@ -710,7 +710,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(dna.features["spines"])
 		dna.features["spines"] = GLOB.spines_list[deconstruct_block(get_uni_feature_block(features, DNA_SPINES_BLOCK), GLOB.spines_list.len)]
 	if(dna.features["tail_human"])
-		dna.features["tail_human"] = GLOB.tails_list_human[deconstruct_block(get_uni_feature_block(features, DNA_HUMAN_TAIL_BLOCK), GLOB.tails_list_human.len)]
+		dna.features["tail_human"] = GLOB.tails_list_human[deconstruct_block(get_uni_feature_block(features, DNA_TAIL_BLOCK), GLOB.tails_list_human.len)]
 	if(dna.features["ears"])
 		dna.features["ears"] = GLOB.ears_list[deconstruct_block(get_uni_feature_block(features, DNA_EARS_BLOCK), GLOB.ears_list.len)]
 	if(dna.features["moth_wings"])
@@ -763,11 +763,13 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		organ_eyes.eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
 
+	for(var/obj/item/organ/organ in internal_organs)
+		organ.mutate_feature(features, src)
+
 	if(icon_update)
 		update_body(is_creating = mutcolor_update)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
-
 
 /mob/proc/domutcheck()
 	return

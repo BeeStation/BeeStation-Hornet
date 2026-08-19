@@ -8,18 +8,21 @@
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
-		"tail_lizard" = "Smooth",
 		"snout" = "Round",
 		"horns" = SPRITE_ACCESSORY_NONE,
 		"frills" = SPRITE_ACCESSORY_NONE,
-		"spines" = SPRITE_ACCESSORY_NONE,
-		"body_markings" = SPRITE_ACCESSORY_NONE,
 		"legs" = "Normal Legs",
 		"body_size" = "Normal"
 	)
+	body_markings = list(
+		/datum/bodypart_overlay/simple/body_marking/lizard = SPRITE_ACCESSORY_NONE,
+	)
+	mutant_organs = list(
+		/obj/item/organ/spines = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/tail/lizard = "Smooth",
+	)
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutantbrain = /obj/item/organ/brain/lizard
-	mutant_organs = list(/obj/item/organ/tail/lizard)
 	coldmod = 1.5
 	heatmod = 0.67
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
@@ -48,16 +51,6 @@
 /// Lizards are cold blooded and do not stabilize body temperature naturally
 /datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
 	return
-
-//I wag in death
-/datum/species/lizard/spec_death(gibbed, mob/living/carbon/human/H)
-	if(H)
-		stop_wagging_tail(H)
-
-/datum/species/lizard/spec_stun(mob/living/carbon/human/H,amount)
-	if(H)
-		stop_wagging_tail(H)
-	. = ..()
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
 	return pick(

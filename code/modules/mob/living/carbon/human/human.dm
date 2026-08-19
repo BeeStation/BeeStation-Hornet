@@ -22,7 +22,9 @@
 	setup_human_dna()
 
 	create_carbon_reagents()
-	set_species(dna.species.type)
+	set_species(dna.species.type, icon_update = FALSE) //carbon/Initialize will call update_body()
+	//set species enables and disables the flag. Just to be sure, we re-enable it now until it's removed by the parent call.
+	living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	prepare_huds() //Prevents a nasty runtime on human init
 
@@ -485,7 +487,7 @@
 
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
-	if(dna.features["body_model"] == MALE)
+	if(gender == MALE) //Gender instead of physique, because don't want to force facial hair on non-males
 		set_facial_hairstyle("Full Beard", update = FALSE)
 	else
 		set_facial_hairstyle("Shaved", update = FALSE)

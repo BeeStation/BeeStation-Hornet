@@ -475,7 +475,7 @@
 	new_profile.protected = protect
 
 	new_profile.age = target.age
-	//new_profile.physique = target.physique
+	new_profile.physique = target.physique
 
 	// Clothes, of course
 	new_profile.underwear = target.underwear
@@ -663,7 +663,7 @@
 	user.undershirt = chosen_profile.undershirt
 	user.socks = chosen_profile.socks
 	user.age = chosen_profile.age
-	//user.physique = chosen_profile.physique
+	user.physique = chosen_profile.physique
 	user.gradient_style = LAZYLISTDUPLICATE(chosen_profile.gradient_style)
 	user.gradient_color = LAZYLISTDUPLICATE(chosen_profile.gradient_color)
 

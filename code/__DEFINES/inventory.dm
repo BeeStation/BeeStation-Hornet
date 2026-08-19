@@ -156,16 +156,17 @@ DEFINE_BITFIELD(no_equip_flags, list(
 //This system takes priority over Sprite Sheets.
 
 //Flags (actual flags, fucker ^) for /obj/item/var/supports_variations_flags
-///No alternative sprites based on bodytype
+/// No alternative sprites or handling based on bodytype
 #define CLOTHING_NO_VARIATION (1<<0)
-///Has a sprite for digitigrade legs specifically.
+/// Has a sprite for digitigrade legs specifically.
 #define CLOTHING_DIGITIGRADE_VARIATION (1<<1)
-///The sprite works fine for digitigrade legs as-is.
+/// The sprite works fine for digitigrade legs as-is.
 #define CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
+/// Auto-generates the leg portion of the sprite with GAGS
+#define CLOTHING_DIGITIGRADE_MASK (1<<3)
 
-#define NOT_DIGITIGRADE				0
-#define FULL_DIGITIGRADE			1
-#define SQUISHED_DIGITIGRADE		2
+/// All variation flags which render "correctly" on a digitigrade leg setup
+#define DIGITIGRADE_VARIATIONS (CLOTHING_DIGITIGRADE_VARIATION|CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON|CLOTHING_DIGITIGRADE_MASK)
 
 //! ## flags for covering body parts
 #define GLASSESCOVERSEYES	(1<<0)

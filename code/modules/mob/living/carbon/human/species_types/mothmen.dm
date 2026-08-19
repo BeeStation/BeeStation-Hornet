@@ -11,17 +11,17 @@
 	id = SPECIES_MOTH
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
-		TRAIT_HAS_MARKINGS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	mutant_bodyparts = list(
 		"moth_wings" = "Plain",
 		"moth_antennae" = "Plain",
-		"moth_markings" = SPRITE_ACCESSORY_NONE,
 		"moth_eyes" = "Default",
 		"body_size" = "Normal"
 	)
-	var/datum/action/innate/cocoon/cocoon_action
+	body_markings = list(
+		/datum/bodypart_overlay/simple/body_marking/moth = SPRITE_ACCESSORY_NONE,
+	)
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
@@ -41,6 +41,8 @@
 	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
+
+	var/datum/action/innate/cocoon/cocoon_action
 
 /datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)

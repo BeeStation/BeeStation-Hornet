@@ -67,6 +67,9 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
+	if(bodypart_overlay)
+		setup_bodypart_overlay()
+
 /*
  * Insert the organ into the select mob.
  *
@@ -125,6 +128,12 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
+	//TEMP - kl remove
+	// Has to run after COMSIG_ORGAN_IMPLANTED, which is what imprints the sprite datum onto the
+	// overlay. Attaching any earlier redraws the limb against an overlay with nothing to draw.
+	if(bodypart_overlay)
+		get_bodypart_owner(organ_owner)?.add_bodypart_overlay(bodypart_overlay)
+
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -164,6 +173,9 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
+
+	if(bodypart_overlay)
+		get_bodypart_owner(organ_owner)?.remove_bodypart_overlay(bodypart_overlay)
 
 	if(!special)
 		organ_owner.hud_used?.update_locked_slots()
@@ -234,6 +246,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+	bodypart_overlay?.imprint_on_next_insertion = TRUE
 
 //See above
 /obj/item/organ/proc/enter_wardrobe()
@@ -406,3 +419,15 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		status = "<font color='#ffcc33'>Mildly Damaged</font>"
 
 	return status
+
+/// Get all possible organ slots by checking every organ, and then store it and give it whenever needed
+/proc/get_all_slots()
+	var/static/list/all_organ_slots = list()
+
+	if(!all_organ_slots.len)
+		for(var/obj/item/organ/an_organ as anything in subtypesof(/obj/item/organ))
+			if(!initial(an_organ.slot))
+				continue
+			all_organ_slots |= initial(an_organ.slot)
+
+	return all_organ_slots

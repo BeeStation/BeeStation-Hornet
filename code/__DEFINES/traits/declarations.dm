@@ -116,8 +116,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AGENDER "agender"
 /// Species with this trait use skin tones for coloration
 #define TRAIT_USES_SKINTONES "uses_skintones"
-/// Species with this trait have markings (this SUCKS, remove this later in favor of bodypart overlays)
-#define TRAIT_HAS_MARKINGS "has_markings"
 /// Species with this trait use mutant colors for coloration
 #define TRAIT_MUTANT_COLORS "mutcolors"
 /// Species with this trait have mutant colors that cannot be chosen by the player, nor altered ingame by external means
@@ -248,8 +246,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND "beefriend"
 #define TRAIT_PASSTABLE "passtable"
-#define TRAIT_BLUSHING "blushing"
-#define TRAIT_CRYING "crying"
 #define TRAIT_NOBLOCK "noblock"
 #define TRAIT_NANITECOMPATIBLE "nanitecompatible"
 #define TRAIT_NICE_SHOT "nice_shot" //hnnnnnnnggggg..... you're pretty good....
@@ -642,5 +638,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This clothing protects the user from radiation.
 /// This should not be used on clothing_traits, but should be applied to the clothing itself.
 #define TRAIT_RADIATION_PROTECTED_CLOTHING "radiation_protected_clothing"
+
+/// This mob heals from carp rifts.
+#define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 
 // END TRAIT DEFINES

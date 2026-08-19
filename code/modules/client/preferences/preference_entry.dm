@@ -26,6 +26,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	var/list/flattened = list()
 	for (var/index in 1 to MAX_PREFERENCE_PRIORITY)
+		// Scream if we have empty priority slots
+		if(!preferences[index])
+			stack_trace("Preference priority slot [index] is empty. Check that all priority levels 1-[MAX_PREFERENCE_PRIORITY] have at least one preference assigned.")
+			continue
 		flattened += preferences[index]
 	return flattened
 
@@ -66,19 +70,27 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_mutant_bodypart = null
 
+	/// If the selected species has this in its /datum/species/body_markings,
+	/// will show the feature as selectable.
+	var/relevant_body_markings = null
+
 	/// If the selected species has this in its /datum/species/inherent_traits,
 	/// will show the feature as selectable.
 	var/relevant_inherent_trait = null
+
+	/// If the selected species has this in its /datum/species/var/external_organs,
+	/// will show the feature as selectable.
+	var/relevant_external_organ = null
+
+	/// If the selected species has this head_flag by default,
+	/// will show the feature as selectable.
+	var/relevant_head_flag = null
 
 	/// Indicates that create_informed_default_value is used.
 	var/informed = FALSE
 
 	/// Disables database writes. This can be useful for a testmerged preference
 	var/disable_serialization = FALSE
-
-	/// If the selected species has this head_flag by default,
-	/// will show the feature as selectable.
-	var/relevant_head_flag = null
 
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
@@ -268,22 +280,27 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	return null
 
+/// Checks the species currently selected by the passed preferences object to see if it has this preference's key as a feature.
+/datum/preference/proc/current_species_has_savekey(datum/preferences/preferences)
+	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	var/datum/species/species = GLOB.species_prototypes[species_type]
+	return (db_key in species.get_features())
+
+/// Checks if this preference is relevant and thus visible to the passed preferences object.
+/datum/preference/proc/has_relevant_feature(datum/preferences/preferences)
+	if(isnull(relevant_mutant_bodypart) && isnull(relevant_inherent_trait) && isnull(relevant_external_organ) && isnull(relevant_head_flag) && isnull(relevant_body_markings))
+		return TRUE
+
+	return current_species_has_savekey(preferences)
+
 /// Returns whether or not this preference is accessible.
 /// If FALSE, will not show in the UI and will not be editable (by update_preference).
 /datum/preference/proc/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if ( \
-		!isnull(relevant_mutant_bodypart) \
-		|| !isnull(relevant_inherent_trait) \
-		|| !isnull(relevant_head_flag) \
-	)
-		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
-
-		var/datum/species/species = GLOB.species_prototypes[species_type]
-		if (!(db_key in species.get_features()))
-			return FALSE
+	if (!has_relevant_feature(preferences))
+		return FALSE
 
 	if (!ignore_page && !should_show_on_page(preferences.current_window))
 		return FALSE
@@ -410,23 +427,37 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return findtext(value, GLOB.is_color)
 
 /proc/pick_default_accessory(list/sprite_accessories, datum/sprite_accessory/default = null, default_probability = 0, required_gender = null)
+	RETURN_TYPE(/datum/sprite_accessory)
+
 	if (default && prob(default_probability))
 		return default
+	if (!length(sprite_accessories))
+		return default
+	// Accessories are only ever tagged MALE, FEMALE or NEUTER
+	if (required_gender != MALE && required_gender != FEMALE)
+		required_gender = null
 	var/list/allowed = list()
-	for (var/datum/sprite_accessory/accessory as anything in sprite_accessories)
+	var/list/selectable = list()
+	for (var/entry as anything in sprite_accessories)
+		var/datum/sprite_accessory/accessory = entry
 		// Source list is an assoc list
 		if (!istype(accessory))
-			accessory = sprite_accessories[accessory]
+			accessory = sprite_accessories[entry]
+		if (!istype(accessory))
+			continue
+		if (accessory.locked)
+			continue
+		selectable += accessory
 		if (!accessory.use_default)
 			continue
 		if (required_gender && accessory.use_default_gender != NEUTER && accessory.use_default_gender != required_gender)
 			continue
 		allowed += accessory
-	if (length(allowed) == 0)
-		if (default)
-			return default
-		return pick(sprite_accessories)
-	return pick(allowed)
+	if (length(allowed))
+		return pick(allowed)
+	if (default)
+		return default
+	return length(selectable) ? pick(selectable) : null
 
 /// A numeric preference with a minimum and maximum value
 /datum/preference/numeric
@@ -479,6 +510,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/toggle/is_valid(value)
 	return value == TRUE || value == FALSE
+
 
 /// A simple string type preference.
 /datum/preference/string

@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	return
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
-	target.dna.features["body_markings"] = SPRITE_ACCESSORY_NONE
+	target.dna.features["lizard_markings"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["ears"] = "Cat"
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
 	target.dna.features["frills"] = SPRITE_ACCESSORY_NONE
@@ -184,6 +184,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features["spines"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["tail_human"] = "Cat"
 	target.dna.features["tail_lizard"] = "Smooth"
+	target.dna.features["tail_monkey"] = "Monkey"
 	target.dna.features["apid_stripes"] = "thick"
 	target.dna.features["apid_headstripes"] = "thick"
 	target.dna.features["apid_antenna"] = "curled"

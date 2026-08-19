@@ -169,9 +169,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 /mob/dead/observer/narsie_act()
 	var/old_color = color
-	color = "#960000"
+	color = COLOR_CULT_RED
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 1 SECONDS)
 
 /mob/dead/observer/Destroy()
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)

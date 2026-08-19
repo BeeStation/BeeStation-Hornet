@@ -4,11 +4,15 @@
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = SPRITE_ACCESSORY_NONE, "body_size" = "Normal")
-	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
-
+	mutant_bodyparts = list(
+		"ears" = "Cat",
+		"wings" = SPRITE_ACCESSORY_NONE,
+		"body_size" = "Normal"
+	)
+	mutant_organs = list(
+		/obj/item/organ/tail/cat = "Cat",
+	)
 	mutantears = /obj/item/organ/ears/cat
-	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
 	inherent_traits = list(
 		TRAIT_HATED_BY_DOGS,
@@ -20,19 +24,6 @@
 	inert_mutation = /datum/mutation/catclaws
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
-
-/datum/species/human/felinid/qualifies_for_rank(datum/job/rank, list/features)
-	return TRUE
-
-//Curiosity killed the cat's wagging tail.
-/datum/species/human/felinid/spec_death(gibbed, mob/living/carbon/human/H)
-	if(H)
-		stop_wagging_tail(H)
-
-/datum/species/human/felinid/spec_stun(mob/living/carbon/human/H,amount)
-	if(H)
-		stop_wagging_tail(H)
-	. = ..()
 
 /datum/species/human/felinid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	if(ishuman(C))
