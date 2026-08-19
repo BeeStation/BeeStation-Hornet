@@ -66628,6 +66628,10 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron/grid/steel,
 /area/station/science/robotics/lab)
 "tGm" = (
@@ -79043,11 +79047,6 @@
 /obj/item/reagent_containers/condiment/rice,
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
-"xrf" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/station/science/robotics/lab)
 "xrg" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrous_input{
 	dir = 8
@@ -114889,7 +114888,7 @@ iZp
 yeN
 hSM
 gVb
-xrf
+yeN
 eyD
 rXW
 mLD

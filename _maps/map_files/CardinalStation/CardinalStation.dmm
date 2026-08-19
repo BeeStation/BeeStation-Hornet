@@ -51894,6 +51894,10 @@
 	},
 /obj/structure/table,
 /obj/machinery/airalarm/directional/south,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "mil" = (
@@ -62836,7 +62840,6 @@
 	},
 /area/station/engineering/storage_shared)
 "oHw" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/decal/cleanable/robot_debris{
 	icon_state = "gib4";
 	pixel_x = 14;
