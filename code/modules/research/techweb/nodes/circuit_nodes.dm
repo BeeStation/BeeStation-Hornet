@@ -125,6 +125,7 @@
 	design_ids = list(
 		"assembly_shell",
 		"bot_shell",
+		"ipc_control",
 		//"comp_mod_action",
 		"controller_shell",
 		"door_shell",
