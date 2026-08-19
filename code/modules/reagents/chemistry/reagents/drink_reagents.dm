@@ -314,7 +314,7 @@
 		if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 0, updating_health = FALSE))
 			. = UPDATE_MOB_HEALTH
 	if(affected_mob.reagents.has_reagent(/datum/reagent/consumable/capsaicin))
-		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, 1 * delta_time)
+		affected_mob.reagents.remove_reagent(/datum/reagent/consumable/capsaicin, delta_time)
 	return ..() || .
 
 /*See block comment in ../milk/overdose_process(mob/living/carbon/affected_mob) for calculation and explanation of why this exists and why 5 was chosen

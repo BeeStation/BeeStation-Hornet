@@ -43,6 +43,9 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
+/obj/item/food/grown/New(loc, obj/item/seeds/new_seed)
+	return ..()
+
 /obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	if(!tastes)
 		tastes = list("[name]" = 1) //This happens first else the component already inits
@@ -73,6 +76,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 	. = ..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
 
+	reagents.clear_reagents()
 	seed.prepare_result(src)
 	transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 
@@ -83,19 +87,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	if(isatom(seed))
 		QDEL_NULL(seed)
 	return ..()
-
-/obj/item/food/grown/make_edible()
-	AddComponent(/datum/component/edible,\
-				initial_reagents = food_reagents,\
-				food_flags = food_flags,\
-				foodtypes = foodtypes,\
-				volume = max_volume,\
-				eat_time = eat_time,\
-				tastes = tastes,\
-				eatverbs = eatverbs,\
-				bite_consumption = bite_consumption,\
-				microwaved_type = microwaved_type,\
-				junkiness = junkiness)
 
 /obj/item/food/grown/proc/make_dryable()
 	AddElement(/datum/element/dryable, type)
@@ -197,7 +188,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	if(grind_results_num)
 		var/total_nutriment_amount = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment, include_subtypes = TRUE)
 		var/single_reagent_amount = grind_results_num > 1 ? round(total_nutriment_amount / grind_results_num, CHEMICAL_QUANTISATION_LEVEL) : total_nutriment_amount
-		reagents.remove_all_type(/datum/reagent/consumable/nutriment, total_nutriment_amount)
+		reagents.remove_reagent(/datum/reagent/consumable/nutriment, total_nutriment_amount, include_subtypes = TRUE)
 		for(var/reagent in grind_results)
 			reagents.add_reagent(reagent, single_reagent_amount)
 

@@ -134,16 +134,16 @@
 		else
 			var/obj/item/reagent_containers/cup/glass/drinkingglass/DG = new(loc)
 			if(href_list["pour"])
-				reagents.trans_id_to(DG, reagents.reagent_list[text2num(href_list["pour"])]?.type, portion)
+				reagents.trans_to(DG, portion, target_id = reagents.reagent_list[text2num(href_list["pour"])]?.type)
 			if(href_list["m_pour"])
-				mixer.reagents.trans_id_to(DG, mixer.reagents.reagent_list[text2num(href_list["m_pour"])]?.type, portion)
+				mixer.reagents.trans_to(DG, portion, target_id = mixer.reagents.reagent_list[text2num(href_list["m_pour"])]?.type)
 
 	if(href_list["mix"])
-		if(!reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion))
+		if(!reagents.trans_to(mixer, portion, target_id = reagents.reagent_list[text2num(href_list["mix"])]?.type))
 			to_chat(usr, span_warning("[mixer] is full!"))
 
 	if(href_list["transfer"])
-		if(!mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type, portion))
+		if(!mixer.reagents.trans_to(src, portion, target_id = mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type))
 			to_chat(usr, span_warning("[src] is full!"))
 
 	updateDialog()

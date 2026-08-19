@@ -4,7 +4,7 @@
 //ASSISTANT
 /datum/job/assistant
 	mail_goodies = list(
-		/obj/item/food/donkpocket/random = 10,
+		/obj/effect/spawner/random/food_or_drink/donkpockets_single = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 5,
 		/obj/item/clothing/gloves/color/yellow = 8,
@@ -362,7 +362,7 @@
 //QUARTERMASTER
 /datum/job/quartermaster
 	mail_goodies = list(
-		/obj/item/food/donkpocket/random = 10,
+		/obj/effect/spawner/random/food_or_drink/donkpockets_single = 10,
 		//the beginning of your department's independence
 		/obj/item/banner/cargo = 5,
 		//if you want to watch the world burn, this is it.

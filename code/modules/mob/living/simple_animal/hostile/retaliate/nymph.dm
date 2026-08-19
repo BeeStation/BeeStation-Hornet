@@ -360,7 +360,7 @@
 		if(do_after(held_mob, 8 SECONDS, user, NONE, TRUE))
 			release()
 
-/obj/item/mob_holder/nymph/microwave_act(obj/machinery/microwave/M)
+/obj/item/mob_holder/nymph/microwave_act(obj/machinery/microwave/M, mob/microwaver, randomize_pixel_offset)
 	. = ..()
 	M.muck()
 	held_mob.adjustFireLoss(50)

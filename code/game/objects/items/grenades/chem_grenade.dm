@@ -360,6 +360,7 @@
 	var/total_volume = 0
 	for(var/obj/item/reagent_containers/RC in beakers)
 		total_volume += RC.reagents.total_volume
+
 	if(!total_volume)
 		qdel(src)
 		return
