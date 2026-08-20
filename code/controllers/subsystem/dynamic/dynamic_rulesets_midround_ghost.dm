@@ -188,6 +188,7 @@
 	antag_datum = /datum/antagonist/wizard
 	points_cost = 50
 	weight = 4
+	minimum_players_required = 20
 
 /datum/dynamic_ruleset/midround/ghost/wizard/get_poll_icon()
 	return /obj/item/clothing/head/wizard
@@ -493,6 +494,7 @@
 	drafted_players_amount = 2
 	points_cost = 40
 	weight = 4
+	minimum_players_required = 10
 
 	var/datum/team/spiders/team
 
