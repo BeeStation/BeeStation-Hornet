@@ -29,14 +29,10 @@
 						add_objective(assassinate_objective, find_target = TRUE)
 						assassination_target = assassinate_objective.get_target()
 				if(4)
-					var/datum/objective/protect/yandere_one = new()
+					var/datum/objective/yandere/yandere_one = new()
 					yandere_one.find_target(blacklist = list(assassination_target))
 					add_objective(yandere_one)
 
-					var/datum/objective/maroon/yandere_two = new()
-					yandere_two.target = yandere_one.target
-					yandere_two.update_explanation_text() // normally called in find_target()
-					add_objective(yandere_two)
 
 	// 50% chance to steal someone's identity
 	if(prob(STEAL_IDENTITY_PROB))

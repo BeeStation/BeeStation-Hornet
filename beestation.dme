@@ -1239,6 +1239,7 @@
 #include "code\datums\objectives\basic\protect_object.dm"
 #include "code\datums\objectives\basic\steal.dm"
 #include "code\datums\objectives\basic\steal_five.dm"
+#include "code\datums\objectives\basic\yandere.dm"
 #include "code\datums\objectives\basic\contract\contract.dm"
 #include "code\datums\objectives\basic\ninja\capture.dm"
 #include "code\datums\objectives\basic\silicon\block.dm"

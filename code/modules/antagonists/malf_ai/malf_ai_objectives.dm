@@ -24,14 +24,10 @@
 
 	// 50% chance to protect & maroon someone. Should hopefully make for some fun scenarios
 	if(prob(YANDERE_PROB))
-		var/datum/objective/protect/yandere_one = new()
+		var/datum/objective/yandere/yandere_one = new()
 		yandere_one.find_target(blacklist = assassination_targets)
 		add_objective(yandere_one)
 
-		var/datum/objective/maroon/yandere_two = new()
-		yandere_two.target = yandere_one.target
-		yandere_two.update_explanation_text() // normally called in find_target()
-		add_objective(yandere_two)
 
 	add_objective(new /datum/objective/survive/malf())
 
