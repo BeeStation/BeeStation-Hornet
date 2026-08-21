@@ -429,7 +429,7 @@
 	result = /obj/item/food/poppypretzel
 	time = 1.5 SECONDS
 	reqs = list(
-		/obj/item/seeds/flower/poppy = 1,
+		/obj/item/plant_seeds/preset/poppy = 1,
 		/obj/item/food/pastrybase = 1
 	)
 	category = CAT_PASTRY

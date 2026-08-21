@@ -1,12 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"b" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron,
-/area/ruin/powered)
 "e" = (
 /turf/template_noop,
 /area/template_noop)
-"h" = (
+"f" = (
+/turf/open/floor/plating,
+/area/ruin/powered)
+"p" = (
+/turf/closed/wall,
+/area/ruin/powered)
+"r" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"u" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
@@ -16,60 +22,54 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"x" = (
-/turf/open/floor/plating,
-/area/ruin/powered)
-"z" = (
+"F" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"D" = (
+"J" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"N" = (
-/turf/closed/wall,
-/area/ruin/powered)
-"X" = (
+"Q" = (
 /turf/open/floor/iron,
 /area/ruin/powered)
 
 (1,1,1) = {"
-N
-X
-z
-x
-N
+p
+Q
+F
+f
+p
 "}
 (2,1,1) = {"
-N
-X
-x
+p
+Q
+f
 v
-x
+f
 "}
 (3,1,1) = {"
-D
-x
+J
+f
 v
 e
 v
 "}
 (4,1,1) = {"
-N
-b
-x
+p
+r
+f
 v
-x
+f
 "}
 (5,1,1) = {"
-N
-N
-h
-N
-N
+p
+p
+u
+p
+p
 "}
