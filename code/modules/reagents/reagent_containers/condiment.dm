@@ -66,33 +66,33 @@
 	playsound(target, 'sound/items/drink.ogg', rand(10, 50), TRUE)
 	return ITEM_INTERACT_SUCCESS
 
-/obj/item/reagent_containers/condiment/afterattack(obj/target, mob/user , proximity)
-	. = ..()
-	if(!proximity)
-		return
-	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-
-		if(!target.reagents.total_volume)
-			to_chat(user, span_warning("[target] is empty!"))
-			return
-
-		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, span_warning("[src] is full!"))
-			return
-
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user)
-		to_chat(user, span_notice("You fill [src] with [trans] units of the contents of [target]."))
+/obj/item/reagent_containers/condiment/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!is_open_container())
+		return NONE
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
-	else if(target.is_drainable() || IS_EDIBLE(target))
-		if(!reagents.total_volume)
-			to_chat(user, span_warning("[src] is empty!"))
-			return
-		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, span_warning("you can't add anymore to [target]!"))
-			return
-		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
-		to_chat(user, span_notice("You transfer [trans] units of the condiment to [target]."))
+	if(target.is_refillable() || IS_EDIBLE(target))
+		return try_refill(target, user)
+	//A dispenser. Transfer FROM it TO us.
+	if(target.is_drainable())
+		return try_drain(target, user)
+	//Eating directly from the ketchup packet
+	if(isliving(target))
+		return try_eat(target, user)
+
+	return NONE
+
+/obj/item/reagent_containers/condiment/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	if(!is_open_container())
+		return NONE
+	//A dispenser. Transfer FROM it TO us.
+	if(target.is_drainable())
+		return try_drain(target, user)
+
+	return NONE
 
 /obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
