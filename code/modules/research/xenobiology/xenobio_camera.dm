@@ -173,7 +173,7 @@
 	if(deleted in stored_slimes)
 		stored_slimes -= deleted
 
-/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/food/monkeycube))
 		monkeys++
 		to_chat(user, span_notice("You feed [O] to [src]. It now has [monkeys] monkey cubes stored."))

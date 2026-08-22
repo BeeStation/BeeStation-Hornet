@@ -52,7 +52,7 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/open/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
+/turf/open/chasm/attackby(obj/item/C, mob/user, list/modifiers, area/area_restriction)
 	..()
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C

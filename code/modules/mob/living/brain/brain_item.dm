@@ -183,7 +183,7 @@
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
 
-/obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
+/obj/item/organ/brain/attackby(obj/item/O, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(O, /obj/item/organ_storage))
@@ -332,6 +332,14 @@
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
 	variant_traits_added = list(TRAIT_PRIMITIVE)
 
+/obj/item/organ/brain/primate/on_insert(mob/living/carbon/primate)
+	. = ..()
+	primate.AddElement(/datum/element/human_biter)
+
+/obj/item/organ/brain/primate/on_remove(mob/living/carbon/primate)
+	. = ..()
+	primate.RemoveElement(/datum/element/human_biter)
+
 /obj/item/organ/brain/lizard
 	name = "lizard brain"
 	desc = "This juicy piece of meat has a oversized brain stem and cerebellum, with not much of a limbic system to speak of at all. You would expect its owner to be pretty cold blooded."
@@ -375,7 +383,7 @@
 			if(H.health > 0)
 				H.revive()
 
-/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(attacking_item, /obj/item/organ_storage))

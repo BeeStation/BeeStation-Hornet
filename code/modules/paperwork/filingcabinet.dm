@@ -45,8 +45,7 @@
 			I.forceMove(loc)
 	qdel(src)
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/living/user, params)
-	var/list/modifiers = params2list(params)
+/obj/structure/filingcabinet/attackby(obj/item/P, mob/living/user, list/modifiers)
 	if(P.tool_behaviour == TOOL_WRENCH && LAZYACCESS(modifiers, RIGHT_CLICK))
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(P.use_tool(src, user, 20, volume=50))

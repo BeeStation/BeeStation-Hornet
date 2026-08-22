@@ -8,7 +8,7 @@
 	density = TRUE
 	var/state = FLOODLIGHT_NEEDS_WRENCHING
 
-/obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, params)
+/obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_WRENCH && (state == FLOODLIGHT_NEEDS_WRENCHING))
 		to_chat(user, span_notice("You secure [src]."))
 		anchored = TRUE
@@ -86,7 +86,7 @@
 	if(user)
 		to_chat(user, "You set [src] to [setting_text].")
 
-/obj/machinery/power/floodlight/attackby(obj/item/O, mob/user, params)
+/obj/machinery/power/floodlight/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, time = 20)
 		change_setting(1)

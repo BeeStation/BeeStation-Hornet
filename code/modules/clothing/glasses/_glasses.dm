@@ -568,7 +568,7 @@
 	victim.emote("scream")
 	victim.flash_act()
 
-/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, list/modifiers)
 	if(istype(W, src) && W != src && W.loc == user)
 		if(W.icon_state == "godeye")
 			W.icon_state = "doublegodeye"

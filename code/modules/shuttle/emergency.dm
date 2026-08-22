@@ -41,7 +41,7 @@
 		if(hijack_announce)
 			. += span_warning("It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements..")
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user,params)
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user,list/modifiers)
 	if(istype(I, /obj/item/card/id))
 		say("Please equip your ID card into your ID slot to authenticate.")
 	. = ..()
@@ -752,7 +752,7 @@
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/storage/toolbox/emergency(src)
 
-/obj/item/storage/pod/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/pod/attackby(obj/item/W, mob/user, list/modifiers)
 	if (can_interact(user))
 		return ..()
 

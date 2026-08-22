@@ -315,7 +315,7 @@
 		remove_control()
 	check_should_process()
 
-/obj/machinery/porta_turret/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/porta_turret/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(machine_stat & BROKEN)
 		if(attacking_item.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
@@ -961,7 +961,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 	if(issilicon(user) && !(machine_stat & BROKEN))
 		. += span_notice("Ctrl-click [src] to [enabled ? "disable" : "enable"] turrets.")
 		. += span_notice("Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].")
-/obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(machine_stat & BROKEN)
 		return
 

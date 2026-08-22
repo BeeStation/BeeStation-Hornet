@@ -172,7 +172,7 @@
 /obj/machinery/gear_requisition/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	return
 
-/obj/machinery/gear_requisition/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gear_requisition/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		return
 	if(default_deconstruction_crowbar(I))
@@ -277,7 +277,7 @@
 	src.cost = cost
 	src.category = category
 
-/obj/machinery/gear_requisition/mining/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gear_requisition/mining/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/mining_voucher))
 		var/obj/item/mining_voucher/V = I
 		if(src.vendor_type == V.voucher_type)
@@ -359,7 +359,7 @@
 	icon_state = "data_1"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card/id))
 		if(points)
 			var/obj/item/card/id/C = I

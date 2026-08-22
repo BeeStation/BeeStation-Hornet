@@ -212,7 +212,7 @@
 	return COMPONENT_ACTION_HANDLED
 
 /// Signal proc for [COMSIG_ATOM_ATTACKBY] that allows a user to attach a seclite by hitting our parent with it.
-/datum/component/seclite_attachable/proc/on_attackby(obj/item/source, obj/item/attacking_item, mob/attacker, params)
+/datum/component/seclite_attachable/proc/on_attackby(obj/item/source, obj/item/attacking_item, mob/attacker, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!is_type_in_typecache(attacking_item, valid_lights))
@@ -237,7 +237,7 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(unscrew_light), source, user, tool)
-	return COMPONENT_BLOCK_TOOL_ATTACK
+	return ITEM_INTERACT_BLOCKING
 
 /// Invoked asyncronously from [proc/on_screwdriver]. Handles removing the light from our parent.
 /datum/component/seclite_attachable/proc/unscrew_light(obj/item/source, mob/user, obj/item/tool)

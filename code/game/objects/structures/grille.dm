@@ -160,11 +160,10 @@ WANTS_POWER_NODE(/obj/structure/grille)
 /obj/structure/grille/hulk_damage()
 	return 60
 
-/obj/structure/grille/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		if(!shock(user, 70))
-			..(user, 1)
+/obj/structure/grille/attack_hulk(mob/living/carbon/human/user)
+	if(shock(user, 70))
 		return TRUE
+	return ..()
 
 /obj/structure/grille/attack_hand(mob/living/user)
 	. = ..()
@@ -196,7 +195,7 @@ WANTS_POWER_NODE(/obj/structure/grille)
 		return TRUE
 	return FALSE
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
+/obj/structure/grille/attackby(obj/item/W, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)

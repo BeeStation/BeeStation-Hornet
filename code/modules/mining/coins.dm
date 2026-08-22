@@ -62,7 +62,7 @@
 	. = ..()
 	. += span_info("It's worth [value] credit\s.")
 
-/obj/item/coin/attackby(obj/item/W, mob/user, params)
+/obj/item/coin/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
@@ -131,7 +131,7 @@
 		plasma_ignition(0, Proj?.firer)
 	. = ..()
 
-/obj/item/coin/plasma/attackby(obj/item/W, mob/user, params)
+/obj/item/coin/plasma/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(0, user)
 	else

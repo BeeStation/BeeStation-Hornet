@@ -219,7 +219,7 @@
 	var/staffwait = 30
 
 
-/obj/item/godstaff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/godstaff/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(staffcooldown + staffwait > world.time)
 		return

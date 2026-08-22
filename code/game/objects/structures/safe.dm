@@ -149,7 +149,7 @@ FLOOR SAFES
 				updateUsrDialog()
 
 
-/obj/structure/safe/attackby(obj/item/I, mob/user, params)
+/obj/structure/safe/attackby(obj/item/I, mob/user, list/modifiers)
 	if(open)
 		. = 1 //no afterattack
 		if(I.w_class + space <= maxspace)

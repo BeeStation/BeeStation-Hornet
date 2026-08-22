@@ -128,7 +128,7 @@
 	calculate_efficiency()
 	ui_update()
 
-/obj/machinery/rnd/production/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/rnd/production/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(is_refillable() && attacking_item.is_drainable())
 		return FALSE // it's stupid that this has to be false, but whatever
 	return ..()

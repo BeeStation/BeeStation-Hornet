@@ -22,7 +22,7 @@
 	AddElement(/datum/element/climbable)
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
-/obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
+/obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, I, 10)
 		return 1

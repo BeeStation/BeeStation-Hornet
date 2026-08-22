@@ -10,7 +10,7 @@
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
 	icon_state = "chest_implant"
-	implant_color = "#00AA00"
+	implant_color = COLOR_DARK_LIME
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = FALSE
 	var/malfunctioning = FALSE

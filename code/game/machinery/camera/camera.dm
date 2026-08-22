@@ -277,7 +277,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	return TRUE
 
-/obj/machinery/camera/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/camera/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	// UPGRADES
 	if(panel_open)
 		var/obj/structure/camera_assembly/assembly = assembly_ref?.resolve()

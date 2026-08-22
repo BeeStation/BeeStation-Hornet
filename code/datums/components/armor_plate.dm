@@ -45,7 +45,7 @@
 		else
 			examine_list += span_notice("It can be strengthened with up to [maxamount] [upgrade_name].")
 
-/datum/component/armor_plate/proc/applyplate(datum/source, obj/item/I, mob/user, params)
+/datum/component/armor_plate/proc/applyplate(datum/source, obj/item/I, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!istype(I,upgrade_item))

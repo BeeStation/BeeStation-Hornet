@@ -46,6 +46,9 @@
 	/// If we support smartly removing/inserting things from ourselves
 	var/supports_smart_equip = TRUE
 
+	/// Do we insert items when clicked by them?
+	var/insert_on_attack = TRUE
+
 	/// shows what we can hold in examine text
 	var/can_hold_description
 
@@ -116,12 +119,12 @@
 		qdel(src)
 		return
 
+	ADD_TRAIT(resolve_parent, TRAIT_COMBAT_MODE_SKIP_INTERACTION, REF(src))
 	RegisterSignals(resolve_parent, list(COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_ATTACK_HAND), PROC_REF(on_attack))
 	RegisterSignal(resolve_parent, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
 	RegisterSignal(resolve_parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(on_mousedropped_onto))
 
 	RegisterSignal(resolve_parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-	RegisterSignal(resolve_parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(resolve_parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(on_preattack))
 	RegisterSignal(resolve_parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_deconstruct))
 
@@ -647,7 +650,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		thing.emp_act(severity)
 
 /// Signal handler for preattack from an object.
-/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, params)
+/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!allow_quick_gather || thing.atom_storage)
@@ -838,23 +841,6 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	attempt_insert(dropping, user)
-
-/// Signal handler for whenever we're attacked by an object.
-/datum/storage/proc/on_attackby(datum/source, obj/item/thing, mob/user, params)
-	SIGNAL_HANDLER
-
-	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
-		return
-
-	if(!thing.attackby_storage_insert(src, resolve_parent, user))
-		return
-
-	if(iscyborg(user))
-		return COMPONENT_NO_AFTERATTACK
-
-	attempt_insert(thing, user)
-	return COMPONENT_NO_AFTERATTACK
 
 /// Signal handler for whenever we're attacked by a mob.
 /datum/storage/proc/on_attack(datum/source, mob/user)
