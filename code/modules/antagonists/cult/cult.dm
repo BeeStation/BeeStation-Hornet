@@ -125,6 +125,7 @@
 	if(cult_team.cult_ascendent)
 		current.AddElement(/datum/element/cult_halo, initial_delay = 0 SECONDS)
 
+	ADD_TRAIT(current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 	add_team_hud(current, /datum/antagonist/cult)
 
 /datum/antagonist/cult/master/apply_innate_effects(mob/living/mob_override)
@@ -153,6 +154,8 @@
 		current.RemoveElement(/datum/element/cult_eyes)
 	if (HAS_TRAIT(current, TRAIT_CULT_HALO))
 		current.RemoveElement(/datum/element/cult_halo)
+
+	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 /datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
 	. = ..()

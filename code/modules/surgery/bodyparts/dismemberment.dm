@@ -210,9 +210,6 @@
 		for(var/obj/item/head_item as anything in list(owner.glasses, owner.ears, owner.wear_mask, owner.head))
 			owner.dropItemToGround(head_item, force = TRUE)
 
-	//Remove the creampie overlay
-	qdel(owner.GetComponent(/datum/component/creamed))
-
 	//Handle dental implants
 	for(var/datum/action/item_action/hands_free/activate_pill/AP in owner.actions)
 		AP.Remove(owner)

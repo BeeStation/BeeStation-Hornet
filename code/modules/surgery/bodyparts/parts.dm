@@ -227,6 +227,7 @@
 	body_part = ARM_RIGHT
 	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
+	aux_layer = BODYPARTS_HIGH_LAYER
 	held_index = 2
 	px_x = 6
 	px_y = 0

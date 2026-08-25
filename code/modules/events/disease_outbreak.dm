@@ -101,7 +101,6 @@
 				/datum/symptom/vampirism,
 				/datum/symptom/braindamage,
 				/datum/symptom/asphyxiation,
-				/datum/symptom/robotic_adaptation,
 				/datum/symptom/alkali,
 				/datum/symptom/heartattack,
 				/datum/symptom/toxoplasmosis,

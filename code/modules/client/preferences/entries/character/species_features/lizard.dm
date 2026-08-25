@@ -9,7 +9,7 @@
 		lizard.blend_icon(eyes, ICON_OVERLAY)
 
 		lizard_with_snout = lizard.copy()
-		lizard_with_snout.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_snout_round_ADJ", dir = EAST), ICON_OVERLAY)
+		lizard_with_snout.blend_icon(uni_icon('icons/mob/human/species/lizard/lizard_misc.dmi', "m_snout_round_ADJ", dir = EAST), ICON_OVERLAY)
 
 	var/datum/universal_icon/final_icon = include_snout ? lizard_with_snout.copy() : lizard.copy()
 
@@ -29,20 +29,20 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Body Markings"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "body_markings"
+	relevant_body_markings = /datum/bodypart_overlay/simple/body_marking/lizard
 
 /datum/preference/choiced/lizard_body_markings/init_possible_values()
-	return assoc_to_keys_features(GLOB.body_markings_list)
+	return assoc_to_keys_features(GLOB.lizard_markings_list)
 
 /datum/preference/choiced/lizard_body_markings/icon_for(value)
-	var/datum/sprite_accessory/sprite_accessory = GLOB.body_markings_list[value]
+	var/datum/sprite_accessory/sprite_accessory = GLOB.lizard_markings_list[value]
 
 	var/datum/universal_icon/final_icon = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
 
 	if (value != SPRITE_ACCESSORY_NONE)
 		var/datum/universal_icon/body_markings_icon = uni_icon(
 			sprite_accessory.icon,
-			"m_body_markings_[sprite_accessory.icon_state]_ADJ",
+			"male_[sprite_accessory.icon_state]_chest",
 		)
 
 		final_icon.blend_icon(body_markings_icon, ICON_OVERLAY)
@@ -55,7 +55,7 @@
 	return final_icon
 
 /datum/preference/choiced/lizard_body_markings/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["body_markings"] = value
+	target.dna.features["lizard_markings"] = value
 
 /datum/preference/choiced/lizard_frills
 	db_key = "feature_lizard_frills"
@@ -129,7 +129,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Spines"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "spines"
+	relevant_external_organ = /obj/item/organ/spines
 
 /datum/preference/choiced/lizard_spines/init_possible_values()
 	return assoc_to_keys_features(GLOB.spines_list)
@@ -147,17 +147,20 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Tail"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "tail_lizard"
+	relevant_external_organ = /obj/item/organ/tail/lizard
 
 /datum/preference/choiced/lizard_tail/init_possible_values()
 	return assoc_to_keys_features(GLOB.tails_list_lizard)
 
 /datum/preference/choiced/lizard_tail/icon_for(value)
 	var/datum/sprite_accessory/tail = value != SPRITE_ACCESSORY_NONE ? GLOB.tails_list_lizard[value] : null
-	return generate_lizard_body_shot(tail, "tail")
+	return generate_lizard_body_shot(tail, "tail_lizard")
 
 /datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["tail_lizard"] = value
+
+/datum/preference/choiced/lizard_tail/create_default_value()
+	return /datum/sprite_accessory/tails/lizard/smooth::name
 
 /proc/generate_lizard_body_shot(datum/sprite_accessory/sprite_accessory, key, show_tail = FALSE, shift_x = -8)
 	var/static/datum/universal_icon/body_icon
@@ -176,13 +179,13 @@
 			body_icon.blend_icon(uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
 
 		body_icon_with_tail = body_icon.copy()
-		body_icon_with_tail.blend_icon(uni_icon('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
+		body_icon_with_tail.blend_icon(uni_icon('icons/mob/human/species/lizard/lizard_tails.dmi', "m_tail_lizard_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
 
 	var/datum/universal_icon/icon_with_changes = show_tail ? body_icon_with_tail.copy() : body_icon.copy()
 
 	if (!isnull(sprite_accessory))
 		var/ex = key == "spines" ? "ADJ" : "BEHIND"
-		var/datum/universal_icon/sprite_icon = uni_icon('icons/mob/mutant_bodyparts.dmi', "m_[key]_[sprite_accessory.icon_state]_[ex]", dir = EAST)
+		var/datum/universal_icon/sprite_icon = uni_icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_[ex]", dir = EAST)
 		icon_with_changes.blend_icon(sprite_icon, ICON_OVERLAY)
 
 	icon_with_changes.blend_color(COLOR_VIBRANT_LIME, ICON_MULTIPLY)

@@ -358,6 +358,8 @@
 	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = 2.6 SECONDS
 	alert_type = null
+
+	var/datum/component/aura_healing/aura_healing
 	var/hand
 	var/deathTick = 0
 
@@ -365,29 +367,41 @@
 	return span_notice("[owner.p_They()] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
+	var/static/list/organ_healing = list(
+		ORGAN_SLOT_BRAIN = 1.4,
+	)
+
+	aura_healing = owner.AddComponent( \
+		/datum/component/aura_healing, \
+		range = 7, \
+		brute_heal = 1.4, \
+		burn_heal = 1.4, \
+		toxin_heal = 1.4, \
+		suffocation_heal = 1.4, \
+		stamina_heal = 1.4, \
+		simple_heal = 1.4, \
+		organ_healing = organ_healing, \
+		healing_color = "#375637", \
+	)
+
 	//Makes the user passive, it's in their oath not to harm!
 	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.show_to(owner)
 	return TRUE
 
 /datum/status_effect/hippocratic_oath/on_remove()
+	QDEL_NULL(aura_healing)
 	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.hide_from(owner)
 
 /datum/status_effect/hippocratic_oath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
 			deathTick += 1
 		else
-			owner.visible_message("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.")
-			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
-			var/list/chems = list(/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/antitoxin)
-			healSnake.poison_type = pick(chems)
-			healSnake.name = "Asclepius's Snake"
-			healSnake.real_name = "Asclepius's Snake"
-			healSnake.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
-			new /obj/effect/decal/cleanable/ash(owner.loc)
-			new /obj/item/rod_of_asclepius(owner.loc)
-			owner.investigate_log("has been consumed by the Rod of Asclepius.", INVESTIGATE_DEATHS)
-			qdel(owner)
+			consume_owner()
 	else
 		if(iscarbon(owner))
 			var/mob/living/carbon/itemUser = owner
@@ -397,14 +411,12 @@
 				newRod.activated()
 				if(!itemUser.has_hand_for_held_index(hand))
 					//If user does not have the corresponding hand anymore, give them one and return the rod to their hand
-					if(((hand % 2) == 0))
-						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_R_ARM, FALSE, FALSE)
-						L.try_attach_limb(itemUser)
+					var/zone = IS_LEFT_INDEX(hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
+					if(itemUser.regenerate_limb(zone, FALSE))
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
-						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_L_ARM, FALSE, FALSE)
-						L.try_attach_limb(itemUser)
-						itemUser.put_in_hand(newRod, hand, forced = TRUE)
+						consume_owner() //we can't regrow, abort abort
+						return
 					to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else
 					//Otherwise get rid of whatever else is in their hand and return the rod to said hand
@@ -418,32 +430,22 @@
 			need_mob_update += itemUser.adjustFireLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
 			need_mob_update += itemUser.adjustToxLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE) //Because Slime People are people too
 			need_mob_update += itemUser.adjustOxyLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
-			need_mob_update += itemUser.adjustStaminaLoss(-0.6 * seconds_between_ticks, updating_stamina = FALSE, forced = TRUE)
+			need_mob_update += itemUser.adjustStaminaLoss(-3 * seconds_between_ticks, updating_stamina = FALSE, forced = TRUE)
 			need_mob_update += itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.6 * seconds_between_ticks)
-			need_mob_update += itemUser.adjustCloneLoss(-0.2 * seconds_between_ticks, updating_health = FALSE, forced = TRUE) //Because apparently clone damage is the bastion of all health
 			if(need_mob_update)
 				itemUser.updatehealth()
 
-		//Heal all those around you, unbiased
-		for(var/mob/living/L in hearers(7, owner))
-			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
-			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5, FALSE, TRUE) //Because Slime People are people too
-				L.adjustOxyLoss(-3.5)
-				L.adjustStaminaLoss(-3.5)
-				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
-			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-			else if(isanimal(L))
-				var/mob/living/simple_animal/SM = L
-				// Check if the mob is NOT a spirit AND NOT an undead.
-				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
-					SM.adjustHealth(-3.5, forced = TRUE)
+/datum/status_effect/hippocratic_oath/proc/consume_owner()
+	owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
+	var/list/chems = list(/datum/reagent/medicine/sal_acid, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/kelotane)
+	var/mob/living/simple_animal/hostile/retaliate/poison/snake/spawned = new(owner.loc, pick(chems))
+	spawned.name = "Asclepius's Snake"
+	spawned.real_name = "Asclepius's Snake"
+	spawned.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
+	new /obj/effect/decal/cleanable/ash(owner.loc)
+	new /obj/item/rod_of_asclepius(owner.loc)
+	owner.investigate_log("has been consumed by the Rod of Asclepius.", INVESTIGATE_DEATHS)
+	qdel(owner)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Blessing of the Necropolis"

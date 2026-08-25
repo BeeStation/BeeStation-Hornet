@@ -1037,7 +1037,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				"wings" = "None",
 				"frills" = "None",
 				"spines" = "Long",
-				"body_markings" = "Dark Tiger Body",
+				"lizard_markings" = "Dark Tiger Body",
 				"legs" = DIGITIGRADE_LEGS,
 			)
 			H.eye_color_left = "#FEE5A3"

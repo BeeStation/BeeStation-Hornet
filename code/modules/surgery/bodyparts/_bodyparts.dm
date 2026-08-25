@@ -140,6 +140,9 @@
 	///punch damage this bodypart can give
 	var/unarmed_damage = 1
 
+	///A list of all bodypart overlays to draw
+	var/list/bodypart_overlays = list()
+
 	/// Traits that are given to the holder of the part. If you want an effect that changes this, don't add directly to this. Use the add_bodypart_trait() proc
 	var/list/bodypart_traits = list()
 	/// The name of the trait source that the organ gives. Should not be altered during the events of gameplay, and will cause problems if it is.
@@ -686,7 +689,8 @@
 	// No, xenos don't actually use bodyparts. Don't ask.
 	var/mob/living/carbon/human/human_owner = owner
 
-	limb_gender = (human_owner.dna.features["body_model"] == MALE) ? "m" : "f"
+	if(!ismonkey(human_owner)) //temporary. Fuck monkeys
+		limb_gender = (human_owner.physique == MALE) ? "m" : "f"
 	if(HAS_TRAIT(human_owner, TRAIT_USES_SKINTONES))
 		skin_tone = human_owner.skin_tone
 	else if(HAS_TRAIT(human_owner, TRAIT_MUTANT_COLORS))
@@ -705,12 +709,21 @@
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= species_color || (skin_tone ? skintone2hex(skin_tone) : null)
 
+	// Recolors mutant overlays to match new mutant colors
+	for(var/datum/bodypart_overlay/mutant/overlay in bodypart_overlays)
+		overlay.inherit_color(src, force = TRUE)
+	// Ensures marking overlays are updated accordingly as well
+	for(var/datum/bodypart_overlay/simple/body_marking/marking in bodypart_overlays)
+		marking.set_appearance(human_owner.dna.features[marking.dna_feature_key], species_color)
+
+	return TRUE
+
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()
 	SHOULD_CALL_PARENT(TRUE)
 
 	cut_overlays()
-	var/list/standing = get_limb_icon(TRUE)
+	var/list/standing = get_limb_icon(dropped = TRUE)
 	if(!standing.len)
 		icon_state = initial(icon_state)//no overlays found, we default back to initial icon.
 		return
@@ -727,20 +740,16 @@
 
 	. = list()
 
-	//Handles dropped icons
-	var/image_dir = 0
-	if(dropped)
-		image_dir = SOUTH
-		if(dmg_overlay_type)
-			if(brutestate)
-				var/image/bruteoverlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
-				if(use_damage_color)
-					bruteoverlay.color = damage_color
-				. += bruteoverlay
-			if(burnstate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
+	if(dropped && dmg_overlay_type)
+		if(brutestate)
+			var/image/bruteoverlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
+			if(use_damage_color)
+				bruteoverlay.color = damage_color
+			. += bruteoverlay
+		if(burnstate)
+			. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
 
-	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER), dir = image_dir)
+	var/image/limb = image(layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER))
 	var/image/aux
 
 	if(is_husked)
@@ -751,44 +760,90 @@
 			stack_trace("No such icon: '[limb.icon]' state '[limb.icon_state]'") //Prints a stack trace on the first failure of a given iconstate.
 		. += limb
 		if(aux_zone) //Hand shit
-			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer))
 			. += aux
-			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
-		return .
+			. += emissive_blocker(limb.icon, "[husk_type]_husk_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer))
 
-	////This is the MEAT of limb icon code
-	limb.icon = icon_greyscale
-	if(!should_draw_greyscale || !icon_greyscale)
-		limb.icon = icon_static
+	// Normal non-husk handling
+	if(!is_husked)
+		////This is the MEAT of limb icon code
+		limb.icon = icon_greyscale
+		if(!should_draw_greyscale || !icon_greyscale)
+			limb.icon = icon_static
 
-	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
-		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
-	else
-		limb.icon_state = "[limb_id]_[body_zone]"
-	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
+		if(is_dimorphic) //Does this type of limb have sexual dimorphism?
+			limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
+		else
+			limb.icon_state = "[limb_id]_[body_zone]"
+		. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
-	icon_exists_or_scream(limb.icon, limb.icon_state) //Prints a stack trace on the first failure of a given iconstate.
+		icon_exists_or_scream(limb.icon, limb.icon_state) //Prints a stack trace on the first failure of a given iconstate.
 
-	. += limb
+		. += limb
 
-	if(aux_zone) //Hand shit
-		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
-		. += aux
-		. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)
+		if(aux_zone) //Hand shit
+			aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer))
+			. += aux
+			. += emissive_blocker(limb.icon, "[limb_id]_[aux_zone]", layer = CALCULATE_MOB_OVERLAY_LAYER(aux_layer))
 
-	draw_color = variable_color
-	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color = variable_color
+		if(should_draw_greyscale) //Should the limb be colored?
+			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
-	if(draw_color)
-		limb.color = draw_color
-		if(aux_zone)
-			aux.color = draw_color
+		if(draw_color)
+			limb.color = draw_color
+			if(aux_zone)
+				aux.color = draw_color
+
+	//Ok so legs are a bit goofy in regards to layering, and we will need two images instead of one to fix that
+	if((body_zone == BODY_ZONE_R_LEG) || (body_zone == BODY_ZONE_L_LEG))
+		var/obj/item/bodypart/leg/leg_source = src
+		for(var/image/limb_image in .)
+			//remove the old, unmasked image
+			. -= limb_image
+			//add two masked images based on the old one
+			. += leg_source.generate_masked_leg(limb_image)
+
+	// And finally put external organs on if not husked
+	if(!is_husked)
+		//Draw external organs like horns and frills
+		for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
+			if(!overlay.can_draw_on_bodypart(src, owner)) //if you want different checks for dropped bodyparts, you can insert it here
+				continue
+			//Some externals have multiple layers for background, foreground and between
+			for(var/external_layer in overlay.all_layers)
+				if(overlay.layers & external_layer)
+					. += overlay.get_overlay(external_layer, src)
+
+	return .
+
+///Add a bodypart overlay and call the appropriate update procs
+/obj/item/bodypart/proc/add_bodypart_overlay(datum/bodypart_overlay/overlay, update = TRUE)
+	bodypart_overlays += overlay
+	overlay.added_to_limb(src)
+	if(!update)
+		return
+	if(!owner)
+		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
+
+///Remove a bodypart overlay and call the appropriate update procs
+/obj/item/bodypart/proc/remove_bodypart_overlay(datum/bodypart_overlay/overlay, update = TRUE)
+	bodypart_overlays -= overlay
+	overlay.removed_from_limb(src)
+	if(!update)
+		return
+	if(!owner)
+		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	drop_organs()
+
 	return ..()
 
 /// INTERNAL PROC, DO NOT USE
@@ -822,10 +877,10 @@
 	if(!isnull(dimorphic))
 		is_dimorphic = dimorphic
 
-	if(owner)
-		owner.update_body_parts()
-	else
+	if(!owner)
 		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()
 
 	//This foot gun needs a safety
 	if(!icon_exists(icon_holder, "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"))
@@ -840,7 +895,7 @@
 	is_dimorphic = initial(is_dimorphic)
 	should_draw_greyscale = initial(should_draw_greyscale)
 
-	if(owner)
-		owner.update_body_parts()
-	else
+	if(!owner)
 		update_icon_dropped()
+	else if(!(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		owner.update_body_parts()

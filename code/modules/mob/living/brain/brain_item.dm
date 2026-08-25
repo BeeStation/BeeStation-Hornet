@@ -116,7 +116,8 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_body_parts()
+	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		brain_owner.update_body_parts()
 
 /obj/item/organ/brain/on_insert(mob/living/carbon/organ_owner, special)
 	// Are we inserting into a new mob from a head?
@@ -133,7 +134,6 @@
 	return ..()
 
 /obj/item/organ/brain/Remove(mob/living/carbon/brain_owner, special = 0, no_id_transfer = FALSE, pref_load = FALSE)
-
 	. = ..()
 
 	for(var/X in traumas)
@@ -146,14 +146,15 @@
 		src.ai_controller = brain_owner.ai_controller //AI is stored in the brain but doesn't control it.
 		brain_owner.ai_controller.UnpossessPawn(FALSE) //The body no longer has AI.
 
-	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
+	if((!QDELETED(src) || !QDELETED(owner)) && !no_id_transfer)
 		if(brain_owner.mind)
 			transfer_identity(brain_owner)
 			if(brain_owner.mind.current && !decoy_override)
 				brain_owner.mind.transfer_to(brainmob)
-		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
-	brain_owner.update_body_parts()
-	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
+	if(!special)
+		if(!(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+			brain_owner.update_body_parts()
+		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
 	. = ..()
@@ -179,9 +180,14 @@
 		C.dna.copy_dna_to(brainmob.stored_dna)
 		if(HAS_TRAIT(L, TRAIT_BADDNA))
 			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
+
 		var/obj/item/organ/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
-			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
+			brainmob.set_species(ZI.old_species) //For if the brain is cloned
+
+	if(L.mind && L.mind.current && !decoy_override)
+		L.mind.transfer_to(brainmob)
+		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 
 /obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

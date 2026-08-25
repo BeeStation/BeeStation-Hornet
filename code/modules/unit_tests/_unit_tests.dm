@@ -112,6 +112,7 @@
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"
 #include "surgery_linking.dm"
+#include "tail_wag.dm"
 #include "techweb_sanity.dm"
 #include "teleporters.dm"
 #include "tgui_create_message.dm"
