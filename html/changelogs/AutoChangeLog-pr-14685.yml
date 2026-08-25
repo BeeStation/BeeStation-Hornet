@@ -1,5 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Fixed soap bubbles, hallucination plasmaflood, thermite overlay etc. not
-      being rendered.

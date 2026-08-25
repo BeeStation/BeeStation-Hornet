@@ -120,3 +120,7 @@
   - code_imp: refactors eye color handling
   - bugfix: fixes wheelchair bug that immobilized wheelchair'd mobs, they can do more
       stuff now
+2026-08-25:
+  r1ks-iwnl:
+  - bugfix: Fixed soap bubbles, hallucination plasmaflood, thermite overlay etc. not
+      being rendered.
