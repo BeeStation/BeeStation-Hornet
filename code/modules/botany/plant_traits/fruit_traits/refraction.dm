@@ -54,6 +54,9 @@
 		body_feature?.yields = 0
 		body_feature?.adjust_health(body_feature.health*-1)
 		body_feature?.catch_harvest()
+		// Hint / feedback
+		var/atom/vis_parent = body_feature.parent.parent
+		vis_parent?.visible_message(span_danger("[vis_parent] melts away and dies! The refraction was too unstable!"))
 		return
 //Add reagent
 	var/datum/plant_feature/fruit/fruit_feature = parent

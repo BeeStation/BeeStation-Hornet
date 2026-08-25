@@ -94,12 +94,12 @@
 	if(istype(reagent_source, /obj/item/reagent_containers) && reagent_source.reagents.total_volume <= 0)
 		to_chat(attacker, span_warning("[reagent_source] is empty!"))
 		return
-	//Composting
+	//Composting - Composted reagents are doubled
 	if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
 		obj_parent.visible_message(span_notice("[attacker] composts [reagent_source], spreading it through [obj_parent]"))
 		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
-			reagent_source.reagents?.remove_any(reagent_source.reagents.total_volume)
-		reagent_source.reagents?.trans_to(obj_parent, reagent_source.reagents.total_volume, 1.5, transfered_by = attacker)
+			reagent_source.reagents?.remove_any(reagent_source.reagents.total_volume*2)
+		reagent_source.reagents?.trans_to(obj_parent, reagent_source.reagents.total_volume, 2, transfered_by = attacker)
 		SEND_SIGNAL(reagent_source, COMSIG_ITEM_ON_COMPOSTED, attacker)
 		qdel(reagent_source)
 	//Syringe
