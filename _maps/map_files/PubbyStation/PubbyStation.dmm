@@ -60072,9 +60072,6 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/airless,
 /area/centcom/asteroid)
-"wmI" = (
-/turf/open/floor/engine,
-/area/station/maintenance/starboard/aft)
 "wmM" = (
 /obj/structure/table/glass,
 /obj/machinery/firealarm{
@@ -64556,7 +64553,6 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "xLt" = (
-/obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -114653,8 +114649,8 @@ siO
 hMF
 ylW
 ylW
-wmI
-sVZ
+ylW
+siW
 wRY
 wRY
 wRY
@@ -114910,8 +114906,8 @@ siW
 siW
 siW
 siW
-sVZ
-sVZ
+siW
+siW
 dZx
 xuj
 mYb
