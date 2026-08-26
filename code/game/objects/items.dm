@@ -108,9 +108,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/flags_inv
 	/// This flag is used to determine when items in someone's inventory cover others, however you can still see through that item and know what it covers. ex: You can see someone's mask through their transparent visor, but you can't reach it.
 	var/transparent_protection = NONE
-	///Name of a mask in icons\mob\human\hair_masks.dmi to apply to hair when this item is worn
+	///Path of type /datum/hair_mask to apply to hair when this item is worn
 	///Used by certain hats to give the appearance of squishing down tall hairstyles without hiding the hair completely
-	var/hair_mask = ""
+	var/hair_mask = null
 
 	/// Flags for clicking the item with your hand. See _DEFINES/interaction_flags.dm
 	var/interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
