@@ -1,0 +1,7 @@
+author: rkz, cruix, bloop, fikou, sheits, Hardly3D
+delete-after: true
+changes:
+  - rscadd: adds better hair layering for 43 hairstyles
+  - rscadd: resprites a lot of hair
+  - rscadd: wearing a hardhat, beret, winterhood or otherwise cranium covering thing
+      will now cover the hair appropriately
