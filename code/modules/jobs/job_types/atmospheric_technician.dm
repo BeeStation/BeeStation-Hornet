@@ -36,8 +36,8 @@
 	minimal_lightup_areas = list(/area/station/engineering/atmos)
 
 	manuscript_jobs = list(
-		/datum/job/atmospheric_technician,
-		/datum/job/station_engineer // they're identical in some way
+		JOB_NAME_ATMOSPHERICTECHNICIAN,
+		JOB_NAME_STATIONENGINEER // they're identical in some way
 	)
 
 /datum/outfit/job/atmospheric_technician

@@ -37,8 +37,8 @@
 	)
 
 	manuscript_jobs = list(
-		/datum/job/mime,
-		/datum/job/cook // the cultural power of french cuisine
+		JOB_NAME_MIME,
+		JOB_NAME_COOK // the cultural power of french cuisine
 	)
 
 	voice_of_god_power = 0.5 //Why are you speaking

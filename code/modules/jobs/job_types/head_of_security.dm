@@ -67,10 +67,10 @@
 	)
 
 	manuscript_jobs = list(
-		/datum/job/head_of_security,
-		/datum/job/warden,
-		/datum/job/detective,
-		/datum/job/security_officer
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER
 	)
 
 /datum/job/head_of_security/get_captaincy_announcement(mob/living/captain)

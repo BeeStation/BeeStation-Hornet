@@ -49,8 +49,8 @@
 	)
 
 	manuscript_jobs = list(
-		/datum/job/paramedic,
-		/datum/job/brig_physician  // They're somewhat identical
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_BRIGPHYSICIAN  // They're somewhat identical
 	)
 
 /datum/outfit/job/paramedic

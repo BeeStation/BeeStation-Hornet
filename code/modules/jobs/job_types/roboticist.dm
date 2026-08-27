@@ -41,8 +41,8 @@
 	)
 
 	manuscript_jobs = list(
-		/datum/job/roboticist,
-		/datum/job/medical_doctor // because they have a surgery bed in the robotics for some reason...
+		JOB_NAME_ROBOTICIST,
+		JOB_NAME_MEDICALDOCTOR // because they have a surgery bed in the robotics for some reason...
 	)
 
 /datum/outfit/job/roboticist

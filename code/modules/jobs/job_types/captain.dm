@@ -47,12 +47,12 @@
 
 	// captain can write manuscript of command roles
 	manuscript_jobs = list(
-		/datum/job/captain,
-		/datum/job/chief_engineer,
-		/datum/job/chief_medical_officer,
-		/datum/job/head_of_personnel,
-		/datum/job/head_of_security,
-		/datum/job/research_director,
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_RESEARCHDIRECTOR,
 	)
 
 /datum/job/captain/get_access()

@@ -46,8 +46,8 @@
 	minimal_lightup_areas = list(/area/station/medical/morgue, /area/station/medical/genetics)
 
 	manuscript_jobs = list(
-		/datum/job/geneticist,
-		/datum/job/scientist // credit to the old age when they're a member of R&D
+		JOB_NAME_GENETICIST,
+		JOB_NAME_SCIENTIST // credit to the old age when they're a member of R&D
 	)
 
 /datum/outfit/job/geneticist

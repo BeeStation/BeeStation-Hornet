@@ -44,8 +44,8 @@
 	)
 
 	manuscript_jobs = list(
-		/datum/job/scientist,
-		/datum/job/atmospheric_technician // thanks to maxcap, they're knowledgeable.
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_ATMOSPHERICTECHNICIAN // thanks to maxcap, they're knowledgeable.
 	)
 
 /datum/job/scientist/get_access()

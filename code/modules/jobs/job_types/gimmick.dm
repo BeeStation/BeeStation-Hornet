@@ -54,8 +54,8 @@
 	minimal_lightup_areas = list(/area/station/medical/morgue)
 
 	manuscript_jobs = list(
-		/datum/job/gimmick/barber,
-		/datum/job/assistant
+		JOB_NAME_BARBER,
+		JOB_NAME_ASSISTANT
 	)
 
 /datum/outfit/job/barber
@@ -140,9 +140,9 @@
 	rpg_title = "Mindmelter"
 
 	manuscript_jobs = list(
-		/datum/job/gimmick/psychiatrist,
-		/datum/job/medical_doctor,
-		/datum/job/chemist
+		JOB_NAME_PSYCHIATRIST,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_CHEMIST
 	)
 
 /datum/outfit/job/psychiatrist

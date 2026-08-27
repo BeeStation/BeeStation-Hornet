@@ -47,9 +47,9 @@
 	minimal_lightup_areas = list(/area/station/command/heads_quarters/chief, /area/station/engineering/atmos)
 
 	manuscript_jobs = list(
-		/datum/job/chief_engineer,
-		/datum/job/station_engineer,
-		/datum/job/atmospheric_technician
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN
 	)
 
 /datum/job/chief_engineer/get_captaincy_announcement(mob/living/captain)

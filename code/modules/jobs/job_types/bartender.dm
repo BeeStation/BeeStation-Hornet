@@ -44,8 +44,8 @@
 	)
 
 	manuscript_jobs = list(
-		/datum/job/bartender,
-		/datum/job/chemist // why not
+		JOB_NAME_BARTENDER,
+		JOB_NAME_CHEMIST // why not
 	)
 
 /datum/outfit/job/bartender

@@ -33,12 +33,12 @@ Assistant
 
 	// For some reason, they have the knowledge in these jobs...
 	manuscript_jobs = list(
-		/datum/job/assistant,
-		/datum/job/janitor,
-		/datum/job/cargo_technician,
-		/datum/job/station_engineer,
-		/datum/job/chemist,
-		/datum/job/scientist
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_JANITOR,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_CHEMIST,
+		JOB_NAME_SCIENTIST
 	)
 
 /datum/job/assistant/get_spawn_position_count()

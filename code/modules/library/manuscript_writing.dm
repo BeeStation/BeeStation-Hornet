@@ -56,14 +56,11 @@
 			return ..()
 		writer_job = user.mind?.assigned_role
 
-	var/list/jobs_with_knowledge = list()
-
-	if(user.mind?.assigned_role.title == JOB_NAME_CURATOR)
-		jobs_with_knowledge = valid_jobs
-	else
-		if(length(writer_job.manuscript_jobs))
-			for(var/job in writer_job.manuscript_jobs)
-				jobs_with_knowledge[SSjob.get_job_type(job).title] = job
+	var/list/jobs_with_knowledge = \
+		is_antag ? valid_jobs \
+		: user.mind?.assigned_role.title == JOB_NAME_CURATOR ? valid_jobs \
+		: length(writer_job.manuscript_jobs) ? writer_job.manuscript_jobs \
+		: null
 
 	if(length(jobs_with_knowledge))
 		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)

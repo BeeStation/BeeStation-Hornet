@@ -42,8 +42,8 @@
 /area/station/service/hydroponics, /area/station/medical/morgue)
 
 	manuscript_jobs = list(
-		/datum/job/botanist,
-		/datum/job/medical_doctor // herbal remedist
+		JOB_NAME_BOTANIST,
+		JOB_NAME_MEDICALDOCTOR // herbal remedist
 	)
 
 /datum/outfit/job/botanist

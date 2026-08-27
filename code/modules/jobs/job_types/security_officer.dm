@@ -51,8 +51,8 @@
 	minimal_lightup_areas = list(/area/station/construction/mining/aux_base)
 
 	manuscript_jobs = list(
-		/datum/job/security_officer,
-		/datum/job/assistant // they're used to be troubles
+		JOB_NAME_SECURITYOFFICER,
+		JOB_NAME_ASSISTANT // they're used to be troubles
 	)
 
 /datum/job/security_officer/get_access()
