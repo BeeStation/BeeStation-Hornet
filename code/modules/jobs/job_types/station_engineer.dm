@@ -34,8 +34,8 @@
 	lightup_areas = list(/area/station/engineering/atmos)
 
 	manuscript_jobs = list(
-		JOB_NAME_STATIONENGINEER,
-		JOB_NAME_ATMOSPHERICTECHNICIAN // they're identical in some way
+		/datum/job/station_engineer,
+		/datum/job/atmospheric_technician // they're identical in some way
 	)
 
 /datum/job/station_engineer/get_access()

@@ -56,17 +56,20 @@
 			return ..()
 		writer_job = user.mind?.assigned_role
 
-	var/list/jobs_with_knowledge = \
-		is_antag ? valid_jobs \
-		: user.mind?.assigned_role.title == JOB_NAME_CURATOR ? valid_jobs \
-		: length(writer_job.manuscript_jobs) ? writer_job.manuscript_jobs \
-		: null
+	var/list/jobs_with_knowledge = list()
+
+	if(user.mind?.assigned_role.title == JOB_NAME_CURATOR)
+		jobs_with_knowledge = valid_jobs
+	else
+		if(length(writer_job.manuscript_jobs))
+			for(var/job in writer_job.manuscript_jobs)
+				jobs_with_knowledge[SSjob.get_job_type(job).title] = job
 
 	if(length(jobs_with_knowledge))
 		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
 		if(!writer_job)
 			return ..()
-		writer_job = SSjob.get_job_type(writer_job)
+		writer_job = SSjob.get_job(writer_job)
 
 	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()

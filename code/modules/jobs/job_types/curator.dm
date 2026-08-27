@@ -39,7 +39,7 @@
 
 	voice_of_god_power = 1.5
 
-	// The power that curator can write a manuscript as any job is written in 'manuscript_writing.dm'
+	// Curator can write manuscripts as any job as described in 'manuscript_writing.dm'
 	// manuscript_jobs = list()
 
 /datum/outfit/job/curator

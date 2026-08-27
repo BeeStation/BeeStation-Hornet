@@ -39,8 +39,8 @@
 /area/station/service/janitor)
 
 	manuscript_jobs = list(
-		JOB_NAME_JANITOR,
-		JOB_NAME_CHEMIST // chemicals for cleaning.
+		/datum/job/janitor,
+		/datum/job/chemist // chemicals for cleaning.
 	)
 
 /datum/outfit/job/janitor

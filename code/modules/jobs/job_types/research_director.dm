@@ -58,10 +58,10 @@
 	)
 
 	manuscript_jobs = list(
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_SCIENTIST,
-		JOB_NAME_EXPLORATIONCREW,
-		JOB_NAME_ROBOTICIST
+		/datum/job/research_director,
+		/datum/job/scientist,
+		/datum/job/exploration_crew,
+		/datum/job/roboticist
 	)
 
 /datum/job/research_director/get_captaincy_announcement(mob/living/captain)

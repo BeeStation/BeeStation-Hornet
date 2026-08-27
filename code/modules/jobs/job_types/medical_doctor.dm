@@ -44,8 +44,8 @@
 	)
 
 	manuscript_jobs = list(
-		JOB_NAME_MEDICALDOCTOR,
-		JOB_NAME_CHEMIST // why not
+		/datum/job/medical_doctor,
+		/datum/job/chemist // why not
 	)
 
 /datum/job/medical_doctor/get_access()

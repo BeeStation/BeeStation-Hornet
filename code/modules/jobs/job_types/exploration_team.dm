@@ -42,8 +42,8 @@
 	minimal_lightup_areas = list(/area/station/cargo/exploration_dock, /area/station/cargo/exploration_prep)
 
 	manuscript_jobs = list(
-		JOB_NAME_EXPLORATIONCREW,
-		JOB_NAME_SHAFTMINER
+		/datum/job/exploration_crew,
+		/datum/job/shaft_miner
 	)
 
 /datum/outfit/job/exploration_crew

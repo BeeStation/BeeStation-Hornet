@@ -37,8 +37,8 @@
 	minimal_lightup_areas = list(/area/station/medical/morgue)
 
 	manuscript_jobs = list(
-		JOB_NAME_BRIGPHYSICIAN,
-		JOB_NAME_PARAMEDIC // They're somewhat identical
+		/datum/job/brig_physician,
+		/datum/job/paramedic // They're somewhat identical
 	)
 
 /datum/outfit/job/brig_physician

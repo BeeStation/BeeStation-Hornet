@@ -87,25 +87,25 @@
 	minimal_lightup_areas = list(/area/station/command/heads_quarters/hop, /area/station/ai_monitored/command/nuke_storage)
 
 	manuscript_jobs = list(
-		JOB_NAME_HEADOFPERSONNEL,
-		JOB_NAME_BARTENDER,
-		JOB_NAME_BOTANIST,
-		JOB_NAME_COOK,
-		JOB_NAME_JANITOR,
-		JOB_NAME_MIME,
-		JOB_NAME_CLOWN,
+		/datum/job/head_of_personnel,
+		/datum/job/bartender,
+		/datum/job/botanist,
+		/datum/job/cook,
+		/datum/job/janitor,
+		/datum/job/mime,
+		/datum/job/clown,
 
-		JOB_NAME_ASSISTANT,
-		JOB_NAME_BARBER,
-		JOB_NAME_STAGEMAGICIAN,
+		/datum/job/assistant,
+		/datum/job/gimmick,
+		/datum/job/gimmick/stage_magician,
 		// JOB_NAME_CHAPLAIN, // holy knowledge is only allowed to people in religion
-		JOB_NAME_CURATOR,
-		JOB_NAME_LAWYER,
-		JOB_NAME_PRISONER,
+		/datum/job/curator,
+		/datum/job/lawyer,
+		/datum/job/prisoner,
 
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
-		JOB_NAME_SHAFTMINER
+		/datum/job/quartermaster,
+		/datum/job/cargo_technician,
+		/datum/job/shaft_miner
 	)
 
 // Special handling to avoid lighting up the entirety of supply whenever there's a HoP.

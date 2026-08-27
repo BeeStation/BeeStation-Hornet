@@ -57,13 +57,13 @@
 	)
 
 	manuscript_jobs = list(
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_MEDICALDOCTOR,
-		JOB_NAME_PARAMEDIC,
-		JOB_NAME_CHEMIST,
-		JOB_NAME_GENETICIST,
-		JOB_NAME_VIROLOGIST,
-		JOB_NAME_PSYCHIATRIST
+		/datum/job/chief_medical_officer,
+		/datum/job/medical_doctor,
+		/datum/job/paramedic,
+		/datum/job/chemist,
+		/datum/job/geneticist,
+		/datum/job/virologist,
+		/datum/job/gimmick/psychiatrist
 	)
 
 /datum/job/chief_medical_officer/get_captaincy_announcement(mob/living/captain)

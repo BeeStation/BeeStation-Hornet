@@ -36,8 +36,8 @@
 /area/station/service/theater)
 
 	manuscript_jobs = list(
-		JOB_NAME_CLOWN,
-		JOB_NAME_BOTANIST // because banana
+		/datum/job/clown,
+		/datum/job/botanist // because banana
 	)
 
 /datum/job/clown/after_spawn(mob/living/spawned, client/player_client)

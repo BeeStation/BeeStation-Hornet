@@ -36,12 +36,12 @@
 /area/station/service/chapel,
 		/area/station/medical/morgue,
 
-/area/station/service/theater
+/area/station/service/theater //what the fuck?
 	)
 
 	manuscript_jobs = list(
-		JOB_NAME_CHAPLAIN,
-		JOB_NAME_BOTANIST // in a sense of religion
+		/datum/job/chaplain,
+		/datum/job/botanist // in a sense of religion
 	)
 
 /datum/job/chaplain/after_spawn(mob/living/spawned, client/player_client)

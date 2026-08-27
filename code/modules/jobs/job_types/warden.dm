@@ -39,8 +39,8 @@
 	minimal_lightup_areas = list(/area/station/security/warden)
 
 	manuscript_jobs = list(
-		JOB_NAME_WARDEN,
-		JOB_NAME_SECURITYOFFICER // technically, Warden is just promoted seccie, right?
+		/datum/job/warden,
+		/datum/job/security_officer // technically, Warden is just promoted seccie, right?
 	)
 
 /datum/job/warden/get_access()

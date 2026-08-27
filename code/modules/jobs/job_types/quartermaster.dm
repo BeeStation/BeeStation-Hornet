@@ -40,9 +40,9 @@
 	)
 
 	manuscript_jobs = list(
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
-		JOB_NAME_SHAFTMINER
+		/datum/job/quartermaster,
+		/datum/job/cargo_technician,
+		/datum/job/shaft_miner
 	)
 
 /datum/outfit/job/quartermaster

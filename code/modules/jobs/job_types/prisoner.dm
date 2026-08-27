@@ -35,8 +35,8 @@
 	)
 
 	manuscript_jobs = list(
-		JOB_NAME_PRISONER,
-		JOB_NAME_ASSISTANT
+		/datum/job/prisoner,
+		/datum/job/assistant
 	)
 
 /datum/job/prisoner/announce_job(mob/living/carbon/human/H)
