@@ -130,3 +130,7 @@
   - rscadd: resprites a lot of hair
   - rscadd: wearing a hardhat, beret, winterhood or otherwise cranium covering thing
       will now cover the hair appropriately
+2026-08-28:
+  r1ks-iwnl:
+  - bugfix: Fixed being unable to write manuscripts
+  - bugfix: Fixes meth grenades not exploding
