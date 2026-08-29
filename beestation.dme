@@ -3768,6 +3768,7 @@
 #include "code\modules\mob\living\simple_animal\parrot.dm"
 #include "code\modules\mob\living\simple_animal\shade.dm"
 #include "code\modules\mob\living\simple_animal\simple_animal.dm"
+#include "code\modules\antagonists\borer\borer.dm"
 #include "code\modules\mob\living\simple_animal\bot\atmosbot.dm"
 #include "code\modules\mob\living\simple_animal\bot\bot.dm"
 #include "code\modules\mob\living\simple_animal\bot\cleanbot.dm"

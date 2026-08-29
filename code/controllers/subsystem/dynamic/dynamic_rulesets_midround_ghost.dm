@@ -305,6 +305,38 @@
 
 //////////////////////////////////////////////
 //                                          //
+//        CORTICAL BORER INFESTATION        //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer_infestation
+	name = "Cortical Borer Infestation"
+	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
+	antag_datum = /datum/antagonist/borer
+	role_preference = /datum/role_preference/midround/cortical_borer
+	points_cost = 20
+	minimum_players_required = 12
+	weight = 4
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer_infestation/get_poll_icon()
+	return /mob/living/simple_animal/borer
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer_infestation/generate_ruleset_body(mob/dead/observer/chosen_mob)
+	var/mob/living/simple_animal/borer/new_borer = new()
+	new_borer.move_into_vent(pick_n_take(spawn_locations))
+	new_borer.key = chosen_mob.key
+	return new_borer
+
+/datum/dynamic_ruleset/midround/ghost/cortical_borer_infestation/get_spawn_locations()
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
+		if(QDELETED(vent) || !is_station_level(vent.loc.z) || vent.welded)
+			continue
+		var/datum/pipenet/vent_parent = vent.parents[1]
+		if(vent_parent && length(vent_parent.other_atmos_machines) >= 20)
+			spawn_locations += vent
+
+//////////////////////////////////////////////
+//                                          //
 //           SPACE DRAGON (HEAVY)           //
 //                                          //
 //////////////////////////////////////////////
