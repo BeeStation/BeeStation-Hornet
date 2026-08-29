@@ -97,6 +97,13 @@
 	/// Progress is deliberately independent of chemicals; it is awarded only while hosted.
 	var/evolution_points = 0
 	var/next_evolution_point = 0
+	var/chemical_regen_bonus = 0
+	/// Secretion definitions available to this borer. Availability depends on
+	/// the cyst location and any learned chemical evolutions.
+	var/list/datum/borer_secretion/available_secretions = list()
+	var/list/datum/borer_evolution/available_evolutions = list()
+	var/datum/borer_evolution_menu/evolution_menu
+	var/datum/action/innate/borer_evolution/evolution_action
 	/// True only while this borer's player is operating its host's body.
 	var/controlling_host = FALSE
 
@@ -104,6 +111,47 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	var/static/list/evolution_types = list(
+		/datum/borer_evolution/neural_domination,
+		/datum/borer_evolution/head/night_vision,
+		/datum/borer_evolution/head/thermal_vision,
+		/datum/borer_evolution/chest/thermal_regulation,
+		/datum/borer_evolution/chest/metabolic_purge,
+		/datum/borer_evolution/arm/shock_dampening,
+		/datum/borer_evolution/arm/regenerative_tissue,
+		/datum/borer_evolution/leg/motile_fibers,
+		/datum/borer_evolution/leg/grounding_tendrils,
+		/datum/borer_evolution/leg/zero_g_tendons,
+		/datum/borer_evolution/expanded_glands,
+		/datum/borer_evolution/efficient_glands,
+		/datum/borer_evolution/chemical/head/genetic_restoration,
+		/datum/borer_evolution/chemical/head/neurochemical_control,
+		/datum/borer_evolution/chemical/chest/respiratory_radiation_care,
+		/datum/borer_evolution/chemical/chest/metabolic_disruption,
+		/datum/borer_evolution/chemical/chest/advanced_critical_care,
+	)
+	var/static/list/secretion_types = list(
+		/datum/borer_secretion/bicaridine, /datum/borer_secretion/kelotane,
+		/datum/borer_secretion/charcoal, /datum/borer_secretion/epinephrine,
+		/datum/borer_secretion/head/mannitol, /datum/borer_secretion/head/oculine,
+		/datum/borer_secretion/head/inacusiate, /datum/borer_secretion/chest/blood,
+		/datum/borer_secretion/chest/dexalin, /datum/borer_secretion/chest/leporazine,
+		/datum/borer_secretion/chest/nutriment, /datum/borer_secretion/arm/iron,
+		/datum/borer_secretion/leg/ephedrine, /datum/borer_secretion/head/mutadone,
+		/datum/borer_secretion/head/rezadone, /datum/borer_secretion/head/morphine,
+		/datum/borer_secretion/head/space_drugs, /datum/borer_secretion/head/synaptizine,
+		/datum/borer_secretion/chest/dexalinp, /datum/borer_secretion/chest/potass_iodide,
+		/datum/borer_secretion/chest/capsaicin, /datum/borer_secretion/chest/frostoil,
+		/datum/borer_secretion/chest/lipolicide, /datum/borer_secretion/chest/omnizine,
+		/datum/borer_secretion/chest/stabilizing_nanites, /datum/borer_secretion/chest/atropine,
+	)
+	for(var/evolution_type in evolution_types)
+		available_evolutions += new evolution_type
+	for(var/secretion_type in secretion_types)
+		available_secretions += new secretion_type
+	evolution_menu = new(src)
+	evolution_action = new(evolution_menu)
+	evolution_action.Grant(src)
 
 /mob/living/simple_animal/borer/mind_initialize()
 	. = ..()
@@ -117,14 +165,24 @@
 	if(host.stat == DEAD && controlling_host)
 		release_host_control()
 	if(host.stat != DEAD)
-		chemicals = min(max_chemicals, chemicals + delta_time)
+		chemicals = min(max_chemicals, chemicals + delta_time * (1 + chemical_regen_bonus))
+		for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+			if(evolution.purchased && evolution.is_active(src))
+				evolution.on_life(src, delta_time)
 		if(world.time >= next_evolution_point)
 			evolution_points++
-			next_evolution_point = world.time + 10 MINUTES
+			next_evolution_point = world.time + 2 MINUTES
 
 /mob/living/simple_animal/borer/Destroy()
+	deactivate_evolutions(host)
+	QDEL_NULL(evolution_action)
+	QDEL_NULL(evolution_menu)
 	if(cyst?.borer == src)
 		cyst.borer = null
+	return ..()
+
+/mob/living/simple_animal/borer/death(gibbed)
+	deactivate_evolutions(host)
 	return ..()
 
 /mob/living/simple_animal/borer/proc/bind_to_host(mob/living/carbon/new_host, obj/item/organ/borer_cyst/new_cyst)
@@ -134,8 +192,9 @@
 	cyst = new_cyst
 	severed_limb = null
 	if(!next_evolution_point)
-		next_evolution_point = world.time + 10 MINUTES
+		next_evolution_point = world.time + 2 MINUTES
 	forceMove(cyst)
+	activate_evolutions()
 	to_chat(src, span_notice("You settle into [host]'s [parse_zone(cyst.zone)]."))
 	return TRUE
 
@@ -143,6 +202,7 @@
 	if(controlling_host)
 		release_host_control()
 	severed_limb = limb
+	deactivate_evolutions(host)
 	host = null
 	to_chat(src, span_warning("Your host's limb has been severed. You remain hidden in it until it is reattached or surgically opened."))
 
@@ -152,6 +212,7 @@
 	var/mob/living/carbon/human/old_host = host
 	var/obj/item/organ/borer_cyst/old_cyst = cyst
 	host = null
+	deactivate_evolutions(old_host)
 	cyst = null
 	severed_limb = null
 	if(old_cyst?.borer == src)
@@ -198,7 +259,7 @@
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/take_host_control()
-	if(controlling_host || !host || cyst?.zone != BODY_ZONE_HEAD || host.stat == DEAD)
+	if(controlling_host || !host || cyst?.zone != BODY_ZONE_HEAD || host.stat == DEAD || !has_evolution(/datum/borer_evolution/neural_domination))
 		return FALSE
 	if(!client || !host.client)
 		to_chat(src, span_warning("Both you and your host must be conscious players to exchange control."))
@@ -213,6 +274,42 @@
 	to_chat(src, span_userdanger("You seize control of your host's body."))
 	to_chat(host, span_userdanger("Your cortical borer has seized control of your body!"))
 	return TRUE
+
+/mob/living/simple_animal/borer/proc/has_evolution(evolution_type)
+	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+		if(istype(evolution, evolution_type))
+			return evolution.purchased
+	return FALSE
+
+/mob/living/simple_animal/borer/proc/has_active_evolution(evolution_type)
+	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+		if(istype(evolution, evolution_type))
+			return evolution.purchased && evolution.is_active(src)
+	return FALSE
+
+/mob/living/simple_animal/borer/proc/purchase_evolution(evolution_type)
+	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+		if(!istype(evolution, evolution_type))
+			continue
+		if(!evolution.can_purchase(src))
+			return FALSE
+		evolution_points -= evolution.cost
+		evolution.on_purchase(src)
+		to_chat(src, span_notice("You evolve [evolution.name]."))
+		return TRUE
+	return FALSE
+
+/mob/living/simple_animal/borer/proc/activate_evolutions()
+	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+		if(evolution.purchased && evolution.is_active(src))
+			evolution.on_attached(src, host)
+
+/mob/living/simple_animal/borer/proc/deactivate_evolutions(mob/living/carbon/human/old_host)
+	if(!old_host)
+		return
+	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+		if(evolution.purchased && evolution.is_active_in_zone(cyst?.zone))
+			evolution.on_detached(src, old_host)
 
 /mob/living/simple_animal/borer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
 	if(!host)
@@ -278,24 +375,23 @@
 	if(!host || !host.reagents)
 		to_chat(src, span_warning("You need a living host to secrete chemicals."))
 		return
-	if(chemicals < 10)
-		to_chat(src, span_warning("You need at least 10 chemicals in reserve."))
+	var/list/secretions = list()
+	for(var/datum/borer_secretion/secretion as anything in available_secretions)
+		if(secretion.can_secrete(src))
+			secretions[secretion.name] = secretion
+	if(!length(secretions))
+		to_chat(src, span_warning("Your current cyst location cannot produce any secretions."))
 		return
-	var/static/list/secretions = list(
-		"Bicaridine" = /datum/reagent/medicine/bicaridine,
-		"Kelotane" = /datum/reagent/medicine/kelotane,
-		"Charcoal" = /datum/reagent/medicine/charcoal,
-		"Dexalin" = /datum/reagent/medicine/dexalin,
-		"Nutriment" = /datum/reagent/consumable/nutriment,
-		"Space drugs" = /datum/reagent/drug/space_drugs,
-		"Synaptizine" = /datum/reagent/medicine/synaptizine,
-	)
 	var/choice = tgui_input_list(src, "Choose a chemical to release into [host]", "Secrete Chemicals", secretions)
-	if(!choice || !host || chemicals < 10)
+	var/datum/borer_secretion/secretion = secretions[choice]
+	if(!secretion || !host || !secretion.can_secrete(src))
 		return
-	host.reagents.add_reagent(secretions[choice], 5)
-	chemicals -= 10
-	to_chat(src, span_notice("You release 5 units of [choice] into [host]."))
+	if(chemicals < secretion.chemical_cost)
+		to_chat(src, span_warning("You need [secretion.chemical_cost] chemicals in reserve to produce [secretion.name]."))
+		return
+	host.reagents.add_reagent(secretion.reagent_type, secretion.dose_size)
+	chemicals -= secretion.chemical_cost
+	to_chat(src, span_notice("You release [secretion.dose_size] units of [secretion.name] into [host]."))
 
 /mob/living/simple_animal/borer/verb/reproduce()
 	set name = "Reproduce"
