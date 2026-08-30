@@ -4,7 +4,7 @@
 	genetic_cost = 1
 	scales = "Power production scales with trait power."
 	///Cable charge per sercond
-	var/cable_charge = 2500 //TODO: Make sure this is balanced - Racc
+	var/cable_charge = 2500
 
 
 /datum/plant_trait/roots/conductive/setup_component_parent(datum/source)

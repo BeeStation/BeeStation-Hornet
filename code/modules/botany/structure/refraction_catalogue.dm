@@ -8,8 +8,6 @@
 	pass_flags_self = PASSSTRUCTURE
 	pass_flags = NONE
 
-	//TODO: - The code for this and all UIs needs to be improved probably - Racc
-
 	var/selected_reagent
 
 	/*

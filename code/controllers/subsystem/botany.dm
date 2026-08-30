@@ -32,8 +32,7 @@ SUBSYSTEM_DEF(botany)
 	var/list/refraction_coords = list()
 
 //Random seeds
-	///List of all random seeds
-	//TODO: this organmizes seed by flag, but seeds with multiple flags appear in a new list instead of both - Racc
+	///List of all random seeds - seeds with multiple flags appear in a new list instead of both
 	var/list/random_seeds = list()
 	///List of unused random seeds
 	var/list/unused_random_seeds = list()

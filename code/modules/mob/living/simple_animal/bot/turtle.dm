@@ -8,7 +8,7 @@
 	health = 50
 	maxHealth = 50
 	radio_key = /obj/item/encryptionkey/headset_service
-	radio_channel = RADIO_CHANNEL_SERVICE //Service
+	radio_channel = RADIO_CHANNEL_SERVICE // Service
 	bot_type = TURTLE_BOT
 	model = "Turtle"
 	pass_flags = PASSMOB
@@ -17,19 +17,22 @@
 	wander = TRUE
 
 	var/atom/target
-	///Plant offset to properly line things up
+	/// Plant offset to properly line things up
 	var/list/plant_offset = list(0, 26)
-	///mask for burried visuals
+	/// Mask for burried visuals
 	var/icon/mask
-	///Reference to our 'on' overlay, for when a pai uses us
+	/// Reference to our 'on' overlay, for when a pai uses us
 	var/icon/on_overlay
-	///What reagent we water trays with
+	/// What reagent we water trays with
 	var/dispensed_reagent = /datum/reagent/water
-	///Do we auto water?
+	/// Do we auto water?
 	var/water = TRUE
+	/// Reference to our internal plant scanner
+	var/obj/item/plant_scanner/internal_scanner
 
 /mob/living/simple_animal/bot/turtle/Initialize(mapload)
 	. = ..()
+	internal_scanner = new(src)
 	if(prob(5))
 		name = "Louie"
 		icon_state = "louie"
@@ -56,6 +59,10 @@
 
 /mob/living/simple_animal/bot/turtle/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
 	. = ..()
+	// Plant scanner
+	if(attack_target.GetComponent(/datum/component/plant))
+		internal_scanner.afterattack(attack_target, src, TRUE)
+	// Watering
 	var/datum/component/planter/tray_component = attack_target.GetComponent(/datum/component/planter)
 	if(!tray_component)
 		return
@@ -130,6 +137,7 @@
 /mob/living/simple_animal/bot/turtle/insertpai(mob/user, obj/item/pai_card/card)
 	. = ..()
 	add_overlay(on_overlay)
+	dispensed_reagent = /datum/reagent/medicine/earthsblood
 
 /mob/living/simple_animal/bot/turtle/insertpai(mob/user, obj/item/pai_card/card)
 	. = ..()
