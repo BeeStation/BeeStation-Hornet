@@ -54,7 +54,7 @@
 	name = "Borer Evolution"
 	desc = "Spend evolution points to adapt to your host."
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
-	button_icon_state = "sting"
+	button_icon_state = "transform"
 	background_icon_state = "bg_changeling"
 	var/datum/borer_evolution_menu/menu
 
@@ -82,6 +82,7 @@
 
 /datum/action/innate/borer_core
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
+	button_icon_state = "absorb_dna"
 	background_icon_state = "bg_changeling"
 	var/mob/living/simple_animal/borer/borer
 

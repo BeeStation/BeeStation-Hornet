@@ -29,27 +29,54 @@ export const BorerEvolution = () => {
           fill
           scrollable
           title="Evolution Points"
-          buttons={<Stack>
-            <Stack.Item fontSize="16px">{evolution_points} <Icon name="dna" color="#DD66DD" /></Stack.Item>
-            <Stack.Item color="label">Host: {host_zone}</Stack.Item>
-          </Stack>}
+          buttons={
+            <Stack>
+              <Stack.Item fontSize="16px">
+                {evolution_points} <Icon name="dna" color="#DD66DD" />
+              </Stack.Item>
+              <Stack.Item color="label">Host: {host_zone}</Stack.Item>
+            </Stack>
+          }
         >
-          {!evolutions?.length ? <NoticeBox>No evolutions available.</NoticeBox> : <LabeledList>
-            {evolutions.map((evolution) => <LabeledList.Item
-              key={evolution.path}
-              className="candystripe"
-              label={evolution.name}
-              buttons={<Stack>
-                <Stack.Item>{evolution.cost}</Stack.Item>
-                <Stack.Item><Icon name="dna" color={evolution.owned ? '#DD66DD' : 'gray'} /></Stack.Item>
-                <Stack.Item><Button content="Evolve" disabled={evolution.owned || !evolution.can_purchase} onClick={() => act('evolve', { path: evolution.path })} /></Stack.Item>
-              </Stack>}
-            >
-              {evolution.desc}
-              <Box color="label">Requires: {evolution.zone}</Box>
-              <Box color="good">{evolution.helptext}</Box>
-            </LabeledList.Item>)}
-          </LabeledList>}
+          {!evolutions?.length ? (
+            <NoticeBox>No evolutions available.</NoticeBox>
+          ) : (
+            <LabeledList>
+              {evolutions.map((evolution) => (
+                <LabeledList.Item
+                  key={evolution.path}
+                  className="candystripe"
+                  label={evolution.name}
+                  buttons={
+                    <Stack>
+                      <Stack.Item>{evolution.cost}</Stack.Item>
+                      <Stack.Item>
+                        <Icon
+                          name="dna"
+                          color={evolution.owned ? '#DD66DD' : 'gray'}
+                        />
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button
+                          content="Evolve"
+                          disabled={
+                            evolution.owned || !evolution.can_purchase
+                          }
+                          onClick={() =>
+                            act('evolve', { path: evolution.path })
+                          }
+                        />
+                      </Stack.Item>
+                    </Stack>
+                  }
+                >
+                  {evolution.desc}
+                  <Box color="label">Requires: {evolution.zone}</Box>
+                  <Box color="good">{evolution.helptext}</Box>
+                </LabeledList.Item>
+              ))}
+            </LabeledList>
+          )}
         </Section>
       </Window.Content>
     </Window>
