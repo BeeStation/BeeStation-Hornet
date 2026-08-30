@@ -8,6 +8,20 @@
  * are necessary.
  */
 
+#define FORMAT_BORER_CHEMICALS_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#b8e06c'>[round(charges)]</font></div>")
+
+/// Borer HUD: the normal living-mob HUD plus a changeling-style chemical reserve display.
+/datum/hud/borer
+	parent_type = /datum/hud/living
+
+/datum/hud/borer/New(mob/living/simple_animal/borer/owner)
+	..()
+	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)
+	lingchemdisplay.name = "borer chemical reserve"
+	lingchemdisplay.invisibility = 0
+	lingchemdisplay.maptext = FORMAT_BORER_CHEMICALS_TEXT(owner.chemicals)
+	infodisplay += lingchemdisplay
+
 /datum/antagonist/borer
 	name = "Cortical Borer"
 	roundend_category = "cortical borers"
@@ -84,6 +98,7 @@
 	speak_emote = list("clicks")
 	minbodytemp = 0
 	maxbodytemp = INFINITY
+	hud_type = /datum/hud/borer
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	/// The human currently hosting us. Null while loose or in a severed limb.
 	var/mob/living/carbon/human/host
@@ -198,7 +213,7 @@
 		host_actions_suspended = FALSE
 		update_borer_actions()
 	if(host.stat != DEAD)
-		chemicals = min(max_chemicals, chemicals + delta_time * (1 + chemical_regen_bonus))
+		adjust_chemicals(delta_time * (1 + chemical_regen_bonus))
 		for(var/datum/borer_evolution/evolution as anything in available_evolutions)
 			if(evolution.purchased && evolution.is_active(src))
 				evolution.on_life(src, delta_time)
@@ -380,6 +395,22 @@
 		return TRUE
 	return FALSE
 
+/// Adjusts the internal chemical reserve and refreshes its changeling-style HUD counter.
+/mob/living/simple_animal/borer/proc/adjust_chemicals(amount)
+	if(!isnum(amount))
+		return
+	chemicals = clamp(chemicals + amount, 0, max_chemicals)
+	update_chemical_hud()
+
+/// Refreshes the borer HUD. During domination, carry the same display onto the host's client.
+/mob/living/simple_animal/borer/proc/update_chemical_hud()
+	var/atom/movable/screen/ling/chems/display = hud_used?.lingchemdisplay
+	if(!display)
+		return
+	display.maptext = FORMAT_BORER_CHEMICALS_TEXT(chemicals)
+	if(controlling_host && host?.client)
+		host.client.screen += display
+
 /mob/living/simple_animal/borer/proc/activate_evolutions()
 	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
 		if(evolution.purchased && evolution.is_active(src))
@@ -427,6 +458,7 @@
 
 	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
 		evolution.update_action_visibility(src)
+	update_chemical_hud()
 
 /mob/living/simple_animal/borer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
 	if(!host)
@@ -499,7 +531,7 @@
 		to_chat(src, span_warning("You need [secretion.chemical_cost] chemicals in reserve to produce [secretion.name]."))
 		return
 	host.reagents.add_reagent(secretion.reagent_type, secretion.dose_size)
-	chemicals -= secretion.chemical_cost
+	adjust_chemicals(-secretion.chemical_cost)
 	to_chat(src, span_notice("You release [secretion.dose_size] units of [secretion.name] into [host]."))
 
 /mob/living/simple_animal/borer/verb/reproduce()
@@ -515,10 +547,12 @@
 		return
 	if(!do_after(src, 5 SECONDS, src))
 		return
-	chemicals = 0
+	adjust_chemicals(-chemicals)
 	var/turf/egg_turf = get_turf(host) || get_turf(src)
 	new /obj/item/food/borer_egg(egg_turf)
 	visible_message(span_warning("[src] expels a small, gelatinous egg!"))
+
+#undef FORMAT_BORER_CHEMICALS_TEXT
 
 /obj/item/food/borer_egg
 	name = "borer egg"

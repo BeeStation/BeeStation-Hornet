@@ -289,15 +289,21 @@
 	toggle_action.Grant(borer)
 
 /datum/borer_evolution/toggle_ability/on_life(mob/living/simple_animal/borer/borer, delta_time)
-	if(!active || !chemical_drain)
+	if(!active)
 		return
-	var/drain_amount = chemical_drain * delta_time
-	if(borer.chemicals < drain_amount)
-		borer.chemicals = 0
+	var/drain_amount = get_chemical_drain(borer) * delta_time
+	if(!drain_amount)
+		return
+	if(borer.chemicals <= drain_amount)
+		borer.adjust_chemicals(-borer.chemicals)
 		to_chat(borer, span_warning("You can no longer sustain [name]."))
 		force_deactivate()
 		return
-	borer.chemicals -= drain_amount
+	borer.adjust_chemicals(-drain_amount)
+
+/// Chemical upkeep per second. Subtypes may scale this with the borer's regeneration.
+/datum/borer_evolution/toggle_ability/proc/get_chemical_drain(mob/living/simple_animal/borer/borer)
+	return chemical_drain
 
 /datum/borer_evolution/toggle_ability/proc/activate_ability(mob/living/simple_animal/borer/borer)
 	if(active || !borer?.host || borer.host.stat == DEAD || !is_active(borer))
@@ -311,7 +317,7 @@
 		active_borer = null
 		active_host = null
 		return FALSE
-	borer.chemicals -= activation_cost
+	borer.adjust_chemicals(-activation_cost)
 	active = TRUE
 	return TRUE
 
@@ -521,7 +527,7 @@
 		return FALSE
 	var/removed_volume = borer.host.reagents.total_volume
 	borer.host.reagents.clear_reagents()
-	borer.chemicals -= 30
+	borer.adjust_chemicals(-30)
 	to_chat(borer, span_notice("You purge [round(removed_volume, 0.1)] units of reagents from [borer.host]'s bloodstream."))
 	to_chat(borer.host, span_warning("A sudden internal flush clears every chemical from your bloodstream!"))
 	return TRUE
@@ -657,6 +663,7 @@
 /datum/borer_evolution/expanded_glands/on_purchase(mob/living/simple_animal/borer/borer)
 	..()
 	borer.max_chemicals += 50
+	borer.update_chemical_hud()
 
 /datum/borer_evolution/efficient_glands
 	name = "Efficient Glands"
@@ -746,7 +753,6 @@
 	activation_cost = 10
 	chemical_drain = 1
 	var/obj/item/manifested_item
-	var/manifest_type
 	var/manifest_name = "growth"
 
 /datum/borer_evolution/toggle_ability/arm_manifestation/can_purchase(mob/living/simple_animal/borer/borer)
@@ -754,6 +760,14 @@
 
 /datum/borer_evolution/toggle_ability/arm_manifestation/is_active_in_zone(zone)
 	return zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+
+/// Cancel all natural chemical regeneration, then consume one additional point per second.
+/datum/borer_evolution/toggle_ability/arm_manifestation/get_chemical_drain(mob/living/simple_animal/borer/borer)
+	return 2 + borer.chemical_regen_bonus
+
+/// Concrete manifestations override this, avoiding ambiguous dynamic construction.
+/datum/borer_evolution/toggle_ability/arm_manifestation/proc/create_manifest(mob/living/carbon/human/manifest_host)
+	return
 
 /datum/borer_evolution/toggle_ability/arm_manifestation/activate_effect()
 	var/obj/item/bodypart/infested_arm = active_host?.get_bodypart(active_borer.cyst?.zone)
@@ -763,11 +777,18 @@
 	if(active_host.get_item_for_held_index(infested_arm.held_index))
 		to_chat(active_borer, span_warning("The corresponding hand must be empty to form [manifest_name]."))
 		return FALSE
-	for(var/datum/borer_evolution/toggle_ability/arm_manifestation/other as anything in active_borer.available_evolutions)
+	// available_evolutions is heterogeneous. Do not use `as anything` here:
+	// normal typed iteration must filter out non-manifestation evolutions before
+	// we read the manifestation-only `active` variable.
+	for(var/datum/borer_evolution/toggle_ability/arm_manifestation/other in active_borer.available_evolutions)
 		if(other != src && other.active)
 			to_chat(active_borer, span_warning("You must retract [other.name] before forming [name]."))
 			return FALSE
-	manifested_item = new manifest_type(active_host)
+	manifested_item = create_manifest(active_host)
+	if(!manifested_item || QDELETED(manifested_item))
+		manifested_item = null
+		to_chat(active_borer, span_warning("Your body fails to form [manifest_name]."))
+		return FALSE
 	// We have already validated the exact arm, its hand, and that hand's contents.
 	// Use forced placement so the host's pickup state cannot silently reject an
 	// ABSTRACT organic weapon (for example while the host is unconscious).
@@ -801,21 +822,25 @@
 	parent_type = /datum/borer_evolution/toggle_ability/arm_manifestation
 	name = "Bone Blade"
 	desc = "Grow a large organic blade from the arm containing you."
-	helptext = "Either arm. Costs 10 chemicals to form and 1 per second to sustain. Requires that arm's hand to be empty."
+	helptext = "Either arm. Costs 10 chemicals to form, then drains chemicals at a net rate of 1 per second. Requires that arm's hand to be empty."
 	cost = 2
 	button_icon_state = "armblade"
-	manifest_type = /obj/item/melee/borer_bone_blade
 	manifest_name = "a serrated blade of bone"
+
+/datum/borer_evolution/arm/bone_blade/create_manifest(mob/living/carbon/human/manifest_host)
+	return new /obj/item/melee/borer_bone_blade(manifest_host)
 
 /datum/borer_evolution/arm/bone_shield
 	parent_type = /datum/borer_evolution/toggle_ability/arm_manifestation
 	name = "Bone Shield"
 	desc = "Grow an interlocking organic shield from the arm containing you."
-	helptext = "Either arm. Costs 10 chemicals to form and 1 per second to sustain. Mutually exclusive with Bone Blade."
+	helptext = "Either arm. Costs 10 chemicals to form, then drains chemicals at a net rate of 1 per second. Mutually exclusive with Bone Blade."
 	cost = 2
 	button_icon_state = "organic_suit"
-	manifest_type = /obj/item/shield/borer_bone
 	manifest_name = "an interlocking shield of bone"
+
+/datum/borer_evolution/arm/bone_shield/create_manifest(mob/living/carbon/human/manifest_host)
+	return new /obj/item/shield/borer_bone(manifest_host)
 
 /obj/item/melee/borer_bone_blade
 	name = "borer bone blade"
@@ -880,7 +905,7 @@
 	if(!borer?.host || borer.chemicals < 25)
 		to_chat(borer, span_warning("You need 25 chemicals to produce an electromagnetic pulse."))
 		return FALSE
-	borer.chemicals -= 25
+	borer.adjust_chemicals(-25)
 	borer.host.visible_message(span_warning("[borer.host] convulses as a wave of electromagnetic energy erupts outward!"), span_userdanger("A violent bioelectric pulse erupts from inside you!"))
 	empulse(get_turf(borer.host), 2, 3, TRUE)
 	return TRUE
@@ -946,7 +971,7 @@
 	if(borer.chemicals < 15)
 		to_chat(borer, span_warning("You need 15 chemicals to perform a leg sweep."))
 		return FALSE
-	borer.chemicals -= 15
+	borer.adjust_chemicals(-15)
 	borer.host.do_attack_animation(victim, ATTACK_EFFECT_KICK)
 	playsound(victim, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 	victim.Knockdown(3 SECONDS)
