@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 type Evolution = {
@@ -59,9 +67,7 @@ export const BorerEvolution = () => {
                       <Stack.Item>
                         <Button
                           content="Evolve"
-                          disabled={
-                            evolution.owned || !evolution.can_purchase
-                          }
+                          disabled={evolution.owned || !evolution.can_purchase}
                           onClick={() =>
                             act('evolve', { path: evolution.path })
                           }
