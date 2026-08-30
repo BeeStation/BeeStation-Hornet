@@ -185,7 +185,7 @@
 /// Base for purchased, one-shot borer abilities. The action datum owns the
 /// visible cooldown while this datum owns availability and the actual effect.
 /datum/borer_evolution/active_ability
-	var/button_icon_state = "sting"
+	var/button_icon_state
 	var/ability_cooldown = 0
 	var/requires_target = FALSE
 	var/target_prompt
@@ -219,6 +219,7 @@
 
 /datum/action/innate/borer_evolution_ability
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_changeling"
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/borer_evolution/active_ability/evolution
@@ -250,7 +251,7 @@
 
 /// Base for continuous toggle abilities with a chemical drain.
 /datum/borer_evolution/toggle_ability
-	var/button_icon_state = "sting"
+	var/button_icon_state
 	var/activation_cost = 0
 	var/chemical_drain = 0
 	var/active = FALSE
@@ -347,6 +348,7 @@
 
 /datum/action/innate/borer_toggle_evolution
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
+	button_icon_state = null
 	background_icon_state = "bg_changeling"
 	check_flags = AB_CHECK_CONSCIOUS
 	toggleable = TRUE
@@ -473,7 +475,7 @@
 	name = "Metabolic Purge"
 	desc = "Purge every reagent from your host's bloodstream."
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
-	button_icon_state = "sting"
+	button_icon_state = "panacea"
 	background_icon_state = "bg_changeling"
 	cooldown_time = 60 SECONDS
 	var/datum/borer_evolution/chest/metabolic_purge/evolution
