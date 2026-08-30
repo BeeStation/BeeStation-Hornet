@@ -11,10 +11,7 @@
 #define FORMAT_BORER_CHEMICALS_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#b8e06c'>[round(charges)]</font></div>")
 
 /// Borer HUD: the normal living-mob HUD plus a changeling-style chemical reserve display.
-/datum/hud/borer
-	parent_type = /datum/hud/living
-
-/datum/hud/borer/New(mob/living/simple_animal/borer/owner)
+/datum/hud/living/borer/New(mob/living/simple_animal/borer/owner)
 	..()
 	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)
 	lingchemdisplay.name = "borer chemical reserve"
@@ -91,14 +88,14 @@
 
 /mob/living/carbon/human/proc/get_cortical_borers()
 	var/list/borers = list()
-	for(var/obj/item/organ/borer_cyst/cyst as anything in internal_organs)
+	for(var/obj/item/organ/borer_cyst/cyst in internal_organs)
 		if(cyst.borer)
 			borers += cyst.borer
 	return borers
 
 /mob/living/carbon/human/proc/get_cortical_borer(zone)
 	zone = check_zone(zone)
-	for(var/obj/item/organ/borer_cyst/cyst as anything in internal_organs)
+	for(var/obj/item/organ/borer_cyst/cyst in internal_organs)
 		if(cyst.zone == zone)
 			return cyst.borer
 
@@ -123,7 +120,7 @@
 	speak_emote = list("clicks")
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	hud_type = /datum/hud/borer
+	hud_type = /datum/hud/living/borer
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	/// The human currently hosting us. Null while loose or in a severed limb.
 	var/mob/living/carbon/human/host
@@ -498,7 +495,7 @@
 		var/linked_message = trim(copytext_char(message, 3))
 		if(!linked_message)
 			return
-		for(var/mob/living/simple_animal/borer/other_borer as anything in GLOB.mob_living_list)
+		for(var/mob/living/simple_animal/borer/other_borer in GLOB.mob_living_list)
 			to_chat(other_borer, span_notice("<b>Cortical Link:</b> [real_name] says, \"[linked_message]\""))
 		return
 	to_chat(host, span_notice("<b>A voice in your mind:</b> \"[message]\""))
