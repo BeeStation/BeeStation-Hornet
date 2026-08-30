@@ -29,12 +29,36 @@
 	show_to_ghosts = TRUE
 	banning_key = ROLE_BORER
 	required_living_playtime = 4
-	give_objectives = FALSE
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 
+/datum/antagonist/borer/on_gain()
+	if(give_objectives)
+		forge_objectives()
+	return ..()
+
+/datum/antagonist/borer/forge_objectives()
+	var/datum/objective/lay_borer_egg/egg_objective = new()
+	egg_objective.borer_ref = WEAKREF(owner.current)
+	add_objective(egg_objective)
+	add_objective(new /datum/objective/survive())
+
 /datum/antagonist/borer/greet()
-	owner?.show_memory(owner.current)
-	to_chat(owner.current, span_boldnotice("You are a cortical borer. Infest humans, grow within a host, and survive."))
+	to_chat(owner.current, span_boldnotice("You are a cortical borer!"))
+	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Cortical Borer",
+		"You are a cortical borer!\n\
+		You are a \"symbiotic\" organism that thrives in the bodies of organic humanoids. You should endeavour to infest a host and ensure they stay safe at least long enough for you to reproduce - by any means necessary. You do not need to be friends; if push comes to shove, you might even take over temporarily, but you DO need your host to live.\n\
+		Build a full chemical reserve while inside a host, then leave them and use Reproduce. Laying an egg takes five seconds and consumes your entire chemical reserve. The egg must mature in an atmosphere containing both oxygen and plasma before it can hatch.")
+
+/datum/objective/lay_borer_egg
+	name = "lay a borer egg"
+	explanation_text = "Lay at least one egg."
+	/// The physical borer is stable while its mind temporarily controls a host.
+	var/datum/weakref/borer_ref
+
+/datum/objective/lay_borer_egg/check_completion()
+	var/mob/living/simple_animal/borer/borer = borer_ref?.resolve()
+	return borer?.eggs_laid >= 1
 
 /obj/item/organ/borer_cyst
 	name = "cortical cyst"
@@ -82,9 +106,10 @@
 	name = "cortical borer"
 	real_name = "cortical borer"
 	desc = "A small, unsettling parasite with far too many legs."
-	icon_state = "mouse_gray"
-	icon_living = "mouse_gray"
-	icon_dead = "mouse_gray_dead"
+	icon = 'icons/mob/borer.dmi'
+	icon_state = "borer"
+	icon_living = "borer"
+	icon_dead = "borer_dead"
 	gender = NEUTER
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -109,6 +134,8 @@
 	/// Chemical reserve. Evolution abilities will spend this rather than host reagents.
 	var/chemicals = 0
 	var/max_chemicals = 100
+	/// Permanent reproduction tally used by the borer's egg-laying objective.
+	var/eggs_laid = 0
 	/// Progress is deliberately independent of chemicals; it is awarded only while hosted.
 	var/evolution_points = 0
 	var/next_evolution_point = 0
@@ -550,6 +577,7 @@
 	adjust_chemicals(-chemicals)
 	var/turf/egg_turf = get_turf(host) || get_turf(src)
 	new /obj/item/food/borer_egg(egg_turf)
+	eggs_laid++
 	visible_message(span_warning("[src] expels a small, gelatinous egg!"))
 
 #undef FORMAT_BORER_CHEMICALS_TEXT
@@ -557,8 +585,8 @@
 /obj/item/food/borer_egg
 	name = "borer egg"
 	desc = "A small, gelatinous egg. It twitches faintly."
-	icon = 'icons/obj/food/egg.dmi'
-	icon_state = "egg"
+	icon = 'icons/obj/borer.dmi'
+	icon_state = "egg_growing"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	foodtypes = MEAT | RAW
 	/// It first matures, then waits for the same plasma-and-oxygen environment
@@ -574,6 +602,7 @@
 	if(QDELETED(src))
 		return
 	grown = TRUE
+	icon_state = "egg_grown"
 	desc = "A swollen, gelatinous egg. It looks ready to hatch."
 	START_PROCESSING(SSobj, src)
 
@@ -589,6 +618,7 @@
 	if(hatching || !grown)
 		return
 	hatching = TRUE
+	icon_state = "egg_hatching"
 	STOP_PROCESSING(SSobj, src)
 	visible_message(span_notice("[src] pulsates and quivers!"))
 	request_borer()
@@ -608,6 +638,7 @@
 		return
 	if(!candidate)
 		hatching = FALSE
+		icon_state = "egg_grown"
 		addtimer(CALLBACK(src, PROC_REF(retry_hatching)), 5 MINUTES)
 		return
 	var/turf/egg_turf = get_turf(src)

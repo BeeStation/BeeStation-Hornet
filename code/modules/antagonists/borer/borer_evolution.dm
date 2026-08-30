@@ -845,11 +845,11 @@
 /obj/item/melee/borer_bone_blade
 	name = "borer bone blade"
 	desc = "A vicious blade of living bone extruded from its wielder's arm."
-	icon = 'icons/obj/changeling_items.dmi'
-	icon_state = "arm_blade"
-	inhand_icon_state = "arm_blade"
-	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
+	icon = 'icons/obj/borer.dmi'
+	icon_state = "bone_blade"
+	inhand_icon_state = "bone_blade"
+	lefthand_file = 'icons/mob/inhands/antag/borer_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/borer_righthand.dmi'
 	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 24
@@ -870,10 +870,11 @@
 /obj/item/shield/borer_bone
 	name = "borer bone shield"
 	desc = "Interlocking plates of living bone grown around an arm."
-	icon_state = "buckler"
-	inhand_icon_state = "buckler"
-	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
+	icon = 'icons/obj/borer.dmi'
+	icon_state = "bone_shield"
+	inhand_icon_state = "bone_shield"
+	lefthand_file = 'icons/mob/inhands/antag/borer_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/borer_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	custom_materials = null
 	block_power = 35
