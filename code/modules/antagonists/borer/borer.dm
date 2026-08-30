@@ -104,24 +104,40 @@
 	var/list/datum/borer_evolution/available_evolutions = list()
 	var/datum/borer_evolution_menu/evolution_menu
 	var/datum/action/innate/borer_evolution/evolution_action
+	var/datum/action/innate/borer_infest/infest_action
+	var/datum/action/innate/borer_secrete/secrete_action
+	var/datum/action/innate/borer_leave/leave_action
+	var/datum/action/innate/borer_reproduce/reproduce_action
+	var/datum/action/innate/borer_assume_control/assume_control_action
+	var/datum/action/innate/borer_release_control/release_control_action
 	/// True only while this borer's player is operating its host's body.
 	var/controlling_host = FALSE
+	/// Prevent repeated action refreshes while a dead host remains dead.
+	var/host_actions_suspended = FALSE
 
 /mob/living/simple_animal/borer/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	var/static/list/evolution_types = list(
+		/datum/borer_evolution/taste_blood,
 		/datum/borer_evolution/neural_domination,
 		/datum/borer_evolution/head/night_vision,
 		/datum/borer_evolution/head/thermal_vision,
 		/datum/borer_evolution/chest/thermal_regulation,
 		/datum/borer_evolution/chest/metabolic_purge,
+		/datum/borer_evolution/chest/brute_resistance,
+		/datum/borer_evolution/chest/burn_resistance,
 		/datum/borer_evolution/arm/shock_dampening,
 		/datum/borer_evolution/arm/regenerative_tissue,
+		/datum/borer_evolution/arm/bone_blade,
+		/datum/borer_evolution/arm/bone_shield,
+		/datum/borer_evolution/arm/electromagnetic_pulse,
 		/datum/borer_evolution/leg/motile_fibers,
 		/datum/borer_evolution/leg/grounding_tendrils,
 		/datum/borer_evolution/leg/zero_g_tendons,
+		/datum/borer_evolution/leg/muscular_overdrive,
+		/datum/borer_evolution/leg/hooking_talons,
 		/datum/borer_evolution/expanded_glands,
 		/datum/borer_evolution/efficient_glands,
 		/datum/borer_evolution/chemical/head/genetic_restoration,
@@ -151,7 +167,13 @@
 		available_secretions += new secretion_type
 	evolution_menu = new(src)
 	evolution_action = new(evolution_menu)
-	evolution_action.Grant(src)
+	infest_action = new
+	secrete_action = new(src)
+	leave_action = new(src)
+	reproduce_action = new(src)
+	assume_control_action = new(src)
+	release_control_action = new(src)
+	update_borer_actions()
 
 /mob/living/simple_animal/borer/mind_initialize()
 	. = ..()
@@ -164,6 +186,17 @@
 		return
 	if(host.stat == DEAD && controlling_host)
 		release_host_control()
+	if(host.stat == DEAD)
+		if(!host_actions_suspended)
+			host_actions_suspended = TRUE
+			for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+				if(evolution.purchased)
+					evolution.on_host_death(src)
+			update_borer_actions()
+		return
+	if(host_actions_suspended)
+		host_actions_suspended = FALSE
+		update_borer_actions()
 	if(host.stat != DEAD)
 		chemicals = min(max_chemicals, chemicals + delta_time * (1 + chemical_regen_bonus))
 		for(var/datum/borer_evolution/evolution as anything in available_evolutions)
@@ -174,14 +207,26 @@
 			next_evolution_point = world.time + 2 MINUTES
 
 /mob/living/simple_animal/borer/Destroy()
+	if(controlling_host)
+		release_host_control()
 	deactivate_evolutions(host)
+	QDEL_NULL(release_control_action)
+	QDEL_NULL(assume_control_action)
+	QDEL_NULL(reproduce_action)
+	QDEL_NULL(leave_action)
+	QDEL_NULL(secrete_action)
+	QDEL_NULL(infest_action)
 	QDEL_NULL(evolution_action)
 	QDEL_NULL(evolution_menu)
+	QDEL_LIST(available_evolutions)
+	QDEL_LIST(available_secretions)
 	if(cyst?.borer == src)
 		cyst.borer = null
 	return ..()
 
 /mob/living/simple_animal/borer/death(gibbed)
+	if(controlling_host)
+		release_host_control()
 	deactivate_evolutions(host)
 	return ..()
 
@@ -191,10 +236,15 @@
 	host = new_host
 	cyst = new_cyst
 	severed_limb = null
+	host_actions_suspended = FALSE
 	if(!next_evolution_point)
 		next_evolution_point = world.time + 2 MINUTES
-	forceMove(cyst)
+	// Inserted organs live in nullspace on Bee. Keep the borer inside the host
+	// instead, so it retains a valid turf, and explicitly watch through the host.
+	forceMove(host)
+	set_mob_eye_to(host)
 	activate_evolutions()
+	update_borer_actions()
 	to_chat(src, span_notice("You settle into [host]'s [parse_zone(cyst.zone)]."))
 	return TRUE
 
@@ -202,8 +252,14 @@
 	if(controlling_host)
 		release_host_control()
 	severed_limb = limb
+	host_actions_suspended = FALSE
 	deactivate_evolutions(host)
 	host = null
+	forceMove(limb)
+	// Like Bee's brainmob containment, following ourselves makes the camera
+	// resolve through our actual container as the severed limb moves around.
+	set_mob_eye_to(MOB_EYE_SELF)
+	update_borer_actions()
 	to_chat(src, span_warning("Your host's limb has been severed. You remain hidden in it until it is reattached or surgically opened."))
 
 /mob/living/simple_animal/borer/proc/detach(atom/drop_location)
@@ -212,12 +268,15 @@
 	var/mob/living/carbon/human/old_host = host
 	var/obj/item/organ/borer_cyst/old_cyst = cyst
 	host = null
+	host_actions_suspended = FALSE
 	deactivate_evolutions(old_host)
 	cyst = null
 	severed_limb = null
 	if(old_cyst?.borer == src)
 		old_cyst.borer = null
 	forceMove(drop_location || get_turf(old_host) || get_turf(old_cyst))
+	set_mob_eye_to(MOB_EYE_SELF)
+	update_borer_actions()
 	if(old_host)
 		old_host.visible_message(span_warning("Something wriggles free from [old_host]'s flesh!"), span_userdanger("A cortical borer tears free from your flesh!"))
 
@@ -237,13 +296,32 @@
 	if(!new_cyst.Insert(target))
 		qdel(new_cyst)
 		return FALSE
-	bind_to_host(target, new_cyst)
 	target.visible_message(span_warning("[src] burrows into [target]'s [parse_zone(target_zone)]!"), span_userdanger("Something painfully burrows into your [parse_zone(target_zone)]!"))
 	return TRUE
+
+/mob/living/simple_animal/borer/proc/choose_infestation_target()
+	if(host || cyst)
+		to_chat(src, span_warning("You are already inside a host or severed limb."))
+		return FALSE
+	var/list/candidates = list()
+	for(var/mob/living/carbon/human/candidate in oview(1, src))
+		if(candidate.stat != DEAD)
+			candidates += candidate
+	if(!length(candidates))
+		to_chat(src, span_warning("There are no living humans close enough to infest."))
+		return FALSE
+	var/mob/living/carbon/human/target = tgui_input_list(src, "Choose a human to infest", "Infest", candidates)
+	if(!target || !Adjacent(target))
+		return FALSE
+	var/target_zone = tgui_input_list(src, "Choose an entry point", "Infest", list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+	if(!target_zone || !Adjacent(target) || !do_after(src, 3 SECONDS, target))
+		return FALSE
+	return infest_human(target, target_zone)
 
 /mob/living/simple_animal/borer/proc/release_host_control()
 	if(!controlling_host || !host)
 		controlling_host = FALSE
+		update_borer_actions()
 		return FALSE
 	// This mirrors split-personality's two-way body/backseat handoff.  The
 	// host's mind stays with the borer while the borer player drives the host.
@@ -254,6 +332,7 @@
 	ckey = host_ckey
 	mind = host_mind
 	controlling_host = FALSE
+	update_borer_actions()
 	to_chat(src, span_notice("You release control of your host."))
 	to_chat(host, span_notice("You regain control of your body."))
 	return TRUE
@@ -271,6 +350,7 @@
 	ckey = host_ckey
 	mind = host_mind
 	controlling_host = TRUE
+	update_borer_actions()
 	to_chat(src, span_userdanger("You seize control of your host's body."))
 	to_chat(host, span_userdanger("Your cortical borer has seized control of your body!"))
 	return TRUE
@@ -295,6 +375,7 @@
 			return FALSE
 		evolution_points -= evolution.cost
 		evolution.on_purchase(src)
+		update_borer_actions()
 		to_chat(src, span_notice("You evolve [evolution.name]."))
 		return TRUE
 	return FALSE
@@ -310,6 +391,42 @@
 	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
 		if(evolution.purchased && evolution.is_active_in_zone(cyst?.zone))
 			evolution.on_detached(src, old_host)
+
+/// Grants only the controls which make sense in the borer's current physical
+/// state. Active evolution actions use the same refresh point.
+/mob/living/simple_animal/borer/proc/update_borer_actions()
+	var/list/datum/action/core_actions = list(
+		evolution_action,
+		infest_action,
+		secrete_action,
+		leave_action,
+		reproduce_action,
+		assume_control_action,
+		release_control_action,
+	)
+	for(var/datum/action/core_action as anything in core_actions)
+		if(core_action?.owner)
+			core_action.Remove(core_action.owner)
+
+	// During domination the borer player is operating the human. Do not leave
+	// borer controls on the captive borer body for the displaced host to use.
+	if(controlling_host && host)
+		release_control_action.Grant(host)
+	else
+		evolution_action.Grant(src)
+		if(host)
+			secrete_action.Grant(src)
+			leave_action.Grant(src)
+			if(cyst?.zone == BODY_ZONE_HEAD && has_evolution(/datum/borer_evolution/neural_domination))
+				assume_control_action.Grant(src)
+		else if(cyst || severed_limb)
+			leave_action.Grant(src)
+		else
+			infest_action.Grant(src)
+			reproduce_action.Grant(src)
+
+	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
+		evolution.update_action_visibility(src)
 
 /mob/living/simple_animal/borer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
 	if(!host)
@@ -335,24 +452,15 @@
 /mob/living/simple_animal/borer/verb/infest()
 	set name = "Infest"
 	set category = "Borer"
-	if(host)
-		to_chat(src, span_warning("You are already inside a host."))
+	if(controlling_host)
 		return
-	var/list/candidates = list()
-	for(var/mob/living/carbon/human/candidate in oview(1, src))
-		if(candidate.stat != DEAD)
-			candidates += candidate
-	var/mob/living/carbon/human/target = tgui_input_list(src, "Choose a human to infest", "Infest", candidates)
-	if(!target || !Adjacent(target))
-		return
-	var/target_zone = tgui_input_list(src, "Choose an entry point", "Infest", list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-	if(!target_zone || !do_after(src, 3 SECONDS, target))
-		return
-	infest_human(target, target_zone)
+	choose_infestation_target()
 
 /mob/living/simple_animal/borer/verb/leave_host()
 	set name = "Leave Host"
 	set category = "Borer"
+	if(controlling_host)
+		return
 	if(!cyst)
 		return
 	detach(get_turf(host) || get_turf(severed_limb))
@@ -360,11 +468,10 @@
 /mob/living/simple_animal/borer/verb/assume_host_control()
 	set name = "Assume Host Control"
 	set category = "Borer"
+	if(controlling_host)
+		return
 	if(!host || cyst?.zone != BODY_ZONE_HEAD)
 		to_chat(src, span_warning("Only a borer in a host's head can take control."))
-		return
-	if(controlling_host)
-		release_host_control()
 		return
 	if(do_after(src, 5 SECONDS, host))
 		take_host_control()
@@ -372,6 +479,8 @@
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set name = "Secrete Chemicals"
 	set category = "Borer"
+	if(controlling_host)
+		return
 	if(!host || !host.reagents)
 		to_chat(src, span_warning("You need a living host to secrete chemicals."))
 		return
@@ -396,6 +505,11 @@
 /mob/living/simple_animal/borer/verb/reproduce()
 	set name = "Reproduce"
 	set category = "Borer"
+	if(controlling_host)
+		return
+	if(host || cyst)
+		to_chat(src, span_warning("You must leave your host before producing an egg."))
+		return
 	if(chemicals < max_chemicals)
 		to_chat(src, span_warning("You need a full chemical reserve to reproduce."))
 		return
@@ -434,7 +548,7 @@
 		return
 	var/turf/egg_turf = get_turf(src)
 	var/datum/gas_mixture/air = egg_turf.return_air()
-	if(!hatching && air?.molar_density(GAS_PLASMA) >= 0.1 && air.molar_density(GAS_O2) >= 0.1)
+	if(!hatching && air?.has_gas(GAS_PLASMA, 0.1) && air.has_gas(GAS_O2, 0.1))
 		hatch()
 
 /obj/item/food/borer_egg/proc/hatch()

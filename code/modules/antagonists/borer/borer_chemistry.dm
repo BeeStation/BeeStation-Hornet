@@ -6,11 +6,13 @@
 	var/dose_size = 5
 	/// Null means a baseline secretion works from every cyst location.
 	var/required_zone
+	/// Used for paired limb locations such as either arm or either leg.
+	var/list/required_zones
 	/// Advanced secretions require a matching purchased evolution.
 	var/unlock_type
 
 /datum/borer_secretion/proc/can_secrete(mob/living/simple_animal/borer/borer)
-	if(!borer?.host || (required_zone && borer.cyst?.zone != required_zone))
+	if(!borer?.host || (required_zone && borer.cyst?.zone != required_zone) || (required_zones && !(borer.cyst?.zone in required_zones)))
 		return FALSE
 	return !unlock_type || borer.has_active_evolution(unlock_type)
 
@@ -67,28 +69,18 @@
 	reagent_type = /datum/reagent/consumable/nutriment
 
 /datum/borer_secretion/arm
-	required_zone = BODY_ZONE_L_ARM
+	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /datum/borer_secretion/arm/iron
 	name = "Iron"
 	reagent_type = /datum/reagent/iron
 
-/datum/borer_secretion/arm/proc/can_secrete(mob/living/simple_animal/borer/borer)
-	if(!borer?.host || !(borer.cyst?.zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
-		return FALSE
-	return !unlock_type || borer.has_active_evolution(unlock_type)
-
 /datum/borer_secretion/leg
-	required_zone = BODY_ZONE_L_LEG
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 /datum/borer_secretion/leg/ephedrine
 	name = "Ephedrine"
 	reagent_type = /datum/reagent/medicine/ephedrine
-
-/datum/borer_secretion/leg/proc/can_secrete(mob/living/simple_animal/borer/borer)
-	if(!borer?.host || !(borer.cyst?.zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
-		return FALSE
-	return !unlock_type || borer.has_active_evolution(unlock_type)
 
 // Advanced head secretions.
 /datum/borer_secretion/head/mutadone
