@@ -1,0 +1,4 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - bugfix: Ecto Sniffer, Fax Machines, and Security Pager Radios Work again.
