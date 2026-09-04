@@ -1,0 +1,10 @@
+author: WhiskeyMarten
+delete-after: true
+changes:
+  - tweak: The base minimum player requirement for antags is now 6.
+  - tweak: Spiders now have a minimum player requirement of 10.
+  - tweak: Wizard midround, Dragon, and Blob now have a minimum player requirement
+      of 20.
+  - bugfix: Fixed the heretic midround not having a minimum player requirement, resulting
+      in them being unable to complete objectives due to lack of targets (It is now
+      14, same as their roundstart counterpart)
