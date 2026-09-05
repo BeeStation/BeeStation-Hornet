@@ -254,6 +254,7 @@
 
 /datum/gear/accessory/backpack
 	subtype_path = /datum/gear/accessory/backpack
+	slot = ITEM_SLOT_BACK
 	cost = 2000
 
 /datum/gear/accessory/backpack/engineer_borg_bag
