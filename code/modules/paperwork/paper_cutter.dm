@@ -117,12 +117,17 @@
 		return
 	return ..()
 
-
 /obj/item/paperslip/Initialize(mapload)
 	. = ..()
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
+/obj/item/paper/paperslip/fortune
+	name = "fortune slip"
+
+/obj/item/paper/paperslip/fortune/Initialize(mapload)
+	default_raw_text = pick(GLOB.wisdoms)
+	return ..()
 
 /obj/item/hatchet/cutterblade
 	name = "paper cutter"

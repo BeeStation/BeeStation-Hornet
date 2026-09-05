@@ -319,10 +319,10 @@
 			if (amount == null || amount <= 0)
 				return
 			if (to_container == "buffer")
-				beaker.reagents.trans_id_to(src, reagent, amount)
+				beaker.reagents.trans_to(src, amount, target_id = reagent)
 				. = TRUE
 			else if (to_container == "beaker" && mode)
-				reagents.trans_id_to(beaker, reagent, amount)
+				reagents.trans_to(beaker, amount, target_id = reagent)
 				. = TRUE
 			else if (to_container == "beaker" && !mode)
 				reagents.remove_reagent(reagent, amount)
@@ -403,7 +403,11 @@
 				if (style && style["name"] && !style["generate_name"])
 					name_default = style["name"]
 				else
-					name_default = reagents.get_master_reagent_name()
+					//the prompts above sleep, so the buffer can have drained since we checked it
+					var/datum/reagent/master_reagent = reagents.get_master_reagent()
+					if(isnull(master_reagent))
+						return
+					name_default = master_reagent.name
 				if (name_has_units)
 					name_default += " ([vol_each]u)"
 				name = stripped_input(usr,
@@ -625,12 +629,13 @@
 /obj/machinery/chem_master/proc/guess_condi_style(datum/reagents/reagents)
 	var/list/styles = get_condi_styles()
 	if (reagents.reagent_list.len > 0)
-		var/main_reagent = reagents.get_master_reagent_id()
-		if (main_reagent)
-			var/list/path = splittext("[main_reagent]", "/")
-			main_reagent = path[path.len]
-		if(main_reagent in styles)
-			return styles[main_reagent]
+		var/datum/reagent/main_reagent = reagents.get_master_reagent()
+		if(main_reagent)
+			var/list/path = splittext("[main_reagent.type]", "/")
+			var/style_key = path[path.len]
+			if(style_key in styles)
+				return styles[style_key]
+
 	return styles[CONDIMASTER_STYLE_FALLBACK]
 
 /**
