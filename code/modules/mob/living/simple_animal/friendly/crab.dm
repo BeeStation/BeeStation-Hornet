@@ -20,8 +20,6 @@
 	stop_automated_movement = 1
 	friendly_verb_continuous = "pinches"
 	friendly_verb_simple = "pinch"
-	var/obj/item/inventory_head
-	var/obj/item/inventory_mask
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFA656"
 	mobchatspan = "blob"
@@ -30,6 +28,13 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "crab"
+	///In the case 'melee_damage_upper' is somehow raised above 0
+	attack_verb_continuous = "snips"
+	attack_verb_simple = "snip"
+	attack_sound = 'sound/weapons/bite.ogg'
+	attack_vis_effect = ATTACK_EFFECT_BITE
+	var/obj/item/inventory_head
+	var/obj/item/inventory_mask
 
 /mob/living/simple_animal/crab/Initialize(mapload)
 	. = ..()

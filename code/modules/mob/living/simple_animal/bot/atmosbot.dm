@@ -215,10 +215,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		if(pressure_delta > 0)
 			var/transfer_moles = pressure_delta*environment.return_volume()/(T20C * R_IDEAL_GAS_EQUATION)
 			if(emagged == 2)
-				environment.gases[/datum/gas/carbon_dioxide][MOLES] += transfer_moles
+				environment.adjust_gas(/datum/gas/carbon_dioxide, transfer_moles)
 			else
-				environment.gases[/datum/gas/nitrogen][MOLES] += transfer_moles * 0.7885
-				environment.gases[/datum/gas/oxygen][MOLES] += transfer_moles * 0.2115
+				environment.adjust_multiple_gases(list(
+					/datum/gas/nitrogen = transfer_moles * 0.7885,
+					/datum/gas/oxygen = transfer_moles * 0.2115,
+				))
 			air_update_turf(FALSE, FALSE)
 	new /obj/effect/temp_visual/vent_wind(get_turf(src))
 
@@ -228,10 +230,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		if (!inLineOfSight(source_turf.x, source_turf.y, T.x, T.y, T.z))
 			continue
 		var/datum/gas_mixture/environment = T.return_air()
-		for(var/G in gasses)
-			if(gasses[G])
-				var/moles_in_atmos = GET_MOLES(G, environment)
-				REMOVE_MOLES(G, environment, min(moles_in_atmos, ATMOSBOT_MAX_SCRUB_CHANGE))
+		var/list/cached_moles = environment.moles
+		for(var/gas_type, gas_enabled in gasses)
+			if(gas_enabled)
+				cached_moles[gas_type] -= ATMOSBOT_MAX_SCRUB_CHANGE
+		environment.garbage_collect()
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
 	if(deployed_holobarrier)
@@ -243,16 +246,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 /mob/living/simple_animal/bot/atmosbot/proc/check_area_atmos()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/gas_mix = T.return_air()
+	var/list/cached_moles = gas_mix.moles
 	if(gas_mix.return_pressure() < breached_pressure)
 		return ATMOSBOT_CHECK_BREACH
 	//Toxins in the air
 	if(emagged != 2)
-		for(var/G in gasses)
-			if(gasses[G] && GET_MOLES(G, gas_mix) > 0.2)
+		for(var/gas_type, gas_enabled in gasses)
+			if(gas_enabled && cached_moles[gas_type] > 0.2)
 				return ATMOSBOT_HIGH_TOXINS
 	//Too little oxygen or too little pressure
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * gas_mix.return_temperature() / gas_mix.return_volume()
-	var/oxygen_moles = GET_MOLES(/datum/gas/oxygen, gas_mix) * partial_pressure
+	var/oxygen_moles = cached_moles[/datum/gas/oxygen] * partial_pressure
 	if(oxygen_moles < 20 || gas_mix.return_pressure() < WARNING_LOW_PRESSURE)
 		return ATMOSBOT_LOW_OXYGEN
 	//Check temperature

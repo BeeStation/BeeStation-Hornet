@@ -12,19 +12,30 @@
 	var/hair_color = COLOR_BLACK
 	///Hair style
 	var/hair_style = "Bald"
-	///Colour used for the hair gradient.
-	var/gradient_color = COLOR_BLACK
-	///Style used for the hair gradient.
-	var/gradient_style = "None"
+
+	///Colours used for hair and facial hair gradients.
+	var/list/gradient_color = list(
+		COLOR_BLACK,	//Hair Gradient Color
+		COLOR_BLACK,	//Facial Hair Gradient Color
+	)
+	///Styles used for hair and facial hair gradients.
+	var/list/gradient_style = list(
+		"None",	//Hair Gradient Style
+		"None",	//Facial Hair Gradient Style
+	)
+
 	///Facial hair colour
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
-	var/facial_hair_style = "Shaved"
+	var/facial_hairstyle = "Shaved"
 
-	//Eye colour
+	// Base "natural" eye color
 	var/eye_color_left = COLOR_BLACK
 	var/eye_color_right = COLOR_BLACK
 	var/eye_color_heterochromatic = FALSE
+	// Eye color overrides assoc lists - priority key to hex color
+	var/list/eye_color_left_overrides
+	var/list/eye_color_right_overrides
 
 	var/skin_tone = "caucasian1" //Skin tone
 

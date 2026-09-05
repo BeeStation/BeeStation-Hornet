@@ -11,6 +11,5 @@
 #define ADD_MAP_ACCESS(thing) new thing()
 
 #include "..\..\_maps\map_files\EchoStation\map_adjustment_echo.dm"
-#include "..\..\_maps\map_files\KiloStation\map_adjustment_kilo.dm"
 
 #undef ADD_MAP_ACCESS

@@ -415,9 +415,8 @@ world
 	var/render_icon = curicon
 
 	if (render_icon)
-		var/curstates = icon_states(curicon)
-		if(!(curstate in curstates))
-			if ("" in curstates)
+		if(!icon_exists(curicon, curstate))
+			if(icon_exists(curicon, ""))
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -540,8 +539,8 @@ world
 				)
 
 				flatX1 = addX1
-				flatX2 = addY1
-				flatY1 = addX2
+				flatX2 = addX2
+				flatY1 = addY1
 				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
@@ -812,10 +811,9 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		body.equipOutfit(outfit, visuals_only = TRUE)
 
 	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
-	COMPILE_OVERLAYS(body)
-	for(var/D in showDirs)
-		var/icon/partial = getFlatIcon(body, defdir = D, no_anim = no_anim)
-		out_icon.Insert(partial,dir=D)
+	for(var/direction in showDirs)
+		var/icon/partial = getFlatIcon(body, defdir = direction, no_anim = no_anim)
+		out_icon.Insert(partial, dir = direction)
 
 	humanoid_icon_cache[icon_id] = out_icon
 	dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
@@ -841,7 +839,6 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/initial_human_dir = existing_human.dir
 	existing_human.dir = SOUTH
 	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
-	COMPILE_OVERLAYS(existing_human)
 	for(var/direction in directions_to_output)
 		var/icon/partial = getFlatIcon(existing_human, defdir = direction)
 		out_icon.Insert(partial, dir = direction)
@@ -876,22 +873,65 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /proc/generate_asset_name(file)
 	return "asset.[md5(fcopy_rsc(file))]"
 
+/// Gets a dummy savefile for usage in icon generation.
+/// Savefiles generated from this proc will be empty.
+/proc/get_dummy_savefile(from_failure = FALSE)
+	var/static/next_id = 0
+	if(next_id++ > 9)
+		next_id = 0
+	var/savefile_path = "tmp/dummy-save-[next_id].sav"
+	try
+		if(fexists(savefile_path))
+			fdel(savefile_path)
+		return new /savefile(savefile_path)
+	catch(var/exception/error)
+		// if we failed to create a dummy once, try again; maybe someone slept somewhere they shouldn't have
+		if(from_failure) // this *is* the retry, something fucked up
+			CRASH("get_dummy_savefile failed to create a dummy savefile: '[error]'")
+		return get_dummy_savefile(from_failure = TRUE)
+
+/// starts the base64 blob inside a filedata() block
+#define FILEDATA_OPENING_DELIMITER "{\""
+/// ends the base64 blob inside a filedata() block
+#define FILEDATA_CLOSING_DELIMITER "\"}"
+
 /**
-  * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
-  * exporting it as text, and then parsing the base64 from that.
-  * (This relies on byond automatically storing icons in savefiles as base64)
-  */
+ * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
+ * exporting it as text, and then parsing the base64 from that.
+ * (This relies on byond automatically storing icons in savefiles as base64)
+ *
+ * The backend:
+ *
+ *	. = object(".0")
+ *	.0
+ *		type = /icon
+ *		icon = filedata("name=;ext=.dmi;length=1127;crc32=0xcb9372b4;encoding=base64",{"
+ *	<the base64, split over several lines>
+ *	"})
+ *		file_reference = "icons/effects/effects.dmi"
+ *		state_reference = "<li>icon_state = \"nothing\"</li>..."
+ *
+ * 516 kind of fucked us in this regard, as there was no savefile stuff appended after png info traditionally
+ */
 /proc/icon2base64(icon/icon)
 	if (!isicon(icon))
 		return FALSE
-	var/savefile/dummySave = new("tmp/dummySave.sav")
+	var/savefile/dummySave = get_dummy_savefile()
 	WRITE_FILE(dummySave["dummy"], icon)
 	var/iconData = dummySave.ExportText("dummy")
-	var/list/partial = splittext(iconData, "{")
-	. = replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
-	dummySave.Unlock()
-	dummySave = null
-	fdel("tmp/dummySave.sav") //if you get the idea to try and make this more optimized, make sure to still call unlock on the savefile after every write to unlock it.
+
+	//neither delimiter is correct base64, so the first of each is the one we want
+	var/payload_start = findtext(iconData, FILEDATA_OPENING_DELIMITER)
+	var/payload_end = payload_start && findtext(iconData, FILEDATA_CLOSING_DELIMITER, payload_start)
+	if(!payload_start || !payload_end)
+		//an icon with no frames
+		stack_trace("icon2base64 got an icon with no filedata() in its export.")
+		return FALSE
+
+	return replacetext(copytext(iconData, payload_start + length(FILEDATA_OPENING_DELIMITER), payload_end), "\n", "")
+
+#undef FILEDATA_OPENING_DELIMITER
+#undef FILEDATA_CLOSING_DELIMITER
 
 ///given a text string, returns whether it is a valid dmi icons folder path
 /proc/is_valid_dmi_file(icon_path)
@@ -1089,21 +1129,28 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /// Returns null if passed object is not a filepath or icon with a valid DMI file
 /proc/icon_metadata(file)
 	var/static/list/icon_metadata_cache = list()
+	var/static/list/failed_metadata = list()
 	if(istype(file, /datum/universal_icon))
 		var/datum/universal_icon/u_icon = file
 		file = u_icon.icon_file
 	var/file_string = "[file]"
 	if(!istext(file) && !(isfile(file) && length(file_string)))
 		return null
+	if(failed_metadata[file_string])
+		return null
 	var/list/cached_metadata = icon_metadata_cache[file_string]
 	if(islist(cached_metadata))
 		return cached_metadata
+
+	// it will decode to text, trust
 	var/list/metadata_result = rustg_dmi_read_metadata(file_string)
 	if(!islist(metadata_result) || !length(metadata_result))
-		CRASH("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
-	else
-		icon_metadata_cache[file_string] = metadata_result
-		return metadata_result
+		failed_metadata[file_string] = TRUE
+		stack_trace("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
+		return null
+
+	icon_metadata_cache[file_string] = metadata_result
+	return metadata_result
 
 /// Checks whether a given icon state exists in a given icon file. If `file` and `state` both exist,
 /// this will return `TRUE` - otherwise, it will return `FALSE`.
@@ -1114,9 +1161,26 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(isnull(file) || isnull(state))
 		return FALSE //This is common enough that it shouldn't panic, imo.
 
-	if(isnull(GLOB.icon_states_cache_lookup[file]))
+	var/list/states = GLOB.icon_states_cache_lookup[file]
+	if(isnull(states))
 		compile_icon_states_cache(file)
-	return !isnull(GLOB.icon_states_cache_lookup[file][state])
+		states = GLOB.icon_states_cache_lookup[file]
+	return !isnull(states[state])
+
+/// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
+/// specified file or state doesn't exist.
+///
+/// Stack traces will only be output once for each file.
+/proc/icon_exists_or_scream(file, state)
+	if(icon_exists(file, state))
+		return TRUE
+
+	var/static/list/screams = list()
+	if(isnull(screams[file]))
+		screams[file] = TRUE
+		stack_trace("State [state] in file [file] does not exist.")
+
+	return FALSE
 
 /// Cached, rustg-based alternative to icon_states()
 /proc/icon_states_fast(file)

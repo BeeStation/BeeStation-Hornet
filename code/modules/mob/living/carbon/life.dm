@@ -152,8 +152,9 @@
 		adjustOxyLoss(1)
 
 		failed_last_breath = 1
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return 0
+	var/list/cached_moles = breath.moles
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
@@ -162,10 +163,10 @@
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
-	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
-	var/O2_partialpressure = ((GET_MOLES(/datum/gas/oxygen, breath)/moles)*breath_pressure) + (((GET_MOLES(/datum/gas/pluoxium, breath)*8)/moles)*breath_pressure)
-	var/Toxins_partialpressure = (GET_MOLES(/datum/gas/plasma, breath)/moles)*breath_pressure
-	var/CO2_partialpressure = (GET_MOLES(/datum/gas/carbon_dioxide, breath)/moles)*breath_pressure
+	var/breath_pressure = (moles * R_IDEAL_GAS_EQUATION * breath.return_temperature()) / BREATH_VOLUME
+	var/O2_partialpressure = ((cached_moles[/datum/gas/oxygen] / moles) * breath_pressure) + (((cached_moles[/datum/gas/pluoxium] * 8) / moles) * breath_pressure)
+	var/Toxins_partialpressure = (cached_moles[/datum/gas/plasma] / moles) * breath_pressure
+	var/CO2_partialpressure = (cached_moles[/datum/gas/carbon_dioxide] / moles) * breath_pressure
 
 
 	//OXYGEN
@@ -176,21 +177,23 @@
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
 			failed_last_breath = 1
-			oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)*ratio
+			oxygen_used = cached_moles[/datum/gas/oxygen] * ratio
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
-		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
-		clear_alert("not_enough_oxy")
+		oxygen_used = cached_moles[/datum/gas/oxygen]
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	ADD_MOLES(/datum/gas/carbon_dioxide, breath, oxygen_used)
-	REMOVE_MOLES(/datum/gas/oxygen, breath, oxygen_used)
+	breath.adjust_multiple_gases(list(
+		/datum/gas/carbon_dioxide = oxygen_used,
+		/datum/gas/oxygen = -oxygen_used,
+	))
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -209,15 +212,15 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
+		var/ratio = (cached_moles[/datum/gas/plasma] / safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_plas)
+		throw_alert(ALERT_TOO_MUCH_PLASMA, /atom/movable/screen/alert/too_much_plas)
 	else
-		clear_alert("too_much_tox")
+		clear_alert(ALERT_TOO_MUCH_PLASMA)
 
 	//NITROUS OXIDE
-	if(GET_MOLES(/datum/gas/nitrous_oxide, breath))
-		var/SA_partialpressure = (GET_MOLES(/datum/gas/nitrous_oxide, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/nitrous_oxide])
+		var/SA_partialpressure = (cached_moles[/datum/gas/nitrous_oxide] / breath.total_moles()) * breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			Unconscious(60)
 			if(SA_partialpressure > SA_sleep_min)
@@ -230,16 +233,16 @@
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
 	//BZ (Facepunch port of their Agent B)
-	if(GET_MOLES(/datum/gas/bz, breath))
-		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/bz])
+		var/bz_partialpressure = (cached_moles[/datum/gas/bz] / breath.total_moles()) * breath_pressure
 		if(bz_partialpressure > 1)
 			adjust_hallucinations(20)
 		else if(bz_partialpressure > 0.01)
 			adjust_hallucinations(10 SECONDS)
 
 	//NITRIUM
-	if(GET_MOLES(/datum/gas/nitrium, breath))
-		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/nitrium])
+		var/nitrium_partialpressure = (cached_moles[/datum/gas/nitrium] / breath.total_moles()) * breath_pressure
 		if(nitrium_partialpressure > 0.5)
 			adjustFireLoss(nitrium_partialpressure * 0.15)
 		if(nitrium_partialpressure > 5)
@@ -521,7 +524,7 @@
 /mob/living/carbon/proc/liver_failure(delta_time, times_fired)
 	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
 	reagents.metabolize(src, delta_time, times_fired, can_overdose=FALSE, liverless = TRUE)
-	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_NOMETABOLISM))
+	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_LIVERLESS_METABOLISM))
 		return
 	adjustToxLoss(2 * delta_time, TRUE,  TRUE)
 	if(DT_PROB(15, delta_time))

@@ -391,7 +391,7 @@ Arguments:
 		temperature = -200
 	if (pressure >= RBMK_PRESSURE_CRITICAL)
 		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
-		core_turf.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
+		core_turf.atmos_spawn_air("[GAS_WATER_VAPOR]=[pressure/100];TEMP=[temperature+273.15]")
 		core_turf.air_update_turf(TRUE, FALSE)
 		// Warning: Pressure reaching critical thresholds!
 		var/damagevalue = (pressure-10100)/1500
@@ -526,7 +526,7 @@ Arguments:
 	var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/effect/nuclear_sludge_spawner(get_turf(src))
 	nuclear_sludge_spawner.range = 4 + min(25,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // scales by an extra 4 tile radius per 100% over maximum
 	nuclear_sludge_spawner.fire()
-	Destroy()
+	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/blowout()
 	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)

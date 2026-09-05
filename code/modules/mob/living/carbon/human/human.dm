@@ -12,21 +12,19 @@
 
 	icon_state = "" //Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
-	//initialize limbs first
-	create_bodyparts()
-
 	// This needs to be called very very early in human init (before organs / species are created at the minimum)
 	setup_organless_effects()
 	// Physiology needs to be created before species, as some species modify physiology
 	setup_physiology()
 
+	create_dna()
+	dna.species.create_fresh_body(src)
 	setup_human_dna()
 
+	create_carbon_reagents()
+	set_species(dna.species.type)
 
 	prepare_huds() //Prevents a nasty runtime on human init
-
-	if(dna.species)
-		set_species(dna.species.type) //This generates new limbs based on the species, beware.
 
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
@@ -64,7 +62,6 @@
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
-	create_dna(src)
 	randomize_human(src)
 	dna.initialize_dna()
 
@@ -489,14 +486,13 @@
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
 	if(dna.features["body_model"] == MALE)
-		facial_hair_style = "Full Beard"
+		set_facial_hairstyle("Full Beard", update = FALSE)
 	else
-		facial_hair_style = "Shaved"
-	hair_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
+		set_facial_hairstyle("Shaved", update = FALSE)
+	set_hairstyle(pick("Bedhead", "Bedhead 2", "Bedhead 3"), update = FALSE)
 	underwear = "Nude"
 	socks = "Nude"
-	update_body()
-	update_hair()
+	update_body(is_creating = TRUE)
 
 /mob/living/carbon/human/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	. = ..()
@@ -589,8 +585,8 @@
   * Returns false if we couldn't wash our hands due to them being obscured, otherwise true
   */
 /mob/living/carbon/human/proc/wash_hands(clean_types)
-	var/list/obscured = check_obscured_slots()
-	if(ITEM_SLOT_GLOVES in obscured)
+	var/obscured = check_obscured_slots()
+	if(obscured & ITEM_SLOT_GLOVES)
 		return FALSE
 
 	if(gloves)
@@ -603,20 +599,10 @@
 	return TRUE
 
 /**
-  * Cleans the lips of any lipstick. Returns TRUE if the lips had any lipstick and was thus cleaned
-  */
-/mob/living/carbon/human/proc/clean_lips()
-	if(isnull(lip_style) && lip_color == initial(lip_color))
-		return FALSE
-	lip_style = null
-	lip_color = initial(lip_color)
-	update_body()
-	return TRUE
-
-/**
   * Called on the COMSIG_COMPONENT_CLEAN_FACE_ACT signal
   */
 /mob/living/carbon/human/proc/clean_face(datum/source, clean_types)
+	SIGNAL_HANDLER
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
@@ -624,8 +610,8 @@
 		update_worn_glasses()
 		. = TRUE
 
-	var/list/obscured = check_obscured_slots()
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
+	var/obscured = check_obscured_slots()
+	if(wear_mask && !(obscured & ITEM_SLOT_MASK) && wear_mask.wash(clean_types))
 		update_worn_mask()
 		. = TRUE
 
@@ -645,9 +631,9 @@
 		. = TRUE
 
 	// Check and wash stuff that can be covered
-	var/list/obscured = check_obscured_slots()
+	var/obscured = check_obscured_slots()
 
-	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && w_uniform.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_ICLOTHING) && w_uniform?.wash(clean_types))
 		update_worn_undersuit()
 		. = TRUE
 
@@ -655,7 +641,7 @@
 		. = TRUE
 
 	// Wash hands if exposed
-	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(ITEM_SLOT_GLOVES in obscured))
+	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(obscured & ITEM_SLOT_GLOVES))
 		blood_in_hands = 0
 		update_worn_gloves()
 		. = TRUE
@@ -1109,6 +1095,52 @@
 	if(mind.assigned_role.title in SSjob.name_occupations)
 		.[mind.assigned_role.title] = minutes
 
+/mob/living/carbon/human/proc/add_eye_color_left(color, color_priority, update_body = TRUE)
+	LAZYSET(eye_color_left_overrides, "[color_priority]", color)
+	if (update_body)
+		update_body()
+
+/mob/living/carbon/human/proc/add_eye_color_right(color, color_priority, update_body = TRUE)
+	LAZYSET(eye_color_right_overrides, "[color_priority]", color)
+	if (update_body)
+		update_body()
+
+/mob/living/carbon/human/proc/add_eye_color(color, color_priority, update_body = TRUE)
+	add_eye_color_left(color, color_priority, update_body = FALSE)
+	add_eye_color_right(color, color_priority, update_body = update_body)
+
+/mob/living/carbon/human/proc/remove_eye_color(color_priority, update_body = TRUE)
+	LAZYREMOVE(eye_color_left_overrides, "[color_priority]")
+	LAZYREMOVE(eye_color_right_overrides, "[color_priority]")
+	if (update_body)
+		update_body()
+
+/mob/living/carbon/human/proc/get_right_eye_color()
+	if (!LAZYLEN(eye_color_right_overrides))
+		return eye_color_right
+
+	var/eye_color = eye_color_right
+	var/priority
+	for (var/override_priority in eye_color_right_overrides)
+		var/new_priority = text2num(override_priority)
+		if (new_priority > priority)
+			priority = new_priority
+			eye_color = eye_color_right_overrides[override_priority]
+	return eye_color
+
+/mob/living/carbon/human/proc/get_left_eye_color()
+	if (!LAZYLEN(eye_color_left_overrides))
+		return eye_color_left
+
+	var/eye_color = eye_color_left
+	var/priority
+	for (var/override_priority in eye_color_left_overrides)
+		var/new_priority = text2num(override_priority)
+		if (new_priority > priority)
+			priority = new_priority
+			eye_color = eye_color_left_overrides[override_priority]
+	return eye_color
+
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
 
@@ -1117,9 +1149,10 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
-/mob/living/carbon/human/species/Initialize(mapload, specific_race)
-	. = ..()
-	set_species(race || specific_race)
+/mob/living/carbon/human/species/create_dna()
+	dna = new /datum/dna(src)
+	if (!isnull(race))
+		dna.species = new race
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor
