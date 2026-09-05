@@ -10,7 +10,7 @@
 	return considering
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube, paralyze, forcedrop)
-	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))
 		return FALSE
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/CS = shoes

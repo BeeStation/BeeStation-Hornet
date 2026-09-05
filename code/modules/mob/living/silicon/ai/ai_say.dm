@@ -52,17 +52,18 @@
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 
-	if(QDELETED(ai_hologram))
-		to_chat(src, "No holopad connected.")
+	// Only continue if there is a hologram and its master is the user.
+	if(!istype(current_holopad) || !current_holopad.masters[src])
+		to_chat(src, span_alert("No holopad connected."))
 		return
 
-	var/obj/machinery/holopad/active_pad = current_holopad
-	var/turf/pad_turf = get_turf(active_pad)
+	var/obj/effect/overlay/holo_pad_hologram/ai_holo = current_holopad.masters[src]
+	var/turf/pad_turf = get_turf(current_holopad)
 	var/pad_loc = pad_turf ? AREACOORD(pad_turf) : "(UNKNOWN)"
 
 	log_sayverb_talk(message, message_mods, tag = "HOLOPAD in [pad_loc]")
-	ai_hologram.say(message, spans = spans, sanitize = FALSE, language = language, message_mods = message_mods, source=current_holopad)
-	ai_hologram.create_private_chat_message(
+	ai_holo.say(message, spans = spans, sanitize = FALSE, language = language, message_mods = message_mods, source = current_holopad)
+	ai_holo.create_private_chat_message(
 		message = message,
 		message_language = language,
 		hearers = list(src),
@@ -82,7 +83,7 @@
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
 			continue
-		var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_hologram)
+		var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_holo)
 		to_chat(each_ghost, "[follow_link] [message]")
 
 

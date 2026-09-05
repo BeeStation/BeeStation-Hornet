@@ -12,22 +12,23 @@
 	. = ..()
 	if(!cpu)
 		return
-	cpu.install_component(new /obj/item/computer_hardware/processor_unit)
+	cpu.force_install_component(new /obj/item/computer_hardware/processor_unit)
 
-	cpu.install_component(new /obj/item/computer_hardware/card_slot)
+	cpu.force_install_component(new /obj/item/computer_hardware/card_slot)
 	if(_has_second_id_slot)
-		cpu.install_component(new /obj/item/computer_hardware/card_slot/secondary)
+		cpu.force_install_component(new /obj/item/computer_hardware/card_slot/secondary)
 	if(_has_printer)
-		cpu.install_component(new /obj/item/computer_hardware/printer)
+		cpu.force_install_component(new /obj/item/computer_hardware/printer)
 	if(_has_battery)
-		cpu.install_component(new /obj/item/computer_hardware/battery/huge)
+		cpu.force_install_component(new /obj/item/computer_hardware/battery/huge)
 	if(_has_ai)
-		cpu.install_component(new /obj/item/computer_hardware/ai_slot)
+		cpu.force_install_component(new /obj/item/computer_hardware/ai_slot)
 
 	if(length(starting_programs))
 		var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 		for(var/datum/computer_file/program_type as anything in starting_programs)
 			hard_drive.store_file(new program_type())
+	starting_programs = null
 
 // ===== ENGINEERING CONSOLE =====
 /obj/machinery/modular_computer/console/preset/engineering

@@ -20,7 +20,7 @@
 	maxHealth = 50
 	health = 50
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
+	mob_biotypes = NONE
 	wander = FALSE
 
 	vision_range = 4
@@ -32,7 +32,7 @@
 	speak_emote = list("chitters")
 	taunt_chance = 30
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_MIMIC)
@@ -179,7 +179,7 @@
 	if(.)
 		if(!morphed)
 			var/list/things = list()
-			for(var/atom/A as() in view(src))
+			for(var/atom/A as anything in view(src))
 				if(allowed(A))
 					things += A
 			if(LAZYLEN(things) >= 1)

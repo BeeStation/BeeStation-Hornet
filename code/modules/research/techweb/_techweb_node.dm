@@ -38,6 +38,8 @@
 	var/list/research_costs = list()
 	/// Whether or not this node should show on the wiki
 	var/show_on_wiki = TRUE
+	/// Does this node automatically unhide itself if all prerequisites are met? such as sticky tape
+	var/unhide_from_prereqs = FALSE
 	/**
 	 * If set, the researched node will be announced on these channels by an announcement system
 	 * with 'announce_research_node' set to TRUE when researched by the station.

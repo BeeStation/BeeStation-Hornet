@@ -86,7 +86,7 @@
 		start_time = world.time
 		QDEL_IN(src, timeout)
 
-/datum/tgui_color_picker/Destroy(force, ...)
+/datum/tgui_color_picker/Destroy(force)
 	SStgui.close_uis(src)
 	. = ..()
 
@@ -161,9 +161,9 @@
 	..(user, message, title, default, timeout, autofocus)
 	src.callback = callback
 
-/datum/tgui_color_picker/async/Destroy(force, ...)
-	QDEL_NULL(callback)
-	. = ..()
+/datum/tgui_color_picker/async/Destroy(force)
+	callback = null
+	return ..()
 
 /datum/tgui_color_picker/async/set_choice(choice)
 	. = ..()

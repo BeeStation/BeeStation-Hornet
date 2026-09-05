@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		language = get_selected_language()
 	if(!message_mods[SAY_MOD_VERB])
 		message_mods[SAY_MOD_VERB] = say_mod(message, message_mods)
-	send_speech(message_raw = message,  message_range = message_range,  source = source, bubble_type = bubble_type, spans = spans, message_language = language, message_mods = message_mods, forced = forced)
+	send_speech(message_raw = message,  message_range = message_range, source = source, bubble_type = bubble_type, spans = spans, message_language = language, message_mods = message_mods, forced = forced)
 
 /atom/movable/proc/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range=0)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)

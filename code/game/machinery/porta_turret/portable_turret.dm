@@ -238,6 +238,7 @@
 		reqpower = gun_properties["reqpower"]
 
 	update_icon()
+	return gun_properties
 
 ///destroys reference to stored_gun to prevent hard deletions
 /obj/machinery/porta_turret/proc/null_gun()

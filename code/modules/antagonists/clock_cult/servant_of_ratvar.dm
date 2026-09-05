@@ -44,7 +44,7 @@ GLOBAL_VAR(clockcult_eminence)
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', vol = 60, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/antag/clockcultalr.ogg', vol = 60, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE)
 	to_chat(owner.current, span_heavybrass("<font size='7'>You feel a flash of light and the world spin around you!</font>"))
 	to_chat(owner.current, span_brass("<font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font>"))
 	to_chat(owner.current, span_brass("Use Rat'varian observation consoles to monitor the crew and warp to the station."))

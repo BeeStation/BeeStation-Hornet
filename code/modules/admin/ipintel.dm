@@ -97,7 +97,7 @@
 		if (response)
 			if (response["status"] == "success")
 				var/intelnum = text2num(response["result"])
-				if (isnum_safe(intelnum))
+				if (IS_FINITE(intelnum))
 					return text2num(response["result"])
 				else
 					ipintel_handle_error("Bad intel from server: [response["result"]].", ip, retryed)

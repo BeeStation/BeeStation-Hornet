@@ -44,7 +44,7 @@
 		button.Grant(C)
 		to_chat(C, span_userdanger("You suddenly realize you're breathing manually."))
 
-/datum/component/manual_breathing/Destroy(force, silent)
+/datum/component/manual_breathing/Destroy(force)
 	L = null
 	STOP_PROCESSING(SSdcs, src)
 	to_chat(parent, span_userdanger("You revert back to automatic breathing."))

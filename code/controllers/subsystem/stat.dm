@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(stat)
 	if(istype(A, /mob))
 		var/mob/M = A
 		var/overlay_hash = ""
-		for(var/image/I as() in M.overlays)
+		for(var/image/I as anything in M.overlays)
 			if(istext(I.icon_state) && length(I.icon_state) >= 1)
 				overlay_hash = "[overlay_hash][I.icon_state[1]]"
 			else

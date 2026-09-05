@@ -1,7 +1,7 @@
 /datum/job/detective
 	title = JOB_NAME_DETECTIVE
 	description = "Investigate crimes, solve murder mysteries, report your findings to the rest of Security."
-	department_for_prefs = DEPT_NAME_SECURITY
+	department_for_prefs = DEPARTMENT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
@@ -10,7 +10,8 @@
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
-	exp_type = EXP_TYPE_SECURITY
+	exp_required_type = EXP_TYPE_SECURITY
+	exp_granted_type = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/detective
 
@@ -18,7 +19,9 @@
 						ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SEC
+	departments_list = list(
+		/datum/department_group/security,
+		)
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)

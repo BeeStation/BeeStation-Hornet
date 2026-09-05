@@ -10,7 +10,7 @@
 	/// Flags for how slippery the parent is. See [__DEFINES/mobs.dm]
 	var/lube_flags
 	/// A proc callback to call on slip.
-	var/datum/callback/callback
+	var/datum/callback/on_slip_callback
 	/// If parent is an item, this is the person currently holding/wearing the parent (or the parent if no one is holding it)
 	var/mob/living/holder
 	/// Whitelist of item slots the parent can be equipped in that make the holder slippery. If null or empty, it will always make the holder slippery.
@@ -28,12 +28,12 @@
 	/// The connect_loc_behalf component for the holder_connections list.
 	var/datum/weakref/holder_connect_loc_behalf
 
-/datum/component/slippery/Initialize(knockdown, lube_flags = NONE, datum/callback/callback, paralyze, force_drop = FALSE, slot_whitelist)
+/datum/component/slippery/Initialize(knockdown, lube_flags = NONE, datum/callback/on_slip_callback, paralyze, force_drop = FALSE, slot_whitelist)
 	src.knockdown_time = max(knockdown, 0)
 	src.paralyze_time = max(paralyze, 0)
 	src.force_drop_items = force_drop
 	src.lube_flags = lube_flags
-	src.callback = callback
+	src.on_slip_callback = on_slip_callback
 	if(slot_whitelist)
 		src.slot_whitelist = slot_whitelist
 
@@ -45,15 +45,20 @@
 	else
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(Slip))
 
+/datum/component/slippery/Destroy(force)
+	on_slip_callback = null
+	holder = null
+	return ..()
+
 /datum/component/slippery/proc/add_connect_loc_behalf_to_parent()
 	if(ismovable(parent))
 		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
 
-/datum/component/slippery/InheritComponent(datum/component/slippery/component, i_am_original, knockdown, lube_flags = NONE, datum/callback/callback, paralyze, force_drop = FALSE, slot_whitelist)
+/datum/component/slippery/InheritComponent(datum/component/slippery/component, i_am_original, knockdown, lube_flags = NONE, datum/callback/on_slip_callback, paralyze, force_drop = FALSE, slot_whitelist)
 	if(component)
 		knockdown = component.knockdown_time
 		lube_flags = component.lube_flags
-		callback = component.callback
+		on_slip_callback = component.on_slip_callback
 		paralyze = component.paralyze_time
 		force_drop = component.force_drop_items
 		slot_whitelist = component.slot_whitelist
@@ -62,7 +67,7 @@
 	src.paralyze_time = max(paralyze, 0)
 	src.force_drop_items = force_drop
 	src.lube_flags = lube_flags
-	src.callback = callback
+	src.on_slip_callback = on_slip_callback
 	if(slot_whitelist)
 		src.slot_whitelist = slot_whitelist
 
@@ -85,7 +90,7 @@
 	if(victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 	if(victim.slip(knockdown_time, parent, lube_flags, paralyze_time, force_drop_items))
-		callback?.Invoke(victim)
+		on_slip_callback?.Invoke(victim)
 
 /*
  * Gets called when COMSIG_ITEM_EQUIPPED is sent to parent.

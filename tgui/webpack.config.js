@@ -10,7 +10,7 @@ const ExtractCssPlugin = require('mini-css-extract-plugin');
 
 const createStats = (verbose) => ({
   assets: verbose,
-  builtAt: verbose,
+  builtAt: false,
   cached: false,
   children: false,
   chunks: false,

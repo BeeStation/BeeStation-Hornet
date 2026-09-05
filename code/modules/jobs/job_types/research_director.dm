@@ -1,7 +1,7 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
 	description = "Oversee the scientists and roboticists and keep up with their research projects, take care of any issues with the station's AI that may arise, ensure research is being prioritized in accordance with the needs of the station."
-	department_for_prefs = DEPT_NAME_SCIENCE
+	department_for_prefs = DEPARTMENT_NAME_SCIENCE
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
@@ -9,10 +9,12 @@
 	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#ffddff"
-	req_admin_notify = 1
+	req_admin_notify = TRUE
 	minimal_player_age = 7
 	exp_requirements = 1200
-	exp_type = EXP_TYPE_SCIENCE
+	exp_required_type_department = EXP_TYPE_SCIENCE
+	exp_required_type = EXP_TYPE_CREW
+	exp_granted_type = EXP_TYPE_CREW
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/research_director
@@ -24,7 +26,10 @@
 						ACCESS_TECH_STORAGE, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_NETWORK, ACCESS_AUX_BASE, ACCESS_RD_SERVER, ACCESS_WEAPONS)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
+	departments_list = list(
+		/datum/department_group/science,
+		/datum/department_group/command,
+		)
 	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
@@ -58,6 +63,9 @@
 		JOB_NAME_EXPLORATIONCREW,
 		JOB_NAME_ROBOTICIST
 	)
+
+/datum/job/research_director/get_captaincy_announcement(mob/living/captain)
+	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 /datum/outfit/job/research_director
 	name = JOB_NAME_RESEARCHDIRECTOR

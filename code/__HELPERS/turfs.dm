@@ -356,30 +356,34 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if (length(turfs))
 		return pick(turfs)
 
-///Returns a random turf or turf list on the station, excludes dense turfs (like walls) and areas with valid_territory set to FALSE
+/**
+ * Returns a random turf or turf list on the station, excludes dense turfs (like walls) and areas with valid_territory set to FALSE
+ * This is an expensive proc. USE SPARINGLY PLEASE!
+ */
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
-	var/list/picked_turfs = list()
-	var/list/turf_list = list()
-	for(var/area/A as anything in areas_to_pick_from)
-		turf_list += get_area_turfs(A)
-	while(turf_list.len && length(picked_turfs) < amount)
-		var/I = rand(1, length(turf_list))
-		var/turf/checked_turf = turf_list[I]
-		var/area/turf_area = get_area(checked_turf)
-		if(!checked_turf.density && (turf_area.area_flags & VALID_TERRITORY) && !isgroundlessturf(checked_turf))
+	var/list/turf/all_station_turfs = list()
+	for(var/area/area_to_search as anything in areas_to_pick_from)
+		if(area_to_search.area_flags & VALID_TERRITORY)
+			all_station_turfs += get_area_turfs(area_to_search)
+
+	var/list/turf/picked_turfs = list()
+	while(length(all_station_turfs) && length(picked_turfs) < amount)
+		var/turf/checked_turf = pick_n_take(all_station_turfs)
+
+		if(!checked_turf.density && !isgroundlessturf(checked_turf))
 			var/clear = TRUE
 			for(var/obj/checked_object in checked_turf)
 				if(checked_object.density)
 					clear = FALSE
 					break
 			if(clear)
-				picked_turfs |= checked_turf
-			turf_list.Cut(I,I+1)
+				picked_turfs += checked_turf
 		CHECK_TICK
-	if(!picked_turfs.len)
+
+	if(!length(picked_turfs))
 		return null
 	if(amount == 1)
-		return picked_turfs[1]
+		return pick(picked_turfs)
 	return picked_turfs
 
 /**
@@ -409,23 +413,26 @@ Turf and target are separate in case you want to teleport some distance from a t
 	// It's probably not safe if it's not a floor.
 	if(!istype(floor))
 		return FALSE
-	var/datum/gas_mixture/air = floor.air
-	// Certainly unsafe if it completely lacks air.
-	if(QDELETED(air))
+
+	var/datum/gas_mixture/floor_gas_mixture = floor.air
+	if(!floor_gas_mixture)
 		return FALSE
-	// Can most things breathe?
-	for(var/id in air.gases)
-		if(id in GLOB.hardcoded_gases)
-			continue
+
+	var/static/list/gases_to_check = list(
+		/datum/gas/oxygen = list(16, 100),
+		/datum/gas/nitrogen,
+		/datum/gas/carbon_dioxide = list(0, 10)
+	)
+	if(!floor_gas_mixture.check_gases(gases_to_check))
 		return FALSE
-	if(GET_MOLES(/datum/gas/oxygen, air) < 16 || GET_MOLES(/datum/gas/plasma, air) || GET_MOLES(/datum/gas/carbon_dioxide, air) >= 10)
+
+	// Aim for goldilocks temperatures and pressure
+	if(!ISINRANGE(floor_gas_mixture.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
 		return FALSE
-	var/temperature = air.temperature
-	if(temperature <= 270 || temperature >= 360)
+	var/pressure = floor_gas_mixture.return_pressure()
+	if(!ISINRANGE(pressure, HAZARD_LOW_PRESSURE, HAZARD_HIGH_PRESSURE))
 		return FALSE
-	var/pressure = air.return_pressure()
-	if(pressure <= 20 || pressure >= 550)
-		return FALSE
+
 	return TRUE
 
 /// returns a turf that isn't holy from the list

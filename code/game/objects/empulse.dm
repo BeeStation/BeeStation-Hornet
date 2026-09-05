@@ -18,12 +18,12 @@
 
 	var/list/empulse_atoms = list()
 
-	for(var/turf/T as() in spiral_range_turfs(light_range, epicenter))
+	for(var/turf/T as anything in spiral_range_turfs(light_range, epicenter))
 		//Blessing protects from holy EMPS
 		if(holy && T.is_holy())
 			antimagic_flag |= MAGIC_RESISTANCE_HOLY
 			continue
-		for(var/atom/A as() in T)
+		for(var/atom/A as anything in T)
 			//Magic check.
 			if(ismob(A))
 				var/mob/M = A
@@ -34,7 +34,7 @@
 			empulse_atoms += A
 		empulse_atoms += T
 
-	for(var/atom/A as() in empulse_atoms)
+	for(var/atom/A as anything in empulse_atoms)
 		var/distance = get_dist(epicenter, A)
 		if(distance < 0)
 			distance = 0

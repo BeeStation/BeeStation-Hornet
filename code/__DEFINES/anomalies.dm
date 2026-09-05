@@ -18,5 +18,5 @@
 #define ANOMALY_FLUX_EXPLOSIVE 1
 #define ANOMALY_FLUX_LOW_EXPLOSIVE 2
 
-/// Chance of anomalies moving every process tick
+/// Chance of anomalies moving every second
 #define ANOMALY_MOVECHANCE 45

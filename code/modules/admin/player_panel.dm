@@ -156,7 +156,7 @@
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
 	data["search_text"] = search_text
-	data["update_interval"] = isnum_safe(update_interval) ? update_interval : 5
+	data["update_interval"] = IS_FINITE(update_interval) ? update_interval : 5
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
@@ -223,7 +223,7 @@
 	else
 		target_mob = get_mob_by_ckey(target_ckey)
 	if(!target_mob)
-		for(var/mob/M as() in GLOB.mob_list)
+		for(var/mob/M as anything in GLOB.mob_list)
 			if(M?.ckey == target_ckey)
 				target_mob = M
 	if(!target_mob)

@@ -1,0 +1,6 @@
+/obj/item/food/cheesewedge : /obj/item/food/cheese/wedge{@OLD}
+/obj/item/reagent_containers/food/snacks/cheesewedge : /obj/item/food/cheese/wedge{@OLD}
+/obj/structure/chair/comfy/brown : /obj/structure/chair/fancy/comfy{@OLD}
+/obj/effect/decal/cleanable/blood/xtracks : /obj/effect/decal/cleanable/xenoblood/xtracks{@OLD}
+/obj/item/food/store/cake/cheese : /obj/item/food/cake/cheese{@OLD}
+/obj/item/food/store/bread/creamcheese : /obj/item/food/bread/creamcheese{@OLD}

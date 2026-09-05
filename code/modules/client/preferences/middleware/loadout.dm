@@ -85,7 +85,7 @@
 				if(!(G.slot in slot_blacklist))
 					slot_blacklist += G.slot
 		if((TG.id in preferences.purchased_gear))
-			if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
+			if(!(TG.subtype_path in type_blacklist) && !(TG.slot in slot_blacklist))
 				preferences.equipped_gear += TG.id
 				log_preferences("[preferences?.parent?.ckey]: Equipped loadout gear: [TG.id] ([TG.display_name])")
 				preferences.character_preview_view?.update_body()

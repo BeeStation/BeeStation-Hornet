@@ -13,7 +13,6 @@ GLOBAL_VAR_INIT(dooc_allowed, TRUE)
 GLOBAL_VAR_INIT(enter_allowed, TRUE)
 GLOBAL_VAR_INIT(shuttle_frozen, FALSE)
 GLOBAL_VAR_INIT(shuttle_left, FALSE)
-GLOBAL_VAR_INIT(tinted_weldhelh, TRUE)
 
 
 // Debug2 is used in conjunction with a lot of admin verbs and therefore is actually legit.

@@ -36,7 +36,8 @@
 		COMSIG_ITEM_ON_GRIND,
 		COMSIG_ITEM_ON_JUICE,
 		COMSIG_ITEM_USED_AS_INGREDIENT,
-		COMSIG_ITEM_ON_COMPOSTED,))
+		COMSIG_ITEM_ON_COMPOSTED,
+	))
 
 /datum/element/food_trash/proc/generate_trash(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER

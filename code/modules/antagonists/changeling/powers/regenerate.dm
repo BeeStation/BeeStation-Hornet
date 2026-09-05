@@ -67,7 +67,7 @@
 	C.visible_message(span_warning("[user]'s [BP] detaches itself and takes the form of a snake!"),
 			span_userdanger("Our [BP] forms into a horrifying snake and heads towards our attackers!"))
 	BP.dismember()
-	BP.Destroy()
+	qdel(BP)
 	//Deploy limbsnake
 	var/mob/living/snek = new /mob/living/simple_animal/hostile/poison/limbsnake(get_turf(user))
 	//assign faction
@@ -86,6 +86,7 @@
 	melee_damage = 3
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	response_disarm_continuous = "shoos"
 	response_disarm_simple = "shoo"
 	response_harm_continuous = "steps on"

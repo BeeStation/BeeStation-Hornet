@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if((obj_flags & IN_USE) && !(obj_flags & USES_TGUI))
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
-		for(var/mob/M as() in nearby)
+		for(var/mob/M as anything in nearby)
 			if ((M.client && M.machine == src))
 				is_in_use = TRUE
 				ui_interact(M)
@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(obj_flags & IN_USE)
 		var/is_in_use = FALSE
 		if(update_viewers)
-			for(var/mob/M as() in viewers(1, src))
+			for(var/mob/M as anything in viewers(1, src))
 				if ((M.client && M.machine == src))
 					is_in_use = TRUE
 					src.interact(M)

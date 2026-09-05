@@ -194,9 +194,9 @@
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient, list/received_report)
 	switch(rand(1,5))
 		if(5)
-			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
+			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role.title])"
 		else
-			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
+			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role.title])"
 	recipient_ref = WEAKREF(recipient)
 
 	//Recipients
@@ -205,7 +205,7 @@
 	var/list/goodies = generic_goodies.Copy()
 
 	//Load the job the player have
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role.title] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
 		var/datum/record/crew/R = find_record(recipient.name, GLOB.manifest.general)
@@ -248,7 +248,9 @@
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Mail is not routed to anyone who isn't present on the manifest, since how would we know
 		// to send their mail here?
-		if(!human.mind || !find_record(human.mind.name, GLOB.manifest.general))
+		if(human.stat == DEAD || !human.mind)
+			continue
+		if(!(human.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
 			continue
 
 		mail_recipients += human.mind

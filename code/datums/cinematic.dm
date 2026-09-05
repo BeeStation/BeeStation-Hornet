@@ -56,7 +56,7 @@
 		C.screen -= screen
 	watching = null
 	QDEL_NULL(screen)
-	QDEL_NULL(special_callback)
+	special_callback = null
 	for(var/mob/M in locked)
 		REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, CINEMATIC_SOURCE)
 	locked = null
@@ -238,7 +238,7 @@
 	flick("intro_nuke",screen)
 	sleep(35)
 	flick("station_intact",screen)
-	cinematic_sound(sound('sound/ambience/signal.ogg'))
+	cinematic_sound(sound('sound/ambience/misc/signal.ogg'))
 	sleep(100)
 
 /datum/cinematic/nuke_far

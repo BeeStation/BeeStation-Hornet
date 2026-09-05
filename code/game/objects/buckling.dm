@@ -57,7 +57,7 @@
 		else
 			return user_unbuckle_mob(buckled_mobs[1], user)
 
-/atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
+/atom/movable/MouseDrop_T(mob/living/M, mob/living/user, params)
 	. = ..()
 	return mouse_buckle_handling(M, user)
 

@@ -127,6 +127,7 @@
 	design_ids = list("mech_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/mech_laser_heavy
 	id = TECHWEB_NODE_MECH_LASER_HEAVY
@@ -137,6 +138,7 @@
 	design_ids = list("mech_laser_heavy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/mech_disabler
 	id = TECHWEB_NODE_MECH_DISABLER
@@ -147,6 +149,7 @@
 	design_ids = list("mech_disabler")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/mech_grenade_launcher
 	id = TECHWEB_NODE_MECH_GRENADE_LAUNCHER

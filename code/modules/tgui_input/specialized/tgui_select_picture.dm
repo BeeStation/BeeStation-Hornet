@@ -35,7 +35,7 @@
 	src.choices = choices
 	src.button_text = button_text
 
-/datum/tgui_select_picture/Destroy(force, ...)
+/datum/tgui_select_picture/Destroy(force)
 	SStgui.close_uis(src)
 	. = ..()
 

@@ -46,8 +46,8 @@ GLOBAL_LIST_EMPTY(possible_items)
 				continue
 			if(!is_unique_objective(possible_item.targetitem,dupe_search_range))
 				continue
-			for(var/datum/mind/M as() in get_owners())
-				if(M.current.mind.assigned_role in possible_item.excludefromjob)
+			for(var/datum/mind/M as anything in get_owners())
+				if(M.current.mind.assigned_role.title in possible_item.excludefromjob)
 					continue check_items
 			approved_targets += possible_item
 	return set_steal_target(safepick(approved_targets))
@@ -99,16 +99,16 @@ GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal/check_completion()
 	if(!steal_target)
 		return TRUE
-	for(var/datum/mind/M as() in get_owners())
+	for(var/datum/mind/M as anything in get_owners())
 		if(!isliving(M.current))
 			continue
 
 		var/list/all_items = M.current.GetAllContents(/obj/item)	//this should get things in cheesewheels, books, etc.
 
-		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in M.holoparasite_holder?.holoparasites)
+		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in M.holoparasite_holder?.holoparasites)
 			all_items |= holopara.GetAllContents(/obj/item)
 
-		for(var/obj/I as() in all_items) //Check for items
+		for(var/obj/I as anything in all_items) //Check for items
 			if(istype(I, steal_target))
 				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
 					return TRUE
@@ -146,14 +146,14 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	else if(faction == "blue")
 		targetinfo = new/datum/objective_item/unique/docs_red
-	explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.assigned_role] and syndicate agent"
+	explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.assigned_role.title] and syndicate agent"
 	steal_target = targetinfo.targetitem
 
 
 /datum/objective/steal/exchange/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Acquire [targetinfo.name] held by [target.name], the [target.assigned_role] and syndicate agent"
+		explanation_text = "Acquire [targetinfo.name] held by [target.name], the [target.assigned_role.title] and syndicate agent"
 	else
 		explanation_text = "Free Objective"
 

@@ -24,7 +24,7 @@
 	printer_ready = world.time + PRINTER_TIMEOUT
 	// Alt clicking when unwrenched does not rotate. (likely from UI not returning the mouse click)
 	// Also there is no sprite change for rotation dir, this shouldn't even have a rotate component tbh
-	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(RotationMessage)))
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotation))
 
 /datum/tachyon_record
 	var/name = "Log Recording"
@@ -129,12 +129,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 		return
 	return ..()
 
-/obj/machinery/doppler_array/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
-/obj/machinery/doppler_array/proc/RotationMessage(mob/user)
+/obj/machinery/doppler_array/proc/post_rotation(mob/user, degrees)
 	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
-	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
+	playsound(src, 'sound/items/screwdriver2.ogg', 50, TRUE)
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range, explosion_index)
 	SIGNAL_HANDLER

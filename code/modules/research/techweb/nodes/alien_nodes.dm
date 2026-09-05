@@ -150,6 +150,7 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_surgery)
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SCIENCE)
 
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/nullspacebreaching)

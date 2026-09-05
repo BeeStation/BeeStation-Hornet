@@ -83,7 +83,7 @@
 			tab_data["admin_name"] = key_name(ticket.claimee, FALSE, FALSE)
 			//Messages:
 			tab_data["messages"] = list()
-			for(var/datum/ticket_interaction/message as() in ticket._interactions)
+			for(var/datum/ticket_interaction/message as anything in ticket._interactions)
 				//Only non-private messages have safe users.
 				//Only admins can see adminbus logs.
 				if(message.from_user_safe && message.to_user_safe)
@@ -137,7 +137,7 @@
 	var/list/checked_layers = list()
 	var/list/obscured_layers = list()
 	// Find items and group them by both name and count
-	for (var/atom/A as() in src)
+	for (var/atom/A as anything in src)
 		// Too many items read
 		if(max_item_sanity-- < 0)
 			break
@@ -175,7 +175,7 @@
 		var/atom/first_atom = atom_items[1]
 		if (istype(first_atom, /obj/item/stack))
 			item_count = 0
-			for (var/obj/item/stack/stack_item as() in atom_items)
+			for (var/obj/item/stack/stack_item as anything in atom_items)
 				item_count += stack_item.amount
 		var/atom_name = first_atom.name
 		var/image_icon
@@ -219,7 +219,7 @@
 			var/list/verbs_to_copy = client.sorted_verbs[i]
 			all_verbs[i] = verbs_to_copy.Copy()
 	//TODO: Call tgui_panel/add_verbs on pickup and remove on drop.
-	for(var/atom/A as() in contents)
+	for(var/atom/A as anything in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
 		if(!all_verbs.Find("Object"))

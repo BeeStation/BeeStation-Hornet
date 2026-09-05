@@ -146,7 +146,7 @@
 		user.spin(10)
 		return
 
-	if(IS_CURATOR(target) || target.is_shove_knockdown_blocked())
+	if(is_curator_job(target?.mind?.assigned_role) || target.is_shove_knockdown_blocked())
 		owner.balloon_alert(owner, "pushed away!")
 		target.grabbedby(owner)
 		return

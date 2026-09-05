@@ -11,7 +11,7 @@
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
-/datum/component/surgery_initiator/Destroy(force, silent)
+/datum/component/surgery_initiator/Destroy(force)
 	last_user_ref = null
 	surgery_target_ref = null
 

@@ -46,7 +46,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
-						mob_data["job"] = H.mind.assigned_role
+						mob_data["job"] = H.mind.assigned_role.title
 					else
 						mob_data["job"] = "Unknown"
 					mob_data["species"] = H.dna.species.name
@@ -135,7 +135,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		var/greentexted = TRUE
 
 		if(A.objectives.len)
-			for(var/datum/objective/O as() in A.objectives)
+			for(var/datum/objective/O as anything in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
 
 				if (result == "FAIL")
@@ -219,7 +219,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
-					for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+					for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
 						if(CO.check_completion())
@@ -272,7 +272,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	CHECK_TICK
 
 	//Process veteran achievements
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		var/hours = round(C?.get_exp_living(TRUE)/60)
 		if(hours > 1000)
 			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
@@ -437,7 +437,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
+				for(var/datum/objective/crew/CO as anything in M.mind.crew_objectives)
 					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] [span_greentext("<B>Success!</B>")]<br>"
 					else
@@ -661,13 +661,13 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
 			custom_title = I.assignment // get the custom title
-		if(custom_title == mind.assigned_role) // non-custom title, lame
+		if(custom_title == mind.assigned_role.title) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
 			custom_title = R.rank // get a custom title from manifest
-		if(custom_title == mind.assigned_role) // lame...
+		if(custom_title == mind.assigned_role.title) // lame...
 			return
 
 	if(custom_title)
@@ -675,13 +675,8 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role || ply.special_role)
-		if(ply.assigned_role != "Unassigned")
-			jobtext = ply.assigned_role
-		if(!jobtext)
-			jobtext = ply.special_role
-		if(jobtext)
-			jobtext = " the <b>[jobtext]</b>"
+	if(!is_unassigned_job(ply.assigned_role))
+		jobtext = " the <b>[ply.assigned_role.title]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and"
@@ -717,7 +712,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		return
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective as() in objectives)
+	for(var/datum/objective/objective as anything in objectives)
 		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 

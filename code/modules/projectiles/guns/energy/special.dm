@@ -118,6 +118,7 @@
 	tool_behaviour = TOOL_WELDER
 	weapon_weight = WEAPON_LIGHT
 	resistance_flags = FIRE_PROOF
+	automatic_charge_overlays = FALSE //a single static sprite, kick it if you fix it
 	fire_rate = 0.5
 	automatic = 1
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
@@ -201,9 +202,6 @@
 	return heat
 
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
-
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
@@ -233,7 +231,8 @@
 	var/obj/effect/portal/p_orange
 	var/atmos_link = FALSE
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
+	. = ..()
 	icon_state = "[initial(icon_state)][select]"
 	inhand_icon_state = icon_state
 

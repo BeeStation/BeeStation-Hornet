@@ -6,7 +6,7 @@
 
 /datum/objective/destroy/find_target(list/dupe_search_range, list/blacklist)
 	var/list/possible_targets = list()
-	for(var/mob/living/silicon/ai/A as() in active_ais(TRUE))
+	for(var/mob/living/silicon/ai/A as anything in active_ais(TRUE))
 		if(A.mind in blacklist)
 			continue
 		possible_targets += A

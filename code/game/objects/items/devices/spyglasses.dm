@@ -9,11 +9,11 @@
 		return
 	if(!linked_bug)
 		user.audible_message(span_warning("[src] lets off a shrill beep!"))
+		return
 	if(user.client.screen_maps["spypopup_map"]) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
 		return
-	user.client.setup_popup("spypopup", 3, 3, 2)
-	user.client.register_map_obj(linked_bug.cam_screen)
-	linked_bug.remote_view.join(user.client)
+	user.client.setup_popup("spypopup", 3, 3, 2, "S.P.Y")
+	linked_bug.cam_screen.display_to(user)
 	linked_bug.update_view()
 
 /obj/item/clothing/glasses/sunglasses/spy/equipped(mob/user, slot)
@@ -46,11 +46,14 @@
 	icon_state = "pocketprotector"
 	desc = "An advanced piece of espionage equipment in the shape of a pocket protector. It has a built in 360 degree camera for all your \"admirable\" needs. Microphone not included."
 	hidden = TRUE
+
+	/// The glasses that you can use to see what this can see
 	var/obj/item/clothing/glasses/sunglasses/spy/linked_glasses
+	/// Our camera display popup
 	var/atom/movable/screen/map_view/cam_screen
-	var/datum/remote_view/remote_view
 	// Ranges higher than one can be used to see through walls.
 	var/cam_range = 1
+	/// Detects when we move to update the camera view
 	var/datum/movement_detector/tracker
 
 /obj/item/clothing/accessory/spy_bug/Initialize(mapload)
@@ -58,28 +61,17 @@
 	tracker = new /datum/movement_detector(src, CALLBACK(src, PROC_REF(update_view)))
 
 	cam_screen = new
-	cam_screen.name = "screen"
-	cam_screen.assigned_map = "spypopup_map"
-	cam_screen.del_on_map_removal = FALSE
-	cam_screen.set_position(1, 1)
-
-	// We need to add planesmasters to the popup, otherwise
-	// blending fucks up massively. Any planesmaster on the main screen does
-	// NOT apply to map popups. If there's ever a way to make planesmasters
-	// omnipresent, then this wouldn't be needed.
-	remote_view = new("spypopup_map")
+	cam_screen.generate_view("spypopup_map")
 
 /obj/item/clothing/accessory/spy_bug/Destroy()
-	if(linked_glasses)
-		linked_glasses.linked_bug = null
+	linked_glasses?.linked_bug = null
 	QDEL_NULL(cam_screen)
-	QDEL_NULL(remote_view)
 	QDEL_NULL(tracker)
 	return ..()
 
 /obj/item/clothing/accessory/spy_bug/proc/update_view()//this doesn't do anything too crazy, just updates the vis_contents of its screen obj
 	cam_screen.vis_contents.Cut()
-	for(var/turf/visible_turf in view(1,get_turf(src)))//fuck you usr
+	for(var/turf/visible_turf in view(cam_range, get_turf(src)))//fuck you usr
 		cam_screen.vis_contents += visible_turf
 
 //it needs to be linked, hence a kit.

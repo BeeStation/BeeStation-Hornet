@@ -21,7 +21,7 @@
 
 /datum/ntnet_conversation/Destroy()
 	SSmodular_computers.chat_channels.Remove(src)
-	for(var/datum/computer_file/program/chatclient/chatterbox as() in (active_clients | offline_clients | muted_clients))
+	for(var/datum/computer_file/program/chatclient/chatterbox as anything in (active_clients | offline_clients | muted_clients))
 		purge_client(chatterbox)
 	return ..()
 

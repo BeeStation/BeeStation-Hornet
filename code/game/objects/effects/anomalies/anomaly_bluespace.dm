@@ -6,12 +6,13 @@
 	max_spawned_faked = 4
 	anomaly_core = /obj/item/assembly/signaler/anomaly/bluespace
 
-/obj/effect/anomaly/bluespace/anomalyEffect()
-	..()
+/obj/effect/anomaly/bluespace/anomaly_process()
+	. = ..()
 	for(var/mob/living/M in hearers(1,src))
 		do_teleport(M, locate(M.x, M.y, M.z), 4, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
+	. = ..()
 	if(isliving(AM))
 		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8, channel = TELEPORT_CHANNEL_BLUESPACE)
 
@@ -72,5 +73,5 @@
 					sleep(20)
 					M.client.screen -= blueeffect
 					qdel(blueeffect)
-	var/turf/F = get_turf(src)
-	F.generate_fake_pierced_realities(FALSE, max_spawned_faked)
+
+	generate_fake_pierced_realities(max_amount = max_spawned_faked)

@@ -23,7 +23,7 @@
 
 	create_owner_icon(parent)
 
-/datum/component/stash/Destroy(force, silent)
+/datum/component/stash/Destroy(force)
 	if(!QDELETED(stash_item))
 		UnregisterSignal(stash_item, COMSIG_QDELETING)
 		UnregisterSignal(stash_item, COMSIG_MOVABLE_MOVED)

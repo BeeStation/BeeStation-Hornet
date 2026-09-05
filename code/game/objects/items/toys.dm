@@ -1678,7 +1678,7 @@
 	name = "\improper Virologist action figure"
 	icon_state = "virologist"
 	toysay = "It's beneficial! Mostly."
-	toysound = 'sound/ambience/antag/ling_aler.ogg'
+	toysound = 'sound/effects/antag/ling_aler.ogg'
 
 /obj/item/toy/figure/warden
 	name = "\improper Warden action figure"

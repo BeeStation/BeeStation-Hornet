@@ -137,5 +137,5 @@
 /datum/religion_rites/flood_area/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/open/T = get_turf(religious_tool)
 	if(istype(T))
-		T.atmos_spawn_air("water_vapor=5000;TEMP=255")
+		T.atmos_spawn_air("[GAS_WATER_VAPOR]=5000;TEMP=255")
 	return ..()

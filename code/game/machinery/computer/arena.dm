@@ -79,7 +79,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 	var/list/default_arenas = flist(arena_dir)
 	for(var/arena_file in default_arenas)
 		var/simple_name = replacetext(replacetext(arena_file,arena_dir,""),".dmm","")
-		add_new_arena_template(null,arena_dir + arena_file,simple_name)
+		INVOKE_ASYNC(src, PROC_REF(add_new_arena_template), null, arena_dir + arena_file, simple_name)
 
 /obj/machinery/computer/arena/proc/get_landmark_turf(landmark_tag)
 	for(var/obj/effect/landmark/arena/L in GLOB.landmarks_list)
@@ -130,8 +130,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 
 
 /obj/machinery/computer/arena/proc/add_new_arena_template(user,fname,friendly_name)
-	if(!fname)
-		fname = input(user, "Upload dmm file to use as arena template","Upload Map Template") as null|file
 	if(!fname)
 		return
 	if(!friendly_name)
@@ -264,7 +262,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/arena)
 		return
 
 	if(href_list["upload"])
-		add_new_arena_template(user)
+		var/fname = input(user, "Upload dmm file to use as arena template","Upload Map Template") as null|file
+		add_new_arena_template(user, fname)
 	if(href_list["change_arena"])
 		load_arena(href_list["change_arena"],user)
 	if(href_list["toggle_spawn"])

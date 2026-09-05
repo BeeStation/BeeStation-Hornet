@@ -200,8 +200,9 @@
 		return FALSE
 	if(suicider)
 		manual_suicide(suicider)
-	for(var/obj/effect/anomaly/A in get_turf(src))
-		A.anomalyNeutralize()
+	if(istype(loc, /obj/effect/anomaly))
+		var/obj/effect/anomaly/linked_anomaly = loc
+		linked_anomaly.neutralize()
 	return TRUE
 
 /obj/item/assembly/signaler/anomaly/manual_suicide(mob/living/carbon/user)
@@ -248,7 +249,7 @@
 	name = "\improper vortex anomaly core"
 	desc = "The neutralized core of a vortex anomaly. It won't sit still, as if some invisible force is acting on it. It'd probably be valuable for research."
 	icon_state = "vortex_core"
-	anomaly_type = /obj/effect/anomaly/bhole
+	anomaly_type = /obj/effect/anomaly/vortex
 	custom_price = 15000
 
 /obj/item/assembly/signaler/anomaly/bioscrambler

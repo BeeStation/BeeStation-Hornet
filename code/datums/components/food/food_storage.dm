@@ -29,7 +29,7 @@
 	bad_chance_of_discovery = _bad_chance
 	good_chance_of_discovery = _good_chance
 
-/datum/component/food_storage/Destroy(force, silent)
+/datum/component/food_storage/Destroy(force)
 	if(stored_item)
 		stored_item.forceMove(stored_item.drop_location())
 		stored_item.dropped()

@@ -42,7 +42,7 @@
 		if(A.stage >= 5 && prob(20) && (A.transmission >= 14 || CONFIG_GET(flag/unconditional_virus_spreading) || A.event))
 			for(var/mob/living/carbon/C in oviewers(M, 4))
 				var/obj/item/organ/eyes/eyes = C.get_organ_slot(ORGAN_SLOT_EYES)
-				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+				if(!eyes || C.is_blind() || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 					continue
 				if(C.ForceContractDisease(A))
 					C.emote(emote)

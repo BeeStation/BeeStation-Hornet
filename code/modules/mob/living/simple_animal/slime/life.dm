@@ -21,9 +21,17 @@
 	if(!.)
 		return
 
-	if(buckled)
+	// We get some passive bruteloss healing if we're not dead
+	if(stat != DEAD && DT_PROB(16, delta_time))
+		var/heal = 0.5
+		if(transformeffects & SLIME_EFFECT_PURPLE)
+			heal += 0.25
+		adjustBruteLoss(-heal * delta_time)
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
+		random_colour()
+	if(isliving(buckled))
 		handle_feeding(delta_time, times_fired)
-	if(stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
+	if(stat != CONSCIOUS) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 		return
 	handle_nutrition(delta_time, times_fired)
 	if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
@@ -109,13 +117,15 @@
 				adjustBruteLoss(round(sqrt(bodytemperature)) * delta_time)
 
 	if(stat != DEAD)
-		var/bz_percentage = environment.total_moles() ? (GET_MOLES(/datum/gas/bz, environment) / environment.total_moles()) : 0
+		var/bz_percentage = environment.total_moles() ? (environment.moles[/datum/gas/bz] / environment.total_moles()) : 0
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			var/amt = is_adult ? 30 : 15
-			var/plas_amt = min(amt,GET_MOLES(/datum/gas/plasma, environment))
-			REMOVE_MOLES(/datum/gas/plasma, environment, plas_amt)
-			ADD_MOLES(/datum/gas/oxygen, environment, plas_amt)
+			var/plas_amt = min(amt, environment.moles[/datum/gas/plasma])
+			environment.adjust_multiple_gases(list(
+				/datum/gas/plasma = -plas_amt,
+				/datum/gas/oxygen = plas_amt,
+			))
 			adjustBruteLoss(plas_amt ? -2 : 0)
 
 		switch(stat)
@@ -135,21 +145,7 @@
 	updatehealth()
 
 
-	return //TODO: DEFERRED
-
-/mob/living/simple_animal/slime/handle_traits(delta_time, times_fired)
-	. = ..()
-	if(!stat && DT_PROB(16, delta_time))
-		var/heal = 0.5
-		if(transformeffects & SLIME_EFFECT_PURPLE)
-			heal += 0.25
-		adjustBruteLoss(-heal * delta_time)
-	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
-		random_colour()
-
 /mob/living/simple_animal/slime/proc/handle_feeding(delta_time, times_fired)
-	if(!isliving(buckled))
-		return
 	alpha = 255
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)

@@ -371,7 +371,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	QDEL_LIST(elements)
 	Reset()
 	hide()
-	QDEL_NULL(custom_check_callback)
+	custom_check_callback = null
 	. = ..()
 
 /*
@@ -434,7 +434,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	/// If provided, will display an info button that will put this text in your chat
 	var/info
 
-/datum/radial_menu_choice/Destroy(force, ...)
+/datum/radial_menu_choice/Destroy(force)
 	. = ..()
 	QDEL_NULL(image)
 

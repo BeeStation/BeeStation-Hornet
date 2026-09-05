@@ -1,6 +1,6 @@
 /datum/preference/choiced/body_model
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	priority = PREFERENCE_PRIORITY_BODY_MODEL
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	db_key = "body_model"
 	preference_type = PREFERENCE_CHARACTER
 

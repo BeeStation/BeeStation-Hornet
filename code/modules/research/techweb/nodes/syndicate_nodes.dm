@@ -43,6 +43,7 @@
 	design_ids = list("desynchronizer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/sticky_basic
 	id = TECHWEB_NODE_STICKY_BASIC
@@ -53,6 +54,7 @@
 	design_ids = list("sticky_tape")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/sticky_advanced
 	id = TECHWEB_NODE_STICKY_ADVANCED
@@ -66,3 +68,4 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE

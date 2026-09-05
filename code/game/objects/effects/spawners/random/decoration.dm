@@ -103,7 +103,7 @@
 	var/obj/item/flashlight/glowstick/found = locate() in get_turf(src)
 	if(!found)
 		return
-	found.on = TRUE
+	found.set_light_on(TRUE)
 	found.update_icon()
 	found.update_brightness()
 

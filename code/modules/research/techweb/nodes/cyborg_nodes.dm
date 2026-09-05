@@ -90,6 +90,19 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
+/datum/techweb_node/cyborg_upg_bs
+	id = TECHWEB_NODE_CYBORG_UPG_BS
+	tech_tier = 5
+	display_name = "Cyborg Upgrades: Bluespace"
+	description = "Utility upgrades for cyborgs: Now with 100% more bluespace!"
+	prereq_ids = list(TECHWEB_NODE_CYBORG_UPG_UTIL, TECHWEB_NODE_APPLIED_BLUESPACE)
+	design_ids = list(
+		"borg_upgrade_bsrped",
+		"borg_upgrade_bslightreplacer"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
+
 /datum/techweb_node/subdermal_implants
 	id = TECHWEB_NODE_SUBDERMAL_IMPLANTS
 	tech_tier = 4

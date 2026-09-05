@@ -4,7 +4,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 
-/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
+/mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!no_manifest_locs)
 		no_manifest_locs = zebra_typecacheof(list(
@@ -18,22 +18,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 /// Signal proc for [COMSIG_LIVING_ON_WABBAJACKED], when our summoner is wabbajacked we should be alerted.
 /mob/living/simple_animal/hostile/holoparasite/proc/on_owner_wabbajacked(mob/living/source, mob/living/new_mob)
 	SIGNAL_HANDLER
-
-	set_summoner(new_mob)
+	set_summoner(source.mind)
 	to_chat(src, span_holoparasite("Your summoner has changed form!"))
 
 /// Signal proc for [COMSIG_LIVING_SHAPESHIFTED], when our summoner is shapeshifted we should change to the new mob
 /mob/living/simple_animal/hostile/holoparasite/proc/on_owner_shapeshifted(mob/living/source, mob/living/new_shape)
 	SIGNAL_HANDLER
-
-	set_summoner(new_shape)
+	set_summoner(new_shape.mind)
 	to_chat(src, span_holoparasite("Your summoner has shapeshifted into that of a [new_shape]!"))
 
 /// Signal proc for [COMSIG_LIVING_UNSHAPESHIFTED], when our summoner unshapeshifts go back to that mob
 /mob/living/simple_animal/hostile/holoparasite/proc/on_owner_unshapeshifted(mob/living/source, mob/living/old_summoner)
 	SIGNAL_HANDLER
-
-	set_summoner(old_summoner)
+	set_summoner(old_summoner.mind)
 	to_chat(src, span_holoparasite("Your summoner has shapeshifted back into their normal form!"))
 
 // Ha, no

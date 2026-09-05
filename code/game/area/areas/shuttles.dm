@@ -8,7 +8,7 @@
 	default_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
-	area_flags = NONE
+	area_flags = XENOBIOLOGY_CONSOLE_DISALLOWED
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "shuttle"
 	lighting_colour_tube = "#fff0dd"
@@ -139,23 +139,30 @@
 
 /area/shuttle/arrival
 	name = "Arrival Shuttle"
-	area_flags = UNIQUE_AREA// SSjob refers to this area for latejoiners
+	area_flags = parent_type::area_flags | UNIQUE_AREA// SSjob refers to this area for latejoiners
+
+/area/shuttle/arrival/on_joining_game(mob/living/boarder)
+	if(SSshuttle.arrivals?.mode == SHUTTLE_CALL)
+		var/atom/movable/screen/splash/Spl = new(null, boarder.client, TRUE)
+		Spl.fade(TRUE)
+		boarder.playsound_local(get_turf(boarder), 'sound/voice/welcomeBee.ogg', 50)
+	boarder.update_parallax_teleport()
 
 /area/shuttle/pod_1
 	name = "Escape Pod One"
-	area_flags = BLOBS_ALLOWED
+	area_flags = parent_type::area_flags | BLOBS_ALLOWED
 
 /area/shuttle/pod_2
 	name = "Escape Pod Two"
-	area_flags = BLOBS_ALLOWED
+	area_flags = parent_type::area_flags | BLOBS_ALLOWED
 
 /area/shuttle/pod_3
 	name = "Escape Pod Three"
-	area_flags = BLOBS_ALLOWED
+	area_flags = parent_type::area_flags | BLOBS_ALLOWED
 
 /area/shuttle/pod_4
 	name = "Escape Pod Four"
-	area_flags = BLOBS_ALLOWED
+	area_flags = parent_type::area_flags | BLOBS_ALLOWED
 
 /area/shuttle/mining
 	name = "Mining Shuttle"
@@ -180,7 +187,7 @@
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
-	area_flags = BLOBS_ALLOWED | CULT_PERMITTED
+	area_flags = parent_type::area_flags | BLOBS_ALLOWED | CULT_PERMITTED
 	area_limited_icon_smoothing = /area/shuttle/escape
 	flags_1 = CAN_BE_DIRTY_1
 	camera_networks = list(CAMERA_NETWORK_EVAC)

@@ -140,7 +140,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	pixel_y += rand(-5, 5)
 
 	//Flipping handled manually due to custom handling for trinary pipes
-	AddComponent(/datum/component/simple_rotation, ROTATION_NO_FLIPPING)
+	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING)
 
 	// Only 'normal' pipes
 	if(type != /obj/item/pipe/quaternary)
@@ -397,9 +397,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	set_piping_layer(layer_to_set)
 	balloon_alert(user, "pipe layer set to [piping_layer]")
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
-/obj/item/pipe/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/item/pipe/trinary/flippable/examine(mob/user)
 	. = ..()

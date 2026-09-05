@@ -192,7 +192,7 @@
 	// Destroys the item furthest from user if over the amount limit
 	var/destroy_if_over_limit = FALSE
 
-/datum/heretic_knowledge/limited_amount/Destroy(force, ...)
+/datum/heretic_knowledge/limited_amount/Destroy(force)
 	LAZYCLEARLIST(created_items)
 	return ..()
 

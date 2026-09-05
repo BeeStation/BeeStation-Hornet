@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(combat_logging)
 	most_recent_entry = world.time
 	SScombat_logging.active_combat_instances += src
 
-/datum/combat_log/Destroy(force, ...)
+/datum/combat_log/Destroy(force)
 	SScombat_logging.active_combat_instances -= src
 	return ..()
 

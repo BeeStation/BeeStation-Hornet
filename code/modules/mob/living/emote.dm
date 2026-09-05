@@ -144,14 +144,18 @@
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(H.Togglewings(silent = TRUE))
-			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
-		// play flutter noise
-		if(wings.flapsound)
-			playsound(H, wings.flapsound, 50, TRUE)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/human_user = user
+	if(!human_user.Togglewings(silent = TRUE))
+		return
+	addtimer(CALLBACK(human_user, TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
+
+	// play flutter noise
+	var/obj/item/organ/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_WINGS)
+	if(wings.flapsound)
+		playsound(human_user, wings.flapsound, 50, TRUE)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"

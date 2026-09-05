@@ -1,5 +1,5 @@
 /datum/preferences/proc/set_job_preference_level(datum/job/job, level)
-	if (!job || !(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
+	if (!job)
 		return FALSE
 
 	log_preferences("[parent?.ckey]: Set [job.title] preference to level [level].")
@@ -32,7 +32,7 @@
 
 	for(var/job in job_preferences)
 		if(job_preferences[job] > highest_pref)
-			preview_job = SSjob.GetJob(job)
+			preview_job = SSjob.get_job(job)
 			highest_pref = job_preferences[job]
 
 	return preview_job

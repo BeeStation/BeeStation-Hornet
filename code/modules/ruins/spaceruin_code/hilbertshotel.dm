@@ -20,13 +20,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/hilbertshotel/Initialize(mapload)
 	. = ..()
-	//Load templates
-	hotelRoomTemp = new()
-	hotelRoomTempEmpty = new()
-	hotelRoomTempLore = new()
-	var/area/currentArea = get_area(src)
-	if(currentArea.type == /area/ruin/space/has_grav/hilbertresearchfacility)
+	var/area/current_area = get_area(src)
+	if(current_area.type == /area/ruin/space/has_grav/hilbertresearchfacility)
 		ruinSpawned = TRUE
+	INVOKE_ASYNC(src, PROC_REF(generate_hotel_rooms))
 
 /obj/item/hilbertshotel/Destroy()
 	ejectRooms()
@@ -42,6 +39,11 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /obj/item/hilbertshotel/attack_self(mob/user)
 	. = ..()
 	promptAndCheckIn(user)
+
+/obj/item/hilbertshotel/proc/generate_hotel_rooms()
+	hotelRoomTemp = new()
+	hotelRoomTempEmpty = new()
+	hotelRoomTempLore = new()
 
 /obj/item/hilbertshotel/proc/promptAndCheckIn(mob/user)
 	var/chosenRoomNumber = input(user, "What number room will you be checking into?", "Room Number") as null|num
@@ -344,7 +346,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = HIDDEN_AREA
-	ambientsounds = list('sound/ambience/servicebell.ogg')
+	ambientsounds = list('sound/ambience/ruin/servicebell.ogg')
 	var/roomnumber = 0
 	var/obj/item/hilbertshotel/parentSphere
 	var/datum/turf_reservation/reservation
@@ -482,7 +484,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "Doctor Hilbert"
 	mob_name = "Doctor Hilbert"
 	mob_gender = "male"
-	assignedrole = null
+	spawner_job_path = /datum/job/ghost_role
 	ghost_usable = FALSE
 	oxy_damage = 500
 	mob_species = /datum/species/skeleton

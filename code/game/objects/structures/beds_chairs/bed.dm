@@ -103,45 +103,56 @@
 	anchored = FALSE
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 10
+	//Is this owned already or can we put a name on it
 	var/owned = FALSE
+	///flavor desc
+	var/claimed_desc = "Looks comfy."
 
 /obj/structure/bed/dogbed/ian
 	desc = "Ian's bed! Looks comfy."
 	name = "Ian's bed"
 	anchored = TRUE
+	owned = TRUE
 
 /obj/structure/bed/dogbed/cayenne
 	desc = "Seems kind of... fishy."
 	name = "Cayenne's bed"
 	anchored = TRUE
+	owned = TRUE
 
 /obj/structure/bed/dogbed/renault
 	desc = "Renault's bed! Looks comfy. A foxy person needs a foxy pet."
 	name = "Renault's bed"
 	anchored = TRUE
+	owned = TRUE
 
 /obj/structure/bed/dogbed/runtime
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
 	anchored = TRUE
+	owned = TRUE
 
 /obj/structure/bed/dogbed/vector
 	desc = "Vector's bed! Wait... Do hamsters normally have beds...?"
 	name = "Vector's bed"
 	anchored = TRUE
+	owned = TRUE
 
+/// Owned by the security dog
 /obj/structure/bed/dogbed/tyson
-	desc = "Tyson's bed! It reeks of testosterone and motor oil."
-	name = "Tyson's bed"
+	desc = "The security dog's bed! It reeks of adrenaline and motor oil."
+	name = "security dog's bed"
 	anchored = TRUE
+	owned = TRUE
+	claimed_desc = "It reeks of adrenaline and motor oil."
 
 ///Used to set the owner of a dogbed, returns FALSE if called on an owned bed or an invalid one, TRUE if the possesion succeeds
-/obj/structure/bed/dogbed/proc/update_owner(mob/living/M)
-	if(owned || type != /obj/structure/bed/dogbed) //Only marked beds work, this is hacky but I'm a hacky man
+/obj/structure/bed/dogbed/proc/update_owner(mob/living/M, force = FALSE)
+	if(owned && !force)
 		return FALSE //Failed
 	owned = TRUE
 	name = "[M]'s bed"
-	desc = "[M]'s bed! Looks comfy."
+	desc = "[M]'s bed! [claimed_desc]"
 	return TRUE //Let any callers know that this bed is ours now
 
 /obj/structure/bed/dogbed/buckle_mob(mob/living/M, force, check_loc)

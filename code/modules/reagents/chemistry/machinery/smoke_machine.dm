@@ -38,7 +38,7 @@
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.rating
 
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/smoke_machine/update_icon()

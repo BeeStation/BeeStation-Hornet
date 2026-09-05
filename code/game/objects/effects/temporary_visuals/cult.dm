@@ -75,7 +75,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/cult/rune_spawn)
 
 /obj/effect/temp_visual/cult/rune_spawn/Initialize(mapload, set_duration, set_color)
-	if(isnum_safe(set_duration))
+	if(IS_FINITE(set_duration))
 		duration = set_duration
 	if(set_color)
 		add_atom_colour(set_color, FIXED_COLOUR_PRIORITY)

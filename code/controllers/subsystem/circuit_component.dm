@@ -21,13 +21,8 @@ SUBSYSTEM_DEF(circuit_component)
 		var/datum/callback/to_call = currentrun[1]
 		currentrun.Cut(1,2)
 
-		if(QDELETED(to_call))
-			continue
-
 		to_call.user = null
 		to_call.InvokeAsync()
-		qdel(to_call)
-
 
 		if(MC_TICK_CHECK)
 			return

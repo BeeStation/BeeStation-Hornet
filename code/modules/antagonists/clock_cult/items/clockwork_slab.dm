@@ -48,7 +48,8 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		var/datum/clockcult/scripture/default_scripture = new scripture_type(src)
 		scriptures[scripture_type] = default_scripture
 
-		bind_spell(binder = null, scripture = default_scripture)
+		var/datum/action/innate/clockcult/quick_bind/quickbound = new(default_scripture, src)
+		quick_bound_scriptures += quickbound
 
 /obj/item/clockwork/clockwork_slab/Destroy()
 	GLOB.clockwork_slabs -= src
@@ -117,7 +118,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	if(IS_CULTIST(user))
 		to_chat(user, span_bigbrass("You shouldn't be playing with my toys..."))
 		user.Stun(6 SECONDS)
-		user.adjust_blindness(15 SECONDS)
+		user.adjust_temp_blindness(15 SECONDS)
 		user.electrocute_act(10, name)
 		return
 	// Non clock-cultist reaction

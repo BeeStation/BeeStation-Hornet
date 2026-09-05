@@ -29,7 +29,7 @@
 /obj/machinery/species_converter/can_be_occupant(atom/movable/am)
 	return ishuman(am)
 
-/obj/machinery/species_converter/close_machine(mob/user)
+/obj/machinery/species_converter/close_machine(mob/user, density_to_set = TRUE)
 	if(panel_open)
 		to_chat(user, span_warning("You need to close the maintenance hatch first!"))
 		return

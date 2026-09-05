@@ -30,7 +30,7 @@
 	//Landmark
 	component_parent?.parent.AddElement(/datum/element/point_of_interest)
 
-/datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
+/datum/xenoartifact_trait/minor/haunted/Destroy(force)
 	QDEL_NULL(controller)
 	return ..()
 

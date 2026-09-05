@@ -190,9 +190,9 @@
 	for(var/mob/living/L in view(7, src))
 		if(L.mind)
 			mobss += L
-	for(var/turf/turf as() in turfs)
+	for(var/turf/turf as anything in turfs)
 		var/visible = FALSE
-		for(var/mob/living/L as() in mobss)
+		for(var/mob/living/L as anything in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
 		if(!visible)
@@ -374,7 +374,7 @@
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
 			continue
-		H.adjust_blindness(10)
+		H.adjust_temp_blindness(20 SECONDS)
 		if(prob(10))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)

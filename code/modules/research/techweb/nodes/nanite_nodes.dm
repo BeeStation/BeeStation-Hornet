@@ -204,6 +204,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE
 
 /datum/techweb_node/nanite_hazard
 	id = TECHWEB_NODE_NANITE_HAZARD
@@ -218,3 +219,4 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE
+	unhide_from_prereqs = TRUE

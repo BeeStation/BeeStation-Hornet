@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(href_list["seeker_port"])
 		winshow(src, "login", FALSE) // make sure this thing is hidden
 		var/port_num = text2num(href_list["seeker_port"])
-		if(isnum_safe(port_num))
+		if(IS_FINITE(port_num))
 			seeker_port = port_num
 		if(!logged_in) // the login handler is ready now
 			src?.send_saved_session_token()
@@ -442,6 +442,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		ip_intel = res.intel
 
 /client/Click(atom/object, atom/location, control, params)
+	if(click_intercept_time)
+		if(click_intercept_time >= world.time)
+			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
+			return
+		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 	var/ab = FALSE
 	var/list/modifiers = params2list(params)
 

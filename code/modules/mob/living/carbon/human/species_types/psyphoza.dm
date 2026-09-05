@@ -3,14 +3,10 @@
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
-	species_traits = list(
-		NOEYESPRITES,
-		AGENDER,
-		MUTCOLORS,
-		NOEYEHOLES,
-	)
 	inherent_traits = list(
 		TRAIT_PSYCHIC_SENSE,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_AGENDER,
 	)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
@@ -24,7 +20,7 @@
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
 	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
-	hair_color = "fixedmutcolor"
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
@@ -325,7 +321,7 @@
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.0125)
-	cycle_visuals()
+	INVOKE_ASYNC(src, PROC_REF(cycle_visuals))
 	cycle_textures()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals()

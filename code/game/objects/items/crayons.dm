@@ -629,9 +629,7 @@
 			set_painting_tool_color(COLOR_SILVER)
 		update_icon()
 		if(actually_paints)
-			H.lip_style = "spray_face"
-			H.lip_color = paint_color
-			H.update_body()
+			H.update_lips("spray_face", paint_color)
 		var/used = use_charges(user, 10, FALSE)
 		var/fraction = min(1, used / reagents.maximum_volume)
 		reagents.expose(user, VAPOR, fraction * volume_multiplier)
@@ -677,15 +675,13 @@
 
 		if(C.client)
 			C.set_eye_blur_if_lower(6 SECONDS)
-			C.adjust_blindness(1)
+			C.adjust_temp_blindness(2 SECONDS)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.set_confusion_if_lower(3 SECONDS)
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
-			var/mob/living/carbon/human/H = C
-			H.lip_style = "spray_face"
-			H.lip_color = paint_color
-			H.update_body()
+			var/mob/living/carbon/human/human_target = C
+			human_target.update_lips("spray_face", paint_color)
 
 		. = use_charges(user, 10, FALSE)
 		var/fraction = min(1, . / reagents.maximum_volume)

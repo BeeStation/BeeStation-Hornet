@@ -28,7 +28,7 @@
 	//Register for the signals
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(on_explosion))
 
-/datum/objective/open/explosion/Destroy(force, ...)
+/datum/objective/open/explosion/Destroy(force)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 	. = ..()
 

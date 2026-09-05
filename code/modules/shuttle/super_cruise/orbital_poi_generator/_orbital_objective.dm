@@ -16,7 +16,7 @@
 	station_name = new_station_name()
 
 	if(!istype(bound_bank_account))
-		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account)
+		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force = TRUE)
 
 /datum/orbital_objective/proc/on_assign(obj/machinery/computer/objective/objective_computer)
 	return

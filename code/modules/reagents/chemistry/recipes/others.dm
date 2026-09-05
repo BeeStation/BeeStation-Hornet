@@ -215,7 +215,7 @@
 
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/mob/M as() in viewers(5, location))
+	for(var/mob/M as anything in viewers(5, location))
 		to_chat(M, span_danger("The solution spews out foam!"))
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume*2, location, holder)
@@ -246,7 +246,7 @@
 /datum/chemical_reaction/metalfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	for(var/mob/M as() in viewers(5, location))
+	for(var/mob/M as anything in viewers(5, location))
 		to_chat(M, span_danger("The solution spews out a metallic foam!"))
 
 	var/datum/effect_system/foam_spread/metal/s = new()
@@ -302,7 +302,7 @@
 
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/mob/M as() in viewers(5, location))
+	for(var/mob/M as anything in viewers(5, location))
 		to_chat(M, span_danger("The solution spews out a metallic foam!"))
 	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume*5, location, holder, 2)

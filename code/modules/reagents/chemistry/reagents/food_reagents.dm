@@ -27,9 +27,12 @@
 	. = ..()
 	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER) || HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
 		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.adjust_nutrition(nutriment_factor * REM * delta_time)
+	var/mob/living/carbon/human/H = affected_mob
+	// If non-ethereal gets ethereal stomach they cannot eat
+	var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach) && H.dna?.species?.id != SPECIES_ETHEREAL)
+		return
+	H.adjust_nutrition(nutriment_factor * REM * delta_time)
 
 /datum/reagent/consumable/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -64,7 +67,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(DT_PROB(30, delta_time))
+	if(DT_PROB(30, delta_time)) //scp13 optimization
 		if(affected_mob.heal_bodypart_damage(brute = brute_heal * REM * delta_time, burn = burn_heal * REM * delta_time, updating_health = FALSE, required_bodytype = BODYTYPE_ORGANIC))
 			return UPDATE_MOB_HEALTH
 
@@ -254,8 +257,8 @@
 	switch(current_cycle)
 		if(1 to 15)
 			heating = 5
-			if(holder.has_reagent(/datum/reagent/cryostylane))
-				holder.remove_reagent(/datum/reagent/cryostylane, 5 * REM * delta_time)
+			if(affected_mob.reagents.has_reagent(/datum/reagent/cryostylane))
+				affected_mob.reagents.remove_reagent(/datum/reagent/cryostylane, 5 * REM * delta_time)
 		if(15 to 25)
 			heating = 10
 		if(25 to 35)
@@ -326,7 +329,7 @@
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.emote("cry")
 			victim.set_eye_blur_if_lower(10 SECONDS) // 10 seconds
-			victim.adjust_blindness(3) // 6 seconds
+			victim.adjust_temp_blindness(6 SECONDS)
 			victim.set_confusion_if_lower(10 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
@@ -584,10 +587,9 @@
 	default_container = /obj/item/reagent_containers/condiment/honey
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	holder.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
+	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
 	. = ..()
-	var/need_mob_update
-	need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	var/need_mob_update = affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
@@ -650,7 +652,7 @@
 		else
 			if(!exposed_mob.has_status_effect(/datum/status_effect/eye_blur))
 				to_chat(exposed_mob, span_warning("Tears well up in your eyes!"))
-			exposed_mob.adjust_blindness(2)
+			exposed_mob.adjust_temp_blindness(4 SECONDS)
 			exposed_mob.set_eye_blur_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -659,7 +661,7 @@
 		affected_mob.set_eye_blur_if_lower(8 SECONDS * REM * delta_time)
 		if(DT_PROB(5, delta_time))
 			to_chat(affected_mob, span_warning("Your eyes sting!"))
-			affected_mob.adjust_blindness(2)
+			affected_mob.adjust_temp_blindness(4 SECONDS)
 
 /datum/reagent/consumable/nutriment/stabilized
 	name = "Stabilized Nutriment"
@@ -759,19 +761,41 @@
 /datum/reagent/consumable/liquidelectricity
 	name = "Liquid Electricity"
 	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else."
-	nutriment_factor = 5 * REAGENTS_METABOLISM
+	nutriment_factor = 5 * REAGENTS_METABOLISM  // How much LE transfers in to food
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "pure electrictiy"
+	taste_description = "pure electricity"
+
+/datum/reagent/consumable/liquidelectricity/on_new(list/data)
+	. = ..()
+	color = "#97ee63"
+
+/datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/carbon/exposed_mob, method = TOUCH, reac_volume)
+	. = ..()
+	if(method == INJECT && ishuman(exposed_mob))
+		var/mob/living/carbon/human/H = exposed_mob
+		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(istype(stomach))
+			if(H.dna?.species?.id == SPECIES_ETHEREAL)
+				H.blood_volume = min(H.blood_volume + reac_volume, BLOOD_VOLUME_MAXIMUM)
+				stomach.adjust_charge(reac_volume * 0.5)
+			H.reagents.remove_reagent(type, reac_volume)
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(stomach))
+	var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach) && ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
+		if(H.dna?.species?.id == SPECIES_ETHEREAL)
+			// Ethereals get charge and blood regen
 			stomach.adjust_charge(40 * REM)
-	else if(DT_PROB(1.5, delta_time)) //scp13 optimization
-		affected_mob.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
+			H.blood_volume = min(H.blood_volume + (1 * REM * delta_time), BLOOD_VOLUME_MAXIMUM)
+		else
+			// Non-Ethereals need to Sever the spines of rival cyborgs to eat 
+			H.adjust_nutrition(nutriment_factor * REM * delta_time)
+	else if(DT_PROB(3, delta_time))
+
+		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1)
 		playsound(affected_mob, "sparks", 50, 1)
 
 /datum/reagent/consumable/chlorophyll

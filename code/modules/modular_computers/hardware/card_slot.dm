@@ -88,7 +88,7 @@
 /obj/item/computer_hardware/card_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
 		to_chat(user, span_warning("There are no cards in \the [src]."))
-		return FALSE
+		return null
 	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2]
 	if(card_slot2?.hacked && card_slot2.stored_card)
 		card_slot2.fake_card = new card_slot2.stored_card.type(src) // make a fake clone using the same type
@@ -98,27 +98,24 @@
 		user.put_in_hands(stored_card)
 	else
 		stored_card.forceMove(drop_location())
-	stored_card = null
 
 	if(holder)
-		if(holder.active_program)
-			holder.active_program.event_idremoved(0)
-
-		for(var/p in holder.idle_threads)
-			var/datum/computer_file/program/computer_program = p
+		holder.active_program?.event_idremoved(0)
+		for(var/datum/computer_file/program/computer_program as anything in holder.idle_threads)
 			computer_program.event_idremoved(1)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_wearer = user
 		if(human_wearer.wear_id == holder)
 			human_wearer.sec_hud_set_ID()
 	to_chat(user, span_notice("You remove the card from \the [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	. = stored_card
 	stored_card = null
 	current_identification = null
 	current_job = null
 	holder?.update_appearance()
 	holder?.ui_update()
-	return TRUE
 
 /obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
 	if(..())

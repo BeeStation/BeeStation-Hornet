@@ -48,7 +48,7 @@
 
 /datum/status_effect/cyborg_power_regen/on_creation(mob/living/new_owner, new_power_per_tick)
 	. = ..()
-	if(. && isnum_safe(new_power_per_tick))
+	if(. && IS_FINITE(new_power_per_tick))
 		power_to_give = new_power_per_tick
 
 /atom/movable/screen/alert/status_effect/power_regen
@@ -367,6 +367,7 @@
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
 	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
+	return TRUE
 
 /datum/status_effect/hippocratic_oath/on_remove()
 	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))

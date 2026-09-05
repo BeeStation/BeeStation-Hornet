@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	current_temperature += delta
 	current_temperature = clamp(current_temperature, T0C, desired_temperature)
 	var/trans_amount = reagents.total_volume / pool.len //Split up the reagents equally.
-	for(var/turf/open/indestructible/sound/pool/water as() in pool)
+	for(var/turf/open/indestructible/sound/pool/water as anything in pool)
 		if(reagents.reagent_list.len)
 			water.set_colour(mix_color_from_reagents(reagents.reagent_list))
 		else

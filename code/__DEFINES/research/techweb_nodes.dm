@@ -66,6 +66,7 @@
 #define TECHWEB_NODE_CYBORG_UPG_MED "cyborg_upg_med"
 #define TECHWEB_NODE_CYBORG_UPG_SERVICE "cyborg_upg_service"
 #define TECHWEB_NODE_CYBORG_UPG_UTIL "cyborg_upg_util"
+#define TECHWEB_NODE_CYBORG_UPG_BS "cyborg_upg_bs"
 #define TECHWEB_NODE_DATATHEORY "datatheory"
 #define TECHWEB_NODE_ELECTRONIC_WEAPONS "electronic_weapons"
 #define TECHWEB_NODE_EMP_ADV "emp_adv"

@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && L.mind?.assigned_role != JOB_NAME_CURATOR)
+	if(istype(L) && !is_curator_job(L.mind?.assigned_role))
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)
@@ -28,7 +28,7 @@
 		var/picked_type = pick(subtypesof(/datum/artifact_effect))
 		var/valid = TRUE
 		var/datum/artifact_effect/effect = new picked_type
-		for(var/datum/artifact_effect/old_effect as() in effects)
+		for(var/datum/artifact_effect/old_effect as anything in effects)
 			//Cant have the same one twice
 			if(istype(old_effect, picked_type))
 				valid = FALSE
@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 
 /atom/movable/proximity_monitor_holder/Destroy()
 	QDEL_NULL(monitor)
-	QDEL_NULL(callback)
+	callback = null
 	return ..()
 
 /datum/artifact_effect/projreflect
@@ -268,7 +268,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 	for(var/obj/item/card/id/id_card in things_in_view)
 		idcards += id_card
 	var/list/accesses_to_add = get_all_accesses()
-	for(var/obj/item/card/id/id_card as() in idcards)
+	for(var/obj/item/card/id/id_card as anything in idcards)
 		if(length(id_card.access))
 			id_card.access -= pick(id_card.access)
 			id_card.access |= pick(accesses_to_add)
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	GLOB.destabliization_exits += source
 
 /datum/artifact_effect/reality_destabilizer/Destroy()
-	for(var/atom/movable/AM as() in contained_things)
+	for(var/atom/movable/AM as anything in contained_things)
 		if(istype(get_area(AM), /area/tear_in_reality))
 			AM.forceMove(get_turf(source_object))
 	contained_things.Cut()
@@ -417,10 +417,11 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(GET_MOLES(input_id, air), 5)
+	var/moles = min(air.moles[input_id], 5)
 	if(moles)
-		air.gases[input_id][MOLES] += -moles
-		air.gases[output_id][MOLES] += moles
+		// adjust_multiple_gases() isn't used here because BYOND is HORRIBLE and will convert the var names when used as keys to strings
+		air.adjust_gas(input_id, -moles)
+		air.adjust_gas(output_id, moles)
 
 //===================
 // Recharger
@@ -495,7 +496,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 	// center does strong effect. If purser is with someone, they'll all be the victims.
 	for(var/mob/living/center_turf_mob in T.get_all_mobs())
-		center_turf_mob.adjust_blindness(300)
+		center_turf_mob.adjust_temp_blindness(30 SECONDS)
 		center_turf_mob.Stun(100)
 		center_turf_mob.emote("scream")
 		center_turf_mob.set_hallucinations(10 MINUTES)

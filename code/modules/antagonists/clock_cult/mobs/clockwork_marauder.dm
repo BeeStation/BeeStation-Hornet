@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	health = 140
 	maxHealth = 140
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	is_flying_animal = TRUE
@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	attack_verb_continuous = "slices"
 	attack_verb_simple = "slice"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	chat_color = "#CAA25B"
 	mobchatspan = "brassmobsay"
 	obj_damage = 80

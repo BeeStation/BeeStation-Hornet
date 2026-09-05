@@ -25,7 +25,9 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	if(!ismonkey(user) || user.key)
+	if(!iscarbon(user))
+		return
+	if(!HAS_TRAIT(user, TRAIT_PRIMITIVE) || user.key)
 		to_chat(user, span_boldnotice("You feel a stabbing pain in the back of your head for a moment."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
@@ -35,7 +37,7 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/user)
 	if (user.stat) //Checks if the monkey is dead.
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE) //If so, buzz and do not poll ghosts
 		return

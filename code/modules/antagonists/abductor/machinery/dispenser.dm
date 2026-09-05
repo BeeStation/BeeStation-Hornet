@@ -104,7 +104,7 @@
 	generate_glands()
 
 /obj/machinery/smartfridge/abductor/proc/generate_glands()
-	for(var/each as() in shuffle(subtypesof(/obj/item/organ/heart/gland)))
+	for(var/each as anything in shuffle(subtypesof(/obj/item/organ/heart/gland)))
 		for(var/i in 1 to rand(2, 7))
 			var/obj/item/organ/heart/gland/each_gland = new each
 			each_gland.name = each_gland.true_name

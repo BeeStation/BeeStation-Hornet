@@ -18,10 +18,7 @@
 
 /obj/item/assembly/infra/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
-
-/obj/item/assembly/infra/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+	AddElement(/datum/element/simple_rotation)
 
 /obj/item/assembly/infra/Destroy()
 	QDEL_NULL(active_beam)

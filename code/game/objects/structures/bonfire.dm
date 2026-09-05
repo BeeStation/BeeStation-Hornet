@@ -32,7 +32,7 @@
 /obj/structure/bonfire/dense
 	density = TRUE
 
-/obj/structure/bonfire/dense/askwalker
+/obj/structure/bonfire/dense/ashwalker
 	needs_oxygen = FALSE
 
 /obj/structure/bonfire/prelit/Initialize(mapload)
@@ -102,14 +102,12 @@
 		if(can_buckle || grill)
 			new /obj/item/stack/rods(loc, 1)
 		qdel(src)
-		return
 
 /obj/structure/bonfire/proc/check_oxygen()
 	if(isopenturf(loc))
-		var/turf/open/O = loc
-		if(O.air)
-			if(GET_MOLES(/datum/gas/oxygen, O.air) > 13)
-				return TRUE
+		var/turf/open/our_turf = loc
+		if(our_turf.air?.moles[/datum/gas/oxygen] > 13)
+			return TRUE
 	return FALSE
 
 /obj/structure/bonfire/proc/start_burning()

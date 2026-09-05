@@ -39,7 +39,7 @@
 	if (!length(requiredjob))
 		return TRUE
 	for (var/mob/living/L in GLOB.mob_living_list)
-		if (L.mind?.assigned_role in requiredjob)
+		if (L.mind?.assigned_role.title in requiredjob)
 			return TRUE
 	return FALSE
 

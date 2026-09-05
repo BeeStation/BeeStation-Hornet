@@ -56,7 +56,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_DETECTIVE)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 	if(lasercolor)
@@ -529,7 +529,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	spawn(2)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
-	C.Paralyze(100)
+	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, STAMINA)
+	C.apply_damage(70, STAMINA, BODY_ZONE_CHEST, armor_block)
 	C.set_stutter_if_lower(10 SECONDS)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C

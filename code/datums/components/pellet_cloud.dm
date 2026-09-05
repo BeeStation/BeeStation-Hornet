@@ -60,7 +60,7 @@
 		radius = magnitude
 		create_blast_pellets(null, null)
 
-/datum/component/pellet_cloud/Destroy(force, silent)
+/datum/component/pellet_cloud/Destroy(force)
 	pellets = null
 	targets_hit = null
 	bodies = null

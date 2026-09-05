@@ -115,11 +115,10 @@
 				to_chat(user, span_notice("You empty \the [I] into \the [src]."))
 				update_appearance()
 			else if(istype(I, /obj/item/pen))
-				if(!user.is_literate())
-					to_chat(user, span_notice("You scribble illegibly on the side of [src]!"))
+				if(!user.canUseTopic(src, BE_CLOSE) || !user.can_write(I))
 					return
 				var/newname = stripped_input(user, "What would you like to title this bookshelf?")
-				if(!user.canUseTopic(src, BE_CLOSE))
+				if(!user.canUseTopic(src, BE_CLOSE) || !user.can_write(I))
 					return
 				if(!newname)
 					return
@@ -239,6 +238,9 @@
 
 
 /obj/item/book/attack_self(mob/user)
+	if(user.is_blind())
+		to_chat(user, span_warning("You are blind and can't read anything!"))
+		return
 	if(!user.can_read(src))
 		return
 	user.visible_message(span_notice("[user] opens a book titled \"[title]\" and begins reading intently."))

@@ -61,7 +61,7 @@
 
 /obj/structure/particle_accelerator/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/structure/particle_accelerator/set_anchored(anchorvalue)
 	. = ..()

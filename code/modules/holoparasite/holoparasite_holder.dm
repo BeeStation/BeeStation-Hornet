@@ -118,7 +118,7 @@
 /datum/holoparasite_holder/proc/transfer_holoparasites_to_body(mob/living/new_body)
 	if(new_body.stat == DEAD && !HAS_TRAIT(new_body, TRAIT_NODEATH))
 		return
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
+	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 		holopara.forceMove(new_body)
 		holopara.register_body_signals(new_body)
 		holopara.faction = new_body.faction.Copy()
@@ -224,7 +224,7 @@
 		return
 	if(IS_IN_STASIS(source))
 		// Your disintegration is delayed... for now.
-		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
+		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 			if(holopara.stat == DEAD)
 				continue
 			holopara.death()
@@ -248,7 +248,7 @@
 		. = team_monitor = monitor_holder.LoadComponent(/datum/component/team_monitor, REF(src))
 
 /datum/holoparasite_holder/proc/remove_all_tracking_huds()
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
+	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 		holopara.tracking_beacon.toggle_visibility(FALSE)
 		holopara.tracking_beacon.remove_from_huds()
 	toggle_monitor_hud(FALSE)
@@ -278,7 +278,7 @@
 	dying = FALSE
 	var/datum/component/team_monitor/team_monitor = get_monitor(body)
 	team_monitor.show_hud(body)
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
+	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 		holopara.revive()
 
 /**
@@ -370,7 +370,7 @@
 		SSblackbox.record_feedback("tally", "holoparasite_traumatized_count", 1, traumatized)
 	playsound(body, 'sound/effects/curseattack.ogg', vol = 75, vary = TRUE, frequency = 0.5)
 	body.dust(drop_items = TRUE)
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
+	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 		if(holopara.stat == DEAD)
 			continue
 		if(holopara.is_manifested())
@@ -386,6 +386,6 @@
  */
 /datum/holoparasite_holder/proc/english_holoparasite_list(colored = TRUE)
 	var/list/names = list()
-	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
+	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as anything in holoparasites)
 		names += colored ? holopara.color_name : holopara.real_name
 	return english_list(names)

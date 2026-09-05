@@ -9,7 +9,6 @@
 	body_parts_covered = HEAD
 	heat_protection = HEAD
 	cold_protection = HEAD
-	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/mod/Initialize(mapload)
 	. = ..()

@@ -20,6 +20,8 @@
 	var/medium_withdrawal_moodlet = /datum/mood_event/withdrawal_medium
 	///moodlet for severe withdrawal
 	var/severe_withdrawal_moodlet = /datum/mood_event/withdrawal_severe
+	/// How fast withdrawal processes, 1 is normal, 0.5 is half, 2 would be double
+	var/withdrawal_cycle_multiplier = 1
 
 ///Called when you gain addiction points somehow. Takes a mind as argument and sees if you gained the addiction
 /datum/addiction/proc/on_gain_addiction_points(datum/mind/victim_mind)
@@ -105,7 +107,7 @@
 		if(3)
 			withdrawal_stage_3_process(affected_carbon, delta_time)
 
-	LAZYADDASSOC(affected_carbon.mind.active_addictions, type, 1 * delta_time) //Next cycle!
+	LAZYADDASSOC(affected_carbon.mind.active_addictions, type, withdrawal_cycle_multiplier * delta_time) //Next cycle!
 
 /// Called when addiction enters stage 1
 /datum/addiction/proc/withdrawal_enters_stage_1(mob/living/carbon/affected_carbon)

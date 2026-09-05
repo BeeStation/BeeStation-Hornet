@@ -109,12 +109,12 @@
 
 ///Remove all embedded objects from all limbs on the carbon mob
 /mob/living/carbon/proc/remove_all_embedded_objects()
-	for(var/obj/item/bodypart/L as() in bodyparts)
+	for(var/obj/item/bodypart/L as anything in bodyparts)
 		for(var/obj/item/I in L.embedded_objects)
 			remove_embedded_object(I)
 
 /mob/living/carbon/proc/has_embedded_objects(include_harmless=FALSE)
-	for(var/obj/item/bodypart/L as() in bodyparts)
+	for(var/obj/item/bodypart/L as anything in bodyparts)
 		for(var/obj/item/I in L.embedded_objects)
 			if(!include_harmless && I.isEmbedHarmless())
 				continue
@@ -153,7 +153,7 @@
 		if(BODY_ZONE_CHEST)
 			new_bodypart = new /obj/item/bodypart/chest/alien()
 	if(new_bodypart)
-		new_bodypart.update_limb(src)
+		new_bodypart.update_limb(is_creating = TRUE)
 
 /// Makes sure that the owner's bodytype flags match the flags of all of it's parts and organs
 /mob/living/carbon/proc/synchronize_bodytypes()

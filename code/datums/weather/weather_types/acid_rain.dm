@@ -5,17 +5,17 @@
 
 	telegraph_duration = 40 SECONDS
 	telegraph_message = span_boldwarning("Thunder rumbles far above. You hear droplets drumming against the canopy. Seek shelter.")
-	telegraph_sound = 'sound/ambience/acidrain_start.ogg'
+	telegraph_sound = 'sound/weather/acid_rain/acidrain_start.ogg'
 
 	weather_message = span_userdanger("<i>Acidic rain pours down around you! Get inside!</i>")
 	weather_overlay = "acid_rain"
 	weather_duration_lower = 1 MINUTES
 	weather_duration_upper = 2.5 MINUTES
-	weather_sound = 'sound/ambience/acidrain_mid.ogg'
+	weather_sound = 'sound/weather/acid_rain/acidrain_mid.ogg'
 
 	end_duration = 10 SECONDS
 	end_message = span_boldannounce("The downpour gradually slows to a light shower. It should be safe outside now.")
-	end_sound = 'sound/ambience/acidrain_end.ogg'
+	end_sound = 'sound/weather/acid_rain/acidrain_end.ogg'
 
 	area_type = /area
 	target_trait = ZTRAIT_ACIDRAIN

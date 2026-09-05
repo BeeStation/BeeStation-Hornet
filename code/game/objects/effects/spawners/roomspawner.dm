@@ -7,50 +7,46 @@
 	dir = NORTH
 	var/room_width = 0
 	var/room_height = 0
-	///List of room IDs we want
-	var/list/rooms = list()
-
-/obj/effect/spawner/room/New(loc, ...)
-	. = ..()
-#ifndef UNIT_TESTS
-	if(!isnull(SSmapping.random_room_spawners))
-		SSmapping.random_room_spawners += src
-#endif
+	/// List of room IDs we want
+	var/list/rooms
 
 /obj/effect/spawner/room/Initialize(mapload)
 	. = ..()
 #ifdef UNIT_TESTS
 	// These are far too flakey to be including in the tests
-	var/turf/main_room_turf = get_turf(src)
-	for (var/x in main_room_turf.x to main_room_turf.x + room_width - 1)
-		for (var/y in main_room_turf.y to main_room_turf.y + room_height - 1)
-			var/turf/fix_turf = locate(x, y, main_room_turf.z)
-			fix_turf.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_IGNORE_AIR)
+	var/list/turf/room_turfs = block(
+		x, y, z,
+		x + room_width - 1, y + room_height - 1, z,
+	)
+	for(var/turf/room_turf in room_turfs)
+		room_turf.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_IGNORE_AIR)
 	return INITIALIZE_HINT_QDEL
 #else
 	if(!length(SSmapping.random_room_templates))
 		message_admins("Room spawner created with no templates available. This shouldn't happen.")
 		return INITIALIZE_HINT_QDEL
-	var/list/possibletemplates = list()
-	var/datum/map_template/random_room/candidate
-	shuffle_inplace(SSmapping.random_room_templates)
-	for(var/ID in SSmapping.random_room_templates)
-		candidate = SSmapping.random_room_templates[ID]
-		if((!rooms.len && candidate.spawned) || (!rooms.len && (room_height != candidate.template_height || room_width != candidate.template_width)) || (rooms.len && !(candidate.room_id in rooms)))
-			candidate = null
+
+	var/list/possible_templates = list()
+	for(var/datum/map_template/random_room/candidate as anything in SSmapping.random_room_templates)
+		if(candidate.stock <= 0 || room_height != candidate.template_height || room_width != candidate.template_width)
 			continue
-		possibletemplates[candidate] = candidate.weight
-	if(!length(possibletemplates))
+		if(length(rooms) && !(candidate.room_id in rooms))
+			continue
+		possible_templates[candidate] = candidate.weight
+
+	if(!length(possible_templates))
 		stack_trace("Failed to find a valid random room / Room Info - height: [room_height], width: [room_width], name: [name]")
-	else
-		var/datum/map_template/random_room/template = pick_weight(possibletemplates)
-		template.stock --
-		template.weight = (template.weight / 2)
-		if(template.stock <= 0)
-			template.spawned = TRUE
-		var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
-		generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
+		return
+
+	var/datum/map_template/random_room/template = pick_weight(possible_templates)
+	template.stock--
+	template.weight /= 2
+	INVOKE_ASYNC(src, PROC_REF(place_template), template)
 #endif
+
+/obj/effect/spawner/room/proc/place_template(datum/map_template/random_room/template)
+	var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
+	generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
 
 /obj/effect/spawner/room/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	// Scan through the room and remove any wall fixtures that were not placed correctly
@@ -93,7 +89,9 @@
 		"sk_rdm154_butchersden",
 		"sk_rdm155_punjiconveyor",
 		"sk_rdm156_oldairlock_interchange",
-		"sk_rdm161_kilovault")
+		"sk_rdm161_kilovault",
+	)
+
 /obj/effect/spawner/room/special/tenxten_terrestrial
 	name = "10x10 terrestrial room"
 	room_width = 10
@@ -125,7 +123,9 @@
 		"sk_rdm157_chess",
 		"sk_rdm159_kilosnakepit",
 		"sk_rdm167_library_ritual",
-		"sk_rdm176_spacewindowroom")
+		"sk_rdm176_spacewindowroom",
+	)
+
 /obj/effect/spawner/room/fivexfour
 	name = "5x4 room spawner"
 	room_width = 5
@@ -195,14 +195,16 @@
 
 	message_admins("Echo spawner: Loading [template.name]. This may take a moment.")
 
-	var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
-	generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
+	INVOKE_ASYNC(src, PROC_REF(place_template), template)
 
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/spawner/surface/echo/proc/place_template(datum/map_template/random_room/template)
+	var/datum/async_map_generator/map_place/generator = template.load(get_turf(src), centered = template.centerspawner)
+	generator.on_completion(CALLBACK(src, PROC_REF(after_place)))
+
 /obj/effect/spawner/surface/echo/proc/after_place(datum/async_map_generator/map_place/generator, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	message_admins("Echo spawner: Surface placement complete.")
-
 
 /proc/get_current_season()
 	var/month = text2num(time2text(world.timeofday, "MM"))

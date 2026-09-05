@@ -1,13 +1,14 @@
 /datum/job/cargo_technician
 	title = JOB_NAME_CARGOTECHNICIAN
 	description = "Push crates around, deliver bounty papers and mail around the station, make use of the Disposals network to make your life easier."
-	department_for_prefs = DEPT_NAME_CARGO
+	department_for_prefs = DEPARTMENT_NAME_CARGO
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
 	faction = FACTION_STATION
 	dynamic_spawn_group = JOB_SPAWN_GROUP_DEPARTMENT
 	selection_color = "#dcba97"
+	exp_granted_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/cargo_technician
 
@@ -25,7 +26,9 @@
 		ACCESS_GATEWAY
 	)
 
-	departments = DEPT_BITFLAG_CAR
+	departments_list = list(
+		/datum/department_group/cargo,
+		)
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
 

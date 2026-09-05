@@ -35,7 +35,7 @@
 #define VV_BIG_SIZED_LIST_THRESHOLD 50
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
-#define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
+#define IS_VALID_ASSOC_KEY(V) (!IS_FINITE(V))		//hhmmm..
 
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(target, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[REF(target)]"
@@ -112,10 +112,7 @@
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
-// /datum/gas_mixture
-#define VV_HK_SET_MOLES "set_moles"
-#define VV_HK_EMPTY "empty"
-#define VV_HK_SET_TEMPERATURE "set_temp"
+// /turf
 #define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj

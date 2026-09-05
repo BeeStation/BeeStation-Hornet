@@ -364,8 +364,6 @@
 		to_chat(user, span_warning("It's filled with weeds!"))
 	if(pestlevel >= 5)
 		to_chat(user, span_warning("It's filled with tiny worms!"))
-	to_chat(user, "" )
-
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = 0

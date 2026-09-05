@@ -5,7 +5,7 @@
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
-	networks = list()
+	compatible_camera_networks = list()
 	use_power = NO_POWER_USE
 	smoothing_flags = NONE
 	smoothing_groups = null

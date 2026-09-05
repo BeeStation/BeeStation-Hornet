@@ -32,7 +32,7 @@
 	var/mob/living/carbon/C = owner
 	..() //perform general on_life()
 	if(istype(C))
-		if(!(organ_flags & ORGAN_FAILING) && !HAS_TRAIT(C, TRAIT_NOMETABOLISM))//can't process reagents with a failing liver
+		if(!(organ_flags & ORGAN_FAILING) && !HAS_TRAIT(C, TRAIT_LIVERLESS_METABOLISM))//can't process reagents with a failing liver
 
 			var/provide_pain_message = HAS_NO_TOXIN
 			if(filterToxins && !HAS_TRAIT(owner, TRAIT_TOXINLOVER))

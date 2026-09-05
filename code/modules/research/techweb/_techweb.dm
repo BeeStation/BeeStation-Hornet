@@ -27,7 +27,7 @@
 	var/list/custom_designs = list()
 	/// Already boosted nodes that can't be boosted again. node id = path of boost object.
 	var/list/boosted_nodes = list()
-	/// Hidden nodes. id = TRUE. Used for unhiding nodes when requirements are met by removing the entry of the node.
+	/// Hidden nodes. id = TRUE. Used for hiding nodes until an item unhides it, such as illegal technology
 	var/list/hidden_nodes = list()
 	/// List of items already deconstructed for research points, preventing infinite research point generation.
 	var/list/deconstructed_items = list()
@@ -349,8 +349,11 @@
 	researched_nodes -= node.id
 	available_nodes -= node.id
 	visible_nodes -= node.id
-	if(hidden_nodes[node.id]) //Hidden.
-		return
+	if(hidden_nodes[node.id])
+		if(node.unhide_from_prereqs && available) // Prerequisites are met, we can go ahead and unhide this node
+			hidden_nodes -= node.id
+		else
+			return
 	if(researched)
 		researched_nodes[node.id] = TRUE
 		for(var/id in node.design_ids - researched_designs)

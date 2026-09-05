@@ -15,7 +15,7 @@
 		CRASH("Attempting to mark a subtask holder as completed. This is not allowed")
 	completed = TRUE
 	src.result = result
-	for (var/datum/callback/callback as() in continuation_tasks)
+	for (var/datum/callback/callback as anything in continuation_tasks)
 		callback.InvokeAsync(result)
 
 /// Wait for the task to be completed, or the timeout to expire

@@ -10,7 +10,10 @@
 	mutantears = /obj/item/organ/ears/cat
 	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
-	inherent_traits = list(TRAIT_HATED_BY_DOGS)
+	inherent_traits = list(
+		TRAIT_HATED_BY_DOGS,
+		TRAIT_USES_SKINTONES,
+		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -18,7 +21,7 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/human/felinid/qualifies_for_rank(rank, list/features)
+/datum/species/human/felinid/qualifies_for_rank(datum/job/rank, list/features)
 	return TRUE
 
 //Curiosity killed the cat's wagging tail.
@@ -107,15 +110,15 @@
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
 
-/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.hair_style = "Hime Cut"
-	human.hair_color = COLOR_PINK
-	human.update_hair()
+/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human_for_preview)
+	human_for_preview.set_haircolor(COLOR_GOLD, update = FALSE)
+	human_for_preview.set_hairstyle("Hime Cut", update = TRUE)
 
-	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)
+
+	var/obj/item/organ/ears/cat/cat_ears = human_for_preview.get_organ_by_type(/obj/item/organ/ears/cat)
 	if (cat_ears)
-		cat_ears.color = human.hair_color
-		human.update_body()
+		cat_ears.color = human_for_preview.hair_color
+		human_for_preview.update_body()
 
 /datum/species/human/felinid/get_species_description()
 	return "Felinids are one of the many types of bespoke genetic \

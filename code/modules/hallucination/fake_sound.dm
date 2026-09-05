@@ -166,21 +166,21 @@
 	sound_vary = FALSE
 	no_source = TRUE
 	sound_type = list(
-		'sound/ambience/antag/bloodcult_gain.ogg',
-		'sound/ambience/antag/clockcultalr.ogg',
-		//'sound/ambience/antag/ecult_op.ogg',
-		'sound/ambience/antag/ling_aler.ogg',
-		'sound/ambience/antag/malf.ogg',
-		//'sound/ambience/antag/new_clock.ogg', // This one's much louder than the others, otherwise I would
-		'sound/ambience/antag/ops.ogg',
-		'sound/ambience/antag/tatoralert.ogg',
+		'sound/effects/antag/bloodcult/bloodcult_gain.ogg',
+		'sound/effects/antag/clockcultalr.ogg',
+		//'sound/effects/antag/ecult_op.ogg',
+		'sound/effects/antag/ling_aler.ogg',
+		'sound/effects/antag/malf.ogg',
+		//'sound/effects/antag/new_clock.ogg', // This one's much louder than the others, otherwise I would
+		'sound/effects/antag/ops.ogg',
+		'sound/effects/antag/tatoralert.ogg',
 	)
 
 /datum/hallucination/fake_sound/weird/chimp_event
 	volume = 90
 	sound_vary = FALSE
 	no_source = TRUE
-	sound_type = 'sound/ambience/antag/monkey.ogg'
+	sound_type = 'sound/effects/antag/monkey.ogg'
 
 /datum/hallucination/fake_sound/weird/colossus
 	sound_type = 'sound/magic/clockwork/invoke_general.ogg'

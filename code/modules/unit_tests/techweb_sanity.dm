@@ -83,7 +83,7 @@
 			var/list/points = TN.required_items_to_unlock[p]
 			if(islist(points))
 				for(var/i in points)
-					if(!isnum_safe(points[i]))
+					if(!IS_FINITE(points[i]))
 						TEST_FAIL("[TN] has invalid required item: [points[i]] is not a valid number.")
 						continue
 					if(!points_types[i])

@@ -1,11 +1,13 @@
 /mob/dead/new_player/authenticated/Login()
 	if(!client)
 		return
+
 	if(!client.logged_in)
 		log_admin_private("/mob/dead/new_player/authenticated/Login() was called on [key_name(src)] without the assigned client being authenticated! Possible auth bypass! Caller: [key_name(usr)]")
 		qdel(client)
 		qdel(src)
 		return
+
 	if(CONFIG_GET(flag/use_exp_tracking))
 		client.set_exp_from_db()
 		if(!client) // client null during sleep
@@ -13,6 +15,7 @@
 		client.set_db_player_flags()
 		if(!client) // client null during sleep
 			return
+
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = TRUE

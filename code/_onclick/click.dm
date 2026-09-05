@@ -482,7 +482,7 @@
 	return
 
 /mob/proc/ShiftMiddleClickOn(atom/A, params)
-	src.pointed(A, params)
+	src._pointed(A, params)
 	return
 
 /atom/proc/CtrlShiftClick(mob/user)

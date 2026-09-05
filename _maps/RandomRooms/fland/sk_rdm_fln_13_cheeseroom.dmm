@@ -63,7 +63,7 @@
 /area/template_noop)
 "z" = (
 /obj/structure/table,
-/obj/item/food/store/cake/cheese,
+/obj/item/food/cake/cheese,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/iron/techmaint,
 /area/template_noop)
@@ -78,7 +78,7 @@
 /area/template_noop)
 "B" = (
 /obj/structure/table,
-/obj/item/food/store/bread/creamcheese,
+/obj/item/food/bread/creamcheese,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light{
 	dir = 4

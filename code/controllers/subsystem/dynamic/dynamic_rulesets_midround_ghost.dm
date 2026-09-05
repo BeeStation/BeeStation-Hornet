@@ -188,6 +188,7 @@
 	antag_datum = /datum/antagonist/wizard
 	points_cost = 50
 	weight = 4
+	minimum_players_required = 20
 
 /datum/dynamic_ruleset/midround/ghost/wizard/get_poll_icon()
 	return /obj/item/clothing/head/wizard
@@ -225,8 +226,8 @@
 	return /obj/machinery/nuclearbomb
 
 /datum/dynamic_ruleset/midround/ghost/nuclear_assault/finish_setup(mob/new_character)
-	new_character.mind.special_role = ROLE_OPERATIVE
-	new_character.mind.set_assigned_role(ROLE_OPERATIVE)
+	new_character.mind.set_assigned_role(SSjob.get_job_type(/datum/job/nuclear_operative))
+	new_character.mind.special_role = ROLE_NUCLEAR_OPERATIVE
 
 	if(has_made_leader)
 		return ..()
@@ -248,7 +249,7 @@
 	severity = DYNAMIC_MIDROUND_HEAVY
 	antag_datum = /datum/antagonist/blob
 	points_cost = 50
-	minimum_players_required = 13
+	minimum_players_required = 20
 	weight = 4
 	use_spawn_locations = FALSE
 
@@ -315,7 +316,7 @@
 	antag_datum = /datum/antagonist/space_dragon
 	points_cost = 40
 	weight = 4
-	minimum_players_required = 10
+	minimum_players_required = 20
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
 	return /mob/living/simple_animal/hostile/space_dragon
@@ -405,7 +406,6 @@
 
 /datum/dynamic_ruleset/midround/ghost/abductors/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.set_assigned_role(ROLE_ABDUCTOR)
 
 	if(!has_made_leader)
 		has_made_leader = TRUE
@@ -436,7 +436,6 @@
 
 /datum/dynamic_ruleset/midround/ghost/lone_abductor/finish_setup(mob/new_character)
 	new_character.mind.special_role = ROLE_ABDUCTOR
-	new_character.mind.set_assigned_role(ROLE_ABDUCTOR)
 
 	team = new
 	new_character.mind.add_antag_datum(antag_datum, team, ruleset = src)
@@ -495,6 +494,7 @@
 	drafted_players_amount = 2
 	points_cost = 40
 	weight = 4
+	minimum_players_required = 10
 
 	var/datum/team/spiders/team
 

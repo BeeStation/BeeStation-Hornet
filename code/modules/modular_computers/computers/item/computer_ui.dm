@@ -27,6 +27,9 @@
 			ui.close()
 		return FALSE
 
+	if(!user.can_read(src, check_for_light = FALSE))
+		return
+
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.
 	// This screen simply lists available programs and user may select them.
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -164,6 +167,12 @@
 	if(.)
 		return
 
+	if(ishuman(usr) && !allow_chunky)
+		var/mob/living/carbon/human/human_user = usr
+		if(human_user.check_chunky_fingers())
+			balloon_alert(human_user, "fingers are too big!")
+			return TRUE
+
 	if(!issilicon(ui.user))
 		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
 	if(device_theme == THEME_THINKTRONIC)
@@ -275,8 +284,7 @@
 			if(!cardholder || !can_save_id)
 				return TRUE
 
-			saved_identification = cardholder.current_identification
-			saved_job = cardholder.current_job
+			imprint_id()
 
 			update_id_display()
 

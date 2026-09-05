@@ -25,9 +25,6 @@
 	var/time_to_screwdrive = 20
 	var/authenticated = FALSE
 
-	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
-	var/broken_overlay_emissive = FALSE
-
 /datum/armor/machinery_computer
 	fire = 40
 	acid = 20
@@ -59,7 +56,6 @@
 		icon_screen = "ratvar[rand(1, 3)]"
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
-		broken_overlay_emissive = TRUE
 		smoothing_groups = null
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		smoothing_flags = NONE
@@ -70,7 +66,6 @@
 		clockwork = FALSE
 		icon_screen = initial(icon_screen)
 		icon_keyboard = initial(icon_keyboard)
-		broken_overlay_emissive = initial(broken_overlay_emissive)
 		smoothing_flags = initial(smoothing_flags)
 		smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
 		canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)

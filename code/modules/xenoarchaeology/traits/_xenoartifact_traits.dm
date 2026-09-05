@@ -62,7 +62,7 @@
 	if(_parent)
 		register_parent(_parent)
 
-/datum/xenoartifact_trait/Destroy(force, ...)
+/datum/xenoartifact_trait/Destroy(force)
 	. = ..()
 	dump_targets()
 	remove_parent(component_parent, FALSE)

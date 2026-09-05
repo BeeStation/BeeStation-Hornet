@@ -201,13 +201,12 @@
 
 	switch(stage)
 		if(1)
-			if(ishuman(affected_mob) && affected_mob.dna)
-				if(affected_mob.dna.species.id == "slime" || affected_mob.dna.species.id == "stargazer" || affected_mob.dna.species.id == "lum")
-					stage = 5
+			if(isjellyperson(affected_mob))
+				stage = 5
 		if(3)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
-				if(human.dna.species.id != "slime" && affected_mob.dna.species.id != "stargazer" && affected_mob.dna.species.id != "lum")
+				if(!ismonkey(human) && !isjellyperson(human))
 					human.set_species(/datum/species/oozeling/slime)
 
 /datum/disease/transformation/corgi
@@ -252,7 +251,7 @@
 	stage4	= list(span_danger("You're ravenous."))
 	stage5	= list(span_danger("You have become a morph."))
 	new_form = /mob/living/simple_animal/hostile/morph
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD //magic!
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD //magic!
 
 /datum/disease/transformation/gondola
 	name = "Gondola Transformation"
@@ -317,7 +316,7 @@
 	stage3	= list(span_danger("You feel the need to cough out something fluffy."), span_danger("You feel the need to scratch your neck with your foot."), span_danger("You think you should adopt a cat."))
 	stage4	= list(span_danger("You start thinking that felinids are not that bad after all!"), span_danger("You feel scared at the thought of eating chocolate."))
 	stage5	= list(span_danger("You have become a catperson."))
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD //Nothing evades the curse!
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD //Nothing evades the curse!
 	new_form = /mob/living/carbon/human/species/felinid
 
 /datum/disease/transformation/felinid/stage_act()
@@ -418,7 +417,7 @@
 	stage4	= list(span_userdanger("The planet's core calls to you... Lavaland is your home."), span_danger("A thousand voices beckon you to join them."))
 	stage5	= list(span_userdanger("You have become one of Legion. You are one with the Necropolis now, and have no other loyalties. Serve well."))
 	new_form = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD
 
 /datum/disease/transformation/psyphoza
 	name = "Acute Fungal Infection"
@@ -438,5 +437,5 @@
 	stage3	= list(span_danger("Your vision dims briefly."))
 	stage4	= list(span_danger("You sense something you can't see."))
 	stage5	= list(span_danger("Your head sprouts a cap, and your eyes rupture."))
-	infectable_biotypes = MOB_ORGANIC | MOB_INORGANIC |  MOB_UNDEAD
+	infectable_biotypes = MOB_ORGANIC | MOB_MINERAL |  MOB_UNDEAD
 	new_form = /mob/living/carbon/human/species/psyphoza

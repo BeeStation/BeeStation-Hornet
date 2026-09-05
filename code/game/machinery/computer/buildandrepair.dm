@@ -5,7 +5,7 @@
 
 /obj/structure/frame/computer/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/structure/frame/computer/add_context_self(datum/screentip_context/context, mob/user)
 	switch(state)
@@ -184,9 +184,6 @@
 				return
 	if(user.combat_mode)
 		return ..()
-
-/obj/structure/frame/computer/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/frame/computer/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

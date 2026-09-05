@@ -13,7 +13,7 @@
 
 	while(A.loc) // Check to see if the brainmob is on our person
 		A = A.loc
-		for(var/datum/mind/M as() in get_owners())
+		for(var/datum/mind/M as anything in get_owners())
 			if(M.current && M.current.stat != DEAD && A == M.current)
 				return TRUE
 	return ..()
@@ -21,7 +21,7 @@
 /datum/objective/debrain/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Steal the brain of [target.name], the [!target_special_role ? target.assigned_role : target.special_role]."
+		explanation_text = "Steal the brain of [target.name], the [!target_special_role ? target.assigned_role.title : target.special_role]."
 	else
 		explanation_text = "Free Objective"
 

@@ -1301,7 +1301,7 @@
 			var/list/data = list(
 				name = O,
 				price = item_price,
-				img = base64,
+				image = base64,
 				amount = vending_machine_input[O],
 				colorable = FALSE,
 				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"

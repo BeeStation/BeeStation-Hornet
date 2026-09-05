@@ -11,14 +11,14 @@
 /datum/objective/mutiny/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate or exile [target.name], the [!target_special_role ? target.assigned_role : target.special_role]."
+		explanation_text = "Assassinate or exile [target.name], the [!target_special_role ? target.assigned_role.title : target.special_role]."
 	else
 		explanation_text = "Free Objective"
 
 /datum/objective/mutiny/on_target_cryo()
 	set_target(null)
 	team.objectives -= src
-	for(var/datum/mind/M as() in team.members)
+	for(var/datum/mind/M as anything in team.members)
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
 		if(R)
 			R.objectives -= src

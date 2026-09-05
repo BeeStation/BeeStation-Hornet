@@ -17,5 +17,7 @@
 #define BLOOD_STATE_XENO "xeno"
 /// Black robot oil
 #define BLOOD_STATE_OIL "oil"
+// Zesty ethereal blood
+#define COLOR_ETHEREAL_BLOOD "#7fff7f"
 /// No blood is present
 #define BLOOD_STATE_NOT_BLOODY "no blood whatsoever"

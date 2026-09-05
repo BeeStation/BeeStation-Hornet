@@ -9,10 +9,7 @@
 #define STATION_DESTROYED_NUKE 4
 /// The emergency shuttle arrived and evacuated the crew
 #define STATION_EVACUATED 5
-/// The gangs on the station were thwarted
-#define GANG_LOSS 6
-/// The gangs on the station still exist
-#define GANG_TAKEOVER 7
+
 /// The blob has reached critical mass and overtaken the station
 #define BLOB_WIN 8
 /// The station's nuke was detonated destroying the blob

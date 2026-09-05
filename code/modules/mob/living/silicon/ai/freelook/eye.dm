@@ -68,29 +68,30 @@
 // Use this when setting the ai_eye's location.
 // It will also stream the chunk that the new loc is in.
 
-/mob/camera/ai_eye/proc/setLoc(destination, force_update = FALSE)
-	if(ai)
-		if(!isturf(ai.loc))
-			return
-		destination = get_turf(destination)
-		if(!force_update && (destination == get_turf(src)) )
-			return //we are already here!
-		if (destination)
-			abstract_move(destination)
-		else
-			moveToNullspace()
-		if(use_static)
-			ai.camera_visibility(src)
-		if(!ai.multicam_on)
-			ai.set_mob_eye_to(src)
-		update_ai_detect_hud()
-		//Holopad
-		if(istype(ai.current_holopad, /obj/machinery/holopad))
-			ai.current_holopad.move_hologram(ai, destination)
-		if(ai.camera_light_on)
-			ai.light_cameras()
-		if(ai.master_multicam)
-			ai.master_multicam.refresh_view()
+/mob/camera/ai_eye/proc/setLoc(turf/destination, force_update = FALSE)
+	if(!ai)
+		return
+	if(!isturf(ai.loc))
+		return
+	destination = get_turf(destination)
+	if(!force_update && (destination == get_turf(src)) )
+		return //we are already here!
+	if (destination)
+		abstract_move(destination)
+	else
+		moveToNullspace()
+	if(use_static)
+		ai.camera_visibility(src)
+	if(!ai.multicam_on)
+		ai.set_mob_eye_to(src)
+	update_ai_detect_hud()
+	//Holopad
+	if(istype(ai.current_holopad))
+		ai.current_holopad.move_hologram(ai, destination)
+	if(ai.camera_light_on)
+		ai.light_cameras()
+	if(ai.master_multicam)
+		ai.master_multicam.refresh_view()
 
 //it uses setLoc not forceMove, talks to the sillycone and not the camera mob
 /mob/camera/ai_eye/zMove(dir, feedback = FALSE, feedback_to = ai)
@@ -170,7 +171,7 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
-	if(istype(current_holopad, /obj/machinery/holopad))
+	if(istype(current_holopad))
 		current_holopad.clear_holo(src)
 	else
 		current_holopad = null
