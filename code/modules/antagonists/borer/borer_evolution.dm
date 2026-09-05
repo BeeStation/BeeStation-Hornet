@@ -94,6 +94,18 @@
 	borer = null
 	return ..()
 
+/datum/action/innate/borer_core/hide
+	name = "Hide"
+	desc = "Scurry beneath tables and other low objects."
+	button_icon = 'icons/hud/actions/actions_xeno.dmi'
+	button_icon_state = "alien_hide"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/borer_core/hide/on_activate()
+	if(!borer || borer.host || borer.cyst || borer.severed_limb)
+		return FALSE
+	return borer.set_hiding(!borer.hiding)
+
 /datum/action/innate/borer_secrete
 	parent_type = /datum/action/innate/borer_core
 	name = "Secrete Chemicals"

@@ -144,6 +144,7 @@
 	var/datum/borer_evolution_menu/evolution_menu
 	var/datum/action/innate/borer_evolution/evolution_action
 	var/datum/action/innate/borer_infest/infest_action
+	var/datum/action/innate/borer_core/hide/hide_action
 	var/datum/action/innate/borer_secrete/secrete_action
 	var/datum/action/innate/borer_leave/leave_action
 	var/datum/action/innate/borer_reproduce/reproduce_action
@@ -153,6 +154,8 @@
 	var/controlling_host = FALSE
 	/// Prevent repeated action refreshes while a dead host remains dead.
 	var/host_actions_suspended = FALSE
+	/// Whether this detached borer is currently rendered beneath low objects.
+	var/hiding = FALSE
 
 /mob/living/simple_animal/borer/Initialize(mapload)
 	. = ..()
@@ -207,6 +210,7 @@
 	evolution_menu = new(src)
 	evolution_action = new(evolution_menu)
 	infest_action = new
+	hide_action = new(src)
 	secrete_action = new(src)
 	leave_action = new(src)
 	reproduce_action = new(src)
@@ -254,6 +258,7 @@
 	QDEL_NULL(reproduce_action)
 	QDEL_NULL(leave_action)
 	QDEL_NULL(secrete_action)
+	QDEL_NULL(hide_action)
 	QDEL_NULL(infest_action)
 	QDEL_NULL(evolution_action)
 	QDEL_NULL(evolution_menu)
@@ -264,10 +269,25 @@
 	return ..()
 
 /mob/living/simple_animal/borer/death(gibbed)
+	set_hiding(FALSE, TRUE)
 	if(controlling_host)
 		release_host_control()
 	deactivate_evolutions(host)
 	return ..()
+
+/// Moves a detached borer beneath tables and other low objects, or restores
+/// its normal rendering layer. Non-detached states clear this silently.
+/mob/living/simple_animal/borer/proc/set_hiding(new_hiding, silent = FALSE)
+	new_hiding = !!new_hiding
+	if(new_hiding && (host || cyst || severed_limb || stat != CONSCIOUS))
+		return FALSE
+	if(hiding == new_hiding)
+		return TRUE
+	hiding = new_hiding
+	layer = hiding ? ABOVE_NORMAL_TURF_LAYER : initial(layer)
+	if(!silent)
+		to_chat(src, span_notice(hiding ? "You are now hiding." : "You have stopped hiding."))
+	return TRUE
 
 /mob/living/simple_animal/borer/proc/bind_to_host(mob/living/carbon/new_host, obj/item/organ/borer_cyst/new_cyst)
 	if(!ishuman(new_host))
@@ -450,9 +470,13 @@
 /// Grants only the controls which make sense in the borer's current physical
 /// state. Active evolution actions use the same refresh point.
 /mob/living/simple_animal/borer/proc/update_borer_actions()
+	var/fully_detached = !host && !cyst && !severed_limb
+	if(!fully_detached && hiding)
+		set_hiding(FALSE, TRUE)
 	var/list/datum/action/core_actions = list(
 		evolution_action,
 		infest_action,
+		hide_action,
 		secrete_action,
 		leave_action,
 		reproduce_action,
@@ -478,6 +502,7 @@
 			leave_action.Grant(src)
 		else
 			infest_action.Grant(src)
+			hide_action.Grant(src)
 			reproduce_action.Grant(src)
 
 	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
