@@ -279,6 +279,8 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
 	"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
 	"[ACCESS_AUX_BASE]" = "Auxiliary Base",
+
+	// non-standard access
 	"[ACCESS_CENT_GENERAL]" = "Code Grey (General)",
 	"[ACCESS_CENT_THUNDER]" = "Code Yellow (Thunder)",
 	"[ACCESS_CENT_STORAGE]" = "Code Orange (Storage)",
@@ -293,7 +295,12 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
 	"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",
 	"[ACCESS_BLOODCULT]" = "Bloodcult",
-	"[ACCESS_CLOCKCULT]" = "Clockcult"))
+	"[ACCESS_CLOCKCULT]" = "Clockcult",
+
+	// Note:
+	// If you are looking for the access name for map exclusive access (i.e. ACCESS_META_VACANT ),
+	// you need to check /datum/map_exclusive_access and var/access_name
+	))
 
 /proc/get_access_desc(access_code)
 	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
