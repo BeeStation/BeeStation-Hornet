@@ -8,6 +8,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 	uses_integrity = TRUE
+	tacmap_color = MINIMAP_COLOR_FLOOR
 
 	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
@@ -16,6 +17,8 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	/// Turf bitflags, see code/__DEFINES/flags.dm
 	var/turf_flags = NONE
+	/// If TRUE this turf is left blank on rendered minimaps.
+	var/skip_minimap_rendering = FALSE
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
 	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.

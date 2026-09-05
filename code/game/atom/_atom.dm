@@ -34,6 +34,10 @@
 	///Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
+	/// Colour this atom is drawn as on a rendered minimap, if it's drawn at all.
+	/// See code/modules/minimap/minimap.dm for which atoms get checked.
+	var/tacmap_color = null
+
 	///Cooldown tick timer for buckle messages
 	var/buckle_message_cooldown = 0
 	///Last fingerprints to touch this atom
