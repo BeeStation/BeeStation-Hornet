@@ -1076,7 +1076,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 	cloth_golem = null
 	qdel(src)
 
-/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/structure/cloth_pile/attackby(obj/item/P, mob/living/carbon/human/user, list/modifiers)
 	. = ..()
 
 	if(resistance_flags & ON_FIRE)
@@ -1289,10 +1289,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/golem/durathread,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/golem/durathread
 	)
-
-/datum/species/golem/durathread/spec_unarmedattack(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	. = ..()
-	target.apply_status_effect(/datum/status_effect/strandling)
 
 /datum/species/golem/bone
 	name = "Bone Golem"

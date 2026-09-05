@@ -209,7 +209,7 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
-/obj/machinery/power/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/power/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = attacking_item
 		var/turf/user_turf = user.loc

@@ -35,7 +35,7 @@
 	qdel(src)
 	user.put_in_hands(internal_paper_tmp)
 
-/obj/item/origami/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/item/origami/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, list/modifiers)
 	if(burn_paper_product_attackby_check(P, user))
 		return
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))

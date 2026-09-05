@@ -70,7 +70,7 @@
 	anchored = TRUE
 	density = TRUE
 
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, list/modifiers)
 	if(get_dist(src,user)<2)
 		if(user.transferItemToLoc(W, drop_location()))
 			visible_message(span_warning(" [user] dunks [W] into \the [src]!"))
@@ -131,7 +131,7 @@
 	to_chat(user, span_warning("You are too primitive to use this device!"))
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/readybutton/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	to_chat(user, span_warning("The device is a solid button, there's nothing you can do with it!"))
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
@@ -185,7 +185,7 @@
 
 /obj/machinery/conveyor/holodeck
 
-/obj/machinery/conveyor/holodeck/attackby(obj/item/I, mob/user, params)
+/obj/machinery/conveyor/holodeck/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!user.transferItemToLoc(I, drop_location()))
 		return ..()
 
@@ -208,7 +208,7 @@
 /obj/vehicle/ridden/scooter/skateboard/pro/holodeck/pick_up_board() //picking up normal skateboards spawned in the holodeck gets rid of the holo flag, now you cant pick them up.
 	return
 
-/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		return
 	else

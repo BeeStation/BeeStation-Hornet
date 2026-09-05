@@ -8,7 +8,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	item_flags = NOBLUDGEON | ISWEAPON
-	reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -26,67 +26,90 @@
 	possible_transfer_amounts = list(5,10)
 	var/spray_sound = 'sound/effects/spray2.ogg'
 
-/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
-	. = ..()
-	if(istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
-		return
+/obj/item/reagent_containers/spray/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	// This is a hack to make spray bottles fillable from / transferable to these sources
+	// However it can be completely removed when these objects are updated to use the new interaction system
+	// (because the desired effect will just work out of the box)
+	if(istype(interacting_with, /obj/structure/sink) || istype(interacting_with, /obj/structure/janitorialcart) || istype(interacting_with, /obj/machinery/hydroponics))
+		return NONE
+	// Always skip on storage and tables
+	if(HAS_TRAIT(interacting_with, TRAIT_COMBAT_MODE_SKIP_INTERACTION))
+		return NONE
 
-	if((A.is_drainable() && !A.is_refillable()) && get_dist(src,A) <= 1 && can_fill_from_container)
-		if(!A.reagents.total_volume)
-			to_chat(user, span_warning("[A] is empty."))
-			return
+	return try_spray(interacting_with, user) ? ITEM_INTERACT_SUCCESS : ITEM_INTERACT_BLOCKING
+
+/obj/item/reagent_containers/spray/proc/try_spray(atom/target, mob/user)
+	var/adjacent = user.Adjacent(target)
+	if((target.is_drainable() && !target.is_refillable()) && adjacent && can_fill_from_container)
+		if(!target.reagents.total_volume)
+			to_chat(user, span_warning("[target] is empty."))
+			return FALSE
 
 		if(reagents.holder_full())
 			to_chat(user, span_warning("[src] is full."))
-			return
+			return FALSE
 
-		var/trans = A.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
-		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [A]."))
-		return
+		var/trans = target.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
+		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [target]."))
+		return FALSE
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
 		to_chat(user, span_warning("Not enough left!"))
-		return
+		return FALSE
 
-	spray(A, user)
+	if(adjacent && (target.density || ismob(target)))
+		// If we're spraying an adjacent mob or a dense object, we start the spray on ITS tile rather than OURs
+		// This is so we can use a spray bottle to clean stuff like windows without getting blocked by passflags
+		spray(target, user, get_turf(target))
+	else
+		spray(target, user)
 
-	playsound(src.loc, spray_sound, 50, 1, -6)
-	user.changeNext_move(CLICK_CD_RANGE*2)
-	user.newtonian_move(get_dir(A, user))
-
-	var/turf/T = get_turf(src)
-	var/contained = reagents.log_list()
-
-	log_combat(user, T, "sprayed", src, addition="which had [contained]")
-	log_game("[key_name(user)] fired [contained] from \a [src] at [AREACOORD(T)].") //copypasta falling out of my pockets
+	playsound(src, spray_sound, 50, TRUE, -6)
+	user.changeNext_move(CLICK_CD_RANGE * 2)
+	user.newtonian_move(get_angle(target, user))
 	return TRUE
 
+/// Handles creating a chem puff that travels towards the target atom, exposing reagents to everything it hits on the way.
+/obj/item/reagent_containers/spray/proc/spray(atom/target, mob/user, turf/start_turf = get_turf(src))
+	var/range = max(min(current_range, get_dist(src, target)), 1)
 
-/obj/item/reagent_containers/spray/proc/spray(atom/A, mob/user)
-	var/range = max(min(current_range, get_dist(src, A)), 1)
+	var/obj/effect/decal/chempuff/reagent_puff = new(start_turf)
 
-	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
-
-	D.create_reagents(amount_per_transfer_from_this)
+	reagent_puff.create_reagents(amount_per_transfer_from_this)
 	var/puff_reagent_left = range //how many turf, mob or dense objet we can react with before we consider the chem puff consumed
 	if(stream_mode)
-		reagents.trans_to(D, amount_per_transfer_from_this)
+		reagents.trans_to(reagent_puff, amount_per_transfer_from_this)
 		puff_reagent_left = 1
 	else
-		reagents.trans_to(D, amount_per_transfer_from_this, 1/range)
-	D.color = mix_color_from_reagents(D.reagents.reagent_list)
+		reagents.trans_to(reagent_puff, amount_per_transfer_from_this, 1/range)
+	reagent_puff.color = mix_color_from_reagents(reagent_puff.reagents.reagent_list)
 	var/wait_step = max(round(2+3/range), 2)
 
-	do_spray(A, wait_step, D, range, puff_reagent_left, user)
+	var/puff_reagent_string = reagent_puff.reagents.get_reagent_log_string()
+	log_combat(user, start_turf, "fired a puff of reagents from", src, addition="with a range of \[[range]\], containing [puff_reagent_string].")
+	user.log_message("fired a puff of reagents from \a [src] with a range of \[[range]\] and containing [puff_reagent_string].", LOG_ATTACK)
 
-/obj/item/reagent_containers/spray/proc/do_spray(atom/A, wait_step, obj/effect/decal/chempuff/D, range, puff_reagent_left, mob/user)
-	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(D, A, wait_step, timeout = range * wait_step, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	D.user = user
-	D.sprayer = src
-	D.lifetime = puff_reagent_left
-	D.stream = stream_mode
-	D.RegisterSignal(our_loop, COMSIG_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
-	D.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
+	// do_spray includes a series of step_towards and sleeps. As a result, it will handle deletion of the chempuff.
+	do_spray(target, wait_step, reagent_puff, range, puff_reagent_left, user)
+
+/// Handles exposing atoms to the reagents contained in a spray's chempuff. Deletes the chempuff when it's completed.
+/obj/item/reagent_containers/spray/proc/do_spray(atom/target, wait_step, obj/effect/decal/chempuff/reagent_puff, range, puff_reagent_left, mob/user)
+	reagent_puff.user = user
+	reagent_puff.sprayer = src
+	reagent_puff.lifetime = puff_reagent_left
+	reagent_puff.stream = stream_mode
+
+	var/turf/target_turf = get_turf(target)
+	var/turf/start_turf = get_turf(reagent_puff)
+	if(target_turf == start_turf) // Don't need to bother movelooping if we don't move
+		reagent_puff.setDir(user.dir)
+		reagent_puff.reagents?.expose(target_turf, VAPOR)
+		reagent_puff.end_life()
+		return
+
+	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(reagent_puff, target, wait_step, timeout = range * wait_step, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	reagent_puff.RegisterSignal(our_loop, COMSIG_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
+	reagent_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
 	. = ..()
@@ -105,13 +128,6 @@
 	else
 		current_range = spray_range
 	to_chat(user, span_notice("You switch the nozzle setting to [stream_mode ? "\"stream\"":"\"spray\""]. You'll now use [amount_per_transfer_from_this] units per use."))
-
-/obj/item/reagent_containers/spray/attackby(obj/item/I, mob/user, params)
-	var/hotness = I.get_temperature()
-	if(hotness && reagents)
-		reagents.expose_temperature(hotness)
-		to_chat(user, span_notice("You heat [name] with [I]!"))
-	return ..()
 
 /obj/item/reagent_containers/spray/verb/empty()
 	set name = "Empty Spray Bottle"
@@ -196,7 +212,7 @@
 	list_reagents = list(/datum/reagent/lube/superlube = 30)
 
 /obj/item/reagent_containers/spray/waterflower/cyborg
-	reagent_flags = NONE
+	initial_reagent_flags = NONE
 	volume = 100
 	list_reagents = list(/datum/reagent/water = 100)
 	var/generate_amount = 5
@@ -282,7 +298,7 @@
 	inhand_icon_state = "chemsprayer_janitor"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	reagent_flags = NONE
+	initial_reagent_flags = NONE
 	list_reagents = list(/datum/reagent/space_cleaner = 1000)
 	volume = 1000
 	amount_per_transfer_from_this = 5
@@ -322,7 +338,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	reagent_flags = NONE
+	initial_reagent_flags = NONE
 	list_reagents = list(/datum/reagent/glitter/confetti = 15)
 	volume = 15
 	amount_per_transfer_from_this = 5

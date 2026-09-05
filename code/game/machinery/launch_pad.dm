@@ -62,7 +62,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 		return COMPONENT_BUFFER_RECEIVED
 	return NONE
 
-/obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
+/obj/machinery/launchpad/attackby(obj/item/I, mob/user, list/modifiers)
 	if(stationary)
 		if(default_deconstruction_screwdriver(user, "lpad-idle-o", "lpad-idle", I))
 			update_indicator()
@@ -275,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 			closed = TRUE
 			update_indicator()
 
-/obj/machinery/launchpad/briefcase/attackby(obj/item/I, mob/user, params)
+/obj/machinery/launchpad/briefcase/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/launchpad_remote))
 		var/obj/item/launchpad_remote/L = I
 		if(L.pad == WEAKREF(src)) //do not attempt to link when already linked
@@ -319,7 +319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 		user.transferItemToLoc(src, pad, TRUE)
 		atom_storage.close_all()
 
-/obj/item/storage/briefcase/launchpad/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/briefcase/launchpad/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/launchpad_remote))
 		var/obj/item/launchpad_remote/L = I
 		if(L.pad == WEAKREF(src.pad)) //do not attempt to link when already linked

@@ -99,7 +99,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 		proxy_module = null
 
 
-/obj/structure/camera_assembly/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/camera_assembly/attackby(obj/item/W, mob/living/user, list/modifiers)
 	switch(state)
 		if(STATE_WRENCHED)
 			if(W.tool_behaviour == TOOL_WELDER)

@@ -38,7 +38,7 @@
 ///Checks whether or not we should clean.
 /obj/item/mop/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
 	if(clean_blacklist[atom_to_clean.type])
-		return CLEAN_BLOCKED
+		return CLEAN_BLOCKED|CLEAN_DONT_BLOCK_INTERACTION
 	if(reagents.total_volume < 0.1)
 		cleaner.balloon_alert(cleaner, "mop is dry!")
 		return CLEAN_BLOCKED

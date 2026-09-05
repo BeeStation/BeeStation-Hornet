@@ -30,13 +30,13 @@
 		else
 			to_chat(user, "Nothing happens. You feel that this is a bad sign.")
 
-/obj/structure/signpost/attackby(obj/item/W, mob/user, params)
+/obj/structure/signpost/attackby(obj/item/W, mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/signpost/attack_paw(mob/user)
 	return interact(user)
 
-/obj/structure/signpost/attack_hulk(mob/user, does_attack_animation = 0)
+/obj/structure/signpost/attack_hulk(mob/user)
 	return interact(user)
 
 /obj/structure/signpost/attack_larva(mob/user, list/modifiers)

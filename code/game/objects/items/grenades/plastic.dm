@@ -36,7 +36,7 @@
 	target = null
 	..()
 
-/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/A = I
 		if(!user.transferItemToLoc(I, src))
@@ -212,7 +212,7 @@
 	prime()
 	user.gib(1, 1)
 
-/obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open_panel = !open_panel
 		to_chat(user, span_notice("You [open_panel ? "open" : "close"] the wire panel."))

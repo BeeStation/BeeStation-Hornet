@@ -193,7 +193,7 @@
 	check_friendly_fire = FALSE
 
 /// Handles installing new tools/upgrades and interacting with the minebot
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/living/user, params)
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
 	if(user.combat_mode)
@@ -217,7 +217,7 @@
 	if(istype(item, /obj/item/borg/upgrade/modkit))
 		if(!do_after(user, 20, src))
 			return TRUE
-		item.melee_attack_chain(user, stored_pka, params) // This handles any install messages
+		item.melee_attack_chain(user, stored_pka, modifiers) // This handles any install messages
 		return TRUE
 	if(item.tool_behaviour == TOOL_CROWBAR)
 		uninstall_upgrades()
@@ -677,7 +677,7 @@
 	return list("Stored Medipen", "None")
 
 // Handles manually loading/unloading medipens.
-/obj/item/minebot_upgrade/medical/attackby(obj/item/item, mob/living/user, params)
+/obj/item/minebot_upgrade/medical/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/reagent_containers/hypospray/medipen))
 		if(stored_medipen)
 			to_chat(user, span_notice("You replace [stored_medipen] with [item]."))

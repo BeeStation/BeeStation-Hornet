@@ -114,8 +114,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/tile/grass
 
-/obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
-	if((W.tool_behaviour == TOOL_SHOVEL) && params)
+/obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, list/modifiers)
+	if(W.tool_behaviour == TOOL_SHOVEL)
 		to_chat(user, span_notice("You start digging up [src]."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		if(do_after(user, 2 * get_amount(), target = src))

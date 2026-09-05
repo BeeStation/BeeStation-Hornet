@@ -9,7 +9,7 @@
 /* 1.  CLAIMING THE DOOR                                                      */
 /* -------------------------------------------------------------------------- */
 
-/obj/machinery/door/airlock/personal/attackby(obj/item/W, mob/user, params)
+/obj/machinery/door/airlock/personal/attackby(obj/item/W, mob/user, list/modifiers)
 	// Only ID cards interest us; let the parent handle the rest.
 	var/obj/item/card/id/I = W.GetID()
 	if(!istype(I) || !I.electric) // We're ignoring paper slips for obvious reasons

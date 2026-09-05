@@ -38,7 +38,7 @@
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+/obj/structure/lattice/attackby(obj/item/C, mob/user, list/modifiers)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	if(C.tool_behaviour == TOOL_WIRECUTTER)

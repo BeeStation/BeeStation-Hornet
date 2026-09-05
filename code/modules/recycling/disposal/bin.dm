@@ -44,9 +44,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	trunk_check()
 
 	air_contents = new /datum/gas_mixture()
-	//gas.volume = 1.05 * CELLSTANDARD
 	update_appearance()
-
+	ADD_TRAIT(src, TRAIT_COMBAT_MODE_SKIP_INTERACTION, INNATE_TRAIT)
 	return INITIALIZE_HINT_LATELOAD //we need turfs to have air
 
 /obj/machinery/disposal/proc/trunk_check()
@@ -64,6 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	eject()
 	if(trunk)
 		trunk.linked = null
+		trunk = null
 	return ..()
 
 /obj/machinery/disposal/return_air()
@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	air_contents.merge(removed)
 	trunk_check()
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 	if(!pressure_charging && !full_pressure && !flush)
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -263,7 +263,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	icon_state = "disposal"
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/storage/bag/trash))	//Not doing component overrides because this is a specific type.
 		var/obj/item/storage/bag/trash/bag = I
 		to_chat(user, span_warning("You empty the bag."))

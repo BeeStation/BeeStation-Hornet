@@ -322,7 +322,7 @@
 			log_message("Deactivated.", LOG_MECHA)
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon, mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon, mob/user, list/modifiers)
 	. = ..()
 	load_fuel(weapon, user)
 
@@ -342,7 +342,7 @@
 		to_chat(user, "[icon2html(src, user)][span_warning("[fuel] traces in target minimal! [P] cannot be used as fuel.")]")
 		return
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, list/modifiers)
 	load_fuel(weapon)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process(delta_time)

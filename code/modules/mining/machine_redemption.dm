@@ -170,7 +170,7 @@
 	else
 		unregister_input_turf() // someone just un-wrenched us, unregister the turf
 
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_unfasten_wrench(user, W))
 		return
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))

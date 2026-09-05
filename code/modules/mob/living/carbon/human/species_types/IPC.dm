@@ -141,7 +141,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "wire1"
 
-/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	if((!istype(target, /obj/machinery/power/apc) && !isethereal(target)) || !ishuman(user) || !proximity_flag)
 		return ..()
 	user.changeNext_move(CLICK_CD_MELEE)

@@ -288,7 +288,7 @@
 	rune_in_use = FALSE
 	can_be_scribed = FALSE
 
-/obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
+/obj/effect/rune/cluwne/attackby(obj/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src))
