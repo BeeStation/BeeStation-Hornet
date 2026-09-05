@@ -111,3 +111,52 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
+
+/datum/techweb_node/upgrades_basic
+	id = TECHWEB_NODE_UPGRADE_BASIC
+	tech_tier = 2
+	display_name = "Basic Synth Upgrades"
+	description = "Devices that interface with energy-based humaniods, namely IPCs."
+	prereq_ids = list(TECHWEB_NODE_ROBOTICS)
+	design_ids = list(
+		"emp_shield",
+		"supply_pack",
+		"part_fab",
+		"tool_speedifier",
+		"fuel_generator",
+		"cooling_system",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
+
+/datum/techweb_node/upgrades_advanced
+	id = TECHWEB_NODE_UPGRADE_ADVANCED
+	tech_tier = 4
+	display_name = "Advanced Synth Upgrades"
+	description = "Advanced devices that interface with energy-based humaniods, namely IPCs."
+	prereq_ids = list(TECHWEB_NODE_UPGRADE_BASIC)
+	design_ids = list(
+		"repair_nexus",
+		"medbeam",
+		"overclocked_servos",
+		"ipc_generator",
+		"vacuum_shielding",
+		"rad_shielding",
+		"las_armor",
+		"ken_armor",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
+
+/datum/techweb_node/upgrades_illegal
+	id = TECHWEB_NODE_UPGRADE_ILLEGAL
+	tech_tier = 5
+	display_name = "Illegal Synth Upgrades"
+	description = "Illegal devices that interface with energy-based humaniods, namely IPCs."
+	prereq_ids = list(TECHWEB_NODE_UPGRADE_ADVANCED, TECHWEB_NODE_SYNDICATE_BASIC)
+	design_ids = list(
+		"leap_legs",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_3_POINTS)
+	hidden = TRUE
+	unhide_from_prereqs = TRUE
