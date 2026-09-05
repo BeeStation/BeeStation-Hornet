@@ -77,14 +77,14 @@
 		// 	Even if the accesses are the same, the access names should be named differently.
 		// 	For example, Meta Commissary is named "Commissary (Bridge)"
 		//				 Box Commissary is named "Commissary (Cargo)"
-		//	Psychotherapy doesn't need to have different names, so it's in Common[10000] group
+		//	Psychotherapy room doesn't need to have different names, so it's in Common[10000] group
 	// * Sub group codes syntax:
 		// 00 : Vacant office
 		// 10 : Commissary
 		// 20 : Extra special room(i.e. Meta exhibit room)
 
 /***** Common: 10000    *****/
-#define ACCESS_ALLMAP_THERAPY_DEN 10000 // Psychiatrist room
+#define ACCESS_ALLMAP_PSYCHIATRIC_SUITE 10000 // Psychiatrist room
 
 /***** Box :  11000    *****/
 #define ACCESS_BOX_VACANT 11000 // at Arrival

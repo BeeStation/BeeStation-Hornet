@@ -80,10 +80,11 @@
 	var/grant_to_department_security_officer = FALSE
 
 // a simple sample for Psychiatrist's room
-/datum/map_exclusive_access/therapy_den
-	access_code = ACCESS_ALLMAP_THERAPY_DEN
-	access_name = "Therapy Den"
-	department_codes = DEPT_NAME_MEDICAL
+/datum/map_exclusive_access/psychiatric_suite
+	access_code = ACCESS_ALLMAP_PSYCHIATRIC_SUITE // Psychiatrist room
+
+	access_name = "Psychiatric Suite"
+	department_codes = DEPARTMENT_NAME_MEDICAL
 	jobs_for_base_access  = list(JOB_NAME_PSYCHIATRIST, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR)
 	jobs_for_extra_access = list(JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
 	grant_to_department_security_officer = FALSE // Human right, Officer!!!
@@ -112,25 +113,25 @@
 
 		// Giving access to security officers
 		if(grant_to_department_security_officer)
-			var/datum/job/security_officer/security_officer = SSjob.GetJob(JOB_NAME_SECURITYOFFICER)
+			var/datum/job/security_officer/security_officer = SSjob.get_job(JOB_NAME_SECURITYOFFICER)
 			switch(each_dept_code)
-				if(DEPT_NAME_CARGO)
+				if(SEC_DEPT_SUPPLY)
 					security_officer.dept_access_supply |= access_code
-				if(DEPT_NAME_MEDICAL)
+				if(SEC_DEPT_MEDICAL)
 					security_officer.dept_access_medical |= access_code
-				if(DEPT_NAME_ENGINEERING)
+				if(SEC_DEPT_ENGINEERING)
 					security_officer.dept_access_science |= access_code
-				if(DEPT_NAME_SCIENCE)
+				if(SEC_DEPT_SCIENCE)
 					security_officer.dept_access_engineering |= access_code
-				if(DEPT_NAME_SERVICE, DEPT_NAME_CIVILIAN)
-					pass() // we do not have this yet
+				if(SEC_DEPT_NONE)
+					pass()
 
 	// Managing job access by map adjustment is cleaner more than doing that in individual jobs
 	// jobs_for_base_access part
 	if(istext(jobs_for_base_access))
 		jobs_for_base_access = list(jobs_for_base_access)
 	for(var/each_job_name in jobs_for_base_access)
-		var/datum/job/job = SSjob.GetJob(each_job_name)
+		var/datum/job/job = SSjob.get_job(each_job_name)
 		if(!job)
 			stack_trace("Failed to adjust access for jobs: [each_job_name]")
 			continue
@@ -140,7 +141,7 @@
 	if(istext(jobs_for_extra_access))
 		jobs_for_extra_access = list(jobs_for_extra_access)
 	for(var/each_job_name in jobs_for_extra_access)
-		var/datum/job/job = SSjob.GetJob(each_job_name)
+		var/datum/job/job = SSjob.get_job(each_job_name)
 		if(!job)
 			stack_trace("Failed to adjust access for jobs: [each_job_name]")
 			continue
