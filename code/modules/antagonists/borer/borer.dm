@@ -27,17 +27,53 @@
 	banning_key = ROLE_BORER
 	required_living_playtime = 4
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	/// The borer player's mind may temporarily inhabit a host, so round-end
+	/// reporting must retain a stable reference to the physical parasite.
+	var/datum/weakref/borer_ref
+	var/borer_name = "cortical borer"
 
 /datum/antagonist/borer/on_gain()
+	var/mob/living/simple_animal/borer/borer = owner.current
+	if(istype(borer))
+		borer_ref = WEAKREF(borer)
+		borer_name = borer.real_name
 	if(give_objectives)
 		forge_objectives()
 	return ..()
 
 /datum/antagonist/borer/forge_objectives()
 	var/datum/objective/lay_borer_egg/egg_objective = new()
-	egg_objective.borer_ref = WEAKREF(owner.current)
+	egg_objective.borer_ref = borer_ref
 	add_objective(egg_objective)
-	add_objective(new /datum/objective/survive())
+	var/datum/objective/survive/borer/survive_objective = new()
+	survive_objective.borer_ref = borer_ref
+	add_objective(survive_objective)
+
+/datum/antagonist/borer/roundend_report()
+	var/list/report = list()
+	var/mob/living/simple_animal/borer/borer = borer_ref?.resolve()
+	if(borer && borer.stat != DEAD)
+		if(borer.host)
+			report += "<b>[borer_name]</b> [span_greentext("survived")] inside <b>[borer.host.real_name]</b>."
+		else
+			report += "<b>[borer_name]</b> [span_greentext("survived")] without a host."
+	else if(borer)
+		report += "<b>[borer_name]</b> [span_redtext("died")]."
+	else
+		report += "<b>[borer_name]</b> [span_redtext("had their body destroyed")]."
+
+	var/objectives_complete = TRUE
+	if(length(objectives))
+		report += printobjectives(objectives)
+		for(var/datum/objective/objective in objectives)
+			if(!objective.check_completion())
+				objectives_complete = FALSE
+				break
+	if(!length(objectives) || objectives_complete)
+		report += span_greentextbig("The [name] was successful!")
+	else
+		report += span_redtextbig("The [name] has failed!")
+	return report.Join("<br>")
 
 /datum/antagonist/borer/greet()
 	to_chat(owner.current, span_boldnotice("You are a cortical borer!"))
@@ -56,6 +92,14 @@
 /datum/objective/lay_borer_egg/check_completion()
 	var/mob/living/simple_animal/borer/borer = borer_ref?.resolve()
 	return borer?.eggs_laid >= 1
+
+/datum/objective/survive/borer
+	/// The physical borer remains stable while its mind controls a host.
+	var/datum/weakref/borer_ref
+
+/datum/objective/survive/borer/check_completion()
+	var/mob/living/simple_animal/borer/borer = borer_ref?.resolve()
+	return borer && borer.stat != DEAD
 
 /obj/item/organ/borer_cyst
 	name = "cortical cyst"
