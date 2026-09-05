@@ -16,11 +16,13 @@
 /datum/surgery/blood_filter/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
 	if(filtering_step_type)
-		steps = list(/datum/surgery_step/incise,
-				/datum/surgery_step/retract_skin,
-				/datum/surgery_step/incise,
-				filtering_step_type,
-				/datum/surgery_step/close)
+		steps = list(
+			/datum/surgery_step/incise,
+			/datum/surgery_step/retract_skin,
+			/datum/surgery_step/incise,
+			filtering_step_type,
+			/datum/surgery_step/close
+		)
 
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_HUSK)) //Can't filter husk
@@ -40,7 +42,6 @@
 	var/limited_healing = 100 // Cant heal toxin damage under this treshold
 	var/antispam_two = TRUE
 
-
 /datum/surgery_step/filter_blood/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(surgery,/datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
@@ -54,20 +55,21 @@
 			)
 
 /datum/surgery_step/filter_blood/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
-	if(..())
-		while(target.reagents.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
-			if(!..())
-				break
+	if(!..())
+		return
+	while(target.reagents.total_volume || (tox_heal_factor > 0 && target.getToxLoss() > 0))
+		if(!..())
+			break
 
 /datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/tox_loss = target.getToxLoss()
-	if(target.reagents.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
+	if(target.reagents?.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
 		for(var/blood_chem in target.reagents.reagent_list)
 			var/datum/reagent/chem = blood_chem
 			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
 		if(tox_loss <= limited_healing)
 			if(antispam_two)
-				to_chat(user, span_notice("You can't fix any more toxin damage"))
+				to_chat(user, span_notice("You can't pump any more fluid."))
 				antispam_two = FALSE
 			if(!target.reagents.total_volume)
 				return FALSE
@@ -83,13 +85,21 @@
 			if(target.reagents.total_volume)
 				remaining += "<font color='[COLOR_MAGENTA]'>[round(target.reagents.total_volume, 0.1)]u</font> of reagents"
 		var/umsg = length(remaining) ? " [english_list(remaining)] remaining." : ""
-		display_results(user, target, span_notice("[tool] pings as it filters [target]'s blood.[umsg]"),
-				span_notice("[user] pumps [target]'s blood with [tool]."),
-				"[tool] pings as it pumps.")
+		display_results(
+			user,
+			target,
+			span_notice("\The [tool] completes a cycle filtering [target]'s blood.[umsg]"),
+			span_notice("\The [tool] whirrs as it filters [target]'s blood."),
+			span_notice("\The [tool] whirrs as it pumps."),
+		)
 	else
-		display_results(user, target, span_notice("[tool] flashes, [target]'s blood is clean."),
+		display_results(
+			user,
+			target,
+			span_notice("\The [tool] flashes, [target]'s blood is clean."),
 			span_notice("[user] finishes pumping [target]'s blood with [tool]"),
-			"[tool] has no chemicals or toxins to filter.")
+			span_notice("\The [tool] has no chemicals or toxins to filter.")
+		)
 	if(istype(surgery, /datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		the_surgery.antispam = TRUE

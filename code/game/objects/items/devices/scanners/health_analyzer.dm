@@ -252,7 +252,7 @@
 				missing_organs += "heart"
 			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBREATH, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_LUNGS))
 				missing_organs += "lungs"
-			if(/*!HAS_TRAIT_FROM(humantarget, TRAIT_LIVERLESS_METABOLISM, SPECIES_TRAIT) &&*/ !humantarget.get_organ_slot(ORGAN_SLOT_LIVER))
+			if(!HAS_TRAIT_FROM(humantarget, TRAIT_LIVERLESS_METABOLISM, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_LIVER))
 				missing_organs += "liver"
 			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOHUNGER, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_STOMACH))
 				missing_organs += "stomach"
@@ -301,6 +301,49 @@
 			render_list += "<span class='alert ml-1'>❄ [core_temperature_message] ❄</span>\n"
 		else
 			render_list += "<span class='info ml-1'>[core_temperature_message]</span>\n"
+
+		// Nutrition. Not applicable for those which traditional hunger is not :P
+		if(!HAS_TRAIT(humantarget, TRAIT_NOHUNGER) && humantarget.get_organ_slot(ORGAN_SLOT_STOMACH))
+			var/nutrition_tier
+			var/nutrition_alert = FALSE
+			switch(humantarget.nutrition)
+				if(NUTRITION_LEVEL_FULL to INFINITY)
+					nutrition_tier = "Overfed"
+				if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+					nutrition_tier = "Well fed"
+				if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+					nutrition_tier = "Fed"
+				if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+					nutrition_tier = "Peckish"
+				if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+					nutrition_tier = "Hungry"
+				else
+					nutrition_tier = "Starving"
+					nutrition_alert = TRUE
+
+			var/nutrition_message = "Nutrition: [nutrition_tier]"
+			if(advanced)
+				nutrition_message += " ([round(humantarget.nutrition)])"
+				if(humantarget.metabolism_efficiency != 1)
+					nutrition_message += " - metabolic rate [round(humantarget.metabolism_efficiency * 100)]%"
+				var/stamina_coeff = humantarget.get_stamina_nutrition_coeff()
+				if(stamina_coeff != 1)
+					nutrition_message += ", stamina recovery [round(stamina_coeff * 100)]%"
+				if(humantarget.nutrition < NUTRITION_LEVEL_WELL_FED)
+					nutrition_message += ", blood regeneration reduced"
+			render_list += "<span class='[nutrition_alert ? "alert" : "info"] ml-1'>[nutrition_message]</span>\n"
+
+			if(advanced)
+				if(humantarget.satiety > 0)
+					var/nourished_message = "Subject is well nourished: organ healing and disease resistance improved"
+					if(humantarget.satiety > SATIETY_WELL_NOURISHED)
+						nourished_message += ", blood regeneration boosted"
+					render_list += "<span class='info ml-1'>[nourished_message].</span>\n"
+				else if(humantarget.satiety < 0)
+					var/junk_message = "Poor diet detected: hunger accelerated"
+					if(humantarget.satiety <= SATIETY_JUNK_FOOD)
+						junk_message += ", cardiac risk elevated"
+					render_list += "<span class='alert ml-1'>[junk_message].</span>\n"
 
 	var/body_temperature_message = "Body temperature: [round(target.bodytemperature-T0C, 0.1)] &deg;C ([round(target.bodytemperature*1.8-459.67,0.1)] &deg;F)"
 	if(target.bodytemperature >= target.get_body_temp_heat_damage_limit())
@@ -401,7 +444,7 @@
 				var/datum/reagent/reagent = r
 				//if(reagent.chemical_flags & REAGENT_INVISIBLE) //Don't show hidden chems on scanners
 				//	continue
-				render_block += "<span class='notice ml-2'>[round(reagent.volume, 0.001)] units of [reagent.name][reagent.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
+				render_block += "<span class='notice ml-2'>[round(reagent.volume, 0.001)] units of [reagent.name][reagent.overdosed ? "</span> - [span_bolddanger("OVERDOSING")]" : ".</span>"]\n"
 
 		if(!length(render_block)) //If no VISIBLY DISPLAYED reagents are present, we report as if there is nothing.
 			render_list += "<span class='notice ml-1'>Subject contains no reagents in their blood.</span>\n"
@@ -411,27 +454,25 @@
 			render_block.Cut()
 
 		// Stomach reagents
-		/*
 		var/obj/item/organ/stomach/belly = target.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(belly)
 			if(belly.reagents.reagent_list.len)
 				for(var/bile in belly.reagents.reagent_list)
 					var/datum/reagent/bit = bile
-					if(bit.chemical_flags & REAGENT_INVISIBLE)
-						continue
+					//if(bit.chemical_flags & REAGENT_INVISIBLE)
+					//	continue
 					if(!belly.food_reagents[bit.type])
-						render_block += "<span class='notice ml-2'>[round(bit.volume, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
+						render_block += "<span class='notice ml-2'>[round(bit.volume, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_bolddanger("OVERDOSING")]" : ".</span>"]<br>"
 					else
 						var/bit_vol = bit.volume - belly.food_reagents[bit.type]
 						if(bit_vol > 0)
-							render_block += "<span class='notice ml-2'>[round(bit_vol, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
+							render_block += "<span class='notice ml-2'>[round(bit_vol, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_bolddanger("OVERDOSING")]" : ".</span>"]<br>"
 
 			if(!length(render_block))
-				render_list += "<span class='notice ml-1'>Subject contains no reagents in their stomach.</span>\n"
+				render_list += "<span class='notice ml-1'>Subject contains no reagents in their stomach.</span><br>"
 			else
-				render_list += "<span class='notice ml-1'>Subject contains the following reagents in their stomach:</span>\n"
+				render_list += "<span class='notice ml-1'>Subject contains the following reagents in their stomach:</span><br>"
 				render_list += render_block
-		*/
 
 		// Addictions
 		if(LAZYLEN(target.mind?.active_addictions))

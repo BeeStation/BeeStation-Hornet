@@ -66,7 +66,7 @@
 
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
 
-///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN: (identity)
+///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN_APPEARANCE: (identity)
 #define COMSIG_HUMAN_GET_VISIBLE_NAME "human_get_visible_name"
 	//Index for the name of the face
 	#define VISIBLE_NAME_FACE 1
@@ -74,7 +74,7 @@
 	#define VISIBLE_NAME_ID 2
 	//Index for whether their name is being overriden instead of obsfuscated
 	#define VISIBLE_NAME_FORCED 3
-///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
+///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN_APPEARANCE and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
 
 ///Called when a carbon's health hud is updated. (source = carbon, shown_health_amount)

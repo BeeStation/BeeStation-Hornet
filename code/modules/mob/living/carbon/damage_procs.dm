@@ -80,13 +80,13 @@
 	var/amount = 0
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		amount += BP.brute_dam
-	return amount
+	return round(amount, DAMAGE_PRECISION)
 
 /mob/living/carbon/getFireLoss()
 	var/amount = 0
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		amount += BP.burn_dam
-	return amount
+	return round(amount, DAMAGE_PRECISION)
 
 /mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
 	if(!can_adjust_brute_loss(amount, forced, required_bodytype))
