@@ -587,7 +587,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/call_bot(bot_caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
 
-	var/list/all_access_list = get_all_accesses()
+	var/list/all_access_list = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	set_path(get_path_to(src, waypoint, max_distance=200, access = all_access_list))
 	calling_ai = bot_caller //Link the AI to the bot!
 	ai_waypoint = waypoint
@@ -1279,7 +1279,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 //BOT MULTI-Z MOVEMENT
 /mob/living/simple_animal/bot/proc/call_bot_z_move(bot_caller, turf/ori_dest, message=TRUE)
 	//For giving the bot temporary all-access.
-	var/list/all_access_list = get_all_accesses()
+	var/list/all_access_list = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	bot_z_mode = BOT_Z_MODE_AI_CALLED
 
 	var/target
@@ -1321,7 +1321,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 //PATROL SECTION
 /mob/living/simple_animal/bot/proc/go_up_or_down(direction)
 	//For giving the bot temporary all-access.
-	var/list/all_access_list = get_all_accesses()
+	var/list/all_access_list = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	bot_z_mode = BOT_Z_MODE_PATROLLING
 
 	if(!is_reserved_level(z) && is_station_level(z))

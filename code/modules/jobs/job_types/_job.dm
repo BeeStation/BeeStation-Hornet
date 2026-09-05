@@ -341,12 +341,12 @@
 	if(. == null)
 		return antag_rep
 
-/mob/living/proc/on_job_equipping(datum/job/job, joined_late, client/player_client)
+/mob/living/proc/on_job_equipping(datum/job/equipping, client/player_client)
 	return
 
 #define VERY_LATE_ARRIVAL_TOAST_PROB 20
 
-/mob/living/carbon/human/on_job_equipping(datum/job/equipping, joined_late, client/player_client)
+/mob/living/carbon/human/on_job_equipping(datum/job/equipping, client/player_client)
 	if(equipping.bank_account_department)
 		var/datum/bank_account/bank_account = new(real_name, equipping)
 		if(equipping.job_flags & JOB_GETS_STARTING_PAYCHECK)

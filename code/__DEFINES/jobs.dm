@@ -243,7 +243,7 @@
 
 // Medical
 #define JOB_HUD_RAWMEDICAL "rawmedical"
-#define JOB_HUD_CHEIFMEDICALOFFICIER "chiefmedicalofficer"
+#define JOB_HUD_CHIEFMEDICALOFFICER "chiefmedicalofficer"
 #define JOB_HUD_MEDICALDOCTOR "medicaldoctor"
 #define JOB_HUD_PARAMEDIC "paramedic"
 #define JOB_HUD_VIROLOGIST "virologist"
@@ -370,6 +370,8 @@
 #define JOB_HEAD_OF_STAFF (1<<7)
 /// This job gets a paycheck when they spawn in
 #define JOB_GETS_STARTING_PAYCHECK (1<<8)
+/// Whether this job can be an intern.
+#define JOB_CAN_BE_INTERN (1<<9)
 
 DEFINE_BITFIELD(job_flags, list(
 	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
@@ -380,10 +382,11 @@ DEFINE_BITFIELD(job_flags, list(
 	"JOB_ASSIGN_QUIRKS" = JOB_ASSIGN_QUIRKS,
 	"JOB_CANNOT_OPEN_SLOTS" = JOB_CANNOT_OPEN_SLOTS,
 	"JOB_HEAD_OF_STAFF" = JOB_HEAD_OF_STAFF,
+	"JOB_CAN_BE_INTERN" = JOB_CAN_BE_INTERN,
 ))
 
 /// Combination flag for jobs which are considered regular crew members of the station.
-#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_EQUIP_RANK|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS|JOB_GETS_STARTING_PAYCHECK)
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_EQUIP_RANK|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS|JOB_GETS_STARTING_PAYCHECK|JOB_CAN_BE_INTERN)
 /// Combination flag for jobs which are considered heads of staff.
 #define HEAD_OF_STAFF_JOB_FLAGS (JOB_CANNOT_OPEN_SLOTS|JOB_HEAD_OF_STAFF)
 

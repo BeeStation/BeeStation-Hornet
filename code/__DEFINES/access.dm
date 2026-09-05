@@ -119,3 +119,203 @@
 #define ACCESS_MECH_SECURITY 302
 #define ACCESS_MECH_SCIENCE 303
 #define ACCESS_MECH_ENGINE 304
+
+/// Displayed name for Common ID card accesses.
+#define ACCESS_FLAG_COMMON_NAME "Common"
+/// Bitflag for Common ID card accesses. See COMMON_ACCESS.
+#define ACCESS_FLAG_COMMON (1 << 0)
+/// Displayed name for Command ID card accesses.
+#define ACCESS_FLAG_COMMAND_NAME "Command"
+/// Bitflag for Command ID card accesses. See COMMAND_ACCESS.
+#define ACCESS_FLAG_COMMAND (1 << 1)
+/// Displayed name for Private Command ID card accesses.
+#define ACCESS_FLAG_PRV_COMMAND_NAME "Private Command"
+/// Bitflag for Private Command ID card accesses. See PRIVATE_COMMAND_ACCESS.
+#define ACCESS_FLAG_PRV_COMMAND (1 << 2)
+/// Displayed name for Captain ID card accesses.
+#define ACCESS_FLAG_CAPTAIN_NAME "Captain"
+/// Bitflag for Captain ID card accesses. See CAPTAIN_ACCESS.
+#define ACCESS_FLAG_CAPTAIN (1 << 3)
+/// Displayed name for Centcom ID card accesses.
+#define ACCESS_FLAG_CENTCOM_NAME "Centcom"
+/// Bitflag for Centcom ID card accesses. See CENTCOM_ACCESS.
+#define ACCESS_FLAG_CENTCOM (1 << 4)
+/// Displayed name for Syndicate ID card accesses.
+#define ACCESS_FLAG_SYNDICATE_NAME "Syndicate"
+/// Bitflag for Syndicate ID card accesses. See SYNDICATE_ACCESS.
+#define ACCESS_FLAG_SYNDICATE (1 << 5)
+/// Displayed name for Offstation/Ruin/Away Mission ID card accesses.
+#define ACCESS_FLAG_AWAY_NAME "Away"
+/// Bitflag for Offstation/Ruin/Away Mission ID card accesses. See AWAY_ACCESS.
+#define ACCESS_FLAG_AWAY (1 << 6)
+/// Displayed name for Special accesses that ordinaryily shouldn't be on ID cards.
+#define ACCESS_FLAG_SPECIAL_NAME "Special"
+/// Bitflag for Special accesses that ordinaryily shouldn't be on ID cards. See CULT_ACCESS.
+#define ACCESS_FLAG_SPECIAL (1 << 7)
+
+/// Every access flag tier that only a CentCom ID console may manipulate.
+#define ACCESS_FLAG_CENTCOM_LEVEL (ACCESS_FLAG_CENTCOM | ACCESS_FLAG_SYNDICATE | ACCESS_FLAG_AWAY | ACCESS_FLAG_SPECIAL)
+
+/// Departmental/general/common area accesses. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_COMMON)
+#define COMMON_ACCESS list( \
+	ACCESS_MECH_MINING, \
+	ACCESS_MECH_MEDICAL, \
+	ACCESS_MECH_SECURITY, \
+	ACCESS_MECH_SCIENCE, \
+	ACCESS_MECH_ENGINE, \
+	ACCESS_AUX_BASE, \
+	ACCESS_NETWORK, \
+	ACCESS_WEAPONS, \
+	ACCESS_MINERAL_STOREROOM, \
+	ACCESS_SEC_DOORS, \
+	ACCESS_SEC_RECORDS, \
+	ACCESS_BRIGPHYS, \
+	ACCESS_XENOBIOLOGY, \
+	ACCESS_MINING_STATION, \
+	ACCESS_MAILSORTING, \
+	ACCESS_MINING, \
+	ACCESS_RESEARCH, \
+	ACCESS_EXPLORATION, \
+	ACCESS_RD_SERVER, \
+	ACCESS_THEATRE, \
+	ACCESS_SURGERY, \
+	ACCESS_COURT, \
+	ACCESS_QM, \
+	ACCESS_VIROLOGY, \
+	ACCESS_LAWYER, \
+	ACCESS_LIBRARY, \
+	ACCESS_HYDROPONICS, \
+	ACCESS_CHEMISTRY, \
+	ACCESS_CONSTRUCTION, \
+	ACCESS_CARGO, \
+	ACCESS_ROBOTICS, \
+	ACCESS_KITCHEN, \
+	ACCESS_CREMATORIUM, \
+	ACCESS_JANITOR, \
+	ACCESS_BAR, \
+	ACCESS_CHAPEL_OFFICE, \
+	ACCESS_EXTERNAL_AIRLOCKS, \
+	ACCESS_MAINT_TUNNELS, \
+	ACCESS_ENGINE_EQUIP, \
+	ACCESS_ENGINE, \
+	ACCESS_GENETICS, \
+	ACCESS_CLONING, \
+	ACCESS_TOX, \
+	ACCESS_TOX_STORAGE, \
+	ACCESS_MORGUE, \
+	ACCESS_MEDICAL, \
+	ACCESS_FORENSICS_LOCKERS, \
+	ACCESS_BRIG, \
+	ACCESS_SECURITY, \
+	ACCESS_ATMOSPHERICS, \
+	ACCESS_SERVICE, \
+)
+
+/// Command staff/secure accesses, think bridge/armoury, AI upload, notably access to modify ID cards themselves. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_COMMAND)
+#define COMMAND_ACCESS list( \
+	ACCESS_MINISAT, \
+	ACCESS_TCOMSAT, \
+	ACCESS_KEYCARD_AUTH, \
+	ACCESS_RC_ANNOUNCE, \
+	ACCESS_VAULT, \
+	ACCESS_TECH_STORAGE, \
+	ACCESS_HEADS, \
+	ACCESS_TELEPORTER, \
+	ACCESS_ARMORY, \
+	ACCESS_AI_UPLOAD, \
+	ACCESS_CHANGE_IDS, \
+	ACCESS_EVA, \
+	ACCESS_GATEWAY, \
+	ACCESS_ALL_PERSONAL_LOCKERS, \
+)
+
+/// Private head of staff offices, usually only granted to most cards by trimming. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_PRV_COMMAND)
+#define PRIVATE_COMMAND_ACCESS list( \
+	ACCESS_HOS, \
+	ACCESS_HOP, \
+	ACCESS_CE, \
+	ACCESS_CMO, \
+	ACCESS_RD, \
+)
+
+/// Captains private rooms. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_CAPTAIN)
+#define CAPTAIN_ACCESS list( \
+	ACCESS_CAPTAIN, \
+)
+/// Centcom area stuff. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_CENTCOM)
+#define CENTCOM_ACCESS list( \
+	ACCESS_CENT_BAR, \
+	ACCESS_CENT_CAPTAIN, \
+	ACCESS_CENT_TELEPORTER, \
+	ACCESS_CENT_STORAGE, \
+	ACCESS_CENT_LIVING, \
+	ACCESS_CENT_MEDICAL, \
+	ACCESS_CENT_SPECOPS, \
+	ACCESS_CENT_THUNDER, \
+	ACCESS_CENT_GENERAL, \
+	ACCESS_PRISONER, \
+)
+
+/// Syndicate areas off station. Do not use direct, access via get_flag_access_list(ACCESS_FLAG_SYNDICATE)
+#define SYNDICATE_ACCESS list( \
+	ACCESS_SYNDICATE_LEADER, \
+	ACCESS_SYNDICATE, \
+)
+
+/// Away missions/gateway/space ruins.  Do not use direct, access via get_flag_access_list(ACCESS_FLAG_AWAY)
+#define AWAY_ACCESS list( \
+	ACCESS_AWAY_GENERAL, \
+	ACCESS_AWAY_MAINTENANCE, \
+	ACCESS_AWAY_MEDICAL, \
+	ACCESS_AWAY_SEC, \
+	ACCESS_AWAY_ENGINEERING, \
+	ACCESS_AWAY_GENERIC1, \
+	ACCESS_AWAY_GENERIC2, \
+	ACCESS_AWAY_GENERIC3, \
+	ACCESS_AWAY_GENERIC4, \
+	ACCESS_AWAY_SCIENCE, \
+	ACCESS_AWAY_SUPPLY, \
+	ACCESS_AWAY_COMMAND, \
+)
+
+/// Special/internal accesses that ordinarily shouldn't be on ID cards (cult doors, independent factions).  Do not use direct, access via get_flag_access_list(ACCESS_FLAG_SPECIAL)
+#define CULT_ACCESS list( \
+	ACCESS_BLOODCULT, \
+	ACCESS_CLOCKCULT, \
+	ACCESS_PIRATES, \
+	ACCESS_HUNTERS, \
+)
+
+/// Name for the Global region.
+#define REGION_ALL_GLOBAL "All"
+/// Name for the Station All Access region.
+#define REGION_ALL_STATION "Station"
+/// Name for the General region.
+#define REGION_GENERAL "General"
+/// Name for the Security region.
+#define REGION_SECURITY "Security"
+/// Name for the Medbay region.
+#define REGION_MEDBAY "Medbay"
+/// Name for the Research region.
+#define REGION_RESEARCH "Research"
+/// Name for the Engineering region.
+#define REGION_ENGINEERING "Engineering"
+/// Name for the Supply region.
+#define REGION_SUPPLY "Supply"
+/// Name for the Command region.
+#define REGION_COMMAND "Command"
+/// Name for the Centcom region.
+#define REGION_CENTCOM "Central Command"
+/// Name for the region holding syndicate, away mission and cult accesses.
+#define REGION_OTHER "??? (Admin)"
+
+/// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSdepartment.station_regions.
+#define REGION_AREA_STATION list( \
+	REGION_GENERAL, \
+	REGION_SECURITY, \
+	REGION_MEDBAY, \
+	REGION_RESEARCH, \
+	REGION_ENGINEERING, \
+	REGION_SUPPLY, \
+	REGION_COMMAND, \
+)
