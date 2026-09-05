@@ -165,7 +165,7 @@
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "D" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "E" = (

@@ -10,11 +10,11 @@
 	icon_state = "glowshroom" //replaced in New
 	layer = ABOVE_NORMAL_TURF_LAYER
 	max_integrity = 30
-	var/delay = 1200
+	var/delay = 12 SECONDS
 	var/floor = 0
 	var/generation = 1
 	var/spreadIntoAdjacentChance = 60
-	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
+	var/obj/item/plant_seeds/myseed = /obj/item/plant_seeds/preset/glowshroom
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
 		/turf/open/lava,
 		/turf/open/floor/plating/beach/water,
@@ -24,13 +24,13 @@
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
 	icon_state = "glowcap"
-	myseed = /obj/item/seeds/glowshroom/glowcap
+	myseed = /obj/item/plant_seeds/preset/glowcap
 
 /obj/structure/glowshroom/shadowshroom
 	name = "shadowshroom"
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
-	myseed = /obj/item/seeds/glowshroom/shadowshroom
+	myseed = /obj/item/plant_seeds/preset/shadowshroom
 
 /obj/structure/glowshroom/single/Spread()
 	return
@@ -44,27 +44,24 @@
 		QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats)
+/obj/structure/glowshroom/Initialize(mapload, obj/item/plant_seeds/newseed)
 	. = ..()
 	if(newseed)
-		myseed = newseed.Copy()
+		myseed = newseed.copy()
 		myseed.forceMove(src)
 	else
 		myseed = new myseed(src)
-	if(mutate_stats) //baby mushrooms have different stats :3
-		myseed.adjust_potency(rand(-3,6))
-		myseed.adjust_yield(rand(-1,2))
-		myseed.adjust_production(rand(-3,6))
-		myseed.adjust_endurance(rand(-3,6))
-	delay = delay - myseed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
-	atom_integrity = round(myseed.endurance / 2)
-	max_integrity = round(myseed.endurance / 2)
-	var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-	if(ispath(G)) // Seeds were ported to initialize so their genes are still typepaths here, luckily their initializer is smart enough to handle us doing this
-		myseed.genes -= G
-		G = new G
-		myseed.genes += G
-	set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
+//Stats
+	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in myseed.plant_features
+	if(body_feature)
+		delay = max(delay - body_feature.yield_cooldown_time, 1 SECONDS) //So the delay goes DOWN with better stats instead of up. :I
+		atom_integrity += round((body_feature.max_harvest / PLANT_BODY_HARVEST_LARGE) * 100)
+		max_integrity += round((body_feature.max_harvest / PLANT_BODY_HARVEST_LARGE) * 100)
+//Glow
+	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in myseed.plant_features
+	var/datum/plant_trait/fruit/biolight/light = locate(/datum/plant_trait/fruit/biolight) in fruit_feature?.plant_traits
+	set_light(light?.glow_range, light?.glow_power, light?.glow_color)
+//Smoothing
 	setDir(CalcDir())
 	var/base_icon_state = initial(icon_state)
 	if(!floor)
@@ -85,12 +82,16 @@
 	AddElement(/datum/element/atmos_sensitive)
 
 /obj/structure/glowshroom/proc/Spread()
+//Flight checks
+	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in myseed.plant_features
+	if(!body_feature)
+		return
 	var/turf/ownturf = get_turf(src)
 	if(!TURF_SHARES(ownturf)) //If we are in a 1x1 room
 		return //Deal with it not now
-
+//Spread
 	var/shrooms_planted = 0
-	for(var/i in 1 to myseed.yield)
+	for(var/i in 1 to body_feature.max_harvest)
 		if(prob(1/(generation * generation) * 100))//This formula gives you diminishing returns based on generation. 100% with 1st gen, decreasing to 25%, 11%, 6, 4, 2...
 			var/list/possibleLocs = list()
 
@@ -128,8 +129,8 @@
 			CHECK_TICK
 		else
 			shrooms_planted++ //if we failed due to generation, don't try to plant one later
-	if(shrooms_planted < myseed.yield) //if we didn't get all possible shrooms planted, try again later
-		myseed.yield -= shrooms_planted
+	if(shrooms_planted < body_feature.max_harvest) //if we didn't get all possible shrooms planted, try again later
+		body_feature.max_harvest -= shrooms_planted
 		addtimer(CALLBACK(src, PROC_REF(Spread)), delay)
 
 /obj/structure/glowshroom/proc/CalcDir(turf/location = loc)

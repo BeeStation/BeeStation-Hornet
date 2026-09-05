@@ -8,6 +8,8 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 	taste_mult = 1.2
+	weed_kill = 0.25
+
 	/// How much toxin we deal
 	var/toxpwr = 1.5
 	/// Won't produce a pain message when processed by liver/life() if there isn't another non-silent toxin present.
@@ -28,6 +30,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 2.5
 	taste_description = "mushroom"
+	weed_kill = 0
 
 /datum/reagent/toxin/mutagen
 	name = "Unstable Mutagen"
@@ -37,9 +40,24 @@
 	toxpwr = 0
 	taste_description = "slime"
 	taste_mult = 0.9
+	tray_consumed = 5
 
 	/// The chance to gain a positive mutation
 	var/positive_mutation_prob = 2
+
+/datum/reagent/toxin/mutagen/tray_tick(datum/source, datum/component/planter/tray, _delta_time)
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(async_tray_tick), source, tray, _delta_time)
+
+/datum/reagent/toxin/mutagen/proc/async_tray_tick(datum/_source, datum/component/planter/_tray, __delta_time)
+	//When a tray's weed level is greater than half, we spawn in a kudzu plant
+	if(!.)
+		return
+	if(_tray.weed_level < 50)
+		return
+	var/obj/item/plant_seeds/preset/kudzu/seeds = new(get_turf(_tray.parent))
+	if(!seeds.plant(_tray.parent, logic = TRUE))
+		qdel(seeds)
 
 /datum/reagent/toxin/mutagen/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
@@ -72,6 +90,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 3
 	process_flags = ORGANIC | SYNTHETIC
+	weed_kill = 0.45
 
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -245,6 +264,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 1
 	taste_mult = 1
+	weed_kill = 0.4
 
 /datum/reagent/toxin/plantbgone/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -268,6 +288,7 @@
 	description = "A harmful toxic mixture to kill weeds. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	weed_kill = 0.35
 
 /datum/reagent/toxin/pestkiller
 	name = "Pest Killer"
@@ -928,6 +949,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 2
 	acidpwr = 42.0
+	weed_kill = 0.4
 
 /datum/reagent/toxin/acid/fluacid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

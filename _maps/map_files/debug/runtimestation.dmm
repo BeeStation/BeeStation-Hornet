@@ -2196,6 +2196,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/science)
+"HZ" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "Ih" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -2695,10 +2699,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/iron,
 /area/station/engineering/main)
-"VL" = (
-/obj/effect/landmark/blobstart,
-/turf/open/floor/iron,
-/area/station/commons/storage/primary)
 "Wh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -8142,7 +8142,7 @@ dD
 dJ
 dI
 dJ
-VL
+HZ
 dJ
 dJ
 dJ

@@ -106,7 +106,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "C" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},

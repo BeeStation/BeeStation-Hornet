@@ -1041,20 +1041,6 @@
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/cargo)
-"is" = (
-/obj/machinery/turretid{
-	ailock = 1;
-	control_area = "/area/ruin/syndicate_lava_base";
-	dir = 1;
-	icon_state = "control_kill";
-	lethal = 1;
-	name = "Base turret controls";
-	pixel_y = 30;
-	req_access = null;
-	req_access_txt = "150"
-	},
-/turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base)
 "iz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -1403,14 +1389,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
-"mu" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/bar)
 "mw" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -1681,13 +1659,6 @@
 "pK" = (
 /obj/machinery/air_sensor,
 /turf/open/floor/engine/n2,
-/area/ruin/syndicate_lava_base/engineering)
-"pQ" = (
-/obj/structure/sign/warning/explosives/alt{
-	pixel_x = 32
-	},
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/circuit/red,
 /area/ruin/syndicate_lava_base/engineering)
 "pR" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
@@ -3790,6 +3761,20 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/engineering)
+"NA" = (
+/obj/machinery/turretid{
+	ailock = 1;
+	control_area = "/area/ruin/syndicate_lava_base";
+	dir = 1;
+	icon_state = "control_kill";
+	lethal = 1;
+	name = "Base turret controls";
+	pixel_y = 30;
+	req_access = null;
+	req_access_txt = "150"
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/syndicate_lava_base)
 "NF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -4213,6 +4198,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/main)
+"RP" = (
+/obj/structure/sign/warning/explosives/alt{
+	pixel_x = 32
+	},
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/circuit/red,
+/area/ruin/syndicate_lava_base/engineering)
 "RW" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -4953,6 +4945,12 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
+"Zh" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
 "Zi" = (
 /obj/structure/table/wood,
@@ -5978,7 +5976,7 @@ dV
 FX
 ly
 PC
-mu
+Zh
 dU
 Qa
 zM
@@ -6865,7 +6863,7 @@ MG
 IC
 XA
 QW
-is
+NA
 iK
 iJ
 QW
@@ -6916,7 +6914,7 @@ JV
 xn
 QW
 Fs
-pQ
+RP
 ar
 QW
 Gh

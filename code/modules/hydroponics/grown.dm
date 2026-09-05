@@ -16,8 +16,10 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	max_demand = 150
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
-	/// type path, gets converted to item on New(). It's safe to assume it's always a seed item.
-	var/obj/item/seeds/seed = null
+	///What basic most typepath does this food associate with - pretty much used exclusively for kudzu stuff
+	var/seed_base = /obj/item/plant_seeds
+	///Shortcut for roundstart grown items to have 'genes'
+	var/obj/item/plant_seeds/seed = null
 	///Name of the plant
 	var/plantname = ""
 	/// The modifier applied to the plant's bite size. If a plant has a large amount of reagents naturally, this should be increased to match.
@@ -43,41 +45,41 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
-/obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
+/obj/item/food/grown/Initialize(mapload, skip_genes)
+	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1) //This happens first else the component already inits
-
-	if(new_seed)
-		seed = new_seed.Copy()
-
-	else if(ispath(seed))
-		// This is for adminspawn or map-placed growns. They get the default stats of their seed type.
-		seed = new seed()
-		seed.adjust_potency(50-seed.potency)
-	else if(!seed)
-		stack_trace("Grown object created without a seed. WTF")
-		return INITIALIZE_HINT_QDEL
 	if(!pixel_y && !pixel_x)
 		pixel_x = base_pixel_x + rand(-5, 5)
 		pixel_y = base_pixel_y + rand(-5, 5)
-
 	make_dryable()
-
-	for(var/datum/plant_gene/trait/trait in seed.genes)
-		trait.on_new(src, loc)
-
-	// Set our default bitesize: bite size = 1 + (potency * 0.05) * (max_volume * 0.01) * modifier
-	// A 100 potency, non-densified plant = 1 + (5 * 1 * modifier) = 6u bite size
-	// For reference, your average 100 potency tomato has 14u of reagents - So, with no modifier it is eaten in 3 bites
-	bite_consumption = 1 + round(max((seed.potency * BITE_SIZE_POTENCY_MULTIPLIER), 1) * (max_volume * BITE_SIZE_VOLUME_MULTIPLIER) * bite_consumption_mod)
-
-	. = ..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
-
-	seed.prepare_result(src)
-	transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
-
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
+//Make sure maploaded produce loads with it's traits & genes
+	if(!seed || skip_genes)
+		return
+	var/obj/item/plant_seeds/new_seed = new seed(src)
+//Traits - This doesn't cover modifications added by body & root traits, sue me - This is imperfect, but this should rarely ever happen outside basic mapping or admin stuff
+	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in new_seed.plant_features
+	//pre-flight grab reagent stuff from the fruit so SOME traits work properly
+	reagents?.maximum_volume = fruit_feature?.total_volume
+	//Add the traits from each feature, most will bounce off
+	for(var/datum/plant_trait/trait as anything in fruit_feature?.plant_traits)
+		trait.copy(src)
+	var/trait_scale = max(fruit_feature.trait_power*0.5, 1) //Scale size with trait power
+	var/matrix/n_transform = matrix(transform)
+	n_transform.Scale(trait_scale, trait_scale)
+	transform = n_transform //Weirdly enough, just scaling the transform doesn't work here
+//Add genes
+	if(!SSbotany.gene_cache["[new_seed.species_id]"])
+		var/list/plant_genes = list()
+		for(var/datum/plant_feature/gene as anything in new_seed.plant_features)
+			if(QDELETED(gene))
+				continue
+			plant_genes += gene?.copy()
+		SSbotany.gene_cache[new_seed.species_id] = plant_genes
+	AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[new_seed.species_id]"], new_seed.species_id, new_seed.name_override, new_seed.desc_override)
+	qdel(new_seed)
 
 /obj/item/food/grown/Destroy()
 	if(isatom(seed))
@@ -104,80 +106,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	if(trash_type)
 		AddElement(/datum/element/food_trash, trash_type, FOOD_TRASH_OPENABLE, TYPE_PROC_REF(/obj/item/food/grown/, generate_trash))
 	return
-
-/obj/item/food/grown/examine(user)
-	. = ..()
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			if(T.examine_line)
-				. += T.examine_line
-
-/obj/item/food/grown/attackby(obj/item/O, mob/user, params)
-	..()
-	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "[span_info("This is \a [span_name(name)]")].\n"
-		if(seed)
-			msg += seed.get_analyzer_text()
-		var/reag_txt = ""
-		if(seed)
-			for(var/reagent_id in seed.reagents_add)
-				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
-				var/amt = reagents.get_reagent_amount(reagent_id)
-				reag_txt += "\n[span_info("- [R.name]: [amt]")]"
-
-		if(reag_txt)
-			msg += reag_txt
-		to_chat(user, examine_block(msg))
-	else
-		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_attackby(src, O, user)
-
-
-// Various gene procs
-/obj/item/food/grown/attack_self(mob/user)
-	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
-		squash(user)
-	..()
-
-/obj/item/food/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(!..()) //was it caught by a mob?
-		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_throw_impact(src, hit_atom)
-			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom)
-
-/obj/item/food/grown/proc/squash(atom/target)
-	var/turf/T = get_turf(target)
-	forceMove(T)
-	if(ispath(splat_type, /obj/effect/decal/cleanable/food/plant_smudge))
-		if(filling_color)
-			var/obj/O = new splat_type(T)
-			O.color = filling_color
-			O.name = "[name] smudge"
-	else if(splat_type)
-		new splat_type(T)
-
-	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
-	if(seed)
-		for(var/datum/plant_gene/trait/trait in seed.genes)
-			trait.on_squash(src, target)
-	reagents.expose(T)
-	for(var/A in T)
-		reagents.expose(A)
-	qdel(src)
-
-/obj/item/food/grown/proc/squashreact()
-	for(var/datum/plant_gene/trait/trait in seed.genes)
-		trait.on_squashreact(src)
-	qdel(src)
-
-/obj/item/food/grown/proc/OnConsume(mob/living/eater, mob/living/feeder)
-	if(iscarbon(usr))
-		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_consume(src, usr)
 
 ///Callback for bonus behavior for generating trash of grown food.
 /obj/item/food/grown/proc/generate_trash(atom/location)
@@ -208,10 +136,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 /obj/item/food/grown/dropped(mob/user, silent)
 	. = ..()
 	if(GetComponent(/datum/component/slippery))
-		var/investigated_plantname = seed.get_product_true_name_for_investigate()
-		var/investigate_data = seed.get_gene_datas_for_investigate()
-		log_game("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]")
-		user.investigate_log("dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)
-
-#undef BITE_SIZE_POTENCY_MULTIPLIER
-#undef BITE_SIZE_VOLUME_MULTIPLIER
+		log_game("[key_name(user)] dropped \"slippery\" [src]/Location: [AREACOORD(src)]")
+		user.investigate_log("dropped \"slippery\" [src]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)
