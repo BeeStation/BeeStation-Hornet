@@ -10431,6 +10431,10 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "dRG" = (
@@ -65416,7 +65420,6 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "upO" = (

@@ -18843,6 +18843,10 @@
 	pixel_x = 2;
 	pixel_y = -1
 	},
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
 "lEP" = (
@@ -39583,11 +39587,6 @@
 /obj/item/instrument/violin,
 /turf/open/floor/wood,
 /area/station/service/cafeteria)
-"xVD" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/station/science/robotics)
 "xWt" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -188284,7 +188283,7 @@ mth
 cWo
 hSU
 cEn
-xVD
+xKR
 tUa
 isg
 vLs
