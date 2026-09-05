@@ -26,6 +26,11 @@
 	possible_transfer_amounts = list(5,10)
 	var/spray_sound = 'sound/effects/spray2.ogg'
 
+/obj/item/reagent_containers/spray/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
+	. = ..()
+	if(!proximity_flag)
+		try_spray(target, user)
+
 /obj/item/reagent_containers/spray/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	// This is a hack to make spray bottles fillable from / transferable to these sources
 	// However it can be completely removed when these objects are updated to use the new interaction system
