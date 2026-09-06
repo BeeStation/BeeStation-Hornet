@@ -1,0 +1,7 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - bugfix: Cloning respects your original gender, it'll no longer default to male
+      only
+  - bugfix: Slimeperson clones will respect your gender, it'll no longer default to
+      male
