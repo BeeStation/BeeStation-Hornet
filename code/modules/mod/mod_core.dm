@@ -347,10 +347,10 @@
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell/plasma)
 
-/obj/item/mod/core/plasma/proc/on_mod_interaction(datum/source, mob/living/user, obj/item/thing)
+/obj/item/mod/core/plasma/proc/on_mod_interaction(datum/source, mob/living/user, obj/item/thing, list/modifiers)
 	SIGNAL_HANDLER
 
-	return item_interaction(user, thing)
+	return item_interaction(user, thing, modifiers)
 
 /obj/item/mod/core/plasma/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	return charge_plasma(tool, user) ? ITEM_INTERACT_SUCCESS : NONE

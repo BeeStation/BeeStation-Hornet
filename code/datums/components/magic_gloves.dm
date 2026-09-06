@@ -31,7 +31,7 @@
 	playsound(user, 'sound/weapons/emitter2.ogg', 25, TRUE, -1)
 	target.attack_hand(user, modifiers)
 
-/datum/component/wearertargeting/magic_gloves/proc/on_item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+/datum/component/wearertargeting/magic_gloves/proc/on_item_interaction(atom/source, mob/living/user, obj/item/tool, list/modifiers)
 	SIGNAL_HANDLER
 	if(!istype(tool, /obj/item/upgradewand))
 		return NONE
