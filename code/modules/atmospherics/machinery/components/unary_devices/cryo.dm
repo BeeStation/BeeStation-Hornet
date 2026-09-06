@@ -191,6 +191,14 @@
 /obj/machinery/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
+/obj/machinery/cryo_cell/deconstruct(disassembled)
+	if(!QDELETED(occupant))
+		occupant.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FORCED_STANDING), CRYO_TRAIT)
+	return ..()
+
+/obj/machinery/cryo_cell/on_deconstruction(disassembled)
+	beaker?.forceMove(drop_location())
+
 /obj/machinery/cryo_cell/contents_explosion(severity, target)
 	. = ..()
 	if(!beaker)
