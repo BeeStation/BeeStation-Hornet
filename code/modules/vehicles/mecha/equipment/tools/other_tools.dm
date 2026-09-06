@@ -150,6 +150,7 @@
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/armor
+	abstract_type = /obj/item/mecha_parts/mecha_equipment/armor
 	equipment_slot = MECHA_ARMOR
 	///short protection name to display in the UI
 	var/protect_name = "you're mome"
