@@ -22,5 +22,5 @@ arg01, arg02, arg03, arg04, arg05, arg06, arg07, arg08, arg09, arg10, arg11, arg
 
 /// Strict the number of args, so that you won't make any mistake.
 /// This is specifically used in /proc/growclone()
-#define CLONING_STRICT_ARGS(arg01, arg02, arg03, arg04, arg05, arg06, arg07, arg08, arg09, arg10, arg11, arg12)\
-arg01, arg02, arg03, arg04, arg05, arg06, arg07, arg08, arg09, arg10, arg11, arg12
+#define CLONING_STRICT_ARGS(arg01, arg02, arg03, arg04, arg05, arg06, arg07, arg08, arg09, arg10, arg11, arg12, arg13)\
+arg01, arg02, arg03, arg04, arg05, arg06, arg07, arg08, arg09, arg10, arg11, arg12, arg13
