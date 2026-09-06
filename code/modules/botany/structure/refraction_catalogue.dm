@@ -7,18 +7,14 @@
 	anchored = FALSE
 	pass_flags_self = PASSSTRUCTURE
 	pass_flags = NONE
+	circuit = /obj/item/circuitboard/machine/refraction_catalogue
 
+	/// UI control
 	var/selected_reagent
-
-	/*
-		//TODO: Upgrading parts will lower list_accuracy(good) - Racc
-		Make it an option to scroll forward and backwards through these lists
-	*/
 	///Controls which reagent list we're using - lower is better :trolled:
 	var/list_accuracy = GRID_MAX_ACCURACY
 	///Controls the offset / obfuscation - higher is better
-	var/accuracy = 0 //Mostly for testing, debug, and admin foolery
-
+	var/accuracy = 0 // Used for narrowing results
 	var/grid_x = 0
 	var/grid_y = 0
 
@@ -28,8 +24,11 @@
 	///Refernece to our screen effect
 	var/obj/effect/hydroponics_screen/screen
 
-	///
+	/// List of stuff we've 'discovered'
 	var/list/sampled_reagents = list()
+
+	///Last 'command' for UI stuff
+	var/last_command = ""
 
 /obj/machinery/refraction_catalogue/Initialize(mapload)
 	. = ..()
@@ -47,11 +46,12 @@
 
 /obj/machinery/refraction_catalogue/RefreshParts()
 	. = ..()
-	//TODO: - Racc
-	var/total_rating = 0
+	// Switch to the highest rating, it don't matta
+	var/highest_rate = 0
 	for(var/obj/item/stock_parts/S in component_parts)
-		total_rating += S.rating
-	return total_rating
+		highest_rate = highest_rate < S.rating ? S.rating : highest_rate
+	accuracy = max(highest_rate-1, 3)
+	return highest_rate
 
 /obj/machinery/refraction_catalogue/attackby(obj/item/C, mob/user)
 //Disk
@@ -104,6 +104,7 @@
 	data["selected_reagent"] = selected_reagent
 	data["accuracy"] = accuracy
 	data["sampled_reagents"] = SSbotany.refraction_reagents["[list_accuracy]"]&sampled_reagents
+	data["last_command"] = last_command
 	return data
 
 /obj/machinery/refraction_catalogue/ui_act(action, params)
@@ -114,6 +115,7 @@
 			selected_reagent = params["key"]
 			grid_x = params["grid_x"]
 			grid_y = params["grid_y"]
+			last_command = "sector select --safe -x [grid_x] -y [grid_y]"
 		if("upload_coords")
 			if(!disk)
 				playsound(src, 'sound/machines/terminal_error.ogg', 60)
@@ -124,6 +126,20 @@
 			var/datum/plant_trait/refraction/trait = new(null, grid_x, grid_y, list_accuracy)
 			disk.set_saved(trait)
 			playsound(src, 'sound/machines/ping.ogg', 30)
+			last_command = "per reader write -f -m -x [grid_x] -y [grid_y]"
 	screen.flash()
 	return TRUE
 
+//Circuitboard
+/obj/item/circuitboard/machine/refraction_catalogue
+	name = "refraction matrix (Machine Board)"
+	icon_state = "service"
+	build_path = /obj/machinery/refraction_catalogue
+	req_components = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/stock_parts/manipulator = 1, /obj/item/stock_parts/capacitor = 1, /obj/item/stock_parts/scanning_module = 1)
+
+/datum/design/board/refraction_catalogue
+	name = "Refraction Matrix Board"
+	id = "refraction_catalogue_board"
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+	build_path = /obj/item/circuitboard/machine/refraction_catalogue
+	category = list ("initial", "Misc. Machinery")

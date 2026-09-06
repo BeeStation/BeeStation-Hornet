@@ -1358,6 +1358,7 @@ export const ReagentGridAlt = (props) => {
     accuracy,
     sampled_reagents,
     all_reagent_data,
+    last_command,
   } = data;
   return (
     <Window width={900} height={830} theme="plant_menu">
@@ -1384,7 +1385,8 @@ export const ReagentGridAlt = (props) => {
               <Box>© 2554 Yamato. All Rights Reserved.</Box>
               <br />
               <Box>
-                {'C:\\Users\\admin>'}TODO: - Racc
+                {'C:\\Users\\admin>'}
+                {last_command}
                 <span className={'terminal'}>|</span>
               </Box>
             </Section>
