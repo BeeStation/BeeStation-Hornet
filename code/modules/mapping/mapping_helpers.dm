@@ -1315,7 +1315,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 		return INITIALIZE_HINT_QDEL
 
 	// Make us invisible, otherwise people who observe roundstart will see us
-	icon = ""
+	icon = null
 
 	register_signal()
 
