@@ -6,11 +6,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/tracking = TRUE
 	var/emped = FALSE
 
-/datum/component/gps/Initialize(_gpstag = "COM0", _tracking = TRUE)
+/datum/component/gps/Initialize(gpstag = "COM0", tracking = TRUE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-	gpstag = _gpstag
-	tracking = _tracking;
+	src.gpstag = gpstag
+	src.tracking = tracking
 	GLOB.GPS_list += src
 
 /datum/component/gps/Destroy()
@@ -19,27 +19,35 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 ///GPS component subtype. Only gps/item's can be used to open the UI.
 /datum/component/gps/item
-	var/updating = TRUE //Automatic updating of GPS list. Can be set to manual by user.
-	var/global_mode = TRUE //If disabled, only GPS signals of the same Z level are shown
+	/// Automatic updating of GPS list. Can be set to manual by user.
+	var/updating = TRUE
+	/// If disabled, only GPS signals of the same Z level are shown
+	var/global_mode = TRUE
 	/// UI state of GPS, altering when it can be used.
 	var/datum/ui_state/state = null
+	/// The overlay applied when this GPS is enabled
+	var/working_overlay = null
+	/// The overlay applied when this GPS is emped
+	var/emp_overlay = null
 
-/datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE, state = null, overlay_state = "working")
+/datum/component/gps/item/Initialize(gpstag = "COM0", tracking = TRUE, emp_proof = FALSE, state = GLOB.default_state, working_overlay = "working", emp_overlay = "emp")
 	. = ..()
 	if(. == COMPONENT_INCOMPATIBLE || !isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	if(isnull(state))
-		state = GLOB.default_state
 	src.state = state
+	src.working_overlay = working_overlay
+	src.emp_overlay = emp_overlay
 
 	var/atom/A = parent
-	if(overlay_state)
-		A.add_overlay(overlay_state)
+	if(tracking && working_overlay)
+		A.add_overlay(working_overlay)
 	A.name = "[initial(A.name)] ([gpstag])"
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
+
 	if(!emp_proof)
 		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
+
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_AltClick))
 
@@ -54,25 +62,30 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /datum/component/gps/item/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += span_notice("Alt-click to switch it [tracking ? "off":"on"].")
+	examine_list += span_notice("Alt-click to switch it [tracking ? "off" : "on"].")
 
 ///Called on COMSIG_ATOM_EMP_ACT
 /datum/component/gps/item/proc/on_emp_act(datum/source, severity, protection)
 	SIGNAL_HANDLER
-
+	if(protection & EMP_PROTECT_SELF)
+		return
 	emped = TRUE
 	var/atom/A = parent
-	A.cut_overlay("working")
-	A.add_overlay("emp")
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
+	if(working_overlay)
+		A.cut_overlay(working_overlay)
+	if(emp_overlay)
+		A.add_overlay(emp_overlay)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 30 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
 	SStgui.close_uis(src) //Close the UI control if it is open.
 
 ///Restarts the GPS after getting turned off by an EMP.
 /datum/component/gps/item/proc/reboot()
 	emped = FALSE
 	var/atom/A = parent
-	A.cut_overlay("emp")
-	A.add_overlay("working")
+	if(emp_overlay)
+		A.cut_overlay(emp_overlay)
+	if(tracking && working_overlay)
+		A.add_overlay(working_overlay)
 
 ///Calls toggletracking
 /datum/component/gps/item/proc/on_AltClick(datum/source, mob/user)
@@ -88,19 +101,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(emped)
 		to_chat(user, span_warning("It's busted!"))
 		return
+
 	var/atom/A = parent
+	tracking = !tracking
 	if(tracking)
-		A.cut_overlay("working")
-		to_chat(user, span_notice("[parent] is no longer tracking, or visible to other GPS devices."))
-		tracking = FALSE
-	else
-		A.add_overlay("working")
+		if(working_overlay)
+			A.add_overlay(working_overlay)
 		to_chat(user, span_notice("[parent] is now tracking, and visible to other GPS devices."))
 		tracking = TRUE
-
-
-/datum/component/gps/item/ui_state(mob/user)
-	return GLOB.default_state
+	else
+		if(working_overlay)
+			A.cut_overlay(working_overlay)
+		to_chat(user, span_notice("[parent] is no longer tracking, or visible to other GPS devices."))
 
 /datum/component/gps/item/ui_interact(mob/user, datum/tgui/ui) // Remember to use the appropriate state.
 	if(emped)
@@ -131,8 +143,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	var/list/signals = list()
 
-	for(var/gps in GLOB.GPS_list)
-		var/datum/component/gps/G = gps
+	for(var/datum/component/gps/G as anything in GLOB.GPS_list)
 		if(G.emped || !G.tracking || G == src)
 			continue
 		var/turf/pos = get_turf(G.parent)
@@ -157,27 +168,27 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		if("rename")
 			var/atom/parentasatom = parent
 			var/input = tgui_input_text(usr, "Enter the desired tag", "GPS Tag", gpstag, max_length = 20)
-			if (QDELETED(ui) || ui.status != UI_INTERACTIVE)
-				return
+			if (QDELETED(parentasatom) || QDELETED(ui) || ui.status != UI_INTERACTIVE)
+				return FALSE
 			if (!input)
 				to_chat(usr, span_warning("You need to enter something!"))
-				return
+				return FALSE
 
 			if(OOC_FILTER_CHECK(input)) // check for forbidden words (OOC only)
 				to_chat(usr, span_warning("Your message contains forbidden words."))
-				return
+				return FALSE
 
 			gpstag = input
-			. = TRUE
 			usr.log_message("renamed [parentasatom] to \"[initial(parentasatom.name)] ([gpstag])\".", LOG_GAME)
 			parentasatom.name = "[initial(parentasatom.name)] ([gpstag])"
+			return TRUE
 
 		if("power")
 			toggletracking(usr)
-			. = TRUE
+			return TRUE
 		if("updating")
 			updating = !updating
-			. = TRUE
+			return TRUE
 		if("globalmode")
 			global_mode = !global_mode
-			. = TRUE
+			return TRUE
