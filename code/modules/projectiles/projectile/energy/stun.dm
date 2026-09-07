@@ -447,7 +447,7 @@
 	taser_object.throw_at(get_edge_target_turf(source, get_dir(attacker.loc, source.loc)), 2, 1, spin = TRUE)
 	owner.visible_message("[attacker] disarms [source]'s [taser], knocking it out of their hands!")
 
-/datum/status_effect/tased/proc/on_firer_attacked(mob/living/source, obj/item/weapon, mob/living/attacker, params)
+/datum/status_effect/tased/proc/on_firer_attacked(mob/living/source, obj/item/weapon, mob/living/attacker, list/modifiers)
 	if (attacker != owner)
 		return
 	if(!istype(taser, /obj/item))

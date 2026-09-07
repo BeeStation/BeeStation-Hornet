@@ -49,7 +49,7 @@
 		var/potion_string = span_info("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "")
 		. += potion_string
 
-/obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return

@@ -33,7 +33,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/transit_tube)
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 
-/obj/structure/transit_tube/attackby(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(tube_construction)
 			for(var/obj/structure/transit_tube_pod/pod in src.loc)

@@ -111,7 +111,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/mine/attackby(obj/I, mob/user, params)
+/obj/effect/mine/attackby(obj/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/multitool))
 		to_chat(user, span_notice("You begin to disarm the [src]..."))
 		if(do_after(user, disarm_time, target = src))
@@ -289,7 +289,7 @@
 /obj/effect/mine/sound/mineEffect(mob/victim)
 	playsound(loc, sound, volume, 1)
 
-/obj/effect/mine/sound/attackby(obj/item/soundsynth/J, mob/user, params)
+/obj/effect/mine/sound/attackby(obj/item/soundsynth/J, mob/user, list/modifiers)
 	if(istype(J, /obj/item/soundsynth))
 		to_chat(user, span_notice("You change the sound settings of the [src]."))
 		sound = J.selected_sound

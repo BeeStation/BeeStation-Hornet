@@ -96,7 +96,7 @@
 	if(!BB)
 		BB = new projectile_type(src, src)
 
-/obj/item/ammo_casing/attackby(obj/item/I, mob/user, params)
+/obj/item/ammo_casing/attackby(obj/item/I, mob/user, list/modifiers)
 	//Regular boxes of ammo can sweep shells up from the floor, magazines that get insert into guns do not though
 	if(istype(I, /obj/item/ammo_box) && !istype(I, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/box = I

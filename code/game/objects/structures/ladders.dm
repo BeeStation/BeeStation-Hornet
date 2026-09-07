@@ -219,7 +219,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE
 
-/obj/structure/ladder/attackby(obj/item/I, mob/user, params)
+/obj/structure/ladder/attackby(obj/item/I, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -288,11 +288,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 	use(user, going_up = FALSE)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/structure/ladder/attackby(obj/item/item, mob/user, params)
+/obj/structure/ladder/attackby(obj/item/item, mob/user, list/modifiers)
 	use(user)
 	return TRUE
 
-/obj/structure/ladder/attackby_secondary(obj/item/item, mob/user, params)
+/obj/structure/ladder/attackby_secondary(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return

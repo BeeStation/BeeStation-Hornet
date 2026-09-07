@@ -534,7 +534,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	"Cyborg shells into construct shells\n"+\
 	"Airlocks into brittle runed airlocks after a delay (harm intent)"
 
-/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	if(proximity_flag && IS_CULTIST(user))
 		if(channeling)
 			to_chat(user, span_cultitalic("You are already invoking twisted construction!"))

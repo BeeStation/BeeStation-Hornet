@@ -544,7 +544,7 @@
 		return FALSE
 	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		unbuckle_all_mobs(TRUE)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	return FALSE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
@@ -559,7 +559,7 @@
 		to_chat(user, span_warning("You must first secure [src]."))
 	return TRUE
 
-/obj/machinery/vending/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/vending/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
 		return
@@ -1383,7 +1383,7 @@
 		last_shopper = REF(usr)
 	vend_ready = TRUE
 
-/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!private_a)
 		var/mob/living/carbon/human/H
 		var/obj/item/card/id/C

@@ -14,7 +14,7 @@
 	. = ..()
 	stored_trait = trait
 
-/obj/item/sticker/trait_pearl/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+/obj/item/sticker/trait_pearl/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers)
 	//Prechecks
 	if(!can_stick(target) || !proximity_flag)
 		return

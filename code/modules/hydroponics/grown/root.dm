@@ -25,7 +25,7 @@
 	juice_typepath = /datum/reagent/consumable/carrotjuice
 	wine_power = 30
 
-/obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, params)
+/obj/item/food/grown/carrot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_sharpness())
 		to_chat(user, span_notice("You sharpen the carrot into a shiv with [I]."))
 		var/obj/item/knife/shiv/carrot/Shiv = new /obj/item/knife/shiv/carrot

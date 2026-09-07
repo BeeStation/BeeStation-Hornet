@@ -21,7 +21,7 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/spider/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/spider/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.damtype != BURN)
 		if(prob(35))
 			user.transferItemToLoc(I, drop_location())

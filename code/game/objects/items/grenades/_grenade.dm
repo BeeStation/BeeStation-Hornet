@@ -141,7 +141,7 @@
 		var/mob/M = loc
 		M.dropItemToGround(src)
 
-/obj/item/grenade/attackby(obj/item/W, mob/user, params)
+/obj/item/grenade/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		switch(det_time)
 			if(1)

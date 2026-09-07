@@ -25,7 +25,7 @@
 
 	new /obj/item/stack/cable_coil(drop_location(), 25)
 	qdel(src)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/chair/noose/Initialize(mapload)
 	. = ..()

@@ -74,7 +74,7 @@
 			user.forceMove(get_turf(src))
 			occupant = null
 
-/obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
+/obj/structure/popout_cake/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
 		user.visible_message(span_notice("[user] sticks the [W] inside [src] and stars fiddling around!"), span_notice("You start to rewind the hidden mechanism inside [src] with [W]."))
 		W.play_tool_sound(src, 50)

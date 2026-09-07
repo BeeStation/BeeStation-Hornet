@@ -688,11 +688,24 @@
 /obj/machinery/attack_paw(mob/living/user)
 	if(!user.combat_mode)
 		return attack_hand(user)
-	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		var/damage = take_damage(4, BRUTE, MELEE, 1, get_dir(src, user))
-		user.visible_message(span_danger("[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]"), null, null, COMBAT_MESSAGE_RANGE)
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+	var/damage = take_damage(damage_amount = 4, damage_type = BRUTE, damage_flag = MELEE, sound_effect = TRUE, attack_dir = get_dir(user, src))
+
+	var/hit_with_what_noun = "paws"
+	var/obj/item/bodypart/arm/arm = user.get_active_hand()
+	if(!isnull(arm))
+		hit_with_what_noun = arm.appendage_noun // hit with "their hand"
+		if(user.usable_hands > 1)
+			hit_with_what_noun += plural_s(hit_with_what_noun) // hit with "their hands"
+
+	user.visible_message(
+		span_danger("[user] smashes [src] with [user.p_their()] [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),
+		span_danger("You smash [src] with your [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),
+		span_hear("You hear a [damage ? "smash" : "thud"]."),
+		COMBAT_MESSAGE_RANGE,
+	)
 
 /obj/machinery/attack_robot(mob/user)
 	if(isAI(user))
@@ -723,21 +736,21 @@
 
 	return _try_interact(user)
 
-/obj/machinery/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/attackby(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 
-/obj/machinery/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/machinery/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 
-/obj/machinery/tool_act(mob/living/user, obj/item/tool, tool_type)
+/obj/machinery/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(SEND_SIGNAL(user, COMSIG_TRY_USE_MACHINE, src) & COMPONENT_CANT_USE_MACHINE_TOOLS)
-		return TOOL_ACT_MELEE_CHAIN_BLOCKING
+		return ITEM_INTERACT_ANY_BLOCKER
 	. = ..()
-	if(. & TOOL_ACT_SIGNAL_BLOCKING)
+	if(. & ITEM_INTERACT_BLOCKING)
 		return
 
 /obj/machinery/_try_interact(mob/user)
@@ -929,7 +942,7 @@
 	return TRUE
 
 // Power cell in hand replacement
-/obj/machinery/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!istype(attacking_item, /obj/item/stock_parts/cell) || !panel_open)
 		return ..()
 

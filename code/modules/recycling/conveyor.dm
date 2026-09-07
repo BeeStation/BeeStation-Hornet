@@ -221,7 +221,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 	SSmove_manager.stop_looping(thing, SSconveyors)
 
 // attack with item, place item on conveyor
-/obj/machinery/conveyor/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/conveyor/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		user.visible_message(span_notice("[user] struggles to pry up \the [src] with \the [I]."), \
 		span_notice("You struggle to pry up \the [src] with \the [I]."))
@@ -527,7 +527,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/conveyor)
 	transfer_fingerprints_to(C)
 	use(1)
 
-/obj/item/stack/conveyor/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/conveyor/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/conveyor_switch_construct))
 		to_chat(user, span_notice("You link the switch to the conveyor belt assembly."))

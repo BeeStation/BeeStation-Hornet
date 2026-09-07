@@ -35,7 +35,7 @@
 	deconstruct(TRUE)
 	return
 
-/obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isstack(I))
 		var/obj/item/stack/material = I
 		if(material.tableVariant)
@@ -97,7 +97,7 @@
 	framestackamount = 2
 	resistance_flags = FLAMMABLE
 
-/obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, list/modifiers)
 	if (istype(I, /obj/item/stack))
 		var/obj/item/stack/material = I
 		var/toConstruct // stores the table variant
@@ -128,7 +128,7 @@
 	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 
-/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/brass))
 		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)

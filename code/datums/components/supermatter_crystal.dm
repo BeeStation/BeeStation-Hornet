@@ -160,7 +160,7 @@
 		"failed lick"
 	)
 
-/datum/component/supermatter_crystal/proc/attackby_hit(datum/source, obj/item/item, mob/living/user, params)
+/datum/component/supermatter_crystal/proc/attackby_hit(datum/source, obj/item/item, mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/atom/atom_source = source
@@ -220,11 +220,9 @@
 
 /datum/component/supermatter_crystal/proc/tool_hit(datum/source, mob/user, obj/item/tool)
 	SIGNAL_HANDLER
-
 	if(tool_act_callback)
 		tool_act_callback.Invoke(user, tool)
-		return
-
+		return ITEM_INTERACT_BLOCKING
 	attackby_hit(source, tool, user)
 
 /datum/component/supermatter_crystal/proc/bumped_hit(datum/source, atom/movable/hit_object)

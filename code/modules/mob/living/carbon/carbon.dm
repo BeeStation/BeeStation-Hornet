@@ -63,9 +63,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		mode() // Activate held item
 
-/mob/living/carbon/attackby(obj/item/item, mob/living/user, params)
-
-	if(can_perform_surgery(user, params))
+/mob/living/carbon/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(can_perform_surgery(user, modifiers))
 		return TRUE
 
 	//Wounds tending goes here

@@ -38,7 +38,7 @@
 	qdel(fruit)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
-/obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
+/obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, list/modifiers)
 	var/obj/item/food/grown/fruit = I
 	if(istype(fruit))
 		if(!fruit.can_distill)

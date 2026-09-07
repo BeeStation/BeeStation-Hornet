@@ -3,7 +3,7 @@
 	firing_effect_type = null
 	heavy_metal = FALSE
 
-/obj/item/ammo_casing/caseless/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
+/obj/item/ammo_casing/caseless/fire_casing(atom/target, mob/living/user, list/modifiers, spread, quiet, zone_override, atom/fired_from)
 	if (!..()) //failed firing
 		return FALSE
 	if(istype(fired_from, /obj/item/gun))

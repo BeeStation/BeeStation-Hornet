@@ -91,7 +91,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/machinery/icecream_vat/attackby(obj/item/O, mob/user, params)
+/obj/machinery/icecream_vat/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/food/icecream))
 		var/obj/item/food/icecream/I = O
 		if(!I.ice_creamed)

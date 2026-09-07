@@ -21,16 +21,14 @@
 	update_appearance()
 
 /obj/item/reagent_containers/cup/bottle/throw_impact(mob/living/target, mob/thrower)
-	SplashReagents(target, TRUE, override_spillable = TRUE)
+	. = ..()
 	if(isGlass)
-		var/obj/item/shard/B = new(loc)
-		target.Bumped(B)
-		playsound(loc, "shatter", 100, 1)
+		var/obj/item/shard/shard = new(loc)
+		target.Bumped(shard)
+		playsound(loc, "shatter", 100, TRUE)
 		qdel(src)
 	else
 		target.Bumped(src)
-
-	return TRUE
 
 /obj/item/reagent_containers/cup/bottle/vial
 	name = "vial"

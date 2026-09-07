@@ -192,7 +192,7 @@
 		genetic_damage_pulse()
 		return
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, list/modifiers)
 	if(insert_disk(user, I)) //INSERT SOME DISKETTES
 		return
 	if(istype(I, /obj/item/chromosome))

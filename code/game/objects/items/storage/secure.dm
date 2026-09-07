@@ -36,7 +36,7 @@
 	if(can_hack_open)
 		. += "The service panel is currently <b>[open ? "unscrewed" : "screwed shut"]</b>."
 
-/obj/item/storage/secure/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/secure/attackby(obj/item/W, mob/user, list/modifiers)
 	if(can_hack_open && atom_storage.locked)
 		if (W.tool_behaviour == TOOL_SCREWDRIVER)
 			if (W.use_tool(src, user, 20))

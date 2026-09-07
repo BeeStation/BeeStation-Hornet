@@ -258,7 +258,7 @@
 		else
 			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
-/obj/item/card/id/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/attackby(obj/item/W, mob/user, list/modifiers)
 	if(iscash(W))
 		insert_money(W, user)
 		return
@@ -844,7 +844,7 @@ do { \
 /datum/armor/id_paper
 	acid = 50
 
-/obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
+/obj/item/card/id/paper/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel

@@ -101,7 +101,7 @@
 	if((buildstage == AIR_ALARM_BUILD_COMPLETE))
 		new /obj/item/stack/cable_coil(loc, 3)
 
-/obj/machinery/airalarm/attackby(obj/item/W, mob/user, params)
+/obj/machinery/airalarm/attackby(obj/item/W, mob/user, list/modifiers)
 	switch(buildstage)
 		if(AIR_ALARM_BUILD_COMPLETE)
 			if(W.GetID())// trying to unlock the interface with an ID card

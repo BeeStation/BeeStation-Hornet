@@ -259,7 +259,7 @@
 	materials.retrieve_all()
 	tool.play_tool_sound(src)
 	to_chat(user, span_notice("You retrieve the materials from [src]."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/drone_dispenser/welder_act(mob/living/user, obj/item/tool)
 	if(!(machine_stat & BROKEN))
@@ -283,7 +283,7 @@
 	set_machine_stat(machine_stat & ~BROKEN)
 	atom_integrity = max_integrity
 	update_appearance(UPDATE_ICON_STATE)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/drone_dispenser/atom_break(damage_flag)
 	. = ..()

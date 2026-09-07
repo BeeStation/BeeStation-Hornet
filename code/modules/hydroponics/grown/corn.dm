@@ -44,7 +44,7 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/grown/corncob/attackby(obj/item/W, mob/user, params)
+/obj/item/grown/corncob/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_sharpness())
 		to_chat(user, span_notice("You use [W] to fashion a pipe out of the corn cob!"))
 		new /obj/item/cigarette/pipe/cobpipe (user.loc)

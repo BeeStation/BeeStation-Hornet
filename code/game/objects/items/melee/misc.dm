@@ -608,7 +608,7 @@
 	///Time it takes to embed the stake into someone's chest.
 	var/staketime = 4 SECONDS
 
-/obj/item/stake/attack(mob/living/target, mob/living/user, params)
+/obj/item/stake/attack(mob/living/target, mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

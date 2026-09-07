@@ -213,7 +213,7 @@
 		"A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n"+\
 		"A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.")
 
-/obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
+/obj/structure/constructshell/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		if(!IS_CULTIST(user) && !IS_WIZARD(user) && !SS.theme == THEME_HOLY)

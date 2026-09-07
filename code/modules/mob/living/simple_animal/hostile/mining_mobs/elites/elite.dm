@@ -198,7 +198,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 				H.color = COLOR_RED
 
-/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
+/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(istype(I, /obj/item/organ/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
 		var/obj/item/organ/regenerative_core/core = I

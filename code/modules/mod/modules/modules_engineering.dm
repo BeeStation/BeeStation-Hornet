@@ -258,7 +258,7 @@
 		return
 	device.update_icon()
 
-/obj/item/mod/module/mister/atmos/attackby(obj/item/I, mob/user, params)
+/obj/item/mod/module/mister/atmos/attackby(obj/item/I, mob/user, list/modifiers)
 	if (istype(I, /obj/item/atmostank_upgrade))
 		if (QDELETED(device))
 			return ..()

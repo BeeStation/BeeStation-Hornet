@@ -78,7 +78,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 	area.power_change()
 
-/obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
+/obj/machinery/light_switch/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		screwdrivered = !screwdrivered
 		user.visible_message(span_notice("[user] [screwdrivered ? "un" : ""]secures [name]."), \

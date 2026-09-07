@@ -83,7 +83,7 @@
 	else
 		to_chat(user, span_notice("You turn off [src]."))
 
-/obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
+/obj/item/hand_labeler/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/hand_labeler_refill))
 		to_chat(user, span_notice("You insert [I] into [src]."))

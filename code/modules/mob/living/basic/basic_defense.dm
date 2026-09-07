@@ -55,8 +55,12 @@
 	if(!.)
 		return
 	playsound(loc, "punch", 25, TRUE, -1)
-	visible_message(span_danger("[user] punches [src]!"), \
-					span_userdanger("You're punched by [user]!"), null, COMBAT_MESSAGE_RANGE, user)
+	visible_message(
+		span_danger("[user] punches [src]!"), \
+		span_userdanger("You're punched by [user]!"),
+		vision_distance = COMBAT_MESSAGE_RANGE,
+		ignored_mobs = user,
+	)
 	to_chat(user, span_danger("You punch [src]!"))
 	apply_damage(15, damagetype = BRUTE)
 

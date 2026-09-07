@@ -44,9 +44,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 /obj/item/stack/rods/get_recipes()
 	return GLOB.rod_recipes
 
-/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
 	if(proximity_flag)
-		target.attackby(src, user, click_parameters)
+		target.attackby(src, user, modifiers)
 
 /obj/item/stack/rods/update_icon_state()
 	. = ..()
@@ -70,4 +70,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/rods)
 		)
 		use(2)
 		user.put_in_inactive_hand(new_item)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS

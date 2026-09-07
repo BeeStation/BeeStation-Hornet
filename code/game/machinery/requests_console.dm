@@ -469,7 +469,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		Radio.set_frequency(radio_freq)
 		Radio.talk_into(src, "[alert]: <i>[message]</i>", radio_freq)
 
-/obj/machinery/requests_console/attackby(obj/item/O, mob/user, params)
+/obj/machinery/requests_console/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		if(open)
 			to_chat(user, span_notice("You close the maintenance panel."))

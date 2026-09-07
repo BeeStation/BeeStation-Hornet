@@ -72,7 +72,7 @@
 	var/registered_name = null
 	var/assigned_id = null
 
-/obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/I = W
 		if(broken)
@@ -205,7 +205,7 @@
 	playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 
 ///Shock attacker if we're broken
-/obj/machinery/turnstile/attackby(obj/item/I, mob/user, params)
+/obj/machinery/turnstile/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", I))
 		update_appearance()//add proper panel icons
 		state = TURNSTILE_CIRCUIT_EXPOSED

@@ -51,7 +51,7 @@
 		storedpart = null
 		update_icon()
 
-/obj/machinery/aug_manipulator/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/aug_manipulator/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(default_unfasten_wrench(user, O))
 		power_change()
 		return

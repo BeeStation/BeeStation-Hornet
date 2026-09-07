@@ -710,7 +710,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast)
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
 
-/obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
+/obj/effect/hierophant/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = I
 		if(H.timer > world.time)

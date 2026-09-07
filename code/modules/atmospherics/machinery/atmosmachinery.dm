@@ -373,63 +373,65 @@
 	nodes[nodes.Find(reference)] = null
 	update_icon()
 
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pipe)) //lets you autodrop
-		var/obj/item/pipe/pipe = W
-		if(user.dropItemToGround(pipe))
-			pipe.set_piping_layer(piping_layer) //align it with us
-			return TRUE
-	else
-		return ..()
+/obj/machinery/atmospherics/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/pipe)) //lets you autodrop
+		return NONE
+
+	var/obj/item/pipe/pipe = tool
+	if(!user.dropItemToGround(pipe))
+		return ITEM_INTERACT_BLOCKING
+
+	pipe.set_piping_layer(piping_layer) //align it with us
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/I)
 	if(!can_unwrench(user))
-		return ..()
+		return ITEM_INTERACT_BLOCKING
 
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	add_fingerprint(user)
 
 	var/unsafe_wrenching = FALSE
-	var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
+	var/internal_pressure = int_air.return_pressure() - env_air.return_pressure()
 	var/empty_pipe = FALSE
 	if(istype(src, /obj/machinery/atmospherics/components))
 		var/list/datum/gas_mixture/all_gas_mixes = return_analyzable_air()
 		var/empty_mixes = 0
 		for(var/gas_mix_number in 1 to device_type)
 			var/datum/gas_mixture/gas_mix = all_gas_mixes[gas_mix_number]
-			if(!(gas_mix.total_moles() > 0))
+			if(!gas_mix.total_moles())
 				empty_mixes++
 			if(!nodes[gas_mix_number] || (istype(nodes[gas_mix_number], /obj/machinery/atmospherics/components/unary/portables_connector) && !portable_device_connected(gas_mix_number)))
 				var/pressure_delta = all_gas_mixes[gas_mix_number].return_pressure() - env_air.return_pressure()
 				internal_pressure = internal_pressure > pressure_delta ? internal_pressure : pressure_delta
 		if(empty_mixes == device_type)
 			empty_pipe = TRUE
-	if(!(int_air.total_moles() > 0))
+	if(!int_air.total_moles())
 		empty_pipe = TRUE
 
 	if(!empty_pipe)
 		to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 
-	if (internal_pressure > 2*ONE_ATMOSPHERE)
+	if (internal_pressure > 2 * ONE_ATMOSPHERE)
 		to_chat(user, span_warning("As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?"))
 		unsafe_wrenching = TRUE //Oh dear oh dear
 
-	var/time_taken = empty_pipe ? 0 : 20
-	if(I.use_tool(src, user, time_taken, volume=50))
+	if(I.use_tool(src, user, empty_pipe ? 0 : 2 SECONDS, volume = 50))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
 			span_notice("You unfasten \the [src]."), \
-			span_italics("You hear ratchet."))
+			span_hear("You hear ratchet."))
 		investigate_log("was [span_warning("REMOVED")] by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 		//You unwrenched a pipe full of pressure? Let's splat you into the wall, silly.
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
-			if (user.client)
-				user.client.give_award(/datum/award/achievement/misc/pressure, user)
-		return deconstruct(TRUE)
-	return TRUE
+			user.client?.give_award(/datum/award/achievement/misc/pressure, user)
+		deconstruct(TRUE)
+		return ITEM_INTERACT_SUCCESS
+
+	return ITEM_INTERACT_BLOCKING
 
 /**
  * Getter for can_unwrench

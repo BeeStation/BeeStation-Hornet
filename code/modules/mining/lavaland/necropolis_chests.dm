@@ -18,7 +18,7 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(try_spawn_loot))
 
-/obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
+/obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
@@ -31,7 +31,7 @@
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pick_weight(loot)
+/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot - MAY REPLACE WITH pick_weight(loot)
 	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
 		/obj/item/clothing/glasses/godeye									= 5,
 		/obj/item/clothing/gloves/concussive_gauntlets						= 5,
@@ -724,7 +724,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
 		tool_behaviour = TOOL_MINING
-		RegisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(rocksmash))
+		RegisterSignal(user, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(rocksmash))
 		RegisterSignal(user, COMSIG_MOVABLE_BUMP, PROC_REF(rocksmash))
 	else
 		stopmining(user)
@@ -735,7 +735,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/clothing/gloves/concussive_gauntlets/proc/stopmining(mob/user)
 	tool_behaviour = initial(tool_behaviour)
-	UnregisterSignal(user, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
+	UnregisterSignal(user, COMSIG_LIVING_UNARMED_ATTACK)
 	UnregisterSignal(user, COMSIG_MOVABLE_BUMP)
 
 /obj/item/clothing/gloves/concussive_gauntlets/proc/rocksmash(mob/living/carbon/human/user, atom/rocks, proximity)
@@ -750,7 +750,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/structure/closet/crate/necropolis/legion
 	name = "legion chest"
 
-/obj/structure/closet/crate/necropolis/legion/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/legion/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot
 	if(..())
 		var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 		var/random_crystal = pick(choices)
@@ -761,7 +761,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/structure/closet/crate/necropolis/bdm
 	name = "blood-drunk miner chest"
 
-/obj/structure/closet/crate/necropolis/bdm/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/bdm/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot
 	if(..())
 		new /obj/item/melee/cleaving_saw(src)
 		new /obj/item/crusher_trophy/miner_eye(src)
@@ -827,7 +827,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	attack_self(user)
 	return BRUTELOSS
 
-/obj/item/melee/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/melee/cleaving_saw/melee_attack_chain(mob/user, atom/target, list/modifiers)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
@@ -895,7 +895,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/structure/closet/crate/necropolis/dragon
 	name = "drake chest"
 
-/obj/structure/closet/crate/necropolis/dragon/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/dragon/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot
 	if(..())
 		new /obj/item/dragons_blood(src)
 		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
@@ -1104,7 +1104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		/area/lavaland/surface/outdoors,
 	))
 
-/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!is_mining_level(user.z))
 		to_chat(user, span_warning("The staff's power is too dim to function this far from the necropolis"))
@@ -1152,7 +1152,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
 
-/obj/structure/closet/crate/necropolis/bubblegum/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/bubblegum/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot
 	if(..())
 		new /obj/item/clothing/suit/hooded/hostile_environment(src)
 		new /obj/item/crusher_trophy/demon_claws(src)
@@ -1225,7 +1225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot
 	if(..())
 		new /obj/item/organ/vocal_cords/colossus(src)
 		new /obj/item/crusher_trophy/blaster_tubes(src)
@@ -1235,7 +1235,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 /obj/structure/closet/crate/necropolis/hierophant
 	name = "hierophant chest"
 
-/obj/structure/closet/crate/necropolis/hierophant/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/hierophant/try_spawn_loot(datum/source, obj/item/item, mob/user, list/modifiers) ///proc that handles key checking and generating loot
 	if(..())
 		new /obj/item/hierophant_club(src)
 		new /obj/item/crusher_trophy/vortex_talisman(src)
@@ -1289,7 +1289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	user.dropItemToGround(src) //Drop us last, so it goes on top of their stuff
 	qdel(user)
 
-/obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!is_mining_level(user.z))
 		power = 5

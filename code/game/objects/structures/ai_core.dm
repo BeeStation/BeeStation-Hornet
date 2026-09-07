@@ -70,7 +70,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/ai_core/latejoin_inactive/attackby(obj/item/P, mob/user, params)
+/obj/structure/ai_core/latejoin_inactive/attackby(obj/item/P, mob/user, list/modifiers)
 	if(P.tool_behaviour == TOOL_MULTITOOL)
 		active = !active
 		to_chat(user, "You [active? "activate" : "deactivate"] \the [src]'s transmitters.")
@@ -85,7 +85,7 @@
 	GLOB.latejoin_ai_cores -= src
 	return ..()
 
-/obj/structure/ai_core/attackby(obj/item/P, mob/user, params)
+/obj/structure/ai_core/attackby(obj/item/P, mob/user, list/modifiers)
 	if(P.tool_behaviour == TOOL_WRENCH)
 		return default_unfasten_wrench(user, P, 20)
 	if(!anchored)

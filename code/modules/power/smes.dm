@@ -120,7 +120,7 @@
 	if(new_capacity > 0)
 		capacity = new_capacity
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user, list/modifiers)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		update_appearance(UPDATE_OVERLAYS)

@@ -10,8 +10,8 @@
 	vis_flags = VIS_INHERIT_PLANE
 	var/forensic_protected = FALSE
 
-/obj/effect/attackby(obj/item/weapon, mob/user, params)
-	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
+/obj/effect/attackby(obj/item/weapon, mob/user, list/modifiers)
+	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, modifiers) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 
 	// I'm not sure why these are snowflaked to early return but they are
@@ -32,8 +32,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	return 0
+/obj/effect/attack_hulk(mob/living/carbon/human/user)
+	return FALSE
 
 /obj/effect/experience_pressure_difference()
 	return

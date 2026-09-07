@@ -41,7 +41,7 @@
 		update_icon()
 	..()
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.transferItemToLoc(I, src))
 			return

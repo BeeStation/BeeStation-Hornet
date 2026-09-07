@@ -43,7 +43,7 @@
 	set_anchored(FALSE)
 	owner = null
 
-/obj/structure/vampire/attackby(obj/item/item, mob/living/user, params)
+/obj/structure/vampire/attackby(obj/item/item, mob/living/user, list/modifiers)
 	/// If a Vampire tries to wrench it in place, yell at them.
 	if(item.tool_behaviour == TOOL_WRENCH && !anchored && IS_VAMPIRE(user))
 		user.playsound_local(null, 'sound/machines/buzz-sigh.ogg', 40, FALSE, pressure_affected = FALSE)
@@ -228,7 +228,7 @@
 		else
 			user_unbuckle_mob(buckled_carbons, user)
 
-/obj/structure/vampire/vassalrack/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/structure/vampire/vassalrack/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(IS_VAMPIRE(user) && has_buckled_mobs() && !user.combat_mode)
 		return try_to_torture(user, pick(buckled_mobs), attacking_item)
 	return ..()

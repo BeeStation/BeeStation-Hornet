@@ -309,7 +309,7 @@
 		update_appearance(UPDATE_ICON_STATE)
 		return TRUE
 
-/obj/machinery/power/emitter/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/emitter/attackby(obj/item/item, mob/user, list/modifiers)
 	if(item.GetID())
 		if(obj_flags & EMAGGED)
 			to_chat(user, span_danger("Access denied."))

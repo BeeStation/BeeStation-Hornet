@@ -75,7 +75,7 @@
 			beaker.reagents.adjust_thermal_energy((target_temperature - beaker.reagents.chem_temp) * heater_coefficient * delta_time * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
 			beaker.reagents.handle_reactions()
 
-/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I))
 		return
 

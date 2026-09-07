@@ -33,7 +33,7 @@
 	recoil = 1
 	pb_knockback = 2
 
-/obj/item/gun/ballistic/shotgun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/shotgun/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(chambered && chambered.caliber == ".50")
 		user.log_message("fired a p50 round from [src] at [target ? target : "unknown target"]. Catastrophic failure imminent.", LOG_ATTACK, color="red")
 		if(prob(20))
@@ -269,7 +269,7 @@
 	var/reinforced = FALSE
 	var/barrel_stress = 0
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(chambered.BB && !reinforced)
 		var/obj/item/ammo_casing/shotgun/S = chambered
 		if (S.high_power)
@@ -287,7 +287,7 @@
 
 	return ..()
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, list/modifiers)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
@@ -370,12 +370,12 @@
 	. = ..()
 	. += "<span class='notice'>Right-click to shoot the hook.</span>"
 
-/obj/item/gun/ballistic/shotgun/hook/ranged_attack_secondary(atom/target, mob/living/user, params)
-	hook.pull_trigger(target, user, params)
+/obj/item/gun/ballistic/shotgun/hook/ranged_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	hook.pull_trigger(target, user, modifiers)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/gun/ballistic/shotgun/hook/pre_attack_secondary(atom/target, mob/living/user, params)
-	hook.pull_trigger(target, user, params)
+/obj/item/gun/ballistic/shotgun/hook/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	hook.pull_trigger(target, user, modifiers)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Lever action shotgun, formerly on thefactory.dm

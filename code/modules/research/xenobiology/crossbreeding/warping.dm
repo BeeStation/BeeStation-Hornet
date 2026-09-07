@@ -695,7 +695,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	to_chat(user, span_brass("[src] demands a weapon to enhance."))
 	return
 
-/obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, params)
+/obj/effect/warped_rune/blackspace/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
 		to_chat(user, span_brass("[I] has already been enhanced!"))
 		return

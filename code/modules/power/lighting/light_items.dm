@@ -88,7 +88,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode
-/obj/item/light/attackby(obj/item/I, mob/user, params)
+/obj/item/light/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
@@ -108,7 +108,7 @@
 	..()
 	shatter()
 
-/obj/item/light/attack_atom(obj/O, mob/living/user, params)
+/obj/item/light/attack_atom(obj/O, mob/living/user, list/modifiers)
 	..()
 	shatter()
 

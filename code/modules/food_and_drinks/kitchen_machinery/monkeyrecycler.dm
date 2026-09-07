@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Producing <b>[cube_production]</b> cubes for every monkey inserted.")
 
-/obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
+/obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
 		return
 

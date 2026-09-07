@@ -49,14 +49,14 @@
 	UnregisterSignal(user, COMSIG_ATOM_ATTACKBY)
 
 //Foward the attack to our artifact
-/datum/xenoartifact_trait/minor/ringed/proc/catch_attack(datum/source, obj/item, mob/living, params)
+/datum/xenoartifact_trait/minor/ringed/proc/catch_attack(datum/source, obj/item, mob/living, list/modifiers)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(cool_async_action), item, living, params)
+	INVOKE_ASYNC(src, PROC_REF(cool_async_action), item, living, modifiers)
 
-/datum/xenoartifact_trait/minor/ringed/proc/cool_async_action(obj/item, mob/living, params)
+/datum/xenoartifact_trait/minor/ringed/proc/cool_async_action(obj/item, mob/living, list/modifiers)
 	var/atom/atom_parent = component_parent?.parent
-	atom_parent?.attackby(item, living, params)
+	atom_parent?.attackby(item, living, modifiers)
 
 //Variant for when the user attacks
 /datum/xenoartifact_trait/minor/ringed/attack
@@ -77,12 +77,12 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pass attacks from the user to the artifact, when worn"))
 
-/datum/xenoartifact_trait/minor/ringed/attack/proc/catch_user_attack(datum/source, mob/user, mob/target, params)
+/datum/xenoartifact_trait/minor/ringed/attack/proc/catch_user_attack(datum/source, mob/user, mob/target, list/modifiers)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(other_cool_async_action), user, target, params)
+	INVOKE_ASYNC(src, PROC_REF(other_cool_async_action), user, target, modifiers)
 
-/datum/xenoartifact_trait/minor/ringed/attack/proc/other_cool_async_action(mob/user, mob/target, params)
+/datum/xenoartifact_trait/minor/ringed/attack/proc/other_cool_async_action(mob/user, mob/target, list/modifiers)
 	if(user == target)
 		return
 	var/obj/item/item_parent = component_parent?.parent

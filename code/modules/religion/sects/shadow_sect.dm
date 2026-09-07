@@ -202,7 +202,7 @@
 /obj/structure/destructible/religion/shadow_obelisk/proc/toggling_buckling_after_ritual_3() // this is useless until it is inherited by obelisk after 3 grand rituals
 	return
 
-/obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, list/modifiers)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(istype(I, /obj/item/nullrod))
 		if(sect.grand_ritual_in_progress)

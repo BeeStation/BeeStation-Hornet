@@ -42,8 +42,8 @@
 		for(var/obj/structure/holosign/hologram as anything in signs)
 			qdel(hologram)
 
-/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	afterattack(target, user, proximity_flag)
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
+	afterattack(target, user, proximity_flag, modifiers)
 
 /obj/item/holosign_creator/examine(mob/user)
 	. = ..()
@@ -51,7 +51,7 @@
 		return
 	. += span_notice("It is currently maintaining <b>[signs.len]/[max_signs]</b> projections.")
 
-/obj/item/holosign_creator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/holosign_creator/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!check_allowed_items(target, not_inside = TRUE))
 		return
@@ -225,7 +225,7 @@
 /obj/item/holosign_creator/atmos/add_context_self(datum/screentip_context/context, mob/user)
 	context.add_right_click_action("[clearview ? "Disable" : "Temporarily activate"] clearview")
 
-/obj/item/holosign_creator/atmos/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/holosign_creator/atmos/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	var/obj/machinery/door/firedoor/firelock = locate() in get_turf(target)
 	firelock?.open()

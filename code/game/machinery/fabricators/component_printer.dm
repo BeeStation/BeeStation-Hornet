@@ -138,7 +138,7 @@
 	created_atom.pixel_y = initial(created_atom.pixel_y) + rand(-5, 5)
 	update_static_data_for_all_viewers()
 
-/obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, list/modifiers)
 	var/list/data = list()
 
 	if(istype(weapon, /obj/item/circuit_component/module))

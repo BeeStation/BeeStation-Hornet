@@ -128,7 +128,7 @@
 	if (prob(50))
 		qdel(src)
 
-/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_master/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
 		return
 

@@ -31,7 +31,7 @@
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
-/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(operating)
 		balloon_alert(user, "it's busy!")
 		return FALSE

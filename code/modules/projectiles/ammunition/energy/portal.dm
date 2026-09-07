@@ -17,7 +17,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/ammo_casing/energy/wormhole)
 	. = ..()
 	gun = WEAKREF(wh)
 
-/obj/item/ammo_casing/energy/wormhole/throw_proj()
+/obj/item/ammo_casing/energy/wormhole/throw_proj(atom/target, turf/targloc, mob/living/user, list/modifiers, spread)
 	. = ..()
 	if(istype(BB, /obj/projectile/beam/wormhole))
 		var/obj/projectile/beam/wormhole/WH = BB

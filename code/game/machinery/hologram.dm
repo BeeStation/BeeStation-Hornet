@@ -242,7 +242,7 @@ Possible to do for anyone motivated enough:
 		return
 	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/holopad/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/holopad/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!istype(attacking_item, /obj/item/disk/holodisk))
 		return ..()
 

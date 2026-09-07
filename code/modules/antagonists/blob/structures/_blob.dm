@@ -225,7 +225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob)
 /obj/structure/blob/hulk_damage()
 	return 15
 
-/obj/structure/blob/attackby(obj/item/I, mob/user, params)
+/obj/structure/blob/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(user, "<b>The analyzer beeps once, then reports:</b><br>")

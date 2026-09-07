@@ -96,7 +96,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/plasma/get_recipes()
 	return GLOB.plasma_recipes
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, list/modifiers)
 	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(amount/5, user)
 	else
@@ -224,7 +224,7 @@ Mineral Sheets
 	grind_results = list(/datum/reagent/carbon = 20)
 	novariants = TRUE
 
-/obj/item/stack/sheet/mineral/coal/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/mineral/coal/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		var/turf/T = get_turf(src)
 		message_admins("Coal ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")

@@ -191,7 +191,7 @@
 	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACK_HAND)
 	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACKBY)
 
-/datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
+/datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, list/modifiers)
 	SIGNAL_HANDLER
 
 	do_hint(living, item)

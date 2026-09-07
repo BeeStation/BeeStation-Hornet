@@ -1,4 +1,3 @@
-
 /obj/item/clothing/gloves/fingerless
 	name = "fingerless gloves"
 	desc = "Plain black gloves without fingertips for the hard working."
@@ -26,7 +25,6 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_botanic_leather
 	clothing_flags = THICKMATERIAL
-
 
 /datum/armor/gloves_botanic_leather
 	bio = 50
@@ -74,7 +72,6 @@
 	armor_type = /datum/armor/gloves_bracer
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
-
 /datum/armor/gloves_bracer
 	melee = 15
 	bullet = 35
@@ -93,34 +90,12 @@
 	worn_icon_state = "rapid"
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
-	var/warcry = "AT"
-	var/speed = CLICK_CD_RAPID
+	var/initial_warcry = "AT"
+	var/initial_speed = CLICK_CD_RAPID
 
-/obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
-	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
-		if(isliving(A) && M.combat_mode)
-			M.changeNext_move(speed)
-			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
-
-	else if(M.combat_mode)
-		for(var/mob/living/L in oview(1, M))
-			L.attack_hand(M)
-			M.changeNext_move(speed)
-			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
-			break
-	.= FALSE
-
-/obj/item/clothing/gloves/rapid/attack_self(mob/user)
-	var/input = stripped_input(user,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
-	if(input == "*me") //If they try to do a *me emote it will stop the attack to prompt them for an emote then they can walk away and enter the emote for a punch from far away
-		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry cannot contain *me."))
-	else if(CHAT_FILTER_CHECK(input))
-		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry contains prohibited word(s)."))
-	else if(input)
-		warcry = input
+/obj/item/clothing/gloves/rapid/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/punch_cooldown, initial_warcry, initial_speed)
 
 /obj/item/clothing/gloves/rapid/vampire
 	name = "Strange Blur"
@@ -130,15 +105,12 @@
 	worn_icon_state = null
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
-	warcry = null // We are not so silly.
-	speed = CLICK_CD_MELEE // Slower than the gloves because vamps are also stronger
+	initial_warcry = null // We are not so silly.
+	initial_speed = CLICK_CD_MELEE // Slower than the gloves because vamps are also stronger
 
-/obj/item/clothing/gloves/rapid/vampire/attack_self(mob/user)	// Just in case
-	return
-
-/obj/item/clothing/gloves/rapid/vampire/New()
+/obj/item/clothing/gloves/rapid/vampire/Initialize(mapload)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-	return ..()
 
 /obj/item/clothing/gloves/color/white/magic
 	name = "white gloves"
@@ -147,29 +119,9 @@
 	inhand_icon_state = "wgloves"
 	var/range = 3
 
-/obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/color/white/magic/Initialize(mapload)
 	. = ..()
-	if(istype(W, /obj/item/upgradewand))
-		var/obj/item/upgradewand/wand = W
-		if(!wand.used && range == initial(range))
-			wand.used = TRUE
-			range = 6
-			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
-			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-
-/obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
-	var/mob/living/user = loc
-	if(get_dist(A, user) <= 1 )
-		return FALSE
-	if(user in viewers(range, A))
-		user.visible_message(span_danger("[user] waves their hands at [A]"), span_notice("You begin manipulating [A]."))
-		new	/obj/effect/temp_visual/telegloves(A.loc)
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(do_after(user, 0.8 SECONDS, A))
-			new /obj/effect/temp_visual/telekinesis(user.loc)
-			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-			A.attack_hand(user)
-			return TRUE
+	AddComponent(/datum/component/wearertargeting/magic_gloves)
 
 /obj/item/clothing/gloves/artifact_pinchers
 	name = "anti-tactile pinchers"

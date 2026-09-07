@@ -15,7 +15,7 @@
 		. += span_brass("Use on an empty floor to fabricate brass for 10W/sheet")
 		. += span_brass("Use on damaged clockwork structures to repair them.")
 
-/obj/item/clockwork/replica_fabricator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/clockwork/replica_fabricator/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag || !IS_SERVANT_OF_RATVAR(user))
 		return

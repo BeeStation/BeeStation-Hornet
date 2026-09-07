@@ -18,7 +18,7 @@
 	else if(!isnull(context.held_item))
 		context.add_left_click_action("Insert Item")
 
-/obj/machinery/rnd/destructive_analyzer/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/rnd/destructive_analyzer/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return ..()
 	if(!is_insertion_ready(user))

@@ -67,7 +67,7 @@
 	popup.open()
 	return
 
-/obj/machinery/computer/prisoner/management/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/prisoner/management/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card/id))
 		if(screen)
 			id_insert(user)

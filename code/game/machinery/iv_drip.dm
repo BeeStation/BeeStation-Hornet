@@ -35,8 +35,9 @@
 
 /obj/machinery/iv_drip/atom_destruction()
 	if(beaker)
-		beaker.forceMove(drop_location())
-		beaker.SplashReagents(drop_location())
+		var/atom/drop_loc = drop_location()
+		beaker.forceMove(drop_loc)
+		beaker.splash_reagents(drop_loc)
 		beaker.visible_message(span_notice("[beaker] falls to the ground from the destroyed IV drip."))
 		beaker = null
 	return ..()
@@ -110,7 +111,7 @@
 			to_chat(usr, span_warning("There's nothing attached to the IV drip!"))
 
 
-/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
+/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, list/modifiers)
 	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
 		if(beaker)
 			to_chat(user, span_warning("There is already a reagent container loaded!"))

@@ -351,7 +351,7 @@
 		if(istype(ghost))
 			attack_ghost(ghost)
 
-/obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, params)
+/obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/ctf))
 		var/obj/item/ctf/flag = I
 		if(flag.team != src.team)
@@ -766,7 +766,7 @@
 		if(controlling.control_points >= controlling.control_points_to_win)
 			controlling.victory()
 
-/obj/machinery/control_point/attackby(mob/user, params)
+/obj/machinery/control_point/attackby(mob/user, list/modifiers)
 	capture(user)
 
 /obj/machinery/control_point/attack_hand(mob/user, list/modifiers)

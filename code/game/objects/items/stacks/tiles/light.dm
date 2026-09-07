@@ -16,7 +16,7 @@
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/copper = 5)
 	merge_type = /obj/item/stack/light_w
 
-/obj/item/stack/light_w/attackby(obj/item/O, mob/user, params)
+/obj/item/stack/light_w/attackby(obj/item/O, mob/user, list/modifiers)
 	if(!istype(O, /obj/item/stack/sheet/iron))
 		return ..()
 	var/obj/item/stack/sheet/iron/M = O
@@ -60,7 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile/light)
 	else
 		state = 0 //fine
 
-/obj/item/stack/tile/light/attackby(obj/item/O, mob/user, params)
+/obj/item/stack/tile/light/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		new/obj/item/stack/sheet/iron(user.loc)
 		amount--
@@ -81,5 +81,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile/light)
 	cost = 125
 	merge_type = /obj/item/stack/tile/light/cyborg
 
-/obj/item/stack/tile/light/cyborg/attackby(obj/item/O, mob/user, params)
+/obj/item/stack/tile/light/cyborg/attackby(obj/item/O, mob/user, list/modifiers)
 	return

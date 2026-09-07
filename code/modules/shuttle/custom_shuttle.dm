@@ -197,7 +197,7 @@
 	if(port && (shuttleId == initial(shuttleId) || override))
 		linkShuttle(port.id)
 
-/obj/machinery/computer/shuttle_flight/custom_shuttle/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
 	if(istype(I, /obj/item/shuttle_creator) && !designator_ref)
 		if(!user.transferItemToLoc(I,src))

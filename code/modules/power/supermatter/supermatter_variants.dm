@@ -22,7 +22,7 @@
 	moveable = TRUE
 	custom_price = 8000
 
-/obj/machinery/computer/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+/obj/machinery/power/supermatter_crystal/shard/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	context.add_left_click_tool_action(anchored ? "Unanchor" : "Anchor", TOOL_WRENCH)
 
 /// Shard SM with it's processing disabled.

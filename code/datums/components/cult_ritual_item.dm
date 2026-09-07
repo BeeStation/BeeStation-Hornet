@@ -122,7 +122,7 @@
  * Signal proc for [COMSIG_ITEM_ATTACK_EFFECT].
  * Allows the ritual items to remove runes.
  */
-/datum/component/cult_ritual_item/proc/try_clear_rune(datum/source, obj/effect/target, mob/living/cultist, params)
+/datum/component/cult_ritual_item/proc/try_clear_rune(datum/source, obj/effect/target, mob/living/cultist, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!isliving(cultist) || !IS_CULTIST(cultist))

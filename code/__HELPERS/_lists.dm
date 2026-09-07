@@ -240,9 +240,9 @@
 /proc/is_type_in_list(datum/type_to_check, list/list_to_check, zebra = FALSE)
 	if(!LAZYLEN(list_to_check) || !type_to_check)
 		return FALSE
-	for(var/type in list_to_check)
+	for(var/type, zebra_info in list_to_check)
 		if(istype(type_to_check, type))
-			return !zebra || list_to_check[type] // Subtypes must come first in zebra lists.
+			return !zebra || zebra_info // Subtypes must come first in zebra lists.
 	return FALSE
 
 /// Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')

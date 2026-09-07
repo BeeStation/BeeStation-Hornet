@@ -59,7 +59,7 @@
 	. = ..()
 	icon_state = "igniter[on]"
 
-/obj/machinery/igniter/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/igniter/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I))
 		on = FALSE

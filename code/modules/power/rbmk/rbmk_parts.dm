@@ -76,7 +76,7 @@
 	. = ..()
 	attack_hand(user)
 
-/obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, params)
+/obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(tool.tool_behaviour == TOOL_MULTITOOL)
 		var/datum/component/buffer/heldmultitool = get_held_buffer_item(user)
 		if(heldmultitool)

@@ -34,7 +34,7 @@
 	pushed_mob.forceMove(loc)
 	return ..()
 
-/obj/structure/altar_of_gods/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/altar_of_gods/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/nullrod))
 		if(user.mind?.holy_role == NONE)
 			to_chat(user, span_warning("Only the faithful may control the disposition of [src]!"))

@@ -10,14 +10,10 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
-	/// needed for delayed drawing of blood
-	var/busy = FALSE
 	/// does it pierce through thick clothes when shot with syringe gun
 	var/proj_piercing = FALSE
-	/// standard flag (this var exists so we can inherit projectile penetration if parent is set to it)
-	var/proj_var = INJECT_TRY_SHOW_ERROR_MESSAGE
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
-	reagent_flags = TRANSPARENT
+	initial_reagent_flags = TRANSPARENT
 	var/list/datum/disease/syringe_diseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
@@ -29,9 +25,6 @@
 	context.add_left_click_action("Inject")
 	context.add_right_click_action("Draw")
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
-	return
-
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
 	for(var/datum/disease/D in syringe_diseases)
 		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
@@ -42,121 +35,140 @@
 			continue
 		syringe_diseases += D
 
-/obj/item/reagent_containers/syringe/proc/try_syringe(atom/target, mob/user, proximity)
-	if(busy)
-		return FALSE
-	if(!proximity)
-		return FALSE
+/obj/item/reagent_containers/syringe/proc/try_syringe(atom/target, mob/user)
 	if(!target.reagents)
 		return FALSE
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		//if(proj_piercing)
-		//	proj_var = INJECT_TRY_SHOW_ERROR_MESSAGE
-		if(!living_target.can_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE | (proj_piercing ? INJECT_CHECK_PENETRATE_THICK : 0)))
+		var/flags = INJECT_TRY_SHOW_ERROR_MESSAGE | (proj_piercing ? INJECT_CHECK_PENETRATE_THICK : NONE)
+		if(!living_target.can_inject(user, injection_flags = flags))
 			return FALSE
 
 	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
 	return TRUE
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity)
-	. = ..()
+/obj/item/reagent_containers/syringe/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!target.reagents)
+		return NONE
+	if(!try_syringe(target, user))
+		return ITEM_INTERACT_BLOCKING
 
-	if (!try_syringe(target, user, proximity))
-		return
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE_INJECT, user)
 
-	var/contained = reagents.log_list()
+	var/contained = reagents.get_reagent_log_string()
 	log_combat(user, target, "attempted to inject", src, addition="which had [contained]")
 
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty! Right-click to draw.</span>")
-		return
+		to_chat(user, span_warning("[src] is empty! Right-click to draw."))
+		return ITEM_INTERACT_BLOCKING
 
 	if(!isliving(target) && !target.is_injectable(user))
-		to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
-		return
+		to_chat(user, span_warning("You cannot directly fill [target]!"))
+		return ITEM_INTERACT_BLOCKING
 
-	if(target.reagents.total_volume >= target.reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>[target] is full.</span>")
-		return
+	if(target.reagents.holder_full())
+		to_chat(user, span_notice("[target] is full."))
+		return ITEM_INTERACT_BLOCKING
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(!living_target.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
-			return
 		if(living_target != user)
-			living_target.visible_message("<span class='danger'>[user] is trying to inject [living_target]!</span>", \
-									"<span class='userdanger'>[user] is trying to inject you!</span>")
-			if(!do_after(user, 3 SECONDS, living_target, extra_checks = CALLBACK(living_target, TYPE_PROC_REF(/mob/living, try_inject), user, null, INJECT_TRY_SHOW_ERROR_MESSAGE)))
-				return
+			living_target.visible_message(
+				span_danger("[user] is trying to inject [living_target]!"),
+				span_userdanger("[user] is trying to inject you!"),
+			)
+			if(!do_after(user, CHEM_INTERACT_DELAY(3 SECONDS, user), living_target, extra_checks = CALLBACK(src, PROC_REF(try_syringe), living_target, user)))
+				return ITEM_INTERACT_BLOCKING
 			if(!reagents.total_volume)
-				return
-			if(living_target.reagents.total_volume >= living_target.reagents.maximum_volume)
-				return
-			living_target.visible_message("<span class='danger'>[user] injects [living_target] with the syringe!</span>", \
-							"<span class='userdanger'>[user] injects you with the syringe!</span>")
+				return ITEM_INTERACT_BLOCKING
+			if(living_target.reagents.holder_full())
+				return ITEM_INTERACT_BLOCKING
+			living_target.visible_message(
+				span_danger("[user] injects [living_target] with the syringe!"),
+				span_userdanger("[user] injects you with the syringe!"),
+			)
 
-		if (living_target == user)
+		if(living_target == user)
 			living_target.log_message("injected themselves ([contained]) with [name]", LOG_ATTACK, color="orange")
 		else
 			log_combat(user, living_target, "injected", src, addition="which had [contained]")
-	reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, method = INJECT)
-	to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
-	target.update_appearance()
 
-/obj/item/reagent_containers/syringe/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
-	if (!try_syringe(target, user, proximity_flag))
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, method = INJECT))
+		to_chat(user, span_notice("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))
+		target.update_appearance()
+		return ITEM_INTERACT_SUCCESS
 
-	if(reagents.total_volume >= reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>[src] is full.</span>")
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	return ITEM_INTERACT_BLOCKING
+
+/obj/item/reagent_containers/syringe/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
+	if (!target.reagents)
+		return NONE
+	if (!try_syringe(target, user))
+		return ITEM_INTERACT_BLOCKING
+
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE_WITHDRAW, user)
+
+	if(reagents.holder_full())
+		to_chat(user, span_notice("[src] is full."))
+		return ITEM_INTERACT_BLOCKING
 
 	if(isliving(target))
 		var/mob/living/living_target = target
 		var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 		if(target != user)
-			target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
-							"<span class='userdanger'>[user] is trying to take a blood sample from you!</span>")
-			busy = TRUE
-			if(!do_after(user, 3 SECONDS, target, extra_checks = CALLBACK(living_target, TYPE_PROC_REF(/mob/living, try_inject), user, null, INJECT_TRY_SHOW_ERROR_MESSAGE)))
-				busy = FALSE
-				return SECONDARY_ATTACK_CONTINUE_CHAIN
-			if(reagents.total_volume >= reagents.maximum_volume)
-				return SECONDARY_ATTACK_CONTINUE_CHAIN
-		busy = FALSE
+			target.visible_message(
+				span_danger("[user] is trying to take a blood sample from [target]!"),
+				span_userdanger("[user] is trying to take a blood sample from you!"),
+			)
+			if(!do_after(user, CHEM_INTERACT_DELAY(3 SECONDS, user), target, extra_checks = CALLBACK(src, PROC_REF(try_syringe), living_target, user)))
+				return ITEM_INTERACT_BLOCKING
+			if(reagents.holder_full())
+				return ITEM_INTERACT_BLOCKING
 		if(living_target.transfer_blood_to(src, drawn_amount))
-			user.visible_message("<span class='notice'>[user] takes a blood sample from [living_target].</span>")
+			user.visible_message(span_notice("[user] takes a blood sample from [living_target]."))
 		else
-			to_chat(user, "<span class='warning'>You are unable to draw any blood from [living_target]!</span>")
-	else
-		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty!</span>")
-			return SECONDARY_ATTACK_CONTINUE_CHAIN
+			to_chat(user, span_warning("You are unable to draw any blood from [living_target]!"))
+		return ITEM_INTERACT_SUCCESS
 
-		if(!target.is_drawable(user))
-			to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
-			return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(!target.reagents.total_volume)
+		to_chat(user, span_warning("[target] is empty!"))
+		return ITEM_INTERACT_BLOCKING
 
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
+	if(!target.is_drawable(user))
+		to_chat(user, span_warning("You cannot directly remove reagents from [target]!"))
+		return ITEM_INTERACT_BLOCKING
 
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
+	var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
+	if(trans)
+		to_chat(user, span_notice("You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units."))
+	target.update_appearance()
+	return ITEM_INTERACT_SUCCESS
 
-	return SECONDARY_ATTACK_CONTINUE_CHAIN
-
-/obj/item/reagent_containers/syringe/update_icon()
-	cut_overlays()
-	var/rounded_vol
-	if(reagents?.total_volume)
-		rounded_vol = clamp(round((reagents.total_volume / volume * 15),5), 1, 15)
-		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling_overlay)
-	else
-		rounded_vol = 0
+/obj/item/reagent_containers/syringe/update_icon_state()
+	var/rounded_vol = get_rounded_vol()
 	icon_state = "[base_icon_state]_[rounded_vol]"
-	inhand_icon_state = "[base_icon_state]_[rounded_vol]"
+	inhand_icon_state = icon_state
+	return ..()
+
+/obj/item/reagent_containers/syringe/update_overlays()
+	. = ..()
+	var/list/reagent_overlays = update_reagent_overlay()
+	if(reagent_overlays)
+		. += reagent_overlays
+
+/// Returns a list of overlays to add that relate to the reagents inside the syringe
+/obj/item/reagent_containers/syringe/proc/update_reagent_overlay()
+	if(reagents?.total_volume)
+		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[get_rounded_vol()]")
+		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+		. += filling_overlay
+
+///Used by update_appearance() and update_overlays()
+/obj/item/reagent_containers/syringe/proc/get_rounded_vol()
+	if(!reagents?.total_volume)
+		return 0
+	return clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
 
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(/datum/status_effect/syringe, src, injectmult)

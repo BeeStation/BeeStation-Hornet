@@ -5,7 +5,7 @@
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/reactive_armour_shell/attackby(obj/item/weapon, mob/user, params)
+/obj/item/reactive_armour_shell/attackby(obj/item/weapon, mob/user, list/modifiers)
 	..()
 	var/static/list/anomaly_armour_types = list(
 		/obj/effect/anomaly/bluespace = /obj/item/clothing/suit/armor/reactive/teleport,

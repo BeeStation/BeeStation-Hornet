@@ -77,7 +77,7 @@
 		out += span_notice("[icon2html(tank, user)] It has \a [tank] mounted onto it.")
 	. += out.Join("\n")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/living/user, params)
+/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return ..()
 	if(istype(W, /obj/item/tank/internals))
@@ -137,7 +137,7 @@
 	loadedWeightClass += I.w_class
 	return TRUE
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(flag && user.combat_mode)//melee attack
 		return

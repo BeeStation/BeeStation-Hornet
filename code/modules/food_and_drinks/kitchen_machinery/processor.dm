@@ -50,7 +50,7 @@
 			most_specific_type = recipe_input
 			. = new recipe()
 
-/obj/machinery/processor/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/processor/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(processing)
 		to_chat(user, span_warning("[src] is in the process of processing!"))
 		return TRUE

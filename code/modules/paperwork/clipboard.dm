@@ -93,7 +93,7 @@
 	dat += "clipboard_over"
 	add_overlay(dat)
 
-/obj/item/clipboard/attackby(obj/item/weapon, mob/user, params)
+/obj/item/clipboard/attackby(obj/item/weapon, mob/user, list/modifiers)
 	var/obj/item/paper/toppaper = toppaper_ref?.resolve()
 	if(istype(weapon, /obj/item/paper))
 		//Add paper into the clipboard
