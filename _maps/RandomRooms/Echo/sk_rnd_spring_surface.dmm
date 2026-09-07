@@ -2462,6 +2462,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Qt" = (

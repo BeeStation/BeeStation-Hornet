@@ -15233,6 +15233,7 @@
 "eyV" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "eyW" = (
@@ -18986,6 +18987,7 @@
 "fDR" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port)
 "fDZ" = (
@@ -21775,6 +21777,7 @@
 "gyh" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "gyl" = (
@@ -25332,6 +25335,7 @@
 /area/station/science/shuttledock)
 "hAJ" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "hAL" = (
@@ -38424,6 +38428,7 @@
 	name = "Port Quarter Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "ljH" = (
@@ -47394,6 +47399,11 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/pharmacy)
+"nQY" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/starboard/fore)
 "nRe" = (
 /obj/structure/railing{
 	dir = 1
@@ -54142,6 +54152,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "pSF" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "pSS" = (
@@ -55524,6 +55535,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/fore)
 "qqG" = (
@@ -56167,6 +56179,7 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port)
 "qBw" = (
@@ -69235,6 +69248,7 @@
 /area/station/hallway/secondary/entry)
 "uwj" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/port/aft)
 "uwm" = (
@@ -71443,6 +71457,7 @@
 /area/station/hallway/primary/central)
 "vcA" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port)
 "vdx" = (
@@ -71574,6 +71589,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "veZ" = (
@@ -137713,7 +137729,7 @@ frc
 frc
 frc
 jOl
-jOl
+nQY
 jOl
 frc
 frc
@@ -137970,7 +137986,7 @@ jKW
 jKW
 jKW
 hIr
-jOl
+nQY
 hIr
 jKW
 jKW
@@ -138227,7 +138243,7 @@ frc
 frc
 frc
 jOl
-jOl
+nQY
 jOl
 nYo
 nYo
@@ -138484,7 +138500,7 @@ ilJ
 ilJ
 twL
 twL
-jOl
+nQY
 twL
 twL
 ilJ
@@ -138741,7 +138757,7 @@ frc
 frc
 frc
 jOl
-jOl
+nQY
 jOl
 frc
 frc
@@ -138998,7 +139014,7 @@ jKW
 jKW
 jKW
 hIr
-jOl
+nQY
 hIr
 jKW
 jKW
@@ -139255,7 +139271,7 @@ frc
 frc
 frc
 jOl
-jOl
+nQY
 jOl
 nYo
 nYo
@@ -139512,7 +139528,7 @@ ilJ
 ilJ
 twL
 twL
-jOl
+nQY
 twL
 twL
 ilJ
@@ -139769,7 +139785,7 @@ frc
 frc
 frc
 jOl
-jOl
+nQY
 jOl
 frc
 frc
@@ -140026,7 +140042,7 @@ jKW
 jKW
 jKW
 hIr
-jOl
+nQY
 hIr
 jKW
 jKW
@@ -140283,7 +140299,7 @@ nYo
 nYo
 frc
 jOl
-jOl
+nQY
 jOl
 nYo
 nYo
@@ -140540,7 +140556,7 @@ ilJ
 ilJ
 twL
 twL
-jOl
+nQY
 twL
 twL
 ilJ
@@ -140797,7 +140813,7 @@ frc
 frc
 frc
 jOl
-jOl
+nQY
 jOl
 frc
 frc
@@ -141054,7 +141070,7 @@ jKW
 jKW
 jKW
 hIr
-jOl
+nQY
 hIr
 jKW
 jKW

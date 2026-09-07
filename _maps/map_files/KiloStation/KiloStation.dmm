@@ -1615,6 +1615,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/science/storage)
+"aOR" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/port/fore)
 "aOX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -6475,6 +6480,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -8771,6 +8777,11 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/station/security/brig/upper)
+"dxS" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/misc/space/nearstation)
 "dyg" = (
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
@@ -11245,6 +11256,7 @@
 "eqp" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "eqq" = (
@@ -23503,6 +23515,7 @@
 /obj/structure/sign/warning/xeno_mining{
 	pixel_y = 32
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -31407,6 +31420,7 @@
 "kWy" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/port/aft)
 "kWz" = (
@@ -34613,6 +34627,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -38769,6 +38784,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
+"npF" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/starboard/aft)
 "nqo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -45896,6 +45916,7 @@
 	c_tag = "Port Bow Solar";
 	name = "engineering camera"
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -47881,6 +47902,7 @@
 "qxZ" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/port/fore)
 "qyb" = (
@@ -52113,6 +52135,11 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
+"rXX" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/starboard/fore)
 "rYg" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -66097,6 +66124,7 @@
 "wNQ" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/aft)
 "wNV" = (
@@ -69440,6 +69468,11 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall/rust,
 /area/station/medical/virology)
+"xTW" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/port/aft)
 "xTY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -81171,7 +81204,7 @@ hmn
 hmn
 hmn
 hmn
-rIJ
+xTW
 hmn
 hmn
 hmn
@@ -81428,7 +81461,7 @@ mnL
 mnL
 mnL
 mnL
-rIJ
+xTW
 mnL
 mnL
 mnL
@@ -81612,7 +81645,7 @@ wLy
 wLy
 wLy
 wLy
-hXV
+aOR
 wLy
 wLy
 wLy
@@ -81685,7 +81718,7 @@ hmn
 hmn
 hmn
 hmn
-rIJ
+xTW
 hmn
 hmn
 hmn
@@ -81869,7 +81902,7 @@ xfL
 xfL
 xfL
 xfL
-hXV
+aOR
 xfL
 xfL
 xfL
@@ -81942,7 +81975,7 @@ pdJ
 hPi
 hPi
 pdJ
-rIJ
+xTW
 pdJ
 hPi
 hPi
@@ -82126,7 +82159,7 @@ wLy
 wLy
 wLy
 wLy
-hXV
+aOR
 wLy
 wLy
 wLy
@@ -82199,7 +82232,7 @@ hmn
 hmn
 hmn
 rIJ
-rIJ
+xTW
 rIJ
 hmn
 hmn
@@ -82383,7 +82416,7 @@ pdJ
 hPi
 hPi
 pdJ
-hXV
+aOR
 pdJ
 hPi
 hPi
@@ -82640,7 +82673,7 @@ wLy
 wLy
 wLy
 uYv
-hXV
+aOR
 hXV
 wLy
 wLy
@@ -82713,7 +82746,7 @@ hmn
 hmn
 hmn
 rIJ
-rIJ
+xTW
 rIJ
 hmn
 hmn
@@ -82970,7 +83003,7 @@ pdJ
 hPi
 hPi
 pdJ
-rIJ
+xTW
 pdJ
 voW
 hPi
@@ -83154,7 +83187,7 @@ wLy
 wLy
 wLy
 hXV
-hXV
+aOR
 hXV
 wLy
 wLy
@@ -83227,7 +83260,7 @@ hmn
 hmn
 hmn
 hmn
-rIJ
+xTW
 hmn
 hmn
 hmn
@@ -83411,7 +83444,7 @@ pdJ
 hPi
 hPi
 pdJ
-hXV
+aOR
 pdJ
 hPi
 hPi
@@ -83484,7 +83517,7 @@ mnL
 mnL
 mnL
 mnL
-rIJ
+xTW
 mnL
 mnL
 mnL
@@ -83668,7 +83701,7 @@ wLy
 wLy
 wLy
 wLy
-hXV
+aOR
 wLy
 wLy
 wLy
@@ -83741,7 +83774,7 @@ hmn
 hmn
 hmn
 hmn
-rIJ
+xTW
 hmn
 hmn
 hmn
@@ -83925,7 +83958,7 @@ xfL
 xfL
 xfL
 xfL
-hXV
+aOR
 xfL
 xfL
 xfL
@@ -83998,7 +84031,7 @@ usl
 usl
 usl
 usl
-rIJ
+xTW
 usl
 usl
 usl
@@ -84182,7 +84215,7 @@ wLy
 wLy
 wLy
 wLy
-hXV
+aOR
 wLy
 wLy
 wLy
@@ -84439,7 +84472,7 @@ usl
 usl
 usl
 usl
-hXV
+aOR
 usl
 usl
 usl
@@ -112024,7 +112057,7 @@ usl
 usl
 usl
 usl
-nvJ
+npF
 usl
 usl
 usl
@@ -112281,7 +112314,7 @@ vXs
 vXs
 vXs
 vXs
-nvJ
+npF
 vXs
 vXs
 vXs
@@ -112538,7 +112571,7 @@ smp
 smp
 smp
 smp
-nvJ
+npF
 smp
 smp
 smp
@@ -112795,7 +112828,7 @@ vXs
 vXs
 vXs
 vXs
-nvJ
+npF
 vXs
 vXs
 vXs
@@ -113052,7 +113085,7 @@ pdJ
 hPi
 hPi
 pdJ
-nvJ
+npF
 pdJ
 hPi
 hPi
@@ -113309,7 +113342,7 @@ vXs
 vXs
 vXs
 nvJ
-nvJ
+npF
 nvJ
 vXs
 vXs
@@ -113823,7 +113856,7 @@ vXs
 vXs
 vXs
 nvJ
-nvJ
+npF
 nvJ
 vXs
 vXs
@@ -114080,7 +114113,7 @@ pdJ
 hPi
 hPi
 pdJ
-nvJ
+npF
 pdJ
 hPi
 hPi
@@ -114337,7 +114370,7 @@ vXs
 vXs
 vXs
 vXs
-nvJ
+npF
 vXs
 vXs
 vXs
@@ -114594,7 +114627,7 @@ smp
 mnM
 smp
 smp
-nvJ
+npF
 smp
 smp
 smp
@@ -114851,7 +114884,7 @@ vXs
 vXs
 vXs
 vXs
-nvJ
+npF
 vXs
 vXs
 vXs
@@ -116305,12 +116338,12 @@ oZx
 oZx
 oZx
 usl
-rRa
-rRa
-rRa
-rRa
-rRa
-rRa
+rXX
+rXX
+rXX
+rXX
+rXX
+rXX
 usl
 oZx
 oZx
@@ -116562,7 +116595,7 @@ gTZ
 gTZ
 gTZ
 gTZ
-rRa
+rXX
 gTZ
 gTZ
 gTZ
@@ -116819,7 +116852,7 @@ vCH
 eQo
 eQo
 eQo
-rRa
+rXX
 eQo
 eQo
 eQo
@@ -117076,7 +117109,7 @@ gTZ
 gTZ
 gTZ
 gTZ
-rRa
+rXX
 gTZ
 gTZ
 gTZ
@@ -117333,7 +117366,7 @@ pdJ
 hPi
 hPi
 pdJ
-kYp
+dxS
 eIn
 hPi
 hPi
@@ -117590,7 +117623,7 @@ gTZ
 gTZ
 gTZ
 rRa
-rRa
+rXX
 rRa
 gTZ
 gTZ
@@ -118104,7 +118137,7 @@ gTZ
 gTZ
 gTZ
 rRa
-rRa
+rXX
 rRa
 gTZ
 gTZ
@@ -118361,7 +118394,7 @@ pdJ
 hPi
 hPi
 pdJ
-rRa
+rXX
 pdJ
 hPi
 hPi
@@ -118618,7 +118651,7 @@ gTZ
 gTZ
 gTZ
 gTZ
-rRa
+rXX
 gTZ
 gTZ
 gTZ
@@ -118875,7 +118908,7 @@ eQo
 eQo
 eQo
 eQo
-rRa
+rXX
 eQo
 eQo
 eQo
@@ -119132,7 +119165,7 @@ gTZ
 gTZ
 gTZ
 gTZ
-rRa
+rXX
 gTZ
 gTZ
 gTZ
