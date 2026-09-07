@@ -122,38 +122,31 @@ class ReagentGrid extends Component {
       <Flex height="100%" width="100%" direction="row">
         <Flex height="100.1%" width="70%" direction="column">
           <Section>
-            {' WIP UI '}
-            <br />
             {`${this.hovered_reagent ? all_reagent_data[this.hovered_reagent]['GRID_REAGENT_NAME'] : 'No Data'}`}{' '}
             {`(${(this.svgPosition.x + this.dynamicXOffset) / 10}`}
             {' : '}
             {`${(this.svgPosition.y + this.dynamicYOffset) / 10})`}
-            <Button
-              className="plant__button--beacon"
-              position="absolute"
-              icon="search-plus"
-              right="20px"
-              top="15px"
-              fontSize="18px"
-              color="grey"
-              onClick={() => this.setZoomScale(this.lockedZoomScale * 2)}
-            />
-            <Button
-              className="plant__button--beacon"
-              position="absolute"
-              icon="search-minus"
-              right="60px"
-              top="15px"
-              fontSize="18px"
-              color="grey"
-              onClick={() => this.setZoomScale(this.lockedZoomScale / 2)}
-            />
           </Section>
           <Section>
             <Input
-              width={'100%'}
+              width={'88%'}
               placeholder={'Search...'}
               onInput={(e, value) => setSearchText(value)}
+            />
+            <Button
+              className="plant__button--beacon"
+              icon="search-plus"
+              fontSize="15px"
+              color="grey"
+              onClick={() => this.setZoomScale(this.lockedZoomScale * 2)}
+              mx="5px"
+            />
+            <Button
+              className="plant__button--beacon"
+              icon="search-minus"
+              fontSize="15px"
+              color="grey"
+              onClick={() => this.setZoomScale(this.lockedZoomScale / 2)}
             />
           </Section>
           <Section height="100%" width="100%">
@@ -1361,7 +1354,7 @@ export const ReagentGridAlt = (props) => {
     last_command,
   } = data;
   return (
-    <Window width={900} height={830} theme="plant_menu">
+    <Window width={900} height={840} theme="plant_menu">
       <Window.Content scrollable={0}>
         {/* Column elements */}
         <Flex height="100%" width="100%" direction="column">

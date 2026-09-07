@@ -50,7 +50,7 @@
 	var/highest_rate = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		highest_rate = highest_rate < S.rating ? S.rating : highest_rate
-	accuracy = max(highest_rate-1, 3)
+	accuracy = min(highest_rate-1, 3)
 	return highest_rate
 
 /obj/machinery/refraction_catalogue/attackby(obj/item/C, mob/user)
