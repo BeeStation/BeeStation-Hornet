@@ -249,7 +249,7 @@
 		new /datum/data/requisition_equipment("Minebot Upgrade: Armor", /obj/item/minebot_upgrade/health, 400, "Mining Bot"),
 		new /datum/data/requisition_equipment("Minebot Upgrade: Ore Scoop", /obj/item/minebot_upgrade/ore_pickup, 400, "Mining Bot"),
 		new /datum/data/requisition_equipment("Minebot Upgrade: Medical", /obj/item/minebot_upgrade/medical, 800, "Mining Bot"),
-		new /datum/data/requisition_equipment("Minebot Upgrade: A.I.", /obj/item/slimepotion/slime/sentience/mining, 1000, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Upgrade: A.I.", /obj/item/slimepotion/sentience/mining, 1000, "Mining Bot"),
 		new /datum/data/requisition_equipment("Minebot Weatherproof Chassis", /obj/item/minebot_upgrade/antiweather, 1200, "Mining Bot"),
 	//Various novelty items
 		new /datum/data/requisition_equipment("1000 Space Cash", /obj/item/stack/spacecash/c1000, 2000, "Novelty"),

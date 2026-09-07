@@ -728,7 +728,7 @@
 
 // Minebot Sentience
 
-/obj/item/slimepotion/slime/sentience/mining
+/obj/item/slimepotion/sentience/mining
 	name = "minebot AI upgrade"
 	desc = "Can be used to grant sentience to minebots."
 	icon_state = "door_electronics"
@@ -737,7 +737,7 @@
 	var/cooldown_time = 600
 	var/timer
 
-/obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
+/obj/item/slimepotion/sentience/mining/attack(mob/living/M, mob/user)
 	if(timer > world.time)
 		to_chat(user, span_warning("Please wait [(timer - world.time)/10] seconds before trying again."))
 		return

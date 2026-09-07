@@ -402,7 +402,7 @@
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 
 /datum/chemical_reaction/slime/slimepotion2/on_reaction(datum/reagents/holder)
-	new /obj/item/slimepotion/slime/sentience(get_turf(holder.my_atom))
+	new /obj/item/slimepotion/sentience(get_turf(holder.my_atom))
 	..()
 
 /datum/chemical_reaction/slime/renaming
@@ -411,7 +411,7 @@
 	required_reagents = list(/datum/reagent/water = 1)
 
 /datum/chemical_reaction/slime/renaming/on_reaction(datum/reagents/holder)
-	new /obj/item/slimepotion/slime/renaming(holder.my_atom.drop_location())
+	new /obj/item/slimepotion/renaming(holder.my_atom.drop_location())
 	..()
 
 
@@ -658,7 +658,7 @@
 
 /datum/chemical_reaction/slime/lavasteroid/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	new /obj/item/slimepotion/slime/lavasteroid(T)
+	new /obj/item/slimepotion/lavasteroid(T)
 	..()
 
 /datum/chemical_reaction/slime/techshell
