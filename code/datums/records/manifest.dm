@@ -101,7 +101,7 @@
 /datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
 	var/datum/job/job = person.mind?.assigned_role
-	if(job && !(job.job_flags & JOB_CREW_MANIFEST))
+	if(!job || !(job.job_flags & JOB_CREW_MANIFEST))
 		return
 
 	var/assignment = person.mind?.assigned_role?.title || "None"

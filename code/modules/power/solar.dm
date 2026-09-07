@@ -488,22 +488,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 /// Search for unconnected panels and trackers in the computer powernet and connect them
 /obj/machinery/power/solar_control/proc/search_for_connected()
-	if(powernet)
-		for(var/obj/machinery/power/machine in powernet.nodes)
-			if(istype(machine, /obj/machinery/power/solar))
-				// space vines block out sunlight
-				var/obj/structure/spacevine/vine = locate(/obj/structure/spacevine) in loc
-				if(istype(vine) && !(/datum/spacevine_mutation/transparency in vine.mutations))
-					continue
+	if(!powernet)
+		return
 
-				var/obj/machinery/power/solar/panel = machine
-				if(!panel.control) //i.e unconnected
-					panel.set_control(src)
-			else if(istype(machine, /obj/machinery/power/tracker))
-				if(!connected_tracker) //if there's already a tracker connected to the computer don't add another
-					var/obj/machinery/power/tracker/tracker = machine
-					if(!tracker.control) //i.e unconnected
-						tracker.set_control(src)
+	for(var/obj/machinery/power/machine as anything in powernet.nodes)
+		if(istype(machine, /obj/machinery/power/solar))
+			// space vines block out sunlight
+			var/obj/structure/spacevine/vine = locate(/obj/structure/spacevine) in loc
+			if(istype(vine) && !(/datum/spacevine_mutation/transparency in vine.mutations))
+				continue
+
+			var/obj/machinery/power/solar/panel = machine
+			if(!panel.control) //i.e unconnected
+				panel.set_control(src)
+		else if(istype(machine, /obj/machinery/power/tracker) && isnull(connected_tracker))
+			//if there's already a tracker connected to the computer don't add another
+			var/obj/machinery/power/tracker/tracker = machine
+			if(!tracker.control) //i.e unconnected
+				tracker.set_control(src)
 
 /// Record the generated power supply and capacity for history
 /obj/machinery/power/solar_control/proc/record()
@@ -516,13 +518,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		var/list/supply = history["supply"]
 		if(powernet)
 			supply += round(lastgen)
-		if(supply.len > record_size)
+		if(length(supply) > record_size)
 			supply.Cut(1, 2)
 
 		var/list/capacity = history["capacity"]
 		if(powernet)
 			capacity += total_capacity
-		if(capacity.len > record_size)
+		if(length(capacity) > record_size)
 			capacity.Cut(1, 2)
 
 /obj/machinery/power/solar_control/update_overlays()
@@ -552,8 +554,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	data["azimuth_rate"] = azimuth_rate
 	data["max_rotation_rate"] = SSsun.base_rotation * 2
 	data["tracking_state"] = track
-	data["connected_panels"] = connected_panels.len
-	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
+	data["connected_panels"] = length(connected_panels)
+	data["connected_tracker"] = !!connected_tracker
 	data["history"] = history
 	return data
 
@@ -562,37 +564,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	if(.)
 		return
 
-	if(action == "azimuth")
-		var/adjust = text2num(params["adjust"])
-		var/value = text2num(params["value"])
-		if(adjust)
-			value = azimuth_target + adjust
-		if(value != null)
-			set_panels(value)
+	switch(action)
+		if("azimuth")
+			var/adjust = text2num(params["adjust"])
+			var/value = text2num(params["value"])
+			if(adjust)
+				value = azimuth_target + adjust
+			if(!isnull(value))
+				set_panels(value)
+				return TRUE
+		if("azimuth_rate")
+			var/adjust = text2num(params["adjust"])
+			var/value = text2num(params["value"])
+			if(adjust)
+				value = azimuth_rate + adjust
+			if(value != null)
+				azimuth_rate = round(clamp(value, -2 * SSsun.base_rotation, 2 * SSsun.base_rotation), 0.01)
+				return TRUE
+		if("tracking")
+			var/mode = text2num(params["mode"])
+			track = mode
+			if(mode == SOLAR_TRACK_AUTO)
+				if(connected_tracker)
+					connected_tracker.sun_update(SSsun, SSsun.azimuth)
+				else
+					track = SOLAR_TRACK_OFF
 			return TRUE
-		return FALSE
-	if(action == "azimuth_rate")
-		var/adjust = text2num(params["adjust"])
-		var/value = text2num(params["value"])
-		if(adjust)
-			value = azimuth_rate + adjust
-		if(value != null)
-			azimuth_rate = round(clamp(value, -2 * SSsun.base_rotation, 2 * SSsun.base_rotation), 0.01)
+		if("refresh")
+			search_for_connected()
 			return TRUE
-		return FALSE
-	if(action == "tracking")
-		var/mode = text2num(params["mode"])
-		track = mode
-		if(mode == SOLAR_TRACK_AUTO)
-			if(connected_tracker)
-				connected_tracker.sun_update(SSsun, SSsun.azimuth)
-			else
-				track = SOLAR_TRACK_OFF
-		return TRUE
-	if(action == "refresh")
-		search_for_connected()
-		return TRUE
-	return FALSE
 
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
