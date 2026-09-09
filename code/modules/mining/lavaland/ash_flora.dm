@@ -9,7 +9,6 @@
 	base_icon_state = "l_mushroom"
 	// What kinda of flora does this helper plant
 	var/obj/item/plant_seeds/seed_type = /obj/item/plant_seeds/preset/inocybe
-	var/datum/component/plant/plant_component
 
 /obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
@@ -18,7 +17,7 @@
 	icon_state = base_icon_state
 // Make ourselves a real plant
 	seed_type = new seed_type(src)
-	plant_component = AddComponent(/datum/component/plant, src, seed_type.plant_features, _use_body_appearance = FALSE)
+	var/datum/component/plant/plant_component = AddComponent(/datum/component/plant, src, seed_type.plant_features, _use_body_appearance = FALSE)
 	// Add some bonus traits to it
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
 		// Remove possible duplicates - kind of a fucked up way of doing it tbh
@@ -35,6 +34,7 @@
 			feature.plant_traits += trait
 	// Update species ID to reflect new traits
 	plant_component.compile_species_id()
+
 
 /obj/structure/flora/ash/attack_hand(mob/user, list/modifiers)
 	. = ..()

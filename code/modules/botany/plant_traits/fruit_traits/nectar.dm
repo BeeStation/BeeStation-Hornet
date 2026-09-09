@@ -14,6 +14,7 @@
 		plant_comp = null
 		return
 	RegisterSignal(plant_comp, COMSIG_PLANT_BEE_BUFF, PROC_REF(catch_bee))
+	RegisterSignal(plant_comp, COMSIG_QDELETING, PROC_REF(catch_comp))
 
 /datum/plant_trait/nectar/proc/catch_bee(datum/source)
 	SIGNAL_HANDLER
@@ -34,3 +35,9 @@
 		SEND_SIGNAL(_plant_comp, COMSIG_PLANT_NECTAR_BUFF)
 		body_feature = locate(/datum/plant_feature/body) in _plant_comp.plant_features
 		body_feature?.adjust_health((initial(body_feature.health) - body_feature.health)*0.5)
+
+/datum/plant_trait/nectar/proc/catch_comp(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(plant_comp, COMSIG_QDELETING)
+	plant_comp = null
