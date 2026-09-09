@@ -40,6 +40,9 @@
 	. = ..()
 	if(.)
 		return
+	var/datum/component/plant/plant_component = GetComponent(/datum/component/plant)
+	if(!plant_component)
+		return
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_component.plant_features
 	if(!length(fruit_feature?.fruits))
 		to_chat(user, span_warning("[src] isn't ready to harvest!"))
