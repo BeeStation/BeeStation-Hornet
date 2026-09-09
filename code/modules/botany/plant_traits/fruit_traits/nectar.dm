@@ -36,5 +36,5 @@
 		body_feature?.adjust_health((initial(body_feature.health) - body_feature.health)*0.5)
 
 /datum/plant_trait/nectar/catch_parent_qdel(datum/source)
-	. = ..()
 	plant_comp = null
+	return ..()
