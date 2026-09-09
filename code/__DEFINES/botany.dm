@@ -64,9 +64,9 @@
 
 //Fruit stat values
 	//How many reagents can the fruit hold
-#define PLANT_FRUIT_VOLUME_MICRO 8
-#define PLANT_FRUIT_VOLUME_SMALL 15
-#define PLANT_FRUIT_VOLUME_MEDIUM 28
+#define PLANT_FRUIT_VOLUME_MICRO 10
+#define PLANT_FRUIT_VOLUME_SMALL 20
+#define PLANT_FRUIT_VOLUME_MEDIUM 30
 #define PLANT_FRUIT_VOLUME_LARGE 50
 #define PLANT_FRUIT_VOLUME_VERY_LARGE 100
 	//How long it takes the fruit to grow to maturity

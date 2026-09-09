@@ -17,7 +17,7 @@
 	. = ..()
 	name = "[capitalize(initial(reagent.name))]"
 	var/datum/plant_feature/fruit/fruit_parent = _parent
-	desc = "[istype(fruit_parent) ? "([volume_percentage*fruit_parent.total_volume]u) " : ""][volume_percentage*100]% of reagents is [name]."
+	desc = "[istype(fruit_parent) ? "([max(1, volume_percentage*fruit_parent.total_volume)]u) " : ""][volume_percentage*100]% of reagents is [name]."
 	// Little helper for showing the exact reagent amount
 	//If we're a fast reagent, try add ourselves to the dictionary
 	if(_reagent && _percentage && !copy_rule)
@@ -68,4 +68,4 @@
 	else if(istype(_fruit_parent))
 		target_volume = _fruit_parent.reagents?.maximum_volume
 //add reagent
-	fruit.reagents?.add_reagent(reagent, volume_percentage * target_volume)
+	fruit.reagents?.add_reagent(reagent, max(1, volume_percentage * target_volume))
