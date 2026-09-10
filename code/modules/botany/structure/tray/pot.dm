@@ -1,10 +1,12 @@
 /obj/item/plant_tray/pot
 	name = "plant pot"
+	desc = "Plant house."
 	icon = 'icons/obj/hydroponics/features/pots.dmi'
 	icon_state = "pot"
 	use_indicators = FALSE
 	plumbing = FALSE
 	density = FALSE
+	w_class = WEIGHT_CLASS_HUGE
 	layer = ABOVE_MOB_LAYER
 	interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
 	layer_offset = 1.2
@@ -12,12 +14,19 @@
 	use_substrate = FALSE
 	plant_offset = list(0, 12)
 	can_scan = FALSE
+	force = 10
+	attack_weight = 2
+	throwforce = 13
+	throw_speed = 2
+	throw_range = 4
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/plant_tray/pot/Initialize(mapload)
 	. = ..()
 	icon_state = "pot_[rand(1, 6)]"
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
+	create_storage(storage_type = /datum/storage/kirbyplants)
 //Special tray stuff
 	tray_component.set_substrate(/datum/plant_subtrate/fairy)
 	tray_component.allow_substrate_change = FALSE

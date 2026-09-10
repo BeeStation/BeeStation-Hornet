@@ -2733,11 +2733,11 @@
 	desc = "Spruce up the station with these lovely plants! Contains a random assortment of five potted plants from Nanotrasen's potted plant research division. Warranty void if thrown."
 	cost = 550
 	max_supply = 6
-	contains = list(/obj/item/kirbyplants/random,
-					/obj/item/kirbyplants/random,
-					/obj/item/kirbyplants/random,
-					/obj/item/kirbyplants/random,
-					/obj/item/kirbyplants/random)
+	contains = list(/obj/item/plant_tray/pot/random,
+					/obj/item/plant_tray/pot/random,
+					/obj/item/plant_tray/pot/random,
+					/obj/item/plant_tray/pot/random,
+					/obj/item/plant_tray/pot/random)
 	crate_name = "potted plants crate"
 	crate_type = /obj/structure/closet/crate/hydroponics
 

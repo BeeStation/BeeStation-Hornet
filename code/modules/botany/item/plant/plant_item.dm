@@ -7,6 +7,7 @@
 	appearance_flags = TILE_BOUND | LONG_GLIDE | KEEP_APART | KEEP_TOGETHER
 	interaction_flags_item = NONE
 	layer = OBJ_LAYER
+	w_class = WEIGHT_CLASS_TINY // Hack for storage quirks
 	///Does this plant item skip it's growth cycle
 	var/skip_growth = FALSE
 
