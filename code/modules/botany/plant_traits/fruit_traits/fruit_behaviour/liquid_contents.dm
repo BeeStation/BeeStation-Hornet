@@ -7,8 +7,10 @@
 	desc = "The fruit squishes when thrown, used, or triggered. Triggers when squished."
 	examine_line = span_info("It has a lot of liquid contents inside.")
 	blacklist = list(/datum/plant_trait/fruit/liquid_contents/sensitive)
-	///Do we delete ourselves after impact
+	/// Do we delete ourselves after impact
 	var/impact_del = TRUE
+	/// Do we dump our reagents?
+	var/dump_reagents = TRUE
 
 /datum/plant_trait/fruit/liquid_contents/setup_fruit_parent()
 	. = ..()
@@ -26,6 +28,8 @@
 		return
 	SEND_SIGNAL(fruit_parent, COMSIG_FRUIT_ACTIVATE_TARGET, src, hit_atom)
 	fruit_parent.visible_message(span_warning("[fruit_parent] has been squashed."), span_italics("You hear a smack."))
+	if(!dump_reagents) // This will override the impact del, so keep that in mind
+		return
 	//Cough on the actual target, if there is one
 	if(hit_atom)
 		fruit_parent.reagents.expose(hit_atom, TOUCH)
@@ -41,6 +45,8 @@
 	. = ..()
 	// Lil' bit of dupe code but it's not a dealbreaker
 	fruit_parent.visible_message(span_warning("[fruit_parent] has been squashed."), span_italics("You hear a smack."))
+	if(!dump_reagents)
+		return
 	var/turf/T = get_turf(fruit_parent)
 	for(var/victim in T)
 		fruit_parent.reagents.expose(victim, TOUCH)
@@ -55,6 +61,7 @@
 	name = "Sensitive contents"
 	desc = "The fruit triggers when thrown or used."
 	impact_del = FALSE
+	dump_reagents = FALSE
 	blacklist = list(/datum/plant_trait/fruit/liquid_contents)
 	///Cooldown between triggers
 	COOLDOWN_DECLARE(trigger)
