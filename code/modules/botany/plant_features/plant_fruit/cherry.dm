@@ -53,8 +53,9 @@
 	colour_override = "#412c20"
 	seed_icon_state = "seed-cherry_bomb"
 	fruit_product = /obj/item/food/grown/cherry_bomb
-	trait_power = 2
+	trait_power = 2.5
+	genetic_budget = 4
 	plant_traits = list(/datum/plant_trait/fruit/temperature, /datum/plant_trait/fruit/liquid_contents/sensitive, /datum/plant_trait/fruit/seperated_contents)
 	fast_reagents = list(/datum/reagent/blackpowder = PLANT_REAGENT_MEDIUM)
-	growth_time = PLANT_FRUIT_GROWTH_MEDIUM
+	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	mutations = list(/datum/plant_feature/fruit/cherry)
