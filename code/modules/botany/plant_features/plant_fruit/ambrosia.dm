@@ -41,7 +41,7 @@
 	seed_icon_state = "seed-ambrosia_gaia"
 	fruit_product = /obj/item/food/grown/ambrosia/gaia
 	trait_power = 2
-	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
+	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin, /datum/plant_trait/fruit/dense_contents)
 	fast_reagents = list(/datum/reagent/medicine/earthsblood = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/ambrosia)
 

@@ -1,6 +1,5 @@
 /*
-	Keep reagents in the fruit seperated until something triggers it
-	Juts uses NO_REACT flags
+	Increases fruit volume
 */
 
 /datum/plant_trait/fruit/dense_contents
