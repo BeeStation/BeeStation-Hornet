@@ -26,6 +26,8 @@
 	name = "[name] ([level])([grid_x], [grid_y])"
 	// Volume preview
 	var/datum/plant_feature/fruit/fruit_parent = _parent
+	if(!fruit_parent)
+		return
 	desc = "[istype(parent) ? "([(REFRACTION_REAGENT_BASE * parent.trait_power) * fruit_parent.total_volume]u) " : ""][REFRACTION_REAGENT_BASE * parent.trait_power * 100]% of reagents is this reagent."
 
 /datum/plant_trait/refraction/get_name(peek = FALSE)
