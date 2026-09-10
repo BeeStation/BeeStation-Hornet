@@ -8,7 +8,7 @@
 
 /datum/plant_trait/fruit/seperated_contents
 	name = "Seperated Contents"
-	desc = "The fruit's chemical reagent's are seperated until triggered."
+	desc = "The fruit's chemical reagent's are seperated until triggered. When triggered, reagents will mix after a short period."
 
 /datum/plant_trait/fruit/seperated_contents/setup_component_parent(datum/source)
 	. = ..()
