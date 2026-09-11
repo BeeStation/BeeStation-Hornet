@@ -595,9 +595,7 @@ export const UserDetails = ({ sourceRole = null }) => {
       <Box style={{ whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
         <Icon name="id-card" mr={0.5} />
         {user.name}
-      </Box>
-      <Box fontSize={0.9} opacity={0.85} style={{ whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
-        {user.job}
+        {!!user.job && ` - ${user.job}`}
         {!!sourceRole && ` - ${sourceRole}`}
       </Box>
     </Box>

@@ -356,6 +356,8 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	var/value
 	///How many of this bounty are requested.
 	var/quantity = 1
+	///Multiple item bounties use a reward per item x quantity to get total bounty reward
+	var/reward_per_item
 	///Title of the request.
 	var/title
 	///Text description of the request to be shown within the UI.
@@ -372,13 +374,16 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	var/status = "open"
 	///Tags shown in the completed log.
 	var/list/status_tags = list()
+	///Has the Issuer prepaid the total reward into a held account pending bounty completion
+	var/prepaid = FALSE
 
-/datum/station_request/New(owned, newvalue, newquantity, newtitle, newdescription, reqnum, own_account)
+/datum/station_request/New(owned, newvalue, newquantity, newtitle, newdescription, reqnum, own_account, new_reward_per_item)
 	. = ..()
 	request_id = ++next_request_id
 	owner = owned
 	value = newvalue
 	quantity = max(1, text2num(newquantity))
+	reward_per_item = new_reward_per_item
 	title = newtitle
 	description = newdescription
 	req_number = reqnum
@@ -399,6 +404,31 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	claimant_account = null
 	claimant_name = null
 	status = "open"
+	return TRUE
+
+// Takes the total reward from the issuers account and holds it until the bounty is completed
+/datum/station_request/proc/prepay(datum/bank_account/account)
+	if(prepaid || !istype(account))
+		return FALSE
+	if(!account.adjust_money(-value))
+		return FALSE
+	prepaid = TRUE
+	return TRUE
+
+// Returns the money if the bounty is marked expired or cancelled.
+/datum/station_request/proc/refund_prepay()
+	if(!prepaid)
+		return FALSE
+	prepaid = FALSE
+	owner_account?.adjust_money(value)
+	return TRUE
+
+// When the issuer marks a bounty complete, give the held total to the claimant
+/datum/station_request/proc/payout_prepaid()
+	if(!prepaid)
+		return FALSE
+	prepaid = FALSE
+	claimant_account?.adjust_money(value)
 	return TRUE
 
 /datum/station_request/proc/complete(list/tags, datum/bank_account/account = claimant_account)

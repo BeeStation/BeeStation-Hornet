@@ -342,17 +342,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			"owner" = request.owner,
 			"value" = request.value,
 			"quantity" = request.quantity,
+			"rewardPerItem" = request.reward_per_item,
 			"title" = request.title,
 			"description" = request.description,
 			"acc_number" = request.request_id || request.req_number,
 			"status" = request.status,
 			"claimant" = request.claimant_name,
+			"prepaid" = request.prepaid,
 		))
 	for (var/datum/station_request/request as anything in GLOB.completed_request_list)
 		formatted_completed_requests += list(list(
 			"owner" = request.owner,
 			"value" = request.value,
 			"quantity" = request.quantity,
+			"rewardPerItem" = request.reward_per_item,
 			"title" = request.title,
 			"description" = request.description,
 			"acc_number" = request.request_id || request.req_number,
@@ -388,15 +391,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(.)
 		return
 	var/current_ref_num = params["request"]
-	var/current_app_num = params["applicant"]
-	var/datum/bank_account/request_target
 	if(current_ref_num)
 		for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
 			if(iterated_station_request.request_id == current_ref_num || iterated_station_request.req_number == current_ref_num)
 				active_request = iterated_station_request
 				break
-	if(active_request?.claimant_account && active_request.claimant_account.account_id == current_app_num)
-		request_target = active_request.claimant_account
 	var/is_silicon_user = issilicon(usr)
 	switch(action)
 		if("setChannel")
@@ -787,7 +786,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			return TRUE
 
 		if("createBounty")
-			create_bounty()
+			create_bounty(params["multipleItems"], params["rewardPerItem"], params["prepay"])
 			return TRUE
 
 		if("claim")
@@ -795,7 +794,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 			return TRUE
 
 		if("payApplicant")
-			pay_applicant(payment_target = request_target)
+			pay_applicant()
 			return TRUE
 
 		if("expireBounty")
@@ -1140,7 +1139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(!can_manage_current_channel())
 		say("ERROR: Unauthorized request.")
 		return TRUE
-	var/new_name = stripped_input(usr, "Set channel name", "Channel Management", current_channel.channel_name, 42)
+	var/new_name = tgui_input_text(usr, "Set channel name", "Channel Management", current_channel.channel_name, 42)
 	if(!new_name)
 		return TRUE
 	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
@@ -1154,7 +1153,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(!can_manage_current_channel())
 		say("ERROR: Unauthorized request.")
 		return TRUE
-	var/new_desc = stripped_multiline_input(usr, "Set channel description", "Channel Management", current_channel.channel_desc, MAX_BROADCAST_LEN)
+	var/new_desc = tgui_input_text(usr, "Set channel description", "Channel Management", current_channel.channel_desc, MAX_BROADCAST_LEN, multiline = TRUE)
 	if(!new_desc)
 		return TRUE
 	current_channel.channel_desc = new_desc
@@ -1251,13 +1250,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Unauthorized request.")
 		return TRUE
 	writing_story = TRUE
-	var/temp_headline = stripped_input(usr, "Write your article headline", "Network Channel Handler", feed_channel_headline, 250)
+	var/temp_headline = tgui_input_text(usr, "Write your article headline", "Network Channel Handler", feed_channel_headline, 250)
 	if(length(temp_headline) <= 1)
 		writing_story = FALSE
 		return TRUE
 	if(temp_headline)
 		feed_channel_headline = temp_headline
-	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message, 5000)
+	var/temp_message = tgui_input_text(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message, 5000, multiline = TRUE)
 	if(length(temp_message) <= 1)
 		writing_story = FALSE
 		return TRUE
@@ -1347,9 +1346,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Only open bounties can be deleted.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
+	if(active_request.refund_prepay())
+		say("Bounty deleted. Prepaid deposit refunded.")
+	else
+		say("Bounty deleted.")
 	GLOB.request_list.Remove(active_request)
 	active_request = null
-	say("Bounty deleted.")
 
 /obj/machinery/newscaster/proc/unclaim_bounty()
 	if(issilicon(usr))
@@ -1360,7 +1362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		return TRUE
 	if(!active_request)
 		return TRUE
-	if(active_request.owner != account.account_holder)
+	if(active_request.owner != account.account_holder && active_request.claimant_name != account.account_holder)
 		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
@@ -1386,8 +1388,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Only claimed bounties can be expired.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
+	if(active_request.refund_prepay())
+		say("Bounty marked as expired. Prepaid deposit refunded.")
+	else
+		say("Bounty marked as expired.")
 	archive_bounty(active_request, list("Expired", "Completed"))
-	say("Bounty marked as expired.")
 
 /obj/machinery/newscaster/proc/fail_bounty()
 	if(issilicon(usr))
@@ -1406,14 +1411,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Only claimed bounties can be failed.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
+	if(active_request.refund_prepay())
+		say("Bounty marked as failed. Prepaid deposit refunded.")
+	else
+		say("Bounty marked as failed.")
 	archive_bounty(active_request, list("Failed", "Completed"))
-	say("Bounty marked as failed.")
 
 /**
  * This creates a new bounty to the global list of bounty requests, alongisde the provided value of the request, and the owner of the request.
  * For more info, see datum/station_request.
  */
-/obj/machinery/newscaster/proc/create_bounty()
+/obj/machinery/newscaster/proc/create_bounty(multiple_items = FALSE, reward_per_item = null, prepay = FALSE)
 	if(issilicon(usr))
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
@@ -1432,7 +1440,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(active_owned_bounties >= 3)
 		say("ERROR: Account already has 3 active bounties.")
 		return TRUE
-	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value, bounty_quantity, bounty_title, bounty_text, account.account_id, account)
+	if(multiple_items)
+		bounty_quantity = clamp(text2num(bounty_quantity), 1, 1000)
+		reward_per_item = clamp(text2num(reward_per_item), 1, 1000)
+		bounty_value = bounty_quantity * reward_per_item
+	if(prepay && !account.has_money(bounty_value))
+		say("ERROR: Insufficient funds to pre-pay bounty.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value, bounty_quantity, bounty_title, bounty_text, account.account_id, account, reward_per_item)
+	if(prepay)
+		curr_request.prepay(account)
 	GLOB.request_list += list(curr_request)
 	bounty_quantity = 1
 	bounty_title = ""
@@ -1486,10 +1504,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		signal.send_to_receivers()
 		break
 
-/**
- * This pays out the current request_target the amount held by the active request's assigned value, and then clears the active request from the global list.
- */
-/obj/machinery/newscaster/proc/pay_applicant(datum/bank_account/payment_target)
+// Handles marking the bounty as paid/complete. If theres a prepaid deposit, it is released to the claimant, otherwise no credits are moved
+/obj/machinery/newscaster/proc/pay_applicant()
 	if(issilicon(usr))
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
@@ -1498,23 +1514,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		return TRUE
 	if(!active_request)
 		return TRUE
-	if(!payment_target)
-		payment_target = active_request.claimant_account
-	if(!payment_target)
-		say("ERROR: No claimant selected.")
+	if(account.account_holder != active_request.owner)
+		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return TRUE
-	var/has_money = account.has_money(active_request.value)
-	if((account.account_holder != active_request.owner) || !has_money)
-		if(has_money)
-			say("ERROR: Unauthorized request.")
-		else
-			say("ERROR: Insufficient funds.")
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-		return TRUE
-	payment_target.transfer_money(account, active_request.value)
-	say("Paid out [active_request.value] credits.")
-	archive_bounty(active_request, list("Paid", "Completed"), payment_target)
+	if(active_request.payout_prepaid())
+		say("Prepaid deposit released to claimant.")
+	else
+		say("Bounty marked as paid.")
+	archive_bounty(active_request, list("Paid", "Completed"))
 
 /obj/machinery/newscaster/proc/archive_bounty(datum/station_request/request, list/tags, datum/bank_account/account = request?.claimant_account)
 	if(!request)
@@ -1546,6 +1554,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	paper_text += "<b>Description:</b><br>[active_request.description || "None"]"
 	printed_paper.add_raw_text(paper_text)
 	printed_paper.update_appearance()
+	usr.put_in_hands(printed_paper)
 	return TRUE
 
 /obj/item/wallframe/newscaster

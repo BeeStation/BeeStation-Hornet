@@ -436,12 +436,12 @@
 		if(channel_name == potential_channel.channel_ID)
 			current_channel = potential_channel
 			break
-	var/temp_headline = stripped_input(usr, "Write your article headline", "Network Channel Handler", feed_channel_headline, 80)
+	var/temp_headline = tgui_input_text(usr, "Write your article headline", "Network Channel Handler", feed_channel_headline, 80)
 	if(length(temp_headline) <= 1)
 		return TRUE
 	if(temp_headline)
 		feed_channel_headline = temp_headline
-	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message)
+	var/temp_message = tgui_input_text(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message, multiline = TRUE)
 	if(length(temp_message) <= 1)
 		return TRUE
 	if(temp_message)
