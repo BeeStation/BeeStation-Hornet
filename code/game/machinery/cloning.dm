@@ -183,7 +183,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(CLONING_STRICT_ARGS(clonename, unique_identity, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental))
+/obj/machinery/clonepod/proc/growclone(CLONING_STRICT_ARGS(clonename, unique_identity, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental, gender))
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -222,6 +222,8 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
 
 	H.hardset_dna(unique_identity, mutation_index, H.real_name, null, mrace, features)
+	if(gender)
+		H.gender = gender
 
 	if(!HAS_TRAIT(H, TRAIT_RADIMMUNE))//dont apply mutations if the species is Mutation proof.
 		if(efficiency > 2)

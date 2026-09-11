@@ -16,3 +16,21 @@
       and new mask
   r1ks-iwnl:
   - bugfix: Fixes loadout accessory backpacks(cyborg ones) not spawning
+2026-09-06:
+  Isaacnml:
+  - bugfix: Cloning respects your original gender, it'll no longer default to male
+      only
+  - bugfix: Slimeperson clones will respect your gender, it'll no longer default to
+      male
+  mrmanlikesbt:
+  - bugfix: Fixed the modsuit GPS having an error overlay when enabled
+  - bugfix: Fixed cyborg heads having a no-eyes overlay like normal fleshy heads
+  - bugfix: Fixed the debug robotics holodeck having an IPC brain instead of the intended
+      positronic brain
+  - bugfix: Fixed a person permanently becoming trapped if the cryo cell that they
+      were in was broken
+  - bugfix: Fixed advanced tools losing their inhand sprite when switching to their
+      secondary mode
+  - bugfix: Fixed the toilet lock button on BoxStation not bolting the door
+  - spellcheck: Mecha construction now correctly refers to the manipulators it requires
+      as manipulators instead of servos

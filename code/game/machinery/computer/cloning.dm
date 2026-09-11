@@ -448,7 +448,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		/* 09 */ insurance = found_record.resolve_mind_account_id(),
 		/* 10 */ traumas = found_record.traumas.Copy(),
 		/* 11 */ body_only = found_record.body_only,
-		/* 12 */ experimental = experimental ))
+		/* 12 */ experimental = experimental,
+		/* 13 */ gender = found_record.gender ))
 	switch(cloning_attempt_result)
 		if(CLONING_SUCCESS)
 			temp = "Notice: [found_record.name] => Cloning cycle in progress..."
