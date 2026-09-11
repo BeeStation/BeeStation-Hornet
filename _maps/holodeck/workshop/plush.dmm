@@ -51,6 +51,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
+"B" = (
+/obj/item/substrate_bag/clay,
+/obj/item/substrate_bag/clay{
+	pixel_y = 2;
+	pixel_x = 4
+	},
+/turf/open/floor/holofloor/monotile/dark,
+/area/template_noop)
 "D" = (
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
@@ -74,6 +82,7 @@
 /obj/item/stack/medical/gauze,
 /obj/item/stack/medical/gauze,
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
+/obj/item/plant_seeds/preset/glowshroom,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "L" = (
@@ -146,7 +155,7 @@ Z
 (2,1,1) = {"
 c
 O
-D
+B
 D
 c
 "}
