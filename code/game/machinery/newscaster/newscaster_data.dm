@@ -413,6 +413,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	if(!account.adjust_money(-value))
 		return FALSE
 	prepaid = TRUE
+	account.bank_card_talk("[value] credits have been withdrawn from your account to pre-pay a bounty.")
 	return TRUE
 
 // Returns the money if the bounty is marked expired or cancelled.
@@ -421,6 +422,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 		return FALSE
 	prepaid = FALSE
 	owner_account?.adjust_money(value)
+	owner_account?.bank_card_talk("[value] credits have been refunded to your account from a bounty.")
 	return TRUE
 
 // When the issuer marks a bounty complete, give the held total to the claimant
@@ -429,6 +431,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 		return FALSE
 	prepaid = FALSE
 	claimant_account?.adjust_money(value)
+	claimant_account?.bank_card_talk("[value] credits have been paid to your account for a completed bounty.")
 	return TRUE
 
 /datum/station_request/proc/complete(list/tags, datum/bank_account/account = claimant_account)
