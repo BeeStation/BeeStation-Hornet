@@ -264,7 +264,11 @@ const BountyCard = ({ request, user, completed }) => {
       </Box>
       <Box mt={1}>
         <b>Bounty Description:</b>{' '}
-        {!request.description && <Box as="span" italic color="label">None provided.</Box>}
+        {!request.description && (
+          <Box as="span" italic color="label">
+            None provided.
+          </Box>
+        )}
       </Box>
       {!!request.description && (
         <BlockQuote style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>

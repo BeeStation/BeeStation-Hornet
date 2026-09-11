@@ -352,16 +352,22 @@ const NewscasterWantedScreen = () => {
     selected_wanted_id,
   } = data;
   const wantedEntries = wanted.filter((entry) => entry.criminal);
-  const activeWantedEntry = wantedEntries.find((entry) => entry.active) || wantedEntries[0];
+  const activeWantedEntry =
+    wantedEntries.find((entry) => entry.active) || wantedEntries[0];
   const selectedWantedEntry =
-    wantedEntries.find((entry) => entry.id === selected_wanted_id) || activeWantedEntry;
-  const currentWantedDangerLabel = selectedWantedEntry?.danger_level || 'Armed and Dangerous';
+    wantedEntries.find((entry) => entry.id === selected_wanted_id) ||
+    activeWantedEntry;
+  const currentWantedDangerLabel =
+    selectedWantedEntry?.danger_level || 'Armed and Dangerous';
   const currentWantedDangerMeta = getWantedDangerMeta(currentWantedDangerLabel);
   const selectedDangerLabel = wanted_danger_level || 'Armed and Dangerous';
   const selectedDangerMeta = getWantedDangerMeta(selectedDangerLabel);
   const selectedEntryCharges = parseWantedCharges(selectedWantedEntry?.crime);
   const editCharges = parseWantedCharges(crime_description);
-  if ((!viewing_wanted && !editing_wanted) || (!editing_wanted && !wantedEntries.length)) {
+  if (
+    (!viewing_wanted && !editing_wanted) ||
+    (!editing_wanted && !wantedEntries.length)
+  ) {
     return null;
   }
   return (
@@ -857,10 +863,13 @@ const NewscasterChannelPicker = ({ channels = [], showWanted = false, activeWant
               onClick={() => act('setChannel', { channel: channel.ID })}
             >
               <Box style={{ width: '100%' }}>
-                <Box bold style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                <Box
+                  bold
+                  style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}
+                >
                   {channel.name}
                 </Box>
-                  {!!channel.desc && (
+                {!!channel.desc && (
                   <Box
                     fontSize={0.85}
                     opacity={0.75}
@@ -872,7 +881,7 @@ const NewscasterChannelPicker = ({ channels = [], showWanted = false, activeWant
                       lineHeight: 1.25,
                     }}
                   >
-                      {channel.desc}
+                    {channel.desc}
                   </Box>
                 )}
               </Box>
