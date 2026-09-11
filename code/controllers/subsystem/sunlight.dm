@@ -41,12 +41,18 @@ SUBSYSTEM_DEF(sunlight)
 			time_til_cycle = round(rand((TIME_VAMPIRE_NIGHT-TIME_VAMPIRE_SOL_DELAY), (TIME_VAMPIRE_NIGHT+TIME_VAMPIRE_SOL_DELAY)), 1)
 			if(send_messages)
 				notify_ghosts("VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.)", flashwindow = FALSE)
-			GLOB.news_network.submit_article("<h1>IWA Status Update - Solar Flare Passed</h1><br><br>\
-												This is an update from the Interstellar Weather Authority. The latest Class I solar flare has now fully passed Station [station_name()]'s orbital path.<br><br>\
+			GLOB.news_network.submit_article("This is an update from the Interstellar Weather Authority. The latest Class I solar flare has now fully passed Station [station_name()]'s orbital path.<br><br>\
 												No anomalies or disruptions have been detected.<br><br>\
 												- IWA Monitoring Admin",
 												"Interstellar Weather Authority (IWA)",
-												"AuriNet WeatherCast")
+												"AuriNet WeatherCast",
+												null,
+												adminMessage = FALSE,
+												allow_comments = TRUE,
+												update_alert = TRUE,
+												author_job = "",
+												author_account = null,
+												headline = "IWA Status Update - Solar Flare Passed")
 			SEND_SIGNAL(src, COMSIG_SOL_END)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ENDED,
@@ -58,13 +64,19 @@ SUBSYSTEM_DEF(sunlight)
 	switch(time_til_cycle)
 		if(TIME_VAMPIRE_DAY_WARN_1)
 			SEND_SIGNAL(src, COMSIG_SOL_NEAR_START)
-			GLOB.news_network.submit_article("<h1>IWA Advisory Bulletin - Minor Solar Activity Detected</h1><br><br>\
-												This is a routine advisory from the Interstellar Weather Authority. A <b>Class I solar flare</b> has been observed emanating from Auri Geminae.<br><br>\
+			GLOB.news_network.submit_article("This is a routine advisory from the Interstellar Weather Authority. A <b>Class I solar flare</b> has been observed emanating from Auri Geminae.<br><br>\
 												<b>Projected impact on Station [station_name()] in approximately [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes.</b><br><br>\
 												No shielding protocols are required. Minor fluctuations in long-range sensors and comms may occur. Crew are advised to remain alert and report any anomalies to station operations.<br><br>\
 												- IWA Monitoring Admin",
 												"Interstellar Weather Authority (IWA)",
-												"AuriNet WeatherCast")
+												"AuriNet WeatherCast",
+												null,
+												adminMessage = FALSE,
+												allow_comments = TRUE,
+												update_alert = TRUE,
+												author_job = "",
+												author_account = null,
+												headline = "IWA Advisory Bulletin - Minor Solar Activity Detected")
 			warn_daylight(
 				danger_level = DANGER_LEVEL_FIRST_WARNING,
 				vampire_warning_message = span_danger("Solar Flares will bombard the station with dangerous UV radiation in [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b>")
