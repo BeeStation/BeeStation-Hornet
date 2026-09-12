@@ -183,7 +183,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 		. = (100 * ((mob_occupant.health + 100) / (heal_level + 100)))
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(CLONING_STRICT_ARGS(clonename, unique_identity, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental, gender))
+/obj/machinery/clonepod/proc/growclone(CLONING_STRICT_ARGS(clonename, unique_identity, unique_enzymes, mutation_index, given_mind, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental, gender, age, datum/blood_type/blood_type))
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -221,9 +221,18 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
 
-	H.hardset_dna(unique_identity, mutation_index, H.real_name, null, mrace, features)
+	if(!clonename)	//to prevent null names
+		clonename = "clone ([rand(1,999)])"
+	H.real_name = clonename
 	if(gender)
 		H.gender = gender
+	if(age)
+		H.age = age
+
+	H.hardset_dna(unique_identity, mutation_index, clonename, blood_type, mrace, features)
+	//The record holds the authoritative enzymes, which are not always the hash of the current name.
+	if(unique_enzymes)
+		H.dna.unique_enzymes = unique_enzymes
 
 	if(!HAS_TRAIT(H, TRAIT_RADIMMUNE))//dont apply mutations if the species is Mutation proof.
 		if(efficiency > 2)
@@ -238,10 +247,6 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 	H.adjust_silence(40 SECONDS) //Prevents an extreme edge case where clones could speak if they said something at exactly the right moment.
 	occupant = H
-
-	if(!clonename)	//to prevent null names
-		clonename = "clone ([rand(1,999)])"
-	H.real_name = clonename
 
 	icon_state = "pod_1"
 	//Get the clone body ready
