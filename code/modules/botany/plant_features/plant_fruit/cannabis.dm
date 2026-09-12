@@ -53,7 +53,7 @@
 	fruit_product = /obj/item/food/grown/cannabis/rainbow
 	trait_power = 2
 	fast_reagents = list(/datum/reagent/toxin/mindbreaker = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 8)
+	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 100)
 
 /datum/plant_feature/fruit/cannabis/rainbow/setup_fruit(datum/source, harvest_amount, list/_visual_fruits, skip_growth)
 	. = ..()
