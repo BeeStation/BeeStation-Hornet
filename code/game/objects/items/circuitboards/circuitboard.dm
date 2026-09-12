@@ -17,6 +17,10 @@
 	/// extension that is applied after the initial name AKA (Computer/Machine Board)
 	var/name_extension = null
 	var/build_path = null
+	///determines if the circuit board originated from a vendor off station or not.
+	var/onstation = TRUE
+	///determines if the board requires specific levels of parts. (ie specifically a femto menipulator vs generic manipulator)
+	var/specific_parts = FALSE
 	/// whether or not the circuit board will build into a vendor whose products cost nothing (used for offstation vending machines mostly)
 	var/all_products_free = FALSE
 
@@ -77,7 +81,7 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 	var/list/def_components
 
 // Applies the default parts defined by the circuit board when the machine is created
-/obj/item/circuitboard/machine/apply_default_parts(obj/machinery/M)
+/obj/item/circuitboard/machine/apply_default_parts(obj/machinery/machine)
 	if(!req_components)
 		return
 
@@ -92,12 +96,18 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 			comp_path = def_components[comp_path]
 
 		if(ispath(comp_path, /obj/item/stack))
-			M.component_parts += new comp_path(M, comp_amt)
+			machine.component_parts += new comp_path(machine, comp_amt)
+		else if (ispath(comp_path, /datum/stock_part))
+			for (var/_ in 1 to comp_amt)
+				var/stock_part_datum = GLOB.stock_part_datums[comp_path]
+				if (isnull(stock_part_datum))
+					CRASH("[comp_path] didn't have a matching stock part datum")
+				machine.component_parts += stock_part_datum
 		else
-			for(var/i in 1 to comp_amt)
-				M.component_parts += new comp_path(M)
+			for(var/component in 1 to comp_amt)
+				machine.component_parts += new comp_path(machine)
 
-	M.RefreshParts()
+	machine.RefreshParts()
 
 /obj/item/circuitboard/machine/examine(mob/user)
 	. = ..()
@@ -106,22 +116,35 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 		return .
 
 	var/list/nice_list = list()
-	for(var/atom/component_path as anything in req_components)
+	for(var/component_path in req_components)
 		if(!ispath(component_path))
 			continue
 
-		var/component_name = initial(component_path.name)
+		var/component_name
 		var/component_amount = req_components[component_path]
 
 		if(ispath(component_path, /obj/item/stack))
 			var/obj/item/stack/stack_path = component_path
 			if(initial(stack_path.singular_name))
 				component_name = initial(stack_path.singular_name) //e.g. "glass sheet" vs. "glass"
-
-		else if(ispath(component_path, /obj/item/stock_parts))
+		else if(ispath(component_path, /obj/item/stock_parts) && !specific_parts)
 			var/obj/item/stock_parts/stock_part = component_path
 			if(initial(stock_part.base_name))
 				component_name = initial(stock_part.base_name)
+		else if(ispath(component_path, /obj/item/stock_parts))
+			var/obj/item/stock_parts/stock_part = component_path
+			if(initial(stock_part.name))
+				component_name = initial(stock_part.name)
+		else if(ispath(component_path, /datum/stock_part))
+			var/datum/stock_part/stock_part = component_path
+			var/obj/item/physical_object_type = initial(stock_part.physical_object_type)
+			if (initial(physical_object_type.name))
+				component_name = initial(physical_object_type.name)
+		else if(ispath(component_path, /atom))
+			var/atom/stock_part = component_path
+			component_name = initial(stock_part.name)
+		else
+			stack_trace("[component_path] was an invalid component")
 
 		nice_list += list("[component_amount] [component_name]\s")
 

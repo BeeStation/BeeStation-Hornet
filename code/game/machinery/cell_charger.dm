@@ -13,11 +13,13 @@
 	var/recharge_coeff = 1
 	var/static/list/allowed_items = list(
 		/obj/item/stock_parts/cell,
-		/obj/item/modular_computer)
+		/obj/item/modular_computer
+	)
 
 /obj/machinery/cell_charger/RefreshParts()
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_coeff = C.rating
+	. = ..()
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		recharge_coeff = capacitor.tier
 
 /obj/machinery/cell_charger/update_overlays()
 	. = ..()

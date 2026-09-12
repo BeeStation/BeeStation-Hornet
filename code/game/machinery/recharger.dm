@@ -23,8 +23,9 @@
 	))
 
 /obj/machinery/recharger/RefreshParts()
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		recharge_coeff = capacitor.rating * 2
+	. = ..()
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		recharge_coeff = capacitor.tier * 2
 
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()

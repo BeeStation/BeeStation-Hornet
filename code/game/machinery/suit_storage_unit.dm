@@ -237,9 +237,10 @@
 	update_appearance()
 
 /obj/machinery/suit_storage_unit/RefreshParts()
+	. = ..()
 	var/calculated_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		calculated_laser_rating += laser.rating
+	for(var/datum/stock_part/micro_laser/laser in component_parts)
+		calculated_laser_rating += laser.tier
 	laser_strength_hacked = 15 + (5 * (calculated_laser_rating)) //20 on T1, 35 on T4
 	laser_strength = 12 - (2 * (calculated_laser_rating)) //10 on T1, 4 on T4
 
@@ -270,9 +271,12 @@
 		open_machine()
 		dump_inventory_contents()
 		spawn_frame(disassembled)
-		for(var/obj/item/I in component_parts)
-			I.forceMove(loc)
-			component_parts.Cut()
+		for(var/obj/item/part in component_parts)
+			part.forceMove(loc)
+		for(var/datum/stock_part/stock_part in component_parts)
+			var/physical_object_type = stock_part.physical_object_type
+			new physical_object_type(loc)
+		component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/interact(mob/living/user)

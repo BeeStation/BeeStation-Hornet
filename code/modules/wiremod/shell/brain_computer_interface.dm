@@ -511,6 +511,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	name = "Brain-Computer Interface Manipulation Chamber (Machine Board)"
 	build_path = /obj/machinery/bci_implanter
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/manipulator = 1,
 	)

@@ -31,16 +31,17 @@
 		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
 
 /obj/machinery/public_nanite_chamber/RefreshParts()
+	. = ..()
 	nanite_coeff = 0
 	speed_coeff = 1
 	var/obj/item/circuitboard/machine/public_nanite_chamber/board = circuit
 	if(board)
 		cloud_id = board.cloud_id
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		nanite_coeff += manipulator.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.tier
 	var/total_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
-		total_laser_rating += micro_laser.rating
+	for(var/datum/stock_part/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.tier
 	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/public_nanite_chamber/proc/set_busy(status, working_icon)

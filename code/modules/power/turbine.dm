@@ -96,9 +96,10 @@
 		turbine.locate_machinery()
 
 /obj/machinery/power/compressor/RefreshParts()
+	. = ..()
 	var/E = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		E += M.tier
 	efficiency = E / 6
 
 /obj/machinery/power/compressor/examine(mob/user)
@@ -185,9 +186,10 @@
 	connect_to_network()
 
 /obj/machinery/power/turbine/RefreshParts()
+	. = ..()
 	var/P = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		P += C.rating
+	for(var/datum/stock_part/capacitor/C in component_parts)
+		P += C.tier
 	productivity = P / 6
 
 /obj/machinery/power/turbine/examine(mob/user)

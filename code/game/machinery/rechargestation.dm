@@ -19,12 +19,13 @@
 	update_icon()
 
 /obj/machinery/recharge_station/RefreshParts()
+	. = ..()
 	recharge_speed = 0
 	repairs = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += (C.rating * 100) + 66 // Starting boost, but inconsequential at t4
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		repairs += M.rating - 1
+	for(var/datum/stock_part/capacitor/C in component_parts)
+		recharge_speed += (C.tier * 100) + 66 // Starting boost, but inconsequential at t4
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		repairs += M.tier - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
 		recharge_speed *= C.maxcharge / 10000
 

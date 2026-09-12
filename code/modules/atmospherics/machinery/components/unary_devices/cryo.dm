@@ -163,9 +163,10 @@
 	update_appearance(UPDATE_ICON)
 
 /obj/machinery/cryo_cell/RefreshParts()
+	. = ..()
 	var/max_tier = 0
-	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		max_tier += bin.rating
+	for(var/datum/stock_part/matter_bin/bin in component_parts)
+		max_tier += bin.tier
 
 	efficiency = initial(efficiency) * max_tier
 	sleep_factor = initial(sleep_factor) / max_tier

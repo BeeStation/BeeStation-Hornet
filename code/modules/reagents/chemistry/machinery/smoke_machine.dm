@@ -35,8 +35,8 @@
 	. = ..()
 	create_reagents(REAGENTS_BASE_VOLUME)
 	AddComponent(/datum/component/plumbing/simple_demand)
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.tier
 
 	AddElement(/datum/element/simple_rotation)
 	update_appearance() //so the input/output pipes will overlay properly during init
@@ -52,9 +52,10 @@
 	return ..()
 
 /obj/machinery/smoke_machine/RefreshParts()
+	. = ..()
 	var/new_volume = REAGENTS_BASE_VOLUME
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		new_volume += REAGENTS_BASE_VOLUME * B.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		new_volume += REAGENTS_BASE_VOLUME * B.tier
 	if(!reagents)
 		create_reagents(new_volume)
 	reagents.maximum_volume = new_volume
@@ -62,11 +63,11 @@
 		reagents.expose(loc, TOUCH) // if someone manages to downgrade it without deconstructing
 		reagents.clear_reagents()
 	efficiency = 9
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		efficiency += C.rating
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		efficiency += capacitor.tier
 	max_range = 1
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		max_range += M.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		max_range += manipulator.tier
 	max_range = max(3, max_range)
 
 /obj/machinery/smoke_machine/process()

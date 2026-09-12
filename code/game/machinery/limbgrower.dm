@@ -159,13 +159,14 @@
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()
+	. = ..()
 	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/cup/our_beaker in component_parts)
 		reagents.maximum_volume += our_beaker.volume
 		our_beaker.reagents.trans_to(src, our_beaker.reagents.total_volume)
 	var/T=1.2
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		T -= M.rating*0.2
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		T -= M.tier*0.2
 	prod_coeff = min(1,max(0,T)) // Coeff going 1 -> 0,8 -> 0,6 -> 0,4
 
 /obj/machinery/limbgrower/examine(mob/user)

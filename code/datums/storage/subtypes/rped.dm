@@ -31,7 +31,6 @@
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/ore/bluespace_crystal/refined,
 		/obj/item/stack/ore/bluespace_crystal/artificial,
-		/obj/item/stack/sheet/bluespace_crystal,
 	)
 
 /datum/storage/rped/can_insert(obj/item/to_insert, mob/user, messages = TRUE, force = FALSE)

@@ -4,8 +4,9 @@
 	name = "Bluespace Artillery Generator"
 	icon_state = "command"
 	build_path = /obj/machinery/bsa/back //No freebies!
+	specific_parts = TRUE
 	req_components = list(
-		/obj/item/stock_parts/capacitor/quadratic = 5,
+		/datum/stock_part/capacitor/quadratic = 5,
 		/obj/item/stack/cable_coil = 2,
 	)
 
@@ -22,8 +23,9 @@
 	name = "Bluespace Artillery Bore"
 	icon_state = "command"
 	build_path = /obj/machinery/bsa/front
+	specific_parts = TRUE
 	req_components = list(
-		/obj/item/stock_parts/manipulator/femto = 5,
+		/datum/stock_part/manipulator/femto = 5,
 		/obj/item/stack/cable_coil = 2,
 	)
 
@@ -31,9 +33,10 @@
 	name = "DNA vault"
 	icon_state = "command"
 	build_path = /obj/machinery/dna_vault //No freebies!
+	specific_parts = TRUE
 	req_components = list(
-		/obj/item/stock_parts/capacitor/super = 5,
-		/obj/item/stock_parts/manipulator/pico = 5,
+		/datum/stock_part/capacitor/super = 5,
+		/datum/stock_part/manipulator/pico = 5,
 		/obj/item/stack/cable_coil = 2,
 	)
 
@@ -53,8 +56,8 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/modular_fabricator/autolathe
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 3,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 3,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
 
@@ -63,7 +66,7 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/energy_accumulator/grounding_rod
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 	needs_anchored = FALSE
 
@@ -72,11 +75,11 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/broadcaster
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
-		/obj/item/stock_parts/subspace/filter = 1,
-		/obj/item/stock_parts/subspace/crystal = 1,
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/filter = 1,
+		/datum/stock_part/crystal = 1,
+		/datum/stock_part/micro_laser = 2,
 	)
 
 /obj/item/circuitboard/machine/telecomms/bus
@@ -84,9 +87,9 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/bus
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
-		/obj/item/stock_parts/subspace/filter = 1,
+		/datum/stock_part/filter = 1,
 	)
 
 /obj/item/circuitboard/machine/telecomms/hub
@@ -94,9 +97,9 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/hub
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/subspace/filter = 2,
+		/datum/stock_part/filter = 2,
 	)
 
 /obj/item/circuitboard/machine/telecomms/processor
@@ -104,12 +107,12 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/processor
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 3,
-		/obj/item/stock_parts/subspace/filter = 1,
-		/obj/item/stock_parts/subspace/treatment = 2,
-		/obj/item/stock_parts/subspace/analyzer = 1,
+		/datum/stock_part/manipulator = 3,
+		/datum/stock_part/filter = 1,
+		/datum/stock_part/treatment = 2,
+		/datum/stock_part/analyzer = 1,
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/subspace/amplifier = 1,
+		/datum/stock_part/amplifier = 1,
 	)
 
 /obj/item/circuitboard/machine/telecomms/receiver
@@ -117,10 +120,10 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/receiver
 	req_components = list(
-		/obj/item/stock_parts/subspace/ansible = 1,
-		/obj/item/stock_parts/subspace/filter = 1,
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/ansible = 1,
+		/datum/stock_part/filter = 1,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/micro_laser = 1,
 	)
 
 /obj/item/circuitboard/machine/telecomms/relay
@@ -128,9 +131,9 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/relay
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/subspace/filter = 2,
+		/datum/stock_part/filter = 2,
 	)
 
 /obj/item/circuitboard/machine/telecomms/server
@@ -138,9 +141,9 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/server
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
-		/obj/item/stock_parts/subspace/filter = 1,
+		/datum/stock_part/filter = 1,
 	)
 
 /obj/item/circuitboard/machine/telecomms/message_server
@@ -148,9 +151,9 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/telecomms/message_server
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/cable_coil = 1,
-		/obj/item/stock_parts/subspace/filter = 3,
+		/datum/stock_part/filter = 3,
 	)
 
 /obj/item/circuitboard/machine/tesla_coil
@@ -159,7 +162,7 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/energy_accumulator/tesla_coil
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 	needs_anchored = FALSE
 
@@ -187,7 +190,7 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/cell_charger
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 	needs_anchored = FALSE
 
@@ -202,8 +205,8 @@
 	desc = "You can change its laser configuration with a screwdriver"
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -213,8 +216,8 @@
 	desc = "You can change its modulator with a screwdriver"
 	build_path = /obj/machinery/power/emitter/drill
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -240,7 +243,7 @@
 	build_path = /obj/machinery/ntnet_relay
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/subspace/filter = 1,
+		/datum/stock_part/filter = 1,
 	)
 
 /obj/item/circuitboard/machine/pacman
@@ -248,10 +251,10 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/port_gen/pacman
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 	needs_anchored = FALSE
 
@@ -269,7 +272,7 @@
 	build_path = /obj/machinery/power/compressor
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/manipulator = 6,
+		/datum/stock_part/manipulator = 6,
 	)
 
 /obj/item/circuitboard/machine/power_turbine
@@ -278,7 +281,7 @@
 	build_path = /obj/machinery/power/turbine
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/capacitor = 6,
+		/datum/stock_part/capacitor = 6,
 	)
 
 /obj/item/circuitboard/machine/igniter
@@ -300,7 +303,7 @@
 	build_path = /obj/machinery/power/rtg
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 		/obj/item/stack/sheet/mineral/uranium = 10, // We have no Pu-238, and this is the closest thing to it.
 	)
 
@@ -309,8 +312,8 @@
 	build_path = /obj/machinery/power/rtg/advanced
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/capacitor = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stack/sheet/mineral/uranium = 10,
 		/obj/item/stack/sheet/mineral/plasma = 5,
 	)
@@ -324,33 +327,33 @@
 	name = "Plasma Thruster"
 	build_path = /obj/machinery/shuttle/engine/plasma
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 2,
+		/datum/stock_part/capacitor = 2,
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/micro_laser = 1,
 	)
 
 /obj/item/circuitboard/machine/shuttle/engine/void
 	name = "Void Thruster"
 	build_path = /obj/machinery/shuttle/engine/void
 	req_components = list(
-		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/datum/stock_part/capacitor/quadratic = 2,
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/micro_laser/quadultra = 1,
+		/datum/stock_part/micro_laser/quadultra = 1,
 	)
 
 /obj/item/circuitboard/machine/shuttle/heater
 	name = "Electronic Engine Heater"
 	build_path = /obj/machinery/atmospherics/components/unary/shuttle/heater
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/matter_bin = 1,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/matter_bin = 1,
 	)
 
 /obj/item/circuitboard/machine/plasma_refiner
 	name = "Plasma Refinery"
 	build_path = /obj/machinery/atmospherics/components/unary/plasma_refiner
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/micro_laser = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/assembly/igniter = 1,
 	)
@@ -360,7 +363,7 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/scanner_gate
 	req_components = list(
-		/obj/item/stock_parts/scanning_module = 3,
+		/datum/stock_part/scanning_module = 3,
 	)
 
 /obj/item/circuitboard/machine/smes
@@ -369,8 +372,8 @@
 	build_path = /obj/machinery/power/smes
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/matter_bin = 5,
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/matter_bin = 5,
+		/datum/stock_part/capacitor = 1,
 	)
 
 /obj/item/circuitboard/machine/techfab/department/engineering
@@ -384,7 +387,7 @@
 	build_path = /obj/machinery/teleport/hub
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 3,
-		/obj/item/stock_parts/matter_bin = 1,
+		/datum/stock_part/matter_bin = 1,
 	)
 	def_components = list(
 		/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial,
@@ -396,7 +399,7 @@
 	build_path = /obj/machinery/teleport/station
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 2,
-		/obj/item/stock_parts/capacitor = 2,
+		/datum/stock_part/capacitor = 2,
 		/obj/item/stack/sheet/glass = 1,
 	)
 	def_components = list(
@@ -408,8 +411,8 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/thermomachine
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/micro_laser = 2,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
@@ -429,8 +432,8 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/suit_storage_unit/
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/micro_laser = 1,
 	)
 
 /obj/item/circuitboard/machine/shieldwallgen
@@ -438,8 +441,8 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/shieldwallgen
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/micro_laser = 2,
 		/obj/item/stack/sheet/plasmaglass = 1,
 		/obj/item/stack/cable_coil = 5,
 	)
@@ -453,9 +456,9 @@
 	name = "High Power Atmospheric Holofield Generator"
 	build_path = /obj/machinery/power/shieldwallgen/atmos/strong
 	req_components = list(
-		/obj/item/stock_parts/manipulator/nano = 2,
-		/obj/item/stock_parts/micro_laser/high = 2,
-		/obj/item/stock_parts/capacitor/adv = 2,
+		/datum/stock_part/manipulator/nano = 2,
+		/datum/stock_part/micro_laser/high = 2,
+		/datum/stock_part/capacitor/adv = 2,
 		/obj/item/stack/sheet/plasmaglass = 1,
 		/obj/item/stack/cable_coil = 5,
 	)
@@ -467,8 +470,8 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/rnd/production/circuit_imprinter
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/reagent_containers/cup/beaker = 2,
 	)
 
@@ -481,7 +484,7 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/holopad
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 	needs_anchored = FALSE //wew lad
 	var/secure = FALSE
@@ -508,7 +511,7 @@
 	build_path = /obj/machinery/launchpad
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	def_components = list(
 		/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial,
@@ -524,8 +527,8 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/rnd/production/protolathe
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/reagent_containers/cup/beaker = 2,
 	)
 
@@ -538,7 +541,7 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/reagentgrinder/constructed
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -547,7 +550,7 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/smartfridge
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
+		/datum/stock_part/matter_bin = 1,
 	)
 	needs_anchored = FALSE
 	var/static/list/fridges_name_paths = list(
@@ -590,7 +593,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "Dehydrator"
 	build_path = /obj/machinery/smartfridge/drying
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
+		/datum/stock_part/matter_bin = 1,
 	)
 	needs_anchored = FALSE
 
@@ -599,8 +602,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "generic"
 	build_path = /obj/machinery/portable_thermomachine
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/capacitor = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/cable_coil = 3,
 	)
@@ -611,8 +614,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "generic"
 	build_path = /obj/machinery/rnd/production/techfab
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/reagent_containers/cup/beaker = 2,
 	)
 
@@ -687,9 +690,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "Fax Machine"
 	build_path = /obj/machinery/fax
 	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/scanning_module = 1,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 
 //Medical
@@ -699,9 +702,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/chem_dispenser
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/capacitor = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell = 1,
 	)
@@ -715,9 +718,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/capacitor = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell = 1,
 	)
@@ -728,20 +731,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 /obj/item/circuitboard/machine/chem_dispenser/fullupgrade
 	build_path = /obj/machinery/chem_dispenser/fullupgrade
+	specific_parts = TRUE
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/bluespace = 2,
-		/obj/item/stock_parts/capacitor/quadratic = 2,
-		/obj/item/stock_parts/manipulator/femto = 2,
+		/datum/stock_part/matter_bin/bluespace = 2,
+		/datum/stock_part/capacitor/quadratic = 2,
+		/datum/stock_part/manipulator/femto = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 	)
 
 /obj/item/circuitboard/machine/chem_dispenser/mutagensaltpeter
 	build_path = /obj/machinery/chem_dispenser/mutagensaltpeter
+	specific_parts = TRUE
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/bluespace = 2,
-		/obj/item/stock_parts/capacitor/quadratic = 2,
-		/obj/item/stock_parts/manipulator/femto = 2,
+		/datum/stock_part/matter_bin/bluespace = 2,
+		/datum/stock_part/capacitor/quadratic = 2,
+		/datum/stock_part/manipulator/femto = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 	)
@@ -751,10 +756,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name_extension = "(Abductor Machine Board)"
 	icon_state = "abductor_mod"
 	build_path = /obj/machinery/chem_dispenser/abductor
+	specific_parts = TRUE
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/bluespace = 2,
-		/obj/item/stock_parts/capacitor/quadratic = 2,
-		/obj/item/stock_parts/manipulator/femto = 2,
+		/datum/stock_part/matter_bin/bluespace = 2,
+		/datum/stock_part/capacitor/quadratic = 2,
+		/datum/stock_part/manipulator/femto = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 	)
@@ -768,7 +774,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/chem_heater
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
 
@@ -779,7 +785,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	desc = "You can turn the \"mode selection\" dial using a screwdriver."
 	req_components = list(
 		/obj/item/reagent_containers/cup/beaker = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
 	def_components = list(
@@ -806,8 +812,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/clonepod
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/scanning_module = 2,
-		/obj/item/stock_parts/manipulator = 2,
+		/datum/stock_part/scanning_module = 2,
+		/datum/stock_part/manipulator = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/reagent_containers/cup/beaker = 2,
 	)
@@ -821,9 +827,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/dna_scannernew
 	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/scanning_module = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stack/cable_coil = 2,
 	)
@@ -833,7 +839,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/cryo_cell
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
+		/datum/stock_part/matter_bin = 1,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 4,
 	)
@@ -843,8 +849,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/fat_sucker
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/scalpel = 1,
 	)
@@ -854,7 +860,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/harvester
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 4,
+		/datum/stock_part/micro_laser = 4,
 	)
 
 /obj/item/circuitboard/machine/limbgrower
@@ -862,7 +868,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/limbgrower
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stack/sheet/glass = 1,
 	)
@@ -877,8 +883,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/sleeper
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 2,
 	)
@@ -886,8 +892,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/sleeper/fullupgrade
 	build_path = /obj/machinery/sleeper/syndie/fullupgrade
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/bluespace = 1,
-		/obj/item/stock_parts/manipulator/femto = 1,
+		/datum/stock_part/matter_bin/bluespace = 1,
+		/datum/stock_part/manipulator/femto = 1,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 2,
 	)
@@ -897,9 +903,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "medical"
 	build_path = /obj/machinery/smoke_machine
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/capacitor = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell = 1,
 	)
@@ -911,8 +917,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/stasis
 	req_components = list(
 		/obj/item/stack/cable_coil = 3,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/manipulator = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 
 /obj/item/circuitboard/machine/techfab/department/medical
@@ -932,9 +938,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/recharge_station
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 2,
+		/datum/stock_part/capacitor = 2,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	def_components = list(
 		/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high,
@@ -945,9 +951,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/rnd/destructive_analyzer
 	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/scanning_module = 1,
+		/datum/stock_part/manipulator = 1,
+		/datum/stock_part/micro_laser = 1,
 	)
 
 
@@ -957,7 +963,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/mech_bay_recharge_port
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/capacitor = 5,
+		/datum/stock_part/capacitor = 5,
 	)
 
 /obj/item/circuitboard/machine/mechfab
@@ -965,9 +971,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/modular_fabricator/exosuit_fab
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/manipulator = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
 
@@ -976,8 +982,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/monkey_recycler
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -986,9 +992,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/nanite_chamber
 	req_components = list(
-		/obj/item/stock_parts/scanning_module = 2,
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/scanning_module = 2,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/manipulator = 1,
 	)
 
 /obj/item/circuitboard/machine/nanite_program_hub
@@ -996,8 +1002,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/nanite_program_hub
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 
 /obj/item/circuitboard/machine/nanite_programmer
@@ -1005,9 +1011,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/nanite_programmer
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/scanning_module = 1,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/scanning_module = 1,
 	)
 
 /obj/item/circuitboard/machine/processor/slime
@@ -1025,8 +1031,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "science"
 	build_path = /obj/machinery/public_nanite_chamber
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/manipulator = 1,
 	)
 	var/cloud_id = 1
 
@@ -1047,8 +1053,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/quantumpad
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 1,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/capacitor = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 	)
 	def_components = list(
@@ -1061,7 +1067,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/rnd/server
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
-		/obj/item/stock_parts/scanning_module = 1,
+		/datum/stock_part/scanning_module = 1
 	)
 
 /obj/item/circuitboard/machine/rdserver/oldstation
@@ -1081,7 +1087,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "Ectoscopic Sniffer"
 	build_path = /obj/machinery/ecto_sniffer
 	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
+		/datum/stock_part/scanning_module = 1,
 	)
 
 //Security
@@ -1096,7 +1102,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "security"
 	build_path = /obj/machinery/recharger
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/capacitor = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1112,8 +1118,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/photobooth
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 
 /obj/item/circuitboard/machine/photobooth/security
@@ -1126,8 +1132,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/biogenerator
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
@@ -1140,9 +1146,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
 	build_path = /obj/machinery/chem_dispenser/drinks/fullupgrade
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/bluespace = 2,
-		/obj/item/stock_parts/capacitor/quadratic = 2,
-		/obj/item/stock_parts/manipulator/femto = 2,
+		/datum/stock_part/matter_bin/bluespace = 2,
+		/datum/stock_part/capacitor/quadratic = 2,
+		/datum/stock_part/manipulator/femto = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 	)
@@ -1155,9 +1161,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
 	build_path = /obj/machinery/chem_dispenser/drinks/beer/fullupgrade
 	req_components = list(
-		/obj/item/stock_parts/matter_bin/bluespace = 2,
-		/obj/item/stock_parts/capacitor/quadratic = 2,
-		/obj/item/stock_parts/manipulator/femto = 2,
+		/datum/stock_part/matter_bin/bluespace = 2,
+		/datum/stock_part/capacitor/quadratic = 2,
+		/datum/stock_part/manipulator/femto = 2,
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 	)
@@ -1172,7 +1178,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/deepfryer
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/micro_laser = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1181,7 +1187,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/griddle
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/micro_laser = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1190,7 +1196,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/oven
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/micro_laser = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1200,8 +1206,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/dish_drive
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/matter_bin = 2,
+		/datum/stock_part/manipulator = 1,
+		/datum/stock_part/matter_bin = 2,
 	)
 	needs_anchored = FALSE
 	var/suction = TRUE
@@ -1227,8 +1233,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/gibber
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1237,8 +1243,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/hydroponics/constructable
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
 	needs_anchored = FALSE
@@ -1248,8 +1254,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/microwave
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/matter_bin = 1,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/matter_bin = 1,
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/glass = 2,
 	)
@@ -1259,8 +1265,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "Mass Driver"
 	build_path = /obj/machinery/mass_driver
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/capacitor = 1,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/capacitor = 1,
 	)
 
 /obj/item/circuitboard/machine/plantgenes
@@ -1268,10 +1274,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/plantgenes
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/manipulator = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/scanning_module = 1,
+		/datum/stock_part/scanning_module = 1,
 	)
 
 /obj/item/circuitboard/machine/processor
@@ -1279,8 +1285,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/processor
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1305,8 +1311,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/recycler
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1315,8 +1321,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "service"
 	build_path = /obj/machinery/seed_extractor
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/manipulator = 1,
 	)
 	needs_anchored = FALSE
 
@@ -1338,7 +1344,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/gear_requisition/mining
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/matter_bin = 3,
+		/datum/stock_part/matter_bin = 3,
 	)
 
 /obj/item/circuitboard/machine/exploration_equipment_vendor
@@ -1347,7 +1353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/gear_requisition/exploration
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/matter_bin = 3,
+		/datum/stock_part/matter_bin = 3,
 	)
 
 
@@ -1361,8 +1367,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/power/liquid_pump
 	needs_anchored = FALSE
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/matter_bin = 2,
 	)
 
 /obj/item/circuitboard/machine/ore_redemption
@@ -1371,9 +1377,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = /obj/machinery/mineral/ore_redemption
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/matter_bin = 1,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/manipulator = 1,
 		/obj/item/assembly/igniter = 1,
 	)
 	needs_anchored = FALSE
@@ -1393,8 +1399,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "supply"
 	build_path = /obj/machinery/mineral/stacking_machine
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/matter_bin = 2,
 	)
 
 /obj/item/circuitboard/machine/stacking_unit_console
@@ -1410,8 +1416,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name = "Furnace"
 	build_path = /obj/machinery/mineral/processing_unit
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/matter_bin = 2,
+		/datum/stock_part/micro_laser = 1,
+		/datum/stock_part/matter_bin = 2,
 		/obj/item/assembly/igniter = 1,
 	)
 
@@ -1426,8 +1432,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "supply"
 	build_path = /obj/machinery/sheetifier
 	req_components = list(
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
+		/datum/stock_part/matter_bin = 2,
 	)
 
 /obj/item/circuitboard/machine/abductor
@@ -1439,13 +1445,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	name_extension = "(Void Core)"
 	build_path = /obj/machinery/power/rtg/abductor
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/micro_laser = 1,
+		/datum/stock_part/capacitor = 1,
+		/datum/stock_part/micro_laser = 1,
 		/obj/item/stock_parts/cell/infinite/abductor = 1,
 	)
 	def_components = list(
-		/obj/item/stock_parts/capacitor = /obj/item/stock_parts/capacitor/quadratic,
-		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/quadultra,
+		/datum/stock_part/capacitor = /datum/stock_part/capacitor/quadratic,
+		/datum/stock_part/micro_laser = /datum/stock_part/micro_laser/quadultra,
 	)
 
 /obj/item/circuitboard/machine/plantgenes/vault
@@ -1454,7 +1460,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	icon_state = "abductor_mod"
 	// It wasn't made by actual abductors race, so no abductor tech here.
 	def_components = list(
-		/obj/item/stock_parts/manipulator = /obj/item/stock_parts/manipulator/femto,
-		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/quadultra,
-		/obj/item/stock_parts/scanning_module = /obj/item/stock_parts/scanning_module/triphasic,
+		/datum/stock_part/manipulator = /datum/stock_part/manipulator/femto,
+		/datum/stock_part/micro_laser = /datum/stock_part/micro_laser/quadultra,
+		/datum/stock_part/scanning_module = /datum/stock_part/scanning_module/triphasic,
 	)

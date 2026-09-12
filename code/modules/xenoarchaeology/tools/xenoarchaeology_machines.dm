@@ -82,7 +82,7 @@
 	build_path = /obj/machinery/xenoarchaeology_machine
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 5,
-		/obj/item/stock_parts/matter_bin = 1)
+		/datum/stock_part/matter_bin = 1)
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
@@ -231,9 +231,10 @@
 		deltimer(cooking_timer)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/RefreshParts()
+	. = ..()
 	//Should only be one, but I'm lazy and this seems safe
-	for(var/obj/item/stock_parts/manipulator/part in component_parts)
-		reward_rate = part.rating / 16
+	for(var/datum/stock_part/manipulator/part in component_parts)
+		reward_rate = part.tier / 16
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -340,4 +341,4 @@
 	name = "anomalous material calibrator (Machine Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/xenoarchaeology_machine/calibrator
-	req_components = list(/obj/item/stock_parts/matter_bin = 3, /obj/item/stock_parts/manipulator = 1)
+	req_components = list(/datum/stock_part/matter_bin = 3, /datum/stock_part/manipulator = 1)

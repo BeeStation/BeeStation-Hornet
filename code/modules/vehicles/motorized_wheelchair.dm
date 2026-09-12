@@ -9,10 +9,14 @@
 	var/manip_rating_sum = 0
 	var/power_usage = 25 // power draw per tile moved, same as speed, the value here is not used.
 	var/panel_open = FALSE
-	var/list/required_parts = list(/obj/item/stock_parts/manipulator,
-							/obj/item/stock_parts/manipulator,
-							/obj/item/stock_parts/capacitor)
+	var/list/required_parts = list(
+		/datum/stock_part/manipulator,
+		/datum/stock_part/manipulator,
+		/datum/stock_part/capacitor,
+	)
 	var/obj/item/stock_parts/cell/power_cell
+	///stock parts for this chair
+	var/list/component_parts = list()
 	var/low_power_alerted = FALSE
 	var/safeties = TRUE
 
@@ -29,18 +33,23 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/motorized)
 
 /obj/vehicle/ridden/wheelchair/motorized/CheckParts(list/parts_list)
-	power_cell = null
-	for(var/obj/item/stock_parts/defaultpart in contents)
-		qdel(defaultpart)
-	..()
+	for(var/obj/item/stock_parts/part in parts_list)
+		// find macthing datum/stock_part for this part and add to component list
+		var/datum/stock_part/newstockpart = GLOB.stock_part_datums_per_object[part.type]
+		if(isnull(newstockpart))
+			CRASH("No corresponding datum/stock_part for [part.type]")
+		component_parts += newstockpart
+		// delete this part
+		part.moveToNullspace()
+		qdel(part)
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/proc/refresh_parts()
 	manip_rating_sum = 0 // Should never be under 1
-	for(var/obj/item/stock_parts/manipulator/M in contents)
-		manip_rating_sum += M.rating
-	for(var/obj/item/stock_parts/capacitor/C in contents)
-		power_usage = LERP(20, 10, (C.rating - 1) / 3) // 20 with worst parts, 10 with best parts
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		manip_rating_sum += manipulator.tier
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		power_usage = LERP(20, 10, (capacitor.tier - 1) / 3) // 20 with worst parts, 10 with best parts
 
 	speed = max(0.8 + (0.2 * ((8 - manip_rating_sum) / 2) ** 2), safeties ? speed_limit_safe : speed_limit_unsafe) //t1 : 2.6 t2: 1.6 t3: 1 t4: 0.6 (clamped to unsafe speed limit at best). lower is better.
 
@@ -48,10 +57,8 @@
 	return power_cell
 
 /obj/vehicle/ridden/wheelchair/motorized/atom_destruction(damage_flag)
-	var/turf/T = get_turf(src)
-	for(var/c in contents)
-		var/atom/movable/thing = c
-		thing.forceMove(T)
+	for(var/datum/stock_part/part in component_parts)
+		new part.physical_object_type(drop_location())
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/relaymove(mob/living/user, direction)
@@ -117,32 +124,40 @@
 	if(!istype(I, /obj/item/stock_parts))
 		return ..()
 
-	var/obj/item/stock_parts/newstockpart = I
-	for(var/obj/item/stock_parts/oldstockpart in contents)
+	var/datum/stock_part/newstockpart = GLOB.stock_part_datums_per_object[I.type]
+	if(isnull(newstockpart))
+		CRASH("No corresponding datum/stock_part for [newstockpart.type]")
+	for(var/datum/stock_part/oldstockpart in component_parts)
 		var/type_to_check
 		for(var/pathtypes in required_parts)
 			if(ispath(oldstockpart.type, pathtypes))
 				type_to_check = oldstockpart.type
 				break
 		if(istype(newstockpart, type_to_check) && istype(oldstockpart, type_to_check))
-			if(newstockpart.get_part_rating() > oldstockpart.get_part_rating())
-				newstockpart.forceMove(src)
-				user.put_in_hands(oldstockpart)
-				user.visible_message("<span class='notice'>[user] replaces [oldstockpart] with [newstockpart] in [src].</span>", "<span class='notice'>You replace [oldstockpart] with [newstockpart].</span>")
+			if(newstockpart.tier > oldstockpart.tier)
+				// delete the part in the users hand and add the datum part to the component_list
+				I.moveToNullspace()
+				qdel(I)
+				component_parts += newstockpart
+				// create an new instance of the old datum stock part physical type & put it in the users hand
+				var/obj/item/stock_parts/part = new oldstockpart.physical_object_type
+				user.put_in_hands(part)
+				component_parts -= oldstockpart
+				// user message
+				user.visible_message(span_notice("[user] replaces [oldstockpart.name()] with [newstockpart.name()] in [src]."), span_notice("You replace [oldstockpart.name()] with [newstockpart.name()]."))
 				break
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, span_notice("You begin to detach the wheels..."))
-	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
-		new /obj/item/stack/rods(drop_location(), 8)
-		new /obj/item/stack/sheet/iron(drop_location(), 10)
-		var/turf/T = get_turf(src)
-		for(var/c in contents)
-			var/atom/movable/thing = c
-			thing.forceMove(T)
-		qdel(src)
+	if(!I.use_tool(src, user, 40, volume=50))
+		return TRUE
+	to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
+	new /obj/item/stack/rods(drop_location(), 8)
+	new /obj/item/stack/sheet/iron(drop_location(), 10)
+	for(var/datum/stock_part/part in component_parts)
+		new part.physical_object_type(drop_location())
+	qdel(src)
 	return TRUE
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)

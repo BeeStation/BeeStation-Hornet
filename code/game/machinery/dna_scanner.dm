@@ -27,15 +27,16 @@
 	return ..()
 
 /obj/machinery/dna_scannernew/RefreshParts()
+	. = ..()
 	scan_level = 0
 	damage_coeff = 0
 	precision_coeff = 0
-	for(var/obj/item/stock_parts/scanning_module/P in component_parts)
-		scan_level += P.rating
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		precision_coeff = M.rating
-	for(var/obj/item/stock_parts/micro_laser/P in component_parts)
-		damage_coeff = P.rating
+	for(var/datum/stock_part/scanning_module/scanning_module in component_parts)
+		scan_level += scanning_module.tier
+	for(var/datum/stock_part/matter_bin/M in component_parts)
+		precision_coeff = M.tier
+	for(var/datum/stock_part/micro_laser/P in component_parts)
+		damage_coeff = P.tier
 	for(var/obj/machinery/computer/scan_consolenew/console in view(1))
 		if(console.connected_scanner == src)
 			console.calculate_timeouts()

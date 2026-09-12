@@ -35,9 +35,10 @@
 	return ..()
 
 /obj/machinery/rnd/server/RefreshParts()
+	. = ..()
 	var/tot_rating = 0
-	for(var/obj/item/stock_parts/part in contents)
-		tot_rating += part.rating
+	for(var/datum/stock_part/part in component_parts)
+		tot_rating += part.tier
 	active_power_usage = initial(active_power_usage) / max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon_state()

@@ -70,14 +70,13 @@
 	return ..()
 
 /obj/machinery/mass_driver/RefreshParts()
+	. = ..()
 	drive_range = initial(drive_range)
 	power_per_obj = initial(power_per_obj)
-	for(var/obj/item/stock_parts/P in component_parts)
-		switch(P.type)
-			if(/obj/item/stock_parts/manipulator)
-				drive_range += (P.rating - 1) * 5 //Subtract by 1, so initial values represent T1 parts
-			if(/obj/item/stock_parts/capacitor)
-				power_per_obj -= (P.rating - 1) * 250
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		drive_range += (manipulator.tier - 1) * 5 //Subtract by 1, so initial values represent T1 parts
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		power_per_obj -= (capacitor.tier - 1) * 250
 
 /obj/machinery/mass_driver/emp_act(severity)
 	. = ..()

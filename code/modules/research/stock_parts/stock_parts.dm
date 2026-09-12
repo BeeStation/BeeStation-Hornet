@@ -223,6 +223,15 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
+/obj/item/storage/part_replacer/proc/get_sorted_parts()
+	var/list/part_list = list()
+	//Assemble a list of current parts, then sort them by their rating!
+	for(var/obj/item/component_part in contents)
+		part_list += component_part
+		//Sort the parts. This ensures that higher tier items are applied first.
+	part_list = sortTim(part_list, GLOBAL_PROC_REF(cmp_rped_sort))
+	return part_list
+
 /proc/cmp_rped_sort(obj/item/A, obj/item/B)
 	/**
 	 * stacks components like cable,glass,plasteel are not component parts hence their get_part_rating() method is undefined and would return undefined values causing errors
@@ -242,7 +251,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	var/rating = 1
 	///Used when a base part has a different name to higher tiers of part. For example, machine frames want any manipulator and not just a micro-manipulator.
 	var/base_name
-
+	var/energy_rating = 1
 
 /obj/item/stock_parts/Initialize(mapload)
 	. = ..()
@@ -451,6 +460,20 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	icon_state = "subspace_transmitter"
 	desc = "A large piece of equipment used to open a window into the subspace dimension."
 	custom_materials = list(/datum/material/iron=50)
+
+// Misc. Parts
+
+/obj/item/stock_parts/card_reader
+	name = "card reader"
+	icon_state = "card_reader"
+	desc = "A small magnetic card reader, used for devices that take and transmit holocredits."
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=10)
+
+/obj/item/stock_parts/water_recycler
+	name = "water recycler"
+	icon_state = "water_recycler"
+	desc = "A chemical reclaimation component, which serves to re-accumulate and filter water over time."
+	custom_materials = list(/datum/material/plastic=200, /datum/material/iron=50)
 
 /obj/item/research//Makes testing much less of a pain -Sieve
 	name = "research"

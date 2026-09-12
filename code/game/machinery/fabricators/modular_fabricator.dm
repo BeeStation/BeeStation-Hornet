@@ -206,9 +206,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	return materials?.mat_container || GetComponent(/datum/component/material_container)
 
 /obj/machinery/modular_fabricator/RefreshParts()
+	. = ..()
 	var/new_capacity = 0
-	for(var/obj/item/stock_parts/matter_bin/new_matter_bin in component_parts)
-		new_capacity += new_matter_bin.rating * 75000
+	for(var/datum/stock_part/matter_bin/new_matter_bin in component_parts)
+		new_capacity += new_matter_bin.tier * 75000
 
 	//Material container
 	if(remote_materials)
@@ -219,8 +220,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		container.max_amount = new_capacity
 
 	var/efficiency = 1.8
-	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
-		efficiency -= new_manipulator.rating * 0.2
+	for(var/datum/stock_part/manipulator/new_manipulator in component_parts)
+		efficiency -= new_manipulator.tier * 0.2
 	creation_efficiency = max(1, efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency
 
 	update_static_data_for_all_viewers()

@@ -201,10 +201,6 @@
 	fire = 50
 	acid = 70
 
-/obj/item/circuitboard
-	///determines if the circuit board originated from a vendor off station or not.
-	var/onstation = TRUE
-
 /**
   * Initialize the vending machine
   *
@@ -262,6 +258,7 @@
 
 //Better would be to make constructable child
 /obj/machinery/vending/RefreshParts()
+	SHOULD_CALL_PARENT(FALSE)
 	if(!component_parts)
 		return
 

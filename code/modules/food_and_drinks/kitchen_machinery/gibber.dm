@@ -21,21 +21,22 @@
 	add_overlay("grjam")
 
 /obj/machinery/gibber/RefreshParts()
+	. = ..()
 	gibtime = 40
 	meat_produced = 0
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		meat_produced += B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		gibtime -= 5 * M.rating
-		if(M.rating >= 2)
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		meat_produced += B.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		gibtime -= 5 * M.tier
+		if(M.tier >= 2)
 			ignore_clothing = TRUE
 
 /obj/machinery/gibber/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Outputting <b>[meat_produced]</b> meat slab(s) after <b>[gibtime*0.1]</b> seconds of processing.")
-		for(var/obj/item/stock_parts/manipulator/M in component_parts)
-			if(M.rating >= 2)
+		for(var/datum/stock_part/manipulator/M in component_parts)
+			if(M.tier >= 2)
 				. += span_notice("Gibber has been upgraded to process inorganic materials.")
 
 /obj/machinery/gibber/update_icon()

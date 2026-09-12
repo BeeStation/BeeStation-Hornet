@@ -195,8 +195,9 @@
 */
 
 /obj/machinery/smartfridge/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
-		max_n_of_items = initial(max_n_of_items) * matter_bin.rating
+	. = ..()
+	for(var/datum/stock_part/matter_bin/matter_bin in component_parts)
+		max_n_of_items = initial(max_n_of_items) * matter_bin.tier
 
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
@@ -233,7 +234,10 @@
 
 /// Returns the number of items visible in the fridge.
 /obj/machinery/smartfridge/proc/visible_items()
-	return length(contents) - length(component_parts) // Exclude circuitboard and matter bin
+	var/physical_parts = 0
+	for(var/atom/part in component_parts) // Stock part datums aren't in contents, so they don't count
+		physical_parts++
+	return length(contents) - physical_parts // Exclude circuitboard and matter bin
 
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
@@ -718,9 +722,10 @@
 			stored.organ_flags |= ORGAN_FROZEN
 
 /obj/machinery/smartfridge/organ/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 20 * B.rating
-		repair_rate = max(0, STANDARD_ORGAN_HEALING * (B.rating - 1) * 0.5)
+	. = ..()
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		max_n_of_items = 20 * B.tier
+		repair_rate = max(0, STANDARD_ORGAN_HEALING * (B.tier - 1) * 0.5)
 
 /obj/machinery/smartfridge/organ/process(delta_time)
 	for(var/organ in contents)

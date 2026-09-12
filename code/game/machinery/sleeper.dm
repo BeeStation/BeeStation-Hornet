@@ -76,12 +76,13 @@
 			created_vials++
 
 /obj/machinery/sleeper/RefreshParts()
+	. = ..()
 	var/E
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		E += B.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		E += B.tier
 	var/I
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		I += M.rating
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		I += M.tier
 
 	max_vials = initial(max_vials) - 1 + E
 	efficiency = initial(efficiency) * sqrt(I)
@@ -380,6 +381,7 @@
 	synthesizing = TRUE
 
 /obj/machinery/sleeper/clockwork/RefreshParts()
+	SHOULD_CALL_PARENT(FALSE)
 	return // nah
 
 /obj/machinery/sleeper/old

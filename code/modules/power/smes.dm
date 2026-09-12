@@ -110,13 +110,13 @@
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/power/smes/RefreshParts()
-
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		input_level_max = initial(input_level_max) * capacitor.rating
-		output_level_max = initial(output_level_max) * capacitor.rating
+	. = ..()
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		input_level_max = initial(input_level_max) * capacitor.tier
+		output_level_max = initial(output_level_max) * capacitor.tier
 	var/new_capacity = 0
-	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		new_capacity += 10 + (10 * bin.rating) MEGAWATT	// 100, 150, 200, 250 depending on tier of matter bins
+	for(var/datum/stock_part/matter_bin/bin in component_parts)
+		new_capacity += 10 + (10 * bin.tier) MEGAWATT	// 100, 150, 200, 250 depending on tier of matter bins
 	if(new_capacity > 0)
 		capacity = new_capacity
 

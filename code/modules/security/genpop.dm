@@ -41,7 +41,7 @@
 	build_path = /obj/machinery/turnstile
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/micro_laser = 2,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 		/obj/item/stack/rods = 12
 	)

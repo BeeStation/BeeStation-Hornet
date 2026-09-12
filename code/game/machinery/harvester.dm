@@ -23,11 +23,12 @@
 		name = "auto-autopsy"
 
 /obj/machinery/harvester/RefreshParts()
+	. = ..()
 	interval = 0
 	var/max_time = 40
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		max_time -= L.rating
-		if(L.rating >= 2)
+	for(var/datum/stock_part/micro_laser/L in component_parts)
+		max_time -= L.tier
+		if(L.tier >= 2)
 			allow_clothing = TRUE
 	interval = max(max_time,1)
 
