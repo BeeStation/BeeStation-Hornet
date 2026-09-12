@@ -8,6 +8,7 @@
 	interaction_flags_item = NONE
 	layer = OBJ_LAYER
 	w_class = WEIGHT_CLASS_TINY // Hack for storage quirks
+	item_flags = NO_PIXEL_RANDOM_DROP
 	///Does this plant item skip it's growth cycle
 	var/skip_growth = FALSE
 
