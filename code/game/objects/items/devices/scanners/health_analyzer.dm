@@ -302,8 +302,36 @@
 		else
 			render_list += "<span class='info ml-1'>[core_temperature_message]</span>\n"
 
+		// Charge, for those that run on it rather than on food
+		var/obj/item/organ/stomach/scanned_stomach = humantarget.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(istype(scanned_stomach, /obj/item/organ/stomach/electrical))
+			var/obj/item/organ/stomach/electrical/scanned_cell = scanned_stomach
+			var/charge_tier
+			var/charge_alert = TRUE
+			switch(scanned_cell.cell.charge)
+				if(ETHEREAL_CHARGE_OVERLOAD to INFINITY)
+					charge_tier = "Dangerously overcharged"
+				if(ETHEREAL_CHARGE_FULL to ETHEREAL_CHARGE_OVERLOAD)
+					charge_tier = "Overcharged"
+				if(ETHEREAL_CHARGE_NORMAL to ETHEREAL_CHARGE_FULL)
+					charge_tier = "Nominal"
+					charge_alert = FALSE
+				if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
+					charge_tier = "Low"
+				else
+					charge_tier = "Critical"
+
+			var/charge_message = "Cell charge: [charge_tier]"
+			if(advanced)
+				charge_message += " ([round(scanned_cell.cell.charge / ETHEREAL_CHARGE_FULL * 100)]% of nominal capacity)"
+				if(scanned_cell.cell.charge < ETHEREAL_CHARGE_LOWPOWER)
+					charge_message += ", motor function impaired"
+			if(scanned_cell.in_brownout)
+				charge_message += " - [span_boldannounce("POWER FAILURE")]"
+			render_list += "<span class='[charge_alert ? "alert" : "info"] ml-1'>[charge_message]</span>\n"
+
 		// Nutrition. Not applicable for those which traditional hunger is not :P
-		if(!HAS_TRAIT(humantarget, TRAIT_NOHUNGER) && humantarget.get_organ_slot(ORGAN_SLOT_STOMACH))
+		else if(!HAS_TRAIT(humantarget, TRAIT_NOHUNGER) && scanned_stomach)
 			var/nutrition_tier
 			var/nutrition_alert = FALSE
 			switch(humantarget.nutrition)
@@ -325,12 +353,14 @@
 			if(advanced)
 				nutrition_message += " ([round(humantarget.nutrition)])"
 				if(humantarget.metabolism_efficiency != 1)
-					nutrition_message += " - metabolic rate [round(humantarget.metabolism_efficiency * 100)]%"
+					nutrition_message += ", metabolic rate [round(humantarget.metabolism_efficiency * 100)]%"
 				var/stamina_coeff = humantarget.get_stamina_nutrition_coeff()
 				if(stamina_coeff != 1)
 					nutrition_message += ", stamina recovery [round(stamina_coeff * 100)]%"
 				if(humantarget.nutrition < NUTRITION_LEVEL_WELL_FED)
 					nutrition_message += ", blood regeneration reduced"
+				if(humantarget.nutrition < NUTRITION_LEVEL_FED)
+					nutrition_message += humantarget.nutrition < NUTRITION_LEVEL_STARVING ? ", movement and reflexes impaired" : ", movement impaired"
 			render_list += "<span class='[nutrition_alert ? "alert" : "info"] ml-1'>[nutrition_message]</span>\n"
 
 			if(advanced)
@@ -444,7 +474,7 @@
 				var/datum/reagent/reagent = r
 				//if(reagent.chemical_flags & REAGENT_INVISIBLE) //Don't show hidden chems on scanners
 				//	continue
-				render_block += "<span class='notice ml-2'>[round(reagent.volume, 0.001)] units of [reagent.name][reagent.overdosed ? "</span> - [span_bolddanger("OVERDOSING")]" : ".</span>"]\n"
+				render_block += "<span class='notice ml-2'>[round(reagent.volume, 0.001)] units of [reagent.name][reagent.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
 
 		if(!length(render_block)) //If no VISIBLY DISPLAYED reagents are present, we report as if there is nothing.
 			render_list += "<span class='notice ml-1'>Subject contains no reagents in their blood.</span>\n"
@@ -462,16 +492,16 @@
 					//if(bit.chemical_flags & REAGENT_INVISIBLE)
 					//	continue
 					if(!belly.food_reagents[bit.type])
-						render_block += "<span class='notice ml-2'>[round(bit.volume, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_bolddanger("OVERDOSING")]" : ".</span>"]<br>"
+						render_block += "<span class='notice ml-2'>[round(bit.volume, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
 					else
 						var/bit_vol = bit.volume - belly.food_reagents[bit.type]
 						if(bit_vol > 0)
-							render_block += "<span class='notice ml-2'>[round(bit_vol, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_bolddanger("OVERDOSING")]" : ".</span>"]<br>"
+							render_block += "<span class='notice ml-2'>[round(bit_vol, 0.001)] units of [bit.name][bit.overdosed ? "</span> - [span_boldannounce("OVERDOSING")]" : ".</span>"]\n"
 
 			if(!length(render_block))
-				render_list += "<span class='notice ml-1'>Subject contains no reagents in their stomach.</span><br>"
+				render_list += "<span class='notice ml-1'>Subject contains no reagents in their stomach.</span>\n"
 			else
-				render_list += "<span class='notice ml-1'>Subject contains the following reagents in their stomach:</span><br>"
+				render_list += "<span class='notice ml-1'>Subject contains the following reagents in their stomach:</span>\n"
 				render_list += render_block
 
 		// Addictions

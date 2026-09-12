@@ -79,7 +79,7 @@
  * On accidental consumption, consume the pill
  */
 /obj/item/reagent_containers/pill/on_accidental_consumption(mob/living/carbon/victim, mob/living/carbon/user, obj/item/source_item, discover_after = FALSE)
-	to_chat(victim, "<span class='warning'>You swallow something small. [source_item ? "Was that in [source_item]?" : ""]</span>")
+	to_chat(victim, span_warning("You swallow something small. [source_item ? "Was that in [source_item]?" : ""]"))
 	reagents?.trans_to(victim, reagents.total_volume, transfered_by = user, method = INGEST)
 	qdel(src)
 	return discover_after
@@ -301,10 +301,3 @@
 	if(prob(20))
 		. += "[pick(descs)]"
 
-
-/obj/item/reagent_containers/pill/iron
-	name = "iron pill"
-	desc = "Used to reduce bloodloss slowly."
-	icon_state = "pill_shape_tablet_white_lined"
-	list_reagents = list(/datum/reagent/iron = 30)
-	rename_with_volume = TRUE

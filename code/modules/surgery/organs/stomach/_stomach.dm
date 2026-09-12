@@ -1,5 +1,7 @@
 //The contant in the rate of reagent transfer on life ticks
 #define STOMACH_METABOLISM_CONSTANT 0.5
+//Stamina drained per second once nutrition is gone and there is nothing left to digest
+#define STARVATION_STAMINA_DRAIN 2
 
 /obj/item/organ/stomach
 	name = "stomach"
@@ -32,6 +34,12 @@
 
 	/// Multiplier for hunger rate
 	var/hunger_modifier = 1
+	/// Peak movement penalty at zero nutrition
+	var/starving_slowdown = 0.6
+	/// store owner nutrition last tick
+	var/last_nutrition = NUTRITION_LEVEL_FED
+	/// Whether we have run dry
+	var/in_starvation = FALSE
 	/// Whether the stomach's been repaired with surgery and can be fixed again or not
 	var/operated = FALSE
 
@@ -40,6 +48,10 @@
 	//None edible organs do not get a reagent holder by default
 	if(!reagents)
 		create_reagents(reagent_vol)
+
+/obj/item/organ/stomach/on_insert(mob/living/carbon/organ_owner, special)
+	. = ..()
+	last_nutrition = organ_owner.nutrition
 
 /obj/item/organ/stomach/on_life(delta_time, times_fired)
 	. = ..()
@@ -159,36 +171,70 @@
 			human.overeatduration = max(human.overeatduration - (2 SECONDS * delta_time), 0) //doubled the unfat rate
 
 	//metabolism change
-	if(human.nutrition > NUTRITION_LEVEL_FAT)
-		human.metabolism_efficiency = 1
-	else if(human.nutrition > NUTRITION_LEVEL_FED && human.satiety > SATIETY_WELL_NOURISHED)
-		if(human.metabolism_efficiency != 1.25)
-			to_chat(human, span_nicegreen("You feel vigorous. Your body burns through chemicals quickly and holds its temperature easily."))
-			human.metabolism_efficiency = 1.25
+	var/new_efficiency = 1
+	if(human.nutrition <= NUTRITION_LEVEL_FAT && human.nutrition > NUTRITION_LEVEL_FED && human.satiety > SATIETY_WELL_NOURISHED)
+		new_efficiency = 1.25
 	else if(human.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		if(human.metabolism_efficiency != 0.8)
-			to_chat(human, span_warning("You feel sluggish. Chemicals linger in your system and you struggle to keep warm."))
-			human.metabolism_efficiency = 0.8
-	else
-		if(human.metabolism_efficiency == 1.25)
-			to_chat(human, span_notice("You no longer feel vigorous."))
-		human.metabolism_efficiency = 1
+		new_efficiency = 0.8
 
-	//Hunger slowdown for if mood isn't enabled
-	if(CONFIG_GET(flag/disable_human_mood))
-		handle_hunger_slowdown(human)
+	if(new_efficiency != human.metabolism_efficiency)
+		if(new_efficiency > 1)
+			to_chat(human, span_info("Chems seem to burn out of you faster than usual."))
+		else if(new_efficiency < 1)
+			to_chat(human, span_warning("Chems seem to linger in you longer than usual."))
+		else
+			to_chat(human, span_info("Your metabolism settles back to its usual pace."))
+		human.metabolism_efficiency = new_efficiency
+
+	handle_hunger_slowdown(human)
 
 	switch(human.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			human.throw_alert("nutrition", /atom/movable/screen/alert/fat)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
+			human.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_FULL)
 			human.clear_alert("nutrition")
+			human.add_actionspeed_modifier(/datum/actionspeed_modifier/well_fed)
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			human.clear_alert("nutrition")
+			human.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
 			human.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
+			human.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			human.throw_alert("nutrition", /atom/movable/screen/alert/starving)
+			human.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
 
+	announce_hunger_transitions(human)
+	handle_starvation(human, delta_time)
 	handle_hunger_pangs(human, delta_time)
+
+/obj/item/organ/stomach/proc/announce_hunger_transitions(mob/living/carbon/human/human)
+	var/was = last_nutrition
+	last_nutrition = human.nutrition
+
+	if(was >= NUTRITION_LEVEL_FED && human.nutrition < NUTRITION_LEVEL_FED)
+		to_chat(human, span_warning("You feel weak with hunger."))
+	else if(was < NUTRITION_LEVEL_WELL_FED && human.nutrition >= NUTRITION_LEVEL_WELL_FED)
+		to_chat(human, span_info("You feel much better with some food in you."))
+
+///Out of food
+/obj/item/organ/stomach/proc/handle_starvation(mob/living/carbon/human/human, delta_time)
+	if(human.nutrition > 0 || get_free_nutriment_volume())
+		if(in_starvation)
+			in_starvation = FALSE
+			to_chat(human, span_info("The worst of the weakness passes."))
+		return
+
+	if(!in_starvation)
+		in_starvation = TRUE
+		human.visible_message(
+			span_warning("[human] sags, barely able to stay upright!"),
+			span_userdanger("You've got nothing left! Your body gives out!"),
+		)
+
+	if(!HAS_TRAIT_FROM(human, TRAIT_INCAPACITATED, STAMINA))
+		human.adjustStaminaLoss(STARVATION_STAMINA_DRAIN * delta_time)
 
 ///Your stomach craves sustenance (no one looks at the HUD)
 /obj/item/organ/stomach/proc/handle_hunger_pangs(mob/living/carbon/human/human, delta_time)
@@ -221,16 +267,14 @@
 	if(DT_PROB(0.3, delta_time))
 		human.visible_message(
 			span_warning("[human] dry heaves!"),
-			span_userdanger("You dry heave, but there's nothing in your stomach to bring up."),
+			span_userdanger("You dry heave, but there's nothing left to bring up!"),
 		)
 
-///for when mood is disabled and hunger should handle slowdowns
 /obj/item/organ/stomach/proc/handle_hunger_slowdown(mob/living/carbon/human/human)
-	var/hungry = (500 - human.nutrition) / 5 //So overeat would be 100 and default level would be 80
-	if(hungry >= 70)
-		human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
-	else
-		human.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+	if(human.nutrition >= NUTRITION_LEVEL_FED)
+		human.remove_movespeed_modifier(/datum/movespeed_modifier/visible_hunger)
+		return
+	human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/visible_hunger, multiplicative_slowdown = starving_slowdown * (1 - (human.nutrition / NUTRITION_LEVEL_FED)))
 
 /obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantstomach
@@ -288,6 +332,9 @@
 		human_owner.clear_alert("disgust")
 		SEND_SIGNAL(human_owner, COMSIG_CLEAR_MOOD_EVENT, "disgust")
 		human_owner.clear_alert("nutrition")
+		human_owner.remove_movespeed_modifier(/datum/movespeed_modifier/visible_hunger)
+		human_owner.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
+		human_owner.metabolism_efficiency = initial(human_owner.metabolism_efficiency)
 
 	return ..()
 
@@ -321,7 +368,7 @@
 	organ_traits = null
 
 /obj/item/organ/stomach/cybernetic
-	name = "basic cybernetic stomach"
+	name = "cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
 	organ_flags = ORGAN_ROBOTIC
@@ -340,7 +387,7 @@
 		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/stomach/cybernetic/tier2
-	name = "cybernetic stomach"
+	name = "upgraded cybernetic stomach"
 	icon_state = "stomach-c-u"
 	desc = "An electronic device designed to mimic the functions of a human stomach. Handles disgusting food a bit better."
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD
@@ -354,3 +401,4 @@
 	icon_state = "diona_stomach"
 
 #undef STOMACH_METABOLISM_CONSTANT
+#undef STARVATION_STAMINA_DRAIN

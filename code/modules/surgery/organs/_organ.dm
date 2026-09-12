@@ -224,8 +224,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		handle_failing_organs(delta_time)
 		return
 
-	if(failure_time > 0)
-		failure_time--
+	if(failure_time > 0) //recovers in the same units it accrued in
+		failure_time = max(failure_time - delta_time, 0)
 
 	if(organ_flags & ORGAN_EMP)
 		apply_organ_damage(decay_factor * maxHealth * delta_time)

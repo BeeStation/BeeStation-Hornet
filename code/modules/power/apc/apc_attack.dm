@@ -232,7 +232,7 @@
  */
 /obj/machinery/power/apc/proc/discharge_stomach_to_apc(mob/living/carbon/human/user, obj/item/organ/stomach/electrical/used_stomach, safety_floor = 0)
 	if(cell.charge >= cell.maxcharge)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "apc full!"), ELECTRICAL_APC_ALERT_DELAY)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), user, "apc is full!"), ELECTRICAL_APC_ALERT_DELAY)
 		return
 	var/obj/item/stock_parts/cell/stomach_cell = used_stomach.cell
 	if(stomach_cell.charge <= safety_floor)

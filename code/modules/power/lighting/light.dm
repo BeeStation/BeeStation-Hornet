@@ -543,11 +543,13 @@
 			stomach.drain_time = world.time + LIGHT_DRAIN_TIME
 			while(do_after(user, LIGHT_DRAIN_TIME, target = src))
 				stomach.drain_time = world.time + LIGHT_DRAIN_TIME
-				if(istype(stomach))
-					to_chat(user, span_notice("You receive some charge from the [fitting]."))
-					stomach.adjust_charge(LIGHT_POWER_GAIN)
-				else
-					to_chat(user, span_warning("You can't receive charge from the [fitting]!"))
+				if(stomach != user.get_organ_slot(ORGAN_SLOT_STOMACH))
+					balloon_alert(user, "cell removed!?")
+					return
+				stomach.adjust_charge(LIGHT_POWER_GAIN)
+				if(stomach.cell.used_charge() <= 0)
+					balloon_alert(user, "charge is full!")
+					return
 			return
 
 		if(user.gloves)

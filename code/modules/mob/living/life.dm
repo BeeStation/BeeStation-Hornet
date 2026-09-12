@@ -86,11 +86,12 @@
  * This does not have an upper limit.
  */
 /mob/living/proc/get_fullness()
-	var/fullness = nutrition
+	//Those that do not run on food are limited by stomach volume alone, not by a nutrition value they never use
+	var/fullness = HAS_TRAIT(src, TRAIT_NOHUNGER) ? 0 : nutrition
 	// we add the nutrition value of what we're currently digesting
 	for(var/bile in reagents.reagent_list)
 		var/datum/reagent/consumable/bits = bile
-		if(bits)
+		if(istype(bits))
 			fullness += bits.get_nutriment_factor(src) * bits.volume / bits.metabolization_rate
 	return fullness
 

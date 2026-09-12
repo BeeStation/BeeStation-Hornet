@@ -43,8 +43,8 @@
 		display_results(
 			user,
 			target,
-			span_notice("[user] forces [target_human] to vomit, cleansing their stomach of some chemicals!"),
-			span_notice("[user] forces [target_human] to vomit, cleansing their stomach of some chemicals!"),
+			span_notice("You force [target_human] to vomit, cleansing [target_human.p_their()] stomach of some chemicals!"),
+			span_notice("[user] forces [target_human] to vomit, cleansing [target_human.p_their()] stomach of some chemicals!"),
 			span_notice("[user] forces [target_human] to vomit!"),
 		)
 		target_human.vomit((MOB_VOMIT_MESSAGE | MOB_VOMIT_STUN), lost_nutrition = 20, purge_ratio = 0.67) //higher purge ratio than regular vomiting
@@ -57,7 +57,7 @@
 			user,
 			target,
 			span_warning("You screw up, bruising [target_human]'s chest!"),
-			span_warning("[user] screws up, brusing [target_human]'s chest!"),
+			span_warning("[user] screws up, bruising [target_human]'s chest!"),
 			span_warning("[user] screws up!"),
 		)
 		target_human.adjustOrganLoss(ORGAN_SLOT_STOMACH, 5)

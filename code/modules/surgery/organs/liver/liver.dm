@@ -73,12 +73,12 @@
 		if(4)
 			to_chat(owner, span_userdanger("Overwhelming pain knocks you out!"))
 			owner.vomit(VOMIT_CATEGORY_BLOOD, distance = rand(1,2))
-			owner.emote("Scream")
+			owner.emote("scream")
 			owner.AdjustUnconscious(2.5 SECONDS)
 		if(5)
 			to_chat(owner, span_userdanger("You feel as if your guts are about to melt!"))
 			owner.vomit(VOMIT_CATEGORY_BLOOD, distance = rand(1,3))
-			owner.emote("Scream")
+			owner.emote("scream")
 			owner.AdjustUnconscious(5 SECONDS)
 
 	switch(failure_time)
@@ -119,11 +119,11 @@
 		return
 	switch(failure_time)
 		if(0 to 3 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			examine_list += span_notice("[owner]'s eyes are slightly yellow.")
+			examine_list += span_warning("[owner]'s eyes are slightly yellow.")
 		if(3 * LIVER_FAILURE_STAGE_SECONDS to 4 * LIVER_FAILURE_STAGE_SECONDS - 1)
-			examine_list += span_notice("[owner]'s eyes are completely yellow, and [owner.p_they()] [owner.p_are()] visibly suffering.")
+			examine_list += span_warning("[owner]'s eyes are completely yellow, and [owner.p_they()] [owner.p_are()] visibly suffering.")
 		if(4 * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
-			examine_list += span_danger("[owner]'s eyes are completely yellow and swelling with pus. [owner.p_they(TRUE)] [owner.p_do()]n't look like [owner.p_they()] will be alive for much longer.")
+			examine_list += span_boldwarning("[owner]'s eyes are completely yellow and swelling with pus. [owner.p_they(TRUE)] [owner.p_do()]n't look like [owner.p_they()] will be alive for much longer.")
 
 /obj/item/organ/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantliver
@@ -168,7 +168,7 @@
 		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/liver/cybernetic/tier2
-	name = "cybernetic liver"
+	name = "upgraded cybernetic liver"
 	desc = "An upgraded version of the cybernetic liver, designed to improve further upon organic livers. It is resistant to alcohol poisoning and is very robust at filtering toxins."
 	icon_state = "liver-c-u"
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD

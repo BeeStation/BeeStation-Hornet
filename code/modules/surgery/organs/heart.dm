@@ -139,7 +139,7 @@
 	colour = "red"
 
 /obj/item/organ/heart/cybernetic
-	name = "basic cybernetic heart"
+	name = "cybernetic heart"
 	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c-on"
 	base_icon_state = "heart-c"
@@ -170,15 +170,12 @@
 
 /obj/item/organ/heart/cybernetic/emp_act(severity)
 	. = ..()
-
-	if(!owner.needs_heart())
-		return
-
 	if(. & EMP_PROTECT_SELF)
 		return
-	var/owner_needs_us = owner?.needs_heart()
+	if(!owner?.needs_heart())
+		return
 
-	if(owner_needs_us && !COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
+	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
 		owner.set_dizzy_if_lower(20 SECONDS)
 		owner.losebreath += 10
 		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)

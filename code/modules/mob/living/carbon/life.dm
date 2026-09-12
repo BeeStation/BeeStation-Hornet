@@ -23,7 +23,7 @@
 		if(stat != DEAD) // still not dead (blood could have changed that)
 			for(var/key in mind?.addiction_points)
 				GLOB.addictions[key].process_addiction(src, delta_time)
-			handle_brain_damage(delta_time)
+			handle_brain_damage(delta_time, times_fired)
 
 		if(stat != DEAD && has_dna())
 			for(var/datum/mutation/HM as anything in dna.mutations)
@@ -531,7 +531,8 @@
 ///////////
 
 /mob/living/carbon/get_fullness()
-	var/fullness = nutrition
+	//Those that do not run on food are limited by stomach volume alone, not by a nutrition value they never use
+	var/fullness = HAS_TRAIT(src, TRAIT_NOHUNGER) ? 0 : nutrition
 
 	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(!belly) //nothing to see here if we do not have a stomach
@@ -588,10 +589,10 @@
 //BRAIN DAMAGE//
 ////////////////
 
-/mob/living/carbon/proc/handle_brain_damage(seconds_per_tick)
+/mob/living/carbon/proc/handle_brain_damage(delta_time, times_fired)
 	for(var/T in get_traumas())
 		var/datum/brain_trauma/BT = T
-		BT.on_life(seconds_per_tick)
+		BT.on_life(delta_time, times_fired)
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

@@ -18,6 +18,8 @@
 	var/low_charge_slowdown = 1.5
 	/// Has it run dry
 	var/in_brownout = FALSE
+	/// Charge last tick
+	var/last_charge = ETHEREAL_CHARGE_NORMAL
 
 /obj/item/organ/stomach/electrical/Initialize(mapload)
 	. = ..()
@@ -32,11 +34,13 @@
 	. = ..()
 	adjust_charge(-discharge_rate * delta_time)
 	handle_charge(owner, delta_time, times_fired)
+	announce_charge_transitions(owner)
 
 /obj/item/organ/stomach/electrical/on_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
 	RegisterSignal(organ_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	RegisterSignal(organ_owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
+	last_charge = cell.charge
 	update_powered_organs(organ_owner)
 
 /obj/item/organ/stomach/electrical/on_remove(mob/living/carbon/organ_owner, special)
@@ -87,6 +91,21 @@
 			carbon.clear_alert(ALERT_ETHEREAL_CHARGE)
 			carbon.clear_alert(ALERT_ETHEREAL_OVERCHARGE)
 
+/obj/item/organ/stomach/electrical/proc/announce_charge_transitions(mob/living/carbon/carbon)
+	var/was = last_charge
+	last_charge = cell.charge
+
+	if(was >= ETHEREAL_CHARGE_LOWPOWER && cell.charge < ETHEREAL_CHARGE_LOWPOWER)
+		if(biological)
+			to_chat(carbon, span_warning("Your glow dims, and your limbs feel sluggish. You need to find power."))
+		else
+			to_chat(carbon, span_warning("Alert: Reserve power low. Servo output reduced. Locate a charging source."))
+	else if(was < ETHEREAL_CHARGE_NORMAL && cell.charge >= ETHEREAL_CHARGE_NORMAL)
+		if(biological)
+			to_chat(carbon, span_info("Your glow steadies, and the sluggishness fades."))
+		else
+			to_chat(carbon, span_info("Alert: Reserve power nominal. Servo output restored."))
+
 /obj/item/organ/stomach/electrical/proc/handle_low_charge(mob/living/carbon/carbon)
 	if(cell.charge <= ETHEREAL_CHARGE_NONE)
 		enter_brownout(carbon)
@@ -102,6 +121,16 @@
 	if(in_brownout)
 		return
 	in_brownout = TRUE
+	if(biological)
+		carbon.visible_message(
+			span_warning("[carbon]'s glow sputters out and [carbon.p_their()] hands go slack!"),
+			span_userdanger("Your light goes out! You can't hold onto anything!"),
+		)
+	else
+		carbon.visible_message(
+			span_warning("[carbon]'s screen goes dark and [carbon.p_their()] hands go slack!"),
+			span_userdanger("Alert: Power failure! Manipulator servos offline!"),
+		)
 	carbon.drop_all_held_items()
 	on_brownout_start(carbon)
 	update_powered_organs(carbon)
@@ -110,6 +139,10 @@
 	if(!in_brownout)
 		return
 	in_brownout = FALSE
+	if(biological)
+		to_chat(carbon, span_info("Your glow flickers back, faint but steady."))
+	else
+		to_chat(carbon, span_info("Alert: Power restored. Systems coming back online."))
 	on_brownout_end(carbon)
 	update_powered_organs(carbon)
 
@@ -171,7 +204,7 @@
 		adjust_charge(shock_damage * siemens_coeff * 2)
 		to_chat(owner, span_notice("You absorb some of the shock into your body!"))
 	else
-		to_chat(owner, span_notice("The shock arcs into your torso, and throughout your delicate chassis!"))
+		to_chat(owner, span_warning("The shock arcs into your torso, and throughout your delicate chassis!"))
 	//Lets give ethereals a break, no break for IPCs.
 
 /obj/item/organ/stomach/electrical/ipc
@@ -200,7 +233,7 @@
 	screen_before_brownout = null
 	carbon.update_body()
 
-//getter so we don't grab the dead screen
+///Getter that skips the blanked-out screen while we're browned out
 /obj/item/organ/stomach/electrical/ipc/proc/get_true_screen(mob/living/carbon/carbon)
 	return in_brownout ? screen_before_brownout : carbon.dna?.features["ipc_screen"]
 

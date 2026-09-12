@@ -300,13 +300,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // Charge gained per unit of liquid electricity ingested.
 #define ETHEREAL_LIQUID_ELECTRICITY_GAIN (0.03 * STANDARD_ETHEREAL_CHARGE)
 
-/*
-#define CRYSTALIZE_COOLDOWN_LENGTH 120 SECONDS
-#define CRYSTALIZE_PRE_WAIT_TIME 40 SECONDS
-#define CRYSTALIZE_DISARM_WAIT_TIME 120 SECONDS
-#define CRYSTALIZE_HEAL_TIME 60 SECONDS
-*/
-
 //Base nutrition value used for newly initialized slimes
 #define SLIME_DEFAULT_NUTRITION 700
 

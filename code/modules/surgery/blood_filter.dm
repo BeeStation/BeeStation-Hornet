@@ -69,7 +69,7 @@
 			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
 		if(tox_loss <= limited_healing)
 			if(antispam_two)
-				to_chat(user, span_notice("You can't pump any more fluid."))
+				to_chat(user, span_notice("You can't filter out any more toxins."))
 				antispam_two = FALSE
 			if(!target.reagents.total_volume)
 				return FALSE
@@ -89,7 +89,7 @@
 			user,
 			target,
 			span_notice("\The [tool] completes a cycle filtering [target]'s blood.[umsg]"),
-			span_notice("\The [tool] whirrs as it filters [target]'s blood."),
+			span_notice("[user] pumps [target]'s blood with \the [tool]."),
 			span_notice("\The [tool] whirrs as it pumps."),
 		)
 	else
@@ -97,7 +97,7 @@
 			user,
 			target,
 			span_notice("\The [tool] flashes, [target]'s blood is clean."),
-			span_notice("[user] finishes pumping [target]'s blood with [tool]"),
+			span_notice("[user] finishes pumping [target]'s blood with \the [tool]."),
 			span_notice("\The [tool] has no chemicals or toxins to filter.")
 		)
 	if(istype(surgery, /datum/surgery/blood_filter))
