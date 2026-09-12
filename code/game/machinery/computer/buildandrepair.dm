@@ -44,7 +44,7 @@
 
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	to_chat(user, span_notice("You place [board] inside the frame."))
-	icon_state = "1"Expand commentComment on line R20
+	icon_state = "1"
 	circuit = board
 	circuit.add_fingerprint(user)
 
