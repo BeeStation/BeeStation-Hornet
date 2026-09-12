@@ -165,7 +165,7 @@
 		return FALSE
 
 	to_chat(transfered, ("<span class='warning'>You feel a tiny prick!</span>"))
-	transferer.reagents.trans_to(transfered, transferer.reagents.total_volume, 1, 1, 0, transfered_by = transferer)
+	transferer.reagents.trans_to(transfered, transferer.reagents.total_volume, transfered_by = transferer)
 
 	var/obj/item/hardened_spike/chem/chem_spike = target
 	var/obj/item/bodypart/spike_location = chem_spike.check_embedded()

@@ -544,7 +544,7 @@
 		return FALSE
 
 	//use energy
-	if(!use_power(active_power_usage, force = FALSE))
+	if(!use_power(active_power_usage))
 		return FALSE
 
 	//do the operation

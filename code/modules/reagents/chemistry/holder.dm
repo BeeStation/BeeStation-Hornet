@@ -206,6 +206,7 @@
   * * obj/target - Target to attempt transfer to
   * * amount - amount of reagent volume to transfer
   * * multiplier - multiplies amount of each reagent by this number
+  * * datum/reagent/target_id - transfer only this reagent in this holder leaving others untouched
   * * preserve_data - if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
   * * no_react - passed through to [/datum/reagents/proc/add_reagent]
   * * mob/transfered_by - used for logging
@@ -214,12 +215,16 @@
   * * show_message - passed through to [/datum/reagents/proc/expose_single]
   * * round_robin - if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
   */
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, datum/reagent/target_id, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
 	if(amount < 0)
 		return
+
+	if(!isnull(target_id) && !ispath(target_id))
+		stack_trace("invalid target reagent id [target_id] passed to trans_to")
+		return FALSE
 
 	var/atom/target_atom
 	var/datum/reagents/R
@@ -233,15 +238,21 @@
 		target_atom = target
 
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
+	if(!isnull(target_id))
+		amount = min(amount, get_reagent_amount(target_id))
+		if(amount <= 0)
+			return
 	var/trans_data = null
 	var/transfer_log = list()
 	if(!round_robin)
-		var/part = amount / src.total_volume
+		var/part = isnull(target_id) ? amount / src.total_volume : 1
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
 			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
 				continue
-			var/transfer_amount = T.volume * part
+			if(!isnull(target_id) && T.type != target_id)
+				continue
+			var/transfer_amount = isnull(target_id) ? T.volume * part : amount
 			if(preserve_data)
 				trans_data = copy_data(T)
 			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
@@ -251,6 +262,8 @@
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
+			if(!isnull(target_id))
+				break
 	else
 		var/to_transfer = amount
 		for(var/reagent in cached_reagents)
@@ -258,6 +271,8 @@
 				break
 			var/datum/reagent/T = reagent
 			if(remove_blacklisted && (T.chemical_flags & CHEMICAL_NOT_SYNTH))
+				continue
+			if(!isnull(target_id) && T.type != target_id)
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
