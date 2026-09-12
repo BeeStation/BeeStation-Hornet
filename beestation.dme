@@ -2757,6 +2757,8 @@
 #include "code\modules\botany\plant.dm"
 #include "code\modules\botany\plant_discoverable.dm"
 #include "code\modules\botany\planter.dm"
+#include "code\modules\botany\dictionary_tips\_dictionary_entry.dm"
+#include "code\modules\botany\dictionary_tips\botany_tips.dm"
 #include "code\modules\botany\item\plant_disk.dm"
 #include "code\modules\botany\item\plant_scanner.dm"
 #include "code\modules\botany\item\substrate_bag.dm"

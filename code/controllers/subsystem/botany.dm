@@ -101,7 +101,7 @@ SUBSYSTEM_DEF(botany)
 /datum/controller/subsystem/botany/proc/build_dict()
 //Features
 	var/list/keyed_features = list() //List of features keyed by type, so we can link them to plants
-	chapters["features"] = list()
+	chapters["Features"] = list()
 	var/list/features = subtypesof(/datum/plant_feature)
 	for(var/datum/plant_feature/feature as anything in features)
 		var/datum/plant_feature/entry_feature = new feature()
@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(botany)
 		//Handle dict override
 		if(entry_feature.dictionary_override && keyed_features["[entry_feature.dictionary_override]"])
 			continue
-		chapters["features"] |= entry_feature
+		chapters["Features"] |= entry_feature
 		keyed_features["[entry_feature.type]"] = "[REF(entry_feature)]"
 	//Build links
 		//Traits
@@ -124,22 +124,22 @@ SUBSYSTEM_DEF(botany)
 			dictionary_links["[trait.get_id()]"] = dictionary_links["[trait.get_id()]"] || list()
 			dictionary_links["[trait.get_id()]"] |= "[REF(entry_feature)]"
 		//Mutations
-	for(var/datum/plant_feature/feature as anything in chapters["features"])
+	for(var/datum/plant_feature/feature as anything in chapters["Features"])
 		for(var/datum/plant_feature/mutation as anything in feature.mutations)
 			var/link_feature = keyed_features["[mutation]"]
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
 			dictionary_links[link_feature] |= "[REF(feature)]"
 //Traits
-	chapters["traits"] = chapters["traits"] || list() //Race condition weirdness
+	chapters["Traits"] = chapters["Traits"] || list() //Race condition weirdness
 	var/list/traits = subtypesof(/datum/plant_trait)
 	for(var/datum/plant_trait/trait as anything in traits)
 		var/datum/plant_trait/entry_trait = new trait()
 		if(trait.type == trait.abstract_type)
 			qdel(entry_trait)
 			continue
-		chapters["traits"] += entry_trait
+		chapters["Traits"] += entry_trait
 //Plants - This is a lie, it's actually got pre-made seeds
-	chapters["plants"] = list()
+	chapters["Plants"] = list()
 	for(var/obj/item/plant_seeds/preset as anything in typesof(/obj/item/plant_seeds/preset))
 		var/obj/item/plant_seeds/seeds = new preset()
 		if(seeds.type == /obj/item/plant_seeds/preset)
@@ -148,12 +148,17 @@ SUBSYSTEM_DEF(botany)
 		if(istype(seeds, /obj/item/plant_seeds/preset/kirby))
 			qdel(seeds)
 			continue
-		chapters["plants"] += seeds
+		chapters["Plants"] += seeds
 		//Build links
 		for(var/datum/plant_feature/feature as anything in seeds.plant_features)
 			var/link_feature = keyed_features["[feature.dictionary_override || feature.type]"]
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
 			dictionary_links[link_feature] += "[REF(seeds)]"
+//Tips
+	chapters["Tips"] = list()
+	for(var/datum/dictionary_entry/entry as anything in valid_subtypesof(/datum/dictionary_entry))
+		var/datum/dictionary_entry/new_entry = new entry()
+		chapters["Tips"] += list("[REF(new_entry)]" = new entry())
 
 /datum/controller/subsystem/botany/proc/get_seed(flags = SEED_RANDOM_KIRBY, consider_unused = TRUE)
 	if(!consider_unused)
@@ -183,8 +188,8 @@ SUBSYSTEM_DEF(botany)
 /datum/controller/subsystem/botany/proc/append_reagent_trait(datum/plant_trait/reagent/reagent)
 	if(!fast_reagents["[reagent.name][reagent.volume_percentage]"])
 		fast_reagents["[reagent.name][reagent.volume_percentage]"] = reagent
-		SSbotany.chapters["traits"] = SSbotany.chapters["traits"] || list() //Race condition weirdness
-		SSbotany.chapters["traits"] += reagent
+		SSbotany.chapters["Traits"] = SSbotany.chapters["Traits"] || list() //Race condition weirdness
+		SSbotany.chapters["Traits"] += reagent
 
 /datum/controller/subsystem/botany/proc/generate_maint_flora(area/maint)
 //Pick a turf

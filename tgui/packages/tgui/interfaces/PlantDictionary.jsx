@@ -40,10 +40,6 @@ export const PlantDictionary = (props) => {
                         )}
                       </Section>
                     </Flex.Item>
-                    {/* Filter Section */}
-                    <Flex.Item>
-                      <Section>Filters</Section>
-                    </Flex.Item>
                     {/* Search Section */}
                     <Flex.Item>
                       <Section>
@@ -62,7 +58,7 @@ export const PlantDictionary = (props) => {
                           height={'427px'}
                           overflowY="scroll"
                         >
-                          {selected_chapter === 'features' ? (
+                          {selected_chapter === 'Features' ? (
                             <Box className={'discrete'}>
                               {/* Fruits */}
                               {Object.entries(
@@ -121,7 +117,7 @@ export const PlantDictionary = (props) => {
                                 ),
                               )}
                             </Box>
-                          ) : selected_chapter === 'traits' ? (
+                          ) : selected_chapter === 'Traits' ? (
                             <Box>
                               {Object.entries(
                                 chapters[selected_chapter]['other'],
@@ -155,7 +151,7 @@ export const PlantDictionary = (props) => {
                                 ),
                               )}
                             </Box>
-                          ) : selected_chapter === 'plants' ? (
+                          ) : selected_chapter === 'Plants' ? (
                             Object.entries(chapters[selected_chapter]).map(
                               ([entry_key, entry]) =>
                                 entry['name']
@@ -170,9 +166,25 @@ export const PlantDictionary = (props) => {
                                   ''
                                 ),
                             )
-                          ) : (
+                          ) : selected_chapter === 'Logs' ? (
+                            Object.entries(chapters[selected_chapter]).map(
+                              ([entry_key, entry]) =>
+                                entry['title']
+                                  ?.toLowerCase()
+                                  .includes(searchText?.toLowerCase()) ? (
+                                  <Entry
+                                    key={entry_key}
+                                    title={entry['title']}
+                                    selected_key={entry_key}
+                                  />
+                                ) : (
+                                  ''
+                                ),
+                            )
+                            )
+                          : (
                             ''
-                          )}
+                            )}
                         </Box>
                       </Section>
                     </Flex.Item>
@@ -183,11 +195,11 @@ export const PlantDictionary = (props) => {
                   <Section>
                     <Box
                       className={'scrollbox'}
-                      height={'570px'}
+                      height={'559px'}
                       overflowY="scroll"
                     >
                       <Box mb={'-10px'} />
-                      {selected_chapter === 'features' ? (
+                      {selected_chapter === 'Features' ? (
                         selected_entry && selected_type_shortcut ? (
                           <InspectionPanelFeature
                             current_feature_data={
@@ -198,14 +210,14 @@ export const PlantDictionary = (props) => {
                             current_feature_traits={
                               chapters[selected_chapter][
                                 selected_type_shortcut
-                              ][selected_entry]['traits']
+                              ][selected_entry]['Traits']
                             }
                             feature_key={selected_entry}
                           />
                         ) : (
                           ''
                         )
-                      ) : selected_chapter === 'traits' ? (
+                      ) : selected_chapter === 'Traits' ? (
                         selected_entry ? (
                           <Box>
                             <Box mb={'10px'} />
@@ -232,24 +244,31 @@ export const PlantDictionary = (props) => {
                         ) : (
                           ''
                         )
-                      ) : selected_chapter === 'plants' &&
+                      ) : selected_chapter === 'Plants' &&
                         chapters[selected_chapter][selected_entry] ? (
                         <Box>
                           {Object.entries(
                             chapters[selected_chapter][selected_entry][
-                              'features'
+                              'Features'
                             ],
                           ).map(([feature_key, feature]) => (
                             <InspectionPanelPlantFeature
                               key={feature_key}
                               current_feature_data={feature['data']}
-                              current_feature_traits={feature['traits']}
+                              current_feature_traits={feature['Traits']}
                             />
                           ))}
                         </Box>
-                      ) : (
-                        ''
-                      )}
+                      ) : selected_chapter === 'Logs' ? (
+                        selected_entry ?
+                        <Flex direction="column">
+                          <Button className="plant__dialogue" width={'100%'} mt={'10px'}>
+                            <b>{chapters[selected_chapter][selected_entry]["title"]}</b>
+                            <Divider />
+                            <div style={{ whiteSpace: "pre-line" }}>{chapters[selected_chapter][selected_entry]["body"]}</div>
+                          </Button>
+                        </Flex> : ''
+                      ) : ('')}
                     </Box>
                   </Section>
                 </Flex.Item>
@@ -307,20 +326,20 @@ const InspectionPanelTrait = (props) => {
                 key={id}
                 className="plant__button"
                 onClick={() =>
-                  act('select_link', { key: id, chapter: 'features' })
+                  act('select_link', { key: id, chapter: 'Features' })
                 }
               >
                 {`${
-                  chapters['features']['/datum/plant_feature/fruit'][id]
-                    ? chapters['features']['/datum/plant_feature/fruit'][id][
+                  chapters['Features']['/datum/plant_feature/fruit'][id]
+                    ? chapters['Features']['/datum/plant_feature/fruit'][id][
                         'stats'
                       ]['name']
-                    : chapters['features']['/datum/plant_feature/body'][id]
-                      ? chapters['features']['/datum/plant_feature/body'][id][
+                    : chapters['Features']['/datum/plant_feature/body'][id]
+                      ? chapters['Features']['/datum/plant_feature/body'][id][
                           'stats'
                         ]['name']
-                      : chapters['features']['/datum/plant_feature/roots'][id]
-                        ? chapters['features']['/datum/plant_feature/roots'][
+                      : chapters['Features']['/datum/plant_feature/roots'][id]
+                        ? chapters['Features']['/datum/plant_feature/roots'][
                             id
                           ]['stats']['name']
                         : 'No Records'
@@ -390,41 +409,41 @@ const InspectionPanelFeature = (props) => {
                     act('select_link', {
                       key: plant_key,
                       chapter:
-                        chapters['features']['/datum/plant_feature/fruit'][
+                        chapters['Features']['/datum/plant_feature/fruit'][
                           plant_key
                         ] ||
-                        chapters['features']['/datum/plant_feature/body'][
+                        chapters['Features']['/datum/plant_feature/body'][
                           plant_key
                         ] ||
-                        chapters['features']['/datum/plant_feature/roots'][
+                        chapters['Features']['/datum/plant_feature/roots'][
                           plant_key
                         ]
-                          ? 'features'
-                          : 'plants',
+                          ? 'Features'
+                          : 'Plants',
                     })
                   }
                 >
-                  {chapters['plants'][plant_key]
-                    ? `${chapters['plants'][plant_key]['name']} (found in)`
+                  {chapters['Plants'][plant_key]
+                    ? `${chapters['Plants'][plant_key]['name']} (found in)`
                     : `${
-                        (chapters['features']['/datum/plant_feature/fruit'][
+                        (chapters['Features']['/datum/plant_feature/fruit'][
                           plant_key
                         ]
-                          ? chapters['features']['/datum/plant_feature/fruit'][
+                          ? chapters['Features']['/datum/plant_feature/fruit'][
                               plant_key
                             ]['stats']['name']
                           : 0) ||
-                        (chapters['features']['/datum/plant_feature/body'][
+                        (chapters['Features']['/datum/plant_feature/body'][
                           plant_key
                         ]
-                          ? chapters['features']['/datum/plant_feature/body'][
+                          ? chapters['Features']['/datum/plant_feature/body'][
                               plant_key
                             ]['stats']['name']
                           : 0) ||
-                        (chapters['features']['/datum/plant_feature/roots'][
+                        (chapters['Features']['/datum/plant_feature/roots'][
                           plant_key
                         ]
-                          ? chapters['features']['/datum/plant_feature/roots'][
+                          ? chapters['Features']['/datum/plant_feature/roots'][
                               plant_key
                             ]['stats']['name']
                           : 0)

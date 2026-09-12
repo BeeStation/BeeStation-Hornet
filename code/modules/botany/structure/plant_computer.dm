@@ -16,7 +16,7 @@
 	var/list/option_links = list()
 
 	///Navigation
-	var/selected_chapter = "features"
+	var/selected_chapter = "Features"
 	var/selected_entry
 	var/selected_type_shortcut
 
@@ -41,7 +41,7 @@
 /obj/machinery/computer/plant_machine_controller/LateInitialize()
 	. = ..()
 	locate_machines()
-	selected_entry = REF(pick(SSbotany.chapters["features"]))
+	selected_entry = REF(pick(SSbotany.chapters["Features"]))
 
 /obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
@@ -77,31 +77,35 @@
 	//last command, cosmetic
 	data["last_command"] = last_command
 	//Chapters, seperate content
-	data["chapters"] = list("plants" = list(), "features" = list(), "traits" = list())
+	data["chapters"] = list("Plants" = list(), "Features" = list(), "Traits" = list(), "Logs" = list())
 	//Features
-	for(var/datum/plant_feature/feature as anything in SSbotany.chapters["features"])
+	for(var/datum/plant_feature/feature as anything in SSbotany.chapters["Features"])
 		var/list/feature_list = list()
 		feature_list["data"] = feature.get_ui_data()
-		feature_list["traits"] =feature.get_ui_traits()
+		feature_list["Traits"] =feature.get_ui_traits()
 		feature_list["stats"] = feature.get_ui_stats()
 		//An interesting way of seperating features into their distinct types
-		data["chapters"]["features"]["[feature.trait_type_shortcut]"] = data["chapters"]["features"]["[feature.trait_type_shortcut]"] || list()
-		data["chapters"]["features"]["[feature.trait_type_shortcut]"] += list("[REF(feature)]" = feature_list)
+		data["chapters"]["Features"]["[feature.trait_type_shortcut]"] = data["chapters"]["Features"]["[feature.trait_type_shortcut]"] || list()
+		data["chapters"]["Features"]["[feature.trait_type_shortcut]"] += list("[REF(feature)]" = feature_list)
 	//Traits
-	data["chapters"]["traits"]["reagents"] = list()
-	data["chapters"]["traits"]["other"] = list()
-	for(var/datum/plant_trait/trait as anything in SSbotany.chapters["traits"])
-		data["chapters"]["traits"][istype(trait, /datum/plant_trait/reagent) ? "reagents" : "other"] += list("[REF(trait)]" = trait.get_ui_stats())
+	data["chapters"]["Traits"]["reagents"] = list()
+	data["chapters"]["Traits"]["other"] = list()
+	for(var/datum/plant_trait/trait as anything in SSbotany.chapters["Traits"])
+		data["chapters"]["Traits"][istype(trait, /datum/plant_trait/reagent) ? "reagents" : "other"] += list("[REF(trait)]" = trait.get_ui_stats())
 	//Plants
-	for(var/obj/item/plant_seeds/preset as anything in SSbotany.chapters["plants"])
+	for(var/obj/item/plant_seeds/preset as anything in SSbotany.chapters["Plants"])
 		var/list/plant_data = list()
 		for(var/datum/plant_feature/feature as anything in preset.plant_features)
 			var/list/feature_list = list()
 			feature_list["data"] = feature.get_ui_data()
-			feature_list["traits"] = feature.get_ui_traits()
+			feature_list["Traits"] = feature.get_ui_traits()
 			feature_list["stats"] = feature.get_ui_stats()
 			plant_data += list(feature_list)
-		data["chapters"]["plants"] += list("[REF(preset)]" = list("name" = capitalize(preset.name_override), "features" = plant_data))
+		data["chapters"]["Plants"] += list("[REF(preset)]" = list("name" = capitalize(preset.name_override), "Features" = plant_data))
+	//Tips
+	for(var/entry_key as anything in SSbotany.chapters["Tips"])
+		var/datum/dictionary_entry/entry = SSbotany.chapters["Tips"][entry_key]
+		data["chapters"]["Logs"] += list("[entry_key]" = list("title" = entry.title, "body" = entry.body))
 	//Dictionary links
 	data["links"] = SSbotany.dictionary_links
 	return data
