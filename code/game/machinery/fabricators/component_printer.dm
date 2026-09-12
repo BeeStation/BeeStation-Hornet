@@ -27,16 +27,6 @@
 /obj/machinery/modular_fabricator/component_printer/set_working_sprite()
 	add_overlay("fab-active")
 
-/obj/item/circuitboard/machine/component_printer
-	name = "\improper Component Printer (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/modular_fabricator/component_printer
-	req_components = list(
-		/datum/stock_part/matter_bin = 2,
-		/datum/stock_part/manipulator = 2,
-		/obj/item/reagent_containers/cup/beaker = 2, //this doesn't make any sense, yet i wasn't allowed to fix it.
-	)
-
 /// Module duplicator, allows you to save and recreate module components.
 /obj/machinery/module_duplicator
 	name = "module duplicator"
@@ -236,13 +226,3 @@
 		data[initial(material_type.name)] = materials[material_type]
 
 	return data
-
-/obj/item/circuitboard/machine/module_duplicator
-	name = "\improper Module Duplicator (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/module_duplicator
-	req_components = list(
-		/datum/stock_part/matter_bin = 2,
-		/datum/stock_part/manipulator = 2,
-		/obj/item/reagent_containers/cup/beaker = 2,
-	)

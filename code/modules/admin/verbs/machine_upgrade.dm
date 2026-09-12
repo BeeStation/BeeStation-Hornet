@@ -4,16 +4,10 @@
 	if (!istype(M))
 		return
 
-	var/new_rating = input("Enter new rating:","Num") as num
+	var/new_rating = tgui_input_number(usr, "", "Enter new rating:")
 	if(new_rating && M.component_parts)
-		for(var/datum/stock_part/part in M.component_parts)
-			var/datum/stock_part/replacement = part.of_tier(new_rating)
-			if(isnull(replacement))
-				continue
-			M.component_parts -= part
-			M.component_parts += replacement
-		for(var/obj/item/stock_parts/part in M.component_parts)
-			part.rating = new_rating
+		for(var/obj/item/stock_parts/P in M.component_parts)
+			P.rating = new_rating
 		M.RefreshParts()
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Machine Upgrade", "[new_rating]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

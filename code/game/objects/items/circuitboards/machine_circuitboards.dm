@@ -465,6 +465,26 @@
 
 //Generic
 
+/obj/item/circuitboard/machine/component_printer
+	name = "\improper Component Printer (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/modular_fabricator/component_printer
+	req_components = list(
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
+		/obj/item/reagent_containers/cup/beaker = 2, //this doesn't make any sense, yet i wasn't allowed to fix it.
+	)
+
+/obj/item/circuitboard/machine/module_duplicator
+	name = "\improper Module Duplicator (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/module_duplicator
+	req_components = list(
+		/datum/stock_part/matter_bin = 2,
+		/datum/stock_part/manipulator = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
+	)
+
 /obj/item/circuitboard/machine/circuit_imprinter
 	name = "Circuit Imprinter"
 	icon_state = "generic"
