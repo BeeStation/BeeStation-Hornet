@@ -10,9 +10,6 @@
 /datum/movespeed_modifier/monkey_temperature_speedmod
 	variable = TRUE
 
-/datum/movespeed_modifier/hunger
-	variable = TRUE
-
 /datum/movespeed_modifier/slaughter
 	multiplicative_slowdown = -1
 
@@ -136,15 +133,15 @@
 	multiplicative_slowdown = 1.5
 	blacklisted_movetypes = FLOATING
 
+/// Carbon equivalent of nopowercell (except cool and variable)
+/datum/movespeed_modifier/low_charge
+	variable = TRUE
+	blacklisted_movetypes = FLOATING
+
 /datum/movespeed_modifier/visible_hunger
 	id = MOVESPEED_ID_VISIBLE_HUNGER
 	movetypes = (~FLYING)
-
-/datum/movespeed_modifier/visible_hunger/starving
-	multiplicative_slowdown = 0.6
-
-/datum/movespeed_modifier/visible_hunger/hungry
-	multiplicative_slowdown = 0.2
+	variable = TRUE
 
 /datum/movespeed_modifier/cyborg_sentry
 	multiplicative_slowdown = 0.75 //holy cow cyborgs are fast

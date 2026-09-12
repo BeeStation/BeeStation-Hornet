@@ -565,7 +565,7 @@
 
 	// Transfer the target's reagents into the vampire's blood
 	if(target.reagents?.total_volume)
-		target.reagents.trans_to(owner, INGEST, 1) // Run transfer of 1 unit of reagent from them to me.
+		target.reagents.trans_to(owner, 1) // Run transfer of 1 unit of reagent from them to me.
 
 	// Play heartbeat sound for flavor
 	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)

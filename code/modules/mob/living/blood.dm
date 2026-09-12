@@ -278,8 +278,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 
 	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
+
 		//Blood regeneration if there is some space
-		if(!is_bleeding() && blood_volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		if(!is_bleeding() && blood_volume < BLOOD_VOLUME_NORMAL && !HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
 			var/nutrition_ratio = 0
 			switch(nutrition)
 				if(0 to NUTRITION_LEVEL_STARVING)
@@ -292,7 +293,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 					nutrition_ratio = 0.8
 				else
 					nutrition_ratio = 1
-			if(satiety > 80)
+			if(satiety > SATIETY_WELL_NOURISHED)
 				nutrition_ratio *= 1.25
 			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR * delta_time)
 			blood_volume = min(blood_volume + (BLOOD_REGEN_FACTOR * nutrition_ratio * delta_time), BLOOD_VOLUME_NORMAL)
@@ -485,6 +486,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return GLOB.blood_types[type]
 
 /proc/get_blood_dna_color(list/blood_dna)
+	if(!length(blood_dna))
+		return COLOR_BLOOD
 	var/blood_print = blood_dna[length(blood_dna)]
 	var/datum/blood_type/blood_type = blood_dna[blood_print]
 	if(!blood_type)
@@ -520,8 +523,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		else
 			drop = new(T, get_static_viruses())
 			drop.transfer_mob_blood_dna(src)
-			// ADD GLOW FOR ETHEREAL DRIPS
-			if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+			if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(drop)) == COLOR_ETHEREAL_BLOOD)
 				drop.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
 			return
 
@@ -538,8 +540,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
-	// ADD GLOW FOR ETHEREAL SPLATTERS
-	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+	if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(B)) == COLOR_ETHEREAL_BLOOD)
 		B.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)

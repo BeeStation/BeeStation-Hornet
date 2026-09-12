@@ -6,6 +6,10 @@
 #define COMSIG_MOB_LOGIN "mob_login"
 #define COMSIG_MOB_LOGOUT "mob_logout"							///from base of /mob/Logout(): ()
 #define COMSIG_MOB_STATCHANGE "mob_statchange"					//from base of mob/set_stat(): (new_stat)
+///from base of mob/reagent_check(): (datum/reagent/chem, seconds_per_tick, times_fired)
+#define COMSIG_MOB_REAGENT_CHECK "mob_reagent_check"
+	///stops the reagent check call
+	#define COMSIG_MOB_STOP_REAGENT_CHECK (1<<0)
 #define COMSIG_MOB_CLICKON "mob_clickon"						//! from base of mob/clickon(): (atom/A, params)
 #define COMSIG_MOB_MIDDLECLICKON "mob_middleclickon"			//from base of mob/MiddleClickOn(): (atom/A)
 ///from base of mob/AltClickOn(): (atom/A)

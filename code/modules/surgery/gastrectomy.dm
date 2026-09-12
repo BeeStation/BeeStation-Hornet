@@ -36,19 +36,28 @@
 	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/gastrectomy/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, span_notice("You begin to cut out a damaged piece of [target]'s stomach..."),
-		span_notice("[user] begins to make an incision in [target]."),
-		span_notice("[user] begins to make an incision in [target]."))
-
-/datum/surgery_step/gastrectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
-	var/mob/living/carbon/human/H = target
-	H.setOrganLoss(ORGAN_SLOT_STOMACH, 20) // Stomachs have a threshold for being able to even digest food, so I might tweak this number
 	display_results(
 		user,
 		target,
 		span_notice("You begin to cut out a damaged piece of [target]'s stomach..."),
 		span_notice("[user] begins to make an incision in [target]."),
 		span_notice("[user] begins to make an incision in [target]."),
+	)
+
+/datum/surgery_step/gastrectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/stomach/target_stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+	H.setOrganLoss(ORGAN_SLOT_STOMACH, 20) // Stomachs have a threshold for being able to even digest food, so I might tweak this number
+	if(target_stomach)
+		target_stomach.operated = TRUE
+		if(target_stomach.organ_flags & ORGAN_EMP)
+			target_stomach.organ_flags &= ~ORGAN_EMP
+	display_results(
+		user,
+		target,
+		span_notice("You successfully remove the damaged part of [target]'s stomach."),
+		span_notice("[user] successfully removes the damaged part of [target]'s stomach."),
+		span_notice("[user] successfully removes the damaged part of [target]'s stomach."),
 	)
 	return ..()
 
