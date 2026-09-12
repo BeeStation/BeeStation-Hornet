@@ -34,8 +34,6 @@
 	var/output_level_max = 200 KILOWATT // cap on output_level
 	/// amount of power actually outputted. may be less than output_level if the powernet returns excess power
 	var/output_used = 0
-	/// If we have self-recharging cells
-	var/process_cells = FALSE
 
 	/// Terminal for charging this smes
 	var/obj/machinery/power/terminal/terminal = null
@@ -116,7 +114,7 @@
 		output_level_max = initial(output_level_max) * capacitor.tier
 	var/new_capacity = 0
 	for(var/datum/stock_part/matter_bin/bin in component_parts)
-		new_capacity += 10 + (10 * bin.tier) MEGAWATT	// 100, 150, 200, 250 depending on tier of matter bins
+		new_capacity += (10 + (10 * bin.tier)) MEGAWATT	// 100, 150, 200, 250 MW total with the board's 5 bins, depending on tier
 	if(new_capacity > 0)
 		capacity = new_capacity
 
@@ -250,6 +248,8 @@
 
 
 /obj/machinery/power/smes/proc/chargedisplay()
+	if(!capacity)
+		return 0
 	return clamp(round(5.5*charge/capacity),0,5)
 
 /obj/machinery/power/smes/process()
@@ -351,7 +351,7 @@
 /obj/machinery/power/smes/ui_data()
 	var/list/data = list(
 		"capacity" = capacity,
-		"capacityPercent" = round(100*charge/capacity, 0.1),
+		"capacityPercent" = capacity ? round(100*charge/capacity, 0.1) : 0,
 		"charge" = display_power(charge),
 		"inputAttempt" = input_attempt,
 		"inputting" = inputting,

@@ -154,7 +154,8 @@
 	active_power_usage = power_needed / POWER_TRANSFER_LOSS
 	update_use_power(ACTIVE_POWER_USE)
 
-	cell.give(active_power_usage)
+	//the cell receives the net
+	cell.give(power_needed)
 
 	update_appearance()
 

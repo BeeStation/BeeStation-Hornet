@@ -55,7 +55,8 @@ WANTS_POWER_NODE(/obj/machinery/power)
 /obj/machinery/power/proc/surplus()
 	if(!powernet)
 		return 0
-	return powernet.avail - powernet.load
+	// Clamp to prevent negative value. It breaks stuff
+	return clamp(powernet.avail - powernet.load, 0, powernet.avail)
 
 /obj/machinery/power/proc/avail(amount)
 	if(powernet)

@@ -222,7 +222,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	icon_state = "blpad-idle"
 	icon_teleport = "blpad-beam"
 	anchored = FALSE
-	use_power = IDLE_POWER_USE
+	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 	teleport_speed = 20
@@ -249,7 +249,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 /obj/machinery/launchpad/briefcase/is_available()
 	if(closed)
 		return FALSE
-	return ..()
+	if(panel_open)
+		return FALSE
+	return TRUE
 
 /obj/machinery/launchpad/briefcase/attack_hand(mob/living/user)
 	. = ..()

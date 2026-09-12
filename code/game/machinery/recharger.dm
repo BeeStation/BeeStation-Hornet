@@ -5,8 +5,8 @@
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 100 WATT
-	active_power_usage = 300 WATT // This is overriden while giving power
+	idle_power_usage = 4
+	active_power_usage = 300 // This is overriden while giving power
 	circuit = /obj/item/circuitboard/machine/recharger
 	pass_flags = PASSTABLE
 	/// The item currently inserted into the charger

@@ -11,8 +11,8 @@
 	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 0.02 KILOWATT
-	active_power_usage = 0.2 KILOWATT
+	idle_power_usage = 2
+	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
@@ -674,8 +674,8 @@
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
 	brightness = 6
-	idle_power_usage = 0.014 KILOWATT
-	active_power_usage = 0.14 KILOWATT // on par with the small lights
+	idle_power_usage = 1.4
+	active_power_usage = 14 // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
