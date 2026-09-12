@@ -17,10 +17,6 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(
 	///Current active connections
 	var/connections = NONE
 
-/obj/machinery/atmospherics/pipe/smart/Initialize(mapload)
-	map_loaded_pipe = mapload
-	return ..()
-
 /obj/machinery/atmospherics/pipe/smart/update_pipe_icon()
 	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
 
