@@ -181,10 +181,9 @@ export const PlantDictionary = (props) => {
                                   ''
                                 ),
                             )
-                            )
-                          : (
+                          ) : (
                             ''
-                            )}
+                          )}
                         </Box>
                       </Section>
                     </Flex.Item>
@@ -260,15 +259,36 @@ export const PlantDictionary = (props) => {
                           ))}
                         </Box>
                       ) : selected_chapter === 'Logs' ? (
-                        selected_entry ?
-                        <Flex direction="column">
-                          <Button className="plant__dialogue" width={'100%'} mt={'10px'}>
-                            <b>{chapters[selected_chapter][selected_entry]["title"]}</b>
-                            <Divider />
-                            <div style={{ whiteSpace: "pre-line" }}>{chapters[selected_chapter][selected_entry]["body"]}</div>
-                          </Button>
-                        </Flex> : ''
-                      ) : ('')}
+                        selected_entry ? (
+                          <Flex direction="column">
+                            <Button
+                              className="plant__dialogue"
+                              width={'100%'}
+                              mt={'10px'}
+                            >
+                              <b>
+                                {
+                                  chapters[selected_chapter][selected_entry][
+                                    'title'
+                                  ]
+                                }
+                              </b>
+                              <Divider />
+                              <div style={{ whiteSpace: 'pre-line' }}>
+                                {
+                                  chapters[selected_chapter][selected_entry][
+                                    'body'
+                                  ]
+                                }
+                              </div>
+                            </Button>
+                          </Flex>
+                        ) : (
+                          ''
+                        )
+                      ) : (
+                        ''
+                      )}
                     </Box>
                   </Section>
                 </Flex.Item>
