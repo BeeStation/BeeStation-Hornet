@@ -236,6 +236,7 @@
  */
 /obj/machinery/photocopier/proc/do_copy_loop(datum/callback/copy_cb, mob/user)
 	busy = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 	var/i
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
@@ -253,6 +254,7 @@
  */
 /obj/machinery/photocopier/proc/reset_busy()
 	busy = FALSE
+	update_use_power(IDLE_POWER_USE)
 
 /**
  * Gives items a random x and y pixel offset, between -10 and 10 for each.

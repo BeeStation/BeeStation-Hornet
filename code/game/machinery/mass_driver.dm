@@ -3,15 +3,11 @@
 	desc = "The finest in spring-loaded piston toy technology, now on a space station near you."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mass_driver"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/mass_driver
 	var/power = 1
 	var/code = 1
 	var/id = 1
 	var/drive_range = 10
-	var/power_per_obj = 1000
 
 /obj/machinery/mass_driver/notspace
 	drive_range = 50
@@ -40,7 +36,7 @@
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(machine_stat & (BROKEN|NOPOWER) || panel_open)
 		return
-	use_power(power_per_obj)
+	use_power(active_power_usage)
 	var/O_limit
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/atom/movable/O in loc)
@@ -51,7 +47,7 @@
 			if(O_limit >= 20)
 				audible_message(span_notice("[src] lets out a screech, it doesn't seem to be able to handle the load."))
 				break
-			use_power(power_per_obj)
+			use_power(active_power_usage)
 			O.throw_at(target, drive_range * power, power)
 	flick("mass_driver1", src)
 
@@ -72,11 +68,8 @@
 /obj/machinery/mass_driver/RefreshParts()
 	. = ..()
 	drive_range = initial(drive_range)
-	power_per_obj = initial(power_per_obj)
 	for(var/datum/stock_part/manipulator/manipulator in component_parts)
 		drive_range += (manipulator.tier - 1) * 5 //Subtract by 1, so initial values represent T1 parts
-	for(var/datum/stock_part/capacitor/capacitor in component_parts)
-		power_per_obj -= (capacitor.tier - 1) * 250
 
 /obj/machinery/mass_driver/emp_act(severity)
 	. = ..()

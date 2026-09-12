@@ -4,10 +4,10 @@
 	icon_state = "recharger"
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 300 // This is overriden while giving power
 	circuit = /obj/item/circuitboard/machine/recharger
+	// Standby overhead only. The charge transfer is a per-tick spend, see process().
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	pass_flags = PASSTABLE
 	/// The item currently inserted into the charger
 	var/obj/item/charging = null
@@ -140,8 +140,10 @@
 			if(C.charge >= C.maxcharge)
 				update_use_power(IDLE_POWER_USE)
 			else
-				C.give(C.chargerate * recharge_coeff)
-				active_power_usage = (C.chargerate * recharge_coeff / POWER_TRANSFER_LOSS)
+				var/transferred = C.chargerate * recharge_coeff
+				C.give(transferred)
+				// A per-tick transfer
+				use_power(transferred / POWER_TRANSFER_LOSS)
 				update_use_power(ACTIVE_POWER_USE)
 
 		if(istype(charging, /obj/item/ammo_box/magazine/recharge))
@@ -150,7 +152,7 @@
 				update_use_power(IDLE_POWER_USE)
 			else
 				R.stored_ammo += new R.ammo_type(R)
-				active_power_usage = (1000 WATT / recharge_coeff)
+				use_power((1 KILOWATT / recharge_coeff) / POWER_TRANSFER_LOSS)
 				update_use_power(ACTIVE_POWER_USE)
 		update_appearance()
 	else

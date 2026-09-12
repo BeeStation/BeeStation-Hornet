@@ -146,11 +146,13 @@
 		else if(isliving(AM))
 			if(obj_flags & EMAGGED)
 				crush_living(AM)
+				use_power(active_power_usage)
 			else
 				emergency_stop(AM)
 		else if(istype(AM, /obj/item) && !istype(AM, /obj/item/stack))
 			recycle_item(AM)
 			items_recycled++
+			use_power(active_power_usage)
 		else
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			AM.forceMove(loc)

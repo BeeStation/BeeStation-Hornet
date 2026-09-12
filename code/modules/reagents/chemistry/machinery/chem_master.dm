@@ -5,15 +5,15 @@
   * Contains logic for both ChemMaster and CondiMaster, switched by "condi".
   */
 /obj/machinery/chem_master
-	name = "ChemMaster 3000"
+	name = "\improper ChemMaster 3000"
 	desc = "Used to separate chemicals and distribute them in a variety of forms."
-	density = TRUE
-	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	base_icon_state = "mixer"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
+	density = TRUE
+	layer = BELOW_OBJ_LAYER
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.2
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_master
 
@@ -21,8 +21,8 @@
 	var/obj/item/reagent_containers/beaker
 	/// Pill bottle for newly created pills
 	var/obj/item/storage/pill_bottle/bottle
-	/// Whether separated reagents should be moved back to container or destroyed. 1 - move, 0 - destroy
-	var/mode = 1
+	/// Whether separated reagents should be moved back to container or destroyed.
+	var/is_transfering = TRUE
 	/// Decides what UI to show. If TRUE shows UI of CondiMaster, if FALSE - ChemMaster
 	var/condi = FALSE
 	/// Currently selected pill style
@@ -230,7 +230,7 @@
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 	data["machineCurrentVolume"] = reagents.total_volume
 	data["machineMaxVolume"] = reagents.maximum_volume
-	data["mode"] = mode
+	data["mode"] = is_transfering
 	data["condi"] = condi
 	data["screen"] = screen
 	data["saved_name"] = saved_name
@@ -265,7 +265,7 @@
 	data["condiStyles"] = condi_styles
 	return data
 
-/obj/machinery/chem_master/ui_act(action, params)
+/obj/machinery/chem_master/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -306,31 +306,40 @@
 			adjust_item_drop_location(bottle)
 			bottle = null
 			. = TRUE
+
 		if("transfer")
 			if(!beaker)
 				return
 			var/reagent = GLOB.name2reagent[params["id"]]
-			var/amount = text2num(params["amount"])
-			var/to_container = params["to"]
-			// Custom amount
-			if (amount == -1)
-				amount = text2num(input(
-					"Enter the amount you want to transfer:",
-					name, ""))
-			if (amount == null || amount <= 0)
-				return
-			if (to_container == "buffer")
-				beaker.reagents.trans_id_to(src, reagent, amount)
-				. = TRUE
-			else if (to_container == "beaker" && mode)
-				reagents.trans_id_to(beaker, reagent, amount)
-				. = TRUE
-			else if (to_container == "beaker" && !mode)
-				reagents.remove_reagent(reagent, amount)
-				. = TRUE
+			var/amount = params["amount"]
+			var/target = params["to"]
+
+			if(amount == -1) // Set custom amount
+				var/mob/user = ui.user
+				amount = tgui_input_number(user, "Enter amount to transfer", "Transfer amount")
+				if(!amount)
+					return FALSE
+
+			var/should_transfer = is_transfering || (target == "buffer") // we should always transfer if target is the buffer
+			if(should_transfer && isnull(beaker)) // if there's no beaker, we cannot transfer
+				say("No reagent container is inserted.")
+				return FALSE
+
+			var/reagents_from
+			var/reagents_to = null
+			if (target == "buffer")
+				reagents_from = beaker.reagents
+				reagents_to = reagents // buffer
+			else if (target == "beaker")
+				reagents_from = reagents // buffer
+				if(should_transfer)
+					reagents_to = beaker.reagents
+			return transfer_reagent(reagents_from, reagents_to, reagent, amount, should_transfer)
+
 		if("toggleMode")
-			mode = !mode
+			is_transfering = !is_transfering
 			. = TRUE
+
 		if("pillStyle")
 			chosen_pill_style = "[params["id"]]"
 			. = TRUE
@@ -512,6 +521,41 @@
 		if("goScreen")
 			screen = params["screen"]
 			. = TRUE
+
+/**
+ * Transfers a single reagent between buffer & beaker
+ * Arguments
+ *
+ * * datum/reagents/source - the holder we are transferring from
+ * * datum/reagents/target - the holder we are transferring to
+ * * datum/reagent/path - the reagent typepath we are transfering
+ * * amount - volume to transfer
+ * * do_transfer - transfer the reagents else destroy them
+ */
+/obj/machinery/chem_master/proc/transfer_reagent(datum/reagents/source, datum/reagents/target, datum/reagent/path, amount, do_transfer)
+	PRIVATE_PROC(TRUE)
+
+	//sanity checks for transfer amount
+	if(isnull(amount) || amount <= 0)
+		return FALSE
+	//sanity checks for reagent path
+	var/datum/reagent/reagent = text2path(path)
+	if (!reagent)
+		return FALSE
+
+	//use energy
+	if(!use_power(active_power_usage, force = FALSE))
+		return FALSE
+
+	//do the operation
+	. = FALSE
+	if(do_transfer)
+		if(source.trans_to(target, amount, target_id = reagent))
+			. = TRUE
+	else if(source.remove_reagent(reagent, amount))
+		. = TRUE
+	if(. && !QDELETED(src)) //transferring volatile reagents can cause a explosion & destory us
+		update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/chem_master/adjust_item_drop_location(atom/movable/AM) // Special version for chemmasters and condimasters
 	if (AM == beaker)

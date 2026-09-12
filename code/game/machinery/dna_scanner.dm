@@ -109,6 +109,8 @@
 		return FALSE
 
 	..()
+	// Sealed with someone inside is the only time this thing is actually scanning.
+	update_use_power(occupant ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 
 	return TRUE
 
@@ -117,6 +119,7 @@
 		return FALSE
 
 	..()
+	update_use_power(IDLE_POWER_USE)
 
 	return TRUE
 

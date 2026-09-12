@@ -110,11 +110,16 @@
 	/// See code/__DEFINES/machines.dm
 	var/use_power = IDLE_POWER_USE
 	/// The amount of static power load this machine adds to its area's power_usage list when use_power = IDLE_POWER_USE
-	var/idle_power_usage = 0
+	var/idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
 	/// The amount of static power load this machine adds to its area's power_usage list when use_power = ACTIVE_POWER_USE
-	var/active_power_usage = 0
+	var/active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION
 	/// The current amount of static power usage this machine is taking from its area
 	var/static_power_usage = 0
+	/// Which way stock part tiers push this machine's power draw. See MACHINE_POWER_SCALES_* in machines.dm
+	var/part_power_scaling = MACHINE_POWER_SCALES_UP
+	/// The multiplier RefreshParts() applied to this machine's declared power values.
+	/// Machines that compute their own draw should multiply by this to respect part tiers.
+	var/power_scale = 1
 	/// AREA_USAGE_EQUIP,AREA_USAGE_ENVIRON or AREA_USAGE_LIGHT
 	var/power_channel = AREA_USAGE_EQUIP
 
@@ -763,10 +768,14 @@
 /obj/machinery/proc/RefreshParts()
 	SHOULD_CALL_PARENT(TRUE)
 	//reset to baseline
+	power_scale = 1
 	idle_power_usage = initial(idle_power_usage)
 	active_power_usage = initial(active_power_usage)
 	if(!component_parts || !component_parts.len)
 		return
+	if(part_power_scaling == MACHINE_POWER_SCALES_NONE)
+		return
+
 	var/parts_energy_rating = 0
 
 	for(var/datum/stock_part/part in component_parts)
@@ -775,8 +784,14 @@
 	for(var/obj/item/stock_parts/part in component_parts)
 		parts_energy_rating += part.energy_rating
 
-	idle_power_usage = initial(idle_power_usage) * (1 + parts_energy_rating)
-	active_power_usage = initial(active_power_usage) * (1 + parts_energy_rating)
+	// Symmetric either way, and both agree with initial() at a rating of zero.
+	if(part_power_scaling == MACHINE_POWER_SCALES_DOWN)
+		power_scale = 1 / (1 + parts_energy_rating)
+	else
+		power_scale = 1 + parts_energy_rating
+
+	idle_power_usage = initial(idle_power_usage) * power_scale
+	active_power_usage = initial(active_power_usage) * power_scale
 	update_current_power_usage()
 
 /obj/machinery/proc/default_pry_open(obj/item/tool)

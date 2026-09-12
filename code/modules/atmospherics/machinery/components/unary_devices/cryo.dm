@@ -71,8 +71,8 @@
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal, /mob/living/basic)
 	processing_flags = START_PROCESSING_MANUALLY
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 75
-	active_power_usage = 150
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.75
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 1.5
 	flags_1 = PREVENT_CLICK_UNDER_1
 	seller_department = ACCOUNT_MED_BITFLAG
 	fair_market_price = 10

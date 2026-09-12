@@ -5,9 +5,6 @@
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "close"
 	obj_flags = CAN_BE_HIT | USES_TGUI
-	use_power = ACTIVE_POWER_USE
-	active_power_usage = 60
-	idle_power_usage = 5
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the unit is open
@@ -496,10 +493,12 @@
 		cell = suit.cell
 	if(mod)
 		cell = mod.get_cell()
-	if(!cell)
+	if(!cell || cell.charge == cell.maxcharge)
 		return
-	use_power(charge_rate * delta_time)
-	cell.give((charge_rate * delta_time) * POWER_TRANSFER_LOSS)
+
+	var/cell_charged = cell.give((charge_rate * delta_time) * POWER_TRANSFER_LOSS)
+	if(cell_charged)
+		use_power(charge_rate * delta_time)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))

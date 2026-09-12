@@ -19,6 +19,7 @@
 	icon_state = "dispenser"
 	base_icon_state = "dispenser"
 	idle_power_usage = 40
+	active_power_usage = 40	// standby overhead
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
@@ -120,7 +121,8 @@
 		return
 	if(cell.percent() < 100)
 		var/to_recharge = min(cell.chargerate, (cell.maxcharge - cell.charge))
-		active_power_usage = (to_recharge / POWER_TRANSFER_LOSS)
+		// Per-tick transfer into the cell
+		use_power(to_recharge / POWER_TRANSFER_LOSS)
 		cell.give(to_recharge)
 		update_use_power(ACTIVE_POWER_USE)
 		ui_update()

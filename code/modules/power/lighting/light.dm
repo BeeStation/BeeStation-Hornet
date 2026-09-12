@@ -11,8 +11,8 @@
 	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 20
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.02
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
@@ -226,7 +226,7 @@
 		set_light(0)
 	update_icon()
 	if(brightness != initial(brightness))	// If the brightness isn't 10 we're changing power usage based on the new brightness
-		active_power_usage = initial(active_power_usage) * (brightness / 10)
+		update_mode_power_usage(ACTIVE_POWER_USE, initial(active_power_usage) * (brightness / 10))
 	if(on != on_gs)
 		on_gs = on
 
@@ -282,11 +282,16 @@
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
 		addtimer(CALLBACK(src, PROC_REF(broken_sparks)), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
+/obj/machinery/light/proc/is_full_charge()
+	if(cell)
+		return cell.charge == cell.maxcharge
+	return TRUE
+
 /obj/machinery/light/process()
 	if(has_power())
+		if(is_full_charge())
+			return PROCESS_KILL
 		if(cell)
-			if(cell.charge == cell.maxcharge)
-				return PROCESS_KILL
 			cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
 	if(emergency_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
 		update(FALSE) //Disables emergency mode and sets the color to normal
@@ -674,8 +679,8 @@
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
 	brightness = 6
-	idle_power_usage = 1.4
-	active_power_usage = 14 // on par with the small lights
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.014
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.014 // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"

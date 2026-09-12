@@ -64,7 +64,7 @@
 /obj/machinery/power/floodlight/proc/change_setting(val, mob/user)
 	if((val < 1) || (val > light_setting_list.len))
 		return
-	active_power_usage = light_setting_list[val]
+	update_mode_power_usage(ACTIVE_POWER_USE, light_setting_list[val])
 	if(!avail(active_power_usage))
 		return change_setting(val - 1)
 	setting = val

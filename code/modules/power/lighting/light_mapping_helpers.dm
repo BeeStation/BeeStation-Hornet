@@ -46,8 +46,8 @@
 /obj/machinery/light/small
 	icon_state = "bulb"
 	base_state = "bulb"
-	idle_power_usage = 1.4
-	active_power_usage = 14 //they're way dimmer than light tubes, so they draw proportionally less
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.014
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.014 //they're way dimmer than light tubes, so they draw proportionally less
 	fitting = "bulb"
 	brightness = 6
 	desc = "A small lighting fixture."

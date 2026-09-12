@@ -16,9 +16,7 @@
 	req_access = list(ACCESS_SECURITY)
 
 	power_channel = AREA_USAGE_EQUIP
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 600
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.15
 
 	max_integrity = 160
 	integrity_failure = 0.5
@@ -91,6 +89,8 @@
 	/// Determines if the turret is on
 	var/on = TRUE
 
+	/// Determines if our projectiles hit our faction
+	var/ignore_faction = FALSE
 	/// Same faction mobs are not shot at (unless)
 	var/list/faction = list(FACTION_TURRET) // Same faction mobs will never be shot at, no matter the other settings
 
@@ -659,6 +659,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	fired_projectile.preparePixelProjectile(target, T)
 	fired_projectile.firer = src
 	fired_projectile.fired_from = bullet_source
+	if(ignore_faction)
+		fired_projectile.ignored_factions = faction
 	fired_projectile.fire()
 	return fired_projectile
 

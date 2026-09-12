@@ -7,9 +7,6 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 3000
 	circuit = /obj/item/circuitboard/machine/teleporter_hub
 	var/accuracy = 0
 	var/obj/machinery/teleport/station/power_station
@@ -77,19 +74,20 @@
 		com.target_ref = null
 		visible_message(span_alert("Cannot authenticate locked on coordinates. Please reinstate coordinate matrix."))
 		return
-	if (ismovable(M))
-		if(do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
-			use_power(7500)
-			if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
-				if(ishuman(M))//don't remove people from the round randomly you jerks
-					var/mob/living/carbon/human/human = M
-					if(human.dna && !isflyperson(human) && !HAS_TRAIT(M, TRAIT_RADIMMUNE))
-						log_game("[M] ([key_name(M)]) was turned into a fly person")
-						to_chat(M, span_italics("You hear a buzzing in your ears."))
-						human.set_species(/datum/species/fly)
+	if(!ismovable(M))
+		return
+	if(!do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
+		return
+	use_power(active_power_usage)
+	if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
+		if(ishuman(M))//don't remove people from the round randomly you jerks
+			var/mob/living/carbon/human/human = M
+			if(human.dna && !isflyperson(human) && !HAS_TRAIT(M, TRAIT_RADIMMUNE))
+				log_game("[M] ([key_name(M)]) was turned into a fly person")
+				to_chat(M, span_hear("You hear a buzzing in your ears."))
+				human.set_species(/datum/species/fly)
 
-			calibrated = 0
-	return
+	calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)
@@ -206,7 +204,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 		return
 	if (teleporter_console.target_ref?.resolve())
 		engaged = !engaged
-		use_power(5000)
+		use_power(active_power_usage)
 		to_chat(user, span_notice("Teleporter [engaged ? "" : "dis"]engaged!"))
 	else
 		teleporter_console.target_ref = null

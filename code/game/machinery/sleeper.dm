@@ -229,6 +229,7 @@
 /obj/machinery/sleeper/process()
 	..()
 	check_nap_violations()
+	use_power(active_power_usage)
 
 /obj/machinery/sleeper/nap_violation(mob/violator)
 	open_machine()

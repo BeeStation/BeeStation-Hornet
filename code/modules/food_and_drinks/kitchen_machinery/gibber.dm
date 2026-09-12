@@ -147,6 +147,7 @@
 	visible_message(span_italics("You hear a loud squelchy grinding sound."))
 	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 	operating = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 	update_icon()
 
 	var/offset = prob(50) ? -2 : 2
@@ -209,6 +210,7 @@
 /obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/food/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	operating = FALSE
+	update_use_power(IDLE_POWER_USE)
 	var/turf/T = get_turf(src)
 	var/list/turf/nearby_turfs = RANGE_TURFS(3,T) - T
 	if(skin)
@@ -225,6 +227,7 @@
 
 	pixel_x = base_pixel_x //return to its spot after shaking
 	operating = FALSE
+	update_use_power(IDLE_POWER_USE)
 	update_icon()
 
 //auto-gibs anything that bumps into it

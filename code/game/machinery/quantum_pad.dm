@@ -3,9 +3,7 @@
 	desc = "A bluespace quantum-linked telepad used for teleporting objects to other quantum pads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 200
-	active_power_usage = 5000
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 10
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/quantumpad
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
@@ -163,7 +161,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 			last_teleport = world.time
 
 			// use a lot of power
-			use_power(10000 / power_efficiency)
+			use_power(active_power_usage / power_efficiency)
 			sparks()
 			target_pad.sparks()
 

@@ -54,6 +54,7 @@
 
 /obj/machinery/nanite_chamber/proc/set_busy(status, message, working_icon)
 	busy = status
+	update_use_power(status ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	busy_message = message
 	busy_icon_state = working_icon
 	update_icon()

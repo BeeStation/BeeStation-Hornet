@@ -389,8 +389,14 @@
 				pre_success()
 		return
 	time--
-	use_power(500)
+	use_power(active_power_usage)
 	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
+
+/obj/machinery/microwave/power_change()
+	. = ..()
+	if((machine_stat & NOPOWER) && operating)
+		pre_fail()
+		eject()
 
 /obj/machinery/microwave/proc/loop_finish(mob/user)
 	operating = FALSE

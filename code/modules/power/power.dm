@@ -85,21 +85,27 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
-/obj/machinery/proc/powered(chan = power_channel)
-	if(!use_power)
+/obj/machinery/proc/powered(chan = power_channel, ignore_use_power = FALSE)
+	if(!use_power && !ignore_use_power)
 		return TRUE
 	if(!loc)
 		return FALSE
 	if(machine_stat & (EMPED|OVERHEATED))
 		return FALSE
-	var/area/A = get_area(src)		// make sure it's in an area
+
+	var/area/A = get_area(src) // make sure it's in an area
 	if(!A)
-		return FALSE					// if not, then not powered
+		return FALSE // if not, then not powered
+
 	return A.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(amount, chan = power_channel)
+	if(amount <= 0)
+		return FALSE
 	var/area/A = get_area(src) // make sure it's in an area
+	if(isnull(A))
+		return FALSE
 	A?.use_power(amount, chan)
 	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
 
@@ -108,17 +114,18 @@ WANTS_POWER_NODE(/obj/machinery/power)
   * - Amount: How much power the APC's cell is to be costed.
   */
 /obj/machinery/proc/directly_use_power(amount)
-	var/area/A = get_area(src)
-	var/obj/machinery/power/apc/local_apc
-	if(!A)
+	var/area/my_area = get_area(src)
+	if(isnull(my_area))
+		stack_trace("machinery is somehow not in an area, nullspace?")
 		return FALSE
-	local_apc = A.apc
-	if(!local_apc)
+	if(!my_area.requires_power)
+		return amount
+
+	var/obj/machinery/power/apc/my_apc = my_area.apc
+	if(isnull(my_apc) || !my_apc.operating || QDELETED(my_apc.cell))
 		return FALSE
-	if(!local_apc.cell)
-		return FALSE
-	local_apc.cell.use(amount)
-	return TRUE
+	return my_apc.cell.use(amount)
+
 
 /**
   * Attempts to draw power directly from the APC's Powernet rather than the APC's battery. For high-draw machines, like the cell charger
