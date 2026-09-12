@@ -4,8 +4,8 @@
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it."
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 100 WATT
-	active_power_usage = 500 WATT
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.15
 	can_unwrench = TRUE
 	welded = FALSE
 	layer = GAS_SCRUBBER_LAYER
@@ -142,7 +142,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/update_power_usage()
 	idle_power_usage = initial(idle_power_usage)
-	active_power_usage = initial(idle_power_usage)
+	active_power_usage = initial(active_power_usage)
 
 	var/new_power_usage = 0
 	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)

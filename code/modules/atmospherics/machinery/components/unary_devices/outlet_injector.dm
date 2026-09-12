@@ -5,6 +5,7 @@
 	desc = "Has a valve and pump attached to it."
 
 	use_power = IDLE_POWER_USE
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.25
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
 	hide = TRUE

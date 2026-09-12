@@ -18,7 +18,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
 	base_icon_state = "dispenser"
-	idle_power_usage = 100
+	idle_power_usage = 40
+	active_power_usage = 40	// standby overhead
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
@@ -120,7 +121,8 @@
 		return
 	if(cell.percent() < 100)
 		var/to_recharge = min(cell.chargerate, (cell.maxcharge - cell.charge))
-		active_power_usage = (to_recharge / POWER_TRANSFER_LOSS)
+		// Per-tick transfer into the cell
+		use_power(to_recharge / POWER_TRANSFER_LOSS)
 		cell.give(to_recharge)
 		update_use_power(ACTIVE_POWER_USE)
 		ui_update()
@@ -390,17 +392,23 @@
 	visible_message(span_danger("[src] malfunctions, spraying chemicals everywhere!"))
 
 /obj/machinery/chem_dispenser/RefreshParts()
+	. = ..()
 	var/newpowereff = 0.0666666
-	for(var/obj/item/stock_parts/cell/P in component_parts)
-		cell = P
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		newpowereff += 0.0166666666*M.rating
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		// Sorry capacitor upgrade no longer does nothing after I made rechargerate use cell.chargerate
-		// Leaving this here so it isn't forgotten later (and something useful can be put here, but out of scope RN)
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if (M.rating > 3)
+	var/parts_rating = 0
+	for(var/obj/item/stock_parts/cell/stock_cell in component_parts)
+		cell = stock_cell
+	for(var/datum/stock_part/matter_bin/matter_bin in component_parts)
+		newpowereff += 0.0166666666 * matter_bin.tier
+		parts_rating += matter_bin.tier
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		//recharge_amount *= capacitor.tier
+		parts_rating += capacitor.tier
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		if (manipulator.tier > 3)
 			dispensable_reagents |= upgrade_reagents
+		else
+			dispensable_reagents -= upgrade_reagents
+		parts_rating += manipulator.tier
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)

@@ -26,9 +26,13 @@
 	add_avail(power_gen)
 
 /obj/machinery/power/rtg/RefreshParts()
+	. = ..()
 	var/part_level = 0
-	for(var/obj/item/stock_parts/SP in component_parts)
-		part_level += SP.rating
+	for(var/datum/stock_part/part in component_parts)
+		part_level += part.tier
+	// The Void Core counts its infinite cell towards output too
+	for(var/obj/item/stock_parts/part in component_parts)
+		part_level += part.rating
 
 	power_gen = initial(power_gen) * part_level
 

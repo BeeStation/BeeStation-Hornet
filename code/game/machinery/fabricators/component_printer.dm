@@ -27,16 +27,6 @@
 /obj/machinery/modular_fabricator/component_printer/set_working_sprite()
 	add_overlay("fab-active")
 
-/obj/item/circuitboard/machine/component_printer
-	name = "\improper Component Printer (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/modular_fabricator/component_printer
-	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/cup/beaker = 2, //this doesn't make any sense, yet i wasn't allowed to fix it.
-	)
-
 /// Module duplicator, allows you to save and recreate module components.
 /obj/machinery/module_duplicator
 	name = "module duplicator"
@@ -187,9 +177,10 @@
 	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/RefreshParts()
+	. = ..()
 	var/efficiency = 1.2
-	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
-		efficiency -= new_manipulator.rating * 0.15
+	for(var/datum/stock_part/manipulator/new_manipulator in component_parts)
+		efficiency -= new_manipulator.tier * 0.15
 	creation_efficiency = max(0.1,efficiency)
 	update_static_data_for_all_viewers()
 
@@ -235,13 +226,3 @@
 		data[initial(material_type.name)] = materials[material_type]
 
 	return data
-
-/obj/item/circuitboard/machine/module_duplicator
-	name = "\improper Module Duplicator (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/module_duplicator
-	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/cup/beaker = 2,
-	)

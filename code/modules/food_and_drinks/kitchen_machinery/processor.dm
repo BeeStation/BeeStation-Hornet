@@ -17,10 +17,11 @@
 	processing_flags = NONE
 
 /obj/machinery/processor/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
+	. = ..()
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		rating_amount = B.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		rating_speed = M.tier
 
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
@@ -110,6 +111,7 @@
 		to_chat(user, span_warning("[src] is empty!"))
 		return TRUE
 	processing = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 	user.visible_message("[user] turns on [src].", \
 		span_notice("You turn on [src]."), \
 		span_italics("You hear a food processor."))
@@ -133,6 +135,7 @@
 		process_food(P, O)
 	pixel_x = base_pixel_x //return to its spot after shaking
 	processing = FALSE
+	update_use_power(IDLE_POWER_USE)
 	visible_message("\The [src] finishes processing.")
 
 /obj/machinery/processor/verb/eject()

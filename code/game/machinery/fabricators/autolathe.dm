@@ -3,9 +3,7 @@
 	desc = "It produces items using iron, copper, and glass."
 	icon_state = "autolathe"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.5
 	circuit = /obj/item/circuitboard/machine/autolathe
 	can_be_hacked_or_unlocked = TRUE
 	accepts_disks = TRUE

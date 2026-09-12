@@ -23,8 +23,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "fryer_off"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
+	pass_flags_self = PASSMACHINE | LETPASSTHROW
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/deep_fryer
 
@@ -71,9 +71,10 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		frying.forceMove(drop_location())
 
 /obj/machinery/deepfryer/RefreshParts()
+	. = ..()
 	var/oil_efficiency = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		oil_efficiency += laser.rating
+	for(var/datum/stock_part/micro_laser/laser in component_parts)
+		oil_efficiency += laser.tier
 	oil_use = initial(oil_use) - (oil_efficiency * 0.00475)
 	fry_speed = oil_efficiency
 

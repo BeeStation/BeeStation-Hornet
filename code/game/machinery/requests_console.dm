@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp_off"
 	base_icon_state = "req_comp"
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.15
 	layer = ABOVE_WINDOW_LAYER
 	var/area/area // Reference to our area
 	var/areastring = null // Mapper helper to tie an apc to another area

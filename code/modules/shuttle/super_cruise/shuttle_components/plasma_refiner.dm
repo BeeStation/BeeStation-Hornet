@@ -47,11 +47,10 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/RefreshParts()
+	. = ..()
 	moles_per_ore = 20
-	for(var/obj/item/stock_parts/micro_laser/l in component_parts)
-		moles_per_ore += l.rating * 10
-
-
+	for(var/datum/stock_part/micro_laser/l in component_parts)
+		moles_per_ore += l.tier * 10
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/default_change_direction_wrench(mob/user, obj/item/I)
 	. = ..()

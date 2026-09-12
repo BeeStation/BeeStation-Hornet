@@ -436,7 +436,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 250
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
 	max_integrity = 200
 	integrity_failure = 0.5
 	var/icon_screen = "solar"

@@ -160,7 +160,7 @@
 	var/mode = MODE_DRAW
 	var/work_mode	// mode the loops have been started with, to check with do_after
 	var/active = FALSE
-	var/cyborg_minimum_charge = 50 	// minimum charge cyborgs cannot go under when charging things
+	var/cyborg_minimum_charge = 500 	// minimum charge cyborgs cannot go under when charging things
 	var/static/list/charge_machines = typecacheof(list(
 		/obj/machinery/cell_charger,
 		/obj/machinery/recharger,
@@ -311,10 +311,10 @@
 			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				break
 
-			if(!user.cell.give(15))
+			if(!user.cell.give(150))
 				break
 
-			M.use_power(20)
+			M.use_power(200)
 
 			if(user.cell.charge == user.cell.maxcharge)
 				to_chat(user, span_notice("You finish charging from [target]."))

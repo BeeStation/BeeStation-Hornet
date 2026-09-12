@@ -121,24 +121,24 @@
 	return ..()
 
 /obj/machinery/power/port_gen/pacman/RefreshParts()
+	. = ..()
 	var/temp_rating = 0
 	var/matter_bin_rating = 0
 	var/consumption_coeff = 0
 
-	for(var/obj/item/stock_parts/part in component_parts)
-		if(istype(part, /obj/item/stock_parts/micro_laser))
-			temp_rating += part.rating
-		else if(istype(part, /obj/item/stock_parts/capacitor))
-			temp_rating += part.rating
-		else if(istype(part, /obj/item/stock_parts/matter_bin))
-			matter_bin_rating += part.rating
+	for(var/datum/stock_part/part in component_parts)
+		if(istype(part, /datum/stock_part/micro_laser))
+			temp_rating += part.tier
+		else if(istype(part, /datum/stock_part/capacitor))
+			temp_rating += part.tier
+		else if(istype(part, /datum/stock_part/matter_bin))
+			matter_bin_rating += part.tier
 		else
-			consumption_coeff += part.rating
+			consumption_coeff += part.tier
 
 	max_sheets = 50 * clamp(matter_bin_rating, 0, 5) ** 2
 	power_gen = round(initial(power_gen) * clamp(temp_rating, 0, 20) / 2)
 	consumption = max(consumption_coeff, 1) // Ensure minimum consumption of 1
-	..()
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()

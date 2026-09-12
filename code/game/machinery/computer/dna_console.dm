@@ -70,9 +70,6 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/computer/scan_consolenew
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 400
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_GENETICS)
 	clicksound = null
@@ -508,6 +505,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			COOLDOWN_START(src, scramble_cooldown, SCRAMBLE_TIMEOUT)
 			balloon_alert(usr, "dna scrambled.")
 			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, GENETIC_DAMAGE_STRENGTH_MULTIPLIER*50/(connected_scanner.damage_coeff ** 2))
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Check whether a specific mutation is eligible for discovery within the
@@ -632,7 +630,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 
 			// Check if we cracked a mutation
 			check_discovery(alias)
-
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Apply a chromosome to a specific mutation.
@@ -666,7 +664,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 				if(CM.can_apply(HM) && (CM.name == params["chromo"]))
 					stored_chromosomes -= CM
 					CM.apply(HM)
-
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Print any type of standard injector, limited right now to activators that
@@ -1035,6 +1033,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			var/datum/mutation/HM = GET_INITIALIZED_MUTATION(result_path)
 			stored_research.discovered_mutations[result_path] = TRUE
 			say("Successfully mutated [HM.name].")
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Combines two mutations from the disk to try and create a new mutation
@@ -1097,6 +1096,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			var/datum/mutation/HM = GET_INITIALIZED_MUTATION(result_path)
 			stored_research.discovered_mutations[result_path] = TRUE
 			say("Successfully mutated [HM.name].")
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Sets the Genetic Makeup pulse strength.
@@ -1306,7 +1306,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 				// If we successfully created an injector, don't forget to set the new
 				//  ready timer.
 				COOLDOWN_START(src, injector_cooldown, mutator_timeout)
-
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Applies a genetic makeup buffer to the scanner occupant
@@ -1332,6 +1332,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 				return
 
 			apply_genetic_makeup(selected_makeup, buffer_slot)
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Applies a genetic makeup buffer to the next scanner occupant. This sets
@@ -1397,6 +1398,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			COOLDOWN_START(src, genetic_damage_pulse_timer, pulse_duration * 10)
 			genetic_damage_pulse_index = WRAP(text2num(params["index"]), 1, len + 1)
 			START_PROCESSING(SSobj, src)
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Cancels the delayed action - In this context it is not the genetic damage
@@ -1556,6 +1558,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			A.copy_mutation(HM)
 			injector_selection[adv_inj] += A
 			to_chat(usr, span_notice("Mutation successfully added to advanced injector."))
+			connected_scanner.use_power(connected_scanner.active_power_usage)
 			return
 
 		// Deletes a mutation from an advanced injector

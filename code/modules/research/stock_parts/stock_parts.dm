@@ -19,61 +19,48 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	return ..()
 
 /obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, params)
-	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))
-		return ..()
+	. = ..()
+	if(.)
+		return
 
-	if(!user.Adjacent(attacked_object)) // no TK upgrading.
-		return ..()
+	if(!works_from_distance && !user.Adjacent(attacked_object))
+		return
 
-	if(ismachinery(attacked_object))
+	return part_replace_action(attacked_object, user)
+
+/obj/item/storage/part_replacer/proc/part_replace_action(obj/attacked_object, mob/living/user)
+	if(!ismachinery(attacked_object) && !istype(attacked_object, /obj/structure/frame/machine) && !istype(attacked_object, /obj/structure/frame/computer))
+		return FALSE
+
+	if(ismachinery(attacked_object) && !istype(attacked_object, /obj/machinery/computer))
 		var/obj/machinery/attacked_machinery = attacked_object
 
 		if(!attacked_machinery.component_parts)
-			return ..()
+			return FALSE
 
+		attacked_machinery.exchange_parts(user, src)
 		if(works_from_distance)
 			user.Beam(attacked_machinery, icon_state = "rped_upgrade", time = 5)
-		attacked_machinery.exchange_parts(user, src)
 		return TRUE
 
-	var/obj/structure/frame/machine/attacked_frame = attacked_object
+	var/obj/structure/frame/attacked_frame = attacked_object
+	if(istype(attacked_frame, /obj/structure/frame/machine))
+		var/obj/structure/frame/machine/machine_frame = attacked_frame
+		if(attacked_frame.state == 1 || (!machine_frame.components && !(locate(/obj/item/circuitboard/machine) in contents)))
+			return FALSE
+	else
+		if(attacked_frame.state == 0 || (attacked_frame.state == 1 && !(locate(/obj/item/circuitboard/computer) in contents)))
+			return FALSE
 
-	if(!attacked_frame.components)
-		return ..()
-
+	attacked_frame.attackby(src, user)
 	if(works_from_distance)
 		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
-	attacked_frame.attackby(src, user)
 	return TRUE
 
 /obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, params)
-	if(!ismachinery(attacked_object) && !istype(attacked_object, /obj/structure/frame/machine))
-		return ..()
-
-	if(adjacent)
-		return ..()
-
-	if(ismachinery(attacked_object))
-		var/obj/machinery/attacked_machinery = attacked_object
-
-		if(!attacked_machinery.component_parts)
-			return ..()
-
-		if(works_from_distance)
-			user.Beam(attacked_machinery, icon_state = "rped_upgrade", time = 5)
-			attacked_machinery.exchange_parts(user, src)
-		return
-
-	var/obj/structure/frame/machine/attacked_frame = attacked_object
-
-	if(!adjacent && !works_from_distance)
-		return
-	if(!attacked_frame.components)
-		return ..()
-
 	if(works_from_distance)
-		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
-	attacked_frame.attackby(src, user)
+		part_replace_action(attacked_object, user)
+	return ..()
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exhanging or installing parts.
@@ -223,8 +210,23 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
-/proc/cmp_rped_sort(obj/item/A, obj/item/B)
-	return B.get_part_rating() - A.get_part_rating()
+/obj/item/storage/part_replacer/proc/get_sorted_parts(ignore_stacks = FALSE)
+	var/list/part_list = list()
+	//Assemble a list of current parts, then sort them by their rating!
+	for(var/obj/item/component_part in contents)
+		//No need to put circuit boards in this list or stacks when exchanging parts
+		if(istype(component_part, /obj/item/circuitboard) || (ignore_stacks && istype(component_part, /obj/item/stack)))
+			continue
+		part_list += component_part
+		//Sort the parts. This ensures that higher tier items are applied first.
+	part_list = sortTim(part_list, GLOBAL_PROC_REF(cmp_rped_sort))
+	return part_list
+
+/proc/cmp_rped_sort(obj/item/first_item, obj/item/second_item)
+	/**
+	 * even though stacks aren't stock parts, get_part_rating() is defined on the item level (see /obj/item/proc/get_part_rating()) and defaults to returning 0.
+	 */
+	return second_item.get_part_rating() - first_item.get_part_rating()
 
 /obj/item/stock_parts
 	abstract_type = /obj/item/stock_parts
@@ -234,6 +236,9 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 50
 	var/rating = 1
+	///Used when a base part has a different name to higher tiers of part. For example, machine frames want any manipulator and not just a micro-manipulator.
+	var/base_name
+	var/energy_rating = 1
 
 /obj/item/stock_parts/Initialize(mapload)
 	. = ..()
@@ -269,6 +274,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "micro_mani"
 	custom_materials = list(/datum/material/iron=30)
+	base_name = "manipulator"
 
 /obj/item/stock_parts/micro_laser
 	name = "micro-laser"
@@ -441,6 +447,20 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	icon_state = "subspace_transmitter"
 	desc = "A large piece of equipment used to open a window into the subspace dimension."
 	custom_materials = list(/datum/material/iron=50)
+
+// Misc. Parts
+
+/obj/item/stock_parts/card_reader
+	name = "card reader"
+	icon_state = "card_reader"
+	desc = "A small magnetic card reader, used for devices that take and transmit holocredits."
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=10)
+
+/obj/item/stock_parts/water_recycler
+	name = "water recycler"
+	icon_state = "water_recycler"
+	desc = "A chemical reclaimation component, which serves to re-accumulate and filter water over time."
+	custom_materials = list(/datum/material/plastic=200, /datum/material/iron=50)
 
 /obj/item/research//Makes testing much less of a pain -Sieve
 	name = "research"

@@ -38,13 +38,13 @@
 	return ..()
 
 /obj/machinery/fat_sucker/RefreshParts()
-	..()
+	. = ..()
 	var/rating = 0
 	var/nutriment_rating
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		rating += L.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		nutriment_rating += M.rating
+	for(var/datum/stock_part/micro_laser/L in component_parts)
+		rating += L.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		nutriment_rating += M.tier
 	bite_size = initial(bite_size) + rating * 2.5
 	nutrient_to_meat = initial(nutrient_to_meat) - nutriment_rating * 5
 
@@ -158,7 +158,7 @@
 		playsound(loc, 'sound/machines/chime.ogg', 30, FALSE)
 	else
 		next_fact--
-	use_power(500)
+	use_power(active_power_usage)
 
 /obj/machinery/fat_sucker/proc/start_extracting()
 	if(state_open || !occupant || processing || !is_operational)

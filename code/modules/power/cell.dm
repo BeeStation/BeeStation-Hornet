@@ -266,7 +266,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	icon_state = "bscell"
 	maxcharge = 100 KILOWATT
 	custom_materials = list(/datum/material/glass=60)
-	chargerate = 2000
+	chargerate_divide = 5	// charges four times faster than a standard cell
 
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
@@ -351,7 +351,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	desc = "A rechargeable starch based power cell."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
-	charge = 10
 	maxcharge = 3 KILOWATT
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires

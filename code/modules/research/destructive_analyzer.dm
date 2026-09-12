@@ -1,3 +1,5 @@
+///How much power it costs to deconstruct an item.
+#define DESTRUCTIVE_ANALYZER_POWER_USAGE (BASE_MACHINE_IDLE_CONSUMPTION * 2.5)
 ///The 'ID' for deconstructing items for Research points instead of nodes.
 #define DESTRUCTIVE_ANALYZER_DESTROY_POINTS "research_points"
 
@@ -126,7 +128,7 @@
 	flick("[base_icon_state]_process", src)
 	busy = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), 2.4 SECONDS)
-	use_power(250)
+	use_power(DESTRUCTIVE_ANALYZER_POWER_USAGE)
 	var/list/all_contents = loaded_item.GetAllContents()
 	for(var/innerthing in all_contents)
 		destroy_item_individual(innerthing, gain_research_points)
