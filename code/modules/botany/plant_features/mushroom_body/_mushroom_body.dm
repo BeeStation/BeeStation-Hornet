@@ -19,3 +19,10 @@
 	plant_needs = list()
 	//We can pair with only mushroom fruit, but any kind of roots
 	whitelist_features = list(/datum/plant_feature/fruit/mushroom, /datum/plant_feature/roots)
+
+/datum/plant_feature/body/mushroom/catch_harvest(datum/source, mob/user, list/temp_fruits, dummy_harvest)
+	. = ..()
+	if(yields <= 0 || health <= 0)
+		SEND_SIGNAL(parent, COMSIG_PLANT_UPROOTED,  null, null, parent.plant_item.loc)
+		parent.plant_item.forceMove(get_turf(parent.plant_item))
+		qdel(parent.plant_item)

@@ -134,7 +134,8 @@
 
 ///This is for display+, a pre-formatted list of nice looking text
 /datum/plant_feature/proc/get_ui_data()
-	return list(PLANT_DATA("Name", capitalize(name)), PLANT_DATA("Species Name", capitalize(species_name)), PLANT_DATA("Trait Power", trait_power), PLANT_DATA(null, null))
+	return list(PLANT_DATA("Name", capitalize(name)), PLANT_DATA("Species Name", capitalize(species_name)), PLANT_DATA("Trait Power", trait_power), PLANT_DATA("Genetic Stability", genetic_budget),\
+	PLANT_DATA("Genetic Availability", remaining_genetic_budget), PLANT_DATA(null, null))
 
 //our traits
 /datum/plant_feature/proc/get_ui_traits()

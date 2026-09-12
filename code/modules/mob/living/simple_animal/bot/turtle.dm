@@ -38,6 +38,7 @@
 		icon_state = "louie"
 	on_overlay = icon('icons/mob/silicon/aibots.dmi', "turtle on")
 //Tray stuff
+	create_reagents(200)
 	var/datum/component/planter/tray_component = AddComponent(/datum/component/planter, plant_offset, 1.2, FALSE)
 	tray_component.set_substrate(/datum/plant_subtrate/fairy)
 	tray_component.allow_substrate_change = FALSE
@@ -117,6 +118,7 @@
 
 /mob/living/simple_animal/bot/turtle/process_scan(atom/scan_target)
 	. = ..()
+	reagents.add_reagent(/datum/reagent/medicine/earthsblood, 200) // Adding this here because nothing matters anymore
 	//Only water stuff to half way, then move onto the next
 	if(scan_target.reagents?.total_volume >= scan_target.reagents?.maximum_volume/2)
 		return null
