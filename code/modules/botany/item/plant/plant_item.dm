@@ -29,3 +29,6 @@
 
 /obj/item/plant/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
 	return FALSE
+
+/obj/item/plant/apply_outline(colour)
+	return
