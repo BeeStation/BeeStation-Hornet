@@ -359,18 +359,6 @@
 	icon_state = "white"
 	},
 /area/template_noop)
-"Kv" = (
-/obj/structure/window/spawner/directional/north,
-/obj/item/kirbyplants{
-	icon_state = "plant-08"
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
-/area/template_noop)
 "Kz" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -482,9 +470,7 @@
 /area/template_noop)
 "QC" = (
 /obj/structure/window/spawner/directional/north,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -574,9 +560,7 @@
 /area/template_noop)
 "YO" = (
 /obj/structure/window/spawner/directional/south,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -670,7 +654,7 @@ xR
 SF
 dl
 wW
-Kv
+QC
 jr
 NV
 GB

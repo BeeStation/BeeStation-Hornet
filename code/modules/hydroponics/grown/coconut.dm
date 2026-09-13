@@ -1,24 +1,6 @@
-/*Adds a Coconut tree and fruit to the game.
-when processed, it lets you choose between coconut flesh or the coconut cup*/
-/obj/item/seeds/coconut
-	name = "pack of coconut seeds"
-	desc = "These seeds grow into a coconut tree."
-	icon_state = "seed-coconut"
-	species = "coconut"
-	plantname = "Coconut Tree"
-	product = /obj/item/grown/coconut
-	lifespan = 220
-	endurance = 35
-	production = 7
-	yield = 3
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	icon_grow = "coconut-grow"
-	icon_dead = "coconut-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list(/datum/reagent/consumable/coconutmilk = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.2)
-
+//Coconut
 /obj/item/grown/coconut
-	seed = /obj/item/seeds/coconut
+	seed = /obj/item/plant_seeds/preset/coconut
 	name = "coconut"
 	desc = "A coconut. It's a hard nut to crack."
 	icon_state = "coconut"
@@ -53,8 +35,9 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	// Defaults to creating 1 coconut flesh when processed
 	var/part_amount = 1
 	var/div_mod = 1
-	if(seed && seed.potency)
-		part_amount = floor(seed.potency / 20 + 1) // Min 1, Max 6 at 100 potency
+	var/potency = get_fruit_trait_power(src)
+	if(seed && potency)
+		part_amount = floor(potency + 1) // Min 1, Max 6 at 100 potency
 		div_mod = clamp(part_amount, 1, 5) // So 100 potency isn't a punishment
 
 	for(var/i = 1 to part_amount)
@@ -66,14 +49,8 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 
 	// Creates the coconut cup alongside the coconut flesh
 	var/obj/item/reagent_containers/cup/coconutcup/cup = new /obj/item/reagent_containers/cup/coconutcup(location)
-
-	// Scale the volume of the coconut cup based on the plant's potency
-	if(seed && seed.potency)
-		var/modifier = 1
-		if(seed.get_gene(/datum/plant_gene/trait/maxchem))
-			modifier = 2
-		cup.volume = max(10, seed.potency) * modifier // Without trait 10-100, with it 20-200
-		cup.reagents.maximum_volume = max(10, seed.potency) * modifier // Because this doesnt auto update for some reson
+	cup.volume = reagents.maximum_volume // Without trait 10-100, with it 20-200
+	cup.reagents.maximum_volume = reagents.maximum_volume // Because this doesnt auto update for some reson
 
 	// Transfers the reagents from the plant to liquid form inside the cup
 	if(original_reagent_holder && original_reagent_holder.total_volume > 0)

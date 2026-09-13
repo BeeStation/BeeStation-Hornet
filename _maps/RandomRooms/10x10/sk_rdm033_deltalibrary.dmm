@@ -27,14 +27,14 @@
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "f" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood{
 	broken = 1
 	},
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood{
 	broken = 1
 	},
@@ -79,7 +79,7 @@
 /area/template_noop)
 "o" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 "p" = (

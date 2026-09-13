@@ -717,6 +717,59 @@ em {
   margin: 10px 20px;
 }
 
+.plant_scan {
+  display: block;
+  font-size: small;
+  font-family: monospace;
+  color: rgb(255, 255, 119);
+  text-align: center;
+  background-color: black;
+  position: relative;
+  outline: 2px solid;
+  outline-color: rgb(133, 133, 66);
+  padding: 5px 5px;
+  margin: 0px 0px;
+  z-index: 1;
+}
+.plant_scan::after {
+  display: inline-block;
+  content: ' ';
+  mix-blend-mode: normal;
+  opacity: 0.1;
+  mix-blend-mode: lighten;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgb(255, 255, 25),
+    rgb(255, 255, 25) 1px,
+    rgb(28, 28, 14) 1px,
+    rgb(28, 28, 14) 2px
+  );
+  position: absolute;
+  inset-inline-start: 0px;
+  inset-block-start: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.plant_sub {
+  display: grid;
+  font-family: monospace;
+  font-size: small;
+  color: rgb(255, 255, 119);
+  text-align: start;
+  background: rgb(20, 20, 8);
+  outline: 2px solid;
+  outline-color: rgb(133, 133, 66);
+  padding: 3px;
+  margin: 2px 2px;
+}
+
+.plant_margin_wrapper {
+  padding: 0;
+  margin: 5px 10px;
+}
+
 .prisoner_message {
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;

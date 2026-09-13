@@ -506,7 +506,8 @@
 	if(istext(result)) //We failed to make an item and got a fail message
 		to_chat(user, span_warning("Construction failed[result]"))
 		return FALSE
-	if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
+	var/obj/item/item_result = result
+	if(ismob(user) && isitem(result) && item_result.interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP) //In case the user is actually possessing a non mob like a machine
 		user.put_in_hands(result)
 	else if(!istype(result, /obj/effect/spawner))
 		result.forceMove(user.drop_location())

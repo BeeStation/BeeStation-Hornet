@@ -7,9 +7,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-16"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,

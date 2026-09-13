@@ -555,9 +555,7 @@
 /area/shuttle/escape)
 "FX" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -625,9 +623,7 @@
 /area/shuttle/escape)
 "IG" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -661,9 +657,7 @@
 /area/shuttle/escape)
 "Jn" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -800,9 +794,7 @@
 "PK" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},

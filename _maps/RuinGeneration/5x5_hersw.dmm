@@ -1,63 +1,63 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"s" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"w" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"C" = (
+"A" = (
 /turf/closed/wall,
 /area/ruin/powered)
-"K" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"M" = (
-/obj/effect/abstract/doorway_marker,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"Z" = (
+"B" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
+"F" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"J" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Q" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Y" = (
+/turf/open/floor/iron,
+/area/ruin/powered)
 
 (1,1,1) = {"
-C
-C
-Z
-C
-C
+A
+A
+B
+A
+A
 "}
 (2,1,1) = {"
-C
-K
-K
-s
-C
+A
+Y
+Y
+F
+A
 "}
 (3,1,1) = {"
-C
-K
-K
-K
-M
+A
+Y
+Y
+Y
+Q
 "}
 (4,1,1) = {"
-C
-K
-K
-K
-C
+A
+Y
+Y
+Y
+A
 "}
 (5,1,1) = {"
-C
-K
-w
-K
-C
+A
+Y
+J
+Y
+A
 "}

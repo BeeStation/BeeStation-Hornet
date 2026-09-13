@@ -4,7 +4,7 @@
 	product_ads = "Stick with me!;Be sure to stick around.;Stick to it."
 	icon_state = "gacha"
 	light_color = LIGHT_COLOR_CYAN
-	products = list(/obj/item/sticker_gacha/series_1 = 15)
+	products = list(/obj/item/sticker_gacha/series_1 = 15, /obj/item/sticker_gacha/series_2 = 15)
 	refill_canister = /obj/item/vending_refill/sticker
 	default_price = 35
 	extra_price = 50
@@ -51,5 +51,10 @@
 
 /obj/item/sticker_gacha/series_1
 	series = STICKER_SERIES_1
+	max_demand = 100
+	custom_price = 35
+
+/obj/item/sticker_gacha/series_2
+	series = STICKER_SERIES_2
 	max_demand = 100
 	custom_price = 35

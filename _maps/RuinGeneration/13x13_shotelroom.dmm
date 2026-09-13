@@ -1,23 +1,56 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/security/wooden_tv{
-	pixel_x = 1;
-	pixel_y = 16
+"ap" = (
+/obj/structure/dresser,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"ar" = (
+/turf/closed/wall,
+/area/ruin/powered)
+"aw" = (
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"aE" = (
+/obj/structure/table/glass,
+/obj/item/food/grown/flower/harebell,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"aF" = (
+/turf/open/floor/wood,
+/area/ruin/powered)
+"aO" = (
+/obj/structure/falsewall,
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"aY" = (
+/obj/structure/table/glass,
+/obj/item/chromosome/power{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/chromosome/reinforcer{
+	pixel_y = 2
+	},
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"bu" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	dir = 4
 	},
 /turf/open/floor/wood,
 /area/ruin/powered)
-"b" = (
-/obj/machinery/computer/scan_consolenew,
-/turf/open/floor/iron/tiled,
+"bP" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/wood,
 /area/ruin/powered)
-"c" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/food/cake/chocolate,
-/obj/item/knife/kitchen,
-/turf/open/floor/carpet/orange,
+"cR" = (
+/obj/item/flashlight/lamp/green,
+/obj/structure/table/glass,
+/turf/open/floor/wood,
 /area/ruin/powered)
-"d" = (
+"du" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice{
 	pixel_x = 2;
@@ -25,42 +58,139 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/powered)
-"e" = (
-/obj/effect/mob_spawn/human/corpse/zombie,
+"eY" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/storage/fancy/egg_box{
+	pixel_y = 12
+	},
+/turf/open/floor/carpet/orange,
+/area/ruin/powered)
+"fV" = (
+/obj/structure/table/glass,
+/obj/item/storage/pill_bottle/mutadone,
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/tiled,
 /area/ruin/powered)
-"f" = (
-/obj/effect/turf_decal/tile/purple,
+"hw" = (
+/obj/machinery/computer/records/medical/laptop,
+/obj/structure/table/glass,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"iZ" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/food/cake/chocolate,
+/obj/item/knife/kitchen,
+/turf/open/floor/carpet/orange,
+/area/ruin/powered)
+"ml" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/reagent_containers/cup/glass/drinkingglass/filled/soda{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/open/floor/carpet/orange,
+/area/ruin/powered)
+"mQ" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"np" = (
+/obj/machinery/door/airlock/wood,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"qG" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"g" = (
+"qT" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/monkeycubes,
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"rG" = (
+/obj/machinery/computer/scan_consolenew,
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"tb" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"uE" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rd,
 /obj/item/toy/plush/slimeplushie,
 /turf/open/floor/wood,
 /area/ruin/powered)
-"h" = (
+"yr" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/security/wooden_tv{
+	pixel_x = 1;
+	pixel_y = 16
+	},
 /turf/open/floor/wood,
 /area/ruin/powered)
-"i" = (
-/obj/structure/dresser,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"j" = (
-/turf/closed/wall,
-/area/ruin/powered)
-"k" = (
-/obj/structure/falsewall,
-/obj/effect/abstract/doorway_marker,
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"l" = (
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"m" = (
+"Cq" = (
+/obj/machinery/door/airlock/wood,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"n" = (
+"Es" = (
+/obj/structure/table/glass,
+/obj/structure/sign/departments/minsky/research/genetics{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"EM" = (
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"FQ" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"HJ" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/dress/skirt/purple,
+/obj/item/clothing/under/dress/sundress,
+/obj/item/clothing/under/pants/classicjeans,
+/obj/item/clothing/suit/jacket/letterman_nanotrasen,
+/turf/open/floor/wood,
+/area/ruin/powered)
+"IK" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Kv" = (
+/turf/open/floor/carpet/orange,
+/area/ruin/powered)
+"KO" = (
+/obj/structure/chair/fancy/corp{
+	dir = 1
+	},
+/turf/open/floor/carpet/orange,
+/area/ruin/powered)
+"Lk" = (
+/obj/structure/chair/fancy/corp,
+/turf/open/floor/carpet/orange,
+/area/ruin/powered)
+"LD" = (
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"LJ" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/food/pizzabread,
 /obj/item/food/egg{
@@ -73,61 +203,24 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/powered)
-"o" = (
+"NF" = (
+/obj/effect/mob_spawn/human/corpse/zombie,
+/turf/open/floor/iron/tiled,
+/area/ruin/powered)
+"Oe" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/storage/fancy/egg_box{
-	pixel_y = 12
+/obj/item/reagent_containers/cup/glass/bottle/applejack{
+	pixel_y = 2
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/powered)
-"q" = (
-/obj/machinery/door/airlock/wood,
-/obj/effect/mapping_helpers/airlock/locked,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"s" = (
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"t" = (
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"u" = (
-/obj/structure/chair/fancy/sofa/old/left{
+"Rw" = (
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
 /turf/open/floor/wood,
 /area/ruin/powered)
-"v" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"x" = (
-/obj/machinery/dna_scannernew,
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"y" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"z" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes,
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"A" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"B" = (
+"RN" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -135,82 +228,7 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"C" = (
-/obj/structure/table/glass,
-/obj/structure/sign/departments/minsky/research/genetics{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"D" = (
-/obj/structure/chair/fancy/sofa/old/right{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/ruin/powered)
-"G" = (
-/obj/structure/table/glass,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"H" = (
-/turf/open/floor/carpet/orange,
-/area/ruin/powered)
-"I" = (
-/obj/structure/table/glass,
-/obj/item/storage/pill_bottle/mutadone,
-/obj/item/clothing/gloves/color/latex,
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"J" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/cup/glass/drinkingglass/filled/soda{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/turf/open/floor/carpet/orange,
-/area/ruin/powered)
-"K" = (
-/obj/machinery/computer/records/medical/laptop,
-/obj/structure/table/glass,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"L" = (
-/obj/structure/chair/fancy/corp,
-/turf/open/floor/carpet/orange,
-/area/ruin/powered)
-"M" = (
-/obj/structure/table/glass,
-/obj/item/chromosome/power{
-	pixel_x = 4;
-	pixel_y = 2
-	},
-/obj/item/chromosome/reinforcer{
-	pixel_y = 2
-	},
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"N" = (
-/obj/machinery/door/airlock/wood,
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/wood,
-/area/ruin/powered)
-"P" = (
-/obj/structure/chair/fancy/corp{
-	dir = 1
-	},
-/turf/open/floor/carpet/orange,
-/area/ruin/powered)
-"Q" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/ruin/powered)
-"R" = (
-/obj/structure/falsewall,
-/turf/open/floor/iron/tiled,
-/area/ruin/powered)
-"S" = (
+"TH" = (
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
 	default_raw_text = "lol";
 	pixel_x = 3;
@@ -227,236 +245,218 @@
 	},
 /turf/open/floor/wood,
 /area/ruin/powered)
-"T" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/iron,
+"TS" = (
+/obj/structure/falsewall,
+/turf/open/floor/iron/tiled,
 /area/ruin/powered)
-"U" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/dress/skirt/purple,
-/obj/item/clothing/under/dress/sundress,
-/obj/item/clothing/under/pants/classicjeans,
-/obj/item/clothing/suit/jacket/letterman_nanotrasen,
-/turf/open/floor/wood,
+"Ug" = (
+/obj/machinery/dna_scannernew,
+/turf/open/floor/iron/tiled,
 /area/ruin/powered)
-"V" = (
-/obj/item/flashlight/lamp/green,
+"Ux" = (
 /obj/structure/table/glass,
 /turf/open/floor/wood,
 /area/ruin/powered)
-"W" = (
-/obj/structure/table/glass,
-/obj/item/food/grown/flower/harebell,
+"UP" = (
+/obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/ruin/powered)
-"X" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 8
-	},
+"WG" = (
 /turf/open/floor/iron,
-/area/ruin/powered)
-"Z" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/cup/glass/bottle/applejack{
-	pixel_y = 2
-	},
-/turf/open/floor/carpet/orange,
 /area/ruin/powered)
 
 (1,1,1) = {"
-j
-m
-X
-m
-j
-j
-j
-j
-j
-j
-j
-j
-j
+ar
+WG
+IK
+WG
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
 "}
 (2,1,1) = {"
-j
-m
-m
-m
-T
-B
-j
-V
-G
-h
-U
-W
-j
+ar
+WG
+WG
+WG
+qG
+RN
+ar
+cR
+Ux
+aF
+HJ
+aE
+ar
 "}
 (3,1,1) = {"
-j
-m
-m
-m
-m
-s
-j
-K
-Q
-h
-h
-h
-j
+ar
+WG
+WG
+WG
+WG
+FQ
+ar
+hw
+bP
+aF
+aF
+aF
+ar
 "}
 (4,1,1) = {"
-j
-m
-m
-m
-m
-s
-j
-S
-h
-h
-h
-h
-j
+ar
+WG
+WG
+WG
+WG
+FQ
+ar
+TH
+aF
+aF
+aF
+aF
+ar
 "}
 (5,1,1) = {"
-j
-m
-m
-m
-f
-y
-j
-v
-h
-h
-g
-i
-j
+ar
+WG
+WG
+WG
+LD
+tb
+ar
+mQ
+aF
+aF
+uE
+ap
+ar
 "}
 (6,1,1) = {"
-j
-j
-j
-q
-j
-j
-j
-j
-N
-j
-j
-j
-j
+ar
+ar
+ar
+Cq
+ar
+ar
+ar
+ar
+np
+ar
+ar
+ar
+ar
 "}
 (7,1,1) = {"
-j
-v
-h
-h
-h
-h
-h
-h
-h
-j
-C
-M
-j
+ar
+mQ
+aF
+aF
+aF
+aF
+aF
+aF
+aF
+ar
+Es
+aY
+ar
 "}
 (8,1,1) = {"
-j
-h
-h
-h
-h
-h
-h
-h
-h
-j
-l
-l
-j
+ar
+aF
+aF
+aF
+aF
+aF
+aF
+aF
+aF
+ar
+aw
+aw
+ar
 "}
 (9,1,1) = {"
-j
-h
-H
-H
-H
-H
-h
-h
-h
-R
-l
-e
-j
+ar
+aF
+Kv
+Kv
+Kv
+Kv
+aF
+aF
+aF
+TS
+aw
+NF
+ar
 "}
 (10,1,1) = {"
-j
-h
-L
-Z
-n
-P
-h
-u
-D
-j
-x
-l
-j
+ar
+aF
+Lk
+Oe
+LJ
+KO
+aF
+bu
+Rw
+ar
+Ug
+aw
+ar
 "}
 (11,1,1) = {"
-j
-h
-L
-J
-o
-P
-h
-h
-h
-j
-b
-t
-k
+ar
+aF
+Lk
+ml
+eY
+KO
+aF
+aF
+aF
+ar
+rG
+EM
+aO
 "}
 (12,1,1) = {"
-j
-h
-L
-c
-d
-P
-v
-A
-a
-j
-z
-I
-j
+ar
+aF
+Lk
+iZ
+du
+KO
+mQ
+UP
+yr
+ar
+qT
+fV
+ar
 "}
 (13,1,1) = {"
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
+ar
 "}

@@ -76,9 +76,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "aD" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-02"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "aE" = (
@@ -109,9 +107,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "aL" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-16"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "aM" = (
@@ -142,9 +138,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "aT" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-16"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "aU" = (
@@ -175,9 +169,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "bb" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-18"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "bc" = (
@@ -885,9 +877,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "dq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "dr" = (
@@ -932,9 +922,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
 "dy" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-14"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
 "dz" = (
@@ -1468,9 +1456,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
 "fI" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-02"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -1599,9 +1585,7 @@
 	},
 /area/ruin/space/has_grav/hotel/dock)
 "gh" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "gi" = (
@@ -1892,9 +1876,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "hq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-18"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hr" = (
@@ -2224,7 +2206,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "iM" = (
-/obj/item/kirbyplants,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
 "iN" = (
@@ -3091,9 +3073,7 @@
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "tS" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/custodial)

@@ -100,9 +100,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "aB" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/siding/thinplating_new,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/large,
@@ -553,9 +551,7 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "zs" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/item/radio/intercom/directional/west,
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -756,9 +752,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "MM" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "MN" = (

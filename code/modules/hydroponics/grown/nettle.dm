@@ -1,36 +1,5 @@
-/obj/item/seeds/nettle
-	name = "pack of nettle seeds"
-	desc = "These seeds grow into nettles."
-	icon_state = "seed-nettle"
-	species = "nettle"
-	plantname = "Nettles"
-	product = /obj/item/food/grown/nettle
-	lifespan = 120
-	endurance = 40 // tuff like a toiger
-	yield = 4
-	growthstages = 5
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
-	mutatelist = list(/obj/item/seeds/nettle/death)
-	reagents_add = list(/datum/reagent/toxin/acid = 0.25)
-	trade_flags = TRADE_CONTRABAND
-
-/obj/item/seeds/nettle/death
-	name = "pack of death-nettle seeds"
-	desc = "These seeds grow into death-nettles."
-	icon_state = "seed-deathnettle"
-	species = "deathnettle"
-	plantname = "Death Nettles"
-	product = /obj/item/food/grown/nettle/death
-	endurance = 25
-	maturation = 8
-	yield = 2
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.12)
-	rarity = 20
-
 /obj/item/food/grown/nettle // "snack". yeah. try eating it, pussy
-	seed = /obj/item/seeds/nettle
+	seed = /obj/item/plant_seeds/preset/nettle
 	name = "nettle"
 	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -81,16 +50,16 @@
 		qdel(src)
 
 /obj/item/food/grown/nettle/basic
-	seed = /obj/item/seeds/nettle
+	seed = /obj/item/plant_seeds/preset/nettle
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
 
-/obj/item/food/grown/nettle/basic/Initialize(mapload, obj/item/seeds/new_seed)
+/obj/item/food/grown/nettle/basic/Initialize(mapload)
 	. = ..()
-	force = round((5 + seed.potency / 5), 1)
+	var/potency = get_fruit_trait_power(src) * 25
+	force = round((5 + potency / 5), 1)
 
 /obj/item/food/grown/nettle/death
-	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
 	desc = "The " + span_danger("glowing") + " nettle incites " + span_boldannounce("rage") + " in you just from looking at it!"
 	icon_state = "deathnettle"
@@ -101,10 +70,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/basic)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown/nettle/death)
 
-/obj/item/food/grown/nettle/death/Initialize(mapload, obj/item/seeds/new_seed)
+/obj/item/food/grown/nettle/death/Initialize(mapload)
 	. = ..()
-	force = round((5 + seed.potency / 5), 1)
-	throwforce = round((2 + seed.potency / 10), 1)
+	var/potency = get_fruit_trait_power(src) * 25
+	force = round((5 + potency / 5), 1)
+	throwforce = round((2 + potency / 10), 1)
 
 /obj/item/food/grown/nettle/death/pickup(mob/living/carbon/user)
 	if(..())

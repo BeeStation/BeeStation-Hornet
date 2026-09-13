@@ -22,11 +22,11 @@
 
 /obj/item/ammo_casing/energy/flora/yield
 	projectile_type = /obj/projectile/energy/florayield
-	select_name = "yield"
+	select_name = "de-weed & de-pest"
 
 /obj/item/ammo_casing/energy/flora/mut
 	projectile_type = /obj/projectile/energy/floramut
-	select_name = "mutation"
+	select_name = "trigger bee buffs"
 
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/projectile/temp

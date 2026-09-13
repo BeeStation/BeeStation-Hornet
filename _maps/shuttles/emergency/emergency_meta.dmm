@@ -1017,9 +1017,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Kk" = (
@@ -1093,9 +1091,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
@@ -1205,9 +1201,7 @@
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Yp" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "YP" = (

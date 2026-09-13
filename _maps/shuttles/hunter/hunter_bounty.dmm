@@ -180,9 +180,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "js" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/railing{
 	dir = 2
 	},
