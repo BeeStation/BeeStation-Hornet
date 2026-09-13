@@ -74,7 +74,7 @@
 	time = 4 SECONDS
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
 	reqs = list(
-		/obj/item/clothing/mask/gas/old = 1,
+		/obj/item/clothing/mask/gas = 1,
 		/obj/item/assembly/voice = 1,
 		/obj/item/stack/cable_coil = 5
 	)

@@ -223,7 +223,7 @@
 /area/template_noop)
 "O" = (
 /obj/effect/turf_decal/bot,
-/obj/item/organ/brain/positron,
+/obj/item/mmi/posibrain,
 /turf/open/floor/iron,
 /area/template_noop)
 "Q" = (

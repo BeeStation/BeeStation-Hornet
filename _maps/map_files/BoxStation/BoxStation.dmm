@@ -34042,7 +34042,7 @@
 	},
 /obj/machinery/door/airlock{
 	name = "Toilet Unit";
-	id_tag = "Toliet4"
+	id_tag = "Toilet4"
 	},
 /turf/open/floor/iron/tiled/light,
 /area/station/commons/toilet)

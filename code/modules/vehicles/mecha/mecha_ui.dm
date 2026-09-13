@@ -72,7 +72,7 @@
 	data["cell"] = cell?.name
 	data["scanning"] = scanmod?.name
 	data["capacitor"] = capacitor?.name
-	data["servo"] = servo?.name
+	data["manipulator"] = manipulator?.name
 	ui_view.appearance = appearance
 	data["name"] = name
 	data["integrity"] = atom_integrity
@@ -91,7 +91,6 @@
 	data["one_access"] = one_access
 	data["accesses"] = accesses
 
-	data["servo_rating"] = servo?.rating
 	data["scanmod_rating"] = scanmod?.rating
 	data["capacitor_rating"] = capacitor?.rating
 

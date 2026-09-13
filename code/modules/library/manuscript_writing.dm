@@ -66,7 +66,7 @@
 		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
 		if(!writer_job)
 			return ..()
-		writer_job = SSjob.get_job_type(writer_job)
+		writer_job = SSjob.get_job(writer_job)
 
 	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()

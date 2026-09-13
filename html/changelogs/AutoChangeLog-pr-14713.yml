@@ -1,0 +1,7 @@
+author: r1ks, rkz
+delete-after: true
+changes:
+  - bugfix: Fixes cloning randomizing unique enzymes(relevant to blood,  identity
+      checks) and non-human appearance, and a few other sources of enzymes not being
+      assigned.
+  - bugfix: Fixes cloning not respecting the cloned's enzymes, blood type, age
