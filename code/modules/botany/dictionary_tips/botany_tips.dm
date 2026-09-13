@@ -18,6 +18,39 @@
 	\n\
 	(Spades can also be used to remove the substrate from a tray, or clear ALL the plants from it.)"
 
+
+/datum/dictionary_entry/trays
+	title = "Soil Receptical"
+	body = "(Plant trays have built in indicators lights. Green means a plant is ready for harvest, yellow means a plant needs something, and red means something is negatively affecting a plant. Scan the tray with a plant scanner to learn more about the lights.)\n\
+	\n\
+	Story goes here.\n\
+	\n\
+	(Plant trays have 4 plant slots, and a 200u reagent capacity.)"
+
+/datum/dictionary_entry/substrate
+	title = "Dirt Bags"
+	body = "(Substrate bags can be used to change the substrate of a tray. You can check what kind of substrate a plant needs by examining its seeds.)\n\
+	\n\
+	Story goes here.\n\
+	\n\
+	(Subtrates can be vended, or created in the biogenerator.)"
+
+/datum/dictionary_entry/seeder
+	title = "A Seedy Place"
+	body = "(Seeds can be made, and stored, with the industrial seeder. Insert fruits, or whole plants, into the seeder to make seeds.)\n\
+	\n\
+	Story goes here.\n\
+	\n\
+	(The seeder can be upgraded to redeem more seeds from fruits and plants.)"
+
+/datum/dictionary_entry/plant_scanner
+	title = "Scanning For Danger"
+	body = "(The plant scanner can be used to check a plant's genetics on the fly. A scan will also reveal a plant's needs.)\n\
+	\n\
+	Story goes here.\n\
+	\n\
+	(The plant scanner can be used on plant trays to reveal information about status lights.)"
+
 /datum/dictionary_entry/analyzer
 	title = "Analyse This"
 	body = "(The plant analyzer can be used to save features and traits from a mature plant.)\n\
@@ -59,7 +92,7 @@
 	(Plants like flowers have exclusive traits, nectar, that make them a valuable candidate for your garden.)"
 
 /datum/dictionary_entry/hallway
-	title = "Audrey II"
+	title = "Ashley II"
 	body = "(Plants that spawn in the hallways start with random extra traits.)\n\
 	\n\
 	\"Jesus Chloe, it's just a fucking plant. What's your problem?\"\n\

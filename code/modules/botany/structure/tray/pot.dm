@@ -31,6 +31,12 @@
 	tray_component.allow_substrate_change = FALSE
 	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
 
+/obj/item/plant_tray/pot/Destroy(force)
+	. = ..()
+	for(var/atom/A in contents)
+		contents -= A
+		qdel(A)
+
 /obj/item/plant_tray/pot/Exited(atom/movable/leaving, direction)
 	. = ..()
 	var/datum/component/plant/plant_comp = leaving.GetComponent(/datum/component/plant)
