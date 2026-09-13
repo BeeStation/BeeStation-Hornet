@@ -161,10 +161,20 @@
 /datum/component/planter/proc/catch_examine(datum/source, mob/looker, list/examine_text)
 	SIGNAL_HANDLER
 
+	// Substrate
 	if(substrate)
-		examine_text += ("<span class='notice'>[parent] is filled with [substrate.name].\n[substrate.tooltip]</span>")
+		examine_text += span_notice("[parent] is filled with [substrate.name].\n[substrate.tooltip]")
 	else
-		examine_text += ("<span class='warning'>[parent] does not contain any substrate!</span>")
+		examine_text += span_warning("[parent] does not contain any substrate!")
+	// Weeds
+	if(weed_level >= 10)
+		examine_text += span_warning("A few weeds dot [parent].")
+	else if(weed_level >= 30)
+		examine_text += span_warning("A collection of weeds sprout from [parent].")
+	else if(weed_level >= 50)
+		examine_text += span_warning("A horde of weeds cover [parent]!")
+	else if(weed_level >= 100)
+		examine_text += span_warning("[parent] is overrun with weeds!")
 
 /datum/component/planter/proc/catch_entered(datum/source, atom/movable/entering)
 	SIGNAL_HANDLER

@@ -1,6 +1,6 @@
 /obj/item/plant_tray
 	name = "plant tray"
-	desc = "A fifth generation space compatible botanical growing tray."
+	desc = "A fifth generation space compatible botanical growing tray. "
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "tray"
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE|KEEP_TOGETHER
@@ -90,6 +90,20 @@
 	QDEL_NULL(harvest)
 	QDEL_NULL(need)
 	QDEL_NULL(problem)
+
+/obj/item/plant_tray/examine(mob/user)
+	. = ..()
+	// Harvest
+	if(length(harvestable_components))
+		. += span_notice("The (green) harvest indicator is lit up, plants are ready to be harvested!")
+	// Needs
+	if(length(needy_features))
+		. += span_notice("The (yellow) need indicator is lit up, plants have unmet needs!")
+	// Weeds
+	if(length(needy_features) && tray_component?.weed_level >= 50)
+		. += span_notice("The (yellow) need indicator is lit up, the tray needs to be weeded!")
+	if(length(harvestable_components))
+		. += span_notice("The (red) problem indicator is lit up, there's something wrong with the plants!")
 
 /obj/item/plant_tray/process(delta_time)
 	//Need to update this semi-constantly so it works with plumbing
