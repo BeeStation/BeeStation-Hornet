@@ -582,6 +582,18 @@
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CIRCUITRY, RND_CATEGORY_SHELLS)
 
+/datum/design/ipc_control
+	name = "Upgrade Control Module Shell"
+	desc = "A special FPGA that can be installed in the chest of a user to control any synth upgrades they may have."
+	id = "ipc_control"
+	materials = list(
+		/datum/material/glass = 2000,
+		/datum/material/iron = 8000,
+	)
+	build_path = /obj/item/shell/ipc_control
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list(RND_CATEGORY_CIRCUITRY, RND_CATEGORY_SHELLS)
+
 /datum/design/scanner_gate_shell
 	name = "Scanner Gate Shell"
 	desc = "A scanner gate shell that performs mid-depth scans on people when they pass through it."
