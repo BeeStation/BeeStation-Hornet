@@ -615,7 +615,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
 	if(newfeatures)
 		dna.features = newfeatures
-		dna.generate_unique_features()
+		dna.unique_features = dna.generate_unique_features()
 
 	if(mrace)
 		var/datum/species/newrace = new mrace.type
@@ -624,7 +624,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(newreal_name)
 		real_name = newreal_name
-		dna.generate_unique_enzymes()
+		dna.unique_enzymes = dna.generate_unique_enzymes()
 
 	dna.age = age
 	dna.gender = gender
