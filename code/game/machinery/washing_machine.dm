@@ -402,7 +402,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 			if(istype(W, /obj/item/reagent_containers/spray))
 				var/obj/item/reagent_containers/spray/clean_spray = W
 				if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
-					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
+					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this)
 					playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0

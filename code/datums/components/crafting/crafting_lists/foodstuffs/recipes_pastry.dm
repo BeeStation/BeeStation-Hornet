@@ -287,9 +287,9 @@
 	)
 	category = CAT_PASTRY
 
-/datum/crafting_recipe/food/donkpocket/dankpocket
+/datum/crafting_recipe/food/donkpocket/dank
 	name = "Dank-pocket"
-	result = /obj/item/food/donkpocket/dankpocket
+	result = /obj/item/food/donkpocket/dank
 	reqs = list(
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/cannabis = 1

@@ -36,8 +36,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/leather/wetleather)
 
 /obj/item/stack/sheet/leather/wetleather/Initialize(mapload, new_amount, merge)
 	. = ..()
+	AddElement(/datum/element/atmos_sensitive, mapload)
 	AddElement(/datum/element/dryable, /obj/item/stack/sheet/leather)
-	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/microwavable, /obj/item/stack/sheet/leather)
+	AddComponent(/datum/component/grillable, /obj/item/stack/sheet/leather, rand(1 SECONDS, 3 SECONDS), TRUE)
 	AddComponent(/datum/component/bakeable, /obj/item/stack/sheet/leather, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
 
 //Step two to make leather - washing
@@ -57,8 +59,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/leather/wetleather)
 		new /obj/item/stack/sheet/leather(drop_location(), 1)
 		wetness = initial(wetness)
 		use(1)
-
-/obj/item/stack/sheet/leather/wetleather/microwave_act(obj/machinery/microwave/MW)
-	..()
-	new /obj/item/stack/sheet/leather(drop_location(), amount)
-	qdel(src)

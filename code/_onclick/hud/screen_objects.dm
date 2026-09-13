@@ -185,7 +185,7 @@
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
-			inv_item.remove_outline()
+			inv_item.remove_filter(HOVER_OUTLINE_FILTER)
 
 /atom/movable/screen/inventory/update_icon_state()
 	if(!icon_empty)

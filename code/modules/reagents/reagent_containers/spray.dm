@@ -26,46 +26,45 @@
 	possible_transfer_amounts = list(5,10)
 	var/spray_sound = 'sound/effects/spray2.ogg'
 
-/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
+/obj/item/reagent_containers/spray/afterattack(atom/target, mob/user)
 	. = ..()
-	if(istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
-		return
+	if(istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
+		return FALSE
 
-	if((A.is_drainable() && !A.is_refillable()) && get_dist(src,A) <= 1 && can_fill_from_container)
-		if(!A.reagents.total_volume)
-			to_chat(user, span_warning("[A] is empty."))
-			return
+	var/adjacent = user.Adjacent(target)
+	if((target.is_drainable() && !target.is_refillable()) && get_dist(src,target) <= 1 && can_fill_from_container)
+		if(!target.reagents.total_volume)
+			to_chat(user, span_warning("[target] is empty."))
+			return FALSE
 
 		if(reagents.holder_full())
 			to_chat(user, span_warning("[src] is full."))
-			return
+			return FALSE
 
-		var/trans = A.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
-		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [A]."))
-		return
+		var/trans = target.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
+		to_chat(user, span_notice("You fill \the [src] with [trans] units of the contents of \the [target]."))
+		return FALSE
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
 		to_chat(user, span_warning("Not enough left!"))
-		return
+		return FALSE
 
-	spray(A, user)
+	if(adjacent && (target.density || ismob(target)))
+		// If we're spraying an adjacent mob or a dense object, we start the spray on ITS tile rather than OURs
+		// This is so we can use a spray bottle to clean stuff like windows without getting blocked by passflags
+		spray(target, user, get_turf(target))
+	else
+		spray(target, user)
 
-	playsound(src.loc, spray_sound, 50, 1, -6)
+	playsound(src, spray_sound, 50, TRUE, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
-	user.newtonian_move(get_dir(A, user))
-
-	var/turf/T = get_turf(src)
-	var/contained = reagents.log_list()
-
-	log_combat(user, T, "sprayed", src, addition="which had [contained]")
-	log_game("[key_name(user)] fired [contained] from \a [src] at [AREACOORD(T)].") //copypasta falling out of my pockets
+	user.newtonian_move(get_dir(target, user))
 	return TRUE
 
-
-/obj/item/reagent_containers/spray/proc/spray(atom/A, mob/user)
+/obj/item/reagent_containers/spray/proc/spray(atom/A, mob/user, turf/start_turf = get_turf(src))
 	var/range = max(min(current_range, get_dist(src, A)), 1)
 
-	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
+	var/obj/effect/decal/chempuff/D = new(start_turf)
 
 	D.create_reagents(amount_per_transfer_from_this)
 	var/puff_reagent_left = range //how many turf, mob or dense objet we can react with before we consider the chem puff consumed
@@ -79,14 +78,23 @@
 
 	do_spray(A, wait_step, D, range, puff_reagent_left, user)
 
-/obj/item/reagent_containers/spray/proc/do_spray(atom/A, wait_step, obj/effect/decal/chempuff/D, range, puff_reagent_left, mob/user)
-	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(D, A, wait_step, timeout = range * wait_step, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	D.user = user
-	D.sprayer = src
-	D.lifetime = puff_reagent_left
-	D.stream = stream_mode
-	D.RegisterSignal(our_loop, COMSIG_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
-	D.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
+/obj/item/reagent_containers/spray/proc/do_spray(atom/target, wait_step, obj/effect/decal/chempuff/reagent_puff, range, puff_reagent_left, mob/user)
+	reagent_puff.user = user
+	reagent_puff.sprayer = src
+	reagent_puff.lifetime = puff_reagent_left
+	reagent_puff.stream = stream_mode
+
+	var/turf/target_turf = get_turf(target)
+	var/turf/start_turf = get_turf(reagent_puff)
+	if(target_turf == start_turf) // Don't need to bother movelooping if we don't move
+		reagent_puff.setDir(user.dir)
+		reagent_puff.spray_down_turf(target_turf)
+		reagent_puff.end_life()
+		return
+
+	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(reagent_puff, target, wait_step, timeout = range * wait_step, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	reagent_puff.RegisterSignal(our_loop, COMSIG_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
+	reagent_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
 	. = ..()
@@ -119,7 +127,7 @@
 	set src in usr
 	if(usr.incapacitated)
 		return
-	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if (tgui_alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", list("Yes", "No")) != "Yes")
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, span_notice("You empty \the [src] onto the floor."))
@@ -155,7 +163,7 @@
 	if(do_after(user, 3 SECONDS))
 		if(reagents.total_volume >= amount_per_transfer_from_this)//if not empty
 			user.visible_message(span_suicide("[user] pulls the trigger!"))
-			src.spray(user)
+			spray(user, user)
 			return BRUTELOSS
 		else
 			user.visible_message(span_suicide("[user] pulls the trigger...but \the [src] is empty!"))

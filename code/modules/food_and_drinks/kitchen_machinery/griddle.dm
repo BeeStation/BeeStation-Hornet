@@ -82,6 +82,13 @@
 
 /obj/machinery/griddle/attack_hand(mob/user, list/modifiers)
 	. = ..()
+	toggle_mode()
+
+/obj/machinery/griddle/attack_robot(mob/user)
+	. = ..()
+	toggle_mode()
+
+/obj/machinery/griddle/proc/toggle_mode()
 	on = !on
 	if(on)
 		begin_processing()
@@ -90,24 +97,38 @@
 	update_appearance()
 	update_grill_audio()
 
+/obj/machinery/griddle/begin_processing()
+	. = ..()
+	for(var/obj/item/item_to_grill as anything in griddled_objects)
+		SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_TURNED_ON)
+
+/obj/machinery/griddle/end_processing()
+	. = ..()
+	for(var/obj/item/item_to_grill as anything in griddled_objects)
+		SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_TURNED_OFF)
 
 /obj/machinery/griddle/proc/AddToGrill(obj/item/item_to_grill, mob/user)
 	vis_contents += item_to_grill
 	griddled_objects += item_to_grill
 	item_to_grill.flags_1 |= IS_ONTOP_1
+	item_to_grill.vis_flags |= VIS_INHERIT_PLANE
+
 	SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_PLACED, user)
+	if(on)
+		SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_TURNED_ON)
 	RegisterSignal(item_to_grill, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
-	RegisterSignal(item_to_grill, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
+	RegisterSignal(item_to_grill, COMSIG_ITEM_GRILLED, PROC_REF(GrillCompleted))
 	RegisterSignal(item_to_grill, COMSIG_QDELETING, PROC_REF(ItemRemovedFromGrill))
 	update_grill_audio()
 	update_appearance()
 
-/obj/machinery/griddle/proc/ItemRemovedFromGrill(obj/item/I)
+/obj/machinery/griddle/proc/ItemRemovedFromGrill(obj/item/ungrill)
 	SIGNAL_HANDLER
-	I.flags_1 &= ~IS_ONTOP_1
-	griddled_objects -= I
-	vis_contents -= I
-	UnregisterSignal(I, list(COMSIG_GRILL_COMPLETED, COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
+	ungrill.flags_1 &= ~IS_ONTOP_1
+	ungrill.vis_flags &= ~VIS_INHERIT_PLANE
+	griddled_objects -= ungrill
+	vis_contents -= ungrill
+	UnregisterSignal(ungrill, list(COMSIG_ITEM_GRILLED, COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	update_grill_audio()
 
 /obj/machinery/griddle/proc/ItemMoved(obj/item/I, atom/OldLoc, Dir, Forced)
@@ -124,9 +145,9 @@
 	else
 		grill_loop.stop()
 
-/obj/machinery/griddle/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I, 2 SECONDS)
+/obj/machinery/griddle/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool, time = 2 SECONDS)
 	return TRUE
 
 /obj/machinery/griddle/proc/on_storage_dump(datum/source, obj/item/storage_source, mob/user)
@@ -145,18 +166,21 @@
 		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)
 		AddToGrill(to_dump, user)
 
-	to_chat(user, "<span class='notice'>You dump out [storage_source] onto [src].</span>")
+	to_chat(user, span_notice("You dump out [storage_source] onto [src]."))
 	return STORAGE_DUMP_HANDLED
 
 /obj/machinery/griddle/process(delta_time)
 	..()
-	for(var/i in griddled_objects)
-		var/obj/item/griddled_item = i
-		if(SEND_SIGNAL(griddled_item, COMSIG_ITEM_GRILLED, src, delta_time) & COMPONENT_HANDLED_GRILLING)
+	for(var/obj/item/griddled_item as anything in griddled_objects)
+		if(SEND_SIGNAL(griddled_item, COMSIG_ITEM_GRILL_PROCESS, src, delta_time) & COMPONENT_HANDLED_GRILLING)
 			continue
 		griddled_item.fire_act(1000) //Hot hot hot!
 		if(prob(10))
 			visible_message(span_danger("[griddled_item] doesn't seem to be doing too great on the [src]!"))
+
+	var/turf/griddle_loc = loc
+	if(isturf(griddle_loc))
+		griddle_loc.hotspot_expose(800, 100)
 
 /obj/machinery/griddle/update_icon_state()
 	icon_state = "griddle[variant]_[on ? "on" : "off"]"

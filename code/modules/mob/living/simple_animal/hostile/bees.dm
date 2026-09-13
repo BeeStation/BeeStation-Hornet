@@ -285,7 +285,8 @@
 			else
 				to_chat(user, span_warning("You don't have enough royal bee jelly to split a bee in two!"))
 		else
-			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
+			var/datum/reagent/master = S.reagents.get_master_reagent()
+			var/datum/reagent/R = master ? GLOB.chemical_reagents_list[master.type] : null
 			if(R && S.reagents.has_reagent(R.type, 5))
 				S.reagents.remove_reagent(R.type,5)
 				queen.assign_reagent(R)
