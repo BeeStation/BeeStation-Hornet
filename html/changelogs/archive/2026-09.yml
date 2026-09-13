@@ -1,0 +1,36 @@
+2026-09-03:
+  Programs-The-Station:
+  - bugfix: Ecto Sniffer, Fax Machines, and Security Pager Radios Work again.
+2026-09-04:
+  WhiskeyMarten:
+  - tweak: The base minimum player requirement for antags is now 6.
+  - tweak: Spiders now have a minimum player requirement of 10.
+  - tweak: Wizard midround, Dragon, and Blob now have a minimum player requirement
+      of 20.
+  - bugfix: Fixed the heretic midround not having a minimum player requirement, resulting
+      in them being unable to complete objectives due to lack of targets (It is now
+      14, same as their roundstart counterpart)
+2026-09-05:
+  Geatish:
+  - bugfix: You can now craft the voice modulator mask again, now with both the old
+      and new mask
+  r1ks-iwnl:
+  - bugfix: Fixes loadout accessory backpacks(cyborg ones) not spawning
+2026-09-06:
+  Isaacnml:
+  - bugfix: Cloning respects your original gender, it'll no longer default to male
+      only
+  - bugfix: Slimeperson clones will respect your gender, it'll no longer default to
+      male
+  mrmanlikesbt:
+  - bugfix: Fixed the modsuit GPS having an error overlay when enabled
+  - bugfix: Fixed cyborg heads having a no-eyes overlay like normal fleshy heads
+  - bugfix: Fixed the debug robotics holodeck having an IPC brain instead of the intended
+      positronic brain
+  - bugfix: Fixed a person permanently becoming trapped if the cryo cell that they
+      were in was broken
+  - bugfix: Fixed advanced tools losing their inhand sprite when switching to their
+      secondary mode
+  - bugfix: Fixed the toilet lock button on BoxStation not bolting the door
+  - spellcheck: Mecha construction now correctly refers to the manipulators it requires
+      as manipulators instead of servos

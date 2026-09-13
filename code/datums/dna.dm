@@ -580,7 +580,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 		if (dna.species.properly_gained)
 			dna.species.on_species_loss(src, new_race, pref_load)
-			
+
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
@@ -615,7 +615,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
 	if(newfeatures)
 		dna.features = newfeatures
-		dna.generate_unique_features()
+		dna.unique_features = dna.generate_unique_features()
 
 	if(mrace)
 		var/datum/species/newrace = new mrace.type
@@ -624,7 +624,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(newreal_name)
 		real_name = newreal_name
-		dna.generate_unique_enzymes()
+		dna.unique_enzymes = dna.generate_unique_enzymes()
 
 	dna.age = age
 	dna.gender = gender
@@ -761,15 +761,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color_left = eye_color_left
-		organ_eyes.old_eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
-		organ_eyes.old_eye_color_right = eye_color_right
 
 	if(icon_update)
-		if(mutcolor_update)
-			update_body(is_creating = TRUE)
-		else
-			update_body()
+		update_body(is_creating = mutcolor_update)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
 
@@ -981,7 +976,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				var/list/elligible_organs = list()
 				for(var/obj/item/organ/O in internal_organs) //make sure we dont get an implant or cavity item
 					elligible_organs += O
-				vomit(20, TRUE)
+				vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 10)
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)
