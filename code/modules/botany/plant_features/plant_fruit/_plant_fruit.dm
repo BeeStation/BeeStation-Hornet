@@ -182,7 +182,7 @@
 		visual_fruits["[fruit_index]"] = fruit_effect
 
 /datum/plant_feature/fruit/proc/build_fruit()
-	if(!fruit_product)
+	if(!fruit_product || !parent?.plant_item)
 		return
 //Fruit setup
 	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item, TRUE)
