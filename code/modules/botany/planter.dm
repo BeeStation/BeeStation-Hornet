@@ -117,16 +117,6 @@
 		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
 			reagent_source.reagents?.remove_any(spray.amount_per_transfer_from_this)
 		reagent_source.reagents?.trans_to(obj_parent, spray.amount_per_transfer_from_this, transfered_by = attacker)
-	//Let people fill trays with reagents by hand, non legacy
-	else if(istype(reagent_source, /obj/item/reagent_containers))
-		if(!reagent_source.reagents.total_volume) //It aint got no gas in it
-			to_chat(attacker, span_warning("[reagent_source] is empty!"))
-			return
-		//Transfer reagents
-		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
-			reagent_source.reagents.remove_any(reagent_source.amount_per_transfer_from_this)
-		reagent_source.reagents.trans_to(parent, reagent_source.amount_per_transfer_from_this, transfered_by = attacker)
-		to_chat(attacker, span_notice("You add [reagent_source.amount_per_transfer_from_this]u from [reagent_source] to [parent]!"))
 
 /datum/component/planter/proc/async_spade_action(mob/user)
 	playsound(parent, 'sound/effects/shovel_dig.ogg', 60)

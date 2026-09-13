@@ -41,3 +41,27 @@
 	Story goes here.\n\
 	\n\
 	(Most mutation cycles are typically cyclical, but some have diverging paths.)"
+
+/datum/dictionary_entry/mushrooms
+	title = "A Fungus Amo-"
+	body = "(Unlike most plants, mushrooms can be harvested indefinitely, having unending yields.)\n\
+	\n\
+	'The specimen lined every surface of the cramped interior. A thick fog of spores suffocated the mask's re-filter, the mechanical whine cut through the eerie silence that had gone undisturbed for so long.'\n\
+	\n\
+	(Mushrooms have the smallest body size, and can be planted alongside most other plants.)"
+
+/datum/dictionary_entry/parasites
+	title = "Parasites"
+	body = "(Small plants like mushrooms and flowers can be given helpful traits, and planted alongside other plants to benehfit them.)\n\
+	\n\
+	Story goes here.\n\
+	\n\
+	(Plants like flowers have exclusive traits, nectar, that make them a valuable candidate for your garden.)"
+
+/datum/dictionary_entry/hallway
+	title = "Audrey II"
+	body = "(Plants that spawn in the hallways start with random extra traits.)\n\
+	\n\
+	\"Jesus Chloe, it's just a fucking plant. What's your problem?\"\n\
+	\n\
+	(These traits can be exclusive, and found nowhere else.)"

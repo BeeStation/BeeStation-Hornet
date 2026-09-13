@@ -1,12 +1,15 @@
 /datum/plant_trait/mutating
 	name = "Mutating Emissions"
-	desc = "This gene causes this plant to release gamma radiation that mutates neighbour plant's features of this trait's parent type."
+	desc = "This gene causes this plant to release gamma radiation that mutates neighbour plant's features of this trait's parent type.\
+	Time between mutations is increased depending on the cost of a mutation."
 	genetic_cost = 0
 
 	// How long this trait takes between mutations
 	var/mutate_timer = 10 //This is in seconds already, don't use the shortcut
 	// How much time has passed
 	var/mutation_time = 0
+	// How much extra time we add from mutation cost
+	var/tax_coeff = 3
 
 /datum/plant_trait/mutating/setup_component_parent(datum/source)
 	. = ..()
@@ -30,7 +33,9 @@
 		//Flight checks
 		if(!feature || !length(feature.mutations))
 			continue
+		// Pick a mutation
 		var/datum/plant_feature/new_feature = pick(feature.mutations)
+		var/time_cost = (feature.mutations[new_feature]) * tax_coeff // Extra time cost penalty for expensive mutations
 		new_feature = new new_feature(plant_comp)
 		for(var/datum/plant_feature/current_feature as anything in plant_comp.plant_features-feature)
 			//Is this feature blacklisted from another feature
@@ -56,6 +61,7 @@
 			body_feature.growth_time_elapsed = 0
 			body_feature.current_stage = 1
 			body_feature.growth_step(1)
+		mutation_time -= time_cost
 		qdel(feature)
 		playsound(parent.parent.plant_item.loc, 'sound/effects/magic.ogg', 60, TRUE)
 		playsound(parent.parent.plant_item.loc, 'sound/items/geiger/med4.ogg', 60, TRUE)

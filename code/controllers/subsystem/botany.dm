@@ -78,6 +78,11 @@ SUBSYSTEM_DEF(botany)
 	for(var/level in 1 to GRID_MAX_ACCURACY)
 		refraction_reagents["[level]"] = list()
 		refraction_coords["[level]"] = list()
+		// Build available grids - This is stupid
+		var/list/plots = list()
+		for(var/x in 1 to MAX_REAGENT_GRID*level)
+			for(var/y in 1 to MAX_REAGENT_GRID*level)
+				plots += "[x]:[y]"
 		//Populate reagent data
 		for(var/datum/reagent/reagent as anything in all_reagents)
 			if(!(initial(reagent.chemical_flags) & CHEMICAL_RNG_BOTANY))
@@ -89,8 +94,11 @@ SUBSYSTEM_DEF(botany)
 			var/offset_x = rand(-max_offset+1, max_offset)
 			var/offset_y = rand(-max_offset+1, max_offset)
 			//Where we actually live
-			var/grid_x = rand(1, MAX_REAGENT_GRID*level)
-			var/grid_y = rand(1, MAX_REAGENT_GRID*level)
+			if(!length(plots))
+				CRASH("Insufficient grid space for available botany reagents!")
+			var/list/position = splittext(pick_n_take(plots), ":")
+			var/grid_x = text2num(position[1])
+			var/grid_y = text2num(position[2])
 			//Fill the cunt with the info
 			refraction_reagents["[level]"]["[initial(reagent.type)]"] = list(GRID_REAGENT_POSITION = list(grid_x, grid_y),
 			GRID_REAGENT_NAME = initial(reagent.name),

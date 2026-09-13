@@ -31,6 +31,7 @@
 	fast_reagents = list(/datum/reagent/water/holywater = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/watermelon)
 	trait_power = 2
+	total_volume = 150
 
 /*
 	Ballolon
@@ -46,3 +47,4 @@
 	fast_reagents = list(/datum/reagent/hydrogen = PLANT_REAGENT_MEDIUM, /datum/reagent/oxygen = PLANT_REAGENT_MEDIUM)
 	mutations = list(/datum/plant_feature/fruit/watermelon/holy = 8)
 	trait_power = 1.5
+	total_volume = 100

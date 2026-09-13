@@ -11,7 +11,7 @@
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_FAST
-	mutations = list(/datum/plant_feature/fruit/cannabis/death = 5)
+	mutations = list(/datum/plant_feature/fruit/cannabis/death = 10)
 
 /*
 	Death Weed
@@ -25,7 +25,7 @@
 	fruit_product = /obj/item/food/grown/cannabis/death
 	trait_power = 1.5
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/cyanide = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/life = 5)
+	mutations = list(/datum/plant_feature/fruit/cannabis/life = 25)
 
 /*
 	Life Weed
@@ -39,7 +39,7 @@
 	trait_power = 1.5
 	fruit_product = /obj/item/food/grown/cannabis/white
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM, /datum/reagent/medicine/omnizine = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/rainbow = 8)
+	mutations = list(/datum/plant_feature/fruit/cannabis/rainbow = 50)
 
 /*
 	Rainbow Weed
@@ -53,7 +53,7 @@
 	fruit_product = /obj/item/food/grown/cannabis/rainbow
 	trait_power = 2
 	fast_reagents = list(/datum/reagent/toxin/mindbreaker = PLANT_REAGENT_MEDIUM, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MEDIUM)
-	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 100)
+	mutations = list(/datum/plant_feature/fruit/cannabis/omega = 100, /datum/plant_feature/fruit/cannabis)
 
 /datum/plant_feature/fruit/cannabis/rainbow/setup_fruit(datum/source, harvest_amount, list/_visual_fruits, skip_growth)
 	. = ..()
