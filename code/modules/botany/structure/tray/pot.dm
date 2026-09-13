@@ -26,7 +26,6 @@
 	icon_state = "pot_[rand(1, 6)]"
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
-	create_storage(storage_type = /datum/storage/kirbyplants)
 //Special tray stuff
 	tray_component.set_substrate(/datum/plant_subtrate/fairy)
 	tray_component.allow_substrate_change = FALSE
