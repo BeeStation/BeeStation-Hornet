@@ -89,5 +89,5 @@
 	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
 
 	H.update_body(is_creating = TRUE)
-	H.dna.species.spec_updatehealth(H)
+	H.updatehealth()
 

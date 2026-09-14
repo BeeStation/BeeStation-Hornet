@@ -71,7 +71,7 @@
 	var/notified = FALSE
 
 /datum/quirk/brainproblems/on_process(delta_time)
-	if(!quirk_target.reagents.has_reagent(/datum/reagent/medicine/mannitol))
+	if(!quirk_target.has_reagent(/datum/reagent/medicine/mannitol))
 		if(prob(80))
 			quirk_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
 	var/obj/item/organ/brain/B = quirk_target.get_organ_by_type(/obj/item/organ/brain)
