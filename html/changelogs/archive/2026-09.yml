@@ -85,3 +85,6 @@
 2026-09-14:
   mrmanlikesbt:
   - rscadd: Solars are now automatically set up if the round starts without any engineers
+  r1ks-iwnl:
+  - bugfix: Fixed teleports that check if you're on a safe tile(heretic blade break,
+      ninja dojo returning, swarmer ctrlclick etc.)
