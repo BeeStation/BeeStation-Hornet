@@ -580,6 +580,10 @@
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
 /area/template_noop)
+"iG" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -746,6 +750,22 @@
 "kR" = (
 /obj/item/trash/semki,
 /turf/open/floor/plating/asteroid/snow/planetary,
+/area/template_noop)
+"kT" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/asteroid/snow/planetary,
+/area/template_noop)
+"kX" = (
+/obj/machinery/power/solar_control{
+	use_power = 0;
+	idle_power_usage = 0
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
+/turf/open/floor/iron/techmaint/planetary{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
 /area/template_noop)
 "lf" = (
 /obj/structure/flora/rock/icy,
@@ -1514,16 +1534,6 @@
 "yb" = (
 /turf/closed/wall/ice,
 /area/template_noop)
-"yc" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
 "ye" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1636,6 +1646,18 @@
 "zX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/snowed/smoothed/planetary,
+/area/template_noop)
+"Ae" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = 32;
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -2165,10 +2187,6 @@
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
-"Hp" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/asteroid/snow/planetary,
-/area/template_noop)
 "HA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/ice,
@@ -2254,27 +2272,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/snowed/smoothed/planetary,
-/area/template_noop)
-"IS" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10
-	},
-/turf/open/floor/wood{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
 /area/template_noop)
 "IZ" = (
 /obj/item/clothing/suit/costume/snowman,
@@ -2443,6 +2440,27 @@
 	},
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
+"Mg" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/wood{
+	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
+	},
+/area/template_noop)
 "Mt" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
@@ -2468,18 +2486,6 @@
 /obj/item/stack/sheet/wood/ten,
 /obj/item/storage/bag/trash,
 /turf/open/floor/iron,
-/area/template_noop)
-"MK" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "MT" = (
 /obj/structure/closet/crate/science,
@@ -2686,17 +2692,6 @@
 /obj/item/hatchet,
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/template_noop)
-"Qm" = (
-/obj/machinery/power/solar_control{
-	use_power = 0;
-	idle_power_usage = 0
-	},
-/obj/structure/cable,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/techmaint/planetary{
-	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
-	},
-/area/template_noop)
 "Qt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/map/echo{
@@ -2834,10 +2829,6 @@
 	pixel_y = 6
 	},
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"RO" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
 /area/template_noop)
 "RZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3367,6 +3358,16 @@
 "YG" = (
 /obj/item/ammo_casing/spent,
 /turf/open/floor/plating/snowed/smoothed/planetary,
+/area/template_noop)
+"YQ" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "YT" = (
 /obj/structure/rack,
@@ -6810,9 +6811,9 @@ gf
 gf
 gf
 Kg
-yc
-Hp
-Hp
+YQ
+kT
+kT
 XB
 XB
 XB
@@ -6944,9 +6945,9 @@ gf
 bj
 PO
 FH
-yc
+YQ
 yW
-Hp
+kT
 XB
 XB
 XB
@@ -7078,9 +7079,9 @@ gf
 gf
 gf
 FH
-yc
-Hp
-Hp
+YQ
+kT
+kT
 XB
 XB
 XB
@@ -7209,7 +7210,7 @@ XB
 XB
 gf
 bE
-RO
+iG
 gf
 HX
 Du
@@ -7479,7 +7480,7 @@ gf
 tf
 sV
 gf
-IS
+Mg
 Du
 DS
 XB
@@ -11272,7 +11273,7 @@ VX
 VX
 hw
 rw
-MK
+Ae
 an
 hw
 vy
@@ -13697,7 +13698,7 @@ xd
 hu
 XB
 Tn
-Qm
+kX
 my
 TN
 my
