@@ -1324,12 +1324,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	// Make us invisible, otherwise people who observe roundstart will see us
 	icon = null
 
-	register_signal()
+	register_payload_check_signal()
 
-/obj/effect/mapping_helpers/lowpop/proc/register_signal()
-	RegisterSignal(SSticker, COMSIG_TICKER_ROUND_STARTING, PROC_REF(on_round_start))
+/obj/effect/mapping_helpers/lowpop/proc/register_payload_check_signal()
+	RegisterSignal(SSticker, COMSIG_TICKER_ROUND_STARTING, PROC_REF(check_payload))
 
-/obj/effect/mapping_helpers/lowpop/proc/on_round_start()
+/obj/effect/mapping_helpers/lowpop/proc/check_payload()
 	SIGNAL_HANDLER
 
 	var/cached_check_identifier = "[targeted_job_types.Join(",")];[minimum_job_amount];[minimum_pop]"
@@ -1374,8 +1374,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	minimum_job_amount = 1
 	targeted_job_types = list(/datum/job/station_engineer, /datum/job/chief_engineer)
 
-/obj/effect/mapping_helpers/lowpop/solar_console/register_signal()
-	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(on_round_start))
+/obj/effect/mapping_helpers/lowpop/solar_console/register_payload_check_signal()
+	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(check_payload))
 
 /obj/effect/mapping_helpers/lowpop/solar_console/payload()
 	var/obj/machinery/power/solar_control/solar_control = locate(/obj/machinery/power/solar_control) in loc
