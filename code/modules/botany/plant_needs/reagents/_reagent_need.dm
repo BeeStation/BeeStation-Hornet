@@ -11,14 +11,14 @@
 	. = ..()
 	success_threshold = auto_threshold ? 1 / length(reagent_needs) : success_threshold
 	var/old_desc = need_description
-	need_description = "This plant([parent.name]) [buff ? "optionally needs" : "needs"]"
+	need_description = "<span>This plant([strip_html(parent.name)]) [buff ? "optionally needs" : "needs"]"
 	var/reagent_index = 1
 	for(var/datum/reagent/reagent as anything in reagent_needs)
 		need_description = "[need_description] [reagent_needs[reagent]]u of [initial(reagent.name)][reagent_index < length(reagent_needs) ? ", " : ""]"
 		if(auto_threshold) //Add 'or' to the last option to show you only need 1 of the ingredients
-			need_description = "[need_description][reagent_index+1 == length(reagent_needs) ? "or" : ""]"
+			need_description = "[need_description][reagent_index+1 == length(reagent_needs) ? "<b>or</b>" : ""]"
 		reagent_index++
-	need_description = "[need_description]\n	'[old_desc]'"
+	need_description = "<b>'[old_desc]'[buff ? " (optional)":""]</b>\n<span>- [need_description][auto_threshold ? " (includes substitutes)" : ""]</span></span>"
 
 /datum/plant_need/reagent/check_need(_delta_time)
 	. = ..()

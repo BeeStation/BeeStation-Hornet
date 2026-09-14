@@ -1,4 +1,5 @@
-import { Box, Section } from 'tgui/components';
+import { Box, Divider, Section } from 'tgui/components';
+import { sanitizeText } from 'tgui/sanitize';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -59,10 +60,16 @@ const SeedRule = (props) => {
                 </Box>
               ),
             )}
+            <Divider />
             {Object.entries(buffer_data['needs']).map(
               ([need_key, need_data]) => (
                 <Box key={need_key}>
-                  {need_data}
+                  <span
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizeText(need_data, false), // This is sanitized in code too
+                    }}
+                  />
                   <br />
                   <br />
                 </Box>
@@ -137,7 +144,12 @@ const TrayRule = (props) => {
           my={'2px'}
           style={{ whiteSpace: 'pre-line' }}
         >
-          {`${buffer_data}`}
+          <span
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{
+              __html: sanitizeText(buffer_data, false), // This is sanitized in code too
+            }}
+          />
           {buffer_data === '' ? null : <br />}
         </Box>
       ))}

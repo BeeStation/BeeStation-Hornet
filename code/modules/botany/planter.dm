@@ -167,13 +167,13 @@
 	else
 		examine_text += span_warning("[parent] does not contain any substrate!")
 	// Weeds
-	if(weed_level >= 10)
+	if(weed_level <= 10)
 		examine_text += span_warning("A few weeds dot [parent].")
-	else if(weed_level >= 30)
+	else if(weed_level <= 30)
 		examine_text += span_warning("A collection of weeds sprout from [parent].")
-	else if(weed_level >= 50)
+	else if(weed_level <= 50)
 		examine_text += span_warning("A horde of weeds cover [parent]!")
-	else if(weed_level >= 100)
+	else if(weed_level > 50)
 		examine_text += span_warning("[parent] is overrun with weeds!")
 
 /datum/component/planter/proc/catch_entered(datum/source, atom/movable/entering)

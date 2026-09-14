@@ -93,6 +93,11 @@
 
 /obj/item/plant_tray/examine(mob/user)
 	. = ..()
+// Tray - scanner interopt
+	. += span_notice("You can use a plant scanner to diagnose status lights.")
+// Lights
+	if(length(harvestable_components) || length(needy_features) || length(problem_features))
+		. += "<hr />"
 	// Harvest
 	if(length(harvestable_components))
 		. += span_notice("The (green) harvest indicator is lit up, plants are ready to be harvested!")
@@ -102,7 +107,8 @@
 	// Weeds
 	if(length(needy_features) && tray_component?.weed_level >= 50)
 		. += span_notice("The (yellow) need indicator is lit up, the tray needs to be weeded!")
-	if(length(harvestable_components))
+	// Problems
+	if(length(problem_features))
 		. += span_notice("The (red) problem indicator is lit up, there's something wrong with the plants!")
 
 /obj/item/plant_tray/process(delta_time)

@@ -1,6 +1,6 @@
 //Water
 /datum/plant_need/reagent/water
-	need_description = "The basic recipe required to sustain plant life."
+	need_description = "This plant needs one of these to grow."
 	reagent_needs = list(/datum/reagent/water = 1, /datum/reagent/medicine/earthsblood = 0.05, /datum/reagent/consumable/sodawater = 0.5, /datum/reagent/consumable/milk = 0.09)
 	auto_threshold = TRUE
 
