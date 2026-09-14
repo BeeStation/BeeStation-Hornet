@@ -1305,8 +1305,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	var/minimum_pop = 0
 	/// The payload is executed if the configured job's roundstart amount is less than this
 	var/minimum_job_amount = 0
-	/// The job datum type
-	var/targeted_job_type = null
+	/// A list of job datum types to compare [minimum_job_amount] against
+	var/list/targeted_job_types = null
+	/**
+	 * It's highly likely that there will be several lowpop mapping helpers with an identical configuration.
+	 *
+	 * To avoid repeated checks, we generate a unique identifier for this mapping helper's configuration and store
+	 * whether or not it passed in a static associative list formatted as: [check identifier --> TRUE/FALSE].
+	 */
+	VAR_PROTECTED/static/list/cached_succeeded_checks = list()
 
 /obj/effect/mapping_helpers/lowpop/Initialize(mapload)
 	. = ..()
@@ -1325,29 +1332,32 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 /obj/effect/mapping_helpers/lowpop/proc/on_round_start()
 	SIGNAL_HANDLER
 
-	var/static/list/cached_succeeded_checks = list()
-	var/cached_check_identifier = "[targeted_job_type];[minimum_job_amount];[minimum_pop]"
+	var/cached_check_identifier = "[targeted_job_types.Join(",")];[minimum_job_amount];[minimum_pop]"
 	if(!isnull(cached_succeeded_checks[cached_check_identifier]))
 		if(cached_succeeded_checks[cached_check_identifier])
 			payload()
-		qdel(src)
-		return
-
-	if(length(GLOB.manifest.general) < minimum_pop || (ispath(targeted_job_type) && SSjob.get_job_type(targeted_job_type)?.current_positions < minimum_job_amount))
-		cached_succeeded_checks[cached_check_identifier] = TRUE
-		payload()
 	else
-		cached_succeeded_checks[cached_check_identifier] = FALSE
+		var/amount_of_specified_jobs = 0
+		for(var/job_type in targeted_job_types)
+			amount_of_specified_jobs += SSjob.get_job_type(job_type)?.current_positions
+
+		if(length(GLOB.manifest.general) < minimum_pop || amount_of_specified_jobs < minimum_job_amount)
+			cached_succeeded_checks[cached_check_identifier] = TRUE
+			payload()
+		else
+			cached_succeeded_checks[cached_check_identifier] = FALSE
+
 	qdel(src)
 
 /obj/effect/mapping_helpers/lowpop/proc/payload()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /obj/effect/mapping_helpers/lowpop/cable_spawner
 	name = "lowpop cable spawner"
 	icon_state = "lowpop_cable"
 	minimum_job_amount = 1
-	targeted_job_type = /datum/job/station_engineer
+	targeted_job_types = list(/datum/job/station_engineer, /datum/job/chief_engineer)
 
 	/// The type of cable to spawn
 	var/cable_type = /obj/structure/cable
@@ -1362,7 +1372,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "lowpop solar console enabler"
 	icon_state = "lowpop_solar"
 	minimum_job_amount = 1
-	targeted_job_type = /datum/job/station_engineer
+	targeted_job_types = list(/datum/job/station_engineer, /datum/job/chief_engineer)
 
 /obj/effect/mapping_helpers/lowpop/solar_console/register_signal()
 	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(on_round_start))
