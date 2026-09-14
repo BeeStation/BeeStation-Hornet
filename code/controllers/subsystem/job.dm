@@ -223,17 +223,17 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/is_job_empty(rank)
 	return get_job(rank)?.current_positions == 0
 
-/datum/controller/subsystem/job/proc/get_job(rank)
+/datum/controller/subsystem/job/proc/get_job(job_string)
 	RETURN_TYPE(/datum/job)
 	if(!length(all_occupations))
 		setup_occupations()
-	return name_occupations[rank]
+	return name_occupations[job_string]
 
-/datum/controller/subsystem/job/proc/get_job_type(jobtype)
+/datum/controller/subsystem/job/proc/get_job_type(job_typepath)
 	RETURN_TYPE(/datum/job)
 	if(!length(all_occupations))
 		setup_occupations()
-	return type_occupations[jobtype]
+	return type_occupations[job_typepath]
 
 /datum/controller/subsystem/job/proc/get_department_type(department_type)
 	if(!length(all_occupations))

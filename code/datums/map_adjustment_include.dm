@@ -7,4 +7,9 @@
 	This file separation can support different servers using their own maps, especially supporting downstreams
 */
 
+/// just fancy macro that makes it looks like a proc. Used in "map_adjustment_STATION.dm" files
+#define ADD_MAP_ACCESS(thing) new thing()
+
 #include "..\..\_maps\map_files\EchoStation\map_adjustment_echo.dm"
+
+#undef ADD_MAP_ACCESS
