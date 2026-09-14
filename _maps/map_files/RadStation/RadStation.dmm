@@ -10829,6 +10829,11 @@
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/iron,
 /area/station/science/lab)
+"ecS" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/port/aft)
 "edh" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/chair{
@@ -12286,11 +12291,21 @@
 	dir = 1
 	},
 /area/station/hallway/primary/central)
+"eDe" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/starboard/aft)
 "eDi" = (
 /obj/machinery/portable_thermomachine,
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
+"eDj" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
+/turf/open/space/basic,
+/area/station/solars/starboard/fore)
 "eDy" = (
 /obj/structure/sign/departments/minsky/supply/cargo,
 /turf/closed/wall,
@@ -15241,6 +15256,7 @@
 "fHu" = (
 /obj/machinery/power/solar_control,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "fHy" = (
@@ -22123,6 +22139,7 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "iBa" = (
@@ -27302,6 +27319,7 @@
 "kwa" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/aft)
 "kwm" = (
@@ -28879,6 +28897,7 @@
 "laN" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "laR" = (
@@ -60172,6 +60191,7 @@
 /obj/machinery/power/solar_control{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmospherics_engine)
 "wMB" = (
@@ -84864,7 +84884,7 @@ wnz
 wnz
 wnz
 wnz
-nfn
+ecS
 wnz
 wnz
 wnz
@@ -86406,7 +86426,7 @@ hWq
 hWq
 yfl
 szJ
-nfn
+ecS
 tyg
 yfl
 ecm
@@ -86663,7 +86683,7 @@ xzo
 xzo
 xzo
 xzo
-nfn
+ecS
 pIm
 wOm
 kPq
@@ -108761,7 +108781,7 @@ lWK
 lWK
 lWK
 lWK
-czB
+eDe
 lWK
 lWK
 lWK
@@ -109789,7 +109809,7 @@ lWK
 lWK
 lWK
 lWK
-czB
+eDe
 lWK
 lWK
 lWK
@@ -110046,7 +110066,7 @@ wDX
 wDX
 wDX
 mor
-czB
+eDe
 tTd
 wDX
 wDX
@@ -110817,7 +110837,7 @@ lWK
 lWK
 lWK
 lWK
-czB
+eDe
 lWK
 lWK
 lWK
@@ -113564,7 +113584,7 @@ vKr
 vKr
 vKr
 vKr
-iiT
+eDj
 vKr
 vKr
 vKr
@@ -114592,7 +114612,7 @@ vKr
 vKr
 vKr
 vKr
-iiT
+eDj
 vKr
 vKr
 vKr
@@ -114849,7 +114869,7 @@ jsU
 jsU
 jsU
 mor
-iiT
+eDj
 tTd
 jsU
 jsU
