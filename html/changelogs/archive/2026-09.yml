@@ -82,3 +82,6 @@
       off
   - rscadd: extreme hunger will now cause slowdown and stamina effects. Reaching zero
       satiety will exhaust the carbon.
+2026-09-14:
+  mrmanlikesbt:
+  - rscadd: Solars are now automatically set up if the round starts without any engineers

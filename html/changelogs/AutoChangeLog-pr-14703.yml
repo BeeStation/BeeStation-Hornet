@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - rscadd: Solars are now automatically set up if the round starts without any engineers
