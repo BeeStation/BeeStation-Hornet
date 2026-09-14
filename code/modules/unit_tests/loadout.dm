@@ -31,7 +31,7 @@
 		if(gear)
 			mock_client.prefs.equipped_gear += gear.id
 
-	human.on_job_equipping(job, FALSE, mock_client)
+	human.on_job_equipping(equipping = job, player_client = mock_client)
 	return human
 
 /// A loadout uniform and backpack pick should win over the job outfit's pre_equip()

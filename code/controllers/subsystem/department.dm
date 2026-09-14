@@ -1,4 +1,3 @@
-
 SUBSYSTEM_DEF(department)
 	name = "Departments"
 	init_stage = INITSTAGE_EARLY
@@ -16,6 +15,13 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
+	/// assoc list of region string
+	var/list/region_to_departments = list()
+	/// Helper list containing all station regions
+	var/list/station_regions = list()
+	/// Specially formatted list for sending access levels to tgui interfaces
+	var/list/all_region_access_tgui = list()
+
 	/// department datums in access manipulation - actually manual sort
 	var/list/sorted_department_for_access = list(
 		DEPARTMENT_NAME_SERVICE,
@@ -60,7 +66,79 @@ SUBSYSTEM_DEF(department)
 	for(var/each_dept in temp)
 		sorted_department_for_access |= department_assoc[each_dept]
 
+	setup_region_lists()
+	setup_tgui_lists()
+
 	return SS_INIT_SUCCESS
+
+/// Builds region department mapping
+/datum/controller/subsystem/department/proc/setup_region_lists()
+	// Region name strings, kept ordered for UI ordering
+	station_regions = list(
+		REGION_GENERAL,
+		REGION_SECURITY,
+		REGION_MEDBAY,
+		REGION_RESEARCH,
+		REGION_ENGINEERING,
+		REGION_SUPPLY,
+		REGION_COMMAND,
+	)
+
+	var/list/station_access_departments = list()
+	var/list/all_access_departments = list()
+	for(var/datum/department_group/dept as anything in department_datums)
+		if(!length(dept.department_access))
+			continue
+		all_access_departments += dept
+		if(dept.is_station)
+			station_access_departments += dept
+		if(dept.access_region)
+			LAZYORASSOCLIST(region_to_departments, dept.access_region, dept)
+
+	region_to_departments[REGION_ALL_STATION] = station_access_departments
+	region_to_departments[REGION_ALL_GLOBAL] = all_access_departments
+
+/// Builds and returns a list of accesses from a list of region defines.
+/datum/controller/subsystem/department/proc/get_region_access_list(list/regions)
+	if(!length(regions))
+		return
+
+	var/list/built_region_list = list()
+
+	for(var/region in regions)
+		for(var/datum/department_group/dept as anything in region_to_departments[region])
+			built_region_list |= dept.department_access
+
+	return built_region_list
+
+/// Returns a copy of the access levels allotted to a given job title by whichever department allots it
+/datum/controller/subsystem/department/proc/get_job_access(job)
+	for(var/datum/department_group/dept as anything in department_datums)
+		var/list/job_access = dept.get_job_access(job)
+		if(job_access)
+			return job_access
+
+/// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
+/datum/controller/subsystem/department/proc/setup_tgui_lists()
+	for(var/region in region_to_departments)
+		var/list/region_access = get_region_access_list(list(region))
+
+		var/parsed_accesses = list()
+
+		for(var/access in region_access)
+			var/access_desc = get_access_desc(access)
+			if(!access_desc)
+				continue
+
+			parsed_accesses += list(list(
+				"desc" = replacetext(access_desc, "&nbsp", " "),
+				"ref" = access,
+			))
+
+		all_region_access_tgui[region] = list(list(
+			"name" = region,
+			"accesses" = parsed_accesses,
+		))
 
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.
@@ -152,7 +230,9 @@ SUBSYSTEM_DEF(department)
 	/// Group name of the access list
 	var/access_group_name = "Unknown"
 	/// list of access that belongs to this department
-	var/list/access_list = list()
+	var/list/department_access = list()
+	/// the access region (REGION_*) this department makes up. Null if it isn't one
+	var/access_region
 	/// if TRUE, restricts CentCom only
 	var/access_filter
 
@@ -185,6 +265,11 @@ SUBSYSTEM_DEF(department)
 	department_jobs += job
 	job.departments_bitflags |= department_bitflags
 
+/// Returns a copy of the access levels this department allots to a given job title.
+/// Station departments allot access through their job datums instead, and return nothing here.
+/datum/department_group/proc/get_job_access(job)
+	return
+
 // ---------------------------------------------------------------------
 //                                COMMAND
 // ---------------------------------------------------------------------
@@ -202,7 +287,7 @@ SUBSYSTEM_DEF(department)
 	department_head = /datum/job/captain
 
 	access_group_name = "Command"
-	access_list = list(
+	department_access = list(
 		ACCESS_HEADS,
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_KEYCARD_AUTH,
@@ -214,8 +299,9 @@ SUBSYSTEM_DEF(department)
 		ACCESS_ALL_PERSONAL_LOCKERS,
 		ACCESS_HOP,
 		ACCESS_CAPTAIN,
-		ACCESS_VAULT,
+		ACCESS_VAULT, // shared with the other region that lists it (Command/Supply)
 	)
+	access_region = REGION_COMMAND
 
 	pref_category_name = DEPARTMENT_NAME_COMMAND
 	pref_category_order = DEPT_PREF_ORDER_COMMAND
@@ -243,7 +329,7 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "General"
 	// actually station general list
-	access_list = list(
+	department_access = list(
 		ACCESS_KITCHEN,
 		ACCESS_BAR,
 		ACCESS_HYDROPONICS,
@@ -255,6 +341,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_LAWYER,
 		ACCESS_SERVICE,
 	)
+	access_region = REGION_GENERAL
 
 
 	pref_category_name = DEPARTMENT_NAME_SERVICE
@@ -277,7 +364,7 @@ SUBSYSTEM_DEF(department)
 	department_head = /datum/job/head_of_personnel
 
 	access_group_name = "Residential" // in case when it's used
-	// access_list = list() // check service
+	// department_access = list() // check service
 
 	pref_category_name = DEPARTMENT_NAME_CIVILIAN
 	pref_category_order = DEPT_PREF_ORDER_CIVILIAN
@@ -304,7 +391,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 
 	access_group_name = "Supply"
-	access_list = list(
+	department_access = list(
 		ACCESS_MAILSORTING,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
@@ -312,8 +399,9 @@ SUBSYSTEM_DEF(department)
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_CARGO,
 		ACCESS_QM,
-		ACCESS_VAULT,
+		ACCESS_VAULT, // shared with the other region that lists it (Command/Supply)
 	)
+	access_region = REGION_SUPPLY
 
 
 	pref_category_name = DEPARTMENT_NAME_CARGO
@@ -341,19 +429,20 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Scien", "Techno", "Xeno", "Quantu", "Chemi", "Geneti")
 
 	access_group_name = "Research"
-	access_list = list(
+	department_access = list(
 		ACCESS_RESEARCH,
 		ACCESS_TOX,
 		ACCESS_TOX_STORAGE,
 		ACCESS_ROBOTICS,
 		ACCESS_XENOBIOLOGY,
 		ACCESS_EXPLORATION,
+		ACCESS_RD_SERVER,
 		ACCESS_MECH_SCIENCE,
-		ACCESS_MINISAT,
+		ACCESS_MINISAT, // shared with the other region that lists it (Research/Engineering)
 		ACCESS_RD,
 		ACCESS_NETWORK,
-		ACCESS_RD_SERVER,
 	)
+	access_region = REGION_RESEARCH
 
 	pref_category_name = DEPARTMENT_NAME_SCIENCE
 	pref_category_order = DEPT_PREF_ORDER_SCIENCE
@@ -380,7 +469,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Atomo", "Engino", "Power", "Teleco", "Volt")
 
 	access_group_name = "Engineering"
-	access_list = list(
+	department_access = list(
 		ACCESS_CONSTRUCTION,
 		ACCESS_AUX_BASE,
 		ACCESS_MAINT_TUNNELS,
@@ -391,9 +480,10 @@ SUBSYSTEM_DEF(department)
 		ACCESS_ATMOSPHERICS,
 		ACCESS_MECH_ENGINE,
 		ACCESS_TCOMSAT,
-		ACCESS_MINISAT,
+		ACCESS_MINISAT, // shared with the other region that lists it (Research/Engineering)
 		ACCESS_CE,
 	)
+	access_region = REGION_ENGINEERING
 
 	pref_category_name = DEPARTMENT_NAME_ENGINEERING
 	pref_category_order = DEPT_PREF_ORDER_ENGINEERING
@@ -420,7 +510,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Mede", "Healtha", "Recova", "Chemi", "Viro", "Psych")
 
 	access_group_name = "Medbay"
-	access_list = list(
+	department_access = list(
 		ACCESS_MEDICAL,
 		ACCESS_GENETICS,
 		ACCESS_CLONING,
@@ -431,6 +521,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_MECH_MEDICAL,
 		ACCESS_CMO,
 	)
+	access_region = REGION_MEDBAY
 
 	pref_category_name = DEPARTMENT_NAME_MEDICAL
 	pref_category_order = DEPT_PREF_ORDER_MEDICAL
@@ -457,7 +548,7 @@ SUBSYSTEM_DEF(department)
 	nation_prefixes = list("Securi", "Beepski", "Shitcuri", "Red", "Stunba", "Flashbango", "Flasha", "Stanfordi")
 
 	access_group_name = "Security"
-	access_list = list(
+	department_access = list(
 		ACCESS_SEC_DOORS,
 		ACCESS_SEC_RECORDS,
 		ACCESS_WEAPONS,
@@ -470,6 +561,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_MECH_SECURITY,
 		ACCESS_HOS,
 	)
+	access_region = REGION_SECURITY
 
 	pref_category_name = DEPARTMENT_NAME_SECURITY
 	pref_category_order = DEPT_PREF_ORDER_SECURITY
@@ -523,23 +615,45 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "CentCom"
-	access_list = list(
-		ACCESS_CENT_GENERAL,
-		ACCESS_CENT_THUNDER,
-		ACCESS_CENT_SPECOPS,
-		ACCESS_CENT_MEDICAL,
-		ACCESS_CENT_LIVING,
-		ACCESS_CENT_STORAGE,
-		ACCESS_CENT_TELEPORTER,
-		ACCESS_CENT_CAPTAIN,
-		ACCESS_CENT_BAR,
-		ACCESS_PRISONER,
-	)
+	// department_access built in New() rather than inline
+	access_region = REGION_CENTCOM
 	access_filter = TRUE // CentCom Only
+
+	/// CentCom and ERT roles have no job datums, so the access each one is allotted is here
+	var/list/accesses_by_job
 
 	// currently not used, but just in case
 	manifest_category_name = DEPARTMENT_NAME_CENTCOM
 	manifest_category_order = DEPT_MANIFEST_ORDER_CENTCOM
+
+/datum/department_group/centcom/New()
+	. = ..()
+	department_access = get_flag_access_list(ACCESS_FLAG_CENTCOM)
+	accesses_by_job = list(
+		JOB_CENTCOM_VIP = list(ACCESS_CENT_GENERAL),
+		JOB_CENTCOM_CUSTODIAN = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_CENTCOM_THUNDERDOME_OVERSEER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER),
+		JOB_CENTCOM_OFFICIAL = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		"CentCom Intern" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		"CentCom Head Intern" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		JOB_CENTCOM_MEDICAL_DOCTOR = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL),
+		JOB_ERT_DEATHSQUAD = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_CENTCOM_RESEARCH_OFFICER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE),
+		"Special Ops Officer" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_CENTCOM_ADMIRAL = department_access.Copy(),
+		JOB_CENTCOM_COMMANDER = department_access.Copy(),
+		JOB_ERT_COMMANDER = department_access.Copy(),
+		JOB_ERT_OFFICER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING),
+		JOB_ERT_ENGINEER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_ERT_MEDICAL_DOCTOR = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING),
+		JOB_CENTCOM_BARTENDER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR),
+		"Comedy Response Officer" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		"HONK Squad Trooper" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+	)
+
+/datum/department_group/centcom/get_job_access(job)
+	var/list/job_access = accesses_by_job[job]
+	return job_access?.Copy()
 
 // ---------------------------------------------------------------------
 //                            Undefined
@@ -561,29 +675,15 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "??? (Admin)"
-	access_list = list(
-		ACCESS_SYNDICATE,
-		ACCESS_SYNDICATE_LEADER,
-		ACCESS_PIRATES,
-		ACCESS_HUNTERS,
-		ACCESS_AWAY_GENERAL,
-		ACCESS_AWAY_MAINTENANCE,
-		ACCESS_AWAY_MEDICAL,
-		ACCESS_AWAY_SEC,
-		ACCESS_AWAY_ENGINEERING,
-		ACCESS_AWAY_GENERIC1,
-		ACCESS_AWAY_GENERIC2,
-		ACCESS_AWAY_GENERIC3,
-		ACCESS_AWAY_GENERIC4,
-		ACCESS_AWAY_SCIENCE,
-		ACCESS_AWAY_SUPPLY,
-		ACCESS_AWAY_COMMAND,
-		ACCESS_BLOODCULT,
-		ACCESS_CLOCKCULT,
-	)
+	// department_access Combined in New() rather than inline
+	access_region = REGION_OTHER
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case
 	manifest_category_name = DEPARTMENT_NAME_OTHER
 	manifest_category_order = 1000
 	display_order = 99
+
+/datum/department_group/other/New()
+	. = ..()
+	department_access = get_flag_access_list(ACCESS_FLAG_SYNDICATE) + get_flag_access_list(ACCESS_FLAG_AWAY) + get_flag_access_list(ACCESS_FLAG_SPECIAL)
