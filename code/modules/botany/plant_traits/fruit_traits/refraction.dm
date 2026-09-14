@@ -33,6 +33,9 @@
 /datum/plant_trait/refraction/get_name(peek = FALSE)
 	return peek ? "[name] ([initial(refraction_reagent.name)])" : name
 
+/datum/plant_trait/refraction/get_id()
+	return "[name]-([initial(refraction_reagent.name)])"
+
 /datum/plant_trait/refraction/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
 	var/datum/plant_trait/new_trait = _trait || new type(_parent, grid_x, grid_y, level)
 	return new_trait
@@ -58,7 +61,7 @@
 		body_feature?.catch_harvest()
 		// Hint / feedback
 		var/atom/vis_parent = body_feature?.parent?.parent
-		vis_parent?.visible_message(span_danger("[vis_parent] melts away and dies! The refraction was too unstable!"))
+		vis_parent?.loc?.visible_message(span_danger("[vis_parent] melts away and dies! The refraction was too unstable!"))
 		return
 //Add reagent
 	var/datum/plant_feature/fruit/fruit_feature = parent
