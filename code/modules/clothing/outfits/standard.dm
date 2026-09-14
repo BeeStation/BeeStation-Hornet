@@ -405,7 +405,7 @@
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
-	W.access |= CENTCOM_ACCESS
+	W.access |= get_flag_access_list(ACCESS_FLAG_CENTCOM)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
