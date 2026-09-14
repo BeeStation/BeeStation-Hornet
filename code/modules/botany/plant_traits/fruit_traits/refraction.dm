@@ -34,7 +34,7 @@
 	return peek ? "[name] ([initial(refraction_reagent.name)])" : name
 
 /datum/plant_trait/refraction/get_id()
-	return "[name]-([initial(refraction_reagent.name)])"
+	return "[name]-([grid_x]:[grid_y]:[level])"
 
 /datum/plant_trait/refraction/copy(datum/plant_feature/_parent, datum/plant_trait/_trait)
 	var/datum/plant_trait/new_trait = _trait || new type(_parent, grid_x, grid_y, level)
