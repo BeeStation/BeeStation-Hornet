@@ -234,6 +234,100 @@ GLOBAL_LIST_INIT(work_order_tasks, list(
 	return reason && reason != "asbuilt" && reason != "unpowered"
 
 // -----------------------------
+//  Station picture
+// -----------------------------
+
+/// The client renders only these, see ALARM_LAYERS in StationAlertMap.tsx.
+GLOBAL_LIST_INIT(alert_map_alarm_types, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER))
+
+/**
+ * Area status for one map z, as area ref to whatever is wrong there.
+ *
+ * Areas with nothing to report are left out, so a missing entry reads as nominal.
+ */
+/datum/controller/subsystem/work_orders/proc/get_area_status(map_z)
+	if(isnull(map_z))
+		return null
+	if(status_time[map_z] == world.time)
+		return status_cache[map_z]
+
+	var/datum/minimap/minimap = GLOB.minimaps[map_z]
+	if(isnull(minimap))
+		return null
+
+	var/list/air_coverage = get_air_alarm_coverage()
+	var/list/has_working_air_alarm = air_coverage["working"]
+	var/list/air_sensors = air_coverage["sensors"]
+
+	var/list/status = list()
+	for(var/list/map_area as anything in minimap.areas)
+		var/area/checked_area = locate(map_area["ref"])
+		if(!istype(checked_area))
+			continue
+
+		var/list/entry = null
+		for(var/alarm_type in GLOB.alert_map_alarm_types)
+			if(!checked_area.active_alarms[alarm_type])
+				continue
+			LAZYINITLIST(entry)
+			LAZYADD(entry["alarms"], alarm_type)
+
+		var/power_state = get_apc_state(checked_area.apc)
+		if(power_state)
+			LAZYINITLIST(entry)
+			entry["power"] = power_state
+
+		var/list/blind = checked_area.get_coverage_gaps(has_working_air_alarm)
+		if(length(blind))
+			LAZYINITLIST(entry)
+			entry["blind"] = blind
+
+		// Read the air rather than alarm state because alarmcode sucks
+		var/pressure = get_area_pressure(air_sensors[checked_area])
+		if(!isnull(pressure))
+			LAZYINITLIST(entry)
+			entry["pressure"] = pressure
+
+		// Undamaged areas have no integrity field
+		var/integrity = integrity_current[map_area["ref"]]
+		if(!isnull(integrity) && integrity < 100)
+			LAZYINITLIST(entry)
+			entry["integrity"] = integrity
+
+		if(entry)
+			status[map_area["ref"]] = entry
+
+	status_cache[map_z] = status
+	status_time[map_z] = world.time
+	return status
+
+/// Pressure at an area's air alarm
+/datum/controller/subsystem/work_orders/proc/get_area_pressure(obj/machinery/airalarm/sensor)
+	if(isnull(sensor))
+		return null
+	var/datum/gas_mixture/environment = sensor.get_enviroment()
+	if(isnull(environment))
+		return null
+	var/pressure = round(environment.return_pressure())
+	if(pressure >= WARNING_LOW_PRESSURE && pressure <= WARNING_HIGH_PRESSURE)
+		return null
+	return pressure
+
+/// power bucket for an area's APC
+/datum/controller/subsystem/work_orders/proc/get_apc_state(obj/machinery/power/apc/area_apc)
+	// Missing, broken and cell-less APCs
+	if(isnull(area_apc) || (area_apc.machine_stat & BROKEN) || isnull(area_apc.cell))
+		return null
+	var/charge = area_apc.cell.percent()
+	if(charge <= 0)
+		return "dead"
+	if(charge < 15)
+		return "critical"
+	if(charge < 50)
+		return "low"
+	return null
+
+// -----------------------------
 //  Order derivation
 // -----------------------------
 

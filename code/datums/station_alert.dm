@@ -93,96 +93,16 @@
 	data["areaNotApplicable"] = not_applicable
 	return data
 
-/**
- * Returns an assoc of "status" and "orders".
- *
- * Only areas with something to report get caught in status, so anything missing is fine
- */
-/datum/station_alert/proc/get_area_state(datum/minimap/minimap)
-	var/list/air_coverage = SSwork_orders.get_air_alarm_coverage()
-	var/list/has_working_air_alarm = air_coverage["working"]
-	var/list/air_sensors = air_coverage["sensors"]
-
-	var/list/status = list()
-
-	for(var/list/map_area as anything in minimap.areas)
-		var/area/checked_area = locate(map_area["ref"])
-		if(!istype(checked_area))
-			continue
-
-		var/list/entry = null
-		for(var/alarm_type in alarm_types)
-			if(!checked_area.active_alarms[alarm_type])
-				continue
-			LAZYINITLIST(entry)
-			LAZYADD(entry["alarms"], alarm_type)
-
-		var/power_state = get_apc_state(checked_area.apc)
-		if(power_state)
-			LAZYINITLIST(entry)
-			entry["power"] = power_state
-
-		// Only the dynamic half goes out each tick
-		var/list/blind = checked_area.get_coverage_gaps(has_working_air_alarm)
-		if(length(blind))
-			LAZYINITLIST(entry)
-			entry["blind"] = blind
-
-		// Read the air rather than alarm state because alarmcode sucks
-		var/pressure = get_area_pressure(air_sensors[checked_area])
-		if(!isnull(pressure))
-			LAZYINITLIST(entry)
-			entry["pressure"] = pressure
-
-		// Undamaged areas just have no integrity field
-		var/integrity = SSwork_orders.integrity_current[map_area["ref"]]
-		if(!isnull(integrity) && integrity < 100)
-			LAZYINITLIST(entry)
-			entry["integrity"] = integrity
-
-		if(entry)
-			status[map_area["ref"]] = entry
-
-	// KEEP THIS SHIT CENTRAL!!11!! I do not want other consoles having different payloads of what the station looks like.
-	return list("status" = status, "orders" = SSwork_orders.get_orders())
-
-/// Pressure at an area's air alarm in kPa, or null while it's inside the safe band
-/datum/station_alert/proc/get_area_pressure(obj/machinery/airalarm/sensor)
-	if(isnull(sensor))
-		return null
-	var/datum/gas_mixture/environment = sensor.get_enviroment()
-	if(isnull(environment))
-		return null
-	var/pressure = round(environment.return_pressure())
-	if(pressure >= WARNING_LOW_PRESSURE && pressure <= WARNING_HIGH_PRESSURE)
-		return null
-	return pressure
-
-/// Coarse power bucket for an area's APC. Null when there's nothing worth reporting.
-/datum/station_alert/proc/get_apc_state(obj/machinery/power/apc/area_apc)
-	// Missing, broken and cell-less APCs are coverage gaps
-	if(isnull(area_apc) || (area_apc.machine_stat & BROKEN) || isnull(area_apc.cell))
-		return null
-	var/charge = area_apc.cell.percent()
-	if(charge <= 0)
-		return "dead"
-	if(charge < 15)
-		return "critical"
-	if(charge < 50)
-		return "low"
-	return null
-
 /datum/station_alert/ui_data(mob/user)
 	var/list/data = list()
 	data["cameraView"] = camera_view
 
-	var/map_z = get_map_z()
-	// Deliberately not generating here
-	var/datum/minimap/minimap = isnull(map_z) ? null : GLOB.minimaps[map_z]
-	var/list/area_state = minimap ? get_area_state(minimap) : null
-	data["areaStatus"] = area_state?["status"]
+	// KEEP THIS SHIT CENTRAL!!11!! One sweep per tick, conjoining all workorder maps aboard
+	var/list/area_status = SSwork_orders.get_area_status(get_map_z())
+	data["areaStatus"] = area_status
 	var/board = !issilicon(user)
-	data["workOrders"] = board ? area_state?["orders"] : null
+	// null status means no schematic
+	data["workOrders"] = board && !isnull(area_status) ? SSwork_orders.get_orders() : null
 	data["canAssign"] = board && can_assign_work(user)
 	var/list/assignable = list()
 	if(board)

@@ -53,6 +53,10 @@ SUBSYSTEM_DEF(work_orders)
 	var/crew_time = -1
 	/// Which department crew_cache holds
 	var/crew_cache_department
+	/// z to its area status payload
+	var/alist/status_cache = alist()
+	// ...and to when that payload was built
+	var/alist/status_time = alist()
 
 	/// Resolved claims, oldest first
 	var/list/records = list()
