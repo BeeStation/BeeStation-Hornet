@@ -106,8 +106,9 @@ WANTS_POWER_NODE(/obj/machinery/power)
 	var/area/A = get_area(src) // make sure it's in an area
 	if(isnull(A))
 		return FALSE
-	A?.use_power(amount, chan)
+	A.use_power(amount, chan)
 	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
+	return amount
 
 /**
   * An alternative to 'use_power', this proc directly costs the APC in direct charge, as opposed to being calculated periodically.

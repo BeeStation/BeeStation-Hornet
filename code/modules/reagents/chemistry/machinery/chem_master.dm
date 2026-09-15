@@ -539,8 +539,8 @@
 	if(isnull(amount) || amount <= 0)
 		return FALSE
 	//sanity checks for reagent path
-	var/datum/reagent/reagent = text2path(path)
-	if (!reagent)
+	var/datum/reagent/reagent = path
+	if(!ispath(reagent, /datum/reagent))
 		return FALSE
 
 	//use energy
