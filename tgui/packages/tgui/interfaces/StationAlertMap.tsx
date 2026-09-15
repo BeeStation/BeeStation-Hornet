@@ -44,8 +44,12 @@ type AreaStatus = {
   alarms?: string[];
   power?: string;
   blind?: Record<string, string>;
+  /** See update_area_integrity() */
+  structure?: 'breached' | 'damaged';
   integrity?: number;
   pressure?: number;
+  /** Set by get_area_status() */
+  faults?: Record<string, number>;
 };
 
 export type WorkOrder = {
@@ -108,41 +112,71 @@ type Layer = {
   color: string;
 };
 
-/** `id` matches the alarm types in code/__DEFINES/alarm.dm. Ordered by severity. */
-const ALARM_LAYERS: Layer[] = [
-  { id: 'Fire', label: 'Fire', icon: 'fire', color: '#e8703a' },
-  { id: 'Atmosphere', label: 'Atmos', icon: 'wind', color: '#4ab8e0' },
-  { id: 'Power', label: 'Power', icon: 'bolt', color: '#e0c040' },
+type GlyphShape =
+  | 'circle'
+  | 'square'
+  | 'triangle'
+  | 'triangleDown'
+  | 'diamond'
+  | 'cross';
+
+type FaultLayer = Layer & { shape: GlyphShape };
+
+/** `id` matches the alarm types in code/__DEFINES/alarm.dm */
+const ALARM_LAYERS: FaultLayer[] = [
+  {
+    id: 'Fire',
+    label: 'Fire',
+    icon: 'fire',
+    color: '#e8703a',
+    shape: 'triangle',
+  },
+  {
+    id: 'Atmosphere',
+    label: 'Atmos',
+    icon: 'wind',
+    color: '#4ab8e0',
+    shape: 'circle',
+  },
+  {
+    id: 'Power',
+    label: 'Power',
+    icon: 'bolt',
+    color: '#e0c040',
+    shape: 'square',
+  },
 ];
 
-const APC_LAYER: Layer = {
+const APC_LAYER: FaultLayer = {
   id: 'apc',
   label: 'Grid',
   icon: 'plug',
   color: '#c86a30',
+  shape: 'diamond',
 };
 
-const INTEGRITY_LAYER: Layer = {
+const INTEGRITY_LAYER: FaultLayer = {
   id: 'integrity',
   label: 'Damage',
   icon: 'house-crack',
   color: '#b0553f',
+  shape: 'triangleDown',
 };
 
-const LAYERS: Layer[] = [...ALARM_LAYERS, APC_LAYER, INTEGRITY_LAYER];
-
-type GlyphShape = 'circle' | 'square' | 'triangle' | 'triangleDown' | 'diamond';
-
-/** Shape as well as colour, so a colour-blind reader can still tell fills apart */
-const FAULT_SHAPES: Record<string, GlyphShape> = {
-  Fire: 'triangle',
-  Atmosphere: 'circle',
-  Power: 'square',
-  [APC_LAYER.id]: 'diamond',
-  [INTEGRITY_LAYER.id]: 'triangleDown',
+const BREACH_LAYER: FaultLayer = {
+  id: INTEGRITY_LAYER.id,
+  label: 'Breach',
+  icon: 'house-crack',
+  color: '#ff3b3b',
+  shape: 'cross',
 };
 
-const INTEGRITY_DAMAGED_AT = 90;
+const LAYERS: FaultLayer[] = [...ALARM_LAYERS, APC_LAYER, INTEGRITY_LAYER];
+
+const UNRANKED = 99;
+
+const faultPriority = (status: AreaStatus, layer: FaultLayer) =>
+  status.faults?.[layer.id] ?? UNRANKED;
 
 const COVERAGE_LAYER: Layer = {
   id: 'coverage',
@@ -195,11 +229,11 @@ const isLiveGap = (reason?: string) => !!reason && reason !== 'asbuilt';
 const getAreaFaults = (
   status: AreaStatus | undefined,
   enabled: Record<string, boolean>,
-): Layer[] => {
+): FaultLayer[] => {
   if (!status) {
     return [];
   }
-  const faults: Layer[] = [];
+  const faults: FaultLayer[] = [];
   for (const layer of ALARM_LAYERS) {
     if (!enabled[layer.id]) {
       continue;
@@ -214,14 +248,15 @@ const getAreaFaults = (
   if (enabled[APC_LAYER.id] && status.power) {
     faults.push(APC_LAYER);
   }
-  if (
-    enabled[INTEGRITY_LAYER.id] &&
-    status.integrity !== undefined &&
-    status.integrity <= INTEGRITY_DAMAGED_AT
-  ) {
-    faults.push(INTEGRITY_LAYER);
+  if (enabled[INTEGRITY_LAYER.id] && status.structure) {
+    faults.push(
+      status.structure === 'breached' ? BREACH_LAYER : INTEGRITY_LAYER,
+    );
   }
-  return faults;
+  // Worst first
+  return faults.sort(
+    (a, b) => faultPriority(status, a) - faultPriority(status, b),
+  );
 };
 
 const FaultGlyph = (props: {
@@ -253,6 +288,16 @@ const FaultGlyph = (props: {
           {...halo}
         />
       );
+    case 'cross': {
+      const arm = r * 0.32;
+      return (
+        <polygon
+          points={`${cx - arm},${cy - r} ${cx + arm},${cy - r} ${cx + arm},${cy - arm} ${cx + r},${cy - arm} ${cx + r},${cy + arm} ${cx + arm},${cy + arm} ${cx + arm},${cy + r} ${cx - arm},${cy + r} ${cx - arm},${cy + arm} ${cx - r},${cy + arm} ${cx - r},${cy - arm} ${cx - arm},${cy - arm}`}
+          transform={`rotate(45 ${cx} ${cy})`}
+          {...halo}
+        />
+      );
+    }
     case 'triangleDown':
       return (
         <polygon
@@ -357,12 +402,16 @@ const ReadoutRow = (props: {
     color = isLiveGap(reason) ? 'average' : 'label';
   } else if (layer.id === INTEGRITY_LAYER.id) {
     const integrity = status?.integrity;
-    if (integrity === undefined) {
+    const reading = integrity === undefined ? null : `${integrity}%`;
+    if (status?.structure === 'breached') {
+      text = reading ? `Breached, ${reading} of as-built` : 'Breached';
+      color = 'bad';
+    } else if (reading) {
+      text = `${reading} of as-built`;
+      color = status?.structure ? 'bad' : 'average';
+    } else {
       text = 'Intact';
       color = 'good';
-    } else {
-      text = `${integrity}% of as-built`;
-      color = integrity <= INTEGRITY_DAMAGED_AT ? 'bad' : 'average';
     }
   } else if (isGrid) {
     text = status?.power
@@ -791,7 +840,7 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                   {glyphs.map((layer, index) => (
                     <FaultGlyph
                       key={layer.id}
-                      shape={FAULT_SHAPES[layer.id]}
+                      shape={layer.shape}
                       color={layer.color}
                       size={glyphSize}
                       cx={cx + (index - (glyphs.length - 1) / 2) * glyphStep}

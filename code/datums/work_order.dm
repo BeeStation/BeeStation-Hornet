@@ -23,7 +23,34 @@ GLOBAL_LIST_INIT(work_order_tasks, list(
 	"[ALARM_FIRE]|offline" = list("task" = "Repair fire alarm", "priority" = WORK_PRIORITY_LOW),
 ))
 
-/// The z-level everything on the alert map is scored against. Single z for now.
+/// Map-only conditions
+GLOBAL_LIST_INIT(alert_fault_priority, list(
+	"[ALARM_FIRE]|alarm" = WORK_PRIORITY_CRITICAL,
+	"[ALARM_ATMOS]|alarm" = WORK_PRIORITY_HIGH,
+	"[ALARM_POWER]|alarm" = WORK_PRIORITY_NORMAL,
+	"[ALERT_LAYER_GRID]|dead" = WORK_PRIORITY_HIGH,
+	"[ALERT_LAYER_GRID]|critical" = WORK_PRIORITY_HIGH,
+	"[ALERT_LAYER_GRID]|low" = WORK_PRIORITY_LOW,
+))
+
+/proc/get_fault_priority(readout, condition)
+	var/key = work_order_key(readout, condition)
+	var/list/definition = GLOB.work_order_tasks[key]
+	if(definition)
+		return definition["priority"]
+	return GLOB.alert_fault_priority[key]
+
+/// Worst priority wins
+/proc/record_area_fault(list/faults, readout, condition)
+	var/priority = get_fault_priority(readout, condition)
+	if(isnull(priority))
+		return faults
+	LAZYINITLIST(faults)
+	if(isnull(faults[readout]) || priority < faults[readout])
+		faults[readout] = priority
+	return faults
+
+/// The z-level everything on the alert map is scored against. Single z for now
 /proc/get_station_map_z()
 	var/list/station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 	return length(station_levels) ? station_levels[1] : null
@@ -38,7 +65,7 @@ GLOBAL_LIST_INIT(work_order_tasks, list(
 	/// Who directed them to it, if anybody. Null if self assigned
 	var/assigned_by
 	var/assigned_by_ckey
-	/// world.time the claim was made, so the board can show how long it's been sat on.
+	/// world.time the claim was made, so the board can show how long it's been sat on
 	var/claimed_at
 
 /datum/work_claim/New(claimant, claimant_ckey, assigned_by, assigned_by_ckey)
@@ -264,18 +291,23 @@ GLOBAL_LIST_INIT(alert_map_alarm_types, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWE
 		var/area/checked_area = locate(map_area["ref"])
 		if(!istype(checked_area))
 			continue
+		var/area_ref = map_area["ref"]
 
 		var/list/entry = null
+		// Readout id to WORK_PRIORITY_
+		var/list/faults = null
 		for(var/alarm_type in GLOB.alert_map_alarm_types)
 			if(!checked_area.active_alarms[alarm_type])
 				continue
 			LAZYINITLIST(entry)
 			LAZYADD(entry["alarms"], alarm_type)
+			faults = record_area_fault(faults, alarm_type, "alarm")
 
 		var/power_state = get_apc_state(checked_area.apc)
 		if(power_state)
 			LAZYINITLIST(entry)
 			entry["power"] = power_state
+			faults = record_area_fault(faults, ALERT_LAYER_GRID, power_state)
 
 		var/list/blind = checked_area.get_coverage_gaps(has_working_air_alarm)
 		if(length(blind))
@@ -287,15 +319,25 @@ GLOBAL_LIST_INIT(alert_map_alarm_types, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWE
 		if(!isnull(pressure))
 			LAZYINITLIST(entry)
 			entry["pressure"] = pressure
+			faults = record_area_fault(faults, ALARM_ATMOS, pressure < WARNING_LOW_PRESSURE ? "lowpressure" : "highpressure")
+
+		var/structure = breached[area_ref] ? "breached" : (integrity_damaged[area_ref] ? "damaged" : null)
+		if(structure)
+			LAZYINITLIST(entry)
+			entry["structure"] = structure
+			faults = record_area_fault(faults, ALERT_LAYER_INTEGRITY, structure)
 
 		// Undamaged areas have no integrity field
-		var/integrity = integrity_current[map_area["ref"]]
+		var/integrity = integrity_current[area_ref]
 		if(!isnull(integrity) && integrity < 100)
 			LAZYINITLIST(entry)
 			entry["integrity"] = integrity
 
+		if(length(faults))
+			entry["faults"] = faults
+
 		if(entry)
-			status[map_area["ref"]] = entry
+			status[area_ref] = entry
 
 	status_cache[map_z] = status
 	status_time[map_z] = world.time
