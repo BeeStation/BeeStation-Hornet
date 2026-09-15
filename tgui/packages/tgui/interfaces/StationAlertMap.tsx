@@ -110,6 +110,7 @@ type Layer = {
   label: string;
   icon: string;
   color: string;
+  tooltip?: string;
 };
 
 type GlyphShape =
@@ -192,15 +193,33 @@ const WORK_LAYER: Layer = {
   color: '#5fb85f',
 };
 
+/** Snowflake view option that isnt a fault layer :P */
+const TINT_LAYER: Layer = {
+  id: 'tint',
+  label: 'Tint',
+  icon: 'palette',
+  tooltip: 'Department tinting on the schematic',
+  color: '#8a8f96',
+};
+
 const VIEWER_COLOR = '#9adcff';
 
-const TOGGLES: Layer[] = [...LAYERS, COVERAGE_LAYER, WORK_LAYER];
+const TOGGLES: Layer[] = [...LAYERS, COVERAGE_LAYER, WORK_LAYER, TINT_LAYER];
 
 const ALL_LAYERS_ON: Record<string, boolean> = Object.fromEntries(
   TOGGLES.map((layer) => [layer.id, true]),
 );
 
-const SELECTION_COLOR = '#7ac8ff';
+const LAYER_DEFAULTS: Record<string, boolean> = Object.fromEntries(
+  TOGGLES.map((layer) => [layer.id, layer.id !== TINT_LAYER.id]),
+);
+
+const BACKDROP_FILTER = 'saturate(0.3) brightness(0.9)';
+
+const FAULT_FILL_OPACITY = 0.3;
+const UNSELECTED_FILL_SCALE = 0.45;
+const HOVER_WASH = 0.14;
+const SELECT_WASH = 0.26;
 
 const POWER_LABELS: Record<string, string> = {
   nocell: 'No cell installed',
@@ -280,7 +299,9 @@ const FaultGlyph = (props: {
     case 'circle':
       return <circle cx={cx} cy={cy} r={r} {...halo} />;
     case 'square':
-      return <rect x={cx - r} y={cy - r} width={size} height={size} {...halo} />;
+      return (
+        <rect x={cx - r} y={cy - r} width={size} height={size} {...halo} />
+      );
     case 'diamond':
       return (
         <polygon
@@ -446,7 +467,7 @@ export const AreaReadout = (props: { areaRef: string | null }) => {
     ? map?.areas.find((entry) => entry.ref === areaRef)
     : undefined;
 
-  // Always four rows: a shorter placeholder would resize the panel on every hover.
+  // One row per layer, always
   return (
     <Section
       title={
@@ -495,9 +516,8 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
   const { data } = useBackend<Data>();
   const { map, areaStatus, workOrders } = data;
 
-  const [enabled, setEnabled] = useState<Record<string, boolean>>(
-    Object.fromEntries(TOGGLES.map((layer) => [layer.id, true])),
-  );
+  const [enabled, setEnabled] =
+    useState<Record<string, boolean>>(LAYER_DEFAULTS);
   const [viewState, setViewState] = useState<View | null>(null);
   const [dragging, setDragging] = useState(false);
 
@@ -677,8 +697,10 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
   const zoom = map.width / view.w;
   // Font size in turfs, scaled by the view. If this gets too ugly we can fuck around with fonts or sizing or just trash it
   const fontSize = view.w * 0.022;
+  const hatch = view.w * 0.012;
   const labelDepartments = zoom < DEPARTMENT_LABEL_BELOW_ZOOM;
   const departmentFontSize = fontSize * 1.6;
+  const departmentTracking = departmentFontSize * 0.18;
   const departmentLabels = labelDepartments
     ? getDepartmentLabels(map.areas)
     : [];
@@ -711,13 +733,13 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
               <pattern
                 id="stationAlertBlind"
                 patternUnits="userSpaceOnUse"
-                width={4}
-                height={4}
+                width={hatch}
+                height={hatch}
                 patternTransform="rotate(45)"
               >
                 <rect
-                  width={4}
-                  height={4}
+                  width={hatch}
+                  height={hatch}
                   fill={COVERAGE_LAYER.color}
                   opacity={0.12}
                 />
@@ -725,9 +747,9 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                   x1={0}
                   y1={0}
                   x2={0}
-                  y2={4}
+                  y2={hatch}
                   stroke={COVERAGE_LAYER.color}
-                  strokeWidth={1.4}
+                  strokeWidth={hatch * 0.35}
                   opacity={0.75}
                 />
               </pattern>
@@ -738,7 +760,10 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
               y={0}
               width={map.width}
               height={map.height}
-              style={{ imageRendering: 'pixelated' }}
+              style={{
+                imageRendering: 'pixelated',
+                filter: enabled[TINT_LAYER.id] ? undefined : BACKDROP_FILTER,
+              }}
             />
             {map.areas.map((area) => {
               const isSelected = area.ref === selected;
@@ -748,12 +773,11 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
               // An active alarm outranks a coverage gap
               const blind = !color && isAreaBlind(status[area.ref], filters);
               const isHovered = !dragging && area.ref === hovered;
-              // Selection is a steady tint. hover is lighter
-              const wash = isSelected
-                ? { color: SELECTION_COLOR, opacity: 0.28 }
-                : { color: '#ffffff', opacity: 0.22 };
+              const dim = selected && !isSelected ? UNSELECTED_FILL_SCALE : 1;
+              const fillOpacity = (color ? FAULT_FILL_OPACITY : 1) * dim;
+              const wash = isSelected ? SELECT_WASH : HOVER_WASH;
               const labelRect = getLabelRect(area.rects);
-              // Rough advance width - enough to decide whether a name fits its room.
+              // does the text fit the room
               const textWidth = area.name.length * fontSize * 0.55;
               const showLabel =
                 !labelDepartments &&
@@ -811,7 +835,7 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                           ? 'url(#stationAlertBlind)'
                           : color || 'transparent'
                       }
-                      fillOpacity={color ? 0.45 : 1}
+                      fillOpacity={fillOpacity}
                     />
                   ))}
                   {(isSelected || isHovered) &&
@@ -822,8 +846,8 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                         y={y}
                         width={w}
                         height={h}
-                        fill={wash.color}
-                        fillOpacity={wash.opacity}
+                        fill="#ffffff"
+                        fillOpacity={wash}
                       />
                     ))}
                   {hasWork && (
@@ -872,17 +896,19 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                   key={name}
                   x={rect[0] + rect[2] / 2}
                   y={rect[1] + rect[3] / 2}
+                  dx={-departmentTracking / 2}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fontSize={departmentFontSize}
+                  letterSpacing={departmentTracking}
                   fill="#f2f5f8"
-                  fillOpacity={0.85}
+                  fillOpacity={0.6}
                   stroke="#0b0e12"
                   strokeWidth={departmentFontSize * 0.22}
                   paintOrder="stroke"
                   style={{ pointerEvents: 'none', userSelect: 'none' }}
                 >
-                  {name}
+                  {name.toUpperCase()}
                 </text>
               ),
             )}
@@ -947,7 +973,7 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                 <Button
                   icon={layer.icon}
                   selected={enabled[layer.id]}
-                  tooltip={`Toggle ${layer.label} layer`}
+                  tooltip={layer.tooltip ?? `Toggle ${layer.label} layer`}
                   onClick={() =>
                     setEnabled((current) => ({
                       ...current,

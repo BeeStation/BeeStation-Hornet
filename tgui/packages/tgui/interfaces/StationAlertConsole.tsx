@@ -406,84 +406,93 @@ export const StationAlertConsoleContent = (props: AlarmListProps = {}) => {
   const sortedAlarms = sortBy(data.alarms || [], [
     (alarm) => sortingKey[alarm.name],
   ]);
+  const raised = sortedAlarms.filter((category) => category.alerts.length > 0);
+  const clear = sortedAlarms.filter((category) => !category.alerts.length);
 
   // An area can be listed under several categories; anchor on the first so the scroll
   // lands on the highest mention of it rather than the last.
   const anchorCategory = selected
-    ? sortedAlarms.find((category) =>
+    ? raised.find((category) =>
         category.alerts.some((alert) => alert.areaRef === selected),
       )?.name
     : undefined;
 
+  const cameraTooltip = (cameras: number | null) => {
+    if (!cameras) {
+      return 'No cameras cover this area';
+    }
+    return cameras > 1 ? `Jump to camera (${cameras})` : 'Jump to camera';
+  };
+  const jumpToCamera = (alert: AlarmEntry) =>
+    act('select_camera', { alert: alert.ref });
+
   return (
-    <>
-      {sortedAlarms.map((category) => (
-        <Section key={category.name} title={`${category.name} Alarms`}>
-          <ul>
-            {category.alerts.length === 0 && (
-              <li className="color-good">Systems nominal</li>
-            )}
-            {category.alerts.map((alert) => (
-              <Box
-                key={alert.name}
-                onMouseOver={() => setHovered?.(alert.areaRef)}
-                onMouseLeave={() => {
-                  if (hovered === alert.areaRef) {
-                    setHovered?.(null);
-                  }
-                }}
-                onClick={() => onSelect?.(alert.areaRef)}
-                style={
-                  linked
-                    ? {
-                        cursor: 'pointer',
-                        background: getRowBackground(
-                          alert.areaRef === selected,
-                          hovered === alert.areaRef,
-                        ),
-                      }
-                    : undefined
+    <Section title="Alarms">
+      {raised.map((category) => (
+        <Box key={category.name} mb={1}>
+          <Box
+            className="color-label"
+            fontSize="0.9em"
+            style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.15)' }}
+          >
+            {category.name}
+          </Box>
+          {category.alerts.map((alert) => (
+            <Box
+              key={alert.areaRef}
+              onMouseOver={() => setHovered?.(alert.areaRef)}
+              onMouseLeave={() => {
+                if (hovered === alert.areaRef) {
+                  setHovered?.(null);
                 }
-              >
-                {alert.areaRef === selected &&
-                  category.name === anchorCategory && <div ref={selectedRef} />}
-                <Stack height="30px" align="baseline">
-                  <Stack.Item grow>
-                    <li className="color-average">
-                      {alert.name}{' '}
-                      {cameraView && (alert.sources ?? 0) > 1
-                        ? ` (${alert.sources} sources)`
-                        : ''}
-                    </li>
+              }}
+              onClick={() => onSelect?.(alert.areaRef)}
+              style={{
+                paddingLeft: '4px',
+                cursor: linked ? 'pointer' : undefined,
+                background: linked
+                  ? getRowBackground(
+                      alert.areaRef === selected,
+                      hovered === alert.areaRef,
+                    )
+                  : undefined,
+              }}
+            >
+              {alert.areaRef === selected &&
+                category.name === anchorCategory && <div ref={selectedRef} />}
+              <Stack align="baseline">
+                <Stack.Item grow>
+                  <Box className="color-average">
+                    {alert.name}
+                    {cameraView && (alert.sources ?? 0) > 1
+                      ? ` (${alert.sources} sources)`
+                      : ''}
+                  </Box>
+                </Stack.Item>
+                {!!cameraView && (
+                  <Stack.Item>
+                    <Button
+                      compact
+                      icon="video"
+                      disabled={!alert.cameras}
+                      tooltip={cameraTooltip(alert.cameras)}
+                      onClick={() => jumpToCamera(alert)}
+                    >
+                      {(alert.cameras ?? 0) > 1 ? alert.cameras : null}
+                    </Button>
                   </Stack.Item>
-                  {!!cameraView && (
-                    <Stack.Item>
-                      <Button
-                        textAlign="center"
-                        width="100px"
-                        icon={alert.cameras ? 'video' : ''}
-                        disabled={!alert.cameras}
-                        content={
-                          alert.cameras === 1
-                            ? `${alert.cameras} Camera`
-                            : (alert.cameras ?? 0) > 1
-                              ? `${alert.cameras} Cameras`
-                              : 'No Camera'
-                        }
-                        onClick={() =>
-                          act('select_camera', {
-                            alert: alert.ref,
-                          })
-                        }
-                      />
-                    </Stack.Item>
-                  )}
-                </Stack>
-              </Box>
-            ))}
-          </ul>
-        </Section>
+                )}
+              </Stack>
+            </Box>
+          ))}
+        </Box>
       ))}
-    </>
+      {!raised.length && <Box className="color-good">All systems nominal.</Box>}
+      {!!raised.length && !!clear.length && (
+        <Box className="color-good" fontSize="0.9em" mt={1}>
+          Nominal: {clear.map((category) => category.name).join(', ')}
+        </Box>
+      )}
+    </Section>
   );
 };
