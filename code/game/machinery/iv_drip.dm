@@ -8,6 +8,7 @@
 	icon_state = "iv_drip"
 	anchored = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+
 	///Who are we sticking our needle in?
 	var/mob/living/carbon/attached
 	///Are we donating or injecting?

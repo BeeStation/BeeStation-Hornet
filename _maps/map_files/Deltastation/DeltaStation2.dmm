@@ -63,6 +63,7 @@
 /area/station/maintenance/port/aft)
 "adn" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/fore)
 "adr" = (
@@ -2629,6 +2630,7 @@
 "bai" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "baq" = (
@@ -4757,6 +4759,7 @@
 "bJu" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "bJv" = (
@@ -11125,6 +11128,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "efX" = (
@@ -15376,6 +15380,7 @@
 /area/station/cargo/miningoffice)
 "ftq" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "ftr" = (
@@ -16838,6 +16843,7 @@
 	pixel_x = 12;
 	pixel_y = -21
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "fSk" = (
@@ -17870,6 +17876,7 @@
 	dir = 6
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "giF" = (
@@ -21014,6 +21021,7 @@
 "hdW" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "heh" = (
@@ -33900,6 +33908,7 @@
 "kQw" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "kQx" = (
@@ -45190,6 +45199,7 @@
 "oln" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "olo" = (
@@ -68423,6 +68433,7 @@
 "vhY" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/fore)
 "vid" = (
@@ -69176,6 +69187,7 @@
 /area/station/hallway/secondary/exit/departure_lounge)
 "vvS" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "vvT" = (
@@ -71187,6 +71199,7 @@
 /area/station/ai_monitored/turret_protected/ai_upload)
 "whA" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "whE" = (
@@ -77871,6 +77884,7 @@
 	dir = 10
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/fore)
 "ydq" = (

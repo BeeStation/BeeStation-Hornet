@@ -151,7 +151,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/tear_in_reality/proc/deranged(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)
 		return
-	C.vomit(0, TRUE, TRUE, 3, TRUE)
+	C.vomit(VOMIT_CATEGORY_BLOOD, lost_nutrition = 0, distance = 3)
 	C.spew_organ(3, 2)
 	C.investigate_log("has died from using telekinesis on a tear in reality.", INVESTIGATE_DEATHS)
 	C.death()

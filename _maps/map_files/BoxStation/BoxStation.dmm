@@ -2841,6 +2841,7 @@
 /area/station/command/teleporter)
 "brQ" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/fore)
 "brV" = (
@@ -13132,6 +13133,7 @@
 	name = "Port Quarter Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "fGq" = (
@@ -24664,6 +24666,7 @@
 /area/misc/space)
 "kwJ" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "kxn" = (
@@ -31960,6 +31963,7 @@
 	name = "Starboard Quarter Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "nmu" = (
@@ -34830,6 +34834,7 @@
 	name = "Starboard Bow Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "ozk" = (
@@ -38173,6 +38178,7 @@
 "pVi" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "pVl" = (
@@ -42005,6 +42011,7 @@
 	name = "Port Bow Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/fore)
 "rxN" = (
@@ -48630,6 +48637,7 @@
 /area/station/hallway/secondary/entry)
 "ueV" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "ueZ" = (
@@ -57872,6 +57880,7 @@
 /area/station/medical/patients_rooms)
 "xTW" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "xUc" = (
