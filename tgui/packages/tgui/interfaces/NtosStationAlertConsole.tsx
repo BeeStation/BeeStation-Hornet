@@ -53,6 +53,8 @@ export const NtosStationAlertConsole = () => {
             <StationAlertMap
               hovered={linkage.hovered}
               setHovered={linkage.setHovered}
+              selected={linkage.selected}
+              selectArea={linkage.selectArea}
               focusRequest={linkage.focusRequest}
             />
           </Stack.Item>

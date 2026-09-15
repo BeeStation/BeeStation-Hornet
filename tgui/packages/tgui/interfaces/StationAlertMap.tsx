@@ -151,6 +151,12 @@ const VIEWER_COLOR = '#9adcff';
 
 const TOGGLES: Layer[] = [...LAYERS, COVERAGE_LAYER, WORK_LAYER];
 
+const ALL_LAYERS_ON: Record<string, boolean> = Object.fromEntries(
+  TOGGLES.map((layer) => [layer.id, true]),
+);
+
+const SELECTION_COLOR = '#7ac8ff';
+
 const POWER_LABELS: Record<string, string> = {
   nocell: 'No cell installed',
   dead: 'Cell depleted',
@@ -371,12 +377,15 @@ export const AreaReadout = (props: { areaRef: string | null }) => {
 type StationAlertMapProps = {
   hovered: string | null;
   setHovered: (ref: string | null) => void;
+  /** Sticky, unlike hover */
+  selected: string | null;
+  selectArea: (areaRef: string | null) => void;
   /** Bumped by the alarm list to frame an area */
   focusRequest: { ref: string; nonce: number } | null;
 };
 
 export const StationAlertMap = (props: StationAlertMapProps) => {
-  const { hovered, setHovered, focusRequest } = props;
+  const { hovered, setHovered, selected, selectArea, focusRequest } = props;
   const { data } = useBackend<Data>();
   const { map, areaStatus, workOrders } = data;
 
@@ -502,8 +511,6 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
     if (event.button !== 0 || !view) {
       return;
     }
-    // Capturing here would retarget the pointer and swallow click-to-focus on areas, so we
-    // capture once a drag starts.
     dragRef.current = {
       px: event.clientX,
       py: event.clientY,
@@ -546,7 +553,6 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
     if (svgRef.current?.hasPointerCapture(event.pointerId)) {
       svgRef.current.releasePointerCapture(event.pointerId);
     }
-    // pointerup lands before click, so stash the travel for the click handler to check.
     lastMovedRef.current = dragRef.current?.moved ?? 0;
     dragRef.current = null;
     setDragging(false);
@@ -563,7 +569,7 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
   const status = areaStatus || {};
   const workAreas = new Set((workOrders || []).map((order) => order.areaRef));
   const zoom = map.width / view.w;
-  // Font size in turfs, scaled by the view, so labels hold a constant on-screen size.
+  // Font size in turfs, scaled by the view. If this gets too ugly we can fuck around with fonts or sizing or just trash it
   const fontSize = view.w * 0.022;
   const labelDepartments = zoom < DEPARTMENT_LABEL_BELOW_ZOOM;
   const departmentFontSize = fontSize * 1.6;
@@ -583,6 +589,10 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerUp}
+            onContextMenu={(event) => {
+              event.preventDefault();
+              selectArea(null);
+            }}
             style={{
               display: 'block',
               width: '100%',
@@ -625,31 +635,36 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
               style={{ imageRendering: 'pixelated' }}
             />
             {map.areas.map((area) => {
-              const color = getAreaColor(status[area.ref], enabled);
-              // An active alarm outranks a coverage gap.
-              const blind = !color && isAreaBlind(status[area.ref], enabled);
+              const isSelected = area.ref === selected;
+              const filters = isSelected ? ALL_LAYERS_ON : enabled;
+              const color = getAreaColor(status[area.ref], filters);
+              // An active alarm outranks a coverage gap
+              const blind = !color && isAreaBlind(status[area.ref], filters);
               const isHovered = !dragging && area.ref === hovered;
+              // Selection is a steady tint. hover is lighter
+              const wash = isSelected
+                ? { color: SELECTION_COLOR, opacity: 0.28 }
+                : { color: '#ffffff', opacity: 0.22 };
               const labelRect = getLabelRect(area.rects);
               // Rough advance width - enough to decide whether a name fits its room.
               const textWidth = area.name.length * fontSize * 0.55;
               const showLabel =
                 !labelDepartments &&
                 !!labelRect &&
-                labelRect[2] > textWidth &&
-                labelRect[3] > fontSize * 1.6;
+                (isSelected ||
+                  (labelRect[2] > textWidth && labelRect[3] > fontSize * 1.6));
               return (
                 <g
                   key={area.ref}
                   onMouseEnter={() => setHovered(area.ref)}
                   onMouseLeave={() => {
-                    // enter fires before leave between areas, so only clear if still ours.
                     if (hovered === area.ref) {
                       setHovered(null);
                     }
                   }}
                   onClick={() => {
                     if (lastMovedRef.current <= CLICK_SLOP) {
-                      focusArea(area);
+                      selectArea(area.ref);
                     }
                   }}
                   style={{ pointerEvents: 'all', cursor: 'pointer' }}
@@ -669,16 +684,16 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                       fillOpacity={color ? 0.45 : 1}
                     />
                   ))}
-                  {isHovered &&
+                  {(isSelected || isHovered) &&
                     area.rects.map(([x, y, w, h], index) => (
                       <rect
-                        key={`hover-${index}`}
+                        key={`wash-${index}`}
                         x={x}
                         y={y}
                         width={w}
                         height={h}
-                        fill="#ffffff"
-                        fillOpacity={0.22}
+                        fill={wash.color}
+                        fillOpacity={wash.opacity}
                       />
                     ))}
                   {enabled[WORK_LAYER.id] &&

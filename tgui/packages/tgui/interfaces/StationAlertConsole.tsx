@@ -1,6 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { sortBy } from 'es-toolkit';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -52,6 +52,8 @@ type FocusRequest = { ref: string; nonce: number };
 export type AlertLinkage = {
   hovered: string | null;
   setHovered: (ref: string | null) => void;
+  /** Sticky, meant for clicks */
+  selected: string | null;
   focusRequest: FocusRequest | null;
   selectArea: (areaRef: string | null) => void;
 };
@@ -69,29 +71,51 @@ export const SIDEBAR_WIDTH = 260;
 /** Links hover and framing state between the schematic and the alarm list. */
 export const useAlertLinkage = (): AlertLinkage => {
   const [hovered, setHovered] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
   const [focusRequest, setFocusRequest] = useState<FocusRequest | null>(null);
 
   const selectArea = (areaRef: string | null) => {
+    setSelected(areaRef);
     if (!areaRef) {
       return;
     }
-    // The nonce(NUMBER USED ONCE) lets the same entry be clicked twice
     setFocusRequest({ ref: areaRef, nonce: Date.now() });
   };
 
-  return { hovered, setHovered, focusRequest, selectArea };
+  return { hovered, setHovered, selected, focusRequest, selectArea };
+};
+
+const useSelectedRow = (selected: string | null) => {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    ref.current?.scrollIntoView({ block: 'nearest' });
+  }, [selected]);
+  return ref;
+};
+
+const getRowBackground = (isSelected: boolean, isHovered: boolean) => {
+  if (isSelected) {
+    return 'rgba(122, 200, 255, 0.18)';
+  }
+  return isHovered ? 'rgba(255, 255, 255, 0.12)' : undefined;
 };
 
 type AlertSidebarProps = Pick<
   AlertLinkage,
-  'hovered' | 'setHovered' | 'selectArea'
+  'hovered' | 'setHovered' | 'selected' | 'selectArea'
 > & {
   showDetail?: boolean;
 };
 
 /** The alarm column */
 export const AlertSidebar = (props: AlertSidebarProps) => {
-  const { hovered, setHovered, selectArea, showDetail = true } = props;
+  const {
+    hovered,
+    setHovered,
+    selected,
+    selectArea,
+    showDetail = true,
+  } = props;
   const { data } = useBackend<Data>();
   const { workOrders } = data;
   const [tab, setTab] = useState('alarms');
@@ -99,10 +123,24 @@ export const AlertSidebar = (props: AlertSidebarProps) => {
   const orders = workOrders || [];
   const unclaimed = orders.filter((order) => !order.claimant).length;
 
+  useEffect(() => {
+    if (!selected || !showWork) {
+      return;
+    }
+    const inAlarms = (data.alarms || []).some((category) =>
+      category.alerts.some((alert) => alert.areaRef === selected),
+    );
+    const inWork = orders.some((order) => order.areaRef === selected);
+    if (tab === 'alarms' && !inAlarms && inWork) {
+      setTab('work');
+    } else if (tab === 'work' && !inWork && inAlarms) {
+      setTab('alarms');
+    }
+  }, [selected]);
+
   return (
     <Stack fill vertical>
       <Stack.Item shrink={0}>
-        {/* Never unmount schematic when switching tabs */}
         <Tabs fluid>
           <Tabs.Tab
             selected={tab === 'alarms'}
@@ -123,19 +161,21 @@ export const AlertSidebar = (props: AlertSidebarProps) => {
             orders={orders}
             hovered={hovered}
             setHovered={setHovered}
+            selected={selected}
             onSelect={selectArea}
           />
         ) : (
           <StationAlertConsoleContent
             hovered={hovered}
             setHovered={setHovered}
+            selected={selected}
             onSelect={selectArea}
           />
         )}
       </Stack.Item>
       {showDetail && (
         <Stack.Item shrink={0}>
-          <AreaReadout areaRef={hovered} />
+          <AreaReadout areaRef={hovered ?? selected} />
         </Stack.Item>
       )}
     </Stack>
@@ -146,6 +186,7 @@ type WorkOrderListProps = {
   orders: WorkOrder[];
   hovered: string | null;
   setHovered: (ref: string | null) => void;
+  selected: string | null;
   onSelect: (ref: string | null) => void;
 };
 
@@ -182,7 +223,8 @@ const AssignMenu = (props: { orderKey: string; crew: CrewMember[] }) => {
 const WorkOrderList = (props: WorkOrderListProps) => {
   const { act, data } = useBackend<Data>();
   const { canAssign, crew } = data;
-  const { orders, hovered, setHovered, onSelect } = props;
+  const { orders, hovered, setHovered, selected, onSelect } = props;
+  const selectedRef = useSelectedRow(selected);
 
   if (!orders.length) {
     return (
@@ -222,6 +264,7 @@ const WorkOrderList = (props: WorkOrderListProps) => {
     <Section title="Work Orders">
       {groups.map((group) => (
         <Box key={group.area} mb={1}>
+          {group.orders[0]?.areaRef === selected && <div ref={selectedRef} />}
           <Box
             className="color-label"
             fontSize="0.9em"
@@ -246,10 +289,10 @@ const WorkOrderList = (props: WorkOrderListProps) => {
                 borderLeft: order.claimant
                   ? '2px solid rgba(139, 195, 74, 0.65)'
                   : '2px solid transparent',
-                background:
-                  hovered === order.areaRef
-                    ? 'rgba(255, 255, 255, 0.12)'
-                    : undefined,
+                background: getRowBackground(
+                  order.areaRef === selected,
+                  hovered === order.areaRef,
+                ),
               }}
             >
               <Stack align="baseline">
@@ -323,6 +366,8 @@ export const StationAlertConsole = () => {
             <StationAlertMap
               hovered={linkage.hovered}
               setHovered={linkage.setHovered}
+              selected={linkage.selected}
+              selectArea={linkage.selectArea}
               focusRequest={linkage.focusRequest}
             />
           </Stack.Item>
@@ -338,14 +383,16 @@ export const StationAlertConsole = () => {
 type AlarmListProps = {
   hovered?: string | null;
   setHovered?: (ref: string | null) => void;
+  selected?: string | null;
   onSelect?: (ref: string | null) => void;
 };
 
 export const StationAlertConsoleContent = (props: AlarmListProps = {}) => {
   const { act, data } = useBackend<Data>();
   const { cameraView } = data;
-  const { hovered, setHovered, onSelect } = props;
+  const { hovered, setHovered, selected, onSelect } = props;
   const linked = !!onSelect;
+  const selectedRef = useSelectedRow(selected ?? null);
 
   const sortingKey: Record<string, number> = {
     Fire: 0,
@@ -359,6 +406,14 @@ export const StationAlertConsoleContent = (props: AlarmListProps = {}) => {
   const sortedAlarms = sortBy(data.alarms || [], [
     (alarm) => sortingKey[alarm.name],
   ]);
+
+  // An area can be listed under several categories; anchor on the first so the scroll
+  // lands on the highest mention of it rather than the last.
+  const anchorCategory = selected
+    ? sortedAlarms.find((category) =>
+        category.alerts.some((alert) => alert.areaRef === selected),
+      )?.name
+    : undefined;
 
   return (
     <>
@@ -382,14 +437,16 @@ export const StationAlertConsoleContent = (props: AlarmListProps = {}) => {
                   linked
                     ? {
                         cursor: 'pointer',
-                        background:
-                          hovered === alert.areaRef
-                            ? 'rgba(255, 255, 255, 0.12)'
-                            : undefined,
+                        background: getRowBackground(
+                          alert.areaRef === selected,
+                          hovered === alert.areaRef,
+                        ),
                       }
                     : undefined
                 }
               >
+                {alert.areaRef === selected &&
+                  category.name === anchorCategory && <div ref={selectedRef} />}
                 <Stack height="30px" align="baseline">
                   <Stack.Item grow>
                     <li className="color-average">
