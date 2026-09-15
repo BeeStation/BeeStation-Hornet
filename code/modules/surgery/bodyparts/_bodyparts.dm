@@ -780,9 +780,9 @@
 			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
 	if(draw_color)
-		limb.color = "[draw_color]"
+		limb.color = draw_color
 		if(aux_zone)
-			aux.color = "[draw_color]"
+			aux.color = draw_color
 
 	//EMISSIVE CODE START
 	// For some reason this was applied as an overlay on the aux image and limb image before.
@@ -861,13 +861,29 @@
 	else
 		update_icon_dropped()
 
+/**
+ * Takes in an image and greyscales it to later be recolored to look like a husk
+ *
+ * Then returns a separate image/MA that is the blood overlay for the husk
+ */
 /obj/item/bodypart/proc/huskify_image(image/thing_to_husk)
 	var/icon/husk_icon = new(thing_to_husk.icon)
 	husk_icon.ColorTone(HUSK_COLOR_TONE)
 	thing_to_husk.icon = husk_icon
-	var/mutable_appearance/husk_blood = mutable_appearance(icon_husk, "[husk_type]_husk_[body_zone]", appearance_flags = RESET_COLOR)
+
+	var/mutable_appearance/husk_blood = mutable_appearance(icon_husk, "[husk_type]_husk_[body_zone]", layer = thing_to_husk.layer, appearance_flags = RESET_COLOR)
+	. = list(husk_blood)
+
 	// BLEND_INSET_OVERLAY on KEEP_TOGETHER atoms masks itself with the atom, so we cannot add this as an overlay to our limb to have it automatically mask
 	husk_blood.blend_mode = BLEND_INSET_OVERLAY
 	husk_blood.dir = thing_to_husk.dir
-	husk_blood.layer = thing_to_husk.layer
-	return husk_blood
+
+	// Length check, not a null check: get_blood_dna_color() indexes list[length(list)] and runtimes on an empty list.
+	// This must stay in sync with generate_husk_key(), or the icon cache will hand out the wrong colored limb.
+	if(!GET_ATOM_BLOOD_DNA_LENGTH(src))
+		husk_blood.color = BLOOD_COLOR_RED
+		return .
+
+	husk_blood.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+
+	return .

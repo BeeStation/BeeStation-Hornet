@@ -488,9 +488,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/blood_print = blood_dna[length(blood_dna)]
 	var/datum/blood_type/blood_type = blood_dna[blood_print]
 	if(!blood_type)
-		return COLOR_BLOOD
+		return BLOOD_COLOR_RED
 	if(!blood_type.blood_color)
-		return COLOR_BLOOD
+		return BLOOD_COLOR_RED
 	return blood_type.blood_color
 
 //to add a splatter of blood or other mob liquid.
@@ -522,7 +522,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			drop.transfer_mob_blood_dna(src)
 			// ADD GLOW FOR ETHEREAL DRIPS
 			if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-				drop.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
+				drop.set_light(1, 0.5, BLOOD_COLOR_ETHEREAL)
 			return
 
 	// Find a blood decal or create a new one.
@@ -540,7 +540,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	// ADD GLOW FOR ETHEREAL SPLATTERS
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		B.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
+		B.set_light(1, 0.5, BLOOD_COLOR_ETHEREAL)
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)
 

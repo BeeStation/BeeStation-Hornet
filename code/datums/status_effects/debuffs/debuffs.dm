@@ -1259,11 +1259,11 @@
 					to_chat(victim, span_danger("You scratch at the ants on your scalp!"))
 					need_mob_update += hed.receive_damage(brute = 0.4 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if (9 to 29) //40% chance
-					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
+					var/obj/item/bodypart/arm = victim.get_bodypart(pick(GLOB.arm_zones))
 					to_chat(victim, span_danger("You scratch at the ants on your arms!"))
 					need_mob_update += arm.receive_damage(brute = 1.2 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if (30 to 49) //38% chance
-					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
+					var/obj/item/bodypart/leg = victim.get_bodypart(pick(GLOB.leg_zones))
 					to_chat(victim, span_danger("You scratch at the ants on your leg!"))
 					need_mob_update += leg.receive_damage(brute = 1.2 * seconds_between_ticks, burn = 0, updating_health = FALSE)
 				if(50) // 2% chance

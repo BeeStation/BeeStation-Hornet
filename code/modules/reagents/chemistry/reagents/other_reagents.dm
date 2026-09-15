@@ -1,6 +1,6 @@
 /datum/reagent/blood
 	name = "Blood"
-	color = COLOR_BLOOD
+	color = BLOOD_COLOR_RED
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	taste_description = "iron"

@@ -51,7 +51,7 @@
 		. += span_deadsay("It appears that [t_his] brain is missing...")
 
 	var/list/disabled = list()
-	for(var/obj/item/bodypart/body_part as anything in bodyparts)
+	for(var/obj/item/bodypart/body_part as anything in get_bodyparts())
 		if(body_part.bodypart_disabled)
 			disabled += body_part
 		for(var/obj/item/embedded as anything in body_part.embedded_objects)
@@ -487,7 +487,7 @@
 /// Reports all body parts which are mismatched with the user's species
 /mob/living/carbon/human/proc/get_mismatched_limb_text()
 	. = list()
-	for(var/obj/item/bodypart/part as anything in bodyparts)
+	for(var/obj/item/bodypart/part as anything in get_bodyparts())
 		if(part.limb_id == (dna.species.examine_limb_id || dna.species.id))
 			continue
 		. += span_notice("[p_They()] [p_have()] \a [part].")
