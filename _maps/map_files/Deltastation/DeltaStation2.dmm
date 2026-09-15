@@ -5585,6 +5585,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/chief)
+"bWN" = (
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/port/fore)
 "bXg" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -26507,6 +26514,12 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
+"iIr" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8
+	},
+/turf/closed/wall,
+/area/station/maintenance/port/fore)
 "iIF" = (
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/r_wall,
@@ -30103,6 +30116,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/security/office)
+"jKj" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/station/maintenance/port/fore)
 "jKk" = (
 /turf/open/floor/iron,
 /area/station/maintenance/starboard/fore)
@@ -39137,6 +39159,9 @@
 /area/station/engineering/atmospherics_engine)
 "msA" = (
 /obj/structure/sign/poster/contraband/random,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8
+	},
 /turf/closed/wall,
 /area/station/maintenance/port/fore)
 "msB" = (
@@ -63153,7 +63178,8 @@
 "tIf" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	dir = 8;
+	volume_rate = 200
 	},
 /turf/open/space,
 /area/station/engineering/atmospherics_engine)
@@ -107789,7 +107815,7 @@ rKM
 uxi
 hhw
 gjR
-wMY
+jKj
 pOQ
 iCm
 ieC
@@ -108046,7 +108072,7 @@ aiu
 uxi
 bsq
 nms
-ieC
+bWN
 oIk
 waF
 uVW
@@ -108303,7 +108329,7 @@ uxi
 uxi
 rZx
 rZx
-rZx
+iIr
 rZx
 rZx
 rZx

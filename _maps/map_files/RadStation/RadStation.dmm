@@ -79,9 +79,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/catwalk_floor,
 /area/station/maintenance/department/engine)
 "abq" = (
 /obj/structure/chair{
@@ -253,6 +251,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 8
 	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/science/server)
 "adB" = (
@@ -18267,9 +18266,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/catwalk_floor,
 /area/station/maintenance/department/engine)
 "gYK" = (
 /obj/structure/sign/departments/minsky/supply/hydroponics2,
@@ -21272,7 +21269,6 @@
 /area/station/cargo/storage)
 "ifT" = (
 /obj/effect/turf_decal/box/white,
-/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
@@ -27960,7 +27956,6 @@
 /area/station/medical/medbay/central)
 "kLE" = (
 /obj/effect/turf_decal/box/white,
-/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/circuit/telecomms/server,
 /area/station/science/server)
 "kLN" = (
@@ -33253,7 +33248,8 @@
 /area/station/command/bridge)
 "mCI" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	dir = 8;
+	volume_rate = 200
 	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -34424,14 +34420,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
-"nag" = (
-/obj/effect/turf_decal/box/white,
-/obj/machinery/door/window/brigdoor{
-	dir = 4;
-	req_one_access_txt = "7;30,29,63"
-	},
-/turf/open/floor/circuit/telecomms/server,
-/area/station/science/server)
 "nah" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -37019,7 +37007,7 @@
 	pixel_x = -10;
 	pixel_y = 11
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/plating,
 /area/station/maintenance/department/engine)
 "nRl" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -46056,6 +46044,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
 "rnF" = (
@@ -46679,6 +46668,10 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow,
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	req_one_access_txt = "7;30,29,63"
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/server)
 "rCF" = (
@@ -47871,6 +47864,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/railing/perspective/gray/corner,
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "sbH" = (
@@ -50219,6 +50213,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/science/server)
 "sUF" = (
@@ -53805,6 +53800,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/landmark/navigate_destination,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/science/server)
 "uiY" = (
@@ -54329,6 +54325,8 @@
 	},
 /obj/structure/cable/yellow,
 /obj/structure/railing/perspective/gray,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "uuX" = (
@@ -62047,7 +62045,6 @@
 "xxK" = (
 /obj/effect/turf_decal/box/white,
 /obj/machinery/rnd/server,
-/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
@@ -62339,9 +62336,6 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/ai_monitored/turret_protected/aisat/hallway)
-"xBx" = (
-/turf/open/floor/catwalk_floor,
-/area/station/maintenance/department/engine)
 "xBC" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/cable/yellow,
@@ -89493,7 +89487,7 @@ lzG
 jXj
 xxK
 kLE
-nag
+kLE
 ifT
 cST
 mDX
@@ -95658,7 +95652,7 @@ nJi
 bpC
 krw
 oxY
-xBx
+ltn
 fqW
 wCl
 rzz
@@ -96172,7 +96166,7 @@ lmf
 bpC
 kEZ
 nMb
-xBx
+ltn
 gYE
 pMN
 itx
