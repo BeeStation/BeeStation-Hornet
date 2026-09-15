@@ -228,6 +228,48 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
+"DV" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"Ef" = (
+/obj/structure/table/glass,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gun/syringe{
+	pixel_y = 7
+	},
+/obj/item/rag{
+	pixel_x = -7;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine{
+	list_reagents = list(/datum/reagent/medicine/morphine = 20);
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/syringe{
+	list_reagents = list(/datum/reagent/medicine/morphine = 15);
+	name = "syringe (morphine)";
+	desc = "Contains morphine."
+	},
+/obj/item/reagent_containers/syringe{
+	list_reagents = list(/datum/reagent/medicine/morphine = 15);
+	name = "syringe (morphine)";
+	desc = "Contains morphine.";
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/syringe{
+	list_reagents = list(/datum/reagent/medicine/morphine = 15);
+	name = "syringe (morphine)";
+	desc = "Contains morphine.";
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "Fh" = (
 /turf/closed/wall,
 /area/template_noop)
@@ -281,44 +323,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
-"Pd" = (
-/obj/structure/table/glass,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/gun/syringe{
-	pixel_y = 7
-	},
-/obj/item/rag{
-	pixel_x = -7;
-	pixel_y = 13
-	},
-/obj/item/reagent_containers/cup/bottle/morphine,
-/obj/item/reagent_containers/cup/bottle/morphine{
-	list_reagents = list(/datum/reagent/medicine/morphine = 20);
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/syringe{
-	list_reagents = list(/datum/reagent/medicine/morphine = 15);
-	name = "syringe (morphine)";
-	desc = "Contains morphine."
-	},
-/obj/item/reagent_containers/syringe{
-	list_reagents = list(/datum/reagent/medicine/morphine = 15);
-	name = "syringe (morphine)";
-	desc = "Contains morphine.";
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/syringe{
-	list_reagents = list(/datum/reagent/medicine/morphine = 15);
-	name = "syringe (morphine)";
-	desc = "Contains morphine.";
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/turf/open/floor/iron/freezer,
-/area/template_noop)
 "Qm" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
@@ -344,10 +348,6 @@
 /area/template_noop)
 "SW" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/carpet/royalblack,
-/area/template_noop)
-"UO" = (
-/obj/item/kirbyplants/random,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "Vo" = (
@@ -397,7 +397,7 @@
 /area/template_noop)
 
 (1,1,1) = {"
-Pd
+Ef
 pq
 pD
 Fh
@@ -448,7 +448,7 @@ Fh
 oD
 yg
 Fh
-UO
+DV
 yq
 yq
 FS

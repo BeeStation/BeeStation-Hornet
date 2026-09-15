@@ -116,7 +116,10 @@
 /obj/effect/spawner/random/bluespace_tap/organic
 	name = "organic objects"
 	loot = list(
-		/obj/item/seeds/random = 10,
+		/obj/item/storage/pill_bottle/charcoal = 25,
+		/obj/item/storage/pill_bottle/mannitol = 25,
+		/obj/item/storage/pill_bottle/mutadone = 25,
+		/obj/item/plant_seeds/random = 10,
 		/obj/item/dnainjector/telemut = 5,
 		/obj/item/dnainjector/chameleonmut = 5,
 		/obj/item/dnainjector/dwarf = 5,
@@ -140,7 +143,7 @@
 		/obj/item/organ/heart/gland/egg  = 5, // Harmless, makes you shit eggs if placed into someone
 		/obj/item/organ/heart/gland/heals = 5,
 		/obj/item/slimepotion/fireproof = 5,
-		/obj/item/seeds/gatfruit = 1, // These are only .38 now, should be fine to add
+		/obj/item/plant_seeds/preset/gat = 1, // These are only .38 now, should be fine to add
 		/obj/item/slime_extract/red = 5,
 		/obj/item/slime_extract/silver = 5,
 		/obj/item/slime_extract/blue = 5

@@ -165,9 +165,7 @@
 	I.forceMove(loc)
 	var/obj/item/grown/log/L = I
 	if(istype(L))
-		var/seed_modifier = 0
-		if(L.seed)
-			seed_modifier = round(L.seed.potency / 25)
+		var/seed_modifier = get_fruit_trait_power(L)
 		new L.plank_type(src.loc, 1 + seed_modifier)
 		qdel(L)
 	else

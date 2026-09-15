@@ -1,93 +1,93 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"c" = (
-/obj/item/kirbyplants/random,
+"b" = (
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"d" = (
+"i" = (
+/turf/open/floor/iron,
+/area/ruin/powered)
+"j" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"h" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"q" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"t" = (
-/obj/effect/spawner/random/vending/snackvend,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"G" = (
-/obj/effect/spawner/random/vending/colavend,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"J" = (
+"r" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"Z" = (
+"u" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"N" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Q" = (
+/obj/effect/spawner/random/vending/colavend,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"W" = (
 /turf/closed/wall,
 /area/ruin/powered)
 
 (1,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-d
-Z
-Z
+W
+W
+W
+W
+W
+W
+j
+W
+W
 "}
 (2,1,1) = {"
-Z
-c
-h
-h
-h
-h
-h
-t
-Z
+W
+u
+i
+i
+i
+i
+i
+b
+W
 "}
 (3,1,1) = {"
-Z
-h
-h
-h
-h
-h
-h
-h
-Z
+W
+i
+i
+i
+i
+i
+i
+i
+W
 "}
 (4,1,1) = {"
-Z
-h
-h
-h
-h
-q
-q
-G
-Z
+W
+i
+i
+i
+i
+N
+N
+Q
+W
 "}
 (5,1,1) = {"
-Z
-h
-J
-h
-Z
-Z
-Z
-Z
-Z
+W
+i
+r
+i
+W
+W
+W
+W
+W
 "}

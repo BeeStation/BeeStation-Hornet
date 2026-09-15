@@ -350,9 +350,7 @@
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/arrival)
@@ -361,9 +359,7 @@
 /turf/open/floor/iron,
 /area/shuttle/arrival)
 "EG" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/arrival)
@@ -387,18 +383,14 @@
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/shuttle/arrival)
 "XW" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},

@@ -49,7 +49,7 @@
 /area/template_noop)
 "p" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/kirbyplants,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -130,9 +130,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/fluff/paper/stack{
 	dir = 1
 	},

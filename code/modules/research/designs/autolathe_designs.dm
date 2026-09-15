@@ -417,7 +417,7 @@
 	id = "plant_analyzer"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 30, /datum/material/glass = 20)
-	build_path = /obj/item/plant_analyzer
+	build_path = /obj/item/plant_scanner
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_MISC, RND_CATEGORY_TOOL_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 

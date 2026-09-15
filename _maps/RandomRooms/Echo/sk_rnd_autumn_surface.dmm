@@ -538,13 +538,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1110,10 +1103,6 @@
 /obj/structure/cable,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/template_noop)
-"tb" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1262,6 +1251,10 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/glass/reinforced,
 /area/template_noop)
+"vG" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "vH" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/cable,
@@ -1292,22 +1285,6 @@
 	},
 /obj/structure/sign/warning/secure_area,
 /turf/open/floor/plating/grass,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/turf/open/floor/wood,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -1483,6 +1460,17 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
+/area/template_noop)
+"zm" = (
+/obj/machinery/power/solar_control{
+	use_power = 0;
+	idle_power_usage = 0
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable,
+/obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "zr" = (
 /obj/effect/turf_decal/sand/plating,
@@ -1715,6 +1703,22 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"CU" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
+/area/template_noop)
 "CX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1938,6 +1942,13 @@
 /area/template_noop)
 "Gm" = (
 /turf/open/floor/glass/reinforced,
+/area/template_noop)
+"Gp" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "GC" = (
 /mob/living/simple_animal/hostile/gorilla{
@@ -2424,17 +2435,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"Qm" = (
-/obj/machinery/power/solar_control{
-	use_power = 0;
-	idle_power_usage = 0
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable,
-/obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/lowpop/solar_console,
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "Qo" = (
 /obj/structure/chair/wood/normal{
 	dir = 1;
@@ -2558,12 +2558,6 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"RO" = (
-/obj/item/kirbyplants{
-	pixel_x = -7
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "RW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2846,6 +2840,10 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
+/area/template_noop)
+"Wk" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
 /area/template_noop)
 "Ws" = (
 /obj/structure/fermenting_barrel{
@@ -6519,9 +6517,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+Gp
+vG
+vG
 Mg
 Mg
 Mg
@@ -6653,9 +6651,9 @@ gf
 bj
 PO
 FH
-iD
+Gp
 yW
-tb
+vG
 Mg
 Mg
 Mg
@@ -6787,9 +6785,9 @@ gf
 gf
 gf
 FH
-iD
-tb
-tb
+Gp
+vG
+vG
 Mg
 Mg
 Mg
@@ -6918,7 +6916,7 @@ Mg
 Mg
 gf
 bE
-RO
+Wk
 gf
 FH
 Du
@@ -7188,7 +7186,7 @@ gf
 tf
 sV
 gf
-wk
+CU
 Du
 DS
 Mg
@@ -13406,7 +13404,7 @@ xd
 hu
 XB
 Pd
-Qm
+zm
 sX
 TN
 tu

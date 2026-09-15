@@ -21,17 +21,6 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
-"fg" = (
-/obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "gl" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny,
@@ -43,29 +32,9 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"hz" = (
-/obj/item/kirbyplants{
-	icon_state = "applebush"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "kU" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration)
-"mj" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp/green{
-	pixel_x = -3;
-	pixel_y = 8;
-	start_on = 0
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "nI" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
@@ -115,6 +84,24 @@
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
+"st" = (
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -3;
+	pixel_y = 8;
+	start_on = 0
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"tq" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
 "tv" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
@@ -136,6 +123,12 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
+"vh" = (
+/obj/machinery/light,
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
 "wn" = (
 /obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable/yellow,
@@ -156,6 +149,23 @@
 /area/shuttle/exploration)
 "wG" = (
 /turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration)
+"xO" = (
+/obj/machinery/light,
+/obj/item/plant_tray/pot/random,
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
+"yU" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "AE" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -202,16 +212,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
-"Ij" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "In" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/emergency_oxygen/engi{
@@ -234,14 +234,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Mx" = (
-/obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-03"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "NL" = (
 /obj/structure/lattice/catwalk,
@@ -375,12 +367,12 @@ NL
 AZ
 AZ
 Fy
-hz
+tq
 pY
 pY
 pY
 pY
-fg
+xO
 wG
 kU
 TQ
@@ -424,7 +416,7 @@ AZ
 nZ
 Mi
 SQ
-mj
+st
 VA
 pY
 Ze
@@ -455,12 +447,12 @@ PK
 AZ
 AZ
 Qu
-Ij
+yU
 pY
 pY
 pY
 aT
-Mx
+vh
 wG
 wn
 nI
