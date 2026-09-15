@@ -53,3 +53,26 @@
 	for(var/obj/item/instrument/piano_synth/synth in oview(search_range, controller.pawn))
 		if(synth.type == /obj/item/instrument/piano_synth)
 			return synth
+
+/datum/ai_planning_subtree/approach_hamster_wheel
+
+/datum/ai_planning_subtree/approach_hamster_wheel/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/pawn = controller.pawn
+	var/atom/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
+	if(!isnull(wheel))
+		if (!isturf(wheel.loc) || !can_see(pawn, wheel))
+			controller.clear_blackboard_key(BB_HAMSTER_WHEEL)
+			return
+		if (pawn.CanReach(wheel))
+			return
+		controller.queue_behavior(/datum/ai_behavior/travel_towards/adjacent, BB_HAMSTER_WHEEL)
+		return SUBTREE_RETURN_FINISH_PLANNING
+	controller.queue_behavior(/datum/ai_behavior/find_and_set/hamster_wheel, BB_HAMSTER_WHEEL, /obj/machinery/power/port_gen/hamster_wheel)
+
+/datum/ai_behavior/find_and_set/hamster_wheel
+
+/datum/ai_behavior/find_and_set/hamster_wheel/search_tactic(datum/ai_controller/controller, locate_path, search_range = SEARCH_TACTIC_DEFAULT_RANGE)
+	for(var/obj/machinery/power/port_gen/hamster_wheel/wheel in oview(search_range, controller.pawn))
+		if(wheel.type == /obj/machinery/power/port_gen/hamster_wheel)
+			//TODO add a check to see if it is available
+			return wheel
