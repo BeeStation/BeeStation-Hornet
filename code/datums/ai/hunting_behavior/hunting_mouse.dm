@@ -73,6 +73,6 @@
 
 /datum/ai_behavior/find_and_set/hamster_wheel/search_tactic(datum/ai_controller/controller, locate_path, search_range = SEARCH_TACTIC_DEFAULT_RANGE)
 	for(var/obj/machinery/power/port_gen/hamster_wheel/wheel in oview(search_range, controller.pawn))
-		if(wheel.type == /obj/machinery/power/port_gen/hamster_wheel)
-			//TODO add a check to see if it is available
+		if(wheel.type == /obj/machinery/power/port_gen/hamster_wheel && wheel.anchored == TRUE && wheel.active == FALSE)
+			//Only use the wheel if it is available for running in
 			return wheel
