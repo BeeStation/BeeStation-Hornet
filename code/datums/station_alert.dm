@@ -31,12 +31,24 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/// The z-level the map renders. Consoles are bound to one z level and silicons will use the primary one.
+/// The z-level the map renders. Consoles are bound to one z level and silicons will use the primary one
 /datum/station_alert/proc/get_map_z()
 	if(length(listener.allowed_z_levels))
 		return listener.allowed_z_levels[1]
 	var/list/station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 	return length(station_levels) ? station_levels[1] : null
+
+/**
+ * Where the viewer sits on the schematic, as list(x, y) in cropped map space
+ */
+/datum/station_alert/proc/get_viewer_point(datum/minimap/minimap, map_z)
+	var/atom/console = holder
+	if(!ismachinery(console) || console.z != map_z)
+		return null
+	var/turf/console_turf = get_turf(console)
+	if(isnull(console_turf))
+		return null
+	return minimap.to_map_point(console_turf.x, console_turf.y)
 
 /// TGUI sends assets before it asks for payload, so prefer ui_assets as opposed to static :)
 /datum/station_alert/ui_assets(mob/user)
@@ -61,6 +73,7 @@
 		"width" = minimap.width,
 		"height" = minimap.height,
 		"areas" = minimap.areas,
+		"viewer" = get_viewer_point(minimap, map_z),
 	)
 	// Static because we derived it entirely from area vars fixed at compile time
 	var/list/not_applicable = list()

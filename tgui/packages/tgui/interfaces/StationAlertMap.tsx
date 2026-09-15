@@ -36,6 +36,8 @@ export type MapData = {
   width: number;
   height: number;
   areas: MapArea[];
+  /** [x, y] of the console on the schematic */
+  viewer: [number, number] | null;
 };
 
 type AreaStatus = {
@@ -144,6 +146,8 @@ const WORK_LAYER: Layer = {
   icon: 'screwdriver-wrench',
   color: '#5fb85f',
 };
+
+const VIEWER_COLOR = '#9adcff';
 
 const TOGGLES: Layer[] = [...LAYERS, COVERAGE_LAYER, WORK_LAYER];
 
@@ -367,7 +371,7 @@ export const AreaReadout = (props: { areaRef: string | null }) => {
 type StationAlertMapProps = {
   hovered: string | null;
   setHovered: (ref: string | null) => void;
-  /** Bumped by the alarm list to frame an area. The nonce lets the same one re-fire. */
+  /** Bumped by the alarm list to frame an area */
   focusRequest: { ref: string; nonce: number } | null;
 };
 
@@ -569,12 +573,7 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
 
   return (
     <Stack fill vertical>
-      {/* basis={0} so a tall schematic scrolls rather than pushing the toolbar off-window. */}
       <Stack.Item grow basis={0} style={{ overflow: 'auto' }}>
-        {/*
-          The schematic fills the width it is given and derives height from the viewBox
-          aspect. Sizing off `height: 100%` collapses when an ancestor resolves to auto.
-        */}
         <Box position="relative" width="100%" style={{ overflow: 'auto' }}>
           <svg
             ref={svgRef}
@@ -593,7 +592,6 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
             }}
           >
             <defs>
-              {/* Hatched, not tinted: colour is already carrying alarm state. */}
               <pattern
                 id="stationAlertBlind"
                 patternUnits="userSpaceOnUse"
@@ -656,7 +654,6 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                   }}
                   style={{ pointerEvents: 'all', cursor: 'pointer' }}
                 >
-                  {/* Fills only - stroking each rect would draw the area's internal seams. */}
                   {area.rects.map(([x, y, w, h], index) => (
                     <rect
                       key={index}
@@ -720,7 +717,6 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                 </g>
               );
             })}
-            {/* After the areas so department names sit above the fills. */}
             {departmentLabels.map(({ name, rect }) =>
               !rect ? null : (
                 <text
@@ -740,6 +736,56 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                   {name}
                 </text>
               ),
+            )}
+            {!!map.viewer && (
+              <g style={{ pointerEvents: 'none' }}>
+                <circle
+                  cx={map.viewer[0]}
+                  cy={map.viewer[1]}
+                  r={fontSize * 0.45}
+                  fill="none"
+                  stroke={VIEWER_COLOR}
+                  strokeWidth={fontSize * 0.12}
+                  opacity={0.55}
+                >
+                  <animate
+                    attributeName="r"
+                    values={`${fontSize * 0.45};${fontSize * 1.4}`}
+                    dur="2.4s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0.55;0"
+                    dur="2.4s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                <circle
+                  cx={map.viewer[0]}
+                  cy={map.viewer[1]}
+                  r={fontSize * 0.45}
+                  fill="none"
+                  stroke="#0b0e12"
+                  strokeWidth={fontSize * 0.26}
+                />
+                <circle
+                  cx={map.viewer[0]}
+                  cy={map.viewer[1]}
+                  r={fontSize * 0.45}
+                  fill="none"
+                  stroke={VIEWER_COLOR}
+                  strokeWidth={fontSize * 0.13}
+                />
+                <circle
+                  cx={map.viewer[0]}
+                  cy={map.viewer[1]}
+                  r={fontSize * 0.13}
+                  fill={VIEWER_COLOR}
+                  stroke="#0b0e12"
+                  strokeWidth={fontSize * 0.06}
+                />
+              </g>
             )}
           </svg>
         </Box>

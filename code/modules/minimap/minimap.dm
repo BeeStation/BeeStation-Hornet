@@ -1,6 +1,5 @@
 /**
- * One pixel per turf via icon.DrawBox(), cropped and scaled up. Rendered areas also decompose
- * into rectangles for overlays. One pass, lazy, cached for the round.
+ * One pixel per turf via icon.DrawBox(), cropped and scaled up
  */
 
 /// Assoc list of z-levels to /datum/minimap instances.
@@ -9,8 +8,6 @@ GLOBAL_ALIST_EMPTY(minimaps)
 /**
  * Carries rendered minimaps to clients through tgui's asset pipeline.
  *
- * Has to be a real asset datum. tgui sends ui_assets() during window open and blocks on the
- * flush. Go around it and the interface gets a URL for a resource the client never got.
  */
 /datum/asset/minimap
 	/// Assoc of asset filename to /datum/asset_cache_item, one per rendered z-level.
@@ -52,8 +49,6 @@ GLOBAL_ALIST_EMPTY(minimaps)
 	 * * ref - REF() of the area, the key consumers should send live state under.
 	 * * name - display name of the area.
 	 * * rects - list of list(x, y, w, h) in cropped map space, top-left origin.
-	 *
-	 * Cropped map space matches the icon's aspect, in turfs, y already flipped to image top.
 	 */
 	var/list/areas = list()
 
@@ -160,12 +155,9 @@ GLOBAL_ALIST_EMPTY(minimaps)
  *
  * Takes "[y]" to list of x on that row, returns list(x1, y1, x2, y2) inclusive bounds. Rows
  * become horizontal runs, then runs sharing columns on adjacent rows merge vertically.
- *
- * Kept clear of turfs and areas to keep it unit testable. A mistake here misaligns the overlay
- * silently
  */
 /proc/decompose_rows_to_rects(list/rows)
-	// "[x1]-[x2]" -> list of y coordinates sharing that horizontal run.
+	// "[x1]-[x2]" -> list of y coordinates sharing that horizontal run
 	var/list/spans = list()
 	for(var/y_key in rows)
 		var/y = text2num(y_key)
@@ -203,7 +195,7 @@ GLOBAL_ALIST_EMPTY(minimaps)
 		rects += list(list(x1, run_start, x2, previous))
 	return rects
 
-/// World-space rect to cropped map space. Origin top left, y down, measured in turfs.
+/// World-space rect to cropped map space. Origin top left, y down, measured in turfs
 /datum/minimap/proc/to_map_rect(x1, y1, x2, y2)
 	return list(
 		x1 - min_x,
@@ -212,7 +204,13 @@ GLOBAL_ALIST_EMPTY(minimaps)
 		y2 - y1 + 1,
 	)
 
-/// Generates the Z-level's /datum/minimap if it hasn't been yet.
+/// Center in cropped map space, or null if outside it
+/datum/minimap/proc/to_map_point(x, y)
+	if(x < min_x || x > max_x || y < min_y || y > max_y)
+		return null
+	return list(x - min_x + 0.5, max_y - y + 0.5)
+
+/// Generates the Z-level's /datum/minimap if it hasn't been yet
 /proc/get_minimap_for_z(z) as /datum/minimap
 	var/static/generating_minimap = FALSE
 	UNTIL(!generating_minimap)
