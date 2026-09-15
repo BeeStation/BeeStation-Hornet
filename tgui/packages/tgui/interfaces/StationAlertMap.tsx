@@ -131,6 +131,17 @@ const INTEGRITY_LAYER: Layer = {
 
 const LAYERS: Layer[] = [...ALARM_LAYERS, APC_LAYER, INTEGRITY_LAYER];
 
+type GlyphShape = 'circle' | 'square' | 'triangle' | 'triangleDown' | 'diamond';
+
+/** Shape as well as colour, so a colour-blind reader can still tell fills apart */
+const FAULT_SHAPES: Record<string, GlyphShape> = {
+  Fire: 'triangle',
+  Atmosphere: 'circle',
+  Power: 'square',
+  [APC_LAYER.id]: 'diamond',
+  [INTEGRITY_LAYER.id]: 'triangleDown',
+};
+
 const INTEGRITY_DAMAGED_AT = 90;
 
 const COVERAGE_LAYER: Layer = {
@@ -181,36 +192,82 @@ const BLIND_GRID_LABELS: Record<string, string> = {
 /** Blind now, as opposed to never having had the sensor. */
 const isLiveGap = (reason?: string) => !!reason && reason !== 'asbuilt';
 
-const getAreaColor = (
+const getAreaFaults = (
   status: AreaStatus | undefined,
   enabled: Record<string, boolean>,
-): string | null => {
+): Layer[] => {
   if (!status) {
-    return null;
+    return [];
   }
+  const faults: Layer[] = [];
   for (const layer of ALARM_LAYERS) {
-    if (enabled[layer.id] && status.alarms?.includes(layer.id)) {
-      return layer.color;
+    if (!enabled[layer.id]) {
+      continue;
     }
     if (
-      layer.id === 'Atmosphere' &&
-      enabled[layer.id] &&
-      status.pressure !== undefined
+      status.alarms?.includes(layer.id) ||
+      (layer.id === 'Atmosphere' && status.pressure !== undefined)
     ) {
-      return layer.color;
+      faults.push(layer);
     }
   }
   if (enabled[APC_LAYER.id] && status.power) {
-    return APC_LAYER.color;
+    faults.push(APC_LAYER);
   }
   if (
     enabled[INTEGRITY_LAYER.id] &&
     status.integrity !== undefined &&
     status.integrity <= INTEGRITY_DAMAGED_AT
   ) {
-    return INTEGRITY_LAYER.color;
+    faults.push(INTEGRITY_LAYER);
   }
-  return null;
+  return faults;
+};
+
+const FaultGlyph = (props: {
+  shape: GlyphShape;
+  color: string;
+  cx: number;
+  cy: number;
+  size: number;
+}) => {
+  const { shape, color, cx, cy, size } = props;
+  const r = size / 2;
+  // paintOrder puts the stroke behind the fill, haloing it like the labels
+  const halo = {
+    fill: color,
+    stroke: '#0b0e12',
+    strokeWidth: size * 0.26,
+    paintOrder: 'stroke' as const,
+    style: { pointerEvents: 'none' as const },
+  };
+  switch (shape) {
+    case 'circle':
+      return <circle cx={cx} cy={cy} r={r} {...halo} />;
+    case 'square':
+      return <rect x={cx - r} y={cy - r} width={size} height={size} {...halo} />;
+    case 'diamond':
+      return (
+        <polygon
+          points={`${cx},${cy - r} ${cx + r},${cy} ${cx},${cy + r} ${cx - r},${cy}`}
+          {...halo}
+        />
+      );
+    case 'triangleDown':
+      return (
+        <polygon
+          points={`${cx - r},${cy - r} ${cx + r},${cy - r} ${cx},${cy + r}`}
+          {...halo}
+        />
+      );
+    default:
+      return (
+        <polygon
+          points={`${cx},${cy - r} ${cx + r},${cy + r} ${cx - r},${cy + r}`}
+          {...halo}
+        />
+      );
+  }
 };
 
 const isAreaBlind = (
@@ -637,7 +694,8 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
             {map.areas.map((area) => {
               const isSelected = area.ref === selected;
               const filters = isSelected ? ALL_LAYERS_ON : enabled;
-              const color = getAreaColor(status[area.ref], filters);
+              const faults = getAreaFaults(status[area.ref], filters);
+              const color = faults[0]?.color ?? null;
               // An active alarm outranks a coverage gap
               const blind = !color && isAreaBlind(status[area.ref], filters);
               const isHovered = !dragging && area.ref === hovered;
@@ -653,6 +711,29 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                 !!labelRect &&
                 (isSelected ||
                   (labelRect[2] > textWidth && labelRect[3] > fontSize * 1.6));
+              const cx = labelRect ? labelRect[0] + labelRect[2] / 2 : 0;
+              const cy = labelRect ? labelRect[1] + labelRect[3] / 2 : 0;
+              const glyphSize = fontSize * 0.62;
+              const glyphStep = glyphSize * 1.5;
+              // Drop the ones the room has no width for rather than overflowing it
+              const glyphs =
+                labelRect && labelRect[3] > glyphSize * 1.5
+                  ? faults.slice(0, Math.floor(labelRect[2] / glyphStep))
+                  : [];
+              const hasWork =
+                enabled[WORK_LAYER.id] &&
+                workAreas.has(area.ref) &&
+                !!labelRect;
+              // to stack instead of overlaying
+              const tiers =
+                (hasWork ? 1 : 0) +
+                (showLabel ? 1 : 0) +
+                (glyphs.length ? 1 : 0);
+              const tierGap = fontSize * 1.05;
+              const tierTop = cy - ((tiers - 1) * tierGap) / 2;
+              const labelY = tierTop + (hasWork ? tierGap : 0);
+              const glyphY =
+                tierTop + ((hasWork ? 1 : 0) + (showLabel ? 1 : 0)) * tierGap;
               return (
                 <g
                   key={area.ref}
@@ -696,27 +777,31 @@ export const StationAlertMap = (props: StationAlertMapProps) => {
                         fillOpacity={wash.opacity}
                       />
                     ))}
-                  {enabled[WORK_LAYER.id] &&
-                    workAreas.has(area.ref) &&
-                    !!labelRect && (
-                      <circle
-                        cx={labelRect[0] + labelRect[2] / 2}
-                        cy={
-                          labelRect[1] +
-                          labelRect[3] / 2 -
-                          (showLabel ? fontSize * 1.1 : 0)
-                        }
-                        r={fontSize * 0.35}
-                        fill={WORK_LAYER.color}
-                        stroke="#0b0e12"
-                        strokeWidth={fontSize * 0.1}
-                        style={{ pointerEvents: 'none' }}
-                      />
-                    )}
+                  {hasWork && (
+                    <circle
+                      cx={cx}
+                      cy={tierTop}
+                      r={fontSize * 0.35}
+                      fill={WORK_LAYER.color}
+                      stroke="#0b0e12"
+                      strokeWidth={fontSize * 0.1}
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  )}
+                  {glyphs.map((layer, index) => (
+                    <FaultGlyph
+                      key={layer.id}
+                      shape={FAULT_SHAPES[layer.id]}
+                      color={layer.color}
+                      size={glyphSize}
+                      cx={cx + (index - (glyphs.length - 1) / 2) * glyphStep}
+                      cy={glyphY}
+                    />
+                  ))}
                   {showLabel && (
                     <text
-                      x={labelRect[0] + labelRect[2] / 2}
-                      y={labelRect[1] + labelRect[3] / 2}
+                      x={cx}
+                      y={labelY}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       fontSize={fontSize}
