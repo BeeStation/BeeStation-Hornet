@@ -63153,7 +63153,8 @@
 "tIf" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	dir = 8;
+	volume_rate = 200
 	},
 /turf/open/space,
 /area/station/engineering/atmospherics_engine)

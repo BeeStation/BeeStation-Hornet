@@ -71508,7 +71508,8 @@
 /area/station/medical/storage)
 "vdQ" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	dir = 8;
+	volume_rate = 200
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/space/basic,
