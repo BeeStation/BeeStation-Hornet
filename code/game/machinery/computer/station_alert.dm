@@ -35,8 +35,11 @@
 	. = ..()
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if(length(alert_control.listener.alarms))
+	var/list/alarms = alert_control.listener.alarms
+	if(alarms[ALARM_ATMOS] || alarms[ALARM_FIRE])
 		. += "alert:2"
+	else if(length(alarms))
+		. += "alert:1"
 
 /**
  * Signal handler for calling an icon update in case an alarm is added or cleared
