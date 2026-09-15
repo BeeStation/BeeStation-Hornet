@@ -6,8 +6,18 @@
 	icon = 'icons/obj/machines/power/manual.dmi'
 	icon_state = "hamster_wheel"
 	base_icon_state = "hamster_wheel"
+	density = FALSE
 	// circuit = /obj/item/circuitboard/machine/pacman
 	power_gen = 0.5 WATT
+
+/obj/machinery/power/port_gen/hamster_wheel/set_anchored(anchorvalue)
+	. = ..()
+	if(isnull(.))
+		return //no need to process if we didn't change anything.
+	if(anchorvalue)
+		connect_to_network()
+	else
+		disconnect_from_network()
 
 /obj/machinery/power/port_gen/hamster_wheel/attackby(obj/item/O, mob/user, params)
 	if(!active)

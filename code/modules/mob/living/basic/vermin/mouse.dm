@@ -412,7 +412,8 @@
 		/datum/ai_planning_subtree/flee_target/mouse,
 		// Check to see if there is an available wheel nearby for us to run on
 		/datum/ai_planning_subtree/approach_hamster_wheel,
-		//TODO If we are near the wheel, run on it
+		// If we are near the wheel, run on it
+		/datum/ai_planning_subtree/run_hamster_wheel,
 		// Otherwise, look for and execute hunts for cabling
 		/datum/ai_planning_subtree/find_and_hunt_target/look_for_cables,
 	)

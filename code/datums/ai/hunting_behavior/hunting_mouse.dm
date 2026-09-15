@@ -76,3 +76,14 @@
 		if(wheel.type == /obj/machinery/power/port_gen/hamster_wheel && wheel.anchored == TRUE && wheel.active == FALSE)
 			//Only use the wheel if it is available for running in
 			return wheel
+
+
+/datum/ai_planning_subtree/run_hamster_wheel/
+
+/datum/ai_planning_subtree/run_hamster_wheel/SelectBehaviors(datum/ai_controller/controller, delta_time)
+	. = ..()
+	if (controller.blackboard_key_exists(BB_HAMSTER_WHEEL))
+		var/obj/machinery/power/port_gen/hamster_wheel/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
+		if (wheel.active != TRUE)
+			wheel.TogglePower()
+		return SUBTREE_RETURN_FINISH_PLANNING // Don't plan anything else if we're playing an instrument
