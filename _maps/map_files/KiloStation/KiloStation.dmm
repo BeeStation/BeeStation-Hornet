@@ -33776,10 +33776,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/station/cargo/warehouse)
-"lMZ" = (
-/obj/item/paper/crumpled,
-/turf/closed/mineral/random/labormineral,
-/area/misc/space/nearstation)
 "lNe" = (
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
@@ -88083,7 +88079,7 @@ xxE
 xxE
 xxE
 xxE
-lMZ
+xxE
 gBA
 owE
 xOI
