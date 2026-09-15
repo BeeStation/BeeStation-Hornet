@@ -29630,9 +29630,7 @@
 /area/station/command/bridge)
 "kqV" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/station/science/lower)
 "krf" = (
 /obj/structure/grille,
@@ -40491,9 +40489,7 @@
 /area/station/security/execution/transfer)
 "nTf" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
+/turf/open/floor/plating,
 /area/station/science/explab)
 "nTm" = (
 /turf/open/floor/engine{
