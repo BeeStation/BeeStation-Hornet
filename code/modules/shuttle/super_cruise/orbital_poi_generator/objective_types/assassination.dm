@@ -42,29 +42,29 @@
 		qdel(SA)
 	switch(pick_weight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3, "funnyman" = 2)))
 		if("secretagentman")
-			created_human.flavor_text = "On behalf of your Benefactors, you lead a life of danger - To everyone you meet, you stay a stranger. but you moved too much, took too many chances - \
+			created_human.mob_flavor_text = "On behalf of your Benefactors, you lead a life of danger - To everyone you meet, you stay a stranger. but you moved too much, took too many chances - \
 			Considering Nanotrasen's onto you, odds are you won't live to see tomorrow."
 			created_human.equipOutfit(/datum/outfit/vip_target/super_spy)
 		if("dictator")
-			created_human.flavor_text = "It has been months since your regime fell. Once a hero, you're now just someone wishing that they will see the next sunrise. You know those \
+			created_human.mob_flavor_text = "It has been months since your regime fell. Once a hero, you're now just someone wishing that they will see the next sunrise. You know those \
 				Nanotrasen pigs are after you, and will stop at nothing to capture you. All you want at this point is to get out and survive, however it is likely you will never leave \
 				without being captured, or worse..."
 			created_human.equipOutfit(/datum/outfit/vip_target/vip_dictator)
 		if("greytide")
-			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, but you broke the wrong airlock - \
+			created_human.mob_flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, but you broke the wrong airlock - \
 			Now your former employer, Nanotrasen, is after you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 		if("operative")
-			created_human.flavor_text = "You are a Syndicate operative employed by Cybersun Industries, currently scavenging for valuable resources in the wrecks of Nanotrasen Derelicts. \
+			created_human.mob_flavor_text = "You are a Syndicate operative employed by Cybersun Industries, currently scavenging for valuable resources in the wrecks of Nanotrasen Derelicts. \
 			However, upon being dropped off for your shift, the shuttle that flew you onboard was shot down by Nanotrasen's forces. You know it's only a matter of time before they find you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/vip_operative)
 			//suit_type = /obj/item/clothing/suit/space/hardsuit/cybersun //On par with the explorer suit, nothing too wacky.
 			mask_type = /obj/item/clothing/mask/gas/syndicate
 		if("funnyman")
-			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
+			created_human.mob_flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
 			echoing in your mind..."
 			created_human.equipOutfit(/datum/outfit/vip_target/clown)
-	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
+	created_human.mind.store_memory("[created_human.mob_flavor_text] - Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human
 	//Give them space-worthy suit and other equipment

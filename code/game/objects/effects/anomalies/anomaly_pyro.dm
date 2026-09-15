@@ -25,6 +25,6 @@
 	S.rabid = TRUE
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
-	S.flavor_text = FLAVOR_TEXT_EVIL
+	S.mob_flavor_text = FLAVOR_TEXT_EVIL
 	S.transformeffects = SLIME_EFFECT_LIGHT_PINK
 	S.set_playable_slime(ROLE_PYRO_SLIME)
