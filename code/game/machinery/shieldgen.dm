@@ -227,8 +227,6 @@ WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
 	req_access = list(ACCESS_TELEPORTER)
 	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/shieldwallgen
 	max_integrity = 300
 	var/shieldstate = SHIELD_NOTACTIVE

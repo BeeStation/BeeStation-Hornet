@@ -279,12 +279,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	icon = 'icons/obj/machines/bci_implanter.dmi'
 	icon_state = "bci_implanter"
 	layer = ABOVE_WINDOW_LAYER
-	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
-	idle_power_usage = 50
-	active_power_usage = 300
 
 	var/busy = FALSE
 	var/busy_icon_state
@@ -406,6 +403,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	if (!occupant || busy)
 		return
 
+	update_use_power(ACTIVE_POWER_USE)
+
 	var/locked_state = locked
 	locked = TRUE
 
@@ -415,6 +414,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	addtimer(CALLBACK(src, PROC_REF(complete_process), locked_state), 3 SECONDS)
 
 /obj/machinery/bci_implanter/proc/complete_process(locked_state)
+	update_use_power(IDLE_POWER_USE)
 	locked = locked_state
 	set_busy(FALSE)
 
@@ -511,6 +511,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	name = "Brain-Computer Interface Manipulation Chamber (Machine Board)"
 	build_path = /obj/machinery/bci_implanter
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/manipulator = 1,
 	)
