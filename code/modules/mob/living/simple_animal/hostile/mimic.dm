@@ -13,7 +13,7 @@
 	maxHealth = 250
 	health = 250
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
+	mob_biotypes = NONE
 
 	melee_damage = 10
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -21,7 +21,7 @@
 	speak_emote = list("creaks")
 	taunt_chance = 30
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_MIMIC)
@@ -38,6 +38,7 @@
 /mob/living/simple_animal/hostile/mimic/crate
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
 	wander = FALSE

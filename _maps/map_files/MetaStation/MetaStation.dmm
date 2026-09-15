@@ -156,6 +156,7 @@
 "acM" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "acW" = (
@@ -4095,6 +4096,7 @@
 "bMS" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "bNn" = (
@@ -6819,6 +6821,7 @@
 /area/station/hallway/primary/central)
 "cMm" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "cMG" = (
@@ -7363,6 +7366,7 @@
 "cYz" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "cYE" = (
@@ -8722,6 +8726,7 @@
 	pixel_y = -32
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "dxD" = (
@@ -14115,6 +14120,7 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "fnN" = (
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/floor/plating/airless,
 /area/station/solars/starboard/fore)
 "fnP" = (
@@ -37733,6 +37739,7 @@
 	name = "Starboard Bow Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron,
 /area/station/maintenance/solars/starboard/fore)
 "nnS" = (
@@ -43971,6 +43978,7 @@
 	name = "Port Quarter Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "prM" = (
@@ -45336,6 +45344,7 @@
 "pRZ" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "pSi" = (
@@ -52346,6 +52355,7 @@
 /area/station/cargo/office)
 "slt" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "slw" = (
@@ -52994,6 +53004,7 @@
 	name = "Port Bow Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/fore)
 "sww" = (
@@ -53548,6 +53559,7 @@
 /area/station/command/heads_quarters/cmo)
 "sFB" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "sFG" = (
@@ -60365,6 +60377,7 @@
 "uRr" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "uRC" = (
@@ -62385,6 +62398,7 @@
 /area/station/maintenance/starboard/fore)
 "vBe" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "vBo" = (

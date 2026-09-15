@@ -1,0 +1,11 @@
+ambispace3.ogg was made by Qustinnus (https://github.com/tgstation/tgstation/pull/50855)
+
+ambispace4.ogg is Sipping Bird, by Capsandi. It has been licensed under CC-BY 3.0 license. (https://github.com/tgstation/tgstation/pull/75379)
+
+ambispace5.ogg was made by the-og-gear (https://github.com/tgstation/tgstation/pull/76320)
+
+ambispace6.ogg (https://github.com/tgstation/tgstation/pull/76547)
+
+constellations.ogg is from "Constellations" https://www.youtube.com/watch?v=ufwRj1LI3aw by qwertyquerty
+drifting.ogg is from "Drifting" https://www.youtube.com/watch?v=8I3ivc8JcmM by qwertyquerty
+starlight.ogg is from "Starlight" https://www.youtube.com/watch?v=XTfPEFfmhrA by qwertyquerty

@@ -11,7 +11,7 @@
 /datum/paintings_manager
 
 /datum/paintings_manager/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/paintings_manager/ui_close(mob/user)
 	qdel(src)

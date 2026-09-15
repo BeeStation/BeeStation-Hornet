@@ -1469,14 +1469,6 @@
 /obj/effect/turf_decal/siding/dark,
 /obj/effect/turf_decal/trimline/dark_red,
 /obj/machinery/light/small/directional/east,
-/obj/machinery/turretid{
-	ailock = 1;
-	control_area = "/area/ruin/syndicate_lava_base/virology";
-	name = "Base turret controls";
-	req_access = null;
-	req_access_txt = "150";
-	pixel_x = 30
-	},
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bridge)
 "nb" = (
@@ -1900,8 +1892,15 @@
 "rS" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/turretid{
+	ailock = 1;
+	control_area = "/area/ruin/syndicate_lava_base/virology";
+	name = "Base turret controls";
+	req_access = null;
+	req_access_txt = "150"
+	},
 /turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/bridge)
+/area/ruin/syndicate_lava_base/virology)
 "sa" = (
 /obj/structure/cable/yellow,
 /obj/machinery/firealarm/directional/west,

@@ -242,7 +242,6 @@
 	body_parts_covered = HEAD
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"

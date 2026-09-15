@@ -37,6 +37,8 @@
 #define BODYPART_PSEUDOPART (1<<1)
 /// Bodypart did not match the owner's default bodypart limb_id when surgically implanted
 #define BODYPART_IMPLANTED (1<<2)
+/// Bodypart never displays as a husk
+#define BODYPART_UNHUSKABLE (1<<3)
 
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()
@@ -60,11 +62,20 @@
 ///Return true if target is not in a valid body position for the surgery
 #define IS_IN_INVALID_SURGICAL_POSITION(target, surgery) ((surgery.surgery_flags & SURGERY_REQUIRE_RESTING) && (target.mobility_flags & MOBILITY_LIEDOWN && target.body_position != LYING_DOWN))
 
+// Flags for the head_flags var on /obj/item/bodypart/head
+/// Head can have hair
+#define HEAD_HAIR (1<<0)
+/// Head can have facial hair
+#define HEAD_FACIAL_HAIR (1<<1)
+/// Head can have lips
+#define HEAD_LIPS (1<<2)
 /// Head can have eye sprites
-#define HEAD_EYESPRITES (1<<1)
+#define HEAD_EYESPRITES (1<<3)
 /// Head will have colored eye sprites
-#define HEAD_EYECOLOR (1<<2)
+#define HEAD_EYECOLOR (1<<4)
 /// Head can have eyeholes when missing eyes
-#define HEAD_EYEHOLES (1<<3)
+#define HEAD_EYEHOLES (1<<5)
+/// Head can have debrain overlay
+#define HEAD_DEBRAIN (1<<6)
 /// All head flags, default for most heads
-#define HEAD_ALL_FEATURES (HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES)
+#define HEAD_ALL_FEATURES (HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN)

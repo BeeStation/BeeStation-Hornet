@@ -27,12 +27,12 @@
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
 
-/obj/item/gun/ballistic/automatic/update_icon()
-	..()
+/obj/item/gun/ballistic/automatic/update_overlays()
+	. = ..()
 	if(!select)
-		add_overlay("[initial(icon_state)]_semi")
+		. += "[initial(icon_state)]_semi"
 	if(select == 1)
-		add_overlay("[initial(icon_state)]_burst")
+		. += "[initial(icon_state)]_burst"
 
 /obj/item/gun/ballistic/automatic/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_firemode))
@@ -160,15 +160,6 @@
 			underbarrel.attackby(A, user, params)
 	else
 		..()
-
-/obj/item/gun/ballistic/automatic/m90/update_icon()
-	..()
-	switch(select)
-		if(0)
-			add_overlay("[initial(icon_state)]_semi")
-		if(1)
-			add_overlay("[initial(icon_state)]_burst")
-	return
 
 /obj/item/gun/ballistic/automatic/m90/burst_select()
 	var/mob/living/carbon/human/user = usr

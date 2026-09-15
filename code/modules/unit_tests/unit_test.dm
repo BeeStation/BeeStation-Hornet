@@ -164,7 +164,6 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 /// Helper for screenshot tests to take an image of an atom from all directions and insert it into one icon
 /datum/unit_test/proc/get_flat_icon_for_all_directions(atom/thing, no_anim = TRUE, override_plane = null)
-	COMPILE_OVERLAYS(thing)
 	var/icon/output = icon('icons/effects/effects.dmi', "nothing")
 
 	if (!istype(thing))

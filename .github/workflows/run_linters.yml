@@ -9,9 +9,9 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Restore SpacemanDMM cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm-${{ hashFiles('dependencies.sh') }}
@@ -22,26 +22,26 @@ jobs:
         with:
           restore-yarn-cache: true
       - name: Restore Bootstrap cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: tools/bootstrap/.cache
           key: ${{ runner.os }}-bootstrap-${{ hashFiles('/tools/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-bootstrap-
       - name: Restore Rust cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cargo
           key: ${{ runner.os }}-rust-${{ hashFiles('/tools/ci/ci_dependencies.sh')}}
           restore-keys: |
             ${{ runner.os }}-rust-
       - name: Restore Cutter cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: tools/icon_cutter/cache
           key: ${{ runner.os }}-cutter-${{ hashFiles('dependencies.sh') }}
       - name: Python setup
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Setup .NET SDK
@@ -49,7 +49,7 @@ jobs:
         with:
           dotnet-version: 9.x
       - name: Install OpenDream
-        uses: robinraju/release-downloader@v1.12
+        uses: robinraju/release-downloader@v1.13
         with:
           repository: "OpenDreamProject/OpenDream"
           tag: "latest"
@@ -89,16 +89,25 @@ jobs:
         id: map-filter
         uses: dorny/paths-filter@v4
         with:
+          list-files: shell
           filters: |
-            run_maps:
-              - '**.dmm'
+            tool_edits:
               - 'tools/maplint/**'
               - 'tools/mapmerge2/**'
+            map_edits:
+              - '**.dmm'
+
       - name: Run Map Checks
-        if: steps.linter-setup.conclusion == 'success' && !cancelled() && steps.map-filter.outputs.run_maps == 'true'
+        if: steps.linter-setup.conclusion == 'success' && !cancelled() && (steps.map-filter.outputs.tool_edits == 'true' || steps.map-filter.outputs.map_edits == 'true')
         run: |
-          tools/bootstrap/python -m mapmerge2.dmm_test
-          tools/bootstrap/python -m tools.maplint.source
+          if [ "${{ steps.map-filter.outputs.tool_edits }}" = "true" ]; then
+            MAPS=$(find . -type f -name "*.dmm")
+          else
+            MAPS="${{ steps.map-filter.outputs.map_edits_files }}"
+          fi
+
+          tools/bootstrap/python -m mapmerge2.dmm_test $MAPS
+          tools/bootstrap/python -m tools.maplint.source $MAPS
       - name: Check Cutter
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: tools/bootstrap/python -m tools.icon_cutter.check

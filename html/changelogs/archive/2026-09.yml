@@ -1,0 +1,90 @@
+2026-09-03:
+  Programs-The-Station:
+  - bugfix: Ecto Sniffer, Fax Machines, and Security Pager Radios Work again.
+2026-09-04:
+  WhiskeyMarten:
+  - tweak: The base minimum player requirement for antags is now 6.
+  - tweak: Spiders now have a minimum player requirement of 10.
+  - tweak: Wizard midround, Dragon, and Blob now have a minimum player requirement
+      of 20.
+  - bugfix: Fixed the heretic midround not having a minimum player requirement, resulting
+      in them being unable to complete objectives due to lack of targets (It is now
+      14, same as their roundstart counterpart)
+2026-09-05:
+  Geatish:
+  - bugfix: You can now craft the voice modulator mask again, now with both the old
+      and new mask
+  r1ks-iwnl:
+  - bugfix: Fixes loadout accessory backpacks(cyborg ones) not spawning
+2026-09-06:
+  Isaacnml:
+  - bugfix: Cloning respects your original gender, it'll no longer default to male
+      only
+  - bugfix: Slimeperson clones will respect your gender, it'll no longer default to
+      male
+  mrmanlikesbt:
+  - bugfix: Fixed the modsuit GPS having an error overlay when enabled
+  - bugfix: Fixed cyborg heads having a no-eyes overlay like normal fleshy heads
+  - bugfix: Fixed the debug robotics holodeck having an IPC brain instead of the intended
+      positronic brain
+  - bugfix: Fixed a person permanently becoming trapped if the cryo cell that they
+      were in was broken
+  - bugfix: Fixed advanced tools losing their inhand sprite when switching to their
+      secondary mode
+  - bugfix: Fixed the toilet lock button on BoxStation not bolting the door
+  - spellcheck: Mecha construction now correctly refers to the manipulators it requires
+      as manipulators instead of servos
+2026-09-13:
+  r1ks, rkz:
+  - bugfix: Fixes cloning randomizing unique enzymes(relevant to blood,  identity
+      checks) and non-human appearance, and a few other sources of enzymes not being
+      assigned.
+  - bugfix: Fixes cloning not respecting the cloned's enzymes, blood type, age
+  rkz, nemvar, ArcaneMusic, nightred, MrMelbert, Time-Green, itseasytosee, vinylspiders, kapu1178, san7890:
+  - bugfix: mood should stay within sanity levels more consistently
+  - bugfix: Fixed an issue where unstable people could regain sanity
+  - rscadd: Adds a new surgery, Stomach Pump, which allows you to purge a patient's
+      stomach via surgery
+  - tweak: The stomach is now needed to eat food or drink
+  - tweak: Vomiting now empties the stomach only
+  - tweak: adds new system for organ failure, in which when a organ reaches 100 damage,
+      it becomes nonfunctional
+  - rscadd: Items hidden in bread, cake, and cheeses can now have unique interactions
+      when someone bites into it them.
+  - code_imp: unit tests reagent code
+  - refactor: ethereal & IPC hunger mechanics are now tied to their stomachs. Whether
+      you can adequately manage said hunger as someone implanted with said stomach
+      is another question entirely.
+  - balance: Change liver to not purge toxins instantly for low amounts. Instead the
+      toxin effect gets skipped while it is metabolized normally, however it still
+      does liver damage. This fixes bite increments for food, cigarettes, and drinks
+      where the toxins would purge without building up to harmful levels.
+  - balance: Change the formula for how toxins effect livers. Livers will be damaged
+      based on the units of toxin present and their lethality.
+  - balance: Change alien liver toxin resistance value to be -33% and cybernetic liver
+      toxin resistance value to be +50%
+  - bugfix: plasmamen no longer can suffer liver failure from injecting themselves
+      with plasma (unless they have a human liver for some reason).
+  - bugfix: plasmamen no longer can suffer liver failure from consuming other organic
+      toxins, which they are not supposed to be affected by.
+  - balance: Water now makes you wet on touch and vapor application, with vapor being
+      much less effective than touch. Spray bottles of water *can* put someone out.
+  - refactor: optimizes INVOKE_ASYNC and makes it pass args correctly
+  - code_imp: vomit() now uses bitflag args
+  - refactor: Rewrites how addiction points are applied from reagents. Some reagents
+      may be marginally more or less addictive as a consequence.
+  - balance: Addiction gained per metabolism tick now scales to the amount of reagents
+      metabolized. In other words if you metabolize 0.2 units instead of the expected
+      0.4 units, you get 0.5x of the amount of addiction gain. This ultimately changes
+      very little and I would imagine it's how most people expected it to work in
+      the first place...
+  - code_imp: command jobs restriction on lowpop is now set via config, default to
+      off
+  - rscadd: extreme hunger will now cause slowdown and stamina effects. Reaching zero
+      satiety will exhaust the carbon.
+2026-09-14:
+  mrmanlikesbt:
+  - rscadd: Solars are now automatically set up if the round starts without any engineers
+  r1ks-iwnl:
+  - bugfix: Fixed teleports that check if you're on a safe tile(heretic blade break,
+      ninja dojo returning, swarmer ctrlclick etc.)

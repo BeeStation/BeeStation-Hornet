@@ -41,9 +41,8 @@
 
 /datum/role_preference/midround/obsessed/get_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/victim_dummy = new
-	victim_dummy.hair_color = "#bb9966" // Brown
-	victim_dummy.hair_style = "Messy"
-	victim_dummy.update_hair()
+	victim_dummy.set_hairstyle( "Messy", update = FALSE)
+	victim_dummy.set_haircolor("#bb9966", update = TRUE)
 
 	var/icon/obsessed_icon = render_preview_outfit(/datum/outfit/obsessed)
 	//obsessed_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)

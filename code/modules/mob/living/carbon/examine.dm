@@ -122,13 +122,20 @@
 	if(pulledby?.grab_state)
 		. += span_warning("[t_He] [t_is] restrained by [pulledby]'s grip.")
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
-		. += span_warning("[t_He] [t_is] severely malnourished.")
-	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
-			. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
-		else
-			. += "<b>[t_He] [t_is] quite chubby.</b>"
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+			. += span_warning("[t_He] [t_is] severely malnourished.")
+		else if(nutrition < NUTRITION_LEVEL_STARVING)
+			. += span_warning("[t_He] look[p_s()] gaunt, and move[p_s()] like every step is an effort.")
+		else if(nutrition < NUTRITION_LEVEL_HUNGRY)
+			. += span_warning("[t_He] look[p_s()] underfed.")
+		else if(nutrition < NUTRITION_LEVEL_FED)
+			. += span_notice("[t_He] look[p_s()] hungry.")
+		else if(nutrition >= NUTRITION_LEVEL_FAT)
+			if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+				. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
+			else
+				. += "<b>[t_He] [t_is] quite chubby.</b>"
 	switch(disgust)
 		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
 			. += "[t_He] look[p_s()] a bit grossed out."
@@ -138,9 +145,9 @@
 			. += "[t_He] look[p_s()] extremely disgusted."
 
 	var/apparent_blood_volume = blood_volume
-	if(ishuman(src))
+	if(HAS_TRAIT(src, TRAIT_USES_SKINTONES) && ishuman(src))
 		var/mob/living/carbon/human/human_us = src // gross istypesrc but easier than refactoring even further for now
-		if(human_us.dna.species.use_skintones && human_us.skin_tone == "albino")
+		if(human_us.skin_tone == "albino")
 			apparent_blood_volume -= (BLOOD_VOLUME_NORMAL * 0.25) // knocks you down a few pegs
 	switch(apparent_blood_volume)
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)

@@ -132,15 +132,14 @@
 	if(!isopenturf(O))
 		return FALSE
 	var/datum/gas_mixture/merger = new
-	merger.assert_gas(spawn_id)
-	merger.gases[spawn_id][MOLES] = spawn_mol * delta_time
+	merger.moles[spawn_id] = spawn_mol * delta_time
 	merger.temperature = spawn_temp
 	O.assume_air(merger)
 
 /obj/machinery/atmospherics/miner/attack_silicon(mob/living/silicon/user)
 	if(broken)
-		to_chat(user, "[src] seems to be broken. Its debug interface outputs: [broken_message]")
-	..()
+		to_chat(user, span_warning("[src] seems to be broken. Its debug interface outputs: [broken_message]"))
+	return ..()
 
 /obj/machinery/atmospherics/miner/n2o
 	name = "\improper N2O Gas Miner"

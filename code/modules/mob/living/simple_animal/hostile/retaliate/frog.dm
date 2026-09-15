@@ -15,6 +15,7 @@
 	melee_damage = 5
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "pokes"

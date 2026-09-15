@@ -108,6 +108,8 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`hair_style_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`gradient_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`facial_style_name` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`facial_hair_gradient` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`facial_hair_gradient_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`underwear` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`underwear_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`undershirt` VARCHAR(64) COLLATE 'utf8mb4_general_ci',

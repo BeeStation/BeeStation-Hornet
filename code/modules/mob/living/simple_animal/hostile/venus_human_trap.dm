@@ -119,7 +119,7 @@
 	death_sound = 'sound/creatures/venus_trap_death.ogg'
 	attack_sound = 'sound/creatures/venus_trap_hit.ogg'
 	//unsuitable_heat_damage = 5 //note that venus human traps do not take cold damage, only heat damage- this is because space vines can cause hull breaches
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	/// copied over from the code from eyeballs (the mob) to make it easier for venus human traps to see in kudzu that doesn't have the transparency mutation
 	sight = SEE_SELF|SEE_MOBS|SEE_OBJS|SEE_TURFS
@@ -297,28 +297,43 @@
  */
 
 /mob/living/simple_animal/hostile/venus_human_trap/proc/pull_vines()
-	for(var/datum/beam/B in vines)
-		if(istype(B.target, /atom/movable))
-			var/atom/movable/AM = B.target
-			if(AM.pulledby) //If someone is pulling the victim that a vine has hit, release them.
-				qdel(B)
+	for(var/datum/beam/vine_beam in vines)
+		if(istype(vine_beam.target, /atom/movable))
+			var/atom/movable/vine_target = vine_beam.target
+			if(vine_target.pulledby) //If someone is pulling the victim that a vine has hit, release them.
+				qdel(vine_beam)
 				return //This vine no longer exists abort
-			if(!AM.anchored)
-				step(AM, get_dir(AM,src))
 
-		if(iscyborg(B.target)) // Check if the target is a cyborg and is dead, then qdel the vine, otherwise they'll be forever pulled if nothing breaks the vine
-			var/mob/living/silicon/robot/R = B.target
-			if(R.stat == DEAD)
-				qdel(B)
+			if(!line_of_sight_clear(vine_target))
+				qdel(vine_beam)
+				continue // wall now blocks the vine, release it instead of dragging through
+
+			if(!vine_target.anchored)
+				step(vine_target, get_dir(vine_target, src))
+
+		if(iscyborg(vine_beam.target)) // Check if the target is a cyborg and is dead, then qdel the vine, otherwise they'll be forever pulled if nothing breaks the vine
+			var/mob/living/silicon/robot/vine_robot_target = vine_beam.target
+			if(vine_robot_target.stat == DEAD)
+				qdel(vine_beam)
 				continue // Move to the next vine since this one is deleted
 
-		if(iscarbon(B.target)) // If they dont get away quickly, make them take constant stamina damage
-			var/mob/living/L = B.target
-			L.apply_damage(10, STAMINA, BODY_ZONE_CHEST)
-			L.Knockdown(3 SECONDS)
+		if(iscarbon(vine_beam.target)) // If they dont get away quickly, make them take constant stamina damage
+			var/mob/living/vine_carbon_target = vine_beam.target
+			vine_carbon_target.apply_damage(10, STAMINA, BODY_ZONE_CHEST)
+			if(!vine_carbon_target.IsKnockdown() || vine_carbon_target.AmountKnockdown() < 1 SECONDS)
+				vine_carbon_target.Knockdown(3 SECONDS)
 
-		if(get_dist(src, B.target) == 0)
-			qdel(B)
+		if(get_dist(src, vine_beam.target) == 0)
+			qdel(vine_beam)
+
+/mob/living/simple_animal/hostile/venus_human_trap/proc/line_of_sight_clear(atom/movable/target)
+	for(var/turf/checked_turf in get_line(src, target))
+		if(checked_turf.density)
+			return FALSE
+		for(var/obj/blocking_object in checked_turf)
+			if(blocking_object.density)
+				return FALSE
+	return TRUE
 
 /**
  * Removes a vine from the list.

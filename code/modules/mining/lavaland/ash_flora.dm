@@ -46,7 +46,7 @@
 			new harvest(get_turf(src))
 
 	if(destroy_on_harvest)
-		Destroy()
+		qdel(src)
 	icon_state = "[base_icon_state]p"
 	name = harvested_name
 	desc = harvested_desc
