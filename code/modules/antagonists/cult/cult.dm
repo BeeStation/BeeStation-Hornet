@@ -15,6 +15,7 @@
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
+	var/rune_power = 1 // How many cultists does this cult member count as for things such as runes?
 
 
 /datum/antagonist/cult/get_team()
