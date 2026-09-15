@@ -199,7 +199,7 @@
  * * mob/user - The user behind the attack
  * * params - params
  */
-/datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, params)
+/datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(thing.get_temperature() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)

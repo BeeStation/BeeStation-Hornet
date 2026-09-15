@@ -717,7 +717,7 @@ Striking a noncultist, however, will tear their flesh."}
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
-/obj/item/blood_beam/afterattack(atom/A, mob/living/user, flag, params)
+/obj/item/blood_beam/afterattack(atom/A, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(firing || charging)
 		return
@@ -731,7 +731,7 @@ Striking a noncultist, however, will tear their flesh."}
 	INVOKE_ASYNC(src, PROC_REF(charge), user)
 	if(do_after(user, 90, target = user))
 		firing = TRUE
-		INVOKE_ASYNC(src, PROC_REF(pewpew), user, params)
+		INVOKE_ASYNC(src, PROC_REF(pewpew), user)
 		var/obj/structure/emergency_shield/invoker/N = new(user.loc)
 		if(do_after(user, 90, target = user))
 			user.Paralyze(40)
@@ -758,7 +758,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(O)
 		qdel(O)
 
-/obj/item/blood_beam/proc/pewpew(mob/user, params)
+/obj/item/blood_beam/proc/pewpew(mob/user)
 	var/turf/targets_from = get_turf(src)
 	var/spread = 40
 	var/second = FALSE

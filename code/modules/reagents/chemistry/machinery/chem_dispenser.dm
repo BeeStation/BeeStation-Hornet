@@ -343,9 +343,9 @@
 /obj/machinery/chem_dispenser/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/chem_dispenser/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/chem_dispenser/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		update_appearance()
 		return

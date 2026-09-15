@@ -12,7 +12,7 @@
 	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 75)
 
 	item_flags = NOBLUDGEON | ISWEAPON
-	reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL

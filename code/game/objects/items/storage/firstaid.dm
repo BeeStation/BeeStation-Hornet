@@ -545,7 +545,7 @@
 	generate_items_inside(items_inside,src)
 
 //medibot assembly
-/obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)
+/obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, list/modifiers)
 	if((!istype(S, /obj/item/bodypart/arm/left/robot)) && (!istype(S, /obj/item/bodypart/arm/right/robot)))
 		return ..()
 
@@ -593,7 +593,7 @@
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.set_holdable(list(/obj/item/reagent_containers/pill))
 
-/obj/item/storage/pill_bottle/attackby(obj/item/P, mob/user, params)
+/obj/item/storage/pill_bottle/attackby(obj/item/P, mob/user, list/modifiers)
 	// Allow labeling with a pen
 	if(istype(P, /obj/item/pen))
 		if(!user.is_literate())

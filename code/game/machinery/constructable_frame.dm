@@ -71,7 +71,7 @@
 		amt += req_components[path]
 	return amt
 
-/obj/structure/frame/machine/attackby(obj/item/P, mob/living/user, params)
+/obj/structure/frame/machine/attackby(obj/item/P, mob/living/user, list/modifiers)
 	switch(state)
 		if(1)
 			if(istype(P, /obj/item/circuitboard/machine))

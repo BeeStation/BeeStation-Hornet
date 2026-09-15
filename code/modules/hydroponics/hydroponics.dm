@@ -60,7 +60,7 @@
 		myseed = null
 	return ..()
 
-/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if (!user.combat_mode)
 		// handle opening the panel
 		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
@@ -727,7 +727,7 @@
 			else
 				to_chat(user, span_warning("Nothing happens..."))
 
-/obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/attackby(obj/item/O, mob/user, list/modifiers)
 	//Called when mob user "attacks" it with object O
 	if(IS_EDIBLE(O) || istype(O, /obj/item/reagent_containers)) // Syringe stuff (and other reagent containers now too)
 		var/obj/item/reagent_containers/reagent_source = O
@@ -753,14 +753,17 @@
 				visi_msg="[user] injects [target] with [syr]"
 			else if(istype(reagent_source, /obj/item/reagent_containers/spray/))
 				visi_msg="[user] sprays [target] with [reagent_source]"
-				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+				playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
 				irrigate = 1
 			else if(transfer_amount) // Droppers, cans, beakers, what have you.
 				visi_msg="[user] uses [reagent_source] on [target]"
 				irrigate = 1
 			// Beakers, bottles, buckets, etc.
 			if(reagent_source.is_drainable())
-				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+				playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+				var/mutable_appearance/splash_animation = mutable_appearance('icons/effects/effects.dmi', "splash_hydroponics")
+				splash_animation.color = mix_color_from_reagents(reagent_source.reagents.reagent_list)
+				flick_overlay_view(splash_animation, 1.1 SECONDS)
 
 		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
 			trays = FindConnected()
@@ -876,7 +879,7 @@
 	else
 		return ..()
 
-/obj/machinery/hydroponics/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/machinery/hydroponics/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	if (istype(weapon, /obj/item/reagent_containers/syringe))
 		to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -997,7 +1000,7 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
+/obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_SHOVEL && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		to_chat(user, span_notice("You clear up [src]!"))
 		qdel(src)

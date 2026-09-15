@@ -49,7 +49,7 @@
 			else
 				. += span_notice("- \The [charging] has no power cell installed.")
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
+/obj/machinery/recharger/attackby(obj/item/G, mob/user, list/modifiers)
 	if(G.tool_behaviour == TOOL_WRENCH)
 		if(charging)
 			to_chat(user, span_notice("Remove the charging item first!"))

@@ -144,7 +144,7 @@
 		. += span_warning("There's no room for more honeycomb!")
 
 
-/obj/structure/beebox/attackby(obj/item/I, mob/user, params)
+/obj/structure/beebox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(honey_frames.len < BEEBOX_MAX_FRAMES)

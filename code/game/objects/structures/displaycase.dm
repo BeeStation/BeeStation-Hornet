@@ -145,7 +145,7 @@
 	else if(!open)
 		. += "[initial(icon_state)]_closed"
 
-/obj/structure/displaycase/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/displaycase/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(W.GetID() && !broken && openable)
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user, span_notice("You close [src]."))
@@ -242,7 +242,7 @@
 	var/obj/item/electronics/airlock/electronics
 
 
-/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
+/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH) //The player can only deconstruct the wooden frame
 		to_chat(user, span_notice("You start disassembling [src]..."))
 		I.play_tool_sound(src)
@@ -329,7 +329,7 @@
 	GLOB.trophy_cases -= src
 	return ..()
 
-/obj/structure/displaycase/trophy/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/displaycase/trophy/attackby(obj/item/W, mob/living/user, list/modifiers)
 
 	if(!user.Adjacent(src)) //no TK museology
 		return
@@ -551,7 +551,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 			to_chat(usr, span_notice("The cost is now set to [sale_price]."))
 			. = TRUE
 
-/obj/structure/displaycase/forsale/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/displaycase/forsale/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(isidcard(I))
 		//Card Registration
 		var/obj/item/card/id/potential_acc = I

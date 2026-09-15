@@ -202,7 +202,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/gun/energy/dueling/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/energy/dueling/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(duel.state == DUEL_READY)
 		duel.confirmations[src] = TRUE
 		to_chat(user,span_notice("You confirm your readiness."))
@@ -247,7 +247,7 @@
 	D.setting = setting
 	D.update_icon()
 
-/obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
+/obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, list/modifiers, spread, quiet, zone_override, atom/fired_from)
 	. = ..()
 	var/obj/effect/temp_visual/dueling_chaff/C = new(get_turf(user))
 	C.setting = setting

@@ -536,7 +536,7 @@
 	add_fingerprint(user)
 
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR && user.combat_mode && !panel_open && machine_stat & NOPOWER)
 		if(locked)
 			to_chat(user, span_warning("[src]'s door won't budge!"))

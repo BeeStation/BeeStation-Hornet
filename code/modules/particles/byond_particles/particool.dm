@@ -165,23 +165,10 @@ GLOBAL_LIST_INIT(master_particle_info, list())
 		TEXT_TO_MACRO(SQUARE_RAND)
 	CRASH("Unknown rand type [rand_type]")
 
-/datum/particle_editor/proc/debugOutput(L, nodeName)
-	if(istype(L,/list))
-		for(var/elem in L)
-			if(istype(elem,/list))
-				world.log << nodeName
-				debugOutput(elem, nodeName + ":LIST" + elem)
-			else
-				world.log << nodeName + ":" + elem + ":" + "[elem]"
-	else
-		world.log << L
-
 /datum/particle_editor/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
-
-	debugOutput(params)
 
 	switch(action)
 		if("add_particle")

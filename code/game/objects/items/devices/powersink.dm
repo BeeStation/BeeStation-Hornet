@@ -67,7 +67,7 @@
 	update_appearance()
 	set_light(0)
 
-/obj/item/powersink/attackby(obj/item/I, mob/user, params)
+/obj/item/powersink/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc

@@ -114,7 +114,7 @@
 /turf/open/space/handle_slip()
 	return
 
-/turf/open/space/attackby(obj/item/C, mob/user, params)
+/turf/open/space/attackby(obj/item/C, mob/user, list/modifiers)
 	..()
 	if(!CanBuildHere())
 		return

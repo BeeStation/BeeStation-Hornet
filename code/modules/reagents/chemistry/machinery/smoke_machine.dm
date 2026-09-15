@@ -85,7 +85,7 @@
 		smoke.set_up(reagents, setting*3, efficiency, T)
 		smoke.start()
 
-/obj/machinery/smoke_machine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/smoke_machine/attackby(obj/item/I, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/reagent_containers) && I.is_open_container())
 		var/obj/item/reagent_containers/RC = I

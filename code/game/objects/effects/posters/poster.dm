@@ -42,7 +42,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	QDEL_NULL(poster_structure)
 	return ..()
 
-/obj/item/poster/attack_turf(turf/closed/wall_structure, mob/user, proximity_flag, click_parameters)
+/obj/item/poster/attack_turf(turf/closed/wall_structure, mob/user)
 	. = ..()
 	if(!istype(wall_structure))
 		return FALSE
@@ -156,7 +156,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	else
 		to_chat(user, span_notice("You carefully remove the poster from the wall."))
 		roll_and_drop(Adjacent(user) ? get_turf(user) : loc, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/sign/poster/attack_hand(mob/user, list/modifiers)
 	. = ..()

@@ -150,7 +150,7 @@
 			to_chat(user, span_warning("The device must first be secured to the floor!"))
 	return
 
-/obj/machinery/shieldgen/attackby(obj/item/W, mob/user, params)
+/obj/machinery/shieldgen/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		W.play_tool_sound(src, 100)
 		panel_open = !panel_open
@@ -375,7 +375,7 @@ WANTS_POWER_NODE(/obj/machinery/power/shieldwallgen)
 		connect_to_network()
 
 
-/obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/living/user, params)
+/obj/machinery/power/shieldwallgen/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, item))
 		update_appearance()
 		updateUsrDialog()

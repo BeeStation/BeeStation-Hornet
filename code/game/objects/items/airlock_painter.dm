@@ -159,7 +159,7 @@
 	. += span_notice("Its ink levels look [ink_level].")
 
 
-/obj/item/airlock_painter/attackby(obj/item/W, mob/user, params)
+/obj/item/airlock_painter/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/toner))
 		if(ink)
 			to_chat(user, span_notice("[src] already contains \a [ink]."))

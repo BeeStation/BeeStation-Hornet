@@ -129,7 +129,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_info("The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.")
 
-/obj/machinery/modular_fabricator/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/modular_fabricator/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(can_be_hacked_or_unlocked && (ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, span_warning("You [security_interface_locked ? "lock" : "unlock"] \the [src]'s security controls."))

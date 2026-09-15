@@ -525,7 +525,7 @@
 			)
 		)
 
-/obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, params)
+/obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(istype(A, /obj/item/slimecross/reproductive))
 		return TRUE
 	return ..()

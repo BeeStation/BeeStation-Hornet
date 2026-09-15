@@ -35,7 +35,7 @@
 			context.add_left_click_tool_action("Complete frame", TOOL_SCREWDRIVER)
 			return
 
-/obj/structure/frame/computer/attackby(obj/item/P, mob/living/user, params)
+/obj/structure/frame/computer/attackby(obj/item/P, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 	switch(state)
 		if(FRAME_STATE_EMPTY)

@@ -139,17 +139,17 @@
 /obj/machinery/reagentgrinder/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 	if(!beaker && !length(holdingitems))
 		return default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
 
-/obj/machinery/reagentgrinder/attackby(obj/item/weapon, mob/living/user, params)
+/obj/machinery/reagentgrinder/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(panel_open) //Can't insert objects when its screwed open
 		return TRUE
 

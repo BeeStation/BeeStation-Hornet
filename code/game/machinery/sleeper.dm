@@ -99,7 +99,7 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
-/obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if ((istype(I, /obj/item/reagent_containers/cup) \
 		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
 		&& !user.combat_mode)

@@ -135,7 +135,7 @@
 		)
 	. = ..()
 
-/obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/revolver/detective/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if (chambered && chambered.caliber == "357")
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
@@ -222,7 +222,7 @@
 	. = ..()
 	spun = TRUE
 
-/obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, list/modifiers)
 	. = ..()
 	if(get_ammo() > 0)
 		spin()
@@ -238,10 +238,10 @@
 	return ..()
 
 /// No, we don't parent call. Because guncode is stupid and trash. Enjoy
-/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
-	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, click_parameters)
+/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, modifiers)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, modifiers)
 
 	if(proximity_flag)
 		if(!(target in user.contents) && ismob(target))
@@ -280,7 +280,7 @@
 		user.visible_message(span_danger("*click*"))
 		playsound(src, dry_fire_sound, 30, TRUE)
 
-/obj/item/gun/ballistic/revolver/russian/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/revolver/russian/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	add_fingerprint(user)
 	playsound(src, dry_fire_sound, 30, TRUE)
 	user.visible_message(span_danger("[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"))

@@ -329,7 +329,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 /obj/machinery/firealarm/attack_silicon(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/firealarm/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/firealarm/attackby(obj/item/W, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda)) // trying to unlock the cover with an ID card

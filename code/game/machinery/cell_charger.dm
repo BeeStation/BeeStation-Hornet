@@ -44,7 +44,7 @@
 		. += span_notice("The status display reads:")
 		. += span_notice("- Current recharge coefficient: <b>[recharge_coeff]</b>.")
 
-/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
+/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_cell() && is_allowed(W) && !panel_open)
 		if(machine_stat & BROKEN)
 			to_chat(user, span_warning("[src] is broken!"))

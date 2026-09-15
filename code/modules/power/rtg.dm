@@ -37,7 +37,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Power generation now at <b>[display_power_persec(power_gen)]</b>.")
 
-/obj/machinery/power/rtg/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/rtg/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-open", initial(icon_state), I))
 		return
 	else if(default_deconstruction_crowbar(I))

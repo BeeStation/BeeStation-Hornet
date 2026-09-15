@@ -20,7 +20,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/grinder_chemical)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_appearance() //so the input/output pipes will overlay properly during init
 
-/obj/machinery/plumbing/grinder_chemical/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/plumbing/grinder_chemical/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if(istype(weapon, /obj/item/storage/bag))
 		to_chat(user, "<span class='notice'>You dump items from [weapon] into the grinder.</span>")
 		for(var/obj/item/obj_item in weapon.contents)

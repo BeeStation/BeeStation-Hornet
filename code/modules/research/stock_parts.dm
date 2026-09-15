@@ -18,7 +18,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	create_storage(storage_type = /datum/storage/rped)
 	return ..()
 
-/obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, params)
+/obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, list/modifiers)
 	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))
 		return ..()
 
@@ -46,7 +46,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	attacked_frame.attackby(src, user)
 	return TRUE
 
-/obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, params)
+/obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, list/modifiers)
 	if(!ismachinery(attacked_object) && !istype(attacked_object, /obj/structure/frame/machine))
 		return ..()
 

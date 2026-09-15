@@ -101,7 +101,7 @@
 
 // --------------------------------------
 // Other standard procs
-/obj/machinery/computer/cloning/attackby(obj/item/used_item, mob/user, params)
+/obj/machinery/computer/cloning/attackby(obj/item/used_item, mob/user, list/modifiers)
 	if(istype(used_item, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if (!diskette)
 			if (!user.transferItemToLoc(used_item,src))

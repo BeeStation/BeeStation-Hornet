@@ -239,7 +239,7 @@
 	return ..()
 
 //damage, gibbing, and dying
-/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, list/modifiers)
 	. = ..()
 	if(istype(W, /obj/item/nullrod))
 		visible_message(span_warning("[src] violently flinches!"),

@@ -178,7 +178,7 @@
 
 	return ..()
 
-/obj/machinery/microwave/attackby(obj/item/O, mob/living/user, params)
+/obj/machinery/microwave/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(operating)
 		return
 	if(default_deconstruction_crowbar(O))

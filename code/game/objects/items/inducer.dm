@@ -33,7 +33,7 @@
 	if(cell && !(. & EMP_PROTECT_CONTENTS))
 		cell.emp_act(severity)
 
-/obj/item/inducer/attack_atom(obj/O, mob/living/carbon/user, params)
+/obj/item/inducer/attack_atom(obj/O, mob/living/carbon/user, list/modifiers)
 	if(user.combat_mode)
 		return ..()
 

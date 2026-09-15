@@ -73,7 +73,7 @@
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby(obj/item/W, mob/user, params)
+/obj/item/lightreplacer/attackby(obj/item/W, mob/user, list/modifiers)
 
 	if(istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W

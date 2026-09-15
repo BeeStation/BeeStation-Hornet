@@ -299,7 +299,7 @@
 		balloon_alert(user, "You repair the rig's damage!")
 		return TRUE
 
-/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/plasteel_sheets = attacking_item
 		if(!needs_repairs)
@@ -428,8 +428,8 @@
 	if(parent.welder_act(user, tool))
 		return TRUE
 
-/obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, params)
-	return parent.attackby(I, user, params)
+/obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, list/modifiers)
+	return parent.attackby(I, user, modifiers)
 
 /obj/machinery/atmospherics/components/unary/gasrig/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -499,8 +499,8 @@
 	if(parent.welder_act(user, tool))
 		return TRUE
 
-/obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, params)
-	return parent.attackby(I, user, params)
+/obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, list/modifiers)
+	return parent.attackby(I, user, modifiers)
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -189,8 +189,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		fcopy(clean, "[GLOB.log_directory]/photos/[photo_file].png")
 	return photo_file
 
-/obj/item/modular_computer/pre_attack_secondary(atom/A, mob/living/user, params)
-	if(active_program?.tap(A, user, params))
+/obj/item/modular_computer/pre_attack_secondary(atom/A, mob/living/user, list/modifiers)
+	if(active_program?.tap(A, user))
 		user.do_attack_animation(A) //Emulate this animation since we kill the attack in three lines
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1) //Likewise for the tap sound
 		addtimer(CALLBACK(src, PROC_REF(play_ping)), 0.5 SECONDS, TIMER_UNIQUE) //Slightly delayed ping to indicate success
@@ -761,7 +761,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	tool.play_tool_sound(user, volume = 20)
 	ui_update()
 
-/obj/item/modular_computer/pre_attack(atom/A, mob/living/user, params)
+/obj/item/modular_computer/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(!istype(A, /obj/item/computer_hardware))
 		return
 
@@ -779,7 +779,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	context.add_left_click_tool_action("Repair", TOOL_WELDER)
 	context.add_left_click_tool_action("Disassemble", TOOL_WRENCH)
 
-/obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	// Check for ID first
 	if(istype(attacking_item, /obj/item/card/id) && InsertID(attacking_item))
 		return

@@ -71,7 +71,7 @@
 		else
 			disconnect_from_network()
 
-/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", W))
 		return
 
@@ -182,7 +182,7 @@
 		else
 			icon_state = "rpcoil[anchored]"
 
-/obj/machinery/power/energy_accumulator/tesla_coil/research/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/research/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "rpcoil_open[anchored]", "rpcoil[anchored]", W))
 		return
 	return ..()

@@ -203,7 +203,7 @@
 		return
 	open_machine()
 
-/obj/machinery/public_nanite_chamber/attackby(obj/item/I, mob/user, params)
+/obj/machinery/public_nanite_chamber/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!occupant && default_deconstruction_screwdriver(user, icon_state, icon_state, I))//sent icon_state is irrelevant...
 		update_icon()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
 		return

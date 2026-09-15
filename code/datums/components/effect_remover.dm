@@ -41,7 +41,7 @@
 /*
  * Signal proc for [COMSIG_ITEM_ATTACK_EFFECT].
  */
-/datum/component/effect_remover/proc/try_remove_effect(datum/source, obj/effect/target, mob/living/user, params)
+/datum/component/effect_remover/proc/try_remove_effect(datum/source, obj/effect/target, mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!isliving(user))

@@ -19,7 +19,7 @@
 	atom_storage.max_slots = 4
 	atom_storage.locked = TRUE
 
-/obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/lockbox/attackby(obj/item/W, mob/user, list/modifiers)
 	var/locked = atom_storage.locked
 	if(W.GetID())
 		if(broken)

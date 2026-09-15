@@ -10,20 +10,21 @@
 	. = ..()
 	create_reagents(5, OPENCONTAINER)
 	AddComponent(/datum/component/cleaner, 3 SECONDS, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean)))
+	AddElement(/datum/element/reagents_exposed_on_fire)
+	AddElement(/datum/element/reagents_item_heatable)
 
 /obj/item/rag/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
-/obj/item/rag/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!iscarbon(target) || !reagents?.total_volume)
-		return
-	var/mob/living/carbon/carbon_target = target
-	var/log_object = "containing [pretty_string_from_reagent_list(reagents)]"
+/obj/item/rag/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!iscarbon(interacting_with) || !reagents?.total_volume)
+		return ..()
+	var/mob/living/carbon/carbon_target = interacting_with
+	carbon_target.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
+	var/log_object = "containing [pretty_string_from_reagent_list(reagents.reagent_list)]"
 	if(!carbon_target.is_mouth_covered())
-		reagents.expose(carbon_target, INGEST)
-		reagents.trans_to(carbon_target, reagents.total_volume, transfered_by = user)
+		reagents.trans_to(carbon_target, reagents.total_volume, transfered_by = user, method = INGEST)
 		carbon_target.visible_message(
 			span_danger("[user] smothers \the [carbon_target] with \the [src]!"),
 			span_userdanger("[user] smothers you with \the [src]!"), span_hear("You hear some struggling and muffled cries of surprise."),
@@ -34,6 +35,7 @@
 		reagents.clear_reagents()
 		carbon_target.visible_message(span_notice("[user] touches \the [carbon_target] with \the [src]."))
 		log_combat(user, carbon_target, "touched", src, log_object)
+	return ITEM_INTERACT_SUCCESS
 
 ///Checks whether or not we should clean.
 /obj/item/rag/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
