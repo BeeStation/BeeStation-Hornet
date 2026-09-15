@@ -76,6 +76,15 @@
 		loot = list(/obj/effect/spawner/xeno_egg_delivery_troll = 1)
 	. = ..()
 
+// Mirrors the xeno-egg xenobiology chance: one live borer egg in fifty rolls.
+/obj/effect/spawner/random/medical/two_percent_borer_egg_spawner
+	name = "2% chance borer egg spawner"
+	icon_state = "xeno_egg"
+	loot = list(
+		/obj/item/food/egg = 49,
+		/obj/item/food/borer_egg = 1,
+	)
+
 /obj/effect/spawner/random/medical/surgery_tool
 	name = "Surgery tool spawner"
 	icon_state = "scapel"

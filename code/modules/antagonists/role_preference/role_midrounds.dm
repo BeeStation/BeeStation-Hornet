@@ -39,6 +39,11 @@
 		but will they realize they are your next victim in time?"
 	antag_datum = /datum/antagonist/obsessed
 
+/datum/role_preference/midround/cortical_borer
+	name = "Cortical Borer Infestation"
+	description = "Awaken as a small parasitic symbiote in the station's vents. Find a human host, survive, and grow your capabilities over time."
+	antag_datum = /datum/antagonist/borer
+
 /datum/role_preference/midround/obsessed/get_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/victim_dummy = new
 	victim_dummy.set_hairstyle( "Messy", update = FALSE)

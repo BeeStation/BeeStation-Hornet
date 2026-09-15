@@ -50,6 +50,7 @@
 #define span_clown(str) ("<span class='clown'>" + (str) + "</span>")
 #define span_clowntext(str) ("<span class='clowntext'>" + (str) + "</span>")
 #define span_colossus(str) ("<span class='colossus'>" + (str) + "</span>")
+#define span_corticallink(str) ("<span class='notice corticallink'>" + (str) + "</span>")
 #define span_cult(str) ("<span class='cult'>" + (str) + "</span>")
 #define span_cultbigbold(str) ("<span class='cult big bold'>" + (str) + "</span>")
 #define span_cultbold(str) ("<span class='cultbold'>" + (str) + "</span>")
