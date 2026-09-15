@@ -210,24 +210,6 @@
 	crafting_complexity = FOOD_COMPLEXITY_2
 	crafted_food_buff = /datum/status_effect/food/speech/french
 
-/obj/item/food/omelette/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/fork))
-		var/obj/item/kitchen/fork/F = W
-		if(F.forkload)
-			to_chat(user, span_warning("You already have omelette on your fork!"))
-		else
-			F.icon_state = "forkloaded"
-			user.visible_message("[user] takes a piece of omelette with [user.p_their()] fork!", \
-				span_notice("You take a piece of omelette with your fork."))
-
-			var/datum/reagent/R = pick(reagents.reagent_list)
-			reagents.remove_reagent(R.type, 1)
-			F.forkload = R
-			if(reagents.total_volume <= 0)
-				qdel(src)
-		return
-	..()
-
 /obj/item/food/benedict
 	name = "eggs benedict"
 	desc = "There is only one egg on this, how rude."
