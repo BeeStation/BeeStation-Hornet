@@ -8,7 +8,7 @@
 	icon_state = "NAME OF ICON" 		(defaults to "unknown" (blank))
 	requires_power = FALSE 				(defaults to true)
 	ambience_index = AMBIENCE_GENERIC   (picks the ambience from an assoc list in ambience.dm)
-	ambientsounds = list()				(defaults to ambience_index's assoc on Initialize(). override it as "ambientsounds = list('sound/ambience/signal.ogg')" or by changing ambience_index)
+	ambientsounds = list()				(defaults to ambience_index's assoc on Initialize(). override it as "ambientsounds = list('sound/ambience/misc/signal.ogg')" or by changing ambience_index)
 
 NOTE: there are two lists of areas in the end of this file: centcom and station itself. Please maintain these lists valid. --rastaf0
 
@@ -27,7 +27,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/paradise/surface
 	name = "paradise surface"
-	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	ambientsounds = list('sound/ambience/beach/seag1.ogg','sound/ambience/beach/seag2.ogg','sound/ambience/beach/seag3.ogg','sound/ambience/misc/ambiodd.ogg','sound/ambience/medical/ambinice.ogg')
 	sound_environment = null
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_STASH_LOCATION
 	static_lighting = FALSE
@@ -39,7 +39,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/paradise/surface/water
 	name = "paradise surface water"
-	ambientsounds = list('sound/ambience/shore.ogg')
+	ambientsounds = list('sound/ambience/beach/shore.ogg')
 	mood_bonus = 1
 	mood_message = span_warning("The waves sound nice.\n")
 

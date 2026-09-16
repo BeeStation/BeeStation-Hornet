@@ -1152,6 +1152,7 @@
 	id = "aftport";
 	name = "Port Quarter Solar Control"
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/fore)
 "aoc" = (
@@ -23466,6 +23467,7 @@
 /area/station/service/theater)
 "fBb" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "fBn" = (
@@ -23999,6 +24001,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/light/small/directional/north,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/starboard/fore)
 "fIk" = (
@@ -28741,6 +28744,7 @@
 	name = "Port Quarter Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/aft)
 "gOh" = (
@@ -33944,6 +33948,7 @@
 /area/station/security/prison)
 "hYy" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "hYA" = (
@@ -36883,6 +36888,7 @@
 /area/station/hallway/primary/port)
 "iEG" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "iEJ" = (
@@ -62217,6 +62223,7 @@
 /area/station/cargo/sorting)
 "oAp" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "oAq" = (
@@ -68830,6 +68837,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/starboard/aft)
 "qiN" = (
@@ -71470,6 +71478,7 @@
 /area/station/hallway/primary/aft)
 "qMJ" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/port/fore)
 "qMK" = (
@@ -91451,6 +91460,7 @@
 /area/station/cargo/exploration_prep)
 "vxP" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/port/aft)
 "vya" = (
@@ -96848,6 +96858,7 @@
 /area/station/hallway/primary/fore)
 "wMP" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/aft)
 "wMQ" = (
@@ -97656,6 +97667,7 @@
 /area/station/commons/vacant_room/office)
 "wXr" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/fore)
 "wXz" = (

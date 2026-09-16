@@ -63,7 +63,7 @@
 	var/datum/port/output/battery_port
 	var/datum/port/output/max_battery_port
 
-	var/obj/item/organ/stomach/battery/battery
+	var/obj/item/organ/stomach/electrical/battery
 	var/obj/item/organ/cyberimp/ipc_control/controller
 
 /obj/item/circuit_component/ipc_circuit/register_shell(atom/movable/shell)
@@ -80,8 +80,8 @@
 /obj/item/circuit_component/ipc_circuit/populate_ports()
 	message = add_input_port("Message", PORT_TYPE_STRING)
 	send_message_signal = add_input_port("Send Message", PORT_TYPE_SIGNAL)
-	battery_port = add_output_port("Battery Charge", PORT_TYPE_NUMBER)
-	max_battery_port = add_output_port("Battery Max Charge", PORT_TYPE_NUMBER)
+	battery_port = add_output_port("Battery.cell.charge", PORT_TYPE_NUMBER)
+	max_battery_port = add_output_port("Battery Max.cell.charge", PORT_TYPE_NUMBER)
 	user_port = add_output_port("User", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/ipc_circuit/input_received(datum/port/input/port)
@@ -116,16 +116,16 @@
 
 	to_chat(resolved_owner, "<i>System notification received: </i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
-/obj/item/circuit_component/ipc_circuit/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/battery/added)
+/obj/item/circuit_component/ipc_circuit/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/electrical/added)
 	SIGNAL_HANDLER
 	if(!istype(added))
 		return
 	battery = added
 	RegisterSignal(battery, COMSIG_ORGAN_BATTERY_CHARGED, PROC_REF(battery_charged))
-	battery_port.set_output(battery.charge)
-	max_battery_port.set_output(battery.max_charge)
+	battery_port.set_output(battery.cell.charge)
+	max_battery_port.set_output(battery.cell.maxcharge)
 
-/obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/battery/removed)
+/obj/item/circuit_component/ipc_circuit/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/electrical/removed)
 	SIGNAL_HANDLER
 	if(!istype(removed))
 		return
@@ -135,9 +135,9 @@
 	battery_port.set_output(0)
 	max_battery_port.set_output(0)
 
-/obj/item/circuit_component/ipc_circuit/proc/battery_charged(obj/item/organ/stomach/battery/adjusted_battery, amount)
+/obj/item/circuit_component/ipc_circuit/proc/battery_charged(obj/item/organ/stomach/electrical/adjusted_battery, amount)
 	SIGNAL_HANDLER
-	battery_port.set_output(adjusted_battery.charge)
+	battery_port.set_output(adjusted_battery.cell.charge)
 
 /obj/item/circuit_component/upgrade_setter
 	display_name = "IPC Setter"

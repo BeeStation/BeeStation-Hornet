@@ -15,6 +15,11 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 100
 	is_dimorphic = TRUE
+	unarmed_attack_verb = "bite"
+	unarmed_attack_effect = ATTACK_EFFECT_BITE
+	unarmed_attack_sound = 'sound/weapons/bite.ogg'
+	unarmed_miss_sound = 'sound/weapons/bite.ogg'
+	unarmed_damage = 3
 	bodypart_trait_source = HEAD_TRAIT
 
 	var/mob/living/brain/brainmob //The current occupant.
@@ -225,8 +230,8 @@
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
 		// This is a bit of copy/paste code from eyes.dm:generate_body_overlay
 		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
-			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
-			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
 			if(head_flags & HEAD_EYECOLOR)
 				if(eyes.eye_color_left)
 					eye_left.color = eyes.eye_color_left
@@ -244,7 +249,7 @@
 			. += eye_left
 			. += eye_right
 		else if(!eyes && (head_flags & HEAD_EYEHOLES))
-			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
+			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
 			worn_face_offset?.apply_offset(no_eyes)
 			. += no_eyes
 
@@ -266,7 +271,7 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = SPECIES_MONKEY
 	is_dimorphic = FALSE
-	head_flags = NONE
+	head_flags = HEAD_LIPS|HEAD_DEBRAIN
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"

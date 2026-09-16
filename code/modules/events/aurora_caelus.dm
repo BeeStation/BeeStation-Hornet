@@ -40,4 +40,4 @@
 			continue
 
 		SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "star_gazing", /datum/mood_event/witnessed_starlight)
-		player_mob.playsound_local(null, 'sound/ambience/aurora_caelus.ogg', 20, pressure_affected = FALSE, volume_preference = /datum/preference/numeric/volume/sound_soundtrack_volume)
+		player_mob.playsound_local(null, 'sound/music/misc/aurora_caelus.ogg', 20, pressure_affected = FALSE, volume_preference = /datum/preference/numeric/volume/sound_soundtrack_volume)

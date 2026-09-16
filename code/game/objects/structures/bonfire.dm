@@ -32,7 +32,7 @@
 /obj/structure/bonfire/dense
 	density = TRUE
 
-/obj/structure/bonfire/dense/askwalker
+/obj/structure/bonfire/dense/ashwalker
 	needs_oxygen = FALSE
 
 /obj/structure/bonfire/prelit/Initialize(mapload)

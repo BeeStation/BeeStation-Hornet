@@ -20,7 +20,7 @@
 	maxHealth = 50
 	health = 50
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
+	mob_biotypes = NONE
 	wander = FALSE
 
 	vision_range = 4

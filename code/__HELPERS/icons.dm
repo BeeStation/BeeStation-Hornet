@@ -415,9 +415,8 @@ world
 	var/render_icon = curicon
 
 	if (render_icon)
-		var/curstates = icon_states(curicon)
-		if(!(curstate in curstates))
-			if ("" in curstates)
+		if(!icon_exists(curicon, curstate))
+			if(icon_exists(curicon, ""))
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -540,8 +539,8 @@ world
 				)
 
 				flatX1 = addX1
-				flatX2 = addY1
-				flatY1 = addX2
+				flatX2 = addX2
+				flatY1 = addY1
 				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
@@ -1130,21 +1129,28 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /// Returns null if passed object is not a filepath or icon with a valid DMI file
 /proc/icon_metadata(file)
 	var/static/list/icon_metadata_cache = list()
+	var/static/list/failed_metadata = list()
 	if(istype(file, /datum/universal_icon))
 		var/datum/universal_icon/u_icon = file
 		file = u_icon.icon_file
 	var/file_string = "[file]"
 	if(!istext(file) && !(isfile(file) && length(file_string)))
 		return null
+	if(failed_metadata[file_string])
+		return null
 	var/list/cached_metadata = icon_metadata_cache[file_string]
 	if(islist(cached_metadata))
 		return cached_metadata
+
+	// it will decode to text, trust
 	var/list/metadata_result = rustg_dmi_read_metadata(file_string)
 	if(!islist(metadata_result) || !length(metadata_result))
-		CRASH("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
-	else
-		icon_metadata_cache[file_string] = metadata_result
-		return metadata_result
+		failed_metadata[file_string] = TRUE
+		stack_trace("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
+		return null
+
+	icon_metadata_cache[file_string] = metadata_result
+	return metadata_result
 
 /// Checks whether a given icon state exists in a given icon file. If `file` and `state` both exist,
 /// this will return `TRUE` - otherwise, it will return `FALSE`.
@@ -1155,9 +1161,26 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(isnull(file) || isnull(state))
 		return FALSE //This is common enough that it shouldn't panic, imo.
 
-	if(isnull(GLOB.icon_states_cache_lookup[file]))
+	var/list/states = GLOB.icon_states_cache_lookup[file]
+	if(isnull(states))
 		compile_icon_states_cache(file)
-	return !isnull(GLOB.icon_states_cache_lookup[file][state])
+		states = GLOB.icon_states_cache_lookup[file]
+	return !isnull(states[state])
+
+/// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
+/// specified file or state doesn't exist.
+///
+/// Stack traces will only be output once for each file.
+/proc/icon_exists_or_scream(file, state)
+	if(icon_exists(file, state))
+		return TRUE
+
+	var/static/list/screams = list()
+	if(isnull(screams[file]))
+		screams[file] = TRUE
+		stack_trace("State [state] in file [file] does not exist.")
+
+	return FALSE
 
 /// Cached, rustg-based alternative to icon_states()
 /proc/icon_states_fast(file)

@@ -22,7 +22,7 @@
 	///Activation power requirement
 	var/power_requirement = 0
 	///The battery this upgrade uses power from
-	var/obj/item/organ/stomach/battery/battery
+	var/obj/item/organ/stomach/electrical/battery
 	///Whether this upgrade should activate once and reset (rather than making active = TRUE)
 	var/singleton = FALSE
 	///Whether this should process or not
@@ -140,10 +140,10 @@
 	if(!battery)
 		return FALSE
 	if(dangerous)
-		if(battery.charge < amount)
+		if(battery.cell.charge < amount)
 			return FALSE
 	else
-		if((battery.charge - UPGRADE_LOW_POWER_THRESHOLD) < amount)
+		if((battery.cell.charge - UPGRADE_LOW_POWER_THRESHOLD) < amount)
 			return FALSE
 	return TRUE
 
@@ -170,21 +170,21 @@
 		return
 	extract()
 
-/datum/status_effect/ipc_upgrade/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/battery/added)
+/datum/status_effect/ipc_upgrade/proc/on_battery_added(mob/living/carbon/owner, obj/item/organ/stomach/electrical/added)
 	SIGNAL_HANDLER
 	if(!istype(added))
 		return
 	battery = added
 	RegisterSignal(battery, COMSIG_ORGAN_BATTERY_CHARGED, PROC_REF(battery_charged))
 
-/datum/status_effect/ipc_upgrade/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/battery/removed)
+/datum/status_effect/ipc_upgrade/proc/on_battery_removed(mob/living/carbon/owner, obj/item/organ/stomach/electrical/removed)
 	SIGNAL_HANDLER
 	if(!istype(removed))
 		return
 	UnregisterSignal(removed, COMSIG_ORGAN_BATTERY_CHARGED)
 	battery = null
 
-/datum/status_effect/ipc_upgrade/proc/battery_charged(obj/item/organ/stomach/battery/adjusted_battery, amount)
+/datum/status_effect/ipc_upgrade/proc/battery_charged(obj/item/organ/stomach/electrical/adjusted_battery, amount)
 	SIGNAL_HANDLER
 	if(action)
 		action.update_buttons()

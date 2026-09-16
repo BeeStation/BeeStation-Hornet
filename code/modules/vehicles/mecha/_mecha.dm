@@ -57,8 +57,8 @@
 	var/obj/item/stock_parts/scanning_module/scanmod
 	/// Keeps track of the mech's capacitor
 	var/obj/item/stock_parts/capacitor/capacitor
-	/// Keeps track of the mech's servo motor
-	var/obj/item/stock_parts/manipulator/servo
+	/// Keeps track of the mech's manipulator
+	var/obj/item/stock_parts/manipulator/manipulator
 	///Contains flags for the mecha
 	var/mecha_flags = CAN_STRAFE | IS_ENCLOSED | HAS_LIGHTS
 
@@ -303,7 +303,7 @@
 	QDEL_NULL(cell)
 	QDEL_NULL(scanmod)
 	QDEL_NULL(capacitor)
-	QDEL_NULL(servo)
+	QDEL_NULL(manipulator)
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
@@ -321,7 +321,7 @@
 	cell = new /obj/item/stock_parts/cell/high(src)
 	scanmod = new /obj/item/stock_parts/scanning_module(src)
 	capacitor = new /obj/item/stock_parts/capacitor(src)
-	servo = new /obj/item/stock_parts/manipulator(src)
+	manipulator = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/CheckParts(list/parts_list)
@@ -330,7 +330,7 @@
 	diag_hud_set_mechcell()
 	scanmod = locate(/obj/item/stock_parts/scanning_module) in contents
 	capacitor = locate(/obj/item/stock_parts/capacitor) in contents
-	servo = locate(/obj/item/stock_parts/manipulator) in contents
+	manipulator = locate(/obj/item/stock_parts/manipulator) in contents
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/atom_destruction()
@@ -465,10 +465,10 @@
 				continue
 			. += span_notice("[icon2html(ME, user)] \A [ME].")
 	if(mecha_flags & PANEL_OPEN)
-		if(servo)
-			. += span_notice("Micro-servos reduce movement power usage by [100 - round(100 / servo.rating)]%")
+		if(manipulator)
+			. += span_notice("Micro-manipulators reduce movement power usage by [100 - round(100 / manipulator.rating)]%")
 		else
-			. += span_warning("It's missing a micro-servo.")
+			. += span_warning("It's missing a micro-manipulator.")
 		if(capacitor)
 			. += span_notice("Capacitor increases armor against energy attacks by [capacitor.rating * 5].")
 		else
@@ -974,8 +974,8 @@
 
 /// Update the energy drain according to parts and status
 /obj/vehicle/sealed/mecha/proc/update_energy_drain()
-	if(servo)
-		step_energy_drain = initial(step_energy_drain) / servo.rating
+	if(manipulator)
+		step_energy_drain = initial(step_energy_drain) / manipulator.rating
 	else
 		step_energy_drain = 2 * initial(step_energy_drain)
 	if(overclock_mode)

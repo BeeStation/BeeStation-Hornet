@@ -29,8 +29,8 @@
 	desc = "For those departed who are not so dear."
 	icon_state = "blackcoffin"
 	icon = 'icons/vampires/vamp_obj.dmi'
-	open_sound = 'sound/vampires/coffin_open.ogg'
-	close_sound = 'sound/vampires/coffin_close.ogg'
+	open_sound = 'sound/effects/antag/vampire/coffin_open.ogg'
+	close_sound = 'sound/effects/antag/vampire/coffin_close.ogg'
 	breakout_time = 30 SECONDS
 	pry_lid_timer = 20 SECONDS
 	resistance_flags = NONE
@@ -52,8 +52,8 @@
 	desc = "For those too scared of having their place of rest disturbed."
 	icon_state = "securecoffin"
 	icon = 'icons/vampires/vamp_obj.dmi'
-	open_sound = 'sound/vampires/coffin_open.ogg'
-	close_sound = 'sound/vampires/coffin_close.ogg'
+	open_sound = 'sound/effects/antag/vampire/coffin_open.ogg'
+	close_sound = 'sound/effects/antag/vampire/coffin_close.ogg'
 	breakout_time = 35 SECONDS
 	pry_lid_timer = 35 SECONDS
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF

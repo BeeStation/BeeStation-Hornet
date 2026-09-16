@@ -32,10 +32,10 @@
 
 	var/charge = 0
 	var/max_charge = 0
-	var/obj/item/organ/stomach/battery/battery = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/electrical/battery = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(battery))
-		charge = battery.charge
-		max_charge = battery.max_charge
+		charge = battery.cell.charge
+		max_charge = battery.cell.maxcharge
 
 	data["charge"] = charge
 	data["max_charge"] = max_charge

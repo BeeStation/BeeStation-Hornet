@@ -5,7 +5,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
-	create_reagents(1000)
+	create_carbon_reagents()
 	update_body_parts() //to update the carbon's new bodyparts appearance
 
 	GLOB.carbon_list += src
@@ -222,6 +222,12 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 
+/mob/living/carbon/proc/create_carbon_reagents()
+	if (!isnull(reagents))
+		return
+
+	create_reagents(1000)
+
 /mob/living/carbon/Topic(href, href_list)
 	..()
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
@@ -423,14 +429,22 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return 0
 	return ..()
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = VOMIT_TOXIC, purge = FALSE)
-	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER) || HAS_TRAIT(src, TRAIT_NOVOMIT)))
-		return TRUE
+/// Proc that compels the mob to throw up. Returns TRUE if the mob actually threw up.
+/mob/living/carbon/proc/vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/toxic, lost_nutrition = 10, distance = 1, purge_ratio = 0.1)
+	var/force = (vomit_flags & MOB_VOMIT_FORCE)
+	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER)) && !force)
+		return FALSE
 
 	if(!has_mouth())
-		return 1
+		return FALSE
 
-	if(!blood && (nutrition < 100))
+	// cache some stuff that we'll need later (at least multiple times)
+	var/starting_dir = dir
+	var/message = (vomit_flags & MOB_VOMIT_MESSAGE)
+	var/stun = (vomit_flags & MOB_VOMIT_STUN)
+	var/blood = (vomit_flags & MOB_VOMIT_BLOOD)
+
+	if(!force && !blood && (nutrition < 100))
 		if(message)
 			visible_message(
 				span_warning("[src] dry heaves!"),
@@ -439,7 +453,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(stun)
 			Paralyze(30)
 			Knockdown(180)
-		return 1
+		return TRUE
 
 	if(is_mouth_covered()) //make this add a blood/vomit overlay later it'll be hilarious
 		if(message)
@@ -470,26 +484,43 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		adjust_nutrition(-lost_nutrition)
 		need_mob_update += adjustToxLoss(-3, updating_health = FALSE)
 
-	for(var/i=0 to distance)
+	for(var/i = 0 to distance)
 		if(blood)
 			if(location)
 				add_splatter_floor(location)
-			if(stun)
+			if(vomit_flags & MOB_VOMIT_HARM)
 				need_mob_update += adjustBruteLoss(3, updating_health = FALSE)
-		else if(src.reagents.has_reagent(/datum/reagent/consumable/ethanol/blazaam, needs_metabolizing = TRUE))
-			if(location)
-				location.add_vomit_floor(src, toxic || VOMIT_PURPLE, purge)
 		else
 			if(location)
-				location.add_vomit_floor(src, toxic, purge)//toxic barf looks different
+				location.add_vomit_floor(src, vomit_type, vomit_flags, purge_ratio) // call purge when doing detoxicfication to pump more chems out of the stomach.
 
-		location = get_step(location, dir)
+		location = get_step(location, starting_dir)
 		if (location?.is_blocked_turf())
 			break
 	if(need_mob_update) // so we only have to call updatehealth() once as opposed to n times
 		updatehealth()
 
 	return TRUE
+
+/**
+ * Expel the reagents you just tried to ingest
+ *
+ * When you try to ingest reagents but you do not have a stomach
+ * you will spew the reagents on the floor.
+ *
+ * Vars:
+ * * bite: /atom the reagents to expel
+ * * amount: int The amount of reagent
+ */
+/mob/living/carbon/proc/expel_ingested(atom/bite, amount)
+	visible_message(
+		span_danger("[src] throws up all over [p_them()]self!"),
+		span_userdanger("You are unable to keep the [bite] down without a stomach!")
+	)
+
+	var/turf/floor = get_turf(src)
+	var/obj/effect/decal/cleanable/vomit/spew = new(floor, get_static_viruses())
+	bite.reagents.trans_to(spew, amount, transfered_by = src)
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
@@ -912,9 +943,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(heal_flags & HEAL_TRAUMAS)
 		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 		// Addictions are like traumas
-		if(mind)
-			for(var/addiction_type in subtypesof(/datum/addiction))
-				mind.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
+		for(var/addiction_type in GLOB.addictions)
+			mind?.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //Remove the addiction!
 
 	if(heal_flags & HEAL_RESTRAINTS)
 		QDEL_NULL(handcuffed)
@@ -952,12 +982,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(organs_amt)
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
 
-/mob/living/carbon/proc/create_bodyparts()
+/// Creates body parts for this carbon completely from scratch.
+/// Optionally takes a map of body zones to what type to instantiate instead of them.
+/mob/living/carbon/proc/create_bodyparts(list/overrides)
 	var/list/bodyparts_paths = bodyparts.Copy()
 	bodyparts = list()
-	for(var/bodypart_path in bodyparts_paths)
-		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
-		bodypart_instance.set_owner(src)
+	for(var/obj/item/bodypart/bodypart_path as anything in bodyparts_paths)
+		var/real_body_part_path = overrides?[initial(bodypart_path.body_zone)] || bodypart_path
+		var/obj/item/bodypart/bodypart_instance = new real_body_part_path()
 		add_bodypart(bodypart_instance)
 
 /// Called when a new hand is added
@@ -1008,10 +1040,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	synchronize_bodytypes()
 
+///Updates the bodypart speed modifier based on our bodyparts.
+/mob/living/carbon/proc/update_bodypart_movespeed_contribution()
+	var/final_modification = 0
+	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
+		final_modification += bodypart.movespeed_contribution
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bodypart, update = TRUE, multiplicative_slowdown = final_modification)
+
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)
 		var/obj/item/organ/I = X
 		I.Insert(src)
+
+/proc/cmp_organ_slot_asc(slot_a, slot_b)
+	return GLOB.organ_process_order.Find(slot_a) - GLOB.organ_process_order.Find(slot_b)
 
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()
@@ -1206,35 +1248,34 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		update_worn_back(0)
 		. = TRUE
 
-	if(head?.wash(clean_types))
+	// Check and wash stuff that can be covered
+	var/obscured = check_obscured_slots()
+
+	if(!(obscured & ITEM_SLOT_HEAD) && head?.wash(clean_types))
 		update_worn_head()
 		. = TRUE
 
-	// Check and wash stuff that can be covered
-	var/list/obscured = check_obscured_slots()
-
-	// If the eyes are covered by anything but glasses, that thing will be covering any potential glasses as well.
-	if(glasses && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
+	if(is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses?.wash(clean_types))
 		update_worn_glasses()
 		. = TRUE
 
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_MASK) && wear_mask?.wash(clean_types))
 		update_worn_mask()
 		. = TRUE
 
-	if(ears && !(ITEM_SLOT_EARS in obscured) && ears.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_EARS) && ears?.wash(clean_types))
 		update_worn_ears()
 		. = TRUE
 
-	if(wear_neck && !(ITEM_SLOT_NECK in obscured) && wear_neck.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_NECK) && wear_neck?.wash(clean_types))
 		update_worn_neck()
 		. = TRUE
 
-	if(shoes && !(ITEM_SLOT_FEET in obscured) && shoes.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_FEET) && shoes?.wash(clean_types))
 		update_worn_shoes()
 		. = TRUE
 
-	if(gloves && !(ITEM_SLOT_GLOVES in obscured) && gloves.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_GLOVES) && gloves?.wash(clean_types))
 		update_worn_gloves()
 		. = TRUE
 
@@ -1299,9 +1340,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	return ..()
 
 /mob/living/carbon/get_attack_type()
-	var/datum/species/species = dna?.species
-	if (species)
-		return species.attack_type
+	if(has_active_hand())
+		var/obj/item/bodypart/arm/active_arm = get_active_hand()
+		return active_arm.attack_type
 	return ..()
 
 /mob/living/carbon/proc/_signal_body_part_update(datum/source)
@@ -1327,6 +1368,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Returns if the carbon is wearing shock proof gloves
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
+
+/mob/living/carbon/proc/add_unarmed_damage_to_arms(amount)
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage += amount
+
+/mob/living/carbon/proc/get_unarmed_damage()
+	var/total_damage = 0
+	for(var/obj/item/bodypart/arm in bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+			if(isnum(arm.unarmed_damage))
+				total_damage += arm.unarmed_damage
+	return (total_damage/2) // average the two arms together
 
 /**
  * This proc is used to determine whether or not the mob can handle touching a burning object.

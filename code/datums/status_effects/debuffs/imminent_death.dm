@@ -40,3 +40,9 @@
 	third_warning = "CLOSE_GRACEFULLY.bin initializing"
 	death_message = "CORE shutting down..."
 	fix_message = "Battery power restored. Aborting shutdown..."
+
+/datum/status_effect/imminent_death/robotic/tick(seconds_between_ticks)
+	var/obj/item/organ/stomach/electrical/battery = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(battery && battery.cell.charge > 0)
+		saved = TRUE
+		qdel(src)
