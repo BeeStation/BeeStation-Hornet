@@ -29,9 +29,16 @@
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
+"k" = (
+/obj/item/plant_seeds/preset/cotton,
+/turf/open/floor/holofloor/monotile/dark,
+/area/template_noop)
 "n" = (
 /obj/machinery/seeder,
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
+/obj/item/plant_seeds/preset/cotton{
+	pixel_x = 11
+	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "o" = (
@@ -51,6 +58,15 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/holofloor/monotile/dark,
 /area/template_noop)
+"A" = (
+/obj/effect/turf_decal/loading_area,
+/obj/item/plant_seeds/preset/cotton,
+/obj/item/plant_seeds/preset/cotton{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/turf/open/floor/holofloor/monotile/dark,
+/area/template_noop)
 "B" = (
 /obj/item/substrate_bag/clay,
 /obj/item/substrate_bag/clay{
@@ -64,7 +80,6 @@
 /area/template_noop)
 "E" = (
 /obj/item/plant_tray,
-/obj/item/plant_seeds/preset/cotton,
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
@@ -93,7 +108,6 @@
 /area/template_noop)
 "M" = (
 /obj/item/plant_tray,
-/obj/item/plant_seeds/preset/cotton,
 /obj/item/shovel/spade{
 	pixel_x = -5;
 	pixel_y = -4
@@ -161,7 +175,7 @@ c
 "}
 (3,1,1) = {"
 n
-D
+k
 z
 U
 d
@@ -169,7 +183,7 @@ d
 (4,1,1) = {"
 d
 D
-w
+A
 b
 a
 "}
