@@ -70533,15 +70533,13 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "qBG" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
 /obj/item/grenade/discogrenade,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "qBP" = (
