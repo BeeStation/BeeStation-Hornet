@@ -10159,7 +10159,7 @@
 "dUh" = (
 /obj/machinery/door/airlock/medical{
 	id_tag = "Unit_2";
-	name = "Unit 2"
+	name = "Toilet"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
@@ -61712,7 +61712,7 @@
 "vlp" = (
 /obj/machinery/door/airlock/medical{
 	id_tag = "Unit_3";
-	name = "Unit 3"
+	name = "Charging Station"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,

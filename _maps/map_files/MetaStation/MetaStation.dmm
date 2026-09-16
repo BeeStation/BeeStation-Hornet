@@ -4039,8 +4039,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "bKX" = (
-/obj/machinery/food_cart/coffee,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/icecream_vat,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "bLe" = (
@@ -4214,7 +4214,7 @@
 /area/station/science/misc_lab/range)
 "bPa" = (
 /obj/structure/closet{
-	name = "Evidence Closet 4"
+	name = "Evidence Closet 3"
 	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
@@ -11499,7 +11499,6 @@
 	pixel_x = 28;
 	pixel_y = -6
 	},
-/obj/structure/table,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -11508,6 +11507,7 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/food_cart/coffee,
 /turf/open/floor/iron,
 /area/station/commons/vacant_room/commissary)
 "eun" = (
@@ -14783,7 +14783,7 @@
 /area/station/command/bridge)
 "fAH" = (
 /obj/structure/closet{
-	name = "Evidence Closet 4"
+	name = "Evidence Closet 1"
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -25442,6 +25442,11 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/item/reagent_containers/cup/glass/mug{
+	pixel_x = 8;
+	pixel_y = 9
+	},
 /turf/open/floor/iron,
 /area/station/commons/vacant_room/commissary)
 "jhF" = (
@@ -52608,7 +52613,7 @@
 /area/station/security/office)
 "spC" = (
 /obj/structure/closet{
-	name = "Evidence Closet 4"
+	name = "Evidence Closet 2"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth_edge{

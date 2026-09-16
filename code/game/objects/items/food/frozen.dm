@@ -1,6 +1,6 @@
 /obj/item/food/icecreamsandwich
 	name = "icecream sandwich"
-	desc = "Portable Ice-cream in its own packaging."
+	desc = "Portable ice cream in its own packaging."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "icecreamsandwich"
 	w_class = WEIGHT_CLASS_TINY
@@ -9,13 +9,13 @@
 		/datum/reagent/consumable/ice = 4
 	)
 	tastes = list("ice cream" = 1)
-	foodtypes = GRAIN | DAIRY | SUGAR
+	foodtypes = DAIRY | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/strawberryicecreamsandwich
 	name = "strawberry ice cream sandwich"
-	desc = "Portable ice-cream in its own packaging of the strawberry variety."
+	desc = "Portable ice cream in its own packaging of the strawberry variety."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "strawberryicecreamsandwich"
 	w_class = WEIGHT_CLASS_TINY
