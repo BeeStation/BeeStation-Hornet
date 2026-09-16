@@ -8,6 +8,7 @@
 	minimum_construction_time = 0.5 SECONDS //Quick.
 	use_station_research = TRUE
 	allowed_buildtypes = COMPONENT_PRINTER
+	uses_queue = FALSE
 
 /obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)

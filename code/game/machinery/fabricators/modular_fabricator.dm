@@ -17,6 +17,8 @@
 	var/wants_to_operate = FALSE
 	/// When this is TRUE, designs cannot be fabricated
 	var/disabled = FALSE
+	/// When this is TRUE, the queue halts once the current design finishes
+	var/queue_stopped = FALSE
 
 	/// The multiplier for how much materials the created object takes from this machines stored materials
 	var/creation_efficiency = 1.6
@@ -28,6 +30,9 @@
 	var/security_interface_locked = TRUE
 	/// If TRUE, designs in the RND_CATEGORY_HACKED category become available
 	var/hacked = FALSE
+
+	/// If FALSE, designs print as soon as they are picked instead of being queued
+	var/uses_queue = TRUE
 
 	/// If TRUE, we can print an entire category at once
 	var/can_print_entire_categories = FALSE
@@ -128,6 +133,36 @@
 	var/datum/component/material_container/materials = get_material_container()
 	if(in_range(user, src) || isobserver(user))
 		. += span_info("The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.")
+		. += span_notice("Currently dropping printed objects <b>[output_direction ? dir2text(output_direction) : "on its own tile"]</b>.")
+		if(output_direction)
+			. += span_notice("<b>Alt-click</b> to drop them on its own tile again.")
+		else
+			. += span_notice("<b>Drag</b> it towards a direction, while next to it, to change where they drop.")
+
+/obj/machinery/modular_fabricator/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if((!issilicon(usr) && !IsAdminGhost(usr)) && !Adjacent(usr))
+		return
+	if(operating)
+		balloon_alert(usr, "busy printing!")
+		return
+	var/direction = get_dir(src, over_location)
+	if(!direction || direction == output_direction)
+		return
+	output_direction = direction
+	balloon_alert(usr, "dropping [dir2text(output_direction)]")
+	ui_update()
+
+/obj/machinery/modular_fabricator/AltClick(mob/user)
+	. = ..()
+	if(!output_direction || !can_interact(user))
+		return
+	if(operating)
+		balloon_alert(user, "busy printing!")
+		return
+	balloon_alert(user, "drop direction reset")
+	output_direction = 0
+	ui_update()
 
 /obj/machinery/modular_fabricator/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(can_be_hacked_or_unlocked && (ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))
@@ -235,68 +270,56 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
+/// Supplies the common Fabricator UI with the material and design icon sheets.
+/obj/machinery/modular_fabricator/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials),
+		get_asset_datum(/datum/asset/spritesheet_batched/research_designs),
+	)
+
 /obj/machinery/modular_fabricator/ui_static_data(mob/user)
 	var/list/data = list()
+	data["fabName"] = name
 	data["accepts_disk"] = accepts_disks
 	data["show_unlock_bar"] = can_be_hacked_or_unlocked
 	data["allow_add_category"] = can_print_entire_categories
+	data["uses_queue"] = uses_queue
 
-	// Used cached_designs if we're using the station's techweb
-	data["available_categories"] = handle_designs((use_station_research ? cached_designs : stored_research.researched_designs)) // these extra brackets are necessary
+	// Use cached_designs if we're using the station's techweb
+	var/list/designs = handle_designs(use_station_research ? cached_designs : stored_research.researched_designs)
 	if(length(imported_designs))
-		data["available_categories"] += handle_designs(imported_designs)
+		merge_design_data(designs, handle_designs(imported_designs))
 	if(hacked && istype(stored_research, /datum/techweb/autounlocking))
 		var/datum/techweb/autounlocking/autounlocking_web = stored_research
-		data["available_categories"] += handle_designs(autounlocking_web.hacked_designs)
+		merge_design_data(designs, handle_designs(autounlocking_web.hacked_designs))
+	data["designs"] = designs
 
 	return data
 
+/obj/machinery/modular_fabricator/proc/merge_design_data(list/into, list/from)
+	PROTECTED_PROC(TRUE)
+
+	for(var/design_id, design_data in from)
+		into[design_id] = design_data
+
 /**
- * Converts all the designs supported by this modular fabricator into UI data
- * Arguments
+ * Converts the designs supported by this modular fabricator into UI data,
+ * dropping the ones this machine cannot actually build.
  *
+ * Arguments
  * * list/designs - the list of techweb designs we are trying to send to the UI
  */
 /obj/machinery/modular_fabricator/proc/handle_designs(list/designs)
 	PROTECTED_PROC(TRUE)
 
-	var/list/categories_associative = list()
+	var/list/buildable = list()
 	for(var/design_id in designs)
 		var/datum/design/design = astype(design_id, /datum/design) || SSresearch.techweb_design_by_id(design_id)
-		if(!(design.build_type & allowed_buildtypes))
+		if(!istype(design) || !(design.build_type & allowed_buildtypes))
 			continue
+		buildable += design
 
-		for(var/category in design.category)
-			if(category == RND_CATEGORY_INITIAL || category == RND_CATEGORY_HACKED)
-				continue
-
-			if(!islist(categories_associative[category]))
-				categories_associative[category] = list()
-
-			// Calculate cost
-			var/list/material_cost = list()
-			for(var/material_id, material_amount in design.materials)
-				material_cost += list(list(
-					"name" = material_id,
-					"amount" = (material_amount / MINERAL_MATERIAL_AMOUNT) * creation_efficiency,
-				))
-
-			// Add
-			categories_associative[category] += list(list(
-				"name" = design.name,
-				"desc" = design.desc,
-				"design_id" = design.id,
-				"material_cost" = material_cost,
-			))
-
-	var/list/output = list()
-	for(var/category, items in categories_associative)
-		output += list(list(
-			"category_name" = category,
-			"category_items" = items,
-		))
-
-	return output
+	return fabricator_ui_designs(buildable, creation_efficiency)
 
 /obj/machinery/modular_fabricator/ui_data(mob/user)
 	var/list/data = list()
@@ -315,7 +338,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	data["hacked"] = hacked
 
 	// Output direction
-	data["output_direction"] = output_direction
 
 	// Queue
 	data["design_queue"] = list()
@@ -329,14 +351,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		))
 
 	// Materials
-	data["contained_materials"] = list()
 	var/datum/component/material_container/material_container = get_material_container()
-	for(var/datum/material/material, material_amount in material_container.materials)
-		data["contained_materials"] += list(list(
-			"name" = material.name,
-			"amount" = material_amount / MINERAL_MATERIAL_AMOUNT,
-			"typepath" = material.type,
-		))
+	data["materials"] = material_container?.ui_data()
 
 	// Thing being made
 	if(being_built && total_build_time && process_completion_world_tick)
@@ -419,9 +435,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 					materials.retrieve_sheets(amount, material_to_eject, get_release_turf())
 					return TRUE
 
-		if("output_dir")
-			output_direction = text2num(params["direction"])
-			return TRUE
 
 		// Queue
 		if("queue_category")
@@ -457,13 +470,74 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			return TRUE
 
 		if("queue_item")
+			if(!uses_queue)
+				return TRUE
 			var/design_id = params["design_id"]
-			var/amount = text2num(params["amount"])
+			var/amount = clamp(text2num(params["amount"]), 1, MAX_LATHE_PRINT_AMOUNT)
 			add_to_queue(design_id, amount)
+			queue_stopped = FALSE
+			begin_process()
 			return TRUE
+
+		// The Fabricator UI uses immediate build actions. Modular fabricators
+		// retain their queue internally, then immediately start processing it.
+		if("build")
+			if(!uses_queue && (operating || length(design_queue))) 			// A machine without a queue takes one order at a time rather than placing more items in the queue behind whatever it's printing
+				say("Warning: fabricator is busy!")
+				return TRUE
+
+			var/list/design_ids = params["designs"]
+			if(islist(design_ids))
+				for(var/build_design_id in design_ids)
+					add_to_queue(build_design_id, 1)
+				if(params["now"])
+					queue_stopped = FALSE
+					begin_process()
+				return TRUE
+
+			var/build_design_id = params["ref"] || params["design_id"]
+			var/build_amount = clamp(text2num(params["amount"]), 1, 50)
+			add_to_queue(build_design_id, build_amount)
+			queue_stopped = FALSE
+			begin_process()
+			return TRUE
+
+		if("build_queue")
+			queue_stopped = FALSE
+			begin_process()
+			return TRUE
+
+		if("stop_queue")
+			queue_stopped = TRUE
+			return TRUE
+
+		// The Fabricator UI lists one row per item to be built rather than one
+		// per design, so the index has to be resolved back to the design
+		// holding that slot before a single copy is dropped.
+		if("del_queue_part")
+			var/queue_index = text2num(params["index"])
+			if(isnull(queue_index) || queue_index < 1)
+				return TRUE
+			var/items_passed = 0
+			for(var/design_id in design_queue)
+				var/amount = max(design_queue[design_id]["amount"], 1)
+				if(queue_index > items_passed + amount)
+					items_passed += amount
+					continue
+				add_to_queue(design_id, -1)
+				break
+			return TRUE
+
+		if("remove_mat")
+			var/datum/component/material_container/materials = get_material_container()
+			for(var/datum/material/material_to_eject as anything in materials.materials)
+				if("[REF(material_to_eject)]" == params["ref"])
+					materials.retrieve_sheets(text2num(params["amount"]), material_to_eject, get_release_turf())
+					return TRUE
 
 		// Go button
 		if("begin_process")
+			queue_stopped = FALSE
 			begin_process()
 			return TRUE
 
@@ -538,7 +612,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		begin_process()
 
 /obj/machinery/modular_fabricator/proc/begin_process()
-	if(operating || disabled)
+	if(operating || disabled || queue_stopped)
 		return
 
 	var/requested_design_id

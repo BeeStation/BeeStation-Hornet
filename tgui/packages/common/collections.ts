@@ -48,3 +48,57 @@ export const binaryInsertWith = <T, U = unknown>(
   copy.splice(binarySearch(getKey, collection, value), 0, value);
   return copy;
 };
+
+// Needed by Fabricator.tsx
+const COMPARATOR = (objA, objB) => {
+  const criteriaA = objA.criteria;
+  const criteriaB = objB.criteria;
+  const length = criteriaA.length;
+  for (let i = 0; i < length; i++) {
+    const a = criteriaA[i];
+    const b = criteriaB[i];
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+  }
+  return 0;
+};
+
+/**
+ * Creates an array of elements, sorted in ascending order by the results
+ * of running each element in a collection thru each iteratee.
+ *
+ * Iteratees are called with one argument (value).
+ */
+export const sortBy =
+  <T>(...iterateeFns: ((input: T) => unknown)[]) =>
+  (array: T[]): T[] => {
+    if (!Array.isArray(array)) {
+      return array;
+    }
+    let length = array.length;
+    // Iterate over the array to collect criteria to sort it by
+    let mappedArray: {
+      criteria: unknown[];
+      value: T;
+    }[] = [];
+    for (let i = 0; i < length; i++) {
+      const value = array[i];
+      mappedArray.push({
+        criteria: iterateeFns.map((fn) => fn(value)),
+        value,
+      });
+    }
+    // Sort criteria using the base comparator
+    mappedArray.sort(COMPARATOR);
+
+    // Unwrap values
+    const values: T[] = [];
+    while (length--) {
+      values[length] = mappedArray[length].value;
+    }
+    return values;
+  };

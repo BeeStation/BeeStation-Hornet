@@ -90,6 +90,52 @@ other types of metals and chemistry for reagents).
 
 	return isnull(desc) ? initial(object_build_item_path.desc) : desc
 
+/**
+ * Serializes designs into the shape the shared fabricator browser expects, so any machine backed by `/datum/design` can drive the same UI.
+ *
+ * Arguments:
+ * * designs - `/datum/design` instances, or design ids to look up.
+ * * coefficient - multiplier applied to every material cost.
+ * * coefficient_override - invoked with a design to get a cost multiplier for
+ *   it specifically, for machines whose efficiency does not apply uniformly.
+ */
+/proc/fabricator_ui_designs(list/designs, coefficient = 1, datum/callback/coefficient_override)
+	var/list/output = list()
+	var/datum/asset/spritesheet_batched/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
+	var/default_size = "[spritesheet.name]32x32"
+
+	for(var/entry in designs)
+		var/datum/design/design = astype(entry, /datum/design) || SSresearch.techweb_design_by_id(entry)
+		if(!istype(design))
+			continue
+
+		var/design_coefficient = coefficient_override ? coefficient_override.Invoke(design) : coefficient
+		var/list/cost = list()
+		for(var/material_key in design.materials)
+			// A key is either a material datum or, for designs that let the
+			// user pick, the name of a material category.
+			var/datum/material/material = material_key
+			cost[istext(material_key) ? material_key : material.name] = design.materials[material_key] * design_coefficient
+
+		// Reagents are poured in by hand from a container, and no efficiency applies to them.
+		var/list/reagent_cost = list()
+		for(var/datum/reagent/reagent as anything in design.reagents_list)
+			reagent_cost[initial(reagent.name)] = design.reagents_list[reagent]
+
+		var/icon_size = spritesheet.icon_size_id(design.id)
+		output[design.id] = list(
+			"name" = design.name,
+			"desc" = design.get_description(),
+			"cost" = cost,
+			"reagentCost" = reagent_cost,
+			"id" = design.id,
+			"categories" = design.category,
+			"icon" = "[icon_size == default_size ? "" : "[icon_size] "][design.id]",
+			"constructionTime" = design.construction_time,
+		)
+
+	return output
+
 ////////////////////////////////////////
 //Disks for transporting design datums//
 ////////////////////////////////////////

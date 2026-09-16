@@ -187,19 +187,17 @@ export class ButtonInput extends Component {
   }
 
   setInInput(inInput) {
-    this.setState({
-      inInput,
-    });
-    if (this.inputRef) {
+    this.setState({ inInput }, () => {
       const input = this.inputRef.current;
-      if (inInput) {
-        input.value = this.props.currentValue || '';
-        try {
-          input.focus();
-          input.select();
-        } catch {}
+      if (!input || !inInput) {
+        return;
       }
-    }
+      input.value = this.props.currentValue || '';
+      try {
+        input.focus();
+        input.select();
+      } catch {}
+    });
   }
 
   commitResult(e) {

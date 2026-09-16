@@ -15,6 +15,48 @@
 	use_station_research = TRUE
 	allowed_buildtypes = MECHFAB
 
+/obj/machinery/modular_fabricator/exosuit_fab/ui_interact(mob/user, datum/tgui/ui)
+	if(!is_operational)
+		return
+
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ExosuitFabricator")
+		ui.set_autoupdate(TRUE)
+		ui.open()
+
+/obj/machinery/modular_fabricator/exosuit_fab/ui_static_data(mob/user)
+	var/list/data = list()
+	data["designs"] = fabricator_ui_designs(cached_designs, creation_efficiency)
+	return data
+
+/obj/machinery/modular_fabricator/exosuit_fab/ui_data(mob/user)
+	var/list/data = list()
+	var/datum/component/material_container/materials = get_material_container()
+	data["materials"] = materials?.ui_data()
+	data["queue"] = list()
+	data["processing"] = operating
+
+	if(being_built)
+		data["queue"] += list(list(
+			"jobId" = "building-[being_built.id]",
+			"designId" = being_built.id,
+			"processing" = TRUE,
+			"timeLeft" = max(process_completion_world_tick - world.time, 0),
+		))
+
+	var/queue_index = 0
+	for(var/design_id in design_queue)
+		for(var/copy in 1 to max(design_queue[design_id]["amount"], 1))
+			queue_index++
+			data["queue"] += list(list(
+				"jobId" = "queued-[queue_index]-[design_id]",
+				"designId" = design_id,
+				"processing" = FALSE,
+				"timeLeft" = 0,
+			))
+	return data
+
 /obj/machinery/modular_fabricator/exosuit_fab/screwdriver_act(mob/living/user, obj/item/tool)
 	if(operating)
 		to_chat(user, span_warning("\The [src] is currently processing! Please wait until completion."))
