@@ -22933,7 +22933,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
 "jKL" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/security/checkpoint/auxiliary)
 "jKY" = (
@@ -44336,7 +44336,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "sum" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/red/anticorner_ramp,
 /turf/open/floor/iron/dark,
 /area/station/security/checkpoint/auxiliary)
