@@ -2693,6 +2693,7 @@
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},

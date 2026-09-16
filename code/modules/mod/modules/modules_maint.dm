@@ -28,7 +28,7 @@
 ///Signal fired when wearer is exposed to reagents
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
 	SIGNAL_HANDLER
-	if(!(methods & (VAPOR|PATCH|TOUCH)) || set_off || mod.wearer.stat == DEAD)
+	if(!(methods in list(VAPOR, PATCH, TOUCH)) || set_off || mod.wearer.stat == DEAD)
 		return //remove non-touch reagent exposure
 	to_chat(mod.wearer, "<span_class='danger'>[src] makes an ominous click sound...</span>")
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
