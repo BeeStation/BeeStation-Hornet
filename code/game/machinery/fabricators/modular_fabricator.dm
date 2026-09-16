@@ -34,6 +34,9 @@
 	/// If FALSE, designs print as soon as they are picked instead of being queued
 	var/uses_queue = TRUE
 
+	/// If FALSE, finished items land dead centre on the tile rather than being scattered around
+	var/scatter_output = TRUE
+
 	/// If TRUE, we can print an entire category at once
 	var/can_print_entire_categories = FALSE
 
@@ -292,9 +295,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	if(hacked && istype(stored_research, /datum/techweb/autounlocking))
 		var/datum/techweb/autounlocking/autounlocking_web = stored_research
 		merge_design_data(designs, handle_designs(autounlocking_web.hacked_designs))
+	hide_unbuildable_chassis(designs)
 	data["designs"] = designs
 
 	return data
+
+/**
+ * update_static_data_for_all_viewers() defers to the tgui refresh cooldown,
+ * which is 5 seconds, they'd be forced to sit and wait until TGUI updates itself
+ */
+/obj/machinery/modular_fabricator/proc/push_design_update()
+	PROTECTED_PROC(TRUE)
+	for(var/datum/tgui/window as anything in open_uis)
+		window.send_full_update(bypass_cooldown = TRUE)
 
 /obj/machinery/modular_fabricator/proc/merge_design_data(list/into, list/from)
 	PROTECTED_PROC(TRUE)
@@ -305,7 +318,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 /**
  * Converts the designs supported by this modular fabricator into UI data,
  * dropping the ones this machine cannot actually build.
- *
  * Arguments
  * * list/designs - the list of techweb designs we are trying to send to the UI
  */
@@ -320,6 +332,38 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		buildable += design
 
 	return fabricator_ui_designs(buildable, creation_efficiency)
+
+/**
+ * A mech's tab is only worth showing when the exosuit itself can be printed
+ * so equipment that a mech is linked to wont be shown until the chassis is researched
+ *
+ * Arguments
+ * * list/designs - UI design data, modified in place
+ */
+/obj/machinery/modular_fabricator/proc/hide_unbuildable_chassis(list/designs)
+	PROTECTED_PROC(TRUE)
+
+	var/list/printable_chassis = list()
+	for(var/design_id, design_data in designs)
+		var/list/design_entry = design_data
+		for(var/category in design_entry["categories"])
+			var/split = findlasttext(category, "/")
+			if(split > 1 && copytext(category, split) == RND_SUBCATEGORY_MECHFAB_CHASSIS)
+				printable_chassis[copytext(category, 1, split)] = TRUE
+
+	for(var/design_id, design_data in designs)
+		var/list/design_entry = design_data
+		var/list/kept = list()
+		for(var/category in design_entry["categories"])
+			// Supported equipment nests its own subcategory underneath, so this
+			// matches anywhere in the path rather than only at the end.
+			var/split = findtext(category, RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT)
+			if(split > 1 && !printable_chassis[copytext(category, 1, split)])
+				continue
+			kept += category
+		// Never write back through the original: the serializer hands out the
+		// design datum's own category list rather than a copy of it.
+		design_entry["categories"] = kept
 
 /obj/machinery/modular_fabricator/ui_data(mob/user)
 	var/list/data = list()
@@ -363,6 +407,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		)
 	else
 		data["being_built"] = null
+	data["processing"] = operating && !queue_stopped
 
 	//Being Build
 	return data
@@ -378,9 +423,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			if(security_interface_locked)
 				return
 			hacked = !hacked
-			update_static_data_for_all_viewers()
+			// Toggling this changes which designs exist, so static data has to go
+			// out, and the user is watching for it.
+			push_design_update()
 			wires.ui_update()
-			return FALSE // Lets avoid an unnecessary UI update, update_static_data_for_all_viewers() already did it for us
+			return FALSE // Lets avoid an unnecessary UI update, push_design_update() already did it for us
 
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
@@ -407,9 +454,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			if(design_delta > 0)
 				say("Uploaded [design_delta] new design[design_delta == 1 ? "" : "s"].")
 				playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
-				update_static_data_for_all_viewers()
+				push_design_update()
 
-			return FALSE // update_static_data_for_all_viewers() already called a UI update
+			return FALSE // push_design_update() already called a UI update
 
 		if("eject_disk")
 			if(!accepts_disks || isnull(inserted_disk))
@@ -475,12 +522,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			var/design_id = params["design_id"]
 			var/amount = clamp(text2num(params["amount"]), 1, MAX_LATHE_PRINT_AMOUNT)
 			add_to_queue(design_id, amount)
-			queue_stopped = FALSE
-			begin_process()
 			return TRUE
 
-		// The Fabricator UI uses immediate build actions. Modular fabricators
-		// retain their queue internally, then immediately start processing it.
 		if("build")
 			if(!uses_queue && (operating || length(design_queue))) 			// A machine without a queue takes one order at a time rather than placing more items in the queue behind whatever it's printing
 				say("Warning: fabricator is busy!")
@@ -607,8 +650,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
 		use_power(min(1000, amount_inserted / 100))
-	//Begin processing to continue the queue if we had items in the queue
-	if(wants_to_operate)
+	if(wants_to_operate && !uses_queue)
 		begin_process()
 
 /obj/machinery/modular_fabricator/proc/begin_process()
@@ -677,7 +719,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 
 	// Check for materials
 	if(!materials.has_materials(materials_used))
-		say("Insufficient materials, operation will proceed when sufficient materials are available.")
+		// Every queue change kicks begin_process off again, let's not scream that there isn't enough materials each time a new item is added
+		if(!wants_to_operate)
+			say("Insufficient materials, operation will proceed when sufficient materials are available.")
 		operating = FALSE
 		wants_to_operate = TRUE
 		being_built = null
@@ -762,8 +806,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			if(isobj(new_item.loc))
 				var/obj/new_obj = new_item.loc //Get the object it is now embedded in.
 				new_obj.forceMove(release_turf) //Forcemove to the release turf to trigger ZFall
+				if(scatter_output)
+					scatter_printed_item(new_obj)
 			else
 				new_item.forceMove(release_turf) //Forcemove to the release turf to trigger ZFall
+				if(scatter_output)
+					scatter_printed_item(new_item)
 
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / items_to_build) //Ensure we get the non multiplied amount

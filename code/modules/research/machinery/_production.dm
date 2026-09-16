@@ -295,6 +295,7 @@
 /// Drops a single item of an order. Spread out by do_print so an order of ten, arrives as ten items rather than one pile.
 /obj/machinery/rnd/production/proc/print_one(path, list/materials_per_item)
 	var/atom/movable/printed = new path(get_output_turf())
+	scatter_printed_item(printed)
 	if(length(materials_per_item))
 		printed.set_custom_materials(materials_per_item)
 

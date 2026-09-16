@@ -243,7 +243,20 @@ $transparent-hover-bg: rgba(255, 255, 255, 0.05);
   }
 
   .Section + .Section,
-  .FabricatorRecipe + .Section {
+  .FabricatorRecipe + .Section,
+  .Section + .Fabricator__CategoryAnchor,
+  .FabricatorRecipe + .Fabricator__CategoryAnchor,
+  .Fabricator__CategoryAnchor + .Section,
+  .Fabricator__CategoryAnchor + .Fabricator__CategoryAnchor {
     margin-top: 0.5em;
+  }
+}
+
+.Fabricator__Browser,
+.Fabricator__QueuePanel {
+  .Section__buttons {
+    top: 50%;
+    margin-top: 0;
+    transform: translateY(-50%);
   }
 }

@@ -38,6 +38,7 @@ type Data = {
   show_unlock_bar: BooleanLike;
   allow_add_category: BooleanLike;
   uses_queue: BooleanLike;
+  processing: BooleanLike;
   designs: Record<string, Design>;
 
   disk_inserted: BooleanLike;
@@ -255,13 +256,29 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
           className="Fabricator__QueuePanel"
           title="Queue"
           buttons={
-            <Button
-              disabled={!queue.length}
-              color="bad"
-              icon="times"
-              content="Clear"
-              onClick={() => act('clear_queue')}
-            />
+            <>
+              <Button
+                disabled={!queue.length}
+                color="bad"
+                icon="times"
+                content="Clear"
+                onClick={() => act('clear_queue')}
+              />
+              {data.processing ? (
+                <Button
+                  content="Stop"
+                  icon="stop"
+                  onClick={() => act('stop_queue')}
+                />
+              ) : (
+                <Button
+                  disabled={!queue.length}
+                  content="Build"
+                  icon="play"
+                  onClick={() => act('build_queue')}
+                />
+              )}
+            </>
           }
         >
           <Stack fill vertical>
@@ -352,26 +369,36 @@ const SecurityControls = () => {
 
   return (
     <NoticeBox color={data.sec_interface_unlock ? 'green' : 'red'} m={0}>
-      <Stack align="center">
-        <Stack.Item grow>
+      <Stack vertical>
+        <Stack.Item>
           Security protocol {data.hacked ? 'disengaged' : 'engaged'}.
         </Stack.Item>
+        {/* The side panel is too narrow to hold the label and both buttons on
+            one row, so the buttons share a row of their own. */}
         <Stack.Item>
-          <Button
-            color={data.sec_interface_unlock ? 'green' : 'red'}
-            icon={data.sec_interface_unlock ? 'unlock' : 'lock'}
-            tooltip="Swipe a valid ID to unlock safety controls"
-            content={data.hacked ? 'Reactivate' : 'Deactivate'}
-            onClick={() => act('toggle_safety')}
-          />
-        </Stack.Item>
-        <Stack.Item>
-          <Button
-            color={data.sec_interface_unlock ? 'green' : 'red'}
-            icon={data.sec_interface_unlock ? 'unlock' : 'lock'}
-            content={data.sec_interface_unlock ? 'Unlocked' : 'Locked'}
-            onClick={() => act('toggle_lock')}
-          />
+          <Stack>
+            <Stack.Item grow>
+              <Button
+                fluid
+                textAlign="center"
+                color={data.sec_interface_unlock ? 'green' : 'red'}
+                icon={data.sec_interface_unlock ? 'unlock' : 'lock'}
+                tooltip="Swipe a valid ID to unlock safety controls"
+                content={data.hacked ? 'Reactivate' : 'Deactivate'}
+                onClick={() => act('toggle_safety')}
+              />
+            </Stack.Item>
+            <Stack.Item grow>
+              <Button
+                fluid
+                textAlign="center"
+                color={data.sec_interface_unlock ? 'green' : 'red'}
+                icon={data.sec_interface_unlock ? 'unlock' : 'lock'}
+                content={data.sec_interface_unlock ? 'Unlocked' : 'Locked'}
+                onClick={() => act('toggle_lock')}
+              />
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
       </Stack>
     </NoticeBox>

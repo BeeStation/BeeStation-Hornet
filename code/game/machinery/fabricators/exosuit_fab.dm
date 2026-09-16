@@ -14,6 +14,7 @@
 	can_print_entire_categories = TRUE
 	use_station_research = TRUE
 	allowed_buildtypes = MECHFAB
+	scatter_output = FALSE
 
 /obj/machinery/modular_fabricator/exosuit_fab/ui_interact(mob/user, datum/tgui/ui)
 	if(!is_operational)
@@ -27,7 +28,9 @@
 
 /obj/machinery/modular_fabricator/exosuit_fab/ui_static_data(mob/user)
 	var/list/data = list()
-	data["designs"] = fabricator_ui_designs(cached_designs, creation_efficiency)
+	var/list/designs = fabricator_ui_designs(cached_designs, creation_efficiency)
+	hide_unbuildable_chassis(designs)
+	data["designs"] = designs
 	return data
 
 /obj/machinery/modular_fabricator/exosuit_fab/ui_data(mob/user)
@@ -35,7 +38,7 @@
 	var/datum/component/material_container/materials = get_material_container()
 	data["materials"] = materials?.ui_data()
 	data["queue"] = list()
-	data["processing"] = operating
+	data["processing"] = operating && !queue_stopped
 
 	if(being_built)
 		data["queue"] += list(list(

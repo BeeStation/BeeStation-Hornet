@@ -136,6 +136,20 @@ other types of metals and chemistry for reagents).
 
 	return output
 
+/**
+ * Nudges a freshly printed item off dead centre, so an order of several does
+ * not land as one sprite stacked on itself. Offsets are relative to whatever
+ * base the item already defines, so items drawn deliberately off-tile keep
+ * their intended position.
+ *
+ * Arguments
+ * * atom/movable/printed - the item that has just landed on the output tile
+ */
+/proc/scatter_printed_item(atom/movable/printed)
+	printed.pixel_x = printed.base_pixel_x + rand(-6, 6)
+	printed.pixel_y = printed.base_pixel_y + rand(-6, 6)
+
+
 ////////////////////////////////////////
 //Disks for transporting design datums//
 ////////////////////////////////////////

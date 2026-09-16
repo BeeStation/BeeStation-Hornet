@@ -289,8 +289,17 @@ const CategoryView = <T extends Design>(props: CategoryViewProps<T>) => {
     </>
   );
 
-  if (depth === 0 || category.children.length === 0) {
+  if (depth === 0) {
     return body;
+  }
+
+  // A category whose designs all sit in subcategories gets no header of its own, but it still needs to carry its anchor so the sidebar tab can scroll to it.
+  if (category.children.length === 0) {
+    return (
+      <div className="Fabricator__CategoryAnchor" id={category.anchorKey}>
+        {body}
+      </div>
+    );
   }
 
   return (

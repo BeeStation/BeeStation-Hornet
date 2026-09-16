@@ -176,7 +176,7 @@ const Queue = (props: { availableMaterials: MaterialMap }) => {
             disabled={!queued}
             color="bad"
             icon="minus-circle"
-            content="Clear Queue"
+            content="Clear"
             onClick={() => act('clear_queue')}
           />
           {data.processing ? (
@@ -189,7 +189,7 @@ const Queue = (props: { availableMaterials: MaterialMap }) => {
           ) : (
             <Button
               disabled={!queued}
-              content="Build Queue"
+              content="Build"
               icon="play"
               onClick={() => act('build_queue')}
             />
