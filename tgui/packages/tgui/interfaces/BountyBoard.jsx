@@ -251,11 +251,13 @@ const BountyCard = ({ request, user, completed }) => {
         <b>Payment Status:</b>{' '}
         {request.prepaid ? (
           <Box as="span" color="good">
-            Pre-Paid - Funds have secured and deposited, they will be released electronically pending the Issuer marking the bounty as completed.
+            Pre-Paid - Funds have secured and deposited, they will be released
+            electronically pending the Issuer marking the bounty as completed.
           </Box>
         ) : (
           <Box as="span" color="label">
-            Deferred - Issuer is taking responsibility for payment and is due to pay personally upon completion of the bounty.
+            Deferred - Issuer is taking responsibility for payment and is due to
+            pay personally upon completion of the bounty.
           </Box>
         )}
       </Box>
@@ -342,7 +344,9 @@ const NewBountyMenu = (_) => {
         </Stack.Item>
         {itemMode === 'single' ? (
           <Stack.Item>
-            <Box bold mb={0.25}>Reward</Box>
+            <Box bold mb={0.25}>
+              Reward
+            </Box>
             <NumberInput
               animated
               unit="cr"
@@ -357,7 +361,9 @@ const NewBountyMenu = (_) => {
         ) : (
           <>
             <Stack.Item>
-              <Box bold mb={0.25}>Quantity Requested</Box>
+              <Box bold mb={0.25}>
+                Quantity Requested
+              </Box>
               <NumberInput
                 animated
                 minValue={1}
@@ -370,7 +376,9 @@ const NewBountyMenu = (_) => {
             </Stack.Item>
             <Stack.Item mb={0.5}>x</Stack.Item>
             <Stack.Item>
-              <Box bold mb={0.25}>Reward Per Item</Box>
+              <Box bold mb={0.25}>
+                Reward Per Item
+              </Box>
               <NumberInput
                 animated
                 unit="cr"
@@ -384,7 +392,9 @@ const NewBountyMenu = (_) => {
             </Stack.Item>
             <Stack.Item mb={0.5}>=</Stack.Item>
             <Stack.Item>
-              <Box bold mb={0.25}>Total Reward</Box>
+              <Box bold mb={0.25}>
+                Total Reward
+              </Box>
               <Box
                 p={0.5}
                 textAlign="right"

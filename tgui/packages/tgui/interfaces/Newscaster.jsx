@@ -384,10 +384,14 @@ const NewscasterWantedScreen = () => {
                     textAlign="left"
                     mb={0.6}
                     selected={selectedWantedEntry?.id === entry.id}
-                    onClick={() => act('setWantedTarget', { wantedID: entry.id })}
+                    onClick={() =>
+                      act('setWantedTarget', { wantedID: entry.id })
+                    }
                   >
                     <Box bold>{entry.criminal}</Box>
-                    <Box fontSize={0.9} opacity={0.8}>{entry.danger_level || 'Armed and Dangerous'}</Box>
+                    <Box fontSize={0.9} opacity={0.8}>
+                      {entry.danger_level || 'Armed and Dangerous'}
+                    </Box>
                   </Button>
                 ))}
                 {!wantedEntries.length && (
@@ -437,7 +441,9 @@ const NewscasterWantedScreen = () => {
               {!!selectedWantedEntry && (
                 <>
                   <Box mb={0.5} bold color="red">
-                    {selectedWantedEntry.active ? 'Active Wanted Issue' : 'Dismissed Wanted Issue'}
+                    {selectedWantedEntry.active
+                      ? 'Active Wanted Issue'
+                      : 'Dismissed Wanted Issue'}
                   </Box>
                   <Box
                     mb={1.3}
@@ -460,7 +466,11 @@ const NewscasterWantedScreen = () => {
                   <Stack>
                     {!!selectedWantedEntry.image && (
                       <Stack.Item basis="35%">
-                        <Box as="img" src={selectedWantedEntry.image} style={{ maxWidth: '100%', maxHeight: '180px' }} />
+                        <Box
+                          as="img"
+                          src={selectedWantedEntry.image}
+                          style={{ maxWidth: '100%', maxHeight: '180px' }}
+                        />
                       </Stack.Item>
                     )}
                     <Stack.Item grow>
@@ -478,12 +488,20 @@ const NewscasterWantedScreen = () => {
                         >
                           {selectedEntryCharges.length ? (
                             selectedEntryCharges.map((charge, index) => (
-                              <Box key={`${selectedWantedEntry?.id || 'wanted'}-charge-${index}`}>
+                              <Box
+                                key={`${selectedWantedEntry?.id || 'wanted'}-charge-${index}`}
+                              >
                                 - {charge}
                               </Box>
                             ))
                           ) : (
-                            <Box italic style={{ whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                            <Box
+                              italic
+                              style={{
+                                whiteSpace: 'normal',
+                                wordBreak: 'break-word',
+                              }}
+                            >
                               {selectedWantedEntry.crime}
                             </Box>
                           )}
@@ -492,7 +510,10 @@ const NewscasterWantedScreen = () => {
                     </Stack.Item>
                   </Stack>
                   <Box mt={0.6} italic>
-                    Posted by {selectedWantedEntry.author ? selectedWantedEntry.author : 'N/A'}
+                    Posted by{' '}
+                    {selectedWantedEntry.author
+                      ? selectedWantedEntry.author
+                      : 'N/A'}
                   </Box>
                 </>
               )}
@@ -555,7 +576,11 @@ const NewscasterWantedScreen = () => {
               icon="id-badge"
               disabled={!wanted_create_mode}
               color={photo_data ? 'green' : undefined}
-              content={photo_data ? 'Import From Security Records (Photo Loaded)' : 'Import From Security Records'}
+              content={
+                photo_data
+                  ? 'Import From Security Records (Photo Loaded)'
+                  : 'Import From Security Records'
+              }
               onClick={() => act('importWantedRecord')}
             />
           </Box>
@@ -598,7 +623,13 @@ export const UserDetails = ({ sourceRole = null }) => {
       textAlign="right"
       style={{ maxWidth: '290px' }}
     >
-      <Box style={{ whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+      <Box
+        style={{
+          whiteSpace: 'normal',
+          wordBreak: 'break-word',
+          overflowWrap: 'anywhere',
+        }}
+      >
         <Icon name="id-card" mr={0.5} />
         {user.name}
         {!!user.job && ` - ${user.job}`}
@@ -630,12 +661,13 @@ const NewscasterContent = (_) => {
   );
 
   const wantedCount = wanted.filter((entry) => entry.criminal).length;
-  const activeWantedCount = wanted.filter((entry) => entry.active && entry.criminal).length;
+  const activeWantedCount = wanted.filter(
+    (entry) => entry.active && entry.criminal,
+  ).length;
   const showWantedTab = wantedCount > 0;
-  const pinnedMessage =
-    pinnedArticle?.ID
-      ? messages.find((message) => message.ID === pinnedArticle.ID)
-      : null;
+  const pinnedMessage = pinnedArticle?.ID
+    ? messages.find((message) => message.ID === pinnedArticle.ID)
+    : null;
   const visibleMessages = messages.filter((message) => {
     const query = feedSearch.trim().toLowerCase();
     if (!query) {
@@ -649,9 +681,9 @@ const NewscasterContent = (_) => {
   });
   const feedListMessages = pinnedMessage
     ? [
-      pinnedMessage,
-      ...visibleMessages.filter((message) => message.ID !== pinnedMessage.ID),
-    ]
+        pinnedMessage,
+        ...visibleMessages.filter((message) => message.ID !== pinnedMessage.ID),
+      ]
     : visibleMessages;
   const selectedMessage =
     feedListMessages.find((message) => message.ID === selectedMessageId) ||
@@ -663,7 +695,7 @@ const NewscasterContent = (_) => {
     <>
       <Section
         title="News Sources"
-        buttons={(
+        buttons={
           <>
             <Button
               icon="plus-square"
@@ -679,14 +711,32 @@ const NewscasterContent = (_) => {
             />
             <Button
               icon="skull-crossbones"
-              color={activeWantedCount ? 'red' : (wanted_create_mode ? 'orange' : undefined)}
-              content={activeWantedCount ? `Wanted (${activeWantedCount})` : (wantedCount ? 'Wanted' : 'Create Wanted')}
+              color={
+                activeWantedCount
+                  ? 'red'
+                  : wanted_create_mode
+                    ? 'orange'
+                    : undefined
+              }
+              content={
+                activeWantedCount
+                  ? `Wanted (${activeWantedCount})`
+                  : wantedCount
+                    ? 'Wanted'
+                    : 'Create Wanted'
+              }
               disabled={!wanted_create_mode && !wantedCount}
-              tooltip={!wanted_create_mode && !wantedCount ? 'Security records access required to create a wanted case.' : null}
-              onClick={() => act(wantedCount ? 'showWanted' : 'createWantedCase')}
+              tooltip={
+                !wanted_create_mode && !wantedCount
+                  ? 'Security records access required to create a wanted case.'
+                  : null
+              }
+              onClick={() =>
+                act(wantedCount ? 'showWanted' : 'createWantedCase')
+              }
             />
           </>
-        )}
+        }
       >
         <Tabs fluid>
           {channels.map((channel) => (
@@ -725,7 +775,9 @@ const NewscasterContent = (_) => {
         <>
           <Section title="Channel Description">
             <Box color="#d5dee8" fontSize={0.95} opacity={0.92}>
-              {decodeHtmlEntities(channelDesc || 'Station-wide automated broadcast feed.')}
+              {decodeHtmlEntities(
+                channelDesc || 'Station-wide automated broadcast feed.',
+              )}
             </Box>
           </Section>
           <NewscasterSystemChannelView
@@ -746,50 +798,63 @@ const NewscasterContent = (_) => {
                   mb={1}
                 />
                 <Box style={{ overflowY: 'auto', maxHeight: '160px' }}>
-                {channelCensored ? (
-                  <NoticeBox danger>
-                    <b>ATTENTION:</b> {CENSOR_MESSAGE}
-                  </NoticeBox>
-                ) : !feedListMessages.length ? (
-                  <NoticeBox>No Listed Articles.</NoticeBox>
-                ) : (
-                  feedListMessages.map((message) => {
-                    const isPinned = pinnedMessage?.ID === message.ID;
-                    return (
-                      <Button
-                        key={message.ID}
-                        fluid
-                        textAlign="left"
-                        nowrap={false}
-                        mb={0.5}
-                        color={isPinned ? 'yellow' : undefined}
-                        style={isPinned ? { borderLeft: '3px solid #f1c40f' } : undefined}
-                        selected={selectedMessage?.ID === message.ID}
-                        onClick={() => setSelectedMessageId(message.ID)}
-                      >
-                        <Box
-                          bold
-                          style={{
-                            whiteSpace: 'normal',
-                            wordBreak: 'break-word',
-                            lineHeight: 1.25,
-                          }}
+                  {channelCensored ? (
+                    <NoticeBox danger>
+                      <b>ATTENTION:</b> {CENSOR_MESSAGE}
+                    </NoticeBox>
+                  ) : !feedListMessages.length ? (
+                    <NoticeBox>No Listed Articles.</NoticeBox>
+                  ) : (
+                    feedListMessages.map((message) => {
+                      const isPinned = pinnedMessage?.ID === message.ID;
+                      return (
+                        <Button
+                          key={message.ID}
+                          fluid
+                          textAlign="left"
+                          nowrap={false}
+                          mb={0.5}
+                          color={isPinned ? 'yellow' : undefined}
+                          style={
+                            isPinned
+                              ? { borderLeft: '3px solid #f1c40f' }
+                              : undefined
+                          }
+                          selected={selectedMessage?.ID === message.ID}
+                          onClick={() => setSelectedMessageId(message.ID)}
                         >
-                          {isPinned && (
-                            <>
-                              <Icon name="thumbtack" color="yellow" mr={0.5} />
-                              <Box as="span" color="yellow">PINNED: </Box>
-                            </>
-                          )}
-                          {message.headline || 'Untitled Article'}
-                        </Box>
-                        <Box fontSize={0.95} opacity={0.85}>
-                          {message.censored_author ? '[REDACTED]' : message.auth} at {message.time}
-                        </Box>
-                      </Button>
-                    );
-                  })
-                )}
+                          <Box
+                            bold
+                            style={{
+                              whiteSpace: 'normal',
+                              wordBreak: 'break-word',
+                              lineHeight: 1.25,
+                            }}
+                          >
+                            {isPinned && (
+                              <>
+                                <Icon
+                                  name="thumbtack"
+                                  color="yellow"
+                                  mr={0.5}
+                                />
+                                <Box as="span" color="yellow">
+                                  PINNED:{' '}
+                                </Box>
+                              </>
+                            )}
+                            {message.headline || 'Untitled Article'}
+                          </Box>
+                          <Box fontSize={0.95} opacity={0.85}>
+                            {message.censored_author
+                              ? '[REDACTED]'
+                              : message.auth}{' '}
+                            at {message.time}
+                          </Box>
+                        </Button>
+                      );
+                    })
+                  )}
                 </Box>
               </Section>
             </Stack.Item>
@@ -809,12 +874,18 @@ const NewscasterContent = (_) => {
   );
 };
 
-const NewscasterChannelPicker = ({ channels = [], showWanted = false, activeWantedCount = 0 }) => {
+const NewscasterChannelPicker = ({
+  channels = [],
+  showWanted = false,
+  activeWantedCount = 0,
+}) => {
   const { act } = useBackend();
   return (
     <Box p={3}>
       <Box width="100%" style={{ maxWidth: '520px' }}>
-        <Box style={{ maxHeight: '430px', overflowY: 'auto', paddingRight: '4px' }}>
+        <Box
+          style={{ maxHeight: '430px', overflowY: 'auto', paddingRight: '4px' }}
+        >
           {showWanted && (
             <Button
               fluid
@@ -830,7 +901,9 @@ const NewscasterChannelPicker = ({ channels = [], showWanted = false, activeWant
             >
               <Box style={{ width: '100%' }}>
                 <Box bold>
-                  {activeWantedCount ? `Wanted (${activeWantedCount})` : 'Wanted'}
+                  {activeWantedCount
+                    ? `Wanted (${activeWantedCount})`
+                    : 'Wanted'}
                 </Box>
                 <Box
                   fontSize={0.85}
@@ -912,14 +985,14 @@ const NewscasterSystemChannelView = ({ channelCensored, messages = [] }) => {
         </NoticeBox>
       ) : (
         streamMessages.map((message) => {
-          const messagePhotos =
-            message?.photos?.length
-              ? message.photos
-              : (message?.photo ? [message.photo] : []);
-          const announcementHeader =
-            message.censored_author
-              ? `[REDACTED] at ${message.time}`
-              : `${message.auth} at ${message.time}`;
+          const messagePhotos = message?.photos?.length
+            ? message.photos
+            : message?.photo
+              ? [message.photo]
+              : [];
+          const announcementHeader = message.censored_author
+            ? `[REDACTED] at ${message.time}`
+            : `${message.auth} at ${message.time}`;
           return (
             <Box
               key={message.ID}
@@ -936,8 +1009,8 @@ const NewscasterSystemChannelView = ({ channelCensored, messages = [] }) => {
               </Box>
               {message.censored_message ? (
                 <NoticeBox danger>
-                  This message was deemed dangerous to the general welfare of the
-                  station and marked with a <b>D-Notice</b>.
+                  This message was deemed dangerous to the general welfare of
+                  the station and marked with a <b>D-Notice</b>.
                 </NoticeBox>
               ) : (
                 <>
@@ -996,10 +1069,18 @@ const NewscasterChannelBox = (_) => {
     !channelCensored &&
     (!channelLocked || isOwner || channelAllowedPosters.includes(user.name));
   const showingManage = isOwner && showManagePanel;
-  const channelDescText = decodeHtmlEntities(channelDesc || 'No channel description set.');
+  const channelDescText = decodeHtmlEntities(
+    channelDesc || 'No channel description set.',
+  );
   const canExpandDesc = channelDescText.length > 180;
-  const isSystemChannel = channelName === 'Station Announcements' || channelName === 'AuriNet WeatherCast';
-  const sourceRole = isOwner ? 'Owner' : (channelAllowedPosters.includes(user.name) ? 'Author' : null);
+  const isSystemChannel =
+    channelName === 'Station Announcements' ||
+    channelName === 'AuriNet WeatherCast';
+  const sourceRole = isOwner
+    ? 'Owner'
+    : channelAllowedPosters.includes(user.name)
+      ? 'Author'
+      : null;
   return (
     <Section fill title="Channel Details">
       <Stack fill vertical>
@@ -1015,7 +1096,10 @@ const NewscasterChannelBox = (_) => {
                     mr={0.5}
                     backgroundColor={channelLocked ? '#4a1e1e' : '#173f2a'}
                     color={channelLocked ? '#ffb8b8' : '#9ef2c2'}
-                    style={{ border: '1px solid rgba(255,255,255,0.12)', borderRadius: '3px' }}
+                    style={{
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      borderRadius: '3px',
+                    }}
                   >
                     <Icon name={channelLocked ? 'lock' : 'globe'} mr={0.25} />
                     {channelLocked ? 'Private' : 'Public'}
@@ -1053,7 +1137,9 @@ const NewscasterChannelBox = (_) => {
                   <Stack.Item>
                     <Button
                       icon={showingManage ? 'chevron-up' : 'wrench'}
-                      content={showingManage ? 'Close Manage' : 'Manage Channel'}
+                      content={
+                        showingManage ? 'Close Manage' : 'Manage Channel'
+                      }
                       selected={showingManage}
                       onClick={() => setShowManagePanel(!showManagePanel)}
                     />
@@ -1074,7 +1160,10 @@ const NewscasterChannelBox = (_) => {
             <Box
               p={1}
               backgroundColor="rgba(255,255,255,0.03)"
-              style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: '4px' }}
+              style={{
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '4px',
+              }}
             >
               <Box color="#d5dee8" fontSize={0.9} opacity={0.88} mb={0.45}>
                 Channel Description
@@ -1084,16 +1173,20 @@ const NewscasterChannelBox = (_) => {
                 opacity={0.95}
                 style={
                   showFullDesc || !canExpandDesc
-                    ? { whiteSpace: 'normal', wordBreak: 'break-word', lineHeight: 1.3 }
+                    ? {
+                        whiteSpace: 'normal',
+                        wordBreak: 'break-word',
+                        lineHeight: 1.3,
+                      }
                     : {
-                      whiteSpace: 'normal',
-                      wordBreak: 'break-word',
-                      lineHeight: 1.3,
-                      display: '-webkit-box',
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                    }
+                        whiteSpace: 'normal',
+                        wordBreak: 'break-word',
+                        lineHeight: 1.3,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                      }
                 }
               >
                 {channelDescText}
@@ -1116,7 +1209,9 @@ const NewscasterChannelBox = (_) => {
               content="Submit Story"
               disabled={!canPost}
               tooltip={
-                channelLocked && !isOwner && !channelAllowedPosters.includes(user.name)
+                channelLocked &&
+                !isOwner &&
+                !channelAllowedPosters.includes(user.name)
                   ? 'This channel is private. Ask owner to add you as poster.'
                   : channelCensored
                     ? 'Channel is censored.'
@@ -1129,9 +1224,7 @@ const NewscasterChannelBox = (_) => {
               icon="camera"
               color={photo_count > 0 ? 'green' : undefined}
               content={
-                photo_count > 0
-                  ? `Photo (${photo_count}/3)`
-                  : 'Add Photo'
+                photo_count > 0 ? `Photo (${photo_count}/3)` : 'Add Photo'
               }
               disabled={!canPost}
               onClick={() => act('togglePhoto')}
@@ -1201,7 +1294,9 @@ const NewscasterChannelBox = (_) => {
                 />
               </Box>
               <Divider />
-              <Box mb={1} color="label">Allowed Private Posters</Box>
+              <Box mb={1} color="label">
+                Allowed Private Posters
+              </Box>
               <Box mb={1}>
                 <Button
                   icon="user-plus"
@@ -1248,17 +1343,13 @@ const processedText = (value) => {
 
 const NewscasterArticleView = ({ selectedMessage }) => {
   const { act, data } = useBackend();
-  const {
-    security_mode,
-    channelCensored,
-    channelLocked,
-    channelAuthor,
-    user,
-  } = data;
-  const messagePhotos =
-    selectedMessage?.photos?.length
-      ? selectedMessage.photos
-      : (selectedMessage?.photo ? [selectedMessage.photo] : []);
+  const { security_mode, channelCensored, channelLocked, channelAuthor, user } =
+    data;
+  const messagePhotos = selectedMessage?.photos?.length
+    ? selectedMessage.photos
+    : selectedMessage?.photo
+      ? [selectedMessage.photo]
+      : [];
 
   if (channelCensored) {
     return (
@@ -1325,7 +1416,11 @@ const NewscasterArticleView = ({ selectedMessage }) => {
         bold
         fontSize={1.2}
         textAlign="center"
-        style={{ whiteSpace: 'normal', wordBreak: 'break-word', lineHeight: 1.25 }}
+        style={{
+          whiteSpace: 'normal',
+          wordBreak: 'break-word',
+          lineHeight: 1.25,
+        }}
       >
         {selectedMessage.headline || 'Untitled Article'}
       </Box>
@@ -1351,25 +1446,38 @@ const NewscasterArticleView = ({ selectedMessage }) => {
                     mb={0.75}
                     p={0.35}
                     backgroundColor="rgba(255,255,255,0.04)"
-                    style={{ border: '1px solid rgba(255,255,255,0.14)', borderRadius: '4px' }}
+                    style={{
+                      border: '1px solid rgba(255,255,255,0.14)',
+                      borderRadius: '4px',
+                    }}
                   >
                     <Box
                       as="img"
                       src={photoSrc}
-                      style={{ maxWidth: '100%', maxHeight: '260px', display: 'block' }}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '260px',
+                        display: 'block',
+                      }}
                     />
                   </Box>
                 ))}
               </Stack.Item>
               <Stack.Item grow>
                 <Section>
-                  <Box dangerouslySetInnerHTML={processedText(selectedMessage.body)} />
+                  <Box
+                    dangerouslySetInnerHTML={processedText(
+                      selectedMessage.body,
+                    )}
+                  />
                 </Section>
               </Stack.Item>
             </Stack>
           ) : (
             <Section>
-              <Box dangerouslySetInnerHTML={processedText(selectedMessage.body)} />
+              <Box
+                dangerouslySetInnerHTML={processedText(selectedMessage.body)}
+              />
             </Section>
           )}
           {selectedMessage.photo_caption && (
