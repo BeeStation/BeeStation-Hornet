@@ -31,7 +31,7 @@
 
 /obj/item/food/spacefreezy
 	name = "space freezy"
-	desc = "The best icecream in space."
+	desc = "The best ice cream in space."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "spacefreezy"
 	w_class = WEIGHT_CLASS_TINY
