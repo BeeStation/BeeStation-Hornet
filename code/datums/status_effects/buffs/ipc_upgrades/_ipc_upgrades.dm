@@ -98,6 +98,9 @@
 /datum/status_effect/ipc_upgrade/proc/can_activate()
 	return !active && COOLDOWN_FINISHED(src, activated_cooldown) && can_drain_cell(power_requirement + active_power_requirement)
 
+/datum/status_effect/ipc_upgrade/proc/can_deactivate()
+	return active
+
 /datum/status_effect/ipc_upgrade/proc/toggle(atom/target)
 	if(!active)
 		activate(target)
@@ -114,6 +117,7 @@
 	COOLDOWN_START(src, activated_cooldown, cooldown_length)
 	drain_cell(power_requirement)
 	on_activate(target)
+	SEND_SIGNAL(src, COMSIG_UPGRADE_ACTIVATED)
 	return TRUE
 
 /// Called by activate(). target can and will be null, sometimes even for targeted upgrades.
@@ -121,12 +125,11 @@
 	return
 
 /datum/status_effect/ipc_upgrade/proc/deactivate()
-	if(!active)
+	if(!can_deactivate())
 		return
-	if(action)
-		action.deactivate(owner) // kinda bad to call this twice (once when they click, once when the upgrade itself deactivates) but no good way to change action.active externally
 	active = FALSE
 	on_deactivate()
+	SEND_SIGNAL(src, COMSIG_UPGRADE_DEACTIVATED)
 
 /datum/status_effect/ipc_upgrade/proc/on_deactivate()
 	return
@@ -209,6 +212,12 @@
 	disable_text = has_deactivate_text ? "Deactivated [new_upgrade.name]!" : null
 	cooldown_time = new_upgrade.cooldown_length
 	upgrade = new_upgrade
+	RegisterSignal(upgrade, COMSIG_UPGRADE_ACTIVATED, PROC_REF(upgrade_activated))
+	RegisterSignal(upgrade, COMSIG_UPGRADE_DEACTIVATED, PROC_REF(upgrade_deactivated))
+
+/datum/action/innate/ipc_upgrade_action/Destroy()
+	UnregisterSignal(upgrade, list(COMSIG_UPGRADE_ACTIVATED, COMSIG_UPGRADE_DEACTIVATED))
+	. = ..()
 
 /datum/action/innate/ipc_upgrade_action/is_available(feedback = FALSE)
 	if(!..())
@@ -218,6 +227,18 @@
 	if(!upgrade.can_activate())
 		return FALSE
 	return TRUE
+
+/datum/action/innate/ipc_upgrade_action/proc/upgrade_activated()
+	if(toggleable && !active)
+		active = TRUE
+	update_buttons()
+	start_cooldown()
+
+/datum/action/innate/ipc_upgrade_action/proc/upgrade_deactivated()
+	if(toggleable && active)
+		active = FALSE
+	update_buttons()
+	start_cooldown()
 
 /datum/action/innate/ipc_upgrade_action/toggleable
 	toggleable = TRUE

@@ -11,10 +11,12 @@
 	. = ..()
 	to_deploy = new to_deploy_typepath()
 	to_deploy.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	RegisterSignal(to_deploy, COMSIG_MOVABLE_MOVED, PROC_REF(item_moved))
 	ADD_TRAIT(to_deploy, TRAIT_NODROP, UPGRADE_TRAIT)
 
 /datum/status_effect/ipc_upgrade/deployable/on_remove()
 	. = ..()
+	UnregisterSignal(to_deploy, COMSIG_MOVABLE_MOVED)
 	QDEL_NULL(to_deploy)
 
 /datum/status_effect/ipc_upgrade/deployable/activate(atom/target)
@@ -32,6 +34,13 @@
 	owner.visible_message(span_warning("[owner] retracts \a [to_deploy] into an internal compartment!"), span_notice("You retract \a [to_deploy] into an internal compartment."))
 	to_deploy.moveToNullspace()
 	. = ..()
+
+/datum/status_effect/ipc_upgrade/deployable/proc/item_moved()
+	// Sanity check to make sure any weird interactions avoid dropping the item.
+	if(to_deploy.loc == owner || to_deploy.loc == null)
+		return
+	deactivate()
+
 
 /datum/status_effect/ipc_upgrade/deployable/medbeam
 	id = "ipc deployable medbeam"
