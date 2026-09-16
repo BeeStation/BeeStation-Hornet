@@ -1,6 +1,3 @@
-//How many turfs are required to generate atleast 1 maint flora
-#define MAINT_FLORA_COST 30
-
 SUBSYSTEM_DEF(botany)
 	name = "Botany"
 	ss_flags = SS_NO_FIRE
@@ -78,17 +75,26 @@ SUBSYSTEM_DEF(botany)
 	for(var/level in 1 to GRID_MAX_ACCURACY)
 		refraction_reagents["[level]"] = list()
 		refraction_coords["[level]"] = list()
+		// Desnity toggle, for upgrades - You will have to manually add levels to this, if you increase the levels themselves
+		var/density = 1
+		switch(level)
+			if(1)
+				density = 1.5
+			if(2)
+				density = 2
+			if(3)
+				density = 2.5
 		// Build available grids - This is stupid
 		var/list/plots = list()
-		for(var/x in 1 to MAX_REAGENT_GRID*level)
-			for(var/y in 1 to MAX_REAGENT_GRID*level)
+		for(var/x in 1 to floor(MAX_REAGENT_GRID*density))
+			for(var/y in 1 to floor(MAX_REAGENT_GRID*density))
 				plots += "[x]:[y]"
 		//Populate reagent data
 		for(var/datum/reagent/reagent as anything in all_reagents)
 			if(!(initial(reagent.chemical_flags) & CHEMICAL_RNG_BOTANY))
 				continue
 			//Area in which we can fall inside
-			var/matrix_size = rand(2, level+2)
+			var/matrix_size = rand(2, 5)
 			//Where our hint radius is offset by
 			var/max_offset = floor(matrix_size/2)
 			var/offset_x = rand(-max_offset+1, max_offset)

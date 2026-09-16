@@ -112,6 +112,7 @@ class ReagentGrid extends Component {
       reagent_data,
       selected_reagent,
       accuracy,
+      list_accuracy,
       sampled_reagents,
       all_reagent_data,
     } = this.props;
@@ -123,6 +124,7 @@ class ReagentGrid extends Component {
         <Flex height="100.1%" width="70%" direction="column">
           <Section>
             {`${this.hovered_reagent ? all_reagent_data[this.hovered_reagent]['GRID_REAGENT_NAME'] : 'No Data'}`}{' '}
+            {`(${list_accuracy})`}
             {`(${(this.svgPosition.x + this.dynamicXOffset) / 10}`}
             {' : '}
             {`${(this.svgPosition.y + this.dynamicYOffset) / 10})`}
@@ -1352,6 +1354,7 @@ export const ReagentGridAlt = (props) => {
     sampled_reagents,
     all_reagent_data,
     last_command,
+    list_accuracy,
   } = data;
   return (
     <Window width={900} height={840} theme="plant_menu">
@@ -1366,6 +1369,7 @@ export const ReagentGridAlt = (props) => {
               accuracy={accuracy}
               sampled_reagents={sampled_reagents}
               all_reagent_data={all_reagent_data}
+              list_accuracy={list_accuracy}
             />
           </Flex.Item>
           {/* Fluff command section */}

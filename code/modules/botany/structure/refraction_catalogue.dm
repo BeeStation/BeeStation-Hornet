@@ -11,10 +11,10 @@
 
 	/// UI control
 	var/selected_reagent
-	///Controls which reagent list we're using - lower is better :trolled:
+	/// Controls which reagent list we're using - lower is better :trolled:
 	var/list_accuracy = GRID_MAX_ACCURACY
-	///Controls the offset / obfuscation - higher is better
-	var/accuracy = 0 // Used for narrowing results
+	/// Controls the offset / obfuscation - higher is better
+	var/accuracy = 0 // Used for narrowing results, mostly an admin tool
 	var/grid_x = 0
 	var/grid_y = 0
 
@@ -50,7 +50,7 @@
 	var/highest_rate = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		highest_rate = highest_rate < S.rating ? S.rating : highest_rate
-	accuracy = min(highest_rate-1, 3)
+	list_accuracy = clamp(4-highest_rate, 1, 3)
 	return highest_rate
 
 /obj/machinery/refraction_catalogue/attackby(obj/item/C, mob/user)
@@ -103,6 +103,7 @@
 	data["reagent_data"] = SSbotany.refraction_reagents["[list_accuracy]"]-sampled_reagents
 	data["selected_reagent"] = selected_reagent
 	data["accuracy"] = accuracy
+	data["list_accuracy"] = list_accuracy
 	data["sampled_reagents"] = SSbotany.refraction_reagents["[list_accuracy]"]&sampled_reagents
 	data["last_command"] = last_command
 	return data

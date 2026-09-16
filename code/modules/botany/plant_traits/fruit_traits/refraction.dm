@@ -18,12 +18,14 @@
 	grid_x = _grid_x
 	grid_y = _grid_y
 	level = _level || GRID_MAX_ACCURACY
+	var/round_start = FALSE
 	if(!grid_x && !grid_y) //If no supplied coordinates, aka we're a random trait, pick a random reagent to rep
 		var/reagent = pick(SSbotany.refraction_reagents["[level]"])
 		grid_x = SSbotany.refraction_reagents["[level]"][reagent][GRID_REAGENT_POSITION][1]
 		grid_y = SSbotany.refraction_reagents["[level]"][reagent][GRID_REAGENT_POSITION][2]
+		round_start = TRUE
 	refraction_reagent = text2path(SSbotany.refraction_coords["[level]"]["[grid_x]:[grid_y]"])
-	name = "[name] ([level])([grid_x], [grid_y])"
+	name = "[name][round_start ? " ([initial(refraction_reagent?.name)])" : ""] ([level])([grid_x], [grid_y])"
 	// Volume preview
 	var/datum/plant_feature/fruit/fruit_parent = _parent
 	if(!fruit_parent)

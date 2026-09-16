@@ -93,6 +93,8 @@
 
 /obj/item/plant_tray/examine(mob/user)
 	. = ..()
+	if(!use_indicators)
+		return
 // Tray - scanner interopt
 	. += span_notice("You can use a plant scanner to diagnose status lights.")
 // Lights

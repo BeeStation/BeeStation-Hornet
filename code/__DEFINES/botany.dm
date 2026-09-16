@@ -1,3 +1,6 @@
+/// How many turfs are required to generate atleast 1 maint flora
+#define MAINT_FLORA_COST 30
+
 ///plant feature catagories
 #define PLANT_FEATURE_FRUIT (1<<0)
 #define PLANT_FEATURE_BODY (1<<1)
