@@ -165,8 +165,9 @@
 		cult_team.cult_leader_datum = null
 	if(cult_team.blood_target && cult_team.blood_target_image && owner.current.client)
 		owner.current.client.images -= cult_team.blood_target_image
-	owner.current.update_alt_appearances()
+	var/mob/living/former_cultist = owner.current
 	. = ..()
+	former_cultist?.update_alt_appearances() // Properly removes your old team's hud
 
 /datum/antagonist/cult/get_admin_commands()
 	. = ..()
