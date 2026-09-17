@@ -1,0 +1,8 @@
+author: rkz, zxaber, Mickyan
+delete-after: true
+changes:
+  - rscadd: adds screentips to ladders, cigarette packs, and smartfridges
+  - tweak: moves cyborg part coloring from aug manipulator to rclicking with spraycan
+  - rscdel: deletes aug manipulator
+  - rscadd: right clicking with a spraycan will attempt to copy colors from your cursor
+      of whatever art project you are working on
