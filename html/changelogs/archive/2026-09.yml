@@ -89,6 +89,15 @@
   - bugfix: Fixed teleports that check if you're on a safe tile(heretic blade break,
       ninja dojo returning, swarmer ctrlclick etc.)
 2026-09-17:
+  WhiskeyMarten:
+  - rscadd: Added the ice cream vat to Metastation.
+  - bugfix: Fixed Evidence Closets all having the same number on Metastation and Cardinalstation.
+  - bugfix: Fixed the names of the Toilet and Charging Station on Kilostation.
+  - bugfix: Removed a stray decal in the Detective's room on Boxstation, and some
+      unused buttons in the showers on Kilostation.
+  - bugfix: Changed the marker beacons to the correct structure on Kilostation's exploration
+      shuttle, and changed the colour to purple.
+  - spellcheck: Adjusted spellings of Ice Cream to be consistent.
   swatblack:
   - bugfix: fixed an issue of air alarms endlessly trying to replace cold air in rooms
       that are meant to be cold (server rooms) by taking away their scrubbers in all
