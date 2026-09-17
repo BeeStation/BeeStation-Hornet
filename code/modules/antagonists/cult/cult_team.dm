@@ -18,6 +18,12 @@
 	var/cult_risen = FALSE
 	///Has the cult ascended, and gotten halos?
 	var/cult_ascendent = FALSE
+	/// Everyone that joined the cult via convertion, doesn't matter if they got deconverted
+	var/list/ever_members = list()
+
+/datum/team/cult/add_member(datum/mind/new_member)
+	. = ..()
+	ever_members |= new_member
 
 /datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)
 	for(var/datum/objective/sacrifice/sac_objective in objectives)
@@ -148,7 +154,13 @@
 			parts += "<b>Objective #[count]</b>: [objective.get_completion_message()]"
 			count++
 
-	if(members.len)
+	if(length(ever_members))
 		parts += span_header("The cultists were:")
-		parts += printplayerlist(members)
+		var/list/cultist_lines = list("<ul class='playerlist'>")
+		for(var/datum/mind/cultist as anything in ever_members)
+			//Anyone still in ever_members but no longer in members was cleansed of the faith at some point.
+			var/status_override = (cultist in members) ? null : span_bluetext("was deconverted")
+			cultist_lines += "<li>[printplayer(cultist, status_override = status_override)]</li>"
+		cultist_lines += "</ul>"
+		parts += cultist_lines.Join()
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

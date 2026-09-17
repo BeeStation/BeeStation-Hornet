@@ -355,6 +355,7 @@
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "arcane_barrage"
 	requires_target = TRUE
+	unset_after_click = FALSE
 	enable_text = "<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>"
 	disable_text = "<span class='cult'>You cease your preparations.</span>"
 	cooldown_time = 15 SECONDS
@@ -375,8 +376,7 @@
 
 /datum/action/innate/cult/master/pulse/on_activate(mob/user, atom/target)
 	var/atom/throwee = throwee_ref?.resolve()
-
-	if(QDELETED(throwee))
+	if(throwee && QDELING(throwee))
 		to_chat(user, span_cult("You lost your target!"))
 		throwee = null
 		throwee_ref = null
@@ -389,7 +389,7 @@
 
 		var/turf/throwee_turf = get_turf(throwee)
 
-		playsound(throwee_turf, 'sound/magic/exit_blood.ogg')
+		playsound(throwee_turf, 'sound/magic/exit_blood.ogg', 50)
 		new /obj/effect/temp_visual/cult/sparks(throwee_turf, user.dir)
 		throwee.visible_message(
 			span_warning("A pulse of magic whisks [throwee] away!"),
@@ -413,24 +413,23 @@
 
 		start_cooldown()
 		to_chat(user, span_cult("A pulse of blood magic surges through you as you shift [throwee] through time and space."))
-		user.click_intercept = null
 		throwee_ref = null
-		update_buttons()
+		unset_click_ability(user, refund_cooldown = FALSE)
 
 		return TRUE
-	else
-		if(isliving(target))
-			var/mob/living/living_clicked = target
-			if(!IS_CULTIST(living_clicked))
-				return FALSE
-			SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
-			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
-			throwee_ref = WEAKREF(target)
-			return TRUE
 
-		if(istype(target, /obj/structure/destructible/cult))
-			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b>"))
-			throwee_ref = WEAKREF(target)
-			return TRUE
+	if(isliving(target))
+		var/mob/living/living_clicked = target
+		if(!IS_CULTIST(living_clicked))
+			return FALSE
+		SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
+		to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
+		throwee_ref = WEAKREF(target)
+		return TRUE
+
+	if(istype(target, /obj/structure/destructible/cult))
+		to_chat(user, span_cultbold("You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b>"))
+		throwee_ref = WEAKREF(target)
+		return TRUE
 
 	return FALSE
