@@ -151,7 +151,7 @@
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
 	armor_type = /datum/armor/science_prescription
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED, TRAIT_REAGENT_SCANNER)
 
 
 /datum/armor/science_prescription
