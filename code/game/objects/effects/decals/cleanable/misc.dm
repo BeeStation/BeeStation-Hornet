@@ -137,8 +137,35 @@
 		if(isflyperson(H))
 			playsound(get_turf(src), 'sound/items/drink.ogg', 50, 1) //slurp
 			H.visible_message(span_alert("[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound."))
-			H.adjust_nutrition(20) //This wasn't working before, it was very complex, I made it painfully simple so it just WORKS.
+			reagents.trans_to(H, reagents.total_volume, transfered_by = user, method = INGEST)
 			qdel(src)
+
+/obj/effect/decal/cleanable/vomit/toxic // this has a more toned-down color palette, which may be why it's used as the default in so many spots
+	icon_state = "vomittox_1"
+	random_icon_states = list("vomittox_1", "vomittox_2", "vomittox_3", "vomittox_4")
+
+/obj/effect/decal/cleanable/vomit/purple // ourple
+	icon_state = "vomitpurp_1"
+	random_icon_states = list("vomitpurp_1", "vomitpurp_2", "vomitpurp_3", "vomitpurp_4")
+
+/obj/effect/decal/cleanable/vomit/nanites
+	name = "metallic slurry"
+	desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
+	random_icon_states = list("vomitnanite_1", "vomitnanite_2", "vomitnanite_3", "vomitnanite_4")
+
+/obj/effect/decal/cleanable/vomit/nebula
+	name = "nebula vomit"
+	desc = "Gosh, how... beautiful."
+	icon_state = "vomitnebula_1"
+	random_icon_states = list("vomitnebula_1", "vomitnebula_2", "vomitnebula_3", "vomitnebula_4")
+
+/obj/effect/decal/cleanable/vomit/nebula/Initialize(mapload, list/datum/disease/diseases)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/effect/decal/cleanable/vomit/nebula/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, icon_state, src, alpha = src.alpha)
 
 /obj/effect/decal/cleanable/vomit/old
 	name = "crusty dried vomit"

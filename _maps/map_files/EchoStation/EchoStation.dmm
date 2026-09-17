@@ -25070,7 +25070,8 @@
 /area/station/engineering/atmos)
 "ppb" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	dir = 8;
+	volume_rate = 200
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/station/engineering/main)

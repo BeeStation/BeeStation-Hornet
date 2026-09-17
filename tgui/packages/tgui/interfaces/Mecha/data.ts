@@ -26,9 +26,7 @@ export type MainData = {
   regions: Region[];
   accesses: string[];
 
-  servo_rating: number;
   scanmod_rating: number;
-  capacitor_rating: number;
 
   cabin_pressure_warning_min: number;
   cabin_pressure_hazard_min: number;
