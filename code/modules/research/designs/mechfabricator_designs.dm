@@ -518,7 +518,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/ripleyupgrade
 	materials = list(/datum/material/iron=10000,/datum/material/plasma=10000)
 	construction_time = 100
-	category = list(RND_CATEGORY_MECHFAB_RIPLEY + RND_SUBCATEGORY_MECHFAB_CHASSIS)
+	category = list(RND_CATEGORY_RIPLEY + RND_SUBCATEGORY_MECHFAB_CHASSIS)
 
 /datum/design/mech_hydraulic_clamp
 	name = "Exosuit Engineering (Hydraulic Clamp)"
@@ -648,7 +648,7 @@
 	materials = list(/datum/material/iron=2500)
 	construction_time = 100
 	category = list(
-		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
+		RND_CATEGORY_EXOSUIT_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
 		RND_CATEGORY_RIPLEY + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
 		RND_CATEGORY_GYGAX + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
 		RND_CATEGORY_DURAND + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
@@ -665,7 +665,7 @@
 	materials = list(/datum/material/iron=5000)
 	construction_time = 100
 	category = list(
-		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
+		RND_CATEGORY_EXOSUIT_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
 		RND_CATEGORY_RIPLEY + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
 		RND_CATEGORY_GYGAX + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
 		RND_CATEGORY_DURAND + RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MISC,
@@ -847,7 +847,7 @@
 	build_path = /obj/item/borg/upgrade/ai
 	materials = list(/datum/material/iron = 1200, /datum/material/glass = 1500, /datum/material/gold = 200)
 	construction_time = 50
-	category = list(RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_CONTROL_INTERFACES)
+	category = list(RND_CATEGORY_EXOSUIT_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_CONTROL_INTERFACES)
 	search_metadata = "boris"
 
 /datum/design/borg_upgrade_rped
@@ -929,7 +929,7 @@
 	build_path = /obj/item/mecha_parts/mecha_tracking/ai_control
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500, /datum/material/silver = 200)
 	construction_time = 50
-	category = list(RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_CONTROL_INTERFACES)
+	category = list(RND_CATEGORY_EXOSUIT_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_CONTROL_INTERFACES)
 
 /datum/design/synthetic_flash
 	name = "Flash"
@@ -1096,14 +1096,14 @@
 	id = "mod_storage"
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 500)
 	build_path = /obj/item/mod/module/storage
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_storage_expanded
 	name = "MOD Module: Expanded Storage"
 	id = "mod_storage_expanded"
 	materials = list(/datum/material/iron = 5000, /datum/material/uranium = 2000)
 	build_path = /obj/item/mod/module/storage/large_capacity
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_visor_medhud
 	name = "MOD Module: Medical Visor"
@@ -1117,7 +1117,7 @@
 	id = "mod_visor_diaghud"
 	materials = list(/datum/material/gold = 500, /datum/material/glass = 1000)
 	build_path = /obj/item/mod/module/visor/diaghud
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SCIENCE)
 
 /datum/design/module/mod_visor_sechud
 	name = "MOD Module: Security Visor"
@@ -1159,70 +1159,70 @@
 	id = "mod_stealth"
 	materials = list(/datum/material/iron = 1000, /datum/material/bluespace = 500)
 	build_path = /obj/item/mod/module/stealth
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SECURITY)
 
 /datum/design/module/mod_jetpack
 	name = "MOD Module: Ion Jetpack"
 	id = "mod_jetpack"
 	materials = list(/datum/material/iron = 1500, /datum/material/plasma = 1000)
 	build_path = /obj/item/mod/module/jetpack
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_magboot
 	name = "MOD Module: Magnetic Stabilizator"
 	id = "mod_magboot"
 	materials = list(/datum/material/iron = 1000, /datum/material/gold = 500)
 	build_path = /obj/item/mod/module/magboot
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_mag_harness
 	name = "MOD Module: Magnetic Harness"
 	id = "mod_mag_harness"
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 500)
 	build_path = /obj/item/mod/module/magnetic_harness
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SECURITY)
 
 /datum/design/module/mod_reinforced_plating
 	name = "MOD Module: Reinforced Plating"
 	id = "mod_reinforced_plating"
 	materials = list(/datum/material/iron = 3000, /datum/material/silver = 1200, /datum/material/titanium = 1000, /datum/material/plasma = 500)
 	build_path = /obj/item/mod/module/reinforced_plating
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SECURITY)
 
 /datum/design/module/mod_tether
 	name = "MOD Module: Emergency Tether"
 	id = "mod_tether"
 	materials = list(/datum/material/iron = 1000, /datum/material/silver = 500)
 	build_path = /obj/item/mod/module/tether
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_mouthhole
 	name = "MOD Module: Eating Apparatus"
 	id = "mod_mouthhole"
 	materials = list(/datum/material/iron = 1500)
 	build_path = /obj/item/mod/module/mouthhole
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SUPPLY)
 
 /datum/design/module/mod_rad_protection
 	name = "MOD Module: Radiation Protection"
 	id = "mod_rad_protection"
 	materials = list(/datum/material/iron = 1000, /datum/material/uranium = 1000)
 	build_path = /obj/item/mod/module/rad_protection
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_emp_shield
 	name = "MOD Module: EMP Shield"
 	id = "mod_emp_shield"
 	materials = list(/datum/material/iron = 1000, /datum/material/plasma = 1000)
 	build_path = /obj/item/mod/module/emp_shield
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_flashlight
 	name = "MOD Module: Flashlight"
 	id = "mod_flashlight"
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 1000)
 	build_path = /obj/item/mod/module/flashlight
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_reagent_scanner
 	name = "MOD Module: Reagent Scanner"
@@ -1236,7 +1236,7 @@
 	id = "mod_gps"
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/mod/module/gps
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SUPPLY)
 
 /datum/design/module/mod_constructor
 	name = "MOD Module: Constructor"
@@ -1250,21 +1250,21 @@
 	id = "mod_quick_carry"
 	materials = list(/datum/material/iron = 1000, /datum/material/titanium = 500)
 	build_path = /obj/item/mod/module/quick_carry
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_MEDICAL)
 
 /datum/design/module/mod_longfall
 	name = "MOD Module: Longfall"
 	id = "mod_longfall"
 	materials = list(/datum/material/iron = 1000)
 	build_path = /obj/item/mod/module/longfall
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_thermal_regulator
 	name = "MOD Module: Thermal Regulator"
 	id = "mod_thermal_regulator"
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 1000)
 	build_path = /obj/item/mod/module/thermal_regulator
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING)
 
 /datum/design/module/mod_injector
 	name = "MOD Module: Injector"
@@ -1327,14 +1327,14 @@
 	id = "mod_pathfinder"
 	materials = list(/datum/material/uranium = 1000, /datum/material/iron = 1000)
 	build_path = /obj/item/mod/module/pathfinder
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SCIENCE)
 
 /datum/design/module/mod_dna_lock
 	name = "MOD Module: DNA Lock"
 	id = "mod_dna_lock"
 	materials = list(/datum/material/diamond = 500, /datum/material/glass = 1000)
 	build_path = /obj/item/mod/module/dna_lock
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_MEDICAL)
 
 /datum/design/module/mod_plasma_stabilizer
 	name = "MOD Module: Plasma Stabilizer"
@@ -1371,7 +1371,7 @@
 	id = "mod_sonar"
 	materials = list(/datum/material/titanium = 250, /datum/material/glass = 1000, /datum/material/gold = 500, /datum/material/uranium = 250)
 	build_path = /obj/item/mod/module/active_sonar
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SECURITY)
 
 /datum/design/module/projectile_dampener
 	name = "MOD Module: Projectile Dampener"
@@ -1426,7 +1426,7 @@
 		/datum/material/titanium = 800,
 	)
 	build_path = /obj/item/mod/module/status_readout
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_MEDICAL)
 
 //MODsuit bepis modules
 
@@ -1571,4 +1571,4 @@
 	build_path = /obj/vehicle/sealed/car/clowncar
 	materials = list(/datum/material/iron = 10000, /datum/material/bananium = 5000, /datum/material/plastic = 2000)
 	construction_time = 100
-	category = list(RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_HONK)
+	category = list(RND_CATEGORY_EXOSUIT_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_HONK)

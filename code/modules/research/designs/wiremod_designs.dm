@@ -609,4 +609,4 @@
 	materials = list(/datum/material/glass = 2000)
 	build_path = /obj/item/mod/module/circuit
 	build_type = MECHFAB | COMPONENT_PRINTER
-	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL, RND_CATEGORY_SHELLS)
+	category = list(RND_CATEGORY_MOD_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_SCIENCE, RND_CATEGORY_SHELLS)

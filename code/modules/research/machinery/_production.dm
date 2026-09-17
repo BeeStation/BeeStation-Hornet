@@ -15,8 +15,6 @@
 	var/allowed_buildtypes = NONE
 	/// All designs in the techweb that can be fabricated by this machine, since the last update.
 	var/list/datum/design/cached_designs
-	/// The department this fabricator is assigned to.
-	var/department_tag = "Unassigned"
 	/// What color is this machine's stripe? Leave null to not have a stripe.
 	var/stripe_color = null
 	/// Looping sound for printing items
@@ -201,7 +199,9 @@
 /obj/machinery/rnd/production/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["designs"] = fabricator_ui_designs(cached_designs, coefficient_override = CALLBACK(src, PROC_REF(design_cost_coefficient)))
+	var/list/designs = fabricator_ui_designs(cached_designs, coefficient_override = CALLBACK(src, PROC_REF(design_cost_coefficient)))
+	hide_unbuildable_chassis(designs)
+	data["designs"] = designs
 	data["fabName"] = name
 
 	return data

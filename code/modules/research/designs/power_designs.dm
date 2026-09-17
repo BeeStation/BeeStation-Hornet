@@ -10,7 +10,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 50, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/empty
-	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_CELLS, RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1)
+	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/high_cell
@@ -21,7 +21,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 60, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/high/empty
-	category = list(RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_CELLS, RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2)
+	category = list(RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_1)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/super_cell
@@ -32,7 +32,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/glass = 70, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/super/empty
-	category = list(RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_CELLS, RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3)
+	category = list(RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_2)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/hyper_cell
@@ -43,7 +43,7 @@
 	materials = list(/datum/material/iron = 700, /datum/material/gold = 150, /datum/material/silver = 150, /datum/material/glass = 80, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/hyper/empty
-	category = list(RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_CELLS, RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4)
+	category = list(RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_3)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/bluespace_cell
@@ -54,7 +54,7 @@
 	materials = list(/datum/material/iron = 800, /datum/material/gold = 120, /datum/material/glass = 160, /datum/material/diamond = 160, /datum/material/titanium = 300, /datum/material/bluespace = 100, /datum/material/copper = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/bluespace/empty
-	category = list(RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_CELLS, RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4)
+	category = list(RND_CATEGORY_STOCK_PARTS + RND_SUBCATEGORY_STOCK_PARTS_4)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/light_replacer
@@ -64,7 +64,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 3000)
 	build_path = /obj/item/lightreplacer
-	category = list(RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_LIGHTING)
+	category = list(RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_JANITORIAL)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/light_replacer_bluespace
@@ -74,7 +74,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 6000, /datum/material/bluespace = 300)
 	build_path = /obj/item/lightreplacer/bluespace
-	category = list(RND_CATEGORY_POWER_DESIGNS + RND_SUBCATEGORY_POWER_LIGHTING)
+	category = list(RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_JANITORIAL)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
 

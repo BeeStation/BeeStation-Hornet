@@ -1,11 +1,8 @@
 // Weapon Categories
 #define RND_CATEGORY_WEAPONS "/Weaponry"
-#define RND_SUBCATEGORY_WEAPONS_FIRING_PINS "/Firing Pins"
-#define RND_SUBCATEGORY_WEAPONS_AMMO "/Ammunition"
 #define RND_SUBCATEGORY_WEAPONS_PARTS "/Weapon Parts"
 #define RND_SUBCATEGORY_WEAPONS_RANGED "/Ranged Weapons"
 #define RND_SUBCATEGORY_WEAPONS_MELEE "/Melee Weapons"
-#define RND_SUBCATEGORY_WEAPONS_KITS "/Weapon Fabrication Kits"
 #define RND_SUBCATEGORY_WEAPONS_EXPLOSIVES "/Explosives"
 #define RND_SUBCATEGORY_WEAPONS_EXOSUIT "/Exosuit Weapons"
 #define RND_CATEGORY_FIRING_PINS "/Weaponry/Firing Pins"
@@ -13,10 +10,7 @@
 
 // Wiremod Categories
 #define RND_CATEGORY_CIRCUITRY "/Circuitry"
-#define RND_CATEGORY_CIRCUITRY_CORE "/Core"
 #define RND_SUBCATEGORY_CIRCUITRY_COMPONENTS "/Circuit Components"
-#define RND_SUBCATEGORY_CIRCUITRY_BCI_COMPONENTS "/Circuit BCI Components"
-#define RND_SUBCATEGORY_CIRCUITRY_SHELLS "/Circuit Shells"
 #define RND_CATEGORY_CORE "/Circuitry/Core"
 #define RND_CATEGORY_SHELLS "/Circuitry/Shells"
 #define RND_CATEGORY_INPUT_COMPONENTS "/Circuitry/Input Components"
@@ -41,30 +35,20 @@
 #define RND_SUBCATEGORY_TOOLS_ENGINEERING "/Engineering Tools"
 #define RND_SUBCATEGORY_TOOLS_ENGINEERING_ADVANCED "/Engineering Tools (Advanced)"
 #define RND_SUBCATEGORY_TOOLS_ENGINEERING_ALIEN "/Engineering Tools (Alien)"
-#define RND_SUBCATEGORY_TOOLS_SERVICE "/Service Tools"
 #define RND_SUBCATEGORY_TOOLS_BOTANY "/Botany Tools"
-#define RND_SUBCATEGORY_TOOLS_BOTANY_ADVANCED "/Botany Tools (Advanced)"
 #define RND_SUBCATEGORY_TOOLS_JANITORIAL "/Janitorial Tools"
 #define RND_SUBCATEGORY_TOOLS_PLUMBING "/Plumbing Tools"
 #define RND_SUBCATEGORY_TOOLS_ATMOSPHERICS "/Atmospherics Tools"
-#define RND_SUBCATEGORY_TOOLS_MINING "/Mining Tools"
-#define RND_SUBCATEGORY_TOOLS_CARGO "/Cargo Tools"
-#define RND_SUBCATEGORY_TOOLS_PKA_MODS "/PKA Modkits"
-#define RND_SUBCATEGORY_TOOLS_SECURITY "/Security Tools"
 #define RND_SUBCATEGORY_TOOLS_MISC "/Miscellaneous Tools"
 #define RND_CATEGORY_TOOL_DESIGNS "/Tools"
 
 // Building categories
 #define RND_CATEGORY_CONSTRUCTION "/Construction"
 #define RND_SUBCATEGORY_CONSTRUCTION_MOUNTS "/Frames & Mounts"
-#define RND_SUBCATEGORY_CONSTRUCTION_ELECTRONICS "/Electronics"
 #define RND_SUBCATEGORY_CONSTRUCTION_MACHINERY "/Machinery"
-#define RND_SUBCATEGORY_CONSTRUCTION_MATERIALS "/Materials & Alloys"
 #define RND_SUBCATEGORY_CONSTRUCTION_LIGHTING "/Lighting"
-#define RND_SUBCATEGORY_CONSTRUCTION_ASSEMBLIES "/Electrical Assemblies"
 
 // Computer categories
-#define RND_CATEGORY_COMPUTER "/Computer Boards"
 #define RND_SUBCATEGORY_COMPUTER_ENTERTAINMENT "/Service Consoles"
 #define RND_SUBCATEGORY_COMPUTER_MEDICAL "/Medical Consoles"
 #define RND_SUBCATEGORY_COMPUTER_ROBOTICS "/Robotics Consoles"
@@ -80,22 +64,13 @@
 
 // Machine categories
 #define RND_CATEGORY_MACHINE "/Machine Boards"
-#define RND_SUBCATEGORY_MACHINE_ATMOS "/Atmospherics Machines"
 #define RND_SUBCATEGORY_MACHINE_KITCHEN "/Kitchen Machines"
 #define RND_SUBCATEGORY_MACHINE_BAR "/Bar Machines"
-#define RND_SUBCATEGORY_MACHINE_BOTANY "/Botany Machines"
 #define RND_SUBCATEGORY_MACHINE_ENGINEERING "/Engineering Machines"
-#define RND_SUBCATEGORY_MACHINE_RESEARCH "/Research Machines"
-#define RND_SUBCATEGORY_MACHINE_MEDICAL "/Medical Machines"
-#define RND_SUBCATEGORY_MACHINE_CHEMISTRY "/Chemistry Machines"
 #define RND_SUBCATEGORY_MACHINE_SECURITY "/Security Machines"
 #define RND_SUBCATEGORY_MACHINE_CARGO "/Cargo Machines"
-#define RND_SUBCATEGORY_MACHINE_TELEPORT "/Teleportation Machines"
-#define RND_SUBCATEGORY_MACHINE_ROBOTICS "/Robotics Machines"
-#define RND_SUBCATEGORY_MACHINE_GENETICS "/Genetics Machines"
 #define RND_SUBCATEGORY_MACHINE_FAB "/Fabricators"
 #define RND_SUBCATEGORY_MACHINE_SERVICE "/Service Machines"
-#define RND_SUBCATEGORY_MACHINE_TELECOMMS "/Telecommunications Machines"
 #define RND_CATEGORY_MACHINERY "/Machine Boards"
 #define RND_CATEGORY_SHUTTLE_MACHINERY "/Machine Boards/Shuttle Machines"
 #define RND_CATEGORY_ENGINEERING_MACHINERY "/Machine Boards/Engineering Machines"
@@ -108,20 +83,14 @@
 // Equipment categories, a lot of things classify inside here
 #define RND_CATEGORY_EQUIPMENT "/Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_SERVICE "/Service Equipment"
-#define RND_SUBCATEGORY_EQUIPMENT_JOKE "/Top-Secret Equipment"
-#define RND_SUBCATEGORY_EQUIPMENT_CHEMISTRY "/Chemistry Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_MEDICAL "/Medical Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_SECURITY "/Security Equipment"
-#define RND_SUBCATEGORY_EQUIPMENT_TELECOMMS "/Communications Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_BLUESPACE "/Bluespace Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_ENGINEERING "/Engineering Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_ATMOSPHERICS "/Atmospherics Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_SCIENCE "/Science Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_GAS_TANKS "/Gas Tanks"
-#define RND_SUBCATEGORY_EQUIPMENT_XENOBIOLOGY "/Xenobiology Equipment"
-#define RND_SUBCATEGORY_EQUIPMENT_GENETICS "/Genetics Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_JANITOR "/Janitorial Equipment"
-#define RND_SUBCATEGORY_EQUIPMENT_KITCHEN "/Bar & Kitchen Equipment"
 #define RND_SUBCATEGORY_EQUIPMENT_MISC "/Miscellaneous Equipment"
 #define RND_CATEGORY_BLUESPACE_DESIGNS "/Equipment/Bluespace Equipment"
 #define RND_CATEGORY_ELECTRONICS "/Construction/Electronics"
@@ -136,21 +105,15 @@
 // Modular computer categories
 #define RND_CATEGORY_MODULAR_COMPUTERS "/Modular Computers"
 #define RND_SUBCATEGORY_MODULAR_COMPUTERS_FRAMES "/Frames"
-#define RND_SUBCATEGORY_MODULAR_COMPUTERS_PARTS "/Parts"
 
 // Stock Parts/Upgraded categories
 #define RND_CATEGORY_STOCK_PARTS "/Stock Parts"
-#define RND_SUBCATEGORY_STOCK_PARTS_MISC "/Miscellaneous Parts"
-#define RND_SUBCATEGORY_STOCK_PARTS_TURBINE "/Turbine Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_TELECOMMS "/Telecommunications Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_1 "/Tier 1 Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_2 "/Tier 2 Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_3 "/Tier 3 Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_4 "/Tier 4 Parts"
 #define RND_SUBCATEGORY_STOCK_PARTS_EXCHANGERS "/Exchange Devices"
-
-// Syndicate stuff only
-#define RND_CATEGORY_SYNDICATE "/Illegal Designs"
 
 // Exosuit Boards, used to make mechs
 #define RND_CATEGORY_EXOSUIT_BOARDS "/Exosuit Boards"
@@ -164,20 +127,17 @@
 // #define RND_SUBCATEGORY_EXOSUIT_BOARDS_SAVANNAH_IVANOV "/Savannah-Ivanov" this one isn't technically in-game, yet construction_paths.dm has it
 
 // Exosuits themselves, not the boards
-#define RND_CATEGORY_MECHFAB_RIPLEY "/Ripley"
-#define RND_CATEGORY_MECHFAB_ODYSSEUS "/Odysseus"
-#define RND_CATEGORY_MECHFAB_GYGAX "/Gygax"
-#define RND_CATEGORY_MECHFAB_DURAND "/Durand"
-#define RND_CATEGORY_MECHFAB_HONK "/H.O.N.K."
-#define RND_CATEGORY_MECHFAB_PHAZON "/Phazon"
-#define RND_CATEGORY_MECHFAB_CLARKE "/Clarke"
-// #define RND_CATEGORY_MECHFAB_SAVANNAH_IVANOV "/Savannah-Ivanov"
+#define RND_CATEGORY_RIPLEY "/Ripley"
+#define RND_CATEGORY_ODYSSEUS "/Odysseus"
+#define RND_CATEGORY_GYGAX "/Gygax"
+#define RND_CATEGORY_DURAND "/Durand"
+#define RND_CATEGORY_HONK "/H.O.N.K."
+#define RND_CATEGORY_PHAZON "/Phazon"
+#define RND_CATEGORY_CLARKE "/Clarke"
 #define RND_SUBCATEGORY_MECHFAB_CHASSIS "/Chassis"
 #define RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT "/Supported Equipment"
-#define RND_SUBCATEGORY_MECHFAB_CONTROL_INTERFACES "/Control Interfaces"
 
 // Exosuit equipment, everything a mech can have inside
-#define RND_CATEGORY_MECHFAB_EQUIPMENT "/Exosuit Equipment"
 #define RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MINING "/Mining Equipment"
 #define RND_SUBCATEGORY_MECHFAB_EQUIPMENT_WEAPONS "/Weapons & Ammunition"
 #define RND_SUBCATEGORY_MECHFAB_EQUIPMENT_MODULES "/Armor & Repair Modules"
@@ -187,29 +147,19 @@
 #define RND_SUBCATEGORY_MECHFAB_EQUIPMENT_CONTROL_INTERFACES "/Control Interfaces"
 #define RND_CATEGORY_EXOSUIT_EQUIPMENT "/Exosuit Equipment"
 #define RND_CATEGORY_EXOSUIT_AMMUNITION "/Exosuit Equipment/Weapons & Ammunition"
-#define RND_CATEGORY_RIPLEY "/Ripley"
-#define RND_CATEGORY_ODYSSEUS "/Odysseus"
-#define RND_CATEGORY_GYGAX "/Gygax"
-#define RND_CATEGORY_DURAND "/Durand"
-#define RND_CATEGORY_HONK "/H.O.N.K."
-#define RND_CATEGORY_PHAZON "/Phazon"
-#define RND_CATEGORY_CLARKE "/Clarke"
 
 // Cyborg category
 #define RND_CATEGORY_MECHFAB_CYBORG "/Cyborg"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_CHASSIS "/Cyborg Chassis"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_COMPONENTS "/Components"
-#define RND_SUBCATEGORY_MECHFAB_CYBORG_CELLS "/Power Cells"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_CONTROL_INTERFACES "/Control Interfaces"
 #define RND_CATEGORY_CYBORG "/Cyborg"
 
 // Cyborg modules category ¿
-#define RND_CATEGORY_MECHFAB_CYBORG_MODULES "/Cyborg Modules"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL "/All Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MEDICAL "/Medical Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ENGINEERING "/Engineering Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_JANITOR "/Janitorial Cyborgs"
-#define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_SECURITY "/Security Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING "/Mining Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_SERVICE "/Service Cyborgs"
 #define RND_CATEGORY_CYBORG_UPGRADE_MODULES "/Cyborg Modules"
@@ -221,7 +171,6 @@
 #define RND_SUBCATEGORY_MODSUITS_MISC "/Misc"
 
 // Modsuit Modules
-#define RND_CATEGORY_MODSUIT_MODULES "/MOD Modules"
 #define RND_SUBCATEGORY_MODSUIT_MODULES_GENERAL "/General Modules"
 #define RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING "/Engineering Modules"
 #define RND_SUBCATEGORY_MODSUIT_MODULES_MEDICAL "/Medical Modules"
@@ -242,8 +191,6 @@
 #define RND_CATEGORY_IPC_COMPONENTS "/Cybernetics/IPC Components"
 
 // Limb Categories
-#define RND_CATEGORY_LIMBS_DIGITIGRADE "Digitigrade"
-#define RND_CATEGORY_LIMBS_OTHER "Other Limbs"
 #define RND_CATEGORY_DIGITIGRADE "digitigrade"
 #define RND_CATEGORY_OTHER "other"
 
@@ -255,7 +202,6 @@
 // Meta categories
 #define RND_CATEGORY_INITIAL "initial"
 #define RND_CATEGORY_HACKED "hacked"
-#define RND_CATEGORY_EMAGGED "emagged"
 #define RND_CATEGORY_IMPORTED "/Imported Designs"
 
 #define RND_CATEGORY_UTILITY_NANITES "Utility Nanites"
@@ -279,8 +225,6 @@
 #define RND_SUBCATEGORY_MEDICAL_TOOLS "/Medical Tools"
 #define RND_SUBCATEGORY_MEDICAL_IMPLANT_CASES "/Implant Cases"
 #define RND_CATEGORY_POWER_DESIGNS "/Power Designs"
-#define RND_SUBCATEGORY_POWER_CELLS "/Power Cells"
-#define RND_SUBCATEGORY_POWER_LIGHTING "/Lighting"
 #define RND_CATEGORY_MINING_DESIGNS "/Mining Designs"
 #define RND_SUBCATEGORY_MINING_TOOLS "/Mining Tools"
 #define RND_SUBCATEGORY_MINING_KA_MODS "/Kinetic Accelerator Mods"

@@ -149,6 +149,38 @@ other types of metals and chemistry for reagents).
 	printed.pixel_x = printed.base_pixel_x + rand(-6, 6)
 	printed.pixel_y = printed.base_pixel_y + rand(-6, 6)
 
+/**
+ * A mech's tab is only worth showing when the exosuit itself can be printed
+ * so equipment that a mech is linked to wont be shown until the chassis is researched
+ *
+ * Arguments
+ * * list/designs - UI design data, modified in place
+ */
+/proc/hide_unbuildable_chassis(list/designs)
+	var/list/printable_chassis = list()
+	for(var/design_id, design_data in designs)
+		var/list/design_entry = design_data
+		for(var/category in design_entry["categories"])
+			var/split = findlasttext(category, "/")
+			if(split > 1 && copytext(category, split) == RND_SUBCATEGORY_MECHFAB_CHASSIS)
+				printable_chassis[copytext(category, 1, split)] = TRUE
+
+	for(var/design_id, design_data in designs)
+		var/list/design_entry = design_data
+		var/list/categories = design_entry["categories"]
+		var/list/kept
+		for(var/category in categories)
+			// Supported equipment nests its own subcategory underneath, so this
+			// matches anywhere in the path rather than only at the end.
+			var/split = findtext(category, RND_SUBCATEGORY_MECHFAB_SUPPORTED_EQUIPMENT)
+			if(split > 1 && !printable_chassis[copytext(category, 1, split)])
+				// Never write back through the original: the serializer hands out the
+				// design datum's own category list rather than a copy of it.
+				kept ||= categories.Copy()
+				kept -= category
+		if(kept)
+			design_entry["categories"] = kept
+
 
 ////////////////////////////////////////
 //Disks for transporting design datums//
