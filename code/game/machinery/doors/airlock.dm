@@ -247,6 +247,31 @@
 	audible_message(span_italics("You hear a click from the bottom of the door."), null,  1)
 	update_appearance()
 
+/// Shift+Middle-click brings up a radical menu if within 1tile! Point and Knock options!
+/obj/machinery/door/airlock/ShiftMiddleClick(mob/user, params)
+	if(!isliving(user) || !user.client || get_dist(src, user) > 1)
+		return ..()
+
+	var/static/list/knock_radial = list(
+		"Point" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_point"),
+		"Knock" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_knock"),
+	)
+	var/selected_option = show_radial_menu(user, src, knock_radial, radius = 32, require_near = TRUE, tooltips = TRUE)
+	if(!selected_option || get_dist(src, user) > 1)
+		return
+
+	switch(selected_option)
+		if("Point")
+			user._pointed(src, params)
+		if("Knock")
+			knock_on_door(user)
+
+/// Airlock Knocks make a visual shake, audio sound, and a chat message for those nearby
+/obj/machinery/door/airlock/proc/knock_on_door(mob/user)
+	playsound(src, 'sound/effects/glassknock.ogg', 50, TRUE)
+	audible_message(span_notice("You hear a knock on [src]."), null, 5)
+	Shake(1, 1, 0.3 SECONDS)
+
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
 	var/obj/machinery/door/airlock/cult/A
