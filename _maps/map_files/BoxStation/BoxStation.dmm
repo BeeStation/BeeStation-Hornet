@@ -45750,9 +45750,6 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/exploration_prep)
 "sYT" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
 /obj/structure/noticeboard{
 	pixel_y = 26
 	},

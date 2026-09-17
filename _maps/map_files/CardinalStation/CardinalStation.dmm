@@ -1437,7 +1437,7 @@
 /area/station/service/hydroponics/garden)
 "arF" = (
 /obj/structure/closet{
-	name = "Evidence Closet 5"
+	name = "Evidence Closet 2"
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark,
@@ -15374,7 +15374,7 @@
 /area/station/engineering/atmos)
 "dIg" = (
 /obj/structure/closet{
-	name = "Evidence Closet 5"
+	name = "Evidence Closet 1"
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
@@ -52929,9 +52929,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "msP" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -52940,6 +52937,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "msQ" = (
@@ -64195,7 +64193,7 @@
 /area/station/maintenance/department/engine)
 "paI" = (
 /obj/structure/closet{
-	name = "Evidence Closet 5"
+	name = "Evidence Closet 3"
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark,
@@ -70527,15 +70525,13 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "qBG" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
 /obj/item/grenade/discogrenade,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "qBP" = (
