@@ -9093,12 +9093,6 @@
 	pixel_y = -8;
 	specialfunctions = 4
 	},
-/obj/machinery/button/door{
-	id = "Shower_1Privacy";
-	name = "Shower 1 Privacy Toggle";
-	pixel_x = 24;
-	pixel_y = 8
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
 "dDJ" = (
@@ -31326,12 +31320,6 @@
 	pixel_x = 24;
 	pixel_y = -8;
 	specialfunctions = 4
-	},
-/obj/machinery/button/door{
-	id = "Shower_2Privacy";
-	name = "Shower 2 Privacy Toggle";
-	pixel_x = 24;
-	pixel_y = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/commons/toilet/restrooms)
