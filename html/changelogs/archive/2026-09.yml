@@ -98,6 +98,12 @@
   - bugfix: Changed the marker beacons to the correct structure on Kilostation's exploration
       shuttle, and changed the colour to purple.
   - spellcheck: Adjusted spellings of Ice Cream to be consistent.
+  rkz, zxaber, Mickyan:
+  - rscadd: adds screentips to ladders, cigarette packs, and smartfridges
+  - tweak: moves cyborg part coloring from aug manipulator to rclicking with spraycan
+  - rscdel: deletes aug manipulator
+  - rscadd: right clicking with a spraycan will attempt to copy colors from your cursor
+      of whatever art project you are working on
   swatblack:
   - bugfix: fixed an issue of air alarms endlessly trying to replace cold air in rooms
       that are meant to be cold (server rooms) by taking away their scrubbers in all
