@@ -45,7 +45,6 @@
 	. = ..()
 	create_reagents(100, NO_REACT)
 	air_update_turf(TRUE, TRUE)
-	//register_context()
 	if(mapload && can_be_welded_down)
 		welded_down = TRUE
 
@@ -167,32 +166,21 @@
 	else
 		default_deconstruction_crowbar(tool)
 
-/*
-/obj/machinery/smartfridge/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
-	if(held_item.tool_behaviour == TOOL_WELDER)
+/obj/machinery/smartfridge/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+
+	if(machine_stat & BROKEN)
+		context.add_right_click_tool_action("Repair", TOOL_WELDER)
+		return
+
+	if(can_be_welded_down)
 		if(welded_down)
-			context[SCREENTIP_CONTEXT_LMB] = "Unweld"
-		else if (!welded_down && anchored && can_be_welded_down)
-			context[SCREENTIP_CONTEXT_LMB] = "Weld down"
-		if(machine_stat & BROKEN)
-			context[SCREENTIP_CONTEXT_RMB] = "Repair"
-			tool_tip_set = TRUE
+			context.add_left_click_tool_action("Unweld from floor", TOOL_WELDER)
+		else if(anchored)
+			context.add_left_click_tool_action("Weld to floor", TOOL_WELDER)
 
-	else if(held_item.tool_behaviour == TOOL_SCREWDRIVER)
-		context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "close" : "open"] panel"
-		tool_tip_set = TRUE
-
-	else if(held_item.tool_behaviour == TOOL_CROWBAR)
-		if(panel_open)
-			context[SCREENTIP_CONTEXT_LMB] = "Deconstruct"
-			tool_tip_set = TRUE
-
-	else if(held_item.tool_behaviour == TOOL_WRENCH)
-		context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Un" : ""]anchore"
-		tool_tip_set = TRUE
-
-	return tool_tip_set ? CONTEXTUAL_SCREENTIP_SET : NONE
-*/
+	if(panel_open)
+		context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
 
 /obj/machinery/smartfridge/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
@@ -601,21 +589,12 @@
 /obj/machinery/smartfridge/drying/rack/welder_act_secondary(mob/living/user, obj/item/tool)
 	return NONE // Can't repair wood with welder
 
-/*
-/obj/machinery/smartfridge/drying/rack/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
-	if(isnull(held_item))
-		return NONE
+/obj/machinery/smartfridge/drying/rack/add_context_self(datum/screentip_context/context, mob/user)
+	if(machine_stat & BROKEN)
+		return
 
-	var/tool_tip_set = FALSE
-	if(held_item.tool_behaviour == TOOL_CROWBAR)
-		context[SCREENTIP_CONTEXT_LMB] = "Deconstruct"
-		tool_tip_set = TRUE
-	else if(held_item.tool_behaviour == TOOL_WRENCH)
-		context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Un" : ""]anchore"
-		tool_tip_set = TRUE
-
-	return tool_tip_set ? CONTEXTUAL_SCREENTIP_SET : NONE
-*/
+	context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+	context.add_left_click_tool_action("[anchored ? "Unwrench from floor" : "Wrench to floor"]", TOOL_WRENCH)
 
 /obj/machinery/smartfridge/drying/rack/structure_examine()
 	. = ..()

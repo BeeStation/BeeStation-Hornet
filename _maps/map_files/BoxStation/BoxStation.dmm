@@ -25715,6 +25715,10 @@
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "kQu" = (
@@ -36562,10 +36566,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/medical/surgery)
-"plF" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/dark,
-/area/station/science/robotics/lab)
 "plI" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -101885,7 +101885,7 @@ aUp
 skN
 kTs
 ruD
-plF
+pkI
 pkI
 pkI
 dNP
