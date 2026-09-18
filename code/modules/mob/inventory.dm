@@ -301,36 +301,39 @@
 //DO NOT CALL THIS PROC
 //use one of the above 3 helper procs
 //you may override it, but do not modify the args
-/mob/proc/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
-													//Use no_move if the item is just gonna be immediately moved afterward
-													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
-
+/mob/proc/doUnEquip(obj/item/item_dropping, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
 	//PROTECTED_PROC(TRUE) //What part of "dont call this proc" dont you people not fucking understand
-	if(!I) //If there's nothing to drop, the drop is automatically successfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
+	if(!item_dropping) //If there's nothing to drop, the drop is automatically successfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
 		return TRUE
 
-	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
+	if(HAS_TRAIT(item_dropping, TRAIT_NODROP) && !force)
 		return FALSE
 
-	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+	if((SEND_SIGNAL(item_dropping, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
 
-	var/hand_index = get_held_index_of_item(I)
+	var/hand_index = get_held_index_of_item(item_dropping)
 	if(hand_index)
 		held_items[hand_index] = null
 		update_held_items()
-	if(I)
-		if(client)
-			client.screen -= I
-		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
-		if(!no_move && !(I.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
-			if (isnull(newloc))
-				I.moveToNullspace()
-			else
-				I.forceMove(newloc)
-		I.dropped(src, was_thrown, silent)
-	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
+
+	if(!item_dropping)
+		return FALSE
+
+	if(client)
+		client.screen -= item_dropping
+
+	item_dropping.layer = initial(item_dropping.layer)
+	item_dropping.plane = initial(item_dropping.plane)
+	if(!no_move && !(item_dropping.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
+		if (isnull(newloc))
+			item_dropping.moveToNullspace()
+		else
+			item_dropping.forceMove(newloc)
+
+	item_dropping.dropped(src, was_thrown, silent)
+	SEND_SIGNAL(item_dropping, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, hand_index)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, item_dropping, force, newloc, no_move, invdrop, silent, hand_index)
 	return TRUE
 
 /**

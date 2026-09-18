@@ -13,6 +13,8 @@
 #define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
 	///only the pre unequip can be cancelled
 	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
+///called on [/obj/item] AFTER unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
+#define COMSIG_ITEM_POST_UNEQUIP "item_post_unequip"
 ///from base of obj/item/on_grind(): ())
 #define COMSIG_ITEM_ON_GRIND "on_grind"
 ///from base of obj/item/on_juice(): ()
@@ -25,11 +27,18 @@
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
+///from base of obj/item/on_outfit_equip(): (mob/equipper, visuals_only, slot)
+#define COMSIG_ITEM_EQUIPPED_AS_OUTFIT "item_equip_as_outfit"
 
 /// Sebt from obj/item/ui_action_click(): (mob/user, datum/action)
 #define COMSIG_ITEM_UI_ACTION_CLICK "item_action_click"
 	/// Return to prevent the default behavior (attack_selfing) from ocurring.
 	#define COMPONENT_ACTION_HANDLED (1<<0)
+
+/// Sent from obj/item/item_action_slot_check(): (mob/user, datum/action, slot)
+#define COMSIG_ITEM_UI_ACTION_SLOT_CHECKED "item_action_slot_checked"
+	/// Return to prevent the default behavior (attack_selfing) from ocurring.
+	#define COMPONENT_ITEM_ACTION_SLOT_INVALID (1<<0)
 
 #define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"				//! from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)

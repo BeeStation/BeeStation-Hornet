@@ -835,7 +835,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// Gives one of our item actions to a mob, when equipped to a certain slot
 /obj/item/proc/give_item_action(datum/action/action, mob/to_who, slot)
 	// Some items only give their actions buttons when in a specific slot.
-	if(!item_action_slot_check(slot, to_who))
+	if(!item_action_slot_check(slot, to_who, action) || SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_SLOT_CHECKED, to_who, action, slot) & COMPONENT_ITEM_ACTION_SLOT_INVALID)
 		// There is a chance we still have our item action currently,
 		// and are moving it from a "valid slot" to an "invalid slot".
 		// So call Remove() here regardless, even if excessive.
@@ -845,7 +845,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	action.Grant(to_who)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
-/obj/item/proc/item_action_slot_check(slot, mob/user)
+/obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACKPACK || slot == ITEM_SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
 		return FALSE
 	return TRUE
@@ -1480,9 +1480,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		source_item?.reagents?.add_reagent(/datum/reagent/blood, 2)
 
 	else if(custom_materials?.len) //if we've got materials, lets see whats in it
-		/// How many mats have we found? You can only be affected by two material datums by default
+		// How many mats have we found? You can only be affected by two material datums by default
 		var/found_mats = 0
-		/// How much of each material is in it? Used to determine if the glass should break
+		// How much of each material is in it? Used to determine if the glass should break
 		var/total_material_amount = 0
 
 		for(var/mats in custom_materials)
@@ -1497,7 +1497,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
 		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)] >= total_material_amount * 0.60)
 			if(prob(66)) //66% chance to break it
-				/// The glass shard that is spawned into the source item
+				// The glass shard that is spawned into the source item
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
 				broken_glass.name = "broken [name]"
 				broken_glass.desc = "This used to be \a [name], but it sure isn't anymore."
@@ -1515,7 +1515,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_warning("Eugh! Did I just bite into something?"))
 
 	else if(w_class == WEIGHT_CLASS_TINY) //small items like soap or toys that don't have mat datums
-		/// victim's chest (for cavity implanting the item)
+		// victim's chest (for cavity implanting the item)
 		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
 		if(victim_cavity.cavity_item)
 			victim.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = 5, distance = 0)
@@ -1572,7 +1572,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED_AS_OUTFIT, outfit_wearer, visuals_only, item_slot)
 
 /// Whether or not this item can be put into a storage item through attackby
 /obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)

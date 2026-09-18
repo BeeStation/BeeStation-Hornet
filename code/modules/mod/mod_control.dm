@@ -395,8 +395,7 @@
 		wearer.emote("scream")
 
 /obj/item/mod/control/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	//if(visuals_only)
-	//	set_wearer(outfit_wearer) //we need to set wearer manually since it doesnt call equipped
+	. = ..()
 	quick_activation()
 
 /obj/item/mod/control/doStrip(mob/stripper, mob/owner)
