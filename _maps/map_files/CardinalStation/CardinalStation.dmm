@@ -14563,7 +14563,7 @@
 /obj/item/gun/ballistic/automatic/toy/unrestricted,
 /obj/item/ammo_box/magazine/toy/smg,
 /obj/item/ammo_box/magazine/toy/smg,
-/obj/item/clothing/mask/russian_balaclava,
+/obj/item/clothing/mask/balaclava/russian_balaclava,
 /turf/open/floor/mineral/plastitanium/red,
 /area/syndicate_sat)
 "dyx" = (
