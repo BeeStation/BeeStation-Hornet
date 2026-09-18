@@ -319,6 +319,12 @@ if [ "$pcre2_support" -eq 1 ]; then
 		echo -e "${RED}ERROR: File(s) with no trailing newline detected, please add one.${NC}"
 		st=1
 	fi
+	part "datum stockpart sanity"
+	if $grep -P 'for\b.*/obj/item/stock_parts/(?!cell)(?![\w_]+ in )' "${code_files[@]}"; then
+		echo
+		echo -e "${RED}ERROR: Should be using datum/stock_part instead"
+		st=1
+	fi;
 	part "improper atom initialize args"
 	if $grep -P '^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)' $code_files; then
 		echo
@@ -335,6 +341,29 @@ else
 	echo -e "${RED}pcre2 not supported, skipping checks requiring pcre2"
 	echo -e "if you want to run these checks install ripgrep with pcre2 support.${NC}"
 fi
+
+section "machine power usage"
+
+part "wattage assigned to the power mode var"
+if $grep 'use_power\s*=\s*[a-z0-9]' $code_files | $grep -v 'new_use_power'; then
+	echo
+	echo -e "${RED}ERROR: use_power is a mode (NO_POWER_USE / IDLE_POWER_USE / ACTIVE_POWER_USE), not a wattage. To change how much a machine draws use update_mode_power_usage(mode, amount); to change which mode it is in use update_use_power(mode).${NC}"
+	st=1
+fi;
+
+part "power mode assigned to a wattage var"
+if $grep '(idle|active)_power_usage\s*=\s*(NO|IDLE|ACTIVE)_POWER_USE' $code_files; then
+	echo
+	echo -e "${RED}ERROR: idle_power_usage and active_power_usage hold watts, not mode constants. IDLE_POWER_USE is 1, so this makes the machine draw one watt.${NC}"
+	st=1
+fi;
+
+part "update_use_power arity"
+if $grep 'update_use_power\([^)]*,' $code_files; then
+	echo
+	echo -e "${RED}ERROR: update_use_power() takes only a mode. Use update_mode_power_usage(mode, amount) instead.${NC}"
+	st=1
+fi;
 
 if [ $st = 0 ]; then
     echo

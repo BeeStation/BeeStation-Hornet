@@ -6,8 +6,7 @@
 	base_icon_state = "doorctrl"
 	layer = ABOVE_WINDOW_LAYER
 	armor_type = /datum/armor/machinery_button
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.02
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	mouse_over_pointer = MOUSE_HAND_POINTER
 

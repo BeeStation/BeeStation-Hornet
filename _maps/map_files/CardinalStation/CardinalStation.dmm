@@ -1437,7 +1437,7 @@
 /area/station/service/hydroponics/garden)
 "arF" = (
 /obj/structure/closet{
-	name = "Evidence Closet 5"
+	name = "Evidence Closet 2"
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark,
@@ -5683,7 +5683,6 @@
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue,
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -8924,11 +8923,10 @@
 /area/station/security/office)
 "ciq" = (
 /obj/machinery/telecomms/processor/preset_exploration,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4;
-	hide = 0
-	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/cargo/exploration_prep)
 "cir" = (
@@ -15376,7 +15374,7 @@
 /area/station/engineering/atmos)
 "dIg" = (
 /obj/structure/closet{
-	name = "Evidence Closet 5"
+	name = "Evidence Closet 1"
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
@@ -16556,7 +16554,6 @@
 /obj/effect/mapping_helpers/make_non_slip,
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -19388,7 +19385,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -23381,7 +23377,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -24223,7 +24218,6 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -24575,7 +24569,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
@@ -27443,15 +27436,13 @@
 	},
 /obj/machinery/light/cold/directional/north,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4;
-	name = "Air Outlet Pump";
-	target_pressure = 500
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2{
 	dir = 4
 	},
 /obj/structure/platform/warning/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth_edge{
@@ -33707,7 +33698,6 @@
 /obj/effect/landmark/blobstart,
 /obj/machinery/holopad,
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -35445,7 +35435,6 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/tcommsat/computer)
@@ -38541,7 +38530,6 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -39993,7 +39981,6 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/tcommsat/computer)
@@ -41793,7 +41780,6 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -49511,11 +49497,10 @@
 /area/station/maintenance/department/engine/atmos)
 "lEr" = (
 /obj/machinery/telecomms/bus/preset_exploration,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4;
-	hide = 0
-	},
 /obj/machinery/light/small/directional/south,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/server,
 /area/station/cargo/exploration_prep)
 "lEx" = (
@@ -51900,6 +51885,10 @@
 	},
 /obj/structure/table,
 /obj/machinery/airalarm/directional/south,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "mil" = (
@@ -52944,9 +52933,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "msP" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -52955,6 +52941,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "msQ" = (
@@ -57425,7 +57412,6 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -62843,7 +62829,6 @@
 	},
 /area/station/engineering/storage_shared)
 "oHw" = (
-/obj/machinery/aug_manipulator,
 /obj/effect/decal/cleanable/robot_debris{
 	icon_state = "gib4";
 	pixel_x = 14;
@@ -64211,7 +64196,7 @@
 /area/station/maintenance/department/engine)
 "paI" = (
 /obj/structure/closet{
-	name = "Evidence Closet 5"
+	name = "Evidence Closet 3"
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark,
@@ -70543,15 +70528,13 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/turret_protected/ai_upload)
 "qBG" = (
-/obj/structure/closet{
-	name = "Evidence Closet 5"
-	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
 /obj/item/grenade/discogrenade,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "qBP" = (
@@ -83319,9 +83302,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "tDy" = (
@@ -91603,7 +91583,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -93312,7 +93291,6 @@
 /area/station/science/xenobiology)
 "vUp" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "vUt" = (
@@ -94585,7 +94563,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
 /obj/effect/turf_decal/guideline/guideline_in/darkblue,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -96721,7 +96698,6 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -97957,7 +97933,6 @@
 	},
 /obj/machinery/light_switch/directional/east,
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"
@@ -99499,7 +99474,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/large{
 	initial_gas_mix = "n2=100;TEMP=80"

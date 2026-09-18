@@ -10434,6 +10434,10 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "dRG" = (
@@ -63153,7 +63157,8 @@
 "tIf" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	dir = 8;
+	volume_rate = 200
 	},
 /turf/open/space,
 /area/station/engineering/atmospherics_engine)
@@ -65426,7 +65431,6 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "upO" = (

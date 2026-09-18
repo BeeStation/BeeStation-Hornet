@@ -8,10 +8,10 @@
 
 /obj/machinery/rnd/production/circuit_imprinter/calculate_efficiency()
 	. = ..()
-	// Same curve as the parent, but a circuit imprinter only has one manipulator, where a protolathe has two, so its rating counts double.
+	// Same curve as the parent, but a circuit imprinter only has one manipulator, where a protolathe has two, so its tier counts double.
 	var/total_rating = 1.2
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating -= M.rating * 0.2
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		total_rating -= M.tier * 0.2
 	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY

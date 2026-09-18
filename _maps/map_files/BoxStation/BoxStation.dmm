@@ -2731,7 +2731,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
@@ -5948,7 +5947,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "cTD" = (
@@ -8084,7 +8082,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/hidden{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
@@ -11073,7 +11070,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/science/lower)
@@ -13873,7 +13869,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "fXf" = (
@@ -15225,7 +15220,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
 "gBm" = (
@@ -25721,6 +25715,10 @@
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
 "kQu" = (
@@ -26016,9 +26014,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/science/lower)
 "kXx" = (
@@ -28309,7 +28304,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/science/lower)
@@ -33813,7 +33807,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/computer)
@@ -36573,10 +36566,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/medical/surgery)
-"plF" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/dark,
-/area/station/science/robotics/lab)
 "plI" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -38243,7 +38232,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "pVT" = (
@@ -40822,7 +40810,8 @@
 /area/station/maintenance/starboard/fore)
 "qXW" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 1
+	dir = 1;
+	volume_rate = 200
 	},
 /turf/open/floor/plating/airless,
 /area/station/engineering/main)
@@ -43652,9 +43641,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "sht" = (
@@ -45764,9 +45750,6 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/exploration_prep)
 "sYT" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
 /obj/structure/noticeboard{
 	pixel_y = 26
 	},
@@ -47050,7 +47033,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "tyI" = (
@@ -47407,15 +47389,11 @@
 /turf/open/floor/iron,
 /area/station/maintenance/fore/greater)
 "tGJ" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 1;
-	name = "Air Outlet Pump";
-	target_pressure = 500
-	},
 /obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/station/engineering/atmos)
 "tHf" = (
@@ -55761,7 +55739,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "xdS" = (
@@ -56853,7 +56830,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "xzT" = (
@@ -101909,7 +101885,7 @@ aUp
 skN
 kTs
 ruD
-plF
+pkI
 pkI
 pkI
 dNP
