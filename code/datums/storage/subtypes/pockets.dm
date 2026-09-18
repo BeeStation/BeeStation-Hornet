@@ -9,17 +9,13 @@
 	if(!.)
 		return
 
-	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
-		return
-
 	if(!silent || override)
 		return
 
 	if(quickdraw)
-		to_chat(user, "<span class='notice'>You discreetly slip [to_insert] into [resolve_parent].  Right-click [resolve_parent] to remove it.</span>")
+		to_chat(user, span_notice("You discreetly slip [to_insert] into [parent]. Right-click to remove it."))
 	else
-		to_chat(user, "<span class='notice'>You discreetly slip [to_insert] into [resolve_parent].</span>")
+		to_chat(user, span_notice("You discreetly slip [to_insert] into [parent]."))
 
 /datum/storage/pockets/small
 	max_slots = 1
@@ -45,7 +41,12 @@
 /datum/storage/pockets/exo/large
 	max_slots = 3
 
-/datum/storage/pockets/small/fedora/New()
+/datum/storage/pockets/small/fedora/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
 	. = ..()
 	var/static/list/exception_cache = typecacheof(list(
 		/obj/item/katana,
@@ -72,7 +73,12 @@
 	max_slots = 3
 	max_specific_storage = WEIGHT_CLASS_TINY
 
-/datum/storage/pockets/pocketprotector/New()
+/datum/storage/pockets/pocketprotector/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
 	. = ..()
 	set_holdable(
 		list( //Same items as a PDA
@@ -80,7 +86,7 @@
 			/obj/item/toy/crayon,
 			/obj/item/lipstick,
 			/obj/item/flashlight/pen,
-			/obj/item/cigarette
+			/obj/item/cigarette,
 		)
 	)
 
@@ -114,7 +120,12 @@
 	quickdraw = TRUE
 	max_total_storage = 6
 
-/datum/storage/pockets/helmet/New()
+/datum/storage/pockets/helmet/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
 	. = ..()
 	set_holdable(
 		list(
@@ -131,7 +142,12 @@
 	max_slots = 3
 	max_specific_storage = WEIGHT_CLASS_LARGE
 
-/datum/storage/pockets/void_cloak/New()
+/datum/storage/pockets/void_cloak/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
 	. = ..()
 	set_holdable(list(
 		/obj/item/bodypart,

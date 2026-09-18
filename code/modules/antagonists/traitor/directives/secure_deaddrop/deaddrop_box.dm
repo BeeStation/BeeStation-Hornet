@@ -24,6 +24,5 @@
 
 /datum/storage/deaddrop
 	locked = TRUE
-	emp_shielded = TRUE
 	quickdraw = FALSE
 	rustle_sound = FALSE

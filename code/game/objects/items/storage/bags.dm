@@ -339,7 +339,15 @@
 	atom_storage.allow_quick_empty = TRUE
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.numerical_stacking = TRUE
-	atom_storage.set_holdable(list(/obj/item/stack/sheet))
+	atom_storage.set_holdable(
+		can_hold_list = list(
+			/obj/item/stack/sheet
+		),
+		cant_hold_list = list(
+			/obj/item/stack/sheet/mineral/sandstone,
+			/obj/item/stack/sheet/wood,
+		),
+	)
 	atom_storage.max_total_storage = capacity / 2
 
 // -----------------------------

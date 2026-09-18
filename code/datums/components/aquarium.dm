@@ -21,6 +21,7 @@
 /datum/component/aquarium_content/Initialize(property_type)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
+
 	if(ispath(property_type, /datum/aquarium_behaviour))
 		properties = new property_type
 	else

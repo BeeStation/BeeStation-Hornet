@@ -36,8 +36,10 @@
 	if(atom_storage)
 		if(U.atom_storage)
 			return FALSE
+		atom_storage.close_all()
 		U.clone_storage(atom_storage)
 		U.atom_storage.set_real_location(src)
+		U.atom_storage.rustle_sound = TRUE // it's on the suit now
 	U.attached_accessories[accessory_slot] = src
 	forceMove(U)
 	layer = FLOAT_LAYER
@@ -51,14 +53,20 @@
 
 	return TRUE
 
-/obj/item/clothing/accessory/proc/detach(obj/item/clothing/under/U, user)
-	if(U.atom_storage && U.atom_storage.real_location?.resolve() == src)
+/obj/item/clothing/accessory/proc/detach(obj/item/clothing/under/U)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(U.atom_storage?.real_location == src)
+		// Ensure void items do not stick around
+		U.atom_storage.close_all()
+		// And clean up the storage we made
 		QDEL_NULL(U.atom_storage)
 
 	U.set_armor(U.get_armor().subtract_other_armor(get_armor()))
 
-	if(isliving(user))
-		on_uniform_dropped(U, user)
+	var/mob/dropped_from = U.loc
+	if(istype(dropped_from))
+		on_uniform_dropped(U, dropped_from, update = update)
 
 	layer = initial(layer)
 	plane = initial(plane)
