@@ -20,7 +20,7 @@
 /datum/effect_system/smoke_spread/chem/smoke_machine/set_up(datum/reagents/carry, setting=1, efficiency=10, loc, silent=FALSE, circle = TRUE)
 	amount = setting
 	carry.copy_to(chemholder, 20)
-	carry.remove_any(amount * 16 / efficiency)
+	carry.remove_all(amount * 16 / efficiency)
 	location = loc
 	src.circle = circle
 

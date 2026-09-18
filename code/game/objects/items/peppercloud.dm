@@ -86,7 +86,7 @@
 	for (var/datum/reagent/reagent in reagents.reagent_list)
 		if (istype(reagent, /datum/reagent/consumable/condensedcapsaicin))
 			continue
-		reagents.remove_reagent(reagent.type, reagent.volume, TRUE)
+		reagents.remove_reagent(reagent.type, reagent.volume)
 		reagents_removed = TRUE
 	if (reagents_removed)
 		reagents.handle_reactions()

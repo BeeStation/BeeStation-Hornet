@@ -20,9 +20,6 @@ An objects on_reagent_change will be called every time the objects reagents chan
 # About the Holder:
 The holder (reagents datum) is the datum that holds a list of all reagents currently in the object.It also has all the procs needed to manipulate reagents
 ```
-		remove_any(var/amount)
-			This proc removes reagents from the holder until the passed amount
-			is matched. It'll try to remove some of ALL reagents contained.
 
 		remove_all(var/amount)
 			This proc removes reagents from the holder equally.
@@ -46,10 +43,6 @@ The holder (reagents datum) is the datum that holds a list of all reagents curre
 			This proc check all recipes and, on a match, uses them.
 			It will also call the recipe's on_reaction proc (for explosions or w/e).
 			Currently, this proc is automatically called by trans_to.
-
-		isolate_reagent(var/reagent)
-			Pass it a reagent id and it will remove all reagents but that one.
-			It's that simple.
 
 		del_reagent(var/reagent)
 			Completely remove the reagent with the matching id.

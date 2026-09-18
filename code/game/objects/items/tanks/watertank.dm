@@ -498,7 +498,7 @@
 				balloon_alert(user, "Recharging")
 				return
 			COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
-			R.remove_any(resin_cost)
+			R.remove_all(resin_cost)
 			var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
 			if(toggled)
 				QDEL_NULL(resin_projectile)
@@ -687,9 +687,8 @@
 		turn_off()
 		return
 
-	var/used_amount = (injection_amount * delta_time) /usage_ratio
-	reagents.expose(user, INJECT,injection_amount,0)
-	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
+	var/used_amount = (injection_amount * delta_time) / usage_ratio
+	reagents.trans_to(user, used_amount, usage_ratio, method = INJECT)
 	update_icon()
 	user.update_worn_back() //for overlays update
 

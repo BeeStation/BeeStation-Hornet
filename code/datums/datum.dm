@@ -122,17 +122,18 @@
 /datum/proc/Destroy(force=FALSE, ...)
 	PROTECTED_PROC(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
 	tag = null
 	datum_flags &= ~DF_USE_TAG //In case something tries to REF us
 	weak_reference = null	//ensure prompt GCing of weakref.
 
-	var/list/timers = active_timers
-	active_timers = null
-
-	for(var/datum/timedevent/timer as anything in timers)
-		if (timer?.spent && !(timer.flags & TIMER_DELETE_ME))
-			continue
-		qdel(timer)
+	if(active_timers)
+		var/list/timers = active_timers
+		active_timers = null
+		for(var/datum/timedevent/timer as anything in timers)
+			if (timer?.spent && !(timer.flags & TIMER_DELETE_ME))
+				continue
+			qdel(timer)
 
 	#ifdef REFERENCE_TRACKING
 	#ifdef REFERENCE_TRACKING_DEBUG

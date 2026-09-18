@@ -639,8 +639,7 @@
 	var/list/choices_to_options = list() //Dict of object name | dict of object processing settings
 	var/list/choices = list()
 
-	for(var/i in possible_options)
-		var/list/current_option = i
+	for(var/list/current_option as anything in possible_options)
 		var/atom/current_option_type = current_option[TOOL_PROCESSING_RESULT]
 		choices_to_options[initial(current_option_type.name)] = current_option
 		var/image/option_image = image(icon = initial(current_option_type.icon), icon_state = initial(current_option_type.icon_state))
@@ -669,10 +668,10 @@
 			to_chat(user, span_notice("You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src]."))
 			created_atoms.Add(created_atom)
 		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
-		UsedforProcessing(user, process_item, chosen_option)
+		UsedforProcessing(user, process_item, chosen_option, created_atoms)
 		return
 
-/atom/proc/UsedforProcessing(mob/living/user, obj/item/used_item, list/chosen_option)
+/atom/proc/UsedforProcessing(mob/living/user, obj/item/used_item, list/chosen_option, list/created_atoms)
 	qdel(src)
 	return
 
@@ -682,7 +681,6 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_CREATEDBY_PROCESSING, original_atom, chosen_option)
 	if(user.mind)
 		ADD_TRAIT(src, TRAIT_FOOD_CHEF_MADE, REF(user.mind))
-	return
 
 ///Connect this atom to a shuttle
 /atom/proc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override = FALSE)

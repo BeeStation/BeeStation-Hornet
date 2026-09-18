@@ -427,9 +427,11 @@
 
 /obj/item/reagent_containers/condiment/pack/on_reagent_change(changetype)
 	if(reagents.reagent_list.len > 0)
-		var/main_reagent = reagents.get_master_reagent_id()
-		if(main_reagent in possible_states)
-			var/list/temp_list = possible_states[main_reagent]
+		var/datum/reagent/main_reagent = reagents.get_master_reagent()
+
+		var/main_reagent_type = main_reagent?.type
+		if(main_reagent_type in possible_states)
+			var/list/temp_list = possible_states[main_reagent_type]
 			icon_state = temp_list[1]
 			desc = temp_list[3]
 		else

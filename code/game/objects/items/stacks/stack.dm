@@ -709,9 +709,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	fingerprintslast  = from.fingerprintslast
 	//TODO bloody overlay
 
-/obj/item/stack/microwave_act(obj/machinery/microwave/M)
-	if(istype(M) && M.dirty < 100)
-		M.dirty += amount
 
 #undef STACK_CHECK_CARDINALS
 #undef STACK_CHECK_ADJACENT
