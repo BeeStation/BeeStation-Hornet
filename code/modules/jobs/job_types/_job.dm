@@ -247,7 +247,7 @@
 	if (!player_count)
 		player_count = length(GLOB.clients)
 	// Out of range, and no proxy
-	if (player_count < min_pop && !min_pop_redirect)
+	if (player_count < min_pop && !min_pop_redirect && CONFIG_GET(flag/restricted_lowpop_command_spawns))
 		return 0
 	if (player_count > max_pop)
 		return 0
@@ -653,7 +653,6 @@
 		return get_latejoin_spawn_point()
 	return spawn_point
 
-
 /// Handles finding and picking a valid roundstart effect landmark spawn point, in case no uncommon different spawning events occur.
 /datum/job/proc/get_default_roundstart_spawn_point()
 	for(var/obj/effect/landmark/start/spawn_point as anything in GLOB.start_landmarks_list)
@@ -667,7 +666,6 @@
 	if(!.)
 		log_mapping("Couldn't find a round start spawn point for [title]")
 
-
 /// Finds a valid latejoin spawn point, checking for events and special conditions.
 /datum/job/proc/get_latejoin_spawn_point()
 	if(length(GLOB.jobspawn_overrides[title])) //We're doing something special today.
@@ -675,7 +673,6 @@
 	if(length(SSjob.latejoin_trackers))
 		return pick(SSjob.latejoin_trackers)
 	return SSjob.get_last_resort_spawn_points()
-
 
 /// Spawns the mob to be played as, taking into account preferences and the desired spawn point.
 /datum/job/proc/get_spawn_mob(client/player_client, atom/spawn_point)

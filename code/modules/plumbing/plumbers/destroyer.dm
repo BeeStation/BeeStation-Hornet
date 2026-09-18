@@ -19,7 +19,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/disposer)
 	if(reagents.total_volume)
 		if(icon_state != initial(icon_state) + "_working") //threw it here instead of update icon since it only has two states
 			icon_state = initial(icon_state) + "_working"
-		reagents.remove_any(disposal_rate * delta_time)
+		reagents.remove_all(disposal_rate * delta_time)
 	else
 		if(icon_state != initial(icon_state))
 			icon_state = initial(icon_state)

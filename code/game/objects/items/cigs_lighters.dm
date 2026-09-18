@@ -442,7 +442,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(lungs && IS_ORGANIC_ORGAN(lungs))
 		var/smoker_resistance = HAS_TRAIT(smoker, TRAIT_SMOKER) ? 0.5 : 1
 		smoker.adjustOrganLoss(ORGAN_SLOT_LUNGS, lung_harm * smoker_resistance)
-	if(!reagents.trans_to(smoker, to_smoke, method = INGEST/*, ignore_stomach = TRUE*/))
+	if(!reagents.trans_to(smoker, to_smoke, method = INGEST, ignore_stomach = TRUE))
 		reagents.remove_all(to_smoke)
 
 /obj/item/cigarette/process(delta_time)
@@ -1304,7 +1304,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/vape)
 		e.start(src)
 		qdel(src)
 
-	if(!reagents.trans_to(vaper, REAGENTS_METABOLISM, method = INGEST/*, ignore_stomach = TRUE*/))
+	if(!reagents.trans_to(vaper, REAGENTS_METABOLISM, method = INGEST, ignore_stomach = TRUE))
 		reagents.remove_all(REAGENTS_METABOLISM)
 
 /obj/item/vape/process(delta_time)

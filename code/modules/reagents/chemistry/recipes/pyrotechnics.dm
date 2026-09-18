@@ -222,11 +222,11 @@
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
+	holder.chem_temp = 1000 // hot as shit
+	..()
 	for(var/turf/open/turf in RANGE_TURFS(1,T))
 		if(!locate(/obj/effect/hotspot) in turf)
 			new /obj/effect/hotspot/bright(turf)
-	holder.chem_temp = 1000 // hot as shit
-	..()
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/methboom2
 	name = "Weak meth explosion"

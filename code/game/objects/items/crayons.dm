@@ -23,16 +23,16 @@
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
+	w_class = WEIGHT_CLASS_TINY
+	attack_verb_continuous = list("attacks", "colours")
+	attack_verb_simple = list("attack", "colour")
+	grind_results = list()
 
 	var/icon_capped
 	var/icon_uncapped
 	var/use_overlays = FALSE
 
 	var/crayon_color = "red"
-	w_class = WEIGHT_CLASS_TINY
-	attack_verb_continuous = list("attacks", "colours")
-	attack_verb_simple = list("attack", "colour")
-	grind_results = list()
 	var/paint_color = COLOR_RED //RGB
 
 	var/drawtype
@@ -620,21 +620,21 @@
 		user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, but nothing happens!"))
 		user.say("MEDIOCRE!!", forced="spraycan suicide")
 		return SHAME
-	else
-		user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, spraying paint across [user.p_their()] teeth!"))
-		user.say("WITNESS ME!!", forced="spraycan suicide")
-		if(pre_noise || post_noise)
-			playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		if(can_change_colour)
-			set_painting_tool_color(COLOR_SILVER)
-		update_icon()
-		if(actually_paints)
-			H.update_lips("spray_face", paint_color)
-		var/used = use_charges(user, 10, FALSE)
-		var/fraction = min(1, used / reagents.maximum_volume)
-		reagents.expose(user, VAPOR, fraction * volume_multiplier)
-		reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
-		return OXYLOSS
+
+	user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, spraying paint across [user.p_their()] teeth!"))
+	user.say("WITNESS ME!!", forced="spraycan suicide")
+	if(pre_noise || post_noise)
+		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+	if(can_change_colour)
+		set_painting_tool_color(COLOR_SILVER)
+	update_icon()
+	if(actually_paints)
+		H.update_lips("spray_face", paint_color)
+	var/used = use_charges(user, 10, FALSE)
+	var/fraction = min(1, used / reagents.maximum_volume)
+	reagents.expose(user, VAPOR, fraction * volume_multiplier)
+	reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
+	return OXYLOSS
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
@@ -650,7 +650,41 @@
 		. += "It has [charges_left] use\s left."
 	else
 		. += "It is empty."
-	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"].")
+	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"]. Right-click a colored object to match its existing color.")
+
+/obj/item/toy/crayon/spraycan/add_context_self(datum/screentip_context/context, mob/user)
+	if(has_cap)
+		context.add_alt_click_action("[is_capped ? "Take cap off" : "Put cap on"]")
+
+/obj/item/toy/crayon/spraycan/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+	if(target == src)
+		return
+
+	if(is_capped)
+		context.add_left_click_action("Spray", "capped", FALSE)
+		context.add_right_click_action("Match colour", "capped", FALSE)
+		return
+
+	if(charges != -1 && !charges_left)
+		context.add_left_click_action("Spray", "empty", FALSE)
+		context.add_right_click_action("Match colour", "empty", FALSE)
+		return
+
+	var/handled_secondary = FALSE
+	if(isbodypart(target) && actually_paints)
+		var/obj/item/bodypart/limb = target
+		if(!IS_ORGANIC_LIMB(limb))
+			context.add_right_click_action("Restyle limb")
+			handled_secondary = TRUE
+	if(!handled_secondary)
+		context.add_right_click_action("Match colour")
+
+	if(iscarbon(target))
+		context.add_left_click_action("Spray in face")
+	else if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
+		context.add_left_click_action("Coat with paint")
+	else if(isValidSurface(target))
+		context.add_left_click_action("Draw [drawtype]")
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -659,7 +693,7 @@
 	if(is_capped)
 		if(is_type_in_typecache(target, spraycan_touch_normally) || target.atom_storage)
 			return ..()
-		to_chat(user, span_warning("Take the cap off first!"))
+		balloon_alert(user, "take the cap off first!")
 		return
 
 	if(check_empty(user))
@@ -736,6 +770,45 @@
 /obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = is_capped ? icon_capped : icon_uncapped
 	return ..()
+
+/obj/item/toy/crayon/spraycan/afterattack_secondary(atom/target, mob/user, proximity, params)
+	if(!proximity)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(is_capped)
+		balloon_alert(user, "take the cap off first!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(check_empty(user))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if(isbodypart(target) && actually_paints)
+		var/obj/item/bodypart/limb = target
+		if(!IS_ORGANIC_LIMB(limb))
+			var/list/skins = list()
+			var/static/list/style_list_icons = list(
+				"standard" = 'icons/mob/augmentation/augments.dmi',
+				"engineer" = 'icons/mob/augmentation/augments_engineer.dmi',
+				"security" = 'icons/mob/augmentation/augments_security.dmi',
+				"mining" = 'icons/mob/augmentation/augments_mining.dmi'
+			)
+			for(var/skin_option in style_list_icons)
+				var/image/part_image = image(icon = style_list_icons[skin_option], icon_state = "[limb.limb_id]_[limb.body_zone]")
+				if(limb.aux_zone) //Hands
+					part_image.overlays += image(icon = style_list_icons[skin_option], icon_state = "[limb.limb_id]_[limb.aux_zone]")
+				skins += list("[skin_option]" = part_image)
+			var/choice = show_radial_menu(user, src, skins, require_near = TRUE)
+			if(choice && (use_charges(user, 5, requires_full = FALSE) == 5))
+				playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
+				limb.change_appearance(style_list_icons[choice], greyscale = FALSE)
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(target.color)
+		paint_color = target.color
+		to_chat(user, span_notice("You adjust the color of [src] to match [target]."))
+		update_appearance()
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	else
+		to_chat(user, span_warning("[target] is not colorful enough, you can't match that color!"))
+
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()

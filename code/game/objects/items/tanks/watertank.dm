@@ -498,7 +498,7 @@
 				balloon_alert(user, "Recharging")
 				return
 			COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
-			R.remove_any(resin_cost)
+			R.remove_all(resin_cost)
 			var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
 			if(toggled)
 				QDEL_NULL(resin_projectile)
