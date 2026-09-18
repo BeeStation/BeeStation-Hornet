@@ -1006,7 +1006,7 @@
 	materials = list(/datum/material/iron = 6000, /datum/material/glass = 3000, /datum/material/plasma = 1000)
 	construction_time = 15 SECONDS
 	build_path = /obj/item/mod/construction/plating
-	category = list(RND_CATEGORY_MOD_CONSTRUCTION + RND_SUBCATEGORY_MODSUITS_PLATING, RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_ENGINEERING)
+	category = list(RND_CATEGORY_MOD_CONSTRUCTION + RND_SUBCATEGORY_MODSUITS_PLATING)
 	research_icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	research_icon_state = "standard-plating"
 
