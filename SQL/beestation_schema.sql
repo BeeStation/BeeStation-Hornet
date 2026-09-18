@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`body_model` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
 	`body_size` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
 	`age` TINYINT(3) UNSIGNED,
+	`flavor_text` VARCHAR(400) COLLATE 'utf8mb4_general_ci',
 	`hair_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`gradient_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`facial_hair_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
