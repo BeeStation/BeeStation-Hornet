@@ -197,7 +197,7 @@
 				if(install_board(target_board, user, FALSE))
 					replacer.play_rped_sound()
 					//attack this frame again with the rped so it can install stock parts since its now in state 3
-					attackby(replacer, user, params)
+					attackby(replacer, user, modifiers)
 					return
 
 			if(!circuit && istype(P, /obj/item/circuitboard/machine))

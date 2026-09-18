@@ -108,7 +108,7 @@
 						state = 2
 						icon_state = "2"
 						//attack again so we can install the cable & glass
-						attackby(replacer, user, params)
+						attackby(replacer, user, modifiers)
 						return
 
 				//attempt to install circuitboard by hand
@@ -166,7 +166,7 @@
 					var/obj/item/storage/part_replacer/replacer = P
 					replacer.play_rped_sound()
 					//reattack to install the glass sheets as well
-					attackby(replacer, user, params)
+					attackby(replacer, user, modifiers)
 				return
 		if(3)
 			if(P.tool_behaviour == TOOL_WIRECUTTER)
