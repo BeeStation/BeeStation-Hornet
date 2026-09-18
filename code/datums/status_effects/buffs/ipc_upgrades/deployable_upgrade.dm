@@ -41,7 +41,6 @@
 		return
 	deactivate()
 
-
 /datum/status_effect/ipc_upgrade/deployable/medbeam
 	id = "ipc deployable medbeam"
 	name = "Integrated Revival Beam"

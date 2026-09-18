@@ -57,8 +57,6 @@
 
 	var/datum/port/input/message
 	var/datum/port/input/send_message_signal
-	var/datum/port/input/upgrade_external_set
-	var/datum/port/input/upgrade_utility_set
 	var/datum/port/output/user_port
 	var/datum/port/output/battery_port
 	var/datum/port/output/max_battery_port
