@@ -55160,7 +55160,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/folder/yellow,
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow{
@@ -74480,7 +74480,7 @@
 /obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/chief)

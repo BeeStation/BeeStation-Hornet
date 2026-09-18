@@ -37,8 +37,6 @@
 	var/fill_icon_state
 	///Icon for the "label", if the holder was renamed
 	var/label_icon
-	///Does this container prevent grinding?
-	var/prevent_grinding = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
@@ -152,11 +150,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	if(!reagents?.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return FALSE
-	var/mob/living/carbon/C = eater
+	var/mob/living/carbon/as_carbon = eater
 	var/covered = ""
-	if(C.is_mouth_covered(ITEM_SLOT_HEAD))
+	if(as_carbon.is_mouth_covered(ITEM_SLOT_HEAD))
 		covered = "headgear"
-	else if(C.is_mouth_covered(ITEM_SLOT_MASK))
+	else if(as_carbon.is_mouth_covered(ITEM_SLOT_MASK))
 		covered = "mask"
 	if(covered)
 		var/who = (isnull(user) || eater == user) ? "your" : "[eater.p_their()]"

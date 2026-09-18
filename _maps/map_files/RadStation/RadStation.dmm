@@ -37694,7 +37694,7 @@
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/machinery/light{
 	dir = 4

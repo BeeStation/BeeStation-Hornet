@@ -1692,7 +1692,7 @@
 	pixel_y = 4
 	},
 /obj/item/stock_parts/cell/high/plus,
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/chief)

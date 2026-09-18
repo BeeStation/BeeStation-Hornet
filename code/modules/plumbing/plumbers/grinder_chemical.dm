@@ -57,10 +57,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/grinder_chemical)
 	if(!isitem(AM))
 		return
 
-	if(istype(AM, /obj/item/reagent_containers))
-		var/obj/item/reagent_containers/reag_container = AM
-		if(reag_container.prevent_grinding) // don't grind floorpill
-			return
+	if(HAS_TRAIT(AM, TRAIT_NO_GRINDING))
+		return
 
 	var/obj/item/I = AM
 	var/result

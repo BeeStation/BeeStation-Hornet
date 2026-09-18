@@ -305,20 +305,18 @@
 	for(var/obj/item/grinded_item in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
-		if(grinded_item.grind_results || grinded_item.is_grindable())
-			if(istype(grinded_item, /obj/item/reagent_containers))
-				var/obj/item/reagent_containers/beaker = grinded_item
-				if(!beaker.prevent_grinding)
-					grind_item(beaker, user)
-			else
-				grind_item(grinded_item, user)
+		if(!grinded_item.grind_results && !grinded_item.is_grindable())
+			continue
+		if(HAS_TRAIT(grinded_item, TRAIT_NO_GRINDING))
+			continue
+		grind_item(grinded_item, user)
 
 /obj/machinery/reagentgrinder/proc/grind_item(obj/item/grinded_item, mob/user) //Grind results can be found in respective object definitions
 	if(!grinded_item.grind(beaker.reagents, user))
 		if(isstack(grinded_item))
-			to_chat(usr, "<span class='notice'>[src] attempts to grind as many pieces of [grinded_item] as possible.</span>")
+			to_chat(usr, span_notice("[src] attempts to grind as many pieces of [grinded_item] as possible."))
 		else
-			to_chat(usr, "<span class='danger'>[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage.</span>")
+			to_chat(usr, span_danger("[src] shorts out as it tries to grind up [grinded_item], and transfers it back to storage."))
 		return
 	remove_object(grinded_item)
 

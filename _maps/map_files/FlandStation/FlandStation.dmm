@@ -22590,7 +22590,7 @@
 "gKl" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /turf/open/floor/iron/grid/steel,
 /area/station/engineering/main)
 "gKu" = (
@@ -51006,7 +51006,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /turf/open/floor/iron/grid/steel,
 /area/station/engineering/main)
 "oUY" = (
@@ -64104,7 +64104,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /turf/open/floor/iron/grid/steel,
 /area/station/engineering/main)
 "sSL" = (

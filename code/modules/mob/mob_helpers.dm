@@ -446,7 +446,6 @@
  * which determines the zone to target based on what target was
  * pressed and a non-combat mode which displays a wheel of options.
  */
-
 /mob/proc/select_bodyzone(atom/target, precise = FALSE, style = BODYZONE_STYLE_DEFAULT, override_zones = null)
 	DECLARE_ASYNC
 	// Get the selected bodyzone
@@ -457,7 +456,7 @@
 			if (BODYZONE_STYLE_MEDICAL)
 				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
 				if (!accurate_health && isliving(target))
-					to_chat(src, span_warning("You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!"))
+					to_chat(src, span_warning("You could more easily determine how injured [target] was if you had a medical hud or a health analyzer!"))
 				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health), override_zones))
 	// Return the value instantly
 	if (precise)

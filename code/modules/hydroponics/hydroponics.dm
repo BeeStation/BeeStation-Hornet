@@ -742,7 +742,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
+		if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/applicator/pill))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 			SEND_SIGNAL(reagent_source, COMSIG_ITEM_ON_COMPOSTED, user)
@@ -782,7 +782,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split, transfered_by = user)
-			if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
+			if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/applicator/pill))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)

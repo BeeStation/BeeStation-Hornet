@@ -945,11 +945,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 		return
 
 	if(control_area)
-		control_area = get_area_instance_from_text(control_area)
-		if(control_area == null)
+		var/control_area_text = control_area
+		control_area = get_area_instance_from_text(control_area_text)
+		if(isnull(control_area))
 			control_area = get_area(src)
-			stack_trace("Bad control_area path for [src], [src.control_area]")
-	else if(!control_area)
+			stack_trace("Bad control_area path ([control_area_text]) for [src], [src.control_area]")
+	else
 		control_area = get_area(src)
 
 	for(var/obj/machinery/porta_turret/new_turret in control_area)

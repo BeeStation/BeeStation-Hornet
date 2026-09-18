@@ -31181,7 +31181,7 @@
 	},
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/item/powertool/jaws_of_life,
-/obj/item/reagent_containers/pill/patch/silver_sulf,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
 	},

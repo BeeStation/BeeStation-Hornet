@@ -482,7 +482,7 @@
 	atom_storage.max_slots = 50
 	atom_storage.set_holdable(
 		list(
-			/obj/item/reagent_containers/pill,
+			/obj/item/reagent_containers/applicator/pill,
 			/obj/item/reagent_containers/cup/beaker,
 			/obj/item/reagent_containers/cup/bottle,
 			/obj/item/reagent_containers/medspray,

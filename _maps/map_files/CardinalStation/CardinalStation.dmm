@@ -16352,10 +16352,10 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/pill/patch/silver_sulf{
+/obj/item/reagent_containers/applicator/patch/silver_sulf{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/pill/patch/silver_sulf{
+/obj/item/reagent_containers/applicator/patch/silver_sulf{
 	pixel_y = 17
 	},
 /obj/structure/sign/warning/vacuum/external{
@@ -99552,12 +99552,12 @@
 	dir = 10
 	},
 /obj/structure/dresser,
-/obj/item/reagent_containers/pill/morphine{
+/obj/item/reagent_containers/applicator/pill/morphine{
 	pixel_y = 10;
 	pixel_x = -3;
 	name = "melatonin pill"
 	},
-/obj/item/reagent_containers/pill/morphine{
+/obj/item/reagent_containers/applicator/pill/morphine{
 	pixel_y = 9;
 	pixel_x = 2;
 	name = "melatonin pill"

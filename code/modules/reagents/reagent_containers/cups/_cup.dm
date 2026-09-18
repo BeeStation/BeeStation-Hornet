@@ -437,11 +437,9 @@
 		to_chat(user, span_warning("There is something inside already!"))
 		return ITEM_INTERACT_BLOCKING
 
-	if(istype(tool, /obj/item/reagent_containers))
-		var/obj/item/reagent_containers/cup = tool
-		if(cup.prevent_grinding)
-			to_chat(user, span_danger("You can't grind this!"))
-			return ITEM_INTERACT_BLOCKING
+	if(HAS_TRAIT(tool, TRAIT_NO_GRINDING))
+		to_chat(user, span_danger("You can't grind this!"))
+		return ITEM_INTERACT_BLOCKING
 
 	if((length(tool.grind_results) || tool.reagents?.total_volume || tool.is_grindable()) && user.transferItemToLoc(tool, src))
 		grinded = tool
