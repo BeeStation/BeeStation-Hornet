@@ -1,10 +1,7 @@
 #define ANTAG_TOKENS_MAXIMUM 255
 #define ANTAG_TOKENS_MINIMUM 0
 
-/client/proc/cmd_admin_mod_antag_tokens(client/C in GLOB.clients, operation)
-	set category = "Adminbus"
-	set name = "Modify Antagonist Tokens"
-
+/client/proc/cmd_admin_mod_antag_tokens(client/C, operation)
 	if(!check_rights(R_ADMIN))
 		return
 
@@ -38,9 +35,31 @@
 			to_chat(src, "Invalid operation for antag token modification: [operation] by user [key_name(usr)]")
 			return
 
-
 	log_admin("[key_name(usr)]: Modified [key_name(C)]'s antagonist tokens [log_text]")
 	message_admins(span_adminnotice("[key_name_admin(usr)]: Modified [key_name(C)]'s antagonist tokens ([log_text])"))
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Modify Antagonist Tokens") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/modify_antag_tokens()
+	set category = "Adminbus"
+	set name = "Modify Antagonist Tokens"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/target_ckey = ckey(tgui_input_text(usr, "Enter player ckey:", "Ckey Input"))
+	if(isnull(target_ckey))
+		return
+
+	var/previous_token_amount = get_antag_token_count_db(target_ckey) || 0
+
+	var/token_amount = tgui_input_number(usr, "Enter new antag token amount:", "Set Antag Tokens (Current: [previous_token_amount])", max_value = ANTAG_TOKENS_MAXIMUM, min_value = ANTAG_TOKENS_MINIMUM)
+	if(isnull(token_amount))
+		return
+
+	db_set_antag_token_count(target_ckey, token_amount)
+
+	log_admin("[key_name(usr)]: Set [key_name(target_ckey)]'s antagonist tokens to [token_amount] (previously [previous_token_amount])")
+	message_admins("[key_name_admin(usr)]: Set [key_name(target_ckey)]'s antagonist tokens to [token_amount] (previously [previous_token_amount])")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Modify Antagonist Tokens") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 #undef ANTAG_TOKENS_MAXIMUM
