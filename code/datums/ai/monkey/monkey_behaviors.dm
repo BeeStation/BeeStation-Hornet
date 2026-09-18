@@ -121,7 +121,7 @@
 			break
 
 	if(target)
-		walk_away(living_pawn, target, MONKEY_ENEMY_VISION, 5)
+		SSmove_manager.move_away(living_pawn, target, MONKEY_ENEMY_VISION, 5) // walk_away was a loop built-in byond, nothing cancels it
 		return AI_BEHAVIOR_DELAY
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
