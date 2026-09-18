@@ -4,3 +4,6 @@
 	#define STORAGE_DUMP_HANDLED (1<<0)
 /// Sent after dumping into some other storage object: (atom/dest_object, mob/user)
 #define COMSIG_STORAGE_DUMP_POST_TRANSFER "storage_dump_into_storage"
+
+/// From /obj/item/storage/backpack/duffelbag/proc/set_zipper() : (new_zip)
+#define COMSIG_DUFFEL_ZIP_CHANGE "duffel_zip_change"

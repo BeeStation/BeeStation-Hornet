@@ -53,7 +53,7 @@ Reproductive extracts:
 		return
 
 	else if(istype(O, /obj/item/food/monkeycube))
-		if(atom_storage?.attempt_insert(O, user, override = TRUE, force = TRUE))
+		if(atom_storage?.attempt_insert(O, user, override = TRUE, force = STORAGE_FULLY_LOCKED))
 			to_chat(user, span_notice("You feed a Monkey Cube to [src], and it pulses gently."))
 			slime_storage?.process_cubes(src, user)
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)

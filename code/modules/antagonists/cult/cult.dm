@@ -87,7 +87,7 @@
 
 	var/T = new item_path(mob)
 	var/item_name = initial(item_path.name)
-	var/where = mob.equip_in_one_of_slots(T, slots)
+	var/where = mob.equip_in_one_of_slots(T, slots, indirect_action = TRUE)
 	if(!where)
 		//Our last attempt, we force the item into the backpack
 		if(istype(mob.back, /obj/item/storage/backpack))

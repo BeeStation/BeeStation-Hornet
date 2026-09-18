@@ -17,7 +17,7 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 14
 	atom_storage.max_slots = 4
-	atom_storage.locked = TRUE
+	atom_storage.locked = STORAGE_FULLY_LOCKED
 
 /obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
 	var/locked = atom_storage.locked
@@ -26,7 +26,10 @@
 			to_chat(user, span_danger("It appears to be broken."))
 			return
 		if(allowed(user))
-			atom_storage.locked = !locked
+			if(atom_storage.locked)
+				atom_storage.locked = STORAGE_NOT_LOCKED
+			else
+				atom_storage.locked = STORAGE_FULLY_LOCKED
 			locked = atom_storage.locked
 			if(locked)
 				icon_state = "[base_icon_state]+l"
@@ -53,7 +56,7 @@
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
 	broken = TRUE
-	atom_storage.locked = FALSE
+	atom_storage.locked = STORAGE_NOT_LOCKED
 	desc += "It appears to be broken."
 	icon_state = "[src.base_icon_state]+b"
 	inhand_icon_state = "[src.base_icon_state]+b"
@@ -100,10 +103,12 @@
 		. += span_notice("Alt-click to [open ? "close":"open"] it.")
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		if(!atom_storage.locked)
-			open = (open ? FALSE : TRUE)
-			update_icon()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
+	if(!atom_storage.locked)
+		open = (open ? FALSE : TRUE)
+		update_appearance()
+	..()
 
 /obj/item/storage/lockbox/medal/PopulateContents()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)

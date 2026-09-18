@@ -93,7 +93,7 @@
 				l_code = code
 				l_set = 1
 			else if ((code == l_code) && (l_set == 1))
-				atom_storage.locked = FALSE
+				atom_storage.locked = STORAGE_NOT_LOCKED
 				cut_overlays()
 				add_overlay(icon_opened)
 				code = null
@@ -101,7 +101,7 @@
 				code = "ERROR"
 		else
 			if ((href_list["type"] == "R") && (!l_setshort))
-				atom_storage.locked = TRUE
+				atom_storage.locked = STORAGE_FULLY_LOCKED
 				cut_overlays()
 				code = null
 				atom_storage.hide_contents(usr)
@@ -240,7 +240,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 		/obj/item/card/id/))
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE
-	atom_storage.locked = TRUE
+	atom_storage.locked = STORAGE_FULLY_LOCKED
 	update_appearance()
 
 /obj/item/storage/secure/safe/caps_spare/PopulateContents()
