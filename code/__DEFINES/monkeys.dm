@@ -8,6 +8,8 @@
 #define MONKEY_FLEE_VISION 4
 /// How long does it take the item to be taken from a mobs hand
 #define MONKEY_ITEM_SNATCH_DELAY 25
+/// how far away an enemy must be before the monkey gives up on melee and throws its weapon at them
+#define MONKEY_THROW_MIN_DISTANCE 3
 /// Probability monkey will aggro when cuffed
 #define MONKEY_CUFF_RETALIATION_PROB 20
 /// Probability monkey will aggro when syringed

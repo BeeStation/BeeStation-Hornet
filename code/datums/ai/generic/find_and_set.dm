@@ -44,9 +44,8 @@
 			continue
 		food_candidates += held_candidate
 
-	var/list/local_results = locate(locate_path) in oview(search_range, controller.pawn)
-	for(var/local_candidate in local_results)
-		if(!IsEdible(local_candidate))
+	for(var/atom/local_candidate as anything in oview(search_range, controller.pawn)) // This was really dumb, only returned a single atom
+		if(!istype(local_candidate, locate_path) || !IsEdible(local_candidate))
 			continue
 		food_candidates += local_candidate
 	if(food_candidates.len)

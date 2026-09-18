@@ -203,8 +203,9 @@
 /datum/ai_behavior/drop_item/perform(delta_time, datum/ai_controller/controller)
 	var/mob/living/living_pawn = controller.pawn
 	var/obj/item/best_held = GetBestWeapon(controller, null, living_pawn.held_items)
+	var/obj/item/food_target = controller.blackboard[BB_FOOD_TARGET]
 	for(var/obj/item/held as anything in living_pawn.held_items)
-		if(!held || held == best_held)
+		if(!held || held == best_held || held == food_target) // We dont need to be constantly dropping whatever we're going to eat
 			continue
 		living_pawn.dropItemToGround(held)
 	return AI_BEHAVIOR_DELAY
