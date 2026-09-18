@@ -5,6 +5,8 @@
 
 	/// The efficiency coefficient. Material costs and print times are multiplied by this number;
 	var/efficiency_coeff = 1
+	/// Multiplier applied to print times. it's used directly for calculations
+	var/build_time_coeff = 1
 	/// The material storage used by this fabricator.
 	var/datum/component/remote_materials/materials
 	/// Which departments are allowed to process this design
@@ -69,7 +71,7 @@
 		return
 
 	. += span_info("Material usage cost at <b>[round(100 / efficiency_coeff, 0.1)]%</b>") // Seems we had it all backwards, 800% wasn't a boost.. this is actually the correct way
-	. += span_info("Build time at <b>[round(100 / sqrt(efficiency_coeff), 0.1)]%</b>")
+	. += span_info("Build time at <b>[round(100 * build_time_coeff, 0.1)]%</b>")
 	. += span_notice("Currently dropping printed objects <b>[drop_direction ? dir2text(drop_direction) : "on its own tile"]</b>.")
 	if(drop_direction)
 		. += span_notice("<b>Alt-click</b> to drop them on its own tile again.")
@@ -252,6 +254,7 @@
 
 /obj/machinery/rnd/production/proc/calculate_efficiency()
 	efficiency_coeff = 1
+	build_time_coeff = 1
 	if(reagents)		//If reagents/materials aren't initialized, don't bother, we'll be doing this again after reagents init anyways.
 		reagents.maximum_volume = 0
 		for(var/obj/item/reagent_containers/cup/G in component_parts)
@@ -263,13 +266,16 @@
 			total_storage += M.tier * 75000
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
+	var/manipulator_tiers = 0
 	for(var/datum/stock_part/manipulator/M in component_parts)
 		total_rating = (total_rating - (M.tier * 0.1))
+		manipulator_tiers += M.tier
 	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
 		efficiency_coeff = 1/total_rating
+	build_time_coeff = clamp(1 - (manipulator_tiers * 0.05), 0.6, 1)
 
 //we eject the materials upon deconstruction.
 /obj/machinery/rnd/production/on_deconstruction()
@@ -375,9 +381,9 @@
 		icon_state = production_animation
 
 	// The order finishes when it always did; do_print now spreads the items between the print time, instead of dropping them all when the printing ended
-	var/timecoeff = design.lathe_time_factor / efficiency_coeff
-	var/time_per_item = ((32 * timecoeff * amount) ** 0.5) / amount
-	addtimer(CALLBACK(src, PROC_REF(reset_busy)), (30 * timecoeff * amount) ** 0.6)
+	var/timecoeff = design.lathe_time_factor
+	var/time_per_item = (build_time_coeff * ((32 * timecoeff * amount) ** 0.5)) / amount
+	addtimer(CALLBACK(src, PROC_REF(reset_busy)), build_time_coeff * ((30 * timecoeff * amount) ** 0.6))
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction, time_per_item, materials_to_consume), time_per_item)
 	return TRUE
 
