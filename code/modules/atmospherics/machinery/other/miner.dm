@@ -12,6 +12,8 @@
 	icon_state = "miner"
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 1.5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 1.25
 	var/spawn_id = null
 	var/spawn_temp = T20C
 	/// Moles of gas to spawn per second
@@ -26,8 +28,6 @@
 	var/power_draw_dynamic_kpa_coeff = 0.5
 	var/broken = FALSE
 	var/broken_message = "ERROR"
-	idle_power_usage = 150
-	active_power_usage = 3000
 
 /obj/machinery/atmospherics/miner/Initialize(mapload)
 	. = ..()
@@ -81,21 +81,22 @@
 
 /obj/machinery/atmospherics/miner/proc/update_power()
 	if(!active)
-		active_power_usage = idle_power_usage
+		update_mode_power_usage(ACTIVE_POWER_USE, idle_power_usage)
+		return
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/G = T.return_air()
 	var/P = G.return_pressure()
 	switch(power_draw)
 		if(GASMINER_POWER_NONE)
-			update_use_power(ACTIVE_POWER_USE, 0)
+			update_mode_power_usage(ACTIVE_POWER_USE, 0)
 		if(GASMINER_POWER_STATIC)
-			update_use_power(ACTIVE_POWER_USE, power_draw_static)
+			update_mode_power_usage(ACTIVE_POWER_USE, power_draw_static)
 		if(GASMINER_POWER_MOLES)
-			update_use_power(ACTIVE_POWER_USE, spawn_mol * power_draw_dynamic_mol_coeff)
+			update_mode_power_usage(ACTIVE_POWER_USE, spawn_mol * power_draw_dynamic_mol_coeff)
 		if(GASMINER_POWER_KPA)
-			update_use_power(ACTIVE_POWER_USE, P * power_draw_dynamic_kpa_coeff)
+			update_mode_power_usage(ACTIVE_POWER_USE, P * power_draw_dynamic_kpa_coeff)
 		if(GASMINER_POWER_FULLSCALE)
-			update_use_power(ACTIVE_POWER_USE, (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff))
+			update_mode_power_usage(ACTIVE_POWER_USE, (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff))
 
 /obj/machinery/atmospherics/miner/proc/do_use_power(amount)
 	var/turf/T = get_turf(src)
