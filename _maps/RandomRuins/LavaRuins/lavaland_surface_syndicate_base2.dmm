@@ -441,7 +441,7 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating,
-/area/misc/space)
+/area/ruin/powered)
 "dP" = (
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
@@ -1894,13 +1894,13 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/turretid{
 	ailock = 1;
-	control_area = "/area/ruin/syndicate_lava_base/virology";
+	control_area = /area/ruin/syndicate_lava_base/virology;
 	name = "Base turret controls";
 	req_access = null;
 	req_access_txt = "150"
 	},
 /turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/virology)
+/area/ruin/syndicate_lava_base/bridge)
 "sa" = (
 /obj/structure/cable/yellow,
 /obj/machinery/firealarm/directional/west,
@@ -3963,7 +3963,6 @@
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
 "Qc" = (
-/obj/structure/cable/yellow,
 /obj/machinery/light/small/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -6660,7 +6659,7 @@ uL
 Ew
 af
 zs
-ZH
+zq
 ZH
 zq
 zq
