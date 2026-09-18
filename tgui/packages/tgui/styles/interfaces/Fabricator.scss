@@ -136,6 +136,11 @@ $transparent-hover-bg: rgba(255, 255, 255, 0.05);
     flex: none;
     justify-self: flex-end;
 
+    &:not(.FabricatorRecipe__Button--icon) {
+      min-width: 4em;
+      justify-content: center;
+    }
+
     &--icon {
       padding: 0 1em;
     }

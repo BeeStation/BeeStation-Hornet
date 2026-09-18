@@ -152,11 +152,11 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/cable_coil
-	name = "Cable Coil"
+	name = "Cable Coil (x5)"
 	id = "cable_coil"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
-	build_path = /obj/item/stack/cable_coil/one
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 25)
+	build_path = /obj/item/stack/cable_coil/five
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_ENGINEERING)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
