@@ -10,13 +10,13 @@
 	. = ..()
 	// Same curve as the parent, but a circuit imprinter only has one manipulator, where a protolathe has two, so its tier counts double.
 	var/total_rating = 1.2
-	var/manipulator_tiers = 0
+	var/manipulator_upgrades = 0
 	for(var/datum/stock_part/manipulator/M in component_parts)
 		total_rating -= M.tier * 0.2
-		manipulator_tiers += M.tier * 2
+		manipulator_upgrades += (M.tier - 1) * 2
 	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
 		efficiency_coeff = 1/total_rating
-	build_time_coeff = clamp(1 - (manipulator_tiers * 0.05), 0.6, 1)
+	build_time_coeff = round(clamp(1 - (manipulator_upgrades / 15), 0.6, 1), 0.05)
