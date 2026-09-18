@@ -52,7 +52,14 @@
 
 	var/previous_token_amount = get_antag_token_count_db(target_ckey) || 0
 
-	var/token_amount = tgui_input_number(usr, "Enter new antag token amount:", "Set Antag Tokens (Current: [previous_token_amount])", max_value = ANTAG_TOKENS_MAXIMUM, min_value = ANTAG_TOKENS_MINIMUM)
+	var/token_amount = tgui_input_number(
+		user = usr,
+		message = "Enter new antag token amount:",
+		title = "Set Antag Tokens",
+		default = previous_token_amount,
+		max_value = ANTAG_TOKENS_MAXIMUM,
+		min_value = ANTAG_TOKENS_MINIMUM,
+	)
 	if(isnull(token_amount))
 		return
 
