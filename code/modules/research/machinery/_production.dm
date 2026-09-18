@@ -5,6 +5,8 @@
 
 	/// The efficiency coefficient. Material costs and print times are multiplied by this number;
 	var/efficiency_coeff = 1
+	/// Multiplier applied to print times. it's used directly for calculations
+	var/build_time_coeff = 1
 	/// The material storage used by this fabricator.
 	var/datum/component/remote_materials/materials
 	/// Which departments are allowed to process this design
@@ -21,11 +23,8 @@
 	var/datum/looping_sound/lathe_print/print_sound
 	/// Made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update
 	var/techweb_updating = FALSE
-
-	/// TGUI stuff
-	var/list/categories = list()
-	var/search = null
-	var/selected_category = null
+	/// The direction prints and ejected sheets land in. 0 drops them on top of us.
+	var/drop_direction = 0
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	print_sound = new(src, FALSE)
@@ -43,6 +42,8 @@
 
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
+	RefreshParts()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/rnd/production/Destroy()
 	QDEL_NULL(print_sound)
@@ -69,8 +70,40 @@
 	if(!in_range(user, src) && !isobserver(user))
 		return
 
-	. += span_info("Material usage cost at <b>[efficiency_coeff * 100]%</b>")
-	. += span_info("Build time at <b>[efficiency_coeff * 100]%</b>")
+	. += span_info("Material usage cost at <b>[round(100 / efficiency_coeff, 0.1)]%</b>") // Seems we had it all backwards, 800% wasn't a boost.. this is actually the correct way
+	. += span_info("Build time at <b>[round(100 * build_time_coeff, 0.1)]%</b>")
+	. += span_notice("Currently dropping printed objects <b>[drop_direction ? dir2text(drop_direction) : "on its own tile"]</b>.")
+	if(drop_direction)
+		. += span_notice("<b>Alt-click</b> to drop them on its own tile again.")
+	else
+		. += span_notice("<b>Drag</b> it towards a direction, while next to it, to change where they drop.")
+
+/// Where printed objects and ejected sheets land
+/obj/machinery/rnd/production/proc/get_output_turf()
+	return drop_direction ? get_step(src, drop_direction) : drop_location()
+
+/obj/machinery/rnd/production/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if((!issilicon(usr) && !IsAdminGhost(usr)) && !Adjacent(usr))
+		return
+	if(busy)
+		balloon_alert(usr, "busy printing!")
+		return
+	var/direction = get_dir(src, over_location)
+	if(!direction || direction == drop_direction)
+		return
+	drop_direction = direction
+	balloon_alert(usr, "dropping [dir2text(drop_direction)]")
+
+/obj/machinery/rnd/production/AltClick(mob/user)
+	. = ..()
+	if(!drop_direction || !can_interact(user))
+		return
+	if(busy)
+		balloon_alert(user, "busy printing!")
+		return
+	balloon_alert(user, "drop direction reset")
+	drop_direction = 0
 
 /obj/machinery/rnd/production/connect_techweb(datum/techweb/new_techweb)
 	if(stored_research)
@@ -135,113 +168,65 @@
 		return FALSE // it's stupid that this has to be false, but whatever
 	return ..()
 
+/// Supplies the material and design sprite sheets used by the Fabricator UI.
+/obj/machinery/rnd/production/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials),
+		get_asset_datum(/datum/asset/spritesheet_batched/research_designs),
+	)
+
 /obj/machinery/rnd/production/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TechFab")
+		ui = new(user, src, "Fabricator")
 		ui.open()
 
 /obj/machinery/rnd/production/ui_data(mob/user)
 	var/list/data = list()
 
+	data["materials"] = materials?.mat_container?.ui_data()
+	data["onHold"] = materials?.on_hold()
 	data["busy"] = busy
-	data["efficiency"] = efficiency_coeff
 
-	data["category"] = selected_category
-	data["search"] = search
-
-	var/list/material_data = build_materials()
-	if(material_data)
-		data += material_data
-
-	var/list/reagents_data = build_reagents()
-	if(reagents_data)
-		data += reagents_data
-
-	return data
-
-/obj/machinery/rnd/production/proc/build_materials()
-	if(!materials || !materials.mat_container)
-		return null
-
-	var/list/materials_list = list()
-	for(var/datum/material/material as anything in materials.mat_container.materials)
-		materials_list[material.name] = list(
-			"name" = material.name,
-			"amount" = materials.mat_container.materials[material] / MINERAL_MATERIAL_AMOUNT,
-		)
-
-	return list(
-		"materials" = materials_list,
-		"materials_label" = materials.format_amount()
-	)
-
-/obj/machinery/rnd/production/proc/build_reagents()
-	if(!reagents)
-		return null
-
-	var/list/reagents_list = list()
-	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
-		reagents_list["[reagent.type]"] = list(
+	var/list/loaded_reagents = list() // Reagents are poured in by hand, so the UI has to show what is loaded separately from the container
+	for(var/datum/reagent/reagent as anything in reagents?.reagent_list)
+		loaded_reagents += list(list(
 			"name" = reagent.name,
 			"volume" = reagent.volume,
 			"id" = "[reagent.type]",
-		)
+		))
+	data["reagents"] = loaded_reagents
+	data["reagentCapacity"] = reagents?.maximum_volume
 
-	return list(
-		"reagents" = reagents_list,
-		"reagents_label" = "[reagents.total_volume] / [reagents.maximum_volume]"
-	)
+	return data
 
 /obj/machinery/rnd/production/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["recipes"] = build_recipes()
-	data["categories"] = categories
-	data["stack_to_mineral"] = MINERAL_MATERIAL_AMOUNT
+	var/list/designs = fabricator_ui_designs(cached_designs, coefficient_override = CALLBACK(src, PROC_REF(design_cost_coefficient)))
+	hide_unbuildable_chassis(designs)
+	data["designs"] = designs
+	data["fabName"] = name
 
 	return data
 
-/obj/machinery/rnd/production/proc/build_recipes()
-	var/list/recipes_list = list()
-	for(var/datum/design/design as anything in cached_designs)
-		recipes_list += list(build_design(design))
-	return recipes_list
+/// What a design's listed cost is multiplied by to get what it actually costs, the bigger this number, the less material is  used
+/obj/machinery/rnd/production/proc/design_cost_coefficient(datum/design/design)
+	return efficient_with(design.build_path) ? 1 / efficiency_coeff : 1
 
-/obj/machinery/rnd/production/proc/build_design(datum/design/design)
-	return list(
-		"name" = design.name,
-		"description" = design.desc,
-		"id" = design.id,
-		"category" = design.category,
-		"efficiency_affects" = efficient_with(design.build_path),
-		"materials" = design.materials,
-		"reagents" = build_recipe_reagents(design.reagents_list),
-	)
-
-/obj/machinery/rnd/production/proc/build_recipe_reagents(list/reagents)
-	var/list/recipe_reagents_data = list()
-
-	for(var/id, volume in reagents)
-		recipe_reagents_data[id] = list(
-			"name" = CallMaterialName(id),
-			"volume" = volume,
-		)
-
-	return recipe_reagents_data
-
-/obj/machinery/rnd/production/ui_act(action, params)
+/obj/machinery/rnd/production/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
+
+	. = TRUE
 
 	switch(action)
 		if("build")
 			if(busy)
 				say("Warning: Fabricators busy!")
 				return
-
-			return user_try_print_id(params["design_id"], params["amount"])
+			return user_try_print_id(params["ref"] || params["design_id"], params["amount"])
 
 		if("dispose")
 			var/R = text2path(params["reagent_id"])
@@ -253,41 +238,23 @@
 			reagents.clear_reagents()
 			return TRUE
 
-		if("ejectsheet")
-			if(!materials || !materials.mat_container)
-				return
-
+		if("remove_mat")
 			var/datum/material/material_to_eject
 			for(var/datum/material/potential_material as anything in materials.mat_container.materials)
-				if(potential_material.name == params["material_id"])
+				if("[REF(potential_material)]" == params["ref"] || potential_material.name == params["material_id"])
 					material_to_eject = potential_material
 					break
 			if(material_to_eject)
 				eject_sheets(material_to_eject, params["amount"])
 				return TRUE
 
-		if("search")
-			var/new_search = params["value"]
-			if(new_search != search)
-				search = new_search
-				return TRUE
-
-		if("category")
-			var/new_category = params["category"]
-			if(new_category != selected_category)
-				search = null
-				selected_category = new_category
-				return TRUE
-
-		if("mainmenu")
-			if(isnull(search) && isnull(selected_category))
-				return
-			search = null
-			selected_category = null
+		if("sync_rnd")
+			update_designs()
 			return TRUE
 
 /obj/machinery/rnd/production/proc/calculate_efficiency()
 	efficiency_coeff = 1
+	build_time_coeff = 1
 	if(reagents)		//If reagents/materials aren't initialized, don't bother, we'll be doing this again after reagents init anyways.
 		reagents.maximum_volume = 0
 		for(var/obj/item/reagent_containers/cup/G in component_parts)
@@ -299,13 +266,16 @@
 			total_storage += M.tier * 75000
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
+	var/manipulator_upgrades = 0
 	for(var/datum/stock_part/manipulator/M in component_parts)
 		total_rating = (total_rating - (M.tier * 0.1))
+		manipulator_upgrades += M.tier - 1
 	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
 		efficiency_coeff = 1/total_rating
+	build_time_coeff = round(clamp(1 - (manipulator_upgrades / 15), 0.6, 1), 0.05)
 
 //we eject the materials upon deconstruction.
 /obj/machinery/rnd/production/on_deconstruction()
@@ -313,13 +283,29 @@
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	return ..()
 
-/obj/machinery/rnd/production/proc/do_print(path, amount, notify_admins)
+/obj/machinery/rnd/production/proc/do_print(path, amount, notify_admins, time_per_item, list/materials_per_item)
 	if(notify_admins && ismob(usr))
 		usr.investigate_log("built [amount] of [path] at [src]([type]).", INVESTIGATE_RESEARCH)
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has built [amount] of [path] at \a [src]([type]).")
+
+	var/list/printed_materials // This one is actually to prevent a mild bug involving recycling obtaining infinite materials, we give back whatever price was originally paid rather than the discounted object
+	if(!ispath(path, /obj/item/stack))
+		printed_materials = list()
+		for(var/material in materials_per_item)
+			// A category cost is met with whichever material the container picked, which isn't knowable from here.
+			if(ispath(material, /datum/material))
+				printed_materials[material] = materials_per_item[material]
+
 	for(var/i in 1 to amount)
-		new path(drop_location())
+		addtimer(CALLBACK(src, PROC_REF(print_one), path, printed_materials), (i - 1) * time_per_item)
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
+
+/// Drops a single item of an order. Spread out by do_print so an order of ten, arrives as ten items rather than one pile.
+/obj/machinery/rnd/production/proc/print_one(path, list/materials_per_item)
+	var/atom/movable/printed = new path(get_output_turf())
+	scatter_printed_item(printed)
+	if(length(materials_per_item))
+		printed.set_custom_materials(materials_per_item)
 
 /obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, mat)	// now returns how many times the item can be built with the material
 	if (!materials.mat_container)  // no connected silo
@@ -330,8 +316,7 @@
 	if(!A)
 		A = reagents.get_reagent_amount(mat)
 
-	// these types don't have their .materials set in do_print, so don't allow
-	// them to be constructed efficiently
+	// these types don't have their .materials set in do_print, so don't allow them to be constructed efficiently
 	var/ef = efficient_with(being_built.build_path) ? efficiency_coeff : 1
 	return round(A / max(1, all_materials[mat] / ef))
 
@@ -344,7 +329,7 @@
 		return FALSE
 	if(istext(amount))
 		amount = text2num(amount)
-	amount = clamp(amount, 1, 10)
+	amount = clamp(amount, 1, MAX_LATHE_PRINT_AMOUNT)
 
 	var/datum/design/design = stored_research.researched_designs[design_id] ? SSresearch.techweb_design_by_id(design_id) : null
 	if(!istype(design))
@@ -395,9 +380,11 @@
 	if(production_animation)
 		icon_state = production_animation
 
-	var/timecoeff = design.lathe_time_factor / efficiency_coeff
-	addtimer(CALLBACK(src, PROC_REF(reset_busy)), (30 * timecoeff * amount) ** 0.6)
-	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction), (32 * timecoeff * amount) ** 0.5)
+	// The order finishes when it always did; do_print now spreads the items between the print time, instead of dropping them all when the printing ended
+	var/timecoeff = design.lathe_time_factor
+	var/time_per_item = (build_time_coeff * ((32 * timecoeff * amount) ** 0.5)) / amount
+	addtimer(CALLBACK(src, PROC_REF(reset_busy)), build_time_coeff * ((30 * timecoeff * amount) ** 0.6))
+	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction, time_per_item, materials_to_consume), time_per_item)
 	return TRUE
 
 /obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
@@ -408,7 +395,7 @@
 	if (materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return 0
-	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, drop_location())
+	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, get_output_turf())
 	var/list/matlist = list()
 	matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
 	materials.silo_log(src, "ejected", -count, "sheets", matlist)
