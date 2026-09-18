@@ -5,6 +5,7 @@
 	icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
+	use_power = NO_POWER_USE
 	layer = ABOVE_WINDOW_LAYER
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area

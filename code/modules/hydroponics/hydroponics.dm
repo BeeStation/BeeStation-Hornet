@@ -40,11 +40,12 @@
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
+	. = ..()
 	var/tmp_capacity = 0
-	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
-		tmp_capacity += M.rating
-	for (var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating = M.rating
+	for(var/datum/stock_part/matter_bin/M in component_parts)
+		tmp_capacity += M.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		rating = M.tier
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
 

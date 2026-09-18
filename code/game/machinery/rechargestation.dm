@@ -4,9 +4,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
 	density = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 1000
 	req_access = list(ACCESS_ROBOTICS)
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
@@ -22,10 +19,10 @@
 	. = ..()
 	recharge_speed = 0
 	repairs = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += 5e-3 * C.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		repairs += M.rating - 1
+	for(var/datum/stock_part/capacitor/C in component_parts)
+		recharge_speed += 5e-3 * C.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		repairs += M.tier - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
 		recharge_speed *= C.maxcharge
 

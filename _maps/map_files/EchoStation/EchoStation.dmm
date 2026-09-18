@@ -327,6 +327,13 @@
 /obj/machinery/light,
 /turf/open/floor/iron,
 /area/station/security/brig)
+"alC" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8;
+	volume_rate = 200
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/station/engineering/main)
 "alH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
@@ -18828,23 +18835,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/genetics)
-"lEj" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/welding{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/turf/open/floor/iron/dark,
-/area/station/science/robotics)
 "lEP" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/ai_slipper{
@@ -22539,6 +22529,27 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/station/science/explab)
+"nMa" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
+/turf/open/floor/iron/dark,
+/area/station/science/robotics)
 "nMQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -25068,12 +25079,6 @@
 	},
 /turf/open/floor/engine/n2o,
 /area/station/engineering/atmos)
-"ppb" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/station/engineering/main)
 "ppd" = (
 /turf/open/openspace/planetary,
 /area/station/command/bridge)
@@ -31175,26 +31180,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/white/side,
 /area/paradise)
-"sXC" = (
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/obj/structure/closet/secure_closet/engineering_chief,
-/obj/item/powertool/jaws_of_life,
-/obj/item/reagent_containers/applicator/patch/silver_sulf,
-/obj/item/clothing/glasses/meson{
-	pixel_y = 4
-	},
-/obj/item/lighter,
-/obj/machinery/computer/security/telescreen/ce{
-	dir = 8;
-	pixel_x = 31
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblue,
-/area/station/command/heads_quarters/chief)
 "sXD" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -39583,11 +39568,6 @@
 /obj/item/instrument/violin,
 /turf/open/floor/wood,
 /area/station/service/cafeteria)
-"xVD" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/station/science/robotics)
 "xWt" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -39923,6 +39903,26 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/station/maintenance/department/chapel)
+"yhD" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/structure/closet/secure_closet/engineering_chief,
+/obj/item/powertool/jaws_of_life,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 4
+	},
+/obj/item/lighter,
+/obj/machinery/computer/security/telescreen/ce{
+	dir = 8;
+	pixel_x = 31
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblue,
+/area/station/command/heads_quarters/chief)
 "yhI" = (
 /obj/structure/stairs{
 	dir = 1
@@ -52119,7 +52119,7 @@ rYd
 vjR
 vUs
 vQk
-ppb
+alC
 gDu
 pVb
 qdb
@@ -120719,7 +120719,7 @@ tzI
 xOP
 mQu
 sxV
-sXC
+yhD
 vzv
 lnD
 mJT
@@ -187771,7 +187771,7 @@ cWo
 vsl
 naY
 szS
-lEj
+nMa
 aNm
 rhW
 tCB
@@ -188284,7 +188284,7 @@ mth
 cWo
 hSU
 cEn
-xVD
+xKR
 tUa
 isg
 vLs

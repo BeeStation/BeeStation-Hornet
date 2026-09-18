@@ -50,11 +50,12 @@
 	. = ..()
 
 /obj/machinery/microwave/RefreshParts()
+	. = ..()
 	efficiency = 0
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		efficiency += M.rating
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		max_n_of_items = 10 * M.rating
+	for(var/datum/stock_part/micro_laser/M in component_parts)
+		efficiency += M.tier
+	for(var/datum/stock_part/matter_bin/M in component_parts)
+		max_n_of_items = 10 * M.tier
 		break
 
 /obj/machinery/microwave/examine(mob/user)
@@ -388,8 +389,14 @@
 				pre_success()
 		return
 	time--
-	use_power(500)
+	use_power(active_power_usage)
 	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
+
+/obj/machinery/microwave/power_change()
+	. = ..()
+	if((machine_stat & NOPOWER) && operating)
+		pre_fail()
+		eject()
 
 /obj/machinery/microwave/proc/loop_finish(mob/user)
 	operating = FALSE

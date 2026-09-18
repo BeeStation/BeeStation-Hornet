@@ -10418,24 +10418,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
-"dRD" = (
-/obj/item/paper_bin,
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
-/obj/item/assembly/prox_sensor{
-	pixel_x = 5;
-	pixel_y = 7
-	},
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/station/science/robotics/lab)
 "dRG" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/bot,
@@ -11159,6 +11141,16 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
+"egi" = (
+/obj/structure/sign/warning/no_smoking{
+	pixel_y = -32
+	},
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/station/science/robotics/lab)
 "egr" = (
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/tech,
@@ -55156,22 +55148,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command)
-"rjS" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/reagent_containers/applicator/patch/silver_sulf,
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/violet/visible,
-/turf/open/floor/iron/dark/corner,
-/area/station/maintenance/disposal/incinerator)
 "rjX" = (
 /obj/machinery/light{
 	dir = 8
@@ -58520,6 +58496,28 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/storage_shared)
+"sle" = (
+/obj/item/paper_bin,
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/bot,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
+/turf/open/floor/iron,
+/area/station/science/robotics/lab)
 "sll" = (
 /obj/machinery/telecomms/broadcaster/preset_right,
 /obj/structure/cable/yellow,
@@ -59614,6 +59612,22 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
+"sCB" = (
+/obj/structure/table/reinforced,
+/obj/structure/cable/yellow,
+/obj/item/computer_hardware/hard_drive/role/engineering{
+	pixel_x = 6
+	},
+/obj/item/computer_hardware/hard_drive/role/engineering{
+	pixel_x = -6
+	},
+/obj/item/computer_hardware/hard_drive/role/engineering{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/station/command/heads_quarters/chief)
 "sCF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
@@ -62016,6 +62030,22 @@
 	},
 /turf/open/floor/iron,
 /area/station/cargo/warehouse)
+"tpJ" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/folder/yellow,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/pink/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/violet/visible,
+/turf/open/floor/iron/dark/corner,
+/area/station/maintenance/disposal/incinerator)
 "tpK" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -63150,13 +63180,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/science/xenobiology)
-"tIf" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
-	},
-/turf/open/space,
-/area/station/engineering/atmospherics_engine)
 "tIg" = (
 /obj/structure/chair{
 	dir = 8
@@ -65418,17 +65441,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"upN" = (
-/obj/structure/sign/warning/no_smoking{
-	pixel_y = -32
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron,
-/area/station/science/robotics/lab)
 "upO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/north{
@@ -70683,6 +70695,14 @@
 /obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
 /area/station/maintenance/solars/port/aft)
+"vYF" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8;
+	volume_rate = 200
+	},
+/turf/open/space,
+/area/station/engineering/atmospherics_engine)
 "vYI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -74468,22 +74488,6 @@
 /obj/effect/spawner/room/tenxfive,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
-"xdi" = (
-/obj/structure/table/reinforced,
-/obj/structure/cable/yellow,
-/obj/item/computer_hardware/hard_drive/role/engineering{
-	pixel_x = 6
-	},
-/obj/item/computer_hardware/hard_drive/role/engineering{
-	pixel_x = -6
-	},
-/obj/item/computer_hardware/hard_drive/role/engineering{
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/applicator/patch/silver_sulf,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/station/command/heads_quarters/chief)
 "xdj" = (
 /obj/machinery/computer/records/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -100096,7 +100100,7 @@ oAE
 vwu
 oIg
 sHD
-rjS
+tpJ
 nfG
 kFl
 rdi
@@ -101414,7 +101418,7 @@ omu
 wAR
 kmS
 qQc
-xdi
+sCB
 htb
 hfc
 cJv
@@ -106762,8 +106766,8 @@ pgb
 pgb
 tlc
 pgb
-tIf
-tIf
+vYF
+vYF
 gMn
 uXV
 mwz
@@ -115087,7 +115091,7 @@ mJc
 sBA
 cQl
 xje
-dRD
+sle
 iVX
 mji
 azz
@@ -116636,7 +116640,7 @@ nQu
 ssT
 tfS
 wAY
-upN
+egi
 nQu
 jqP
 cDQ

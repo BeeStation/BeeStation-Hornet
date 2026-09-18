@@ -18,10 +18,15 @@
 	if(!cell && cell_type)
 		cell = new cell_type
 
-/obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
-	var/totransfer = min(cell.charge, cell.chargerate) * transfer_coef
-	target.give(totransfer * POWER_TRANSFER_LOSS)
-	cell.use(totransfer)
+/obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target)
+	var/totransfer = min(cell.charge, cell.chargerate * transfer_coef)
+	if(totransfer <= 0)
+		return
+	// The 15% loss applies to charge given, not charge used
+	var/transferred = target.give(totransfer * POWER_TRANSFER_LOSS)
+	if(transferred <= 0)
+		return
+	cell.use(transferred / POWER_TRANSFER_LOSS)
 	cell.update_icon()
 	target.update_icon()
 

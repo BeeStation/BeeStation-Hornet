@@ -82,15 +82,16 @@
 		balloon_alert(user, "a pipe is hogging the tile!")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/RefreshParts()
+	. = ..()
 	var/calculated_bin_rating
-	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		calculated_bin_rating += bin.rating
+	for(var/datum/stock_part/matter_bin/bin in component_parts)
+		calculated_bin_rating += bin.tier
 	. = ..()
 	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
 
 	var/calculated_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		calculated_laser_rating += laser.rating
+	for(var/datum/stock_part/micro_laser/laser in component_parts)
+		calculated_laser_rating += laser.tier
 	min_temperature = max(T0C - (base_cooling + calculated_laser_rating * 15), TCMB) //73.15K with T1 stock parts
 	max_temperature = T20C + (base_heating * calculated_laser_rating) //573.15K with T1 stock parts
 
@@ -192,7 +193,7 @@
 	// This produces a nice curve that scales decently well for really hot stuff, and is nice to not fusion. It'll do
 	var/power_usage = idle_power_usage + (heat_amount * 0.05) ** (1.05 - (5e7 * 0.16 / max(heat_amount, 5e7)))
 
-	use_power = power_usage
+	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
 	update_parents()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/power_change()

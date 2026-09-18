@@ -388,7 +388,7 @@ Striking a noncultist, however, will tear their flesh."}
 	icon_state = "blindfold"
 	inhand_icon_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_FLASH
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()

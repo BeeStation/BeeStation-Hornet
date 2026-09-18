@@ -71,6 +71,7 @@
 	. = ..()
 
 /obj/machinery/clonepod/RefreshParts()
+	. = ..()
 	speed_coeff = 0
 	efficiency = 0
 	reagents.maximum_volume = 0
@@ -78,11 +79,11 @@
 	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
-	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
-		efficiency += S.rating
+	for(var/datum/stock_part/scanning_module/S in component_parts)
+		efficiency += S.tier
 		fleshamnt = 1/max(efficiency-1, 1)
-	for(var/obj/item/stock_parts/manipulator/P in component_parts)
-		speed_coeff += P.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		speed_coeff += manipulator.tier
 	heal_level = (efficiency * 15) + 10
 	if(heal_level < MINIMUM_HEAL_LEVEL)
 		heal_level = MINIMUM_HEAL_LEVEL

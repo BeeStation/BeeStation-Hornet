@@ -125,6 +125,8 @@
 	ui_update()
 
 /obj/machinery/rnd/production/RefreshParts()
+	. = ..()
+
 	calculate_efficiency()
 	ui_update()
 
@@ -293,12 +295,12 @@
 			G.reagents.trans_to(src, G.reagents.total_volume)
 	if(materials)
 		var/total_storage = 0
-		for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-			total_storage += M.rating * 75000
+		for(var/datum/stock_part/matter_bin/M in component_parts)
+			total_storage += M.tier * 75000
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = (total_rating - (M.rating * 0.1))
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		total_rating = (total_rating - (M.tier * 0.1))
 	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY

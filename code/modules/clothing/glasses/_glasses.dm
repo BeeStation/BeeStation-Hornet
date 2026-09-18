@@ -121,7 +121,7 @@
 	icon_state = "prescmeson"
 	inhand_icon_state = "glasses"
 	emissive_state = "prehud_emissive"
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -151,7 +151,7 @@
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
 	armor_type = /datum/armor/science_prescription
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_NEARSIGHTED_CORRECTED)
 
 
 /datum/armor/science_prescription
@@ -533,12 +533,11 @@
 	inhand_icon_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
-	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	custom_price = 10000
 	max_demand = 10
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED) // why should the eye of a god have bad vision?
+	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER, TRAIT_NEARSIGHTED_CORRECTED)	// why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)

@@ -19,6 +19,12 @@
 #define APC_PIXEL_OFFSET 25
 
 // APC charging status:
+/// Ticks of sustained surplus required before an APC commits to a charge cycle.
+#define APC_CHARGE_CONFIRM_TICKS 10
+/// Bounds on the load buffer
+#define APC_LONGTERM_POWER_MAX 10
+#define APC_LONGTERM_POWER_MIN -10
+
 /// The APC is not charging.
 #define APC_NOT_CHARGING 0
 /// The APC is charging.

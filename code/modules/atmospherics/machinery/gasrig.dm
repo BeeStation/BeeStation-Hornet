@@ -192,8 +192,8 @@
 	var/depth = get_depth()
 	var/temp_power_usage = max(initial(active_power_usage) * (depth / 200), 2 KILOWATT)
 	if (active_power_usage != temp_power_usage)
-		active_power_usage = temp_power_usage // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
-		update_current_power_usage()
+		// 100 depth is 12.5 kW/s, 200 is 25, 300 is 37.5, 1000 is 125 kW.
+		update_mode_power_usage(ACTIVE_POWER_USE, temp_power_usage)
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
