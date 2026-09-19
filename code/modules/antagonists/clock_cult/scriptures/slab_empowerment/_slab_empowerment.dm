@@ -135,6 +135,7 @@
 	return TRUE
 
 /datum/action/spell/pointed/slab
+	name = "Slab Spell"
 	/// The scripture that this action will invoke
 	var/datum/clockcult/scripture/slab/parent_scripture
 
