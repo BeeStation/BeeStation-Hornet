@@ -159,3 +159,9 @@
   - bugfix: Holopad power draw no longer creeps upward over a round
   - code_imp: Machines declare how part tiers affect their power draw. Machine power
       is now linted and unit tested against, including roundstart station power budget
+2026-09-19:
+  'Isaac, Ben10Omintrix, ':
+  - bugfix: Monkey AI is alive once again, they'll bite, shove, and throw you into
+      disposals if you hit them
+  - bugfix: Monkey "Flee" AI will properly turn off when dead
+  - bugfix: Monkey will no longer drop anything they try to eat on the floor
