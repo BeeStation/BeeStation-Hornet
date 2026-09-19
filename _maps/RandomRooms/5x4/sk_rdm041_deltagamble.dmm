@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -16,12 +16,12 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "d" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "f" = (

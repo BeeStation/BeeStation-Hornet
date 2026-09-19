@@ -155,10 +155,7 @@
 "v" = (
 /obj/structure/window/spawner/directional/west,
 /obj/structure/table/wood,
-/obj/item/kirbyplants{
-	icon_state = "plant-18";
-	pixel_y = 10
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},

@@ -230,9 +230,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "ca" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cb" = (
@@ -246,9 +244,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cf" = (
@@ -643,9 +639,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "ua" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
@@ -1017,9 +1011,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "PE" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29

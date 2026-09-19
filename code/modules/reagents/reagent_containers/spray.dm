@@ -28,7 +28,7 @@
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	. = ..()
-	if(istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
+	if(istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/item/plant_tray))
 		return
 
 	if((A.is_drainable() && !A.is_refillable()) && get_dist(src,A) <= 1 && can_fill_from_container)

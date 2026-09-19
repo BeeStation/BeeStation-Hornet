@@ -71,11 +71,11 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "D" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "E" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
