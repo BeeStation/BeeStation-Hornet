@@ -439,17 +439,20 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	var/cloning_attempt_result = pod.growclone(CLONING_STRICT_ARGS(
 		/* 01 */ clonename = found_record.name,
 		/* 02 */ unique_identity = found_record.unique_identity,
-		/* 03 */ mutation_index = found_record.datum_dna.mutation_index.Copy(),
-		/* 04 */ given_mind = found_record.resolve_mind(),
-		/* 05 */ last_death = found_record.last_death,
-		/* 06 */ mrace = found_record.species,
-		/* 07 */ features = found_record.datum_dna.features.Copy(),
-		/* 08 */ factions = found_record.factions.Copy(),
-		/* 09 */ insurance = found_record.resolve_mind_account_id(),
-		/* 10 */ traumas = found_record.traumas.Copy(),
-		/* 11 */ body_only = found_record.body_only,
-		/* 12 */ experimental = experimental,
-		/* 13 */ gender = found_record.gender ))
+		/* 03 */ unique_enzymes = found_record.unique_enzymes,
+		/* 04 */ mutation_index = found_record.datum_dna.mutation_index.Copy(),
+		/* 05 */ given_mind = found_record.resolve_mind(),
+		/* 06 */ last_death = found_record.last_death,
+		/* 07 */ mrace = found_record.species,
+		/* 08 */ features = found_record.datum_dna.features.Copy(),
+		/* 09 */ factions = found_record.factions.Copy(),
+		/* 10 */ insurance = found_record.resolve_mind_account_id(),
+		/* 11 */ traumas = found_record.traumas.Copy(),
+		/* 12 */ body_only = found_record.body_only,
+		/* 13 */ experimental = experimental,
+		/* 14 */ gender = found_record.gender,
+		/* 15 */ age = found_record.age,
+		/* 16 */ blood_type = found_record.datum_dna.blood_type ))
 	switch(cloning_attempt_result)
 		if(CLONING_SUCCESS)
 			temp = "Notice: [found_record.name] => Cloning cycle in progress..."

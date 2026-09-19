@@ -63,7 +63,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/synthesizer)
 	if(machine_stat & NOPOWER || !reagent_id || !amount)
 		return
 	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
+		update_use_power(IDLE_POWER_USE)
 		return
+	update_use_power(ACTIVE_POWER_USE)
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
 
 /obj/machinery/plumbing/synthesizer/examine(mob/user)

@@ -45,7 +45,12 @@
 
 /datum/surgery_step/hepatectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/liver/target_liver = H.get_organ_slot(ORGAN_SLOT_LIVER)
 	H.setOrganLoss(ORGAN_SLOT_LIVER, 10) //not bad, not great
+	if(target_liver)
+		target_liver.operated = TRUE
+		if(target_liver.organ_flags & ORGAN_EMP)
+			target_liver.organ_flags &= ~ORGAN_EMP
 	display_results(
 		user,
 		target,

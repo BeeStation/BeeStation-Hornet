@@ -1,0 +1,7 @@
+author: 'Isaac, Ben10Omintrix, '
+delete-after: true
+changes:
+  - bugfix: Monkey AI is alive once again, they'll bite, shove, and throw you into
+      disposals if you hit them
+  - bugfix: Monkey "Flee" AI will properly turn off when dead
+  - bugfix: Monkey will no longer drop anything they try to eat on the floor
