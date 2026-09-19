@@ -877,7 +877,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	boxes.screen_loc = "[screen_start_x]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y] to [screen_start_x+cols-1]:[screen_pixel_x],[screen_start_y+rows-1]:[screen_pixel_y]"
 	var/current_x = screen_start_x
 	var/current_y = screen_start_y
-	var/turf/our_turf = get_turf(real_location)
+	//var/turf/our_turf = get_turf(real_location)
 
 	if(islist(numerical_display_contents))
 		for(var/type in numerical_display_contents)

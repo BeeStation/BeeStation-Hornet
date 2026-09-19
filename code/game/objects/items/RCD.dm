@@ -136,15 +136,24 @@ RLD
 	if(prob(20))
 		spark_system.start()
 
-/obj/item/construction/proc/useResource(amount, mob/user)
+/obj/item/construction/update_overlays()
+	. = ..()
+	if(has_ammobar)
+		var/ratio = ceil((matter / max_matter) * ammo_sections)
+		if(ratio > 0)
+			. += "[icon_state]_charge[ratio]"
+
+/obj/item/construction/proc/useResource(amount, mob/user, dry_run = FALSE)
 	if(!silo_mats || !silo_link)
 		if(matter < amount)
+			if(has_ammobar)
+				flick("[icon_state]_empty", src)
 			if(user)
 				to_chat(user, no_ammo_message)
 			return FALSE
-		matter -= amount
-		update_appearance()
-		return TRUE
+		if(!dry_run)
+			matter -= amount
+			update_appearance()
 	else
 		var/list/matlist = list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500)
 		if(silo_mats.on_hold())
@@ -158,25 +167,10 @@ RLD
 			if(user)
 				to_chat(user, no_ammo_message)
 			return FALSE
-
-		silo_mats.mat_container.use_materials(matlist, amount)
-		silo_mats.silo_log(src, "consume", -amount, "build", matlist)
-		return TRUE
-
-/obj/item/construction/proc/checkResource(amount, mob/user)
-	if(!silo_link || !silo_mats || !silo_mats.mat_container)
-		. = matter >= amount
-	else
-		if(silo_mats.on_hold())
-			if(user)
-				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
-			return FALSE
-		. = silo_mats.mat_container?.has_materials(list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500), amount)
-	if(!. && user)
-		to_chat(user, no_ammo_message)
-		if(has_ammobar)
-			flick("[icon_state]_empty", src)	//somewhat hacky thing to make RCDs with ammo counters actually have a blinking yellow light
-	return .
+		if(!dry_run)
+			silo_mats.mat_container.use_materials(matlist, amount)
+			silo_mats.silo_log(src, "consume", -amount, "build", matlist)
+	return dry_run ? TRUE : amount
 
 /obj/item/construction/proc/range_check(atom/A, mob/user)
 	if(A.z != user.z)
@@ -605,7 +599,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	//start animation & check resource for the action
 	var/delay = rcd_results["delay"] * delay_mod
 	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
-	if(!checkResource(rcd_results["cost"], user))
+	if(!useResource(rcd_results["cost"], user, TRUE))
 		qdel(rcd_effect)
 		return FALSE
 	if(rcd_results["mode"] == RCD_MACHINE || rcd_results["mode"] == RCD_COMPUTER || rcd_results["mode"] == RCD_FURNISHING)
@@ -617,7 +611,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	if(!do_after(user, delay, target = A))
 		qdel(rcd_effect)
 		return FALSE
-	if(!checkResource(rcd_results["cost"], user))
+	if(!useResource(rcd_results["cost"], user, TRUE))
 		qdel(rcd_effect)
 		return FALSE
 	if(!A.rcd_act(user, src, rcd_results["mode"]))
@@ -751,12 +745,6 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
-/obj/item/construction/rcd/update_overlays()
-	. = ..()
-	if(has_ammobar)
-		var/ratio = ceil((matter / max_matter) * ammo_sections)
-		. += "[icon_state]_charge[ratio]"
-
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
 	update_appearance()
@@ -769,31 +757,20 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/energyfactor = 72
 
 
-/obj/item/construction/rcd/borg/useResource(amount, mob/user)
-	if(!iscyborg(user))
-		return 0
+/obj/item/construction/rcd/borg/useResource(amount, mob/user, dry_run)
 	var/mob/living/silicon/robot/borgy = user
-	if(!borgy.cell)
-		if(user)
-			to_chat(user, no_ammo_message)
-		return 0
-	. = borgy.cell.use(amount * energyfactor) //borgs get 1.3x the use of their RCDs
-	if(!. && user)
-		to_chat(user, no_ammo_message)
-	return .
-
-/obj/item/construction/rcd/borg/checkResource(amount, mob/user)
 	if(!iscyborg(user))
-		return 0
-	var/mob/living/silicon/robot/borgy = user
+		return FALSE
 	if(!borgy.cell)
-		if(user)
-			to_chat(user, no_ammo_message)
-		return 0
-	. = borgy.cell.charge >= (amount * energyfactor)
-	if(!. && user)
-		to_chat(user, no_ammo_message)
-	return .
+		balloon_alert(user, "no cell found!")
+		return FALSE
+	if(borgy.cell.charge < (amount * energyfactor))
+		balloon_alert(user, "insufficient charge!")
+		return FALSE
+	if(!dry_run)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+		return borgy.cell.use(amount * energyfactor)
+	return TRUE
 
 /obj/item/construction/rcd/borg/syndicate
 	icon_state = "ircd"
@@ -938,22 +915,24 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/turf/start = get_turf(src)
 	switch(mode)
 		if(REMOVE_MODE)
-			if(istype(A, /obj/machinery/light/))
-				if(checkResource(deconcost, user))
-					to_chat(user, span_notice("You start deconstructing [A]..."))
-					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
-					if(do_after(user, decondelay, target = A))
-						if(!useResource(deconcost, user))
-							return 0
-						activate()
-						qdel(A)
-						return TRUE
+			if(!istype(A, /obj/machinery/light/))
 				return FALSE
+
+			if(useResource(deconcost, user, TRUE))
+				to_chat(user, span_notice("You start deconstructing [A]..."))
+				user.Beam(A,icon_state="nzcrentrs_power", time = 15)
+				playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+				if(do_after(user, decondelay, target = A))
+					if(!useResource(deconcost, user))
+						return 0
+					activate()
+					qdel(A)
+					return TRUE
+
 		if(LIGHT_MODE)
 			if(iswallturf(A))
 				var/turf/closed/wall/W = A
-				if(checkResource(floorcost, user))
+				if(useResource(wallcost, user, TRUE))
 					to_chat(user, span_notice("You start building a wall light..."))
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
@@ -999,7 +978,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 			if(isfloorturf(A))
 				var/turf/open/floor/F = A
-				if(checkResource(floorcost, user))
+				if(useResource(floorcost, user, TRUE))
 					to_chat(user, span_notice("You start building a floor light..."))
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
@@ -1099,9 +1078,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	if(!machinery_data || !isopenturf(A))
 		return FALSE
 
-	if(checkResource(machinery_data["cost"][blueprint], user) && blueprint)
+	if(useResource(machinery_data["cost"][blueprint], user, TRUE) && blueprint)
 		if(do_after(user, machinery_data["delay"][blueprint], target = A))
-			if(checkResource(machinery_data["cost"][blueprint], user) && canPlace(A))
+			if(useResource(machinery_data["cost"][blueprint], user, TRUE) && canPlace(A))
 				useResource(machinery_data["cost"][blueprint], user)
 				activate()
 				playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)

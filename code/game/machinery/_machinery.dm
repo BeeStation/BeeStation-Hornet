@@ -63,7 +63,7 @@
  *     Checks to see if area that contains the object has power available for power
  *     channel given in 'chan'. -1 defaults to power_channel
  *
- *  use_power(amount, chan=-1)   'modules/power/power.dm'
+ *  use_power(amount, channel=-1)   'modules/power/power.dm'
  *     Deducts 'amount' from the power channel 'chan' of the area that contains the object.
  *
  *  power_change()               'modules/power/power.dm'
