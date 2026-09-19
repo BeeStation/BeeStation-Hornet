@@ -11,7 +11,7 @@
 	self_delay = 1.5 SECONDS
 
 /obj/item/reagent_containers/applicator/patch/canconsume(mob/eater, mob/user)
-	return iscarbon(eater) // Masks were stopping people from "eating" patches. Thanks, inheritance.
+	return TRUE // Masks were stopping people from "eating" patches. Thanks, inheritance.
 
 /obj/item/reagent_containers/applicator/patch/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!ishuman(interacting_with))

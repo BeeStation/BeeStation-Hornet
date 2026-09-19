@@ -76,7 +76,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/applicator/pill,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
 		/obj/item/lighter,
@@ -117,8 +117,8 @@
 		/obj/item/implant,
 		/obj/item/implanter,
 		/obj/item/pinpointer/crew,
-		/obj/item/holosign_creator/medical
-		))
+		/obj/item/holosign_creator/medical,
+	))
 
 /obj/item/storage/firstaid/medical/PopulateContents()
 	var/static/items_inside = list(
