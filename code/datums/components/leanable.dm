@@ -140,7 +140,7 @@
 	if(isnull(vacated_turf) || isnull(new_turf) || vacated_turf.z != new_turf.z || get_dist(vacated_turf, new_turf) > 1) // Shuttles take everything with them, if we're leaning that wouldn't take us aswell but the turfs.. so we'll fall.. to nowhere?
 		stop_leaning() // Better than to stop falling out of the shuttle, we'll stop leaning before this happens
 		return
-	fall(vacated_turf) //Fall where the mech once was.
+	fall(vacated_turf)
 
 /mob/living/proc/fall(location)
 	stop_leaning() // Make sure we unregister signal handlers and reset animation
