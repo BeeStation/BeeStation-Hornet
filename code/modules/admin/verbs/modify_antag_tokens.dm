@@ -64,6 +64,8 @@
 		return
 
 	db_set_antag_token_count(target_ckey, token_amount)
+	var/client/target_client = GLOB.directory[target_ckey]
+	target_client?.antag_token_count_cached = token_amount
 
 	log_admin("[key_name(usr)]: Set [key_name(target_ckey)]'s antagonist tokens to [token_amount] (previously [previous_token_amount])")
 	message_admins("[key_name_admin(usr)]: Set [key_name(target_ckey)]'s antagonist tokens to [token_amount] (previously [previous_token_amount])")
