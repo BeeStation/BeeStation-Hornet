@@ -1,0 +1,5 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: Monkeys wont track you through walls forever, only when you're back in
+      their view
