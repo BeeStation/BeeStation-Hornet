@@ -230,7 +230,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	if(!(flags_1 & ADMIN_SPAWNED_1) && isliving(user))
 		user.client.give_award(/datum/award/achievement/misc/meteor_examine, user)
 
-/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
+/obj/effect/meteor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_MINING)
 		make_debris()
 		qdel(src)

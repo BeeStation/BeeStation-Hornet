@@ -329,7 +329,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot2 = /obj/item/encryptionkey/ai
 	command = TRUE
 
-/obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
+/obj/item/radio/headset/attackby(obj/item/W, mob/user, list/modifiers)
 	user.set_machine(src)
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)

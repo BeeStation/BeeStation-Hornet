@@ -10,7 +10,7 @@
 	can_adjust = 0
 
 /obj/item/clothing/under/cluwne/Initialize(mapload)
-	.=..()
+	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/under/cluwne/equipped(mob/living/carbon/user, slot)

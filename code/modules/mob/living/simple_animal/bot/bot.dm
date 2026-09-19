@@ -334,7 +334,7 @@
 		else
 			to_chat(user, span_warning("Access denied."))
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!locked)
 			open = !open

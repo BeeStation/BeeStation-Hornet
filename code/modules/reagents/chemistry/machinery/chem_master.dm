@@ -129,7 +129,7 @@
 	if (prob(50))
 		qdel(src)
 
-/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_master/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
 		return
 
@@ -426,7 +426,7 @@
 			// Start filling
 			switch(item_type)
 				if("pill")
-					var/obj/item/reagent_containers/pill/P
+					var/obj/item/reagent_containers/applicator/pill/P
 					var/target_loc = drop_location()
 					var/drop_threshold = INFINITY
 					if(bottle)
@@ -435,9 +435,9 @@
 							target_loc = bottle
 					for(var/i in 1 to amount)
 						if(i-1 < drop_threshold)
-							P = new/obj/item/reagent_containers/pill(target_loc)
+							P = new/obj/item/reagent_containers/applicator/pill(target_loc)
 						else
-							P = new/obj/item/reagent_containers/pill(drop_location())
+							P = new/obj/item/reagent_containers/applicator/pill(drop_location())
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
 						if(chosen_pill_style == "pill_random_dummy")
@@ -450,9 +450,9 @@
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("patch")
-					var/obj/item/reagent_containers/pill/patch/P
+					var/obj/item/reagent_containers/applicator/patch/P
 					for(var/i in 1 to amount)
-						P = new/obj/item/reagent_containers/pill/patch(drop_location())
+						P = new/obj/item/reagent_containers/applicator/patch(drop_location())
 						P.name = trim("[name] patch")
 						P.label_name = trim(name)
 						P.icon_state = chosen_patch_style

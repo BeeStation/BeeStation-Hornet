@@ -81,7 +81,7 @@
 		. += span_notice("The wire panel is [open_panel ? "opened" : "closed"]. The display reads:")
 		. += "[readout()]"
 
-/obj/item/taperecorder/attackby(obj/item/I, mob/user, params)
+/obj/item/taperecorder/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!mytape && istype(I, /obj/item/tape))
 		if(!user.transferItemToLoc(I,src))
 			return
@@ -474,7 +474,7 @@
 	else if(icon_state == "[initial_icon_state]_reverse") //so flipping doesn't overwrite an unexpected icon_state (e.g. an admin's)
 		icon_state = initial_icon_state
 
-/obj/item/tape/attackby(obj/item/tool, mob/user, params)
+/obj/item/tape/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(unspooled && (istype(tool, /obj/item/pen)))
 		balloon_alert(user, "respooling tape...")
 		if(!tool.use_tool(src, user, 12 SECONDS))

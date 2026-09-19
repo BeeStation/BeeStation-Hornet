@@ -27,7 +27,7 @@
 		QDEL_NULL(foldedbag_instance)
 	return ..()
 
-/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, list/modifiers)
 	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on [src]!"))

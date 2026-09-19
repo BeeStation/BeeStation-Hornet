@@ -394,7 +394,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
+/obj/item/seeds/attackby(obj/item/O, mob/user, list/modifiers)
 	if (istype(O, /obj/item/plant_analyzer))
 		to_chat(user, span_info("*---------*\n This is \a [span_name("[src]")]."))
 		var/text = get_analyzer_text()

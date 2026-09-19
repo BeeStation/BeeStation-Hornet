@@ -164,7 +164,7 @@
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
 			new /obj/effect/spawner/random/contraband/cayennelottery(src)
-			new /obj/item/slimepotion/slime/sentience(src)
+			new /obj/item/slimepotion/sentience(src)
 
 		if("mad_scientist")
 			new /obj/item/clothing/suit/toggle/labcoat/mad(src) // 0 tc

@@ -23,7 +23,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_PUSH_BUFFER, PROC_REF(populate_buffer))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
-/datum/component/buffer/proc/intercept_attack(datum/source, atom/attack_target, mob/user, params)
+/datum/component/buffer/proc/intercept_attack(datum/source, atom/attack_target, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 	if ((SEND_SIGNAL(attack_target, COMSIG_PARENT_RECEIVE_BUFFER, user, target, parent) & COMPONENT_BUFFER_RECEIVED))
 		return COMPONENT_CANCEL_ATTACK_CHAIN

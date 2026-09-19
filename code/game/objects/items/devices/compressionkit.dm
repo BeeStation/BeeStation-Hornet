@@ -70,7 +70,7 @@
 			charges -= 1
 			to_chat(user, span_notice("You successfully compress [target]! The compressor now has [charges] charges."))
 
-/obj/item/compressionkit/attackby(obj/item/I, mob/user, params)
+/obj/item/compressionkit/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
 		var/obj/item/stack/ore/bluespace_crystal/B = I

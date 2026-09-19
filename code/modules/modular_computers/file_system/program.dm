@@ -89,18 +89,17 @@
 	return FALSE
 
 /**
- *Runs when the device is used to attack an atom in non-combat mode.
+ * Runs when the device is used to attack an atom in non-combat mode.
  *
- *Simulates using the device to read or scan something. Tap is called by the computer during pre_attack
- *and sends us all of the related info. If we return TRUE, the computer will stop the attack process
- *there. What we do with the info is up to us, but we should only return TRUE if we actually perform
- *an action of some sort.
- *Arguments:
- *A is the atom being tapped
- *user is the person making the attack action
- *params is anything the pre_attack() proc had in the same-named variable.
+ * Simulates using the device to read or scan something. Tap is called by the computer during pre_attack
+ * and sends us all of the related info. If we return TRUE, the computer will stop the attack process
+ * there. What we do with the info is up to us, but we should only return TRUE if we actually perform
+ * an action of some sort.
+ * Arguments:
+ * * A - the atom being tapped
+ * * user - the person making the attack action
 */
-/datum/computer_file/program/proc/tap(atom/A, mob/living/user, params)
+/datum/computer_file/program/proc/tap(atom/A, mob/living/user)
 	return FALSE
 
 
@@ -226,7 +225,7 @@
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.
-/datum/computer_file/program/proc/attack(atom/target, mob/living/user, params)
+/datum/computer_file/program/proc/attack(atom/target, mob/living/user, list/modifiers)
 	return TRUE
 
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.

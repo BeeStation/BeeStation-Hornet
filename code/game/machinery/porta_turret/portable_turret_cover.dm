@@ -36,7 +36,7 @@
 /obj/machinery/porta_turret_cover/attack_ghost(mob/user)
 	return ..() || parent_turret.attack_ghost(user)
 
-/obj/machinery/porta_turret_cover/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret_cover/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH && !parent_turret.on)
 		if(parent_turret.raised)
 			return
@@ -80,7 +80,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret_cover)
 /obj/machinery/porta_turret_cover/attack_animal(mob/living/simple_animal/user)
 	parent_turret.attack_animal(user)
 
-/obj/machinery/porta_turret_cover/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+/obj/machinery/porta_turret_cover/attack_hulk(mob/living/carbon/human/user)
 	return parent_turret.attack_hulk(user)
 
 /obj/machinery/porta_turret_cover/should_emag(mob/user)

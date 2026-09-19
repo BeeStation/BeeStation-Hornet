@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	silo_log(M, "deposited", amount, "sheets", item_mats)
 	return TRUE
 
-/obj/machinery/ore_silo/attackby(obj/item/W, mob/user, params)
+/obj/machinery/ore_silo/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 		updateUsrDialog()
 		return

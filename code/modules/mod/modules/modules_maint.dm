@@ -30,7 +30,7 @@
 	SIGNAL_HANDLER
 	if(!(methods in list(VAPOR, PATCH, TOUCH)) || set_off || mod.wearer.stat == DEAD)
 		return //remove non-touch reagent exposure
-	to_chat(mod.wearer, "<span_class='danger'>[src] makes an ominous click sound...</span>")
+	to_chat(mod.wearer, span_danger("[src] makes an ominous click sound..."))
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src,  PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE,  PROC_REF(on_activate_spring_block))

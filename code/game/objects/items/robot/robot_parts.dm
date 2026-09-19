@@ -137,7 +137,7 @@
 	chest.cell = temp_cell
 	return TRUE
 
-/obj/item/robot_suit/attackby(obj/item/W, mob/user, params)
+/obj/item/robot_suit/attackby(obj/item/W, mob/user, list/modifiers)
 
 	if(istype(W, /obj/item/stack/sheet/iron))
 		var/obj/item/stack/sheet/iron/M = W

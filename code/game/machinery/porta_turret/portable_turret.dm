@@ -315,7 +315,7 @@
 		remove_control()
 	check_should_process()
 
-/obj/machinery/porta_turret/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/porta_turret/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(machine_stat & BROKEN)
 		if(attacking_item.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
@@ -947,11 +947,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 		return
 
 	if(control_area)
-		control_area = get_area_instance_from_text(control_area)
-		if(control_area == null)
+		var/control_area_text = control_area
+		control_area = get_area_instance_from_text(control_area_text)
+		if(isnull(control_area))
 			control_area = get_area(src)
-			stack_trace("Bad control_area path for [src], [src.control_area]")
-	else if(!control_area)
+			stack_trace("Bad control_area path ([control_area_text]) for [src], [src.control_area]")
+	else
 		control_area = get_area(src)
 
 	for(var/obj/machinery/porta_turret/new_turret in control_area)
@@ -963,7 +964,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 	if(issilicon(user) && !(machine_stat & BROKEN))
 		. += span_notice("Ctrl-click [src] to [enabled ? "disable" : "enable"] turrets.")
 		. += span_notice("Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].")
-/obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(machine_stat & BROKEN)
 		return
 

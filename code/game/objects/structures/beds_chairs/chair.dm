@@ -61,7 +61,7 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/attackby(obj/item/W, mob/user, params)
+/obj/structure/chair/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
 			return

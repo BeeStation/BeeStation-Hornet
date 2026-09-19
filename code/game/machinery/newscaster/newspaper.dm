@@ -156,7 +156,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 		if(ismob(loc))
 			attack_self(loc)
 
-/obj/item/newspaper/attackby(obj/item/W, mob/living/user, params)
+/obj/item/newspaper/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(burn_paper_product_attackby_check(W, user))
 		return
 

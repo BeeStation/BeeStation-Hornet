@@ -4,6 +4,7 @@
  * Cone spells shoot off as a cone from the caster.
  */
 /datum/action/spell/cone
+	abstract_type = /datum/action/spell/cone
 	/// This controls how many levels the cone has. Increase this value to make a bigger cone.
 	var/cone_levels = 3
 	/// This value determines if the cone penetrates walls.
@@ -123,7 +124,7 @@
  * cone area at once.
  */
 /datum/action/spell/cone/staggered
-
+	abstract_type = /datum/action/spell/cone/staggered
 	/// The delay between each cone level triggering.
 	var/delay_between_level = 0.2 SECONDS
 

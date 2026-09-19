@@ -655,7 +655,7 @@ Contains:
 	bio = 50
 	bleed = 10
 
-/obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, list/modifiers)
 	return
 
 
