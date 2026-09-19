@@ -97,10 +97,10 @@
 	if(screen_on)
 		to_chat(user, span_notice("You close \the [src]."))
 		slowdown = initial(slowdown)
-		w_class = initial(w_class)
+		update_weight_class(initial(w_class))
 	else
 		to_chat(user, span_notice("You open \the [src]."))
 		slowdown = slowdown_open
-		w_class = w_class_open
+		update_weight_class(w_class_open)
 	screen_on = !screen_on
 	update_appearance()

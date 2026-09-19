@@ -110,6 +110,7 @@
 #include "status_effect_validity.dm"
 #include "steal_objectives_trackability.dm"
 #include "stomach.dm"
+#include "storage.dm"
 #include "strippable.dm"
 #include "stuns.dm"
 #include "subsystem_flags.dm"

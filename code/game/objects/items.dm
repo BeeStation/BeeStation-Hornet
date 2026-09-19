@@ -1595,42 +1595,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/get_writing_implement_details()
 	return null
 
-/// Increases weight class by one class and returns true, or else returns false
-/obj/item/proc/weight_class_up()
-	switch(w_class)
-		if(WEIGHT_CLASS_TINY)
-			w_class = WEIGHT_CLASS_SMALL
-		if(WEIGHT_CLASS_SMALL)
-			w_class = WEIGHT_CLASS_NORMAL
-		if(WEIGHT_CLASS_NORMAL)
-			w_class = WEIGHT_CLASS_LARGE
-		if(WEIGHT_CLASS_LARGE)
-			w_class = WEIGHT_CLASS_BULKY
-		if(WEIGHT_CLASS_BULKY)
-			w_class = WEIGHT_CLASS_HUGE
-		if(WEIGHT_CLASS_HUGE)
-			w_class = WEIGHT_CLASS_GIGANTIC
-		else
-			return FALSE
-	return TRUE
-
-/// Decreases weight class by one class and returns true, or else returns false
-/obj/item/proc/weight_class_down()
-	switch(w_class)
-		if(WEIGHT_CLASS_SMALL)
-			w_class = WEIGHT_CLASS_TINY
-		if(WEIGHT_CLASS_NORMAL)
-			w_class = WEIGHT_CLASS_SMALL
-		if(WEIGHT_CLASS_LARGE)
-			w_class = WEIGHT_CLASS_NORMAL
-		if(WEIGHT_CLASS_BULKY)
-			w_class = WEIGHT_CLASS_LARGE
-		if(WEIGHT_CLASS_HUGE)
-			w_class = WEIGHT_CLASS_BULKY
-		if(WEIGHT_CLASS_GIGANTIC)
-			w_class = WEIGHT_CLASS_HUGE
-		else
-			return FALSE
+/// Sets w_class, telling us and our loc that it changed. Returns TRUE if it actually changed.
+/obj/item/proc/update_weight_class(new_w_class)
+	if(w_class == new_w_class)
+		return FALSE
+	var/old_w_class = w_class
+	w_class = new_w_class
+	SEND_SIGNAL(src, COMSIG_ITEM_WEIGHT_CLASS_CHANGED, old_w_class, new_w_class)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_CONTENTS_WEIGHT_CLASS_CHANGED, src, old_w_class, new_w_class)
 	return TRUE
 
 // Update icons if this is being carried by a mob
