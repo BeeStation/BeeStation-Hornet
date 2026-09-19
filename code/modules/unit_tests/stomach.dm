@@ -18,7 +18,7 @@
 
 	//Give them meth and let it kick in
 	pill.reagents.add_reagent(meth, 1.9 * initial(meth.metabolization_rate) * SSMOBS_DT)
-	pill.interact_with_atom(human, human)
+	pill.attack(human, human)
 	human.Life(SSMOBS_DT)
 
 	TEST_ASSERT(human.reagents.has_reagent(meth), "Human body does not have meth after life tick")
@@ -33,9 +33,12 @@
 
 	TEST_ASSERT_EQUAL(human.has_reagent(/datum/reagent/consumable/ketchup), FALSE, "Human has ketchup without a stomach")
 
+
+
 /datum/unit_test/stomach/Destroy()
 	SSmobs.ignite()
 	return ..()
+
 
 /// Hunger scales natural stamina regeneration
 /datum/unit_test/hunger_stamina/Run()
