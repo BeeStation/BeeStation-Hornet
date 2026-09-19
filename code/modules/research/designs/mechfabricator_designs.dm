@@ -663,7 +663,7 @@
 	name = "Cyborg Upgrade (Diamond Drill)"
 	id = "borg_upgrade_diamonddrill"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/ddrill
+	build_path = /obj/item/borg/upgrade/diamond_drill
 	materials = list(/datum/material/iron=10000, /datum/material/glass = 6000, /datum/material/diamond = 2000)
 	construction_time = 80
 	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
@@ -800,16 +800,11 @@
 	id = "borg_upgrade_rped"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rped
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000)
-	construction_time = 120
-	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
-
-/datum/design/borg_upgrade_bsrped
-	name = "Cyborg Upgrade (BSRPED)"
-	id = "borg_upgrade_bsrped"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/bsrped
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 5000, /datum/material/silver = 2500)
+	materials = list(
+		/datum/material/iron = 10000,
+		/datum/material/glass = 5000,
+		/datum/material/silver = 2000,
+		)
 	construction_time = 120
 	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
 
@@ -822,11 +817,20 @@
 	construction_time = 120
 	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
 
-/datum/design/borg_upgrade_circuit_app
-	name = "Cyborg Upgrade (Circuit Manipulator)"
-	id = "borg_upgrade_circuitapp"
+/datum/design/borg_upgrade_inducer
+	name = "Cyborg inducer"
+	id = "borg_upgrade_inducer"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/circuit_app
+	build_path = /obj/item/borg/upgrade/inducer
+	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500, /datum/material/silver = 400)
+	construction_time = 120
+	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)
+
+/datum/design/borg_upgrade_engineering_app
+	name = "Engineering Apparatus"
+	id = "borg_upgrade_engineeringapp"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/engineering_app
 	materials = list(/datum/material/iron = 2000, /datum/material/titanium = 500)
 	construction_time = 120
 	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES)

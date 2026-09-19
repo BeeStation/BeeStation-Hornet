@@ -316,7 +316,6 @@
 	name = "Engineering"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/meson,
 		/obj/item/borg/charger,
 		/obj/item/construction/rcd/borg,
 		/obj/item/pipe_dispenser,
@@ -340,6 +339,7 @@
 		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/stack/cable_coil,
 		/obj/item/holosign_creator/atmos,
+		/obj/item/airlock_painter/decal/cyborg,
 	)
 	emag_modules = list(
 		/obj/item/borg/stun,
@@ -357,6 +357,41 @@
 	model_select_icon = "engineer"
 	module_traits = list(TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
+	var/datum/weakref/night_vision_ref
+
+/datum/action/innate/borg_vision
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon_state = "meson"
+	/// sight_mode bitflag this button toggles on its cyborg
+	var/vision_flag
+
+/datum/action/innate/borg_vision/on_activate(mob/user, atom/target)
+	var/mob/living/silicon/robot/borg = owner
+	if(!iscyborg(borg))
+		return
+	borg.sight_mode ^= vision_flag
+	borg.update_sight()
+	to_chat(borg, span_notice("You toggle your [name] [(borg.sight_mode & vision_flag) ? "on" : "off"]."))
+
+/datum/action/innate/borg_vision/meson
+	name = "Meson Vision"
+	vision_flag = BORGMESON
+
+/datum/action/innate/borg_vision/thermal
+	name = "Thermal Vision"
+	vision_flag = BORGTHERM
+
+/obj/item/robot_model/engineering/be_transformed_to(obj/item/robot_model/old_module)
+	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
+	. = ..()
+	if(!.)
+		return
+	night_vision.Grant(loc)
+	night_vision_ref = WEAKREF(night_vision)
+
+/obj/item/robot_model/engineering/Destroy()
+	QDEL_NULL(night_vision_ref)
+	return ..()
 
 // --------------------- Janitor
 /obj/item/robot_model/janitor
@@ -423,7 +458,7 @@
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/borg/apparatus/container,
+		/obj/item/borg/apparatus/beaker,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/surgical_drapes,
@@ -440,6 +475,8 @@
 		/obj/item/stack/medical/gauze,
 		/obj/item/organ_storage,
 		/obj/item/borg/lollipop,
+		/obj/item/borg/apparatus/organ_storage,
+		/obj/item/storage/bag/chemistry,
 	)
 	emag_modules = list(
 		/obj/item/reagent_containers/borghypo/hacked,
@@ -478,7 +515,6 @@
 	name = "Miner"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/meson,
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill,
 		/obj/item/shovel,
@@ -490,6 +526,7 @@
 		/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/stack/marker_beacon,
+		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 	)
 	emag_modules = list(
 		/obj/item/borg/stun,
@@ -503,9 +540,15 @@
 	cyborg_base_icon = "miner"
 	model_select_icon = "miner"
 	hat_offset = 0
-	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
+	var/datum/weakref/night_vision_ref
 
 /obj/item/robot_model/miner/be_transformed_to(obj/item/robot_model/old_module)
+	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
+	. = ..()
+	if(!.)
+		return
+	night_vision.Grant(loc)
+	night_vision_ref = WEAKREF(night_vision)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/miner_icons = list(
 		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
@@ -523,15 +566,9 @@
 			cyborg_base_icon = "spidermin"
 		else
 			return FALSE
-	return ..()
-
-/obj/item/robot_model/miner/rebuild_modules()
-	. = ..()
-	if(!mining_scanner)
-		mining_scanner = new(src)
 
 /obj/item/robot_model/miner/Destroy()
-	QDEL_NULL(mining_scanner)
+	QDEL_NULL(night_vision_ref)
 	return ..()
 
 // --------------------- Peacekeeper
@@ -581,7 +618,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/borg/apparatus/container/service,
+		/obj/item/borg/apparatus/beaker/service,
 		/obj/item/reagent_containers/borghypo/borgshaker,
 	)
 	emag_modules = list(
@@ -788,6 +825,8 @@
 		/obj/item/stack/medical/gauze,
 		/obj/item/gun/medbeam,
 		/obj/item/organ_storage,
+		/obj/item/borg/apparatus/organ_storage,
+		/obj/item/storage/bag/chemistry,
 	)
 	cyborg_base_icon = "synd_medical"
 	model_select_icon = "malf"
@@ -799,8 +838,8 @@
 	name = "Syndicate Saboteur"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/thermal,
 		/obj/item/construction/rcd/borg/syndicate,
+		/obj/item/airlock_painter/decal/cyborg,
 		/obj/item/pipe_dispenser,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/charger,
@@ -827,6 +866,19 @@
 	module_traits = list(TRAIT_PUSHIMMUNE, TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 	canDispose = TRUE
+	var/datum/weakref/thermal_vision_ref
+
+/obj/item/robot_model/saboteur/be_transformed_to(obj/item/robot_model/old_module)
+	var/datum/action/innate/borg_vision/thermal/thermal_vision = new(loc)
+	. = ..()
+	if(!.)
+		return
+	thermal_vision.Grant(loc)
+	thermal_vision_ref = WEAKREF(thermal_vision)
+
+/obj/item/robot_model/saboteur/Destroy()
+	QDEL_NULL(thermal_vision_ref)
+	return ..()
 
 // ------------------------------------------ Storages
 /datum/robot_energy_storage

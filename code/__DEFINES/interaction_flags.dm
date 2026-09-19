@@ -14,6 +14,8 @@
 #define INTERACT_ATOM_ALLOW_USER_LOCATION			(1<<9)  //! allows this atom to skip the adjacency check
 /// ignores mobility check
 #define INTERACT_ATOM_IGNORE_MOBILITY (1<<10)
+/// mousedrops onto this atom skip the adjacency check. for screen elements, which do their own reach checking
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<11)
 
 #define INTERACT_ITEM_ATTACK_HAND_PICKUP (1<<0)		//! attempt pickup on attack_hand for items
 

@@ -761,37 +761,43 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
-		if(real_location.loc != user)
-			return
+		if(real_location.loc != user || !user.canUseTopic(parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+			return NONE
+		if(isitem(parent))
+			var/obj/item/item_parent = parent
+			if(!item_parent.can_mob_unequip(user))
+				return COMPONENT_NO_MOUSEDROP
 
 		var/atom/movable/screen/inventory/hand/hand = over_object
 		user.putItemFromInventoryInHandIfPossible(parent, hand.held_index)
 		parent.add_fingerprint(user)
 
 	if(over_object == user)
+		if(!user.canUseTopic(parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+			return NONE
 
 		parent.add_fingerprint(user)
 		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
 		return
 
 	if(istype(over_object, /atom/movable/screen))
-		return
+		return NONE
 
 	if(!user.canUseTopic(over_object, be_close = TRUE, no_tk = TRUE))
-		return
+		return NONE
 
 	parent.add_fingerprint(user)
 
 	var/atom/dump_loc = over_object.get_dumping_location()
 	if(isnull(dump_loc))
-		return
+		return NONE
 
 	/// Don't dump *onto* objects in the same storage as ourselves
 	if (over_object.loc == parent.loc && !isnull(parent.loc.atom_storage) && isnull(over_object.atom_storage))
-		return
+		return NONE
 
 	INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, dump_loc, user)
-	return
+	return COMPONENT_NO_MOUSEDROP
 
 /**
  * Dumps all of our contents at a specific location.

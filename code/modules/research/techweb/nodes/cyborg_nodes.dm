@@ -42,6 +42,8 @@
 		"borg_upgrade_holding",
 		"borg_upgrade_lavaproof",
 		"borg_upgrade_rped",
+		"borg_upgrade_engineeringapp",
+		"borg_upgrade_inducer",
 		"borg_upgrade_selfrepair",
 		"borg_upgrade_thrusters",
 	)

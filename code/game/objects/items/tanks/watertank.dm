@@ -33,6 +33,7 @@
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
+	AddElement(/datum/element/drag_pickup)
 	update_icon()
 
 /obj/item/watertank/ui_action_click(mob/user)
@@ -148,14 +149,6 @@
 		toggle_mister(user)
 	else
 		return ..()
-
-/obj/item/watertank/MouseDrop(obj/over_object)
-	var/mob/M = loc
-	if(istype(M) && istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-		update_icon()
-	return ..()
 
 /obj/item/watertank/attackby(obj/item/attacking_item, mob/user, params)
 	if(attacking_item == noz)

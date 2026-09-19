@@ -75,16 +75,18 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	icon_state = "BS_RPED"
 	inhand_icon_state = "BS_RPED"
 	w_class = WEIGHT_CLASS_NORMAL
+	storage_type = /datum/storage/rped/bluespace
 	works_from_distance = TRUE
 	pshoom_or_beepboopblorpzingshadashwoosh = 'sound/items/pshoom.ogg'
 	alt_sound = 'sound/items/pshoom_2.ogg'
 
+/datum/storage/rped/bluespace
+	max_slots = 400
+	max_total_storage = 800
+	max_specific_storage = WEIGHT_CLASS_GIGANTIC
+
 /obj/item/storage/part_replacer/bluespace/Initialize(mapload)
 	. = ..()
-
-	atom_storage.max_slots = 400
-	atom_storage.max_total_storage = 800
-	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 
 	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(on_part_entered))
 	RegisterSignal(src, COMSIG_ATOM_EXITED,PROC_REF(on_part_exited))
@@ -196,11 +198,22 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 
 /obj/item/storage/part_replacer/cyborg
 	name = "rapid part exchange device"
-	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
+	desc = "Special mechanical module made to store, sort, and apply standard machine parts. This one has an extra large compartment for more parts."
 	icon_state = "borgrped"
 	inhand_icon_state = "RPED"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+
+/obj/item/storage/part_replacer/cyborg/small
+	desc = "Special mechanical module made to store, sort, and apply standard machine parts. This one has as much space as your regular RPED."
+	icon_state = "RPED"
+	storage_type = /datum/storage/rped
+
+/obj/item/storage/part_replacer/cyborg/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 400
+	atom_storage.max_total_storage = 800
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 
 /obj/item/storage/part_replacer/bluespace/cyborg
 	name = "bluespace rapid part exchange device"

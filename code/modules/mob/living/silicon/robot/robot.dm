@@ -387,6 +387,24 @@
 				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
 				deconstruct()
 
+	else if(istype(attacking_item, /obj/item/storage/part_replacer))
+		var/obj/item/storage/part_replacer/replacer = attacking_item
+		if(!opened)
+			balloon_alert(user, "chassis cover is closed!")
+			return
+		if(!istype(model, /obj/item/robot_model/engineering))
+			balloon_alert(user, "wrong cyborg model!")
+			return
+		if(locate(/obj/item/borg/upgrade/rped) in src)
+			balloon_alert(user, "already has a RPED!")
+			return
+		qdel(attacking_item)
+		var/obj/item/borg/upgrade/smallrped/lilrped = new
+		if(apply_upgrade(lilrped, user))
+			balloon_alert(user, "[replacer] installed")
+			return
+		return
+
 	else if(istype(attacking_item, /obj/item/ai_module))
 		var/obj/item/ai_module/MOD = attacking_item
 		if(!opened)
@@ -1162,12 +1180,10 @@
 		for(var/i in connected_ai.aicamera.stored)
 			aicamera.stored[i] = TRUE
 
-/mob/living/silicon/robot/proc/charge(datum/source, amount, repairs)
+/mob/living/silicon/robot/proc/charge(datum/source, datum/callback/charge_cell, seconds_per_tick, repairs)
 	SIGNAL_HANDLER
-
+	charge_cell.Invoke(cell, seconds_per_tick)
 	if(model)
-		model.respawn_consumable(src, amount * 0.005)
-	if(cell)
-		cell.charge = min(cell.charge + amount, cell.maxcharge)
+		model.respawn_consumable(src, cell.use(cell.chargerate * 0.005))
 	if(repairs)
 		heal_bodypart_damage(repairs, repairs - 1)

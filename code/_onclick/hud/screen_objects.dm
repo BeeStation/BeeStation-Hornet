@@ -42,7 +42,7 @@
 		return
 	set_new_hud(hud_owner)
 
-atom/movable/screen/Destroy()
+/atom/movable/screen/Destroy()
 	master_ref = null
 	hud = null
 	return ..()
@@ -280,12 +280,9 @@ atom/movable/screen/Destroy()
 	icon_state = "storage_close"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/master = null
-
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
-/atom/movable/screen/close/Initialize(mapload, new_master)
+/atom/movable/screen/close/Initialize(mapload, datum/hud/hud_owner, new_master)
 	. = ..()
 	master_ref = WEAKREF(new_master)
 
@@ -447,19 +444,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "storage_cell"
 	plane = HUD_PLANE
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/storage/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
-/atom/movable/screen/storage/Initialize(mapload, new_master)
+/atom/movable/screen/storage/Initialize(mapload, datum/hud/hud_owner, new_master)
 	. = ..()
 	master_ref = WEAKREF(new_master)
 
-/atom/movable/screen/storage/attackby(location, control, params)
+/atom/movable/screen/storage/Click(location, control, params)
 	var/datum/storage/storage_master = master_ref?.resolve()
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
@@ -468,6 +470,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	return TRUE
 
 /atom/movable/screen/storage/cell
+	interaction_flags_atom = INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
 
 /atom/movable/screen/storage/cell/MouseDrop_T(atom/target, mob/living/user, params)
 	var/datum/storage/storage = master_ref?.resolve()
