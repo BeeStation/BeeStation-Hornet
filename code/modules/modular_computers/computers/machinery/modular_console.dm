@@ -10,7 +10,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	screen_icon_state_menu = "menu"
 	density = TRUE
-	base_power_usage = 500
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.025
 	max_hardware_size = 4
 	light_strength = 2
 	max_integrity = 300

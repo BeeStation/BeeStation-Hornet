@@ -16,6 +16,7 @@
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_OFFLINE
 
+	use_power = NO_POWER_USE
 	var/minimum_timer = 60
 	var/timer_set = 60
 	var/maximum_timer = 60000
@@ -441,7 +442,7 @@
 		var/datum/reagents/reactants = new(time_release)
 		reactants.my_atom = src
 		for(var/obj/item/reagent_containers/RC in beakers)
-			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, 1, 1, 1)
+			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, no_react = TRUE)
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
 		// Detonate it again in one second, until it's out of juice.

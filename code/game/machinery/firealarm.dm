@@ -20,9 +20,8 @@
 	integrity_failure = 0.4
 	armor_type = /datum/armor/machinery_firealarm
 	mouse_over_pointer = MOUSE_HAND_POINTER
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	power_channel = AREA_USAGE_ENVIRON
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
@@ -266,7 +265,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	my_area.fault_location = name
 	soundloop.start() //Manually pulled fire alarms will make the sound, rather than the doors.
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
-	use_power = active_power_usage
+	update_use_power(ACTIVE_POWER_USE)
 
 /**
  * Resets all firelocks in the area. Also tells the area to disable alarm lighting, if it was enabled.
@@ -288,7 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 		user.log_message("reset a fire alarm.", LOG_GAME)
 	soundloop.stop()
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
-	use_power = idle_power_usage
+	update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/firealarm/proc/try_lock(mob/user, force_lock = FALSE)
 	if(allowed(user) || !user || force_lock)

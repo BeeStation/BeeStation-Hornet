@@ -50,13 +50,14 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/recycler/RefreshParts()
+	. = ..()
 	var/amt_made = 0
 	var/mat_mod = 0
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		mat_mod = 2 * B.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		mat_mod = 2 * B.tier
 	mat_mod *= 50000
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		amt_made = 12.5 * M.rating //% of materials salvaged
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		amt_made = 12.5 * M.tier //% of materials salvaged
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = mat_mod
 	amount_produced = min(50, amt_made) + 50
@@ -145,11 +146,13 @@
 		else if(isliving(AM))
 			if(obj_flags & EMAGGED)
 				crush_living(AM)
+				use_power(active_power_usage)
 			else
 				emergency_stop(AM)
 		else if(istype(AM, /obj/item) && !istype(AM, /obj/item/stack))
 			recycle_item(AM)
 			items_recycled++
+			use_power(active_power_usage)
 		else
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			AM.forceMove(loc)

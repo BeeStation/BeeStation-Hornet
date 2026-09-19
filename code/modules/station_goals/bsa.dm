@@ -143,8 +143,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 	var/obj/item/stock_parts/cell/cell
 	var/obj/machinery/power/terminal/invisible/terminal
 	use_power = NO_POWER_USE
-	idle_power_usage = 50 // when idle
-	active_power_usage = INFINITY // how much you can charge at once
+	/// Draw the cannon takes off the terminal just to stay powered
+	var/standby_draw = 50
+	/// Ceiling on how much grid surplus it will pull into the cell per tick
+	var/max_charge_rate = INFINITY
 	var/charge_efficiency = 0.6 // 60% of power is stored in the cell
 
 	pixel_y = -32
@@ -318,12 +320,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/bsa/full)
 
 /obj/machinery/power/bsa/full/process(delta_time)
 	var/excess = terminal.surplus()
-	if(cell.percent() >= 100 || excess < idle_power_usage) // do we have full charge or is there not enough power for basic charging?
+	if(cell.percent() >= 100 || excess < standby_draw) // do we have full charge or is there not enough power for basic charging?
 		return
-	var/avail_power = excess - idle_power_usage
-	var/power = clamp(avail_power, 0, active_power_usage)
+	var/avail_power = excess - standby_draw
+	var/power = clamp(avail_power, 0, max_charge_rate)
 	var/avail_charge = power * charge_efficiency
-	terminal.add_load(power + idle_power_usage)
+	terminal.add_load(power + standby_draw)
 	cell.give(avail_charge)
 	update_appearance(UPDATE_OVERLAYS)
 	last_charge_quarter = floor(cell.percent() / 25)

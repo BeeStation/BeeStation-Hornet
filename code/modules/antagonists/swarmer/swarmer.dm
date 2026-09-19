@@ -529,6 +529,9 @@
 		new /obj/item/stack/sheet/iron(Tsec, 5)
 		for(var/obj/item/I in target.component_parts)
 			I.forceMove(Tsec)
+		for(var/datum/stock_part/stock_part in target.component_parts)
+			var/physical_object_type = stock_part.physical_object_type
+			new physical_object_type(Tsec)
 		var/obj/effect/temp_visual/swarmer/disintegration/N = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
