@@ -222,7 +222,7 @@
 
 /// This proc is called after an item has been successfully handled and equipped to a slot.
 /mob/living/carbon/proc/has_equipped(obj/item/item, slot, initial = FALSE)
-	return item.equipped(src, slot, initial)
+	return item.on_equipped(src, slot, initial)
 
 /mob/living/carbon/human/equipped_speed_mods()
 	. = ..()

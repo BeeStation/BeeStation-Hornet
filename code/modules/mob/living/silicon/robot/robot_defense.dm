@@ -94,9 +94,10 @@
 	if(major_malfunction)
 
 		//Scramble equipped items
-		for(var/obj/O in held_items)
-			if(prob(60))
-				uneq_module(O)
+		for(var/cyborg_slot in 1 to 3)
+			var/obj/item/held_module = held_items[cyborg_slot]
+			if(held_module && prob(60))
+				unequip_module_from_slot(held_module, cyborg_slot)
 				activate_module(pick(model.modules))
 
 		//Randomizes locked state and compounds it with cover potentially swinging open for an overall 25% chance for cover to fly open

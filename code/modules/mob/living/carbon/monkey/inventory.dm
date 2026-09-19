@@ -50,7 +50,7 @@
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
-		equipping.equipped(src, slot)
+		equipping.on_equipped(src, slot)
 
 	return not_handled //For future deeper overrides
 

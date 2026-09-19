@@ -788,25 +788,37 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth * 0.75) //Gradual break down of modules as more damage is sustained
+
+	if(health < maxHealth * BORG_SLOWDOWN_THRESHOLD)
 		var/speedpenalty = (maxHealth - health) / 150
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = speedpenalty)
-		if(uneq_module(held_items[3]))
-			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
-			audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
-			to_chat(src, span_userdanger("SYSTEM ERROR: Module 3 OFFLINE."))
-		if(health < maxHealth*0.5)
-			if(uneq_module(held_items[2]))
-				audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
-				to_chat(src, span_userdanger("SYSTEM ERROR: Module 2 OFFLINE."))
-				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < maxHealth*0.25)
-				if(uneq_module(held_items[1]))
-					audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
-					to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
-					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+
+	/// Current health as a fraction of maximum. Cyborgs die at zero, so this is 0 to 1.
+	var/percent_hp = health / maxHealth
+
+	if(health <= previous_health) //Gradual break down of modules as more damage is sustained
+		if(percent_hp < BORG_SLOT_THREE_THRESHOLD)
+			break_cyborg_slot(3)
+
+		if(percent_hp < BORG_SLOT_TWO_THRESHOLD)
+			break_cyborg_slot(2)
+
+		if(percent_hp < BORG_SLOT_ONE_THRESHOLD)
+			break_cyborg_slot(1)
+
+	else //Modules come back online as damage is repaired
+		if(percent_hp >= BORG_SLOT_ONE_THRESHOLD)
+			repair_cyborg_slot(1)
+
+		if(percent_hp >= BORG_SLOT_TWO_THRESHOLD)
+			repair_cyborg_slot(2)
+
+		if(percent_hp >= BORG_SLOT_THREE_THRESHOLD)
+			repair_cyborg_slot(3)
+
+	previous_health = health
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
@@ -899,7 +911,7 @@
 
 /mob/living/silicon/robot/proc/ResetModel()
 	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
-	uneq_all()
+	drop_all_held_items()
 	shown_robot_modules = FALSE
 	if(hud_used)
 		hud_used.update_robot_modules_display()

@@ -75,3 +75,16 @@
 
 /// Default offsets for riding a cyborg
 #define DEFAULT_ROBOT_RIDING_OFFSETS list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list(6, 3))
+
+/// Defines for whether or not module slots are broken.
+#define BORG_MODULE_ALL_DISABLED (1<<0)
+#define BORG_MODULE_TWO_DISABLED (1<<1)
+#define BORG_MODULE_THREE_DISABLED (1<<2)
+
+/// Fractions of maxHealth at which each module slot breaks and is repaired.
+#define BORG_SLOT_THREE_THRESHOLD 0.65
+#define BORG_SLOT_TWO_THRESHOLD 0.4
+#define BORG_SLOT_ONE_THRESHOLD 0.15
+
+/// Fraction of maxHealth below which damage starts slowing the cyborg down.
+#define BORG_SLOWDOWN_THRESHOLD 0.75
