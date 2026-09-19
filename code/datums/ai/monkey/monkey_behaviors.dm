@@ -177,8 +177,7 @@
 
 /datum/ai_behavior/monkey_attack_mob/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
-	if(succeeded) // We're angry at that guy still, but not enough to follow them into hell, if they're out of our view let's not track them
-		controller.clear_blackboard_key(target_key)
+	controller.clear_blackboard_key(target_key)
 
 /// attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little
 /datum/ai_behavior/monkey_attack_mob/proc/monkey_attack(datum/ai_controller/controller, mob/living/target, delta_time, disarm, holding_weapon)
