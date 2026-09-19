@@ -7981,10 +7981,12 @@
 /obj/item/radio/intercom{
 	pixel_x = -27
 	},
-/obj/machinery/aug_manipulator,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/lab)
@@ -25524,9 +25526,6 @@
 /obj/machinery/light_switch{
 	pixel_x = -25;
 	pixel_y = -8
-	},
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 4
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/robotics/lab)
