@@ -11,6 +11,7 @@
 				/obj/item/storage/bag/tray = 8,
 				/obj/item/reagent_containers/cup/bowl = 20,
 				/obj/item/kitchen/fork = 6,
+				/obj/item/kitchen/fork/spoon = 6,
 				/obj/item/reagent_containers/cup/glass/drinkingglass = 8,
 				/obj/item/clothing/suit/apron/chef = 2,
 				/obj/item/kitchen/rollingpin = 2,
