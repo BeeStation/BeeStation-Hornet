@@ -16,6 +16,8 @@
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
+	/// A reference to the object in the slot. Grabs or items, generally, but any datum will do.
+	var/datum/weakref/master_ref = null
 	/// A reference to the owner HUD, if any.
 	VAR_PRIVATE/datum/hud/hud = null
 	/**
@@ -39,6 +41,11 @@
 	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
 		return
 	set_new_hud(hud_owner)
+
+atom/movable/screen/Destroy()
+	master_ref = null
+	hud = null
+	return ..()
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -269,7 +276,8 @@
 /atom/movable/screen/close
 	name = "close"
 	plane = ABOVE_HUD_PLANE
-	icon_state = "backpack_close"
+	icon = 'icons/hud/screen_midnight.dmi'
+	icon_state = "storage_close"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 	/// A reference to the object in the slot. Grabs or items, generally.
@@ -279,12 +287,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
-	master = new_master
-	//if (master && !istype(master))
-	//	CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
+	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/close/Click()
-	var/datum/storage/storage = master
+	var/datum/storage/storage = master_ref?.resolve()
+	if(!storage)
+		return
 	storage.hide_contents(usr)
 	return TRUE
 
@@ -436,8 +444,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
 /atom/movable/screen/storage
 	name = "storage"
-	icon_state = "block"
-	screen_loc = "7,7 to 10,8"
+	icon = 'icons/hud/style/screen_midnight.dmi'
+	icon_state = "storage_cell"
 	plane = HUD_PLANE
 	/// A reference to the object in the slot. Grabs or items, generally.
 	var/datum/storage/master = null
@@ -446,12 +454,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
 	. = ..()
-	master = new_master
-	if (master && !istype(master))
-		CRASH("Attempting to create a backpack close without referencing a storage datum.")
+	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/storage/attackby(location, control, params)
-	var/datum/storage/storage_master = master
+	var/datum/storage/storage_master = master_ref?.resolve()
 	if(!istype(storage_master))
 		return FALSE
 
@@ -460,6 +466,45 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 		storage_master.attempt_insert(inserted, usr)
 
 	return TRUE
+
+/atom/movable/screen/storage/cell
+
+/atom/movable/screen/storage/cell/mouse_drop_receive(atom/target, mob/living/user, params)
+	var/datum/storage/storage = master_ref?.resolve()
+
+	if (isnull(storage) || !istype(user) || storage != user.active_storage)
+		return
+
+	if (!user.can_perform_action(storage.parent, FORBID_TELEKINESIS_REACH))
+		return
+
+	if (target.loc != storage.real_location)
+		return
+
+	/// Due to items in storage ignoring transparency for click hitboxes, this only can happen if we drag onto a free cell - aka after all current contents
+	storage.real_location.contents -= target
+	storage.real_location.contents += target
+	storage.refresh_views()
+
+/atom/movable/screen/storage/corner
+	icon_state = "storage_corner_topleft"
+
+/atom/movable/screen/storage/corner/top_right
+	icon_state = "storage_corner_topright"
+
+/atom/movable/screen/storage/corner/bottom_left
+	icon_state = "storage_corner_bottomleft"
+
+/atom/movable/screen/storage/corner/bottom_right
+	icon_state = "storage_corner_bottomright"
+
+/atom/movable/screen/storage/rowjoin
+	name = "storage"
+	icon_state = "storage_rowjoin_left"
+	alpha = 0
+
+/atom/movable/screen/storage/rowjoin/right
+	icon_state = "storage_rowjoin_right"
 
 /atom/movable/screen/throw_catch
 	name = "throw/catch"

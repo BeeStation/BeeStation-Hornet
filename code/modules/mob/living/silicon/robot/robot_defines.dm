@@ -16,6 +16,7 @@
 	designation = "Default" //used for displaying the prefix & getting the current model of cyborg
 	has_limbs = TRUE
 	hud_type = /datum/hud/robot
+	default_hand_amount = 3
 
 	/// The cyborg's model (engineering, medical, etc.)
 	var/obj/item/robot_model/model = null

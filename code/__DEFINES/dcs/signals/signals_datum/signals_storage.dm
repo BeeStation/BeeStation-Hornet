@@ -16,3 +16,6 @@
 
 /// Sent to the STORAGE when an ITEM is REMOVED. (obj/item, atom, silent)
 #define COMSIG_STORAGE_REMOVED_ITEM "storage_removing_item"
+
+/// From /obj/item/storage/backpack/duffelbag/proc/set_zipper() : (new_zip)
+#define COMSIG_DUFFEL_ZIP_CHANGE "duffel_zip_change"
