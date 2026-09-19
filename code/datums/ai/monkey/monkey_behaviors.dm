@@ -167,7 +167,7 @@
 	if(!DT_PROB(MONKEY_HATRED_REDUCTION_PROB, delta_time))
 		return AI_BEHAVIOR_DELAY
 
-	hatred_value-- // We hate this guy.. just a little bit les
+	hatred_value-- // We hate this guy.. just a little bit less
 	if(hatred_value <= 0) // Yeah, this guy is cool.. until i get hit
 		controller.remove_thing_from_blackboard_key(BB_MONKEY_ENEMIES, target)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
@@ -177,6 +177,8 @@
 
 /datum/ai_behavior/monkey_attack_mob/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
+	if(succeeded) // We're angry at that guy still, but not enough to follow them into hell, if they're out of our view let's not track them
+		controller.clear_blackboard_key(target_key)
 
 /// attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little
 /datum/ai_behavior/monkey_attack_mob/proc/monkey_attack(datum/ai_controller/controller, mob/living/target, delta_time, disarm, holding_weapon)
