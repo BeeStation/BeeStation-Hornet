@@ -6645,7 +6645,6 @@
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/mask/russian_balaclava,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -15786,7 +15785,6 @@
 "fJD" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/mask/russian_balaclava,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -21077,7 +21075,6 @@
 "hyT" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/mask/russian_balaclava,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -58975,7 +58972,6 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/obj/item/clothing/mask/russian_balaclava,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
@@ -64824,7 +64820,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/clothing/mask/russian_balaclava,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/security/office)
