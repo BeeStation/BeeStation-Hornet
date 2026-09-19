@@ -631,12 +631,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  */
 /datum/storage/proc/return_inv(recursive = TRUE)
 	var/list/ret = list()
-	ret |= real_location.contents
 
 	for(var/atom/found_thing as anything in real_location)
 		ret |= found_thing
-		if(recursive)
-			ret |= found_thing.atom_storage?.return_inv(ret, recursive = TRUE)
+		if(recursive && found_thing.atom_storage)
+			ret |= found_thing.atom_storage.return_inv(recursive = TRUE)
 
 	return ret
 
@@ -649,9 +648,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	SIGNAL_HANDLER
 
 	for(var/mob/user as anything in is_using)
-		if(user.client)
-			var/client/cuser = user.client
-			cuser.screen -= gone
+		user.hud_used?.open_containers -= gone
+		if(!user.client)
+			continue
+		var/client/cuser = user.client
+		cuser.screen -= gone
 
 	reset_item(gone)
 	refresh_views()
@@ -670,7 +671,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(!allow_quick_gather || thing.atom_storage)
+	if(thing == parent.loc || !allow_quick_gather || thing.atom_storage)
 		return
 
 	if(istype(thing, /turf))
@@ -681,6 +682,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	if(collection_mode == COLLECT_ONE)
+		if(thing.loc == user)
+			user.dropItemToGround(thing, silent = TRUE) //this is nessassary to update any inventory slot it is attached to
 		attempt_insert(thing, user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -875,13 +878,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(ishuman(user))
 		var/mob/living/carbon/human/hum = user
-		if(hum.l_store == parent && !hum.get_active_held_item())
-			INVOKE_ASYNC(hum, TYPE_PROC_REF(/mob, put_in_hands), parent)
-			hum.l_store = null
-			return
-		if(hum.r_store == parent && !hum.get_active_held_item())
-			INVOKE_ASYNC(hum, TYPE_PROC_REF(/mob, put_in_hands), parent)
-			hum.r_store = null
+		if(hum.l_store == parent || hum.r_store == parent)
 			return
 
 	if(parent.loc == user)
@@ -1049,7 +1046,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	is_using |= to_show
 
+	to_show.hud_used.open_containers |= storage_interfaces[to_show].list_ui_elements()
 	to_show.client.screen |= storage_interfaces[to_show].list_ui_elements()
+	to_show.hud_used.open_containers |= real_location.contents
 	to_show.client.screen |= real_location.contents
 
 	return TRUE
@@ -1076,6 +1075,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(to_hide.client)
 		to_hide.client.screen -= storage_interfaces[to_hide].list_ui_elements()
 		to_hide.client.screen -= real_location.contents
+	if(to_hide.hud_used)
+		to_hide.hud_used.open_containers -= storage_interfaces[to_hide].list_ui_elements()
+		to_hide.hud_used.open_containers -=  real_location.contents
 	QDEL_NULL(storage_interfaces[to_hide])
 	storage_interfaces -= to_hide
 
@@ -1104,7 +1106,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/additional_row = (!(adjusted_contents % screen_max_columns) && adjusted_contents < max_slots)
 
 	var/columns = clamp(max_slots, 1, screen_max_columns)
-	var/rows = clamp(CEILING(adjusted_contents / columns, 1) + additional_row, 1, screen_max_rows)
+	var/rows = clamp(ceil(adjusted_contents / columns) + additional_row, 1, screen_max_rows)
 
 	for (var/mob/ui_user as anything in storage_interfaces)
 		if (isnull(storage_interfaces[ui_user]))
@@ -1146,8 +1148,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/contents_changed_w_class(datum/source, obj/item/changed, old_w_class, new_w_class)
 	SIGNAL_HANDLER
 
-	if(new_w_class <= max_specific_storage && get_total_weight() <= max_total_storage)
+	// If old weight already overloaded the storage, don't drop the item out just in case we're inside of a premade box
+	if(new_w_class <= max_specific_storage && (get_total_weight() <= max_total_storage || get_total_weight() - new_w_class + old_w_class > max_total_storage))
 		return
+
 	if(!attempt_remove(changed, parent.drop_location()))
 		return
 

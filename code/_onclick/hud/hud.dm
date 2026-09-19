@@ -51,6 +51,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/list/screenoverlays = list() //the screen objects used as whole screen overlays (flash, damageoverlay, etc...)
 	var/list/inv_slots[SLOTS_AMT] // /atom/movable/screen/inventory objects, ordered by their slot ID.
 	var/list/hand_slots // /atom/movable/screen/inventory/hand objects, assoc list of "[held_index]" = object
+	/// storages (and its content) currently open by mob
+	var/list/open_containers = list()
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
@@ -124,6 +126,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	QDEL_LIST(hotkeybuttons)
 	throw_icon = null
 	QDEL_LIST(infodisplay)
+	open_containers = null
 
 	healths = null
 	stamina = null
@@ -186,6 +189,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 				screenmob.client.screen += infodisplay
 			if(team_finder_arrows.len)
 				screenmob.client.screen += team_finder_arrows
+			if(open_containers.len && screenmob == mymob) // Don't show open inventories to ghosts
+				screenmob.client.screen += open_containers
 
 			screenmob.client.screen += toggle_palette
 			if(action_intent && !custom_hud_locs)
