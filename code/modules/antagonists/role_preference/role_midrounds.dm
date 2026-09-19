@@ -7,6 +7,14 @@
 	antag_datum = /datum/antagonist/traitor
 	use_icon = /datum/role_preference/roundstart/traitor
 
+/datum/role_preference/midround/bloodcultist
+	name = "Blood Cultist (Midround)"
+	description = "Nar'Sie has called upon you, and you have answered. \
+	Join your fellow cultists, convert the crew, sacrifice those who oppose \
+	the Geometer of Blood, and complete the ritual to summon Nar'Sie."
+	antag_datum = /datum/antagonist/cult
+	use_icon = /datum/role_preference/roundstart/blood_cultist
+
 /datum/role_preference/midround/heretic
 	name = "Fanatic Revelation"
 	description = "Find hidden influences and sacrifice crew members to gain magical \
