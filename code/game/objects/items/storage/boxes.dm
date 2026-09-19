@@ -1279,10 +1279,7 @@
 
 /obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
-	atom_storage.max_specific_storage = 1000
-	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
-	atom_storage.max_slots = 1000
-	atom_storage.allow_big_nesting = TRUE
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC //This needs to be set here too because the parent type overrides it again
 
 /obj/item/storage/box/material/PopulateContents()
 	var/static/list/items_inside
@@ -1319,6 +1316,10 @@
 		/obj/item/stack/sheet/snow = 50,
 	)
 
+	atom_storage.allow_big_nesting = TRUE
+	atom_storage.max_slots = 999
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_total_storage = 999
 	for(var/obj/item/stack/stack_type as anything in items_inside)
 		var/amt = items_inside[stack_type]
 		new stack_type(src, amt, FALSE)

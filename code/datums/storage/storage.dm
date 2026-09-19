@@ -342,6 +342,15 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(QDELETED(to_insert) || !istype(to_insert))
 		return FALSE
 
+	//stops you from putting stuff like off-hand thingy inside. Hologram storages can accept only hologram items
+	if(to_insert.item_flags & ABSTRACT)
+		return FALSE
+	if(parent.flags_1 & HOLOGRAM_1)
+		if(!(to_insert.flags_1 & HOLOGRAM_1))
+			return FALSE
+	else if(to_insert.flags_1 & HOLOGRAM_1)
+		return FALSE
+
 	if(locked > force)
 		if(messages && user)
 			user.balloon_alert(user, "closed!")
@@ -430,7 +439,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!can_insert(to_insert, user, force = force))
 		return FALSE
 
-	SEND_SIGNAL(parent, COMSIG_STORAGE_STORED_ITEM, to_insert, user, force)
+	SEND_SIGNAL(parent, COMSIG_ATOM_STORED_ITEM, to_insert, user, force)
+	SEND_SIGNAL(src, COMSIG_STORAGE_STORED_ITEM, to_insert, user, force)
 	to_insert.forceMove(real_location)
 	item_insertion_feedback(user, to_insert, override)
 	parent.update_appearance()
@@ -523,6 +533,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	refresh_views()
 	parent.update_appearance()
+
+	SEND_SIGNAL(parent, COMSIG_ATOM_REMOVED_ITEM, thing, remove_to_loc, silent)
+	SEND_SIGNAL(src, COMSIG_STORAGE_REMOVED_ITEM, thing, remove_to_loc, silent)
 	return TRUE
 
 /**
