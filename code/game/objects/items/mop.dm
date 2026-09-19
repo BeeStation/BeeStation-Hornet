@@ -18,7 +18,6 @@
 	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 	var/max_reagent_volume = 15
 	var/mopspeed = 1.5 SECONDS
-	var/insertable = TRUE
 	var/static/list/clean_blacklist = typecacheof(list(
 		/obj/item/reagent_containers/cup/bucket,
 		/obj/structure/janitorialcart,
@@ -61,15 +60,9 @@
 	reagents.remove_all(1) //reaction() doesn't use up the reagents
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	if(!insertable)
-		to_chat(user, span_warning("You are unable to fit your [name] into the [J.name]."))
-		return
 	J.put_in_cart(src, user)
 	J.mymop=src
 	J.update_icon()
-
-/obj/item/mop/cyborg
-	insertable = FALSE
 
 /obj/item/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this!"
@@ -114,9 +107,6 @@
 	if(refill_enabled)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/obj/item/mop/advanced/cyborg
-	insertable = FALSE
 
 /obj/item/mop/sharp //Basically a slightly worse spear.
 	desc = "A mop with a sharpened handle. Careful!"

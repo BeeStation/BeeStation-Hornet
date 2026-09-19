@@ -579,16 +579,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	attack_paw(A)
 
-/obj/item/attack_robot(mob/living/user)
-	. = ..()
-	if(.)
+/obj/item/attack_robot(mob/living/silicon/robot/user)
+
+	if(!istype(loc, /obj/item/robot_model))
 		return
-	if(istype(src.loc, /obj/item/robot_model))
-		//If the item is part of a cyborg module, equip it
-		var/mob/living/silicon/robot/R = user
-		if(!R.low_power_mode) //can't equip modules with an empty cell.
-			R.activate_module(src)
-			R.hud_used.update_robot_modules_display()
+	if(user.low_power_mode) //can't equip modules with an empty cell.
+		return
+	user.activate_module(src)
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)

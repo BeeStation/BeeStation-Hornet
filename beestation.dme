@@ -1323,6 +1323,7 @@
 #include "code\datums\storage\storage_interface.dm"
 #include "code\datums\storage\subtypes\backpacks.dm"
 #include "code\datums\storage\subtypes\bag_of_holding.dm"
+#include "code\datums\storage\subtypes\cyborg.dm"
 #include "code\datums\storage\subtypes\duffel_bag.dm"
 #include "code\datums\storage\subtypes\extract_inventory.dm"
 #include "code\datums\storage\subtypes\implant.dm"

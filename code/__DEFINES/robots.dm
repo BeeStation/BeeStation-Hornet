@@ -76,10 +76,21 @@
 /// Default offsets for riding a cyborg
 #define DEFAULT_ROBOT_RIDING_OFFSETS list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list(6, 3))
 
-/// Defines for whether or not module slots are broken.
-#define BORG_MODULE_ALL_DISABLED (1<<0)
+//Module slot define
+///The third module slots is disabed.
+#define BORG_MODULE_THREE_DISABLED (1<<0)
+///The second module slots is disabed.
 #define BORG_MODULE_TWO_DISABLED (1<<1)
-#define BORG_MODULE_THREE_DISABLED (1<<2)
+///All modules slots are disabled.
+#define BORG_MODULE_ALL_DISABLED (1<<2)
+
+//Cyborg module selection
+///First Borg module slot.
+#define BORG_CHOOSE_MODULE_ONE 1
+///Second Borg module slot.
+#define BORG_CHOOSE_MODULE_TWO 2
+///Third Borg module slot.
+#define BORG_CHOOSE_MODULE_THREE 3
 
 /// Fractions of maxHealth at which each module slot breaks and is repaired.
 #define BORG_SLOT_THREE_THRESHOLD 0.65

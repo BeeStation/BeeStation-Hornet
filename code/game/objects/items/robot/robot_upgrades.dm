@@ -458,6 +458,7 @@
 			found_hypo = TRUE
 
 		if(!found_hypo)
+			to_chat(user, span_warning("There are no installed hypospray modules to upgrade with piercing!")) //check to see if any hyposprays were upgraded
 			return FALSE
 
 /obj/item/borg/upgrade/piercing_hypospray/deactivate(mob/living/silicon/robot/robot, user = usr)

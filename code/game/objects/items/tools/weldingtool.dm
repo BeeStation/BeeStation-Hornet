@@ -118,6 +118,11 @@
 	dyn_explosion(T, plasmaAmount/5)//20 plasma in a standard welder has a 4 power explosion. no breaches, but enough to kill/dismember holder
 	qdel(src)
 
+/obj/item/weldingtool/cyborg_unequip(mob/user)
+	if(!isOn())
+		return
+	switched_on(user)
+
 /obj/item/weldingtool/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
 	. = ..()
@@ -353,11 +358,6 @@
 	toolspeed = 0.5
 	max_fuel = 40
 	custom_materials = list(/datum/material/glass=60)
-
-/obj/item/weldingtool/cyborg/cyborg_unequip(mob/user)
-	if(!isOn())
-		return
-	switched_on(user)
 
 /obj/item/weldingtool/cyborg/flamethrower_screwdriver()
 	return

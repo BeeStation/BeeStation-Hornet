@@ -22,10 +22,6 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 
-	robot_modules_background = new()
-	robot_modules_background.icon_state = "block"
-	robot_modules_background.plane = HUD_PLANE
-
 	ident = rand(1, 999)
 
 	previous_health = health
@@ -912,9 +908,6 @@
 /mob/living/silicon/robot/proc/ResetModel()
 	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
 	drop_all_held_items()
-	shown_robot_modules = FALSE
-	if(hud_used)
-		hud_used.update_robot_modules_display()
 
 	if (hasExpanded)
 		hasExpanded = FALSE

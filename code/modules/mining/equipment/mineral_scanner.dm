@@ -62,9 +62,9 @@
 	speaker = !speaker
 	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
 
-/obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
-	. = ..()
-	toggle_on()
+//get no effects from the t-ray scanner, which auto-shuts off.
+/obj/item/t_scanner/adv_mining_scanner/cyborg_unequip(mob/user)
+	return
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"

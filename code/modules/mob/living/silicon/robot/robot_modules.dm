@@ -12,18 +12,20 @@
 	if(!istype(robot))
 		stack_trace("Robot model ([src]) initialized outside of a robot at [AREACOORD(robot)]! This should never happen, make sure this item is not map-placed.")
 		return INITIALIZE_HINT_QDEL
-	for(var/i in basic_modules)
-		var/obj/item/I = new i(src)
-		basic_modules += I
-		basic_modules -= i
-	for(var/i in emag_modules)
-		var/obj/item/I = new i(src)
-		emag_modules += I
-		emag_modules -= i
-	for(var/i in ratvar_modules)
-		var/obj/item/I = new i(src)
-		ratvar_modules += I
-		ratvar_modules -= i
+	create_storage(storage_type = /datum/storage/cyborg_internal_storage)
+	//src is what we store items visible to borgs, we'll store things in the bot itself otherwise.
+	for(var/path in basic_modules)
+		var/obj/item/new_module  = new path(robot)
+		basic_modules += new_module
+		basic_modules -= path
+	for(var/path in emag_modules)
+		var/obj/item/new_module  = new path(robot)
+		emag_modules += new_module
+		emag_modules -= path
+	for(var/path in ratvar_modules)
+		var/obj/item/new_module  = new path(robot)
+		ratvar_modules += new_module
+		ratvar_modules -= path
 
 /obj/item/robot_model/Destroy()
 	basic_modules.Cut()
@@ -39,10 +41,12 @@
 
 /obj/item/robot_model/proc/get_inactive_modules()
 	. = list()
-	var/mob/living/silicon/robot/robot = loc
-	for(var/m in get_usable_modules())
-		if(!(m in robot.held_items))
-			. += m
+	var/mob/living/silicon/robot/cyborg = loc
+	for(var/module in get_usable_modules())
+		if(!(module in cyborg.held_items))
+			. += module
+	if(!cyborg.emagged)
+		. += emag_modules
 
 /obj/item/robot_model/proc/add_module(obj/item/item, nonstandard, requires_rebuild)
 	if(istype(item, /obj/item/stack))
@@ -57,8 +61,8 @@
 	if(item.loc != src)
 		item.forceMove(src)
 	modules += item
-	ADD_TRAIT(item, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 	item.mouse_opacity = MOUSE_OPACITY_OPAQUE
+	item.obj_flags |= ABSTRACT
 	if(nonstandard)
 		added_modules += item
 	if(requires_rebuild)
@@ -66,46 +70,47 @@
 
 	return item
 
-/obj/item/robot_model/proc/remove_module(obj/item/item, delete_after)
+/obj/item/robot_model/proc/remove_module(obj/item/item)
 	basic_modules -= item
 	modules -= item
 	emag_modules -= item
 	ratvar_modules -= item
 	added_modules -= item
 	rebuild_modules()
-	if(delete_after)
-		qdel(item)
+	qdel(item)
 
 /obj/item/robot_model/proc/rebuild_modules() //builds the usable module list from the modules we have
-	var/mob/living/silicon/robot/robot = loc
+	var/mob/living/silicon/robot/cyborg = loc
 	if (!istype(cyborg))
 		return
-	var/held_modules = robot.held_items.Copy()
-	robot.drop_all_held_items()
+	var/list/held_modules = cyborg.held_items.Copy()
+	var/active_module = cyborg.module_active
+	//move everything out of the model's inventory
+	for(var/obj/item/module as anything in modules)
+		module.forceMove(robot)
 	modules = list()
 
 	// Default
-	for(var/obj/item/basic_module in basic_modules)
+	for(var/obj/item/basic_module as anything in basic_modules)
 		add_module(basic_module, FALSE, FALSE)
 	// Emag
-	if(robot.emagged)
-		for(var/obj/item/emag_module in emag_modules)
+	if(cyborg.emagged)
+		for(var/obj/item/emag_module as anything in emag_modules)
 			add_module(emag_module, FALSE, FALSE)
 	// Ratvar
-	if(IS_SERVANT_OF_RATVAR(robot) && !robot.ratvar)	//It just works :^)
+	if(IS_SERVANT_OF_RATVAR(robot) && !robot.ratvar) //It just works :^)
 		robot.SetRatvar(TRUE, FALSE)
 	if(robot.ratvar)
-		for(var/obj/item/ratvar_module in ratvar_modules)
+		for(var/obj/item/ratvar_module as anything in ratvar_modules)
 			add_module(ratvar_module, FALSE, FALSE)
 	// tbh I have no idea what added_modules are but they are here
-	for(var/obj/item/added_module in added_modules)
+	for(var/obj/item/added_module as anything in added_modules)
 		add_module(added_module, FALSE, FALSE)
-
-	for(var/held_module in held_modules)
-		if(held_module)
-			robot.activate_module(held_module)
-	if(robot.hud_used)
-		robot.hud_used.update_robot_modules_display()
+	for(var/obj/item/module as anything in held_modules & modules)
+		cyborg.put_in_hand(module, held_modules.Find(module))
+	if(active_module)
+		cyborg.select_module(held_modules.Find(active_module))
+	atom_storage.refresh_views()
 
 /obj/item/robot_model/proc/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
 	SHOULD_CALL_PARENT(TRUE)
@@ -196,8 +201,6 @@
 	robot.updatehealth()
 	robot.update_icons()
 	robot.notify_ai(AI_NOTIFICATION_NEW_MODEL)
-	if(robot.hud_used)
-		robot.hud_used.update_robot_modules_display()
 	SSblackbox.record_feedback("tally", "cyborg_modules", 1, robot.model)
 
 /**
@@ -366,13 +369,13 @@
 		/obj/item/soap/nanotrasen/cyborg,
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
-		/obj/item/storage/bag/trash/cyborg,
+		/obj/item/storage/bag/trash,
 		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini,
-		/obj/item/mop/cyborg,
+		/obj/item/mop,
 		/obj/item/reagent_containers/cup/bucket,
 		/obj/item/paint/paint_remover,
-		/obj/item/lightreplacer/cyborg,
+		/obj/item/lightreplacer,
 		/obj/item/holosign_creator/janibarrier,
 		/obj/item/reagent_containers/spray/cyborg/drying_agent,
 		/obj/item/reagent_containers/spray/cyborg/plantbgone,
@@ -477,7 +480,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
 		/obj/item/storage/bag/ore/cyborg,
-		/obj/item/pickaxe/drill/cyborg,
+		/obj/item/pickaxe/drill,
 		/obj/item/shovel,
 		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
@@ -755,7 +758,7 @@
 	var/mob/living/silicon/robot/robot = loc
 	robot.faction -= FACTION_SILICON //ai turrets
 
-/obj/item/robot_model/syndicate/remove_module(obj/item/I, delete_after)
+/obj/item/robot_model/syndicate/remove_module(obj/item/I)
 	. = ..()
 	var/mob/living/silicon/robot/robot = loc
 	robot.faction += FACTION_SILICON //ai is your bff now!

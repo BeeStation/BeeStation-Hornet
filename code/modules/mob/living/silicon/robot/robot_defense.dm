@@ -97,7 +97,7 @@
 		for(var/cyborg_slot in 1 to 3)
 			var/obj/item/held_module = held_items[cyborg_slot]
 			if(held_module && prob(60))
-				unequip_module_from_slot(held_module, cyborg_slot)
+				deactivate_module(held_module)
 				activate_module(pick(model.modules))
 
 		//Randomizes locked state and compounds it with cover potentially swinging open for an overall 25% chance for cover to fly open
@@ -167,6 +167,9 @@
 	connected_ai = null
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
+
+	model.rebuild_modules()
+
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [key_name(user)] emagged [name]([key])")
 	to_chat(src, span_danger("ALERT: Foreign software detected."))

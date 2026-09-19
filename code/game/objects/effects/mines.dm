@@ -346,7 +346,7 @@
 
 	victim.drop_all_held_items()
 
-	if(iscarbon(owner))
+	if(iscarbon(victim))
 		chainsaw = new(get_turf(victim))
 		ADD_TRAIT(chainsaw, TRAIT_NODROP, CHAINSAW_FRENZY_TRAIT)
 		victim.put_in_hands(chainsaw, forced = TRUE)

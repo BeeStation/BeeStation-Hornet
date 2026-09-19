@@ -93,9 +93,6 @@
 		new /obj/effect/spawner/random/trash/garbage(src)
 	update_icon_state()
 
-/obj/item/storage/bag/trash/cyborg
-	insertable = FALSE
-
 /obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)
 		J.put_in_cart(src, user)
@@ -462,6 +459,10 @@
 		I_copy.plane = FLOAT_PLANE
 		I_copy.layer = FLOAT_LAYER
 		. += I_copy
+
+/obj/item/storage/bag/tray/cyborg_unequip(mob/user)
+	. = ..()
+	atom_storage.remove_all(drop_location())
 
 /obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

@@ -104,17 +104,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 			return
 
 	if(!user.combat_mode)
-		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
+		if(I.item_flags & ABSTRACT)
 			return
-		place_item_in_disposal(I, user)
-		update_appearance()
-		return 1 //no afterattack
+		if(place_item_in_disposal(I, user))
+			update_appearance()
+			return TRUE //no afterattack
 	else
 		return ..()
 
-/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/I, mob/user)
-	I.forceMove(src)
-	user.visible_message(span_notice("[user.name] places \the [I] into \the [src]."), span_notice("You place \the [I] into \the [src]."))
+/// Moves an item into the diposal bin
+/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/disposing_item, mob/user)
+	if(!user.transferItemToLoc(disposing_item, newloc = src))
+		return FALSE
+	user.visible_message(
+		span_notice("[user.name] places \the [disposing_item] into \the [src]."),
+		span_notice("You place \the [disposing_item] into \the [src]."),
+	)
+	return TRUE
 
 //mouse drop another mob or self
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
