@@ -4,7 +4,7 @@
 	max_total_storage = 50
 	rustle_sound = FALSE
 
-/datum/storage/pockets/attempt_insert(obj/item/to_insert, mob/user, override, force)
+/datum/storage/pockets/attempt_insert(obj/item/to_insert, mob/user, override, force, messages)
 	. = ..()
 	if(!.)
 		return
@@ -48,14 +48,14 @@
 	max_total_storage,
 )
 	. = ..()
-	var/static/list/exception_cache = typecacheof(list(
+
+	set_holdable(exception_hold_list = list(
 		/obj/item/katana,
 		/obj/item/toy/katana,
 		/obj/item/nullrod/claymore/katana,
 		/obj/item/energy_katana,
 		/obj/item/gun/ballistic/automatic/tommygun,
 	))
-	exception_hold = exception_cache
 
 /datum/storage/pockets/small/fedora/detective
 	attack_hand_interact = TRUE // so the detectives would discover pockets in their hats
@@ -67,7 +67,89 @@
 	quickdraw = TRUE
 	silent = TRUE
 
-/datum/storage/pockets/shoes/clown
+/datum/storage/pockets/shoes/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
+	. = ..()
+	set_holdable(
+		can_hold_list = list(
+			/obj/item/knife,
+			/obj/item/switchblade,
+			/obj/item/pen,
+			/obj/item/flashlight/pen, //i mean cmon if a pen fits in there this does
+			/obj/item/scalpel,
+			/obj/item/dnainjector,
+			/obj/item/reagent_containers/syringe,
+			/obj/item/reagent_containers/pill,
+			/obj/item/reagent_containers/hypospray/medipen,
+			/obj/item/reagent_containers/dropper,
+			/obj/item/implanter,
+			/obj/item/screwdriver,
+			/obj/item/weldingtool/mini,
+			/obj/item/firing_pin,
+			/obj/item/suppressor,
+			/obj/item/ammo_box/magazine/m10mm,
+			/obj/item/ammo_box/magazine/m45,
+			/obj/item/ammo_box/magazine/toy/pistol,
+			/obj/item/ammo_casing,
+			/obj/item/lipstick,
+			/obj/item/cigarette,
+			/obj/item/lighter,
+			/obj/item/match,
+			/obj/item/holochip,
+			/obj/item/toy/crayon,
+			/obj/item/reagent_containers/cup/glass/flask,
+		),
+		cant_hold_list = list(
+			/obj/item/cigarette/pipe,
+			/obj/item/toy/crayon/spraycan,
+		)
+	)
+
+///Clown shoe pockets
+/datum/storage/pockets/shoes/clown/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
+	. = ..()
+	set_holdable(
+		can_hold_list = list(
+			/obj/item/ammo_box/magazine/m10mm,
+			/obj/item/ammo_box/magazine/m45,
+			/obj/item/ammo_casing,
+			/obj/item/bikehorn,
+			/obj/item/cigarette,
+			/obj/item/dnainjector,
+			/obj/item/firing_pin,
+			/obj/item/holochip,
+			/obj/item/implanter,
+			/obj/item/knife,
+			/obj/item/lighter,
+			/obj/item/lipstick,
+			/obj/item/match,
+			/obj/item/pen,
+			/obj/item/flashlight/pen,
+			/obj/item/reagent_containers/cup/glass/flask,
+			/obj/item/reagent_containers/dropper,
+			/obj/item/reagent_containers/hypospray/medipen,
+			/obj/item/reagent_containers/syringe,
+			/obj/item/scalpel,
+			/obj/item/screwdriver,
+			/obj/item/suppressor,
+			/obj/item/switchblade,
+			/obj/item/toy/crayon,
+			/obj/item/weldingtool/mini,
+		),
+		cant_hold_list = list(
+			/obj/item/cigarette/pipe,
+			/obj/item/toy/crayon/spraycan,
+		),
+	)
 
 /datum/storage/pockets/pocketprotector
 	max_slots = 3
@@ -149,20 +231,21 @@
 	max_total_storage,
 )
 	. = ..()
-	set_holdable(list(
-		/obj/item/bodypart,
-		/obj/item/clothing/neck/eldritch_amulet,
-		/obj/item/clothing/neck/heretic_focus,
-		/obj/item/codex_cicatrix,
-		/obj/item/eldritch_potion,
-		/obj/item/melee/rune_carver,
-		/obj/item/melee/sickly_blade,
-		/obj/item/organ,
-		/obj/item/reagent_containers/cup/beaker/eldritch,
-	))
-
-	var/static/list/exception_cache = typecacheof(list(
-		/obj/item/bodypart,
-		/obj/item/melee/sickly_blade,
-	))
-	exception_hold = exception_cache
+	set_holdable(
+		can_hold_list = list(
+			/obj/item/bodypart,
+			/obj/item/clothing/neck/eldritch_amulet,
+			/obj/item/clothing/neck/heretic_focus,
+			/obj/item/codex_cicatrix,
+			/obj/item/eldritch_potion,
+			/obj/item/food/grown/flower/poppy,
+			/obj/item/melee/rune_carver,
+			/obj/item/melee/sickly_blade,
+			/obj/item/organ,
+			/obj/item/reagent_containers/cup/beaker/eldritch,
+		),
+		exception_hold_list = list(
+			/obj/item/bodypart,
+			/obj/item/melee/sickly_blade
+		)
+	)

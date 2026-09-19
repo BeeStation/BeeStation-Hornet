@@ -91,6 +91,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
 	context.add_left_click_action("Open stack crafting")
 	context.add_right_click_action("Split Stack")
 
+/obj/item/stack/update_name(updates)
+	. = ..()
+	maptext = (ismob(loc) || loc?.atom_storage) ? MAPTEXT("<font color='white'>[amount]</font>") : ""
+
 /obj/item/stack/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	if((!throwing || throwing.target_turf == loc) && old_loc != loc && (flags_1 & INITIALIZED_1))

@@ -1,3 +1,10 @@
+/**
+ * Datumized Storage
+ * Eliminates the need for custom signals specifically for the storage component, and attaches a storage variable (atom_storage) to every atom.
+ * The parent and real_location variables are both weakrefs, so they must be resolved before they can be used.
+ * If you're looking to create custom storage type behaviors, check ../subtypes
+ */
+
 /datum/storage
 	/**
 	 * A reference to the atom linked to this storage object
@@ -30,6 +37,7 @@
 	/// Do not set directly, use set_holdable
 	VAR_FINAL/list/obj/item/cant_hold
 	/// Typecache of items that can always be inserted into this storage, regardless of size.
+	///Do not set directly, use set_holdable
 	VAR_FINAL/list/obj/item/exception_hold
 	/// A trait an item must have to be inserted into this storage.
 	var/can_hold_trait
@@ -40,7 +48,15 @@
 	/// Determines whether we play a rustle animation when inserting/removing items.
 	var/animated = TRUE
 	/// Determines whether we play a rustle sound when inserting/removing items.
-	var/rustle_sound = TRUE
+	var/do_rustle = TRUE
+	var/rustle_vary = TRUE
+	/// Path for the item's rustle sound.
+	var/rustle_sound = "rustle"
+	/// Path for the item's rustle sound when removing items.
+	var/remove_rustle_sound = null
+	/// The sound to play when we open/access the storage
+	var/open_sound
+	var/open_sound_vary = TRUE
 
 	/// The maximum amount of items that can be inserted into this storage.
 	var/max_slots = 7
@@ -143,7 +159,17 @@
 /datum/storage/proc/on_deconstruct()
 	SIGNAL_HANDLER
 
-	remove_all()
+	remove_all(update_storage = FALSE)
+
+/// Ran on items instantiated inside the storage, basically a chopped down version of handle_enter
+/datum/storage/proc/item_init(datum/source, obj/item/inited)
+	SIGNAL_HANDLER
+
+	if(!istype(inited))
+		return
+
+	inited.item_flags |= IN_STORAGE
+	RegisterSignal(inited, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 
 /// Automatically ran on all object insertions: flag marking and view refreshing.
 /datum/storage/proc/handle_enter(datum/source, obj/item/arrived)
@@ -197,6 +223,7 @@
 	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_deconstruct))
 	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	RegisterSignal(parent, COMSIG_ATOM_CONTENTS_WEIGHT_CLASS_CHANGED, PROC_REF(contents_changed_w_class))
+	RegisterSignal(parent, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(item_init))
 
 /**
  * Sets where items are physically being stored in the case it shouldn't be on the parent.
@@ -269,34 +296,52 @@
 /// ~Lemon
 GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
-/datum/storage/proc/set_holdable(list/can_hold_list, list/cant_hold_list)
-	if(!isnull(can_hold_list) && !islist(can_hold_list))
-		can_hold_list = list(can_hold_list)
-	if(!isnull(cant_hold_list) && !islist(cant_hold_list))
-		cant_hold_list = list(cant_hold_list)
+/**
+ * Sets what type of contents this storage supports
+ * Arguments
+ *
+ * * list/can_hold_list - The list of item types whitelisted in this storage rejecting everything else
+ * * list/cant_hold_list - The list of item types blacklisted in this storage accepting everything else
+ * * list/exception_hold_list - The list of items that can exceed `max_specific_storage`. It can only fit `exception_count` of such items
+ */
+/datum/storage/proc/set_holdable(list/can_hold_list, list/cant_hold_list, list/exception_hold_list)
+	can_hold = null
 
 	if (!isnull(can_hold_list))
-		can_hold_description = generate_hold_desc(can_hold_list)
+		if(!islist(can_hold_list))
+			can_hold_list = list(can_hold_list)
 
 		var/unique_key = can_hold_list.Join("-")
 		if(!GLOB.cached_storage_typecaches[unique_key])
 			GLOB.cached_storage_typecaches[unique_key] = typecacheof(can_hold_list)
 		can_hold = GLOB.cached_storage_typecaches[unique_key]
 
+	cant_hold = null
 	if (!isnull(cant_hold_list))
+		if(!islist(cant_hold_list))
+			cant_hold_list = list(cant_hold_list)
+
 		var/unique_key = cant_hold_list.Join("-")
 		if(!GLOB.cached_storage_typecaches[unique_key])
 			GLOB.cached_storage_typecaches[unique_key] = typecacheof(cant_hold_list)
 		cant_hold = GLOB.cached_storage_typecaches[unique_key]
 
-/// Generates a description, primarily for clothing storage.
-/datum/storage/proc/generate_hold_desc(can_hold_list)
-	var/list/desc = list()
+	exception_hold = null
+	if (!isnull(exception_hold_list))
+		if(!islist(exception_hold_list))
+			exception_hold_list = list(exception_hold_list)
 
-	for(var/obj/item/valid_item as anything in can_hold_list)
-		desc += "\a [initial(valid_item.name)]"
+		var/unique_key = exception_hold_list.Join("-")
+		if(!GLOB.cached_storage_typecaches[unique_key])
+			GLOB.cached_storage_typecaches[unique_key] = typecacheof(exception_hold_list)
+		exception_hold = GLOB.cached_storage_typecaches[unique_key]
 
-	return "\n\t[span_notice("[desc.Join("\n\t")]")]"
+	can_hold_description = null
+	if(length(can_hold_list))
+		var/list/desc = list()
+		for(var/obj/item/valid_item as anything in can_hold_list)
+			desc += "\a [initial(valid_item.name)]"
+		can_hold_description = "\n\t[span_notice("[desc.Join("\n\t")]")]"
 
 /// Updates the action button for toggling collectmode.
 /datum/storage/proc/update_actions(atom/source, mob/equipper, slot)
@@ -321,7 +366,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	thing.plane = initial(thing.plane)
 	thing.mouse_opacity = initial(thing.mouse_opacity)
 	thing.screen_loc = null
-	if(thing.maptext)
+	if(numerical_stacking)
 		thing.maptext = ""
 
 /**
@@ -427,11 +472,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * * mob/user - (optional) the user who is inserting the item.
  * * override - see item_insertion_feedback()
  * * force - bypass locked storage up to a certain level. See [code/__DEFINES/storage.dm]
+ * * messages - if TRUE, we will create balloon alerts for the user.
  */
-/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = STORAGE_NOT_LOCKED)
+/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = STORAGE_NOT_LOCKED, messages = TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if(!can_insert(to_insert, user, force = force))
+	if(!can_insert(to_insert, user, messages = messages, force = force))
+		return FALSE
+	if(SEND_SIGNAL(parent, COMSIG_ATOM_PRE_STORED_ITEM, to_insert, user, force, messages) & BLOCK_STORAGE_INSERT)
 		return FALSE
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_STORED_ITEM, to_insert, user, force)
@@ -531,8 +579,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * * obj/item/thing - the object we're removing
  * * atom/remove_to_loc - where we're placing the item
  * * silent - if TRUE, we won't play any exit sounds
+ * * visual_updates - if TRUE we update storage views & animate parent appearance
  */
-/datum/storage/proc/attempt_remove(obj/item/thing, atom/remove_to_loc, silent = FALSE)
+/datum/storage/proc/attempt_remove(obj/item/thing, atom/remove_to_loc, silent = FALSE, visual_updates = TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
 	if(istype(thing) && ismob(parent.loc))
@@ -543,16 +592,20 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		reset_item(thing)
 		thing.forceMove(remove_to_loc)
 
-		if(rustle_sound && !silent)
-			playsound(parent, "rustle", 50, TRUE, -5)
+		if(!silent && rustle_sound)
+			if(remove_rustle_sound)
+				playsound(parent, remove_rustle_sound, 50, TRUE, -5)
+			else if(rustle_sound)
+				playsound(parent, rustle_sound, 50, TRUE, -5)
 	else
 		thing.moveToNullspace()
 
-	if(animated)
-		animate_parent()
+	if(visual_updates)
+		if(animated)
+			animate_parent()
 
-	refresh_views()
-	parent.update_appearance()
+		refresh_views()
+		parent.update_appearance()
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_REMOVED_ITEM, thing, remove_to_loc, silent)
 	SEND_SIGNAL(src, COMSIG_STORAGE_REMOVED_ITEM, thing, remove_to_loc, silent)
@@ -563,10 +616,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  *
  * Arguments
  * * atom/drop_loc - where we're placing the item
+ * * update_storage - should we update the parent to show visual effects
  */
-/datum/storage/proc/remove_all(atom/drop_loc = parent.drop_location())
+/datum/storage/proc/remove_all(atom/drop_loc = parent.drop_location(), update_storage = TRUE)
 	for(var/obj/item/thing in real_location)
-		if(!attempt_remove(thing, drop_loc, silent = TRUE))
+		if(!attempt_remove(thing, drop_loc, silent = TRUE, visual_updates = update_storage))
 			continue
 		thing.pixel_x = thing.base_pixel_x + rand(-8, 8)
 		thing.pixel_y = thing.base_pixel_y + rand(-8, 8)
@@ -1088,6 +1142,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	SIGNAL_HANDLER
 
 	toggle_collection_mode(triggered.owner)
+
+	return COMPONENT_ACTION_BLOCK_TRIGGER
 
 /datum/storage/proc/action_deleted(datum/source)
 	SIGNAL_HANDLER
