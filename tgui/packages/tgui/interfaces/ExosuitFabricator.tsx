@@ -7,6 +7,7 @@ import { DesignBrowser } from './Fabrication/DesignBrowser';
 import { MaterialAccessBar } from './Fabrication/MaterialAccessBar';
 import { MaterialCostSequence } from './Fabrication/MaterialCostSequence';
 import { Design, Material, MaterialMap } from './Fabrication/Types';
+import { affordableAmount } from './Fabricator';
 
 type QueueJob = {
   jobId: string;
@@ -83,8 +84,8 @@ const Recipe = (props: { design: Design; available: MaterialMap }) => {
   const canBuild = !Object.entries(props.design.cost).some(
     ([material, cost]) => cost > (props.available[material] || 0),
   );
-  const queue = (now = false) =>
-    act('build', { designs: [props.design.id], ...(now && { now: true }) });
+  const queue = (amount = 1) =>
+    act('queue_item', { design_id: props.design.id, amount });
 
   return (
     <div className="FabricatorRecipe">
@@ -113,7 +114,7 @@ const Recipe = (props: { design: Design; available: MaterialMap }) => {
             'FabricatorRecipe__Title',
             !canBuild && 'FabricatorRecipe__Title--disabled',
           ])}
-          onClick={() => queue(true)}
+          onClick={() => queue()}
         >
           <div className="FabricatorRecipe__Icon">
             <Box
@@ -137,18 +138,29 @@ const Recipe = (props: { design: Design; available: MaterialMap }) => {
           <Icon name="plus-circle" />
         </div>
       </Tooltip>
-      <Tooltip content="Build Now" position="right">
-        <div
-          className={classes([
-            'FabricatorRecipe__Button',
-            'FabricatorRecipe__Button--icon',
-            !canBuild && 'FabricatorRecipe__Button--disabled',
-          ])}
-          onClick={() => queue(true)}
-        >
-          <Icon name="play" />
-        </div>
-      </Tooltip>
+      <CustomQueue design={props.design} available={props.available} />
+    </div>
+  );
+};
+
+const CustomQueue = (props: { design: Design; available: MaterialMap }) => {
+  const { act } = useBackend<Data>();
+  const max = affordableAmount(props.design, props.available);
+
+  return (
+    <div
+      className={classes([
+        'FabricatorRecipe__Button',
+        max < 1 && 'FabricatorRecipe__Button--disabled',
+      ])}
+    >
+      <Button.Input
+        color="transparent"
+        content={`×${max}`}
+        onCommit={(_event, value: string) =>
+          act('queue_item', { design_id: props.design.id, amount: value })
+        }
+      />
     </div>
   );
 };
