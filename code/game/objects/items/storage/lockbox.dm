@@ -17,7 +17,11 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 	atom_storage.max_total_storage = 14
 	atom_storage.max_slots = 4
-	atom_storage.locked = STORAGE_FULLY_LOCKED
+	atom_storage.set_locked(STORAGE_FULLY_LOCKED)
+
+/obj/item/storage/lockbox/proc/toggle_locked(mob/living/user)
+	atom_storage.set_locked(atom_storage.locked ? STORAGE_NOT_LOCKED : STORAGE_FULLY_LOCKED)
+	balloon_alert(user, atom_storage.locked ? "locked" : "unlocked")
 
 /obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
 	var/locked = atom_storage.locked
@@ -26,11 +30,7 @@
 			to_chat(user, span_danger("It appears to be broken."))
 			return
 		if(allowed(user))
-			if(atom_storage.locked)
-				atom_storage.locked = STORAGE_NOT_LOCKED
-			else
-				atom_storage.locked = STORAGE_FULLY_LOCKED
-			locked = atom_storage.locked
+			toggle_locked(user)
 			if(locked)
 				icon_state = "[base_icon_state]+l"
 				inhand_icon_state = "[base_icon_state]+l"
@@ -56,7 +56,7 @@
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
 	broken = TRUE
-	atom_storage.locked = STORAGE_NOT_LOCKED
+	atom_storage.set_locked(STORAGE_NOT_LOCKED)
 	desc += "It appears to be broken."
 	icon_state = "[src.base_icon_state]+b"
 	inhand_icon_state = "[src.base_icon_state]+b"

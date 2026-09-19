@@ -29,6 +29,8 @@
 	VAR_FINAL/list/obj/item/cant_hold
 	/// Typecache of items that can always be inserted into this storage, regardless of size.
 	VAR_FINAL/list/obj/item/exception_hold
+	/// A trait an item must have to be inserted into this storage.
+	var/can_hold_trait
 	/// For use with an exception typecache:
 	/// The maximum amount of items of the exception type that can be inserted into this storage.
 	var/exception_max = INFINITY
@@ -125,7 +127,7 @@
 
 /datum/storage/Destroy()
 
-	for(var/mob/person in is_using)
+	for(var/mob/person as anything in is_using)
 		hide_contents(person)
 
 	is_using.Cut()
@@ -272,8 +274,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		cant_hold_list = list(cant_hold_list)
 
 	if (!isnull(can_hold_list))
-		if(isnull(can_hold_description))
-			can_hold_description = generate_hold_desc(can_hold_list)
+		can_hold_description = generate_hold_desc(can_hold_list)
 
 		var/unique_key = can_hold_list.Join("-")
 		if(!GLOB.cached_storage_typecaches[unique_key])
@@ -373,7 +374,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/can_hold_it = isnull(can_hold) || is_type_in_typecache(to_insert, can_hold) || is_type_in_typecache(to_insert, exception_hold)
 	var/cant_hold_it = is_type_in_typecache(to_insert, cant_hold)
 	var/trait_says_no = HAS_TRAIT(to_insert, TRAIT_NO_STORAGE_INSERT)
-	if(!can_hold_it || cant_hold_it || trait_says_no)
+	var/missing_trait = !isnull(can_hold_trait) && !HAS_TRAIT(to_insert, can_hold_trait)
+	if(!can_hold_it || cant_hold_it || trait_says_no || missing_trait)
 		if(messages && user)
 			user.balloon_alert(user, "can't hold!")
 		return FALSE
@@ -444,7 +446,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if (src != user.active_storage)
 		return
 
-	if (!user.can_perform_action(parent, FORBID_TELEKINESIS_REACH))
+	if (!user.canUseTopic(parent, be_close = TRUE, no_tk = TRUE))
 		return
 
 	if (target.loc != real_location) // what even
@@ -644,7 +646,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/remove_and_refresh(atom/movable/gone)
 	SIGNAL_HANDLER
 
-	for(var/mob/user in is_using)
+	for(var/mob/user as anything in is_using)
 		if(user.client)
 			var/client/cuser = user.client
 			cuser.screen -= gone
@@ -773,7 +775,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(istype(over_object, /atom/movable/screen))
 		return
 
-	if(!user.can_perform_action(over_object, FORBID_TELEKINESIS_REACH))
+	if(!user.canUseTopic(over_object, be_close = TRUE, no_tk = TRUE))
 		return
 
 	parent.add_fingerprint(user)
@@ -975,8 +977,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 /// Close the storage UI for everyone viewing us.
 /datum/storage/proc/close_all()
-	for(var/mob/user in is_using)
+	for(var/mob/user as anything in is_using)
 		hide_contents(user)
+
+/// Closes the storage UIs of this and everything inside the parent for everyone viewing them.
+/datum/storage/proc/close_all_recursive()
+	close_all()
+	for(var/atom/movable/movable as anything in parent.GetAllContents())
+		movable.atom_storage?.close_all()
 
 /// Refresh the views of everyone currently viewing the storage.
 /datum/storage/proc/refresh_views()
@@ -1139,3 +1147,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	changed.visible_message(span_warning("[changed] falls out of [parent]!"), vision_distance = COMBAT_MESSAGE_RANGE)
+
+///Assign a new value to the locked variable. If it's higher than NOT_LOCKED, close the UIs and update the appearance of the parent.
+/datum/storage/proc/set_locked(new_locked)
+	if(locked == new_locked)
+		return
+	locked = new_locked
+	if(new_locked > STORAGE_NOT_LOCKED)
+		close_all_recursive()
+	parent.update_appearance()

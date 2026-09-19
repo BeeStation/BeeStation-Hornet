@@ -66,7 +66,7 @@
 
 	var/mob/dropped_from = U.loc
 	if(istype(dropped_from))
-		on_uniform_dropped(U, dropped_from, update = update)
+		on_uniform_dropped(U, dropped_from)
 
 	layer = initial(layer)
 	plane = initial(plane)

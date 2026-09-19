@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(movement)
 /datum/controller/subsystem/movement/proc/add_loop(datum/move_loop/add)
 	if(add.status & MOVELOOP_STATUS_QUEUED)
 		CRASH("Loop being added that is already queued.")
-	add.loop_started()
+	add.start_loop()
 	if(QDELETED(add) || add.status & MOVELOOP_STATUS_QUEUED)
 		return
 	queue_loop(add)

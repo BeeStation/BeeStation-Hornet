@@ -276,7 +276,7 @@ atom/movable/screen/Destroy()
 /atom/movable/screen/close
 	name = "close"
 	plane = ABOVE_HUD_PLANE
-	icon = 'icons/hud/screen_midnight.dmi'
+	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "storage_close"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
@@ -469,13 +469,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 /atom/movable/screen/storage/cell
 
-/atom/movable/screen/storage/cell/mouse_drop_receive(atom/target, mob/living/user, params)
+/atom/movable/screen/storage/cell/MouseDrop_T(atom/target, mob/living/user, params)
 	var/datum/storage/storage = master_ref?.resolve()
 
 	if (isnull(storage) || !istype(user) || storage != user.active_storage)
 		return
 
-	if (!user.can_perform_action(storage.parent, FORBID_TELEKINESIS_REACH))
+	if (!user.canUseTopic(storage.parent, be_close = TRUE, no_tk = TRUE))
 		return
 
 	if (target.loc != storage.real_location)
