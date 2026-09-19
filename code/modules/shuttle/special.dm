@@ -159,14 +159,15 @@
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id(src)
-	access_card.access = get_all_accesses()
+	access_card.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
 	access_card.access |= ACCESS_CENT_BAR
+
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Destroy()
-	qdel(access_card)
-	. = ..()
+	QDEL_NULL(access_card)
+	return ..()
 
 // Bar table, a wooden table that kicks you in a direction if you're not
 // barstaff (defined as someone who was a roundstart bartender or someone

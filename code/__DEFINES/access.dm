@@ -119,3 +119,62 @@
 #define ACCESS_MECH_SECURITY 302
 #define ACCESS_MECH_SCIENCE 303
 #define ACCESS_MECH_ENGINE 304
+
+/// Displayed name for Common ID card accesses.
+#define ACCESS_FLAG_COMMON_NAME "Common"
+/// Bitflag for Common ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_COMMON (1 << 0)
+/// Displayed name for Command ID card accesses.
+#define ACCESS_FLAG_COMMAND_NAME "Command"
+/// Bitflag for Command ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_COMMAND (1 << 1)
+/// Displayed name for Private Command ID card accesses.
+#define ACCESS_FLAG_PRV_COMMAND_NAME "Private Command"
+/// Bitflag for Private Command ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_PRV_COMMAND (1 << 2)
+/// Displayed name for Captain ID card accesses.
+#define ACCESS_FLAG_CAPTAIN_NAME "Captain"
+/// Bitflag for Captain ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_CAPTAIN (1 << 3)
+/// Displayed name for Centcom ID card accesses.
+#define ACCESS_FLAG_CENTCOM_NAME "Centcom"
+/// Bitflag for Centcom ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_CENTCOM (1 << 4)
+/// Displayed name for Syndicate ID card accesses.
+#define ACCESS_FLAG_SYNDICATE_NAME "Syndicate"
+/// Bitflag for Syndicate ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_SYNDICATE (1 << 5)
+/// Displayed name for Offstation/Ruin/Away Mission ID card accesses.
+#define ACCESS_FLAG_AWAY_NAME "Away"
+/// Bitflag for Offstation/Ruin/Away Mission ID card accesses. See generate_accesses_by_flag().
+#define ACCESS_FLAG_AWAY (1 << 6)
+/// Displayed name for Special accesses that ordinaryily shouldn't be on ID cards.
+#define ACCESS_FLAG_SPECIAL_NAME "Special"
+/// Bitflag for Special accesses that ordinaryily shouldn't be on ID cards. See generate_accesses_by_flag().
+#define ACCESS_FLAG_SPECIAL (1 << 7)
+
+/// Every access flag tier that only a CentCom ID console may manipulate.
+#define ACCESS_FLAG_CENTCOM_LEVEL (ACCESS_FLAG_CENTCOM | ACCESS_FLAG_SYNDICATE | ACCESS_FLAG_AWAY | ACCESS_FLAG_SPECIAL)
+
+/// Name for the Global region.
+#define REGION_ALL_GLOBAL "All"
+/// Name for the Station All Access region.
+#define REGION_ALL_STATION "Station"
+/// Name for the General region.
+#define REGION_GENERAL "General"
+/// Name for the Security region.
+#define REGION_SECURITY "Security"
+/// Name for the Medbay region.
+#define REGION_MEDBAY "Medbay"
+/// Name for the Research region.
+#define REGION_RESEARCH "Research"
+/// Name for the Engineering region.
+#define REGION_ENGINEERING "Engineering"
+/// Name for the Supply region.
+#define REGION_SUPPLY "Supply"
+/// Name for the Command region.
+#define REGION_COMMAND "Command"
+/// Name for the Centcom region.
+#define REGION_CENTCOM "Central Command"
+/// Name for the region holding syndicate, away mission and cult accesses.
+#define REGION_OTHER "??? (Admin)"

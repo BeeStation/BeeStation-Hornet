@@ -638,7 +638,7 @@
 				open()
 			else
 				req_access = list()
-				req_access |= pick(get_all_accesses())
+				req_access |= pick(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)))
 
 /obj/structure/closet/contents_explosion(severity, target)
 	// Generate the contents if we haven't already
