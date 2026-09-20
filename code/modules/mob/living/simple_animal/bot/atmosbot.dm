@@ -63,6 +63,8 @@
 	)
 	// Have we spoken our alert yet?
 	var/has_spoken = FALSE
+	// Are we allowed to speak in engineering comms?
+	var/radio_alerts = TRUE
 	//Tank type
 	var/tank_type = /obj/item/tank/internals/oxygen/empty
 	// The range that our atmos operations act on
@@ -190,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			return
 
 /mob/living/simple_animal/bot/atmosbot/proc/attempt_speak(message)
-	if (has_spoken || last_speech > world.time + 3 MINUTES)
+	if (!radio_alerts || has_spoken || world.time < last_speech + 3 MINUTES)
 		return
 	has_spoken = TRUE
 	last_speech = world.time
@@ -199,7 +201,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 /mob/living/simple_animal/bot/atmosbot/proc/change_temperature()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	environment.temperature = (ideal_temperature)
+	environment.temperature = ideal_temperature
+	T.air_update_turf(FALSE, FALSE)
 
 /mob/living/simple_animal/bot/atmosbot/proc/vent_air()
 	//Just start pumping out air
@@ -221,7 +224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 					/datum/gas/nitrogen = transfer_moles * 0.7885,
 					/datum/gas/oxygen = transfer_moles * 0.2115,
 				))
-			air_update_turf(FALSE, FALSE)
+			T.air_update_turf(FALSE, FALSE)
 	new /obj/effect/temp_visual/vent_wind(get_turf(src))
 
 /mob/living/simple_animal/bot/atmosbot/proc/scrub_toxins()
@@ -235,10 +238,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			if(gas_enabled)
 				cached_moles[gas_type] -= ATMOSBOT_MAX_SCRUB_CHANGE
 		environment.garbage_collect()
+		T.air_update_turf(FALSE, FALSE)
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
-	if(deployed_holobarrier)
-		qdel(deployed_holobarrier.resolve())
+	var/obj/structure/holosign/barrier/atmos/old_barrier = deployed_holobarrier?.resolve()
+	if(old_barrier)
+		qdel(old_barrier)
 	deployed_holobarrier = WEAKREF(new /obj/structure/holosign/barrier/atmos(get_turf(src)))
 	last_barrier_tick = world.time
 
@@ -272,9 +277,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		break
 	if(!target_turf.can_atmos_pass(target_turf) || blocked)
 		//Pressumable from being inside a holobarrier, move somewhere nearby
-		var/turf/open/floor/floor_turf = pick(view(3, src))
-		if(floor_turf && istype(floor_turf))
-			target_turf = floor_turf
+		var/list/candidates = list()
+		for(var/turf/open/floor/floor_turf in view(3, src))
+			if(!floor_turf.can_atmos_pass(floor_turf))
+				continue
+			if(locate(/obj/structure/holosign/barrier/atmos) in floor_turf)
+				continue
+			candidates += floor_turf
+		if(length(candidates))
+			target_turf = pick(candidates)
 	return target_turf
 
 //Returns the closest turf that needs a holoprojection set up
@@ -308,7 +319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			var/turf/adjacent_turf = get_step(checking_turf, direction)
 			if((adjacent_turf in checked_turfs) || !(adjacent_turf.can_atmos_pass(adjacent_turf)))
 				continue
-			var/datum/gas_mixture/checking_air = checking_turf.return_air()
+			var/datum/gas_mixture/checking_air = adjacent_turf.return_air()
 			if (!checking_air)
 				continue
 			var/checking_pressure = checking_air.return_pressure()
@@ -324,7 +335,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		data["custom_controls"]["breach_pressure"] = breached_pressure
 		data["custom_controls"]["temperature_control"] = temperature_control
 		data["custom_controls"]["ideal_temperature"] = ideal_temperature
-		data["custom_controls"]["scrub_gasses"] = gasses
+		data["custom_controls"]["radio_alerts"] = radio_alerts
+		var/list/scrubbed_gasses = list()
+		for(var/gas_type, gas_enabled in gasses)
+			scrubbed_gasses[GLOB.meta_gas_info[META_GAS_ID][gas_type]] = gas_enabled
+		data["custom_controls"]["scrub_gasses"] = scrubbed_gasses
 	return data
 
 /mob/living/simple_animal/bot/atmosbot/ui_act(action, params)
@@ -335,18 +350,25 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			var/adjust_num = round(text2num(params["pressure"]))
 			adjust_num = clamp(adjust_num, 0, 100)
 			breached_pressure = adjust_num
+			return TRUE
 		if("temperature_control")
 			temperature_control = !temperature_control
+			return TRUE
+		if("radio_alerts")
+			radio_alerts = !radio_alerts // Shut yo bitch ass, stop spamming my comms
+			return TRUE
 		if("ideal_temperature")
 			var/adjust_num = round(text2num(params["temperature"]))
 			adjust_num = clamp(adjust_num, T0C, T20C + 20)
 			ideal_temperature = adjust_num
+			return TRUE
 		if("scrub_gasses")
-			var/id = params["id"]
-			for(var/gas_id in gasses)
-				if (gas_id == id)
-					gasses[id] = !gasses[id]
-	update_icon()
+			var/gas_path = gas_id2path(params["id"])
+			if(!(gas_path in gasses)) // An unknown gas id changes nothing, so don't claim the UI needs updating
+				return FALSE
+			gasses[gas_path] = !gasses[gas_path]
+			return TRUE
+	update_appearance(UPDATE_ICON)
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()
 	if(action == ATMOSBOT_VENT_AIR && emagged == 2)
@@ -372,8 +394,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 	if(tank && GM)
 		GM.merge(tank.air_contents)
 		new /obj/effect/temp_visual/vent_wind(Tsec)
-	if(deployed_holobarrier)
-		qdel(deployed_holobarrier.resolve())
+	var/obj/structure/holosign/barrier/atmos/old_barrier = deployed_holobarrier?.resolve()
+	if(old_barrier)
+		qdel(old_barrier)
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
