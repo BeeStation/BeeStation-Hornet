@@ -169,3 +169,14 @@
   Isaac:
   - bugfix: Monkeys wont track you through walls forever, only when you're back in
       their view
+  - bugfix: Pets put into the deep fryer no longer dissapear
+  - bugfix: Jitterness (from modafinil and similar) no longer cancels leaning animation
+  - bugfix: Leaning on a shuttle no longer flings you out of the shuttle when it departs.
+  - bugfix: Masks cover your mouth again
+  - bugfix: Hitting a ninja net will have priority over yourself, should be easier
+      to free someone and yourself from it
+  - bugfix: Cats no longer keep activating combat mode constantly over having a mice
+      on their mouth
+  - bugfix: Oxygen Candles work again, including hellfire candles
+  - rscadd: Atmosbos have an option to stop speaking into engineering radio, aswell
+      as being a bit more efficient
