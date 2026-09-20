@@ -150,16 +150,6 @@
 	fire = 100
 	acid = 100
 
-/obj/item/melee/sabre/mime/on_exit_storage(datum/storage/container)
-	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
-	if(istype(sabre))
-		playsound(sabre, 'sound/items/unsheath.ogg', 25, TRUE)
-
-/obj/item/melee/sabre/on_enter_storage(datum/storage/container)
-	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
-	if(istype(sabre))
-		playsound(sabre, 'sound/items/sheath.ogg', 25, TRUE)
-
 // Supermatter Sword
 /obj/item/melee/supermatter_sword
 	name = "supermatter sword"
