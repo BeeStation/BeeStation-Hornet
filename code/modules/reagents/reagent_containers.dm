@@ -99,8 +99,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	mode_change_message(user)
 
 /obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
-	if(!user.combat_mode)
-		return NONE // non-combat-mode-rmb allows for stuff like opening containers or attacking (bottle breaking)
 	if(try_splash(user, interacting_with))
 		return ITEM_INTERACT_SUCCESS
 	return NONE

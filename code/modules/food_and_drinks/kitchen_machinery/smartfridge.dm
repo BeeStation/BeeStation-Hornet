@@ -734,7 +734,7 @@
 		return FALSE
 
 	// empty pill prank ok
-	if(istype(weapon, /obj/item/reagent_containers/applicator/pill))
+	if(istype(weapon, /obj/item/reagent_containers/applicator))
 		return TRUE
 
 	//check each pill in the pill bottle

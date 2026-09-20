@@ -117,7 +117,6 @@
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
 
-
 /// You fall on your face if you get teleported while leaning
 /mob/living/proc/teleport_away_while_leaning(datum/source)
 	SIGNAL_HANDLER

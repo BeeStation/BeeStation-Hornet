@@ -19,7 +19,7 @@
 		/obj/item/flashlight/pen,
 		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/applicator/pill,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/paper,
 		/obj/item/melee/baton/telescopic,

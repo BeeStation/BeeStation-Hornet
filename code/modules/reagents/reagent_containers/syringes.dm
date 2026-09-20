@@ -2,38 +2,39 @@
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
+	icon_state = "syringe_0"
 	inhand_icon_state = "syringe_0"
 	base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	icon_state = "syringe_0"
+	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
+	initial_reagent_flags = TRANSPARENT
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
-	/// does it pierce through thick clothes when shot with syringe gun
+
+	/// Does it pierce through thick clothes when shot with syringe gun
 	var/proj_piercing = FALSE
-	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
-	initial_reagent_flags = TRANSPARENT
-	var/list/datum/disease/syringe_diseases = list()
+	/// Lazy list of the diseases contained inside of this syringe
+	var/list/datum/disease/syringe_diseases
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
-	fill_icon_state = "syringe"
-	fill_icon_thresholds = list(1, 5, 10, 15)
 
-/obj/item/reagent_containers/syringe/add_context_self(datum/screentip_context/context, mob/living/user)
-	context.use_cache()
-	context.add_left_click_action("Inject")
-	context.add_right_click_action("Draw")
+/obj/item/reagent_containers/syringe/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+	if(!isnull(target.reagents))
+		context.add_left_click_action("Inject")
+		context.add_right_click_action("Draw")
 
-/obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
-	for(var/datum/disease/D in syringe_diseases)
-		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+/obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/humble_recipient)
+	if(LAZYLEN(syringe_diseases))
+		for(var/datum/disease/aids in syringe_diseases)
+			if((aids.spread_flags & DISEASE_SPREAD_SPECIAL) || (aids.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+				continue
+			humble_recipient.ForceContractDisease(aids)
+	for(var/datum/disease/other_aids in humble_recipient.diseases)
+		if((other_aids.spread_flags & DISEASE_SPREAD_SPECIAL) || (other_aids.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 			continue
-		L.ForceContractDisease(D)
-	for(var/datum/disease/D in L.diseases)
-		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-			continue
-		syringe_diseases += D
+		LAZYADD(syringe_diseases, other_aids)
 
 /obj/item/reagent_containers/syringe/proc/try_syringe(atom/target, mob/user)
 	if(!target.reagents)
@@ -94,8 +95,11 @@
 		else
 			log_combat(user, living_target, "injected", src, addition="which had [contained]")
 
-	if(reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, method = INJECT))
-		to_chat(user, span_notice("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))
+		transfer_diseases(living_target)
+
+	var/actual_transfer_amount = min(amount_per_transfer_from_this, reagents.total_volume)
+	if(reagents.trans_to(target, actual_transfer_amount, transfered_by = user, method = INJECT))
+		to_chat(user, span_notice("You inject [actual_transfer_amount] units of the solution. The syringe now contains [reagents.total_volume] units."))
 		target.update_appearance()
 		return ITEM_INTERACT_SUCCESS
 
@@ -167,16 +171,16 @@
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
-	var/list/reagent_overlays = update_reagent_overlay()
-	if(reagent_overlays)
-		. += reagent_overlays
+	var/mutable_appearance/reagent_overlay = get_reagent_overlay()
+	if(reagent_overlay)
+		. += reagent_overlay
 
 /// Returns a list of overlays to add that relate to the reagents inside the syringe
-/obj/item/reagent_containers/syringe/proc/update_reagent_overlay()
+/obj/item/reagent_containers/syringe/proc/get_reagent_overlay()
 	if(reagents?.total_volume)
 		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[get_rounded_vol()]")
 		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
-		. += filling_overlay
+		return filling_overlay
 
 ///Used by update_appearance() and update_overlays()
 /obj/item/reagent_containers/syringe/proc/get_rounded_vol()
@@ -195,8 +199,7 @@
 /obj/item/reagent_containers/syringe/used/Initialize(mapload)
 	. = ..()
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(7, 9), rand(3,4), infected = src)
-		syringe_diseases += R
+		syringe_diseases = list(new /datum/disease/advance/random(rand(3, 6), rand(7, 9), rand(3,4), infected = src))
 
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "syringe (epinephrine)"
