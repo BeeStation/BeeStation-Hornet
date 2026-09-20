@@ -364,9 +364,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			return TRUE
 		if("scrub_gasses")
 			var/gas_path = gas_id2path(params["id"])
-			if(gas_path in gasses)
-				gasses[gas_path] = !gasses[gas_path]
+			if(!(gas_path in gasses)) // An unknown gas id changes nothing, so don't claim the UI needs updating
+				return FALSE
+			gasses[gas_path] = !gasses[gas_path]
 			return TRUE
+	update_appearance(UPDATE_ICON)
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()
 	if(action == ATMOSBOT_VENT_AIR && emagged == 2)
