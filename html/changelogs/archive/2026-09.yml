@@ -165,3 +165,7 @@
       disposals if you hit them
   - bugfix: Monkey "Flee" AI will properly turn off when dead
   - bugfix: Monkey will no longer drop anything they try to eat on the floor
+2026-09-20:
+  Isaac:
+  - bugfix: Monkeys wont track you through walls forever, only when you're back in
+      their view
