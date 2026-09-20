@@ -105,21 +105,15 @@
 
 //Proc to use when you 100% want to try to infect someone (ignoreing protective clothing and such), as long as they aren't immune
 /mob/living/proc/ForceContractDisease(datum/disease/D, make_copy = TRUE, del_on_fail = FALSE)
-	if(!CanContractDisease(D))
-		if(del_on_fail)
-			qdel(D)
-		return FALSE
-	if(!D.try_infect(src, make_copy))
+	if(!CanContractDisease(D) || !D.try_infect(src, make_copy))
 		if(del_on_fail)
 			qdel(D)
 		return FALSE
 	return TRUE
 
-
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
-	if(dna)
-		if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
-			return FALSE
+	if(dna && HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity)
+		return FALSE
 
 	for(var/thing in D.required_organs)
 		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
