@@ -94,6 +94,8 @@
 		COMSIG_LIVING_RESTING_UPDATED //If we are downed
 	), PROC_REF(stop_leaning))
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(fall_z_change))
+	RegisterSignal(lean_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(fall_z_change))
 	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(fall_into))
 	RegisterSignal(lean_target, COMSIG_MOVABLE_MOVED, PROC_REF(fall_into_ex_turf))
 	RegisterSignal(lean_target, COMSIG_VEHICLE_MOVE, PROC_REF(fall_into_ex_turf))
@@ -109,9 +111,10 @@
 		COMSIG_QDELETING,
 		COMSIG_LIVING_RESIST,
 		COMSIG_LIVING_MINOR_SHOCK,
-		COMSIG_LIVING_RESTING_UPDATED
+		COMSIG_LIVING_RESTING_UPDATED,
+		COMSIG_MOVABLE_Z_CHANGED
 	))
-	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED))
+	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_Z_CHANGED))
 	leaned_object = null
 	remove_offsets(LEANING_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
@@ -133,14 +136,13 @@
 		return
 	fall_forced(get_turf(source))
 
+/mob/living/proc/fall_z_change(datum/source, old_z, new_z) // Whatever we were leaning on changed Z level, there's nothing to lean on anymore
+	SIGNAL_HANDLER
+	fall(get_turf(src))
+
 /mob/living/proc/fall_into_ex_turf(datum/source, atom/old_loc, direction)
 	SIGNAL_HANDLER
-	var/turf/vacated_turf = get_turf(old_loc)
-	var/turf/new_turf = get_turf(source)
-	if(isnull(vacated_turf) || isnull(new_turf) || vacated_turf.z != new_turf.z || get_dist(vacated_turf, new_turf) > 1) // Shuttles take everything with them, if we're leaning that wouldn't take us aswell but the turfs.. so we'll fall.. to nowhere?
-		stop_leaning() // Better than to stop falling out of the shuttle, we'll stop leaning before this happens
-		return
-	fall(vacated_turf)
+	fall(get_turf(old_loc))
 
 /mob/living/proc/fall(location)
 	stop_leaning() // Make sure we unregister signal handlers and reset animation

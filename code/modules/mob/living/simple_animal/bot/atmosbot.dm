@@ -236,12 +236,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 		var/list/cached_moles = environment.moles
 		for(var/gas_type, gas_enabled in gasses)
 			if(gas_enabled)
-				cached_moles[gas_type] = max(cached_moles[gas_type] - ATMOSBOT_MAX_SCRUB_CHANGE, 0)
+				cached_moles[gas_type] -= ATMOSBOT_MAX_SCRUB_CHANGE
 		environment.garbage_collect()
 		T.air_update_turf(FALSE, FALSE)
 
 /mob/living/simple_animal/bot/atmosbot/proc/deploy_holobarrier()
-	qdel(deployed_holobarrier?.resolve())
+	var/obj/structure/holosign/barrier/atmos/old_barrier = deployed_holobarrier?.resolve()
+	if(old_barrier)
+		qdel(old_barrier)
 	deployed_holobarrier = WEAKREF(new /obj/structure/holosign/barrier/atmos(get_turf(src)))
 	last_barrier_tick = world.time
 
@@ -348,19 +350,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 			var/adjust_num = round(text2num(params["pressure"]))
 			adjust_num = clamp(adjust_num, 0, 100)
 			breached_pressure = adjust_num
+			return TRUE
 		if("temperature_control")
 			temperature_control = !temperature_control
+			return TRUE
 		if("radio_alerts")
 			radio_alerts = !radio_alerts // Shut yo bitch ass, stop spamming my comms
+			return TRUE
 		if("ideal_temperature")
 			var/adjust_num = round(text2num(params["temperature"]))
 			adjust_num = clamp(adjust_num, T0C, T20C + 20)
 			ideal_temperature = adjust_num
+			return TRUE
 		if("scrub_gasses")
 			var/gas_path = gas_id2path(params["id"])
 			if(gas_path in gasses)
 				gasses[gas_path] = !gasses[gas_path]
-	update_icon()
+			return TRUE
 
 /mob/living/simple_animal/bot/atmosbot/update_icon()
 	if(action == ATMOSBOT_VENT_AIR && emagged == 2)
@@ -386,7 +392,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 	if(tank && GM)
 		GM.merge(tank.air_contents)
 		new /obj/effect/temp_visual/vent_wind(Tsec)
-	qdel(deployed_holobarrier?.resolve())
+	var/obj/structure/holosign/barrier/atmos/old_barrier = deployed_holobarrier?.resolve()
+	if(old_barrier)
+		qdel(old_barrier)
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
