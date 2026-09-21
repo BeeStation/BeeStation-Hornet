@@ -657,6 +657,7 @@
 	/// id of this record. Used in clone record data management.
 	var/id
 
+// The default gender of PLURAL is applied INCASE something breaks, it needs to be a real gender not "other"
 /datum/record/cloning/New(
 	RECORD_CLONE_STRICT_ARGS(
 		age = 18,
@@ -664,7 +665,7 @@
 		unique_enzymes = "Unknown",
 		unique_identity = "Unknown",
 		fingerprint = "?????",
-		gender = PLURAL, // This gender is applied INCASE something breaks, it needs to be a real gender not "other"
+		gender = PLURAL,
 		initial_rank = "Unassigned",
 		name = "Unknown",
 		species = "Unknown",
