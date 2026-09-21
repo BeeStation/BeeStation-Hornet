@@ -279,5 +279,5 @@
 	for(var/datum/mind/cult_mind as anything in cult_team.members)
 		if(!isliving(cult_mind.current))
 			continue
-		SEND_SOUND(cult_mind.current, sound('sound/hallucinations/veryfar_noise.ogg'))
+		cult_mind.current.playsound_local(null, 'sound/hallucinations/veryfar_noise.ogg', 100)
 		to_chat(cult_mind.current, span_cultlarge("The Cult's Master, [owner.current.name], has fallen in \the [current_area]!"))

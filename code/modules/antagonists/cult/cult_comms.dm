@@ -422,7 +422,7 @@
 		var/mob/living/living_clicked = target
 		if(!IS_CULTIST(living_clicked))
 			return FALSE
-		SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
+		user.playsound_local(null, 'sound/weapons/thudswoosh.ogg', 100)
 		to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
 		throwee_ref = WEAKREF(target)
 		return TRUE

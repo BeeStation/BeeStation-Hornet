@@ -54,8 +54,8 @@
 		if(cultist.current.stat == DEAD || !cultist.current.client)
 			continue
 
-		to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>[marker] has marked [blood_target] in the [target_area.name] as the cult's top priority, get there immediately!</span></span>")))
-		SEND_SOUND(cultist.current, sound(pick('sound/hallucinations/over_here2.ogg','sound/hallucinations/over_here3.ogg'), 0, 1, 75))
+		to_chat(cultist.current, span_bold(span_cultlarge("[marker] has marked [blood_target] in the [target_area.name] as the cult's top priority, get there immediately!")))
+		cultist.current.playsound_local(null, pick('sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg'), 100)
 		cultist.current.client.images += blood_target_image
 
 	blood_target_reset_timer = addtimer(CALLBACK(src, PROC_REF(unset_blood_target)), duration, TIMER_STOPPABLE)
@@ -72,9 +72,9 @@
 			continue
 
 		if(QDELETED(blood_target))
-			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark's target is lost!</span></span>")))
+			to_chat(cultist.current, span_bold(span_cultlarge("The blood mark's target is lost!")))
 		else
-			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark has expired!</span></span>")))
+			to_chat(cultist.current, span_bold(span_cultlarge("The blood mark has expired!")))
 		cultist.current.client.images -= blood_target_image
 
 	UnregisterSignal(blood_target, COMSIG_QDELETING)
@@ -106,7 +106,7 @@
 	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/effects/antag/bloodcult/bloodcult_eyes.ogg')
+				mind.current.playsound_local(null, 'sound/effects/antag/bloodcult/bloodcult_eyes.ogg', 100)
 				to_chat(mind.current, span_cultlarge(span_warning("The veil weakens as your cult grows, your eyes begin to glow...")))
 				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
 				mind.current.AddElement(/datum/element/cult_eyes)
@@ -116,7 +116,7 @@
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
 		for(var/datum/mind/mind as anything in members)
 			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/effects/antag/bloodcult/bloodcult_halos.ogg')
+				mind.current.playsound_local(null, 'sound/effects/antag/bloodcult/bloodcult_halos.ogg', 100)
 				to_chat(mind.current, span_cultlarge(span_warning("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")))
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				mind.current.AddElement(/datum/element/cult_halo)
