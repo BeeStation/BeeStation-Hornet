@@ -351,7 +351,8 @@ Striking a noncultist, however, will tear their flesh."}
 	armor_type = /datum/armor/cultrobes_berserker
 	slowdown = -0.4
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
-
+	/// Keeps track of whether we've given forced gravity or not
+	var/gave_gravity = FALSE
 
 /datum/armor/cultrobes_berserker
 	melee = 10
@@ -374,30 +375,73 @@ Striking a noncultist, however, will tear their flesh."}
 	bleed = 20
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
-	..()
-	if(!IS_CULTIST(user))
-		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
-		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
-		user.dropItemToGround(src, TRUE)
-		user.set_dizzy_if_lower(1 MINUTES)
-		user.Paralyze(100)
+	. = ..()
+	if(!(slot_flags & slot))
+		return
+	START_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/suit/hooded/cultrobes/berserker/dropped(mob/living/user)
+	STOP_PROCESSING(SSprocessing, src)
+	if(gave_gravity)
+		gave_gravity = FALSE
+		if(isliving(user))
+			user.RemoveElement(/datum/element/forced_gravity, 6, TRUE, FALSE)
+	return ..()
+
+/obj/item/clothing/suit/hooded/cultrobes/berserker/process(delta_time)
+	var/mob/living/carbon/wearer = loc
+	if(!istype(wearer))
+		return
+
+	if(IS_CULTIST(wearer))
+		if(!gave_gravity)
+			return
+		wearer.RemoveElement(/datum/element/forced_gravity, 6, TRUE, FALSE)
+		gave_gravity = FALSE
+		return
+
+	if(gave_gravity)
+		return
+
+	gave_gravity = TRUE
+	wearer.AddElement(/datum/element/forced_gravity, 6, TRUE, FALSE)
+	to_chat(wearer, span_warning("As you equip [src], everything begins to feel a whole lot heavier!"))
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
-	desc = "may Nar'Sie guide you through the darkness and shield you from the light."
+	desc = "May Nar'Sie guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
 	inhand_icon_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_FLASH
 	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
+/obj/item/clothing/glasses/hud/health/night/cultblind/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF) // There's nothing to EMP here.. why would it work?
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/should_emag(mob/user)
+	return FALSE // There's nothing to EMAG you madman, it's magic
+
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
-	..()
-	if(!IS_CULTIST(user))
-		to_chat(user, span_cultlarge("\"You want to be blind, do you?\""))
-		user.dropItemToGround(src, TRUE)
-		user.set_dizzy_if_lower(1 MINUTES)
-		user.Paralyze(100)
-		user.adjust_temp_blindness(60 SECONDS)
+	. = ..()
+	if(slot_flags & slot)
+		START_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/dropped(mob/living/user)
+	. = ..()
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/item/clothing/glasses/hud/health/night/cultblind/process(delta_time)
+	var/mob/living/carbon/wearer = loc
+	if(!istype(wearer) || IS_CULTIST(wearer))
+		return
+	var/obj/item/organ/eyes/eyes = wearer.get_organ_slot(ORGAN_SLOT_EYES)
+	if(!eyes)
+		return
+	if(!eyes.apply_organ_damage(1))
+		return
+	if(DT_PROB(3, delta_time))
+		to_chat(wearer, span_danger("You feel [src] digging into your eyes, burning [eyes.p_them()] up!"))
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
