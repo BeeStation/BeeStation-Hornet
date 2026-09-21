@@ -124,14 +124,8 @@
 		log_game("The blood cult has ascended with [cultplayers] players.")
 
 /datum/team/cult/proc/setup_objectives()
-	var/datum/objective/sacrifice/sac_objective = new
-	sac_objective.team = src
-	sac_objective.find_target()
-	objectives += sac_objective
-
-	var/datum/objective/eldergod/summon_objective = new
-	summon_objective.team = src
-	objectives += summon_objective
+	add_objective(new /datum/objective/sacrifice(), find_target = TRUE)
+	add_objective(new /datum/objective/eldergod())
 
 /datum/team/cult/proc/check_cult_victory()
 	for(var/datum/objective/O in objectives)

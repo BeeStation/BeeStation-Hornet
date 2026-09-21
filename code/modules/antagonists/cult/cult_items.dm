@@ -351,7 +351,7 @@ Striking a noncultist, however, will tear their flesh."}
 	armor_type = /datum/armor/cultrobes_berserker
 	slowdown = -0.4
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
-	/// Keeps track of wether we've given forced gravity or not
+	/// Keeps track of whether we've given forced gravity or not
 	var/gave_gravity = FALSE
 
 /datum/armor/cultrobes_berserker
