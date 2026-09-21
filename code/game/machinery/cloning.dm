@@ -226,7 +226,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 		clonename = "clone ([rand(1,999)])"
 	H.real_name = clonename
 	if(gender)
-		H.gender = gender
+		H.gender = sanitize_gender(gender, default = PLURAL) // Brains dont have a gender, we need to figure out one if the body didn't save it
 	if(age)
 		H.age = age
 

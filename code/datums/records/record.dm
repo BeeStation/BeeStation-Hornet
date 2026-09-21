@@ -664,7 +664,7 @@
 		unique_enzymes = "Unknown",
 		unique_identity = "Unknown",
 		fingerprint = "?????",
-		gender = "Other",
+		gender = PLURAL, // This gender is applied INCASE something breaks, it needs to be a real gender not "other"
 		initial_rank = "Unassigned",
 		name = "Unknown",
 		species = "Unknown",
