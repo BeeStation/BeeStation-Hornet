@@ -1,0 +1,20 @@
+author: Isaac, JohnFulpWillard, mc-oofert, SmArtKar
+delete-after: true
+changes:
+  - refactor: The Cult Leader is no longer a separate antagonist type, which should
+      stop it losing readied abilities
+  - rscadd: Admins can now promote and demote the Cult Master from the antagonist
+      panel.
+  - bugfix: Eldritch Pulse works. You can now actually grab a structure or cultist
+      and teleport them nearby
+  - rscadd: The roundend report now lists everyone who was ever in the cult, and marks
+      the ones who were deconverted instead of removing them.
+  - balance: The Stun blood spell gets weaker as the cult grows, at 40% weaker once
+      red eyes and 50% weaker once they hit halos.
+  - balance: Flagellant's robes no longer stuns non-cultist who wear them, they just
+      make them extremely heavy if they decided to wear them
+  - balance: The zealot's blindfold no longer stuns and blinds a non-cultist who wears
+      it, it slowly damages their eyes instead when wore
+  - balance: Cult Chat no longer whispers your message out loud, they'll still hear
+      your chanting regardless
+  - tweak: The zealot's blindfold can no longer be emagged or EMP'd.
