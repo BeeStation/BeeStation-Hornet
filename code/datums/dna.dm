@@ -130,9 +130,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	new_dna.species = new species.type
 	new_dna.features = features.Copy()
 	new_dna.real_name = real_name
-	var/mob/living/carbon/human/human_holder = holder // This is stupid, but brains dont have a gender nor age, so a body being cloned from the brain would runtime
-	new_dna.age = istype(human_holder) ? human_holder.age : age
-	new_dna.gender = istype(human_holder) ? human_holder.gender : gender
+	new_dna.age = age
+	new_dna.gender = gender
 	new_dna.update_body_size() //Must come after features.Copy()
 
 	// Mutations aren't gc managed, but they still aren't templates
@@ -664,7 +663,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)
 	if(!has_dna())
 		return
-	switch(deconstruct_block(get_uni_identity_block(DNA_GENDER_BLOCK), 3))
+	switch(deconstruct_block(get_uni_identity_block(dna.unique_identity, DNA_GENDER_BLOCK), 3))
 		if(G_MALE)
 			set_gender(MALE, TRUE, forced = TRUE)
 		if(G_FEMALE)

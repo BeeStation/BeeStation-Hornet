@@ -225,13 +225,12 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	if(!clonename)	//to prevent null names
 		clonename = "clone ([rand(1,999)])"
 	H.real_name = clonename
-	gender = sanitize_gender(gender, default = PLURAL) // Brains dont have a gender, we need to figure out one if the body didn't save it
-	H.gender = gender
+	if(gender in list(MALE, FEMALE, PLURAL, NEUTER))
+		H.gender = gender
 	if(age)
 		H.age = age
 
 	H.hardset_dna(unique_identity, mutation_index, clonename, blood_type, mrace, features)
-	H.set_gender(gender, TRUE, forced = TRUE)
 	if(unique_enzymes)
 		H.dna.unique_enzymes = unique_enzymes
 
