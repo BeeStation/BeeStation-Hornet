@@ -59,3 +59,9 @@
 	animate(pixel_y = user.base_pixel_y, time = 0.4 SECONDS, SINE_EASING)
 
 	return TRUE
+
+
+/obj/machinery/power/port_gen/hamster_wheel/proc/add_runner(mouse)
+	if (active != TRUE)
+		buckle_mob(mouse, TRUE, FALSE, buckle_mob_flags = NONE)
+		TogglePower()
