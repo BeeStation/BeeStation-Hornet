@@ -85,5 +85,6 @@
 	if (controller.blackboard_key_exists(BB_HAMSTER_WHEEL))
 		var/obj/machinery/power/port_gen/hamster_wheel/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
 		if (wheel.active != TRUE)
+			wheel.buckle_mob(controller.pawn, TRUE, FALSE, buckle_mob_flags = NONE)
 			wheel.TogglePower()
 		return SUBTREE_RETURN_FINISH_PLANNING // Don't plan anything else if we're playing an instrument
