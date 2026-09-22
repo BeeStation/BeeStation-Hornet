@@ -6,9 +6,6 @@
 	inhand_icon_state = "bandaid_small_cross"
 	volume = 40
 	apply_method = "apply"
-	// Quick to apply
-	application_delay = 1.5 SECONDS
-	self_delay = 1.5 SECONDS
 
 /obj/item/reagent_containers/applicator/patch/canconsume(mob/eater, mob/user)
 	return TRUE // Masks were stopping people from "eating" patches. Thanks, inheritance.
@@ -42,6 +39,7 @@
 /obj/item/reagent_containers/applicator/patch/on_consumption(mob/consumer, mob/giver, obj/item/bodypart/affected_limb)
 	if(reagents.total_volume)
 		reagents.expose(consumer, PATCH, affecting = affected_limb)
+		reagents.trans_to(consumer, reagents.total_volume, transfered_by = giver)
 	qdel(src)
 
 /obj/item/reagent_containers/applicator/patch/styptic
