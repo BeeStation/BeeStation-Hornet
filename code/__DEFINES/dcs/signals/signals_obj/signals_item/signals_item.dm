@@ -136,6 +136,10 @@
 /// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
+
+/// from /obj/item/detective_scanner/scan(): (mob/user, datum/detective_scanner_log/entry)
+#define COMSIG_DETECTIVE_SCANNED "det_scanned"
+
 // signals for painting canvases, tools and the /datum/component/palette component
 
 ///from base of /item/proc/set_painting_tool_color(): (chosen_color)

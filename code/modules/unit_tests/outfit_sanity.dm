@@ -14,7 +14,7 @@
 /datum/outfit/stacks_in_hands
 	name = "Mr. Runtime"
 
-	uniform = /obj/item/clothing/under/suit/tuxedo
+	uniform = /obj/item/clothing/under/suit/black_really
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/cigarette/cigar/havana
 	shoes = /obj/item/clothing/shoes/laceup
