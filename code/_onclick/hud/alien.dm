@@ -11,17 +11,16 @@
 		AH.toggle_leap()
 
 /atom/movable/screen/alien/plasma_display
+	name = "plasma stored"
 	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "power_display2"
-	name = "plasma stored"
 	screen_loc = ui_alienplasmadisplay
 
-
 /atom/movable/screen/alien/alien_queen_finder
-	icon = 'icons/hud/screen_alien.dmi'
-	icon_state = "queen_finder"
 	name = "queen sense"
 	desc = "Allows you to sense the general direction of your Queen."
+	icon = 'icons/hud/screen_alien.dmi'
+	icon_state = "queen_finder"
 	screen_loc = ui_alien_queen_finder
 
 /datum/hud/alien
@@ -62,6 +61,11 @@
 		H.leap_icon.screen_loc = ui_alien_storage_r
 		static_inventory += H.leap_icon
 
+	floor_change = new /atom/movable/screen/floor_changer(null, src)
+	floor_change.icon = ui_style
+	floor_change.screen_loc = ui_alien_floor_change
+	static_inventory += floor_change
+
 	using = new/atom/movable/screen/language_menu(null, src)
 	using.screen_loc = ui_alien_language_menu
 	static_inventory += using
@@ -91,6 +95,12 @@
 	pull_icon.update_icon()
 	pull_icon.screen_loc = ui_above_movement
 	static_inventory += pull_icon
+
+	rest_icon = new /atom/movable/screen/rest(null, src)
+	rest_icon.icon = ui_style
+	rest_icon.screen_loc = ui_rest
+	rest_icon.update_appearance()
+	static_inventory += rest_icon
 
 //begin indicators
 

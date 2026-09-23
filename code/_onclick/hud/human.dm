@@ -74,6 +74,10 @@
 	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
+	floor_change = new /atom/movable/screen/floor_changer/vertical(null, src)
+	floor_change.icon = ui_style
+	floor_change.screen_loc = ui_human_floor_changer
+	static_inventory += floor_change
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = ui_style
