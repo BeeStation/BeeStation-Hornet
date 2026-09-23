@@ -190,7 +190,6 @@
 	if(arm_owner.gloves)
 		arm_owner.dropItemToGround(arm_owner.gloves, force = TRUE)
 	arm_owner.update_worn_gloves() //to remove the bloody hands overlay
-	return ..()
 
 /obj/item/bodypart/leg/drop_limb(special)
 	var/mob/living/carbon/leg_owner = owner

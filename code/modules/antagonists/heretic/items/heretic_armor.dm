@@ -37,6 +37,14 @@
 	// Our hood gains the heretic_focus element.
 	. += span_notice("Allows you to cast heretic spells while the hood is up.")
 
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/on_hood_up(obj/item/clothing/head/hooded/hood)
+	hood_up = TRUE
+	return ..()
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/on_hood_down(obj/item/clothing/head/hooded/hood)
+	hood_up = FALSE
+	return ..()
+
 // Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
@@ -121,6 +129,8 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/on_hood_down(obj/item/clothing/head/hooded/hood)
 	hood_up = FALSE
+	make_visible()
+	return ..()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/equipped(mob/user, slot)
 	. = ..()
@@ -148,10 +158,6 @@
 
 	// Let examiners know this works as a focus only if the hood is down
 	. += span_notice("Allows you to cast heretic spells while the hood is down.")
-
-/obj/item/clothing/suit/hooded/cultrobes/void/on_hood_down(obj/item/clothing/head/hooded/hood)
-	make_visible()
-	return ..()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/can_create_hood()
 	if(!isliving(loc))

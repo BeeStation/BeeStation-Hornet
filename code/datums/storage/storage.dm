@@ -240,16 +240,15 @@
 			COMSIG_ATOM_ENTERED,
 			COMSIG_ATOM_EXITED,
 			COMSIG_QDELETING,
-			COMSIG_ATOM_EMP_ACT,
 		))
 		real_location.flags_1 &= ~HAS_DISASSOCIATED_STORAGE_1
 		if(should_drop)
 			remove_all()
 
+	real_location = new_real_location
 	if(isnull(new_real_location))
 		return
 
-	real_location = new_real_location
 	if(real_location != parent)
 		real_location.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
 	RegisterSignal(real_location, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
@@ -562,8 +561,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(silent)
 		return
 
-	if(rustle_sound)
-		playsound(parent, "rustle", 50, TRUE, -5)
+	if(do_rustle && rustle_sound)
+		playsound(parent, rustle_sound, 50, TRUE, -5)
 
 	if(!silent_for_user)
 		to_chat(user, span_notice("You put [thing] [insert_preposition]to [parent]."))
@@ -592,10 +591,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		reset_item(thing)
 		thing.forceMove(remove_to_loc)
 
-		if(!silent && rustle_sound)
+		if(!silent && do_rustle && rustle_sound)
 			if(remove_rustle_sound)
 				playsound(parent, remove_rustle_sound, 50, TRUE, -5)
-			else if(rustle_sound)
+			else
 				playsound(parent, rustle_sound, 50, TRUE, -5)
 	else
 		thing.moveToNullspace()
@@ -875,8 +874,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(dest_object.atom_storage)
 		to_chat(user, span_notice("You dump the contents of [parent] into [dest_object]."))
 
-		if(rustle_sound)
-			playsound(parent, "rustle", 50, TRUE, -5)
+		if(do_rustle && rustle_sound)
+			playsound(parent, rustle_sound, 50, TRUE, -5)
 
 		for(var/obj/item/to_dump in real_location)
 			dest_object.atom_storage.attempt_insert(to_dump, user)
@@ -1011,8 +1010,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(animated)
 		animate_parent()
 
-	if(rustle_sound)
-		playsound(parent, "rustle", 50, TRUE, -5)
+	if(do_rustle && rustle_sound)
+		playsound(parent, rustle_sound, 50, TRUE, -5)
 
 	return TRUE
 

@@ -318,29 +318,22 @@
 	var/grab_ghost = TRUE
 	var/tlimit = DEFIB_TIME_LIMIT
 
-	var/mob/listeningTo
-
 	base_icon_state = "defibpaddles"
 
 /obj/item/shockpaddles/Destroy()
 	defib = null
-	listeningTo = null
 	return ..()
 
 /obj/item/shockpaddles/equipped(mob/user, slot)
 	. = ..()
 	if(!req_defib)
 		return
-	if(listeningTo && listeningTo != user)
-		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
-	listeningTo = user
-	check_range()
+	RegisterSignal(defib, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
 
 /obj/item/shockpaddles/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!istype(loc, /mob/living))
-		check_range()
+	check_range()
 
 /obj/item/shockpaddles/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
@@ -359,8 +352,8 @@
 		else
 			snap_back()
 
-/obj/item/shockpaddles/proc/recharge(time)
-	if(req_defib || !time)
+/obj/item/shockpaddles/proc/recharge(time = 0)
+	if(req_defib)
 		return
 	cooldown = TRUE
 	update_appearance()
@@ -368,7 +361,7 @@
 
 /obj/item/shockpaddles/proc/finish_recharge()
 	var/turf/current_turf = get_turf(src)
-	current_turf.audible_message("<span class='notice'>[src] beeps: Unit is recharged.</span>")
+	current_turf.audible_message(span_notice("[src] beeps: Unit is recharged."))
 	playsound(src, 'sound/machines/defib_ready.ogg', 50, FALSE)
 	cooldown = FALSE
 	update_appearance()
@@ -376,21 +369,26 @@
 /obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, INNATE_TRAIT) //stops shockpaddles from being inserted in BoH
-
-	// Defib-specific initialization
-	if(req_defib)
-		// Check if we are inside a defibrillator; if not, delete the object.
-		if (!loc || !istype(loc, /obj/item/defibrillator))
-			return INITIALIZE_HINT_QDEL
-
-		// If valid, set up the reference and appearance.
-		defib = loc
-		busy = FALSE
-		update_appearance()
-
-	// Common initialization
 	AddElement(/datum/element/update_icon_updates_onmob)
 	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
+	// Defib-specific initialization
+	if(!req_defib)
+		return
+	// Check if we are inside a defibrillator; if not, delete the object.
+	if (!loc || !istype(loc, /obj/item/defibrillator))
+		return INITIALIZE_HINT_QDEL
+
+	// If valid, set up the reference and appearance.
+	defib = loc
+	busy = FALSE
+	update_appearance()
+
+/obj/item/shockpaddles/suicide_act(mob/living/user)
+	user.visible_message(span_danger("[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!"))
+	if(req_defib)
+		defib.deductcharge(revivecost)
+	playsound(src, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	return OXYLOSS
 
 /obj/item/shockpaddles/update_icon_state()
 	var/wielded = ISWIELDED(src)
@@ -400,18 +398,10 @@
 		icon_state = "[base_icon_state][wielded]_cooldown"
 	return ..()
 
-/obj/item/shockpaddles/suicide_act(mob/living/user)
-	user.visible_message(span_danger("[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!"))
-	if(req_defib)
-		defib.deductcharge(revivecost)
-	playsound(src, 'sound/machines/defib_zap.ogg', 50, 1, -1)
-	return OXYLOSS
-
 /obj/item/shockpaddles/dropped(mob/user)
 	if(!req_defib)
-		return
-	if(listeningTo)
-		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+		return ..()
+	UnregisterSignal(defib, COMSIG_MOVABLE_MOVED)
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 		to_chat(user, span_notice("The paddles snap back into the main unit."))
@@ -439,7 +429,6 @@
 		forceMove(defib)
 
 	defib.on = FALSE
-	listeningTo = null
 	defib.update_power()
 
 /obj/item/shockpaddles/attack(mob/M, mob/living/user, params)

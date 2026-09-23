@@ -3,6 +3,7 @@
 	desc = "This device recharges energy dependent lifeforms, like cyborgs, ethereals and MODsuit users."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
+	base_icon_state = "borgcharger"
 	density = FALSE
 	req_access = list(ACCESS_ROBOTICS)
 	state_open = TRUE
@@ -15,6 +16,7 @@
 
 /obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
+	charge_cell = CALLBACK(src, PROC_REF(charge_target_cell))
 	update_icon()
 
 /obj/machinery/recharge_station/Destroy()

@@ -275,8 +275,8 @@
 	var/repair_amount = -5
 	/// world.time of next repair
 	var/next_repair = 0
-	/// Minimum time between repairs
 	var/mode = STANDARD
+	/// Minimum time between repairs
 	var/repair_cooldown = 10 SECONDS
 	var/msg_cooldown = 0
 	var/on = FALSE
@@ -288,6 +288,7 @@
 	. = ..()
 	if(!.)
 		return .
+	cyborg = borg
 	icon_state = "selfrepair_off"
 	toggle_action = new /datum/action/item_action/toggle(src)
 	toggle_action.Grant(borg)
@@ -296,8 +297,10 @@
 	. = ..()
 	if(!.)
 		return .
-	toggle_action.Remove(borg)
-	QDEL_NULL(toggle_action)
+	if(toggle_action)
+		toggle_action.Remove(borg)
+		QDEL_NULL(toggle_action)
+	cyborg = null
 	deactivate_sr()
 
 /obj/item/borg/upgrade/selfrepair/dropped()

@@ -651,7 +651,9 @@
 	var/list/ret = list()
 	ret |= contents //add our contents
 	for(var/atom/iter_atom as anything in ret) //iterate storage objects
-		ret |= iter_atom.atom_storage?.return_inv()
+		var/list/nested = iter_atom.atom_storage?.return_inv()
+		if(nested)
+			ret |= nested
 	for(var/obj/item/folder/folder in ret) //very snowflakey-ly iterate folders
 		ret |= folder.contents
 	return ret

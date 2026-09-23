@@ -1182,8 +1182,9 @@
 
 /mob/living/silicon/robot/proc/charge(datum/source, datum/callback/charge_cell, seconds_per_tick, repairs)
 	SIGNAL_HANDLER
-	charge_cell.Invoke(cell, seconds_per_tick)
-	if(model)
-		model.respawn_consumable(src, cell.use(cell.chargerate * 0.005))
+	if(cell)
+		charge_cell.Invoke(cell, seconds_per_tick)
+		if(model)
+			model.respawn_consumable(src, cell.use(cell.chargerate * 0.005))
 	if(repairs)
 		heal_bodypart_damage(repairs, repairs - 1)

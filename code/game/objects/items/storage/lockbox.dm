@@ -31,6 +31,7 @@
 			return
 		if(allowed(user))
 			toggle_locked(user)
+			locked = atom_storage.locked
 			if(locked)
 				icon_state = "[base_icon_state]+l"
 				inhand_icon_state = "[base_icon_state]+l"
