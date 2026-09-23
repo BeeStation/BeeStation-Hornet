@@ -1,0 +1,4 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - bugfix: Cloner should work on severed heads/brains once again
