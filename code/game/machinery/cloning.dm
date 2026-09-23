@@ -225,7 +225,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	if(!clonename)	//to prevent null names
 		clonename = "clone ([rand(1,999)])"
 	H.real_name = clonename
-	if(gender)
+	if(gender in list(MALE, FEMALE, PLURAL, NEUTER))
 		H.gender = gender
 	if(age)
 		H.age = age
