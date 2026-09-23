@@ -59,9 +59,9 @@
 	)
 
 	var/list/regions = list()
-	var/list/tgui_region_data = SSdepartment.all_region_access_tgui
-	for(var/region in SSdepartment.station_regions)
-		regions += tgui_region_data[region]
+	var/list/tgui_region_data = SSdepartment.all_department_access_tgui
+	for(var/dept_id in SSdepartment.station_access_dept_ids)
+		regions += tgui_region_data[dept_id]
 	data["regions"] = regions
 	return data
 
@@ -151,7 +151,7 @@
 			one_access = 0
 			update_access()
 		if("grant_all")
-			accesses = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
+			accesses = SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 			update_access()
 		if("one_access")
 			one_access = !one_access
@@ -164,16 +164,16 @@
 				accesses -= access
 			update_access()
 		if("grant_region")
-			var/region = params["region"]
-			if(isnull(region))
+			var/dept_id = params["region"]
+			if(!(dept_id in SSdepartment.station_access_dept_ids))
 				return
-			accesses |= SSdepartment.get_region_access_list(list(region))
+			accesses |= SSdepartment.get_department_access(dept_id)
 			update_access()
 		if("deny_region")
-			var/region = params["region"]
-			if(isnull(region))
+			var/dept_id = params["region"]
+			if(!(dept_id in SSdepartment.station_access_dept_ids))
 				return
-			accesses -= SSdepartment.get_region_access_list(list(region))
+			accesses -= SSdepartment.get_department_access(dept_id)
 			update_access()
 		if("select_module")
 			ui_selected_module_index = text2num(params["index"])

@@ -85,7 +85,7 @@
 	. = ..()
 	GLOB.drones_list += src
 	access_card = new /obj/item/card/id(src)
-	access_card.access = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
+	access_card.access = SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 
 	if(default_storage)
 		var/obj/item/I = new default_storage(src)

@@ -36,17 +36,15 @@ SUBSYSTEM_DEF(job)
 	var/list/dynamic_forced_occupations
 
 	var/list/chain_of_command = list(
-		"Captain" = 1,
+		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
 		"Head of Personnel" = 2,
 		"Research Director" = 3,
 		"Chief Engineer" = 4,
 		"Chief Medical Officer" = 5,
-		"Head of Security" = 6
-	)
+		"Head of Security" = 6)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()
-
 	var/list/crew_obj_jobs = list()
 
 	/// list of jobs that aren't part of standard jobs - used for job manager
@@ -106,6 +104,7 @@ SUBSYSTEM_DEF(job)
 
 	overflow_role = SSjob.overflow_role
 
+	spare_id_safe_code = SSjob.spare_id_safe_code
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
 
@@ -917,9 +916,7 @@ SUBSYSTEM_DEF(job)
 	if(!new_captain)
 		CRASH("Cannot promote to captain: null mob passed.")
 
-	var/id_safe_code = SSjob.spare_id_safe_code
-
-	if(!id_safe_code)
+	if(!spare_id_safe_code)
 		CRASH("Cannot promote [new_captain.real_name] to Captain, there is no spare_id_safe_code.")
 
 	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(new_captain.loc)

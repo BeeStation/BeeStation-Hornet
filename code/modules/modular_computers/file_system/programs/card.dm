@@ -98,10 +98,10 @@
 						<u>Access:</u><br>
 						"}
 
-			var/list/known_access_rights = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
+			var/list/known_access_rights = SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 			for(var/A in target_id_card.access)
 				if(A in known_access_rights)
-					contents += " [get_access_desc(A)]"
+					contents += "  [get_access_desc(A)]"
 
 			if(!printer.print_text(contents,"access report"))
 				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
@@ -125,7 +125,7 @@
 			if(!authenticated)
 				return
 
-			target_id_card.remove_access(target_id_card.access.Copy(), should_log = FALSE)
+			target_id_card.remove_access(SSdepartment.get_department_access(list(DEPARTMENT_ID_STATION_ALL, DEPARTMENT_NAME_CENTCOM)), should_log = FALSE)
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
@@ -178,7 +178,7 @@
 					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-				target_id_card.remove_access(SSdepartment.get_region_access_list(list(REGION_ALL_STATION)), should_log = FALSE)
+				target_id_card.remove_access(SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL), should_log = FALSE)
 				target_id_card.add_access(jobdatum.get_access(), should_log = FALSE)
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
@@ -194,7 +194,7 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(!is_centcom && (get_access_flag(access_type) & ACCESS_FLAG_CENTCOM_LEVEL))
+			if(!is_centcom && (access_type in SSdepartment.restricted_access))
 				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
 			var/access_source = "[user_id_card] via a portable ID console at [AREACOORD(usr)]"
@@ -207,14 +207,14 @@
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.add_access((is_centcom ? SSdepartment.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSdepartment.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
+			target_id_card.add_access((is_centcom ? SSdepartment.get_department_access(list(DEPARTMENT_ID_STATION_ALL, DEPARTMENT_NAME_CENTCOM)) : SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)), should_log = FALSE)
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.remove_access((is_centcom ? SSdepartment.get_region_access_list(list(REGION_ALL_STATION, REGION_CENTCOM)) : SSdepartment.get_region_access_list(list(REGION_ALL_STATION))), should_log = FALSE)
+			target_id_card.remove_access((is_centcom ? SSdepartment.get_department_access(list(DEPARTMENT_ID_STATION_ALL, DEPARTMENT_NAME_CENTCOM)) : SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)), should_log = FALSE)
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -224,7 +224,7 @@
 			var/region = params["region"]
 			if(!(region in get_accessible_regions()))
 				return
-			var/list/region_access = SSdepartment.get_region_access_list(list(region))
+			var/list/region_access = SSdepartment.get_department_access(region)
 			if(!length(region_access))
 				return
 			target_id_card.add_access(region_access, should_log = FALSE)
@@ -237,7 +237,7 @@
 			var/region = params["region"]
 			if(!(region in get_accessible_regions()))
 				return
-			var/list/region_access = SSdepartment.get_region_access_list(list(region))
+			var/list/region_access = SSdepartment.get_department_access(region)
 			if(!length(region_access))
 				return
 			target_id_card.remove_access(region_access, should_log = FALSE)
@@ -247,22 +247,22 @@
 
 
 
-/// Returns the region names this console is currently permitted to grant or revoke as a whole.
+/// Returns the department ids this console is currently permitted to grant or revoke as a whole.
 /datum/computer_file/program/card_mod/proc/get_accessible_regions()
-	var/list/permitted_regions = list()
+	var/list/permitted_dept_ids = list()
 	for(var/datum/department_group/dept as anything in SSdepartment.get_department_by_bitflag(accessible_region_bitflag))
-		if(dept.access_region)
-			permitted_regions |= dept.access_region
+		if(dept.dept_id)
+			permitted_dept_ids |= dept.dept_id
 
 	var/list/accessible = list()
-	for(var/region in SSdepartment.station_regions)
-		if((minor || department_bitflag) && !(region in permitted_regions))
+	for(var/dept_id in SSdepartment.station_access_dept_ids)
+		if((minor || department_bitflag) && !(dept_id in permitted_dept_ids))
 			continue
-		accessible += region
+		accessible += dept_id
 
 	if(is_centcom)
-		accessible += REGION_CENTCOM
-		accessible += REGION_OTHER
+		accessible += DEPARTMENT_NAME_CENTCOM
+		accessible += DEPARTMENT_NAME_OTHER
 
 	return accessible
 
@@ -289,7 +289,7 @@
 
 
 	var/list/regions = list()
-	var/list/tgui_region_data = SSdepartment.all_region_access_tgui
+	var/list/tgui_region_data = SSdepartment.all_department_access_tgui
 	for(var/region in get_accessible_regions())
 		regions += tgui_region_data[region]
 

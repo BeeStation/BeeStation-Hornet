@@ -33,9 +33,9 @@
 	var/list/data = list()
 
 	var/list/regions = list()
-	var/list/tgui_region_data = SSdepartment.all_region_access_tgui
-	for(var/region in SSdepartment.station_regions)
-		regions += tgui_region_data[region]
+	var/list/tgui_region_data = SSdepartment.all_department_access_tgui
+	for(var/dept_id in SSdepartment.station_access_dept_ids)
+		regions += tgui_region_data[dept_id]
 
 	data["regions"] = regions
 	return data
@@ -58,7 +58,7 @@
 			one_access = 0
 			. = TRUE
 		if("grant_all")
-			accesses = SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
+			accesses = SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 			. = TRUE
 		if("one_access")
 			one_access = !one_access
@@ -75,16 +75,16 @@
 			unres_sides ^= unres_direction //XOR, toggles only the bit that was clicked
 			. = TRUE
 		if("grant_region")
-			var/region = params["region"]
-			if(isnull(region))
+			var/dept_id = params["region"]
+			if(!(dept_id in SSdepartment.station_access_dept_ids))
 				return
-			accesses |= SSdepartment.get_region_access_list(list(region))
+			accesses |= SSdepartment.get_department_access(dept_id)
 			. = TRUE
 		if("deny_region")
-			var/region = params["region"]
-			if(isnull(region))
+			var/dept_id = params["region"]
+			if(!(dept_id in SSdepartment.station_access_dept_ids))
 				return
-			accesses -= SSdepartment.get_region_access_list(list(region))
+			accesses -= SSdepartment.get_department_access(dept_id)
 			. = TRUE
 		if("passedName")
 			var/new_name = trim(sanitize("[params["passedName"]]"), 30)

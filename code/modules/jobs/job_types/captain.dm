@@ -56,7 +56,7 @@
 	)
 
 /datum/job/captain/get_access()
-	return SSdepartment.get_region_access_list(list(REGION_ALL_STATION))
+	return SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 
 /datum/job/captain/get_captaincy_announcement(mob/living/captain)
 	return "Captain [captain.real_name] on deck!"
