@@ -234,7 +234,7 @@
 	. = ..()
 
 	if(!handcuff_overlay)
-		var/state = (!(held_index % 2)) ? "markus" : "gabrielle"
+		var/state = IS_RIGHT_INDEX(held_index) ? "markus" : "gabrielle"
 		handcuff_overlay = mutable_appearance('icons/hud/screen_gen.dmi', state)
 
 	if(!hud?.mymob)
@@ -250,7 +250,7 @@
 				. += blocked_overlay
 
 	if(held_index == hud.mymob.active_hand_index)
-		. += (held_index % 2) ? "lhandactive" : "rhandactive"
+		. += IS_LEFT_INDEX(held_index) ? "lhandactive" : "rhandactive"
 
 /atom/movable/screen/inventory/hand/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -390,6 +390,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	name = "stop pulling"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "pull"
+	base_icon_state = "pull"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/pull/Click()
@@ -398,20 +399,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	usr.stop_pulling()
 
 /atom/movable/screen/pull/update_icon_state()
-	if(hud?.mymob?.pulling)
-		icon_state = "pull"
-	else
-		icon_state = "pull0"
+	icon_state = "[base_icon_state][hud?.mymob?.pulling ? null : 0]"
 	return ..()
 
 /atom/movable/screen/resist
 	name = "resist"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_resist"
+	base_icon_state = "act_resist"
 	plane = HUD_PLANE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/resist/Click()
+	flick("[base_icon_state]_on", src)
 	if(isliving(usr))
 		var/mob/living/L = usr
 		L.resist()
@@ -420,6 +420,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	name = "rest"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_rest"
+	base_icon_state = "act_rest"
 	plane = HUD_PLANE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
@@ -431,12 +432,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob
 	if(!istype(user))
-		return
-
-	if(!user.resting)
-		icon_state = "act_rest"
-	else
-		icon_state = "act_rest0"
+		return ..()
+	icon_state = "[base_icon_state][user.resting ? "_on" : null]"
 	return ..()
 
 /atom/movable/screen/storage
@@ -512,7 +509,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 /atom/movable/screen/throw_catch
 	name = "throw/catch"
 	icon = 'icons/hud/style/screen_midnight.dmi'
-	icon_state = "act_throw_off"
+	icon_state = "act_throw"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/throw_catch/Click()

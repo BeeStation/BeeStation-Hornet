@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/zone_select
 	var/atom/movable/screen/pull_icon
 	var/atom/movable/screen/rest_icon
+	var/atom/movable/screen/resist_icon
 	var/atom/movable/screen/throw_icon
 
 	var/custom_hud_locs = FALSE
@@ -394,11 +395,13 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 /datum/hud/proc/generate_landings(atom/movable/screen/movable/action_button/button)
 	listed_actions.generate_landing()
 	palette_actions.generate_landing()
+	toggle_palette.activate_landing()
 
 /// Clears all currently visible landings
 /datum/hud/proc/hide_landings()
 	listed_actions.clear_landing()
 	palette_actions.clear_landing()
+	toggle_palette.disable_landing()
 
 // Updates any existing "owned" visuals, ensures they continue to be visible
 /datum/hud/proc/update_our_owner()

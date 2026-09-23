@@ -352,6 +352,7 @@
 #include "code\__HELPERS\global_lists.dm"
 #include "code\__HELPERS\guid.dm"
 #include "code\__HELPERS\hallucinations.dm"
+#include "code\__HELPERS\hud.dm"
 #include "code\__HELPERS\icon_smoothing.dm"
 #include "code\__HELPERS\icons.dm"
 #include "code\__HELPERS\jobs.dm"
