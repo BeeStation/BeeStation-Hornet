@@ -34,3 +34,168 @@
   - bugfix: Fixed the toilet lock button on BoxStation not bolting the door
   - spellcheck: Mecha construction now correctly refers to the manipulators it requires
       as manipulators instead of servos
+2026-09-13:
+  r1ks, rkz:
+  - bugfix: Fixes cloning randomizing unique enzymes(relevant to blood,  identity
+      checks) and non-human appearance, and a few other sources of enzymes not being
+      assigned.
+  - bugfix: Fixes cloning not respecting the cloned's enzymes, blood type, age
+  rkz, nemvar, ArcaneMusic, nightred, MrMelbert, Time-Green, itseasytosee, vinylspiders, kapu1178, san7890:
+  - bugfix: mood should stay within sanity levels more consistently
+  - bugfix: Fixed an issue where unstable people could regain sanity
+  - rscadd: Adds a new surgery, Stomach Pump, which allows you to purge a patient's
+      stomach via surgery
+  - tweak: The stomach is now needed to eat food or drink
+  - tweak: Vomiting now empties the stomach only
+  - tweak: adds new system for organ failure, in which when a organ reaches 100 damage,
+      it becomes nonfunctional
+  - rscadd: Items hidden in bread, cake, and cheeses can now have unique interactions
+      when someone bites into it them.
+  - code_imp: unit tests reagent code
+  - refactor: ethereal & IPC hunger mechanics are now tied to their stomachs. Whether
+      you can adequately manage said hunger as someone implanted with said stomach
+      is another question entirely.
+  - balance: Change liver to not purge toxins instantly for low amounts. Instead the
+      toxin effect gets skipped while it is metabolized normally, however it still
+      does liver damage. This fixes bite increments for food, cigarettes, and drinks
+      where the toxins would purge without building up to harmful levels.
+  - balance: Change the formula for how toxins effect livers. Livers will be damaged
+      based on the units of toxin present and their lethality.
+  - balance: Change alien liver toxin resistance value to be -33% and cybernetic liver
+      toxin resistance value to be +50%
+  - bugfix: plasmamen no longer can suffer liver failure from injecting themselves
+      with plasma (unless they have a human liver for some reason).
+  - bugfix: plasmamen no longer can suffer liver failure from consuming other organic
+      toxins, which they are not supposed to be affected by.
+  - balance: Water now makes you wet on touch and vapor application, with vapor being
+      much less effective than touch. Spray bottles of water *can* put someone out.
+  - refactor: optimizes INVOKE_ASYNC and makes it pass args correctly
+  - code_imp: vomit() now uses bitflag args
+  - refactor: Rewrites how addiction points are applied from reagents. Some reagents
+      may be marginally more or less addictive as a consequence.
+  - balance: Addiction gained per metabolism tick now scales to the amount of reagents
+      metabolized. In other words if you metabolize 0.2 units instead of the expected
+      0.4 units, you get 0.5x of the amount of addiction gain. This ultimately changes
+      very little and I would imagine it's how most people expected it to work in
+      the first place...
+  - code_imp: command jobs restriction on lowpop is now set via config, default to
+      off
+  - rscadd: extreme hunger will now cause slowdown and stamina effects. Reaching zero
+      satiety will exhaust the carbon.
+2026-09-14:
+  mrmanlikesbt:
+  - rscadd: Solars are now automatically set up if the round starts without any engineers
+  r1ks-iwnl:
+  - bugfix: Fixed teleports that check if you're on a safe tile(heretic blade break,
+      ninja dojo returning, swarmer ctrlclick etc.)
+2026-09-17:
+  WhiskeyMarten:
+  - rscadd: Added the ice cream vat to Metastation.
+  - bugfix: Fixed Evidence Closets all having the same number on Metastation and Cardinalstation.
+  - bugfix: Fixed the names of the Toilet and Charging Station on Kilostation.
+  - bugfix: Removed a stray decal in the Detective's room on Boxstation, and some
+      unused buttons in the showers on Kilostation.
+  - bugfix: Changed the marker beacons to the correct structure on Kilostation's exploration
+      shuttle, and changed the colour to purple.
+  - spellcheck: Adjusted spellings of Ice Cream to be consistent.
+  rkz, zxaber, Mickyan:
+  - rscadd: adds screentips to ladders, cigarette packs, and smartfridges
+  - tweak: moves cyborg part coloring from aug manipulator to rclicking with spraycan
+  - rscdel: deletes aug manipulator
+  - rscadd: right clicking with a spraycan will attempt to copy colors from your cursor
+      of whatever art project you are working on
+  swatblack:
+  - bugfix: fixed an issue of air alarms endlessly trying to replace cold air in rooms
+      that are meant to be cold (server rooms) by taking away their scrubbers in all
+      applicable maps
+  - bugfix: separates the kilo exploration server room and the exploration preparation
+      room areas
+  - bugfix: fixes the exploration prep room on kilo having hot air under the exterior
+      airlock
+  - bugfix: connects the radstation ai sat to the atmos loop
+  - bugfix: made the plasma canister in the radstation exploration comms area be wrenched
+      down by default
+  - rscdel: removed omni layer adapters from the "insane atmospheric technician" random
+      room since those would, on rare occasion, mix the distro and waste pipenets
+  - tweak: decreased pumping rate of the radstation air mixer from maximum to 500
+      KpA
+  - tweak: increased pumping rate of "air to distro" pumps on meta and kilo from 101
+      to 500 KpA
+  - tweak: flips the glass in the radstation science server room to avoid it being
+      damaged by atmos in some specific scenarios
+  - tweak: increased the output rate for supermatter waste injectors from 50L/s to
+      200L/s (maximized) on all maps that use them
+  - rscadd: added more pipes for the metastation communications
+2026-09-18:
+  rkz, SyncIt21, cacogen, mothblocks, hatterhat:
+  - rscadd: checks while inserting stack materials into an RPED and their amounts
+  - code_imp: sorting of RPED part components to sort stack materials by their ratings
+  - rscdel: old way of displaying parts when clicking on an machine frame with it
+  - bugfix: Machine frames and circuit boards no longer call manipulators micro-manipulators
+      when examined
+  - code_imp: makes stock parts stored as datums
+  - refactor: stack components no longer exist inside a machine's component_parts
+  - refactor: move component printer & module duplicator circuitboards into machine_circuitboards.dm
+  - rscadd: RPED can now pick up & install machine circuit boards in machine frames
+  - rscadd: RPED can pick up computer circuit boards for storage convenience but doesn't
+      install them
+  - refactor: RPED to infer icons of parts to use in icon2html() when displaying part
+      information
+  - rscadd: RPED can carry & install computer boards and complete computer frames
+  - balance: Machines now draw most of their power while actually working, rather
+      than constantly.
+  - balance: Upgrading a machine's parts raises its power draw. Machines that don't
+      provide better output when upgraded, like stasis beds, instead get less power
+      draw
+  - balance: Machine power costs rebalanced downward to pre-2025 levels
+  - bugfix: Inducers no longer produce free power when run below their charge rate
+  - bugfix: Thermomachines, gas miners, magnets, floodlights and gas sensors now actually
+      draw power
+  - bugfix: SMES units hold the capacity their parts say they do instead of half of
+      it
+  - bugfix: Tesla coils no longer generate power from an overloaded grid
+  - bugfix: APCs no longer report good external power while dead, and stop flicking
+      channels on and off on the threshold
+  - bugfix: Holopad power draw no longer creeps upward over a round
+  - code_imp: Machines declare how part tiers affect their power draw. Machine power
+      is now linted and unit tested against, including roundstart station power budget
+2026-09-19:
+  'Isaac, Ben10Omintrix, ':
+  - bugfix: Monkey AI is alive once again, they'll bite, shove, and throw you into
+      disposals if you hit them
+  - bugfix: Monkey "Flee" AI will properly turn off when dead
+  - bugfix: Monkey will no longer drop anything they try to eat on the floor
+2026-09-20:
+  Isaac:
+  - bugfix: Monkeys wont track you through walls forever, only when you're back in
+      their view
+  - bugfix: Pets put into the deep fryer no longer dissapear
+  - bugfix: Jitterness (from modafinil and similar) no longer cancels leaning animation
+  - bugfix: Leaning on a shuttle no longer flings you out of the shuttle when it departs.
+  - bugfix: Masks cover your mouth again
+  - bugfix: Hitting a ninja net will have priority over yourself, should be easier
+      to free someone and yourself from it
+  - bugfix: Cats no longer keep activating combat mode constantly over having a mice
+      on their mouth
+  - bugfix: Oxygen Candles work again, including hellfire candles
+  - rscadd: Atmosbos have an option to stop speaking into engineering radio, aswell
+      as being a bit more efficient
+2026-09-21:
+  Isaac, JohnFulpWillard, mc-oofert, SmArtKar:
+  - refactor: The Cult Leader is no longer a separate antagonist type, which should
+      stop it losing readied abilities
+  - rscadd: Admins can now promote and demote the Cult Master from the antagonist
+      panel.
+  - bugfix: Eldritch Pulse works. You can now actually grab a structure or cultist
+      and teleport them nearby
+  - rscadd: The roundend report now lists everyone who was ever in the cult, and marks
+      the ones who were deconverted instead of removing them.
+  - balance: The Stun blood spell gets weaker as the cult grows, at 40% weaker once
+      red eyes and 50% weaker once they hit halos.
+  - balance: Flagellant's robes no longer stuns non-cultist who wear them, they just
+      make them extremely heavy if they decided to wear them
+  - balance: The zealot's blindfold no longer stuns and blinds a non-cultist who wears
+      it, it slowly damages their eyes instead when wore
+  - balance: Cult Chat no longer whispers your message out loud, they'll still hear
+      your chanting regardless
+  - tweak: The zealot's blindfold can no longer be emagged or EMP'd.

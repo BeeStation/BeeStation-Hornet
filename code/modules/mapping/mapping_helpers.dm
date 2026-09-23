@@ -1277,14 +1277,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "power node helper"
 	icon_state = "power_node"
 	late = TRUE
-	var/integrity_damage_max = 0.85
 
 /obj/effect/mapping_helpers/power_node/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		log_mapping("[src] spawned outside of mapload!")
 		return INITIALIZE_HINT_QDEL
-	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/mapping_helpers/power_node/LateInitialize()
 	var/obj/structure/cable/target = locate(/obj/structure/cable) in loc
@@ -1297,3 +1295,100 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 
 	target.add_power_node()
 	qdel(src)
+
+/// Used to execute a payload when the round lacks a certain amount of a specific job or population at roundstart
+/obj/effect/mapping_helpers/lowpop
+	abstract_type = /obj/effect/mapping_helpers/lowpop
+	late = TRUE
+
+	/// The payload is executed if the roundstart station population is less than this
+	var/minimum_pop = 0
+	/// The payload is executed if the configured job's roundstart amount is less than this
+	var/minimum_job_amount = 0
+	/// A list of job datum types to compare [minimum_job_amount] against
+	var/list/targeted_job_types = null
+	/**
+	 * It's highly likely that there will be several lowpop mapping helpers with an identical configuration.
+	 *
+	 * To avoid repeated checks, we generate a unique identifier for this mapping helper's configuration and store
+	 * whether or not it passed in a static associative list formatted as: [check identifier --> TRUE/FALSE].
+	 */
+	VAR_PROTECTED/static/list/cached_succeeded_checks = list()
+
+/obj/effect/mapping_helpers/lowpop/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return INITIALIZE_HINT_QDEL
+
+	// Make us invisible, otherwise people who observe roundstart will see us
+	icon = null
+
+	register_payload_check_signal()
+
+/obj/effect/mapping_helpers/lowpop/proc/register_payload_check_signal()
+	RegisterSignal(SSticker, COMSIG_TICKER_ROUND_STARTING, PROC_REF(check_payload))
+
+/obj/effect/mapping_helpers/lowpop/proc/check_payload()
+	SIGNAL_HANDLER
+
+	var/cached_check_identifier = "[targeted_job_types.Join(",")];[minimum_job_amount];[minimum_pop]"
+	if(!isnull(cached_succeeded_checks[cached_check_identifier]))
+		if(cached_succeeded_checks[cached_check_identifier])
+			payload()
+	else
+		var/amount_of_specified_jobs = 0
+		for(var/job_type in targeted_job_types)
+			amount_of_specified_jobs += SSjob.get_job_type(job_type)?.current_positions
+
+		if(length(GLOB.manifest.general) < minimum_pop || amount_of_specified_jobs < minimum_job_amount)
+			cached_succeeded_checks[cached_check_identifier] = TRUE
+			payload()
+		else
+			cached_succeeded_checks[cached_check_identifier] = FALSE
+
+	qdel(src)
+
+/obj/effect/mapping_helpers/lowpop/proc/payload()
+	SHOULD_NOT_SLEEP(TRUE)
+	return
+
+/obj/effect/mapping_helpers/lowpop/cable_spawner
+	name = "lowpop cable spawner"
+	icon_state = "lowpop_cable"
+	minimum_job_amount = 1
+	targeted_job_types = list(/datum/job/station_engineer, /datum/job/chief_engineer)
+
+	/// The type of cable to spawn
+	var/cable_type = /obj/structure/cable
+
+/obj/effect/mapping_helpers/lowpop/cable_spawner/payload()
+	var/obj/structure/cable/spawned_cable = new cable_type(loc)
+	// Be sure to create a power node if there's a machine above our cable
+	if(locate(/obj/machinery/power) in loc)
+		spawned_cable.add_power_node()
+
+/obj/effect/mapping_helpers/lowpop/solar_console
+	name = "lowpop solar console enabler"
+	icon_state = "lowpop_solar"
+	minimum_job_amount = 1
+	targeted_job_types = list(/datum/job/station_engineer, /datum/job/chief_engineer)
+
+/obj/effect/mapping_helpers/lowpop/solar_console/register_payload_check_signal()
+	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(check_payload))
+
+/obj/effect/mapping_helpers/lowpop/solar_console/payload()
+	var/obj/machinery/power/solar_control/solar_control = locate(/obj/machinery/power/solar_control) in loc
+	if(!solar_control)
+		log_mapping("[src] failed to find a solar control at [AREACOORD(src)]")
+		return
+
+	if(solar_control.track == SOLAR_TRACK_AUTO)
+		log_mapping("[src] was deployed on a solar panel console that had already been enabled.")
+		return
+
+	// Copy & pasted from the solar control's ui_act()
+	solar_control.search_for_connected()
+	if(solar_control.connected_tracker)
+		solar_control.track = SOLAR_TRACK_AUTO
+		solar_control.connected_tracker.sun_update(SSsun, SSsun.azimuth)

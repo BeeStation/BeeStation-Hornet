@@ -199,14 +199,14 @@
 	else
 		quick_remove_item(/obj/item/cigarette, user)
 
-/*
-/obj/item/storage/fancy/cigarettes/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
+/obj/item/storage/fancy/cigarettes/add_context_self(datum/screentip_context/context, mob/user)
 	if(locate(/obj/item/lighter) in contents)
-		context[SCREENTIP_CONTEXT_ALT_LMB] = "Remove lighter"
-	context[SCREENTIP_CONTEXT_RMB] = "Remove [contents_tag]"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+		context.add_alt_click_action("Remove lighter")
+	else if(locate(/obj/item/cigarette) in contents)
+		context.add_alt_click_action("Remove [contents_tag]")
+
+	if(locate(/obj/item/cigarette) in contents)
+		context.add_right_click_action("Remove [contents_tag]")
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
