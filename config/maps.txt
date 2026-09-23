@@ -67,6 +67,10 @@ map runtimestation
 	disabled
 endmap
 
+map runtimestation_minimal
+	disabled
+endmap
+
 map multiz_debug
 	disabled
 endmap

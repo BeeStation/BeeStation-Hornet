@@ -51,7 +51,7 @@
 		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
-	if(owner.mob_biotypes & MOB_INORGANIC)//does not process in inorganic things
+	if(owner.mob_biotypes & MOB_MINERAL)//does not process in inorganic things
 		return
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)
@@ -85,6 +85,7 @@
 
 	//Fully heal the zombie's damage the first time they rise
 	C.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
+	C.cure_all_traumas(TRAUMA_RESILIENCE_ABSOLUTE)
 	if(C.heal_and_revive(0, span_danger("[C] suddenly convulses, as [C.p_they()][stand_up ? " stagger to [C.p_their()] feet and" : ""] gain a ravenous hunger in [C.p_their()] eyes!")))
 		return
 	C.grab_ghost()

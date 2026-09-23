@@ -10,24 +10,19 @@
 	idle_power_usage = 20
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/computer/powermonitor
-	tgui_id = "PowerMonitor"
 
-
-
-	var/obj/structure/cable/attached_wire
-	var/obj/machinery/power/apc/local_apc
+	var/datum/weakref/attached_wire_ref
+	var/datum/weakref/local_apc_ref
 
 	var/list/history = list()
 	var/record_size = 60
-	var/record_interval = 50
-	var/next_record = 0
-	var/is_secret_monitor = FALSE
+	var/record_interval = 5 SECONDS
+	COOLDOWN_DECLARE(record_cooldown)
 
 /obj/machinery/computer/monitor/secret //Hides the power monitor (such as ones on ruins & CentCom) from PDA's to prevent metagaming.
 	name = "outdated power monitoring console"
 	desc = "It monitors power levels across the local powernet."
 	circuit = /obj/item/circuitboard/computer/powermonitor/secret
-	is_secret_monitor = TRUE
 
 /obj/machinery/computer/monitor/secret/examine(mob/user)
 	. = ..()
@@ -48,41 +43,43 @@
 		record()
 
 /obj/machinery/computer/monitor/proc/search() //keep in sync with /datum/computer_file/program/power_monitor's version
-	var/turf/T = get_turf(src)
-	attached_wire = locate(/obj/structure/cable) in T
-	if(attached_wire)
+	var/turf/our_turf = get_turf(src)
+	attached_wire_ref = WEAKREF(locate(/obj/structure/cable) in our_turf)
+	if(attached_wire_ref)
 		return
-	var/area/A = get_area(src) //if the computer isn't directly connected to a wire, attempt to find the APC powering it to pull it's powernet instead
-	if(!A)
+	var/area/our_area = get_area(src) //if the computer isn't directly connected to a wire, attempt to find the APC powering it to pull it's powernet instead
+	if(!our_area)
 		return
-	local_apc = A.apc
+	var/obj/machinery/power/apc/local_apc = our_area.apc
 	if(!local_apc)
 		return
 	if(!local_apc.terminal) //this really shouldn't happen without badminnery.
 		local_apc = null
+	local_apc_ref = WEAKREF(local_apc)
 
-/obj/machinery/computer/monitor/proc/get_powernet() //keep in sync with /datum/computer_file/program/power_monitor's version
-	if(attached_wire || (local_apc && local_apc.terminal))
-		return attached_wire ? attached_wire.powernet : local_apc.terminal.powernet
-	return FALSE
+/obj/machinery/computer/monitor/proc/get_powernet() //keep in sync with /datum/computer_file/program/power_monitor's version //np
+	var/obj/structure/cable/attached_wire = attached_wire_ref?.resolve()
+	var/obj/machinery/power/apc/local_apc = local_apc_ref?.resolve()
+	return attached_wire?.powernet || local_apc?.terminal?.powernet
 
 /obj/machinery/computer/monitor/proc/record() //keep in sync with /datum/computer_file/program/power_monitor's version
-	if(world.time >= next_record)
-		next_record = world.time + record_interval
+	if(!COOLDOWN_FINISHED(src, record_cooldown))
+		return
+	COOLDOWN_START(src, record_cooldown, record_interval)
 
-		var/datum/powernet/connected_powernet = get_powernet()
+	var/datum/powernet/connected_powernet = get_powernet()
 
-		var/list/supply = history["supply"]
-		if(connected_powernet)
-			supply += connected_powernet.viewavail
-		if(supply.len > record_size)
-			supply.Cut(1, 2)
+	var/list/supply = history["supply"]
+	if(connected_powernet)
+		supply += connected_powernet.viewavail
+	if(supply.len > record_size)
+		supply.Cut(1, 2)
 
-		var/list/demand = history["demand"]
-		if(connected_powernet)
-			demand += connected_powernet.viewload
-		if(demand.len > record_size)
-			demand.Cut(1, 2)
+	var/list/demand = history["demand"]
+	if(connected_powernet)
+		demand += connected_powernet.viewload
+	if(demand.len > record_size)
+		demand.Cut(1, 2)
 
 /obj/machinery/computer/monitor/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -97,7 +94,7 @@
 	var/list/data = list()
 	data["stored"] = record_size
 	data["interval"] = record_interval / 10
-	data["attached"] = connected_powernet ? TRUE : FALSE
+	data["attached"] = !!connected_powernet
 	data["history"] = history
 	data["areas"] = list()
 

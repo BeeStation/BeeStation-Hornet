@@ -9,7 +9,6 @@
 	antag_hud_name = "ninja"
 	//preview_outfit = /datum/outfit/ninja_preview
 	var/helping_station = FALSE
-	var/give_equipment = TRUE
 
 /datum/antagonist/ninja/New()
 	if(helping_station)
@@ -63,7 +62,7 @@
 				for(var/datum/mind/potential_target as anything in get_crewmember_minds())
 					if(!ishuman(potential_target.current))
 						continue
-					if(!potential_target.special_role && !(potential_target.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
+					if(!potential_target.special_role && !(potential_target.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND)))
 						continue
 					potential_targets += potential_target
 
@@ -73,7 +72,7 @@
 				var/datum/objective/assassinate/assassinate_objective = new()
 				var/datum/mind/person_to_kill = pick(potential_targets)
 				assassinate_objective.set_target(person_to_kill)
-				assassinate_objective.explanation_text = "Slay [person_to_kill.current.real_name], the [person_to_kill.assigned_role]."
+				assassinate_objective.explanation_text = "Slay [person_to_kill.current.real_name], the [person_to_kill.assigned_role.title]."
 				add_objective(assassinate_objective)
 			if(4) //capture
 				var/datum/objective/capture/capture_objective = new()
@@ -95,8 +94,8 @@
 
 /datum/antagonist/ninja/greet()
 	SEND_SOUND(owner.current, sound('sound/effects/ninja_greeting.ogg'))
-	to_chat(owner.current, "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!")
-	to_chat(owner.current, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (initialize your suit by right clicking on it, to use abilities like stealth)!")
+	to_chat(owner.current, span_danger("I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!"))
+	to_chat(owner.current, span_warning("Surprise is my weapon. Shadows are my armor. Without them, I am nothing."))
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Ninja",
 		"Infiltrate the station and complete your assigned objectives.")
@@ -105,12 +104,13 @@
 	if(give_objectives)
 		forge_objectives()
 	addMemories()
-	if(give_equipment)
-		equip_space_ninja(owner.current)
-	. = ..()
+	equip_space_ninja(owner.current)
+	owner.current.mind.set_assigned_role(SSjob.get_job_type(/datum/job/space_ninja))
+	owner.current.mind.special_role = ROLE_NINJA
+	return ..()
 
 /datum/antagonist/ninja/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.set_assigned_role(ROLE_NINJA)
+	new_owner.set_assigned_role(SSjob.get_job_type(/datum/job/space_ninja))
 	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")

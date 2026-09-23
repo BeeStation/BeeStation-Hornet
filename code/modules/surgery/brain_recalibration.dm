@@ -25,7 +25,12 @@
 	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery/brain_recalibration/can_start(mob/user, mob/living/carbon/target)
-	return target.get_organ_slot(ORGAN_SLOT_BRAIN) && ..()
+	if(!(..() && iscarbon(target))) //Despite what the arguments say, surgery targets can actually be simple mobs too
+		return FALSE
+	var/obj/item/organ/brain_organ = target.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(!brain_organ || (brain_organ.organ_flags & ORGAN_ROBOTIC)) // checks if this brain should be repairable by surgery
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/fix_brain/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(

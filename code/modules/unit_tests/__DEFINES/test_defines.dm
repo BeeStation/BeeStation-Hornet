@@ -27,6 +27,16 @@
 	} \
 } while (FALSE)
 
+/// Asserts that two floats are equal to within a tolerance, fails otherwise
+/// Optionally allows an additional message in the case of a failure
+#define TEST_ASSERT_APPROX(a, b, message) do { \
+	var/lhs = ##a; \
+	var/rhs = ##b; \
+	if (abs(lhs - rhs) > 0.001) { \
+		Fail("Expected [isnull(lhs) ? "null" : lhs] to be approximately [isnull(rhs) ? "null" : rhs].[message ? " [message]" : ""]", __FILE__, __LINE__); \
+	} \
+} while (FALSE)
+
 /// Asserts that the two parameters passed are not equal, fails otherwise
 /// Optionally allows an additional message in the case of a failure
 #define TEST_ASSERT_NOTEQUAL(a, b, message) do { \
@@ -40,7 +50,11 @@
 /// *Only* run the test provided within the parentheses
 /// This is useful for debugging when you want to reduce noise, but should never be pushed
 /// Intended to be used in the manner of `TEST_FOCUS(/datum/unit_test/math)`
-#define TEST_FOCUS(test_path) ##test_path { focus = TRUE; }
+#define TEST_FOCUS(test_path) ##test_path { test_flags = UNIT_TEST_FOCUS; }
+
+/// Run the test provided within the parentheses run_count times
+/// Useful for debugging flaky tests that only fail sometimes
+#define TEST_REPEAT(test_path, run_count) ##test_path { times_to_run = ##run_count; }
 
 /// Logs a noticable message on GitHub, but will not mark as an error.
 /// Use this when something shouldn't happen and is of note, but shouldn't block CI.
@@ -64,6 +78,16 @@
  * Keep in mind tho that create and destroy will absolutely break the test platform, anything that relies on its shape cannot come after it.
  */
 #define TEST_AFTER_CREATE_AND_DESTROY INFINITY
+
+// Unit test bitflags
+
+/// If any unit test has this bitflag, only unit tests with UNIT_TEST_FOCUS will run.
+#define UNIT_TEST_FOCUS (1<<0)
+/// This unit test only runs on specially designated unit test maps (Should only ever be one).
+#define UNIT_TEST_DEBUG_MAP_ONLY (1<<1)
+
+#define UNIT_TEST_BASIC (UNIT_TEST_DEBUG_MAP_ONLY)
+#define UNIT_TEST_MAP_TEST (NONE)
 
 /// Change color to red on ANSI terminal output, if enabled with -DANSICOLORS.
 #ifdef ANSICOLORS

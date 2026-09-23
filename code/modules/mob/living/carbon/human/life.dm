@@ -27,25 +27,14 @@
 	if(QDELETED(src))
 		return FALSE
 
+	//Body temperature stability and damage
+	dna.species.handle_body_temperature(src, delta_time, times_fired)
 	if(!IS_IN_STASIS(src))
 		if(stat != DEAD)
-			if(undergoing_cardiac_arrest())
-				//heart attack stuff
-				var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
-
-				if(we_breath)
-					adjustOxyLoss(4 * delta_time)
-					Unconscious(80)
-
-				// Tissues die without blood circulation, machines burn without coolant circulation
-				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
-					adjustFireLoss(0.5 * delta_time)
-				else
-					adjustBruteLoss(1 * delta_time)
-			handle_liver()
-
-		//Body temperature stability and damage
-		dna.species.handle_body_temperature(src, delta_time, times_fired)
+			//heart attack stuff
+			handle_heart(delta_time)
+			//handles liver failure effects, if we lack a liver
+			handle_liver(delta_time)
 
 		dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
 
@@ -67,17 +56,9 @@
 		return ONE_ATMOSPHERE
 	return pressure
 
-
-/mob/living/carbon/human/handle_traits(delta_time, times_fired)
-	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
-	return ..()
-
 /mob/living/carbon/human/breathe()
-	if(!dna.species.breathe(src))
-		..()
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH))
+		return ..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
@@ -94,13 +75,13 @@
 		var/datum/species/S = dna.species
 
 		if(S.breathid == GAS_O2)
-			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == GAS_PLASMA)
-			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_plas)
+			throw_alert(ALERT_NOT_ENOUGH_PLASMA, /atom/movable/screen/alert/not_enough_plas)
 		else if(S.breathid == "co2")
-			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
+			throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
 		else if(S.breathid == "n2")
-			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
+			throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
 	else
@@ -284,7 +265,7 @@
 
 	lastpuke += DT_PROB(30, delta_time)
 	if(lastpuke >= 50) // about 25 second delay I guess // This is actually closer to 150 seconds
-		vomit(20)
+		vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 		lastpuke = 0
 
 
@@ -300,6 +281,22 @@
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
 	return ..()
+
+/mob/living/carbon/human/proc/handle_heart(delta_time)
+	var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+
+	if(!undergoing_cardiac_arrest())
+		return
+
+	if(we_breath)
+		adjustOxyLoss(4 * delta_time)
+		Unconscious(80)
+
+	// Tissues die without blood circulation, machines burn without coolant circulation
+	if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+		adjustFireLoss(0.5 * delta_time)
+	else
+		adjustBruteLoss(1 * delta_time)
 
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST

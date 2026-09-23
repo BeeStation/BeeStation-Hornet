@@ -2,14 +2,11 @@
 	name = "Snailperson"
 	plural_form = "Snailpeople"
 	id = SPECIES_SNAIL
-	species_traits = list(
-		MUTCOLORS,
-		NO_UNDERWEAR
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_SLIP_ALL,
 	)
-	attack_verb = "slap"
 	coldmod = 0.5 //snails only come out when its cold and wet
-	speedmod = 2
-	punchdamage = 3
 	siemens_coeff = 2 //snails are mostly water
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE //snails are hermaphrodites
@@ -28,13 +25,15 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/snail
 	)
 
-/datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/snail/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
-		H.adjustFireLoss(2 * REM * delta_time)
-		playsound(H, 'sound/weapons/sear.ogg', 30, 1)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return TRUE
-	return ..()
+		playsound(affected, 'sound/weapons/sear.ogg', 30, TRUE)
+		affected.adjustFireLoss(2 * REM * delta_time)
+		affected.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
 
 /datum/species/snail/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
@@ -42,12 +41,12 @@
 	if(!istype(bag, /obj/item/storage/backpack/snail))
 		if(C.dropItemToGround(bag)) //returns TRUE even if its null
 			C.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(C), ITEM_SLOT_BACK)
-	ADD_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+	ADD_TRAIT(C, TRAIT_NO_SLIP_ALL, SPECIES_TRAIT)
 
 /datum/species/snail/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	qdel(C.GetComponent(/datum/component/snailcrawl))
-	REMOVE_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
+	REMOVE_TRAIT(C, TRAIT_NO_SLIP_ALL, SPECIES_TRAIT)
 	var/obj/item/storage/backpack/bag = C.get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(bag, /obj/item/storage/backpack/snail))
 		bag.emptyStorage()

@@ -37,8 +37,9 @@
 
 /datum/reagent/consumable/ethanol/New()
 	///Ranges from -0.5 - 15 per tick on the addiction scale
-	if(boozepwr) // anything other than 0
-		LAZYSET(addiction_types, /datum/addiction/alcohol, 0.05 * boozepwr)
+	if(boozepwr > 0)
+		// the stronger the drink, the less total of the drink is needed to reach addiction
+		LAZYSET(addiction_types, /datum/addiction/alcohol, max(50, round(150 - boozepwr, 5)))
 	return ..()
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -467,7 +468,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	boozepwr = 100
 	taste_description = "pure resignation"
-	addiction_types = list(/datum/addiction/alcohol = 5, /datum/addiction/maintenance_drugs = 2)
+	addiction_types = list(/datum/addiction/maintenance_drugs = 600)
 
 /datum/glass_style/drinking_glass/hooch
 	required_drink_type = /datum/reagent/consumable/ethanol/hooch
@@ -477,7 +478,7 @@
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role == JOB_NAME_ASSISTANT)
+	if(is_assistant_job(affected_mob.mind?.assigned_role))
 		if(affected_mob.heal_bodypart_damage(brute = 1 * REM * delta_time, burn = 1 * REM * delta_time, updating_health = FALSE))
 			return UPDATE_MOB_HEALTH
 
@@ -667,7 +668,7 @@
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
+	if(affected_mob.mind?.assigned_role.title in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
 		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
 			if(affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
 				return UPDATE_MOB_HEALTH
@@ -777,7 +778,7 @@
 	if(isshadow(affected_mob))
 		return
 	if(QDELETED(light_holder))
-		affected_mob.reagents.del_reagent(/datum/reagent/consumable/ethanol/tequila_sunrise) //If we lost our light object somehow, remove the reagent
+		holder.del_reagent(type) //If we lost our light object somehow, remove the reagent
 	else if(light_holder.loc != affected_mob)
 		light_holder.forceMove(affected_mob)
 
@@ -2235,7 +2236,7 @@
 /datum/reagent/consumable/ethanol/alexander/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(mighty_shield && !(mighty_shield in affected_mob.contents)) //If you had a shield and lose it, you lose the reagent as well. Otherwise this is just a normal drink.
-		holder.del_reagent(/datum/reagent/consumable/ethanol/alexander)
+		holder.remove_reagent(type)
 
 /datum/reagent/consumable/ethanol/alexander/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -2711,14 +2712,12 @@
 	if(DT_PROB(10, delta_time))
 		affected_human.age += 1
 		if(affected_human.age > 70)
-			affected_human.facial_hair_color = "#CCCCCC"
-			affected_human.hair_color = "#CCCCCC"
-			affected_human.update_hair()
+			affected_human.set_facial_haircolor("#cccccc", update = FALSE)
+			affected_human.set_haircolor("#cccccc", update = TRUE)
 			if(affected_human.age > 100)
 				affected_human.become_nearsighted(type)
 				if(affected_human.gender == MALE)
-					affected_human.facial_hair_style = "Beard (Very Long)"
-					affected_human.update_hair()
+					affected_human.set_facial_hairstyle("Beard (Very Long)", update = TRUE)
 
 				if(affected_human.age > 969) //Best not let people get older than this or i might incur G-ds wrath
 					affected_human.visible_message(span_notice("[affected_human] becomes older than any man should be.. and crumbles into dust!"))
@@ -2807,7 +2806,7 @@
 		if(DT_PROB(5, delta_time))
 			stored_teleports += rand(2, 6)
 			if(prob(70))
-				affected_mob.vomit()
+				affected_mob.vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/purple)
 
 /datum/reagent/consumable/ethanol/planet_cracker
 	name = "Planet Cracker"
@@ -3119,5 +3118,8 @@
 		shake_camera(affected_mob, 15)
 		affected_mob.playsound_local(affected_mob.loc, "sound/effects/hyperspace_end.ogg", 50)
 		affected_mob.become_nearsighted("ftliver")
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, cure_nearsighted), "ftliver"), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(delayed_cure_nearsighted), affected_mob), 5 SECONDS)
 
+/datum/reagent/consumable/ethanol/ftliver/proc/delayed_cure_nearsighted(mob/living/carbon/target)
+	if(!QDELETED(target))
+		target.cure_nearsighted("ftliver")

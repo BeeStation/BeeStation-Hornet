@@ -32,16 +32,17 @@
 		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
 
 /obj/machinery/nanite_chamber/RefreshParts()
+	. = ..()
 	scan_level = 0
 	nanite_coeff = 0
 	speed_coeff = 1
-	for(var/obj/item/stock_parts/scanning_module/P in component_parts)
-		scan_level += P.rating
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		nanite_coeff += manipulator.rating
+	for(var/datum/stock_part/scanning_module/P in component_parts)
+		scan_level += P.tier
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.tier
 	var/total_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
-		total_laser_rating += micro_laser.rating
+	for(var/datum/stock_part/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.tier
 	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/nanite_chamber/examine(mob/user)
@@ -53,6 +54,7 @@
 
 /obj/machinery/nanite_chamber/proc/set_busy(status, message, working_icon)
 	busy = status
+	update_use_power(status ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	busy_message = message
 	busy_icon_state = working_icon
 	update_icon()
@@ -180,14 +182,14 @@
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-/obj/machinery/nanite_chamber/close_machine(mob/living/carbon/user)
+/obj/machinery/nanite_chamber/close_machine(mob/living/carbon/user, density_to_set = TRUE)
 	if(!state_open)
 		return FALSE
 
 	..(user)
 	return TRUE
 
-/obj/machinery/nanite_chamber/open_machine()
+/obj/machinery/nanite_chamber/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(state_open)
 		return FALSE
 

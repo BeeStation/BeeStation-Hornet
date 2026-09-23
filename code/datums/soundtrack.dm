@@ -21,14 +21,14 @@ GLOBAL_LIST_EMPTY(soundtrack_this_round) // A running list of soundtrack songs t
 	title = "Future Perception"
 	artist = "Merct"
 	url = "https://www.youtube.com/watch?v=N9559mSGjKg"
-	file = 'sound/soundtrack/future_perception.ogg'
+	file = 'sound/music/antag/future_perception.ogg'
 	length = (3 MINUTES) + (20 SECONDS)
 
 /datum/soundtrack_song/bee/countdown
 	title = "Countdown"
 	artist = "qwertyquerty"
 	url = "https://www.youtube.com/watch?v=G2gVAPKlgqA"
-	file = 'sound/soundtrack/countdown.ogg'
+	file = 'sound/music/antag/countdown.ogg'
 	length = (1 MINUTES) + (51 SECONDS)
 	station_only = TRUE
 
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(soundtrack_this_round) // A running list of soundtrack songs t
 	title = "Mind Crawler"
 	artist = "Merct"
 	url = "https://www.youtube.com/watch?v=EiLBxoBNsNo"
-	file = 'sound/soundtrack/mind_crawler.ogg'
+	file = 'sound/music/antag/mind_crawler.ogg'
 	length = (2 MINUTES) + (50 SECONDS)
 	station_only = TRUE
 
@@ -45,5 +45,5 @@ GLOBAL_LIST_EMPTY(soundtrack_this_round) // A running list of soundtrack songs t
 	artist = "Bolgarich"
 	album = "None!" //so it doesnt show up on credits as ()
 	url = "https://www.youtube.com/watch?v=NqNHKfTAvcw"
-	file = 'sound/soundtrack/tearofveil.ogg'
+	file = 'sound/music/antag/tearofveil.ogg'
 	length = (2 MINUTES) + (52 SECONDS)

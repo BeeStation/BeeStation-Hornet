@@ -434,48 +434,32 @@
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
-/mob/living/proc/cure_blind(source, can_see = TRUE)
-	if(!can_see)
-		return
-	REMOVE_TRAIT(src, TRAIT_BLIND, source)
-	if(!is_blind())
-		update_blindness()
-
-/mob/living/proc/become_blind(source, overlay, add_color)
-	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
-		ADD_TRAIT(src, TRAIT_BLIND, source)
-		update_blindness(overlay, add_color)
-	else
-		ADD_TRAIT(src, TRAIT_BLIND, source)
-
-/mob/living/proc/cure_nearsighted(source)
-	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
-	if(!HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		clear_fullscreen("nearsighted")
-
-/mob/living/proc/become_nearsighted(source)
-	if(!HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
-	ADD_TRAIT(src, TRAIT_NEARSIGHT, source)
-
 /mob/living/proc/cure_husk(source)
 	REMOVE_TRAIT(src, TRAIT_HUSK, source)
-	if(!HAS_TRAIT(src, TRAIT_HUSK))
-		REMOVE_TRAIT(src, TRAIT_DISFIGURED, "husk")
-		update_body()
-		return TRUE
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		return FALSE
+	REMOVE_TRAIT(src, TRAIT_DISFIGURED, "husk")
+	update_body()
+	UnregisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UNHUSKABLE))
+	return TRUE
 
 /mob/living/proc/become_husk(source)
-	if(!HAS_TRAIT(src, TRAIT_HUSK))
-		ADD_TRAIT(src, TRAIT_HUSK, source)
-		ADD_TRAIT(src, TRAIT_DISFIGURED, "husk")
-		update_body()
-	else
-		ADD_TRAIT(src, TRAIT_HUSK, source)
+	if(HAS_TRAIT(src, TRAIT_UNHUSKABLE))
+		return
+	var/was_husk = HAS_TRAIT(src, TRAIT_HUSK)
+	ADD_TRAIT(src, TRAIT_HUSK, source)
+	if (was_husk)
+		return
+	ADD_TRAIT(src, TRAIT_DISFIGURED, "husk")
+	update_body()
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UNHUSKABLE), PROC_REF(became_unhuskable))
+
+/mob/living/proc/became_unhuskable()
+	SIGNAL_HANDLER
+	cure_husk()
 
 /mob/living/proc/cure_fakedeath(source)
-	REMOVE_TRAIT(src, TRAIT_FAKEDEATH, source)
-	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
+	remove_traits(list(TRAIT_FAKEDEATH, TRAIT_DEATHCOMA), source)
 	if(stat != DEAD)
 		station_timestamp_timeofdeath = null
 

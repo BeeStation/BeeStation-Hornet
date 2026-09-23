@@ -13,11 +13,11 @@
 		return
 	COOLDOWN_START(src, pulse_cooldown, pulse_interval)
 
-	our_turf.atmos_spawn_air("o2=5;plasma=5;TEMP=1000")
+	our_turf.atmos_spawn_air("[GAS_O2]=5;[GAS_PLASMA]=5;TEMP=1000")
 
 /obj/effect/anomaly/pyro/detonate()
 	var/turf/open/our_turf = get_turf(src)
-	our_turf.atmos_spawn_air("o2=500;plasma=500;TEMP=1000") //Make it hot and burny for the new slime
+	our_turf.atmos_spawn_air("[GAS_O2]=500;[GAS_PLASMA]=500;TEMP=1000") //Make it hot and burny for the new slime
 	log_game("A pyroclastic anomaly has detonated at [AREACOORD(loc)].")
 	message_admins("A pyroclastic anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
 	var/new_colour = pick(SLIME_TYPE_ORANGE, SLIME_TYPE_RED)

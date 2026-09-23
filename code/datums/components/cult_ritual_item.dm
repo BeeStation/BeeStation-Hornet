@@ -354,7 +354,7 @@
 	priority_announce(
 		"Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!",
 		sender_override = "[command_name()] Higher Dimensional Affairs",
-		sound = cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/ambience/antag/bloodcult_scribe.ogg',
+		sound = cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg',
 	)
 	cult_music_played = TRUE
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))

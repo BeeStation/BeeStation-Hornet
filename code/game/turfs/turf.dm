@@ -532,33 +532,30 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE, purge = TRUE)
+/turf/proc/add_vomit_floor(mob/living/vomiter, vomit_type = /obj/effect/decal/cleanable/vomit, vomit_flags, purge_ratio = 0.1)
+	var/obj/effect/decal/cleanable/vomit/throw_up = new vomit_type (src, vomiter.get_static_viruses())
 
-	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
-
-	//if the vomit combined, apply toxicity and reagents to the old vomit
-	if (QDELETED(V))
-		V = locate() in src
-	if(!V)
+	// if the vomit combined, apply toxicity and reagents to the old vomit
+	if (QDELETED(throw_up))
+		throw_up = locate() in src
+	if(isnull(throw_up))
 		return
-	// Make toxins and blazaam vomit look different
-	if(toxvomit == VOMIT_PURPLE)
-		V.icon_state = "vomitpurp_[pick(1,4)]"
-	else if (toxvomit == VOMIT_TOXIC)
-		V.icon_state = "vomittox_[pick(1,4)]"
-	else if (toxvomit == VOMIT_NANITE)
-		V.name = "metallic slurry"
-		V.desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
-		V.icon_state = "vomitnanite_[pick(1,4)]"
-	if (purge && iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(C.reagents)
-			clear_reagents_to_vomit_pool(C,V)
 
-/proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V)
-	M.reagents.trans_to(V, M.reagents.total_volume / 10, transfered_by = M)
-	for(var/datum/reagent/R in M.reagents.reagent_list)                //clears the stomach of anything that might be digested as food
-		if(istype(R, /datum/reagent/consumable))
+	if(!iscarbon(vomiter) || (purge_ratio == 0))
+		return
+
+	clear_reagents_to_vomit_pool(vomiter, throw_up, purge_ratio)
+
+/proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V, purge = FALSE)
+	var/obj/item/organ/stomach/belly = M.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!belly?.reagents.total_volume)
+		return
+	var/chemicals_lost = M.reagents.total_volume / 10
+	if(purge)
+		chemicals_lost = (2 * M.reagents.total_volume)/3 //For detoxification surgery, we're manually pumping the stomach out of chemcials, so it's far more efficient.
+	M.reagents.trans_to(V, chemicals_lost, transfered_by = M)
+	for(var/datum/reagent/R in M.reagents.reagent_list) //clears the stomach of anything that might be digested as food
+		if(istype(R, /datum/reagent/consumable) || purge)
 			var/datum/reagent/consumable/nutri_check = R
 			if(nutri_check.nutriment_factor >0)
 				M.reagents.remove_reagent(R.type, min(R.volume, 10))

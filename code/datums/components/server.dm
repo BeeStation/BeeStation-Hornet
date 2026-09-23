@@ -44,8 +44,11 @@
 	var/turf/open/our_turf = get_turf(parent_machine)
 	if(istype(our_turf))
 		var/datum/gas_mixture/environment = our_turf.return_air()
-		temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
-		our_turf.air_update_turf(FALSE, FALSE)
+		var/shared_temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
+		// If heat change, update turf
+		if(shared_temperature != temperature)
+			temperature = shared_temperature
+			our_turf.air_update_turf(FALSE, FALSE)
 
 	// Handle overheating
 	if(temperature > overheat_temp)
@@ -56,7 +59,10 @@
 			COOLDOWN_START(src, spark_cooldown, 10 SECONDS)
 			do_sparks(5, FALSE, parent)
 		return
-	parent_machine.set_machine_stat(parent_machine.machine_stat & ~OVERHEATED)
+	if(parent_machine.machine_stat & OVERHEATED)
+		parent_machine.set_machine_stat(parent_machine.machine_stat & ~OVERHEATED)
+		// power changes during overheat can break the state, so force it regardless :)
+		parent_machine.power_change()
 
 	// Update efficiency
 	var/efficiency_change = (temperature - T20C) / (overheat_temp - T20C)

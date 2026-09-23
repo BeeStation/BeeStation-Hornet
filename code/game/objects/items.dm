@@ -108,6 +108,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/flags_inv
 	/// This flag is used to determine when items in someone's inventory cover others, however you can still see through that item and know what it covers. ex: You can see someone's mask through their transparent visor, but you can't reach it.
 	var/transparent_protection = NONE
+	///Path of type /datum/hair_mask to apply to hair when this item is worn
+	///Used by certain hats to give the appearance of squishing down tall hairstyles without hiding the hair completely
+	var/hair_mask = null
 
 	/// Flags for clicking the item with your hand. See _DEFINES/interaction_flags.dm
 	var/interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
@@ -964,7 +967,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		M.adjust_eye_blur(30 SECONDS)
 		if(M.stat != DEAD)
 			to_chat(M, span_danger("Your eyes start to bleed profusely!"))
-		if(!M.is_blind() || HAS_TRAIT(M, TRAIT_NEARSIGHT))
+		if(!M.is_blind() || M.is_nearsighted_from(EYE_DAMAGE))
 			to_chat(M, span_danger("You become nearsighted!"))
 		M.become_nearsighted(EYE_DAMAGE)
 		if (eyes.damage >= 60)
@@ -1515,7 +1518,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		/// victim's chest (for cavity implanting the item)
 		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
 		if(victim_cavity.cavity_item)
-			victim.vomit(5, FALSE, FALSE, distance = 0)
+			victim.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = 5, distance = 0)
 			forceMove(drop_location())
 			to_chat(victim, span_warning("You vomit up a [name]! [source_item? "Was that in \the [source_item]?" : ""]"))
 		else

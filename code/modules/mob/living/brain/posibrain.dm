@@ -24,7 +24,8 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 	///Can be set to tell ghosts what the brain will be used for
 	var/ask_role = ""
-	var/new_role
+	///Role assigned to the newly created mind
+	var/posibrain_job_path = /datum/job/posibrain
 	///World time tick when ghost polling will be available again
 	var/next_ask
 	///Delay after polling ghosts
@@ -159,7 +160,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.timeofdeath = transferred_user.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
-		brainmob.mind.set_assigned_role(new_role)
+		brainmob.mind.set_assigned_role(SSjob.get_job_type(posibrain_job_path))
 	if(transferred_user.mind)
 		transferred_user.mind.transfer_to(brainmob)
 
@@ -180,7 +181,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		brainmob.ckey = candidate.ckey
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
-	brainmob.mind.set_assigned_role(new_role)
+	brainmob.mind.set_assigned_role(SSjob.get_job_type(posibrain_job_path))
 	brainmob.set_stat(CONSCIOUS)
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()
@@ -221,7 +222,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.container = src
 
 	//If we are on the station level, add it to the list of available posibrains.
-	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.get_job_type(posibrain_job_path)
 	pj.check_add_posi_slot(src)
 
 	if(autoping)

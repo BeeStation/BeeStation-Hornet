@@ -58,7 +58,7 @@
 	var/list/weather_immunities
 
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
-	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
+	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
 	///This damage is taken when atmos doesn't fit all the requirements above.
 	var/unsuitable_atmos_damage = 1
 
@@ -74,7 +74,10 @@
 	var/attack_verb_continuous = "attacks"
 	///Attacking verb in present simple tense.
 	var/attack_verb_simple = "attack"
-	var/attack_sound = null
+	/// Sound played when the critter attacks.
+	var/attack_sound
+	/// Override for the visual attack effect shown on 'do_attack_animation()'.
+	var/attack_vis_effect
 	///Attacking, but without damage, verb in present continuous tense.
 	var/friendly_verb_continuous = "nuzzles"
 	///Attacking, but without damage, verb in present simple tense.
@@ -295,16 +298,17 @@
 	if(isturf(loc) && isopenturf(loc))
 		var/turf/open/ST = loc
 		if(ST.air)
-			var/tox = GET_MOLES(/datum/gas/plasma, ST.air)
-			var/oxy = GET_MOLES(/datum/gas/oxygen, ST.air)
-			var/n2  = GET_MOLES(/datum/gas/nitrogen, ST.air)
-			var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, ST.air)
+			var/list/cached_moles = ST.air.moles
+			var/tox = cached_moles[/datum/gas/plasma] || 0
+			var/oxy = cached_moles[/datum/gas/oxygen] || 0
+			var/n2  = cached_moles[/datum/gas/nitrogen] || 0
+			var/co2 = cached_moles[/datum/gas/carbon_dioxide] || 0
 
 			if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 				. = FALSE
 			else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 				. = FALSE
-			else if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
+			else if(atmos_requirements["min_plas"] && tox < atmos_requirements["min_plas"])
 				. = FALSE
 			else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 				. = FALSE
@@ -317,7 +321,7 @@
 			else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
 				. = FALSE
 		else
-			if(atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"])
+			if(atmos_requirements["min_oxy"] || atmos_requirements["min_plas"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"])
 				. = FALSE
 
 /mob/living/simple_animal/proc/environment_temperature_is_safe(datum/gas_mixture/environment)
@@ -341,9 +345,9 @@
 	if(!environment_air_is_safe() && unsuitable_atmos_damage)
 		adjustHealth(unsuitable_atmos_damage * delta_time)
 		if(unsuitable_atmos_damage > 0)
-			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 	else
-		clear_alert("not_enough_oxy")
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
 	handle_temperature_damage(delta_time, times_fired)
 

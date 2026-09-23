@@ -1,4 +1,3 @@
-
 /datum/remote_view
 	var/map_name
 	VAR_PRIVATE/list/cam_plane_masters
@@ -52,7 +51,7 @@
 		relay_image.layer = (plane.plane + abs(LOWEST_EVER_PLANE))*0.5
 		relay_image.render_source = plane.render_target
 		relay_image.blend_mode = plane.blend_mode
-		relay_image.screen_loc = "[map_name]:CENTER"
+		relay_image.screen_loc = "[map_name]:1,1"
 		relay_images += relay_image
 
 /datum/remote_view/proc/get_plane(plane_type)

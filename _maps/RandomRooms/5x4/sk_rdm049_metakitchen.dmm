@@ -79,7 +79,7 @@
 "p" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp{
-	on = 0
+	start_on = 0
 	},
 /turf/open/floor/plating,
 /area/template_noop)

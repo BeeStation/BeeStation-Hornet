@@ -1,7 +1,7 @@
 /datum/job/clown
 	title = JOB_NAME_CLOWN
 	description = "Be the life and soul of the station. Entertain the crew with your hilarious jokes and silly antics, including slipping, pie-ing and honking around. Remember your job is to keep things funny for others, not just yourself."
-	department_for_prefs = DEPT_NAME_SERVICE
+	department_for_prefs = DEPARTMENT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
@@ -16,7 +16,9 @@
 	)
 	extra_access = list()
 
-	departments = DEPT_BITFLAG_SRV
+	departments_list = list(
+		/datum/department_group/service,
+		)
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
@@ -38,13 +40,11 @@
 		JOB_NAME_BOTANIST // because banana
 	)
 
-/datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
+/datum/job/clown/after_spawn(mob/living/spawned, client/player_client)
 	. = ..()
-	if(!ishuman(H))
+	if(!ishuman(spawned))
 		return
-	if(!M.client || on_dummy)
-		return
-	H.apply_pref_name(/datum/preference/name/clown, preference_source)
+	spawned.apply_pref_name(/datum/preference/name/clown, player_client)
 
 
 /datum/outfit/job/clown

@@ -777,7 +777,7 @@
 		if(full_heal_flags & HEAL_ADMIN)
 			get_up(TRUE)
 		update_sight()
-		clear_alert("not_enough_oxy")
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		reload_fullscreen()
 		. = TRUE
 		if(excess_healing)
@@ -867,10 +867,7 @@
 
 	// These should be tracked by status effects
 	losebreath = 0
-	set_blindness(0)
 	set_disgust(0)
-	cure_nearsighted()
-	cure_blind()
 	cure_husk()
 
 	qdel(GetComponent(/datum/component/irradiated))
@@ -1421,8 +1418,7 @@
 
 			// Randomize everything but the species, which was already handled above.
 			new_human.randomize_human_appearance(~RANDOMIZE_SPECIES)
-			new_human.update_hair()
-			new_human.update_body() // is_creating = TRUE
+			new_human.update_body(is_creating = TRUE)
 			new_human.dna.update_dna_identity()
 			new_mob = new_human
 
@@ -1472,11 +1468,6 @@
 	else if(key)
 		new_mob.key = key
 
-/mob/living/can_block_magic(casted_magic_flags)
-	. = ..()
-	if(.)
-		return
-
 /mob/living/proc/unfry_mob() //Callback proc to tone down spam from multiple sizzling frying oil dipping.
 	REMOVE_TRAIT(src, TRAIT_OIL_FRIED, "cooking_oil_react")
 
@@ -1495,6 +1486,12 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	return fire_status.ignite(silent)
 
+/**
+ * Extinguish all fire on the mob
+ *
+ * This removes all fire stacks, fire effects, alerts, and moods
+ * Signals the extinguishing.
+ */
 /mob/living/proc/extinguish_mob()
 	if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //The everlasting flames will not be extinguished
 		return
@@ -1662,13 +1659,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	. = ..()
 	if(isnull(.))
 		return
+
+	if(. <= UNCONSCIOUS || new_stat >= UNCONSCIOUS)
+		update_body() // to update eyes
+
 	switch(.) //Previous stat.
 		if(CONSCIOUS)
 			if(stat >= UNCONSCIOUS)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-			ADD_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
-			ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
+			add_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), STAT_TRAIT)
 		if(SOFT_CRIT)
 			if(stat >= UNCONSCIOUS)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
@@ -1687,10 +1686,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(CONSCIOUS)
 			if(. >= UNCONSCIOUS)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_CRITICAL_CONDITION), STAT_TRAIT)
 		if(SOFT_CRIT)
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
@@ -1721,7 +1717,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	. = buckled
 	buckled = new_buckled
 	if(buckled)
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+		if(!HAS_TRAIT(buckled, TRAIT_NO_IMMOBILIZE))
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
 		switch(buckled.buckle_lying)
 			if(NO_BUCKLE_LYING) // The buckle doesn't force a lying angle.
 				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
@@ -1734,8 +1731,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 				set_body_position(LYING_DOWN)
 				set_lying_angle(buckled.buckle_lying)
 	else
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
-		REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), BUCKLED_TRAIT)
 		if(.) // We unbuckled from something.
 			var/atom/movable/old_buckled = .
 			if(old_buckled.buckle_lying == 0 && (resting || HAS_TRAIT(src, TRAIT_FLOORED))) // The buckle forced us to stay up (like a chair)
@@ -2134,7 +2130,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			to_chat(src, span_notice("Your transformation restores your body's natural fitness!"))
 
 		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
-		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		update_worn_undersuit()
 		update_worn_oversuit()
 
@@ -2221,8 +2216,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(mind && mind.special_role && !(mind.datum_flags & DF_VAR_EDITED))
 		exp_list[mind.special_role] = minutes
 
-	if(mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
-		exp_list[mind.assigned_role] = minutes
+	if(mind.assigned_role.title in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
+		exp_list[mind.assigned_role.title] = minutes
 
 	return exp_list
 

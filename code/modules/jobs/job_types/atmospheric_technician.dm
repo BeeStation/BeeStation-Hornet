@@ -1,7 +1,7 @@
 /datum/job/atmospheric_technician
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
 	description = "Maintain the air distribution loop to ensure adequate atmospheric conditions in the station, re-pressurize areas after hull breaches, and be a firefighter if necessary."
-	department_for_prefs = DEPT_NAME_ENGINEERING
+	department_for_prefs = DEPARTMENT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = FACTION_STATION
@@ -10,18 +10,21 @@
 	// Requires advanced knowledge of the engineering department
 	// and can easilly disrupt large portions of the station
 	exp_requirements = 120
-	exp_type = EXP_TYPE_ENGINEERING
+	exp_required_type = EXP_TYPE_ENGINEERING
+	exp_granted_type = EXP_TYPE_ENGINEERING
 
 	outfit = /datum/outfit/job/atmospheric_technician
 
 	base_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_CONSTRUCTION, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	extra_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_EXTERNAL_AIRLOCKS)
 
-	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
+	departments_list = list(
+		/datum/department_group/engineering,
+		)
 
 	job_flags = STATION_JOB_FLAGS
 	rpg_title = "Aeromancer"

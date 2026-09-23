@@ -1,3 +1,6 @@
+// Global list to store hit counts per mob per limb - defined using helper
+GLOBAL_LIST_EMPTY(baton_hit_counts)
+
 /obj/item/melee/baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
@@ -14,6 +17,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 	custom_price = 100
+	force = 10
 	hitsound = 'sound/effects/woodhit.ogg' //Smack
 
 	/// Whether this baton is active or not
@@ -92,7 +96,8 @@
 		if(BATON_DO_NORMAL_ATTACK)
 			return ..()
 		if(BATON_ATTACKING)
-			finalize_baton_attack(target, user, modifiers)
+			finalize_baton_attack(target, user, modifiers, in_attack_chain = TRUE, is_harm = LAZYACCESS(modifiers, RIGHT_CLICK))
+		// else BATON_ATTACK_DONE -> do nothing
 
 /obj/item/melee/baton/add_context_interaction(datum/screentip_context/context, mob/living/user, atom/target)
 	if (isturf(target))
@@ -122,9 +127,18 @@
 	if(clumsy_check(user, target))
 		return BATON_ATTACK_DONE
 
-	if(!active || LAZYACCESS(modifiers, RIGHT_CLICK))
-		return BATON_DO_NORMAL_ATTACK
+	// Inactive baton handling
+	if(!active)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			// Right-click while off -> normal attack
+			return BATON_DO_NORMAL_ATTACK
+		else
+			// Left-click while off -> prod message, cancel attack
+			target.visible_message(span_warning("[user] prods [target] with [src]. Luckily it was off."), \
+				span_warning("[user] prods you with [src]. Luckily it was off."))
+			return BATON_ATTACK_DONE
 
+	// Active baton: both left and right click proceed with stun chain
 	if(!COOLDOWN_FINISHED(src, cooldown_check))
 		var/wait_desc = get_wait_description()
 		if(wait_desc)
@@ -165,6 +179,8 @@
 	if(desc)
 		target.visible_message(desc["visible"], desc["local"])
 
+	// Return BATON_ATTACKING so the attack proc calls finalize_baton_attack
+	// with the right click flag.
 	return BATON_ATTACKING
 
 /obj/item/melee/baton/proc/check_parried(mob/living/carbon/human/human_target, mob/living/user)
@@ -173,13 +189,15 @@
 		return TRUE
 	return FALSE
 
-/obj/item/melee/baton/proc/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE)
+/obj/item/melee/baton/proc/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE, is_harm = FALSE)
 	if(!in_attack_chain && HAS_TRAIT_FROM(target, TRAIT_IWASBATONED, REF(user)))
 		return BATON_ATTACK_DONE
 
 	COOLDOWN_START(src, cooldown_check, cooldown)
 	if(on_stun_sound)
 		playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
+	if(is_harm && stamina_damage > 0)
+		playsound(get_turf(src), "swing_hit", on_stun_volume, TRUE, -1)
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -187,6 +205,14 @@
 			log_combat(user, target, "stun attacked", src)
 	if(baton_effect(target, user, modifiers) && user)
 		set_batoned(target, user, cooldown)
+
+	if(is_harm && stamina_damage > 0)
+		var/brute_damage = force
+		if(brute_damage > 0)
+			var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
+			var/armor_brute = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(brute_damage, BRUTE, zone, armor_brute)
+			log_combat(user, target, "harmed", src)
 
 	return BATON_ATTACK_DONE
 
@@ -210,10 +236,115 @@
 		// Non-cyborg: delegate to hook
 		return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
+// =========================================================================
+//  Hit counters using a global list (reliable)
+// =========================================================================
+/obj/item/melee/baton/proc/get_hit_count(mob/living/target, zone)
+	var/ref = REF(target)
+	if(!GLOB.baton_hit_counts[ref])
+		GLOB.baton_hit_counts[ref] = list()
+	return GLOB.baton_hit_counts[ref][zone] || 0
+
+/obj/item/melee/baton/proc/increment_hit_count(mob/living/target, zone)
+	var/ref = REF(target)
+	if(!GLOB.baton_hit_counts[ref])
+		GLOB.baton_hit_counts[ref] = list()
+	var/current = GLOB.baton_hit_counts[ref][zone] || 0
+	current++
+	GLOB.baton_hit_counts[ref][zone] = current
+	return current
+
+/obj/item/melee/baton/proc/reset_hit_count(mob/living/target, zone)
+	var/ref = REF(target)
+	if(GLOB.baton_hit_counts[ref])
+		GLOB.baton_hit_counts[ref] -= zone
+
+/obj/item/melee/baton/proc/apply_limb_paralysis(mob/living/target, zone, duration = 5 SECONDS)
+	var/is_wooden = (type == /obj/item/melee/baton)
+	var/is_deputy = (type == /obj/item/melee/baton/deputy)
+	var/is_electric = istype(src, /obj/item/melee/baton/security)
+
+	if((is_wooden || is_deputy) && (zone != BODY_ZONE_L_ARM && zone != BODY_ZONE_R_ARM))
+		return
+
+	var/paralysis_trait
+	switch(zone)
+		if(BODY_ZONE_L_LEG)
+			paralysis_trait = TRAIT_PARALYSIS_L_LEG
+		if(BODY_ZONE_R_LEG)
+			paralysis_trait = TRAIT_PARALYSIS_R_LEG
+		if(BODY_ZONE_L_ARM)
+			paralysis_trait = TRAIT_PARALYSIS_L_ARM
+		if(BODY_ZONE_R_ARM)
+			paralysis_trait = TRAIT_PARALYSIS_R_ARM
+	if(!paralysis_trait)
+		return
+
+	var/hits = increment_hit_count(target, zone)
+	var/paralyze = FALSE
+
+	if(is_wooden)
+		if(hits > 1 && prob(50))
+			paralyze = TRUE
+	else if(is_deputy)
+		if(hits > 1 && prob(40))
+			paralyze = TRUE
+	else if(is_electric)
+		if(hits == 2 && prob(75))
+			paralyze = TRUE
+		else if(hits >= 3)
+			paralyze = TRUE
+
+	if(paralyze)
+		ADD_TRAIT(target, paralysis_trait, "baton_paralysis")
+		addtimer(TRAIT_CALLBACK_REMOVE(target, paralysis_trait, "baton_paralysis"), duration)
+		reset_hit_count(target, zone)
+		to_chat(target, span_warning("Your [parse_zone(zone)] goes limp!"))
+
 /obj/item/melee/baton/proc/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	target.adjustStaminaLoss(stamina_damage)
-	if(!trait_check)
-		target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
+	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
+	if(!zone)
+		zone = BODY_ZONE_CHEST
+
+	var/is_wooden_or_deputy = (type == /obj/item/melee/baton) || (type == /obj/item/melee/baton/deputy)
+	var/is_electric = istype(src, /obj/item/melee/baton/security)
+
+	// ----- LEGS -----
+	if(zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG)
+		if(is_wooden_or_deputy)
+			if(!trait_check)
+				target.Knockdown(knockdown_time)
+			log_combat(user, target, "tripped", src)
+		else if(is_electric)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+			apply_limb_paralysis(target, zone)
+			log_combat(user, target, "stunned (legs)", src)
+		else
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+			log_combat(user, target, "stunned (legs)", src)
+
+	// ----- ARMS -----
+	else if(zone == BODY_ZONE_L_ARM || zone == BODY_ZONE_R_ARM)
+		if(is_wooden_or_deputy || is_electric)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+			apply_limb_paralysis(target, zone)
+			log_combat(user, target, "stunned (arm)", src)
+		else
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+			log_combat(user, target, "stunned (arm)", src)
+
+	// ----- HEAD/CHEST -----
+	else
+		if(stamina_damage > 0)
+			var/armor = target.getarmor(MELEE, armour_penetration)
+			target.apply_damage(stamina_damage, STAMINA, zone, armor)
+		log_combat(user, target, "stunned (torso/head)", src)
+
+	// Note: brute damage is now applied in finalize_baton_attack for harm attacks
 
 	additional_effects_non_cyborg(target, user)
 	return TRUE
@@ -329,7 +460,9 @@
 	icon_state = "uk"
 	custom_price = PAYCHECK_COMMAND * 4.5
 
-//Telescopic Baton
+// =========================================================================
+//  TELESCOPIC BATON
+// =========================================================================
 /obj/item/melee/baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact and harmless personal defense weapon. Sturdy enough to knock the feet out from under attackers and robust enough to disarm with a quick strike to the hand"
@@ -340,7 +473,7 @@
 	attack_verb_continuous = list("hits", "pokes")
 	attack_verb_simple = list("hit", "poke")
 	worn_icon_state = "tele_baton"
-	stamina_damage = 0
+	stamina_damage = 0   // No stamina damage
 	stun_animation = FALSE
 	slot_flags = ITEM_SLOT_BELT
 	block_flags = BLOCKING_EFFORTLESS
@@ -415,35 +548,36 @@
 		return BRUTELOSS
 
 /obj/item/melee/baton/telescopic/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
-	if(user.combat_mode)
-		return ..()
+	// Telescopic baton: No stamina damage, only trip on legs and disarm on arms.
+	var/zone = user.get_combat_bodyzone(target)
+	if(!zone)
+		zone = BODY_ZONE_CHEST
 
-	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
+	switch(zone)
+		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			// Legs: trip (knockdown only, no stamina)
+			if(!trait_check)
+				target.Knockdown(30)
+			log_combat(user, target, "tripped", src)
+		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			// Disarm only the specific hand
+			if(zone == BODY_ZONE_L_ARM)
+				var/obj/item/held = target.get_item_for_held_index(LEFT_HANDS)
+				if(held)
+					target.dropItemToGround(held)
+					log_combat(user, target, "disarmed (left hand)", src)
+			else if(zone == BODY_ZONE_R_ARM)
+				var/obj/item/held = target.get_item_for_held_index(RIGHT_HANDS)
+				if(held)
+					target.dropItemToGround(held)
+					log_combat(user, target, "disarmed (right hand)", src)
+		else
+			// Head/Chest: no effect (harmless hit)
+			log_combat(user, target, "lightly tapped", src)
+			return TRUE
 
-	// Head/Chest: stamina hit
-	if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_CHEST))
-		target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
-		log_combat(user, target, "stunned", src)
-		additional_effects_non_cyborg(target, user)
-		return TRUE
-
-	// Legs: trip
-	if(user.is_zone_selected(BODY_ZONE_R_LEG) || user.is_zone_selected(BODY_ZONE_L_LEG))
-		if(!trait_check)
-			target.Knockdown(30)
-		log_combat(user, target, "tripped", src)
-		additional_effects_non_cyborg(target, user)
-		return TRUE
-
-	// Arms: “disarm” (stamina to arm)
-	var/combat_zone = user.get_combat_bodyzone(target)
-	if(combat_zone == BODY_ZONE_L_ARM || combat_zone == BODY_ZONE_R_ARM)
-		target.apply_damage(50, STAMINA, combat_zone, def_check)
-		log_combat(user, target, "disarmed", src)
-		additional_effects_non_cyborg(target, user)
-		return TRUE
-
-	return ..()
+	additional_effects_non_cyborg(target, user)
+	return TRUE
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -460,7 +594,6 @@
 	playsound(src, on_sound, 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
-//Contractor Baton
 /obj/item/melee/baton/telescopic/contractor_baton
 	name = "contractor baton"
 	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electric shocks that can resonate with a specific target's brain frequency causing significant stunning effects."
@@ -542,6 +675,9 @@
 	desc = "A compact, specialised retractible stun baton assigned to bounty hunters."
 	knockdown_time = (2 SECONDS)
 
+// =========================================================================
+//  SECURITY STUN BATON (electric) - Restored all original overrides except baton_attack
+// =========================================================================
 /obj/item/melee/baton/security
 	name = "stun baton"
 	desc = "A stun baton for incapacitating people with."
@@ -556,6 +692,7 @@
 	attack_verb_simple = list("beat")
 	armor_type = /datum/armor/melee_baton
 	force_say_chance = 50
+	// Default electrical sound for stunning (non-combat mode)
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	active = FALSE
@@ -684,12 +821,17 @@
 		playsound(src, "sparks", 75, TRUE, -1)
 		toggle_light(user)
 		do_sparks(1, TRUE, src)
+		if(active)
+			hitsound = "swing_hit"
+		else
+			hitsound = "swing_hit"
 	else
 		active = FALSE
 		if(!cell)
 			balloon_alert(user, "no power source!")
 		else
 			balloon_alert(user, "out of charge!")
+		hitsound = "swing_hit"
 	update_appearance()
 	add_fingerprint(user)
 
@@ -710,21 +852,9 @@
 		set_light_on(FALSE)
 		update_appearance()
 		playsound(src, "sparks", 75, TRUE, -1)
+		hitsound = "swing_hit"
 
-/// Handles prodding targets with turned off stunbatons and right clicking stun'n'bash
-/obj/item/melee/baton/security/baton_attack(mob/living/target, mob/living/user, modifiers)
-	. = ..()
-	if(. != BATON_DO_NORMAL_ATTACK)
-		return .
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		if(active && COOLDOWN_FINISHED(src, cooldown_check) && !check_parried(target, user))
-			finalize_baton_attack(target, user, modifiers, in_attack_chain = FALSE)
-			return BATON_ATTACK_DONE
-	else if(!user.combat_mode)
-		target.visible_message(span_warning("[user] prods [target] with [src]. Luckily it was off."), \
-			span_warning("[user] prods you with [src]. Luckily it was off."))
-		return BATON_ATTACK_DONE
-
+// Override baton_effect to handle cell usage and special cases
 /obj/item/melee/baton/security/baton_effect(mob/living/target, mob/living/user, modifiers, stun_override)
 	if(iscyborg(loc))
 		var/mob/living/silicon/robot/robot = loc
@@ -740,6 +870,7 @@
 	var/trait_check = HAS_TRAIT(target, TRAIT_BATON_RESISTANCE)
 	return baton_effect_non_cyborg(target, user, modifiers, stun_override, trait_check)
 
+// Override for security baton: no knockdown, but still zone-specific stamina damage
 /obj/item/melee/baton/security/baton_effect_non_cyborg(mob/living/target, mob/living/user, modifiers, stun_override, trait_check)
 	// Special handling for stamina-immune limbs
 	if(ishuman(target))
@@ -765,14 +896,22 @@
 			additional_effects_non_cyborg(target, user)
 			return TRUE
 
-	target.adjustStaminaLoss(stamina_damage)
+	var/zone = user ? user.get_combat_bodyzone(target) : BODY_ZONE_CHEST
+	if(!zone)
+		zone = BODY_ZONE_CHEST
 
-	// Apply minor effects
+	// Apply stamina damage to the specific zone
+	var/armor = target.getarmor(MELEE, armour_penetration)
+	target.apply_damage(stamina_damage, STAMINA, zone, armor)
+
+	// Apply paralysis on legs and arms (head/chest no paralysis)
+	if(zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG || zone == BODY_ZONE_L_ARM || zone == BODY_ZONE_R_ARM)
+		apply_limb_paralysis(target, zone)
+
 	if(stun_animation)
 		target.do_stun_animation(target)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 
-	// Call any additional effects
 	additional_effects_non_cyborg(target, user)
 	return TRUE
 
@@ -809,7 +948,7 @@
 	. = ..()
 	//base 35% success chance if you throw it
 	if(!. && active && prob(throw_stun_chance) && isliving(hit_atom))
-		finalize_baton_attack(hit_atom, thrownby?.resolve(), in_attack_chain = FALSE)
+		finalize_baton_attack(hit_atom, thrownby?.resolve(), in_attack_chain = FALSE, is_harm = FALSE)
 
 /obj/item/melee/baton/security/emp_act(severity)
 	. = ..()
@@ -837,7 +976,6 @@
 /obj/item/melee/baton/security/loaded
 	preload_cell_type = /obj/item/stock_parts/cell/high
 
-//Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/security/cattleprod
 	name = "stunprod"
 	desc = "An improvised stun baton."

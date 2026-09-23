@@ -28,26 +28,29 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()	//Ranges from 0.2 to 0.8 per monkey recycled
+	. = ..()
 	cube_production = 0
-	for(var/obj/item/stock_parts/manipulator/B in component_parts)
-		cube_production += B.rating * 0.1
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		cube_production += M.rating * 0.1
+	for(var/datum/stock_part/manipulator/B in component_parts)
+		cube_production += B.tier * 0.1
+	for(var/datum/stock_part/matter_bin/M in component_parts)
+		cube_production += M.tier * 0.1
 
 /obj/machinery/monkey_recycler/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Producing <b>[cube_production]</b> cubes for every monkey inserted.")
 
+/obj/machinery/monkey_recycler/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(default_unfasten_wrench(user, tool))
+		power_change()
+	return TOOL_ACT_TOOLTYPE_SUCCESS
+
 /obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
 		return
 
 	if(default_pry_open(O))
-		return
-
-	if(default_unfasten_wrench(user, O))
-		power_change()
 		return
 
 	if(default_deconstruction_crowbar(O))
@@ -78,7 +81,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
-	use_power(500)
+	use_power(active_power_usage)
 	stored_matter += cube_production
 	addtimer(VARSET_CALLBACK(src, pixel_x, base_pixel_x))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, span_notice("The machine now has [stored_matter] monkey\s worth of material stored.")))

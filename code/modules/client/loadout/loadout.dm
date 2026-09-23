@@ -36,6 +36,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
 			WARNING("Loadout - Missing path definition: [G]")
 			continue
+		if(initial(G.slot) == ITEM_SLOT_BACK && !ispath(initial(G.path), /obj/item/storage))
+			WARNING("Loadout - Back slot gear item [G] has no storage - it will replace the job's backpack and delete their starting gear!")
 
 		if(!GLOB.loadout_categories[use_category])
 			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)

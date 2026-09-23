@@ -179,11 +179,6 @@
 		return " \[[real_name]\]"
 	return ""
 
-///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
-/mob/proc/is_blind()
-	SHOULD_BE_PURE(TRUE)
-	return eye_blind ? TRUE : HAS_TRAIT(src, TRAIT_BLIND)
-
 // moved out of admins.dm because things other than admin procs were calling this.
 /// Returns TRUE if the game has started and we're either an AI with a 0th law, or we're someone with a special role/antag datum
 /proc/is_special_character(mob/M)
@@ -199,10 +194,6 @@
 	if(M.mind?.special_role || !isnull(M.mind?.antag_datums)) //they have an antag datum!
 		return TRUE
 	return FALSE
-
-
-/mob/proc/reagent_check(datum/reagent/R, delta_time, times_fired) // utilized in the species code
-	return TRUE
 
 
 /**
@@ -358,14 +349,14 @@
 /proc/offer_control_get_config(mob/M)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
-	if(M.mind && M.mind.assigned_role)
-		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
-	if(M.mind && M.mind.special_role)
-		poll_message = "[poll_message] Status:[M.mind.special_role]."
-	else if(M.mind)
-		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist)
-		if(A)
-			poll_message = "[poll_message] Status:[A.name]."
+	if(M.mind)
+		poll_message = "[poll_message] Job: [M.mind.assigned_role.title]."
+		if(M.mind.special_role)
+			poll_message = "[poll_message] Status: [M.mind.special_role]."
+		else
+			var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
+			if(A)
+				poll_message = "[poll_message] Status: [A.name]."
 			ban_key = A.banning_key
 	var/datum/poll_config/config = new(
 		question = poll_message,

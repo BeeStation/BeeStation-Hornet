@@ -17,7 +17,7 @@
 	var/datum/team/revolution/rev_team
 
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
-	if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+	if(new_owner.assigned_role.job_flags & JOB_HEAD_OF_STAFF)
 		return FALSE
 	if(new_owner.unconvertable)
 		return FALSE

@@ -26,7 +26,7 @@ GLOBAL_LIST(valentine_mobs)
 		if(H.stat == DEAD || !H.mind || H.mind.has_antag_datum(/datum/antagonist/valentine))
 			continue
 		var/turf/T = get_turf(H)
-		if(H.mind.assigned_role_datum) // only give valentines to people who are actually eligible
+		if(is_unassigned_job(H.mind.assigned_role)) // only give valentines to people who are actually eligible
 			H.put_in_hands(new /obj/item/valentine(T))
 			to_chat(H, span_clown("A message appears in your hand, it looks like it has space to write somebody's name on it!"))
 		// everyone else gets chocolates and a heart
@@ -44,7 +44,7 @@ GLOBAL_LIST(valentine_mobs)
 	// Anyone who didn't get a date + silicons
 	var/list/valentines = list()
 	for(var/mob/living/M in GLOB.player_list)
-		if(M.stat == DEAD || !M.mind || !M.mind.assigned_role_datum || M.mind.has_antag_datum(/datum/antagonist/valentine))
+		if(M.stat == DEAD || !M.mind || is_unassigned_job(M.mind.assigned_role) || M.mind.has_antag_datum(/datum/antagonist/valentine))
 			continue
 		if(!ishuman(M) && !issilicon(M)) // allow borgs!
 			continue
@@ -106,7 +106,7 @@ GLOBAL_LIST(valentine_mobs)
 	var/list/clients_on_level = SSmobs.clients_by_zlevel[user_turf.z]
 	var/list/mob_names = list()
 	for(var/mob/living/carbon/human/H in clients_on_level)
-		if(H.stat == DEAD || !H.mind || !H.mind.assigned_role_datum || H.mind.has_antag_datum(/datum/antagonist/valentine))
+		if(H.stat == DEAD || !H.mind || is_unassigned_job(H.mind.assigned_role) || H.mind.has_antag_datum(/datum/antagonist/valentine))
 			continue
 		if(H == user)
 			continue

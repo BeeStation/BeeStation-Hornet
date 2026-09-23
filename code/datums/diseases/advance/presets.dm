@@ -140,7 +140,7 @@
 	var/sickrisk = 1
 	if(islizard(src) || iscatperson(src))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(mob_biotypes & MOB_INORGANIC)
+	if(mob_biotypes & MOB_MINERAL)
 		sickrisk -= 0.5
 		guaranteed_symptoms |= /datum/symptom/inorganic_adaptation
 	else if(mob_biotypes & MOB_ROBOTIC)
@@ -158,5 +158,12 @@
 		dormant_disease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		dormant_disease.spread_text = "None"
 		dormant_disease.visibility_flags |= HIDDEN_SCANNER
+
+		#ifdef UNIT_TESTS
+		//We are running unit tests and we need to override the disease contraction code lest our /consistent human gets no-op'd
+		if(istype(src, /mob/living/carbon/human/consistent))
+			dormant_disease.viable_mobtypes += /mob/living/carbon/human/consistent
+		#endif
+
 		ForceContractDisease(dormant_disease, FALSE, TRUE)
 		return TRUE

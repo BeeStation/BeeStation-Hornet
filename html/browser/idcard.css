@@ -1,0 +1,241 @@
+/* Styling for the identification console popup (window=id_com). See card.dm. */
+
+/* Proportional UI font for body text. numeric bits use .idc-num for monospace. */
+.idc-mono {
+	font-family: "Segoe UI", Tahoma, Verdana, Arial, sans-serif;
+}
+
+.idc-num {
+	font-family: "Consolas", "Courier New", monospace;
+}
+
+.idc-center {
+	text-align: center;
+}
+
+/* Flat divider; Trident's default 3D groove looks like shit on darkmode */
+.idc-mono hr {
+	height: 0;
+	margin: 10px 4px;
+	border: 0;
+	border-top: 1px solid #274a68;
+}
+
+.idc-w5 { width: 5%; }
+.idc-w15 { width: 15%; }
+.idc-w20 { width: 20%; }
+.idc-w25 { width: 25%; }
+.idc-w30 { width: 30%; }
+
+.idc-section {
+	margin: 10px 4px;
+	border: 1px solid #274a68;
+	border-top: 3px solid #3d7ab5;
+	background-color: #202020;
+}
+
+.idc-section h4 {
+	margin: 0;
+	padding: 6px 10px;
+	background-color: #274a68;
+	color: #ffffff;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.idc-section-body {
+	padding: 8px 10px;
+}
+
+/* Shared link colour */
+.idc-mono a {
+	color: #6fb3e0;
+	text-decoration: underline;
+}
+
+.idc-mono a:hover {
+	color: #9fd0f2;
+}
+
+.idc-mono .idc-disabled {
+	color: #8795a4;
+}
+
+/* Action-link buttons */
+.idc-btn,
+.idc-mono a.idc-btn {
+	display: inline-block;
+	margin: 2px 3px 2px 0;
+	padding: 3px 11px;
+	background-color: #274a68;
+	border: 1px solid #3d7ab5;
+	color: #ffffff;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+.idc-btn:hover,
+.idc-mono a.idc-btn:hover {
+	background-color: #3d7ab5;
+	color: #ffffff;
+}
+
+/* Active option in a segmented button group (e.g. paycheck target) */
+.idc-btn.active,
+.idc-mono a.idc-btn.active {
+	background-color: #3d7ab5;
+	border-color: #6fb3e0;
+}
+
+.idc-btn.active::before {
+	content: "\2713  ";
+}
+
+/* Text fields, scoped under .idc-mono to beat Trident's UA styles. */
+.idc-mono input.idc-input {
+	padding: 3px 6px;
+	background-color: #2a2a2a;
+	border: 1px solid #3d7ab5;
+	color: #eaeaea;
+	font-family: "Segoe UI", Tahoma, Verdana, Arial, sans-serif;
+	font-size: 11px;
+}
+
+/* Submit inputs; padding/font restated since Trident won't inherit .idc-btn's. */
+.idc-mono input.idc-btn {
+	padding: 3px 11px;
+	font-family: "Segoe UI", Tahoma, Verdana, Arial, sans-serif;
+	cursor: pointer;
+}
+
+/* Console-menu actions stack as equal-width buttons. */
+.idc-menu .idc-btn {
+	display: block;
+	width: 220px;
+	margin: 0 0 4px 0;
+	text-align: center;
+}
+
+.idc-mono .idc-badge {
+	display: inline-block;
+	padding: 2px 10px;
+	border-radius: 12px;
+	background-color: #3d7ab5;
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.idc-mono .idc-badge:hover {
+	background-color: #4c8fd1;
+	color: #ffffff;
+}
+
+.idc-badge-toggle::after {
+	content: " \25BE";
+	font-weight: normal;
+}
+
+.idc-deptgrid {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+/* Department card grid; cards are bin-packed server-side (see
+   render_department_columns in card.dm). */
+.idc-colgrid {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.idc-col {
+	vertical-align: top;
+	padding: 0 3px;
+}
+
+.idc-dept {
+	margin: 0 0 6px 0;
+	padding: 6px 7px 8px 7px;
+	background-color: #1b2836;
+	border: 1px solid #1f2f3f;
+	border-top: 2px solid #3d7ab5; /* color overridden per-department inline, see card.dm */
+	overflow-wrap: break-word;
+}
+
+.idc-dept-head {
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #c9d6e3; /* department identity comes from the top border, not the text */
+}
+
+.idc-dept-count {
+	float: right;
+	font-weight: normal;
+	font-family: "Consolas", "Courier New", monospace;
+	color: #8795a4;
+}
+
+.idc-access-item, .idc-jobitem {
+	display: block;
+	margin: 0 0 2px 0;
+	padding: 2px 6px 2px 6px;
+	background-color: #333d47;
+	border-left: 3px solid transparent;
+}
+
+/* List rows are links but read as rows */
+.idc-mono a.idc-access-item, .idc-mono a.idc-jobitem {
+	color: #e4e9ef;
+	text-decoration: none;
+}
+
+.idc-access-item:hover, .idc-jobitem:hover {
+	background-color: #465060;
+}
+
+.idc-access-item.granted, .idc-jobitem.current {
+	border-left-color: #3ecf6e;
+	background-color: #253828;
+}
+
+.idc-access-item::before {
+	content: "\2014  ";
+	opacity: 0.6;
+}
+
+.idc-access-item.granted::before {
+	content: "\2713  ";
+	opacity: 1;
+	color: #3ecf6e;
+}
+
+.idc-jobitem::before {
+	content: "";
+}
+
+.idc-jobitem.current::before {
+	content: "\2713  ";
+	color: #3ecf6e;
+}
+
+/* overrides .idc-jobitem block display. */
+.idc-job-extras {
+	margin-top: 6px;
+}
+
+.idc-job-extra {
+	display: inline-block;
+	margin: 0 4px 0 0;
+	border-left: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+}

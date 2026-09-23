@@ -50,6 +50,9 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from datum/species/handle_chemical(): (datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
+#define COMSIG_SPECIES_HANDLE_CHEMICAL "species_handle_chemicals"
+	// same return values as COMSIG_MOB_STOP_REAGENT_CHECK
 
 // /datum/song signals
 /// Sent to the instrument when a song starts playing
@@ -121,6 +124,12 @@
 ///Subsystem signals
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
+
+///from SSJob whenever setup_occupations() is called, all occupations are set
+#define COMSIG_OCCUPATIONS_SETUP "occupations_setup"
+
+///from SSJob when divide_occupations() is called
+#define COMSIG_OCCUPATIONS_DIVIDED "occupations_divided"
 
 ///from SSsecurity_level when the security level changes : (new_level)
 #define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"

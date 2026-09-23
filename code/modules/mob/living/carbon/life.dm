@@ -10,7 +10,7 @@
 		. = ..()
 	else
 		//Reagent processing needs to come before breathing, to prevent edge cases.
-		//handle_dead_metabolization(delta_time, times_fired) //Dead metabolization first since it can modify life metabolization.
+		handle_dead_metabolization(delta_time, times_fired) //Dead metabolization first since it can modify life metabolization.
 		handle_organs(delta_time, times_fired)
 
 		. = ..()
@@ -20,10 +20,10 @@
 		if(.) //not dead
 			handle_blood(delta_time, times_fired)
 
-		if(stat != DEAD) //Handle brain damage
-			for(var/T in get_traumas())
-				var/datum/brain_trauma/BT = T
-				BT.on_life(delta_time, times_fired)
+		if(stat != DEAD) // still not dead (blood could have changed that)
+			for(var/key in mind?.addiction_points)
+				GLOB.addictions[key].process_addiction(src, delta_time)
+			handle_brain_damage(delta_time, times_fired)
 
 		if(stat != DEAD && has_dna())
 			for(var/datum/mutation/HM as anything in dna.mutations)
@@ -37,10 +37,6 @@
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
 
-	if(. && mind) //. == not dead
-		for(var/key in mind.addiction_points)
-			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
-			addiction.process_addiction(src, delta_time, times_fired)
 	if(stat != DEAD)
 		return TRUE
 
@@ -67,7 +63,7 @@
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "suffocation")
 	else
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src,0)
 
@@ -95,7 +91,7 @@
 		losebreath--
 		if(prob(10))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src,0)
 	else
@@ -152,8 +148,9 @@
 		adjustOxyLoss(1)
 
 		failed_last_breath = 1
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return 0
+	var/list/cached_moles = breath.moles
 
 	var/safe_oxy_min = 16
 	var/safe_co2_max = 10
@@ -162,10 +159,10 @@
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
 	var/moles = breath.total_moles()
-	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
-	var/O2_partialpressure = ((GET_MOLES(/datum/gas/oxygen, breath)/moles)*breath_pressure) + (((GET_MOLES(/datum/gas/pluoxium, breath)*8)/moles)*breath_pressure)
-	var/Toxins_partialpressure = (GET_MOLES(/datum/gas/plasma, breath)/moles)*breath_pressure
-	var/CO2_partialpressure = (GET_MOLES(/datum/gas/carbon_dioxide, breath)/moles)*breath_pressure
+	var/breath_pressure = (moles * R_IDEAL_GAS_EQUATION * breath.return_temperature()) / BREATH_VOLUME
+	var/O2_partialpressure = ((cached_moles[/datum/gas/oxygen] / moles) * breath_pressure) + (((cached_moles[/datum/gas/pluoxium] * 8) / moles) * breath_pressure)
+	var/Toxins_partialpressure = (cached_moles[/datum/gas/plasma] / moles) * breath_pressure
+	var/CO2_partialpressure = (cached_moles[/datum/gas/carbon_dioxide] / moles) * breath_pressure
 
 
 	//OXYGEN
@@ -176,21 +173,23 @@
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
 			failed_last_breath = 1
-			oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)*ratio
+			oxygen_used = cached_moles[/datum/gas/oxygen] * ratio
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
-		oxygen_used = GET_MOLES(/datum/gas/oxygen, breath)
-		clear_alert("not_enough_oxy")
+		oxygen_used = cached_moles[/datum/gas/oxygen]
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	ADD_MOLES(/datum/gas/carbon_dioxide, breath, oxygen_used)
-	REMOVE_MOLES(/datum/gas/oxygen, breath, oxygen_used)
+	breath.adjust_multiple_gases(list(
+		/datum/gas/carbon_dioxide = oxygen_used,
+		/datum/gas/oxygen = -oxygen_used,
+	))
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -209,15 +208,15 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
+		var/ratio = (cached_moles[/datum/gas/plasma] / safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_plas)
+		throw_alert(ALERT_TOO_MUCH_PLASMA, /atom/movable/screen/alert/too_much_plas)
 	else
-		clear_alert("too_much_tox")
+		clear_alert(ALERT_TOO_MUCH_PLASMA)
 
 	//NITROUS OXIDE
-	if(GET_MOLES(/datum/gas/nitrous_oxide, breath))
-		var/SA_partialpressure = (GET_MOLES(/datum/gas/nitrous_oxide, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/nitrous_oxide])
+		var/SA_partialpressure = (cached_moles[/datum/gas/nitrous_oxide] / breath.total_moles()) * breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			Unconscious(60)
 			if(SA_partialpressure > SA_sleep_min)
@@ -230,16 +229,16 @@
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
 	//BZ (Facepunch port of their Agent B)
-	if(GET_MOLES(/datum/gas/bz, breath))
-		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/bz])
+		var/bz_partialpressure = (cached_moles[/datum/gas/bz] / breath.total_moles()) * breath_pressure
 		if(bz_partialpressure > 1)
 			adjust_hallucinations(20)
 		else if(bz_partialpressure > 0.01)
 			adjust_hallucinations(10 SECONDS)
 
 	//NITRIUM
-	if(GET_MOLES(/datum/gas/nitrium, breath))
-		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+	if(cached_moles[/datum/gas/nitrium])
+		var/nitrium_partialpressure = (cached_moles[/datum/gas/nitrium] / breath.total_moles()) * breath_pressure
 		if(nitrium_partialpressure > 0.5)
 			adjustFireLoss(nitrium_partialpressure * 0.15)
 		if(nitrium_partialpressure > 5)
@@ -297,10 +296,23 @@
 	//Increase damage the more stam damage
 	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
 	stam_heal_multiplier = clamp(total_stamina_loss / 50, 1, 2)
+	//How well fed we are scales natural recovery. Never touch forced stamcrit however
+	var/nutrition_coeff = bodyparts_with_stam ? get_stamina_nutrition_coeff() : 1
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.needs_processing)
-			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1))))
+			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier * nutrition_coeff) / max(bodyparts_with_stam, 1))))
+
+/**
+ * Multiplier on natural stamina regeneration from how well fed we are
+ * Returns 1 for anything with no stomach(or non-traditional hunger), since nothing would ever refill nutrition
+ */
+/mob/living/carbon/proc/get_stamina_nutrition_coeff()
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER) || !get_organ_slot(ORGAN_SLOT_STOMACH))
+		return 1
+	. = min(STAMINA_HUNGER_FLOOR + ((1 - STAMINA_HUNGER_FLOOR) * nutrition / NUTRITION_LEVEL_FED), 1)
+	if(satiety > SATIETY_WELL_NOURISHED)
+		. *= STAMINA_SATIETY_BONUS
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)
 	if(stat == DEAD)
@@ -369,6 +381,19 @@
 	for(var/datum/mutation/HM as anything in dna.mutations)
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
+
+/**
+ * Handles calling metabolization for dead people.
+ * Due to how reagent metabolization code works this couldn't be done anywhere else.
+ *
+ * Arguments:
+ * - delta_time: The amount of time that has elapsed since the last tick.
+ * - times_fired: The number of times SSmobs has ticked.
+ */
+/mob/living/carbon/proc/handle_dead_metabolization(delta_time, times_fired)
+	if (stat != DEAD)
+		return
+	reagents.metabolize(src, delta_time, times_fired, can_overdose = TRUE, liverless = TRUE, dead = TRUE) // Your liver doesn't work while you're dead.
 
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
@@ -501,31 +526,73 @@
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
 		bodytemperature = clamp(bodytemperature + amount, min_temp, max_temp)
 
+///////////
+//Stomach//
+///////////
+
+/mob/living/carbon/get_fullness()
+	//Those that do not run on food are limited by stomach volume alone, not by a nutrition value they never use
+	var/fullness = HAS_TRAIT(src, TRAIT_NOHUNGER) ? 0 : nutrition
+
+	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!belly) //nothing to see here if we do not have a stomach
+		return fullness
+
+	for(var/bile in belly.reagents.reagent_list)
+		var/datum/reagent/bits = bile
+		if(istype(bits, /datum/reagent/consumable))
+			var/datum/reagent/consumable/goodbit = bile
+			fullness += goodbit.get_nutriment_factor(src) * goodbit.volume / goodbit.metabolization_rate
+			continue
+		fullness += 0.6 * bits.volume / bits.metabolization_rate //not food takes up space
+
+	return fullness
+
+/mob/living/carbon/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
+	. = ..()
+	if(.)
+		return
+	var/obj/item/organ/stomach/belly = get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!belly)
+		return FALSE
+	return belly.reagents.has_reagent(reagent, amount, needs_metabolizing)
+
 /////////
 //LIVER//
 /////////
 
-///Decides if the liver is failing or not.
+///Check to see if we have the liver, if not automatically gives you last-stage effects of lacking a liver.
+
 /mob/living/carbon/proc/handle_liver(delta_time, times_fired)
-	if(!dna)
+	if(isnull(has_dna()))
 		return
+
 	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
-	if(!liver)
-		liver_failure(delta_time, times_fired)
+	if(liver)
+		return
+
+	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
+	reagents.metabolize(src, delta_time, times_fired, can_overdose = TRUE, liverless = TRUE)
+
+	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_LIVERLESS_METABOLISM))
+		return
+
+	adjustToxLoss(0.6 * delta_time, forced = TRUE)
+	adjustOrganLoss(pick(ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_STOMACH, ORGAN_SLOT_EYES, ORGAN_SLOT_EARS), 0.5* delta_time)
 
 /mob/living/carbon/proc/undergoing_liver_failure()
 	var/obj/item/organ/liver/liver = get_organ_slot(ORGAN_SLOT_LIVER)
-	if(liver && (liver.organ_flags & ORGAN_FAILING))
+	if(liver?.organ_flags & ORGAN_FAILING)
 		return TRUE
 
-/mob/living/carbon/proc/liver_failure(delta_time, times_fired)
-	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
-	reagents.metabolize(src, delta_time, times_fired, can_overdose=FALSE, liverless = TRUE)
-	if(HAS_TRAIT(src, TRAIT_STABLELIVER) || HAS_TRAIT(src, TRAIT_NOMETABOLISM))
-		return
-	adjustToxLoss(2 * delta_time, TRUE,  TRUE)
-	if(DT_PROB(15, delta_time))
-		to_chat(src, span_warning("You feel a stabbing pain in your abdomen!"))
+////////////////
+//BRAIN DAMAGE//
+////////////////
+
+/mob/living/carbon/proc/handle_brain_damage(delta_time, times_fired)
+	for(var/T in get_traumas())
+		var/datum/brain_trauma/BT = T
+		BT.on_life(delta_time, times_fired)
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

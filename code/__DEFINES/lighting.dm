@@ -6,6 +6,8 @@
 #define MOVABLE_LIGHT 2
 ///Light made by masking the lighting darkness plane, and is directional.
 #define MOVABLE_LIGHT_DIRECTIONAL 3
+///Light made by masking the lighting darkness plane, and is a directionally focused beam.
+#define MOVABLE_LIGHT_BEAM 4
 
 ///Is a movable light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
 #define LIGHT_ATTACHED (1<<0)
@@ -45,7 +47,7 @@
 #define LIGHT_RANGE_FIRE		3 //! How many tiles standard fires glow.
 
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_MAX 255
-#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 128
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 77
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255

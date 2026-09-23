@@ -66,6 +66,9 @@
 	return ..()
 
 /datum/weather/rad_storm/weather_act_mob(mob/living/victim)
+	// NEW: Skip radiation if the mob is inside a shielded body container (morgue, crematorium)
+	if(victim.is_in_shielded_bodycontainer())
+		return
 	SSradiation.irradiate(victim, intensity = rand(1, 5))
 
 /datum/weather/rad_storm/end()

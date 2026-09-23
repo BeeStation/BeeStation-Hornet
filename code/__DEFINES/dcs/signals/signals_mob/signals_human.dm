@@ -27,5 +27,7 @@
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 
+///Whenever equip_rank is called, called after job is set
+#define COMSIG_JOB_RECEIVED "job_received"
 /// from /mob/living/carbon/human/on_fire_stack. Called when the human is set on fire and burning clothes and stuff
 #define COMSIG_HUMAN_BURNING "human_burning"

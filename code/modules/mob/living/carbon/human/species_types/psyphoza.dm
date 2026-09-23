@@ -3,14 +3,10 @@
 	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
-	species_traits = list(
-		NOEYESPRITES,
-		AGENDER,
-		MUTCOLORS,
-		NOEYEHOLES,
-	)
 	inherent_traits = list(
 		TRAIT_PSYCHIC_SENSE,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_AGENDER,
 	)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
@@ -24,7 +20,7 @@
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
 	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
-	hair_color = "fixedmutcolor"
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
@@ -48,12 +44,12 @@
 	. = ..()
 	ability_weakref = null
 
-/datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/psyphoza/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
 		H.blood_volume += chem.volume * 15
-		H.reagents.remove_reagent(chem.type, chem.volume)
-		return FALSE
-	return ..()
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')

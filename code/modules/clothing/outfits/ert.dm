@@ -21,14 +21,18 @@
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/alt
+	var/additional_radio
 
 /datum/outfit/centcom/ert/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	if(visuals_only)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio/headset/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
+	if(additional_radio)
+		R.keyslot2 = new additional_radio()
+		R.recalculateChannels()
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
@@ -55,15 +59,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	l_pocket = /obj/item/door_remote/omni
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-
-/datum/outfit/centcom/ert/commander/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
-	..()
-
-	if(visuals_only)
-		return
-	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/captain
-	R.recalculateChannels()
+	additional_radio = /obj/item/encryptionkey/heads/captain
 
 /datum/outfit/centcom/ert/commander/amber
 	name = "ERT Commander - Class Amber"
@@ -117,16 +113,7 @@
 	belt = /obj/item/storage/belt/security/ert/full
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-
-/datum/outfit/centcom/ert/security/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
-	..()
-
-	if(visuals_only)
-		return
-
-	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/hos
-	R.recalculateChannels()
+	additional_radio = /obj/item/encryptionkey/heads/hos
 
 /datum/outfit/centcom/ert/security/amber
 	name = "ERT Security - Class Amber"
@@ -172,16 +159,7 @@
 	belt = /obj/item/storage/belt/medical/ert
 	glasses = /obj/item/clothing/glasses/hud/health
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-
-/datum/outfit/centcom/ert/medic/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
-	..()
-
-	if(visuals_only)
-		return
-
-	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/cmo
-	R.recalculateChannels()
+	additional_radio = /obj/item/encryptionkey/heads/cmo
 
 /datum/outfit/centcom/ert/medic/amber
 	name = "ERT Medic - Class Amber"
@@ -233,16 +211,7 @@
 	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	l_pocket = /obj/item/holosign_creator/atmos/ert
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-
-/datum/outfit/centcom/ert/engineer/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
-	..()
-
-	if(visuals_only)
-		return
-
-	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/ce
-	R.recalculateChannels()
+	additional_radio = /obj/item/encryptionkey/heads/ce
 
 /datum/outfit/centcom/ert/engineer/amber
 	name = "ERT Engineer - Class Amber"
@@ -295,16 +264,7 @@
 	glasses = /obj/item/clothing/glasses/night
 	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-
-/datum/outfit/centcom/ert/janitor/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
-	..()
-
-	if(visuals_only)
-		return
-
-	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/headset_service
-	R.recalculateChannels()
+	additional_radio = /obj/item/encryptionkey/heads/hop
 
 /datum/outfit/centcom/ert/janitor/heavy
 	name = "ERT Janitor - Heavy"
@@ -368,10 +328,6 @@
 	if(visuals_only)
 		return
 
-	var/obj/item/radio/R = H.ears
-	R.set_frequency(FREQ_CENTCOM)
-	R.freqlock = TRUE
-
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = list() //wipe access first
@@ -426,8 +382,7 @@
 		return
 
 	var/obj/item/modular_computer/tablet/pda/preset/heads/pda = H.r_store
-	pda.saved_identification = H.real_name
-	pda.saved_job = JOB_CENTCOM_OFFICIAL
+	pda.imprint_id(H.real_name, JOB_CENTCOM_OFFICIAL)
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
@@ -437,6 +392,7 @@
 	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
 	W.update_label()
+	return ..()
 
 //////////////////////////////////////////
 ////////        ATTORNEY         /////////
@@ -536,10 +492,6 @@
 /datum/outfit/centcom/centcom_clown/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	if(visuals_only)
 		return
-
-	var/obj/item/radio/R = H.ears
-	R.set_frequency(FREQ_CENTCOM)
-	R.freqlock = TRUE
 
 	ADD_TRAIT(H, TRAIT_NAIVE, INNATE_TRAIT)
 

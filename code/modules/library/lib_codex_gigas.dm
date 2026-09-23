@@ -34,7 +34,7 @@
 	. = ..()
 	if(!user.can_read(src) || in_use || (target == user) || !ismob(target))
 		return
-	if(!IS_CURATOR(user))
+	if(!is_curator_job(user?.mind?.assigned_role))
 		if(IS_VAMPIRE(user))
 			to_chat(user, span_notice("[src] seems to be too complicated for you. It would be best to leave this for someone else to take."))
 			return
@@ -63,7 +63,7 @@
 		to_chat(user, span_notice("You fail to draw any conclusions to [target] being a Vampire."))
 
 /obj/item/book/kindred/attack_self(mob/living/user)
-	if(!IS_CURATOR(user))
+	if(!is_curator_job(user?.mind?.assigned_role))
 		if(IS_VAMPIRE(user))
 			to_chat(user, span_notice("[src] seems to be too complicated for you. It would be best to leave this for someone else to take."))
 		else

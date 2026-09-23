@@ -40,7 +40,7 @@
 		if (!is_station_level(mind.current.z))
 			continue
 		// Exclude anyone in the chain of command
-		if (SSjob.chain_of_command[mind.assigned_role])
+		if (SSjob.chain_of_command[mind.assigned_role.title])
 			continue
 		// Sure, lets kill you
 		valid_targets += mind

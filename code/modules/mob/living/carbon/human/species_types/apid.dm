@@ -2,14 +2,17 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "\improper Apid"
 	id = SPECIES_APID
-	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
-	inherent_traits = list(TRAIT_BEEFRIEND)
+	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
+		TRAIT_BEEFRIEND,
+	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
-	hair_color = "fixedmutcolor"
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+	mutant_bodyparts = list(
+		"apid_stripes" = "thick",
+		"apid_headstripes" = "thick",
+		"apid_antenna" = "curled"
+	)
+	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
@@ -65,16 +68,16 @@
 	if(istype(attacking_item, /obj/item/melee/flyswatter))
 		damage_mods += 30 // Yes, a 30x damage modifier
 
-/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/apid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return FALSE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
-	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
+/datum/species/apid/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null) // For roundstart
+	. = ..()
+	equipping.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)

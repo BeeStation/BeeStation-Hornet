@@ -1025,7 +1025,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 				G.color = color_choice
 				G.light_color = G.color
 				G.throw_at(A, 9, 3, user)
-				G.on = TRUE
+				G.light_on = TRUE
 				G.update_brightness()
 				return TRUE
 			return FALSE

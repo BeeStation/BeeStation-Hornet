@@ -221,7 +221,7 @@
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
 				host_mob.visible_message(span_warning("[host_mob] vomits a grainy grey slurry!"), span_warning("You suddenly vomit a metallic-tasting grainy grey slurry!"));
-				C.vomit(0, FALSE, TRUE, floor(excess / 100), FALSE, VOMIT_NANITE, FALSE)
+				C.vomit(MOB_VOMIT_STUN, vomit_type = VOMIT_NANITE, lost_nutrition = 0, distance = FLOOR(excess / 100, 1))
 			else
 				host_mob.visible_message(span_warning("A metallic grey slurry bursts out of [host_mob]'s skin!"), span_userdanger("A metallic grey slurry violently bursts out of your skin!"));
 				if(isturf(host_mob.drop_location()))
@@ -231,14 +231,14 @@
 			host_mob.visible_message(span_warning("A torrent of metallic grey slurry violently bursts out of [host_mob]'s face and floods out of [host_mob.p_their()] skin!"),
 								span_userdanger("A torrent of metallic grey slurry violently bursts out of your eyes, ears, and mouth, and floods out of your skin!"));
 
-			host_mob.adjust_blindness(15) //nanites coming out of your eyes
+			host_mob.adjust_temp_blindness(30 SECONDS) //nanites coming out of your eyes
 			host_mob.Paralyze(12 SECONDS)
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
 				var/obj/item/organ/ears/ears = C.get_organ_slot(ORGAN_SLOT_EARS)
 				if(ears)
 					ears.adjustEarDamage(0, 30) //nanites coming out of your ears
-				C.vomit(0, FALSE, TRUE, 2, FALSE, VOMIT_NANITE, FALSE) //nanites coming out of your mouth
+				C.vomit(MOB_VOMIT_STUN, vomit_type = VOMIT_NANITE, lost_nutrition = 0, distance = 2) //nanites coming out of your mouth
 
 			//nanites everywhere
 			if(isturf(host_mob.drop_location()))

@@ -4,12 +4,8 @@
 	id = SPECIES_PUMPKINPERSON
 	sexes = 0
 	meat = /obj/item/food/pieslice/pumpkin
-	species_traits = list(
-		NOEYESPRITES,
-		MUTCOLORS,
-		EYECOLOR
-	)
 	inherent_traits = list(
+		TRAIT_MUTANT_COLORS,
 		TRAIT_BEEFRIEND,
 	)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES)
@@ -18,10 +14,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/diona
 
-
-	attack_verb = "punch"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	miss_sound = 'sound/weapons/punchmiss.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
 	mutantbrain = /obj/item/organ/brain/pumpkin_brain
@@ -53,6 +45,7 @@
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
 /datum/species/pumpkin_man/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
@@ -70,12 +63,12 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(2,0)
 
-/datum/species/pumpkin_man/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/pumpkin_man/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/pumpkin_man/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	switch(P.type)

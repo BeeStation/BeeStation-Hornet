@@ -202,12 +202,17 @@
 	if(!.)
 		return
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.add_filter("stasis_status_ripple", 2, list("type" = "ripple", "flags" = WAVE_BOUNDED, "radius" = 0, "size" = 2))
+	var/filter = owner.get_filter("stasis_status_ripple")
+	animate(filter, radius = 0, time = 0.2 SECONDS, size = 2, easing = JUMP_EASING, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(radius = 32, time = 1.5 SECONDS, size = 0)
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
 	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.remove_filter("stasis_status_ripple")
 	update_time_of_death()
 	owner.update_incapacitated()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
@@ -956,7 +961,7 @@
 	switch(chance)
 		if(0 to 10)
 			message = span_warning("You feel a lump build up in your throat.")
-			human_owner.vomit()
+			human_owner.vomit(VOMIT_CATEGORY_DEFAULT)
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
 			human_owner.set_dizzy_if_lower(100 SECONDS)
@@ -1170,14 +1175,14 @@
 	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
 	owner.update_icon()
-	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.become_blind(id)
 	return TRUE
 
 /datum/status_effect/cloudstruck/on_remove()
 	. = ..()
 	if(QDELETED(owner))
 		return
-	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	owner.cure_blind(id)
 	if(owner)
 		owner.overlays -= mob_overlay
 		owner.update_icon()

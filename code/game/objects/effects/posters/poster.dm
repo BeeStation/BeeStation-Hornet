@@ -180,7 +180,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	var/obj/item/poster/rolled_poster = new poster_item_type(loc, src)
 	if(!user?.put_in_hands(rolled_poster))
 		forceMove(rolled_poster)
-	qdel(src)
+	src.forceMove(rolled_poster)
 	return rolled_poster
 
 // Various possible posters follow

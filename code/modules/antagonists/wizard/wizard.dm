@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	hijack_speed = 0.5
 	ui_name = "AntagInfoWizard"
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
+	
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	antag_hud_name = "wizard"

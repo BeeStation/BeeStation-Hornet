@@ -1,21 +1,17 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
-	species_traits = list(
-		MUTCOLORS,
-		EYECOLOR,
-		HAIR,
-		FACEHAIR,
-		NOAUGMENTS
-	)
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,
 		TRAIT_NOFIRE,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_MUTANT_COLORS,
+		TRAIT_NO_AUGMENTS,
 	)
-	hair_color = "mutcolor"
+	hair_color_mode = USE_MUTANT_COLOR
 	hair_alpha = 150
+	facial_hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/food/meat/slab/human/mutant/slime
@@ -50,7 +46,7 @@
 		regenerate_limbs.Grant(C)
 
 /datum/species/oozeling/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
-	..()
+	. = ..()
 	if(H.stat == DEAD) //can't farm slime jelly from a dead slime/jelly person indefinitely
 		return
 
@@ -88,11 +84,11 @@
 	if(!atmos_sealed)
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment?.total_moles())
-			if(GET_MOLES(/datum/gas/water_vapor, environment) >= 1)
+			if(environment.moles[/datum/gas/water_vapor] >= 1)
 				H.blood_volume -= 15
 				if(prob(50))
 					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
-			if(H.blood_volume <= 672 && GET_MOLES(/datum/gas/plasma, environment) >= 1)
+			if(H.blood_volume <= 672 && environment.moles[/datum/gas/plasma] >= 1)
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, span_danger("You feel drained!"))
@@ -166,15 +162,15 @@
 		return
 	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more blood volume to heal!"))
 
-/datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/oozeling/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/water)
 		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
-			to_chat(H, span_warning("The water you consumed is melting away your insides!"))
-		H.blood_volume -= 25
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+			affected.reagents.remove_reagent(chem.type, chem.volume - 5)
+			to_chat(affected, span_warning("The water you consumed is melting away your insides!"))
+		affected.blood_volume -= 25
 
 /datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
 	// Splat!

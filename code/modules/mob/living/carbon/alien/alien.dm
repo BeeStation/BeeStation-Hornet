@@ -20,7 +20,6 @@
 	heat_protection = 0.5 // minor heat insulation
 
 	var/leaping = FALSE
-	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -66,9 +65,6 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2 * delta_time, BURN)
 	else
 		clear_alert("alien_fire")
-
-/mob/living/carbon/alien/reagent_check(datum/reagent/R, delta_time, times_fired) //can metabolize all reagents
-	return FALSE
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)

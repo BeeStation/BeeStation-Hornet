@@ -31,7 +31,7 @@
 		for (var/datum/component/uplink/uplink in uplinks)
 			if (!uplink.owner)
 				continue
-			if(uplink.owner.current.mind.assigned_role in possible_item.excludefromjob)
+			if(uplink.owner.current.mind.assigned_role.title in possible_item.excludefromjob)
 				is_valid = FALSE
 				break
 		if (!is_valid)

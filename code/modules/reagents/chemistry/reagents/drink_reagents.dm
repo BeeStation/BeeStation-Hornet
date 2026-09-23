@@ -92,7 +92,7 @@
 /datum/reagent/consumable/carrotjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjust_eye_blur(-2 SECONDS * REM * delta_time)
-	affected_mob.adjust_blindness(-2 SECONDS * REM * delta_time)
+	affected_mob.adjust_temp_blindness(-2 SECONDS * REM * delta_time)
 	var/need_mob_update
 	switch(current_cycle)
 		if(1 to 20)

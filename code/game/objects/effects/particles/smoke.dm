@@ -61,3 +61,6 @@
 	scale = 0.75
 	spawning = 1
 	friction = 0.75
+
+/particles/smoke/cig/pipe
+	position = list(-6, 4, 0)

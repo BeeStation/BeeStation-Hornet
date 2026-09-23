@@ -71,7 +71,7 @@
 
 	wires = new /datum/wires/mulebot(src)
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_CARGOTECHNICIAN)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 

@@ -12,6 +12,7 @@
 	attack_verb_continuous = "butchers"
 	attack_verb_simple = "butcher"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	construct_spells = list(
 		/datum/action/spell/aoe/area_conversion,
 		/datum/action/spell/forcewall/cult,

@@ -73,6 +73,19 @@ const CrewTab = (props: { record: MedicalRecord }) => {
     if (selectedRecord?.record_ref === record_ref) {
       setSelectedRecord(undefined);
     } else {
+      // GOD, I REALLY HATE IT!
+      // THIS FUCKING HACK NEEDED CAUSE "WINSET MAP"
+      // MAKING UI DISAPPEAR, AND WE NEED RE-RENDER SHIT
+      // AFTER BYOND DONE MAKING THEIR SHIT
+      // Anyway... that's better than hack before
+      if (selectedRecord === undefined) {
+        setTimeout(() => {
+          act('view_record', {
+            character_preview_view: character_preview_view,
+            record_ref: record_ref,
+          });
+        });
+      }
       setSelectedRecord(record);
       act('view_record', {
         character_preview_view: character_preview_view,

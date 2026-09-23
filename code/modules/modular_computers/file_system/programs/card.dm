@@ -38,16 +38,16 @@
 			accessible_region_bitflag |= ALL
 	else
 		minor = TRUE
-		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SRV) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_SRV | DEPT_BITFLAG_CIV | DEPT_BITFLAG_CAR
-		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SEC) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_SEC
-		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_MED) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_MED
-		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_SCI) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_SCI
-		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPT_BITFLAG_ENG) || !department_bitflag))
-			accessible_region_bitflag |= DEPT_BITFLAG_ENG
+		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CIVILIAN | DEPARTMENT_BITFLAG_CARGO
+		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SECURITY
+		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_MEDICAL
+		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SCIENCE
+		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
+			accessible_region_bitflag |= DEPARTMENT_BITFLAG_ENGINEERING
 
 	if(accessible_region_bitflag)
 		authenticated = TRUE
@@ -171,7 +171,7 @@
 				if(minor)
 					return
 				var/datum/job/jobdatum
-				jobdatum = SSjob.GetJob(target)
+				jobdatum = SSjob.get_job(target)
 				if(!jobdatum)
 					to_chat(usr, span_warning("No log exists for this job."))
 					stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
@@ -252,23 +252,23 @@
 
 	data["jobs"] = list()
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if(!length(each_dept.jobs) || each_dept.access_filter) // no centcom jobs in this code for now
+		if(!length(each_dept.department_jobs) || each_dept.access_filter) // no centcom jobs in this code for now
 			continue
 		var/list/department_jobs = list()
-		for(var/each_job in each_dept.jobs)
-			if(each_job in SSjob.all_job_exceptions)
+		for(var/datum/job/each_job in each_dept.department_jobs)
+			if(each_job.title in SSjob.all_job_exceptions)
 				continue
 			department_jobs += list(list(
-				"display_name" = each_job,
-				"job" = each_job
+				"display_name" = each_job.title,
+				"job" = each_job.title
 			))
 		if(length(department_jobs))
-			data["jobs"][each_dept.dept_name] = department_jobs
+			data["jobs"][each_dept.department_name] = department_jobs
 
 
 	var/list/regions = list()
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if((minor || department_bitflag) && !(each_dept.dept_bitflag & accessible_region_bitflag))
+		if((minor || department_bitflag) && !(each_dept.department_bitflags & accessible_region_bitflag))
 			continue
 		if(!length(each_dept.access_list) || (each_dept.access_filter && !is_centcom))
 			continue
@@ -283,7 +283,7 @@
 
 		regions += list(list(
 			"name" = each_dept.access_group_name,
-			"regid" = each_dept.dept_bitflag,
+			"regid" = each_dept.department_bitflags,
 			"accesses" = accesses
 		))
 

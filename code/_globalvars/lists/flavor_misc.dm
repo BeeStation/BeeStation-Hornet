@@ -1,12 +1,15 @@
 //Preferences stuff
 	//Hairstyles
-GLOBAL_LIST_EMPTY(hair_styles_list)			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_EMPTY(hair_styles_male_list)		//stores only hair names
-GLOBAL_LIST_EMPTY(hair_styles_female_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)	//stores only hair names
-GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(hairstyles_list)			//stores /datum/sprite_accessory/hair indexed by name
+GLOBAL_LIST_EMPTY(hairstyles_male_list)		//stores only hair names
+GLOBAL_LIST_EMPTY(hairstyles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(facial_hairstyles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
+GLOBAL_LIST_EMPTY(facial_hairstyles_male_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(facial_hairstyles_female_list)	//stores only hair names
+GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/gradient indexed by name
+GLOBAL_LIST_EMPTY(facial_hair_gradients_list)
+GLOBAL_LIST_EMPTY(hair_masks_list)
+
 	//Underwear
 GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
 GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
@@ -46,7 +49,6 @@ GLOBAL_LIST_EMPTY(moth_wings_roundstart_list)//this lacks the blacklisted wings 
 GLOBAL_LIST_EMPTY(moth_antennae_list)
 GLOBAL_LIST_EMPTY(moth_markings_list)
 GLOBAL_LIST_EMPTY(moth_wingsopen_list)
-GLOBAL_LIST_EMPTY(caps_list)
 GLOBAL_LIST_EMPTY(ipc_screens_list)
 GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
@@ -213,7 +215,6 @@ GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_ENGINEERING,
 	SEC_DEPT_MEDICAL,
 	SEC_DEPT_NONE,
-	SEC_DEPT_RANDOM,
 	SEC_DEPT_SCIENCE,
 	SEC_DEPT_SUPPLY
 )))

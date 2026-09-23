@@ -7,15 +7,6 @@
 /client/var/list/screen_maps = list()
 
 /**
- * A screen object, which acts as a container for turfs and other things
- * you want to show on the map, which you usually attach to "vis_contents".
- */
-/atom/movable/screen/map_view
-	// Map view has to be on the lowest plane to enable proper lighting
-	layer = GAME_PLANE
-	plane = GAME_PLANE
-
-/**
  * A generic background object.
  * It is also implicitly used to allocate a rectangle on the map, which will
  * be used for auto-scaling the map.

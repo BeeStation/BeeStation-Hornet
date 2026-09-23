@@ -151,7 +151,7 @@
 /obj/item/computer_hardware/multitool_act_secondary(mob/living/user, obj/item/tool)
 	var/time_to_hack = 3 SECONDS
 	var/fail_chance = 15
-	if(user.mind?.assigned_role == (JOB_NAME_SCIENTIST || JOB_NAME_RESEARCHDIRECTOR))	// Scientist buff
+	if(user.mind?.assigned_role.title == JOB_NAME_SCIENTIST || user.mind?.assigned_role.title == JOB_NAME_RESEARCHDIRECTOR)	// Scientist buff
 		time_to_hack = 2 SECONDS
 		fail_chance = 5
 	if(HAS_TRAIT(user, TRAIT_COMPUTER_WHIZ))	// Trait buff

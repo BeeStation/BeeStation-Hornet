@@ -167,8 +167,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	death_cloud_size = 0
 	icon = target.icon
 	icon_state = "zombie"
-	target.hair_style = null
-	target.update_hair()
+	target.set_hairstyle("Bald", update = TRUE)
 	target.forceMove(src)
 	corpse  = target
 	update_icons()

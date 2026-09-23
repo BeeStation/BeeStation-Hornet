@@ -69,7 +69,8 @@
 
 /* Don't use this, use the mind's transfer_to proc instead */
 /datum/quirk/proc/transfer_mob(mob/living/to_mob)
-	UnregisterSignal(quirk_target, COMSIG_QDELETING)
+	if(quirk_target)
+		UnregisterSignal(quirk_target, COMSIG_QDELETING)
 	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)

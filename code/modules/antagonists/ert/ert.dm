@@ -24,6 +24,9 @@
 	var/role = JOB_NAME_SECURITYOFFICER
 	var/list/name_source
 	var/random_names = TRUE
+	var/forge_objectives_for_ert = TRUE
+	var/equip_ert = TRUE
+	var/rip_and_tear = FALSE
 
 /datum/antagonist/ert/get_team()
 	return ert_team
@@ -35,8 +38,10 @@
 /datum/antagonist/ert/on_gain()
 	if(random_names)
 		update_name()
-	forge_objectives()
-	equipERT()
+	if(forge_objectives_for_ert)
+		forge_objectives()
+	if(equip_ert)
+		equipERT()
 	owner.store_memory("Your team's shared tracking beacon frequency is [ert_team.ert_frequency].")
 	. = ..()
 
@@ -52,6 +57,7 @@
 	else
 		missiondesc += " Follow orders given to you by your squad leader."
 
+	if(!rip_and_tear)
 		missiondesc += " Avoid civilian casualties when possible."
 
 	missiondesc += "<BR><B>Your Mission</B>: [ert_team.mission.explanation_text]"
@@ -210,6 +216,7 @@
 	outfit = /datum/outfit/centcom/ert/death_commando
 	role = "Commando"
 	plasmaman_outfit = /datum/outfit/plasmaman/death_commando
+	rip_and_tear = TRUE
 
 /datum/antagonist/ert/deathsquad/officer
 	name = "Deathsquad Officer"

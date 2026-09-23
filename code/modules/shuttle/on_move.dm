@@ -263,7 +263,7 @@ All ShuttleMove procs go here
 	if(is_mining_level(z)) //Avoids double logging and landing on other Z-levels due to badminnery
 		SSblackbox.record_feedback("associative", "colonies_dropped", 1, list("x" = x, "y" = y, "z" = z))
 
-/obj/machinery/atmospherics/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+/obj/machinery/atmospherics/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
 	. = ..()
 	if(pipe_vision_img)
 		pipe_vision_img.loc = loc
@@ -309,16 +309,6 @@ All ShuttleMove procs go here
 	if(codes["delivery"])
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
-
-/************************************Item move procs************************************/
-
-/obj/item/storage/pod/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
-	. = ..()
-	// If the pod was launched, the storage will always open. The CentCom check
-	// ignores the movement of the shuttle from the staging area on CentCom to
-	// the station as it is loaded in.
-	if (oldT && !is_centcom_level(oldT.z))
-		unlocked = TRUE
 
 /************************************Mob move procs************************************/
 

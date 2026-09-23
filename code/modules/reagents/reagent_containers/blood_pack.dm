@@ -28,9 +28,9 @@
 
 /obj/item/reagent_containers/blood/on_reagent_change(changetype)
 	if(reagents)
-		var/datum/reagent/blood/B = reagents.has_reagent(/datum/reagent/blood)
-		if(B?.data && B.data["blood_type"])
-			blood_type = B.data["blood_type"]
+		var/datum/reagent/blood/new_reagent = reagents.has_reagent(/datum/reagent/blood)
+		if(new_reagent && new_reagent.data && new_reagent.data["blood_type"])
+			blood_type = new_reagent.data["blood_type"]
 		else
 			blood_type = null
 	update_pack_name()
@@ -48,7 +48,7 @@
 
 /obj/item/reagent_containers/blood/random/Initialize(mapload)
 	icon_state = "bloodpack"
-	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L", "E", "Coolant")
+	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L", "LE", "Coolant")
 	return ..()
 
 /obj/item/reagent_containers/blood/a_plus
@@ -74,12 +74,21 @@
 
 /obj/item/reagent_containers/blood/ethereal
 	blood_type = "E"
+	unique_blood = /datum/reagent/consumable/liquidelectricity
+
+/obj/item/reagent_containers/blood/ethereal/Initialize(mapload)
+	. = ..()
+	if(blood_type == "E")
+		reagents.clear_reagents()
+		reagents.add_reagent(/datum/reagent/consumable/liquidelectricity, volume, list("blood_type" = get_blood_type("LE")))
+		update_icon()
+	set_light(2, 1, COLOR_ETHEREAL_BLOOD)
 
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"
 
 /obj/item/reagent_containers/blood/oozeling
-	labelled = 1
+	labelled = TRUE
 	name = "blood pack - OZ"
 	blood_type = "OZ"
 	unique_blood = /datum/reagent/toxin/slimejelly
@@ -87,21 +96,22 @@
 /obj/item/reagent_containers/blood/universal
 	blood_type = "U"
 
-/obj/item/reagent_containers/blood/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
+/obj/item/reagent_containers/blood/attackby(obj/item/tool, mob/user, params)
+	if(istype(tool, /obj/item/pen) || istype(tool, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on the label of [src]!"))
 			return
-		var/t = stripped_input(user, "What would you like to label the blood pack?", name, null, 53)
+		var/custom_label = tgui_input_text(user, "What would you like to label the blood pack?", "Blood Pack", name, max_length = MAX_NAME_LEN)
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
-		if(user.get_active_held_item() != I)
+		if(user.get_active_held_item() != tool)
 			return
-		if(t)
-			labelled = 1
-			name = "blood pack - [t]"
+		if(custom_label)
+			labelled = TRUE
+			name = "blood pack - [custom_label]"
+			balloon_alert(user, "new label set")
 		else
-			labelled = 0
+			labelled = FALSE
 			update_pack_name()
 	else
 		return ..()
@@ -158,5 +168,7 @@
 		return FALSE
 	if(!reagents?.total_volume)
 		to_chat(victim, span_warning("[src] is empty!"))
+		return FALSE
+	if(!IS_VAMPIRE(victim))
 		return FALSE
 	return TRUE

@@ -131,7 +131,7 @@
 	if(!can_hack(ninja, feedback = TRUE))
 		return NONE
 
-	AI_notify_hack()
+	ai_notify_hack()
 	INVOKE_ASYNC(src, PROC_REF(ninjadrain_charge), ninja, hacking_module)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -346,7 +346,7 @@
 		balloon_alert(ninja, "already hacked!")
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	AI_notify_hack()
+	ai_notify_hack()
 	if(!do_after(ninja, 30 SECONDS, target = src, hidden = TRUE))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 

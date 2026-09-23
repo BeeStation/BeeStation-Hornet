@@ -509,12 +509,12 @@
 /datum/admins/proc/unprison(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Unprison"
-	if (is_centcom_level(M.z))
-		SSjob.SendToLateJoin(M)
-		message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]")
-		log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
-	else
-		alert("[M.name] is not prisoned.")
+	if(!is_centcom_level(M.z))
+		tgui_alert(usr, "[M.name] is not prisoned.")
+
+	SSjob.SendToLateJoin(M)
+	message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]")
+	log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Unprison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
@@ -601,20 +601,6 @@
 	M.mind.traitor_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/datum/admins/proc/toggletintedweldhelmets()
-	set category = "Debug"
-	set desc="Reduces view range when wearing welding helmets"
-	set name="Toggle tinted welding helmes"
-	GLOB.tinted_weldhelh = !( GLOB.tinted_weldhelh )
-	if (GLOB.tinted_weldhelh)
-		to_chat(world, "<B>The tinted_weldhelh has been enabled!</B>")
-	else
-		to_chat(world, "<B>The tinted_weldhelh has been disabled!</B>")
-	log_admin("[key_name(usr)] toggled tinted_weldhelh.")
-	message_admins("[key_name_admin(usr)] toggled tinted_weldhelh.")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Tinted Welding Helmets", "[GLOB.tinted_weldhelh ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /datum/admins/proc/toggleguests()
 	set category = "Server"
 	set desc="Guests can't enter"
@@ -665,13 +651,12 @@
 	var/count = 0
 
 	if(!SSjob.initialized)
-		alert(usr, "You cannot manage jobs before the job subsystem is initialized!")
+		tgui_alert(usr, "You cannot manage jobs before the job subsystem is initialized!")
 		return
 
 	dat += "<table>"
 
-	for(var/j in SSjob.occupations)
-		var/datum/job/job = j
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
 		count++
 		var/J_title = html_encode(job.title)
 		var/job_positions = job.get_spawn_position_count()

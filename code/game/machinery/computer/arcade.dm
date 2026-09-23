@@ -91,7 +91,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	canSmoothWith = null
 
 	clockwork = TRUE //it'd look weird
-	broken_overlay_emissive = TRUE
 	light_color = LIGHT_COLOR_GREEN
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
@@ -610,7 +609,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 							to_chat(M, span_warning("An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit."))
 							M.Stun(100)
 							sleep(30)
-							M.vomit(10, distance = 5)
+							M.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 10, distance = 5)
 					if(ORION_TRAIL_FLUX)
 						if(prob(75))
 							M.Paralyze(60)

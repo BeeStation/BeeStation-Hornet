@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/mode = WAND_OPEN
 	/// based on the given bitflag, gets the full access list of a relevant department
-	var/department_bitflag = DEPT_BITFLAG_SRV //See department.dm
+	var/department_bitflag = DEPARTMENT_BITFLAG_SERVICE //See department.dm
 	/// a list of access that the door remote can control
 	var/list/access_list
 
@@ -103,33 +103,33 @@
 /obj/item/door_remote/chief_engineer
 	name = "engineering door remote"
 	icon_state = "gangtool-orange"
-	department_bitflag = DEPT_BITFLAG_ENG
+	department_bitflag = DEPARTMENT_BITFLAG_ENGINEERING
 
 /obj/item/door_remote/research_director
 	name = "research door remote"
 	icon_state = "gangtool-purple"
-	department_bitflag = DEPT_BITFLAG_SCI
+	department_bitflag = DEPARTMENT_BITFLAG_SCIENCE
 
 /obj/item/door_remote/head_of_security
 	name = "security door remote"
 	icon_state = "gangtool-red"
-	department_bitflag = DEPT_BITFLAG_SEC
+	department_bitflag = DEPARTMENT_BITFLAG_SECURITY
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
 	desc = "Remotely controls airlocks. This remote has additional Vault access."
 	icon_state = "gangtool-green"
-	department_bitflag = DEPT_BITFLAG_CAR
+	department_bitflag = DEPARTMENT_BITFLAG_CARGO
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
 	icon_state = "gangtool-blue"
-	department_bitflag = DEPT_BITFLAG_MED
+	department_bitflag = DEPARTMENT_BITFLAG_MEDICAL
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	department_bitflag = DEPT_BITFLAG_SRV | DEPT_BITFLAG_CAR
+	department_bitflag = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CARGO
 
 #undef WAND_OPEN
 #undef WAND_BOLT

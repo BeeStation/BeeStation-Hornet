@@ -9,7 +9,7 @@
 	icon_dead = "human_male"
 	gender = NEUTER
 	combat_mode = TRUE
-	mob_biotypes = MOB_INORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_MINERAL | MOB_HUMANOID
 
 	response_help_continuous = "touches"
 	response_help_simple = "touch"
@@ -26,8 +26,9 @@
 	attack_verb_continuous = "claws"
 	attack_verb_simple = "claw"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
+	attack_vis_effect = ATTACK_EFFECT_CLAW
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list(FACTION_STATUE)
@@ -134,8 +135,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 			if(M != src && M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege && !M.is_blind())
 				return M
 		for(var/obj/vehicle/sealed/mecha/M in view(getexpandedview(world.view, 1, 1), check)) //assuming if you can see them they can see you
-			for(var/O in M.occupants)
-				var/mob/mechamob = O
+			for(var/mob/mechamob as anything in M.occupants)
 				if(mechamob?.client && !mechamob.is_blind())
 					return mechamob
 	return null
@@ -217,4 +217,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	return things
 
 /datum/action/spell/aoe/blindness/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
-	victim.set_blindness(4)
+	victim.adjust_temp_blindness(8 SECONDS)

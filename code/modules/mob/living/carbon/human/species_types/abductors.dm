@@ -2,10 +2,6 @@
 	name = "\improper Abductor"
 	id = SPECIES_ABDUCTOR
 	sexes = FALSE
-	species_traits = list(
-		NOEYESPRITES,
-		NOMOUTH
-	)
 	inherent_traits = list(
 		TRAIT_ABDUCTOR_HUD,
 		TRAIT_VIRUSIMMUNE,

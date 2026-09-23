@@ -9,8 +9,8 @@
 	anchored = TRUE
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
-	idle_power_usage = 50
-	active_power_usage = 300
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.3
 
 	var/busy = FALSE
 	var/busy_icon_state
@@ -80,13 +80,13 @@
 	mod_unit = null
 	open_machine()
 
-/obj/machinery/mod_installer/open_machine()
+/obj/machinery/mod_installer/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(state_open)
 		return FALSE
 	..()
 	return TRUE
 
-/obj/machinery/mod_installer/close_machine(mob/living/carbon/user)
+/obj/machinery/mod_installer/close_machine(mob/living/carbon/user, density_to_set = TRUE)
 	if(!state_open)
 		return FALSE
 	..()

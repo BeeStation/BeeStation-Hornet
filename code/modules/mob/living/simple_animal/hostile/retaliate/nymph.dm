@@ -29,7 +29,7 @@
 	maxHealth = 50
 	melee_damage = 1.5
 	obj_damage = 10
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attack_sound = 'sound/emotes/diona/hit.ogg'
 	minbodytemp = 2.7
 	var/can_namepick_as_adult = FALSE
@@ -364,7 +364,7 @@
 	. = ..()
 	M.muck()
 	held_mob.adjustFireLoss(50)
-	Destroy()
+	qdel(src)
 
 /obj/item/mob_holder/nymph/release(display_messages = TRUE, delete_mob = FALSE)
 	on_head = FALSE

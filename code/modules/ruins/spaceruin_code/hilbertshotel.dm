@@ -346,7 +346,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = HIDDEN_AREA
-	ambientsounds = list('sound/ambience/servicebell.ogg')
+	ambientsounds = list('sound/ambience/ruin/servicebell.ogg')
 	var/roomnumber = 0
 	var/obj/item/hilbertshotel/parentSphere
 	var/datum/turf_reservation/reservation
@@ -484,7 +484,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "Doctor Hilbert"
 	mob_name = "Doctor Hilbert"
 	mob_gender = "male"
-	assignedrole = null
+	spawner_job_path = /datum/job/ghost_role
 	ghost_usable = FALSE
 	oxy_damage = 500
 	mob_species = /datum/species/skeleton
