@@ -136,9 +136,7 @@
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
 	force = 25
 	icon_state = "rapier"
-	inhand_icon_state = "rapier"
-	lefthand_file = null
-	righthand_file = null
+	inhand_icon_state = "sabre"
 	block_power = 75
 	armor_type = /datum/armor/sabre_mime
 

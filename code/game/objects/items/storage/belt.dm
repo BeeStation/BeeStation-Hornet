@@ -952,6 +952,8 @@ GLOBAL_LIST_INIT(medbelt_holdable, list(
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
 	atom_storage.set_holdable(list(
 		/obj/item/melee/sabre
+		), list(
+		/obj/item/melee/sabre/mime
 		))
 
 /obj/item/storage/belt/sabre/examine(mob/user)
