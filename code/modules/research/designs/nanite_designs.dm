@@ -227,6 +227,13 @@
 	program_type = /datum/nanite_program/defib
 	category = list(RND_CATEGORY_MEDICAL_NANITES)
 
+/datum/design/nanites/coagulating
+	name = "Rapid Coagulation"
+	desc = "The nanites induce rapid coagulation when the host is wounded, closing bleeding wounds rapidly. Does not consume nanites if the host is not bleeding."
+	id = "coagulating_nanites"
+	program_type = /datum/nanite_program/coagulating
+	category = list(RND_CATEGORY_MEDICAL_NANITES)
+
 
 ////////////////////AUGMENTATION NANITES//////////////////////////////////////
 
@@ -249,13 +256,6 @@
 	desc = "The nanites form a membrane above the host's skin, reducing the effect of laser and energy impacts."
 	id = "refractive_nanites"
 	program_type = /datum/nanite_program/refractive
-	category = list(RND_CATEGORY_AUGMENTATION_NANITES)
-
-/datum/design/nanites/coagulating
-	name = "Rapid Coagulation"
-	desc = "The nanites induce rapid coagulation when the host is wounded, dramatically reducing bleeding rate."
-	id = "coagulating_nanites"
-	program_type = /datum/nanite_program/coagulating
 	category = list(RND_CATEGORY_AUGMENTATION_NANITES)
 
 /datum/design/nanites/conductive
