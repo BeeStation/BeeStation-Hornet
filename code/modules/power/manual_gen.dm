@@ -8,7 +8,7 @@
 	base_icon_state = "hamster_wheel"
 	density = FALSE
 	// circuit = /obj/item/circuitboard/machine/pacman
-	power_gen = 0.5 WATT
+	power_gen = 5 WATT
 	var/power_amplifier = 1
 	can_buckle = TRUE
 	buckle_lying = 0
@@ -27,7 +27,7 @@
 		manip_rating = M.rating
 
 	if(manip_rating > 0)
-		power_amplifier = manip_rating
+		power_amplifier = manip_rating * manip_rating //square the value to get more out of it
 
 /obj/machinery/power/port_gen/hamster_wheel/CheckParts(list/parts_list)
 	for(var/obj/item/stock_parts/defaultpart in contents)
