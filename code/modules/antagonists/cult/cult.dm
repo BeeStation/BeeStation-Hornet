@@ -216,6 +216,10 @@
 	targets, such as a location or a noncultist, to direct the cult to them, and, finally, you are capable of summoning the entire living cult to your location <b><i>once</i></b>.")
 	to_chat(owner.current, "Use these abilities to direct the cult to victory at any cost.")
 
+/datum/antagonist/cult/midround
+	name = "Midround Cultist"
+	rune_power = 2
+
 /datum/team/cult
 	name = "Bloodcult"
 
