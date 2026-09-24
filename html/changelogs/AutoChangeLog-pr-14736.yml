@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - code_imp: A few procs have been updated to abide by new SpacemanDMM rules
-  - bugfix: Alien embryos no longer kill their host if they "hatch" in the middle
-      of a chest organ maipulation surgery, as previously intended.
