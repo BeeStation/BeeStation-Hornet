@@ -9,10 +9,32 @@
 	density = FALSE
 	// circuit = /obj/item/circuitboard/machine/pacman
 	power_gen = 0.5 WATT
+	var/power_amplifier = 1
 	can_buckle = TRUE
 	buckle_lying = 0
 	///How much we shift the mouse's pixel y when using the wheel.
 	var/pixel_shift_y = 3
+
+/obj/machinery/power/port_gen/hamster_wheel/Initialize(mapload)
+	. = ..()
+	//default parts, removed in checkparts if it was actually crafted
+	new /obj/item/stock_parts/manipulator(src)
+	refresh_parts()
+
+/obj/machinery/power/port_gen/hamster_wheel/proc/refresh_parts()
+	var/manip_rating = 0 // Should never be under 1
+	for(var/obj/item/stock_parts/manipulator/M in contents)
+		manip_rating = M.rating
+
+	if(manip_rating > 0)
+		power_amplifier = manip_rating
+
+/obj/machinery/power/port_gen/hamster_wheel/CheckParts(list/parts_list)
+	for(var/obj/item/stock_parts/defaultpart in contents)
+		qdel(defaultpart)
+	..()
+	refresh_parts()
+
 
 /obj/machinery/power/port_gen/hamster_wheel/set_anchored(anchorvalue)
 	. = ..()
@@ -48,7 +70,7 @@
 			TogglePower()
 			return
 		if(powernet)
-			add_avail(power_gen * power_output)
+			add_avail(power_gen * power_output * power_amplifier)
 		UseFuel()
 	else
 		handleInactive()

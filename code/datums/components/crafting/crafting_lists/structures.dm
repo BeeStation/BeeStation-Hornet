@@ -235,7 +235,7 @@
 	name = "Hamster wheel"
 	result = /obj/machinery/power/port_gen/hamster_wheel
 	time = 10 SECONDS
-	tool_behaviors = list(TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(
 		/obj/item/stack/sheet/wood = 3,
 		/obj/item/stack/rods = 6,
@@ -244,6 +244,8 @@
 	parts = list(
 		/obj/item/stock_parts/manipulator = 1
 	)
+	category = CAT_STRUCTURE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
 /datum/crafting_recipe/noose
 	name = "Noose"
