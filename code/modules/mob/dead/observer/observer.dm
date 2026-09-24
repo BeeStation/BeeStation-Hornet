@@ -924,23 +924,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr)) //Make sure they're an observer!
 		return
 
-	var/list/possible_destinations = SSpoints_of_interest.get_mob_pois()
-	var/target = null
-
-	target = tgui_input_list(usr, "Please, select a player!", "Jump to Mob", possible_destinations)
-	if(isnull(target))
-		return
-	if (!isobserver(usr))
-		return
-
 	if(observetarget) // stop observing
 		to_chat(src, span_notice("You stopped observing [observetarget]"))
-		LAZYREMOVE(observetarget.observers, src)
-		observetarget = null
-		set_mob_eye_to(MOB_EYE_SELF)
+		cleanup_observe()
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
+		return
+
+	var/list/possible_destinations = SSpoints_of_interest.get_mob_pois()
+	var/target = tgui_input_list(usr, "Please, select a player!", "Observe", possible_destinations)
+	if(isnull(target))
+		return
+	if (!isobserver(usr))
 		return
 
 	var/mob/chosen_target = possible_destinations[target]
@@ -1055,9 +1051,3 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/can_examine_in_detail(atom/examinify, silent)
 	return TRUE
-
-/// Called when we exit the orbiting state
-/mob/dead/observer/proc/on_deorbit(datum/source)
-	SIGNAL_HANDLER
-
-	orbiting_ref = null

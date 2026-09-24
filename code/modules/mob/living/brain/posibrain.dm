@@ -144,7 +144,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		brainmob.set_suicide(FALSE)
 	transfer_personality(user)
 
-	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.get_job_type(posibrain_job_path)
 	pj.remove_posi_slot(src)
 
 	return TRUE
@@ -251,7 +251,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		//No need to track occupied Posis
 		return
 
-	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.get_job_type(posibrain_job_path)
 
 	//Posi was on station, now is not on station
 	if(is_station_level(new_z))
@@ -264,7 +264,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		//No need to track occupied Posis
 		return ..()
 
-	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
+	var/datum/job/posibrain/pj = SSjob.get_job_type(posibrain_job_path)
 	pj.remove_posi_slot(src)
 	return ..()
 

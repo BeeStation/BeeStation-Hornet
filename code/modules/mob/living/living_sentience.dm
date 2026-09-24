@@ -48,6 +48,7 @@
 		notify_ghosts(
 			"[name] can be controlled",
 			source=src,
+			click_interact = TRUE,
 			ignore_key = poll_ignore_key
 		)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)

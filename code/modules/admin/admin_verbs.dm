@@ -917,15 +917,11 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		if(hooman.mind)
 			// Try to match the outfit's job if it's a job outfit
 			var/datum/outfit/outfit = outfit_type
+			var/datum/job/job
 			if(ispath(outfit, /datum/outfit/job))
 				var/datum/outfit/job/job_outfit = outfit
-				var/datum/job/job = SSjob.GetJobType(initial(job_outfit.jobtype))
-				if(job)
-					hooman.mind.assigned_role = job.title
-				else
-					hooman.mind.assigned_role = JOB_NAME_ASSISTANT
-			else
-				hooman.mind.assigned_role = JOB_NAME_ASSISTANT
+				job = SSjob.get_job_type(initial(job_outfit.jobtype))
+			hooman.mind.set_assigned_role(job || SSjob.get_job_type(/datum/job/assistant))
 		testing("Spawned test mob at [get_area_name(tile, TRUE)] ([tile.x],[tile.y],[tile.z])")
 
 /client/proc/toggle_AI_interact()

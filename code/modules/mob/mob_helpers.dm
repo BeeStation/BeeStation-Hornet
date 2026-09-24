@@ -271,7 +271,6 @@
   */
 /proc/item_heal_robotic(mob/living/carbon/human/human, mob/user, brute_heal, burn_heal, obj/item/bodypart/affecting)
 	if(!affecting || IS_ORGANIC_LIMB(affecting))
-		to_chat(user, span_warning("[affecting] is already in good condition!"))
 		return FALSE
 	var/brute_damage = brute_heal > burn_heal //changes repair text based on how much brute/burn was supplied
 	if((brute_heal > 0 && (affecting.brute_dam > 0 || (human.is_bleeding() && human.has_mechanical_bleeding()))) || (burn_heal > 0 && affecting.burn_dam > 0))
@@ -288,6 +287,9 @@
 		if(affecting.burn_dam <=0 && burn_heal)
 			return FALSE //same as above, but checking for burn damage instead
 		return TRUE //successful heal
+	else
+		to_chat(user, span_warning("[affecting] is already in good condition!"))
+		return FALSE
 
 ///Is the passed in mob an admin ghost
 /proc/IsAdminGhost(mob/user)

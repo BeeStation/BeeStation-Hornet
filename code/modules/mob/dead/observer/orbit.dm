@@ -242,7 +242,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 	if(id_card?.hud_state)
 		serialized["icon"] = "hud[id_card.hud_state]"
 
-	var/datum/job/mind_job = player.mind?.assigned_role_datum
+	var/datum/job/mind_job = player.mind?.assigned_role
 	if (mind_job)
 		serialized["mind_job"] = mind_job.title
 		var/mind_hud = get_hud_by_jobname(mind_job.title)
