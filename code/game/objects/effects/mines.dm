@@ -128,7 +128,7 @@
 	if(!isturf(loc) || AM.throwing || (AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !AM.has_gravity() || triggered)
 		return
 	if(ismob(AM))
-		checksmartmine(AM)
+		INVOKE_ASYNC(src, PROC_REF(checksmartmine), AM)
 	else
 		triggered = TRUE	//ensures multiple explosions aren't queued if/while the mine is delayed
 		INVOKE_ASYNC(src, PROC_REF(triggermine), AM)
