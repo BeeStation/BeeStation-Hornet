@@ -94,8 +94,8 @@
 
 /datum/nanite_program/coagulating/active_effect()
 	if(iscarbon(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.cauterise_wounds(0.1)
+		var/mob/living/carbon/host = host_mob
+		host.cauterise_wounds(0.1)
 
 /datum/nanite_program/conductive
 	name = "Electric Conduction"
