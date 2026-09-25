@@ -12,6 +12,7 @@
 	required_living_playtime = 6
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
+	var/rune_power = 1 // How many cultists does this cult member count as for things such as runes?
 
 	///Mass teleport ability, only granted to the leader
 	var/datum/action/innate/cult/master/finalreck/reckoning
@@ -281,3 +282,7 @@
 			continue
 		cult_mind.current.playsound_local(null, 'sound/hallucinations/veryfar_noise.ogg', 100)
 		to_chat(cult_mind.current, span_cultlarge("The Cult's Master, [owner.current.name], has fallen in \the [current_area]!"))
+
+/datum/antagonist/cult/midround
+	name = "Midround Cultist"
+	rune_power = 2
