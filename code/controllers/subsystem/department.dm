@@ -1,4 +1,3 @@
-
 SUBSYSTEM_DEF(department)
 	name = "Departments"
 	init_stage = INITSTAGE_EARLY
@@ -16,6 +15,13 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
+	/// dept_ids of every station department that grants access, in access UI order.
+	var/list/station_access_dept_ids = list()
+	/// Specially formatted list for sending access levels to tgui interfaces, keyed by dept_id.
+	var/list/all_department_access_tgui = list()
+	/// Every access that only a CentCom ID console may grant or revoke.
+	var/list/restricted_access = list()
+
 	/// department datums in access manipulation - actually manual sort
 	var/list/sorted_department_for_access = list(
 		DEPARTMENT_NAME_SERVICE,
@@ -35,7 +41,7 @@ SUBSYSTEM_DEF(department)
 	department_assoc = list()
 	department_datums_by_type = list()
 
-	for(var/datum/department_group/each_dept as anything in subtypesof(/datum/department_group))
+	for(var/datum/department_group/each_dept as anything in valid_subtypesof(/datum/department_group))
 		each_dept = new each_dept()
 
 		department_datums += each_dept
@@ -60,7 +66,80 @@ SUBSYSTEM_DEF(department)
 	for(var/each_dept in temp)
 		sorted_department_for_access |= department_assoc[each_dept]
 
+	var/datum/department_group/aggregate/station_all = department_assoc[DEPARTMENT_ID_STATION_ALL]
+	var/datum/department_group/aggregate/all_access = department_assoc[DEPARTMENT_ID_ALL_ACCESS]
+	for(var/datum/department_group/each_dept as anything in department_datums)
+		if(!each_dept.dept_id || istype(each_dept, /datum/department_group/aggregate))
+			continue
+		all_access.member_dept_ids += each_dept.dept_id
+		if(each_dept.is_station)
+			station_all.member_dept_ids += each_dept.dept_id
+
+	station_access_dept_ids = list()
+	for(var/datum/department_group/each_dept as anything in sorted_department_for_access)
+		if(each_dept.is_station && length(each_dept.get_access_list()))
+			station_access_dept_ids += each_dept.dept_id
+
+	restricted_access = list()
+	for(var/datum/department_group/each_dept as anything in department_datums)
+		if(each_dept.access_filter)
+			restricted_access |= each_dept.get_access_list()
+
+	setup_tgui_lists()
+
 	return SS_INIT_SUCCESS
+
+/// Builds and returns a list of every access granted by the given department id
+/datum/controller/subsystem/department/proc/get_department_access(id_or_list)
+	RETURN_TYPE(/list)
+	if(!id_or_list)
+		stack_trace("get_department_access() was given no department id")
+		return list()
+
+	if(!islist(id_or_list))
+		id_or_list = list(id_or_list)
+
+	var/list/built_access_list = list()
+	for(var/id in id_or_list)
+		var/datum/department_group/dept = department_assoc[id]
+		if(!dept)
+			stack_trace("[id] isn't an existing department id.")
+			continue
+		built_access_list |= dept.get_access_list()
+
+	return built_access_list
+
+/// Returns a copy of the access levels allotted to a given job title by whichever department allots it
+/datum/controller/subsystem/department/proc/get_job_access(job)
+	for(var/datum/department_group/dept as anything in department_datums)
+		var/list/job_access = dept.get_job_access(job)
+		if(job_access)
+			return job_access
+
+/// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
+/datum/controller/subsystem/department/proc/setup_tgui_lists()
+	for(var/datum/department_group/dept as anything in sorted_department_for_access)
+		var/list/dept_access = dept.get_access_list()
+		if(!length(dept_access))
+			continue
+
+		var/parsed_accesses = list()
+
+		for(var/access in dept_access)
+			var/access_desc = get_access_desc(access)
+			if(!access_desc)
+				continue
+
+			parsed_accesses += list(list(
+				"desc" = replacetext(access_desc, "&nbsp", " "),
+				"ref" = access,
+			))
+
+		all_department_access_tgui[dept.dept_id] = list(list(
+			"id" = dept.dept_id,
+			"name" = dept.access_group_name,
+			"accesses" = parsed_accesses,
+		))
 
 /// WARNING: This always returns as a list.
 /// If your bitflag only gets a single department, it will return as a list.
@@ -185,6 +264,39 @@ SUBSYSTEM_DEF(department)
 	department_jobs += job
 	job.departments_bitflags |= department_bitflags
 
+/// Returns a copy of the access levels this department allots to a given job title.
+/// Station departments allot access through their job datums instead, and return nothing here.
+/datum/department_group/proc/get_job_access(job)
+	return
+
+/// Returns a copy of every access this department grants
+/datum/department_group/proc/get_access_list()
+	RETURN_TYPE(/list)
+	return access_list.Copy()
+
+// ---------------------------------------------------------------------
+//                        AGGREGATE DEPARTMENTS
+//     Hold no access of their own, they bundle other departments'.
+//     Never shown in the crew manifest, job prefs or the ID console.
+// ---------------------------------------------------------------------
+/datum/department_group/aggregate
+	abstract_type = /datum/department_group/aggregate
+	/// dept_ids whose access this department bundles.
+	var/list/member_dept_ids = list()
+
+/datum/department_group/aggregate/get_access_list()
+	return SSdepartment.get_department_access(member_dept_ids)
+
+/datum/department_group/aggregate/station_all
+	department_name = DEPARTMENT_ID_STATION_ALL
+	dept_id = DEPARTMENT_ID_STATION_ALL
+	access_group_name = "Station All Access"
+
+/datum/department_group/aggregate/all_access
+	department_name = DEPARTMENT_ID_ALL_ACCESS
+	dept_id = DEPARTMENT_ID_ALL_ACCESS
+	access_group_name = "All Access"
+
 // ---------------------------------------------------------------------
 //                                COMMAND
 // ---------------------------------------------------------------------
@@ -214,7 +326,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_ALL_PERSONAL_LOCKERS,
 		ACCESS_HOP,
 		ACCESS_CAPTAIN,
-		ACCESS_VAULT,
+		ACCESS_VAULT, // shared with the other region that lists it (Command/Supply)
 	)
 
 	pref_category_name = DEPARTMENT_NAME_COMMAND
@@ -312,7 +424,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_CARGO,
 		ACCESS_QM,
-		ACCESS_VAULT,
+		ACCESS_VAULT, // shared with the other region that lists it (Command/Supply)
 	)
 
 
@@ -348,11 +460,11 @@ SUBSYSTEM_DEF(department)
 		ACCESS_ROBOTICS,
 		ACCESS_XENOBIOLOGY,
 		ACCESS_EXPLORATION,
+		ACCESS_RD_SERVER,
 		ACCESS_MECH_SCIENCE,
-		ACCESS_MINISAT,
+		ACCESS_MINISAT, // shared with the other region that lists it (Research/Engineering)
 		ACCESS_RD,
 		ACCESS_NETWORK,
-		ACCESS_RD_SERVER,
 	)
 
 	pref_category_name = DEPARTMENT_NAME_SCIENCE
@@ -391,7 +503,7 @@ SUBSYSTEM_DEF(department)
 		ACCESS_ATMOSPHERICS,
 		ACCESS_MECH_ENGINE,
 		ACCESS_TCOMSAT,
-		ACCESS_MINISAT,
+		ACCESS_MINISAT, // shared with the other region that lists it (Research/Engineering)
 		ACCESS_CE,
 	)
 
@@ -524,22 +636,53 @@ SUBSYSTEM_DEF(department)
 
 	access_group_name = "CentCom"
 	access_list = list(
-		ACCESS_CENT_GENERAL,
-		ACCESS_CENT_THUNDER,
-		ACCESS_CENT_SPECOPS,
-		ACCESS_CENT_MEDICAL,
-		ACCESS_CENT_LIVING,
-		ACCESS_CENT_STORAGE,
-		ACCESS_CENT_TELEPORTER,
-		ACCESS_CENT_CAPTAIN,
 		ACCESS_CENT_BAR,
+		ACCESS_CENT_CAPTAIN,
+		ACCESS_CENT_TELEPORTER,
+		ACCESS_CENT_STORAGE,
+		ACCESS_CENT_LIVING,
+		ACCESS_CENT_MEDICAL,
+		ACCESS_CENT_SPECOPS,
+		ACCESS_CENT_THUNDER,
+		ACCESS_CENT_GENERAL,
 		ACCESS_PRISONER,
 	)
 	access_filter = TRUE // CentCom Only
 
+	/// CentCom and ERT roles have no job datums, so the access each one is allotted is here
+	var/list/accesses_by_job
+
 	// currently not used, but just in case
 	manifest_category_name = DEPARTMENT_NAME_CENTCOM
 	manifest_category_order = DEPT_MANIFEST_ORDER_CENTCOM
+
+/datum/department_group/centcom/New()
+	. = ..()
+	accesses_by_job = list(
+		JOB_CENTCOM_VIP = list(ACCESS_CENT_GENERAL),
+		JOB_CENTCOM_CUSTODIAN = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_CENTCOM_THUNDERDOME_OVERSEER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER),
+		JOB_CENTCOM_OFFICIAL = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		"CentCom Intern" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		"CentCom Head Intern" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		JOB_CENTCOM_MEDICAL_DOCTOR = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL),
+		JOB_ERT_DEATHSQUAD = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_CENTCOM_RESEARCH_OFFICER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE),
+		"Special Ops Officer" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_CENTCOM_ADMIRAL = access_list.Copy(),
+		JOB_CENTCOM_COMMANDER = access_list.Copy(),
+		JOB_ERT_COMMANDER = access_list.Copy(),
+		JOB_ERT_OFFICER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING),
+		JOB_ERT_ENGINEER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+		JOB_ERT_MEDICAL_DOCTOR = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING),
+		JOB_CENTCOM_BARTENDER = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR),
+		"Comedy Response Officer" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING),
+		"HONK Squad Trooper" = list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE),
+	)
+
+/datum/department_group/centcom/get_job_access(job)
+	var/list/job_access = accesses_by_job[job]
+	return job_access?.Copy()
 
 // ---------------------------------------------------------------------
 //                            Undefined
@@ -552,20 +695,27 @@ SUBSYSTEM_DEF(department)
 // ---------------------------------------------------------------------
 //                   Others (syndicate, cult, away, etc)
 //     Used for: access sorting (mainly), crew manifest (admin gimmick)
+//     The three below have the access. "other" is for display
 // ---------------------------------------------------------------------
-/datum/department_group/other
-	department_name = DEPARTMENT_NAME_OTHER
-	dept_id = DEPARTMENT_NAME_OTHER
-	department_bitflags = DEPARTMENT_BITFLAG_OTHER
+/datum/department_group/syndicate
+	department_name = DEPARTMENT_ID_SYNDICATE
+	dept_id = DEPARTMENT_ID_SYNDICATE
 	dept_colour = "#00eba4"
-	dept_radio_channel = FREQ_CENTCOM
 
-	access_group_name = "??? (Admin)"
+	access_group_name = "Syndicate"
 	access_list = list(
-		ACCESS_SYNDICATE,
 		ACCESS_SYNDICATE_LEADER,
-		ACCESS_PIRATES,
-		ACCESS_HUNTERS,
+		ACCESS_SYNDICATE,
+	)
+	access_filter = TRUE // CentCom Only
+
+/datum/department_group/away
+	department_name = DEPARTMENT_ID_AWAY
+	dept_id = DEPARTMENT_ID_AWAY
+	dept_colour = "#00eba4"
+
+	access_group_name = "Away"
+	access_list = list(
 		ACCESS_AWAY_GENERAL,
 		ACCESS_AWAY_MAINTENANCE,
 		ACCESS_AWAY_MEDICAL,
@@ -578,9 +728,33 @@ SUBSYSTEM_DEF(department)
 		ACCESS_AWAY_SCIENCE,
 		ACCESS_AWAY_SUPPLY,
 		ACCESS_AWAY_COMMAND,
+	)
+	access_filter = TRUE // CentCom Only
+
+/// Accesses that ordinarily shouldn't be on ID cards at all. Cult doors, etcetera
+/datum/department_group/special
+	department_name = DEPARTMENT_ID_SPECIAL
+	dept_id = DEPARTMENT_ID_SPECIAL
+	dept_colour = "#00eba4"
+
+	access_group_name = "Special"
+	access_list = list(
 		ACCESS_BLOODCULT,
 		ACCESS_CLOCKCULT,
+		ACCESS_PIRATES,
+		ACCESS_HUNTERS,
 	)
+	access_filter = TRUE // CentCom Only
+
+/datum/department_group/aggregate/other
+	department_name = DEPARTMENT_NAME_OTHER
+	dept_id = DEPARTMENT_NAME_OTHER
+	department_bitflags = DEPARTMENT_BITFLAG_OTHER
+	dept_colour = "#00eba4"
+	dept_radio_channel = FREQ_CENTCOM
+
+	access_group_name = "??? (Admin)"
+	member_dept_ids = list(DEPARTMENT_ID_SYNDICATE, DEPARTMENT_ID_AWAY, DEPARTMENT_ID_SPECIAL)
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case

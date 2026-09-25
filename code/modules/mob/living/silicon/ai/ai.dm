@@ -109,7 +109,7 @@
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai, latejoining = FALSE)
-	default_access_list = get_all_accesses()
+	default_access_list = SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 	. = ..()
 	AddElement(/datum/element/trackable)
 	add_sensors()

@@ -176,7 +176,7 @@
 	var/mob/living/carbon/human/H = arrived
 	var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
 	if(ACCESS_PRISONER in id_card?.GetAccess())
-		id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once to exit the turnstile
+		id_card.remove_access(ACCESS_PRISONER, "a prison turnstile", H) //Prisoner IDs can only be used once to exit the turnstile
 		to_chat(H, span_warning("Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!"))
 		addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
 
