@@ -102,6 +102,7 @@
 		module = new module(src)
 		install(module)
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/drag_pickup)
 
 /obj/item/mod/control/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -213,36 +214,22 @@
 		return
 	clean_up()
 
-/obj/item/mod/control/allow_attack_hand_drop(mob/user)
+/obj/item/mod/control/can_mob_unequip(mob/user)
 	if(user != wearer)
 		return ..()
+
 	if(active)
 		balloon_alert(wearer, "unit active!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
-		return
+		return FALSE
+
 	for(var/obj/item/part as anything in get_parts())
 		if(part.loc != src)
 			balloon_alert(user, "parts extended!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 
-/obj/item/mod/control/MouseDrop(atom/over_object)
-	if(usr != wearer || !istype(over_object, /atom/movable/screen/inventory/hand))
-		return ..()
-	if(active)
-		balloon_alert(wearer, "unit active!")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
-		return
-	for(var/obj/item/part as anything in get_parts())
-		if(part.loc != src)
-			balloon_alert(wearer, "parts extended!")
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
-			return
-	if(!wearer.incapacitated)
-		var/atom/movable/screen/inventory/hand/ui_hand = over_object
-		if(wearer.putItemFromInventoryInHandIfPossible(src, ui_hand.held_index))
-			add_fingerprint(usr)
-			return ..()
+	return ..()
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
@@ -360,11 +347,9 @@
 	return ..()
 
 /obj/item/mod/control/get_cell()
-	if(!open)
-		return
 	var/obj/item/stock_parts/cell/cell = get_charge_source()
 	if(!istype(cell))
-		return
+		return null
 	return cell
 
 /obj/item/mod/control/GetAccess()
@@ -395,8 +380,7 @@
 		wearer.emote("scream")
 
 /obj/item/mod/control/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	//if(visuals_only)
-	//	set_wearer(outfit_wearer) //we need to set wearer manually since it doesnt call equipped
+	. = ..()
 	quick_activation()
 
 /obj/item/mod/control/doStrip(mob/stripper, mob/owner)

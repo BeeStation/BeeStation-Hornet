@@ -17,6 +17,7 @@
 /obj/item/minigunpack/Initialize(mapload)
 	. = ..()
 	gun = new(src)
+	AddElement(/datum/element/drag_pickup)
 
 /obj/item/minigunpack/Destroy()
 	if(!QDELETED(gun))
@@ -51,23 +52,6 @@
 	..()
 	if(armed)
 		user.dropItemToGround(gun, TRUE)
-
-/obj/item/minigunpack/MouseDrop(atom/over_object)
-	. = ..()
-	if(armed)
-		return
-	if(iscarbon(usr))
-		var/mob/M = usr
-
-		if(!over_object)
-			return
-
-		if(!M.incapacitated)
-
-			if(istype(over_object, /atom/movable/screen/inventory/hand))
-				var/atom/movable/screen/inventory/hand/H = over_object
-				M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-
 
 /obj/item/minigunpack/update_icon_state()
 	. = ..()

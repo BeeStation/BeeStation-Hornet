@@ -1080,6 +1080,7 @@
 #include "code\datums\elements\death_drops.dm"
 #include "code\datums\elements\deferred_aquarium_content.dm"
 #include "code\datums\elements\digital_camo.dm"
+#include "code\datums\elements\drag_pickup.dm"
 #include "code\datums\elements\dryable.dm"
 #include "code\datums\elements\earhealing.dm"
 #include "code\datums\elements\embed.dm"
