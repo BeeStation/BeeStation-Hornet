@@ -3,7 +3,7 @@ import { Window } from '../layouts';
 
 export const PhysicalNewscaster = () => {
   return (
-    <Window width={575} height={560}>
+    <Window width={920} height={710}>
       <Window.Content scrollable>
         <Newscaster />
       </Window.Content>
