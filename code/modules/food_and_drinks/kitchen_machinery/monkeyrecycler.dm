@@ -62,6 +62,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		return ..()
 
 /obj/machinery/monkey_recycler/MouseDrop_T(mob/living/target, mob/living/user)
+	if(..())
+		return
 	if(!istype(target))
 		return
 	if(ismonkey(target))

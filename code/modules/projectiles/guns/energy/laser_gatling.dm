@@ -19,6 +19,11 @@
 	gun = new(src)
 	AddElement(/datum/element/drag_pickup)
 
+/obj/item/minigunpack/can_mob_unequip(mob/user)
+	if(armed)
+		return FALSE
+	return ..()
+
 /obj/item/minigunpack/Destroy()
 	if(!QDELETED(gun))
 		qdel(gun)

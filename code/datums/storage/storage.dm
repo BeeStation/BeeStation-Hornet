@@ -747,29 +747,51 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/obj/item/resolve_parent = parent?.resolve()
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_parent || !resolve_location)
-		return
+		return NONE
 
 	if(ismecha(user.loc) || user.incapacitated || !user.canUseStorage())
-		return
-
-	resolve_parent.add_fingerprint(user)
+		return NONE
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
+		if(resolve_location.loc != user || !user.canUseTopic(resolve_parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+			return NONE
 
-		if(resolve_parent.loc != user)
-			return
+		if(isitem(resolve_parent))
+			var/obj/item/item_parent = resolve_parent
+			if(!item_parent.can_mob_unequip(user))
+				return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 		var/atom/movable/screen/inventory/hand/hand = over_object
 		user.putItemFromInventoryInHandIfPossible(resolve_parent, hand.held_index)
+		resolve_parent.add_fingerprint(user)
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
-	else if(ismob(over_object))
-		if(over_object != user)
-			return
+	if(over_object == user)
+		if(!user.canUseTopic(resolve_parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+			return NONE
 
+		resolve_parent.add_fingerprint(user)
 		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
-	else if(!istype(over_object, /atom/movable/screen))
-		INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, user)
+	if(istype(over_object, /atom/movable/screen) || ismob(over_object))
+		return NONE
+
+	if(!user.canUseTopic(over_object, be_close = TRUE, no_tk = TRUE))
+		return NONE
+
+	resolve_parent.add_fingerprint(user)
+
+	var/atom/dump_loc = over_object.get_dumping_location()
+	if(isnull(dump_loc))
+		return NONE
+
+	/// Don't dump *onto* objects in the same storage as ourselves
+	if (over_object.loc == resolve_parent.loc && !isnull(resolve_parent.loc.atom_storage) && isnull(over_object.atom_storage))
+		return NONE
+
+	INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, user)
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /**
  * Dumps all of our contents at a specific location.
@@ -838,6 +860,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	attempt_insert(dropping, user)
+	return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 /// Signal handler for whenever we're attacked by an object.
 /datum/storage/proc/on_attackby(datum/source, obj/item/thing, mob/user, params)
@@ -1063,7 +1086,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/obj/item/resolve_parent = parent?.resolve()
 	if(!resolve_parent)
 		return
-		
+
 	return resolve_parent.IsReachableBy(user)
 
 /// Close the storage UI for everyone viewing us.

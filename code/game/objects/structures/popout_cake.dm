@@ -34,6 +34,8 @@
 		string.cake = src
 
 /obj/structure/popout_cake/MouseDrop_T(mob/living/target, mob/user)
+	if(..())
+		return
 	if(!istype(target) || user.incapacitated || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
