@@ -222,6 +222,13 @@
 	hunt_chance = 75
 	hunt_range = 9
 
+/datum/ai_planning_subtree/find_and_hunt_target/find_cat_food/SelectBehaviors(datum/ai_controller/controller, delta_time)
+	var/mob/living/living_pawn = controller.pawn
+	var/list/items_we_carry = typecache_filter_list(living_pawn, controller.blackboard[BB_HUNTABLE_PREY])
+	if(length(items_we_carry)) // We already got a prey in our mouth, we dont need to keep looking for it then failling
+		return
+	return ..()
+
 /datum/ai_behavior/hunt_target/interact_with_target/find_cat_food
 	always_reset_target = TRUE
 

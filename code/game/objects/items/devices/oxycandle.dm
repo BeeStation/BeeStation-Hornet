@@ -67,7 +67,7 @@
 
 	. = ..()
 	// All good, turn it on.
-	if(!.)
+	if(.)
 		user.visible_message(span_notice("[user] lights \the [src]."), span_notice("You light \the [src]!"))
 		force = on_damage
 		damtype = BURN

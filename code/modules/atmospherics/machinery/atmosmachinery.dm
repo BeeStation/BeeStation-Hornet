@@ -180,6 +180,47 @@
 	nodes[i] = null
 
 /**
+ * Setter for device direction
+ *
+ * Set the direction to either SOUTH or WEST if the pipe_flag is set to PIPING_CARDINAL_AUTONORMALIZE, called in New(), used mostly by layer manifolds
+ */
+/obj/machinery/atmospherics/proc/normalize_cardinal_directions()
+	switch(dir)
+		if(SOUTH)
+			setDir(NORTH)
+		if(WEST)
+			setDir(EAST)
+
+/**
+ * setter for pipe layers
+ *
+ * Set the layer of the pipe that the device has to a new_layer
+ * Arguments:
+ * * new_layer - the layer at which we want the piping_layer to be (1 to 5)
+ */
+/obj/machinery/atmospherics/proc/set_piping_layer(new_layer)
+	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
+	update_appearance()
+
+/obj/machinery/atmospherics/update_icon()
+	. = ..()
+	update_layer()
+
+/**
+ * Find a connecting /obj/machinery/atmospherics in specified direction, called by relaymove()
+ * used by ventcrawling mobs to check if they can move inside a pipe in a specific direction
+ * Arguments:
+ * * direction - the direction we are checking against
+ * * prompted_layer - the piping_layer we are inside
+ */
+/obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
+	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
+		if(!(target.initialize_directions & get_dir(target,src)) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
+			continue
+		if(connection_check(target, prompted_layer))
+			return target
+
+/**
  * Getter for node_connects
  *
  * Return a list of the nodes that can connect to other machines, get called by atmos_init()
@@ -200,19 +241,6 @@
 	return node_connects
 
 /**
- * Setter for device direction
- *
- * Set the direction to either SOUTH or WEST if the pipe_flag is set to PIPING_CARDINAL_AUTONORMALIZE, called in New(), used mostly by layer manifolds
- */
-/obj/machinery/atmospherics/proc/normalize_cardinal_directions()
-	switch(dir)
-		if(SOUTH)
-			setDir(NORTH)
-		if(WEST)
-			setDir(EAST)
-
-
-/**
  * Initialize for atmos devices
  *
  * initialize the nodes for each pipe/device, this is called just after the air controller sets up turfs
@@ -228,47 +256,17 @@
 			if(can_be_node(target))
 				nodes[i] = target
 				break
-	update_icon()
 
-/**
- * setter for pipe layers
- *
- * Set the layer of the pipe that the device has to a new_layer
- * Arguments:
- * * new_layer - the layer at which we want the piping_layer to be (1 to 5)
- */
-/obj/machinery/atmospherics/proc/set_piping_layer(new_layer)
-	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
-	update_icon()
-
-/obj/machinery/atmospherics/update_icon()
-	update_layer()
-	return ..()
+	update_appearance()
 
 /**
  * Check if a node can actually exists by connecting to another machine
  * called on atmosinit()
  * Arguments:
  * * obj/machinery/atmospherics/target - the machine we are connecting to
- * * iteration - the current node we are checking (from 1 to 4)
  */
 /obj/machinery/atmospherics/proc/can_be_node(obj/machinery/atmospherics/target)
 	return connection_check(target, piping_layer)
-
-
-/**
- * Find a connecting /obj/machinery/atmospherics in specified direction, called by relaymove()
- * used by ventcrawling mobs to check if they can move inside a pipe in a specific direction
- * Arguments:
- * * direction - the direction we are checking against
- * * prompted_layer - the piping_layer we are inside
- */
-/obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
-	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
-		if(!(target.initialize_directions & get_dir(target,src)) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
-			continue
-		if(connection_check(target, prompted_layer))
-			return target
 
 /**
  * Check the connection between two nodes
@@ -287,6 +285,7 @@
 	//both target & src can't be connected either way
 	if(!is_connectable(target, given_layer) || !target.is_connectable(src, given_layer))
 		return FALSE
+
 	return TRUE
 
 /**

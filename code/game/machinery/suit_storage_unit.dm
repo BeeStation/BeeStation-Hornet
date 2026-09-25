@@ -5,9 +5,6 @@
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "close"
 	obj_flags = CAN_BE_HIT | USES_TGUI
-	use_power = ACTIVE_POWER_USE
-	active_power_usage = 100 WATT
-	idle_power_usage = 50 WATT
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the unit is open
@@ -237,9 +234,10 @@
 	update_appearance()
 
 /obj/machinery/suit_storage_unit/RefreshParts()
+	. = ..()
 	var/calculated_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		calculated_laser_rating += laser.rating
+	for(var/datum/stock_part/micro_laser/laser in component_parts)
+		calculated_laser_rating += laser.tier
 	laser_strength_hacked = 15 + (5 * (calculated_laser_rating)) //20 on T1, 35 on T4
 	laser_strength = 12 - (2 * (calculated_laser_rating)) //10 on T1, 4 on T4
 
@@ -270,9 +268,12 @@
 		open_machine()
 		dump_inventory_contents()
 		spawn_frame(disassembled)
-		for(var/obj/item/I in component_parts)
-			I.forceMove(loc)
-			component_parts.Cut()
+		for(var/obj/item/part in component_parts)
+			part.forceMove(loc)
+		for(var/datum/stock_part/stock_part in component_parts)
+			var/physical_object_type = stock_part.physical_object_type
+			new physical_object_type(loc)
+		component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/interact(mob/living/user)
@@ -492,10 +493,12 @@
 		cell = suit.cell
 	if(mod)
 		cell = mod.get_cell()
-	if(!cell)
+	if(!cell || cell.charge == cell.maxcharge)
 		return
-	use_power(charge_rate * delta_time)
-	cell.give((charge_rate * delta_time) * POWER_TRANSFER_LOSS)
+
+	var/cell_charged = cell.give((charge_rate * delta_time) * POWER_TRANSFER_LOSS)
+	if(cell_charged)
+		use_power(charge_rate * delta_time)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))

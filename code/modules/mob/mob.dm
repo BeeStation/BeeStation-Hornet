@@ -1640,9 +1640,9 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 /mob/proc/set_stat(new_stat)
 	if(new_stat == stat)
 		return
-	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
 	stat = new_stat
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
 	update_action_buttons_icon(TRUE)
 
 /mob/key_down(key, client/client, full_key)

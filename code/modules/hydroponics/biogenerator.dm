@@ -56,14 +56,15 @@
 		ui_update()
 
 /obj/machinery/biogenerator/RefreshParts()
+	. = ..()
 	var/E = 0
 	var/P = 0
 	var/max_storage = 40
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		P += B.rating
-		max_storage = 40 * B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		P += B.tier
+		max_storage = 40 * B.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		E += M.tier
 	efficiency = E
 	productivity = P
 	max_items = max_storage

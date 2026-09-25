@@ -5,9 +5,7 @@
 	desc = "It produces items using iron, copper, and glass."
 	icon_state = "autolathe"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.5
 	layer = BELOW_OBJ_LAYER
 
 	/// If we are currently running through the design queue or not
@@ -206,9 +204,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	return materials?.mat_container || GetComponent(/datum/component/material_container)
 
 /obj/machinery/modular_fabricator/RefreshParts()
+	. = ..()
 	var/new_capacity = 0
-	for(var/obj/item/stock_parts/matter_bin/new_matter_bin in component_parts)
-		new_capacity += new_matter_bin.rating * 75000
+	for(var/datum/stock_part/matter_bin/new_matter_bin in component_parts)
+		new_capacity += new_matter_bin.tier * 75000
 
 	//Material container
 	if(remote_materials)
@@ -219,8 +218,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		container.max_amount = new_capacity
 
 	var/efficiency = 1.8
-	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
-		efficiency -= new_manipulator.rating * 0.2
+	for(var/datum/stock_part/manipulator/new_manipulator in component_parts)
+		efficiency -= new_manipulator.tier * 0.2
 	creation_efficiency = max(1, efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency
 
 	update_static_data_for_all_viewers()
@@ -529,13 +528,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
  * Use power based on the amount of materials inserted and if we want to begin operation, do so.
  */
 /obj/machinery/modular_fabricator/proc/after_material_insert(item_inserted, id_inserted, amount_inserted)
-	if(istype(item_inserted, /obj/item/stack/ore/bluespace_crystal))
-		use_power(MINERAL_MATERIAL_AMOUNT / 10)
-	else
-		use_power(min(1000, amount_inserted / 100))
-	//Begin processing to continue the queue if we had items in the queue
-	if(wants_to_operate)
-		begin_process()
+	//we use initial(active_power_usage) because higher tier parts will have higher active usage but we have no benifit from it
+	if(directly_use_power(ROUND_UP((amount_inserted / (MAX_STACK_SIZE * 100)) * 0.02 * initial(active_power_usage))))
+		//Begin processing to continue the queue if we had items in the queue
+		if(wants_to_operate)
+			begin_process()
 
 /obj/machinery/modular_fabricator/proc/begin_process()
 	if(operating || disabled)
@@ -548,8 +545,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		//Queue processing done
 		say("Queue processing completed.")
 		operating = FALSE
+		update_use_power(IDLE_POWER_USE)
 		return
 	operating = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 
 	// Get our design
 	var/is_valid_design = stored_research.researched_designs[requested_design_id]
@@ -605,6 +604,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	if(!materials.has_materials(materials_used))
 		say("Insufficient materials, operation will proceed when sufficient materials are available.")
 		operating = FALSE
+		update_use_power(IDLE_POWER_USE)
 		wants_to_operate = TRUE
 		being_built = null
 		ui_update()
@@ -642,6 +642,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 
 /obj/machinery/modular_fabricator/proc/restart_process()
 	operating = FALSE
+	update_use_power(IDLE_POWER_USE)
 	wants_to_operate = FALSE
 	if(disabled || QDELETED(src))
 		return
@@ -654,6 +655,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	// Stops the queue
 	if(disabled)
 		operating = FALSE
+		update_use_power(IDLE_POWER_USE)
 		set_default_sprite()
 		print_sound.stop()
 		// requeue the item
@@ -664,6 +666,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	var/datum/component/material_container/materials = get_material_container()
 	if(!materials.has_materials(materials_used))
 		operating = FALSE
+		update_use_power(IDLE_POWER_USE)
 		wants_to_operate = TRUE
 		set_default_sprite()
 		print_sound.stop()
