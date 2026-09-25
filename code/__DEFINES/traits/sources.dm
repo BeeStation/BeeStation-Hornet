@@ -106,6 +106,7 @@
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
+#define UPGRADE_TRAIT "upgrade_trait"
 #define CRAYON_TRAIT "crayon_trait"
 #define HOLYWATER_TRAIT "holywater"
 #define VANGUARD_TRAIT "vanguard"
