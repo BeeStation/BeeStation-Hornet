@@ -218,3 +218,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 /obj/item/stack/cable_coil/one
 	icon_state = "omni-coil1"
 	amount = 1
+
+/obj/item/stack/cable_coil/five
+	amount = 5
