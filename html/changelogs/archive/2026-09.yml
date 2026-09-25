@@ -207,3 +207,11 @@
   - code_imp: A few procs have been updated to abide by new SpacemanDMM rules
   - bugfix: Alien embryos no longer kill their host if they "hatch" in the middle
       of a chest organ maipulation surgery, as previously intended.
+2026-09-25:
+  BotTierPC:
+  - rscadd: SecDrobes now sell Balaclava's and Contraband Russian Balaclava's
+  - tweak: Russian Balaclava's, a now subtype of Regular Balaclava's are also able
+      to be pulled up and worn alternatively!
+  mrmanlikesbt:
+  - admin: Admins can now grant antag tokens to offline players by use of the "Modify
+      Antagonist Tokens" verb in the "Adminbus" tab

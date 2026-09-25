@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - admin: Admins can now grant antag tokens to offline players by use of the "Modify
-      Antagonist Tokens" verb in the "Adminbus" tab
