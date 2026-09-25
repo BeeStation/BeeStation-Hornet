@@ -480,18 +480,25 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/toggle/is_valid(value)
 	return value == TRUE || value == FALSE
 
-/// A simple string type preference.
-/datum/preference/string
-	abstract_type = /datum/preference/string
+/// A string-based preference accepting arbitrary string values entered by the user, with a maximum length.
+/datum/preference/text
+	abstract_type = /datum/preference/text
 
-	/// The default value of the string, if create_default_value is not specified
-	var/default_value = ""
+	/// What is the maximum length of the value allowed in this field?
+	var/maximum_value_length = 256
 
-/datum/preference/string/create_default_value()
-	return default_value
+	/// Should we strip HTML the input or simply restrict it to the maximum_value_length?
+	var/should_strip_html = TRUE
 
-/datum/preference/string/deserialize(input, datum/preferences/preferences)
-	return sanitize_text(input, create_default_value())
 
-/datum/preference/string/is_valid(value)
-	return istext(value)
+/datum/preference/text/deserialize(input, datum/preferences/preferences)
+	return should_strip_html ? strip_html_simple(input, maximum_value_length) : copytext(input, 1, maximum_value_length)
+
+/datum/preference/text/create_default_value()
+	return ""
+
+/datum/preference/text/is_valid(value, datum/preferences/preferences)
+	return istext(value) && length(value) < maximum_value_length
+
+/datum/preference/text/compile_constant_data()
+	return list("maximum_length" = maximum_value_length)
