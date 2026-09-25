@@ -22,10 +22,6 @@
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 
-	robot_modules_background = new()
-	robot_modules_background.icon_state = "block"
-	robot_modules_background.plane = HUD_PLANE
-
 	ident = rand(1, 999)
 
 	previous_health = health
@@ -390,6 +386,24 @@
 				user.visible_message("[user] deconstructs [src]!", span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
 				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
 				deconstruct()
+
+	else if(istype(attacking_item, /obj/item/storage/part_replacer))
+		var/obj/item/storage/part_replacer/replacer = attacking_item
+		if(!opened)
+			balloon_alert(user, "chassis cover is closed!")
+			return
+		if(!istype(model, /obj/item/robot_model/engineering))
+			balloon_alert(user, "wrong cyborg model!")
+			return
+		if(locate(/obj/item/borg/upgrade/rped) in src)
+			balloon_alert(user, "already has a RPED!")
+			return
+		qdel(attacking_item)
+		var/obj/item/borg/upgrade/smallrped/lilrped = new
+		if(apply_upgrade(lilrped, user))
+			balloon_alert(user, "[replacer] installed")
+			return
+		return
 
 	else if(istype(attacking_item, /obj/item/ai_module))
 		var/obj/item/ai_module/MOD = attacking_item
@@ -788,25 +802,37 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth * 0.75) //Gradual break down of modules as more damage is sustained
+
+	if(health < maxHealth * BORG_SLOWDOWN_THRESHOLD)
 		var/speedpenalty = (maxHealth - health) / 150
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = speedpenalty)
-		if(uneq_module(held_items[3]))
-			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
-			audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
-			to_chat(src, span_userdanger("SYSTEM ERROR: Module 3 OFFLINE."))
-		if(health < maxHealth*0.5)
-			if(uneq_module(held_items[2]))
-				audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
-				to_chat(src, span_userdanger("SYSTEM ERROR: Module 2 OFFLINE."))
-				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < maxHealth*0.25)
-				if(uneq_module(held_items[1]))
-					audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
-					to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
-					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+
+	/// Current health as a fraction of maximum. Cyborgs die at zero, so this is 0 to 1.
+	var/percent_hp = health / maxHealth
+
+	if(health <= previous_health) //Gradual break down of modules as more damage is sustained
+		if(percent_hp < BORG_SLOT_THREE_THRESHOLD)
+			break_cyborg_slot(3)
+
+		if(percent_hp < BORG_SLOT_TWO_THRESHOLD)
+			break_cyborg_slot(2)
+
+		if(percent_hp < BORG_SLOT_ONE_THRESHOLD)
+			break_cyborg_slot(1)
+
+	else //Modules come back online as damage is repaired
+		if(percent_hp >= BORG_SLOT_ONE_THRESHOLD)
+			repair_cyborg_slot(1)
+
+		if(percent_hp >= BORG_SLOT_TWO_THRESHOLD)
+			repair_cyborg_slot(2)
+
+		if(percent_hp >= BORG_SLOT_THREE_THRESHOLD)
+			repair_cyborg_slot(3)
+
+	previous_health = health
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
@@ -899,10 +925,7 @@
 
 /mob/living/silicon/robot/proc/ResetModel()
 	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
-	uneq_all()
-	shown_robot_modules = FALSE
-	if(hud_used)
-		hud_used.update_robot_modules_display()
+	drop_all_held_items()
 
 	if (hasExpanded)
 		hasExpanded = FALSE
@@ -1157,12 +1180,11 @@
 		for(var/i in connected_ai.aicamera.stored)
 			aicamera.stored[i] = TRUE
 
-/mob/living/silicon/robot/proc/charge(datum/source, amount, repairs)
+/mob/living/silicon/robot/proc/charge(datum/source, datum/callback/charge_cell, seconds_per_tick, repairs)
 	SIGNAL_HANDLER
-
-	if(model)
-		model.respawn_consumable(src, amount * 0.005)
 	if(cell)
-		cell.charge = min(cell.charge + amount, cell.maxcharge)
+		charge_cell.Invoke(cell, seconds_per_tick)
+		if(model)
+			model.respawn_consumable(src, cell.use(cell.chargerate * 0.005))
 	if(repairs)
 		heal_bodypart_damage(repairs, repairs - 1)

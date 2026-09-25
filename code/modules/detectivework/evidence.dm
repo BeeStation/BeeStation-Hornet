@@ -1,5 +1,3 @@
-//CONTAINS: Evidence bags
-
 /obj/item/evidencebag
 	name = "evidence bag"
 	desc = "An empty evidence bag."
@@ -7,100 +5,70 @@
 	icon_state = "evidenceobj"
 	inhand_icon_state = ""
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = NOBLUDGEON
 
-/obj/item/evidencebag/afterattack(obj/item/I, mob/user,proximity)
+/obj/item/evidencebag/Initialize(mapload)
 	. = ..()
-	if(!proximity || loc == I)
+	create_storage(
+		max_slots = 1,
+		max_specific_storage = WEIGHT_CLASS_NORMAL,
+	)
+	atom_storage.allow_quick_gather = TRUE
+	atom_storage.collection_mode = COLLECT_ONE
+	RegisterSignal(atom_storage, COMSIG_STORAGE_STORED_ITEM, PROC_REF(on_insert))
+	RegisterSignal(atom_storage, COMSIG_STORAGE_REMOVED_ITEM, PROC_REF(on_remove))
+
+/obj/item/evidencebag/update_desc(updates)
+	. = ..()
+	if(!atom_storage.get_total_weight())
+		desc = src::desc
 		return
-	evidencebagEquip(I, user)
+	var/obj/item/inserted = locate(/obj/item) in atom_storage.real_location
+	desc = "An evidence bag containing [inserted]. [inserted.desc]"
 
-/obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
-	if(evidencebagEquip(I, user))
-		return 1
-
-/obj/item/evidencebag/handle_atom_del(atom/A)
-	cut_overlays()
-	w_class = initial(w_class)
-	icon_state = initial(icon_state)
-	desc = initial(desc)
-
-/obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
-	if(!istype(I) || I.anchored)
+/obj/item/evidencebag/update_icon_state()
+	. = ..()
+	if(!atom_storage.get_total_weight())
+		icon_state = "evidenceobj"
 		return
-
-	if(loc.atom_storage && I.atom_storage)
-		to_chat(user, "<span class='warning'>No matter what way you try, you can't get [I] to fit inside [src].</span>")
-		return TRUE //now this is podracing
-
-	if(HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT))
-		to_chat(user, "<span class='warning'>No matter what way you try, you can't get [I] to fit inside [src].</span>")
-		return TRUE
-
-	if(istype(I, /obj/item/evidencebag))
-		to_chat(user, span_notice("You find putting an evidence bag in another evidence bag to be slightly absurd."))
-		return TRUE //now this is podracing
-
-	if(loc in I.GetAllContents()) // fixes tg #39452, evidence bags could store their own location, causing I to be stored in the bag while being present inworld still, and able to be teleported when removed.
-		to_chat(user, "<span class='warning'>You find putting [I] in [src] while it's still inside it quite difficult!</span>")
-		return
-
-	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, span_notice("[I] won't fit in [src]."))
-		return
-
-	if(contents.len)
-		to_chat(user, span_notice("[src] already has something inside it."))
-		return
-
-	if(!isturf(I.loc)) //If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
-		if(I.loc.atom_storage) //in a container.
-			I.loc.atom_storage.remove_single(user, I, src)
-		if(!user.dropItemToGround(I))
-			return
-
-	user.visible_message("[user] puts [I] into [src].", span_notice("You put [I] inside [src]."),\
-	"<span class='hear'>You hear a rustle as someone puts something into a plastic bag.</span>")
-
 	icon_state = "evidence"
 
-	var/mutable_appearance/in_evidence = new(I)
+/obj/item/evidencebag/update_overlays()
+	. = ..()
+	if(!atom_storage.get_total_weight())
+		return
+	var/obj/item/inserted = locate(/obj/item) in atom_storage.real_location
+	var/mutable_appearance/in_evidence = new(inserted)
 	in_evidence.plane = FLOAT_PLANE
 	in_evidence.layer = FLOAT_LAYER
 	in_evidence.pixel_x = 0
 	in_evidence.pixel_y = 0
-	add_overlay(in_evidence)
-	add_overlay("evidence")	//should look nicer for transparent stuff. not really that important, but hey.
+	. += in_evidence
+	. += "evidence"
 
-	desc = "An evidence bag containing [I]. [I.desc]"
-	I.forceMove(src)
-	w_class = I.w_class
-	return 1
+/obj/item/evidencebag/proc/on_insert(datum/storage/storage, obj/item/to_insert, mob/user, force)
+	SIGNAL_HANDLER
+
+	update_weight_class(to_insert.w_class)
+
+/obj/item/evidencebag/proc/on_remove(datum/storage/storage, obj/item/to_remove, atom/remove_to_loc, silent)
+	SIGNAL_HANDLER
+
+	if(!atom_storage.get_total_weight())
+		update_weight_class(WEIGHT_CLASS_TINY)
 
 /obj/item/evidencebag/attack_self(mob/user)
-	if(contents.len)
-		var/obj/item/I = contents[1]
-		user.visible_message("[user] takes [I] out of [src].", span_notice("You take [I] out of [src]."),\
-		span_italics("You hear someone rustle around in a plastic bag, and remove something."))
-		cut_overlays()	//remove the overlays
-		user.put_in_hands(I)
-		w_class = WEIGHT_CLASS_TINY
-		icon_state = "evidenceobj"
-		desc = "An empty evidence bag."
-
-	else
-		to_chat(user, "[src] is empty.")
-		icon_state = "evidenceobj"
-	return
+	if(!atom_storage.get_total_weight())
+		to_chat(user, span_notice("[src] is empty."))
+		return
+	user.visible_message(span_notice("[user] empties [src]."), span_notice("You empty [src]."),\
+	span_hear("You hear someone rustle around in a plastic bag, and remove something."))
+	atom_storage.remove_all()
 
 /obj/item/storage/box/evidence
 	name = "evidence box"
 	desc = "A small box specially designed for carrying evidence bags."
 	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/storage/box/evidence/Initialize(mapload)
-	. = ..()
-	atom_storage.max_slots = 6
-	atom_storage.set_holdable(list(/obj/item/evidencebag))
 
 /obj/item/storage/box/evidence/PopulateContents()
 	for(var/i in 1 to 6)

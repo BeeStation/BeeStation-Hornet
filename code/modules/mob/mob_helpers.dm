@@ -235,7 +235,7 @@
 						A.name = header
 					A.desc = message
 					A.action = action
-					A.target = source
+					A.target_ref = WEAKREF(source)
 					if(!alert_overlay)
 						alert_overlay = new(source)
 					alert_overlay.layer = FLOAT_LAYER

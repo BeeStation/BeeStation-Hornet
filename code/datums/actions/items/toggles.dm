@@ -65,9 +65,6 @@
 /datum/action/item_action/toggle_human_head
 	name = "Toggle Human Head"
 
-/datum/action/item_action/toggle_helmet
-	name = "Toggle Helmet"
-
 /datum/action/item_action/toggle_seclight
 	name = "Toggle Seclight"
 

@@ -26,7 +26,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/mob_holder)
 		righthand_file = rh_icon
 	if(worn_slot_flags)
 		slot_flags = worn_slot_flags
-	w_class = held_mob.held_w_class
+	update_weight_class(held_mob.held_w_class)
 	insert_mob(held_mob)
 	return ..()
 

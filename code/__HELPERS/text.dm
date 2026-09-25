@@ -1176,35 +1176,33 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
-///Returns a string based on the weight class define used as argument
+///Returns a string based on the weight class define used as argument. Rounds up to the next class.
 /proc/weight_class_to_text(w_class)
 	switch(w_class)
-		if(WEIGHT_CLASS_TINY)
+		if(-INFINITY to WEIGHT_CLASS_TINY)
 			. = "tiny"
-		if(WEIGHT_CLASS_SMALL)
+		if(WEIGHT_CLASS_TINY to WEIGHT_CLASS_SMALL)
 			. = "small"
-		if(WEIGHT_CLASS_NORMAL)
+		if(WEIGHT_CLASS_SMALL to WEIGHT_CLASS_NORMAL)
 			. = "normal-sized"
-		if(WEIGHT_CLASS_LARGE)
+		if(WEIGHT_CLASS_NORMAL to WEIGHT_CLASS_MEDIUM)
+			. = "medium-sized"
+		if(WEIGHT_CLASS_MEDIUM to WEIGHT_CLASS_LARGE)
 			. = "large"
-		if(WEIGHT_CLASS_BULKY)
+		if(WEIGHT_CLASS_LARGE to WEIGHT_CLASS_BULKY)
 			. = "bulky"
-		if(WEIGHT_CLASS_HUGE)
+		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_HUGE)
 			. = "huge"
-		if(WEIGHT_CLASS_GIGANTIC)
-			. = "gigantic"
 		else
-			. = ""
+			. = "gigantic"
 
 /proc/weight_class_to_tooltip(w_class)
 	switch(w_class)
-		if(WEIGHT_CLASS_TINY to WEIGHT_CLASS_SMALL)
+		if(-INFINITY to POCKET_WEIGHT_CLASS)
 			return "This item can fit into pockets, boxes and backpacks."
-		if(WEIGHT_CLASS_NORMAL)
+		if(POCKET_WEIGHT_CLASS to WEIGHT_CLASS_LARGE)
 			return "This item can fit into backpacks."
-		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_GIGANTIC)
-			return "This item is too large to fit into any standard storage."
-	return ""
+	return "This item is too large to fit into any standard storage."
 
 /atom/proc/get_boozepower_text(booze_power, mob/living/L)
 	if(isnull(booze_power))

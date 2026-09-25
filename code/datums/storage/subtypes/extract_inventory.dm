@@ -8,31 +8,28 @@
 	rustle_sound = FALSE
 	silent = TRUE
 
-/datum/storage/extract_inventory/New()
+/datum/storage/extract_inventory/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
 	. = ..()
 	set_holdable(/obj/item/food/monkeycube)
 
-	var/obj/item/slimecross/reproductive/parent_slime_extract = parent?.resolve()
-	if(!parent_slime_extract)
-		return
-
-	if(!istype(parent_slime_extract, /obj/item/slimecross/reproductive))
-		stack_trace("storage subtype extract_inventory incompatible with [parent_slime_extract]")
+	var/obj/item/slimecross/reproductive/parent_slime = parent
+	if(!istype(parent_slime, /obj/item/slimecross/reproductive))
+		stack_trace("storage subtype ([type]) incompatible with [parent_slime] ([parent_slime.type])")
 		qdel(src)
 
 /datum/storage/extract_inventory/proc/process_cubes(mob/user)
-	var/obj/item/slimecross/reproductive/parent_slime_extract = parent?.resolve()
-	if(!parent_slime_extract)
-		return
-
-	if(parent_slime_extract.contents.len >= max_slots)
+	var/obj/item/slimecross/reproductive/parent_slime_extract = parent
+	if(real_location.contents.len >= max_slots)
 		QDEL_LIST(parent_slime_extract.contents)
 		createExtracts(user)
 
 /datum/storage/extract_inventory/proc/createExtracts(mob/user)
-	var/obj/item/slimecross/reproductive/parent_slime_extract = parent?.resolve()
-	if(!parent_slime_extract)
-		return
+	var/obj/item/slimecross/reproductive/parent_slime_extract = parent
 
 	var/cores = rand(1,4)
 	playsound(parent_slime_extract, 'sound/effects/splat.ogg', 40, TRUE)

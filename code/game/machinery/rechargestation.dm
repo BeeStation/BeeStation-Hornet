@@ -3,6 +3,7 @@
 	desc = "This device recharges energy dependent lifeforms, like cyborgs, ethereals and MODsuit users."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
+	base_icon_state = "borgcharger"
 	density = FALSE
 	req_access = list(ACCESS_ROBOTICS)
 	state_open = TRUE
@@ -10,10 +11,29 @@
 	occupant_typecache = list(/mob/living/silicon/robot, /mob/living/carbon/human)
 	var/recharge_speed
 	var/repairs
+	///Callback for borgs & modsuits to provide their cell to us for charging
+	var/datum/callback/charge_cell
 
 /obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
+	charge_cell = CALLBACK(src, PROC_REF(charge_target_cell))
 	update_icon()
+
+/obj/machinery/recharge_station/Destroy()
+	charge_cell = null
+	return ..()
+
+/**
+ * Mobs & borgs invoke this through a callback to recharge their cells
+ * Arguments
+ *
+ * * obj/item/stock_parts/cell/target - the cell to charge, optional if provided else will draw power used directly
+ * * seconds_per_tick - supplied from process()
+ */
+/obj/machinery/recharge_station/proc/charge_target_cell(obj/item/stock_parts/cell/target, seconds_per_tick)
+	PRIVATE_PROC(TRUE)
+
+	return charge_cell(recharge_speed * seconds_per_tick, target, grid_only = TRUE)
 
 /obj/machinery/recharge_station/RefreshParts()
 	. = ..()
@@ -79,25 +99,26 @@
 	. = ..()
 	update_use_power(IDLE_POWER_USE)
 
-/obj/machinery/recharge_station/close_machine(mob/user, density_to_set = TRUE)
+/obj/machinery/recharge_station/close_machine(atom/movable/target, density_to_set = TRUE)
 	. = ..()
 	if(occupant)
 		update_use_power(ACTIVE_POWER_USE) //It always tries to charge, even if it can't.
 		add_fingerprint(occupant)
 
-/obj/machinery/recharge_station/update_icon()
-	if(is_operational)
-		if(state_open)
-			icon_state = "borgcharger0"
-		else
-			icon_state = (occupant ? "borgcharger1" : "borgcharger2")
-	else
-		icon_state = (state_open ? "borgcharger-u0" : "borgcharger-u1")
+/obj/machinery/recharge_station/update_icon_state()
+	if(panel_open)
+		icon_state = "borgdecon2"
+		return ..()
+	if(!is_operational)
+		icon_state = "[base_icon_state]-u[state_open ? 0 : 1]"
+		return ..()
+	icon_state = "[base_icon_state][state_open ? 0 : (occupant ? 1 : 2)]"
+	return ..()
 
 /obj/machinery/recharge_station/proc/process_occupant(delta_time)
 	if(!occupant)
 		return
-	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed * delta_time / 2, repairs)
+	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, charge_cell, delta_time, repairs)
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)

@@ -544,7 +544,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user && outside_storage)
-		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
+		if(!can_mob_unequip(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
 	. = FALSE
@@ -560,7 +560,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (. == SECONDARY_ATTACK_CALL_NORMAL)
 		. = SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/proc/allow_attack_hand_drop(mob/user)
+/// Called when a mob is manually attempting to unequip the item
+/// Returning FALSE will prevent the unequip from happening
+/obj/item/proc/can_mob_unequip(mob/user)
 	return TRUE
 
 /obj/item/attack_paw(mob/user, list/modifiers)
@@ -579,16 +581,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	attack_paw(A)
 
-/obj/item/attack_robot(mob/living/user)
-	. = ..()
-	if(.)
+/obj/item/attack_robot(mob/living/silicon/robot/user)
+
+	if(!istype(loc, /obj/item/robot_model))
 		return
-	if(istype(src.loc, /obj/item/robot_model))
-		//If the item is part of a cyborg module, equip it
-		var/mob/living/silicon/robot/R = user
-		if(!R.low_power_mode) //can't equip modules with an empty cell.
-			R.activate_module(src)
-			R.hud_used.update_robot_modules_display()
+	if(user.low_power_mode) //can't equip modules with an empty cell.
+		return
+	user.activate_module(src)
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -792,6 +791,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /**
+ * Called after an item is placed in an equipment slot. Runs equipped(), then sends a signal.
+ * This should be called last or near-to-last, after all other inventory code stuff is handled.
+ *
+ * Arguments:
+ * * user is mob that equipped it * * user is mob that equipped it
+ * * slot uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ */
+/obj/item/proc/on_equipped(mob/user, slot, initial = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	equipped(user, slot, initial)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_POST_EQUIPPED, user, slot) & COMPONENT_EQUIPPED_FAILED)
+		return FALSE
+	return TRUE
+
+/**
  * To be overwritten to only perform visual tasks;
  * this is directly called instead of `equipped` on visual-only features like human dummies equipping outfits.
  *
@@ -808,6 +823,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	visual_equipped(user, slot, initial)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
@@ -835,7 +851,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// Gives one of our item actions to a mob, when equipped to a certain slot
 /obj/item/proc/give_item_action(datum/action/action, mob/to_who, slot)
 	// Some items only give their actions buttons when in a specific slot.
-	if(!item_action_slot_check(slot, to_who))
+	if(!item_action_slot_check(slot, to_who, action) || SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_SLOT_CHECKED, to_who, action, slot) & COMPONENT_ITEM_ACTION_SLOT_INVALID)
 		// There is a chance we still have our item action currently,
 		// and are moving it from a "valid slot" to an "invalid slot".
 		// So call Remove() here regardless, even if excessive.
@@ -845,7 +861,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	action.Grant(to_who)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
-/obj/item/proc/item_action_slot_check(slot, mob/user)
+/obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACKPACK || slot == ITEM_SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
 		return FALSE
 	return TRUE
@@ -861,11 +877,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  * * ignore_equipped ignores any already equipped items in that slot
  * * indirect_action allows inserting into "soft locked" bags, things that can be easily opened by the owner
  */
-/obj/item/proc/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+/obj/item/proc/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	if(!M)
 		return FALSE
 
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_equipped)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_equipped, indirect_action = indirect_action)
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -982,8 +998,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/on_exit_storage(datum/storage/master_storage)
 	. = ..()
-	var/atom/location = master_storage.real_location?.resolve()
-	do_drop_animation(location)
+	do_drop_animation(master_storage.parent)
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(QDELETED(hit_atom))
@@ -1480,9 +1495,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		source_item?.reagents?.add_reagent(/datum/reagent/blood, 2)
 
 	else if(custom_materials?.len) //if we've got materials, lets see whats in it
-		/// How many mats have we found? You can only be affected by two material datums by default
+		// How many mats have we found? You can only be affected by two material datums by default
 		var/found_mats = 0
-		/// How much of each material is in it? Used to determine if the glass should break
+		// How much of each material is in it? Used to determine if the glass should break
 		var/total_material_amount = 0
 
 		for(var/mats in custom_materials)
@@ -1497,7 +1512,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
 		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)] >= total_material_amount * 0.60)
 			if(prob(66)) //66% chance to break it
-				/// The glass shard that is spawned into the source item
+				// The glass shard that is spawned into the source item
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
 				broken_glass.name = "broken [name]"
 				broken_glass.desc = "This used to be \a [name], but it sure isn't anymore."
@@ -1515,7 +1530,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_warning("Eugh! Did I just bite into something?"))
 
 	else if(w_class == WEIGHT_CLASS_TINY) //small items like soap or toys that don't have mat datums
-		/// victim's chest (for cavity implanting the item)
+		// victim's chest (for cavity implanting the item)
 		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
 		if(victim_cavity.cavity_item)
 			victim.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = 5, distance = 0)
@@ -1572,7 +1587,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED_AS_OUTFIT, outfit_wearer, visuals_only, item_slot)
 
 /// Whether or not this item can be put into a storage item through attackby
 /obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
@@ -1595,43 +1611,29 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/get_writing_implement_details()
 	return null
 
-/// Increases weight class by one class and returns true, or else returns false
-/obj/item/proc/weight_class_up()
-	switch(w_class)
-		if(WEIGHT_CLASS_TINY)
-			w_class = WEIGHT_CLASS_SMALL
-		if(WEIGHT_CLASS_SMALL)
-			w_class = WEIGHT_CLASS_NORMAL
-		if(WEIGHT_CLASS_NORMAL)
-			w_class = WEIGHT_CLASS_LARGE
-		if(WEIGHT_CLASS_LARGE)
-			w_class = WEIGHT_CLASS_BULKY
-		if(WEIGHT_CLASS_BULKY)
-			w_class = WEIGHT_CLASS_HUGE
-		if(WEIGHT_CLASS_HUGE)
-			w_class = WEIGHT_CLASS_GIGANTIC
-		else
-			return FALSE
+/// Sets w_class, telling us and our loc that it changed. Returns TRUE if it actually changed.
+/obj/item/proc/update_weight_class(new_w_class)
+	if(w_class == new_w_class)
+		return FALSE
+	var/old_w_class = w_class
+	w_class = new_w_class
+	SEND_SIGNAL(src, COMSIG_ITEM_WEIGHT_CLASS_CHANGED, old_w_class, new_w_class)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_CONTENTS_WEIGHT_CLASS_CHANGED, src, old_w_class, new_w_class)
 	return TRUE
 
-/// Decreases weight class by one class and returns true, or else returns false
-/obj/item/proc/weight_class_down()
-	switch(w_class)
-		if(WEIGHT_CLASS_SMALL)
-			w_class = WEIGHT_CLASS_TINY
-		if(WEIGHT_CLASS_NORMAL)
-			w_class = WEIGHT_CLASS_SMALL
-		if(WEIGHT_CLASS_LARGE)
-			w_class = WEIGHT_CLASS_NORMAL
-		if(WEIGHT_CLASS_BULKY)
-			w_class = WEIGHT_CLASS_LARGE
-		if(WEIGHT_CLASS_HUGE)
-			w_class = WEIGHT_CLASS_BULKY
-		if(WEIGHT_CLASS_GIGANTIC)
-			w_class = WEIGHT_CLASS_HUGE
-		else
-			return FALSE
-	return TRUE
+/**
+ * Returns the atom(either itself or an internal module) that will interact/attack the target on behalf of us
+ * For example an object can have different `tool_behaviours` (e.g borg omni tool) but will return an internal reference of that tool to attack for us
+ * You can use it for general purpose polymorphism if you need a proxy atom to interact in a specific way
+ * with a target on behalf on this atom
+ *
+ * Currently used only in the object melee attack chain but can be used anywhere else or even moved up to the atom level if required
+ */
+/obj/item/proc/get_proxy_attacker_for(atom/target, mob/user)
+	RETURN_TYPE(/obj/item)
+
+	return src
 
 // Update icons if this is being carried by a mob
 /obj/item/wash(clean_types)

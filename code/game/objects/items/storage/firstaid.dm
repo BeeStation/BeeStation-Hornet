@@ -93,7 +93,6 @@
 		/obj/item/bikehorn/rubberducky,
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath/medical,
 		/obj/item/surgical_drapes, //for true paramedics
 		/obj/item/scalpel,
 		/obj/item/circular_saw,
@@ -171,7 +170,6 @@
 		/obj/item/clothing/gloves,
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath/medical,
 		/obj/item/geiger_counter,
 		/obj/item/clothing/neck/stethoscope,
 		/obj/item/stamp,
@@ -443,48 +441,48 @@
 	skin_type = MEDBOT_SKIN_SYNDI
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/firstaid/tactical/Initialize(mapload)
-	. = ..()
-	icon_state = pick("firstaid-combat","firstaid-combatalt")
+GLOBAL_LIST_INIT(combat_medkit_holdable, list(
+	/obj/item/healthanalyzer,
+	/obj/item/dnainjector,
+	/obj/item/reagent_containers/dropper,
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/pill,
+	/obj/item/reagent_containers/syringe,
+	/obj/item/reagent_containers/medspray,
+	/obj/item/storage/pill_bottle,
+	/obj/item/stack/medical,
+	/obj/item/flashlight/pen,
+	/obj/item/reagent_containers/hypospray,
+	/obj/item/surgical_drapes,
+	/obj/item/scalpel,
+	/obj/item/circular_saw,
+	/obj/item/surgicaldrill,
+	/obj/item/retractor,
+	/obj/item/cautery,
+	/obj/item/hemostat,
+	/obj/item/blood_filter,
+	/obj/item/clothing/neck/stethoscope,
+	/obj/item/reagent_containers/blood,
+	/obj/item/tank/internals/emergency_oxygen,
+	/obj/item/gun/syringe/syndicate,
+	/obj/item/implantcase,
+	/obj/item/implant,
+	/obj/item/implanter,
+	/obj/item/pinpointer/crew,
+	/obj/item/clothing/glasses/hud/health,
+	/obj/item/defibrillator/compact
+))
 
 /obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
+	icon_state = pick("firstaid-combat","firstaid-combatalt")
 	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
 	atom_storage.max_slots = 12
 	atom_storage.max_total_storage = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	atom_storage.set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/pill,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/surgical_drapes,
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/retractor,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/blood_filter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/gun/syringe/syndicate,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/defibrillator/compact
-		))
+	atom_storage.set_holdable(GLOB.combat_medkit_holdable)
 
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
@@ -503,6 +501,16 @@
 
 /obj/item/storage/firstaid/tactical/premium
 	name = "premium combat medical kit"
+
+/obj/item/storage/firstaid/tactical/premium/Initialize(mapload)
+	. = ..()
+	atom_storage.set_holdable(GLOB.combat_medkit_holdable + list(
+		/obj/item/mod/module/thread_ripper,
+		/obj/item/mod/module/surgical_processor,
+		/obj/item/mod/module/defibrillator,
+		/obj/item/autosurgeon,
+		/obj/item/storage/box/evilmeds
+		))
 
 /obj/item/storage/firstaid/tactical/premium/PopulateContents()
 	if(empty)

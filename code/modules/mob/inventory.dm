@@ -142,7 +142,7 @@
 
 //Returns if a certain item can be equipped to a certain slot.
 // Currently invalid for two-handed items - call obj/item/mob_can_equip() instead.
-/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	return FALSE
 
 /mob/proc/can_put_in_hand(I, hand_index)
@@ -167,15 +167,16 @@
 	I.forceMove(src)
 	held_items[hand_index] = I
 	I.plane = ABOVE_HUD_PLANE
-	I.equipped(src, ITEM_SLOT_HANDS)
-	if(QDELETED(I)) // this is here because some ABSTRACT items like slappers and circle hands could be moved from hand to hand then delete, which meant you'd have a null in your hand until you cleared it (say, by dropping it)
-		held_items[hand_index] = null
-		return FALSE
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
+	if(!I.on_equipped(src, ITEM_SLOT_HANDS))
+		return FALSE
 	update_held_items()
 	I.pixel_x = I.base_pixel_x
 	I.pixel_y = I.base_pixel_y
+	if(QDELETED(I)) // this is here because some ABSTRACT items like slappers and circle hands could be moved from hand to hand then delete, which meant you'd have a null in your hand until you cleared it (say, by dropping it)
+		held_items[hand_index] = null
+		return FALSE
 	return hand_index
 
 //Puts the item into the first available left hand if possible and calls all necessary triggers/updates. returns 1 on success.
@@ -293,44 +294,58 @@
 	I.do_drop_animation(src)
 
 
-//visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
+//visibly unequips I but it is NOT MOVED AND REMAINS IN SRC, newloc is for signal handling checks only which hints where you want to move the object after removal
 //item MUST BE FORCEMOVE'D OR QDEL'D
-/mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, idrop = TRUE)
-	return doUnEquip(I, force, null, TRUE, idrop, silent = TRUE)
+/mob/proc/temporarilyRemoveItemFromInventory(obj/item/item_dropping, force = FALSE, idrop = TRUE, atom/newloc = src)
+	return doUnEquip(item_dropping, force, newloc, TRUE, idrop, silent = TRUE)
 
-//DO NOT CALL THIS PROC
-//use one of the above 3 helper procs
-//you may override it, but do not modify the args
-/mob/proc/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
-													//Use no_move if the item is just gonna be immediately moved afterward
-													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
-
+/**
+ * ## doUnEquip
+ * First and most importantly, DO NOT CALL THIS PROC
+ * Use one of the above 4 helper procs instead!!
+ * you may override it, but do not modify the args.
+ * Returns TRUE if it managed to unequip, FALSE if it can't.
+ * Args:
+ * item_dropping - The item that we're unequipping.
+ * force - overrides TRAIT_NODROP for things like wizarditis and admin undress.
+ * newloc - The location we're dropping the item into, this could be a turf, storage, mob, etc.
+ * no_move - if the item is just gonna be immediately moved afterward
+ * invdrop - Arg passed to signals, prevents stuff in pockets dropping. Only set to false if it's going to immediately be replaced
+ * silent - Arg passed to dropped() and signals, muting things like drop sound.
+ */
+/mob/proc/doUnEquip(obj/item/item_dropping, force, atom/newloc, no_move, invdrop = TRUE, silent = FALSE)
 	//PROTECTED_PROC(TRUE) //What part of "dont call this proc" dont you people not fucking understand
-	if(!I) //If there's nothing to drop, the drop is automatically successfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
+	if(!item_dropping) //If there's nothing to drop, the drop is automatically successfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
 		return TRUE
 
-	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
+	if(HAS_TRAIT(item_dropping, TRAIT_NODROP) && !force)
 		return FALSE
 
-	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+	if((SEND_SIGNAL(item_dropping, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
 
-	var/hand_index = get_held_index_of_item(I)
+	var/hand_index = get_held_index_of_item(item_dropping)
 	if(hand_index)
 		held_items[hand_index] = null
 		update_held_items()
-	if(I)
-		if(client)
-			client.screen -= I
-		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
-		if(!no_move && !(I.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
-			if (isnull(newloc))
-				I.moveToNullspace()
-			else
-				I.forceMove(newloc)
-		I.dropped(src, was_thrown, silent)
-	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
+
+	if(!item_dropping)
+		return FALSE
+
+	if(client)
+		client.screen -= item_dropping
+
+	item_dropping.layer = initial(item_dropping.layer)
+	item_dropping.plane = initial(item_dropping.plane)
+	if(!no_move && !(item_dropping.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
+		if (isnull(newloc))
+			item_dropping.moveToNullspace()
+		else
+			item_dropping.forceMove(newloc)
+
+	item_dropping.dropped(src, silent)
+	SEND_SIGNAL(item_dropping, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, hand_index)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, item_dropping, force, newloc, no_move, invdrop, silent, hand_index)
 	return TRUE
 
 /**
@@ -359,30 +374,32 @@
 		dropItemToGround(I)
 	drop_all_held_items()
 
-/obj/item/proc/equip_to_best_slot(mob/M, swap = FALSE, check_hand = TRUE)
-	if(check_hand && src != M.get_active_held_item())
-		to_chat(M, span_warning("You are not holding anything to equip!"))
-		return FALSE
-
-	if(M.equip_to_appropriate_slot(src))
-		M.update_held_items()
+/// Tries to equip an item, store it in open storage, or in next best storage
+/obj/item/proc/equip_to_best_slot(mob/user)
+	if(user.equip_to_appropriate_slot(src))
+		user.update_held_items()
 		return TRUE
 	else
 		if(equip_delay_self)
 			return
 
-	if(M.active_storage?.attempt_insert(src, M))
+	if(user.active_storage?.attempt_insert(src, user, messages = FALSE))
 		return TRUE
 
-	var/list/obj/item/possible = list(M.get_inactive_held_item(), M.get_item_by_slot(ITEM_SLOT_BELT), M.get_item_by_slot(ITEM_SLOT_DEX_STORAGE), M.get_item_by_slot(ITEM_SLOT_BACK))
-	for(var/i in possible)
-		if(!i)
+	var/list/obj/item/possible = list(
+		user.get_inactive_held_item(),
+		user.get_item_by_slot(ITEM_SLOT_BELT),
+		user.get_item_by_slot(ITEM_SLOT_DEX_STORAGE),
+		user.get_item_by_slot(ITEM_SLOT_BACK),
+	)
+	for(var/thing in possible)
+		if(isnull(thing))
 			continue
-		var/obj/item/I = i
-		if(I.atom_storage?.attempt_insert(src, M))
+		var/obj/item/gear = thing
+		if(gear.atom_storage?.attempt_insert(src, user, messages = FALSE))
 			return TRUE
 
-	to_chat(M, span_warning("You are unable to equip that!"))
+	to_chat(user, span_warning("You are unable to equip that!"))
 	return FALSE
 
 
@@ -394,8 +411,15 @@
 		return TRUE
 
 	var/obj/item/I = get_active_held_item()
-	if (I)
-		I.equip_to_best_slot(src)
+	if(!I)
+		to_chat(src, "<span class='warning'>You are not holding anything to equip!</span>")
+		return
+	if (temporarilyRemoveItemFromInventory(I) && !QDELETED(I))
+		if(I.equip_to_best_slot(src))
+			return
+		if(put_in_active_hand(I))
+			return
+		I.forceMove(drop_location())
 
 //used in code for items usable by both carbon and drones, this gives the proper back slot for each mob.(defibrillator, backpack watertank, ...)
 /mob/proc/getBackSlot()
@@ -451,7 +475,5 @@
 	while(i < length(processing_list) )
 		var/atom/A = processing_list[++i]
 		if(A.atom_storage)
-			var/list/item_stuff = list()
-			A.atom_storage.return_inv(item_stuff)
-			processing_list += item_stuff
+			processing_list += A.atom_storage.return_inv()
 	return processing_list

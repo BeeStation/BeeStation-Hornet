@@ -30,7 +30,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/datum/component/server/proc/on_power_used(obj/machinery/source, amount, chan)
+/datum/component/server/proc/on_power_used(obj/machinery/source, amount)
 	heat_stored += amount
 
 /datum/component/server/process(delta_time)

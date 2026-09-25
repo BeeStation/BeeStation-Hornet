@@ -63,7 +63,7 @@
  *     Checks to see if area that contains the object has power available for power
  *     channel given in 'chan'. -1 defaults to power_channel
  *
- *  use_power(amount, chan=-1)   'modules/power/power.dm'
+ *  use_power(amount, channel=-1)   'modules/power/power.dm'
  *     Deducts 'amount' from the power channel 'chan' of the area that contains the object.
  *
  *  power_change()               'modules/power/power.dm'
@@ -1088,7 +1088,7 @@
 				else
 					physical_part = primary_part_base
 
-				replacer_tool.atom_storage.attempt_insert(physical_part, user, TRUE)
+				replacer_tool.atom_storage.attempt_insert(physical_part, user, TRUE, force = STORAGE_SOFT_LOCKED)
 				to_chat(user, span_notice("[capitalize(physical_part.name)] replaced with [secondary_part_name]."))
 				shouldplaysound = TRUE //Only play the sound when parts are actually replaced!
 				break

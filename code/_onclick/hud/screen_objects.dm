@@ -16,6 +16,8 @@
 	speech_span = SPAN_ROBOT
 	vis_flags = VIS_INHERIT_PLANE
 	appearance_flags = APPEARANCE_UI
+	/// A reference to the object in the slot. Grabs or items, generally, but any datum will do.
+	var/datum/weakref/master_ref = null
 	/// A reference to the owner HUD, if any.
 	VAR_PRIVATE/datum/hud/hud = null
 	/**
@@ -39,6 +41,11 @@
 	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
 		return
 	set_new_hud(hud_owner)
+
+/atom/movable/screen/Destroy()
+	master_ref = null
+	hud = null
+	return ..()
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -227,7 +234,7 @@
 	. = ..()
 
 	if(!handcuff_overlay)
-		var/state = (!(held_index % 2)) ? "markus" : "gabrielle"
+		var/state = IS_RIGHT_INDEX(held_index) ? "markus" : "gabrielle"
 		handcuff_overlay = mutable_appearance('icons/hud/screen_gen.dmi', state)
 
 	if(!hud?.mymob)
@@ -243,7 +250,7 @@
 				. += blocked_overlay
 
 	if(held_index == hud.mymob.active_hand_index)
-		. += (held_index % 2) ? "lhandactive" : "rhandactive"
+		. += IS_LEFT_INDEX(held_index) ? "lhandactive" : "rhandactive"
 
 /atom/movable/screen/inventory/hand/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -269,22 +276,20 @@
 /atom/movable/screen/close
 	name = "close"
 	plane = ABOVE_HUD_PLANE
-	icon_state = "backpack_close"
+	icon = 'icons/hud/style/screen_midnight.dmi'
+	icon_state = "storage_close"
 	mouse_over_pointer = MOUSE_HAND_POINTER
-
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/component/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 
-/atom/movable/screen/close/Initialize(mapload, new_master)
+/atom/movable/screen/close/Initialize(mapload, datum/hud/hud_owner, new_master)
 	. = ..()
-	master = new_master
-	//if (master && !istype(master))
-	//	CRASH("Attempting to create a backpack close without referencing a storage concrete component.")
+	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/close/Click()
-	var/datum/storage/storage = master
+	var/datum/storage/storage = master_ref?.resolve()
+	if(!storage)
+		return
 	storage.hide_contents(usr)
 	return TRUE
 
@@ -351,6 +356,38 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/screen_cyborg.dmi'
 	screen_loc = ui_borg_intents
 
+/atom/movable/screen/floor_changer
+	name = "change floor"
+	icon = 'icons/hud/style/screen_midnight.dmi'
+	icon_state = "floor_change"
+	screen_loc = ui_above_intent
+	mouse_over_pointer = MOUSE_HAND_POINTER
+	var/vertical = FALSE
+
+/atom/movable/screen/floor_changer/Click(location,control,params)
+	var/list/modifiers = params2list(params)
+
+	var/mouse_position
+
+	if(vertical)
+		mouse_position = text2num(LAZYACCESS(modifiers, ICON_Y))
+	else
+		mouse_position = text2num(LAZYACCESS(modifiers, ICON_X))
+
+	if(mouse_position > 16)
+		usr.up()
+		return
+
+	usr.down()
+	return
+
+/atom/movable/screen/floor_changer/vertical
+	icon_state = "floor_change_v"
+	vertical = TRUE
+
+/atom/movable/screen/floor_changer/vertical/ghost
+	icon = 'icons/hud/screen_ghost.dmi'
+
 /atom/movable/screen/spacesuit
 	name = "Space suit cell status"
 	icon_state = "spacesuit_0"
@@ -385,6 +422,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	name = "stop pulling"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "pull"
+	base_icon_state = "pull"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/pull/Click()
@@ -393,20 +431,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	usr.stop_pulling()
 
 /atom/movable/screen/pull/update_icon_state()
-	if(hud?.mymob?.pulling)
-		icon_state = "pull"
-	else
-		icon_state = "pull0"
+	icon_state = "[base_icon_state][hud?.mymob?.pulling ? null : 0]"
 	return ..()
 
 /atom/movable/screen/resist
 	name = "resist"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_resist"
+	base_icon_state = "act_resist"
 	plane = HUD_PLANE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/resist/Click()
+	flick("[base_icon_state]_on", src)
 	if(isliving(usr))
 		var/mob/living/L = usr
 		L.resist()
@@ -415,6 +452,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	name = "rest"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_rest"
+	base_icon_state = "act_rest"
 	plane = HUD_PLANE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
@@ -426,34 +464,33 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob
 	if(!istype(user))
-		return
-
-	if(!user.resting)
-		icon_state = "act_rest"
-	else
-		icon_state = "act_rest0"
+		return ..()
+	icon_state = "[base_icon_state][user.resting ? "_on" : null]"
 	return ..()
 
 /atom/movable/screen/storage
 	name = "storage"
-	icon_state = "block"
-	screen_loc = "7,7 to 10,8"
+	icon = 'icons/hud/style/screen_midnight.dmi'
+	icon_state = "storage_cell"
 	plane = HUD_PLANE
-	/// A reference to the object in the slot. Grabs or items, generally.
-	var/datum/storage/master = null
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
-/atom/movable/screen/storage/Initialize(mapload, new_master)
+/atom/movable/screen/storage/Initialize(mapload, datum/hud/hud_owner, new_master)
 	. = ..()
-	master = new_master
-	if (master && !istype(master))
-		CRASH("Attempting to create a backpack close without referencing a storage datum.")
+	master_ref = WEAKREF(new_master)
 
-/atom/movable/screen/storage/attackby(location, control, params)
-	var/datum/storage/storage_master = master
+/atom/movable/screen/storage/Click(location, control, params)
+	var/datum/storage/storage_master = master_ref?.resolve()
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)
@@ -461,10 +498,50 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 
 	return TRUE
 
+/atom/movable/screen/storage/cell
+	interaction_flags_atom = INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
+
+/atom/movable/screen/storage/cell/MouseDrop_T(atom/target, mob/living/user, params)
+	var/datum/storage/storage = master_ref?.resolve()
+
+	if (isnull(storage) || !istype(user) || storage != user.active_storage)
+		return
+
+	if (!user.canUseTopic(storage.parent, be_close = TRUE, no_tk = TRUE))
+		return
+
+	if (target.loc != storage.real_location)
+		return
+
+	/// Due to items in storage ignoring transparency for click hitboxes, this only can happen if we drag onto a free cell - aka after all current contents
+	storage.real_location.contents -= target
+	storage.real_location.contents += target
+	storage.refresh_views()
+
+/atom/movable/screen/storage/corner
+	icon_state = "storage_corner_topleft"
+
+/atom/movable/screen/storage/corner/top_right
+	icon_state = "storage_corner_topright"
+
+/atom/movable/screen/storage/corner/bottom_left
+	icon_state = "storage_corner_bottomleft"
+
+/atom/movable/screen/storage/corner/bottom_right
+	icon_state = "storage_corner_bottomright"
+
+/atom/movable/screen/storage/rowjoin
+	name = "storage"
+	icon_state = "storage_rowjoin_left"
+	alpha = 0
+
+/atom/movable/screen/storage/rowjoin/right
+	icon_state = "storage_rowjoin_right"
+
 /atom/movable/screen/throw_catch
 	name = "throw/catch"
 	icon = 'icons/hud/style/screen_midnight.dmi'
-	icon_state = "act_throw_off"
+	icon_state = "act_throw"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/throw_catch/Click()

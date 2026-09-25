@@ -109,6 +109,9 @@
 	using = new /atom/movable/screen/ghost/spawners_menu(null, src)
 	static_inventory += using
 
+	floor_change = new /atom/movable/screen/floor_changer/vertical/ghost(null, src)
+	static_inventory += floor_change
+
 	// Layout
 	var/count = 0
 	for (var/atom/movable/screen/ghost/auto_layout in static_inventory)
@@ -122,8 +125,10 @@
 	// Always position this one at the end
 	using = new /atom/movable/screen/language_menu
 	using.icon = ui_style
-	using.screen_loc = ui_ghost_center(left_offset + index)
+	using.screen_loc = "[ui_ghost_center(left_offset + index)]:-16"
 	static_inventory += using
+
+	floor_change.screen_loc = ui_ghost_center(left_offset + index + 1)
 
 /datum/hud/ghost/show_hud(version = 0, mob/viewmob)
 	// don't show this HUD if observing; show the HUD of the observee

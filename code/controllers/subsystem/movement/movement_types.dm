@@ -21,10 +21,12 @@
 	var/delay = 1
 	///The next time we should process
 	///Used primarially as a hint to be reasoned about by our [controller], and as the id of our bucket
-	///Should not be modified directly outside of [start_loop]
 	var/timer = 0
-	///Track if we're currently paused
-	var/paused = FALSE
+	///The time we are CURRENTLY queued for processing
+	///Do not modify this directly
+	var/queued_time = -1
+	/// Status bitfield for what state the move loop is currently in
+	var/status = NONE
 	///Used for the COMSIG_MOVELOOP_REACHED_TARGET signal
 	var/atom/destination
 
@@ -57,6 +59,7 @@
 /datum/move_loop/proc/start_loop()
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_START)
+	status |= MOVELOOP_STATUS_RUNNING
 	//If this is our first time starting to move with this loop
 	//And we're meant to start instantly
 	if(!timer && flags & MOVEMENT_LOOP_START_FAST)
@@ -66,6 +69,7 @@
 
 /datum/move_loop/proc/stop_loop()
 	SHOULD_CALL_PARENT(TRUE)
+	status &= ~MOVELOOP_STATUS_RUNNING
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_STOP)
 
 /datum/move_loop/proc/info_deleted(datum/source)
@@ -123,21 +127,21 @@
 
 ///Pause our loop untill restarted with resume_loop()
 /datum/move_loop/proc/pause_loop()
-	if(!controller || paused) //we dead
+	if(!controller || !(status & MOVELOOP_STATUS_RUNNING) || (status & MOVELOOP_STATUS_PAUSED)) //we dead
 		return
 
 	//Dequeue us from our current bucket
 	controller.dequeue_loop(src)
-	paused = TRUE
+	status |= MOVELOOP_STATUS_PAUSED
 
 ///Resume our loop after being paused by pause_loop()
 /datum/move_loop/proc/resume_loop()
-	if(!controller || !paused)
+	if(!controller || (status & (MOVELOOP_STATUS_RUNNING|MOVELOOP_STATUS_PAUSED)) != (MOVELOOP_STATUS_RUNNING|MOVELOOP_STATUS_PAUSED))
 		return
 
-	controller.queue_loop(src)
 	timer = world.time
-	paused = FALSE
+	controller.queue_loop(src)
+	status &= ~MOVELOOP_STATUS_PAUSED
 
 ///Removes the atom from some movement subsystem. Defaults to SSmovement
 /datum/controller/subsystem/move_manager/proc/stop_looping(atom/movable/moving, datum/controller/subsystem/movement/subsystem = SSmovement)

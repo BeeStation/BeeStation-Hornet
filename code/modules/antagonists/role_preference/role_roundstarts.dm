@@ -88,6 +88,7 @@
 
 /datum/outfit/blood_cult_preview
 	name = "Blood Cultist (Preview only)"
+
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/hooded/cultrobes/cult_shield/anyone
 	head = /obj/item/clothing/head/hooded/cult_hoodie

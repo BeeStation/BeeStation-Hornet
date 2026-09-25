@@ -294,7 +294,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 		else if(istype(attacking_item, /obj/item/assembly/prox_sensor))
 			if(!isMotion())
-				if(!user.temporarilyRemoveItemFromInventory(attacking_item))
+				if(!user.temporarilyRemoveItemFromInventory(attacking_item, newloc = src))
 					return
 				upgradeMotion()
 				to_chat(user, span_notice("You attach [attacking_item] into [assembly]'s inner circuits."))

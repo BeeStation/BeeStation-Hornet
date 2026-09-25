@@ -545,6 +545,12 @@
 	charges = 200
 	max_charges = 200
 
+/obj/item/toner/infinite
+	name = "infinite toner cartridge"
+	desc = "...are you satisfied now?"
+	charges = INFINITY
+	max_charges = INFINITY
+
 #undef PHOTO_GREYSCALE
 #undef PHOTO_COLOR
 #undef PAPER_TONER_USE

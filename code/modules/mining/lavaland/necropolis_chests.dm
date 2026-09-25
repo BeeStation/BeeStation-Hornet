@@ -565,8 +565,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/item/shared_storage/red
-	name = "paradox bag"
-	desc = "Somehow, it's in two places at once."
 
 /obj/item/shared_storage/red/Initialize(mapload)
 	. = ..()
