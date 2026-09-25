@@ -282,3 +282,7 @@
 			continue
 		cult_mind.current.playsound_local(null, 'sound/hallucinations/veryfar_noise.ogg', 100)
 		to_chat(cult_mind.current, span_cultlarge("The Cult's Master, [owner.current.name], has fallen in \the [current_area]!"))
+
+/datum/antagonist/cult/midround
+	name = "Midround Cultist"
+	rune_power = 2
