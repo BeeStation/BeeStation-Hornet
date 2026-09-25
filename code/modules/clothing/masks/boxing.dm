@@ -17,7 +17,6 @@
 	desc = "Protects your face from snow."
 	icon_state = "rus_balaclava"
 	inhand_icon_state = "rus_balaclava"
-	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
