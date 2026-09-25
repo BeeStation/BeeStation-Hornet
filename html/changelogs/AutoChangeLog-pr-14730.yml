@@ -1,0 +1,6 @@
+author: BotTierPC
+delete-after: true
+changes:
+  - rscadd: SecDrobes now sell Balaclava's and Contraband Russian Balaclava's
+  - tweak: Russian Balaclava's, a now subtype of Regular Balaclava's are also able
+      to be pulled up and worn alternatively!
