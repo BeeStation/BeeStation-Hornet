@@ -32,7 +32,10 @@
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
-	var/datum/reagent/forkload //used to eat omelette
+	var/foodload // the dominant reagent in a food item becomes the foodload for utensil eating
+	var/foodload_color // the dominant reagents color which is applied to food overlay
+	var/loaded_icon_state = "forkloaded" // The icon state for the food blob
+	var/bite_word = "forkful" // Term for eating messages
 
 
 /datum/armor/kitchen_fork
@@ -44,26 +47,42 @@
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1)
 	return BRUTELOSS
 
+/obj/item/kitchen/fork/update_overlays()
+	. = ..()
+	if(foodload)
+		var/image/blob = image(icon, icon_state = loaded_icon_state)
+		blob.color = foodload_color
+		. += blob
+
 /obj/item/kitchen/fork/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M))
 		return ..()
 
-	if(forkload)
+	if(foodload)
 		if(M == user)
-			M.visible_message(span_notice("[user] eats a delicious forkful of omelette!"))
-			M.reagents.add_reagent(forkload.type, 1)
+			M.visible_message(span_notice("[user] eats a [bite_word] of food!"))
 		else
-			M.visible_message(span_notice("[user] feeds [M] a delicious forkful of omelette!"))
-			M.reagents.add_reagent(forkload.type, 1)
-		icon_state = "fork"
-		forkload = null
-
+			M.visible_message(span_notice("[user] feeds [M] a [bite_word] of food!"))
+		M.reagents.add_reagent(foodload, 1)
+		foodload = null
+		foodload_color = null
+		update_appearance()
+		return // skip damage when eating
 	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user
 		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
 	return ..()
+
+/obj/item/kitchen/fork/spoon
+	name = "spoon"
+	desc = "Like a fork, but more round and shallow."
+	icon_state = "spoon"
+	loaded_icon_state = "spoonloaded"
+	bite_word = "spoonful"
+	attack_verb_continuous = list("attacks", "slaps", "pokes")
+	attack_verb_simple = list("attack", "slap", "poke")
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"

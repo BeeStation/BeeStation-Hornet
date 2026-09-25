@@ -121,6 +121,30 @@
 
 /obj/item/food/attackby(obj/item/attacking_item, mob/user, params)
 	. = ..()
+	if(istype(attacking_item, /obj/item/kitchen/fork) && iscarbon(user))
+		var/obj/item/kitchen/fork/utensil = attacking_item
+		var/is_soup = istype(src, /obj/item/food/soup)
+		if(is_soup != istype(utensil, /obj/item/kitchen/fork/spoon))
+			if(is_soup)
+				to_chat(user, span_warning("You try to pick up [src] with your [utensil], but it falls through the prongs! Maybe try a spoon.")) // Message using a fork on soup / Doesnt Work!
+			else
+				to_chat(user, span_warning("You can't seem to fit [src] on your [utensil]! Maybe try a fork.")) // Message when using spoon on non-soup / Doesnt Work!
+			return
+		if(utensil.foodload)
+			to_chat(user, span_warning("You already have food on your [utensil]!"))
+		else if(reagents?.total_volume > 0)
+			var/datum/reagent/dominant_reagent = reagents.reagent_list[1]
+			for(var/datum/reagent/candidate in reagents.reagent_list)
+				if(candidate.volume > dominant_reagent.volume)
+					dominant_reagent = candidate
+			utensil.foodload = dominant_reagent.type
+			utensil.foodload_color = dominant_reagent.color
+			utensil.update_appearance()
+			reagents.remove_reagent(dominant_reagent.type, 1)
+			user.visible_message(span_notice("[user] scoops a bite of [src] with [user.p_their()] [utensil]."), span_notice("You scoop a bite of [src] with your [utensil]."))
+			if(!reagents.total_volume)
+				qdel(src)
+		return
 	if(istype(attacking_item, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What would you like to name your masterpiece?", "Name:", name || "Food", MAX_MESSAGE_LEN)
 		if(!target_name || !length(target_name))
