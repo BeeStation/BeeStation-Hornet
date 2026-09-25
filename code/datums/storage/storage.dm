@@ -566,10 +566,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_location)
 		return
 
-	if(!force)
-		if(check_adjacent)
-			if(!user || !user.CanReach(destination) || !user.CanReach(resolve_location))
-				return FALSE
+	if(!force && check_adjacent)
+		if(!user || !destination.IsReachableBy(user) || !resolve_location.IsReachableBy(user))
+			return FALSE
 	var/list/taking = typecache_filter_list(resolve_location.contents, typecacheof(type))
 	if(taking.len > amount)
 		taking.len = amount
@@ -783,8 +782,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/obj/item/resolve_location = real_location.resolve()
 
 	if(locked)
+		user.balloon_alert(user, "closed!")
 		return
-	if(!user.CanReach(resolve_parent) || !user.CanReach(dest_object))
+	if(!resolve_parent.IsReachableBy(user) || !dest_object.IsReachableBy(user))
 		return
 
 	if(SEND_SIGNAL(dest_object, COMSIG_STORAGE_DUMP_CONTENT, resolve_location, user) & STORAGE_DUMP_HANDLED)
@@ -1000,7 +1000,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		show_contents(to_show)
 		return FALSE
 
-	if(!to_show.CanReach(resolve_parent))
+	if(!resolve_parent.IsReachableBy(to_show))
 		resolve_parent.balloon_alert(to_show, "can't reach!")
 		return FALSE
 
@@ -1055,8 +1055,16 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	for(var/mob/user in can_see_contents())
-		if (!user.CanReach(resolve_parent))
+		if (!can_be_reached_by(user))
 			hide_contents(user)
+
+/// Relay for parent.IsReachableBy
+/datum/storage/proc/can_be_reached_by(mob/user)
+	var/obj/item/resolve_parent = parent?.resolve()
+	if(!resolve_parent)
+		return
+		
+	return resolve_parent.IsReachableBy(user)
 
 /// Close the storage UI for everyone viewing us.
 /datum/storage/proc/close_all()

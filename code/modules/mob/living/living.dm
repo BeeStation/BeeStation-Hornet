@@ -938,8 +938,12 @@
 		var/mob/living/puller = pulledby
 		puller.set_pull_offsets(src, puller.grab_state)
 
-	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
-		active_storage.hide_contents(src)
+	if(active_storage)
+		var/obj/item/storage_parent = active_storage.parent?.resolve()
+		var/storage_is_important_recursive = (storage_parent in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE])
+		var/can_reach_active_storage = storage_parent?.IsReachableBy(src, depth = REACH_DEPTH_STORAGE(2))
+		if(!storage_is_important_recursive && !can_reach_active_storage)
+			active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, old_loc, old_direction)

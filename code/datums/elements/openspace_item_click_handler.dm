@@ -16,10 +16,12 @@
 	return ..()
 
 //Invokes the proctype with a turf above as target.
-/datum/element/openspace_item_click_handler/proc/on_afterattack(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/element/openspace_item_click_handler/proc/on_afterattack(obj/item/source, mob/user, atom/target, click_parameters)
 	SIGNAL_HANDLER
-	if(target.z == user.z)
+	if((target.z == 0) || (user.z == 0) || target.z == user.z)
 		return
-	var/turf/turf_above = get_step_multiz(target, UP)
-	if(turf_above?.z == user.z)
-		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, handle_openspace_click), turf_above, user, user.CanReach(turf_above, source), click_parameters)
+	var/turf/target_turf = parse_caught_click_modifiers(click_parameters, get_turf(user.client?.eye || user), user.client)
+	if(target_turf?.z == user.z && target_turf.IsReachableBy(user, source?.reach))
+		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, handle_openspace_click), target_turf, user, click_parameters)
+		return
+	return

@@ -437,7 +437,7 @@
  * * user (mob/living) The user to recive the object
  */
 /obj/machinery/proc/try_put_in_hand(obj/object, mob/living/user)
-	if(!user.CanReach(src) || !user.put_in_hands(object))
+	if(!IsReachableBy(user) || !user.put_in_hands(object))
 		object.forceMove(drop_location())
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)

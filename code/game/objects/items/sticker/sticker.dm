@@ -3,7 +3,6 @@
 	desc = "An adhesive graphic."
 	icon = 'icons/obj/sticker.dmi'
 	icon_state = "happy"
-	flags_1 = IS_ONTOP_1
 	w_class = WEIGHT_CLASS_TINY
 	appearance_flags = TILE_BOUND | PIXEL_SCALE | KEEP_APART
 	///Our current state for being stuck or unstuck
@@ -38,6 +37,8 @@
 	//Unusual stuff
 	if(roll_unusual)
 		generate_unusual()
+
+	ADD_TRAIT(src, TRAIT_SKIP_BASIC_REACH_CHECK, REF(src))
 
 /obj/item/sticker/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

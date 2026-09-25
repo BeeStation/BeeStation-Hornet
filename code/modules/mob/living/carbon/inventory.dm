@@ -423,7 +423,7 @@
 			to_chat(src, span_warning("They're unable to take anything in their current state!"))
 			return
 
-		if(!CanReach(offered))
+		if(!offered.IsReachableBy())
 			to_chat(src, span_warning("You have to be adjacent to offer things!"))
 			return
 	else

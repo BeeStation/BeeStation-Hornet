@@ -332,6 +332,8 @@
   * user - The mob unbuckling buckled_mob
   */
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(!(buckled_mob in buckled_mobs) || !buckled_mob.IsReachableBy(user))
+		return
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
