@@ -414,22 +414,30 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(!istype(floor))
 		return FALSE
 
-	var/datum/gas_mixture/floor_gas_mixture = floor.air
-	if(!floor_gas_mixture)
+	var/area/A = get_area(floor)
+	if(A.area_flags & NOT_SAFE_AREA) // Area considered dangerous by mappers, not the best place to be teleported to, such as the nukie satellite in pubbystation
 		return FALSE
 
+	var/datum/gas_mixture/air = floor.air
+	// Certainly unsafe if it completely lacks air.
+	if(QDELETED(air))
+		return FALSE
+
+	// Check gas composition: oxygen min 16, no plasma, CO2 max 10, nitrogen allowed.
 	var/static/list/gases_to_check = list(
 		/datum/gas/oxygen = list(16, 100),
 		/datum/gas/nitrogen,
-		/datum/gas/carbon_dioxide = list(0, 10)
+		/datum/gas/carbon_dioxide = list(0, 10),
+		/datum/gas/plasma = list(0, 0)
 	)
-	if(!floor_gas_mixture.check_gases(gases_to_check))
+	if(!air.check_gases(gases_to_check))
 		return FALSE
 
 	// Aim for goldilocks temperatures and pressure
-	if(!ISINRANGE(floor_gas_mixture.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
+	if(!ISINRANGE(air.temperature, BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
 		return FALSE
-	var/pressure = floor_gas_mixture.return_pressure()
+
+	var/pressure = air.return_pressure()
 	if(!ISINRANGE(pressure, HAZARD_LOW_PRESSURE, HAZARD_HIGH_PRESSURE))
 		return FALSE
 
