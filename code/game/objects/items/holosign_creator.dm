@@ -42,8 +42,8 @@
 		for(var/obj/structure/holosign/hologram as anything in signs)
 			qdel(hologram)
 
-/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	afterattack(target, user, proximity_flag)
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, click_parameters)
+	afterattack(target, user, TRUE, click_parameters)
 
 /obj/item/holosign_creator/examine(mob/user)
 	. = ..()

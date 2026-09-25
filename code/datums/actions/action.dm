@@ -35,6 +35,9 @@
 	var/toggleable = FALSE
 	/// full key we are bound to
 	var/full_key
+	/// Toggles whether this action is usable or not
+	var/action_disabled = FALSE
+
 	// =====================================
 	// Action Appearance
 	// =====================================
@@ -335,14 +338,18 @@
 			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
-		var/mob/living/action_user = owner
-		if(action_user.body_position == LYING_DOWN)
+		var/mob/living/action_owner = owner
+		if(action_owner.body_position == LYING_DOWN)
 			if (feedback)
 				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
 		if (feedback)
 			owner.balloon_alert(owner, "unconscious!")
+		return FALSE
+	if((check_flags & AB_CHECK_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
+		if (feedback)
+			owner.balloon_alert(owner, "incorporeal!")
 		return FALSE
 	if ((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
 		if (feedback)

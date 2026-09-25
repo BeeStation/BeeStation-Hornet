@@ -3,7 +3,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
-import { Objective, ObjectivesSection } from './common/ObjectiveSection';
+import { Objective, ObjectivesSection } from './common/Objectives';
 
 type Info = {
   objectives: Objective[];

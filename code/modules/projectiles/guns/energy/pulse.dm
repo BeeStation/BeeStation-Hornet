@@ -19,13 +19,17 @@
 
 /obj/item/gun/energy/pulse/prize/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 	var/turf/T = get_turf(src)
 
 	message_admins("A pulse rifle prize has been created at [ADMIN_VERBOSEJMP(T)]")
 	log_game("A pulse rifle prize has been created at [AREACOORD(T)]")
 
-	notify_ghosts("Someone won a pulse rifle as a prize!", source = src, action = NOTIFY_ORBIT, header = "Pulse rifle prize")
+	notify_ghosts(
+		"Someone won a pulse rifle as a prize!",
+		source = src,
+		header = "Pulse rifle prize"
+	)
 
 /obj/item/gun/energy/pulse/loyalpin
 	pin = /obj/item/firing_pin/implant/mindshield

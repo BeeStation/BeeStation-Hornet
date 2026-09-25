@@ -1,6 +1,3 @@
-import { BooleanLike } from 'common/react';
-
-import { useBackend } from '../backend';
 import {
   Box,
   Collapsible,
@@ -8,29 +5,23 @@ import {
   LabeledList,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Objective } from './common/Objectives';
 
 type Data = {
   color: string;
   description: string;
   effects: string;
   name: string;
-  objectives: Objectives[];
-};
-
-type Objectives = {
-  count: number;
-  name: string;
-  explanation: string;
-  complete: BooleanLike;
-  was_uncompleted: BooleanLike;
-  reward: number;
+  objectives: Objective[];
 };
 
 const BLOB_COLOR = '#556b2f';
 
-export const AntagInfoBlob = (_props) => {
+export const AntagInfoBlob = (props) => {
   return (
     <Window width={400} height={550} theme="neutral">
       <Window.Content>
@@ -47,7 +38,7 @@ export const AntagInfoBlob = (_props) => {
   );
 };
 
-const Overview = (_props) => {
+const Overview = (props) => {
   const { data } = useBackend<Data>();
   const { color, description, effects, name } = data;
 
@@ -58,7 +49,7 @@ const Overview = (_props) => {
           You haven&apos;t revealed your true form yet!
         </Stack.Item>
         <Stack.Item>
-          You must be succumb to the infection. Find somewhere safe and pop!
+          You must succumb to the infection. Find somewhere safe and pop!
         </Stack.Item>
       </Stack>
     );
@@ -108,7 +99,7 @@ const Overview = (_props) => {
   );
 };
 
-const Basics = (_props) => {
+const Basics = (props) => {
   return (
     <Collapsible title="The Basics">
       <LabeledList>
@@ -118,15 +109,22 @@ const Basics = (_props) => {
         </LabeledList.Item>
         <LabeledList.Item label="Placement">
           You will be able to manually place your blob core by pressing the
-          Place Blob Core button in the bottom right corner of the screen.
+          Place Blob Core button in the bottom right corner of the screen.{' '}
+          <br />
+          <br />
+          If you are the blob infection, you can place the core where you are
+          standing by pressing the pop button on the top left corner of the
+          screen.
         </LabeledList.Item>
         <LabeledList.Item label="HUD">
           In addition to the buttons on your HUD, there are a few click
           shortcuts to speed up expansion and defense.
         </LabeledList.Item>
         <LabeledList.Item label="Shortcuts">
-          Click = Expand Blob | Middle Mouse Click = Rally Spores | Ctrl Click =
-          Create Shield Blob | Alt Click = Remove Blob
+          Click = Expand Blob <br />
+          Middle Mouse Click = Rally Spores <br />
+          Ctrl Click = Create Shield Blob <br />
+          Alt Click = Remove Blob <br />
         </LabeledList.Item>
         <LabeledList.Item label="Comms">
           Attempting to talk will send a message to all other overminds,
@@ -137,14 +135,14 @@ const Basics = (_props) => {
   );
 };
 
-const Minions = (_props) => {
+const Minions = (props) => {
   return (
     <Collapsible title="Minions">
       <LabeledList>
         <LabeledList.Item label="Blobbernauts">
-          Defenders that can be produced from factories for a cost, and are hard
-          to kill, powerful, and moderately smart. The factory used to create
-          one will become fragile and briefly unable to produce spores.
+          This unit can be produced from factories for a cost. They are hard to
+          kill, powerful, and moderately smart. The factory used to create one
+          will become fragile and briefly unable to produce spores.
         </LabeledList.Item>
         <LabeledList.Item label="Spores">
           Produced automatically from factories, these are weak, but can be
@@ -161,18 +159,21 @@ const Structures = (props) => {
     <Collapsible title="Structures">
       <Box>
         Normal Blobs will expand your reach and can be upgraded into special
-        blobs that perform certain functions.
+        blobs that perform certain functions. Bear in mind that expanding into
+        space has an 80% chance of failing!
       </Box>
       <br />
       <Box>You can upgrade normal blobs into the following types of blob:</Box>
       <Divider />
       <LabeledList>
-        <LabeledList.Item label="Shield Blobs">
-          Strong and expensive blobs which take more damage. In additon, they
-          are fireproof and can block air, use these to protect yourself from
-          station fires. Upgrading them again will result in a reflective blob,
-          capable of reflecting most projectiles at the cost of the strong
-          blob&apos;s extra health.
+        <LabeledList.Item label="Strong Blobs">
+          Strong blobs are expensive but take more damage. In additon, they are
+          fireproof and can block air, use these to protect yourself from
+          station fires.
+        </LabeledList.Item>
+        <LabeledList.Item label="Reflective Blobs">
+          Upgrading strong blobs creates reflective blobs, capable of reflecting
+          most projectiles at the cost of the strong blob&apos;s extra health.
         </LabeledList.Item>
         <LabeledList.Item label="Resource Blobs">
           Blobs which produce more resources for you, build as many of these as
@@ -192,7 +193,7 @@ const Structures = (props) => {
   );
 };
 
-const ObjectiveDisplay = (_props) => {
+const ObjectiveDisplay = (props) => {
   const { data } = useBackend<Data>();
   const { color, objectives } = data;
 

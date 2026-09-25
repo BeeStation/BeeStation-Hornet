@@ -35,7 +35,7 @@
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 	RegisterSignal(src, COMSIG_MOVABLE_POST_THROW, PROC_REF(move_gracefully))
 
 /obj/item/his_grace/Destroy()
@@ -138,6 +138,11 @@
 	gender = MALE
 	adjust_bloodthirst(1)
 	force_bonus = HIS_GRACE_FORCE_BONUS * LAZYLEN(contents)
+	notify_ghosts(
+		"[user] has awoken His Grace!",
+		source = src,
+		header = "All Hail His Grace!",
+	)
 	playsound(user, 'sound/effects/pope_entry.ogg', 100)
 	icon_state = "his_grace_awakened"
 	move_gracefully()

@@ -28,7 +28,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
 /obj/effect/anomaly/Initialize(mapload, life_span = 1.5 MINUTES, spawned_fake_harvested)
 	. = ..()
 
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 
 	START_PROCESSING(SSobj, src)
 

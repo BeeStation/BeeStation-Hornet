@@ -27,8 +27,6 @@
 			"right" = CALLBACK(src, PROC_REF(haunted_step), atom_parent, EAST),
 			"activate" = CALLBACK(src, PROC_REF(activate_parent), atom_parent)), move_delay))
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), 35 SECONDS)
-	//Landmark
-	component_parent?.parent.AddElement(/datum/element/point_of_interest)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force)
 	QDEL_NULL(controller)

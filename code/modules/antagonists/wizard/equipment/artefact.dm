@@ -172,7 +172,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		if(ismob(A))
 			to_chat(A, span_warning("There is no way out of this place..."))
 		return
-	var/atom/return_thing = pick(GLOB.destabliization_exits) || pick(get_safe_random_station_turfs())
+	var/atom/return_thing = pick(GLOB.destabliization_exits) || get_safe_random_station_turfs()
 	var/turf/T = get_turf(return_thing)
 	if(!T)
 		return

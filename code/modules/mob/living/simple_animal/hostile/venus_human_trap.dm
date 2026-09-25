@@ -146,6 +146,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/Initialize(mapload)
 	remove_verb(/mob/living/verb/pulled) //No pulling people into the vines
+	mind.add_antag_datum(/datum/antagonist/venus_human_trap)
 	. = ..()
 
 /mob/living/simple_animal/hostile/venus_human_trap/Life(delta_time = SSMOBS_DT, times_fired)

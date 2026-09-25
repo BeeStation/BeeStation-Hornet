@@ -497,6 +497,11 @@
 		human_user.physiology.brute_mod *= 0.5
 		human_user.physiology.burn_mod *= 0.5
 
+	notify_ghosts(
+		"[user] has completed an ascension ritual!",
+		source = user,
+		header = "A Heretic is Ascending!",
+	)
 	priority_announce(
 		text = "[generate_heretic_text()] [replacetext_char(announcement_text, "%USER%", "[user.real_name]")] [generate_heretic_text()]",
 		title = "[generate_heretic_text()]",

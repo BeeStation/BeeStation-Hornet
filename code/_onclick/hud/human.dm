@@ -30,6 +30,8 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/human/equip/Click()
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 

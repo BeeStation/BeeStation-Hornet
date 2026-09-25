@@ -2,7 +2,7 @@
 /datum/antagonist/heretic_monster
 	name = "\improper Eldritch Horror"
 	roundend_category = "Heretics"
-	antagpanel_category = "Heretic Beast"
+	antagpanel_category = ANTAG_GROUP_HORRORS
 	antag_moodlet = /datum/mood_event/heretics
 	banning_key = ROLE_HERETIC
 	show_in_antagpanel = FALSE

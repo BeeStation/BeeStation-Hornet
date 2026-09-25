@@ -11,7 +11,6 @@
 	pulse_range = BLOB_NODE_PULSE_RANGE
 	expand_range = BLOB_NODE_EXPAND_RANGE
 	resistance_flags = LAVA_PROOF
-	max_spores = BLOB_NODE_MAX_SPORES
 	ignore_syncmesh_share = TRUE
 
 /datum/armor/blob_node
@@ -50,11 +49,9 @@
 	if(overmind)
 		pulse_area(overmind, claim_range, pulse_range, expand_range)
 		reinforce_area(delta_time)
-		produce_spores()
 
 /obj/structure/blob/special/node/lone/process(delta_time)
 	pulse_area(overmind, claim_range, pulse_range, expand_range)
 	reinforce_area(delta_time)
-	produce_spores()
 
 

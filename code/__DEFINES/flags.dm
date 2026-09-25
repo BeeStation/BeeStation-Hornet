@@ -46,22 +46,21 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<7)
 /// Should this object be unpaintable?
 #define UNPAINTABLE_1 (1<<8)
-/// Is this atom on top of another atom, and as such has click priority?
-#define IS_ONTOP_1 (1<<9)
 /// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1 (1<<10)
-/// Prevents direct access for anything in the contents of this atom.
-#define NO_DIRECT_ACCESS_FROM_CONTENTS_1 (1<<11)
+#define HTML_USE_INITAL_ICON_1 (1<<9)
 /// Prevents aggregation of the item in the stack panel
-#define STAT_UNIQUE_1 (1<<12)
+#define STAT_UNIQUE_1 (1<<10)
 // Whether or not this atom is storing contents for a disassociated storage object
-#define HAS_DISASSOCIATED_STORAGE_1 (1<<13)
+#define HAS_DISASSOCIATED_STORAGE_1 (1<<11)
 /// Can players recolor this in-game via vendors (and maybe more if support is added)?
-#define IS_PLAYER_COLORABLE_1 (1<<14)
+#define IS_PLAYER_COLORABLE_1 (1<<12)
 /// Is this atom immune to being dusted by the supermatter?
-#define SUPERMATTER_IGNORES_1 (1<<15)
+#define SUPERMATTER_IGNORES_1 (1<<13)
 /// If a turf can be made dirty at roundstart. This is also used in areas.
-#define CAN_BE_DIRTY_1 (1<<16)
+#define CAN_BE_DIRTY_1 (1<<14)
+/// DEPRECATED: use TRAIT_SKIP_BASIC_REACH_CHECK or IsContainedAtomAccessible() instead.
+/// Kept for compatibility; an atom with this flag is reachable wherever its container is.
+#define IS_ONTOP_1 (1<<15)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

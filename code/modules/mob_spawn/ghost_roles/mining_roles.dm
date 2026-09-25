@@ -208,7 +208,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	var/area/A = get_area(src)
 	team = ashteam
 	if(A)
-		notify_ghosts("An ash walker egg is ready to hatch in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_ASHWALKER)
+		notify_ghosts(
+			"An ash walker egg is ready to hatch in \the [A.name].",
+			source = src,
+			header = "Ash Walker Egg",
+			click_interact = TRUE,
+			ignore_key = POLL_IGNORE_ASHWALKER,
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 
 /datum/outfit/ashwalker
 	name ="Ashwalker"

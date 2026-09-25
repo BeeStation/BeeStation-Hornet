@@ -29,7 +29,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
-		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_GOLEM)
+		notify_ghosts(
+			"\A [initial(species.prefix)] golem shell has been completed in \the [A.name].",
+			source = src,
+			header = "Golem Shell",
+			click_interact = TRUE,
+			ignore_key = POLL_IGNORE_GOLEM,
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 	if(has_owner && creator)
 		short_desc = "You are a golem."
 		flavour_text = "You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools."

@@ -14,8 +14,9 @@
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
+	antagpanel_category = ANTAG_GROUP_ERT
 	banning_key = ROLE_ERT
-	required_living_playtime = 0
+	required_living_playtime = 1
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security

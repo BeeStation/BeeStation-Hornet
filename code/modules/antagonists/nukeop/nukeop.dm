@@ -1,7 +1,7 @@
 /datum/antagonist/nukeop
-	name = "Nuclear Operative"
+	name = ROLE_NUCLEAR_OPERATIVE
 	roundend_category = "syndicate operatives" //just in case
-	antagpanel_category = "NukeOp"
+	antagpanel_category = ANTAG_GROUP_SYNDICATE
 	banning_key = ROLE_NUCLEAR_OPERATIVE
 	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
@@ -293,7 +293,7 @@
 			log_objective(M, O.explanation_text)
 
 /datum/team/nuclear/proc/disk_rescued()
-	for(var/obj/item/disk/nuclear/D in GLOB.poi_list)
+	for(var/obj/item/disk/nuclear/D in SSpoints_of_interest.real_nuclear_disks)
 		//If emergency shuttle is in transit disk is only safe on it
 		if(SSshuttle.emergency.mode == SHUTTLE_ESCAPE)
 			if(!SSshuttle.emergency.is_in_shuttle_bounds(D))
@@ -416,7 +416,7 @@
 /datum/team/nuclear/antag_listing_entry()
 	var/disk_report = "<b>Nuclear Disk(s)</b><br>"
 	disk_report += "<table cellspacing=5>"
-	for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
+	for(var/obj/item/disk/nuclear/N in SSpoints_of_interest.real_nuclear_disks)
 		disk_report += "<tr><td>[N.name], "
 		var/atom/disk_loc = N.loc
 		while(!isturf(disk_loc))

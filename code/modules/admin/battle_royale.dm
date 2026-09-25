@@ -332,6 +332,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	if(!spawn_turf)
+		to_chat(usr, span_warning("Failed to find valid spawn location for Battle Royale."))
 		return
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
