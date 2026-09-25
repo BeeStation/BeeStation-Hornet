@@ -72521,14 +72521,10 @@
 "wBa" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/scrubs/purple{
-	pixel_y = -4
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 32
 	},
-/obj/item/storage/box/bodybags,
 /obj/machinery/light{
 	dir = 1
 	},

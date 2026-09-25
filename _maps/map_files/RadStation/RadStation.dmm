@@ -54286,13 +54286,16 @@
 	},
 /obj/item/screwdriver{
 	pixel_x = -5;
-	pixel_y = 5
+	pixel_y = 3
 	},
 /obj/machinery/light_switch{
 	pixel_x = 21;
 	pixel_y = 22
 	},
 /obj/item/reagent_containers/chem_bag/triamed,
+/obj/item/reagent_containers/dropper{
+	pixel_y = 11
+	},
 /turf/open/floor/iron,
 /area/station/medical/pharmacy)
 "uua" = (

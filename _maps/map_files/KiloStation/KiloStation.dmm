@@ -39387,10 +39387,14 @@
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /obj/item/toy/figure/cmo{
 	pixel_y = 6;
-	pixel_x = 6
+	pixel_x = 14
 	},
 /obj/structure/cable/yellow,
 /obj/structure/table/glass,
+/obj/machinery/computer/records/medical/laptop{
+	dir = 1;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/cmo)
 "nAw" = (
@@ -42833,10 +42837,6 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "oHp" = (
-/obj/machinery/computer/security/telescreen/cmo{
-	dir = 8;
-	pixel_x = 28
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -42857,6 +42857,7 @@
 	color = "#596479";
 	dir = 1
 	},
+/obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/cmo)
 "oHy" = (
@@ -64580,9 +64581,9 @@
 	dir = 4;
 	color = "#486091"
 	},
-/obj/machinery/computer/records/medical,
-/obj/machinery/newscaster{
-	pixel_y = 30
+/obj/machinery/computer/crew,
+/obj/machinery/computer/security/telescreen/cmo{
+	pixel_y = 28
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/cmo)
@@ -68810,7 +68811,6 @@
 	dir = 4;
 	color = "#486091"
 	},
-/obj/machinery/computer/cargo/request,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
@@ -68819,6 +68819,7 @@
 	pixel_x = 32
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/computer/card/minor/cmo,
 /turf/open/floor/iron/showroomfloor,
 /area/station/command/heads_quarters/cmo)
 "xJN" = (
