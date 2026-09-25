@@ -58,6 +58,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define SUPERMATTER_IGNORES_1 (1<<13)
 /// If a turf can be made dirty at roundstart. This is also used in areas.
 #define CAN_BE_DIRTY_1 (1<<14)
+/// DEPRECATED: use TRAIT_SKIP_BASIC_REACH_CHECK or IsContainedAtomAccessible() instead.
+/// Kept for compatibility; an atom with this flag is reachable wherever its container is.
+#define IS_ONTOP_1 (1<<15)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

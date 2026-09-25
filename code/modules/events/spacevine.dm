@@ -415,11 +415,7 @@
 	vines = list()
 	growth_queue = list()
 	spawn_spacevine_piece(location, null, muts)
-	notify_ghosts(
-		"Kudzu has been deployed!",
-		source=location,
-		header="Kudzu"
-	)
+	notify_ghosts("Kudzu has been deployed!", source=location, header="Kudzu")
 	START_PROCESSING(SSobj, src)
 	vine_mutations_list = list()
 	init_subtypes(/datum/spacevine_mutation, vine_mutations_list)

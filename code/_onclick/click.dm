@@ -241,7 +241,7 @@
 
 	if(isnull(loc) || isarea(loc))
 		return FALSE
-	if(!HAS_TRAIT(src, TRAIT_SKIP_BASIC_REACH_CHECK) && !loc.IsContainedAtomAccessible(src, user))
+	if(!HAS_TRAIT(src, TRAIT_SKIP_BASIC_REACH_CHECK) && !(flags_1 & IS_ONTOP_1) && !loc.IsContainedAtomAccessible(src, user))
 		return FALSE
 
 	return loc.IsReachableBy(user, reacher_range, depth, direct_access)
