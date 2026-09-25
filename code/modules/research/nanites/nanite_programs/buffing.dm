@@ -93,7 +93,7 @@
 	return ..()
 
 /datum/nanite_program/coagulating/active_effect()
-	if(ishuman(host_mob))
+	if(iscarbon(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.cauterise_wounds(0.1)
 
