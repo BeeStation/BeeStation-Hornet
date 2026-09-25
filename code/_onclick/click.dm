@@ -481,8 +481,12 @@
 	A.CtrlShiftClick(src)
 	return
 
-/mob/proc/ShiftMiddleClickOn(atom/A, params)
-	src._pointed(A, params)
+/mob/proc/ShiftMiddleClickOn(atom/target, params)
+	target.ShiftMiddleClick(src, params)
+	return
+
+/atom/proc/ShiftMiddleClick(mob/user, params)
+	user._pointed(src, params)
 	return
 
 /atom/proc/CtrlShiftClick(mob/user)
