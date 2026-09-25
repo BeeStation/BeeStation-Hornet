@@ -10,6 +10,7 @@
 //Maintenance
 
 /area/station/maintenance
+	tacmap_color = MINIMAP_COLOR_MAINTENANCE
 	abstract_type = /area/station/maintenance
 	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
@@ -268,6 +269,7 @@
 //Hallway
 
 /area/station/hallway
+	tacmap_color = MINIMAP_COLOR_HALLWAY
 	abstract_type = /area/station/hallway
 	icon_state = "hall"
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -374,6 +376,8 @@
 //Command
 
 /area/station/command
+	tacmap_color = MINIMAP_COLOR_COMMAND
+	minimap_department = "Command"
 	abstract_type = /area/station/command
 	name = "Command"
 	icon_state = "command"
@@ -390,6 +394,7 @@
 	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 /area/station/command/bridge
+	minimap_department_anchor = TRUE
 	name = "\improper Bridge"
 	icon_state = "bridge"
 
@@ -464,6 +469,8 @@
 //Commons
 
 /area/station/commons
+	tacmap_color = MINIMAP_COLOR_COMMONS
+	minimap_department = "Crew Facilities"
 	abstract_type = /area/station/commons
 	name = "\improper Crew Facilities"
 	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
@@ -638,6 +645,8 @@
 //Service
 
 /area/station/service
+	tacmap_color = MINIMAP_COLOR_SERVICE
+	minimap_department = "Service"
 	abstract_type = /area/station/service
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 
@@ -647,6 +656,7 @@
 	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/station/service/kitchen
+	minimap_department_anchor = TRUE
 	name = "\improper Kitchen"
 	icon_state = "kitchen"
 	lighting_colour_tube = "#e3ffff"
@@ -851,6 +861,8 @@
 //Engineering
 
 /area/station/engineering
+	tacmap_color = MINIMAP_COLOR_ENGINEERING
+	minimap_department = "Engineering"
 	abstract_type = /area/station/engineering
 	icon_state = "engie"
 	ambience_index = AMBIENCE_ENGI
@@ -866,6 +878,7 @@
 	icon_state = "engine_smes"
 
 /area/station/engineering/main
+	minimap_department_anchor = TRUE
 	name = "Engineering"
 	icon_state = "engine"
 
@@ -986,6 +999,8 @@
 //Engineering - Construction
 
 /area/station/construction
+	tacmap_color = MINIMAP_COLOR_ENGINEERING
+	minimap_department = "Engineering"
 	name = "\improper Construction Area"
 	icon_state = "construction"
 	ambience_index = AMBIENCE_ENGI
@@ -1006,6 +1021,10 @@
 //Solars
 
 /area/station/solars
+	expects_atmosphere = FALSE
+	tacmap_color = MINIMAP_COLOR_SOLARS
+	// No minimap_department - the arrays sit at four corners of the hull, so one label would
+	// only ever be pointing at one of them.
 	abstract_type = /area/station/solars
 	requires_power = FALSE
 	//always_unpowered = TRUE
@@ -1065,6 +1084,7 @@
 //Solar Maint
 
 /area/station/maintenance/solars
+	expects_atmosphere = FALSE
 	name = "Solar Maintenance"
 	icon_state = "yellow"
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
@@ -1096,6 +1116,8 @@
 //MedBay
 
 /area/station/medical
+	tacmap_color = MINIMAP_COLOR_MEDICAL
+	minimap_department = "Medical"
 	abstract_type = /area/station/medical
 	name = "Medical"
 	icon_state = "medbay"
@@ -1121,6 +1143,7 @@
 	icon_state = "medbay"
 
 /area/station/medical/medbay/central
+	minimap_department_anchor = TRUE
 	name = "Medbay Central"
 	icon_state = "med_central"
 
@@ -1253,6 +1276,8 @@
 ///When adding a new area to the security areas, make sure to add it to /datum/bounty/item/security/paperwork as well!
 
 /area/station/security
+	tacmap_color = MINIMAP_COLOR_SECURITY
+	minimap_department = "Security"
 	abstract_type = /area/station/security
 	name = "Security"
 	icon_state = "security"
@@ -1275,6 +1300,7 @@
 	icon_state = "securitylockerroom"
 
 /area/station/security/brig
+	minimap_department_anchor = TRUE
 	name = "\improper Brig"
 	icon_state = "brig"
 	mood_bonus = -3
@@ -1508,6 +1534,8 @@
 //Cargo
 
 /area/station/cargo
+	tacmap_color = MINIMAP_COLOR_CARGO
+	minimap_department = "Cargo"
 	abstract_type = /area/station/cargo
 	name = "Quartermasters"
 	icon_state = "quart"
@@ -1541,6 +1569,7 @@
 	icon_state = "cargo_office"
 
 /area/station/cargo/storage
+	minimap_department_anchor = TRUE
 	name = "\improper Cargo Bay"
 	icon_state = "cargo_bay"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
@@ -1590,6 +1619,8 @@
 //Science
 
 /area/station/science
+	tacmap_color = MINIMAP_COLOR_SCIENCE
+	minimap_department = "Science"
 	abstract_type = /area/station/science
 	name = "\improper Science Division"
 	icon_state = "science"
@@ -1635,6 +1666,7 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
 /area/station/science/test_area
+	expects_atmosphere = FALSE
 	name = "\improper Ordnance Test Area"
 	icon_state = "ord_test"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA | NO_GRAVITY | CULT_PERMITTED
@@ -1698,6 +1730,7 @@
 	icon_state = "ass_line"
 
 /area/station/science/research
+	minimap_department_anchor = TRUE
 	name = "\improper Research Division"
 	icon_state = "science"
 
@@ -1717,6 +1750,7 @@
 // Telecommunications Satellite
 
 /area/station/tcommsat
+	tacmap_color = MINIMAP_COLOR_TCOMMS
 	abstract_type = /area/station/tcommsat
 	icon_state = "tcomsatcham"
 	ambientsounds = list(
@@ -1756,6 +1790,7 @@
 //Telecommunications - On Station
 
 /area/station/comms
+	tacmap_color = MINIMAP_COLOR_TCOMMS
 	name = "\improper Communications Relay"
 	icon_state = "tcomsatcham"
 	lighting_colour_tube = "#e2feff"
@@ -1767,6 +1802,7 @@
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/station/server
+	tacmap_color = MINIMAP_COLOR_TCOMMS
 	name = "\improper Messaging Server Room"
 	icon_state = "server"
 	sound_environment = SOUND_AREA_STANDARD_STATION
