@@ -23,8 +23,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "fryer_off"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
+	pass_flags_self = PASSMACHINE | LETPASSTHROW
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/deep_fryer
 
@@ -71,9 +71,10 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		frying.forceMove(drop_location())
 
 /obj/machinery/deepfryer/RefreshParts()
+	. = ..()
 	var/oil_efficiency = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		oil_efficiency += laser.rating
+	for(var/datum/stock_part/micro_laser/laser in component_parts)
+		oil_efficiency += laser.tier
 	oil_use = initial(oil_use) - (oil_efficiency * 0.00475)
 	fry_speed = oil_efficiency
 
@@ -113,8 +114,17 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		return
 	// Handle pets
 	if(ispickedupmob(weapon))
-		var/obj/item/mob_holder/P = weapon
-		QDEL_NULL(P.held_mob)	//just so the pet doesn't escape his incoming death
+		var/obj/item/mob_holder/holder = weapon
+		var/mob/living/doomed_pet = holder.held_mob
+		if(frying)
+			to_chat(user, span_warning("[src] is already full!")) // Inserting the pet here would do nothing, so let's not kill it just yet
+			return
+		if(doomed_pet && doomed_pet.stat != DEAD)
+			user.visible_message(
+				span_danger("[user] drops [doomed_pet] into [src]!"),
+				span_danger("You drop [doomed_pet] into [src]."),
+				)
+			doomed_pet.death()	//just so the pet doesn't escape his incoming death
 	// Handle opening up the fryer with tools
 	if(default_deconstruction_screwdriver(user, "fryer_off", "fryer_off", weapon)) //where's the open maint panel icon?!
 		return
@@ -131,7 +141,6 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 			return ..()
 		// Do the frying.
 		else if(!frying && user.transferItemToLoc(weapon, src))
-			to_chat(user, span_notice("You put [weapon] into [src]."))
 			log_game("[key_name(user)] deep fried [weapon.name] ([weapon.type]) at [AREACOORD(src)].")
 			user.log_message("deep fried [weapon.name] ([weapon.type]) at [AREACOORD(src)].", LOG_GAME)
 			start_fry(weapon, user)
@@ -205,10 +214,11 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 
 /obj/machinery/deepfryer/attack_hand(mob/living/user)
 	if(frying)
-		to_chat(user, span_notice("You eject [frying] from [src]."))
-		frying.forceMove(drop_location())
-		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(frying)
+		var/obj/item/fried_thing = frying // This fucker is dead, just making sure it's ejected instead of qdeled
+		to_chat(user, span_notice("You eject [fried_thing] from [src]."))
+		fried_thing.forceMove(drop_location())
+		if(!QDELETED(fried_thing) && Adjacent(user) && !issilicon(user))
+			user.put_in_hands(fried_thing)
 		return
 
 	else if(user.pulling && iscarbon(user.pulling) && reagents.total_volume)

@@ -1,15 +1,13 @@
 #define MILK_TO_BUTTER_COEFF 15
 
 /obj/machinery/reagentgrinder
-	name = "\improper All-In-One Grinder"
+	name = "all-in-one grinder"
 	desc = "From BlenderTech. Will It Blend? Let's test it out!"
 	icon = 'icons/obj/machines/kitchen.dmi'
 	icon_state = "juicer1"
 	base_icon_state = "juicer"
 	layer = BELOW_OBJ_LAYER
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.0025
 	circuit = /obj/item/circuitboard/machine/reagentgrinder
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
@@ -61,9 +59,10 @@
 				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/reagentgrinder/RefreshParts()
+	. = ..()
 	speed = 1
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		speed = M.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		speed = manipulator.tier
 
 /obj/machinery/reagentgrinder/examine(mob/user)
 	. = ..()
@@ -268,14 +267,27 @@
 	pixel_x = old_px
 
 /obj/machinery/reagentgrinder/proc/operate_for(time, silent = FALSE, juicing = FALSE)
-	shake_for(time / speed)
+	PRIVATE_PROC(TRUE)
+
+	var/duration = time / speed
+
+	shake_for(duration)
 	operating = TRUE
 	if(!silent)
 		if(!juicing)
 			playsound(src, 'sound/machines/blender.ogg', 50, 1)
 		else
 			playsound(src, 'sound/machines/juicer.ogg', 20, 1)
-	addtimer(CALLBACK(src, PROC_REF(stop_operating)), time / speed)
+
+	// Cost scales with how loaded the drum is. The callers do the actual grinding
+	// over holdingitems, so don't touch the contents here.
+	var/total_weight = 0
+	for(var/obj/item/ingredient in holdingitems)
+		total_weight += ingredient.w_class
+	if(total_weight)
+		use_power(active_power_usage * (duration / (1 SECONDS)) * total_weight)
+
+	addtimer(CALLBACK(src, PROC_REF(stop_operating)), duration)
 
 /obj/machinery/reagentgrinder/proc/stop_operating()
 	operating = FALSE

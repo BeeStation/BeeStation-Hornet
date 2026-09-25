@@ -444,6 +444,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		preference.apply_to_human(character, read_character_preference(preference.type))
 
 	character.dna.real_name = character.real_name
+	character.dna.gender = character.gender	// We need to keep this stored incase we need to clone them from the brain/head
+	character.dna.age = character.age
 
 	if(icon_updates)
 		character.icon_render_keys = list()
