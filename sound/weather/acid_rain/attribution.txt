@@ -1,0 +1,5 @@
+Sounds provided by Cuboos, using Royalty Free sounds. Presumed under default tg sound license - Creative Commons 3.0 BY-SA
+
+sound/effects/weather/acid_rain/acidrain_end.ogg
+sound/effects/weather/acid_rain/acidrain_mid.ogg
+sound/effects/weather/acid_rain/acidrain_start.ogg

@@ -1,11 +1,4 @@
 //LISTMOS
-//indices of values in gas lists.
-///Amount of total moles in said gas mixture
-#define MOLES 1
-///Archived version of MOLES
-#define ARCHIVE 2
-///All gas related variables
-#define GAS_META 3
 ///Gas specific heat per mole
 #define META_GAS_SPECIFIC_HEAT 1
 ///Name of the gas
@@ -18,22 +11,17 @@
 #define META_GAS_DANGER 5
 ///Id of the gas for quick access
 #define META_GAS_ID 6
-///Short description of the gas.
-#define META_GAS_DESC 7
 ///Power of the gas when used in the current iteration of fusion
-#define META_GAS_FUSION_POWER 8
-///Defines the alert that should jump out if the quantity of a gas affects to a point it's too much or not enough
-#define META_GAS_BREATH_ALERT_INFO 9
-///Defines the reagents applied on breathing the gas
-#define META_GAS_BREATH_REAGENT 10
-///Defines the gas to which this gas is a result of breathing
-#define META_GAS_BREATH_RESULTS 11
-///Reagents applied when the gas passes its dangerous threshold
-#define META_GAS_BREATH_REAGENT_DANGEROUS 12
+#define META_GAS_FUSION_POWER 7
+///Short description of the gas.
+#define META_GAS_DESC 8
 ///Gas advanced gas rig shielding power
-#define META_GAS_RIG_SHIELDING_POWER 13
+#define META_GAS_RIG_SHIELDING_POWER 9
 ///Gas advanced gas rig shielding modifier
-#define META_GAS_RIG_SHIELDING_MODIFIER 14
+#define META_GAS_RIG_SHIELDING_MODIFIER 10
+
+///Length of gas meta array
+#define META_GAS_LENGTH 10
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -53,14 +41,14 @@
 #define COLD_ROOM_TEMP 259.15
 
 /**
- *I feel the need to document what happens here. Basically this is used
- *catch rounding errors, and make gas go away in small portions.
- *People have raised it to higher levels in the past, do not do this. Consider this number a soft limit
- *If you're making gasmixtures that have unexpected behavior related to this value, you're doing something wrong.
+ * I feel the need to document what happens here. Basically this is used
+ * catch rounding errors, and make gas go away in small portions.
+ * People have raised it to higher levels in the past, do not do this. Consider this number a soft limit
+ * If you're making gasmixtures that have unexpected behavior related to this value, you're doing something wrong.
  *
- *On an unrelated note this may cause a bug that creates negative gas, related to round(). When it has a second arg it will round up.
- *So for instance round(0.5, 1) == 1. I've hardcoded a fix for this into share, by forcing the garbage collect.
- *Any other attempts to fix it just killed atmos. I leave this to a greater man then I
+ * On an unrelated note this may cause a bug that creates negative gas, related to round(). When it has a second arg it will round up.
+ * So for instance round(0.5, 1) == 1. I've hardcoded a fix for this into share, by forcing the garbage collect.
+ * Any other attempts to fix it just killed atmos. I leave this to a greater man then I
  */
 /// The minimum heat capacity of a gas
 #define MINIMUM_HEAT_CAPACITY 0.0003
@@ -69,7 +57,7 @@
 /// Molar accuracy to round to
 #define MOLAR_ACCURACY  1E-4
 /// Types of gases (based on gaslist_cache)
-#define GAS_TYPE_COUNT GLOB.gaslist_cache.len
+#define GAS_TYPE_COUNT 11
 /// Maximum error caused by QUANTIZE when removing gas (roughly, in reality around 2 * MOLAR_ACCURACY less)
 #define MAXIMUM_ERROR_GAS_REMOVAL (MOLAR_ACCURACY * GAS_TYPE_COUNT)
 
@@ -83,14 +71,16 @@
 /// The total visible states
 #define TOTAL_VISIBLE_STATES (FACTOR_GAS_VISIBLE_MAX * (1 / MOLES_GAS_VISIBLE_STEP))
 
-//REACTIONS
-//return values for reactions (bitflags)
-///The gas mixture is not reacting
-#define NO_REACTION 0
-///The gas mixture is reacting
-#define REACTING 1
-///The gas mixture is able to stop all reactions
-#define STOP_REACTIONS 2
+//  REACTIONS
+//  Return values for reactions (bitflags).
+/// The gas mixture is not reacting. Not actually a bitflag.
+#define NO_REACTION NONE
+/// The gas mixture is reacting.
+#define REACTING (1 << 0)
+/// The gas mixture is able to stop all reactions.
+#define STOP_REACTIONS (1 << 1)
+/// The gas mixture has the requirements to start a volatile reaction.
+#define VOLATILE_REACTION (1 << 2)
 
 
 //EXCITED GROUPS
@@ -277,3 +267,6 @@
 #define CAN_MAX_RELEASE_PRESSURE (ONE_ATMOSPHERE * 25)
 ///Min allowed pressure for canisters to release air per tick
 #define CAN_MIN_RELEASE_PRESSURE (ONE_ATMOSPHERE * 0.1)
+
+/// Helper function for retrieving gas meta info for use in performace critical places
+#define GAS_META /datum/gas_mixture::gas_meta

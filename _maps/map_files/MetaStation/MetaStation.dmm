@@ -156,6 +156,7 @@
 "acM" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "acW" = (
@@ -233,7 +234,11 @@
 /area/station/commons/dorms)
 "aeA" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/aug_manipulator,
+/obj/structure/table,
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
@@ -1049,6 +1054,9 @@
 /area/station/science/test_area)
 "axx" = (
 /obj/machinery/telecomms/server/presets/medical,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "ayn" = (
@@ -1651,6 +1659,9 @@
 /area/station/engineering/atmos)
 "aJE" = (
 /obj/machinery/telecomms/processor/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "aJV" = (
@@ -4039,8 +4050,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "bKX" = (
-/obj/machinery/food_cart/coffee,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/icecream_vat,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard)
 "bLe" = (
@@ -4095,6 +4106,7 @@
 "bMS" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "bNn" = (
@@ -4214,7 +4226,7 @@
 /area/station/science/misc_lab/range)
 "bPa" = (
 /obj/structure/closet{
-	name = "Evidence Closet 4"
+	name = "Evidence Closet 3"
 	},
 /turf/open/floor/iron/smooth_corner{
 	dir = 4
@@ -5629,7 +5641,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "cpy" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -6635,6 +6646,10 @@
 /area/station/security/office)
 "cIZ" = (
 /obj/machinery/telecomms/hub/preset,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
 "cJa" = (
@@ -6819,6 +6834,7 @@
 /area/station/hallway/primary/central)
 "cMm" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/aft)
 "cMG" = (
@@ -7363,6 +7379,7 @@
 "cYz" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "cYE" = (
@@ -8722,6 +8739,7 @@
 	pixel_y = -32
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "dxD" = (
@@ -9406,6 +9424,10 @@
 /area/station/engineering/break_room)
 "dLU" = (
 /obj/machinery/ntnet_relay,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
 "dMb" = (
@@ -10608,6 +10630,9 @@
 "eef" = (
 /obj/machinery/telecomms/broadcaster/preset_exploration,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "eek" = (
@@ -11499,7 +11524,6 @@
 	pixel_x = 28;
 	pixel_y = -6
 	},
-/obj/structure/table,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -11508,6 +11532,7 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/food_cart/coffee,
 /turf/open/floor/iron,
 /area/station/commons/vacant_room/commissary)
 "eun" = (
@@ -12092,6 +12117,9 @@
 /area/station/maintenance/aft)
 "eEj" = (
 /obj/machinery/telecomms/server/presets/security,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "eEr" = (
@@ -12753,6 +12781,9 @@
 /area/station/command/heads_quarters/chief)
 "eOV" = (
 /obj/machinery/blackbox_recorder,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "eOZ" = (
@@ -14115,6 +14146,7 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "fnN" = (
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/floor/plating/airless,
 /area/station/solars/starboard/fore)
 "fnP" = (
@@ -14693,6 +14725,9 @@
 /area/station/security/checkpoint/medical)
 "fzp" = (
 /obj/machinery/telecomms/processor/preset_two,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "fzt" = (
@@ -14783,7 +14818,7 @@
 /area/station/command/bridge)
 "fAH" = (
 /obj/structure/closet{
-	name = "Evidence Closet 4"
+	name = "Evidence Closet 1"
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -14893,6 +14928,9 @@
 /area/station/security/detectives_office)
 "fCe" = (
 /obj/machinery/telecomms/server/presets/engineering,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "fCl" = (
@@ -16985,6 +17023,9 @@
 /area/station/hallway/primary/central)
 "gpe" = (
 /obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "gpj" = (
@@ -25442,6 +25483,11 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/reagent_containers/cup/glass/mug/britcup,
+/obj/item/reagent_containers/cup/glass/mug{
+	pixel_x = 8;
+	pixel_y = 9
+	},
 /turf/open/floor/iron,
 /area/station/commons/vacant_room/commissary)
 "jhF" = (
@@ -27823,9 +27869,6 @@
 /area/station/hallway/primary/central)
 "jXD" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "jXI" = (
@@ -28955,6 +28998,9 @@
 /area/station/engineering/atmos)
 "kuZ" = (
 /obj/machinery/telecomms/server/presets/supply,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "kvi" = (
@@ -29477,6 +29523,9 @@
 /area/station/maintenance/aft)
 "kDA" = (
 /obj/machinery/telecomms/processor/preset_four,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "kDF" = (
@@ -30095,6 +30144,9 @@
 /area/station/maintenance/port/fore)
 "kMV" = (
 /obj/machinery/telecomms/broadcaster/preset_left,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "kMY" = (
@@ -30516,11 +30568,8 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "kTl" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -31220,12 +31269,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/mixing)
-"lfQ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/telecomms,
-/area/station/tcommsat/server)
 "lfU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -32368,6 +32411,9 @@
 /area/station/security/checkpoint/medical)
 "lyz" = (
 /obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "lyB" = (
@@ -34538,6 +34584,9 @@
 /area/station/hallway/primary/port)
 "mnK" = (
 /obj/machinery/telecomms/bus/preset_four,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "mnO" = (
@@ -37581,6 +37630,9 @@
 /area/station/medical/genetics)
 "nlJ" = (
 /obj/machinery/telecomms/message_server/preset,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "nlM" = (
@@ -37733,6 +37785,7 @@
 	name = "Starboard Bow Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron,
 /area/station/maintenance/solars/starboard/fore)
 "nnS" = (
@@ -39771,6 +39824,7 @@
 /area/station/medical/surgery)
 "nUz" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "nUM" = (
@@ -41416,6 +41470,9 @@
 /area/station/ai_monitored/aisat/exterior)
 "owT" = (
 /obj/machinery/telecomms/server/presets/science,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "owW" = (
@@ -41445,6 +41502,9 @@
 /area/station/medical/virology)
 "oxL" = (
 /obj/machinery/telecomms/server/presets/common,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "oxS" = (
@@ -42595,6 +42655,15 @@
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/port)
+"oUg" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
+/area/station/tcommsat/server)
 "oUo" = (
 /obj/structure/chair{
 	dir = 1
@@ -43971,6 +44040,7 @@
 	name = "Port Quarter Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "prM" = (
@@ -44026,7 +44096,8 @@
 "psD" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
-	name = "Air to Distro"
+	name = "Air to Distro";
+	target_pressure = 500
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -45336,6 +45407,7 @@
 "pRZ" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "pSi" = (
@@ -46776,7 +46848,6 @@
 /area/station/ai_monitored/turret_protected/ai_upload)
 "qoX" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -47333,7 +47404,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/server)
 "qyO" = (
@@ -47698,6 +47768,9 @@
 /area/station/maintenance/port/fore)
 "qEt" = (
 /obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "qEZ" = (
@@ -47865,6 +47938,9 @@
 /area/station/security/brig)
 "qIz" = (
 /obj/machinery/telecomms/broadcaster/preset_right,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "qID" = (
@@ -47924,7 +48000,6 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/grimy,
 /area/station/tcommsat/computer)
 "qJP" = (
@@ -48949,10 +49024,10 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "qZO" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 1
+	},
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -52346,6 +52421,7 @@
 /area/station/cargo/office)
 "slt" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/starboard/aft)
 "slw" = (
@@ -52434,6 +52510,9 @@
 /area/station/security/office)
 "smV" = (
 /obj/machinery/telecomms/bus/preset_two,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "snb" = (
@@ -52608,7 +52687,7 @@
 /area/station/security/office)
 "spC" = (
 /obj/structure/closet{
-	name = "Evidence Closet 4"
+	name = "Evidence Closet 2"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/smooth_edge{
@@ -52994,6 +53073,7 @@
 	name = "Port Bow Solar Control"
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/fore)
 "sww" = (
@@ -53249,6 +53329,9 @@
 /area/station/maintenance/aft)
 "sAd" = (
 /obj/machinery/telecomms/receiver/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "sAl" = (
@@ -53548,6 +53631,7 @@
 /area/station/command/heads_quarters/cmo)
 "sFB" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "sFG" = (
@@ -54178,7 +54262,7 @@
 /area/station/maintenance/department/science/xenobiology)
 "sQV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -56423,6 +56507,9 @@
 /area/station/service/bar/lounge)
 "tCv" = (
 /obj/machinery/telecomms/server/presets/service,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "tCV" = (
@@ -59650,6 +59737,9 @@
 /area/station/science/mixing)
 "uGa" = (
 /obj/machinery/telecomms/server/presets/command,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server)
 "uGb" = (
@@ -59791,7 +59881,6 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -60145,7 +60234,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "uNN" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -60365,6 +60454,7 @@
 "uRr" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space/basic,
 /area/station/solars/starboard/fore)
 "uRC" = (
@@ -62225,10 +62315,9 @@
 /area/station/hallway/primary/central)
 "vxK" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/holopad/secure,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -62385,6 +62474,7 @@
 /area/station/maintenance/starboard/fore)
 "vBe" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/lowpop/cable_spawner,
 /turf/open/space,
 /area/station/solars/port/fore)
 "vBo" = (
@@ -64322,6 +64412,15 @@
 "wmB" = (
 /turf/closed/wall,
 /area/station/medical/chemistry)
+"wmD" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
+/area/station/tcommsat/server)
 "wmH" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating,
@@ -65173,9 +65272,8 @@
 /area/station/tcommsat/computer)
 "wDp" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -65621,6 +65719,9 @@
 /area/station/hallway/secondary/entry)
 "wLA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -67060,6 +67161,7 @@
 /area/station/medical/exam_room)
 "xkE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
 /turf/open/floor/iron/dark/telecomms,
 /area/station/tcommsat/server)
 "xkN" = (
@@ -67274,7 +67376,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/server)
 "xoO" = (
@@ -68470,7 +68571,6 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/station/tcommsat/server)
 "xLn" = (
@@ -69778,11 +69878,10 @@
 /area/station/hallway/secondary/entry)
 "ykC" = (
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 1
+	},
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -124221,12 +124320,12 @@ jnz
 gsO
 xKN
 bNZ
-wLA
+oUg
 fzp
 fCe
 bNZ
 lyz
-lfQ
+bNZ
 uGa
 wzn
 bwq
@@ -124739,7 +124838,7 @@ vxK
 dLU
 cIZ
 kTl
-sQV
+kTl
 sQV
 xkE
 vBS
@@ -125249,7 +125348,7 @@ paf
 gsO
 kND
 bNZ
-wLA
+oUg
 kDA
 owT
 bNZ
@@ -125506,7 +125605,7 @@ vsC
 gsO
 uxI
 nUz
-wLA
+wmD
 mnK
 axx
 bNZ

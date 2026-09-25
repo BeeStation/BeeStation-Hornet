@@ -19,25 +19,23 @@
 	else if(ispath(typepath, /datum/gas))
 		var/datum/gas/gas = typepath
 		max_demand = initial(gas.max_demand)
-	if(isnull(max_demand))	// If the item isnt getting a max_demand then give it a random one
+	if(isnull(max_demand)) // If the item isnt getting a max_demand then give it a random one
 		max_demand = 5 * rand(5, 12) // Makes sure it increases in increments of 5
 	generate_price(typepath)
 	current_demand = rand(1, max_demand)
 
 /datum/demand_state/proc/generate_price(obj/object)
-	var/price_to_use
 	if(ispath(object, /obj/item))
 		var/obj/item/thing = object
 		if(initial(thing.w_class))	// This ensures item price will not be higher than custom price, if it is set.
 			if(initial(thing.custom_price))
-				price_to_use = max(5 * rand(1, 5)* initial(thing.w_class) * ECONOMY_MULTIPLIER, initial(thing.custom_price) * PRICE_MARKUP)
+				generated_price = max(5 * rand(1, 5)* initial(thing.w_class) * ECONOMY_MULTIPLIER, initial(thing.custom_price) * PRICE_MARKUP)
 			else
-				price_to_use = 5 * rand(1, 5) * initial(thing.w_class) * ECONOMY_MULTIPLIER
+				generated_price = 5 * rand(1, 5) * initial(thing.w_class) * ECONOMY_MULTIPLIER
 		else
-			price_to_use = max(5 * rand(1, 5) * ECONOMY_MULTIPLIER, initial(thing.custom_price) * PRICE_MARKUP)
-	else	// Rand from 5 - 25 (in increments of 5) * the economy multiplier
-		price_to_use = 5 * rand(1, 5) * ECONOMY_MULTIPLIER
-	generated_price = price_to_use
+			generated_price = max(5 * rand(1, 5) * ECONOMY_MULTIPLIER, initial(thing.custom_price) * PRICE_MARKUP)
+	else // Rand from 5 - 25 (in increments of 5) * the economy multiplier
+		generated_price = 5 * rand(1, 5) * ECONOMY_MULTIPLIER
 
 /datum/demand_state/proc/get_price()
 	return generated_price

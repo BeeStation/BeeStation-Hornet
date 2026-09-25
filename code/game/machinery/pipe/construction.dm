@@ -377,7 +377,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		for(var/i in 1 to 20)
-			C.vomit(0, TRUE, FALSE, 4, FALSE)
+			C.vomit(MOB_VOMIT_BLOOD | MOB_VOMIT_HARM, lost_nutrition = 0, distance = 4)
 			if(prob(20))
 				C.spew_organ()
 			sleep(0.5 SECONDS)

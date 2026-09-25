@@ -2695,6 +2695,10 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/iron,
 /area/station/engineering/main)
+"VL" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "Wh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -8138,7 +8142,7 @@ dD
 dJ
 dI
 dJ
-dJ
+VL
 dJ
 dJ
 dJ

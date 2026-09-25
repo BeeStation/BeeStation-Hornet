@@ -40,30 +40,6 @@
 	SEND_SOUND(owner, sound('sound/magic/summon_karp.ogg', volume = 25))
 	owner.adjustBruteLoss(3)
 
-/datum/status_effect/cyborg_power_regen
-	id = "power_regen"
-	duration = 100
-	alert_type = /atom/movable/screen/alert/status_effect/power_regen
-	var/power_to_give = 0 //how much power is gained each tick
-
-/datum/status_effect/cyborg_power_regen/on_creation(mob/living/new_owner, new_power_per_tick)
-	. = ..()
-	if(. && IS_FINITE(new_power_per_tick))
-		power_to_give = new_power_per_tick
-
-/atom/movable/screen/alert/status_effect/power_regen
-	name = "Power Regeneration"
-	desc = "You are quickly regenerating power!"
-	icon_state = "power_regen"
-
-/datum/status_effect/cyborg_power_regen/tick()
-	var/mob/living/silicon/robot/cyborg = owner
-	if(!istype(cyborg) || !cyborg.cell)
-		qdel(src)
-		return
-	playsound(cyborg, 'sound/effects/light_flicker.ogg', 50, 1)
-	cyborg.cell.give(power_to_give)
-
 /datum/status_effect/his_grace
 	id = "his_grace"
 	duration = STATUS_EFFECT_PERMANENT
@@ -136,35 +112,6 @@
 	name = "Wish Granter's Immortality"
 	desc = "You are being resurrected!"
 	icon_state = "wish_granter"
-
-/datum/status_effect/cult_master
-	id = "The Cult Master"
-	duration = STATUS_EFFECT_PERMANENT
-	alert_type = null
-	on_remove_on_mob_delete = TRUE
-	var/alive = TRUE
-
-/datum/status_effect/cult_master/proc/deathrattle()
-	if(!QDELETED(GLOB.narsie))
-		return //if Nar'Sie is alive, don't even worry about it
-	var/area/area = get_area(owner)
-	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
-		if(isliving(cult_mind.current))
-			var/mob/living/cultist_body = cult_mind.current
-			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
-			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
-
-/datum/status_effect/cult_master/tick()
-	if(owner.stat != DEAD && !alive)
-		alive = TRUE
-		return
-	if(owner.stat == DEAD && alive)
-		alive = FALSE
-		deathrattle()
-
-/datum/status_effect/cult_master/on_remove()
-	deathrattle()
-	. = ..()
 
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"

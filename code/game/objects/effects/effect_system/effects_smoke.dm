@@ -167,30 +167,48 @@
 	var/weldvents = TRUE
 	var/distcheck = TRUE
 
-/datum/effect_system/smoke_spread/freezing/proc/Chilled(turf/open/T)
-	if(!istype(T))
+/**
+ * Chills an open turf.
+ *
+ * Forces the air temperature to a specific value.
+ * Transmutes all of the plasma in the air into nitrogen.
+ * Extinguishes all fires and burning objects/mobs in the turf.
+ * May freeze all vents and vent scrubbers shut.
+ *
+ * Arguments:
+ * - [chilly][/turf/open]: The open turf to chill
+ */
+/datum/effect_system/smoke_spread/freezing/proc/chill_turf(turf/open/chilly)
+	if(!istype(chilly))
 		return
-	if(T.air)
-		var/datum/gas_mixture/G = T.air
-		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-			G.temperature = temperature
-		T.air_update_turf(FALSE, FALSE)
-		for(var/obj/effect/hotspot/H in T)
-			qdel(H)
-		if(G.gases[/datum/gas/plasma][MOLES])
-			ADD_MOLES(/datum/gas/nitrogen, G, G.gases[/datum/gas/plasma][MOLES])
-			G.gases[/datum/gas/plasma][MOLES] = 0
 
-	if (weldvents)
-		for(var/obj/machinery/atmospherics/components/unary/U in T)
-			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
-				U.welded = TRUE
-				U.update_icon()
-				U.visible_message(span_danger("[U] was frozen shut!"))
-	for(var/mob/living/L in T)
-		L.extinguish_mob()
-	for(var/obj/item/Item in T)
-		Item.extinguish()
+	if(chilly.air)
+		var/datum/gas_mixture/air = chilly.air
+		if(!distcheck || get_dist(location, chilly) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+			air.temperature = temperature
+
+		if(air.moles[/datum/gas/plasma])
+			var/mole_count = air.moles[/datum/gas/plasma]
+			air.adjust_gas(/datum/gas/nitrogen, mole_count)
+			air.adjust_gas(/datum/gas/plasma, -mole_count)
+			air.garbage_collect()
+
+		for(var/obj/effect/hotspot/fire in chilly)
+			qdel(fire)
+		chilly.air_update_turf(FALSE, FALSE)
+
+	if(weldvents)
+		for(var/obj/machinery/atmospherics/components/unary/comp in chilly)
+			if(!isnull(comp.welded) && !comp.welded) //must be an unwelded vent pump or vent scrubber.
+				comp.welded = TRUE
+				comp.update_appearance()
+				comp.visible_message(span_danger("[comp] is frozen shut!"))
+
+	// Extinguishes everything in the turf
+	for(var/mob/living/potential_tinder in chilly)
+		potential_tinder.extinguish_mob()
+	for(var/obj/item/potential_tinder in chilly)
+		potential_tinder.extinguish()
 
 /datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0, circle = TRUE)
 	..(radius, loca, circle)
@@ -198,9 +216,9 @@
 
 /datum/effect_system/smoke_spread/freezing/start()
 	if(blast)
-		for(var/turf/open/T in RANGE_TURFS(blast, location))
-			Chilled(T)
-	..()
+		for(var/turf/T in RANGE_TURFS(blast, location))
+			chill_turf(T)
+	return ..()
 
 /datum/effect_system/smoke_spread/freezing/decon
 	temperature = T20C

@@ -365,7 +365,22 @@
 /obj/item/organ/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
-	items_to_create = list(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/blood_filter/augment, /obj/item/surgical_drapes)
+	items_to_create = list(
+		/obj/item/surgical_drapes,
+		/obj/item/retractor/augment,
+		/obj/item/hemostat/augment,
+		/obj/item/cautery/augment,
+		/obj/item/scalpel/augment,
+		/obj/item/circular_saw/augment,
+		/obj/item/blood_filter/augment,
+		/obj/item/surgicaldrill/augment,
+	)
+
+/obj/item/organ/cyberimp/arm/surgery/on_emag(mob/user)
+	..()
+	to_chat(user, span_notice("You unlock [src] integrated combat knife!"))
+	var/obj/item/knife/combat/cyborg/knife = new(src)
+	items_list.Insert(1, WEAKREF(knife))
 
 /obj/item/organ/cyberimp/arm/power_cord
 	name = "power cord implant"

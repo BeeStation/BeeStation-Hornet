@@ -60,6 +60,7 @@
 #include "language_transfer.dm"
 #include "limbsanity.dm"
 #include "loadout.dm"
+#include "machine_power.dm"
 #include "mecha_damage.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
@@ -76,6 +77,7 @@
 #include "outfit_sanity.dm"
 #include "oxyloss_suffocation.dm"
 #include "pda_power.dm"
+#include "pills.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"
@@ -86,6 +88,8 @@
 #include "reagent_grinder.dm"
 #include "reagent_id_duplicates.dm"
 #include "reagent_id_typos.dm"
+#include "reagent_mob_expose.dm"
+#include "reagent_mod_procs.dm"
 #include "reagent_recipe_collisions.dm"
 #include "say.dm"
 #include "security_levels.dm"
@@ -105,6 +109,7 @@
 #include "stat_mc.dm"
 #include "status_effect_validity.dm"
 #include "steal_objectives_trackability.dm"
+#include "stomach.dm"
 #include "strippable.dm"
 #include "stuns.dm"
 #include "subsystem_flags.dm"
@@ -134,6 +139,7 @@
 #include "mapping\check_multiple_objects.dm"
 #include "mapping\check_wires.dm"
 #include "mapping\map_test.dm"
+#include "mapping\station_power_budget.dm"
 
 // END_INCLUDE
 

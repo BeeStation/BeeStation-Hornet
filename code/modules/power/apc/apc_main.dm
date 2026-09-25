@@ -59,6 +59,10 @@
 	var/charging = APC_NOT_CHARGING
 	///Can the APC charge?
 	var/chargemode = TRUE
+	///Ticks of sustained surplus thus far. gates the start of a charge cycle
+	var/chargecount = 0
+	///Load buffer
+	var/longtermpower = 10
 	///Is the apc interface locked?
 	var/locked = TRUE
 	///Is the apc cover locked?
@@ -93,8 +97,6 @@
 	var/mob/living/silicon/ai/occupier = null
 	///Is there an AI being transferred out of us?
 	var/transfer_in_progress = FALSE
-	///buffer state that makes apcs not shut off channels immediately as long as theres some power left, effect visible in apcs only slowly losing power
-	var/longtermpower = 10
 	///Automatically name the APC after the area is in
 	var/auto_name = FALSE
 	///Time to allow the APC to regain some power and to turn the channels back online
@@ -203,6 +205,9 @@
 		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
+	if(cell)
+		component_parts -= cell
+		QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/power/apc/proc/assign_to_area(area/target_area = get_area(src))
@@ -246,7 +251,7 @@
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)
-		cell = null
+		set_cell(null)
 		charging = APC_NOT_CHARGING
 		update_appearance()
 		updateUsrDialog()
@@ -254,14 +259,15 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	alarm_manager = new(src)
+	component_parts = list()
 
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		cell = new cell_type
-		cell.charge = start_charge * cell.maxcharge / 100	// (convert percentage to actual value)
+		set_cell(new cell_type)
+		cell.charge = start_charge * cell.maxcharge / 100
 
 	var/area/our_area = loc.loc
 
@@ -415,6 +421,13 @@
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
 
+/obj/machinery/power/apc/proc/set_cell(obj/item/stock_parts/cell/new_cell)
+	if(cell)
+		component_parts -= cell
+	cell = new_cell
+	if(cell)
+		component_parts |= cell
+
 /// Used for unlocked apc helper, which unlocks the apc.
 /obj/machinery/power/apc/proc/unlock()
 	locked = FALSE
@@ -564,37 +577,58 @@
 	var/last_en = environ
 	var/last_ch = charging
 
+	// Resolve external power state every tick
 	if(!avail())
 		main_status = APC_NO_POWER
+	else if(!surplus())
+		main_status = APC_LOW_POWER
+	else
+		main_status = APC_HAS_POWER
+
+	// Charging builds the load buffer
+	if(charging && longtermpower < APC_LONGTERM_POWER_MAX)
+		longtermpower += 1
+	else if(longtermpower > APC_LONGTERM_POWER_MIN)
+		longtermpower -= 2
 
 	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
-	// TODO: Not having it require cell
-	lighting = update_channel(lighting, light_power_req,
-		(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
-		(environ_power_req + equip_power_req),
-		TRUE) // only lighting triggers alarms
+	if (cell)
+		lighting = update_channel(lighting, light_power_req,
+			(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+			(environ_power_req + equip_power_req),
+			TRUE) // only lighting triggers alarms
 
-	equipment = update_channel(equipment, equip_power_req,
-		(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+		equipment = update_channel(equipment, equip_power_req,
+			(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
 
-	environ = update_channel(environ, environ_power_req,
-		(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+		environ = update_channel(environ, environ_power_req,
+			(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+	else
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
 		var/remaining_load = lastused_total - surplus_used
 		add_load(surplus_used)
-		if(surplus())	// If no external power don't update the charge status
-			main_status = APC_HAS_POWER
 		if(remaining_load)	// Here we're using cell charge to meet demand (if any and whatever is left even if all)
 			charging = APC_NOT_CHARGING
+			chargecount = 0
 			main_status = APC_LOW_POWER
 			cell.use(min(remaining_load, cell.charge))
 
 		else if(surplus() >= cell.chargerate && cell.charge != cell.maxcharge && chargemode) // Here we're charging the cell (if theres enough power to do so)
-			charging = APC_CHARGING
-			cell.give(cell.chargerate)
-			add_load(cell.chargerate) // add the load used to recharge the cell
+			// Wait for the surplus to hold
+			if(chargecount < APC_CHARGE_CONFIRM_TICKS)
+				chargecount++
+				charging = APC_NOT_CHARGING
+			else
+				charging = APC_CHARGING
+				cell.give(cell.chargerate)
+				add_load(cell.chargerate) // add the load used to recharge the cell
+		else
+			chargecount = 0
 		update_appearance()
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after give().
@@ -640,6 +674,10 @@
 		if(alarm_channel)
 			alarm_manager.clear_alarm(ALARM_POWER)
 		return autoset(current, AUTOSET_ON)
+
+	// Threshold not met, rely on buffer
+	if(longtermpower >= 0)
+		return current
 
 	// Otherwise - OFF
 	if(alarm_channel)

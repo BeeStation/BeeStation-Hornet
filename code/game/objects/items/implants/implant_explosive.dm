@@ -36,6 +36,8 @@
 		popup = FALSE
 		if(response != "Yes")
 			return FALSE
+	if(cause == "death" && HAS_TRAIT(imp_in, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)) // prevent the bomb from activating automatically if the trait is present
+		return FALSE
 	heavy = round(heavy)
 	medium = round(medium)
 	weak = round(weak)

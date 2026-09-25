@@ -95,7 +95,7 @@
 	var/max_ambience_cooldown = 60 SECONDS
 
 	///Ambient buzz of the station, plays repeatedly, also IC
-	var/ambient_buzz = 'sound/ambience/shipambience.ogg'
+	var/ambient_buzz = 'sound/ambience/general/shipambience.ogg'
 	///The volume of the ambient buzz
 	var/ambient_buzz_vol = 30
 

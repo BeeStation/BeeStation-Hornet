@@ -64,7 +64,7 @@
 		ui.open()
 
 /datum/fax_panel_interface/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/fax_panel_interface/ui_static_data(mob/user)
 	var/list/data = list()

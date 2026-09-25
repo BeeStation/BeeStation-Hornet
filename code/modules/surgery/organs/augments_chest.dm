@@ -105,7 +105,7 @@
 	if(prob(30/severity))
 		to_chat(owner, span_userdanger("You feel a sharp pain in your chest, your reviver implant seems to have shorted out!"))
 		owner.Knockdown((3 SECONDS))
-		Destroy()
+		qdel(src)
 
 /obj/item/organ/cyberimp/chest/reviver/syndicate
 	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN

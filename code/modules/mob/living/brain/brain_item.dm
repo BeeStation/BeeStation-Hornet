@@ -77,7 +77,7 @@
 		if(brainmob && !(brain_owner.stat == DEAD || (HAS_TRAIT(brain_owner, TRAIT_DEATHCOMA))))
 			to_chat(brainmob, span_danger("You can't feel your body! You're still just a brain!"))
 		forceMove(brain_owner)
-		brain_owner.update_hair()
+		brain_owner.update_body_parts()
 		return
 
 	if(ai_controller && !special) //are we a monkey brain?
@@ -116,7 +116,7 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_hair()
+	brain_owner.update_body_parts()
 
 /obj/item/organ/brain/on_insert(mob/living/carbon/organ_owner, special)
 	// Are we inserting into a new mob from a head?
@@ -152,24 +152,26 @@
 			if(brain_owner.mind.current && !decoy_override)
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
-	brain_owner.update_hair()
+	brain_owner.update_body_parts()
 	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
-		brainmob.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
+		brainmob?.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
 		return
+
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
 	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
+
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
 		if(!brainmob.stored_dna)
@@ -328,7 +330,6 @@
 /obj/item/organ/brain/primate
 	name = "primate brain"
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
-	variant_traits_removed = list(TRAIT_ADVANCEDTOOLUSER)
 	variant_traits_added = list(TRAIT_PRIMITIVE)
 
 /obj/item/organ/brain/lizard
@@ -370,10 +371,9 @@
 	. = ..()
 	if(ishuman(brain_owner))
 		var/mob/living/carbon/human/H = brain_owner
-		if(H.dna?.species)
-			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0)
-					H.revive()
+		if(HAS_TRAIT(H, TRAIT_REVIVESBYHEALING))
+			if(H.health > 0)
+				H.revive()
 
 /obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -553,3 +553,11 @@
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
 	else
 		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
+
+/// This proc lets the mob's brain decide what bodypart to attack with in an unarmed strike.
+/obj/item/organ/brain/proc/get_attacking_limb(mob/living/carbon/human/target)
+	var/obj/item/bodypart/arm/active_hand = owner.get_active_hand()
+	if(target.body_position == LYING_DOWN && owner.usable_legs)
+		var/obj/item/bodypart/found_bodypart = owner.get_bodypart((active_hand.held_index % 2) ? BODY_ZONE_L_LEG : BODY_ZONE_R_LEG)
+		return found_bodypart || active_hand
+	return active_hand

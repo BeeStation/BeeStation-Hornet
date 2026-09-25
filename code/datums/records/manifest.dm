@@ -101,13 +101,11 @@
 /datum/manifest/proc/inject(mob/living/carbon/human/person, nosignal = FALSE)
 	set waitfor = FALSE
 	var/datum/job/job = person.mind?.assigned_role
-	if(job && !(job.job_flags & JOB_CREW_MANIFEST))
+	if(!job || !(job.job_flags & JOB_CREW_MANIFEST))
 		return
 
 	var/assignment = person.mind?.assigned_role?.title || "None"
 
-	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
-	COMPILE_OVERLAYS(person)
 	var/mutable_appearance/character_appearance = new(person.appearance)
 	var/datum/dna/stored/record_dna = new()
 	person.dna.copy_dna_to(record_dna)
