@@ -7319,6 +7319,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "cYr" = (
@@ -10519,6 +10520,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "eaS" = (
@@ -18393,6 +18395,7 @@
 /obj/structure/sign/warning/xeno_mining{
 	pixel_y = -32
 	},
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -57270,6 +57273,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating{
 	burnt = 1
 	},
