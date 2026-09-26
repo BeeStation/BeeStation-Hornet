@@ -1,6 +1,7 @@
 /datum/plant_feature/fruit/mushroom
 	icon = 'icons/obj/hydroponics/features/mushroom.dmi'
 	icon_state = "destroying_angel"
+	family = "Fungus"
 	genetic_budget = 1
 	//Mushrooms have no needs
 	plant_needs = list()

@@ -1,11 +1,11 @@
 /datum/plant_trait/fruit/temperature
 	name = "Heated Contents"
 	desc = "The fruit rapidly heats its contents when triggered."
-	///How hot or cold are we trying to make our reagents?
+	/// How hot or cold are we trying to make our reagents?
 	var/target_temperature = 666
-	///How many ticks to reach target
-	var/target_coefficient = 0.25
-	///Verb + friends for visible message
+	/// How many ticks to reach target
+	var/target_coefficient = 0.089
+	/// Verb + friends for visible message
 	var/temperature_verb = "heating up"
 
 /datum/plant_trait/fruit/temperature/setup_fruit_parent()
@@ -36,5 +36,4 @@
 	name = "Cooled Contents"
 	desc = "The fruit rapidly cools its contents when triggered."
 	target_temperature = -666
-	target_coefficient = 0.25
 	temperature_verb = "cooling down"

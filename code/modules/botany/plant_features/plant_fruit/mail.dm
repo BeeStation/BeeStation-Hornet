@@ -4,6 +4,7 @@
 /datum/plant_feature/fruit/mail
 	species_name = "littera fructum"
 	name = "mail"
+	family = "???"
 	icon_state = "mail"
 	seed_icon_state = "seed-mail"
 	fruit_product = /obj/item/mail

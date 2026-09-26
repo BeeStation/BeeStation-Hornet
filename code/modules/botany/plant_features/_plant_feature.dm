@@ -1,10 +1,12 @@
 /datum/plant_feature
 	abstract_type = /datum/plant_feature
 
-	///The 'scientific' name for our plant feature
+	/// The 'scientific' name for our plant feature
 	var/species_name = "testus testium"
-	///The regular name
+	/// The regular name
 	var/name = "test"
+	///  Family name - Used to help with implying forbidden combination
+	var/family = "Planta"
 
 	///What category of feature/s are we? Mostly used for gene editing.
 	var/feature_catagories
@@ -134,8 +136,8 @@
 
 ///This is for display+, a pre-formatted list of nice looking text
 /datum/plant_feature/proc/get_ui_data()
-	return list(PLANT_DATA("Name", capitalize(name)), PLANT_DATA("Species Name", capitalize(species_name)), PLANT_DATA("Trait Power", trait_power), PLANT_DATA("Genetic Stability", genetic_budget),\
-	PLANT_DATA("Genetic Availability", remaining_genetic_budget), PLANT_DATA(null, null))
+	return list(PLANT_DATA("Name", capitalize(name)), PLANT_DATA("Species Name", capitalize(species_name)), PLANT_DATA("Family", family), PLANT_DATA("Trait Power", trait_power), \
+	PLANT_DATA("Genetic Stability", genetic_budget), PLANT_DATA("Genetic Availability", remaining_genetic_budget), PLANT_DATA(null, null))
 
 //our traits
 /datum/plant_feature/proc/get_ui_traits()

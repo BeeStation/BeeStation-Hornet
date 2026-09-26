@@ -4,6 +4,7 @@
 /datum/plant_feature/body/mushroom
 	species_name = "fungus corporis"
 	name = "mycelium"
+	family = "Fungus"
 	icon_state = ""
 	layer_offset = 0
 	overlay_positions = list(list(9, 2), list(20, 2), list(16, 4))

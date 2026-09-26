@@ -194,12 +194,12 @@
 				//Is this feature blacklisted from another feature
 				if(is_type_in_typecache(feature, current_feature.blacklist_features) || is_type_in_typecache(current_feature, feature.blacklist_features))
 					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-					say("ERROR: Seed composition not compatible with selected feature!")
+					say("ERROR: Seed composition not compatible with selected feature![feature?.family == current_feature.family ? "" : " Incompatible families!"]")
 					return
 				//If a feature has a whitelist, are we in it?
 				if(length(current_feature.whitelist_features) && !is_type_in_typecache(feature, current_feature.whitelist_features) || length(feature.whitelist_features) && !is_type_in_typecache(current_feature, feature.whitelist_features))
 					playsound(controller, 'sound/machines/terminal_error.ogg', 60)
-					say("ERROR: Seed composition not compatible with selected feature!")
+					say("ERROR: Seed composition not compatible with selected feature![feature?.family == current_feature.family ? "" : " Incompatible families!"]")
 					return
 		//Special compatibility checking
 			//If it's a fruit- check if it fits on the body - This will be the other thing you'll have to potentially rewrite if you allow duplicate features

@@ -34,7 +34,7 @@
 	//Sleep for a bit to give people time to react
 	fruit?.visible_message("<span class='warning'>[fruit] starts to mix its contents!</span>")
 	playsound(fruit, 'sound/effects/bubbles.ogg', 45)
-	sleep(SEPERATED_CONTENTS_MINIMUM_TIMER)
+	sleep(SEPERATED_CONTENTS_MINIMUM_TIMER+(rand(0, 2.5) SECONDS))
 	//Recreate fruit reagents without the NO_REACT flag
 	//You can't just remove the flag and call the reactions, apparently
 	var/list/reagents = list()
