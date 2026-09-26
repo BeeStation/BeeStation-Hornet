@@ -1,252 +1,252 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/item/kirbyplants/random,
+"d" = (
 /turf/open/floor/iron,
 /area/ruin/powered)
-"k" = (
-/obj/structure/chair/fancy/comfy,
+"m" = (
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"o" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"s" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"u" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"v" = (
+"n" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
+"p" = (
+/turf/closed/wall,
+/area/ruin/powered)
+"t" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"z" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"A" = (
+/obj/effect/spawner/random/vending/colavend,
+/turf/open/floor/iron,
+/area/ruin/powered)
 "C" = (
 /turf/template_noop,
 /area/template_noop)
-"G" = (
-/obj/effect/spawner/random/vending/snackvend,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"J" = (
-/obj/structure/table/wood,
+"I" = (
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/iron,
 /area/ruin/powered)
 "O" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"Q" = (
-/obj/effect/spawner/random/vending/colavend,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"R" = (
+"S" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"Y" = (
-/turf/closed/wall,
+"T" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"X" = (
+/obj/structure/table/wood,
+/turf/open/floor/iron,
 /area/ruin/powered)
 
 (1,1,1) = {"
-Y
-Y
-Y
-Y
-Y
-s
-R
-s
-Y
-Y
-Y
-Y
-Y
+p
+p
+p
+p
+p
+d
+S
+d
+p
+p
+p
+p
+p
 "}
 (2,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-Y
+p
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+p
 "}
 (3,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-Y
+p
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+p
 "}
 (4,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-Y
+p
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+p
 "}
 (5,1,1) = {"
-Y
-s
-s
-a
-Y
-o
-o
-o
-Y
-Q
-s
-s
-Y
+p
+d
+d
+t
+p
+T
+T
+T
+p
+A
+d
+d
+p
 "}
 (6,1,1) = {"
-Y
-s
-s
-u
-o
+p
+d
+d
+z
+T
 C
 O
 C
-o
-k
-s
-s
-Y
+T
+I
+d
+d
+p
 "}
 (7,1,1) = {"
-Y
-s
-s
-J
-o
+p
+d
+d
+X
+T
 O
 O
 O
-o
-J
-s
-s
-Y
+T
+X
+d
+d
+p
 "}
 (8,1,1) = {"
-Y
-s
-s
-u
-o
+p
+d
+d
+z
+T
 C
 O
 C
-o
-k
-s
-s
-Y
+T
+I
+d
+d
+p
 "}
 (9,1,1) = {"
-Y
-s
-s
-G
-Y
-o
-o
-o
-Y
-a
-s
-s
-Y
+p
+d
+d
+m
+p
+T
+T
+T
+p
+t
+d
+d
+p
 "}
 (10,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-Y
+p
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+p
 "}
 (11,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-Y
+p
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+p
 "}
 (12,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-Y
+p
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+p
 "}
 (13,1,1) = {"
-Y
-Y
-Y
-Y
-Y
-s
-v
-s
-Y
-Y
-Y
-Y
-Y
+p
+p
+p
+p
+p
+d
+n
+d
+p
+p
+p
+p
+p
 "}

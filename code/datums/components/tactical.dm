@@ -63,6 +63,7 @@
 	image.override = TRUE
 	image.layer = ABOVE_MOB_LAYER
 	image.plane = FLOAT_PLANE
+	image.vis_contents = master.vis_contents
 	user.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission[REF(src)]", image)
 
 

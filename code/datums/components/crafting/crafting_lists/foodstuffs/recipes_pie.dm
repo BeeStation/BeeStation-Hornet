@@ -226,6 +226,7 @@
 	reqs = list(
 		/obj/item/food/butter = 2,
 		/obj/item/food/tortilla = 4,	//Layers
-		/obj/item/seeds/wheat/oat = 4
+		/obj/item/food/grown/oat = 4
 	)
 	category = CAT_PIE
+b

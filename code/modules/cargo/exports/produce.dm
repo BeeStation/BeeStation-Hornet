@@ -26,9 +26,18 @@
 	if(produce.trade_flags & TRADE_NOT_SELLABLE)
 		base_price = 0
 
-	// Scale price by
-	var/potency_multiplier = produce.seed.potency / 100
+// Scale price by genetic weight & stability
+	//Calculate reward
+	var/genetic_reward = 1
+	var/list/genes = list()
+	SEND_SIGNAL(produce, COMSIG_PLANT_GET_GENES, genes)
+	for(var/datum/plant_feature/feature as anything in genes[PLANT_GENE_INDEX_FEATURES])
+		if(feature.genetic_budget < 0)
+			continue
+		for(var/datum/plant_trait/trait as anything in feature.plant_traits)
+			genetic_reward += trait.genetic_cost
+	//Apply reward
 	if(base_price)	// Makes sure items that HAVE a value don't get completely dogged by the calculations causing it to return 0
-		return max(1, round(base_price * demand_ratio) * potency_multiplier)
+		return max(1, round(base_price * demand_ratio) * genetic_reward)
 	else
-		return round(base_price * demand_ratio * potency_multiplier)
+		return round(base_price * demand_ratio * genetic_reward)

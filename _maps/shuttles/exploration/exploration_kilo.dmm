@@ -21,17 +21,6 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
-"fg" = (
-/obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "gl" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny,
@@ -42,16 +31,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"hz" = (
-/obj/item/kirbyplants{
-	icon_state = "applebush"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "kU" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
@@ -157,6 +136,14 @@
 "wG" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
+"xy" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
 "AE" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
@@ -187,6 +174,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Da" = (
+/obj/machinery/light,
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
 "Dr" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/siding/dark{
@@ -199,16 +192,6 @@
 	pixel_y = 6
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
-"Ij" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
@@ -235,18 +218,18 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Mx" = (
-/obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-03"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
-"NL" = (
+"Nu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/purple,
 /turf/template_noop,
+/area/shuttle/exploration)
+"Px" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "PK" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -270,6 +253,15 @@
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"TD" = (
+/obj/machinery/light,
+/obj/item/plant_tray/pot/random,
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "TQ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -348,7 +340,7 @@
 /area/shuttle/exploration)
 
 (1,1,1) = {"
-NL
+Nu
 AZ
 wG
 wG
@@ -361,18 +353,18 @@ wG
 qZ
 rh
 Vg
-NL
+Nu
 "}
 (2,1,1) = {"
 AZ
 AZ
 Fy
-hz
+xy
 pY
 pY
 pY
 pY
-fg
+TD
 wG
 kU
 TQ
@@ -447,12 +439,12 @@ PK
 AZ
 AZ
 Qu
-Ij
+Px
 pY
 pY
 pY
 aT
-Mx
+Da
 wG
 wn
 nI
@@ -460,7 +452,7 @@ si
 Vg
 "}
 (8,1,1) = {"
-NL
+Nu
 AZ
 AZ
 wG
@@ -473,5 +465,5 @@ wG
 wG
 AE
 Vg
-NL
+Nu
 "}
