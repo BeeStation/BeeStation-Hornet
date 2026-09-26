@@ -400,6 +400,8 @@
 			defense_mod += 2
 		if(tackle_target.mob_negates_gravity())
 			defense_mod += 1
+		if(tackle_target.is_shove_knockdown_blocked()) // riot armor and such
+			defense_mod += 5
 		if(tackle_target.combat_mode) // they're ready for you
 			defense_mod += 5
 		if(tackle_target.throw_mode) //they're REALLY ready for you
@@ -653,7 +655,7 @@
 
 	owner.visible_message("<span class='danger'>[owner] trips over [kevved] and slams into it face-first[HOW_big_of_a_miss_did_we_just_make]!</span>",
 						"<span class='userdanger'>You trip over [kevved] and slam into it face-first[HOW_big_of_a_miss_did_we_just_make]!</span>")
-	owner.stamina.adjust(-15 + length(messes) * 2)
+	owner.stamina.adjust(-(15 + length(messes) * 2))
 	owner.adjustBruteLoss(8 + messes.len, updating_health = FALSE)
 	owner.Paralyze(0.4 SECONDS * messes.len) // .4 seconds of paralyze for each thing you knock around
 	owner.Knockdown(2 SECONDS + 0.4 SECONDS * messes.len) // 2 seconds of knockdown after the paralyze

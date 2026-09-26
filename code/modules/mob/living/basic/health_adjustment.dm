@@ -57,6 +57,8 @@
 	else if(damage_coeff[CLONE])
 		. = adjust_health(amount * damage_coeff[CLONE] * CONFIG_GET(number/damage_multiplier), updating_health, forced)
 
-/mob/living/basic/pre_stamina_change(diff as num)
-	return diff * damage_coeff[STAMINA]
+/mob/living/basic/pre_stamina_change(diff as num, forced)
+	. = ..()
+	if(!forced)
+		. *= damage_coeff[STAMINA]
 

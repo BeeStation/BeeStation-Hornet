@@ -580,6 +580,7 @@
 					COMBAT_MESSAGE_RANGE
 				)
 			log_combat(attacker, src, "disarms [target_held_item]", "disarm")
+			dropItemToGround(target_held_item)
 		else
 			if (!silent)
 				visible_message(
@@ -591,7 +592,7 @@
 			log_combat(attacker, src, "kicks", "in the chest")
 		apply_damage(STAMINA_DISARM_DMG * 4, STAMINA, BODY_ZONE_CHEST, spread_damage = TRUE)
 		adjustOxyLoss(10) //Knock the wind right out of his sails
-	if(shove_blocked && (shove_resistance() < 0) && !buckled)
+	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
 		var/directional_blocked = FALSE
 		if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
 			var/target_turf = get_turf(src)
@@ -654,7 +655,7 @@
 		var/disarm_success_chance = stamina.loss_as_percent / 2
 		if(prob(disarm_success_chance) && length(held_items))
 			var/list/dropped = list()
-			for(var/obj/item/I as anything in held_items)
+			for(var/obj/item/I in held_items)
 				if(dropItemToGround(I))
 					if (!silent)
 						visible_message(

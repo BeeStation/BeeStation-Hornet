@@ -1067,9 +1067,9 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
 
 /mob/living/carbon/human/pre_stamina_change(diff as num, forced)
-	if(diff < 0) //Taking damage, not healing
-		return diff * physiology.stamina_mod
-	return diff
+	. = ..()
+	if(. < 0) //Taking damage, not healing
+		. *= physiology.stamina_mod
 
 /mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))

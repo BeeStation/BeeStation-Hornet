@@ -258,7 +258,7 @@
 	C.reagents.metabolize(C, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
 	C.overeatduration = max(C.overeatduration - 4 SECONDS, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
-	C.adjust_nutrition(-lost_nutrition * HUNGER_DECAY) //Hunger depletes at 10x the normal speed
+	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
 	if(prob(2) && C.stat != DEAD)
 		to_chat(C, span_notice("You feel an odd gurgle in your stomach, as if it was working much faster than normal."))
 	return 1

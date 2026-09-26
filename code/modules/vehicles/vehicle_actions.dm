@@ -312,8 +312,8 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(L, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	L.stamina.adjust(V.instability * multiplier)
-	if (L.stamina.loss_as_percent >= 100)
+	L.stamina.adjust(-V.instability * multiplier)
+	if (HAS_TRAIT(L, TRAIT_EXHAUSTED))
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		V.unbuckle_mob(L)
 		L.Paralyze(50 * multiplier)

@@ -299,7 +299,7 @@
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) ||  target.stamina.loss_as_percent <= 100)
+			if( !Adjacent(target) || !isturf(target.loc) || !target.IsParalyzed())
 				back_to_hunt()
 				return
 
@@ -326,7 +326,7 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.stamina.loss_as_percent <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && !target.IsParalyzed())) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else //Try arresting again if the target escapes.

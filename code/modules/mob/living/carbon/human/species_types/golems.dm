@@ -372,7 +372,7 @@
 	if(H.stat == DEAD)
 		return
 	H.heal_overall_damage(1 * delta_time, 1 * delta_time, BODYTYPE_ORGANIC)
-	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
+	H.heal_overall_damage(2, 2, BODYTYPE_ORGANIC)
 	H.adjustToxLoss(-1 * delta_time)
 	H.adjustOxyLoss(-1 * delta_time)
 

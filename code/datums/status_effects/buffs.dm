@@ -360,13 +360,17 @@
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
-			itemUser.adjustBruteLoss(-1.5, FALSE)
-			itemUser.adjustFireLoss(-1.5, FALSE)
-			itemUser.adjustToxLoss(-1.5, FALSE, forced = TRUE) //Because Slime People are people too
-			itemUser.adjustOxyLoss(-1.5, FALSE)
-			itemUser.stamina.adjust(1.5)
-			itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1.5)
-			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
+			var/need_mob_update = FALSE
+			need_mob_update += itemUser.adjustBruteLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
+			need_mob_update += itemUser.adjustFireLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
+			need_mob_update += itemUser.adjustToxLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE) //Because Slime People are people too
+			need_mob_update += itemUser.adjustOxyLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
+			itemUser.stamina.adjust(0.6 * seconds_between_ticks, TRUE)
+			need_mob_update += itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.6 * seconds_between_ticks)
+			need_mob_update += itemUser.adjustCloneLoss(-0.2 * seconds_between_ticks, updating_health = FALSE, forced = TRUE) //Because apparently clone damage is the bastion of all health
+			if(need_mob_update)
+				itemUser.updatehealth()
+
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in hearers(7, owner))
 			if(L.health < L.maxHealth)
@@ -475,7 +479,7 @@
 	icon_state = "blooming"
 
 /datum/status_effect/planthealing/tick()
-	owner.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life
+	owner.heal_overall_damage(1, 1, BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life
 
 /datum/status_effect/crucible_soul
 	id = "Blessing of Crucible Soul"

@@ -68,16 +68,14 @@
 		head.mouth = TRUE
 
 /mob/living/carbon/proc/on_softcrit_gain(datum/source)
-	stamina.maximum -= 100
-	stamina.regen_rate -= 5
-	stamina.process()
+	stamina.add_max_modifier("softcrit", -100)
+	stamina.add_regen_modifier("softcrit", -5)
 	throw_alert(ALERT_SOFTCRIT, /atom/movable/screen/alert/softcrit)
 	add_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 
 /mob/living/carbon/proc/on_softcrit_loss(datum/source)
-	stamina.maximum += 100
-	stamina.regen_rate += 5
-	stamina.process()
+	stamina.remove_max_modifier("softcrit")
+	stamina.remove_regen_modifier("softcrit")
 	clear_alert(ALERT_SOFTCRIT)
 	remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 

@@ -79,7 +79,7 @@
 		if(CLONE)
 			damage_dealt = -1 * adjustCloneLoss(damage_amount, forced = forced)
 		if(STAMINA)
-			damage_dealt = -1 * stamina.adjust(-damage)
+			damage_dealt = -1 * stamina.adjust(-damage_amount, forced)
 		if(BRAIN)
 			damage_dealt = -1 * adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
 
@@ -177,7 +177,7 @@
 	if(clone)
 		total_damage += apply_damage(clone, CLONE, def_zone, blocked)
 	if(stamina)
-		CRASH("Something is using apply_damages to apply stamina damage!")
+		total_damage += apply_damage(stamina, STAMINA, def_zone, blocked)
 	if(brain)
 		total_damage += apply_damage(brain, BRAIN, def_zone, blocked)
 	return total_damage
@@ -455,12 +455,10 @@
  *
  * returns the net change in damage
  */
-/mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
+/mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
 	. = (adjustBruteLoss(-abs(brute), updating_health = FALSE) + adjustFireLoss(-abs(burn), updating_health = FALSE))
 	if(!.) // no change, no need to update
 		return FALSE
-	if(stamina)
-		stack_trace("heal_bodypart_damage tried to heal stamina!")
 	if(updating_health)
 		updatehealth()
 
@@ -484,7 +482,7 @@
 		updatehealth()
 
 // damage MANY bodyparts, in random order
-/mob/living/proc/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
+/mob/living/proc/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = (adjustBruteLoss(abs(brute), updating_health = FALSE, forced = forced) + \
 			adjustFireLoss(abs(burn), updating_health = FALSE, forced = forced))
 	if(!.) // no change, no need to update

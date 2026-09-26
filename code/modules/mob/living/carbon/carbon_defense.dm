@@ -291,9 +291,6 @@
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
 	target.disarm_effect(src)
 
-/mob/living/carbon/proc/shove_resistance()
-	. = 0
-
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
 		return

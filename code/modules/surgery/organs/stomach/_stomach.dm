@@ -1,7 +1,7 @@
 //The contant in the rate of reagent transfer on life ticks
 #define STOMACH_METABOLISM_CONSTANT 0.5
-//Stamina drained per second once nutrition is gone and there is nothing left to digest
-#define STARVATION_STAMINA_DRAIN 2
+//Stamina drained per second once nutrition is gone and there is nothing left to digest, 2% of the pool
+#define STARVATION_STAMINA_DRAIN (STAMINA_MAX * 0.02)
 
 /obj/item/organ/stomach
 	name = "stomach"
@@ -143,7 +143,7 @@
 	// nutrition decrease and satiety
 	if (human.nutrition > 0 && human.stat != DEAD)
 		// THEY HUNGER
-		var/hunger_rate = HUNGER_DECAY
+		var/hunger_rate = HUNGER_FACTOR
 		var/datum/component/mood/mood = human.GetComponent(/datum/component/mood)
 		if(mood && mood.sanity > SANITY_DISTURBED)
 			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 at SANITY_DISTURBED down to 0.7 at SANITY_MAXIMUM
@@ -151,14 +151,14 @@
 		if(human.satiety > MAX_SATIETY)
 			human.satiety = MAX_SATIETY
 		else if(human.satiety > 0)
-			human.satiety = max(human.satiety - (SATIETY_DECAY * delta_time), 0)
+			human.satiety--
 		else if(human.satiety < -MAX_SATIETY)
 			human.satiety = -MAX_SATIETY
 		else if(human.satiety < 0)
-			human.satiety = min(human.satiety + (SATIETY_DECAY * delta_time), 0)
+			human.satiety++
 			if(DT_PROB(round(-human.satiety/77), delta_time))
 				human.set_jitter_if_lower(10 SECONDS)
-			hunger_rate = 3 * HUNGER_DECAY
+			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= hunger_modifier
 		hunger_rate *= human.physiology.hunger_mod
 		human.adjust_nutrition(-hunger_rate * delta_time)

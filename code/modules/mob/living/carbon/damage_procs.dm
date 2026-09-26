@@ -68,8 +68,7 @@
 			final_mod *= physiology.oxy_mod
 		if(CLONE)
 			final_mod *= physiology.clone_mod
-		if(STAMINA)
-			final_mod *= physiology.stamina_mod
+		// STAMINA is skipped here, stamina_mod is applied in pre_stamina_change()
 		if(BRAIN)
 			final_mod *= physiology.brain_mod
 
@@ -136,11 +135,6 @@
 	else if(!forced && HAS_TRAIT(src, TRAIT_TOXIMMUNE)) //Prevents toxin damage, but not healing
 		amount = min(amount, 0)
 	return ..()
-
-/mob/living/carbon/pre_stamina_change(diff as num, forced)
-	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
-		return 0
-	return diff
 
 /**
  * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [GODMODE] on), call the damage proc on that organ.

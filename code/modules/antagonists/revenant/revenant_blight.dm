@@ -57,8 +57,8 @@
 			if(DT_PROB(5, delta_time))
 				affected_mob.emote(pick("pale","shiver","cries"))
 		if(5)
-			if(affected_mob.stamina.loss_as_percent <= 100)
-				affected_mob.stamina.adjust(-7.5 * delta_time)
+			// Permanent stamina critical, drain whatever regenerated since the last tick
+			affected_mob.stamina.adjust(-affected_mob.stamina.maximum)
 			// No longer realistically possible to counteract with stimulants
 			affected_mob.stamina.adjust(-7.5 * delta_time)
 

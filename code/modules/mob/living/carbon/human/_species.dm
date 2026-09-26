@@ -1527,7 +1527,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
 
-	else if(weapon_sharpness >= SHARP || mob_dismember_weakness || (weapon_sharpness == SHARP && human.stat == DEAD))
+	else if(weapon_sharpness > SHARP || mob_dismember_weakness || (weapon_sharpness == SHARP && human.stat == DEAD))
 		//Delimbing cannot normally occur with blunt weapons
 		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
 

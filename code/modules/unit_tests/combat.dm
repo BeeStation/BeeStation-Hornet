@@ -68,3 +68,38 @@
 	TEST_ASSERT(pre_attack_hit, "Pre-attack signal was not fired")
 	TEST_ASSERT(attack_hit, "Attack signal was not fired")
 	TEST_ASSERT(post_attack_hit, "Post-attack signal was not fired")
+
+/datum/unit_test/disarm/Run()
+	var/mob/living/carbon/human/attacker = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human/consistent)
+	var/obj/item/storage/toolbox/toolbox = allocate(/obj/item/storage/toolbox)
+
+	victim.put_in_active_hand(toolbox, forced = TRUE)
+
+	var/obj/structure/barricade/dense_object = allocate(/obj/structure/barricade)
+
+	// Attacker --> Victim --> Empty space --> Wall
+	attacker.forceMove(run_loc_floor_bottom_left)
+	victim.forceMove(locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
+	dense_object.forceMove(locate(run_loc_floor_bottom_left.x + 3, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
+
+	// First disarm, world should now look like:
+	// Attacker --> Empty space --> Victim --> Wall
+	victim.attack_hand(attacker, list(RIGHT_CLICK = TRUE))
+
+	TEST_ASSERT_EQUAL(victim.loc.x, run_loc_floor_bottom_left.x + 2, "Victim wasn't moved back after being pushed")
+	TEST_ASSERT(!victim.has_status_effect(/datum/status_effect/incapacitating/knockdown), "Victim was knocked down despite not being against a wall")
+	TEST_ASSERT_EQUAL(victim.get_active_held_item(), toolbox, "Victim dropped toolbox despite not being against a wall")
+
+	attacker.forceMove(get_step(attacker, EAST))
+
+	// Second disarm, victim was against wall and should be down
+	victim.attack_hand(attacker, list(RIGHT_CLICK = TRUE))
+
+	TEST_ASSERT_EQUAL(victim.loc.x, run_loc_floor_bottom_left.x + 2, "Victim was moved after being pushed against a wall")
+	TEST_ASSERT(victim.has_status_effect(/datum/status_effect/incapacitating/knockdown), "Victim was not knocked down after being pushed against a wall")
+
+	// Third disarm, victim was against wall and down, they should be dropping their items
+	victim.attack_hand(attacker, list(RIGHT_CLICK = TRUE))
+
+	TEST_ASSERT_EQUAL(victim.get_active_held_item(), null, "Victim didn't drop toolbox after being pushed against a wall")

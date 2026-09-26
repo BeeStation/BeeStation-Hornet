@@ -20,6 +20,7 @@
 
 	var/list/maximum_modifiers
 	var/list/regen_modifiers
+	var/list/regen_multipliers
 
 /datum/stamina_container/New(parent, maximum = STAMINA_MAX, regen_rate = STAMINA_REGEN)
 	src.parent = parent
@@ -41,7 +42,7 @@
 	if(delta_time && decrement)
 		current = max(current + (decrement*delta_time), 0)
 	loss = maximum - current
-	loss_as_percent = loss ? (loss == maximum ? 0 : loss / maximum * 100) : 0
+	loss_as_percent = maximum ? loss / maximum * 100 : 0
 
 	if(datum_flags & DF_ISPROCESSING)
 		if(delta_time && current == maximum)
@@ -64,16 +65,18 @@
 /datum/stamina_container/proc/resume()
 	is_regenerating = TRUE
 
-///Adjust stamina by an amount.
+///Adjust stamina by an amount. Returns the actual change in stamina.
 /datum/stamina_container/proc/adjust(amt as num, forced)
 	if(!amt)
-		return
+		return 0
 	if(amt < 0 && HAS_TRAIT_FROM(parent, TRAIT_INCAPACITATED, STAMINA))
-		return
+		return 0
 	///Our parent might want to fuck with these numbers
 	var/modify = parent.pre_stamina_change(amt, forced)
+	var/old_current = current
 	current = round(clamp(current + modify, 0, maximum), DAMAGE_PRECISION)
 	process()
+	return current - old_current
 
 /datum/stamina_container/proc/add_regen_modifier(source, amount)
 	LAZYSET(regen_modifiers, source, amount)
@@ -83,12 +86,26 @@
 	LAZYREMOVE(regen_modifiers, source)
 	update_stamina_regen()
 
+/datum/stamina_container/proc/add_regen_multiplier(source, multiplier)
+	if(LAZYACCESS(regen_multipliers, source) == multiplier)
+		return
+	LAZYSET(regen_multipliers, source, multiplier)
+	update_stamina_regen()
+
+/datum/stamina_container/proc/remove_regen_multiplier(source)
+	if(isnull(LAZYACCESS(regen_multipliers, source)))
+		return
+	LAZYREMOVE(regen_multipliers, source)
+	update_stamina_regen()
+
 /datum/stamina_container/proc/update_stamina_regen()
 	PRIVATE_PROC(TRUE)
 
 	var/new_regen_rate = default_regen
 	for(var/source, value in regen_modifiers)
 		new_regen_rate += value
+	for(var/source, value in regen_multipliers)
+		new_regen_rate *= value
 
 	regen_rate = max(new_regen_rate, 2)
 
@@ -108,4 +125,5 @@
 		new_max_stamina += value
 
 	maximum = max(new_max_stamina, 50)
+	current = min(current, maximum)
 	process()

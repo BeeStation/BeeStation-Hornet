@@ -436,6 +436,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
+#define HUNGER_FACTOR 0.08 //factor at which mob nutrition decreases
+#define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
+
 // Eye protection
 // THese values are additive to determine your overall flash protection.
 #define FLASH_PROTECTION_SENSITIVE -1

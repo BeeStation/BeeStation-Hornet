@@ -13,12 +13,12 @@
 	return
 
 /mob/living/carbon/stamina_stun()
-	if(check_stun_immunity(CANKNOCKDOWN))
+	if(check_stun_immunity(CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		return
 	if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA)) //Already in stamcrit
 		return
 
-	var/chance = STAMINA_SCALING_STUN_BASE + (STAMINA_SCALING_STUN_SCALER * stamina.current * STAMINA_STUN_THRESHOLD_MODIFIER)
+	var/chance = STAMINA_SCALING_STUN_BASE + (STAMINA_SCALING_STUN_SCALER * stamina.loss_as_percent / 100)
 	if(!prob(chance))
 		return
 	visible_message(

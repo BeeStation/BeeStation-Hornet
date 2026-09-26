@@ -32,6 +32,7 @@
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else
+		update_stamina_nutrition()
 		var/bprv = handle_bodyparts()
 		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
 			updatehealth()
@@ -79,7 +80,7 @@
 	var/datum/gas_mixture/breath
 
 	if(!get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
-		if(health <= crit_threshold || (pulledby?.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || (lungs?.organ_flags & ORGAN_FAILING))
+		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby?.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || (lungs?.organ_flags & ORGAN_FAILING))
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
 		else if(health <= crit_threshold)
@@ -286,6 +287,14 @@
 	. = min(STAMINA_HUNGER_FLOOR + ((1 - STAMINA_HUNGER_FLOOR) * nutrition / NUTRITION_LEVEL_FED), 1)
 	if(satiety > SATIETY_WELL_NOURISHED)
 		. *= STAMINA_SATIETY_BONUS
+
+/// Scales natural stamina regeneration by [/mob/living/carbon/proc/get_stamina_nutrition_coeff]
+/mob/living/carbon/proc/update_stamina_nutrition()
+	var/nutrition_coeff = get_stamina_nutrition_coeff()
+	if(nutrition_coeff == 1)
+		stamina.remove_regen_multiplier("nutrition")
+	else
+		stamina.add_regen_multiplier("nutrition", nutrition_coeff)
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)
 	if(stat == DEAD)
