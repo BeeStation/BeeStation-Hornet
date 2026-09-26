@@ -1402,7 +1402,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	/// What to set the SMES's input level to
 	var/input_level = /obj/machinery/power/smes::input_level_max
 	/// What to set the SMES's output level to
-	var/output_level = /obj/machinery/power/smes::output_level_max - 10 KILOWATT
+	var/output_level = /obj/machinery/power/smes::output_level
 
 /obj/effect/mapping_helpers/lowpop/smes_configurer/payload()
 	var/obj/machinery/power/smes/smes = locate(/obj/machinery/power/smes) in loc
