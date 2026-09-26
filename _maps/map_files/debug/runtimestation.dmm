@@ -1205,7 +1205,7 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "mS" = (
@@ -1292,6 +1292,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "oN" = (
@@ -1316,6 +1317,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "pe" = (
@@ -1854,6 +1856,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "AW" = (
@@ -2168,8 +2171,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/cable,
 /obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "HP" = (
@@ -2630,6 +2633,7 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "TW" = (
@@ -2811,8 +2815,8 @@
 	dir = 8
 	},
 /obj/machinery/ntnet_relay,
-/obj/structure/cable,
 /obj/machinery/airalarm/directional/west,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/engineering/gravity_generator)
 "YN" = (
