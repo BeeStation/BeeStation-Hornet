@@ -17754,6 +17754,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "gDc" = (
@@ -28511,6 +28512,7 @@
 "kkX" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "kkY" = (
@@ -29370,6 +29372,7 @@
 "kAH" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "kAI" = (
@@ -63653,6 +63656,7 @@
 "vZj" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron,
 /area/station/maintenance/solars/port/fore)
 "vZT" = (

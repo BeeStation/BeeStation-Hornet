@@ -4769,6 +4769,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/starboard/aft)
 "bhd" = (
@@ -20969,6 +20970,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/machinery/camera/directional/south,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/aft)
 "eWj" = (
@@ -24475,6 +24477,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/starboard/fore)
 "fNK" = (
@@ -63123,6 +63126,7 @@
 	},
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/fore)
 "oLf" = (

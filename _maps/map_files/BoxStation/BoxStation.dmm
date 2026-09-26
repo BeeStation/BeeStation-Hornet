@@ -16754,6 +16754,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
 /obj/machinery/camera/directional/south,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "hhL" = (
@@ -30110,6 +30111,7 @@
 "mBh" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "mBk" = (
@@ -47919,6 +47921,7 @@
 "tSu" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/fore)
 "tSW" = (
@@ -54273,6 +54276,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
 /obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/starboard/aft)
 "wzW" = (
