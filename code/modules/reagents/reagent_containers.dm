@@ -105,10 +105,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 /// Tries to splash the target, called when right-clicking with a reagent container.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
-	if (!is_open_container() || (reagents.flags & NO_SPLASH))
-		return FALSE
-
-	if (!reagents?.total_volume)
+	if (!reagents?.total_volume || !is_open_container() || (reagents.flags & NO_SPLASH))
 		return FALSE
 
 	var/punctuation = ismob(target) ? "!" : "."
@@ -195,7 +192,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
  * * throwingdatum - The throwingdatum behind the throw if the
  */
 /obj/item/reagent_containers/proc/splash_reagents(atom/target, mob/splasher, was_thrown = FALSE, allow_closed_splash = FALSE)
-	if(!reagents || !reagents.total_volume || (!is_open_container() && !allow_closed_splash) || (reagents.flags & NO_SPLASH))
+	if(!reagents?.total_volume || (!is_open_container() && !allow_closed_splash) || (reagents.flags & NO_SPLASH))
 		return
 
 	if(ismob(target) && target.reagents)

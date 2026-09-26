@@ -11,7 +11,7 @@
 	volume = 30
 	possible_transfer_amounts = list(1,5,15)
 	resistance_flags = ACID_PROOF
-	initial_reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = 0
 	var/infinite = FALSE
