@@ -80,7 +80,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	. = ..()
 	. += span_info("It's integrated integrity meter reads: <b>HEALTH: [atom_integrity]</b>.")
 
-/obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
+/obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/card = W
 		if(!card.registered_account)

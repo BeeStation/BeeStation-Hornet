@@ -78,7 +78,7 @@
 			I.forceMove(Tsec)
 	update_appearance()
 
-/obj/structure/bookcase/attackby(obj/item/I, mob/user, params)
+/obj/structure/bookcase/attackby(obj/item/I, mob/user, list/modifiers)
 	switch(state)
 		if(BOOKCASE_UNANCHORED)
 			if(I.tool_behaviour == TOOL_WRENCH)
@@ -255,7 +255,7 @@
 		to_chat(user, span_notice("This book is completely blank!"))
 
 
-/obj/item/book/attackby(obj/item/I, mob/user, params)
+/obj/item/book/attackby(obj/item/I, mob/user, list/modifiers)
 	if(attackby_skip) // some books are not for this behaviour
 		return ..()
 	if(istype(I, /obj/item/pen))

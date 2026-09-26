@@ -163,7 +163,7 @@
 
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/living/user, list/modifiers)
 	..()
 	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		return

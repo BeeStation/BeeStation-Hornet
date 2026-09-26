@@ -434,8 +434,14 @@
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
-/mob/living/proc/cure_husk(source)
-	REMOVE_TRAIT(src, TRAIT_HUSK, source)
+/mob/living/proc/cure_husk(list/sources)
+	if(isnull(sources))
+		sources = GET_TRAIT_SOURCES(src, TRAIT_HUSK)
+	else if(!islist(sources))
+		sources = list(sources)
+
+	for(var/husk_source in sources)
+		REMOVE_TRAIT(src, TRAIT_HUSK, husk_source)
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		return FALSE
 	REMOVE_TRAIT(src, TRAIT_DISFIGURED, "husk")

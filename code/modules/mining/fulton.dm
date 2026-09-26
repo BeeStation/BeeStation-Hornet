@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	beacon_ref = WEAKREF(chosen_beacon)
 	balloon_alert(user, "linked!")
 
-/obj/item/extraction_pack/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+/obj/item/extraction_pack/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return

@@ -1,6 +1,6 @@
 // Ethereals/IPCs: timing constants are in code/__DEFINES/mobs.dm as ELECTRICAL_APC_*
 
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, list/modifiers)
 
 	if(issilicon(user) && get_dist(src,user)>1)
 		return attack_hand(user)

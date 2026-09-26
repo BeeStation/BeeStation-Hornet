@@ -173,7 +173,7 @@
 /obj/item/bodypart/chest/robot/get_cell()
 	return cell
 
-/obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, params)
+/obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, span_warning("You have already inserted a cell!"))
@@ -295,7 +295,7 @@
 	if(gone == flash2)
 		flash2 = null
 
-/obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, params)
+/obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/assembly/flash/handheld))
 		var/obj/item/assembly/flash/handheld/F = W
 		if(flash1 && flash2)

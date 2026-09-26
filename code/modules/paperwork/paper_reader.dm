@@ -18,7 +18,7 @@
 	if(prob(0.1))
 		icon_state = "paper_reader-rare"
 
-/obj/item/paper_reader/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/paper_reader/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(in_use)
 		to_read.Cut()

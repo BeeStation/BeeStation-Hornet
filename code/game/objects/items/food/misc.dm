@@ -212,7 +212,7 @@
 	. = ..()
 	. += span_notice("If you had a rod you could make <b>butter on a stick</b>.")
 
-/obj/item/food/butter/attackby(obj/item/item, mob/user, params)
+/obj/item/food/butter/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/stack/rods))
 		var/obj/item/stack/rods/rods = item
 		if(!rods.use(1))//borgs can still fail this if they have no metal

@@ -25,7 +25,7 @@
 	//AddElement(/datum/element/beauty, impressiveness * 75)
 	AddElement(/datum/element/simple_rotation)
 
-/obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
+/obj/structure/statue/attackby(obj/item/W, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(default_unfasten_wrench(user, W))
@@ -74,7 +74,7 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/statue/uranium/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	radiate()
 	return ..()
 
@@ -131,7 +131,7 @@
 		plasma_ignition(6, Proj?.firer)
 	. = ..()
 
-/obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/plasma/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		plasma_ignition(6, user)
 	else
@@ -230,7 +230,7 @@
 	honk()
 	..()
 
-/obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/bananium/attackby(obj/item/W, mob/user, list/modifiers)
 	honk()
 	return ..()
 

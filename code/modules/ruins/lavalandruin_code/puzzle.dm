@@ -319,7 +319,7 @@
 	custom_price = 20000
 	max_demand = 5
 
-/obj/item/prisoncube/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/prisoncube/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag || !isliving(target))
 		return

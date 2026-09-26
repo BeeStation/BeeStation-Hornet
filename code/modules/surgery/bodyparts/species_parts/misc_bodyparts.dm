@@ -602,9 +602,41 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/arm/left/golem/durathread/set_owner(mob/living/carbon/new_owner)
+	. = ..()
+	if(. == FALSE)
+		return
+	var/mob/living/carbon/old_owner = .
+	if(!isnull(old_owner))
+		UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
+	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/left/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
+	SIGNAL_HANDLER
+	if(source.get_active_hand() != src || !iscarbon(target))
+		return
+	var/mob/living/carbon/carbon_target = target
+	carbon_target.apply_status_effect(/datum/status_effect/strandling)
+
 /obj/item/bodypart/arm/right/golem/durathread
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/arm/right/golem/durathread/set_owner(mob/living/carbon/new_owner)
+	. = ..()
+	if(. == FALSE)
+		return
+	var/mob/living/carbon/old_owner = .
+	if(!isnull(old_owner))
+		UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
+	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/right/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
+	SIGNAL_HANDLER
+	if(source.get_active_hand() != src || !iscarbon(target))
+		return
+	var/mob/living/carbon/carbon_target = target
+	carbon_target.apply_status_effect(/datum/status_effect/strandling)
 
 /obj/item/bodypart/leg/left/golem/durathread
 	limb_id = "d_golem"

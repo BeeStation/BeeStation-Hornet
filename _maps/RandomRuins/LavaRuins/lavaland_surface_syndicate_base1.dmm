@@ -1044,7 +1044,7 @@
 "is" = (
 /obj/machinery/turretid{
 	ailock = 1;
-	control_area = "/area/ruin/syndicate_lava_base";
+	control_area = /area/ruin/syndicate_lava_base;
 	dir = 1;
 	icon_state = "control_kill";
 	lethal = 1;
@@ -1054,7 +1054,7 @@
 	req_access_txt = "150"
 	},
 /turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base)
+/area/ruin/syndicate_lava_base/engineering)
 "iz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4

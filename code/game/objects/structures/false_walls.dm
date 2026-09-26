@@ -97,7 +97,7 @@
 		else
 			icon_state = "fwall_open"
 
-/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(W.use_tool(src, user, 0, volume=50))
 			dismantle(user, TRUE)
@@ -175,7 +175,7 @@
 
 	COOLDOWN_DECLARE(radiate_cooldown)
 
-/obj/structure/falsewall/uranium/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/falsewall/uranium/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	radiate()
 	return ..()
 
@@ -226,7 +226,7 @@
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
-/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_temperature() > 300)
 		if(plasma_ignition(6, user))
 			new /obj/structure/girder/displaced(loc)

@@ -326,7 +326,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		icon_state = icon_living
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(!stat && !client && !istype(O, /obj/item/stack/medical) && !istype(O, /obj/item/food/cracker))
 		if(O.force)
 			if(parrot_state == PARROT_PERCH)

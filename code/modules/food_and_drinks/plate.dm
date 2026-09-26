@@ -23,14 +23,13 @@
 	if(fragile)
 		AddElement(/datum/element/shatters_when_thrown)
 
-/obj/item/plate/attackby(obj/item/I, mob/user, params)
+/obj/item/plate/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!IS_EDIBLE(I))
 		to_chat(user, span_notice("[src] is made for food, and food alone!"))
 		return
 	if(contents.len >= max_items)
 		to_chat(user, span_notice("[src] can't fit more items!"))
 		return
-	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return
@@ -42,7 +41,7 @@
 	else
 		return ..()
 
-/obj/item/plate/pre_attack(atom/A, mob/living/user, params)
+/obj/item/plate/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(!iscarbon(A))
 		return
 	if(!contents.len)

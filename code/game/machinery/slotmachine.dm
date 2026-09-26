@@ -89,7 +89,7 @@
 	else
 		icon_state = "slots1"
 
-/obj/machinery/computer/slot_machine/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/computer/slot_machine/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/coin))
 		var/obj/item/coin/C = I
 		if(paymode == COIN)

@@ -34,7 +34,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/colorizer/pre_attack(atom/target, mob/living/user, params)
+/obj/item/colorizer/pre_attack(atom/target, mob/living/user, list/modifiers)
 	if(can_use(target, user))
 		do_colorize(target, user)
 	. = ..()

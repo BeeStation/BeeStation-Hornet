@@ -769,10 +769,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
 	var/list/spell_list = list()
-	for(var/datum/action/spell/to_add as anything in subtypesof(/datum/action/spell))
+	for(var/datum/action/spell/to_add as anything in valid_subtypesof(/datum/action/spell))
 		var/spell_name = initial(to_add.name)
-		if(spell_name == "Spell") // abstract or un-named spells should be skipped.
-			continue
 
 		if(which == "Name")
 			spell_list[spell_name] = to_add
@@ -1033,10 +1031,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/header = "<tr><th>Name</th> <th>Requirements</th>"
 	var/all_requirements = list()
-	for(var/datum/action/spell/spell as anything in typesof(/datum/action/spell))
-		if(initial(spell.name) == "Spell")
-			continue
-
+	for(var/datum/action/spell/spell as anything in valid_subtypesof(/datum/action/spell))
 		var/list/real_reqs = list()
 		var/reqs = initial(spell.spell_requirements)
 		if(reqs & SPELL_CASTABLE_AS_BRAIN)

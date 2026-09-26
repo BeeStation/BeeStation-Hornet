@@ -28,7 +28,7 @@
 /obj/item/grenade/exploration/attack_self(mob/user)
 	return
 
-/obj/item/grenade/exploration/attackby(obj/item/W, mob/user, params)
+/obj/item/grenade/exploration/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/exploration_detonator))
 		var/obj/item/exploration_detonator/detonator = W
 		detonator.linked_explosives |= src

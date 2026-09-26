@@ -118,8 +118,7 @@
 
 /obj/item/clothing/under/costume/maid/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/accessory/maidapron/A = new (src)
-	attach_accessory(A)
+	attach_accessory(new /obj/item/clothing/accessory/maidapron())
 
 /obj/item/clothing/under/costume/geisha
 	name = "geisha suit"

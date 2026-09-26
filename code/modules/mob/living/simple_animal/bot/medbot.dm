@@ -260,7 +260,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 					speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
 					window_name = "Automatic Medical Unit v[efficiency]"
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
+/mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, list/modifiers)
 	if(istype(W, /obj/item/reagent_containers))
 		. = 1 //no afterattack
 		if(locked)

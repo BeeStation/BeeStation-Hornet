@@ -224,7 +224,7 @@ Slimecrossing Items
 	icon_state = "cerulean_item_crystal"
 	var/amt = 0
 
-/obj/item/cerulean_slime_crystal/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/cerulean_slime_crystal/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!istype(target,/obj/item/stack) || !istype(user,/mob/living/carbon) || !proximity_flag)
 		return

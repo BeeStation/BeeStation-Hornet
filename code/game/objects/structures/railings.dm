@@ -46,7 +46,7 @@
 
 	AddElement(/datum/element/simple_rotation, ROTATION_NEEDS_ROOM|(diagonals_possible ? ROTATION_DIAGONAL : null))
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/railing/attackby(obj/item/I, mob/living/user, list/modifiers)
 	..()
 	add_fingerprint(user)
 

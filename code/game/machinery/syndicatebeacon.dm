@@ -39,7 +39,7 @@
 	else
 		activate(user)
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/power/singularity_beacon/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(attacking_item.tool_behaviour != TOOL_WRENCH)
 		return ..()
 

@@ -220,8 +220,8 @@
 	. = ..()
 	if(iscarbon(exposed_mob))
 		var/mob/living/carbon/patient = exposed_mob
-		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
-			patient.cure_husk("burn")
+		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, BURN) && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
+			patient.cure_husk(BURN)
 			patient.visible_message(span_nicegreen("[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance."))
 
 /datum/reagent/medicine/spaceacillin
@@ -428,22 +428,23 @@
 
 /datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	. = ..()
-	if(iscarbon(exposed_mob))
-		if(exposed_mob.stat == DEAD)
-			show_message = FALSE
-		if(method == PATCH)
-			//you could be targeting a limb that doesnt exist while applying the patch, so lets avoid a runtime
-			if(affecting.heal_damage(brute = reac_volume, burn = reac_volume))
-				exposed_mob.update_damage_overlays()
-			exposed_mob.adjustStaminaLoss(reac_volume*2)
-			if(show_message)
-				to_chat(exposed_mob, span_danger("You feel your burns and bruises healing! It stings like hell!"))
-			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			exposed_mob.emote("scream")
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, "burn") && exposed_mob.getFireLoss() < THRESHOLD_UNHUSK && (exposed_mob.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
-				exposed_mob.cure_husk("burn")
-				exposed_mob.visible_message(span_nicegreen("You successfully replace most of the burnt off flesh of [exposed_mob]."))
+	if(!iscarbon(exposed_mob) || method != PATCH)
+		return
+	if(exposed_mob.stat == DEAD)
+		show_message = FALSE
+
+	//you could be targeting a limb that doesnt exist while applying the patch, so lets avoid a runtime
+	if(affecting.heal_damage(brute = reac_volume, burn = reac_volume))
+		exposed_mob.update_damage_overlays()
+	exposed_mob.adjustStaminaLoss(reac_volume*2)
+	if(show_message)
+		to_chat(exposed_mob, span_danger("You feel your burns and bruises healing! It stings like hell!"))
+	SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+	exposed_mob.emote("scream")
+	//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
+	if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, BURN) && exposed_mob.getFireLoss() < THRESHOLD_UNHUSK && (exposed_mob.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
+		exposed_mob.cure_husk(BURN)
+		exposed_mob.visible_message(span_nicegreen("You successfully replace most of the burnt off flesh of [exposed_mob]."))
 
 /datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

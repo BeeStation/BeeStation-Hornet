@@ -1,4 +1,5 @@
 /datum/action/spell/conjure_item/infinite_guns
+	abstract_type = /datum/action/spell/conjure_item/infinite_guns
 	school = SCHOOL_CONJURATION
 	cooldown_time = 1.25 MINUTES
 	cooldown_reduction_per_rank = 18.5 SECONDS
