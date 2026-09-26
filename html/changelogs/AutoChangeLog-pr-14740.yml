@@ -1,5 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - balance: Nanite Rapid Coagulation actually does what the name says, it stops bleeding
-      at a rate of 0.1

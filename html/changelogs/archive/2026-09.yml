@@ -215,3 +215,7 @@
   mrmanlikesbt:
   - admin: Admins can now grant antag tokens to offline players by use of the "Modify
       Antagonist Tokens" verb in the "Adminbus" tab
+2026-09-26:
+  Isaac:
+  - balance: Nanite Rapid Coagulation actually does what the name says, it stops bleeding
+      at a rate of 0.1
