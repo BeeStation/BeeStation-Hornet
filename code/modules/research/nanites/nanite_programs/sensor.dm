@@ -270,7 +270,7 @@
 	trigger_cost = 0
 	trigger_cooldown = 5
 
-	var/list/static/allowed_species = list()
+	var/static/list/allowed_species = list()
 
 /datum/nanite_program/sensor/species/New()
 	if(!length(allowed_species))

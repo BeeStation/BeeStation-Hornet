@@ -12,7 +12,6 @@
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
 
-
 /datum/armor/sign_barsign
 	melee = 20
 	bullet = 20
@@ -40,7 +39,7 @@
 		desc = sign.desc
 
 	if(sign.rename_area && sign.name)
-		rename_area(src, sign.name)
+		rename_area(get_area(src), sign.name)
 
 	return sign
 

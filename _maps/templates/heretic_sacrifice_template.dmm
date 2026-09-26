@@ -30,9 +30,7 @@
 /turf/open/floor/vault/sandstone,
 /area/heretic_sacrifice/rust)
 "fh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/heretic_sacrifice/rust)
 "gJ" = (
@@ -49,9 +47,7 @@
 /area/heretic_sacrifice/flesh)
 "jg" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/rust,
 /area/heretic_sacrifice/rust)
 "jB" = (
@@ -73,9 +69,7 @@
 /area/heretic_sacrifice/rust)
 "mG" = (
 /obj/effect/turf_decal/weather,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/rust,
 /area/heretic_sacrifice/rust)
 "mR" = (
@@ -173,9 +167,7 @@
 /turf/open/floor/plating/rust,
 /area/heretic_sacrifice/rust)
 "uT" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/rust,
 /area/heretic_sacrifice/rust)
 "vs" = (
@@ -208,12 +200,6 @@
 	slowdown = 0
 	},
 /area/heretic_sacrifice/ash)
-"xk" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/heretic_sacrifice/rust)
 "yC" = (
 /obj/effect/turf_decal/trimline/brown/line{
 	dir = 1
@@ -249,12 +235,6 @@
 "AO" = (
 /turf/open/floor/fakespace,
 /area/heretic_sacrifice/void)
-"Bl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/heretic_sacrifice/rust)
 "Bv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/brown/line,
@@ -1058,7 +1038,7 @@ dZ
 dZ
 ER
 Je
-xk
+fh
 Xr
 Xr
 Xr
@@ -1089,7 +1069,7 @@ AN
 mb
 HE
 oh
-Bl
+fh
 Xr
 ps
 AN

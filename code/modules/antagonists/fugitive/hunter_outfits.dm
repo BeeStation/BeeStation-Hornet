@@ -137,7 +137,7 @@
 /datum/outfit/bounty/gunner
 	name = "Bounty Hunter - Heavy Weapons Synth"
 
-	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	mask = /obj/item/cigarette/cigar/cohiba
 	uniform = /obj/item/clothing/under/color/white
 	belt = /obj/item/storage/belt/military
 	suit = /obj/item/clothing/suit/armor/riot

@@ -34,11 +34,13 @@
 	log_admin("[key_name(usr)] played sound [sound]")
 	message_admins("[key_name_admin(usr)] played sound [sound]")
 
-	for(var/mob/player in GLOB.player_list)
-		if(player.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
-			admin_sound.volume = vol * player.client.admin_music_volume
-			SEND_SOUND(player, admin_sound)
-			admin_sound.volume = vol
+	for(var/mob/player_mob as anything in GLOB.player_list)
+		player_mob.client?.sound_channel_initial_volumes["[CHANNEL_ADMIN]"] = vol
+
+		var/volume_modifier = player_mob.client?.prefs.read_preference(/datum/preference/numeric/volume/sound_midi_volume)
+		admin_sound.volume = vol * player_mob.client.admin_music_volume * (volume_modifier / 100)
+		SEND_SOUND(player_mob, admin_sound)
+		admin_sound.volume = vol
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -112,20 +114,31 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 				music_extra_data["album"] = "Song Album Hidden"
 			if("Cancel", null)
 				return
+
 		var/anon = tgui_alert(user, "Display who played the song?", "Credit Yourself?", list("Yes", "No", "Cancel"))
+
+		var/list/recipients = list()
+		for(var/client/client in GLOB.clients)
+			var/pref_volume = client?.prefs.read_preference(/datum/preference/numeric/volume/sound_midi_volume)
+			if(pref_volume > 0)
+				recipients += client
+		recipients |= user.client
+
 		switch(anon)
 			if("Yes")
 				if(res == "Yes")
-					to_chat(world, span_boldannounce("[user.key] played: [webpage_url]"))
+					to_chat(recipients, span_boldannounce("[user.key] played: [webpage_url]"))
 				else
-					to_chat(world, span_boldannounce("[user.key] played a sound"))
+					to_chat(recipients, span_boldannounce("[user.key] played a sound"))
 			if("No")
 				if(res == "Yes")
-					to_chat(world, span_boldannounce("An admin played: [webpage_url]"))
-			if("Cancel", null)
+					to_chat(recipients, span_boldannounce("An admin played: [webpage_url]"))
+			else
 				return
+
 		if(credit)
-			to_chat(world, span_boldannounce(credit))
+			to_chat(recipients, span_boldannounce(credit))
+
 		SSblackbox.record_feedback("nested tally", "played_url", 1, list("[user.ckey]", "[input]"))
 		log_admin("[key_name(user)] played web sound: [input]")
 		message_admins("[key_name(user)] played web sound: [input]")
@@ -136,22 +149,25 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 		message_admins("[key_name(user)] stopped web sounds.")
 		web_sound_url = null
 		stop_web_sounds = TRUE
+
 	if(web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
 		tgui_alert(user, "The media provider returned a content URL that isn't using the HTTP or HTTPS protocol. This is a security risk and the sound will not be played.", "Security Risk", list("OK"))
 		to_chat(user, span_boldwarning("BLOCKED: Content URL not using HTTP(S) Protocol!"))
-
 		return
+
 	if(web_sound_url || stop_web_sounds)
-		for(var/mob/player in GLOB.player_list)
-			var/client/player_client = player.client
-			if(player_client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
-				// Stops playing lobby music and admin loaded music automatically.
-				SEND_SOUND(player_client, sound(null, channel = CHANNEL_LOBBYMUSIC))
-				SEND_SOUND(player_client, sound(null, channel = CHANNEL_ADMIN))
-				if(!stop_web_sounds)
-					player_client.tgui_panel?.play_music(web_sound_url, music_extra_data)
-				else
-					player_client.tgui_panel?.stop_music()
+		for(var/mob/player_mob as anything in GLOB.player_list)
+			var/pref_volume = player_mob.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_midi_volume)
+			if(pref_volume <= 0)
+				continue
+
+			// Stops playing lobby music and admin loaded music automatically.
+			SEND_SOUND(player_mob, sound(null, channel = CHANNEL_LOBBYMUSIC))
+			SEND_SOUND(player_mob, sound(null, channel = CHANNEL_ADMIN))
+			if(!stop_web_sounds)
+				player_mob.client?.tgui_panel?.play_music(web_sound_url, music_extra_data)
+			else
+				player_mob.client?.tgui_panel?.stop_music()
 
 	CLIENT_COOLDOWN_START(GLOB, web_sound_cooldown, duration)
 
@@ -207,7 +223,7 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 	if(station_only == "Cancel" || station_only == null)
 		return
 	var/soundtracks = subtypesof(/datum/soundtrack_song)
-	for(var/datum/soundtrack_song/song as() in soundtracks)
+	for(var/datum/soundtrack_song/song as anything in soundtracks)
 		if(initial(song.file) != null)
 			continue
 		soundtracks -= song

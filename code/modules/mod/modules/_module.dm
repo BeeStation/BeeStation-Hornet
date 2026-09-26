@@ -226,7 +226,7 @@
 /// Called when an activated module without a device is active and the user alt/middle-clicks
 /obj/item/mod/module/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
-	on_select_use(target)
+	INVOKE_ASYNC(src, PROC_REF(on_select_use), target)
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process
@@ -389,12 +389,12 @@
 	if(module_type == MODULE_PASSIVE)
 		return
 
-	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[REF(user)]
+	var/datum/action/item_action/mod/pinnable/module/existing_action = pinned_to[REF(user)]
 	if(existing_action)
 		mod.remove_item_action(existing_action)
 		return
 
-	var/datum/action/item_action/mod/pinned_module/new_action = new(mod, src, user)
+	var/datum/action/item_action/mod/pinnable/module/new_action = new(mod, user, src)
 	mod.add_item_action(new_action)
 
 /// On drop key, concels a device item.

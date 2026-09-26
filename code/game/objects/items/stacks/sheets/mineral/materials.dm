@@ -17,6 +17,9 @@ Mineral Sheets
 
 /* Sandstone */
 
+/obj/item/stack/sheet/mineral
+	abstract_type = /obj/item/stack/sheet/mineral
+
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
 	desc = "This appears to be a combination of both sand and stone."
@@ -232,6 +235,6 @@ Mineral Sheets
 		return ..()
 
 /obj/item/stack/sheet/mineral/coal/fire_act(exposed_temperature, exposed_volume)
-	atmos_spawn_air("co2=[amount*10];TEMP=[exposed_temperature]")
+	atmos_spawn_air("[GAS_CO2]=[amount*10];TEMP=[exposed_temperature]")
 	qdel(src)
 

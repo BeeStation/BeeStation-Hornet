@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(supply)
 	name = "Supply"
 	//Get a new stock update every 2 minutes
 	wait = 2 MINUTES
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME
 	var/list/supply_packs = list()
 	var/list/shoppinglist = list()

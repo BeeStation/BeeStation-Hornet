@@ -34,7 +34,7 @@ Difficulty: Medium
 	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/projectile/kinetic/miner
-	projectilesound = 'sound/weapons/kenetic_accel.ogg'
+	projectilesound = 'sound/weapons/kinetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -16
@@ -108,9 +108,8 @@ Difficulty: Medium
 	open_force = 10
 
 /obj/item/melee/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_stun_absorption("miner", 10, INFINITY)
-	. = ..()
-	target.stun_absorption -= "miner"
+	target.add_stun_absorption(source = "miner", duration = 1 SECONDS, priority = INFINITY)
+	return ..()
 
 /obj/projectile/kinetic/miner
 	damage = 20

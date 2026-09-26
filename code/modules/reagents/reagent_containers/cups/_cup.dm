@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/cup
+	abstract_type = /obj/item/reagent_containers/cup
 	name = "glass"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
@@ -255,6 +256,27 @@
 /obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
+/obj/item/reagent_containers/cup/beaker/meta/omnizine
+	list_reagents = list(/datum/reagent/medicine/omnizine = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/sal_acid
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/oxandrolone
+	list_reagents = list(/datum/reagent/medicine/oxandrolone = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/pen_acid
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 180)
+
+/obj/item/reagent_containers/cup/beaker/meta/atropine
+	list_reagents = list(/datum/reagent/medicine/atropine = 180)
+
+/obj/item/reagent_containers/cup/beaker/stabilizing_nanites
+	list_reagents = list(/datum/reagent/medicine/stabilizing_nanites = 50)
+
+/obj/item/reagent_containers/cup/beaker/meta/rezadone
+	list_reagents = list(/datum/reagent/medicine/rezadone = 180)
+
 /obj/item/reagent_containers/cup/beaker/sulfuric
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
 
@@ -438,7 +460,7 @@
 	volume = 5000
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 5000)
 
-/obj/item/reagent_containers/cup/saline/Moved(atom/OldLoc, Dir)
+/obj/item/reagent_containers/cup/saline/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if (loc && !istype(loc, /obj/machinery/iv_drip/saline))
 		qdel(src)
 		return

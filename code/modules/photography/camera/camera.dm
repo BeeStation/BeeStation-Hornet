@@ -187,7 +187,7 @@
 	var/list/turfs = list()
 	var/list/mobs = list()
 	var/blueprints = FALSE
-	var/clone_area = SSmapping.RequestBlockReservation(size_x * 2 + 1, size_y * 2 + 1)
+	var/clone_area = SSmapping.request_turf_block_reservation(size_x * 2 + 1, size_y * 2 + 1)
 	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
 		var/turf/turf = placeholder
 		while(istype(turf, /turf/open/openspace)) //Multi-z photography
@@ -211,8 +211,8 @@
 		// |=, let's not spam "You can also see a ... thing? 8 times"
 		desc |= mob.get_photo_description(src)
 
-	var/psize_x = (size_x * 2 + 1) * world.icon_size
-	var/psize_y = (size_y * 2 + 1) * world.icon_size
+	var/psize_x = (size_x * 2 + 1) * ICON_SIZE_X
+	var/psize_y = (size_y * 2 + 1) * ICON_SIZE_Y
 	var/get_icon = camera_get_icon(turfs, target_turf, psize_x, psize_y, clone_area, size_x, size_y, (size_x * 2 + 1), (size_y * 2 + 1))
 	qdel(clone_area)
 	var/icon/temp = icon('icons/effects/96x96.dmi',"")

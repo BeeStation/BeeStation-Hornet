@@ -5,3 +5,7 @@
 	. = ..()
 	screentip = new(null, src)
 	infodisplay += screentip
+
+/datum/hud/Destroy()
+	. = ..()
+	screentip = null

@@ -68,10 +68,11 @@
 	var/seed_multiplier = 1
 
 /obj/machinery/seed_extractor/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_seeds = initial(max_seeds) * B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		seed_multiplier = initial(seed_multiplier) * M.rating
+	. = ..()
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		max_seeds = initial(max_seeds) * B.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		seed_multiplier = initial(seed_multiplier) * M.tier
 
 /obj/machinery/seed_extractor/examine(mob/user)
 	. = ..()

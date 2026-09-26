@@ -57,8 +57,8 @@
 	var/obj/item/stock_parts/scanning_module/scanmod
 	/// Keeps track of the mech's capacitor
 	var/obj/item/stock_parts/capacitor/capacitor
-	/// Keeps track of the mech's servo motor
-	var/obj/item/stock_parts/manipulator/servo
+	/// Keeps track of the mech's manipulator
+	var/obj/item/stock_parts/manipulator/manipulator
 	///Contains flags for the mecha
 	var/mecha_flags = CAN_STRAFE | IS_ENCLOSED | HAS_LIGHTS
 
@@ -203,7 +203,7 @@
 	var/lavaland_only = FALSE
 
 	/// ref to screen object that displays in the middle of the UI
-	var/atom/movable/screen/mech_view/ui_view
+	var/atom/movable/screen/map_view/ui_view
 
 	/// Theme of the mech TGUI
 	var/ui_theme = "ntos"
@@ -219,7 +219,8 @@
 
 /obj/vehicle/sealed/mecha/Initialize(mapload, built_manually)
 	. = ..()
-	ui_view = new(null, src)
+	ui_view = new
+	ui_view.generate_view("mech_view_[REF(src)]")
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 	spark_system.set_up(2, 0, src)
@@ -239,8 +240,8 @@
 	log_message("[src.name] created.", LOG_MECHA)
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -302,14 +303,17 @@
 	QDEL_NULL(cell)
 	QDEL_NULL(scanmod)
 	QDEL_NULL(capacitor)
-	QDEL_NULL(servo)
+	QDEL_NULL(manipulator)
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_NULL(ui_view)
+	QDEL_LIST(trackers)
 	QDEL_NULL(wires)
 
 	GLOB.mechas_list -= src //global mech list
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.remove_atom_from_hud(src) //YEET
 	return ..()
 
 ///Add parts on mech spawning. Skipped in manual construction.
@@ -317,7 +321,7 @@
 	cell = new /obj/item/stock_parts/cell/high(src)
 	scanmod = new /obj/item/stock_parts/scanning_module(src)
 	capacitor = new /obj/item/stock_parts/capacitor(src)
-	servo = new /obj/item/stock_parts/manipulator(src)
+	manipulator = new /obj/item/stock_parts/manipulator(src)
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/CheckParts(list/parts_list)
@@ -326,7 +330,7 @@
 	diag_hud_set_mechcell()
 	scanmod = locate(/obj/item/stock_parts/scanning_module) in contents
 	capacitor = locate(/obj/item/stock_parts/capacitor) in contents
-	servo = locate(/obj/item/stock_parts/manipulator) in contents
+	manipulator = locate(/obj/item/stock_parts/manipulator) in contents
 	update_part_values()
 
 /obj/vehicle/sealed/mecha/atom_destruction()
@@ -461,10 +465,10 @@
 				continue
 			. += span_notice("[icon2html(ME, user)] \A [ME].")
 	if(mecha_flags & PANEL_OPEN)
-		if(servo)
-			. += span_notice("Micro-servos reduce movement power usage by [100 - round(100 / servo.rating)]%")
+		if(manipulator)
+			. += span_notice("Micro-manipulators reduce movement power usage by [100 - round(100 / manipulator.rating)]%")
 		else
-			. += span_warning("It's missing a micro-servo.")
+			. += span_warning("It's missing a micro-manipulator.")
 		if(capacitor)
 			. += span_notice("Capacitor increases armor against energy attacks by [capacitor.rating * 5].")
 		else
@@ -796,7 +800,7 @@
 			return
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
+			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs && LAZYLEN(occupants)) //Oh, I am sorry, were you using that?
 				to_chat(AI, span_warning("Occupants detected! Forced ejection initiated!"))
 				to_chat(occupants, span_danger("You have been forcibly ejected!"))
@@ -970,8 +974,8 @@
 
 /// Update the energy drain according to parts and status
 /obj/vehicle/sealed/mecha/proc/update_energy_drain()
-	if(servo)
-		step_energy_drain = initial(step_energy_drain) / servo.rating
+	if(manipulator)
+		step_energy_drain = initial(step_energy_drain) / manipulator.rating
 	else
 		step_energy_drain = 2 * initial(step_energy_drain)
 	if(overclock_mode)

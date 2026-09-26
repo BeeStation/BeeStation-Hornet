@@ -79,7 +79,7 @@
 			desc = "[initial(desc)] Looks like it's been used up."
 	return TRUE
 
-/obj/item/autosurgeon/cmo
+/obj/item/autosurgeon/medical_hud
 	name = "nanotrasen medical autosurgeon"
 	desc = "A single use autosurgeon that contains a medical heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
@@ -112,6 +112,18 @@
 	desc = "A single use autosurgeon that contains an energy saw arm implant."
 	uses = 1
 	starting_organ = list(/obj/item/organ/cyberimp/arm/esaw)
+
+/obj/item/autosurgeon/syndicate/surgerytoolset
+	name = "suspicious autosurgeon (hacked surgery toolset)"
+	desc = "A single use autosurgeon that contains a hacked surgery toolset."
+	starting_organ = list(/obj/item/organ/cyberimp/arm/surgery)
+
+/obj/item/autosurgeon/syndicate/surgerytoolset/Initialize(mapload)
+	. = ..()
+	var/obj/item/organ/cyberimp/arm/surgery/toolset = locate() in src
+	if(toolset)
+		var/obj/item/knife/combat/cyborg/knife = new(toolset)
+		toolset.items_list.Insert(1, WEAKREF(knife))
 
 /obj/item/autosurgeon/hydraulic_blade
 	name = "autosurgeon (hydraulic blade arm)"

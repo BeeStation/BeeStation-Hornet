@@ -6,7 +6,7 @@
 	var/last_blood_state = BLOOD_STATE_NOT_BLOODY
 
 	/// How much of each grubby type we have on our feet
-	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0,BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0, "LE" = 0)
 
 	/// The ITEM_SLOT_* slot the item is equipped on, if it is.
 	var/equipped_slot
@@ -43,7 +43,7 @@
   * Returns true if the parent item is obscured by something else that the wielder is wearing
   */
 /datum/component/bloodysoles/proc/is_obscured()
-	return equipped_slot in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & equipped_slot
 
 /**
   * Run to update the icon of the parent
@@ -213,7 +213,7 @@
 	if(!(clean_types & CLEAN_TYPE_BLOOD) || last_blood_state == BLOOD_STATE_NOT_BLOODY)
 		return
 
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0, "LE" = 0)
 	last_blood_state = BLOOD_STATE_NOT_BLOODY
 	update_icon()
 	return TRUE
@@ -242,10 +242,10 @@
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
-	if(!ishuman(wielder))
+	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
 		return
 	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
-		bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
+		bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
 		. += bloody_feet
 	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
 		wielder.remove_overlay(SHOES_LAYER)
@@ -275,7 +275,7 @@
 /datum/component/bloodysoles/feet/is_obscured()
 	if(wielder.shoes)
 		return TRUE
-	return ITEM_SLOT_FEET in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & ITEM_SLOT_FEET
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)

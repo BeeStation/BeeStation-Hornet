@@ -2,147 +2,147 @@
 "b" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/blue,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "d" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/orange,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "e" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "f" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/orange,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "h" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/carpet/blue,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /turf/open/floor/carpet/orange,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/carpet/cyan,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/carpet/orange,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "n" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/purple,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/blue,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
 	},
 /turf/open/floor/carpet/orange,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm4";
 	name = "Dorm 4"
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "w" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm1";
 	name = "Dorm 1"
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "z" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm3";
 	name = "Dorm 3"
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "A" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/cyan,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "B" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/purple,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /turf/open/floor/carpet/purple,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
 	},
 /turf/open/floor/carpet/purple,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /turf/open/floor/carpet/blue,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "L" = (
 /turf/open/floor/carpet/cyan,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
 	},
 /turf/open/floor/carpet/blue,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm2";
 	name = "Dorm 2"
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Q" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "R" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/cyan,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /turf/open/floor/carpet/purple,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
 	},
 /turf/open/floor/carpet/cyan,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Y" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 Q

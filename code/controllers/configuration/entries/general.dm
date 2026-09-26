@@ -587,16 +587,6 @@
 
 /datum/config_entry/flag/picture_logging_camera
 
-
-/datum/config_entry/flag/reopen_roundstart_suicide_roles
-
-/datum/config_entry/flag/reopen_roundstart_suicide_roles_command_positions
-
-/datum/config_entry/number/reopen_roundstart_suicide_roles_delay
-	min_val = 30
-
-/datum/config_entry/flag/reopen_roundstart_suicide_roles_command_report
-
 /datum/config_entry/string/metacurrency_name
 	config_entry_value = "MetaCoin"
 
@@ -682,3 +672,10 @@
 /datum/config_entry/flag/enable_mrat
 
 /datum/config_entry/string/discord_ooc_tag
+
+/**
+ * Tgui ui_act payloads larger than 2kb are split into chunks a maximum of 1kb in size.
+ * This flag represents the maximum chunk count the server is willing to receive.
+ */
+/datum/config_entry/number/tgui_max_chunk_count
+	config_entry_value = 32

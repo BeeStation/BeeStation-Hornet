@@ -10,7 +10,7 @@
 	item_flags = NONE
 	clumsy_check = FALSE
 
-	var/hugbox = TRUE
+	var/hugbox = FALSE
 	var/max_power = INFINITY
 	var/reaction_volume_mod = 0
 	var/reaction_cycles = 3				//How many times gases react() before calculation. Very finnicky value, do not mess with without good reason.
@@ -40,18 +40,20 @@
 		user.put_in_hands(bomb)
 		user.visible_message(span_warning("[user] detaches [bomb] from [src]."))
 		bomb = null
-	update_icon()
+	update_appearance()
 	return ..()
 
-/obj/item/gun/blastcannon/update_icon()
-	if(bomb)
-		icon_state = icon_state_loaded
-		name = "blast cannon"
-		desc = "A makeshift device used to concentrate a bomb's blast energy to a narrow wave."
-	else
-		icon_state = initial(icon_state)
-		name = initial(name)
-		desc = initial(desc)
+/obj/item/gun/blastcannon/update_icon_state()
+	. = ..()
+	icon_state = bomb ? icon_state_loaded : initial(icon_state)
+
+/obj/item/gun/blastcannon/update_name(updates)
+	name = bomb ? "blast cannon" : initial(name)
+	return ..()
+
+/obj/item/gun/blastcannon/update_desc(updates)
+	desc = bomb ? "A makeshift device used to concentrate a bomb's blast energy to a narrow wave." : initial(desc)
+	return ..()
 
 /obj/item/gun/blastcannon/attackby(obj/item/transfer_valve/bomb_to_attach, mob/user)
 	if(!istype(bomb_to_attach))
@@ -66,15 +68,15 @@
 
 	user.visible_message(span_warning("[user] attaches [bomb_to_attach] to [src]!"))
 	bomb = bomb_to_attach
-	update_icon()
+	update_appearance()
 	return TRUE
 
 //returns the third value of a bomb blast
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb) || !bomb.ready())
 		return 0
-	var/datum/gas_mixture/temp = new(max(reaction_volume_mod, 0))
-	bomb.merge_gases(temp)
+	var/datum/gas_mixture/temp = new(bomb.tank_one.air_contents.volume + bomb.tank_two.air_contents.volume + max(reaction_volume_mod, 0))
+	bomb.merge_gases(temp, FALSE)
 	if(prereaction)
 		temp.react(src)
 		var/prereaction_pressure = temp.return_pressure()
@@ -93,7 +95,7 @@
 	var/power = bomb? calculate_bomb() : debug_power
 	power = min(power, max_power)
 	QDEL_NULL(bomb)
-	update_icon()
+	update_appearance()
 	var/heavy = power * 0.25
 	var/medium = power * 0.5
 	var/light = power
@@ -143,7 +145,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/projectile/blastwave)
 	else if(lightr)
 		amount_destruction = EXPLODE_LIGHT
 		wallbreak_chance = 33
-	if(amount_destruction)
+	if(amount_destruction && loc)
 		if(hugbox)
 			loc.contents_explosion(EXPLODE_HEAVY, loc)
 			if(istype(loc, /turf/closed/wall))

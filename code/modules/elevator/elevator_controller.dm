@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(elevator_controller)
 	name = "Elevator Controller"
-	flags = SS_NO_FIRE | SS_NO_INIT
+	ss_flags = SS_NO_FIRE | SS_NO_INIT
 	///List of elevator groups
 	var/list/elevator_groups = list()
 	///List of elevator group positional stuff
@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(elevator_controller)
 	var/obj/structure/elevator_segment/S = elevator_groups[id][1]
 	if((abs(destination_z - S.get_virtual_z_level()) > 1 || destination_z > S.get_virtual_z_level()))
 		for(var/i in min(S.get_virtual_z_level(), destination_z) to max(S.get_virtual_z_level(), destination_z))
-			for(var/obj/structure/elevator_segment/ES as() in elevator_groups[id])
+			for(var/obj/structure/elevator_segment/ES as anything in elevator_groups[id])
 				if(!isopenspace(locate(ES.x, ES.y, i)) && i != ES.get_virtual_z_level() && !(ES.get_virtual_z_level() > destination_z && abs(ES.get_virtual_z_level() - destination_z) <= 1) && i != destination_z)
 					if(!force)
 						destination_z = i-1

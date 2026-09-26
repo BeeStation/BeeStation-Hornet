@@ -1,4 +1,5 @@
 /turf/closed/wall/mineral
+	abstract_type = /turf/closed/wall/mineral
 	name = "mineral wall"
 	desc = "This shouldn't exist"
 	icon_state = "wall-0"

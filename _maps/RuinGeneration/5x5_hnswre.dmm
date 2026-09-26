@@ -4,29 +4,29 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "f" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "p" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "J" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 J

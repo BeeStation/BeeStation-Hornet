@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(master_particle_info, list())
 	src.target = target
 
 /datum/particle_editor/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/particle_editor/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -13,13 +13,13 @@ SUBSYSTEM_DEF(metrics)
 	name = "Metrics"
 	wait = 30 SECONDS
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME // ALL THE LEVELS
-	flags = SS_KEEP_TIMING // This needs to ingest every 30 IRL seconds, not ingame seconds.
+	ss_flags = SS_KEEP_TIMING // This needs to ingest every 30 IRL seconds, not ingame seconds.
 	/// The real time of day the server started. Used to calculate time drift
 	var/world_init_time = 0 // Not set in here. Set in world/New()
 
 /datum/controller/subsystem/metrics/Initialize()
 	if(!CONFIG_GET(flag/elasticsearch_metrics_enabled))
-		flags |= SS_NO_FIRE // Disable firing to save CPU
+		ss_flags |= SS_NO_FIRE // Disable firing to save CPU
 	return SS_INIT_SUCCESS
 
 

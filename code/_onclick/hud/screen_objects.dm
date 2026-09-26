@@ -209,7 +209,7 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
+	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		item_overlay.color = COLOR_RED
 	else
 		item_overlay.color = COLOR_VIBRANT_LIME
@@ -366,17 +366,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	toggle(usr)
 
 /atom/movable/screen/mov_intent/update_icon_state()
-	switch(hud?.mymob?.m_intent)
+	if(!hud || !hud.mymob || !isliving(hud.mymob))
+		return
+	var/mob/living/living_hud_owner = hud.mymob
+	switch(living_hud_owner.move_intent)
 		if(MOVE_INTENT_WALK)
 			icon_state = "walking"
 		if(MOVE_INTENT_RUN, MOVE_INTENT_SPRINT)
 			icon_state = "running"
 	return ..()
 
-/atom/movable/screen/mov_intent/proc/toggle(mob/user)
-	if(isobserver(user))
+/atom/movable/screen/mov_intent/proc/toggle(mob/living/user)
+	if(!istype(user))
 		return
-	if(user.m_intent != MOVE_INTENT_WALK)
+	if(user.move_intent != MOVE_INTENT_WALK)
 		user.set_move_intent(MOVE_INTENT_WALK)
 	else
 		user.set_move_intent(MOVE_INTENT_RUN)
@@ -579,6 +582,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if(choice != selecting)
 		selecting = choice
 		update_icon()
+		SEND_SIGNAL(user, COMSIG_MOB_SELECTED_ZONE_SET, choice)
 
 	return TRUE
 

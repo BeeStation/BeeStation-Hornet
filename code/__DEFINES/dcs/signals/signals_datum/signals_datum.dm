@@ -50,6 +50,9 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from datum/species/handle_chemical(): (datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
+#define COMSIG_SPECIES_HANDLE_CHEMICAL "species_handle_chemicals"
+	// same return values as COMSIG_MOB_STOP_REAGENT_CHECK
 
 // /datum/song signals
 /// Sent to the instrument when a song starts playing
@@ -61,9 +64,6 @@
 #define COMSIG_TURF_IS_WET "check_turf_wet"
 ///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"
-
-///Called on an object to "clean it", such as removing blood decals/overlays, etc. The clean types bitfield is sent with it. Return TRUE if any cleaning was necessary and thus performed.
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 //Creamed
 
@@ -113,22 +113,18 @@
 	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
 	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
-// /datum/mind signals
-// (mob/old, mob/new)
-#define COMSIG_MIND_TRANSFER_TO "mind_transfer_to"
-// (datum/atom_hud/antag/hud)
-#define COMSIG_MIND_JOIN_ANTAG_HUD "mind_join_antag_hud"
-// (datum/atom_hud/antag/hud)
-#define COMSIG_MIND_LEAVE_ANTAG_HUD "mind_leave_antag_hud"
-// Sent when a mob with a mind enters cryo storage: ()
-#define COMSIG_MIND_CRYOED "mind_cryoed"
-
 // /datum/component/clockwork_trap signals
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
 ///Subsystem signals
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
+
+///from SSJob whenever setup_occupations() is called, all occupations are set
+#define COMSIG_OCCUPATIONS_SETUP "occupations_setup"
+
+///from SSJob when divide_occupations() is called
+#define COMSIG_OCCUPATIONS_DIVIDED "occupations_divided"
 
 ///from SSsecurity_level when the security level changes : (new_level)
 #define COMSIG_SECURITY_LEVEL_CHANGED "security_level_changed"

@@ -89,23 +89,22 @@
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
 /datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	ADD_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
-	owner.resize = 0.8
-	owner.update_transform()
+	owner.update_transform(0.8)
 	passtable_on(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	REMOVE_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)
-	owner.resize = 1.25
-	owner.update_transform()
+	owner.update_transform(1.25)
 	passtable_off(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
-
 
 //Clumsiness has a very large amount of small drawbacks depending on item.
 /datum/mutation/clumsy
@@ -129,13 +128,10 @@
 				owner.emote("twitch")
 			if(2 to 3)
 				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced="tourette's syndrome")
-		var/x_offset_old = owner.pixel_x
-		var/y_offset_old = owner.pixel_y
-		var/x_offset = owner.pixel_x + rand(-2, 2)
-		var/y_offset = owner.pixel_y + rand(-1, 1)
-		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 1)
-		animate(owner, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
-
+		var/x_offset = rand(-2, 2)
+		var/y_offset = rand(-1, 1)
+		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(owner, pixel_x = -x_offset, pixel_y = -y_offset, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 
 //Deafness makes you deaf.
 /datum/mutation/deaf
@@ -165,8 +161,15 @@
 	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
-	if(istype(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
+	if(owner.stat == DEAD)
+		return
+	. = ..()
+	if(.)
+		return
+	if(QDELETED(owner))
+		return
+
+	owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
 
 /datum/mutation/glow
 	name = "Glowy"
@@ -313,19 +316,19 @@
 	conflicts = list(/datum/mutation/dwarfism)
 
 /datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	ADD_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
-	owner.resize = 1.25
-	owner.update_transform()
+	owner.update_transform(1.25)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 
 /datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	REMOVE_TRAIT(owner, TRAIT_GIANT, GENETIC_MUTATION)
-	owner.resize = 0.8
-	owner.update_transform()
+	owner.update_transform(0.8)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
 /datum/mutation/spastic
@@ -421,30 +424,56 @@
 	instability = 25
 	power_coeff = 1
 	species_allowed = list(SPECIES_FELINID)
-	var/added_damage = 6
+	var/damage_boost = 6
 
 /datum/mutation/catclaws/on_acquiring()
 	if(..())
 		return
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
-	owner.dna.species.attack_verb = "slash"
-	owner.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+
+	// Modify both arm limbs to have claws
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+
+			// Apply claw damage and effects
+			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
+			arm.unarmed_damage += damage_increase
+			arm.unarmed_attack_verb = "slash"
+			arm.unarmed_attack_sound = 'sound/weapons/slash.ogg'
+			arm.unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
+
 	to_chat(owner, span_notice("Claws extend from your fingertips."))
 
 /datum/mutation/catclaws/on_losing()
 	if(..())
 		return
-	to_chat(owner, span_warning(" Your claws retract into your hand."))
-	owner.dna.species.punchdamage -= added_damage
-	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
-	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
-	owner.dna.species.miss_sound = initial(owner.dna.species.miss_sound)
+
+	// Restore original arm attack values
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM))
+			// Only restore if the original values exist
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage = initial(arm.unarmed_damage)
+
+			if(arm.unarmed_attack_verb)
+				arm.unarmed_attack_verb = initial(arm.unarmed_attack_verb)
+
+			if(arm.unarmed_attack_sound)
+				arm.unarmed_attack_sound = initial(arm.unarmed_attack_sound)
+
+			if(arm.unarmed_miss_sound)
+				arm.unarmed_miss_sound = initial(arm.unarmed_miss_sound)
+
+	to_chat(owner, span_warning("Your claws retract into your hands."))
 
 /datum/mutation/catclaws/modify()
 	..()
-	if(added_damage)
-		owner.dna.species.punchdamage -= added_damage
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
+
+	// Update damage values when mutation power changes
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM) && isnum(arm.unarmed_damage))
+			// Reset to original values first
+			arm.unarmed_damage = initial(arm.unarmed_damage)
+
+			// Apply updated damage boost
+			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
+			arm.unarmed_damage += damage_increase

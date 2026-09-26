@@ -6,20 +6,21 @@
 */
 
 /datum/station_trait/job
+	abstract_type = /datum/station_trait/job
 	name = "Special Job"
 	trait_type = STATION_TRAIT_EXCLUSIVE
 	weight = 0
 	show_in_report = TRUE
 	report_message = "We opened a slot for a special job. We expect their duty can fit the station."
-	abstract_type = /datum/station_trait/job
 
-	var/datum/job/job_to_add
+	/// Type of job to enable
+	var/datum/job/job_to_add = /datum/job/clown
 
 /datum/station_trait/job/New()
 	if(!job_to_add)
 		return
 
-	var/datum/job/job = SSjob.GetJobType(job_to_add)
+	var/datum/job/job = SSjob.get_job_type(job_to_add)
 	job.total_positions++
 	return ..()
 

@@ -24,7 +24,7 @@
 /turf/open/floor/iron/white,
 /area/template_noop)
 "j" = (
-/obj/item/food/cheesewedge,
+/obj/item/food/cheese/wedge,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/template_noop)

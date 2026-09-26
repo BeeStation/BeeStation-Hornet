@@ -101,7 +101,7 @@
 		var/turf/T = safepick(validturfs)
 		if(T)
 			if(istype(T, /turf/open/floor/plating))
-				T.PlaceOnTop(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
+				T.place_on_top(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
 			else
 				T.ChangeTurf(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
 		else
@@ -153,7 +153,7 @@
 	for(var/i in 1 to 8)
 		var/mob/living/spawned_mob = create_random_mob(altar_turf, FRIENDLY_SPAWN)
 		spawned_mob.faction |= FACTION_NEUTRAL
-	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
+	playsound(altar_turf, 'sound/ambience/ruin/servicebell.ogg', 25, TRUE)
 	if(prob(0.1))
 		playsound(altar_turf, 'sound/effects/bamf.ogg', 100, TRUE)
 		altar_turf.visible_message(span_boldwarning("A large form seems to be forcing its way into your reality via the portal [user] opened! RUN!!!"))

@@ -50,7 +50,7 @@
 	if(isobserver(A) || isrevenant(A))
 		to_chat(src, span_revenwarning("You can't orbit a ghost!"))
 		return
-	if(notransform || inhibited || !incorporeal_move_check(A))
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM) || inhibited || !incorporeal_move_check(A))
 		return
 	..()
 
@@ -406,7 +406,7 @@
 		if(iscarbon(mob))
 			if(ishuman(mob))
 				var/mob/living/carbon/human/H = mob
-				//H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
+				H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
 				var/blightfound = FALSE
 				for(var/datum/disease/revblight/blight in H.diseases)
 					blightfound = TRUE

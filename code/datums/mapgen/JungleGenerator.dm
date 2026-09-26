@@ -92,7 +92,8 @@
 
 /area/mine/planetgeneration
 	name = "planet generation area"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 	map_generator = /datum/map_generator/jungle_generator
 
 #undef BIOME_RANDOM_SQUARE_DRIFT

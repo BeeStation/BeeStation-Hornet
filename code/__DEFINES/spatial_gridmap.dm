@@ -8,8 +8,6 @@
 /// number of grid cells per x or y side of all z levels. pass in world.maxx or world.maxy
 #define SPATIAL_GRID_CELLS_PER_SIDE(world_bounds) GET_SPATIAL_INDEX(world_bounds)
 
-#define SPATIAL_GRID_CHANNELS 2
-
 //grid contents channels
 
 ///everything that is hearing sensitive is stored in this channel

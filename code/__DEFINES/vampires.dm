@@ -171,4 +171,3 @@
 #define TRAIT_TORPOR "trait_torpor"
 
 // Macros
-#define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)

@@ -28,7 +28,7 @@
 			return do_bloodcrawl(blood_nearby, user)
 
 	reset_spell_cooldown()
-	to_chat(user, ("<span class='warning'>There must be a nearby source of blood!</span>"))
+	to_chat(user, span_warning("There must be a nearby source of blood!"))
 
 /**
  * Attempts to enter or exit the passed blood pool.
@@ -42,7 +42,7 @@
 
 	if(!.)
 		reset_spell_cooldown()
-		to_chat(jaunter, ("<span class='warning'>You are unable to blood crawl!</span>"))
+		to_chat(jaunter, span_warning("You are unable to blood crawl!"))
 
 /**
  * Attempts to enter the passed blood pool.
@@ -51,7 +51,7 @@
 /datum/action/spell/jaunt/bloodcrawl/proc/try_enter_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
 		if(enter_blood_time > 0 SECONDS)
-			blood.visible_message(("<span class='warning'>[jaunter] starts to sink into [blood]!</span>"))
+			blood.visible_message(span_warning("[jaunter] starts to sink into [blood]!"))
 			if(!do_after(jaunter, enter_blood_time, target = blood))
 				return FALSE
 
@@ -59,10 +59,10 @@
 	var/turf/jaunt_turf = get_turf(blood)
 
 	// Begin the jaunt
-	jaunter.notransform = TRUE
+	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	var/obj/effect/dummy/phased_mob/holder = enter_jaunt(jaunter, jaunt_turf)
 	if(!holder)
-		jaunter.notransform = FALSE
+		REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 		return FALSE
 
 	if(equip_blood_hands && iscarbon(jaunter))
@@ -75,11 +75,11 @@
 		jaunter.put_in_hands(left_hand)
 		jaunter.put_in_hands(right_hand)
 
-	blood.visible_message(("<span class='warning'>[jaunter] sinks into [blood]!</span>"))
+	blood.visible_message(span_warning("[jaunter] sinks into [blood]!"))
 	playsound(jaunt_turf, 'sound/magic/enter_blood.ogg', 50, TRUE, -1)
 	jaunter.extinguish_mob()
 
-	jaunter.notransform = FALSE
+	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	return TRUE
 
 /**
@@ -88,12 +88,12 @@
  */
 /datum/action/spell/jaunt/bloodcrawl/proc/try_exit_jaunt(obj/effect/decal/cleanable/blood, mob/living/jaunter, forced = FALSE)
 	if(!forced)
-		if(jaunter.notransform)
-			to_chat(jaunter, ("<span class='warning'>You cannot exit yet!!</span>"))
+		if(HAS_TRAIT(jaunter, TRAIT_NO_TRANSFORM))
+			to_chat(jaunter, span_warning("You cannot exit yet!!"))
 			return FALSE
 
 		if(exit_blood_time > 0 SECONDS)
-			blood.visible_message(("<span class='warning'>[blood] starts to bubble...</span>"))
+			blood.visible_message(span_warning("[blood] starts to bubble..."))
 			if(!do_after(jaunter, exit_blood_time, target = blood))
 				return FALSE
 
@@ -105,7 +105,7 @@
 			jaunter.temporarilyRemoveItemFromInventory(blood_hand, force = TRUE)
 			qdel(blood_hand)
 
-	blood.visible_message(("<span class='boldwarning'>[jaunter] rises out of [blood]!</span>"))
+	blood.visible_message(span_boldwarning("[jaunter] rises out of [blood]!"))
 	return TRUE
 
 /datum/action/spell/jaunt/bloodcrawl/exit_jaunt(mob/living/unjaunter, turf/loc_override)
@@ -159,8 +159,8 @@
 
 	if(victim.stat == CONSCIOUS)
 		jaunt_turf.visible_message(
-			("<span class='warning'>[victim] kicks free of [blood] just before entering it!</span>"),
-			blind_message = ("<span class='notice'>You hear splashing and struggling.</span>"),
+			span_warning("[victim] kicks free of [blood] just before entering it!"),
+			blind_message = span_notice("You hear splashing and struggling."),
 		)
 		return FALSE
 
@@ -170,13 +170,13 @@
 	victim.forceMove(jaunter)
 	victim.emote("scream")
 	jaunt_turf.visible_message(
-		("<span class='boldwarning'>[jaunter] drags [victim] into [blood]!</span>"),
-		blind_message = ("<span class='notice'>You hear a splash.</span>"),
+		span_boldwarning("[jaunter] drags [victim] into [blood]!"),
+		blind_message = span_notice("You hear a splash."),
 	)
 
-	jaunter.notransform = TRUE
+	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 	consume_victim(victim, jaunter)
-	jaunter.notransform = FALSE
+	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, REF(src))
 
 	return TRUE
 

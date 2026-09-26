@@ -949,7 +949,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
-	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_DIAGNOSTIC_HUD)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
@@ -972,18 +972,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
 	. = ..()
 	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.add_hud_to(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
 
 /obj/item/clothing/suit/space/hardsuit/research_director
 	icon_state = "hardsuit-rd"
@@ -1168,60 +1156,6 @@
 	inhand_icon_state = "capspacesuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
 	cell = /obj/item/stock_parts/cell/upgraded/plus
-
-	//Clown
-/obj/item/clothing/head/helmet/space/hardsuit/clown
-	name = "cosmohonk hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low-humor environment. Has radiation shielding."
-	icon_state = "hardsuit0-clown"
-	inhand_icon_state = "hardsuit0-clown"
-	armor_type = /datum/armor/hardsuit_clown
-	hardsuit_type = "clown"
-
-
-/datum/armor/hardsuit_clown
-	melee = 30
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/clown
-	name = "cosmohonk hardsuit"
-	desc = "A special suit that protects against hazardous, low humor environments. Has radiation shielding. Only a true clown can wear it."
-	icon_state = "hardsuit-clown"
-	inhand_icon_state = "clown_hardsuit"
-	armor_type = /datum/armor/hardsuit_clown
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/clown
-
-
-/datum/armor/hardsuit_clown
-	melee = 30
-	bullet = 5
-	laser = 10
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/living/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
-	if(!..() || !ishuman(M))
-		return FALSE
-	var/mob/living/carbon/human/H = M
-	if (!H.mind)
-		return FALSE
-	if(H.mind.assigned_role == JOB_NAME_CLOWN)
-		return TRUE
-	else
-		return FALSE
 
 	//Old Prototype
 /obj/item/clothing/head/helmet/space/hardsuit/ancient

@@ -2,8 +2,6 @@
 
 	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-	if((lube & NO_SLIP_ON_CATWALK) && (locate(/obj/structure/lattice/catwalk) in get_turf(src)))
-		return FALSE
 	if(!(lube & SLIDE_ICE))
 		log_combat(src, (O ? O : get_turf(src)), "slipped on the", null, ((lube & SLIDE) ? "(LUBE)" : null))
 	return loc.handle_slip(src, knockdown_amount, O, lube, paralyze, force_drop)
@@ -17,7 +15,7 @@
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 			set_nutrition(NUTRITION_LEVEL_FED - 1)	//just less than feeling vigorous
 		else if(nutrition && stat != DEAD)
-			if(m_intent == MOVE_INTENT_WALK)
+			if(move_intent == MOVE_INTENT_WALK)
 				adjust_nutrition(-HUNGER_LOSS_WALK)
 			else
 				adjust_nutrition(-HUNGER_LOSS_RUN)

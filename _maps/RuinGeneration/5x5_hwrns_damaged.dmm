@@ -4,16 +4,16 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "w" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /turf/template_noop,
 /area/template_noop)
@@ -24,13 +24,13 @@
 "O" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "V" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 I

@@ -34,7 +34,7 @@
 	//Register a signal to cancel the process
 	RegisterSignal(component_parent, COMSIG_XENOA_CALCIFIED, PROC_REF(cancel_explosion))
 
-/datum/xenoartifact_trait/malfunction/explosion/Destroy(force, ...)
+/datum/xenoartifact_trait/malfunction/explosion/Destroy(force)
 	. = ..()
 	QDEL_NULL(exploding_indicator)
 

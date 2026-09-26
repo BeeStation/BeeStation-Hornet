@@ -3,6 +3,7 @@
 //Most of the old brain damage effects have been transferred to the dumbness trauma.
 
 /datum/brain_trauma/mild
+	abstract_type = /datum/brain_trauma/mild
 
 /datum/brain_trauma/mild/hallucinations
 	name = "Hallucinations"
@@ -88,7 +89,7 @@
 	if(DT_PROB(2.5, delta_time))
 		switch(rand(1,11))
 			if(1)
-				owner.vomit()
+				owner.vomit(VOMIT_CATEGORY_DEFAULT)
 			if(2,3)
 				owner.adjust_dizzy(20 SECONDS)
 			if(4,5)
@@ -132,7 +133,7 @@
 
 /datum/brain_trauma/mild/muscle_weakness/on_life(delta_time, times_fired)
 	var/fall_chance = 1
-	if(owner.m_intent == MOVE_INTENT_RUN)
+	if(owner.move_intent == MOVE_INTENT_RUN)
 		fall_chance += 2
 	if(DT_PROB(0.5 * fall_chance, delta_time) && owner.body_position == STANDING_UP)
 		to_chat(owner, span_warning("Your leg gives out!"))

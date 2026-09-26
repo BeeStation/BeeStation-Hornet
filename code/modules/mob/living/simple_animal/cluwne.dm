@@ -10,8 +10,9 @@
 	icon_dead = "cluwne_dead"
 	speak_emote = list("sadly honks")
 	attack_sound = 'sound/items/bikehorn.ogg'
+	attack_vis_effect = null
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
 	maxHealth = 150
@@ -20,7 +21,7 @@
 	speak_language = /datum/language/metalanguage // It's cursing cluwne why not
 	footstep_type = FOOTSTEP_MOB_SHOE
 	chat_color = "#F37EF6"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/cluwne/Initialize(mapload)
 	. = ..()

@@ -1,0 +1,56 @@
+{
+	"words": {
+		"yes": "ja",
+		"no": "nee",
+		"hello": ["hoi", "hallo"],
+		"hi": "hoi",
+		"goodbye": ["doei", "tot ziens"],
+		"nice": "lekker",
+		"tasty": "lekker",
+		"great": "tof",
+		"cool": "tof",
+		"fun": "gezellig",
+		"cozy": "gezellig",
+		"cheers": "proost",
+		"thanks": "bedankt",
+		"thank you": "bedankt",
+		"friend": "maat",
+		"bro": "maat",
+		"crazy": "gek",
+		"bike": "fiets",
+		"good": "goed",
+		"bad": "slecht",
+		"beautiful": "mooi",
+		"security": "politie",
+		"sec": "politie",
+		"shitsec": "politie",
+		"shitcurity": "politie",
+		"secoff": "agent",
+		"officer": "agent",
+		"captain": "kapitein",
+		"traitor": "verrader",
+		"changeling": "wisselkind",
+		"brig": "nor",
+		"prison": "bak",
+		"perma": "nor",
+		"credit": "euro",
+		"money": "euro",
+		"holochip": "euro",
+		"dollar": "euro"
+	},
+	"start": {
+		"wh": "v",
+		"w": "v",
+		"th": "d"
+	},
+	"end": {
+		"b": "p"
+	},
+	"syllables": {
+		"w": "v"
+	},
+	"appends": [
+		"ja.",
+		"toch?"
+	]
+}

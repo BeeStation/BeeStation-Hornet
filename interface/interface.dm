@@ -65,7 +65,7 @@ AUTH_CLIENT_VERB(reportissue)
 			message += GLOB.revdata.GetTestMergeInfo(FALSE)
 		// We still use tgalert here because some people were concerned that if someone wanted to report that tgui wasn't working
 		// then the report issue button being tgui-based would be problematic.
-		if(tgalert(src, message, "Report Issue","Yes","No")!="Yes")
+		if(tg_alert(src, message, "Report Issue", "Yes", "No") != "Yes")
 			return
 		var/static/issue_template = rustg_file_read(".github/ISSUE_TEMPLATE.md")
 		var/servername = CONFIG_GET(string/servername)

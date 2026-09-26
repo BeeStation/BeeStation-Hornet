@@ -233,7 +233,7 @@
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 	route = HERETIC_PATH_VOID
 	announcement_text = "The nobleman of void %USER% has arrived, stepping along to the Waltz that ends worlds!"
-	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
+	announcement_sound = 'sound/effects/antag/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic

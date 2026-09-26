@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(sound_effects)
 	name = "Sound"
 	wait = 0.1 SECONDS
 	priority = FIRE_PRIORITY_AMBIENCE
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	//Note: Make sure you update this if you use sound fading pre-game
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
@@ -38,16 +38,16 @@ SUBSYSTEM_DEF(sound_effects)
 
 // ===== Sound effect procs =====
 
-/proc/sound_fade(sound/sound_file, start_volume = 100, end_volume = 0, time = 1 SECONDS, list/listeners)
+/proc/sound_fade(sound/sound_file, list/listeners, time = 1 SECONDS, start_volume = 100, end_volume = 0, volume_preference)
 	//Check basics
-	if(!sound_file)
-		CRASH("sound_fade() called without a sound file.")
+	if(!istype(sound_file, /sound))
+		CRASH("sound_fade() called without a sound instance.")
 	if(ismob(listeners) || istype(listeners, /client))
 		listeners = list(listeners)
 	else if(!length(listeners))
 		CRASH("sound_fade() called without a valid listeners list.")
 	//Create datum
-	new /datum/sound_effect/fade(sound_file, listeners, time, start_volume, end_volume)
+	new /datum/sound_effect/fade(sound_file, listeners, time, volume_preference, start_volume, end_volume)
 
 // ===== Sound effect datum =====
 
@@ -58,11 +58,21 @@ SUBSYSTEM_DEF(sound_effects)
 	var/start_tick
 	var/end_tick
 	var/effect_id
+	/// Whether or not this sound effect is using a defined channel and not a randomly assigned one
+	var/has_custom_channel
+	/// The audio preference of this looping sound. Used as a multiplier per player
+	var/volume_preference
 
-/datum/sound_effect/New(sound/sound, list/listeners, time)
+/datum/sound_effect/New(sound/sound, list/listeners, time, volume_preference)
 	. = ..()
 	src.sound = sound
 	src.listeners = listeners
+	src.volume_preference = volume_preference
+
+	// Ensure we have a valid channel
+	sound.channel ||= SSsounds.random_available_channel()
+	has_custom_channel = HAS_UNIQUE_SOUND_CHANNEL(sound)
+
 	start_tick = world.time
 	end_tick = world.time + time
 	effect_id = generate_id()
@@ -78,7 +88,18 @@ SUBSYSTEM_DEF(sound_effects)
 
 /datum/sound_effect/proc/send_sound()
 	for(var/receiver in listeners)
+		if(has_custom_channel)
+			astype(receiver, /mob)?.client?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
+			astype(receiver, /client)?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
+
+		var/previous_volume = sound.volume
+		if(ispath(volume_preference))
+			var/client/receiver_client = astype(receiver, /mob)?.client || astype(receiver, /client)
+			var/pref_volume = receiver_client?.prefs?.read_player_preference(volume_preference)
+			sound.volume *= pref_volume / 100
+
 		SEND_SOUND(receiver, sound)
+		sound.volume = previous_volume
 
 /datum/sound_effect/proc/update_effect()
 	return
@@ -108,7 +129,7 @@ SUBSYSTEM_DEF(sound_effects)
 	/// Calculated
 	var/current_vol
 
-/datum/sound_effect/fade/New(sound/sound, list/listeners, time, start_vol, end_vol)
+/datum/sound_effect/fade/New(sound/sound, list/listeners, time, volume_preference, start_vol, end_vol)
 	. = ..()
 	in_vol = start_vol
 	out_vol = end_vol
@@ -129,7 +150,18 @@ SUBSYSTEM_DEF(sound_effects)
 	sound.volume = current_vol
 
 	for(var/receiver in listeners)
+		if(has_custom_channel)
+			astype(receiver, /mob)?.client?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
+			astype(receiver, /client)?.sound_channel_initial_volumes["[sound.channel]"] = sound.volume
+
+		var/previous_volume = sound.volume
+		if(ispath(volume_preference))
+			var/client/receiver_client = astype(receiver, /mob)?.client || astype(receiver, /client)
+			var/pref_volume = receiver_client?.prefs?.read_player_preference(volume_preference)
+			sound.volume *= pref_volume / 100
+
 		SEND_SOUND(receiver, sound)
+		sound.volume = previous_volume
 
 /datum/sound_effect/fade/end_effect()
 	if(!out_vol)

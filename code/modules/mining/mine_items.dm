@@ -28,6 +28,7 @@
 	new /obj/item/storage/backpack/duffelbag(src)
 	new /obj/item/storage/backpack/explorer(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
+	new /obj/item/storage/backpack/messenger/explorer(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)

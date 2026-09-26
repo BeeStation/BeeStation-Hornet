@@ -44,7 +44,6 @@
 	if(istype(T) && prob(reac_volume))
 		T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
 		M.adjust_wet_stacks(reac_volume / 10)
-		M.extinguish_mob()
 	M.apply_damage(0.4*reac_volume, BRUTE)
 	if(M)
 		M.apply_damage(0.4*reac_volume, OXY)

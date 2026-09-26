@@ -1,4 +1,5 @@
 /obj/item/clothing/under/pants
+	abstract_type = /obj/item/clothing/under/pants
 	gender = PLURAL
 	body_parts_covered = GROIN|LEGS
 	female_sprite_flags = NO_FEMALE_UNIFORM

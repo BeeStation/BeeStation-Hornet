@@ -92,7 +92,7 @@
 			this["name"] = disease_name
 			this["is_adv"] = TRUE
 			this["symptoms"] = list()
-			for(var/datum/symptom/symptom as() in adv_virus.symptoms)
+			for(var/datum/symptom/symptom as anything in adv_virus.symptoms)
 				this["symptoms"] += list(get_symptom_data(symptom))
 			this["resistance"] = adv_virus.resistance
 			this["stealth"] = adv_virus.stealth
@@ -165,6 +165,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/pandemic/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Pandemic")
@@ -184,7 +185,7 @@
 	if(!blood)
 		return
 	.["has_blood"] = TRUE
-	.[/datum/reagent/blood] = list(
+	.["blood"] = list(
 		"dna" = blood.data["blood_DNA"] || "none",
 		"type" = blood.data["blood_type"] || "none"
 	)

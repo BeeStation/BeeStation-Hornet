@@ -89,7 +89,7 @@
 /datum/aquarium_behaviour/proc/before_removal()
 	return
 
-/datum/aquarium_behaviour/Destroy(force, ...)
+/datum/aquarium_behaviour/Destroy(force)
 	STOP_PROCESSING(SSobj, src)
 	parent = null
 	return ..()

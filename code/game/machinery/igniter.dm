@@ -5,9 +5,6 @@
 	icon_state = "igniter0"
 	base_icon_state = "igniter"
 	plane = FLOOR_PLANE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
 	max_integrity = 300
 	circuit = /obj/item/circuitboard/machine/igniter
 	armor_type = /datum/armor/machinery_igniter
@@ -44,7 +41,7 @@
 		return
 	add_fingerprint(user)
 
-	use_power(50)
+	use_power(active_power_usage)
 	on = !( on )
 	update_appearance()
 
@@ -146,7 +143,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
 	flick("[initial(icon_state)]-spark", src)
 	spark_system.start()
 	last_spark = world.time
-	use_power(1000)
+	use_power(active_power_usage)
 	var/turf/location = loc
 	if (isturf(location))
 		location.hotspot_expose(1000,2500,1)

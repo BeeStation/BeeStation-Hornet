@@ -28,7 +28,7 @@
 
 /datum/fax_panel_interface/New()
 	//Get all faxes, and save them to our list.
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+	for(var/obj/machinery/fax/fax as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/fax))
 		available_faxes += WEAKREF(fax)
 
 	//Get all stamps
@@ -64,7 +64,7 @@
 		ui.open()
 
 /datum/fax_panel_interface/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/fax_panel_interface/ui_static_data(mob/user)
 	var/list/data = list()

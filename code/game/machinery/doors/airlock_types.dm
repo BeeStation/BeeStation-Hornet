@@ -359,19 +359,19 @@
 	note_attachment = "bottom"
 	panel_attachment = "bottom"
 
-/obj/machinery/door/airlock/arrivals_external
+/obj/machinery/door/airlock/external/arrivals
 	name = "arrivals airlock"
-	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	protected_door = TRUE
-	anim_parts = "top=0,16;bottom=0,-16"
-	note_attachment = "bottom"
-	panel_attachment = "bottom"
+
+// Access free external airlocks
+/obj/machinery/door/airlock/external/ruin
 
 /obj/machinery/door/airlock/external/glass
+	name = "external glass airlock"
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/external/glass/ruin
 
 //////////////////////////////////
 /*
@@ -503,6 +503,7 @@
 /obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	new openingoverlaytype(loc)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
 	return (IS_CULTIST(user) && !isAllPowerCut())
@@ -561,9 +562,6 @@
 	update_icon()
 
 /obj/machinery/door/airlock/cult/narsie_act()
-	return
-
-/obj/machinery/door/airlock/cult/emp_act(severity)
 	return
 
 /obj/machinery/door/airlock/cult/friendly

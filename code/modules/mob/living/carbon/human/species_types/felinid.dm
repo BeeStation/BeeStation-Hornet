@@ -4,13 +4,16 @@
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("tail_human" = "Cat", "ears" = "Cat", "wings" = SPRITE_ACCESSORY_NONE, "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
 	mutant_organs = list(/obj/item/organ/tail/cat)
 	mutanttongue = /obj/item/organ/tongue/cat
-	inherent_traits = list(TRAIT_HATED_BY_DOGS)
+	inherent_traits = list(
+		TRAIT_HATED_BY_DOGS,
+		TRAIT_USES_SKINTONES,
+		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -18,7 +21,7 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/human/felinid/qualifies_for_rank(rank, list/features)
+/datum/species/human/felinid/qualifies_for_rank(datum/job/rank, list/features)
 	return TRUE
 
 //Curiosity killed the cat's wagging tail.
@@ -35,9 +38,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
-			if(H.dna.features["tail_human"] == "None")
+			if(H.dna.features["tail_human"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["tail_human"] = "Cat"
-			if(H.dna.features["ears"] == "None")
+			if(H.dna.features["ears"] == SPRITE_ACCESSORY_NONE)
 				H.dna.features["ears"] = "Cat"
 		if(H.dna.features["ears"] == "Cat")
 			var/obj/item/organ/ears/cat/ears = new
@@ -51,21 +54,22 @@
 			mutant_organs = list()
 	return ..()
 
-/datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
+/datum/species/human/felinid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
-			M.adjust_disgust(20)
+			affected.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","sputters!")]"))
+			affected.visible_message(span_warning("[affected] [pick("dry heaves!","coughs!","sputters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
-			to_chat(M, span_notice("[sick_message]"))
+			to_chat(affected, span_notice("[sick_message]"))
 		if(prob(15))
-			if(locate(/obj/item/organ/stomach) in M.internal_organs)
-				var/obj/item/organ/stomach/cat_stomach = M.internal_organs_slot[ORGAN_SLOT_STOMACH]
+			if(locate(/obj/item/organ/stomach) in affected.internal_organs)
+				var/obj/item/organ/stomach/cat_stomach = affected.internal_organs_slot[ORGAN_SLOT_STOMACH]
 				cat_stomach.apply_organ_damage(15)
-		return FALSE
-	return ..() //second part of this effect is handled elsewhere
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)
@@ -107,15 +111,15 @@
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
 
-/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.hair_style = "Hime Cut"
-	human.hair_color = COLOR_PINK
-	human.update_hair()
+/datum/species/human/felinid/prepare_human_for_preview(mob/living/carbon/human/human_for_preview)
+	human_for_preview.set_haircolor(COLOR_GOLD, update = FALSE)
+	human_for_preview.set_hairstyle("Hime Cut", update = TRUE)
 
-	var/obj/item/organ/ears/cat/cat_ears = human.get_organ_by_type(/obj/item/organ/ears/cat)
+
+	var/obj/item/organ/ears/cat/cat_ears = human_for_preview.get_organ_by_type(/obj/item/organ/ears/cat)
 	if (cat_ears)
-		cat_ears.color = human.hair_color
-		human.update_body()
+		cat_ears.color = human_for_preview.hair_color
+		human_for_preview.update_body()
 
 /datum/species/human/felinid/get_species_description()
 	return "Felinids are one of the many types of bespoke genetic \

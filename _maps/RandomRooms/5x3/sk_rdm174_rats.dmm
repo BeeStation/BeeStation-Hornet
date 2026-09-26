@@ -27,7 +27,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/food/cheese/wedge,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

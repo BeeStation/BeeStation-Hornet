@@ -2,6 +2,7 @@
 #define FIRING_PIN_REMOVAL_DELAY 50
 
 /obj/item/gun
+	abstract_type = /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
@@ -215,13 +216,14 @@
 	if(azoom)
 		azoom.Grant(user)
 
-/obj/item/gun/dropped(mob/user)
+/obj/item/gun/dropped(mob/user, silent = FALSE)
 	..()
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)
 		zoom(user, user.dir)
-	update_icon()
+	if(!QDELING(src))
+		update_appearance(UPDATE_ICON_STATE)
 	user.client?.clear_cooldown_cursor()
 	if (equip_timer_id)
 		deltimer(equip_timer_id)
@@ -435,7 +437,7 @@
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
 	var/sprd = 0
-	sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
+	sprd = max(min_gun_sprd, abs(sprd)) * sign(sprd)
 	sprd += (1 - get_integrity_ratio()) * damage_variance
 	return sprd
 
@@ -622,13 +624,6 @@
 	..()
 	if(azoom)
 		azoom.Grant(user)
-
-/obj/item/gun/dropped(mob/user)
-	..()
-	if(azoom)
-		azoom.Remove(user)
-	if(zoomed)
-		zoom(user, user.dir)
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))

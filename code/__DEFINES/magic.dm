@@ -1,7 +1,4 @@
-///Spawns random guns near players and gives some players antag objectives
-#define SUMMON_GUNS "guns"
-///Spawns random wands and spellbooks near players and gives some players antag objectives
-#define SUMMON_MAGIC "magic"
+
 
 // Magic schools
 /// Unset / default / "not actually magic" school.

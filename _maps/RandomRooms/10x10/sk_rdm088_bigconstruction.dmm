@@ -51,8 +51,8 @@
 /area/template_noop)
 "i" = (
 /obj/structure/rack,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/plating,
 /area/template_noop)

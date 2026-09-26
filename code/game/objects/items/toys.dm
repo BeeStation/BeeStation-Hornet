@@ -28,6 +28,7 @@
 
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -268,6 +269,9 @@
 	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
 						span_danger("You fire [src] at [target]!"), \
 						span_italics("You hear a gunshot!"))
+
+/obj/item/toy/ammo
+	abstract_type = /obj/item/toy/ammo
 
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"
@@ -556,7 +560,7 @@
 	SIGNAL_HANDLER
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
+		if(issilicon(H) || M.move_intent == MOVE_INTENT_RUN)
 			to_chat(M, span_danger("You step on the snap pop!"))
 			pop_burst(2, 0)
 
@@ -1674,7 +1678,7 @@
 	name = "\improper Virologist action figure"
 	icon_state = "virologist"
 	toysay = "It's beneficial! Mostly."
-	toysound = 'sound/ambience/antag/ling_aler.ogg'
+	toysound = 'sound/effects/antag/ling_aler.ogg'
 
 /obj/item/toy/figure/warden
 	name = "\improper Warden action figure"
@@ -1707,7 +1711,7 @@
 	. = ..()
 	AddElement(/datum/element/toy_talk)
 
-/obj/item/toy/dummy/GetVoice()
+/obj/item/toy/dummy/get_voice()
 	return doll_name
 
 /*

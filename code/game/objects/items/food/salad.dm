@@ -1,6 +1,7 @@
 //this category is very little but I think that it has great potential to grow
 ////////////////////////////////////////////SALAD////////////////////////////////////////////
 /obj/item/food/salad
+	abstract_type = /obj/item/food/salad
 	icon = 'icons/obj/food/soupsalad.dmi'
 	trash_type = /obj/item/reagent_containers/cup/bowl
 	bite_consumption = 3

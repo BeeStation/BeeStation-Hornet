@@ -131,9 +131,9 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 		var/mob/living/mob = mind.current
 		if (!ishuman(mob) || !is_station_level(mob.z))
 			continue
-		if (allowed_roles && !(mind.assigned_role in allowed_roles) && !(mind.special_role in allowed_roles))
+		if (allowed_roles && !(mind.assigned_role.title in allowed_roles) && !(mind.special_role in allowed_roles))
 			continue
-		if (disallowed_roles && ((mind.assigned_role in disallowed_roles) || (mind.special_role in disallowed_roles)))
+		if (disallowed_roles && ((mind.assigned_role.title in disallowed_roles) || (mind.special_role in disallowed_roles)))
 			continue
 		targets += mind
 	return pick(targets)

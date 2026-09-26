@@ -1,4 +1,7 @@
 /datum/bounty/reagent
+	abstract_type = /datum/bounty/reagent
+
+/datum/bounty/reagent
 	var/required_volume = 10
 	var/shipped_volume = 0
 	var/datum/reagent/wanted_reagent

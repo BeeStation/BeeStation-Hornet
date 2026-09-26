@@ -49,7 +49,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 		. += span_notice("Use while in your hand to change what type of [src] you want.")
 	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
 		var/verb
-		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
+		switch(ceil(MAX_LIVING_HEALTH / throwforce)) //throws to crit a human
 			if(1 to 3)
 				verb = "superb"
 			if(4 to 6)
@@ -81,7 +81,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/tile)
 	if(!replace_plating)
 		if(!use(1))
 			return
-		target_plating = target_plating.PlaceOnTop(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
+		target_plating = target_plating.place_on_top(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
 		target_plating.setDir(turf_dir)
 		playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
 		return target_plating // Most executions should end here.

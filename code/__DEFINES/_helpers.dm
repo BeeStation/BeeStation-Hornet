@@ -28,3 +28,20 @@
 
 /// Takes a datum as input, returns its ref string
 #define text_ref(datum) ref(datum)
+
+
+/// #### revise_proc_arg_value(arg_number, new_value)
+/// * __arg_number__ : the order number of proc argument you want to change.
+/// * __new_value__ : The value you want to assign to the target arg (arg_number).
+/// ------------------------------------------------------------------------------------
+/// Change the value of the arg(of the desired order) into the new_value.
+/// This will change every arg value of subtype procs even if it's called from the most parent type of a proc.
+/// This is helpful when you need to call a parent proc first, but you need to change arg value for each subtype proc.
+#define revise_proc_arg_value(arg_number, new_value)\
+do{/* GOD, I HATE LINTER*/ \
+	var/callee/callee_chain = callee; /* Linter blames this if it's outside of the do-while*/\
+	do{\
+		callee_chain.args[arg_number] = new_value;\
+		callee_chain = callee_chain.caller;\
+	}while(callee.name == callee_chain.name); /* This means: while(proc_name_foo == proc_name_foo)*/ \
+}while(0); // Linter, my goodness

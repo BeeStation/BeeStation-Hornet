@@ -2,6 +2,7 @@
 //they are the easiest to cure, which means that if you want
 //to keep them, you can't cure your other traumas
 /datum/brain_trauma/special
+	abstract_type = /datum/brain_trauma/special
 
 /datum/brain_trauma/special/godwoken
 	name = "Godwoken Syndrome"
@@ -275,7 +276,7 @@
 /obj/effect/client_image_holder/securitron
 	name = "Securitron"
 	desc = "The LAW is coming."
-	image_icon = 'icons/mob/aibots.dmi'
+	image_icon = 'icons/mob/silicon/aibots.dmi'
 	image_state = "secbot-c"
 	var/victim
 

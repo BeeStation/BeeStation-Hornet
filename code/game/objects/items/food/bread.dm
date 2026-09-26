@@ -1,5 +1,6 @@
 
 /obj/item/food/bread
+	abstract_type = /obj/item/food/bread
 	name = "bread?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -24,6 +25,7 @@
 		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/breadslice
+	abstract_type = /obj/item/food/breadslice
 	name = "breadslice?"
 	desc = "This shouldn't exist, report to codermonkeys"
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -72,6 +74,9 @@
 /obj/item/food/breadslice/plain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_STACK)
+
+/obj/item/food/breadslice/plain/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/griddle_toast, rand(15 SECONDS, 25 SECONDS), TRUE, TRUE)
 
 /obj/item/food/breadslice/moldy
 	name = "moldy 'bread' slice"

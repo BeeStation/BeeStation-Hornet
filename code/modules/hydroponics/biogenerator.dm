@@ -16,7 +16,11 @@
 	var/productivity = 0
 	var/max_items = 40
 	var/datum/techweb/stored_research
-	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials")
+	var/list/show_categories = list(
+		RND_CATEGORY_FOOD,
+		RND_CATEGORY_BOTANY_CHEMICALS,
+		RND_CATEGORY_ORGANIC_MATERIALS,
+	)
 	/// Currently selected category in the UI
 	var/selected_cat
 	/// Cooldown for creating materials
@@ -24,10 +28,12 @@
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
-	stored_research = new /datum/techweb/specialized/autounlocking/biogenerator
+	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/biogenerator] ||= new /datum/techweb/autounlocking/biogenerator()
+	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/biogenerator]
 	create_reagents(1000)
 
 /obj/machinery/biogenerator/Destroy()
+	stored_research = null
 	QDEL_NULL(beaker)
 	return ..()
 
@@ -50,14 +56,15 @@
 		ui_update()
 
 /obj/machinery/biogenerator/RefreshParts()
+	. = ..()
 	var/E = 0
 	var/P = 0
 	var/max_storage = 40
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		P += B.rating
-		max_storage = 40 * B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		P += B.tier
+		max_storage = 40 * B.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		E += M.tier
 	efficiency = E
 	productivity = P
 	max_items = max_storage
@@ -150,20 +157,6 @@
 				to_chat(user, span_info("You put [O.name] in [src.name]"))
 		ui_update()
 		return TRUE //no afterattack
-	else if (istype(O, /obj/item/disk/design_disk))
-		user.visible_message("[user] begins to load \the [O] in \the [src]...",
-			"You begin to load a design from \the [O]...",
-			"You hear the chatter of a floppy drive.")
-		processing = TRUE
-		ui_update()
-		var/obj/item/disk/design_disk/D = O
-		if(do_after(user, 10, target = src))
-			for(var/B in D.blueprints)
-				if(B)
-					stored_research.add_design(B)
-		processing = FALSE
-		ui_update()
-		return TRUE
 	else
 		to_chat(user, span_warning("You cannot put this in [src.name]!"))
 

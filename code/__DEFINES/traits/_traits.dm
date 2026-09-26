@@ -41,7 +41,7 @@
 		var/list/_L = target.status_traits; \
 		var/list/target_heap = _L[_trait];\
 		if (target_heap != null) { \
-			target_heap += source;\
+			target_heap |= source;\
 		} else { \
 			_L[_trait] = list(source); \
 			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(_trait), _trait); \

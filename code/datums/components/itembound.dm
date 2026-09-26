@@ -39,7 +39,7 @@
 	REMOVE_TRAIT(parent, TRAIT_INCAPACITATED, SMITE_TRAIT)
 	qdel(src)
 
-/datum/component/itembound/Destroy(force, silent)
+/datum/component/itembound/Destroy(force)
 	containerref = null
 	QDEL_NULL(move_tracker)
 	return ..()

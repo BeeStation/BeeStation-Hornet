@@ -1,43 +1,14 @@
-/// A preview of the mech for the UI
-/atom/movable/screen/mech_view
-	name = "mechview"
-	del_on_map_removal = FALSE
-	layer = OBJ_LAYER
-	plane = GAME_PLANE
-
-	/// The body that is displayed
-	var/obj/vehicle/sealed/mecha/owner
-	///list of plane masters to apply to owners
-	var/list/plane_masters = list()
-
-/atom/movable/screen/mech_view/Initialize(mapload, obj/vehicle/sealed/mecha/newowner)
+/obj/vehicle/sealed/mecha/ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
-	owner = newowner
-	assigned_map = "mech_view_[REF(owner)]"
-	set_position(1, 1)
-	for(var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-		var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
-		plane_master.screen_loc = "[assigned_map]:CENTER"
-		plane_masters += plane_master
-
-/atom/movable/screen/mech_view/Destroy()
-	QDEL_LIST(plane_masters)
-	owner = null
-	return ..()
-
-/obj/vehicle/sealed/mecha/ui_close(mob/user)
-	. = ..()
-	user.client?.screen -= ui_view.plane_masters
-	user.client?.clear_map(ui_view.assigned_map)
+	ui_view.hide_from(user)
 
 /obj/vehicle/sealed/mecha/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Mecha", name)
-		ui.open()
 		ui.set_autoupdate(TRUE)
-		user.client?.screen |= ui_view.plane_masters
-		user.client?.register_map_obj(ui_view)
+		ui.open()
+		ui_view.display_to(user, ui.window)
 
 /obj/vehicle/sealed/mecha/ui_status(mob/user)
 	if(contains(user))
@@ -88,9 +59,12 @@
 	)
 
 	var/list/regions = list()
-	for(var/i in 1 to 7)
+	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
+		if(!length(each_dept.access_list) || each_dept.access_filter)
+			continue
+
 		var/list/accesses = list()
-		for(var/access in get_region_accesses(i))
+		for(var/access in each_dept.access_list)
 			if (get_access_desc(access))
 				accesses += list(list(
 					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
@@ -98,8 +72,8 @@
 				))
 
 		regions += list(list(
-			"name" = get_region_accesses_name(i),
-			"regid" = i,
+			"name" = each_dept.access_group_name,
+			"regid" = each_dept.department_bitflags,
 			"accesses" = accesses
 		))
 
@@ -113,7 +87,7 @@
 	data["cell"] = cell?.name
 	data["scanning"] = scanmod?.name
 	data["capacitor"] = capacitor?.name
-	data["servo"] = servo?.name
+	data["manipulator"] = manipulator?.name
 	ui_view.appearance = appearance
 	data["name"] = name
 	data["integrity"] = atom_integrity
@@ -132,7 +106,6 @@
 	data["one_access"] = one_access
 	data["accesses"] = accesses
 
-	data["servo_rating"] = servo?.rating
 	data["scanmod_rating"] = scanmod?.rating
 	data["capacitor_rating"] = capacitor?.rating
 
@@ -206,16 +179,18 @@
 				accesses -= access
 			update_access()
 		if("grant_region")
-			var/region = params["region"]
+			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			accesses |= get_region_accesses(region)
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
+			accesses |= dept_datum.access_list
 			update_access()
 		if("deny_region")
-			var/region = params["region"]
+			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			accesses -= get_region_accesses(region)
+			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
+			accesses -= dept_datum.access_list
 			update_access()
 		if("select_module")
 			ui_selected_module_index = text2num(params["index"])

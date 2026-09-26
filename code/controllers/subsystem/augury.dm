@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(augury)
 	name = "Augury"
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/watchers = list()
@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(augury)
 	var/biggest_doom
 	var/biggest_threat
 
-	for(var/datum/d as() in doombringers)
+	for(var/datum/d as anything in doombringers)
 		if(QDELETED(d))
 			doombringers -= d
 			continue
@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(augury)
 				qdel(action)
 			observers_given_action -= observer
 
-	for(var/mob/dead/observer/W as() in watchers)
+	for(var/mob/dead/observer/W as anything in watchers)
 		if(QDELETED(W))
 			watchers -= W
 			continue

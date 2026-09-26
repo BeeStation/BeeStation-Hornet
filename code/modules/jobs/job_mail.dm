@@ -16,7 +16,7 @@
 //PRISONER
 /datum/job/prisoner
 	mail_goodies = list(
-		/obj/item/clothing/mask/cigarette = 10,
+		/obj/item/cigarette = 10,
 		/obj/item/stack/spacecash/c20 = 10,
 		/obj/item/stack/spacecash/c50 = 10,
 		/obj/item/food/syndicake = 8,
@@ -83,7 +83,7 @@
 //CAPTAIN
 /datum/job/captain
 	mail_goodies = list(
-		/obj/item/clothing/mask/cigarette/cigar/havana = 10,
+		/obj/item/cigarette/cigar/havana = 10,
 		/obj/item/pen/fountain/captain = 10,
 		/obj/item/coin/plasma = 7,
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 5,

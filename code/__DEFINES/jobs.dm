@@ -27,11 +27,8 @@
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
 #define JOB_UNAVAILABLE_LOCKED 6
-
-// reasons why you can't play this job
-#define JOB_LOCK_REASON_ABSTRACT (1<<0)
-#define JOB_LOCK_REASON_MAP (1<<1)
-#define JOB_LOCK_REASON_CONFIG (1<<2)
+/// Job unavailable due to incompatibility with an antag role.
+#define JOB_UNAVAILABLE_ANTAG_INCOMPAT 7
 
 // Job spawn groups
 // Spawn group representing the primary roles of a department
@@ -40,44 +37,66 @@
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
 #define DEFAULT_BIBLE "The Bible"
+#define DEFAULT_BIBLE_REPLACE(religion) "The Holy Book of [religion]"
+
+/**
+ * Indexes are based the primary/first department in the jobs list as this is how jobs are actually categorized in menus.
+ * Structured this way to avoid a massive list of 40~ indexes that all have to be re-indexed if you tweak one before them.
+ * Unit tests ensure no overlapping indexes.
+ */
 
 #define JOB_DISPLAY_ORDER_DEFAULT 0
 
+// Command
+#define JOB_DISPLAY_ORDER_CAPTAIN 1
+// Security
+#define JOB_DISPLAY_ORDER_HEAD_OF_SECURITY 1
+#define JOB_DISPLAY_ORDER_WARDEN 2
+#define JOB_DISPLAY_ORDER_DETECTIVE 3
+#define JOB_DISPLAY_ORDER_SECURITY_OFFICER 4
+#define JOB_DISPLAY_ORDER_BRIG_PHYS 5
+// Engieneering
+#define JOB_DISPLAY_ORDER_CHIEF_ENGINEER 1
+#define JOB_DISPLAY_ORDER_STATION_ENGINEER 2
+#define JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN 3
+// Medical
+#define JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER 1
+#define JOB_DISPLAY_ORDER_MEDICAL_DOCTOR 2
+#define JOB_DISPLAY_ORDER_PARAMEDIC 3
+#define JOB_DISPLAY_ORDER_CHEMIST 4
+#define JOB_DISPLAY_ORDER_GENETICIST 5
+#define JOB_DISPLAY_ORDER_VIROLOGIST 6
+// Science
+#define JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR 1
+#define JOB_DISPLAY_ORDER_SCIENTIST 2
+#define JOB_DISPLAY_ORDER_ROBOTICIST 3
+#define JOB_DISPLAY_ORDER_EXPLORATION 4
+// Cargo
+#define JOB_DISPLAY_ORDER_QUARTERMASTER 1
+#define JOB_DISPLAY_ORDER_CARGO_TECHNICIAN 2
+#define JOB_DISPLAY_ORDER_SHAFT_MINER 3
+// Service
+#define JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL 1
+#define JOB_DISPLAY_ORDER_BARTENDER 2
+#define JOB_DISPLAY_ORDER_BOTANIST 3
+#define JOB_DISPLAY_ORDER_COOK 4
+#define JOB_DISPLAY_ORDER_JANITOR 5
+#define JOB_DISPLAY_ORDER_CLOWN 6
+#define JOB_DISPLAY_ORDER_MIME 7
+#define JOB_DISPLAY_ORDER_CURATOR 8
+#define JOB_DISPLAY_ORDER_LAWYER 9
+#define JOB_DISPLAY_ORDER_CHAPLAIN 10
+#define JOB_DISPLAY_ORDER_PSYCHIATRIST 11
+#define JOB_DISPLAY_ORDER_STAGE_MAGICIAN 12
+#define JOB_DISPLAY_ORDER_BARBER 13
+// Silicon
+#define JOB_DISPLAY_ORDER_AI 1
+#define JOB_DISPLAY_ORDER_CYBORG 2
+
+// No department
 #define JOB_DISPLAY_ORDER_ASSISTANT 1
-#define JOB_DISPLAY_ORDER_CAPTAIN 2
-#define JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL 3
-#define JOB_DISPLAY_ORDER_QUARTERMASTER 4
-#define JOB_DISPLAY_ORDER_CARGO_TECHNICIAN 5
-#define JOB_DISPLAY_ORDER_SHAFT_MINER 6
-#define JOB_DISPLAY_ORDER_BARTENDER 7
-#define JOB_DISPLAY_ORDER_COOK 8
-#define JOB_DISPLAY_ORDER_BOTANIST 9
-#define JOB_DISPLAY_ORDER_JANITOR 10
-#define JOB_DISPLAY_ORDER_CLOWN 11
-#define JOB_DISPLAY_ORDER_MIME 12
-#define JOB_DISPLAY_ORDER_CURATOR 13
-#define JOB_DISPLAY_ORDER_LAWYER 14
-#define JOB_DISPLAY_ORDER_CHAPLAIN 15
-#define JOB_DISPLAY_ORDER_CHIEF_ENGINEER 16
-#define JOB_DISPLAY_ORDER_STATION_ENGINEER 17
-#define JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN 18
-#define JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER 19
-#define JOB_DISPLAY_ORDER_MEDICAL_DOCTOR 20
-#define JOB_DISPLAY_ORDER_CHEMIST 21
-#define JOB_DISPLAY_ORDER_GENETICIST 22
-#define JOB_DISPLAY_ORDER_VIROLOGIST 23
-#define JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR 24
-#define JOB_DISPLAY_ORDER_SCIENTIST 25
-#define JOB_DISPLAY_ORDER_EXPLORATION 26
-#define JOB_DISPLAY_ORDER_ROBOTICIST 27
-#define JOB_DISPLAY_ORDER_HEAD_OF_SECURITY 28
-#define JOB_DISPLAY_ORDER_WARDEN 29
-#define JOB_DISPLAY_ORDER_DETECTIVE 30
-#define JOB_DISPLAY_ORDER_SECURITY_OFFICER 31
-#define JOB_DISPLAY_ORDER_BRIG_PHYS 32
-#define JOB_DISPLAY_ORDER_AI 33
-#define JOB_DISPLAY_ORDER_CYBORG 34
-#define JOB_DISPLAY_ORDER_PRISONER 35
+#define JOB_DISPLAY_ORDER_PRISONER 2
+#define JOB_DISPLAY_ORDER_VIP 3 //freak
 
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
@@ -93,7 +112,8 @@
 #define JOB_NAME_ASSISTANT  "Assistant"
 #define JOB_NAME_BARTENDER  "Bartender"
 #define JOB_NAME_BOTANIST   "Botanist"
-#define JOB_NAME_COOK     "Cook"
+#define JOB_NAME_COOK "Cook"
+#define JOB_NAME_CHEF "Chef" // Alternate cook title.
 #define JOB_NAME_JANITOR  "Janitor"
 #define JOB_NAME_CURATOR  "Curator"
 #define JOB_NAME_LAWYER   "Lawyer"
@@ -136,6 +156,11 @@
 #define JOB_NAME_SECURITYOFFICER "Security Officer"
 #define JOB_NAME_DETECTIVE "Detective"
 #define JOB_NAME_DEPUTY  "Deputy"
+// Security officer department alternate titles
+#define JOB_SECURITY_OFFICER_MEDICAL "Medical Security Officer"
+#define JOB_SECURITY_OFFICER_ENGINEERING "Engineering Security Officer"
+#define JOB_SECURITY_OFFICER_SUPPLY "Supply Security Officer"
+#define JOB_SECURITY_OFFICER_SCIENCE "Science Security Officer"
 
 // Silicon
 #define JOB_NAME_AI     "AI"
@@ -320,3 +345,47 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+// reasons why you can't play this job
+#define JOB_LOCK_REASON_ABSTRACT (1<<0)
+#define JOB_LOCK_REASON_MAP (1<<1)
+#define JOB_LOCK_REASON_CONFIG (1<<2)
+
+/* Job datum job_flags */
+/// Whether the mob is announced on arrival.
+#define JOB_ANNOUNCE_ARRIVAL (1<<0)
+/// Whether the mob is added to the crew manifest.
+#define JOB_CREW_MANIFEST (1<<1)
+/// Whether the mob is equipped through SSjob.equip_rank() on spawn.
+#define JOB_EQUIP_RANK (1<<2)
+/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
+#define JOB_CREW_MEMBER (1<<3)
+/// Whether this job can be joined through the new_player menu.
+#define JOB_NEW_PLAYER_JOINABLE (1<<4)
+/// If the player with this job can have quirks assigned to him or not. Relevant for new player joinable jobs and roundstart antags.
+#define JOB_ASSIGN_QUIRKS (1<<5)
+/// This job cannot have more slots opened by the Head of Personnel (but admins or other random events can still do this).
+#define JOB_CANNOT_OPEN_SLOTS (1<<6)
+/// This job is a head of staff.
+#define JOB_HEAD_OF_STAFF (1<<7)
+/// This job gets a paycheck when they spawn in
+#define JOB_GETS_STARTING_PAYCHECK (1<<8)
+
+DEFINE_BITFIELD(job_flags, list(
+	"JOB_ANNOUNCE_ARRIVAL" = JOB_ANNOUNCE_ARRIVAL,
+	"JOB_CREW_MANIFEST" = JOB_CREW_MANIFEST,
+	"JOB_EQUIP_RANK" = JOB_EQUIP_RANK,
+	"JOB_CREW_MEMBER" = JOB_CREW_MEMBER,
+	"JOB_NEW_PLAYER_JOINABLE" = JOB_NEW_PLAYER_JOINABLE,
+	"JOB_ASSIGN_QUIRKS" = JOB_ASSIGN_QUIRKS,
+	"JOB_CANNOT_OPEN_SLOTS" = JOB_CANNOT_OPEN_SLOTS,
+	"JOB_HEAD_OF_STAFF" = JOB_HEAD_OF_STAFF,
+))
+
+/// Combination flag for jobs which are considered regular crew members of the station.
+#define STATION_JOB_FLAGS (JOB_ANNOUNCE_ARRIVAL|JOB_CREW_MANIFEST|JOB_EQUIP_RANK|JOB_CREW_MEMBER|JOB_NEW_PLAYER_JOINABLE|JOB_ASSIGN_QUIRKS|JOB_GETS_STARTING_PAYCHECK)
+/// Combination flag for jobs which are considered heads of staff.
+#define HEAD_OF_STAFF_JOB_FLAGS (JOB_CANNOT_OPEN_SLOTS|JOB_HEAD_OF_STAFF)
+
+#define FACTION_NONE "None"
+#define FACTION_STATION "Station"

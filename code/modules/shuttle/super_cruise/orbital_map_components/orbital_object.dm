@@ -114,7 +114,7 @@
 		//Calculate acceleration vector
 		var/datum/orbital_vector/acceleration_per_second = new()
 		//Calculate gravity
-		for(var/datum/orbital_object/gravitational_body as() in gravitational_bodies)
+		for(var/datum/orbital_object/gravitational_body as anything in gravitational_bodies)
 			//https://en.wikipedia.org/wiki/Gravitational_acceleration
 			var/distance = position.DistanceTo(gravitational_body.position)
 			if(!distance)
@@ -218,7 +218,7 @@
 	var/delta_x = position.x - prev_x
 	var/delta_y = position.y - prev_y
 
-	for(var/datum/orbital_object/object as() in valid_objects)
+	for(var/datum/orbital_object/object as anything in valid_objects)
 		if(object == src)
 			continue
 		if(!(object.collision_type & collision_flags) && !(object.static_object && (collision_type & object.collision_flags)))

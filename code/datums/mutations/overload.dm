@@ -3,7 +3,6 @@
 	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
 	quality = POSITIVE
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
 	instability = 30
 	power_path = /datum/action/spell/overload
 	species_allowed = list(SPECIES_ETHEREAL)

@@ -24,7 +24,7 @@
 		return
 	var/hierophant_message = "[span]"
 	if(sender?.reagents)
-		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
+		if(sender.has_reagent(/datum/reagent/water/holywater, 1))
 			to_chat(sender, span_nezbere("[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]"))
 			return FALSE
 	if(!msg)
@@ -50,29 +50,29 @@
 						: "Clockmaster"
 				hierophant_message = "<span class='leader_brass'>"
 			if(CLOCKCULT_PREFIX_RECRUIT)
-				var/role = sender.mind?.assigned_role
+				var/datum/job/role = sender.mind?.assigned_role
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
-				if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
+				if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_COMMAND))
 					prefix = "High Priest"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING))
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_ENGINEERING))
 					prefix = "Cogturner"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL))
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_MEDICAL))
 					prefix = "Rejuvinator"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE))
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SCIENCE))
 					prefix = "Calculator"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO))
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CARGO))
 					prefix = "Pathfinder"
-				else if(role in JOB_NAME_ASSISTANT)
+				else if(is_assistant_job(role))
 					prefix = "Helper"
-				else if(role in JOB_NAME_MIME)
+				else if(is_mime_job(role))
 					prefix = "Cogwatcher"
-				else if(role in JOB_NAME_CLOWN)
+				else if(is_clown_job(role))
 					prefix = "Clonker"
-				else if((role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)))
+				else if((role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_CIVILIAN)))
 					prefix = "Cogworker"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 					prefix = "Warrior"
-				else if(role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SILICON))
+				else if(role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SILICON))
 					prefix = "CPU"
 			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""

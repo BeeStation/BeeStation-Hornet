@@ -15,7 +15,7 @@ jobs:
         stale-pr-label: 'Stale'
         exempt-issue-labels: 'Triaged'
         exempt-pr-labels: 'Triaged'
-        days-before-issue-stale: 210
+        days-before-issue-stale: 365
         days-before-issue-close: 5
         exempt-all-issue-milestones: true
         stale-issue-message: "This issue has been inactive for long enough to be automatically marked as stale. If this was a bug report and hasn't been addressed yet, and is still a problem, please don't hesitate to notify a maintainer."

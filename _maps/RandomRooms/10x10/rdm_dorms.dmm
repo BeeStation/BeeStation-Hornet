@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ez" = (
 /obj/structure/table/wood,
-/obj/item/stack/cable_coil/red,
+/obj/item/stack/cable_coil,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -142,7 +142,7 @@
 /area/template_noop)
 "zQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/cable_coil/red,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/template_noop)
 "An" = (

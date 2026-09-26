@@ -1,4 +1,5 @@
 /obj/item/food/sushi_roll
+	abstract_type = /obj/item/food/sushi_roll
 	name = "Sushi Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/sushi.dmi'
@@ -17,6 +18,7 @@
 		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/sushi_slice
+	abstract_type = /obj/item/food/sushi_slice
 	name = "Sushi Slice Parent"
 	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/sushi.dmi'

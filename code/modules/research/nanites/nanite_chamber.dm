@@ -20,31 +20,41 @@
 	var/busy_icon_state
 	var/busy_message
 	var/message_cooldown = 0
+	var/datum/techweb/assigned_techweb
 
 /obj/machinery/nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 
+/obj/machinery/nanite_chamber/LateInitialize()
+	. = ..()
+	if(!assigned_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
+
 /obj/machinery/nanite_chamber/RefreshParts()
+	. = ..()
 	scan_level = 0
 	nanite_coeff = 0
 	speed_coeff = 1
-	for(var/obj/item/stock_parts/scanning_module/P in component_parts)
-		scan_level += P.rating
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		nanite_coeff += manipulator.rating
+	for(var/datum/stock_part/scanning_module/P in component_parts)
+		scan_level += P.tier
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.tier
 	var/total_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
-		total_laser_rating += micro_laser.rating
+	for(var/datum/stock_part/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.tier
 	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/nanite_chamber/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Scanning module has been upgraded to level <b>[scan_level]</b>.")
+		. += span_notice("A <b>Multitool</b> can be used to change the research server")
+		. += span_notice("Active research destination: <b>[assigned_techweb.id]</b>.")
 
 /obj/machinery/nanite_chamber/proc/set_busy(status, message, working_icon)
 	busy = status
+	update_use_power(status ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	busy_message = message
 	busy_icon_state = working_icon
 	update_icon()
@@ -84,7 +94,7 @@
 	set_busy(FALSE)
 	if(!occupant)
 		return
-	occupant.AddComponent(/datum/component/nanites, 100 * nanite_coeff)
+	occupant.AddComponent(/datum/component/nanites, 100 * nanite_coeff, 0, assigned_techweb)
 
 /obj/machinery/nanite_chamber/proc/remove_nanites(datum/nanite_program/NP)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -172,14 +182,14 @@
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-/obj/machinery/nanite_chamber/close_machine(mob/living/carbon/user)
+/obj/machinery/nanite_chamber/close_machine(mob/living/carbon/user, density_to_set = TRUE)
 	if(!state_open)
 		return FALSE
 
 	..(user)
 	return TRUE
 
-/obj/machinery/nanite_chamber/open_machine()
+/obj/machinery/nanite_chamber/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(state_open)
 		return FALSE
 
@@ -217,3 +227,11 @@
 	if(close_machine(target))
 		log_combat(user, target, "inserted", null, "into [src].")
 	add_fingerprint(user)
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/nanite_chamber)
+DEFINE_BUFFER_HANDLER(/obj/machinery/nanite_chamber)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "Server assigned to nanite chamber.")
+		assigned_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE

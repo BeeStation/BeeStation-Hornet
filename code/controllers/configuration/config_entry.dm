@@ -1,4 +1,6 @@
 /datum/config_entry
+	abstract_type = /datum/config_entry
+
 	var/name	//read-only, this is determined by the last portion of the derived entry type
 	var/config_entry_value
 	var/default	//read-only, just set value directly
@@ -9,7 +11,6 @@
 	var/deprecated_by	//the /datum/config_entry type that supercedes this one
 
 	var/protection = NONE
-	var/abstract_type = /datum/config_entry	//do not instantiate if type matches this
 
 	var/vv_VAS = TRUE		//Force validate and set on VV. VAS proccall guard will run regardless.
 

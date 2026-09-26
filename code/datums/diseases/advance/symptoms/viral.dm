@@ -155,13 +155,13 @@ Bonus
 	if(!..())
 		return
 	if(A.stage >= 5)
-		for(var/datum/symptom/S as() in captives)
+		for(var/datum/symptom/S as anything in captives)
 			S.stopped = FALSE
 			captives -= S
 		if(!LAZYLEN(captives))
 			stopped = TRUE
 	else if(!used)
-		for(var/datum/symptom/S as() in A.symptoms)
+		for(var/datum/symptom/S as anything in A.symptoms)
 			if(S.neutered)
 				continue
 			if(S == src)
@@ -213,7 +213,7 @@ Bonus
 	if(!..())
 		return
 	if(!used)
-		for(var/datum/symptom/S as() in A.symptoms)
+		for(var/datum/symptom/S as anything in A.symptoms)
 			if(S.neutered)
 				continue
 			if(S == src)

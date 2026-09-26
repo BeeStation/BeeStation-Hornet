@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(topic)
 	name = "Topic"
 	init_stage = INITSTAGE_EARLY
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 /datum/controller/subsystem/topic/Initialize()
 	// Initialize topic datums

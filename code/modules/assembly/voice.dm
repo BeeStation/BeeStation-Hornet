@@ -53,7 +53,7 @@
 			listening = FALSE
 			say("Activation message is '[recorded]'.", sanitize = FALSE, language = message_language)
 		if(RECOGNIZER_MODE)
-			recorded = speaker.GetVoice()
+			recorded = speaker.get_voice()
 			listening = FALSE
 			say("Your voice pattern is saved.", language = message_language)
 		if(VOICE_SENSOR_MODE)
@@ -70,7 +70,7 @@
 			if(raw_message == recorded)
 				. = TRUE
 		if(RECOGNIZER_MODE)
-			if(speaker.GetVoice() == recorded)
+			if(speaker.get_voice() == recorded)
 				. = TRUE
 		if(VOICE_SENSOR_MODE)
 			if(length(raw_message))

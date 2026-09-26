@@ -10,7 +10,7 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	if(ismovable(parent))
-		AddElement(/datum/element/connect_loc, parent, loc_connections)
+		parent.AddElement(/datum/element/connect_loc, loc_connections)
 		for(var/i in get_turf(parent))
 			if(i == parent)
 				continue
@@ -43,4 +43,4 @@
 
 /datum/component/magnetic_catch/UnregisterFromParent()
 	. = ..()
-	RemoveElement(/datum/element/connect_loc, parent, loc_connections)
+	parent.RemoveElement(/datum/element/connect_loc, loc_connections)

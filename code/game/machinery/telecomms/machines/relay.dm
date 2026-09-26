@@ -9,10 +9,11 @@
 /obj/machinery/telecomms/relay
 	name = "telecommunication relay"
 	icon_state = "relay"
+	base_icon_state = "relay"
 	desc = "A mighty piece of hardware used to send massive amounts of data far away."
 	telecomms_type = /obj/machinery/telecomms/relay
 	density = TRUE
-	use_power = NO_POWER_USE // made only so they don't overheat in whatever places they usually are in (exploration shuttle, small rooms in multi-z maps etc.)
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.01
 	netspeed = 5
 	long_range_link = TRUE
 	circuit = /obj/item/circuitboard/machine/telecomms/relay
@@ -26,6 +27,8 @@
 	var/turf/T = get_turf(src)
 	if(can_send(signal) && T)
 		signal.levels |= T.get_virtual_z_level()
+
+	use_power(idle_power_usage)
 
 /**
  * Checks to see if the relay can send/receive the signal, by checking if it's

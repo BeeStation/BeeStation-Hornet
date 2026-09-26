@@ -16,23 +16,30 @@ GLOBAL_LIST_EMPTY(wall_runes)
 
 	return runes
 
-/proc/is_convertable_to_cult(mob/living/M,datum/team/cult/specific_cult)
-	if(!istype(M))
+/proc/is_convertable_to_cult(mob/living/target, datum/team/cult/specific_cult)
+	if(!istype(target))
 		return FALSE
-	if(M.mind)
-		if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
-			return FALSE
-		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
-			return FALSE
-		if(IS_SERVANT_OF_RATVAR(M))
-			return FALSE
-		if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/cult))
-			return FALSE
-		if(M.mind.unconvertable)
-			return FALSE
-	else
+	if(isnull(target.mind))
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
+
+// disables client checks if testing for easier debugging
+#ifndef TESTING
+	if(!target.client)
+		return FALSE
+#endif
+
+	if(ishuman(target) && target.mind.holy_role)
+		return FALSE
+	if(specific_cult?.is_sacrifice_target(target.mind))
+		return FALSE
+	if(IS_SERVANT_OF_RATVAR(target))
+		return FALSE
+	if(target.mind.enslaved_to && !IS_CULTIST(target.mind.enslaved_to.current))
+		return FALSE
+	if(target.mind.unconvertable)
+		return FALSE
+
+	if(HAS_TRAIT(target, TRAIT_MINDSHIELD) || issilicon(target) || isbot(target) || isdrone(target))
 		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
 	return TRUE
 
@@ -676,7 +683,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		else
 			fail_invoke()
 			return
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult_gain.ogg')
+	SEND_SOUND(mob_to_revive, 'sound/effects/antag/bloodcult/bloodcult_gain.ogg')
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 									span_cultlarge("You awaken suddenly from the void. You're alive!"))
@@ -1081,20 +1088,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	empulse(T, 0.42*(intensity), 1, holy=TRUE)
 	var/list/images = list()
 	var/zmatch = T.get_virtual_z_level()
-	var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		if(M.get_virtual_z_level() != zmatch)
 			continue
 		if(ishuman(M))
 			if(!IS_CULTIST(M))
-				AH.remove_hud_from(M)
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hudFix), M), duration)
+				ADD_TRAIT(M, TRAIT_BLOCK_SECHUD, CULT_TRAIT)
+				addtimer(TRAIT_CALLBACK_REMOVE(M, TRAIT_BLOCK_SECHUD, CULT_TRAIT), duration)
 			var/image/A = image('icons/mob/cult.dmi', M,"cultist", ABOVE_MOB_LAYER)
 			A.override = 1
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "human_apoc", A, NONE)
 			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"human_apoc",TRUE), duration)
 			images += A
-			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult_gain.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
+			SEND_SOUND(M, pick(sound('sound/effects/antag/bloodcult/bloodcult_gain.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
 		else
 			var/construct = pick("floater","artificer","behemoth")
 			var/image/B = image('icons/mob/mob.dmi',M,construct, ABOVE_MOB_LAYER)
@@ -1171,13 +1177,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			if(I.icon_state != "bloodsparkles")
 				I.override = TRUE
 		sleep(190)
-
-
-
-/proc/hudFix(mob/living/carbon/human/target)
-	if(!target || !target.client)
-		return
-	var/obj/O = target.get_item_by_slot(ITEM_SLOT_EYES)
-	if(istype(O, /obj/item/clothing/glasses/hud/security))
-		var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		AH.add_hud_to(target)

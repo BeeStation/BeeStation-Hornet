@@ -25,12 +25,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
  * It also contains logic and helpers for calculating damage and effective damage
  */
 /datum/armor
-
-/**
- * The armor datum holds information about different types of armor that an atom can have.
- * It also contains logic and helpers for calculating damage and effective damage
- */
-/datum/armor
+	abstract_type = /datum/armor
 	VAR_PROTECTED/acid = 0
 	VAR_PROTECTED/bio = 0
 	VAR_PROTECTED/bleed = 0
@@ -42,7 +37,6 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	VAR_PROTECTED/laser = 0
 	VAR_PROTECTED/melee = 0
 	VAR_PROTECTED/stamina = 0
-	//VAR_PROTECTED/wound = 0
 
 /// A version of armor with no protections
 /datum/armor/none
@@ -50,7 +44,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 /// A version of armor that cannot be modified and will always return itself when attempted to be modified
 /datum/armor/immune
 
-/datum/armor/Destroy(force, ...)
+/datum/armor/Destroy(force)
 	if(!force && tag)
 		return QDEL_HINT_LETMELIVE
 

@@ -10,9 +10,6 @@
 	icon = 'icons/obj/machines/limbgrower.dmi'
 	icon_state = "limbgrower_idleoff"
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/limbgrower
 
 	var/operating = FALSE
@@ -20,22 +17,27 @@
 	var/busy = FALSE
 	var/prod_coeff = 1
 	var/datum/design/being_built
-	var/datum/techweb/stored_research
+	var/datum/techweb/autounlocking/stored_research
 	var/selected_category
 	var/screen = 1
 	var/list/categories = list(
-							"human",
-							"lizard",
-							"fly",
-							"moth",
-							"plasmaman",
-							"other"
-							)
+		SPECIES_HUMAN,
+		SPECIES_LIZARD,
+		SPECIES_FLYPERSON,
+		SPECIES_MOTH,
+		SPECIES_PLASMAMAN,
+		RND_CATEGORY_OTHER,
+	)
 
 /obj/machinery/limbgrower/Initialize(mapload)
-	create_reagents(100, OPENCONTAINER)
-	stored_research = new /datum/techweb/specialized/autounlocking/limbgrower
 	. = ..()
+	create_reagents(100, OPENCONTAINER)
+	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower] ||= new /datum/techweb/autounlocking/limbgrower()
+	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower]
+
+/obj/machinery/limbgrower/Destroy()
+	stored_research = null
+	return ..()
 
 /obj/machinery/limbgrower/ui_interact(mob/user)
 	. = ..()
@@ -102,7 +104,7 @@
 
 
 			var/synth_cost = being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff
-			var/power = max(2000, synth_cost/5)
+			var/power = max(active_power_usage, synth_cost/5)
 
 			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff))
 				busy = TRUE
@@ -154,13 +156,14 @@
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()
+	. = ..()
 	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/cup/our_beaker in component_parts)
 		reagents.maximum_volume += our_beaker.volume
 		our_beaker.reagents.trans_to(src, our_beaker.reagents.total_volume)
 	var/T=1.2
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		T -= M.rating*0.2
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		T -= M.tier*0.2
 	prod_coeff = min(1,max(0,T)) // Coeff going 1 -> 0,8 -> 0,6 -> 0,4
 
 /obj/machinery/limbgrower/examine(mob/user)
@@ -187,15 +190,18 @@
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
 
-	for(var/v in stored_research.researched_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		if(!(selected_category in D.category))
+	var/list/designs = stored_research.researched_designs
+	if(obj_flags & EMAGGED)
+		designs += stored_research.hacked_designs
+	for(var/design_id in designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+		if(!(selected_category in design.category))
 			continue
-		if(disabled || !can_build(D))
-			dat += span_linkoff("[D.name]")
+		if(disabled || !can_build(design))
+			dat += span_linkoff("[design.name]")
 		else
-			dat += "<a href='byond://?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
-		dat += "[get_design_cost(D)]<br>"
+			dat += "<a href='byond://?src=[REF(src)];make=[design.id];multiplier=1'>[design.name]</a>"
+		dat += "[get_design_cost(design)]<br>"
 
 	dat += "</div>"
 	return dat
@@ -227,12 +233,10 @@
 	return dat
 
 /obj/machinery/limbgrower/on_emag(mob/user)
-	..()
-	for(var/id in SSresearch.techweb_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
-			stored_research.add_design(D)
+	if(obj_flags & EMAGGED)
+		return
 	to_chat(user, span_warning("A warning flashes onto the screen, stating that safety overrides have been deactivated!"))
+	return ..()
 
 #undef LIMBGROWER_MAIN_MENU
 #undef LIMBGROWER_CATEGORY_MENU

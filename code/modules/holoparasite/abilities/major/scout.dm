@@ -128,10 +128,10 @@
 /**
  * Blanks out the holoparasite's medhud whenever it is cloaked.
  */
-/datum/holoparasite_ability/major/scout/proc/on_medhud(datum/_source, image/holder)
+/datum/holoparasite_ability/major/scout/proc/on_medhud(mob/living/simple_animal/hostile/holoparasite/source, hud_type)
 	SIGNAL_HANDLER
 	if(scouting)
-		holder.icon_state = null
+		source.set_hud_image_state(hud_type, "")
 
 /**
  * Handles turning scout mode holoparasites incorporeal whenever it manifests.
@@ -218,7 +218,7 @@
 		scrambled_message = GLOB.syndicate_code_phrase_regex.Replace(scrambled_message, span_blue("$1"))
 		scrambled_message = GLOB.syndicate_code_response_regex.Replace(scrambled_message, span_red("$1"))
 	// Assemble the message prefix
-	var/message_prefix = span_holoparasiteitalicsrobot("\[[owner.color_name] Sensory Link\] [speaker.GetVoice()]")
+	var/message_prefix = span_holoparasiteitalicsrobot("\[[owner.color_name] Sensory Link\] [speaker.get_voice()]")
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
@@ -422,7 +422,7 @@
 	parent = _parent
 	for(var/mob/mob in GLOB.mob_list)
 		if(mobShouldSee(mob))
-			add_hud_to(mob)
+			show_to(mob)
 			mob.reload_huds()
 
 /datum/atom_hud/alternate_appearance/basic/except_holoparasite/mobShouldSee(mob/target)

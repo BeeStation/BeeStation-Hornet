@@ -23,7 +23,7 @@
 	if(..())
 		return TRUE
 	var/highscore = 0
-	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
+	for(var/obj/machinery/power/bluespace_tap/T as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/bluespace_tap))
 		highscore = max(highscore, T.total_points)
 	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? span_greenannounce("[highscore]") : span_boldannounce("[highscore]")]")
 	if(highscore >= goal)
@@ -47,7 +47,7 @@
 	icon_state = "command"
 	build_path = /obj/machinery/power/bluespace_tap
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
+							/datum/stock_part/capacitor/quadratic = 5,//Probably okay, right?
 							/obj/item/stack/ore/bluespace_crystal = 5)
 
 /obj/effect/spawner/random/bluespace_tap
@@ -127,7 +127,7 @@
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/parrot = 5,
 		/obj/item/slimepotion/slime/sentience = 5,
-		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
+		/obj/item/cigarette/cigar/havana = 3,
 		/obj/item/stack/sheet/mineral/bananium/five = 10,	//bananas are organic, clearly.
 		/obj/item/storage/box/monkeycubes = 5,
 		/obj/item/stack/tile/carpet/black/fifty = 10,
@@ -265,7 +265,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/bluespace_tap(null)
 	for(var/i = 1 to 5)	//five of each
-		component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+		component_parts += GLOB.stock_part_datums[/datum/stock_part/capacitor/quadratic]
 		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
 	if(!powernet)
 		connect_to_network()

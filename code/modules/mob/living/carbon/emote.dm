@@ -1,4 +1,5 @@
 /datum/emote/living/carbon
+	abstract_type = /datum/emote/living/carbon
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 
 /datum/emote/living/carbon/airguitar
@@ -151,7 +152,7 @@
 
 /datum/emote/living/carbon/sign/select_param(mob/user, params)
 	. = ..()
-	if(!isnum_safe(text2num(params)))
+	if(!IS_FINITE(text2num(params)))
 		return message
 
 /datum/emote/living/carbon/sign/signal

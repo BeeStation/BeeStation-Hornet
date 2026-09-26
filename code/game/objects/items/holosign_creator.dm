@@ -209,7 +209,7 @@
 	icon_state = "signmaker_atmos"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
-	max_signs = 3
+	max_signs = 6
 	projectable_through = list(
 		/obj/machinery/door,
 		/obj/structure/mineral_door,

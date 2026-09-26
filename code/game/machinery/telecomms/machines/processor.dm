@@ -8,12 +8,11 @@
 /obj/machinery/telecomms/processor
 	name = "processor unit"
 	icon_state = "processor"
+	base_icon_state = "processor"
 	desc = "This machine is used to process large quantities of information."
 	telecomms_type = /obj/machinery/telecomms/processor
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 30
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.01
 	circuit = /obj/item/circuitboard/machine/telecomms/processor
 	/// Whether this processor is currently compressing the data,
 	/// or actually decompressing it. Defaults to `FALSE`.

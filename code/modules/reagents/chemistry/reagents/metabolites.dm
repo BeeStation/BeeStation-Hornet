@@ -13,6 +13,7 @@
 */
 
 /datum/reagent/metabolite
+	abstract_type = /datum/reagent/metabolite
 	name = "Metabolites"
 	color = "#FAFF00"
 	description = "You should never see this. Contact an administrator or coder"
@@ -24,6 +25,7 @@
 		volume = MAX_METABOLITES
 
 /datum/reagent/metabolite/medicine
+	abstract_type = /datum/reagent/metabolite/medicine
 	name = "Medicinal Metabolites"
 	metabolization_rate = REAGENTS_METABOLISM * 0.025
 

@@ -104,7 +104,6 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 					"computer_id" = client.computer_id,
 				),
 				"window" = list(
-					"fancy" = FALSE,
 					"locked" = FALSE,
 				),
 			),

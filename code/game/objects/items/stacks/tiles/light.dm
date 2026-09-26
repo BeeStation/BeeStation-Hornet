@@ -29,7 +29,7 @@
 
 /obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
 	var/atom/Tsec = user.drop_location()
-	new /obj/item/stack/cable_coil(Tsec, 5, TRUE, user)
+	new /obj/item/stack/cable_coil(Tsec, 5)
 	new /obj/item/stack/sheet/glass(Tsec, null, TRUE, user)
 	use(1)
 

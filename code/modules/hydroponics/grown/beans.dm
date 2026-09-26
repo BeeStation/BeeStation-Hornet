@@ -49,4 +49,4 @@
 	foodtypes = VEGETABLES
 	tastes = list("koi" = 1)
 	wine_power = 40
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

@@ -4,6 +4,7 @@
  * Teleports the caster to a turf selected by get_destinations().
  */
 /datum/action/spell/teleport
+	abstract_type = /datum/action/spell/teleport
 	sound = 'sound/weapons/zapbang.ogg'
 
 	school = SCHOOL_TRANSLOCATION

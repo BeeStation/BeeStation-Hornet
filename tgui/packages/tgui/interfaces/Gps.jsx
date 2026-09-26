@@ -1,7 +1,8 @@
-import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { clamp } from 'common/math';
 import { vecLength, vecSubtract } from 'common/vector';
+import { sortBy } from 'es-toolkit';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend } from '../backend';
 import { Box, Button, Icon, LabeledList, Section, Table } from '../components';
@@ -30,13 +31,12 @@ export const Gps = (props) => {
         return { ...signal, dist, index };
       }),
     (signals) =>
-      sortBy(
-        signals,
+      sortBy(signals, [
         // Signals with distance metric go first
         (signal) => signal.dist === undefined,
         // Sort alphabetically
         (signal) => signal.entrytag,
-      ),
+      ]),
   ])(data.signals || []);
   return (
     <Window width={470} height={clamp(325 + signals.length * 14, 325, 700)}>

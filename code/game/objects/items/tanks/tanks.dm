@@ -14,7 +14,7 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	pressure_resistance = ONE_ATMOSPHERE * 5
 
-	force = 5
+	force = 10
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 4

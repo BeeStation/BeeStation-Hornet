@@ -343,7 +343,7 @@
 	hackProof = TRUE
 	aiControlDisabled = 1
 	req_access = list(ACCESS_CLOCKCULT)
-	use_power = FALSE
+	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	damage_deflection = 30
 	normal_integrity = 240
@@ -371,6 +371,9 @@
 	. += gear_text
 
 /obj/machinery/door/airlock/clockwork/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(prob(80/severity))
 		open()
 

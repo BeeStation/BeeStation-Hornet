@@ -1,4 +1,5 @@
-import { sortBy } from '../../common/collections';
+import { sortBy } from 'es-toolkit';
+
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
@@ -46,7 +47,7 @@ export const Fax = (props) => {
               (filterFax: FaxInfo) =>
                 filterFax.visible && !filterFax.syndicate_network,
             ),
-        (sortFax: FaxInfo) => sortFax.fax_name,
+        [(sortFax: FaxInfo) => sortFax.fax_name],
       )
     : [];
   return (

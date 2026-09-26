@@ -52,12 +52,6 @@ const TechFabTopBar = (props) => {
               onChange={(e, value) => act('search', { value: value })}
             />
           </Flex.Item>
-          <Flex.Item mx={0.5}>
-            <Button
-              content="Synchronize research"
-              onClick={() => act('sync_research')}
-            />
-          </Flex.Item>
           <Flex.Item mx={0.5} grow>
             Efficiency: {Math.floor(efficiency * 100)}%
           </Flex.Item>

@@ -3,14 +3,6 @@
 /// A global assoc list of all landmarks that denote a heretic sacrifice location. [string heretic path] = [landmark].
 GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
-/**
- * A map template loaded in when heretics are created.
- * Hereteic sacrifices are sent here when completed.
- */
-/datum/map_template/heretic_sacrifice_level
-	name = "Heretic Sacrifice Level"
-	mappath = "_maps/templates/heretic_sacrifice_template.dmm"
-
 /// Lardmarks meant to designate where heretic sacrifices are sent.
 /obj/effect/landmark/heretic
 	name = "default heretic sacrifice landmark"
@@ -96,7 +88,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/heretic_sacrifice/Initialize(mapload)
 	if(!ambientsounds)
 		ambientsounds = GLOB.ambience_assoc[ambience_index]
-		ambientsounds += 'sound/ambience/ambiatm1.ogg'
+		ambientsounds += 'sound/ambience/misc/ambiatm1.ogg'
 	return ..()
 
 /area/heretic_sacrifice/ash //also, the default

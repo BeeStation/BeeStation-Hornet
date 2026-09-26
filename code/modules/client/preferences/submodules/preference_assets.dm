@@ -15,10 +15,11 @@
 		if(preference.preference_spritesheet != name)
 			continue
 
-		var/list/choices = preference.get_choices_serialized()
-		for (var/preference_value in choices)
-			var/create_icon_of = choices[preference_value]
+		for (var/preference_value in preference.get_choices())
+			var/create_icon_of = preference.icon_for(preference_value)
+
 			var/datum/universal_icon/icon
+
 			if (ispath(create_icon_of, /atom))
 				var/atom/atom_icon_source = create_icon_of
 				icon = uni_icon(initial(atom_icon_source.icon), initial(atom_icon_source.icon_state))
@@ -28,7 +29,9 @@
 				CRASH("Icon given for preference [preference_key]:[preference_value]. This is not supported anymore, provide a /datum/universal_icon instead.")
 			else
 				CRASH("[create_icon_of] is an invalid preference value (from [preference_key]:[preference_value]).")
-			insert_icon(preference.get_spritesheet_key(preference_value), icon)
+			// There's no cost associated with inserting uni_icons, so just insert them immediately.
+			var/spritesheet_key = preference.get_spritesheet_key(preference.serialize(preference_value))
+			insert_icon(spritesheet_key, icon)
 
 /// This "large" spritesheet helps reduce mount lag from large PNG files.
 /datum/asset/spritesheet_batched/preferences/large

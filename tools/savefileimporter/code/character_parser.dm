@@ -36,7 +36,7 @@ var/global/list/custom_name_types = list(
 		READ_FILE(S["skin_tone"], skin_tone, "caucasian1")
 		READ_FILE(S["hair_style_name"], hair_style, "Bald")
 		READ_FILE(S["gradient_style"], gradient_style, "None")
-		READ_FILE(S["facial_style_name"], facial_hair_style, "Shaved")
+		READ_FILE(S["facial_style_name"], facial_hairstyle, "Shaved")
 		READ_FILE(S["underwear"], underwear, "Nude") // lewd
 		READ_FILE(S["underwear_color"], underwear_color, COLOR_BLACK)
 		READ_FILE(S["undershirt"], undershirt, "Nude")
@@ -179,7 +179,7 @@ var/global/list/custom_name_types = list(
 			"skintone" = skin_tone,
 			"hairstyle" = hair_style,
 			"gradientstyle" = gradient_style,
-			"facialhairstyle" = facial_hair_style,
+			"facialhairstyle" = facial_hairstyle,
 			"underwear" = underwear,
 			"underwearcolour" = underwear_color,
 			"undershirt" = undershirt,

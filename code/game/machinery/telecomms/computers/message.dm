@@ -52,10 +52,6 @@
 		return
 	to_chat(user, span_warning("Brute-force completed! The decryption key is '[linked_server.decryptkey]'."))
 
-/obj/machinery/computer/message_monitor/New()
-	..()
-	GLOB.telecomms_list += src
-
 /obj/machinery/computer/message_monitor/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
@@ -81,7 +77,6 @@
 	set_linked_server(null)
 
 /obj/machinery/computer/message_monitor/Destroy()
-	GLOB.telecomms_list -= src
 	set_linked_server(null)
 	return ..()
 
@@ -261,7 +256,7 @@
 			to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Log entry deleted.'"))
 			var/turf/the_turf = get_turf(src)
 			usr.log_message("cleared [type] log entry \"[msg]\" using [src] at [AREACOORD(the_turf)]", LOG_GAME)
-			if(isnull(locate(/datum/antagonist) in usr.mind?.antag_datums) && usr.mind?.assigned_role != "Lavaland Syndicate")
+			if(isnull(locate(/datum/antagonist) in usr.mind?.antag_datums) && !istype(usr.mind?.assigned_role, /datum/job/lavaland_syndicate))
 				message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] deleted [type] log entry \"[msg]\" as a non-antagonist using [src] at [ADMIN_VERBOSEJMP(the_turf)]")
 			return TRUE
 		if("admin_message")
@@ -273,6 +268,7 @@
 			tgui_send_admin_pda(usr, src, linked_server)
 
 /obj/machinery/computer/message_monitor/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MessageMonitor")
@@ -285,12 +281,11 @@
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/monitorkey)
 
 /obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
-	..()
+	. = ..()
 	if (server)
 		print(server)
 		return INITIALIZE_HINT_NORMAL
-	else
-		return INITIALIZE_HINT_LATELOAD
+	return INITIALIZE_HINT_LATELOAD
 
 
 /**

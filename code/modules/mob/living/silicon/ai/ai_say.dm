@@ -52,17 +52,18 @@
 		to_chat(usr, span_warning("Your message contains forbidden words."))
 		return
 
-	if(QDELETED(ai_hologram))
-		to_chat(src, "No holopad connected.")
+	// Only continue if there is a hologram and its master is the user.
+	if(!istype(current_holopad) || !current_holopad.masters[src])
+		to_chat(src, span_alert("No holopad connected."))
 		return
 
-	var/obj/machinery/holopad/active_pad = current_holopad
-	var/turf/pad_turf = get_turf(active_pad)
+	var/obj/effect/overlay/holo_pad_hologram/ai_holo = current_holopad.masters[src]
+	var/turf/pad_turf = get_turf(current_holopad)
 	var/pad_loc = pad_turf ? AREACOORD(pad_turf) : "(UNKNOWN)"
 
 	log_sayverb_talk(message, message_mods, tag = "HOLOPAD in [pad_loc]")
-	ai_hologram.say(message, spans = spans, sanitize = FALSE, language = language, message_mods = message_mods, source=current_holopad)
-	ai_hologram.create_private_chat_message(
+	ai_holo.say(message, spans = spans, sanitize = FALSE, language = language, message_mods = message_mods, source = current_holopad)
+	ai_holo.create_private_chat_message(
 		message = message,
 		message_language = language,
 		hearers = list(src),
@@ -82,7 +83,7 @@
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
 			continue
-		var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_hologram)
+		var/follow_link = FOLLOW_LINK(each_ghost, eyeobj || ai_holo)
 		to_chat(each_ghost, "[follow_link] [message]")
 
 
@@ -161,35 +162,46 @@
 
 	announcing_vox = world.time + VOX_DELAY
 
-	log_game("[key_name(src)] made a vocal announcement with the following message: [message].")
+	log_message("made a vocal announcement with the following message: [message].", LOG_GAME)
+	log_talk(message, LOG_SAY, tag = "VOX Announcement")
 	message_admins("[key_name(src)] made a vocal announcement with the following message: [message].")
 
+	var/turf/ai_turf = get_turf(src)
 	for(var/word in words)
-		play_vox_word(word, src.get_virtual_z_level(), null)
+		play_vox_word(word, ai_turf)
 
-
-/proc/play_vox_word(word, z_level, mob/only_listener)
-
+/proc/play_vox_word(word, turf/ai_turf, mob/only_listener)
 	word = LOWER_TEXT(word)
 
-	if(GLOB.vox_sounds[word])
+	var/sound_file = GLOB.vox_sounds[word]
+	if(isnull(sound_file))
+		return FALSE
 
-		var/sound_file = GLOB.vox_sounds[word]
-		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
+	// If there is no single listener, broadcast to everyone in the same z-level
+	if(!only_listener)
+		for(var/mob/player_mob as anything in GLOB.player_list)
+			if(!player_mob.can_hear())
+				continue
+
+			var/turf/player_turf = get_turf(player_mob)
+			if(!is_valid_z_level(ai_turf, player_turf))
+				continue
+
+			player_mob.client?.sound_channel_initial_volumes["[CHANNEL_VOX]"] = 100
+
+			var/pref_volume = player_mob.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ai_vox_volume)
+			var/sound/voice = sound(sound_file, wait = TRUE, channel = CHANNEL_VOX, volume = pref_volume)
+			voice.status = SOUND_STREAM
+			SEND_SOUND(player_mob, voice)
+	else
+		only_listener.client?.sound_channel_initial_volumes["[CHANNEL_VOX]"] = 100
+
+		var/pref_volume = only_listener.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ai_vox_volume)
+		var/sound/voice = sound(sound_file, wait = TRUE, channel = CHANNEL_VOX, volume = pref_volume)
 		voice.status = SOUND_STREAM
+		SEND_SOUND(only_listener, voice)
 
-		// If there is no single listener, broadcast to everyone in the same z level
-		if(!only_listener)
-			// Play voice for all mobs in the z level
-			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.can_hear() && M.client.prefs.read_player_preference(/datum/preference/toggle/sound_vox))
-					var/turf/T = get_turf(M)
-					if(T.get_virtual_z_level() == z_level)
-						SEND_SOUND(M, voice)
-		else
-			SEND_SOUND(only_listener, voice)
-		return 1
-	return 0
+	return TRUE
 
 #undef VOX_DELAY
 #endif

@@ -1,6 +1,7 @@
 GLOBAL_LIST_EMPTY(bounties_list)
 
 /datum/bounty
+	abstract_type = /datum/bounty
 	var/name
 	var/description
 	var/reward = 1000 // In credits. Modified by a bunch of outside variables, so this is not the real amount of credits awarded.
@@ -128,8 +129,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 			var/subtype = pick(subtypesof(/datum/bounty/manuscript))
 			return new subtype
 		if(15)
-			var/subtype = pick(subtypesof(/datum/bounty/genetics))
-			return new subtype
+			return new /datum/bounty/genetics()
 
 // Called lazily at startup to populate GLOB.bounties_list with random bounties.
 /proc/setup_bounties()

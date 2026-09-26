@@ -1,4 +1,5 @@
 /datum/bounty/virus
+	abstract_type = /datum/bounty/virus
 	reward = 5000
 	var/shipped = FALSE
 	var/stat_value = 0

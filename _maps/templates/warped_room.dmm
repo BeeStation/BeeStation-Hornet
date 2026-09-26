@@ -75,11 +75,7 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "q" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "r" = (

@@ -10,6 +10,7 @@
  */
 
 /obj/item/clothing/under/rank/security
+	abstract_type = /obj/item/clothing/under/rank/security
 	icon = 'icons/obj/clothing/under/security.dmi'
 	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	armor_type = /datum/armor/rank_security

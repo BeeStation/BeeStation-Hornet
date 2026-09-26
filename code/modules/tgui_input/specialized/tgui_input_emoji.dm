@@ -64,7 +64,7 @@
 /datum/tgui_input_emoji/New(mob/user, title)
 	src.title = title
 
-/datum/tgui_input_emoji/Destroy(force, ...)
+/datum/tgui_input_emoji/Destroy(force)
 	SStgui.close_uis(src)
 	. = ..()
 
@@ -134,9 +134,9 @@
 	..(user, title)
 	src.callback = callback
 
-/datum/tgui_input_emoji/async/Destroy(force, ...)
-	QDEL_NULL(callback)
-	. = ..()
+/datum/tgui_input_emoji/async/Destroy(force)
+	callback = null
+	return ..()
 
 /datum/tgui_input_emoji/async/set_entry(entry)
 	. = ..()

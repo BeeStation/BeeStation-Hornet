@@ -41,9 +41,9 @@
 		return FALSE
 	if(!(usr == leaner)) //Are we trying to lean someone else?
 		return FALSE
-	if(INCAPACITATED_IGNORING(leaner, INCAPABLE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+	if(INCAPACITATED_IGNORING(leaner, INCAPABLE_RESTRAINTS) || leaner.stat != CONSCIOUS || HAS_TRAIT(leaner, TRAIT_NO_TRANSFORM) || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
-	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
+	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, LEANING_TRAIT)) //Are we leaning already?
 		return FALSE
 	if(ISDIAGONALDIR(get_dir(leaner, source)) || ((get_dir(leaner, source)) == SOUTH)) //Not leaning on a corner, idiot, or a south wall because it looks bad
 		return FALSE
@@ -67,8 +67,8 @@
  * * leaning_offset - pixel offset to apply on the mob when leaning
  */
 /mob/living/proc/start_leaning(atom/lean_target, leaning_offset)
-	var/new_x = lean_target.pixel_x + base_pixel_x + body_position_pixel_x_offset
-	var/new_y = lean_target.pixel_y + base_pixel_y + body_position_pixel_y_offset
+	var/new_x = 0
+	var/new_y = 0
 	switch(get_dir(src, lean_target))
 		if(NORTH)
 			new_y += leaning_offset
@@ -77,8 +77,8 @@
 		if(EAST)
 			new_x += leaning_offset
 
-	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
-	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
+	add_offsets(LEANING_TRAIT, x_add = new_x, y_add = new_y)
+	ADD_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
 	visible_message(
 		span_notice("[src] leans against [lean_target]."),
 		span_notice("You lean against [lean_target]."),
@@ -94,6 +94,8 @@
 		COMSIG_LIVING_RESTING_UPDATED //If we are downed
 	), PROC_REF(stop_leaning))
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(fall_z_change))
+	RegisterSignal(lean_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(fall_z_change))
 	RegisterSignal(lean_target, COMSIG_AIRLOCK_OPEN, PROC_REF(fall_into))
 	RegisterSignal(lean_target, COMSIG_MOVABLE_MOVED, PROC_REF(fall_into_ex_turf))
 	RegisterSignal(lean_target, COMSIG_VEHICLE_MOVE, PROC_REF(fall_into_ex_turf))
@@ -109,12 +111,13 @@
 		COMSIG_QDELETING,
 		COMSIG_LIVING_RESIST,
 		COMSIG_LIVING_MINOR_SHOCK,
-		COMSIG_LIVING_RESTING_UPDATED
+		COMSIG_LIVING_RESTING_UPDATED,
+		COMSIG_MOVABLE_Z_CHANGED
 	))
-	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED))
+	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_Z_CHANGED))
 	leaned_object = null
-	animate(src, 0.2 SECONDS, pixel_x = base_pixel_x + body_position_pixel_x_offset, pixel_y = base_pixel_y + body_position_pixel_y_offset)
-	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
+	remove_offsets(LEANING_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
 
 
@@ -133,10 +136,13 @@
 		return
 	fall_forced(get_turf(source))
 
-/mob/living/proc/fall_into_ex_turf(datum/source, atom/moved, direction)
+/mob/living/proc/fall_z_change(datum/source, old_z, new_z) // Whatever we were leaning on changed Z level, there's nothing to lean on anymore
 	SIGNAL_HANDLER
-	var/fall_location = get_step(get_turf(source), turn(direction, 180)) //Invert the direction the mech moved to, so we fall where the mech once was.
-	fall(fall_location)
+	fall(get_turf(src))
+
+/mob/living/proc/fall_into_ex_turf(datum/source, atom/old_loc, direction)
+	SIGNAL_HANDLER
+	fall(get_turf(old_loc))
 
 /mob/living/proc/fall(location)
 	stop_leaning() // Make sure we unregister signal handlers and reset animation

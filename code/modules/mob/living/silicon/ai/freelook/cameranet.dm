@@ -9,7 +9,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	var/name = "Camera Net"
 
 	/// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Del().
-	var/list/cameras = list()
+	var/list/obj/machinery/camera/cameras = list()
 	/// The chunks of the map, mapping the areas that the cameras can see.
 	var/list/chunks = list()
 	var/ready = 0
@@ -52,7 +52,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 		chunks[key] = . = new /datum/camerachunk(x, y, z)
 
 /// Updates what the ai_eye can see. It is recommended you use this when the ai_eye moves or it's location is set.
-/datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes, use_static = TRUE)
+/datum/cameranet/proc/update_camera_visibility(list/moved_eyes, client/C, list/other_eyes, use_static = TRUE)
 	if(!islist(moved_eyes))
 		moved_eyes = moved_eyes ? list(moved_eyes) : list()
 	if(islist(other_eyes))
@@ -79,10 +79,10 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 		var/list/add = visibleChunks - eye.visibleCameraChunks
 
 		for(var/datum/camerachunk/chunk as anything in remove)
-			chunk.remove(eye, FALSE)
+			chunk.remove(eye, eye.eye_users) // TO-DO: replace eye_mobs
 
 		for(var/datum/camerachunk/chunk as anything in add)
-			chunk.add(eye)
+			chunk.add(eye, eye.eye_users) // TO-DO: replace eye_mobs
 
 /// Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 /datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)

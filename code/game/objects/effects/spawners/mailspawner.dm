@@ -47,7 +47,7 @@
 		/obj/item/organ/eyes/night_vision,
 		/obj/item/organ/liver/plasmaman,
 		/obj/item/organ/liver/alien,
-		/obj/item/organ/stomach/plasmaman,
+		/obj/item/organ/stomach/bone/plasmaman,
 		/obj/item/organ/lungs/plasmaman,
 		/obj/item/organ/lungs/slime,
 		/obj/item/organ/tongue/abductor,

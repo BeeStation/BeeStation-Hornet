@@ -126,23 +126,27 @@
 			if(sensor.on && sensor.visible)
 				add_overlay("proxy_beam")
 
-/// Merge both gases into a single tank. Combine the volume by default. If target tank isn't specified default to tank_two
-/obj/item/transfer_valve/proc/merge_gases(obj/item/tank/target, change_volume = TRUE)
-	if(!target)
-		target = tank_two
-
-	if(!istype(target) || (target != tank_one && target != tank_two))
+/// Merge both gases into a single gas_mixture. Combine the volume by default. If target mixture isn't specified, tank_two's air contents are used
+/obj/item/transfer_valve/proc/merge_gases(datum/gas_mixture/target, change_volume = TRUE)
+	var/target_self = FALSE
+	if(!tank_one || !tank_two)
 		return FALSE
-
 	// Throw both tanks into processing queue
-	var/datum/gas_mixture/target_mix = target.return_air()
-	var/datum/gas_mixture/other_mix
-	other_mix = (target == tank_one ? tank_two : tank_one).return_air()
+	var/datum/gas_mixture/mix_one = tank_one.return_air()
+	var/datum/gas_mixture/mix_two = tank_two.return_air()
+	if(!target || target == mix_one)
+		target = mix_two
+	if(target == mix_two)
+		target_self = TRUE
 
 	if(change_volume)
-		target_mix.volume += other_mix.volume
+		if(!target_self)
+			target.volume += mix_two.volume
+		target.volume += mix_one.volume
 
-	target_mix.merge(other_mix.remove_ratio(1))
+	target.merge(mix_one.remove_ratio(1))
+	if(!target_self)
+		target.merge(mix_two.remove_ratio(1))
 	return TRUE
 
 /obj/item/transfer_valve/proc/split_gases()
@@ -162,7 +166,7 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/transfer_valve/proc/toggle_valve(obj/item/tank/target, change_volume = TRUE)
+/obj/item/transfer_valve/proc/toggle_valve(datum/gas_mixture/target, change_volume = TRUE)
 	if(!valve_open && tank_one && tank_two)
 		var/turf/bombturf = get_turf(src)
 

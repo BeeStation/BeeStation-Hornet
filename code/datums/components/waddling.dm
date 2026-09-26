@@ -27,7 +27,7 @@
 
 	var/atom/movable/target = parent
 
-	animate(target, pixel_z = 4, time = 0)
+	animate(target, pixel_y = 4, time = 0)
 	var/prev_trans = matrix(target.transform)
-	animate(pixel_z = 0, transform = turn(target.transform, pick(-12, 0, 12)), time=2)
-	animate(pixel_z = 0, transform = prev_trans, time = 0)
+	animate(pixel_y = 0, transform = turn(target.transform, pick(-12, 0, 12)), time = 0.2 SECONDS)
+	animate(pixel_y = 0, transform = prev_trans, time = 0)

@@ -47,7 +47,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(on_update_icon_state))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
-/datum/component/deployable/Destroy(force, silent)
+/datum/component/deployable/Destroy(force)
 	item_parent = null
 	return ..()
 

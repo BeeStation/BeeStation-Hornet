@@ -52,7 +52,7 @@
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	scanmod = new /obj/item/stock_parts/scanning_module/triphasic(src)
 	capacitor = new /obj/item/stock_parts/capacitor/quadratic(src)
-	servo = new /obj/item/stock_parts/manipulator/femto(src)
+	manipulator = new /obj/item/stock_parts/manipulator/femto(src)
 	update_part_values()
 
 /datum/action/vehicle/sealed/mecha/mech_smoke
@@ -153,5 +153,5 @@
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	scanmod = new /obj/item/stock_parts/scanning_module/triphasic(src)
 	capacitor = new /obj/item/stock_parts/capacitor/quadratic(src)
-	servo = new /obj/item/stock_parts/manipulator/femto(src)
+	manipulator = new /obj/item/stock_parts/manipulator/femto(src)
 	update_part_values()

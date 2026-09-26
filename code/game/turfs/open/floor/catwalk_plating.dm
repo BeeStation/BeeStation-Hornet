@@ -103,3 +103,25 @@
 	icon_state = "smoothiron_above"
 	floor_tile = /obj/item/stack/tile/catwalk_tile/iron_smooth
 	catwalk_type = "smoothiron"
+
+//Airless variants of the above
+/turf/open/floor/catwalk_floor/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_white/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_dark/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_dark/telecomms
+	initial_gas_mix = TCOMMS_ATMOS
+
+/turf/open/floor/catwalk_floor/titanium/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/catwalk_floor/iron_smooth/airless
+	initial_gas_mix = AIRLESS_ATMOS

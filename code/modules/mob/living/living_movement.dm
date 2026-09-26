@@ -69,19 +69,15 @@
 		return TRUE
 	return !mover.density || body_position == LYING_DOWN
 
-/mob/living/set_move_intent(new_state)
-	. = ..()
-	update_move_intent_slowdown()
-
 /mob/living/update_config_movespeed()
 	update_move_intent_slowdown()
 	return ..()
 
 /mob/living/proc/update_move_intent_slowdown()
 	var/modifier
-	if(m_intent == MOVE_INTENT_WALK)
+	if(move_intent == MOVE_INTENT_WALK)
 		modifier = /datum/movespeed_modifier/config_walk_run/walk
-	else if(m_intent == MOVE_INTENT_RUN)
+	else if(move_intent == MOVE_INTENT_RUN)
 		modifier =  /datum/movespeed_modifier/config_walk_run/run
 	else
 		modifier = /datum/movespeed_modifier/config_walk_run/sprint

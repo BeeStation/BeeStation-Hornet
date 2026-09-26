@@ -49,7 +49,7 @@
 	get_user()
 	if(player)
 		sound_channel = rand(200, 800)
-		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_HappyPlace.ogg', 50, channel = sound_channel)
+		player.playsound_local(computer, 'sound/music/misc/PinkSuzuki_HappyPlace.ogg', 50, channel = sound_channel)
 		sound = TRUE
 
 /datum/computer_file/program/coil_virus/ui_act(action, list/params, datum/tgui/ui)
@@ -121,7 +121,7 @@
 	get_user()
 	if(player)
 		sound_channel = rand(200, 800)
-		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_DaxtersPlaceOutro.ogg', 50, channel = sound_channel)
+		player.playsound_local(computer, 'sound/music/misc/PinkSuzuki_DaxtersPlaceOutro.ogg', 50, channel = sound_channel)
 		sound = TRUE
 	var/obj/item/computer_hardware/network_card/card = computer.all_components[MC_NET]
 	if(card)
@@ -203,7 +203,7 @@
 	get_user()
 	if(player)
 		sound_channel = rand(200, 800)
-		player.playsound_local(computer, 'sound/soundtrack/PinkSuzuki_HellraiserAnthem.ogg', 50, channel = sound_channel)
+		player.playsound_local(computer, 'sound/music/misc/PinkSuzuki_HellraiserAnthem.ogg', 50, channel = sound_channel)
 		sound = TRUE
 
 /datum/computer_file/program/sledge_virus/on_ui_close(mob/user, datum/tgui/tgui)

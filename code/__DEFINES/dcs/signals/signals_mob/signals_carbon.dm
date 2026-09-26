@@ -39,6 +39,9 @@
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
 /// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
 #define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
+/// Called from bodypart changing owner, which could be on attach or detachment. Either argument can be null. (mob/living/carbon/new_owner, mob/living/carbon/old_owner)
+#define COMSIG_BODYPART_CHANGED_OWNER "bodypart_changed_owner"
+
 ///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
 #define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
 	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
@@ -63,7 +66,7 @@
 
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
 
-///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN: (identity)
+///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN_APPEARANCE: (identity)
 #define COMSIG_HUMAN_GET_VISIBLE_NAME "human_get_visible_name"
 	//Index for the name of the face
 	#define VISIBLE_NAME_FACE 1
@@ -71,7 +74,7 @@
 	#define VISIBLE_NAME_ID 2
 	//Index for whether their name is being overriden instead of obsfuscated
 	#define VISIBLE_NAME_FORCED 3
-///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
+///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN_APPEARANCE and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
 
 ///Called when a carbon's health hud is updated. (source = carbon, shown_health_amount)
@@ -81,3 +84,8 @@
 
 ///Called when you want to update a carbon's height with the height_filter element - update_displacement(intensity, dir_override)
 #define COMSIG_CARBON_HEIGHT_UPDATE "COMSIG_CARBON_HEIGHT_UPDATE"
+
+///Called from on_acquiring(mob/living/carbon/human/acquirer)
+#define COMSIG_MUTATION_GAINED "mutation_gained"
+///Called from on_losing(mob/living/carbon/human/owner)
+#define COMSIG_MUTATION_LOST "mutation_lost"

@@ -5,7 +5,7 @@
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
-	networks = list()
+	compatible_camera_networks = list()
 	use_power = NO_POWER_USE
 	smoothing_flags = NONE
 	smoothing_groups = null
@@ -102,4 +102,4 @@
 			eye.source_turf = camera_location
 			eyeobj.setLoc(camera_location)
 		else
-			eyeobj.setLoc(eyeobj.loc)
+			eyeobj.setLoc(get_turf(eyeobj))

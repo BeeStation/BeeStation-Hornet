@@ -51,7 +51,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 
 	expand(current_size)
 
-	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
+	for(var/obj/machinery/power/singularity_beacon/singubeacon as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/singularity_beacon))
 		if(singubeacon.active)
 			new_component.target = singubeacon
 			break

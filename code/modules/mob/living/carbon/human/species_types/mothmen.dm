@@ -9,23 +9,18 @@
 	name = "\improper Mothman"
 	plural_form = "Mothmen"
 	id = SPECIES_MOTH
-	species_traits = list(
-		LIPS,
-		HAS_MARKINGS
-	)
 	inherent_traits = list(
-		TRAIT_TACKLING_WINGED_ATTACKER
+		TRAIT_MUTANT_COLORS,
+		TRAIT_HAS_MARKINGS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	mutant_bodyparts = list(
 		"moth_wings" = "Plain",
 		"moth_antennae" = "Plain",
-		"moth_markings" = "None",
+		"moth_markings" = SPRITE_ACCESSORY_NONE,
+		"moth_eyes" = "Default",
 		"body_size" = "Normal"
 	)
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
 	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
@@ -47,14 +42,20 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/moth/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return FALSE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	if(human_who_gained_species.dna?.features["moth_eyes"] == "Domestic")
+		mutanteyes = /obj/item/organ/eyes/moth/domestic
+	else
+		mutanteyes = /obj/item/organ/eyes/moth
+	if(!pref_load)
+		human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
@@ -85,6 +86,7 @@
 	QDEL_NULL(cocoon_action)
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(cocoon_action)
 		cocoon_action.update_buttons()
 
@@ -239,3 +241,7 @@
 	)
 
 	return to_add
+
+/datum/species/moth/prepare_human_for_preview(mob/living/carbon/human/human)
+	human.dna.features["mcolor"] = "#f4d697"
+	human.update_body(TRUE)

@@ -177,7 +177,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 		A = new spawn_path(get_turf(user))
 	else
 		A = spawn_path
-	put_illegal_bitflag(A, illegal_tech, contents_are_illegal_tech)
 	if(istype(A, /obj/item))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -188,17 +187,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	to_chat(user, "[A] materializes onto the floor.")
 	log_uplink_purchase(user, A, is_bonus = is_bonus)
 	return A
-
-/// Uplink purchased items get ILLEGAL tech bitflag based on given parameter.
-/// Note: This should be a global proc because of surplus crate
-/proc/put_illegal_bitflag(obj/item/target_item, illegal_tech, contents_are_illegal_tech)
-	if(contents_are_illegal_tech)
-		for(var/obj/item/each_item in target_item.contents)
-			put_illegal_bitflag(each_item, contents_are_illegal_tech, TRUE)
-	if(!illegal_tech)
-		return
-	target_item.item_flags |= ILLEGAL
-
 
 /datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
 	return refundable
@@ -245,10 +233,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical bundle"
-	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
-			a Donksoft LMG, a box of riot darts and a pair of magboots to rescue your friends in no-gravity environments."
+	desc = "A large duffel bag containing medical equipment, a Donksoft LMG, a big jumbo box of riot darts, and a medbeam MODsuit module."
 	item = /obj/item/storage/backpack/duffelbag/syndie/med/medicalbundle
-	cost = 15 // normally 20
+	cost = 25 // Used to be 15, however the amounts of things given by this bundle are now better
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/bundles_TC/sniper
@@ -348,7 +335,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			continue
 		remaining_crate_value -= uplink_entry.cost
 		var/obj/goods = new uplink_entry.item(target_crate)
-		put_illegal_bitflag(goods, uplink_entry.illegal_tech, uplink_entry.contents_are_illegal_tech)
 		if(user_uplink.uplink_log)
 			user_uplink.uplink_log.LogPurchase(goods, uplink_entry, uplink_entry.cost, is_bonus = TRUE)
 	return target_crate
@@ -821,7 +807,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
-	item = /obj/item/ammo_casing/energy/bolt
+	item = /obj/item/gun/energy/recharge/ebow
 	cost = 10
 	reputation_required = REPUTATION_GOOD
 	surplus = 50
@@ -1521,7 +1507,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Codespeak Manual"
 	desc = "Syndicate agents can be trained to use a series of codewords to convey complex information, which sounds like random concepts and drinks to anyone listening. \
 			This manual teaches you this Codespeak. You can also hit someone else with the manual in order to teach them. This is the deluxe edition, which has unlimited uses."
-	item = /obj/item/codespeak_manual/unlimited
+	item = /obj/item/language_manual/codespeak_manual/unlimited
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/combatbananashoes
@@ -1938,12 +1924,21 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
-	desc = "This first aid kit is a suspicious brown and red. Included is a combat stimulant injector \
-			for rapid healing, a medical night vision HUD for quick identification of injured personnel, \
-			and other supplies helpful for a field medic."
+	desc = "This first aid kit is a suspicious brown and red. Included is a number of atropine medipens \
+			for rapid stabilization and detonation prevention. Patches for healing on the field are also included."
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
+/datum/uplink_item/device_tools/medkit/premium // Premium, has more things, but it's a lot more expensive
+	name = "Premium Syndicate Combat Medical Kit"
+	desc = "This first aid kit is a suspicious black and red. Included is an unloaded combat chemical injector \
+			for suit-penetrative chem delivery, a medical science night vision HUD for quick identification of injured personnel and chemical supplies, \
+			improved medical supplies, including Interdyne-approved pharmaceuticals, a hacked cybernetic surgery toolset arm implant, \
+			and some helpful MODsuit modules for for field medical use and operative physiopharmaceutical augmentation."
+	item = /obj/item/storage/firstaid/tactical/premium
+	cost = 15
+	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 
 /datum/uplink_item/device_tools/medkit_infiltration
 	name = "Syndicate Infiltrator's Medical Kit"
@@ -2199,7 +2194,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/blastcannon
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
-	disabled = TRUE // ! #11288 - Reported as non-functional
 	reputation_required = REPUTATION_EXCELLENT
 
 /datum/uplink_item/role_restricted/crushmagboots
@@ -2357,6 +2351,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 3
 	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 	reputation_required = REPUTATION_GOOD
+
+/datum/uplink_item/role_restricted/springlock
+	name = "Springlock Module"
+	desc = "A full-frame internal module mounted beneath the suit's outer shell. \
+		Its springlock exoskeleton retracts to allow entry, then locks into position to assist with boot-up. \
+		Decommissioned after repeated incidents involving sudden re-engagement under humid conditions. \
+		We found this one while recovering stolen cargo"
+	item = /obj/item/mod/module/springlock
+	cost = 2
+	restricted_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
 /datum/uplink_item/role_restricted/rewind_camera
 	name = "Sepia-toned Camera"

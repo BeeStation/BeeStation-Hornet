@@ -38,6 +38,8 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/arm/right/robot
 	name = "cyborg right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
@@ -65,6 +67,8 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	bodypart_flags = BODYPART_UNHUSKABLE
 
 /obj/item/bodypart/leg/left/robot
 	name = "cyborg left leg"
@@ -94,6 +98,8 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/leg/right/robot
 	name = "cyborg right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
@@ -122,6 +128,8 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
@@ -148,20 +156,22 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
-
-/obj/item/bodypart/chest/robot/get_cell()
-	return cell
-
-/obj/item/bodypart/chest/robot/handle_atom_del(atom/A)
-	if(A == cell)
-		cell = null
-	return ..()
 
 /obj/item/bodypart/chest/robot/Destroy()
 	QDEL_NULL(cell)
 	return ..()
+
+/obj/item/bodypart/chest/robot/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == cell)
+		cell = null
+
+/obj/item/bodypart/chest/robot/get_cell()
+	return cell
 
 /obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -204,8 +214,6 @@
 	I.play_tool_sound(src)
 	to_chat(user, span_notice("Remove [cell] from [src]."))
 	cell.forceMove(drop_location())
-	cell = null
-
 
 /obj/item/bodypart/chest/robot/examine(mob/user)
 	. = ..()
@@ -225,19 +233,16 @@
 	if(wired)
 		new /obj/item/stack/cable_coil(drop_loc, 1)
 		wired = FALSE
-	if(cell)
-		cell.forceMove(drop_loc)
-		cell = null
+	cell?.forceMove(drop_loc)
 	return ..()
-
 
 /obj/item/bodypart/head/robot
 	name = "cyborg head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	inhand_icon_state = "buildpipe"
 	icon_static = 'icons/mob/augmentation/augments.dmi'
+	icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = BODYPART_ID_ROBOTIC
-	icon = null
 	obj_flags = CONDUCTS_ELECTRICITY
 	icon_state = "borg_head"
 	is_dimorphic = FALSE
@@ -258,16 +263,11 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	head_flags = HEAD_EYESPRITES
+	bodypart_flags = BODYPART_UNHUSKABLE
+
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
-
-
-/obj/item/bodypart/head/robot/handle_atom_del(atom/A)
-	if(A == flash1)
-		flash1 = null
-	if(A == flash2)
-		flash2 = null
-	return ..()
 
 /obj/item/bodypart/head/robot/Destroy()
 	QDEL_NULL(flash1)
@@ -287,6 +287,13 @@
 		else
 			. += "It has two eye sockets occupied by flashes."
 		. += span_notice("You can remove the seated flash[single_flash ? "":"es"] with a <b>crowbar</b>.")
+
+/obj/item/bodypart/head/robot/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == flash1)
+		flash1 = null
+	if(gone == flash2)
+		flash2 = null
 
 /obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/flash/handheld))
@@ -308,33 +315,22 @@
 			return
 	return ..()
 
-/obj/item/bodypart/head/robot/crowbar_act(mob/living/user, obj/item/I)
+/obj/item/bodypart/head/robot/crowbar_act(mob/living/user, obj/item/tool)
 	if(flash1 || flash2)
-		I.play_tool_sound(src)
+		tool.play_tool_sound(src)
 		to_chat(user, span_notice("You remove the flash from [src]."))
-		if(flash1)
-			flash1.forceMove(drop_location())
-			flash1 = null
-		if(flash2)
-			flash2.forceMove(drop_location())
-			flash2 = null
+		var/atom/drop_loc = drop_location()
+		flash1?.forceMove(drop_loc)
+		flash2?.forceMove(drop_loc)
 	else
 		to_chat(user, span_warning("There is no flash to remove from [src]."))
 	return TRUE
 
-
 /obj/item/bodypart/head/robot/drop_organs(mob/user, violent_removal)
 	var/atom/drop_loc = drop_location()
-	if(flash1)
-		flash1.forceMove(drop_loc)
-		flash1 = null
-	if(flash2)
-		flash2.forceMove(drop_loc)
-		flash2 = null
+	flash1?.forceMove(drop_loc)
+	flash2?.forceMove(drop_loc)
 	return ..()
-
-
-
 
 /obj/item/bodypart/arm/left/robot/surplus
 	name = "surplus prosthetic left arm"
@@ -371,22 +367,22 @@
 
 
 /obj/item/bodypart/head/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/chest/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/arm/left/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/arm/right/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/leg/left/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/leg/right/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 #undef ROBOTIC_LIGHT_BRUTE_MSG
 #undef ROBOTIC_MEDIUM_BRUTE_MSG

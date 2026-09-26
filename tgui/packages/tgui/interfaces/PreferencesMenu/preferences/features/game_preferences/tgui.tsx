@@ -1,13 +1,5 @@
 import { CheckboxInput, FeatureToggle } from '../base';
 
-export const tgui_fancy: FeatureToggle = {
-  name: 'Enable fancy tgui',
-  category: 'UI',
-  subcategory: 'TGUI',
-  description: 'Makes tgui windows look better, at the cost of compatibility.',
-  component: CheckboxInput,
-};
-
 export const tgui_lock: FeatureToggle = {
   name: 'Lock tgui to main monitor',
   category: 'UI',

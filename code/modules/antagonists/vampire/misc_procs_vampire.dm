@@ -31,7 +31,8 @@
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
-	set_antag_hud(owner.current, "masquerade_broken")
+	antag_hud_name = "masquerade_broken"
+	add_team_hud(owner.current)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_VAMPIRE_BROKE_MASQUERADE, src)
 	GLOB.masquerade_breakers.Add(src)
@@ -44,7 +45,7 @@
 		return
 	masquerade_infractions++
 
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/effects/antag/vampire/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	if(masquerade_infractions >= 3)
 		break_masquerade()
@@ -342,7 +343,7 @@
 		return FALSE
 	if(watcher.stat != CONSCIOUS)
 		return FALSE
-	if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+	if(watcher.is_blind() || watcher.is_nearsighted_currently())
 		return FALSE
 	if(watcher in owner.current?.holoparasites())
 		return FALSE

@@ -8,6 +8,7 @@
 	icon_living = "psycho"
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	turns_per_move = 0
 	del_on_death = TRUE
@@ -17,7 +18,7 @@
 	speed = -2
 	maxHealth = 100
 	health = 100
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 2.5
 	faction = list(FACTION_HOSTILE)
 	move_to_delay = 3

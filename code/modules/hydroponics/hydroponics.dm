@@ -3,7 +3,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
 	density = TRUE
-	pixel_z = 8
+	pixel_y = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
 	idle_power_usage = 5000
@@ -40,11 +40,12 @@
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
+	. = ..()
 	var/tmp_capacity = 0
-	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
-		tmp_capacity += M.rating
-	for (var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating = M.rating
+	for(var/datum/stock_part/matter_bin/M in component_parts)
+		tmp_capacity += M.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		rating = M.tier
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
 
@@ -364,8 +365,6 @@
 		to_chat(user, span_warning("It's filled with weeds!"))
 	if(pestlevel >= 5)
 		to_chat(user, span_warning("It's filled with tiny worms!"))
-	to_chat(user, "" )
-
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = 0

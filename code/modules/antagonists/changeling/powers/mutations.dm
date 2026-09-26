@@ -11,6 +11,7 @@
 
 //Parent to shields and blades because muh copypasted code.
 /datum/action/changeling/weapon
+	abstract_type = /datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at Miauw and/or Perakp"
@@ -67,6 +68,7 @@
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
+	abstract_type = /datum/action/changeling/suit
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at Miauw and/or Perakp"
@@ -98,7 +100,7 @@
 		H.temporarilyRemoveItemFromInventory(H.wear_suit, TRUE)
 		H.update_worn_oversuit()
 		H.update_worn_head()
-		H.update_hair()
+		H.update_body_parts()
 
 		if(blood_on_castoff)
 			H.add_splatter_floor()

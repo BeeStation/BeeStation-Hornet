@@ -1,7 +1,6 @@
 /area/iceland
 	name = "iceland plains"
 	icon_state = "iceland"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	always_unpowered = TRUE
 	requires_power = TRUE
 	power_environ = FALSE
@@ -15,8 +14,8 @@
 	ambience_index = AMBIENCE_SPOOKY
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 	area_flags = UNIQUE_AREA | FLORA_ALLOWED
-	lighting_overlay_colour = "#93c3cf"
-	lighting_overlay_opacity = 60
+	base_lighting_color = "#93c3cf"
+	base_lighting_alpha = 60
 
 /area/iceland/planetgen
 	map_generator = /datum/map_generator/tundra_generator
@@ -24,7 +23,7 @@
 /area/iceland/shaded
 	name = "iceland plains"
 	icon_state = "iceland_shaded"
-	lighting_overlay_opacity = 0
+	base_lighting_alpha = 0
 
 /area/iceland/underground
 	name = "icecaverns"
@@ -32,7 +31,7 @@
 	ambience_index = AMBIENCE_RUINS
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	area_flags = UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
-	lighting_overlay_opacity = 0
+	base_lighting_alpha = 0
 
 /area/iceland/cavern
 	name = "icecaverns"
@@ -41,7 +40,7 @@
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	area_flags = UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
 	map_generator = /datum/map_generator/cave_generator/iceland
-	lighting_overlay_opacity = 0
+	base_lighting_alpha = 0
 
 /area/iceland/cavern/lavacavern
 	name = "lavacaverns"

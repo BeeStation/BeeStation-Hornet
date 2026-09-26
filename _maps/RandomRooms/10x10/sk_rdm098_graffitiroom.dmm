@@ -33,7 +33,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "f" = (
-/obj/structure/mopbucket,
+/obj/structure/mop_bucket,
 /obj/item/mop,
 /turf/open/floor/iron/dark,
 /area/template_noop)

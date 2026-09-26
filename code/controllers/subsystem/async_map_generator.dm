@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(async_map_generator)
 	name = "Async Map Generator"
 	wait = 1
-	flags = SS_TICKER | SS_NO_INIT
+	ss_flags = SS_TICKER | SS_NO_INIT
 	// We need to be running while shuttles are loading
 	runlevels = ALL
 
@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(async_map_generator)
 
 /datum/controller/subsystem/async_map_generator/stat_entry()
 	var/list/things = list()
-	for(var/datum/async_map_generator/running_generator as() in executing_generators)
+	for(var/datum/async_map_generator/running_generator as anything in executing_generators)
 		things += "{Ticks: [running_generator.ticks]}"
 	. = ..("GenCnt:[length(executing_generators)], [things.Join(",")]")
 
@@ -50,7 +50,6 @@ SUBSYSTEM_DEF(async_map_generator)
 			current_run_index --
 			//Decrement the current run length
 			current_run_length --
-			//to_chat(world, span_announce("Fully completed running map generator [current_run_index + 1]."))
 		//Continue to the next process
 		MC_SPLIT_TICK
 

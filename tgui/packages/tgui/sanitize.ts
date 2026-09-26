@@ -2,7 +2,7 @@
  * Uses DOMPurify to purify/sanitise HTML.
  */
 
-import { sanitize } from 'dompurify';
+import DOMPurify from 'dompurify';
 
 // Default values
 const defTag = [
@@ -60,13 +60,13 @@ let defAttr = ['class', 'style'];
  * @param forbidAttr - List of forbidden HTML attributes
  * @param advTags - List of advanced HTML tags allowed for trusted sources
  */
-export const sanitizeText = (
+export function sanitizeText(
   input: string,
   advHtml = false,
   tags = defTag,
   forbidAttr = defAttr,
   advTags = advTag,
-) => {
+) {
   // This is VERY important to think first if you NEED
   // the tag you put in here.  We are pushing all this
   // though dangerouslySetInnerHTML and even though
@@ -75,8 +75,8 @@ export const sanitizeText = (
   if (advHtml) {
     tags = tags.concat(advTags);
   }
-  return sanitize(input, {
+  return DOMPurify.sanitize(input, {
     ALLOWED_TAGS: tags,
     FORBID_ATTR: forbidAttr,
   });
-};
+}

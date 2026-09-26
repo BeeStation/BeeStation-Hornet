@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 CREATION_TEST_IGNORE_SELF(/turf)
 
 /turf
+	abstract_type = /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 	uses_integrity = TRUE
@@ -173,12 +174,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
-	var/area/A = loc
-	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
-		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+	// Same optimization principle used in /atom/movable/Initialize()
+	var/area/our_area = loc
+	if(fullbright_type)
+		if(fullbright_type == FULLBRIGHT_STARLIGHT && !our_area.has_starlight_overlay)
 			add_overlay(GLOB.starlight_overlay)
-		else
-			add_overlay(GLOB.fullbright_overlay)
+	else if(!our_area.area_has_base_lighting)
+		add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src, KILL_EXCITED)
@@ -234,12 +236,12 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	QDEL_LIST(blueprint_data)
+	LAZYCLEARLIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	if (length(vis_contents))
+	if(length(vis_contents))
 		vis_contents.Cut()
 
 /// WARNING WARNING
@@ -274,9 +276,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		return
 
 	//move the turf
-	old_area.turfs_to_uncontain += src
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
-	new_area.contained_turfs += src
 
 	//changes to make after turf has moved
 	on_change_area(old_area, new_area)
@@ -351,49 +355,38 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			return 1
 	return 0
 
-/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
-	if(C.loaded)
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.handlecable(C, user)
-				return
-		C.loaded.place_turf(src, user)
-		if(C.wiring_gui_menu)
-			C.wiringGuiUpdate(user)
-		C.is_empty(user)
-
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
 	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
 	// By default byond will call Bump() on the first dense object in contents
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
-	var/atom/firstbump
-	var/canPassSelf = CanPass(mover, get_dir(src, mover))
+	var/atom/first_bump
+	var/can_pass_self = CanPass(mover, get_dir(src, mover))
 
-	if(canPassSelf || (mover.movement_type & PHASING))
+	if(can_pass_self)
+		var/atom/mover_loc = mover.loc
+		var/mover_is_phasing = mover.movement_type & PHASING
 		for(var/atom/movable/thing as anything in contents)
-			if(QDELETED(mover))
-				return FALSE //We were deleted, do not attempt to proceed with movement.
-			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
+			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
 				continue
 			if(!thing.Cross(mover))
-				if(QDELETED(mover)) //Mover deleted from Cross/CanPass, do not proceed.
+				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it can't delete, Cross shouldn't be doing this either though, but it can happen)
 					return FALSE
-				if((mover.movement_type & PHASING))
+				if(mover_is_phasing)
 					mover.Bump(thing)
 					if(QDELETED(mover)) //deleted from Bump()
 						return FALSE
 					continue
 				else
-					if(!firstbump || ((thing.layer > firstbump.layer || thing.flags_1 & ON_BORDER_1) && !(firstbump.flags_1 & ON_BORDER_1)))
-						firstbump = thing
+					if(!first_bump || ((thing.layer > first_bump.layer || thing.flags_1 & ON_BORDER_1) && !(first_bump.flags_1 & ON_BORDER_1)))
+						first_bump = thing
 	if(QDELETED(mover)) //Mover deleted from Cross/CanPass/Bump, do not proceed.
 		return FALSE
-	if(!canPassSelf)	//Even if mover is unstoppable they need to bump us.
-		firstbump = src
-	if(firstbump)
-		mover.Bump(firstbump)
+	if(!can_pass_self) //Even if mover is unstoppable they need to bump us.
+		first_bump = src
+	if(first_bump)
+		mover.Bump(first_bump)
 		return (mover.movement_type & PHASING)
 	return TRUE
 
@@ -539,33 +532,30 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE, purge = TRUE)
+/turf/proc/add_vomit_floor(mob/living/vomiter, vomit_type = /obj/effect/decal/cleanable/vomit, vomit_flags, purge_ratio = 0.1)
+	var/obj/effect/decal/cleanable/vomit/throw_up = new vomit_type (src, vomiter.get_static_viruses())
 
-	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
-
-	//if the vomit combined, apply toxicity and reagents to the old vomit
-	if (QDELETED(V))
-		V = locate() in src
-	if(!V)
+	// if the vomit combined, apply toxicity and reagents to the old vomit
+	if (QDELETED(throw_up))
+		throw_up = locate() in src
+	if(isnull(throw_up))
 		return
-	// Make toxins and blazaam vomit look different
-	if(toxvomit == VOMIT_PURPLE)
-		V.icon_state = "vomitpurp_[pick(1,4)]"
-	else if (toxvomit == VOMIT_TOXIC)
-		V.icon_state = "vomittox_[pick(1,4)]"
-	else if (toxvomit == VOMIT_NANITE)
-		V.name = "metallic slurry"
-		V.desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
-		V.icon_state = "vomitnanite_[pick(1,4)]"
-	if (purge && iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(C.reagents)
-			clear_reagents_to_vomit_pool(C,V)
 
-/proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V)
-	M.reagents.trans_to(V, M.reagents.total_volume / 10, transfered_by = M)
-	for(var/datum/reagent/R in M.reagents.reagent_list)                //clears the stomach of anything that might be digested as food
-		if(istype(R, /datum/reagent/consumable))
+	if(!iscarbon(vomiter) || (purge_ratio == 0))
+		return
+
+	clear_reagents_to_vomit_pool(vomiter, throw_up, purge_ratio)
+
+/proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V, purge = FALSE)
+	var/obj/item/organ/stomach/belly = M.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!belly?.reagents.total_volume)
+		return
+	var/chemicals_lost = M.reagents.total_volume / 10
+	if(purge)
+		chemicals_lost = (2 * M.reagents.total_volume)/3 //For detoxification surgery, we're manually pumping the stomach out of chemcials, so it's far more efficient.
+	M.reagents.trans_to(V, chemicals_lost, transfered_by = M)
+	for(var/datum/reagent/R in M.reagents.reagent_list) //clears the stomach of anything that might be digested as food
+		if(istype(R, /datum/reagent/consumable) || purge)
 			var/datum/reagent/consumable/nutri_check = R
 			if(nutri_check.nutriment_factor >0)
 				M.reagents.remove_reagent(R.type, min(R.volume, 10))
@@ -604,33 +594,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/take_temperature(temp)
 	temperature += temp
 
-/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
-	if(max_amount <= 0)
-		return
-	var/to_spawn = pick(1, max_amount)
-	var/spawned = 0
-	var/location_sanity = 0
-	while(spawned < to_spawn && location_sanity < 100)
-		var/precision = pick(5, 15 * max_amount)
-		var/turf/chosen_location = get_safe_random_station_turfs()
-		if(!chosen_location)
-			location_sanity++
-			continue
-		if(centered)
-			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
-		// We don't want them close to each other - at least 1 tile of seperation
-		var/list/nearby_things = range(1, chosen_location)
-		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
-		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
-		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
-			location_sanity++
-			continue
-		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
-		spawned++
-
-/turf/proc/create_new_fake_reality(turf/F)
-	new /obj/effect/visible_heretic_influence(F)
-
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
@@ -646,7 +609,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!force) //readability
 			return
 	var/datum/turf_texture/turf_texture
-	for(var/datum/turf_texture/TF as() in textures)
+	for(var/datum/turf_texture/TF as anything in textures)
 		var/area/A = loc
 		if(TF in A?.get_area_textures())
 			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF

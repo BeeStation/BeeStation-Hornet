@@ -9,18 +9,20 @@
 	harmful = FALSE
 	var/modified = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/update_icon()
-	..()
+/obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
+	. = ..()
 	if (modified)
 		icon_state = "foamdart_empty"
-		desc = "It's nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
 		icon_state = initial(icon_state)
-		desc = "It's nerf or nothing! Ages 8 and up."
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
+
+/obj/item/ammo_casing/caseless/foam_dart/update_desc(updates)
+	. = ..() //the parent rebuilds desc from initial(), so ours has to be applied afterwards
+	desc = modified ? "It's nerf or nothing! ... Although, this one doesn't look too safe." : "It's nerf or nothing! Ages 8 and up."
 
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
@@ -30,7 +32,7 @@
 		FD.modified = TRUE
 		FD.damage_type = BRUTE
 		to_chat(user, span_notice("You pop the safety cap off [src]."))
-		update_icon()
+		update_appearance()
 	else if (istype(A, /obj/item/pen))
 		if(modified)
 			if(!FD.pen)

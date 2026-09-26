@@ -56,7 +56,7 @@
 	. = ..()
 	// Adding an extra break for the sake of presentation
 	if(charged_stamina_damage != 0)
-		offensive_notes = "It takes [span_warning("[CEILING(100 / charged_stamina_damage, 1)] stunning hit\s")] to stun an enemy."
+		offensive_notes = "It takes [span_warning("[ceil(100 / charged_stamina_damage)] stunning hit\s")] to stun an enemy."
 
 /**
  * Ok, think of baton attacks like a melee attack chain:

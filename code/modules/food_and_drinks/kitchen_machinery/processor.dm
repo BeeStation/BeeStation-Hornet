@@ -17,10 +17,11 @@
 	processing_flags = NONE
 
 /obj/machinery/processor/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
+	. = ..()
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		rating_amount = B.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		rating_speed = M.tier
 
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
@@ -44,7 +45,7 @@
 
 /obj/machinery/processor/proc/select_recipe(input_item)
 	var/most_specific_type = /atom
-	for (var/datum/food_processor_process/recipe as anything in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+	for (var/datum/food_processor_process/recipe as anything in valid_subtypesof(/datum/food_processor_process))
 		var/recipe_input = initial(recipe.input)
 		if (istype(src, initial(recipe.required_machine)) && istype(input_item, recipe_input) && ispath(recipe_input, most_specific_type))
 			most_specific_type = recipe_input
@@ -110,6 +111,7 @@
 		to_chat(user, span_warning("[src] is empty!"))
 		return TRUE
 	processing = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 	user.visible_message("[user] turns on [src].", \
 		span_notice("You turn on [src]."), \
 		span_italics("You hear a food processor."))
@@ -133,6 +135,7 @@
 		process_food(P, O)
 	pixel_x = base_pixel_x //return to its spot after shaking
 	processing = FALSE
+	update_use_power(IDLE_POWER_USE)
 	visible_message("\The [src] finishes processing.")
 
 /obj/machinery/processor/verb/eject()
@@ -203,8 +206,6 @@
 		var/C = S.cores
 		for(var/i in 1 to (C+rating_amount-1))
 			var/obj/item/slime_extract/item = new S.coretype(drop_location())
-			if(S.transformeffects & SLIME_EFFECT_GOLD)
-				item.sparkly = TRUE
 			adjust_item_drop_location(item)
 			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
 	..()

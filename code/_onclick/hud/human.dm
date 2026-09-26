@@ -77,7 +77,7 @@
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = ui_style
-	using.icon_state = (mymob.m_intent == MOVE_INTENT_WALK ? "walking" : "running")
+	using.icon_state = (owner.move_intent == MOVE_INTENT_WALK ? "walking" : "running")
 	using.screen_loc = ui_movi
 	static_inventory += using
 

@@ -19,7 +19,9 @@
 /obj/var/_reflection_is_directional = FALSE
 
 /// Create directional subtypes for a path to simplify mapping.
-#define MAPPING_DIRECTIONAL_HELPERS(path, offset)\
+#define MAPPING_DIRECTIONAL_HELPERS(path, offset) ##path/directional {\
+	abstract_type = ##path/directional; \
+} \
 ##path {\
 	_reflection_is_directional = TRUE;\
 } \

@@ -5,18 +5,10 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Fugitive Hunters"
 	show_to_ghosts = TRUE
-	prevent_roundtype_conversion = FALSE
 	required_living_playtime = 0
+	antag_hud_name = "fugitive_hunter"
 	var/datum/team/fugitive_hunters/hunter_team
 	var/datum/fugitive_type/hunter/backstory
-
-/datum/antagonist/fugitive_hunter/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_fugitive_icons_added(M)
-
-/datum/antagonist/fugitive_hunter/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_fugitive_icons_removed(M)
 
 /datum/antagonist/fugitive_hunter/on_gain()
 	for(var/datum/objective/O in hunter_team.objectives)
@@ -198,13 +190,3 @@
 	result += "</div>"
 
 	return result.Join("<br>")
-
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(mob/living/carbon/human/fugitive)
-	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
-	fughud.join_hud(fugitive)
-	set_antag_hud(fugitive, "fugitive_hunter")
-
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(mob/living/carbon/human/fugitive)
-	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
-	fughud.leave_hud(fugitive)
-	set_antag_hud(fugitive, null)

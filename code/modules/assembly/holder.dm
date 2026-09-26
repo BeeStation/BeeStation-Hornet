@@ -15,7 +15,7 @@
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/item/assembly_holder/Destroy()
 	QDEL_LAZYLIST(assemblies)
@@ -39,7 +39,7 @@
 			var/obj/item/assembly/timer/timer = assembly
 			. += span_notice("The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
 
-/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	on_move(old_loc, movement_dir)
 
@@ -157,9 +157,6 @@
 		return
 
 	return ..()
-
-/obj/item/assembly_holder/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/tool)
 	if(..())

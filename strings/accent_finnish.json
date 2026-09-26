@@ -1,0 +1,50 @@
+{
+	"words": {
+		"yes": "joo",
+		"no": "ei",
+		"hello": "hei",
+		"hi": ["hei", "moi"],
+		"goodbye": ["hei hei", "moi moi"],
+		"okay": "joo",
+		"ok": "joo",
+		"thanks": "kiitos",
+		"thank you": "kiitos",
+		"good": "hyvä",
+		"great": "mahtava",
+		"cheers": "kippis",
+		"friend": "kaveri",
+		"bro": "kaveri",
+		"very": "tosi",
+		"maybe": "ehkä",
+		"cold": "kylmä",
+		"quiet": "hiljainen",
+		"outside": "ulkona",
+		"crazy": "kreisi",
+		"security": "poliisi",
+		"sec": "poliisi",
+		"shitsec": "poliisi",
+		"shitcurity": "poliisi",
+		"secoff": "konstaapeli",
+		"officer": "konstaapeli",
+		"captain": "kapteeni",
+		"hos": "komisario",
+		"head of security": "komisario",
+		"traitor": "petturi",
+		"brig": "putka",
+		"prison": "putka",
+		"perma": "putka",
+		"credit": "euro",
+		"money": "euro",
+		"holochip": "euro",
+		"dollar": "euro"
+	},
+	"start": {
+		"th": "t"
+	},
+	"syllables": {
+		"th": "t"
+	},
+	"appends": [
+		"joo."
+	]
+}

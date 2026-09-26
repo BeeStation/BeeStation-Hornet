@@ -73,7 +73,7 @@
 
 // Only called if mappers set ID
 /obj/machinery/mineral/processing_unit_console/LateInitialize()
-	for(var/obj/machinery/mineral/processing_unit/PU in GLOB.machines)
+	for(var/obj/machinery/mineral/processing_unit/PU as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/mineral/processing_unit))
 		if(PU.link_id == link_id)
 			machine = PU
 			machine.console = src
@@ -234,23 +234,25 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		/datum/material/bluespace,
 	)
 	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, MATCONTAINER_EXAMINE|BREAKDOWN_FLAGS_ORE_PROCESSOR, /obj/item/stack)
-	stored_research = new /datum/techweb/specialized/autounlocking/smelter
+	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter] ||= new /datum/techweb/autounlocking/smelter()
+	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/smelter]
 	selected_material = SSmaterials.GetMaterialRef(/datum/material/iron)
 
 /obj/machinery/mineral/processing_unit/Destroy()
 	if(console)
 		SStgui.close_uis(console)
 	console = null
-	QDEL_NULL(stored_research)
+	stored_research = null
 	return ..()
 
 /obj/machinery/mineral/processing_unit/RefreshParts()
+	. = ..()
 	var/point_upgrade_temp = 0
 	var/smelt_amount_temp = 1
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		smelt_amount_temp += 1 + (1 * B.rating)
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		point_upgrade_temp += 0.65 + (0.35 * L.rating)
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		smelt_amount_temp += 1 + (1 * B.tier)
+	for(var/datum/stock_part/micro_laser/L in component_parts)
+		point_upgrade_temp += 0.65 + (0.35 * L.tier)
 	point_upgrade = point_upgrade_temp
 	smelt_amount = round(smelt_amount_temp, 1)
 

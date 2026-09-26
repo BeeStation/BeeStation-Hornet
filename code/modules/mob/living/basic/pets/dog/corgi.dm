@@ -389,13 +389,21 @@
 
 /mob/living/basic/pet/dog/corgi/ian/Destroy()
 	LAZYREMOVE(SSticker.round_end_events, i_will_survive) //cleanup the survival callback
-	QDEL_NULL(i_will_survive)
+	i_will_survive = null
 	return ..()
 
 /mob/living/basic/pet/dog/corgi/ian/death()
 	if(!memory_saved)
 		write_memory(TRUE)
 	return ..()
+
+/mob/living/basic/pet/dog/corgi/ian/revive(full_heal_flags, excess_healing, force_grab_ghost)
+	. = ..()
+	if (!.)
+		return
+	if (!istype(inventory_head, /obj/item/clothing/glasses/eyepatch))
+		inventory_head?.forceMove(drop_location())
+	place_on_head(new /obj/item/clothing/glasses/eyepatch)
 
 /mob/living/basic/pet/dog/corgi/ian/narsie_act()
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)

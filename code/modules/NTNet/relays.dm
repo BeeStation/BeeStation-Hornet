@@ -1,9 +1,7 @@
-GLOBAL_LIST_EMPTY(ntnet_relays)
-
 ///Checks whether NTNet is available by ensuring at least one relay exists and is operational.
 /proc/find_functional_ntnet_relay()
 	// Check all relays. If we have at least one working relay, ntos is up.
-	for(var/obj/machinery/ntnet_relay/relays as anything in GLOB.ntnet_relays)
+	for(var/obj/machinery/ntnet_relay/relays as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/ntnet_relay))
 		if(!relays.is_operational)
 			continue
 		return TRUE
@@ -123,16 +121,15 @@ GLOBAL_LIST_EMPTY(ntnet_relays)
 			return TRUE
 
 /obj/machinery/ntnet_relay/Initialize(mapload)
+	. = ..()
 	uid = gl_uid++
-	component_parts = list()
 
-	GLOB.ntnet_relays += src
-	SSmodular_computers.add_log("DIAGNOSTICS // New quantum relay activated. Current amount of linked relays: [GLOB.ntnet_relays.len]")
-	return ..()
+	var/current_relays = length(SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/ntnet_relay))
+	SSmodular_computers.add_log("DIAGNOSTICS // New quantum relay activated. Current amount of linked relays: [current_relays]")
 
 /obj/machinery/ntnet_relay/Destroy()
-	GLOB.ntnet_relays -= src
-	SSmodular_computers.add_log("DIAGNOSTICS // Quantum relay connection severed. Current amount of linked relays: [GLOB.ntnet_relays.len]")
+	var/relays_left = length(SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/ntnet_relay))
+	SSmodular_computers.add_log("DIAGNOSTICS // Quantum relay connection severed. Current amount of linked relays: [relays_left]")
 
 	for(var/datum/computer_file/program/ntnet_dos/D in dos_sources)
 		D.target = null

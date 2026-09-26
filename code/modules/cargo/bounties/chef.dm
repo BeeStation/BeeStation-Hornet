@@ -1,3 +1,6 @@
+/datum/bounty/item/chef
+	abstract_type = /datum/bounty/item/chef
+
 /datum/bounty/item/chef/birthday_cake
 	name = "Birthday Cake"
 	description = "Nanotrasen's birthday is coming up! Ship them a birthday cake to celebrate!"

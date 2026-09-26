@@ -1,4 +1,5 @@
 /obj/item/clothing/head/costume
+	abstract_type = /obj/item/clothing/head/costume
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 
@@ -241,7 +242,6 @@
 	body_parts_covered = HEAD
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"

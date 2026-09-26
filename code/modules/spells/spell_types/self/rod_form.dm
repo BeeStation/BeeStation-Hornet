@@ -68,6 +68,7 @@
 	var/damage_bonus = 0
 	/// The turf the rod started from, to calcuate distance.
 	var/turf/start_turf
+
 /obj/effect/immovablerod/wizard/Initialize(mapload, atom/target_atom, atom/specific_target, force_looping = FALSE, mob/living/wizard, max_distance = BASE_WIZ_ROD_RANGE, damage_bonus = 0)
 	. = ..()
 	if(wizard)
@@ -114,8 +115,7 @@
 /obj/effect/immovablerod/wizard/proc/set_wizard(mob/living/wizard)
 	our_wizard = WEAKREF(wizard)
 	wizard.forceMove(src)
-	wizard.notransform = TRUE
-	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), "[type]")
+	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED, TRAIT_NO_TRANSFORM), REF(src))
 
 /**
  * Eject our current wizard, removing them from the rod
@@ -125,9 +125,8 @@
 	var/mob/living/wizard = our_wizard?.resolve()
 	if(QDELETED(wizard))
 		return
-	wizard.notransform = FALSE
 	wizard.forceMove(get_turf(src))
 	our_wizard = null
-	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED), "[type]")
+	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_MAGICALLY_PHASED, TRAIT_NO_TRANSFORM), REF(src))
 
 #undef BASE_WIZ_ROD_RANGE

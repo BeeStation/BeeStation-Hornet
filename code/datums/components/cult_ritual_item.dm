@@ -28,7 +28,7 @@
 	else if(ispath(turfs_that_boost_us))
 		src.turfs_that_boost_us = list(turfs_that_boost_us)
 
-/datum/component/cult_ritual_item/Destroy(force, silent)
+/datum/component/cult_ritual_item/Destroy(force)
 	cleanup_shields()
 	return ..()
 
@@ -351,7 +351,7 @@
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
 	var/static/cult_music_played = FALSE
-	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/ambience/antag/bloodcult_scribe.ogg')
+	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg')
 	cult_music_played = TRUE
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))

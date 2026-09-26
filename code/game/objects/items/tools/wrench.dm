@@ -10,8 +10,8 @@
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 
-	force = 5
-	throwforce = 7
+	force = 10
+	throwforce = 12
 	stamina_damage = 40
 	stamina_cost = 14
 	stamina_critical_chance = 15

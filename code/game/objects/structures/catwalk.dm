@@ -9,6 +9,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
 	z_flags = Z_BLOCK_OUT_DOWN | Z_BLOCK_IN_UP
 	number_of_rods = 2
+	give_turf_traits = list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_IMMERSE_STOPPED, TRAIT_HYPERSPACE_STOPPED)
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.
 	FASTDMM_PROP(\

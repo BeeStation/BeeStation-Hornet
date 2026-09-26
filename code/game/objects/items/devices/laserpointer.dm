@@ -129,7 +129,7 @@
 			outmsg = span_warning("You miss the lens of [C] with [src]!")
 
 	// For luring whatever mobs that are "interested" in laser pointers
-	for(var/mob/M as() in viewers(1,targloc))
+	for(var/mob/M as anything in viewers(1,targloc))
 		if(M.incapacitated)
 			return
 		var/mob/living/carbon/human/H = M

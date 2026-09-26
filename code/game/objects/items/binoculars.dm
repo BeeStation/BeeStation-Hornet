@@ -44,8 +44,8 @@
 		if(WEST)
 			_x = -zoom_amt
 	C.change_view(get_zoomed_view(world.view, zoom_out_amt))
-	C.pixel_x = world.icon_size*_x
-	C.pixel_y = world.icon_size*_y
+	C.pixel_x = ICON_SIZE_X*_x
+	C.pixel_y = ICON_SIZE_Y*_y
 
 /obj/item/binoculars/proc/on_unwield(obj/item/source, mob/user)
 	SIGNAL_HANDLER

@@ -1,11 +1,13 @@
-//Returns MINDS of the assigned antags of given type/subtypes
-/proc/get_antag_minds(antag_type,specific = FALSE)
+/// Returns MINDS of the assigned antags of given type/subtypes
+/// Supplying no antag type grants all minds with antag datums
+/proc/get_antag_minds(antag_type, specific = FALSE)
+	RETURN_TYPE(/list/datum/mind)
 	. = list()
 	for(var/datum/antagonist/A as anything in GLOB.active_antagonists)
 		if(!A.owner)
 			continue
 		if(!antag_type || !specific && istype(A,antag_type) || specific && A.type == antag_type)
-			. += A.owner
+			. |= A.owner
 
 //Get all teams [of type team_type]
 /proc/get_all_teams(team_type)

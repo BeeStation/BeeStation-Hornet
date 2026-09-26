@@ -1,5 +1,6 @@
-import { binaryInsertWith, sortBy } from 'common/collections';
+import { binaryInsertWith } from 'common/collections';
 import { createSearch } from 'common/string';
+import { sortBy } from 'es-toolkit';
 import { ReactNode } from 'react';
 import { ButtonCheckbox } from 'tgui/components/Button';
 
@@ -57,7 +58,7 @@ const binaryInsertPreference = (
 ) => binaryInsertWith(collection, value, (child) => child.name);
 
 const sortByName = (array: [string, PreferenceChild[]][]) =>
-  sortBy(array, ([name]) => name);
+  sortBy(array, [([name]) => name]);
 
 export const GamePreferencesPage = (props) => {
   const { act, data } = useBackend<PreferencesMenuData>();
@@ -159,7 +160,7 @@ export const GamePreferencesPage = (props) => {
   }
 
   const sortByName = (array: [string, PreferenceChild[]][]) =>
-    sortBy(array, ([name]) => name);
+    sortBy(array, [([name]) => name]);
 
   const sortByManual = (entries) => {
     let result: any[] = [];
@@ -223,7 +224,7 @@ export const GamePreferencesPage = (props) => {
 
   const sortByNameTyped = (
     array: [string, Record<string, PreferenceChild[]>][],
-  ) => sortBy(array, ([name]) => name);
+  ) => sortBy(array, [([name]) => name]);
 
   const search = createSearch(
     searchText,

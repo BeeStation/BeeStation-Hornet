@@ -146,7 +146,7 @@
 /proc/toggle_id_ctf(user, activated_id, automated = FALSE)
 	var/ctf_enabled = FALSE
 	var/area/A
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(activated_id != CTF.game_id)
 			continue
 		ctf_enabled = CTF.toggle_ctf()
@@ -256,7 +256,7 @@
 		if(!(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME))
 			to_chat(user, span_warning("CTF has been temporarily disabled by admins."))
 			return
-		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+		for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 			if(CTF.game_id != game_id && CTF.ctf_enabled)
 				to_chat(user, span_warning("There is already an ongoing game in the [get_area(CTF)]!"))
 				return
@@ -283,7 +283,7 @@
 		spawn_team_member(new_team_member)
 		return
 
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(CTF.game_id != game_id || CTF == src || CTF.ctf_enabled == FALSE)
 			continue
 		if(user.ckey in CTF.team_members)
@@ -374,10 +374,10 @@
 			for(var/obj/item/ctf/W in competitor)
 				competitor.dropItemToGround(W)
 			competitor.dust()
-	for(var/obj/machinery/control_point/control in GLOB.machines)
+	for(var/obj/machinery/control_point/control as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/control_point))
 		control.icon_state = "dominator"
 		control.controlling = null
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(CTF.game_id != game_id)
 			continue
 		if(CTF.ctf_enabled == TRUE)
@@ -438,7 +438,7 @@
 	recently_dead_ckeys.Cut()
 
 /obj/machinery/capture_the_flag/proc/instagib_mode()
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(CTF.game_id != game_id)
 			continue
 		if(CTF.ctf_enabled == TRUE)
@@ -446,7 +446,7 @@
 			CTF.respawn_cooldown = INSTAGIB_RESPAWN
 
 /obj/machinery/capture_the_flag/proc/normal_mode()
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(CTF.game_id != game_id)
 			continue
 		if(CTF.ctf_enabled == TRUE)
@@ -525,7 +525,7 @@
 		. = TRUE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+		for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 			if(H in CTF.spawned_mobs)
 				. = TRUE
 				break
@@ -709,7 +709,7 @@
 /obj/effect/ctf/ammo/proc/reload(mob/living/M)
 	if(!ishuman(M))
 		return
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(M in CTF.spawned_mobs)
 			var/outfit = CTF.spawned_mobs[M]
 			var/datum/outfit/O = new outfit
@@ -730,13 +730,13 @@
 
 /obj/effect/ctf/dead_barricade/Initialize(mapload)
 	. = ..()
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		if(CTF.game_id != game_id)
 			continue
 		CTF.dead_barricades += src
 
 /obj/effect/ctf/dead_barricade/Destroy()
-	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 		//if(CTF.game_id != game_id)
 		//	continue
 		CTF.dead_barricades -= src
@@ -777,7 +777,7 @@
 
 /obj/machinery/control_point/proc/capture(mob/user)
 	if(do_after(user, 30, target = src))
-		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+		for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))
 			if(CTF.ctf_enabled && (user.ckey in CTF.team_members))
 				controlling = CTF
 				icon_state = "dominator-[CTF.team]"

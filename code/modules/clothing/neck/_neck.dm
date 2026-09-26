@@ -1,4 +1,5 @@
 /obj/item/clothing/neck
+	abstract_type = /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = NECK
@@ -123,7 +124,7 @@
 					if(!(M.failed_last_breath || M.losebreath))
 						lung_strength = "healthy"
 
-			if(M.stat == DEAD && heart && world.time - M.timeofdeath < DEFIB_TIME_LIMIT * 10)
+			if(M.stat == DEAD && heart && world.time - M.timeofdeath < DEFIB_TIME_LIMIT)
 				heart_strength = span_boldannounce("a faint, fluttery")
 
 			var/diagnosis = (user.is_zone_selected(BODY_ZONE_CHEST) ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")

@@ -5,8 +5,8 @@
 	icon_state = "griddle1_off"
 	density = TRUE
 	pass_flags_self = PASSMACHINE | PASSTABLE| LETPASSTHROW
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/griddle
 	processing_flags = START_PROCESSING_MANUALLY
@@ -73,8 +73,8 @@
 		return
 	if(user.transferItemToLoc(I, src, silent = FALSE))
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
-		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
+		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 		to_chat(user, span_notice("You place [I] on [src]."))
 		AddToGrill(I, user)
 	else
@@ -157,6 +157,8 @@
 		griddled_item.fire_act(1000) //Hot hot hot!
 		if(prob(10))
 			visible_message(span_danger("[griddled_item] doesn't seem to be doing too great on the [src]!"))
+
+		use_power(active_power_usage)
 
 /obj/machinery/griddle/update_icon_state()
 	icon_state = "griddle[variant]_[on ? "on" : "off"]"

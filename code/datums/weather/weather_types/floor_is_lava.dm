@@ -4,23 +4,26 @@
 	desc = "The ground turns into surprisingly cool lava, lightly damaging anything on the floor."
 
 	telegraph_message = span_warning("You feel the ground beneath you getting hot. Waves of heat distort the air.")
-	telegraph_duration = 150
+	telegraph_duration = 15 SECONDS
 
 	weather_message = span_userdanger("The floor is lava! Get on top of something!")
-	weather_duration_lower = 300
-	weather_duration_upper = 600
+	weather_duration_lower = 30 SECONDS
+	weather_duration_upper = 1 MINUTES
 	weather_overlay = "lava"
 
 	end_message = span_danger("The ground cools and returns to its usual form.")
-	end_duration = 0
+	end_duration = 0 SECONDS
 
 	area_type = /area
 	protected_areas = list(/area/misc/space)
 	target_trait = ZTRAIT_STATION
 
+	immunity_type = TRAIT_LAVA_IMMUNE
+
+
+
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	overlay_plane = FLOOR_PLANE
-	immunity_type = TRAIT_LAVA_IMMUNE
 
 /datum/weather/floor_is_lava/can_weather_act_mob(mob/living/mob_to_check)
 	if(!mob_to_check.client) //Only sentient people are going along with it!

@@ -7,7 +7,7 @@
 
 /obj/structure/alien_artifact/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/discoverable, 20000)
+	AddComponent(/datum/component/discoverable, TECHWEB_TIER_5_POINTS)
 
 //Watcher
 //Triggers nearby defenses when motion is detected
@@ -101,7 +101,7 @@
 /datum/protector_effect/proc/protector_burst(mob/caster, turf/original, burst_range)
 	playsound(original,'sound/machines/airlockopen.ogg', 200, 1)
 	var/last_dist = 0
-	for(var/turf/T as() in spiral_range_turfs(burst_range, original))
+	for(var/turf/T as anything in spiral_range_turfs(burst_range, original))
 		if(!T)
 			continue
 		var/dist = get_dist(original, T)

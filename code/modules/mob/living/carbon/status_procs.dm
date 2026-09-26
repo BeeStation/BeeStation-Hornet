@@ -1,6 +1,5 @@
 //Here are the procs used to modify status effects of a mob.
-//The effects include: stun, knockdown, unconscious, sleeping, resting, jitteriness, dizziness, ear damage,
-//eye_blind, eye_blurry, druggy, TRAIT_BLIND trait, TRAIT_NEARSIGHT trait, and TRAIT_HUSK trait.
+//The effects include: stun, knockdown, unconscious, sleeping, resting
 
 
 /mob/living/carbon/IsParalyzed(include_stamcrit = TRUE)
@@ -14,11 +13,9 @@
 	return
 
 /mob/living/carbon/stamina_stun()
-	if(!(status_flags & CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_STUNIMMUNE))
+	if(check_stun_immunity(CANKNOCKDOWN))
 		return
 	if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA)) //Already in stamcrit
-		return
-	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
 
 	var/chance = STAMINA_SCALING_STUN_BASE + (STAMINA_SCALING_STUN_SCALER * stamina.current * STAMINA_STUN_THRESHOLD_MODIFIER)
@@ -91,8 +88,3 @@
 	var/obj/item/organ/brain/B = get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience, special_method)
-
-/mob/living/carbon/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color, can_see = TRUE)
-	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
-	can_see = E?.can_see
-	return ..()

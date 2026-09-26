@@ -25,7 +25,7 @@
 		if(NAMEOF(src, summoner))
 			if(!istype(var_value, /datum/mind))
 				return FALSE
-			set_summoner(var_value)
+			set_summoner(var_value, different_person = TRUE)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 		if(NAMEOF(src, battlecry))

@@ -4,6 +4,7 @@
 	antagpanel_category = "Vampire"
 	banning_key = ROLE_VAMPIRE
 	required_living_playtime = 4
+	antag_hud_name = "vampire"
 	ui_name = "AntagInfoVampire"
 	hijack_speed = 0.5
 
@@ -63,7 +64,7 @@
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
-	var/datum/martial_art/frenzygrab/frenzygrab = new
+	var/datum/martial_art/frenzygrab/frenzygrab = new()
 
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
@@ -100,7 +101,7 @@
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
 
 	/// Static typecache of all vampire powers.
-	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
+	var/static/list/all_vampire_powers = valid_subtypesof(/datum/action/vampire)
 	/// Antagonists that cannot be vassalized no matter what
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,
@@ -145,17 +146,6 @@
 	var/list/humanity_trackgain_petted = list()
 	var/list/humanity_trackgain_art = list()
 
-/datum/antagonist/vampire/proc/create_vampire_team()
-	vampire_team = new(owner)
-	vampire_team.name = "[ADMIN_LOOKUP(owner.current)]'s vampire team" // only displayed to admins
-	vampire_team.master_vampire = src
-
-/datum/team/vampire
-	name = "vampire team"
-	var/datum/antagonist/vampire/master_vampire
-
-/datum/team/vampire/roundend_report()
-	return
 /**
  * Apply innate effects is everything given to the mob
  * When a body is tranferred, this is called on the new mob
@@ -165,7 +155,7 @@
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(life_tick))
-	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(current_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(current_mob, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(on_update_sight))
@@ -177,9 +167,7 @@
 
 	current_mob.update_sight()
 
-	create_vampire_team()
-
-	add_antag_hud(ANTAG_HUD_VAMPIRE, "vampire", current_mob)
+	add_team_hud(current_mob)
 
 	current_mob.faction |= FACTION_VAMPIRE
 
@@ -231,8 +219,6 @@
 		QDEL_NULL(sunlight_display)
 		QDEL_NULL(humanity_display)
 
-	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
-
 	current_mob.faction -= FACTION_VAMPIRE
 
 /datum/antagonist/vampire/proc/on_hud_created(datum/source)
@@ -275,6 +261,7 @@
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
+	SSsunlight.send_messages = TRUE
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_START, PROC_REF(sol_near_start))
 	RegisterSignal(SSsunlight, COMSIG_SOL_END, PROC_REF(on_sol_end))
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
@@ -322,7 +309,9 @@
 	owner.special_role = null
 	GLOB.all_vampires -= src
 	check_cancel_society()
-	return ..()
+	. = ..()
+	if(!length(get_antag_minds(/datum/antagonist/vampire)))
+		SSsunlight.send_messages = FALSE
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
@@ -345,18 +334,17 @@
 	var/mob/living/carbon/human/human_new_body = new_body
 	var/mob/living/carbon/human/human_old_body = old_body
 
-	if(ishuman(human_new_body) && ishuman(human_old_body))
-		var/datum/species/new_species = human_new_body.dna.species
-		var/datum/species/old_species = human_old_body.dna.species
+	if(ishuman(human_new_body))
+		human_new_body.dna.species.inherent_traits += TRAIT_DRINKSBLOOD
+		for(var/obj/item/bodypart/arm in human_new_body.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
 
-		new_species.species_traits += TRAIT_DRINKSBLOOD
-		old_species.species_traits -= TRAIT_DRINKSBLOOD
-
-		new_species.punchdamage = old_species.punchdamage
-		old_species.punchdamage = initial(old_species.punchdamage)
-	else if(ishuman(human_new_body))
-		var/datum/species/new_species = human_new_body.dna.species
-		new_species.punchdamage += 2
+	if(ishuman(human_old_body))
+		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
+		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				arm.unarmed_damage = initial(arm.unarmed_damage)
 		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
 
 
@@ -377,7 +365,7 @@
 
 	owner.announce_objectives()
 
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/effects/antag/vampire/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
@@ -454,8 +442,8 @@
 			var/list/vassal_report = list()
 			vassal_report += "<b>[vassal.owner.name]</b>"
 
-			if(vassal.owner.assigned_role)
-				vassal_report += " the [vassal.owner.assigned_role]"
+			if(!is_unassigned_job(vassal.owner.assigned_role))
+				vassal_report += " the [vassal.owner.assigned_role.title]"
 			report += vassal_report.Join()
 
 	if(objectives_complete)
@@ -477,8 +465,10 @@
 	// Species traits
 	if(ishuman(user) && user.dna)
 		var/datum/species/user_species = user.dna.species
-		user_species.species_traits += TRAIT_DRINKSBLOOD
-		user_species.punchdamage += 2
+		user_species.inherent_traits += TRAIT_DRINKSBLOOD
+		for(var/obj/item/bodypart/arm in user.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				arm.unarmed_damage += 2
 		user.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST // Vampires have inherent stamina resistance
 		user.dna.remove_all_mutations()
 
@@ -496,7 +486,7 @@
 
 	// Tongue & Language
 	user.grant_all_languages(ALL, TRUE, LANGUAGE_VAMPIRE)
-	user.grant_language(/datum/language/vampiric)
+	user.grant_language(/datum/language/vampiric, source = REF(src))
 
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
@@ -524,10 +514,10 @@
 		remove_power(all_powers)
 
 	/// Stats
-	if(ishuman(owner.current))
+	if(ishuman(user))
 		var/datum/species/user_species = user.dna.species
 		var/mob/living/carbon/human/human_user = user
-		user_species.species_traits -= TRAIT_DRINKSBLOOD
+		user_species.inherent_traits -= TRAIT_DRINKSBLOOD
 		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits
@@ -538,7 +528,7 @@
 
 	// Language
 	user.remove_all_languages(LANGUAGE_VAMPIRE, TRUE)
-	user.remove_language(/datum/language/vampiric)
+	user.remove_language(/datum/language/vampiric, source = REF(src))
 
 	// Heart
 	var/obj/item/organ/heart/newheart = user.get_organ_slot(ORGAN_SLOT_HEART)
@@ -594,40 +584,30 @@
  * Hedonism: Indulge in bad things that feel all too right.
  * Survival: Survive. Obviously.
  */
-/datum/antagonist/vampire/proc/forge_objectives()
-	var/datum/objective/vampire/extra_objective
-
+/datum/antagonist/vampire/forge_objectives()
 	if(get_max_vassals() >= 1) // Two trees for if we can make vassals or not.
 		//pick Ego objective
 		switch(rand(1, 3))
 			if(3)
-				extra_objective = new /datum/objective/vampire/ego/department_vassal()
+				add_objective(new /datum/objective/vampire/ego/department_vassal())
 			if(2)
-				extra_objective = new /datum/objective/vampire/ego/bigplaces()
+				add_objective(new /datum/objective/vampire/ego/bigplaces())
 			if(1)
-				extra_objective = new /datum/objective/vampire/ego/lair()
+				add_objective(new /datum/objective/vampire/ego/lair())
 	else
-		extra_objective = new /datum/objective/vampire/ego/bigplaces()
-
-	extra_objective.owner = owner
-	objectives += extra_objective
+		add_objective(new /datum/objective/vampire/ego/bigplaces())
 
 	//pick Hedonism objective
 	switch(rand(1, 3))
 		if(3)
-			extra_objective = new /datum/objective/vampire/hedonism/heartthief()
+			add_objective(new /datum/objective/vampire/hedonism/heartthief())
 		if(2)
-			extra_objective = new /datum/objective/vampire/hedonism/gourmand()
+			add_objective(new /datum/objective/vampire/hedonism/gourmand())
 		if(1)
-			extra_objective = new /datum/objective/vampire/hedonism/thirster()
-
-	extra_objective.owner = owner
-	objectives += extra_objective
+			add_objective(new /datum/objective/vampire/hedonism/thirster())
 
 	// Survive Objective
-	var/datum/objective/survive/vampire/survive_objective = new
-	survive_objective.owner = owner
-	objectives += survive_objective
+	add_objective(new /datum/objective/survive/vampire())
 
 /datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
@@ -641,7 +621,7 @@
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
-	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
+	var/mob/living/carbon/carbon_owner = owner.current //only carbons have dna now, so we have to typecast
 	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
@@ -654,7 +634,7 @@
 				//Not using carbon_owner.appearance because it might not update in time at roundstart
 				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
-/datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+/datum/antagonist/vampire/proc/on_examined(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 	var/text
 	if(prince)
@@ -695,6 +675,19 @@
 		return
 
 	tracker?.tracking_beacon?.update_position()
+
+/datum/antagonist/vampire/create_team()
+	vampire_team = new(owner)
+	vampire_team.name = "[owner.current]'s vampire team" // only displayed to admins
+
+/datum/antagonist/vampire/get_team()
+	return vampire_team
+
+/datum/team/vampire
+	name = "vampire team"
+
+/datum/team/vampire/roundend_report()
+	return
 
 /datum/antagonist/vampire/proc/on_update_sight(mob/user)
 	SIGNAL_HANDLER

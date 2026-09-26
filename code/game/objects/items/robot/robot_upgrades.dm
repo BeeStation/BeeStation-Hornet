@@ -53,7 +53,7 @@
 		robot.custom_name = heldname
 		robot.updatename()
 		if(oldname == robot.real_name)
-			robot.notify_ai(RENAME, oldname, robot.real_name)
+			robot.notify_ai(AI_NOTIFICATION_CYBORG_RENAMED, oldname, robot.real_name)
 		log_game("[key_name(user)] have used a cyborg reclassification board to rename [oldkeyname] to [key_name(robot)] at [loc_name(user)]")
 
 /obj/item/borg/upgrade/restart
@@ -347,11 +347,11 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
-		playsound(cyborg.loc, 'sound/machines/terminal_processing.ogg', 30)
+		playsound(cyborg, 'sound/machines/terminal_processing.ogg', 30)
 		to_chat(cyborg, span_notice("You activate the self-repair module."))
 		START_PROCESSING(SSobj, src)
 	else
-		playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
+		playsound(cyborg, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 		to_chat(cyborg, span_notice("You deactivate the self-repair module."))
 		STOP_PROCESSING(SSobj, src)
 	update_appearance()
@@ -399,7 +399,7 @@
 				cyborg.adjustBruteLoss(repair_amount)
 			else if(cyborg.getFireLoss())
 				cyborg.adjustFireLoss(repair_amount)
-			playsound(cyborg.loc, 'sound/items/welder2.ogg', 10) //Quiet so it isn't obnoxious, but still making itself known
+			playsound(cyborg, 'sound/items/welder2.ogg', 10) //Quiet so it isn't obnoxious, but still making itself known
 			cyborg.cell.use(powercost)
 			cyborg.updatehealth()
 		else
@@ -534,47 +534,51 @@
 	if (.)
 		if(robot.shell)
 			robot.undeploy()
-			robot.notify_ai(AI_SHELL)
+			robot.notify_ai(AI_NOTIFICATION_AI_SHELL)
 
 /obj/item/borg/upgrade/expand
 	name = "borg expander"
 	desc = "A cyborg resizer, it makes a cyborg huge."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/expand/action(mob/living/silicon/robot/robot, user = usr)
+/obj/item/borg/upgrade/expand/action(mob/living/silicon/robot/borg, mob/living/user = usr)
 	. = ..()
-	if(.)
+	if(!. || HAS_TRAIT(borg, TRAIT_NO_TRANSFORM))
+		return FALSE
 
-		if(robot.hasExpanded)
-			to_chat(usr, span_notice("This unit already has an expand module installed!"))
-			return FALSE
+	if(borg.hasExpanded)
+		to_chat(usr, span_warning("This unit already has an expand module installed!"))
+		return FALSE
 
-		robot.notransform = TRUE
-		var/prev_lockcharge = robot.lockcharge
-		robot.SetLockdown(TRUE)
-		robot.set_anchored(TRUE)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(TRUE, robot.loc)
-		smoke.start()
-		sleep(2)
-		for(var/i in 1 to 4)
-			playsound(robot, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, 1, -1)
-			sleep(12)
-		if(!prev_lockcharge)
-			robot.SetLockdown(FALSE)
-		robot.set_anchored(FALSE)
-		robot.notransform = FALSE
-		robot.resize = 2
-		robot.hasExpanded = TRUE
-		robot.update_transform()
+	ADD_TRAIT(borg, TRAIT_NO_TRANSFORM, REF(src))
+	var/prev_lockcharge = borg.lockcharge
+	borg.SetLockdown(TRUE)
+	borg.set_anchored(TRUE)
+	do_smoke(1, borg, borg.loc)
+	sleep(0.2 SECONDS)
+	for(var/i in 1 to 4)
+		playsound(borg, pick(
+			'sound/items/drill_use.ogg',
+			'sound/items/jaws_cut.ogg',
+			'sound/items/jaws_pry.ogg',
+			'sound/items/welder.ogg',
+			'sound/items/ratchet.ogg',
+			), 80, TRUE, -1)
+		sleep(1.2 SECONDS)
+	if(!prev_lockcharge)
+		borg.SetLockdown(FALSE)
+	borg.set_anchored(FALSE)
+	REMOVE_TRAIT(borg, TRAIT_NO_TRANSFORM, REF(src))
+	borg.hasExpanded = TRUE
+	borg.update_transform(2)
 
 /obj/item/borg/upgrade/expand/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
-	if (.)
-		if (robot.hasExpanded)
-			robot.hasExpanded = FALSE
-			robot.resize = 0.5
-			robot.update_transform()
+	if (!.)
+		return
+	if (robot.hasExpanded)
+		robot.hasExpanded = FALSE
+		robot.update_transform(0.5)
 
 /obj/item/borg/upgrade/rped
 	name = "engineering cyborg RPED"
@@ -588,15 +592,14 @@
 /obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
 	if(.)
-
-		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in robot
+		var/obj/item/borg/upgrade/rped/RPED = locate() in robot
 		if(RPED)
 			to_chat(user, span_warning("This unit is already equipped with a RPED module."))
 			return FALSE
 
-		RPED = new(robot.model)
-		robot.model.basic_modules += RPED
-		robot.model.add_module(RPED, FALSE, TRUE)
+		var/obj/item/storage/part_replacer/cyborg/newRPED = new(robot.model)
+		robot.model.basic_modules += newRPED
+		robot.model.add_module(newRPED, FALSE, TRUE)
 
 /obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
@@ -604,6 +607,62 @@
 		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in robot.model
 		if (RPED)
 			robot.model.remove_module(RPED, TRUE)
+
+/obj/item/borg/upgrade/bsrped
+	name = "engineering cyborg BSRPED"
+	desc = "A bluespace rapid part exchange device for the engineering cyborg."
+	icon = 'icons/obj/storage/storage.dmi'
+	icon_state = "borgbsrped"
+	require_model = TRUE
+	model_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/saboteur)
+	model_flags = BORG_MODEL_ENGINEERING
+
+/obj/item/borg/upgrade/bsrped/action(mob/living/silicon/robot/robot, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/borg/upgrade/bsrped/BSRPED = locate() in robot.contents
+		if(BSRPED)
+			to_chat(user, span_warning("This unit is already equipped with a BSRPED module."))
+			return FALSE
+
+		var/obj/item/storage/part_replacer/bluespace/cyborg/newBSRPED = new(robot.model)
+		robot.model.basic_modules += newBSRPED
+		robot.model.add_module(newBSRPED, FALSE, TRUE)
+
+/obj/item/borg/upgrade/bsrped/deactivate(mob/living/silicon/robot/robot, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/storage/part_replacer/bluespace/cyborg/BSRPED = locate() in robot.model
+		if (BSRPED)
+			robot.model.remove_module(BSRPED, TRUE)
+
+/obj/item/borg/upgrade/bslightreplacer
+	name = "janitor cyborg BS Light Replacer"
+	desc = "A bluespace rapid part exchange device for the janitor cyborg."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "lightreplacer_blue0"
+	require_model = TRUE
+	model_type = list(/obj/item/robot_model/janitor)
+	model_flags = BORG_MODEL_JANITOR
+
+/obj/item/borg/upgrade/bslightreplacer/action(mob/living/silicon/robot/robot, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/borg/upgrade/bslightreplacer/BSLR = locate() in robot.contents
+		if(BSLR)
+			to_chat(user, span_warning("This unit is already equipped with a BS Light Replacer module."))
+			return FALSE
+
+		var/obj/item/lightreplacer/bluespace/cyborg/newBSLR = new(robot.model)
+		robot.model.basic_modules += newBSLR
+		robot.model.add_module(newBSLR, FALSE, TRUE)
+
+/obj/item/borg/upgrade/bslightreplacer/deactivate(mob/living/silicon/robot/robot, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/lightreplacer/bluespace/cyborg/BSLR = locate() in robot.model
+		if (BSLR)
+			robot.model.remove_module(BSLR, TRUE)
 
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"

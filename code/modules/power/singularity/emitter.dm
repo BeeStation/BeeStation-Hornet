@@ -14,8 +14,8 @@
 	custom_price = 550
 
 	use_power = NO_POWER_USE
-	idle_power_usage = 500 WATT
-	active_power_usage = 5 KILOWATT
+	idle_power_usage = 10
+	active_power_usage = 600
 
 	/// The icon state used by the emitter when it's on.
 	var/icon_state_on = "emitter_+a"
@@ -76,7 +76,7 @@
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
 /obj/machinery/power/emitter/welded/Initialize(mapload)
@@ -89,20 +89,21 @@
 		welded = FALSE
 
 /obj/machinery/power/emitter/RefreshParts()
+	. = ..()
 	var/max_fire_delay = 12 SECONDS
 	var/fire_shoot_delay = 12 SECONDS
 	var/min_fire_delay = 2.4 SECONDS
 	var/power_usage = 350
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		max_fire_delay -= 2 SECONDS * laser.rating
-		min_fire_delay -= 0.4 SECONDS * laser.rating
-		fire_shoot_delay -= 2 SECONDS * laser.rating
-		parts_damage_bonus = 5 * laser.rating
+	for(var/datum/stock_part/micro_laser/laser in component_parts)
+		max_fire_delay -= 2 SECONDS * laser.tier
+		min_fire_delay -= 0.4 SECONDS * laser.tier
+		fire_shoot_delay -= 2 SECONDS * laser.tier
+		parts_damage_bonus = 5 * laser.tier
 	maximum_fire_delay = max_fire_delay
 	minimum_fire_delay = min_fire_delay
 	fire_delay = fire_shoot_delay
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		power_usage -= 50 * manipulator.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		power_usage -= 50 * manipulator.tier
 	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
 
 /obj/machinery/power/emitter/examine(mob/user)
@@ -114,7 +115,7 @@
 	else
 		. += span_info("It's not anchored to the floor. You can secure it in place with a <b>wrench</b>.")
 
-	if(!in_range(user, src) || !isobserver(user))
+	if(!in_range(user, src) && !isobserver(user))
 		return
 
 	if(!active)
@@ -328,9 +329,6 @@
 		return
 	return ..()
 
-/obj/machinery/power/emitter/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 /obj/machinery/power/emitter/proc/integrate(obj/item/gun/energy/energy_gun, mob/user)
 	if(!istype(energy_gun, /obj/item/gun/energy))
 		return
@@ -427,7 +425,7 @@
 			user.pixel_x = 8
 			user.pixel_y = -12
 
-	emitter.last_projectile_params = calculate_projectile_angle_and_pixel_offsets(user, clickparams)
+	emitter.last_projectile_params = calculate_projectile_angle_and_pixel_offsets(user, null, clickparams)
 
 	if(emitter.charge >= 10 && world.time > delay)
 		emitter.charge -= 10
@@ -465,4 +463,5 @@
 	welded = TRUE
 
 /obj/machinery/power/emitter/energycannon/RefreshParts()
+	SHOULD_CALL_PARENT(FALSE)
 	return

@@ -5,7 +5,6 @@
 	desc = "A machine used to deposit and withdraw station funds."
 	icon_screen = "vault"
 	icon_keyboard = "ratvar_key1"
-	idle_power_usage = 100
 	processing_flags = START_PROCESSING_MANUALLY
 	var/next_warning = 0
 	var/obj/item/radio/radio
@@ -93,6 +92,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/bank_machine/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BankMachine")

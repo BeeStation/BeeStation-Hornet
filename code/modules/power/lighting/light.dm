@@ -11,8 +11,8 @@
 	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 0.02 KILOWATT
-	active_power_usage = 0.2 KILOWATT
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.02
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
@@ -226,7 +226,7 @@
 		set_light(0)
 	update_icon()
 	if(brightness != initial(brightness))	// If the brightness isn't 10 we're changing power usage based on the new brightness
-		active_power_usage = initial(active_power_usage) * (brightness / 10)
+		update_mode_power_usage(ACTIVE_POWER_USE, initial(active_power_usage) * (brightness / 10))
 	if(on != on_gs)
 		on_gs = on
 
@@ -282,11 +282,16 @@
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
 		addtimer(CALLBACK(src, PROC_REF(broken_sparks)), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
+/obj/machinery/light/proc/is_full_charge()
+	if(cell)
+		return cell.charge == cell.maxcharge
+	return TRUE
+
 /obj/machinery/light/process()
 	if(has_power())
+		if(is_full_charge())
+			return PROCESS_KILL
 		if(cell)
-			if(cell.charge == cell.maxcharge)
-				return PROCESS_KILL
 			cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
 	if(emergency_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
 		update(FALSE) //Disables emergency mode and sets the color to normal
@@ -408,7 +413,7 @@
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
 				drop_light_tube()
-			new /obj/item/stack/cable_coil(loc, 1, "red")
+			new /obj/item/stack/cable_coil(loc, 1)
 		transfer_fingerprints_to(newlight)
 		var/obj/item/stock_parts/cell/real_cell = get_cell()
 		if(!QDELETED(real_cell))
@@ -455,8 +460,8 @@
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
-	var/area/A = get_area(src)
-	return A.lightswitch && A.power_light
+	var/area/local_area = get_area(src)
+	return local_area?.lightswitch && local_area.power_light
 
 // returns whether this light has emergency power
 // can also return if it has access to a certain amount of that power
@@ -513,7 +518,7 @@
 /obj/machinery/light/attack_paw(mob/living/carbon/user)
 	return attack_hand(user)
 
-/obj/machinery/light/attack_hand(mob/living/carbon/user)
+/obj/machinery/light/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -521,63 +526,53 @@
 	add_fingerprint(user)
 
 	if(status == LIGHT_EMPTY)
-		to_chat(user, "There is no [fitting] in this light.")
+		to_chat(user, span_warning("There is no [fitting] in this light!"))
 		return
 
 	// make it burn hands unless you're wearing heat insulated gloves or have the RESISTHEAT/RESISTHEATHANDS traits
-	if(on)
-		var/prot = 0
-		if(istype(user))
-			if(isethereal(user))
-				var/datum/species/ethereal/E = user.dna.species
-				if(E.drain_time > world.time)
-					return
-				var/obj/item/organ/stomach/battery/stomach = user.get_organ_slot(ORGAN_SLOT_STOMACH)
-				if(!istype(stomach))
-					to_chat(user, span_warning("You can't receive charge!"))
-					return
-				if(user.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
-					to_chat(user, span_warning("You are already fully charged!"))
-					return
-
-				to_chat(user, span_notice("You start channeling some power through the [fitting] into your body."))
-				E.drain_time = world.time + 35
-				while(do_after(user, 30, target = src))
-					E.drain_time = world.time + 35
-					if(!istype(stomach))
-						to_chat(user, span_warning("You can't receive charge!"))
-						return
-					to_chat(user, span_notice("You receive some charge from the [fitting]."))
-					stomach.adjust_charge(50)
-					use_power(50)
-					if(stomach.charge >= stomach.max_charge)
-						to_chat(user, span_notice("You are now fully charged."))
-						E.drain_time = 0
-						return
-				to_chat(user, span_warning("You fail to receive charge from the [fitting]!"))
-				E.drain_time = 0
-				return
-
-			if(user.gloves)
-				var/obj/item/clothing/gloves/G = user.gloves
-				if(G.max_heat_protection_temperature)
-					prot = (G.max_heat_protection_temperature > 360)
-		else
-			prot = 1
-
-		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
-			to_chat(user, span_notice("You remove the light [fitting]."))
-		else if(user.has_dna() && user.dna.check_mutation(/datum/mutation/telekinesis))
-			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
-		else
-			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
-
-			var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				user.update_damage_overlays()
-			return				// if burned, don't remove the light
-	else
+	if(!on)
 		to_chat(user, span_notice("You remove the light [fitting]."))
+		// create a light tube/bulb item and put it in the user's hand
+		drop_light_tube(user)
+		return
+
+	var/protected = FALSE
+
+	if(istype(user))
+		var/obj/item/organ/stomach/maybe_stomach = user.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(istype(maybe_stomach, /obj/item/organ/stomach/electrical/ethereal))
+			var/obj/item/organ/stomach/electrical/ethereal/stomach = maybe_stomach
+			if(stomach.drain_time > world.time)
+				return
+			to_chat(user, span_notice("You start channeling some power through the [fitting] into your body."))
+			stomach.drain_time = world.time + LIGHT_DRAIN_TIME
+			while(do_after(user, LIGHT_DRAIN_TIME, target = src))
+				stomach.drain_time = world.time + LIGHT_DRAIN_TIME
+				if(stomach != user.get_organ_slot(ORGAN_SLOT_STOMACH))
+					balloon_alert(user, "cell removed!?")
+					return
+				stomach.adjust_charge(LIGHT_POWER_GAIN)
+				if(stomach.cell.used_charge() <= 0)
+					balloon_alert(user, "charge is full!")
+					return
+			return
+
+		if(user.gloves)
+			var/obj/item/clothing/gloves/electrician_gloves = user.gloves
+			if(electrician_gloves.max_heat_protection_temperature && electrician_gloves.max_heat_protection_temperature > 360)
+				protected = TRUE
+	else
+		protected = TRUE
+
+	if(protected || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
+		to_chat(user, span_notice("You remove the light [fitting]."))
+	else if(istype(user) && user.dna.check_mutation(/datum/mutation/telekinesis))
+		to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
+	else
+		var/obj/item/bodypart/affecting = user.get_active_hand()
+		user.apply_damage(5, BURN, affecting)
+		to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
+		return
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 	return TRUE
@@ -675,8 +670,8 @@
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
 	brightness = 6
-	idle_power_usage = 0.014 KILOWATT
-	active_power_usage = 0.14 KILOWATT // on par with the small lights
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.014
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.014 // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
@@ -691,7 +686,7 @@ GLOBAL_VAR_INIT(s_flickering_lights, FALSE)
 	GLOB.s_flickering_lights = TRUE
 	spawn(0)
 		GLOB.s_flickering_lights = FALSE
-		for(var/obj/machinery/light/L in GLOB.machines)
+		for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 			if(is_station_level(L.z))
 				addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
 

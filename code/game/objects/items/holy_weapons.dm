@@ -640,7 +640,7 @@
 		return
 	if(prob(30) && ishuman(A))
 		var/mob/living/carbon/human/H = A
-		user.reagents.trans_to(H, user.reagents.total_volume, 1, 1, 0, transfered_by = user)
+		user.reagents.trans_to(H, user.reagents.total_volume, transfered_by = user)
 		to_chat(user, span_notice("Your pride reflects on [H]."))
 		to_chat(H, span_userdanger("You feel insecure, taking on [user]'s burden."))
 

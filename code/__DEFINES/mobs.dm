@@ -13,7 +13,7 @@
 #define CURRENT_DEAD_PLAYERS "dead_players_list"
 #define CURRENT_OBSERVERS "current_observers_list"
 
-//movement intent defines for the m_intent var
+//movement intent defines for the move_intent var
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 #define MOVE_INTENT_SPRINT "sprint"
@@ -60,15 +60,11 @@
 #define VENTCRAWLER_NUDE   1
 #define VENTCRAWLER_ALWAYS 2
 
-//Bloodcrawling defines
-#define BLOODCRAWL 1
-#define BLOODCRAWL_EAT 2
-
 // Mob bio-type flags
 /// The mob is organic, can heal from medical sutures.
 #define MOB_ORGANIC (1 << 0)
-/// The mob isn't organic. For example, golems and IPCs.
-#define MOB_INORGANIC (1 << 1)
+///The mob is of a rocky make, most likely a golem. Iron within, iron without!
+#define MOB_MINERAL (1 << 1)
 /// The mob is a synthetic lifeform, like station borgs.
 #define MOB_ROBOTIC (1 << 2)
 /// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
@@ -111,6 +107,8 @@
 #define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
 ///The limb is from a xenomorph.
 #define BODYTYPE_ALIEN (1<<7)
+///The limb is from a golem
+#define BODYTYPE_GOLEM (1<<8)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -262,6 +260,11 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define NUTRITION_LEVEL_START_MIN 250
 #define NUTRITION_LEVEL_START_MAX 400
 
+//Multiplier on natural stamina regen at 0 nutrition
+#define STAMINA_HUNGER_FLOOR 0.6
+//Multiplier on natural stamina regen while satiety is above 80
+#define STAMINA_SATIETY_BONUS 1.1
+
 //Disgust levels for humans
 #define DISGUST_LEVEL_MAXEDOUT 150
 #define DISGUST_LEVEL_DISGUSTED 75
@@ -270,6 +273,30 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
+
+// The standard charge all other Ethereal charge defines are scaled against.
+#define STANDARD_ETHEREAL_CHARGE (1 * STANDARD_CELL_CHARGE)
+// Charge levels for Ethereals, in joules.
+#define ETHEREAL_CHARGE_NONE 0
+#define ETHEREAL_CHARGE_LOWPOWER (0.4 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_CHARGE_NORMAL (1 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_CHARGE_ALMOSTFULL (1.5 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_CHARGE_FULL (2 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_CHARGE_OVERLOAD (2.5 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_CHARGE_DANGEROUS (3 * STANDARD_ETHEREAL_CHARGE)
+// APC interactions
+#define ELECTRICAL_APC_DRAIN_TIME (3 SECONDS)
+#define ELECTRICAL_APC_POWER_GAIN (0.1 * STANDARD_ETHEREAL_CHARGE)
+#define ELECTRICAL_APC_ALERT_DELAY (0.75 SECONDS)
+// Charge lost to an EMP, divided by the EMP's severity.
+#define ETHEREAL_EMP_CHARGE_LOSS (0.5 * STANDARD_ETHEREAL_CHARGE)
+// Minimum power a discharge has to carry before tesla_zap will bother arcing.
+#define ETHEREAL_ZAP_CUTOFF (0.1 * STANDARD_ETHEREAL_CHARGE)
+// Charge spent per zap when an ethereal is in a pool, and the power that zap carries.
+#define ETHEREAL_POOL_ZAP_COST (0.15 * STANDARD_ETHEREAL_CHARGE)
+#define ETHEREAL_POOL_ZAP_POWER (0.3 * STANDARD_ETHEREAL_CHARGE)
+// Charge gained per unit of liquid electricity ingested.
+#define ETHEREAL_LIQUID_ELECTRICITY_GAIN (0.03 * STANDARD_ETHEREAL_CHARGE)
 
 //Base nutrition value used for newly initialized slimes
 #define SLIME_DEFAULT_NUTRITION 700
@@ -336,17 +363,25 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// An AI hint which tells the AI what it should break.
 /// Note that mobs being able to break walls and r-walls is determined by their attack force.
-#define ENVIRONMENT_SMASH_NONE			0
-#define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
-#define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
-#define ENVIRONMENT_SMASH_RWALLS		(1<<2)	//rwalls
+#define ENVIRONMENT_SMASH_NONE 0
+#define ENVIRONMENT_SMASH_STRUCTURES (1<<0) //crates, lockers, ect
+#define ENVIRONMENT_SMASH_WALLS (1<<1) //walls
+#define ENVIRONMENT_SMASH_RWALLS (1<<2)	//rwalls
 
-#define NO_SLIP_WHEN_WALKING	(1<<0)
-#define SLIDE					(1<<1)
-#define GALOSHES_DONT_HELP		(1<<2)
-#define SLIDE_ICE				(1<<3)
-#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
-#define NO_SLIP_ON_CATWALK      (1<<5)
+// Slip flags, also known as lube flags
+/// The mob will not slip if they're walking intent
+#define NO_SLIP_WHEN_WALKING (1<<0)
+/// Slipping on this will send them sliding a few tiles down
+#define SLIDE (1<<1)
+/// Ice slides only go one tile and don't knock you over, they're intended to cause a "slip chain"
+/// where you slip on ice until you reach a non-slippable tile (ice puzzles)
+#define SLIDE_ICE (1<<2)
+/// [TRAIT_NO_SLIP_WATER] does not work on this slip. ONLY [TRAIT_NO_SLIP_ALL] will
+#define GALOSHES_DONT_HELP (1<<3)
+/// Slip works even if you're already on the ground
+#define SLIP_WHEN_CRAWLING (1<<4)
+/// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.
+#define SLIPPERY_TURF (1<<5)
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -390,8 +425,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
-#define OFFSET_LEFT_HAND "l_hand"
-#define OFFSET_RIGHT_HAND "r_hand"
+#define OFFSET_HELD "held"
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//! youngest a character can be
@@ -511,6 +545,14 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
 
+//defines for gradient_color and gradient_styles list access keys
+#define GRADIENT_HAIR_KEY 1
+#define GRADIENT_FACIAL_HAIR_KEY 2
+
+// /datum/sprite_accessory/gradient defines
+#define GRADIENT_APPLIES_TO_HAIR (1<<0)
+#define GRADIENT_APPLIES_TO_FACIAL_HAIR (1<<1)
+
 #define MOB_OVERLAY_LAYER_ABSOLUTE(_mob_layer, _overlay_layer) (_mob_layer - (_overlay_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 /// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
@@ -520,57 +562,59 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // Mob Overlays Indexes
 /// Total number of layers for mob overlays
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK
-#define TOTAL_LAYERS 35
+#define TOTAL_LAYERS 37
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 35
+#define MUTATIONS_LAYER 36
 /// Certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 34
+#define BODY_BEHIND_LAYER 35
 /// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
-#define BODYPARTS_LOW_LAYER 33
+#define BODYPARTS_LOW_LAYER 34
 /// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODYPARTS_LAYER 32
+#define BODYPARTS_LAYER 33
 /// certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_ADJ_LAYER 31
+#define BODY_ADJ_LAYER 32
 /// underwear, undershirts, socks, eyes, lips(makeup)
-#define BODY_LAYER 29
+#define BODY_LAYER 30
 /// mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define FRONT_MUTATIONS_LAYER 28
+#define FRONT_MUTATIONS_LAYER 29
 /// damage indicators (cuts and burns)
-#define DAMAGE_LAYER 27
+#define DAMAGE_LAYER 28
 /// Jumpsuit clothing layer
-#define UNIFORM_LAYER 26
+#define UNIFORM_LAYER 27
 /// ID card layer
-#define ID_LAYER 25
+#define ID_LAYER 26
 /// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
-#define BODYPARTS_HIGH_LAYER 24
+#define BODYPARTS_HIGH_LAYER 25
 /// Gloves layer
-#define GLOVES_LAYER 23
+#define GLOVES_LAYER 24
 /// Shoes layer
-#define SHOES_LAYER 22
+#define SHOES_LAYER 23
 /// Layer for masks that are worn below ears and eyes (like Balaclavas) (layers below hair, use flagsinv=HIDEHAIR as needed)
-#define LOW_FACEMASK_LAYER 21
+#define LOW_FACEMASK_LAYER 22
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER 20
+#define EARS_LAYER 21
 /// Layer for neck apperal that should appear below the suit slot (like neckties)
-#define LOW_NECK_LAYER 19
+#define LOW_NECK_LAYER 20
 /// Suit layer (armor, coats, etc.)
-#define SUIT_LAYER 18
+#define SUIT_LAYER 19
 /// Glasses layer
-#define GLASSES_LAYER 17
+#define GLASSES_LAYER 18
 /// Belt layer
-#define BELT_LAYER 16 //Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER 17 //Possible make this an overlay of somethign required to wear a belt?
 /// Suit storage layer (tucking a gun or baton underneath your armor)
-#define SUIT_STORE_LAYER 15
+#define SUIT_STORE_LAYER 16
 ///  Neck layer (for wearing ties and bedsheets)
-#define NECK_LAYER 14
+#define NECK_LAYER 15
 /// Back layer (for backpacks and equipment on your back)
-#define BACK_LAYER 13
+#define BACK_LAYER 14
 /// Hair layer (mess with the fro and you got to go!)
-#define HAIR_LAYER 12 //TODO: make part of head layer?
+#define HAIR_LAYER 13 //TODO: make part of head layer?
 /// Facemask layer (gas masks, breath masks, etc.)
-#define FACEMASK_LAYER 11
+#define FACEMASK_LAYER 12
 /// Head layer (hats, helmets, etc.)
-#define HEAD_LAYER 10
+#define HEAD_LAYER 11
+// Hair that layers out above clothing, including hats (high ponytails and such)
+#define OUTER_HAIR_LAYER 10
 /// Handcuff layer (when your hands are cuffed)
 #define HANDCUFF_LAYER 9
 /// Legcuff layer (when your feet are cuffed)
@@ -615,16 +659,34 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1
 
+//Lying angles, which way your head points
+#define LYING_ANGLE_EAST 90
+#define LYING_ANGLE_WEST 270
+
 /// Get the client from the var
 #define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
-/// The mob will vomit a green color
-#define VOMIT_TOXIC 1
-/// The mob will vomit a purple color
-#define VOMIT_PURPLE 2
-/// The mob will vomit up nanites
-#define VOMIT_NANITE 3
+// Various flags for carbon mob vomiting
+/// Flag which makes a message send about the vomiting.
+#define MOB_VOMIT_MESSAGE (1<<0)
+/// Flag which makes the mob get stunned upon vomiting.
+#define MOB_VOMIT_STUN (1<<1)
+/// Flag which makes the mob incur damage upon vomiting.
+#define MOB_VOMIT_HARM (1<<2)
+/// Flag which makes the mob vomit blood
+#define MOB_VOMIT_BLOOD (1<<3)
+/// Flag which will make the proc skip certain checks when it comes to forcing a vomit.
+#define MOB_VOMIT_FORCE (1<<4)
 
+/// The default "vomit" color green, which will ultinately give you might typically expect to happen when you vomit.
+#define VOMIT_CATEGORY_DEFAULT (MOB_VOMIT_MESSAGE | MOB_VOMIT_STUN | MOB_VOMIT_HARM)
+/// The green vomit you've all come to know and love, but with a little extra "spice" (blood)
+#define VOMIT_CATEGORY_BLOOD (VOMIT_CATEGORY_DEFAULT | MOB_VOMIT_BLOOD)
+/// Vomiting primarily used to knock the mob down, without brute damage
+#define VOMIT_CATEGORY_KNOCKDOWN (MOB_VOMIT_MESSAGE | MOB_VOMIT_STUN)
+
+/// Vomit type for nanite rejection
+#define VOMIT_NANITE /obj/effect/decal/cleanable/vomit/nanites
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
@@ -643,6 +705,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+/// Possible value of [/atom/movable/buckle_dir]. If set to a different (positive-or-zero) value than this, the buckling thing will force a dir on the buckled.
+#define BUCKLE_MATCH_DIR -1
 
 // Flags for fully_heal().
 

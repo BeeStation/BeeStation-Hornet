@@ -38,7 +38,7 @@
 	// unbuckle them from everything, and release them from any pulls
 	target.pulledby?.stop_pulling()
 	target.buckled?.unbuckle_mob(target, force = TRUE)
-	for(var/obj/machinery/cryopod/pod in GLOB.machines)
+	for(var/obj/machinery/cryopod/pod as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/cryopod))
 		if(!is_station_level(pod.z) || !QDELETED(pod.occupant) || pod.panel_open)
 			continue
 		pod.close_machine(target)

@@ -63,7 +63,6 @@
 	canSmoothWith = null
 	clockwork = TRUE
 	lock_override = CAMERA_LOCK_STATION
-	broken_overlay_emissive = TRUE
 	var/datum/action/innate/clockcult/warp/warp_action
 
 	reveal_camera_mob = TRUE

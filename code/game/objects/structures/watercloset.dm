@@ -219,6 +219,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	var/busy = FALSE 	//Something's being washed at the moment
 	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 
 /obj/structure/sinkframe
 	name = "sink frame"
@@ -229,7 +230,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 /obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
@@ -245,7 +246,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 /obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()
@@ -320,7 +321,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(istype(O, /obj/item/stack/medical/gauze))
 		var/obj/item/stack/medical/gauze/G = O
-		new /obj/item/reagent_containers/cup/rag(src.loc)
+		new /obj/item/rag(src.loc)
 		to_chat(user, span_notice("You tear off a strip of gauze and make a rag."))
 		G.use(1)
 		return
@@ -357,6 +358,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	name = "kitchen sink"
 	icon_state = "sink_alt"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16))
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"

@@ -63,7 +63,7 @@
 		if(blood_type)
 			color = blood_type.blood_color
 
-/datum/reagent/blood/on_merge(list/mix_data)
+/datum/reagent/blood/on_merge(list/mix_data, new_total)
 	. = ..()
 	if(data && mix_data)
 		if(data["blood_DNA"] != mix_data["blood_DNA"])
@@ -158,8 +158,7 @@
 				disease.cure()
 		exposed_mob.disease_resistances |= data
 
-/datum/reagent/vaccine/on_merge(list/data)
-	. = ..()
+/datum/reagent/vaccine/on_merge(list/mix_data, new_total)
 	if(istype(data))
 		src.data |= data.Copy()
 
@@ -188,7 +187,7 @@
 	name = "Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
-	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL // because we want to give it to oozelings
+	chemical_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_RNG_GENERAL | REAGENT_CLEANS // because we want to give it to oozelings
 	taste_description = "water"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
@@ -252,11 +251,18 @@
 		new /obj/item/stack/sheet/leather/wetleather(get_turf(hide), hide.amount)
 		qdel(hide)
 
-/*
- *	Water reaction to a mob
- */
 
+/// How many wet stacks you get per units of water when it's applied by touch.
+#define WATER_TO_WET_STACKS_FACTOR_TOUCH 0.5
+/// How many wet stacks you get per unit of water when it's applied by vapor. Much less effective than by touch, of course.
+#define WATER_TO_WET_STACKS_FACTOR_VAPOR 0.1
+
+
+/**
+ * Water reaction to a mob
+ */
 /datum/reagent/water/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with water can help put them out!
+	. = ..()
 	if(!istype(exposed_mob))
 		return
 	if(isoozeling(exposed_mob))
@@ -266,16 +272,22 @@
 		exposed_mob.blood_volume = max(exposed_mob.blood_volume - 30 * (1 - touch_mod), 0)
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
+
 	if(method == TOUCH)
-		exposed_mob.adjust_wet_stacks(reac_volume / 10)
-		exposed_mob.extinguish_mob()
-	..()
+		exposed_mob.extinguish_mob() // extinguish removes all fire stacks
+		exposed_mob.adjust_wet_stacks(reac_volume * WATER_TO_WET_STACKS_FACTOR_TOUCH) // Water makes you wet, at a 50% water-to-wet-stacks ratio. Which, in turn, gives you some mild protection from being set on fire!
+
+	if(method == VAPOR)
+		exposed_mob.adjust_wet_stacks(reac_volume * WATER_TO_WET_STACKS_FACTOR_VAPOR) // Spraying someone with water with the hope to put them out is just simply too funny to me not to add it.
+
+#undef WATER_TO_WET_STACKS_FACTOR_TOUCH
+#undef WATER_TO_WET_STACKS_FACTOR_VAPOR
 
 /datum/reagent/water/holywater
 	name = "Holy Water"
 	description = "Water blessed by some deity."
 	color = "#E0E8EF" // rgb: 224, 232, 239
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST|REAGENT_UNAFFECTED_BY_METABOLISM
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_UNAFFECTED_BY_METABOLISM | REAGENT_CLEANS
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
 	default_container = /obj/item/reagent_containers/cup/glass/bottle/holywater
 
@@ -463,7 +475,7 @@
 	if(method == PATCH || method == VAPOR)
 		var/mob/living/carbon/human/human = exposed_mob
 
-		if(human.dna.species.id == SPECIES_HUMAN)
+		if(HAS_TRAIT(human, TRAIT_USES_SKINTONES))
 			switch(human.skin_tone)
 				if("african1")
 					human.skin_tone = "african2"
@@ -487,8 +499,8 @@
 					human.skin_tone = "caucasian2"
 				if ("albino")
 					human.skin_tone = "caucasian1"
-
-		if(MUTCOLORS in human.dna.species.species_traits) //take current alien color and darken it slightly
+		//take current alien color and darken it slightly
+		else if(HAS_TRAIT(human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(human, TRAIT_FIXED_MUTANT_COLORS))
 			var/list/existing_color = rgb2num(human.dna.features["mcolor"])
 			var/list/darkened_color = list()
 			// Reduces each part of the color by 16
@@ -508,15 +520,16 @@
 
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
+		var/obj/item/bodypart/head/head = affected_human.get_bodypart(BODY_ZONE_HEAD)
+		if(head)
+			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		affected_human.hair_style = "Spiky"
-		affected_human.facial_hair_style = "Shaved"
+		affected_human.facial_hairstyle = "Shaved"
 		affected_human.facial_hair_color = COLOR_BLACK
 		affected_human.hair_color = COLOR_BLACK
-		if(!(HAIR in affected_human.dna.species.species_traits)) //No hair? No problem!
-			affected_human.dna.species.species_traits += HAIR
-		if(affected_human.dna.species.use_skintones)
+		if(HAS_TRAIT(affected_human, TRAIT_USES_SKINTONES))
 			affected_human.skin_tone = "orange"
-		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
+		else if(HAS_TRAIT(affected_human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(affected_human, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
 			affected_human.dna.features["mcolor"] = COLOR_ORANGE
 		affected_human.regenerate_icons()
 
@@ -580,7 +593,7 @@
 	if(current_cycle >= cycles_to_turn)
 		var/datum/species/species_type = pick(race) //this worked with the old code, somehow, and it works here...
 		affected_human.set_species(species_type)
-		affected_human.reagents.del_reagent(type)
+		holder.del_reagent(type)
 		to_chat(affected_human, span_warning("You've become \a [LOWER_TEXT(initial(species_type.name))]!"))
 		return
 
@@ -840,12 +853,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("o2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_O2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/oxygen/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("o2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_O2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/copper
 	name = "Copper"
@@ -875,12 +888,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("n2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_N2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrogen/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("n2=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_N2]=[reac_volume / 2];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/hydrogen
 	name = "Hydrogen"
@@ -957,8 +970,8 @@
 
 /datum/reagent/chlorine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.take_bodypart_damage(0.5 * REM * delta_time, updating_health = FALSE)
-	return UPDATE_MOB_HEALTH
+	if(affected_mob.take_bodypart_damage(0.5 * REM * delta_time, updating_health = FALSE))
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/fluorine
 	name = "Fluorine"
@@ -1027,7 +1040,7 @@
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 
 	if(method in list(TOUCH, VAPOR, PATCH))
-		for(var/datum/surgery/surgery in exposed_carbon.surgeries)
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.2, surgery.speed_modifier)
 			// +20% surgery speed on each step, useful while operating in less-than-perfect conditions
 
@@ -1157,7 +1170,7 @@
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "gross metal"
 	process_flags = ORGANIC | SYNTHETIC
-	addiction_types = list(/datum/addiction/alcohol = 4)
+	addiction_types = list(/datum/addiction/alcohol = 300)
 
 /datum/glass_style/drinking_glass/fuel
 	required_drink_type = /datum/reagent/fuel
@@ -1180,7 +1193,7 @@
 	name = "Space Cleaner"
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | REAGENT_CLEANS
 	taste_description = "sourness"
 	addiction_types = list(/datum/addiction/stimulants = 14)
 	reagent_weight = 0.6 //so it sprays further
@@ -1264,7 +1277,7 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220A
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "numbness"
-	addiction_types = list(/datum/addiction/opioids = 10)
+	addiction_types = list(/datum/addiction/opioids = 120)
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1370,12 +1383,12 @@
 	. = ..()
 	if(!exposed_obj || !reac_volume)
 		return
-	exposed_obj.atmos_spawn_air("co2=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+	exposed_obj.atmos_spawn_air("[GAS_CO2]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/carbondioxide/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("co2=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_CO2]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide
 	name = "Nitrous Oxide"
@@ -1389,12 +1402,12 @@
 /datum/reagent/nitrous_oxide/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
 	if(exposed_obj && reac_volume)
-		exposed_obj.atmos_spawn_air("n2o=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_obj.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(istype(exposed_turf))
-		exposed_turf.atmos_spawn_air("n2o=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
+		exposed_turf.atmos_spawn_air("[GAS_N2O]=[reac_volume / 5];TEMP=[holder ? holder.chem_temp : T20C]")
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	if(method == VAPOR)
@@ -1613,7 +1626,7 @@
 	. = ..()
 	if(isplatingturf(exposed_turf) || istype(exposed_turf, /turf/open/floor/iron))
 		var/turf/open/floor/floor = exposed_turf
-		floor.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
+		floor.place_on_top(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 
 /datum/reagent/carpet/black
 	name = "Black Carpet"
@@ -1759,11 +1772,10 @@
 	taste_description = "sourness"
 
 /datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_color = pick(potential_colors)
-		exposed_human.facial_hair_color = pick(potential_colors)
-		exposed_human.update_hair()
+		exposed_human.set_facial_haircolor(pick(potential_colors), update = FALSE)
+		exposed_human.set_haircolor(pick(potential_colors), update = TRUE)
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"
@@ -1774,13 +1786,12 @@
 	taste_description = "sourness"
 
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
-		var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
-		exposed_human.hair_style = picked_hair.name
-		exposed_human.facial_hair_style = picked_beard
-		exposed_human.update_hair()
+		var/datum/sprite_accessory/hair/picked_hair = GLOB.hairstyles_list[pick(GLOB.hairstyles_list)]
+		var/datum/sprite_accessory/facial_hair/picked_beard = GLOB.facial_hairstyles_list[pick(GLOB.facial_hairstyles_list)]
+		exposed_human.set_facial_hairstyle(picked_beard.name, update = FALSE)
+		exposed_human.set_hairstyle(picked_hair.name, update = TRUE)
 
 /datum/reagent/concentrated_barbers_aid
 	name = "Concentrated Barber's Aid"
@@ -1791,11 +1802,23 @@
 	taste_description = "sourness"
 
 /datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_style = "Very Long Hair"
-		exposed_human.facial_hair_style = "Beard (Very Long)"
-		exposed_human.update_hair()
+		exposed_human.set_facial_hairstyle("Beard (Very Long)", update = FALSE)
+		exposed_human.set_hairstyle("Very Long Hair", update = TRUE)
+
+/datum/reagent/concentrated_barbers_aid/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, metabolization_ratio)
+	. = ..()
+	if(current_cycle > 21)
+		if(!ishuman(affected_mob))
+			return
+		var/mob/living/carbon/human/human_mob = affected_mob
+		var/obj/item/bodypart/head/head = human_mob.get_bodypart(BODY_ZONE_HEAD)
+		if(!head || (head.head_flags & HEAD_HAIR))
+			return
+		head.head_flags |= HEAD_HAIR
+		to_chat(affected_mob, span_notice("Your scalp mutates, a full head of hair sprouting from it."))
+		human_mob.update_body_parts()
 
 /datum/reagent/barbers_afro_mania
 	name = "Barber's Afro Mania"
@@ -1806,10 +1829,9 @@
 	taste_description = "funky sugar"
 
 /datum/reagent/barbers_afro_mania/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_style = "Afro (Large)"
-		exposed_human.update_hair()
+		exposed_human.set_hairstyle("Afro (Large)", update = TRUE)
 
 /datum/reagent/barbers_shaving_aid
 	name = "Barber's Shaving Aid"
@@ -1820,11 +1842,10 @@
 	taste_description = "hairloss"
 
 /datum/reagent/barbers_shaving_aid/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
-	if(method == TOUCH || method == VAPOR && ishuman(exposed_mob))
+	if((method == TOUCH || method == VAPOR) && ishuman(exposed_mob))
 		var/mob/living/carbon/human/exposed_human = exposed_mob
-		exposed_human.hair_style = "Bald 2"
-		exposed_human.facial_hair_style = "Shaved"
-		exposed_human.update_hair()
+		exposed_human.set_facial_hairstyle("Shaved", update = FALSE)
+		exposed_human.set_hairstyle("Bald 2", update = TRUE)
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
@@ -1936,16 +1957,14 @@
 		if(200 to INFINITY)
 			newsize = 3.5 * RESIZE_DEFAULT_SIZE
 
-	affected_mob.resize = newsize/current_size
+	affected_mob.update_transform(newsize/current_size)
 	current_size = newsize
-	affected_mob.update_transform()
-	..()
+	return ..()
 
 /datum/reagent/growthserum/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.resize = RESIZE_DEFAULT_SIZE / current_size
+	affected_mob.update_transform(RESIZE_DEFAULT_SIZE / current_size)
 	current_size = RESIZE_DEFAULT_SIZE
-	affected_mob.update_transform()
 
 /datum/reagent/plastic_polymers
 	name = "Plastic Polymers"
@@ -2175,8 +2194,8 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	spawn_hands(affected_mob)
-	lag_remainder += delta_time - FLOOR(delta_time, 1)
-	delta_time = FLOOR(delta_time, 1)
+	lag_remainder += delta_time - floor(delta_time)
+	delta_time = floor(delta_time)
 	if(lag_remainder >= 1)
 		delta_time += 1
 		lag_remainder -= 1
@@ -2277,7 +2296,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	if(DT_PROB(15, delta_time))
 		victim.emote("scream")
 	if(DT_PROB(2, delta_time)) // Stuns, but purges ants.
-		victim.vomit(rand(5,10), FALSE, TRUE, 1, TRUE, FALSE)
+		victim.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = rand(5,10), purge_ratio = 1)
 
 /datum/reagent/ants/on_mob_end_metabolize(mob/living/living_anthill)
 	. = ..()
@@ -2319,3 +2338,10 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	var/spilled_ants = (round(reac_volume,1) - 5) // To account for ant decals giving 3-5 ants on initialize.
 	pests.reagents.add_reagent(/datum/reagent/ants, spilled_ants)
 	pests.update_ant_damage()
+
+/datum/reagent/cellulose
+	name = "Cellulose Fibers"
+	description = "A crystaline polydextrose polymer, plants swear by this stuff."
+	reagent_state = SOLID
+	color = "#E6E6DA"
+	taste_mult = 0

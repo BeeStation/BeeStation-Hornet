@@ -15,10 +15,10 @@
 	name = "Xenomorph"
 	banning_key = ROLE_ALIEN
 	show_in_antagpanel = FALSE
-	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
 	// TODO: ui_name = "AntagInfoXeno"
 	required_living_playtime = 4
+	antag_hud_name = "xenomorph"
 	var/datum/team/xeno/xeno_team
 
 /datum/antagonist/xeno/create_team(datum/team/xeno/new_team)
@@ -38,20 +38,7 @@
 	return xeno_team
 
 /datum/antagonist/xeno/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Give traitor appearance on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_XENOMORPH]
-	traitorhud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)
-		set_antag_hud(owner.current, "xenomorph")
-
-/datum/antagonist/xeno/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_XENOMORPH]
-	traitorhud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "xenomorph")
-		set_antag_hud(owner.current, null)
+	add_team_hud(mob_override || owner.current)
 
 //XENO
 /mob/living/carbon/alien/mind_initialize()

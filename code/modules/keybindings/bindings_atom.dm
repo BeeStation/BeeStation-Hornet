@@ -19,7 +19,7 @@
 		movement_dir = turn(movement_dir, -dir2angle(user.dir)) //By doing this we ensure that our input direction is offset by the client (camera) direction
 
 	//turn without moving while using the movement lock key, unless something wants to ignore it and move anyway
-	if(user?.movement_locked && !(SEND_SIGNAL(src, COMSIG_MOVABLE_KEYBIND_FACE_DIR, movement_dir) & COMSIG_IGNORE_MOVEMENT_LOCK))
+	if(movement_dir != NONE && user?.movement_locked && !(SEND_SIGNAL(src, COMSIG_MOVABLE_KEYBIND_FACE_DIR, movement_dir) & COMSIG_IGNORE_MOVEMENT_LOCK))
 		try_face(movement_dir)
 	else
 		user.Move(get_step(src, movement_dir), movement_dir)

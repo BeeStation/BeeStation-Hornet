@@ -13,7 +13,7 @@
 	flavour_text = "Each day you barely scrape by, and between the terrible conditions of your makeshift shelter, \
 	the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
-	assignedrole = "Hermit"
+	spawner_job_path = "Hermit"
 	use_cooldown = TRUE
 	banType = ROLE_HERMIT
 
@@ -24,7 +24,7 @@
 		if(1)
 			flavour_text += "you were a [pick("arms dealer", "shipwright", "docking manager")]'s assistant on a small trading station several sectors from here. Raiders attacked, and there was \
 			only one pod left when you got to the escape bay. You took it and launched it alone, and the crowd of terrified faces crowding at the airlock door as your pod's engines burst to \
-			life and sent you to this hell are forever branded into your memory.</b>"
+			life and sent you to this hell are forever branded into your memory."
 			outfit.uniform = /obj/item/clothing/under/misc/assistantformal
 		if(2)
 			flavour_text += "you're an exile from the Tiger Cooperative. Their technological fanaticism drove you to question the power and beliefs of the Exolitics, and they saw you as a \
@@ -62,7 +62,7 @@
 	icon_state = "sleeper"
 	short_desc = "You're, like, totally a dudebro, bruh."
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
-	assignedrole = "Beach Bum"
+	spawner_job_path = /datum/job/beach_bum
 	use_cooldown = TRUE
 	banType = ROLE_BEACH_BUM
 
@@ -103,12 +103,12 @@
 	icon_state = "sleeper"
 	short_desc = "You are a space bartender!"
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
-	assignedrole = "Space Bartender"
+	spawner_job_path = /datum/job/space_bartender
 	id_job = JOB_NAME_BARTENDER
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/bartender/alive/beach
-	assignedrole = "Beach Bartender"
+	spawner_job_path = /datum/job/beach_bum
 	banType = ROLE_BEACH_BUM
 	outfit = /datum/outfit/spacebartender/beach
 
@@ -151,7 +151,7 @@
 	the universe to every planet they could chart. You are in one such seed vault. \
 	Your goal is to cultivate and spread life wherever it will go while waiting for contact from your creators. \
 	Estimated time of last contact: Deployment, 5000 millennia ago."
-	assignedrole = "Lifebringer"
+	spawner_job_path = /datum/job/lifebringer
 	use_cooldown = TRUE
 	banType = ROLE_LIFEBRINGER
 
@@ -185,7 +185,7 @@
 	flavour_text = "The wastes are sacred ground, its monsters a blessed bounty. \
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. \
 	Fresh sacrifices for your nest."
-	assignedrole = "Ash Walker"
+	spawner_job_path = /datum/job/ash_walker
 	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
 	banType = ROLE_ASHWALKER
@@ -229,7 +229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
-	assignedrole = "Lavaland Syndicate"
+	spawner_job_path = /datum/job/lavaland_syndicate
 	use_cooldown = TRUE
 	banType = ROLE_LAVALAND_SYNDICATE
 
@@ -239,7 +239,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your reconnaissance as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate/officer
-	assignedrole = "Lavaland Syndicate"
+	spawner_job_path = /datum/job/lavaland_syndicate
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
 	new_spawn.grant_language(/datum/language/codespeak)
@@ -287,12 +287,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "Monitor enemy activity as best you can, and try to keep a low profile. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
 	important_info = "DO NOT abandon the base."
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize(mapload)
-	. = ..()
-	if(prob(90)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
-		new /mob/living/simple_animal/hostile/syndicate/ranged(get_turf(src))
-		return INITIALIZE_HINT_QDEL
-
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
 	r_hand = /obj/item/melee/energy/sword/saber
@@ -315,15 +309,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
-	assignedrole = "Translocated Veterinarian"
+	spawner_job_path = /datum/job/ghost_role
 	banType = ROLE_TRANSLOCATED_VET
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
-	use_cooldown = TRUE // Use cooldown
+	use_cooldown = TRUE
+	outfit = /datum/outfit/lavaland_doctor
 
 /obj/effect/mob_spawn/human/lavaland_doctor/equip(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
 	var/list/del_types = list(/obj/item/modular_computer/tablet/pda, /obj/item/radio/headset)
 	for(var/del_type in del_types)
@@ -334,3 +329,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
 	return ..()
+
+// outfit definition for the translocated vet
+/datum/outfit/lavaland_doctor
+	name = "Lavaland Veterinarian"
+	uniform = /obj/item/clothing/under/rank/medical/doctor
+	suit = /obj/item/clothing/suit/toggle/labcoat
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	back = /obj/item/storage/backpack/medic

@@ -291,7 +291,7 @@ const Product = (props) => {
     onClick: () => {
       custom
         ? act('dispense', {
-            item: product.path,
+            item: product.name,
           })
         : act('vend', {
             ref: product.ref,

@@ -16,6 +16,7 @@
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_OFFLINE
 
+	use_power = NO_POWER_USE
 	var/minimum_timer = 60
 	var/timer_set = 60
 	var/maximum_timer = 60000
@@ -320,7 +321,8 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	qdel(loc)
+	if(isobj(loc))
+		qdel(loc)
 	qdel(src)
 
 // the machine's defusal is mostly done from the wires code, this is here if you want the core itself to do anything.
@@ -440,7 +442,7 @@
 		var/datum/reagents/reactants = new(time_release)
 		reactants.my_atom = src
 		for(var/obj/item/reagent_containers/RC in beakers)
-			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, 1, 1, 1)
+			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, no_react = TRUE)
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
 		// Detonate it again in one second, until it's out of juice.
@@ -454,7 +456,7 @@
 		reactants += G.reagents
 
 	for(var/obj/item/slime_extract/S in beakers)
-		if(S.Uses)
+		if(S.extract_uses)
 			for(var/obj/item/reagent_containers/cup/G in beakers)
 				G.reagents.trans_to(S, G.reagents.total_volume)
 
@@ -541,7 +543,7 @@
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
 	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+		for(var/obj/machinery/syndicatebomb/B as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/syndicatebomb))
 			if(B.active)
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++

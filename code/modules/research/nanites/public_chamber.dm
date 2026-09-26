@@ -19,26 +19,34 @@
 	var/message_cooldown = 0
 	var/nanite_coeff = 1
 	var/speed_coeff = 1
+	var/datum/techweb/assigned_techweb
 
 /obj/machinery/public_nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 
+/obj/machinery/public_nanite_chamber/LateInitialize()
+	. = ..()
+	if(!assigned_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(assigned_techweb, src)
+
 /obj/machinery/public_nanite_chamber/RefreshParts()
+	. = ..()
 	nanite_coeff = 0
 	speed_coeff = 1
 	var/obj/item/circuitboard/machine/public_nanite_chamber/board = circuit
 	if(board)
 		cloud_id = board.cloud_id
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		nanite_coeff += manipulator.rating
+	for(var/datum/stock_part/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.tier
 	var/total_laser_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
-		total_laser_rating += micro_laser.rating
+	for(var/datum/stock_part/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.tier
 	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/public_nanite_chamber/proc/set_busy(status, working_icon)
 	busy = status
+	update_use_power(status ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	busy_icon_state = working_icon
 	update_icon()
 
@@ -59,6 +67,12 @@
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"), max(60 * speed_coeff, 25))
 	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker), max(80 * speed_coeff, 30))
 
+/obj/machinery/public_nanite_chamber/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += span_notice("A <b>Multitool</b> can be used to change the research server")
+		. += span_notice("Active research destination: <b>[assigned_techweb.id]</b>.")
+
 /obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
 	//TODO MACHINE DING
 	locked = locked_state
@@ -68,7 +82,7 @@
 	if(attacker)
 		occupant.investigate_log("was injected with nanites by [key_name(attacker)] using [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 		log_combat(attacker, occupant, "injected", null, "with nanites via [src]")
-	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id)
+	occupant.AddComponent(/datum/component/nanites, 75 * nanite_coeff, cloud_id, assigned_techweb)
 
 /obj/machinery/public_nanite_chamber/proc/change_cloud(mob/living/attacker)
 	if(machine_stat & (NOPOWER|BROKEN))
@@ -154,7 +168,7 @@
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-/obj/machinery/public_nanite_chamber/close_machine(mob/living/carbon/user, mob/living/attacker)
+/obj/machinery/public_nanite_chamber/close_machine(mob/living/carbon/user, density_to_set = TRUE, mob/living/attacker)
 	if(!state_open)
 		return FALSE
 
@@ -162,7 +176,7 @@
 
 	. = TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(try_inject_nanites), attacker), 30) //If someone is shoved in give them a chance to get out before the injection starts
+	addtimer(CALLBACK(src, PROC_REF(try_inject_nanites), attacker), 3 SECONDS) //If someone is shoved in give them a chance to get out before the injection starts
 
 /obj/machinery/public_nanite_chamber/proc/try_inject_nanites(mob/living/attacker)
 	if(occupant)
@@ -175,7 +189,7 @@
 		if((L.mob_biotypes & MOB_ORGANIC) || (L.mob_biotypes & MOB_UNDEAD) || HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
 			inject_nanites(attacker)
 
-/obj/machinery/public_nanite_chamber/open_machine()
+/obj/machinery/public_nanite_chamber/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(state_open)
 		return FALSE
 
@@ -210,6 +224,14 @@
 /obj/machinery/public_nanite_chamber/MouseDrop_T(mob/target, mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !Adjacent(target) || !user.Adjacent(target) || !iscarbon(target))
 		return
-	if(close_machine(target, user))
+	if(close_machine(target, attacker = user))
 		log_combat(user, target, "inserted", null, "into [src].")
 	add_fingerprint(user)
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/public_nanite_chamber)
+DEFINE_BUFFER_HANDLER(/obj/machinery/public_nanite_chamber)
+	if(istype(buffer, /datum/techweb))
+		balloon_alert(user, "Server assigned to public nanite chamber.")
+		assigned_techweb = buffer
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE

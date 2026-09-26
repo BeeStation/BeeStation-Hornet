@@ -8,7 +8,6 @@
 	icon_dead = "Hivelord_dead"
 	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC
-	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
 	ranged = 1
 	vision_range = 5
@@ -21,6 +20,7 @@
 	attack_verb_simple = "lash out at"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
 	ranged_cooldown_time = 20
@@ -30,8 +30,15 @@
 	minimum_distance = 3
 	pass_flags = PASSTABLE
 	loot = list(/obj/item/organ/regenerative_core)
+	discovery_points = TECHWEB_TIER_2_POINTS
+
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
-	discovery_points = 3000
+	var/has_clickbox = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/Initialize(mapload)
+	. = ..()
+	if(has_clickbox)
+		AddComponent(/datum/component/clickbox, icon_state = "hivelord", max_scale = INFINITY, dead_state = "hivelord_dead") //they writhe so much.
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -100,7 +107,6 @@
 	icon_dead = "legion"
 	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
-	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage = 15
 	attack_verb_continuous = "lashes out at"
@@ -114,6 +120,7 @@
 	del_on_death = TRUE
 	stat_attack = HARD_CRIT
 	robust_searching = 1
+	has_clickbox = FALSE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
@@ -172,6 +179,7 @@
 	melee_damage = 12
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "is shrugged off by"

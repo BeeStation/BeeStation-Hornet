@@ -29,11 +29,11 @@
 			LAZYADD(program_cache, list(info_this))
 
 /obj/machinery/computer/holodeck/prison/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Workshop")
 		ui.open()
-
 
 /obj/machinery/computer/holodeck/prison/ui_data(mob/user)
 	var/list/data = list()

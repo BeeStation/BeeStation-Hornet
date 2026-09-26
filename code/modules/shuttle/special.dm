@@ -201,9 +201,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 /obj/structure/table/wood/bar/proc/is_barstaff(mob/living/user)
 	. = FALSE
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.mind?.assigned_role == JOB_NAME_BARTENDER)
+		var/mob/living/carbon/human/human_user = user
+		if(is_bartender_job(human_user.mind?.assigned_role))
 			return TRUE
+
+	if(istype(user, /mob/living/simple_animal/drone/snowflake/bardrone))
+		return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)
 	if(ID && (ACCESS_CENT_BAR in ID.access))
@@ -300,7 +303,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message
-			say("$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more.")
+			say("[payees[AM]] cr received, [AM]. You need [threshold-payees[AM]] cr more.")
 			check_times[AM] = world.time + LUXURY_MESSAGE_COOLDOWN
 		return ..()
 	else

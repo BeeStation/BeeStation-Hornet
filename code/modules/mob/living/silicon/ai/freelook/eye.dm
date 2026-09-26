@@ -8,7 +8,7 @@
 	icon_state = "ai_camera"
 	icon = 'icons/mob/cameramob.dmi'
 	invisibility = INVISIBILITY_MAXIMUM
-	hud_possible = list(ANTAG_HUD, AI_DETECT_HUD = HUD_LIST_LIST)
+	hud_possible = list(AI_DETECT_HUD = HUD_LIST_LIST)
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
 	var/relay_speech = FALSE
@@ -25,16 +25,16 @@
 
 /mob/camera/ai_eye/proc/update_ai_detect_hud()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
-	var/list/old_images = hud_list[AI_DETECT_HUD]
+	var/list/old_images = active_hud_list[AI_DETECT_HUD]
 	if(!ai_detector_visible)
-		hud.remove_from_hud(src)
+		hud.remove_atom_from_hud(src)
 		QDEL_LIST(old_images)
 		return
 
-	if(!length(hud.hudusers))
+	if(!length(hud.hud_users_all_z_levels))
 		return //no one is watching, do not bother updating anything
 
-	hud.remove_from_hud(src)
+	hud.remove_atom_from_hud(src)
 
 	var/static/list/vis_contents_opaque = list()
 	var/obj/effect/overlay/ai_detect_hud/hud_obj = vis_contents_opaque[ai_detector_color]
@@ -54,7 +54,7 @@
 	for(var/i in (new_images.len + 1) to old_images.len)
 		qdel(old_images[i])
 	hud_list[AI_DETECT_HUD] = new_images
-	hud.add_to_hud(src)
+	hud.add_atom_to_hud(src)
 
 /mob/camera/ai_eye/proc/get_visible_turfs()
 	if(!isturf(loc))
@@ -68,29 +68,30 @@
 // Use this when setting the ai_eye's location.
 // It will also stream the chunk that the new loc is in.
 
-/mob/camera/ai_eye/proc/setLoc(destination, force_update = FALSE)
-	if(ai)
-		if(!isturf(ai.loc))
-			return
-		destination = get_turf(destination)
-		if(!force_update && (destination == get_turf(src)) )
-			return //we are already here!
-		if (destination)
-			abstract_move(destination)
-		else
-			moveToNullspace()
-		if(use_static)
-			ai.camera_visibility(src)
-		if(ai.client && !ai.multicam_on)
-			ai.client.set_eye(src)
-		update_ai_detect_hud()
-		//Holopad
-		if(istype(ai.current_holopad, /obj/machinery/holopad))
-			ai.current_holopad.move_hologram(ai, destination)
-		if(ai.camera_light_on)
-			ai.light_cameras()
-		if(ai.master_multicam)
-			ai.master_multicam.refresh_view()
+/mob/camera/ai_eye/proc/setLoc(turf/destination, force_update = FALSE)
+	if(!ai)
+		return
+	if(!isturf(ai.loc))
+		return
+	destination = get_turf(destination)
+	if(!force_update && (destination == get_turf(src)) )
+		return //we are already here!
+	if (destination)
+		abstract_move(destination)
+	else
+		moveToNullspace()
+	if(use_static)
+		ai.camera_visibility(src)
+	if(!ai.multicam_on)
+		ai.set_mob_eye_to(src)
+	update_ai_detect_hud()
+	//Holopad
+	if(istype(ai.current_holopad))
+		ai.current_holopad.move_hologram(ai, destination)
+	if(ai.camera_light_on)
+		ai.light_cameras()
+	if(ai.master_multicam)
+		ai.master_multicam.refresh_view()
 
 //it uses setLoc not forceMove, talks to the sillycone and not the camera mob
 /mob/camera/ai_eye/zMove(dir, feedback = FALSE, feedback_to = ai)
@@ -131,7 +132,7 @@
 	GLOB.ai_eyes -= src
 	if(ai_detector_visible)
 		var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
-		hud.remove_from_hud(src)
+		hud.remove_atom_from_hud(src)
 		var/list/L = hud_list[AI_DETECT_HUD]
 		QDEL_LIST(L)
 	return ..()
@@ -170,7 +171,7 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
-	if(istype(current_holopad, /obj/machinery/holopad))
+	if(istype(current_holopad))
 		current_holopad.clear_holo(src)
 	else
 		current_holopad = null
@@ -183,14 +184,14 @@
 		create_eye()
 
 	transfer_observers_to(eyeobj) // ai core to eyemob
-	eyeobj.setLoc(loc)
+	eyeobj.setLoc(get_turf(src))
 
 /mob/living/silicon/ai/proc/create_eye()
 	if(!eyeobj || QDELETED(eyeobj))
 		eyeobj = new /mob/camera/ai_eye()
 		all_eyes += eyeobj
 		eyeobj.ai = src
-		eyeobj.setLoc(loc)
+		eyeobj.setLoc(get_turf(src))
 		eyeobj.name = "[name] (AI Eye)"
 		eyeobj.real_name = eyeobj.name
 		set_eyeobj_visible(TRUE)

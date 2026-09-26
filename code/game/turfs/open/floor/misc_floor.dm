@@ -1,38 +1,80 @@
+// Usage for a bar light is 160, let's do a bit less then that since these tend to be used a lot in one place
+#define CIRCUIT_FLOOR_POWERUSE 120
+
 //Circuit flooring, glows a little
 /turf/open/floor/circuit
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
-	var/icon_normal = "bcircuit"
-	light_color = LIGHT_COLOR_CYAN
+	base_icon_state = "bcircuit"
+	light_color = LIGHT_COLOR_BABY_BLUE
 	floor_tile = /obj/item/stack/tile/circuit
-	var/on = TRUE
+
+	/// If we want to ignore our area's power status and just be always off
+	/// Mostly for mappers doing asthetic things, or cases where the floor should be broken
+	var/always_off = FALSE
+	/// If this floor is powered or not
+	/// We don't consume any power, but we do require it
+	var/on = -1
 
 /turf/open/floor/circuit/Initialize(mapload)
 	SSmapping.nuke_tiles += src
-	update_icon()
-	. = ..()
+	RegisterSignal(loc, COMSIG_AREA_POWER_CHANGE, PROC_REF(handle_powerchange))
+	var/area/cur_area = get_area(src)
+	if (!isnull(cur_area))
+		handle_powerchange(cur_area, TRUE)
+	return ..()
 
 /turf/open/floor/circuit/Destroy()
 	SSmapping.nuke_tiles -= src
+	UnregisterSignal(loc, COMSIG_AREA_POWER_CHANGE)
+	var/area/cur_area = get_area(src)
+	if(on && !isnull(cur_area))
+		cur_area.removeStaticPower(CIRCUIT_FLOOR_POWERUSE, AREA_USAGE_STATIC_LIGHT)
 	return ..()
 
-/turf/open/floor/circuit/update_icon()
+/turf/open/floor/circuit/update_appearance(updates)
 	. = ..()
-	if(on)
-		if(LAZYLEN(SSmapping.nuke_threats))
-			icon_state = "rcircuitanim"
-			light_color = LIGHT_COLOR_FLARE
-		else
-			icon_state = icon_normal
-			light_color = initial(light_color)
-		set_light(1.4, 0.5)
-	else
-		icon_state = "[icon_normal]off"
+	if(!on)
 		set_light(0)
+		return
+
+	set_light_color(LAZYLEN(SSmapping.nuke_threats) ? LIGHT_COLOR_INTENSE_RED : initial(light_color))
+	set_light(2, 1.5)
+
+/turf/open/floor/circuit/update_icon_state()
+	icon_state = on ? (LAZYLEN(SSmapping.nuke_threats) ? "rcircuitanim" : initial(icon_state)) : "[base_icon_state]off"
+	return ..()
+
+/turf/open/floor/circuit/on_change_area(area/old_area, area/new_area)
+	. = ..()
+	UnregisterSignal(old_area, COMSIG_AREA_POWER_CHANGE)
+	RegisterSignal(new_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(handle_powerchange))
+	if(on)
+		old_area.removeStaticPower(CIRCUIT_FLOOR_POWERUSE, AREA_USAGE_STATIC_LIGHT)
+	handle_powerchange(new_area)
+
+/// Enables/disables our lighting based off our source area
+/turf/open/floor/circuit/proc/handle_powerchange(area/source, mapload = FALSE)
+	SIGNAL_HANDLER
+	var/old_on = on
+	if(always_off)
+		on = FALSE
+	else
+		on = source.powered(AREA_USAGE_LIGHT)
+	if(on == old_on)
+		return
+
+	if(on)
+		source.addStaticPower(CIRCUIT_FLOOR_POWERUSE, AREA_USAGE_STATIC_LIGHT)
+	else if (!mapload)
+		source.removeStaticPower(CIRCUIT_FLOOR_POWERUSE, AREA_USAGE_STATIC_LIGHT)
+	update_appearance()
+
+#undef CIRCUIT_FLOOR_POWERUSE
 
 /turf/open/floor/circuit/off
 	icon_state = "bcircuitoff"
-	on = FALSE
+	always_off = TRUE
 
 /turf/open/floor/circuit/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -48,17 +90,17 @@
 
 /turf/open/floor/circuit/green
 	icon_state = "gcircuit"
-	icon_normal = "gcircuit"
+	base_icon_state = "gcircuit"
 	light_color = LIGHT_COLOR_GREEN
 	floor_tile = /obj/item/stack/tile/circuit/green
 
 /turf/open/floor/circuit/green/off
 	icon_state = "gcircuitoff"
-	on = FALSE
+	always_off = TRUE
 
 /turf/open/floor/circuit/green/anim
 	icon_state = "gcircuitanim"
-	icon_normal = "gcircuitanim"
+	base_icon_state = "gcircuitanim"
 	floor_tile = /obj/item/stack/tile/circuit/green/anim
 
 /turf/open/floor/circuit/green/airless
@@ -72,17 +114,17 @@
 
 /turf/open/floor/circuit/red
 	icon_state = "rcircuit"
-	icon_normal = "rcircuit"
+	base_icon_state = "rcircuit"
 	light_color = LIGHT_COLOR_FLARE
 	floor_tile = /obj/item/stack/tile/circuit/red
 
 /turf/open/floor/circuit/red/off
 	icon_state = "rcircuitoff"
-	on = FALSE
+	always_off = TRUE
 
 /turf/open/floor/circuit/red/anim
 	icon_state = "rcircuitanim"
-	icon_normal = "rcircuitanim"
+	base_icon_state = "rcircuitanim"
 	floor_tile = /obj/item/stack/tile/circuit/red/anim
 
 /turf/open/floor/circuit/red/airless

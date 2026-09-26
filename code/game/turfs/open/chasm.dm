@@ -15,7 +15,7 @@
 
 /turf/open/chasm/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/chasm, GET_TURF_BELOW(src))
+	AddComponent(/datum/component/chasm, GET_TURF_BELOW(src), mapload)
 
 /turf/open/chasm/proc/set_target(turf/target)
 	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
@@ -43,7 +43,7 @@
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, span_notice("You build a floor."))
 		log_attack("[key_name(user)] has constructed a floor over a chasm at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE
 
@@ -75,7 +75,7 @@
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, span_notice("You build a floor."))
 				// Create a floor, which has this chasm underneath it
-				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+				place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
 				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
@@ -87,7 +87,7 @@
 	return TRUE
 
 /turf/open/chasm/can_cross_safely(atom/movable/crossing)
-	return /*HAS_TRAIT(src, TRAIT_CHASM_STOPPED) || */HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+	return HAS_TRAIT(src, TRAIT_CHASM_STOPPED) || HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
 
 // Chasms for Lavaland, with planetary atmos and lava glow
 /turf/open/chasm/lavaland

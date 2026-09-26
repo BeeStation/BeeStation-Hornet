@@ -1,5 +1,5 @@
-import { map } from 'common/collections';
 import { toFixed } from 'common/math';
+import { map } from 'es-toolkit/compat';
 import { Dropdown } from 'tgui-core/components';
 
 import { numberOfDecimalDigits } from '../../common/math';

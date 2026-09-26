@@ -46,7 +46,7 @@ STATIONNAME Space Station 13
 #HUB
 
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
-LOBBY_COUNTDOWN 300
+LOBBY_COUNTDOWN 210
 
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
@@ -642,3 +642,7 @@ ENABLE_MRAT
 ## Discord OOC tag. As long as this is enabled, the message will be concatenated with `[thisServer] (OOC) beeboi: hello guys!`. if it's commented, it will be `(OOC) beeboi: hello guys!`
 ## For Beestation, it will be "SA"(sage) and "AC"(acacia) for this value, then it will be `[SA] (OOC) beeboi: I love bee!`
 #DISCORD_OOC_TAG thisServer
+
+## Tgui payloads larger than the 2kb limit for BYOND topic requests are split into roughly 1kb chunks and sent in sequence.
+## This config option limits the maximum chunk count for which the server will accept a payload, default is 32
+TGUI_MAX_CHUNK_COUNT 32

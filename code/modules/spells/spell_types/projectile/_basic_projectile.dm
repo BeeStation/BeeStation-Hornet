@@ -7,6 +7,7 @@
  * and aoe projectile spells in the future.
  */
 /datum/action/spell/basic_projectile
+	abstract_type = /datum/action/spell/basic_projectile
 	/// How far we try to fire the basic projectile. Blocked by dense objects.
 	var/projectile_range = 7
 	/// The projectile type fired at all people around us

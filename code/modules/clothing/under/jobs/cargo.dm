@@ -1,4 +1,5 @@
 /obj/item/clothing/under/rank/cargo
+	abstract_type = /obj/item/clothing/under/rank/cargo
 	icon = 'icons/obj/clothing/under/cargo.dmi'
 	worn_icon = 'icons/mob/clothing/under/cargo.dmi'
 

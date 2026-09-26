@@ -190,9 +190,9 @@
 	for(var/mob/living/L in view(7, src))
 		if(L.mind)
 			mobss += L
-	for(var/turf/turf as() in turfs)
+	for(var/turf/turf as anything in turfs)
 		var/visible = FALSE
-		for(var/mob/living/L as() in mobss)
+		for(var/mob/living/L as anything in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
 		if(!visible)
@@ -258,13 +258,13 @@
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
 	mobchatspan = "chaplain"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
 	maxHealth = 60
 	mobchatspan = "researchdirector"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE
@@ -374,7 +374,7 @@
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
 			continue
-		H.adjust_blindness(10)
+		H.adjust_temp_blindness(20 SECONDS)
 		if(prob(10))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)

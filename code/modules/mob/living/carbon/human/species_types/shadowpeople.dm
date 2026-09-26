@@ -10,15 +10,12 @@
 	id = SPECIES_SHADOW
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(
-		NOEYESPRITES,
-		NOFLASH
-	)
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NOBLOOD,
+		TRAIT_NOFLASH
 	)
 	inherent_factions = list(FACTION_FAITHLESS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -39,6 +36,7 @@
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
@@ -106,11 +104,6 @@
 	name = "Nightmare"
 	id = SPECIES_NIGHTMARE
 	no_equip_flags = ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
-	species_traits = list(
-		NO_UNDERWEAR,
-		NOEYESPRITES,
-		NOFLASH
-	)
 	inherent_traits = list(
 		TRAIT_RESISTCOLD,
 		TRAIT_NOBREATH,
@@ -126,6 +119,8 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_UNDERWEAR,
+		TRAIT_NOFLASH,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
@@ -179,7 +174,7 @@
 /obj/item/organ/heart/nightmare
 	name = "heart of darkness"
 	desc = "An alien organ that twists and writhes when exposed to light."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "demon_heart-on"
 	visual = TRUE
 	color = "#1C1C1C"
@@ -252,6 +247,7 @@
 	inhand_icon_state = "arm_blade"
 	force = 25
 	armour_penetration = 35
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
@@ -382,6 +378,7 @@
 
 
 /datum/species/shadow/blessed/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/turf/T = H.loc
 	if(istype(T))
 		var/light_amount = T.get_lumcount()
@@ -445,21 +442,21 @@
 /obj/item/organ/heart/shadow_ritual/first
 	name = "shadowed heart"
 	desc = "An object resembling a heart, completely shrouded by a thick layer of darkness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "shadow_heart_1"
 	sect_rituals_completed_granted = 1
 
 /obj/item/organ/heart/shadow_ritual/second
 	name = "faded heart"
 	desc = "A hard to distinguish heart-like organ covered by a shifting darkness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "shadow_heart_2"
 	sect_rituals_completed_granted = 2
 
 /obj/item/organ/heart/shadow_ritual/third
 	name = "pulsing darkness"
 	desc = "An indistinguishable object cloaked in an undispellable darkness. The only thing that can be made out is the darkness pulsing."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "shadow_heart_3"
 	var/respawn_progress = 0
 	sect_rituals_completed_granted = 3

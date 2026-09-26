@@ -1,4 +1,5 @@
 /obj/item/organ/cyberimp/chest
+	abstract_type = /obj/item/organ/cyberimp/chest
 	name = "cybernetic torso implant"
 	desc = "Implants for the organs in your torso."
 	icon_state = "chest_implant"
@@ -104,7 +105,7 @@
 	if(prob(30/severity))
 		to_chat(owner, span_userdanger("You feel a sharp pain in your chest, your reviver implant seems to have shorted out!"))
 		owner.Knockdown((3 SECONDS))
-		Destroy()
+		qdel(src)
 
 /obj/item/organ/cyberimp/chest/reviver/syndicate
 	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN

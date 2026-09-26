@@ -15,7 +15,7 @@
 
 	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', vol = 50, vary = TRUE)
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
-	equip_cursed_clothing(/obj/item/clothing/mask/cluwne, ITEM_SLOT_MASK)
+	equip_cursed_clothing(/obj/item/clothing/mask/animal/cluwne, ITEM_SLOT_MASK)
 	equip_cursed_clothing(/obj/item/clothing/under/cluwne, ITEM_SLOT_ICLOTHING)
 	equip_cursed_clothing(/obj/item/clothing/shoes/cluwne, ITEM_SLOT_FEET)
 	equip_cursed_clothing(/obj/item/clothing/gloves/color/white, ITEM_SLOT_GLOVES)

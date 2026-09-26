@@ -1,6 +1,6 @@
 /datum/action/spell/vow_of_silence
 	name = "Speech"
-	desc = "Make (or break) a vow of silence."
+	desc = "Break your vow of silence. Permanently."
 	background_icon_state = "bg_mime"
 	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "mime_speech"
@@ -31,7 +31,7 @@
 	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
 	REMOVE_TRAIT(user, TRAIT_MIMING, "[type]")
 
-	var/datum/job/mime/mime_job = SSjob.GetJob(JOB_NAME_MIME)
+	var/datum/job/mime/mime_job = SSjob.get_job(JOB_NAME_MIME)
 	mime_job.total_positions += 1
 
 	qdel(src)

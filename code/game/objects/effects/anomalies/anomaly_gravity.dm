@@ -11,7 +11,7 @@
 	icon_state = "gravity"
 	density = FALSE
 	anomaly_core = /obj/item/assembly/signaler/anomaly/grav
-	var/boing = 0
+	var/boing = FALSE
 	///Warp effect holder for displacement filter to "pulse" the anomaly
 	var/atom/movable/warp_effect/warp
 
@@ -29,30 +29,46 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav)
 
 /obj/effect/anomaly/grav/Destroy()
 	vis_contents -= warp
-	qdel(warp)
-	warp = null
+	QDEL_NULL(warp)
 	return ..()
 
-/obj/effect/anomaly/grav/anomalyEffect(delta_time)
-	..()
-	boing = 1
-	for(var/obj/O in orange(4, src))
-		if(!O.anchored)
-			step_towards(O,src)
-	for(var/mob/living/M in get_turf(src))
-		gravShock(M)
-	for(var/mob/living/M in orange(4, get_turf(src)))
-		if(!M.mob_negates_gravity())
-			step_towards(M,src)
-	for(var/obj/O in get_turf(src))
-		if(!O.anchored)
-			if(isturf(O.loc))
-				var/turf/T = O.loc
-				if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
-					continue
-			var/mob/living/target = locate() in hearers(4,src)
-			if(target && !target.stat)
-				O.throw_at(target, 5, 10)
+/obj/effect/anomaly/grav/anomaly_process(delta_time)
+	. = ..()
+	boing = TRUE
+
+	var/list/mob/living/nearby_people
+	var/turf/our_turf = get_turf(src)
+	for(var/atom/thing_on_us as anything in our_turf)
+		if(isliving(thing_on_us))
+			grav_shock(thing_on_us)
+			continue
+
+		if(!isobj(thing_on_us))
+			continue
+		var/obj/obj_on_us = thing_on_us
+		if(obj_on_us.anchored)
+			continue
+
+		if(our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(obj_on_us, TRAIT_T_RAY_VISIBLE))
+			continue
+
+		nearby_people ||= hearers(4, src)
+		var/mob/living/target = locate() in nearby_people
+		if(target?.stat == CONSCIOUS)
+			obj_on_us.throw_at(target, 5, 10)
+
+	for(var/atom/nearby_thing as anything in orange(4, src))
+		if(isobj(nearby_thing))
+			var/obj/nearby_obj = nearby_thing
+			if(nearby_obj.anchored)
+				continue
+		else if(isliving(nearby_thing))
+			var/mob/living/nearby_living = nearby_thing
+			if(nearby_living.mob_negates_gravity())
+				continue
+		else
+			continue
+		step_towards(nearby_thing, src)
 
 	//anomaly quickly contracts then slowly expands it's ring
 	animate(warp, time = delta_time*3, transform = matrix().Scale(0.5,0.5))
@@ -60,21 +76,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav)
 
 /obj/effect/anomaly/grav/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
-	gravShock(AM)
+	grav_shock(AM)
 
 /obj/effect/anomaly/grav/Bump(mob/A)
-	gravShock(A)
+	grav_shock(A)
 
 /obj/effect/anomaly/grav/Bumped(atom/movable/AM)
-	gravShock(AM)
+	grav_shock(AM)
 
-/obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
-	if(boing && isliving(A) && !A.stat)
-		A.Paralyze(40)
-		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
-		A.throw_at(target, 5, 1)
-		boing = 0
+/obj/effect/anomaly/grav/proc/grav_shock(mob/living/mob_to_grav)
+	if(!boing || !istype(mob_to_grav) || mob_to_grav.stat != CONSCIOUS)
+		return
+	mob_to_grav.Paralyze(4 SECONDS)
+	var/atom/target = get_edge_target_turf(mob_to_grav, get_dir(src, get_step_away(mob_to_grav, src)))
+	mob_to_grav.throw_at(target, 5, 1)
+	boing = FALSE
 
 /obj/effect/anomaly/grav/high
 	var/datum/proximity_monitor/advanced/gravity/grav_field
@@ -90,4 +106,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav/high)
 
 /obj/effect/anomaly/grav/high/Destroy()
 	QDEL_NULL(grav_field)
-	. = ..()
+	return ..()

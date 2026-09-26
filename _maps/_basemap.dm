@@ -1,5 +1,5 @@
 // #define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
-// #define QUICKSTART // uncomment this to start the round immidiately when ready and automatically spawn players with debug outfit
+// #define QUICKSTART // uncomment this to start the round immediately when ready and automatically spawn players with debug outfit
 
 // uncomment this for a map you need to use
 // #define FORCE_MAP "boxstation"
@@ -27,9 +27,8 @@
 		#include "map_files\RadStation\RadStation.dmm"
 		#include "map_files\EchoStation\EchoStation.dmm"
 		#include "map_files\CardinalStation\CardinalStation.dmm"
-
-		#ifdef CIBUILDING
-			#include "templates.dm"
-		#endif
+	#endif
+	#ifdef ALL_TEMPLATES
+		#include "templates.dm"
 	#endif
 #endif

@@ -1,6 +1,7 @@
 // Station areas and shuttles
 
 /area/station
+	abstract_type = /area/station
 	name = "Station Areas"
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
@@ -9,11 +10,12 @@
 //Maintenance
 
 /area/station/maintenance
+	abstract_type = /area/station/maintenance
 	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
-	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
+	ambient_buzz = 'sound/ambience/maintenance/source_corridor2.ogg'
 	ambient_buzz_vol = 20
-	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
+	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED | XENOBIOLOGY_CONSOLE_DISALLOWED
 	rare_ambient_sounds = list(
 		'sound/machines/airlock.ogg',
 		'sound/effects/snap.ogg',
@@ -23,8 +25,8 @@
 		'sound/items/welder2.ogg',
 		'sound/items/crowbar.ogg',
 		'sound/items/deconstruct.ogg',
-		'sound/ambience/source_holehit3.ogg',
-		'sound/ambience/cavesound3.ogg',
+		'sound/ambience/maintenance/source_holehit3.ogg',
+		'sound/ambience/misc/cavesound3.ogg',
 	)
 	min_ambience_cooldown = 20 SECONDS
 	max_ambience_cooldown = 35 SECONDS
@@ -127,6 +129,7 @@
 	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE | CULT_PERMITTED
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 //Maintenance - Cardstation's club
 
@@ -265,12 +268,14 @@
 //Hallway
 
 /area/station/hallway
+	abstract_type = /area/station/hallway
 	icon_state = "hall"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
+	area_flags = parent_type::area_flags | XENOBIOLOGY_CONSOLE_DISALLOWED
 
 /area/station/hallway/get_area_textures()
 	return GLOB.turf_texture_hallway
@@ -369,9 +374,10 @@
 //Command
 
 /area/station/command
+	abstract_type = /area/station/command
 	name = "Command"
 	icon_state = "command"
-	ambientsounds = list('sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/misc/signal.ogg')
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
@@ -458,6 +464,7 @@
 //Commons
 
 /area/station/commons
+	abstract_type = /area/station/commons
 	name = "\improper Crew Facilities"
 	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 	lighting_colour_tube = "#ffce99"
@@ -631,6 +638,7 @@
 //Service
 
 /area/station/service
+	abstract_type = /area/station/service
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 
 /area/station/service/cafeteria
@@ -843,6 +851,7 @@
 //Engineering
 
 /area/station/engineering
+	abstract_type = /area/station/engineering
 	icon_state = "engie"
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
@@ -997,6 +1006,7 @@
 //Solars
 
 /area/station/solars
+	abstract_type = /area/station/solars
 	requires_power = FALSE
 	//always_unpowered = TRUE
 	area_flags = UNIQUE_AREA | NO_GRAVITY
@@ -1086,6 +1096,7 @@
 //MedBay
 
 /area/station/medical
+	abstract_type = /area/station/medical
 	name = "Medical"
 	icon_state = "medbay"
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
@@ -1102,7 +1113,7 @@
 /area/station/medical/abandoned
 	name = "\improper Abandoned Medbay"
 	icon_state = "abandoned_medbay"
-	ambientsounds = list('sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/misc/signal.ogg')
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/medical/medbay/balcony
@@ -1242,6 +1253,7 @@
 ///When adding a new area to the security areas, make sure to add it to /datum/bounty/item/security/paperwork as well!
 
 /area/station/security
+	abstract_type = /area/station/security
 	name = "Security"
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
@@ -1353,6 +1365,7 @@
 /area/station/security/interrogation
 	name = "\improper Interrogation Room"
 	icon_state = "interrogation"
+	camera_networks = list(CAMERA_NETWORK_INTERROGATION)
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/security/interrogation/Exited(atom/movable/a, atom/oldloc)
@@ -1381,7 +1394,7 @@
 /area/station/security/detectives_office
 	name = "\improper Detective's Office"
 	icon_state = "detective"
-	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
+	ambientsounds = list('sound/ambience/security/ambidet1.ogg','sound/ambience/security/ambidet2.ogg','sound/ambience/security/ambidet3.ogg','sound/ambience/security/ambidet4.ogg')
 
 /area/station/security/detectives_office/Exited(atom/movable/a, atom/oldloc)
 	..()
@@ -1495,6 +1508,7 @@
 //Cargo
 
 /area/station/cargo
+	abstract_type = /area/station/cargo
 	name = "Quartermasters"
 	icon_state = "quart"
 	lighting_colour_tube = "#ffe3cc"
@@ -1576,6 +1590,7 @@
 //Science
 
 /area/station/science
+	abstract_type = /area/station/science
 	name = "\improper Science Division"
 	icon_state = "science"
 	lighting_colour_tube = "#f0fbff"
@@ -1665,6 +1680,7 @@
 /area/station/science/explab
 	name = "\improper Experimentation Lab"
 	icon_state = "exp_lab"
+	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH, CAMERA_NETWORK_ARTIFACTS)
 
 /area/station/science/robotics
 	name = "Robotics"
@@ -1701,16 +1717,17 @@
 // Telecommunications Satellite
 
 /area/station/tcommsat
+	abstract_type = /area/station/tcommsat
 	icon_state = "tcomsatcham"
 	ambientsounds = list(
-		'sound/ambience/ambisin2.ogg',
-		'sound/ambience/signal.ogg',
-		'sound/ambience/signal.ogg',
-		'sound/ambience/ambigen10.ogg',
-		'sound/ambience/ambitech.ogg',
-		'sound/ambience/ambitech2.ogg',
-		'sound/ambience/ambitech3.ogg',
-		'sound/ambience/ambimystery.ogg'
+		'sound/ambience/engineering/ambisin2.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
+		'sound/ambience/general/ambigen10.ogg',
+		'sound/ambience/engineering/ambitech.ogg',
+		'sound/ambience/engineering/ambitech2.ogg',
+		'sound/ambience/engineering/ambitech3.ogg',
+		'sound/ambience/misc/ambimystery.ogg'
 	)
 	clockwork_warp_allowed = FALSE
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."

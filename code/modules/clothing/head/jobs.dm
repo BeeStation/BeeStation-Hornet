@@ -12,7 +12,6 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
-	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -64,6 +63,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#0070B7#FFCE5B"
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 //Head of Personnel
 /obj/item/clothing/head/hats/hopcap
@@ -73,6 +73,14 @@
 	armor_type = /datum/armor/hats_hopcap
 	dog_fashion = /datum/dog_fashion/head/hop
 	dying_key = DYE_REGISTRY_CAP
+
+/obj/item/clothing/head/hats/hopcap/beret
+	name = "head of personnel's beret"
+	desc = "For doing paperwork with style."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret_badge
+	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
+	greyscale_colors = "#3e6588#ECF1F8"
 
 //Chaplain
 
@@ -183,6 +191,7 @@
 	greyscale_config_worn = /datum/greyscale_config/beret/worn
 	greyscale_colors = "#972A2A"
 	flags_1 = IS_PLAYER_COLORABLE_1
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 /obj/item/clothing/head/beret/color
 	name = "white beret"
@@ -222,7 +231,6 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
 
@@ -250,6 +258,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#f0cc8f"
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 /obj/item/clothing/head/hats/hos/beret/navyhos
 	name = "head of security's beret"
@@ -495,7 +504,7 @@
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#E1E1E1#EDCC6A"
+	greyscale_colors = "#E1E1E1#A3EAFF"
 	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
 
@@ -509,11 +518,11 @@
 
 /obj/item/clothing/head/beret/medical/cmo
 	name = "chief medical officer beret"
-	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
+	desc = "A beret in a distinct surgical turquoise!"
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#73B1D7#FFFFFF"
+	greyscale_colors = "#5EB8B8#FFFFFF"
 	armor_type = /datum/armor/beret_cmo
 
 /datum/armor/beret_cmo
@@ -591,6 +600,43 @@
 /datum/armor/beret_supply
 	fire = 10
 
+/obj/item/clothing/head/utility/surgerycap
+	name = "blue surgery cap"
+	icon_state = "surgicalcap"
+	desc = "A blue medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+	flags_inv = HIDEHAIR //Cover your head doctor!
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/head/utility/surgerycap/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "loosening" : "tightening"] strings...")
+	if(!do_after(user, 3 SECONDS, src))
+		return
+	flags_inv ^= HIDEHAIR
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened "] strings")
+	return TRUE
+
+/obj/item/clothing/head/utility/surgerycap/examine(mob/user)
+	. = ..()
+	. += span_notice("Use in hand to [flags_inv & HIDEHAIR ? "loosen" : "tighten"] the strings.")
+
+/obj/item/clothing/head/utility/surgerycap/purple
+	name = "burgundy surgery cap"
+	icon_state = "surgicalcapwine"
+	desc = "A burgundy medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+
+/obj/item/clothing/head/utility/surgerycap/green
+	name = "green surgery cap"
+	icon_state = "surgicalcapgreen"
+	desc = "A green medical surgery cap to prevent the surgeon's hair from entering the insides of the patient!"
+
+/obj/item/clothing/head/utility/surgerycap/cmo
+	name = "turquoise surgery cap"
+	icon_state = "surgicalcapcmo"
+
+	desc = "The CMO's medical surgery cap to prevent their hair from entering the insides of the patient!"
 /obj/item/clothing/head/beret/sergeant
 	name = "spacepol sergeant beret"
 	desc = "A navy SpacePol sergeant's beret."
@@ -663,7 +709,7 @@
 
 /obj/item/clothing/head/beret/highlander/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 
 
 //CentCom

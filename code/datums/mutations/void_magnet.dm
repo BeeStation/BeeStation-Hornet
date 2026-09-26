@@ -2,7 +2,6 @@
 	name = "Void Magnet"
 	desc = "A rare genome that attracts odd forces not usually observed."
 	quality = MINOR_NEGATIVE //upsides and downsides
-	text_gain_indication = "<span class='notice'>You feel a heavy, dull force just beyond the walls watching you.</span>"
 	instability = 30
 	power_path = /datum/action/spell/void
 	energy_coeff = 1

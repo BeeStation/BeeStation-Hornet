@@ -134,10 +134,10 @@
 	cell = null
 	var/laser = 0
 	var/cap = 0
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		laser += M.rating
-	for(var/obj/item/stock_parts/capacitor/M in component_parts)
-		cap += M.rating
+	for(var/datum/stock_part/micro_laser/M in component_parts)
+		laser += M.tier
+	for(var/datum/stock_part/capacitor/M in component_parts)
+		cap += M.tier
 	for(var/obj/item/stock_parts/cell/M in component_parts)
 		cell = M
 

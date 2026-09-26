@@ -84,16 +84,6 @@
 	SIGNAL_HANDLER
 	return COMPONENT_HANDLED_GRILLING
 
-/obj/item/food/badrecipe/burn()
-	if(QDELETED(src))
-		return
-	var/turf/T = get_turf(src)
-	var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(T)
-	A.desc += "\nLooks like this used to be \an [name] some time ago."
-	if(resistance_flags & ON_FIRE)
-		SSfire_burning.processing -= src
-	qdel(src)
-
 // We override the parent procs here to prevent burned messes from cooking into burned messes.
 /obj/item/food/badrecipe/make_grillable()
 	return

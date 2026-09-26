@@ -30,7 +30,7 @@
 	else if(istype(target, /obj/item/stack/sheet))
 		var/obj/item/stack/S = target
 		var/obj/item/stack/sheet/brass/B = new(get_turf(S))
-		B.amount = FLOOR(S.amount * 0.5, 1)
+		B.amount = floor(S.amount * 0.5)
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, span_nzcrentr("You convert [S.amount] [S] into [S.amount] brass."))
 		qdel(target)
@@ -62,7 +62,7 @@
 			to_chat(user, span_nzcrentr("You fail to repair the damage of \the [C]..."))
 
 /obj/item/clockwork/replica_fabricator/proc/fabricate_sheets(turf/target, mob/user)
-	var/sheets = FLOOR(clamp(GLOB.clockcult_power / BRASS_POWER_COST, 0, 50), 1)
+	var/sheets = floor(clamp(GLOB.clockcult_power / BRASS_POWER_COST, 0, 50))
 	if(sheets == 0)
 		return
 	GLOB.clockcult_power -= sheets * BRASS_POWER_COST

@@ -9,7 +9,7 @@
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 
-	force = 7
+	force = 12
 	throwforce = 7
 	stamina_damage = 35
 	stamina_cost = 12
@@ -43,7 +43,6 @@
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
-	force = 8
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"

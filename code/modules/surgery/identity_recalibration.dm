@@ -23,10 +23,8 @@
 			)
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_real_bodypart = TRUE
 	requires_bodypart_type = BODYTYPE_ROBOTIC
-	lying_required = FALSE
-	self_operable = TRUE
+	surgery_flags = SURGERY_REQUIRE_LIMB | SURGERY_REQUIRES_REAL_LIMB | SURGERY_SELF_OPERABLE
 
 //SURGERY STEP SUCCESS
 
@@ -37,9 +35,13 @@
 	var/obj/item/card/id/id = tool
 	if(id.registered_name)
 		target.real_name = id.registered_name
-		display_results(user, target, span_notice("You successfully recalibrated [old_name]'s identity!"),
-		"[user] successfully recalibrated [old_name]'s identity with [tool]!",
-		"[user] successfully recalibrated [old_name]'s identity!")
+		display_results(
+			user,
+			target,
+			span_notice("You successfully recalibrated [old_name]'s identity!"),
+			span_notice("[user] successfully recalibrated [old_name]'s identity with [tool]!"),
+			span_notice("[user] successfully recalibrated [old_name]'s identity!"),
+		)
 		log_combat(user, target, "renamed", addition="changed [old_name]'s name to [id.registered_name]")
 	else
 		target.real_name = "????"

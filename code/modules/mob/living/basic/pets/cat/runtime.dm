@@ -8,6 +8,7 @@
 	icon_state = "cat"
 	icon_living = "cat"
 	icon_dead = "cat_dead"
+	held_state = "cat"
 	gender = FEMALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE

@@ -90,7 +90,7 @@
 	icon_state = "mimana"
 	trash_type = /obj/item/grown/bananapeel/mimanapeel
 	distill_reagent = /datum/reagent/consumable/ethanol/silencer
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/grown/bananapeel/mimanapeel
 	seed = /obj/item/seeds/banana/mime
@@ -122,7 +122,7 @@
 	tastes = list("banana" = 1)
 	wine_power = 60
 	wine_flavor = "slippery hypercubes"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /obj/item/grown/bananapeel/bluespace
 	seed = /obj/item/seeds/banana/bluespace

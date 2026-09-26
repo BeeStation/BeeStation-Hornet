@@ -48,7 +48,7 @@
 	if(istype(item, /obj/item/healthanalyzer))
 		var/message = ""
 		var/index = 0
-		for(var/datum/reagent/r as() in food_reagents)
+		for(var/datum/reagent/r as anything in food_reagents)
 			message = "[message][initial(r.name)][index+1 < length(food_reagents) ? ", " : ""]"
 			index += 1
 		to_chat(user, "<span class='notice'>[item] detects [message].</span>")

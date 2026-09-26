@@ -102,7 +102,6 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
 			return
 		newA = new area_choice
 		newA.setup(str)
-		newA.set_dynamic_lighting()
 		newA.default_gravity = oldA.default_gravity
 		require_area_resort() //new area registered. resort the names
 	else
@@ -140,6 +139,9 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
 				SEND_SIGNAL(stuff, COMSIG_ENTER_AREA, newA)
 
 	newA.reg_in_areas_in_z()
+
+	if(!isarea(area_choice) && newA.static_lighting)
+		newA.create_area_lighting_objects()
 
 	//convert map to list
 	var/list/area/area_list = list()
@@ -232,15 +234,12 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
 	// Now their turfs
 	var/list/turfs = list()
 	for(var/area/pull_from as anything in areas_to_pull)
-		var/list/our_turfs = pull_from.get_contained_turfs()
-		if(target_z == 0)
-			turfs += our_turfs
+		if (target_z == 0)
+			for (var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
+				turfs += zlevel_turfs
 		else
-			for(var/turf/turf_in_area as anything in our_turfs)
-				if(target_z == turf_in_area.z)
-					turfs += turf_in_area
+			turfs += pull_from.get_turfs_by_zlevel(target_z)
 	return turfs
-
 
 ///Takes: list of area types
 ///Returns: all mobs that are in an area type

@@ -1,13 +1,9 @@
 /datum/species/android
 	name = "Android"
 	id = SPECIES_ANDROID
-	species_traits = list(
-		NOREAGENTS,
-		NOFLASH
-	)
 	inherent_traits = list(
 		TRAIT_GENELESS,
-		TRAIT_NOMETABOLISM,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
@@ -29,6 +25,8 @@
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOBLOOD,
+		TRAIT_NOREAGENTS,
+		TRAIT_NOFLASH,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	meat = null
@@ -40,7 +38,6 @@
 	species_language_holder = /datum/language_holder/synthetic
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
-	attack_sound = 'sound/items/trayhit1.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	bodypart_overrides = list(

@@ -22,16 +22,16 @@
 		return
 	close_machine(target)
 
-/obj/machinery/abductor/experiment/open_machine()
+/obj/machinery/abductor/experiment/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(!state_open && !panel_open)
 		..()
 
-/obj/machinery/abductor/experiment/close_machine(mob/target)
+/obj/machinery/abductor/experiment/close_machine(mob/target, density_to_set = TRUE)
 	for(var/A in loc)
 		if(isabductor(A))
 			return
 	if(state_open && !panel_open)
-		..(target)
+		..()
 
 /obj/machinery/abductor/experiment/relaymove(mob/living/user, direction)
 	if(user.stat != CONSCIOUS)

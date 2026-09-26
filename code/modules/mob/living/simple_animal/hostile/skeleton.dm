@@ -21,7 +21,8 @@
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	attack_vis_effect = ATTACK_EFFECT_CLAW
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 10
 	robust_searching = 1
 	stat_attack = HARD_CRIT
@@ -37,7 +38,7 @@
 	hardattacks = TRUE
 
 	mobchatspan = "assistant"
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/skeleton/eskimo
 	name = "undead eskimo"
@@ -99,9 +100,6 @@
 	health = 150
 	melee_damage = 17
 	light_color = LIGHT_COLOR_PURPLE
-	attack_verb_continuous = "slashes"
-	attack_verb_simple = "slash"
-	attack_sound = 'sound/hallucinations/growl1.ogg'
 	death_message = "collapses into a pile of bones, their suit dissolving among the plasma!"
 	loot = list(/obj/effect/decal/remains/plasma)
 
@@ -116,6 +114,7 @@
 	attack_verb_continuous = "blasts"
 	attack_verb_simple = "blast"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
+	attack_vis_effect = null // jackhammer moment
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	loot = list(/obj/effect/decal/remains/plasma, /obj/item/pickaxe/drill/jackhammer)
 

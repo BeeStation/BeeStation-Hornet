@@ -50,7 +50,7 @@
 	var/turf/user_turf = get_turf(computer.ui_host())
 	if(!user_turf)
 		return
-	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in GLOB.machines)
+	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/rbmk/core))
 		// Exclude Syndicate owned, Delaminating, not within coverage, not on a tile.
 		if(!isturf(reactor.loc) || !(is_station_level(reactor.z) || is_mining_level(reactor.z) || reactor.get_virtual_z_level() == user_turf.get_virtual_z_level()))
 			continue

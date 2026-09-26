@@ -40,11 +40,8 @@
 	update_overlays()
 	update_appearance()
 
-/obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
-	. = ..()
-	ui_interact(user)
-
 /obj/machinery/computer/reactor/control_rods/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RbmkControlRods")

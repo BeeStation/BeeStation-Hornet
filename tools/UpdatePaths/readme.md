@@ -344,6 +344,39 @@ You would then get the following output:
 
 As an addendum, you don't have to use both `@ANY` and `@OLD:prop_name` together. I'm merely providing a single example for the both of them and their most practical usage.
 
+### Counters
+
+In some cases you may want to replace a path if it occurs multiple times on the same tile. For this you can use counters.
+
+- Counters are per-typepath and per-tile.
+- Counters only matter for the exact typepath. **They will not count subtypes or parent types in their counter.**
+
+Counter can be checked in 3 ways, `>`, `=`, `<`
+
+An example is provided below:
+
+```
+/obj/item/example{>1} : @DELETE
+```
+
+This will delete every `/obj/item/example` except for the first one.
+
+When the update path `/obj/item/example/@SUBTYPES{>1}` is executed against the following:
+
+```
+/obj/item/example/1
+/obj/item/example/1
+/obj/item/example/2
+/obj/item/example/2
+```
+
+Then the output is as follows:
+
+```
+/obj/item/example/1
+/obj/item/example/2
+```
+
 ### Blend it all together
 
 All of the examples provided within are not mutually exclusive! They can be mixed-and-matched in several ways (old scripts might have a few good examples of these), and the only limit here is your imagination. You can do some very powerful things with UpdatePaths, with your scripts lasting for years to come.

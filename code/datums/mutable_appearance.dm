@@ -13,16 +13,16 @@
 
 // Helper similar to image()
 /proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color)
-	var/mutable_appearance/MA = new()
-	MA.icon = icon
-	MA.icon_state = icon_state
-	MA.layer = layer
-	MA.plane = plane
-	MA.alpha = alpha
-	MA.appearance_flags |= appearance_flags
+	var/mutable_appearance/appearance = new()
+	appearance.icon = icon
+	appearance.icon_state = icon_state
+	appearance.layer = layer
+	appearance.plane = plane
+	appearance.alpha = alpha
+	appearance.appearance_flags |= appearance_flags
 	if(color)
-		MA.color = color
-	return MA
+		appearance.color = color
+	return appearance
 
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE] dyed to be the [EMISSIVE_COLOR].
 /// Setting the layer is highly important

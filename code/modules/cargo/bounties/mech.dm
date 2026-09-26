@@ -1,3 +1,6 @@
+/datum/bounty/item/mech
+	abstract_type = /datum/bounty/item/mech
+
 /datum/bounty/item/mech/New()
 	..()
 	description = "Upper management has requested one [name] mech be sent as soon as possible. Ship it to receive a large payment."

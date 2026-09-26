@@ -45,6 +45,7 @@
  * on_detach: Called when removed from an assembly holder or wiring datum
  */
 /obj/item/assembly/proc/on_detach()
+	SHOULD_CALL_PARENT(TRUE)
 	if(connected)
 		connected = null
 	if(!holder)

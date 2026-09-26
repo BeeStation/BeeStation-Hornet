@@ -2,7 +2,6 @@
 	name = "Tongue Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as a deadly weapon."
 	quality = POSITIVE
-	text_gain_indication = ("<span class='notice'>Your feel like you can throw your voice.</span>")
 	instability = 15
 	power_path = /datum/action/spell/tongue_spike
 
@@ -85,7 +84,6 @@
 	name = "Chem Spike"
 	desc = "Allows a creature to voluntary shoot their tongue out as biomass, allowing a long range transfer of chemicals."
 	quality = POSITIVE
-	text_gain_indication = ("<span class='notice'>Your feel like you can really connect with people by throwing your voice.</span>")
 	instability = 15
 	locked = TRUE
 	power_path = /datum/action/spell/tongue_spike/chem
@@ -167,7 +165,7 @@
 		return FALSE
 
 	to_chat(transfered, ("<span class='warning'>You feel a tiny prick!</span>"))
-	transferer.reagents.trans_to(transfered, transferer.reagents.total_volume, 1, 1, 0, transfered_by = transferer)
+	transferer.reagents.trans_to(transfered, transferer.reagents.total_volume, transfered_by = transferer)
 
 	var/obj/item/hardened_spike/chem/chem_spike = target
 	var/obj/item/bodypart/spike_location = chem_spike.check_embedded()

@@ -94,7 +94,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 	. = ..()
 	update_move_direction()
 
-/obj/machinery/conveyor/Moved(atom/OldLoc, Dir)
+/obj/machinery/conveyor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!.)
 		return
@@ -395,7 +395,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor_switch)
 
 		//Run sanity check on the switch for one way direction.
 		if(oneway)
-			if(SIGN(position) != SIGN(oneway)) //If our signs don't match...
+			if(sign(position) != sign(oneway)) //If our signs don't match...
 				position = 0 // Set position to zero to stop the conveyor since we can't go that way.
 	else
 		if(position == 0)

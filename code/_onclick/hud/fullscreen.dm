@@ -173,6 +173,7 @@
 	icon_state = "flash"
 	transform = matrix(200, 0, 0, 0, 200, 0)
 	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
 
@@ -198,6 +199,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
@@ -211,8 +213,6 @@
 	///Who we're disabling from right clicking - handled elsewhere
 	var/client/owner
 	var/mob/mob_owner
-	///How close can the mosue be before we disable it - extra check
-	var/context_distance = 3 //tiles
 
 /atom/movable/screen/fullscreen/blind_context_disable/Initialize(mapload)
 	. = ..()

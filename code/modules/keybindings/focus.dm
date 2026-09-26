@@ -4,4 +4,4 @@
 	if(focus == new_focus)
 		return
 	focus = new_focus
-	reset_perspective(focus) //Maybe this should be done manually? You figure it out, reader
+	set_mob_eye_to(focus == src ? MOB_EYE_SELF : focus) // Old comment: Maybe this should be done manually? You figure it out, reader // EvilDragon: I have no idea why they wanted this here and what they intended.

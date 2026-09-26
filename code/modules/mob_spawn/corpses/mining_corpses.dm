@@ -66,7 +66,15 @@
 			if(prob(70))
 				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/food/grown/banana = 1, /obj/item/megaphone/clown = 1, /obj/item/reagent_containers/cup/soda_cans/canned_laughter = 1, /obj/item/pneumatic_cannon/pie = 1))
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pick_weight(list( 1 = 3, 2 = 2, 3 = 1)))
+				var/bananium_amount = 1
+				switch(rand(1, 6))
+					if(1 to 3)
+						bananium_amount = 1
+					if(4 to 5)
+						bananium_amount = 2
+					if(6)
+						bananium_amount = 3
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = bananium_amount)
 			if(prob(10))
 				l_pocket = pick_weight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
 			if(prob(10))

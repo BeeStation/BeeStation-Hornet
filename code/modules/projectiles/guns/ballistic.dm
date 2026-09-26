@@ -1,4 +1,5 @@
 /obj/item/gun/ballistic
+	abstract_type = /obj/item/gun/ballistic
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	name = "projectile gun"
 	icon_state = "pistol"
@@ -77,6 +78,10 @@
 	chamber_round()
 	update_icon()
 
+/obj/item/gun/ballistic/Destroy()
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/ballistic/fire_sounds()
 	var/frequency_to_use
 	var/play_click
@@ -119,17 +124,10 @@
 	if(vname in list(NAMEOF(src, internal_magazine), NAMEOF(src, magazine), NAMEOF(src, chambered), NAMEOF(src, empty_indicator), NAMEOF(src, sawn_off), NAMEOF(src, bolt_locked), NAMEOF(src, bolt_type)))
 		update_appearance()
 
-/obj/item/gun/ballistic/update_icon()
-	if (QDELETED(src))
-		return
-	..()
-	if(current_skin)
-		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
-	else
-		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
-
 /obj/item/gun/ballistic/update_overlays()
 	. = ..()
+	if (QDELETED(src))
+		return
 	switch(bolt_type)
 		if(BOLT_TYPE_LOCKING, BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
 			. += "[icon_state]_bolt[bolt_locked ? "_locked" : ""]"
@@ -165,6 +163,8 @@
 				. += "[icon_state]_mag_[capacity_number]"
 
 /obj/item/gun/ballistic/update_icon_state()
+	if (QDELETED(src))
+		return
 	. = ..()
 	if(current_skin)
 		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"

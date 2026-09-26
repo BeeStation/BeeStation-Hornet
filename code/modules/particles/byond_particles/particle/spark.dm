@@ -36,7 +36,7 @@
 	spawning = 12
 	lifespan = 0.75 SECONDS
 	fade = 0.95 SECONDS
-	position = generator("vector", list(10,0,0), list(10,0,0), NORMAL_RAND)
+	position = generator(GEN_VECTOR, list(10,0,0), list(10,0,0), NORMAL_RAND)
 	velocity = generator("circle", -6, 6, NORMAL_RAND)
 	friction = 0.15
 	gradient = list(0, COLOR_WHITE, 0.4, COLOR_RED)

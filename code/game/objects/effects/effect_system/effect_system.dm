@@ -25,6 +25,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 #define MAX_SPARKS 10 //max possible sparks
 /datum/effect_system
+	abstract_type = /datum/effect_system
 	var/number = 3
 	var/cardinals_only = FALSE
 	var/turf/location

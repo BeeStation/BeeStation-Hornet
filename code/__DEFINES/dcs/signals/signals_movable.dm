@@ -5,7 +5,7 @@
 ///from base of atom/movable/Moved(): (/atom)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
-///from base of atom/movable/Moved(): (/atom, dir)
+///from base of atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS "movable_cross"
@@ -75,6 +75,9 @@
 	/// Return to prevent the movable from talking into the radio.
 	#define COMPONENT_CANNOT_USE_RADIO (1<<0)
 
+/// From /datum/element/immerse/proc/add_immerse_overlay(): (atom/movable/immerse_mask/effect_relay)
+#define COMSIG_MOVABLE_EDIT_UNIQUE_IMMERSE_OVERLAY "movable_edit_unique_submerge_overlay"
+
 /// Sent from /atom/movable/proc/generate_messagepart() generating a quoted message, after say verb is chosen and before spans are applied.
 #define COMSIG_MOVABLE_SAY_QUOTE "movable_say_quote"
 	// Used to access COMSIG_MOVABLE_SAY_QUOTE argslist
@@ -93,8 +96,6 @@
 	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
 
 // /datum/element/movetype_handler signals
-/// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
-#define COMSIG_PAUSE_FLOATING_ANIM "pause_floating_anim"
 /// From base of datum/element/movetype_handler/on_movement_type_trait_gain: (flag, old_movement_type)
 #define COMSIG_MOVETYPE_FLAG_ENABLED "movetype_flag_enabled"
 /// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)

@@ -44,4 +44,4 @@
 	trash_type = /obj/item/food/egg
 	foodtypes = MEAT
 	distill_reagent = /datum/reagent/consumable/ethanol/eggnog
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

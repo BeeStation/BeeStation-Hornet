@@ -67,7 +67,7 @@
 		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
 		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
 		forbearance.plane = mob_parent.plane
-		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "magic_protection_[identifier]", forbearance)
+		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
 		mob_parent.update_alt_appearances()
 
 	else
@@ -80,7 +80,7 @@
 /datum/component/anti_magic/proc/unregister_antimagic_signals(datum/on_what)
 	UnregisterSignal(on_what, list(COMSIG_MOB_RECEIVE_MAGIC, COMSIG_MOB_RESTRICT_MAGIC))
 
-/datum/component/anti_magic/Destroy(force, silent)
+/datum/component/anti_magic/Destroy(force)
 	drain_antimagic = 0
 	expiration = 0
 	if(ismob(parent)) //If the component is attached to an item, it should go through on_drop instead.
@@ -110,12 +110,12 @@
 		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
 		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
 		forbearance.plane = mob_parent.plane
-		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "magic_protection_[identifier]", forbearance)
+		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
 		mob_parent.update_alt_appearances()
 
 	if(!alert_caster_on_equip)
 		return
-// Check to see if we have any spells that are blocked due to antimagic
+	// Check to see if we have any spells that are blocked due to antimagic
 	for(var/datum/action/spell/magic_spell in equipper.actions)
 		if(!(magic_spell.spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC))
 			continue
@@ -123,7 +123,7 @@
 		if(!(antimagic_flags & magic_spell.antimagic_flags))
 			continue
 
-		to_chat(equipper, ("<span class='warning'>[parent] is interfering with your ability to cast magic!</span>"))
+		to_chat(equipper, span_warning("[parent] is interfering with your ability to cast magic!"))
 		alert_caster_on_equip = FALSE
 		break
 

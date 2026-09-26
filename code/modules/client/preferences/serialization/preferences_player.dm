@@ -6,9 +6,9 @@
 	. = ..()
 	// Give the developers +1 sanity points
 	if(. == PREFERENCE_LOAD_IGNORE && Debugger?.enabled)
-		prefs.update_preference(/datum/preference/toggle/sound_ambience, FALSE)
-		prefs.update_preference(/datum/preference/toggle/sound_ship_ambience, FALSE)
-		prefs.update_preference(/datum/preference/toggle/sound_lobby, FALSE)
+		prefs.update_preference(/datum/preference/numeric/volume/sound_ambience_volume, 0)
+		prefs.update_preference(/datum/preference/numeric/volume/sound_ambient_buzz_volume, 0)
+		prefs.update_preference(/datum/preference/numeric/volume/sound_lobby_volume, 0)
 	return .
 
 /datum/preferences_holder/preferences_player/query_data(datum/preferences/prefs)

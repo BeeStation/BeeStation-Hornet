@@ -186,9 +186,8 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/magnetic_harness,
-		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/megaphone,
+		/obj/item/mod/module/reinforced_plating,
 		/obj/item/mod/module/projectile_dampener,
 		/obj/item/mod/module/pepper_shoulders,
 	)
@@ -202,6 +201,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/hat_stabilizer,
+		/obj/item/mod/module/reinforced_plating,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/pathfinder,

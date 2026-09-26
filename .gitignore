@@ -196,3 +196,7 @@ libprof.so
 
 # Define sanity output
 define_sanity_output.txt
+
+#opendream stuff
+beestation.json
+rust_g64.dll

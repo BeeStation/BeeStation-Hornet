@@ -12,7 +12,6 @@
 	name = "nuclear authentication disk"
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
-	persistence_replacement = /obj/item/disk/nuclear/fake
 	max_integrity = 250
 	armor_type = /datum/armor/disk_nuclear
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -83,6 +82,17 @@
 
 	if(isobserver(user) || HAS_MIND_TRAIT(user, TRAIT_DISK_VERIFIER))
 		. += span_warning("The serial numbers on [src] are incorrect.")
+
+/*
+ * You can't accidentally eat the nuke disk, bro
+ */
+/obj/item/disk/nuclear/on_accidental_consumption(mob/living/carbon/M, mob/living/carbon/user, obj/item/source_item, discover_after = TRUE)
+	M.visible_message(
+		span_warning("[M] looks like [M.p_theyve()] just bitten into something important."),
+		span_warning("Wait, is this the nuke disk?")
+	)
+
+	return discover_after
 
 /obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/claymore/highlander) && !fake)

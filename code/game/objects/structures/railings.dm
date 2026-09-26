@@ -44,7 +44,7 @@
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
-	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM|(diagonals_possible ? ROTATION_DIAGONAL : null))
+	AddElement(/datum/element/simple_rotation, ROTATION_NEEDS_ROOM|(diagonals_possible ? ROTATION_DIAGONAL : null))
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
@@ -62,9 +62,6 @@
 		else
 			to_chat(user, span_warning("[src] is already in good condition!"))
 		return
-
-/obj/structure/railing/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()

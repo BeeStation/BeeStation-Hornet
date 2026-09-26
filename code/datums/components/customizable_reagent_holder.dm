@@ -48,7 +48,7 @@
 			handle_fill(ingredient)
 
 
-/datum/component/customizable_reagent_holder/Destroy(force, silent)
+/datum/component/customizable_reagent_holder/Destroy(force)
 	QDEL_NULL(top_overlay)
 	LAZYCLEARLIST(ingredients)
 	return ..()

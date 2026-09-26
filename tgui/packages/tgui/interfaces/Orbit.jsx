@@ -1,10 +1,10 @@
 import { createSearch } from 'common/string';
-import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
+import { Box, Button, Flex, Icon, Input, Section } from 'tgui-core/components';
 
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Icon, Input, Section } from '../components';
 import { Window } from '../layouts';
+import { CollapsibleSection } from './common/CollapsibleSection';
 
 const PATTERN_DESCRIPTOR = / \[(?:ghost|dead)\]$/;
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;

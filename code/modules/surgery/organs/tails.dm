@@ -77,7 +77,7 @@
 		if(!spines && tail_owner.dna.features["spines"])
 			spines = tail_owner.dna.features["spines"]
 		else
-			tail_owner.dna.features["spines"] = spines || "None"
+			tail_owner.dna.features["spines"] = spines || SPRITE_ACCESSORY_NONE
 			tail_owner.dna.update_uf_block(DNA_SPINES_BLOCK)
 		tail_owner.dna.species.mutant_bodyparts["spines"] = spines
 

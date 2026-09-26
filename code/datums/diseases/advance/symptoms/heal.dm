@@ -1,6 +1,7 @@
 #define TELEPORT_COOLDOWN 60 SECONDS
 
 /datum/symptom/heal
+	abstract_type = /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
 	desc = "You should not be seeing this."
 	stealth = 0
@@ -519,8 +520,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	ownermind = M.mind
 	if(!A.carrier && !A.dormant)
 		sizemult = clamp((0.5 + A.stage_rate / 10), 1.1, 1.5)
-		M.resize = sizemult
-		M.update_transform()
+		M.update_transform(sizemult)
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
@@ -582,8 +582,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, span_notice("You lose your balance and stumble as you shrink, and your legs come out from underneath you!"))
-	M.resize = 1/sizemult
-	M.update_transform()
+	M.update_transform(1/sizemult)
 
 #undef TELEPORT_COOLDOWN
 

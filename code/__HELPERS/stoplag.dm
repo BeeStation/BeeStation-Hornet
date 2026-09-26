@@ -16,7 +16,7 @@
 // We don't want spurious hard deletes off this, so let's only sleep for the requested period of time here yeah?
 #ifdef UNIT_TESTS
 	sleep(initial_delay)
-	return CEILING(DS2TICKS(initial_delay), 1)
+	return ceil(DS2TICKS(initial_delay))
 #else
 	. = 0
 	//Begin tracking if we are in debugging
@@ -24,7 +24,7 @@
 	var/i = DS2TICKS(initial_delay)
 	do
 		//Increment the total amount of time slept
-		. += CEILING(i*DELTA_CALC, 1)
+		. += ceil(i*DELTA_CALC)
 		//Sleep and allow other processes to run
 		sleep(i*world.tick_lag*DELTA_CALC)
 		//Sleep for double the time as before, sleeping incurs overhead so the longer something sleeps

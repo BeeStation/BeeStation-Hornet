@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(_preloader_path, null)
 			value = deep_copy_list(value)
 		#ifdef TESTING
 		if(what.vars[attribute] == value)
-			var/message = "<font color=green>[what.type]</font> at [AREACOORD(what)] - <b>VAR:</b> <font color=red>[attribute] = [isnull(value) ? "null" : (isnum_safe(value) ? value : "\"[value]\"")]</font>"
+			var/message = "<font color=green>[what.type]</font> at [AREACOORD(what)] - <b>VAR:</b> <font color=red>[attribute] = [isnull(value) ? "null" : (IS_FINITE(value) ? value : "\"[value]\"")]</font>"
 			log_mapping("DIRTY VAR: [message]")
 			GLOB.dirty_vars += message
 		#endif

@@ -207,7 +207,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
 					qdel(card.stored_card)
 					if(card)
-						card.try_insert(id, H)
+						card.application_attackby(id, H)
 				else if(istype(worn, /obj/item/storage/wallet))
 					var/obj/item/storage/wallet/W = worn
 					W.front_id = id
@@ -322,7 +322,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_all.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/power/apc/APC in GLOB.apcs_list)
+	for(var/obj/machinery/power/apc/APC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
 		var/area/A = APC.area
 		if(!A)
 			dat += "Skipped over [APC] in invalid location, [APC.loc]."
@@ -333,7 +333,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_multiple_APCs.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/airalarm/AA in GLOB.machines)
+	for(var/obj/machinery/airalarm/AA as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/airalarm))
 		var/area/A = get_area(AA)
 		if(!A) //Make sure the target isn't inside an object, which results in runtimes.
 			dat += "Skipped over [AA] in invalid location, [AA.loc].<br>"
@@ -342,7 +342,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_air_alarm.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/requests_console/RC in GLOB.machines)
+	for(var/obj/machinery/requests_console/RC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/requests_console))
 		var/area/A = get_area(RC)
 		if(!A)
 			dat += "Skipped over [RC] in invalid location, [RC.loc].<br>"
@@ -351,7 +351,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_RC.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 		var/area/A = get_area(L)
 		if(!A)
 			dat += "Skipped over [L] in invalid location, [L.loc].<br>"
@@ -360,7 +360,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_light.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/light_switch/LS in GLOB.machines)
+	for(var/obj/machinery/light_switch/LS as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light_switch))
 		var/area/A = get_area(LS)
 		if(!A)
 			dat += "Skipped over [LS] in invalid location, [LS.loc].<br>"
@@ -369,7 +369,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_LS.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/item/radio/intercom/I in GLOB.machines)
+	for(var/obj/item/radio/intercom/I as anything in GLOB.intercoms_list)
 		var/area/A = get_area(I)
 		if(!A)
 			dat += "Skipped over [I] in invalid location, [I.loc].<br>"
@@ -378,7 +378,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			areas_with_intercom.Add(A.type)
 		CHECK_TICK
 
-	for(var/obj/machinery/camera/C in GLOB.machines)
+	for(var/obj/machinery/camera/C as anything in GLOB.cameranet.cameras)
 		var/area/A = get_area(C)
 		if(!A)
 			dat += "Skipped over [C] in invalid location, [C.loc].<br>"
@@ -644,15 +644,19 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		exists[L.ruin_template] = landmark
 
 	var/list/names = list()
-	names += "---- Dynamic Levels ----"
-	for(var/name in SSmapping.space_ruins_templates)
-		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_DYNAMIC_LEVEL, /area/misc/space)
-	names += "---- Lava Ruins ----"
-	for(var/name in SSmapping.lava_ruins_templates)
-		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
+	var/list/themed_names
+	for (var/theme in SSmapping.themed_ruins)
+		names += "---- [theme] ----"
+		themed_names = list()
+		for (var/name in SSmapping.themed_ruins[theme])
+			var/datum/map_template/ruin/ruin = SSmapping.themed_ruins[theme][name]
+			if(names[name])
+				name = "[theme] [name]"
+			themed_names[name] = list(ruin, theme, list(ruin.default_area))
+		names += sort_list(themed_names)
 
-	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in sort_list(names)
-	var/data = names[ruinname]
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Spawn Ruin", names)
+	var/list/data = names[ruinname]
 	if (!data)
 		return
 	var/datum/map_template/ruin/template = data[1]
@@ -858,14 +862,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	var/datum/gas_mixture/C_air = C.return_air()
 
-	SET_MOLES(gas_to_add, C_air, amount)
-
-	C_air.temperature = (temp)
-	C.update_icon()
+	C_air.set_gas(gas_to_add, amount)
+	C_air.set_temperature(temp)
+	C.update_appearance()
 
 	message_admins(span_adminnotice("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp]."))
 	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
-
 
 /client/proc/give_all_spells_touch()
 	set category = "Debug"
@@ -1066,57 +1068,57 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			continue
 		//Is there an explicit worn_icon to pick against the worn_icon_state? Easy street expected behavior.
 		if(sprite.worn_icon)
-			if(!(sprite.icon_state in icon_states(sprite.worn_icon)))
+			if(!icon_exists(sprite.worn_icon, sprite.icon_state))
 				to_chat(src, span_warning("ERROR sprites for [sprite.type]. Slot Flags are [sprite.slot_flags]."))
 		else if(sprite.worn_icon_state)
 			if(sprite.slot_flags & ITEM_SLOT_MASK)
 				actual_file_name = 'icons/mob/clothing/mask.dmi'
-				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.worn_icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Mask slot."))
 			if(sprite.slot_flags & ITEM_SLOT_NECK)
 				actual_file_name = 'icons/mob/clothing/neck.dmi'
-				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.worn_icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Neck slot."))
 			if(sprite.slot_flags & ITEM_SLOT_BACK)
 				actual_file_name = 'icons/mob/clothing/back.dmi'
-				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.worn_icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Back slot."))
 			if(sprite.slot_flags & ITEM_SLOT_HEAD)
 				actual_file_name = 'icons/mob/clothing/head/default.dmi'
-				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.worn_icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Head slot."))
 			if(sprite.slot_flags & ITEM_SLOT_BELT)
 				actual_file_name = 'icons/mob/clothing/belt.dmi'
-				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.worn_icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Belt slot."))
 			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
 				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
-				if(!(sprite.worn_icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.worn_icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Suit Storage slot."))
 		else if(sprite.icon_state)
 			if(sprite.slot_flags & ITEM_SLOT_MASK)
 				actual_file_name = 'icons/mob/clothing/mask.dmi'
-				if(!(sprite.icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Mask slot."))
 			if(sprite.slot_flags & ITEM_SLOT_NECK)
 				actual_file_name = 'icons/mob/clothing/neck.dmi'
-				if(!(sprite.icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Neck slot."))
 			if(sprite.slot_flags & ITEM_SLOT_BACK)
 				actual_file_name = 'icons/mob/clothing/back.dmi'
-				if(!(sprite.icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Back slot."))
 			if(sprite.slot_flags & ITEM_SLOT_HEAD)
 				actual_file_name = 'icons/mob/clothing/head/default.dmi'
-				if(!(sprite.icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Head slot."))
 			if(sprite.slot_flags & ITEM_SLOT_BELT)
 				actual_file_name = 'icons/mob/clothing/belt.dmi'
-				if(!(sprite.icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Belt slot."))
 			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
 				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
-				if(!(sprite.icon_state in icon_states(actual_file_name)))
+				if(!icon_exists(actual_file_name, sprite.icon_state))
 					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Suit Storage slot."))
 #endif
 
@@ -1176,10 +1178,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Asset caching is disabled in the config!"))
 		return
 	var/regenerated = 0
-	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
+	for(var/datum/asset/target_spritesheet as anything in valid_subtypesof(/datum/asset))
 		if(!initial(target_spritesheet.cross_round_cachable))
-			continue
-		if(target_spritesheet == initial(target_spritesheet._abstract))
 			continue
 		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
 		asset_datum.regenerate()
@@ -1194,9 +1194,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, span_warning("Smart asset caching is disabled in the config!"))
 		return
 	var/cleared = 0
-	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in subtypesof(/datum/asset/spritesheet_batched))
-		if(target_spritesheet == initial(target_spritesheet._abstract))
-			continue
+	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in valid_subtypesof(/datum/asset/spritesheet_batched))
 		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
 		cleared++
 	to_chat(usr, span_notice("Cleared [cleared] asset\s."))

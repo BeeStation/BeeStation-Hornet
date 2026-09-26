@@ -1,7 +1,7 @@
 //the base mining mob
 /mob/living/simple_animal/hostile/asteroid
 	vision_range = 2
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list(FACTION_MINING)
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
@@ -21,7 +21,7 @@
 	hardattacks = TRUE //nasty_blocks wont help you here
 	var/icon_aggro = null
 	var/crusher_drop_mod = 25
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()

@@ -54,7 +54,7 @@
 	landing_zone.height = height
 	landing_zone.setDir(lz_dir)
 
-	for(var/obj/machinery/computer/shuttle_flight/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle_flight/S as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/shuttle_flight))
 		if(S.shuttleId == shuttle_id)
 			S.recall_docking_port_id = "[landing_zone.id]"
 			S.valid_docks = list("[landing_zone.id]")

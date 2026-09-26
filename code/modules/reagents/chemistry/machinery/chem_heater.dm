@@ -4,8 +4,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
 	base_icon_state = "mixer"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_heater
 
@@ -56,9 +55,10 @@
 	return TRUE
 
 /obj/machinery/chem_heater/RefreshParts()
+	. = ..()
 	heater_coefficient = 0.1
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		heater_coefficient *= M.rating
+	for(var/datum/stock_part/micro_laser/micro_laser in component_parts)
+		heater_coefficient *= micro_laser.tier
 
 /obj/machinery/chem_heater/examine(mob/user)
 	. = ..()
@@ -72,7 +72,9 @@
 	if(on)
 		if(beaker && beaker.reagents.total_volume)
 			//keep constant with the chemical acclimator please
-			beaker.reagents.adjust_thermal_energy((target_temperature - beaker.reagents.chem_temp) * heater_coefficient * delta_time * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
+			var/energy = (target_temperature - beaker.reagents.chem_temp) * heater_coefficient * delta_time * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume
+			beaker.reagents.adjust_thermal_energy(energy)
+			use_power(active_power_usage + abs(ROUND_UP(energy) / 120))
 			beaker.reagents.handle_reactions()
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)

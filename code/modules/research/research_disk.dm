@@ -8,9 +8,10 @@
 
 /obj/item/disk/tech_disk/Initialize(mapload)
 	. = ..()
+	if(!stored_research)
+		stored_research = new /datum/techweb/disk
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
-	stored_research = new /datum/techweb
 
 /obj/item/disk/tech_disk/debug
 	name = "\improper CentCom technology disk"
@@ -18,5 +19,5 @@
 	custom_materials = null
 
 /obj/item/disk/tech_disk/debug/Initialize(mapload)
-	. = ..()
-	stored_research = new /datum/techweb/admin
+	stored_research = locate(/datum/techweb/admin) in SSresearch.techwebs
+	return ..()

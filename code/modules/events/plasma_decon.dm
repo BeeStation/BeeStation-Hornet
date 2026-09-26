@@ -11,7 +11,7 @@
 
 /datum/round_event/plasma_decon/setup()
 	endWhen = rand(25, 100)
-	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/temp_vent in GLOB.machines)
+	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/temp_vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_scrubber))
 		var/turf/T = get_turf(temp_vent)
 		if(T && is_station_level(T.z) && !temp_vent.welded)
 			vents += temp_vent

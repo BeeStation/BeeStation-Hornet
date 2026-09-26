@@ -12,7 +12,7 @@
 /datum/status_effect/exercised
 	id = "exericsed"
 	status_type = STATUS_EFFECT_MERGE
-	tick_interval = ((1 SECONDS) * EXERCISE_VISUAL_DELTA) / EXERCISE_STEP
+	tick_interval = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/exercised
 	var/applied_amount = 0
 	var/exercise_amount = 0
@@ -35,7 +35,7 @@
 		human_owner.physiology.stun_add += applied_amount
 		applied_amount = 0
 
-/datum/status_effect/exercised/tick()
+/datum/status_effect/exercised/tick(seconds_between_ticks)
 	exercise_amount -= EXERCISE_VISUAL_DELTA
 	update_exercise()
 	return ..()

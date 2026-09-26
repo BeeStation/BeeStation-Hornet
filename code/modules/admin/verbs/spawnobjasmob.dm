@@ -30,7 +30,14 @@
 	)
 	)
 
-	var/list/prefreturn = presentpreflikepicker(usr,"Customize mob", "Customize mob", Button1="Ok", width = 450, StealFocus = 1,Timeout = 0, settings=settings)
+	var/list/prefreturn = present_pref_like_picker(
+		user = usr,
+		message = "Customize mob",
+		title = "Customize mob",
+		timeout = 0,
+		settings = settings,
+		width = 450,
+	)
 	if (prefreturn["button"] == 1)
 		settings = prefreturn["settings"]
 		var/mainsettings = settings["mainsettings"]
@@ -54,7 +61,7 @@
 				basemob.access_card = new newaccess
 
 		if (mainsettings["maxhealth"]["value"])
-			if (!isnum_safe(mainsettings["maxhealth"]["value"]))
+			if (!IS_FINITE(mainsettings["maxhealth"]["value"]))
 				mainsettings["maxhealth"]["value"] = text2num(mainsettings["maxhealth"]["value"])
 			if (mainsettings["maxhealth"]["value"] > 0)
 				basemob.maxHealth = basemob.maxHealth =  mainsettings["maxhealth"]["value"]

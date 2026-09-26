@@ -44,23 +44,21 @@
 		if(dna_cost <= 0)
 			continue
 
-		var/list/ability_data = list()
-		ability_data["name"] = initial(ability_path.name)
-		ability_data["desc"] = initial(ability_path.desc)
-		ability_data["path"] = ability_path
-		ability_data["helptext"] = initial(ability_path.helptext)
-		ability_data["owned"] = !!changeling.purchased_powers[ability_path]
-		ability_data["dna_cost"] = dna_cost
-
 		var/can_purchase = TRUE
-		if(initial(ability_path.req_dna) > changeling.absorbed_count)
+		if(initial(ability_path.req_dna) > changeling.absorbed_genomes)
 			can_purchase = FALSE
 		if(dna_cost > genetic_points_remaining)
 			can_purchase = FALSE
 
-		ability_data["can_purchase"] = can_purchase
-
-		abilities += list(ability_data)
+		abilities += list(list(
+			"name" = ability_path::name,
+			"desc" = ability_path::desc,
+			"path" = ability_path,
+			"helptext" = ability_path::helptext,
+			"owned" = !!changeling.purchased_powers[ability_path],
+			"dna_cost" = dna_cost,
+			"can_purchase" = can_purchase,
+		))
 
 	data["abilities"] = abilities
 

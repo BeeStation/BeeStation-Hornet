@@ -24,8 +24,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/radio/intercom)
 	GLOB.intercoms_list += src
 
 /obj/item/radio/intercom/Destroy()
-	. = ..()
 	GLOB.intercoms_list -= src
+	return ..()
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()

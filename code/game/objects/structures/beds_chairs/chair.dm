@@ -31,7 +31,7 @@
 
 ///This proc adds the rotate component, overwrite this if you for some reason want to change some specific args.
 /obj/structure/chair/proc/MakeRotate()
-	AddComponent(/datum/component/simple_rotation, ROTATION_IGNORE_ANCHORED|ROTATION_GHOSTS_ALLOWED)
+	AddElement(/datum/element/simple_rotation, ROTATION_IGNORE_ANCHORED|ROTATION_GHOSTS_ALLOWED)
 
 /obj/structure/chair/Destroy()
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
@@ -45,7 +45,7 @@
 		else
 			for(var/i in custom_materials)
 				var/datum/material/M = i
-				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
+				new M.sheet_type(loc, floor(custom_materials[M] / MINERAL_MATERIAL_AMOUNT))
 	..()
 
 /obj/structure/chair/attack_paw(mob/user)
@@ -60,9 +60,6 @@
 	var/obj/structure/chair/fancy/brass/B = new(get_turf(src))
 	B.setDir(dir)
 	qdel(src)
-
-/obj/structure/chair/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
@@ -115,7 +112,7 @@
 	handle_layer()
 
 /obj/structure/chair/setDir(newdir)
-	..()
+	. = ..()
 	handle_rotation(newdir)
 
 // Chair types
@@ -136,10 +133,10 @@
 	flags_1 = NODECONSTRUCT_1
 
 /obj/structure/chair/mime/post_buckle_mob(mob/living/M)
-	M.pixel_y += 5
+	M.add_offsets(type, y_add = 5)
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
-	M.pixel_y -= 5
+	M.remove_offsets(type)
 
 ///Material chair
 /obj/structure/chair/greyscale
@@ -194,21 +191,21 @@
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/fancy/attackby(obj/item/I, mob/living/user)
+/obj/structure/chair/fancy/attackby(obj/item/attacking_item, mob/living/user)
 	. = ..()
 	if(!colorable)
 		return
-	if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = I
-		var/new_color = C.paint_color
-		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+	if(istype(attacking_item, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/crayon = attacking_item
+		var/list/hsl = rgb2num(crayon.paint_color, COLORSPACE_HSL)
 		hsl[3] = max(hsl[3], 0.4)
-		var/list/rgb = hsl2rgb(arglist(hsl))
-		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		color = rgb(hsl[1], hsl[2], hsl[3], space = COLORSPACE_HSL)
+		return TRUE
 	if(color)
 		cut_overlay(armrest)
 		armrest = GetArmrest()
 		update_armrest()
+		return TRUE
 
 /obj/structure/chair/fancy/Initialize(mapload)
 	armrest = GetArmrest()
@@ -326,7 +323,7 @@
 	buildstackamount = 1
 	item_chair = null
 
-/obj/structure/chair/fancy/brass/bronze/Moved()
+/obj/structure/chair/fancy/brass/bronze/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
@@ -347,7 +344,7 @@
 	setDir(direction)
 	return FALSE
 
-/obj/structure/chair/office/Moved()
+/obj/structure/chair/office/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/effects/roll.ogg', 100, 1)
@@ -364,13 +361,12 @@
 	item_chair = /obj/item/chair/foldable
 	anchored = FALSE
 
-/obj/structure/chair/foldable/post_buckle_mob(mob/living/Mob)
-	Mob.pixel_y += 2
+/obj/structure/chair/foldable/post_buckle_mob(mob/living/M)
+	M.add_offsets(type, y_add = 2)
 	anchored = TRUE
 
-/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/Mob)
-	Mob.pixel_y -= 2
-	anchored = FALSE
+/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/M)
+	M.remove_offsets(type)
 
 //Stool
 

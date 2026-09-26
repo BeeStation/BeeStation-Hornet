@@ -14,6 +14,12 @@
 	px_y = -8
 	grind_results = null
 	is_dimorphic = TRUE
+	unarmed_attack_verb = "bite"
+	unarmed_attack_effect = ATTACK_EFFECT_BITE
+	unarmed_attack_sound = 'sound/weapons/bite.ogg'
+	unarmed_miss_sound = 'sound/weapons/bite.ogg'
+	unarmed_damage = 3
+	bodypart_trait_source = HEAD_TRAIT
 
 	var/mob/living/brain/brainmob //The current occupant.
 	var/obj/item/organ/brain/brain //The brain organ
@@ -25,7 +31,11 @@
 	var/show_organs_on_examine = TRUE
 
 	//Limb appearance info:
-	var/real_name = "" //Replacement name
+	/// Replacement name
+	var/real_name = ""
+	/// Flags related to appearance, such as hair, lips, etc
+	var/head_flags = HEAD_ALL_FEATURES
+
 
 	/// Hair style
 	var/hair_style = "Bald"
@@ -33,16 +43,59 @@
 	var/hair_color = COLOR_BLACK
 	/// Hair alpha
 	var/hair_alpha = 255
+	/// Is the hair currently hidden by something?
+	var/hair_hidden = FALSE
+	/// Lazy initialized hashset of all hair masks that should be applied
+	var/list/hair_masks
 
 	/// Facial hair style
-	var/facial_hair_style = "Shaved"
+	var/facial_hairstyle = "Shaved"
 	/// Facial hair color
 	var/facial_hair_color = COLOR_BLACK
+	///Facial hair alpha
+	var/facial_hair_alpha = 255
+	///Is the facial hair currently hidden by something?
+	var/facial_hair_hidden = FALSE
+	/// Gradient styles, if any
+	var/list/gradient_styles = list(
+		"None",	//Hair gradient style
+		"None",	//Facial hair gradient style
+	)
+	/// Gradient colors, if any
+	var/list/gradient_colors = list(
+		COLOR_BLACK,	//Hair gradient color
+		COLOR_BLACK,	//Facial hair gradient color
+	)
 
-	var/lip_style = null
-	var/lip_color = "white"
+	/// An override color that can be cleared later, affects both hair and facial hair
+	var/override_hair_color = null
+	/// An override that cannot be cleared under any circumstances, affects both hair and facial hair
+	var/fixed_hair_color = null
+
+	var/lip_style
+	var/lip_color
+	var/stored_lipstick_trait
 
 	var/mouth = TRUE
+
+	var/is_blushing = FALSE
+
+	/// Offset to apply to equipment worn on the ears
+	var/datum/worn_feature_offset/worn_ears_offset
+	/// Offset to apply to equipment worn on the eyes
+	var/datum/worn_feature_offset/worn_glasses_offset
+	/// Offset to apply to equipment worn on the mouth
+	var/datum/worn_feature_offset/worn_mask_offset
+	/// Offset to apply to equipment worn on the head
+	var/datum/worn_feature_offset/worn_head_offset
+	/// Offset to apply to overlays placed on the face
+	var/datum/worn_feature_offset/worn_face_offset
+
+	/// Draw this head as "debrained"
+	VAR_PROTECTED/show_debrained = FALSE
+
+	/// Draw this head as missing eyes
+	VAR_PROTECTED/show_eyeless = FALSE
 
 /obj/item/bodypart/head/Destroy()
 	QDEL_NULL(brainmob) //order is sensitive, see warning in handle_atom_del() below
@@ -50,6 +103,12 @@
 	QDEL_NULL(eyes)
 	QDEL_NULL(ears)
 	QDEL_NULL(tongue)
+
+	QDEL_NULL(worn_ears_offset)
+	QDEL_NULL(worn_glasses_offset)
+	QDEL_NULL(worn_mask_offset)
+	QDEL_NULL(worn_head_offset)
+	QDEL_NULL(worn_face_offset)
 	return ..()
 
 /obj/item/bodypart/head/handle_atom_del(atom/A)
@@ -72,7 +131,7 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(show_organs_on_examine && IS_ORGANIC_LIMB(src))
+	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
 		if(!brain)
 			. += span_info("The brain has been removed from [src].")
 		else if(brain.suicided || brainmob?.suiciding)
@@ -138,121 +197,68 @@
 /obj/item/bodypart/head/update_limb(dropping_limb, is_creating)
 	. = ..()
 	if(!isnull(owner))
-		real_name = owner.real_name
-	if(HAS_TRAIT(owner, TRAIT_HUSK))
-		real_name = "Unknown"
-		hair_style = "Bald"
-		facial_hair_style = "Shaved"
-		lip_style = null
-
-	lip_style = null
+		if(HAS_TRAIT(owner, TRAIT_HUSK))
+			real_name = "Unknown"
+		else
+			real_name = owner.real_name
 	if(ishuman(owner)) //No MONKEYS!!!
-		update_hair_and_lips()
+		update_hair_and_lips(dropping_limb, is_creating)
 
-/obj/item/bodypart/head/proc/update_hair_and_lips()
-	var/mob/living/carbon/human/H = owner
-	var/datum/species/S = H.dna.species
-
-	//Facial hair
-	if(H.facial_hair_style && (FACEHAIR in S.species_traits))
-		facial_hair_style = H.facial_hair_style
-		if(S.hair_color)
-			if(S.hair_color == "mutcolor")
-				facial_hair_color = H.dna.features["mcolor"]
-			else if(S.hair_color == "fixedmutcolor")
-				facial_hair_color = S.fixed_mut_color
-			else
-				facial_hair_color = S.hair_color
-		else
-			facial_hair_color = H.facial_hair_color
-		hair_alpha = S.hair_alpha
-	else
-		facial_hair_style = "Shaved"
-		facial_hair_color = COLOR_BLACK
-		hair_alpha = 255
-	//Hair
-	if(H.hair_style && (HAIR in S.species_traits))
-		hair_style = H.hair_style
-		if(S.hair_color)
-			if(S.hair_color == "mutcolor")
-				hair_color = H.dna.features["mcolor"]
-			else if(S.hair_color == "fixedmutcolor")
-				hair_color = S.fixed_mut_color
-			else
-				hair_color = S.hair_color
-		else
-			hair_color = H.hair_color
-		hair_alpha = S.hair_alpha
-	else
-		hair_style = "Bald"
-		hair_color = COLOR_BLACK
-		hair_alpha = initial(hair_alpha)
-	// lipstick
-	if(H.lip_style && (LIPS in S.species_traits))
-		lip_style = H.lip_style
-		lip_color = H.lip_color
-	else
-		lip_style = null
-		lip_color = "white"
+	is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
-	cut_overlays()
 	. = ..()
 
-	if(dropped) //certain overlays only appear when the limb is being detached from its owner.
+	// Blush emote overlay
+	if (is_blushing)
+		var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_ADJ_LAYER)) //should appear behind the eyes
+		var/blush_color = COLOR_BLUSH_PINK
+		if(ishuman(owner))
+			var/mob/living/carbon/human/species_human = owner
+			if(species_human?.dna?.species.blush_color)
+				blush_color = species_human.dna.species.blush_color
 
-		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
-			//facial hair
-			if(facial_hair_style)
-				var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facial_hair_style]
-				if(S?.icon_state)
-					var/image/facial_overlay = image(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
-					facial_overlay.color = facial_hair_color
-					facial_overlay.alpha = hair_alpha
-					. += facial_overlay
+		blush_overlay.color = blush_color
+		worn_face_offset?.apply_offset(blush_overlay)
+		. += blush_overlay
 
-			//Applies the debrained overlay if there is no brain
-			if(!brain)
-				var/image/debrain_overlay = image(layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), dir = SOUTH)
-				if(bodytype & BODYTYPE_ALIEN)
-					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
-					debrain_overlay.icon_state = "debrained_alien"
-				else if(bodytype & BODYTYPE_LARVA_PLACEHOLDER)
-					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
-					debrain_overlay.icon_state = "debrained_larva"
-				else if(!(TRAIT_NOBLOOD in species_flags_list))
-					debrain_overlay.icon = 'icons/mob/human/human_face.dmi'
-					debrain_overlay.icon_state = "debrained"
-				. += debrain_overlay
-			else
-				var/datum/sprite_accessory/S2 = GLOB.hair_styles_list[hair_style]
-				if(S2?.icon_state)
-					var/image/hair_overlay = image(S2.icon, "[S2.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), SOUTH)
-					hair_overlay.color = hair_color
-					hair_overlay.alpha = hair_alpha
-					. += hair_overlay
+	. += get_hair_and_lips_icon(dropped)
 
-			// lipstick
-			if(lip_style)
-				var/image/lips_overlay = image('icons/mob/human/human_face.dmi', "lips_[lip_style]", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
-				lips_overlay.color = lip_color
-				. += lips_overlay
+	// We need to get the eyes if we are dropped (ugh)
+	if(dropped)
+		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
+		// This is a bit of copy/paste code from eyes.dm:generate_body_overlay
+		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
+			var/image/eye_left = image(eyes.eye_icon, "[eyes.eye_icon_state]_l", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+			var/image/eye_right = image(eyes.eye_icon, "[eyes.eye_icon_state]_r", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+			if(head_flags & HEAD_EYECOLOR)
+				if(eyes.eye_color_left)
+					eye_left.color = eyes.eye_color_left
+				if(eyes.eye_color_right)
+					eye_right.color = eyes.eye_color_right
+			if(eyes.overlay_ignore_lighting)
+				eye_left.overlays += emissive_appearance(eye_left.icon, eye_left.icon_state, alpha = eye_left.alpha)
+				eye_right.overlays += emissive_appearance(eye_right.icon, eye_right.icon_state, alpha = eye_right.alpha)
+			else if(blocks_emissive != EMISSIVE_BLOCK_NONE)
+				eye_left.overlays += emissive_blocker(eye_left.icon, eye_left.icon_state, alpha = eye_left.alpha)
+				eye_right.overlays += emissive_blocker(eye_right.icon, eye_right.icon_state, alpha = eye_right.alpha)
+			if(worn_face_offset)
+				worn_face_offset.apply_offset(eye_left)
+				worn_face_offset.apply_offset(eye_right)
+			. += eye_left
+			. += eye_right
+		else if(!eyes && (head_flags & HEAD_EYEHOLES))
+			var/image/no_eyes = image('icons/mob/human/human_eyes.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+			worn_face_offset?.apply_offset(no_eyes)
+			. += no_eyes
 
-			// eyes
-			var/image/eyes_overlay = image('icons/mob/human/human_face.dmi', "eyes_missing", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), SOUTH)
-			. += eyes_overlay
-			if(eyes)
-				eyes_overlay.icon_state = eyes.eye_icon_state
-
-				if(eyes.eye_color)
-					eyes_overlay.color = eyes.eye_color
-
+	return
 
 /obj/item/bodypart/head/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/toy_talk)
 
-/obj/item/bodypart/head/GetVoice()
+/obj/item/bodypart/head/get_voice()
 	return "The head of [real_name]"
 
 /obj/item/bodypart/head/monkey
@@ -264,10 +270,12 @@
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = SPECIES_MONKEY
 	is_dimorphic = FALSE
+	head_flags = HEAD_LIPS|HEAD_DEBRAIN
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
 	limb_id = "teratoma"
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES
 
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

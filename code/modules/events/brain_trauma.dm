@@ -15,6 +15,8 @@
 			continue
 		if(!H.get_organ_by_type(/obj/item/organ/brain)) // If only I had a brain
 			continue
+		if(!(H.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
+			continue
 
 		traumatize(H)
 		announce_to_ghosts(H)

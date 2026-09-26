@@ -1,4 +1,5 @@
-import { binaryInsertWith, sortBy } from 'common/collections';
+import { binaryInsertWith } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 
 import { useLocalState } from '../../backend';
 import {
@@ -24,7 +25,7 @@ const binaryInsertName = (collection: NameWithKey[], value: NameWithKey) =>
   binaryInsertWith(collection, value, ({ key }) => key);
 
 const sortNameWithKeyEntries = (array: [string, NameWithKey[]][]) =>
-  sortBy(array, ([key]) => key);
+  sortBy(array, [([key]) => key]);
 
 export const MultiNameInput = (props: {
   handleClose: () => void;

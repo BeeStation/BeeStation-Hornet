@@ -41,7 +41,6 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	countdown = new(src)
-	GLOB.nuke_list += src
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
 	update_icon()
@@ -53,10 +52,9 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	if(!exploding)
 		// If we're not exploding, set the alert level back to normal
 		set_safety()
-	GLOB.nuke_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(core)
-	. = ..()
+	return ..()
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()

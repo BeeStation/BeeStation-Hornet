@@ -71,10 +71,8 @@
 
 /obj/item/radio/holoparasite/Initialize(mapload)
 	. = ..()
-	keyslot = new /obj/item/encryptionkey/holoparasite
-
-/obj/item/radio/holoparasite/emp_act(severity)
-	return EMP_PROTECT_SELF | EMP_PROTECT_WIRES // This isn't a electronic radio, and therefore is unaffected by EMPs.
+	keyslot = /obj/item/encryptionkey/holoparasite
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/radio/holoparasite/get_specific_hearers()
 	if(isholopara(loc))

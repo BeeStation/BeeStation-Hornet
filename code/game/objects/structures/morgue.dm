@@ -27,6 +27,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	dir = SOUTH
 	var/message_cooldown
 	var/breakout_time = 600
+	radiation_shield = TRUE   // Blocks external radiation when closed
 
 /obj/structure/bodycontainer/Initialize(mapload)
 	. = ..()
@@ -156,8 +157,8 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	icon_state = "morgue1"
 	dir = EAST
 	var/beeper = TRUE
-	var/beep_cooldown = 50
-	var/next_beep = 0
+	COOLDOWN_DECLARE(beep_timer)
+	var/beep_cooldown = 5 SECONDS
 
 /obj/structure/bodycontainer/morgue/Initialize(mapload)
 	. = ..()
@@ -177,26 +178,29 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 /obj/structure/bodycontainer/morgue/update_icon()
 	if (!connected || connected.loc != src) // Open or tray is gone.
 		icon_state = "morgue0"
-	else
-		if(contents.len == 1)  // Empty
-			icon_state = "morgue1"
-		else
-			icon_state = "morgue2" // Dead, brainded mob.
-			var/list/compiled = recursive_mob_check(src, 0, 0) // Search for mobs in all contents.
-			if(!length(compiled)) // No mobs?
-				icon_state = "morgue3"
-				return
+		return
 
-			for(var/mob/living/M in compiled)
-				var/mob/living/mob_occupant = get_mob_or_brainmob(M)
-				if(mob_occupant.client && !mob_occupant.suiciding && !HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
-					icon_state = "morgue4" // Cloneable
-					if(mob_occupant.stat == DEAD && beeper)
-						if(world.time > next_beep)
-							playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, 0) //Clone them you blind fucks
-							next_beep = world.time + beep_cooldown
-					break
+	if(length(contents) == 1) // Empty. 1 means the tray inside.
+		icon_state = "morgue1"
+		return
 
+	var/list/mob_list = recursive_mob_check(src, client_check=FALSE, sight_check=FALSE) // Search for mobs in all contents.
+	if(!length(mob_list)) // No mobs found
+		icon_state = "morgue3"
+		return
+
+	icon_state = "morgue2" // Mobs found, but client-less
+	for(var/each_mob in mob_list)
+		var/mob/living/mob_occupant = isliving(each_mob) ? each_mob : get_brainmob(each_mob, finds_mmi = TRUE)
+		if(isnull(mob_occupant))
+			continue
+		if(!mob_occupant.client || mob_occupant.suiciding || HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
+			continue
+		icon_state = "morgue4" // Living mobs are there
+		if(mob_occupant.stat == DEAD && beeper && COOLDOWN_FINISHED(src, beep_timer))
+			playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, 0) //Clone them you blind fucks
+			COOLDOWN_START(src, beep_timer, beep_cooldown)
+			return
 
 /obj/item/paper/guides/jobs/medical/morgue
 	name = "morgue memo"
@@ -417,3 +421,14 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
+
+// Helper proc to check if a mob is inside any shielded structure (morgue, etc.)
+/mob/living/proc/is_in_shielded_bodycontainer()
+	var/atom/current = src.loc
+	while(current && !isturf(current))
+		if(istype(current, /obj/structure))
+			var/obj/structure/S = current
+			if(S.radiation_shield)
+				return TRUE
+		current = current.loc
+	return FALSE

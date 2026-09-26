@@ -566,7 +566,7 @@
 	balloon_alert(user, "dna locked!")
 	return FALSE
 
-/obj/item/mod/module/dna_lock/proc/on_emp(datum/source, severity)
+/obj/item/mod/module/dna_lock/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER
 
 	dna = null

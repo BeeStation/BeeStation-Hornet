@@ -120,7 +120,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/claymore/highlander/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER_TRAIT)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/claymore/highlander/Destroy()
@@ -144,12 +144,18 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/claymore/highlander/pickup(mob/living/user)
 	. = ..()
 	to_chat(user, span_notice("The power of Scotland protects you! You are shielded from all stuns and knockdowns."))
-	user.add_stun_absorption("highlander", INFINITY, 1, " is protected by the power of Scotland!", "The power of Scotland absorbs the stun!", " is protected by the power of Scotland!")
-	user.ignore_slowdown(HIGHLANDER)
+	user.ignore_slowdown(HIGHLANDER_TRAIT)
+	user.add_stun_absorption(
+		source = HIGHLANDER_TRAIT,
+		message = span_warning("%EFFECT_OWNER is protected by the power of Scotland!"),
+		self_message = span_boldwarning("The power of Scotland absorbs the stun!"),
+		examine_message = span_warning("%EFFECT_OWNER_THEYRE protected by the power of Scotland!"),
+	)
 
 /obj/item/claymore/highlander/dropped(mob/living/user)
 	. = ..()
-	user.unignore_slowdown(HIGHLANDER)
+	user.unignore_slowdown(HIGHLANDER_TRAIT)
+	user.remove_stun_absorption(HIGHLANDER_TRAIT)
 
 /obj/item/claymore/highlander/examine(mob/user)
 	. = ..()
@@ -242,9 +248,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	force = 15
+	force = 18
 	throwforce = 10
-	armour_penetration = 15
+	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -493,8 +499,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	custom_price = 20
 
-	force = 5
-	throwforce = 5
+	force = 10
+	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines", "thrashes")
@@ -524,7 +530,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	custom_price = 30
 
 /obj/item/staff/broom
-	force = 5
+	force = 10
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon = 'icons/obj/wizard.dmi'
@@ -540,7 +546,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	inhand_icon_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 5
+	force = 10
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5

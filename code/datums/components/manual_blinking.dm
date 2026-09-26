@@ -33,7 +33,7 @@
 		button.Grant(parent)
 		to_chat(C, span_userdanger("You suddenly realize you're blinking manually."))
 
-/datum/component/manual_blinking/Destroy(force, silent)
+/datum/component/manual_blinking/Destroy(force)
 	E = null
 	STOP_PROCESSING(SSdcs, src)
 	to_chat(parent, span_userdanger("You revert back to automatic blinking."))

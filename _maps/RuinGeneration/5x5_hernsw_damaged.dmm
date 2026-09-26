@@ -4,29 +4,29 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /turf/template_noop,
 /area/template_noop)
 "x" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "z" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "L" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -36,7 +36,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 E

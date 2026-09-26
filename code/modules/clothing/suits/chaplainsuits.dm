@@ -177,6 +177,7 @@
 
 //Prophet helmet
 /obj/item/clothing/head/helmet/plate/crusader/prophet
+	abstract_type = /obj/item/clothing/head/helmet/plate/crusader/prophet
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
 	icon_state = null
@@ -213,7 +214,6 @@
 	flags_inv = NONE
 	icon_state = "cage"
 	inhand_icon_state = null
-	dynamic_hair_suffix = ""
 	worn_y_offset = 7
 
 /obj/item/clothing/head/helmet/chaplain/ancient

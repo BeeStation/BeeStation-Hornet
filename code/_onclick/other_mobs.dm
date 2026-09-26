@@ -38,7 +38,7 @@
 
 	var/override = 0
 
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/HM as anything in dna.mutations)
 		override += HM.on_attack_hand(A, proximity_flag)
 
 	if(override)
@@ -99,7 +99,7 @@
 			return FALSE
 	return TRUE
 
-/atom/ui_status(mob/user)
+/atom/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
 	//Check if both user and atom are at the same location
 	if(!can_interact(user))
@@ -127,7 +127,7 @@
 	. = ..()
 	if(!dna)
 		return
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/HM as anything in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
 /mob/living/carbon/human/RangedAttack(atom/A, modifiers)
@@ -225,7 +225,7 @@
 			var/datum/disease/bite_infection = d
 			victim.ForceContractDisease(bite_infection)
 		return
-	A.attack_paw(src)
+	A.attack_paw(src, modifiers)
 
 ///Attacked by monkey. It doesn't need its own *_secondary proc as it just uses attack_hand_secondary instead.
 /atom/proc/attack_paw(mob/user, list/modifiers)

@@ -53,7 +53,9 @@
 	var/name			//the preview name of the accessory
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
 	var/use_static		//determines if the accessory will be skipped by color preferences
-	var/color_src = MUTCOLORS	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR, FACEHAIR, EYECOLOR and 0 if none.
+	var/color_src = MUTANT_COLOR	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR_COLOR, FACIAL_HAIR_COLOR, EYECOLOR and 0 if none.
+	/// Alpha applied to the overlay when rendered on a mob. 255 = fully opaque.
+	var/overlay_alpha = 255
 	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
 	var/dimension_x = 32
@@ -67,17 +69,120 @@
 	/// Required for determining non-female underwear for adding the alpha-mask
 	var/use_default_gender = NEUTER
 
+////////////////
+// Hair Masks //
+////////////////
+
+/datum/hair_mask
+	var/icon/icon = 'icons/mob/human/hair_masks.dmi'
+	var/icon_state = ""
+	/// Strict coverage zones will always have the hair mask applied to them, even if a piece of hair at that location would normally resist being masked.
+	/// If a piece of headware only covers the top of the head, it should only strictly cover the top zone. But a mostly-enclosed helmet might strictly cover almost all zones.
+	var/strict_coverage_zones = NONE
+
+/datum/hair_mask/standard_hat_middle
+	icon_state = "hide_above_45deg_medium"
+	strict_coverage_zones = HAIR_APPENDAGE_TOP
+
+/datum/hair_mask/standard_hat_low
+	icon_state = "hide_above_45deg_low"
+	strict_coverage_zones = HAIR_APPENDAGE_TOP | HAIR_APPENDAGE_LEFT | HAIR_APPENDAGE_RIGHT | HAIR_APPENDAGE_REAR
+
+/datum/hair_mask/winterhood
+	icon_state = "hide_winterhood"
+	strict_coverage_zones = HAIR_APPENDAGE_TOP | HAIR_APPENDAGE_LEFT | HAIR_APPENDAGE_RIGHT | HAIR_APPENDAGE_REAR | HAIR_APPENDAGE_HANGING_REAR
+
 //////////////////////
 // Hair Definitions //
 //////////////////////
+// Cache of each hairstyle's icon after being blended with the given masks
+// "joined mask types" is each mask's type as a string joined by commas (for no masks, it is the empty string)
+// /datum/sprite_accessory/hair path -> list(joined mask types -> icon)
+GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
+
 /datum/sprite_accessory/hair
 	icon = 'icons/mob/human/human_face.dmi'	  // default icon for all hairs
-
-	// please make sure they're sorted alphabetically and, where needed, categorized
-	// try to capitalize the names please~
-	// try to spell
-	// you do not need to define _s or _l sub-states, game automatically does this for you
 	use_default = TRUE
+	var/y_offset = 0 // Y offset to apply so we can have hair that reaches above the player sprite's visual bounding box
+
+	// Some hair will have "appendages", such as pony tails, that stick out from certain parts of the head. These can be layered above or below headwear and resist being masked away by hair masks.
+	// Lists should be icon_state strings associated with the HAIR_APPENDAGE defines specifying the part of the head they stick out from.
+	// hair_appendages_inner contains icon_states that go in the normal hair layer, hair_appendages_outer contains icon_states that go above the layer for headwear.
+	// hair_appendages_inner will be masked normally if their HAIR_APPENDAGE zone is strictly masked by a piece of clothing (a fully enclosed helmet with a transparent visor will strictly mask all zones, a small hat will only strictly mask the top, etc.).
+	// hair_appendages_outer will never be masked at all and will just not be shown if their zone has strict masking. These should generally not have visible sprites for every dir.
+	var/list/hair_appendages_inner = null
+	var/list/hair_appendages_outer = null
+
+/// Retrieve the base hair icon with all hair appendeges blended in, with hair masks applied, from the cache, or generate it if it doesn't exist
+/datum/sprite_accessory/hair/proc/getCachedIcon(list/hair_masks)
+	var/icon/cachedIcon
+	var/joinedMasks = LAZYLEN(hair_masks) ? jointext(hair_masks, ",") : ""
+	var/list/masks_to_icons = GLOB.blended_hair_icons_cache[type]
+	if(!masks_to_icons)
+		GLOB.blended_hair_icons_cache[type] = list()
+	else
+		cachedIcon = masks_to_icons[joinedMasks]
+
+	if(!cachedIcon)
+		if(LAZYLEN(hair_masks))
+			if(LAZYLEN(hair_appendages_inner))
+				// Check if there are any hair appendages in a zone that is not strictly masked
+				var/found_mask_dodger = FALSE
+				for(var/datum/hair_mask/mask as anything in hair_masks)
+					for(var/appendage in hair_appendages_inner)
+						var/zone = hair_appendages_inner[appendage]
+						if(!(zone & mask.strict_coverage_zones))
+							found_mask_dodger = TRUE
+
+				if(found_mask_dodger)
+					// We have to process each icon individually
+					cachedIcon = icon(icon, icon_state)
+					// mask the base icon
+					for(var/datum/hair_mask/mask as anything in hair_masks)
+						var/icon/mask_icon = icon('icons/mob/human/hair_masks.dmi', mask.icon_state)
+						mask_icon.Shift(SOUTH, y_offset)
+						cachedIcon.Blend(mask_icon, ICON_ADD)
+
+					// mask the appendages if required and add them to the base icon
+					for(var/appendage_icon_state in hair_appendages_inner)
+						var/icon/appendage_icon = icon(icon, appendage_icon_state)
+						var/zone = hair_appendages_inner[appendage_icon_state]
+						for(var/datum/hair_mask/mask as anything in hair_masks)
+							if(zone & mask.strict_coverage_zones)
+								var/icon/mask_icon = icon('icons/mob/human/hair_masks.dmi', mask.icon_state)
+								mask_icon.Shift(SOUTH, y_offset)
+								appendage_icon.Blend(mask_icon, ICON_ADD)
+						cachedIcon.Blend(appendage_icon, ICON_OVERLAY)
+				else
+					// No mask dodgers, so we can just mask the full (hopefully cached) icon
+					cachedIcon = icon(getCachedIcon())
+					for(var/datum/hair_mask/mask as anything in hair_masks)
+						var/icon/mask_icon = icon('icons/mob/human/hair_masks.dmi', mask.icon_state)
+						mask_icon.Shift(SOUTH, y_offset)
+						cachedIcon.Blend(mask_icon, ICON_ADD)
+			else
+				// No hair appendages, so just apply all hair masks to the base icon
+				cachedIcon = icon(icon, icon_state)
+				for(var/datum/hair_mask/mask as anything in hair_masks)
+					var/icon/mask_icon = icon('icons/mob/human/hair_masks.dmi', mask.icon_state)
+					mask_icon.Shift(SOUTH, y_offset)
+					cachedIcon.Blend(mask_icon, ICON_ADD)
+		else
+			// no hair masks
+			cachedIcon = icon(icon, icon_state)
+			if(LAZYLEN(hair_appendages_inner))
+				for(var/appendage_icon_state in hair_appendages_inner)
+					var/icon/appendage_icon = icon(icon, appendage_icon_state)
+					cachedIcon.Blend(appendage_icon, ICON_OVERLAY)
+		// set cache
+		GLOB.blended_hair_icons_cache[type][joinedMasks] = cachedIcon
+	return cachedIcon
+
+
+// please make sure they're sorted alphabetically and, where needed, categorized
+// try to capitalize the names please~
+// try to spell
+// you do not need to define _s or _l sub-states, game automatically does this for you
 
 /// Don't move these two, they go first
 /datum/sprite_accessory/hair/bald
@@ -108,9 +213,14 @@
 	use_default = FALSE
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/allthefuzz
+	name = "All The Fuzz"
+	icon_state = "hair_allthefuzz"
+
 /datum/sprite_accessory/hair/antenna
 	name = "Ahoge"
 	icon_state = "hair_antenna"
+	hair_appendages_inner = list("hair_antenna_a1" = HAIR_APPENDAGE_TOP)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/balding
@@ -133,6 +243,11 @@
 	icon_state = "hair_bedheadv3"
 	use_default_gender = NEUTER
 
+/datum/sprite_accessory/hair/bedheadv4
+	name = "Bedhead 4x"
+	icon_state = "hair_bedheadv4"
+	use_default_gender = NEUTER
+
 /datum/sprite_accessory/hair/bedheadlong
 	name = "Long Bedhead"
 	icon_state = "hair_long_bedhead"
@@ -141,6 +256,11 @@
 /datum/sprite_accessory/hair/bedheadfloorlength
 	name = "Floorlength Bedhead"
 	icon_state = "hair_floorlength_bedhead"
+	use_default_gender = FEMALE
+
+/datum/sprite_accessory/hair/badlycut
+	name = "Shorter Long Bedhead"
+	icon_state = "hair_verybadlycut"
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/beehive
@@ -196,6 +316,8 @@
 /datum/sprite_accessory/hair/braid
 	name = "Braid (Floorlength)"
 	icon_state = "hair_braid"
+	hair_appendages_inner = list("hair_braid_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_braid_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/braided
@@ -206,11 +328,15 @@
 /datum/sprite_accessory/hair/front_braid
 	name = "Braided Front"
 	icon_state = "hair_braidfront"
+	hair_appendages_inner = list("hair_braidfront_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_braidfront_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/not_floorlength_braid
 	name = "Braid (High)"
 	icon_state = "hair_braid2"
+	hair_appendages_inner = list("hair_braid2_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_braid2_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/lowbraid
@@ -221,11 +347,15 @@
 /datum/sprite_accessory/hair/shortbraid
 	name = "Braid (Short)"
 	icon_state = "hair_shortbraid"
+	hair_appendages_inner = list("hair_shortbraid_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_shortbraid_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/braidtail
 	name = "Braided Tail"
 	icon_state = "hair_braidtail"
+	hair_appendages_inner = list("hair_braidtail_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_braidtail_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/bun
@@ -236,6 +366,8 @@
 /datum/sprite_accessory/hair/bun2
 	name = "Bun Head 2"
 	icon_state = "hair_bunhead2"
+	hair_appendages_inner = list("hair_bunhead2_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_bunhead2_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/bun3
@@ -251,21 +383,13 @@
 /datum/sprite_accessory/hair/manbun
 	name = "Bun (Manbun)"
 	icon_state = "hair_manbun"
+	hair_appendages_inner = list("hair_manbun_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_manbun_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = MALE
 
 /datum/sprite_accessory/hair/tightbun
 	name = "Bun (Tight)"
 	icon_state = "hair_tightbun"
-	use_default_gender = FEMALE
-
-/datum/sprite_accessory/hair/bun2
-	name = "Bun Head 2"
-	icon_state = "hair_bunhead2"
-	use_default_gender = FEMALE
-
-/datum/sprite_accessory/hair/bun3
-	name = "Bun Head 3"
-	icon_state = "hair_bun3"
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/business
@@ -292,6 +416,14 @@
 	name = "Buzzcut"
 	icon_state = "hair_buzzcut"
 	use_default_gender = MALE
+
+/datum/sprite_accessory/hair/chinbob
+	name = "Chin-Length Bob Cut"
+	icon_state = "hair_chinbob"
+
+/datum/sprite_accessory/hair/comet
+	name = "Comet"
+	icon_state = "hair_comet"
 
 /datum/sprite_accessory/hair/cia
 	name = "CIA"
@@ -331,6 +463,8 @@
 /datum/sprite_accessory/hair/cornrowdualtail
 	name = "Cornrow Tail"
 	icon_state = "hair_cornrowtail"
+	hair_appendages_inner = list("hair_cornrowtail_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_cornrowtail_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = MALE
 
 /datum/sprite_accessory/hair/crew
@@ -366,7 +500,14 @@
 /datum/sprite_accessory/hair/doublebun
 	name = "Double Bun"
 	icon_state = "hair_doublebun"
+	hair_appendages_inner = list("hair_doublebun_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_doublebun_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
+
+/datum/sprite_accessory/hair/doublespikes
+	name = "Double Spikes"
+	icon_state = "hair_doublespikes"
+	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/dreadlocks
 	name = "Dreadlocks"
@@ -376,11 +517,15 @@
 /datum/sprite_accessory/hair/drillhair
 	name = "Drill Hair"
 	icon_state = "hair_drillhair"
+	hair_appendages_inner = list("hair_drillruru_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_drillruru_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = MALE
 
 /datum/sprite_accessory/hair/drillhairextended
 	name = "Drill Hair (Extended)"
 	icon_state = "hair_drillhairextended"
+	hair_appendages_inner = list("hair_drillhairextended_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_drillhairextended_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/emo
@@ -532,16 +677,19 @@
 /datum/sprite_accessory/hair/long
 	name = "Long Hair 1"
 	icon_state = "hair_long"
+	hair_appendages_inner = list("hair_long_a1" = HAIR_APPENDAGE_HANGING_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/long2
 	name = "Long Hair 2"
 	icon_state = "hair_long2"
+	hair_appendages_inner = list("hair_long2_a1" = HAIR_APPENDAGE_HANGING_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/long3
 	name = "Long Hair 3"
 	icon_state = "hair_long3"
+	hair_appendages_inner = list("hair_long3_a1" = HAIR_APPENDAGE_HANGING_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/long_over_eye
@@ -567,6 +715,8 @@
 /datum/sprite_accessory/hair/sidepartlongalt
 	name = "Long Side Part"
 	icon_state = "hair_longsidepart"
+	hair_appendages_inner = list("hair_longsidepart_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_longsidepart_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/megaeyebrows
@@ -599,12 +749,17 @@
 	icon_state = "hair_reversemohawk"
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/reversemohawkold
+	name = "Mohawk (Reverse, Old)"
+	icon_state = "hair_reversemohawkold"
+	use_default_gender = MALE
+
 /datum/sprite_accessory/hair/shavedmohawk
 	name = "Mohawk (Shaved)"
 	icon_state = "hair_shavedmohawk"
 	use_default_gender = MALE
 
-/datum/sprite_accessory/hair/shavedmohawk
+/datum/sprite_accessory/hair/unshavenmohawk
 	name = "Mohawk (Unshaven)"
 	icon_state = "hair_unshaven_mohawk"
 	use_default_gender = MALE
@@ -644,6 +799,10 @@
 	icon_state = "hair_shortovereye"
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/hair_overeyetwo
+	name = "Over Eye 2"
+	icon_state = "hair_overeyetwo"
+
 /datum/sprite_accessory/hair/oxton
 	name = "Oxton"
 	icon_state = "hair_oxton"
@@ -677,6 +836,7 @@
 /datum/sprite_accessory/hair/pigtail2
 	name = "Pigtails 3"
 	icon_state = "hair_pigtails2"
+	hair_appendages_inner = list("hair_pigtails2_a1" = HAIR_APPENDAGE_LEFT, "hair_pigtails2_a2" = HAIR_APPENDAGE_RIGHT)
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/pixie
@@ -717,21 +877,29 @@
 /datum/sprite_accessory/hair/ponytail4
 	name = "Ponytail 4"
 	icon_state = "hair_ponytail4"
+	hair_appendages_inner = list("hair_ponytail4_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_ponytail4_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/ponytail5
 	name = "Ponytail 5"
 	icon_state = "hair_ponytail5"
+	hair_appendages_inner = list("hair_ponytail5_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_ponytail5_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/ponytail6
 	name = "Ponytail 6"
 	icon_state = "hair_ponytail6"
+	hair_appendages_inner = list("hair_ponytail6_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_ponytail6_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/ponytail7
 	name = "Ponytail 7"
 	icon_state = "hair_ponytail7"
+	hair_appendages_inner = list("hair_ponytail7_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_ponytail7_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/ponytailalchemist
@@ -743,6 +911,8 @@
 	name = "Ponytail (High)"
 	icon_state = "hair_highponytail"
 	use_default_gender = FEMALE
+	hair_appendages_inner = list("hair_highponytail_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_highponytail_a1o" = HAIR_APPENDAGE_REAR)
 
 /datum/sprite_accessory/hair/tightponytail
 	name = "Ponytail (Tight)"
@@ -752,16 +922,22 @@
 /datum/sprite_accessory/hair/stail
 	name = "Ponytail (Short)"
 	icon_state = "hair_stail"
+	hair_appendages_inner = list("hair_stail_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_stail_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/longponytail
 	name = "Ponytail (Long)"
 	icon_state = "hair_longstraightponytail"
+	hair_appendages_inner = list("hair_longstraightponytail_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_longstraightponytail_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/countryponytail
 	name = "Ponytail (Country)"
 	icon_state = "hair_country"
+	hair_appendages_inner = list("hair_country_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_country_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/fringetail
@@ -782,16 +958,22 @@
 /datum/sprite_accessory/hair/sidetail3
 	name = "Ponytail (Side) 3"
 	icon_state = "hair_sidetail3"
+	hair_appendages_inner = list("hair_sidetail3_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_sidetail3_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/sidetail4
 	name = "Ponytail (Side) 4"
 	icon_state = "hair_sidetail4"
+	hair_appendages_inner = list("hair_sidetail4_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_sidetail4_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/spikyponytail
 	name = "Ponytail (Spiky)"
 	icon_state = "hair_spikyponytail"
+	hair_appendages_inner = list("hair_spikyponytail_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_spikyponytail_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/poofy
@@ -954,9 +1136,16 @@
 	icon_state = "hair_topknot"
 	use_default_gender = MALE
 
+/datum/sprite_accessory/hair/toriyama
+	name = "Toriyama"
+	icon_state = "hair_toriyama"
+	use_default_gender = NEUTER
+
 /datum/sprite_accessory/hair/tressshoulder
 	name = "Tress Shoulder"
 	icon_state = "hair_tressshoulder"
+	hair_appendages_inner = list("hair_tressshoulder_a1" = HAIR_APPENDAGE_HANGING_FRONT)
+	hair_appendages_outer = list("hair_tressshoulder_a1o" = HAIR_APPENDAGE_HANGING_FRONT)
 	use_default_gender = FEMALE
 
 /datum/sprite_accessory/hair/trimmed
@@ -997,6 +1186,7 @@
 /datum/sprite_accessory/hair/updo
 	name = "Updo"
 	icon_state = "hair_updo"
+	hair_appendages_inner = list("hair_updo_a1" = HAIR_APPENDAGE_TOP)
 	use_default_gender = NEUTER
 
 /datum/sprite_accessory/hair/longer
@@ -1032,7 +1222,15 @@
 /datum/sprite_accessory/hair/wisp
 	name = "Wisp"
 	icon_state = "hair_wisp"
+	hair_appendages_inner = list("hair_wisp_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_wisp_a1o" = HAIR_APPENDAGE_REAR)
 	use_default_gender = FEMALE
+
+/datum/sprite_accessory/hair/ziegler
+	name = "Ziegler"
+	icon_state = "hair_ziegler"
+	hair_appendages_inner = list("hair_ziegler_a1" = HAIR_APPENDAGE_REAR)
+	hair_appendages_outer = list("hair_ziegler_a1o" = HAIR_APPENDAGE_REAR)
 
 /*
 /////////////////////////////////////
@@ -1042,61 +1240,84 @@
 /////////////////////////////////////
 */
 
-/datum/sprite_accessory/hair_gradient
+/datum/sprite_accessory/gradient
 	icon = 'icons/mob/hair_gradients.dmi'
 	use_default = FALSE
+	///whether this gradient applies to hair and/or beards. Some gradients do not work well on beards.
+	var/gradient_category = GRADIENT_APPLIES_TO_HAIR|GRADIENT_APPLIES_TO_FACIAL_HAIR
 
-/datum/sprite_accessory/hair_gradient/none
-	name = "None"
+/datum/sprite_accessory/gradient/none
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/fadeup
+/datum/sprite_accessory/gradient/fadeup
 	name = "Fade Up"
 	icon_state = "fadeup"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/fadedown
+/datum/sprite_accessory/gradient/fadedown
 	name = "Fade Down"
 	icon_state = "fadedown"
 
-/datum/sprite_accessory/hair_gradient/vertical_split
+/datum/sprite_accessory/gradient/vertical_split
 	name = "Vertical Split"
 	icon_state = "vsplit"
 
-/datum/sprite_accessory/hair_gradient/horizontal_split
+/datum/sprite_accessory/gradient/horizontal_split
 	name = "Horizontal Split"
 	icon_state = "bottomflat"
 
-/datum/sprite_accessory/hair_gradient/reflected
+/datum/sprite_accessory/gradient/reflected
 	name = "Reflected"
 	icon_state = "reflected_high"
 	use_default = TRUE
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/reflected_inverse
+/datum/sprite_accessory/gradient/reflected/beard
+	icon_state = "reflected_high_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/reflected_inverse
 	name = "Reflected Inverse"
 	icon_state = "reflected_inverse_high"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/wavy
+/datum/sprite_accessory/gradient/reflected_inverse/beard
+	icon_state = "reflected_inverse_high_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/wavy
 	name = "Wavy"
 	icon_state = "wavy"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/long_fade_up
+/datum/sprite_accessory/gradient/long_fade_up
 	name = "Long Fade Up"
 	icon_state = "long_fade_up"
 	use_default = TRUE
 
-/datum/sprite_accessory/hair_gradient/long_fade_down
+/datum/sprite_accessory/gradient/long_fade_down
 	name = "Long Fade Down"
 	icon_state = "long_fade_down"
 
-/datum/sprite_accessory/hair_gradient/short_fade_up
+/datum/sprite_accessory/gradient/short_fade_up
 	name = "Short Fade Up"
 	icon_state = "short_fade_up"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
 
-/datum/sprite_accessory/hair_gradient/short_fade_down
+/datum/sprite_accessory/gradient/short_fade_up/beard
+	icon_state = "short_fade_down"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
+
+/datum/sprite_accessory/gradient/short_fade_down
 	name = "Short Fade Down"
 	icon_state = "short_fade_down"
+	gradient_category = GRADIENT_APPLIES_TO_HAIR
+
+/datum/sprite_accessory/gradient/short_fade_down/beard
+	icon_state = "short_fade_down_beard"
+	gradient_category = GRADIENT_APPLIES_TO_FACIAL_HAIR
 
 /////////////////////////////
 // Facial Hair Definitions //
@@ -1262,6 +1483,14 @@
 /datum/sprite_accessory/facial_hair/watson
 	name = "Moustache (Watson)"
 	icon_state = "facial_watson"
+
+/datum/sprite_accessory/facial_hair/handlebar
+	name = "Moustache (Handlebar)"
+	icon_state = "facial_handlebar"
+
+/datum/sprite_accessory/facial_hair/handlebar2
+	name = "Moustache (Handlebar 2)"
+	icon_state = "facial_handlebar2"
 
 /datum/sprite_accessory/facial_hair/elvis
 	name = "Sideburns (Elvis)"
@@ -1931,7 +2160,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/body_markings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/dtiger
@@ -1988,22 +2217,22 @@
 	icon_state = "spikes"
 
 /datum/sprite_accessory/tails/human/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/tails_animated/human/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/tails/human/cat
 	name = "Cat"
 	icon_state = "cat"
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/tails_animated/human/cat
 	name = "Cat"
 	icon_state = "cat"
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/tails/human/clock
 	name = "Clockwork"
@@ -2040,7 +2269,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/horns/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/horns/simple
@@ -2067,17 +2296,17 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/ears/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
 	hasinner = 1
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/wings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/wings_open
@@ -2120,21 +2349,22 @@
 
 /datum/sprite_accessory/wings/apid
 	name = "Bee"
-	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
+	icon = 'icons/mob/human/species/apid/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
 	dimension_x = 32
 	center = TRUE
 	dimension_y = 32
+	overlay_alpha = 120
 
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
-	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
+	icon = 'icons/mob/human/species/apid/apid_wingsopen.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 32
+	dimension_x = 76
 	center = TRUE
-	dimension_y = 32
+	overlay_alpha = 120
 
 /datum/sprite_accessory/wings/robot
 	name = "Robot"
@@ -2156,7 +2386,7 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/frills/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/frills/simple
@@ -2178,11 +2408,11 @@
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
 /datum/sprite_accessory/spines/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/spines_animated/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/spines/short
@@ -2233,14 +2463,6 @@
 
 /datum/sprite_accessory/legs/digitigrade_lizard
 	name = DIGITIGRADE_LEGS
-
-/datum/sprite_accessory/caps
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-	color_src = HAIR
-
-/datum/sprite_accessory/caps/round
-	name = "Round"
-	icon_state = "round"
 
 /datum/sprite_accessory/moth_wings
 	icon = 'icons/mob/human/species/moth/moth_wings.dmi'
@@ -2546,7 +2768,7 @@
 	color_src = null
 
 /datum/sprite_accessory/moth_markings/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/moth_markings/reddish
@@ -2604,7 +2826,7 @@
 	icon = 'icons/mob/ipc_accessories.dmi'
 	emissive_state = "m_ipc_screen_emissive"
 	emissive_alpha = 60
-	color_src = EYECOLOR
+	color_src = EYE_COLOR
 
 /datum/sprite_accessory/ipc_screens/blue
 	name = "Blue"
@@ -2773,10 +2995,10 @@
 
 /datum/sprite_accessory/ipc_antennas
 	icon = 'icons/mob/ipc_accessories.dmi'
-	color_src = HAIR
+	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/ipc_antennas/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/ipc_antennas/angled
@@ -2838,7 +3060,7 @@
 /datum/sprite_accessory/ipc_chassis/mcgreyscale
 	name = "Morpheus Cyberkinetics (Custom)"
 	limbs_id = "mcgipc"
-	color_src = MUTCOLORS
+	color_src = MUTANT_COLOR
 
 /datum/sprite_accessory/ipc_chassis/bishopcyberkinetics
 	name = "Bishop Cyberkinetics"
@@ -2880,7 +3102,7 @@
 
 /datum/sprite_accessory/psyphoza_cap
 	icon = 'icons/mob/psyphoza_caps.dmi'
-	color_src = MUTCOLORS
+	color_src = MUTANT_COLOR
 
 /datum/sprite_accessory/psyphoza_cap/wide
 	name = "Portobello"
@@ -2929,7 +3151,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_leaves/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_leaves/leaves
@@ -2960,7 +3182,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_thorns/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_thorns/head
@@ -2976,7 +3198,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_flowers/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_flowers/head
@@ -2992,7 +3214,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_moss/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_moss/torso
@@ -3004,7 +3226,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_mushroom/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_mushroom/head
@@ -3016,7 +3238,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_antennae/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_antennae/head
@@ -3028,7 +3250,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_eyes/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_eyes/bug_eyes
@@ -3112,7 +3334,7 @@
 	color_src = null
 
 /datum/sprite_accessory/diona_pbody/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
 /datum/sprite_accessory/diona_pbody/pbody
@@ -3126,7 +3348,7 @@
 //apids
 
 /datum/sprite_accessory/apid_antenna
-	icon = 'icons/mob/apid_accessories/apid_antenna.dmi'
+	icon = 'icons/mob/human/species/apid/apid_antenna.dmi'
 
 /datum/sprite_accessory/apid_antenna/moth
 	name = "Mothlike Antenna"
@@ -3221,7 +3443,7 @@
 	icon_state = "split"
 
 /datum/sprite_accessory/apid_stripes
-	icon = 'icons/mob/apid_accessories/apid_body.dmi'
+	icon = 'icons/mob/human/species/apid/apid_body.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_stripes/none
@@ -3249,7 +3471,7 @@
 	icon_state = "arachnid"
 
 /datum/sprite_accessory/apid_headstripes
-	icon = 'icons/mob/apid_accessories/apid_head.dmi'
+	icon = 'icons/mob/human/species/apid/apid_head.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_headstripes/none

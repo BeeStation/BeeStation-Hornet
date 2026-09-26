@@ -14,23 +14,27 @@ have ways of interacting with a specific mob and control it.
 		/datum/ai_planning_subtree/monkey_shenanigans,
 	)
 	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/monkey,
 		BB_MONKEY_AGGRESSIVE = FALSE,
 		BB_MONKEY_BEST_FORCE_FOUND = 0,
 		BB_MONKEY_ENEMIES = list(),
 		BB_MONKEY_BLACKLISTITEMS = list(),
-		BB_MONKEY_PICKUPTARGET = null,
 		BB_MONKEY_PICKPOCKETING = FALSE,
 		BB_MONKEY_DISPOSING = FALSE,
-		BB_MONKEY_TARGET_DISPOSAL = null,
-		BB_MONKEY_CURRENT_ATTACK_TARGET = null,
 		BB_MONKEY_GUN_NEURONS_ACTIVATED = FALSE,
-		BB_MONKEY_GUN_WORKED = TRUE,
 		BB_SONG_LINES = MONKEY_SONG,
 	)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	idle_behavior = /datum/idle_behavior/idle_monkey
+
+/datum/targeting_strategy/basic/monkey
+
+/datum/targeting_strategy/basic/monkey/faction_check(datum/ai_controller/controller, mob/living/living_mob, mob/living/the_target)
+	if(controller.blackboard[BB_MONKEY_ENEMIES][the_target])
+		return FALSE
+	return ..()
 
 /datum/ai_controller/monkey/angry
 
@@ -137,11 +141,10 @@ have ways of interacting with a specific mob and control it.
 		return FALSE
 
 	set_blackboard_key(BB_MONKEY_PICKUPTARGET, weapon)
-	set_movement_target(type, weapon)
 	if(pickpocket)
-		queue_behavior(/datum/ai_behavior/monkey_equip/pickpocket)
+		queue_behavior(/datum/ai_behavior/monkey_equip/pickpocket, BB_MONKEY_PICKUPTARGET)
 	else
-		queue_behavior(/datum/ai_behavior/monkey_equip/ground)
+		queue_behavior(/datum/ai_behavior/monkey_equip/ground, BB_MONKEY_PICKUPTARGET)
 	return TRUE
 
 ///Reactive events to being hit

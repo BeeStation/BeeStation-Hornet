@@ -3,9 +3,7 @@
 	desc = "A bluespace pad able to thrust matter through bluespace, teleporting it to or from nearby locations."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "lpad-idle"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 200
-	active_power_usage = 2500
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2.5
 	hud_possible = list(DIAG_LAUNCHPAD_HUD)
 	circuit = /obj/item/circuitboard/machine/launchpad
 	var/icon_teleport = "lpad-beam"
@@ -20,9 +18,10 @@
 	var/indicator_icon = "launchpad_target"
 
 /obj/machinery/launchpad/RefreshParts()
+	. = ..()
 	var/E = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		E += M.tier
 	range = initial(range)
 	range *= E
 	//Update to viewers
@@ -31,8 +30,8 @@
 /obj/machinery/launchpad/Initialize(mapload)
 	. = ..()
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 
 	var/image/holder = hud_list[DIAG_LAUNCHPAD_HUD]
 	var/mutable_appearance/MA = new /mutable_appearance()
@@ -45,8 +44,8 @@
 	update_indicator()
 
 /obj/machinery/launchpad/Destroy()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_from_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/machinery/launchpad/examine(mob/user)
@@ -151,7 +150,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	teleporting = FALSE
 
 	// use a lot of power
-	use_power(1000)
+	use_power(active_power_usage)
 
 	var/turf/source = target
 	var/list/log_msg = list()
@@ -221,9 +220,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	icon_state = "blpad-idle"
 	icon_teleport = "blpad-beam"
 	anchored = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
+	use_power = NO_POWER_USE
 	teleport_speed = 20
 	range = 8
 	stationary = FALSE
@@ -248,7 +245,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 /obj/machinery/launchpad/briefcase/is_available()
 	if(closed)
 		return FALSE
-	return ..()
+	if(panel_open)
+		return FALSE
+	return TRUE
 
 /obj/machinery/launchpad/briefcase/attack_hand(mob/living/user)
 	. = ..()

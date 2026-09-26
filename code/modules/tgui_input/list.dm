@@ -115,10 +115,11 @@
 		start_time = world.time
 		QDEL_IN(src, timeout)
 
-/datum/tgui_list_input/Destroy(force, ...)
+/datum/tgui_list_input/Destroy(force)
 	SStgui.close_uis(src)
-	QDEL_NULL(items)
-	. = ..()
+	items?.Cut()
+	items_map?.Cut()
+	return ..()
 
 /**
  * Waits for a user's response to the tgui_list_input's prompt before returning. Returns early if
@@ -189,9 +190,9 @@
 	..(user, message, title, items, default, timeout)
 	src.callback = callback
 
-/datum/tgui_list_input/async/Destroy(force, ...)
-	QDEL_NULL(callback)
-	. = ..()
+/datum/tgui_list_input/async/Destroy(force)
+	callback = null
+	return ..()
 
 /datum/tgui_list_input/async/set_choice(choice)
 	. = ..()

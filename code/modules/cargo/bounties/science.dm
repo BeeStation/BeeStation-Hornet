@@ -1,3 +1,6 @@
+/datum/bounty/item/science
+	abstract_type = /datum/bounty/item/science
+
 /datum/bounty/item/science/boh
 	name = "Bag of Holding"
 	description = "Nanotrasen would make good use of high-capacity backpacks. If you have any, please ship them."

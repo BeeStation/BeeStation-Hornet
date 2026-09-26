@@ -223,7 +223,7 @@
 	spun = TRUE
 
 /obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, params)
-	..()
+	. = ..()
 	if(get_ammo() > 0)
 		spin()
 	update_icon()
@@ -235,12 +235,15 @@
 		spin()
 		spun = TRUE
 		return
-	..()
+	return ..()
 
-/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
-	. = ..(null, user, flag, params)
+/// No, we don't parent call. Because guncode is stupid and trash. Enjoy
+/obj/item/gun/ballistic/revolver/russian/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, click_parameters)
 
-	if(flag)
+	if(proximity_flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.combat_mode) // Flogging action
 				return
@@ -304,7 +307,7 @@
 	clumsy_check = 0
 
 /obj/item/gun/ballistic/revolver/reverse/can_trigger_gun(mob/living/user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) || (user.mind && user.mind.assigned_role == JOB_NAME_CLOWN))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) || is_clown_job(user.mind?.assigned_role))
 		return ..()
 	if(process_fire(user, user, FALSE, null, BODY_ZONE_HEAD))
 		user.visible_message(span_warning("[user] somehow manages to shoot [user.p_them()]self in the face!"), span_userdanger("You somehow shoot yourself in the face! How the hell?!"))

@@ -87,7 +87,6 @@
 /obj/item/clothing/head/hooded
 	var/obj/item/clothing/suit/hooded/suit
 	clothing_flags = SNUG_FIT
-	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/hooded/Destroy()
 	suit = null
@@ -110,6 +109,7 @@
 // Pretty much just a holder for `/datum/component/toggle_icon`.
 
 /obj/item/clothing/suit/toggle
+	abstract_type = /obj/item/clothing/suit/toggle
 	/// The noun that is displayed to the user on toggle. EX: "Toggles the suit's [buttons]".
 	var/toggle_noun = "buttons"
 

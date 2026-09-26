@@ -214,27 +214,39 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 	investigate_flags = NONE
 
-/proc/rename_area(a, new_name)
-	var/area/A = get_area(a)
-	var/prevname = "[A.name]"
-	set_area_machinery_title(A, new_name, prevname)
-	A.name = new_name
+/**
+ * rename_area
+ * Renames an area to the given new name, updating all machines' names and firedoors
+ * to properly ensure alarms and machines are named correctly at all times.
+ * Args:
+ * - area_to_rename: The area that's being renamed.
+ * - new_name: The name we're changing said area to.
+ */
+/proc/rename_area(area/area_to_rename, new_name)
+	var/prevname = "[area_to_rename.name]"
+	set_area_machinery_title(area_to_rename, new_name, prevname)
+	area_to_rename.name = new_name
 	require_area_resort() //area renamed so resort the names
 
-	if(A.firedoors)
-		for(var/D in A.firedoors)
-			var/obj/machinery/door/firedoor/FD = D
-			FD.calculate_affecting_areas()
-	A.update_areasize()
-	return TRUE
+	if(LAZYLEN(area_to_rename.firedoors))
+		for(var/obj/machinery/door/firedoor/area_firedoor as anything in area_to_rename.firedoors)
+			area_firedoor.calculate_affecting_areas()
+	area_to_rename.update_areasize()
 
-
-/proc/set_area_machinery_title(area/area, title, oldtitle)
+/**
+ * Renames all machines in a defined area from the old title to the new title.
+ * Used when renaming an area to ensure that all machiens are labeled the new area's machine.
+ * Args:
+ * - area_renaming: The area being renamed, which we'll check turfs from to rename machines in.
+ * - title: The new name of the area that we're swapping into.
+ * - oldtitle: The old name of the area that we're replacing text from.
+ */
+/proc/set_area_machinery_title(area/area_renaming, title, oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop
 		return
 
 	//stuff tied to the area to rename
-	var/list/to_rename = list(
+	var/static/list/to_rename = typecacheof(list(
 		/obj/machinery/airalarm,
 		/obj/machinery/atmospherics/components/unary/vent_scrubber,
 		/obj/machinery/atmospherics/components/unary/vent_pump,
@@ -242,12 +254,11 @@
 		/obj/machinery/firealarm,
 		/obj/machinery/light_switch,
 		/obj/machinery/power/apc,
-	)
-
-	for(var/obj/machine as anything in area)
-		if(is_type_in_list(machine, to_rename))
-			machine.name = replacetext(machine.name, oldtitle, title)
-	//TODO: much much more. Unnamed airlocks, cameras, etc.
+	))
+	for(var/list/zlevel_turfs as anything in area_renaming.get_zlevel_turf_lists())
+		for(var/turf/area_turf as anything in zlevel_turfs)
+			for(var/obj/machine as anything in typecache_filter_list(area_turf.contents, to_rename))
+				machine.name = replacetext(machine.name, oldtitle, title)
 
 #undef AREA_ERRNONE
 #undef AREA_STATION

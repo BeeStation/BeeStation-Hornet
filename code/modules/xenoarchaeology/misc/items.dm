@@ -16,7 +16,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
 	artifact_material = _artifact_type || artifact_material
-	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, GENERIC_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, INNATE_TRAIT)
 	add_artifact_component()
 
 ///Proc to add your artifact stuff, here so we can override it
@@ -60,7 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 /obj/item/xenoartifact/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
 	var/obj/item/sticker/sticky_note/artifact_tutorial/sticker = new(loc)
-	sticker.afterattack(src, src, TRUE)
+	sticker.stick_to(src)
 	sticker.pixel_y = rand(-5, 5)
 	sticker.pixel_x = rand(-5, 5)
 
@@ -80,5 +80,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	for(var/i in artifact_component.traits_catagories)
 		for(var/datum/xenoartifact_trait/trait_datum in artifact_component.traits_catagories[i])
 			trait_list += trait_datum.type
+
 	var/obj/item/sticker/xenoartifact_label/old/label = new(get_turf(src), trait_list)
-	label.afterattack(src, src, TRUE)
+	label.stick_to(src)

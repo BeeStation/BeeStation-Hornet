@@ -89,9 +89,9 @@
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
-	name = "Mining Shuttle External Airlock";
-	req_access_txt = "2"
+	name = "Mining Shuttle External Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "E" = (

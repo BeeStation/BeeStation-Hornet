@@ -10,7 +10,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/copper = 200)
 	build_path = /obj/item/clothing/glasses/hud/health
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/health_hud_night
@@ -20,7 +20,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/silver = 350, /datum/material/copper = 300)
 	build_path = /obj/item/clothing/glasses/hud/health/night
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/security_hud
@@ -30,7 +30,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/copper = 200)
 	build_path = /obj/item/clothing/glasses/hud/security
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/security_hud_night
@@ -40,7 +40,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/gold = 350, /datum/material/copper = 300)
 	build_path = /obj/item/clothing/glasses/hud/security/night
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/diagnostic_hud
@@ -50,7 +50,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/copper = 250)
 	build_path = /obj/item/clothing/glasses/hud/diagnostic
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/diagnostic_hud_night
@@ -60,7 +60,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/plasma = 300, /datum/material/copper = 300)
 	build_path = /obj/item/clothing/glasses/hud/diagnostic/night
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /////////////////////////////////////////
@@ -74,7 +74,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
 	build_path = /obj/item/clothing/mask/gas/welding
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/portaseeder
@@ -84,7 +84,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 400)
 	build_path = /obj/item/storage/bag/plants/portaseeder
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/air_horn
@@ -94,7 +94,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000, /datum/material/bananium = 1000)
 	build_path = /obj/item/bikehorn/airhorn
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL			//HONK!
 
 /datum/design/mesons
@@ -104,7 +104,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/clothing/glasses/meson
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/engine_goggles
@@ -114,7 +114,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/plasma = 100)
 	build_path = /obj/item/clothing/glasses/meson/engine
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/tray_goggles
@@ -124,7 +124,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/clothing/glasses/meson/engine/tray
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/nvgmesons
@@ -134,7 +134,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/plasma = 350, /datum/material/uranium = 1000)
 	build_path = /obj/item/clothing/glasses/meson/night
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/night_vision_goggles
@@ -144,7 +144,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/plasma = 350, /datum/material/uranium = 1000)
 	build_path = /obj/item/clothing/glasses/night
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/magboots
@@ -154,7 +154,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4500, /datum/material/silver = 1500, /datum/material/gold = 2500)
 	build_path = /obj/item/clothing/shoes/magboots
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/forcefield_projector
@@ -164,7 +164,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 1000)
 	build_path = /obj/item/forcefield_projector
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/sci_goggles
@@ -174,7 +174,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/clothing/glasses/science
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/scigoggles_night
@@ -184,7 +184,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/plasma = 300, /datum/material/copper = 300)
 	build_path= /obj/item/clothing/glasses/science/night
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/diskplantgene
@@ -194,7 +194,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
 	build_path = /obj/item/disk/plantgene
-	category = list("Electronics")
+	category = list(RND_CATEGORY_ELECTRONICS)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/roastingstick
@@ -204,7 +204,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron=1000, /datum/material/glass = 500, /datum/material/bluespace = 250)
 	build_path = /obj/item/melee/roastingstick
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/locator
@@ -214,7 +214,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron=1000, /datum/material/glass = 500, /datum/material/silver = 500)
 	build_path = /obj/item/locator
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/quantum_keycard
@@ -224,7 +224,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 500, /datum/material/iron = 500, /datum/material/silver = 500, /datum/material/bluespace = 1000)
 	build_path = /obj/item/quantum_keycard
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/anomaly_neutralizer
@@ -234,7 +234,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/gold = 2000, /datum/material/plasma = 5000, /datum/material/uranium = 2000)
 	build_path = /obj/item/anomaly_neutralizer
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/donksoft_refill
@@ -244,7 +244,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 25000, /datum/material/glass = 15000, /datum/material/plasma = 20000, /datum/material/gold = 10000, /datum/material/silver = 10000)
 	build_path = /obj/item/vending_refill/donksoft
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 
 /datum/design/oxygen_tank
 	name = "Oxygen Tank"
@@ -253,7 +253,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/tank/internals/oxygen/empty
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/plasma_tank
@@ -263,7 +263,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/tank/internals/plasma/empty
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/xenoartifact_labeller
@@ -273,7 +273,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/silver = 1000, /datum/material/gold = 3000)
 	build_path = /obj/item/xenoarchaeology_labeler
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/artifact_pinchers
@@ -283,7 +283,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/silver = 1000)
 	build_path = /obj/item/clothing/gloves/artifact_pinchers
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/xenoartifact_tracker
@@ -293,7 +293,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 500, /datum/material/gold = 500)
 	build_path = /obj/item/sticker/artifact_tracker
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/bluespace_capsule
@@ -302,7 +302,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/titanium = 1000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
 	build_path = /obj/item/bluespace_capsule
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /////////////////////////////////////////
@@ -316,7 +316,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 200)
 	build_path = /obj/item/larryframe
-	category = list("Electronics")
+	category = list(RND_CATEGORY_ELECTRONICS)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/advmop
@@ -326,7 +326,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 200)
 	build_path = /obj/item/mop/advanced
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/blutrash
@@ -336,7 +336,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/gold = 1500, /datum/material/uranium = 250, /datum/material/plasma = 1500)
 	build_path = /obj/item/storage/bag/trash/bluespace
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/buffer
@@ -346,7 +346,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 200)
 	build_path = /obj/item/janiupgrade
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/spraybottle
@@ -356,7 +356,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 200)
 	build_path = /obj/item/reagent_containers/spray
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/beartrap
@@ -366,7 +366,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/titanium = 1000)
 	build_path = /obj/item/restraints/legcuffs/beartrap
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /////////////////////////////////////////
@@ -380,7 +380,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
 	build_path = /obj/item/holosign_creator
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/holobarrier_jani
@@ -390,7 +390,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/silver = 1000)
 	build_path = /obj/structure/holosign/barrier/wetsign
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/holosignsec
@@ -400,7 +400,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/gold = 1000, /datum/material/silver = 1000)
 	build_path = /obj/item/holosign_creator/security
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/holosignengi
@@ -410,7 +410,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/gold = 1000, /datum/material/silver = 1000)
 	build_path = /obj/item/holosign_creator/engineering
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/holosignatmos
@@ -420,7 +420,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/gold = 1000, /datum/material/silver = 1000)
 	build_path = /obj/item/holosign_creator/atmos
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/holobarrier_med
@@ -430,7 +430,7 @@
 	build_path = /obj/item/holosign_creator/medical
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 100) //a hint of silver since it can troll 2 antags (bad viros and sentient disease)
 	id = "holobarrier_med"
-	category = list("Medical Designs")
+	category = list(RND_CATEGORY_MEDICAL_DESIGNS)
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
@@ -444,7 +444,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/diamond = 5000, /datum/material/uranium = 8000, /datum/material/silver = 4500, /datum/material/gold = 5000)
 	build_path = /obj/item/reactive_armour_shell
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /////////////////////////////////////////
@@ -458,7 +458,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2500)
 	build_path = /obj/item/flashlight/seclite
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/detective_scanner
@@ -468,7 +468,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000, /datum/material/gold = 2500, /datum/material/silver = 2000)
 	build_path = /obj/item/detective_scanner
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/pepperspray
@@ -478,7 +478,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000)
 	build_path = /obj/item/reagent_containers/peppercloud_deployer/empty
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/bola_energy
@@ -488,7 +488,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/silver = 500, /datum/material/plasma = 500, /datum/material/titanium = 500)
 	build_path = /obj/item/restraints/legcuffs/bola/energy
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/zipties
@@ -498,7 +498,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 250)
 	build_path = /obj/item/restraints/handcuffs/cable/zipties
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/evidencebag
@@ -508,7 +508,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 100)
 	build_path = /obj/item/evidencebag
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/plumbing_rcd
@@ -517,7 +517,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 75000, /datum/material/glass = 37500, /datum/material/plastic = 1000)
 	build_path = /obj/item/construction/plumbing
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/glasses_prescription
@@ -527,7 +527,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 2000)
 	build_path = /obj/item/clothing/glasses/regular
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
@@ -540,7 +540,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 500)
 	build_path = /obj/item/stack/sticky_tape
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/super_sticky_tape
@@ -549,7 +549,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 3000)
 	build_path = /obj/item/stack/sticky_tape/super
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/pointy_tape
@@ -558,7 +558,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/plastic = 1000)
 	build_path = /obj/item/stack/sticky_tape/pointy
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/paper_reader
@@ -568,7 +568,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
 	build_path = /obj/item/paper_reader
-	category = list("Electronics")
+	category = list(RND_CATEGORY_ELECTRONICS)
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
 /datum/design/oven_tray
@@ -578,7 +578,7 @@
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 500)
 	build_path = /obj/item/plate/oven_tray
-	category = list("initial","Equipment")
+	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
 
@@ -592,7 +592,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 2500)
 	build_path = /obj/item/clothing/gloves/tackler/dolphin
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/tackle_rocket
@@ -601,5 +601,5 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plasma = 1000, /datum/material/plastic = 2000)
 	build_path = /obj/item/clothing/gloves/tackler/rocket
-	category = list("Equipment")
+	category = list(RND_CATEGORY_EQUIPMENT)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

@@ -23,9 +23,9 @@
 /area/shuttle/supply)
 "m" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	name = "Supply Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/docking_port/mobile/supply{
 	dir = 4;
@@ -39,9 +39,9 @@
 /area/shuttle/supply)
 "r" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	name = "Supply Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup{

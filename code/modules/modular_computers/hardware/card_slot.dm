@@ -45,35 +45,35 @@
 			return null
 		return
 
-/obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
+/obj/item/computer_hardware/card_slot/application_attackby(obj/item/attacking_item, mob/living/user)
 	if(!holder)
 		return FALSE
 
-	if(!istype(I, /obj/item/card/id))
+	if(!istype(attacking_item, /obj/item/card/id))
 		return FALSE
 
-	var/obj/item/card/id/newcard = I
+	var/obj/item/card/id/newcard = attacking_item
 	if(!newcard.electric && !hacked) //Lets Non Eletric IDs pass if Hacked
-		to_chat(user, span_warning("You attempt to jam \the [I] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
+		to_chat(user, span_warning("You attempt to jam \the [attacking_item] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
 		return
 
 	if(stored_card)
 		return FALSE
 
 	// item instead of player is checked so telekinesis will still work if the item itself is close
-	if(!in_range(src, I))
+	if(!in_range(src, attacking_item))
 		return FALSE
 
 	if(user)
-		if(!user.transferItemToLoc(I, src))
+		if(!user.transferItemToLoc(attacking_item, src))
 			return FALSE
 	else
-		I.forceMove(src)
+		attacking_item.forceMove(src)
 	if(fake_card)
 		qdel(fake_card)
 		fake_card = null
-	stored_card = I
-	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
+	stored_card = attacking_item
+	to_chat(user, span_notice("You insert \the [attacking_item] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -88,7 +88,7 @@
 /obj/item/computer_hardware/card_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
 		to_chat(user, span_warning("There are no cards in \the [src]."))
-		return FALSE
+		return null
 	var/obj/item/computer_hardware/card_slot/card_slot2 = holder?.all_components[MC_CARD2]
 	if(card_slot2?.hacked && card_slot2.stored_card)
 		card_slot2.fake_card = new card_slot2.stored_card.type(src) // make a fake clone using the same type
@@ -98,27 +98,24 @@
 		user.put_in_hands(stored_card)
 	else
 		stored_card.forceMove(drop_location())
-	stored_card = null
 
 	if(holder)
-		if(holder.active_program)
-			holder.active_program.event_idremoved(0)
-
-		for(var/p in holder.idle_threads)
-			var/datum/computer_file/program/computer_program = p
+		holder.active_program?.event_idremoved(0)
+		for(var/datum/computer_file/program/computer_program as anything in holder.idle_threads)
 			computer_program.event_idremoved(1)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_wearer = user
 		if(human_wearer.wear_id == holder)
 			human_wearer.sec_hud_set_ID()
 	to_chat(user, span_notice("You remove the card from \the [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	. = stored_card
 	stored_card = null
 	current_identification = null
 	current_job = null
 	holder?.update_appearance()
 	holder?.ui_update()
-	return TRUE
 
 /obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
 	if(..())

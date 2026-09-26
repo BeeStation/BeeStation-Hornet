@@ -4,7 +4,7 @@
 		RegisterSignal(src, COMSIG_PARENT_RECEIVE_BUFFER, PROC_REF(_buffer_handler));\
 	}\
 
-#define DEFINE_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/proc/_buffer_handler(datum/source, mob/user, atom/buffer, obj/item/buffer_parent)
+#define DEFINE_BUFFER_HANDLER(TYPEPATH) ##TYPEPATH/proc/_buffer_handler(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 
 #define TRY_STORE_IN_BUFFER(target, buffer_item) (SEND_SIGNAL(target, COMSIG_ITEM_PUSH_BUFFER, buffer_item) & COMPONENT_BUFFER_STORE_SUCCESS)
 
@@ -17,7 +17,6 @@
 
 /datum/component/buffer/Initialize(...)
 	. = ..()
-
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(intercept_attack))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(self_flush_buffer))
 	RegisterSignal(parent, COMSIG_ITEM_FLUSH_BUFFER, PROC_REF(self_flush_buffer))
