@@ -93,7 +93,7 @@
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.disorient_length && takes_stamina_damage())
-			Disorient(P.disorient_length, P.disorient_damage, paralyze = P.disorient_status_length, protection = armor)
+			Disorient(P.disorient_length, P.disorient_damage, paralyze = P.disorient_status_length, stack_status = P.disorient_stack_status, protection = armor)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK

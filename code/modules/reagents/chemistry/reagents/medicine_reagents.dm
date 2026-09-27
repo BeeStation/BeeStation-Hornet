@@ -698,10 +698,12 @@
 /datum/reagent/medicine/ephedrine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ephedrine)//mildly slower than meth
+	affected_mob.stamina.add_regen_modifier(type, 5)
 
 /datum/reagent/medicine/ephedrine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ephedrine)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -712,7 +714,6 @@
 			affected_mob.set_jitter_if_lower(20 SECONDS)
 
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.stamina.adjust(10 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1456,10 +1457,17 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 
+/datum/reagent/medicine/changelingadrenaline/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 10)
+
+/datum/reagent/medicine/changelingadrenaline/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.stamina.adjust(20 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/changelingadrenaline/overdose_process(mob/living/affected_mob, delta_time, times_fired)
@@ -1537,15 +1545,17 @@
 /datum/reagent/medicine/modafinil/on_mob_end_metabolize(mob/living/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/modafil)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(overdosed) // We do not want any effects on OD
+		affected_mob.stamina.remove_regen_modifier(type)
 		return
 
 	overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.stamina.adjust(15 * REM * delta_time)
+	affected_mob.stamina.add_regen_modifier(type, 7.5)
 	affected_mob.set_jitter_if_lower(1 SECONDS * REM * delta_time)
 	metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
 	return UPDATE_MOB_HEALTH

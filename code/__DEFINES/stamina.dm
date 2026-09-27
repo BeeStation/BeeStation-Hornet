@@ -16,6 +16,10 @@
 #define STAMINA_EXHAUSTION_THRESHOLD_MODIFIER (0.4) //40% or less
 /// Carbons will recover from Exhaustion above this point
 #define STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER (0.7) //70% or more
+///The stamina HUD pulses below this percentage, as a warning before exhaustion
+#define STAMINA_EXHAUSTION_WARNING_MODIFIER (0.5)
+///Stamina regen multiplier while resting and not incapacitated
+#define STAMINA_RESTING_REGEN_MULTIPLIER 2
 ///The slowdown when a mob is exhausted
 #define STAMINA_EXHAUSTION_MOVESPEED_SLOWDOWN 3
 ///Carbons will be exposed to stamina stuns upon dropping below this percentage

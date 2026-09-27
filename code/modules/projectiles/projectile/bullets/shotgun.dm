@@ -27,7 +27,9 @@
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 5
-	stamina = 55
+	disorient_length = 2 SECONDS
+	disorient_damage = 60
+	disorient_status_length = 4 SECONDS
 	jitter = 5
 	armour_penetration = -10
 	bleed_force = BLEED_TINY
@@ -74,7 +76,10 @@
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
 	damage = 3
-	stamina = 12
+	disorient_length = 0.5 SECONDS
+	disorient_damage = 12
+	disorient_status_length = 4 SECONDS
+	disorient_stack_status = FALSE
 	tile_dropoff = 0.5
 	tile_dropoff_s = 0
 	ricochets_max = 2
@@ -94,7 +99,10 @@
 /obj/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
 	damage = 4
-	stamina = 15
+	disorient_length = 0.5 SECONDS
+	disorient_damage = 15
+	disorient_status_length = 4 SECONDS
+	disorient_stack_status = FALSE
 
 /obj/projectile/bullet/pellet/Range()
 	..()
@@ -102,6 +110,8 @@
 		damage -= tile_dropoff
 	if(stamina > 0)
 		stamina -= tile_dropoff_s
+	if(disorient_damage > 0)
+		disorient_damage -= tile_dropoff_s
 	if(damage < 0 && stamina < 0)
 		qdel(src)
 

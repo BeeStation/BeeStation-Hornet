@@ -79,6 +79,27 @@
 	clear_alert(ALERT_SOFTCRIT)
 	remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 
+/mob/living/carbon/on_incapacitated_trait_gain(datum/source)
+	. = ..()
+	update_resting_regen()
+
+/mob/living/carbon/on_incapacitated_trait_loss(datum/source)
+	. = ..()
+	update_resting_regen()
+
+/mob/living/carbon/update_resting()
+	. = ..()
+	update_resting_regen()
+
+///Resting speeds up stamina regen, but not while incapacitated, so resting through a stun doesn't count.
+/mob/living/carbon/proc/update_resting_regen()
+	if(!stamina) //Destroy() deletes stamina before status effects remove their traits
+		return
+	if(resting && !HAS_TRAIT(src, TRAIT_INCAPACITATED))
+		stamina.add_regen_multiplier("resting", STAMINA_RESTING_REGEN_MULTIPLIER)
+	else
+		stamina.remove_regen_multiplier("resting")
+
 /**
  * On gain of TRAIT_NOBREATH
  *

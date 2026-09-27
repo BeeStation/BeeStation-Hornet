@@ -806,8 +806,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(stat == DEAD)
 		hud_used.stamina.icon_state = "stamina_dead"
+		hud_used.stamina.set_warning(FALSE)
 	else
 		var/max = stamina.maximum
+		hud_used.stamina.set_warning(!HAS_TRAIT(src, TRAIT_EXHAUSTED) && stamina.current < max * STAMINA_EXHAUSTION_WARNING_MODIFIER)
 		if(shown_stamina_loss == null)
 			shown_stamina_loss = stamina.loss
 		if(shown_stamina_loss >= max || HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))

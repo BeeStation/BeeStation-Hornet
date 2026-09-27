@@ -165,6 +165,8 @@
 	var/disorient_damage = 0
 	/// Paralyze duration if target is exhausted
 	var/disorient_status_length = 0 SECONDS
+	/// If FALSE, repeat hits refresh the paralyze instead of adding to it. For pellets and bursts.
+	var/disorient_stack_status = TRUE
 
 	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
 	var/dismemberment = 0

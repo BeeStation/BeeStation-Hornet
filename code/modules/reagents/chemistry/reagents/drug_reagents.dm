@@ -80,6 +80,14 @@
 	addiction_types = list(/datum/addiction/stimulants = 14) //5.6 per 2 seconds
 	metabolized_traits = list(TRAIT_NOBLOCK)
 
+/datum/reagent/drug/crank/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 9)
+
+/datum/reagent/drug/crank/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/drug/crank/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
@@ -96,7 +104,6 @@
 	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
 	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
 	affected_mob.adjustToxLoss(0.75 * REM * delta_time, updating_health = FALSE)
-	affected_mob.stamina.adjust(18 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/crank/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -263,13 +270,20 @@
 	metabolized_traits = list(TRAIT_NOBLOCK)
 	addiction_types = list(/datum/addiction/stimulants = 75)
 
+/datum/reagent/drug/aranesp/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 9)
+
+/datum/reagent/drug/aranesp/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/drug/aranesp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
 	var/need_mob_update
-	affected_mob.stamina.adjust(18 * REM * delta_time)
 	need_mob_update = affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	if(DT_PROB(30, delta_time))
 		affected_mob.losebreath++

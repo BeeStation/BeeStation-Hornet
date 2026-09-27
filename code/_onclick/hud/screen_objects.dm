@@ -800,6 +800,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 	name = "stamina"
 	icon_state = "stamina0"
 	screen_loc = ui_stamina
+	///Are we pulsing to warn that exhaustion is close?
+	var/warning = FALSE
+
+/atom/movable/screen/stamina/proc/set_warning(new_warning)
+	if(warning == new_warning)
+		return
+	warning = new_warning
+	if(warning)
+		animate(src, color = "#ff4040", time = 0.4 SECONDS, loop = -1, easing = SINE_EASING)
+		animate(color = null, time = 0.4 SECONDS)
+	else
+		animate(src)
+		color = null
 
 /atom/movable/screen/stamina/Click(location, control, params)
 	if (iscarbon(usr))
