@@ -326,6 +326,99 @@ Doesn't work on other aliens/AI.*/
 /datum/action/alien/acid/neurotoxin/on_activate(mob/user, atom/target)
 	return TRUE
 
+/datum/action/alien/crack_open
+	name = "Crack Open"
+	desc = "Seize an adjacent mech and tear open its hatch over 6 seconds, dragging its pilot out. The mech is helpless while you hold it, and only death will break your grip. AI-piloted mechs are torn apart instead."
+	button_icon_state = "alien_barf"
+	plasma_cost = 100
+	cooldown_time = 60 SECONDS
+	requires_target = TRUE
+	// Plasma and cooldown are spent the moment the grab starts, not after the channel, so on_activate handles them itself.
+	unset_after_click = FALSE
+
+/datum/action/alien/crack_open/set_click_ability(mob/on_who)
+	. = ..()
+	if(!.)
+		return
+	to_chat(on_who, span_noticealien("You flex your claws. <b>Click an adjacent mech to crack it open!</b>"))
+
+/datum/action/alien/crack_open/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
+	. = ..()
+	if(!. || !refund_cooldown)
+		return
+	to_chat(on_who, span_noticealien("You relax your claws."))
+
+/datum/action/alien/crack_open/on_activate(mob/user, atom/target)
+	var/obj/vehicle/sealed/mecha/mech = target
+	if(!ismecha(mech))
+		owner.balloon_alert(owner, "not a mech")
+		return FALSE
+	if(!owner.Adjacent(mech))
+		owner.balloon_alert(owner, "too far")
+		return FALSE
+	if(!LAZYLEN(mech.occupants))
+		owner.balloon_alert(owner, "no one inside")
+		return FALSE
+	var/mob/living/carbon/queen = owner
+	queen.adjustPlasma(-plasma_cost)
+	start_cooldown()
+	unset_click_ability(owner, refund_cooldown = FALSE)
+	seize(mech)
+	if(do_after(owner, CRACK_OPEN_CHANNEL_TIME, mech, extra_checks = CALLBACK(src, PROC_REF(can_keep_holding), mech)))
+		finish_crack_open(mech)
+	release(mech)
+	// The cost was paid up front. Returning FALSE keeps the base action from charging plasma a second time.
+	return FALSE
+
+/// Pins the mech in place and warns everyone around. Always paired with release().
+/datum/action/alien/crack_open/proc/seize(obj/vehicle/sealed/mecha/mech)
+	ADD_TRAIT(mech, TRAIT_MECHA_SEIZED, CRACK_OPEN_TRAIT)
+	RegisterSignal(mech, COMSIG_ATOM_EXAMINE, PROC_REF(on_seized_examine))
+	owner.emote("roar")
+	owner.visible_message(
+		span_danger("[owner] seizes [mech] and begins tearing at its hatch!"),
+		span_noticealien("You seize [mech] and start tearing it open!"),
+	)
+	to_chat(mech.occupants, span_userdanger("Something massive seizes the hull!"))
+
+/// Lets go of the mech, whatever happened during the channel. Safe to call more than once.
+/datum/action/alien/crack_open/proc/release(obj/vehicle/sealed/mecha/mech)
+	if(QDELETED(mech))
+		return
+	REMOVE_TRAIT(mech, TRAIT_MECHA_SEIZED, CRACK_OPEN_TRAIT)
+	UnregisterSignal(mech, COMSIG_ATOM_EXAMINE)
+
+/// do_after() check: the grip holds while someone is still inside and the mech stays in reach. Damage never breaks it.
+/datum/action/alien/crack_open/proc/can_keep_holding(obj/vehicle/sealed/mecha/mech)
+	return !QDELETED(mech) && LAZYLEN(mech.occupants) && owner.Adjacent(mech)
+
+/// The hatch gives way: pilots are dragged out onto our tile, or an AI-run mech is torn apart.
+/datum/action/alien/crack_open/proc/finish_crack_open(obj/vehicle/sealed/mecha/mech)
+	for(var/mob/living/occupant as anything in mech.occupants)
+		if(!isAI(occupant))
+			continue
+		owner.visible_message(
+			span_danger("[owner] rips [mech] apart, finding only circuitry inside!"),
+			span_noticealien("You rip [mech] apart. There was only circuitry inside."),
+		)
+		// The normal destruction path: wreckage, and Eject() sends the AI home or destroys it
+		mech.take_damage(INFINITY, BRUTE, 0)
+		return
+	var/turf/drop_turf = get_turf(owner)
+	var/list/pilots = mech.occupants.Copy()
+	for(var/mob/living/occupant as anything in pilots)
+		mech.mob_exit(occupant, forced = TRUE)
+		if(!iscarbon(occupant))
+			continue // MMI pilots stay inside their MMI, which drops next to the mech
+		occupant.forceMove(drop_turf)
+		occupant.Knockdown(CRACK_OPEN_EJECT_KNOCKDOWN)
+		to_chat(occupant, span_userdanger("[owner] tears you out of [mech]!"))
+	owner.visible_message(span_danger("[owner] tears open [mech] and drags out its pilot!"))
+
+/datum/action/alien/crack_open/proc/on_seized_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += span_danger("[owner] is tearing it open!")
+
 /datum/action/alien/make_structure/resin
 	name = "Secrete Resin"
 	desc = "Secrete tough malleable resin: walls, membranes, nests, or a snare that traps any mech that steps on it."

@@ -267,4 +267,40 @@
 	TEST_ASSERT_EQUAL(resin_action.structures["resin snare"], /obj/structure/alien/resin_snare, "Secrete Resin can't build a resin snare.")
 	TEST_ASSERT(findtext(resin_action.desc, "snare"), "Secrete Resin's description doesn't mention the snare.")
 
+/// Crack Open refuses bad targets for free, pins the mech while held, and drags the human pilot out when it completes.
+/// The action is granted to a drone: spawning a Queen registers a shuttle infestation and a game-end timer.
+/datum/unit_test/xeno_anti_mech_crack_open
+
+/datum/unit_test/xeno_anti_mech_crack_open/Run()
+	var/mob/living/carbon/alien/humanoid/drone/drone = allocate(/mob/living/carbon/alien/humanoid/drone)
+	var/datum/action/alien/crack_open/crack_open = new(drone)
+	crack_open.Grant(drone)
+	var/turf/next_to_drone = locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z)
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand, next_to_drone)
+	TEST_ASSERT(drone.getPlasma() >= crack_open.plasma_cost, "Test setup: the drone needs enough plasma for Crack Open.")
+
+	// An empty mech is refused, and nothing is spent.
+	var/plasma_before = drone.getPlasma()
+	TEST_ASSERT(!crack_open.on_activate(drone, mech), "Crack Open accepted an empty mech.")
+	TEST_ASSERT_EQUAL(drone.getPlasma(), plasma_before, "Crack Open spent plasma on an empty mech.")
+	TEST_ASSERT(crack_open.is_available(), "Crack Open went on cooldown after an invalid target.")
+
+	// The grab pins the mech. Letting go, even twice, frees it.
+	crack_open.seize(mech)
+	TEST_ASSERT(HAS_TRAIT_FROM(mech, TRAIT_MECHA_SEIZED, CRACK_OPEN_TRAIT), "Seizing a mech did not pin it.")
+	TEST_ASSERT(findtext(jointext(mech.examine(drone), "\n"), "is tearing it open"), "Examining a seized mech did not say it's being torn open.")
+	crack_open.release(mech)
+	crack_open.release(mech)
+	TEST_ASSERT(!HAS_TRAIT(mech, TRAIT_MECHA_SEIZED), "Releasing the grab left the mech pinned.")
+
+	// Completing the channel drags the human pilot out onto the grabber's tile and leaves the mech intact.
+	var/mob/living/carbon/human/pilot = allocate(/mob/living/carbon/human/consistent)
+	mech.add_occupant(pilot)
+	pilot.forceMove(mech)
+	crack_open.finish_crack_open(mech)
+	TEST_ASSERT(!LAZYLEN(mech.occupants), "Crack Open left the pilot inside the mech.")
+	TEST_ASSERT_EQUAL(pilot.loc, get_turf(drone), "The pilot was not dragged onto the Queen's tile.")
+	TEST_ASSERT(pilot.IsKnockdown(), "The dragged-out pilot was not knocked down.")
+	TEST_ASSERT(!QDELETED(mech), "Cracking open a human-piloted mech destroyed it.")
+
 #undef XENO_ANTI_MECH_TEST_TRAIT
