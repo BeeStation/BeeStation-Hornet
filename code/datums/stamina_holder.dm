@@ -10,12 +10,8 @@
 	///The difference between current and maximum stamina
 	var/loss = 0
 	var/loss_as_percent = 0
-	///Are we regenerating right now?
-	var/is_regenerating = TRUE
 	///Regeneration is held off until this world.time
 	var/regen_blocked_until = 0
-	///Every tick, remove this much stamina
-	var/decrement = 0
 
 	VAR_PRIVATE/default_max
 	VAR_PRIVATE/default_regen
@@ -39,10 +35,8 @@
 	return ..()
 
 /datum/stamina_container/process(delta_time)
-	if(delta_time && is_regenerating && world.time >= regen_blocked_until)
+	if(delta_time && world.time >= regen_blocked_until)
 		current = min(current + (regen_rate*delta_time), maximum)
-	if(delta_time && decrement)
-		current = max(current + (decrement*delta_time), 0)
 	loss = maximum - current
 	loss_as_percent = maximum ? loss / maximum * 100 : 0
 
@@ -54,22 +48,9 @@
 
 	parent.on_stamina_update()
 
-///Pause stamina regeneration for some period of time. Does not support doing this from multiple sources at once because I do not do that and I will add it later if I want to.
-/datum/stamina_container/proc/pause(time)
-	is_regenerating = FALSE
-	addtimer(CALLBACK(src, PROC_REF(resume)), time)
-
-///Hold off stamina regeneration for some period of time. Safe to call from multiple sources.
+///Hold off stamina regeneration for some period of time.
 /datum/stamina_container/proc/block_regen(time)
 	regen_blocked_until = max(regen_blocked_until, world.time + time)
-
-///Stops stamina regeneration entirely until manually resumed.
-/datum/stamina_container/proc/stop()
-	is_regenerating = FALSE
-
-///Resume stamina processing
-/datum/stamina_container/proc/resume()
-	is_regenerating = TRUE
 
 ///Adjust stamina by an amount. Returns the actual change in stamina.
 /datum/stamina_container/proc/adjust(amt as num, forced)
@@ -77,12 +58,16 @@
 		return 0
 	if(amt < 0 && HAS_TRAIT_FROM(parent, TRAIT_INCAPACITATED, STAMINA))
 		return 0
+	if(SEND_SIGNAL(parent, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE, STAMINA, -amt, forced) & COMPONENT_IGNORE_CHANGE)
+		return 0
 	///Our parent might want to fuck with these numbers
 	var/modify = parent.pre_stamina_change(amt, forced)
 	var/old_current = current
 	current = round(clamp(current + modify, 0, maximum), DAMAGE_PRECISION)
 	process()
-	return current - old_current
+	. = current - old_current
+	if(. < 0)
+		parent.on_stamina_loss()
 
 /datum/stamina_container/proc/add_regen_modifier(source, amount)
 	LAZYSET(regen_modifiers, source, amount)

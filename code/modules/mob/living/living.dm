@@ -1270,8 +1270,12 @@
 		return FALSE
 	return TRUE
 
-///Called by [update()][/datum/stamina_container/proc/update]
+///Called by [process()][/datum/stamina_container/proc/process]
 /mob/living/proc/on_stamina_update()
+	return
+
+///Called by [adjust()][/datum/stamina_container/proc/adjust] when stamina goes down. Not called on regen ticks.
+/mob/living/proc/on_stamina_loss()
 	return
 
 /mob/living/carbon/alien/on_stamina_update()
