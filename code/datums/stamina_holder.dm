@@ -12,6 +12,8 @@
 	var/loss_as_percent = 0
 	///Are we regenerating right now?
 	var/is_regenerating = TRUE
+	///Regeneration is held off until this world.time
+	var/regen_blocked_until = 0
 	///Every tick, remove this much stamina
 	var/decrement = 0
 
@@ -37,7 +39,7 @@
 	return ..()
 
 /datum/stamina_container/process(delta_time)
-	if(delta_time && is_regenerating)
+	if(delta_time && is_regenerating && world.time >= regen_blocked_until)
 		current = min(current + (regen_rate*delta_time), maximum)
 	if(delta_time && decrement)
 		current = max(current + (decrement*delta_time), 0)
@@ -56,6 +58,10 @@
 /datum/stamina_container/proc/pause(time)
 	is_regenerating = FALSE
 	addtimer(CALLBACK(src, PROC_REF(resume)), time)
+
+///Hold off stamina regeneration for some period of time. Safe to call from multiple sources.
+/datum/stamina_container/proc/block_regen(time)
+	regen_blocked_until = max(regen_blocked_until, world.time + time)
 
 ///Stops stamina regeneration entirely until manually resumed.
 /datum/stamina_container/proc/stop()

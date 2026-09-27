@@ -64,4 +64,8 @@
 ///The amount of tiles you need to move to be considered moving in a sustained sprint
 #define STAMINA_SUSTAINED_SPRINT_THRESHOLD 8
 ///How much stamina is taken per tile while sprinting
-#define STAMINA_SPRINT_COST 4
+#define STAMINA_SPRINT_COST 2.3
+///How long stamina regen is held off after a sprinted step
+#define STAMINA_SPRINT_REGEN_DELAY 1 SECONDS
+///Sprint cost multiplier while dragging or carrying something that slows you down
+#define STAMINA_SPRINT_HAUL_MODIFIER 2
