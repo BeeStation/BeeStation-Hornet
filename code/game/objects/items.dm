@@ -544,7 +544,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user && outside_storage)
-		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
+		if(!can_mob_unequip(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
 	. = FALSE
@@ -560,7 +560,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (. == SECONDARY_ATTACK_CALL_NORMAL)
 		. = SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/proc/allow_attack_hand_drop(mob/user)
+/// Called when a mob is manually attempting to unequip the item
+/// Returning FALSE will prevent the unequip from happening
+/obj/item/proc/can_mob_unequip(mob/user)
 	return TRUE
 
 /obj/item/attack_paw(mob/user, list/modifiers)
@@ -1585,7 +1587,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
-/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, click_parameters)
 	CRASH("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 /**

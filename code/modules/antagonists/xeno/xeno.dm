@@ -15,6 +15,7 @@
 	name = "Xenomorph"
 	banning_key = ROLE_ALIEN
 	show_in_antagpanel = FALSE
+	antagpanel_category = ANTAG_GROUP_XENOS
 	show_to_ghosts = TRUE
 	// TODO: ui_name = "AntagInfoXeno"
 	required_living_playtime = 4

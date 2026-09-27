@@ -261,10 +261,9 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	. = ..()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag)
-		mode = RCD_FLOORWALL
-		rcd_create(target, user)
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, click_parameters)
+	mode = RCD_FLOORWALL
+	rcd_create(target, user)
 
 /obj/item/construction/rcd/ui_action_click(mob/user, actiontype)
 	if (!COOLDOWN_FINISHED(src, destructive_scan_cooldown))
@@ -866,7 +865,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	if(.)
 		user.Beam(A,icon_state="rped_upgrade", time = delay_mod * 5 SECONDS) //5 SECONDS * 0.6 = 3 seconds
 
-/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, click_parameters)
 	if(ranged && range_check(target, user))
 		mode = RCD_FLOORWALL
 		rcd_create(target, user)

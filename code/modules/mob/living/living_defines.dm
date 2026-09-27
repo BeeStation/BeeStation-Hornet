@@ -209,3 +209,6 @@
 	/// Modify this via add_offsets and remove_offsets,
 	/// NOT directly (and definitely avoid modifying offsets directly)
 	VAR_PRIVATE/list/offsets
+
+	/// how many tiles can this mob reach with their hands? 1 tile is adjacent.
+	var/reach_length = 1

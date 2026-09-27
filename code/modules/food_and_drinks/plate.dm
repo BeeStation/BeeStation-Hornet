@@ -51,17 +51,18 @@
 	A.attackby(object_to_eat, user)
 	return TRUE //No normal attack
 
+/obj/item/plate/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return TRUE
+
 ///This proc adds the food to viscontents and makes sure it can deregister if this changes.
 /obj/item/plate/proc/AddToPlate(obj/item/item_to_plate)
 	vis_contents += item_to_plate
-	item_to_plate.flags_1 |= IS_ONTOP_1
 	RegisterSignal(item_to_plate, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_plate, COMSIG_QDELETING, PROC_REF(ItemMoved))
 	update_appearance()
 
 ///This proc cleans up any signals on the item when it is removed from a plate, and ensures it has the correct state again.
 /obj/item/plate/proc/ItemRemovedFromPlate(obj/item/removed_item)
-	removed_item.flags_1 &= ~IS_ONTOP_1
 	vis_contents -= removed_item
 	UnregisterSignal(removed_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 

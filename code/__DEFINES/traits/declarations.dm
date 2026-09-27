@@ -183,6 +183,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_WORN_ICON "no_worn_icon"
 /// Items with this trait will not appear when examined.
 #define TRAIT_EXAMINE_SKIP "examine_skip"
+/// An item is ALWAYS considered baseline reachable and will pipe into CanBeReached().
+#define TRAIT_SKIP_BASIC_REACH_CHECK "skip_basic_reach_check"
 /// Gives you the Shifty Eyes quirk, rarely making people who examine you think you examined them back even when you didn't
 #define TRAIT_SHIFTY_EYES "shifty_eyes"
 /// Tells us that the mob currently has the fire_handler/wet_stacks status effect

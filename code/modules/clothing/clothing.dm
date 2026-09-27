@@ -63,17 +63,12 @@
 	if(!icon_state)
 		item_flags |= ABSTRACT
 
-/obj/item/clothing/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/M = usr
+	AddElement(/datum/element/drag_pickup)
 
-	if(ismecha(M.loc)) // stops inventory actions in a mech
-		return
-
-	if(!M.incapacitated && loc == M && istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-			add_fingerprint(usr)
+/obj/item/clothing/can_mob_unequip(mob/user)
+	if(ismecha(user.loc))
+		return FALSE
+	return ..()
 
 /obj/item/food/clothing // fuck you
 	name = "temporary moth clothing snack item"

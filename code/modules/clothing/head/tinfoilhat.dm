@@ -31,13 +31,12 @@
 		psychic_overlay.plane = ANTI_PSYCHIC_PLANE
 		user.add_overlay(psychic_overlay)
 
-/obj/item/clothing/head/costume/foilhat/MouseDrop(atom/over_object)
-	//God Im sorry
-	if(usr)
-		var/mob/living/carbon/C = usr
-		if(src == C.head)
-			to_chat(C, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
-			return
+/obj/item/clothing/head/costume/foilhat/can_mob_unequip(mob/user)
+	if(iscarbon(user))
+		var/mob/living/carbon/wearer = user
+		if(src == wearer.head)
+			to_chat(user, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
+			return FALSE
 	return ..()
 
 /obj/item/clothing/head/costume/foilhat/dropped(mob/user)
@@ -48,14 +47,6 @@
 		var/mob/living/L = user
 		L.sec_hud_set_implants()
 	user.cut_overlay(psychic_overlay)
-
-/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user, list/modifiers)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if(src == C.head)
-			to_chat(user, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
-			return
-	return ..()
 
 /obj/item/clothing/head/costume/foilhat/plasmaman
 	name = "tinfoil envirosuit helmet"

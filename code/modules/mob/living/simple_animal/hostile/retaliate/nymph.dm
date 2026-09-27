@@ -63,7 +63,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	GLOB.poi_list |= src
+	SSpoints_of_interest.on_poi_element_added(src)
 
 /mob/living/simple_animal/hostile/retaliate/nymph/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -94,7 +94,7 @@
 			time_spent_in_light = 0  //No light? Reset the timer.
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
-	GLOB.poi_list -= src
+	SSpoints_of_interest.on_poi_element_removed(src)
 	evolve_ability.Remove(src)
 	if(is_drone)
 		if(mind)

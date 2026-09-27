@@ -361,6 +361,8 @@
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
+	if(..())
+		return
 	var/mob/living/L = user
 
 	if (!istype(L))

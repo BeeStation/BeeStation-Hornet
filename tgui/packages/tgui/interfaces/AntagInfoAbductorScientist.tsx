@@ -2,7 +2,7 @@ import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { BlockQuote, Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { Objective, ObjectivesSection } from './common/ObjectiveSection';
+import { Objective, ObjectivesSection } from './common/Objectives';
 
 type Info = {
   members: string[];

@@ -580,6 +580,8 @@
 	balloon_alert(user, "door [state_open ? "opened" : "closed"]")
 
 /obj/machinery/cryo_cell/MouseDrop_T(mob/target, mob/user, params)
+	if(..())
+		return
 	if(user.incapacitated || !Adjacent(user) || !user.Adjacent(target) || !isliving(target) || !ISADVANCEDTOOLUSER(user) || !state_open)
 		return
 

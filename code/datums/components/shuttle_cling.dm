@@ -75,9 +75,9 @@
 			should_loop = FALSE
 
 	//Do pause/unpause/nothing for the hyperloop
-	if(should_loop && hyperloop.paused)
+	if(should_loop && hyperloop.status & MOVELOOP_STATUS_PAUSED)
 		hyperloop.resume_loop()
-	else if(!should_loop && !hyperloop.paused)
+	else if(!should_loop && !(hyperloop.status & MOVELOOP_STATUS_PAUSED))
 		hyperloop.pause_loop()
 
 ///Check if we're "holding on" to the shuttle

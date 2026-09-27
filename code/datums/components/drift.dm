@@ -21,13 +21,13 @@
 	if(!drifting_loop) //Really want to qdel here but can't
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, PROC_REF(newtonian_impulse))
-
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_START, PROC_REF(drifting_start))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_STOP, PROC_REF(drifting_stop))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_move))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_move))
 	RegisterSignal(drifting_loop, COMSIG_QDELETING, PROC_REF(loop_death))
+	if(drifting_loop.status & MOVELOOP_STATUS_RUNNING)
+		RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, PROC_REF(newtonian_impulse)) // There's a good chance it'll autostart, gotta catch that
 
 /datum/component/drift/Destroy()
 	inertia_last_loc = null
@@ -52,6 +52,7 @@
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
 	RegisterSignal(movable_parent, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
+	RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, PROC_REF(newtonian_impulse))
 
 /datum/component/drift/proc/drifting_stop()
 	SIGNAL_HANDLER

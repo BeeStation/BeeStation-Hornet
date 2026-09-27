@@ -378,6 +378,8 @@
 	return image
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
+	if(..())
+		return
 	if(!istype(user) || user.stat || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	if(isliving(user))

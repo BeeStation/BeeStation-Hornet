@@ -1,15 +1,15 @@
 
 /datum/antagonist/nukeop/clownop
-	name = "Clown Operative"
+	name = ROLE_CLOWN_OPERATIVE
 	roundend_category = "clown operatives"
-	antagpanel_category = "ClownOp"
+	antagpanel_category = ANTAG_GROUP_CLOWNOPS
 	banning_key = ROLE_NUCLEAR_OPERATIVE
 	nukeop_outfit = /datum/outfit/syndicate/clownop
 
 /datum/antagonist/nukeop/leader/clownop
 	name = "Clown Operative Leader"
 	roundend_category = "clown operatives"
-	antagpanel_category = "ClownOp"
+	antagpanel_category = ANTAG_GROUP_CLOWNOPS
 	nukeop_outfit = /datum/outfit/syndicate/clownop/leader
 
 /datum/antagonist/nukeop/leader/clownop/give_alias()

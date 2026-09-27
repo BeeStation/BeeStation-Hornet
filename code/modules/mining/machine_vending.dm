@@ -162,7 +162,7 @@
 				return
 			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			var/obj/created = new prize.equipment_path(loc)
-			if (M.CanReach(src) && isitem(created))
+			if (IsReachableBy(M) && isitem(created))
 				M.put_in_hands(created)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE

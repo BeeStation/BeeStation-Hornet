@@ -42,11 +42,13 @@
 		clear_alert(alert, TRUE)
 	for(var/mob/dead/observe as anything in observers)
 		observe.set_mob_eye_to(MOB_EYE_SELF)
+
 	qdel(hud_used)
 	QDEL_LIST(client_colours)
 	ghostize(can_reenter_corpse = FALSE)
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
+
 	return ..()
 
 /mob/New()
@@ -438,10 +440,6 @@
   * on the item in the slot if the users active hand is empty
   */
 /mob/proc/attack_ui(slot, params)
-	if(world.time <= usr.next_move)
-		return FALSE
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return FALSE
 	var/obj/item/W = get_active_held_item()
 	if(istype(W))
 		//IF HELD TRY APPLY TO SLOT
@@ -576,20 +574,25 @@
 
 	// This part checks what is your true eye through 'get_my_eye()'
 	// This is the reason why we use MOB_EYE_SELF, instead of doing 'set_mob_eye_to(src)'.
+	var/eye_was_remapped = FALSE
 	if(new_eye == src) // do not use when 'mob == src'
 		stack_trace("The proc received 'new_eye' as src (or it might be 'USER.set_mob_eye_to(USER)'). If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
+		eye_was_remapped = TRUE
 	else if(isnull(new_eye))
 		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
+		eye_was_remapped = TRUE
 	else if(new_eye == MOB_EYE_SELF)
 		new_eye = get_my_eye()
+		eye_was_remapped = TRUE
 	if(new_eye == current_mob_eye)
 		return // no need to do this
 
 	// Changes (atom/new_eye) argument value.
 	#define _new_eye_arg 1 // first arg. Unfortunately, there's no way to use arg name.
-	revise_proc_arg_value(_new_eye_arg, new_eye)
+	if(eye_was_remapped)
+		revise_proc_arg_value(_new_eye_arg, new_eye)
 	#undef _new_eye_arg
 
 	var/atom/old_eye = current_mob_eye
@@ -1643,7 +1646,6 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
-	update_action_buttons_icon(TRUE)
 
 /mob/key_down(key, client/client, full_key)
 	..()

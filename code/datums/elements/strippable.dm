@@ -43,7 +43,6 @@
 
 	if(user == source)
 		return
-
 	if(over != user)
 		return
 
@@ -63,6 +62,7 @@
 		LAZYSET(strip_menus, source, strip_menu)
 
 	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /datum/strippable_item_layout
 	/// The STRIPPABLE_ITEM_* key

@@ -34,24 +34,24 @@
 
 /datum/component/leanable/proc/mousedrop_receive(atom/source, atom/movable/dropped, mob/user, params)
 	if(dropped != user) //Have we been dropped on a valid leanable object?
-		return FALSE
+		return
 	var/mob/living/leaner = dropped
 	leaning_mob = leaner
 	if(!iscarbon(dropped) && !iscyborg(dropped)) //Are we not a cyborg or carbon?
-		return FALSE
+		return
 	if(!(usr == leaner)) //Are we trying to lean someone else?
-		return FALSE
+		return
 	if(INCAPACITATED_IGNORING(leaner, INCAPABLE_RESTRAINTS) || leaner.stat != CONSCIOUS || HAS_TRAIT(leaner, TRAIT_NO_TRANSFORM) || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
-		return FALSE
+		return
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, LEANING_TRAIT)) //Are we leaning already?
-		return FALSE
+		return
 	if(ISDIAGONALDIR(get_dir(leaner, source)) || ((get_dir(leaner, source)) == SOUTH)) //Not leaning on a corner, idiot, or a south wall because it looks bad
-		return FALSE
+		return
 	if(!is_currently_leanable) //Is the object currently able to be leaned on?
-		return FALSE
+		return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 	leaner.apply_status_effect(/datum/status_effect/leaning, source, leaning_offset)
-	return TRUE
+	return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 /datum/component/leanable/proc/on_density_change()
 	SIGNAL_HANDLER

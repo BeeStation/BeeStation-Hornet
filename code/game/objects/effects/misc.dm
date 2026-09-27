@@ -67,3 +67,8 @@
 
 /obj/effect/abstract/directional_lighting
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/// Used by RangedReachCheck
+/obj/effect/abstract/reach_checker
+	pass_flags = PASSTABLE
+	invisibility = INVISIBILITY_ABSTRACT

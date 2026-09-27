@@ -159,8 +159,7 @@
 /obj/item/mod/module/anomaly_locked/kinesis/proc/grab_atom(atom/movable/target)
 	grabbed_atom = target
 	if(isliving(grabbed_atom))
-		ADD_TRAIT(grabbed_atom, TRAIT_IMMOBILIZED, REF(src))
-		ADD_TRAIT(grabbed_atom, TRAIT_HANDS_BLOCKED, REF(src))
+		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), REF(src))
 		RegisterSignal(grabbed_atom, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
 	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, REF(src))
 	RegisterSignal(grabbed_atom, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_setanchored))
@@ -172,6 +171,7 @@
 	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
 	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
 	kinesis_catcher.assign_to_mob(mod.wearer)
+	RegisterSignal(kinesis_catcher, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(on_catcher_click))
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -188,8 +188,7 @@
 	grabbed_atom.cut_overlay(kinesis_icon)
 	QDEL_NULL(kinesis_beam)
 	if(isliving(grabbed_atom))
-		REMOVE_TRAIT(grabbed_atom, TRAIT_IMMOBILIZED, REF(src))
-		REMOVE_TRAIT(grabbed_atom, TRAIT_HANDS_BLOCKED, REF(src))
+		grabbed_atom.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), REF(src))
 	REMOVE_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, REF(src))
 	if(!isitem(grabbed_atom))
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = grabbed_atom.base_pixel_x, pixel_y = grabbed_atom.base_pixel_y)

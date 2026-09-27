@@ -334,7 +334,7 @@
 	hud.infodisplay += screen_obj
 	hud.infodisplay += screen_obj_sanity
 	RegisterSignal(hud, COMSIG_QDELETING, PROC_REF(unmodify_hud))
-	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
+	RegisterSignal(screen_obj, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(hud_click))
 
 /datum/component/mood/proc/unmodify_hud(datum/source)
 	SIGNAL_HANDLER

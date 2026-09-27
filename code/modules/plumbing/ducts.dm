@@ -315,6 +315,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 	return ..()
 
 /obj/machinery/duct/MouseDrop_T(atom/A, mob/living/user)
+	if(..())
+		return
 	if(!istype(A, /obj/machinery/duct))
 		return
 	var/obj/machinery/duct/D = A
