@@ -238,7 +238,9 @@
 				<td style='width:12em;'><font color='#ff0000'><b>Status</b></font></td>"
 
 			for(var/obj/item/organ/organ as anything in humantarget.internal_organs)
-				if(advanced && istype(organ, /obj/item/organ/borer_cyst))
+				if(istype(organ, /obj/item/organ/borer_cyst))
+					if(!advanced)
+						continue
 					var/obj/item/organ/borer_cyst/cyst = organ
 					render = TRUE
 					toReport += "<tr><td><font color='#cc3333'>Cortical cyst ([parse_zone(cyst.zone)]):</font></td>\

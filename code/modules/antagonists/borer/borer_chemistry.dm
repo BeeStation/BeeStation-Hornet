@@ -1,14 +1,13 @@
-/// A chemical a cortical borer can introduce directly into its host.
 /datum/borer_secretion
 	var/name = "chemical secretion"
 	var/reagent_type
 	var/chemical_cost = 10
 	var/dose_size = 5
-	/// Null means a baseline secretion works from every cyst location.
+	/// Required body zone, or null for any.
 	var/required_zone
-	/// Used for paired limb locations such as either arm or either leg.
+	/// Alternative body zones.
 	var/list/required_zones
-	/// Advanced secretions require a matching purchased evolution.
+	/// Required evolution.
 	var/unlock_type
 
 /datum/borer_secretion/proc/can_secrete(mob/living/simple_animal/borer/borer)
@@ -16,7 +15,7 @@
 		return FALSE
 	return !unlock_type || borer.has_active_evolution(unlock_type)
 
-// Baseline medicine: deliberately available from any cyst location.
+// Baseline secretions
 /datum/borer_secretion/bicaridine
 	name = "Bicaridine"
 	reagent_type = /datum/reagent/medicine/bicaridine
@@ -33,7 +32,7 @@
 	name = "Epinephrine"
 	reagent_type = /datum/reagent/medicine/epinephrine
 
-// Basic specialist secretions.
+// Zone-specific secretions
 /datum/borer_secretion/head
 	required_zone = BODY_ZONE_HEAD
 
@@ -82,7 +81,7 @@
 	name = "Ephedrine"
 	reagent_type = /datum/reagent/medicine/ephedrine
 
-// Advanced head secretions.
+// Advanced head secretions
 /datum/borer_secretion/head/mutadone
 	name = "Mutadone"
 	reagent_type = /datum/reagent/medicine/mutadone
@@ -125,7 +124,7 @@
 	chemical_cost = 20
 	unlock_type = /datum/borer_evolution/chemical/head/neurochemical_control
 
-// Advanced chest secretions.
+// Advanced chest secretions
 /datum/borer_secretion/chest/dexalinp
 	name = "Dexalin Plus"
 	reagent_type = /datum/reagent/medicine/dexalinp

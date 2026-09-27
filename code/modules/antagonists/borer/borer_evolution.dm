@@ -159,19 +159,20 @@
 	var/helptext = ""
 	var/cost = 1
 	var/required_zone = null
+	var/list/required_zones
 	var/required_zone_label = null
 	var/purchased = FALSE
 
 /datum/borer_evolution/proc/can_purchase(mob/living/simple_animal/borer/borer)
 	if(purchased || !borer?.host || borer.evolution_points < cost)
 		return FALSE
-	return !required_zone || borer.cyst?.zone == required_zone
+	return (!required_zone || borer.cyst?.zone == required_zone) && (!required_zones || (borer.cyst?.zone in required_zones))
 
 /datum/borer_evolution/proc/is_active(mob/living/simple_animal/borer/borer)
 	return borer.host && is_active_in_zone(borer.cyst?.zone)
 
 /datum/borer_evolution/proc/is_active_in_zone(zone)
-	return !required_zone || zone == required_zone
+	return (!required_zone || zone == required_zone) && (!required_zones || (zone in required_zones))
 
 /datum/borer_evolution/proc/on_purchase(mob/living/simple_animal/borer/borer)
 	purchased = TRUE
@@ -190,13 +191,10 @@
 /datum/borer_evolution/proc/on_host_death(mob/living/simple_animal/borer/borer)
 	return
 
-/// Active evolutions override this to grant or remove their action whenever
-/// the borer changes host state or body zone.
 /datum/borer_evolution/proc/update_action_visibility(mob/living/simple_animal/borer/borer)
 	return
 
-/// Base for purchased, one-shot borer abilities. The action datum owns the
-/// visible cooldown while this datum owns availability and the actual effect.
+/// Base for purchased active abilities.
 /datum/borer_evolution/active_ability
 	var/button_icon_state
 	var/ability_cooldown = 0
@@ -256,13 +254,12 @@
 	var/mob/living/simple_animal/borer/borer = owner
 	if(!evolution?.use_ability(borer, target))
 		return FALSE
-	// Targeted actions are cooled down by the click-intercept machinery after
-	// a successful return. Ordinary buttons must start their own cooldown.
+	// Targeted actions start their cooldown through click interception.
 	if(!requires_target && cooldown_time)
 		start_cooldown()
 	return TRUE
 
-/// Base for continuous toggle abilities with a chemical drain.
+/// Base for toggled abilities with a chemical drain.
 /datum/borer_evolution/toggle_ability
 	var/button_icon_state
 	var/activation_cost = 0
@@ -316,7 +313,6 @@
 		return
 	borer.adjust_chemicals(-drain_amount)
 
-/// Chemical upkeep per second. Subtypes may scale this with the borer's regeneration.
 /datum/borer_evolution/toggle_ability/proc/get_chemical_drain(mob/living/simple_animal/borer/borer)
 	return chemical_drain
 
@@ -395,8 +391,6 @@
 	update_buttons()
 	return TRUE
 
-/// Learned secretion knowledge. The matching secretion only works while this
-/// borer remains attached in the evolution's required body zone.
 /datum/borer_evolution/chemical
 	name = "Chemical Secretion"
 	desc = "Learn to synthesize a new chemical inside a suitable host."
@@ -553,19 +547,11 @@
 	desc = "Thread insulating tissue through a host's arm."
 	helptext = "Grants shock immunity while an arm cyst is attached."
 	cost = 1
-	required_zone = BODY_ZONE_L_ARM
+	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	required_zone_label = "Either arm"
-
-/datum/borer_evolution/arm/shock_dampening/can_purchase(mob/living/simple_animal/borer/borer)
-	if(..())
-		return TRUE
-	return !purchased && borer?.host && borer.evolution_points >= cost && borer.cyst?.zone == BODY_ZONE_R_ARM
 
 /datum/borer_evolution/arm/shock_dampening/is_active(mob/living/simple_animal/borer/borer)
 	return borer.host && is_active_in_zone(borer.cyst?.zone)
-
-/datum/borer_evolution/arm/shock_dampening/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /datum/borer_evolution/arm/shock_dampening/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_SHOCKIMMUNE, REF(src))
@@ -578,16 +564,8 @@
 	desc = "Rework your host's immune response for gradual wound repair."
 	helptext = "Either arm cyst. Slowly heals organic brute and burn damage while attached."
 	cost = 2
-	required_zone = BODY_ZONE_L_ARM
+	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	required_zone_label = "Either arm"
-
-/datum/borer_evolution/arm/regenerative_tissue/can_purchase(mob/living/simple_animal/borer/borer)
-	if(..())
-		return TRUE
-	return !purchased && borer?.host && borer.evolution_points >= cost && borer.cyst?.zone == BODY_ZONE_R_ARM
-
-/datum/borer_evolution/arm/regenerative_tissue/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /datum/borer_evolution/arm/regenerative_tissue/on_life(mob/living/simple_animal/borer/borer, delta_time)
 	if(!borer.host || borer.host.stat == DEAD)
@@ -604,19 +582,11 @@
 	desc = "Reinforce a host's leg with fast-reacting muscle fibers."
 	helptext = "Makes the host move faster while a leg cyst is attached."
 	cost = 1
-	required_zone = BODY_ZONE_L_LEG
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
-
-/datum/borer_evolution/leg/motile_fibers/can_purchase(mob/living/simple_animal/borer/borer)
-	if(..())
-		return TRUE
-	return !purchased && borer?.host && borer.evolution_points >= cost && borer.cyst?.zone == BODY_ZONE_R_LEG
 
 /datum/borer_evolution/leg/motile_fibers/is_active(mob/living/simple_animal/borer/borer)
 	return borer.host && is_active_in_zone(borer.cyst?.zone)
-
-/datum/borer_evolution/leg/motile_fibers/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 /datum/borer_evolution/leg/motile_fibers/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/borer_leg_fibers, multiplicative_slowdown = -0.15)
@@ -628,19 +598,11 @@
 	name = "Grounding Tendrils"
 	desc = "Anchor a host's footing with fine connective tendrils."
 	helptext = "Prevents slipping while a leg cyst is attached."
-	required_zone = BODY_ZONE_L_LEG
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
-
-/datum/borer_evolution/leg/grounding_tendrils/can_purchase(mob/living/simple_animal/borer/borer)
-	if(..())
-		return TRUE
-	return !purchased && borer?.host && borer.evolution_points >= cost && borer.cyst?.zone == BODY_ZONE_R_LEG
 
 /datum/borer_evolution/leg/grounding_tendrils/is_active(mob/living/simple_animal/borer/borer)
 	return borer.host && is_active_in_zone(borer.cyst?.zone)
-
-/datum/borer_evolution/leg/grounding_tendrils/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 /datum/borer_evolution/leg/grounding_tendrils/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_NO_SLIP_ALL, REF(src))
@@ -653,16 +615,8 @@
 	desc = "Anchor your host's footing with tendon-level magnetic control."
 	helptext = "Either leg cyst. Lets the host move normally in zero gravity, like active magboots."
 	cost = 2
-	required_zone = BODY_ZONE_L_LEG
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
-
-/datum/borer_evolution/leg/zero_g_tendons/can_purchase(mob/living/simple_animal/borer/borer)
-	if(..())
-		return TRUE
-	return !purchased && borer?.host && borer.evolution_points >= cost && borer.cyst?.zone == BODY_ZONE_R_LEG
-
-/datum/borer_evolution/leg/zero_g_tendons/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 /datum/borer_evolution/leg/zero_g_tendons/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_NEGATES_GRAVITY, REF(src))
@@ -691,7 +645,6 @@
 	..()
 	borer.chemical_regen_bonus += 1
 
-// --------------------------------------------------------------------------
 // Active evolutions
 
 /datum/borer_evolution/taste_blood
@@ -764,24 +717,17 @@
 		to_chat(active_host, span_notice("The protective film beneath your skin recedes."))
 
 /datum/borer_evolution/toggle_ability/arm_manifestation
-	required_zone = BODY_ZONE_L_ARM
+	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	required_zone_label = "Either arm"
 	activation_cost = 10
 	chemical_drain = 1
 	var/obj/item/manifested_item
 	var/manifest_name = "growth"
 
-/datum/borer_evolution/toggle_ability/arm_manifestation/can_purchase(mob/living/simple_animal/borer/borer)
-	return !purchased && borer?.host && borer.evolution_points >= cost && (borer.cyst?.zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-
-/datum/borer_evolution/toggle_ability/arm_manifestation/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-
-/// Cancel all natural chemical regeneration, then consume one additional point per second.
+/// Offsets chemical regeneration and drains one additional point per second.
 /datum/borer_evolution/toggle_ability/arm_manifestation/get_chemical_drain(mob/living/simple_animal/borer/borer)
 	return 2 + borer.chemical_regen_bonus
 
-/// Concrete manifestations override this, avoiding ambiguous dynamic construction.
 /datum/borer_evolution/toggle_ability/arm_manifestation/proc/create_manifest(mob/living/carbon/human/manifest_host)
 	return
 
@@ -793,9 +739,7 @@
 	if(active_host.get_item_for_held_index(infested_arm.held_index))
 		to_chat(active_borer, span_warning("The corresponding hand must be empty to form [manifest_name]."))
 		return FALSE
-	// available_evolutions is heterogeneous. Do not use `as anything` here:
-	// normal typed iteration must filter out non-manifestation evolutions before
-	// we read the manifestation-only `active` variable.
+	// Typed iteration filters out non-manifestation evolutions.
 	for(var/datum/borer_evolution/toggle_ability/arm_manifestation/other in active_borer.available_evolutions)
 		if(other != src && other.active)
 			to_chat(active_borer, span_warning("You must retract [other.name] before forming [name]."))
@@ -805,9 +749,7 @@
 		manifested_item = null
 		to_chat(active_borer, span_warning("Your body fails to form [manifest_name]."))
 		return FALSE
-	// We have already validated the exact arm, its hand, and that hand's contents.
-	// Use forced placement so the host's pickup state cannot silently reject an
-	// ABSTRACT organic weapon (for example while the host is unconscious).
+	// Forced placement allows manifestation while the host is unconscious.
 	if(!active_host.put_in_hand(manifested_item, infested_arm.held_index, forced = TRUE))
 		QDEL_NULL(manifested_item)
 		to_chat(active_borer, span_warning("You fail to force [manifest_name] into [active_host]'s corresponding hand."))
@@ -907,16 +849,10 @@
 	desc = "Discharge stored bioelectricity through your host and nearby electronics."
 	helptext = "Either arm. Costs 25 chemicals. Produces the same EMP radius as a changeling's Dissonant Shriek."
 	cost = 2
-	required_zone = BODY_ZONE_L_ARM
+	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	required_zone_label = "Either arm"
 	button_icon_state = "dissonant_shriek"
 	ability_cooldown = 30 SECONDS
-
-/datum/borer_evolution/arm/electromagnetic_pulse/can_purchase(mob/living/simple_animal/borer/borer)
-	return !purchased && borer?.host && borer.evolution_points >= cost && (borer.cyst?.zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-
-/datum/borer_evolution/arm/electromagnetic_pulse/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
 /datum/borer_evolution/arm/electromagnetic_pulse/use_ability(mob/living/simple_animal/borer/borer, atom/target)
 	if(!borer?.host || borer.chemicals < 25)
@@ -936,16 +872,10 @@
 	desc = "Drive your host's leg beyond its ordinary muscular limits."
 	helptext = "Either leg. Provides an additional speed boost for 1 chemical per second."
 	cost = 2
-	required_zone = BODY_ZONE_L_LEG
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
 	button_icon_state = "strained_muscles"
 	chemical_drain = 1
-
-/datum/borer_evolution/leg/muscular_overdrive/can_purchase(mob/living/simple_animal/borer/borer)
-	return !purchased && borer?.host && borer.evolution_points >= cost && (borer.cyst?.zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-
-/datum/borer_evolution/leg/muscular_overdrive/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 /datum/borer_evolution/leg/muscular_overdrive/activate_effect()
 	active_host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/borer_leg_overdrive, multiplicative_slowdown = -0.25)
@@ -964,18 +894,12 @@
 	desc = "Grow subtle hooks through your host's foot for sudden leg sweeps."
 	helptext = "Either leg. Target an adjacent standing creature to knock it down. Costs 15 chemicals."
 	cost = 2
-	required_zone = BODY_ZONE_L_LEG
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_zone_label = "Either leg"
 	button_icon_state = "strained_muscles"
 	ability_cooldown = 15 SECONDS
 	requires_target = TRUE
 	target_prompt = "<span class='notice'>Click an adjacent creature to sweep its legs.</span>"
-
-/datum/borer_evolution/leg/hooking_talons/can_purchase(mob/living/simple_animal/borer/borer)
-	return !purchased && borer?.host && borer.evolution_points >= cost && (borer.cyst?.zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-
-/datum/borer_evolution/leg/hooking_talons/is_active_in_zone(zone)
-	return zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 /datum/borer_evolution/leg/hooking_talons/use_ability(mob/living/simple_animal/borer/borer, atom/target)
 	if(!borer?.host || !isliving(target) || target == borer.host || !borer.host.Adjacent(target))

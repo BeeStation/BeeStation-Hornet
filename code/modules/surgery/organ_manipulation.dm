@@ -11,6 +11,7 @@
 		/datum/surgery_step/manipulate_organs/internal,
 		/datum/surgery_step/close,
 	)
+
 /datum/surgery/organ_manipulation/soft
 	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB | SURGERY_REQUIRES_REAL_LIMB | SURGERY_SELF_OPERABLE
 	possible_locs = list(

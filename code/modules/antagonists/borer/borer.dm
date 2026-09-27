@@ -1,27 +1,23 @@
 /**
  * Cortical borers
  *
- * A borer is a normal simple animal while loose.  When it infests a human it
- * lives inside a borer cyst organ.  The organ is deliberately zone-aware:
- * Bee's bodypart code already moves organs into a severed limb and inserts
- * them again when that limb is reattached, so no bespoke dismemberment hooks
- * are necessary.
+ * A borer is a normal simple animal while loose. When it infests a human, it
+ * lives inside a borer cyst organ.
  */
 
 #define FORMAT_BORER_CHEMICALS_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#b8e06c'>[round(charges)]</font></div>")
 #define FORMAT_BORER_EVOLUTION_TEXT(points) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#c792ea'>[round(points)]</font></div>")
 
-/// Camera concealment uses Bee's established silicon-override system without
-/// digital camouflage's visible "shifting skin" examination tell.
+/// Hides borers from silicon cameras without displaying digital camouflage's examine message.
 /datum/element/digital_camo/borer_hiding/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
 	return
 
 /atom/movable/screen/ling/borer_evolution
 	name = "borer evolution points"
 	icon_state = "power_display"
-	screen_loc = "WEST,CENTER-2:15"
+	screen_loc = ui_borerevolutiondisplay
 
-/// Borer HUD: the normal living-mob HUD plus changeling-style reserve displays.
 /datum/hud/living/borer
 	var/atom/movable/screen/ling/borer_evolution/evolutiondisplay
 
@@ -46,15 +42,14 @@
 	banning_key = ROLE_BORER
 	required_living_playtime = 4
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
-	/// Shared between the initial antagonist splash and the persistent info panel.
+	/// Text shown in the antagonist popup and info panel.
 	var/static/list/briefing = list(
 		"You are a cortical borer!",
 		"You are a \"symbiotic\" organism that thrives in the bodies of organic humanoids. You should endeavour to infest a host and ensure they stay safe at least long enough for you to reproduce - by any means necessary. You do not need to be friends; if push comes to shove, you might even take over temporarily, but you DO need your host to live.",
 		"While inside a host, speaking normally communicates privately with them. Prefix a message with :& to speak over the Cortical Link to every cortical borer.",
 		"Build a full chemical reserve while inside a host, then leave them and use Reproduce. Laying an egg takes five seconds and consumes your entire chemical reserve. The egg must mature in an atmosphere containing both oxygen and plasma before it can hatch.",
 	)
-	/// The borer player's mind may temporarily inhabit a host, so round-end
-	/// reporting must retain a stable reference to the physical parasite.
+	/// The borer body used for objectives and round-end reporting.
 	var/datum/weakref/borer_ref
 	var/borer_name = "Cortical Borer"
 
@@ -114,7 +109,7 @@
 /datum/objective/lay_borer_egg
 	name = "lay a borer egg"
 	explanation_text = "Lay at least one egg."
-	/// The physical borer is stable while its mind temporarily controls a host.
+	/// The borer body checked for completion.
 	var/datum/weakref/borer_ref
 
 /datum/objective/lay_borer_egg/check_completion()
@@ -122,7 +117,7 @@
 	return borer?.eggs_laid >= 1
 
 /datum/objective/survive/borer
-	/// The physical borer remains stable while its mind controls a host.
+	/// The borer body checked for completion.
 	var/datum/weakref/borer_ref
 
 /datum/objective/survive/borer/check_completion()
@@ -134,14 +129,12 @@
 	desc = "A fibrous cyst threaded through the surrounding tissue."
 	icon_state = "appendix"
 	organ_flags = ORGAN_ORGANIC
-	/// The borer hidden within this cyst.
 	var/mob/living/simple_animal/borer/borer
 
 /obj/item/organ/borer_cyst/proc/configure(mob/living/simple_animal/borer/new_borer, new_zone)
 	borer = new_borer
 	zone = check_zone(new_zone)
-	// Organ slots must be unique.  Making the slot from the selected zone keeps
-	// this a single organ type while allowing one borer in each normal bodypart.
+	// Organ slots must be unique per body zone.
 	slot = "borer_cyst_[zone]"
 
 /obj/item/organ/borer_cyst/on_insert(mob/living/carbon/organ_owner, special)
@@ -150,7 +143,6 @@
 
 /obj/item/organ/borer_cyst/on_remove(mob/living/carbon/organ_owner, special)
 	if(!special)
-		// Surgical removal is a successful extraction, not a borer death.
 		borer?.detach(get_turf(organ_owner))
 	. = ..()
 
@@ -196,28 +188,20 @@
 	maxbodytemp = INFINITY
 	hud_type = /datum/hud/living/borer
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	/// The human currently hosting us. Null while loose or in a severed limb.
+	/// Current host, or null while detached or in a severed limb.
 	var/mob/living/carbon/human/host
-	/// The physical anchor which carries us through surgery and limb transfer.
+	/// Organ containing the borer while hosted.
 	var/obj/item/organ/borer_cyst/cyst
-	/// The limb currently carrying us after it has been severed.
 	var/obj/item/bodypart/severed_limb
-	/// Chemical reserve. Evolution abilities will spend this rather than host reagents.
 	var/chemicals = 0
 	var/max_chemicals = 100
-	/// Reserve spent when beginning neural domination.
 	var/control_activation_cost = 10
-	/// Gross chemical upkeep per second while controlling a host. Baseline
-	/// regeneration reduces this to a net drain of 1.5 chemicals per second.
+	/// Chemical drain per second during host control.
 	var/control_chemical_drain = 2.5
-	/// Permanent reproduction tally used by the borer's egg-laying objective.
 	var/eggs_laid = 0
-	/// Progress is deliberately independent of chemicals; it is awarded only while hosted.
 	var/evolution_points = 0
 	var/next_evolution_point = 0
 	var/chemical_regen_bonus = 0
-	/// Secretion definitions available to this borer. Availability depends on
-	/// the cyst location and any learned chemical evolutions.
 	var/list/datum/borer_secretion/available_secretions = list()
 	var/list/datum/borer_evolution/available_evolutions = list()
 	var/datum/borer_evolution_menu/evolution_menu
@@ -229,13 +213,10 @@
 	var/datum/action/innate/borer_reproduce/reproduce_action
 	var/datum/action/innate/borer_assume_control/assume_control_action
 	var/datum/action/innate/borer_release_control/release_control_action
-	/// True only while this borer's player is operating its host's body.
+	/// Whether the borer mind is controlling the host body.
 	var/controlling_host = FALSE
-	/// Prevent repeated action refreshes while a dead host remains dead.
 	var/host_actions_suspended = FALSE
-	/// Whether this detached borer is currently rendered beneath low objects.
 	var/hiding = FALSE
-	/// Whether table cover is currently concealing this borer from silicons.
 	var/camera_hidden = FALSE
 
 /mob/living/simple_animal/borer/Initialize(mapload)
@@ -372,9 +353,7 @@
 	. = ..()
 	update_camera_hiding()
 
-/// Keep the normal pipe-network overlay, but do not apply the generic dark
-/// ventcrawl filter. Borers hunt for hosts through vents, and the extra tint
-/// makes otherwise visible people unnecessarily difficult to distinguish.
+/// Lets borers see from vents without the usual lighting tint.
 /mob/living/simple_animal/borer/update_pipe_vision(full_refresh = FALSE)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !istype(loc, /obj/machinery/atmospherics) || !(movement_type & VENTCRAWLING))
@@ -382,8 +361,7 @@
 	var/atom/movable/screen/plane_master/lighting = hud_used?.plane_masters["[LIGHTING_PLANE]"]
 	lighting?.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#4d4d4d")
 
-/// Moves a detached borer beneath tables and other low objects, or restores
-/// its normal rendering layer. Non-detached states clear this silently.
+/// Updates the borer's hiding layer.
 /mob/living/simple_animal/borer/proc/set_hiding(new_hiding, silent = FALSE)
 	new_hiding = !!new_hiding
 	if(new_hiding && (host || cyst || severed_limb || stat != CONSCIOUS))
@@ -397,8 +375,7 @@
 		to_chat(src, span_notice(hiding ? "You are now hiding." : "You have stopped hiding."))
 	return TRUE
 
-/// Suppress the borer's appearance and silicon HUD markers only when the
-/// layer-based Hide action has real table cover to justify the concealment.
+/// Updates silicon concealment while hiding under a table.
 /mob/living/simple_animal/borer/proc/update_camera_hiding()
 	var/should_hide_from_cameras = FALSE
 	if(hiding && isturf(loc))
@@ -415,14 +392,16 @@
 /mob/living/simple_animal/borer/proc/bind_to_host(mob/living/carbon/new_host, obj/item/organ/borer_cyst/new_cyst)
 	if(!ishuman(new_host))
 		return FALSE
+	if(host)
+		UnregisterSignal(host, COMSIG_QDELETING)
 	host = new_host
 	cyst = new_cyst
 	severed_limb = null
+	RegisterSignal(host, COMSIG_QDELETING, PROC_REF(on_host_qdeleting))
 	host_actions_suspended = FALSE
 	if(!next_evolution_point)
 		next_evolution_point = world.time + 2 MINUTES
-	// Inserted organs live in nullspace on Bee. Keep the borer inside the host
-	// instead, so it retains a valid turf, and explicitly watch through the host.
+	// Keep the borer in the host to preserve its camera location.
 	forceMove(host)
 	set_mob_eye_to(host)
 	activate_evolutions()
@@ -436,10 +415,10 @@
 	severed_limb = limb
 	host_actions_suspended = FALSE
 	deactivate_evolutions(host)
+	UnregisterSignal(host, COMSIG_QDELETING)
 	host = null
 	forceMove(limb)
-	// Like Bee's brainmob containment, following ourselves makes the camera
-	// resolve through our actual container as the severed limb moves around.
+	// Follow the limb container when it moves.
 	set_mob_eye_to(MOB_EYE_SELF)
 	update_borer_actions()
 	to_chat(src, span_warning("Your host's limb has been severed. You remain hidden in it until it is reattached or surgically opened."))
@@ -449,6 +428,8 @@
 		release_host_control()
 	var/mob/living/carbon/human/old_host = host
 	var/obj/item/organ/borer_cyst/old_cyst = cyst
+	if(old_host)
+		UnregisterSignal(old_host, COMSIG_QDELETING)
 	host = null
 	host_actions_suspended = FALSE
 	deactivate_evolutions(old_host)
@@ -456,11 +437,21 @@
 	severed_limb = null
 	if(old_cyst?.borer == src)
 		old_cyst.borer = null
+	if(old_cyst)
+		if(old_cyst.owner)
+			old_cyst.Remove(old_cyst.owner, special = TRUE)
+		QDEL_IN(old_cyst, 0)
 	forceMove(drop_location || get_turf(old_host) || get_turf(old_cyst))
 	set_mob_eye_to(MOB_EYE_SELF)
 	update_borer_actions()
 	if(old_host)
 		old_host.visible_message(span_warning("Something wriggles free from [old_host]'s flesh!"), span_userdanger("A cortical borer tears free from your flesh!"))
+
+/mob/living/simple_animal/borer/proc/on_host_qdeleting(mob/living/carbon/human/deleted_host)
+	SIGNAL_HANDLER
+	if(deleted_host != host)
+		return
+	detach(get_turf(deleted_host))
 
 /mob/living/simple_animal/borer/proc/infest_human(mob/living/carbon/human/target, target_zone)
 	if(host || !target || target.stat == DEAD)
@@ -469,8 +460,6 @@
 	if(target.get_cortical_borer(target_zone))
 		to_chat(src, span_warning("Another borer already occupies that bodypart."))
 		return FALSE
-	// This is intentionally the same non-piercing check used by a normal
-	// syringe: only the chosen bodypart's clothing and pierce immunity matter.
 	if(!target.can_inject(src, target_zone, INJECT_TRY_SHOW_ERROR_MESSAGE))
 		return FALSE
 	var/obj/item/organ/borer_cyst/new_cyst = new
@@ -534,9 +523,7 @@
 	to_chat(src, span_userdanger("Your cortical borer has seized control of your body!"))
 	return TRUE
 
-/// Exchanges the minds occupying the physical borer and host bodies through
-/// Bee's normal transfer path. Directly assigning mind and ckey leaves
-/// mind.current, TGUI ownership, antagonist effects, and HUD state stale.
+/// Swaps the minds occupying the borer and host bodies.
 /mob/living/simple_animal/borer/proc/swap_host_minds()
 	if(!host || !mind || !host.mind)
 		return FALSE
@@ -545,8 +532,7 @@
 	var/host_body_key = host.key
 	borer_body_mind.transfer_to(host)
 	host_body_mind.transfer_to(src)
-	// Matches the mind-swap spell's fallback in case the second transfer did
-	// not reclaim the key which originally occupied the host body.
+	// Restore the host body's key if the second transfer did not reclaim it.
 	if(host_body_key)
 		key = host_body_key
 	return TRUE
@@ -576,30 +562,26 @@
 		return TRUE
 	return FALSE
 
-/// Adjusts the internal chemical reserve and refreshes its changeling-style HUD counter.
 /mob/living/simple_animal/borer/proc/adjust_chemicals(amount)
 	if(!isnum(amount))
 		return
 	chemicals = clamp(chemicals + amount, 0, max_chemicals)
 	update_chemical_hud()
 
-/// Refreshes the borer HUD. During domination, carry the same display onto the host's client.
 /mob/living/simple_animal/borer/proc/update_chemical_hud()
 	var/atom/movable/screen/ling/chems/display = hud_used?.lingchemdisplay
 	if(!display)
 		return
 	display.maptext = FORMAT_BORER_CHEMICALS_TEXT(chemicals)
 	if(controlling_host && host?.client)
-		host.client.screen += display
+		host.client.screen |= display
 
-/// Adjusts earned evolution points and refreshes their HUD counter.
 /mob/living/simple_animal/borer/proc/adjust_evolution_points(amount)
 	if(!isnum(amount))
 		return
 	evolution_points = max(0, evolution_points + amount)
 	update_evolution_hud()
 
-/// Refreshes the evolution-point counter, including during host domination.
 /mob/living/simple_animal/borer/proc/update_evolution_hud()
 	var/datum/hud/living/borer/borer_hud = hud_used
 	var/atom/movable/screen/ling/borer_evolution/display = borer_hud?.evolutiondisplay
@@ -607,7 +589,7 @@
 		return
 	display.maptext = FORMAT_BORER_EVOLUTION_TEXT(evolution_points)
 	if(controlling_host && host?.client)
-		host.client.screen += display
+		host.client.screen |= display
 
 /mob/living/simple_animal/borer/proc/activate_evolutions()
 	for(var/datum/borer_evolution/evolution as anything in available_evolutions)
@@ -621,8 +603,7 @@
 		if(evolution.purchased && evolution.is_active_in_zone(cyst?.zone))
 			evolution.on_detached(src, old_host)
 
-/// Grants only the controls which make sense in the borer's current physical
-/// state. Active evolution actions use the same refresh point.
+/// Refreshes actions for the borer's current state.
 /mob/living/simple_animal/borer/proc/update_borer_actions()
 	var/fully_detached = !host && !cyst && !severed_limb
 	if(!fully_detached && hiding)
@@ -641,8 +622,7 @@
 		if(core_action?.owner)
 			core_action.Remove(core_action.owner)
 
-	// During domination the borer player is operating the human. Do not leave
-	// borer controls on the captive borer body for the displaced host to use.
+	// The borer player uses the host body during domination.
 	if(controlling_host && host)
 		release_control_action.Grant(host)
 	else
@@ -671,6 +651,8 @@
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return
+	if(!try_speak(message, ignore_spam, forced, filterproof))
+		return
 	if(findtext(message, ":&") == 1)
 		var/linked_message = trim(copytext_char(message, 3))
 		if(!linked_message)
@@ -691,25 +673,19 @@
 	send_to_observers(span_notice("<b>[real_name]</b> speaks within <b>[host.real_name]</b>: \"[message]\""), src)
 	return TRUE
 
-/mob/living/simple_animal/borer/verb/infest()
-	set name = "Infest"
-	set category = "Borer"
+/mob/living/simple_animal/borer/proc/infest()
 	if(controlling_host)
 		return
 	choose_infestation_target()
 
-/mob/living/simple_animal/borer/verb/leave_host()
-	set name = "Leave Host"
-	set category = "Borer"
+/mob/living/simple_animal/borer/proc/leave_host()
 	if(controlling_host)
 		return
 	if(!cyst)
 		return
 	detach(get_turf(host) || get_turf(severed_limb))
 
-/mob/living/simple_animal/borer/verb/assume_host_control()
-	set name = "Assume Host Control"
-	set category = "Borer"
+/mob/living/simple_animal/borer/proc/assume_host_control()
 	if(controlling_host)
 		return
 	if(!host || cyst?.zone != BODY_ZONE_HEAD)
@@ -718,9 +694,7 @@
 	if(do_after(src, 5 SECONDS, host))
 		take_host_control()
 
-/mob/living/simple_animal/borer/verb/secrete_chemicals()
-	set name = "Secrete Chemicals"
-	set category = "Borer"
+/mob/living/simple_animal/borer/proc/secrete_chemicals()
 	if(controlling_host)
 		return
 	if(!host || !host.reagents)
@@ -744,9 +718,7 @@
 	adjust_chemicals(-secretion.chemical_cost)
 	to_chat(src, span_notice("You release [secretion.dose_size] units of [secretion.name] into [host]."))
 
-/mob/living/simple_animal/borer/verb/reproduce()
-	set name = "Reproduce"
-	set category = "Borer"
+/mob/living/simple_animal/borer/proc/reproduce()
 	if(controlling_host)
 		return
 	if(host || cyst)
@@ -773,8 +745,7 @@
 	icon_state = "egg_growing"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	foodtypes = MEAT | RAW
-	/// It first matures, then waits for the same plasma-and-oxygen environment
-	/// used by the /vg/ egg before inviting one ghost to hatch it.
+	preserved_food = TRUE
 	var/grown = FALSE
 	var/hatching = FALSE
 
@@ -791,12 +762,15 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/food/borer_egg/process(delta_time)
-	if(!isturf(loc))
-		return
+	if(!hatching && can_hatch())
+		hatch()
+
+/obj/item/food/borer_egg/proc/can_hatch()
+	if(!grown || !isturf(loc))
+		return FALSE
 	var/turf/egg_turf = get_turf(src)
 	var/datum/gas_mixture/air = egg_turf.return_air()
-	if(!hatching && air?.has_gas(GAS_PLASMA, 0.1) && air.has_gas(GAS_O2, 0.1))
-		hatch()
+	return air?.has_gas(/datum/gas/plasma, 0.1) && air.has_gas(/datum/gas/oxygen, 0.1)
 
 /obj/item/food/borer_egg/proc/hatch()
 	if(hatching || !grown)
@@ -823,6 +797,7 @@
 	if(!candidate)
 		hatching = FALSE
 		icon_state = "egg_grown"
+		visible_message(span_notice("[src] falls still after failing to hatch."))
 		addtimer(CALLBACK(src, PROC_REF(retry_hatching)), 5 MINUTES)
 		return
 	var/turf/egg_turf = get_turf(src)
@@ -838,5 +813,16 @@
 
 /obj/item/food/borer_egg/attack_ghost(mob/user)
 	. = ..()
-	if(grown && !hatching)
-		hatch()
+	if(hatching)
+		to_chat(user, span_notice("[src] is already attempting to hatch."))
+		return
+	if(!grown)
+		to_chat(user, span_warning("[src] has not finished maturing."))
+		return
+	if(!isturf(loc))
+		to_chat(user, span_warning("[src] must be resting on the ground to hatch."))
+		return
+	if(!can_hatch())
+		to_chat(user, span_warning("[src] needs an atmosphere containing both oxygen and plasma to hatch."))
+		return
+	hatch()
