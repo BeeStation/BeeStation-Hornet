@@ -173,7 +173,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// What this thing does when used like a tool. NONE if it isn't a tool. If I give a piece of paper TOOL_WRENCH I can use it to unwrench tables. See _DEFINES/tools.dm
 	var/tool_behaviour = NONE
 	/// The tool speed multiplier of how long it takes to do the tool action.
-	var/toolspeed = 1
+	VAR_PROTECTED/toolspeed = 1
 
 	/// Whether or not an item can block attacks
 	var/canblock = FALSE
@@ -790,6 +790,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)
 	return
+
 /**
  * Returns the toolspeed for this item modified by it's users tool proficiency. If there is no user, it simply returns the toolspeed.
  * * user the mob to check for tool proficiency
