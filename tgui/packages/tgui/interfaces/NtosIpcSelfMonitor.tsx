@@ -51,7 +51,8 @@ export const NtosIpcSelfMonitorContent = (_) => {
                 }}
               />
               <Box mt={1}>
-                {Math.round(data.charge / 1000)} KW / {Math.round(data.max_charge / 1000)} KW
+                {Math.round(data.charge / 1000)} KW /{' '}
+                {Math.round(data.max_charge / 1000)} KW
               </Box>
             </Section>
           </Flex.Item>
