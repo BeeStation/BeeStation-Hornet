@@ -44,7 +44,7 @@
 /datum/status_effect/ipc_upgrade/deployable/medbeam
 	id = "ipc deployable medbeam"
 	name = "Integrated Revival Beam"
-	active_power_requirement = 40
+	active_power_requirement = UPGRADE_STANDARD_DRAW * 8
 	slot = UPGRADE_UTILITY
 	action_icon = "medbeam"
 	to_deploy_typepath = /obj/item/gun/medbeam/weak
@@ -99,7 +99,7 @@
 /datum/status_effect/ipc_upgrade/deployable/blood_drive
 	id = "ipc deployable blood drive"
 	name = "Integrated Blood Drive"
-	active_power_requirement = 5
+	active_power_requirement = UPGRADE_STANDARD_DRAW
 	slot = UPGRADE_UTILITY
 	action_icon = "blood_drive"
 	to_deploy_typepath = /obj/item/blood_drive

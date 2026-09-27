@@ -31,14 +31,12 @@
 		return data
 
 	var/charge = 0
-	var/max_charge = 0
 	var/obj/item/organ/stomach/electrical/battery = tablet.tablet_owner.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(battery))
 		charge = battery.cell.charge
-		max_charge = battery.cell.maxcharge
 
 	data["charge"] = charge
-	data["max_charge"] = max_charge
+	data["max_charge"] = ETHEREAL_CHARGE_FULL
 	data["upgrade_core"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_CORE)?.ui_data()
 	data["upgrade_external"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_EXTERNAL)?.ui_data()
 	data["upgrade_utility"] = get_ipc_upgrade_by_slot(tablet.tablet_owner.status_effects, UPGRADE_UTILITY)?.ui_data()

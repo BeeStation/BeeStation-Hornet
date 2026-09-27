@@ -5,7 +5,7 @@
 	id = "ipc overclocked servos"
 	name = "Overclocked Servos"
 	slot = UPGRADE_CORE
-	active_power_requirement = 50
+	active_power_requirement = UPGRADE_STANDARD_DRAW * 5
 	action_icon = "overclocked_servos"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	item_type = /obj/item/ipc_upgrade/overclocked_servos

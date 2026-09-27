@@ -1,7 +1,7 @@
 /datum/status_effect/ipc_upgrade/repair_nexus
 	id = "ipc repair nexus"
 	name = "Repair Nexus"
-	active_power_requirement = 15
+	active_power_requirement = UPGRADE_STANDARD_DRAW * 3
 	item_type = /obj/item/ipc_upgrade/repair_nexus
 	action_icon = "repair_nexus"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable

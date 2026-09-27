@@ -4,7 +4,7 @@
 	slot = UPGRADE_UTILITY
 	action_type = /datum/action/innate/ipc_upgrade_action/untargeted
 	action_icon = "part_fab"
-	power_requirement = 150
+	power_requirement = UPGRADE_STANDARD_DRAW * 10
 	singleton = TRUE
 	cooldown_length = 1 SECONDS
 	item_type = /obj/item/ipc_upgrade/part_fab
