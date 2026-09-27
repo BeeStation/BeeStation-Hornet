@@ -636,6 +636,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "acid"
 
+/atom/movable/screen/alert/mech_snared
+	name = "Snared"
+	desc = "Your mech is stuck in xeno resin and can't move or turn. Keep trying to move to struggle free, or wait for it to dry."
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "nestoverlay"
+
 
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages

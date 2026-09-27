@@ -943,6 +943,7 @@
 #include "code\datums\components\waddling.dm"
 #include "code\datums\components\wearertargeting.dm"
 #include "code\datums\components\wet_floor.dm"
+#include "code\datums\components\xeno_snare.dm"
 #include "code\datums\components\crafting\_recipes.dm"
 #include "code\datums\components\crafting\crafting.dm"
 #include "code\datums\components\crafting\guncrafting.dm"

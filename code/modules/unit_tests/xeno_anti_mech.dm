@@ -148,4 +148,123 @@
 	TEST_ASSERT_NOTNULL(acid, "Corrosive Acid on a mech did not apply mecha acid.")
 	TEST_ASSERT_EQUAL(acid.dose_count(), 1, "One use of Corrosive Acid should be one dose.")
 
+/// A snared mech stays rooted until the resin dries: XENO_SNARE_HOLD_SECONDS if the pilot never struggles.
+/datum/unit_test/xeno_anti_mech_snare_decay
+
+/datum/unit_test/xeno_anti_mech_snare_decay/Run()
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand)
+	var/datum/component/xeno_snare/snare = mech.AddComponent(/datum/component/xeno_snare)
+	TEST_ASSERT(HAS_TRAIT_FROM(mech, TRAIT_MECHA_ROOTED, XENO_SNARE_TRAIT), "Snaring a mech did not root it.")
+	for(var/second in 1 to XENO_SNARE_HOLD_SECONDS - 1)
+		snare.process(1)
+	TEST_ASSERT(!QDELETED(snare), "The snare dried before [XENO_SNARE_HOLD_SECONDS] seconds.")
+	snare.process(1)
+	TEST_ASSERT(QDELETED(snare), "The snare was still holding after [XENO_SNARE_HOLD_SECONDS] seconds.")
+	TEST_ASSERT(!HAS_TRAIT(mech, TRAIT_MECHA_ROOTED), "The mech stayed rooted after the snare dried.")
+
+/// Trying to move tears the resin, at most once per XENO_SNARE_STRUGGLE_COOLDOWN, until the mech breaks free.
+/datum/unit_test/xeno_anti_mech_snare_struggle
+
+/datum/unit_test/xeno_anti_mech_snare_struggle/Run()
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand)
+	var/datum/component/xeno_snare/snare = mech.AddComponent(/datum/component/xeno_snare)
+	mech.vehicle_move(NORTH)
+	TEST_ASSERT_EQUAL(snare.strength, XENO_SNARE_HOLD_SECONDS - XENO_SNARE_STRUGGLE_STRENGTH, "Trying to move did not weaken the snare.")
+	COOLDOWN_RESET(mech, cooldown_vehicle_move)
+	mech.vehicle_move(NORTH)
+	TEST_ASSERT_EQUAL(snare.strength, XENO_SNARE_HOLD_SECONDS - XENO_SNARE_STRUGGLE_STRENGTH, "Struggles were not rate limited.")
+	for(var/attempt in 1 to 20)
+		if(QDELETED(snare))
+			break
+		COOLDOWN_RESET(mech, cooldown_vehicle_move)
+		COOLDOWN_RESET(snare, struggle_cooldown)
+		mech.vehicle_move(NORTH)
+	TEST_ASSERT(QDELETED(snare), "Struggling never broke the snare.")
+	TEST_ASSERT(!HAS_TRAIT(mech, TRAIT_MECHA_ROOTED), "The mech stayed rooted after struggling free.")
+
+/// Snaring a snared mech refreshes the hold without freeing it, and washing doesn't dissolve resin.
+/datum/unit_test/xeno_anti_mech_snare_refresh
+
+/datum/unit_test/xeno_anti_mech_snare_refresh/Run()
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand)
+	var/datum/component/xeno_snare/snare = mech.AddComponent(/datum/component/xeno_snare)
+	snare.process(5)
+	var/datum/component/xeno_snare/again = mech.AddComponent(/datum/component/xeno_snare)
+	TEST_ASSERT_EQUAL(again, snare, "Snaring a snared mech created a second snare.")
+	TEST_ASSERT_EQUAL(snare.strength, XENO_SNARE_HOLD_SECONDS, "Snaring a snared mech did not refresh the hold.")
+	TEST_ASSERT(HAS_TRAIT_FROM(mech, TRAIT_MECHA_ROOTED, XENO_SNARE_TRAIT), "Re-snaring a mech freed it.")
+	mech.wash(CLEAN_WASH)
+	TEST_ASSERT(!QDELETED(snare), "Washing dissolved the snare. Only struggling or drying should free the mech.")
+	TEST_ASSERT(HAS_TRAIT(mech, TRAIT_MECHA_ROOTED), "Washing freed a snared mech.")
+
+/// The pilot of a snared mech gets the Snared alert until it breaks, and examine tells everyone what's going on.
+/datum/unit_test/xeno_anti_mech_snare_ux
+
+/datum/unit_test/xeno_anti_mech_snare_ux/Run()
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand)
+	var/mob/living/carbon/human/pilot = allocate(/mob/living/carbon/human/consistent)
+	mech.add_occupant(pilot)
+	pilot.forceMove(mech)
+	var/datum/component/xeno_snare/snare = mech.AddComponent(/datum/component/xeno_snare)
+	TEST_ASSERT_NOTNULL(pilot.alerts[ALERT_MECH_SNARED], "The pilot of a snared mech did not get the Snared alert.")
+	TEST_ASSERT(findtext(jointext(mech.examine(pilot), "\n"), "hardened resin"), "Examining a snared mech did not mention the resin.")
+	var/mob/living/carbon/alien/humanoid/drone/drone = allocate(/mob/living/carbon/alien/humanoid/drone)
+	TEST_ASSERT(findtext(jointext(mech.examine(drone), "\n"), "Our resin holds it"), "Xenos examining a snared mech did not get the hive line.")
+	for(var/second in 1 to XENO_SNARE_HOLD_SECONDS)
+		if(QDELETED(snare))
+			break
+		snare.process(1)
+	TEST_ASSERT_NULL(pilot.alerts[ALERT_MECH_SNARED], "The Snared alert stayed after the resin dried.")
+
+/// A mech destroyed while snared and acid-coated throws its pilot clear without leaving alerts or the smear on them.
+/datum/unit_test/xeno_anti_mech_destroyed_while_afflicted
+
+/datum/unit_test/xeno_anti_mech_destroyed_while_afflicted/Run()
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand)
+	var/mob/living/carbon/human/pilot = allocate(/mob/living/carbon/human/consistent)
+	mech.add_occupant(pilot)
+	pilot.forceMove(mech)
+	mech.AddComponent(/datum/component/xeno_snare)
+	var/datum/component/mecha_acid/acid = mech.LoadComponent(/datum/component/mecha_acid)
+	for(var/dose in 1 to 4)
+		acid.add_dose()
+	for(var/second in 1 to MECHA_ACID_BURN_SECONDS)
+		if(QDELETED(mech))
+			break
+		acid.process(1)
+	TEST_ASSERT(QDELETED(mech), "Four doses did not destroy the snared mech.")
+	TEST_ASSERT(isturf(pilot.loc), "The pilot was not thrown clear of the destroyed mech.")
+	TEST_ASSERT_NULL(pilot.alerts[ALERT_MECH_SNARED], "The Snared alert survived the mech's destruction.")
+	TEST_ASSERT_NULL(pilot.alerts[ALERT_MECH_ACID], "The acid alert survived the mech's destruction.")
+	TEST_ASSERT_NULL(pilot.screens[FULLSCREEN_MECHA_ACID], "The smear survived the mech's destruction.")
+	for(var/obj/structure/mecha_wreckage/wreck in run_loc_floor_bottom_left)
+		qdel(wreck)
+
+/// The snare mine is a passable, air-permeable floor patch that only mechs set off, built from the resin menu.
+/datum/unit_test/xeno_anti_mech_snare_mine
+
+/datum/unit_test/xeno_anti_mech_snare_mine/Run()
+	var/turf/mine_turf = locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z)
+	var/obj/structure/alien/resin_snare/mine = allocate(/obj/structure/alien/resin_snare, mine_turf)
+	TEST_ASSERT(!mine.density, "The snare mine blocks movement.")
+	TEST_ASSERT(!mine.opacity, "The snare mine blocks vision.")
+	TEST_ASSERT_EQUAL(mine.can_atmos_pass, ATMOS_PASS_YES, "The snare mine blocks air.")
+
+	var/mob/living/carbon/human/walker = allocate(/mob/living/carbon/human/consistent)
+	walker.forceMove(mine_turf)
+	TEST_ASSERT(!QDELETED(mine), "A human set off a snare mine.")
+	var/mob/living/carbon/alien/humanoid/drone/drone = allocate(/mob/living/carbon/alien/humanoid/drone)
+	drone.forceMove(mine_turf)
+	TEST_ASSERT(!QDELETED(mine), "A xeno set off a snare mine.")
+
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand)
+	mech.forceMove(mine_turf)
+	TEST_ASSERT(QDELETED(mine), "A mech walked over a snare mine without setting it off.")
+	TEST_ASSERT(HAS_TRAIT_FROM(mech, TRAIT_MECHA_ROOTED, XENO_SNARE_TRAIT), "The snare mine did not root the mech.")
+
+	var/datum/action/alien/make_structure/resin/resin_action = locate() in drone.actions
+	TEST_ASSERT_NOTNULL(resin_action, "Drones should have Secrete Resin.")
+	TEST_ASSERT_EQUAL(resin_action.structures["resin snare"], /obj/structure/alien/resin_snare, "Secrete Resin can't build a resin snare.")
+	TEST_ASSERT(findtext(resin_action.desc, "snare"), "Secrete Resin's description doesn't mention the snare.")
+
 #undef XENO_ANTI_MECH_TEST_TRAIT

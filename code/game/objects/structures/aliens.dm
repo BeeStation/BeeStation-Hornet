@@ -103,6 +103,55 @@
 	return attack_hand(user)
 
 /*
+ * Resin snare
+ * A flat patch of resin, not a wall: passable, air-permeable and see-through.
+ * Only mechs set it off; the snare component does the actual holding.
+ */
+/obj/structure/alien/resin_snare
+	name = "resin snare"
+	desc = "A glistening node of resin, wet and sticky. Heavy machinery would sink right into it."
+	icon_state = "weednode-0"
+	color = "#c9a0dc"
+	density = FALSE
+	opacity = FALSE
+	anchored = TRUE
+	layer = ABOVE_OPEN_TURF_LAYER
+	plane = FLOOR_PLANE
+	max_integrity = 40
+
+/obj/structure/alien/resin_snare/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/alien/resin_snare/examine(mob/user)
+	. = ..()
+	if(isalien(user))
+		. += span_alertalien("A resin snare. It will seize the first mech that steps on it.")
+
+/obj/structure/alien/resin_snare/proc/on_entered(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER
+	if(!ismecha(arrived))
+		return
+	var/obj/vehicle/sealed/mecha/mech = arrived
+	mech.AddComponent(/datum/component/xeno_snare)
+	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+	to_chat(mech.occupants, span_userdanger("Resin erupts around your legs!"))
+	mech.visible_message(span_danger("Resin erupts around [mech]'s legs!"))
+	alert_hive(mech)
+	qdel(src)
+
+/// Tells every living xeno linked to the hive where the snare caught a mech.
+/obj/structure/alien/resin_snare/proc/alert_hive(obj/vehicle/sealed/mecha/mech)
+	var/area_name = get_area_name(mech, TRUE)
+	for(var/mob/living/carbon/alien/xeno in GLOB.alive_mob_list)
+		if(!xeno.get_organ_by_type(/obj/item/organ/alien/hivenode))
+			continue
+		to_chat(xeno, span_alertalien("Our resin has seized [mech] in [area_name]!"))
+
+/*
  * Weeds
  */
 

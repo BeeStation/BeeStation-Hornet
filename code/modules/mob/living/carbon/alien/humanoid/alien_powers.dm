@@ -328,7 +328,7 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/alien/make_structure/resin
 	name = "Secrete Resin"
-	desc = "Secrete tough malleable resin."
+	desc = "Secrete tough malleable resin: walls, membranes, nests, or a snare that traps any mech that steps on it."
 	button_icon_state = "alien_resin"
 	plasma_cost = 55
 	/// A list of all structures we can make.
@@ -336,6 +336,7 @@ Doesn't work on other aliens/AI.*/
 		"resin wall" = /obj/structure/alien/resin/wall,
 		"resin membrane" = /obj/structure/alien/resin/membrane,
 		"resin nest" = /obj/structure/bed/nest,
+		"resin snare" = /obj/structure/alien/resin_snare,
 	)
 
 // Snowflake to check for multiple types of alien resin structures
