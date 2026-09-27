@@ -6448,6 +6448,13 @@
 	broken = 1
 	},
 /area/station/hallway/secondary/exit/departure_lounge)
+"cDb" = (
+/obj/structure/cable/yellow,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
+/turf/open/floor/prison,
+/area/station/security/prison)
 "cDe" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -90444,7 +90451,7 @@ oGI
 qLe
 hCM
 tlz
-oGM
+cDb
 biZ
 oGM
 phi

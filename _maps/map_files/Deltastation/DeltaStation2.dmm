@@ -30177,6 +30177,14 @@
 /obj/machinery/camera/directional/east,
 /turf/open/floor/wood,
 /area/station/medical/exam_room)
+"jJW" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
+/turf/open/floor/prison,
+/area/station/security/prison)
 "jJX" = (
 /obj/machinery/refraction_catalogue,
 /turf/open/floor/iron/white,
@@ -128933,7 +128941,7 @@ syL
 syL
 syL
 syL
-ygL
+jJW
 kkI
 bMY
 pdT

@@ -56000,6 +56000,12 @@
 	},
 /turf/open/floor/iron,
 /area/station/construction/mining/aux_base)
+"vgN" = (
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
+/turf/open/floor/iron/techmaint,
+/area/station/security/prison)
 "vhw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -94103,7 +94109,7 @@ cSc
 jCL
 pfI
 maP
-odh
+vgN
 odh
 mvE
 uIw

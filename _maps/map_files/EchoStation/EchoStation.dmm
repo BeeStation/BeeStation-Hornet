@@ -1038,6 +1038,8 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "aNm" = (

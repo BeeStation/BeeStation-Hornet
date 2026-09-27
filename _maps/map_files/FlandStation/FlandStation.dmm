@@ -36564,6 +36564,8 @@
 /obj/effect/turf_decal/trimline/red/corner{
 	dir = 1
 	},
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
 /turf/open/floor/prison,
 /area/station/security/prison)
 "kCL" = (

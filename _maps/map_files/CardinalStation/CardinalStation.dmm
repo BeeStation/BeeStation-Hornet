@@ -79258,6 +79258,8 @@
 /area/station/security/prison)
 "sDG" = (
 /obj/structure/flora/ausbushes/stalkybush,
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
 /turf/open/floor/plating/dirt/planetary,
 /area/station/security/prison)
 "sDM" = (

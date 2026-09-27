@@ -29173,6 +29173,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/tech,
 /area/station/cargo/sorting)
+"mhO" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/substrate_bag/fairy,
+/obj/item/substrate_bag/fairy,
+/turf/open/floor/prison/dark,
+/area/station/security/prison)
 "mhZ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -83710,7 +83716,7 @@ rdM
 mCi
 bMS
 baP
-ldA
+mhO
 ldA
 qeV
 pAT
