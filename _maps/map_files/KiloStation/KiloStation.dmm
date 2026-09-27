@@ -20857,10 +20857,7 @@
 	pixel_x = 8;
 	pixel_y = 15
 	},
-/obj/item/toy/figure/secofficer{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/toy/figure/secofficer,
 /obj/item/toy/figure/secofficer{
 	pixel_x = -9;
 	pixel_y = 7
