@@ -355,6 +355,14 @@
 	build_path = /obj/item/kitchen/fork
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_DINNERWARE)
 
+/datum/design/spoon
+	name = "Spoon"
+	id = "spoon"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 80)
+	build_path = /obj/item/kitchen/fork/spoon
+	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_DINNERWARE)
+
 /datum/design/tray
 	name = "Serving Tray"
 	id = "tray"
