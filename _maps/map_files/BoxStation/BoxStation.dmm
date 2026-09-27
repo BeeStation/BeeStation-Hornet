@@ -24966,12 +24966,8 @@
 /area/station/cargo/storage)
 "kEm" = (
 /obj/structure/closet/secure_closet/brig_physician,
-/obj/item/clothing/under/rank/medical/scrubs/purple{
-	pixel_y = -4
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box/white,
-/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/techmaint,
 /area/station/security/brig)
 "kEw" = (

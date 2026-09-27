@@ -14850,9 +14850,8 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/item/clothing/mask/russian_balaclava{
-	pixel_x = 2;
-	pixel_y = 5
+/obj/item/clothing/mask/balaclava/russian_balaclava{
+	pixel_y = 8
 	},
 /obj/item/clothing/suit/armor/vest/russian_coat{
 	pixel_y = -4

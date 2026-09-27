@@ -83,21 +83,19 @@
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"
-	desc = "The nanites induce rapid coagulation when the host is wounded, dramatically reducing bleeding rate."
-	use_rate = 0.10
+	desc = "The nanites induce rapid coagulation when the host is wounded, closing bleeding wounds rapidly. Does not consume nanites if the host is not bleeding."
+	use_rate = 0.50
 	rogue_types = list(/datum/nanite_program/suffocating)
 
-/datum/nanite_program/coagulating/enable_passive_effect()
-	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.bleed_mod *= 0.1
+/datum/nanite_program/coagulating/check_conditions()
+	if(!host_mob.has_status_effect(/datum/status_effect/bleeding))
+		return FALSE
+	return ..()
 
-/datum/nanite_program/coagulating/disable_passive_effect()
-	. = ..()
-	if(ishuman(host_mob))
-		var/mob/living/carbon/human/H = host_mob
-		H.physiology.bleed_mod *= 10
+/datum/nanite_program/coagulating/active_effect()
+	if(iscarbon(host_mob))
+		var/mob/living/carbon/host = host_mob
+		host.cauterise_wounds(0.1)
 
 /datum/nanite_program/conductive
 	name = "Electric Conduction"

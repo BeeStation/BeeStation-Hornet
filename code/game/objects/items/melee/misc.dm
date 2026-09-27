@@ -140,25 +140,13 @@
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
 	force = 25
 	icon_state = "rapier"
-	inhand_icon_state = "rapier"
-	lefthand_file = null
-	righthand_file = null
+	inhand_icon_state = "sabre"
 	block_power = 75
 	armor_type = /datum/armor/sabre_mime
 
 /datum/armor/sabre_mime
 	fire = 100
 	acid = 100
-
-/obj/item/melee/sabre/mime/on_exit_storage(datum/storage/container)
-	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
-	if(istype(sabre))
-		playsound(sabre, 'sound/items/unsheath.ogg', 25, TRUE)
-
-/obj/item/melee/sabre/on_enter_storage(datum/storage/container)
-	var/obj/item/storage/belt/sabre/mime/sabre = container.real_location?.resolve()
-	if(istype(sabre))
-		playsound(sabre, 'sound/items/sheath.ogg', 25, TRUE)
 
 // Supermatter Sword
 /obj/item/melee/supermatter_sword
