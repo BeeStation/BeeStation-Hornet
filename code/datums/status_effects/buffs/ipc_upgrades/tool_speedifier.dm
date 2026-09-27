@@ -2,7 +2,7 @@
 	id = "ipc tool adaptor"
 	name = "Tool Adaptor"
 	slot = UPGRADE_UTILITY
-	active_power_requirement = 10
+	active_power_requirement = UPGRADE_STANDARD_DRAW * 2
 	action_icon = "tool_speedifier"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	item_type = /obj/item/ipc_upgrade/tool_speedifier

@@ -4,7 +4,7 @@
 	action_icon = "generator"
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	item_type = /obj/item/ipc_upgrade/ipc_generator
-	var/power_generation = 5
+	var/power_generation = UPGRADE_STANDARD_DRAW
 
 /datum/status_effect/ipc_upgrade/ipc_generator/tick(seconds_between_ticks)
 	if(!should_process())
@@ -30,7 +30,7 @@
 /datum/status_effect/ipc_upgrade/ipc_generator/fuel_generator
 	id = "ipc fuel generator"
 	name = "Plasmatic Generator"
-	power_generation = 10
+	power_generation = UPGRADE_STANDARD_DRAW * 3
 	item_type = /obj/item/ipc_upgrade/fuel_generator
 	var/fuel_consumption = 50
 	var/datum/component/material_container/materials

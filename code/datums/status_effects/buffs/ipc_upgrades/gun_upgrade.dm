@@ -9,7 +9,7 @@
 	///The cooldown between shots
 	var/firing_length = 1 SECONDS
 	var/overrides_click = FALSE
-	var/firing_power_requirement = 0 //This way, power is only used if the gun successfully fires.
+	var/firing_power_requirement = UPGRADE_STANDARD_DRAW //This way, power is only used if the gun successfully fires.
 	COOLDOWN_DECLARE(firing_cooldown)
 
 /datum/status_effect/ipc_upgrade/gun/on_activate(atom/target)
