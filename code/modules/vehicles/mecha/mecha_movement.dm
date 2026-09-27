@@ -68,6 +68,12 @@
 		return FALSE
 	if(!direction)
 		return FALSE
+	// Both traits return before the setDir() below, so they block turning as well as stepping.
+	if(HAS_TRAIT(src, TRAIT_MECHA_SEIZED))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_MECHA_ROOTED))
+		SEND_SIGNAL(src, COMSIG_MECHA_ROOTED_MOVE_ATTEMPT, direction)
+		return FALSE
 	if(ismovable(loc)) //Mech is inside an object, tell it we moved
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, direction)

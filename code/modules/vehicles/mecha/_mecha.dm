@@ -648,7 +648,7 @@
 		return
 	if(!isturf(target) && !isturf(target.loc)) // Prevents inventory from being drilled
 		return
-	if(completely_disabled || is_currently_ejecting || (mecha_flags & CANNOT_INTERACT))
+	if(completely_disabled || is_currently_ejecting || (mecha_flags & CANNOT_INTERACT) || HAS_TRAIT(src, TRAIT_MECHA_SEIZED))
 		return
 	if(phasing)
 		balloon_alert(user, "not while [phasing]!")

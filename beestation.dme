@@ -237,6 +237,7 @@
 #include "code\__DEFINES\weather.dm"
 #include "code\__DEFINES\wiremod.dm"
 #include "code\__DEFINES\wires.dm"
+#include "code\__DEFINES\xeno_anti_mech.dm"
 #include "code\__DEFINES\xenoarchaeology.dm"
 #include "code\__DEFINES\xenobiology.dm"
 #include "code\__DEFINES\zmimic.dm"

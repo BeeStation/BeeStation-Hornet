@@ -168,6 +168,10 @@
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 /// Trait given by mech equipment
 #define TRAIT_MECH_EQUIPMENT(equipment_type) "mech_equipment_[equipment_type]"
+/// Trait given by a xeno resin snare holding a mech
+#define XENO_SNARE_TRAIT "xeno_snare"
+/// Trait given by the xeno Queen's Crack Open grip
+#define CRACK_OPEN_TRAIT "crack_open"
 
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"

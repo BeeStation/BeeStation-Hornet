@@ -527,6 +527,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait given to mechs that can have orebox functionality on movement
 #define TRAIT_OREBOX_FUNCTIONAL "orebox_functional"
+/// Mech can't step or turn (xeno resin snare). Its weapons still fire within its facing arc.
+#define TRAIT_MECHA_ROOTED "mecha_rooted"
+/// Mech can't step, turn or use equipment (held by the xeno Queen's Crack Open).
+#define TRAIT_MECHA_SEIZED "mecha_seized"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND		"move_ground"
