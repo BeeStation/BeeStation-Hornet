@@ -104,17 +104,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 			return
 
 	if(!user.combat_mode)
-		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
+		if(I.item_flags & ABSTRACT)
 			return
-		place_item_in_disposal(I, user)
-		update_appearance()
-		return 1 //no afterattack
+		if(place_item_in_disposal(I, user))
+			update_appearance()
+			return TRUE //no afterattack
 	else
 		return ..()
 
-/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/I, mob/user)
-	I.forceMove(src)
-	user.visible_message(span_notice("[user.name] places \the [I] into \the [src]."), span_notice("You place \the [I] into \the [src]."))
+/// Moves an item into the diposal bin
+/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/disposing_item, mob/user)
+	if(!user.transferItemToLoc(disposing_item, newloc = src))
+		return FALSE
+	user.visible_message(
+		span_notice("[user.name] places \the [disposing_item] into \the [src]."),
+		span_notice("You place \the [disposing_item] into \the [src]."),
+	)
+	return TRUE
 
 //mouse drop another mob or self
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
@@ -233,19 +239,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	..()
 
 //How disposal handles getting a storage dump from a storage object
-/obj/machinery/disposal/proc/on_storage_dump(datum/source, obj/item/storage_source, mob/user)
+/obj/machinery/disposal/proc/on_storage_dump(datum/source, datum/storage/storage, mob/user)
 	SIGNAL_HANDLER
 
 	. = STORAGE_DUMP_HANDLED
 
-	to_chat(user, span_notice("You dump out [storage_source] into [src]."))
+	to_chat(user, span_notice("You dump out [storage.parent] into [src]."))
 
-	for(var/obj/item/to_dump in storage_source)
-		if(to_dump.loc != storage_source)
-			continue
-		if(user.active_storage != storage_source && to_dump.on_found(user))
+	for(var/obj/item/to_dump in storage.real_location)
+		if(user.active_storage != storage && to_dump.on_found(user))
 			return
-		if(!storage_source.atom_storage.attempt_remove(to_dump, src, silent = TRUE))
+		if(!storage.attempt_remove(to_dump, src, silent = TRUE))
 			continue
 		to_dump.pixel_x = to_dump.base_pixel_x + rand(-5, 5)
 		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)

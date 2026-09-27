@@ -8,6 +8,7 @@
 	inhand_icon_state = "briefcase"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
+	storage_type = /datum/storage/photo_album
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
@@ -15,9 +16,6 @@
 
 /obj/item/storage/photo_album/Initialize(mapload)
 	. = ..()
-	atom_storage.set_holdable(list(/obj/item/photo))
-	atom_storage.max_total_storage = 42
-	atom_storage.max_slots = 21
 	LAZYADD(SSpersistence.photo_albums, src)
 
 /obj/item/storage/photo_album/Destroy()
@@ -53,6 +51,19 @@
 		if(istype(P))
 			if(!atom_storage?.attempt_insert(P, override = TRUE))
 				qdel(P)
+
+/datum/storage/photo_album
+	max_total_storage = 42
+	max_slots = 21
+
+/datum/storage/photo_album/New(
+	atom/parent,
+	max_slots,
+	max_specific_storage,
+	max_total_storage,
+)
+	. = ..()
+	set_holdable(/obj/item/photo)
 
 /obj/item/storage/photo_album/HoS
 	persistence_id = "HoS"

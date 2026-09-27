@@ -129,23 +129,21 @@
 	default_unfasten_wrench(user, I, 2 SECONDS)
 	return TRUE
 
-/obj/machinery/griddle/proc/on_storage_dump(datum/source, obj/item/storage_source, mob/user)
+/obj/machinery/griddle/proc/on_storage_dump(datum/source, datum/storage/storage, mob/user)
 	SIGNAL_HANDLER
 
-	for(var/obj/item/to_dump in storage_source)
-		if(to_dump.loc != storage_source)
-			continue
+	for(var/obj/item/to_dump in storage.real_location)
 		if(griddled_objects.len >= max_items)
 			break
 
-		if(!storage_source.atom_storage.attempt_remove(to_dump, src, silent = TRUE))
+		if(!storage.attempt_remove(to_dump, src, silent = TRUE))
 			continue
 
 		to_dump.pixel_x = to_dump.base_pixel_x + rand(-5, 5)
 		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)
 		AddToGrill(to_dump, user)
 
-	to_chat(user, "<span class='notice'>You dump out [storage_source] onto [src].</span>")
+	to_chat(user, span_notice("You dump out [storage.parent] onto [src]."))
 	return STORAGE_DUMP_HANDLED
 
 /obj/machinery/griddle/process(delta_time)

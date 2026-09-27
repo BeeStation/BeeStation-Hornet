@@ -79,6 +79,14 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define MOVELOOP_SUCCESS 1
 #define MOVELOOP_NOT_READY 2
 
+// Movement loop status flags
+/// Has the loop been paused, soon to be resumed?
+#define MOVELOOP_STATUS_PAUSED (1<<0)
+/// Is the loop running? (Is true even when paused)
+#define MOVELOOP_STATUS_RUNNING (1<<1)
+/// Is the loop queued in a subsystem?
+#define MOVELOOP_STATUS_QUEUED (1<<2)
+
 //Teleport restriction modes (For areas)
 /// No restrictions
 #define TELEPORT_ALLOW_ALL 0

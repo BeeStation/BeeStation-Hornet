@@ -16,13 +16,17 @@
 	if(!category || QDELETED(src))
 		return
 
+	var/datum/weakref/master_ref
+	if(isdatum(new_master))
+		master_ref = WEAKREF(new_master)
 	var/atom/movable/screen/alert/thealert
 	if(alerts[category])
 		thealert = alerts[category]
 		if(thealert.override_alerts)
 			return 0
-		if(new_master && new_master != thealert.master)
-			WARNING("[src] threw alert [category] with new_master [new_master] while already having that alert with master [thealert.master]")
+		if(master_ref && thealert.master_ref && master_ref != thealert.master_ref)
+			var/datum/current_master = thealert.master_ref.resolve()
+			WARNING("[src] threw alert [category] with new_master [new_master] while already having that alert with master [current_master]")
 
 			clear_alert(category)
 			return .()
@@ -51,7 +55,7 @@
 		new_master.layer = old_layer
 		new_master.plane = old_plane
 		thealert.icon_state = "template" // We'll set the icon to the client's ui pref in reorganize_alerts()
-		thealert.master = new_master
+		thealert.master_ref = master_ref
 	else
 		thealert.icon_state = "[initial(thealert.icon_state)][severity]"
 		thealert.severity = severity
@@ -652,12 +656,15 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	icon_state = "template"
 	timeout = 30 SECONDS
 	clickable_glow = TRUE
-	var/atom/target = null
+	/// Weakref to the target atom to use the action on
+	var/datum/weakref/target_ref
+	/// Which on click action to use
 	var/action = NOTIFY_JUMP
 
 /atom/movable/screen/alert/notify_action/Click()
 	if(!usr || !usr.client || usr != owner)
 		return
+	var/atom/target = target_ref?.resolve()
 	if(!target)
 		return
 	var/mob/dead/observer/ghost_owner = usr
@@ -934,11 +941,13 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		return
 	if(usr != owner)
 		return
-	if(master)
-		return usr.client.Click(master, location, control, params)
+	var/datum/our_master = master_ref?.resolve()
+	if(our_master)
+		return usr.client.Click(our_master, location, control, params)
 
 /atom/movable/screen/alert/Destroy()
 	severity = 0
+	master_ref = null
 	owner = null
 	screen_loc = ""
 	return ..()

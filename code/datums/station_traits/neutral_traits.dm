@@ -140,7 +140,7 @@
 	))
 	hat = new hat(living_mob)
 	if(!living_mob.equip_to_slot_if_possible(hat, ITEM_SLOT_HEAD, disable_warning = TRUE))
-		living_mob.equip_to_slot_or_del(hat, ITEM_SLOT_BACKPACK)
+		living_mob.equip_to_slot_or_del(hat, ITEM_SLOT_BACKPACK, indirect_action = TRUE)
 	var/obj/item/toy = pick_weight(list(
 		/obj/item/reagent_containers/spray/chemsprayer/party = 4,
 		/obj/item/toy/balloon = 2,
@@ -151,7 +151,7 @@
 	if(istype(toy, /obj/item/toy/balloon))
 		living_mob.equip_to_slot_or_del(toy, ITEM_SLOT_HANDS) //Balloons do not fit inside of backpacks.
 	else
-		living_mob.equip_to_slot_or_del(toy, ITEM_SLOT_BACKPACK)
+		living_mob.equip_to_slot_or_del(toy, ITEM_SLOT_BACKPACK, indirect_action = TRUE)
 
 	if(ishuman(spawned_mob))
 		var/mob/living/carbon/human/spawned_human = spawned_mob

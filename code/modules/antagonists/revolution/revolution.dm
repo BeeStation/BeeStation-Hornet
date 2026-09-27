@@ -241,7 +241,7 @@
 			"left pocket" = ITEM_SLOT_LPOCKET,
 			"right pocket" = ITEM_SLOT_RPOCKET
 		)
-		var/where = H.equip_in_one_of_slots(T, slots)
+		var/where = H.equip_in_one_of_slots(T, slots, indirect_action = TRUE)
 		if (!where)
 			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
 		else

@@ -589,7 +589,11 @@
 /obj/item/storage/box/monkeycubes/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 7
-	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
+	atom_storage.set_holdable(
+		can_hold_list = /obj/item/food/monkeycube,
+		cant_hold_list = /obj/item/food/monkeycube/gorilla,
+	)
+
 
 /obj/item/storage/box/monkeycubes/PopulateContents()
 	for(var/i in 1 to 5)
@@ -608,7 +612,7 @@
 /obj/item/storage/box/gorillacubes/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 3
-	atom_storage.set_holdable(list(/obj/item/food/monkeycube))
+	atom_storage.set_holdable(/obj/item/food/monkeycube/gorilla)
 
 /obj/item/storage/box/gorillacubes/PopulateContents()
 	for(var/i in 1 to 3)
@@ -891,7 +895,10 @@
 /obj/item/storage/box/lights/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 21
-	atom_storage.set_holdable(list(/obj/item/light/tube, /obj/item/light/bulb))
+	atom_storage.set_holdable(list(
+		/obj/item/light/tube,
+		/obj/item/light/bulb
+	))
 	atom_storage.max_total_storage = 21
 	atom_storage.allow_quick_gather = FALSE //temp workaround to re-enable filling the light replacer with the box
 
@@ -1279,10 +1286,7 @@
 
 /obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
-	atom_storage.max_specific_storage = 1000
-	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
-	atom_storage.max_slots = 1000
-	atom_storage.allow_big_nesting = TRUE
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC //This needs to be set here too because the parent type overrides it again
 
 /obj/item/storage/box/material/PopulateContents()
 	var/static/list/items_inside
@@ -1319,6 +1323,10 @@
 		/obj/item/stack/sheet/snow = 50,
 	)
 
+	atom_storage.allow_big_nesting = TRUE
+	atom_storage.max_slots = 999
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_total_storage = 999
 	for(var/obj/item/stack/stack_type as anything in items_inside)
 		var/amt = items_inside[stack_type]
 		new stack_type(src, amt, FALSE)

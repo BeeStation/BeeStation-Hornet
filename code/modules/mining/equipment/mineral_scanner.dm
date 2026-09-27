@@ -51,8 +51,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
+	/// The cooldown between scans.
 	var/cooldown = 35
+	/// Current time until the next scan can be performed.
 	var/current_cooldown = 0
+	/// The range of the scanner in tiles.
 	var/range = 7
 	var/speaker = FALSE // Speaker that plays a sound when pulsed.
 
@@ -61,6 +64,10 @@
 		return
 	speaker = !speaker
 	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+
+//get no effects from the t-ray scanner, which auto-shuts off.
+/obj/item/t_scanner/adv_mining_scanner/cyborg_unequip(mob/user)
+	return
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
 	. = ..()

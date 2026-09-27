@@ -12,7 +12,7 @@
 		return
 	if(over == src)
 		return usr.client.Click(src, src_location, src_control, params)
-	if(!Adjacent(usr) || !over.Adjacent(usr))
+	if(!(over.interaction_flags_atom & INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT) && (!Adjacent(usr) || !over.Adjacent(usr)))
 		return // should stop you from dragging through windows
 
 	over.MouseDrop_T(src,usr, params)

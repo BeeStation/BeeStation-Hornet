@@ -715,7 +715,7 @@
 			flesh_id.hud_state = chosen_profile.id_hud_state
 
 		if(equip)
-			user.equip_to_slot_or_del(new_flesh_item, slot2slot[slot])
+			user.equip_to_slot_or_del(new_flesh_item, slot2slot[slot], indirect_action = TRUE)
 			if(!QDELETED(new_flesh_item))
 				ADD_TRAIT(new_flesh_item, TRAIT_NODROP, CHANGELING_TRAIT)
 

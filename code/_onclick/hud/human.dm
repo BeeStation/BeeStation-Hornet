@@ -4,6 +4,7 @@
 /atom/movable/screen/human/toggle
 	name = "toggle"
 	icon_state = "toggle"
+	base_icon_state = "toggle"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/human/toggle/Click()
@@ -23,15 +24,11 @@
 		usr.client.screen += targetmob.hud_used.toggleable_inventory
 
 	targetmob.hud_used.hidden_inventory_update(usr)
+	update_appearance()
 
-/atom/movable/screen/human/equip
-	name = "equip"
-	icon_state = "act_equip"
-	mouse_over_pointer = MOUSE_HAND_POINTER
-
-/atom/movable/screen/human/equip/Click()
-	var/mob/living/carbon/human/H = usr
-	H.quick_equip()
+/atom/movable/screen/human/toggle/update_icon_state()
+	icon_state = "[base_icon_state][hud?.inventory_shown ? "_active" : ""]"
+	return ..()
 
 /atom/movable/screen/ling
 	invisibility = INVISIBILITY_ABSTRACT
@@ -59,14 +56,17 @@
 
 	using = new/atom/movable/screen/language_menu(null, src)
 	using.icon = ui_style
+	using.screen_loc = ui_human_language
 	static_inventory += using
 
 	using = new/atom/movable/screen/navigate(null, src)
 	using.icon = ui_style
+	using.screen_loc = ui_human_navigate
 	static_inventory += using
 
 	using = new /atom/movable/screen/area_creator(null, src)
 	using.icon = ui_style
+	using.screen_loc = ui_human_area
 	static_inventory += using
 
 	action_intent = new /atom/movable/screen/combattoggle/flashy(null, src)
@@ -74,16 +74,15 @@
 	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
+	floor_change = new /atom/movable/screen/floor_changer/vertical(null, src)
+	floor_change.icon = ui_style
+	floor_change.screen_loc = ui_human_floor_changer
+	static_inventory += floor_change
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = ui_style
 	using.icon_state = (owner.move_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	using.screen_loc = ui_movi
-	static_inventory += using
-
-	using = new /atom/movable/screen/drop(null, src)
-	using.icon = ui_style
-	using.screen_loc = ui_drop_throw
 	static_inventory += using
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
@@ -106,16 +105,15 @@
 
 	build_hand_slots()
 
-	using = new /atom/movable/screen/swap_hand(null, src)
+	using = new /atom/movable/screen/drop(null, src)
 	using.icon = ui_style
-	using.icon_state = "swap_1"
-	using.screen_loc = ui_swaphand_position(owner,1)
+	using.screen_loc = ui_swaphand_position(owner, 1)
 	static_inventory += using
 
 	using = new /atom/movable/screen/swap_hand(null, src)
 	using.icon = ui_style
-	using.icon_state = "swap_2"
-	using.screen_loc = ui_swaphand_position(owner,2)
+	using.icon_state = "act_swap"
+	using.screen_loc = ui_swaphand_position(owner, 2)
 	static_inventory += using
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
@@ -181,19 +179,14 @@
 	inv_box.slot_id = ITEM_SLOT_SUITSTORE
 	static_inventory += inv_box
 
-	using = new /atom/movable/screen/resist(null, src)
-	using.icon = ui_style
-	using.screen_loc = ui_above_intent
-	hotkeybuttons += using
+	resist_icon = new /atom/movable/screen/resist(null, src)
+	resist_icon.icon = ui_style
+	resist_icon.screen_loc = ui_above_movement
+	hotkeybuttons += resist_icon
 
 	using = new /atom/movable/screen/human/toggle(null, src)
 	using.icon = ui_style
 	using.screen_loc = ui_inventory
-	static_inventory += using
-
-	using = new /atom/movable/screen/human/equip(null, src)
-	using.icon = ui_style
-	using.screen_loc = ui_equip_position(mymob)
 	static_inventory += using
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
@@ -257,7 +250,7 @@
 
 	rest_icon = new /atom/movable/screen/rest(null, src)
 	rest_icon.icon = ui_style
-	rest_icon.screen_loc = ui_above_movement
+	rest_icon.screen_loc = ui_rest
 	static_inventory += rest_icon
 
 	spacesuit = new /atom/movable/screen/spacesuit
@@ -275,7 +268,7 @@
 	pull_icon = new /atom/movable/screen/pull(null, src)
 	pull_icon.icon = ui_style
 	pull_icon.update_icon()
-	pull_icon.screen_loc = ui_above_intent
+	pull_icon.screen_loc = ui_above_movement_top
 	static_inventory += pull_icon
 
 	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)

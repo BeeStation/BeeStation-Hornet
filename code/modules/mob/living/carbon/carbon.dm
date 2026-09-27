@@ -157,7 +157,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 	throw_mode = THROW_MODE_DISABLED
 	if(client && hud_used)
-		hud_used.throw_icon.icon_state = "act_throw_off"
+		hud_used.throw_icon.icon_state = "act_throw"
 
 
 /mob/living/carbon/proc/throw_mode_on(mode = THROW_MODE_TOGGLE)

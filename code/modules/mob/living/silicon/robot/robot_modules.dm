@@ -12,18 +12,20 @@
 	if(!istype(robot))
 		stack_trace("Robot model ([src]) initialized outside of a robot at [AREACOORD(robot)]! This should never happen, make sure this item is not map-placed.")
 		return INITIALIZE_HINT_QDEL
-	for(var/i in basic_modules)
-		var/obj/item/I = new i(src)
-		basic_modules += I
-		basic_modules -= i
-	for(var/i in emag_modules)
-		var/obj/item/I = new i(src)
-		emag_modules += I
-		emag_modules -= i
-	for(var/i in ratvar_modules)
-		var/obj/item/I = new i(src)
-		ratvar_modules += I
-		ratvar_modules -= i
+	create_storage(storage_type = /datum/storage/cyborg_internal_storage)
+	//src is what we store items visible to borgs, we'll store things in the bot itself otherwise.
+	for(var/path in basic_modules)
+		var/obj/item/new_module  = new path(robot)
+		basic_modules += new_module
+		basic_modules -= path
+	for(var/path in emag_modules)
+		var/obj/item/new_module  = new path(robot)
+		emag_modules += new_module
+		emag_modules -= path
+	for(var/path in ratvar_modules)
+		var/obj/item/new_module  = new path(robot)
+		ratvar_modules += new_module
+		ratvar_modules -= path
 
 /obj/item/robot_model/Destroy()
 	basic_modules.Cut()
@@ -39,21 +41,18 @@
 
 /obj/item/robot_model/proc/get_inactive_modules()
 	. = list()
-	var/mob/living/silicon/robot/robot = loc
-	for(var/m in get_usable_modules())
-		if(!(m in robot.held_items))
-			. += m
+	var/mob/living/silicon/robot/cyborg = loc
+	for(var/module in get_usable_modules())
+		if(!(module in cyborg.held_items))
+			. += module
+	if(!cyborg.emagged)
+		. += emag_modules
 
 /obj/item/robot_model/proc/add_module(obj/item/item, nonstandard, requires_rebuild)
 	if(istype(item, /obj/item/stack))
 		var/obj/item/stack/sheet_module = item
 		if(ispath(sheet_module.source, /datum/robot_energy_storage))
 			sheet_module.source = get_or_create_estorage(sheet_module.source)
-
-		if(istype(sheet_module, /obj/item/stack/sheet/rglass/cyborg))
-			var/obj/item/stack/sheet/rglass/cyborg/rglass_module = sheet_module
-			if(ispath(rglass_module.glasource, /datum/robot_energy_storage))
-				rglass_module.glasource = get_or_create_estorage(rglass_module.glasource)
 
 		if(istype(sheet_module.source))
 			sheet_module.cost = max(sheet_module.cost, 1) // Must not cost 0 to prevent div/0 errors.
@@ -62,8 +61,8 @@
 	if(item.loc != src)
 		item.forceMove(src)
 	modules += item
-	ADD_TRAIT(item, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 	item.mouse_opacity = MOUSE_OPACITY_OPAQUE
+	item.obj_flags |= ABSTRACT
 	if(nonstandard)
 		added_modules += item
 	if(requires_rebuild)
@@ -71,44 +70,47 @@
 
 	return item
 
-/obj/item/robot_model/proc/remove_module(obj/item/item, delete_after)
+/obj/item/robot_model/proc/remove_module(obj/item/item)
 	basic_modules -= item
 	modules -= item
 	emag_modules -= item
 	ratvar_modules -= item
 	added_modules -= item
 	rebuild_modules()
-	if(delete_after)
-		qdel(item)
+	qdel(item)
 
 /obj/item/robot_model/proc/rebuild_modules() //builds the usable module list from the modules we have
-	var/mob/living/silicon/robot/robot = loc
-	var/held_modules = robot.held_items.Copy()
-	robot.uneq_all()
+	var/mob/living/silicon/robot/cyborg = loc
+	if (!istype(cyborg))
+		return
+	var/list/held_modules = cyborg.held_items.Copy()
+	var/active_module = cyborg.module_active
+	//move everything out of the model's inventory
+	for(var/obj/item/module as anything in modules)
+		module.forceMove(robot)
 	modules = list()
 
 	// Default
-	for(var/obj/item/basic_module in basic_modules)
+	for(var/obj/item/basic_module as anything in basic_modules)
 		add_module(basic_module, FALSE, FALSE)
 	// Emag
-	if(robot.emagged)
-		for(var/obj/item/emag_module in emag_modules)
+	if(cyborg.emagged)
+		for(var/obj/item/emag_module as anything in emag_modules)
 			add_module(emag_module, FALSE, FALSE)
 	// Ratvar
-	if(IS_SERVANT_OF_RATVAR(robot) && !robot.ratvar)	//It just works :^)
+	if(IS_SERVANT_OF_RATVAR(robot) && !robot.ratvar) //It just works :^)
 		robot.SetRatvar(TRUE, FALSE)
 	if(robot.ratvar)
-		for(var/obj/item/ratvar_module in ratvar_modules)
+		for(var/obj/item/ratvar_module as anything in ratvar_modules)
 			add_module(ratvar_module, FALSE, FALSE)
 	// tbh I have no idea what added_modules are but they are here
-	for(var/obj/item/added_module in added_modules)
+	for(var/obj/item/added_module as anything in added_modules)
 		add_module(added_module, FALSE, FALSE)
-
-	for(var/held_module in held_modules)
-		if(held_module)
-			robot.activate_module(held_module)
-	if(robot.hud_used)
-		robot.hud_used.update_robot_modules_display()
+	for(var/obj/item/module as anything in held_modules & modules)
+		cyborg.put_in_hand(module, held_modules.Find(module))
+	if(active_module)
+		cyborg.select_module(held_modules.Find(active_module))
+	atom_storage.refresh_views()
 
 /obj/item/robot_model/proc/respawn_consumable(mob/living/silicon/robot/robot, coeff = 1)
 	SHOULD_CALL_PARENT(TRUE)
@@ -199,8 +201,6 @@
 	robot.updatehealth()
 	robot.update_icons()
 	robot.notify_ai(AI_NOTIFICATION_NEW_MODEL)
-	if(robot.hud_used)
-		robot.hud_used.update_robot_modules_display()
 	SSblackbox.record_feedback("tally", "cyborg_modules", 1, robot.model)
 
 /**
@@ -316,7 +316,6 @@
 	name = "Engineering"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/meson,
 		/obj/item/borg/charger,
 		/obj/item/construction/rcd/borg,
 		/obj/item/pipe_dispenser,
@@ -335,11 +334,12 @@
 		/obj/item/electroadaptive_pseudocircuit,
 		/obj/item/stack/sheet/iron,
 		/obj/item/stack/sheet/glass,
-		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/borg/apparatus/sheet_manipulator,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/stack/cable_coil,
 		/obj/item/holosign_creator/atmos,
+		/obj/item/airlock_painter/decal/cyborg,
 	)
 	emag_modules = list(
 		/obj/item/borg/stun,
@@ -357,6 +357,41 @@
 	model_select_icon = "engineer"
 	module_traits = list(TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
+	var/datum/weakref/night_vision_ref
+
+/datum/action/innate/borg_vision
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon_state = "meson"
+	/// sight_mode bitflag this button toggles on its cyborg
+	var/vision_flag
+
+/datum/action/innate/borg_vision/on_activate(mob/user, atom/target)
+	var/mob/living/silicon/robot/borg = owner
+	if(!iscyborg(borg))
+		return
+	borg.sight_mode ^= vision_flag
+	borg.update_sight()
+	to_chat(borg, span_notice("You toggle your [name] [(borg.sight_mode & vision_flag) ? "on" : "off"]."))
+
+/datum/action/innate/borg_vision/meson
+	name = "Meson Vision"
+	vision_flag = BORGMESON
+
+/datum/action/innate/borg_vision/thermal
+	name = "Thermal Vision"
+	vision_flag = BORGTHERM
+
+/obj/item/robot_model/engineering/be_transformed_to(obj/item/robot_model/old_module)
+	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
+	. = ..()
+	if(!.)
+		return
+	night_vision.Grant(loc)
+	night_vision_ref = WEAKREF(night_vision)
+
+/obj/item/robot_model/engineering/Destroy()
+	QDEL_NULL(night_vision_ref)
+	return ..()
 
 // --------------------- Janitor
 /obj/item/robot_model/janitor
@@ -369,13 +404,13 @@
 		/obj/item/soap/nanotrasen/cyborg,
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
-		/obj/item/storage/bag/trash/cyborg,
+		/obj/item/storage/bag/trash,
 		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini,
-		/obj/item/mop/cyborg,
+		/obj/item/mop,
 		/obj/item/reagent_containers/cup/bucket,
 		/obj/item/paint/paint_remover,
-		/obj/item/lightreplacer/cyborg,
+		/obj/item/lightreplacer,
 		/obj/item/holosign_creator/janibarrier,
 		/obj/item/reagent_containers/spray/cyborg/drying_agent,
 		/obj/item/reagent_containers/spray/cyborg/plantbgone,
@@ -423,7 +458,7 @@
 		/obj/item/borg/charger,
 		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/borg/apparatus/container,
+		/obj/item/borg/apparatus/beaker,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/surgical_drapes,
@@ -440,6 +475,8 @@
 		/obj/item/stack/medical/gauze,
 		/obj/item/organ_storage,
 		/obj/item/borg/lollipop,
+		/obj/item/borg/apparatus/organ_storage,
+		/obj/item/storage/bag/chemistry,
 	)
 	emag_modules = list(
 		/obj/item/reagent_containers/borghypo/hacked,
@@ -478,9 +515,8 @@
 	name = "Miner"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/meson,
 		/obj/item/storage/bag/ore/cyborg,
-		/obj/item/pickaxe/drill/cyborg,
+		/obj/item/pickaxe/drill,
 		/obj/item/shovel,
 		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
@@ -490,6 +526,7 @@
 		/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
 		/obj/item/stack/marker_beacon,
+		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 	)
 	emag_modules = list(
 		/obj/item/borg/stun,
@@ -503,9 +540,15 @@
 	cyborg_base_icon = "miner"
 	model_select_icon = "miner"
 	hat_offset = 0
-	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
+	var/datum/weakref/night_vision_ref
 
 /obj/item/robot_model/miner/be_transformed_to(obj/item/robot_model/old_module)
+	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
+	. = ..()
+	if(!.)
+		return
+	night_vision.Grant(loc)
+	night_vision_ref = WEAKREF(night_vision)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/miner_icons = list(
 		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
@@ -523,15 +566,9 @@
 			cyborg_base_icon = "spidermin"
 		else
 			return FALSE
-	return ..()
-
-/obj/item/robot_model/miner/rebuild_modules()
-	. = ..()
-	if(!mining_scanner)
-		mining_scanner = new(src)
 
 /obj/item/robot_model/miner/Destroy()
-	QDEL_NULL(mining_scanner)
+	QDEL_NULL(night_vision_ref)
 	return ..()
 
 // --------------------- Peacekeeper
@@ -581,7 +618,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/borg/apparatus/container/service,
+		/obj/item/borg/apparatus/beaker/service,
 		/obj/item/reagent_containers/borghypo/borgshaker,
 	)
 	emag_modules = list(
@@ -758,7 +795,7 @@
 	var/mob/living/silicon/robot/robot = loc
 	robot.faction -= FACTION_SILICON //ai turrets
 
-/obj/item/robot_model/syndicate/remove_module(obj/item/I, delete_after)
+/obj/item/robot_model/syndicate/remove_module(obj/item/I)
 	. = ..()
 	var/mob/living/silicon/robot/robot = loc
 	robot.faction += FACTION_SILICON //ai is your bff now!
@@ -788,6 +825,8 @@
 		/obj/item/stack/medical/gauze,
 		/obj/item/gun/medbeam,
 		/obj/item/organ_storage,
+		/obj/item/borg/apparatus/organ_storage,
+		/obj/item/storage/bag/chemistry,
 	)
 	cyborg_base_icon = "synd_medical"
 	model_select_icon = "malf"
@@ -799,8 +838,8 @@
 	name = "Syndicate Saboteur"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/thermal,
 		/obj/item/construction/rcd/borg/syndicate,
+		/obj/item/airlock_painter/decal/cyborg,
 		/obj/item/pipe_dispenser,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/charger,
@@ -813,7 +852,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/stack/sheet/iron,
 		/obj/item/stack/sheet/glass,
-		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/borg/apparatus/sheet_manipulator,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/dest_tagger/borg,
@@ -827,6 +866,19 @@
 	module_traits = list(TRAIT_PUSHIMMUNE, TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 	canDispose = TRUE
+	var/datum/weakref/thermal_vision_ref
+
+/obj/item/robot_model/saboteur/be_transformed_to(obj/item/robot_model/old_module)
+	var/datum/action/innate/borg_vision/thermal/thermal_vision = new(loc)
+	. = ..()
+	if(!.)
+		return
+	thermal_vision.Grant(loc)
+	thermal_vision_ref = WEAKREF(thermal_vision)
+
+/obj/item/robot_model/saboteur/Destroy()
+	QDEL_NULL(thermal_vision_ref)
+	return ..()
 
 // ------------------------------------------ Storages
 /datum/robot_energy_storage

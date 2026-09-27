@@ -99,22 +99,69 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 	return A.powered(chan)	// return power status of the area
 
+/**
+ * Returns the energy available to this machine from its APC's cell and grid, without consuming any.
+ * Args:
+ * - consider_cell: Whether to count the charge in the APC's cell or only the grid surplus.
+ * Returns: The available energy, or INFINITY in an area that doesn't require power.
+ */
+/obj/machinery/proc/available_energy(consider_cell = TRUE)
+	var/area/home = get_area(src)
+	if(isnull(home))
+		return FALSE
+	if(!home.requires_power)
+		return INFINITY
+
+	var/obj/machinery/power/apc/local_apc = home.apc
+	if(isnull(local_apc))
+		return FALSE
+
+	var/surplus = local_apc.surplus()
+	if(!consider_cell)
+		return surplus
+	return surplus + (QDELETED(local_apc.cell) ? 0 : local_apc.cell.charge)
+
 // increment the power usage stats for an area
-/obj/machinery/proc/use_power(amount, chan = power_channel)
+/obj/machinery/proc/use_power(amount, channel = power_channel, ignore_apc = FALSE, force = TRUE)
 	if(amount <= 0)
 		return FALSE
 	var/area/A = get_area(src) // make sure it's in an area
 	if(isnull(A))
 		return FALSE
-	A.use_power(amount, chan)
-	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
+	if(!A.requires_power)
+		return amount
+	if(!A.powered(channel))
+		return FALSE
+
+	var/obj/machinery/power/apc/local_apc = A.apc
+	if(isnull(local_apc) || !local_apc.operating)
+		return FALSE
+
+	// Surplus from the grid.
+	var/surplus = local_apc.surplus()
+	var/grid_used = min(surplus, amount)
+	var/apc_used = 0
+	if((amount > grid_used) && !ignore_apc && !QDELETED(local_apc.cell)) // Use from the APC's cell if there isn't enough energy from the grid.
+		apc_used = local_apc.cell.use(amount - grid_used, force = force)
+
+	if(!force && (amount > grid_used + apc_used)) // If we aren't forcing it and there isn't enough energy to supply demand, return nothing.
+		return FALSE
+
+	// Use the grid's and APC's energy. Static draw is billed separately by the APC.
+	amount = grid_used + apc_used
+	local_apc.add_load(grid_used)
+	A.use_power(amount, channel)
+	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount)
 	return amount
 
 /**
-  * An alternative to 'use_power', this proc directly costs the APC in direct charge, as opposed to being calculated periodically.
-  * - Amount: How much power the APC's cell is to be costed.
+  * An alternative to 'use_power', this proc directly costs the APC in direct charge, as opposed to prioritising the grid.
+  * Args:
+  * - amount: How much power the APC's cell is to be costed.
+  * - force: If true, consumes the remaining charge of the cell when there isn't enough to supply the demand.
+  * Returns: The amount of energy that got used by the cell.
   */
-/obj/machinery/proc/directly_use_power(amount)
+/obj/machinery/proc/directly_use_power(amount, force = FALSE)
 	var/area/my_area = get_area(src)
 	if(isnull(my_area))
 		stack_trace("machinery is somehow not in an area, nullspace?")
@@ -125,7 +172,7 @@ WANTS_POWER_NODE(/obj/machinery/power)
 	var/obj/machinery/power/apc/my_apc = my_area.apc
 	if(isnull(my_apc) || !my_apc.operating || QDELETED(my_apc.cell))
 		return FALSE
-	return my_apc.cell.use(amount)
+	return my_apc.cell.use(amount, force = force)
 
 
 /**
@@ -148,11 +195,9 @@ WANTS_POWER_NODE(/obj/machinery/power)
 		return FALSE //apparently space isn't an area
 	if(!home.requires_power)
 		return amount //Non-power eaters get free power, don't ask why
-	if(!home.always_unpowered)
-		return amount //Ruins get free power, don't ask why
 
 	var/obj/machinery/power/apc/local_apc = home.apc
-	if(!local_apc)
+	if(isnull(local_apc) || !local_apc.operating)
 		return FALSE
 	var/surplus = local_apc.surplus()
 	if(surplus <= 0) //I don't know if powernet surplus can ever end up negative, but I'm just gonna failsafe it
@@ -163,6 +208,24 @@ WANTS_POWER_NODE(/obj/machinery/power)
 		amount = surplus
 	local_apc.add_load(amount)
 	return amount
+
+/**
+ * Draws power from the apc's powernet and cell to charge a power cell.
+ * Args:
+ * - amount: The amount of energy given to the cell.
+ * - cell: The cell to charge.
+ * - grid_only: If true, only draw from the grid and ignore the APC's cell.
+ * - channel: The power channel to use.
+ * Returns: The amount of energy the cell received.
+ */
+/obj/machinery/proc/charge_cell(amount, obj/item/stock_parts/cell/cell, grid_only = FALSE, channel = AREA_USAGE_EQUIP)
+	if(QDELETED(cell))
+		return 0
+	var/demand = min(amount, cell.used_charge())
+	if(demand <= 0)
+		return 0
+	var/drawn = use_power(demand, channel = channel, ignore_apc = grid_only)
+	return cell.give(drawn * POWER_TRANSFER_LOSS)
 
 /obj/machinery/proc/addStaticPower(value, powerchannel)
 	var/area/A = get_area(src)

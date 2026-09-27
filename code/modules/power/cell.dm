@@ -96,16 +96,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	return maxcharge ? 100 * charge / maxcharge : 0 //Division by 0 protection
 
 // use power from a cell
-/obj/item/stock_parts/cell/use(amount, force)
-	if(rigged && amount > 0)
+/obj/item/stock_parts/cell/use(used, force = FALSE)
+	var/power_used = min(used, charge)
+	if(rigged && used > 0)
 		plasma_ignition(4)
 		return 0
-	if(!force && charge < amount)
+	if(!force && charge < used)
 		return 0
-	charge = max(charge - amount, 0)
+	charge -= power_used
 	if(!istype(loc, /obj/machinery/power/apc))
 		SSblackbox.record_feedback("tally", "cell_used", 1, type)
-	return 1
+	return power_used
 
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
@@ -361,7 +362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 	chargerate_divide = 1
 
 /obj/item/stock_parts/cell/infinite/use(used, force = FALSE)
-	return TRUE
+	return used
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"

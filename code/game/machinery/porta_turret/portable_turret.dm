@@ -963,6 +963,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 	if(issilicon(user) && !(machine_stat & BROKEN))
 		. += span_notice("Ctrl-click [src] to [enabled ? "disable" : "enable"] turrets.")
 		. += span_notice("Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].")
+		
 /obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, params)
 	if(machine_stat & BROKEN)
 		return

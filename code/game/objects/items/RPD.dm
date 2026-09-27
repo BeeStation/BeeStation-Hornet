@@ -265,10 +265,6 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			layer_nums += pipe_layer_number
 	return layer_nums
 
-/obj/item/pipe_dispenser/cyborg_unequip(mob/user)
-	UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
-	return ..()
-
 /obj/item/pipe_dispenser/attack_self(mob/user)
 	ui_interact(user)
 

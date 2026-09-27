@@ -92,7 +92,7 @@
 	pull_icon = new /atom/movable/screen/pull(null, src)
 	pull_icon.icon = ui_style
 	pull_icon.update_icon()
-	pull_icon.screen_loc = ui_above_movement
+	pull_icon.screen_loc = ui_above_movement_top
 	static_inventory += pull_icon
 
 	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)

@@ -41,7 +41,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/pull_icon
 	var/atom/movable/screen/rest_icon
 	var/atom/movable/screen/throw_icon
-	var/atom/movable/screen/module_store_icon
+	var/atom/movable/screen/resist_icon
+	var/atom/movable/screen/floor_change
 
 	var/custom_hud_locs = FALSE
 
@@ -52,6 +53,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/list/screenoverlays = list() //the screen objects used as whole screen overlays (flash, damageoverlay, etc...)
 	var/list/inv_slots[SLOTS_AMT] // /atom/movable/screen/inventory objects, ordered by their slot ID.
 	var/list/hand_slots // /atom/movable/screen/inventory/hand objects, assoc list of "[held_index]" = object
+	/// storages (and its content) currently open by mob
+	var/list/open_containers = list()
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
@@ -110,7 +113,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	QDEL_NULL(palette_actions)
 	QDEL_NULL(listed_actions)
 	QDEL_LIST(floating_actions)
-	QDEL_NULL(module_store_icon)
 	QDEL_LIST(static_inventory)
 	QDEL_LIST(team_finder_arrows)
 
@@ -126,6 +128,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	QDEL_LIST(hotkeybuttons)
 	throw_icon = null
 	QDEL_LIST(infodisplay)
+	open_containers = null
 
 	healths = null
 	stamina = null
@@ -188,6 +191,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 				screenmob.client.screen += infodisplay
 			if(team_finder_arrows.len)
 				screenmob.client.screen += team_finder_arrows
+			if(open_containers.len && screenmob == mymob) // Don't show open inventories to ghosts
+				screenmob.client.screen += open_containers
 
 			screenmob.client.screen += toggle_palette
 			if(action_intent && !custom_hud_locs)
@@ -259,12 +264,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/mob/screenmob = viewmob || mymob
 	hidden_inventory_update(screenmob)
 
-/datum/hud/robot/show_hud(version = 0, mob/viewmob)
-	. = ..()
-	if(!.)
-		return
-	update_robot_modules_display()
-
 /datum/hud/proc/hidden_inventory_update()
 	return
 
@@ -315,14 +314,26 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 		hand_box.held_index = i
 		hand_slots["[i]"] = hand_box
 		static_inventory += hand_box
-		hand_box.update_icon()
+		hand_box.update_appearance()
 
-	var/i = 1
+	var/num_of_swaps = 1
 	for(var/atom/movable/screen/swap_hand/SH in static_inventory)
-		SH.screen_loc = ui_swaphand_position(mymob,!(i % 2) ? 2: 1)
-		i++
-	for(var/atom/movable/screen/human/equip/E in static_inventory)
-		E.screen_loc = ui_equip_position(mymob)
+		num_of_swaps += 1
+
+	var/hand_num = 1
+	for(var/atom/movable/screen/swap_hand/swap_hands in static_inventory)
+		var/hand_ind = RIGHT_HANDS
+		if (num_of_swaps > 1)
+			hand_ind = IS_RIGHT_INDEX(hand_num) ? LEFT_HANDS : RIGHT_HANDS
+		swap_hands.screen_loc = ui_swaphand_position(mymob, hand_ind)
+		hand_num += 1
+	hand_num = 1
+	for(var/atom/movable/screen/drop/swap_hands in static_inventory)
+		var/hand_ind = LEFT_HANDS
+		if (num_of_swaps > 1)
+			hand_ind = IS_LEFT_INDEX(hand_num) ? LEFT_HANDS : RIGHT_HANDS
+		swap_hands.screen_loc = ui_swaphand_position(mymob, hand_ind)
+		hand_num += 1
 
 	if(ismob(mymob) && mymob.hud_used == src)
 		show_hud(hud_version)
@@ -385,11 +396,13 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 /datum/hud/proc/generate_landings(atom/movable/screen/movable/action_button/button)
 	listed_actions.generate_landing()
 	palette_actions.generate_landing()
+	toggle_palette.activate_landing()
 
 /// Clears all currently visible landings
 /datum/hud/proc/hide_landings()
 	listed_actions.clear_landing()
 	palette_actions.clear_landing()
+	toggle_palette.disable_landing()
 
 // Updates any existing "owned" visuals, ensures they continue to be visible
 /datum/hud/proc/update_our_owner()

@@ -93,9 +93,6 @@
 		new /obj/effect/spawner/random/trash/garbage(src)
 	update_icon_state()
 
-/obj/item/storage/bag/trash/cyborg
-	insertable = FALSE
-
 /obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)
 		J.put_in_cart(src, user)
@@ -339,7 +336,15 @@
 	atom_storage.allow_quick_empty = TRUE
 	atom_storage.allow_quick_gather = TRUE
 	atom_storage.numerical_stacking = TRUE
-	atom_storage.set_holdable(list(/obj/item/stack/sheet))
+	atom_storage.set_holdable(
+		can_hold_list = list(
+			/obj/item/stack/sheet
+		),
+		cant_hold_list = list(
+			/obj/item/stack/sheet/mineral/sandstone,
+			/obj/item/stack/sheet/wood,
+		),
+	)
 	atom_storage.max_total_storage = capacity / 2
 
 // -----------------------------
@@ -454,6 +459,10 @@
 		I_copy.plane = FLOAT_PLANE
 		I_copy.layer = FLOAT_LAYER
 		. += I_copy
+
+/obj/item/storage/bag/tray/cyborg_unequip(mob/user)
+	. = ..()
+	atom_storage.remove_all(drop_location())
 
 /obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

@@ -1012,7 +1012,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
 	return
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	if(no_equip_flags & slot)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
@@ -1027,7 +1027,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!(I.slot_flags & slot))
 		var/excused = FALSE
 		// Anything that's small or smaller can fit into a pocket by default
-		if((slot & (ITEM_SLOT_RPOCKET|ITEM_SLOT_LPOCKET)) && I.w_class <= WEIGHT_CLASS_SMALL)
+		if((slot & (ITEM_SLOT_RPOCKET|ITEM_SLOT_LPOCKET)) && I.w_class <= POCKET_WEIGHT_CLASS)
 			excused = TRUE
 		else if(slot & (ITEM_SLOT_SUITSTORE|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDS))
 			excused = TRUE
@@ -1151,7 +1151,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACKPACK)
-			if(H.back && H.back.atom_storage?.can_insert(I, H, messages = TRUE))
+			if(H.back && H.back.atom_storage?.can_insert(I, H, messages = TRUE, force = indirect_action ? STORAGE_SOFT_LOCKED : STORAGE_NOT_LOCKED))
 				return TRUE
 			return FALSE
 	return FALSE //Unsupported slot

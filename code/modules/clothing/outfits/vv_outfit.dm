@@ -105,9 +105,8 @@
 	//Copy backpack contents if exist.
 	var/obj/item/backpack = get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(backpack) && backpack.atom_storage)
-		var/list/bp_stuff = list()
+		var/list/bp_stuff = backpack.atom_storage.return_inv(recursive = FALSE)
 		var/list/typecounts = list()
-		backpack.atom_storage.return_inv(bp_stuff, FALSE)
 		for(var/obj/item/I in bp_stuff)
 			if(typecounts[I.type])
 				typecounts[I.type] += 1

@@ -37,11 +37,12 @@
 	description = "Utility upgrades for cyborgs."
 	prereq_ids = list(TECHWEB_NODE_ENGINEERING)
 	design_ids = list(
-		"borg_upgrade_circuitapp",
 		"borg_upgrade_expand",
 		"borg_upgrade_holding",
 		"borg_upgrade_lavaproof",
 		"borg_upgrade_rped",
+		"borg_upgrade_engineeringapp",
+		"borg_upgrade_inducer",
 		"borg_upgrade_selfrepair",
 		"borg_upgrade_thrusters",
 	)
@@ -97,7 +98,6 @@
 	description = "Utility upgrades for cyborgs: Now with 100% more bluespace!"
 	prereq_ids = list(TECHWEB_NODE_CYBORG_UPG_UTIL, TECHWEB_NODE_APPLIED_BLUESPACE)
 	design_ids = list(
-		"borg_upgrade_bsrped",
 		"borg_upgrade_bslightreplacer"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)

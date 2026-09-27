@@ -12,22 +12,31 @@
 	var/cell_type = /obj/item/stock_parts/cell/high/plus
 	var/obj/item/stock_parts/cell/cell
 	var/recharging = FALSE
+	/// Charge in the power source that this refuses to draw below.
+	var/charge_reserve = 0
 
 /obj/item/inducer/Initialize(mapload)
 	. = ..()
 	if(!cell && cell_type)
 		cell = new cell_type
 
+/// The cell this inducer pulls charge out of. Not always the installed one - see /obj/item/inducer/cyborg.
+/obj/item/inducer/proc/get_power_source()
+	return cell
+
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target)
-	var/totransfer = min(cell.charge, cell.chargerate * transfer_coef)
+	var/obj/item/stock_parts/cell/source = get_power_source()
+	if(!source)
+		return
+	var/totransfer = min(source.charge - charge_reserve, source.chargerate * transfer_coef)
 	if(totransfer <= 0)
 		return
 	// The 15% loss applies to charge given, not charge used
 	var/transferred = target.give(totransfer * POWER_TRANSFER_LOSS)
 	if(transferred <= 0)
 		return
-	cell.use(transferred / POWER_TRANSFER_LOSS)
-	cell.update_icon()
+	source.use(transferred / POWER_TRANSFER_LOSS)
+	source.update_icon()
 	target.update_icon()
 
 /obj/item/inducer/get_cell()
@@ -55,12 +64,13 @@
 		to_chat(user, span_warning("You don't have the dexterity to use [src]!"))
 		return TRUE
 
-	if(!cell)
+	var/obj/item/stock_parts/cell/source = get_power_source()
+	if(!source)
 		to_chat(user, span_warning("[src] doesn't have a power cell installed!"))
 		return TRUE
 
-	if(!cell.charge)
-		to_chat(user, span_warning("[src]'s battery is dead!"))
+	if(source.charge <= charge_reserve)
+		to_chat(user, span_warning("[src] is out of power!"))
 		return TRUE
 	return FALSE
 
@@ -138,11 +148,12 @@
 	user.visible_message("[user] starts recharging [A] with [src].", span_notice("You start recharging [A] with [src]."))
 	var/done_any = FALSE
 	while((biobattery?.cell.charge || powercell.charge) < maxcharge)
-		if(!do_after(user, 10, target = user) || !cell.charge)
+		var/obj/item/stock_parts/cell/source = get_power_source()
+		if(!do_after(user, 10, target = user) || !source || source.charge <= charge_reserve)
 			break
 		done_any = TRUE
 		if(biobattery)
-			biobattery.adjust_charge(min(cell.charge, 250))
+			biobattery.adjust_charge(min(source.charge, 250))
 		else
 			induce(powercell)
 		do_sparks(1, FALSE, A)
@@ -180,8 +191,9 @@
 
 /obj/item/inducer/examine(mob/living/M)
 	. = ..()
-	if(cell)
-		. += span_notice("Its display shows: [display_power(cell.charge)].")
+	var/obj/item/stock_parts/cell/source = get_power_source()
+	if(source)
+		. += span_notice("Its display shows: [display_power(source.charge)].")
 	else
 		. += span_notice("Its display is dark.")
 	if(opened)
@@ -221,3 +233,39 @@
 /obj/item/inducer/sci/with_cell
 	cell_type = /obj/item/stock_parts/cell/high
 	opened = FALSE
+
+/// Cyborg module. Has no battery of its own - it spends the chassis' charge instead.
+/obj/item/inducer/cyborg
+	name = "internal inducer"
+	desc = "An integrated inducer that charges a device's internal cell with power drawn from its cyborg chassis."
+	cell_type = null
+	transfer_coef = 3
+	charge_reserve = 500
+
+/// The cyborg we are a module of. Modules sit in the model while stowed and on the borg itself while active.
+/obj/item/inducer/cyborg/proc/get_borg()
+	if(iscyborg(loc))
+		return loc
+	if(istype(loc, /obj/item/robot_model))
+		var/obj/item/robot_model/model = loc
+		if(iscyborg(model.loc))
+			return model.loc
+	return null
+
+/obj/item/inducer/cyborg/get_power_source()
+	var/mob/living/silicon/robot/borg = get_borg()
+	return borg?.cell
+
+/obj/item/inducer/cyborg/recharge(atom/movable/A, mob/living/user)
+	var/mob/living/silicon/robot/borg = get_borg()
+	// No feeding our own cell back into itself.
+	if(borg && (A == borg || (borg.cell && (A == borg.cell || A.get_cell() == borg.cell))))
+		balloon_alert(user, "can't charge yourself!")
+		return TRUE
+	return ..()
+
+// No battery compartment to get at - the chassis is the battery.
+/obj/item/inducer/cyborg/attackby(obj/item/W, mob/user)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER || istype(W, /obj/item/stock_parts/cell))
+		return
+	return ..()

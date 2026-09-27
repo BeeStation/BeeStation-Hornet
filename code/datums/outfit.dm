@@ -74,9 +74,6 @@
 	//Type path of item to go in left hand
 	var/l_hand = null
 
-	/// Should the toggle helmet proc be called on the helmet during equip
-	var/toggle_helmet = TRUE
-
 	///Should we preload some of this job's items?
 	var/preload = FALSE
 
@@ -146,7 +143,7 @@
 	return
 
 #define EQUIP_OUTFIT_ITEM(item_path, slot_name) if(##item_path) { \
-	user.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path, user), ##slot_name, TRUE); \
+	user.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path, user), ##slot_name, TRUE, indirect_action = TRUE); \
 	var/obj/item/outfit_item = user.get_item_by_slot(##slot_name); \
 	if (outfit_item && outfit_item.type == ##item_path) { \
 		outfit_item.on_outfit_equip(user, visuals_only, ##slot_name); \
@@ -245,10 +242,6 @@
 					number = 1
 				for(var/i in 1 to number)
 					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)
-
-	if(!user.head && toggle_helmet && istype(user.wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HS = user.wear_suit
-		HS.ToggleHelmet()
 
 	post_equip(user, visuals_only)
 
@@ -366,7 +359,6 @@
 	.["name"] = name
 	.["uniform"] = uniform
 	.["suit"] = suit
-	.["toggle_helmet"] = toggle_helmet
 	.["back"] = back
 	.["belt"] = belt
 	.["gloves"] = gloves
@@ -393,7 +385,6 @@
 	name = target.name
 	uniform = target.uniform
 	suit = target.suit
-	toggle_helmet = target.toggle_helmet
 	back = target.back
 	belt = target.belt
 	gloves = target.gloves
@@ -429,7 +420,6 @@
 	name = outfit_data["name"]
 	uniform = text2path(outfit_data["uniform"])
 	suit = text2path(outfit_data["suit"])
-	toggle_helmet = outfit_data["toggle_helmet"]
 	back = text2path(outfit_data["back"])
 	belt = text2path(outfit_data["belt"])
 	gloves = text2path(outfit_data["gloves"])

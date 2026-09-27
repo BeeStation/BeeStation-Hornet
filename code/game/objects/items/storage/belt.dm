@@ -272,6 +272,57 @@
 	new /obj/item/crowbar/brass(src)
 	new /obj/item/weldingtool/experimental/brass(src)
 
+GLOBAL_LIST_INIT(medbelt_holdable, list(
+	/obj/item/healthanalyzer,
+	/obj/item/dnainjector,
+	/obj/item/reagent_containers/dropper,
+	/obj/item/reagent_containers/cup/beaker,
+	/obj/item/reagent_containers/cup/bottle,
+	/obj/item/reagent_containers/pill,
+	/obj/item/reagent_containers/syringe,
+	/obj/item/reagent_containers/medspray,
+	/obj/item/lighter,
+	/obj/item/storage/fancy/cigarettes,
+	/obj/item/storage/pill_bottle,
+	/obj/item/stack/medical,
+	/obj/item/flashlight/pen,
+	/obj/item/extinguisher/mini,
+	/obj/item/reagent_containers/hypospray,
+	/obj/item/sensor_device,
+	/obj/item/radio,
+	/obj/item/clothing/gloves,
+	/obj/item/lazarus_injector,
+	/obj/item/bikehorn/rubberducky,
+	/obj/item/clothing/mask/surgical,
+	/obj/item/clothing/mask/breath,
+	/obj/item/surgical_drapes, //for true paramedics
+	/obj/item/scalpel,
+	/obj/item/circular_saw,
+	/obj/item/surgicaldrill,
+	/obj/item/retractor,
+	/obj/item/cautery,
+	/obj/item/hemostat,
+	/obj/item/blood_filter,
+	/obj/item/geiger_counter,
+	/obj/item/clothing/neck/stethoscope,
+	/obj/item/stamp,
+	/obj/item/clothing/glasses,
+	/obj/item/wrench/medical,
+	/obj/item/clothing/mask/muzzle,
+	/obj/item/storage/bag/chemistry,
+	/obj/item/storage/bag/bio,
+	/obj/item/reagent_containers/blood,
+	/obj/item/tank/internals/emergency_oxygen,
+	/obj/item/gun/syringe/syndicate,
+	/obj/item/implantcase,
+	/obj/item/implant,
+	/obj/item/implanter,
+	/obj/item/pinpointer/crew,
+	/obj/item/holosign_creator/medical,
+	/obj/item/construction/plumbing,
+	/obj/item/plunger
+))
+
 /obj/item/storage/belt/medical
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
@@ -283,57 +334,7 @@
 
 /obj/item/storage/belt/medical/Initialize(mapload)
 	. = ..()
-	atom_storage.set_holdable(list(
-		/obj/item/healthanalyzer,
-		/obj/item/dnainjector,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/pill,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/reagent_containers/medspray,
-		/obj/item/lighter,
-		/obj/item/storage/fancy/cigarettes,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/medical,
-		/obj/item/flashlight/pen,
-		/obj/item/extinguisher/mini,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/sensor_device,
-		/obj/item/radio,
-		/obj/item/clothing/gloves,
-		/obj/item/lazarus_injector,
-		/obj/item/bikehorn/rubberducky,
-		/obj/item/clothing/mask/surgical,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath/medical,
-		/obj/item/surgical_drapes, //for true paramedics
-		/obj/item/scalpel,
-		/obj/item/circular_saw,
-		/obj/item/surgicaldrill,
-		/obj/item/retractor,
-		/obj/item/cautery,
-		/obj/item/hemostat,
-		/obj/item/blood_filter,
-		/obj/item/geiger_counter,
-		/obj/item/clothing/neck/stethoscope,
-		/obj/item/stamp,
-		/obj/item/clothing/glasses,
-		/obj/item/wrench/medical,
-		/obj/item/clothing/mask/muzzle,
-		/obj/item/storage/bag/chemistry,
-		/obj/item/storage/bag/bio,
-		/obj/item/reagent_containers/blood,
-		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/gun/syringe/syndicate,
-		/obj/item/implantcase,
-		/obj/item/implant,
-		/obj/item/implanter,
-		/obj/item/pinpointer/crew,
-		/obj/item/holosign_creator/medical,
-		/obj/item/construction/plumbing,
-		/obj/item/plunger
-		))
+	atom_storage.set_holdable(GLOB.medbelt_holdable)
 
 /obj/item/storage/belt/medical/ert
 	name = "emergency response medical belt"
@@ -341,7 +342,7 @@
 
 /obj/item/storage/belt/medical/ert/Initialize(mapload)
 	. = ..()
-	atom_storage.can_hold[/obj/item/gun/medbeam] = TRUE
+	atom_storage.set_holdable(GLOB.medbelt_holdable + /obj/item/gun/medbeam)
 
 /obj/item/storage/belt/medical/ert/PopulateContents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -364,7 +365,6 @@
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(
-		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
 		/obj/item/melee/baton,
 		/obj/item/grenade,
@@ -376,7 +376,6 @@
 		/obj/item/food/donut,
 		/obj/item/knife/combat,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/baton/telescopic,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
@@ -461,7 +460,6 @@
 		/obj/item/stack/sheet/bone,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/cup/glass/bottle,
 		/obj/item/stack/medical,
 		/obj/item/knife/combat/survival,
 		/obj/item/tank/internals/emergency_oxygen,
@@ -474,7 +472,6 @@
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/cup/glass,
-		/obj/item/reagent_containers/cup/glass/bottle,
 		/obj/item/organ/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -680,7 +677,6 @@
 		/obj/item/lighter,
 		/obj/item/multitool,
 		/obj/item/reagent_containers/cup/glass/bottle/molotov,
-		/obj/item/grenade/plastic/c4,
 		/obj/item/food/grown/cherry_bomb,
 		/obj/item/food/grown/firelemon
 		))
@@ -789,7 +785,6 @@
 		/obj/item/assembly/mousetrap,
 		/obj/item/paint/paint_remover,
 		/obj/item/pushbroom,
-		/obj/item/storage/bag/trash/bluespace,
 		/obj/item/storage/bag/trash,
 		))
 

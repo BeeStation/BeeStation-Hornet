@@ -110,7 +110,7 @@
 	if(HAS_MIND_TRAIT(user, TRAIT_CANNOT_OPEN_PRESENTS))
 		var/turf/floor = get_turf(src)
 		var/obj/item/thing = new /obj/item/a_gift/anything(floor)
-		if(!atom_storage.attempt_insert(src, thing, user, override = TRUE))
+		if(!atom_storage.attempt_insert(thing, user, override = TRUE, force = STORAGE_SOFT_LOCKED))
 			qdel(thing)
 
 /obj/item/storage/backpack/cultpack
@@ -450,9 +450,102 @@
 	desc = "A large duffel bag for holding extra things."
 	icon_state = "duffel"
 	inhand_icon_state = "duffel"
-	slowdown = 1
+	actions_types = list(/datum/action/item_action/zipper)
 	custom_price = 50
-	storage_type = /datum/storage/backpack/duffelbag
+	storage_type = /datum/storage/duffel
+	// How much to slow you down if your bag isn't zipped up
+	var/zip_slowdown = 1
+	/// If this bag is zipped (contents hidden) up or not
+	/// Starts enabled so you're forced to interact with it to "get" it
+	var/zipped_up = TRUE
+	// How much time it takes to zip up (close) the duffelbag
+	var/zip_up_duration = 0.5 SECONDS
+	// Audio played during zipup
+	var/zip_up_sfx = 'sound/items/zip/zip_up.ogg'
+	// How much time it takes to unzip the duffel
+	var/unzip_duration = 2.1 SECONDS
+	// Audio played during unzip
+	var/unzip_sfx = 'sound/items/zip/un_zip.ogg'
+
+/obj/item/storage/backpack/duffelbag/Initialize(mapload)
+	. = ..()
+	set_zipper(TRUE)
+
+/obj/item/storage/backpack/duffelbag/update_desc(updates)
+	. = ..()
+	desc = "[initial(desc)]<br>[zipped_up ? "It's zipped up, preventing you from accessing its contents." : "It's unzipped, and harder to move in."]"
+
+/obj/item/storage/backpack/duffelbag/attack_self(mob/user, modifiers)
+	if(loc != user) // God fuck TK
+		return ..()
+	if(zipped_up)
+		return attack_hand(user, modifiers)
+	else
+		return attack_hand_secondary(user, modifiers)
+
+
+/obj/item/storage/backpack/duffelbag/attack_self_secondary(mob/user, modifiers)
+	attack_self(user, modifiers)
+	return ..()
+
+// If we're zipped, click to unzip
+/obj/item/storage/backpack/duffelbag/attack_hand(mob/user, list/modifiers)
+	if(loc != user)
+		// Hacky, but please don't be cringe yeah?
+		atom_storage.silent = TRUE
+		. = ..()
+		atom_storage.silent = initial(atom_storage.silent)
+		return
+	if(!zipped_up)
+		return ..()
+
+	balloon_alert(user, "unzipping...")
+	playsound(src, unzip_sfx, 100, FALSE)
+	var/datum/callback/can_unzip = CALLBACK(src, PROC_REF(zipper_matches), TRUE)
+	if(!do_after(user, unzip_duration, src, extra_checks = can_unzip))
+		user.balloon_alert(user, "unzip failed!")
+		return
+	balloon_alert(user, "unzipped")
+	set_zipper(FALSE)
+	return TRUE
+
+// Vis versa
+/obj/item/storage/backpack/duffelbag/attack_hand_secondary(mob/user, list/modifiers)
+	if(loc != user)
+		return ..()
+	if(zipped_up)
+		return SECONDARY_ATTACK_CALL_NORMAL
+
+	balloon_alert(user, "zipping...")
+	playsound(src, zip_up_sfx, 100, FALSE)
+	var/datum/callback/can_zip = CALLBACK(src, PROC_REF(zipper_matches), FALSE)
+	if(!do_after(user, zip_up_duration, src, extra_checks = can_zip))
+		user.balloon_alert(user, "zip failed!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	balloon_alert(user, "zipped")
+	set_zipper(TRUE)
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+/// Checks to see if the zipper matches the passed in state
+/// Returns true if so, false otherwise
+/obj/item/storage/backpack/duffelbag/proc/zipper_matches(matching_value)
+	return zipped_up == matching_value
+
+/obj/item/storage/backpack/duffelbag/proc/set_zipper(new_zip)
+	zipped_up = new_zip
+	SEND_SIGNAL(src, COMSIG_DUFFEL_ZIP_CHANGE, new_zip)
+	if(zipped_up)
+		slowdown = initial(slowdown)
+		atom_storage.set_locked(STORAGE_SOFT_LOCKED)
+		atom_storage.display_contents = FALSE
+	else
+		slowdown = zip_slowdown
+		atom_storage.set_locked(STORAGE_NOT_LOCKED)
+		atom_storage.display_contents = TRUE
+
+	if(isliving(loc))
+		var/mob/living/wearer = loc
+		wearer.update_equipment_speed_mods()
 
 /obj/item/storage/backpack/duffelbag/captain
 	name = "captain's duffel bag"
@@ -602,9 +695,13 @@
 	desc = "A large duffel bag for holding extra tactical supplies."
 	icon_state = "duffel-syndie"
 	inhand_icon_state = "duffel-syndieammo"
-	slowdown = 0
+	storage_type = /datum/storage/duffel/syndicate
 	resistance_flags = FIRE_PROOF
-	storage_type = /datum/storage/backpack/duffelbag/silent
+	// Less slowdown while unzipped. Still bulky, but it won't halve your movement speed in an active combat situation.
+	zip_slowdown = 0.3
+	// Faster unzipping. Utilizes the same noise as zipping up to fit the unzip duration.
+	unzip_duration = 0.5 SECONDS
+	unzip_sfx = 'sound/items/zip/zip_up.ogg'
 
 /obj/item/storage/backpack/duffelbag/syndie/hitman
 	desc = "A large duffel bag for holding extra things. There is a Nanotrasen logo on the back."
@@ -760,8 +857,7 @@
 
 // For ClownOps.
 /obj/item/storage/backpack/duffelbag/clown/syndie
-	slowdown = 0
-	storage_type = /datum/storage/backpack/duffelbag/silent
+	storage_type = /datum/storage/duffel/syndicate
 
 /obj/item/storage/backpack/duffelbag/clown/syndie/PopulateContents()
 	new /obj/item/modular_computer/tablet/pda/preset/clown(src)

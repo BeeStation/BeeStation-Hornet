@@ -5,6 +5,10 @@
 // /obj/item signals
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
+///From base of obj/item/on_equipped() (mob/equipped, slot)
+#define COMSIG_ITEM_POST_EQUIPPED "item_post_equipped"
+	/// This will make the on_equipped proc return FALSE.
+	#define COMPONENT_EQUIPPED_FAILED (1<<0)
 /// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
 #define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 /// A mob has just unequipped an item.
@@ -13,6 +17,8 @@
 #define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
 	///only the pre unequip can be cancelled
 	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
+///called on [/obj/item] AFTER unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
+#define COMSIG_ITEM_POST_UNEQUIP "item_post_unequip"
 ///from base of obj/item/on_grind(): ())
 #define COMSIG_ITEM_ON_GRIND "on_grind"
 ///from base of obj/item/on_juice(): ()
@@ -25,11 +31,22 @@
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
+///from base of obj/item/on_outfit_equip(): (mob/equipper, visuals_only, slot)
+#define COMSIG_ITEM_EQUIPPED_AS_OUTFIT "item_equip_as_outfit"
+///from base of datum/storage/handle_enter(): (datum/storage/storage)
+#define COMSIG_ITEM_STORED "item_stored"
+///from base of datum/storage/handle_exit(): (datum/storage/storage)
+#define COMSIG_ITEM_UNSTORED "item_unstored"
 
 /// Sebt from obj/item/ui_action_click(): (mob/user, datum/action)
 #define COMSIG_ITEM_UI_ACTION_CLICK "item_action_click"
 	/// Return to prevent the default behavior (attack_selfing) from ocurring.
 	#define COMPONENT_ACTION_HANDLED (1<<0)
+
+/// Sent from obj/item/item_action_slot_check(): (mob/user, datum/action, slot)
+#define COMSIG_ITEM_UI_ACTION_SLOT_CHECKED "item_action_slot_checked"
+	/// Return to prevent the default behavior (attack_selfing) from ocurring.
+	#define COMPONENT_ITEM_ACTION_SLOT_INVALID (1<<0)
 
 #define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"				//! from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -119,6 +136,10 @@
 /// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
+
+/// from /obj/item/detective_scanner/scan(): (mob/user, datum/detective_scanner_log/entry)
+#define COMSIG_DETECTIVE_SCANNED "det_scanned"
+
 // signals for painting canvases, tools and the /datum/component/palette component
 
 ///from base of /item/proc/set_painting_tool_color(): (chosen_color)
