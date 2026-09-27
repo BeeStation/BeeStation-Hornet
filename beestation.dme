@@ -879,6 +879,7 @@
 #include "code\datums\components\manual_breathing.dm"
 #include "code\datums\components\manual_heart.dm"
 #include "code\datums\components\material_container.dm"
+#include "code\datums\components\mecha_acid.dm"
 #include "code\datums\components\mind_linker.dm"
 #include "code\datums\components\mirv.dm"
 #include "code\datums\components\mood.dm"

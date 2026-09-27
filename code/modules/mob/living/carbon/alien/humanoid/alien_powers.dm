@@ -188,7 +188,7 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/alien/acid/corrosion
 	name = "Corrosive Acid"
-	desc = "Drench an object in acid, destroying it over time."
+	desc = "Vomit acid onto an adjacent object to melt it over time. Our main weapon against mechs: each dose eats a quarter of its hull, blinds its pilot and may break its systems. Four doses melt any mech, but water and cleaners wash it away."
 	button_icon_state = "alien_acid"
 	plasma_cost = 50
 
@@ -216,6 +216,8 @@ Doesn't work on other aliens/AI.*/
 	return ..()
 
 /datum/action/alien/acid/corrosion/on_activate(mob/user, atom/target)
+	if(ismecha(target))
+		return dose_mech(target)
 	if(iscarbon(target))
 		//This is blocked by virtually any clothing which is destroyed if possible, but will still do 60 damage without any.
 		target.acid_act(50, 50)
@@ -227,6 +229,16 @@ Doesn't work on other aliens/AI.*/
 	owner.visible_message(
 		("<span class='alienalert'>[owner] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>"),
 		("<span class='noticealien'>You vomit globs of acid over [target]. It begins to sizzle and melt.</span>"),
+	)
+	return TRUE
+
+/// Doses a mech with acid. Mechs are acid-proof, so this skips acid_act() and uses the mecha_acid component.
+/datum/action/alien/acid/corrosion/proc/dose_mech(obj/vehicle/sealed/mecha/mech)
+	var/datum/component/mecha_acid/acid = mech.LoadComponent(/datum/component/mecha_acid)
+	var/broke_system = acid.add_dose()
+	owner.visible_message(
+		span_alertalien("[owner] vomits globs of vile stuff all over [mech]. It hisses and bubbles into the joints!"),
+		span_noticealien("You drench [mech] in acid. It hisses into the joints, [acid.dose_count()] dose\s now burning.[broke_system ? " Something inside gives way!" : ""]"),
 	)
 	return TRUE
 

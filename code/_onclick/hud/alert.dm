@@ -630,6 +630,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Mech integrity is low."
 	icon_state = "low_mech_integrity"
 
+/atom/movable/screen/alert/mech_acid
+	name = "Acid on Hull"
+	desc = "Alien acid is eating your hull and has smeared your optics. Get a crewmate to wash the mech (space cleaner, soap, foam, shower), then repair it."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "acid"
+
 
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages
