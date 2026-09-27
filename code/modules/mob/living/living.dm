@@ -864,7 +864,6 @@
 		setFireLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_STAM)
 		stamina.adjust(INFINITY)
-		exit_stamina_stun()
 
 	// I don't really care to keep this under a flag
 	set_nutrition(NUTRITION_LEVEL_FED + 50)

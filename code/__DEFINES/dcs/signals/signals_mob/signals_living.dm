@@ -117,6 +117,7 @@
 
 /// from /datum/status_effect/incapacitating/stamcrit/on_apply()
 #define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
+	#define STAMCRIT_CANCELLED (1<<0)
 ///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
 #define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
 ///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)

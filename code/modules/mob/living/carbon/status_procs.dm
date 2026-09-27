@@ -8,37 +8,10 @@
 /mob/living/proc/stamina_stun()
 	return
 
-/mob/living/proc/exit_stamina_stun()
-	SIGNAL_HANDLER
-	return
-
 /mob/living/carbon/stamina_stun()
-	if(check_stun_immunity(CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
-		return
-	if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA)) //Already in stamcrit
-		return
-
 	var/chance = STAMINA_SCALING_STUN_BASE + (STAMINA_SCALING_STUN_SCALER * stamina.loss_as_percent / 100)
-	if(!prob(chance))
-		return
-	visible_message(
-		span_danger("[src] slumps over, too weak to continue fighting..."),
-		span_userdanger("You're too exhausted to continue fighting..."),
-		span_hear("You hear something hit the floor.")
-	)
-	ADD_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-	ADD_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	filters += FILTER_STAMINACRIT
-
-	addtimer(CALLBACK(src, PROC_REF(exit_stamina_stun)), STAMINA_STUN_TIME)
-
-/mob/living/carbon/exit_stamina_stun()
-	REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-	REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	filters -= FILTER_STAMINACRIT
-	update_stamina_hud()
+	if(prob(chance))
+		apply_status_effect(/datum/status_effect/incapacitating/stamcrit)
 
 /mob/living/carbon/adjust_disgust(amount)
 	disgust = clamp(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)

@@ -240,8 +240,6 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
-#define FILTER_STAMINACRIT filter(type="drop_shadow", x=0, y=0, size=-3, color="#04080F")
-
 /// The default color for admin say, used as a fallback when the preference is not enabled
 #define DEFAULT_ASAY_COLOR COLOR_MOSTLY_PURE_RED
 /// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled

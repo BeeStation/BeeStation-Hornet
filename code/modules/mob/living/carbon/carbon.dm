@@ -926,7 +926,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(heal_flags & HEAL_LIMBS)
 		regenerate_limbs()
-		exit_stamina_stun()
 
 	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ORGANS))
 		regenerate_organs()
