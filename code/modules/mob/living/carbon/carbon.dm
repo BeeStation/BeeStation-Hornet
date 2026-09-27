@@ -808,8 +808,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		var/max = stamina.maximum
 		if(shown_stamina_loss == null)
-			shown_stamina_loss = stamina.current
-		if(shown_stamina_loss >= max)
+			shown_stamina_loss = stamina.loss
+		if(shown_stamina_loss >= max || HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 			hud_used.stamina.icon_state = "stamina_crit"
 		else if(shown_stamina_loss > max*0.8)
 			hud_used.stamina.icon_state = "stamina_5"
@@ -847,7 +847,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
+		if(health <= death_threshold && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
 			return
 		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))

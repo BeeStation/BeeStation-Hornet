@@ -245,8 +245,6 @@
 	if(generic_message && M != user)
 		to_chat(M, span_disarm("[src] emits a blinding light!"))
 
-	var/deviation = 2
-
 	if(targeted)
 		//No flash protection, blind and stun
 		if(M.flash_act(1))
@@ -257,7 +255,7 @@
 				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
 			else
 				to_chat(M, span_userdanger("You are blinded by [src]!"))
-			//Will be 0 if the user has no stamina loss, will be 1 if they are in stamcrit
+			//0 at full stamina, 1 at no stamina
 			var/flash_proportion = M.stamina.loss_as_percent / 100
 			var/paralyze_amount
 			var/knockdown_amount
@@ -267,7 +265,7 @@
 				paralyze_amount = 70 * flash_proportion
 			else
 				knockdown_amount = max(70 * flash_proportion, 5)
-			M.Disorient((7 SECONDS * (1-(deviation*0.5))), knockdown = knockdown_amount, paralyze = paralyze_amount)
+			M.Disorient(7 SECONDS, knockdown = knockdown_amount, paralyze = paralyze_amount)
 			M.set_confusion_if_lower(4 SECONDS)
 
 		//Basic flash protection, only blind

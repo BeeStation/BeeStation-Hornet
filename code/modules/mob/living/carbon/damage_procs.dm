@@ -218,8 +218,10 @@
  *
  * It automatically updates health status
  */
-/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
+/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
 	. = FALSE
+	if(stamina)
+		stack_trace("heal_bodypart_damage tried to heal stamina damage!")
 	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, required_bodytype, target_zone)
 	if(!parts.len)
 		return
@@ -252,8 +254,10 @@
 		update_damage_overlays()
 	return (damage_calculator - picked.get_damage(TRUE))
 
-/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, required_bodytype, updating_health = TRUE, forced = FALSE)
+/mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_bodytype, updating_health = TRUE, forced = FALSE)
 	. = FALSE
+	if(stamina)
+		stack_trace("heal_overall_damage tried to heal stamina damage!")
 	// treat negative args as positive
 	brute = abs(brute)
 	burn = abs(burn)
@@ -285,8 +289,10 @@
 	if(update)
 		update_damage_overlays()
 
-/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
+/mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = FALSE
+	if(stamina)
+		stack_trace("take_overall_damage tried to deal stamina damage!")
 	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE)))
 		return
 	// treat negative args as positive

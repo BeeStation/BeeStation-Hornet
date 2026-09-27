@@ -120,7 +120,7 @@
 		clicked_atom = get_turf_in_angle(tackle_angle, get_turf(user), min_distance)
 
 	user.Knockdown(base_knockdown, ignore_canstun = TRUE)
-	user.stamina.adjust(-stamina_cost)
+	user.stamina.adjust(-stamina_cost, TRUE)
 	user.throw_at(clicked_atom, range, speed, user, FALSE, force = MOVE_FORCE_WEAK)
 	addtimer(CALLBACK(src, PROC_REF(resetTackle)), base_knockdown, TIMER_STOPPABLE)
 	return(COMSIG_MOB_CANCEL_CLICKON)

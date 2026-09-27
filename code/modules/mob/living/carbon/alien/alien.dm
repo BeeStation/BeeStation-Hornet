@@ -3,6 +3,8 @@
 	name = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = FEMALE //All xenos are girls!!
+	hardcrit_threshold = -40
+	death_threshold = -100
 	dna = null
 	faction = list(FACTION_ALIEN)
 	sight = SEE_MOBS
@@ -30,6 +32,7 @@
 	create_internal_organs()
 
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_SPRINT, INNATE_TRAIT) //no stamina to pay for it
 
 	return ..()
 

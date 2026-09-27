@@ -27,7 +27,7 @@
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 5
-	stamina = 40
+	stamina = 55
 	jitter = 5
 	armour_penetration = -10
 	bleed_force = BLEED_TINY

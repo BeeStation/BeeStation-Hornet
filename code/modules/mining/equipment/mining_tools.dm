@@ -26,7 +26,7 @@
 	else
 		to_chat(user, span_danger("You quickly stop picking. You are too tired to work!"))
 		return
-	user.stamina.adjust(-stamina_use)
+	user.stamina.adjust(-stamina_use, TRUE)
 
 /obj/item/pickaxe/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] begins digging into [user.p_their()] chest!  It looks like [user.p_theyre()] trying to commit suicide!"))

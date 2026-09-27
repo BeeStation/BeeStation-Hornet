@@ -97,7 +97,7 @@
 
 /datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
 	if(owner.stamina.loss)
-		owner.stamina.adjust(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
+		owner.stamina.adjust(0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 
 //SLEEPING

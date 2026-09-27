@@ -18,6 +18,7 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	density = TRUE
 	status_flags = CANSTUN|CANPUSH
+	death_threshold = -100
 	combat_mode = TRUE //so we always get pushed instead of trying to swap
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = NIGHTVISION_FOV_RANGE

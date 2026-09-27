@@ -577,7 +577,7 @@
 	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/calomel) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/pen_acid) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/charcoal) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5 // Prevents using purgatives while in combat
 
-	if(affected_mob.stamina.current <= 70) //Will never stamcrit
+	if(!HAS_TRAIT(affected_mob, TRAIT_EXHAUSTED)) //Will never stamcrit
 		affected_mob.stamina.adjust(-min(volume * 1.5, 15) * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 

@@ -1375,12 +1375,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/attack_direction = get_dir(user, target)
 	var/attack_type = attacking_bodypart.attack_type
-	if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
+	if(atk_effect == ATTACK_EFFECT_KICK)
 		if((damage) >= 9)
 			target.force_say()
 		log_combat(user, target, "kicked", "punch")
+		target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 		target.stamina.adjust(-1 * (STAMINA_DAMAGE_UNARMED*1.5)) //Kicks do alot of stamina damage
-	else//other attacks deal full raw damage + 1.5x in stamina damage
+	else
 		target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
 		target.stamina.adjust(-STAMINA_DAMAGE_UNARMED)
 		if(damage >= 9)

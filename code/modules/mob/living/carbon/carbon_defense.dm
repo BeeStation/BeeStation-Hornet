@@ -85,7 +85,7 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, affecting.plaintext_zone)
-	if(I.stamina_damage)
+	if(I.force && I.stamina_damage && I.damtype != STAMINA)
 		stamina.adjust(-1 * (I.stamina_damage * (prob(I.stamina_critical_chance) ? I.stamina_critical_modifier : 1)))
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))

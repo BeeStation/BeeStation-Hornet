@@ -1032,6 +1032,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	custom_price = 100
 	var/breakforce = 30
 	var/stamforce = 15
+	stamina_damage = 0
 
 /obj/item/club/attack(mob/living/M, mob/living/user)
 	if(ishuman(M))

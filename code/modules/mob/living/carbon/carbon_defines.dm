@@ -88,9 +88,3 @@
 
 	/// A bitfield of "bodytypes", updated by /obj/item/bodypart/proc/synchronize_bodytypes()
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
-	///Is this carbon trying to sprint?
-	var/sprint_key_down = FALSE
-	var/sprinting = FALSE
-	///How many tiles we have continuously moved in the same direction
-	var/sustained_moves = 0
-

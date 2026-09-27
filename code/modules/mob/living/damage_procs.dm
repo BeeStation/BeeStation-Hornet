@@ -127,7 +127,7 @@
 		if(CLONE)
 			return adjustCloneLoss(heal_amount)
 		if(STAMINA)
-			stamina.adjust(-heal_amount)
+			return stamina.adjust(-heal_amount)
 
 /// return the damage amount for the type given
 /**
@@ -231,7 +231,7 @@
 		apply_effect(immobilize, EFFECT_IMMOBILIZE, blocked)
 
 	if(stamina)
-		src.stamina.adjust(-stamina)
+		apply_damage(stamina, STAMINA, null, blocked)
 
 	if(drowsy)
 		adjust_drowsiness(drowsy)
@@ -443,19 +443,14 @@
 /mob/living/proc/getOrganLoss(slot)
 	return
 
-/mob/living/proc/setStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype = ALL)
-	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE)))
-		return FALSE
-	if(!forced && !(mob_biotypes & required_biotype))
-		return FALSE
-	return
-
 /**
  * heal ONE external organ, organ gets randomly selected from damaged ones.
  *
  * returns the net change in damage
  */
-/mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
+/mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
+	if(stamina)
+		stack_trace("heal_bodypart_damage tried to heal stamina damage!")
 	. = (adjustBruteLoss(-abs(brute), updating_health = FALSE) + adjustFireLoss(-abs(burn), updating_health = FALSE))
 	if(!.) // no change, no need to update
 		return FALSE
@@ -473,7 +468,9 @@
 		updatehealth()
 
 /// heal MANY bodyparts, in random order.
-/mob/living/proc/heal_overall_damage(brute = 0, burn = 0, required_bodytype, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_bodytype, updating_health = TRUE, forced = FALSE)
+	if(stamina)
+		stack_trace("heal_overall_damage tried to heal stamina damage!")
 	. = (adjustBruteLoss(-abs(brute), updating_health = FALSE, forced = forced) + \
 			adjustFireLoss(-abs(burn), updating_health = FALSE, forced = forced))
 	if(!.) // no change, no need to update
@@ -482,7 +479,9 @@
 		updatehealth()
 
 // damage MANY bodyparts, in random order
-/mob/living/proc/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
+/mob/living/proc/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
+	if(stamina)
+		stack_trace("take_overall_damage tried to deal stamina damage!")
 	. = (adjustBruteLoss(abs(brute), updating_health = FALSE, forced = forced) + \
 			adjustFireLoss(abs(burn), updating_health = FALSE, forced = forced))
 	if(!.) // no change, no need to update

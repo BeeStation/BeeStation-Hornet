@@ -38,6 +38,7 @@
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
 	REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
 	filters -= FILTER_STAMINACRIT
+	update_stamina_hud()
 
 /mob/living/carbon/adjust_disgust(amount)
 	disgust = clamp(disgust+amount, 0, DISGUST_LEVEL_MAXEDOUT)

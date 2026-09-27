@@ -113,6 +113,7 @@
 		return TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/A, mob/living/D)
+	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
@@ -125,7 +126,7 @@
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			A.put_in_hands(I)
 		D.stamina.adjust(-50)
-		D.apply_damage(25, A.get_attack_type())
+		D.apply_damage(25, A.get_attack_type(), blocked = def_check)
 		return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)

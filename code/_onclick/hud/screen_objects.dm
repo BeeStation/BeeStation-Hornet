@@ -806,7 +806,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 		var/mob/living/carbon/C = usr
 		var/content = {"
 		<div class='notice'>
-			[span_boldnotice("You have [C.stamina.current]/[C.stamina.maximum] stamina, and are regenerating [C.stamina.regen_rate] per tick.")]
+			[span_boldnotice("You have [C.stamina.current]/[C.stamina.maximum] stamina, and are regenerating [C.stamina.regen_rate] per second.")]
 		</div>
 		"}
 		to_chat(C, content)
@@ -821,7 +821,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 		return
 	var/_content = {"
 		Stamina: [L.stamina.current]/[L.stamina.maximum]<br>
-		Regen: [L.stamina.regen_rate]
+		Regen: [L.stamina.regen_rate]/s
 	"}
 	openToolTip(usr, src, params, title = "Stamina", content = _content)
 

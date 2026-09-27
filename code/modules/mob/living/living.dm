@@ -467,7 +467,7 @@
 		return
 
 	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
-	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	adjustOxyLoss(health - death_threshold)
 	updatehealth()
 	if(!whispered)
 		to_chat(src, span_notice("You have given up life and succumbed to death."))
@@ -913,7 +913,7 @@
 /// Checks if we are actually able to ressuscitate this mob.
 /// (We don't want to revive then to have them instantly die again)
 /mob/living/proc/can_be_revived()
-	if(health <= HEALTH_THRESHOLD_DEAD)
+	if(health <= death_threshold)
 		return FALSE
 	return TRUE
 
@@ -2575,10 +2575,14 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 ///Take away stamina from an attack being thrown.
 /mob/living/proc/stamina_swing(cost as num)
 	if((stamina.current - cost) > STAMINA_MAXIMUM_TO_SWING)
-		stamina.adjust(-cost)
+		stamina.adjust(-cost, TRUE)
 
 ///Called by the stamina holder, passing the change in stamina to modify.
 /mob/living/proc/pre_stamina_change(diff as num, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
 	return diff
+
+///Whether stamina damage does anything to us. Silicons and xenos are immune.
+/mob/living/proc/takes_stamina_damage()
+	return pre_stamina_change(-1) != 0

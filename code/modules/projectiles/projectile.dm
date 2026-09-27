@@ -158,6 +158,14 @@
 	/// Slurring applied on projectile hit
 	var/slur = 0 SECONDS
 
+	// Disorient vars
+	/// Duration of disorient status effect
+	var/disorient_length = 0 SECONDS
+	/// Stamina damage applied
+	var/disorient_damage = 0
+	/// Paralyze duration if target is exhausted
+	var/disorient_status_length = 0 SECONDS
+
 	/// Damage the limb must have for it to be dismembered upon getting hit. 0 will prevent dismembering altogether
 	var/dismemberment = 0
 	var/impact_effect_type //what type of impact effect to show when hitting something

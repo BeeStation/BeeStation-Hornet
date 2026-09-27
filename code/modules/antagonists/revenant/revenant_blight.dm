@@ -43,7 +43,7 @@
 	else
 		start_sleeping = null
 
-	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.stamina.current <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
+	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.stamina.loss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
 		to_chat(affected_mob, span_revennotice("You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))
 		affected_mob.adjust_confusion(8 SECONDS)
 		affected_mob.stamina.adjust(-7.5 * delta_time) //Where the real exhaustion builds up.

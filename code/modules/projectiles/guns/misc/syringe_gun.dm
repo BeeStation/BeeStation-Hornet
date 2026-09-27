@@ -140,7 +140,7 @@
 		return FALSE
 	visible_message(span_danger("[user] starts aiming with a blowgun!"))
 	if(do_after(user, 25, target = src))
-		user.stamina.adjust(-20)
+		user.stamina.adjust(-20, TRUE)
 		user.adjustOxyLoss(20)
 		// Perform checks above us again
 		return ..()

@@ -85,8 +85,11 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 28
+	damage = 0
 	damage_type = STAMINA
+	disorient_length = 2 SECONDS
+	disorient_damage = 50
+	disorient_status_length = 4 SECONDS
 	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
@@ -98,8 +101,7 @@
 
 /obj/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
-	damage = 50
-	damage_type = STAMINA
+	disorient_damage = 90
 	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
 /obj/projectile/beam/pulse

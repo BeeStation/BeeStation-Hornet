@@ -1075,7 +1075,7 @@
 	. = ..()
 	if(DT_PROB(33, delta_time))
 		var/need_mob_update
-		affected_mob.stamina.adjust(2.5 * REM * delta_time)
+		affected_mob.stamina.adjust(-2.5 * REM * delta_time)
 		need_mob_update = affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 		affected_mob.losebreath++
 		if(need_mob_update)

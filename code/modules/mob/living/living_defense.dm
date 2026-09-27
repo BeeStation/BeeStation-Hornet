@@ -92,6 +92,8 @@
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
+		if(P.disorient_length && takes_stamina_damage())
+			Disorient(P.disorient_length, P.disorient_damage, paralyze = P.disorient_status_length, protection = armor)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, piercing_hit)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
@@ -652,7 +654,7 @@
 			log_combat(attacker, src, "shoved", "disarm", "into [target_container] ([target_disposal_bin ? "disposal bin" : "swimming pool"])")
 	else
 		var/append_message = ""
-		var/disarm_success_chance = stamina.loss_as_percent / 2
+		var/disarm_success_chance = min(stamina.loss_as_percent/2 + 10, 60)
 		if(prob(disarm_success_chance) && length(held_items))
 			var/list/dropped = list()
 			for(var/obj/item/I in held_items)

@@ -479,7 +479,7 @@
 	icon_state = "blooming"
 
 /datum/status_effect/planthealing/tick()
-	owner.heal_overall_damage(1, 1, BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life
+	owner.heal_overall_damage(1, 1, required_bodytype = BODYTYPE_ORGANIC) //one unit of brute and burn healing should be good with the amount of times this is ran. Much slower than spec_life
 
 /datum/status_effect/crucible_soul
 	id = "Blessing of Crucible Soul"

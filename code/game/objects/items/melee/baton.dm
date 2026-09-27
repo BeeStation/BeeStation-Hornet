@@ -15,8 +15,9 @@
 	var/active = TRUE
 	/// Default wait time until can stun again.
 	var/cooldown = (4 SECONDS)
+	COOLDOWN_DECLARE(cooldown_check)
 	/// The length of the knockdown applied to a struck living mob, if they are disoriented.
-	var/knockdown_time = (10 SECONDS)
+	var/knockdown_time = (6 SECONDS)
 	/// If affect_cyborg is TRUE, this is how long we stun cyborgs for on a hit.
 	var/stun_time_cyborg = (5 SECONDS)
 	/// The length of the knockdown applied to the user on clumsy_check()
@@ -56,7 +57,7 @@
 	. = ..()
 	// Adding an extra break for the sake of presentation
 	if(charged_stamina_damage != 0)
-		offensive_notes = "It takes [span_warning("[ceil(100 / charged_stamina_damage)] stunning hit\s")] to stun an enemy."
+		offensive_notes = "It takes [span_warning("[floor(STAMINA_MAX * (1 - STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) / charged_stamina_damage) + 1] stunning hit\s")] to stun an enemy."
 
 /**
  * Ok, think of baton attacks like a melee attack chain:
@@ -113,6 +114,9 @@
 	if(!active || LAZYACCESS(modifiers, RIGHT_CLICK))
 		return BATON_DO_NORMAL_ATTACK
 
+	if(!can_stun(target, user))
+		return BATON_ATTACK_DONE
+
 	if(check_parried(target, user))
 		return BATON_ATTACK_DONE
 
@@ -144,6 +148,9 @@
 		return TRUE
 
 /obj/item/melee/baton/proc/finalize_baton_attack(mob/living/target, mob/living/user, modifiers, in_attack_chain = TRUE)
+	if(!in_attack_chain && !can_stun(target, user))
+		return
+	COOLDOWN_START(src, cooldown_check, cooldown)
 	if(on_stun_sound)
 		playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
 	if(user)
@@ -152,7 +159,23 @@
 		if(log_stun_attack)
 			log_combat(user, target, "stun attacked", src)
 
-	baton_effect(target, user, modifiers)
+	if(baton_effect(target, user, modifiers) && user && cooldown)
+		//Stops a second baton from skipping the cooldown
+		var/user_ref = REF(user)
+		ADD_TRAIT(target, TRAIT_IWASBATONED, user_ref)
+		addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_IWASBATONED, user_ref), cooldown)
+
+/// Checks the stun cooldown and the per-attacker lockout, telling the user if either blocks the stun.
+/obj/item/melee/baton/proc/can_stun(mob/living/target, mob/living/user, silent = FALSE)
+	if(!COOLDOWN_FINISHED(src, cooldown_check))
+		if(user && !silent)
+			to_chat(user, span_warning("[src] isn't ready yet!"))
+		return FALSE
+	if(user && HAS_TRAIT_FROM(target, TRAIT_IWASBATONED, REF(user)))
+		if(!silent)
+			to_chat(user, span_warning("You can't stun [target] again so soon!"))
+		return FALSE
+	return TRUE
 
 /obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, modifiers)
 	var/trait_check = HAS_TRAIT(target, TRAIT_BATON_RESISTANCE)
@@ -163,8 +186,9 @@
 		target.flash_act(affect_silicon = TRUE)
 		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE)
 		additional_effects_cyborg(target, user)
-	else
-		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE)
+	else if(target.takes_stamina_damage())
+		var/armor_block = target.run_armor_check(user?.get_combat_bodyzone(target), STAMINA, armour_penetration = armour_penetration, silent = TRUE)
+		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE, protection = armor_block)
 		additional_effects_non_cyborg(target, user)
 	return TRUE
 
@@ -236,7 +260,8 @@
 	name = "deputy baton"
 	force = 12
 	cooldown = 10
-	stamina_damage = 20
+	charged_stamina_damage = 60
+	knockdown_time = 2 SECONDS
 	stun_animation = TRUE
 	custom_price = 120
 /obj/item/conversion_kit
@@ -260,6 +285,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
 	force = 0
+	knockdown_time = 1 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	active = FALSE
 
@@ -332,7 +358,8 @@
 	var/datum/antagonist/traitor/owner_data = null
 
 	cooldown = 2.5 SECONDS
-	charged_stamina_damage = 85
+	charged_stamina_damage = 130
+	knockdown_time = 10 SECONDS
 	clumsy_knockdown_time = 24 SECONDS
 	affect_cyborg = TRUE
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
@@ -546,14 +573,15 @@
 
 /// Handles prodding targets with turned off stunbatons and right clicking stun'n'bash
 /obj/item/melee/baton/security/baton_attack(mob/living/target, mob/living/user, modifiers)
+	//While on and ready, right click stuns the same as left click. Otherwise it's a normal hit.
+	if(active && LAZYACCESS(modifiers, RIGHT_CLICK) && can_stun(target, user, silent = TRUE))
+		var/list/click_modifiers = modifiers
+		modifiers = click_modifiers.Copy()
+		modifiers -= RIGHT_CLICK
 	. = ..()
 	if(. != BATON_DO_NORMAL_ATTACK)
 		return .
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		if(active && !check_parried(target, user))
-			finalize_baton_attack(target, user, modifiers, in_attack_chain = FALSE)
-			return BATON_ATTACK_DONE
-	else if(!user.combat_mode)
+	if(!LAZYACCESS(modifiers, RIGHT_CLICK) && !user.combat_mode)
 		target.visible_message(span_warning("[user] prods [target] with [src]. Luckily it was off."), \
 			span_warning("[user] prods you with [src]. Luckily it was off."))
 		return BATON_ATTACK_DONE
@@ -681,7 +709,7 @@
 
 /obj/item/melee/baton/security/cattleprod/baton_effect()
 	if(!sparkler.activate())
-		return BATON_ATTACK_DONE
+		return FALSE
 	return ..()
 
 /obj/item/melee/baton/security/cattleprod/Destroy()

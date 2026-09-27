@@ -8,9 +8,11 @@
 	if(!.)
 		return
 	ADD_TRAIT(owner, TRAIT_DISORIENTED, TRAIT_STATUS_EFFECT(id))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/disorient)
 
 /datum/status_effect/incapacitating/disoriented/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_DISORIENTED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/disorient)
 	return ..()
 
 /datum/status_effect/incapacitating/disoriented/tick()

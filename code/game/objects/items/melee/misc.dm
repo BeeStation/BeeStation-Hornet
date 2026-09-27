@@ -500,6 +500,7 @@
 	var/non_harm_force = 3
 	/// Stamina damage dealt
 	var/stamina_force = 25
+	stamina_damage = 0
 
 // #11200 Review - TEMP: Hacky code to deal with force string for this item.
 /obj/item/melee/tonfa/openTip(location, control, params, mob/living/user)

@@ -40,7 +40,7 @@
 		var/mob/living/carbon/human/O = blessed
 		var/datum/species/shadow/S = O.dna.species
 		S.change_hearts_ritual(blessed)
-		blessed.heal_overall_damage(5, 5, BODYTYPE_ORGANIC)
+		blessed.heal_overall_damage(5, 5, required_bodytype = BODYTYPE_ORGANIC)
 		blessed.stamina.adjust(20)
 		to_chat(user, span_notice("You bless [blessed] with the power of [GLOB.deity], healing them and spreading blessings."))
 	return TRUE

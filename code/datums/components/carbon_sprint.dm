@@ -34,7 +34,7 @@
 	var/turf/T = move_args[MOVE_ARG_NEW_LOC]
 	if(!isturf(T))
 		return
-	if(!T.Enter(parent, TRUE))
+	if(T.is_blocked_turf(source_atom = parent))
 		return
 
 	var/_step_size = (direct & (direct-1)) ? 1.4 : 1 //If we're moving diagonally, we're taking roughly 1.4x step size
@@ -61,7 +61,7 @@
 				last_dust = world.time
 			sustained_moves = 0
 
-	carbon_parent.stamina.adjust(-STAMINA_SPRINT_COST)
+	carbon_parent.stamina.adjust(-STAMINA_SPRINT_COST, TRUE)
 
 /datum/component/carbon_sprint/proc/keyDown()
 	sprint_key_down = TRUE

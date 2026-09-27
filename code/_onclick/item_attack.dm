@@ -243,14 +243,13 @@
 	target_mob.lastattacker = user.real_name
 	target_mob.lastattackerckey = user.ckey
 
-	user.stamina_swing(src.stamina_cost)
-
 	user.do_attack_animation(target_mob)
 	var/time = world.time
 	if(nonharmfulhit)
 		target_mob.send_item_poke_message(src, user)
 		user.time_of_last_poke = time
 	else
+		user.stamina_swing(src.stamina_cost)
 		user.record_accidental_poking()
 		target_mob.attacked_by(src, user)
 		target_mob.time_of_last_attack_received = time
