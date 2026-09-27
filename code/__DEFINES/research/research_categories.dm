@@ -155,7 +155,7 @@
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_CONTROL_INTERFACES "/Control Interfaces"
 #define RND_CATEGORY_CYBORG "/Cyborg"
 
-// Cyborg modules category ¿
+// Cyborg modules category
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL "/All Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MEDICAL "/Medical Cyborgs"
 #define RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ENGINEERING "/Engineering Cyborgs"
@@ -189,6 +189,7 @@
 // Implants, can be printed by exofab and medical lathe
 #define RND_CATEGORY_IMPLANTS "/Cybernetics/Cybernetic Implants"
 #define RND_CATEGORY_IPC_COMPONENTS "/Cybernetics/IPC Components"
+#define RND_CATEGORY_IPC_UPGRADES "/Cybernetics/IPC Components/Synth Upgrades"
 
 // Limb Categories
 #define RND_CATEGORY_DIGITIGRADE "digitigrade"
@@ -203,6 +204,25 @@
 #define RND_CATEGORY_INITIAL "initial"
 #define RND_CATEGORY_HACKED "hacked"
 #define RND_CATEGORY_IMPORTED "/Imported Designs"
+// Exosuit Fabricator Categories
+#define RND_CATEGORY_EXOSUIT_MODULES "Exosuit Modules"
+#define RND_CATEGORY_EXOSUIT_EQUIPMENT "Exosuit Equipment"
+#define RND_CATEGORY_EXOSUIT_AMMUNITION "Exosuit Ammunition"
+#define RND_CATEGORY_CYBORG "Cyborg"
+#define RND_CATEGORY_RIPLEY "Ripley"
+#define RND_CATEGORY_ODYSSEUS "Odysseus"
+#define RND_CATEGORY_GYGAX "Gygax"
+#define RND_CATEGORY_DURAND "Durand"
+#define RND_CATEGORY_HONK "H.O.N.K"
+#define RND_CATEGORY_PHAZON "Phazon"
+#define RND_CATEGORY_CLARKE "Clarke"
+#define RND_CATEGORY_CYBORG_UPGRADE_MODULES "Cyborg Upgrade Modules"
+#define RND_CATEGORY_CONTROL_INTERFACES "Control Interfaces"
+#define RND_CATEGORY_AI_MODULES "AI Modules"
+#define RND_CATEGORY_IMPLANTS "Implants"
+#define RND_CATEGORY_CYBERNETICS "Cybernetics"
+#define RND_CATEGORY_IPC_COMPONENTS "IPC Components"
+#define RND_CATEGORY_UPGRADES "Synth Upgrades"
 
 #define RND_CATEGORY_UTILITY_NANITES "Utility Nanites"
 #define RND_CATEGORY_MEDICAL_NANITES "Medical Nanites"

@@ -71,8 +71,7 @@
 		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='byond://?_src_=holder;[HrefToken()];modantagrep=zero;mob=[REF(M)]'>0</a>"
 		if(M.client.logged_in)
-			var/antag_tokens = M.client.get_antag_token_count_db()
-			body += "<br><b>Antag Tokens</b>: [antag_tokens] "
+			body += "<br><b>Antag Tokens</b>: [get_antag_token_count_db(M.ckey)] "
 			body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=add;mob=[REF(M)]'>+</a> "
 			body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
 			body += "<a href='byond://?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "

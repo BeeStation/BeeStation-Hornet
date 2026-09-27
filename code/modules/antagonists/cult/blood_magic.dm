@@ -121,7 +121,7 @@
 //Cult Blood Spells
 /datum/action/innate/cult/blood_spell/stun
 	name = "Stun"
-	desc = "Empowers your hand to stun and mute a victim on contact."
+	desc = "Empowers your hand to stun and mute a victim on contact. Gets weaker depending on how many have joined the Cult."
 	button_icon_state = "hand"
 	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
@@ -384,7 +384,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 	var/mob/living/L = target
 	if(IS_CULTIST(L))
 		return
-	if(IS_CULTIST(user))
+	var/datum/antagonist/cult/cultist = IS_CULTIST(user)
+	if(!isnull(cultist))
+		var/datum/team/cult/cult_team = cultist.get_team()
+		var/effect_coef = 1 - (cult_team?.cult_risen ? 0.4 : 0) - (cult_team?.cult_ascendent ? 0.5 : 0) // The bigger the cult is, the less the stun
 		user.visible_message(span_warning("[user] floods [L]'s mind with an eldritch energy!"), \
 							span_cultitalic("You attempt to stun [L] with the spell!"))
 		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
@@ -402,17 +405,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 									span_userdanger("[GLOB.deity] protects you from the heresy of [user]!"))
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, span_cultitalic("[L] falls to the ground, gibbering madly!"))
-			L.Paralyze(160)
+			L.Paralyze(16 SECONDS * effect_coef)
 			L.flash_act(1,1)
 			if(issilicon(target))
 				var/mob/living/silicon/S = L
 				S.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/C = L
-				C.adjust_silence(12 SECONDS)
-				C.adjust_stutter(30 SECONDS)
-				C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/slurring/cult)
-				C.set_jitter_if_lower(30 SECONDS)
+				C.adjust_silence(12 SECONDS * effect_coef)
+				C.adjust_stutter(30 SECONDS * effect_coef)
+				C.adjust_timed_status_effect(20 SECONDS * effect_coef, /datum/status_effect/speech/slurring/cult)
+				C.set_jitter_if_lower(30 SECONDS * effect_coef)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)
