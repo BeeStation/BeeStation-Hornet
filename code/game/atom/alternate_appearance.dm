@@ -147,6 +147,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(!.)
 		return
 	A.hud_list -= appearance_key
+	A.active_hud_list -= appearance_key
 	if(!QDELETED(src))
 		qdel(src)
 
