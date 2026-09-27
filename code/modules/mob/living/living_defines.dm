@@ -151,7 +151,6 @@
 	var/blood_volume = 0 //how much blood the mob has
 
 	var/list/status_effects //a list of all status effects the mob has
-	var/druggy = 0
 
 	var/list/implants = null
 
