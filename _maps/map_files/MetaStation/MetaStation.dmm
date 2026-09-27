@@ -22813,11 +22813,11 @@
 /area/station/maintenance/fore)
 "irL" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/transit_tube/station{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
+/obj/structure/transit_tube/station/dispenser{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "irQ" = (
@@ -60307,13 +60307,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/structure/transit_tube/station/reverse/flipped{
+/obj/structure/cable/yellow,
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
 	dir = 1
 	},
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/station/engineering/transit_tube)
 "uOC" = (

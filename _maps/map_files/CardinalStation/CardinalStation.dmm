@@ -28636,11 +28636,8 @@
 /area/station/science/xenobiology)
 "gMT" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/transit_tube/station/reverse/flipped{
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
 	dir = 8
-	},
-/obj/structure/transit_tube_pod{
-	dir = 1
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/station/ai_monitored/turret_protected/aisat/hallway)
@@ -51021,10 +51018,10 @@
 /area/station/hallway/primary/port)
 "lVm" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/transit_tube/station/reverse{
+/obj/effect/turf_decal/trimline/yellow/warning_offset{
 	dir = 4
 	},
-/obj/effect/turf_decal/trimline/yellow/warning_offset{
+/obj/structure/transit_tube/station/dispenser/reverse{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,

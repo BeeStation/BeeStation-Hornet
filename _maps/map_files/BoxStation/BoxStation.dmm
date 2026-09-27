@@ -90,12 +90,11 @@
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/command/storage/eva)
 "abR" = (
-/obj/structure/transit_tube_pod,
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/station/engineering/main)
@@ -57374,7 +57373,7 @@
 /turf/open/floor/iron/ameridiner,
 /area/station/service/janitor)
 "xKi" = (
-/obj/structure/transit_tube/station/reverse,
+/obj/structure/transit_tube/station/dispenser/reverse,
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "xKw" = (

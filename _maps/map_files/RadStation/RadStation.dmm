@@ -22801,11 +22801,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/edges/techfloor,
-/obj/structure/transit_tube/station/reverse/flipped,
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/structure/cable/orange,
+/obj/structure/transit_tube/station/dispenser/reverse/flipped,
 /turf/open/floor/iron/tech,
 /area/station/ai_monitored/turret_protected/aisat/service)
 "iPm" = (
@@ -57513,10 +57510,7 @@
 /turf/open/floor/iron/freezer,
 /area/station/commons/toilet)
 "vPl" = (
-/obj/structure/transit_tube/station/reverse,
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
+/obj/structure/transit_tube/station/dispenser/reverse,
 /turf/open/floor/catwalk_floor,
 /area/station/ai_monitored/turret_protected/aisat/foyer)
 "vPH" = (

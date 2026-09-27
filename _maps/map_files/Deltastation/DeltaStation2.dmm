@@ -36571,10 +36571,10 @@
 /area/station/security/brig)
 "lCH" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/transit_tube/station{
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/transit_tube/station/dispenser{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
 "lCM" = (
@@ -42123,11 +42123,8 @@
 /obj/machinery/status_display/ai{
 	pixel_y = -32
 	},
-/obj/structure/transit_tube/station/reverse/flipped,
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/transit_tube/station/dispenser/reverse/flipped,
 /turf/open/floor/iron/dark,
 /area/station/engineering/transit_tube)
 "nso" = (
