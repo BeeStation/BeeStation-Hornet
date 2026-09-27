@@ -1020,16 +1020,17 @@
 /datum/reagent/medicine/amphetamine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
+	affected_mob.stamina.add_regen_modifier(type, 17.5)
 
 /datum/reagent/medicine/amphetamine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update
 	affected_mob.AdjustAllImmobility(-60 * REM * delta_time)
-	affected_mob.stamina.adjust(35 * REM * delta_time)
 
 	if(affected_mob.health <= 50 && affected_mob.health > 0)
 		need_mob_update = affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
@@ -1061,10 +1062,17 @@
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE, TRAIT_BATON_RESISTANCE, TRAIT_IGNOREDAMAGESLOWDOWN)
 	addiction_types = list(/datum/addiction/stimulants = 6) //2.6 per 2 seconds
 
+/datum/reagent/medicine/pumpup/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 40)
+
+/datum/reagent/medicine/pumpup/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/medicine/pumpup/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-80, FALSE)
-	affected_mob.stamina.adjust(80)
 	affected_mob.set_jitter_if_lower(20 SECONDS * REM * delta_time)
 
 /datum/reagent/drug/pumpup/overdose_start(mob/living/affected_mob)
@@ -1367,6 +1375,14 @@
 	overdose_threshold = 25
 	addiction_types = list(/datum/addiction/hallucinogens = 14)
 
+/datum/reagent/medicine/earthsblood/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 15)
+
+/datum/reagent/medicine/earthsblood/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
@@ -1375,7 +1391,6 @@
 	affected_mob.adjustToxLoss(-3 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150, required_organ_flag = affected_organ_flags) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	affected_mob.adjustCloneLoss(-1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
-	affected_mob.stamina.adjust(30 * REM * delta_time)
 	affected_mob.adjust_jitter_up_to(6 SECONDS * REM * delta_time, 1 MINUTES)
 	affected_mob.druggy = clamp(affected_mob.druggy + (10 * REM * delta_time), 0, 15 * REM * delta_time) //See above
 	return UPDATE_MOB_HEALTH
