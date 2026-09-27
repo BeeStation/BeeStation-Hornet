@@ -902,7 +902,7 @@
 	build_path = /obj/item/borg/upgrade/pinpointer
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500)
 	construction_time = 120
-	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL)
+	category = list(RND_CATEGORY_CYBORG_UPGRADE_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MEDICAL)
 
 //Misc
 /datum/design/mecha_tracking
