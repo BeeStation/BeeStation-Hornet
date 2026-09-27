@@ -65,6 +65,8 @@
 **/
 /obj/item/organ/stomach/electrical/proc/adjust_charge(amount)
 	var/amount_changed = clamp(amount, ETHEREAL_CHARGE_NONE - cell.charge, ETHEREAL_CHARGE_DANGEROUS - cell.charge)
+	if(abs(amount_changed) > 0)
+		SEND_SIGNAL(src, COMSIG_ORGAN_BATTERY_CHARGED, src, amount_changed)
 	return cell.change(amount_changed)
 
 /obj/item/organ/stomach/electrical/proc/handle_charge(mob/living/carbon/carbon, delta_time, times_fired)
@@ -74,6 +76,8 @@
 
 	switch(cell.charge)
 		if(-INFINITY to ETHEREAL_CHARGE_NONE)
+			if(cell.charge <= 0 && HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+				carbon.apply_status_effect(carbon.mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
 			carbon.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/emptycell/ethereal)
 		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
 			carbon.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/lowcell/ethereal, 3)

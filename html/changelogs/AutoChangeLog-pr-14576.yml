@@ -1,0 +1,12 @@
+author: SunShine214, SirYoshimoto, DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: Added IPC upgrades! You can now install upgrades in their respective slot,
+      as IPC. You get three slots to do this with.
+  - rscadd: Added the Upgrade Control Module. Similar to a BCI but allows activation
+      of installed upgrades!
+  - rscadd: Added the IPC self monitor. Monitor your stats with a neat built-in PDA
+      program!
+  - bugfix: Fixed Nanite armor not actually giving armor
+  - tweak: IPCs die on powerloss.
+  - tweak: Added tool proficiency to mobs
