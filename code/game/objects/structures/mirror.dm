@@ -27,11 +27,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 		check_reflect_signals = list(SIGNAL_ADDTRAIT(TRAIT_NO_MIRROR_REFLECTION), SIGNAL_REMOVETRAIT(TRAIT_NO_MIRROR_REFLECTION)), \
 	)
 
-/obj/structure/mirror/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
-	context.add_left_click_action("Change appearance")
-	if(deconstructable)
-		context.add_left_click_tool_action("Deconstruct", TOOL_WRENCH)
-
 /obj/structure/mirror/proc/can_reflect(atom/movable/target)
 	// I'm doing it this way too, because the signal is sent before the broken variable is set to TRUE.
 	if(atom_integrity <= integrity_failure * max_integrity || broken)
@@ -39,6 +34,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	if(!isliving(target) || HAS_TRAIT(target, TRAIT_NO_MIRROR_REFLECTION))
 		return FALSE
 	return TRUE
+
+/obj/structure/mirror/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.add_left_click_action("Change appearance")
+	if(deconstructable)
+		context.add_left_click_tool_action("Deconstruct", TOOL_WRENCH)
+
+/obj/structure/mirror/wrench_act(mob/living/user, obj/item/tool)
+	if(!deconstructable)
+		balloon_alert(user, "magic prevents detaching!")
+		return NONE
+
+	user.visible_message(span_notice("[user] starts detaching [src]..."), span_notice("You start detaching [src]..."))
+	tool.play_tool_sound(src)
+	if(!tool.use_tool(src, user, 3 SECONDS))
+		return ITEM_INTERACT_BLOCKING
+
+	user.visible_message(span_notice("[user] detaches [src]!"), span_notice("You detach [src] from the wall."))
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	deconstruct(TRUE)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/mirror/attack_hand(mob/user, list/modifiers)
 	. = ..()
