@@ -1327,6 +1327,7 @@
 #include "code\datums\storage\subtypes\bag_of_holding.dm"
 #include "code\datums\storage\subtypes\extract_inventory.dm"
 #include "code\datums\storage\subtypes\implant.dm"
+#include "code\datums\storage\subtypes\lockboxes.dm"
 #include "code\datums\storage\subtypes\misc.dm"
 #include "code\datums\storage\subtypes\pockets.dm"
 #include "code\datums\storage\subtypes\rped.dm"

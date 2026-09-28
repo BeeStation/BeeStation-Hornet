@@ -3,71 +3,62 @@
 	desc = "A locked box."
 	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "lockbox+l"
+	base_icon_state = "lockbox"
 	inhand_icon_state = "lockbox+l"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	req_access = list(ACCESS_ARMORY)
-	var/broken = FALSE
-	var/open = FALSE
-	base_icon_state = "lockbox"
+	storage_type = /datum/storage/lockbox
 
-/obj/item/storage/lockbox/Initialize(mapload)
+/obj/item/storage/lockbox/examine()
 	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
-	atom_storage.max_total_storage = 14
-	atom_storage.max_slots = 4
-	atom_storage.locked = TRUE
+	if(obj_flags & EMAGGED)
+		. += span_warning("It appears to be broken.")
 
-/obj/item/storage/lockbox/attackby(obj/item/W, mob/user, list/modifiers)
-	var/locked = atom_storage.locked
-	if(W.GetID())
-		if(broken)
-			to_chat(user, span_danger("It appears to be broken."))
-			return
-		if(allowed(user))
-			atom_storage.locked = !locked
-			locked = atom_storage.locked
-			if(locked)
-				icon_state = "[base_icon_state]+l"
-				inhand_icon_state = "[base_icon_state]+l"
-				to_chat(user, span_danger("You lock the [src.name]!"))
-				atom_storage.close_all()
-				return
-			else
-				icon_state = "[base_icon_state]"
-				inhand_icon_state = "[base_icon_state]"
-				to_chat(user, span_danger("You unlock the [src.name]!"))
-				return
-		else
-			to_chat(user, span_danger("Access Denied."))
-			return
-	if(!locked)
+/obj/item/storage/lockbox/update_icon_state()
+	. = ..()
+	var/suffix = ""
+	if(obj_flags & EMAGGED)
+		suffix = "+b"
+	else if(atom_storage.locked)
+		suffix = "+l"
+
+	icon_state = "[base_icon_state][suffix]"
+	inhand_icon_state = "[base_icon_state][suffix]"
+
+/obj/item/storage/lockbox/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	var/obj/item/card/card = tool.GetID()
+	if(isnull(card))
 		return ..()
-	else
-		to_chat(user, span_danger("It's locked!"))
 
-/obj/item/storage/lockbox/should_emag(mob/user)
-	return !broken && ..()
+	if(can_unlock(user, card))
+		toggle_locked(user)
+		return ITEM_INTERACT_SUCCESS
+
+	return ITEM_INTERACT_BLOCKING
+
+/obj/item/storage/lockbox/proc/can_unlock(mob/living/user, obj/item/card/id/id_card, silent = FALSE)
+	if(obj_flags & EMAGGED)
+		if(!silent)
+			balloon_alert(user, "it's broken!")
+		return FALSE
+	if(!check_access(id_card))
+		if(!silent)
+			balloon_alert(user, "access denied!")
+		return FALSE
+	return TRUE
+
+/obj/item/storage/lockbox/proc/toggle_locked(mob/living/user)
+	atom_storage.locked = !atom_storage.locked
+	update_appearance(UPDATE_ICON_STATE)
+	balloon_alert(user, atom_storage.locked ? "locked" : "unlocked")
 
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
-	broken = TRUE
 	atom_storage.locked = FALSE
-	desc += "It appears to be broken."
-	icon_state = "[src.base_icon_state]+b"
-	inhand_icon_state = "[src.base_icon_state]+b"
-	user?.visible_message(span_warning("[user] breaks \the [src] with an electromagnetic card!"))
-
-/obj/item/storage/lockbox/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	. = ..()
-	open = TRUE
-	update_icon()
-
-/obj/item/storage/lockbox/Exited(atom/movable/gone, direction)
-	. = ..()
-	open = TRUE
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
+	user?.visible_message(span_warning("[user] breaks [src] with an electromagnetic card!"))
 
 /obj/item/storage/lockbox/loyalty
 	name = "lockbox of mindshield implants"
@@ -86,24 +77,28 @@
 	base_icon_state = "medalbox"
 	w_class = WEIGHT_CLASS_NORMAL
 	req_access = list(ACCESS_CAPTAIN)
+	storage_type = /datum/storage/lockbox/medal
+	var/open = FALSE
 
-/obj/item/storage/lockbox/medal/Initialize(mapload)
-	. = ..()
-	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
-	atom_storage.max_slots = 10
-	atom_storage.max_total_storage = 20
-	atom_storage.set_holdable(list(/obj/item/clothing/accessory/medal))
-
-/obj/item/storage/lockbox/medal/examine(mob/user)
-	. = ..()
+/obj/item/storage/lockbox/medal/add_context_self(datum/screentip_context/context, mob/user)
 	if(!atom_storage.locked)
-		. += span_notice("Alt-click to [open ? "close":"open"] it.")
+		context.add_alt_click_action(open ? "Close" : "Open")
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		if(!atom_storage.locked)
-			open = (open ? FALSE : TRUE)
-			update_icon()
+	if(!user.canUseTopic(src, BE_CLOSE) || atom_storage.locked)
+		return
+	open = !open
+	update_appearance(UPDATE_ICON)
+
+/obj/item/storage/lockbox/medal/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	open = TRUE
+	update_appearance(UPDATE_ICON)
+
+/obj/item/storage/lockbox/medal/Exited(atom/movable/gone, direction)
+	. = ..()
+	open = TRUE
+	update_appearance(UPDATE_ICON)
 
 /obj/item/storage/lockbox/medal/PopulateContents()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
@@ -117,26 +112,25 @@
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
 /obj/item/storage/lockbox/medal/update_icon_state()
-	if(atom_storage?.locked)
+	. = ..()
+	if(atom_storage.locked)
 		icon_state = "[base_icon_state]+l"
 		inhand_icon_state = "[base_icon_state]+l"
-	else
-		icon_state = "[base_icon_state]"
-		inhand_icon_state = "[base_icon_state]"
-		if(open)
-			icon_state += "open"
-		if(broken)
-			icon_state += "+b"
-			inhand_icon_state = "[base_icon_state]+b"
-	return ..()
+		return
+
+	icon_state = base_icon_state
+	inhand_icon_state = base_icon_state
+	if(open)
+		icon_state += "open"
+	if(obj_flags & EMAGGED)
+		icon_state += "+b"
+		inhand_icon_state += "+b"
 
 /obj/item/storage/lockbox/medal/update_overlays()
 	. = ..()
-	if(!contents || !open)
+	if(!length(contents) || !open || atom_storage.locked)
 		return
-	if(atom_storage?.locked)
-		return
-	for (var/i in 1 to contents.len)
+	for (var/i in 1 to length(contents))
 		var/obj/item/clothing/accessory/medal/M = contents[i]
 		var/mutable_appearance/medalicon = mutable_appearance(initial(icon), M.medaltype)
 		if(i > 1 && i <= 5)
@@ -161,7 +155,7 @@
 	req_access = list(ACCESS_QM)
 
 /obj/item/storage/lockbox/medal/cargo/PopulateContents()
-		new /obj/item/clothing/accessory/medal/ribbon/cargo(src)
+	new /obj/item/clothing/accessory/medal/ribbon/cargo(src)
 
 /obj/item/storage/lockbox/medal/service
 	name = "service award box"
@@ -169,7 +163,7 @@
 	req_access = list(ACCESS_HOP)
 
 /obj/item/storage/lockbox/medal/service/PopulateContents()
-		new /obj/item/clothing/accessory/medal/silver/excellence(src)
+	new /obj/item/clothing/accessory/medal/silver/excellence(src)
 
 /obj/item/storage/lockbox/medal/sci
 	name = "science medal box"
