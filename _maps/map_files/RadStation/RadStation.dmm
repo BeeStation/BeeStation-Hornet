@@ -10282,6 +10282,7 @@
 /obj/machinery/airalarm/directional/north,
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating,
 /area/station/maintenance/solars/port/aft)
 "dTp" = (
@@ -33519,6 +33520,7 @@
 	},
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmospherics_engine)
 "mHn" = (
@@ -52390,6 +52392,7 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron,
 /area/station/maintenance/solars/starboard/fore)
 "tHb" = (
