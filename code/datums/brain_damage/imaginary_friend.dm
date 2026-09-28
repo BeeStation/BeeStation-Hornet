@@ -176,6 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[generate_messagepart(speech_args[SPEECH_MESSAGE])]")]"))
 
 /mob/camera/imaginary_friend/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode, list/message_mods)
+	if (!message)
 		return
 
 	if (src.client)
