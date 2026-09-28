@@ -1,10 +1,8 @@
-//wip wip wup
 /obj/structure/mirror
 	name = "mirror"
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = FALSE
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 0.5
@@ -18,102 +16,110 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
-	if(icon_state == "mirror_broke" && !broken)
-		atom_break(null, mapload)
+	var/static/list/reflection_filter = alpha_mask_filter(icon = icon('icons/obj/watercloset.dmi', "mirror_mask"))
+	var/static/matrix/reflection_matrix = matrix(0.75, 0, 0, 0, 0.75, 0)
+	AddComponent(/datum/component/reflection, \
+		reflection_filter = reflection_filter, \
+		reflection_matrix = reflection_matrix, \
+		can_reflect = CALLBACK(src, PROC_REF(can_reflect)), \
+		update_signals = list(COMSIG_ATOM_BREAK), \
+		check_reflect_signals = list(SIGNAL_ADDTRAIT(TRAIT_NO_MIRROR_REFLECTION), SIGNAL_REMOVETRAIT(TRAIT_NO_MIRROR_REFLECTION)), \
+	)
+
+/obj/structure/mirror/proc/can_reflect(atom/movable/target)
+	// I'm doing it this way too, because the signal is sent before the broken variable is set to TRUE.
+	if(atom_integrity <= integrity_failure * max_integrity || broken)
+		return FALSE
+	if(!isliving(target) || HAS_TRAIT(target, TRAIT_NO_MIRROR_REFLECTION))
+		return FALSE
+	return TRUE
 
 /obj/structure/mirror/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
-	if(broken || !Adjacent(user))
+	if(broken || !Adjacent(user) || !ishuman(user) || magical)
 		return
 
-	if(ishuman(user) && !magical)
-		var/mob/living/carbon/human/H = user
+	var/mob/living/carbon/human/human_user = user
 
-		//see code/modules/mob/dead/new_player/preferences.dm at approx line 545 for comments!
-		//this is largely copypasted from there.
-		var/options = list("Hair", "Facial")
-		var/choice = tgui_input_list(user, "Style your Hair or Facial Hair?", "Grooming", options, null)
-		switch(choice)
-			if("Hair")
-				//handle normal hair
-				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hairstyles_list, H.hair_style)
-				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-					return	//no tele-grooming
-				if(new_style)
-					H.set_hairstyle(new_style, update = TRUE)
-			if("Facial")
-				//handle facial hair
-				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hairstyles_list, H.facial_hairstyle)
-				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-					return	//no tele-grooming
-				if(new_style)
-					H.set_facial_hairstyle(new_style, update = TRUE)
+	var/choice = tgui_input_list(user, "Style your Hair or Facial Hair?", "Grooming", list("Hair", "Facial"))
+	switch(choice)
+		if("Hair")
+			//handle normal hair
+			var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hairstyles_list, human_user.hair_style)
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !new_style)
+				return //no tele-grooming
+			human_user.set_hairstyle(new_style, update = TRUE)
+		if("Facial")
+			//handle facial hair
+			var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hairstyles_list, human_user.facial_hairstyle)
+			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !new_style)
+				return //no tele-grooming
+			human_user.set_facial_hairstyle(new_style, update = TRUE)
 
-/obj/structure/mirror/examine_status(mob/user)
-	if(broken)
-		return list()// no message spam
-	return ..()
-
-/obj/structure/mirror/atom_break(damage_flag, mapload)
+/obj/structure/mirror/atom_break(damage_flag)
 	. = ..()
-	if(broken || (flags_1 & NODECONSTRUCT_1))
+	if(broken)
 		return
 	icon_state = "mirror_broke"
-	if(!mapload)
-		playsound(src, "shatter", 70, 1)
+	playsound(src, "shatter", 70, TRUE)
 	if(desc == initial(desc))
 		desc = "Oh no, seven years of bad luck!"
 	broken = TRUE
 
-/obj/structure/mirror/deconstruct(disassembled = TRUE)
+/obj/structure/mirror/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(!disassembled)
-			new /obj/item/shard( src.loc )
-	qdel(src)
+			new /obj/item/shard(loc)
+		else if(broken)
+			new /obj/item/wallframe/mirror/broken(loc)
+		else
+			new /obj/item/wallframe/mirror(loc)
+	return ..()
 
-/obj/structure/mirror/welder_act(mob/living/user, obj/item/I)
-	if(user.combat_mode)
-		return FALSE
+/obj/structure/mirror/welder_act(mob/living/user, obj/item/tool)
+	if(!broken || !tool.tool_start_check(user, amount = 0))
+		return ITEM_INTERACT_BLOCKING
 
-	if(!broken)
-		return TRUE
-
-	if(!I.tool_start_check(user, amount=0))
-		return TRUE
-
-	to_chat(user, span_notice("You begin repairing [src]..."))
-	if(I.use_tool(src, user, 10, volume=50))
-		to_chat(user, span_notice("You repair [src]."))
-		broken = 0
+	balloon_alert(user, "repairing...")
+	if(tool.use_tool(src, user, 10, volume = 50))
+		balloon_alert(user, "repaired")
+		broken = FALSE
 		icon_state = initial(icon_state)
 		desc = initial(desc)
 
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/mirror/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 		if(BURN)
-			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
+
+/obj/structure/mirror/broken
+	desc = "Oh no, seven years of bad luck!"
+	icon_state = "mirror_broke"
+	broken = TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	desc = "Turn and face the strange... face."
 	icon_state = "magic_mirror"
-	var/list/choosable_races = list()
 	magical = TRUE
+	var/list/choosable_races
 
 /obj/structure/mirror/magic/Initialize(mapload)
 	. = ..()
-	if(!choosable_races.len)
-		for(var/speciestype in subtypesof(/datum/species))
-			var/datum/species/S = speciestype
-			if(initial(S.changesource_flags) & MIRROR_MAGIC)
-				choosable_races += initial(S.id)
-		choosable_races = sort_list(choosable_races)
+	if(!islist(choosable_races))
+		choosable_races = list()
+		for(var/datum/species/species_type as anything in subtypesof(/datum/species))
+			if(species_type::changesource_flags & MIRROR_MAGIC)
+				choosable_races += species_type::id
+	choosable_races = sort_list(choosable_races)
 
 /obj/structure/mirror/magic/lesser/Initialize(mapload)
 	var/list/selectable = get_selectable_species()
@@ -121,10 +127,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	return ..()
 
 /obj/structure/mirror/magic/badmin/Initialize(mapload)
-	for(var/speciestype in subtypesof(/datum/species))
-		var/datum/species/S = speciestype
-		if(initial(S.changesource_flags) & MIRROR_BADMIN)
-			choosable_races += initial(S.id)
+	for(var/datum/species/species_type as anything in subtypesof(/datum/species))
+		if(species_type::changesource_flags & MIRROR_BADMIN)
+			choosable_races += species_type::id
 	return ..()
 
 /obj/structure/mirror/magic/attack_hand(mob/user, list/modifiers)
@@ -281,8 +286,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 	return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
 /obj/item/wallframe/mirror
-	name = "wall mirror frame"
-	desc = "Now with 100% less lead!"
-	icon_state = "wallmirror"
+	name = "mirror"
+	desc = "An unmounted mirror. Attach it to a wall for use."
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "mirror"
+	custom_materials = list(/datum/material/glass = MINERAL_MATERIAL_AMOUNT * 5, /datum/material/silver = MINERAL_MATERIAL_AMOUNT * 2)
 	result_path = /obj/structure/mirror
-	pixel_shift = -28
+	pixel_shift = 28
+
+/obj/item/wallframe/mirror/broken
+	name = "broken mirror"
+	desc = "An unmounted and broken mirror. Attach it to a wall for decor."
+	icon_state = "mirror_broke"
+	result_path = /obj/structure/mirror/broken
