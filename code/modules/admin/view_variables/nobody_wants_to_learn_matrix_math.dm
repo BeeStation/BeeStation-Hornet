@@ -55,20 +55,26 @@
 				to_chat(src, "Your edit was rejected by the object. This is a bug with the matrix tester, not your fault, so report it on GitHub.")
 				return
 			set_transform()
+			return TRUE
 		if("scale")
 			testing_matrix.Scale(params["x"], params["y"])
 			set_transform()
+			return TRUE
 		if("translate")
 			testing_matrix.Translate(params["x"], params["y"])
 			set_transform()
+			return TRUE
 		if("shear")
 			testing_matrix.Shear(params["x"], params["y"])
 			set_transform()
+			return TRUE
 		if("turn")
 			testing_matrix.Turn(params["angle"])
 			set_transform()
+			return TRUE
 		if("toggle_pixel")
 			target.appearance_flags ^= PIXEL_SCALE
+			return TRUE
 
 /datum/nobody_wants_to_learn_matrix_math/proc/set_transform()
 	animate(target, transform = testing_matrix, time = 0.5 SECONDS)
