@@ -68009,6 +68009,10 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
+"ucw" = (
+/obj/structure/closet/crate/mod,
+/turf/open/floor/iron,
+/area/station/science/robotics/lab)
 "ucG" = (
 /obj/structure/dresser,
 /turf/open/floor/carpet/blue,
@@ -115416,7 +115420,7 @@ gOL
 wKd
 iLm
 eGg
-yeN
+ucw
 kMd
 aae
 qWu

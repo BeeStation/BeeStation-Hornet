@@ -16864,6 +16864,7 @@
 	pixel_x = 24
 	},
 /obj/structure/cable/yellow,
+/obj/structure/closet/crate/mod,
 /turf/open/floor/iron,
 /area/station/science/robotics/mechbay)
 "gmu" = (

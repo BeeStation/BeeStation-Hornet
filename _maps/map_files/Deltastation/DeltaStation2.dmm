@@ -76777,6 +76777,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/mod,
 /turf/open/floor/iron,
 /area/station/science/robotics/mechbay)
 "xMP" = (

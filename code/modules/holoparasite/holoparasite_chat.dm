@@ -55,7 +55,7 @@
 	log_talk(msg, LOG_SAY, tag = "holoparasite ([key_name(summoner)])")
 	return TRUE
 
-/mob/living/simple_animal/hostile/holoparasite/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
+/mob/living/simple_animal/hostile/holoparasite/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode, list/message_mods)
 	if(!talk_out_loud && !is_manifested())
 		// If they're talking over the radio, let them do that instead of using telepathy.
 		var/datum/holoparasite_ability/lesser/misaka/radio_noise = stats.has_lesser_ability(/datum/holoparasite_ability/lesser/misaka)

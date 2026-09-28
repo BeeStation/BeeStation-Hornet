@@ -17,7 +17,7 @@ import {
   Table,
 } from 'tgui-core/components';
 import { formatSiUnit } from 'tgui-core/format';
-import { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -57,6 +57,9 @@ type SuitStatus = {
   ai_name: string;
   has_pai: BooleanLike;
   is_ai: BooleanLike;
+  link_id: string;
+  link_freq: string;
+  link_call: string;
 };
 
 type UserStatus = {
@@ -352,6 +355,9 @@ const SuitStatusSection = (props) => {
     ai_name,
     has_pai,
     is_ai,
+    link_id,
+    link_freq,
+    link_call,
   } = data.suit_status;
   const { display_time, shift_time, shift_id } = data.module_custom_status;
   const status = malfunctioning
@@ -371,9 +377,10 @@ const SuitStatusSection = (props) => {
         <Button
           icon="power-off"
           color={active ? 'good' : 'default'}
-          content={status}
           onClick={() => act('activate')}
-        />
+        >
+          {status}
+        </Button>
       }
     >
       <LabeledList>
@@ -406,9 +413,27 @@ const SuitStatusSection = (props) => {
           <Button
             icon={locked ? 'lock' : 'lock-open'}
             color={locked ? 'good' : 'default'}
-            content={locked ? 'Locked' : 'Unlocked'}
             onClick={() => act('lock')}
-          />
+          >
+            {locked ? 'Locked' : 'Unlocked'}
+          </Button>
+        </LabeledList.Item>
+        <LabeledList.Item label="MODLink">
+          <Button
+            icon='wifi'
+            color={link_call ? 'good' : 'default'}
+            disabled={!link_freq}
+            tooltip={link_freq ? '' : 'Set a frequency with a multitool!'}
+            onClick={() => act('call')}
+          >
+            {
+              link_freq
+                ? link_call
+                  ? `Calling (${link_call})`
+                  : `Call (${link_id})`
+                : 'Frequency Unset'
+            }
+          </Button>
         </LabeledList.Item>
         {!!open && (
           <LabeledList.Item label="Cover">
@@ -425,10 +450,11 @@ const SuitStatusSection = (props) => {
             {has_pai && (
               <Button
                 icon="eject"
-                content="Eject pAI"
                 disabled={is_ai}
                 onClick={() => act('eject_pai')}
-              />
+              >
+                Eject pAI
+              </Button>
             )}
           </LabeledList.Item>
         )}
@@ -482,9 +508,10 @@ const ModParts = (props) => {
               <Button
                 selected={part.deployed}
                 icon={part.deployed ? 'arrow-down' : 'arrow-up'}
-                content={part.deployed ? 'Retract' : 'Deploy'}
                 onClick={() => act('deploy', { ref: part.ref })}
-              />
+              >
+                {part.deployed ? 'Retract' : 'Deploy'}
+              </Button>
             }
           >
             {part.name}
