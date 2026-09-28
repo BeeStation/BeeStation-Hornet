@@ -1,9 +1,0 @@
-author: BotTierPC
-delete-after: true
-changes:
-  - bugfix: Tries to fix the Sound and Image Changelog Prefixes. Pull Requests should
-      be able to use these prefixes again and have them show up in the in game changelog!
-  - sound: If this is showing, then the sound prefix is working! No sound changes
-      actually made
-  - image: If this is showing, then the image prefix is working! No image changes
-      actually made
