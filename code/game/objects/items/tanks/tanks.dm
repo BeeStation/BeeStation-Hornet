@@ -1,4 +1,5 @@
-#define TTV_NO_CASING_MOD 0.25
+#define TTV_NO_CASING_MOD 0.75
+#define TTV_EXPLOSION_DELAY (5 SECONDS)
 #define REACTIONS_BEFORE_EXPLOSION 3
 /// How much time (in seconds) is assumed to pass while assuming air. Used to scale overpressure/overtemp damage when assuming air.
 #define ASSUME_AIR_DT_FACTOR 1
@@ -33,7 +34,12 @@
 	var/excited = TRUE
 	/// Mob that is currently breathing from the tank.
 	var/mob/living/carbon/breathing_mob = null
-
+	/// If we're currently exploding or not. If TRUE, gas does not leak
+	var/currently_exploding = FALSE
+	/// The range of our explosion when we deconstruct() is called
+	var/explosion_range
+	/// Our explosion cap
+	var/explosion_cap_modifier = 1
 
 /datum/armor/item_tank
 	bomb = 10
@@ -249,7 +255,7 @@
 	return remove_air(moles_needed)
 
 /obj/item/tank/process(delta_time)
-	if(!air_contents)
+	if(!air_contents || currently_exploding)
 		return
 
 	//Allow for reactions
@@ -261,7 +267,7 @@
 		STOP_PROCESSING(SSobj, src)
 	excited = FALSE
 
-	if(QDELETED(src) || !air_contents || !leaking)
+	if(QDELETED(src) || !air_contents || !leaking || currently_exploding)
 		return
 	var/atom/location = loc
 	if(!location)
@@ -321,19 +327,36 @@
 	/// Handle fragmentation
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
-		var/explosion_mod = 1
 		if(!istype(loc, /obj/item/transfer_valve))
 			log_bomber(details = "[src.fingerprintslast] was the last key to touch", bomb = src, additional_details = ", which ruptured explosively")
-		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
-			explosion_mod = TTV_NO_CASING_MOD
+
+		if(isnull(get(loc, /obj/machinery/syndicatebomb)))
+			explosion_cap_modifier = TTV_NO_CASING_MOD
+
 		//Give the gas a chance to build up more pressure through reacting
 		for(var/i in 1 to REACTIONS_BEFORE_EXPLOSION)
 			air_contents.react(src)
 		pressure = air_contents.return_pressure()
-		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
-
-		explosion(location, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
+		explosion_range = (pressure - TANK_FRAGMENT_PRESSURE) / TANK_FRAGMENT_SCALE
 	return ..()
+
+/obj/item/tank/deconstruct(disassembled)
+	if(isnull(explosion_range))
+		return ..()
+
+	var/atom/outer_container = src
+	while(outer_container.loc && !isturf(outer_container.loc))
+		outer_container = outer_container.loc
+
+	outer_container.Shake(8, 8, TTV_EXPLOSION_DELAY)
+	outer_container.balloon_alert_to_viewers("rumbles!")
+	playsound(src, 'sound/effects/pressure_rumble.ogg', 100)
+	addtimer(CALLBACK(src, PROC_REF(finish_explosion)), TTV_EXPLOSION_DELAY)
+	currently_exploding = TRUE
+
+/obj/item/tank/proc/finish_explosion()
+	explosion(src, round(explosion_range*0.25), round(explosion_range*0.5), round(explosion_range), round(explosion_range*1.5), cap_modifier = explosion_cap_modifier)
+	qdel(src)
 
 #undef TTV_NO_CASING_MOD
 #undef REACTIONS_BEFORE_EXPLOSION
