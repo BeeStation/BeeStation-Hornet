@@ -5,16 +5,14 @@ tags:
     rsctweak: &tweak_type tweak
     tweak: *tweak_type
     tweaks: *tweak_type
-    soundadd: soundadd
-    sounddel: sounddel
+    sound: sound
     add: &add_type rscadd
     adds: *add_type
     rscadd: *add_type
     del: &del_type rscdel
     dels: *del_type
     rscdel: *del_type
-    imageadd: imageadd
-    imagedel: imagedel
+    image: image
     typo: &typo_type spellcheck
     spellcheck: *typo_type
     balance: &balance_type balance
@@ -27,6 +25,7 @@ tags:
     admin: admin
     server: server
     map: map
+    qol: qol
 
 defaults:
     admin: messed with admin stuff

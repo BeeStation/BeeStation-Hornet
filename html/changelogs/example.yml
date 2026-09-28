@@ -11,18 +11,14 @@
 #     - (fixes bugs)
 #   wip
 #     - (work in progress)
-#   soundadd
-#     - (adds a sound)
-#   sounddel
-#     - (removes a sound)
+#   sound
+#     - (adds/removes/modifies a sound)
 #   rscadd
 #     - (adds a feature)
 #   rscdel
 #     - (removes a feature)
-#   imageadd
-#     - (adds an image or sprite)
-#   imagedel
-#     - (removes an image or sprite)
+#   image
+#     - (adds/removes/modifies an image or sprite)
 #   spellcheck
 #     - (fixes spelling or grammar)
 #   balance
@@ -39,6 +35,9 @@
 #     - (miscellaneous changes to server)
 #   map
 #     - (changes to a map)
+#   qol
+#     - (changes to quality of life)
+
 #################################
 
 # Your name.
