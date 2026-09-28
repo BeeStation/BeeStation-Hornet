@@ -420,19 +420,17 @@ const SuitStatusSection = (props) => {
         </LabeledList.Item>
         <LabeledList.Item label="MODLink">
           <Button
-            icon='wifi'
+            icon="wifi"
             color={link_call ? 'good' : 'default'}
             disabled={!link_freq}
             tooltip={link_freq ? '' : 'Set a frequency with a multitool!'}
             onClick={() => act('call')}
           >
-            {
-              link_freq
-                ? link_call
-                  ? `Calling (${link_call})`
-                  : `Call (${link_id})`
-                : 'Frequency Unset'
-            }
+            {link_freq
+              ? link_call
+                ? `Calling (${link_call})`
+                : `Call (${link_id})`
+              : 'Frequency Unset'}
           </Button>
         </LabeledList.Item>
         {!!open && (

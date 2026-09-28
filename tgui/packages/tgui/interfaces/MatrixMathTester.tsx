@@ -58,7 +58,12 @@ export const MatrixMathTester = (props) => {
   const [angle, setAngle] = useState(0);
 
   return (
-    <Window title="Nobody Wants to Learn Matrix Math" width={290} height={270} theme="admin">
+    <Window
+      title="Nobody Wants to Learn Matrix Math"
+      width={290}
+      height={270}
+      theme="admin"
+    >
       <Window.Content>
         <Section fill>
           <Table>
