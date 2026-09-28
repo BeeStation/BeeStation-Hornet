@@ -377,6 +377,8 @@ Doesn't work on other aliens/AI.*/
 	// Only death breaks the grip: nothing moves her off the mech, not her own steps, pulls or shoves.
 	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_holder_pre_move))
 	owner.emote("roar")
+	// The jaws-of-life airlock pry, kept at full volume a little further out so escorts hear the hatch going.
+	playsound(mech, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE, extrarange = 3, falloff_distance = 3)
 	owner.visible_message(
 		span_danger("[owner] seizes [mech] and begins tearing at its hatch!"),
 		span_noticealien("You seize [mech] and start tearing it open!"),
