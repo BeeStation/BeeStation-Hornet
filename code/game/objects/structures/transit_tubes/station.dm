@@ -124,7 +124,7 @@
 		victim.deconstruct(FALSE, user)
 		anything_done = TRUE
 	to_chat(user, span_notice("[anything_done ? "You empty \the [src]." : "\The [src] is already empty!"]"))
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/transit_tube/station/proc/open_animation()
 	if(open_status == STATION_TUBE_CLOSED)

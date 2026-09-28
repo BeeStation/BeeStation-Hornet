@@ -35,18 +35,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/transit_tube)
 
 /obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/tool)
 	if(!tube_construction)
-		return FALSE
+		return NONE
 
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		to_chat(user, span_warning("Remove the pod first!"))
-		return TRUE
+		return ITEM_INTERACT_BLOCKING
 
 	user.visible_message(
 		span_notice("[user] starts to detach \the [src]."),
 		span_notice("You start to detach \the [src]..."),
 	)
 	if(!tool.use_tool(src, user, 2 SECONDS, volume = 50))
-		return TRUE
+		return ITEM_INTERACT_BLOCKING
 
 	to_chat(user, span_notice("You detach \the [src]."))
 	var/obj/structure/c_transit_tube/husk = new tube_construction(loc)
@@ -54,12 +54,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/transit_tube)
 	transfer_fingerprints_to(husk)
 	husk.add_fingerprint(user)
 	qdel(src)
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/transit_tube/crowbar_act(mob/living/user, obj/item/tool)
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		pod.attackby(tool, user)
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 // Called to check if a pod should stop upon entering this tube.
 /obj/structure/transit_tube/proc/should_stop_pod(pod, from_dir)

@@ -39,7 +39,7 @@
 		empty_pod()
 	else
 		deconstruct(TRUE)
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/transit_tube_pod/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
