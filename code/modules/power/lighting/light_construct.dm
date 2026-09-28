@@ -73,7 +73,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
 	remove_cell()
 	return cell_reference.attack_tk(user)
 
-/obj/structure/light_construct/attackby(obj/item/W, mob/user, params)
+/obj/structure/light_construct/attackby(obj/item/W, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell_connectors)

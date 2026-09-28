@@ -119,7 +119,7 @@
 		..()
 		qdel(src)
 
-/obj/item/food/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/food/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	. = ..()
 	if(istype(attacking_item, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What would you like to name your masterpiece?", "Name:", name || "Food", MAX_MESSAGE_LEN)

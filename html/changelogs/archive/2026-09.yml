@@ -219,3 +219,26 @@
   Isaac:
   - balance: Nanite Rapid Coagulation actually does what the name says, it stops bleeding
       at a rate of 0.1
+2026-09-27:
+  SunShine214:
+  - bugfix: Fixed IPC upgrade power economy.
+  - bugfix: Fixed IPCs not dying on an empty battery.
+  SunShine214, SirYoshimoto, DrDuckedGoose:
+  - rscadd: Added IPC upgrades! You can now install upgrades in their respective slot,
+      as IPC. You get three slots to do this with.
+  - rscadd: Added the Upgrade Control Module. Similar to a BCI but allows activation
+      of installed upgrades!
+  - rscadd: Added the IPC self monitor. Monitor your stats with a neat built-in PDA
+      program!
+  - bugfix: Fixed Nanite armor not actually giving armor
+  - tweak: IPCs die on powerloss.
+  - tweak: Added tool proficiency to mobs
+  WhiskeyMarten:
+  - rscadd: Added a "compression box of brig physician outfits" to their locker, containing
+      a set of all their clothing options.
+  - rscadd: Added bodybags to all brig physician lockers.
+  - rscadd: Added a crew monitor and the CMO's ID console in their office on Kilostation.
+  - tweak: Adjusted location of medical records console and telescreen in the CMO's
+      office on Kilostation.
+  - rscadd: Added a dropper to Radstation's chemistry lab.
+  - bugfix: Fixed the dropper recipe not working in the medical techfab.

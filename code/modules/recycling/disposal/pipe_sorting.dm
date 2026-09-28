@@ -65,7 +65,7 @@
 	else
 		. += span_notice("It has no sorting tags set. You can use a destination tagger on it to set its sorting tags.")
 
-/obj/structure/disposalpipe/sorting/mail/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sorting/mail/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = I
 

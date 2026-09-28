@@ -242,7 +242,7 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 
 	return
 
-/obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, params)
+/obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

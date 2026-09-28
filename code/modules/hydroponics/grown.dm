@@ -112,7 +112,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/food/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/food/grown/attackby(obj/item/O, mob/user, list/modifiers)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
 		var/msg = "[span_info("This is \a [span_name(name)]")].\n"

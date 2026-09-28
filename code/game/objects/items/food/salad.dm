@@ -162,7 +162,7 @@
 	desc = "A simple bowl, used for soups and salads."
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "bowl"
-	reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	custom_materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 5 /// Will use this form upon economy rebalance! PAYCHECK_EASY * 0.6

@@ -3,8 +3,7 @@
 
 /obj/item/reagent_containers/cup/chem_heirloom
 	volume = CHEM_H_VOL //Set this to 0 in init. Doing otherwise breaks add_reagent
-	spillable = FALSE
-	reagent_flags = NONE
+	initial_reagent_flags = NONE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "hard_locked_closed"
 	inhand_icon_state = "hard_locked_closed"
@@ -27,15 +26,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers/cup/chem_heirloom)
 	. = ..() //This makes the text out of order, but it's hardly noticeable
 	if(!locked)
 		return
-	var/smartguy
-	if(user.can_see_reagents())
-		smartguy = TRUE
-	. += "It contains:\n100 units of [smartguy ? initial(rand_cont.name) : "various reagents"]" //Luckily science goggles say nothing if there's no reagents
+	. += "It contains:\n100 units of [user.can_see_reagents() ? initial(rand_cont.name) : "various reagents"]" //Luckily science goggles say nothing if there's no reagents
 
 /obj/item/reagent_containers/cup/chem_heirloom/update_name() //This has to be done after init, since the heirloom component is added after.
 	. = ..()
 	rand_cont = get_random_reagent_id(CHEMICAL_RNG_FUN)
-	name ="hard locked bottle of [initial(rand_cont.name)]"
+	name = "hard locked bottle of [initial(rand_cont.name)]"
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
 	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "A hard locked bottle of [initial(rand_cont.name)]."
 
@@ -51,8 +47,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers/cup/chem_heirloom)
 	inhand_icon_state = "hard_locked_open"
 	icon_state = "hard_locked_open"
 	locked = FALSE
-	spillable = TRUE
-	reagent_flags = OPENCONTAINER
+	add_container_flags(OPENCONTAINER)
 	reagents.add_reagent(rand_cont, volume) //Add reagents
 
 /obj/item/reagent_containers/cup/chem_heirloom/Destroy()

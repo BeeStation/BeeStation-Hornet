@@ -1392,3 +1392,22 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	if(solar_control.connected_tracker)
 		solar_control.track = SOLAR_TRACK_AUTO
 		solar_control.connected_tracker.sun_update(SSsun, SSsun.azimuth)
+
+/obj/effect/mapping_helpers/lowpop/smes_configurer
+	name = "lowpop smes configurer"
+	icon_state = "lowpop_smes"
+	minimum_job_amount = 1
+	targeted_job_types = list(/datum/job/station_engineer, /datum/job/chief_engineer)
+
+	/// What to set the SMES's input level to
+	var/input_level = /obj/machinery/power/smes::input_level_max
+	/// What to set the SMES's output level to
+	var/output_level = /obj/machinery/power/smes::output_level
+
+/obj/effect/mapping_helpers/lowpop/smes_configurer/payload()
+	var/obj/machinery/power/smes/smes = locate(/obj/machinery/power/smes) in loc
+	if(!smes)
+		log_mapping("[src] failed to find a SMES at [AREACOORD(src)]")
+		return
+	smes.input_level = input_level
+	smes.output_level = output_level

@@ -100,6 +100,7 @@
 "bP" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "bU" = (

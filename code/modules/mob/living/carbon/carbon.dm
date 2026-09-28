@@ -64,9 +64,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		mode() // Activate held item
 
-/mob/living/carbon/attackby(obj/item/item, mob/living/user, params)
-
-	if(can_perform_surgery(user, params))
+/mob/living/carbon/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(can_perform_surgery(user, modifiers))
 		return TRUE
 
 	//Wounds tending goes here
@@ -893,6 +892,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				continue
 
 			target_organ.apply_organ_damage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
+	if(HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+		if(nutrition <= 0)
+			apply_status_effect(mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
 
 	return ..()
 

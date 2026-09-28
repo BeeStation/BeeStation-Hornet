@@ -79,7 +79,7 @@
 	P.decayedRange = max(P.decayedRange--, 0)
 	return BULLET_ACT_FORCE_PIERCE
 
-/obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+/obj/structure/reflector/attackby(obj/item/W, mob/user, list/modifiers)
 	if(admin)
 		return
 
