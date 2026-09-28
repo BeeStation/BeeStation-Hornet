@@ -15,12 +15,8 @@ SUBSYSTEM_DEF(department)
 	var/list/sorted_department_for_manifest
 	/// department datums in a 'job pref' priority order in character selection.
 	var/list/sorted_department_for_latejoin
-	/// dept_ids of every station department that grants access, in access UI order.
-	var/list/station_access_dept_ids = list()
 	/// Specially formatted list for sending access levels to tgui interfaces, keyed by dept_id.
 	var/list/all_department_access_tgui = list()
-	/// Every access that only a CentCom ID console may grant or revoke.
-	var/list/restricted_access = list()
 
 	/// department datums in access manipulation - actually manual sort
 	var/list/sorted_department_for_access = list(
@@ -66,25 +62,6 @@ SUBSYSTEM_DEF(department)
 	for(var/each_dept in temp)
 		sorted_department_for_access |= department_assoc[each_dept]
 
-	var/datum/department_group/aggregate/station_all = department_assoc[DEPARTMENT_ID_STATION_ALL]
-	var/datum/department_group/aggregate/all_access = department_assoc[DEPARTMENT_ID_ALL_ACCESS]
-	for(var/datum/department_group/each_dept as anything in department_datums)
-		if(!each_dept.dept_id || istype(each_dept, /datum/department_group/aggregate))
-			continue
-		all_access.member_dept_ids += each_dept.dept_id
-		if(each_dept.is_station)
-			station_all.member_dept_ids += each_dept.dept_id
-
-	station_access_dept_ids = list()
-	for(var/datum/department_group/each_dept as anything in sorted_department_for_access)
-		if(each_dept.is_station && length(each_dept.get_access_list()))
-			station_access_dept_ids += each_dept.dept_id
-
-	restricted_access = list()
-	for(var/datum/department_group/each_dept as anything in department_datums)
-		if(each_dept.access_filter)
-			restricted_access |= each_dept.get_access_list()
-
 	setup_tgui_lists()
 
 	return SS_INIT_SUCCESS
@@ -109,12 +86,10 @@ SUBSYSTEM_DEF(department)
 
 	return built_access_list
 
-/// Returns a copy of the access levels allotted to a given job title by whichever department allots it
-/datum/controller/subsystem/department/proc/get_job_access(job)
-	for(var/datum/department_group/dept as anything in department_datums)
-		var/list/job_access = dept.get_job_access(job)
-		if(job_access)
-			return job_access
+/// Returns a copy of the access levels CentCom allots to a given CentCom or ERT job title
+/datum/controller/subsystem/department/proc/get_centcom_job_access(job)
+	var/datum/department_group/centcom/centcom = get_department_by_dept_id(DEPARTMENT_NAME_CENTCOM)
+	return centcom.get_job_access(job)
 
 /// Creates various data structures that primarily get fed to tgui interfaces, although these lists are used in other places.
 /datum/controller/subsystem/department/proc/setup_tgui_lists()
@@ -265,9 +240,9 @@ SUBSYSTEM_DEF(department)
 	job.departments_bitflags |= department_bitflags
 
 /// Returns a copy of the access levels this department allots to a given job title.
-/// Station departments allot access through their job datums instead, and return nothing here.
+/// Only CentCom allots access this way. Station departments do it through their job datums.
 /datum/department_group/proc/get_job_access(job)
-	return
+	CRASH("[type] does not allot access by job title. Only CentCom does.")
 
 /// Returns a copy of every access this department grants
 /datum/department_group/proc/get_access_list()
@@ -281,21 +256,36 @@ SUBSYSTEM_DEF(department)
 // ---------------------------------------------------------------------
 /datum/department_group/aggregate
 	abstract_type = /datum/department_group/aggregate
-	/// dept_ids whose access this department bundles.
-	var/list/member_dept_ids = list()
+	/// dept_ids whose access this department bundles. May include other aggregates.
+	var/list/aggregated_department_id_list = list()
 
 /datum/department_group/aggregate/get_access_list()
-	return SSdepartment.get_department_access(member_dept_ids)
+	return SSdepartment.get_department_access(aggregated_department_id_list)
 
 /datum/department_group/aggregate/station_all
 	department_name = DEPARTMENT_ID_STATION_ALL
 	dept_id = DEPARTMENT_ID_STATION_ALL
 	access_group_name = "Station All Access"
+	// The access UIs show one region per entry, in this order, so only list departments that grant access.
+	aggregated_department_id_list = list(
+		DEPARTMENT_NAME_SERVICE,
+		DEPARTMENT_NAME_CARGO,
+		DEPARTMENT_NAME_MEDICAL,
+		DEPARTMENT_NAME_SCIENCE,
+		DEPARTMENT_NAME_ENGINEERING,
+		DEPARTMENT_NAME_SECURITY,
+		DEPARTMENT_NAME_COMMAND,
+	)
 
 /datum/department_group/aggregate/all_access
 	department_name = DEPARTMENT_ID_ALL_ACCESS
 	dept_id = DEPARTMENT_ID_ALL_ACCESS
 	access_group_name = "All Access"
+	aggregated_department_id_list = list(
+		DEPARTMENT_ID_STATION_ALL,
+		DEPARTMENT_NAME_CENTCOM,
+		DEPARTMENT_NAME_OTHER,
+	)
 
 // ---------------------------------------------------------------------
 //                                COMMAND
@@ -754,7 +744,7 @@ SUBSYSTEM_DEF(department)
 	dept_radio_channel = FREQ_CENTCOM
 
 	access_group_name = "??? (Admin)"
-	member_dept_ids = list(DEPARTMENT_ID_SYNDICATE, DEPARTMENT_ID_AWAY, DEPARTMENT_ID_SPECIAL)
+	aggregated_department_id_list = list(DEPARTMENT_ID_SYNDICATE, DEPARTMENT_ID_AWAY, DEPARTMENT_ID_SPECIAL)
 	access_filter = TRUE // CentCom Only
 
 	// currently not used, but just in case

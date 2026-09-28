@@ -60,7 +60,8 @@
 
 	var/list/regions = list()
 	var/list/tgui_region_data = SSdepartment.all_department_access_tgui
-	for(var/dept_id in SSdepartment.station_access_dept_ids)
+	var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+	for(var/dept_id in station_all.aggregated_department_id_list)
 		regions += tgui_region_data[dept_id]
 	data["regions"] = regions
 	return data
@@ -165,13 +166,15 @@
 			update_access()
 		if("grant_region")
 			var/dept_id = params["region"]
-			if(!(dept_id in SSdepartment.station_access_dept_ids))
+			var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+			if(!(dept_id in station_all.aggregated_department_id_list))
 				return
 			accesses |= SSdepartment.get_department_access(dept_id)
 			update_access()
 		if("deny_region")
 			var/dept_id = params["region"]
-			if(!(dept_id in SSdepartment.station_access_dept_ids))
+			var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+			if(!(dept_id in station_all.aggregated_department_id_list))
 				return
 			accesses -= SSdepartment.get_department_access(dept_id)
 			update_access()

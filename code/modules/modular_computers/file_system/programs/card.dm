@@ -194,8 +194,8 @@
 			if(!authenticated)
 				return
 			var/access_type = text2num(params["access_target"])
-			if(!is_centcom && (access_type in SSdepartment.restricted_access))
-				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
+			if(!is_centcom && !(access_type in SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)))
+				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](non-station access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
 			var/access_source = "[user_id_card] via a portable ID console at [AREACOORD(usr)]"
 			if(access_type in target_id_card.access)
@@ -255,7 +255,8 @@
 			permitted_dept_ids |= dept.dept_id
 
 	var/list/accessible = list()
-	for(var/dept_id in SSdepartment.station_access_dept_ids)
+	var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+	for(var/dept_id in station_all.aggregated_department_id_list)
 		if((minor || department_bitflag) && !(dept_id in permitted_dept_ids))
 			continue
 		accessible += dept_id
