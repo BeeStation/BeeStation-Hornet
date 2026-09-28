@@ -19384,9 +19384,7 @@
 "ilo" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/structure/sink/directional/south,
-/obj/structure/mirror{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/white/textured,
 /area/station/commons/toilet/locker)
@@ -26583,9 +26581,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 6
 	},
-/obj/structure/mirror{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/white/textured,
 /area/station/commons/toilet/locker)
@@ -35444,9 +35440,7 @@
 "oLy" = (
 /obj/effect/turf_decal/siding/thinplating_new/light,
 /obj/structure/sink/directional/south,
-/obj/structure/mirror{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/iron/white/textured,
 /area/station/commons/toilet/locker)
 "oLN" = (

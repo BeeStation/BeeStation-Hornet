@@ -9624,14 +9624,12 @@
 /area/station/cargo/exploration_prep)
 "dKz" = (
 /obj/structure/table/wood,
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/item/food/pie/cream,
 /obj/item/clothing/head/costume/lobsterhat,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/service/theater)
 "dKL" = (
@@ -10479,9 +10477,7 @@
 	c_tag = "Bar Storage";
 	name = "bar camera"
 	},
-/obj/structure/mirror{
-	pixel_y = -32
-	},
+/obj/structure/mirror/directional/south,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -23750,13 +23746,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/mirror{
-	pixel_x = 25;
-	pixel_y = 4
-	},
 /obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/prisoner,
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)
 "ity" = (
@@ -26916,9 +26909,7 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
 "jzm" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
@@ -32564,9 +32555,7 @@
 /turf/closed/wall,
 /area/station/cargo/warehouse)
 "lrt" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -42063,9 +42052,7 @@
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "ouG" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/machinery/newscaster{
 	pixel_x = -30;
 	pixel_y = -30
@@ -44038,13 +44025,11 @@
 /area/station/security/prison)
 "pcZ" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/station/cargo/exploration_prep)
 "pdF" = (
@@ -52228,15 +52213,13 @@
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/structure/sink/directional/west,
 /obj/machinery/camera{
 	c_tag = "Recovery Room";
 	name = "cloning camera";
 	dir = 4
 	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/genetics/cloning)
 "saY" = (
@@ -53163,9 +53146,6 @@
 /area/station/medical/medbay/central)
 "sro" = (
 /obj/structure/table/wood,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/item/clipboard,
 /obj/item/toy/figure/mime{
 	pixel_x = 4;
@@ -53182,6 +53162,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/service/theater)
 "sru" = (
@@ -54777,9 +54758,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/medical/storage)
 "sWX" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/machinery/newscaster{
 	pixel_x = -30;
 	pixel_y = -30
@@ -56324,9 +56303,7 @@
 	dir = 8;
 	name = "emergency shower"
 	},
-/obj/structure/mirror{
-	pixel_x = 26
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/noslip/dark,
 /area/station/science/explab)
 "txE" = (
@@ -61439,13 +61416,11 @@
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/hand_tele,
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "vfz" = (
@@ -62158,9 +62133,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8

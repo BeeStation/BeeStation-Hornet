@@ -1636,9 +1636,7 @@
 /area/station/maintenance/department/security)
 "aFu" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/noslip/standard,
 /area/station/commons/toilet)
@@ -25602,9 +25600,7 @@
 	dir = 8;
 	nightshift_light_color = "#22bfa2"
 	},
-/obj/structure/mirror{
-	pixel_x = -26
-	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -35425,10 +35421,8 @@
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "nqh" = (
-/obj/structure/mirror{
-	pixel_y = 35
-	},
 /obj/structure/sink/directional/south,
+/obj/structure/mirror/directional/north,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/captain/private)
 "nqE" = (
@@ -38897,9 +38891,6 @@
 /area/station/maintenance/starboard/aft)
 "oEI" = (
 /obj/structure/table/wood,
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/machinery/light{
 	bulb_colour = "#22bfa2";
 	bulb_vacuum_colour = "#22bfa2";
@@ -38918,6 +38909,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/wood,
 /area/station/service/theater/backstage)
 "oER" = (
@@ -59129,9 +59121,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/sink/directional/east,
 /turf/open/floor/iron/freezer,
 /area/station/security/prison)

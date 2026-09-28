@@ -67,9 +67,7 @@
 "ao" = (
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/sand,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ap" = (

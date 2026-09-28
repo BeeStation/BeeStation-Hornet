@@ -938,9 +938,7 @@
 /area/ruin/powered/animal_hospital)
 "RD" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
