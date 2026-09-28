@@ -5,14 +5,16 @@ tags:
     rsctweak: &tweak_type tweak
     tweak: *tweak_type
     tweaks: *tweak_type
-    sound: sound
+    soundadd: soundadd
+    sounddel: sounddel
     add: &add_type rscadd
     adds: *add_type
     rscadd: *add_type
     del: &del_type rscdel
     dels: *del_type
     rscdel: *del_type
-    image: image
+    imageadd: imageadd
+    imagedel: imagedel
     typo: &typo_type spellcheck
     spellcheck: *typo_type
     balance: &balance_type balance
