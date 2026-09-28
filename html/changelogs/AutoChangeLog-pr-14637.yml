@@ -1,0 +1,12 @@
+author: mrmanlikesbt, nemvar, kawoppi, MrMelbert, Rhials, TheBoondock, Ghommie, TiviPlus,
+  TealSeer, SyncIt21, timothymtorres, SmArtKar
+delete-after: true
+changes:
+  - refactor: The attack chain has had some backend refactors- please report any buggy
+      item interactions on GitHub!
+  - tweak: Durathread golems now get their strandling effect from their arms instead
+      of it being hardcoded to their species.
+  - rscadd: Added a visual and sound effect when splashing a reagent container
+  - bugfix: Pressing Mouse4 or Mouse5 no longer left clicks
+  - bugfix: Fixed unwrenching a supermatter shard dusting the wrench
+  - bugfix: Fixed syringes not transferring diseases as intended
