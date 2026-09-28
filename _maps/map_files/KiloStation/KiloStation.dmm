@@ -4760,7 +4760,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/disposalpipe/sorting/mail,
+/obj/structure/disposalpipe/sorting/mail{
+	sortType = "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30"
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "bVs" = (
