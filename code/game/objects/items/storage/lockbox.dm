@@ -98,7 +98,8 @@
 /obj/item/storage/lockbox/medal/Exited(atom/movable/gone, direction)
 	. = ..()
 	open = TRUE
-	update_appearance(UPDATE_ICON)
+	if(!QDELING(src))
+		update_appearance(UPDATE_ICON)
 
 /obj/item/storage/lockbox/medal/PopulateContents()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
