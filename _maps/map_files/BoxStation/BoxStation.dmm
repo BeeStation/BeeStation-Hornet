@@ -89,15 +89,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/command/storage/eva)
-"abR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/transit_tube/station/dispenser/reverse/flipped{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/station/engineering/main)
 "abU" = (
 /obj/machinery/computer/bank_machine,
 /obj/effect/turf_decal/bot_white,
@@ -1684,17 +1675,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/security/brig)
-"aPH" = (
-/obj/structure/rack,
-/obj/item/lighter,
-/obj/item/clothing/glasses/meson{
-	pixel_y = 4
-	},
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/reagent_containers/pill/patch/silver_sulf,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/station/command/heads_quarters/chief)
 "aPO" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
 /obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible{
@@ -8403,6 +8383,15 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
+"dNy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/station/engineering/main)
 "dNC" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -16749,12 +16738,6 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/grid,
 /area/station/medical/patients_rooms)
-"hhH" = (
-/obj/structure/cable/yellow,
-/obj/machinery/power/smes,
-/obj/machinery/camera/directional/south,
-/turf/open/floor/plating,
-/area/station/maintenance/solars/starboard/fore)
 "hhL" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/spawner/random/vending/colavend,
@@ -18628,6 +18611,12 @@
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
+"hUB" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/port/fore)
 "hUC" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -22181,6 +22170,13 @@
 	},
 /turf/open/floor/iron/solarpanel/airless,
 /area/station/solars/port/fore)
+"jsS" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes,
+/obj/machinery/airalarm/directional/east,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/starboard/aft)
 "jsY" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -24294,6 +24290,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
+"kpg" = (
+/obj/structure/transit_tube/station/dispenser/reverse,
+/turf/open/floor/plating,
+/area/station/ai_monitored/turret_protected/aisat_interior)
 "kpM" = (
 /obj/effect/turf_decal/trimline/yellow/warning_offset{
 	dir = 4
@@ -27254,6 +27254,17 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
+"lwq" = (
+/obj/structure/rack,
+/obj/item/lighter,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 4
+	},
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/station/command/heads_quarters/chief)
 "lwt" = (
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall,
@@ -30102,11 +30113,6 @@
 	},
 /turf/open/floor/iron/grid,
 /area/station/medical/patients_rooms)
-"mBh" = (
-/obj/structure/cable/yellow,
-/obj/machinery/power/smes,
-/turf/open/floor/plating,
-/area/station/maintenance/solars/port/aft)
 "mBk" = (
 /obj/effect/turf_decal/siding/dark_blue,
 /obj/structure/cable/yellow,
@@ -46306,6 +46312,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"tjM" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/port/aft)
 "tjW" = (
 /obj/machinery/shower{
 	pixel_y = 16
@@ -47911,11 +47923,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/science/robotics/mechbay)
-"tSu" = (
-/obj/structure/cable/yellow,
-/obj/machinery/power/smes,
-/turf/open/floor/plating,
-/area/station/maintenance/solars/port/fore)
 "tSW" = (
 /obj/structure/showcase/cyborg/old{
 	dir = 4;
@@ -54264,12 +54271,6 @@
 	},
 /turf/open/floor/iron/large,
 /area/station/commons/storage/primary)
-"wzS" = (
-/obj/structure/cable/yellow,
-/obj/machinery/power/smes,
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/plating,
-/area/station/maintenance/solars/starboard/aft)
 "wzW" = (
 /obj/machinery/computer/operating{
 	name = "Robotics Operating Computer"
@@ -57372,10 +57373,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/ameridiner,
 /area/station/service/janitor)
-"xKi" = (
-/obj/structure/transit_tube/station/dispenser/reverse,
-/turf/open/floor/plating,
-/area/station/ai_monitored/turret_protected/aisat_interior)
 "xKw" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -57868,6 +57865,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/plating/airless,
 /area/station/engineering/main)
+"xUA" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes,
+/obj/machinery/camera/directional/south,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/starboard/fore)
 "xUL" = (
 /obj/machinery/light{
 	dir = 1
@@ -75365,7 +75369,7 @@ fnV
 fnV
 wFx
 man
-tSu
+hUB
 san
 gDz
 kBe
@@ -78531,7 +78535,7 @@ lyn
 lyn
 lyn
 imV
-mBh
+tjM
 hmE
 rFO
 imV
@@ -88810,7 +88814,7 @@ kdN
 bkk
 vfT
 iye
-aPH
+lwq
 sRQ
 eDu
 vDV
@@ -92166,7 +92170,7 @@ blY
 dQb
 dQb
 lnE
-abR
+dNy
 hvC
 vnF
 pjh
@@ -95254,7 +95258,7 @@ pYg
 sxV
 iaJ
 wMj
-xKi
+kpg
 iUG
 pIH
 uLh
@@ -100296,7 +100300,7 @@ tFd
 tFd
 nzm
 lek
-hhH
+xUA
 reD
 hyV
 dgS
@@ -109117,7 +109121,7 @@ rci
 fAh
 tzw
 gaR
-wzS
+jsS
 sXz
 mEo
 hbz

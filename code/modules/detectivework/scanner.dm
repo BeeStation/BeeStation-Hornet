@@ -57,11 +57,11 @@
 	log = list()
 	scanning = 0
 
-/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, params)
+/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, list/modifiers)
 	scan(A, user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/detective_scanner/afterattack(atom/A, mob/user, params)
+/obj/item/detective_scanner/afterattack(atom/A, mob/user, list/modifiers)
 	. = ..()
 	scan(A, user)
 	return FALSE

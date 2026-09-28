@@ -87,9 +87,9 @@
 	eyeobj.origin = src
 
 
-/obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/rcd_ammo) || istype(W, /obj/item/stack/sheet))
-		RCD.attackby(W, user, params) //If trying to feed the console more materials, pass it along to the RCD.
+		RCD.attackby(W, user, modifiers) //If trying to feed the console more materials, pass it along to the RCD.
 	else
 		return ..()
 

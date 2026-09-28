@@ -154,7 +154,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(internal_cell)
 		internal_cell.forceMove(drop_location())
 
-/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, params)
+/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/active_cell = item
 		if(!panel_open)

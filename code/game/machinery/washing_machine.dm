@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(panel_open)
 		add_overlay("wm_panel")
 
-/obj/machinery/washing_machine/attackby(obj/item/W, mob/living/user, params)
+/obj/machinery/washing_machine/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(panel_open && !busy && default_unfasten_wrench(user, W))
 		return
 

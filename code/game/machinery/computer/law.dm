@@ -16,7 +16,7 @@
 	else
 		. += "Currently selected silicon: [current.name]."
 
-/obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
+/obj/machinery/computer/upload/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/ai_module))
 		var/obj/item/ai_module/M = O
 		if(machine_stat & (NOPOWER|BROKEN|MAINT))

@@ -7311,15 +7311,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"cYo" = (
-/obj/machinery/power/smes,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/station/maintenance/solars/starboard/aft)
 "cYr" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -10511,15 +10502,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
-"eaz" = (
-/obj/machinery/power/smes,
-/obj/machinery/status_display/shuttle{
-	pixel_y = -32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/station/maintenance/solars/starboard/fore)
 "eaS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -15042,6 +15024,17 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"fuf" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/transit_tube/station/dispenser/reverse{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/station/hallway/primary/fore)
 "fuh" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -18382,19 +18375,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/station/tcommsat/server)
-"gCv" = (
-/obj/machinery/power/smes,
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/obj/structure/sign/warning/xeno_mining{
-	pixel_y = -32
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/station/maintenance/solars/port/fore)
 "gCy" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -21970,6 +21950,16 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
+"hOB" = (
+/obj/machinery/power/smes,
+/obj/machinery/status_display/shuttle{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/starboard/fore)
 "hOF" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -25780,17 +25770,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/cargo/office)
-"jeH" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube/station/dispenser/reverse{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/station/hallway/primary/fore)
 "jeR" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -27265,6 +27244,20 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
+"jGd" = (
+/obj/machinery/power/smes,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/obj/structure/sign/warning/xeno_mining{
+	pixel_y = -32
+	},
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/station/maintenance/solars/port/fore)
 "jGm" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Upload";
@@ -29208,6 +29201,18 @@
 	burnt = 1
 	},
 /area/station/maintenance/port/fore)
+"kky" = (
+/obj/machinery/power/smes,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/station/maintenance/solars/port/aft)
 "kkC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
@@ -31827,14 +31832,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
-"ldZ" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/transit_tube/station/dispenser{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/station/ai_monitored/turret_protected/aisat/foyer)
 "lel" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -40641,6 +40638,14 @@
 "nWd" = (
 /turf/open/floor/engine/vacuum,
 /area/station/engineering/atmos)
+"nWe" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/transit_tube/station/dispenser{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/station/ai_monitored/turret_protected/aisat/foyer)
 "nWg" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/door/window/southright{
@@ -53078,6 +53083,16 @@
 /obj/item/xenoartifact/tutorial,
 /turf/open/floor/engine,
 /area/station/science/explab)
+"snS" = (
+/obj/machinery/power/smes,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating,
+/area/station/maintenance/solars/starboard/aft)
 "soe" = (
 /turf/closed/wall/rust,
 /area/station/medical/surgery)
@@ -57258,17 +57273,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/robotics/lab)
-"tLd" = (
-/obj/machinery/power/smes,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/station/maintenance/solars/port/aft)
 "tLE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -86338,7 +86342,7 @@ qNY
 tzJ
 gvq
 ikO
-tLd
+kky
 tMG
 mfz
 ikO
@@ -86781,7 +86785,7 @@ dUD
 xRZ
 lHt
 hpk
-gCv
+jGd
 oVS
 dUD
 dUD
@@ -99098,7 +99102,7 @@ ncp
 xkU
 wOn
 ecJ
-ldZ
+nWe
 imw
 kYp
 kYp
@@ -99381,7 +99385,7 @@ seF
 vOV
 bQZ
 sxA
-jeH
+fuf
 eDz
 xFC
 fRZ
@@ -109738,7 +109742,7 @@ wvG
 nNG
 xxE
 nFN
-cYo
+snS
 rtX
 bmL
 nFN
@@ -114027,7 +114031,7 @@ gSD
 qkT
 xnK
 euV
-eaz
+hOB
 qcz
 jvR
 jAi

@@ -25,7 +25,7 @@
 	desc = modified ? "It's nerf or nothing! ... Although, this one doesn't look too safe." : "It's nerf or nothing! Ages 8 and up."
 
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, list/modifiers)
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
 	if (A.tool_behaviour == TOOL_SCREWDRIVER && !modified)
 		modified = TRUE

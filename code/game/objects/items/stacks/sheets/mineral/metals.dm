@@ -52,7 +52,7 @@ Metals Sheets
 	user.visible_message(span_suicide("[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
-/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	if(istype(target, /turf/open))
 		var/turf/open/build_on = target
 		if(!user.Adjacent(build_on))
