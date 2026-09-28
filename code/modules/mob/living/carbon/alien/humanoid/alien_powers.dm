@@ -364,7 +364,7 @@ Doesn't work on other aliens/AI.*/
 	start_cooldown()
 	unset_click_ability(owner, refund_cooldown = FALSE)
 	seize(mech)
-	if(do_after(owner, CRACK_OPEN_CHANNEL_TIME, mech, extra_checks = CALLBACK(src, PROC_REF(can_keep_holding), mech)))
+	if(do_after(owner, CRACK_OPEN_CHANNEL_TIME, mech, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(can_keep_holding), mech)))
 		finish_crack_open(mech)
 	release(mech)
 	// The cost was paid up front. Returning FALSE keeps the base action from charging plasma a second time.
@@ -374,6 +374,8 @@ Doesn't work on other aliens/AI.*/
 /datum/action/alien/crack_open/proc/seize(obj/vehicle/sealed/mecha/mech)
 	ADD_TRAIT(mech, TRAIT_MECHA_SEIZED, CRACK_OPEN_TRAIT)
 	RegisterSignal(mech, COMSIG_ATOM_EXAMINE, PROC_REF(on_seized_examine))
+	// Only death breaks the grip: nothing moves her off the mech, not her own steps, pulls or shoves.
+	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_holder_pre_move))
 	owner.emote("roar")
 	owner.visible_message(
 		span_danger("[owner] seizes [mech] and begins tearing at its hatch!"),
@@ -383,10 +385,16 @@ Doesn't work on other aliens/AI.*/
 
 /// Lets go of the mech, whatever happened during the channel. Safe to call more than once.
 /datum/action/alien/crack_open/proc/release(obj/vehicle/sealed/mecha/mech)
+	if(owner)
+		UnregisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE)
 	if(QDELETED(mech))
 		return
 	REMOVE_TRAIT(mech, TRAIT_MECHA_SEIZED, CRACK_OPEN_TRAIT)
 	UnregisterSignal(mech, COMSIG_ATOM_EXAMINE)
+
+/datum/action/alien/crack_open/proc/on_holder_pre_move(atom/movable/source, atom/new_loc)
+	SIGNAL_HANDLER
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 /// do_after() check: the grip holds while someone is still inside and the mech stays in reach. Damage never breaks it.
 /datum/action/alien/crack_open/proc/can_keep_holding(obj/vehicle/sealed/mecha/mech)

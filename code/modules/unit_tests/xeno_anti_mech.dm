@@ -303,4 +303,30 @@
 	TEST_ASSERT(pilot.IsKnockdown(), "The dragged-out pilot was not knocked down.")
 	TEST_ASSERT(!QDELETED(mech), "Cracking open a human-piloted mech destroyed it.")
 
+/// While the Queen holds a mech nothing moves her off her tile: not her own steps, not a pull, not a shove.
+/datum/unit_test/xeno_anti_mech_crack_open_grip
+
+/datum/unit_test/xeno_anti_mech_crack_open_grip/Run()
+	var/turf/start = locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y + 1, run_loc_floor_bottom_left.z)
+	var/turf/north = get_step(start, NORTH)
+	var/mob/living/carbon/alien/humanoid/drone/drone = allocate(/mob/living/carbon/alien/humanoid/drone, start)
+	var/datum/action/alien/crack_open/crack_open = new(drone)
+	crack_open.Grant(drone)
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand, get_step(start, EAST))
+	var/mob/living/carbon/human/escort = allocate(/mob/living/carbon/human/consistent, get_step(start, SOUTH))
+
+	crack_open.seize(mech)
+	drone.Move(north, NORTH)
+	TEST_ASSERT_EQUAL(drone.loc, start, "The Queen moved off her tile while holding a mech.")
+	drone.disarm_effect(escort)
+	TEST_ASSERT_EQUAL(drone.loc, start, "A shove pushed the Queen off her tile while she held a mech.")
+	escort.start_pulling(drone)
+	escort.Move(get_step(escort, WEST), WEST)
+	TEST_ASSERT_EQUAL(drone.loc, start, "An escort dragged the Queen off her tile while she held a mech.")
+	escort.stop_pulling()
+
+	crack_open.release(mech)
+	drone.Move(north, NORTH)
+	TEST_ASSERT_EQUAL(drone.loc, north, "The Queen was still stuck in place after letting go.")
+
 #undef XENO_ANTI_MECH_TEST_TRAIT
