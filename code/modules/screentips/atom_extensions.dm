@@ -54,7 +54,7 @@
 	var/should_face_mouse = user.face_mouse
 
 	// Face directions on combat mode
-	if(should_face_mouse)
+	if(user.face_mouse)
 		user.face_atom(src)
 
 	//Show screentips
