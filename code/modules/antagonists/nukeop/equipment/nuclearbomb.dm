@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	else
 		return TRUE
 
-/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if (istype(I, /obj/item/disk/nuclear))
 		if(!disk_check(I))
 			return
@@ -555,7 +555,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	else
 		to_chat(user, span_danger("It's empty."))
 
-/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, params)
+/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.is_refillable())
 		W.afterattack(keg, user, TRUE) 	// redirect refillable containers to the keg, allowing them to be filled
 		return TRUE 										// pretend we handled the attack, too.

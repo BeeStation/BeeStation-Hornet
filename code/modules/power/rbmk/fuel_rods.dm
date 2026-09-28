@@ -133,7 +133,7 @@
 	else
 		grown_amount = initial_amount * multiplier
 
-/obj/item/fuel_rod/material/attackby(obj/item/attacked_item, mob/user, params)
+/obj/item/fuel_rod/material/attackby(obj/item/attacked_item, mob/user, list/modifiers)
 	var/obj/item/stack/material = attacked_item
 	if(istype(material, material_type))
 		if(!check_material_input(user))

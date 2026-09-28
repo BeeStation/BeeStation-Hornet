@@ -61,7 +61,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby(obj/item/I, mob/user, params)
+/obj/effect/rend/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/nullrod))
 		user.visible_message(span_danger("[user] seals \the [src] with \the [I]."))
 		qdel(src)
@@ -332,7 +332,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	custom_price = 10000
 	max_demand = 10
 
-/obj/item/voodoo/attackby(obj/item/I, mob/user, params)
+/obj/item/voodoo/attackby(obj/item/I, mob/user, list/modifiers)
 	if(target && cooldown < world.time)
 		if(I.get_temperature())
 			to_chat(target, span_userdanger("You suddenly feel very hot"))

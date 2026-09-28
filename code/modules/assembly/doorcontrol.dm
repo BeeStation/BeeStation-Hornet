@@ -20,7 +20,7 @@
 /obj/item/assembly/control/add_context_self(datum/screentip_context/context, mob/user)
 	context.add_left_click_item_action("Copy ID", /obj/item/assembly/control)
 
-/obj/item/assembly/control/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/assembly/control/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	. = ..()
 	if (istype(attacking_item, /obj/item/assembly/control))
 		var/obj/item/assembly/control/other_controller = attacking_item

@@ -1,6 +1,6 @@
 //This section contain all procs that helps building, destroy and control the RBMK
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/attackby(obj/item/attacked_item, mob/user, params)
+/obj/machinery/atmospherics/components/unary/rbmk/core/attackby(obj/item/attacked_item, mob/user, list/modifiers)
 	if(istype(attacked_item, /obj/item/fuel_rod))
 		if(power >= SAFE_POWER_LEVEL)
 			to_chat(user, span_notice("You cannot insert fuel into [src] when it has been raised above [SAFE_POWER_LEVEL]% power."))

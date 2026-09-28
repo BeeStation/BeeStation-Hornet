@@ -213,7 +213,7 @@
 		vampire.check_begin_torpor()
 
 /// You cannot weld or deconstruct an owned coffin. Only the owner can destroy their own coffin.
-/obj/structure/closet/crate/coffin/attackby(obj/item/item, mob/user, params)
+/obj/structure/closet/crate/coffin/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!resident)
 		return ..()
 	if(user != resident)

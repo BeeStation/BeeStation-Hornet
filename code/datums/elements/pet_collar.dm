@@ -70,7 +70,7 @@
 	if(collar_icon_state)
 		source.update_appearance()
 
-/datum/element/wears_collar/proc/attach_collar(atom/source, atom/movable/attacking_item, atom/user, params)
+/datum/element/wears_collar/proc/attach_collar(atom/source, atom/movable/attacking_item, atom/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!istype(attacking_item, /obj/item/clothing/neck/petcollar))

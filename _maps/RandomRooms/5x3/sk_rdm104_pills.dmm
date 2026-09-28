@@ -24,22 +24,22 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = 2;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = -1;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = -11;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = 13;
 	pixel_y = 13
 	},
@@ -51,17 +51,17 @@
 /area/template_noop)
 "r" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = -10;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = 6;
 	pixel_y = 6
 	},
@@ -72,15 +72,15 @@
 /area/template_noop)
 "I" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/pill/floorpill,
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill,
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = 14;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_x = -7;
 	pixel_y = -4
 	},

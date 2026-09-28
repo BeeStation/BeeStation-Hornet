@@ -84,7 +84,7 @@
 		ui_update()
 	return TRUE
 
-/obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	. = ..()
 	if(!is_type_in_list(attacking_item, contained_item))
 		return
@@ -106,19 +106,19 @@
 	UnregisterSignal(source, COMSIG_QDELETING)
 	inserted_item = null
 
-/obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
+/obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, list/modifiers)
 	if(try_scan_paper(target, user))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
-	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, params))
+	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, modifiers))
 		return FALSE
 	return ..()
 
-/obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
+/obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, list/modifiers)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the physical scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack && !thread.attack(target, user, params))
+		if(thread.use_attack && !thread.attack(target, user, modifiers))
 			return
 	..()
 

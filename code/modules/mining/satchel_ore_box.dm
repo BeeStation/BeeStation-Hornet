@@ -16,7 +16,7 @@
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/stack/ore)
 
-/obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
+/obj/structure/ore_box/attackby(obj/item/W, mob/user, list/modifiers)
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
 		ui_update()

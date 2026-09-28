@@ -340,10 +340,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(..()) //successful larva bite.
 		attacked += 10
 
-/mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		discipline_slime(user)
-		return ..()
+/mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user)
+	discipline_slime(user)
+	return ..()
 
 /mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M, modifiers)
 	if(buckled)
@@ -375,9 +374,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		discipline_slime(M)
 
 
-/mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/slime/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(stat == DEAD && surgeries.len)
-		var/list/modifiers = params2list(params)
 		if(!user.combat_mode || (LAZYACCESS(modifiers, RIGHT_CLICK)))
 			for(var/datum/surgery/operations as anything in surgeries)
 				if(operations.next_step(user, modifiers))

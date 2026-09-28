@@ -130,7 +130,7 @@
 	update_namelist(board.specific_parts)
 	return TRUE
 
-/obj/structure/frame/machine/attackby(obj/item/P, mob/living/user, params)
+/obj/structure/frame/machine/attackby(obj/item/P, mob/living/user, list/modifiers)
 	switch(state)
 		if(1)
 			if(istype(P, /obj/item/circuitboard/machine))
@@ -197,7 +197,7 @@
 				if(install_board(target_board, user, FALSE))
 					replacer.play_rped_sound()
 					//attack this frame again with the rped so it can install stock parts since its now in state 3
-					attackby(replacer, user, params)
+					attackby(replacer, user, modifiers)
 					return
 
 			if(!circuit && istype(P, /obj/item/circuitboard/machine))

@@ -21688,7 +21688,7 @@
 	pixel_y = -14;
 	pixel_x = -10
 	},
-/obj/item/reagent_containers/pill/floorpill{
+/obj/item/reagent_containers/applicator/pill/floorpill{
 	pixel_y = -24;
 	pixel_x = -6
 	},
