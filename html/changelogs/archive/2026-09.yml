@@ -243,6 +243,12 @@
   - rscadd: Added a dropper to Radstation's chemistry lab.
   - bugfix: Fixed the dropper recipe not working in the medical techfab.
 2026-09-28:
+  BotTierPC:
+  - bugfix: Fixes, the qol, sound, image and map prefix for Pull Requests. The Changelog
+      should be able to properly generate these once more.
+  - map: If this shows, then the map prefix is fixed! No mapping changes actually
+      made
+  - qol: If this shows, then the qol prefix is fixed! No QOL changes made beyond this!
   ? mrmanlikesbt, nemvar, kawoppi, MrMelbert, Rhials, TheBoondock, Ghommie, TiviPlus,
     TealSeer, SyncIt21, timothymtorres, SmArtKar
   : - refactor: The attack chain has had some backend refactors- please report any

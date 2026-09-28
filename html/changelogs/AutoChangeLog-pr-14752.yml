@@ -1,8 +1,0 @@
-author: BotTierPC
-delete-after: true
-changes:
-  - bugfix: Fixes, the qol, sound, image and map prefix for Pull Requests. The Changelog
-      should be able to properly generate these once more.
-  - map: If this shows, then the map prefix is fixed! No mapping changes actually
-      made
-  - qol: If this shows, then the qol prefix is fixed! No QOL changes made beyond this!
