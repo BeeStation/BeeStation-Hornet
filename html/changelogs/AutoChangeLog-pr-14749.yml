@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed alternate appearances causing their image to hard delete when removed
