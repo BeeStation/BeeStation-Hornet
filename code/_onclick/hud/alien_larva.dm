@@ -10,6 +10,12 @@
 	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
+	using = new /atom/movable/screen/mov_intent(null, src)
+	using.icon = ui_style
+	using.update_icon()
+	using.screen_loc = ui_movi
+	static_inventory += using
+
 	healths = new /atom/movable/screen/healths/alien(null, src)
 	infodisplay += healths
 

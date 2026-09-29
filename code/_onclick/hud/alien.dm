@@ -56,6 +56,12 @@
 	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
+	using = new /atom/movable/screen/mov_intent(null, src)
+	using.icon = ui_style
+	using.update_icon()
+	using.screen_loc = ui_movi
+	static_inventory += using
+
 	if(isalienhunter(mymob))
 		var/mob/living/carbon/alien/humanoid/hunter/H = mymob
 		H.leap_icon = new /atom/movable/screen/alien/leap(null, src)
