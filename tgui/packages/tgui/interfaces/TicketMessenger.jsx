@@ -3,13 +3,20 @@ import { decodeHtmlEntities } from 'common/string';
 import { Component, createRef } from 'react';
 
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Input, Section, Table } from '../components';
+import {
+  Box,
+  Button,
+  Divider,
+  Section,
+  Table,
+  TextArea,
+} from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
 
 export const TicketMessenger = (props) => {
   return (
-    <Window theme="admin" width={620} height={500}>
+    <Window theme="admin" width={620} height={550}>
       <Window.Content>
         <Section height="85px">
           <TicketActionBar />
@@ -129,9 +136,12 @@ export const TicketChatWindow = (_) => {
         </Table>
       </Box>
       <Divider />
-      <Input
+      <TextArea
         fluid
         selfClear
+        scrollbar
+        height="65px"
+        placeholder="Message... (Shift+Enter for a new line)"
         onEnter={(e, value) =>
           act('sendpm', {
             text: value,
