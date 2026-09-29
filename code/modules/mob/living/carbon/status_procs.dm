@@ -9,7 +9,8 @@
 	return
 
 /mob/living/carbon/stamina_stun()
-	var/chance = STAMINA_SCALING_STUN_BASE + (STAMINA_SCALING_STUN_SCALER * stamina.loss_as_percent / 100)
+	var/threshold = stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER
+	var/chance = STAMINA_SCALING_STUN_BASE + STAMINA_SCALING_STUN_SCALER * (1 - stamina.current / threshold)
 	if(prob(chance))
 		apply_status_effect(/datum/status_effect/incapacitating/stamcrit)
 
