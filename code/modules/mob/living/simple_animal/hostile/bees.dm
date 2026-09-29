@@ -41,7 +41,6 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
@@ -65,6 +64,7 @@
 	generate_bee_visuals()
 	AddComponent(/datum/component/clickbox, x_offset = -2, y_offset = -2)
 	AddComponent(/datum/component/swarming)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	if(beehome)

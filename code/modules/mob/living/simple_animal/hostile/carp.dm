@@ -36,7 +36,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list(FACTION_CARP)
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -76,6 +75,7 @@
 		carp_randomify(rarechance)
 	. = ..()
 	make_tameable()
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/carp/proc/make_tameable()
 	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5)

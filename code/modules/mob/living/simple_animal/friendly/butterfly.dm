@@ -17,7 +17,6 @@
 	friendly_verb_continuous = "nudges"
 	friendly_verb_simple = "nudge"
 	density = FALSE
-	is_flying_animal = TRUE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
@@ -29,6 +28,7 @@
 
 /mob/living/simple_animal/butterfly/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/simple_flying)
 	var/newcolor = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	chat_color = newcolor
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)

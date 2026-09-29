@@ -80,11 +80,14 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	attack_vis_effect = null // doesn't bite unlike the parent type.
 	stat_attack = HARD_CRIT
-	is_flying_animal = TRUE
 	robust_searching = 1
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
 	. = ..()

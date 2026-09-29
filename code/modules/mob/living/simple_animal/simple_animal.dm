@@ -113,8 +113,6 @@
 	var/dextrous = FALSE //If the creature has, and can use, hands
 	var/dextrous_hud_type = /datum/hud/dextrous
 
-	///If the creature should have an innate TRAIT_MOVE_FLYING trait added on init that is also toggled off/on on death/revival.
-	var/is_flying_animal = FALSE
 	//If the creature should play its bobbing up and down animation.
 	var/no_flying_animation
 
@@ -169,8 +167,6 @@
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
 		add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP), ROUNDSTART_TRAIT)
-	if(is_flying_animal)
-		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
 
@@ -198,12 +194,6 @@
 /mob/living/simple_animal/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
-		if(NAMEOF(src, is_flying_animal))
-			if(stat != DEAD)
-				if(!is_flying_animal)
-					REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
-				else
-					ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 		if(NAMEOF(src, no_flying_animation))
 			if(!no_flying_animation)
 				REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
@@ -437,8 +427,6 @@
 		del_on_death = FALSE
 		qdel(src)
 	else
-		if(is_flying_animal)
-			REMOVE_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 		if(no_flying_animation)
 			REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 		health = 0
@@ -472,8 +460,6 @@
 	icon = initial(icon)
 	icon_state = icon_living
 	density = initial(density)
-	if(is_flying_animal)
-		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 

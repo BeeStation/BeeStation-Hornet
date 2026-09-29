@@ -26,7 +26,6 @@
 	maxbodytemp = INFINITY
 	healable = 0
 	faction = list(FACTION_CULT)
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	pressure_resistance = 100
 	unique_name = 1
@@ -76,6 +75,7 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/simple_flying)
 	for(var/spell in construct_spells)
 		var/datum/action/new_spell = new spell(src)
 		new_spell.Grant(src)

@@ -68,7 +68,6 @@
 	friendly_verb_continuous = "grooms"
 	friendly_verb_simple = "groom"
 	mob_size = MOB_SIZE_SMALL
-	is_flying_animal = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#A6E398"
 	mobchatspan = "curator"
@@ -112,6 +111,7 @@
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/simple_flying)
 //normal parrats dont get free headsets
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 

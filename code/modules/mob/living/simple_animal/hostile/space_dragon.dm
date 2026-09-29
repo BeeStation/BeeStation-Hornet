@@ -57,7 +57,6 @@
 	maxbodytemp = 1500
 	faction = list(FACTION_CARP)
 	pressure_resistance = 200
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
@@ -89,6 +88,7 @@
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
+	AddElement(/datum/element/simple_flying)
 	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
