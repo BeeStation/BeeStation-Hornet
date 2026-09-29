@@ -151,7 +151,7 @@ GLOBAL_VAR(clockcult_eminence)
 			robot.connected_ai = null
 
 		// Flavor
-		var/mutable_appearance/ai_clock = mutable_appearance('icons/mob/clockwork_mobs.dmi', "aiframe")
+		var/mutable_appearance/ai_clock = mutable_appearance('icons/mob/simple/clockwork_mobs.dmi', "aiframe")
 		ai.add_overlay(ai_clock)
 	else if(iscyborg(silicon))
 		var/mob/living/silicon/robot/robot = silicon

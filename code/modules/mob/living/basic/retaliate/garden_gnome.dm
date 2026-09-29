@@ -1,7 +1,7 @@
 /mob/living/basic/garden_gnome
 	name = "Garden Gnome"
 	desc = "You have been gnomed."
-	icon = 'icons/mob/garden_gnome.dmi'
+	icon = 'icons/mob/simple/garden_gnome.dmi'
 	icon_state = "gnome"
 	icon_living = "gnome"
 	pass_flags = PASSMOB

@@ -3,7 +3,7 @@
 /mob/living/simple_animal/hostile/retaliate/nymph
 	name = "diona nymph"
 	desc = "Is that a plant?"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"

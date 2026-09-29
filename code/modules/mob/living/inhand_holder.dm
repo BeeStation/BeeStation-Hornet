@@ -146,7 +146,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/mob_holder)
 	var/mob/living/simple_animal/drone/drone = contained
 	if(!drone)
 		return ..()
-	icon = 'icons/mob/drone.dmi'
+	icon = 'icons/mob/silicon/drone.dmi'
 	icon_state = "[drone.visualAppearance]_hat"
 
 /obj/item/mob_holder/rabbit

@@ -325,7 +325,7 @@
 /mob/living/basic/pet/dog/corgi/exoticcorgi
 	name = "Exotic Corgi"
 	desc = "As cute as they are colorful!"
-	icon = 'icons/mob/pets.dmi'
+	icon = 'icons/mob/simple/pets.dmi'
 	icon_state = "corgigrey"
 	icon_living = "corgigrey"
 	icon_dead = "corgigrey_dead"

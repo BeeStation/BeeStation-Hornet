@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 /mob/living/simple_animal/hostile/clockwork_marauder
 	name = "clockwork marauder"
 	desc = "A brass machine of destruction,"
-	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon = 'icons/mob/simple/clockwork_mobs.dmi'
 	icon_state = "clockwork_marauder"
 	icon_dead = "anime_fragment"
 	combat_mode = TRUE

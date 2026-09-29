@@ -17,7 +17,7 @@
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
 	icon_state = ""
 	icon_living = ""
-	icon = 'icons/mob/bees.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")
 	emote_hear = list("buzzes")
@@ -111,7 +111,7 @@
 	add_overlay("[icon_base]_base")
 
 	var/static/mutable_appearance/greyscale_overlay
-	greyscale_overlay = greyscale_overlay || mutable_appearance('icons/mob/bees.dmi')
+	greyscale_overlay = greyscale_overlay || mutable_appearance('icons/mob/simple/animal.dmi')
 	greyscale_overlay.icon_state = "bee_grey"
 	greyscale_overlay.color = col
 	add_overlay(greyscale_overlay)
@@ -266,7 +266,7 @@
 	desc = "She's the queen of bees, BZZ BZZ!"
 	icon_state = "queen_item"
 	inhand_icon_state = ""
-	icon = 'icons/mob/bees.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 

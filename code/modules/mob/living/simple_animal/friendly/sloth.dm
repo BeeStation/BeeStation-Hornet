@@ -1,7 +1,7 @@
 /mob/living/simple_animal/sloth
 	name = "sloth"
 	desc = "An adorable, sleepy creature."
-	icon = 'icons/mob/pets.dmi'
+	icon = 'icons/mob/simple/pets.dmi'
 	icon_state = "sloth"
 	icon_living = "sloth"
 	icon_dead = "sloth_dead"

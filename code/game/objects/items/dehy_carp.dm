@@ -44,7 +44,7 @@
 	visible_message(span_notice("[src] swells up!"))
 
 	//Animation
-	icon = 'icons/mob/carp.dmi'
+	icon = 'icons/mob/simple/carp.dmi'
 	flick("carp_swell", src)
 	//Wait for animation to end
 	addtimer(CALLBACK(src, PROC_REF(spawn_carp)), 0.6 SECONDS)
@@ -64,7 +64,7 @@
 		user.apply_damage(200, def_zone = BODY_ZONE_CHEST)
 		forceMove(drop_location()) //we move it back
 	swelling = TRUE
-	icon = 'icons/mob/carp.dmi'
+	icon = 'icons/mob/simple/carp.dmi'
 	flick("carp_swell", src)
 	addtimer(CALLBACK(src, PROC_REF(spawn_carp)), 0.6 SECONDS)
 	return BRUTELOSS
