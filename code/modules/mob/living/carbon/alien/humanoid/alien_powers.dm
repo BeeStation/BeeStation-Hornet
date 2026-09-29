@@ -404,6 +404,7 @@ Doesn't work on other aliens/AI.*/
 
 /// The hatch gives way: pilots are dragged out onto our tile, or an AI-run mech is torn apart.
 /datum/action/alien/crack_open/proc/finish_crack_open(obj/vehicle/sealed/mecha/mech)
+	playsound(mech, 'sound/effects/metal_creek.ogg', 100, TRUE)
 	for(var/mob/living/occupant as anything in mech.occupants)
 		if(!isAI(occupant))
 			continue
