@@ -119,6 +119,8 @@
 	set_combat_indicator(new_mode)
 
 	face_mouse = (client?.prefs?.read_preference(/datum/preference/toggle/face_cursor_combat_mode) && combat_mode) ? TRUE : FALSE
+	if(!face_mouse)
+		remove_movespeed_modifier(/datum/movespeed_modifier/backwalk)
 	if(silent || !(client?.prefs.read_preference(/datum/preference/toggle/sound_combatmode)))
 		return
 	if(combat_mode)

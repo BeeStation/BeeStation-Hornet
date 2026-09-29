@@ -915,6 +915,15 @@
 /mob/living/proc/update_damage_overlays()
 	return
 
+/mob/living/proc/update_backwalk_slowdown(direct)
+	var/backwalking = FALSE
+	if(face_mouse && direct)
+		backwalking = abs(closer_angle_difference(dir2angle(dir), dir2angle(direct))) > 90
+	if(backwalking)
+		add_movespeed_modifier(/datum/movespeed_modifier/backwalk)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/backwalk)
+
 /mob/living/Move(atom/newloc, direct, glide_size_override)
 	if(lying_angle != 0)
 		lying_angle_on_movement(direct)
@@ -930,7 +939,7 @@
 
 	if(pulling)
 		update_pull_movespeed()
-
+	update_backwalk_slowdown(direct)
 	. = ..()
 
 	if(moving_diagonally != FIRST_DIAG_STEP && isliving(pulledby))
