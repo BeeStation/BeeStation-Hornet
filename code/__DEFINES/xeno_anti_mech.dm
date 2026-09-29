@@ -11,10 +11,11 @@
 
 /// Snare strength, counted in seconds of hold: a pilot who never struggles is stuck this long.
 #define XENO_SNARE_HOLD_SECONDS 15
-/// Strength one struggle tears away (10% of a full snare).
-#define XENO_SNARE_STRUGGLE_STRENGTH 1.5
-/// Minimum time between two struggles that count.
-#define XENO_SNARE_STRUGGLE_COOLDOWN (0.5 SECONDS)
+/// Strength one struggle tears away (8% of a full snare).
+#define XENO_SNARE_STRUGGLE_STRENGTH 1.2
+/// Minimum time between two struggles that count. The mech's own step delay rounds this up to 1-1.2 seconds,
+/// so a pilot who keeps trying to move breaks free in about 7 seconds on any chassis.
+#define XENO_SNARE_STRUGGLE_COOLDOWN (1 SECONDS)
 
 /// How long the Queen has to hold a mech to crack it open.
 #define CRACK_OPEN_CHANNEL_TIME (6 SECONDS)
