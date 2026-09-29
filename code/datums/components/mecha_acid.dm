@@ -132,6 +132,7 @@
 
 /// The controller for an occupant's game world planes, or null while they have no hud.
 /datum/component/mecha_acid/proc/get_game_view(mob/occupant)
+	RETURN_TYPE(/atom/movable/plane_master_controller)
 	if(!occupant.hud_used)
 		return null
 	return occupant.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
