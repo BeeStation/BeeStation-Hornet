@@ -12344,7 +12344,7 @@
 /turf/open/floor/engine,
 /area/station/medical/chemistry)
 "cVP" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "cVS" = (
@@ -29579,7 +29579,7 @@
 	dir = 6
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass/no_border,
 /area/station/science/research)
 "gZN" = (
@@ -54810,7 +54810,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/hydroponics)
 "mQt" = (
@@ -61322,7 +61322,7 @@
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 4
 	},
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
 "orG" = (
@@ -63874,7 +63874,7 @@
 /turf/open/floor/iron/smooth,
 /area/station/hallway/secondary/command)
 "oVk" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/iron/dark/textured_half,
 /area/station/service/hydroponics)
 "oVp" = (

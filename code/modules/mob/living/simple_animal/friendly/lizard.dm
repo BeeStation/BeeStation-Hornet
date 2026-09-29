@@ -26,7 +26,7 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	var/static/list/edibles = typecacheof(list(
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/butterfly,
 		/mob/living/basic/cockroach,
 	)) //list of atoms, however turfs won't affect AI, but will affect consumption.
 	chat_color = "#64F88A"

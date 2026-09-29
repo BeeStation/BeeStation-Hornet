@@ -39799,7 +39799,7 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/central)
 "nHW" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -41629,7 +41629,7 @@
 "opu" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	name = "Lisa, PsyD"
 	},
 /obj/structure/flora/grass/jungle/b,
@@ -56017,7 +56017,7 @@
 /area/station/engineering/atmos)
 "tsq" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/open/floor/grass,
 /area/station/service/chapel)
 "tsO" = (

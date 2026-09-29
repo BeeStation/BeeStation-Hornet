@@ -174,7 +174,7 @@
 /mob/living/simple_animal/bot/cleanbot/larry{
 	on = 0
 	},
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	name = "Lisa, PsyD"
 	},
 /turf/open/floor/iron/white,

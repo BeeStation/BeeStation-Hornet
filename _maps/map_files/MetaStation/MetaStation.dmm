@@ -50031,7 +50031,7 @@
 "rpC" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	dir = 8;
 	name = "Justine"
 	},

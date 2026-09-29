@@ -107,7 +107,7 @@
 /obj/effect/holodeck_effect/mobspawner/pet/Initialize(mapload)
 	. = ..()
 	mobtype = list(
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/butterfly,
 		/mob/living/simple_animal/chick/holo,
 		/mob/living/simple_animal/pet/fox,
 		/mob/living/simple_animal/rabbit,
@@ -143,7 +143,7 @@
 	mobtype = /mob/living/basic/pet/cat
 
 /obj/effect/holodeck_effect/mobspawner/butterfly
-	mobtype = /mob/living/simple_animal/butterfly
+	mobtype = /mob/living/basic/butterfly
 
 /obj/effect/holodeck_effect/mobspawner/clown
 	mobtype = list (/mob/living/simple_animal/hostile/retaliate/clown = 10,

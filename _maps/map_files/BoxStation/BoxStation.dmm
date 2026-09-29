@@ -6873,7 +6873,7 @@
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
 "dmp" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/leafybush,
 /turf/open/floor/grass,
@@ -46942,7 +46942,7 @@
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "tuQ" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -51949,7 +51949,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
 "vwZ" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,

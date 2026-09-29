@@ -1380,7 +1380,7 @@
 				/mob/living/basic/cow,
 				/mob/living/simple_animal/hostile/lizard,
 				/mob/living/simple_animal/pet/fox,
-				/mob/living/simple_animal/butterfly,
+				/mob/living/basic/butterfly,
 				/mob/living/basic/pet/cat/cak,
 				/mob/living/simple_animal/chick,
 				/mob/living/simple_animal/slime/random,
