@@ -383,6 +383,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /**
  * Atom Traits
  */
+/// Required by the waddling element since there are multiple sources of it.
+#define TRAIT_WADDLING "trait_waddling"
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
 /// Properly wielded two handed item

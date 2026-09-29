@@ -113,3 +113,6 @@
 /datum/targeting_strategy/basic/of_size/larger
 	find_smaller = FALSE
 	inclusive = FALSE
+
+/datum/targeting_strategy/basic/of_size/smaller
+	inclusive = FALSE

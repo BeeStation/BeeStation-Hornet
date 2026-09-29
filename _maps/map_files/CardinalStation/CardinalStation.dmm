@@ -6469,7 +6469,7 @@
 	paint_colour = "#548434"
 	},
 /obj/structure/closet/crate/critter,
-/mob/living/simple_animal/crab/evil,
+/mob/living/basic/crab/evil,
 /turf/open/floor/iron,
 /area/station/maintenance/department/cargo)
 "bAL" = (

@@ -15,3 +15,5 @@
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
 ///from [/datum/move_loop/process]
 #define COMSIG_MOVELOOP_REACHED_TARGET "moveloop_reached_target"
+///From base of /datum/move_loop/process() after attempting to move a movable: (datum/move_loop/loop, old_dir)
+#define COMSIG_MOVABLE_MOVED_FROM_LOOP "movable_moved_from_loop"

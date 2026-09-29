@@ -18,12 +18,12 @@
 	icon_state = "bulb-empty";
 	dir = 8
 	},
-/mob/living/simple_animal/crab,
+/mob/living/basic/crab,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/crab,
+/mob/living/basic/crab,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
@@ -31,7 +31,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/mob/living/simple_animal/crab/evil,
+/mob/living/basic/crab/evil,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
@@ -40,7 +40,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/mob/living/simple_animal/crab,
+/mob/living/basic/crab,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -48,7 +48,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/crab,
+/mob/living/basic/crab,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (

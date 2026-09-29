@@ -22498,7 +22498,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -20
 	},
-/mob/living/simple_animal/crab/Coffee,
+/mob/living/basic/crab/coffee,
 /turf/open/floor/iron/white,
 /area/station/science/lab)
 "jzZ" = (

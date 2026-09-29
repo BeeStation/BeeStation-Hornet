@@ -4,7 +4,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/centcom/tdome/arena)
 "b" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	desc = "FUCK YEAH AMERICA";
 	name = "american crab"
 	},
@@ -40,7 +40,7 @@
 /area/centcom/tdome/arena)
 "i" = (
 /obj/structure/chair/stool,
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	desc = "He just wants to grill for God's sake!";
 	name = "boomer crab"
 	},
@@ -117,7 +117,7 @@
 /area/centcom/tdome/arena)
 "D" = (
 /obj/structure/chair/fancy/shuttle,
-/mob/living/simple_animal/crab,
+/mob/living/basic/crab,
 /turf/open/floor/plating/beach/sand,
 /area/centcom/tdome/arena)
 "E" = (

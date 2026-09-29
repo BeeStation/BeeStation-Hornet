@@ -95,6 +95,12 @@
 	emote_hear = list("snores.", "burps.")
 	emote_see = list("blinks.")
 
+/datum/ai_planning_subtree/random_speech/crab
+	speech_chance = 1
+	sound = list('sound/mobs/non-humanoids/crab/claw_click.ogg')
+	emote_hear = list("clicks.")
+	emote_see = list("clacks.")
+
 /datum/ai_planning_subtree/random_speech/cats
 	speech_chance = 10
 	sound = list("cat_meow")
