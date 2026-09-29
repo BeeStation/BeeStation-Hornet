@@ -2971,7 +2971,7 @@
 	name = "Fox Crate"
 	desc = "The fox goes...? Comes with a collar!"//what does the fox say
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/fox,
+	contains = list(/mob/living/basic/pet/fox,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "fox crate"
 

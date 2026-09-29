@@ -109,7 +109,7 @@
 	mobtype = list(
 		/mob/living/basic/butterfly,
 		/mob/living/simple_animal/chick/holo,
-		/mob/living/simple_animal/pet/fox,
+		/mob/living/basic/pet/fox,
 		/mob/living/simple_animal/rabbit,
 	)
 	mobtype += pick(
