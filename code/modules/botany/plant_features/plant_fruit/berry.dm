@@ -51,7 +51,7 @@
 	species_name = "bacca mortem"
 	name = "death berry"
 	seed_icon_state = "seed-deathberry"
-	fruit_product = /obj/item/food/grown/berries/poison
+	fruit_product = /obj/item/food/grown/berries/death
 	trait_power = 1.5
 	fast_reagents = list(/datum/reagent/toxin/coniine = PLANT_REAGENT_SMALL, /datum/reagent/toxin/staminatoxin = PLANT_REAGENT_MEDIUM)
 	colour_override = "#0dff00"
