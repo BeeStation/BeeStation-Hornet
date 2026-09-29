@@ -112,15 +112,29 @@
 		qdel(src)
 		return PROCESS_KILL
 
-/// Smears an occupant's view and shows them the "Acid on Hull" alert.
+/// Blurs an occupant's view and shows them the "Acid on Hull" alert.
 /datum/component/mecha_acid/proc/apply_to_occupant(mob/occupant)
-	occupant.overlay_fullscreen(FULLSCREEN_MECHA_ACID, /atom/movable/screen/fullscreen/impaired, 2)
+	// A pilot without a client has no hud to blur yet, so blur again once one logs in, like eye blur does
+	RegisterSignal(occupant, COMSIG_MOB_LOGIN, PROC_REF(blur_view))
+	blur_view(occupant)
 	occupant.throw_alert(ALERT_MECH_ACID, /atom/movable/screen/alert/mech_acid)
 
-/// Clears the smear and the alert from an occupant.
+/// Clears the blur and the alert from an occupant.
 /datum/component/mecha_acid/proc/clear_from_occupant(mob/occupant)
-	occupant.clear_fullscreen(FULLSCREEN_MECHA_ACID)
+	UnregisterSignal(occupant, COMSIG_MOB_LOGIN)
+	get_game_view(occupant)?.remove_filter(MECHA_ACID_BLUR_FILTER)
 	occupant.clear_alert(ALERT_MECH_ACID)
+
+/// Blurs the world, but not the hud, on an occupant's screen. Also a COMSIG_MOB_LOGIN handler.
+/datum/component/mecha_acid/proc/blur_view(mob/occupant)
+	SIGNAL_HANDLER
+	get_game_view(occupant)?.add_filter(MECHA_ACID_BLUR_FILTER, 1, gauss_blur_filter(MECHA_ACID_BLUR_SIZE))
+
+/// The controller for an occupant's game world planes, or null while they have no hud.
+/datum/component/mecha_acid/proc/get_game_view(mob/occupant)
+	if(!occupant.hud_used)
+		return null
+	return occupant.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 
 /datum/component/mecha_acid/proc/on_occupant_added(datum/source, mob/occupant)
 	SIGNAL_HANDLER

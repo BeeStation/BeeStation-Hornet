@@ -26,5 +26,7 @@
 #define ALERT_MECH_SNARED "mech_snared"
 /// Pilot alert category: acid is on the hull.
 #define ALERT_MECH_ACID "mech_acid"
-/// Fullscreen category for the acid smear over the pilot's view.
-#define FULLSCREEN_MECHA_ACID "mecha_acid"
+/// Filter name for the acid smear blurring the pilot's view of the world.
+#define MECHA_ACID_BLUR_FILTER "mecha_acid_blur"
+/// Gaussian blur size of the acid smear. Eye blur tops out at 3.
+#define MECHA_ACID_BLUR_SIZE 2

@@ -122,7 +122,7 @@
 	acid.process(1)
 	TEST_ASSERT(mech.get_integrity() < mech.max_integrity, "A dose on a fully broken mech did not burn it.")
 
-/// Pilots of an acid-coated mech get the smear and the alert, lose both on leaving or washing, and examine explains the acid.
+/// Pilots of an acid-coated mech get the alert (which comes and goes with the blur), lose it on leaving or washing, and examine explains the acid.
 /datum/unit_test/xeno_anti_mech_acid_ux
 
 /datum/unit_test/xeno_anti_mech_acid_ux/Run()
@@ -132,7 +132,6 @@
 	pilot.forceMove(mech)
 	var/datum/component/mecha_acid/acid = mech.LoadComponent(/datum/component/mecha_acid)
 	acid.add_dose()
-	TEST_ASSERT_NOTNULL(pilot.screens[FULLSCREEN_MECHA_ACID], "The pilot's optics were not smeared.")
 	TEST_ASSERT_NOTNULL(pilot.alerts[ALERT_MECH_ACID], "The pilot did not get the Acid on Hull alert.")
 
 	var/crew_view = jointext(mech.examine(pilot), "\n")
@@ -142,16 +141,14 @@
 	TEST_ASSERT(findtext(xeno_view, "Four doses will melt it"), "Xenos examining an acid-coated mech were not told how many doses are burning.")
 
 	pilot.forceMove(run_loc_floor_bottom_left)
-	TEST_ASSERT_NULL(pilot.screens[FULLSCREEN_MECHA_ACID], "The smear followed the pilot out of the mech.")
 	TEST_ASSERT_NULL(pilot.alerts[ALERT_MECH_ACID], "The acid alert followed the pilot out of the mech.")
 
 	var/mob/living/carbon/human/second_pilot = allocate(/mob/living/carbon/human/consistent)
 	mech.add_occupant(second_pilot)
 	second_pilot.forceMove(mech)
-	TEST_ASSERT_NOTNULL(second_pilot.screens[FULLSCREEN_MECHA_ACID], "A pilot climbing into an acid-coated mech was not smeared.")
+	TEST_ASSERT_NOTNULL(second_pilot.alerts[ALERT_MECH_ACID], "A pilot climbing into an acid-coated mech did not get the acid alert.")
 
 	mech.wash(CLEAN_WASH)
-	TEST_ASSERT_NULL(second_pilot.screens[FULLSCREEN_MECHA_ACID], "Washing did not clear the pilot's smear.")
 	TEST_ASSERT_NULL(second_pilot.alerts[ALERT_MECH_ACID], "Washing did not clear the acid alert.")
 
 /// Corrosive Acid on a mech applies a dose instead of silently failing against the mech's acid-proofing.
@@ -256,7 +253,6 @@
 	TEST_ASSERT(isturf(pilot.loc), "The pilot was not thrown clear of the destroyed mech.")
 	TEST_ASSERT_NULL(pilot.alerts[ALERT_MECH_SNARED], "The Snared alert survived the mech's destruction.")
 	TEST_ASSERT_NULL(pilot.alerts[ALERT_MECH_ACID], "The acid alert survived the mech's destruction.")
-	TEST_ASSERT_NULL(pilot.screens[FULLSCREEN_MECHA_ACID], "The smear survived the mech's destruction.")
 	for(var/obj/structure/mecha_wreckage/wreck in run_loc_floor_bottom_left)
 		qdel(wreck)
 

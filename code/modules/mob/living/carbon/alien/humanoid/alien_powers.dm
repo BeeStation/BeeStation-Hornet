@@ -188,7 +188,7 @@ Doesn't work on other aliens/AI.*/
 
 /datum/action/alien/acid/corrosion
 	name = "Corrosive Acid"
-	desc = "Vomit acid onto an adjacent object to melt it over time. Our main weapon against mechs: each dose eats a quarter of its hull, blinds its pilot and may break its systems. Four doses melt any mech, but water and cleaners wash it away."
+	desc = "Vomit acid onto an adjacent object to melt it over time. Our main weapon against mechs: each dose eats a quarter of its hull, blurs its pilot's vision and may break its systems. Four doses melt any mech, but space cleaner, soap or a shower washes it away."
 	button_icon_state = "alien_acid"
 	plasma_cost = 50
 
