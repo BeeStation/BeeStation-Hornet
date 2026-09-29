@@ -24902,7 +24902,7 @@
 /area/station/security/prison)
 "fSw" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	desc = "Renault, the Captain's trustworthy fox. Shame it's not Peuegot...";
 	dir = 8
 	},
@@ -75959,7 +75959,7 @@
 	dir = 4
 	},
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "rQM" = (

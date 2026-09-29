@@ -36582,7 +36582,7 @@
 	dir = 1
 	},
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/grid,
 /area/station/medical/virology)
 "kHs" = (
@@ -43849,7 +43849,7 @@
 /area/station/service/chapel)
 "mOx" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	desc = "Renault, the Captain's trustworthy fox. Shame it's not Peuegot..."
 	},
 /obj/structure/extinguisher_cabinet{

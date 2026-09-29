@@ -3625,7 +3625,7 @@
 /obj/machinery/firealarm/directional/east,
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	density = 0
 	},
 /turf/open/floor/wood,
@@ -35839,10 +35839,7 @@
 /area/station/science/research/abandoned)
 "vHT" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron,
 /area/station/science/research/abandoned)
 "vIm" = (

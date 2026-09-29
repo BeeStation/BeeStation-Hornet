@@ -481,22 +481,14 @@
 
 /mob/living/basic/pet/dog/corgi/narsie/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	//consume simple_animal pets
-	for(var/mob/living/simple_animal/pet/simple_pet in range(1, src))
-		if(simple_pet != src && !istype(simple_pet,/mob/living/basic/pet/dog/corgi/narsie))
-			visible_message(span_warning("[src] devours [simple_pet]!"), \
-			span_cultbigbold("DELICIOUS SOULS"))
-			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-			narsie_act()
-			simple_pet.gib()
-	for(var/mob/living/basic/pet/basic_pet in range(1, src))
-		if(basic_pet != src && !istype(basic_pet, /mob/living/basic/pet/dog/corgi/narsie))
-			visible_message(span_warning("[src] devours [basic_pet]!"), \
-			span_cultbigbold("DELICIOUS SOULS"))
-			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-			narsie_act()
-			basic_pet.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
-			basic_pet.gib()
+	//consume other pets
+	for(var/mob/living/basic/pet/other_pet in orange(1, src))
+		if(istype(other_pet, /mob/living/basic/pet/dog/corgi/narsie))
+			continue
+		visible_message(span_warning("[src] devours [other_pet]!"), span_cultbigbold("DELICIOUS SOULS"))
+		playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
+		narsie_act()
+		other_pet.gib()
 
 /mob/living/basic/pet/dog/corgi/narsie/update_corgi_fluff()
 	..()

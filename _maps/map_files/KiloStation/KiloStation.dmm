@@ -53543,7 +53543,7 @@
 /obj/structure/bed/dogbed/runtime{
 	name = "Victors's bed"
 	},
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/freezer,
 /area/station/medical/virology)
 "syk" = (
@@ -62242,7 +62242,7 @@
 	pixel_x = 6;
 	pixel_y = -24
 	},
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/basic/pet/fox/renault,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},

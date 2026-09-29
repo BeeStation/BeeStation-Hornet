@@ -173,7 +173,7 @@
 	if(owner.is_blind())
 		check_radius = 1
 	for(var/mob/living/M in oview(check_radius, owner))
-		if(istype(M, /mob/living/simple_animal/pet) || istype(M, /mob/living/basic/pet) || M.ckey)
+		if(istype(M, /mob/living/basic/pet) || M.ckey)
 			return FALSE
 	return TRUE
 

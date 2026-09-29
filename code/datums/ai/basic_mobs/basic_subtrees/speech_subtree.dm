@@ -95,6 +95,12 @@
 	emote_hear = list("snores.", "burps.")
 	emote_see = list("blinks.")
 
+/datum/ai_planning_subtree/random_speech/fox
+	speech_chance = 1
+	speak = list("Ack-Ack", "Ack-Ack-Ack-Ackawoooo", "Geckers", "Awoo", "Tchoff")
+	emote_hear = list("howls.", "barks.", "screams.")
+	emote_see = list("shakes their head.", "shivers.")
+
 /datum/ai_planning_subtree/random_speech/crab
 	speech_chance = 1
 	sound = list('sound/mobs/non-humanoids/crab/claw_click.ogg')
@@ -114,3 +120,9 @@
 	sound = list("cat_meow")
 	emote_hear = list("meows.")
 	emote_see = list("meows.")
+
+/datum/ai_planning_subtree/random_speech/hamster
+	speech_chance = 5
+	speak = list("Squeak", "SQUEAK!")
+	emote_hear = list("squeaks.", "hisses.", "squeals.")
+	emote_see = list("skitters", "examines its claws", "rolls around")

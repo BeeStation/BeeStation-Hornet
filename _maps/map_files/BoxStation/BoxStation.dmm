@@ -33384,7 +33384,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "nRR" = (

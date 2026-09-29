@@ -25709,7 +25709,7 @@
 /area/station/holodeck/rec_center)
 "ivP" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/basic/pet/fox/renault,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/captain)
@@ -72160,7 +72160,7 @@
 /area/station/maintenance/port/aft)
 "wuC" = (
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "wuD" = (

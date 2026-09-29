@@ -473,7 +473,7 @@
 /obj/item/choice_beacon/pet/hamster
 	name = "hamster delivery beacon"
 	default_name = "Doctor"
-	mob_choice = /mob/living/simple_animal/pet/hamster
+	mob_choice = /mob/living/basic/pet/hamster
 
 /obj/item/choice_beacon/pet/pug
 	name = "pug delivery beacon"

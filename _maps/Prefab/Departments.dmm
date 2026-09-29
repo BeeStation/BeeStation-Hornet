@@ -446,7 +446,7 @@
 "jF" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /mob/living/carbon/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
+/mob/living/basic/pet/hamster/vector{
 	pixel_x = 1;
 	pixel_y = 10
 	},
@@ -771,7 +771,7 @@
 	},
 /area/misc/space)
 "qD" = (
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	density = 0;
 	dir = 8;
 	pixel_y = 10

@@ -35177,7 +35177,7 @@
 /obj/structure/bed/dogbed/renault{
 	pixel_y = 3
 	},
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	density = 0;
 	dir = 8;
 	pixel_y = 10
@@ -40206,10 +40206,7 @@
 /obj/structure/bed/dogbed/vector{
 	pixel_y = 8
 	},
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
+/mob/living/basic/pet/hamster/vector,
 /turf/open/floor/iron/dark,
 /area/station/medical/virology)
 "pcL" = (
