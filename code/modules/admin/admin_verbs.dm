@@ -639,7 +639,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	log_admin("[key_name(usr)] has turned stealth mode ON")
 	message_admins("[key_name_admin(usr)] has turned stealth mode ON")
-	prompt_hide_mentor_from_staffwho("hide")
+	prompt_hide_mentor_from_staffwho()
 
 /client/proc/disable_stealth_mode()
 	holder.fakekey = null
@@ -663,7 +663,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 #undef STEALTH_MODE_TRAIT
 
 /// If an admin also has the mentor role, we asks whether they want to be hidden from the mentor list when using staffwho.
-/client/proc/prompt_hide_mentor_from_staffwho(action_name)
+/client/proc/prompt_hide_mentor_from_staffwho()
 	if(!mentor_datum)
 		return
 	var/choice = tgui_alert(src, "Would you like to also appear hidden from the mentor role?", "Mentor Role", list("Yes", "No"))
@@ -900,7 +900,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] deadmined themself.")
 	message_admins("[src] deadmined themself.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Deadmin")
-	prompt_hide_mentor_from_staffwho("deadmin")
 
 /client/proc/readmin()
 	set name = "Readmin"
