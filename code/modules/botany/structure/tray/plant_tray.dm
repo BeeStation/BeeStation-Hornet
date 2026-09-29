@@ -151,7 +151,7 @@
 /obj/item/plant_tray/wrench_act(mob/living/user, obj/item/tool)
 	if(!default_unfasten_wrench(user, tool))
 		return
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = TRUE
 	//Visual fluff
 	if(anchored)
 		pixel_x = 0

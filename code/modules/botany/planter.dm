@@ -95,7 +95,7 @@
 		to_chat(attacker, span_warning("[reagent_source] is empty!"))
 		return
 	//Composting - Composted reagents are doubled
-	if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/pill))
+	if(IS_EDIBLE(reagent_source) || istype(reagent_source, /obj/item/reagent_containers/applicator/pill))
 		obj_parent.visible_message(span_notice("[attacker] composts [reagent_source], spreading it through [obj_parent]"))
 		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
 			reagent_source.reagents?.remove_any(reagent_source.reagents.total_volume*2)
