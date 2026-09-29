@@ -265,6 +265,9 @@
 	TEST_ASSERT(!mine.density, "The snare mine blocks movement.")
 	TEST_ASSERT(!mine.opacity, "The snare mine blocks vision.")
 	TEST_ASSERT_EQUAL(mine.can_atmos_pass, ATMOS_PASS_YES, "The snare mine blocks air.")
+	// Weeds spreading onto the tile after the snare was laid must draw beneath it.
+	var/obj/structure/alien/weeds/weeds = allocate(/obj/structure/alien/weeds, mine_turf)
+	TEST_ASSERT(mine.plane == weeds.plane && mine.layer > weeds.layer, "Weeds growing onto a snare's tile draw over it.")
 
 	var/mob/living/carbon/human/walker = allocate(/mob/living/carbon/human/consistent)
 	walker.forceMove(mine_turf)

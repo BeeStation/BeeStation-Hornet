@@ -115,7 +115,8 @@
 	density = FALSE
 	opacity = FALSE
 	anchored = TRUE
-	layer = ABOVE_OPEN_TURF_LAYER
+	// Above weeds and floor debris, so weeds spreading onto the tile later don't bury it
+	layer = PRESSURE_PLATE_LAYER
 	plane = FLOOR_PLANE
 	max_integrity = 40
 
