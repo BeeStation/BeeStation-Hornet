@@ -173,3 +173,9 @@
 		var/mob/mob_obstacle = obstacle
 		if(mob_obstacle.move_resist <= move_force)
 			step(obstacle, dir & ~(UP|DOWN))
+
+/obj/vehicle/sealed/mecha/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	// Spray bottle puffs drift onto the mech's tile the way they drift onto mobs, so cleaner can wash its hull.
+	if(istype(mover, /obj/effect/decal/chempuff))
+		return TRUE

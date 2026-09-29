@@ -88,6 +88,26 @@
 	TEST_ASSERT_NULL(mech.GetComponent(/datum/component/mecha_acid), "Washing left a mecha_acid component behind.")
 	TEST_ASSERT_EQUAL(mech.get_integrity(), integrity_before_wash, "Washing should neither repair nor damage the mech.")
 
+/// A space cleaner spray reaches the mech's tile and washes the acid off, instead of stopping at the hull.
+/datum/unit_test/xeno_anti_mech_acid_spray_wash
+
+/datum/unit_test/xeno_anti_mech_acid_spray_wash/Run()
+	var/mob/living/carbon/human/janitor = allocate(/mob/living/carbon/human/consistent)
+	var/turf/next_to_janitor = locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z)
+	var/obj/vehicle/sealed/mecha/durand/mech = allocate(/obj/vehicle/sealed/mecha/durand, next_to_janitor)
+	var/datum/component/mecha_acid/acid = mech.LoadComponent(/datum/component/mecha_acid)
+	acid.add_dose()
+	var/obj/item/reagent_containers/spray/cleaner/bottle = allocate(/obj/item/reagent_containers/spray/cleaner)
+	janitor.put_in_active_hand(bottle)
+
+	bottle.spray(mech, janitor)
+	var/obj/effect/decal/chempuff/puff = locate() in get_turf(janitor)
+	TEST_ASSERT_NOTNULL(puff, "Test setup: spraying did not create a chem puff.")
+	// The movement subsystem would take this step on its next tick; take it now.
+	puff.move_packet.running_loop.process()
+	TEST_ASSERT(QDELETED(acid), "Space cleaner sprayed at the mech never washed its acid off.")
+	qdel(puff)
+
 /// A dose on a mech whose systems are all already broken still burns, and reports no new failure.
 /datum/unit_test/xeno_anti_mech_acid_no_systems_left
 
