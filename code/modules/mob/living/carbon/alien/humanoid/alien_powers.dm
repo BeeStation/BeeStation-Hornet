@@ -329,7 +329,7 @@ Doesn't work on other aliens/AI.*/
 /datum/action/alien/crack_open
 	name = "Crack Open"
 	desc = "Seize an adjacent mech and tear open its hatch over 6 seconds, dragging its pilot out. The mech is helpless while you hold it, and only death will break your grip. AI-piloted mechs are torn apart instead."
-	button_icon_state = "alien_barf"
+	button_icon_state = "alien_crack_open"
 	plasma_cost = 100
 	cooldown_time = 60 SECONDS
 	requires_target = TRUE
