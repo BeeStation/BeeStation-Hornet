@@ -546,7 +546,7 @@
 	if (istype(drug_instance, /obj/item/storage/pill_bottle))
 		var/pill_state = pick(PILL_SHAPE_LIST)
 		for(var/i in 1 to 7)
-			var/obj/item/reagent_containers/pill/P = new(drug_instance)
+			var/obj/item/reagent_containers/applicator/pill/P = new(drug_instance)
 			P.icon_state = pill_state
 			P.reagents.add_reagent(reagent_type, 1)
 

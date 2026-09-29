@@ -947,7 +947,7 @@
  * Called by mob/living attackby()
  * Checks if there's active surgery on the mob that can be continued with the item
  */
-/mob/living/proc/can_perform_surgery(mob/living/user, params)
+/mob/living/proc/can_perform_surgery(mob/living/user, list/modifiers)
 	for(var/datum/surgery/operations as anything in surgeries)
 		if(user.combat_mode)
 			break
@@ -955,7 +955,6 @@
 			continue
 		if(!(operations.surgery_flags & SURGERY_SELF_OPERABLE) && (user == src))
 			continue
-		var/list/modifiers = params2list(params)
 		if(operations.next_step(user, modifiers))
 			return TRUE
 	return FALSE
@@ -2115,6 +2114,13 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 //Used specifically for the clown box suicide act
 /mob/living/carbon/human/will_escape_storage()
 	return TRUE
+
+/mob/living/set_nutrition(change)
+	..()
+	if(nutrition > 0 || !HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+		return
+	apply_status_effect(mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
+
 
 /// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
 /mob/living/proc/set_safe_hunger_level()

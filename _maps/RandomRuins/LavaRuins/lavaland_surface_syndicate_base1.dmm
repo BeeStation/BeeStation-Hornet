@@ -1660,6 +1660,13 @@
 /obj/machinery/air_sensor,
 /turf/open/floor/engine/n2,
 /area/ruin/syndicate_lava_base/engineering)
+"pQ" = (
+/obj/structure/sign/warning/explosives/alt{
+	pixel_x = 32
+	},
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/circuit/red,
+/area/ruin/syndicate_lava_base/engineering)
 "pR" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
 	dir = 6
@@ -3656,6 +3663,20 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/main)
+"MC" = (
+/obj/machinery/turretid{
+	ailock = 1;
+	control_area = /area/ruin/syndicate_lava_base;
+	dir = 1;
+	icon_state = "control_kill";
+	lethal = 1;
+	name = "Base turret controls";
+	pixel_y = 30;
+	req_access = null;
+	req_access_txt = "150"
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/syndicate_lava_base/engineering)
 "ME" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /obj/machinery/airlock_controller/incinerator_syndicatelava{
@@ -3761,20 +3782,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/engineering)
-"NA" = (
-/obj/machinery/turretid{
-	ailock = 1;
-	control_area = "/area/ruin/syndicate_lava_base";
-	dir = 1;
-	icon_state = "control_kill";
-	lethal = 1;
-	name = "Base turret controls";
-	pixel_y = 30;
-	req_access = null;
-	req_access_txt = "150"
-	},
-/turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base)
 "NF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -4198,13 +4205,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/main)
-"RP" = (
-/obj/structure/sign/warning/explosives/alt{
-	pixel_x = 32
-	},
-/obj/machinery/light/small/directional/east,
-/turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base/engineering)
 "RW" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -4511,6 +4511,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/testlab)
+"UX" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/ruin/syndicate_lava_base/bar)
 "Vf" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom{
@@ -4945,12 +4951,6 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/ruin/syndicate_lava_base/bar)
-"Zh" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
 "Zi" = (
 /obj/structure/table/wood,
@@ -5976,7 +5976,7 @@ dV
 FX
 ly
 PC
-Zh
+UX
 dU
 Qa
 zM
@@ -6863,7 +6863,7 @@ MG
 IC
 XA
 QW
-NA
+MC
 iK
 iJ
 QW
@@ -6914,7 +6914,7 @@ JV
 xn
 QW
 Fs
-RP
+pQ
 ar
 QW
 Gh

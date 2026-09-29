@@ -79,7 +79,7 @@
 
 		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
 		if(A == loc || (A in loc) || (A in contents))
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 			return
 
 		if(!isturf(loc))
@@ -88,10 +88,10 @@
 		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
 		if(isturf(A) || isturf(A.loc))
 			if(A.Adjacent(src)) // see adjacent.dm
-				W.melee_attack_chain(src, A, params)
+				W.melee_attack_chain(src, A, modifiers)
 				return
 			else
-				W.afterattack(A, src, 0, params)
+				W.afterattack(A, src, 0, modifiers)
 				return
 
 //Middle click cycles through selected modules.

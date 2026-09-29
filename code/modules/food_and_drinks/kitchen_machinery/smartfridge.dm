@@ -62,7 +62,7 @@
 	move_update_air(old_loc)
 
 /obj/machinery/smartfridge/welder_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(!can_be_welded_down)
 		return ..()
@@ -103,7 +103,7 @@
 	to_chat(user, span_notice("You weld [src] to the floor."))
 
 /obj/machinery/smartfridge/welder_act_secondary(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(!(machine_stat & BROKEN))
 		balloon_alert(user, "no repair needed!")
@@ -127,7 +127,7 @@
 		update_icon()
 
 /obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, tool))
 		if(panel_open)
@@ -150,13 +150,13 @@
 	air_update_turf(TRUE, anchorvalue)
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(default_unfasten_wrench(user, tool) == SUCCESSFUL_UNFASTEN)
 		power_change()
 
 /obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(default_pry_open(tool))
 		return
@@ -260,7 +260,7 @@
 	playsound(src, "shatter", 50, TRUE)
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/weapon, mob/living/user, params)
+/obj/machinery/smartfridge/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(!machine_stat)
 		var/shown_contents_length = visible_items()
 		if(shown_contents_length >= max_n_of_items)
@@ -615,7 +615,7 @@
 
 /obj/machinery/smartfridge/drying/rack/crowbar_act(mob/living/user, obj/item/tool)
 	if(default_deconstruction_crowbar(tool, ignore_panel = TRUE))
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/smartfridge/drying/rack/update_overlays()
 	. = ..()
@@ -734,7 +734,7 @@
 		return FALSE
 
 	// empty pill prank ok
-	if(istype(weapon, /obj/item/reagent_containers/pill))
+	if(istype(weapon, /obj/item/reagent_containers/applicator))
 		return TRUE
 
 	//check each pill in the pill bottle
@@ -763,8 +763,8 @@
 
 /obj/machinery/smartfridge/chemistry/preloaded
 	initial_contents = list(
-		/obj/item/reagent_containers/pill/epinephrine = 12,
-		/obj/item/reagent_containers/pill/charcoal = 5,
+		/obj/item/reagent_containers/applicator/pill/epinephrine = 12,
+		/obj/item/reagent_containers/applicator/pill/charcoal = 5,
 		/obj/item/reagent_containers/cup/bottle/epinephrine = 1,
 		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
 		/obj/item/reagent_containers/chem_bag/triamed = 1)

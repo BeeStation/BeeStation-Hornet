@@ -100,11 +100,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/template_noop)
-"bP" = (
-/obj/machinery/power/smes,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "bU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/corner,
@@ -1251,10 +1246,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/glass/reinforced,
 /area/template_noop)
-"vG" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "vH" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/cable,
@@ -1378,6 +1369,22 @@
 	},
 /turf/open/floor/plating/grass,
 /area/template_noop)
+"xB" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
+/area/template_noop)
 "xF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -1460,17 +1467,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/template_noop)
-"zm" = (
-/obj/machinery/power/solar_control{
-	use_power = 0;
-	idle_power_usage = 0
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable,
-/obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/lowpop/solar_console,
-/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "zr" = (
 /obj/effect/turf_decal/sand/plating,
@@ -1703,22 +1699,6 @@
 	slowdown = 0
 	},
 /area/template_noop)
-"CU" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/turf/open/floor/wood,
-/area/template_noop)
 "CX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1943,13 +1923,6 @@
 "Gm" = (
 /turf/open/floor/glass/reinforced,
 /area/template_noop)
-"Gp" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "GC" = (
 /mob/living/simple_animal/hostile/gorilla{
 	aggro_vision_range = 3;
@@ -2076,6 +2049,10 @@
 	dir = 6
 	},
 /area/template_noop)
+"IQ" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "Jd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
@@ -2129,6 +2106,13 @@
 	dir = 10
 	},
 /turf/open/floor/wood,
+/area/template_noop)
+"Kl" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "Kt" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2434,6 +2418,17 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"Qm" = (
+/obj/machinery/power/solar_control{
+	use_power = 0;
+	idle_power_usage = 0
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable,
+/obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
+/turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Qo" = (
 /obj/structure/chair/wood/normal{
@@ -2841,9 +2836,9 @@
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/grass,
 /area/template_noop)
-"Wk" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
+"Wm" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "Ws" = (
 /obj/structure/fermenting_barrel{
@@ -3102,6 +3097,12 @@
 	dir = 10
 	},
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"Za" = (
+/obj/machinery/power/smes,
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "Zr" = (
 /obj/structure/fence{
@@ -6517,9 +6518,9 @@ gf
 gf
 gf
 Kg
-Gp
-vG
-vG
+Kl
+Wm
+Wm
 Mg
 Mg
 Mg
@@ -6651,9 +6652,9 @@ gf
 bj
 PO
 FH
-Gp
+Kl
 yW
-vG
+Wm
 Mg
 Mg
 Mg
@@ -6785,9 +6786,9 @@ gf
 gf
 gf
 FH
-Gp
-vG
-vG
+Kl
+Wm
+Wm
 Mg
 Mg
 Mg
@@ -6916,7 +6917,7 @@ Mg
 Mg
 gf
 bE
-Wk
+IQ
 gf
 FH
 Du
@@ -7186,7 +7187,7 @@ gf
 tf
 sV
 gf
-CU
+xB
 Du
 DS
 Mg
@@ -13404,7 +13405,7 @@ xd
 hu
 XB
 Pd
-zm
+Qm
 sX
 TN
 tu
@@ -13538,7 +13539,7 @@ fw
 zX
 zX
 lO
-bP
+Za
 gL
 TN
 tu

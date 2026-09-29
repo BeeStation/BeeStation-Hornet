@@ -1,4 +1,5 @@
 /datum/action/spell/eminence
+	name = "Eminence Spell"
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
 	button_icon = 'icons/hud/actions/actions_clockcult.dmi'

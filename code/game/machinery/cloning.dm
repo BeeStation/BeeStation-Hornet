@@ -225,7 +225,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 	if(!clonename)	//to prevent null names
 		clonename = "clone ([rand(1,999)])"
 	H.real_name = clonename
-	if(gender)
+	if(gender in list(MALE, FEMALE, PLURAL, NEUTER))
 		H.gender = gender
 	if(age)
 		H.age = age
@@ -429,7 +429,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	return COMPONENT_BUFFER_RECEIVED
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
+/obj/machinery/clonepod/attackby(obj/item/W, mob/user, list/modifiers)
 	if(!(occupant || mess))
 		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]",W))
 			return

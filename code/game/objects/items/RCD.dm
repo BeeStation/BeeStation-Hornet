@@ -66,7 +66,7 @@ RLD
 	silo_mats = null
 	return ..()
 
-/obj/item/construction/attackby(obj/item/W, mob/user, params)
+/obj/item/construction/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/rcd_upgrade))
 		install_upgrade(W, user)
 		return TRUE
@@ -261,7 +261,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	. = ..()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
 	if(proximity_flag)
 		mode = RCD_FLOORWALL
 		rcd_create(target, user)
@@ -726,7 +726,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	else
 		return FALSE
 
-/obj/item/construction/rcd/pre_attack(atom/A, mob/user, params)
+/obj/item/construction/rcd/pre_attack(atom/A, mob/user, list/modifiers)
 	. = ..()
 	mode = construction_mode
 	if(!A.rcd_vals(user, src))
@@ -734,7 +734,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	rcd_create(A, user)
 	return FALSE
 
-/obj/item/construction/rcd/pre_attack_secondary(atom/target, mob/living/user, params)
+/obj/item/construction/rcd/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	mode = RCD_DECONSTRUCT
 	if(!target.rcd_vals(user, src))
@@ -855,7 +855,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	if(range_check(A,user))
 		pre_attack(A, user)
 
-/obj/item/construction/rcd/arcd/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/construction/rcd/arcd/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	if(range_check(target,user))
 		pre_attack_secondary(target, user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
@@ -866,7 +866,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	if(.)
 		user.Beam(A,icon_state="rped_upgrade", time = delay_mod * 5 SECONDS) //5 SECONDS * 0.6 = 3 seconds
 
-/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
 	if(ranged && range_check(target, user))
 		mode = RCD_FLOORWALL
 		rcd_create(target, user)

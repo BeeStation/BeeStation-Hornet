@@ -161,10 +161,10 @@
 		return ..()
 	return FALSE
 
-/obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
+/obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(ISWIELDED(src))
 		to_chat(user, span_warning("You can't pick up such dangerous item with your meaty hands without losing fingers, better not to!"))
-		return 1
+		return TRUE
 
 /obj/item/dualsaber/process()
 	if(ISWIELDED(src))
@@ -205,7 +205,7 @@
 /obj/item/dualsaber/purple
 	possible_colors = list("purple")
 
-/obj/item/dualsaber/attackby(obj/item/W, mob/user, params)
+/obj/item/dualsaber/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE

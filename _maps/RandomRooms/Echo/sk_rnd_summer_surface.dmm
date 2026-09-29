@@ -97,11 +97,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/template_noop)
-"bP" = (
-/obj/machinery/power/smes,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
 "bU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/corner,
@@ -198,6 +193,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
+"dG" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "dW" = (
 /obj/effect/turf_decal/sand/plating,
@@ -1101,17 +1100,6 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"sJ" = (
-/obj/machinery/power/solar_control{
-	use_power = 0;
-	idle_power_usage = 0
-	},
-/obj/structure/cable/yellow,
-/obj/structure/cable,
-/obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/lowpop/solar_console,
-/turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
 "sN" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/plating/beach/water,
@@ -1188,11 +1176,33 @@
 /obj/item/plate,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
+"um" = (
+/obj/machinery/power/smes,
+/obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
+/turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
 "un" = (
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/open/floor/plating/grass,
+/area/template_noop)
+"uq" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
 /area/template_noop)
 "uu" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -1409,13 +1419,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"yy" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "yB" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1998,6 +2001,13 @@
 	},
 /turf/open/floor/plating/dirt/jungle/wasteland,
 /area/template_noop)
+"It" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "Iv" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/chair/plastic,
@@ -2382,6 +2392,17 @@
 /obj/item/hatchet,
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
+"Qm" = (
+/obj/machinery/power/solar_control{
+	use_power = 0;
+	idle_power_usage = 0
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable,
+/obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
+/turf/open/floor/iron/techmaint/planetary,
+/area/template_noop)
 "Qt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/map/echo{
@@ -2530,12 +2551,12 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
+"Sk" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "Sq" = (
 /turf/open/floor/mineral/plastitanium,
-/area/template_noop)
-"Sw" = (
-/obj/item/plant_tray/soil,
-/turf/open/floor/plating/grass,
 /area/template_noop)
 "Sx" = (
 /obj/structure/flora/rock/pile,
@@ -2740,22 +2761,6 @@
 /obj/structure/chair/fancy/plastic,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
-"Vn" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/obj/item/plant_seeds/preset/whitebeet,
-/turf/open/floor/wood,
-/area/template_noop)
 "Vv" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -2906,10 +2911,6 @@
 "XB" = (
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
-"XF" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
 /area/template_noop)
 "XK" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -6443,9 +6444,9 @@ gf
 gf
 gf
 Kg
-yy
-Sw
-Sw
+It
+dG
+dG
 yT
 yT
 yT
@@ -6577,9 +6578,9 @@ gf
 bj
 PO
 HX
-yy
+It
 yW
-Sw
+dG
 yT
 yT
 yT
@@ -6711,9 +6712,9 @@ gf
 gf
 gf
 HX
-yy
-Sw
-Sw
+It
+dG
+dG
 yT
 yT
 yT
@@ -6842,7 +6843,7 @@ yT
 yT
 gf
 bE
-XF
+Sk
 gf
 HX
 Du
@@ -7112,7 +7113,7 @@ gf
 tf
 sV
 gf
-Vn
+uq
 Du
 DS
 yT
@@ -13330,7 +13331,7 @@ xd
 hu
 Ba
 Tn
-sJ
+Qm
 my
 TN
 ms
@@ -13464,7 +13465,7 @@ mk
 vM
 vM
 lO
-bP
+um
 gL
 TN
 ms

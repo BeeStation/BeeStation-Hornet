@@ -89,13 +89,13 @@
 	speaking = FALSE
 	times_spoken_to++
 
-/obj/structure/speaking_tile/attackby(obj/item/W, mob/user, params)
+/obj/structure/speaking_tile/attackby(obj/item/W, mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_paw(mob/user)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_hulk(mob/user, does_attack_animation = 0)
+/obj/structure/speaking_tile/attack_hulk(mob/user)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_larva(mob/user, list/modifiers)

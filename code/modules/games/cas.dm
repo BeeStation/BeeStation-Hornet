@@ -79,7 +79,7 @@
 	user.visible_message("[user] draws a card from the deck.", span_notice("You draw a card from the deck."))
 	update_icon()
 
-/obj/item/toy/cards/deck/cas/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/deck/cas/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard/cas))
 		var/obj/item/toy/cards/singlecard/cas/SC = I
 		if(!user.temporarilyRemoveItemFromInventory(SC))
@@ -141,7 +141,7 @@
 	else
 		icon_state = "[card_face]"
 
-/obj/item/toy/cards/singlecard/cas/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/cas/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on [src]!"))

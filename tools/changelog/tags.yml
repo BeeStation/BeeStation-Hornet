@@ -26,6 +26,8 @@ tags:
     config: config
     admin: admin
     server: server
+    map: map
+    qol: qol
 
 defaults:
     admin: messed with admin stuff

@@ -105,7 +105,7 @@
 		return FALSE
 
 /// Checks to see if we've been hit with a red xenobio potion to make us faster. This is only registered if we're a vehicle
-/datum/element/ridable/proc/check_potion(atom/movable/ridable_atom, obj/item/slimepotion/speed/speed_potion, mob/living/user, params)
+/datum/element/ridable/proc/check_potion(atom/movable/ridable_atom, obj/item/slimepotion/speed/speed_potion, mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!istype(speed_potion))
