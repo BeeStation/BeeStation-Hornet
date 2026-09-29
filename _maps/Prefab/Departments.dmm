@@ -837,7 +837,7 @@
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
-/mob/living/simple_animal/sloth/citrus{
+/mob/living/basic/sloth/citrus{
 	density = 0
 	},
 /turf/open/floor/iron/sepia,

@@ -244,7 +244,7 @@
 				/mob/living/basic/butterfly,
 				/mob/living/simple_animal/hostile/lizard,
 				/mob/living/simple_animal/parrot,
-				/mob/living/simple_animal/sloth,
+				/mob/living/basic/sloth,
 				/mob/living/carbon/monkey
 			),
 			"WINTER" = list(

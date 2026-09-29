@@ -54541,7 +54541,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/fore)
 "sRV" = (
-/mob/living/simple_animal/sloth/citrus,
+/mob/living/basic/sloth/citrus,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},

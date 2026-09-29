@@ -16169,7 +16169,7 @@
 /turf/open/floor/plating,
 /area/station/science/xenobiology)
 "eMT" = (
-/mob/living/simple_animal/sloth/citrus,
+/mob/living/basic/sloth/citrus,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
