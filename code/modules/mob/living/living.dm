@@ -13,7 +13,7 @@
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	if(unique_name)
-		name = "[name] ([rand(1, 1000)])"
+		set_unique_name()
 		real_name = name
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
@@ -2570,3 +2570,9 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 /mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))
 		return user_buckle_mob(M, user, check_loc = FALSE)
+
+/mob/living/proc/set_unique_name()
+	if(identifier == 0)
+		identifier = rand(1, 999)
+	name = "[name] ([identifier])"
+	real_name = name

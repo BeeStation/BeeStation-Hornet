@@ -75,13 +75,13 @@ SUBSYSTEM_DEF(traumas)
 			/mob/living/simple_animal/bot/secbot,
 			/mob/living/simple_animal/bot/ed209,
 			/mob/living/simple_animal/drone,
-			/mob/living/simple_animal/pet/penguin,
+			/mob/living/basic/pet/penguin,
 		)),
 		"birds" = typecacheof(list(
 			/mob/living/simple_animal/parrot,
 			/mob/living/simple_animal/chick,
 			/mob/living/simple_animal/chicken,
-			/mob/living/simple_animal/pet/penguin,
+			/mob/living/basic/pet/penguin,
 		)),
 		"anime" = typecacheof(list(
 			/mob/living/simple_animal/hostile/holoparasite,

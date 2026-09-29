@@ -227,7 +227,7 @@
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "dP" = (
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby/permanent,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
 "dR" = (
@@ -916,7 +916,7 @@
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "nE" = (
-/mob/living/simple_animal/pet/penguin/emperor,
+/mob/living/basic/pet/penguin/emperor,
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "nF" = (
@@ -1735,7 +1735,7 @@
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
 "Ba" = (
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby/permanent,
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "Bj" = (
@@ -2117,7 +2117,7 @@
 	},
 /area/template_noop)
 "FD" = (
-/mob/living/simple_animal/pet/penguin/emperor,
+/mob/living/basic/pet/penguin/emperor,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
 "FH" = (

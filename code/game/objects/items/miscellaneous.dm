@@ -488,7 +488,7 @@
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"
 	default_name = "Pingu"
-	mob_choice = /mob/living/simple_animal/pet/penguin/baby
+	mob_choice = /mob/living/basic/pet/penguin/baby
 
 /obj/item/choice_beacon/pet/clown
 	name = "living lube delivery beacon"

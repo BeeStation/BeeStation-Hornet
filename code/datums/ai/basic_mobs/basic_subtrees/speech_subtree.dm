@@ -101,6 +101,14 @@
 	emote_hear = list("clicks.")
 	emote_see = list("clacks.")
 
+/datum/ai_planning_subtree/random_speech/penguin
+	speech_chance = 5
+	speak = list("Gah Gah!", "NOOT NOOT!", "NOOT!", "Noot", "noot", "Prah!", "Grah!")
+	emote_hear = list("squawks", "gakkers")
+
+/datum/ai_planning_subtree/random_speech/penguin/baby
+	speak = list("gah", "noot noot", "noot!", "noot", "squeee!", "noo!")
+
 /datum/ai_planning_subtree/random_speech/cats
 	speech_chance = 10
 	sound = list("cat_meow")
