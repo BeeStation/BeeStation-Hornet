@@ -1354,7 +1354,7 @@
 				/mob/living/simple_animal/hostile/mushroom,
 				/mob/living/simple_animal/hostile/statue,
 				/mob/living/simple_animal/hostile/retaliate/bat,
-				/mob/living/simple_animal/hostile/retaliate/goat,
+				/mob/living/basic/goat,
 				/mob/living/simple_animal/hostile/killertomato,
 				/mob/living/simple_animal/hostile/poison/giant_spider,
 				/mob/living/simple_animal/hostile/poison/giant_spider/hunter,

@@ -44628,9 +44628,7 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "sAP" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "sAR" = (

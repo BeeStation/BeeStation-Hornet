@@ -69156,9 +69156,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/lab)
 "xPt" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/showroomfloor,
 /area/station/service/kitchen)
 "xPx" = (

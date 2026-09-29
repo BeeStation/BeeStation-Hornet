@@ -1248,9 +1248,7 @@
 /turf/open/floor/iron,
 /area/misc/space)
 "CT" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/freezer,
 /area/station/ai_monitored/turret_protected/ai)
 "De" = (

@@ -498,7 +498,7 @@
 /obj/item/choice_beacon/pet/goat
 	name = "goat delivery beacon"
 	default_name = "Billy"
-	mob_choice = /mob/living/simple_animal/hostile/retaliate/goat
+	mob_choice = /mob/living/basic/goat
 
 /obj/item/choice_beacon/janicart
 	name = "janicart delivery beacon"
