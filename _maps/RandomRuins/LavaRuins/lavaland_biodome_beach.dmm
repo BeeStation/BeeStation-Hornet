@@ -264,6 +264,9 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = null
 	},
+/obj/item/storage/fancy/egg_box,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "be" = (
