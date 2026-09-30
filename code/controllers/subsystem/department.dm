@@ -73,6 +73,9 @@ SUBSYSTEM_DEF(department)
 		stack_trace("get_department_access() was given no department id")
 		return list()
 
+	if(istext(id_or_list))
+		return astype(department_assoc[id_or_list], /datum/department_group).get_access_list()
+
 	if(!islist(id_or_list))
 		id_or_list = list(id_or_list)
 
@@ -260,7 +263,11 @@ SUBSYSTEM_DEF(department)
 	var/list/aggregated_department_id_list = list()
 
 /datum/department_group/aggregate/get_access_list()
-	return SSdepartment.get_department_access(aggregated_department_id_list)
+	var/list/aggregated_access = list()
+	for(var/dept_id in aggregated_department_id_list)
+		var/datum/department_group/each_dept = SSdepartment.department_assoc[dept_id]
+		aggregated_access |= each_dept.get_access_list()
+	return aggregated_access
 
 /datum/department_group/aggregate/station_all
 	department_name = DEPARTMENT_ID_STATION_ALL
