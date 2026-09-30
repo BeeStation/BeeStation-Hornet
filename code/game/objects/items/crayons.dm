@@ -264,7 +264,7 @@
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
 	return replacetext(LOWER_TEXT(text), crayon_r, "")
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, list/modifiers)
 	. = ..()
 	if(!proximity || !check_allowed_items(target))
 		return
@@ -338,7 +338,6 @@
 			else
 				graf_rot = 0
 
-	var/list/modifiers = params2list(params)
 	var/clickx
 	var/clicky
 
@@ -506,7 +505,7 @@
 	dye_color = DYE_RAINBOW
 	charges = -1
 
-/obj/item/toy/crayon/rainbow/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/rainbow/afterattack(atom/target, mob/user, proximity, list/modifiers)
 	set_painting_tool_color(rgb(rand(0,255), rand(0,255), rand(0,255)))
 	. = ..()
 
@@ -541,7 +540,7 @@
 	for(var/obj/item/toy/crayon/crayon in contents)
 		. += mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color)
 
-/obj/item/storage/crayons/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/crayons/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		switch(C.crayon_color)
@@ -686,7 +685,7 @@
 	else if(isValidSurface(target))
 		context.add_left_click_action("Draw [drawtype]")
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, list/modifiers)
 	if(!proximity)
 		return ..()
 
@@ -822,7 +821,7 @@
 	desc = "A metallic container containing shiny synthesised paint."
 	charges = -1
 
-/obj/item/toy/crayon/spraycan/borg/afterattack(atom/target,mob/user,proximity, params)
+/obj/item/toy/crayon/spraycan/borg/afterattack(atom/target,mob/user,proximity, list/modifiers)
 	var/diff = ..()
 	if(!iscyborg(user))
 		to_chat(user, span_notice("How did you get this?"))

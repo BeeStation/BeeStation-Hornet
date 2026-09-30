@@ -4769,6 +4769,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/starboard/aft)
 "bhd" = (
@@ -14546,26 +14547,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/hallway/primary/port)
-"dyw" = (
-/obj/structure/server{
-	icon_state = "setup_stationary-open"
-	},
-/obj/structure/sign/poster/contraband/energy_swords{
-	pixel_x = 32
-	},
-/obj/machinery/light/small/directional/west,
-/obj/effect/turf_decal/siding/dark/end,
-/obj/structure/cable/yellow,
-/obj/structure/sign/poster/contraband/syndicate{
-	pixel_y = -32
-	},
-/obj/structure/wall_closet/syndicate/directional/west,
-/obj/item/gun/ballistic/automatic/toy/unrestricted,
-/obj/item/ammo_box/magazine/toy/smg,
-/obj/item/ammo_box/magazine/toy/smg,
-/obj/item/clothing/mask/balaclava/russian_balaclava,
-/turf/open/floor/mineral/plastitanium/red,
-/area/syndicate_sat)
 "dyx" = (
 /obj/machinery/light/small/directional/west,
 /obj/machinery/suit_storage_unit/radsuit,
@@ -16345,23 +16326,6 @@
 	},
 /turf/open/floor/wood/big,
 /area/station/service/hydroponics)
-"dSS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/pill/patch/silver_sulf{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/pill/patch/silver_sulf{
-	pixel_y = 17
-	},
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = -32
-	},
-/obj/machinery/camera/directional/east,
-/turf/open/floor/iron/techmaint,
-/area/station/engineering/hallway)
 "dSV" = (
 /obj/effect/turf_decal/siding/red,
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -20969,6 +20933,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/machinery/camera/directional/south,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/aft)
 "eWj" = (
@@ -24475,6 +24440,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/starboard/fore)
 "fNK" = (
@@ -56969,6 +56935,26 @@
 	dir = 1
 	},
 /area/station/service/hydroponics)
+"nov" = (
+/obj/structure/server{
+	icon_state = "setup_stationary-open"
+	},
+/obj/structure/sign/poster/contraband/energy_swords{
+	pixel_x = 32
+	},
+/obj/machinery/light/small/directional/west,
+/obj/effect/turf_decal/siding/dark/end,
+/obj/structure/cable/yellow,
+/obj/structure/sign/poster/contraband/syndicate{
+	pixel_y = -32
+	},
+/obj/structure/wall_closet/syndicate/directional/west,
+/obj/item/gun/ballistic/automatic/toy/unrestricted,
+/obj/item/ammo_box/magazine/toy/smg,
+/obj/item/ammo_box/magazine/toy/smg,
+/obj/item/clothing/mask/balaclava/russian_balaclava,
+/turf/open/floor/mineral/plastitanium/red,
+/area/syndicate_sat)
 "noy" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Engineering";
@@ -63120,6 +63106,7 @@
 	},
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/iron/smooth,
 /area/station/maintenance/solars/port/fore)
 "oLf" = (
@@ -81675,6 +81662,23 @@
 	dir = 1
 	},
 /area/station/service/bar)
+"tjq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/applicator/patch/silver_sulf{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/applicator/patch/silver_sulf{
+	pixel_y = 17
+	},
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = -32
+	},
+/obj/machinery/camera/directional/east,
+/turf/open/floor/iron/techmaint,
+/area/station/engineering/hallway)
 "tju" = (
 /obj/effect/turf_decal/arrows{
 	dir = 4
@@ -90255,6 +90259,26 @@
 	},
 /turf/open/floor/iron/white/textured_half,
 /area/station/science/lobby)
+"vjt" = (
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 10
+	},
+/obj/structure/dresser,
+/obj/item/reagent_containers/applicator/pill/morphine{
+	pixel_y = 10;
+	pixel_x = -3;
+	name = "melatonin pill"
+	},
+/obj/item/reagent_containers/applicator/pill/morphine{
+	pixel_y = 9;
+	pixel_x = 2;
+	name = "melatonin pill"
+	},
+/obj/machinery/light/small/directional/south,
+/obj/machinery/newscaster/directional/west,
+/obj/structure/sign/poster/official/random/directional/south,
+/turf/open/floor/carpet/blue,
+/area/station/command/heads_quarters/hop)
 "vjO" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/effect/turf_decal/siding/white,
@@ -99518,26 +99542,6 @@
 /obj/structure/wall_closet/generic/directional/north,
 /turf/open/floor/carpet/blue,
 /area/station/commons/dorms)
-"xrj" = (
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 10
-	},
-/obj/structure/dresser,
-/obj/item/reagent_containers/pill/morphine{
-	pixel_y = 10;
-	pixel_x = -3;
-	name = "melatonin pill"
-	},
-/obj/item/reagent_containers/pill/morphine{
-	pixel_y = 9;
-	pixel_x = 2;
-	name = "melatonin pill"
-	},
-/obj/machinery/light/small/directional/south,
-/obj/machinery/newscaster/directional/west,
-/obj/structure/sign/poster/official/random/directional/south,
-/turf/open/floor/carpet/blue,
-/area/station/command/heads_quarters/hop)
 "xrl" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -121731,7 +121735,7 @@ lhO
 mjg
 oHk
 sBQ
-xrj
+vjt
 oHk
 lVh
 rjK
@@ -141842,7 +141846,7 @@ mSR
 odx
 rri
 lyM
-dSS
+tjq
 rri
 ueY
 hDf
@@ -161673,7 +161677,7 @@ qgM
 kyU
 eAD
 gvL
-dyw
+nov
 kyU
 qgM
 fvO

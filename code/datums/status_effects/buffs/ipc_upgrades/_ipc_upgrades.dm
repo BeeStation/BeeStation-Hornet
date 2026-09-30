@@ -1,4 +1,4 @@
-#define UPGRADE_LOW_POWER_THRESHOLD 250
+#define UPGRADE_LOW_POWER_THRESHOLD (0.1 * STANDARD_ETHEREAL_CHARGE)
 
 //not so sure about making a global proc for this
 /proc/get_ipc_upgrade_by_slot(list/datum/status_effect/effects, slot) as /datum/status_effect/ipc_upgrade

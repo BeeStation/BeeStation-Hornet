@@ -76,7 +76,7 @@
 
 	switch(cell.charge)
 		if(-INFINITY to ETHEREAL_CHARGE_NONE)
-			if(cell.charge <= 0 && HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+			if(cell.charge <= 0 && HAS_TRAIT(carbon, TRAIT_DIES_NO_NUTRITION))
 				carbon.apply_status_effect(carbon.mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
 			carbon.throw_alert(ALERT_ETHEREAL_CHARGE, /atom/movable/screen/alert/emptycell/ethereal)
 		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)

@@ -102,7 +102,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 			data["custom_controls"]["line_mode"] = dir2text(targetdirection)
 	return data
 
-/mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
+/mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/tile/iron))
 		to_chat(user, span_notice("The floorbot can produce normal tiles itself."))
 		return

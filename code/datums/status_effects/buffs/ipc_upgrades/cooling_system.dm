@@ -4,7 +4,7 @@
 	action_type = /datum/action/innate/ipc_upgrade_action/toggleable
 	action_icon = "cooling_system"
 	slot = UPGRADE_EXTERNAL
-	active_power_requirement = 25
+	active_power_requirement = UPGRADE_STANDARD_DRAW
 	item_type = /obj/item/ipc_upgrade/cooling_system
 
 /datum/status_effect/ipc_upgrade/cooling_system/tick(seconds_between_ticks)

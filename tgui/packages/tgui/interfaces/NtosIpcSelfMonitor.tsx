@@ -51,7 +51,8 @@ export const NtosIpcSelfMonitorContent = (_) => {
                 }}
               />
               <Box mt={1}>
-                {Math.round(data.charge)} KW / {Math.round(data.max_charge)} KW
+                {Math.round(data.charge / 1000)} KW /{' '}
+                {Math.round(data.max_charge / 1000)} KW
               </Box>
             </Section>
           </Flex.Item>
@@ -151,12 +152,12 @@ export const UpgradeStats = (props: UpgradeProps) => {
         {passive ? 'Passive' : props.upgrade.active ? 'Active' : 'Inactive'}
       </Flex.Item>
       <Flex.Item textJustify="center">
-        Draw: {props.upgrade.power_req} KW
+        Draw: {(props.upgrade.power_req / 1000).toFixed(3)} KW
       </Flex.Item>
       <Flex.Item textJustify="center">
         {props.upgrade.active_power_req >= 0
-          ? `Passive Draw: ${props.upgrade.active_power_req} KW`
-          : `Passive Generation: ${-props.upgrade.active_power_req} KW`}
+          ? `Passive Draw: ${(props.upgrade.active_power_req / 1000).toFixed(3)} KW`
+          : `Passive Generation: ${-(props.upgrade.active_power_req / 1000).toFixed(3)} KW`}
       </Flex.Item>
     </Flex>
   );

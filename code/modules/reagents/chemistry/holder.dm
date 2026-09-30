@@ -808,13 +808,12 @@
 		return null
 
 	var/list/cached_reagents = reagent_list
-	if(!cached_reagents.len)
+	if(!length(cached_reagents))
 		return null
 
 	var/list/reagents = list()
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		reagents[R] = R.volume * volume_modifier
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		reagents[reagent] = reagent.volume * volume_modifier
 
 	return A.expose_reagents(reagents, src, method, volume_modifier, show_message, affecting)
 

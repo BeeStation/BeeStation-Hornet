@@ -22,7 +22,7 @@
 		icon_state = "[inhand_icon_state]_closed"
 	return ..()
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)

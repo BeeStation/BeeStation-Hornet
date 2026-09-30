@@ -74,7 +74,7 @@
 	icon_state = "toilet[open][cistern]"
 
 
-/obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/toilet/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, span_notice("You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]..."))
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
@@ -158,7 +158,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	else
 		..()
 
-/obj/structure/urinal/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/urinal/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(exposed)
 		if (hiddenitem)
 			to_chat(user, span_warning("There is already something in the drain enclosure."))
@@ -232,7 +232,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 	. = ..()
 	AddElement(/datum/element/simple_rotation)
 
-/obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a sink...")
 		if(do_after(user, 4 SECONDS, target = src))
@@ -286,7 +286,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 	user.visible_message(span_notice("[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src]."), \
 						span_notice("You wash your [washing_face ? "face" : "hands"] using [src]."))
 
-/obj/structure/sink/attackby(obj/item/O, mob/living/user, params)
+/obj/structure/sink/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(busy)
 		to_chat(user, span_warning("Someone's already washing here!"))
 		return
@@ -372,7 +372,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16))
 	. = ..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, params)
+/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, list/modifiers)
 	icon_state = "puddle-splash"
 	. = ..()
 	icon_state = "puddle"

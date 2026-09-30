@@ -1,7 +1,7 @@
 /datum/status_effect/ipc_upgrade/leap_legs
 	id = "ipc leap legs"
 	name = "Leap Legs"
-	power_requirement = 250
+	power_requirement = UPGRADE_STANDARD_DRAW * 50
 	cooldown_length = 5 SECONDS
 	singleton = TRUE
 	action_type = /datum/action/innate/ipc_upgrade_action/targeted

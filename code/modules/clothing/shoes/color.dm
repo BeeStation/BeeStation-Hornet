@@ -87,7 +87,7 @@
 		src.icon_state = ""
 	return
 
-/obj/item/clothing/shoes/sneakers/orange/attackby(obj/H, loc, params)
+/obj/item/clothing/shoes/sneakers/orange/attackby(obj/H, loc, list/modifiers)
 	..()
 	// Note: not using istype here because we want to ignore all subtypes
 	if (!chained && H.type == /obj/item/restraints/handcuffs)

@@ -254,7 +254,7 @@
 	QDEL_NULL(record)
 	return ..()
 
-/obj/item/disk/holodisk/attackby(obj/item/W, mob/user, params)
+/obj/item/disk/holodisk/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/disk/holodisk))
 		var/obj/item/disk/holodisk/holodiskOriginal = W
 		if (holodiskOriginal.record)
