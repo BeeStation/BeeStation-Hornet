@@ -134,6 +134,7 @@
 /obj/item/flashlight/glowstick/blue,
 /obj/item/flashlight/glowstick/blue,
 /obj/item/flashlight/glowstick/blue,
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bn" = (
@@ -915,6 +916,10 @@
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
+	},
+/mob/living/basic/pet/cat/kitten{
+	name = "Director";
+	desc = "The Animal Hospital's youngest employee."
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)

@@ -42,6 +42,9 @@
 "ak" = (
 /obj/structure/toilet,
 /obj/effect/turf_decal/sand,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "al" = (
@@ -157,11 +160,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aH" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/oven,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aI" = (
@@ -185,7 +184,8 @@
 /turf/open/floor/iron,
 /area/ruin/powered/beach)
 "aM" = (
-/obj/structure/reagent_dispensers/beerkeg,
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aN" = (
@@ -235,6 +235,9 @@
 "aX" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
 /obj/item/reagent_containers/condiment/enzyme,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "aY" = (
@@ -270,7 +273,9 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bg" = (
-/obj/structure/sign/barsign,
+/obj/structure/sign/barsign{
+	req_access = null
+	},
 /turf/closed/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "bl" = (
@@ -371,10 +376,10 @@
 /turf/closed/wall/r_wall,
 /area/ruin/powered/beach)
 "cd" = (
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/light{
+	dir = 8
 	},
-/turf/closed/wall/mineral/sandstone,
+/turf/open/floor/wood,
 /area/ruin/powered/beach)
 "ce" = (
 /obj/effect/turf_decal/sand,
@@ -435,6 +440,8 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/donkpockets,
+/obj/item/knife/kitchen,
+/obj/item/kitchen/rollingpin,
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "hY" = (
@@ -517,7 +524,9 @@
 /turf/open/floor/iron,
 /area/ruin/powered/beach)
 "sO" = (
-/obj/machinery/jukebox/disco/indestructible,
+/obj/machinery/jukebox/disco/indestructible{
+	req_one_access = null
+	},
 /turf/open/floor/light/colour_cycle,
 /area/ruin/powered/beach)
 "vl" = (
@@ -1054,7 +1063,7 @@ aa
 (15,1,1) = {"
 aa
 bW
-cd
+aj
 aj
 aj
 aF
@@ -1123,7 +1132,7 @@ av
 aj
 aH
 aC
-aC
+cd
 aC
 aC
 bg
@@ -1153,8 +1162,8 @@ bW
 al
 as
 aj
-aI
 aM
+aI
 aS
 aX
 bd

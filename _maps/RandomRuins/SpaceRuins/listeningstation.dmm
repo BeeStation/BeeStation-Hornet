@@ -305,6 +305,15 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
 	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/item/toy/plush/lizard_plushie{
+	name = "Mans-The-Desk"
+	},
+/obj/item/clothing/ears/headphones{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "iF" = (
