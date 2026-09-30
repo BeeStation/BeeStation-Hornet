@@ -126,3 +126,10 @@
 	speak = list("Squeak", "SQUEAK!")
 	emote_hear = list("squeaks.", "hisses.", "squeals.")
 	emote_see = list("skitters", "examines its claws", "rolls around")
+
+/datum/ai_planning_subtree/random_speech/snake
+	speech_chance = 5
+	speak = list("hsssss", "sssSSsssss...", "hiisssss")
+	sound = list('sound/mobs/non-humanoids/snake/snake_hissing1.ogg', 'sound/mobs/non-humanoids/snake/snake_hissing2.ogg')
+	emote_hear = list("hisses.")
+	emote_see = list("slithers around.", "glances.", "stares.")

@@ -163,3 +163,6 @@
 /// IPC upgrade signals.
 #define COMSIG_UPGRADE_ACTIVATED "upgrade_activated"
 #define COMSIG_UPGRADE_DEACTIVATED "upgrade_deactivated"
+
+///from /datum/component/on_hit_effect/send_signal(): (user, target, hit_zone)
+#define COMSIG_ON_HIT_EFFECT "comsig_on_hit_effect"

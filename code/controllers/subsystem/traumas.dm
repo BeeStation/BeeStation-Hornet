@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(traumas)
 			/mob/living/simple_animal/hostile/skeleton,
 		)),
 		"snakes" = typecacheof(list(
-			/mob/living/simple_animal/hostile/retaliate/poison/snake,
+			/mob/living/basic/snake,
 		)),
 		"robots" = typecacheof(list(
 			/mob/living/silicon/robot,
