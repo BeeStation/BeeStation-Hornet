@@ -1,9 +1,9 @@
 //A regular hamsterwheel, with a small dynamo attached
-//Able to generate 0.5W of power
+//Able to generate 5W of power
 /obj/machinery/power/port_gen/hamster_wheel
 	name = "\improper Hamster wheel"
 	desc = "An ordinary hamster wheel, rigged with an old bicyle dynamo to produce a small amount of power."
-	icon = 'icons/obj/machines/power/manual.dmi'
+	icon = 'icons/obj/machines/power/hamster.dmi'
 	icon_state = "hamster_wheel"
 	base_icon_state = "hamster_wheel"
 	density = FALSE
@@ -87,3 +87,22 @@
 	if (active != TRUE)
 		buckle_mob(mouse, TRUE, FALSE, buckle_mob_flags = NONE)
 		TogglePower()
+
+
+//A human sized hamsterwheel, with a large dynamo attached
+//Able to generate a lot more than 5W
+/obj/machinery/power/port_gen/hamsterperson_wheel
+	name = "\improper Hamsterperson wheel"
+	desc = "A large hamster wheel, designed for hamsterpeople to run in. A shame they do not exist. It can generate significantly more power than the regular sized one."
+	icon = 'icons/obj/machines/power/human.dmi'
+	icon_state = "human_wheel"
+	base_icon_state = "human_wheel"
+	pixel_x = -9
+	density = FALSE
+	// circuit = /obj/item/circuitboard/machine/pacman
+	power_gen = 500 WATT
+	var/power_amplifier = 1
+	can_buckle = TRUE
+	buckle_lying = 0
+	///How much we shift the mouse's pixel y when using the wheel.
+	var/pixel_shift_y = 3
