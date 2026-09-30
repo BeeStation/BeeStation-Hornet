@@ -2914,7 +2914,7 @@
 	name = "Chicken Crate"
 	desc = "The chicken goes bwaak!"
 	cost = 2000
-	contains = list( /mob/living/simple_animal/chick)
+	contains = list(/mob/living/basic/chicken)
 	crate_name = "chicken crate"
 
 /datum/supply_pack/critter/corgi

@@ -2656,7 +2656,7 @@
 /turf/open/floor/plating,
 /area/station/service/kitchen/coldroom)
 "bgK" = (
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Featherbottom";
 	real_name = "Featherbottom"
 	},
@@ -28848,7 +28848,7 @@
 /obj/machinery/door/window/westright{
 	name = "Garden A"
 	},
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},

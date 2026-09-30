@@ -6,7 +6,6 @@
 	icon_living = "crab"
 	icon_dead = "crab_dead"
 
-	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "crab"
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD

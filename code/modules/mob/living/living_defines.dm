@@ -179,9 +179,9 @@
 	var/is_busy = FALSE //Used for random actions that take time. ex: curbstomping. We need to make sure we can only do one of these at a time.
 
 	//this stuff is here to make it simple for admins to mess with custom held sprites
-	var/icon/held_lh = 'icons/mob/pets_held_lh.dmi'//icons for holding mobs
-	var/icon/held_rh = 'icons/mob/pets_held_rh.dmi'
-	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
+	var/icon/held_lh = 'icons/mob/inhands/pets_held_lh.dmi'//icons for holding mobs
+	var/icon/held_rh = 'icons/mob/inhands/pets_held_rh.dmi'
+	var/icon/head_icon = 'icons/mob/clothing/head/pets_head.dmi' //what it looks like on your head
 	var/held_state = ""//icon state for the above
 
 	///If combat mode is on or not

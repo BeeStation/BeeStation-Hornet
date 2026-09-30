@@ -2165,7 +2165,7 @@
 /area/misc/space)
 "Wp" = (
 /mob/living/carbon/monkey/punpun,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},

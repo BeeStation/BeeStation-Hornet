@@ -37,7 +37,11 @@
 
 	new /obj/effect/temp_visual/heart(pet.loc)
 	if(emote_message && prob(33))
-		pet.manual_emote(emote_message)
+		// first check if it's an actual emote
+		if(GLOB.emote_list[emote_message])
+			pet.emote(emote_message)
+		else
+			pet.manual_emote(emote_message)
 		if(emote_sound)
 			playsound(get_turf(pet), emote_sound, 50, TRUE)
 	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, pet, moodlet, pet)

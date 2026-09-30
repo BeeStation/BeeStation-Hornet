@@ -4538,7 +4538,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/aft)
 "bsR" = (
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
@@ -37646,7 +37646,7 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/storage)
 "kWc" = (
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /obj/structure/cable/yellow,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
@@ -50699,7 +50699,7 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/aft)
 "oOY" = (
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	desc = "The arch-nemesis of Kentucky.";
 	name = "Nugget";
 	real_name = "one name, one plan or..."

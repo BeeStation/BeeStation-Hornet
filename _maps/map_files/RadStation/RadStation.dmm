@@ -10287,7 +10287,7 @@
 /area/station/maintenance/solars/port/aft)
 "dTp" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	desc = "The arch-nemesis of Kentucky.";
 	name = "Nugget";
 	real_name = "one name, one plan or..."
@@ -24826,7 +24826,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},
@@ -59217,7 +59217,7 @@
 /area/station/engineering/main)
 "wug" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/chick,
+/mob/living/basic/chick/permanent,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "wui" = (

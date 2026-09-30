@@ -21181,7 +21181,7 @@
 /area/centcom/syndicate_mothership/control)
 "ico" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/holding)
 "ieM" = (

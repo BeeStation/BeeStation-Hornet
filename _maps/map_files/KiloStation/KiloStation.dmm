@@ -1546,7 +1546,7 @@
 /area/station/medical/genetics)
 "aMv" = (
 /obj/machinery/igniter/incinerator_toxmix,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=1,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
 	desc = "A timeless classic.";
 	name = "Kentucky"
@@ -23371,7 +23371,7 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	desc = "The arch-nemesis of Kentucky.";
 	name = "Popeye";
 	real_name = "Featherbottom"

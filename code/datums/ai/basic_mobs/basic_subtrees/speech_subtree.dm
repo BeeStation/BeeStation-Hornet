@@ -47,8 +47,9 @@
 	else
 		controller.queue_behavior(/datum/ai_behavior/perform_speech, pick(speak), sound_to_play)
 
-/datum/ai_planning_subtree/random_speech/cockroach
+/datum/ai_planning_subtree/random_speech/insect
 	speech_chance = 1
+	sound = list('sound/mobs/non-humanoids/insect/chitter.ogg')
 	emote_hear = list("chitters.")
 
 /datum/ai_planning_subtree/random_speech/mothroach
@@ -62,9 +63,24 @@
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
 
+/datum/ai_planning_subtree/random_speech/chicken
+	speech_chance = 15 // really talkative ladies
+	speak = list("Cluck!", "BWAAAAARK BWAK BWAK BWAK!", "Bwaak bwak.")
+	sound = list('sound/mobs/non-humanoids/chicken/clucks.ogg', 'sound/mobs/non-humanoids/chicken/bagawk.ogg')
+	emote_hear = list("clucks.", "croons.")
+	emote_see = list("pecks at the ground.","flaps her wings viciously.")
+
+/datum/ai_planning_subtree/random_speech/chick
+	speech_chance = 4
+	speak = list("Cherp.", "Cherp?", "Chirrup.", "Cheep!")
+	sound = list('sound/mobs/non-humanoids/chicken/chick_peep.ogg')
+	emote_hear = list("cheeps.")
+	emote_see = list("pecks at the ground.","flaps her tiny wings.")
+
 /datum/ai_planning_subtree/random_speech/cow
 	speech_chance = 1
 	speak = list("moo?","moo","MOOOOOO")
+	sound = list('sound/mobs/non-humanoids/cow/cow.ogg')
 	emote_hear = list("brays.")
 	emote_see = list("shakes her head.")
 

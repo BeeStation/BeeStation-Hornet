@@ -16,7 +16,6 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "nymph"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	hud_type = /datum/hud/nymph

@@ -16415,7 +16415,7 @@
 	pixel_x = 8;
 	pixel_y = 4
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /obj/effect/turf_decal/siding/dirt,
 /turf/open/floor/grass/no_border,
 /area/station/service/hydroponics/garden)
@@ -30175,7 +30175,7 @@
 	pixel_x = 3;
 	color = "#BBBBFF"
 	},
-/mob/living/simple_animal/chick/dave,
+/mob/living/basic/chick/permanent/dave,
 /turf/open/floor/iron/smooth,
 /area/station/command/bridge)
 "hfC" = (
@@ -51641,7 +51641,7 @@
 /obj/effect/turf_decal/siding/asteroid{
 	dir = 6
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /turf/open/floor/grass/no_border,
 /area/station/service/hydroponics/garden)
 "meQ" = (
@@ -63355,7 +63355,7 @@
 	pixel_y = -9;
 	pixel_x = -4
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/basic/chicken,
 /turf/open/floor/grass/no_border,
 /area/station/service/hydroponics/garden)
 "oOS" = (
