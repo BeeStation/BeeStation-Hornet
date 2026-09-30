@@ -59,9 +59,31 @@
 /datum/ai_planning_subtree/random_speech/mouse
 	speech_chance = 1
 	speak = list("Squeak!", "SQUEAK!", "Squeak?")
-	sound = list('sound/effects/mousesqueek.ogg')
+	sound = list('sound/mobs/non-humanoids/mouse/mousesqueek.ogg')
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
+
+/datum/ai_planning_subtree/random_speech/rabbit
+	speech_chance = 10
+	speak = list("Mrrp.", "CHIRP!", "Mrrp?") // rabbits make some weird noises dude i don't know what to tell you
+	emote_hear = list("hops.")
+	emote_see = list("hops around.", "bounces up and down.")
+
+/// For the easter subvariant of rabbits, these ones actually speak catchphrases.
+/datum/ai_planning_subtree/random_speech/rabbit/easter
+	speak = list(
+		"Hop into Easter!",
+		"Come get your eggs!",
+		"Prizes for everyone!",
+	)
+
+/// These ones have a space mask on, so their catchphrases are muffled.
+/datum/ai_planning_subtree/random_speech/rabbit/easter/space
+	speak = list(
+		"Hmph mmph mmmph!",
+		"Mmphe mmphe mmphe!",
+		"Hmm mmm mmm!",
+	)
 
 /datum/ai_planning_subtree/random_speech/chicken
 	speech_chance = 15 // really talkative ladies

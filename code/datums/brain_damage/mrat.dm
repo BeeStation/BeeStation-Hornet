@@ -67,13 +67,13 @@
 	var/static/list/icons_available = null
 	var/datum/mrat_type/current_costume = null
 	var/static/list/mrat_types = list(
-		new /datum/mrat_type("Mouse", 'icons/mob/simple/animal.dmi', "mouse_white", "sound/effects/mousesqueek.ogg", "#1ABC9C"),
+		new /datum/mrat_type("Mouse", 'icons/mob/simple/animal.dmi', "mouse_white", "sound/mobs/non-humanoids/mouse/mousesqueek.ogg", "#1ABC9C"),
 		new /datum/mrat_type("Corgi", 'icons/mob/simple/pets.dmi', "corgi", "sound/machines/uplinkpurchase.ogg"),
-		new /datum/mrat_type("Hamster", 'icons/mob/simple/pets.dmi', "hamster", "sound/effects/mousesqueek.ogg", "#1ABC9C"),
+		new /datum/mrat_type("Hamster", 'icons/mob/simple/pets.dmi', "hamster", "sound/mobs/non-humanoids/mouse/mousesqueek.ogg", "#1ABC9C"),
 		new /datum/mrat_type("Kitten", 'icons/mob/simple/pets.dmi', "kitten", "sound/machines/uplinkpurchase.ogg"),
 		new /datum/mrat_type("Crab", 'icons/mob/simple/animal.dmi', "crab", "sound/machines/uplinkpurchase.ogg"),
 		new /datum/mrat_type("Slime Puppy", 'icons/mob/simple/pets.dmi', "slime_puppy", "sound/machines/uplinkpurchase.ogg"),
-		new /datum/mrat_type("Chick", 'icons/mob/simple/animal.dmi', "chick", "sound/effects/mousesqueek.ogg"),
+		new /datum/mrat_type("Chick", 'icons/mob/simple/animal.dmi', "chick", "sound/mobs/non-humanoids/mouse/mousesqueek.ogg"),
 		new /datum/mrat_type("Mothroach", 'icons/mob/simple/animal.dmi', "mothroach", "sound/voice/moth/scream_moth.ogg", type_volume=25),
 		new /datum/mrat_type("Bee", 'icons/mob/simple/animal.dmi', "bee_big", "sound/voice/moth/scream_moth.ogg", type_volume=25),
 		new /datum/mrat_type("Butterfly", 'icons/mob/simple/animal.dmi', "butterfly", "sound/voice/moth/scream_moth.ogg", type_color="#1ABC9C", type_volume=25),

@@ -1655,7 +1655,7 @@
 	},
 /area/ruin/syndicate_lava_base/science)
 "pC" = (
-/mob/living/simple_animal/rabbit{
+/mob/living/basic/rabbit{
 	faction = list("Syndicate");
 	desc = "Just a mildly evil rabbit."
 	},
