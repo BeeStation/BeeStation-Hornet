@@ -7488,6 +7488,9 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Security - Prison - Fore"
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
+	},
 /turf/open/floor/prison,
 /area/station/security/prison)
 "daK" = (
@@ -9107,6 +9110,9 @@
 	},
 /obj/item/kirbyplants/random,
 /obj/effect/spawner/random/maintenance,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/prison,
 /area/station/security/prison)
 "dGe" = (

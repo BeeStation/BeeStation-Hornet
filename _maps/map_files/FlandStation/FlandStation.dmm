@@ -68429,6 +68429,9 @@
 	dir = 1
 	},
 /obj/structure/chair/fancy/sofa/old,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "uhX" = (
@@ -75151,6 +75154,9 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "wiL" = (
@@ -75755,6 +75761,9 @@
 /obj/item/paper,
 /obj/item/pen,
 /obj/effect/spawner/random/maintenance,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
 "wsn" = (
