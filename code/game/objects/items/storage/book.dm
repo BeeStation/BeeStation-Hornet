@@ -39,10 +39,7 @@
 
 /obj/item/storage/book/bible/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, \
-		_source = src, \
-		antimagic_flags = (MAGIC_RESISTANCE_HOLY) \
-	)
+	AddComponent(/datum/component/anti_magic, source = src, antimagic_flags = MAGIC_RESISTANCE_HOLY)
 
 /obj/item/storage/book/bible/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!"))

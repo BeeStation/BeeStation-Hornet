@@ -265,3 +265,6 @@
     - bugfix: Pressing Mouse4 or Mouse5 no longer left clicks
     - bugfix: Fixed unwrenching a supermatter shard dusting the wrench
     - bugfix: Fixed syringes not transferring diseases as intended
+2026-09-29:
+  mrmanlikesbt:
+  - bugfix: Fixed alternate appearances causing their image to hard delete when removed

@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		// If that failed, probably shouldn't be seeing it at all, so nuke it
 		hide_from(source, absolute = TRUE)
 
-/datum/atom_hud/alternate_appearance/add_atom_to_hud(atom/A, image/I)
+/datum/atom_hud/alternate_appearance/add_atom_to_hud(atom/A)
 	. = ..()
 	if(.)
 		LAZYINITLIST(A.alternate_appearances)
@@ -147,6 +147,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(!.)
 		return
 	A.hud_list -= appearance_key
+	A.active_hud_list -= appearance_key
 	if(!QDELETED(src))
 		qdel(src)
 
