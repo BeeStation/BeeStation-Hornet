@@ -29647,7 +29647,7 @@
 /area/station/hallway/secondary/service)
 "lpm" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/turkey,
+/mob/living/basic/turkey,
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "lpI" = (
