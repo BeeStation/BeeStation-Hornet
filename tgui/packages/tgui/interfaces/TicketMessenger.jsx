@@ -3,20 +3,26 @@ import { decodeHtmlEntities } from 'common/string';
 import { Component, createRef } from 'react';
 
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Section, Table, TextArea } from '../components';
+import { Box, Button, Divider, Section, Stack, Table, TextArea } from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
 
 export const TicketMessenger = (props) => {
   return (
-    <Window theme="admin" width={620} height={550}>
+    <Window theme="admin" width={620} height={550} resizable>
       <Window.Content>
-        <Section height="85px">
-          <TicketActionBar />
-        </Section>
-        <Section>
-          <TicketChatWindow />
-        </Section>
+        <Stack vertical fill>
+          <Stack.Item>
+            <Section>
+              <TicketActionBar />
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow height="100%">
+            <Section fill>
+              <TicketChatWindow />
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -122,26 +128,24 @@ export const TicketChatWindow = (_) => {
   const { act, data } = useBackend();
   const { messages = [] } = data;
   return (
-    <Box>
-      <Box overflowY="scroll" height="315px">
+    <Stack vertical fill>
+      <Stack.Item grow overflowY="scroll">
         <Table>
           <TicketMessages messages={messages} />
         </Table>
-      </Box>
-      <Divider />
-      <TextArea
-        fluid
-        selfClear
-        scrollbar
-        height="65px"
-        placeholder="Message... (Shift+Enter for a new line)"
-        onEnter={(e, value) =>
-          act('sendpm', {
-            text: value,
-          })
-        }
-      />
-    </Box>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item height="20%" minHeight="50px">
+        <TextArea
+          fluid
+          selfClear
+          scrollbar
+          height="100%"
+          placeholder="Message... (Shift+Enter for a new line)"
+          onEnter={(e, value) => act('sendpm', { text: value })}
+        />
+      </Stack.Item>
+    </Stack>
   );
 };
 
