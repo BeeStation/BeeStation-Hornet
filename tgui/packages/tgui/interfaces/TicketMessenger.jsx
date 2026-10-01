@@ -143,6 +143,7 @@ export const TicketChatWindow = (_) => {
           height="100%"
           placeholder="Message... (Shift+Enter for a new line)"
           onEnter={(e, value) => act('sendpm', { text: value })}
+          onEnter={(e, value) => act('sendpm', {text: value })}
         />
       </Stack.Item>
     </Stack>
