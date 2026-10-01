@@ -9,10 +9,8 @@
 	density = FALSE
 	power_gen = 5 WATT
 	var/power_amplifier = 1
-	can_buckle = TRUE
-	buckle_lying = 0
+	can_buckle = FALSE
 	///How much we shift the mouse's pixel y when using the wheel.
-	var/pixel_shift_y = 3
 
 /obj/machinery/power/port_gen/hamster_wheel/Initialize(mapload)
 	. = ..()
@@ -59,9 +57,10 @@
 	return ..()
 
 /obj/machinery/power/port_gen/hamster_wheel/process(delta_time)
-	if(!has_buckled_mobs())
+	if(occupant == null )
 		if(active) {
 			TogglePower()
+			open_machine()
 		}
 		return FALSE
 	if(active)
@@ -73,18 +72,13 @@
 		UseFuel()
 	else
 		handleInactive()
-	var/mob/living/user = buckled_mobs[1]
-	flick("[base_icon_state]-u", src)
-	animate(user, pixel_y = pixel_shift_y, time = 0.4 SECONDS, SINE_EASING)
-	playsound(user, 'sound/machines/creak.ogg', 60, TRUE)
-	animate(pixel_y = user.base_pixel_y, time = 0.4 SECONDS, SINE_EASING)
-
 	return TRUE
 
 
 /obj/machinery/power/port_gen/hamster_wheel/proc/add_runner(mouse)
 	if (active != TRUE)
-		buckle_mob(mouse, TRUE, FALSE, buckle_mob_flags = NONE)
+		// buckle_mob(mouse, TRUE, FALSE, buckle_mob_flags = NONE)
+		close_machine(mouse)
 		TogglePower()
 
 
