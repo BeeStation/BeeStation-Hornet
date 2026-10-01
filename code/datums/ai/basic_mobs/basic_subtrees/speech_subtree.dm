@@ -63,6 +63,11 @@
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
 
+/datum/ai_planning_subtree/random_speech/lizard // all of these have to be three words long or i'm killing you. you're dead.
+	speech_chance = 3
+	emote_hear = list("stamps around some.", "hisses a bit.")
+	emote_see = list("blehs.", "tilts head.", "does a spin.")
+
 /datum/ai_planning_subtree/random_speech/rabbit
 	speech_chance = 10
 	speak = list("Mrrp.", "CHIRP!", "Mrrp?") // rabbits make some weird noises dude i don't know what to tell you
@@ -142,8 +147,7 @@
 /datum/ai_planning_subtree/random_speech/crab
 	speech_chance = 1
 	sound = list('sound/mobs/non-humanoids/crab/claw_click.ogg')
-	emote_hear = list("clicks.")
-	emote_see = list("clacks.")
+	emote_hear = list("clicks.", "clacks.")
 
 /datum/ai_planning_subtree/random_speech/penguin
 	speech_chance = 5
@@ -171,3 +175,10 @@
 	sound = list('sound/mobs/non-humanoids/snake/snake_hissing1.ogg', 'sound/mobs/non-humanoids/snake/snake_hissing2.ogg')
 	emote_hear = list("hisses.")
 	emote_see = list("slithers around.", "glances.", "stares.")
+
+/datum/ai_planning_subtree/random_speech/turkey
+	speech_chance = 5
+	speak = list("Gobble!", "GOBBLE GOBBLE GOBBLE!", "Cluck.")
+	sound = list('sound/mobs/non-humanoids/turkey/gobble.ogg')
+	emote_hear = list("gobbles.")
+	emote_see = list("pecks at the ground.", "flaps its wings viciously.")

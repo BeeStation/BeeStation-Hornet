@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	/mob/living/basic/pet,
 	/mob/living/simple_animal/parrot,
-	/mob/living/simple_animal/hostile/lizard,
+	/mob/living/basic/lizard,
 	/mob/living/basic/sloth,
 	/mob/living/basic/mouse/brown/tom,
 	/mob/living/basic/goat,

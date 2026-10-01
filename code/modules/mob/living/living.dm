@@ -1378,7 +1378,7 @@
 				/mob/living/basic/mouse,
 				/mob/living/basic/chicken,
 				/mob/living/basic/cow,
-				/mob/living/simple_animal/hostile/lizard,
+				/mob/living/basic/lizard,
 				/mob/living/basic/pet/fox,
 				/mob/living/basic/butterfly,
 				/mob/living/basic/pet/cat/cak,

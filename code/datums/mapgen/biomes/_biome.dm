@@ -242,7 +242,7 @@
 			"SUMMER" = list(
 				/mob/living/basic/crab,
 				/mob/living/basic/butterfly,
-				/mob/living/simple_animal/hostile/lizard,
+				/mob/living/basic/lizard,
 				/mob/living/simple_animal/parrot,
 				/mob/living/basic/sloth,
 				/mob/living/carbon/monkey
@@ -319,7 +319,7 @@
 			"SUMMER" = list(
 				/mob/living/basic/crab,
 				/mob/living/basic/butterfly,
-				/mob/living/simple_animal/hostile/lizard
+				/mob/living/basic/lizard
 			),
 			"WINTER" = list(),
 			"SPRING" = list(),

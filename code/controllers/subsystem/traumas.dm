@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(traumas)
 			/mob/living/simple_animal/bot/ed209,
 		)),
 		"lizards" = typecacheof(list(
-			/mob/living/simple_animal/hostile/lizard,
+			/mob/living/basic/lizard,
 		)),
 		"skeletons" = typecacheof(list(
 			/mob/living/simple_animal/hostile/skeleton,
