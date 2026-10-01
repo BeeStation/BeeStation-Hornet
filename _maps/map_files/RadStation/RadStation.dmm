@@ -11223,8 +11223,6 @@
 /obj/structure/cable/yellow,
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/food/meat/slab/penguin,
-/obj/item/food/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/white,
 /area/station/service/kitchen)
@@ -55614,6 +55612,8 @@
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "uYP" = (
