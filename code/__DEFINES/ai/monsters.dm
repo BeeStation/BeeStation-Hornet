@@ -12,3 +12,6 @@
 #define BB_CURRENTLY_SWIMMING "currently_swimming"
 ///Time between swims
 #define BB_KEY_SWIMMER_COOLDOWN "key_swimmer_cooldown"
+
+///people we headbutt!
+#define BB_TURTLE_HEADBUTT_VICTIM "turtle_headbutt_victim"

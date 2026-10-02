@@ -53,7 +53,7 @@
 
 /datum/ai_behavior/travel_towards/swimming/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
-	var/time_to_add = controller.blackboard[BB_KEY_SWIMMER_COOLDOWN] ? controller.blackboard[BB_KEY_SWIMMER_COOLDOWN] : DEFAULT_TIME_SWIMMER
+	var/time_to_add = controller.blackboard[BB_KEY_SWIMMER_COOLDOWN] || DEFAULT_TIME_SWIMMER
 	controller.set_blackboard_key(BB_KEY_SWIM_TIME, world.time + time_to_add)
 
 #undef DEFAULT_TIME_SWIMMER

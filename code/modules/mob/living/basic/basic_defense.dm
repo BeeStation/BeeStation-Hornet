@@ -145,11 +145,6 @@
 			apply_damage(damage, damagetype, blocked = getarmor(null, armorcheck))
 		return TRUE
 
-/mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	apply_damage(Proj.damage, Proj.damage_type)
-	Proj.on_hit(src, 0, piercing_hit)
-	return BULLET_ACT_HIT
-
 /mob/living/basic/ex_act(severity, target, origin)
 	. = ..()
 	if(!. || QDELETED(src))

@@ -76,7 +76,8 @@
 /datum/component/armor_plate/proc/dropplates(datum/source, force)
 	SIGNAL_HANDLER
 
-	if(ismecha(parent)) //items didn't drop the plates before and it causes erroneous behavior for the time being with collapsible helmets
+	//items didn't drop the plates before and it causes erroneous behavior for the time being with collapsible helmets
+	if(ismecha(parent) && amount)
 		var/obj/parent_as_obj = parent
 		var/atom/drop_loc = parent_as_obj.drop_location()
 		if(ispath(upgrade_item, /obj/item/stack))
