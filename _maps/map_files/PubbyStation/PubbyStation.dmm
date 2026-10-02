@@ -5464,7 +5464,6 @@
 /obj/item/flashlight/pen,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/lipstick/black,
-/obj/item/reagent_containers/pill/morphine,
 /obj/structure/cable/yellow,
 /obj/structure/sign/poster/official/no_erp{
 	pixel_x = -32;
@@ -55400,6 +55399,9 @@
 /obj/item/storage/box/bodybags{
 	pixel_x = 3;
 	pixel_y = 2
+	},
+/obj/item/reagent_containers/cup/bottle/charcoal{
+	pixel_x = -16
 	},
 /turf/open/floor/iron/white/smooth_corner{
 	dir = 8
