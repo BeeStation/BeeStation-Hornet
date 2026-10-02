@@ -1690,7 +1690,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 	if(scanner_occupant.has_dna() && !HAS_TRAIT(scanner_occupant, TRAIT_GENELESS) && !HAS_TRAIT(scanner_occupant, TRAIT_BADDNA) || (connected_scanner.scan_level == 3))
 		return TRUE
 
-	return TRUE
+	return FALSE
 
 /**
   * Called by connected DNA Scanners when their doors close.
