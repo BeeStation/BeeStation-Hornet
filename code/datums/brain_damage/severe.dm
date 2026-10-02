@@ -131,10 +131,10 @@
 
 	var/sleep_chance = 1
 	var/drowsy = !!owner.has_status_effect(/datum/status_effect/drowsiness)
-	if(owner.move_intent == MOVE_INTENT_RUN)
-		sleep_chance += 2
-	else if(owner.move_intent == MOVE_INTENT_SPRINT)
+	if(MOVING_QUICKLY(owner))
 		sleep_chance += 5
+	else if(!MOVING_DELIBERATELY(owner))
+		sleep_chance += 2
 	if(drowsy)
 		sleep_chance += 3
 

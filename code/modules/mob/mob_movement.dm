@@ -511,22 +511,51 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 	set instant = TRUE
 	if(isliving(mob))
 		var/mob/living/living_mob = mob
-		if(living_mob.move_intent != MOVE_INTENT_WALK)
-			living_mob.set_move_intent(MOVE_INTENT_WALK)
-		else
-			living_mob.set_move_intent(MOVE_INTENT_RUN)
+		living_mob.set_next_usable_move_intent()
 
 /**
  * Set the move intent of the mob
  *
  * triggers an update the move intent hud as well
+ * Returns TRUE if the move intent changed
  */
-/mob/living/proc/set_move_intent(new_state)
-	move_intent = new_state
+/mob/living/proc/set_move_intent(datum/move_intent/new_intent)
+	if(ispath(new_intent))
+		new_intent = GLOB.move_intents[new_intent]
+	if(!new_intent || move_intent == new_intent || !new_intent.can_be_used_by(src))
+		return FALSE
+	move_intent = new_intent
 	if(hud_used?.static_inventory)
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_appearance()
 	update_move_intent_slowdown()
+	return TRUE
+
+///Cycles to the next move intent we can use. Sprinting is skipped, since it's held with a keybind
+/mob/living/proc/set_next_usable_move_intent()
+	var/checking_intent = move_intent.type
+	for(var/i in 1 to length(move_intents))
+		checking_intent = next_list_item(checking_intent, move_intents)
+		var/datum/move_intent/next_intent = GLOB.move_intents[checking_intent]
+		if(next_intent.flags & MOVE_INTENT_QUICK)
+			continue
+		if(set_move_intent(next_intent))
+			return
+
+///Returns the first of our move intents that has the given flag
+/mob/living/proc/get_move_intent_by_flag(flag)
+	for(var/intent_type in move_intents)
+		var/datum/move_intent/intent = GLOB.move_intents[intent_type]
+		if(intent.flags & flag)
+			return intent
+
+///Replaces the move intents we can use, and moves us off our current one if it's no longer allowed
+/mob/living/proc/set_move_intents(list/new_intents)
+	move_intents = new_intents
+	if(ispath(move_intent)) //Not initialized yet
+		return
+	if(!move_intent.can_be_used_by(src))
+		set_next_usable_move_intent()
 
 ///Moves a mob upwards in z level
 /mob/verb/up()

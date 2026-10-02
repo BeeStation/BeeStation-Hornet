@@ -2,6 +2,8 @@
 	var/mob/living/carbon/carbon_parent
 	var/sprint_key_down = FALSE
 	var/sprinting = FALSE
+	///The move intent to go back to when we stop sprinting
+	var/datum/move_intent/pre_sprint_intent
 	var/sustained_moves = 0
 	///Distance of the step in progress, roughly 1.4 for diagonals
 	var/step_size = 1
@@ -43,9 +45,12 @@
 	if(T.is_blocked_turf(source_atom = parent))
 		return
 
+	if(!MOVING_QUICKLY(carbon_parent))
+		pre_sprint_intent = carbon_parent.move_intent
+		carbon_parent.set_move_intent(carbon_parent.get_move_intent_by_flag(MOVE_INTENT_QUICK))
+
 	if(!sprinting)
 		sprinting = TRUE
-		carbon_parent.set_move_intent(MOVE_INTENT_SPRINT)
 		dust.appear("sprint_cloud", direct, get_turf(carbon_parent), 0.6 SECONDS)
 		last_dust = world.time
 		sustained_moves += step_size
@@ -68,7 +73,7 @@
 
 ///subtract stamina after the move happened
 /datum/component/carbon_sprint/proc/onMobMoved(datum/source)
-	if(!sprinting)
+	if(!sprinting || !MOVING_QUICKLY(carbon_parent))
 		return
 	var/cost = STAMINA_SPRINT_COST * step_size
 	if(carbon_parent.has_movespeed_modifier(/datum/movespeed_modifier/bulky_drag) || carbon_parent.has_movespeed_modifier(/datum/movespeed_modifier/human_carry))
@@ -86,7 +91,9 @@
 	sprinting = FALSE
 	sustained_moves = FALSE
 	last_dust = null
-	carbon_parent.set_move_intent(MOVE_INTENT_RUN)
+	if(MOVING_QUICKLY(carbon_parent))
+		carbon_parent.set_move_intent(pre_sprint_intent || /datum/move_intent/run)
+	pre_sprint_intent = null
 
 /datum/component/carbon_sprint/proc/can_sprint()
 	. = TRUE
@@ -97,5 +104,6 @@
 	if(carbon_parent.movement_type & (FLOATING|FLYING|VENTCRAWLING|PHASING))
 		return FALSE
 
-	if(HAS_TRAIT(carbon_parent, TRAIT_NO_SPRINT))
+	var/datum/move_intent/quick_intent = carbon_parent.get_move_intent_by_flag(MOVE_INTENT_QUICK)
+	if(!quick_intent?.can_be_used_by(carbon_parent))
 		return FALSE

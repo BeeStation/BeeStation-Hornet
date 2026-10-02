@@ -27,6 +27,7 @@
 #define ALERT_SHOES_KNOT "shoealert"
 #define ALERT_RADIOACTIVE_AREA "radioactive_area"
 #define ALERT_SOFTCRIT "softcrit"
+#define ALERT_EXHAUSTED "exhausted"
 
 //ethereal alerts
 #define ALERT_ETHEREAL_CHARGE "ethereal_charge"

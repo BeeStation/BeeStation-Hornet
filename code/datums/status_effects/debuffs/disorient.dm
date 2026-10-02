@@ -1,6 +1,7 @@
 /datum/status_effect/incapacitating/disoriented
 	id = "disoriented"
 	tick_interval = 1 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/disoriented
 	var/last_twitch = 0
 
 /datum/status_effect/incapacitating/disoriented/on_apply()
@@ -20,6 +21,11 @@
 		INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom/movable, twitch))
 		playsound(owner, 'sound/effects/electric_shock_short.ogg', 35, TRUE, 0.5, 1.5)
 		last_twitch = world.time
+
+/atom/movable/screen/alert/status_effect/disoriented
+	name = "Disoriented"
+	desc = "You've been hit by a stun weapon. You're slower and stumbling, and if you're exhausted the next hit will put you on the floor."
+	icon_state = "stun"
 
 ///An animation for the object shaking wildly.
 /atom/movable/proc/twitch()

@@ -13,10 +13,16 @@
 #define CURRENT_DEAD_PLAYERS "dead_players_list"
 #define CURRENT_OBSERVERS "current_observers_list"
 
-//movement intent defines for the move_intent var
-#define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
-#define MOVE_INTENT_SPRINT "sprint"
+//movement intent flags, see [/datum/move_intent]
+///Careful movement that avoids slipping and stepping on things
+#define MOVE_INTENT_DELIBERATE (1<<0)
+///Burns extra nutrition
+#define MOVE_INTENT_EXERTIVE (1<<1)
+///Costs stamina
+#define MOVE_INTENT_QUICK (1<<2)
+
+#define MOVING_DELIBERATELY(X) (X.move_intent.flags & MOVE_INTENT_DELIBERATE)
+#define MOVING_QUICKLY(X) (X.move_intent.flags & MOVE_INTENT_QUICK)
 
 // Bleed rates
 // See blood.dm for calculations

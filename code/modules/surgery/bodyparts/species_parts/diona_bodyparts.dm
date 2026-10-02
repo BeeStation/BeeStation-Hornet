@@ -58,7 +58,7 @@
 	icon_state = "diona_l_leg"
 	limb_id = SPECIES_DIONA
 	bodypart_flags = BODYPART_PSEUDOPART | BODYPART_UNHUSKABLE
-	movespeed_contribution = 0.6 // Dionae are slow.
+	movespeed_contribution = 0.3 // Dionae are slow.
 	burn_modifier = 1.25
 	brute_modifier = 0.8
 	stamina_modifier = 0.7
@@ -69,7 +69,7 @@
 	icon_state = "diona_r_leg"
 	limb_id = SPECIES_DIONA
 	bodypart_flags = BODYPART_PSEUDOPART | BODYPART_UNHUSKABLE
-	movespeed_contribution = 0.6 // Dionae are slow.
+	movespeed_contribution = 0.3 // Dionae are slow.
 	burn_modifier = 1.25
 	brute_modifier = 0.8
 	stamina_modifier = 0.7

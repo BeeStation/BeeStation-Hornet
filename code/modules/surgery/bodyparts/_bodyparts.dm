@@ -83,7 +83,7 @@
 	var/brute_modifier = 1
 	/// Burn damage gets multiplied by this on receive_damage()
 	var/burn_modifier = 1
-	/// Stamina damage gets multiplied by this on receive_damage()
+	/// Stamina damage to the owner gets multiplied by the average of this across their limbs, see [/mob/living/carbon/proc/get_bodypart_stamina_modifier]
 	var/stamina_modifier = 1
 	/// Stun damage gets multiplied by this on receive_damage()
 	//var/stun_modifier = 1 (this should probably be here. TODO: implement this on limbs rather than species, jackass)

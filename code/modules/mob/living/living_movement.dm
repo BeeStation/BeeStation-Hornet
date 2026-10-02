@@ -74,14 +74,7 @@
 	return ..()
 
 /mob/living/proc/update_move_intent_slowdown()
-	var/modifier
-	if(move_intent == MOVE_INTENT_WALK)
-		modifier = /datum/movespeed_modifier/config_walk_run/walk
-	else if(move_intent == MOVE_INTENT_RUN)
-		modifier =  /datum/movespeed_modifier/config_walk_run/run
-	else
-		modifier = /datum/movespeed_modifier/config_walk_run/sprint
-	add_movespeed_modifier(modifier)
+	add_movespeed_modifier(move_intent.movespeed_modifier)
 
 /mob/living/proc/update_turf_movespeed(turf/open/T)
 	if(isopenturf(T))

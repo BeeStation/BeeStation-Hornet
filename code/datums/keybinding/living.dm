@@ -92,19 +92,13 @@
 	if(.)
 		return
 	var/mob/living/M = user.mob
-	if(M.move_intent != MOVE_INTENT_WALK)
-		M.set_move_intent(MOVE_INTENT_WALK)
-	else
-		M.set_move_intent(MOVE_INTENT_RUN)
+	M.set_next_usable_move_intent()
 	return TRUE
 
 /datum/keybinding/living/toggle_move_intent/up(client/user)
 	. = ..()
 	var/mob/living/M = user.mob
-	if(M.move_intent != MOVE_INTENT_WALK)
-		M.set_move_intent(MOVE_INTENT_WALK)
-	else
-		M.set_move_intent(MOVE_INTENT_RUN)
+	M.set_next_usable_move_intent()
 	return TRUE
 
 /datum/keybinding/living/toggle_move_intent_alternative
@@ -119,10 +113,7 @@
 	if(.)
 		return
 	var/mob/living/M = user.mob
-	if(M.move_intent != MOVE_INTENT_WALK)
-		M.set_move_intent(MOVE_INTENT_WALK)
-	else
-		M.set_move_intent(MOVE_INTENT_RUN)
+	M.set_next_usable_move_intent()
 	return TRUE
 
 /datum/keybinding/living/look_up

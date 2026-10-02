@@ -291,7 +291,7 @@
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
 	target.disarm_effect(src)
 
-/mob/living/carbon/is_shove_knockdown_blocked() /
+/mob/living/carbon/is_shove_knockdown_blocked()
 	for (var/obj/item/clothing/clothing in get_equipped_items())
 		if(clothing.clothing_flags & BLOCKS_SHOVE_KNOCKDOWN)
 			return TRUE

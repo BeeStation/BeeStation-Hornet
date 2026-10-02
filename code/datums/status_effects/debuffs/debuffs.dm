@@ -749,8 +749,8 @@
 	var/running_toggled = FALSE
 
 /datum/status_effect/interdiction/tick()
-	if(owner.move_intent != MOVE_INTENT_WALK)
-		owner.set_move_intent(MOVE_INTENT_WALK)
+	if(!MOVING_DELIBERATELY(owner))
+		owner.set_move_intent(/datum/move_intent/walk)
 		owner.adjust_confusion_up_to(10 SECONDS, max_duration = 10 SECONDS)
 		running_toggled = TRUE
 		to_chat(owner, span_warning("You know you shouldn't be running here."))
@@ -758,8 +758,8 @@
 
 /datum/status_effect/interdiction/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)
-	if(running_toggled && owner.move_intent == MOVE_INTENT_WALK)
-		owner.set_move_intent(MOVE_INTENT_RUN)
+	if(running_toggled && MOVING_DELIBERATELY(owner))
+		owner.set_move_intent(/datum/move_intent/run)
 
 /atom/movable/screen/alert/status_effect/interdiction
 	name = "Interdicted"

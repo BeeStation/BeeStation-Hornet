@@ -683,6 +683,7 @@
 #include "code\datums\map_adjustment_include.dm"
 #include "code\datums\map_config.dm"
 #include "code\datums\mind.dm"
+#include "code\datums\move_intent.dm"
 #include "code\datums\movement_detector.dm"
 #include "code\datums\muffles_speech.dm"
 #include "code\datums\mutable_appearance.dm"

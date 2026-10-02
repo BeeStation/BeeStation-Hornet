@@ -287,7 +287,7 @@
  *
  * Returns the sound that will be made while sending the emote.
  */
-/datum/emote/proc/get_sound(mob/living/user, involuntary)
+/datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
 
 /**

@@ -5,6 +5,7 @@
 	gender = FEMALE //All xenos are girls!!
 	hardcrit_threshold = -40
 	death_threshold = -100
+	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run) //no stamina to pay for sprinting
 	dna = null
 	faction = list(FACTION_ALIEN)
 	sight = SEE_MOBS
@@ -32,7 +33,6 @@
 	create_internal_organs()
 
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_NO_SPRINT, INNATE_TRAIT) //no stamina to pay for it
 
 	return ..()
 

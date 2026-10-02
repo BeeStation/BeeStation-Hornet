@@ -276,11 +276,13 @@
 /mob/living/proc/on_exhausted_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	add_movespeed_modifier(/datum/movespeed_modifier/living_exhaustion)
-	to_chat(src, span_danger("You begin to tire out."))
+	throw_alert(ALERT_EXHAUSTED, /atom/movable/screen/alert/exhausted)
+	to_chat(src, span_danger("You're exhausted. You can't sprint or talk until you catch your breath."))
 
 /// Called when [TRAIT_EXHAUSTED] is removed from the mob.
 /mob/living/proc/on_exhausted_trait_loss(datum/source)
 	SIGNAL_HANDLER
+	clear_alert(ALERT_EXHAUSTED)
 	if(remove_movespeed_modifier(/datum/movespeed_modifier/living_exhaustion))
 		to_chat(src, span_notice("You catch your breath."))
 

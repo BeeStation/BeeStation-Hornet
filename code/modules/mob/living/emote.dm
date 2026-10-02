@@ -754,61 +754,38 @@
 	key_third_person = "gasps"
 	message = "gasps"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE // You can see a person gasping.
+	stat_allowed = SOFT_CRIT
 
-/datum/emote/living/must_breathe/gasp/get_sound(mob/living/user, involuntary)
-	if(!iscarbon(user))
+/datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
+	if(!ishuman(user))
 		return
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		return H?.dna?.species?.get_gasp_sound(H)
-
-	if(user.gender == MALE)
-		if(!involuntary)
+	var/mob/living/carbon/human/H = user
+	. = H.dna?.species?.get_gasp_sound(H)
+	if(!.)
+		return
+	//Dying gasps
+	if(H.undergoing_cardiac_arrest())
+		if(H.gender == FEMALE)
 			return pick(
-				'sound/emotes/male/gasp_m1.ogg',
-				'sound/emotes/male/gasp_m2.ogg',
-				'sound/emotes/male/gasp_m3.ogg',
-				'sound/emotes/male/gasp_m4.ogg',
-				'sound/emotes/male/gasp_m5.ogg',
-				'sound/emotes/male/gasp_m6.ogg',
-			)
-		else return pick(
-			'sound/emotes/male/gasp_m1.ogg',
-			'sound/emotes/male/gasp_m2.ogg',
-			'sound/emotes/male/gasp_m3.ogg',
-			'sound/emotes/male/gasp_m4.ogg',
-			'sound/emotes/male/gasp_m5.ogg',
-			'sound/emotes/male/gasp_m6.ogg',
-			'goon/sounds/voice/gasp/male_gasp_1.ogg',
-			'goon/sounds/voice/gasp/male_gasp_2.ogg',
-			'goon/sounds/voice/gasp/male_gasp_3.ogg',
-			'goon/sounds/voice/gasp/male_gasp_4.ogg',
-			'goon/sounds/voice/gasp/male_gasp_5.ogg',
-			)
-	else
-		if(!involuntary)
-			return pick(
-				'sound/emotes/female/gasp_f1.ogg',
-				'sound/emotes/female/gasp_f2.ogg',
-				'sound/emotes/female/gasp_f3.ogg',
-				'sound/emotes/female/gasp_f4.ogg',
-				'sound/emotes/female/gasp_f5.ogg',
-				'sound/emotes/female/gasp_f6.ogg',
-			)
-		else return pick(
-				'sound/emotes/female/gasp_f1.ogg',
-				'sound/emotes/female/gasp_f2.ogg',
-				'sound/emotes/female/gasp_f3.ogg',
-				'sound/emotes/female/gasp_f4.ogg',
-				'sound/emotes/female/gasp_f5.ogg',
-				'sound/emotes/female/gasp_f6.ogg',
 				'goon/sounds/voice/gasp/female_gasp_1.ogg',
 				'goon/sounds/voice/gasp/female_gasp_2.ogg',
 				'goon/sounds/voice/gasp/female_gasp_3.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_1.ogg',
+			'goon/sounds/voice/gasp/male_gasp_2.ogg',
+			'goon/sounds/voice/gasp/male_gasp_3.ogg',
+		)
+	if(H.health <= H.crit_threshold)
+		if(H.gender == FEMALE)
+			return pick(
 				'goon/sounds/voice/gasp/female_gasp_4.ogg',
 				'goon/sounds/voice/gasp/female_gasp_5.ogg',
 			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_4.ogg',
+			'goon/sounds/voice/gasp/male_gasp_5.ogg',
+		)
 
 /datum/emote/living/must_breathe/huff
 	key = "huff"

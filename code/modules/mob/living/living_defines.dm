@@ -38,8 +38,10 @@
 	/// Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
 	var/staminaloss = 0
 
-	/// The movement intent of the mob (run/wal)
-	var/move_intent = MOVE_INTENT_RUN
+	/// The movement intent of the mob
+	var/datum/move_intent/move_intent = /datum/move_intent/run
+	/// Move intents this mob can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
 
 	/// When the mob goes from "normal" to crit
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT

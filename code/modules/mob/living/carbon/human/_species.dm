@@ -127,6 +127,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
+	/// Move intents the species can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run, /datum/move_intent/sprint)
 	/// Bitflags of biotypes the mob belongs to. Used by diseases.
 	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	///List of factions the mob gain upon gaining this species.
@@ -485,6 +487,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.mob_biotypes = inherent_biotypes
+	C.set_move_intents(move_intents)
 
 	if(pref_load || old_species.type != type)
 		replace_body(C, src)

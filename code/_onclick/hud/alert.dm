@@ -892,6 +892,11 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "You are in very bad shape. Max stamina reduced by 100 and stamina regen reduced by 5."
 	icon_state = ALERT_SOFTCRIT
 
+/atom/movable/screen/alert/exhausted
+	name = "Exhausted"
+	desc = "You're out of breath. You move slower, can't sprint or talk, and stun weapons will put you on the floor. Stop running or rest to catch your breath."
+	icon_state = "weaken"
+
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
