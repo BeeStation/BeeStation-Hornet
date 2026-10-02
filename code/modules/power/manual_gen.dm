@@ -103,6 +103,7 @@
 	buckle_lying = 0
 	///How much we shift the mouse's pixel y when using the wheel.
 	var/pixel_shift_y = 3
+	dir = EAST	//The wheel should make the runner face east
 
 /obj/machinery/power/port_gen/hamsterperson_wheel/Initialize(mapload)
 	. = ..()
@@ -130,6 +131,7 @@
 	if(isnull(.))
 		return //no need to process if we didn't change anything.
 	if(anchorvalue)
+		dir = EAST //The wheel should make the runner face east
 		connect_to_network()
 	else
 		disconnect_from_network()
