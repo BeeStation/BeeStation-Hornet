@@ -1,0 +1,9 @@
+author: mrmanlikesbt, tralezab, Kylerace, ShizCalev
+delete-after: true
+changes:
+  - qol: Added a new transit tube variant which automatically constructs a pod around
+      the user. The transit tubes on all AI satellites have been updated to use this
+      new variant
+  - qol: Transit tube pods now eject you if they leave the transit tube track that
+      they're currently running
+  - code_imp: Cleaned up transit tube code
