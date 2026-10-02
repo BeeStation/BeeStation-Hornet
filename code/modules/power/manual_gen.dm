@@ -1,5 +1,5 @@
 //A regular hamsterwheel, with a small dynamo attached
-//Able to generate 5W of power
+//Able to generate 50W of power (100 times more than what is realistic IRL, but we don't want thousands of these)
 /obj/machinery/power/port_gen/hamster_wheel
 	name = "\improper Hamster wheel"
 	desc = "An ordinary hamster wheel, rigged with an old bicyle dynamo to produce a small amount of power."
@@ -7,7 +7,7 @@
 	icon_state = "hamster_wheel"
 	base_icon_state = "hamster_wheel"
 	density = FALSE
-	power_gen = 5 WATT
+	power_gen = 50 WATT
 	var/power_amplifier = 1
 	can_buckle = FALSE
 
@@ -41,6 +41,12 @@
 	else
 		disconnect_from_network()
 
+/obj/machinery/power/port_gen/hamster_wheel/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	if(active)
+		open_machine()
+		to_chat(user, span_notice("You carefully remove the mouse from the wheel."))
+
 /obj/machinery/power/port_gen/hamster_wheel/attackby(obj/item/O, mob/user, params)
 	if(!active)
 		if(O.tool_behaviour == TOOL_WRENCH)
@@ -53,6 +59,7 @@
 
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 			return
+
 	return ..()
 
 /obj/machinery/power/port_gen/hamster_wheel/process(delta_time)
@@ -81,7 +88,7 @@
 
 
 //A human sized hamsterwheel, with a large dynamo attached
-//Able to generate a lot more than 5W
+//Able to generate 5 kW of power (50 times the estimated 100W for a human sized hamster wheel)
 /obj/machinery/power/port_gen/hamsterperson_wheel
 	name = "\improper Hamsterperson wheel"
 	desc = "A large hamster wheel, designed for hamsterpeople to run in. A shame they do not exist. It can generate significantly more power than the regular sized one."
@@ -90,7 +97,7 @@
 	base_icon_state = "human_wheel"
 	pixel_x = -9
 	density = TRUE
-	power_gen = 500 WATT
+	power_gen = 5 KILOWATT
 	var/power_amplifier = 1
 	can_buckle = TRUE
 	buckle_lying = 0
@@ -142,23 +149,18 @@
 	return ..()
 
 /obj/machinery/power/port_gen/hamsterperson_wheel/process(delta_time)
-	if(!has_buckled_mobs())
-		if(active) {
-			TogglePower()
-		}
-		return FALSE
 	if(active)
-		if(!HasFuel() || !anchored)
+		if(!HasFuel() || !anchored || !has_buckled_mobs())
 			TogglePower()
-			return
+			return FALSE
 		if(powernet)
 			add_avail(power_gen * power_output * power_amplifier)
 		UseFuel()
 	else
-		if(has_buckled_mobs())
-		{
+		if(has_buckled_mobs() && anchored)
 			TogglePower()
-		}
+		else
+			return FALSE
 		handleInactive()
 	var/mob/living/user = buckled_mobs[1]
 	flick("[base_icon_state]-u", src)
