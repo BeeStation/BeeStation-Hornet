@@ -42957,6 +42957,9 @@
 /obj/effect/turf_decal/siding/thinplating_new/terracotta{
 	dir = 8
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "keE" = (
@@ -85463,6 +85466,9 @@
 /obj/item/paint_palette,
 /obj/item/paint_palette,
 /obj/effect/spawner/random/maintenance,
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "udU" = (

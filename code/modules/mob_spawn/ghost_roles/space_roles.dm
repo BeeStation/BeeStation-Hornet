@@ -75,7 +75,7 @@
 /obj/effect/mob_spawn/human/hotel_staff //not free antag u little shits
 	name = "staff sleeper"
 	desc = "A sleeper designed for long-term stasis between guest visits."
-	mob_name = "hotel staff member"
+	mob_name = "a hotel staff member"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
 	objectives = "Cater to visiting guests with your fellow staff. Do not leave your assigned hotel and always remember: The customer is always right!"
@@ -100,7 +100,7 @@
 
 /obj/effect/mob_spawn/human/hotel_staff/security
 	name = "hotel security sleeper"
-	mob_name = "hotel security member"
+	mob_name = "a hotel security member"
 	outfit = /datum/outfit/hotelstaff/security
 	short_desc = "You are a peacekeeper."
 	flavour_text = "You have been assigned to this hotel to protect the interests of the company while keeping the peace between \
