@@ -19660,9 +19660,7 @@
 /turf/open/floor/engine/vacuum,
 /area/station/maintenance/disposal/incinerator)
 "fPt" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/chair/stool/directional/south,
 /turf/open/floor/iron/dark/side{
@@ -26597,9 +26595,7 @@
 "hTh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/structure/sink/directional/west,
 /turf/open/floor/iron/dark/side{
 	dir = 4
@@ -28905,9 +28901,7 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/misc/space/nearstation)
 "iCz" = (
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -36217,9 +36211,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/engine)
 "kCc" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 4
 	},
@@ -44441,12 +44433,10 @@
 /area/station/maintenance/department/science)
 "mYa" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/stone,
 /area/station/command/heads_quarters/captain/private)
 "mYf" = (
@@ -49370,9 +49360,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -49954,9 +49942,7 @@
 /area/station/engineering/atmos)
 "oBf" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/machinery/newscaster{
 	pixel_y = -31
 	},
@@ -60129,9 +60115,7 @@
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
 	name = "old sink"
 	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/iron/dark/side{
 	dir = 6
@@ -69250,9 +69234,7 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "uwo" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/sink/directional/east,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/iron/white,
@@ -75837,12 +75819,10 @@
 /area/station/maintenance/starboard/fore)
 "wta" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/freezer,
 /area/station/commons/toilet/auxiliary)
 "wtf" = (

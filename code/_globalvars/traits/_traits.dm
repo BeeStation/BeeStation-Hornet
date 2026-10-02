@@ -258,6 +258,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_NO_BLOOD" = TRAIT_NO_BLOOD,
 		"TRAIT_NO_BUMP_SLAM" = TRAIT_NO_BUMP_SLAM,
 		"TRAIT_NO_EXTINGUISH" = TRAIT_NO_EXTINGUISH,
+		"TRAIT_NO_MIRROR_REFLECTION" = TRAIT_NO_MIRROR_REFLECTION,
 		"TRAIT_NO_MOVE_PULL" = TRAIT_NO_MOVE_PULL,
 		"TRAIT_NO_SOUL" = TRAIT_NO_SOUL,
 		"TRAIT_NO_SPRINT" = TRAIT_NO_SPRINT,
@@ -429,7 +430,6 @@ GLOBAL_LIST(trait_name_map)
 		for(var/tname in GLOB.traits_by_type[key])
 			var/val = GLOB.traits_by_type[key][tname]
 			.[val] = tname
-
 
 GLOBAL_LIST_INIT(movement_type_trait_to_flag, list(
 	TRAIT_MOVE_GROUND = GROUND,

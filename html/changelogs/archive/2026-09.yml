@@ -242,3 +242,29 @@
       office on Kilostation.
   - rscadd: Added a dropper to Radstation's chemistry lab.
   - bugfix: Fixed the dropper recipe not working in the medical techfab.
+2026-09-28:
+  BotTierPC:
+  - bugfix: Fixes, the qol, sound, image and map prefix for Pull Requests. The Changelog
+      should be able to properly generate these once more.
+  - map: If this shows, then the map prefix is fixed! No mapping changes actually
+      made
+  - qol: If this shows, then the qol prefix is fixed! No QOL changes made beyond this!
+  - bugfix: Tries to fix the Sound and Image Changelog Prefixes. Pull Requests should
+      be able to use these prefixes again and have them show up in the in game changelog!
+  - sound: If this is showing, then the sound prefix is working! No sound changes
+      actually made
+  - image: If this is showing, then the image prefix is working! No image changes
+      actually made
+  ? mrmanlikesbt, nemvar, kawoppi, MrMelbert, Rhials, TheBoondock, Ghommie, TiviPlus,
+    TealSeer, SyncIt21, timothymtorres, SmArtKar
+  : - refactor: The attack chain has had some backend refactors- please report any
+        buggy item interactions on GitHub!
+    - tweak: Durathread golems now get their strandling effect from their arms instead
+        of it being hardcoded to their species.
+    - rscadd: Added a visual and sound effect when splashing a reagent container
+    - bugfix: Pressing Mouse4 or Mouse5 no longer left clicks
+    - bugfix: Fixed unwrenching a supermatter shard dusting the wrench
+    - bugfix: Fixed syringes not transferring diseases as intended
+2026-09-29:
+  mrmanlikesbt:
+  - bugfix: Fixed alternate appearances causing their image to hard delete when removed

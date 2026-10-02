@@ -1,0 +1,17 @@
+2026-10-02:
+  mrmanlikesbt, Ghommie, MrMelbert, vinylspiders:
+  - rscadd: Mirrors now display your reflection. On the same note, neither vampires
+      nor bats show up in mirrors
+  - tweak: Mirrors can now be detached and reattached from walls with a wrench
+  mrmanlikesbt, coiax, Qustinnus:
+  - rscadd: Added two new deathrattle related station traits. One where deathrattles
+      are given to everyone in a specific department, and one where everyone on the
+      station gets a deathrattle
+  - soundadd: Deathrattles now play a sound when a person in the group dies
+  mrmanlikesbt, tralezab, Kylerace, ShizCalev:
+  - qol: Added a new transit tube variant which automatically constructs a pod around
+      the user. The transit tubes on all AI satellites have been updated to use this
+      new variant
+  - qol: Transit tube pods now eject you if they leave the transit tube track that
+      they're currently running
+  - code_imp: Cleaned up transit tube code

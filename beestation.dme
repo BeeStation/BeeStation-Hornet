@@ -902,6 +902,7 @@
 #include "code\datums\components\radiation_countdown.dm"
 #include "code\datums\components\radio_jamming.dm"
 #include "code\datums\components\ranged_attacks.dm"
+#include "code\datums\components\reflection.dm"
 #include "code\datums\components\regenerator.dm"
 #include "code\datums\components\religious_tool.dm"
 #include "code\datums\components\remote_materials.dm"

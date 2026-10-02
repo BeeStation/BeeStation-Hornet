@@ -14,9 +14,7 @@
 /area/mine/production)
 "af" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/item/soap/nanotrasen,
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters)
@@ -3838,10 +3836,8 @@
 /area/mine/production)
 "xF" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/structure/cable/yellow,
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/freezer,
 /area/mine/laborcamp)
 "xJ" = (
