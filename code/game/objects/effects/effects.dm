@@ -8,6 +8,7 @@
 	move_resist = INFINITY
 	obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE
+	uses_integrity = FALSE
 	var/forensic_protected = FALSE
 
 /obj/effect/attackby(obj/item/weapon, mob/user, list/modifiers)

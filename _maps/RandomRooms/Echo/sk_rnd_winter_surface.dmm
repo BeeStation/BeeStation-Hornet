@@ -1665,8 +1665,7 @@
 /area/template_noop)
 "Ae" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
+/obj/structure/mirror/directional/east{
 	pixel_y = -1
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
