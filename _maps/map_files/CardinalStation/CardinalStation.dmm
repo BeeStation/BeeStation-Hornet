@@ -7719,11 +7719,11 @@
 	name = "emergency shower"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/mirror{
-	pixel_y = 29
-	},
 /obj/structure/sign/departments/minsky/medical/clone/cloning1{
 	pixel_x = -32
+	},
+/obj/structure/mirror/directional/north{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/genetics/cloning)
@@ -15594,9 +15594,6 @@
 /turf/open/floor/iron,
 /area/station/maintenance/department/cargo)
 "dLd" = (
-/obj/structure/mirror{
-	pixel_y = 33
-	},
 /obj/structure/table/glass,
 /obj/machinery/light/small/directional/north,
 /obj/item/razor{
@@ -15607,6 +15604,7 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/stone,
 /area/station/service/barbershop)
 "dLf" = (
@@ -17534,10 +17532,7 @@
 	dir = 10
 	},
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -26;
-	pixel_y = 8
-	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/mineral/diamond,
 /area/station/command/heads_quarters/captain)
 "ejn" = (
@@ -18054,9 +18049,7 @@
 	},
 /area/station/hallway/primary/aft)
 "epy" = (
-/obj/structure/mirror{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/effect/turf_decal/trimline/white/warning,
 /obj/effect/turf_decal/trimline/brown/warning,
 /obj/effect/turf_decal/trimline/red/warning,
@@ -58277,11 +58270,11 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/structure/sink/directional/south,
-/obj/structure/mirror{
-	pixel_y = 33
-	},
 /obj/structure/cable/yellow,
+/obj/structure/mirror/directional/north{
+	pixel_y = 32
+	},
+/obj/structure/sink/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/station/science/breakroom)
 "nEv" = (
@@ -63460,14 +63453,12 @@
 /area/station/command/heads_quarters/hop)
 "oPS" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/effect/turf_decal/siding/thinplating_new/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/restrooms)
 "oPW" = (
@@ -83102,9 +83093,6 @@
 /turf/open/floor/iron/tech,
 /area/station/maintenance/disposal)
 "tBd" = (
-/obj/structure/mirror{
-	pixel_y = 32
-	},
 /obj/structure/table/glass,
 /obj/machinery/light/small/directional/north,
 /obj/item/razor{
@@ -83115,6 +83103,7 @@
 	pixel_x = 8;
 	pixel_y = 11
 	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/stone,
 /area/station/service/barbershop)
 "tBe" = (

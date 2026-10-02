@@ -613,9 +613,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
 "amZ" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/orange,
 /obj/item/reagent_containers/spray/cleaner{
@@ -11145,9 +11143,7 @@
 /obj/structure/sign/warning/no_smoking{
 	pixel_y = -32
 	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/science/robotics/lab)
@@ -17426,9 +17422,8 @@
 	dir = 1
 	},
 /obj/structure/sink/directional/south,
-/obj/structure/mirror{
-	pixel_x = null;
-	pixel_y = 32
+/obj/structure/mirror/directional/north{
+	pixel_x = null
 	},
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
@@ -22184,9 +22179,7 @@
 /area/station/hallway/primary/port)
 "hrv" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -36787,11 +36780,9 @@
 /area/station/security/detectives_office)
 "lFy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron,
 /area/station/commons/toilet/auxiliary)
 "lFF" = (
@@ -41173,9 +41164,7 @@
 /turf/open/floor/iron,
 /area/station/command/teleporter)
 "ncx" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron/cafeteria,
 /area/station/service/theater)
 "ncU" = (
@@ -41367,10 +41356,7 @@
 	pixel_y = -8
 	},
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/mirror{
-	pixel_x = 31;
-	pixel_y = -2
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/noslip/dark,
 /area/station/medical/genetics/cloning)
 "ngU" = (
@@ -41631,9 +41617,7 @@
 /area/station/engineering/storage_shared)
 "nkx" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -49322,9 +49306,7 @@
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "pvP" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -50071,11 +50053,9 @@
 /area/station/security/prison)
 "pHy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron,
 /area/station/commons/toilet/restrooms)
 "pHP" = (
@@ -64787,11 +64767,9 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "ufW" = (
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/structure/sink/directional/east,
 /obj/effect/turf_decal/bot,
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron,
 /area/station/commons/toilet/restrooms)
 "ugf" = (
@@ -65217,9 +65195,8 @@
 /area/station/maintenance/solars/port/fore)
 "umX" = (
 /obj/machinery/airalarm/directional/east,
-/obj/structure/mirror{
-	pixel_x = 26;
-	pixel_y = 32
+/obj/structure/mirror/directional/north{
+	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -75748,9 +75725,8 @@
 /area/station/hallway/primary/fore)
 "xxR" = (
 /obj/structure/sink/directional/south,
-/obj/structure/mirror{
-	pixel_x = null;
-	pixel_y = 32
+/obj/structure/mirror/directional/north{
+	pixel_x = null
 	},
 /turf/open/floor/iron,
 /area/station/medical/break_room)

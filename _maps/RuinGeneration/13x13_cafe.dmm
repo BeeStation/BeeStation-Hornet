@@ -48,9 +48,7 @@
 /turf/open/floor/wood,
 /area/ruin/powered)
 "o" = (
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
