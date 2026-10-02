@@ -2479,7 +2479,7 @@
 "pk" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /obj/machinery/light,
-/mob/living/simple_animal/turtle{
+/mob/living/basic/turtle{
 	dir = 4
 	},
 /turf/open/floor/iron,

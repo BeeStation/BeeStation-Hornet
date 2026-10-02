@@ -55954,7 +55954,7 @@
 /turf/open/floor/mineral/silver,
 /area/station/medical/pharmacy)
 "nbt" = (
-/mob/living/simple_animal/cardinal{
+/mob/living/basic/cardinal{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,

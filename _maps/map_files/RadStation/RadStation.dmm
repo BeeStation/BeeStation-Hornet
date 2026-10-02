@@ -46629,8 +46629,8 @@
 	dir = 2
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
-/mob/living/simple_animal/turtle{
-	name = "Turtle"
+/mob/living/basic/turtle{
+	name = "turtle"
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/grass,

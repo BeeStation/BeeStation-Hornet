@@ -37,6 +37,7 @@
 /mob/living/basic/pet/hamster/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	AddElement(/datum/element/ai_retaliate)
 	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_CLAW)
 
 /mob/living/basic/pet/hamster/vector //now also viro's source of a solitary, shitty starter disease
