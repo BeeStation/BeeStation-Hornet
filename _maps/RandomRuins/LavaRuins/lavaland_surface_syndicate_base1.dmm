@@ -1041,6 +1041,20 @@
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/cargo)
+"is" = (
+/obj/machinery/turretid{
+	ailock = 1;
+	control_area = /area/ruin/syndicate_lava_base;
+	dir = 1;
+	icon_state = "control_kill";
+	lethal = 1;
+	name = "Base turret controls";
+	pixel_y = 30;
+	req_access = null;
+	req_access_txt = "150"
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/syndicate_lava_base/engineering)
 "iz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -1660,6 +1674,12 @@
 /obj/machinery/air_sensor,
 /turf/open/floor/engine/n2,
 /area/ruin/syndicate_lava_base/engineering)
+"pN" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark,
+/area/ruin/syndicate_lava_base/bar)
 "pQ" = (
 /obj/structure/sign/warning/explosives/alt{
 	pixel_x = 32
@@ -1790,22 +1810,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/engine,
 /area/ruin/syndicate_lava_base/testlab)
-"rX" = (
-/obj/structure/toilet{
-	pixel_y = 18
-	},
-/obj/structure/sink/directional/west,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/dormitories)
 "rY" = (
 /obj/machinery/door/airlock{
 	name = "Cabin 2"
@@ -3663,20 +3667,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/main)
-"MC" = (
-/obj/machinery/turretid{
-	ailock = 1;
-	control_area = /area/ruin/syndicate_lava_base;
-	dir = 1;
-	icon_state = "control_kill";
-	lethal = 1;
-	name = "Base turret controls";
-	pixel_y = 30;
-	req_access = null;
-	req_access_txt = "150"
-	},
-/turf/open/floor/circuit/red,
-/area/ruin/syndicate_lava_base/engineering)
 "ME" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /obj/machinery/airlock_controller/incinerator_syndicatelava{
@@ -4443,6 +4433,20 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/engineering)
+"TT" = (
+/obj/structure/toilet{
+	pixel_y = 18
+	},
+/obj/structure/sink/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/mirror/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/ruin/syndicate_lava_base/dormitories)
 "Uh" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 8;
@@ -4511,12 +4515,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/testlab)
-"UX" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/bar)
 "Vf" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom{
@@ -5976,7 +5974,7 @@ dV
 FX
 ly
 PC
-UX
+pN
 dU
 Qa
 zM
@@ -6412,7 +6410,7 @@ LJ
 qR
 hQ
 Uo
-rX
+TT
 IR
 DE
 KN
@@ -6863,7 +6861,7 @@ MG
 IC
 XA
 QW
-MC
+is
 iK
 iJ
 QW

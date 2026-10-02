@@ -162,10 +162,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
-"bt" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
 "bv" = (
 /obj/effect/mob_spawn/human/lavaland_doctor{
 	dir = 4
@@ -373,6 +369,18 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
+"dH" = (
+/obj/structure/closet/crate/bin,
+/obj/item/trash/pistachios,
+/obj/item/lipstick/random,
+/obj/item/plant_seeds/preset/apple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "dS" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -492,6 +500,16 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
+"py" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
+"pN" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "qn" = (
 /mob/living/simple_animal/bot/cleanbot,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -567,6 +585,14 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
+/area/ruin/powered/animal_hospital)
+"vL" = (
+/obj/item/rag,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "vZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -666,14 +692,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/ruin/powered/animal_hospital)
-"Ai" = (
-/obj/item/rag,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "AZ" = (
 /obj/structure/table,
@@ -923,26 +941,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/ruin/powered/animal_hospital)
-"RC" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/plant_seeds/preset/apple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
-"RD" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Sb" = (
 /obj/machinery/light/small{
@@ -1260,7 +1258,7 @@ ab
 ae
 aj
 Pt
-RD
+pN
 ae
 HP
 HP
@@ -1270,7 +1268,7 @@ oj
 Qm
 zK
 HP
-RC
+dH
 hX
 lX
 ae
@@ -1420,7 +1418,7 @@ ae
 Ms
 ae
 me
-bt
+py
 aK
 aK
 bW
@@ -1629,7 +1627,7 @@ xo
 Xe
 Xe
 Xe
-Ai
+vL
 HP
 Xe
 Ny

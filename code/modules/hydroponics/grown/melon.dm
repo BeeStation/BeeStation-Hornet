@@ -63,11 +63,12 @@
 	if(seed)
 		uses = round(get_fruit_trait_power(src) * 2.3)
 	AddComponent(/datum/component/anti_magic, \
-	_source = src, \
-	antimagic_flags = (MAGIC_RESISTANCE_HOLY),\
-	charges = uses, \
-	drain_antimagic = CALLBACK(src, PROC_REF(block_magic)),\
-	expiration = CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
+		source = src, \
+		antimagic_flags = MAGIC_RESISTANCE_HOLY, \
+		charges = uses, \
+		drain_antimagic = CALLBACK(src, PROC_REF(block_magic)), \
+		expiration = CALLBACK(src, PROC_REF(expire)), \
+	) //deliver us from evil o melon god
 
 /obj/item/food/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)

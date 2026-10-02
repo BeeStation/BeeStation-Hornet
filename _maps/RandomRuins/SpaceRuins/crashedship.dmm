@@ -61,11 +61,6 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
-"cS" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "dh" = (
 /obj/item/wrench,
 /turf/open/floor/plating,
@@ -86,9 +81,12 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
-"dG" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+"dQ" = (
+/obj/machinery/seeder,
+/obj/item/plant_seeds/preset/walking,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "ew" = (
@@ -285,6 +283,11 @@
 /obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
+"kx" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "kB" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -694,6 +697,15 @@
 	broken = 1
 	},
 /area/awaymission/BMPship/Midship)
+"uN" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
+"uU" = (
+/obj/structure/mop_bucket,
+/turf/open/floor/plating,
+/area/awaymission/BMPship/Aft)
 "vc" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -709,13 +721,6 @@
 /obj/machinery/teleport/station,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
-"wb" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "wc" = (
 /obj/structure/chair/stool,
 /turf/open/floor/carpet,
@@ -962,14 +967,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
-"Cu" = (
-/obj/machinery/seeder,
-/obj/item/plant_seeds/preset/walking,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "Cw" = (
 /obj/structure/table,
 /obj/item/paper/fluff/ruins/crashedship/old_diary,
@@ -1024,6 +1021,13 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"DR" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
 "DT" = (
 /obj/machinery/door/airlock/titanium,
 /turf/open/floor/plating,
@@ -1294,10 +1298,6 @@
 /obj/item/hand_labeler,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
-"KD" = (
-/obj/structure/mop_bucket,
-/turf/open/floor/plating,
-/area/awaymission/BMPship/Aft)
 "KI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1400,13 +1400,6 @@
 	broken = 1
 	},
 /area/awaymission/BMPship/Fore)
-"NK" = (
-/obj/item/plant_tray,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/BMPship/Midship)
 "NX" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/brain,
@@ -1480,6 +1473,12 @@
 	broken = 1
 	},
 /area/awaymission/BMPship/Midship)
+"PL" = (
+/obj/structure/mirror/directional/north,
+/turf/open/floor/iron/cafeteria{
+	dir = 2
+	},
+/area/awaymission/BMPship/Aft)
 "PZ" = (
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Fore)
@@ -1488,14 +1487,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/awaymission/BMPship/Aft)
-"Qh" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
-/turf/open/floor/iron/cafeteria{
-	dir = 2
-	},
 /area/awaymission/BMPship/Aft)
 "QE" = (
 /obj/machinery/door/window{
@@ -1574,6 +1565,13 @@
 "SU" = (
 /obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron,
+/area/awaymission/BMPship/Midship)
+"SV" = (
+/obj/item/plant_tray,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "SY" = (
@@ -2756,10 +2754,10 @@ KI
 sp
 CB
 VT
-wb
-wb
-wb
-NK
+DR
+DR
+DR
+SV
 gA
 wY
 wY
@@ -2912,7 +2910,7 @@ VT
 Eo
 cF
 cF
-Cu
+dQ
 gA
 wY
 UC
@@ -3011,10 +3009,10 @@ aa
 aa
 aa
 VT
-cS
-cS
-cS
-dG
+kx
+kx
+kx
+uN
 gA
 pj
 ww
@@ -4091,7 +4089,7 @@ Ey
 Wv
 iA
 Wv
-KD
+uU
 zO
 qq
 lA
@@ -4457,7 +4455,7 @@ fb
 fb
 SJ
 Wp
-Qh
+PL
 VB
 Wp
 aa

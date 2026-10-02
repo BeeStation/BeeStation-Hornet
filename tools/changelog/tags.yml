@@ -28,6 +28,8 @@ tags:
     server: server
     map: map
     qol: qol
+    sound : sound
+    image : image
 
 defaults:
     admin: messed with admin stuff

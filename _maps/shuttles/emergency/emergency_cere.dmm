@@ -229,22 +229,11 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"ca" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron,
-/area/shuttle/escape)
 "cb" = (
 /obj/structure/sign/departments/medbay/alt{
 	pixel_x = 32;
 	pixel_y = -32
 	},
-/turf/open/floor/iron,
-/area/shuttle/escape)
-"cd" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "cf" = (
@@ -302,13 +291,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
-	},
-/turf/open/floor/iron/freezer,
-/area/shuttle/escape)
-"cX" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
 	},
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)
@@ -501,6 +483,17 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
+"iE" = (
+/obj/item/plant_tray/pot/random,
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "iK" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -531,6 +524,10 @@
 /obj/structure/table,
 /obj/machinery/microwave,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/shuttle/escape)
+"kH" = (
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "kI" = (
@@ -637,17 +634,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
-/area/shuttle/escape)
-"ua" = (
-/obj/item/plant_tray/pot/random,
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
 /area/shuttle/escape)
 "uv" = (
 /obj/machinery/door/airlock/shuttle{
@@ -887,6 +873,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"GG" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/turf/open/floor/iron/freezer,
+/area/shuttle/escape)
 "Hh" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -999,23 +990,23 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"Os" = (
+/obj/item/plant_tray/pot/random,
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/escape)
 "Ot" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Ps" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/shuttle/escape)
-"PE" = (
-/obj/item/plant_tray/pot/random,
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -1166,6 +1157,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"YU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/shuttle/escape)
 "Zn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
@@ -1285,8 +1283,8 @@ bc
 bc
 bc
 bQ
-ca
-ca
+kH
+kH
 cf
 Dl
 Dl
@@ -1399,7 +1397,7 @@ ik
 yC
 yC
 Rt
-ua
+iE
 ab
 aU
 bg
@@ -1602,7 +1600,7 @@ Dl
 Dl
 Dl
 bc
-ca
+kH
 ab
 Qb
 bc
@@ -1735,8 +1733,8 @@ gz
 Dp
 ab
 cR
-cX
-cX
+GG
+GG
 ab
 dr
 dv
@@ -1795,7 +1793,7 @@ iK
 Hh
 Hh
 Fs
-PE
+Os
 ab
 bb
 bj
@@ -1945,7 +1943,7 @@ bc
 bc
 bc
 bc
-cd
+YU
 ab
 gd
 ct

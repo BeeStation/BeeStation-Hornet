@@ -183,10 +183,6 @@
 /obj/effect/spawner/random/entertainment/gambling,
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
-"bc" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/carpet/grimy,
-/area/shuttle/escape)
 "bi" = (
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /obj/machinery/holopad,
@@ -447,10 +443,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
-"oh" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/wood,
-/area/shuttle/escape)
 "ox" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
@@ -506,17 +498,16 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/escape)
-"wI" = (
+"uH" = (
 /obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
-"xh" = (
+"wx" = (
 /obj/item/plant_tray/pot/random,
-/obj/machinery/status_display/evac/directional/east,
-/turf/open/floor/wood,
+/turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "ys" = (
 /obj/structure/table/wood/bar{
@@ -551,6 +542,11 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
+"Bv" = (
+/obj/item/plant_tray/pot/random,
+/obj/machinery/status_display/evac/directional/east,
+/turf/open/floor/wood,
+/area/shuttle/escape)
 "BP" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/reinforced/shuttle,
@@ -569,6 +565,11 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/smooth_edge,
+/area/shuttle/escape)
+"EY" = (
+/obj/structure/mirror/directional/north,
+/obj/structure/sink/directional/south,
+/turf/open/floor/iron/freezer,
 /area/shuttle/escape)
 "Fm" = (
 /obj/effect/turf_decal/siding/wood{
@@ -683,13 +684,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
-"PN" = (
-/obj/structure/mirror/directional/north{
-	pixel_y = 32
-	},
-/obj/structure/sink/directional/south,
-/turf/open/floor/iron/freezer,
-/area/shuttle/escape)
 "Qu" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -793,6 +787,10 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/iron,
 /area/shuttle/escape)
+"ZV" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -831,7 +829,7 @@ ab
 oF
 cS
 aZ
-bc
+wx
 aZ
 bH
 Xz
@@ -860,7 +858,7 @@ bO
 bQ
 kS
 ab
-PN
+EY
 ab
 ab
 BP
@@ -884,7 +882,7 @@ bP
 bQ
 rp
 ab
-PN
+EY
 rb
 Xg
 BP
@@ -920,7 +918,7 @@ ah
 an
 at
 ab
-wI
+uH
 kS
 kS
 Vx
@@ -968,7 +966,7 @@ ai
 ao
 NU
 ab
-oh
+ZV
 kS
 ys
 tV
@@ -1025,7 +1023,7 @@ aY
 ek
 hS
 Zw
-xh
+Bv
 kj
 KT
 br

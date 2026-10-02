@@ -7,21 +7,6 @@
 	},
 /turf/open/floor/monotile,
 /area/template_noop)
-"b" = (
-/obj/structure/table,
-/obj/structure/mirror{
-	pixel_y = 28
-	},
-/obj/item/razor{
-	pixel_x = -5
-	},
-/obj/item/handmirror{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/iron/cafeteria,
-/area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/monotile,
@@ -152,14 +137,6 @@
 	},
 /turf/open/floor/monotile,
 /area/template_noop)
-"v" = (
-/obj/structure/window/spawner/directional/west,
-/obj/structure/table/wood,
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/template_noop)
 "w" = (
 /obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/carpet{
@@ -240,6 +217,27 @@
 /obj/item/clothing/head/wig/random,
 /turf/open/floor/monotile,
 /area/template_noop)
+"L" = (
+/obj/structure/window/spawner/directional/west,
+/obj/structure/table/wood,
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"S" = (
+/obj/structure/table,
+/obj/structure/mirror/directional/north,
+/obj/item/razor{
+	pixel_x = -5
+	},
+/obj/item/handmirror{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/iron/cafeteria,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -256,7 +254,7 @@ B
 E
 "}
 (3,1,1) = {"
-b
+S
 p
 h
 t
@@ -288,7 +286,7 @@ d
 j
 r
 s
-v
+L
 "}
 (8,1,1) = {"
 f

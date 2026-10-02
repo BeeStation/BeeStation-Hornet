@@ -445,10 +445,7 @@
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
-	owner.AddComponent(/datum/component/anti_magic, \
-		_source = MAGIC_TRAIT, \
-		antimagic_flags = MAGIC_RESISTANCE, \
-	)
+	owner.AddComponent(/datum/component/anti_magic, source = MAGIC_TRAIT, antimagic_flags = MAGIC_RESISTANCE)
 	//glowing wings overlay
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, FALSE)
 	return ..()

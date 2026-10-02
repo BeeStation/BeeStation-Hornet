@@ -1,0 +1,7 @@
+author: mrmanlikesbt, coiax, Qustinnus
+delete-after: true
+changes:
+  - rscadd: Added two new deathrattle related station traits. One where deathrattles
+      are given to everyone in a specific department, and one where everyone on the
+      station gets a deathrattle
+  - soundadd: Deathrattles now play a sound when a person in the group dies

@@ -110,7 +110,7 @@
 	can_revert = FALSE
 
 /datum/station_trait/quick_shuttle
-	name = "Quick Shuttle"
+	name = "Quick shuttle"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -120,3 +120,64 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
+
+/datum/station_trait/deathrattle_department
+	name = "Deathrattled department"
+	trait_type = STATION_TRAIT_POSITIVE
+	show_in_report = TRUE
+	blacklist = list(/datum/station_trait/deathrattle_all)
+	weight = 1
+
+	var/datum/deathrattle_group/deathrattle_group
+	var/department_to_apply_to
+
+/datum/station_trait/deathrattle_department/New()
+	. = ..()
+	var/list/possible_departments = list(
+		"service" = DEPARTMENT_BITFLAG_SERVICE,
+		"cargo" = DEPARTMENT_BITFLAG_CARGO,
+		"engineering" = DEPARTMENT_BITFLAG_ENGINEERING,
+		"command" = DEPARTMENT_BITFLAG_COMMAND,
+		"science" = DEPARTMENT_BITFLAG_SCIENCE,
+		"security" = DEPARTMENT_BITFLAG_SECURITY,
+		"medical" = DEPARTMENT_BITFLAG_MEDICAL,
+	)
+	var/chosen_department_name = pick(possible_departments)
+	department_to_apply_to = possible_departments[chosen_department_name]
+
+	name = "Deathrattled [chosen_department_name]"
+	deathrattle_group = new("[chosen_department_name] group")
+	report_message = "All members of [chosen_department_name] have received an implant to notify each other if one of them dies. This should help improve job-safety!"
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/deathrattle_department/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER
+	if(!(job.departments_bitflags & department_to_apply_to))
+		return
+
+	var/obj/item/implant/deathrattle/implant_to_give = new()
+	deathrattle_group.register(implant_to_give)
+	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
+
+/datum/station_trait/deathrattle_all
+	name = "Deathrattled station"
+	trait_type = STATION_TRAIT_POSITIVE
+	weight = 1
+	show_in_report = TRUE
+	blacklist = list(/datum/station_trait/deathrattle_department)
+	report_message = "All members of the station have received an implant to notify each other if one of them dies. This should help improve job-safety!"
+
+	var/datum/deathrattle_group/deathrattle_group
+
+/datum/station_trait/deathrattle_all/New()
+	. = ..()
+	deathrattle_group = new("station group")
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/deathrattle_all/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER
+	if(!(job.job_flags & JOB_CREW_MEMBER))
+		return
+	var/obj/item/implant/deathrattle/implant_to_give = new()
+	deathrattle_group.register(implant_to_give)
+	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
