@@ -1,6 +1,0 @@
-author: mrmanlikesbt, Ghommie, MrMelbert, vinylspiders
-delete-after: true
-changes:
-  - rscadd: Mirrors now display your reflection. On the same note, neither vampires
-      nor bats show up in mirrors
-  - tweak: Mirrors can now be detached and reattached from walls with a wrench
