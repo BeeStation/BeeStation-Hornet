@@ -10,7 +10,6 @@
 	power_gen = 5 WATT
 	var/power_amplifier = 1
 	can_buckle = FALSE
-	///How much we shift the mouse's pixel y when using the wheel.
 
 /obj/machinery/power/port_gen/hamster_wheel/Initialize(mapload)
 	. = ..()
@@ -77,7 +76,6 @@
 
 /obj/machinery/power/port_gen/hamster_wheel/proc/add_runner(mouse)
 	if (active != TRUE)
-		// buckle_mob(mouse, TRUE, FALSE, buckle_mob_flags = NONE)
 		close_machine(mouse)
 		TogglePower()
 
