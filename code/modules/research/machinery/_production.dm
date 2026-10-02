@@ -43,7 +43,7 @@
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
 	RefreshParts()
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/rnd/production/Destroy()
 	QDEL_NULL(print_sound)
@@ -72,7 +72,7 @@
 
 	. += span_info("Material usage cost at <b>[round(100 / efficiency_coeff, 0.1)]%</b>") // Seems we had it all backwards, 800% wasn't a boost.. this is actually the correct way
 	. += span_info("Build time at <b>[round(100 * build_time_coeff, 0.1)]%</b>")
-	. += span_notice("Currently dropping printed objects <b>[drop_direction ? dir2text(drop_direction) : "on its own tile"]</b>.")
+	. += span_notice("Currently dropping printed objects <b>[drop_direction ? "to its [dir2text(drop_direction)]" : "on its own tile"]</b>.")
 	if(drop_direction)
 		. += span_notice("<b>Alt-click</b> to drop them on its own tile again.")
 	else
@@ -84,7 +84,7 @@
 
 /obj/machinery/rnd/production/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if((!issilicon(usr) && !IsAdminGhost(usr)) && !Adjacent(usr))
+	if(!issilicon(usr) && !IsAdminGhost(usr) && !Adjacent(usr))
 		return
 	if(busy)
 		balloon_alert(usr, "busy printing!")
@@ -241,7 +241,7 @@
 		if("remove_mat")
 			var/datum/material/material_to_eject
 			for(var/datum/material/potential_material as anything in materials.mat_container.materials)
-				if("[REF(potential_material)]" == params["ref"] || potential_material.name == params["material_id"])
+				if(REF(potential_material) == params["ref"] || potential_material.name == params["material_id"])
 					material_to_eject = potential_material
 					break
 			if(material_to_eject)
@@ -291,10 +291,10 @@
 	var/list/printed_materials // This one is actually to prevent a mild bug involving recycling obtaining infinite materials, we give back whatever price was originally paid rather than the discounted object
 	if(!ispath(path, /obj/item/stack))
 		printed_materials = list()
-		for(var/material in materials_per_item)
+		for(var/material, material_amount in materials_per_item)
 			// A category cost is met with whichever material the container picked, which isn't knowable from here.
 			if(ispath(material, /datum/material))
-				printed_materials[material] = materials_per_item[material]
+				printed_materials[material] = material_amount 
 
 	for(var/i in 1 to amount)
 		addtimer(CALLBACK(src, PROC_REF(print_one), path, printed_materials), (i - 1) * time_per_item)

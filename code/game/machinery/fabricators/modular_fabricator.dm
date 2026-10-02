@@ -32,7 +32,7 @@
 	/// If FALSE, designs print as soon as they are picked instead of being queued
 	var/uses_queue = TRUE
 
-	/// If FALSE, finished items land dead centre on the tile rather than being scattered around
+	/// If FALSE, finished items land dead center on the tile rather than being scattered around
 	var/scatter_output = TRUE
 
 	/// If TRUE, we can print an entire category at once
@@ -485,14 +485,14 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 
 		if("queue_item")
 			if(!uses_queue)
-				return TRUE
+				return FALSE
 			var/design_id = params["design_id"]
 			var/amount = clamp(text2num(params["amount"]), 1, MAX_LATHE_PRINT_AMOUNT)
 			add_to_queue(design_id, amount)
 			return TRUE
 
 		if("build")
-			if(!uses_queue && (operating || length(design_queue))) 			// A machine without a queue takes one order at a time rather than placing more items in the queue behind whatever it's printing
+			if(!uses_queue && (operating || length(design_queue))) // A machine without a queue takes one order at a time rather than placing more items in the queue behind whatever it's printing
 				say("Warning: fabricator is busy!")
 				return TRUE
 
@@ -542,7 +542,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 		if("remove_mat")
 			var/datum/component/material_container/materials = get_material_container()
 			for(var/datum/material/material_to_eject as anything in materials.materials)
-				if("[REF(material_to_eject)]" == params["ref"])
+				if(REF(material_to_eject) == params["ref"])
 					materials.retrieve_sheets(text2num(params["amount"]), material_to_eject, get_release_turf())
 					return TRUE
 
