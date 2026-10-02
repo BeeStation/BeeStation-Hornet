@@ -687,6 +687,17 @@
 /obj/item/trash/semki,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
+"kZ" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "lf" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/planetary,
@@ -1506,18 +1517,6 @@
 "zX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -2375,6 +2374,11 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/grass,
 /area/template_noop)
+"Pi" = (
+/mob/living/basic/turkey/tom,
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
 "Pq" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -3128,11 +3132,6 @@
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary,
-/area/template_noop)
-"ZK" = (
-/mob/living/basic/turkey/tom,
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "ZZ" = (
 /obj/effect/turf_decal/sand/plating,
@@ -8964,7 +8963,7 @@ LO
 pz
 Zw
 Zw
-ZK
+Pi
 Gi
 MT
 iB
@@ -10974,7 +10973,7 @@ VX
 VX
 xu
 rw
-Ae
+kZ
 an
 xu
 vy

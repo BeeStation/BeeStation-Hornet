@@ -38,7 +38,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/bat/Initialize(mapload)
 	. = ..()
-	add_traits(list(TRAIT_VENTCRAWLER_ALWAYS, TRAIT_SPACEWALK), INNATE_TRAIT)
+	add_traits(list(TRAIT_VENTCRAWLER_ALWAYS, TRAIT_SPACEWALK, TRAIT_NO_MIRROR_REFLECTION), INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/retaliate/bat/vampire

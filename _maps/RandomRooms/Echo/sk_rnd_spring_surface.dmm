@@ -458,6 +458,17 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"gT" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "gX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
@@ -1543,18 +1554,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
-/area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32;
@@ -2288,6 +2287,11 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
+/area/template_noop)
+"MX" = (
+/mob/living/basic/turkey/tom,
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "Nd" = (
 /obj/structure/railing{
@@ -3122,11 +3126,6 @@
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary,
-/area/template_noop)
-"ZK" = (
-/mob/living/basic/turkey/tom,
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "ZW" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8964,7 +8963,7 @@ LO
 pz
 Zw
 Zw
-ZK
+MX
 Gi
 MT
 iB
@@ -10974,7 +10973,7 @@ VX
 VX
 iU
 rw
-Ae
+gT
 an
 iU
 vy

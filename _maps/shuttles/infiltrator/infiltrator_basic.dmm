@@ -747,10 +747,8 @@
 /area/shuttle/syndicate/armory)
 "Cs" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "Do" = (

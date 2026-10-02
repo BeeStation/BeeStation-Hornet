@@ -36,14 +36,13 @@
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ai" = (
-/obj/machinery/shower,
+/obj/machinery/shower{
+	pixel_y = 14
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "aj" = (
 /obj/structure/sink/directional/south,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ak" = (
@@ -60,6 +59,9 @@
 "an" = (
 /obj/structure/toilet{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/snow_biodome)

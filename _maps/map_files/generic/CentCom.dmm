@@ -304,19 +304,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/centcom/syndicate_mothership/control)
-"aaN" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/vomit/old{
-	pixel_x = -5;
-	pixel_y = -3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
 "aaO" = (
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
@@ -569,16 +556,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/control)
-"abu" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "abv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /obj/structure/railing{
@@ -5309,16 +5286,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/central_command_areas/ferry)
-"anC" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/central_command_areas/ferry)
 "anD" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 6
@@ -9436,19 +9403,6 @@
 	},
 /turf/open/floor/engine/cult,
 /area/centcom/wizard_station)
-"ayF" = (
-/obj/structure/table/wood,
-/obj/item/clothing/suit/wizrobe/magusblue,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/staff,
-/obj/structure/mirror/magic{
-	pixel_y = 28
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/engine/cult,
-/area/centcom/wizard_station)
 "ayG" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/wizrobe/magusred,
@@ -11479,13 +11433,6 @@
 "aDR" = (
 /turf/open/floor/iron/white,
 /area/centcom/wizard_station)
-"aDS" = (
-/obj/structure/mirror/magic{
-	pixel_y = 28
-	},
-/obj/structure/sink/directional/south,
-/turf/open/floor/iron/white,
-/area/centcom/wizard_station)
 "aDT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -12580,16 +12527,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/central_command_areas/evacuation/ship)
-"aHb" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHc" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/blue{
@@ -12628,16 +12565,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/centcom/ctf)
-"aHh" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHi" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -12684,13 +12611,6 @@
 	},
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/holding)
-"aHn" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHo" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 6
@@ -12770,13 +12690,6 @@
 /obj/effect/turf_decal/tile/dark_blue,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/control)
-"aHx" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHy" = (
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -12793,16 +12706,6 @@
 /obj/structure/barricade/security/ctf,
 /turf/open/floor/circuit,
 /area/centcom/ctf)
-"aHA" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHB" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -12823,22 +12726,6 @@
 	dir = 4
 	},
 /area/centcom/tdome/administration)
-"aHE" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
-"aHF" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/iron/showroomfloor,
-/area/centcom/tdome/observation)
 "aHG" = (
 /obj/item/food/egg/rainbow{
 	desc = "I bet you think you're pretty clever... well you are.";
@@ -17681,13 +17568,6 @@
 	dir = 4
 	},
 /area/centcom/central_command_areas/control)
-"aTK" = (
-/obj/structure/table/wood/bar,
-/obj/structure/mirror{
-	pixel_y = 28
-	},
-/turf/open/floor/wood,
-/area/centcom/central_command_areas/holding)
 "aTL" = (
 /obj/structure/sign/warning/secure_area,
 /obj/item/clothing/accessory/lawyers_badge,
@@ -20287,15 +20167,6 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/carpet/black,
 /area/centcom/central_command_areas/holding)
-"cwa" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/centcom/syndicate_mothership/control)
 "cEy" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/weather/dirt{
@@ -20642,6 +20513,14 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/carpet/black,
 /area/centcom/central_command_areas/holding)
+"fcJ" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
+	dir = 9
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/central_command_areas/ferry)
 "ffI" = (
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/dirt/jungle,
@@ -20810,11 +20689,27 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
+"gwG" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/staff,
+/obj/structure/mirror/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/engine/cult,
+/area/centcom/wizard_station)
 "gxW" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/centcom/syndicate_mothership/control)
+"gDF" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/mob/living/basic/chicken,
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/holding)
 "gFf" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -20822,6 +20717,11 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"gFy" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "gKc" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -21179,11 +21079,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/syndicate_mothership/control)
-"ico" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/mob/living/basic/chicken,
-/turf/open/floor/grass,
-/area/centcom/central_command_areas/holding)
 "ieM" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible/syndicate,
@@ -21378,6 +21273,11 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/centcom/syndicate_mothership/control)
+"jgI" = (
+/obj/structure/table/wood/bar,
+/obj/structure/mirror/directional/north,
+/turf/open/floor/wood,
+/area/centcom/central_command_areas/holding)
 "jiK" = (
 /obj/effect/landmark/start/nukeop,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -21564,6 +21464,13 @@
 	dir = 4
 	},
 /area/centcom/tdome/observation)
+"kzh" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
+/area/centcom/syndicate_mothership/control)
 "kBq" = (
 /obj/effect/turf_decal/trimline/neutral/warning{
 	dir = 1
@@ -21820,6 +21727,14 @@
 /obj/item/trash/sosjerky,
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
+"lWf" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "lWg" = (
 /obj/structure/table/reinforced,
 /obj/item/mod/control/pre_equipped/elite/flamethrower,
@@ -22055,6 +21970,12 @@
 	},
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/control)
+"nfS" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "nnf" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /obj/effect/turf_decal/siding/dark,
@@ -22277,6 +22198,11 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/centcom/syndicate_mothership)
+"oFj" = (
+/obj/structure/mirror/directional/north,
+/obj/structure/sink/directional/south,
+/turf/open/floor/iron/white,
+/area/centcom/wizard_station)
 "oHk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -22662,6 +22588,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
+"rbW" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "rgk" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
@@ -22707,6 +22639,14 @@
 /obj/item/mod/control/pre_equipped/apocryphal,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
+"rwg" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "rxh" = (
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/door/window/eastright{
@@ -22823,6 +22763,14 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/tdome/observation)
+"spS" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "sql" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/plating/dirt/jungle,
@@ -22928,6 +22876,11 @@
 /obj/item/mod/control/pre_equipped/traitor,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/control)
+"sYD" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "taD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/weather/dirt/corner{
@@ -22973,6 +22926,17 @@
 	pixel_y = -1
 	},
 /turf/open/floor/monotile/dark,
+/area/centcom/syndicate_mothership/control)
+"tpO" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/vomit/old{
+	pixel_x = -5;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
 "twU" = (
 /obj/structure/window/reinforced/spawner/directional/north,
@@ -23331,6 +23295,14 @@
 /obj/structure/flora/grass/both,
 /turf/open/floor/grass/snow,
 /area/centcom/syndicate_mothership)
+"wgr" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror/directional/west,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/centcom/tdome/observation)
 "wjF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/neutral/warning,
@@ -31005,7 +30977,7 @@ awc
 aqE
 aqE
 aqE
-ayF
+gwG
 aqZ
 aqZ
 aqZ
@@ -31786,7 +31758,7 @@ aqZ
 aqZ
 aqZ
 aqE
-aDS
+oFj
 aEf
 aEo
 aqE
@@ -43549,8 +43521,8 @@ aku
 vZn
 lNE
 coL
-cwa
-aaN
+kzh
+tpO
 aMn
 aku
 aig
@@ -49774,7 +49746,7 @@ aNd
 aTq
 aXk
 rxh
-ico
+gDF
 aNd
 azZ
 aFh
@@ -51313,7 +51285,7 @@ aaa
 aaa
 aRk
 aNd
-aTK
+jgI
 aXk
 aXk
 aXk
@@ -61827,7 +61799,7 @@ aaa
 aaa
 amD
 oxo
-anC
+fcJ
 amD
 aRX
 aDs
@@ -62379,10 +62351,10 @@ aGb
 xzB
 aEp
 aVq
-aHb
-aHn
-aHA
-abu
+lWf
+gFy
+wgr
+rwg
 aEp
 aHZ
 aIh
@@ -71631,10 +71603,10 @@ aFS
 aFS
 aEp
 agF
-aHh
-aHx
-aHF
-aHE
+spS
+sYD
+nfS
+rbW
 aEp
 aIg
 aIr

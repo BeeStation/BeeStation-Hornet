@@ -127,6 +127,7 @@
 		TRAIT_TOXIMMUNE,
 		TRAIT_STABLELIVER,
 		TRAIT_OOZELING_NO_CANNIBALIZE,
+		TRAIT_NO_MIRROR_REFLECTION,
 	)
 
 	/// List of traits applied while in torpor

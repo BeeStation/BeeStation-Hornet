@@ -5,9 +5,8 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/mirror{
-	pixel_x = -26;
-	pixel_y = 28
+/obj/structure/mirror/directional/north{
+	pixel_x = -26
 	},
 /obj/item/shard,
 /turf/open/floor/plating,

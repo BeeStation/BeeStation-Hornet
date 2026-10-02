@@ -1183,11 +1183,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		affected.reagents.del_reagent(chem.type)
 		return COMSIG_MOB_STOP_REAGENT_CHECK
+	if(process_out_reagents(chem, affected))
+		return COMSIG_MOB_STOP_REAGENT_CHECK
 	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
 		chem.overdosed = TRUE
 		chem.overdose_start(affected)
 		log_game("[key_name(affected)] has started overdosing on [chem.name] at [chem.volume] units.")
-	process_out_reagents(chem, affected)
 	return SEND_SIGNAL(affected, COMSIG_SPECIES_HANDLE_CHEMICAL, chem, delta_time, times_fired)
 
 /datum/species/proc/process_out_reagents(datum/reagent/chem, mob/living/carbon/human/affected)
@@ -1200,7 +1201,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if((chem.process_flags & ORGANIC) && (affected.dna.species.reagent_tag & PROCESS_ORGANIC))
 		dump_reagent = FALSE
 	if(dump_reagent)
+		affected.adjustToxLoss(0.5 * REM)
 		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
+	return FALSE
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.

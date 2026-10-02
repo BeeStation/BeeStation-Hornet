@@ -292,6 +292,11 @@
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel,
 /area/template_noop)
+"eW" = (
+/mob/living/basic/turkey/tom,
+/obj/structure/closet/crate/critter,
+/turf/open/floor/mineral/plastitanium,
+/area/template_noop)
 "eX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
@@ -1109,6 +1114,17 @@
 	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
+"sI" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "sN" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/plating/beach/water,
@@ -1493,18 +1509,6 @@
 /obj/item/storage/basket/easter,
 /obj/item/storage/basket/easter,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -3061,11 +3065,6 @@
 "Zw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/dirt/planetary,
-/area/template_noop)
-"ZK" = (
-/mob/living/basic/turkey/tom,
-/obj/structure/closet/crate/critter,
-/turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -8890,7 +8889,7 @@ LO
 pz
 Zw
 Zw
-ZK
+eW
 Gi
 MT
 iB
@@ -10900,7 +10899,7 @@ VX
 VX
 yb
 rw
-Ae
+sI
 an
 yb
 vy

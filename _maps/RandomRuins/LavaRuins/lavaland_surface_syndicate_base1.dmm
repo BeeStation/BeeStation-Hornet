@@ -481,19 +481,6 @@
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"em" = (
-/obj/structure/cable/yellow,
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Science APC";
-	pixel_y = 23
-	},
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 4
-	},
-/obj/item/stack/tile/iron,
-/turf/open/floor/iron,
-/area/ruin/syndicate_lava_base/science)
 "en" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/vault{
@@ -1460,6 +1447,20 @@
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/telecomms)
+"no" = (
+/obj/structure/toilet{
+	pixel_y = 18
+	},
+/obj/structure/sink/directional/west,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/mirror/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/ruin/syndicate_lava_base/dormitories)
 "nE" = (
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -1654,13 +1655,6 @@
 	dir = 4
 	},
 /area/ruin/syndicate_lava_base/science)
-"pC" = (
-/mob/living/basic/rabbit{
-	faction = list("Syndicate");
-	desc = "Just a mildly evil rabbit."
-	},
-/turf/open/floor/wood,
-/area/ruin/syndicate_lava_base/bar)
 "pD" = (
 /obj/item/storage/box/lights/bulbs,
 /obj/item/stack/rods{
@@ -1715,16 +1709,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/port)
-"ql" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/ruin/syndicate_lava_base/main)
 "qp" = (
 /turf/open/floor/iron/stairs/right{
 	dir = 4
@@ -1812,22 +1796,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/engine,
 /area/ruin/syndicate_lava_base/testlab)
-"rX" = (
-/obj/structure/toilet{
-	pixel_y = 18
-	},
-/obj/structure/sink/directional/west,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/syndicate_lava_base/dormitories)
 "rY" = (
 /obj/machinery/door/airlock{
 	name = "Cabin 2"
@@ -2017,15 +1985,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/engineering)
-"uk" = (
-/obj/structure/closet/emcloset,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/ruin/syndicate_lava_base/science)
 "ul" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
@@ -2363,6 +2322,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/medbay)
+"yj" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/obj/item/stack/tile/iron,
+/turf/open/floor/iron,
+/area/ruin/syndicate_lava_base/science)
 "yr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -2492,6 +2458,15 @@
 "zF" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/syndicate_lava_base/cargo)
+"zJ" = (
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/iron,
+/area/ruin/syndicate_lava_base/science)
 "zK" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/syndicate{
@@ -2637,6 +2612,19 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/main)
+"AD" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted,
+/obj/effect/turf_decal/bot,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Science Lab APC"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/ruin/syndicate_lava_base/science)
 "AF" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
@@ -2669,6 +2657,29 @@
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/syndicate_lava_base/chemistry)
+"AX" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/item/toy/plush/lizard_plushie{
+	pixel_y = -1;
+	name = "Fights-For-The-Cause";
+	pixel_x = 1
+	},
+/obj/item/clothing/head/hats/hos/beret/syndicate{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/gun/ballistic/automatic/toy/pistol{
+	pixel_x = 7;
+	pixel_y = -5
+	},
+/turf/open/floor/plating,
+/area/ruin/syndicate_lava_base/main)
 "Bc" = (
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -3492,6 +3503,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
+"KE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow,
+/turf/open/floor/iron,
+/area/ruin/syndicate_lava_base/science)
 "KN" = (
 /obj/machinery/power/apc/syndicate{
 	name = "Dormitories APC";
@@ -3748,15 +3768,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/science)
-"MT" = (
-/obj/structure/cable/yellow,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/ruin/syndicate_lava_base/science)
 "MX" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
@@ -3855,6 +3866,27 @@
 	dir = 4
 	},
 /area/ruin/syndicate_lava_base/medbay)
+"Od" = (
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/science{
+	name = "Science Lab Exterior Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/iron,
+/area/ruin/syndicate_lava_base/main)
+"Oi" = (
+/mob/living/basic/rabbit{
+	faction = list("Syndicate");
+	desc = "Just a mildly evil rabbit."
+	},
+/turf/open/floor/wood,
+/area/ruin/syndicate_lava_base/bar)
 "Oq" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -4739,20 +4771,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/ruin/syndicate_lava_base/cargo)
-"Xx" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/airlock/science{
-	name = "Science Lal Exterior Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate/general,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/ruin/syndicate_lava_base/main)
 "XA" = (
 /obj/machinery/vending/toyliberationstation{
 	req_access_txt = "150"
@@ -4868,18 +4886,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/testlab)
-"YQ" = (
-/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/iron,
-/area/ruin/syndicate_lava_base/science)
 "YU" = (
 /obj/structure/chair{
 	dir = 4
@@ -5758,7 +5764,7 @@ ab
 ab
 ac
 Df
-YQ
+zJ
 Aq
 cC
 rw
@@ -5809,9 +5815,9 @@ RJ
 RJ
 RJ
 ld
-em
-MT
-uk
+yj
+KE
+AD
 Co
 Df
 Cc
@@ -5965,7 +5971,7 @@ gZ
 Kd
 lx
 kk
-ql
+AX
 Ut
 kk
 SI
@@ -6010,7 +6016,7 @@ Su
 uo
 RJ
 RJ
-Xx
+Od
 kk
 kk
 Mu
@@ -6077,7 +6083,7 @@ Yx
 BA
 Jz
 lX
-pC
+Oi
 Zd
 EL
 CD
@@ -6414,7 +6420,7 @@ LJ
 qR
 hQ
 Uo
-rX
+no
 IR
 DE
 KN
