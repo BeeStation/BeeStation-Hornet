@@ -143,7 +143,8 @@
 			for(var/foo in client.player_details.post_login_callbacks)
 				var/datum/callback/CB = foo
 				CB.Invoke()
-			log_played_names(client.ckey,name,real_name)
+			if(!isdead(src))
+				log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
 
 	//Sort verbs
