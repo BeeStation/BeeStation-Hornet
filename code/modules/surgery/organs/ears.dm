@@ -98,7 +98,7 @@
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
-		REMOVE_TRAIT(owner, TRAIT_WADDLING, REF(src))
+		REMOVE_TRAIT(ear_owner, TRAIT_WADDLING, REF(src))
 		QDEL_NULL(waddle)
 
 /obj/item/organ/ears/bronze
