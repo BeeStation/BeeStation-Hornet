@@ -1,0 +1,4 @@
+author: mrmanlikesbt, TealSeer, san7890
+delete-after: true
+changes:
+  - server: The GitHub CI Suite has been sped up quite a bit.
