@@ -54,7 +54,7 @@
 	))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, list/modifiers)
-	if(W.get_sharpness())
+	if(W.sharpness)
 		user.show_message(span_notice("You make [plank_name] out of \the [src]!"), MSG_VISUAL)
 		var/seed_modifier = 0
 		if(seed)

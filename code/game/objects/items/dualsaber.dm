@@ -12,7 +12,6 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	sharpness = SHARP_DISMEMBER_EASY
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
@@ -85,6 +84,7 @@
 		if(user.dna.check_mutation(/datum/mutation/hulk))
 			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
+	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
 	w_class = w_class_on
 	hitsound = 'sound/weapons/blade1.ogg'
@@ -96,6 +96,7 @@
 /obj/item/dualsaber/proc/on_unwield(obj/item/source, mob/living/carbon/user)
 	SIGNAL_HANDLER
 
+	sharpness = initial(sharpness)
 	w_class = initial(w_class)
 	bleed_force = initial(bleed_force)
 	hitsound = "swing_hit"

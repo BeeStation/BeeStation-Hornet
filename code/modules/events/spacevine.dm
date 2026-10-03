@@ -278,7 +278,7 @@
 	holder.modify_max_integrity(100)
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
-	if(item?.sharpness > SHARP)
+	if(item?.sharpness >= SHARP)
 		. = expected_damage * 0.5
 	else
 		. = expected_damage

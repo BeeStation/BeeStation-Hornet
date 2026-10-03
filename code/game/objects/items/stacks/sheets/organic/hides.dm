@@ -147,7 +147,7 @@
 //Step one to make leather - dehairing
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, list/modifiers)
-	if(W.get_sharpness())
+	if(W.sharpness)
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		user.visible_message("[user] starts cutting hair off \the [src].", span_notice("You start cutting the hair off \the [src]..."), span_italics("You hear the sound of a knife rubbing against flesh."))
 		if(do_after(user, 50, target = src))
