@@ -225,7 +225,7 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
-	organ_traits = list(TRAIT_STUN_DRAINS_POWER)
+	organ_traits = list(TRAIT_NOHUNGER, TRAIT_STUN_DRAINS_POWER)
 	/// store the previous display
 	var/screen_before_brownout
 
