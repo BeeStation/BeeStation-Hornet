@@ -910,13 +910,10 @@
 	// BLEND_INSET_OVERLAY on KEEP_TOGETHER atoms masks itself with the atom, so we cannot add this as an overlay to our limb to have it automatically mask
 	husk_blood.blend_mode = BLEND_INSET_OVERLAY
 	husk_blood.dir = thing_to_husk.dir
-
-	// Length check, not a null check: get_blood_dna_color() indexes list[length(list)] and runtimes on an empty list.
-	// This must stay in sync with generate_husk_key(), or the icon cache will hand out the wrong colored limb.
-	if(!GET_ATOM_BLOOD_DNA_LENGTH(src))
-		husk_blood.color = BLOOD_COLOR_RED
-		return .
-
-	husk_blood.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+	husk_blood.color = get_husk_blood_color()
 
 	return .
+
+/// Owner's blood color while attached, otherwise whatever blood is on the limb. Part of the husk cache key.
+/obj/item/bodypart/proc/get_husk_blood_color()
+	return owner?.dna?.blood_type?.blood_color || get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))

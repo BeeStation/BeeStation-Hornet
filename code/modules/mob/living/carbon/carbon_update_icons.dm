@@ -316,7 +316,7 @@
 	. += husk_type
 	. += "husk"
 	. += body_zone
-	. += "[GET_ATOM_BLOOD_DNA_LENGTH(src) ? get_blood_dna_color(GET_ATOM_BLOOD_DNA(src)) : BLOOD_COLOR_RED]"
+	. += get_husk_blood_color()
 	return .
 
 /obj/item/bodypart/head/generate_icon_key()
