@@ -274,7 +274,7 @@
 	if(usr != owner)
 		return
 	to_chat(owner, span_notice("You attempt to remove the durathread strand from around your neck."))
-	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(owner, 3.5 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
 			var/mob/living/L = owner
 			to_chat(owner, span_notice("You successfuly remove the durathread strand."))
@@ -304,7 +304,6 @@
 	var/amount = syringe.units_per_tick
 	syringe.reagents.expose(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
 	syringe.reagents.trans_to(owner, amount * injectmult)
-
 
 /atom/movable/screen/alert/syringe
 	name = "Embedded Syringe"
@@ -960,7 +959,7 @@
 	switch(chance)
 		if(0 to 10)
 			message = span_warning("You feel a lump build up in your throat.")
-			human_owner.vomit()
+			human_owner.vomit(VOMIT_CATEGORY_DEFAULT)
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
 			human_owner.set_dizzy_if_lower(100 SECONDS)

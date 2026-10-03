@@ -3,21 +3,24 @@
 	desc = "It charges power cells."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 100 WATT
 	power_channel = AREA_USAGE_EQUIP
 	circuit = /obj/item/circuitboard/machine/cell_charger
+	// Standby overhead only. The charge transfer is a per-tick spend, see process().
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	pass_flags = PASSTABLE
 	var/obj/item/charging = null
 	var/chargelevel = -1
 	var/recharge_coeff = 1
 	var/static/list/allowed_items = list(
 		/obj/item/stock_parts/cell,
-		/obj/item/modular_computer)
+		/obj/item/modular_computer
+	)
 
 /obj/machinery/cell_charger/RefreshParts()
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_coeff = C.rating
+	. = ..()
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		recharge_coeff = capacitor.tier
 
 /obj/machinery/cell_charger/update_overlays()
 	. = ..()
@@ -44,7 +47,7 @@
 		. += span_notice("The status display reads:")
 		. += span_notice("- Current recharge coefficient: <b>[recharge_coeff]</b>.")
 
-/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
+/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_cell() && is_allowed(W) && !panel_open)
 		if(machine_stat & BROKEN)
 			to_chat(user, span_warning("[src] is broken!"))
@@ -148,11 +151,10 @@
 
 	var/power_needed = cell.chargerate * recharge_coeff
 
-	// Power transfer loss happens here so it doesn't affect user experience too much (making cell take more time to charge than it should)
-	active_power_usage = power_needed / POWER_TRANSFER_LOSS
+	// The grid pays the gross figure
+	use_power(power_needed / POWER_TRANSFER_LOSS)
 	update_use_power(ACTIVE_POWER_USE)
-
-	cell.give(active_power_usage)
+	cell.give(power_needed)
 
 	update_appearance()
 

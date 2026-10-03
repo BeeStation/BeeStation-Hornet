@@ -33,3 +33,6 @@
 
 /// Called in /obj/structure/closet/PopulateContents()
 #define COMSIG_CLOSET_CONTENTS_INITIALIZED "closet_initialize_contents"
+
+/// Sent from /datum/component/reflection when the reflection is updated to the mob reflecting: (atom/movable/reflecting_in, obj/effect/abstract/reflection)
+#define COMSIG_REFLECTION_UPDATED "reflection_updated"

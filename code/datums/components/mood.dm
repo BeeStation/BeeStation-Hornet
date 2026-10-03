@@ -67,7 +67,7 @@
 			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
 				msg += "[span_info("I could use a bite to eat.")]<br>"
 			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				msg += "[span_warning("I feel quite hungry.")]<br>"
+				msg += "[span_warning("I feel quite hungry.")]<br>" //Look, Henry's come to see us!
 			if(0 to NUTRITION_LEVEL_STARVING)
 				msg += "[span_boldwarning("I'm starving!")]<br>"
 
@@ -257,29 +257,19 @@
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
 		if(SANITY_INSANE-1 to SANITY_CRAZY)
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
-		if (-INFINITY to SANITY_INSANE) //prevents it from going below 0. This caused issues.
-			setSanity(0)
-	HandleNutrition(owner)
+	HandleNutrition()
 
-/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
-	var/mob/living/owner = parent
-
-	if(owner.stat == DEAD) // deadman can't feel mood
-		return
-
-	if(amount == sanity)
-		return
-	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.5
+///Sets sanity to the specified amount and applies effects.
+/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT, override = FALSE)
+	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.7
 	// If the new amount would move towards the acceptable range faster then use it instead
-	if(sanity < minimum && amount < sanity + 0.5)
-		amount = sanity + 0.5
-
-	// Disturbed stops you from getting any more sane
-	if(HAS_TRAIT(owner, TRAIT_UNSTABLE))
-		sanity = min(amount,sanity)
-	else
-		sanity = amount
-
+	if(amount < minimum)
+		amount += clamp(minimum - amount, 0, 0.7)
+	if((!override && HAS_TRAIT(parent, TRAIT_UNSTABLE)) || amount > maximum)
+		amount = min(sanity, amount)
+	if(amount == sanity) //Prevents stuff from flicking around.
+		return
+	sanity = amount
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)
@@ -404,12 +394,12 @@
 
 	print_mood(user)
 
-/datum/component/mood/proc/HandleNutrition(mob/living/L)
+/datum/component/mood/proc/HandleNutrition()
+	var/mob/living/L = parent
+	if(istype(L.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/electrical))
+		HandleCharge(L)
 	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
 		return FALSE //no mood events for nutrition
-	if(HAS_TRAIT(L, TRAIT_POWERHUNGRY))
-		HandleCharge(L)
-		return
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))
@@ -428,15 +418,18 @@
 			add_event(null, "nutrition", /datum/mood_event/starving)
 
 /datum/component/mood/proc/HandleCharge(mob/living/L)
-	switch(L.nutrition)
-		if(NUTRITION_LEVEL_WELL_FED to INFINITY)
-			add_event(null, "nutrition", /datum/mood_event/charged)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			clear_event(null, "nutrition")
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
-			add_event(null, "nutrition", /datum/mood_event/lowpower)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			add_event(null, "nutrition", /datum/mood_event/decharged)
+	var/obj/item/organ/stomach/electrical/battery = L.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(battery))
+		return
+	switch(battery.cell.charge)
+		if(ETHEREAL_CHARGE_FULL to INFINITY)
+			add_event(null, "charge", /datum/mood_event/charged)
+		if(ETHEREAL_CHARGE_NORMAL to ETHEREAL_CHARGE_FULL)
+			clear_event(null, "charge")
+		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
+			add_event(null, "charge", /datum/mood_event/lowpower)
+		if(-INFINITY to ETHEREAL_CHARGE_LOWPOWER)
+			add_event(null, "charge", /datum/mood_event/decharged)
 
 /datum/component/mood/proc/check_area_mood(datum/source, area/A)
 	SIGNAL_HANDLER
@@ -455,7 +448,7 @@
 	if(!full_heal)
 		return
 	remove_temp_moods()
-	setSanity(initial(sanity))
+	setSanity(initial(sanity), override = TRUE)
 
 #undef MOOD_SOURCE
 #undef MINOR_INSANITY_PEN
@@ -477,5 +470,5 @@
 		return
 
 	for(var/addiction_type in affected_carbon.mind.addiction_points)
-		var/datum/addiction/addiction_to_remove = SSaddiction.all_addictions[type]
+		var/datum/addiction/addiction_to_remove = GLOB.addictions[type]
 		affected_carbon.mind.remove_addiction_points(type, addiction_to_remove.high_sanity_addiction_loss) //If true was returned, we lost the addiction!

@@ -188,7 +188,7 @@
 	lich_mind.grab_ghost(force = TRUE)
 	// Make sure they're a spooky skeleton, and their DNA is right
 	lich.set_species(/datum/species/skeleton)
-	lich.dna.generate_unique_enzymes()
+	lich.dna.unique_enzymes = lich.dna.generate_unique_enzymes()
 
 	to_chat(lich, ("<span class='green'>Your bones clatter and shudder as you are pulled back into this world!</span>"))
 	num_resurrections++

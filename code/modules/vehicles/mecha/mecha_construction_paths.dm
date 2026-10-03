@@ -196,24 +196,24 @@
 			"key" = /obj/item/stock_parts/manipulator,
 			"action" = ITEM_MOVE_INSIDE,
 			"back_key" = TOOL_SCREWDRIVER,
-			"desc" = "Scanning module is secured, the <b> micro-servo</b> can be added.",
-			"forward_message" = "added micro-servo",
+			"desc" = "Scanning module is secured, the <b>micro-manipulator</b> can be added.",
+			"forward_message" = "added micro-manipulator",
 			"backward_message" = "unsecured capacitor"
 		),
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"back_key" = TOOL_CROWBAR,
-			"desc" = "Micro-servo is installed, and can be <b>screwed</b> into place.",
-			"forward_message" = "secured micro-servo",
-			"backward_message" = "removed micro-servo"
+			"desc" = "Micro-manipulator is installed, and can be <b>screwed</b> into place.",
+			"forward_message" = "secured micro-manipulator",
+			"backward_message" = "removed micro-manipulator"
 		),
 		list(
 			"key" = /obj/item/stock_parts/cell,
 			"action" = ITEM_MOVE_INSIDE,
 			"back_key" = TOOL_SCREWDRIVER,
-			"desc" = "Micro-servo is secured, and the <b>power cell</b> can be added.",
+			"desc" = "Micro-manipulator is secured, and the <b>power cell</b> can be added.",
 			"forward_message" = "added power cell",
-			"backward_message" = "unsecured micro-servo"
+			"backward_message" = "unsecured micro-manipulator"
 		),
 		list(
 			"key" = TOOL_SCREWDRIVER,
@@ -394,7 +394,9 @@
 	outer_plating_amount=1
 
 /datum/component/construction/mecha/gygax/action(datum/source, atom/used_atom, mob/user)
-	return INVOKE_ASYNC(src, PROC_REF(check_step), used_atom,user)
+	ASYNC //This proc will never actually sleep, it calls do_after with a time of 0.
+		. = check_step(used_atom, user)
+	return .
 
 //CLARKE
 /datum/component/construction/unordered/mecha_chassis/clarke
@@ -531,7 +533,7 @@
 		list(
 			"key" = /obj/item/stock_parts/manipulator,
 			"action" = ITEM_MOVE_INSIDE,
-			"desc" = "Humor <b>micro-servo</b> can be added!",
+			"desc" = "Humor <b>micro-manipulator</b> can be added!",
 			"forward_message" = "added smile"
 		),
 		list(
@@ -678,23 +680,23 @@
 			"action" = ITEM_MOVE_INSIDE,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "Scanning module is secured, the <b>capacitor</b> can be added.",
-			"forward_message" = "added micro-servo",
+			"forward_message" = "added micro-manipulator",
 			"backward_message" = "unsecured capacitor"
 		),
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"back_key" = TOOL_CROWBAR,
-			"desc" = "Micro-servo is installed, and can be <b>screwed</b> into place.",
-			"forward_message" = "secured micro-servo",
-			"backward_message" = "removed micro-servo"
+			"desc" = "Micro-manipulator is installed, and can be <b>screwed</b> into place.",
+			"forward_message" = "secured micro-manipulator",
+			"backward_message" = "removed micro-manipulator"
 		),
 		list(
 			"key" = /obj/item/stack/ore/bluespace_crystal,
 			"amount" = 1,
 			"back_key" = TOOL_SCREWDRIVER,
-			"desc" = "Micro-servo is secured, and the <b>bluespace crystal</b> can be added.",
+			"desc" = "Micro-manipulator is secured, and the <b>bluespace crystal</b> can be added.",
 			"forward_message" = "added bluespace crystal",
-			"backward_message" = "unsecured micro-servo"
+			"backward_message" = "unsecured micro-manipulator"
 		),
 		list(
 			"key" = /obj/item/stack/cable_coil,

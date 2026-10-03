@@ -35,8 +35,8 @@
 	if(ismachinery(holder.physical))
 		var/obj/machinery/M = holder.physical
 		if(hacked)
-			M.directly_use_power(amount)
-			return 1
+			if(M.directly_use_power(amount))
+				return 1
 		if(M.powered())
 			M.use_power(amount)
 			return 1

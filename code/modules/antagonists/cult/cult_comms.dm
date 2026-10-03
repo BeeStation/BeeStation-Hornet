@@ -15,7 +15,7 @@
 
 /datum/action/innate/cult/comm
 	name = "Communion"
-	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
+	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b> Nearby non-cultists can still hear you chanting."
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -30,13 +30,16 @@
 
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	var/my_message
-	if(!message)
+	if(!message || !user.mind)
+		return
+	// The message itself is never spoken aloud, so gate on the same speech checks whispering it used to apply.
+	if(!user.try_speak(html_decode(message), filterproof = TRUE))
 		return
 	user.whisper("O bidai nabora se[pick("'","`")]sma!", language = /datum/language/common)
-	user.whisper(html_decode(message), filterproof = TRUE)
 	var/title = "Acolyte"
 	var/span = "srt_radio cult italic"
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult/master))
+	var/datum/antagonist/cult/cult_datum = user.mind.has_antag_datum(/datum/antagonist/cult)
+	if(cult_datum?.is_cult_leader())
 		span = "cultlarge"
 		title = "Master"
 	else if(!ishuman(user))
@@ -149,20 +152,17 @@
 				if(!B.current.incapacitated)
 					to_chat(B.current, span_cultlarge("[nominee] could not win the cult's support and shall continue to serve as an acolyte."))
 		return FALSE
-	team.cult_master = nominee
-	nominee.mind.remove_antag_datum(/datum/antagonist/cult)
-	nominee.mind.add_antag_datum(/datum/antagonist/cult/master)
-	for(var/datum/mind/B in team.members)
-		if(B.current)
-			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
-				qdel(vote)
-			if(!B.current.incapacitated)
-				to_chat(B.current,span_cultlarge("[nominee] has won the cult's support and is now their master. Follow [nominee.p_their()] orders to the best of your ability!"))
+	var/datum/antagonist/cult/cult_datum = nominee.mind.has_antag_datum(/datum/antagonist/cult)
+	if(!cult_datum.make_cult_leader())
+		CRASH("[nominee] was supposed to turn into the cult's leader, but they didn't for some reason. This isn't supposed to happen unless an admin messed with it.")
 	return TRUE
 
 /datum/action/innate/cult/master/is_available()
-	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.narsie)
-		return 0
+	if(!owner.mind || GLOB.narsie)
+		return FALSE
+	var/datum/antagonist/cult/cult_datum = owner.mind.has_antag_datum(/datum/antagonist/cult)
+	if(!cult_datum?.is_cult_leader())
+		return FALSE
 	return ..()
 
 /datum/action/innate/cult/master/finalreck
@@ -355,6 +355,7 @@
 	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "arcane_barrage"
 	requires_target = TRUE
+	unset_after_click = FALSE
 	enable_text = "<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>"
 	disable_text = "<span class='cult'>You cease your preparations.</span>"
 	cooldown_time = 15 SECONDS
@@ -375,8 +376,7 @@
 
 /datum/action/innate/cult/master/pulse/on_activate(mob/user, atom/target)
 	var/atom/throwee = throwee_ref?.resolve()
-
-	if(QDELETED(throwee))
+	if(throwee && QDELING(throwee))
 		to_chat(user, span_cult("You lost your target!"))
 		throwee = null
 		throwee_ref = null
@@ -389,7 +389,7 @@
 
 		var/turf/throwee_turf = get_turf(throwee)
 
-		playsound(throwee_turf, 'sound/magic/exit_blood.ogg')
+		playsound(throwee_turf, 'sound/magic/exit_blood.ogg', 50)
 		new /obj/effect/temp_visual/cult/sparks(throwee_turf, user.dir)
 		throwee.visible_message(
 			span_warning("A pulse of magic whisks [throwee] away!"),
@@ -413,24 +413,23 @@
 
 		start_cooldown()
 		to_chat(user, span_cult("A pulse of blood magic surges through you as you shift [throwee] through time and space."))
-		user.click_intercept = null
 		throwee_ref = null
-		update_buttons()
+		unset_click_ability(user, refund_cooldown = FALSE)
 
 		return TRUE
-	else
-		if(isliving(target))
-			var/mob/living/living_clicked = target
-			if(!IS_CULTIST(living_clicked))
-				return FALSE
-			SEND_SOUND(user, sound('sound/weapons/thudswoosh.ogg'))
-			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
-			throwee_ref = WEAKREF(target)
-			return TRUE
 
-		if(istype(target, /obj/structure/destructible/cult))
-			to_chat(user, span_cultbold("You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b>"))
-			throwee_ref = WEAKREF(target)
-			return TRUE
+	if(isliving(target))
+		var/mob/living/living_clicked = target
+		if(!IS_CULTIST(living_clicked))
+			return FALSE
+		user.playsound_local(null, 'sound/weapons/thudswoosh.ogg', 100)
+		to_chat(user, span_cultbold("You reach through the veil with your mind's eye and seize [target]! <b>Click anywhere nearby to teleport [living_clicked.p_them()]!</b>"))
+		throwee_ref = WEAKREF(target)
+		return TRUE
+
+	if(istype(target, /obj/structure/destructible/cult))
+		to_chat(user, span_cultbold("You reach through the veil with your mind's eye and lift [target]! <b>Click anywhere nearby to teleport it!</b>"))
+		throwee_ref = WEAKREF(target)
+		return TRUE
 
 	return FALSE

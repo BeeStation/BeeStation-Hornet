@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon_state = "sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
+/obj/item/emptysandbag/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/ore/glass))
 		var/obj/item/stack/ore/glass/G = W
 		to_chat(user, span_notice("You fill the sandbag."))
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	return GLOB.cardboard_recipes
 
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
 		var/atom/droploc = drop_location()
 		if(use(1))

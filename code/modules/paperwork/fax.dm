@@ -142,7 +142,7 @@
 /obj/machinery/fax/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Open and close the wire panel.
@@ -161,18 +161,18 @@
 		return
 	var/new_fax_name = stripped_input(user, "Enter a new name for the fax machine.", "New Fax Name", max_length=128)
 	if(!new_fax_name)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	if(new_fax_name != fax_name)
 		if(fax_name_exist(new_fax_name))
 			// Being able to set the same name as another fax machine will give a lot of gimmicks for the traitor.
 			if(syndicate_network != TRUE && obj_flags != EMAGGED)
 				to_chat(user, span_warning("There is already a fax machine with this name on the network."))
-				return TOOL_ACT_TOOLTYPE_SUCCESS
+				return ITEM_INTERACT_SUCCESS
 		user.log_message("renamed [fax_name] (fax machine) to [new_fax_name]", LOG_GAME)
 		fax_name = new_fax_name
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/fax/attackby(obj/item/item, mob/user, params)
+/obj/machinery/fax/attackby(obj/item/item, mob/user, list/modifiers)
 	if(jammed && clear_jam(item, user))
 		return
 	if(panel_open)
@@ -510,7 +510,7 @@
 /obj/machinery/fax/centcom/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_cent
+	radio.keyslot = new /obj/item/encryptionkey/headset_cent
 	radio.recalculateChannels()
 
 /obj/machinery/fax/bridge
@@ -521,7 +521,7 @@
 /obj/machinery/fax/bridge/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_com
+	radio.keyslot = new /obj/item/encryptionkey/headset_com
 	radio.recalculateChannels()
 
 /obj/machinery/fax/cargo
@@ -532,7 +532,7 @@
 /obj/machinery/fax/cargo/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_cargo
+	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
 	radio.recalculateChannels()
 
 /obj/machinery/fax/eng
@@ -543,7 +543,7 @@
 /obj/machinery/fax/eng/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_eng
+	radio.keyslot = new /obj/item/encryptionkey/headset_eng
 	radio.recalculateChannels()
 
 /obj/machinery/fax/law
@@ -554,7 +554,7 @@
 /obj/machinery/fax/law/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_srvsec
+	radio.keyslot = new /obj/item/encryptionkey/headset_srvsec
 	radio.recalculateChannels()
 
 /obj/machinery/fax/med
@@ -565,7 +565,7 @@
 /obj/machinery/fax/med/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_med
+	radio.keyslot = new /obj/item/encryptionkey/headset_med
 	radio.recalculateChannels()
 
 /obj/machinery/fax/sci
@@ -576,7 +576,7 @@
 /obj/machinery/fax/sci/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_sci
+	radio.keyslot = new /obj/item/encryptionkey/headset_sci
 	radio.recalculateChannels()
 
 /obj/machinery/fax/sec
@@ -587,7 +587,7 @@
 /obj/machinery/fax/sec/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_sec
+	radio.keyslot = new /obj/item/encryptionkey/headset_sec
 	radio.recalculateChannels()
 
 /obj/machinery/fax/service
@@ -598,5 +598,5 @@
 /obj/machinery/fax/service/Initialize(mapload)
 	. = ..()
 	radio.set_on(TRUE)
-	radio.keyslot = /obj/item/encryptionkey/headset_service
+	radio.keyslot = new /obj/item/encryptionkey/headset_service
 	radio.recalculateChannels()

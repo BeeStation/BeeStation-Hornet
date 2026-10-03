@@ -112,7 +112,7 @@
 	. = ..()
 	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5)
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/attackby(obj/item/O, mob/user, params)
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/attackby(obj/item/O, mob/user, list/modifiers)
 	if(!istype(O, /obj/item/goliath_saddle))
 		return ..()
 	if (saddled)

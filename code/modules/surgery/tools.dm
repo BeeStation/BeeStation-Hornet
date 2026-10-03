@@ -105,7 +105,9 @@
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -118,7 +120,7 @@
 
 	tool_behaviour = (active ? TOOL_DRILL : TOOL_CAUTERY)
 	balloon_alert(user, "lenses set to [active ? "drill" : "mend"]")
-	playsound(user ? user : src, 'sound/weapons/tap.ogg', 50, TRUE)
+	playsound(user || src, 'sound/weapons/tap.ogg', 50, TRUE)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/cautery/advanced/examine()
@@ -446,7 +448,9 @@
 		sharpness_on = sharpness, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -486,7 +490,9 @@
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+		inhand_icon_change = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*

@@ -91,7 +91,7 @@
 
 // Check if an item has access to this object
 /obj/proc/check_access(obj/item/I)
-	return check_access_list(I ? I.GetAccess() : null)
+	return check_access_list(I?.GetAccess())
 
 
 /obj/proc/check_access_list(list/accesses_to_check)

@@ -392,8 +392,7 @@ SUBSYSTEM_DEF(ticker)
 		LAZYADD(round_end_events, cb)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
-	for(var/i in GLOB.auth_new_player_list)
-		var/mob/dead/new_player/authenticated/player = i
+	for(var/mob/dead/new_player/authenticated/player as anything in GLOB.auth_new_player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
 			var/atom/destination = player.mind.assigned_role.get_roundstart_spawn_point()
@@ -406,11 +405,10 @@ SUBSYSTEM_DEF(ticker)
 		CHECK_TICK
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
-	for(var/mob/dead/new_player/authenticated/P in GLOB.player_list)
+	for(var/mob/dead/new_player/authenticated/P as anything in GLOB.auth_new_player_list)
 		if(P.new_character?.mind)
 			SSticker.minds += P.new_character.mind
 		CHECK_TICK
-
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	GLOB.security_officer_distribution = decide_security_officer_departments(

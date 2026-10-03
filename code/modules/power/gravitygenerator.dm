@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		main_part = null
 	return ..()
 
-/obj/machinery/gravity_generator/part/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/gravity_generator/part/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	return main_part?.attackby(attacking_item, user)
 
 /obj/machinery/gravity_generator/part/get_status()
@@ -103,8 +103,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main
 	icon_state = "on_8"
-	idle_power_usage = 1 KILOWATT
-	active_power_usage = 25 KILOWATT
+	idle_power_usage = 100
+	active_power_usage = 2500
 	power_channel = AREA_USAGE_ENVIRON
 	sprite_number = 8
 	use_power = IDLE_POWER_USE
@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
 
 // Fixing the gravity generator.
-/obj/machinery/gravity_generator/main/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/gravity_generator/main/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
 			if(attacking_item.tool_behaviour == TOOL_SCREWDRIVER)

@@ -785,7 +785,7 @@ GLOBAL_LIST_INIT(meta_gas_info, meta_gas_list()) //see ATMOSPHERICS/gas_types.dm
 
 	var/list/gases_to_check = acceptable_gas_bounds.Copy() // thank you spaceman
 	for(var/gas_type, gas_moles in moles)
-		if(!gases_to_check[gas_type])
+		if(!gases_to_check.Find(gas_type))
 			if(gas_moles > extraneous_gas_limit)
 				return FALSE
 			continue

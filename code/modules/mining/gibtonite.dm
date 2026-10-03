@@ -24,7 +24,7 @@
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/item/gibtonite/attackby(obj/item/I, mob/user, params)
+/obj/item/gibtonite/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", span_notice("You attach [I] to [src]."))
 		wires = new /datum/wires/explosive/gibtonite(src)

@@ -30,7 +30,7 @@
 		return
 	to_chat(user, span_notice("This is about the [booked_job::title]. There's a wall of text with unrecognisable handwriting."))
 
-/obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!istype(attacking_item, /obj/item/pen) || !user.is_literate())
 		return ..()
 	if(booked_job)
@@ -66,7 +66,7 @@
 		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
 		if(!writer_job)
 			return ..()
-		writer_job = SSjob.get_job_type(writer_job)
+		writer_job = SSjob.get_job(writer_job)
 
 	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()

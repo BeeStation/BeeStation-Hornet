@@ -12,6 +12,12 @@
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
 
+/obj/item/clothing/mask/balaclava/russian_balaclava
+	name = "russian balaclava"
+	desc = "Protects your face from snow."
+	icon_state = "rus_balaclava"
+	inhand_icon_state = "rus_balaclava"
+
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
 	desc = "Worn by robust fighters, flying high to defeat their foes!"
@@ -36,13 +42,3 @@
 	desc = "Worn by robust fighters who are willing to do anything to win."
 	icon_state = "luchar"
 	inhand_icon_state = "luchar"
-
-/obj/item/clothing/mask/russian_balaclava
-	name = "russian balaclava"
-	desc = "Protects your face from snow."
-	icon_state = "rus_balaclava"
-	inhand_icon_state = "rus_balaclava"
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	alternate_worn_layer = LOW_FACEMASK_LAYER //This lets it layer below glasses and headsets; yes, that's below hair, but it already has HIDEHAIR
-	w_class = WEIGHT_CLASS_SMALL

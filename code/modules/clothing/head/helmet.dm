@@ -34,12 +34,13 @@
 	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/clothing/head/helmet/sec
+	hair_mask = /datum/hair_mask/standard_hat_low
 
 /obj/item/clothing/head/helmet/sec/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/seclite_attachable, light_icon_state = "flight")
 
-/obj/item/clothing/head/helmet/sec/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/clothing/head/helmet/sec/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(issignaler(attacking_item))
 		var/obj/item/assembly/signaler/attached_signaler = attacking_item
 		// There's a flashlight in us. Remove it first, or it'll be lost forever!
@@ -62,6 +63,17 @@
 		return TRUE
 
 	return ..()
+
+/obj/item/clothing/head/helmet/sec/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "loosening" : "tightening"] straps...")
+	if(!do_after(user, 3 SECONDS, src))
+		return
+	flags_inv ^= HIDEHAIR
+	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened"] straps")
+	return TRUE
 
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"

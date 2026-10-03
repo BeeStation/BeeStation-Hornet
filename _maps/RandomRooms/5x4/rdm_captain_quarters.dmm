@@ -36,10 +36,8 @@
 	pixel_y = 6
 	},
 /obj/structure/sink/directional/south,
-/obj/structure/mirror{
-	pixel_y = 35
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/mirror/directional/north,
 /turf/open/floor/iron/white,
 /area/template_noop)
 "p" = (

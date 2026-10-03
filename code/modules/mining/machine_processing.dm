@@ -175,7 +175,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECEIVED
 
-/obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 		return
 
@@ -246,12 +246,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 	return ..()
 
 /obj/machinery/mineral/processing_unit/RefreshParts()
+	. = ..()
 	var/point_upgrade_temp = 0
 	var/smelt_amount_temp = 1
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		smelt_amount_temp += 1 + (1 * B.rating)
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		point_upgrade_temp += 0.65 + (0.35 * L.rating)
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		smelt_amount_temp += 1 + (1 * B.tier)
+	for(var/datum/stock_part/micro_laser/L in component_parts)
+		point_upgrade_temp += 0.65 + (0.35 * L.tier)
 	point_upgrade = point_upgrade_temp
 	smelt_amount = round(smelt_amount_temp, 1)
 
@@ -266,7 +267,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		register_input_turf() // register the new one
 		return TRUE
 
-/obj/machinery/mineral/processing_unit/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/processing_unit/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 		return
 

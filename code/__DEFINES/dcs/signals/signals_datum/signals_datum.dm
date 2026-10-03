@@ -50,6 +50,9 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from datum/species/handle_chemical(): (datum/reagent/chem, mob/living/carbon/human/affected, seconds_per_tick, times_fired)
+#define COMSIG_SPECIES_HANDLE_CHEMICAL "species_handle_chemicals"
+	// same return values as COMSIG_MOB_STOP_REAGENT_CHECK
 
 // /datum/song signals
 /// Sent to the instrument when a song starts playing
@@ -156,3 +159,7 @@
 #define COMSIG_DAMPENER_CAPTURE "dampener_capture"
 /// Called when a projectile dampener releases an object.
 #define COMSIG_DAMPENER_RELEASE "dampener_release"
+
+/// IPC upgrade signals.
+#define COMSIG_UPGRADE_ACTIVATED "upgrade_activated"
+#define COMSIG_UPGRADE_DEACTIVATED "upgrade_deactivated"

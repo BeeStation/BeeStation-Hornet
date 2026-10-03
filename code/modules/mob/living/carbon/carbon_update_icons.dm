@@ -8,14 +8,18 @@
 /mob/living/carbon/proc/apply_overlay(cache_index)
 	if((. = overlays_standing[cache_index]))
 		add_overlay(.)
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
-		return TRUE
-	return FALSE
+		. = TRUE
+	else
+		. = FALSE
+	SEND_SIGNAL(src, COMSIG_CARBON_REMOVE_OVERLAY, cache_index, I)
+	return .
 
 /mob/living/carbon/regenerate_icons()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
@@ -159,7 +163,8 @@
 	if(head)
 		if(update_obscured)
 			update_obscured_slots(head.flags_inv)
-		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
+		if(!(check_obscured_slots() & ITEM_SLOT_HEAD))
+			overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/default.dmi')
 		update_hud_head(head)
 
 	apply_overlay(HEAD_LAYER)

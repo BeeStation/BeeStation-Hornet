@@ -211,7 +211,7 @@
 		/obj/item/organ/cyberimp/arm/surgery,
 		/obj/item/organ/cyberimp/chest/thrusters,
 		/obj/item/organ/lungs/cybernetic/upgraded,
-		/obj/item/organ/liver/cybernetic/upgraded) //cyberimplants range from a nice bonus to fucking broken bullshit so no subtypesof
+		/obj/item/organ/liver/cybernetic/tier2) //cyberimplants range from a nice bonus to fucking broken bullshit so no subtypesof
 		for(var/V in templist)
 			var/atom/A = V
 			augment_list[initial(A.name)] = A
@@ -293,7 +293,7 @@
 	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
 	var/kidnappingcoefficient = 1
 
-/obj/item/clothing/head/hats/tophat/bluespace/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/head/hats/tophat/bluespace/attackby(obj/item/W, mob/user, list/modifiers)
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W
@@ -305,7 +305,7 @@
 			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
-/obj/item/clothing/head/hats/tophat/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/clothing/head/hats/tophat/bluespace/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return

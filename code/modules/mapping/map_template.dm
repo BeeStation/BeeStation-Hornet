@@ -51,17 +51,9 @@
 	var/list/area/areas = list()
 
 	var/list/turfs = block(
-		locate(
-			bounds[MAP_MINX],
-			bounds[MAP_MINY],
-			bounds[MAP_MINZ]
-			),
-		locate(
-			bounds[MAP_MAXX],
-			bounds[MAP_MAXY],
-			bounds[MAP_MAXZ]
-			)
-		)
+		bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ],
+		bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ]
+	)
 	for(var/turf/current_turf as anything in turfs)
 		var/area/current_turfs_area = current_turf.loc
 		areas |= current_turfs_area
@@ -94,16 +86,8 @@
 	if(init_atmos)
 		//calculate all turfs inside the border
 		var/list/template_and_bordering_turfs = block(
-			locate(
-				max(bounds[MAP_MINX]-1, 1),
-				max(bounds[MAP_MINY]-1, 1),
-				bounds[MAP_MINZ]
-				),
-			locate(
-				min(bounds[MAP_MAXX]+1, world.maxx),
-				min(bounds[MAP_MAXY]+1, world.maxy),
-				bounds[MAP_MAXZ]
-				)
+			bounds[MAP_MINX]-1, bounds[MAP_MINY]-1, bounds[MAP_MINZ],
+			bounds[MAP_MAXX]+1, bounds[MAP_MAXY]+1, bounds[MAP_MAXZ]
 		)
 		for(var/turf/affected_turf as anything in template_and_bordering_turfs)
 			affected_turf.air_update_turf(TRUE, TRUE)

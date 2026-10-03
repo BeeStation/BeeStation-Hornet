@@ -1,0 +1,45 @@
+2026-10-02:
+  mrmanlikesbt, Ghommie, MrMelbert, vinylspiders:
+  - rscadd: Mirrors now display your reflection. On the same note, neither vampires
+      nor bats show up in mirrors
+  - tweak: Mirrors can now be detached and reattached from walls with a wrench
+  mrmanlikesbt, coiax, Qustinnus:
+  - rscadd: Added two new deathrattle related station traits. One where deathrattles
+      are given to everyone in a specific department, and one where everyone on the
+      station gets a deathrattle
+  - soundadd: Deathrattles now play a sound when a person in the group dies
+  mrmanlikesbt, tralezab, Kylerace, ShizCalev:
+  - qol: Added a new transit tube variant which automatically constructs a pod around
+      the user. The transit tubes on all AI satellites have been updated to use this
+      new variant
+  - qol: Transit tube pods now eject you if they leave the transit tube track that
+      they're currently running
+  - code_imp: Cleaned up transit tube code
+2026-10-03:
+  SunShine214:
+  - bugfix: Fixed IPCs being able to metabolize non-synth chemicals.
+  - bugfix: Fixed IPCs being able to be mutated with the genetics console.
+  WhiskeyMarten:
+  - map: Changed Radstation's Virology Window Shutters to a separate button. That
+      way you can close them in case of carp infestation without locking down all
+      of Viro.
+  - map: Added public painting frames to the prison of all maps.
+  - bugfix: Changed some unhidden scrubbers and vents on Radstation to instead be
+      hidden.
+  - bugfix: Fixed some wrongly named/mispelled/unnamed doors on Radstation, Charliestation
+      and a Syndicate Lavaland Base. Added names to the APCs on one Syndicate Lavaland
+      Base.
+  - bugfix: Adjusted some wall objects on the Golem Ship and Syndicate Lavaland Base
+      that were wrongly attached to diagonal walls. Fixed some overlapping wall objects
+      on Radstation.
+  - bugfix: Adjusted some misplaced lights and showers on the Golem Ship, Winter Dome,
+      Beach Dome, and Terrarium.
+  - map: Added an oven, knife, and rolling pin to the Beach Dome, and removed access
+      requirements on the Bar Sign and Disco Ball.
+  - rscadd: New pet on Lavaland! The Animal Hospital now has a little cat, Director.
+  - bugfix: Fixed the note on the sloth ruin, so the writing is on the page instead
+      of the description of the paper.
+  - bugfix: Fixed the message that pops up to confirm you want to play as a ghost
+      role. Several roles were missing the name for this box.
+  - bugfix: Fixed the Lavaland sauna being set up to pressure cook people without
+      adjustments. It will be safe now, unless you adjust the gas pump output pressure.

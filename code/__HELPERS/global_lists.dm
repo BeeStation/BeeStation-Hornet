@@ -64,6 +64,7 @@
 	GLOB.emote_list = init_emote_list()
 
 	init_hair_gradients()
+	init_hair_masks()
 	// Keybindings
 	init_keybindings()
 
@@ -80,6 +81,12 @@
 			GLOB.hair_gradients_list[gradient.name] = gradient
 		if(gradient.gradient_category & GRADIENT_APPLIES_TO_FACIAL_HAIR)
 			GLOB.facial_hair_gradients_list[gradient.name] = gradient
+
+/proc/init_hair_masks()
+	GLOB.hair_masks_list = list()
+	for(var/path in subtypesof(/datum/hair_mask))
+		var/datum/hair_mask/mask = new path
+		GLOB.hair_masks_list[path] = mask
 
 /// Inits crafting recipe lists
 /proc/init_crafting_recipes(list/crafting_recipes)
