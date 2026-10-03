@@ -238,6 +238,15 @@
 				<td style='width:12em;'><font color='#ff0000'><b>Status</b></font></td>"
 
 			for(var/obj/item/organ/organ as anything in humantarget.internal_organs)
+				if(istype(organ, /obj/item/organ/borer_cyst))
+					if(!advanced)
+						continue
+					var/obj/item/organ/borer_cyst/cyst = organ
+					render = TRUE
+					toReport += "<tr><td><font color='#cc3333'>Cortical cyst ([parse_zone(cyst.zone)]):</font></td>\
+						<td><font color='#ff3333'>[ceil(cyst.damage)]</font></td>\
+						<td><font color='#cc3333'>Parasitic organism detected</font></td></tr>"
+					continue
 				var/status = organ.get_status_text()
 				if (status != "")
 					render = TRUE

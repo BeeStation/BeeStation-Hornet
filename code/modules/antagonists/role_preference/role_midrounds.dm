@@ -58,6 +58,11 @@
 
 	return final_icon
 
+/datum/role_preference/midround/cortical_borer
+	name = "Cortical Borer Infestation"
+	description = "Awaken as a small parasitic symbiote in the station's vents. Find a human host, survive, and grow your capabilities over time."
+	antag_datum = /datum/antagonist/borer
+
 /datum/outfit/obsessed
 	name = "Obsessed (Preview only)"
 	uniform = /obj/item/clothing/under/misc/overalls

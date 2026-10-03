@@ -56,6 +56,7 @@
 #define ROLE_PRISONER "Prisoner"
 #define ROLE_WIZARD_APPRENTICE "Apprentice"
 #define ROLE_VAMPIRE "Vampire"
+#define ROLE_BORER "Cortical Borer"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -92,6 +93,7 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_SLAUGHTER_DEMON,
 	ROLE_CONTRACTOR_SUPPORT_UNIT,
 	ROLE_VAMPIRE,
+	ROLE_BORER,
 ))
 
 #define BAN_ROLE_FORCED_ANTAGONISTS			"Forced Antagonists"
