@@ -96,7 +96,7 @@
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
-			if(I.sharpness || I.force >= 10)
+			if(I.get_sharpness() || I.force >= 10)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
@@ -118,7 +118,7 @@
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
 		var/dismember_limb = FALSE
-		var/weapon_sharpness = I.sharpness
+		var/weapon_sharpness = I.get_sharpness()
 
 		if(((HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
 			dismember_limb = TRUE
@@ -152,10 +152,10 @@
 		var/bio_state = get_biological_state()
 		if(mangled_state == BODYPART_MANGLED_BOTH)
 			extra_wound_details = ", threatening to sever it entirely"
-		else if((mangled_state == BODYPART_MANGLED_FLESH && I.sharpness) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
-			extra_wound_details = ", [I.sharpness == SHARP ? "slicing" : "piercing"] through to the bone"
-		else if((mangled_state == BODYPART_MANGLED_BONE && I.sharpness) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
-			extra_wound_details = ", [I.sharpness == SHARP ? "slicing" : "piercing"] at the remaining tissue"
+		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] through to the bone"
+		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] at the remaining tissue"
 	*/
 
 	var/message_hit_area = ""

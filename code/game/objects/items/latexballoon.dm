@@ -57,5 +57,5 @@
 		var/obj/item/tank/T = W
 		blow(T, user)
 		return
-	if (W.sharpness || W.get_temperature() || is_pointed(W))
+	if (W.get_sharpness() || W.get_temperature() || is_pointed(W))
 		burst()

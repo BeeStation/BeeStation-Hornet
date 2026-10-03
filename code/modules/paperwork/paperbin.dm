@@ -238,7 +238,7 @@
 	qdel(src)
 
 /obj/item/paper_bin/bundlenatural/attackby(obj/item/W, mob/user)
-	if(W.sharpness)
+	if(W.get_sharpness())
 		if(W.use_tool(src, user, 1 SECONDS))
 			to_chat(user, "<span class='notice'>You slice the cable from [src].</span>")
 			deconstruct(TRUE)

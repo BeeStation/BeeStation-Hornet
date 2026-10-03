@@ -23,7 +23,7 @@
 	)
 
 /datum/surgery_step/incise/tool_check(mob/user, obj/item/tool)
-	if(implement_type == /obj/item && !tool.sharpness)
+	if(implement_type == /obj/item && !tool.get_sharpness())
 		return FALSE
 
 	return TRUE
@@ -170,7 +170,7 @@
 	)
 
 /datum/surgery_step/saw/tool_check(mob/user, obj/item/tool)
-	if(implement_type == /obj/item && !(tool.sharpness && (tool.force >= 10)))
+	if(implement_type == /obj/item && !(tool.get_sharpness() && (tool.force >= 10)))
 		return FALSE
 
 	return TRUE

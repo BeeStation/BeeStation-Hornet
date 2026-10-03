@@ -1510,7 +1510,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		damagetype = weapon.damtype,
 		def_zone = affecting,
 		blocked = armor_block,
-		sharpness = weapon.sharpness,
+		sharpness = weapon.get_sharpness(),
 		attack_direction = get_dir(user, human),
 		attacking_item = weapon,
 	)
@@ -1519,7 +1519,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE //item force is zero
 
 	var/dismember_limb = FALSE
-	var/weapon_sharpness = weapon.sharpness
+	var/weapon_sharpness = weapon.get_sharpness()
 	var/mob_dismember_weakness = HAS_TRAIT(human, TRAIT_EASYDISMEMBER)
 
 	if(((mob_dismember_weakness && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(weapon.force))
@@ -1540,7 +1540,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(get_turf(human), weapon.get_dismember_sound(), 80, 1)
 
 	if(weapon.damtype == BRUTE && (weapon.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
-		if(!weapon.sharpness && human.mind && human.stat <= SOFT_CRIT && human != user && (human.health - (weapon.force * weapon.attack_weight)) <= 0) // rev deconversion through blunt trauma.
+		if(!weapon.get_sharpness() && human.mind && human.stat <= SOFT_CRIT && human != user && (human.health - (weapon.force * weapon.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 			var/datum/antagonist/rev/rev = IS_REVOLUTIONARY(human)
 			if(rev)
 				rev.remove_revolutionary(FALSE, user)

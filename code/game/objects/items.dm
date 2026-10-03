@@ -698,7 +698,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
-		else if(I.sharpness)
+		else if(I.get_sharpness())
 			attackforce = I.w_class * 2
 
 		//And if it's a blunt weapon, blocking takes the worst outcome between weight and damage bonuses
@@ -1102,6 +1102,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/get_temperature()
 	return heat
+
+/obj/item/proc/get_sharpness()
+	return sharpness
 
 /obj/item/proc/get_dismember_sound()
 	if(damtype == BURN)
