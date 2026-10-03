@@ -772,23 +772,6 @@
 		my_atom.on_reagent_change(CLEAR_REAGENTS)
 	return 0
 
-//Checks if the reaction is valid for IPC
-/datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
-	var/can_process = FALSE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		//Check if this mob's species is set and can process this type of reagent
-		if(H.dna && H.dna.species.reagent_tag)
-			if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
-				can_process = TRUE
-			if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
-				can_process = TRUE
-	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
-	else
-		if(R.process_flags != SYNTHETIC)
-			can_process = TRUE
-	return can_process
-
 //================================Exposure(to apply reagent effects)======================
 /**
  * Applies the relevant expose_ proc for every reagent in this holder
