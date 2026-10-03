@@ -155,8 +155,14 @@
 		if(!HasFuel() || !anchored || !has_buckled_mobs())
 			TogglePower()
 			return FALSE
+		var/mob/living/user = buckled_mobs[1]
+		if(!iscarbon(user) || user.stat != CONSCIOUS)
+			//no sleepwalkers or dead people on the wheel
+			//We check if they are still humanoid, and not ensorcelled by a wizard or mutation toxin
+			TogglePower()
+			unbuckle_mob(user)
+			return FALSE
 		if(powernet)
-			var/mob/living/user = buckled_mobs[1]
 			var/slowdown = user.cached_multiplicative_slowdown
 			if(slowdown == 0)
 				slowdown = 0.1 //Avoid division by zero
@@ -166,8 +172,8 @@
 	else
 		if(has_buckled_mobs() && anchored)
 			var/mob/living/user = buckled_mobs[1]
-			if(!iscarbon(user))
-				//Smaller mobs cannot turn the wheel
+			if(!iscarbon(user) || user.stat != CONSCIOUS)
+				//Smaller mobs cannot turn the wheel, and everyone else should be awake at least
 				unbuckle_mob(user)
 				return FALSE
 			TogglePower()
