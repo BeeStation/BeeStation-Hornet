@@ -156,10 +156,20 @@
 			TogglePower()
 			return FALSE
 		if(powernet)
-			add_avail(power_gen * power_output * power_amplifier)
+			var/mob/living/user = buckled_mobs[1]
+			var/slowdown = user.cached_multiplicative_slowdown
+			if(slowdown == 0)
+				slowdown = 0.1 //Avoid division by zero
+			var/speed_effect = 2 / slowdown	//The default value appears to be 2, and lower values make us faster
+			add_avail(power_gen * power_output * power_amplifier * speed_effect)
 		UseFuel()
 	else
 		if(has_buckled_mobs() && anchored)
+			var/mob/living/user = buckled_mobs[1]
+			if(!iscarbon(user))
+				//Smaller mobs cannot turn the wheel
+				unbuckle_mob(user)
+				return FALSE
 			TogglePower()
 		else
 			return FALSE
