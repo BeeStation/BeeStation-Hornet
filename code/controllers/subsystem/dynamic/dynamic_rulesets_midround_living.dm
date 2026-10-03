@@ -63,6 +63,25 @@
 		chosen_candidate.mind.special_role = antag_datum.banning_key
 	return ..()
 
+/datum/dynamic_ruleset/midround/living/bloodcultist
+	name = "Blood Cultist" // Yes, blood cultist as in (1) singular cultist
+	severity = DYNAMIC_MIDROUND_HEAVY
+	role_preference = /datum/role_preference/midround/bloodcultist
+	antag_datum = /datum/antagonist/cult/midround
+	drafted_players_amount = 1
+	weight = 4
+	points_cost = 35
+	minimum_players_required = 25
+
+/datum/dynamic_ruleset/midround/living/bloodcultist/get_poll_icon()
+	return /obj/item/melee/cultblade/dagger
+
+/datum/dynamic_ruleset/midround/living/bloodcultist/execute()
+	. = ..()
+	if(. != DYNAMIC_EXECUTE_SUCCESS)
+		return .
+	return .
+
 //////////////////////////////////////////////
 //                                          //
 //         VALUE DRIFTED AI (MEDIUM)        //
