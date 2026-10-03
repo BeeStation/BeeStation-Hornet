@@ -140,7 +140,7 @@
 			to_chat(loc, span_warning("Combat injection is still recharging."))
 			return
 		var/mob/living/carbon/human/M = loc
-		M.adjustStaminaLoss(-75)
+		M.stamina.adjust(75)
 		M.SetUnconscious(0)
 		M.SetStun(0)
 		M.SetKnockdown(0)
@@ -447,7 +447,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	actions_types = list(/datum/action/item_action/toggle_mode)
 
 	cooldown = 0 SECONDS
-	stamina_damage = 0
+	charged_stamina_damage = 0
 	knockdown_time = 14 SECONDS
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	affect_cyborg = TRUE
@@ -470,11 +470,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	mode = (mode+1)%BATON_MODES
 	var/txt
 	//Reset stamina damage to baseline
-	stamina_damage = initial(stamina_damage)
+	charged_stamina_damage = initial(charged_stamina_damage)
 	switch(mode)
 		if(BATON_STUN)
 			txt = "stunning"
-			stamina_damage = 140
+			charged_stamina_damage = 140
 		if(BATON_SLEEP)
 			txt = "sleep inducement"
 		if(BATON_CUFF)
@@ -538,7 +538,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			target.set_confusion_if_lower(10 SECONDS)
 			target.set_stutter_if_lower(16 SECONDS)
 			SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-			target.adjustStaminaLoss(stamina_damage)
+			target.stamina.adjust(-charged_stamina_damage)
 			target.Knockdown(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
 		if(BATON_SLEEP)
 			SleepAttack(target,user)

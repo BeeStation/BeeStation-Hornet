@@ -127,6 +127,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
+	/// Move intents the species can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run, /datum/move_intent/sprint)
 	/// Bitflags of biotypes the mob belongs to. Used by diseases.
 	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	///List of factions the mob gain upon gaining this species.
@@ -485,6 +487,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.mob_biotypes = inherent_biotypes
+	C.set_move_intents(move_intents)
 
 	if(pref_load || old_species.type != type)
 		replace_body(C, src)
@@ -1323,7 +1326,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(user, span_warning("Your attack at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.harm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
-		return TRUE
+		return ATTACK_HANDLED
 
 	var/obj/item/organ/brain/brain = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 	var/obj/item/bodypart/attacking_bodypart
@@ -1378,17 +1381,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/attack_direction = get_dir(user, target)
 	var/attack_type = attacking_bodypart.attack_type
-	if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
+	if(atk_effect == ATTACK_EFFECT_KICK)
 		if((damage) >= 9)
 			target.force_say()
 		log_combat(user, target, "kicked", "punch")
 		target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
-	else//other attacks deal full raw damage + 1.5x in stamina damage
+		target.stamina.adjust(-1 * (STAMINA_DAMAGE_UNARMED*1.5)) //Kicks do alot of stamina damage
+	else
 		target.apply_damage(damage, attack_type, affecting, armor_block, attack_direction = attack_direction)
-		target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+		target.stamina.adjust(-STAMINA_DAMAGE_UNARMED)
 		if(damage >= 9)
 			target.force_say()
 		log_combat(user, target, "punched", "punch")
+		. |= ATTACK_CONSUME_STAMINA
+
+	return ATTACK_CONTINUE | .
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1402,6 +1409,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(user, span_warning("Your shove at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.disarm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
+		user.animate_interact(target, INTERACT_DISARM)
 		return TRUE
 	if(user.resting || user.IsKnockdown())
 		return FALSE
@@ -1409,8 +1417,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 	if(user.loc == target.loc)
 		return FALSE
-	else
-		user.disarm(target)
+	user.disarm(target)
+	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
@@ -1436,12 +1444,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SEND_SIGNAL(target, COMSIG_MOB_HAND_ATTACKED, target, attacker, attacker_style)
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		disarm(attacker, target, attacker_style)
+		. = disarm(attacker, target, attacker_style)
+		if(.)
+			attacker.animate_interact(target, INTERACT_DISARM)
 		return // dont attack after
 	if(attacker.combat_mode)
-		harm(attacker, target, attacker_style)
+		. = harm(attacker, target, attacker_style)
+		if(. & ATTACK_CONTINUE)
+			attacker.animate_interact(target, INTERACT_HARM)
+		if(. & ATTACK_CONSUME_STAMINA)
+			attacker.stamina_swing(STAMINA_SWING_COST_UNARMED)
 	else
-		help(attacker, target, attacker_style)
+		. = help(attacker, target, attacker_style)
+		if(.)
+			attacker.animate_interact(target, INTERACT_HELP)
 
 /datum/species/proc/spec_attacked_by(obj/item/weapon, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/human)
 	// Allows you to put in item-specific reactions based on species
@@ -1528,7 +1544,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		playsound(get_turf(human), weapon.get_dismember_sound(), 80, 1)
 
 	if(weapon.damtype == BRUTE && (weapon.force >= max(10, armor_block) && hit_area == BODY_ZONE_HEAD))
-		if(!weapon.get_sharpness() && human.mind && human.stat == CONSCIOUS && human != user && (human.health - (weapon.force * weapon.attack_weight)) <= 0) // rev deconversion through blunt trauma.
+		if(!weapon.get_sharpness() && human.mind && human.stat <= SOFT_CRIT && human != user && (human.health - (weapon.force * weapon.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 			var/datum/antagonist/rev/rev = IS_REVOLUTIONARY(human)
 			if(rev)
 				rev.remove_revolutionary(FALSE, user)

@@ -95,9 +95,12 @@
 			H.stop_sound_channel(CHANNEL_HEARTBEAT)
 			beat = BEAT_NONE
 
-	if(organ_flags & ORGAN_FAILING)	//heart broke, stopped beating, death imminent
-		if(owner.stat == CONSCIOUS)
-			owner.visible_message(span_userdanger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"))
+	if(organ_flags & ORGAN_FAILING && owner.can_heartattack()) //heart broke, stopped beating, death imminent
+		if(owner.stat <= SOFT_CRIT)
+			owner.visible_message(
+				span_danger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"),
+				span_userdanger("You feel a terrible pain in your chest, as if your heart has stopped!")
+			)
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 
@@ -219,7 +222,7 @@
 	if(owner.health < 5 && COOLDOWN_FINISHED(src, adrenaline_cooldown))
 		COOLDOWN_START(src, adrenaline_cooldown, rand(25 SECONDS, 1 MINUTES))
 		to_chat(owner, span_userdanger("You feel yourself dying, but you refuse to give up!"))
-		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)
+		owner.heal_overall_damage(15, 15, required_bodytype = BODYTYPE_ORGANIC)
 		if(owner.reagents.get_reagent_amount(/datum/reagent/medicine/ephedrine) < 20)
 			owner.reagents.add_reagent(/datum/reagent/medicine/ephedrine, 10)
 

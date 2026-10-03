@@ -321,6 +321,7 @@
 			M.visible_message(span_warning("[user] buckles [M] to [src]!"),\
 				span_warning("[user] buckles you to [src]!"),\
 				span_hear("You hear metal clanking."))
+			user.animate_interact(M)
 
 /**
   * Handles a user unbuckling a mob from src and sends a visible_message
@@ -339,6 +340,7 @@
 				span_notice("[user] unbuckles [M] from [src]."),\
 				span_notice("[user] unbuckles you from [src]."),\
 				span_hear("You hear metal clanking."))
+			user?.animate_interact(M)
 		else
 			M.visible_message(\
 				span_notice("[M] unbuckles [M.p_them()]self from [src]."),\

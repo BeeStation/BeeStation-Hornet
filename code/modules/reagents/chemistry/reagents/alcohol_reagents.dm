@@ -846,8 +846,8 @@
 	. = ..()
 	affected_mob.set_jitter_if_lower(4 SECONDS)
 	if(HAS_MIND_TRAIT(affected_mob, TRAIT_LAW_ENFORCEMENT_METABOLISM))
-		if(affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-			. = UPDATE_MOB_HEALTH
+		affected_mob.stamina.adjust(10 * REM * delta_time)
+		. = UPDATE_MOB_HEALTH
 		if(DT_PROB(10, delta_time))
 			affected_mob.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/nearby_fake_item), name)
 		if(DT_PROB(5, delta_time))
@@ -1785,13 +1785,13 @@
 	var/need_mob_update
 	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150, required_organ_flag = affected_organ_flags)
 	if(DT_PROB(10, delta_time))
-		need_mob_update += affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-10 * REM * delta_time)
 		affected_mob.drop_all_held_items()
 		to_chat(affected_mob, span_notice("You cant feel your hands!"))
 	if(current_cycle > 6)
 		if(DT_PROB(10, delta_time))
 			ADD_TRAIT(affected_mob, pick_trait(), "metabolize:[type]")
-			need_mob_update += affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+			affected_mob.stamina.adjust(-10 * REM * delta_time)
 		if(current_cycle > 31)
 			need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM * delta_time, required_organ_flag = affected_organ_flags)
 			if(current_cycle > 51 && DT_PROB(7.5, delta_time))
@@ -1804,7 +1804,7 @@
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
-	affected_mob.adjustStaminaLoss(10)
+	affected_mob.stamina.adjust(-10)
 
 /datum/reagent/consumable/ethanol/hippies_delight
 	name = "Hippie's Delight"
@@ -2071,7 +2071,7 @@
 	need_mob_update += affected_mob.adjustFireLoss(-heal_amt, updating_health = FALSE, required_bodytype = affected_bodytype)
 	need_mob_update += affected_mob.adjustToxLoss(-heal_amt, updating_health = FALSE, required_biotype = affected_biotype)
 	need_mob_update += affected_mob.adjustOxyLoss(-heal_amt, updating_health = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustStaminaLoss(-heal_amt, updating_stamina = FALSE, required_biotype = affected_biotype)
+	affected_mob.stamina.adjust(heal_amt)
 	if(need_mob_update)
 		affected_mob.updatehealth()
 	affected_mob.visible_message(span_warning("[affected_mob] shivers with renewed vigor!"), span_notice("One taste of [LOWER_TEXT(name)] fills you with energy!"))
@@ -2086,7 +2086,7 @@
 		need_mob_update += affected_mob.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 		need_mob_update += affected_mob.adjustToxLoss(-0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 		need_mob_update += affected_mob.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
-		need_mob_update += affected_mob.adjustStaminaLoss(-5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(5 * REM * delta_time)
 		if(need_mob_update)
 			return UPDATE_MOB_HEALTH
 
@@ -2394,7 +2394,7 @@
 /datum/reagent/consumable/ethanol/fanciulli/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(affected_mob.health > 0)
-		affected_mob.adjustStaminaLoss(20, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-20)
 
 /datum/reagent/consumable/ethanol/branca_menta
 	name = "Branca Menta"
@@ -2418,7 +2418,7 @@
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	if(affected_mob.health > 0)
-		affected_mob.adjustStaminaLoss(35, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-35)
 
 /datum/reagent/consumable/ethanol/blank_paper
 	name = "Blank Paper"
@@ -2597,7 +2597,7 @@
 		need_mob_update = affected_mob.heal_bodypart_damage(1 * REM * delta_time, 1 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 		need_mob_update += affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
-		need_mob_update += affected_mob.adjustStaminaLoss(-1  * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(1 * REM * delta_time)
 		if(need_mob_update)
 			return UPDATE_MOB_HEALTH
 
@@ -2684,8 +2684,8 @@
 	if(DT_PROB(2, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
 
-	if(affected_mob.adjustStaminaLoss(-0.25 * affected_mob.get_drunk_amount() * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-		return UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(0.25 * affected_mob.get_drunk_amount() * REM * delta_time)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/old_timer
 	name = "Old Timer"

@@ -216,9 +216,9 @@
 /datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(current_cycle >= 10) // delayed activation for toxin
-		if(affected_mob.adjustStaminaLoss((current_cycle - 5) * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-			. = UPDATE_MOB_HEALTH
-	if(affected_mob.getStaminaLoss() >= 145 && !HAS_TRAIT(affected_mob, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
+		affected_mob.stamina.adjust(-(current_cycle - 5) * REM * delta_time)
+		. = UPDATE_MOB_HEALTH
+	if(affected_mob.stamina.loss_as_percent >= 60 && !HAS_TRAIT(affected_mob, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
 		affected_mob.fakedeath(type)
 
 /datum/reagent/toxin/zombiepowder/on_mob_end_metabolize(mob/living/carbon/affected_mob)
@@ -438,8 +438,8 @@
 /datum/reagent/toxin/staminatoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	data = max(data - 1, 3)
-	if(affected_mob.adjustStaminaLoss(data * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-		return UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-data * REM * delta_time)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/polonium
 	name = "Polonium"
@@ -577,9 +577,9 @@
 	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/calomel) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/pen_acid) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/charcoal) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5 // Prevents using purgatives while in combat
 
-	if(affected_mob.getStaminaLoss() <= 70) //Will never stamcrit
-		if(affected_mob.adjustStaminaLoss(min(volume * 1.5, 15) * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-			return UPDATE_MOB_HEALTH
+	if(!HAS_TRAIT(affected_mob, TRAIT_EXHAUSTED)) //Will never stamcrit
+		affected_mob.stamina.adjust(-min(volume * 1.5, 15) * REM * delta_time)
+		return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/fentanyl
 	name = "Fentanyl"
@@ -685,7 +685,7 @@
 			if(3)
 				if(!affected_mob.undergoing_cardiac_arrest() && affected_mob.can_heartattack())
 					affected_mob.set_heartattack(TRUE)
-					if(affected_mob.stat == CONSCIOUS)
+					if(affected_mob.stat <= SOFT_CRIT)
 						affected_mob.visible_message(span_userdanger("[affected_mob] clutches at [affected_mob.p_their()] chest as if [affected_mob.p_their()] heart stopped!"))
 				else
 					affected_mob.losebreath += 10
@@ -726,8 +726,8 @@
 	. = ..()
 	if(current_cycle > 10)
 		affected_mob.Sleeping(40 * REM * delta_time)
-	if(affected_mob.adjustStaminaLoss(10 * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-10 * REM * delta_time)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/sulfonal
 	name = "Sulfonal"
@@ -1009,8 +1009,7 @@
 
 /datum/reagent/toxin/bonehurtingjuice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.adjustStaminaLoss(7.5 * REM * delta_time, updating_stamina = FALSE))
-		. = UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-7.5 * REM * delta_time)
 
 	if(DT_PROB(10, delta_time))
 		switch(rand(1, 3))
@@ -1093,8 +1092,8 @@
 	affected_mob.set_drugginess(10 SECONDS * REM * delta_time)
 	affected_mob.set_silence_if_lower(6 SECONDS * REM * delta_time)
 	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
-	if(affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-		return UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(-30 * REM * delta_time)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/morphvenom/mimite
 	name = "Mimite venom"

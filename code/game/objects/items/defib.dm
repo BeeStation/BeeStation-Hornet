@@ -544,9 +544,9 @@
 		if(H.check_shields(user, 0, "[user.name]'s [name]", attack_type = MELEE_ATTACK))
 			return
 	busy = TRUE
-	M.visible_message(span_danger("[user] has touched [M] with [src]!"), \
-			span_userdanger("[user] has touched [M] with [src]!"))
-	M.adjustStaminaLoss(80)
+	M.visible_message(span_danger("[user] touches [M] with [src]!"), \
+			span_userdanger("[user] touches [M] with [src]!"))
+	M.stamina.adjust(-60)
 	M.Knockdown(75)
 	M.set_jitter_if_lower(100 SECONDS)
 	M.apply_status_effect(/datum/status_effect/convulsing)

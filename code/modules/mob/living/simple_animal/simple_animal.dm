@@ -44,8 +44,6 @@
 	var/force_threshold = 0 //Minimum force required to deal any damage
 	///Maximum amount of stamina damage the mob can be inflicted with total
 	var/max_staminaloss = 200
-	///How much stamina the mob recovers per second
-	var/stamina_recovery = 5
 
 	//Temperature effect
 	var/minbodytemp = 250
@@ -174,13 +172,6 @@
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
 
-/*
-/mob/living/simple_animal/Life(delta_time = SSMOBS_DT, times_fired)
-	. = ..()
-	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
-*/
-
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
@@ -228,6 +219,16 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
+
+/**
+ * Updates the simple mob's stamina loss.
+ *
+ * Updates the speed and staminaloss of a given simplemob.
+ * Reduces the stamina loss by stamina_recovery
+ */
+/mob/living/simple_animal/on_stamina_update()
+	. = ..()
+	set_varspeed(initial(speed) + (stamina.loss * 0.06))
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE

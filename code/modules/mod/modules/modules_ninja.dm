@@ -423,7 +423,7 @@
 	//	mod.wearer.say(pick_list_replacements(NINJA_FILE, "lines"), forced = type)
 	to_chat(mod.wearer, span_notice("You have used the adrenaline boost."))
 	mod.wearer.SetAllImmobility(0)
-	mod.wearer.adjustStaminaLoss(-200)
+	mod.wearer.stamina.adjust(200)
 	mod.wearer.remove_status_effect(/datum/status_effect/speech/stutter)
 	//Speed
 	mod.wearer.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)

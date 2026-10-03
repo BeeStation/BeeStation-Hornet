@@ -7,10 +7,16 @@
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
-	force = 12
-	throwforce = 12
+
+	force = 6
+	throwforce = 10
 	throw_speed = 2
 	throw_range = 7
+	stamina_damage = 47
+	stamina_cost = 20
+	stamina_critical_chance = 10
+
+
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
 	attack_verb_continuous = list("robusts")

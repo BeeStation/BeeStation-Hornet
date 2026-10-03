@@ -130,7 +130,7 @@
 	animate(time = 0.1 SECONDS, pixel_y = user.pixel_y - 4)
 	if(iscarbon(user))
 		var/mob/living/carbon/jumps_till_drops = user
-		jumps_till_drops.adjustStaminaLoss(10, forced = TRUE)
+		jumps_till_drops.stamina.adjust(-10)
 
 /datum/emote/jump/get_sound(mob/user)
 	return 'sound/weapons/thudswoosh.ogg'

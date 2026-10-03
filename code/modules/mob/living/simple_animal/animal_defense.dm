@@ -29,7 +29,10 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, span_warning("You don't want to hurt [src]!"))
 			return
+
+		user.stamina_swing(STAMINA_SWING_COST_UNARMED)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+
 		visible_message(span_danger("[user] [response_harm_continuous] [src]!"),\
 						span_userdanger("[user] [response_harm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, span_danger("You [response_harm_simple] [src]!"))

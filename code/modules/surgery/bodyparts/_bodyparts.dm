@@ -3,8 +3,13 @@
 	abstract_type = /obj/item/bodypart
 	name = "limb"
 	desc = "Why is it detached..."
-	force = 3
+
+	force = 6
 	throwforce = 3
+	stamina_damage = 40
+	stamina_cost = 23
+	stamina_critical_chance = 5
+
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/mob/human/bodyparts.dmi'
 	icon_state = ""
@@ -20,7 +25,6 @@
 	/// The mob that "owns" this limb
 	/// DO NOT MODIFY DIRECTLY. Use set_owner()
 	var/mob/living/carbon/owner
-	var/needs_processing = FALSE
 	///A bitfield of bodytypes for clothing, surgery, and misc information
 	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
 	///Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
@@ -63,20 +67,12 @@
 	// Damage variables
 	///A mutiplication of the burn and brute damage that the limb's stored damage contributes to its attached mob's overall wellbeing.
 	var/body_damage_coeff = 1
-	///Multiplier of the limb's stamina damage that gets applied to the mob. Why is this 0.75 by default? Good question!
-	var/stam_damage_coeff = 0.75
 	///The current amount of brute damage the limb has
 	var/brute_dam = 0
 	///The current amount of burn damage the limb has
 	var/burn_dam = 0
-	///The current amount of stamina damage the limb has
-	var/stamina_dam = 0
-	///The maximum stamina damage a bodypart can take
-	var/max_stamina_damage = 0
 	///The maximum "physical" damage a bodypart can take. Set by children
 	var/max_damage = 0
-	//Stamina heal multiplier
-	var/stamina_heal_rate = 1
 
 	//Used in determining overlays for limb damage states. As the mob receives more burn/brute damage, their limbs update to reflect.
 	var/brutestate = 0
@@ -87,7 +83,7 @@
 	var/brute_modifier = 1
 	/// Burn damage gets multiplied by this on receive_damage()
 	var/burn_modifier = 1
-	/// Stamina damage gets multiplied by this on receive_damage()
+	/// Stamina damage to the owner gets multiplied by the average of this across their limbs, see [/mob/living/carbon/proc/get_bodypart_stamina_modifier]
 	var/stamina_modifier = 1
 	/// Stun damage gets multiplied by this on receive_damage()
 	//var/stun_modifier = 1 (this should probably be here. TODO: implement this on limbs rather than species, jackass)
@@ -347,12 +343,9 @@
 	return bodypart_organs
 
 //Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_regen)
+/obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_heal)
 	SHOULD_CALL_PARENT(TRUE)
-	//DO NOT update health here, it'll be done in the carbon's life.
-	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)
-		heal_damage(0, 0, stam_regen, null, FALSE)
-		. |= BODYPART_LIFE_UPDATE_HEALTH
+	return
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
@@ -361,7 +354,9 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	var/hit_percent = forced ? 1 : (100-blocked)/100
-	if((!brute && !burn && !stamina) || hit_percent <= 0)
+	if(stamina)
+		stack_trace("Bodypart took stamina damage!")
+	if((!brute && !burn) || hit_percent <= 0)
 		return FALSE
 	if (!forced)
 		if(!isnull(owner))
@@ -375,11 +370,8 @@
 	var/dmg_multi = CONFIG_GET(number/damage_multiplier) * hit_percent
 	brute = round(max(brute * dmg_multi * brute_modifier, 0), DAMAGE_PRECISION)
 	burn = round(max(burn * dmg_multi * burn_modifier, 0), DAMAGE_PRECISION)
-	stamina = round(max(stamina * dmg_multi * stamina_modifier, 0),DAMAGE_PRECISION)
 
-	//No stamina scaling.. for now..
-
-	if(!brute && !burn && !stamina)
+	if(!brute && !burn)
 		return FALSE
 
 	if(bodytype & (BODYTYPE_ALIEN|BODYTYPE_LARVA_PLACEHOLDER)) //aliens take double burn //nothing can burn with so much snowflake code around
@@ -398,25 +390,17 @@
 	if(burn)
 		set_burn_dam(burn_dam + burn)
 
-	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	if(stamina)
-		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
-
 	if(owner)
 		if(can_be_disabled)
 			update_disabled()
 		if(updating_health)
 			owner.updatehealth()
-			if(stamina >= DAMAGE_PRECISION)
-				owner.update_stamina(TRUE)
-				owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
-				. = TRUE
-	return update_bodypart_damage_state() || .
+	return update_bodypart_damage_state()
 
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
-/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, updating_health = TRUE, forced = FALSE, required_bodytype)
+/obj/item/bodypart/proc/heal_damage(brute, burn, updating_health = TRUE, forced = FALSE, required_bodytype)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(!forced && required_bodytype && !(bodytype & required_bodytype)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
@@ -426,8 +410,6 @@
 		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
 	if(burn)
 		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
-	if(stamina)
-		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
 
 	if(owner)
 		if(can_be_disabled)
@@ -459,30 +441,9 @@
 	. = burn_dam
 	burn_dam = new_value
 
-
-///Proc to hook behavior associated to the change of the stamina_dam variable's value.
-/obj/item/bodypart/proc/set_stamina_dam(new_value)
-	PROTECTED_PROC(TRUE)
-
-	if(stamina_dam == new_value)
-		return
-	. = stamina_dam
-	stamina_dam = new_value
-	if(stamina_dam > DAMAGE_PRECISION)
-		needs_processing = TRUE
-	else
-		needs_processing = FALSE
-
 //Returns total damage.
-/obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
-	var/total = brute_dam + burn_dam
-	if(include_stamina)
-		total += stamina_dam
-	return total
-
-//Returns only stamina damage.
-/obj/item/bodypart/proc/get_staminaloss()
-	return stamina_dam
+/obj/item/bodypart/proc/get_damage()
+	return brute_dam + burn_dam
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
@@ -499,7 +460,7 @@
 		set_disabled(TRUE)
 		return
 
-	var/total_damage = max(brute_dam + burn_dam, stamina_dam)
+	var/total_damage = max(brute_dam + burn_dam)
 	var/disable_threshold = 1
 
 	if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
@@ -844,3 +805,28 @@
 		owner.update_body_parts()
 	else
 		update_icon_dropped()
+
+/obj/item/bodypart/proc/get_offset(direction)
+	return null
+
+/obj/item/bodypart/arm/right/get_offset(direction)
+	switch(direction)
+		if(NORTH)
+			return list(6,-3)
+		if(SOUTH)
+			return list(-6,-3)
+		if(EAST)
+			return list(0,-3)
+		if(WEST)
+			return list(0,-3)
+
+/obj/item/bodypart/arm/left/get_offset(direction)
+	switch(direction)
+		if(NORTH)
+			return list(-6,-3)
+		if(SOUTH)
+			return list(6,-3)
+		if(EAST)
+			return list(0,-3)
+		if(WEST)
+			return list(0,-3)

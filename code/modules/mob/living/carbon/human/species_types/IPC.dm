@@ -320,6 +320,12 @@
 			SPECIES_PERK_NAME = "EMP Vulnerable",
 			SPECIES_PERK_DESC = "IPC organs are cybernetic, and thus susceptible to electromagnetic interference. Getting hit by an EMP may stop your heart.",
 		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "battery-quarter",
+			SPECIES_PERK_NAME = "Power Drain",
+			SPECIES_PERK_DESC = "Disablers and blows can't tire you out, but stun batons and tasers drain your charge. Once you're in low power, they lock up your actuators.",
+		),
 	)
 
 	return to_add

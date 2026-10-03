@@ -7,7 +7,11 @@
 	var/time_of_last_attack_received = 0
 
 /mob/living/Initialize(mapload)
+	if(ispath(move_intent))
+		move_intent = GLOB.move_intents[move_intent]
 	. = ..()
+	stamina = new(src)
+
 	if(initial_size != RESIZE_DEFAULT_SIZE)
 		update_transform(initial_size)
 	AddElement(/datum/element/movetype_handler)
@@ -42,6 +46,7 @@
 	med_hud_set_status()
 
 /mob/living/Destroy()
+	qdel(stamina)
 	for(var/datum/status_effect/effect as anything in status_effects)
 		// The status effect calls on_remove when its mob is deleted
 		if(effect.on_remove_on_mob_delete)
@@ -66,7 +71,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && move_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
+	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && !MOVING_DELIBERATELY(src) && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
 		ADD_TRAIT(src, TRAIT_NO_BUMP_SLAM, type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -303,6 +308,7 @@
 		stop_pulling()
 
 	changeNext_move(CLICK_CD_GRABBING)
+	animate_interact(AM, INTERACT_PULL)
 
 	if(AM.pulledby)
 		if(!supress_message)
@@ -431,6 +437,7 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
+	animate_interact(pulling, INTERACT_UNPULL)
 	if(ismob(pulling))
 		reset_pull_offsets(pulling)
 	..()
@@ -462,7 +469,7 @@
 		return
 
 	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
-	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	adjustOxyLoss(health - death_threshold)
 	updatehealth()
 	if(!whispered)
 		to_chat(src, span_notice("You have given up life and succumbed to death."))
@@ -704,7 +711,6 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
-	staminaloss = getStaminaLoss()
 	update_stat()
 	med_hud_set_health()
 	med_hud_set_status()
@@ -859,7 +865,7 @@
 	if(heal_flags & HEAL_BURN)
 		setFireLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_STAM)
-		setStaminaLoss(0, updating_stamina = FALSE, forced = TRUE)
+		stamina.adjust(INFINITY)
 
 	// I don't really care to keep this under a flag
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -908,7 +914,7 @@
 /// Checks if we are actually able to ressuscitate this mob.
 /// (We don't want to revive then to have them instantly die again)
 /mob/living/proc/can_be_revived()
-	if(health <= HEALTH_THRESHOLD_DEAD)
+	if(health <= death_threshold)
 		return FALSE
 	return TRUE
 
@@ -1264,10 +1270,15 @@
 		return FALSE
 	return TRUE
 
-/mob/living/proc/update_stamina()
+///Called by [process()][/datum/stamina_container/proc/process]
+/mob/living/proc/on_stamina_update()
 	return
 
-/mob/living/carbon/alien/update_stamina()
+///Called by [adjust()][/datum/stamina_container/proc/adjust] when stamina goes down. Not called on regen ticks.
+/mob/living/proc/on_stamina_loss()
+	return
+
+/mob/living/carbon/alien/on_stamina_update()
 	return
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
@@ -1664,11 +1675,11 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	switch(.) //Previous stat.
 		if(CONSCIOUS)
 			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 			add_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), STAT_TRAIT)
 		if(SOFT_CRIT)
 			if(stat >= UNCONSCIOUS)
-				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
+				add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 			if(pulledby)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 		if(UNCONSCIOUS)
@@ -1680,30 +1691,31 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(DEAD)
 			remove_from_dead_mob_list()
 			add_to_alive_mob_list()
+
 	switch(stat) //Current stat.
 		if(CONSCIOUS)
 			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_CRITICAL_CONDITION), STAT_TRAIT)
+				remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
+			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(SOFT_CRIT)
+			add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
 			if(. >= UNCONSCIOUS)
-				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+				remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 		if(UNCONSCIOUS)
 			if(. != HARD_CRIT)
 				become_blind(UNCONSCIOUS_TRAIT)
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+				add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			else
-				REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+				remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(HARD_CRIT)
 			if(. != UNCONSCIOUS)
 				become_blind(UNCONSCIOUS_TRAIT)
-			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(DEAD)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()
 
@@ -1928,7 +1940,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			OXY:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[getOxyLoss()]</a>
 			CLONE:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[getCloneLoss()]</a>
 			BRAIN:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
-			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[stamina.current]</a>
 		</font>
 	"}
 
@@ -2570,3 +2582,20 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 /mob/living/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && isliving(user) && isliving(M) && !(M in buckled_mobs))
 		return user_buckle_mob(M, user, check_loc = FALSE)
+
+///Take away stamina from an attack being thrown.
+/mob/living/proc/stamina_swing(cost as num)
+	if((stamina.current - cost) > STAMINA_MAXIMUM_TO_SWING)
+		stamina.adjust(-cost, TRUE)
+
+///Called by the stamina holder, passing the change in stamina to modify.
+/mob/living/proc/pre_stamina_change(diff as num, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
+		return 0
+	return diff
+
+///Whether stamina damage does anything to us. Silicons and xenos are immune, and IPCs only feel electrical stuns.
+/mob/living/proc/takes_stamina_damage(electrical = FALSE)
+	if(electrical && HAS_TRAIT(src, TRAIT_STUN_DRAINS_POWER))
+		return TRUE
+	return pre_stamina_change(-1) != 0

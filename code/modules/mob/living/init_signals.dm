@@ -38,6 +38,10 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NIGHT_VISION), PROC_REF(on_night_vision_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_EXHAUSTED), PROC_REF(on_exhausted_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_EXHAUSTED), PROC_REF(on_exhausted_trait_loss))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_SECOND_WIND), SIGNAL_REMOVETRAIT(TRAIT_SECOND_WIND)), PROC_REF(on_second_wind_trait_update))
+
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
 		SIGNAL_REMOVETRAIT(TRAIT_CRITICAL_CONDITION),
@@ -268,6 +272,41 @@
 /mob/living/proc/on_night_vision_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	update_sight()
+
+/// Called when [TRAIT_EXHAUSTED] is added to the mob.
+/mob/living/proc/on_exhausted_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	update_exhaustion_penalties()
+	if(HAS_TRAIT(src, TRAIT_SECOND_WIND))
+		to_chat(src, span_danger("You're exhausted, but something keeps you going."))
+	else
+		to_chat(src, span_danger("You're exhausted. You can't sprint and can only whisper until you catch your breath."))
+
+/// Called when [TRAIT_EXHAUSTED] is removed from the mob.
+/mob/living/proc/on_exhausted_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	update_exhaustion_penalties()
+	to_chat(src, span_notice("You catch your breath."))
+
+/// Called when [TRAIT_SECOND_WIND] is gained or lost
+/mob/living/proc/on_second_wind_trait_update(datum/source)
+	SIGNAL_HANDLER
+	update_exhaustion_penalties()
+
+/// Applies or lifts the slowdown, sprint lock and whisper of being exhausted
+/mob/living/proc/update_exhaustion_penalties()
+	var/exhausted = HAS_TRAIT(src, TRAIT_EXHAUSTED)
+	var/penalized = exhausted && !HAS_TRAIT(src, TRAIT_SECOND_WIND)
+	if(penalized)
+		add_traits(list(TRAIT_NO_SPRINT, TRAIT_WHISPER_ONLY), STAMINA)
+		add_movespeed_modifier(/datum/movespeed_modifier/living_exhaustion)
+	else
+		remove_traits(list(TRAIT_NO_SPRINT, TRAIT_WHISPER_ONLY), STAMINA)
+		remove_movespeed_modifier(/datum/movespeed_modifier/living_exhaustion)
+	if(!exhausted)
+		clear_alert(ALERT_EXHAUSTED)
+	else
+		throw_alert(ALERT_EXHAUSTED, penalized ? /atom/movable/screen/alert/exhausted : /atom/movable/screen/alert/exhausted/second_wind)
 
 
 /**

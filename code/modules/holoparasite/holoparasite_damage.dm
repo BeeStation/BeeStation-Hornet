@@ -61,8 +61,8 @@
 /**
  * Negates stamina damage for the holoparasite - it's a bluespace crystallization, it has no stamina.
  */
-/mob/living/simple_animal/hostile/holoparasite/adjustStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)
-	return FALSE
+/mob/living/simple_animal/hostile/holoparasite/pre_stamina_change(diff as num)
+	return 0
 
 /**
  * Negates cellular damage for the holoparasite - it's a bluespace crystallization, it has no cells.
@@ -150,10 +150,12 @@
 				if(iscarbon(summoner.current))
 					var/mob/living/carbon/carbon_summoner = summoner.current
 					carbon_summoner.vomit(MOB_VOMIT_BLOOD | MOB_VOMIT_HARM, lost_nutrition = 0, distance = 5)
-					carbon_summoner.take_overall_damage(brute = carbon_summoner.maxHealth * 1.1, stamina = summoner.current.maxHealth * 1.5)
+					carbon_summoner.apply_damage(carbon_summoner.maxHealth * 1.1, BRUTE)
+					carbon_summoner.stamina.adjust(-summoner.current.maxHealth * 1.1)
 				else
 					summoner.current.add_splatter_floor()
-					summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.9, stamina = summoner.current.maxHealth * 1.5)
+					summoner.current.apply_damage(summoner.current.maxHealth * 0.5, BRUTE)
+					summoner.current.stamina.adjust(-summoner.current.maxHealth * 1.5)
 				to_chat(summoner.current, span_userdanger("You violently cough up blood, barely surviving as an explosion nearly tears apart [color_name], causing you to collapse in incredible, agonizing pain!"))
 				summoner.current.visible_message(span_warning("[summoner.current] violently coughs up blood, collapsing to the ground in incredible pain!"))
 				summoner.current.AdjustParalyzed(45 SECONDS, ignore_canstun = TRUE)
@@ -174,11 +176,13 @@
 				SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "devastate (gibbed)")
 				gib()
 		if(EXPLODE_HEAVY)
-			summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.6, stamina = summoner.current.maxHealth * 0.6)
+			summoner.current.apply_damage(summoner.current.maxHealth * 0.6, BRUTE)
+			summoner.current.stamina.adjust(-summoner.current.maxHealth * 0.6)
 			summoner.current.adjust_jitter_up_to(180 SECONDS, 180 SECONDS)
 			SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "heavy")
 		if(EXPLODE_LIGHT)
-			summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.3, stamina = summoner.current.maxHealth * 0.45)
+			summoner.current.apply_damage(summoner.current.maxHealth * 0.3, BRUTE)
+			summoner.current.stamina.adjust(-summoner.current.maxHealth * 0.45)
 			summoner.current.adjust_jitter_up_to(90 SECONDS, 90 SECONDS)
 			SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "light")
 

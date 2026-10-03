@@ -68,7 +68,9 @@
 	if(!ISADVANCEDTOOLUSER(src))
 		return ..()
 
-	return attack_target.attack_hand(src, modifiers)
+	. = attack_target.attack_hand(src, modifiers)
+	if(.)
+		animate_interact(attack_target, INTERACT_GENERIC)
 
 /mob/living/carbon/human/resolve_right_click_attack(atom/target, list/modifiers)
 	return target.attack_hand_secondary(src, modifiers)

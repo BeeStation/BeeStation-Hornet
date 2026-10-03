@@ -31,3 +31,6 @@
 #define COMSIG_JOB_RECEIVED "job_received"
 /// from /mob/living/carbon/human/on_fire_stack. Called when the human is set on fire and burning clothes and stuff
 #define COMSIG_HUMAN_BURNING "human_burning"
+
+#define COMSIG_CARBON_PRE_SPRINT "carbon_pre_sprint"
+	#define INTERRUPT_SPRINT (1<<0)

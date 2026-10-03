@@ -252,7 +252,7 @@
 		else if(exposed_mob.getFireLoss() && method == PATCH)
 			if(affecting.heal_damage(burn = reac_volume))
 				exposed_mob.update_damage_overlays()
-			exposed_mob.adjustStaminaLoss(reac_volume*2)
+			exposed_mob.stamina.adjust(-reac_volume*2)
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your burns healing! It stings like hell!"))
 			exposed_mob.emote("scream")
@@ -282,7 +282,7 @@
 	var/need_mob_update
 	need_mob_update = affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	if(affected_mob.getFireLoss() != 0)
-		need_mob_update += affected_mob.adjustStaminaLoss(3 * REM * delta_time, updating_stamina = FALSE)
+		affected_mob.stamina.adjust(-3 * REM * delta_time)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
@@ -315,7 +315,7 @@
 		else if(exposed_mob.getBruteLoss() && method == PATCH)
 			if(affecting.heal_damage(reac_volume))
 				exposed_mob.update_damage_overlays()
-			exposed_mob.adjustStaminaLoss(reac_volume*2)
+			exposed_mob.stamina.adjust(-reac_volume*2)
 			if(show_message)
 				to_chat(exposed_mob, span_danger("You feel your bruises healing! It stings like hell!"))
 			exposed_mob.emote("scream")
@@ -436,7 +436,7 @@
 	//you could be targeting a limb that doesnt exist while applying the patch, so lets avoid a runtime
 	if(affecting.heal_damage(brute = reac_volume, burn = reac_volume))
 		exposed_mob.update_damage_overlays()
-	exposed_mob.adjustStaminaLoss(reac_volume*2)
+	exposed_mob.stamina.adjust(-reac_volume*2)
 	if(show_message)
 		to_chat(exposed_mob, span_danger("You feel your burns and bruises healing! It stings like hell!"))
 	SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
@@ -630,7 +630,7 @@
 	var/need_mob_update
 	need_mob_update = affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	if(affected_mob.getBruteLoss() != 0)
-		need_mob_update = affected_mob.adjustStaminaLoss(3 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-3 * REM * delta_time)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
@@ -702,10 +702,12 @@
 /datum/reagent/medicine/ephedrine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ephedrine)//mildly slower than meth
+	affected_mob.stamina.add_regen_modifier(type, 5)
 
 /datum/reagent/medicine/ephedrine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ephedrine)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -716,8 +718,7 @@
 			affected_mob.set_jitter_if_lower(20 SECONDS)
 
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	if(affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -875,7 +876,7 @@
 		affected_mob.losebreath = 0
 		need_mob_update = TRUE
 
-	need_mob_update += affected_mob.adjustStaminaLoss(-0.5 * REM * delta_time, updating_stamina = FALSE)
+	affected_mob.stamina.adjust(0.5 * REM * delta_time)
 
 	if(DT_PROB(10, delta_time))
 		affected_mob.AdjustAllImmobility(-20)
@@ -888,8 +889,8 @@
 	. = ..()
 	if(DT_PROB(18, delta_time))
 		var/need_mob_update
-		need_mob_update = affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_stamina = FALSE)
-		need_mob_update += affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-2.5 * REM * delta_time)
+		need_mob_update = affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 		affected_mob.losebreath++
 		if(need_mob_update)
 			return UPDATE_MOB_HEALTH
@@ -1024,19 +1025,20 @@
 /datum/reagent/medicine/amphetamine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
+	affected_mob.stamina.add_regen_modifier(type, 17.5)
 
 /datum/reagent/medicine/amphetamine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/amphetamine)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/need_mob_update
 	affected_mob.AdjustAllImmobility(-60 * REM * delta_time)
-	need_mob_update = affected_mob.adjustStaminaLoss(-35 * REM * delta_time, updating_stamina = FALSE)
 
 	if(affected_mob.health <= 50 && affected_mob.health > 0)
-		need_mob_update += affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
+		need_mob_update = affected_mob.adjustOxyLoss(-1 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 		need_mob_update += affected_mob.adjustBruteLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 		need_mob_update += affected_mob.adjustFireLoss(-1 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
@@ -1048,8 +1050,8 @@
 	. = ..()
 	if(DT_PROB(18, delta_time))
 		var/need_mob_update
-		need_mob_update = affected_mob.adjustStaminaLoss(2.5, updating_stamina = FALSE, required_biotype = affected_biotype)
-		need_mob_update += affected_mob.adjustToxLoss(1, updating_health = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-2.5)
+		need_mob_update = affected_mob.adjustToxLoss(1, updating_health = FALSE, required_biotype = affected_biotype)
 		affected_mob.losebreath++
 		if(need_mob_update)
 			return UPDATE_MOB_HEALTH
@@ -1065,10 +1067,17 @@
 	metabolized_traits = list(TRAIT_SLEEPIMMUNE, TRAIT_BATON_RESISTANCE, TRAIT_IGNOREDAMAGESLOWDOWN)
 	addiction_types = list(/datum/addiction/stimulants = 6) //2.6 per 2 seconds
 
+/datum/reagent/medicine/pumpup/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 40)
+
+/datum/reagent/medicine/pumpup/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/medicine/pumpup/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-80, FALSE)
-	affected_mob.adjustStaminaLoss(-80, updating_stamina = FALSE)
 	affected_mob.set_jitter_if_lower(20 SECONDS * REM * delta_time)
 
 /datum/reagent/drug/pumpup/overdose_start(mob/living/affected_mob)
@@ -1079,8 +1088,8 @@
 	. = ..()
 	if(DT_PROB(33, delta_time))
 		var/need_mob_update
-		need_mob_update = affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
-		need_mob_update += affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-2.5 * REM * delta_time)
+		need_mob_update = affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 		affected_mob.losebreath++
 		if(need_mob_update)
 			return UPDATE_MOB_HEALTH
@@ -1152,7 +1161,7 @@
 	var/mob_update_required
 	mob_update_required = affected_mob.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE)
 	if(affected_mob.getOxyLoss() != 0)
-		mob_update_required += affected_mob.adjustStaminaLoss(3 * REM * delta_time, updating_stamina = FALSE)
+		affected_mob.stamina.adjust(-3 * REM * delta_time)
 	if(mob_update_required)
 		return UPDATE_MOB_HEALTH
 
@@ -1373,6 +1382,14 @@
 	overdose_threshold = 25
 	addiction_types = list(/datum/addiction/hallucinogens = 14)
 
+/datum/reagent/medicine/earthsblood/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 15)
+
+/datum/reagent/medicine/earthsblood/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
@@ -1381,9 +1398,8 @@
 	affected_mob.adjustToxLoss(-3 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150, required_organ_flag = affected_organ_flags) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	affected_mob.adjustCloneLoss(-1 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
-	affected_mob.adjustStaminaLoss(-30 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
 	affected_mob.adjust_jitter_up_to(6 SECONDS * REM * delta_time, 1 MINUTES)
-	affected_mob.druggy = clamp(affected_mob.druggy + (10 * REM * delta_time), 0, 15 * REM * delta_time) //See above
+	affected_mob.adjust_drugginess_up_to(20 SECONDS * REM * delta_time, 30 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/affected_mob, delta_time, times_fired)
@@ -1416,7 +1432,7 @@
 	var/need_mob_update = FALSE
 	if(DT_PROB(10, delta_time))
 		need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 50, required_organ_flag = affected_organ_flags)
-	need_mob_update += affected_mob.adjustStaminaLoss(2.5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
+	affected_mob.stamina.adjust(-2.5 * REM * delta_time)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
@@ -1447,10 +1463,17 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30
 
+/datum/reagent/medicine/changelingadrenaline/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 10)
+
+/datum/reagent/medicine/changelingadrenaline/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.adjustStaminaLoss(-20 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/changelingadrenaline/overdose_process(mob/living/affected_mob, delta_time, times_fired)
@@ -1528,15 +1551,17 @@
 /datum/reagent/medicine/modafinil/on_mob_end_metabolize(mob/living/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/modafil)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(overdosed) // We do not want any effects on OD
+		affected_mob.stamina.remove_regen_modifier(type)
 		return
 
 	overdose_threshold = overdose_threshold + ((rand(-10, 10) / 10) * REM * delta_time) // for extra fun
 	affected_mob.AdjustAllImmobility(-20 * REM * delta_time)
-	affected_mob.adjustStaminaLoss(-15 * REM * delta_time, updating_stamina = FALSE)
+	affected_mob.stamina.add_regen_modifier(type, 7.5)
 	affected_mob.set_jitter_if_lower(1 SECONDS * REM * delta_time)
 	metabolization_rate = 0.005 * REAGENTS_METABOLISM * rand(5, 20) // randomizes metabolism between 0.02 and 0.08 per second
 	return UPDATE_MOB_HEALTH
@@ -1558,7 +1583,7 @@
 				affected_mob.losebreath++
 		if(41 to 80)
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-0.1 * REM * delta_time)
 			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
 			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
 			affected_mob.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
@@ -1572,12 +1597,12 @@
 		if(81)
 			to_chat(affected_mob, "You feel too exhausted to continue!") // at this point you will eventually die unless you get charcoal
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-0.1 * REM * delta_time)
 			. = UPDATE_MOB_HEALTH
 		if(82 to INFINITY)
 			affected_mob.Sleeping(100 * REM * delta_time)
 			affected_mob.adjustOxyLoss(1.5 * REM * delta_time, updating_health = FALSE)
-			affected_mob.adjustStaminaLoss(1.5 * REM * delta_time, updating_stamina = FALSE)
+			affected_mob.stamina.adjust(-1.5 * REM * delta_time)
 			. = UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/psicodine

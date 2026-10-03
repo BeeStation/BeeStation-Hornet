@@ -447,7 +447,7 @@
 		//If they can't, they're missing their heart and this would runtime
 		if(undergoing_cardiac_arrest() && can_heartattack() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-			if(heart.Restart() && stat == CONSCIOUS)
+			if(heart.Restart() && stat <= SOFT_CRIT)
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
 
@@ -675,8 +675,8 @@
 	else if (is_bandaged())
 		combined_msg += span_danger("Your [bleed_msg] is bandaged!")
 
-	if(getStaminaLoss())
-		if(getStaminaLoss() > 30)
+	if(stamina.loss)
+		if(HAS_TRAIT(src, TRAIT_EXHAUSTED))
 			combined_msg += span_info("You're completely exhausted.")
 		else
 			combined_msg += span_info("You feel fatigued.")

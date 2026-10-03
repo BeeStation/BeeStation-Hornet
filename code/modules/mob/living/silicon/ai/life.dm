@@ -63,7 +63,7 @@
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD)
+		if(health <= death_threshold)
 			death()
 			return
 		else if(stat >= UNCONSCIOUS)

@@ -388,7 +388,8 @@
 	if(IS_CULTIST(affected_mob))
 		need_mob_update += affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 		need_mob_update += affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
+		affected_mob.stamina.adjust(10 * REM * delta_time)
+		affected_mob.stamina.adjust(10 * REM * delta_time)
 		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
@@ -2069,9 +2070,8 @@
 
 /datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/healthcomp = (100 - affected_mob.health) //DOES NOT ACCOUNT FOR ADMINBUS THINGS THAT MAKE YOU HAVE MORE THAN 200/210 HEALTH, OR SOMETHING OTHER THAN A HUMAN PROCESSING THIS.
-	if(affected_mob.getStaminaLoss() < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
-		affected_mob.adjustStaminaLoss(10 * REM * delta_time)
+	if(affected_mob.stamina.loss_as_percent <= 80)
+		affected_mob.stamina.adjust(-10 * REM * delta_time)
 	if(DT_PROB(16, delta_time))
 		to_chat(affected_mob, "You should sit down and take a rest...")
 
@@ -2121,7 +2121,7 @@
 	if(IS_HERETIC_OR_MONSTER(affected_mob))
 		affected_mob.adjust_drowsiness(-10 * REM * delta_time)
 		affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-		need_mob_update += affected_mob.adjustStaminaLoss(-10 * REM * delta_time, updating_stamina = FALSE)
+		affected_mob.stamina.adjust(10 * REM * delta_time)
 		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)

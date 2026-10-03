@@ -300,8 +300,7 @@
 
 	shock_timer = 0 //immune to shocks
 	affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
-	if(affected_mob.adjustStaminaLoss(-2 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype))
-		. = UPDATE_MOB_HEALTH
+	affected_mob.stamina.adjust(2 * REM * delta_time)
 
 	if(isluminescent(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob

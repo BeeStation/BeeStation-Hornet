@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(4)
 			carbon_mob.adjustCloneLoss(-heal_amt)
 		if(5)
-			carbon_mob.adjustStaminaLoss(-heal_amt)
+			carbon_mob.stamina.adjust(heal_amt)
 		if(6 to 10)
 			carbon_mob.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_HEART,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS), -heal_amt)
 

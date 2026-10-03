@@ -9,8 +9,13 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
+
 	force = 10
 	throwforce = 12
+	stamina_damage = 40
+	stamina_cost = 14
+	stamina_critical_chance = 15
+
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/ratchet.ogg'
 	custom_materials = list(/datum/material/iron=150)

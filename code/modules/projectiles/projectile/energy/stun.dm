@@ -14,7 +14,7 @@
 	// fully stun the target.
 	zone_accurate = TRUE
 	/// How much stamina damage will the tase deal per second
-	VAR_PROTECTED/tase_stamina = 35
+	VAR_PROTECTED/tase_stamina = 50
 	/// What is the maximum duration that the taser can apply for?
 	VAR_PROTECTED/max_duration = 8 SECONDS
 	/// If false then we will not be able to affect targets with pierce protection.
@@ -131,6 +131,8 @@
 	VAR_PRIVATE/datum/beam/tase_line
 	/// How much stamina damage does it aim to cause in a second?
 	VAR_FINAL/stamina_per_second = 80
+	/// Paralyze applied every tick once the target is exhausted, so they stay down a while after the tase ends
+	var/exhausted_paralyze = 4 SECONDS
 	/// How much energy does the taser use per tick?
 	VAR_FINAL/energy_drain = 100 WATT
 	/// What do we name the electrodes?
@@ -320,12 +322,15 @@
 	if(!affecting) //Not if we can't fucking do it buddy. Then we just do normal damage
 		owner.apply_damage((stamina_per_second * seconds_between_ticks) / 3, BURN)
 		return
-
-	// Switch to chest after we finish our damage
-	if (affecting.stamina_dam > affecting.max_stamina_damage)
-		affecting = owner.get_bodypart(BODY_ZONE_CHEST)
+		
 	var/armor_block = owner.run_armor_check(affecting, STAMINA)
-	owner.apply_damage(stamina_per_second * seconds_between_ticks, STAMINA, affecting, armor_block)
+	var/low_power = FALSE
+	if(HAS_TRAIT(owner, TRAIT_STUN_DRAINS_POWER))
+		low_power = SEND_SIGNAL(owner, COMSIG_LIVING_DRAIN_STUN_POWER, stamina_per_second * seconds_between_ticks * (100 - armor_block) / 100) & COMPONENT_STUN_LOW_POWER
+	else
+		owner.apply_damage(stamina_per_second * seconds_between_ticks, STAMINA, affecting, armor_block)
+	if(low_power || HAS_TRAIT(owner, TRAIT_EXHAUSTED))
+		owner.Paralyze(exhausted_paralyze)
 	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
 
 /// Sets the passed atom as the "taser"

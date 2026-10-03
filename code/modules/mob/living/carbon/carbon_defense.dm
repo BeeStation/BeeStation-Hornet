@@ -84,7 +84,9 @@
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
-	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
+	send_item_attack_message(I, user, affecting.plaintext_zone)
+	if(I.force && I.stamina_damage && I.damtype != STAMINA)
+		stamina.adjust(-1 * (I.stamina_damage * (prob(I.stamina_critical_chance) ? I.stamina_critical_modifier : 1)))
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
 		var/hit_amount = (100 - armour_block) / 100
@@ -276,8 +278,12 @@
  * src is the attacker
 */
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
+	///Consume stamina to disarm
+	src.stamina_swing(STAMINA_DISARM_COST)
+
 	do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
 	if (ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		human_target.w_uniform?.add_fingerprint(src)
@@ -285,7 +291,7 @@
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, src, get_combat_bodyzone(target))
 	target.disarm_effect(src)
 
-/mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
+/mob/living/carbon/is_shove_knockdown_blocked()
 	for (var/obj/item/clothing/clothing in get_equipped_items())
 		if(clothing.clothing_flags & BLOCKS_SHOVE_KNOCKDOWN)
 			return TRUE

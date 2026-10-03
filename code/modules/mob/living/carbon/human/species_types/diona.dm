@@ -17,6 +17,7 @@
 		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
+	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
 	mutant_bodyparts = list(
 		"diona_leaves",
 		"diona_thorns",

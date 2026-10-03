@@ -137,7 +137,7 @@
 			return 0
 
 	var/heal_amt = 10
-	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
+	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, BODYTYPE_ORGANIC)
 
 	if(hurt_limbs.len)
 		for(var/obj/item/bodypart/affecting as anything in hurt_limbs)

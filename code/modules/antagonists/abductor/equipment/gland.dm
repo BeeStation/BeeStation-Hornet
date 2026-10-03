@@ -129,7 +129,7 @@
 /obj/item/organ/heart/gland/heals/activate()
 	to_chat(owner, span_notice("You feel curiously revitalized."))
 	owner.adjustToxLoss(-20, FALSE, TRUE)
-	owner.heal_bodypart_damage(20, 20, 0, TRUE)
+	owner.heal_bodypart_damage(20, 20)
 	owner.adjustOxyLoss(-20)
 
 /obj/item/organ/heart/gland/slime
