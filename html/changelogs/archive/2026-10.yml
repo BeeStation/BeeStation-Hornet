@@ -43,3 +43,5 @@
       role. Several roles were missing the name for this box.
   - bugfix: Fixed the Lavaland sauna being set up to pressure cook people without
       adjustments. It will be safe now, unless you adjust the gas pump output pressure.
+  mrmanlikesbt, TealSeer, san7890:
+  - server: The GitHub CI Suite has been sped up quite a bit.
