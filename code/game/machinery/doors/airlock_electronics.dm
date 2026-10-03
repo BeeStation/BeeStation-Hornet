@@ -31,24 +31,12 @@
 
 /obj/item/electronics/airlock/ui_static_data(mob/user)
 	var/list/data = list()
+
 	var/list/regions = list()
-	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
-		if(!length(each_dept.access_list) || each_dept.access_filter)
-			continue
-
-		var/list/accesses = list()
-		for(var/access in each_dept.access_list)
-			if (get_access_desc(access))
-				accesses += list(list(
-					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
-					"ref" = access,
-				))
-
-		regions += list(list(
-			"name" = each_dept.access_group_name,
-			"regid" = each_dept.department_bitflags,
-			"accesses" = accesses
-		))
+	var/list/tgui_region_data = SSdepartment.all_department_access_tgui
+	var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+	for(var/dept_id in station_all.aggregated_department_id_list)
+		regions += tgui_region_data[dept_id]
 
 	data["regions"] = regions
 	return data
@@ -71,7 +59,7 @@
 			one_access = 0
 			. = TRUE
 		if("grant_all")
-			accesses = get_all_accesses()
+			accesses = SSdepartment.get_department_access(DEPARTMENT_ID_STATION_ALL)
 			. = TRUE
 		if("one_access")
 			one_access = !one_access
@@ -88,18 +76,18 @@
 			unres_sides ^= unres_direction //XOR, toggles only the bit that was clicked
 			. = TRUE
 		if("grant_region")
-			var/region = text2num(params["region"])
-			if(isnull(region))
+			var/dept_id = params["region"]
+			var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+			if(!(dept_id in station_all.aggregated_department_id_list))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
-			accesses |= dept_datum.access_list
+			accesses |= SSdepartment.get_department_access(dept_id)
 			. = TRUE
 		if("deny_region")
-			var/region = text2num(params["region"])
-			if(isnull(region))
+			var/dept_id = params["region"]
+			var/datum/department_group/aggregate/station_all = SSdepartment.get_department_by_dept_id(DEPARTMENT_ID_STATION_ALL)
+			if(!(dept_id in station_all.aggregated_department_id_list))
 				return
-			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(region)[1]
-			accesses -= dept_datum.access_list
+			accesses -= SSdepartment.get_department_access(dept_id)
 			. = TRUE
 		if("passedName")
 			var/new_name = trim(sanitize("[params["passedName"]]"), 30)

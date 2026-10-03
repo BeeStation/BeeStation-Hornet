@@ -23,6 +23,7 @@ type AccessButtonProps = {
 
 export type Region = {
   accesses: Area[];
+  id: string;
   name: string;
 };
 
@@ -63,13 +64,10 @@ export function AccessConfig(props: ConfigProps) {
     denyDep,
   } = props;
 
-  const [selectedAccessName, setSelectedAccessName] = useState(
-    accesses[0]?.name,
-  );
+  const [selectedAccessId, setSelectedAccessId] = useState(accesses[0]?.id);
 
   const selectedAccess =
-    accesses.find((access) => access.name === selectedAccessName) ||
-    accesses[0];
+    accesses.find((access) => access.id === selectedAccessId) || accesses[0];
 
   const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], [
     (entry: Area) => entry.desc,
@@ -118,11 +116,11 @@ export function AccessConfig(props: ConfigProps) {
               const color = DIFFMAP[checkAccessIcon(entries)].color;
               return (
                 <Tabs.Tab
-                  key={access.name}
+                  key={access.id}
                   color={color as string}
                   icon={icon}
-                  selected={access.name === selectedAccessName}
-                  onClick={() => setSelectedAccessName(access.name)}
+                  selected={access.id === selectedAccessId}
+                  onClick={() => setSelectedAccessId(access.id)}
                 >
                   {access.name}
                 </Tabs.Tab>
@@ -165,7 +163,7 @@ function AccessButtons(props: AccessButtonProps) {
               fluid
               icon="check"
               color="good"
-              onClick={() => grantDep(selectedAccess.name)}
+              onClick={() => grantDep(selectedAccess.id)}
             >
               Grant Region
             </Button>
@@ -175,7 +173,7 @@ function AccessButtons(props: AccessButtonProps) {
               fluid
               icon="times"
               color="bad"
-              onClick={() => denyDep(selectedAccess.name)}
+              onClick={() => denyDep(selectedAccess.id)}
             >
               Deny Region
             </Button>

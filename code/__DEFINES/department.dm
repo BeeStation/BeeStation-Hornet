@@ -27,6 +27,16 @@
 #define DEPARTMENT_NAME_OTHER "Other"
 #define DEPARTMENT_BITFLAG_OTHER (1<<12)
 
+// Departments that exist only to hold access. They never appear in the manifest,
+// job preferences, or the station ID console.
+#define DEPARTMENT_ID_SYNDICATE "Syndicate"
+#define DEPARTMENT_ID_AWAY "Away"
+#define DEPARTMENT_ID_SPECIAL "Special"
+/// Bundles every station department's access.
+#define DEPARTMENT_ID_STATION_ALL "Station All Access"
+/// Bundles every department's access, station and otherwise.
+#define DEPARTMENT_ID_ALL_ACCESS "All Access"
+
 #define DEPT_BITFLAG_STATIONS (DEPARTMENT_BITFLAG_COMMAND + DEPARTMENT_BITFLAG_CIVILIAN + DEPARTMENT_BITFLAG_SERVICE + DEPARTMENT_BITFLAG_CARGO + DEPARTMENT_BITFLAG_SCIENCE + DEPARTMENT_BITFLAG_ENGINEERING + DEPARTMENT_BITFLAG_MEDICAL + DEPARTMENT_BITFLAG_SECURITY)
 
 // not real department. These exist for pref grouping

@@ -59,6 +59,10 @@
 	if (!input)
 		return input
 
+	if (ckey(input) == preferences.parent?.ckey)
+		to_chat(preferences.parent, span_warning("Your character's name can't be your BYOND key."))
+		return null
+
 	if (CONFIG_GET(flag/humans_need_surnames) && selected_species == /datum/species/human)
 		var/first_space = findtext(input, " ")
 		if(!first_space) //we need a surname

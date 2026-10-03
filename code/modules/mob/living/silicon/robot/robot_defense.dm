@@ -189,7 +189,7 @@
 	laws.associate(src)
 	update_icons()
 	//Get syndicate access.
-	create_access_card(get_all_syndicate_access())
+	create_access_card(SSdepartment.get_department_access(DEPARTMENT_ID_SYNDICATE))
 
 /mob/living/silicon/robot/proc/after_emag_shell(mob/user)
 	ResetModel()

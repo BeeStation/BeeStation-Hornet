@@ -243,7 +243,7 @@
 
 // Medical
 #define JOB_HUD_RAWMEDICAL "rawmedical"
-#define JOB_HUD_CHEIFMEDICALOFFICIER "chiefmedicalofficer"
+#define JOB_HUD_CHIEFMEDICALOFFICER "chiefmedicalofficer"
 #define JOB_HUD_MEDICALDOCTOR "medicaldoctor"
 #define JOB_HUD_PARAMEDIC "paramedic"
 #define JOB_HUD_VIROLOGIST "virologist"
@@ -317,7 +317,7 @@
 
 // Medical
 #define JOB_CHATCOLOR_RAWMEDICAL           "#B1E5EC" // custom medical color
-#define JOB_CHATCOLOR_CHEIFMEDICALOFFICIER "#7A97DA"
+#define JOB_CHATCOLOR_CHIEFMEDICALOFFICER "#7A97DA"
 #define JOB_CHATCOLOR_MEDICALDOCTOR "#6CB1C5"
 #define JOB_CHATCOLOR_PARAMEDIC     "#8FBEB4"
 #define JOB_CHATCOLOR_VIROLOGIST    "#75AEA3"

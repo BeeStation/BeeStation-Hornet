@@ -39,13 +39,13 @@
 		JOB_NAME_ASSISTANT
 	)
 
-/datum/job/prisoner/announce_job(mob/living/carbon/human/H)
+/datum/job/prisoner/announce_job(mob/living/joining_mob)
 	var/deets = "<font size = 2><b>#Prisoner Transfer Documentation</font></b> \
 					<hr> \
 					<code> \
 					<b>#DETAILS:</b> <br> \
 					Transfer to: [station_name()] <br> \
-					Case: [H.real_name] <br> \
+					Case: [joining_mob.real_name] <br> \
 					Inmate ID: NTP #CC-0[rand(111,999)] <br> \
 					Charge Class: CAPITAL <br> \
 					Security level: LOW <br> \
