@@ -65,6 +65,13 @@
 /obj/item/organ/liver/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantliver
 
+/obj/item/organ/liver/feel_for_damage(self_aware)
+	if(damage < low_threshold)
+		return
+	if(damage < high_threshold)
+		return span_warning("Your [self_aware ? "liver" : "lower abdomen"] feels sore.")
+	return span_boldwarning("Your [self_aware ? "liver" : "lower abdomen"] feels like it's on fire!")
+
 /obj/item/organ/liver/fly
 	name = "insectoid liver"
 	icon_state = "liver-x" //xenomorph liver? It's just a black liver so it fits.

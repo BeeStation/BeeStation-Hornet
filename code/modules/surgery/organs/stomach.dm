@@ -48,6 +48,13 @@
 /obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantstomach
 
+/obj/item/organ/stomach/feel_for_damage(self_aware)
+	if(damage < low_threshold)
+		return ""
+	if(damage < high_threshold)
+		return span_warning("Your stomach hurts.")
+	return span_boldwarning("Your stomach cramps in pain!")
+
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/disgusted, delta_time, times_fired)
 	var/old_disgust = disgusted.old_disgust
 	var/disgust = disgusted.disgust

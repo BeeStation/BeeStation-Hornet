@@ -151,6 +151,10 @@
 /obj/item/organ/tongue/could_speak_language(datum/language/language_path)
 	return (language_path in languages_possible)
 
+/obj/item/organ/tongue/feel_for_damage(self_aware)
+	// No effect
+	return ""
+
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
 	desc = "A thin and long muscle typically found in reptilian races, apparently moonlights as a nose."

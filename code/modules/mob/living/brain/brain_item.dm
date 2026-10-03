@@ -183,6 +183,17 @@
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
 
+/obj/item/organ/brain/feel_for_damage(self_aware)
+	if(damage < low_threshold)
+		return ""
+	if(self_aware)
+		if(damage < high_threshold)
+			return span_warning("Your brain hurts a bit.")
+		return span_warning("Your brain hurts a lot.")
+	if(damage < high_threshold)
+		return span_warning("It feels a bit fuzzy.")
+	return span_warning("It aches incessantly.")
+
 /obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 

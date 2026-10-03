@@ -667,7 +667,9 @@
 		if(body_part.bodypart_flags & BODYPART_PSEUDOPART) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
 
-		body_part.check_for_injuries(src, combined_msg)
+		var/bodypart_report = body_part.check_for_injuries(src)
+		if(bodypart_report)
+			combined_msg += "[span_notice("&rdsh;")] [bodypart_report]"
 
 	if(is_bleeding())
 		combined_msg += span_danger("You are [bleed_msg]!")
@@ -679,83 +681,8 @@
 			combined_msg += span_info("You're completely exhausted.")
 		else
 			combined_msg += span_info("You feel fatigued.")
-	if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
-		if(toxloss)
-			if(toxloss > 10)
-				combined_msg += span_danger("You feel sick.")
-			else if(toxloss > 20)
-				combined_msg += span_danger("You feel nauseated.")
-			else if(toxloss > 40)
-				combined_msg += span_danger("You feel very unwell!")
-		if(oxyloss)
-			if(oxyloss > 10)
-				combined_msg += span_danger("You feel lightheaded.")
-			else if(oxyloss > 20)
-				combined_msg += span_danger("Your thinking is clouded and distant.")
-			else if(oxyloss > 30)
-				combined_msg += span_danger("You're choking!")
 
-	if(!HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				combined_msg += span_info("You're completely stuffed!")
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				combined_msg += span_info("You're well fed!")
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				combined_msg += span_info("You're not hungry.")
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				combined_msg += span_info("You could use a bite to eat.")
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				combined_msg += span_info("You feel quite hungry.")
-			if(0 to NUTRITION_LEVEL_STARVING)
-				combined_msg += span_danger("You're starving!")
-
-	//Compiles then shows the list of damaged organs and broken organs
-	var/list/broken = list()
-	var/list/damaged = list()
-	var/broken_message
-	var/damaged_message
-	var/broken_plural
-	var/damaged_plural
-	//Sets organs into their proper list
-	for(var/obj/item/organ/organ as anything in internal_organs)
-		if(organ.organ_flags & ORGAN_FAILING)
-			if(broken.len)
-				broken += ", "
-			broken += organ.name
-		else if(organ.damage > organ.low_threshold)
-			if(damaged.len)
-				damaged += ", "
-			damaged += organ.name
-	//Checks to enforce proper grammar, inserts words as necessary into the list
-	if(broken.len)
-		if(broken.len > 1)
-			broken.Insert(broken.len, "and ")
-			broken_plural = TRUE
-		else
-			var/holder = broken[1]	//our one and only element
-			if(holder[length(holder)] == "s")
-				broken_plural = TRUE
-		//Put the items in that list into a string of text
-		for(var/B in broken)
-			broken_message += B
-		combined_msg += span_warning(" Your [broken_message] [broken_plural ? "are" : "is"] non-functional!")
-	if(damaged.len)
-		if(damaged.len > 1)
-			damaged.Insert(damaged.len, "and ")
-			damaged_plural = TRUE
-		else
-			var/holder = damaged[1]
-			if(holder[length(holder)] == "s")
-				damaged_plural = TRUE
-		for(var/D in damaged)
-			damaged_message += D
-		combined_msg += span_info("Your [damaged_message] [damaged_plural ? "are" : "is"] hurt.")
-
-	if(length(mind?.quirks))
-		combined_msg += span_notice("You have these quirks: [get_quirk_string()].")
-
-	to_chat(src, examine_block(combined_msg.Join("\n")))
+	to_chat(src, examine_block(combined_msg.Join("<br>")))
 
 /mob/living/carbon/human/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
 	if(damage_type != BRUTE && damage_type != BURN)

@@ -126,6 +126,11 @@
 	flapsound = 'sound/emotes/moth/moth_flutter.ogg'
 	canopen = TRUE
 
+/obj/item/organ/wings/moth/feel_for_damage(self_aware)
+	if(HAS_TRAIT(owner, TRAIT_MOTH_BURNT))
+		return "Your wings are all burnt up!"
+	return ..()
+
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
 	flight_level = initial(flight_level)
 	return ..()
