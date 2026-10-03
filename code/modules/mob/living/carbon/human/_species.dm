@@ -477,6 +477,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
 
+	//identifying someone via flavor text is probably undesirable, also the flavor text likely doesn't make sense anymore.
+	if(target.dna.features["flavor_text"])
+		target.dna.features.Remove("flavor_text")
+
 /// Creates body parts for the target completely from scratch based on the species
 /datum/species/proc/create_fresh_body(mob/living/carbon/target)
 	target.create_bodyparts(bodypart_overrides)

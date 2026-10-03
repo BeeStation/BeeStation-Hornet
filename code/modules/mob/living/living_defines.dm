@@ -194,7 +194,7 @@
 
 	//is mob player controllable
 	var/playable = FALSE
-	var/flavor_text = FLAVOR_TEXT_NONE
+	var/mob_flavor_text = FLAVOR_TEXT_NONE
 
 	///The height offset of a mob's maptext due to their current size.
 	var/body_maptext_height_offset = 0
