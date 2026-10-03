@@ -1,0 +1,39 @@
+# pets
+
+/mob/living/simple_animal/pet/@SUBTYPES : /mob/living/basic/pet/@SUBTYPES{@OLD}
+
+# baby penguins grow up now
+/mob/living/basic/pet/penguin/baby : /mob/living/basic/pet/penguin/baby/permanent{@OLD}
+
+/mob/living/basic/pet/fox/Renault : /mob/living/basic/pet/fox/renault{@OLD}
+
+# not pets
+
+/mob/living/simple_animal/butterfly : /mob/living/basic/butterfly{@OLD}
+
+/mob/living/simple_animal/crab/@SUBTYPES : /mob/living/basic/crab/@SUBTYPES{@OLD}
+/mob/living/basic/crab/Coffee : /mob/living/basic/crab/coffee{@OLD}
+
+/mob/living/simple_animal/sloth/@SUBTYPES : /mob/living/basic/sloth/@SUBTYPES{@OLD}
+
+/mob/living/simple_animal/hostile/retaliate/goat/@SUBTYPES : /mob/living/basic/goat/@SUBTYPES{@OLD}
+/mob/living/basic/goat{name = "Pete"} : /mob/living/basic/goat/pete{@OLD;name=@SKIP}
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake : /mob/living/basic/snake{@OLD}
+
+/mob/living/simple_animal/chicken : /mob/living/basic/chicken{@OLD}
+
+# chicks grow up now
+/mob/living/simple_animal/chick/dave : /mob/living/basic/chick/permanent/dave{@OLD}
+/mob/living/simple_animal/chick/@SUBTYPES : /mob/living/basic/chick/permanent{@OLD}
+
+/mob/living/simple_animal/rabbit/@SUBTYPES : /mob/living/basic/rabbit/@SUBTYPES{@OLD}
+
+/mob/living/simple_animal/turkey : /mob/living/basic/turkey{@OLD}
+/mob/living/basic/turkey{name = "Tom"} : /mob/living/basic/turkey/tom
+
+/mob/living/simple_animal/hostile/lizard : /mob/living/basic/lizard{@OLD}
+
+/mob/living/simple_animal/turtle : /mob/living/basic/turtle{@OLD}
+
+/mob/living/simple_animal/cardinal : /mob/living/basic/cardinal{@OLD}

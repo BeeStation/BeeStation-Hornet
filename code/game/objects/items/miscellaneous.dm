@@ -473,7 +473,7 @@
 /obj/item/choice_beacon/pet/hamster
 	name = "hamster delivery beacon"
 	default_name = "Doctor"
-	mob_choice = /mob/living/simple_animal/pet/hamster
+	mob_choice = /mob/living/basic/pet/hamster
 
 /obj/item/choice_beacon/pet/pug
 	name = "pug delivery beacon"
@@ -488,7 +488,7 @@
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"
 	default_name = "Pingu"
-	mob_choice = /mob/living/simple_animal/pet/penguin/baby
+	mob_choice = /mob/living/basic/pet/penguin/baby
 
 /obj/item/choice_beacon/pet/clown
 	name = "living lube delivery beacon"
@@ -498,7 +498,7 @@
 /obj/item/choice_beacon/pet/goat
 	name = "goat delivery beacon"
 	default_name = "Billy"
-	mob_choice = /mob/living/simple_animal/hostile/retaliate/goat
+	mob_choice = /mob/living/basic/goat
 
 /obj/item/choice_beacon/janicart
 	name = "janicart delivery beacon"

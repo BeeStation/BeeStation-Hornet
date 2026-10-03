@@ -147,7 +147,7 @@
 /obj/vehicle/sealed/car/clowncar/on_emag(mob/user)
 	..()
 	to_chat(user, span_danger("You scramble the clowncar safety lock and enable high-octane waddling!"))
-	AddComponent(/datum/component/waddling)
+	AddElementTrait(TRAIT_WADDLING, INNATE_TRAIT, /datum/element/waddling)
 	upgraded = TRUE
 
 /obj/vehicle/sealed/car/clowncar/Destroy()

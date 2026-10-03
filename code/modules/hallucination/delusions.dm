@@ -152,12 +152,12 @@
 	return ..()
 
 /datum/hallucination/delusion/preset/corgi
-	delusion_icon_file = 'icons/mob/pets.dmi'
+	delusion_icon_file = 'icons/mob/simple/pets.dmi'
 	delusion_icon_state = "corgi"
 	delusion_name = "corgi"
 
 /datum/hallucination/delusion/preset/carp
-	delusion_icon_file = 'icons/mob/carp.dmi'
+	delusion_icon_file = 'icons/mob/simple/carp.dmi'
 	delusion_icon_state = "carp"
 	delusion_name = "carp"
 

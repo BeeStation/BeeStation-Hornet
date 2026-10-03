@@ -17,19 +17,32 @@
 	explanation_text = "Ensure there are at least [target_amount] pets on the station by the end of the shift. Interpret this as you wish."
 
 /datum/objective/crew/petsplosion/check_completion()
-	if(..())
-		return TRUE
+	. = ..()
+	if(.)
+		return
+
 	var/petcount = target_amount
-	for(var/mob/living/simple_animal/pet/P in GLOB.mob_list)
-		if(!(P.stat == DEAD))
-			if((P.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(P)])
-				petcount--
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(!(H.stat == DEAD))
-			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
-				if(istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
-					petcount--
-	return petcount <= 0
+	for(var/mob/living/basic/pet/pet in GLOB.mob_living_list)
+		if(pet.stat == DEAD)
+			continue
+		if(!is_station_level(pet.z) && !SSshuttle.emergency.shuttle_areas[get_area(pet)])
+			continue
+
+		petcount--
+		if(petcount <= 0)
+			return TRUE
+
+	for(var/mob/living/carbon/human/kitten as anything in GLOB.human_list)
+		if(kitten.stat == DEAD)
+			continue
+		if(!is_station_level(kitten.z) && !SSshuttle.emergency.shuttle_areas[get_area(kitten)])
+			continue
+		if(!istype(kitten.wear_neck, /obj/item/clothing/neck/petcollar))
+			continue
+
+		petcount--
+		if(petcount <= 0)
+			return TRUE
 
 /datum/objective/crew/points //ported from old hippie
 	explanation_text = "Make sure the station has at least (Something broke, yell on GitHub) station credits at the end of the shift."

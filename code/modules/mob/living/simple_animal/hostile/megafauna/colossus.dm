@@ -721,7 +721,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	friendly_verb_continuous = "mends"
 	friendly_verb_simple = "mend"
 	density = FALSE
-	is_flying_animal = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -748,6 +747,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	remove_verb(/mob/living/verb/pulled)
 	remove_verb(/mob/verb/me_verb)
 	add_traits(list(TRAIT_MEDICAL_HUD, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()

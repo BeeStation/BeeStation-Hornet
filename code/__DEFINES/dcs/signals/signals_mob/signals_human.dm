@@ -31,3 +31,8 @@
 #define COMSIG_JOB_RECEIVED "job_received"
 /// from /mob/living/carbon/human/on_fire_stack. Called when the human is set on fire and burning clothes and stuff
 #define COMSIG_HUMAN_BURNING "human_burning"
+
+/// Called from /datum/species/proc/harm(): (mob/living/carbon/human/attacker, damage, attack_type, atk_effect, obj/item/bodypart/affecting, armor_block)
+#define COMSIG_HUMAN_GOT_PUNCHED "human_got_punched"
+/// Called from /datum/species/proc/harm(): (mob/living/carbon/human/attacked, damage, attack_type, atk_effect, obj/item/bodypart/affecting, armor_block)
+#define COMSIG_HUMAN_PUNCHED "human_punched"

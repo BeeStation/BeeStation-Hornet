@@ -12,7 +12,7 @@
 		return COMPONENT_INCOMPATIBLE
 	. = ..()
 
-	var/flags = NONE
+	var/flags = MOVEMENT_LOOP_OUTSIDE_CONTROL
 	if(instant)
 		flags |= MOVEMENT_LOOP_START_FAST
 	var/atom/movable/movable_parent = parent
@@ -28,6 +28,8 @@
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_move))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_move))
 	RegisterSignal(drifting_loop, COMSIG_QDELETING, PROC_REF(loop_death))
+	if(drifting_loop.status & MOVELOOP_STATUS_RUNNING)
+		drifting_start(drifting_loop) // There's a good chance it'll autostart, gotta catch that
 
 /datum/component/drift/Destroy()
 	inertia_last_loc = null

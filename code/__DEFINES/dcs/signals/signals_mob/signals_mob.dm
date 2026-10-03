@@ -45,7 +45,7 @@
 	#define MOVE_ARG_NEW_LOC 1
 	/// The argument of move_args which dictates our movement direction
 	#define MOVE_ARG_DIRECTION 2
-/// From base of /client/Move()
+/// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 /// From base of /mob/proc/set_mob_eye_to() : (atom/new_eye, atom/old_eye)
 #define COMSIG_MOB_SET_MOB_EYE "mob_set_mob_eye_to"

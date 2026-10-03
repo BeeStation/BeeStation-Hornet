@@ -92,12 +92,13 @@
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
-		waddle = ear_owner.AddComponent(/datum/component/waddling)
+		owner.AddElementTrait(TRAIT_WADDLING, REF(src), /datum/element/waddling)
 
 /obj/item/organ/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
+		REMOVE_TRAIT(ear_owner, TRAIT_WADDLING, REF(src))
 		QDEL_NULL(waddle)
 
 /obj/item/organ/ears/bronze

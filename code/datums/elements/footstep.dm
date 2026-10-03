@@ -62,7 +62,7 @@
 	if(!istype(turf))
 		return
 
-	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLOATING | FLYING))
+	if(!turf.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLOATING | FLYING) || HAS_TRAIT(source, TRAIT_IMMOBILIZED) || CHECK_MOVE_LOOP_FLAGS(source, MOVEMENT_LOOP_OUTSIDE_CONTROL))
 		return
 
 	if(source.body_position == LYING_DOWN) //play crawling sound if we're lying
@@ -90,8 +90,11 @@
 		return
 	return turf
 
-/datum/element/footstep/proc/play_simplestep(mob/living/source)
+/datum/element/footstep/proc/play_simplestep(mob/living/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
+
+	if (forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
+		return
 
 	var/turf/open/source_loc = prepare_step(source)
 	if(!source_loc)
@@ -116,10 +119,7 @@
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
-		return
-
-	if (!momentum_change)
+	if(forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS) || !momentum_change)
 		return
 
 	var/volume_multiplier = 1
@@ -135,8 +135,6 @@
 
 	//cache for sanic speed (lists are references anyways)
 	var/static/list/footstep_sounds = GLOB.footstep
-	///list returned by playsound() filled by client mobs who heard the footstep. given to play_fov_effect()
-	//var/list/heard_clients
 
 	if ((source.wear_suit?.body_parts_covered | source.w_uniform?.body_parts_covered | source.shoes?.body_parts_covered) & FEET)
 		// we are wearing shoes
@@ -156,15 +154,18 @@
 				TRUE,
 				bare_footstep_sounds[source_loc.barefootstep][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
 
-	//if(heard_clients)
-	//	play_fov_effect(source, 5, "footstep", direction, ignore_self = TRUE, override_list = heard_clients)
-
-
 ///Prepares a footstep for machine walking
-/datum/element/footstep/proc/play_simplestep_machine(atom/movable/source)
+/datum/element/footstep/proc/play_simplestep_machine(atom/movable/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
+
+	if(forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
+		return
 
 	var/turf/open/source_loc = get_turf(source)
 	if(!istype(source_loc))
 		return
+
+	if(CHECK_MOVE_LOOP_FLAGS(source, MOVEMENT_LOOP_OUTSIDE_CONTROL))
+		return
+
 	playsound(source, footstep_sounds, 50, falloff_distance = 1, vary = sound_vary)

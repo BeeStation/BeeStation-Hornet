@@ -27,7 +27,7 @@
 /datum/ai_movement/proc/reset_pathing_failures(datum/ai_controller/controller)
 	controller.consecutive_pathing_attempts = 0
 
-///Should the movement be allowed to happen?
+///Should the movement be allowed to happen? return TRUE if it can, FALSE otherwise
 /datum/ai_movement/proc/allowed_to_move(datum/move_loop/source)
 	SHOULD_BE_PURE(TRUE)
 

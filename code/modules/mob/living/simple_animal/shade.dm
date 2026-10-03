@@ -29,7 +29,6 @@
 	status_flags = 0
 	faction = list(FACTION_CULT)
 	status_flags = CANPUSH
-	is_flying_animal = TRUE
 	loot = list(/obj/item/ectoplasm)
 	del_on_death = TRUE
 	initial_language_holder = /datum/language_holder/construct
@@ -40,6 +39,7 @@
 /mob/living/simple_animal/shade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/shade/death()
 	death_message = "lets out a contented sigh as [p_their()] form unwinds."

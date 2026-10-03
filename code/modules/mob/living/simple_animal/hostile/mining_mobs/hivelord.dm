@@ -79,7 +79,6 @@
 	speed = 3
 	maxHealth = 1
 	health = 1
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	melee_damage = 2
 	attack_verb_continuous = "slashes"
@@ -94,7 +93,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(death)), 100)
+	addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
+	AddElement(/datum/element/simple_flying)
 
 //Legion
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion

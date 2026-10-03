@@ -47,8 +47,9 @@
 	else
 		controller.queue_behavior(/datum/ai_behavior/perform_speech, pick(speak), sound_to_play)
 
-/datum/ai_planning_subtree/random_speech/cockroach
+/datum/ai_planning_subtree/random_speech/insect
 	speech_chance = 1
+	sound = list('sound/mobs/non-humanoids/insect/chitter.ogg')
 	emote_hear = list("chitters.")
 
 /datum/ai_planning_subtree/random_speech/mothroach
@@ -58,13 +59,55 @@
 /datum/ai_planning_subtree/random_speech/mouse
 	speech_chance = 1
 	speak = list("Squeak!", "SQUEAK!", "Squeak?")
-	sound = list('sound/effects/mousesqueek.ogg')
+	sound = list('sound/mobs/non-humanoids/mouse/mousesqueek.ogg')
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
+
+/datum/ai_planning_subtree/random_speech/lizard // all of these have to be three words long or i'm killing you. you're dead.
+	speech_chance = 3
+	emote_hear = list("stamps around some.", "hisses a bit.")
+	emote_see = list("blehs.", "tilts head.", "does a spin.")
+
+/datum/ai_planning_subtree/random_speech/rabbit
+	speech_chance = 10
+	speak = list("Mrrp.", "CHIRP!", "Mrrp?") // rabbits make some weird noises dude i don't know what to tell you
+	emote_hear = list("hops.")
+	emote_see = list("hops around.", "bounces up and down.")
+
+/// For the easter subvariant of rabbits, these ones actually speak catchphrases.
+/datum/ai_planning_subtree/random_speech/rabbit/easter
+	speak = list(
+		"Hop into Easter!",
+		"Come get your eggs!",
+		"Prizes for everyone!",
+	)
+
+/// These ones have a space mask on, so their catchphrases are muffled.
+/datum/ai_planning_subtree/random_speech/rabbit/easter/space
+	speak = list(
+		"Hmph mmph mmmph!",
+		"Mmphe mmphe mmphe!",
+		"Hmm mmm mmm!",
+	)
+
+/datum/ai_planning_subtree/random_speech/chicken
+	speech_chance = 15 // really talkative ladies
+	speak = list("Cluck!", "BWAAAAARK BWAK BWAK BWAK!", "Bwaak bwak.")
+	sound = list('sound/mobs/non-humanoids/chicken/clucks.ogg', 'sound/mobs/non-humanoids/chicken/bagawk.ogg')
+	emote_hear = list("clucks.", "croons.")
+	emote_see = list("pecks at the ground.","flaps her wings viciously.")
+
+/datum/ai_planning_subtree/random_speech/chick
+	speech_chance = 4
+	speak = list("Cherp.", "Cherp?", "Chirrup.", "Cheep!")
+	sound = list('sound/mobs/non-humanoids/chicken/chick_peep.ogg')
+	emote_hear = list("cheeps.")
+	emote_see = list("pecks at the ground.","flaps her tiny wings.")
 
 /datum/ai_planning_subtree/random_speech/cow
 	speech_chance = 1
 	speak = list("moo?","moo","MOOOOOO")
+	sound = list('sound/mobs/non-humanoids/cow/cow.ogg')
 	emote_hear = list("brays.")
 	emote_see = list("shakes her head.")
 
@@ -95,8 +138,47 @@
 	emote_hear = list("snores.", "burps.")
 	emote_see = list("blinks.")
 
+/datum/ai_planning_subtree/random_speech/fox
+	speech_chance = 1
+	speak = list("Ack-Ack", "Ack-Ack-Ack-Ackawoooo", "Geckers", "Awoo", "Tchoff")
+	emote_hear = list("howls.", "barks.", "screams.")
+	emote_see = list("shakes their head.", "shivers.")
+
+/datum/ai_planning_subtree/random_speech/crab
+	speech_chance = 1
+	sound = list('sound/mobs/non-humanoids/crab/claw_click.ogg')
+	emote_hear = list("clicks.", "clacks.")
+
+/datum/ai_planning_subtree/random_speech/penguin
+	speech_chance = 5
+	speak = list("Gah Gah!", "NOOT NOOT!", "NOOT!", "Noot", "noot", "Prah!", "Grah!")
+	emote_hear = list("squawks", "gakkers")
+
+/datum/ai_planning_subtree/random_speech/penguin/baby
+	speak = list("gah", "noot noot", "noot!", "noot", "squeee!", "noo!")
+
 /datum/ai_planning_subtree/random_speech/cats
 	speech_chance = 10
 	sound = list("cat_meow")
 	emote_hear = list("meows.")
 	emote_see = list("meows.")
+
+/datum/ai_planning_subtree/random_speech/hamster
+	speech_chance = 5
+	speak = list("Squeak", "SQUEAK!")
+	emote_hear = list("squeaks.", "hisses.", "squeals.")
+	emote_see = list("skitters", "examines its claws", "rolls around")
+
+/datum/ai_planning_subtree/random_speech/snake
+	speech_chance = 5
+	speak = list("hsssss", "sssSSsssss...", "hiisssss")
+	sound = list('sound/mobs/non-humanoids/snake/snake_hissing1.ogg', 'sound/mobs/non-humanoids/snake/snake_hissing2.ogg')
+	emote_hear = list("hisses.")
+	emote_see = list("slithers around.", "glances.", "stares.")
+
+/datum/ai_planning_subtree/random_speech/turkey
+	speech_chance = 5
+	speak = list("Gobble!", "GOBBLE GOBBLE GOBBLE!", "Cluck.")
+	sound = list('sound/mobs/non-humanoids/turkey/gobble.ogg')
+	emote_hear = list("gobbles.")
+	emote_see = list("pecks at the ground.", "flaps its wings viciously.")

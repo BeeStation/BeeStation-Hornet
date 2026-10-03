@@ -42,6 +42,10 @@
 	AddElement(/datum/element/microwavable, /obj/item/food/boiledegg)
 */
 
+/obj/item/food/egg/organic
+	name = "organic egg"
+	desc = "A 100% natural egg from the best hens."
+
 /obj/item/food/egg/rotten
 	food_reagents = list(/datum/reagent/consumable/eggrot = 10, /datum/reagent/consumable/mold = 10)
 	microwaved_type = /obj/item/food/boiledegg/rotten

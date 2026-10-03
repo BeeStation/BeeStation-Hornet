@@ -12,12 +12,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/production)
-"af" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east,
-/obj/item/soap/nanotrasen,
-/turf/open/floor/iron/freezer,
-/area/mine/living_quarters)
 "ag" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -1419,6 +1413,13 @@
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"is" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
+/turf/open/floor/wood,
+/area/mine/living_quarters)
 "iu" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -1859,23 +1860,20 @@
 	initial_gas_mix = "TEMP=300"
 	},
 /area/mine/atmospost)
-"kU" = (
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/passive_vent,
-/obj/machinery/portable_thermomachine{
-	target_temperature = 303.15
-	},
-/turf/open/floor/iron/dark,
-/area/mine/living_quarters)
 "kV" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/living_quarters)
+"kX" = (
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/machinery/light,
+/mob/living/basic/turtle{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/mine/gateway)
 "ld" = (
 /turf/closed/wall/r_wall,
 /area/lavaland/surface/outdoors)
@@ -2476,14 +2474,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
-"pk" = (
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
-/obj/machinery/light,
-/mob/living/simple_animal/turtle{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/mine/gateway)
 "po" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
@@ -2897,6 +2887,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospost)
+"rW" = (
+/obj/structure/sink/directional/west,
+/obj/structure/cable/yellow,
+/obj/structure/mirror/directional/east,
+/turf/open/floor/iron/freezer,
+/area/mine/laborcamp)
 "rY" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -3236,6 +3232,17 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/mine/laborcamp/security)
+"ua" = (
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/passive_vent,
+/obj/machinery/portable_thermomachine{
+	target_temperature = 303.15
+	},
+/turf/open/floor/iron/dark,
+/area/mine/living_quarters)
 "ub" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light{
@@ -3493,13 +3500,6 @@
 	initial_gas_mix = "o2=14;n2=5;co2=13;plasma=0.25;TEMP=300"
 	},
 /area/mine/atmospost)
-"vG" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
-/turf/open/floor/wood,
-/area/mine/living_quarters)
 "vH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -3834,12 +3834,6 @@
 /obj/structure/sink/directional/west,
 /turf/open/floor/iron,
 /area/mine/production)
-"xF" = (
-/obj/structure/sink/directional/west,
-/obj/structure/cable/yellow,
-/obj/structure/mirror/directional/east,
-/turf/open/floor/iron/freezer,
-/area/mine/laborcamp)
 "xJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/siding/thinplating{
@@ -4822,14 +4816,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
-"DS" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	target_pressure = 140
-	},
-/turf/open/floor/wood,
-/area/mine/living_quarters)
 "DT" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/rack,
@@ -4962,6 +4948,15 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
+/area/mine/living_quarters)
+"EQ" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/obj/item/wrench,
+/turf/open/floor/iron/grid/steel,
 /area/mine/living_quarters)
 "ER" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -5324,6 +5319,14 @@
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/red,
+/area/mine/living_quarters)
+"GH" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	target_pressure = 140
+	},
+/turf/open/floor/wood,
 /area/mine/living_quarters)
 "GI" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -6042,15 +6045,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/mine/atmosfarmpost)
-"KM" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
-/obj/item/wrench,
-/turf/open/floor/iron/grid/steel,
-/area/mine/living_quarters)
 "KN" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -6605,6 +6599,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow,
 /turf/open/floor/wood,
+/area/mine/living_quarters)
+"OA" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east,
+/obj/item/soap/nanotrasen,
+/turf/open/floor/iron/freezer,
 /area/mine/living_quarters)
 "OE" = (
 /obj/machinery/computer/security/telescreen/toxins{
@@ -36249,7 +36249,7 @@ Ln
 Ln
 BZ
 RH
-xF
+rW
 Qt
 rA
 fb
@@ -39333,7 +39333,7 @@ ug
 ug
 ug
 ug
-pk
+kX
 tI
 OO
 nM
@@ -44981,7 +44981,7 @@ ZH
 YM
 YM
 ZH
-KM
+EQ
 FM
 YN
 ZH
@@ -45491,9 +45491,9 @@ IJ
 IJ
 ZH
 YM
-kU
-vG
-DS
+ua
+is
+GH
 YV
 kV
 YN
@@ -46011,7 +46011,7 @@ YM
 ZH
 Ml
 CM
-af
+OA
 ZH
 gK
 hP
