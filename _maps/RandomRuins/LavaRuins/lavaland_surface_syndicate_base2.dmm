@@ -1110,17 +1110,6 @@
 /obj/structure/cable/yellow,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/power/apc/syndicate/directional/north,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/kirbyplants/random,
-/obj/structure/cable/yellow,
-/obj/machinery/firealarm/directional/east,
-/obj/machinery/power/apc/syndicate/directional/north{
-	name = "Telecommunications APC"
-	},
 /turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/telecomms)
 "kR" = (
