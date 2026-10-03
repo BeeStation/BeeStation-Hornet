@@ -22,7 +22,6 @@ import { affordableAmount, availableFor } from './Fabricator';
 type QueueEntry = {
   name: string;
   amount: number;
-  repeat: BooleanLike;
   design_id: string;
 };
 
@@ -40,7 +39,7 @@ type Data = {
   uses_queue: BooleanLike;
   processing: BooleanLike;
   designs: Record<string, Design>;
-
+  queue_repeating: BooleanLike;
   disk_inserted: BooleanLike;
   can_upload_disk: BooleanLike;
   sec_interface_unlock: BooleanLike;
@@ -258,6 +257,16 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
           buttons={
             <>
               <Button
+                icon="redo-alt"
+                tooltip="Repeat the queue"
+                selected={data.queue_repeating}
+                onClick={() =>
+                  act('queue_repeat', {
+                    repeating: !data.queue_repeating,
+                  })
+                }
+              />
+              <Button
                 disabled={!queue.length}
                 color="bad"
                 icon="times"
@@ -312,21 +321,19 @@ const SidePanel = (props: { availableMaterials: MaterialMap }) => {
                     <div className="FabricatorRecipe__Button">
                       &times;{entry.amount}
                     </div>
-                    <Tooltip content="Repeat this item">
+                    <Tooltip content="Remove one from queue">
                       <div
                         className={classes([
                           'FabricatorRecipe__Button',
                           'FabricatorRecipe__Button--icon',
-                          !entry.repeat && 'FabricatorRecipe__Button--disabled',
                         ])}
                         onClick={() =>
-                          act('item_repeat', {
+                          act('queue_remove_one', {
                             design_id: entry.design_id,
-                            repeating: !entry.repeat,
                           })
                         }
                       >
-                        <Icon name="redo-alt" />
+                        <Icon name="minus-circle" />
                       </div>
                     </Tooltip>
                     <Tooltip content="Remove from queue">

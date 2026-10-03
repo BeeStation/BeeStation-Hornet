@@ -142,7 +142,10 @@
 
 /obj/machinery/modular_fabricator/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if((!issilicon(usr) && !IsAdminGhost(usr)) && !Adjacent(usr))
+	if(isobserver(usr))
+		if(!IsAdminGhost(usr))
+			return
+	else if(!issilicon(usr) && !Adjacent(usr))
 		return
 	if(operating)
 		balloon_alert(usr, "busy printing!")
@@ -152,7 +155,6 @@
 		return
 	output_direction = direction
 	balloon_alert(usr, "dropping [dir2text(output_direction)]")
-	ui_update()
 
 /obj/machinery/modular_fabricator/AltClick(mob/user)
 	. = ..()
@@ -330,7 +332,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			continue
 		buildable += design
 
-	return fabricator_ui_designs(buildable, creation_efficiency)
+	return fabricator_ui_designs(buildable, creation_efficiency, CALLBACK(src, PROC_REF(get_design_coefficient)))
+
+/obj/machinery/modular_fabricator/proc/get_design_coefficient(datum/design/design)
+	return ispath(design.build_path, /obj/item/stack) ? 1 : creation_efficiency
 
 /obj/machinery/modular_fabricator/ui_data(mob/user)
 	var/list/data = list()
@@ -348,16 +353,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	data["sec_interface_unlock"] = !security_interface_locked
 	data["hacked"] = hacked
 
-	// Output direction
 
 	// Queue
+	data["queue_repeating"] = queue_repeating
 	data["design_queue"] = list()
 	for(var/queued_design_id, queue_data in design_queue)
 		var/datum/design/design = SSresearch.techweb_design_by_id(queued_design_id)
 		data["design_queue"] += list(list(
 			"name" = design.name,
 			"amount" = queue_data["amount"],
-			"repeat" = queue_data["repeating"],
 			"design_id" = queued_design_id,
 		))
 
@@ -452,13 +456,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			design_queue.Cut()
 			return TRUE
 
-		if("item_repeat")
-			var/design_id = params["design_id"]
-			if(!design_queue["[design_id]"])
-				return
-
-			var/repeating_mode = text2num(params["repeating"])
-			design_queue["[design_id]"]["repeating"] = repeating_mode
+		if("queue_remove_one")
+			add_to_queue(params["design_id"], -1)
 			return TRUE
 
 		if("clear_item")
