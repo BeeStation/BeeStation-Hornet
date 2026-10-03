@@ -182,7 +182,7 @@
 		visual_fruits["[fruit_index]"] = fruit_effect
 
 /datum/plant_feature/fruit/proc/build_fruit()
-	if(!fruit_product || !parent?.plant_item)
+	if(!fruit_product || !parent?.plant_item || !parent)
 		return
 //Fruit setup
 	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item, TRUE)
@@ -192,7 +192,7 @@
 	if(istype(new_fruit))
 		new_fruit.bite_consumption = new_fruit.reagents.maximum_volume / (new_fruit.bite_consumption_mod + FRUIT_MINIMUM_BITES)
 	var/trait_scale = max(trait_power*0.5, 1) //Scale size with trait power
-	var/matrix/n_transform = matrix(new_fruit.transform )
+	var/matrix/n_transform = matrix(new_fruit.transform)
 	n_transform.Scale(trait_scale, trait_scale)
 	new_fruit.transform = n_transform //Weirdly enough, just scaling the transform doesn't work here
 	SEND_SIGNAL(parent, COMSIG_FRUIT_PREPARE, new_fruit) //Used to prepare fruit characteristics, like making the reagents NO_REACT
