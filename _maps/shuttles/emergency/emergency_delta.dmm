@@ -389,9 +389,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bz" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/button/flasher{
 	id = "shuttleflash";
 	pixel_x = -26;
@@ -403,9 +401,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bA" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 5
 	},
@@ -895,11 +891,7 @@
 	},
 /area/shuttle/escape)
 "sU" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1044,11 +1036,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "zl" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -1328,11 +1316,7 @@
 	},
 /area/shuttle/escape)
 "IG" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
@@ -1571,11 +1555,7 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "Mo" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1588,11 +1568,7 @@
 	},
 /area/shuttle/escape)
 "Mq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
@@ -1899,11 +1875,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/shuttle/escape)
 "WW" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1927,11 +1899,7 @@
 	},
 /area/shuttle/escape)
 "Yf" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/machinery/light{
 	dir = 1
 	},

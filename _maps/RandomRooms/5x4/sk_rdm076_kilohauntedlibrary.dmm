@@ -132,9 +132,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "N" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-05"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,

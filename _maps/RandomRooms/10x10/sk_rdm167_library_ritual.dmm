@@ -3,9 +3,7 @@
 /turf/closed/wall/rust,
 /area/template_noop)
 "cb" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/fluff/paper{
 	dir = 4;
 	icon_state = "papercorner"
@@ -190,10 +188,7 @@
 	},
 /area/template_noop)
 "qv" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/fluff/paper{
 	dir = 1;
 	icon_state = "papercorner"
@@ -299,18 +294,6 @@
 	},
 /obj/structure/railing/corner,
 /turf/open/floor/monofloor,
-/area/template_noop)
-"Ay" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-16"
-	},
-/obj/structure/fluff/paper{
-	dir = 1;
-	icon_state = "papercorner"
-	},
-/turf/open/floor/wood{
-	broken = 1
-	},
 /area/template_noop)
 "AX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -537,9 +520,7 @@
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "Ru" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/fluff/paper{
 	icon_state = "paperstack"
 	},
@@ -585,11 +566,7 @@
 /area/template_noop)
 "UI" = (
 /obj/structure/table/wood,
-/obj/item/kirbyplants{
-	icon_state = "plant-17";
-	pixel_x = 8;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/fluff/paper{
 	dir = 8
 	},
@@ -657,7 +634,7 @@
 (1,1,1) = {"
 OJ
 Dp
-Ay
+qv
 lO
 CF
 jP

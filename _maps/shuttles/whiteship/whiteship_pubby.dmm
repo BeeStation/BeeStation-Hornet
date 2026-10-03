@@ -192,11 +192,7 @@
 /obj/effect/turf_decal/siding/thinplating,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/item/kirbyplants{
-	icon_state = "plant-17";
-	pixel_x = 10;
-	pixel_y = 20
-	},
+/obj/item/plant_tray/pot/random,
 /obj/item/plate,
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice{
 	pixel_x = -8;

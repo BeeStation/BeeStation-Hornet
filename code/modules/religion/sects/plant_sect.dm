@@ -6,7 +6,7 @@
 	alignment = ALIGNMENT_GOOD
 	max_favor = 10000
 	desired_items = list(
-		/obj/item/seeds)
+		/obj/item/plant_seeds)
 	rites_list = list(
 		/datum/religion_rites/create_diona,
 		/datum/religion_rites/create_sandstone,
@@ -19,7 +19,7 @@
 	return TRUE
 
 /datum/religion_sect/plant_sect/on_sacrifice(obj/item/N, mob/living/L)
-	if(!istype(N, /obj/item/seeds))
+	if(!istype(N, /obj/item/plant_seeds))
 		return
 	adjust_favor(25, L)
 	to_chat(L, span_notice("You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process."))
