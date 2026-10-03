@@ -52,6 +52,10 @@
 	// Handle mouse prefs
 	var/should_show_tips = client.show_screentips
 
+	// Face directions on combat mode
+	if(user.face_mouse)
+		user.face_atom(src)
+
 	//Show screentips
 	if (!should_show_tips)
 		return
