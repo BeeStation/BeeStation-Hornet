@@ -278,7 +278,7 @@
 	requires_power = FALSE
 	always_unpowered = TRUE
 	default_gravity = STANDARD_GRAVITY
-	area_flags = UNIQUE_AREA
+	area_flags = UNIQUE_AREA | NOT_SAFE_AREA
 	ambience_index = AMBIENCE_MINING
 	flags_1 = CAN_BE_DIRTY_1
 	sound_environment = SOUND_AREA_ASTEROID
