@@ -2,6 +2,20 @@
 	findQueen()
 	return ..()
 
+/// Aliens have no lungs, so the carbon lung checks would count every breath as missed (and make them gasp)
+/mob/living/carbon/alien/breathe(delta_time, times_fired)
+	var/datum/gas_mixture/breath
+	if(isturf(loc))
+		var/datum/gas_mixture/environment = loc.return_air()
+		breath = loc.remove_air(environment.total_moles() * BREATH_PERCENTAGE)
+
+	if(breath)
+		breath.volume = BREATH_VOLUME
+	check_breath(breath)
+
+	if(breath)
+		loc.assume_air(breath)
+
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
