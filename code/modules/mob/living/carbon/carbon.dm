@@ -800,7 +800,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		hud_used.healths.icon_state = "health6"
 
 /mob/living/carbon/update_stamina_hud(shown_stamina_loss)
-	if(!client || !hud_used?.stamina)
+	if(!client || !hud_used?.stamina || !stamina)
 		return
 
 	if(stat == DEAD)
