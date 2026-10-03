@@ -433,23 +433,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			inserted_disk = null
 			return TRUE
 
-		// Misc
-		if("eject_material")
-			var/datum/material/material_datum = text2path(params["material_datum"])
-			if(!ispath(material_datum, /datum/material))
-				return
-
-			var/amount = text2num(params["amount"])
-			if(amount <= 0 || amount > MAX_STACK_SIZE)
-				return
-
-			var/datum/component/material_container/materials = get_material_container()
-			for(var/datum/material/material_to_eject as anything in materials.materials)
-				if(material_to_eject.type == material_datum)
-					materials.retrieve_sheets(amount, material_to_eject, get_release_turf())
-					return TRUE
-
-
 		// Queue
 		if("queue_category")
 			if(!can_print_entire_categories)
@@ -492,9 +475,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			return TRUE
 
 		if("build")
-			if(!uses_queue && (operating || length(design_queue))) // A machine without a queue takes one order at a time rather than placing more items in the queue behind whatever it's printing
-				say("Warning: fabricator is busy!")
-				return TRUE
+			if(!uses_queue)
+				if(operating)
+					say("Warning: fabricator is busy!")
+					return TRUE
+				design_queue.Cut() // This is here to prevent machines from bricking themselves.
+				wants_to_operate = FALSE
 
 			var/list/design_ids = params["designs"]
 			if(islist(design_ids))
@@ -504,7 +490,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 					queue_stopped = FALSE
 					begin_process()
 				return TRUE
-
 			var/build_design_id = params["ref"] || params["design_id"]
 			var/build_amount = clamp(text2num(params["amount"]), 1, 50)
 			add_to_queue(build_design_id, build_amount)
@@ -540,11 +525,24 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 			return TRUE
 
 		if("remove_mat")
+			var/amount = text2num(params["amount"])
+			if(isnull(amount))
+				return
+			amount = round(amount)
+			if(amount <= 0 || amount > MAX_STACK_SIZE)
+				return
+
 			var/datum/component/material_container/materials = get_material_container()
+			if(!materials)
+				return
 			for(var/datum/material/material_to_eject as anything in materials.materials)
-				if(REF(material_to_eject) == params["ref"])
-					materials.retrieve_sheets(text2num(params["amount"]), material_to_eject, get_release_turf())
-					return TRUE
+				if(REF(material_to_eject) != params["ref"])
+					continue
+				var/count = materials.retrieve_sheets(amount, material_to_eject, get_release_turf())
+				if(count)
+					var/datum/component/remote_materials/remote = GetComponent(/datum/component/remote_materials)
+					remote?.silo_log(src, "ejected", -count, "sheets", list((material_to_eject) = MINERAL_MATERIAL_AMOUNT))
+				return TRUE
 
 		// Go button
 		if("begin_process")
@@ -617,8 +615,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 /obj/machinery/modular_fabricator/proc/after_material_insert(item_inserted, id_inserted, amount_inserted)
 	//we use initial(active_power_usage) because higher tier parts will have higher active usage but we have no benifit from it
 	if(directly_use_power(ROUND_UP((amount_inserted / (MAX_STACK_SIZE * 100)) * 0.02 * initial(active_power_usage))))
-		//Begin processing to continue the queue if we had items in the queue
-		if(wants_to_operate && !uses_queue)
+		if(wants_to_operate && !uses_queue) //Fabricators with a queue wait for the player to press start, machines without a queue resume on their own
 			begin_process()
 
 /obj/machinery/modular_fabricator/proc/begin_process()
@@ -691,7 +688,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
 	if(!materials.has_materials(materials_used))
 		// Every queue change kicks begin_process off again, let's not scream that there isn't enough materials each time a new item is added
 		if(!wants_to_operate)
-			say("Insufficient materials, operation will proceed when sufficient materials are available.")
+			if(uses_queue)
+				say("Insufficient materials, press start to resume once more are available.")
+			else
+				say("Insufficient materials, operation will proceed when sufficient materials are available.")
 		operating = FALSE
 		update_use_power(IDLE_POWER_USE)
 		wants_to_operate = TRUE

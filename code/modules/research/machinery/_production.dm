@@ -3,7 +3,7 @@
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
 
-	/// The efficiency coefficient. Material costs and print times are multiplied by this number;
+	/// The material cost divisor. Material costs are divided by this number, so bigger means cheaper
 	var/efficiency_coeff = 1
 	/// Multiplier applied to print times. it's used directly for calculations
 	var/build_time_coeff = 1
@@ -24,7 +24,7 @@
 	/// Made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update
 	var/techweb_updating = FALSE
 	/// The direction prints and ejected sheets land in. 0 drops them on top of us.
-	var/drop_direction = 0
+	var/output_direction = 0
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	print_sound = new(src, FALSE)
@@ -72,15 +72,22 @@
 
 	. += span_info("Material usage cost at <b>[round(100 / efficiency_coeff, 0.1)]%</b>") // Seems we had it all backwards, 800% wasn't a boost.. this is actually the correct way
 	. += span_info("Build time at <b>[round(100 * build_time_coeff, 0.1)]%</b>")
-	. += span_notice("Currently dropping printed objects <b>[drop_direction ? "to its [dir2text(drop_direction)]" : "on its own tile"]</b>.")
-	if(drop_direction)
+	. += span_notice("Currently dropping printed objects <b>[output_direction ? "to its [dir2text(output_direction)]" : "on its own tile"]</b>.")
+	if(output_direction)
 		. += span_notice("<b>Alt-click</b> to drop them on its own tile again.")
 	else
 		. += span_notice("<b>Drag</b> it towards a direction, while next to it, to change where they drop.")
 
 /// Where printed objects and ejected sheets land
-/obj/machinery/rnd/production/proc/get_output_turf()
-	return drop_direction ? get_step(src, drop_direction) : drop_location()
+/obj/machinery/rnd/production/proc/get_release_turf()
+	var/turf/release_turf
+	if(output_direction)
+		release_turf = get_step(src, output_direction)
+		if(release_turf.is_blocked_turf(TRUE))
+			release_turf = get_turf(src)
+	else
+		release_turf = get_turf(src)
+	return release_turf
 
 /obj/machinery/rnd/production/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
@@ -90,20 +97,20 @@
 		balloon_alert(usr, "busy printing!")
 		return
 	var/direction = get_dir(src, over_location)
-	if(!direction || direction == drop_direction)
+	if(!direction || direction == output_direction)
 		return
-	drop_direction = direction
-	balloon_alert(usr, "dropping [dir2text(drop_direction)]")
+	output_direction = direction
+	balloon_alert(usr, "dropping [dir2text(output_direction)]")
 
 /obj/machinery/rnd/production/AltClick(mob/user)
 	. = ..()
-	if(!drop_direction || !can_interact(user))
+	if(!output_direction || !can_interact(user))
 		return
 	if(busy)
 		balloon_alert(user, "busy printing!")
 		return
 	balloon_alert(user, "drop direction reset")
-	drop_direction = 0
+	output_direction = 0
 
 /obj/machinery/rnd/production/connect_techweb(datum/techweb/new_techweb)
 	if(stored_research)
@@ -289,12 +296,12 @@
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has built [amount] of [path] at \a [src]([type]).")
 
 	var/list/printed_materials // This one is actually to prevent a mild bug involving recycling obtaining infinite materials, we give back whatever price was originally paid rather than the discounted object
-	if(!ispath(path, /obj/item/stack))
+	if(!istype(path, /obj/item/stack))
 		printed_materials = list()
 		for(var/material, material_amount in materials_per_item)
 			// A category cost is met with whichever material the container picked, which isn't knowable from here.
 			if(ispath(material, /datum/material))
-				printed_materials[material] = material_amount 
+				printed_materials[material] = material_amount
 
 	for(var/i in 1 to amount)
 		addtimer(CALLBACK(src, PROC_REF(print_one), path, printed_materials), (i - 1) * time_per_item)
@@ -302,7 +309,7 @@
 
 /// Drops a single item of an order. Spread out by do_print so an order of ten, arrives as ten items rather than one pile.
 /obj/machinery/rnd/production/proc/print_one(path, list/materials_per_item)
-	var/atom/movable/printed = new path(get_output_turf())
+	var/atom/movable/printed = new path(get_release_turf())
 	scatter_printed_item(printed)
 	if(length(materials_per_item))
 		printed.set_custom_materials(materials_per_item)
@@ -395,7 +402,7 @@
 	if (materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return 0
-	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, get_output_turf())
+	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, get_release_turf())
 	var/list/matlist = list()
 	matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
 	materials.silo_log(src, "ejected", -count, "sheets", matlist)
