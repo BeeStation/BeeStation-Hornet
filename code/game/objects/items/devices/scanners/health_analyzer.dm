@@ -225,7 +225,7 @@
 					dmgreport += "<td><font color='#cc3333'>[(limb.brute_dam > 0) ? "[ceil(limb.brute_dam)]" : "0"]</font></td>"
 					dmgreport += "<td><font color='#ff9933'>[(limb.burn_dam > 0) ? "[ceil(limb.burn_dam)]" : "0"]</font></td></tr>"
 
-			dmgreport += "</font></table>"
+			dmgreport += "</table></font>"
 			render_list += dmgreport // tables do not need extra linebreak
 		for(var/obj/item/bodypart/limb as anything in carbontarget.bodyparts)
 			for(var/obj/item/embed as anything in limb.embedded_objects)

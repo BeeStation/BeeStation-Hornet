@@ -355,20 +355,21 @@
 	if(get_bodypart(limb_zone))
 		return FALSE
 	limb = newBodyPart(limb_zone, 0, 0)
-	if(limb)
-		if(!limb.try_attach_limb(src, TRUE))
-			qdel(limb)
-			return FALSE
-		limb.update_limb(is_creating = TRUE)
+	if(!limb)
+		return
+	if(!limb.try_attach_limb(src, TRUE))
+		qdel(limb)
+		return FALSE
+	limb.update_limb(is_creating = TRUE)
 
-		//Copied from /datum/species/proc/on_species_gain()
-		for(var/obj/item/organ/organ_path as anything in dna.species.mutant_organs)
-			//Load a persons preferences from DNA
-			var/zone = initial(organ_path.zone)
-			if(zone != limb_zone)
-				continue
-			var/obj/item/organ/new_organ = SSwardrobe.provide_type(organ_path)
-			new_organ.Insert(src)
+	//Copied from /datum/species/proc/on_species_gain()
+	for(var/obj/item/organ/organ_path as anything in dna.species.mutant_organs)
+		//Load a persons preferences from DNA
+		var/zone = initial(organ_path.zone)
+		if(zone != limb_zone)
+			continue
+		var/obj/item/organ/new_organ = SSwardrobe.provide_type(organ_path)
+		new_organ.Insert(src)
 
-		update_body_parts()
-		return TRUE
+	update_body_parts()
+	return TRUE

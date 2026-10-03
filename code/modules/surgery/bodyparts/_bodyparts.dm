@@ -274,11 +274,8 @@
 	for(var/obj/item/embedded_thing as anything in embedded_objects)
 		var/harmless = embedded_thing.isEmbedHarmless()
 		var/stuck_wordage = harmless ? "stuck to" : "embedded in"
-		var/embed_text = "\t<a href='byond://?src=[REF(examiner)];embedded_object=[REF(embedded_thing)];embedded_limb=[REF(src)]'> There is [icon2html(embedded_thing, examiner)] \a [embedded_thing] [stuck_wordage] your [plaintext_zone]!</a>"
-		if (harmless)
-			check_list += span_italics(span_notice(embed_text))
-		else
-			check_list += span_boldwarning(embed_text)
+		var/embed_class = harmless ? "notice italics" : "boldwarning"
+		check_list += "\t<a class='[embed_class]' href='byond://?src=[REF(examiner)];embedded_object=[REF(embedded_thing)];embedded_limb=[REF(src)]'>There is [icon2html(embedded_thing, examiner)] \a [embedded_thing] [stuck_wordage] your [plaintext_zone]!</a>"
 
 	/*
 	if(current_gauze)

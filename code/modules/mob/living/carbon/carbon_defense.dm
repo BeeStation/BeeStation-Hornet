@@ -433,11 +433,8 @@
 				)
 			var/harmless = weapon.isEmbedHarmless()
 			var/stuck_wordage = harmless ? "stuck to" : "embedded in"
-			var/embed_text = "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(weapon)];embedded_limb=[REF(limb)]'> There is [icon2html(weapon, src)] \a [weapon] [stuck_wordage] your [limb.plaintext_zone]!</a>"
-			if (harmless)
-				to_chat(src, span_italics(span_notice(embed_text)))
-			else
-				to_chat(src, span_boldwarning(embed_text))
+			var/embed_class = harmless ? "notice italics" : "boldwarning"
+			to_chat(src, "\t<a class='[embed_class]' href='byond://?src=[REF(src)];embedded_object=[REF(weapon)];embedded_limb=[REF(limb)]'>There is [icon2html(weapon, src)] \a [weapon] [stuck_wordage] your [limb.plaintext_zone]!</a>")
 	return embeds
 
 /mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
