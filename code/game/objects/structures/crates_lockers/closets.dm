@@ -347,13 +347,9 @@
 	return
 
 /obj/structure/closet/proc/toggle(mob/living/user)
-	if(user)
+	. = opened ? close(user) : open(user)
+	if(. && user)
 		user.animate_interact(src)
-
-	if(opened)
-		return close(user)
-	else
-		return open(user)
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(flags_1 & NODECONSTRUCT_1))
@@ -601,6 +597,7 @@
 			locked = !locked
 			user.visible_message(span_notice("[user] [locked ? null : "un"]locks [src]."),
 							span_notice("You [locked ? null : "un"]lock [src]."))
+			user.animate_interact(src)
 			update_icon()
 		else if(!silent)
 			to_chat(user, span_notice("Access Denied."))

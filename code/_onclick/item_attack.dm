@@ -17,6 +17,7 @@
 
 	var/item_interact_result = target.base_item_interaction(user, src, modifiers)
 	if(item_interact_result & ITEM_INTERACT_SUCCESS)
+		user.animate_interact(target, INTERACT_GENERIC, src)
 		return TRUE
 	if(item_interact_result & ITEM_INTERACT_BLOCKING)
 		return FALSE
