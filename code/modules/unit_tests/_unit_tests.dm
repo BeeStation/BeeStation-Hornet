@@ -126,6 +126,7 @@
 #include "walls_have_sheets.dm"
 #include "wizard_loadout.dm"
 #include "worn_icons.dm"
+#include "xeno_anti_mech.dm"
 
 /*
 #include "__DEFINES\test_defines.dm"
