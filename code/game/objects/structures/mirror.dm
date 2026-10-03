@@ -220,9 +220,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 					to_chat(user, span_notice("Whoa man, you feel like a man!"))
 				else
 					return
+
 			user.dna.update_ui_block(DNA_GENDER_BLOCK)
-			user.update_body()
+			user.update_body(is_creating = TRUE)
 			user.update_mutations_overlay() //(hulk male/female)
+			user.update_clothing(ITEM_SLOT_ICLOTHING)
 
 		if("hair")
 			var/hairchoice = alert(user, "Hair style or hair color?", "Change Hair", "Style", "Color")

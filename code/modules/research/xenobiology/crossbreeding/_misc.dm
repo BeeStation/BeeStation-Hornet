@@ -46,10 +46,8 @@ Slimecrossing Items
 
 /mob/living/carbon/proc/save_bodyparts()
 	var/list/datum/saved_bodypart/ret = list()
-	for(var/_part in bodyparts)
-		var/obj/item/bodypart/part = _part
+	for(var/obj/item/bodypart/part as anything in get_bodyparts())
 		var/datum/saved_bodypart/saved_part = new(part)
-
 		ret[part.body_zone] = saved_part
 	return ret
 

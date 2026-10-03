@@ -487,13 +487,13 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /proc/get_blood_dna_color(list/blood_dna)
 	if(!length(blood_dna))
-		return COLOR_BLOOD
+		return BLOOD_COLOR_RED
 	var/blood_print = blood_dna[length(blood_dna)]
 	var/datum/blood_type/blood_type = blood_dna[blood_print]
 	if(!blood_type)
-		return COLOR_BLOOD
+		return BLOOD_COLOR_RED
 	if(!blood_type.blood_color)
-		return COLOR_BLOOD
+		return BLOOD_COLOR_RED
 	return blood_type.blood_color
 
 //to add a splatter of blood or other mob liquid.
@@ -523,8 +523,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		else
 			drop = new(T, get_static_viruses())
 			drop.transfer_mob_blood_dna(src)
-			if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(drop)) == COLOR_ETHEREAL_BLOOD)
-				drop.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
+			if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(drop)) == BLOOD_COLOR_ETHEREAL)
+				drop.set_light(1, 0.5, BLOOD_COLOR_ETHEREAL)
 			return
 
 	// Find a blood decal or create a new one.
@@ -540,8 +540,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
-	if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(B)) == COLOR_ETHEREAL_BLOOD)
-		B.set_light(1, 0.5, COLOR_ETHEREAL_BLOOD)
+	if(get_blood_dna_color(GET_ATOM_BLOOD_DNA(B)) == BLOOD_COLOR_ETHEREAL)
+		B.set_light(1, 0.5, BLOOD_COLOR_ETHEREAL)
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)
 

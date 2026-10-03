@@ -1,13 +1,36 @@
-/mob/living/proc/get_bodypart(zone)
+/mob/living/proc/get_bodypart(zone = BODY_ZONE_CHEST)
 	return
 
-/mob/living/carbon/get_bodypart(zone)
+/mob/living/carbon/get_bodypart(zone = BODY_ZONE_CHEST)
 	RETURN_TYPE(/obj/item/bodypart)
-	if(!zone)
-		zone = BODY_ZONE_CHEST
-	for(var/obj/item/bodypart/L as anything in bodyparts)
-		if(L.body_zone == zone)
-			return L
+	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
+		if(bodypart.body_zone == zone)
+			return bodypart
+
+/**
+ * Returns all bodyparts this mob has, optionally including stumps.
+ *
+ * Returns a list of bodyparts, which may be empty.
+ */
+/mob/living/proc/get_bodyparts()
+	var/list/parts = list()
+	for(var/zone in get_all_limbs())
+		var/obj/item/bodypart/bodypart = get_bodypart(zone)
+		if(bodypart)
+			parts += bodypart
+	return parts
+
+/**
+ * Returns all bodyparts this mob has, indexed by their body zone
+ * Also nulls, so be sure to check for those if you use this proc.
+ *
+ * Returns a list of bodyparts indexed by their body zone
+ */
+/mob/living/proc/get_bodyparts_by_zones() as /list
+	var/list/parts = list()
+	for(var/zone in get_all_limbs())
+		parts[zone] = get_bodypart(zone)
+	return parts
 
 ///Replaces a single limb and deletes the old one if there was one
 /mob/living/carbon/proc/del_and_replace_bodypart(obj/item/bodypart/new_limb, special)
@@ -66,10 +89,22 @@
 /mob/living/carbon/alien/larva/has_right_hand()
 	return 1
 
-
-/mob/living/carbon/proc/get_missing_limbs()
+///Returns a list of all limbs this mob should have.
+/mob/living/proc/get_all_limbs() as /list
 	RETURN_TYPE(/list)
-	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	return GLOB.all_body_zones.Copy()
+
+///Returns a list of all limbs this mob should have.
+/mob/living/carbon/get_all_limbs()
+	// gets the "normal list", ie chest-head-legs-arms. order matters for human rendering!
+	. = dna?.species?.bodypart_overrides.Copy() || ..()
+	// includes any additional adminbussed hands
+	for(var/obj/item/bodypart/hand in hand_bodyparts)
+		. |= hand.body_zone
+
+///Returns a list of all missing limbs this mob should have on them, but don't.
+/mob/living/carbon/proc/get_missing_limbs() as /list
+	var/list/full = get_all_limbs()
 	for(var/zone in full)
 		if(get_bodypart(zone))
 			full -= zone
@@ -86,7 +121,7 @@
 	return list()
 
 /mob/living/carbon/get_disabled_limbs()
-	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	var/list/full = get_all_limbs()
 	var/list/disabled = list()
 	for(var/zone in full)
 		var/obj/item/bodypart/affecting = get_bodypart(zone)

@@ -622,10 +622,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!blockhand)
 		return FALSE
 	if(blockhand?.bodypart_disabled)
-		to_chat(owner, span_danger("You're too exausted to block the attack!"))
+		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	else if(owner.getStaminaLoss() >= 45)
-		to_chat(owner, span_danger("You're too exausted to block the attack!"))
+		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	if((block_flags & BLOCKING_ACTIVE) && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return FALSE
