@@ -2,7 +2,6 @@
 	id = "disoriented"
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/disoriented
-	var/last_twitch = 0
 
 /datum/status_effect/incapacitating/disoriented/on_apply()
 	. = ..()
@@ -17,10 +16,10 @@
 	return ..()
 
 /datum/status_effect/incapacitating/disoriented/tick()
-	if(last_twitch < world.time + 7 && (!HAS_TRAIT(owner, TRAIT_IMMOBILIZED)))
-		INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom/movable, twitch))
-		playsound(owner, 'sound/effects/electric_shock_short.ogg', 35, TRUE, 0.5, 1.5)
-		last_twitch = world.time
+	if(HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		return
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom/movable, twitch))
+	playsound(owner, 'sound/effects/electric_shock_short.ogg', 35, TRUE, 0.5, 1.5)
 
 /atom/movable/screen/alert/status_effect/disoriented
 	name = "Disoriented"

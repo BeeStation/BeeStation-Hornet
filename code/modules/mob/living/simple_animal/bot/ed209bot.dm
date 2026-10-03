@@ -530,8 +530,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, STAMINA)
-	if(C.takes_stamina_damage())
-		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block)
+	if(C.takes_stamina_damage(TRUE))
+		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	C.set_stutter_if_lower(10 SECONDS)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C

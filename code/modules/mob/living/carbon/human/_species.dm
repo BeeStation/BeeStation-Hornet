@@ -989,7 +989,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(TRUE)
 	if(H.stat == DEAD)
 		return
-	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health <= H.hardcrit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
+	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health <= H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		H.adjustBruteLoss(0.5 * delta_time)
 
 	if(H.get_organ_by_type(/obj/item/organ/wings))

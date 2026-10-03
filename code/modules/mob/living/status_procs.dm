@@ -243,15 +243,19 @@
  * * overstam : If TRUE, stamina_amount will be able to deal stamina damage over the waekened threshold, allowing it to also stamina stun.
  * * stack_status : Should the given status value(s) stack ontop of existing status values?
  * * protection : Armor value (0-100) that reduces stamina_amount
+ * * electrical : Mobs with TRAIT_STUN_DRAINS_POWER lose power instead of stamina, and stuns land once they're in low power
  */
-/mob/living/proc/Disorient(amount, stamina_amount, ignore_canstun, knockdown, stun, paralyze, overstam, stack_status = TRUE, protection = 0)
+/mob/living/proc/Disorient(amount, stamina_amount, ignore_canstun, knockdown, stun, paralyze, overstam, stack_status = TRUE, protection = 0, electrical = FALSE)
 	var/disorient_multiplier = 1 - (clamp(protection, 0, 100)/100)
 	var/stamina_multiplier = LERP(disorient_multiplier, 1, 0.25)
 
 	var/stam2deal = stamina_amount * stamina_multiplier
 
+	var/low_power = FALSE
+	if(electrical && HAS_TRAIT(src, TRAIT_STUN_DRAINS_POWER))
+		low_power = SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STUN_POWER, stam2deal) & COMPONENT_STUN_LOW_POWER
 	//You can never be stam-stunned w/o overstam
-	if(overstam)
+	else if(overstam)
 		stamina.adjust(-stam2deal)
 	else
 		var/threshold = (stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER)
@@ -262,24 +266,19 @@
 	var/curr_confusion = get_timed_status_effect_duration(/datum/status_effect/confusion)
 	set_timed_status_effect(min(curr_confusion + amount, 15 SECONDS), /datum/status_effect/confusion)
 
-	if(HAS_TRAIT(src, TRAIT_EXHAUSTED))
-		if(knockdown)
-			if(stack_status)
-				AdjustKnockdown(knockdown, ignore_canstun)
-			else
-				Knockdown(knockdown, ignore_canstun)
+	if(HAS_TRAIT(src, TRAIT_EXHAUSTED) || low_power)
+		var/list/applied = list()
+		if(knockdown && (stack_status ? AdjustKnockdown(knockdown, ignore_canstun) : Knockdown(knockdown, ignore_canstun)))
+			applied += "knocked down ([DisplayTimeText(knockdown)])"
 
-		if(paralyze)
-			if(stack_status)
-				AdjustParalyzed(paralyze, ignore_canstun)
-			else
-				Paralyze(paralyze, ignore_canstun)
+		if(paralyze && (stack_status ? AdjustParalyzed(paralyze, ignore_canstun) : Paralyze(paralyze, ignore_canstun)))
+			applied += "paralyzed ([DisplayTimeText(paralyze)])"
 
-		if(stun)
-			if(stack_status)
-				AdjustStun(stun, ignore_canstun)
-			else
-				Stun(stun, ignore_canstun)
+		if(stun && (stack_status ? AdjustStun(stun, ignore_canstun) : Stun(stun, ignore_canstun)))
+			applied += "stunned ([DisplayTimeText(stun)])"
+
+		if(length(applied))
+			log_message("was [english_list(applied)] by a disorient while [low_power ? "in low power" : "exhausted"]", LOG_ATTACK)
 
 	if(amount > 0)
 		adjust_timed_status_effect(amount, /datum/status_effect/incapacitating/disoriented, 15 SECONDS)

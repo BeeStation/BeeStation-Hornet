@@ -282,7 +282,8 @@
 	var/need_mob_update
 	need_mob_update = affected_mob.adjustFireLoss(-4 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	if(affected_mob.getFireLoss() != 0)
-		need_mob_update += affected_mob.stamina.adjust(-3 * REM * delta_time)
+		affected_mob.stamina.adjust(-3 * REM * delta_time)
+	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/oxandrolone/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -626,9 +627,11 @@
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
+	var/need_mob_update
+	need_mob_update = affected_mob.adjustBruteLoss(-3 * REM * delta_time, updating_health = FALSE, required_bodytype = affected_bodytype)
 	if(affected_mob.getBruteLoss() != 0)
 		affected_mob.stamina.adjust(-3 * REM * delta_time)
+	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1155,9 +1158,11 @@
 
 /datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE)
+	var/mob_update_required
+	mob_update_required = affected_mob.adjustOxyLoss(-3 * REM * delta_time, updating_health = FALSE)
 	if(affected_mob.getOxyLoss() != 0)
 		affected_mob.stamina.adjust(-3 * REM * delta_time)
+	if(mob_update_required)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/dexalinp/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)

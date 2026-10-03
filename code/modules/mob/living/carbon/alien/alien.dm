@@ -3,8 +3,6 @@
 	name = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = FEMALE //All xenos are girls!!
-	hardcrit_threshold = -40
-	death_threshold = -100
 	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run) //no stamina to pay for sprinting
 	dna = null
 	faction = list(FACTION_ALIEN)

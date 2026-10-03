@@ -1,3 +1,8 @@
+/// Charge drained per point of stun stamina damage, so a full stamina bar's worth takes a freshly charged IPC to low power
+#define STUN_POWER_DRAIN_PER_STAMINA ((ETHEREAL_CHARGE_ALMOSTFULL - ETHEREAL_CHARGE_LOWPOWER) / STAMINA_MAX)
+/// Stuns can't drain an IPC below this, so they can't cause a brownout
+#define STUN_POWER_DRAIN_FLOOR (0.1 * STANDARD_ETHEREAL_CHARGE)
+
 /obj/item/organ/stomach/electrical
 	name = "PARENT electric stomach"
 	icon_state = "stomach-p"
@@ -220,8 +225,31 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
+	organ_traits = list(TRAIT_STUN_DRAINS_POWER)
 	/// store the previous display
 	var/screen_before_brownout
+
+/obj/item/organ/stomach/electrical/ipc/on_insert(mob/living/carbon/organ_owner, special)
+	. = ..()
+	RegisterSignal(organ_owner, COMSIG_LIVING_DRAIN_STUN_POWER, PROC_REF(on_stun_power_drain))
+	RegisterSignal(organ_owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
+
+/obj/item/organ/stomach/electrical/ipc/on_remove(mob/living/carbon/organ_owner, special)
+	. = ..()
+	UnregisterSignal(organ_owner, list(COMSIG_LIVING_DRAIN_STUN_POWER, COMSIG_ATOM_EXAMINE))
+
+/obj/item/organ/stomach/electrical/ipc/proc/on_stun_power_drain(datum/source, amount)
+	SIGNAL_HANDLER
+	var/drain = min(amount * STUN_POWER_DRAIN_PER_STAMINA, cell.charge - STUN_POWER_DRAIN_FLOOR)
+	if(drain > 0)
+		adjust_charge(-drain)
+	if(cell.charge < ETHEREAL_CHARGE_LOWPOWER)
+		return COMPONENT_STUN_LOW_POWER
+
+/obj/item/organ/stomach/electrical/ipc/proc/on_owner_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	if(cell.charge < ETHEREAL_CHARGE_LOWPOWER)
+		examine_list += span_warning("[owner.p_Their()] power light is blinking red.")
 
 /obj/item/organ/stomach/electrical/ipc/on_brownout_start(mob/living/carbon/carbon)
 	if(isnull(carbon.dna))
@@ -260,3 +288,6 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	adjust_charge(-ETHEREAL_EMP_CHARGE_LOSS / severity)
+
+#undef STUN_POWER_DRAIN_PER_STAMINA
+#undef STUN_POWER_DRAIN_FLOOR

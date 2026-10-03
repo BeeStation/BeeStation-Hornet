@@ -34,6 +34,8 @@
 	var/stun_animation = TRUE
 	/// Whether the stun attack is logged. Only relevant for abductor batons, which have different modes.
 	var/log_stun_attack = TRUE
+	/// Electrical batons drain IPC power instead of stamina
+	var/electrical = FALSE
 
 	/// The context to show when the baton is active and targetting a living thing
 	var/context_living_target_active = "Stun"
@@ -185,9 +187,9 @@
 		target.flash_act(affect_silicon = TRUE)
 		target.Paralyze(stun_time_cyborg * (trait_check ? 0.1 : 1))
 		additional_effects_cyborg(target, user)
-	else if(target.takes_stamina_damage())
+	else if(target.takes_stamina_damage(electrical))
 		var/armor_block = target.run_armor_check(user?.get_combat_bodyzone(target), STAMINA, armour_penetration = armour_penetration, silent = TRUE)
-		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE, protection = armor_block)
+		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE, protection = armor_block, electrical = electrical)
 		additional_effects_non_cyborg(target, user)
 	return TRUE
 
@@ -361,6 +363,7 @@
 	knockdown_time = 10 SECONDS
 	clumsy_knockdown_time = 24 SECONDS
 	affect_cyborg = TRUE
+	electrical = TRUE
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 
 	on_inhand_icon_state = "contractor_baton_on"
@@ -408,6 +411,7 @@
 	knockdown_time = 6 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	cooldown = 2.5 SECONDS
+	electrical = TRUE
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	active = FALSE

@@ -139,13 +139,13 @@
 
 	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(!lungs)
-		adjustOxyLoss(4)
+		adjustOxyLoss(2)
 
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
 			return
-		adjustOxyLoss(2)
+		adjustOxyLoss(1)
 
 		failed_last_breath = 1
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)

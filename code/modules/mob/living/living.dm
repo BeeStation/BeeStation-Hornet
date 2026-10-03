@@ -1698,7 +1698,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 				remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED), TRAIT_KNOCKEDOUT)
 			remove_traits(list(TRAIT_HANDS_BLOCKED, TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(SOFT_CRIT)
-			add_traits(list(TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
+			add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
 			if(. >= UNCONSCIOUS)
@@ -1715,7 +1715,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 				become_blind(UNCONSCIOUS_TRAIT)
 			add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 		if(DEAD)
-			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()
 
@@ -2594,6 +2594,8 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 		return 0
 	return diff
 
-///Whether stamina damage does anything to us. Silicons and xenos are immune.
-/mob/living/proc/takes_stamina_damage()
+///Whether stamina damage does anything to us. Silicons and xenos are immune, and IPCs only feel electrical stuns.
+/mob/living/proc/takes_stamina_damage(electrical = FALSE)
+	if(electrical && HAS_TRAIT(src, TRAIT_STUN_DRAINS_POWER))
+		return TRUE
 	return pre_stamina_change(-1) != 0

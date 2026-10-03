@@ -247,8 +247,8 @@
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	if(C.takes_stamina_damage())
-		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block)
+	if(C.takes_stamina_damage(TRUE))
+		C.Disorient(6 SECONDS, 130, paralyze = 8 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	C.set_stutter(10 SECONDS)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\

@@ -85,6 +85,13 @@
 /// If set, this mob can be grabbed or pushed when bumped into
 #define CANPUSH (1<<3)
 
+//Health Defines
+#define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_FULLCRIT -40
+#define HEALTH_THRESHOLD_DEAD -100
+
+#define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
+
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions
@@ -116,7 +123,7 @@
 #define BASE_GRAB_RESIST_CHANCE 60 //base chance for whether or not you can escape from a grab
 
 //slowdown when in softcrit. Note that crawling slowdown will also apply at the same time!
-#define SOFTCRIT_ADD_SLOWDOWN 4
+#define SOFTCRIT_ADD_SLOWDOWN 2
 //slowdown when crawling
 #define CRAWLING_ADD_SLOWDOWN 4
 

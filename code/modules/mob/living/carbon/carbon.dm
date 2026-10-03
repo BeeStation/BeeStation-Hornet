@@ -571,10 +571,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/is_exhausted = HAS_TRAIT_FROM(src, TRAIT_EXHAUSTED, STAMINA)
 	if((stam < max * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) && !is_exhausted)
 		ADD_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
-		ADD_TRAIT(src, TRAIT_NO_SPRINT, STAMINA)
 	if(is_exhausted && (stam > max * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER))
 		REMOVE_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_NO_SPRINT, STAMINA)
 	update_stamina_hud()
 
 /mob/living/carbon/on_stamina_loss()
@@ -676,42 +674,44 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 
 	if(health <= crit_threshold && !HAS_TRAIT(src,TRAIT_NOSOFTCRIT))
+		//These ranges were made for dying at -100, so scale health to our own death threshold
+		var/crit_health = health * 100 / -death_threshold
 		var/severity = 0
-		switch(health)
-			if(-120 to -110)
+		switch(crit_health)
+			if(-20 to -10)
 				severity = 1
-			if(-130 to -120)
+			if(-30 to -20)
 				severity = 2
-			if(-140 to -130)
+			if(-40 to -30)
 				severity = 3
-			if(-150 to -140)
+			if(-50 to -40)
 				severity = 4
-			if(-150 to -140)
+			if(-50 to -40)
 				severity = 5
-			if(-160 to -150)
+			if(-60 to -50)
 				severity = 6
-			if(-170 to -160)
+			if(-70 to -60)
 				severity = 7
-			if(-190 to -170)
+			if(-90 to -70)
 				severity = 8
-			if(-195 to -190)
+			if(-95 to -90)
 				severity = 9
-			if(-INFINITY to -195)
+			if(-INFINITY to -95)
 				severity = 10
-		if(stat >= UNCONSCIOUS && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
+		if(stat != HARD_CRIT && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
 			var/visionseverity = 4
-			switch(health)
-				if(-115 to -100)
+			switch(crit_health)
+				if(-8 to -4)
 					visionseverity = 5
-				if(-130 to -115)
+				if(-12 to -8)
 					visionseverity = 6
-				if(-145 to -130)
+				if(-16 to -12)
 					visionseverity = 7
-				if(-160 to -145)
+				if(-20 to -16)
 					visionseverity = 8
-				if(-175 to -160)
+				if(-24 to -20)
 					visionseverity = 9
-				if(-INFINITY to -175)
+				if(-INFINITY to -24)
 					visionseverity = 10
 			overlay_fullscreen("critvision", /atom/movable/screen/fullscreen/crit/vision, visionseverity)
 		else

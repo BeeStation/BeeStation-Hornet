@@ -391,6 +391,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 		return
 	var/mob/living/living_hud_owner = hud.mymob
 	icon_state = living_hud_owner.move_intent.hud_icon_state
+	//There's no sprint icon in the UI styles, so sprinting lights up the running one
+	color = MOVING_QUICKLY(living_hud_owner) ? list(1,0,0, 0,1,0, 0,0,1, 0.25,0.25,0.25) : null
 	return ..()
 
 /atom/movable/screen/mov_intent/proc/toggle(mob/living/user)

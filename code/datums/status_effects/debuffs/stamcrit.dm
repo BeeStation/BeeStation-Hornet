@@ -22,6 +22,7 @@
 	)
 	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED), STAMINA)
 	owner.add_filter("stamcrit", 1, drop_shadow_filter(x = 0, y = 0, size = -3, color = "#04080F"))
+	owner.log_message("was stamina stunned", LOG_ATTACK)
 	owner.update_stamina_hud()
 
 /datum/status_effect/incapacitating/stamcrit/on_remove()

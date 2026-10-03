@@ -28,8 +28,8 @@
 		if(!R.cell.use(charge_cost))
 			return
 	COOLDOWN_START(src, stun_cooldown, cooldown)
-	if(M.takes_stamina_damage())
-		M.Disorient(6 SECONDS, 130, paralyze = 6 SECONDS, stack_status = FALSE, protection = armor_block)
+	if(M.takes_stamina_damage(TRUE))
+		M.Disorient(6 SECONDS, 130, paralyze = 6 SECONDS, stack_status = FALSE, protection = armor_block, electrical = TRUE)
 	user.do_attack_animation(M)
 	M.adjust_stutter(10 SECONDS)
 

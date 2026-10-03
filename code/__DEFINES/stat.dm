@@ -9,13 +9,6 @@
 #define HARD_CRIT 3
 #define DEAD 4
 
-//Health Defines
-#define HEALTH_THRESHOLD_CRIT 0 //! Soft crit
-#define HEALTH_THRESHOLD_FULLCRIT -100 //! Hard crit
-#define HEALTH_THRESHOLD_DEAD -200
-
-#define HEALTH_THRESHOLD_NEARDEATH -150 //Not used mechanically, but to determine if someone is so close to death they hear the other side
-
 //Maximum healthiness an individual can have
 #define MAX_SATIETY 600
 //Satiety at which the well-fed bonuses start applying

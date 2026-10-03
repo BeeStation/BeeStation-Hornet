@@ -894,8 +894,11 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/exhausted
 	name = "Exhausted"
-	desc = "You're out of breath. You move slower, can't sprint or talk, and stun weapons will put you on the floor. Stop running or rest to catch your breath."
+	desc = "You're out of breath. You move slower, can't sprint, can only whisper, and stun weapons will put you on the floor. Stop running or rest to catch your breath."
 	icon_state = "weaken"
+
+/atom/movable/screen/alert/exhausted/second_wind
+	desc = "You're out of breath, but something keeps you going. Stun weapons will still put you on the floor."
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 

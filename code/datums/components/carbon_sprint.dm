@@ -107,3 +107,7 @@
 	var/datum/move_intent/quick_intent = carbon_parent.get_move_intent_by_flag(MOVE_INTENT_QUICK)
 	if(!quick_intent?.can_be_used_by(carbon_parent))
 		return FALSE
+
+	//At zero a step costs nothing and never rolls a stamina stun, so a second wind would sprint forever
+	if(carbon_parent.stamina.current <= 0)
+		return FALSE
