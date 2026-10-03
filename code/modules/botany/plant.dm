@@ -13,7 +13,7 @@
 	///Do we skip the growing phase
 	var/skip_growth
 	///How much we reward we give when scanned, discovery points. Nothing really changes this, but it's here for the future in case certain traits or features buff it
-	var/discovery_reward = 80
+	var/discovery_reward = 35
 	///used to stop weird interactions with spades
 	var/spading = FALSE
 	///Have we inherited a name?
