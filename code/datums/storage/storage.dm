@@ -1011,6 +1011,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 				span_warning("[to_show] draws [to_remove] from [resolve_parent]!"),
 				span_notice("You draw [to_remove] from [resolve_parent]."),
 			)
+			to_show.animate_interact(resolve_location)
 		return TRUE
 
 	// If nothing else, then we want to open the thing, so do that
@@ -1023,6 +1024,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(rustle_sound)
 		playsound(resolve_parent, "rustle", 50, TRUE, -5)
 
+	if(!silent)
+		to_show.animate_interact(resolve_location)
 	return TRUE
 
 /// Async version of putting something into a mobs hand.

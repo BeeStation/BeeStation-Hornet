@@ -7,7 +7,7 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/mob/proc/animate_interact(atom/target, state)
+/mob/proc/animate_interact(atom/target, state = INTERACT_GENERIC, atom/reference)
 	set waitfor = FALSE
 
 	var/list/origin_coords = get_hand_pixels()
@@ -22,12 +22,22 @@
 	if(!isturf(owner_loc) || (!isturf(target.loc) && !isturf(target)))
 		return
 
+	if(target.z != z || get_dist(src, target) > 1)
+		return
+
+	. = TRUE
+
 	var/obj/effect/abstract/interact/particle = new(null)
 
 	var/x_offset = target.x - x
 	var/y_offset = target.y - y
 
-	particle.icon_state = state
+	if(reference)
+		particle.icon = reference.icon
+		particle.icon_state = reference.icon_state
+		particle.color = reference.color
+	else
+		particle.icon_state = state
 	particle.loc = owner_loc
 	particle.pixel_x = origin_coords[1]
 	particle.pixel_y = origin_coords[2]

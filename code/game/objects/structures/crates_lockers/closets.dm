@@ -347,6 +347,9 @@
 	return
 
 /obj/structure/closet/proc/toggle(mob/living/user)
+	if(user)
+		user.animate_interact(src)
+
 	if(opened)
 		return close(user)
 	else
