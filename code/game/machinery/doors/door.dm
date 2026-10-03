@@ -7,6 +7,7 @@
 	opacity = TRUE
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
+	tacmap_color = MINIMAP_COLOR_DOOR
 	layer = OPEN_DOOR_LAYER
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.2
