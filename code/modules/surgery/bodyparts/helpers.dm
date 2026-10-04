@@ -144,22 +144,24 @@
 
 ///Remove all embedded objects from all limbs on the carbon mob
 /mob/living/carbon/proc/remove_all_embedded_objects()
-	for(var/obj/item/bodypart/L as anything in bodyparts)
-		for(var/obj/item/I in L.embedded_objects)
-			remove_embedded_object(I)
+	for(var/obj/item/bodypart/bodypart as anything in get_bodyparts())
+		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
+			remove_embedded_object(embedded)
 
 /mob/living/carbon/proc/has_embedded_objects(include_harmless=FALSE)
-	for(var/obj/item/bodypart/L as anything in bodyparts)
-		for(var/obj/item/I in L.embedded_objects)
-			if(!include_harmless && I.isEmbedHarmless())
+	for(var/obj/item/bodypart/bodypart as anything in get_bodyparts())
+		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
+			if(!include_harmless && embedded.isEmbedHarmless())
 				continue
 			return TRUE
 
 //Helper for quickly creating a new limb - used by augment code in species.dm spec_attacked_by
 //
 // FUCK YOU AUGMENT CODE - With love, Kapu
-/mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)
+/mob/living/carbon/proc/newBodyPart(zone)
 	var/path = dna.species.bodypart_overrides[zone]
+	if(isnull(path))
+		return null
 	var/obj/item/bodypart/new_bodypart = new path()
 	return new_bodypart
 
