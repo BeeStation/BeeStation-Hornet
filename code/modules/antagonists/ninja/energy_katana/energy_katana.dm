@@ -3,9 +3,9 @@
  *
  * The space ninja's katana.
  *
- * The katana that only space ninja spawns with.  Comes with 30 force and throwforce, along with a signature special jaunting system.
+ * The katana that only space ninja spawns with.  Comes with 25 force and 30 throwforce, along with a signature special jaunting system.
  * Upon clicking on a tile when right clicking, the user will teleport to that tile, assuming their target was not dense.
- * The katana has 3 dashes stored at maximum, and upon using the dash, it will return 20 seconds after it was used.
+ * The katana has 2 dashes stored at maximum, each returning 3 seconds after it was used.
  * It also has a special feature where if it is tossed at a space ninja who owns it (determined by the ninja suit), the ninja will catch the katana instead of being hit by it.
  *
  */
@@ -18,12 +18,12 @@
 	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 22
+	force = 25
 	throwforce = 30
 	item_flags = ISWEAPON
 
 	canblock = TRUE
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY //For purely balance reasons this one does not get unblockable
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE //For purely balance reasons this one does not get unblockable
 
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_LARGE
@@ -119,11 +119,18 @@
 	return ..()
 
 /datum/action/innate/dash/ninja
-	max_charges = 0
+	current_charges = 2
+	max_charges = 2
+	charge_rate = 3 SECONDS
+	recharge_sound = null
+	hit_cooldown = CLICK_CD_MELEE
+	dash_cooldown = 0
 	obj_damage = 350
 	has_button = FALSE
 
 /datum/action/innate/dash/ninja/is_available(feedback = FALSE)
+	if(!..())
+		return FALSE
 	var/mob/living/carbon/human/owner_mob = owner
 	if (!istype(owner_mob))
 		return FALSE

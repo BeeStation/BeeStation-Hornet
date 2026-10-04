@@ -15,6 +15,10 @@
 	var/obj_damage = 200
 	/// How long does it take to get a dash charge back?
 	var/charge_rate = 25 SECONDS
+	/// Click cooldown applied after dashing into someone
+	var/hit_cooldown = 1.4 SECONDS
+	/// Click cooldown applied after every dash
+	var/dash_cooldown = 1.4 SECONDS
 	/// What sound do we play on dash?
 	var/dash_sound = 'sound/magic/blink.ogg'
 	/// What sound do we play on recharge?
@@ -82,13 +86,12 @@
 		to_chat(target, span_userdanger("[user] dashes towards you faster than you can react!"))
 		// Push the attacked person back
 		target.Move(get_step(target, get_dir(user, target)))
-		// Give the user a click cooldown
-		user.changeNext_move(1.4 SECONDS)
-		user.client?.give_cooldown_cursor(1.4 SECONDS)
+		user.changeNext_move(hit_cooldown)
+		user.client?.give_cooldown_cursor(hit_cooldown)
 		return FALSE
-	// Give the user a click cooldown every time they dash
-	user.changeNext_move(1.4 SECONDS)
-	user.client?.give_cooldown_cursor(1.4 SECONDS)
+	if(dash_cooldown)
+		user.changeNext_move(dash_cooldown)
+		user.client?.give_cooldown_cursor(dash_cooldown)
 	return TRUE
 
 /// Callback for [/proc/teleport] to increment our charges after  use.

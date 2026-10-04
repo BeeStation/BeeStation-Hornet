@@ -256,6 +256,20 @@
 /obj/item/storage/box/survival/medical
 	mask_type = /obj/item/clothing/mask/breath/medical
 
+/obj/item/storage/box/ninja_fieldkit
+	name = "Spiderclan Fieldkit"
+	desc = "Contains what a spiderclan operative needs in the field."
+
+//The very bare minimum, assuming the ninja literally spawns in the worst possible start imaginable
+//I am mandating a caveat here, however. You get good stuff, but only ONE of said good stuff
+//One for advanced bleeds and a bit of food to suck nutrition out of. Tools for quick adjustments to the suit
+//The adrenaline boost otherwise has the healing stuff
+/obj/item/storage/box/ninja_fieldkit/PopulateContents()
+	new /obj/item/stack/medical/gauze/adv/one(src)
+	new /obj/item/food/meat/steak/spider(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/crowbar(src)
+
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
 	desc = "Contains sterile latex gloves."
