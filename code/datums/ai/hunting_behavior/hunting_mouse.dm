@@ -78,7 +78,7 @@
 			return wheel
 
 
-/datum/ai_planning_subtree/run_hamster_wheel/
+/datum/ai_planning_subtree/run_hamster_wheel
 
 /datum/ai_planning_subtree/run_hamster_wheel/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	. = ..()
