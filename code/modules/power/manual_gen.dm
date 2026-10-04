@@ -2,7 +2,7 @@
 //Able to generate 50W of power (100 times more than what is realistic IRL, but we don't want thousands of these)
 /obj/machinery/power/port_gen/hamster_wheel
 	name = "\improper Hamster wheel"
-	desc = "An ordinary hamster wheel, rigged with an old bicyle dynamo to produce a small amount of power."
+	desc = "An ordinary hamster wheel, rigged with an old bicycle dynamo to produce a small amount of power."
 	icon = 'icons/obj/machines/power/hamster.dmi'
 	icon_state = "hamster_wheel"
 	base_icon_state = "hamster_wheel"
@@ -44,7 +44,8 @@
 /obj/machinery/power/port_gen/hamster_wheel/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(active)
-		open_machine()
+		open_machine(drop = FALSE)
+		dump_inventory_contents(list(occupant))
 		to_chat(user, span_notice("You carefully remove the mouse from the wheel."))
 
 /obj/machinery/power/port_gen/hamster_wheel/attackby(obj/item/O, mob/user, params)
@@ -66,7 +67,8 @@
 	if(occupant == null )
 		if(active) {
 			TogglePower()
-			open_machine()
+			open_machine(drop = FALSE)
+			dump_inventory_contents(list(occupant))
 		}
 		return FALSE
 	if(active)
@@ -163,9 +165,7 @@
 			unbuckle_mob(user)
 			return FALSE
 		if(powernet)
-			var/slowdown = user.cached_multiplicative_slowdown
-			if(slowdown == 0)
-				slowdown = 0.1 //Avoid division by zero
+			var/slowdown = max(user.cached_multiplicative_slowdown, 0.1) //Avoid division by zero, and negative values
 			var/speed_effect = 2 / slowdown	//The default value appears to be 2, and lower values make us faster
 			add_avail(power_gen * power_output * power_amplifier * speed_effect)
 		UseFuel()

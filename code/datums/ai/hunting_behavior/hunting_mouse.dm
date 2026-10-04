@@ -58,9 +58,9 @@
 
 /datum/ai_planning_subtree/approach_hamster_wheel/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/pawn = controller.pawn
-	var/atom/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
+	var/obj/machinery/power/port_gen/hamster_wheel/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
 	if(!isnull(wheel))
-		if (!isturf(wheel.loc) || !can_see(pawn, wheel))
+		if(QDELETED(wheel) || !isturf(wheel.loc) || !can_see(pawn, wheel) || !wheel.anchored || wheel.active || !isnull(wheel.occupant))
 			controller.clear_blackboard_key(BB_HAMSTER_WHEEL)
 			return
 		if (pawn.CanReach(wheel))
