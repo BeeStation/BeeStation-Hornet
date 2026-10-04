@@ -534,7 +534,6 @@
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
 	tick_interval = STATUS_EFFECT_AUTO_TICK
 	duration = STATUS_EFFECT_PERMANENT
-	var/can_see_self = FALSE
 	/// Lowest alpha the cloak fades the owner to
 	var/min_alpha = 0
 	/// Whether bumping into a mob breaks the cloak
@@ -550,15 +549,6 @@
 		terminate_effect()
 		return
 	owner.alpha = max(owner.alpha - 50 * delta_time, min_alpha)
-	if (owner.alpha <= 100 && !can_see_self)
-		// Make it so the user can always see themselves while cloaked
-		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
-		self_appearance.alpha = 100
-		self_appearance.override = TRUE
-		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), null, owner)
-		can_see_self = TRUE
-	if (owner.alpha > 100 && can_see_self)
-		owner.remove_alt_appearance(REF(src))
 
 /datum/status_effect/cloaked/on_apply()
 	if(!..())
@@ -581,7 +571,6 @@
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()
-	owner.remove_alt_appearance(REF(src))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()

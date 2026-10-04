@@ -23,6 +23,8 @@
 	var/dash_sound = 'sound/magic/blink.ogg'
 	/// What sound do we play on recharge?
 	var/recharge_sound = 'sound/magic/charge.ogg'
+	/// If TRUE, the recharge sound is only heard by the owner
+	var/recharge_sound_private = FALSE
 	/// What effect does our beam use?
 	var/beam_effect = "blur"
 	/// How long does our beam last?
@@ -33,7 +35,13 @@
 	var/phaseout = /obj/effect/temp_visual/dir_setting/ninja/phase/out
 
 /datum/action/innate/dash/is_available(feedback = FALSE)
-	return ..() && (max_charges <= 0 || current_charges > 0)
+	if(!..())
+		return FALSE
+	if(max_charges > 0 && current_charges <= 0)
+		if(feedback)
+			owner.balloon_alert(owner, "no dash charges!")
+		return FALSE
+	return TRUE
 
 /datum/action/innate/dash/on_activate()
 	var/obj/item/dashing_item = master
@@ -69,6 +77,7 @@
 	// The ninja dash does nothing to walls, and windows/tables are all instantly taken out by the 200 damage anyway, so this is just sanity check
 	if(max_charges > 0 && current_turf != final_turf)
 		current_charges--
+		user.balloon_alert(user, "[current_charges]/[max_charges] dash charges")
 
 	return TRUE
 
@@ -102,11 +111,13 @@
 	if(!istype(dashing_item))
 		return
 
-	if(recharge_sound)
-		playsound(dashing_item, recharge_sound, 50, TRUE)
-
 	if(!owner)
 		return
+	if(recharge_sound)
+		if(recharge_sound_private)
+			owner.playsound_local(get_turf(owner), recharge_sound, 40, TRUE, pressure_affected = FALSE)
+		else
+			playsound(dashing_item, recharge_sound, 50, TRUE)
 	owner.update_action_buttons_icon()
 	dashing_item.balloon_alert(owner, "[current_charges]/[max_charges] dash charges")
 	if (current_charges != max_charges)

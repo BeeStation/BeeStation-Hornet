@@ -53,6 +53,11 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+/obj/item/energy_katana/examine(mob/user)
+	. = ..()
+	if(jaunt)
+		. += span_notice("It has <b>[jaunt.current_charges]/[jaunt.max_charges]</b> dash charges.")
+
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
@@ -122,7 +127,8 @@
 	current_charges = 2
 	max_charges = 2
 	charge_rate = 3 SECONDS
-	recharge_sound = null
+	recharge_sound = 'sound/items/unsheath.ogg'
+	recharge_sound_private = TRUE
 	hit_cooldown = CLICK_CD_MELEE
 	dash_cooldown = 0
 	obj_damage = 350
@@ -135,6 +141,8 @@
 	if (!istype(owner_mob))
 		return FALSE
 	var/obj/item/mod/control/pre_equipped/ninja/ninja_suit = owner_mob.back
-	if (!istype(ninja_suit))
+	if (!istype(ninja_suit) || !ninja_suit.active)
+		if(feedback)
+			owner.balloon_alert(owner, "suit offline!")
 		return FALSE
-	return ninja_suit.active
+	return TRUE

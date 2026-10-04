@@ -259,6 +259,7 @@
 /obj/item/storage/box/ninja_fieldkit
 	name = "Spiderclan Fieldkit"
 	desc = "Contains what a spiderclan operative needs in the field."
+	w_class = WEIGHT_CLASS_SMALL
 
 //The very bare minimum, assuming the ninja literally spawns in the worst possible start imaginable
 //I am mandating a caveat here, however. You get good stuff, but only ONE of said good stuff
