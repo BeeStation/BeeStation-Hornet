@@ -8,7 +8,6 @@
 	storage_type = /datum/storage/wallet
 
 	var/obj/item/card/id/front_id = null
-	var/list/combined_access
 	var/cached_flat_icon
 	var/overlay_icon_state = "wallet_overlay"
 
@@ -18,15 +17,7 @@
 		refresh_id()
 
 /obj/item/storage/wallet/proc/refresh_id()
-	LAZYCLEARLIST(combined_access)
-
-	front_id = null
-	for(var/obj/item/card/id/id_card in contents)
-		if(!front_id)
-			front_id = id_card
-
-		LAZYINITLIST(combined_access)
-		combined_access |= id_card.access
+	front_id = locate(/obj/item/card/id) in contents
 
 	if(ishuman(loc))
 		var/mob/living/carbon/human/wearing_human = loc
@@ -94,10 +85,10 @@
 	return FALSE
 
 /obj/item/storage/wallet/GetAccess()
-	if(LAZYLEN(combined_access))
-		return combined_access
-	else
-		return ..()
+	var/list/combined_access = list()
+	for(var/obj/item/card/id/id_card in contents)
+		combined_access |= id_card.GetAccess()
+	return length(combined_access) ? combined_access : ..()
 
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"

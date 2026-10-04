@@ -298,6 +298,13 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 /proc/get_access_desc(access_code)
 	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
 
+/// Returns descriptions for a list of accesses.
+/proc/get_access_descs(list/accesses)
+	var/list/descriptions = list()
+	for(var/access in accesses)
+		descriptions += get_access_desc(access)
+	return descriptions
+
 
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")

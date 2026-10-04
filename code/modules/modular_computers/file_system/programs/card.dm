@@ -197,12 +197,11 @@
 			if(!is_centcom && (access_type in get_all_centcom_admin_access()))
 				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
+			var/access_source = "[user_id_card] via a portable ID console at [AREACOORD(usr)]"
 			if(access_type in target_id_card.access)
-				target_id_card.access -= access_type
-				log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				target_id_card.remove_access(access_type, access_source, usr)
 			else
-				target_id_card.access |= access_type
-				log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				target_id_card.add_access(access_type, access_source, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_grantall")

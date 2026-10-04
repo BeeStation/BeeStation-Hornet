@@ -653,11 +653,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
 						return
 					if(access_allowed == 1)
-						inserted_modify_id.access |= access_type
-						log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						inserted_modify_id.add_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
 					else
-						inserted_modify_id.access -= access_type
-						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						inserted_modify_id.remove_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
 					playsound(src, "terminal_type", 50, FALSE)
 					inserted_modify_id.update_label()
 					// Refresh only the access grid :)

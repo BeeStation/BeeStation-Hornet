@@ -932,10 +932,8 @@ SUBSYSTEM_DEF(job)
 		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
 	// Force-give their ID card bridge access.
-	if(H.wear_id?.GetID())
-		var/obj/item/card/id/id_card = H.wear_id
-		if(!(ACCESS_HEADS in id_card.access))
-			LAZYADD(id_card.access, ACCESS_HEADS)
+	var/obj/item/card/id/id_card = H.wear_id?.GetID()
+	id_card?.add_access(ACCESS_HEADS, acting_captain ? "acting captaincy" : "captaincy")
 
 	assigned_captain = TRUE
 
