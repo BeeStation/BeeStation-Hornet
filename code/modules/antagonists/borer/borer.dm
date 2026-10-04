@@ -20,8 +20,15 @@
 /datum/hud/living/borer
 	var/atom/movable/screen/ling/borer_evolution/evolutiondisplay
 
+/atom/movable/screen/zone_sel/borer
+	force_precise = TRUE
+
 /datum/hud/living/borer/New(mob/living/simple_animal/borer/owner)
 	..()
+	zone_select = new /atom/movable/screen/zone_sel/borer(null, src)
+	zone_select.icon = ui_style2icon(owner.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style))
+	zone_select.update_icon()
+	static_inventory += zone_select
 	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)
 	lingchemdisplay.name = "borer chemical reserve"
 	lingchemdisplay.invisibility = 0
@@ -45,6 +52,7 @@
 	var/static/list/briefing = list(
 		"You are a cortical borer!",
 		"You are a \"symbiotic\" organism that thrives in the bodies of organic humanoids. You should endeavour to infest a host and ensure they stay safe at least long enough for you to reproduce - by any means necessary. You do not need to be friends; if push comes to shove, you might even take over temporarily, but you DO need your host to live.",
+		"Select a bodypart on your targeting doll (or use the numpad targeting keys), then activate Infest Host and click an adjacent human to burrow into that bodypart. If you evolve Internal Migration, the selected bodypart also determines where you move inside your host.",
 		"While inside a host, speaking normally communicates privately with them. Prefix a message with :& to speak over the Cortical Link to every cortical borer.",
 		"Build a full chemical reserve while inside a host, then leave them and use Reproduce. Laying an egg takes five seconds and consumes your entire chemical reserve. The egg must mature in an atmosphere containing both oxygen and plasma before it can hatch.",
 	)
@@ -183,10 +191,8 @@
 	response_disarm_continuous = "brushes against"
 	response_harm_continuous = "swats"
 	speak_emote = list("clicks")
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	hud_type = /datum/hud/living/borer
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	/// Current host, or null while detached or in a severed limb.
 	var/mob/living/carbon/human/host
 	/// Organ containing the borer while hosted.
@@ -203,9 +209,11 @@
 	var/chemical_regen_bonus = 0
 	var/list/datum/borer_secretion/available_secretions = list()
 	var/list/datum/borer_evolution/available_evolutions = list()
+	var/datum/borer_secretion_menu/secretion_menu
 	var/datum/borer_evolution_menu/evolution_menu
 	var/datum/action/innate/borer_evolution/evolution_action
 	var/datum/action/innate/borer_infest/infest_action
+	var/datum/action/innate/borer_stun/stun_action
 	var/datum/action/innate/borer_core/hide/hide_action
 	var/datum/action/innate/borer_secrete/secrete_action
 	var/datum/action/innate/borer_leave/leave_action
@@ -221,9 +229,9 @@
 /mob/living/simple_animal/borer/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	var/static/list/evolution_types = list(
 		/datum/borer_evolution/taste_blood,
+		/datum/borer_evolution/active_ability/internal_migration,
 		/datum/borer_evolution/neural_domination,
 		/datum/borer_evolution/head/night_vision,
 		/datum/borer_evolution/head/thermal_vision,
@@ -269,9 +277,11 @@
 		available_evolutions += new evolution_type
 	for(var/secretion_type in secretion_types)
 		available_secretions += new secretion_type
+	secretion_menu = new(src)
 	evolution_menu = new(src)
 	evolution_action = new(evolution_menu)
 	infest_action = new
+	stun_action = new
 	hide_action = new(src)
 	secrete_action = new(src)
 	leave_action = new(src)
@@ -333,8 +343,10 @@
 	QDEL_NULL(secrete_action)
 	QDEL_NULL(hide_action)
 	QDEL_NULL(infest_action)
+	QDEL_NULL(stun_action)
 	QDEL_NULL(evolution_action)
 	QDEL_NULL(evolution_menu)
+	QDEL_NULL(secretion_menu)
 	QDEL_LIST(available_evolutions)
 	QDEL_LIST(available_secretions)
 	if(cyst?.borer == src)
@@ -351,6 +363,21 @@
 /mob/living/simple_animal/borer/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	update_camera_hiding()
+
+/mob/living/simple_animal/borer/update_sight()
+	lighting_alpha = initial(lighting_alpha)
+	return ..()
+
+/mob/living/simple_animal/borer/get_combat_bodyzone(atom/target = null, precise = FALSE, zone_context = BODYZONE_CONTEXT_COMBAT)
+	return precise ? (zone_selected || BODY_ZONE_CHEST) : check_zone(zone_selected)
+
+/mob/living/simple_animal/borer/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
+	if(host)
+		bodytemperature = host.bodytemperature
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
+		clear_alert(ALERT_TEMPERATURE)
+		return
+	return ..()
 
 /// Lets borers see from vents without the usual lighting tint.
 /mob/living/simple_animal/borer/update_pipe_vision(full_refresh = FALSE)
@@ -470,25 +497,6 @@
 	playsound(target, 'sound/effects/splat.ogg', 40, TRUE)
 	target.Knockdown(1 SECONDS)
 	return TRUE
-
-/mob/living/simple_animal/borer/proc/choose_infestation_target()
-	if(host || cyst)
-		to_chat(src, span_warning("You are already inside a host or severed limb."))
-		return FALSE
-	var/list/candidates = list()
-	for(var/mob/living/carbon/human/candidate in oview(1, src))
-		if(candidate.stat != DEAD)
-			candidates += candidate
-	if(!length(candidates))
-		to_chat(src, span_warning("There are no living humans close enough to infest."))
-		return FALSE
-	var/mob/living/carbon/human/target = tgui_input_list(src, "Choose a human to infest", "Infest", candidates)
-	if(!target || !Adjacent(target))
-		return FALSE
-	var/target_zone = tgui_input_list(src, "Choose an entry point", "Infest", list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-	if(!target_zone || !Adjacent(target) || !do_after(src, 3 SECONDS, target))
-		return FALSE
-	return infest_human(target, target_zone)
 
 /mob/living/simple_animal/borer/proc/release_host_control()
 	if(!controlling_host || !host)
@@ -610,6 +618,7 @@
 	var/list/datum/action/core_actions = list(
 		evolution_action,
 		infest_action,
+		stun_action,
 		hide_action,
 		secrete_action,
 		leave_action,
@@ -635,6 +644,7 @@
 			leave_action.Grant(src)
 		else
 			infest_action.Grant(src)
+			stun_action.Grant(src)
 			hide_action.Grant(src)
 			reproduce_action.Grant(src)
 
@@ -644,7 +654,7 @@
 	update_evolution_hud()
 
 /mob/living/simple_animal/borer/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced, filterproof = FALSE, message_range = 7, datum/saymode/saymode, list/message_mods = list())
-	if(!host)
+	if(stat == DEAD || (!host && findtext(trim(message), ":&") != 1))
 		return ..()
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
@@ -653,7 +663,9 @@
 	if(!try_speak(message, ignore_spam, forced, filterproof))
 		return
 	if(findtext(message, ":&") == 1)
-		var/linked_message = trim(copytext_char(message, 3))
+		// Sanitization encodes the ampersand in the channel prefix.
+		var/link_prefix = findtext(message, ":&amp;") == 1 ? ":&amp;" : ":&"
+		var/linked_message = trim_left(copytext_char(message, length_char(link_prefix) + 1))
 		if(!linked_message)
 			return
 		var/list/borer_recipients = list()
@@ -672,11 +684,6 @@
 	send_to_observers(span_notice("<b>[real_name]</b> speaks within <b>[host.real_name]</b>: \"[message]\""), src)
 	return TRUE
 
-/mob/living/simple_animal/borer/proc/infest()
-	if(controlling_host)
-		return
-	choose_infestation_target()
-
 /mob/living/simple_animal/borer/proc/leave_host()
 	if(controlling_host)
 		return
@@ -694,28 +701,36 @@
 		take_host_control()
 
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
-	if(controlling_host)
+	if(controlling_host || stat != CONSCIOUS)
 		return
-	if(!host || !host.reagents)
+	if(!host || host.stat == DEAD || !host.reagents)
 		to_chat(src, span_warning("You need a living host to secrete chemicals."))
 		return
-	var/list/secretions = list()
+	secretion_menu?.ui_interact(src)
+
+/mob/living/simple_animal/borer/proc/secrete_chemical(secretion_type, dose)
+	if(controlling_host || stat != CONSCIOUS || !host?.reagents || host.stat == DEAD)
+		return
+	var/static/list/valid_doses = list(5, 10, 15)
+	if(!(dose in valid_doses))
+		return
 	for(var/datum/borer_secretion/secretion as anything in available_secretions)
-		if(secretion.can_secrete(src))
-			secretions[secretion.name] = secretion
-	if(!length(secretions))
-		to_chat(src, span_warning("Your current cyst location cannot produce any secretions."))
-		return
-	var/choice = tgui_input_list(src, "Choose a chemical to release into [host]", "Secrete Chemicals", secretions)
-	var/datum/borer_secretion/secretion = secretions[choice]
-	if(!secretion || !host || !secretion.can_secrete(src))
-		return
-	if(chemicals < secretion.chemical_cost)
-		to_chat(src, span_warning("You need [secretion.chemical_cost] chemicals in reserve to produce [secretion.name]."))
-		return
-	host.reagents.add_reagent(secretion.reagent_type, secretion.dose_size)
-	adjust_chemicals(-secretion.chemical_cost)
-	to_chat(src, span_notice("You release [secretion.dose_size] units of [secretion.name] into [host]."))
+		if(secretion.type != secretion_type || !secretion.can_secrete(src))
+			continue
+		var/actual_dose = min(dose, host.reagents.maximum_volume - host.reagents.total_volume)
+		if(actual_dose <= CHEMICAL_QUANTISATION_LEVEL)
+			to_chat(src, span_warning("Your host cannot hold any more chemicals."))
+			return FALSE
+		var/chemical_cost = secretion.chemical_cost * actual_dose / secretion.dose_size
+		if(chemicals < chemical_cost)
+			to_chat(src, span_warning("You need [chemical_cost] chemicals in reserve to produce [actual_dose] units of [secretion.name]."))
+			return
+		if(!host.reagents.add_reagent(secretion.reagent_type, actual_dose))
+			to_chat(src, span_warning("You cannot release any more chemicals into [host]."))
+			return
+		adjust_chemicals(-chemical_cost)
+		to_chat(src, span_notice("You release [actual_dose] units of [secretion.name] into [host]."))
+		return TRUE
 
 /mob/living/simple_animal/borer/proc/reproduce()
 	if(controlling_host)

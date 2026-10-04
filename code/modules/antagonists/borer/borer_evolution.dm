@@ -72,14 +72,79 @@
 
 /datum/action/innate/borer_infest
 	name = "Infest Host"
-	desc = "Burrow into an adjacent human and form a cortical cyst in a chosen bodypart."
+	desc = "Burrow into an adjacent human at your selected body zone."
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
 	button_icon_state = "sting_extract"
 	background_icon_state = "bg_changeling"
+	check_flags = AB_CHECK_CONSCIOUS
+	requires_target = TRUE
+	ranged_mousepointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	enable_text = "<span class='notice'>Select a body zone, then click an adjacent human to infest them. Click the ability again to cancel.</span>"
 
-/datum/action/innate/borer_infest/on_activate()
+/datum/action/innate/borer_infest/on_activate(mob/user, atom/target)
 	var/mob/living/simple_animal/borer/borer = owner
-	borer?.choose_infestation_target()
+	if(!istype(borer) || borer.host || borer.cyst || borer.severed_limb)
+		return FALSE
+	if(!ishuman(target))
+		to_chat(borer, span_warning("You can only infest humans."))
+		return FALSE
+	var/mob/living/carbon/human/human_target = target
+	if(!borer.Adjacent(human_target))
+		to_chat(borer, span_warning("You must be next to your target to infest them."))
+		return FALSE
+	if(human_target.stat == DEAD)
+		to_chat(borer, span_warning("You cannot infest the dead."))
+		return FALSE
+	var/target_zone = borer.get_combat_bodyzone(human_target, zone_context = BODYZONE_CONTEXT_INJECTION)
+	if(human_target.get_cortical_borer(target_zone))
+		to_chat(borer, span_warning("Another borer already occupies that bodypart."))
+		return FALSE
+	if(!human_target.can_inject(borer, target_zone, INJECT_TRY_SHOW_ERROR_MESSAGE))
+		return FALSE
+	unset_click_ability(borer, refund_cooldown = FALSE)
+	if(!do_after(borer, 3 SECONDS, human_target))
+		return FALSE
+	return borer.infest_human(human_target, target_zone)
+
+/datum/action/innate/borer_stun
+	name = "Paralyzing Bite"
+	desc = "Bite an adjacent human, paralyzing them for one second and knocking them down for two seconds. Has a 60-second cooldown."
+	button_icon = 'icons/vampires/actions_vampire.dmi'
+	button_icon_state = "power_feed"
+	background_icon_state = "bg_changeling"
+	check_flags = AB_CHECK_CONSCIOUS
+	requires_target = TRUE
+	cooldown_time = 60 SECONDS
+	ranged_mousepointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	enable_text = "<span class='notice'>Click an adjacent human to deliver a paralyzing bite. Click the ability again to cancel.</span>"
+
+/datum/action/innate/borer_stun/on_activate(mob/user, atom/target)
+	var/mob/living/simple_animal/borer/borer = owner
+	if(!istype(borer) || borer.host || borer.cyst || borer.severed_limb)
+		return FALSE
+	if(!ishuman(target))
+		to_chat(borer, span_warning("You can only bite humans."))
+		return FALSE
+	var/mob/living/carbon/human/victim = target
+	if(!borer.Adjacent(victim))
+		to_chat(borer, span_warning("You must be next to your target to bite them."))
+		return FALSE
+	if(victim.stat == DEAD)
+		to_chat(borer, span_warning("You cannot paralyze the dead."))
+		return FALSE
+	var/target_zone = borer.get_combat_bodyzone(victim, zone_context = BODYZONE_CONTEXT_INJECTION)
+	if(!victim.can_inject(borer, target_zone, INJECT_TRY_SHOW_ERROR_MESSAGE))
+		return FALSE
+	// Knockdown outlasts paralysis by one second.
+	var/paralyzed = victim.Paralyze(1 SECONDS)
+	var/knocked_down = victim.Knockdown(2 SECONDS)
+	if(paralyzed || knocked_down)
+		victim.visible_message(span_warning("[borer] bites [victim]!"), span_userdanger("A sharp bite sends a numbing jolt through your body!"))
+		to_chat(borer, span_notice("You deliver a paralyzing bite to [victim]."))
+	else
+		to_chat(borer, span_warning("[victim] resists your paralyzing bite!"))
+	log_combat(borer, victim, "bit", "paralyzing bite")
+	return TRUE
 
 /datum/action/innate/borer_core
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
@@ -112,6 +177,7 @@
 	name = "Secrete Chemicals"
 	desc = "Release a synthesized chemical into your host's bloodstream."
 	button_icon_state = "panacea"
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/borer_secrete/on_activate()
 	borer?.secrete_chemicals()
@@ -227,6 +293,67 @@
 
 /datum/borer_evolution/active_ability/proc/use_ability(mob/living/simple_animal/borer/borer, atom/target)
 	return FALSE
+
+/datum/borer_evolution/active_ability/internal_migration
+	name = "Internal Migration"
+	desc = "Tear through your host's tissue to settle into another bodypart."
+	helptext = "Select a destination on the targeting doll, then activate. Takes two seconds and knocks your host down. Deals 30 brute damage to your old bodypart, 16 to your destination, and causes light bleeding. Cannot be used if your host is too injured. Cooldown: 240 seconds."
+	cost = 1
+	button_icon_state = "lesser_form"
+	ability_cooldown = 240 SECONDS
+	var/migrating = FALSE
+
+/datum/borer_evolution/active_ability/internal_migration/use_ability(mob/living/simple_animal/borer/borer, atom/target)
+	if(migrating || !borer?.host || !borer.cyst || borer.controlling_host)
+		return FALSE
+	var/mob/living/carbon/human/host = borer.host
+	var/obj/item/organ/borer_cyst/cyst = borer.cyst
+	var/obj/item/bodypart/old_part = host.get_bodypart(cyst.zone)
+	var/destination_zone = borer.get_combat_bodyzone(host)
+	var/obj/item/bodypart/new_part = host.get_bodypart(destination_zone)
+	if(new_part == old_part)
+		to_chat(borer, span_warning("You already occupy that bodypart. Select another destination on the targeting doll."))
+		return FALSE
+	if(!can_migrate(borer, host, cyst, old_part, new_part))
+		to_chat(borer, span_warning("You need an unoccupied organic bodypart and a host healthy enough to survive the migration."))
+		return FALSE
+	migrating = TRUE
+	ability_action.start_cooldown()
+	to_chat(host, span_userdanger("You feel something violently shift inside you, tearing and biting through your flesh!"))
+	to_chat(borer, span_notice("You begin tearing a path from [host]'s [old_part.name] toward [host.p_their()] [new_part.name]."))
+	playsound(host, 'sound/effects/splat.ogg', 40, TRUE)
+	host.Knockdown(2 SECONDS)
+	var/completed = do_after(borer, 2 SECONDS, host, timed_action_flags = IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_migrate), borer, host, cyst, old_part, new_part))
+	if(QDELETED(src))
+		return FALSE
+	migrating = FALSE
+	if(!completed || !can_migrate(borer, host, cyst, old_part, new_part))
+		to_chat(borer, span_warning("Your migration is interrupted."))
+		return FALSE
+	borer.deactivate_evolutions(host)
+	cyst.Remove(host, special = TRUE)
+	cyst.configure(borer, new_part.body_zone)
+	cyst.Insert(host, special = TRUE)
+	old_part.receive_damage(brute = 30)
+	new_part.receive_damage(brute = 16)
+	host.add_bleeding(BLEED_CUT)
+	to_chat(host, span_userdanger("The violent squirming subsides as something settles into your [new_part.name]."))
+	to_chat(borer, span_notice("You finish gnawing through the tissue and nestle into [host]'s [new_part.name]."))
+	log_combat(borer, host, "migrated internally from [old_part.body_zone] to [new_part.body_zone]")
+	return TRUE
+
+/// Checks that both limbs and the cyst still belong to the same living host.
+/datum/borer_evolution/active_ability/internal_migration/proc/can_migrate(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host, obj/item/organ/borer_cyst/cyst, obj/item/bodypart/old_part, obj/item/bodypart/new_part)
+	if(QDELETED(borer) || QDELETED(host) || QDELETED(cyst) || QDELETED(old_part) || QDELETED(new_part))
+		return FALSE
+	if(borer.host != host || borer.cyst != cyst || cyst.owner != host || borer.controlling_host || borer.stat != CONSCIOUS || host.stat == DEAD)
+		return FALSE
+	if(old_part == new_part || old_part.owner != host || new_part.owner != host || cyst.zone != old_part.body_zone || !IS_ORGANIC_LIMB(new_part))
+		return FALSE
+	if(host.get_organ_slot("borer_cyst_[new_part.body_zone]"))
+		return FALSE
+	var/expected_damage = CONFIG_GET(number/damage_multiplier) * (30 * old_part.brute_modifier * old_part.body_damage_coeff + 16 * new_part.brute_modifier * new_part.body_damage_coeff)
+	return host.health > host.crit_threshold + expected_damage + 10
 
 /datum/action/innate/borer_evolution_ability
 	button_icon = 'icons/hud/actions/actions_changeling.dmi'
@@ -438,31 +565,39 @@
 /datum/borer_evolution/head/night_vision
 	name = "Night Vision"
 	desc = "Reshape your host's eyes for clear sight in darkness."
-	helptext = "Head cyst only. Grants Nightmare-grade dark sight."
+	helptext = "Head cyst only. Grants Nightmare-grade dark sight to you and your host."
 	required_zone = BODY_ZONE_HEAD
 
 /datum/borer_evolution/head/night_vision/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_NIGHT_VISION, REF(src))
+	ADD_TRAIT(borer, TRAIT_NIGHT_VISION, REF(src))
 	host.update_sight()
+	borer.update_sight()
 
 /datum/borer_evolution/head/night_vision/on_detached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	REMOVE_TRAIT(host, TRAIT_NIGHT_VISION, REF(src))
+	REMOVE_TRAIT(borer, TRAIT_NIGHT_VISION, REF(src))
 	host.update_sight()
+	borer.update_sight()
 
 /datum/borer_evolution/head/thermal_vision
 	name = "Thermal Vision"
 	desc = "Grow heat-sensitive structures around your host's optic nerves."
-	helptext = "Head cyst only. Reveals living heat signatures, including in darkness."
+	helptext = "Head cyst only. Lets you and your host see living heat signatures, including in darkness."
 	cost = 3
 	required_zone = BODY_ZONE_HEAD
 
 /datum/borer_evolution/head/thermal_vision/on_attached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	ADD_TRAIT(host, TRAIT_THERMAL_VISION, REF(src))
+	ADD_TRAIT(borer, TRAIT_THERMAL_VISION, REF(src))
 	host.update_sight()
+	borer.update_sight()
 
 /datum/borer_evolution/head/thermal_vision/on_detached(mob/living/simple_animal/borer/borer, mob/living/carbon/human/host)
 	REMOVE_TRAIT(host, TRAIT_THERMAL_VISION, REF(src))
+	REMOVE_TRAIT(borer, TRAIT_THERMAL_VISION, REF(src))
 	host.update_sight()
+	borer.update_sight()
 
 /datum/borer_evolution/chest/thermal_regulation
 	name = "Thermal Regulation"
@@ -485,6 +620,7 @@
 	button_icon_state = "panacea"
 	background_icon_state = "bg_changeling"
 	cooldown_time = 60 SECONDS
+	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/borer_evolution/chest/metabolic_purge/evolution
 
 /datum/action/innate/borer_metabolic_purge/New(datum/borer_evolution/chest/metabolic_purge/new_evolution)
@@ -527,7 +663,7 @@
 		purge_action.Grant(borer)
 
 /datum/borer_evolution/chest/metabolic_purge/proc/purge(mob/living/simple_animal/borer/borer)
-	if(!borer?.host || borer.cyst?.zone != BODY_ZONE_CHEST || !borer.host.reagents)
+	if(!borer?.host || borer.stat != CONSCIOUS || borer.host.stat == DEAD || borer.cyst?.zone != BODY_ZONE_CHEST || !borer.host.reagents)
 		return FALSE
 	if(borer.chemicals < 30)
 		to_chat(borer, span_warning("You need 30 chemicals to purge your host."))

@@ -1,3 +1,86 @@
+/datum/borer_secretion_menu
+	var/mob/living/simple_animal/borer/borer
+
+/datum/borer_secretion_menu/New(mob/living/simple_animal/borer/new_borer)
+	. = ..()
+	borer = new_borer
+
+/datum/borer_secretion_menu/Destroy()
+	borer = null
+	return ..()
+
+/datum/borer_secretion_menu/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/borer_secretion_menu/ui_status(mob/user, datum/ui_state/state)
+	return borer && user == borer && borer.stat == CONSCIOUS && borer.host && borer.host.stat != DEAD && !borer.controlling_host ? UI_INTERACTIVE : UI_CLOSE
+
+/datum/borer_secretion_menu/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BorerChemicals", "Chemical Secretion")
+		ui.open()
+		ui.set_autoupdate(TRUE)
+
+/datum/borer_secretion_menu/ui_data(mob/user)
+	var/list/data = list()
+	data["chemicals"] = borer.chemicals
+	data["max_chemicals"] = borer.max_chemicals
+	data["host_name"] = borer.host?.name
+	data["host_zone"] = borer.cyst ? parse_zone(borer.cyst.zone) : null
+	data["dose_amounts"] = list(5, 10, 15)
+	data["host_full"] = !borer.host?.reagents || borer.host.reagents.maximum_volume - borer.host.reagents.total_volume <= CHEMICAL_QUANTISATION_LEVEL
+	var/list/secretions = list()
+	for(var/datum/borer_secretion/secretion as anything in borer.available_secretions)
+		if(!secretion.can_secrete(borer))
+			continue
+		secretions += list(list(
+			"name" = secretion.name,
+			"path" = secretion.type,
+			"cost" = secretion.chemical_cost,
+			"dose_size" = secretion.dose_size,
+		))
+	data["secretions"] = secretions
+	data["can_purge"] = FALSE
+	for(var/datum/borer_evolution/chest/metabolic_purge/purge_evolution in borer.available_evolutions)
+		if(!purge_evolution.purchased || !purge_evolution.is_active(borer))
+			continue
+		data["can_purge"] = TRUE
+		data["purge_ready"] = purge_evolution.purge_action?.is_available()
+	var/can_analyze_host = borer.has_active_evolution(/datum/borer_evolution/taste_blood)
+	data["can_analyze_host"] = can_analyze_host
+	if(can_analyze_host && borer.host?.reagents)
+		var/list/host_reagents = list()
+		for(var/datum/reagent/reagent as anything in borer.host.reagents.reagent_list)
+			host_reagents += list(list(
+				"name" = reagent.name,
+				"volume" = round(reagent.volume, 0.1),
+				"path" = reagent.type,
+			))
+		data["host_reagents"] = host_reagents
+		data["host_current_volume"] = round(borer.host.reagents.total_volume, 0.1)
+		data["host_max_volume"] = borer.host.reagents.maximum_volume
+	return data
+
+/datum/borer_secretion_menu/ui_act(action, list/params)
+	if(..())
+		return
+	if(action == "purge")
+		if(!borer || usr != borer || borer.controlling_host)
+			return FALSE
+		for(var/datum/borer_evolution/chest/metabolic_purge/purge_evolution in borer.available_evolutions)
+			if(!purge_evolution.purchased || !purge_evolution.is_active(borer) || purge_evolution.purge_action?.owner != borer)
+				continue
+			purge_evolution.purge_action.trigger()
+			return TRUE
+		return FALSE
+	if(action != "secrete")
+		return FALSE
+	var/secretion_path = text2path(params["path"])
+	if(!ispath(secretion_path, /datum/borer_secretion))
+		return FALSE
+	return borer.secrete_chemical(secretion_path, text2num(params["dose"]))
+
 /datum/borer_secretion
 	var/name = "chemical secretion"
 	var/reagent_type

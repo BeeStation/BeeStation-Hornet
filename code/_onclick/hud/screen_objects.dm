@@ -478,6 +478,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	screen_loc = ui_zonesel
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/selecting = BODY_ZONE_CHEST
+	/// Select individual zones regardless of the user's targeting preference.
+	var/force_precise = FALSE
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
 	var/mutable_appearance/selecting_appearance
@@ -534,7 +536,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 		hovering = null
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(mob/user, icon_x, icon_y)
-	var/simple_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
+	var/simple_mode = !force_precise && user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
 	switch(icon_y)
 		if(1 to 9) //Legs
 			switch(icon_x)
@@ -575,6 +577,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 /atom/movable/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
 	if(user != hud?.mymob)
 		return
+	if(force_precise)
+		switch(choice)
+			if(BODY_GROUP_CHEST_HEAD, BODY_GROUP_ARMS, BODY_GROUP_LEGS)
+				return FALSE
 
 	if(choice != selecting)
 		selecting = choice
