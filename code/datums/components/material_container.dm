@@ -92,6 +92,9 @@
 	if(!material_amount)
 		to_chat(user, span_warning("[I] does not contain sufficient materials to be accepted by [parent]."))
 		return
+	if(isstack(I))
+		var/obj/item/stack/S = I
+		material_amount *= S.amount
 	if(!has_space(material_amount))
 		to_chat(user, span_warning("[parent] is full. Please remove materials from [parent] in order to insert more."))
 		return
@@ -128,8 +131,11 @@
 		return FALSE
 
 	multiplier = CEILING(multiplier, 0.01)
+	if(isstack(I))
+		var/obj/item/stack/S = I
+		multiplier *= (stack_amt || S.amount)
 
-	var/material_amount = get_item_material_amount(I, breakdown_flags)
+	var/material_amount = get_item_material_amount(I, breakdown_flags) * multiplier
 	if(!material_amount || !has_space(material_amount))
 		return FALSE
 
