@@ -1,7 +1,7 @@
 //A regular hamsterwheel, with a small dynamo attached
 //Able to generate 50W of power (100 times more than what is realistic IRL, but we don't want thousands of these)
 /obj/machinery/power/port_gen/hamster_wheel
-	name = "\improper Hamster wheel"
+	name = "hamster wheel"
 	desc = "An ordinary hamster wheel, rigged with an old bicycle dynamo to produce a small amount of power."
 	icon = 'icons/obj/machines/power/hamster.dmi'
 	icon_state = "hamster_wheel"
@@ -92,7 +92,7 @@
 //A human sized hamsterwheel, with a large dynamo attached
 //Able to generate 5 kW of power (50 times the estimated 100W for a human sized hamster wheel)
 /obj/machinery/power/port_gen/hamsterperson_wheel
-	name = "\improper Hamsterperson wheel"
+	name = "hamsterperson wheel"
 	desc = "A large hamster wheel, designed for hamsterpeople to run in. A shame they do not exist. It can generate significantly more power than the regular sized one."
 	icon = 'icons/obj/machines/power/human.dmi'
 	icon_state = "human_wheel"
