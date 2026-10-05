@@ -54,16 +54,25 @@
 	return highest_rate
 
 /obj/machinery/refraction_catalogue/attackby(obj/item/C, mob/user)
+// Machine stuff
+	if(default_deconstruction_screwdriver(user, "refractor-o", "refractor", C))
+		update_icon()
+		return
+	if(default_deconstruction_crowbar(C))
+		disk?.forceMove(get_turf(src))
+		return
 //Disk
 	if(istype(C, /obj/item/disk/plant_disk) && !disk)
 		C.forceMove(src)
 		disk = C
+		ui_update()
+		return
 //Reagent container, for sampling
 	else if(istype(C, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/container = C
 		if(!length(container.reagents.reagent_list))
 			to_chat(user, span_warning("[container] is empty!"))
-			return
+			return ..()
 		var/length_check = 0
 		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
 		//Flight checks
@@ -80,7 +89,9 @@
 			return
 		to_chat(user, span_notice("You sample reagents from [container]."))
 		playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-	ui_update()
+		ui_update()
+		return
+	return ..()
 
 /obj/machinery/refraction_catalogue/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()

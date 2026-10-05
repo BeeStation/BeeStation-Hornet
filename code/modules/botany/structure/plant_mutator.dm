@@ -82,6 +82,15 @@
 /obj/machinery/plant_machine/plant_mutator/attackby(obj/item/C, mob/user)
 	if(working)
 		return ..()
+// Machine stuff
+	if(!plant && default_deconstruction_screwdriver(user, "mutator_open-o", "mutator_open", C))
+		update_icon()
+		return
+	else if(plant && C.tool_behaviour == TOOL_SCREWDRIVER)
+		to_chat(user, span_warning("There's a plant in [src]!"))
+		return
+	if(default_deconstruction_crowbar(C))
+		return
 //Seeds
 	if(istype(C, /obj/item/plant_seeds))
 		to_chat(user, span_danger("A plant can be inserted into [src] using a spade."))

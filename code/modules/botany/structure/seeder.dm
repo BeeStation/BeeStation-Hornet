@@ -38,6 +38,17 @@
 		seed_amount = initial(seed_amount) * 2
 
 /obj/machinery/seeder/attackby(obj/item/C, mob/user)
+// Machine stuff
+	if(default_deconstruction_screwdriver(user, "seeder-o", "seeder", C))
+		update_icon()
+		return
+	if(default_deconstruction_crowbar(C))
+		// This can have the potential to fuck up the server, so we don't dispense the extra stored seeds
+		for(var/seed_index in stored_seeds)
+			var/obj/item/plant_seeds/seeds = stored_seeds[seed_index]
+			seeds.seeds = min(stored_seeds_amount[seed_index], initial(seeds.seeds))
+			seeds.forceMove(get_turf(src))
+		return
 //Turn spade plant into seeds
 	if(istype(C, /obj/item/shovel))
 		//Insert plant from spade
@@ -77,7 +88,7 @@
 	var/list/genes = list()
 	SEND_SIGNAL(C, COMSIG_PLANT_GET_GENES, genes)
 	if(!length(genes)) //Essentially just checks if the thing has genes, which means it can be turned into seeds
-		return
+		return ..()
 	C.forceMove(get_turf(src))
 	seedify(C, seed_amount)
 	playsound(src, 'sound/machines/juicer.ogg', 30)

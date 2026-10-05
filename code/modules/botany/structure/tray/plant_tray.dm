@@ -8,7 +8,8 @@
 	layer = OBJ_LAYER
 	pass_flags_self = PASSSTRUCTURE
 	pass_flags = NONE
-	interaction_flags_item = NONE
+	interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
+	obj_flags = CAN_BE_HIT
 	///What is this tray labeled as
 	var/label
 	///Reagents volume
@@ -251,6 +252,8 @@
 
 //You can throw any special reagent logic here
 /obj/item/plant_tray/proc/update_reagents()
+	if(!reagents) // Can happen when we get broken apart
+		return
 	cut_overlay(tray_reagents)
 	if(reagents.total_volume <= 1)
 		return

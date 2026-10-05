@@ -1892,12 +1892,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/security/prison)
-"aQF" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron/white,
-/area/station/service/hydroponics)
 "aQO" = (
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/storage)
@@ -7521,19 +7515,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/station/maintenance/department/medical/central)
-"dcs" = (
-/obj/effect/turf_decal/tile/steelgrid/diagonal{
-	dir = 4;
-	alpha = 255
-	},
-/obj/effect/turf_decal/trimline/green/filled/line{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/directional/south,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
-/turf/open/floor/iron,
-/area/station/service/hydroponics)
 "dct" = (
 /obj/machinery/button/door{
 	id = "bridge blast";
@@ -63944,7 +63925,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/south,
 /obj/machinery/light,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/service/hydroponics)
 "wgY" = (
@@ -66453,7 +66433,6 @@
 "xaM" = (
 /obj/effect/turf_decal/tile/green,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/station/service/hydroponics)
 "xbc" = (
@@ -105006,7 +104985,7 @@ tpM
 oeD
 xHR
 ciE
-aQF
+pwn
 luN
 dFV
 plE
@@ -105520,7 +105499,7 @@ qwx
 ffs
 ogs
 iYa
-dcs
+ffs
 luN
 nLe
 plE

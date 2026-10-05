@@ -62,6 +62,15 @@
 		context.add_left_click_action("Insert Plant Disk")
 
 /obj/machinery/plant_machine/plant_analyser/attackby(obj/item/C, mob/user)
+// Machine stuff
+	if(!inserted_plant && default_deconstruction_screwdriver(user, "analyzer_open-o", "analyzer_open", C))
+		update_icon()
+		return
+	else if(inserted_plant && C.tool_behaviour == TOOL_SCREWDRIVER)
+		to_chat(user, span_warning("There's a plant in [src]!"))
+		return
+	if(default_deconstruction_crowbar(C))
+		return
 //Seeds
 	if(istype(C, /obj/item/plant_seeds))
 		to_chat(user, span_danger("A plant can be inserted into [src] using a spade."))

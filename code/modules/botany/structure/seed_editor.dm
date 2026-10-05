@@ -35,6 +35,17 @@
 		context.add_left_click_action("Insert Seed / Plant Disk")
 
 /obj/machinery/plant_machine/seed_editor/attackby(obj/item/C, mob/user)
+// Machine stuff
+	if(!seeds && default_deconstruction_screwdriver(user, "editor_open-o", "editor_open", C))
+		update_icon()
+		return
+	else if(seeds && C.tool_behaviour == TOOL_SCREWDRIVER)
+		to_chat(user, span_warning("There's seeds in [src]!"))
+		return
+	if(default_deconstruction_crowbar(C))
+		disk?.forceMove(get_turf(src))
+		return
+// Gene stuff
 	//insert disk
 	if(istype(C, /obj/item/disk/plant_disk) && !disk)
 		C.forceMove(src)
