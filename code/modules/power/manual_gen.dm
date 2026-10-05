@@ -7,7 +7,7 @@
 	icon_state = "hamster_wheel"
 	base_icon_state = "hamster_wheel"
 	density = FALSE
-	power_gen = 50 WATT
+	power_gen = 100 WATT
 	var/power_amplifier = 1
 	can_buckle = FALSE
 
@@ -136,19 +136,19 @@
 	else
 		disconnect_from_network()
 
-/obj/machinery/power/port_gen/hamsterperson_wheel/attackby(obj/item/O, mob/user, params)
+/obj/machinery/power/port_gen/hamsterperson_wheel/wrench_act(mob/living/user, obj/item/tool)
 	if(!active)
-		if(O.tool_behaviour == TOOL_WRENCH)
-			if(!anchored && !isinspace())
-				set_anchored(TRUE)
-				to_chat(user, span_notice("You secure the hamsterperson wheel to the floor."))
-			else if(anchored)
-				set_anchored(FALSE)
-				to_chat(user, span_notice("You unsecure the hamsterperson wheel from the floor."))
+		return ITEM_INTERACT_BLOCKING
 
-			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-			return
-	return ..()
+	if(!anchored && !isinspace())
+		set_anchored(TRUE)
+		to_chat(user, span_notice("You secure the hamsterperson wheel to the floor."))
+	else if(anchored)
+		set_anchored(FALSE)
+		to_chat(user, span_notice("You unsecure the hamsterperson wheel from the floor."))
+
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/power/port_gen/hamsterperson_wheel/process(delta_time)
 	if(active)
