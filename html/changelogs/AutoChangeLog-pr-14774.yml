@@ -1,6 +1,0 @@
-author: Baherain
-delete-after: true
-changes:
-  - rscadd: Added hamster wheel
-  - rscadd: Added hamsterperson wheel
-  - tweak: modified the mouse hunting behaviours to interact with hamster wheels

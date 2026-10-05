@@ -45,3 +45,8 @@
       adjustments. It will be safe now, unless you adjust the gas pump output pressure.
   mrmanlikesbt, TealSeer, san7890:
   - server: The GitHub CI Suite has been sped up quite a bit.
+2026-10-05:
+  Baherain:
+  - rscadd: Added hamster wheel
+  - rscadd: Added hamsterperson wheel
+  - tweak: modified the mouse hunting behaviours to interact with hamster wheels
