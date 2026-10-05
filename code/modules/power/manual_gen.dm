@@ -48,20 +48,19 @@
 		dump_inventory_contents(list(occupant))
 		to_chat(user, span_notice("You carefully remove the mouse from the wheel."))
 
-/obj/machinery/power/port_gen/hamster_wheel/attackby(obj/item/O, mob/user, params)
+/obj/machinery/power/port_gen/hamster_wheel/wrench_act(mob/living/user, obj/item/tool)
 	if(!active)
-		if(O.tool_behaviour == TOOL_WRENCH)
-			if(!anchored && !isinspace())
-				set_anchored(TRUE)
-				to_chat(user, span_notice("You secure the hamster wheel to the floor."))
-			else if(anchored)
-				set_anchored(FALSE)
-				to_chat(user, span_notice("You unsecure the hamster wheel from the floor."))
+		return ITEM_INTERACT_BLOCKING
 
-			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-			return
+	if(!anchored && !isinspace())
+		set_anchored(TRUE)
+		to_chat(user, span_notice("You secure the hamster wheel to the floor."))
+	else if(anchored)
+		set_anchored(FALSE)
+		to_chat(user, span_notice("You unsecure the hamster wheel from the floor."))
 
-	return ..()
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/power/port_gen/hamster_wheel/process(delta_time)
 	if(occupant == null )
