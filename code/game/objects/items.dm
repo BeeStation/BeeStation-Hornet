@@ -173,7 +173,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// What this thing does when used like a tool. NONE if it isn't a tool. If I give a piece of paper TOOL_WRENCH I can use it to unwrench tables. See _DEFINES/tools.dm
 	var/tool_behaviour = NONE
 	/// The tool speed multiplier of how long it takes to do the tool action.
-	var/toolspeed = 1
+	VAR_PROTECTED/toolspeed = 1
 
 	/// Whether or not an item can block attacks
 	var/canblock = FALSE
@@ -252,7 +252,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
 
 	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * toolspeed)
+		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * get_toolspeed())
 
 	. = ..()
 	for(var/path in actions_types)
@@ -290,7 +290,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	updateEmbedding()
 
 	if(sharpness) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, 80 * toolspeed)
+		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
 /obj/item/Destroy(force)
 	master = null
@@ -792,6 +792,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /**
+ * Returns the toolspeed for this item modified by it's users tool proficiency. If there is no user, it simply returns the toolspeed.
+ * * user the mob to check for tool proficiency
+ */
+/obj/item/proc/get_toolspeed(mob/user)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		return toolspeed * living_user.tool_proficiency
+	return toolspeed
+
+/**
  * To be overwritten to only perform visual tasks;
  * this is directly called instead of `equipped` on visual-only features like human dummies equipping outfits.
  *
@@ -1264,7 +1274,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!delay && !tool_start_check(user, amount))
 		return
 
-	delay *= toolspeed
+	delay *= get_toolspeed(user)
 
 	// Play tool sound at the beginning of tool usage.
 	play_tool_sound(target, volume)
@@ -1518,7 +1528,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		/// victim's chest (for cavity implanting the item)
 		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
 		if(victim_cavity.cavity_item)
-			victim.vomit(5, FALSE, FALSE, distance = 0)
+			victim.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = 5, distance = 0)
 			forceMove(drop_location())
 			to_chat(victim, span_warning("You vomit up a [name]! [source_item? "Was that in \the [source_item]?" : ""]"))
 		else
@@ -1585,7 +1595,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
-/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
 	CRASH("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 /**
@@ -1690,3 +1700,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
 		else
 			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+
+/**
+ * Returns the atom(either itself or an internal module) that will interact/attack the target on behalf of us
+ * For example an object can have different `tool_behaviours` (e.g borg omni tool) but will return an internal reference of that tool to attack for us
+ * You can use it for general purpose polymorphism if you need a proxy atom to interact in a specific way
+ * with a target on behalf on this atom
+ *
+ * Currently used only in the object melee attack chain but can be used anywhere else or even moved up to the atom level if required
+ */
+/obj/item/proc/get_proxy_attacker_for(atom/target, mob/user)
+	RETURN_TYPE(/obj/item)
+
+	return src

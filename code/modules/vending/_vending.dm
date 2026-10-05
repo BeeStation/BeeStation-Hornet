@@ -58,7 +58,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	idle_power_usage = 100 WATT
+	idle_power_usage = 10
 	max_integrity = 300
 	integrity_failure = 0.33
 	armor_type = /datum/armor/machinery_vending
@@ -201,10 +201,6 @@
 	fire = 50
 	acid = 70
 
-/obj/item/circuitboard
-	///determines if the circuit board originated from a vendor off station or not.
-	var/onstation = TRUE
-
 /**
   * Initialize the vending machine
   *
@@ -262,6 +258,7 @@
 
 //Better would be to make constructable child
 /obj/machinery/vending/RefreshParts()
+	SHOULD_CALL_PARENT(FALSE)
 	if(!component_parts)
 		return
 
@@ -544,7 +541,7 @@
 		return FALSE
 	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		unbuckle_all_mobs(TRUE)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	return FALSE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
@@ -559,7 +556,7 @@
 		to_chat(user, span_warning("You must first secure [src]."))
 	return TRUE
 
-/obj/machinery/vending/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/vending/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
 		return
@@ -1085,7 +1082,7 @@
 		speak(vend_response)
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
-	use_power(500 WATT)
+	use_power(active_power_usage)
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
@@ -1337,7 +1334,7 @@
 						else
 							to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
 						loaded_items--
-						use_power(500 WATT)
+						use_power(active_power_usage)
 						vend_ready = TRUE
 						return TRUE
 					//var/datum/bank_account/account = C?.registered_account
@@ -1376,14 +1373,14 @@
 		to_chat(usr, span_warning("[capitalize(bought_item.name)] falls onto the floor!"))
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 	loaded_items--
-	use_power(500 WATT)
+	use_power(5)
 	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 		speak("Thank you for buying local and purchasing [bought_item]!")
 		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
 		last_shopper = REF(usr)
 	vend_ready = TRUE
 
-/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!private_a)
 		var/mob/living/carbon/human/H
 		var/obj/item/card/id/C

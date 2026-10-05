@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/under/rank/medical/doctor/nurse,
 			/obj/item/clothing/under/rank/medical/chief_medical_officer,
 			/obj/item/reagent_containers/syringe,
-			/obj/item/reagent_containers/pill/,
+			/obj/item/reagent_containers/applicator,
 			/obj/item/reagent_containers/hypospray,
 			/obj/item/storage/firstaid,
 			/obj/item/storage/pill_bottle,

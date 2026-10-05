@@ -154,7 +154,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
 // This race can't become a vampire, changeling antagonist or be copied by a changeling.
 #define TRAIT_NOT_TRANSMORPHIC "not_transmorphic"
-#define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
+// Use when you want a mob to be able to metabolize plasma temporarily (e.g. plasma fixation disease symptom)
+#define TRAIT_PLASMA_LOVER_METABOLISM "plasma_lover_metabolism"
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
 #define TRAIT_TOXIMMUNE			"toxin_immune"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"
@@ -236,6 +237,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
+/**
+ *
+ * This trait is used in some interactions very high in the interaction chain to allow
+ * certain atoms to be skipped by said interactions if the user is in combat mode.
+ *
+ * Its primarily use case is for stuff like storage and tables, to allow things like emags to be bagged
+ * (because in some contexts you might want to be emagging a bag, and in others you might want to be storing it.)
+ *
+ * This is only checked by certain items explicitly so you can't just add the trait and expect it to work.
+ * (This may be changed later but I chose to do it this way to avoid messing up interactions which require combat mode)
+ */
+#define TRAIT_COMBAT_MODE_SKIP_INTERACTION "combat_mode_skip_interaction"
 /// Having this trait allows the basic health hud to show up for this mob
 #define TRAIT_BASIC_HEALTH_HUD_VISIBLE "basic_health_hud_visible"
 #define TRAIT_QUICK_BUILD "quick-build"
@@ -252,6 +265,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYING "crying"
 #define TRAIT_NOBLOCK "noblock"
 #define TRAIT_NANITECOMPATIBLE "nanitecompatible"
+/// Can have synth (IPC) upgrades
+#define TRAIT_UPGRADE_COMPATIBLE "upgrade_compatible"
 #define TRAIT_NICE_SHOT "nice_shot" //hnnnnnnnggggg..... you're pretty good....
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"
@@ -284,6 +299,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BLOOD "no_blood" // Bleeding heals itself and bleeding is impossible
 #define TRAIT_NO_BLEEDING "no_bleed" // The user can acquire the bleeding status effect, but will no lose blood
 #define TRAIT_BLOOD_COOLANT "blood_coolant" // Replaces blood with coolant, meaning we overheat instead of losing air
+#define TRAIT_DIES_NO_NUTRITION "dies_no_nutrition" // Do we apply a status effect (eventually causing death) if the owner runs out of nutrition?
 #define TRAIT_NO_BUMP_SLAM "no_bump_slam"	// Disables the ability to slam into walls
 /// Trait given by being a hulk
 #define TRAIT_HULK "hulk"
@@ -467,6 +483,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
  */
 #define TRAIT_VENTCRAWLER_ALWAYS "ventcrawler_always"
 #define TRAIT_VENTCRAWLER_NUDE "ventcrawler_nude"
+
+/// This item cannot be put into the all-in-one grinder
+#define TRAIT_NO_GRINDING "cannot_be_grinded"
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"

@@ -1,5 +1,3 @@
-#define SUMMON_POSSIBILITIES 3
-
 /datum/antagonist/cult
 	name = "Cultist"
 	roundend_category = "cultists"
@@ -12,9 +10,15 @@
 	var/datum/action/innate/cult/blood_magic/magic = new
 	banning_key = ROLE_CULTIST
 	required_living_playtime = 6
-	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
+
+	///Mass teleport ability, only granted to the leader
+	var/datum/action/innate/cult/master/finalreck/reckoning
+	///Blood mark ability, only granted to the leader
+	var/datum/action/innate/cult/master/cultmark/bloodmark
+	///Blood pulse ability, only granted to the leader
+	var/datum/action/innate/cult/master/pulse/throwing
 
 
 /datum/antagonist/cult/get_team()
@@ -44,12 +48,15 @@
 /datum/antagonist/cult/Destroy()
 	QDEL_NULL(communion)
 	QDEL_NULL(vote)
+	QDEL_NULL(reckoning)
+	QDEL_NULL(bloodmark)
+	QDEL_NULL(throwing)
 	return ..()
 
 /datum/antagonist/cult/can_be_owned(datum/mind/new_owner)
-	. = ..()
-	if(. && !ignore_implant)
-		. = is_convertable_to_cult(new_owner.current,cult_team)
+	if(!is_convertable_to_cult(new_owner.current, cult_team))
+		return FALSE
+	return ..()
 
 /datum/antagonist/cult/greet()
 	to_chat(owner, span_userdanger("You are a member of the cult!"))
@@ -115,27 +122,20 @@
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image
 
-	if(!cult_team.cult_master)
+	if(!cult_team.cult_leader_datum)
 		vote.Grant(current)
 	communion.Grant(current)
 	if(ishuman(current))
 		magic.Grant(current)
+	if(is_cult_leader()) // Give them their abilities + a warning to cultists if they die
+		grant_leader_abilities(current)
+		RegisterSignal(current, COMSIG_MOB_STATCHANGE, PROC_REF(deathrattle))
 	if(cult_team.cult_risen)
 		current.AddElement(/datum/element/cult_eyes, initial_delay = 0 SECONDS)
 	if(cult_team.cult_ascendent)
 		current.AddElement(/datum/element/cult_halo, initial_delay = 0 SECONDS)
 
 	add_team_hud(current, /datum/antagonist/cult)
-
-/datum/antagonist/cult/master/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/current = owner.current
-	if(!cult_team.reckoning_complete)
-		reckoning.Grant(current)
-	bloodmark.Grant(current)
-	throwing.Grant(current)
-	current.update_action_buttons_icon()
-	current.apply_status_effect(/datum/status_effect/cult_master)
 
 /datum/antagonist/cult/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -146,6 +146,8 @@
 	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
+	remove_leader_abilities(current)
+	UnregisterSignal(current, COMSIG_MOB_STATCHANGE)
 
 	current.clear_alert("bloodsense")
 
@@ -154,32 +156,29 @@
 	if (HAS_TRAIT(current, TRAIT_CULT_HALO))
 		current.RemoveElement(/datum/element/cult_halo)
 
-/datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-	reckoning.Remove(current)
-	bloodmark.Remove(current)
-	throwing.Remove(current)
-	current.update_action_buttons_icon()
-	current.remove_status_effect(/datum/status_effect/cult_master)
-
 /datum/antagonist/cult/on_removal()
 	if(!silent)
 		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!")]", null, null, null, owner.current)
 		to_chat(owner.current, span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of the Geometer and all your memories as her servant."))
 		owner.current.log_message("has renounced the cult of Nar'Sie!", LOG_ATTACK, color="#960000")
+	if(is_cult_leader())
+		cult_team.cult_leader_datum = null
 	if(cult_team.blood_target && cult_team.blood_target_image && owner.current.client)
 		owner.current.client.images -= cult_team.blood_target_image
-	owner.current.update_alt_appearances()
+	var/mob/living/former_cultist = owner.current
 	. = ..()
+	former_cultist?.update_alt_appearances() // Properly removes your old team's hud
 
 /datum/antagonist/cult/get_admin_commands()
 	. = ..()
 	.["Dagger"] = CALLBACK(src,PROC_REF(admin_give_dagger))
 	.["Dagger and Metal"] = CALLBACK(src,PROC_REF(admin_give_metal))
 	.["Remove Dagger and Metal"] = CALLBACK(src, PROC_REF(admin_take_all))
+
+	if(is_cult_leader())
+		.["Demote From Leader"] = CALLBACK(src, PROC_REF(demote_from_leader))
+	else if(!cult_team.cult_leader_datum)
+		.["Make Cult Leader"] = CALLBACK(src, PROC_REF(make_cult_leader))
 
 /datum/antagonist/cult/proc/admin_give_dagger(mob/admin)
 	if(!equip_cultist(metal=FALSE))
@@ -195,275 +194,90 @@
 		if(istype(o, /obj/item/melee/cultblade/dagger) || istype(o, /obj/item/stack/sheet/runed_metal))
 			qdel(o)
 
-/datum/antagonist/cult/master
-	ignore_implant = TRUE
-	show_in_antagpanel = FALSE //Feel free to add this later
+/datum/antagonist/cult/proc/is_cult_leader() // Are they the leader?
+	return cult_team?.cult_leader_datum == src
+
+/datum/antagonist/cult/proc/grant_leader_abilities(mob/living/current) // They got promoted or chosen, let's give them their abilities
+	if(!cult_team.reckoning_complete)
+		if(!reckoning)
+			reckoning = new
+		reckoning.Grant(current)
+	if(!bloodmark)
+		bloodmark = new
+	if(!throwing)
+		throwing = new
+	bloodmark.Grant(current)
+	throwing.Grant(current)
+	current.update_action_buttons_icon()
+
+/datum/antagonist/cult/proc/remove_leader_abilities(mob/living/current) // Opposite of giving, we take them away
+	reckoning?.Remove(current)
+	bloodmark?.Remove(current)
+	throwing?.Remove(current)
+	current.update_action_buttons_icon()
+
+/datum/antagonist/cult/proc/make_cult_leader() // Let's make them the leader
+	if(cult_team.cult_leader_datum)
+		return FALSE
+	cult_team.cult_leader_datum = src
+
 	antag_hud_name = "cultmaster"
 	leave_behaviour = ANTAGONIST_LEAVE_KEEP
-	var/datum/action/innate/cult/master/finalreck/reckoning = new
-	var/datum/action/innate/cult/master/cultmark/bloodmark = new
-	var/datum/action/innate/cult/master/pulse/throwing = new
+	add_team_hud(owner.current, /datum/antagonist/cult)
+	RegisterSignal(owner.current, COMSIG_MOB_STATCHANGE, PROC_REF(deathrattle))
 
-/datum/antagonist/cult/master/Destroy()
-	QDEL_NULL(reckoning)
-	QDEL_NULL(bloodmark)
-	QDEL_NULL(throwing)
-	return ..()
+	grant_leader_abilities(owner.current)
 
-/datum/antagonist/cult/master/greet()
+	for(var/datum/mind/cult_mind as anything in cult_team.members)
+		if(!cult_mind.current)
+			continue
+		var/datum/antagonist/cult/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/cult)
+		cult_datum?.vote.Remove(cult_mind.current)
+		if(!cult_mind.current.incapacitated)
+			to_chat(cult_mind.current, span_cultlarge("[owner.current] has won the cult's support and is now their master. Follow [owner.current.p_their()] orders to the best of your ability!"))
+
 	to_chat(owner.current, "[span_cultlarge("You are the cult's Master")]. As the cult's Master, you have a unique title and loud voice when communicating, are capable of marking \
 	targets, such as a location or a noncultist, to direct the cult to them, and, finally, you are capable of summoning the entire living cult to your location <b><i>once</i></b>.")
 	to_chat(owner.current, "Use these abilities to direct the cult to victory at any cost.")
 
-/datum/team/cult
-	name = "Bloodcult"
-
-	var/atom/blood_target
-	var/image/blood_target_image
-	var/blood_target_reset_timer
-
-	var/cult_vote_called = FALSE
-	var/mob/living/cult_master
-	var/reckoning_complete = FALSE
-	var/cult_risen = FALSE
-	var/cult_ascendent = FALSE
-
-/datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)
-	for(var/datum/objective/sacrifice/sac_objective in objectives)
-		if(mind == sac_objective.target)
-			return TRUE
-	return FALSE
-
-/// Sets a blood target for the cult.
-/datum/team/cult/proc/set_blood_target(atom/new_target, mob/marker, duration = 90 SECONDS)
-	if(QDELETED(new_target))
-		CRASH("A null or invalid target was passed to set_blood_target.")
-
-	if(blood_target_reset_timer)
-		return FALSE
-
-	blood_target = new_target
-	RegisterSignal(blood_target, COMSIG_QDELETING, PROC_REF(unset_blood_target_and_timer))
-	var/area/target_area = get_area(new_target)
-
-	blood_target_image = image('icons/effects/mouse_pointers/cult_target.dmi', new_target, "glow", ABOVE_MOB_LAYER)
-	blood_target_image.appearance_flags = RESET_COLOR
-	blood_target_image.pixel_x = -new_target.pixel_x
-	blood_target_image.pixel_y = -new_target.pixel_y
-
-	for(var/datum/mind/cultist as anything in members)
-		if(!cultist.current)
-			continue
-		if(cultist.current.stat == DEAD || !cultist.current.client)
-			continue
-
-		to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>[marker] has marked [blood_target] in the [target_area.name] as the cult's top priority, get there immediately!</span></span>")))
-		SEND_SOUND(cultist.current, sound(pick('sound/hallucinations/over_here2.ogg','sound/hallucinations/over_here3.ogg'), 0, 1, 75))
-		cultist.current.client.images += blood_target_image
-
-	blood_target_reset_timer = addtimer(CALLBACK(src, PROC_REF(unset_blood_target)), duration, TIMER_STOPPABLE)
 	return TRUE
 
-/// Unsets out blood target, clearing the images from all the cultists.
-/datum/team/cult/proc/unset_blood_target()
-	blood_target_reset_timer = null
+/datum/antagonist/cult/proc/demote_from_leader() // They got demoted from leader, let the cult choose a new one
+	if(!is_cult_leader())
+		return FALSE
+	cult_team.cult_leader_datum = null
+	cult_team.cult_vote_called = FALSE
 
-	for(var/datum/mind/cultist as anything in members)
-		if(!cultist.current)
+	antag_hud_name = initial(antag_hud_name)
+	leave_behaviour = initial(leave_behaviour)
+	add_team_hud(owner.current, /datum/antagonist/cult)
+	UnregisterSignal(owner.current, COMSIG_MOB_STATCHANGE)
+
+	remove_leader_abilities(owner.current)
+
+	for(var/datum/mind/cult_mind as anything in cult_team.members)
+		if(!cult_mind.current)
 			continue
-		if(cultist.current.stat == DEAD || !cultist.current.client)
-			continue
+		var/datum/antagonist/cult/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/cult)
+		cult_datum?.vote.Grant(cult_mind.current)
 
-		if(QDELETED(blood_target))
-			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark's target is lost!</span></span>")))
-		else
-			to_chat(cultist.current, (("<span class='bold'><span class='cultlarge'>The blood mark has expired!</span></span>")))
-		cultist.current.client.images -= blood_target_image
+	to_chat(owner.current, span_cultlarge("You have been demoted from being the cult's Master, you are now an acolyte once more!"))
 
-	UnregisterSignal(blood_target, COMSIG_QDELETING)
-	blood_target = null
+	return TRUE
 
-	QDEL_NULL(blood_target_image)
-
-/// Unsets our blood target when they get deleted.
-/datum/team/cult/proc/unset_blood_target_and_timer(datum/source)
+/datum/antagonist/cult/proc/deathrattle(datum/source) // Our leader is dead, what will we ever do
 	SIGNAL_HANDLER
 
-	deltimer(blood_target_reset_timer)
-	unset_blood_target()
-
-/datum/team/cult/proc/check_size()
-	if(cult_ascendent)
+	if(owner.current.stat != DEAD)
 		return
-	var/alive = 0
-	var/cultplayers = 0
-	for(var/I in GLOB.player_list)
-		var/mob/M = I
-		if(M.stat != DEAD)
-			if(IS_CULTIST(M))
-				++cultplayers
-			else
-				++alive
-	ASSERT(cultplayers) //we shouldn't be here.
-	var/ratio = alive ? cultplayers/alive : 1
-	if(ratio > CULT_RISEN && !cult_risen)
-		for(var/datum/mind/mind as anything in members)
-			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/effects/antag/bloodcult/bloodcult_eyes.ogg')
-				to_chat(mind.current, span_cultlarge(span_warning("The veil weakens as your cult grows, your eyes begin to glow...")))
-				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
-				mind.current.AddElement(/datum/element/cult_eyes)
-		cult_risen = TRUE
-		log_game("The blood cult has risen with [cultplayers] players.")
-
-	if(ratio > CULT_ASCENDENT && !cult_ascendent)
-		for(var/datum/mind/mind as anything in members)
-			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/effects/antag/bloodcult/bloodcult_halos.ogg')
-				to_chat(mind.current, span_cultlarge(span_warning("Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")))
-				log_game("The blood cult was given halos at cult population of [cultplayers].")
-				mind.current.AddElement(/datum/element/cult_halo)
-		cult_ascendent = TRUE
-		log_game("The blood cult has ascended with [cultplayers] players.")
-
-
-/datum/objective/sacrifice
-	var/sacced = FALSE
-	var/icon/sac_image
-
-/datum/objective/sacrifice/proc/make_image()
-	var/icon/reshape
-	if(target)
-		for(var/datum/record/locked/R as anything in GLOB.manifest.locked)
-			var/datum/mind/M = R.weakref_mind.resolve()
-			if(target == M)
-				reshape = R.character_appearance
-				break
-	if(!reshape)
-		reshape = icon('icons/mob/observer.dmi', "ghost", SOUTH)
-	reshape.Shift(SOUTH, 4)
-	reshape.Shift(EAST, 1)
-	reshape.Crop(7,4,26,31)
-	reshape.Crop(-5,-3,26,30)
-	sac_image = reshape
-
-/datum/objective/sacrifice/find_target(list/dupe_search_range, list/blacklist)
-	if(!istype(team, /datum/team/cult))
+	if(!QDELETED(GLOB.narsie))
 		return
-	var/list/target_candidates = list()
-	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(is_valid_target(possible_target) && !is_convertable_to_cult(possible_target.current) && !(possible_target in blacklist))
-			target_candidates += possible_target
-	if(target_candidates.len == 0)
-		message_admins("Cult Sacrifice: Could not find unconvertible target, checking for convertible target.")
-		for(var/datum/mind/possible_target in get_crewmember_minds())
-			if(is_valid_target(possible_target) && !(possible_target in blacklist))
-				target_candidates += possible_target
-	list_clear_nulls(target_candidates)
-	if(LAZYLEN(target_candidates))
-		set_target(pick(target_candidates))
-	else
-		message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. WELP!")
-		set_target(null)
-	update_explanation_text()
+	if(!is_cult_leader())
+		return
 
-/datum/objective/sacrifice/set_target(datum/mind/new_target)
-	..()
-	make_image()
-	for(var/datum/mind/M in get_owners())
-		if(M.current)
-			M.current.clear_alert("bloodsense")
-			M.current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
-
-/datum/objective/sacrifice/on_target_cryo()
-	find_target(null, list(target))
-	update_explanation_text()
-	var/message
-	if(!target)
-		message = "<BR>[span_userdanger("Your target is no longer within reach. The veil is now weak enough to proceed to the final objective.")]"
-	else
-		message = "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")].")]"
-	for(var/datum/mind/own as anything in get_owners())
-		to_chat(own.current, message)
-		own.announce_objectives()
-
-/datum/objective/sacrifice/is_valid_target(datum/mind/possible_target)
-	if(!istype(possible_target) || !possible_target.current)
-		return FALSE
-	if(isipc(possible_target.current))
-		return FALSE
-	if(possible_target.has_antag_datum(/datum/antagonist/cult))
-		return FALSE
-	return ..()
-
-/datum/objective/sacrifice/check_completion()
-	//Target's a clockie
-	if(target?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
-		return TRUE
-	return sacced || !target || ..()
-
-/datum/objective/sacrifice/update_explanation_text()
-	if(target)
-		explanation_text = "Sacrifice [target], the [target.assigned_role.title] via invoking a Sacrifice rune with [target.p_them()] on it and three acolytes around it."
-	else
-		explanation_text = "The veil has already been weakened here, proceed to the final objective."
-
-/datum/objective/eldergod
-	var/summoned = FALSE
-	var/list/summon_spots = list()
-
-/datum/objective/eldergod/New()
-	..()
-	var/sanity = 0
-	while(summon_spots.len < SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon_area = pick(GLOB.areas - summon_spots)
-		if(summon_area && is_station_level(summon_area.z) && (summon_area.area_flags & VALID_TERRITORY))
-			summon_spots += summon_area
-		sanity++
-	update_explanation_text()
-
-/datum/objective/eldergod/update_explanation_text()
-	explanation_text = "Summon Nar'Sie by invoking the rune 'Summon Nar'Sie'. <b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
-
-/datum/objective/eldergod/check_completion()
-	return summoned || ..()
-
-
-/datum/team/cult/proc/setup_objectives()
-	var/datum/objective/sacrifice/sac_objective = new
-	sac_objective.team = src
-	sac_objective.find_target()
-	objectives += sac_objective
-
-	var/datum/objective/eldergod/summon_objective = new
-	summon_objective.team = src
-	objectives += summon_objective
-
-/datum/team/cult/proc/check_cult_victory()
-	for(var/datum/objective/O in objectives)
-		if(!O.check_completion())
-			return FALSE
-	return TRUE
-
-/datum/team/cult/roundend_report()
-	var/list/parts = list()
-
-	if(check_cult_victory())
-		parts += span_greentextbig("The cult has succeeded! Nar'Sie has snuffed out another torch in the void!")
-	else
-		parts += span_redtextbig("The staff managed to stop the cult! Dark words and heresy are no match for Nanotrasen's finest!")
-
-	if(objectives.len)
-		parts += "<b>The cultists' objectives were:</b>"
-		var/count = 1
-		for(var/datum/objective/objective in objectives)
-			parts += "<b>Objective #[count]</b>: [objective.get_completion_message()]"
-			count++
-
-	if(members.len)
-		parts += span_header("The cultists were:")
-		parts += printplayerlist(members)
-
-	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
-
-#undef SUMMON_POSSIBILITIES
+	var/area/current_area = get_area(owner.current)
+	for(var/datum/mind/cult_mind as anything in cult_team.members)
+		if(!isliving(cult_mind.current))
+			continue
+		cult_mind.current.playsound_local(null, 'sound/hallucinations/veryfar_noise.ogg', 100)
+		to_chat(cult_mind.current, span_cultlarge("The Cult's Master, [owner.current.name], has fallen in \the [current_area]!"))

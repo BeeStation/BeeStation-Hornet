@@ -188,23 +188,23 @@
 	return dna.species.spec_attacked_by(I, user, affecting, src)
 
 
-/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.combat_mode)
-		var/hulk_verb = pick("smash","pummel")
-		if(check_shields(user, 15, "the [hulk_verb]ing"))
-			return
-		..(user, 1)
-		var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
-		playsound(loc, active_arm.unarmed_attack_sound, 25, TRUE, -1)
-		visible_message(span_danger("[user] [hulk_verb]ed [src]!"), \
-					span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
-		to_chat(user, span_danger("You [hulk_verb] [src]!"))
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-		if(!affecting)
-			affecting = get_bodypart(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
-		apply_damage(20, BRUTE, affecting, armor_block)
-		return 1
+/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	var/hulk_verb = pick("smash","pummel")
+	if(check_shields(user, 15, "the [hulk_verb]ing"))
+		return
+	var/obj/item/bodypart/arm/active_arm = user.get_active_hand()
+	playsound(loc, active_arm.unarmed_attack_sound, 25, TRUE, -1)
+	visible_message(
+		span_danger("[user] [hulk_verb]ed [src]!"),
+		span_userdanger("[user] [hulk_verb]ed [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"),
+		ignored_mobs = user,
+	)
+	to_chat(user, span_danger("You [hulk_verb] [src]!"))
+	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src))) || get_bodypart(BODY_ZONE_CHEST)
+	var/armor_block = run_armor_check(affecting, MELEE,"","",10)
+	apply_damage(20, BRUTE, affecting, armor_block)
+	return TRUE
 
 /mob/living/carbon/human/attack_hand(mob/user, modifiers)
 	if(..())	//to allow surgery to return properly.
@@ -696,7 +696,7 @@
 			else if(oxyloss > 30)
 				combined_msg += span_danger("You're choking!")
 
-	if(!HAS_TRAIT(src, TRAIT_NOHUNGER) && !HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				combined_msg += span_info("You're completely stuffed!")
@@ -707,7 +707,7 @@
 			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
 				combined_msg += span_info("You could use a bite to eat.")
 			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				combined_msg += span_info("You feel quite hungry.")
+				combined_msg += span_info("You feel quite hungry.") //Look, Henry's come to see us!
 			if(0 to NUTRITION_LEVEL_STARVING)
 				combined_msg += span_danger("You're starving!")
 

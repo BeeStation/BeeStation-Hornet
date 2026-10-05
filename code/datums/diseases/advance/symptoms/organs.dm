@@ -167,7 +167,7 @@
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				var/datum/species/S = H.dna.species
-				if(!M.get_organ_by_type(/obj/item/organ/appendix) && !((TRAIT_NOHUNGER in S.inherent_traits) || (TRAIT_POWERHUNGRY in S.inherent_traits)))
+				if(!M.get_organ_by_type(/obj/item/organ/appendix) && !((TRAIT_NOHUNGER in S.inherent_traits)))
 					var/obj/item/organ/appendix/O = new()
 					O.Insert(M)
 					M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 99, 99) //don't make it fail, or the host will start taking massive damage

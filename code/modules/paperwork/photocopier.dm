@@ -236,6 +236,7 @@
  */
 /obj/machinery/photocopier/proc/do_copy_loop(datum/callback/copy_cb, mob/user)
 	busy = TRUE
+	update_use_power(ACTIVE_POWER_USE)
 	var/i
 	for(i in 1 to num_copies)
 		if(!toner_cartridge) //someone removed the toner cartridge during printing.
@@ -253,6 +254,7 @@
  */
 /obj/machinery/photocopier/proc/reset_busy()
 	busy = FALSE
+	update_use_power(IDLE_POWER_USE)
 
 /**
  * Gives items a random x and y pixel offset, between -10 and 10 for each.
@@ -385,9 +387,9 @@
 /obj/machinery/photocopier/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
+/obj/machinery/photocopier/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/paper))
 		if(copier_empty())
 			if(!user.temporarilyRemoveItemFromInventory(O))

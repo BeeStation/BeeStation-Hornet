@@ -49,7 +49,7 @@
 /atom/movable/openspace/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/atom/movable/openspace/attackby(obj/item/W, mob/user, params)
+/atom/movable/openspace/attackby(obj/item/W, mob/user, list/modifiers)
 	return
 
 /atom/movable/openspace/fire_act(exposed_temperature, exposed_volume)
@@ -65,8 +65,8 @@
 /atom/movable/openspace/blob_act(obj/structure/blob/B)
 	return
 
-/atom/movable/openspace/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	return 0
+/atom/movable/openspace/attack_hulk(mob/living/carbon/human/user)
+	return FALSE
 
 /atom/movable/openspace/experience_pressure_difference()
 	return

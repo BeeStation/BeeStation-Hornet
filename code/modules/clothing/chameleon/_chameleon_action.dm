@@ -64,7 +64,7 @@
 		Grant(user)
 		log_game("[key_name(user)] has removed the disguise lock on \the [source] ([source.type]) with [tool].")
 
-	return COMPONENT_BLOCK_TOOL_ATTACK
+	return ITEM_INTERACT_BLOCKING
 
 /datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity, protection)
 	SIGNAL_HANDLER

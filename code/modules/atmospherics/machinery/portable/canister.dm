@@ -154,7 +154,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(internal_cell)
 		internal_cell.forceMove(drop_location())
 
-/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, params)
+/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/active_cell = item
 		if(!panel_open)
@@ -278,7 +278,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	if(!energy_consumed)
 		return
 
-	if(powered(AREA_USAGE_EQUIP))
+	if(powered(AREA_USAGE_EQUIP, ignore_use_power = TRUE))
 		use_power(energy_consumed, AREA_USAGE_EQUIP)
 	else if(!internal_cell?.use(energy_consumed * 0.025))
 		shielding_powered = FALSE

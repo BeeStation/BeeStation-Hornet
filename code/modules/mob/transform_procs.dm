@@ -352,7 +352,7 @@
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
 		O.real_name = generate_random_mob_name()
-		O.dna.generate_unique_enzymes(O)
+		O.dna.unique_enzymes = O.dna.generate_unique_enzymes()
 	else
 		O.real_name = O.dna.real_name
 	O.name = O.real_name

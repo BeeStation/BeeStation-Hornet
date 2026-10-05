@@ -122,13 +122,20 @@
 	if(pulledby?.grab_state)
 		. += span_warning("[t_He] [t_is] restrained by [pulledby]'s grip.")
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
-		. += span_warning("[t_He] [t_is] severely malnourished.")
-	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
-			. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
-		else
-			. += "<b>[t_He] [t_is] quite chubby.</b>"
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+			. += span_warning("[t_He] [t_is] severely malnourished.")
+		else if(nutrition < NUTRITION_LEVEL_STARVING)
+			. += span_warning("[t_He] look[p_s()] gaunt, and move[p_s()] like every step is an effort.")
+		else if(nutrition < NUTRITION_LEVEL_HUNGRY)
+			. += span_warning("[t_He] look[p_s()] underfed.")
+		else if(nutrition < NUTRITION_LEVEL_FED)
+			. += span_notice("[t_He] look[p_s()] hungry.")
+		else if(nutrition >= NUTRITION_LEVEL_FAT)
+			if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+				. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
+			else
+				. += "<b>[t_He] [t_is] quite chubby.</b>"
 	switch(disgust)
 		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
 			. += "[t_He] look[p_s()] a bit grossed out."

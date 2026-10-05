@@ -103,6 +103,7 @@
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
 	name = "Sentient Xenoartifact"
+	mob_name = "a sentient xenoartifact"
 	short_desc = "You're a malevolent sentience, possessing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE

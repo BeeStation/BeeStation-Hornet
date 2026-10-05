@@ -45,7 +45,6 @@
 	. = ..()
 	create_reagents(100, NO_REACT)
 	air_update_turf(TRUE, TRUE)
-	//register_context()
 	if(mapload && can_be_welded_down)
 		welded_down = TRUE
 
@@ -63,7 +62,7 @@
 	move_update_air(old_loc)
 
 /obj/machinery/smartfridge/welder_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(!can_be_welded_down)
 		return ..()
@@ -104,7 +103,7 @@
 	to_chat(user, span_notice("You weld [src] to the floor."))
 
 /obj/machinery/smartfridge/welder_act_secondary(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(!(machine_stat & BROKEN))
 		balloon_alert(user, "no repair needed!")
@@ -128,7 +127,7 @@
 		update_icon()
 
 /obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, tool))
 		if(panel_open)
@@ -151,13 +150,13 @@
 	air_update_turf(TRUE, anchorvalue)
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(default_unfasten_wrench(user, tool) == SUCCESSFUL_UNFASTEN)
 		power_change()
 
 /obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/tool)
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	. = ITEM_INTERACT_SUCCESS
 
 	if(default_pry_open(tool))
 		return
@@ -167,36 +166,26 @@
 	else
 		default_deconstruction_crowbar(tool)
 
-/*
-/obj/machinery/smartfridge/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
-	if(held_item.tool_behaviour == TOOL_WELDER)
+/obj/machinery/smartfridge/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+
+	if(machine_stat & BROKEN)
+		context.add_right_click_tool_action("Repair", TOOL_WELDER)
+		return
+
+	if(can_be_welded_down)
 		if(welded_down)
-			context[SCREENTIP_CONTEXT_LMB] = "Unweld"
-		else if (!welded_down && anchored && can_be_welded_down)
-			context[SCREENTIP_CONTEXT_LMB] = "Weld down"
-		if(machine_stat & BROKEN)
-			context[SCREENTIP_CONTEXT_RMB] = "Repair"
-			tool_tip_set = TRUE
+			context.add_left_click_tool_action("Unweld from floor", TOOL_WELDER)
+		else if(anchored)
+			context.add_left_click_tool_action("Weld to floor", TOOL_WELDER)
 
-	else if(held_item.tool_behaviour == TOOL_SCREWDRIVER)
-		context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "close" : "open"] panel"
-		tool_tip_set = TRUE
-
-	else if(held_item.tool_behaviour == TOOL_CROWBAR)
-		if(panel_open)
-			context[SCREENTIP_CONTEXT_LMB] = "Deconstruct"
-			tool_tip_set = TRUE
-
-	else if(held_item.tool_behaviour == TOOL_WRENCH)
-		context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Un" : ""]anchore"
-		tool_tip_set = TRUE
-
-	return tool_tip_set ? CONTEXTUAL_SCREENTIP_SET : NONE
-*/
+	if(panel_open)
+		context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
 
 /obj/machinery/smartfridge/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
-		max_n_of_items = initial(max_n_of_items) * matter_bin.rating
+	. = ..()
+	for(var/datum/stock_part/matter_bin/matter_bin in component_parts)
+		max_n_of_items = initial(max_n_of_items) * matter_bin.tier
 
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
@@ -233,7 +222,10 @@
 
 /// Returns the number of items visible in the fridge.
 /obj/machinery/smartfridge/proc/visible_items()
-	return length(contents) - length(component_parts) // Exclude circuitboard and matter bin
+	var/physical_parts = 0
+	for(var/atom/part in component_parts) // Stock part datums aren't in contents, so they don't count
+		physical_parts++
+	return length(contents) - physical_parts // Exclude circuitboard and matter bin
 
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
@@ -268,7 +260,7 @@
 	playsound(src, "shatter", 50, TRUE)
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/weapon, mob/living/user, params)
+/obj/machinery/smartfridge/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(!machine_stat)
 		var/shown_contents_length = visible_items()
 		if(shown_contents_length >= max_n_of_items)
@@ -601,21 +593,12 @@
 /obj/machinery/smartfridge/drying/rack/welder_act_secondary(mob/living/user, obj/item/tool)
 	return NONE // Can't repair wood with welder
 
-/*
-/obj/machinery/smartfridge/drying/rack/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
-	if(isnull(held_item))
-		return NONE
+/obj/machinery/smartfridge/drying/rack/add_context_self(datum/screentip_context/context, mob/user)
+	if(machine_stat & BROKEN)
+		return
 
-	var/tool_tip_set = FALSE
-	if(held_item.tool_behaviour == TOOL_CROWBAR)
-		context[SCREENTIP_CONTEXT_LMB] = "Deconstruct"
-		tool_tip_set = TRUE
-	else if(held_item.tool_behaviour == TOOL_WRENCH)
-		context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Un" : ""]anchore"
-		tool_tip_set = TRUE
-
-	return tool_tip_set ? CONTEXTUAL_SCREENTIP_SET : NONE
-*/
+	context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+	context.add_left_click_tool_action("[anchored ? "Unwrench from floor" : "Wrench to floor"]", TOOL_WRENCH)
 
 /obj/machinery/smartfridge/drying/rack/structure_examine()
 	. = ..()
@@ -632,7 +615,7 @@
 
 /obj/machinery/smartfridge/drying/rack/crowbar_act(mob/living/user, obj/item/tool)
 	if(default_deconstruction_crowbar(tool, ignore_panel = TRUE))
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/smartfridge/drying/rack/update_overlays()
 	. = ..()
@@ -718,9 +701,10 @@
 			stored.organ_flags |= ORGAN_FROZEN
 
 /obj/machinery/smartfridge/organ/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 20 * B.rating
-		repair_rate = max(0, STANDARD_ORGAN_HEALING * (B.rating - 1) * 0.5)
+	. = ..()
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		max_n_of_items = 20 * B.tier
+		repair_rate = max(0, STANDARD_ORGAN_HEALING * (B.tier - 1) * 0.5)
 
 /obj/machinery/smartfridge/organ/process(delta_time)
 	for(var/organ in contents)
@@ -750,7 +734,7 @@
 		return FALSE
 
 	// empty pill prank ok
-	if(istype(weapon, /obj/item/reagent_containers/pill))
+	if(istype(weapon, /obj/item/reagent_containers/applicator))
 		return TRUE
 
 	//check each pill in the pill bottle
@@ -779,8 +763,8 @@
 
 /obj/machinery/smartfridge/chemistry/preloaded
 	initial_contents = list(
-		/obj/item/reagent_containers/pill/epinephrine = 12,
-		/obj/item/reagent_containers/pill/charcoal = 5,
+		/obj/item/reagent_containers/applicator/pill/epinephrine = 12,
+		/obj/item/reagent_containers/applicator/pill/charcoal = 5,
 		/obj/item/reagent_containers/cup/bottle/epinephrine = 1,
 		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
 		/obj/item/reagent_containers/chem_bag/triamed = 1)

@@ -47,7 +47,7 @@
 	icon_state = "command"
 	build_path = /obj/machinery/power/bluespace_tap
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
+							/datum/stock_part/capacitor/quadratic = 5,//Probably okay, right?
 							/obj/item/stack/ore/bluespace_crystal = 5)
 
 /obj/effect/spawner/random/bluespace_tap
@@ -126,7 +126,7 @@
 		/mob/living/basic/pet/dog/bullterrier = 5,
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/parrot = 5,
-		/obj/item/slimepotion/slime/sentience = 5,
+		/obj/item/slimepotion/sentience = 5,
 		/obj/item/cigarette/cigar/havana = 3,
 		/obj/item/stack/sheet/mineral/bananium/five = 10,	//bananas are organic, clearly.
 		/obj/item/storage/box/monkeycubes = 5,
@@ -265,7 +265,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/bluespace_tap(null)
 	for(var/i = 1 to 5)	//five of each
-		component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+		component_parts += GLOB.stock_part_datums[/datum/stock_part/capacitor/quadratic]
 		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
 	if(!powernet)
 		connect_to_network()

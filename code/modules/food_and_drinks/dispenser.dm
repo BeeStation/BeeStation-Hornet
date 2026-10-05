@@ -128,7 +128,7 @@
 	. = ..()
 	dispense(danger = TRUE)
 
-/obj/item/candydispenser/attack_atom(atom/attacked_atom, mob/living/user, params)
+/obj/item/candydispenser/attack_atom(atom/attacked_atom, mob/living/user, list/modifiers)
 	. = ..()
 	dispense(danger = TRUE)
 

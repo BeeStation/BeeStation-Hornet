@@ -96,9 +96,10 @@
 		turbine.locate_machinery()
 
 /obj/machinery/power/compressor/RefreshParts()
+	. = ..()
 	var/E = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		E += M.tier
 	efficiency = E / 6
 
 /obj/machinery/power/compressor/examine(mob/user)
@@ -106,7 +107,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Efficiency at <b>[efficiency*100]%</b>.")
 
-/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return
 
@@ -185,9 +186,10 @@
 	connect_to_network()
 
 /obj/machinery/power/turbine/RefreshParts()
+	. = ..()
 	var/P = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		P += C.rating
+	for(var/datum/stock_part/capacitor/C in component_parts)
+		P += C.tier
 	productivity = P / 6
 
 /obj/machinery/power/turbine/examine(mob/user)
@@ -239,7 +241,7 @@
 	if(lastgen > 100)
 		add_overlay(mutable_appearance(icon, "turb-o", FLY_LAYER))
 
-/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return
 

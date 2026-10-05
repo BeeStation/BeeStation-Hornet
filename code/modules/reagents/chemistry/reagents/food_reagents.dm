@@ -25,11 +25,11 @@
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER) || HAS_TRAIT(affected_mob, TRAIT_POWERHUNGRY))
+	if(!ishuman(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_NOHUNGER))
 		return
 	var/mob/living/carbon/human/H = affected_mob
 	// If non-ethereal gets ethereal stomach they cannot eat
-	var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/electrical/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(stomach) && H.dna?.species?.id != SPECIES_ETHEREAL)
 		return
 	H.adjust_nutrition(nutriment_factor * REM * delta_time)
@@ -108,6 +108,11 @@
 
 	data = taste_amounts
 
+/datum/reagent/consumable/nutriment/organ_tissue
+	name = "Organ Tissue"
+	description = "Natural tissues that make up the bulk of organs, providing many vitamins and minerals."
+	taste_description = "rich earthy pungent"
+
 /datum/reagent/consumable/nutriment/vitamin
 	name = "Vitamin"
 	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
@@ -161,7 +166,7 @@
 		return
 
 	var/burn_damage = ((holder.chem_temp / fry_temperature) * 0.33) //Damage taken per unit
-	if(method & TOUCH)
+	if(method == TOUCH)
 		burn_damage *= max(1 - touch_protection, 0)
 	var/FryLoss = round(min(38, burn_damage * reac_volume))
 	if(!HAS_TRAIT(exposed_mob, TRAIT_OIL_FRIED))
@@ -380,7 +385,7 @@
 	. = ..()
 	if(iscatperson(affected_mob))
 		to_chat(affected_mob, span_warning("Your insides revolt at the presence of lethal chocolate!"))
-		affected_mob.vomit(20)
+		affected_mob.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 /datum/reagent/drug/mushroomhallucinogen
 	name = "Mushroom Hallucinogen"
@@ -761,42 +766,28 @@
 /datum/reagent/consumable/liquidelectricity
 	name = "Liquid Electricity"
 	description = "The blood of Ethereals, and the stuff that keeps them going. Great for them, horrid for anyone else."
-	nutriment_factor = 5 * REAGENTS_METABOLISM  // How much LE transfers in to food
+	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#97ee63"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "pure electricity"
 
-/datum/reagent/consumable/liquidelectricity/on_new(list/data)
+/datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/exposed_mob, method=TOUCH, reac_volume) //can't be on life because of the way blood works.
 	. = ..()
-	color = "#97ee63"
+	if(!(method in list(INGEST, INJECT, PATCH)) || !iscarbon(exposed_mob))
+		return
 
-/datum/reagent/consumable/liquidelectricity/expose_mob(mob/living/carbon/exposed_mob, method = TOUCH, reac_volume)
-	. = ..()
-	if(method == INJECT && ishuman(exposed_mob))
-		var/mob/living/carbon/human/H = exposed_mob
-		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(stomach))
-			if(H.dna?.species?.id == SPECIES_ETHEREAL)
-				H.blood_volume = min(H.blood_volume + reac_volume, BLOOD_VOLUME_MAXIMUM)
-				stomach.adjust_charge(reac_volume * 0.5)
-			H.reagents.remove_reagent(type, reac_volume)
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	var/obj/item/organ/stomach/electrical/stomach = exposed_carbon.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(istype(stomach))
+		stomach.adjust_charge(reac_volume * ETHEREAL_LIQUID_ELECTRICITY_GAIN)
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/obj/item/organ/stomach/battery/stomach = affected_mob.get_organ_slot(ORGAN_SLOT_STOMACH)
-	if(istype(stomach) && ishuman(affected_mob))
-		var/mob/living/carbon/human/H = affected_mob
-		if(H.dna?.species?.id == SPECIES_ETHEREAL)
-			// Ethereals get charge and blood regen
-			stomach.adjust_charge(40 * REM)
-			H.blood_volume = min(H.blood_volume + (1 * REM * delta_time), BLOOD_VOLUME_MAXIMUM)
-		else
-			// Non-Ethereals need to Sever the spines of rival cyborgs to eat 
-			H.adjust_nutrition(nutriment_factor * REM * delta_time)
-	else if(DT_PROB(3, delta_time))
-
-		affected_mob.electrocute_act(rand(8,13), "Liquid Electricity in their body", 1)
-		playsound(affected_mob, "sparks", 50, 1)
+	if(isethereal(affected_mob))
+		affected_mob.blood_volume += 1 * delta_time
+	else if(DT_PROB(10, delta_time)) //lmao at the newbs who eat energy bars
+		affected_mob.electrocute_act(rand(5,10), "Liquid Electricity in their body", 1, SHOCK_NOGLOVES) //the shock is coming from inside the house
+		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /datum/reagent/consumable/chlorophyll
 	name = "Liquid Chlorophyll"

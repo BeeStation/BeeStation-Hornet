@@ -52,7 +52,7 @@
 	mymop = null
 	update_icon()
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, list/modifiers)
 
 	if(istype(I, /obj/item/mop))
 		var/obj/item/mop/m=I

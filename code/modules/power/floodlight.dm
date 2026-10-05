@@ -8,7 +8,7 @@
 	density = TRUE
 	var/state = FLOODLIGHT_NEEDS_WRENCHING
 
-/obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, params)
+/obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_WRENCH && (state == FLOODLIGHT_NEEDS_WRENCHING))
 		to_chat(user, span_notice("You secure [src]."))
 		anchored = TRUE
@@ -64,7 +64,7 @@
 /obj/machinery/power/floodlight/proc/change_setting(val, mob/user)
 	if((val < 1) || (val > light_setting_list.len))
 		return
-	active_power_usage = light_setting_list[val]
+	update_mode_power_usage(ACTIVE_POWER_USE, light_setting_list[val])
 	if(!avail(active_power_usage))
 		return change_setting(val - 1)
 	setting = val
@@ -86,7 +86,7 @@
 	if(user)
 		to_chat(user, "You set [src] to [setting_text].")
 
-/obj/machinery/power/floodlight/attackby(obj/item/O, mob/user, params)
+/obj/machinery/power/floodlight/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, time = 20)
 		change_setting(1)

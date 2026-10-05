@@ -134,6 +134,7 @@
 /obj/item/flashlight/glowstick/blue,
 /obj/item/flashlight/glowstick/blue,
 /obj/item/flashlight/glowstick/blue,
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bn" = (
@@ -916,6 +917,10 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/mob/living/basic/pet/cat/kitten{
+	name = "Director";
+	desc = "The Animal Hospital's youngest employee."
+	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "QW" = (
@@ -938,9 +943,7 @@
 /area/ruin/powered/animal_hospital)
 "RD" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)

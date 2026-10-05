@@ -465,7 +465,7 @@
 						"You bang on \the [src].")
 	playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
 
-/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(operating)
 		return
