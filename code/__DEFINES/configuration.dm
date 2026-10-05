@@ -18,8 +18,8 @@
 /// Folder directory for data
 #define DATA_DIRECTORY "data"
 
-/// Folder directory for maps
-#define MAP_DIRECTORY "_maps"
+/// List of directories we can load map .json files from
+#define MAP_DIRECTORY_MAPS "_maps/map_jsons"
 
 /// Folder directory for config
 #define CONFIG_DIRECTORY "config"
