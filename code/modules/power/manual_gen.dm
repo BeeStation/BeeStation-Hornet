@@ -63,12 +63,11 @@
 	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/power/port_gen/hamster_wheel/process(delta_time)
-	if(occupant == null )
-		if(active) {
+	if(isnull(occupant))
+		if(active)
 			TogglePower()
 			open_machine(drop = FALSE)
 			dump_inventory_contents(list(occupant))
-		}
 		return FALSE
 	if(active)
 		if(!HasFuel() || !anchored)
