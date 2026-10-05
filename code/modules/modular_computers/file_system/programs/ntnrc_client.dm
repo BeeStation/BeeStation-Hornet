@@ -230,7 +230,7 @@
 	var/obj/item/card/id/id_card = card_slot.stored_card
 	if(!id_card)
 		return FALSE
-	if(ACCESS_RD_SERVER in id_card.access)
+	if(ACCESS_RD_SERVER in id_card.GetAccess())
 		return TRUE
 	return FALSE
 

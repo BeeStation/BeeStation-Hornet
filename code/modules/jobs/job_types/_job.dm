@@ -7,11 +7,8 @@
 	/// Keep it short and useful. Avoid in-jokes, these are for new players.
 	var/description
 
-	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
-	// access list that's basically given to jobs.
+	/// Access the job starts with
 	var/list/base_access = list()
-	// EXTRA access list that's given in lowpop.
-	var/list/extra_access = list()
 
 	///Determines who can demote this position
 	var/department_head = list()
@@ -144,11 +141,6 @@
 	 */
 	var/list/minimal_lightup_areas = list()
 
-	/// If the minimum pop is not met, then we will be assigned as if we were actually
-	/// this job instead; this means that the geneticist can still appear on low-pop, but
-	/// we will be assigned the access of a medical doctor and will count as if a medical
-	/// doctor spawned instead.
-	var/datum/job/min_pop_redirect = null
 	/// The minimum population required at roundstart for this job to appear
 	var/min_pop = 0
 	/// The maximum population required at roundstart for this job to appear
@@ -187,7 +179,7 @@
 /// Returns true if there are available slots
 /datum/job/proc/has_space()
 	// How many slots does our group have?
-	var/group_slots = get_spawn_position_count(TRUE)
+	var/group_slots = get_spawn_position_count()
 	// Always available
 	if (group_slots == -1)
 		return TRUE
@@ -203,79 +195,36 @@
 	// Return true otherwise
 	return TRUE
 
-/// Calculates the number of positions currently present in a group
-/// Returns the number of players who are inside a role if the job hasn't reached
-/// its population limit, otherwise groups together roles by checking for their
-/// min_pop_redirect proxy role.
 /datum/job/proc/count_players_in_group()
-	var/spawn_group_size = current_positions * dynamic_spawn_group_multiplier
-	// Find all jobs that proxy to the target's spawn group
-	// This will mean that medical will count all of the players in medical
-	for (var/datum/job/group_job in SSjob.all_occupations)
-		// We already counted ourselves
-		if (group_job == src)
-			continue
-		// If this job proxies to us, then their proxy needs to be active
-		if (group_job.min_pop_redirect == type && SSjob.initial_players_to_assign < group_job.min_pop)
-			// If the HOP adds a geneticist slot, and that slot gets taken then it counts as if
-			// there is no geneticist at all.
-			// If the HOP adds a geneticist slot and it doesn't get taken, then it has no effect.
-			spawn_group_size += max(0, group_job.current_positions * group_job.dynamic_spawn_group_multiplier - group_job.total_position_delta)
-		// If we proxy to this job, then our proxy needs to be active
-		if (min_pop_redirect == group_job.type && SSjob.initial_players_to_assign < min_pop)
-			spawn_group_size += max(0, group_job.current_positions * group_job.dynamic_spawn_group_multiplier - group_job.total_position_delta)
-		// If we are sharing a proxy, both proxies need to be active
-		if (min_pop_redirect != null && min_pop_redirect == group_job.min_pop_redirect && SSjob.initial_players_to_assign < group_job.min_pop && SSjob.initial_players_to_assign < min_pop)
-			spawn_group_size += max(0, group_job.current_positions * group_job.dynamic_spawn_group_multiplier - group_job.total_position_delta)
-	return spawn_group_size - total_position_delta
+	return current_positions * dynamic_spawn_group_multiplier - total_position_delta
 
 /// Get the number of positions that are available for this job.
 /// Will typically return the total_positions value with the delta set by the HOP added on.
 /// If the min/max pop is not met returns 0.
 /// If the total positions is -1, returns -1 representing an unlimited position count
-/// If a dynamic spawn group is set, or the min pop is not met and the dynamic spawn group of the min_pop_redirect
-/// role is set, then it will compute the number of positions available based off of how populated the other jobs
-/// in the group are.
-/// Certain roles such as geneticist will return the smallest the smaller value between the number of jobs remaining
-/// in the medical department, and the max limit of geneticist slots available, if the lowpop limit has not been met.
-/// = Params =
-/// ignore_self_limit: bool => If set, then the max limit of the job will be ignored when using the dynamic group
-/// scaling calculations.
-/datum/job/proc/get_spawn_position_count(ignore_self_limit = FALSE)
+/// If a dynamic spawn group is set, then it will compute the number of positions available based off of how
+/// populated the other jobs in the group are.
+/datum/job/proc/get_spawn_position_count()
 	var/player_count = SSjob.initial_players_to_assign
 	// SSjob has not been allocated yet
 	if (!player_count)
 		player_count = length(GLOB.clients)
-	// Out of range, and no proxy
-	if (player_count < min_pop && !min_pop_redirect && CONFIG_GET(flag/restricted_lowpop_command_spawns))
+	if (player_count < min_pop && CONFIG_GET(flag/restricted_lowpop_command_spawns))
 		return 0
 	if (player_count > max_pop)
 		return 0
-	// Unlimited, though we are limited if we use a dynamic spawn group
-	// We must be:
-	// - Unlimited ourselves
-	// - Not present in a dynamic spawn group
-	// - Not using a proxy due to lowpop, or the proxy has no dynamic spawn group
-	if (total_positions == -1 && !dynamic_spawn_group && (player_count >= min_pop || !min_pop_redirect || !min_pop_redirect::dynamic_spawn_group))
+	// Unlimited, unless we're in a dynamic spawn group
+	if (total_positions == -1 && !dynamic_spawn_group)
 		return -1
-	// If the population is lower than our min pop spawn amount
-	// then we will instead treat ourselves
-	var/datum/job/proxy = src
-	if (min_pop_redirect && player_count < min_pop)
-		proxy = SSjob.get_job(min_pop_redirect::title)
-	// Does not have a spawn group
-	if (!proxy.dynamic_spawn_group)
-		// The proxy role allows for infinite joining, so we do too
-		if (proxy.total_positions == -1)
-			return -1
-		return max(proxy.total_positions + total_position_delta, 0)
+	if (!dynamic_spawn_group)
+		return max(total_positions + total_position_delta, 0)
 	// Calculate spawn group size
 	var/spawn_group_total = 0
 	// Amount of jobs in the same job group as us
 	var/spawn_group_sizes = 0
 	for (var/datum/job/other in SSjob.all_occupations)
 		// Find everything in the same group, doesn't matter if its us
-		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
+		if (other.dynamic_spawn_group != dynamic_spawn_group)
 			continue
 		// Find the least filled job in the group
 		// If the HOP removes a position from another job, then that removed position.
@@ -284,19 +233,7 @@
 		spawn_group_total += other.count_players_in_group()
 		spawn_group_sizes ++
 	// The amount of positions we have is the least filled job + our allowed variance
-	// variance is calculated per job, not based on the proxy
-	// If we are using a proxy, then the number of spawn positions is limited to the total
-	// positions available in that role, regardless of whether or not the department as a whole
-	// has extra space.
-	// If the proxying target has a dynamic spawn group, then that implictly means that there is
-	// no limit to the total positions; this behaviour only exists so that we can limit the number
-	// of players joining as a sub-role of a department, not as the primary role.
-	var/position_limit = total_positions
-	// If we don't care about how many positions this job has itself, then treat the job as having infinite space
-	// being only limited by its spawn variance limit
-	if (proxy == src || ignore_self_limit || proxy.dynamic_spawn_group)
-		position_limit = INFINITY
-	return min(position_limit, max(ceil(spawn_group_total / max(spawn_group_sizes, 1)) + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
+	return max(ceil(spawn_group_total / max(spawn_group_sizes, 1)) + dynamic_spawn_variance_limit + total_position_delta, 0)
 
 /// Executes after the mob has been spawned in the map. Client might not be yet in the mob, and is thus a separate variable.
 /datum/job/proc/after_spawn(mob/living/spawned, client/player_client)
@@ -384,12 +321,6 @@
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= ACCESS_MAINT_TUNNELS
-	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT && SSjob.is_job_empty(JOB_NAME_COOK))
-		. |= ACCESS_KITCHEN
-	// Claim all the access from the redirected role too
-	if (SSjob.initial_players_to_assign < min_pop && min_pop_redirect)
-		var/datum/job/redirected_role = SSjob.get_job(min_pop_redirect::title)
-		. |= redirected_role.get_access()
 	// Gain massive access in super lowpop mode
 	if (SSjob.initial_players_to_assign < STATION_UNLOCK_POPULATION)
 		// Base increased access
@@ -503,8 +434,6 @@
 	if(req_admin_notify)
 		info += "<b>You are playing a job that is important for Game Progression. \
 			If you have to disconnect, please notify the admins via adminhelp.</b>"
-	if(SSjob.initial_players_to_assign < min_pop && min_pop_redirect)
-		info += span_noticebig("<b>Due to a lack of station personnel, you additionally have the responsibilities and access of \a [min_pop_redirect::title]!</b>")
 	if(length(get_access()) != length(base_access))
 		info += span_notice("<b>You have been granted with additional access and responsibilities due to a lack of station personnel.</b>")
 	return info
@@ -585,6 +514,10 @@
 		card.registered_name = equipped.real_name
 		card.assignment = equipped_job.title
 		card.set_hud_icon_on_spawn(equipped_job.title)
+		// Corpses wear job outfits too
+		if(equipped.mind?.assigned_role == equipped_job)
+			card.job_title = equipped_job.title
+			card.queue_spawn_briefing()
 
 		if(equipped.age)
 			card.registered_age = equipped.age

@@ -15,7 +15,6 @@
 		ACCESS_THEATRE,
 		ACCESS_SERVICE,
 	)
-	extra_access = list()
 
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)

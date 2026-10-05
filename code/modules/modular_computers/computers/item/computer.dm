@@ -360,6 +360,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		. += span_warning("It is damaged.")
 
 	. += get_modular_computer_parts_examine(user)
+	var/obj/item/card/id/stored_id = GetID()
+	if(stored_id)
+		. += stored_id.get_temporary_access_examine()
 
 /obj/item/modular_computer/update_overlays()
 	. = ..()

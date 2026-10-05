@@ -170,13 +170,19 @@
 
 	/// The job name registered on the card (for example: Assistant).
 	var/assignment
+	/// Job the card belongs to. blacklist custom and acting titles
+	var/job_title
+	/// Active acting head role, if any
+	var/datum/access_grant/acting_head/acting_head
 
 	/// Access levels held by this card.
 	var/list/access = list()
 	/// Mapping aid for access
 	var/access_txt
-	/// Active temporary access grants (/datum/access_grant). Surfaced through GetAccess(), kept out of access.
+	/// Temporary access grants (/datum/access_grant). use getter GetAccess() to include
 	var/list/access_grants
+	/// Skeleton crew access removed at a console
+	var/list/withheld_skeleton_access
 
 	/// The HUD given to our wearer
 	var/hud_state = JOB_HUD_UNKNOWN
@@ -200,8 +206,16 @@
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	if(LAZYLEN(access_grants))
+		var/list/temporary = list()
+		for(var/datum/access_grant/grant as anything in access_grants)
+			temporary |= grant.accesses
+		temporary -= access
+		if(length(temporary))
+			log_id("[get_log_name()] destroyed with temporary access to [english_list(get_access_descs(temporary))].")
 	var/list/grants = access_grants
 	access_grants = null
+	acting_head = null
 	for(var/datum/access_grant/grant as anything in grants)
 		qdel(grant)
 	return ..()
@@ -213,8 +227,6 @@
 			hud_state = temp
 	// This is needed for some irregular jobs
 
-/// Grants access to this card and logs it
-/// Takes a single access or a list of them
 /obj/item/card/id/proc/add_access(access_to_add, source, mob/user, should_log = TRUE)
 	if(isnull(access_to_add))
 		return FALSE
@@ -226,133 +238,174 @@
 		log_access_change(added, source, user, granting = TRUE)
 	return TRUE
 
-/// Revokes access from this card and logs it
-/// Takes a single access or a list of them
 /obj/item/card/id/proc/remove_access(access_to_remove, source, mob/user, should_log = TRUE)
 	if(isnull(access_to_remove))
 		return FALSE
 	if(!islist(access_to_remove))
 		access_to_remove = list(access_to_remove)
-	var/list/removed = access & access_to_remove
+	var/list/removed = GetAccess() & access_to_remove
 	access -= access_to_remove
+	var/list/skeleton_removed = get_skeleton_access() & access_to_remove
+	if(length(skeleton_removed))
+		LAZYOR(withheld_skeleton_access, skeleton_removed)
+	for(var/datum/access_grant/grant as anything in LAZYCOPY(access_grants))
+		grant.accesses -= access_to_remove
+		if(length(grant.accesses))
+			continue
+		if(grant == acting_head)
+			acting_head.revoke("revoked", 0, user)
+		else
+			qdel(grant)
 	if(should_log && length(removed))
 		log_access_change(removed, source, user, granting = FALSE)
 	return TRUE
 
-/// Writes one ID log line for a change to this card's access: who, what, and where
-/obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
-	var/list/descriptions = get_access_descs(changed_access)
-	var/actor = user ? key_name(user) : "Something"
-	var/action = granting ? "added" : "removed"
-	var/preposition = granting ? "to" : "from"
-	log_id("[actor] [action] [english_list(descriptions)] [preposition] [src] ([registered_name || "unregistered"])[source ? " via [source]" : ""].")
+/// grant head-only access temporarily
+/obj/item/card/id/proc/add_console_access(access_to_add, source, mob/user)
+	if(!islist(access_to_add))
+		access_to_add = list(access_to_add)
+	LAZYREMOVE(withheld_skeleton_access, access_to_add)
+	var/list/head_only = access_to_add & SSjob.head_only_access
+	var/datum/job/own_job = SSjob.get_job(job_title)
+	if(own_job)
+		head_only -= own_job.get_access()
+	add_access(access_to_add - head_only, source, user)
+	// Skeleton crew and acting head access don't count as held
+	var/list/held = access.Copy()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		if(grant != acting_head)
+			held |= grant.accesses
+	var/list/temporary = head_only - held
+	if(length(temporary))
+		grant_temporary_access(temporary, source, user)
+
+/// Whether assigning this head job only makes the card acting. Goes by the bank account's starting job
+/obj/item/card/id/proc/needs_acting_head_for(datum/job/target_job)
+	SHOULD_BE_PURE(TRUE)
+	if(!(target_job.job_flags & JOB_HEAD_OF_STAFF) || target_job.title == job_title)
+		return FALSE
+	return registered_account?.account_job?.type != target_job.type
+
+/// Check needs_acting_head_for() first
+/obj/item/card/id/proc/assign_job(datum/job/new_job)
+	clear_temporary_access("reassigned")
+	access -= get_all_accesses()
+	access |= new_job.get_access()
+	withheld_skeleton_access = null
+	job_title = new_job.title
+	assignment = new_job.title
+	update_label()
 
 /**
- * Grants temporary access to this card. Will show up in get_access(), but we need to ensure we stay out of permanent list
+ * Makes this card an acting head of the given job until revoked, replacing any current acting role
+ * Arguments:
+ * * role_access - access the role grants. Null grants the head job's full access
+ * * announce - if FALSE, no announcement
+ */
+/obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, list/role_access, announce = TRUE)
+	if(QDELETED(src))
+		return
+	acting_head?.revoke("replaced", 0, user)
+	if(user)
+		log_id("[key_name(user)] made [get_log_name()] acting [head_job.title] via [source].")
+	else
+		log_id("[get_log_name()] made acting [head_job.title] via [source].")
+	var/list/held_before = GetAccess()
+	acting_head = new(src, head_job, source, role_access)
+	log_access_change(acting_head.accesses - held_before, "[source] (acting [head_job.title])", user, granting = TRUE)
+	if(announce)
+		card_talk("Appointed Acting [head_job.title].")
+	sync_manifest()
+	return acting_head
+
+/obj/item/card/id/proc/clear_temporary_access(reason = "revoked")
+	for(var/datum/access_grant/grant as anything in LAZYCOPY(access_grants))
+		grant.revoke(reason, 0)
+
+/obj/item/card/id/proc/sync_manifest()
+	GLOB.manifest.modify(registered_name, assignment, hud_state, job_title, acting_head ? acting_head.job.title : null)
+
+/obj/item/card/id/proc/refresh_holder_hud()
+	var/mob/living/carbon/human/holder = get(src, /mob/living/carbon/human)
+	holder?.sec_hud_set_ID()
+
+/obj/item/card/id/proc/get_log_name()
+	return "[src] ([registered_name || "unregistered"])"
+
+/obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
+	if(!length(changed_access))
+		return
+	var/access_text = english_list(get_access_descs(changed_access))
+	var/source_text = source ? " via [source]" : ""
+	if(user)
+		log_id("[key_name(user)] [granting ? "added" : "removed"] [access_text] [granting ? "to" : "from"] [get_log_name()][source_text].")
+	else
+		log_id("[access_text] [granting ? "added to" : "removed from"] [get_log_name()][source_text].")
+
+/**
  * Returns the grant, so the caller can revoke() it early (i.e. on a condition change)
  * Arguments:
  * * access_to_grant - a single access or a list of them.
- * * source - what issued the grant
- * * user - who issued it
  * * duration - lifespan in deciseconds. 0 or null means indefinite
  * * grace_period - deciseconds the access lingers after expiry/revocation. 0 means immediate
  */
 /obj/item/card/id/proc/grant_temporary_access(access_to_grant, source, mob/user, duration, grace_period = 0)
-	if(!islist(access_to_grant))
-		access_to_grant = list(access_to_grant)
-	var/datum/access_grant/grant = new(src, access_to_grant, source, duration, grace_period)
-	LAZYADD(access_grants, grant)
-	log_access_change(access_to_grant, "[source] (temporary[duration ? ", expires in [DisplayTimeText(duration)]" : ""])", user, granting = TRUE)
-	notify_holder(span_notice("[src] pings, temporary access to [grant.access_names()] granted[duration ? ", expiring in [DisplayTimeText(duration)]" : ""]."))
-	return grant
-
-/**
- * Revokes a temporary access grant from grant_temporary_access, whether on expiry or earlier
- * Arguments:
- * * grant - the grant to revoke.
- * * reason - why, folded into the log (e.g. "expired", "revoked").
- * * grace - deciseconds to linger before cutting access. Null uses the grant's own grace period.
- */
-/obj/item/card/id/proc/revoke_temporary_access(datum/access_grant/grant, reason = "revoked", grace = null)
-	grant?.revoke(reason, grace)
-
-/obj/item/card/id/proc/notify_holder(message)
-	var/mob/holder = get(src, /mob)
-	if(holder)
-		to_chat(holder, message)
-
-/datum/access_grant
-	/// The card this grant belongs to
-	var/obj/item/card/id/card
-	/// The accesses this grant provides
-	var/list/accesses
-	/// What issued the grant, kept for the revocation log line
-	var/source
-	/// Timer id for auto-expiry, then for the grace period once revoking. Null if the grant is indefinite
-	var/timer_id
-	/// Deciseconds the access lingers after expiry/revocation
-	var/grace_period = 0
-	/// TRUE once revocation has begun, and until grace period finishes
-	var/revoking = FALSE
-
-/datum/access_grant/New(obj/item/card/id/card, list/accesses, source, duration, grace_period = 0)
-	. = ..()
-	src.card = card
-	src.accesses = accesses.Copy()
-	src.source = source
-	src.grace_period = grace_period
-	if(duration)
-		timer_id = addtimer(CALLBACK(src, PROC_REF(expire)), duration, TIMER_STOPPABLE)
-
-/datum/access_grant/Destroy()
-	deltimer(timer_id)
-	timer_id = null
-	if(card)
-		LAZYREMOVE(card.access_grants, src)
-		card = null
-	return ..()
-
-/datum/access_grant/proc/expire()
-	timer_id = null
-	revoke("expired")
-
-/// Ends this grant, either now or after a grace period
-/datum/access_grant/proc/revoke(reason = "revoked", grace = null)
 	if(QDELETED(src))
 		return
-	if(isnull(grace))
-		grace = grace_period
-	if(grace <= 0 || revoking)
-		finish_revoke(reason)
-		return
-	revoking = TRUE
-	deltimer(timer_id)
-	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke), reason), grace, TIMER_STOPPABLE)
-	announce_revocation("[reason], ends in [DisplayTimeText(grace)]", "ends in [DisplayTimeText(grace)]")
+	if(!islist(access_to_grant))
+		access_to_grant = list(access_to_grant)
+	var/list/new_access = access_to_grant - GetAccess()
+	var/datum/access_grant/grant = new(src, access_to_grant, source, duration, grace_period)
+	LAZYADD(access_grants, grant)
+	log_access_change(new_access, "[source] (temporary[duration ? ", expires in [DisplayTimeText(duration)]" : ""])", user, granting = TRUE)
+	card_talk("Temporary [grant.access_names()] access authorized[duration ? ", expiring in [DisplayTimeText(duration)]" : ""].")
+	return grant
 
-/datum/access_grant/proc/finish_revoke(reason = "revoked")
-	announce_revocation(reason, reason)
-	qdel(src)
-
-/datum/access_grant/proc/announce_revocation(note, phrase)
-	if(!card)
-		return
-	card.log_access_change(accesses, "[source] (temporary access [note])", null, granting = FALSE)
-	card.notify_holder(span_warning("[card] pings, temporary access to [access_names()] [phrase]."))
-
-/datum/access_grant/proc/access_names()
-	return english_list(get_access_descs(accesses))
-
-/// what access this grant provides and how long is left on it.
-/datum/access_grant/proc/get_examine_text()
-	var/timing
-	if(revoking)
-		timing = "ending in [DisplayTimeText(timeleft(timer_id))]"
-	else if(timer_id)
-		timing = "expires in [DisplayTimeText(timeleft(timer_id))]"
+/obj/item/card/id/proc/card_talk(message, warning = FALSE, check_pref = FALSE)
+	var/list/listeners
+	var/atom/sound_source
+	var/mob/holder = recursive_loc_check(src, /mob)
+	if(holder)
+		listeners = list(holder)
+		sound_source = holder
+	else if(isturf(loc))
+		listeners = hearers(1, loc)
+		sound_source = loc
 	else
-		timing = "active until revoked"
-	return "Temporary access to [access_names()] ([timing])."
+		listeners = list()
+		for(var/mob/inside in loc)
+			listeners += inside
+		sound_source = drop_location()
+	var/sound_file = warning ? 'sound/machines/twobeep.ogg' : 'sound/machines/twobeep_high.ogg'
+	for(var/mob/listener in listeners)
+		if(!listener.client || !listener.can_hear())
+			continue
+		if(check_pref && !listener.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard))
+			continue
+		listener.playsound_local(get_turf(sound_source), sound_file, 50, TRUE)
+		to_chat(listener, "[icon2html(get_cached_flat_icon(), listener)] [warning ? span_warning(message) : span_notice(message)]")
+
+/// Intended so it escapes the massive fucking wall of text and gets noticed by the player
+/obj/item/card/id/proc/queue_spawn_briefing()
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(start_spawn_briefing)))
+
+/obj/item/card/id/proc/start_spawn_briefing()
+	if(!QDELETED(src))
+		addtimer(CALLBACK(src, PROC_REF(spawn_briefing)), 3 SECONDS)
+
+/obj/item/card/id/proc/spawn_briefing()
+	var/list/lines = list()
+	if(acting_head && !acting_head.revoking)
+		lines += "Appointed Acting [acting_head.job.title]."
+	var/list/skeleton_lines = list()
+	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
+		if(rule.notifies(job_title) && !rule.revoke_timer)
+			skeleton_lines += rule.get_briefing()
+	if(length(skeleton_lines))
+		lines += "Skeleton crew protocol in effect."
+		lines += skeleton_lines
+	if(length(lines))
+		card_talk(jointext(lines, " "))
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
@@ -537,12 +590,44 @@
 		var/difference = amount_to_remove - registered_account.account_balance
 		registered_account.bank_card_talk(span_warning("ERROR: The linked account requires [difference] more credit\s to perform that withdrawal."), TRUE)
 
+/obj/item/card/id/proc/get_temporary_access_examine()
+	. = list()
+	if(acting_head)
+		var/list/role_access = acting_head.accesses - access
+		var/role_tip = "[length(role_access) ? "Adds [english_list(get_access_descs(role_access))] access. " : ""][capitalize(acting_head.timing_text())]."
+		var/role_text = span_tooltip(role_tip, "Acting [acting_head.job.title]")
+		. += span_notice("<b>Appointment:</b> [acting_head.revoking ? span_warning(role_text) : role_text]")
+	// Acting head access is listed under the appointment
+	var/list/listed_elsewhere = access.Copy()
+	if(acting_head)
+		listed_elsewhere |= acting_head.accesses
+	var/list/entries = list()
+	var/list/entry_ending = list()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		if(grant != acting_head)
+			add_access_entries(entries, entry_ending, grant.accesses - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
+	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
+		add_access_entries(entries, entry_ending, rule.access - withheld_skeleton_access - listed_elsewhere, rule.get_examine_reason(), rule.timing_text(), !!rule.revoke_timer)
+	if(length(entries))
+		var/list/entry_texts = list()
+		for(var/key in entries)
+			entry_texts += entries[key]
+		. += span_notice("<b>Temporary access:</b> [jointext(entry_texts, ", ")]")
+
+/obj/item/card/id/proc/add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending)
+	for(var/access_id in access_ids)
+		var/key = "[access_id]"
+		if(entries[key] && !entry_ending[key])
+			continue
+		var/entry = span_tooltip("[reason]. [capitalize(timing)].", get_access_desc(access_id))
+		entries[key] = ending ? span_warning(entry) : entry
+		entry_ending[key] = ending
+
 /obj/item/card/id/examine(mob/user)
 	. = ..()
 	if(!user.can_read(src))
 		return
-	for(var/datum/access_grant/grant as anything in access_grants)
-		. += span_notice(grant.get_examine_text())
+	. += get_temporary_access_examine()
 	if(!electric)  // forces off bank info for paper slip
 		return .
 	if(registered_account)
@@ -577,12 +662,24 @@
 		. += span_info("There is no registered account linked to this card. Alt-Click to add one.")
 
 /obj/item/card/id/GetAccess()
-	if(!LAZYLEN(access_grants))
+	RETURN_TYPE(/list)
+	var/list/skeleton_access = get_skeleton_access()
+	if(!LAZYLEN(access_grants) && !length(skeleton_access))
 		return access
 	var/list/all_access = access.Copy()
+	if(skeleton_access)
+		all_access |= skeleton_access
 	for(var/datum/access_grant/grant as anything in access_grants)
 		all_access |= grant.accesses
 	return all_access
+
+/obj/item/card/id/proc/get_skeleton_access()
+	if(!job_title)
+		return null
+	var/list/job_access = SSjob.skeleton_access_by_job[job_title]
+	if(!job_access || !withheld_skeleton_access)
+		return job_access
+	return job_access - withheld_skeleton_access
 
 /obj/item/card/id/GetID()
 	return src
@@ -672,7 +769,7 @@
 		return ..()
 
 	var/obj/item/card/id/other_id = attacking_item
-	access |= other_id.access
+	access |= other_id.GetAccess()
 	log_id("[key_name(user)] copied all avaliable access from [other_id] to agent ID [src] at [AREACOORD(user)].")
 	if(isliving(user) && user.mind && (user.mind.special_role || anyone))
 		to_chat(usr, span_notice("The card's microscanners activate as you pass it over the ID, copying its access."))
@@ -1469,7 +1566,7 @@ do { \
 		if(!idcard.electric)
 			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
-		idcard.add_access(access.Copy(), "\a [name]", user)
+		idcard.add_access(access, "\a [name]", user)
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))
