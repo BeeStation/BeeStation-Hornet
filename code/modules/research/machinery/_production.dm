@@ -390,10 +390,11 @@
 	if(production_animation)
 		icon_state = production_animation
 
-	// The order finishes when it always did; do_print now spreads the items between the print time, instead of dropping them all when the printing ended
+	// Items drop one at a time, instead of all at once, at least 0.5s apart, it's scaled by manipulators
 	var/timecoeff = design.lathe_time_factor
-	var/time_per_item = (build_time_coeff * ((32 * timecoeff * amount) ** 0.5)) / amount
-	addtimer(CALLBACK(src, PROC_REF(reset_busy)), build_time_coeff * ((30 * timecoeff * amount) ** 0.6))
+	var/time_per_item = max(0.5 SECONDS * build_time_coeff, (build_time_coeff * ((32 * timecoeff * amount) ** 0.5)) / amount)
+	var/total_time = max(build_time_coeff * ((30 * timecoeff * amount) ** 0.6), time_per_item * amount)
+	addtimer(CALLBACK(src, PROC_REF(reset_busy)), total_time)
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction, time_per_item, materials_to_consume), time_per_item)
 	return TRUE
 
