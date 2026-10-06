@@ -937,27 +937,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 		locked = FALSE
 	power_change() //Checks power and initial settings
 
-/obj/machinery/turretid/Destroy()
-	turrets.Cut()
-	return ..()
-
-/obj/machinery/turretid/Initialize(mapload) //map-placed turrets autolink turrets
-	. = ..()
-	if(!mapload)
+	if(!mapload) //map-placed turrets autolink turrets
 		return
 
 	if(control_area)
-		var/control_area_text = control_area
-		control_area = get_area_instance_from_text(control_area_text)
-		if(isnull(control_area))
+		var/area_path = control_area
+		if(istext(area_path))
+			area_path = text2path(area_path)
+		var/area/found_area = locate(area_path)
+		if(isnull(found_area))
+			stack_trace("Bad control_area path ([control_area]) for [src]")
 			control_area = get_area(src)
-			stack_trace("Bad control_area path ([control_area_text]) for [src], [src.control_area]")
+		else
+			control_area = found_area
 	else
 		control_area = get_area(src)
 
 	for(var/obj/machinery/porta_turret/new_turret in control_area)
 		turrets |= new_turret
 		new_turret.control_panel = src
+
+/obj/machinery/turretid/Destroy()
+	turrets.Cut()
+	return ..()
 
 /obj/machinery/turretid/examine(mob/user)
 	. = ..()
