@@ -1,0 +1,6 @@
+author: rkz, kapu1178, melbert, 13spacemen, smartkar
+delete-after: true
+changes:
+  - rscadd: species will now have their own sprites when husked
+  - rscadd: rewrote moodlet/health doll appearance
+  - bugfix: fixed bodypart icons not appearing in menus
