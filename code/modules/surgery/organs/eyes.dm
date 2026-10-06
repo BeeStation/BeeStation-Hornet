@@ -192,6 +192,9 @@
 
 	damaged = TRUE
 
+/obj/item/organ/eyes/feel_for_damage(self_aware)
+	// Eye damage has visual effects, so we don't really need to "feel" it when self-examining
+	return ""
 
 /obj/item/organ/eyes/night_vision
 	name = "shadow eyes"

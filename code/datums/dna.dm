@@ -646,7 +646,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(mrace || newfeatures || unique_identity)
 		update_body(is_creating = TRUE)
-		update_body_parts()
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations) && force_transfer_mutations)
