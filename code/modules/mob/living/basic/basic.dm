@@ -215,8 +215,9 @@
 
 /*
 /// Updates movement speed based on stamina loss
-/mob/living/basic/update_stamina()
-	set_varspeed(initial(speed) + (staminaloss * 0.06))
+/mob/living/basic/on_stamina_update()
+	. = ..()
+	set_varspeed(initial(speed) + (stamina.loss * 0.06))
 */
 
 /mob/living/basic/on_fire_stack(delta_time, datum/status_effect/fire_handler/fire_stacks/fire_handler)

@@ -4,7 +4,7 @@
 	var/mob/living/current = summoner?.current
 	if(!QDELETED(current) && current.stat != DEAD)
 		var/summoner_max_health = current.maxHealth
-		var/health_amount = min(current.health, summoner_max_health - current.stamina.loss_as_percent)
+		var/health_amount = min(current.health, summoner_max_health * current.stamina.current / current.stamina.maximum)
 		if(health_amount >= summoner_max_health)
 			hud_used.healths.icon_state = "health0"
 		else if(health_amount >= (summoner_max_health * 0.8))
