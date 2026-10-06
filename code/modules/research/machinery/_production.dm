@@ -27,6 +27,14 @@
 	var/search = null
 	var/selected_category = null
 
+	var/roundstart = FALSE
+	/// What billing network server we're connected to
+	var/obj/machinery/billing_server/server
+	/// What department ID we make bills for
+	var/department_ID
+	/// Track record of bill's we've generated
+	var/list/bills = list()
+
 /obj/machinery/rnd/production/Initialize(mapload)
 	print_sound = new(src, FALSE)
 	materials = AddComponent(
@@ -38,11 +46,19 @@
 
 	. = ..()
 
+	if(mapload)
+		roundstart = TRUE
+
 	cached_designs = list()
 	create_reagents(100, OPENCONTAINER)
 
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
+
+/obj/machinery/rnd/production/LateInitialize()
+	. = ..()
+	if(roundstart)
+		server = SSbilling?.roundstart_server
 
 /obj/machinery/rnd/production/Destroy()
 	QDEL_NULL(print_sound)
@@ -362,10 +378,17 @@
 	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
+	if(length(bills) >= BILLING_MAX_OUTSTANDING_FAB)
+		say("Too many outstanding invoices.")
+		return FALSE
 
+	var/material_cost = 0 // For billing
+	var/material_strings = ""
 	var/coeff = efficient_with(design.build_path) ? efficiency_coeff : 1
 	var/list/materials_to_consume = list()
 	for(var/material_type, material_amount in design.materials)
+		material_cost += material_amount / coeff
+		material_strings = "[material_strings][material_type]x[material_amount / coeff], "
 		materials_to_consume[material_type] = material_amount / coeff
 
 	if(!materials.mat_container.has_materials(materials_to_consume, amount))
@@ -398,7 +421,29 @@
 	var/timecoeff = design.lathe_time_factor / efficiency_coeff
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), (30 * timecoeff * amount) ** 0.6)
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction), (32 * timecoeff * amount) ** 0.5)
+
+// Setup invoices
+	if(department_ID && department_ID != ACCOUNT_SCI_ID)
+		// Design Bill
+		var/datum/bill/design_bill = server?.create_new_bill(department_ID, ACCOUNT_SCI_ID, BILLING_COST_FAB_DESIGN*amount, FALSE, FALSE)
+		design_bill.title = "Design Invoice"
+		design_bill.body = "For the use of the licensed '[design.name]' design. ($[BILLING_COST_FAB_DESIGN] x [amount] instances)."
+		bills += design_bill
+		RegisterSignal(design_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
+	if(department_ID && department_ID != ACCOUNT_CAR_ID)
+		// Material Bill
+		var/datum/bill/material_bill = server?.create_new_bill(department_ID, ACCOUNT_CAR_ID, BILLING_COST_FAB_MATERIAL*material_cost*amount, FALSE, FALSE)
+		material_bill.title = "Material Invoice"
+		material_bill.body = "For the use of Cargo materials, \[[material_strings]\]. ($[BILLING_COST_FAB_MATERIAL*material_cost] x [amount] instances)."
+		bills += material_bill
+		RegisterSignal(material_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
+
 	return TRUE
+
+/obj/machinery/rnd/production/proc/catch_bill(datum/source)
+	SIGNAL_HANDLER
+
+	bills -= source
 
 /obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
 	var/datum/component/material_container/mat_container = materials.mat_container

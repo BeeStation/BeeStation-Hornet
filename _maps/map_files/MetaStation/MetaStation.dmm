@@ -694,10 +694,11 @@
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow,
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/computer/billing,
+/obj/item/card/id/departmental_budget/car,
 /turf/open/floor/iron,
 /area/station/cargo/qm)
 "apF" = (
@@ -2158,7 +2159,8 @@
 	pixel_x = -26;
 	pixel_y = 34
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/computer/billing,
+/obj/item/card/id/departmental_budget/sec,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hos)
 "aVv" = (
@@ -3525,9 +3527,12 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "bAB" = (
-/obj/structure/filingcabinet/chestdrawer,
 /mob/living/simple_animal/parrot/Poly,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/computer/billing{
+	dir = 1
+	},
+/obj/item/card/id/departmental_budget/eng,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/chief)
 "bAE" = (
@@ -18769,7 +18774,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/station/ai_monitored/security/armory)
 "gWd" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -18780,6 +18784,10 @@
 	pixel_x = -33;
 	pixel_y = 2
 	},
+/obj/machinery/computer/billing{
+	dir = 4
+	},
+/obj/item/card/id/departmental_budget/med,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "gWj" = (
@@ -40703,6 +40711,20 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"ojN" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/computer/billing{
+	dir = 1
+	},
+/obj/item/card/id/departmental_budget/com,
+/turf/open/floor/iron/dark,
+/area/station/command/bridge)
 "ojP" = (
 /obj/machinery/computer/xenoarchaeology_console{
 	dir = 1
@@ -43243,6 +43265,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/billing_server,
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "pej" = (
@@ -59614,6 +59637,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/junction/flip,
+/obj/machinery/computer/billing{
+	dir = 8
+	},
+/obj/item/card/id/departmental_budget/srv,
 /turf/open/floor/catwalk_floor/iron,
 /area/station/hallway/secondary/service)
 "uEz" = (
@@ -68920,11 +68947,14 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage/tech)
 "xRT" = (
-/obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/machinery/computer/billing{
+	dir = 1
+	},
+/obj/item/card/id/departmental_budget/civ,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hop)
 "xRV" = (
@@ -69635,7 +69665,6 @@
 /turf/open/floor/iron,
 /area/station/science/storage)
 "yeD" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/airalarm/directional/east,
 /obj/item/radio/intercom{
 	pixel_y = -29
@@ -69643,6 +69672,10 @@
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/computer/billing{
+	dir = 1
+	},
+/obj/item/card/id/departmental_budget/sci,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
 "yeK" = (
@@ -97568,7 +97601,7 @@ nkP
 ngb
 gfj
 kfV
-eHb
+ojN
 cUb
 wys
 gYs
