@@ -551,11 +551,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "virologywindow"
+	},
 /turf/open/floor/plating,
 /area/misc/space/nearstation)
 "akT" = (
@@ -3968,6 +3967,7 @@
 	pixel_x = -8;
 	pixel_y = 8
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "byg" = (
@@ -6848,10 +6848,6 @@
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "cBd" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
 /obj/structure/table,
 /obj/item/stamp{
 	pixel_x = -6;
@@ -7116,6 +7112,10 @@
 	pixel_y = 11
 	},
 /obj/effect/turf_decal/stripes/box,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "cGP" = (
@@ -8195,11 +8195,10 @@
 /area/station/hallway/primary/starboard)
 "dcZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/security/checkpoint/escape)
 "ddG" = (
@@ -11246,8 +11245,6 @@
 /obj/structure/cable/yellow,
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/food/meat/slab/penguin,
-/obj/item/food/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/white,
 /area/station/service/kitchen)
@@ -11754,10 +11751,6 @@
 "etK" = (
 /obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/light,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
-	},
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/science)
 "etN" = (
@@ -13482,8 +13475,7 @@
 /area/station/hallway/primary/aft)
 "eXS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
@@ -15310,8 +15302,7 @@
 /area/station/maintenance/solars/port/aft)
 "fHy" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/station/service/library)
@@ -19115,7 +19106,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/door/window/eastleft{
 	dir = 1;
-	name = "Quarantine Pen B";
+	name = "Quarantine Pen 1";
 	req_access_txt = "39"
 	},
 /turf/open/floor/iron/grid/steel,
@@ -29073,7 +29064,6 @@
 	},
 /area/station/engineering/main)
 "lcU" = (
-/obj/machinery/firealarm/directional/east,
 /obj/machinery/vending/wardrobe/viro_wardrobe,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/grid/steel,
@@ -30586,6 +30576,9 @@
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/security/prison)
@@ -41361,10 +41354,12 @@
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/exit/departure_lounge)
 "pCG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/station/maintenance/department/science)
 "pCH" = (
 /obj/structure/disposalpipe/segment{
@@ -41939,11 +41934,10 @@
 /area/station/engineering/atmos)
 "pLE" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
-	},
 /obj/effect/landmark/navigate_destination,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/security/execution/education)
 "pLK" = (
@@ -43258,8 +43252,7 @@
 "qqj" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/station/construction/mining/aux_base)
@@ -43938,7 +43931,7 @@
 /obj/machinery/light,
 /obj/machinery/door/window/eastleft{
 	dir = 1;
-	name = "Quarantine Pen B";
+	name = "Quarantine Pen 2";
 	req_access_txt = "39"
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -45666,11 +45659,10 @@
 "rea" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/camera/directional/south,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
 /turf/open/floor/carpet/grimy,
 /area/station/service/chapel/office)
 "red" = (
@@ -45836,12 +45828,11 @@
 	pixel_y = 2;
 	req_access_txt = "55"
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
-	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
 	},
 /turf/open/floor/iron/tech,
 /area/station/science/xenobiology)
@@ -48990,7 +48981,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/northleft{
 	dir = 2;
-	name = "Atmospherics Desk";
+	name = "Virology Desk";
 	req_access_txt = "39"
 	},
 /obj/machinery/door/firedoor,
@@ -49533,8 +49524,7 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/nanite)
@@ -53134,7 +53124,7 @@
 /obj/machinery/door/window/northleft{
 	base_state = "right";
 	icon_state = "right";
-	name = "Viro office";
+	name = "Monkey Pen";
 	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -53995,11 +53985,10 @@
 /turf/open/floor/grass,
 /area/station/hallway/primary/central)
 "unr" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "unK" = (
@@ -54019,7 +54008,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/door/window/eastleft{
 	dir = 1;
-	name = "Quarantine Pen B";
+	name = "Quarantine Pen 4";
 	req_access_txt = "39"
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -55332,8 +55321,7 @@
 "uRK" = (
 /obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/storage)
@@ -55623,6 +55611,8 @@
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /turf/open/floor/iron/freezer,
 /area/station/service/kitchen/coldroom)
 "uYP" = (
@@ -55971,8 +55961,7 @@
 /area/station/hallway/primary/central)
 "vgL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/station/construction/mining/aux_base)
@@ -57138,10 +57127,6 @@
 "vGK" = (
 /obj/structure/table,
 /obj/machinery/microwave,
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 28
 	},
@@ -57478,6 +57463,7 @@
 	color = "#267878";
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron,
 /area/station/service/cafeteria)
 "vOS" = (
@@ -58099,7 +58085,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/medical{
-	name = "Psychologist"
+	name = "Psychiatry"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical,
 /obj/structure/cable/yellow,
@@ -58527,11 +58513,10 @@
 /area/station/engineering/main)
 "wgd" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "Isolation Shutters"
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "virologywindow"
+	},
 /turf/open/floor/plating,
 /area/misc/space/nearstation)
 "wgs" = (
@@ -59521,7 +59506,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/door/window/eastleft{
 	dir = 1;
-	name = "Quarantine Pen B";
+	name = "Quarantine Pen 3";
 	req_access_txt = "39"
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -60167,6 +60152,9 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/east,
+/obj/structure/sign/painting/library{
+	pixel_x = 32
+	},
 /turf/open/floor/wood,
 /area/station/security/prison)
 "wMe" = (
@@ -60398,9 +60386,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
 	color = "#267878";
@@ -62386,6 +62371,12 @@
 	name = "Isolation Shutters"
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/button/door/directional/west{
+	id = "virologywindow";
+	name = "Window Shutters Control";
+	pixel_y = -10;
+	pixel_x = -23
+	},
 /turf/open/floor/iron/grid/steel,
 /area/station/medical/virology)
 "xCx" = (
@@ -62864,8 +62855,7 @@
 "xKF" = (
 /obj/machinery/camera/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1;
-	hide = 0
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/bridge)
@@ -63633,7 +63623,7 @@
 	},
 /obj/machinery/button/door{
 	id = "medpriv1";
-	name = "Psycology Shutters Control";
+	name = "Psychiatry Shutters Control";
 	pixel_x = 32;
 	pixel_y = 1
 	},
@@ -91272,8 +91262,8 @@ rhe
 rhe
 rhe
 qNs
+uCm
 pCG
-qNs
 yjh
 mDX
 mDX
@@ -108463,7 +108453,7 @@ dbR
 awW
 awW
 awW
-nhd
+dbR
 hhR
 avL
 vlr

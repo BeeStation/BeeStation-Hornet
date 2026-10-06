@@ -26727,6 +26727,9 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/fancy/sofa/old/corner/concave,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/carpet/grimy,
 /area/station/security/prison)
 "lkd" = (
@@ -29113,6 +29116,15 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
+"mga" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 4
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
+	},
+/turf/open/floor/prison,
+/area/station/security/prison)
 "mgG" = (
 /obj/item/stack/sheet/glass,
 /obj/structure/table/glass,
@@ -83841,7 +83853,7 @@ mHL
 bSN
 tko
 rjw
-nej
+mga
 asn
 bAs
 ooe

@@ -16,7 +16,7 @@
 /obj/item/toy/plush/lizard_plushie{
 	pixel_y = 10;
 	pixel_x = -8;
-	name = "Hates-the-Company"
+	name = "Hates-The-Company"
 	},
 /obj/item/clothing/head/hats/hos/beret/syndicate{
 	pixel_x = -9;
@@ -65,7 +65,9 @@
 /turf/open/floor/grass/no_border,
 /area/ruin/syndicate_lava_base/main)
 "aN" = (
-/obj/machinery/power/apc/syndicate/directional/west,
+/obj/machinery/power/apc/syndicate/directional/west{
+	name = "Port Primary Hallway APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor,
 /area/ruin/syndicate_lava_base/port)
@@ -965,7 +967,9 @@
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/cargo)
 "jd" = (
-/obj/machinery/power/apc/syndicate/directional/north,
+/obj/machinery/power/apc/syndicate/directional/north{
+	name = "Genetics Lab APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/syndicate_lava_base/testlab)
@@ -1193,7 +1197,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate/directional/north,
+/obj/machinery/power/apc/syndicate/directional/north{
+	name = "Bar APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/bar)
@@ -1298,7 +1304,9 @@
 /obj/item/kirbyplants/random,
 /obj/structure/cable/yellow,
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/power/apc/syndicate/directional/north,
+/obj/machinery/power/apc/syndicate/directional/north{
+	name = "Telecommunications APC"
+	},
 /turf/open/floor/wood,
 /area/ruin/syndicate_lava_base/telecomms)
 "lV" = (
@@ -1498,14 +1506,18 @@
 /area/ruin/syndicate_lava_base/chemistry)
 "nz" = (
 /obj/structure/closet/crate/freezer/blood,
-/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Medbay APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/syndicate_lava_base/medbay)
 "nG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Chemistry Lab APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/white,
 /area/ruin/syndicate_lava_base/chemistry)
@@ -1623,7 +1635,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Dormitories APC"
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/south,
 /obj/effect/mapping_helpers/airalarm/syndicate_access,
@@ -2060,7 +2074,9 @@
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate/directional/north,
+/obj/machinery/power/apc/syndicate/directional/north{
+	name = "Cargo Bay APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/ruin/syndicate_lava_base/cargo)
@@ -2110,7 +2126,9 @@
 /area/ruin/syndicate_lava_base/main)
 "uP" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Engineering APC"
+	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/ruin/syndicate_lava_base/engineering)
 "uY" = (
@@ -2663,7 +2681,9 @@
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Brig APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/textured,
 /area/ruin/syndicate_lava_base/brig)
@@ -3218,7 +3238,9 @@
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bar)
 "Hw" = (
-/obj/machinery/power/apc/syndicate/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	name = "Primary Hallway APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/main)
@@ -3242,7 +3264,9 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
-/obj/machinery/power/apc/syndicate/directional/west,
+/obj/machinery/power/apc/syndicate/directional/west{
+	name = "Bridge APC"
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/ruin/syndicate_lava_base/bridge)
