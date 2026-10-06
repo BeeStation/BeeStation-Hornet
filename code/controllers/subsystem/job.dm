@@ -996,6 +996,8 @@ SUBSYSTEM_DEF(job)
 
 	// Force-give their ID card bridge access.
 	var/obj/item/card/id/id_card = H.wear_id?.GetID()
+	if(!id_card)
+		stack_trace("Promoted [H.real_name] to Captain without an ID card.")
 	if(acting_captain)
 		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", null, list(ACCESS_HEADS), announce = FALSE)
 	else

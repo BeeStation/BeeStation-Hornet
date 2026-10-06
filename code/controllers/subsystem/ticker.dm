@@ -448,14 +448,6 @@ SUBSYSTEM_DEF(ticker)
 						spare_id_candidates += new_player_mob
 		CHECK_TICK
 
-	if(length(spare_id_candidates))
-		if(!enforce_coc)
-			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
-				SSjob.promote_to_captain(candidate.new_character, captainless)
-		else
-			var/mob/dead/new_player/authenticated/candidate = pick(spare_id_candidates)
-			SSjob.promote_to_captain(candidate.new_character, captainless)
-
 	for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
 		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
 			CHECK_TICK
@@ -471,6 +463,14 @@ SUBSYSTEM_DEF(ticker)
 		if((player_assigned_role?.job_flags & JOB_ASSIGN_QUIRKS) && CONFIG_GET(flag/roundstart_traits))
 			SSquirks.AssignQuirks(new_player_living.mind, new_player_mob.client, TRUE)
 		CHECK_TICK
+
+	if(length(spare_id_candidates))
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
+				SSjob.promote_to_captain(candidate.new_character, captainless)
+		else
+			var/mob/dead/new_player/authenticated/candidate = pick(spare_id_candidates)
+			SSjob.promote_to_captain(candidate.new_character, captainless)
 
 	if(captainless && !length(spare_id_candidates))
 		for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
