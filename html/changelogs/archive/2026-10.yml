@@ -50,3 +50,31 @@
   - rscadd: Added hamster wheel
   - rscadd: Added hamsterperson wheel
   - tweak: modified the mouse hunting behaviours to interact with hamster wheels
+2026-10-06:
+  Isaac, scriptis, Ghommie, Synclt21, ZephyrTFA:
+  - rscadd: The protolathe and circuit imprinter now use the new fabricator interface,
+      alongside the exosuit fabricator having a new UI
+  - rscadd: You can drag a fabricator toward a tile to set which way it drops finished
+      items, and alt-click it to reset that back to its own tile. Examining it tells
+      you the current direction
+  - rscadd: Print amounts can be set to a custom number, and the button tells you
+      the most you can currently afford.
+  - rscdel: Removed the old TechFab interface, replaced by the shared fabricator UI
+  - tweak: Design categories have been reorganised into proper subcategories across
+      every lathe. Power cells, stock parts by tier, machine boards, medical tools
+      and engineering tools now live where you would expect them
+  - tweak: Batch prints now drop item by item as they are produced, instead of dumping
+      the whole order at once
+  - bugfix: Fixed lathes duplicating materials
+  - bugfix: Fixed number input buttons not returning to their original state
+  - rscdel: Removed the per-item repeat button from the autolathe. The queue-wide
+      repeat toggle remains
+  - balance: Circuit imprinters are nerfed. Print time is about 1.5x slower at tier
+      1 manipulators and 2x slower at tier 4 compared to before, because their efficiency
+      now uses the same curve as the protolathe.
+  - bugfix: Fixed fabricator examine text showing incorrect efficiency percentages
+  - bugfix: Brass giving less materials as a stack
+  rkz, kapu1178, melbert, 13spacemen, smartkar:
+  - rscadd: species will now have their own sprites when husked
+  - rscadd: rewrote moodlet/health doll appearance
+  - bugfix: fixed bodypart icons not appearing in menus
