@@ -336,6 +336,10 @@
 	item_chair = null
 	icon_state = "officechair_dark"
 
+/obj/strucutre/chair/office/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/noisy_movement, volume = 100)
+
 /obj/structure/chair/office/relaymove(mob/user, direction)
 	if(!direction)
 		return FALSE
@@ -343,11 +347,6 @@
 		return
 	setDir(direction)
 	return FALSE
-
-/obj/structure/chair/office/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	if(has_gravity())
-		playsound(src, 'sound/effects/roll.ogg', 100, 1)
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"

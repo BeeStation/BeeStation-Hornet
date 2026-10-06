@@ -26,7 +26,6 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mob_size = MOB_SIZE_TINY
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	speak_emote = list("squeaks")
 	var/max_co2 = 0 //to be removed once metastation map no longer use those for Sgt Araneus
@@ -40,11 +39,11 @@
 /mob/living/simple_animal/hostile/retaliate/bat/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_VENTCRAWLER_ALWAYS, TRAIT_SPACEWALK, TRAIT_NO_MIRROR_REFLECTION), INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/retaliate/bat/vampire
 	desc = "A rare breed of bat which roosts in spaceships.\nLooks a little... bloody."
 	speed = -1.5
-
 
 /mob/living/simple_animal/hostile/retaliate/bat/sgt_araneus //Despite being a bat for... reasons, this is now a spider, and is one of the HoS' pets. //Just give the spider fucking spacewalk you idiot
 	name = "Sergeant Araneus"

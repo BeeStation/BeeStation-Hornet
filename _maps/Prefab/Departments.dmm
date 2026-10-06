@@ -174,7 +174,7 @@
 /mob/living/simple_animal/bot/cleanbot/larry{
 	on = 0
 	},
-/mob/living/simple_animal/butterfly{
+/mob/living/basic/butterfly{
 	name = "Lisa, PsyD"
 	},
 /turf/open/floor/iron/white,
@@ -446,7 +446,7 @@
 "jF" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /mob/living/carbon/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
+/mob/living/basic/pet/hamster/vector{
 	pixel_x = 1;
 	pixel_y = 10
 	},
@@ -771,7 +771,7 @@
 	},
 /area/misc/space)
 "qD" = (
-/mob/living/simple_animal/pet/fox/Renault{
+/mob/living/basic/pet/fox/renault{
 	density = 0;
 	dir = 8;
 	pixel_y = 10
@@ -837,7 +837,7 @@
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
-/mob/living/simple_animal/sloth/citrus{
+/mob/living/basic/sloth/citrus{
 	density = 0
 	},
 /turf/open/floor/iron/sepia,
@@ -1248,9 +1248,7 @@
 /turf/open/floor/iron,
 /area/misc/space)
 "CT" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
+/mob/living/basic/goat/pete,
 /turf/open/floor/iron/freezer,
 /area/station/ai_monitored/turret_protected/ai)
 "De" = (
@@ -2167,7 +2165,7 @@
 /area/misc/space)
 "Wp" = (
 /mob/living/carbon/monkey/punpun,
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	name = "Kentucky";
 	real_name = "Kentucky"
 	},

@@ -79,7 +79,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
 	. = ..()
-	var/mutable_appearance/emissive_overlay = emissive_appearance(icon = 'icons/mob/animal.dmi', icon_state = spider_lightmask, layer = layer)
+	var/mutable_appearance/emissive_overlay = emissive_appearance(icon = 'icons/mob/simple/animal.dmi', icon_state = spider_lightmask, layer = layer)
 	. += emissive_overlay
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 

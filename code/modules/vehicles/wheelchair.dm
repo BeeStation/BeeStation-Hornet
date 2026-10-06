@@ -24,6 +24,7 @@
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT) //the wheelchair doesnt immobilize us like a bed would
+	AddElement(/datum/element/noisy_movement, volume = 75)
 
 /obj/vehicle/ridden/wheelchair/add_riding_element()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/hand)
@@ -42,10 +43,8 @@
 /obj/vehicle/ridden/wheelchair/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	cut_overlays()
-	playsound(src, 'sound/effects/roll.ogg', 75, 1)
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()
-
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	. = ..()

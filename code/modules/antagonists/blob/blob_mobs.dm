@@ -119,7 +119,6 @@
 	attack_verb_continuous = "hits"
 	attack_verb_simple = "hit"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	del_on_death = TRUE
 	death_message = "explodes into a cloud of gas!"
@@ -133,10 +132,11 @@
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/special/linked_node)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	. = ..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!is_zombie && isturf(src.loc))

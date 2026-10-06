@@ -323,7 +323,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/gib_animation)
 	. = ..()
 
 /obj/effect/temp_visual/gib_animation/animal
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 
 /obj/effect/temp_visual/dust_animation
 	icon = 'icons/mob/mob.dmi'
@@ -422,7 +422,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/impact_effect)
 
 /obj/effect/temp_visual/heart
 	name = "heart"
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "heart"
 	duration = 25
 

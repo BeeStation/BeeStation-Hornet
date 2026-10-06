@@ -16,7 +16,7 @@
 		TRAIT_NO_SOCKS,
 		TRAIT_UNHUSKABLE,
 	)
-	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
+	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC | MOB_BUG
 	mutant_bodyparts = list(
 		"diona_leaves",
 		"diona_thorns",
@@ -275,7 +275,7 @@
 /obj/item/organ/nymph_organ
 	name = "diona nymph"
 	desc = "You should not be seeing this, if you are, please contact a coder."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "nymph"
 
 /obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)

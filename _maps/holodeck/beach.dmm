@@ -33,7 +33,7 @@
 /turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)
 "Q" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	name = "Jon"
 	},
 /turf/open/floor/holofloor/beach/coast_t,

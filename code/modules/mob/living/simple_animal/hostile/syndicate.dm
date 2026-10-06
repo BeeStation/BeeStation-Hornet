@@ -293,7 +293,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	limb_destroyer = TRUE
 	speak_emote = list("states")
@@ -305,7 +304,7 @@
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/swarming)
-
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/syndicate/sniper
 	name = "Syndicate Sniper"

@@ -2,7 +2,7 @@
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
 	unique_name = TRUE
-	icon = 'icons/mob/carp.dmi'
+	icon = 'icons/mob/simple/carp.dmi'
 	icon_state = "base"
 	icon_living = "base"
 	icon_dead = "base_dead"
@@ -36,7 +36,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list(FACTION_CARP)
-	is_flying_animal = TRUE
 	no_flying_animation = TRUE
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -76,6 +75,7 @@
 		carp_randomify(rarechance)
 	. = ..()
 	make_tameable()
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/carp/proc/make_tameable()
 	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5)
@@ -120,7 +120,7 @@
 	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
-	icon = 'icons/mob/broadMobs.dmi'
+	icon = 'icons/mob/simple/broad_mobs.dmi'
 	name = "Mega Space Carp"
 	desc = "A ferocious, fang bearing creature that resembles a shark. This one seems especially ticked off."
 	unique_name = FALSE
@@ -175,7 +175,7 @@
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky
 	/// Location of the file storing disk overlays
-	var/icon/disk_overlay_file = 'icons/mob/carp.dmi'
+	var/icon/disk_overlay_file = 'icons/mob/simple/carp.dmi'
 	/// Colored disk mouth appearance for adding it as a mouth overlay
 	var/mutable_appearance/colored_disk_mouth
 

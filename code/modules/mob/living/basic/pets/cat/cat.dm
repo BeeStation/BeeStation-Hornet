@@ -1,7 +1,7 @@
 /mob/living/basic/pet/cat
 	name = "cat"
 	desc = "Kitty!!"
-	icon = 'icons/mob/pets.dmi'
+	icon = 'icons/mob/simple/pets.dmi'
 	icon_state = "cat2"
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
@@ -74,7 +74,7 @@
 	AddElement(/datum/element/cultist_pet, pet_cult_icon_state = cult_icon_state)
 	AddElement(/datum/element/wears_collar, collar_icon_state = collar_icon_state, collar_resting_icon_state = TRUE)
 	AddElement(/datum/element/ai_retaliate)
-	AddElement(/datum/element/pet_bonus, "purr", /datum/mood_event/pet_animal)
+	AddElement(/datum/element/pet_bonus, "purr")
 	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_CLAW)
 	add_verb(/mob/living/proc/toggle_resting)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
