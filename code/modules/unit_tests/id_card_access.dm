@@ -152,9 +152,8 @@
 	var/datum/record/crew/record = new(name = card.registered_name, rank = JOB_NAME_CHIEFENGINEER)
 	LAZYADD(allocated, record)
 
-	card.grant_acting_head(SSjob.get_job(JOB_NAME_CAPTAIN), "unit test", null, list(ACCESS_HEADS))
-	TEST_ASSERT(ACCESS_HEADS in card.GetAccess(), "Bridge access not granted")
-	TEST_ASSERT(!(ACCESS_CAPTAIN in card.GetAccess()), "Limited role gave Captain access")
+	card.grant_acting_head(SSjob.get_job(JOB_NAME_CAPTAIN), "unit test")
+	TEST_ASSERT(ACCESS_CHANGE_IDS in card.get_authority_access(), "Acting captain can't edit IDs")
 	TEST_ASSERT_EQUAL(record.rank, "Acting [JOB_NAME_CAPTAIN]", "Record rank not synced")
 	TEST_ASSERT_EQUAL(record.acting_job_title, JOB_NAME_CAPTAIN, "Record acting job not synced")
 	TEST_ASSERT(SSjob.has_minimum_jobs(99, head_jobs = list(JOB_NAME_CHIEFENGINEER)), "Acting captain no longer counts as CE")

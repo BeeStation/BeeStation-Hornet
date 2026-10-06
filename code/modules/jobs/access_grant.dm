@@ -90,9 +90,9 @@
 	VAR_PRIVATE/acting_command_pay
 	var/cause
 
-/datum/access_grant/acting_head/New(obj/item/card/id/card, datum/job/job, source, list/role_access)
+/datum/access_grant/acting_head/New(obj/item/card/id/card, datum/job/job, source)
 	src.job = job
-	..(card, role_access || job.get_access(), source)
+	..(card, job.get_access(), source)
 	previous_assignment = card.assignment
 	previous_hud_state = card.hud_state
 	card.assignment = "Acting [job.title]"

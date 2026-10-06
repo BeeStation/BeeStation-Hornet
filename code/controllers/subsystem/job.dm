@@ -990,16 +990,15 @@ SUBSYSTEM_DEF(job)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
 	if(acting_captain)
-		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
+		to_chat(H, span_notice("Due to your position in the chain of command, you have been appointed Acting Captain. As a backup, the code to the captain's spare ID safe on the Bridge is [where]."))
 	else
 		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
-	// Force-give their ID card bridge access.
 	var/obj/item/card/id/id_card = H.wear_id?.GetID()
 	if(!id_card)
 		stack_trace("Promoted [H.real_name] to Captain without an ID card.")
 	if(acting_captain)
-		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", null, list(ACCESS_HEADS), announce = FALSE)
+		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", announce = FALSE)
 	else
 		id_card?.add_access(ACCESS_HEADS, "captaincy")
 

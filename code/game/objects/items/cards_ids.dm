@@ -299,10 +299,9 @@
 /**
  * Makes this card an acting head of the given job until revoked, replacing any current acting role
  * Arguments:
- * * role_access - access the role grants. Null grants the head job's full access
  * * announce - if FALSE, no announcement
  */
-/obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, list/role_access, announce = TRUE)
+/obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
 	if(QDELETED(src))
 		return
 	acting_head?.revoke("replaced", 0, user)
@@ -311,7 +310,7 @@
 	else
 		log_id("[get_log_name()] made acting [head_job.title] via [source].")
 	var/list/held_before = GetAccess()
-	acting_head = new(src, head_job, source, role_access)
+	acting_head = new(src, head_job, source)
 	log_access_change(acting_head.accesses - held_before, "[source] (acting [head_job.title])", user, granting = TRUE)
 	if(announce)
 		card_talk("Appointed Acting [head_job.title].")
