@@ -257,3 +257,63 @@
 		rule.enabled = FALSE
 	SSjob.update_skeleton_access()
 	return ..()
+
+/// Checks only head and acting head access can edit IDs
+/datum/unit_test/id_card_authority
+	var/old_chiefs
+
+/datum/unit_test/id_card_authority/Run()
+	var/datum/job/engineer = SSjob.get_job(JOB_NAME_STATIONENGINEER)
+	var/datum/job/chief = SSjob.get_job(JOB_NAME_CHIEFENGINEER)
+	var/datum/skeleton_access/rule = locate(/datum/skeleton_access/chief_engineer) in SSjob.skeleton_rules
+	old_chiefs = chief.current_positions
+	chief.current_positions = 0
+	SSjob.refresh_skeleton_access()
+	TEST_ASSERT(rule.enabled, "CE rule off with no CE")
+
+	var/obj/item/card/id/card = allocate(/obj/item/card/id)
+	card.assign_job(engineer)
+	var/datum/computer_file/program/card_mod/program = allocate(/datum/computer_file/program/card_mod)
+	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Engineer missing CE access with no CE")
+	TEST_ASSERT(!program.authenticate(null, card), "Skeleton access can edit IDs")
+
+	card.grant_temporary_access(ACCESS_CE, "unit test")
+	TEST_ASSERT(!program.authenticate(null, card), "Console grant can edit IDs")
+
+	card.grant_acting_head(chief, "unit test")
+	TEST_ASSERT(program.authenticate(null, card), "Acting CE can't edit IDs")
+	card.acting_head.revoke("revoked", 0)
+
+/datum/unit_test/id_card_authority/Destroy()
+	if(!isnull(old_chiefs))
+		var/datum/job/chief = SSjob.get_job(JOB_NAME_CHIEFENGINEER)
+		chief.current_positions = old_chiefs
+	for(var/datum/skeleton_access/rule as anything in SSjob.skeleton_rules)
+		deltimer(rule.revoke_timer)
+		rule.revoke_timer = null
+		rule.enabled = FALSE
+	SSjob.update_skeleton_access()
+	return ..()
+
+/// Checks ID console pay changes need head authority over the department
+/datum/unit_test/id_console_pay_authority
+
+/datum/unit_test/id_console_pay_authority/Run()
+	var/obj/machinery/computer/card/console = allocate(/obj/machinery/computer/card)
+	var/obj/item/card/id/card = allocate(/obj/item/card/id)
+	card.access = list(ACCESS_HEADS)
+	console.inserted_scan_id = card
+	TEST_ASSERT(!console.can_manage_pay(ACCOUNT_SRV_ID), "Bridge access can change pay")
+
+	card.grant_temporary_access(ACCESS_HOP, "unit test")
+	TEST_ASSERT(!console.can_manage_pay(ACCOUNT_SRV_ID), "Console grant can change pay")
+
+	card.access |= ACCESS_HOP
+	TEST_ASSERT(console.can_manage_pay(ACCOUNT_SRV_ID), "HoP can't change service pay")
+	TEST_ASSERT(!console.can_manage_pay(ACCOUNT_SEC_ID), "HoP can change security pay")
+
+	console.inserted_scan_id = null
+	console.authenticated = 1
+	console.accessible_dept_payment_bitflag = ACCOUNT_SEC_BITFLAG
+	TEST_ASSERT(console.can_manage_pay(ACCOUNT_SEC_ID), "Logged in HoS can't change security pay")
+	TEST_ASSERT(!console.can_manage_pay(ACCOUNT_SRV_ID), "Logged in HoS can change service pay")

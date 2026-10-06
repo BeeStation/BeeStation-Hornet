@@ -681,6 +681,13 @@
 		return job_access
 	return job_access - withheld_skeleton_access
 
+/// Access that counts for editing IDs. Skeleton crew and console grants only open doors
+/obj/item/card/id/proc/get_authority_access()
+	RETURN_TYPE(/list)
+	if(!acting_head)
+		return access
+	return access | acting_head.accesses
+
 /obj/item/card/id/GetID()
 	return src
 
@@ -1112,6 +1119,9 @@ do { \
 	to_chat(user, span_warning("You can't insert money into a slip!"))  // not sure if this is triggerable but just as a safeclip
 
 /obj/item/card/id/paper/GetAccess()
+	return list()
+
+/obj/item/card/id/paper/get_authority_access()
 	return list()
 
 /obj/item/card/id/away
