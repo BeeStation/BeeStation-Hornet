@@ -3,7 +3,7 @@
 	desc = "The foundation of all circuits. All Circuitry go onto this."
 	id = "integrated_circuit"
 	build_path = /obj/item/integrated_circuit
-	build_type = IMPRINTER | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
 	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000, /datum/material/copper = 500)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -13,7 +13,7 @@
 	desc = "A circuit multitool to mark entities and load them into."
 	id = "circuit_multitool"
 	build_path = /obj/item/multitool/circuit
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
 	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000, /datum/material/copper = 500)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -23,7 +23,7 @@
 	desc = "A cable that allows certain shells to connect to nearby computers and machines."
 	id = "usb_cable"
 	build_path = /obj/item/usb_cable
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
 	// Yes, it would make sense to make them take plastic, but then less people would make them, and I think they're cool
 	materials = list(/datum/material/iron = 1000, /datum/material/copper = 1500)
@@ -34,7 +34,7 @@
 	desc = "A transceiver that allows certain shells to connect to computers and machines at a certain range."
 	id = "usb_wireless"
 	build_path = /obj/item/usb_cable/bluespace
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
 	materials = list(/datum/material/iron = 1000, /datum/material/copper = 1500, /datum/material/bluespace = 250)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -42,7 +42,7 @@
 /datum/design/component
 	name = "Component ( NULL ENTRY )"
 	desc = "A component that goes into an integrated circuit."
-	build_type = IMPRINTER | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 500, /datum/material/copper = 150)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 	category = list(RND_CATEGORY_CIRCUITRY + RND_SUBCATEGORY_CIRCUITRY_COMPONENTS)
@@ -481,7 +481,7 @@
 	id = "compact_remote_shell"
 	build_path = /obj/item/shell/compact_remote
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 5000)
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_SHELLS)
 
 /datum/design/controller_shell
@@ -489,7 +489,7 @@
 	desc = "A handheld shell with several buttons."
 	id = "controller_shell"
 	build_path = /obj/item/shell/controller
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 7000)
 	category = list(RND_CATEGORY_SHELLS)
 
@@ -498,7 +498,7 @@
 	desc = "A handheld scanner shell that can scan entities."
 	id = "scanner_shell"
 	build_path = /obj/item/shell/wiremod_scanner
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 4000, /datum/material/iron = 5000)
 	category = list(RND_CATEGORY_SHELLS)
 
@@ -507,7 +507,7 @@
 	desc = "An immobile shell that can store more components. Has a USB port to be able to connect to computers and machines."
 	id = "bot_shell"
 	build_path = /obj/item/shell/bot
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 10000)
 	category = list(RND_CATEGORY_SHELLS)
 
@@ -516,7 +516,7 @@
 	desc = "An immobile shell that is similar to a regular bot shell, but accepts monetary inputs and can also dispense money."
 	id = "money_bot_shell"
 	build_path = /obj/item/shell/money_bot
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 10000, /datum/material/gold = 50)
 	category = list(RND_CATEGORY_SHELLS)
 
@@ -525,7 +525,7 @@
 	desc = "A shell with the ability to move itself around."
 	id = "drone_shell"
 	build_path = /obj/item/shell/drone
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	materials = list(
 		/datum/material/glass = 2000,
 		/datum/material/iron = 11000,
@@ -543,7 +543,7 @@
 		/datum/material/gold = 1500,
 	)
 	build_path = /obj/item/shell/server
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_SHELLS)
 
 /datum/design/airlock_shell
@@ -555,7 +555,7 @@
 		/datum/material/iron = 15000,
 	)
 	build_path = /obj/item/shell/airlock
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_SHELLS)
 
 /datum/design/assembly_shell
@@ -567,7 +567,7 @@
 		/datum/material/iron = 5000,
 	)
 	build_path = /obj/item/assembly/modular
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_SHELLS)
 
 /datum/design/bci_shell
@@ -579,7 +579,7 @@
 		/datum/material/iron = 8000,
 	)
 	build_path = /obj/item/shell/bci
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_SHELLS)
 
 /datum/design/ipc_control
@@ -591,7 +591,7 @@
 		/datum/material/iron = 8000,
 	)
 	build_path = /obj/item/shell/ipc_control
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CIRCUITRY, RND_CATEGORY_SHELLS)
 
 /datum/design/scanner_gate_shell
@@ -603,7 +603,7 @@
 		/datum/material/iron = 12000,
 	)
 	build_path = /obj/item/shell/scanner_gate
-	build_type = PROTOLATHE | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_SHELLS)
 
 /datum/design/board/bci_implanter
@@ -611,7 +611,7 @@
 	desc = "A machine that, when given a brain-computer interface, will implant it into an occupant. Otherwise, will remove any brain-computer interfaces they already have."
 	id = "bci_implanter"
 	build_path = /obj/item/circuitboard/machine/bci_implanter
-	build_type = IMPRINTER | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	category = list(RND_CATEGORY_CORE)
 
 /datum/design/mod_module_shell
