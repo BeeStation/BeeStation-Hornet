@@ -87,8 +87,6 @@
 	var/brute_modifier = 1
 	/// Burn damage gets multiplied by this on receive_damage()
 	var/burn_modifier = 1
-	/// Stamina damage to the owner gets multiplied by the average of this across their limbs, see [/mob/living/carbon/proc/get_bodypart_stamina_modifier]
-	var/stamina_modifier = 1
 	/// Stun damage gets multiplied by this on receive_damage()
 	//var/stun_modifier = 1 (this should probably be here. TODO: implement this on limbs rather than species, jackass)
 
@@ -369,11 +367,6 @@
 			LAZYADD(bodypart_organs, organ_check) // this way if we don't have any, it'll just return null
 
 	return bodypart_organs
-
-//Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life(delta_time, times_fired, stam_heal)
-	SHOULD_CALL_PARENT(TRUE)
-	return
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
@@ -903,3 +896,45 @@
 			return list(0,-3)
 		if(WEST)
 			return list(0,-3)
+
+/obj/item/bodypart/emp_act(severity)
+	. = ..()
+	if((. & EMP_PROTECT_SELF) || !owner || !(bodytype & BODYTYPE_ROBOTIC) || (bodypart_flags & BODYPART_EMP_HARDENED))
+		return FALSE
+
+	if(body_zone != BODY_ZONE_CHEST)
+		owner.visible_message(span_danger("[owner]'s [name] falls limp!"))
+
+	var/time_needed = 10 SECONDS
+	var/brute_damage = 1.5
+	var/burn_damage = 2.5
+
+	if(severity == EMP_HEAVY)
+		time_needed *= 2
+		brute_damage *= 2
+		burn_damage *= 2
+
+	receive_damage(brute = brute_damage, burn = burn_damage)
+	do_sparks(1, FALSE, owner)
+	ADD_TRAIT(src, TRAIT_PARALYSIS, EMP_TRAIT)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_PARALYSIS, EMP_TRAIT), time_needed, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
+	return TRUE
+
+/obj/item/bodypart/leg/emp_act(severity)
+	. = ..()
+	if(!.)
+		return
+	owner.Knockdown(severity == EMP_HEAVY ? 20 SECONDS : 10 SECONDS)
+
+/obj/item/bodypart/chest/robot/emp_act(severity)
+	. = ..()
+	if(!.)
+		return
+	to_chat(owner, span_danger("Your [name]'s logic boards temporarily become unresponsive!"))
+	if(severity == EMP_HEAVY)
+		owner.Stun(6 SECONDS)
+		owner.Shake(pixelshiftx = 5, pixelshifty = 2, duration = 4 SECONDS)
+		return
+
+	owner.Stun(3 SECONDS)
+	owner.Shake(pixelshiftx = 3, pixelshifty = 0, duration = 2.5 SECONDS)

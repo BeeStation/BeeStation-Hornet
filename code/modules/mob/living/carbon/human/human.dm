@@ -1068,8 +1068,13 @@
 
 /mob/living/carbon/human/pre_stamina_change(diff as num, forced)
 	. = ..()
-	if(. < 0 && !forced) //Taking damage, not healing
-		. *= physiology.stamina_mod * get_bodypart_stamina_modifier()
+	if(. >= 0) //Healing
+		return
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STAMINA_POWER, -., FALSE)
+		return 0
+	if(!forced) //none when forced
+		. *= physiology.stamina_mod * dna.species.staminamod
 
 /mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))

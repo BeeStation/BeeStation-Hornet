@@ -864,8 +864,6 @@
 		setBruteLoss(0, updating_health = FALSE, forced = TRUE)
 	if(heal_flags & HEAL_BURN)
 		setFireLoss(0, updating_health = FALSE, forced = TRUE)
-	if(heal_flags & HEAL_STAM)
-		stamina.adjust(INFINITY)
 
 	// I don't really care to keep this under a flag
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -889,6 +887,9 @@
 		suiciding = FALSE
 
 	updatehealth()
+	//After updatehealth, so leaving softcrit has already raised our maximum
+	if(heal_flags & HEAL_STAM)
+		stamina.adjust(INFINITY)
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_FULLY_HEAL, heal_flags)
 
@@ -1706,10 +1707,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		if(UNCONSCIOUS)
 			if(. != HARD_CRIT)
 				become_blind(UNCONSCIOUS_TRAIT)
-			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
-			else
-				remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
+			update_unconscious_crit_traits()
 		if(HARD_CRIT)
 			if(. != UNCONSCIOUS)
 				become_blind(UNCONSCIOUS_TRAIT)
@@ -1718,6 +1716,13 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()
+
+///Health can cross the crit threshold while mob is unconscious, so force signal handler
+/mob/living/proc/update_unconscious_crit_traits()
+	if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+		add_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
+	else
+		remove_traits(list(TRAIT_CRITICAL_CONDITION, TRAIT_SOFT_CRITICAL_CONDITION, TRAIT_NO_SPRINT), STAT_TRAIT)
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
@@ -2585,8 +2590,7 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 
 ///Take away stamina from an attack being thrown.
 /mob/living/proc/stamina_swing(cost as num)
-	if((stamina.current - cost) > STAMINA_MAXIMUM_TO_SWING)
-		stamina.adjust(-cost, TRUE)
+	return
 
 ///Called by the stamina holder, passing the change in stamina to modify.
 /mob/living/proc/pre_stamina_change(diff as num, forced)
@@ -2594,8 +2598,8 @@ GLOBAL_DATUM_INIT(combat_indicator_vis, /obj/effect/overlay/combat_indicator, ne
 		return 0
 	return diff
 
-///Whether stamina damage does anything to us. Silicons and xenos are immune, and IPCs only feel electrical stuns.
-/mob/living/proc/takes_stamina_damage(electrical = FALSE)
-	if(electrical && HAS_TRAIT(src, TRAIT_STUN_DRAINS_POWER))
+///Whether stamina damage does anything to us. Silicons and xenos are immune. IPCs are snowflakes
+/mob/living/proc/takes_stamina_damage()
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
 		return TRUE
 	return pre_stamina_change(-1) != 0

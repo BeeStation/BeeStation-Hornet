@@ -122,10 +122,10 @@
 /// from /datum/status_effect/incapacitating/stamcrit/on_apply()
 #define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
 	#define STAMCRIT_CANCELLED (1<<0)
-///from electrical stun weapons hitting a mob with TRAIT_STUN_DRAINS_POWER: (amount)
-#define COMSIG_LIVING_DRAIN_STUN_POWER "living_drain_stun_power"
-	///Returned when the mob is in low power after the drain
-	#define COMPONENT_STUN_LOW_POWER (1<<0)
+///from stamina loss and stuns on a mob with TRAIT_STAMINA_DRAINS_POWER: (amount, electrical)
+#define COMSIG_LIVING_DRAIN_STAMINA_POWER "living_drain_stamina_power"
+	///Returned when the mob still has power after the drain, otherwise stun
+	#define COMPONENT_STAMINA_POWERED (1<<0)
 ///from /obj/structure/door/crush(): (mob/living/crushed, /obj/machinery/door/crushing_door)
 #define COMSIG_LIVING_DOORCRUSHED "living_doorcrush"
 ///sent when items with siemen coeff. of 0 block a shock: (power_source, source, siemens_coeff, dist_check)

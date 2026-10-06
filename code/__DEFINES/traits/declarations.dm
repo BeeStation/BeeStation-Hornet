@@ -37,8 +37,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_SPRINT "no_sprint"
 ///Exhaustion doesn't slow the user, stop their sprint or force a whisper, but stuns still land
 #define TRAIT_SECOND_WIND "second_wind"
-///Electrical stun weapons drain this mob's power instead of its stamina, see [COMSIG_LIVING_DRAIN_STUN_POWER]
-#define TRAIT_STUN_DRAINS_POWER "stun_drains_power"
+///All stamina loss, from attacks, stuns or exertion, drains this mob's power instead, see [COMSIG_LIVING_DRAIN_STAMINA_POWER]
+#define TRAIT_STAMINA_DRAINS_POWER "stamina_drains_power"
 /// In softcrit.
 #define TRAIT_SOFT_CRITICAL_CONDITION "soft-critical-condition"
 //In some kind of critical condition. Is able to succumb.

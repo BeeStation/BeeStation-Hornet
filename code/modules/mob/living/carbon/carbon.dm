@@ -579,6 +579,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if((stamina.current < stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER) && stat <= SOFT_CRIT)
 		stamina_stun()
 
+/mob/living/carbon/stamina_swing(cost as num)
+	if((get_shown_stamina() - cost) > STAMINA_MAXIMUM_TO_SWING)
+		stamina.adjust(-cost, TRUE)
+
 /mob/living/carbon/update_sight()
 	if(!client)
 		return
@@ -700,7 +704,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				severity = 10
 		if(stat != HARD_CRIT && !HAS_TRAIT(src,TRAIT_NOHARDCRIT))
 			var/visionseverity = 4
-			switch(crit_health)
+			switch(health)
 				if(-8 to -4)
 					visionseverity = 5
 				if(-12 to -8)
@@ -808,9 +812,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		hud_used.stamina.set_warning(FALSE)
 	else
 		var/max = stamina.maximum
-		hud_used.stamina.set_warning(!HAS_TRAIT(src, TRAIT_EXHAUSTED) && stamina.current < max * STAMINA_EXHAUSTION_WARNING_MODIFIER)
+		var/current = get_shown_stamina()
+		hud_used.stamina.set_warning(!HAS_TRAIT(src, TRAIT_EXHAUSTED) && current < max * STAMINA_EXHAUSTION_WARNING_MODIFIER)
 		if(shown_stamina_loss == null)
-			shown_stamina_loss = stamina.loss
+			shown_stamina_loss = max - current
 		if(shown_stamina_loss >= max || HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 			hud_used.stamina.icon_state = "stamina_crit"
 		else if(shown_stamina_loss > max*0.8)
@@ -825,6 +830,19 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			hud_used.stamina.icon_state = "stamina_1"
 		else
 			hud_used.stamina.icon_state = "stamina_full"
+
+///Stamina as the HUD shows it. Mobs with [TRAIT_STAMINA_DRAINS_POWER] show their charge, unless a stamina pool carried over from another species is lower
+/mob/living/carbon/proc/get_shown_stamina()
+	. = stamina.current
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		. = min(., stamina.maximum * get_stamina_power())
+
+///Charge as a fraction of a full cell, for mobs with [TRAIT_STAMINA_DRAINS_POWER]
+/mob/living/carbon/proc/get_stamina_power()
+	var/obj/item/organ/stomach/electrical/ipc/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(battery))
+		return 0
+	return min(battery.cell.charge / ETHEREAL_CHARGE_FULL, 1)
 
 /mob/living/carbon/proc/update_spacesuit_hud_icon(cell_state = "empty")
 	if(hud_used?.spacesuit)
@@ -856,6 +874,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			set_stat(HARD_CRIT)
 		else if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
 			set_stat(UNCONSCIOUS)
+			update_unconscious_crit_traits()
 		else if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 			set_stat(SOFT_CRIT)
 		else

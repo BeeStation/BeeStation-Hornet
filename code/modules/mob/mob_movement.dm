@@ -554,8 +554,11 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 	move_intents = new_intents
 	if(ispath(move_intent)) //Not initialized yet
 		return
-	if(!move_intent.can_be_used_by(src))
-		set_next_usable_move_intent()
+	if(move_intent.can_be_used_by(src))
+		return
+	if(MOVING_QUICKLY(src) && set_move_intent(/datum/move_intent/run))
+		return
+	set_next_usable_move_intent()
 
 ///Moves a mob upwards in z level
 /mob/verb/up()

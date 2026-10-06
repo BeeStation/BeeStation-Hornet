@@ -1,5 +1,5 @@
 //backpack item
-#define HALFWAYCRITDEATH ((HEALTH_THRESHOLD_CRIT + HEALTH_THRESHOLD_DEAD) * 0.5)
+#define HALFWAYCRITDEATH(target) ((HEALTH_THRESHOLD_CRIT + target.death_threshold) * 0.5)
 #define DEFIB_CAN_HURT(source) (source.combat || (source.req_defib && !source.defib.safety))
 
 /obj/item/defibrillator
@@ -654,15 +654,15 @@
 					playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 				else
 					//If the body has been fixed so that they would not be in crit when defibbed, give them oxyloss to put them back into crit
-					if (H.health > HALFWAYCRITDEATH)
-						H.adjustOxyLoss(H.health - HALFWAYCRITDEATH, 0)
+					if (H.health > HALFWAYCRITDEATH(H))
+						H.adjustOxyLoss(H.health - HALFWAYCRITDEATH(H), 0)
 					else
 						var/overall_damage = total_brute + total_burn + H.getToxLoss() + H.getOxyLoss()
 						var/mobhealth = H.health
-						H.adjustOxyLoss((mobhealth - HALFWAYCRITDEATH) * (H.getOxyLoss() / overall_damage), 0)
-						H.adjustToxLoss((mobhealth - HALFWAYCRITDEATH) * (H.getToxLoss() / overall_damage), 0, TRUE) // force tox heal for toxin lovers too
-						H.adjustFireLoss((mobhealth - HALFWAYCRITDEATH) * (total_burn / overall_damage), 0)
-						H.adjustBruteLoss((mobhealth - HALFWAYCRITDEATH) * (total_brute / overall_damage), 0)
+						H.adjustOxyLoss((mobhealth - HALFWAYCRITDEATH(H)) * (H.getOxyLoss() / overall_damage), 0)
+						H.adjustToxLoss((mobhealth - HALFWAYCRITDEATH(H)) * (H.getToxLoss() / overall_damage), 0, TRUE) // force tox heal for toxin lovers too
+						H.adjustFireLoss((mobhealth - HALFWAYCRITDEATH(H)) * (total_burn / overall_damage), 0)
+						H.adjustBruteLoss((mobhealth - HALFWAYCRITDEATH(H)) * (total_brute / overall_damage), 0)
 					H.updatehealth() // Previous "adjust" procs don't update health, so we do it manually.
 					user.visible_message(span_notice("[req_defib ? "[defib]" : "[src]"] pings: Resuscitation successful."))
 					playsound(src, 'sound/machines/defib_success.ogg', 50, 0)

@@ -89,6 +89,9 @@
 	healths = new /atom/movable/screen/healths(null, src)
 	infodisplay += healths
 
+	stamina = new /atom/movable/screen/stamina(null, src)
+	infodisplay += stamina
+
 	pull_icon = new /atom/movable/screen/pull(null, src)
 	pull_icon.icon = ui_style
 	pull_icon.update_icon()

@@ -2,6 +2,15 @@
 /mob/living/proc/register_init_signals()
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT), PROC_REF(on_knockedout_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_KNOCKEDOUT), PROC_REF(on_knockedout_trait_loss))
+	RegisterSignals(src, list(
+		SIGNAL_ADDTRAIT(TRAIT_NOSOFTCRIT),
+		SIGNAL_REMOVETRAIT(TRAIT_NOSOFTCRIT),
+		SIGNAL_ADDTRAIT(TRAIT_NOHARDCRIT),
+		SIGNAL_REMOVETRAIT(TRAIT_NOHARDCRIT),
+		SIGNAL_ADDTRAIT(TRAIT_NODEATH),
+		SIGNAL_REMOVETRAIT(TRAIT_NODEATH),
+		SIGNAL_REMOVETRAIT(TRAIT_GODMODE),
+	), PROC_REF(on_stat_threshold_trait_update))
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_loss))
@@ -80,6 +89,13 @@
 	SIGNAL_HANDLER
 	if(stat <= UNCONSCIOUS)
 		update_stat()
+
+///Called when health trait is changed, so it forces an update
+/mob/living/proc/on_stat_threshold_trait_update(datum/source)
+	SIGNAL_HANDLER
+	if(QDELETED(src))
+		return
+	update_stat()
 
 ///Called when TRAIT_DEATHCOMA is added to the mob.
 /mob/living/proc/on_deathcoma_trait_gain(datum/source)

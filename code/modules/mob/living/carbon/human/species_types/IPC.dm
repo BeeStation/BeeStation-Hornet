@@ -24,6 +24,7 @@
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_UPGRADE_COMPATIBLE,
 		TRAIT_UNHUSKABLE,
+		TRAIT_STAMINA_DRAINS_POWER,
 	)
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -324,7 +325,7 @@
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "battery-quarter",
 			SPECIES_PERK_NAME = "Power Drain",
-			SPECIES_PERK_DESC = "Disablers and blows can't tire you out, but stun batons and tasers drain your charge. Once you're in low power, they lock up your actuators.",
+			SPECIES_PERK_DESC = "You never tire. However, blows from weapons, disablers, exertion and EMPs will drain your charge, with stun batons and tasers draining it fast. Once you're in low power, stuns lock you up until you recharge your battery.",
 		),
 	)
 

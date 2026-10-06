@@ -821,7 +821,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 
 /atom/movable/screen/stamina
 	name = "stamina"
-	icon_state = "stamina0"
+	icon_state = "stamina_full"
 	screen_loc = ui_stamina
 	///Are we pulsing to warn that exhaustion is close?
 	var/warning = FALSE
@@ -841,9 +841,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 /atom/movable/screen/stamina/Click(location, control, params)
 	if (iscarbon(usr))
 		var/mob/living/carbon/C = usr
+		var/status = "You have [round(C.stamina.current)]/[C.stamina.maximum] stamina, and are regenerating [round(C.stamina.regen_rate, 0.1)] per second"
+		if(HAS_TRAIT(C, TRAIT_STAMINA_DRAINS_POWER))
+			status = "You have [round(C.get_stamina_power() * 100)]% charge"
+			if(C.stamina.current < C.stamina.maximum)
+				status += " and [round(C.stamina.current)]/[C.stamina.maximum] stamina"
 		var/content = {"
 		<div class='notice'>
-			[span_boldnotice("You have [round(C.stamina.current)]/[C.stamina.maximum] stamina, and are regenerating [round(C.stamina.regen_rate, 0.1)] per second. [exhaustion_text(C)].")]
+			[span_boldnotice("[status]. [exhaustion_text(C)].")]
 		</div>
 		"}
 		to_chat(C, content)
@@ -857,6 +862,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 		tip_timer = addtimer(CALLBACK(src, PROC_REF(open_tip), params, usr), timedelay, TIMER_STOPPABLE)
 
 /atom/movable/screen/stamina/proc/open_tip(params, mob/living/user)
+	if(iscarbon(user) && HAS_TRAIT(user, TRAIT_STAMINA_DRAINS_POWER))
+		var/mob/living/carbon/carbon_user = user
+		var/tip = "Charge: [round(carbon_user.get_stamina_power() * 100)]%<br>"
+		if(user.stamina.current < user.stamina.maximum)
+			tip += "Stamina: [round(user.stamina.current)]/[user.stamina.maximum]<br>"
+		openToolTip(user, src, params, title = "Charge", content = "[tip][exhaustion_text(user)]")
+		return
 	var/content = {"
 		Stamina: [round(user.stamina.current)]/[user.stamina.maximum]<br>
 		Regen: [round(user.stamina.regen_rate, 0.1)]/s<br>
@@ -871,5 +883,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 
 /atom/movable/screen/stamina/proc/exhaustion_text(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_EXHAUSTED))
-		return "Exhausted until [round(user.stamina.maximum * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER)]"
-	return "Exhausted below [round(user.stamina.maximum * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER)]"
+		return "Exhausted until [round(user.stamina.maximum * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER)] stamina"
+	if(HAS_TRAIT(user, TRAIT_STAMINA_DRAINS_POWER))
+		return "Low power below [round(ETHEREAL_CHARGE_LOWPOWER / ETHEREAL_CHARGE_FULL * 100)]%"
+	return "Exhausted below [round(user.stamina.maximum * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER)] stamina"

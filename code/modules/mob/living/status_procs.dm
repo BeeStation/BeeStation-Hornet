@@ -243,7 +243,7 @@
  * * overstam : If TRUE, stamina_amount will be able to deal stamina damage over the waekened threshold, allowing it to also stamina stun.
  * * stack_status : Should the given status value(s) stack ontop of existing status values?
  * * protection : Armor value (0-100) that reduces stamina_amount
- * * electrical : Mobs with TRAIT_STUN_DRAINS_POWER lose power instead of stamina, and stuns land once they're in low power
+ * * electrical : Mobs with TRAIT_STAMINA_DRAINS_POWER lose power at the full rate instead of the reduced non-electrical one
  */
 /mob/living/proc/Disorient(amount, stamina_amount, ignore_canstun, knockdown, stun, paralyze, overstam, stack_status = TRUE, protection = 0, electrical = FALSE)
 	var/disorient_multiplier = 1 - (clamp(protection, 0, 100)/100)
@@ -252,8 +252,8 @@
 	var/stam2deal = stamina_amount * stamina_multiplier
 
 	var/low_power = FALSE
-	if(electrical && HAS_TRAIT(src, TRAIT_STUN_DRAINS_POWER))
-		low_power = SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STUN_POWER, stam2deal) & COMPONENT_STUN_LOW_POWER
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		low_power = !(SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STAMINA_POWER, stam2deal, electrical) & COMPONENT_STAMINA_POWERED)
 	//You can never be stam-stunned w/o overstam
 	else if(overstam)
 		stamina.adjust(-stam2deal)

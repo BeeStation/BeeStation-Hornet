@@ -189,15 +189,6 @@
 
 ////////////////////////////////////////////
 
-///Average stamina_modifier across our limbs. IPC limbs are 0 and diona limbs are 0.7.
-/mob/living/carbon/proc/get_bodypart_stamina_modifier()
-	if(!length(bodyparts))
-		return 1
-	. = 0
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		. += limb.stamina_modifier
-	. /= length(bodyparts)
-
 //Returns a list of damaged bodyparts
 /mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, required_bodytype = NONE, target_zone = null)
 	var/list/obj/item/bodypart/parts = list()

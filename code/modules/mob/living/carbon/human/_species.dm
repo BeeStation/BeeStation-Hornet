@@ -97,6 +97,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/coldmod = 1		// multiplier for cold damage
 	var/heatmod = 1		// multiplier for heat damage
 	var/stunmod = 1
+	var/staminamod = 1
 	var/oxymod = 1
 	var/clonemod = 1
 	var/toxmod = 1

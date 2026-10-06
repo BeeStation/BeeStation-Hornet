@@ -455,17 +455,9 @@
 	. = ..()
 	if(. & EMP_PROTECT_CONTENTS)
 		return
-	var/informed = FALSE
 	for(var/obj/item/bodypart/bodypart in src.bodyparts)
 		if(!IS_ORGANIC_LIMB(bodypart))
-			if(!informed)
-				to_chat(src, span_userdanger("You feel a sharp pain as [bodypart] overloads!"))
-				informed = TRUE
-			if(prob(30/severity)) //Random chance to disable and burn limbs
-				bodypart.receive_damage(burn = 5)
-				bodypart.receive_damage(stamina = 120) //Disable the limb since we got EMP'd
-			else
-				bodypart.receive_damage(stamina = 10) //Progressive stamina damage to ensure a consistent takedown within a reasonable number of hits, regardless of RNG
+			bodypart.emp_act(severity)
 			if(HAS_TRAIT(bodypart, TRAIT_EASYDISMEMBER) && bodypart.body_zone != "chest")
 				if(prob(5))
 					bodypart.dismember(BRUTE)

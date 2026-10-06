@@ -9,6 +9,7 @@
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_NO_MOUTH), PROC_REF(on_no_mouth_trait_loss))
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_SOFT_CRITICAL_CONDITION), PROC_REF(on_softcrit_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_SOFT_CRITICAL_CONDITION), PROC_REF(on_softcrit_loss))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_STAMINA_DRAINS_POWER), SIGNAL_REMOVETRAIT(TRAIT_STAMINA_DRAINS_POWER)), PROC_REF(on_stamina_drains_power_trait_change))
 
 	//Traits that register add only
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath_trait_gain))
@@ -68,16 +69,23 @@
 		head.mouth = TRUE
 
 /mob/living/carbon/proc/on_softcrit_gain(datum/source)
+	SIGNAL_HANDLER
 	stamina.add_max_modifier("softcrit", -100)
 	stamina.add_regen_modifier("softcrit", -5)
 	throw_alert(ALERT_SOFTCRIT, /atom/movable/screen/alert/softcrit)
 	add_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 
 /mob/living/carbon/proc/on_softcrit_loss(datum/source)
+	SIGNAL_HANDLER
 	stamina.remove_max_modifier("softcrit")
 	stamina.remove_regen_modifier("softcrit")
 	clear_alert(ALERT_SOFTCRIT)
 	remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
+
+/// Stamina for carbons/charge for IPCs
+/mob/living/carbon/proc/on_stamina_drains_power_trait_change(datum/source)
+	SIGNAL_HANDLER
+	update_stamina_hud()
 
 /mob/living/carbon/on_incapacitated_trait_gain(datum/source)
 	. = ..()

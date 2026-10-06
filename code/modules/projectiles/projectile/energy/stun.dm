@@ -325,8 +325,8 @@
 		
 	var/armor_block = owner.run_armor_check(affecting, STAMINA)
 	var/low_power = FALSE
-	if(HAS_TRAIT(owner, TRAIT_STUN_DRAINS_POWER))
-		low_power = SEND_SIGNAL(owner, COMSIG_LIVING_DRAIN_STUN_POWER, stamina_per_second * seconds_between_ticks * (100 - armor_block) / 100) & COMPONENT_STUN_LOW_POWER
+	if(HAS_TRAIT(owner, TRAIT_STAMINA_DRAINS_POWER))
+		low_power = !(SEND_SIGNAL(owner, COMSIG_LIVING_DRAIN_STAMINA_POWER, stamina_per_second * seconds_between_ticks * (100 - armor_block) / 100, TRUE) & COMPONENT_STAMINA_POWERED)
 	else
 		owner.apply_damage(stamina_per_second * seconds_between_ticks, STAMINA, affecting, armor_block)
 	if(low_power || HAS_TRAIT(owner, TRAIT_EXHAUSTED))

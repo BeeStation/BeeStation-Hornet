@@ -31,6 +31,7 @@
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	heatmod = 1.5
+	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
 	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
@@ -359,6 +360,12 @@
 			SPECIES_PERK_DESC = "When you're about to die, you explode into a pile of bugs to escape, but you are very vulnerable in this state!",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "shield-alt",
+			SPECIES_PERK_NAME = "Fibrous",
+			SPECIES_PERK_DESC = "Your tough plant fibres shrug off 30% of stamina damage.",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
 			SPECIES_PERK_ICON = "leaf",
 			SPECIES_PERK_NAME = "Planty",
@@ -374,7 +381,7 @@
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "weight-hanging",
 			SPECIES_PERK_NAME = "Bulky",
-			SPECIES_PERK_DESC = "As a plant, you aren't very nimble, walking takes more time for you.",
+			SPECIES_PERK_DESC = "As a plant, you aren't very nimble. Walking is slower, and you can't sprint.",
 		),
 	)
 	return to_add

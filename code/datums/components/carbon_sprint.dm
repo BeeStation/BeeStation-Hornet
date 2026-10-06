@@ -22,6 +22,8 @@
 	RegisterSignal(carbon_parent, COMSIG_MOB_CLIENT_MOVED, PROC_REF(onMobMoved))
 	RegisterSignal(carbon_parent, COMSIG_KB_CARBON_SPRINT_DOWN, PROC_REF(keyDown))
 	RegisterSignal(carbon_parent, COMSIG_KB_CARBON_SPRINT_UP,  PROC_REF(keyUp))
+	//Swapping bodies etcetera can break keypresses :P
+	RegisterSignal(carbon_parent, COMSIG_MOB_LOGOUT, PROC_REF(keyUp))
 
 /datum/component/carbon_sprint/UnregisterFromParent()
 	. = ..()
@@ -29,6 +31,7 @@
 	UnregisterSignal(carbon_parent, COMSIG_MOB_CLIENT_MOVED)
 	UnregisterSignal(carbon_parent, COMSIG_KB_CARBON_SPRINT_DOWN)
 	UnregisterSignal(carbon_parent, COMSIG_KB_CARBON_SPRINT_UP)
+	UnregisterSignal(carbon_parent, COMSIG_MOB_LOGOUT)
 
 /datum/component/carbon_sprint/proc/onMobMove(datum/source, list/move_args)
 	var/direct = move_args[MOVE_ARG_DIRECTION]
@@ -107,6 +110,9 @@
 	var/datum/move_intent/quick_intent = carbon_parent.get_move_intent_by_flag(MOVE_INTENT_QUICK)
 	if(!quick_intent?.can_be_used_by(carbon_parent))
 		return FALSE
+
+	if(HAS_TRAIT(carbon_parent, TRAIT_STAMINA_DRAINS_POWER))
+		return !!(SEND_SIGNAL(carbon_parent, COMSIG_LIVING_DRAIN_STAMINA_POWER, 0, FALSE) & COMPONENT_STAMINA_POWERED)
 
 	//At zero a step costs nothing and never rolls a stamina stun, so a second wind would sprint forever
 	if(carbon_parent.stamina.current <= 0)

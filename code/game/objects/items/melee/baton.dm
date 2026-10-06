@@ -187,7 +187,7 @@
 		target.flash_act(affect_silicon = TRUE)
 		target.Paralyze(stun_time_cyborg * (trait_check ? 0.1 : 1))
 		additional_effects_cyborg(target, user)
-	else if(target.takes_stamina_damage(electrical))
+	else if(target.takes_stamina_damage())
 		var/armor_block = target.run_armor_check(user?.get_combat_bodyzone(target), STAMINA, armour_penetration = armour_penetration, silent = TRUE)
 		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE, protection = armor_block, electrical = electrical)
 		additional_effects_non_cyborg(target, user)
