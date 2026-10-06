@@ -195,6 +195,11 @@
 		return tr
 	return FALSE
 
+
+/// Purely so remote_materials.can_hold_material() has something to call.
+/datum/component/material_container/proc/can_hold_material(datum/material/mat)
+	return TRUE
+
 /// Proc for checking if there is room in the component, returning the amount or else the amount lacking.
 /datum/component/material_container/proc/can_insert_amount_mat(amt, mat)
 	if(amt && mat)
