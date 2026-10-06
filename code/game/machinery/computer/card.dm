@@ -729,7 +729,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				inserted_modify_id.sync_manifest()
 
 		if ("demote") // for now, every head can demote anyone... it's better than shitcode
+			if(!authenticated || !inserted_modify_id)
+				updateUsrDialog()
+				return
 			if(inserted_modify_id.acting_head)
+				// End it only if you can make it, son
+				if(authenticated != 2)
+					to_chat(usr, span_warning("Insufficient access to end an acting appointment."))
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+					updateUsrDialog()
+					return
 				inserted_modify_id.acting_head.revoke("revoked", 0, usr)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 				updateUsrDialog()
