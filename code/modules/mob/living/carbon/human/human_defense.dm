@@ -13,7 +13,7 @@
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in get_bodyparts())
 		armorval += checkarmor(BP, type, penetration)
 		organnum++
 	return (armorval/max(organnum, 1))
@@ -401,7 +401,7 @@
 			if(EXPLODE_DEVASTATE)
 				max_limb_loss = 4
 				probability = 50
-		for(var/obj/item/bodypart/BP as anything in bodyparts)
+		for(var/obj/item/bodypart/BP as anything in get_bodyparts())
 			if(prob(probability) && !prob(getarmor(BP, BOMB)) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
 				BP.receive_damage(INFINITY) //Capped by proc
 				BP.dismember()
@@ -584,17 +584,16 @@
 
 	//DAMAGE//
 	for(var/obj/item/bodypart/affecting in damaged)
-		affecting.receive_damage(acidity, 2*acidity)
+		var/damage_mod = 1
+		if(affecting.body_zone == BODY_ZONE_HEAD && prob(min(acidpwr * acid_volume * 0.1, 90))) //Applies disfigurement
+			damage_mod = 2
+			emote("scream")
+			set_facial_hairstyle("Shaved", update = FALSE)
+			set_hairstyle("Bald") //This calls update_body_parts()
+			ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 
-		if(affecting.name == BODY_ZONE_HEAD)
-			if(prob(min(acidpwr*acid_volume/10, 90))) //Applies disfigurement
-				affecting.receive_damage(acidity, 2*acidity)
-				emote("scream")
-				set_facial_hairstyle("Shaved", update = FALSE)
-				set_hairstyle("Bald") //This calls update_body_parts()
-				ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
-
-		update_damage_overlays()
+		apply_damage(acidity * damage_mod, BRUTE, affecting)
+		apply_damage(acidity * damage_mod * 2, BURN, affecting)
 
 	//MELTING INVENTORY ITEMS//
 	//these items are all outside of armour visually, so melt regardless.
@@ -659,16 +658,17 @@
 	harm_descriptors ||= list("bleed" = "bleeding")
 	var/bleed_msg = harm_descriptors["bleed"]
 
-	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	for(var/obj/item/bodypart/body_part as anything in bodyparts)
-		missing -= body_part.body_zone
+	for(var/part_zone, body_part_untyped in get_bodyparts_by_zones())
+		var/obj/item/bodypart/body_part = body_part_untyped
+		if(isnull(body_part))
+			combined_msg += span_boldannounce("&rdsh; Your [parse_zone(body_part?.body_zone || part_zone)] is missing!")
+			continue
 		if(body_part.bodypart_flags & BODYPART_PSEUDOPART) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue
 
-		body_part.check_for_injuries(src, combined_msg)
-
-	for(var/t in missing)
-		combined_msg += span_bolddanger("Your [parse_zone(t)] is missing!")
+		var/bodypart_report = body_part.check_for_injuries(src)
+		if(bodypart_report)
+			combined_msg += "[span_notice("&rdsh;")] [bodypart_report]"
 
 	if(is_bleeding())
 		combined_msg += span_danger("You are [bleed_msg]!")
@@ -680,83 +680,8 @@
 			combined_msg += span_info("You're completely exhausted.")
 		else
 			combined_msg += span_info("You feel fatigued.")
-	if(HAS_TRAIT(src, TRAIT_SELF_AWARE))
-		if(toxloss)
-			if(toxloss > 10)
-				combined_msg += span_danger("You feel sick.")
-			else if(toxloss > 20)
-				combined_msg += span_danger("You feel nauseated.")
-			else if(toxloss > 40)
-				combined_msg += span_danger("You feel very unwell!")
-		if(oxyloss)
-			if(oxyloss > 10)
-				combined_msg += span_danger("You feel lightheaded.")
-			else if(oxyloss > 20)
-				combined_msg += span_danger("Your thinking is clouded and distant.")
-			else if(oxyloss > 30)
-				combined_msg += span_danger("You're choking!")
 
-	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				combined_msg += span_info("You're completely stuffed!")
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				combined_msg += span_info("You're well fed!")
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				combined_msg += span_info("You're not hungry.")
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				combined_msg += span_info("You could use a bite to eat.")
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				combined_msg += span_info("You feel quite hungry.") //Look, Henry's come to see us!
-			if(0 to NUTRITION_LEVEL_STARVING)
-				combined_msg += span_danger("You're starving!")
-
-	//Compiles then shows the list of damaged organs and broken organs
-	var/list/broken = list()
-	var/list/damaged = list()
-	var/broken_message
-	var/damaged_message
-	var/broken_plural
-	var/damaged_plural
-	//Sets organs into their proper list
-	for(var/obj/item/organ/organ as anything in internal_organs)
-		if(organ.organ_flags & ORGAN_FAILING)
-			if(broken.len)
-				broken += ", "
-			broken += organ.name
-		else if(organ.damage > organ.low_threshold)
-			if(damaged.len)
-				damaged += ", "
-			damaged += organ.name
-	//Checks to enforce proper grammar, inserts words as necessary into the list
-	if(broken.len)
-		if(broken.len > 1)
-			broken.Insert(broken.len, "and ")
-			broken_plural = TRUE
-		else
-			var/holder = broken[1]	//our one and only element
-			if(holder[length(holder)] == "s")
-				broken_plural = TRUE
-		//Put the items in that list into a string of text
-		for(var/B in broken)
-			broken_message += B
-		combined_msg += span_warning(" Your [broken_message] [broken_plural ? "are" : "is"] non-functional!")
-	if(damaged.len)
-		if(damaged.len > 1)
-			damaged.Insert(damaged.len, "and ")
-			damaged_plural = TRUE
-		else
-			var/holder = damaged[1]
-			if(holder[length(holder)] == "s")
-				damaged_plural = TRUE
-		for(var/D in damaged)
-			damaged_message += D
-		combined_msg += span_info("Your [damaged_message] [damaged_plural ? "are" : "is"] hurt.")
-
-	if(length(mind?.quirks))
-		combined_msg += span_notice("You have these quirks: [get_quirk_string()].")
-
-	to_chat(src, examine_block(combined_msg.Join("\n")))
+	to_chat(src, examine_block(combined_msg.Join("<br>")))
 
 /mob/living/carbon/human/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
 	if(damage_type != BRUTE && damage_type != BURN)

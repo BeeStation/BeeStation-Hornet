@@ -122,31 +122,32 @@
 		SSblackbox.record_feedback("text", "religion_book", 1, "[choice]")//I don't know why it's here but I'm keeping it in case it breaks something
 	return
 
-/obj/item/storage/book/bible/proc/bless(mob/living/L, mob/living/user)
+/obj/item/storage/book/bible/proc/bless(mob/living/blessed, mob/living/user)
 	if(GLOB.religious_sect)
-		return GLOB.religious_sect.sect_bless(L,user)
-	if(!ishuman(L))
+		return GLOB.religious_sect.sect_bless(blessed, user)
+
+	if(!ishuman(blessed))
 		return
 
-	var/mob/living/carbon/human/H = L
-
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/BP = X
-		if(!IS_ORGANIC_LIMB(BP))
+	var/mob/living/carbon/human/built_in_his_image = blessed
+	for(var/obj/item/bodypart/bodypart as anything in built_in_his_image.get_bodyparts())
+		if(!IS_ORGANIC_LIMB(bodypart))
 			to_chat(user, span_warning("[src.deity_name] refuses to heal this metallic taint!"))
 			return 0
 
 	var/heal_amt = 10
-	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, BODYTYPE_ORGANIC)
+	var/list/hurt_limbs = built_in_his_image.get_damaged_bodyparts(1, 1, required_bodytype = BODYTYPE_ORGANIC)
+	if(!length(hurt_limbs))
+		return
 
-	if(hurt_limbs.len)
-		for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
-			if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
-				H.update_damage_overlays()
-		H.visible_message(span_notice("[user] heals [H] with the power of [deity_name]!"))
-		to_chat(H, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
-		playsound(src.loc, "punch", 25, 1, -1)
-		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
+	for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
+		if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
+			built_in_his_image.update_damage_overlays()
+
+	built_in_his_image.visible_message(span_notice("[user] heals [built_in_his_image] with the power of [deity_name]!"))
+	to_chat(built_in_his_image, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
+	playsound(src.loc, "punch", 25, 1, -1)
+	SEND_SIGNAL(built_in_his_image, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return 1
 
 /obj/item/storage/book/bible/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
