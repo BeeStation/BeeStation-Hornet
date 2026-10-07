@@ -91,6 +91,8 @@
 #include "reagent_mod_procs.dm"
 #include "reagent_recipe_collisions.dm"
 #include "say.dm"
+#include "screenshot_basic.dm"
+#include "screenshot_husk.dm"
 #include "security_levels.dm"
 #include "security_officer_distribution.dm"
 #include "serving_tray.dm"

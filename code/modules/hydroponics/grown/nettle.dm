@@ -31,11 +31,7 @@
 		return FALSE
 	if(HAS_TRAIT(C, TRAIT_PIERCEIMMUNE))
 		return FALSE
-	var/hit_zone = (C.held_index_to_dir(C.active_hand_index) == "l" ? "l_":"r_") + "arm"
-	var/obj/item/bodypart/affecting = C.get_bodypart(hit_zone)
-	if(affecting)
-		if(affecting.receive_damage(0, force))
-			C.update_damage_overlays()
+	user.apply_damage(force, damtype, user.get_active_hand())
 	to_chat(C, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 

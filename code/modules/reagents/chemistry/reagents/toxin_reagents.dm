@@ -1058,19 +1058,19 @@
 		var/obj/item/bodypart/limb = affected_mob.get_bodypart(selected_part)
 		if(affected_mob.dna.species.type != /datum/species/skeleton && affected_mob.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
 			if(limb)
-				limb.receive_damage(0, 0, 200)
+				affected_mob.apply_damage(20, BRUTE, limb)
 				playsound(affected_mob, get_sfx("desecration"), 50, TRUE, -1)
 				affected_mob.visible_message(span_warning("[affected_mob]'s bones hurt too much!!"), span_danger("Your bones hurt too much!!"))
-				affected_mob.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
+				affected_mob.say("OOF!!", forced = type)
 			else //SUCH A LUST FOR REVENGE!!!
 				to_chat(affected_mob, span_warning("A phantom limb hurts!"))
-				affected_mob.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
+				affected_mob.say("Why are we still here, just to suffer?", forced = type)
 		else //you just want to socialize
 			if(limb)
 				playsound(affected_mob, get_sfx("desecration"), 50, TRUE, -1)
 				affected_mob.visible_message(span_warning("[affected_mob] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
-				affected_mob.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-				limb.receive_damage(200, 0, 0) //But I don't think we should
+				affected_mob.say("OOF!!", forced = type)
+				affected_mob.apply_damage(200, BRUTE, limb)
 			else
 				to_chat(affected_mob, span_warning("Your missing arm aches from wherever you left it."))
 				affected_mob.emote("sigh")
