@@ -43,6 +43,17 @@ GLOBAL_LIST_EMPTY(wall_runes)
 		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
 	return TRUE
 
+/proc/get_rune_power(list/invokers)
+	var/total = 0
+	for(var/atom/movable/invoker in invokers)
+		if(isliving(invoker))
+			var/mob/living/living_invoker = invoker
+			var/datum/antagonist/cult/cultist_datum = living_invoker.mind?.has_antag_datum(/datum/antagonist/cult)
+			total += cultist_datum ? cultist_datum.rune_power : 1
+		else
+			total += 1
+	return total
+
 /*
 
 This file contains runes.
@@ -127,10 +138,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune)
 		to_chat(user, span_warning("You aren't able to understand the words of [src]."))
 		return
 	var/list/invokers = can_invoke(user)
-	if(length(invokers) >= req_cultists)
+	var/power = get_rune_power(invokers)
+	if(power >= req_cultists)
 		invoke(invokers)
 	else
-		to_chat(user, span_danger("You need [req_cultists - length(invokers)] more adjacent cultists to use this rune in such a manner."))
+		to_chat(user, span_danger("You need [req_cultists - power] more adjacent cultists to use this rune in such a manner."))
 		fail_invoke()
 
 /obj/effect/rune/attack_animal(mob/living/simple_animal/M)
@@ -288,7 +300,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
-	if(length(invokers) < 2)
+	if(get_rune_power(invokers) < 2)
 		for(var/M in invokers)
 			to_chat(M, span_danger("You need at least two invokers to convert [convertee]!"))
 		log_game("Offer rune failed - tried conversion with one invoker")
@@ -331,7 +343,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 		return FALSE
 
 	var/big_sac = FALSE
-	if((((ishuman(sacrificial) || iscyborg(sacrificial)) && sacrificial.stat != DEAD) || C.cult_team.is_sacrifice_target(sacrificial.mind)) && length(invokers) < 3)
+	if((((ishuman(sacrificial) || iscyborg(sacrificial)) && sacrificial.stat != DEAD) || C.cult_team.is_sacrifice_target(sacrificial.mind)) && get_rune_power(invokers) < 3)
 		for(var/M in invokers)
 			to_chat(M, span_cultitalic("[sacrificial] is too greatly linked to the world! You need three acolytes!"))
 		log_game("Offer rune failed - not enough acolytes and target is living or sac target")
