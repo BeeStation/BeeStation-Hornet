@@ -7,10 +7,9 @@
 		SIGNAL_REMOVETRAIT(TRAIT_NOSOFTCRIT),
 		SIGNAL_ADDTRAIT(TRAIT_NOHARDCRIT),
 		SIGNAL_REMOVETRAIT(TRAIT_NOHARDCRIT),
-		SIGNAL_ADDTRAIT(TRAIT_NODEATH),
-		SIGNAL_REMOVETRAIT(TRAIT_NODEATH),
 		SIGNAL_REMOVETRAIT(TRAIT_GODMODE),
 	), PROC_REF(on_stat_threshold_trait_update))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NODEATH), SIGNAL_REMOVETRAIT(TRAIT_NODEATH)), PROC_REF(on_nodeath_trait_update))
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DEATHCOMA), PROC_REF(on_deathcoma_trait_loss))
@@ -54,9 +53,6 @@
 	RegisterSignals(src, list(
 		SIGNAL_ADDTRAIT(TRAIT_CRITICAL_CONDITION),
 		SIGNAL_REMOVETRAIT(TRAIT_CRITICAL_CONDITION),
-
-		SIGNAL_ADDTRAIT(TRAIT_NODEATH),
-		SIGNAL_REMOVETRAIT(TRAIT_NODEATH),
 	), PROC_REF(update_succumb_action))
 
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
@@ -96,6 +92,12 @@
 	if(QDELETED(src))
 		return
 	update_stat()
+
+///Called when TRAIT_NODEATH is added or removed
+/mob/living/proc/on_nodeath_trait_update(datum/source)
+	SIGNAL_HANDLER
+	update_succumb_action()
+	on_stat_threshold_trait_update(source)
 
 ///Called when TRAIT_DEATHCOMA is added to the mob.
 /mob/living/proc/on_deathcoma_trait_gain(datum/source)
