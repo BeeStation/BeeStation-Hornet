@@ -78,3 +78,8 @@
   - rscadd: species will now have their own sprites when husked
   - rscadd: rewrote moodlet/health doll appearance
   - bugfix: fixed bodypart icons not appearing in menus
+2026-10-07:
+  SergeiKoralev:
+  - map: Tweaked Fland's round start supermatter piping to make it easier to understand.
+  - map: Tweaked fland's engine room areas so the same air alarm doesn't connect to
+      every vent and scrubber in the room.

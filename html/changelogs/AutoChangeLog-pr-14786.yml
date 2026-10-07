@@ -1,6 +1,0 @@
-author: SergeiKoralev
-delete-after: true
-changes:
-  - map: Tweaked Fland's round start supermatter piping to make it easier to understand.
-  - map: Tweaked fland's engine room areas so the same air alarm doesn't connect to
-      every vent and scrubber in the room.
