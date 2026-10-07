@@ -2070,8 +2070,10 @@
 
 /datum/reagent/peaceborg/tire/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.stamina.loss_as_percent <= 80)
-		affected_mob.stamina.adjust(-10 * REM * delta_time)
+	var/stun_threshold = affected_mob.stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER
+	var/drain = min(35 * REM * delta_time, affected_mob.stamina.current - stun_threshold)
+	if(drain > 0)
+		affected_mob.stamina.adjust(-drain)
 	if(DT_PROB(16, delta_time))
 		to_chat(affected_mob, "You should sit down and take a rest...")
 

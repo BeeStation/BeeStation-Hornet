@@ -295,6 +295,8 @@
 /mob/living/proc/on_exhausted_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	update_exhaustion_penalties()
+	if(stat == DEAD)
+		return
 	if(HAS_TRAIT(src, TRAIT_SECOND_WIND))
 		to_chat(src, span_danger("You're exhausted, but something keeps you going."))
 	else
@@ -304,7 +306,8 @@
 /mob/living/proc/on_exhausted_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	update_exhaustion_penalties()
-	to_chat(src, span_notice("You catch your breath."))
+	if(stat != DEAD)
+		to_chat(src, span_notice("You catch your breath."))
 
 /// Called when [TRAIT_SECOND_WIND] is gained or lost
 /mob/living/proc/on_second_wind_trait_update(datum/source)

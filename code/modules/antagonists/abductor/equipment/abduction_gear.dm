@@ -141,11 +141,7 @@
 			return
 		var/mob/living/carbon/human/M = loc
 		M.stamina.adjust(75)
-		M.SetUnconscious(0)
-		M.SetStun(0)
-		M.SetKnockdown(0)
-		M.SetImmobilized(0)
-		M.SetParalyzed(0)
+		M.SetAllImmobility(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 

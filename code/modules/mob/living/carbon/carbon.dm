@@ -569,9 +569,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	var/stam = stamina.current
 	var/max = stamina.maximum
 	var/is_exhausted = HAS_TRAIT_FROM(src, TRAIT_EXHAUSTED, STAMINA)
-	if((stam < max * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) && !is_exhausted)
+	var/no_stamcrit = HAS_TRAIT(src, TRAIT_NOSTAMCRIT)
+	if((stam < max * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) && !is_exhausted && !no_stamcrit)
 		ADD_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
-	if(is_exhausted && (stam > max * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER))
+	if(is_exhausted && (no_stamcrit || stam > max * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER))
 		REMOVE_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
 	update_stamina_hud()
 
@@ -813,7 +814,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else
 		var/max = stamina.maximum
 		var/current = get_shown_stamina()
-		hud_used.stamina.set_warning(!HAS_TRAIT(src, TRAIT_EXHAUSTED) && current < max * STAMINA_EXHAUSTION_WARNING_MODIFIER)
+		hud_used.stamina.set_warning(!HAS_TRAIT(src, TRAIT_EXHAUSTED) && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT) && current < max * STAMINA_EXHAUSTION_WARNING_MODIFIER)
 		if(shown_stamina_loss == null)
 			shown_stamina_loss = max - current
 		if(shown_stamina_loss >= max || HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))

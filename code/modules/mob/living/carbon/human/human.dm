@@ -1074,7 +1074,7 @@
 		SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STAMINA_POWER, -., FALSE)
 		return 0
 	if(!forced) //none when forced
-		. *= physiology.stamina_mod * dna.species.staminamod
+		. *= max(physiology.stamina_mod, 0) * dna.species.staminamod
 
 /mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))

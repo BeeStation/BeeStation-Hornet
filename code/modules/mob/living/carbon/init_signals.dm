@@ -10,6 +10,7 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_SOFT_CRITICAL_CONDITION), PROC_REF(on_softcrit_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_SOFT_CRITICAL_CONDITION), PROC_REF(on_softcrit_loss))
 	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_STAMINA_DRAINS_POWER), SIGNAL_REMOVETRAIT(TRAIT_STAMINA_DRAINS_POWER)), PROC_REF(on_stamina_drains_power_trait_change))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NOSTAMCRIT), SIGNAL_REMOVETRAIT(TRAIT_NOSTAMCRIT)), PROC_REF(on_nostamcrit_trait_change))
 
 	//Traits that register add only
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NOBREATH), PROC_REF(on_nobreath_trait_gain))
@@ -86,6 +87,15 @@
 /mob/living/carbon/proc/on_stamina_drains_power_trait_change(datum/source)
 	SIGNAL_HANDLER
 	update_stamina_hud()
+
+/// TRAIT_NOSTAMCRIT blocks exhaustion and ends stamcrit, getting it added or removed queues an update
+/mob/living/carbon/proc/on_nostamcrit_trait_change(datum/source)
+	SIGNAL_HANDLER
+	if(!stamina) //Destroy() deletes stamina before mutations remove their traits
+		return
+	if(HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
+		remove_status_effect(/datum/status_effect/incapacitating/stamcrit)
+	on_stamina_update()
 
 /mob/living/carbon/on_incapacitated_trait_gain(datum/source)
 	. = ..()

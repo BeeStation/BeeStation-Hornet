@@ -726,7 +726,7 @@
 	. = ..()
 	if(current_cycle > 10)
 		affected_mob.Sleeping(40 * REM * delta_time)
-	affected_mob.stamina.adjust(-10 * REM * delta_time)
+	affected_mob.stamina.adjust(-35 * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/sulfonal

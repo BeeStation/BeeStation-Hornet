@@ -310,6 +310,8 @@
 	SetStun(amount)
 	SetImmobilized(amount)
 	SetUnconscious(amount)
+	if(amount <= 0)
+		remove_status_effect(/datum/status_effect/incapacitating/stamcrit)
 
 
 /mob/living/proc/AdjustAllImmobility(amount)

@@ -89,6 +89,8 @@
 
 /datum/component/carbon_sprint/proc/keyUp()
 	sprint_key_down = FALSE
+	if(sprinting)
+		stopSprint()
 
 /datum/component/carbon_sprint/proc/stopSprint()
 	sprinting = FALSE
@@ -105,6 +107,9 @@
 		return FALSE
 
 	if(carbon_parent.movement_type & (FLOATING|FLYING|VENTCRAWLING|PHASING))
+		return FALSE
+
+	if(carbon_parent.body_position == LYING_DOWN || carbon_parent.legcuffed)
 		return FALSE
 
 	var/datum/move_intent/quick_intent = carbon_parent.get_move_intent_by_flag(MOVE_INTENT_QUICK)
