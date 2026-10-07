@@ -17,7 +17,9 @@
 		add_overlay(overlay)
 	return ..()
 
-
+/obj/item/organ/cyberimp/feel_for_damage(self_aware)
+	// No feeling in implants (yet?)
+	return ""
 
 //[[[[BRAIN]]]]
 

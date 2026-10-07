@@ -42,7 +42,6 @@
   );
   @include meta.load-css('~tgui/styles/components/Slider.scss');
   @include meta.load-css('~tgui/styles/components/Tabs.scss');
-  @include meta.load-css('~tgui/styles/interfaces/ModularFabricator.scss');
   @include meta.load-css('~tgui/styles/interfaces/RequestManager.scss');
   @include meta.load-css('~tgui/styles/layouts/Layout.scss');
   @include meta.load-css('~tgui/styles/layouts/PopupWindow.scss');
@@ -53,7 +52,7 @@
   @include meta.load-css('~tgui/styles/interfaces/AlertModal.scss');
   @include meta.load-css('~tgui/styles/interfaces/ChemDispenser.scss');
   @include meta.load-css('~tgui/styles/interfaces/ListInput.scss');
-  @include meta.load-css('~tgui/styles/interfaces/TechFab.scss');
+  @include meta.load-css('~tgui/styles/interfaces/Fabricator.scss');
   @include meta.load-css('~tgui/styles/interfaces/Techweb.scss');
   // Button overrides
   @include meta.load-css(

@@ -48,8 +48,6 @@
 #define COLOR_SECURITY_RED "#CB0000"
 #define COLOR_VIVID_RED "#FF3232"
 #define COLOR_SOFT_RED "#FA8282"
-/// Color used for default blood
-#define COLOR_BLOOD "#CC0000"
 
 #define COLOR_YELLOW "#FFFF00"
 #define COLOR_VIVID_YELLOW "#FBFF23"
@@ -68,12 +66,17 @@
 #define COLOR_CYAN "#00FFFF"
 #define COLOR_DARK_CYAN "#00A2FF"
 #define COLOR_TEAL "#008080"
-#define COLOR_BLUSH_TEAL "#009696"
 #define COLOR_BLUE "#0000FF"
 #define COLOR_MODERATE_BLUE "#555CC2"
 #define COLOR_BLUE_LIGHT "#33CCFF"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75A2BB"
+
+///Colors for blood greyscale sprites
+#define BLOOD_COLOR_RED "#CC0000"
+#define BLOOD_COLOR_LIZARD "#009696"
+#define BLOOD_COLOR_ETHEREAL "#7fff7f"
+#define BLOOD_COLOR_SYNTHETIC "#dddeff"
 
 /// Starlight!
 #define COLOR_STARLIGHT "#8589fa"
@@ -295,3 +298,5 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define EYE_COLOR_SPECIES_PRIORITY 10
 #define EYE_COLOR_WEED_PRIORITY 20
 #define EYE_COLOR_CULT_PRIORITY 30
+
+#define HUSK_COLOR_TONE rgb(96, 88, 80)
