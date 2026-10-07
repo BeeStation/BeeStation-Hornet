@@ -1,7 +1,3 @@
-#define BOUNTY_STATUS_OPEN "open"
-#define BOUNTY_STATUS_CLAIMED "claimed"
-#define BOUNTY_STATUS_COMPLETED "completed"
-
 GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new)
 
 GLOBAL_LIST_EMPTY(request_list)
