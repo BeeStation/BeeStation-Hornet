@@ -3,7 +3,15 @@ import { decodeHtmlEntities } from 'common/string';
 import { Component, createRef } from 'react';
 
 import { useBackend } from '../backend';
-import { Box, Button, Divider, Section, Stack, Table, TextArea } from '../components';
+import {
+  Box,
+  Button,
+  Divider,
+  Section,
+  Stack,
+  Table,
+  TextArea,
+} from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
 
