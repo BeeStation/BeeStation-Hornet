@@ -1562,3 +1562,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	pixel_shift = 30
 
 #undef ALERT_DELAY
+#undef BOUNTY_STATUS_OPEN
+#undef BOUNTY_STATUS_CLAIMED
+#undef BOUNTY_STATUS_COMPLETED
