@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(billing)
 	name = "Billing"
-	ss_flags = SS_BACKGROUND
+	ss_flags = SS_BACKGROUND | SS_NO_INIT
 
 	/// Roundtsart billing console
 	var/obj/machinery/billing_server/roundstart_server
@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(billing)
 
 /datum/controller/subsystem/billing/fire()
 	// Temp ew
-	if(COOLDOWN_FINISHED(src, auto_pay))
+	if(COOLDOWN_FINISHED(src, auto_pay) && roundstart_server)
 		COOLDOWN_START(src, auto_pay, 5 MINUTES)
 		for(var/department_ID in list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID, ACCOUNT_SCI_ID, ACCOUNT_ENG_ID, ACCOUNT_MED_ID, ACCOUNT_SEC_ID))
 			if(department_ID != ACCOUNT_SEC_ID)
