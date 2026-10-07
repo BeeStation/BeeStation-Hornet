@@ -1,0 +1,4 @@
+author: BotTierPC
+delete-after: true
+changes:
+  - admin: Mentor Admins can now choose to hide their mentor role when using Deadmin/Stealthmin
