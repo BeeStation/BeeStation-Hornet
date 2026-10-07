@@ -1,7 +1,9 @@
-GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new)
-GLOBAL_LIST_EMPTY(allCasters)
+#define BOUNTY_STATUS_OPEN "open"
+#define BOUNTY_STATUS_CLAIMED "claimed"
+#define BOUNTY_STATUS_COMPLETED "completed"
 
-GLOBAL_LIST_EMPTY(allbountyboards)
+GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new)
+
 GLOBAL_LIST_EMPTY(request_list)
 GLOBAL_LIST_EMPTY(completed_request_list)
 
@@ -211,7 +213,6 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	create_feed_channel("AuriNet WeatherCast", "SS13", "Solar weather and radiative events monitoring.", locked = TRUE, hardset_channel = 2000)
 
 	wanted_issue = new /datum/wanted_message
-	wanted_issues = list()
 
 /datum/feed_network/proc/create_feed_channel(channel_name, author, desc, locked, adminChannel = FALSE, hardset_channel)
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
@@ -236,8 +237,8 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	newMsg.is_admin_message = adminMessage
 	newMsg.locked = !allow_comments
 	if(islist(picture))
-		for(var/datum/picture/pic as anything in picture)
-			if(!pic?.picture_image)
+		for(var/datum/picture/pic in picture)
+			if(!pic.picture_image)
 				continue
 			newMsg.imgs += pic.picture_image
 			newMsg.photo_files += save_photo(pic.picture_image)
@@ -267,7 +268,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 			var/icon/photo = newMsg.imgs[i]
 			for(var/client/C as anything in GLOB.clients)
 				C << browse_rsc(photo, photo_ID)
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allCasters)
+	for(var/obj/machinery/newscaster/NEWSCASTER as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/newscaster))
 		NEWSCASTER.news_alert(channel_name, update_alert)
 	last_action ++
 	newMsg.creation_time = last_action
@@ -306,7 +307,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	wanted_issues.Insert(1, new_issue)
 	refresh_primary_wanted_issue()
 	if(newMessage)
-		for(var/obj/machinery/newscaster/N in GLOB.allCasters)
+		for(var/obj/machinery/newscaster/N as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/newscaster))
 			N.news_alert()
 			N.update_icon()
 
@@ -324,7 +325,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 			if(issue)
 				qdel(issue)
 	refresh_primary_wanted_issue()
-	for(var/obj/machinery/newscaster/updated_newscaster in GLOB.allCasters)
+	for(var/obj/machinery/newscaster/updated_newscaster as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/newscaster))
 		updated_newscaster.update_icon()
 
 /datum/feed_network/proc/save_photo(icon/photo)
@@ -371,7 +372,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	///Name of the bounty claimer for displaying.
 	var/claimant_name
 	///Current state of the request.
-	var/status = "open"
+	var/status = BOUNTY_STATUS_OPEN
 	///Tags shown in the completed log.
 	var/list/status_tags = list()
 	///Has the Issuer prepaid the total reward into a held account pending bounty completion
@@ -391,19 +392,19 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 		owner_account = own_account
 
 /datum/station_request/proc/claim(datum/bank_account/account)
-	if(!istype(account) || status != "open")
+	if(!istype(account) || status != BOUNTY_STATUS_OPEN)
 		return FALSE
 	claimant_account = account
 	claimant_name = account.account_holder
-	status = "claimed"
+	status = BOUNTY_STATUS_CLAIMED
 	return TRUE
 
 /datum/station_request/proc/unclaim()
-	if(status != "claimed")
+	if(status != BOUNTY_STATUS_CLAIMED)
 		return FALSE
 	claimant_account = null
 	claimant_name = null
-	status = "open"
+	status = BOUNTY_STATUS_OPEN
 	return TRUE
 
 // Takes the total reward from the issuers account and holds it until the bounty is completed
@@ -435,7 +436,7 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 	return TRUE
 
 /datum/station_request/proc/complete(list/tags, datum/bank_account/account = claimant_account)
-	status = "completed"
+	status = BOUNTY_STATUS_COMPLETED
 	claimant_account = account
 	claimant_name = account?.account_holder
-	status_tags = tags?.Copy() || list()
+	status_tags = LAZYCOPY(tags)

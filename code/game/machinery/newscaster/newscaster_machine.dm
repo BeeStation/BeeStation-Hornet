@@ -93,13 +93,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
-	GLOB.allCasters += src
-	GLOB.allbountyboards += src
 	update_icon()
 
 /obj/machinery/newscaster/Destroy()
-	GLOB.allCasters -= src
-	GLOB.allbountyboards -= src
 	current_channel = null
 	current_image = null
 	active_request = null
@@ -777,7 +773,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 				selected_wanted_id = GLOB.news_network.wanted_issues[1].wanted_id
 			else
 				selected_wanted_id = null
-			for(var/obj/machinery/newscaster/other_newscaster in GLOB.allCasters)
+			for(var/obj/machinery/newscaster/other_newscaster as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/newscaster))
 				other_newscaster.update_icon()
 				return TRUE
 
@@ -1342,7 +1338,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(active_request.status != "open")
+	if(active_request.status != BOUNTY_STATUS_OPEN)
 		say("ERROR: Only open bounties can be deleted.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
@@ -1384,7 +1380,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(active_request.status != "claimed")
+	if(active_request.status != BOUNTY_STATUS_CLAIMED)
 		say("ERROR: Only claimed bounties can be expired.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
@@ -1407,7 +1403,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(active_request.status != "claimed")
+	if(active_request.status != BOUNTY_STATUS_CLAIMED)
 		say("ERROR: Only claimed bounties can be failed.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
@@ -1455,7 +1451,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	bounty_quantity = 1
 	bounty_title = ""
 	bounty_text = ""
-	for(var/obj/iterated_bounty_board as anything in GLOB.allbountyboards)
+	for(var/obj/machinery/newscaster/iterated_bounty_board as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/newscaster))
 		iterated_bounty_board.say("New bounty added!")
 		playsound(iterated_bounty_board.loc, 'sound/effects/cashregister.ogg', 30, TRUE)
 /**
@@ -1475,7 +1471,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	if(account.account_holder == active_request.owner)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(active_request.status != "open")
+	if(active_request.status != BOUNTY_STATUS_OPEN)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
 	if(!active_request.claim(account))
@@ -1540,7 +1536,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 		return TRUE
 	if(!active_request)
 		return TRUE
-	if(active_request.status != "claimed")
+	if(active_request.status != BOUNTY_STATUS_CLAIMED)
 		say("ERROR: Only claimed bounties can be printed.")
 		return TRUE
 	var/obj/item/paper/printed_paper = new /obj/item/paper(drop_location())
