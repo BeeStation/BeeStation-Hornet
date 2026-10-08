@@ -73,6 +73,10 @@
 	var/obj/item/mod/module/selected_module
 	/// AI or pAI mob inhabiting the MOD.
 	var/mob/living/silicon/ai_assistant
+	/// The MODlink datum, letting us call people from the suit.
+	var/datum/mod_link/mod_link
+	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
+	var/starting_frequency = null
 	/// Delay between moves as AI.
 	var/static/movedelay = 0
 	/// Cooldown for AI moves.

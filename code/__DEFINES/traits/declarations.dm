@@ -329,7 +329,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_KNOW_ROBO_WIRES "know_robo_wires"
 /// Mob has gotten an armor buff from adamantine extract
 #define TRAIT_ADAMANTINE_EXTRACT_ARMOR "adamantine_extract_armor"
-
+/// Whether or not the user is in a MODlink call, prevents making more calls
+#define TRAIT_IN_CALL "in_call"
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
 /// Whether we're sneaking, from the alien sneak ability.

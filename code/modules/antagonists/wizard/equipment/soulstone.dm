@@ -367,6 +367,8 @@
 	if(QDELETED(target))
 		return
 	var/mob/living/simple_animal/hostile/construct/newstruct = new ctype((loc_override) ? (loc_override) : (get_turf(target)))
+	if(cultoverride)
+		newstruct.drops_shard = FALSE
 	var/makeicon = newstruct.icon_state
 	var/theme = newstruct.theme
 	flick("make_[makeicon][theme]", newstruct)

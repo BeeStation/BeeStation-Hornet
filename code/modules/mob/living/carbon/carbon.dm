@@ -432,7 +432,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Proc that compels the mob to throw up. Returns TRUE if the mob actually threw up.
 /mob/living/carbon/proc/vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/toxic, lost_nutrition = 10, distance = 1, purge_ratio = 0.1)
 	var/force = (vomit_flags & MOB_VOMIT_FORCE)
-	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER)) && !force)
+	if((HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_TOXINLOVER) || HAS_TRAIT(src, TRAIT_NOVOMIT)) && !force)
 		return FALSE
 
 	if(!has_mouth())

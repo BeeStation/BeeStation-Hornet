@@ -63,7 +63,7 @@
 	/// Either [EMISSIVE_BLOCK_NONE], [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
 	var/blocks_emissive = EMISSIVE_BLOCK_NONE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
-	var/atom/movable/emissive_blocker/em_block
+	var/atom/movable/render_step/emissive_blocker/em_block
 	/**
 	 * an associative lazylist of relevant nested contents by "channel", the list is of the form: list(channel = list(important nested contents of that type))
 	 * each channel has a specific purpose and is meant to replace potentially expensive nested contents iteration
@@ -90,7 +90,7 @@
 	. = ..()
 	// Need to do this here because it's overridden by the parent call
 	// This is a microop which is the sole reason why this child exists, because its static this is a really cheap way to set color without setting or checking it every time we create an atom
-	color = EM_BLOCKER_MATRIX
+	color = EM_BLOCK_COLOR
 
 /atom/movable/Initialize(mapload, ...)
 	. = ..()
@@ -109,7 +109,7 @@
 	if (blocks_emissive)
 		if (blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, src)
+			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
 				if(islist(managed_overlays))
@@ -211,19 +211,24 @@
 		vis_contents.Cut()
 
 /atom/movable/proc/update_emissive_block()
-	if(!blocks_emissive)
-		return
-	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
-		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
-		gen_emissive_blocker.color = GLOB.em_blocker_matrix
-		return gen_emissive_blocker
-	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
-		if(!em_block && !QDELETED(src))
-			render_target = ref(src)
-			em_block = new(src, render_target)
-		return em_block
+	// This one is incredible.
+	// `if (x) else { /* code */ }` is surprisingly fast, and it's faster than a switch, which is seemingly not a jump table.
+	// From what I can tell, a switch case checks every single branch individually, although sane, is slow in a hot proc like this.
+	// So, we make the most common `blocks_emissive` value, EMISSIVE_BLOCK_GENERIC, 0, getting to the fast else branch quickly.
+	// If it fails, then we can check over every value it can be (here, EMISSIVE_BLOCK_UNIQUE is the only one that matters).
+	// This saves several hundred milliseconds of init time.
+	if (blocks_emissive)
+		if (blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+			if(em_block)
+				em_block.plane = EMISSIVE_PLANE
+			else if(!QDELETED(src))
+				render_target = ref(src)
+				em_block = new(null, src)
+			return em_block
+		// Implied else if (blocks_emissive == EMISSIVE_BLOCK_NONE) -> return
+	// EMISSIVE_BLOCK_GENERIC == 0
+	else
+		return fast_emissive_blocker(src)
 
 /atom/movable/update_overlays()
 	var/list/overlays = ..()
