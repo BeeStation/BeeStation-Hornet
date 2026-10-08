@@ -687,7 +687,7 @@
 		queue_icon_update()
 
 	// Billing
-	if(!department_ID)
+	if(!department_ID || !bill_agent?.department_ID)
 		return
 	if(COOLDOWN_FINISHED(src, add_power_bill) && rolling_bill > 0)
 		COOLDOWN_START(src, add_power_bill, bill_interval)
