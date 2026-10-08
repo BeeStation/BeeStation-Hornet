@@ -900,6 +900,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] deadmined themself.")
 	message_admins("[src] deadmined themself.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Deadmin")
+	prompt_hide_mentor_from_staffwho("deadmin")
 
 /client/proc/readmin()
 	set name = "Readmin"
