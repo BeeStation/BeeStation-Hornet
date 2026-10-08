@@ -687,6 +687,8 @@
 		queue_icon_update()
 
 	// Billing
+	if(!department_ID)
+		return
 	if(COOLDOWN_FINISHED(src, add_power_bill) && rolling_bill > 0)
 		COOLDOWN_START(src, add_power_bill, bill_interval)
 		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, rolling_bill*BILLING_COST_ELECTRICITY, "Electricity Bill", "[department_ID] has used [rolling_bill]kW through [src] since its last billing period.")
