@@ -37,10 +37,21 @@
 		SSbilling?.roundstart_server?.link_terminal(src)
 		link_server(SSbilling?.roundstart_server)
 
+/obj/machinery/computer/billing/examine(mob/user)
+	. = ..()
+	. += span_notice("Insert a department budget card to access bills. Alt-Click to remove it.")
+
 /obj/machinery/computer/billing/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	. = ..()
 	if(istype(attacking_item, /obj/item/card/id/departmental_budget) && !budget_card)
 		link_budget_card(attacking_item)
+		ui_update()
+
+/obj/machinery/computer/billing/AltClick(mob/user)
+	. = ..()
+	budget_card.forceMove(get_turf(src))
+	link_budget_card(null)
+	ui_update()
 
 /obj/machinery/computer/billing/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
@@ -86,7 +97,7 @@
 		data["sent_bills"] = parsed_bills
 	// Who's money is this?
 	data["account_id"] = budget_card?.department_ID
-	data["account_amount"] = account.account_balance
+	data["account_amount"] = account?.account_balance
 	// Which server are we linked to?
 	data["server_id"] = server?.name
 	// Active budgets we can bill
@@ -98,6 +109,8 @@
 		return
 	switch(action)
 		if("pay_bill")
+			if(!server || !budget_card)
+				return
 			var/datum/bill/bill= locate(params["ref"])
 			if(bill.paid)
 				return
@@ -115,6 +128,9 @@
 		if("new_draft")
 			if(!server)
 				to_chat(usr, span_warning("ERROR: No linked server to draft to!"))
+				return
+			if(!budget_card)
+				to_chat(usr, span_warning("ERROR: No Department ID to draft from!"))
 				return
 			server.create_new_bill(null, budget_card.department_ID, null, TRUE)
 			. = TRUE
@@ -140,8 +156,10 @@
 			//TODO: Signals and other shit in here - Racc
 			. = TRUE
 		if("delete_draft")
+			if(!server)
+				return
 			var/datum/bill/bill= locate(params["ref"])
-			server?.bills -= bill
+			server.bills -= bill
 			qdel(bill)
 			//TODO: Signals and other shit in here - Racc
 			. = TRUE

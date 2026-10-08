@@ -49,28 +49,28 @@ export const BillingTerminal = (props) => {
                 selected={tabIndex === 1}
                 onClick={() => setTabIndex(1)}
               >
-                {'Incoming Invoices (' + incoming_bills.length + ')'}{' '}
+                {'Incoming Invoices (' + incoming_bills?.length + ')'}{' '}
                 <Icon name="envelope" />
               </Tabs.Tab>
               <Tabs.Tab
                 selected={tabIndex === 2}
                 onClick={() => setTabIndex(2)}
               >
-                {'Outgoing invoices (' + sent_bills.length + ')'}{' '}
+                {'Outgoing invoices (' + sent_bills?.length + ')'}{' '}
                 <Icon name="paper-plane" />
               </Tabs.Tab>
               <Tabs.Tab
                 selected={tabIndex === 3}
                 onClick={() => setTabIndex(3)}
               >
-                {'Paid Invoices (' + paid_bills.length + ')'}{' '}
+                {'Paid Invoices (' + paid_bills?.length + ')'}{' '}
                 <Icon name="receipt" />
               </Tabs.Tab>
               <Tabs.Tab
                 selected={tabIndex === 4}
                 onClick={() => setTabIndex(4)}
               >
-                {'Drafted Invoices (' + drafted_bills.length + ')'}{' '}
+                {'Drafted Invoices (' + drafted_bills?.length + ')'}{' '}
                 <Icon name="pencil" />
               </Tabs.Tab>
             </Tabs>
@@ -95,7 +95,7 @@ const DraftedBills = (_props) => {
   return (
     <Section
       scrollable
-      title={'Drafts (' + drafted_bills.length + ')'}
+      title={'Drafts (' + drafted_bills?.length + ')'}
       fill
       buttons={
         <Button color="green" onClick={() => act('new_draft')}>
@@ -191,7 +191,7 @@ const OutgoingBills = (_props) => {
   const { sent_bills } = data;
 
   return (
-    <Section scrollable title={'Outgoing (' + sent_bills.length + ')'} fill>
+    <Section scrollable title={'Outgoing (' + sent_bills?.length + ')'} fill>
       <Flex direction="column">
         {sent_bills
           ? sent_bills.map((bill) => (
@@ -248,7 +248,7 @@ const PayedBills = (_props) => {
   const { paid_bills } = data;
 
   return (
-    <Section scrollable title={'Paid (' + paid_bills.length + ')'} fill>
+    <Section scrollable title={'Paid (' + paid_bills?.length + ')'} fill>
       <Flex direction="column">
         {paid_bills
           ? paid_bills.map((bill) => (
@@ -293,7 +293,11 @@ const IncomingBills = (_props) => {
   const { incoming_bills } = data;
 
   return (
-    <Section scrollable title={'Incoming (' + incoming_bills.length + ')'} fill>
+    <Section
+      scrollable
+      title={'Incoming (' + incoming_bills?.length + ')'}
+      fill
+    >
       <Flex direction="column">
         {incoming_bills
           ? incoming_bills.map((bill) => (
