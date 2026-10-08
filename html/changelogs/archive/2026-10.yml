@@ -85,3 +85,11 @@
   - map: Tweaked Fland's round start supermatter piping to make it easier to understand.
   - map: Tweaked fland's engine room areas so the same air alarm doesn't connect to
       every vent and scrubber in the room.
+2026-10-08:
+  Isaacnml:
+  - bugfix: Placing a human into a suit storage, wont completely rip out all of it's
+      parts
+  - bugfix: Absorbing a foreigner doesn't lock you out of other languages
+  - bugfix: Cult Ghost mark works once again
+  - rscadd: Cult conversion runes now prioritize converting dead people over sharding
+  - bugfix: Patches have a self-apply time of 3 again
