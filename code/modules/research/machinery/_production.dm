@@ -26,13 +26,11 @@
 	/// The direction prints and ejected sheets land in. 0 drops them on top of us.
 	var/output_direction = 0
 
-	var/roundstart = FALSE
-	/// What billing network server we're connected to
-	var/obj/machinery/billing_server/server
-	/// What department ID we make bills for
+	/// Department ID of the rentoid
 	var/department_ID
-	/// Track record of bill's we've generated
-	var/list/bills = list()
+	/// Reference to our billing component, so we can shut down
+	var/datum/component/bill_agent/generic/bill_agent
+
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	print_sound = new(src, FALSE)
@@ -45,8 +43,7 @@
 
 	. = ..()
 
-	if(mapload)
-		roundstart = TRUE
+	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_SCI_ID)
 
 	cached_designs = list()
 	create_reagents(100, OPENCONTAINER)
@@ -55,11 +52,6 @@
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
 	RefreshParts()
 	update_appearance(UPDATE_OVERLAYS)
-
-/obj/machinery/rnd/production/LateInitialize()
-	. = ..()
-	if(roundstart)
-		server = SSbilling?.roundstart_server
 
 /obj/machinery/rnd/production/Destroy()
 	QDEL_NULL(print_sound)
@@ -373,7 +365,7 @@
 	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
-	if(length(bills) >= BILLING_MAX_OUTSTANDING_FAB)
+	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_FAB)
 		say("Too many outstanding invoices.")
 		return FALSE
 
@@ -420,28 +412,15 @@
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), total_time)
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction, time_per_item, materials_to_consume), time_per_item)
 
-	// Setup invoices
+	// Science's cut
 	if(department_ID && department_ID != ACCOUNT_SCI_ID)
-		// Design Bill
-		var/datum/bill/design_bill = server?.create_new_bill(department_ID, ACCOUNT_SCI_ID, BILLING_COST_FAB_DESIGN*amount, FALSE, FALSE)
-		design_bill.title = "Design Invoice"
-		design_bill.body = "For the use of the licensed '[design.name]' design. ($[BILLING_COST_FAB_DESIGN] x [amount] instances)."
-		bills += design_bill
-		RegisterSignal(design_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, BILLING_COST_FAB_DESIGN*amount, "Design Invoice", "For the use of the licensed '[design.name]' design. ($[BILLING_COST_FAB_DESIGN] x [amount] instances).")
+	// Cargo's cut
 	if(department_ID && department_ID != ACCOUNT_CAR_ID)
-		// Material Bill
-		var/datum/bill/material_bill = server?.create_new_bill(department_ID, ACCOUNT_CAR_ID, BILLING_COST_FAB_MATERIAL*material_cost*amount, FALSE, FALSE)
-		material_bill.title = "Material Invoice"
-		material_bill.body = "For the use of Cargo materials, \[[material_strings]\]. ($[BILLING_COST_FAB_MATERIAL*material_cost] x [amount] instances)."
-		bills += material_bill
-		RegisterSignal(material_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, BILLING_COST_FAB_MATERIAL*material_cost*amount, "Material Invoice", "For the use of Cargo materials, \[[material_strings]\]. ($[BILLING_COST_FAB_MATERIAL*material_cost] x [amount] instances).", ACCOUNT_CAR_ID)
+
 
 	return TRUE
-
-/obj/machinery/rnd/production/proc/catch_bill(datum/source)
-	SIGNAL_HANDLER
-
-	bills -= source
 
 /obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
 	var/datum/component/material_container/mat_container = materials.mat_container

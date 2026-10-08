@@ -1,10 +1,16 @@
-/// generic techfab design cost
+/// Generic techfab design
 #define BILLING_COST_FAB_DESIGN 25
-/// generic techfab material
+/// generic Techfab material
 #define BILLING_COST_FAB_MATERIAL 0.025
+/// Electricity in whatever unit
+#define BILLING_COST_ELECTRICITY 0.001
 
-/// Maximum outstanding bills for techfabs
-#define BILLING_MAX_OUTSTANDING_FAB 6
+/// Generic billing period for power
+#define BILLING_PERIOD_POWER 8 MINUTES
+
+/// Maximum outstanding bills
+#define BILLING_MAX_OUTSTANDING_FAB 5
+#define BILLING_MAX_OUTSTANDING_APC 2
 
 /// Generic services cost
 #define BILLING_UPKEEP_GENERIC 200
@@ -13,3 +19,6 @@
 
 #define COMSIG_BILLING_NEW_BILL "COMSIG_BILLING_NEW_BILL"
 #define COMSIG_BILLING_BILL_UNDRAFT "COMSIG_BILLING_BILL_UNDRAFT"
+#define COMSIG_BILLING_DEFAULT_SERVER_FOUND "COMSIG_BILLING_DEFAULT_SERVER_FOUND"
+
+#define COMSIG_BILLING_BILL_AGENT_GENERIC "COMSIG_BILLING_BILL_AGENT_GENERIC"

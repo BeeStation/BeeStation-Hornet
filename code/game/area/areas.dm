@@ -149,6 +149,9 @@
 	/// of automated.
 	var/disable_air_alarm_automation = FALSE
 
+	/// What department we represent, for power billing
+	var/power_bill_department_ID
+
 /**
   * A list of teleport locations
   *

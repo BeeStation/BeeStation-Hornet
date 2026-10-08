@@ -6,6 +6,7 @@
 	icon = 'icons/area/areas_station.dmi'
 	icon_state = "station"
 	camera_networks = list(CAMERA_NETWORK_STATION)
+	power_bill_department_ID = ACCOUNT_COM_ID
 
 //Maintenance
 
@@ -42,6 +43,7 @@
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION) //Maint cameras go fuck yourself
+	power_bill_department_ID = null
 
 /area/station/maintenance/get_area_textures()
 	return GLOB.turf_texture_maint
@@ -389,6 +391,8 @@
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
+	power_bill_department_ID = ACCOUNT_COM_ID
+
 /area/station/command/bridge
 	name = "\improper Bridge"
 	icon_state = "bridge"
@@ -418,6 +422,7 @@
 	icon_state = "captain"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_MAXIMUM
+	power_bill_department_ID = ACCOUNT_COM_ID
 
 /area/station/command/heads_quarters/captain/private
 	name = "\improper Captain's Quarters"
@@ -426,23 +431,28 @@
 /area/station/command/heads_quarters/chief
 	name = "\improper Chief Engineer's Office"
 	icon_state = "ce_office"
+	power_bill_department_ID = ACCOUNT_ENG_ID
 
 /area/station/command/heads_quarters/cmo
 	name = "\improper Chief Medical Officer's Office"
 	icon_state = "cmo_office"
+	power_bill_department_ID = ACCOUNT_MED_ID
 
 /area/station/command/heads_quarters/hop
 	name = "\improper Head of Personnel's Office"
 	icon_state = "hop_office"
 	color_correction = /datum/client_colour/area_color/cold_ish
+	power_bill_department_ID = ACCOUNT_COM_ID //Service, or civilian?
 
 /area/station/command/heads_quarters/hos
 	name = "\improper Head of Security's Office"
 	icon_state = "hos_office"
+	power_bill_department_ID = ACCOUNT_SEC_ID
 
 /area/station/command/heads_quarters/rd
 	name = "\improper Research Director's Office"
 	icon_state = "rd_office"
+	power_bill_department_ID = ACCOUNT_SCI_BITFLAG
 
 //Command - Teleporters
 
@@ -640,6 +650,7 @@
 /area/station/service
 	abstract_type = /area/station/service
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
+	power_bill_department_ID = ACCOUNT_SRV_ID
 
 /area/station/service/cafeteria
 	name = "\improper Cafeteria"
@@ -860,6 +871,7 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/warm_yellow
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
+	power_bill_department_ID = null // Don't need to pay for their own power
 
 /area/station/engineering/engine_smes
 	name = "\improper Engineering SMES"
@@ -1109,6 +1121,7 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MEDICAL)
+	power_bill_department_ID = ACCOUNT_MED_ID
 
 /area/station/medical/abandoned
 	name = "\improper Abandoned Medbay"
@@ -1262,6 +1275,7 @@
 	lighting_colour_bulb = "#ffdfca"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	color_correction = /datum/client_colour/area_color/warm_ish
+	power_bill_department_ID = ACCOUNT_SEC_ID
 
 /area/station/security/get_area_textures()
 	return GLOB.turf_texture_hallway
@@ -1516,6 +1530,7 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_yellow
+	power_bill_department_ID = ACCOUNT_CAR_ID
 
 /area/station/cargo/get_area_textures()
 	return GLOB.turf_texture_hallway
@@ -1599,6 +1614,7 @@
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_RESEARCH)
+	power_bill_department_ID = ACCOUNT_SCI_ID
 
 /area/station/science/lobby
 	name = "\improper Science Lobby"

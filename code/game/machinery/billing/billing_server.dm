@@ -9,8 +9,7 @@
 
 /obj/machinery/billing_server/Initialize(mapload)
 	. = ..()
-	SSbilling.roundstart_server ||= src
-
+	SSbilling.set_default_server(src)
 
 /obj/machinery/billing_server/proc/link_terminal(obj/console)
 	linked_terminals += console

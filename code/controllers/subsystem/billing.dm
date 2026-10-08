@@ -29,3 +29,9 @@ SUBSYSTEM_DEF(billing)
 				var/datum/bill/service_bill = roundstart_server?.create_new_bill(department_ID, ACCOUNT_SRV_ID, BILLING_UPKEEP_GENERIC, FALSE, FALSE)
 				service_bill.title = "Service Services Invoice"
 				service_bill.body = "For the continued services of Service."
+
+/datum/controller/subsystem/billing/proc/set_default_server(obj/machinery/billing_server/_server)
+	if(roundstart_server)
+		return
+	roundstart_server = _server
+	SEND_SIGNAL(src, COMSIG_BILLING_DEFAULT_SERVER_FOUND, roundstart_server)

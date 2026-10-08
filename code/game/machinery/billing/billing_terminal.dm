@@ -1,12 +1,12 @@
 /*
-	Popup to establuish the concept and extra rules
+	Suit sensor bills for each department
 */
 
 /obj/machinery/computer/billing
 	name = "billing terminal"
 	desc = "A terminal used to bill"
-	icon_screen = "comm"
-	icon_keyboard = "tech_key"
+	icon_screen = "billing"
+	icon_keyboard = "power_key"
 	// req_access = list(ACCESS_HEADS)
 	light_color = LIGHT_COLOR_BLUE
 	clicksound = null
@@ -20,6 +20,8 @@
 	var/static/list/billables = list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID, ACCOUNT_SCI_ID, ACCOUNT_ENG_ID, ACCOUNT_MED_ID, ACCOUNT_SEC_ID)
 	/// Are we made by mappers?
 	var/roundstart = FALSE
+
+	COOLDOWN_DECLARE(ping_notification)
 
 /obj/machinery/computer/billing/Initialize(mapload)
 	. = ..()
@@ -55,32 +57,32 @@
 		var/list/parsed_bills = list()
 		for(var/datum/bill/bill as anything in server.get_bills(budget_card.department_ID))
 			parsed_bills += list(list("title" = bill.title, "body" = bill.body, "from" = bill.from,
-			 "to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
-			 "ref" = REF(bill), "can_delete" = bill.can_delete))
+			"to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
+			"ref" = REF(bill), "can_delete" = bill.can_delete))
 		data["incoming_bills"] = parsed_bills
 	// Load in paid bills
 	if(server && budget_card)
 		var/list/parsed_bills = list()
 		for(var/datum/bill/bill as anything in server.get_bills(budget_card.department_ID, paid = TRUE))
 			parsed_bills += list(list("title" = bill.title, "body" = bill.body, "from" = bill.from,
-			 "to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
-			 "ref" = REF(bill), "can_delete" = bill.can_delete))
+			"to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
+			"ref" = REF(bill), "can_delete" = bill.can_delete))
 		data["paid_bills"] = parsed_bills
 	// Load in our drafts
 	if(server && budget_card)
 		var/list/parsed_bills = list()
 		for(var/datum/bill/bill as anything in server.get_bills(from_department_id = budget_card.department_ID, drafts = TRUE))
 			parsed_bills += list(list("title" = bill.title, "body" = bill.body, "from" = bill.from,
-			 "to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
-			 "ref" = REF(bill), "can_delete" = bill.can_delete))
+			"to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
+			"ref" = REF(bill), "can_delete" = bill.can_delete))
 		data["drafted_bills"] = parsed_bills
 	// Load in sent bills
 	if(server && budget_card)
 		var/list/parsed_bills = list()
 		for(var/datum/bill/bill as anything in server.get_bills(from_department_id = budget_card.department_ID)|server.get_bills(from_department_id = budget_card.department_ID, paid = TRUE))
 			parsed_bills += list(list("title" = bill.title, "body" = bill.body, "from" = bill.from,
-			 "to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
-			 "ref" = REF(bill), "can_delete" = bill.can_delete))
+			"to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
+			"ref" = REF(bill), "can_delete" = bill.can_delete))
 		data["sent_bills"] = parsed_bills
 	// Who's money is this?
 	data["account_id"] = budget_card?.department_ID
@@ -183,8 +185,11 @@
 	SIGNAL_HANDLER
 
 	if(new_bill.to_whom == budget_card?.department_ID)
-		playsound(src, 'sound/machines/terminal_success.ogg', 60, TRUE, 3)
-		say("Invoices recieved")
+		if(COOLDOWN_FINISHED(src, ping_notification)) // This used to rupture my eardrums during testing
+			playsound(src, 'sound/machines/terminal_success.ogg', 60, TRUE, 3)
+			COOLDOWN_START(src, ping_notification, 5 SECONDS)
+		say("Invoices received")
+		ui_update()
 
 //TODO: remove this - Racc
 /obj/machinery/computer/billing/proc/quick_link()

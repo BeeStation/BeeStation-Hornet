@@ -1,3 +1,4 @@
+//TODO: This is temporary - Racc
 /datum/billing_changelog
 
 /datum/billing_changelog/ui_state()
@@ -13,6 +14,10 @@
 	name = "Show Billing Changelog"
 	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "random"
+
+/datum/action/show_billing_changelog/Grant(mob/grant_to)
+	. = ..()
+	on_activate(grant_to)
 
 /datum/action/show_billing_changelog/on_activate(mob/user, atom/target, trigger_flags)
 	. = ..()
