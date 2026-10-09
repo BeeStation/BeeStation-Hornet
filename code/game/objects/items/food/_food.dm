@@ -140,6 +140,7 @@
 			utensil.foodload = dominant_reagent.type
 			utensil.foodload_color = dominant_reagent.color
 			utensil.update_appearance()
+			user.do_item_attack_animation(src, used_item = utensil)
 			reagents.remove_reagent(dominant_reagent.type, 1)
 			user.visible_message(span_notice("[user] scoops a bite of [src] with [user.p_their()] [utensil]."), span_notice("You scoop a bite of [src] with your [utensil]."))
 			if(!reagents.total_volume)
