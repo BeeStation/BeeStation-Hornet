@@ -126,6 +126,11 @@
 	flapsound = 'sound/emotes/moth/moth_flutter.ogg'
 	canopen = TRUE
 
+/obj/item/organ/wings/moth/feel_for_damage(self_aware)
+	if(HAS_TRAIT(owner, TRAIT_MOTH_BURNT))
+		return "Your wings are all burnt up!"
+	return ..()
+
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
 	flight_level = initial(flight_level)
 	return ..()
@@ -181,7 +186,7 @@
 	return ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
-	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
 	cooldown_time = 10 SECONDS
 	var/jumpspeed = 1
 

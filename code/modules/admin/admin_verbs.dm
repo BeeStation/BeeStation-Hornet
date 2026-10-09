@@ -622,7 +622,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 #define STEALTH_MODE_TRAIT "stealth_mode"
 
 /client/proc/enable_stealth_mode()
-	var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
+	var/new_key = ckeyEx(tgui_input_text(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
 	if(!new_key)
 		return
 	holder.fakekey = new_key
@@ -639,6 +639,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	log_admin("[key_name(usr)] has turned stealth mode ON")
 	message_admins("[key_name_admin(usr)] has turned stealth mode ON")
+	prompt_hide_mentor_from_staffwho()
 
 /client/proc/disable_stealth_mode()
 	holder.fakekey = null
@@ -656,10 +657,22 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		mob.mouse_opacity = initial(mob.mouse_opacity)
 
 	REMOVE_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+	GLOB.mentor_staffwho_hidden -= ckey
 	log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 	message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 
 #undef STEALTH_MODE_TRAIT
+
+/// If an admin also has the mentor role, we asks whether they want to be hidden from the mentor list when using staffwho.
+/client/proc/prompt_hide_mentor_from_staffwho()
+	if(!mentor_datum)
+		return
+	var/choice = tgui_alert(src, "Would you like to also appear hidden from the mentor role?", "Mentor Role", list("Yes", "No"))
+	if(choice == "Yes")
+		GLOB.mentor_staffwho_hidden |= ckey
+		to_chat(src, span_interface("Your mentor role will no longer appear in staffwho."))
+	else
+		GLOB.mentor_staffwho_hidden -= ckey
 
 /client/proc/drop_bomb()
 	set category = "Fun"
@@ -888,6 +901,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] deadmined themself.")
 	message_admins("[src] deadmined themself.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Deadmin")
+	prompt_hide_mentor_from_staffwho()
 
 /client/proc/readmin()
 	set name = "Readmin"
@@ -909,6 +923,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if (!holder)
 		return //This can happen if an admin attempts to vv themself into somebody elses's deadmin datum by getting ref via brute force
 
+	GLOB.mentor_staffwho_hidden -= ckey
 	to_chat(src, span_interface("You are now an admin."))
 	message_admins("[src] re-adminned themselves.")
 	log_admin("[src] re-adminned themselves.")

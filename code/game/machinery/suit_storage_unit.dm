@@ -330,7 +330,7 @@
 			if (!state_open)
 				open_machine(drop = FALSE)
 				if (occupant)
-					dump_contents()
+					dump_inventory_contents()
 		if ("close")
 			if (state_open)
 				close_machine()

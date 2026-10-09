@@ -14,6 +14,10 @@ GLOBAL_PROTECT(mentor_href_token)
 GLOBAL_LIST_EMPTY(mentorlog)
 GLOBAL_PROTECT(mentorlog)
 
+/// Normal mentor data gets pulled on staffwho, this list is kept seperate to remain hidden
+GLOBAL_LIST_EMPTY(mentor_staffwho_hidden)
+GLOBAL_PROTECT(mentor_staffwho_hidden)
+
 /// Returns if the client has access to mentor stuff and can use the mentor system.
 /// This is true for mentors and admins with R_ADMIN.
 /// If you want to check if someone is a "true mentor", check mentor_datum

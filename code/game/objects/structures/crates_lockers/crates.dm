@@ -301,17 +301,23 @@
 	new /obj/item/paper/guides/jobs/engi/solars(src)
 	new /obj/item/electronics/tracker(src)
 
+/obj/structure/closet/crate/mod
+	name = "\improper MOD crate"
+	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/mod/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/mod/core/standard(src)
+	for(var/i in 1 to 2)
+		new /obj/item/clothing/neck/link_scryer/loaded(src)
+
 /obj/structure/closet/crate/goldcrate
 	name = "gold crate"
 
 /obj/structure/closet/crate/goldcrate/PopulateContents()
-	..()
 	new /obj/item/storage/belt/champion(src)
 
 /obj/structure/closet/crate/goldcrate/populate_contents_immediate()
-	. = ..()
-
-	// /datum/objective_item/stack/gold
 	for(var/i in 1 to 3)
 		new /obj/item/stack/sheet/mineral/gold(src, 1, FALSE)
 

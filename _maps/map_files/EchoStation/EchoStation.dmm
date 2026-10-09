@@ -2129,6 +2129,7 @@
 "bDS" = (
 /obj/structure/sink/directional/south,
 /obj/structure/cable/yellow,
+/obj/structure/mirror/directional/north,
 /turf/open/floor/prison/dark,
 /area/station/security/prison/safe)
 "bDT" = (
@@ -9645,6 +9646,12 @@
 	},
 /turf/open/floor/iron/textured_corner,
 /area/station/engineering/atmos)
+"fWE" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/closet/crate/mod,
+/obj/item/mod/module/longfall,
+/turf/open/floor/iron/white,
+/area/station/science/robotics)
 "fWR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -22316,9 +22323,6 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/structure/mirror{
-	pixel_x = -26
-	},
 /obj/item/stamp/clown{
 	pixel_x = 9;
 	pixel_y = 12
@@ -22331,6 +22335,7 @@
 	pixel_x = 9;
 	pixel_y = 2
 	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/wood,
 /area/station/service/theater/backstage)
 "nEb" = (
@@ -22386,12 +22391,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/station/medical/exam_room)
-"nFq" = (
-/obj/structure/mirror{
-	pixel_y = 3
-	},
-/turf/closed/wall/r_wall,
-/area/station/medical/patients_rooms)
 "nFt" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office"
@@ -33543,8 +33542,7 @@
 /turf/closed/wall/r_wall,
 /area/station/security/execution/education)
 "uuO" = (
-/obj/structure/mirror{
-	pixel_x = -32;
+/obj/structure/mirror/directional/west{
 	pixel_y = -2
 	},
 /obj/effect/turf_decal/bot,
@@ -115300,7 +115298,7 @@ wzd
 gAM
 jPe
 mBD
-nFq
+dtq
 bDS
 agX
 nOU
@@ -188283,7 +188281,7 @@ mth
 cWo
 hSU
 cEn
-xKR
+fWE
 tUa
 isg
 vLs
