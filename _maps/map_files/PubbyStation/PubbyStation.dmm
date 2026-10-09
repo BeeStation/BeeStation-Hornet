@@ -16750,6 +16750,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/security/warden)
+"fRW" = (
+/obj/structure/sign/painting/library,
+/turf/closed/wall/r_wall,
+/area/station/security/prison)
 "fSe" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/storage/pill_bottle/stimulant,
@@ -52424,6 +52428,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/textured_half,
 /area/station/ai_monitored/command/storage/eva)
+"tuo" = (
+/obj/structure/sign/painting/library,
+/turf/closed/wall,
+/area/station/security/prison)
 "tuO" = (
 /obj/structure/flora/rock{
 	name = "igneous pet rock";
@@ -88114,7 +88122,7 @@ wYw
 icd
 frp
 lhT
-qvA
+tuo
 icB
 icB
 ogU
@@ -88367,7 +88375,7 @@ nWr
 dyR
 nWr
 nWr
-wYw
+fRW
 pVi
 hmN
 eqL
@@ -89653,7 +89661,7 @@ dyR
 nWr
 nWr
 wYw
-wYw
+fRW
 glF
 fUT
 wYw
