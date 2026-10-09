@@ -8,10 +8,13 @@
 	var/obj/machinery/billing_server/server
 	/// List of bills this agent has generated
 	var/list/local_bills = list()
+	/// What tags we add on
+	var/tags
 
-/datum/component/bill_agent/Initialize(_department_ID, auto_link = TRUE) // TODO: Should non roundstart stuff auto link to the server - Racc
+/datum/component/bill_agent/Initialize(_department_ID, auto_link = TRUE, _tags) // TODO: Should non roundstart stuff auto link to the server - Racc
 	. = ..()
 	department_ID = _department_ID
+	tags = _tags
 	if(!auto_link)
 		return
 	// Grab billing server

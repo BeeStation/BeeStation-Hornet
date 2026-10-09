@@ -13,6 +13,12 @@
 
 /obj/machinery/billing_server/proc/link_terminal(obj/console)
 	linked_terminals += console
+	RegisterSignal(console, COMSIG_QDELETING, PROC_REF(catch_terminal))
+
+/obj/machinery/billing_server/proc/catch_terminal(datum/source)
+	SIGNAL_HANDLER
+
+	linked_terminals -= source
 
 /// Return a list of our linked terminals that have inserted budget cards
 /obj/machinery/billing_server/proc/get_valid_terminals()
@@ -23,8 +29,8 @@
 	return working_terminals
 
 /// Create a new bill
-/obj/machinery/billing_server/proc/create_new_bill(to_whom, from, amount, draft, can_delete = TRUE)
-	var/datum/bill/new_bill = new /datum/bill("", "", from, to_whom, amount, draft, can_delete)
+/obj/machinery/billing_server/proc/create_new_bill(to_whom, from, amount, draft, can_delete = TRUE, tags)
+	var/datum/bill/new_bill = new /datum/bill("", "", from, to_whom, amount, draft, can_delete, tags)
 	bills += new_bill
 	if(!new_bill.draft)
 		SEND_SIGNAL(src, COMSIG_BILLING_NEW_BILL, new_bill)

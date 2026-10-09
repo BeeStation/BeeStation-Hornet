@@ -17,8 +17,10 @@
 	var/draft = FALSE
 	/// Can this bill de deleted? use this for system/s bills
 	var/can_delete = TRUE
+	/// List of tags for this bill, what kind of stuff we're billing
+	var/bill_tags
 
-/datum/bill/New(_title, _body, _from, _to, _amount, _draft = FALSE, _can_delete = TRUE)
+/datum/bill/New(_title, _body, _from, _to, _amount, _draft = FALSE, _can_delete = TRUE, _tags)
 	. = ..()
 	title = _title
 	body = _body
@@ -27,6 +29,7 @@
 	amount = _amount
 	draft = _draft
 	can_delete = _can_delete
+	bill_tags = _tags
 	if(!draft)
 		sent_when = station_time_timestamp("YYYY-MM-DD hh:mm:ss")
 

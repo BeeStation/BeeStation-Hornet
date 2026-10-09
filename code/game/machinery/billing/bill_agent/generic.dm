@@ -10,7 +10,7 @@
 
 	if(!server)
 		return
-	var/datum/bill/generic_bill = server.create_new_bill(to_whom, from_override || department_ID, amount, FALSE, FALSE)
+	var/datum/bill/generic_bill = server.create_new_bill(to_whom, from_override || department_ID, amount, FALSE, FALSE, tags)
 	generic_bill.title = title
 	generic_bill.body = body
 	add_bill(generic_bill)

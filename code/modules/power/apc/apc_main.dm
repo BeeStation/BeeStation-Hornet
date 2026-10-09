@@ -207,7 +207,7 @@
 	var/area/A = get_area(src)
 	department_ID = A?.power_bill_department_ID
 	extra_overdraft = A?.extra_overdraft
-	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_ENG_ID) //TODO: Engineering gets paid by default, not good for customs setups - Racc
+	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_ENG_ID, TRUE, BILL_TAG_POWER) //TODO: Engineering gets paid by default, not good for customs setups - Racc
 	COOLDOWN_START(src, add_power_bill, bill_interval)
 
 /obj/machinery/power/apc/Destroy()

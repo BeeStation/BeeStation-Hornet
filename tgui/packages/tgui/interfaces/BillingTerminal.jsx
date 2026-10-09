@@ -22,9 +22,14 @@ export const BillingTerminal = (props) => {
     sent_bills,
     paid_bills,
     account_amount,
+    bill_filters,
+    bill_filter,
+    show_ignored,
+    autopay_filter,
   } = data;
 
   const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
+  const [autoMenu, setAutoMenu] = useLocalState('', 0);
 
   return (
     <Window width={700} height={800} scrollable>
@@ -74,6 +79,46 @@ export const BillingTerminal = (props) => {
                 <Icon name="pencil" />
               </Tabs.Tab>
             </Tabs>
+          </Flex.Item>
+          {/* Filters */}
+          <Flex.Item>
+            <Section my={0.3}>
+              <Flex>
+                <Flex.Item grow>
+                  {Object.entries(bill_filters).map(([key, value]) => (
+                    <Button.Checkbox
+                      key={key}
+                      checked={
+                        autoMenu ? autopay_filter & value : bill_filter & value
+                      }
+                      onClick={() =>
+                        !autoMenu
+                          ? act('toggle_filter', { filter: value })
+                          : act('toggle_autopay', { filter: value })
+                      }
+                    >
+                      {key}
+                    </Button.Checkbox>
+                  ))}
+                </Flex.Item>
+                <Flex.Item>
+                  <Button.Checkbox
+                    checked={show_ignored}
+                    onClick={() => act('toggle_ignore_filter')}
+                  >
+                    Ignored
+                  </Button.Checkbox>
+                  <Button
+                    icon={autoMenu ? 'robot' : 'filter'}
+                    tooltip={
+                      !autoMenu ? 'Invoice Filters' : 'Automated Payments'
+                    }
+                    color={!autoMenu ? '' : 'red'}
+                    onClick={() => setAutoMenu(!autoMenu)}
+                  />
+                </Flex.Item>
+              </Flex>
+            </Section>
           </Flex.Item>
           {/* Content body */}
           <Flex.Item grow>
@@ -188,55 +233,63 @@ const DraftedBills = (_props) => {
 
 const OutgoingBills = (_props) => {
   const { act, data } = useBackend();
-  const { sent_bills } = data;
+  const { sent_bills, bill_filter, show_ignored, ignored_bills } = data;
 
   return (
     <Section scrollable title={'Outgoing (' + sent_bills?.length + ')'} fill>
       <Flex direction="column">
         {sent_bills
-          ? sent_bills.map((bill) => (
-              <Flex.Item key={bill}>
-                <Section mx={0.2} my={0.5}>
-                  {/* Data */}
-                  <LabeledList.Item label="To">
-                    {bill['to_whom']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Title">
-                    {bill['title']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Body">
-                    {bill['body']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Amount">
-                    ${bill['amount']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Status">
-                    {bill['paid'] ? 'Paid' : 'Unpaid'}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Sent">
-                    {bill['sent_when']}
-                  </LabeledList.Item>
-                  {/* Buttons */}
-                  <Box mx={1}>
-                    <Button
-                      color="red"
-                      disabled={bill['paid'] || !bill['can_delete']}
-                      tooltip={
-                        bill['can_delete']
-                          ? null
-                          : 'This bill cannot be deleted.'
-                      }
-                      onClick={() => act('delete_draft', { ref: bill['ref'] })}
-                    >
-                      Delete <Icon name="trash-can" />
-                    </Button>
-                    <Button color="yellow">
-                      Print <Icon name="print" />
-                    </Button>
-                  </Box>
-                </Section>
-              </Flex.Item>
-            ))
+          ? sent_bills.map((bill) =>
+              bill['tags'] & bill_filter || !bill_filter ? (
+                !!show_ignored ===
+                  Object.values(ignored_bills).includes(bill['ref']) ||
+                !Object.values(ignored_bills).includes(bill['ref']) ? (
+                  <Flex.Item key={bill['ref']}>
+                    <Section mx={0.2} my={0.5}>
+                      {/* Data */}
+                      <LabeledList.Item label="To">
+                        {bill['to_whom']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Title">
+                        {bill['title']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Body">
+                        {bill['body']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Amount">
+                        ${bill['amount']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Status">
+                        {bill['paid'] ? 'Paid' : 'Unpaid'}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Sent">
+                        {bill['sent_when']}
+                      </LabeledList.Item>
+                      {/* Buttons */}
+                      <Box mx={1}>
+                        <Button
+                          color="red"
+                          disabled={bill['paid'] || !bill['can_delete']}
+                          tooltip={
+                            bill['can_delete']
+                              ? null
+                              : 'This bill cannot be deleted.'
+                          }
+                          onClick={() =>
+                            act('delete_draft', { ref: bill['ref'] })
+                          }
+                        >
+                          Delete <Icon name="trash-can" />
+                        </Button>
+                        <Button color="yellow">
+                          Print <Icon name="print" />
+                        </Button>
+                      </Box>
+                    </Section>
+                  </Flex.Item>
+                ) : null
+              ) : null,
+            )
           : null}
       </Flex>
     </Section>
@@ -245,43 +298,49 @@ const OutgoingBills = (_props) => {
 
 const PayedBills = (_props) => {
   const { act, data } = useBackend();
-  const { paid_bills } = data;
+  const { paid_bills, bill_filter, ignored_bills, show_ignored } = data;
 
   return (
     <Section scrollable title={'Paid (' + paid_bills?.length + ')'} fill>
       <Flex direction="column">
         {paid_bills
-          ? paid_bills.map((bill) => (
-              <Flex.Item key={bill}>
-                <Section mx={0.2} my={0.5}>
-                  {/* Data */}
-                  <LabeledList.Item label="From">
-                    {bill['from']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Title">
-                    {bill['title']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Body">
-                    {bill['body']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Amount">
-                    ${bill['amount']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Status">
-                    {bill['paid'] ? 'Paid' : 'Unpaid'}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Recieved">
-                    {bill['sent_when']}
-                  </LabeledList.Item>
-                  {/* Buttons */}
-                  <Box mx={1}>
-                    <Button color="yellow">
-                      Print <Icon name="print" />
-                    </Button>
-                  </Box>
-                </Section>
-              </Flex.Item>
-            ))
+          ? paid_bills.map((bill) =>
+              bill['tags'] & bill_filter || !bill_filter ? (
+                !!show_ignored ===
+                  Object.values(ignored_bills).includes(bill['ref']) ||
+                !Object.values(ignored_bills).includes(bill['ref']) ? (
+                  <Flex.Item key={bill['ref']}>
+                    <Section mx={0.2} my={0.5}>
+                      {/* Data */}
+                      <LabeledList.Item label="From">
+                        {bill['from']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Title">
+                        {bill['title']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Body">
+                        {bill['body']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Amount">
+                        ${bill['amount']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Status">
+                        {bill['paid'] ? 'Paid' : 'Unpaid'}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Recieved">
+                        {bill['sent_when']}
+                      </LabeledList.Item>
+                      {/* Buttons */}
+                      <Box mx={1}>
+                        <Button color="yellow">
+                          Print <Icon name="print" />
+                        </Button>
+                      </Box>
+                    </Section>
+                  </Flex.Item>
+                ) : null
+              ) : null,
+            )
           : null}
       </Flex>
     </Section>
@@ -290,7 +349,7 @@ const PayedBills = (_props) => {
 
 const IncomingBills = (_props) => {
   const { act, data } = useBackend();
-  const { incoming_bills } = data;
+  const { incoming_bills, bill_filter, ignored_bills, show_ignored } = data;
 
   return (
     <Section
@@ -300,48 +359,61 @@ const IncomingBills = (_props) => {
     >
       <Flex direction="column">
         {incoming_bills
-          ? incoming_bills.map((bill) => (
-              <Flex.Item key={bill}>
-                <Section mx={0.2} my={0.5}>
-                  {/* Data */}
-                  <LabeledList.Item label="From">
-                    {bill['from']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Title">
-                    {bill['title']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Body">
-                    {bill['body']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Amount">
-                    ${bill['amount']}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Status">
-                    {bill['paid'] ? 'Paid' : 'Unpaid'}
-                  </LabeledList.Item>
-                  <LabeledList.Item label="Recieved">
-                    {bill['sent_when']}
-                  </LabeledList.Item>
-                  {/* Buttons */}
-                  <Box mx={1}>
-                    <Button.Confirm
-                      color="green"
-                      content="Pay "
-                      confirmContent="Confirm "
-                      onClick={() => act('pay_bill', { ref: bill['ref'] })}
-                    >
-                      <Icon name="dollar" />
-                    </Button.Confirm>
-                    <Button color="yellow">
-                      Print <Icon name="print" />
-                    </Button>
-                    <Button.Checkbox tooltip="Does nothing">
-                      Ignore
-                    </Button.Checkbox>
-                  </Box>
-                </Section>
-              </Flex.Item>
-            ))
+          ? incoming_bills.map((bill) =>
+              bill['tags'] & bill_filter || !bill_filter ? (
+                !!show_ignored ===
+                  Object.values(ignored_bills).includes(bill['ref']) ||
+                !Object.values(ignored_bills).includes(bill['ref']) ? (
+                  <Flex.Item key={bill['ref']}>
+                    <Section mx={0.2} my={0.5} key={bill['ref']}>
+                      {/* Data */}
+                      <LabeledList.Item label="From">
+                        {bill['from']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Title">
+                        {bill['title']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Body">
+                        {bill['body']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Amount">
+                        ${bill['amount']}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Status">
+                        {bill['paid'] ? 'Paid' : 'Unpaid'}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Recieved">
+                        {bill['sent_when']}
+                      </LabeledList.Item>
+                      {/* Buttons */}
+                      <Box mx={1}>
+                        <Button.Confirm
+                          color="green"
+                          content="Pay "
+                          confirmContent="Confirm "
+                          onClick={() => act('pay_bill', { ref: bill['ref'] })}
+                        >
+                          <Icon name="dollar" />
+                        </Button.Confirm>
+                        <Button color="yellow">
+                          Print <Icon name="print" />
+                        </Button>
+                        <Button.Checkbox
+                          checked={Object.values(ignored_bills).includes(
+                            bill['ref'],
+                          )}
+                          onClick={() =>
+                            act('toggle_ignore', { ref: bill['ref'] })
+                          }
+                        >
+                          Ignore
+                        </Button.Checkbox>
+                      </Box>
+                    </Section>
+                  </Flex.Item>
+                ) : null
+              ) : null,
+            )
           : null}
       </Flex>
     </Section>

@@ -43,7 +43,7 @@
 
 	. = ..()
 
-	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_SCI_ID)
+	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_SCI_ID, TRUE, BILL_TAG_FEE)
 
 	cached_designs = list()
 	create_reagents(100, OPENCONTAINER)
