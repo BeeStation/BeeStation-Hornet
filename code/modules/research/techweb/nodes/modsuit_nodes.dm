@@ -30,6 +30,7 @@
 	prereq_ids = list(TECHWEB_NODE_ROBOTICS)
 	design_ids = list(
 		"mod_visor_diaghud",
+		"modlink_scryer",
 		"mod_gps",
 		"mod_reagent_scanner",
 		"mod_clamp",

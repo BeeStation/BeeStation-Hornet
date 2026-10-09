@@ -310,6 +310,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 		var/obj/effect/rcd_hologram/hologram = new(surrounding_turf)
 		hologram.icon = hologram_icon
+		hologram.makeHologram()
 		animate(hologram, alpha = 0, time = fade_time, easing = CIRCULAR_EASING | EASE_IN)
 
 /obj/effect/rcd_hologram

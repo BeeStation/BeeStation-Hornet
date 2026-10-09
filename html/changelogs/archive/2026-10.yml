@@ -85,3 +85,22 @@
   - map: Tweaked Fland's round start supermatter piping to make it easier to understand.
   - map: Tweaked fland's engine room areas so the same air alarm doesn't connect to
       every vent and scrubber in the room.
+2026-10-08:
+  Isaacnml:
+  - bugfix: Placing a human into a suit storage, wont completely rip out all of it's
+      parts
+  - bugfix: Absorbing a foreigner doesn't lock you out of other languages
+  - bugfix: Cult Ghost mark works once again
+  - rscadd: Cult conversion runes now prioritize converting dead people over sharding
+  - bugfix: Patches have a self-apply time of 3 again
+  mrmanlikesbt, MTandi, Fikou, carlarctg, Paxilmaniac, Absolucy, 00-Steven:
+  - rscadd: The MODLink system has been added to the game! Available through scryers
+      (from RnD and Charlie Station) and through MODsuits. Lets you call people with
+      holograms!
+  - rscadd: The scarves station trait has been replaced with one that gives crewmembers
+      MODLink scryers
+  - map: Robotics now starts with a MOD crate containing three MOD cores and two MODLink
+      scryers
+  - tweak: Binoculars can now be worn around your neck
+  - admin: A new matrix editor UI has been added to VV. See "Test Matrices" in the
+      dropdown.
