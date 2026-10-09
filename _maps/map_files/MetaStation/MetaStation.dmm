@@ -3527,12 +3527,12 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/fore)
 "bAB" = (
-/mob/living/simple_animal/parrot/Poly,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/computer/billing{
+/obj/item/card/id/departmental_budget/eng,
+/obj/machinery/computer/billing/engineering{
 	dir = 1
 	},
-/obj/item/card/id/departmental_budget/eng,
+/mob/living/simple_animal/parrot/Poly,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/chief)
 "bAE" = (

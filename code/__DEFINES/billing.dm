@@ -8,9 +8,9 @@
 
 // Billing periods
 /// Generic billing period for power
-#define BILLING_PERIOD_POWER 15 MINUTES
+#define BILLING_PERIOD_POWER 16.1 MINUTES
 /// Departments like medical / service / security that provide an ongoing service that isn't billable yet
-#define BILLING_PERIOD_UPKEEP 10 MINUTES
+#define BILLING_PERIOD_UPKEEP 8 MINUTES
 
 // Max outstanding bills for gated agents
 /// Techfab
@@ -19,7 +19,7 @@
 #define BILLING_MAX_OUTSTANDING_APC 10
 
 /// Generic services cost
-#define BILLING_UPKEEP_GENERIC 200
+#define BILLING_UPKEEP_GENERIC 280
 
 // Tags / bitflags for bills
 #define BILL_TAG_POWER (1<<0)

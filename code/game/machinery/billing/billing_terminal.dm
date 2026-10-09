@@ -1,7 +1,7 @@
 /*
 	Suit sensor bills for each department
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
-	Add an autopay toggle to terminals. Starts on if the department has no heads
+	Make the department upkeep equal to its last power bill
 */
 
 /obj/machinery/computer/billing
@@ -260,11 +260,11 @@
 	if(new_bill.to_whom == budget_card?.department_ID)
 		if(COOLDOWN_FINISHED(src, ping_notification)) // This used to rupture my eardrums during testing
 			playsound(src, 'sound/machines/terminal_success.ogg', 60, TRUE, 3)
-			COOLDOWN_START(src, ping_notification, 5 SECONDS)
+			COOLDOWN_START(src, ping_notification, 1 SECONDS)
+			say("Invoices received")
+			ui_update()
 		if(new_bill.bill_tags & autopay_filter)
 			pay_bill(new_bill)
-		say("Invoices received")
-		ui_update()
 
 /obj/machinery/computer/billing/proc/pay_bill(datum/bill/pay_bill)
 	if(pay_bill.paid)
@@ -279,3 +279,6 @@
 	var/datum/bank_account/winner = SSeconomy.get_budget_account(pay_bill.from)
 	winner.adjust_money(pay_bill.amount)
 	//TODO: Signals and other shit in here - Racc
+
+/obj/machinery/computer/billing/engineering
+	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP
