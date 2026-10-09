@@ -392,6 +392,7 @@
 	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 	power_bill_department_ID = ACCOUNT_COM_ID
+	extra_overdraft = 10
 
 /area/station/command/bridge
 	name = "\improper Bridge"
@@ -431,7 +432,7 @@
 /area/station/command/heads_quarters/chief
 	name = "\improper Chief Engineer's Office"
 	icon_state = "ce_office"
-	power_bill_department_ID = ACCOUNT_ENG_ID
+	power_bill_department_ID = null
 
 /area/station/command/heads_quarters/cmo
 	name = "\improper Chief Medical Officer's Office"

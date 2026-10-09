@@ -148,6 +148,8 @@
 	/// Time between bills
 	var/bill_interval = BILLING_PERIOD_POWER
 	COOLDOWN_DECLARE(add_power_bill)
+	/// Do we get an extra forgiveness on our power bills?
+	var/extra_overdraft = 0
 
 	/// The time that our last hacked flicker was performed at
 	COOLDOWN_DECLARE(last_hacked_flicker)
@@ -204,6 +206,7 @@
 	// Billing
 	var/area/A = get_area(src)
 	department_ID = A?.power_bill_department_ID
+	extra_overdraft = A?.extra_overdraft
 	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_ENG_ID) //TODO: Engineering gets paid by default, not good for customs setups - Racc
 	COOLDOWN_START(src, add_power_bill, bill_interval)
 
@@ -572,7 +575,7 @@
 		flicker_hacked_icon()
 	// Billing shut off
 	// TODO: This is a terrible way of doing this, should preserve the settings. Also command buff is hardcoded and bad. - Racc
-	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_APC+(department_ID == ACCOUNT_COM_ID ? 10 : 0) && operating && department_ID)
+	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_APC+extra_overdraft && operating && department_ID)
 		say("Outstanding invoices, shutting down...")
 		operating = FALSE
 		update()

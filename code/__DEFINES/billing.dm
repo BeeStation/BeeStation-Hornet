@@ -3,10 +3,11 @@
 /// generic Techfab material
 #define BILLING_COST_FAB_MATERIAL 0.025
 /// Electricity in whatever unit
-#define BILLING_COST_ELECTRICITY 0.001
+#define BILLING_COST_ELECTRICITY 0.0003
 
 /// Generic billing period for power
-#define BILLING_PERIOD_POWER 8 MINUTES
+#define BILLING_PERIOD_POWER 15 MINUTES
+#define BILLING_PERIOD_UPKEEP 10 MINUTES
 
 /// Maximum outstanding bills
 #define BILLING_MAX_OUTSTANDING_FAB 5

@@ -16,8 +16,6 @@
 	var/datum/bank_account/account
 	/// What billing network server we're connected to
 	var/obj/machinery/billing_server/server
-	/// What accounts we're allowed to bill
-	var/static/list/billables = list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID, ACCOUNT_SCI_ID, ACCOUNT_ENG_ID, ACCOUNT_MED_ID, ACCOUNT_SEC_ID)
 	/// Are we made by mappers?
 	var/roundstart = FALSE
 
@@ -101,7 +99,7 @@
 	// Which server are we linked to?
 	data["server_id"] = server?.name
 	// Active budgets we can bill
-	data["billables"] = billables-budget_card?.department_ID
+	data["billables"] = SSbilling?.billables-budget_card?.department_ID
 	return data
 
 /obj/machinery/computer/billing/ui_act(action, params)
