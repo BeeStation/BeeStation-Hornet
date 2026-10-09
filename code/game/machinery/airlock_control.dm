@@ -4,7 +4,7 @@
 /obj/machinery/door/airlock
 	opens_with_door_remote = TRUE
 	
-	idle_power_usage = 100 WATT
+	idle_power_usage = 10
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
 	/// The current state of the airlock, used to construct the airlock overlays

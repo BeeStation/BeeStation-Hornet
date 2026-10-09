@@ -53,3 +53,36 @@
 	for(var/obj/item/instrument/piano_synth/synth in oview(search_range, controller.pawn))
 		if(synth.type == /obj/item/instrument/piano_synth)
 			return synth
+
+/datum/ai_planning_subtree/approach_hamster_wheel
+
+/datum/ai_planning_subtree/approach_hamster_wheel/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/pawn = controller.pawn
+	var/obj/machinery/power/port_gen/hamster_wheel/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
+	if(!isnull(wheel))
+		if(QDELETED(wheel) || !isturf(wheel.loc) || !can_see(pawn, wheel) || !wheel.anchored || wheel.active || !isnull(wheel.occupant))
+			controller.clear_blackboard_key(BB_HAMSTER_WHEEL)
+			return
+		if (pawn.CanReach(wheel))
+			return
+		controller.queue_behavior(/datum/ai_behavior/travel_towards/adjacent, BB_HAMSTER_WHEEL)
+		return SUBTREE_RETURN_FINISH_PLANNING
+	controller.queue_behavior(/datum/ai_behavior/find_and_set/hamster_wheel, BB_HAMSTER_WHEEL, /obj/machinery/power/port_gen/hamster_wheel)
+
+/datum/ai_behavior/find_and_set/hamster_wheel
+
+/datum/ai_behavior/find_and_set/hamster_wheel/search_tactic(datum/ai_controller/controller, locate_path, search_range = SEARCH_TACTIC_DEFAULT_RANGE)
+	for(var/obj/machinery/power/port_gen/hamster_wheel/wheel in oview(search_range, controller.pawn))
+		if(wheel.type == /obj/machinery/power/port_gen/hamster_wheel && wheel.anchored == TRUE && wheel.active == FALSE)
+			//Only use the wheel if it is available for running in
+			return wheel
+
+
+/datum/ai_planning_subtree/run_hamster_wheel
+
+/datum/ai_planning_subtree/run_hamster_wheel/SelectBehaviors(datum/ai_controller/controller, delta_time)
+	. = ..()
+	if (controller.blackboard_key_exists(BB_HAMSTER_WHEEL))
+		var/obj/machinery/power/port_gen/hamster_wheel/wheel = controller.blackboard[BB_HAMSTER_WHEEL]
+		wheel.add_runner(controller.pawn)
+		return SUBTREE_RETURN_FINISH_PLANNING // Don't plan anything else if we're playing an instrument

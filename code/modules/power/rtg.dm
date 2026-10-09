@@ -26,9 +26,13 @@
 	add_avail(power_gen)
 
 /obj/machinery/power/rtg/RefreshParts()
+	. = ..()
 	var/part_level = 0
-	for(var/obj/item/stock_parts/SP in component_parts)
-		part_level += SP.rating
+	for(var/datum/stock_part/part in component_parts)
+		part_level += part.tier
+	// The Void Core counts its infinite cell towards output too
+	for(var/obj/item/stock_parts/part in component_parts)
+		part_level += part.rating
 
 	power_gen = initial(power_gen) * part_level
 
@@ -37,7 +41,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Power generation now at <b>[display_power_persec(power_gen)]</b>.")
 
-/obj/machinery/power/rtg/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/rtg/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-open", initial(icon_state), I))
 		return
 	else if(default_deconstruction_crowbar(I))

@@ -53,7 +53,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 	playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 	flick("synthesizer_beam", src)
 
-/obj/machinery/dish_drive/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/dish_drive/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(is_type_in_list(I, collectable_items) && !user.combat_mode)
 		if(!user.transferItemToLoc(I, src))
 			return
@@ -71,9 +71,10 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 	..()
 
 /obj/machinery/dish_drive/RefreshParts()
+	. = ..()
 	var/total_rating = 0
-	for(var/obj/item/stock_parts/S in component_parts)
-		total_rating += S.rating
+	for(var/datum/stock_part/part in component_parts)
+		total_rating += part.tier
 	if(total_rating >= 9)
 		update_mode_power_usage(ACTIVE_POWER_USE, 0)
 	else

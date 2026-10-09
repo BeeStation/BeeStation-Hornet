@@ -7,6 +7,8 @@
 	circuit = /obj/item/circuitboard/machine/rdserver
 	idle_power_usage = 5
 	active_power_usage = 50
+	// Better parts don't store more research or store it faster, so they only buy efficiency.
+	part_power_scaling = MACHINE_POWER_SCALES_DOWN
 	req_access = list(ACCESS_RD_SERVER)
 
 	/// How many points this server generates per mining cycle at 100% efficiency
@@ -33,12 +35,6 @@
 	if(stored_research)
 		stored_research.techweb_servers -= src
 	return ..()
-
-/obj/machinery/rnd/server/RefreshParts()
-	var/tot_rating = 0
-	for(var/obj/item/stock_parts/part in contents)
-		tot_rating += part.rating
-	active_power_usage = initial(active_power_usage) / max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon_state()
 	. = ..()

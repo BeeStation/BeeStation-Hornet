@@ -203,6 +203,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		plural_form = "[name]\s"
 	if(!examine_limb_id)
 		examine_limb_id = id
+	// Carbons determine bodypart order by this list, so we need to make sure it's sorted properly
+	sortTim(bodypart_overrides, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc), associative = TRUE)
 
 	return ..()
 
@@ -465,7 +467,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		final_bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
 		final_bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
-	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
+	for(var/obj/item/bodypart/old_part as anything in target.get_bodyparts())
 		if((old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (old_part.bodypart_flags & BODYPART_IMPLANTED))
 			continue
 
@@ -1183,11 +1185,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		affected.reagents.del_reagent(chem.type)
 		return COMSIG_MOB_STOP_REAGENT_CHECK
+	if(process_out_reagents(chem, affected))
+		return COMSIG_MOB_STOP_REAGENT_CHECK
 	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
 		chem.overdosed = TRUE
 		chem.overdose_start(affected)
 		log_game("[key_name(affected)] has started overdosing on [chem.name] at [chem.volume] units.")
-	process_out_reagents(chem, affected)
 	return SEND_SIGNAL(affected, COMSIG_SPECIES_HANDLE_CHEMICAL, chem, delta_time, times_fired)
 
 /datum/species/proc/process_out_reagents(datum/reagent/chem, mob/living/carbon/human/affected)
@@ -1200,7 +1203,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if((chem.process_flags & ORGANIC) && (affected.dna.species.reagent_tag & PROCESS_ORGANIC))
 		dump_reagent = FALSE
 	if(dump_reagent)
+		affected.adjustToxLoss(0.5 * REM)
 		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
+	return FALSE
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.
@@ -1368,7 +1374,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
-	user.dna.species.spec_unarmedattack(user, target)
 
 	if(user.limb_destroyer)
 		target.dismembering_strike(user, affecting.body_zone)
@@ -1386,9 +1391,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(damage >= 9)
 			target.force_say()
 		log_combat(user, target, "punched", "punch")
-
-/datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target, modifiers)
-	return FALSE
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1786,7 +1788,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 
 	// Lets pick a random body part and check for an existing burn
-	var/obj/item/bodypart/bodypart = pick(humi.bodyparts)
+	var/obj/item/bodypart/bodypart = pick(humi.get_bodyparts())
 	/* No wounds yet
 	var/datum/wound/burn/existing_burn = locate(/datum/wound/burn) in bodypart.wounds
 

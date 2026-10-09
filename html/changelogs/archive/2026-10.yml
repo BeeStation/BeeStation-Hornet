@@ -1,0 +1,106 @@
+2026-10-02:
+  mrmanlikesbt, Ghommie, MrMelbert, vinylspiders:
+  - rscadd: Mirrors now display your reflection. On the same note, neither vampires
+      nor bats show up in mirrors
+  - tweak: Mirrors can now be detached and reattached from walls with a wrench
+  mrmanlikesbt, coiax, Qustinnus:
+  - rscadd: Added two new deathrattle related station traits. One where deathrattles
+      are given to everyone in a specific department, and one where everyone on the
+      station gets a deathrattle
+  - soundadd: Deathrattles now play a sound when a person in the group dies
+  mrmanlikesbt, tralezab, Kylerace, ShizCalev:
+  - qol: Added a new transit tube variant which automatically constructs a pod around
+      the user. The transit tubes on all AI satellites have been updated to use this
+      new variant
+  - qol: Transit tube pods now eject you if they leave the transit tube track that
+      they're currently running
+  - code_imp: Cleaned up transit tube code
+2026-10-03:
+  SunShine214:
+  - bugfix: Fixed IPCs being able to metabolize non-synth chemicals.
+  - bugfix: Fixed IPCs being able to be mutated with the genetics console.
+  WhiskeyMarten:
+  - map: Changed Radstation's Virology Window Shutters to a separate button. That
+      way you can close them in case of carp infestation without locking down all
+      of Viro.
+  - map: Added public painting frames to the prison of all maps.
+  - bugfix: Changed some unhidden scrubbers and vents on Radstation to instead be
+      hidden.
+  - bugfix: Fixed some wrongly named/mispelled/unnamed doors on Radstation, Charliestation
+      and a Syndicate Lavaland Base. Added names to the APCs on one Syndicate Lavaland
+      Base.
+  - bugfix: Adjusted some wall objects on the Golem Ship and Syndicate Lavaland Base
+      that were wrongly attached to diagonal walls. Fixed some overlapping wall objects
+      on Radstation.
+  - bugfix: Adjusted some misplaced lights and showers on the Golem Ship, Winter Dome,
+      Beach Dome, and Terrarium.
+  - map: Added an oven, knife, and rolling pin to the Beach Dome, and removed access
+      requirements on the Bar Sign and Disco Ball.
+  - rscadd: New pet on Lavaland! The Animal Hospital now has a little cat, Director.
+  - bugfix: Fixed the note on the sloth ruin, so the writing is on the page instead
+      of the description of the paper.
+  - bugfix: Fixed the message that pops up to confirm you want to play as a ghost
+      role. Several roles were missing the name for this box.
+  - bugfix: Fixed the Lavaland sauna being set up to pressure cook people without
+      adjustments. It will be safe now, unless you adjust the gas pump output pressure.
+  mrmanlikesbt, TealSeer, san7890:
+  - server: The GitHub CI Suite has been sped up quite a bit.
+2026-10-05:
+  Baherain:
+  - rscadd: Added hamster wheel
+  - rscadd: Added hamsterperson wheel
+  - tweak: modified the mouse hunting behaviours to interact with hamster wheels
+2026-10-06:
+  Isaac, scriptis, Ghommie, Synclt21, ZephyrTFA:
+  - rscadd: The protolathe and circuit imprinter now use the new fabricator interface,
+      alongside the exosuit fabricator having a new UI
+  - rscadd: You can drag a fabricator toward a tile to set which way it drops finished
+      items, and alt-click it to reset that back to its own tile. Examining it tells
+      you the current direction
+  - rscadd: Print amounts can be set to a custom number, and the button tells you
+      the most you can currently afford.
+  - rscdel: Removed the old TechFab interface, replaced by the shared fabricator UI
+  - tweak: Design categories have been reorganised into proper subcategories across
+      every lathe. Power cells, stock parts by tier, machine boards, medical tools
+      and engineering tools now live where you would expect them
+  - tweak: Batch prints now drop item by item as they are produced, instead of dumping
+      the whole order at once
+  - bugfix: Fixed lathes duplicating materials
+  - bugfix: Fixed number input buttons not returning to their original state
+  - rscdel: Removed the per-item repeat button from the autolathe. The queue-wide
+      repeat toggle remains
+  - balance: Circuit imprinters are nerfed. Print time is about 1.5x slower at tier
+      1 manipulators and 2x slower at tier 4 compared to before, because their efficiency
+      now uses the same curve as the protolathe.
+  - bugfix: Fixed fabricator examine text showing incorrect efficiency percentages
+  - bugfix: Brass giving less materials as a stack
+  rkz, kapu1178, melbert, 13spacemen, smartkar:
+  - rscadd: species will now have their own sprites when husked
+  - rscadd: rewrote moodlet/health doll appearance
+  - bugfix: fixed bodypart icons not appearing in menus
+2026-10-07:
+  BotTierPC:
+  - admin: Mentor Admins can now choose to hide their mentor role when using Deadmin/Stealthmin
+  SergeiKoralev:
+  - map: Tweaked Fland's round start supermatter piping to make it easier to understand.
+  - map: Tweaked fland's engine room areas so the same air alarm doesn't connect to
+      every vent and scrubber in the room.
+2026-10-08:
+  Isaacnml:
+  - bugfix: Placing a human into a suit storage, wont completely rip out all of it's
+      parts
+  - bugfix: Absorbing a foreigner doesn't lock you out of other languages
+  - bugfix: Cult Ghost mark works once again
+  - rscadd: Cult conversion runes now prioritize converting dead people over sharding
+  - bugfix: Patches have a self-apply time of 3 again
+  mrmanlikesbt, MTandi, Fikou, carlarctg, Paxilmaniac, Absolucy, 00-Steven:
+  - rscadd: The MODLink system has been added to the game! Available through scryers
+      (from RnD and Charlie Station) and through MODsuits. Lets you call people with
+      holograms!
+  - rscadd: The scarves station trait has been replaced with one that gives crewmembers
+      MODLink scryers
+  - map: Robotics now starts with a MOD crate containing three MOD cores and two MODLink
+      scryers
+  - tweak: Binoculars can now be worn around your neck
+  - admin: A new matrix editor UI has been added to VV. See "Test Matrices" in the
+      dropdown.

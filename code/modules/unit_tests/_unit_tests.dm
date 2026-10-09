@@ -60,6 +60,7 @@
 #include "language_transfer.dm"
 #include "limbsanity.dm"
 #include "loadout.dm"
+#include "machine_power.dm"
 #include "mecha_damage.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"
@@ -91,6 +92,8 @@
 #include "reagent_mod_procs.dm"
 #include "reagent_recipe_collisions.dm"
 #include "say.dm"
+#include "screenshot_basic.dm"
+#include "screenshot_husk.dm"
 #include "security_levels.dm"
 #include "security_officer_distribution.dm"
 #include "serving_tray.dm"
@@ -138,6 +141,7 @@
 #include "mapping\check_multiple_objects.dm"
 #include "mapping\check_wires.dm"
 #include "mapping\map_test.dm"
+#include "mapping\station_power_budget.dm"
 
 // END_INCLUDE
 

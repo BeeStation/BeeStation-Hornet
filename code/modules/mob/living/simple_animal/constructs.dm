@@ -42,6 +42,7 @@
 	var/seeking = FALSE
 	var/original_name = null // The original name of the person, passed down by /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/
 	var/original_real_name = null
+	var/drops_shard = TRUE
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
@@ -54,7 +55,7 @@
 	usable_hands = 0
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	if(!mind)
+	if(!mind || !drops_shard)
 		return ..()
 	var/obj/item/soulstone/stone = /obj/item/soulstone/anybody
 	switch(theme)

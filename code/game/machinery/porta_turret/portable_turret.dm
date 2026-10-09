@@ -16,9 +16,7 @@
 	req_access = list(ACCESS_SECURITY)
 
 	power_channel = AREA_USAGE_EQUIP
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 600
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.15
 
 	max_integrity = 160
 	integrity_failure = 0.5
@@ -91,6 +89,8 @@
 	/// Determines if the turret is on
 	var/on = TRUE
 
+	/// Determines if our projectiles hit our faction
+	var/ignore_faction = FALSE
 	/// Same faction mobs are not shot at (unless)
 	var/list/faction = list(FACTION_TURRET) // Same faction mobs will never be shot at, no matter the other settings
 
@@ -315,7 +315,7 @@
 		remove_control()
 	check_should_process()
 
-/obj/machinery/porta_turret/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/porta_turret/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(machine_stat & BROKEN)
 		if(attacking_item.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
@@ -659,6 +659,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	fired_projectile.preparePixelProjectile(target, T)
 	fired_projectile.firer = src
 	fired_projectile.fired_from = bullet_source
+	if(ignore_faction)
+		fired_projectile.ignored_factions = faction
 	fired_projectile.fire()
 	return fired_projectile
 
@@ -945,11 +947,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 		return
 
 	if(control_area)
-		control_area = get_area_instance_from_text(control_area)
-		if(control_area == null)
+		var/control_area_text = control_area
+		control_area = get_area_instance_from_text(control_area_text)
+		if(isnull(control_area))
 			control_area = get_area(src)
-			stack_trace("Bad control_area path for [src], [src.control_area]")
-	else if(!control_area)
+			stack_trace("Bad control_area path ([control_area_text]) for [src], [src.control_area]")
+	else
 		control_area = get_area(src)
 
 	for(var/obj/machinery/porta_turret/new_turret in control_area)
@@ -961,7 +964,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/turretid)
 	if(issilicon(user) && !(machine_stat & BROKEN))
 		. += span_notice("Ctrl-click [src] to [enabled ? "disable" : "enable"] turrets.")
 		. += span_notice("Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].")
-/obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/turretid/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(machine_stat & BROKEN)
 		return
 

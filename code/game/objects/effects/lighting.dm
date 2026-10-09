@@ -11,7 +11,7 @@
 	light_system = MOVABLE_LIGHT
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = COLOR_WHITE
-	//blocks_emissive = EMISSIVE_BLOCK_NONE
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dummy/lighting_obj)

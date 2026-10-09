@@ -19,7 +19,7 @@
 	. = ..()
 	GLOB.custom_shuttle_machines -= src
 
-/obj/machinery/shuttle/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/shuttle/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
 		return
 	if(default_pry_open(I))

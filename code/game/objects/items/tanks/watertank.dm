@@ -157,7 +157,7 @@
 		update_icon()
 	return ..()
 
-/obj/item/watertank/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/watertank/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(attacking_item == noz)
 		remove_noz()
 		return TRUE
@@ -254,7 +254,7 @@
 	reagents.add_reagent(/datum/reagent/water, 200)
 	update_icon()
 
-/obj/item/watertank/atmos/attackby(obj/item/W, mob/user, params)
+/obj/item/watertank/atmos/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/atmostank_upgrade))
 		if (QDELETED(noz))
 			noz = make_noz()
@@ -619,8 +619,7 @@
 	/// How much to inject per second
 	var/injection_amount = 0.5
 	amount_per_transfer_from_this = 5
-	reagent_flags = OPENCONTAINER
-	spillable = FALSE
+	initial_reagent_flags = TRANSPARENT
 	possible_transfer_amounts = list(5,10,15)
 	fill_icon_thresholds = list(0, 15, 60)
 	fill_icon_state = "backpack"

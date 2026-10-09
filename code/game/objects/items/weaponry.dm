@@ -318,7 +318,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("hits", "bludgeons", "whacks", "bonks")
 	attack_verb_simple = list("hit", "bludgeon", "whack", "bonk")
 
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/shard))
 		var/obj/item/spear/S = new /obj/item/spear
 
@@ -930,7 +930,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
 	return
 
-/obj/item/slapper/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+/obj/item/slapper/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers)
 	if(!istype(target, /obj/structure/table))
 		return ..()
 
@@ -981,14 +981,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "\improper ACME Extendo-Hand"
 	desc = "A novelty extendo-hand produced by the ACME corporation. Originally designed to knock out roadrunners."
 
-/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user, params)
+/obj/item/extendohand/attack(atom/M, mob/living/carbon/human/user, list/modifiers)
 	var/dist = get_dist(M, user)
 	if(dist < reach)
 		to_chat(user, span_warning("[M] is too close to use [src] on."))
 		return
-	var/list/modifiers = params2list(params)
 	M.attack_hand(user, modifiers)
-
 
 /obj/item/highfive
 	name = "raised hand"
@@ -1043,7 +1041,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
 
-/obj/item/club/pre_attack(atom/A, mob/living/user, params)
+/obj/item/club/pre_attack(atom/A, mob/living/user, list/modifiers)
 	force = initial(force)
 	armour_penetration = initial(armour_penetration)
 	if(isstructure(A) || ismachinery(A))

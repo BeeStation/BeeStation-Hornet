@@ -26,6 +26,18 @@
 #define IDLE_POWER_USE 1
 #define ACTIVE_POWER_USE 2
 
+#define BASE_MACHINE_IDLE_CONSUMPTION 100
+#define BASE_MACHINE_ACTIVE_CONSUMPTION (BASE_MACHINE_IDLE_CONSUMPTION * 10)
+
+/// How a machine's stock part tiers relate to its power draw. See /obj/machinery/var/part_power_scaling.
+/// Better parts do more work, and the machine costs more to run for it. The usual case.
+#define MACHINE_POWER_SCALES_UP 1
+/// Parts buy nothing but efficiency, so better parts cost less to run. For machines whose
+/// function doesn't improve with tier - upgrading them would otherwise be a pure penalty.
+#define MACHINE_POWER_SCALES_DOWN 2
+/// Part tiers don't affect power draw at all.
+#define MACHINE_POWER_SCALES_NONE 3
+
 /// Bitflags for a machine's preferences on when it should start processing. For use with machinery's `processing_flags` var.
 /// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
 #define START_PROCESSING_ON_INIT (1<<0)

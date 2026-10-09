@@ -159,3 +159,7 @@
 #define COMSIG_DAMPENER_CAPTURE "dampener_capture"
 /// Called when a projectile dampener releases an object.
 #define COMSIG_DAMPENER_RELEASE "dampener_release"
+
+/// IPC upgrade signals.
+#define COMSIG_UPGRADE_ACTIVATED "upgrade_activated"
+#define COMSIG_UPGRADE_DEACTIVATED "upgrade_deactivated"

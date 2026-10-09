@@ -261,7 +261,7 @@
 //GENETICIST
 /datum/job/geneticist
 	mail_goodies = list(
-		/obj/item/reagent_containers/pill/mutadone = 15,
+		/obj/item/reagent_containers/applicator/pill/mutadone = 15,
 		/obj/item/storage/pill_bottle/mannitol = 10,
 		/obj/item/food/monkeycube = 10,
 		/obj/effect/spawner/mail/genes = 5,

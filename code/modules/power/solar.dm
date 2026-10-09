@@ -321,7 +321,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 		return
 	randomise_offset(anchored ? 0 : random_offset)
 
-/obj/item/solar_assembly/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/solar_assembly/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	var/turf/solarturf = get_turf(src)
 
 	if(attacking_item.tool_behaviour == TOOL_WRENCH && isturf(loc))
@@ -436,7 +436,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 250
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
 	max_integrity = 200
 	integrity_failure = 0.5
 	var/icon_screen = "solar"
@@ -594,7 +594,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 			search_for_connected()
 			return TRUE
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(I.use_tool(src, user, 20, volume=50))
 			if (src.machine_stat & BROKEN)

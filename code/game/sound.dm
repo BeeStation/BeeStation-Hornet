@@ -428,6 +428,8 @@
 				soundin = pick('sound/machines/button1.ogg','sound/machines/button2.ogg','sound/machines/button3.ogg','sound/machines/button4.ogg')
 			if("switch")	//stolen from nsv
 				soundin = pick('sound/machines/switch1.ogg','sound/machines/switch2.ogg','sound/machines/switch3.ogg')
+			if("liquid_pour")
+				soundin = pick('sound/effects/liquid_pour/liquid_pour1.ogg', 'sound/effects/liquid_pour/liquid_pour2.ogg', 'sound/effects/liquid_pour/liquid_pour3.ogg')
 	return soundin
 
 /client/proc/get_playing_channel(channel)
