@@ -36,6 +36,7 @@
 	var/foodload_color // the dominant reagents color which is applied to food overlay
 	var/loaded_icon_state = "forkloaded" // The icon state for the food blob
 	var/bite_word = "forkful" // Term for eating messages
+	var/eat_sound = 'sound/items/eatfood.ogg' // Sound used when eating from the utensil
 
 
 /datum/armor/kitchen_fork
@@ -63,6 +64,7 @@
 			M.visible_message(span_notice("[user] eats a [bite_word] of food!"))
 		else
 			M.visible_message(span_notice("[user] feeds [M] a [bite_word] of food!"))
+		playsound(M, eat_sound, 25, TRUE)
 		M.reagents.add_reagent(foodload, 1)
 		foodload = null
 		foodload_color = null
@@ -81,6 +83,7 @@
 	icon_state = "spoon"
 	loaded_icon_state = "spoonloaded"
 	bite_word = "spoonful"
+	eat_sound = 'sound/items/drink.ogg'
 	attack_verb_continuous = list("attacks", "slaps", "pokes")
 	attack_verb_simple = list("attack", "slap", "poke")
 

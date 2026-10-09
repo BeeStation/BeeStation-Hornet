@@ -24,7 +24,7 @@
 		AddElement(/datum/element/shatters_when_thrown)
 
 /obj/item/plate/attackby(obj/item/I, mob/user, params)
-	if(!IS_EDIBLE(I))
+	if(!IS_EDIBLE(I) && !istype(I, /obj/item/kitchen/fork))
 		to_chat(user, span_notice("[src] is made for food, and food alone!"))
 		return
 	if(contents.len >= max_items)
