@@ -41894,7 +41894,9 @@
 /obj/item/pizzabox,
 /obj/item/pizzabox,
 /obj/item/pizzabox/pineapple,
-/obj/structure/closet/crate/secure/freezer/pizza,
+/obj/structure/closet/crate/freezer{
+	name = "Secure Pizza Crate"
+	},
 /turf/open/floor/wood,
 /area/station/cargo/exploration_prep)
 "pBe" = (
