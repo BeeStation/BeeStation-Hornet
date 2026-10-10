@@ -439,7 +439,7 @@
 
 	//Check for weapons
 	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
-		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
+		if(!idcard || !(ACCESS_WEAPONS in idcard.GetAccess()))
 			for(var/obj/item/I in held_items) //if they're holding a gun
 				if(weaponcheck.Invoke(I))
 					threatcount += 4

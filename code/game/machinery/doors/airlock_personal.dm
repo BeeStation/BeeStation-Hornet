@@ -14,7 +14,7 @@
 	var/obj/item/card/id/I = W.GetID()
 	if(!istype(I) || !I.electric) // We're ignoring paper slips for obvious reasons
 		return ..()
-	if((ACCESS_CAPTAIN in I.access) && registered_name)
+	if((ACCESS_CAPTAIN in I.GetAccess()) && registered_name)
 		registered_name = null
 		balloon_alert_to_viewers("<font color='#ec8907'>Warning!</font> ID registry <font color='#ad3098'>purged!</font>")
 		to_chat(user, "The airlock beeps confusingly as it forgets its owner.")

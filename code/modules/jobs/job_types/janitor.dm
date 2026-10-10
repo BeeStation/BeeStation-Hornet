@@ -17,7 +17,6 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SERVICE,
 	)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/service,

@@ -218,6 +218,15 @@
 	color: #3ecf6e;
 }
 
+.idc-access-item.granted.temporary {
+	border-left-color: #e0b341;
+	background-color: #3a3322;
+}
+
+.idc-access-item.granted.temporary::before {
+	color: #e0b341;
+}
+
 .idc-jobitem::before {
 	content: "";
 }

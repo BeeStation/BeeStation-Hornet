@@ -209,7 +209,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 		return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)
-	if(ID && (ACCESS_CENT_BAR in ID.access))
+	if(ID && (ACCESS_CENT_BAR in ID.GetAccess()))
 		return TRUE
 
 //Luxury Shuttle Blockers

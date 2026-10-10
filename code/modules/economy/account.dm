@@ -139,39 +139,10 @@
  * If not held, sends out a message to all nearby players.
  */
 /datum/bank_account/proc/bank_card_talk(message, force)
-	if(!message || !bank_cards.len)
+	if(!message)
 		return
-	for(var/obj/card in bank_cards)
-		var/icon_source = card
-		if(isidcard(card))
-			var/obj/item/card/id/id_card = card
-			icon_source = id_card.get_cached_flat_icon()
-		var/mob/card_holder = recursive_loc_check(card, /mob)
-		if(ismob(card_holder)) //If on a mob
-			if(!card_holder.client || (!card_holder.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force))
-				return
-
-			if(card_holder.can_hear())
-				card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
-				to_chat(card_holder, "[icon2html(icon_source, card_holder)] [span_notice("[message]")]")
-		else if(isturf(card.loc)) //If on the ground
-			var/turf/card_location = card.loc
-			for(var/mob/potential_hearer in hearers(1,card_location))
-				if(!potential_hearer.client || (!(potential_hearer.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)))
-					continue
-				if(potential_hearer.can_hear())
-					potential_hearer.playsound_local(card_location, 'sound/machines/twobeep_high.ogg', 50, TRUE)
-					to_chat(potential_hearer, "[icon2html(icon_source, potential_hearer)] [span_notice("[message]")]")
-		else
-			var/atom/sound_atom
-			for(var/mob/potential_hearer in card.loc) //If inside a container with other mobs (e.g. locker)
-				if(!potential_hearer.client || (!(potential_hearer.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)))
-					continue
-				if(!sound_atom)
-					sound_atom = card.drop_location() //in case we're inside a bodybag in a crate or something. doing this here to only process it if there's a valid mob who can hear the sound.
-				if(potential_hearer.can_hear())
-					potential_hearer.playsound_local(get_turf(sound_atom), 'sound/machines/twobeep_high.ogg', 50, TRUE)
-					to_chat(potential_hearer, "[icon2html(icon_source, potential_hearer)] [span_notice("[message]")]")
+	for(var/obj/item/card/id/card in bank_cards)
+		card.card_talk(message, check_pref = !force)
 
 /datum/bank_account/proc/_adjust_currency(type, amt)
 	custom_currency[type] += amt
