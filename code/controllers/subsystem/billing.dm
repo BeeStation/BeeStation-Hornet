@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(billing)
 	/// Accounts available for billing in the terminal
 	var/list/billables = list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID, ACCOUNT_SCI_ID, ACCOUNT_ENG_ID, ACCOUNT_MED_ID, ACCOUNT_SEC_ID, ACCOUNT_COM_ID)
 	/// tags available
-	var/list/bill_tags = list("Power" = BILL_TAG_POWER, "Custom" = BILL_TAG_CUSTOM, "Utility" = BILL_TAG_UPKEEP, "Fee" = BILL_TAG_FEE)
+	var/list/bill_tags = list("Power" = BILL_TAG_POWER, "Custom" = BILL_TAG_CUSTOM, "Utility" = BILL_TAG_UPKEEP, "Fee" = BILL_TAG_FEE, "Paid" = BILL_TAG_PAID, "Unpaid" = BILL_TAG_UNPAID)
 
 //TODO: This is a temporary / prototype solution to auto billing - Racc
 	///What world time do we bill at?

@@ -392,7 +392,6 @@
 	camera_networks = list(CAMERA_NETWORK_PRIVATE)
 
 	power_bill_department_ID = ACCOUNT_COM_ID
-	extra_overdraft = 10
 
 /area/station/command/bridge
 	name = "\improper Bridge"

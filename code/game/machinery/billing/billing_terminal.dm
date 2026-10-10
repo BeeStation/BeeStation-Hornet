@@ -2,7 +2,6 @@
 	Suit sensor bills for each department
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
 	Make the department upkeep equal to its last power bill
-	add tags for paid and unpaid
 */
 
 /obj/machinery/computer/billing
@@ -13,6 +12,7 @@
 	// req_access = list(ACCESS_HEADS)
 	light_color = LIGHT_COLOR_BLUE
 	clicksound = null
+	circuit = /obj/item/circuitboard/computer/billing
 
 	/// Reference to our internal budget card, if one is inserted
 	var/obj/item/card/id/departmental_budget/budget_card
@@ -38,6 +38,9 @@
 		roundstart = TRUE
 		link_budget_card(locate(/obj/item/card/id/departmental_budget) in loc)
 	RegisterSignal(SSjob, COMSIG_JOB_RECEIVED, PROC_REF(catch_job))
+	// Add some forgiveness to the area
+	var/area/A = get_area(src)
+	A?.extra_overdraft += 10
 
 /obj/machinery/computer/billing/LateInitialize()
 	. = ..()
@@ -145,9 +148,6 @@
 		if("toggle_filter")
 			bill_tag_filter ^= params["filter"]
 			. = TRUE
-		if("toggle_autopay")
-			autopay_filter ^= params["filter"]
-			. = TRUE
 		if("toggle_ignore_filter")
 			show_ignored = !show_ignored
 			. = TRUE
@@ -156,6 +156,13 @@
 				return
 			ignored_bills ^= params["ref"]
 			. = TRUE
+		if("toggle_autopay")
+			autopay_filter ^= params["filter"]
+			. = TRUE
+			// Auto pay the existing bills
+			for(var/datum/bill/bill as anything in server.get_bills(budget_card.department_ID))
+				if(bill.bill_tags & autopay_filter)
+					pay_bill(bill)
 	// Draft stuff
 		if("new_draft")
 			if(!server)
@@ -267,6 +274,7 @@
 		if(new_bill.bill_tags & autopay_filter)
 			pay_bill(new_bill)
 
+//TODO: move all this logic to the bill datum - Racc
 /obj/machinery/computer/billing/proc/pay_bill(datum/bill/pay_bill)
 	if(pay_bill.paid)
 		return
@@ -277,9 +285,16 @@
 	ignored_bills -= REF(pay_bill)
 	account.adjust_money(-pay_bill.amount)
 	pay_bill.paid = TRUE
+	pay_bill.bill_tags &= BILL_TAG_UNPAID
+	pay_bill.bill_tags |= BILL_TAG_PAID
 	var/datum/bank_account/winner = SSeconomy.get_budget_account(pay_bill.from)
 	winner.adjust_money(pay_bill.amount)
 	//TODO: Signals and other shit in here - Racc
+
+/obj/item/circuitboard/computer/billing
+	name = "Billing Terminal"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/billing
 
 /obj/machinery/computer/billing/engineering
 	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP
