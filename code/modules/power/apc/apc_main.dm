@@ -139,6 +139,18 @@
 	//Clockcult - The integration cog inserted inside of us
 	var/integration_cog = null
 
+	/// Department ID of the rentoid
+	var/department_ID
+	/// Reference to our billing component, so we can shut down
+	var/datum/component/bill_agent/generic/bill_agent
+	/// Rolling bill that ticks up between pay periods, so we're not generating a bill every tick for every usage
+	var/rolling_bill = 0
+	/// Time between bills
+	var/bill_interval = BILLING_PERIOD_POWER
+	COOLDOWN_DECLARE(add_power_bill)
+	/// Do we get an extra forgiveness on our power bills?
+	var/extra_overdraft = 0
+
 	/// The time that our last hacked flicker was performed at
 	COOLDOWN_DECLARE(last_hacked_flicker)
 
@@ -191,6 +203,12 @@
 	prepare_huds()
 	var/datum/atom_hud/hacked_apc/apc_hud = GLOB.huds[DATA_HUD_HACKED_APC]
 	apc_hud.add_atom_to_hud(src)
+	// Billing
+	var/area/A = get_area(src)
+	department_ID = A?.power_bill_department_ID
+	extra_overdraft = A?.extra_overdraft
+	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_ENG_ID, TRUE, BILL_TAG_POWER) //TODO: Engineering gets paid by default, not good for customs setups - Racc
+	COOLDOWN_START(src, add_power_bill, bill_interval)
 
 /obj/machinery/power/apc/Destroy()
 	if(malfai && operating)
@@ -555,6 +573,15 @@
 		return
 	if ((malfhack || (obj_flags & EMAGGED)) && COOLDOWN_FINISHED(src, last_hacked_flicker))
 		flicker_hacked_icon()
+	// Billing shut off
+	// TODO: This is a terrible way of doing this, should preserve the settings. Also command buff is hardcoded and bad. - Racc
+	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_APC+extra_overdraft && operating && department_ID)
+		say("Outstanding invoices, shutting down...")
+		operating = FALSE
+		update()
+	if(bill_agent?.get_outstanding_bills() < BILLING_MAX_OUTSTANDING_APC && !operating && department_ID)
+		operating = TRUE
+		update()
 	// Vars for the power usage of the different channels
 	var/light_power_req = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
 	var/equip_power_req = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
@@ -661,6 +688,17 @@
 		update()
 	else if(last_ch != charging)
 		queue_icon_update()
+
+	// Billing
+	if(!department_ID || !bill_agent?.department_ID)
+		return
+	if(COOLDOWN_FINISHED(src, add_power_bill) && rolling_bill > 0)
+		COOLDOWN_START(src, add_power_bill, bill_interval)
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, rolling_bill*BILLING_COST_ELECTRICITY, "Electricity Bill", "[department_ID] has used [rolling_bill]kW through [src] since its last billing period.")
+		rolling_bill = 0
+	else
+		rolling_bill += lastused_total
+
 
 /obj/machinery/power/apc/proc/update_channel(current, req, threshold, autoset_threshold, alarm_channel)
 	// No power AND cant meet demand even with surplus - force off

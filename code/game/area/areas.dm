@@ -149,6 +149,11 @@
 	/// of automated.
 	var/disable_air_alarm_automation = FALSE
 
+	/// What department we represent, for power billing
+	var/power_bill_department_ID
+	/// Do we get an extra forgiveness on our power bills?
+	var/extra_overdraft = 0
+
 /**
   * A list of teleport locations
   *

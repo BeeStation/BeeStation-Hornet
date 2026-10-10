@@ -26,6 +26,12 @@
 	/// The direction prints and ejected sheets land in. 0 drops them on top of us.
 	var/output_direction = 0
 
+	/// Department ID of the rentoid
+	var/department_ID
+	/// Reference to our billing component, so we can shut down
+	var/datum/component/bill_agent/generic/bill_agent
+
+
 /obj/machinery/rnd/production/Initialize(mapload)
 	print_sound = new(src, FALSE)
 	materials = AddComponent(
@@ -36,6 +42,8 @@
 	)
 
 	. = ..()
+
+	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_SCI_ID, TRUE, BILL_TAG_FEE)
 
 	cached_designs = list()
 	create_reagents(100, OPENCONTAINER)
@@ -357,10 +365,17 @@
 	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
+	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_FAB)
+		say("Too many outstanding invoices.")
+		return FALSE
 
+	var/material_cost = 0 // For billing
+	var/material_strings = ""
 	var/coeff = efficient_with(design.build_path) ? efficiency_coeff : 1
 	var/list/materials_to_consume = list()
 	for(var/material_type, material_amount in design.materials)
+		material_cost += material_amount / coeff
+		material_strings = "[material_strings][material_type]x[material_amount / coeff], "
 		materials_to_consume[material_type] = material_amount / coeff
 
 	if(!materials.mat_container.has_materials(materials_to_consume, amount))
@@ -396,6 +411,15 @@
 	var/total_time = max(build_time_coeff * ((30 * timecoeff * amount) ** 0.6), time_per_item * amount)
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), total_time)
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction, time_per_item, materials_to_consume), time_per_item)
+
+	// Science's cut
+	if(department_ID && department_ID != ACCOUNT_SCI_ID)
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, BILLING_COST_FAB_DESIGN*amount, "Design Invoice", "For the use of the licensed '[design.name]' design. ($[BILLING_COST_FAB_DESIGN] x [amount] instances).")
+	// Cargo's cut
+	if(department_ID && department_ID != ACCOUNT_CAR_ID)
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, BILLING_COST_FAB_MATERIAL*material_cost*amount, "Material Invoice", "For the use of Cargo materials, \[[material_strings]\]. ($[BILLING_COST_FAB_MATERIAL*material_cost] x [amount] instances).", ACCOUNT_CAR_ID)
+
+
 	return TRUE
 
 /obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)

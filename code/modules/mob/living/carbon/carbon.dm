@@ -13,6 +13,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_OVERRIDE_SKIN_COLOUR), PROC_REF(_signal_body_part_update))
 
+	GRANT_ACTION(/datum/action/show_billing_changelog)
+
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
