@@ -1,3 +1,6 @@
+/**
+ * Its intentional that this does not require access
+ */
 /obj/machinery/computer/station_alert
 	name = "station alert console"
 	desc = "Used to access the station's automated alert system."
@@ -17,12 +20,9 @@
 	QDEL_NULL(alert_control)
 	return ..()
 
-
-/obj/machinery/computer/station_alert/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/computer/station_alert/ui_interact(mob/user)
 	. = ..()
+	SSblackbox.record_feedback("tally", "work_board_opened", 1, "console")
 	alert_control.ui_interact(user)
 
 /obj/machinery/computer/station_alert/on_set_machine_stat(old_value)
@@ -35,8 +35,11 @@
 	. = ..()
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if(length(alert_control.listener.alarms))
+	var/list/alarms = alert_control.listener.alarms
+	if(alarms[ALARM_ATMOS] || alarms[ALARM_FIRE])
 		. += "alert:2"
+	else if(length(alarms))
+		. += "alert:1"
 
 /**
  * Signal handler for calling an icon update in case an alarm is added or cleared
