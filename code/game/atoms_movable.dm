@@ -1090,7 +1090,8 @@
 		attack_image = image(icon = 'icons/effects/effects.dmi', icon_state = visual_effect_icon)
 	else if(used_item)
 		attack_image = image(icon = used_item)
-		attack_image.plane = GAME_PLANE
+		attack_image.plane = attacked_atom.plane
+		attack_image.layer = attacked_atom.layer + 0.1
 
 		// Scale the icon.
 		attack_image.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
