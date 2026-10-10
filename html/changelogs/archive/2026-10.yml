@@ -104,3 +104,7 @@
   - tweak: Binoculars can now be worn around your neck
   - admin: A new matrix editor UI has been added to VV. See "Test Matrices" in the
       dropdown.
+2026-10-10:
+  BotTierPC:
+  - admin: Admin Ticket Manager, and Mentor Ticket Manager Input Box Are Made Multi-line
+      For Easier Readability.
