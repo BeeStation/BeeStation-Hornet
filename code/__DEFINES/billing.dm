@@ -16,7 +16,7 @@
 /// Techfab
 #define BILLING_MAX_OUTSTANDING_FAB 5
 /// Area Power Control
-#define BILLING_MAX_OUTSTANDING_APC 10
+#define BILLING_MAX_OUTSTANDING_APC 2
 
 /// Generic services cost
 #define BILLING_UPKEEP_GENERIC 280

@@ -2,6 +2,7 @@
 	Suit sensor bills for each department
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
 	Make the department upkeep equal to its last power bill
+	add tags for paid and unpaid
 */
 
 /obj/machinery/computer/billing
