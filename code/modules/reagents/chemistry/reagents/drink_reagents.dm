@@ -109,7 +109,7 @@
 	name = "Berry Juice"
 	description = "A delicious blend of several different kinds of berries."
 	color = "#863333" // rgb: 134, 51, 51
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "berries"
 
 /datum/glass_style/drinking_glass/berryjuice
@@ -121,7 +121,7 @@
 	name = "Apple Juice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#ECFF56" // rgb: 236, 255, 86
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "apples"
 
 /datum/glass_style/has_foodtype/juicebox/applejuice
@@ -135,7 +135,7 @@
 	name = "Poison Berry Juice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
 	color = "#863353" // rgb: 134, 51, 83
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BARTENDER_SERVING
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_BOTANY
 	taste_description = "berries"
 
 /datum/glass_style/drinking_glass/poisonberryjuice
@@ -152,7 +152,7 @@
 	name = "Watermelon Juice"
 	description = "Delicious juice made from watermelon."
 	color = "#863333" // rgb: 134, 51, 51
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "juicy watermelon"
 
 /datum/glass_style/drinking_glass/watermelonjuice
@@ -178,7 +178,7 @@
 	name = "Banana Juice"
 	description = "The raw essence of a banana. HONK"
 	color = "#863333" // rgb: 175, 175, 0
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_RNG_BOTANY
 	taste_description = "banana"
 
 /datum/glass_style/drinking_glass/banana
@@ -196,7 +196,7 @@
 /datum/reagent/consumable/nothing
 	name = "Nothing"
 	description = "Absolutely nothing."
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_RNG_BOTANY
 	taste_description = "nothing"
 
 /datum/glass_style/shot_glass/nothing
@@ -221,7 +221,7 @@
 	description = "Some say that this is the best medicine, but recent studies have proven that to be untrue."
 	metabolization_rate = INFINITY
 	color = "#FF4DD2"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_RNG_BOTANY
 	taste_description = "laughter"
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -263,7 +263,7 @@
 	description = "Juice of the potato. Bleh."
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "irish sadness"
 
 /datum/glass_style/drinking_glass/potato_juice
@@ -276,7 +276,7 @@
 	name = "Grape Juice"
 	description = "The juice of a bunch of grapes. Guaranteed non-alcoholic."
 	color = "#290029" // dark purple
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "grape soda"
 
 /datum/glass_style/has_foodtype/juicebox/grapejuice
@@ -1168,7 +1168,7 @@
 	name = "Parsnip Juice"
 	description = "Why..."
 	color = "#FFA500"
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "parsnip"
 
 /datum/glass_style/has_foodtype/drinking_glass/parsnipjuice
@@ -1367,7 +1367,7 @@
 	name = "Coconut Milk"
 	description = "A smooth, creamy liquid with a faint tropical aroma. Looks refreshing!"
 	color = "#F0EDE5" //rgb(240, 237, 229)
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "a creamy tropical paradise"
 
 /datum/glass_style/drinking_glass/coconutmilk
@@ -1381,7 +1381,7 @@
 	name = "Coconut Juice"
 	description = "A slightly translucent, sweet coconut juice with a light, tropical scent"
 	color = "#ddcec0" //rgb(221, 206, 192)
-	chemical_flags = NONE
+	chemical_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "a beach holiday in a glass"
 
 /datum/glass_style/drinking_glass/coconutjuice

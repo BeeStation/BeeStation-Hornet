@@ -259,3 +259,4 @@
 ///Particle holder for trait appearances - Throw any extras you want in here
 /atom/movable/artifact_particle_holder
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vis_flags = VIS_INHERIT_ID

@@ -11,6 +11,7 @@
 
 //Sticker series
 #define STICKER_SERIES_1 (1<<10)  //Bump these along if you somehow need more rarities > 10
+#define STICKER_SERIES_2 (1<<11)
 
 //Drop weight
 #define STICKER_WEIGHT_COMMON 100

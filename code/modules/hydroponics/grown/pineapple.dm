@@ -1,21 +1,6 @@
 // Pineapple!
-/obj/item/seeds/pineapple
-	name = "pack of pineapple seeds"
-	desc = "Oooooooooooooh!"
-	icon_state = "seed-pineapple"
-	species = "pineapple"
-	plantname = "Pineapple Plant"
-	product = /obj/item/food/grown/pineapple
-	lifespan = 160
-	endurance = 30
-	growthstages = 3
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/apple)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/consumable/nutriment = 0.2, /datum/reagent/water = 0.04)
-
 /obj/item/food/grown/pineapple
-	seed = /obj/item/seeds/pineapple
+	seed = /obj/item/plant_seeds/preset/pineapple
 	name = "pineapples"
 	desc = "Blorble."
 	icon_state = "pineapple"

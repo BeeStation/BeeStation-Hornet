@@ -255,10 +255,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/item/kirbyplants/dead{
-	desc = "A little bit of nature contained in a pot. It looks dead, and reeks of potato liquor.";
-	name = "potted plant"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "rC" = (

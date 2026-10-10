@@ -1,67 +1,67 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"n" = (
+"f" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"w" = (
+"o" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"D" = (
-/obj/structure/closet/firecloset,
+"F" = (
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"H" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"J" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"R" = (
+"L" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"W" = (
+"M" = (
+/turf/open/floor/iron,
+/area/ruin/powered)
+"O" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"Y" = (
 /turf/closed/wall,
 /area/ruin/powered)
 
 (1,1,1) = {"
-W
-W
-W
-W
-W
+Y
+Y
+Y
+Y
+Y
 "}
 (2,1,1) = {"
-W
-D
-J
-R
-W
+Y
+O
+F
+L
+Y
 "}
 (3,1,1) = {"
-n
-H
-H
-H
-W
+f
+M
+M
+M
+Y
 "}
 (4,1,1) = {"
-W
-H
-H
-H
-W
+Y
+M
+M
+M
+Y
 "}
 (5,1,1) = {"
-W
-H
-w
-H
-W
+Y
+M
+o
+M
+Y
 "}

@@ -213,10 +213,7 @@
 /area/template_noop)
 "N" = (
 /obj/structure/table/wood,
-/obj/item/kirbyplants{
-	icon_state = "plant-05";
-	pixel_y = 10
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},

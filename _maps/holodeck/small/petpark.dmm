@@ -32,7 +32,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "q" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/effect/holodeck_effect/mobspawner/pet,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
@@ -85,7 +85,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "O" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/reagent_containers/cup/bucket,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
@@ -94,7 +94,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "U" = (
-/obj/machinery/hydroponics/soil,
+/obj/item/plant_tray/soil,
 /obj/item/cultivator,
 /turf/open/floor/holofloor/grass,
 /area/template_noop)

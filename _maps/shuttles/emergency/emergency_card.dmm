@@ -930,9 +930,7 @@
 "BE" = (
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/structure/table/reinforced,
-/obj/item/kirbyplants/random{
-	pixel_y = 26
-	},
+/obj/item/plant_tray/pot/random,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
