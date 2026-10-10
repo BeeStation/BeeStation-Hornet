@@ -60,6 +60,10 @@
 		return ..()
 
 	if(foodload)
+		if(M != user)
+			M.visible_message(span_notice("[user] starts feeding [M] a [bite_word] of food..."), span_userdanger("[user] starts feeding you a [bite_word]..."))
+			if(!do_after(user, 1.5 SECONDS, M, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded)))) // Feeding Others Has A Delay Similar To Self Eating
+				return
 		if(M == user)
 			M.visible_message(span_notice("[user] eats a [bite_word] of food!"))
 		else
@@ -76,6 +80,9 @@
 		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
 	return ..()
+
+/obj/item/kitchen/fork/proc/can_feed_loaded()
+	return !!foodload
 
 /obj/item/kitchen/fork/spoon
 	name = "spoon"
