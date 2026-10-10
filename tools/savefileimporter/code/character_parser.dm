@@ -29,6 +29,7 @@ var/global/list/custom_name_types = list(
 		READ_FILE(S["body_is_always_random"], be_random_body, FALSE)
 		READ_FILE(S["gender"], gender, MALE)
 		READ_FILE(S["age"], age, 30)
+		READ_FILE(S["flavor_text"], flavor_text, "")
 		READ_FILE(S["hair_color"], hair_color, COLOR_BLACK)
 		READ_FILE(S["gradient_color"], gradient_color, COLOR_BLACK)
 		READ_FILE(S["facial_hair_color"], facial_hair_color, COLOR_BLACK)
@@ -103,6 +104,7 @@ var/global/list/custom_name_types = list(
 			body_is_always_random,
 			gender,
 			age,
+			flavor_text,
 			hair_color,
 			gradient_color,
 			facial_hair_color,
@@ -136,6 +138,7 @@ var/global/list/custom_name_types = list(
 			:randombody,
 			:gender,
 			:age,
+			:flavortext,
 			:haircolour,
 			:gradientcolour,
 			:facialhaircolour,
@@ -172,6 +175,7 @@ var/global/list/custom_name_types = list(
 			"randombody" = be_random_body,
 			"gender" = gender,
 			"age" = age,
+			"flavortext" = flavor_text,
 			"haircolour" = hair_color,
 			"gradientcolour" = gradient_color,
 			"facialhaircolour" = facial_hair_color,

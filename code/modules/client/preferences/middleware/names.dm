@@ -1,4 +1,4 @@
-/// Middleware that handles telling the UI which name to show, and waht names
+/// Middleware that handles telling the UI which name to show, and what names
 /// they have.
 /datum/preference_middleware/names
 	action_delegations = list(
