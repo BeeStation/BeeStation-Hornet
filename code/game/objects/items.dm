@@ -684,7 +684,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
-		else if(!I.damtype == BRUTE)
+		else if(I.damtype != BRUTE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
