@@ -4,7 +4,7 @@
 /// generic Techfab material
 #define BILLING_COST_FAB_MATERIAL 0.025
 /// Electricity in whatever unit
-#define BILLING_COST_ELECTRICITY 0.0002
+#define BILLING_COST_ELECTRICITY 0.0003
 
 // Billing periods
 /// Generic billing period for power
