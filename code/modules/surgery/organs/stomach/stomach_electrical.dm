@@ -1,3 +1,10 @@
+/// Charge drained per point of electrical stamina damage
+#define POWER_DRAIN_PER_STAMINA ((ETHEREAL_CHARGE_ALMOSTFULL - ETHEREAL_CHARGE_LOWPOWER) / STAMINA_MAX)
+
+#define NON_ELECTRICAL_POWER_DRAIN_MODIFIER 0.25
+/// Prevent direct stamina drains from putting IPC in brownout
+#define POWER_DRAIN_FLOOR (0.1 * STANDARD_ETHEREAL_CHARGE)
+
 /obj/item/organ/stomach/electrical
 	name = "PARENT electric stomach"
 	icon_state = "stomach-p"
@@ -220,8 +227,42 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
+	organ_traits = list(TRAIT_NOHUNGER)
 	/// store the previous display
 	var/screen_before_brownout
+
+/obj/item/organ/stomach/electrical/ipc/on_insert(mob/living/carbon/organ_owner, special)
+	. = ..()
+	RegisterSignal(organ_owner, COMSIG_LIVING_DRAIN_STAMINA_POWER, PROC_REF(on_stamina_power_drain))
+	RegisterSignal(organ_owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
+	organ_owner.update_stamina_hud()
+
+/obj/item/organ/stomach/electrical/ipc/on_remove(mob/living/carbon/organ_owner, special)
+	. = ..()
+	UnregisterSignal(organ_owner, list(COMSIG_LIVING_DRAIN_STAMINA_POWER, COMSIG_ATOM_EXAMINE))
+	organ_owner.update_stamina_hud()
+
+/obj/item/organ/stomach/electrical/ipc/adjust_charge(amount)
+	. = ..()
+	owner?.update_stamina_hud()
+
+/obj/item/organ/stomach/electrical/ipc/proc/on_stamina_power_drain(datum/source, amount, electrical)
+	SIGNAL_HANDLER
+	if(!electrical)
+		amount *= NON_ELECTRICAL_POWER_DRAIN_MODIFIER
+	drain_charge(amount * POWER_DRAIN_PER_STAMINA)
+	if(cell.charge >= ETHEREAL_CHARGE_LOWPOWER)
+		return COMPONENT_STAMINA_POWERED
+
+/obj/item/organ/stomach/electrical/ipc/proc/drain_charge(amount)
+	var/drain = min(amount, cell.charge - POWER_DRAIN_FLOOR)
+	if(drain > 0)
+		adjust_charge(-drain)
+
+/obj/item/organ/stomach/electrical/ipc/proc/on_owner_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	if(cell.charge < ETHEREAL_CHARGE_LOWPOWER)
+		examine_list += span_warning("[owner.p_Their()] power light is blinking red.")
 
 /obj/item/organ/stomach/electrical/ipc/on_brownout_start(mob/living/carbon/carbon)
 	if(isnull(carbon.dna))
@@ -243,6 +284,9 @@
 
 /obj/item/organ/stomach/electrical/ipc/emp_act(severity)
 	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	drain_charge(ETHEREAL_EMP_CHARGE_LOSS / severity)
 	switch(severity)
 		if(1)
 			to_chat(owner, span_warning("Alert: Heavy EMP Detected. Rebooting power cell to prevent damage."))
@@ -260,3 +304,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	adjust_charge(-ETHEREAL_EMP_CHARGE_LOSS / severity)
+
+#undef POWER_DRAIN_PER_STAMINA
+#undef NON_ELECTRICAL_POWER_DRAIN_MODIFIER
+#undef POWER_DRAIN_FLOOR

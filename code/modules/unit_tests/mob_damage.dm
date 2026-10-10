@@ -10,10 +10,6 @@
 	SSmobs.pause()
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 	dummy.maxHealth = 200 // tank mode
-	// Force normalized stam_damage_coeff for testing - Bee uses limb coefficients (0.7 on limbs)
-	// which causes getStaminaLoss() to report less than was applied. Set to 1 for consistency
-	for(var/obj/item/bodypart/BP as anything in dummy.bodyparts)
-		BP.stam_damage_coeff = 1
 
 	/* The sanity tests: here we make sure that:
 	1) That damage procs are returning the expected values. They should be returning the actual amount of damage taken/healed.
@@ -59,7 +55,7 @@
  */
 /datum/unit_test/mob_damage/proc/test_apply_damage(mob/living/testing_mob, amount, expected = -amount, amount_after, included_types, biotypes, bodytypes, forced)
 	if(isnull(amount_after))
-		amount_after = round(testing_mob.getStaminaLoss(), DAMAGE_PRECISION) - expected // stamina loss applies to both carbon and basic mobs the same way, so that's why we're using it here
+		amount_after = round(testing_mob.stamina.loss, DAMAGE_PRECISION) - expected // stamina loss applies to both carbon and basic mobs the same way, so that's why we're using it here
 	if(!apply_damage(testing_mob, amount, expected, included_types, biotypes, bodytypes, forced))
 		return FALSE
 	if(!verify_damage(testing_mob, amount_after, included_types))
@@ -84,7 +80,7 @@
  */
 /datum/unit_test/mob_damage/proc/test_set_damage(mob/living/testing_mob, amount, expected, amount_after, included_types, biotypes, bodytypes, forced)
 	if(isnull(amount_after))
-		amount_after = round(testing_mob.getStaminaLoss(), DAMAGE_PRECISION) - expected
+		amount_after = round(testing_mob.stamina.loss, DAMAGE_PRECISION) - expected
 	if(!set_damage(testing_mob, amount, expected, included_types, biotypes, bodytypes, forced))
 		return FALSE
 	if(!verify_damage(testing_mob, amount_after, included_types))
@@ -117,8 +113,8 @@
 		TEST_ASSERT_EQUAL(testing_mob.getCloneLoss(), amount, \
 			"[testing_mob] should have [amount] clone damage, instead they have [testing_mob.getCloneLoss()]!")
 	if(included_types & STAMINALOSS)
-		TEST_ASSERT_EQUAL(round(testing_mob.getStaminaLoss(), DAMAGE_PRECISION), amount, \
-			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.getStaminaLoss()]!")
+		TEST_ASSERT_EQUAL(round(testing_mob.stamina.loss, DAMAGE_PRECISION), amount, \
+			"[testing_mob] should have [amount] stamina damage, instead they have [testing_mob.stamina.loss]!")
 	return TRUE
 
 /**
@@ -157,9 +153,11 @@
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"adjustCloneLoss() should have returned [expected], but returned [damage_returned] instead!")
 	if(included_types & STAMINALOSS)
-		damage_returned = round(testing_mob.adjustStaminaLoss(amount, updating_stamina = TRUE, forced = forced, required_biotype = biotypes), DAMAGE_PRECISION)
+		var/old_loss = testing_mob.stamina.loss
+		testing_mob.stamina.adjust(-amount, forced)
+		damage_returned = round(-(testing_mob.stamina.loss - old_loss), DAMAGE_PRECISION)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
-			"adjustStaminaLoss() should have returned [expected], but returned [damage_returned] instead!")
+			"stamina.adjust() should have resulted in [expected] change, but resulted in [damage_returned] instead!")
 	return TRUE
 
 /**
@@ -198,9 +196,12 @@
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
 			"setCloneLoss() should have returned [expected], but returned [damage_returned] instead!")
 	if(included_types & STAMINALOSS)
-		damage_returned = round(testing_mob.setStaminaLoss(amount, updating_stamina = FALSE, forced = forced, required_biotype = biotypes), DAMAGE_PRECISION)
+		var/old_loss = testing_mob.stamina.loss
+		testing_mob.stamina.current = round(clamp(testing_mob.stamina.maximum - amount, 0, testing_mob.stamina.maximum), DAMAGE_PRECISION)
+		testing_mob.stamina.process()
+		damage_returned = round(-(testing_mob.stamina.loss - old_loss), DAMAGE_PRECISION)
 		TEST_ASSERT_EQUAL(damage_returned, expected, \
-			"setStaminaLoss() should have returned [expected], but returned [damage_returned] instead!")
+			"stamina set should have resulted in [expected] change, but resulted in [damage_returned] instead!")
 	return TRUE
 
 ///	Sanity tests damage and healing using adjustToxLoss, adjustBruteLoss, etc
@@ -348,9 +349,6 @@
 
 	// Transform back to human
 	dummy.set_species(/datum/species/human)
-	// normalize stam_damage_coeff after bodypart regeneration
-	for(var/obj/item/bodypart/BP as anything in dummy.bodyparts)
-		BP.stam_damage_coeff = 1
 
 	// We have 2 damage presently.
 	// Try to heal it; let's specify MOB_MINERAL, which should no longer work because we have changed back to a human.

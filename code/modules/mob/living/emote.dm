@@ -754,12 +754,38 @@
 	key_third_person = "gasps"
 	message = "gasps"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE // You can see a person gasping.
+	stat_allowed = SOFT_CRIT
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	return H?.dna?.species?.get_gasp_sound(H)
+	. = H.dna?.species?.get_gasp_sound(H)
+	if(!.)
+		return
+	//Dying gasps
+	if(H.undergoing_cardiac_arrest())
+		if(H.gender == FEMALE)
+			return pick(
+				'goon/sounds/voice/gasp/female_gasp_1.ogg',
+				'goon/sounds/voice/gasp/female_gasp_2.ogg',
+				'goon/sounds/voice/gasp/female_gasp_3.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_1.ogg',
+			'goon/sounds/voice/gasp/male_gasp_2.ogg',
+			'goon/sounds/voice/gasp/male_gasp_3.ogg',
+		)
+	if(H.health <= H.crit_threshold)
+		if(H.gender == FEMALE)
+			return pick(
+				'goon/sounds/voice/gasp/female_gasp_4.ogg',
+				'goon/sounds/voice/gasp/female_gasp_5.ogg',
+			)
+		return pick(
+			'goon/sounds/voice/gasp/male_gasp_4.ogg',
+			'goon/sounds/voice/gasp/male_gasp_5.ogg',
+		)
 
 /datum/emote/living/must_breathe/huff
 	key = "huff"

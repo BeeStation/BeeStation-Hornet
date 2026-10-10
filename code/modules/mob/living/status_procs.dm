@@ -230,6 +230,71 @@
 		P = apply_status_effect(/datum/status_effect/incapacitating/paralyzed, amount)
 	return P
 
+/* DISORIENTED */
+/**
+ * Applies the "disoriented" status effect to the mob, among other potential statuses.
+ * Args:
+ * * amount : duration for src to be disoriented
+ * * stamina_amount : stamina damage to deal before LERP
+ * * ignore_canstun : ignore stun immunities, if using a secondary form of status
+ * * knockdown : duration to knock src down
+ * * stun : duration to stun src
+ * * paralyze : duration to paralyze src
+ * * overstam : If TRUE, stamina_amount will be able to deal stamina damage over the waekened threshold, allowing it to also stamina stun.
+ * * stack_status : Should the given status value(s) stack ontop of existing status values?
+ * * protection : Armor value (0-100) that reduces stamina_amount
+ * * electrical : Mobs with TRAIT_STAMINA_DRAINS_POWER lose power at the full rate instead of the reduced non-electrical one
+ */
+/mob/living/proc/Disorient(amount, stamina_amount, ignore_canstun, knockdown, stun, paralyze, overstam, stack_status = TRUE, protection = 0, electrical = FALSE)
+	var/disorient_multiplier = 1 - (clamp(protection, 0, 100)/100)
+	var/stamina_multiplier = LERP(disorient_multiplier, 1, 0.25)
+
+	var/stam2deal = stamina_amount * stamina_multiplier
+
+	var/low_power = FALSE
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		low_power = !(SEND_SIGNAL(src, COMSIG_LIVING_DRAIN_STAMINA_POWER, stam2deal, electrical) & COMPONENT_STAMINA_POWERED)
+	//You can never be stam-stunned w/o overstam
+	else if(overstam)
+		stamina.adjust(-stam2deal)
+	else
+		var/threshold = (stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER)
+		stam2deal = min(stam2deal, max(stamina.current - threshold, 0))
+		if(stam2deal)
+			stamina.adjust(-stam2deal)
+
+	var/curr_confusion = get_timed_status_effect_duration(/datum/status_effect/confusion)
+	set_timed_status_effect(min(curr_confusion + amount, 15 SECONDS), /datum/status_effect/confusion)
+
+	if(HAS_TRAIT(src, TRAIT_EXHAUSTED) || low_power)
+		var/list/applied = list()
+		if(knockdown && (stack_status ? AdjustKnockdown(knockdown, ignore_canstun) : Knockdown(knockdown, ignore_canstun)))
+			applied += "knocked down ([DisplayTimeText(knockdown)])"
+
+		if(paralyze && (stack_status ? AdjustParalyzed(paralyze, ignore_canstun) : Paralyze(paralyze, ignore_canstun)))
+			applied += "paralyzed ([DisplayTimeText(paralyze)])"
+
+		if(stun && (stack_status ? AdjustStun(stun, ignore_canstun) : Stun(stun, ignore_canstun)))
+			applied += "stunned ([DisplayTimeText(stun)])"
+
+		if(length(applied))
+			log_message("was [english_list(applied)] by a disorient while [low_power ? "in low power" : "exhausted"]", LOG_ATTACK)
+
+	if(amount > 0)
+		adjust_timed_status_effect(amount, /datum/status_effect/incapacitating/disoriented, 15 SECONDS)
+
+	return
+
+
+/mob/living/proc/IsDisoriented() //If we're paralyzed
+	return has_status_effect(/datum/status_effect/incapacitating/disoriented)
+
+/mob/living/proc/AmountDisoriented() //How many deciseconds remain in our Paralyzed status effect
+	var/datum/status_effect/incapacitating/disoriented/P = IsDisoriented()
+	if(P)
+		return P.duration - world.time
+	return 0
+
 //Blanket
 /mob/living/proc/AllImmobility(amount)
 	Paralyze(amount)
@@ -245,6 +310,8 @@
 	SetStun(amount)
 	SetImmobilized(amount)
 	SetUnconscious(amount)
+	if(amount <= 0)
+		remove_status_effect(/datum/status_effect/incapacitating/stamcrit)
 
 
 /mob/living/proc/AdjustAllImmobility(amount)

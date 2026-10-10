@@ -21,13 +21,12 @@
 	attack_verb_simple = list("hit", "pierce", "slice", "attack")
 
 /obj/item/pickaxe/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
-	if(user.getStaminaLoss() < 75)
+	if(user.stamina.loss_as_percent < 75)
 		. = ..()
 	else
 		to_chat(user, span_danger("You quickly stop picking. You are too tired to work!"))
 		return
-	user.adjustStaminaLoss(stamina_use)
-	return
+	user.stamina.adjust(-stamina_use, TRUE)
 
 /obj/item/pickaxe/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] begins digging into [user.p_their()] chest!  It looks like [user.p_theyre()] trying to commit suicide!"))

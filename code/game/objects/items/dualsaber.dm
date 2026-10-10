@@ -103,9 +103,9 @@
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)
 
-/obj/item/dualsaber/update_icon()
-	icon_state = "dualsaber0"
-	..()
+/obj/item/dualsaber/update_icon_state()
+	icon_state = inhand_icon_state = HAS_TRAIT(src, TRAIT_WIELDED) ? "dualsaber[saber_color][HAS_TRAIT(src, TRAIT_WIELDED)]" : "dualsaber0"
+	return ..()
 
 /obj/item/dualsaber/suicide_act(mob/living/carbon/user)
 	if(ISWIELDED(src))
@@ -154,7 +154,7 @@
 	if(ISWIELDED(src))
 		user.take_bodypart_damage(20,25,check_armor = TRUE)
 	else
-		user.adjustStaminaLoss(25)
+		user.stamina.adjust(-25)
 
 /obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(ISWIELDED(src))
@@ -212,7 +212,7 @@
 			to_chat(user, span_warning("2XRNBW_ENGAGE"))
 			saber_color = "rainbow"
 			AddComponent(/datum/component/two_handed, icon_wielded="dualsaber[saber_color]1")
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, span_warning("It's starting to look like a triple rainbow - no, nevermind."))
 	else

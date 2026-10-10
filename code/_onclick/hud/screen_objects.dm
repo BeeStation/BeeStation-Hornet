@@ -361,25 +361,44 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "running"
 	mouse_over_pointer = MOUSE_HAND_POINTER
+	var/tip_timer
 
 /atom/movable/screen/mov_intent/Click()
 	toggle(usr)
+
+/atom/movable/screen/mov_intent/MouseEntered(location, control, params)
+	. = ..()
+	if(!isliving(usr) || QDELETED(src))
+		return
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay) / 100
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(open_tip), params, usr), timedelay, TIMER_STOPPABLE)
+
+/atom/movable/screen/mov_intent/proc/open_tip(params, mob/living/user)
+	var/content = "Click to switch between walking and running."
+	if(user.get_move_intent_by_flag(MOVE_INTENT_QUICK))
+		var/list/sprint_keys = user.client?.prefs.key_bindings["Sprint"]
+		content += "<br>[length(sprint_keys) ? "Hold [english_list(sprint_keys, and_text = " or ")]" : "Bind a sprint key"] to sprint. Sprinting burns stamina."
+	openToolTip(user, src, params, title = "Walk/Run", content = content)
+
+/atom/movable/screen/mov_intent/MouseExited(location, control, params)
+	. = ..()
+	deltimer(tip_timer)
+	closeToolTip(usr)
 
 /atom/movable/screen/mov_intent/update_icon_state()
 	if(!hud || !hud.mymob || !isliving(hud.mymob))
 		return
 	var/mob/living/living_hud_owner = hud.mymob
-	switch(living_hud_owner.move_intent)
-		if(MOVE_INTENT_WALK)
-			icon_state = "walking"
-		if(MOVE_INTENT_RUN)
-			icon_state = "running"
+	icon_state = living_hud_owner.move_intent.hud_icon_state
+	//There's no sprint icon in the UI styles, so sprinting lights up the running one
+	color = MOVING_QUICKLY(living_hud_owner) ? list(1,0,0, 0,1,0, 0,0,1, 0.25,0.25,0.25) : null
 	return ..()
 
 /atom/movable/screen/mov_intent/proc/toggle(mob/living/user)
 	if(!istype(user))
 		return
-	user.toggle_move_intent(user)
+	user.set_next_usable_move_intent()
 
 /atom/movable/screen/pull
 	name = "stop pulling"
@@ -802,5 +821,69 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)
 
 /atom/movable/screen/stamina
 	name = "stamina"
-	icon_state = "stamina0"
+	icon_state = "stamina_full"
 	screen_loc = ui_stamina
+	///Are we pulsing to warn that exhaustion is close?
+	var/warning = FALSE
+	var/tip_timer
+
+/atom/movable/screen/stamina/proc/set_warning(new_warning)
+	if(warning == new_warning)
+		return
+	warning = new_warning
+	if(warning)
+		animate(src, color = "#ff4040", time = 0.4 SECONDS, loop = -1, easing = SINE_EASING)
+		animate(color = null, time = 0.4 SECONDS)
+	else
+		animate(src)
+		color = null
+
+/atom/movable/screen/stamina/Click(location, control, params)
+	if (iscarbon(usr))
+		var/mob/living/carbon/C = usr
+		var/status = "You have [round(C.stamina.current)]/[C.stamina.maximum] stamina, and are regenerating [round(C.stamina.regen_rate, 0.1)] per second"
+		if(HAS_TRAIT(C, TRAIT_STAMINA_DRAINS_POWER))
+			status = "You have [round(C.get_stamina_power() * 100)]% charge"
+			if(C.stamina.current < C.stamina.maximum)
+				status += " and [round(C.stamina.current)]/[C.stamina.maximum] stamina"
+		var/content = {"
+		<div class='notice'>
+			[span_boldnotice("[status]. [exhaustion_text(C)].")]
+		</div>
+		"}
+		to_chat(C, content)
+
+/atom/movable/screen/stamina/MouseEntered(location, control, params)
+	. = ..()
+	if(!isliving(usr) || QDELETED(src))
+		return
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay) / 100
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(open_tip), params, usr), timedelay, TIMER_STOPPABLE)
+
+/atom/movable/screen/stamina/proc/open_tip(params, mob/living/user)
+	if(iscarbon(user) && HAS_TRAIT(user, TRAIT_STAMINA_DRAINS_POWER))
+		var/mob/living/carbon/carbon_user = user
+		var/tip = "Charge: [round(carbon_user.get_stamina_power() * 100)]%<br>"
+		if(user.stamina.current < user.stamina.maximum)
+			tip += "Stamina: [round(user.stamina.current)]/[user.stamina.maximum]<br>"
+		openToolTip(user, src, params, title = "Charge", content = "[tip][exhaustion_text(user)]")
+		return
+	var/content = {"
+		Stamina: [round(user.stamina.current)]/[user.stamina.maximum]<br>
+		Regen: [round(user.stamina.regen_rate, 0.1)]/s<br>
+		[exhaustion_text(user)]
+	"}
+	openToolTip(user, src, params, title = "Stamina", content = content)
+
+/atom/movable/screen/stamina/MouseExited(location, control, params)
+	. = ..()
+	deltimer(tip_timer)
+	closeToolTip(usr)
+
+/atom/movable/screen/stamina/proc/exhaustion_text(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_EXHAUSTED))
+		return "Exhausted until [round(user.stamina.maximum * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER)] stamina"
+	if(HAS_TRAIT(user, TRAIT_STAMINA_DRAINS_POWER))
+		return "Low power below [round(ETHEREAL_CHARGE_LOWPOWER / ETHEREAL_CHARGE_FULL * 100)]%"
+	return "Exhausted below [round(user.stamina.maximum * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER)] stamina"

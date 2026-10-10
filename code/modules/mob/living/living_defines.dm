@@ -19,7 +19,10 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-	var/health = 100 	//A mob's health
+	var/health = 100 //A mob's health
+
+	///The holder for stamina handling
+	var/datum/stamina_container/stamina
 
 	// Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	/// Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -35,16 +38,20 @@
 	/// Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
 	var/staminaloss = 0
 
-	/// The movement intent of the mob (run/wal)
-	var/move_intent = MOVE_INTENT_RUN
-
-	/// Rate at which fire stacks should decay from this mob
-	var/fire_stack_decay_rate = -0.05
+	/// The movement intent of the mob
+	var/datum/move_intent/move_intent = /datum/move_intent/run
+	/// Move intents this mob can use
+	var/list/move_intents = list(/datum/move_intent/walk, /datum/move_intent/run)
 
 	/// When the mob goes from "normal" to crit
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT
 	/// When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
+	/// When the mob dies.
+	var/death_threshold = HEALTH_THRESHOLD_DEAD
+
+	/// Rate at which fire stacks should decay from this mob
+	var/fire_stack_decay_rate = -0.05
 
 	/// Generic bitflags for boolean conditions at the [/mob/living] level. Keep this for inherent traits of living types, instead of runtime-changeable ones.
 	var/living_flags = NONE
@@ -146,7 +153,6 @@
 	var/blood_volume = 0 //how much blood the mob has
 
 	var/list/status_effects //a list of all status effects the mob has
-	var/druggy = 0
 
 	var/list/implants = null
 

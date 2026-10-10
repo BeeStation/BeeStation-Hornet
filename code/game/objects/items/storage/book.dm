@@ -136,7 +136,7 @@
 			return 0
 
 	var/heal_amt = 10
-	var/list/hurt_limbs = built_in_his_image.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
+	var/list/hurt_limbs = built_in_his_image.get_damaged_bodyparts(1, 1, required_bodytype = BODYTYPE_ORGANIC)
 	if(!length(hurt_limbs))
 		return
 
