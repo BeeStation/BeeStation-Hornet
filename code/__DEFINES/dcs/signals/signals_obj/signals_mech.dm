@@ -18,3 +18,6 @@
 
 ///From /datum/action/vehicle/sealed/mecha/mech_toggle_safeties/proc/update_action_icon(): ()
 #define COMSIG_MECH_SAFETIES_TOGGLE "mech_safeties_toggle"
+
+///From /obj/vehicle/sealed/mecha/vehicle_move() when TRAIT_MECHA_ROOTED blocks a move or turn: (direction)
+#define COMSIG_MECHA_ROOTED_MOVE_ATTEMPT "mecha_rooted_move_attempt"

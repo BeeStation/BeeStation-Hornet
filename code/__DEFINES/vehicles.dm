@@ -31,3 +31,7 @@
 #define CAN_KIDNAP 1
 
 #define COMSIG_VEHICLE_MOVE "vehicle_move"
+///From /obj/vehicle/proc/add_occupant(): (mob/occupant)
+#define COMSIG_VEHICLE_OCCUPANT_ADDED "vehicle_occupant_added"
+///From /obj/vehicle/proc/remove_occupant(): (mob/occupant)
+#define COMSIG_VEHICLE_OCCUPANT_REMOVED "vehicle_occupant_removed"

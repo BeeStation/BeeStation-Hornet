@@ -68,6 +68,12 @@
 		return FALSE
 	if(!direction)
 		return FALSE
+	// Both traits return before the setDir() below, so they block turning as well as stepping.
+	if(HAS_TRAIT(src, TRAIT_MECHA_SEIZED))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_MECHA_ROOTED))
+		SEND_SIGNAL(src, COMSIG_MECHA_ROOTED_MOVE_ATTEMPT, direction)
+		return FALSE
 	if(ismovable(loc)) //Mech is inside an object, tell it we moved
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, direction)
@@ -167,3 +173,9 @@
 		var/mob/mob_obstacle = obstacle
 		if(mob_obstacle.move_resist <= move_force)
 			step(obstacle, dir & ~(UP|DOWN))
+
+/obj/vehicle/sealed/mecha/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	// Spray bottle puffs drift onto the mech's tile the way they drift onto mobs, so cleaner can wash its hull.
+	if(istype(mover, /obj/effect/decal/chempuff))
+		return TRUE
