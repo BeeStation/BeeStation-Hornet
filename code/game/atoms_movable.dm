@@ -84,6 +84,9 @@
 	/// Whether this atom should have its dir automatically changed when it moves. Setting this to FALSE allows for things such as directional windows to retain dir on moving without snowflake code all of the place.
 	var/set_dir_on_move = TRUE
 
+	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance optimization
+	var/face_mouse = FALSE
+
 /mutable_appearance/emissive_blocker
 
 /mutable_appearance/emissive_blocker/New()
@@ -416,7 +419,7 @@
 	if(!direction)
 		direction = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direction && update_dir)
+	if(set_dir_on_move && dir != direction && update_dir && !face_mouse)
 		setDir(direction)
 
 	var/is_multi_tile_object = is_multi_tile_object(src)
@@ -543,7 +546,7 @@
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!. && set_dir_on_move && update_dir)
+				if(!. && set_dir_on_move && update_dir && !face_mouse)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
@@ -578,7 +581,7 @@
 	last_move = direct
 	last_move_time = world.time
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && dir != direct && update_dir && !face_mouse)
 		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override)) //movement failed due to buckled mob(s)
 		return FALSE

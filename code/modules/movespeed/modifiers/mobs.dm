@@ -145,3 +145,6 @@
 
 /datum/movespeed_modifier/cyborg_sentry
 	multiplicative_slowdown = 0.75 //holy cow cyborgs are fast
+
+/datum/movespeed_modifier/backwalk
+	multiplicative_slowdown = 0.5 // You're walking backwards while looking forward, you're a lot slower to not fall
