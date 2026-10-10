@@ -14350,8 +14350,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/robotics/mechbay)
 "emH" = (
-/obj/structure/sink/kitchen/directional/north{
-	desc = "A sink used for washing one's hands and face... Wasn't this used also for the cleaning dishes?";
+/obj/structure/sink/kitchen/directional/south{
 	name = "medical sink"
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -19346,8 +19345,7 @@
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
-/obj/structure/sink/kitchen/directional/north{
-	desc = "A sink used for washing one's hands and face... Wasn't this used also for the cleaning dishes?";
+/obj/structure/sink/kitchen/directional/south{
 	name = "medical sink"
 	},
 /turf/open/floor/iron/white,
@@ -37826,8 +37824,7 @@
 /obj/effect/turf_decal/trimline/green/corner{
 	dir = 4
 	},
-/obj/structure/sink/kitchen/directional/north{
-	desc = "A sink used for washing one's hands and face... Wasn't this used also for the cleaning dishes?";
+/obj/structure/sink/kitchen/directional/south{
 	name = "medical sink"
 	},
 /turf/open/floor/iron/white,
