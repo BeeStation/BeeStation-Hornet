@@ -250,39 +250,35 @@
 	audible_message(span_italics("You hear a click from the bottom of the door."), null,  1)
 	update_appearance()
 
-/// Shift+Middle-click brings up a radical menu if within 1tile! Point and Knock options!
-/obj/machinery/door/airlock/ShiftMiddleClick(mob/user, params)
-	if(!isliving(user) || !user.client || get_dist(src, user) > 1)
-		return ..()
-
-	var/mob/living/living_user = user
-	var/static/list/knock_radial = list(
-		"Point" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_point"),
-		"Knock" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_knock"),
-	)
-	var/static/list/kick_radial = list(
-		"Point" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_point"),
-		"Kick" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_kick"),
-	)
-	var/selected_option = show_radial_menu(user, src, living_user.combat_mode ? kick_radial : knock_radial, radius = 32, require_near = TRUE, tooltips = TRUE)
-	if(!selected_option || get_dist(src, user) > 1)
+/obj/machinery/door/airlock/attack_hand_secondary(mob/user, list/modifiers) // Right Click To Knock with an empty hand
+	. = ..()
+	if(. != SECONDARY_ATTACK_CALL_NORMAL || !isliving(user))
 		return
+	var/mob/living/living_user = user
+	living_user.changeNext_move(CLICK_CD_MELEE)
+	if(living_user.combat_mode)
+		kick_door(living_user) // combat mode turns Knocking into Aggresive Kicking
+	else
+		knock_on_door(living_user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	switch(selected_option)
-		if("Point")
-			user._pointed(src, params)
-		if("Knock")
-			knock_on_door(living_user)
-		if("Kick")
-			kick_door(living_user)
-
+/obj/machinery/door/airlock/attackby_secondary(obj/item/weapon, mob/user, list/modifiers) // Kicks dont need empty hands
+	. = ..()
+	if(. != SECONDARY_ATTACK_CALL_NORMAL || !isliving(user))
+		return
+	var/mob/living/living_user = user
+	if(!living_user.combat_mode)
+		return
+	living_user.changeNext_move(CLICK_CD_MELEE)
+	kick_door(living_user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/door/airlock/proc/knock_on_door(mob/living/user)
 	if(iscarbon(user) && !user.get_bodypart(BODY_ZONE_L_ARM) && !user.get_bodypart(BODY_ZONE_R_ARM))
 		to_chat(user, span_warning("You are missing the arm required to knock on [src]!"))
 		return
 
-	playsound(src, 'sound/effects/glassknock.ogg', 55, TRUE)
+	playsound(src, 'sound/effects/glassknock.ogg', 60, TRUE)
 	audible_message(span_notice("You hear a knock on [src]."), null, 5)
 	new /obj/effect/temp_visual/door_impact(get_turf(src))
 
@@ -1754,6 +1750,12 @@
 
 	if(!isliving(user))
 		return
+
+	var/mob/living/living_user = user
+	if(living_user.combat_mode)
+		context.add_right_click_action("Kick", accessible = TRUE)
+	else if(!context.held_item)
+		context.add_right_click_action("Knock", accessible = TRUE)
 
 	//Tools
 	if(has_access_panel)
