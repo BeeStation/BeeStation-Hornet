@@ -33,6 +33,25 @@
 	if(!draft)
 		sent_when = station_time_timestamp("YYYY-MM-DD hh:mm:ss")
 
+/datum/bill/proc/pay()
+	if(paid)
+		return
+	var/datum/bank_account/account_to = SSeconomy.get_budget_account(to_whom)
+	var/datum/bank_account/account_from = SSeconomy.get_budget_account(from)
+	if(!account_to || !account_from)
+		return
+	// Can we afford this?
+	if(amount > account_to.account_balance)
+		return
+	account_to.adjust_money(-amount)
+	paid = TRUE
+	bill_tags &= BILL_TAG_UNPAID
+	bill_tags |= BILL_TAG_PAID
+	account_from.adjust_money(amount)
+	SEND_SIGNAL(src, COMSIG_BILLING_BILL_PAID, amount)
+
+	return TRUE
+
 // undraft / send bill
 /datum/bill/proc/undraft()
 	draft = FALSE

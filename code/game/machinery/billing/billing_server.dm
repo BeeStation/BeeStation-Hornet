@@ -6,10 +6,20 @@
 	var/list/linked_terminals = list()
 	/// List of ongoing bills
 	var/list/bills = list()
+	/// List of existing agents
+	var/list/agents = list()
+	/// List of billing settings - Used to configure things like power cost
+	var/list/settings = list(/datum/billing_setting/number/power, /datum/billing_setting/number/upkeep/medical,
+	/datum/billing_setting/number/upkeep/security, /datum/billing_setting/number/upkeep/service)
 
 /obj/machinery/billing_server/Initialize(mapload)
 	. = ..()
 	SSbilling.set_default_server(src)
+	// Build settings
+	for(var/setting_path as anything in settings)
+		var/datum/billing_setting/new_setting = new setting_path()
+		settings += new_setting
+		settings -= setting_path
 
 /obj/machinery/billing_server/proc/link_terminal(obj/console)
 	linked_terminals += console
@@ -45,6 +55,7 @@
 	SEND_SIGNAL(src, COMSIG_BILLING_NEW_BILL, source)
 
 /// Get a list of bills filtered by a specific department id
+// TODO: Chenge this and get agents / settings to use signals - Racc
 /obj/machinery/billing_server/proc/get_bills(to_department_id, from_department_id, drafts = FALSE, paid = FALSE)
 	var/list/filtered_bills = list()
 	for(var/datum/bill/bill as anything in bills)
@@ -55,3 +66,26 @@
 		if(bill.to_whom == to_department_id || bill.from == from_department_id)
 			filtered_bills += bill
 	return filtered_bills
+
+/obj/machinery/billing_server/proc/get_agents(owner_id)
+	var/list/filtered_agents = list()
+	for(var/datum/component/bill_agent/agent as anything in agents)
+		if(agent.department_ID != owner_id)
+			continue
+		filtered_agents += agent
+	return filtered_agents
+
+/obj/machinery/billing_server/proc/get_settings(owner_id)
+	var/list/filtered_settings = list()
+	for(var/datum/billing_setting/setting as anything in settings)
+		if(!(owner_id in setting.department_ID))
+			continue
+		filtered_settings += setting
+	return filtered_settings
+
+/obj/machinery/billing_server/proc/add_agent(datum/component/bill_agent/_agent)
+	agents += _agent
+	RegisterSignal(_agent, COMSIG_QDELETING, PROC_REF(catch_agent))
+
+/obj/machinery/billing_server/proc/catch_agent(datum/source)
+	agents -= source

@@ -142,7 +142,7 @@
 	/// Department ID of the rentoid
 	var/department_ID
 	/// Reference to our billing component, so we can shut down
-	var/datum/component/bill_agent/generic/bill_agent
+	var/datum/component/bill_agent/generic/power/bill_agent
 	/// Rolling bill that ticks up between pay periods, so we're not generating a bill every tick for every usage
 	var/rolling_bill = 0
 	/// Time between bills
@@ -207,7 +207,7 @@
 	var/area/A = get_area(src)
 	department_ID = A?.power_bill_department_ID
 	extra_overdraft = A?.extra_overdraft
-	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_ENG_ID, TRUE, BILL_TAG_POWER) //TODO: Engineering gets paid by default, not good for customs setups - Racc
+	bill_agent = AddComponent(/datum/component/bill_agent/generic/power, ACCOUNT_ENG_ID, TRUE, BILL_TAG_POWER) //TODO: Engineering gets paid by default, not good for customs setups - Racc
 	COOLDOWN_START(src, add_power_bill, bill_interval)
 
 /obj/machinery/power/apc/Destroy()
@@ -694,7 +694,7 @@
 		return
 	if(COOLDOWN_FINISHED(src, add_power_bill) && rolling_bill > 0)
 		COOLDOWN_START(src, add_power_bill, bill_interval)
-		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, rolling_bill*BILLING_COST_ELECTRICITY, "Electricity Bill", "[department_ID] has used [rolling_bill]kW through [src] since its last billing period.")
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, rolling_bill, "Electricity Bill", "[department_ID] has used [rolling_bill]kW through [src] since its last billing period.")
 		rolling_bill = 0
 	else
 		rolling_bill += lastused_total

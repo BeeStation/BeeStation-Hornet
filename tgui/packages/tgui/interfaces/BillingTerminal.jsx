@@ -7,7 +7,7 @@ import {
   Section,
   Tabs,
 } from 'tgui/components';
-import { Dropdown, Input, Slider } from 'tgui-core/components';
+import { Collapsible, Dropdown, Input, Slider } from 'tgui-core/components';
 
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
@@ -26,13 +26,15 @@ export const BillingTerminal = (props) => {
     bill_filter,
     show_ignored,
     autopay_filter,
+    agents,
+    settings,
   } = data;
 
   const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
   const [autoMenu, setAutoMenu] = useLocalState('', 0);
 
   return (
-    <Window width={700} height={800} scrollable>
+    <Window width={950} height={800} scrollable>
       <Window.Content>
         <Flex direction="column" height="100%">
           {/* Console info */}
@@ -78,6 +80,18 @@ export const BillingTerminal = (props) => {
                 {'Drafted Invoices (' + drafted_bills?.length + ')'}{' '}
                 <Icon name="pencil" />
               </Tabs.Tab>
+              <Tabs.Tab
+                selected={tabIndex === 5}
+                onClick={() => setTabIndex(5)}
+              >
+                {'Agents (' + agents?.length + ')'} <Icon name="robot" />
+              </Tabs.Tab>
+              <Tabs.Tab
+                selected={tabIndex === 6}
+                onClick={() => setTabIndex(6)}
+              >
+                {'Settings (' + settings?.length + ')'} <Icon name="gear" />
+              </Tabs.Tab>
             </Tabs>
           </Flex.Item>
           {/* Filters */}
@@ -120,16 +134,155 @@ export const BillingTerminal = (props) => {
               </Flex>
             </Section>
           </Flex.Item>
+          {/* Search */}
+          <Flex.Item>
+            <Input
+              m={0.2}
+              fluid
+              placeholder={'This search doesnt work lol. Use ctrl+f for now.'}
+            />
+          </Flex.Item>
           {/* Content body */}
           <Flex.Item grow>
             {tabIndex === 1 && <IncomingBills />}
             {tabIndex === 2 && <OutgoingBills />}
             {tabIndex === 3 && <PayedBills />}
             {tabIndex === 4 && <DraftedBills />}
+            {tabIndex === 5 && <ManageAgents />}
+            {tabIndex === 6 && <Settings />}
           </Flex.Item>
         </Flex>
       </Window.Content>
     </Window>
+  );
+};
+
+const Settings = (_props) => {
+  const { act, data } = useBackend();
+  const { settings } = data;
+
+  return (
+    <Section scrollable title={'Settings (' + settings?.length + ')'} fill>
+      {settings
+        ? settings.map((setting) => (
+            <Section key={setting['ui_type']} title={setting['name']} m={0.1}>
+              {setting['ui_type'] === 'BILLING_SETTING_TYPE_NUMBERS' ? (
+                <SettingDataNumber
+                  key={setting['ui_type']}
+                  number={setting['number']}
+                  low={setting['lower']}
+                  high={setting['upper']}
+                  step={setting['step']}
+                  set_ref={setting['ref']}
+                />
+              ) : (
+                'No data structure for ' + setting['ui_type']
+              )}
+            </Section>
+          ))
+        : null}
+    </Section>
+  );
+};
+
+const SettingDataNumber = (_props) => {
+  const { act, data } = useBackend();
+  const { number, low, high, step, set_ref } = _props;
+
+  return (
+    <Box fill>
+      <LabeledList.Item label="Upper">{high}</LabeledList.Item>
+      <LabeledList.Item label="Lower">{low}</LabeledList.Item>
+      <Slider
+        value={number}
+        minValue={low}
+        maxValue={high}
+        step={step || 1}
+        onDrag={(e, value) => {
+          act('set_setting_number', {
+            ref: set_ref,
+            amount: value,
+          });
+        }}
+      />
+    </Box>
+  );
+};
+
+const ManageAgents = (_props) => {
+  const { act, data } = useBackend();
+  const { sent_bills, bill_filter, show_ignored, ignored_bills, agents } = data;
+
+  return (
+    <Section scrollable title={'Agents (' + agents?.length + ')'} fill>
+      <Flex direction="column">
+        {agents
+          ? agents.map((agent) => (
+              <Section
+                m={0.1}
+                title={'' + agent['agent_name'] + ' (' + agent['name'] + ')'}
+                key={agent['ref']}
+                buttons={
+                  <Button
+                    color={agent['disabled'] ? 'green' : 'red'}
+                    onClick={() => act('toggle_agent', { ref: agent['ref'] })}
+                  >
+                    {agent['disabled'] ? 'Enable' : ' Disable'}
+                  </Button>
+                }
+              >
+                <LabeledList.Item label="Status">
+                  {agent['disabled'] ? 'Disabled' : 'Enabled'}
+                </LabeledList.Item>
+                <LabeledList.Item label="Generated Bills">
+                  {agent['total_bills']}
+                </LabeledList.Item>
+                <LabeledList.Item label="Collected Credits">
+                  {'$' + agent['income']}
+                </LabeledList.Item>
+                <Collapsible title="Generated Bills">
+                  <ManualEntries bill_list={agent['bills']} />
+                </Collapsible>
+              </Section>
+            ))
+          : null}
+      </Flex>
+    </Section>
+  );
+};
+
+const ManualEntries = (_props) => {
+  const { act, data } = useBackend();
+  const { bill_list } = _props;
+
+  return (
+    <Flex direction="column">
+      {bill_list
+        ? bill_list.map((bill) => (
+            <Section m={0.2} key={bill['ref']}>
+              {/* Data */}
+              <LabeledList.Item label="From">{bill['from']}</LabeledList.Item>
+              <LabeledList.Item label="Title">{bill['title']}</LabeledList.Item>
+              <LabeledList.Item label="Body">{bill['body']}</LabeledList.Item>
+              <LabeledList.Item label="Amount">
+                ${bill['amount']}
+              </LabeledList.Item>
+              <LabeledList.Item label="Status">
+                {bill['paid'] ? 'Paid' : 'Unpaid'}
+              </LabeledList.Item>
+              <LabeledList.Item label="Recieved">
+                {bill['sent_when']}
+              </LabeledList.Item>
+              {/* Buttons */}
+              <Box mx={1}>
+                <Button color="yellow">
+                  Print <Icon name="print" />
+                </Button>
+              </Box>
+            </Section>
+          ))
+        : null}
+    </Flex>
   );
 };
 

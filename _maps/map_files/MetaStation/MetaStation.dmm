@@ -2159,8 +2159,8 @@
 	pixel_x = -26;
 	pixel_y = 34
 	},
-/obj/machinery/computer/billing,
 /obj/item/card/id/departmental_budget/sec,
+/obj/machinery/computer/billing/secuirty,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hos)
 "aVv" = (
@@ -18784,10 +18784,10 @@
 	pixel_x = -33;
 	pixel_y = 2
 	},
-/obj/machinery/computer/billing{
+/obj/item/card/id/departmental_budget/med,
+/obj/machinery/computer/billing/medical{
 	dir = 4
 	},
-/obj/item/card/id/departmental_budget/med,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "gWj" = (
@@ -59637,10 +59637,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/junction/flip,
-/obj/machinery/computer/billing{
+/obj/item/card/id/departmental_budget/srv,
+/obj/machinery/computer/billing/service{
 	dir = 8
 	},
-/obj/item/card/id/departmental_budget/srv,
 /turf/open/floor/catwalk_floor/iron,
 /area/station/hallway/secondary/service)
 "uEz" = (

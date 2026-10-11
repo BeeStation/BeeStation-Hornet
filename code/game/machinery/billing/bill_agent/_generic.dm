@@ -8,9 +8,10 @@
 /datum/component/bill_agent/generic/proc/catch_generic(datum/source, to_whom, amount, title, body, from_override)
 	SIGNAL_HANDLER
 
-	if(!server)
+	if(!server || disabled)
 		return
 	var/datum/bill/generic_bill = server.create_new_bill(to_whom, from_override || department_ID, amount, FALSE, FALSE, tags)
 	generic_bill.title = title
 	generic_bill.body = body
 	add_bill(generic_bill)
+	return generic_bill
