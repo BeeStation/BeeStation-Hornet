@@ -16,3 +16,5 @@ sound/effects/roaring_fire.ogg made from: 10835 big fire loop.wav by Robinhood76
 sound/effects/fire_puff.ogg made from: Bonfire Being Lit by samararaine -- https://freesound.org/s/186374/ -- License: Creative Commons 0
 
 sound/effect/droplet.ogg -- "Drop - Water" By mattfinarelli -- https://freesound.org/people/mattfinarelli/sounds/533146/ -- License: Creative Commons 0
+
+sound/effect/loud_bang.ogg -- made from https://pixabay.com/sound-effects/household-knocking-out-the-door-by-foot-64308/ -- Liscence: https://pixabay.com/service/terms/

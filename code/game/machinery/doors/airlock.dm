@@ -255,11 +255,16 @@
 	if(!isliving(user) || !user.client || get_dist(src, user) > 1)
 		return ..()
 
+	var/mob/living/living_user = user
 	var/static/list/knock_radial = list(
 		"Point" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_point"),
 		"Knock" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_knock"),
 	)
-	var/selected_option = show_radial_menu(user, src, knock_radial, radius = 32, require_near = TRUE, tooltips = TRUE)
+	var/static/list/kick_radial = list(
+		"Point" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_point"),
+		"Kick" = image(icon = 'icons/hud/radials/radial_airlock.dmi', icon_state = "radial_kick"),
+	)
+	var/selected_option = show_radial_menu(user, src, living_user.combat_mode ? kick_radial : knock_radial, radius = 32, require_near = TRUE, tooltips = TRUE)
 	if(!selected_option || get_dist(src, user) > 1)
 		return
 
@@ -267,12 +272,32 @@
 		if("Point")
 			user._pointed(src, params)
 		if("Knock")
-			knock_on_door(user)
+			knock_on_door(living_user)
+		if("Kick")
+			kick_door(living_user)
 
-/// Airlock Knocks make a visual shake, audio sound, and a chat message for those nearby
-/obj/machinery/door/airlock/proc/knock_on_door(mob/user)
-	playsound(src, 'sound/effects/glassknock.ogg', 50, TRUE)
+
+/obj/machinery/door/airlock/proc/knock_on_door(mob/living/user)
+	if(iscarbon(user) && !user.get_bodypart(BODY_ZONE_L_ARM) && !user.get_bodypart(BODY_ZONE_R_ARM))
+		to_chat(user, span_warning("You are missing the arm required to knock on [src]!"))
+		return
+
+	playsound(src, 'sound/effects/glassknock.ogg', 55, TRUE)
 	audible_message(span_notice("You hear a knock on [src]."), null, 5)
+	new /obj/effect/temp_visual/door_impact(get_turf(src))
+
+/obj/machinery/door/airlock/proc/kick_door(mob/living/user)
+	if(iscarbon(user) && !user.get_bodypart(BODY_ZONE_L_LEG) && !user.get_bodypart(BODY_ZONE_R_LEG))
+		to_chat(user, span_warning("You are missing the leg required to kick [src]!"))
+		return
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(human_user.shoes)
+			human_user.do_attack_animation(src, used_item = human_user.shoes)
+
+	playsound(src, 'sound/effects/loud_bang.ogg', 80, TRUE)
+	audible_message(span_warning("You hear a loud kick against [src]!"), null, 7)
 	Shake(1, 1, 0.3 SECONDS)
 
 /obj/machinery/door/airlock/narsie_act()
