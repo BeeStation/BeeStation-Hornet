@@ -333,9 +333,7 @@ Peanut Posting
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/medical
 
 /obj/machinery/computer/billing/secuirty
-	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/sercurity
 
 /obj/machinery/computer/billing/service
-	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/service
