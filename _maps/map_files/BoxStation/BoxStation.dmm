@@ -42209,7 +42209,6 @@
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/storage/tech)
 "rBs" = (
-/obj/structure/table/wood,
 /obj/item/paper_bin{
 	pixel_x = -3;
 	pixel_y = 7
@@ -42230,6 +42229,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/table,
 /turf/open/floor/carpet/orange,
 /area/station/cargo/qm)
 "rBP" = (

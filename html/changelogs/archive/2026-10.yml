@@ -104,3 +104,12 @@
   - tweak: Binoculars can now be worn around your neck
   - admin: A new matrix editor UI has been added to VV. See "Test Matrices" in the
       dropdown.
+2026-10-10:
+  BotTierPC:
+  - admin: Admin Ticket Manager, and Mentor Ticket Manager Input Box Are Made Multi-line
+      For Easier Readability.
+  MatiAvanti:
+  - bugfix: Xenomorphs no longer gasp for air while idle.
+  - bugfix: Xenomorphs regain plasma by breathing plasma gas again, and make their
+      quiet hiss when they breathe.
+  - qol: Xenomorphs and larvae have a walk/run toggle button on their HUD again.

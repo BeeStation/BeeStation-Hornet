@@ -89,7 +89,7 @@
 		return
 
 	booked_job = writer_job
-	name = "Manuscript: [booked_job.title] addition"
+	name = "Manuscript: [booked_job.title] Edition"
 	title = name
 	desc = "A book with the expertise of the [booked_job.title]."
 	to_chat(user, span_notice("You finished writing a job manuscript."))
