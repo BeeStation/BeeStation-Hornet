@@ -250,19 +250,21 @@
 	audible_message(span_italics("You hear a click from the bottom of the door."), null,  1)
 	update_appearance()
 
-/obj/machinery/door/airlock/attack_hand_secondary(mob/user, list/modifiers) // Right Click To Knock with an empty hand
+// Right Click To Knock with an empty hand, Combat Mode Changes it to Aggresive Kicking
+/obj/machinery/door/airlock/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	if(. != SECONDARY_ATTACK_CALL_NORMAL || !isliving(user))
 		return
 	var/mob/living/living_user = user
 	living_user.changeNext_move(CLICK_CD_MELEE)
 	if(living_user.combat_mode)
-		kick_door(living_user) // combat mode turns Knocking into Aggresive Kicking
+		kick_door(living_user)
 	else
 		knock_on_door(living_user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/machinery/door/airlock/attackby_secondary(obj/item/weapon, mob/user, list/modifiers) // Kicks dont need empty hands
+// Kicks use feet! They dont need empty hands like Knocking
+/obj/machinery/door/airlock/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	. = ..()
 	if(. != SECONDARY_ATTACK_CALL_NORMAL || !isliving(user))
 		return
