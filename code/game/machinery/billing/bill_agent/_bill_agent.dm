@@ -4,6 +4,8 @@
 /datum/component/bill_agent
 	/// Should be moreso the type of the agent
 	var/name = "Simple Agent"
+	/// Desc if we have one - leave blank for most cases
+	var/desc
 	/// Who profits from this agen
 	var/department_ID
 	/// What server this agent is linked to

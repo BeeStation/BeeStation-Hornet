@@ -936,10 +936,11 @@ do { \
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
 	var/datum/bank_account/department/B = SSeconomy.get_budget_account(department_ID)
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !B.is_nonstation_account())
-		department_ID = ACCOUNT_CAR_ID
-		department_name = ACCOUNT_ALL_NAME
-		B = SSeconomy.get_budget_account(department_ID)
+	//if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !B.is_nonstation_account())
+		// TODO: Temp disabled - Racc
+		//department_ID = ACCOUNT_CAR_ID
+		//department_name = ACCOUNT_ALL_NAME
+		//B = SSeconomy.get_budget_account(department_ID)
 
 	if(B)
 		registered_account = B

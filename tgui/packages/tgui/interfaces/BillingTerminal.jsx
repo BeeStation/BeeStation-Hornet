@@ -232,6 +232,11 @@ const ManageAgents = (_props) => {
                     </Button>
                   }
                 >
+                  {agent['desc'] ?
+                  <LabeledList.Item label="Description">
+                    {agent['desc']}
+                  </LabeledList.Item>
+                  : null}
                   <LabeledList.Item label="Status">
                     {agent['disabled'] ? 'Disabled' : 'Enabled'}
                   </LabeledList.Item>

@@ -17,6 +17,7 @@
 /datum/component/bill_agent/scheduled/New(list/raw_args)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	desc = "Runs every [bill_time/60/10] minutes."
 
 /datum/component/bill_agent/scheduled/Destroy(force)
 	. = ..()
@@ -45,6 +46,7 @@
 
 /datum/component/bill_agent/scheduled/bill_all
 	name = "Department Upkeep"
+	bill_time = BILLING_PERIOD_UPKEEP
 
 /datum/component/bill_agent/scheduled/bill_all/make_scheduled()
 	for(var/victim_ID in SSbilling.billables)

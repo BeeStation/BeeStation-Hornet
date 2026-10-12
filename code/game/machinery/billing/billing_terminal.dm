@@ -153,7 +153,7 @@ TODO
 				"to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
 				"ref" = REF(bill), "can_delete" = bill.can_delete, "tags" = bill.bill_tags))
 			parsed_agents += list(list("agent_name" = agent.name, "name" = agent.parent, "disabled" = agent.disabled, "ref" = REF(agent), "total_bills" = length(agent.local_bills), "income" = agent.income,
-			"bills" = parsed_bills, "tags" = agent.tags))
+			"bills" = parsed_bills, "tags" = agent.tags, "desc" = agent.desc))
 		data["agents"] = parsed_agents
 	// Load in OUR settings
 	if(server && budget_card)
