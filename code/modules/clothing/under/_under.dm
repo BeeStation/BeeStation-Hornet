@@ -36,6 +36,9 @@
 	var/mutable_appearance/accessory_overlay_under
 	var/mutable_appearance/accessory_overlay_over
 
+	/// Reference to our billing component, so we can shut down
+	var/datum/component/bill_agent/scheduled/suit_sensors/bill_agent_sensors
+
 /datum/armor/clothing_under
 	bio = 10
 	bleed = 10
@@ -172,6 +175,13 @@
 			var/obj/item/clothing/accessory/accessory = attached_accessories[acc_slot]
 			accessory.on_uniform_equip(src, user)
 		update_wearer_status()
+		if(!bill_agent_sensors)
+			bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_FEE)
+
+/obj/item/clothing/under/dropped(mob/user)
+	. = ..()
+	if(bill_agent_sensors)
+		QDEL_NULL(bill_agent_sensors)
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(user.stat != CONSCIOUS)
@@ -186,6 +196,12 @@
 		return FALSE
 	if(src.has_sensor <= NO_SENSORS)
 		to_chat(user, span_warning("This suit does not have any sensors."))
+		return FALSE
+	// Billing lockout
+	if(bill_agent_sensors && length(bill_agent_sensors.local_bills) >= BILLING_MAX_OUTSTANDING_SENSORS)
+		to_chat(user, span_warning("Too many outstanding invoices, disabling sensors..."))
+		set_sensor_mode(NO_SENSORS)
+		log_combat(user, src.loc, "changed sensors to [NO_SENSORS] due to a billing interaction")
 		return FALSE
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")

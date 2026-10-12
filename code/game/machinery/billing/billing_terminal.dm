@@ -1,11 +1,14 @@
 /*
 Consider
-	Suit sensor bills for each department
 
 Peanut Posting
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
 	Make the department upkeep equal to its last power bill
 	Arrestinbg a person bills the department
+	Service lockout fee could be the food / all vending machines
+
+TODO
+	Give service a shutoff service to bill for
 */
 
 /obj/machinery/computer/billing
@@ -31,7 +34,7 @@ Peanut Posting
 	var/list/ignored_bills = list()
 	var/show_ignored = FALSE
 	/// Autopay filter
-	var/autopay_filter = BILL_TAG_POWER
+	var/autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE
 	/// Do we have a scheduled bill component
 	var/bill_schedule_path
 
@@ -150,7 +153,7 @@ Peanut Posting
 				"to_whom" = bill.to_whom, "amount" = bill.amount, "paid" = bill.paid, "sent_when" = bill.sent_when,
 				"ref" = REF(bill), "can_delete" = bill.can_delete, "tags" = bill.bill_tags))
 			parsed_agents += list(list("agent_name" = agent.name, "name" = agent.parent, "disabled" = agent.disabled, "ref" = REF(agent), "total_bills" = length(agent.local_bills), "income" = agent.income,
-			"bills" = parsed_bills))
+			"bills" = parsed_bills, "tags" = agent.tags))
 		data["agents"] = parsed_agents
 	// Load in OUR settings
 	if(server && budget_card)
@@ -327,7 +330,6 @@ Peanut Posting
 	build_path = /obj/machinery/computer/billing
 
 /obj/machinery/computer/billing/engineering
-	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP
 
 /obj/machinery/computer/billing/medical
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/medical

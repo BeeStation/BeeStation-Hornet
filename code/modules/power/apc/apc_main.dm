@@ -142,7 +142,7 @@
 	/// Department ID of the rentoid
 	var/department_ID
 	/// Reference to our billing component, so we can shut down
-	var/datum/component/bill_agent/generic/power/bill_agent
+	var/datum/component/bill_agent/generic/number_coef/power/bill_agent
 	/// Rolling bill that ticks up between pay periods, so we're not generating a bill every tick for every usage
 	var/rolling_bill = 0
 	/// Time between bills
@@ -207,7 +207,7 @@
 	var/area/A = get_area(src)
 	department_ID = A?.power_bill_department_ID
 	extra_overdraft = A?.extra_overdraft
-	bill_agent = AddComponent(/datum/component/bill_agent/generic/power, ACCOUNT_ENG_ID, TRUE, BILL_TAG_POWER) //TODO: Engineering gets paid by default, not good for customs setups - Racc
+	bill_agent = AddComponent(/datum/component/bill_agent/generic/number_coef/power, ACCOUNT_ENG_ID, TRUE, BILL_TAG_POWER) //TODO: Engineering gets paid by default, not good for customs setups - Racc
 	COOLDOWN_START(src, add_power_bill, bill_interval)
 
 /obj/machinery/power/apc/Destroy()

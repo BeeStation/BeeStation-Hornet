@@ -217,34 +217,36 @@ const ManageAgents = (_props) => {
     <Section scrollable title={'Agents (' + agents?.length + ')'} fill>
       <Flex direction="column">
         {agents
-          ? agents.map((agent) => (
-              <Section
-                m={0.1}
-                title={'' + agent['agent_name'] + ' (' + agent['name'] + ')'}
-                key={agent['ref']}
-                buttons={
-                  <Button
-                    color={agent['disabled'] ? 'green' : 'red'}
-                    onClick={() => act('toggle_agent', { ref: agent['ref'] })}
-                  >
-                    {agent['disabled'] ? 'Enable' : ' Disable'}
-                  </Button>
-                }
-              >
-                <LabeledList.Item label="Status">
-                  {agent['disabled'] ? 'Disabled' : 'Enabled'}
-                </LabeledList.Item>
-                <LabeledList.Item label="Generated Bills">
-                  {agent['total_bills']}
-                </LabeledList.Item>
-                <LabeledList.Item label="Collected Credits">
-                  {'$' + agent['income']}
-                </LabeledList.Item>
-                <Collapsible title="Generated Bills">
-                  <ManualEntries bill_list={agent['bills']} />
-                </Collapsible>
-              </Section>
-            ))
+          ? agents.map((agent) =>
+              agent['tags'] & bill_filter || !bill_filter ? (
+                <Section
+                  m={0.1}
+                  title={'' + agent['agent_name'] + ' (' + agent['name'] + ')'}
+                  key={agent['ref']}
+                  buttons={
+                    <Button
+                      color={agent['disabled'] ? 'green' : 'red'}
+                      onClick={() => act('toggle_agent', { ref: agent['ref'] })}
+                    >
+                      {agent['disabled'] ? 'Enable' : ' Disable'}
+                    </Button>
+                  }
+                >
+                  <LabeledList.Item label="Status">
+                    {agent['disabled'] ? 'Disabled' : 'Enabled'}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Generated Bills">
+                    {agent['total_bills']}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Collected Credits">
+                    {'$' + agent['income']}
+                  </LabeledList.Item>
+                  <Collapsible title="Generated Bills">
+                    <ManualEntries bill_list={agent['bills']} />
+                  </Collapsible>
+                </Section>
+              ) : null,
+            )
           : null}
       </Flex>
     </Section>
@@ -261,7 +263,7 @@ const ManualEntries = (_props) => {
         ? bill_list.map((bill) => (
             <Section m={0.2} key={bill['ref']}>
               {/* Data */}
-              <LabeledList.Item label="From">{bill['from']}</LabeledList.Item>
+              <LabeledList.Item label="To">{bill['to_whom']}</LabeledList.Item>
               <LabeledList.Item label="Title">{bill['title']}</LabeledList.Item>
               <LabeledList.Item label="Body">{bill['body']}</LabeledList.Item>
               <LabeledList.Item label="Amount">

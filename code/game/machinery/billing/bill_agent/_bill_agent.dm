@@ -50,8 +50,12 @@
 		qdel(new_bill)
 		return
 	RegisterSignal(new_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
-	RegisterSignal(new_bill, COMSIG_BILLING_BILL_PAID, PROC_REF(catch_paid))
+	if(!new_bill.paid)
+		RegisterSignal(new_bill, COMSIG_BILLING_BILL_PAID, PROC_REF(catch_paid))
+	else
+		income += new_bill.amount
 	local_bills += new_bill
+	return new_bill
 
 /datum/component/bill_agent/proc/catch_paid(datum/source, amount)
 	SIGNAL_HANDLER

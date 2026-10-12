@@ -29,8 +29,8 @@
 	/// Department ID of the rentoid
 	var/department_ID
 	/// Reference to our billing component, so we can shut down
-	var/datum/component/bill_agent/generic/bill_agent
-
+	var/datum/component/bill_agent/generic/number_coef/techfab_design/bill_agent_designs
+	var/datum/component/bill_agent/generic/number_coef/techfab_material/bill_agent_materials
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	print_sound = new(src, FALSE)
@@ -43,7 +43,8 @@
 
 	. = ..()
 
-	bill_agent = AddComponent(/datum/component/bill_agent/generic, ACCOUNT_SCI_ID, TRUE, BILL_TAG_FEE)
+	bill_agent_designs = AddComponent(/datum/component/bill_agent/generic/number_coef/techfab_design, ACCOUNT_SCI_ID, TRUE, BILL_TAG_FEE)
+	bill_agent_materials = AddComponent(/datum/component/bill_agent/generic/number_coef/techfab_material, ACCOUNT_CAR_ID, TRUE, BILL_TAG_FEE)
 
 	cached_designs = list()
 	create_reagents(100, OPENCONTAINER)
@@ -365,7 +366,7 @@
 	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
-	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_FAB)
+	if(bill_agent_designs?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_FAB)
 		say("Too many outstanding invoices.")
 		return FALSE
 
@@ -413,12 +414,9 @@
 	addtimer(CALLBACK(src, PROC_REF(do_print), design.build_path, amount, design.dangerous_construction, time_per_item, materials_to_consume), time_per_item)
 
 	// Science's cut
-	if(department_ID && department_ID != ACCOUNT_SCI_ID)
-		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, BILLING_COST_FAB_DESIGN*amount, "Design Invoice", "For the use of the licensed '[design.name]' design. ($[BILLING_COST_FAB_DESIGN] x [amount] instances).")
-	// Cargo's cut
-	if(department_ID && department_ID != ACCOUNT_CAR_ID)
-		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_GENERIC, department_ID, BILLING_COST_FAB_MATERIAL*material_cost*amount, "Material Invoice", "For the use of Cargo materials, \[[material_strings]\]. ($[BILLING_COST_FAB_MATERIAL*material_cost] x [amount] instances).", ACCOUNT_CAR_ID)
-
+	if(department_ID)
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_DESIGN, department_ID, amount, "Design Invoice", "For the use of the licensed '[design.name]' design.")
+		SEND_SIGNAL(src, COMSIG_BILLING_BILL_AGENT_MATERIAL, department_ID, material_cost*amount, "Material Invoice", "For the use of Cargo materials, \[[material_strings]\].")
 
 	return TRUE
 
