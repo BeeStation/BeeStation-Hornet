@@ -14,7 +14,7 @@
 	var/mob/living/wearer = suit.loc
 	if(!istype(wearer))
 		return
-	if(length(local_bills) > BILLING_MAX_OUTSTANDING_SENSORS)
+	if(length(get_outstanding_bills()) > BILLING_MAX_OUTSTANDING_SENSORS)
 		return
 	// Find out who the wearer works for
 	var/obj/item/card/id/id_card = wearer.get_idcard(FALSE)
@@ -31,7 +31,7 @@
 		timed_bill.body = "For the continued use of [department_ID]'s suit sensor program on [parent]."
 		add_bill(timed_bill)
 	// Lock out
-	if(length(local_bills) > BILLING_MAX_OUTSTANDING_SENSORS)
+	if(length(get_outstanding_bills()) > BILLING_MAX_OUTSTANDING_SENSORS)
 		suit.say("Outstanding invoices, disabling sensors...")
 		suit.set_sensor_mode(SENSOR_OFF)
 		return
