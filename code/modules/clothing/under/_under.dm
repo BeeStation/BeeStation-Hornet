@@ -175,7 +175,8 @@
 			var/obj/item/clothing/accessory/accessory = attached_accessories[acc_slot]
 			accessory.on_uniform_equip(src, user)
 		update_wearer_status()
-		if(!bill_agent_sensors && is_station_level(z))
+		var/turf/T = get_turf(src)
+		if(!bill_agent_sensors && is_station_level(T.z))
 			bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_FEE)
 
 /obj/item/clothing/under/dropped(mob/user)
