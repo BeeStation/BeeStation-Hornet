@@ -47,8 +47,14 @@
 		SEND_SIGNAL(src, COMSIG_BILLING_NEW_BILL, new_bill)
 	else
 		RegisterSignal(new_bill, COMSIG_BILLING_BILL_UNDRAFT, PROC_REF(catch_undraft))
+	RegisterSignal(new_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
 
 	return new_bill
+
+/obj/machinery/billing_server/proc/catch_bill(datum/source)
+	SIGNAL_HANDLER
+
+	bills -= source
 
 /obj/machinery/billing_server/proc/catch_undraft(datum/source)
 	SIGNAL_HANDLER
@@ -60,7 +66,7 @@
 /obj/machinery/billing_server/proc/get_bills(to_department_id, from_department_id, drafts = FALSE, paid = FALSE)
 	var/list/filtered_bills = list()
 	for(var/datum/bill/bill as anything in bills)
-		if(bill.draft != drafts)
+		if(bill?.draft != drafts)
 			continue
 		if(bill.paid != paid)
 			continue
