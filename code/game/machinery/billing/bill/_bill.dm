@@ -45,7 +45,7 @@
 		return
 	account_to.adjust_money(-amount)
 	paid = TRUE
-	bill_tags &= BILL_TAG_UNPAID
+	bill_tags &= ~BILL_TAG_UNPAID
 	bill_tags |= BILL_TAG_PAID
 	account_from.adjust_money(amount)
 	SEND_SIGNAL(src, COMSIG_BILLING_BILL_PAID, amount)
