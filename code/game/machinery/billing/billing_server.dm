@@ -66,6 +66,9 @@
 /obj/machinery/billing_server/proc/get_bills(to_department_id, from_department_id, drafts = FALSE, paid = FALSE)
 	var/list/filtered_bills = list()
 	for(var/datum/bill/bill as anything in bills)
+		if(QDELETED(bill))
+			bills -= bill
+			continue
 		if(bill?.draft != drafts)
 			continue
 		if(bill.paid != paid)
