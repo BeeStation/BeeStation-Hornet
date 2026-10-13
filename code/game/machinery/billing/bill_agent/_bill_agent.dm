@@ -48,8 +48,8 @@
 
 /// Stores your custom bill datums
 /datum/component/bill_agent/proc/add_bill(datum/bill/new_bill)
-	if(disabled) // TODO: Not a great way of doing this - Racc
-		qdel(new_bill)
+	if(disabled)
+		qdel(new_bill) // TODO: Not a great way of doing this - Racc
 		return
 	RegisterSignal(new_bill, COMSIG_QDELETING, PROC_REF(catch_bill))
 	if(!new_bill.paid)

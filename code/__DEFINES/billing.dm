@@ -6,6 +6,9 @@
 /// Electricity in whatever unit
 #define BILLING_COST_ELECTRICITY 0.0003
 
+/// Generic services cost
+#define BILLING_UPKEEP_GENERIC 100
+
 // Billing periods
 /// Generic billing period for power
 #define BILLING_PERIOD_POWER 16.1 MINUTES
@@ -22,13 +25,9 @@
 /// Suit sensors
 #define BILLING_MAX_OUTSTANDING_SENSORS 2
 
-/// Generic services cost
-#define BILLING_UPKEEP_GENERIC 125
-
 // Tags / bitflags for bills
 #define BILL_TAG_PAID (1<<0)
 #define BILL_TAG_UNPAID (1<<1)
-
 #define BILL_TAG_POWER (1<<2)
 #define BILL_TAG_CUSTOM (1<<3)
 #define BILL_TAG_UPKEEP (1<<4)

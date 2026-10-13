@@ -1,5 +1,6 @@
 /*
 Consider
+	make the system self sustaining until unbalanced maybe
 
 Peanut Posting
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
@@ -37,6 +38,8 @@ TODO
 	var/autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE
 	/// Do we have a scheduled bill component
 	var/bill_schedule_path
+	/// Do we chargeback power bills
+	var/chargeback = TRUE
 
 	COOLDOWN_DECLARE(ping_notification)
 
@@ -251,34 +254,52 @@ TODO
 /obj/machinery/computer/billing/proc/catch_job(datum/source, datum/job/job)
 	SIGNAL_HANDLER
 
-	var/filter_before = autopay_filter
+	//var/filter_before = autopay_filter
 	switch(job.department_for_prefs)
 		if(DEPARTMENT_NAME_MEDICAL) // Medical, needs to be a head
-			if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_MED_ID)
-				autopay_filter = 0
+			//TODO: testing - Racc
+			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_MED_ID)
+			//	autopay_filter = 0
+			// Chargeback
+			if(budget_card?.department_ID == ACCOUNT_MED_ID)
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_SERVICE) // Service, can be anyone
+			//if(budget_card?.department_ID == ACCOUNT_SRV_ID)
+			//	autopay_filter = 0
 			if(budget_card?.department_ID == ACCOUNT_SRV_ID)
-				autopay_filter = 0
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_SCIENCE) // Science, needs to be a head
-			if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_SCI_ID)
-				autopay_filter = 0
+			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_SCI_ID)
+			//	autopay_filter = 0
+			if(budget_card?.department_ID == ACCOUNT_SCI_ID)
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_SECURITY) // Security, needs to be a head
-			if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_SEC_ID)
-				autopay_filter = 0
+			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_SEC_ID)
+			//	autopay_filter = 0
+			if(budget_card?.department_ID == ACCOUNT_SEC_ID)
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_CARGO) // Cargo, needs to be a QM
-			if(job.title == JOB_NAME_QUARTERMASTER && budget_card?.department_ID == ACCOUNT_CAR_ID)
-				autopay_filter = 0
+			//if(job.title == JOB_NAME_QUARTERMASTER && budget_card?.department_ID == ACCOUNT_CAR_ID)
+			//	autopay_filter = 0
+			if(budget_card?.department_ID == ACCOUNT_CAR_ID)
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_ENGINEERING) // Engineering, needs to be a head
-			if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_ENG_ID)
-				autopay_filter = 0
+			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_ENG_ID)
+			//	autopay_filter = 0
+			if(budget_card?.department_ID == ACCOUNT_ENG_ID)
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_COMMAND) // Command, needs to be a head
-			if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_COM_ID)
-				autopay_filter = 0
+			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_COM_ID)
+			//	autopay_filter = 0
+			if(budget_card?.department_ID == ACCOUNT_COM_ID)
+				chargeback = FALSE
 		if(DEPARTMENT_NAME_CIVILIAN) // Civ, needs to be a head
-			if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_CIV_ID)
-				autopay_filter = 0
-	if(filter_before != autopay_filter)
-		say("Disabling autopay filters")
+			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_CIV_ID)
+			//	autopay_filter = 0
+			if(budget_card?.department_ID == ACCOUNT_CIV_ID)
+				chargeback = FALSE
+	//if(filter_before != autopay_filter)
+	//	say("Disabling autopay filters")
 
 
 /// Set this terminal to manage a new budget card
@@ -311,12 +332,23 @@ TODO
 
 	if(new_bill.to_whom == budget_card?.department_ID)
 		if(COOLDOWN_FINISHED(src, ping_notification)) // This used to rupture my eardrums during testing
-			playsound(src, 'sound/machines/terminal_success.ogg', 60, TRUE, 3)
+			playsound(src, 'sound/machines/terminal_prompt.ogg', 30, TRUE, 3)
 			COOLDOWN_START(src, ping_notification, 1 SECONDS)
 			say("Invoices received")
 			ui_update()
 		if(new_bill.bill_tags & autopay_filter)
 			pay_bill(new_bill)
+	// If we have no staff, make a chargeback
+		// Power
+		if(new_bill.from == ACCOUNT_ENG_ID && new_bill.bill_tags & BILL_TAG_POWER && chargeback)
+			var/datum/bill/back_bill = server.create_new_bill(ACCOUNT_ENG_ID, budget_card.department_ID, new_bill.amount, FALSE, TRUE, BILL_TAG_FEE)
+			back_bill.title = "Power Chargeback"
+			back_bill.body = "Power chargeback for [budget_card.department_ID], under the circumstance of no present [budget_card.department_ID] staff."
+		// Utility
+		if(new_bill.bill_tags & BILL_TAG_UPKEEP && chargeback)
+			var/datum/bill/back_bill = server.create_new_bill(new_bill.from, budget_card.department_ID, new_bill.amount, FALSE, TRUE, BILL_TAG_FEE)
+			back_bill.title = "Utility Chargeback"
+			back_bill.body = "Utility chargeback for [budget_card.department_ID], under the circumstance of no present [budget_card.department_ID] staff."
 
 //TODO: move all this logic to the bill datum - Racc
 /obj/machinery/computer/billing/proc/pay_bill(datum/bill/pay_bill)

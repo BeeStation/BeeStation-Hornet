@@ -29,7 +29,7 @@
 		// Double check / update setting stuff
 		if(setting_path)
 			var/datum/billing_setting/number/setting = locate(setting_path) in server?.settings
-			amount |= setting?.number
+			amount = setting?.number || amount
 		make_scheduled()
 
 /// Make our scheduled bills

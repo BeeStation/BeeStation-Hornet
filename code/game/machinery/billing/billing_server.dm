@@ -2,6 +2,7 @@
 	name = "billing server"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
+	density = TRUE
 	/// List of server's connected to us
 	var/list/linked_terminals = list()
 	/// List of ongoing bills
@@ -42,7 +43,7 @@
 /// Create a new bill
 /obj/machinery/billing_server/proc/create_new_bill(to_whom, from, amount, draft, can_delete = TRUE, tags)
 	var/datum/bill/new_bill = new /datum/bill("", "", from, to_whom, amount, draft, can_delete, tags)
-	bills += new_bill
+	bills.Insert(1, new_bill)
 	if(!new_bill.draft)
 		SEND_SIGNAL(src, COMSIG_BILLING_NEW_BILL, new_bill)
 	else
