@@ -46119,6 +46119,10 @@
 	dir = 8
 	},
 /area/station/medical/medbay/central)
+"rbW" = (
+/obj/item/chair,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/lesser)
 "rci" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
@@ -58960,6 +58964,10 @@
 /obj/effect/turf_decal/tile/brown/fourcorners,
 /turf/open/floor/monotile/dark,
 /area/station/service/chapel/office)
+"vQW" = (
+/obj/structure/table,
+/turf/open/floor/plating,
+/area/station/maintenance/starboard/lesser)
 "vRc" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
@@ -109482,7 +109490,7 @@ aVQ
 lRC
 kaT
 aVQ
-aVQ
+vQW
 sjY
 sjY
 nnx
@@ -109739,7 +109747,7 @@ aVQ
 sjY
 nGj
 aVQ
-aVQ
+rbW
 mKk
 sjY
 nnx
