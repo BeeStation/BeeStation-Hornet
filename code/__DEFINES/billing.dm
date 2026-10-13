@@ -1,7 +1,7 @@
 // Cost bases / modifiers
 /// Generic techfab design
 #define BILLING_COST_FAB_DESIGN 25
-/// generic Techfab material
+/// Generic Techfab material
 #define BILLING_COST_FAB_MATERIAL 0.025
 /// Electricity in whatever unit
 #define BILLING_COST_ELECTRICITY 0.0003

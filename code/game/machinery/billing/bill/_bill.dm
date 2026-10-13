@@ -49,6 +49,15 @@
 	bill_tags |= BILL_TAG_PAID
 	account_from.adjust_money(amount)
 	SEND_SIGNAL(src, COMSIG_BILLING_BILL_PAID, amount)
+// Update subsystem tracker
+	// First timers
+	if(!SSbilling.profit[from])
+		SSbilling.profit[from] = 0
+	if(!SSbilling.profit[to_whom])
+		SSbilling.profit[to_whom] = 0
+	// Adjust
+		SSbilling.profit[from] += amount
+		SSbilling.profit[to_whom] -= amount
 
 	return TRUE
 
