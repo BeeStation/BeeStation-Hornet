@@ -166,6 +166,9 @@ const Settings = (_props) => {
       {settings
         ? settings.map((setting) => (
             <Section key={setting['ui_type']} title={setting['name']} m={0.1}>
+                {setting['desc'] ?
+                <LabeledList.Item label="Description">{setting['desc']}</LabeledList.Item>
+                : null}
               {setting['ui_type'] === 'BILLING_SETTING_TYPE_NUMBERS' ? (
                 <SettingDataNumber
                   key={setting['ui_type']}
@@ -354,7 +357,7 @@ const DraftedBills = (_props) => {
                     <Slider
                       value={bill['amount'] || 1}
                       minValue={1}
-                      maxValue={1000}
+                      maxValue={10000}
                       step={1}
                       format={(value) => '$' + value}
                       onDrag={(e, value) => {

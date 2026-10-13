@@ -1,7 +1,7 @@
 /datum/component/bill_agent/scheduled/suit_sensors
 	name = "Suit Sensors Agent"
 	tags = BILL_TAG_FEE
-	bill_time = 5 MINUTES
+	bill_time = BILLING_PERIOD_SUIT_SENSORS
 	setting_path = /datum/billing_setting/number/suit_sensor_upkeep
 
 // TODO: This is a little expensive to have every suit processing, make it only tick when worn - Racc

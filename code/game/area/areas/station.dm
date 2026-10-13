@@ -452,7 +452,7 @@
 /area/station/command/heads_quarters/rd
 	name = "\improper Research Director's Office"
 	icon_state = "rd_office"
-	power_bill_department_ID = ACCOUNT_SCI_BITFLAG
+	power_bill_department_ID = ACCOUNT_SCI_ID
 
 //Command - Teleporters
 

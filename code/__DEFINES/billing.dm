@@ -11,6 +11,8 @@
 #define BILLING_PERIOD_POWER 16.1 MINUTES
 /// Departments like medical / service / security that provide an ongoing service that isn't billable yet
 #define BILLING_PERIOD_UPKEEP 8 MINUTES
+/// Suit sensors
+#define BILLING_PERIOD_SUIT_SENSORS 5 MINUTES
 
 // Max outstanding bills for gated agents
 /// Techfab

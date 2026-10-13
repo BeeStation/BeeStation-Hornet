@@ -2,10 +2,23 @@
 /datum/billing_setting/number/power
 	name = "Power Billing Coefficient"
 	number = BILLING_COST_ELECTRICITY
-	upper = 0.0009
+	upper = 0.001
 	lower = 0.0001
-	step = 0.0001
+	step = 0.000001
 	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_ENG_ID)
+	var/demo_number = 100000
+
+/datum/billing_setting/number/power/New()
+	. = ..()
+	update_desc()
+
+/datum/billing_setting/number/power/set_number(_number)
+	. = ..()
+	update_desc()
+
+//TODO: make this shared if you cleanup the code - Racc
+/datum/billing_setting/number/power/proc/update_desc()
+	desc = "[display_power(demo_number)] is worth [demo_number*number]cr."
 
 /*
 	Generic upkeep
@@ -19,15 +32,15 @@
 
 /datum/billing_setting/number/upkeep/medical
 	name = "Medical Upkeep"
-	department_ID = list(ACCOUNT_MED_ID)
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_MED_ID)
 
 /datum/billing_setting/number/upkeep/security
 	name = "Secuirty Upkeep"
-	department_ID = list(ACCOUNT_SEC_ID)
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_SEC_ID)
 
 /datum/billing_setting/number/upkeep/service
 	name = "Service Upkeep"
-	department_ID = list(ACCOUNT_SRV_ID)
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_SRV_ID)
 
 /*
 	Techfab coefs
@@ -38,8 +51,8 @@
 	number = BILLING_COST_FAB_DESIGN
 	upper = 100
 	lower = 1
-	step = 1
-	department_ID = list(ACCOUNT_SCI_ID)
+	step = 0.1
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_SCI_ID)
 
 // Techfab materials, for cargo
 /datum/billing_setting/number/techfab_material
@@ -47,8 +60,20 @@
 	number = BILLING_COST_FAB_MATERIAL
 	upper = 0.1
 	lower = 0.005
-	step = 0.001
-	department_ID = list(ACCOUNT_CAR_ID)
+	step = 0.0001
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_CAR_ID)
+	var/demo_number = 100000
+
+/datum/billing_setting/number/techfab_material/New()
+	. = ..()
+	update_desc()
+
+/datum/billing_setting/number/techfab_material/set_number(_number)
+	. = ..()
+	update_desc()
+
+/datum/billing_setting/number/techfab_material/proc/update_desc()
+	desc = "[demo_number] materials is worth [demo_number*number]cr."
 
 /*
 	Suit sensors
@@ -59,5 +84,16 @@
 	number = 5
 	upper = 50
 	lower = 1
-	step = 1
-	department_ID = list(ACCOUNT_MED_ID)
+	step = 0.1
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_MED_ID)
+
+/datum/billing_setting/number/suit_sensor_upkeep/New()
+	. = ..()
+	update_desc()
+
+/datum/billing_setting/number/suit_sensor_upkeep/set_number(_number)
+	. = ..()
+	update_desc()
+
+/datum/billing_setting/number/suit_sensor_upkeep/proc/update_desc()
+	desc = "Suit sensors cost [number*3]cr every quarter hour." // TODO: This is dependant on knowing the suit sensor interval, bad coder - Racc
