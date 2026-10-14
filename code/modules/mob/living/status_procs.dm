@@ -244,6 +244,8 @@
  * * stack_status : Should the given status value(s) stack ontop of existing status values?
  * * protection : Armor value (0-100) that reduces stamina_amount
  * * electrical : Mobs with TRAIT_STAMINA_DRAINS_POWER lose power at the full rate instead of the reduced non-electrical one
+ *
+ * Returns TRUE if a knockdown, paralyze or stun was applied.
  */
 /mob/living/proc/Disorient(amount, stamina_amount, ignore_canstun, knockdown, stun, paralyze, overstam, stack_status = TRUE, protection = 0, electrical = FALSE)
 	var/disorient_multiplier = 1 - (clamp(protection, 0, 100)/100)
@@ -278,6 +280,7 @@
 			applied += "stunned ([DisplayTimeText(stun)])"
 
 		if(length(applied))
+			. = TRUE
 			log_message("was [english_list(applied)] by a disorient while [low_power ? "in low power" : "exhausted"]", LOG_ATTACK)
 
 	if(amount > 0)

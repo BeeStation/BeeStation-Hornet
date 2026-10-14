@@ -14,7 +14,7 @@
 	/// Whether this baton is active or not
 	var/active = TRUE
 	/// Default wait time until can stun again.
-	var/cooldown = (4 SECONDS)
+	var/cooldown = 0
 	COOLDOWN_DECLARE(cooldown_check)
 	/// The length of the knockdown applied to a struck living mob, if they are disoriented.
 	var/knockdown_time = (6 SECONDS)
@@ -23,7 +23,7 @@
 	/// The length of the knockdown applied to the user on clumsy_check()
 	var/clumsy_knockdown_time = 18 SECONDS
 	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
-	var/charged_stamina_damage = 130
+	var/charged_stamina_damage = 70
 	/// Can we stun cyborgs?
 	var/affect_cyborg = FALSE
 	/// The path of the default sound to play when we stun something.
@@ -58,8 +58,9 @@
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
 	// Adding an extra break for the sake of presentation
-	if(charged_stamina_damage != 0)
-		offensive_notes = "It takes [span_warning("[floor(STAMINA_MAX * (1 - STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) / charged_stamina_damage) + 1] stunning hit\s")] to stun an enemy."
+	var/regen_between_hits = STAMINA_REGEN * max(cooldown, CLICK_CD_MELEE) / (1 SECONDS)
+	if(charged_stamina_damage > regen_between_hits)
+		offensive_notes = "It takes [span_warning("[floor((STAMINA_MAX * (1 - STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) - regen_between_hits) / (charged_stamina_damage - regen_between_hits)) + 1] stunning hit\s")] to stun an enemy."
 
 /**
  * Ok, think of baton attacks like a melee attack chain:
@@ -189,7 +190,9 @@
 		additional_effects_cyborg(target, user)
 	else if(target.takes_stamina_damage())
 		var/armor_block = target.run_armor_check(user?.get_combat_bodyzone(target), STAMINA, armour_penetration = armour_penetration, silent = TRUE)
-		target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE, protection = armor_block, electrical = electrical)
+		var/was_floored = target.IsParalyzed()
+		if(target.Disorient(6 SECONDS, charged_stamina_damage, paralyze = disable_duration, stack_status = FALSE, protection = armor_block, electrical = electrical) && !was_floored)
+			target.visible_message(span_danger("[target] goes limp!"), span_userdanger("Your body goes limp!"))
 		additional_effects_non_cyborg(target, user)
 	return TRUE
 
@@ -198,8 +201,8 @@
 /obj/item/melee/baton/proc/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 
-	.["visible"] = span_danger("[user] knocks [target] down with [src]!")
-	.["local"] = span_userdanger("[user] knocks you down with [src]!")
+	.["visible"] = span_danger("[user] strikes [target] with [src]!")
+	.["local"] = span_userdanger("[user] strikes you with [src]!")
 
 	return .
 
@@ -260,9 +263,8 @@
 /obj/item/melee/baton/deputy
 	name = "deputy baton"
 	force = 12
-	cooldown = 10
-	charged_stamina_damage = 60
-	knockdown_time = 2 SECONDS
+	charged_stamina_damage = 55
+	knockdown_time = 5 SECONDS
 	stun_animation = TRUE
 	custom_price = 120
 /obj/item/conversion_kit
@@ -286,7 +288,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
 	force = 0
-	knockdown_time = 1 SECONDS
+	charged_stamina_damage = 50
+	knockdown_time = 3 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
 	active = FALSE
 
@@ -358,7 +361,6 @@
 	force = 5
 	var/datum/antagonist/traitor/owner_data = null
 
-	cooldown = 2.5 SECONDS
 	charged_stamina_damage = 130
 	knockdown_time = 10 SECONDS
 	clumsy_knockdown_time = 24 SECONDS
@@ -407,16 +409,14 @@
 	armor_type = /datum/armor/melee_baton
 
 	throwforce = 7
-	charged_stamina_damage = 130
+	charged_stamina_damage = 70
 	knockdown_time = 6 SECONDS
 	clumsy_knockdown_time = 15 SECONDS
-	cooldown = 2.5 SECONDS
 	electrical = TRUE
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	on_stun_volume = 50
 	active = FALSE
 
-	context_living_rmb_active = "Harmful Stun"
 	light_range = 1.5
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -574,13 +574,8 @@
 		SEND_SIGNAL(user, COMSIG_LIVING_MINOR_SHOCK)
 		deductcharge(cell_hit_cost)
 
-/// Handles prodding targets with turned off stunbatons and right clicking stun'n'bash
+/// Handles prodding targets with turned off stunbatons
 /obj/item/melee/baton/security/baton_attack(mob/living/target, mob/living/user, modifiers)
-	//While on and ready, right click stuns the same as left click. Otherwise it's a normal hit.
-	if(active && LAZYACCESS(modifiers, RIGHT_CLICK) && can_stun(target, user, silent = TRUE))
-		var/list/click_modifiers = modifiers
-		modifiers = click_modifiers.Copy()
-		modifiers -= RIGHT_CLICK
 	. = ..()
 	if(. != BATON_DO_NORMAL_ATTACK)
 		return .
@@ -613,8 +608,8 @@
 /obj/item/melee/baton/security/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 
-	.["visible"] = span_danger("[user] stuns [target] with [src]!")
-	.["local"] = span_userdanger("[user] stuns you with [src]!")
+	.["visible"] = span_danger("[user] jolts [target] with [src]!")
+	.["local"] = span_userdanger("[user] jolts you with [src]!")
 
 /obj/item/melee/baton/security/get_unga_dunga_cyborg_stun_description(mob/living/target, mob/living/user)
 	. = list()
