@@ -127,7 +127,7 @@
 	radiate()
 	return ..()
 
-/turf/closed/wall/mineral/uranium/attackby(obj/item/attacking_item, mob/user, params)
+/turf/closed/wall/mineral/uranium/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	radiate()
 	return ..()
 
@@ -147,7 +147,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 	max_integrity = 400
 
-/turf/closed/wall/mineral/plasma/attackby(obj/item/attacking_item, mob/user, params)
+/turf/closed/wall/mineral/plasma/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(attacking_item.get_temperature() > 300 && plasma_ignition(6))//If the temperature of the object is over 300, then ignite
 		new /obj/structure/girder/displaced(loc)
 	return ..()

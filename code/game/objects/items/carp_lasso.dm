@@ -43,7 +43,7 @@
 		/mob/living/simple_animal/hostile/retaliate/dolphin,
 	), only_root_path = TRUE)
 
-/obj/item/mob_lasso/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
+/obj/item/mob_lasso/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers)
 	. = ..()
 	var/failed = FALSE
 	if(!isliving(target))
@@ -150,7 +150,7 @@
 	range = 3
 	uses = 1
 
-/obj/item/mob_lasso/drake/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/mob_lasso/drake/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	if(!user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
 		to_chat(user, span_warning("You don't know how to use this!"))
 		return

@@ -15,7 +15,7 @@
 	if(!_icon || !_icon_state)
 		return FALSE
 	if(!_color)
-		_color = COLOR_BLOOD
+		_color = BLOOD_COLOR_RED
 	var/icon/blood_splatter_icon = icon(_icon, _icon_state, , 1) //we only want to apply blood-splatters to the initial icon_state for each object
 	blood_splatter_icon.Blend("#fff", ICON_ADD) //fills the icon_state with white (except where it's transparent)
 	blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant

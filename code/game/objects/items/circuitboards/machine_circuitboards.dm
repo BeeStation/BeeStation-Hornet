@@ -179,7 +179,7 @@
 		to_chat(user, span_notice("You change the circuitboard setting to \"Power\"."))
 
 	screwdriver.play_tool_sound(src)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/tesla_coil/research
 	name = "Tesla Corona Analyzer"
@@ -230,7 +230,7 @@
 		name = "Emitter [name_extension]"
 		build_path = /obj/machinery/power/emitter
 		to_chat(user, span_notice("You change the Emitter's laser configuration to: [span_italics("NORMAL")]"))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/generator
 	name = "Thermo-Electric Generator"
@@ -421,7 +421,7 @@
 /obj/item/circuitboard/machine/thermomachine/multitool_act(mob/living/user, obj/item/tool)
 	pipe_layer = (pipe_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (pipe_layer + 1)
 	to_chat(user, span_notice("You change the circuitboard to layer [pipe_layer]."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/thermomachine/examine()
 	. = ..()
@@ -601,7 +601,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	position = (position == length(fridges_name_paths)) ? 1 : (position + 1)
 	build_path = fridges_name_paths[position]
 	to_chat(user, span_notice("You set the board to [fridges_name_paths[build_path]]."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/smartfridge/examine(mob/user)
 	. = ..()
@@ -671,7 +671,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	if(isnull(choice) || QDELETED(src))
 		return
 	set_type(valid_vendor_names_paths[choice])
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Sets circuitboard details based on the vending machine type to create
@@ -824,7 +824,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	build_path = new_path
 	name = "[new_name] 3000"
 	to_chat(user, span_notice("You change the circuit board setting to \"[new_name]\"."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/clonepod
 	name = "Clone Pod"
@@ -1061,7 +1061,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 	if(isnull(new_cloud))
 		return
 	cloud_id = new_cloud
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/public_nanite_chamber/examine(mob/user)
 	. = ..()
@@ -1319,7 +1319,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 		name = "Food Processor [name_extension]"
 		build_path = /obj/machinery/processor
 		to_chat(user, span_notice("Defaulting name protocols."))
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/circuitboard/machine/protolathe/department/service
 	name = "Departmental Protolathe - Service"

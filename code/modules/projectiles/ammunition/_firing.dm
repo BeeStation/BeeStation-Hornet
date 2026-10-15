@@ -1,14 +1,14 @@
-/obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, spread, quiet, zone_override, atom/fired_from)
+/obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, list/modifiers, spread, quiet, zone_override, atom/fired_from)
 	var/targloc = get_turf(target)
 	ready_proj(target, user, quiet, zone_override, fired_from)
 	if(pellets == 1)
-		if(!throw_proj(target, targloc, user, params, (spread + variance) * (rand() - 0.5)))
+		if(!throw_proj(target, targloc, user, modifiers, (spread + variance) * (rand() - 0.5)))
 			return FALSE
 	else
 		if(isnull(BB))
 			return FALSE
 		AddComponent(/datum/component/pellet_cloud, projectile_type, pellets)
-		SEND_SIGNAL(src, COMSIG_PELLET_CLOUD_INIT, target, user, fired_from, !even_distribution, spread + variance, zone_override, params)
+		SEND_SIGNAL(src, COMSIG_PELLET_CLOUD_INIT, target, user, fired_from, !even_distribution, spread + variance, zone_override, modifiers)
 	if(click_cooldown_override)
 		user.changeNext_move(click_cooldown_override)
 	else
@@ -34,7 +34,7 @@
 		reagents.trans_to(BB, reagents.total_volume, transfered_by = user) //For chemical darts/bullets
 		qdel(reagents)
 
-/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
+/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, list/modifiers, spread)
 	var/turf/current_location = get_turf(user)
 	if (!istype(targloc) || !istype(current_location) || !BB)
 		return FALSE
@@ -49,7 +49,6 @@
 	if(target && current_location.Adjacent(targloc, target=targloc, mover=src)) //if the target is right on our location or adjacent (including diagonally if reachable) we'll skip the travelling code in the proj's fire()
 		direct_target = target
 	if(!direct_target)
-		var/modifiers = params2list(params)
 		BB.preparePixelProjectile(target, user, modifiers, spread)
 	var/obj/projectile/loaded_projectile_cache = BB
 	BB = null

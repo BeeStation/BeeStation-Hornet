@@ -9,11 +9,7 @@
 
 /obj/item/clothing/neck/crucifix/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, \
-		_source = src, \
-		inventory_flags = (ITEM_SLOT_HANDS), \
-		antimagic_flags = (MAGIC_RESISTANCE_HOLY) \
-	)
+	AddComponent(/datum/component/anti_magic, source = src, inventory_flags = ITEM_SLOT_HANDS, antimagic_flags = MAGIC_RESISTANCE_HOLY)
 
 /obj/item/clothing/neck/crucifix/rosary
 	name = "rosary beads"

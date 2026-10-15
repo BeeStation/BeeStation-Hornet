@@ -54,15 +54,15 @@
 			. += examine_status
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
-	var/healthpercent = (atom_integrity/max_integrity) * 100
-	switch(healthpercent)
+	var/health_percent = (atom_integrity / max_integrity) * 100
+	switch(health_percent)
 		if(50 to 99)
-			return  "It looks slightly damaged."
+			return "It looks slightly damaged."
 		if(25 to 50)
-			return  "It appears heavily damaged."
+			return "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				return  span_warning("It's falling apart!")
+				return span_warning("It's falling apart!")
 
 /obj/structure/examine_descriptor(mob/user)
 	return "structure"

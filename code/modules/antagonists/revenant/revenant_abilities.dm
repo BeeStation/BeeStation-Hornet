@@ -169,6 +169,7 @@
 	use_runechat_telepathy = TRUE
 
 /datum/action/spell/aoe/revenant
+	abstract_type = /datum/action/spell/aoe/revenant
 	background_icon_state = "bg_revenant"
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"

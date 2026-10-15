@@ -133,7 +133,7 @@
 		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
 		if(BP)
-			BP.receive_damage(brute = 200) // Kill them dead
+			owner.apply_damage(200, def_zone = BP) // Kill them dead
 			BP.dismember()
 		else
 			owner.apply_damage(200)

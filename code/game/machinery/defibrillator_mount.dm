@@ -86,7 +86,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/defibrillator_mount, "Use")
 		return
 	user.put_in_hands(defib.paddles)
 
-/obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/defibrillator))
 		if(defib)
 			to_chat(user, span_warning("There's already a defibrillator in [src]!"))

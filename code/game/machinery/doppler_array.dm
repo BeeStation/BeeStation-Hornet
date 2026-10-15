@@ -117,7 +117,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 
 		update_icon()
 
-/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored && !isinspace())
 			set_anchored(TRUE)

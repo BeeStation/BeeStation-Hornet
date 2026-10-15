@@ -362,14 +362,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			return 4
 	return 0
 
-/obj/structure/cable/attackby(obj/item/attacking_item, mob/user, params)
+/obj/structure/cable/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	var/turf/our_turf = get_turf(src)
 	if(our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return FALSE
 
 	if(istype(attacking_item, /obj/item/stack/cable_coil))
 		// Pass the click down to the turf instead
-		return our_turf.attackby(attacking_item, user, params)
+		return our_turf.attackby(attacking_item, user, modifiers)
 
 	add_fingerprint(user)
 	return ..()
@@ -381,15 +381,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	var/obj/structure/cable/target = resolve_ambiguous_target(user)
 	if(isnull(target))
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 
 	if (target.shock(user, 50))
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 
 	user.visible_message("[user] cuts [target].", span_notice("You cut [target]."))
 	target.investigate_log("was cut by [key_name(usr)] in [AREACOORD(target)]", INVESTIGATE_WIRES)
 	target.deconstruct()
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/cable/multitool_act(mob/living/user, obj/item/tool)
 	var/turf/our_turf = get_turf(src)
@@ -398,12 +398,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	var/obj/structure/cable/target = resolve_ambiguous_target(user)
 	if(isnull(target))
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 
 	target.add_fingerprint(user)
 	to_chat(user, target.get_power_info())
 	target.shock(user, 5, 0.2)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Called when we attempt to interact with this cable

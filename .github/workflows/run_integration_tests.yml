@@ -1,6 +1,7 @@
 # This is a reusable workflow to run integration tests on a single map.
 # This is run for every single map in ci_suite.yml. You might want to edit that instead.
 name: Run Integration Tests
+
 on:
   workflow_call:
     inputs:
@@ -27,21 +28,49 @@ jobs:
     #
     # Otherwise, it will output `Run Tests (map; max)`.
     # For example, `Run Tests (runtimestation; 515)`.
-    name: Run Tests (${{ inputs.major && format('{0}.{1}; ', inputs.major, inputs.minor) || '' }}${{ inputs.map }}; ${{ inputs.max_required_byond_client }})
+    name: ${{ inputs.map }} ${{ inputs.major && format('({0}.{1})', inputs.major, inputs.minor) || '' }} (${{ inputs.max_required_byond_client }})
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
+      - name: Checkout required files
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            _maps
+            .github
+            code/datums/greyscale/json_configs
+            icons
+            sound/runtime
+            strings
+            tgui/public
+            dependencies.sh
+            SQL/beestation_schema.sql
+            tools/ci/install_byond.sh
+            tools/ci/install_rust_g.sh
+            tools/ci/mysql_config.cnf
+            tools/ci/run_server.sh
+
+      - name: Configure BYOND version
+        uses: ./.github/actions/configure_byond_version
         with:
           major: ${{ inputs.major }}
           minor: ${{ inputs.minor }}
-      - name: Download build outputs
-        uses: actions/download-artifact@v8
-        with:
-          name: build-artifact-${{ inputs.major || env.BYOND_MAJOR }}-${{ inputs.minor || env.BYOND_MINOR }}
-          path: ./
+
+      - parallel:
+        - name: Restore or install BYOND
+          uses: ./.github/actions/restore_or_install_byond
+
+        - name: Download build artifact
+          uses: actions/download-artifact@v8
+          with:
+            name: build-artifact-${{ inputs.major || env.BYOND_MAJOR }}-${{ inputs.minor || env.BYOND_MINOR }}
+            path: ./
+
+        - name: Install rust-g
+          run: |
+            bash tools/ci/install_rust_g.sh
+
+      # Excluded from the above parallel group because it makes the database setup flaky. Probably something to do with IO ports being clogged
       - name: Setup database
         env:
           MYSQL_CONFIG_FILE: tools/ci/mysql_config.cnf
@@ -50,48 +79,49 @@ jobs:
           mysql --defaults-extra-file=${{ env.MYSQL_CONFIG_FILE }} -e 'CREATE DATABASE bee_ci;'
           mysql --defaults-extra-file=${{ env.MYSQL_CONFIG_FILE }} bee_ci < SQL/beestation_schema.sql
           echo "Sucessful MySQL Database Setup"
-      - name: Setup Node
-        uses: ./.github/actions/setup_node
-      - name: Install rust-g
-        run: |
-          bash tools/ci/install_rust_g.sh
-# Bee: Dreamlua is not used
-#      - name: Install dreamluau
-#        run: |
-#          bash tools/ci/install_dreamluau.sh
-      - name: Run Tests
+
+      - name: Run unit tests
         id: run_tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           bash tools/ci/run_server.sh "${{ inputs.map }}" "${{ inputs.map_config }}"
+
       - name: Upload screenshot tests
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: test_artifacts_${{ inputs.map }}_${{ inputs.major || env.BYOND_MAJOR }}_${{ inputs.minor || env.BYOND_MINOR }}
+          name: test-artifact-${{ inputs.map }}-${{ inputs.major || env.BYOND_MAJOR }}-${{ inputs.minor || env.BYOND_MINOR }}
           path: data/screenshots_new/
           retention-days: 1
+          if-no-files-found: ignore
+
       - name: On test fail, write a step summary
         if: always() && steps.run_tests.outcome == 'failure'
         run: |
           # Get a JSON array of failed unit tests
           FAILED_UNIT_TESTS=$(jq 'to_entries | map(.value | select(.status == 1))' data/unit_tests.json)
+
           FAIL_COUNT=$(echo $FAILED_UNIT_TESTS | jq 'length')
+
           echo "# Test failures" >> $GITHUB_STEP_SUMMARY
           echo "$FAIL_COUNT tests failed." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+
           for i in $( seq $FAIL_COUNT ); do
             CURRENT_FAIL=$(echo $FAILED_UNIT_TESTS | jq --arg i $i '.[($i | tonumber) - 1]')
+
             TEST=$(echo $CURRENT_FAIL | jq --raw-output '.name')
+
             echo "### $TEST" >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
             echo $CURRENT_FAIL | jq --raw-output '.message' >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
           done
-      - name: Check client Compatibility
+
+      - name: Check client compatibility
         if: always() && steps.compile_tests.outcome == 'success'
         uses: tgstation/byond-client-compatibility-check@v3
         with:
           dmb-location: beestation.dmb
-          max-required-client-version: ${{inputs.max_required_byond_client}}
+          max-required-client-version: ${{ inputs.max_required_byond_client }}

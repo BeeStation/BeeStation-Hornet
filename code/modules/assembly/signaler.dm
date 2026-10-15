@@ -111,7 +111,7 @@
 
 	update_icon()
 
-/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, list/modifiers)
 	if(issignaler(W))
 		var/obj/item/assembly/signaler/signaler2 = W
 		if(secured && signaler2.secured)
@@ -160,7 +160,7 @@
 
 /obj/item/assembly/signaler/cyborg
 
-/obj/item/assembly/signaler/cyborg/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/signaler/cyborg/attackby(obj/item/W, mob/user, list/modifiers)
 	return
 /obj/item/assembly/signaler/cyborg/screwdriver_act(mob/living/user, obj/item/I)
 	return
@@ -171,7 +171,7 @@
 /obj/item/assembly/signaler/internal/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/assembly/signaler/internal/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/signaler/internal/attackby(obj/item/W, mob/user, list/modifiers)
 	return
 
 /obj/item/assembly/signaler/internal/screwdriver_act(mob/living/user, obj/item/I)
@@ -210,7 +210,7 @@
 	user.set_suicide(TRUE)
 	user.gib()
 
-/obj/item/assembly/signaler/anomaly/attackby(obj/item/I, mob/user, params)
+/obj/item/assembly/signaler/anomaly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		to_chat(user, span_notice("Analyzing... [src]'s stabilized field is fluctuating along frequency [format_frequency(frequency)], code [code]."))
 	..()

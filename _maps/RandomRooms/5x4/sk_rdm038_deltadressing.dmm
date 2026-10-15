@@ -74,9 +74,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "s" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/suit/suspenders,

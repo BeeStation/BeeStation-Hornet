@@ -41,10 +41,10 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		. += span_notice("The status display reads: Producing <b>[cube_production]</b> cubes for every monkey inserted.")
 
 /obj/machinery/monkey_recycler/wrench_act(mob/living/user, obj/item/tool)
-	. = ..()
 	if(default_unfasten_wrench(user, tool))
 		power_change()
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
+	return ITEM_INTERACT_BLOCKING
 
 /obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
