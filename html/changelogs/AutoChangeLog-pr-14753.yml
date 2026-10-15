@@ -1,0 +1,8 @@
+author: mrmanlikesbt, TheBoondock
+delete-after: true
+changes:
+  - balance: TTVs now have a 3x larger bomb cap outside of syndicate bombs
+  - balance: TTVs now have a 5 second fuse once they reach critical pressure. During
+      this time the TTV will shake vigorously, play a loud rumbling sound, and display
+      a balloon alert until finally killing you (or not if you escape the blast radius).
+  - sound: Valves now make a sound when being opened

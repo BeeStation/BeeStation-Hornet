@@ -9646,6 +9646,12 @@
 	},
 /turf/open/floor/iron/textured_corner,
 /area/station/engineering/atmos)
+"fWE" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/closet/crate/mod,
+/obj/item/mod/module/longfall,
+/turf/open/floor/iron/white,
+/area/station/science/robotics)
 "fWR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -188275,7 +188281,7 @@ mth
 cWo
 hSU
 cEn
-xKR
+fWE
 tUa
 isg
 vLs

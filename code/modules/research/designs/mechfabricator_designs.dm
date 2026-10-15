@@ -1078,6 +1078,20 @@
 	build_path = /obj/item/mod/paint
 	category = list(RND_CATEGORY_MODSUITS + RND_SUBCATEGORY_MODSUITS_MISC)
 
+/datum/design/modlink_scryer
+	name = "MODlink Scryer"
+	desc = "A neck-worn piece of gear that can call with another MODlink-compatible device."
+	id = "modlink_scryer"
+	build_type = MECHFAB
+	materials = list(
+		/datum/material/iron = 1000,
+		/datum/material/gold = 600,
+		/datum/material/glass = 600,
+	)
+	construction_time = 5 SECONDS
+	build_path = /obj/item/clothing/neck/link_scryer
+	category = list(RND_CATEGORY_MISC)
+
 /datum/design/module
 	name = "MOD Module"
 	build_type = MECHFAB

@@ -186,7 +186,7 @@
 	return ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
-	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
 	cooldown_time = 10 SECONDS
 	var/jumpspeed = 1
 
