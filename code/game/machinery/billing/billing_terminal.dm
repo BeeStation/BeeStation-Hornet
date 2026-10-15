@@ -1,6 +1,7 @@
 /*
 Consider
 	make the system self sustaining until unbalanced maybe
+	make chargebacks only happen in that billing category is enabled, or make a seperate chareback bitflagh
 
 Peanut Posting
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
@@ -24,7 +25,7 @@ TODO
 
 	/// Reference to our internal budget card, if one is inserted
 	var/obj/item/card/id/departmental_budget/budget_card
-	var/datum/bank_account/account
+	var/datum/bank_account/department/account
 	/// What billing network server we're connected to
 	var/obj/machinery/billing_server/server
 	/// Are we made by mappers?
@@ -254,52 +255,35 @@ TODO
 /obj/machinery/computer/billing/proc/catch_job(datum/source, datum/job/job)
 	SIGNAL_HANDLER
 
-	//var/filter_before = autopay_filter
-	switch(job.department_for_prefs)
-		if(DEPARTMENT_NAME_MEDICAL) // Medical, needs to be a head
-			//TODO: testing - Racc
-			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_MED_ID)
-			//	autopay_filter = 0
-			// Chargeback
-			if(budget_card?.department_ID == ACCOUNT_MED_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_SERVICE) // Service, can be anyone
-			//if(budget_card?.department_ID == ACCOUNT_SRV_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_SRV_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_SCIENCE) // Science, needs to be a head
-			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_SCI_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_SCI_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_SECURITY) // Security, needs to be a head
-			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_SEC_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_SEC_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_CARGO) // Cargo, needs to be a QM
-			//if(job.title == JOB_NAME_QUARTERMASTER && budget_card?.department_ID == ACCOUNT_CAR_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_CAR_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_ENGINEERING) // Engineering, needs to be a head
-			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_ENG_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_ENG_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_COMMAND) // Command, needs to be a head
-			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_COM_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_COM_ID)
-				chargeback = FALSE
-		if(DEPARTMENT_NAME_CIVILIAN) // Civ, needs to be a head
-			//if(job.auto_deadmin_role_flags == DEADMIN_POSITION_HEAD && budget_card?.department_ID == ACCOUNT_CIV_ID)
-			//	autopay_filter = 0
-			if(budget_card?.department_ID == ACCOUNT_CIV_ID)
-				chargeback = FALSE
-	//if(filter_before != autopay_filter)
-	//	say("Disabling autopay filters")
+	if(!budget_card || !account)
+		return
+// Disable chargeback
+	var/account_bit = job.bank_account_department
+	var/our_bit = account.department_bitflag
+	// Command
+	if(account_bit & ACCOUNT_COM_BITFLAG && our_bit & ACCOUNT_COM_BITFLAG)
+		chargeback = FALSE
+	// Engineering
+	if(account_bit & ACCOUNT_ENG_BITFLAG && our_bit & ACCOUNT_ENG_BITFLAG)
+		chargeback = FALSE
+	// Service
+	if(account_bit & ACCOUNT_SRV_BITFLAG && our_bit & ACCOUNT_SRV_BITFLAG)
+		chargeback = FALSE
+	// Security
+	if(account_bit & ACCOUNT_SEC_BITFLAG && our_bit & ACCOUNT_SEC_BITFLAG)
+		chargeback = FALSE
+	// Civilian
+	if(account_bit & ACCOUNT_CIV_BITFLAG && our_bit & ACCOUNT_CIV_BITFLAG)
+		chargeback = FALSE
+	// Medical
+	if(account_bit & ACCOUNT_MED_BITFLAG && our_bit & ACCOUNT_MED_BITFLAG)
+		chargeback = FALSE
+	// Cargo
+	if(account_bit & ACCOUNT_CAR_BITFLAG && our_bit & ACCOUNT_CAR_BITFLAG)
+		chargeback = FALSE
+	// Cargo
+	if(account_bit & ACCOUNT_SCI_BITFLAG && our_bit & ACCOUNT_SCI_BITFLAG)
+		chargeback = FALSE
 
 
 /// Set this terminal to manage a new budget card
@@ -371,3 +355,7 @@ TODO
 
 /obj/machinery/computer/billing/service
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/service
+
+/obj/machinery/computer/billing/command
+	chargeback = FALSE
+	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE | BILL_TAG_CUSTOM
