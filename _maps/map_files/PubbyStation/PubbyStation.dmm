@@ -143,6 +143,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/medical/medbay/central)
 "acb" = (
