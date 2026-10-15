@@ -81,6 +81,8 @@ TODO
 
 /obj/machinery/computer/billing/AltClick(mob/user)
 	. = ..()
+	if(!budget_card)
+		return
 	budget_card.forceMove(get_turf(src))
 	link_budget_card(null)
 	ui_update()
@@ -232,6 +234,8 @@ TODO
 			. = TRUE
 		if("send_draft")
 			var/datum/bill/bill= locate(params["ref"])
+			if(!bill?.to_whom)
+				return
 			bill.undraft()
 			//TODO: Signals and other shit in here - Racc
 			. = TRUE
@@ -351,7 +355,7 @@ TODO
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/medical
 
 /obj/machinery/computer/billing/secuirty
-	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/sercurity
+	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/security
 
 /obj/machinery/computer/billing/service
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/service

@@ -23,6 +23,16 @@
 		settings += new_setting
 		settings -= setting_path
 
+/obj/machinery/billing_server/Destroy()
+	. = ..()
+	for(var/atom/terminal as anything in linked_terminals)
+		UnregisterSignal(terminal, COMSIG_QDELETING)
+	for(var/atom/bill as anything in bills)
+		UnregisterSignal(bill, COMSIG_BILLING_BILL_UNDRAFT)
+		UnregisterSignal(bill, COMSIG_QDELETING)
+	for(var/atom/agent as anything in agents)
+		UnregisterSignal(agent, COMSIG_QDELETING)
+
 /obj/machinery/billing_server/proc/link_terminal(obj/console)
 	linked_terminals += console
 	RegisterSignal(console, COMSIG_QDELETING, PROC_REF(catch_terminal))
@@ -74,7 +84,7 @@
 			continue
 		if(bill.paid != paid)
 			continue
-		if(bill.to_whom == to_department_id || bill.from == from_department_id)
+		if((bill.to_whom == to_department_id && to_department_id) || (bill.from == from_department_id && from_department_id))
 			filtered_bills += bill
 	return filtered_bills
 

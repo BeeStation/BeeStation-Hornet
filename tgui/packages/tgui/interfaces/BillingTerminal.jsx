@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -9,7 +10,7 @@ import {
 } from 'tgui/components';
 import { Collapsible, Dropdown, Input, Slider } from 'tgui-core/components';
 
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const BillingTerminal = (props) => {
@@ -30,8 +31,8 @@ export const BillingTerminal = (props) => {
     settings,
   } = data;
 
-  const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
-  const [autoMenu, setAutoMenu] = useLocalState('', 0);
+  const [tabIndex, setTabIndex] = useState(1);
+  const [autoMenu, setAutoMenu] = useState('', 0);
 
   return (
     <Window width={950} height={800} scrollable>
@@ -41,7 +42,7 @@ export const BillingTerminal = (props) => {
           <Flex.Item>
             <Section>
               <LabeledList.Item label="Department ID">
-                {'' + account_id + ' ($' + account_amount + ')' ||
+                {account_id ? '' + account_id + ' ($' + account_amount + ')' :
                   'No budget card inserted...'}
               </LabeledList.Item>
               <LabeledList.Item label="Linked Server">
@@ -316,7 +317,7 @@ const DraftedBills = (_props) => {
       <Flex direction="column">
         {drafted_bills
           ? drafted_bills.map((bill) => (
-              <Flex.Item key={bill}>
+              <Flex.Item key={bill['ref']}>
                 <Section mx={0.2} my={0.5}>
                   {/* Data */}
                   <LabeledList.Item label="To">

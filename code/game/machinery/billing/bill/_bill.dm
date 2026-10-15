@@ -56,8 +56,8 @@
 	if(!SSbilling.profit[to_whom])
 		SSbilling.profit[to_whom] = 0
 	// Adjust
-		SSbilling.profit[from] += amount
-		SSbilling.profit[to_whom] -= amount
+	SSbilling.profit[from] += amount
+	SSbilling.profit[to_whom] -= amount
 
 	return TRUE
 
