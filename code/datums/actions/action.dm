@@ -323,6 +323,8 @@
 /datum/action/proc/is_available(feedback = FALSE)
 	if(!owner)
 		return FALSE
+	if(action_disabled)
+		return FALSE
 	if (next_use_time && world.time < next_use_time)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
