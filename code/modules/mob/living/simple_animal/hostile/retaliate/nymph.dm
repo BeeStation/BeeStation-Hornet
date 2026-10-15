@@ -94,7 +94,7 @@
 			time_spent_in_light = 0  //No light? Reset the timer.
 
 /mob/living/simple_animal/hostile/retaliate/nymph/death(gibbed)
-	SSpoints_of_interest.on_poi_element_removed(src)
+	SSpoints_of_interest.remove_point_of_interest(src)
 	evolve_ability.Remove(src)
 	if(is_drone)
 		if(mind)

@@ -520,13 +520,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!SSpoints_of_interest.is_valid_poi(destination_mob))
 		return
 
-	var/mob/source_mob = src  //Source mob
 	var/turf/destination_turf = get_turf(destination_mob) //Turf of the destination mob
 
 	if(isturf(destination_turf))
-		source_mob.abstract_move(destination_turf)
+		abstract_move(destination_turf)
 	else
-		to_chat(source_mob, "This mob is not located in the game world.")
+		to_chat(src, "This mob is not located in the game world.")
 
 /mob/dead/observer/verb/change_view_range()
 	set category = "Ghost"

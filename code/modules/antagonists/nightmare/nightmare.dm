@@ -36,9 +36,7 @@
 	return owner.current && owner.current.stat != DEAD
 
 /datum/antagonist/nightmare/forge_objectives()
-	var/datum/objective/nightmare_fluff/objective = new
-	objective.owner = owner
-	objectives += objective
+	add_objective(new /datum/objective/nightmare_fluff())
 
 /datum/antagonist/nightmare/admin_add(datum/mind/new_owner, mob/admin)
 	var/mob/living/carbon/C = new_owner.current

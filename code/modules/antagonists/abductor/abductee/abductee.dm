@@ -20,9 +20,7 @@
 	var/mob/living/carbon/human/H = owner.current
 
 	// Give the base objective
-	var/datum/objective/abductee/base_objective = new()
-	base_objective.owner = owner
-	objectives += base_objective
+	add_objective(new /datum/objective/abductee())
 
 
 	//pick flavor objective
@@ -35,6 +33,4 @@
 		if(1 to 2)
 			extra_objective = new /datum/objective/abductee/paranoid()
 
-	extra_objective.owner = owner
-	objectives += extra_objective
-	log_objective(H, extra_objective.explanation_text)
+	add_objective(extra_objective)

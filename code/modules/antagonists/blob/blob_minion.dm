@@ -33,9 +33,8 @@
 
 /datum/antagonist/blob_minion/forge_objectives()
 	var/datum/objective/blob_minion/objective = new
-	objective.owner = owner
 	objective.overmind = overmind
-	objectives += objective
+	add_objective(objective)
 
 /datum/antagonist/blob_minion/blobbernaut
 	name = "\improper Blobbernaut"

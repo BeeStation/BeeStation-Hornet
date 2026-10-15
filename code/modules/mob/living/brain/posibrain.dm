@@ -5,6 +5,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
+	base_icon_state = "posibrain"
 	w_class = WEIGHT_CLASS_NORMAL
 	req_access = list(ACCESS_ROBOTICS)
 	braintype = "Android"
