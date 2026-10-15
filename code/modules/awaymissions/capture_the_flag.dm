@@ -353,12 +353,6 @@
 	team_members |= new_team_member.ckey
 	return M //used in medisim.dm
 
-/obj/machinery/capture_the_flag/Topic(href, href_list)
-	if(href_list["join"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
-			attack_ghost(ghost)
-
 /obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/ctf))
 		var/obj/item/ctf/flag = I

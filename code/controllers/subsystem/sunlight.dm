@@ -42,6 +42,7 @@ SUBSYSTEM_DEF(sunlight)
 			if(send_messages)
 				notify_ghosts(
 					"VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.)",
+					notify_flags = NOTIFY_CATEGORY_NOFLASH
 					)
 			GLOB.news_network.submit_article(
 				"<h1>IWA Status Update - Solar Flare Passed</h1><br><br>\
@@ -77,6 +78,7 @@ SUBSYSTEM_DEF(sunlight)
 			if(send_messages)
 				notify_ghosts(
 					"VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_WARN_2] seconds.",
+					notify_flags = NOTIFY_CATEGORY_NOFLASH
 				)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
@@ -94,7 +96,8 @@ SUBSYSTEM_DEF(sunlight)
 			time_til_cycle = TIME_VAMPIRE_DAY
 			if(send_messages)
 				notify_ghosts(
-					"VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)",
+						"VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)",
+						notify_flags = NOTIFY_CATEGORY_NOFLASH
 					)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
