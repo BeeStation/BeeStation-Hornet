@@ -91,6 +91,9 @@
 	if(length(stored_crates) >= max_crates)
 		balloon_alert(mod.wearer, "too many crates!")
 		return FALSE
+	if(istype(target.loc, /obj/structure/crate_shelf))
+		balloon_alert(mod.wearer, "crate is on a shelf!")
+		return FALSE
 	for(var/mob/living/mob in target.GetAllContents())
 		if(mob.mob_size < MOB_SIZE_HUMAN)
 			continue

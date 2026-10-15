@@ -127,6 +127,7 @@
 /obj/structure/closet/secure_closet/brig_physician/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/storage/box/suitbox/brigphys(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/toxin(src)
@@ -135,10 +136,23 @@
 	new /obj/item/storage/firstaid/fire(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/wallframe/defib_mount(src)
+	new /obj/item/storage/box/bodybags(src)
+
+/obj/item/storage/box/suitbox/brigphys
+	name = "compression box of brig physician outfits"
+
+/obj/item/storage/box/suitbox/brigphys/PopulateContents()
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
+	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
-	new /obj/item/wallframe/defib_mount(src)
+	new /obj/item/clothing/suit/hazardvest/brig_physician(src)
+	new /obj/item/clothing/suit/toggle/labcoat/brig_physician(src)
+	new /obj/item/clothing/suit/toggle/labcoat/brig_physician2(src)
+	new /obj/item/clothing/shoes/sneakers/white(src)
+	new /obj/item/clothing/head/soft/sec/brig_physician(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"

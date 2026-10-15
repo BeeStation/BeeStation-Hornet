@@ -53,6 +53,8 @@
 
 
 /mob/living/carbon/spread_bodyparts()
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		BP.drop_limb()
-		BP.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
+	for(var/obj/item/bodypart/part as anything in get_bodyparts())
+		if(part.body_zone == BODY_ZONE_CHEST)
+			continue // never drop this
+		part.drop_limb()
+		part.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)

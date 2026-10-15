@@ -3,9 +3,7 @@
 /turf/open/indestructible/reebe_void,
 /area/reebe)
 "b" = (
-/obj/structure/mirror/magic/lesser{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "c" = (

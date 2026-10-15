@@ -79,7 +79,7 @@
 
 		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
 		if(A == loc || (A in loc) || (A in contents))
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 			return
 
 		if(!isturf(loc))
@@ -87,16 +87,16 @@
 
 		// cyborg rightclick code, allowing borgos to use weapons at range
 		if(A.IsReachableBy(src, W?.reach))
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 			return
 		else if(isturf(A) || isturf(A.loc))
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
-				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
+				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, modifiers)
 
 				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
-					W.afterattack(A, src, FALSE, params)
+					W.afterattack(A, src, FALSE, modifiers)
 			else
-				W.afterattack(A, src, FALSE, params)
+				W.afterattack(A, src, FALSE, modifiers)
 
 //Middle click cycles through selected modules.
 /mob/living/silicon/robot/MiddleClickOn(atom/A)

@@ -160,7 +160,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/living/user, params)
+/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/living/user, list/modifiers)
 	..()
 	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode) // Any intent but harm will heal, so we shouldn't get angry.
 		return

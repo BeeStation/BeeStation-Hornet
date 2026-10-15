@@ -7,7 +7,7 @@
 	var/datum/blood_type/blood_type = null
 	var/unique_blood = null
 	var/labelled = 0
-	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
+	initial_reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE | INJECTABLE | DRAWABLE
 	fill_icon_thresholds = list(10, 40, 60, 80, 100, 120, 140, 160, 180, 200)
 
 /obj/item/reagent_containers/blood/Initialize(mapload)
@@ -82,7 +82,7 @@
 		reagents.clear_reagents()
 		reagents.add_reagent(/datum/reagent/consumable/liquidelectricity, volume, list("blood_type" = get_blood_type("LE")))
 		update_icon()
-	set_light(2, 1, COLOR_ETHEREAL_BLOOD)
+	set_light(2, 1, BLOOD_COLOR_ETHEREAL)
 
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"
@@ -96,7 +96,7 @@
 /obj/item/reagent_containers/blood/universal
 	blood_type = "U"
 
-/obj/item/reagent_containers/blood/attackby(obj/item/tool, mob/user, params)
+/obj/item/reagent_containers/blood/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(istype(tool, /obj/item/pen) || istype(tool, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on the label of [src]!"))
@@ -116,7 +116,7 @@
 	else
 		return ..()
 
-/obj/item/reagent_containers/blood/attack(mob/living/victim, mob/living/attacker, params)
+/obj/item/reagent_containers/blood/attack(mob/living/victim, mob/living/attacker, list/modifiers)
 	if(!can_drink(victim, attacker))
 		return
 

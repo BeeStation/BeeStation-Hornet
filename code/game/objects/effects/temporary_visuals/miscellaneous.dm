@@ -4,7 +4,7 @@
 	duration = 5
 	randomdir = FALSE
 	layer = BELOW_MOB_LAYER
-	color = COLOR_BLOOD
+	color = BLOOD_COLOR_RED
 	var/splatter_type = "splatter"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)

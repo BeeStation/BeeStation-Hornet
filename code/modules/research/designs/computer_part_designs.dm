@@ -9,7 +9,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500, /datum/material/copper = 150)
 	build_path = /obj/item/modular_computer/tablet/pda
-	category = list(RND_CATEGORY_EQUIPMENT)
+	category = list(RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_FRAMES)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/computer_shell/tablet
@@ -18,7 +18,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1500, /datum/material/glass = 1000, /datum/material/copper = 150)
 	build_path = /obj/item/modular_computer/tablet
-	category = list(RND_CATEGORY_EQUIPMENT)
+	category = list(RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_FRAMES)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/computer_shell/laptop
@@ -27,7 +27,7 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/copper = 150)
 	build_path = /obj/item/modular_computer/laptop
-	category = list(RND_CATEGORY_EQUIPMENT)
+	category = list(RND_CATEGORY_MODULAR_COMPUTERS + RND_SUBCATEGORY_MODULAR_COMPUTERS_FRAMES)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /// HDDs

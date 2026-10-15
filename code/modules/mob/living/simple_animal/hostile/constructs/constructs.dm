@@ -49,6 +49,8 @@
 	var/original_name = null
 	// Aghghghshhg
 	var/original_real_name = null
+	/// Whether this construct leaves a soulstone behind when it dies.
+	var/drops_shard = TRUE
 	/// Whether this construct can repair other constructs or cult buildings.
 	var/can_repair = FALSE
 	/// Whether this construct can repair itself. Works independently of can_repair.
@@ -61,7 +63,7 @@
 	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	if(!mind)
+	if(!mind || !drops_shard)
 		return ..()
 	var/obj/item/soulstone/stone = /obj/item/soulstone/anybody
 	switch(theme)

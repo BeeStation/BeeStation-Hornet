@@ -48,7 +48,7 @@
 		owner.set_nutrition(min((owner.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED))
 
 	// Absorb a lizard, speak Draconic.
-	owner.copy_languages(target, LANGUAGE_ABSORB)
+	owner.copy_languages(target, LANGUAGE_ABSORB, blocked = FALSE)
 
 	var/mind_ref = target.mind ? REF(target.mind) : null
 	if(target.mind && owner.mind && !(mind_ref in changeling.absorbed_minds))//if the victim and owner have minds

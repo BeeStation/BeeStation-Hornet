@@ -67,7 +67,7 @@
 	else if(user != src)
 		return ..()
 
-/mob/living/simple_animal/shade/attackby(obj/item/attacking_item, mob/user, params)  //Marker -Agouri
+/mob/living/simple_animal/shade/attackby(obj/item/attacking_item, mob/user, list/modifiers)  //Marker -Agouri
 	if(!istype(attacking_item, /obj/item/soulstone))
 		return ..()
 	var/obj/item/soulstone/stone = attacking_item

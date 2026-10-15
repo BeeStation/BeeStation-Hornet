@@ -531,7 +531,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/newscaster)
 	return TRUE
 
 
-/obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You start [anchored ? "un" : ""]securing [name]..."))
 		I.play_tool_sound(src)

@@ -30,7 +30,7 @@
 		return
 	to_chat(user, span_notice("This is about the [booked_job::title]. There's a wall of text with unrecognisable handwriting."))
 
-/obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(!istype(attacking_item, /obj/item/pen) || !user.is_literate())
 		return ..()
 	if(booked_job)
@@ -89,7 +89,7 @@
 		return
 
 	booked_job = writer_job
-	name = "Manuscript: [booked_job.title] addition"
+	name = "Manuscript: [booked_job.title] Edition"
 	title = name
 	desc = "A book with the expertise of the [booked_job.title]."
 	to_chat(user, span_notice("You finished writing a job manuscript."))

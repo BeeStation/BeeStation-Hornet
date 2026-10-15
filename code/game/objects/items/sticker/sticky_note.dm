@@ -26,9 +26,9 @@
 	. = ..()
 	. += my_paper.examine(user)
 
-/obj/item/sticker/sticky_note/attackby(obj/item/I, mob/living/user, params)
+/obj/item/sticker/sticky_note/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
-	my_paper.attackby(I, user, params)
+	my_paper.attackby(I, user, modifiers)
 
 /obj/item/sticker/sticky_note/interact(mob/user)
 	. = ..()

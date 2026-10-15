@@ -273,7 +273,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	desc += "<BR>[span_warning("Its access panel is smoking slightly.")]"
 	open(2)
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(operating)
 		return
@@ -468,7 +468,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/clockwork/ratvar_act()
 	return FALSE
 
-/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(operating)
 		return

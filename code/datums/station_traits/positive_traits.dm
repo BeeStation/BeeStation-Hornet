@@ -65,38 +65,40 @@
 	blacklist = list(/datum/station_trait/distant_supply_lines)
 	trait_to_give = STATION_TRAIT_STRONG_SUPPLY_LINES
 
-/datum/station_trait/scarves
-	name = "Scarves"
+/datum/station_trait/scryers
+	name = "Scryers"
 	trait_type = STATION_TRAIT_POSITIVE
-	weight = 5
+	weight = 2
 	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
-	var/list/scarves
+	report_message = "Nanotrasen has chosen your station for an experiment - everyone has free scryers! Use these to talk to other people easily and privately."
 
-/datum/station_trait/scarves/New()
+/datum/station_trait/scryers/New()
 	. = ..()
-	report_message = pick(
-		"Nanotrasen is experimenting with seeing if neck warmth improves employee morale.",
-		"After Space Fashion Week, scarves are the hot new accessory.",
-		"Everyone was simultaneously a little bit cold when they packed to go to the station.",
-		"The station is definitely not under attack by neck grappling aliens masquerading as wool. Definitely not.",
-		"You all get free scarves. Don't ask why.",
-		"A shipment of scarves was delivered to the station.",
-	)
-	scarves = typesof(/obj/item/clothing/neck/scarf) + list(
-		/obj/item/clothing/neck/stripedredscarf,
-		/obj/item/clothing/neck/stripedgreenscarf,
-		/obj/item/clothing/neck/stripedbluescarf,
-	)
-
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
 
-/datum/station_trait/scarves/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+/datum/station_trait/scryers/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
 	SIGNAL_HANDLER
+	if(!ishuman(spawned))
+		return
+	var/mob/living/carbon/human/humanspawned = spawned
+	// Put their silly little scarf or necktie somewhere else
+	var/obj/item/silly_little_scarf = humanspawned.wear_neck
+	if(silly_little_scarf)
+		var/list/backup_slots = list(
+			"in your left pocket" = ITEM_SLOT_LPOCKET,
+			"in your right pocket" = ITEM_SLOT_RPOCKET,
+			"in your backpack" = ITEM_SLOT_BACKPACK
+		)
+		humanspawned.temporarilyRemoveItemFromInventory(silly_little_scarf)
+		silly_little_scarf.forceMove(get_turf(humanspawned))
+		humanspawned.equip_in_one_of_slots(silly_little_scarf, backup_slots, qdel_on_fail = FALSE)
 
-	var/scarf_type = pick(scarves)
+	var/obj/item/clothing/neck/link_scryer/loaded/new_scryer = new(spawned)
+	new_scryer.label = spawned.name
+	new_scryer.update_name()
 
-	spawned.equip_to_slot_or_del(new scarf_type(spawned), ITEM_SLOT_NECK, initial = FALSE)
+	spawned.equip_to_slot_or_del(new_scryer, ITEM_SLOT_NECK, initial = FALSE)
 
 /datum/station_trait/filled_maint
 	name = "Filled up maintenance"
@@ -110,7 +112,7 @@
 	can_revert = FALSE
 
 /datum/station_trait/quick_shuttle
-	name = "Quick Shuttle"
+	name = "Quick shuttle"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -120,3 +122,64 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
+
+/datum/station_trait/deathrattle_department
+	name = "Deathrattled department"
+	trait_type = STATION_TRAIT_POSITIVE
+	show_in_report = TRUE
+	blacklist = list(/datum/station_trait/deathrattle_all)
+	weight = 1
+
+	var/datum/deathrattle_group/deathrattle_group
+	var/department_to_apply_to
+
+/datum/station_trait/deathrattle_department/New()
+	. = ..()
+	var/list/possible_departments = list(
+		"service" = DEPARTMENT_BITFLAG_SERVICE,
+		"cargo" = DEPARTMENT_BITFLAG_CARGO,
+		"engineering" = DEPARTMENT_BITFLAG_ENGINEERING,
+		"command" = DEPARTMENT_BITFLAG_COMMAND,
+		"science" = DEPARTMENT_BITFLAG_SCIENCE,
+		"security" = DEPARTMENT_BITFLAG_SECURITY,
+		"medical" = DEPARTMENT_BITFLAG_MEDICAL,
+	)
+	var/chosen_department_name = pick(possible_departments)
+	department_to_apply_to = possible_departments[chosen_department_name]
+
+	name = "Deathrattled [chosen_department_name]"
+	deathrattle_group = new("[chosen_department_name] group")
+	report_message = "All members of [chosen_department_name] have received an implant to notify each other if one of them dies. This should help improve job-safety!"
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/deathrattle_department/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER
+	if(!(job.departments_bitflags & department_to_apply_to))
+		return
+
+	var/obj/item/implant/deathrattle/implant_to_give = new()
+	deathrattle_group.register(implant_to_give)
+	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
+
+/datum/station_trait/deathrattle_all
+	name = "Deathrattled station"
+	trait_type = STATION_TRAIT_POSITIVE
+	weight = 1
+	show_in_report = TRUE
+	blacklist = list(/datum/station_trait/deathrattle_department)
+	report_message = "All members of the station have received an implant to notify each other if one of them dies. This should help improve job-safety!"
+
+	var/datum/deathrattle_group/deathrattle_group
+
+/datum/station_trait/deathrattle_all/New()
+	. = ..()
+	deathrattle_group = new("station group")
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/deathrattle_all/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER
+	if(!(job.job_flags & JOB_CREW_MEMBER))
+		return
+	var/obj/item/implant/deathrattle/implant_to_give = new()
+	deathrattle_group.register(implant_to_give)
+	implant_to_give.implant(spawned, spawned, TRUE, TRUE)

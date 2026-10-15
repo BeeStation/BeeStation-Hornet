@@ -204,7 +204,6 @@
 		return FALSE
 	return TRUE
 
-
 /obj/item/mod/module/anomaly_locked/kinesis/proc/on_catcher_click(atom/source, location, control, params, user)
 	SIGNAL_HANDLER
 

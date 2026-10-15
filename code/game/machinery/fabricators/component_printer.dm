@@ -8,6 +8,7 @@
 	minimum_construction_time = 0.5 SECONDS //Quick.
 	use_station_research = TRUE
 	allowed_buildtypes = COMPONENT_PRINTER
+	uses_queue = FALSE
 
 /obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)
@@ -128,7 +129,7 @@
 	created_atom.pixel_y = initial(created_atom.pixel_y) + rand(-5, 5)
 	update_static_data_for_all_viewers()
 
-/obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, list/modifiers)
 	var/list/data = list()
 
 	if(istype(weapon, /obj/item/circuit_component/module))

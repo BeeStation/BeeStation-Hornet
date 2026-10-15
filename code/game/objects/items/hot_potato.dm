@@ -92,7 +92,7 @@
 	if(active)
 		to_chat(user, span_userdanger("You have a really bad feeling about [src]!"))
 
-/obj/item/hot_potato/afterattack(atom/target, mob/user, adjacent, params)
+/obj/item/hot_potato/afterattack(atom/target, mob/user, adjacent, list/modifiers)
 	. = ..()
 	if(!adjacent || !ismob(target))
 		return
