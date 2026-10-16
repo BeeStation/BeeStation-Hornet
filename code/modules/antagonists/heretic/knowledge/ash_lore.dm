@@ -227,7 +227,7 @@
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
 	route = HERETIC_PATH_ASH
 	announcement_text = "Fear the blaze, for the Ashlord, %USER% has ascended! The flames shall consume all!"
-	announcement_sound = 'sound/ambience/antag/heretic/ascend_ash.ogg'
+	announcement_sound = 'sound/effects/antag/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
 		TRAIT_RESISTHEAT,

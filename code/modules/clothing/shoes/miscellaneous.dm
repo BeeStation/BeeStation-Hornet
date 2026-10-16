@@ -221,11 +221,11 @@
 /obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_FEET)
-		ADD_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+		ADD_TRAIT(user, TRAIT_NO_SLIP_ALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/winterboots/noslip/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_NO_SLIP_ALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

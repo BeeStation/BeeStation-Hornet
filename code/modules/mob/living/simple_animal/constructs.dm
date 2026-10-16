@@ -3,7 +3,7 @@
 	real_name = "Construct"
 	desc = ""
 	gender = NEUTER
-	mob_biotypes = MOB_INORGANIC
+	mob_biotypes = MOB_MINERAL | MOB_SPECIAL
 	speak_emote = list("hisses")
 	response_help_continuous = "thinks better of touching"
 	response_help_simple = "think better of touching"
@@ -21,7 +21,7 @@
 	see_in_dark = 7
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	healable = 0
@@ -42,6 +42,7 @@
 	var/seeking = FALSE
 	var/original_name = null // The original name of the person, passed down by /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/
 	var/original_real_name = null
+	var/drops_shard = TRUE
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
@@ -54,7 +55,7 @@
 	usable_hands = 0
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	if(!mind)
+	if(!mind || !drops_shard)
 		return ..()
 	var/obj/item/soulstone/stone = /obj/item/soulstone/anybody
 	switch(theme)
@@ -240,6 +241,7 @@
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	construct_spells = list(
 		/datum/action/spell/jaunt/ethereal_jaunt/shift,
 		/datum/action/innate/cult/create_rune/tele,
@@ -429,6 +431,7 @@
 	attack_verb_continuous = "butchers"
 	attack_verb_simple = "butcher"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = ATTACK_EFFECT_SLASH
 	construct_spells = list(
 		/datum/action/spell/aoe/area_conversion,
 		/datum/action/spell/forcewall/cult,

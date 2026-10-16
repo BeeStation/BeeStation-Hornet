@@ -22,7 +22,7 @@
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
 	radio = new(src)
-	radio.keyslot = /obj/item/encryptionkey/headset_sci
+	radio.keyslot = new /obj/item/encryptionkey/headset_sci
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
@@ -50,7 +50,7 @@
 		radio.talk_into(src, "Ectoplasm has been detected! There may be additional positronic brain matrices available!", RADIO_CHANNEL_SCIENCE)
 	visible_message(span_notice("[src] has detected ectoplasm! There may be additional positronic brain matrices available!"))
 
-	use_power(10)
+	use_power(active_power_usage)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
 		activator.log_message("activated an ecto sniffer", LOG_ATTACK)

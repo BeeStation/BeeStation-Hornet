@@ -54,8 +54,9 @@
 	var/moles = min(air.total_moles(choosen_target), max_moles)
 	if(!moles)
 		return
-	SET_MOLES(choosen_target, air, -moles)
-	SET_MOLES(choosen_exchange, air, moles)
+
+	air.set_gas(choosen_target, -moles)
+	air.set_gas(choosen_exchange, -moles)
 
 /datum/xenoartifact_trait/major/gas/get_dictionary_hint()
 	. = ..()
@@ -63,6 +64,5 @@
 
 /datum/xenoartifact_trait/major/gas/do_hint(mob/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='warning'>[item] detects [initial(choosen_target.name)] exchanging into [initial(choosen_exchange.name)] \
-		at a rate of [max_moles] moles!</span>")
+		to_chat(user, span_warning("[item] detects [choosen_target::name] exchanging into [choosen_exchange::name] at a rate of [max_moles] moles!"))
 		return ..()

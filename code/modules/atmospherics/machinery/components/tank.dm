@@ -34,8 +34,7 @@
 	air_contents.volume = volume
 	if(gas_type)
 		fill_to_pressure(gas_type)
-
-		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
+		name = "[name] ([GLOB.meta_gas_info[META_GAS_NAME][gas_type]])"
 	set_piping_layer(piping_layer)
 
 	// Mapped in tanks should automatically connect to adjacent pipenets in the direction set in dir
@@ -71,8 +70,8 @@
 	var/pressure_limit = max_pressure * safety_margin
 
 	var/moles_to_add = (pressure_limit * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
-	air_contents.assert_gas(gastype)
-	air_contents.gases[gastype][MOLES] += moles_to_add
+
+	air_contents.adjust_gas(gastype, moles_to_add)
 	air_contents.archive()
 
 /obj/machinery/atmospherics/components/tank/process_atmos()
@@ -180,8 +179,8 @@
 
 /obj/machinery/atmospherics/components/tank/air/Initialize(mapload)
 	. = ..()
-	SET_MOLES(/datum/gas/oxygen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	SET_MOLES(/datum/gas/nitrogen, air_contents, 6*ONE_ATMOSPHERE*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	air_contents.set_gas(/datum/gas/oxygen, 6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
+	air_contents.set_gas(/datum/gas/nitrogen, 6 * ONE_ATMOSPHERE * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD)
 
 /obj/machinery/atmospherics/components/tank/carbon_dioxide
 	gas_type = /datum/gas/carbon_dioxide

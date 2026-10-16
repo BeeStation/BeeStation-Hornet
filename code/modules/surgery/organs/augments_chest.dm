@@ -10,7 +10,7 @@
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
 	icon_state = "chest_implant"
-	implant_color = "#00AA00"
+	implant_color = COLOR_DARK_LIME
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = FALSE
 	var/malfunctioning = FALSE
@@ -105,7 +105,7 @@
 	if(prob(30/severity))
 		to_chat(owner, span_userdanger("You feel a sharp pain in your chest, your reviver implant seems to have shorted out!"))
 		owner.Knockdown((3 SECONDS))
-		Destroy()
+		qdel(src)
 
 /obj/item/organ/cyberimp/chest/reviver/syndicate
 	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN

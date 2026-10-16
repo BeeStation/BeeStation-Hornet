@@ -140,7 +140,7 @@
 	var/sickrisk = 1
 	if(islizard(src) || iscatperson(src))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(mob_biotypes & MOB_INORGANIC)
+	if(mob_biotypes & MOB_MINERAL)
 		sickrisk -= 0.5
 		guaranteed_symptoms |= /datum/symptom/inorganic_adaptation
 	else if(mob_biotypes & MOB_ROBOTIC)

@@ -12,8 +12,6 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | STACKABLE_HELMET_EXEMPT | HEADINTERNALS
 	armor_type = /datum/armor/helmet_space
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -167,7 +165,7 @@
 				. += "\The [cell] is firmly in place."
 
 // object handling for accessing features of the suit
-/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		toggle_spacesuit_cell(user)
 		return

@@ -27,12 +27,12 @@
  * against the type of magic being used
  *
  * args:
- * * _source
- * * antimagic_flags (optional) A bitflag with the types of magic resistance on the object
- * * charges (optional) The amount of times the object can protect the user from magic
- * * inventory_flags (optional) The inventory slot the object must be located at in order to activate
- * * drain_antimagic (optional) The proc that is triggered when an object has been drained a antimagic charge
- * * expiration (optional) The proc that is triggered when the object is depleted of charges
+ * * source - The source of this antimagic
+ * * antimagic_flags (optional) - A bitflag with the types of magic resistance on the object
+ * * charges (optional) - The amount of times the object can protect the user from magic
+ * * inventory_flags (optional) - The inventory slot the object must be located at in order to activate
+ * * drain_antimagic (optional) - The proc that is triggered when an object has been drained a antimagic charge
+ * * expiration (optional) - The proc that is triggered when the object is depleted of charges
  * *
  * antimagic bitflags: (see code/__DEFINES/magic.dm)
  * * MAGIC_RESISTANCE - Default magic resistance that blocks normal magic (wizard, spells, staffs)
@@ -41,17 +41,19 @@
 **/
 
 /datum/component/anti_magic/Initialize(
-	_source,
+	source,
 	antimagic_flags = MAGIC_RESISTANCE,
 	charges = INFINITY,
 	inventory_flags = ~ITEM_SLOT_BACKPACK, // items in a backpack won't activate, anywhere else is fine
 	datum/callback/drain_antimagic,
 	datum/callback/expiration
-	)
+)
 
 	// Random enough that it will never conflict, and avoids having a static variable
-	identifier = identifier_current++
-	source = _source
+	identifier_current++
+	identifier = identifier_current
+
+	src.source = source
 	src.antimagic_flags = antimagic_flags
 	src.charges = charges
 	src.inventory_flags = inventory_flags
@@ -64,7 +66,7 @@
 	else if(ismob(parent))
 		register_antimagic_signals(parent)
 		var/mob/mob_parent = parent
-		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
+		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, "magic_protection_[identifier]")
 		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
 		forbearance.plane = mob_parent.plane
 		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
@@ -81,16 +83,15 @@
 	UnregisterSignal(on_what, list(COMSIG_MOB_RECEIVE_MAGIC, COMSIG_MOB_RESTRICT_MAGIC))
 
 /datum/component/anti_magic/Destroy(force)
-	drain_antimagic = 0
-	expiration = 0
+	drain_antimagic = null
+	expiration = null
 	if(ismob(parent)) //If the component is attached to an item, it should go through on_drop instead.
 		var/mob/user = parent
-		UnregisterSignal(user, COMSIG_MOB_RECEIVE_MAGIC)
-		REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, identifier)
+		unregister_antimagic_signals(user)
+		REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, "magic_protection_[identifier]")
 		user.remove_alt_appearance("magic_protection_[identifier]")
 		user.update_alt_appearances()
 	return ..()
-
 
 /datum/component/anti_magic/proc/on_equip(atom/movable/source, mob/equipper, slot)
 	SIGNAL_HANDLER
@@ -98,20 +99,19 @@
 	if(!(inventory_flags & slot)) //Check that the slot is valid for antimagic
 		unregister_antimagic_signals(equipper)
 		equipper.update_action_buttons()
-		REMOVE_TRAIT(equipper, TRAIT_SEE_ANTIMAGIC, identifier)
+		REMOVE_TRAIT(equipper, TRAIT_SEE_ANTIMAGIC, "magic_protection_[identifier]")
 		equipper.remove_alt_appearance("magic_protection_[identifier]")
 		equipper.update_alt_appearances()
 		return
 
 	register_antimagic_signals(equipper)
 	equipper.update_action_buttons()
-	var/mob/mob_parent = equipper
 	if(!HAS_TRAIT(equipper, TRAIT_SEE_ANTIMAGIC))
-		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
-		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
-		forbearance.plane = mob_parent.plane
-		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
-		mob_parent.update_alt_appearances()
+		ADD_TRAIT(equipper, TRAIT_SEE_ANTIMAGIC, "magic_protection_[identifier]")
+		var/image/forbearance = image('icons/effects/genetics.dmi', equipper, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(equipper.layer, MUTATIONS_LAYER))
+		forbearance.plane = equipper.plane
+		equipper.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessed_aware, "magic_protection_[identifier]", forbearance)
+		equipper.update_alt_appearances()
 
 	if(!alert_caster_on_equip)
 		return
@@ -135,7 +135,7 @@
 		alert_caster_on_equip = TRUE
 	unregister_antimagic_signals(user)
 	user.update_action_buttons()
-	REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, identifier)
+	REMOVE_TRAIT(user, TRAIT_SEE_ANTIMAGIC, "magic_protection_[identifier]")
 	user.remove_alt_appearance("magic_protection_[identifier]")
 	user.update_alt_appearances()
 

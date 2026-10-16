@@ -63,7 +63,7 @@
 			glow.set_light(1, 0.6, LIGHT_COLOR_RED)
 			playsound(user, 'sound/machines/terminal_error.ogg', 30, TRUE)
 			balloon_alert(user, "<font color='#c41d1d'>Value:</font> [price] cr")
-			if(current == 0)	// If demand is 0, price will always be 0
+			if(!current) // If demand is 0, price will always be 0
 				to_chat(user, "Current stock of [current_object]: <span class='cfc_orange'><b>[stock]</span>/<span class='cfc_orange'>[demand.max_demand]</b></span>. Value: <span class='cfc_red'><b>[price] cr</b></span>[length(current_object.contents) ? " (contents included)" : ""].")
 			else
 				to_chat(user, "No export value for <span class='cfc_red'>[current_object]</span>")
@@ -71,15 +71,10 @@
 		if(istype(current_object, /obj/machinery/portable_atmospherics))
 			var/obj/machinery/portable_atmospherics/canister/gas_can = current_object
 			var/datum/gas_mixture/canister_mix = gas_can.return_air()
-			var/canister_gas = canister_mix.gases
-			for(var/id in canister_gas)
-				var/datum/gas/path = gas_id2path(id)
-				var/moles = canister_gas[id][MOLES]
-				var/datum/demand_state/gas_demand = SSdemand.get_demand_state(path)
-				var/gas_current = gas_demand.current_demand
-				var/gas_maximum = gas_demand.max_demand
-				var/gas_stock = (gas_maximum - gas_current)
-				to_chat(user, "Detected: [path.name] [round(moles)] mol / Current stock: <span class='cfc_orange'><b>[gas_stock]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[SSdemand.get_gas_value(path, moles)] cr</b></span>")
+			for(var/_gas_type, amount in canister_mix.moles)
+				var/datum/gas/gas_type = _gas_type
+				var/datum/demand_state/gas_demand = SSdemand.get_demand_state(gas_type)
+				to_chat(user, "Detected: [gas_type::name] [round(amount)] mol / Current stock: <span class='cfc_orange'><b>[gas_demand.max_demand - gas_demand.current_demand]</span>/<span class='cfc_orange'>[gas_demand.max_demand]</b></span> Value: <span class='cfc_green'><b>[SSdemand.get_gas_value(gas_type, amount)] cr</b></span>")
 		var/sound_played = FALSE
 		if(current_object.trade_flags & TRADE_CONTRABAND)
 			to_chat(user, "<span class='cfc_red'>CONTRABAND DETECTED:</span> <b>[current_object.name]</b>")

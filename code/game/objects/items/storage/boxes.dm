@@ -77,7 +77,7 @@
 	qdel(src)
 	user.put_in_hands(I)
 
-/obj/item/storage/box/attackby(obj/item/W, mob/user, params)
+/obj/item/storage/box/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/stack/package_wrap))
 		return 0
 	return ..()
@@ -225,12 +225,16 @@
 	new /obj/item/radio/off(src)
 
 // Syndie survival box
-/obj/item/storage/box/survival/syndie //why is this its own thing if it's just the engi box with a syndie mask and medipen?
+/obj/item/storage/box/survival/syndie // Has actual changes apart from just a different engineering box
 	name = "extended-capacity survival box"
-	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank."
+	desc = "A box with the bare essentials of ensuring the survival of you and others. This one is labelled to contain an extended-capacity tank and a handy guide on survival"
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	internal_type = /obj/item/tank/internals/emergency_oxygen/engi
-	medipen_type = null
+	medipen_type =  /obj/item/reagent_containers/hypospray/medipen/atropine
+
+/obj/item/storage/box/survival/syndie/PopulateContents()
+	..()
+	new /obj/item/paper/fluff/operative(src)
 
 // Security survival box
 /obj/item/storage/box/survival/security
@@ -522,22 +526,19 @@
 		new /obj/item/reagent_containers/cup/glass/sillycup( src )
 
 /obj/item/storage/box/donkpockets
-
-/obj/item/storage/box/donkpockets/PopulateContents()
-	for(var/i in 1 to 6)
-		new donktype(src)
-
-/obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
 	desc = "Instructions: Heat in microwave. Product will stay perpetually warmed with cutting edge Donk Co. technology."
 	icon_state = "donkpocketbox"
-	illustration=null
+	illustration = null
 	var/donktype = /obj/item/food/donkpocket
-	donktype = /obj/item/food/donkpocket
 
 /obj/item/storage/box/donkpockets/Initialize(mapload)
 	. = ..()
 	atom_storage.set_holdable(list(/obj/item/food/donkpocket))
+
+/obj/item/storage/box/donkpockets/PopulateContents()
+	for(var/i in 1 to 6)
+		new donktype(src)
 
 /obj/item/storage/box/donkpockets/donkpocketspicy
 	name = "box of spicy-flavoured donk-pockets"
@@ -630,11 +631,13 @@
 		new /obj/item/modular_computer/tablet/pda(src)
 	new /obj/item/computer_hardware/hard_drive/role/head(src)
 
-	var/newcart = pick(	/obj/item/computer_hardware/hard_drive/role/engineering,
-						/obj/item/computer_hardware/hard_drive/role/security,
-						/obj/item/computer_hardware/hard_drive/role/medical,
-						/obj/item/computer_hardware/hard_drive/role/signal/toxins,
-						/obj/item/computer_hardware/hard_drive/role/cargo_technician)
+	var/newcart = pick(
+		/obj/item/computer_hardware/hard_drive/role/engineering,
+		/obj/item/computer_hardware/hard_drive/role/security,
+		/obj/item/computer_hardware/hard_drive/role/medical,
+		/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+		/obj/item/computer_hardware/hard_drive/role/cargo_technician,
+	)
 	new newcart(src)
 
 /obj/item/storage/box/silver_ids
@@ -806,6 +809,33 @@
 	for(var/i in 1 to 7)
 		new /obj/item/storage/pill_bottle(src)
 
+/obj/item/storage/box/evilmeds
+	name = "box of premium medicine"
+	desc = "Contains a large number of beakers filled with premium medical supplies. Straight from Interdyne Pharmaceutics!"
+	icon_state = "syndiebox"
+	illustration = "beaker"
+
+/obj/item/storage/box/evilmeds/PopulateContents()
+	var/static/list/items_inside = list(
+		/obj/item/reagent_containers/cup/beaker/meta/omnizine = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/sal_acid = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/oxandrolone = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/pen_acid = 1,
+		/obj/item/reagent_containers/cup/beaker/meta/atropine = 1,
+		/obj/item/reagent_containers/cup/beaker/stabilizing_nanites = 1, // They only get 50 of this, it's quite potent
+		/obj/item/reagent_containers/cup/beaker/meta/rezadone = 1,
+	)
+	generate_items_inside(items_inside, src)
+
+/obj/item/storage/box/combathypos
+	name = "box of combat hyposprays"
+	desc = "Contains a small quantity of combat hyposprays, they do seem of a smaller quantity"
+	icon_state = "syndiebox"
+
+/obj/item/storage/box/combathypos/PopulateContents() // You get atleast one for each member, aswell as an extra one
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/hypospray/combat/smaller(src)
+
 /obj/item/storage/box/snappops
 	name = "snap pop box"
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
@@ -837,15 +867,11 @@
 	. = ..()
 	atom_storage.max_slots = 10
 	atom_storage.set_holdable(list(/obj/item/match))
+	AddElement(/datum/element/ignites_matches)
 
 /obj/item/storage/box/matches/PopulateContents()
 	for(var/i in 1 to 10)
 		new /obj/item/match(src)
-
-/obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/match))
-		W.matchignite()
-		playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
 
 /obj/item/storage/box/lights
 	name = "box of replacement bulbs"
@@ -936,7 +962,7 @@
 	desc = "A colorful cardboard box for the clown"
 	illustration = "clown"
 
-/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, list/modifiers)
 	if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, span_warning("You need to empty [src] out first!"))
@@ -1180,7 +1206,7 @@
 
 /obj/item/storage/box/silver_sulf/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+		new /obj/item/reagent_containers/applicator/patch/silver_sulf(src)
 
 /obj/item/storage/box/fountainpens
 	name = "box of fountain pens"

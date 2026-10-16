@@ -28,6 +28,10 @@
 	held_state = "fox"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	worn_slot_flags = ITEM_SLOT_HEAD
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	attack_sound = 'sound/weapons/bite.ogg'
+	attack_vis_effect = ATTACK_EFFECT_BITE
 
 //Captain fox
 /mob/living/simple_animal/pet/fox/Renault

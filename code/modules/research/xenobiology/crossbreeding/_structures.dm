@@ -244,12 +244,12 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/turf/open/open_turf = T
 	var/datum/gas_mixture/air = open_turf.return_air()
 
-	if(GET_MOLES(/datum/gas/plasma, air) > 15)
-		REMOVE_MOLES(/datum/gas/plasma, air, 15)
+	if(air.moles[/datum/gas/plasma] > 15)
+		air.adjust_gas(/datum/gas/plasma, -15)
 		new /obj/item/stack/sheet/mineral/plasma(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()
-	atmos_spawn_air("plasma=[20];TEMP=[500]")
+	atmos_spawn_air("[GAS_PLASMA]=[20];TEMP=[500]")
 	return ..()
 
 /obj/structure/slime_crystal/darkblue

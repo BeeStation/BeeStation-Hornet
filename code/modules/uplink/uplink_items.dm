@@ -233,10 +233,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical bundle"
-	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
-			a Donksoft LMG, a box of riot darts and a pair of magboots to rescue your friends in no-gravity environments."
+	desc = "A large duffel bag containing medical equipment, a Donksoft LMG, a big jumbo box of riot darts, and a medbeam MODsuit module."
 	item = /obj/item/storage/backpack/duffelbag/syndie/med/medicalbundle
-	cost = 15 // normally 20
+	cost = 25 // Used to be 15, however the amounts of things given by this bundle are now better
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/bundles_TC/sniper
@@ -1925,12 +1924,21 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
-	desc = "This first aid kit is a suspicious brown and red. Included is a combat stimulant injector \
-			for rapid healing, a medical night vision HUD for quick identification of injured personnel, \
-			and other supplies helpful for a field medic."
+	desc = "This first aid kit is a suspicious brown and red. Included is a number of atropine medipens \
+			for rapid stabilization and detonation prevention. Patches for healing on the field are also included."
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
+/datum/uplink_item/device_tools/medkit/premium // Premium, has more things, but it's a lot more expensive
+	name = "Premium Syndicate Combat Medical Kit"
+	desc = "This first aid kit is a suspicious black and red. Included is an unloaded combat chemical injector \
+			for suit-penetrative chem delivery, a medical science night vision HUD for quick identification of injured personnel and chemical supplies, \
+			improved medical supplies, including Interdyne-approved pharmaceuticals, a hacked cybernetic surgery toolset arm implant, \
+			and some helpful MODsuit modules for for field medical use and operative physiopharmaceutical augmentation."
+	item = /obj/item/storage/firstaid/tactical/premium
+	cost = 15
+	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 
 /datum/uplink_item/device_tools/medkit_infiltration
 	name = "Syndicate Infiltrator's Medical Kit"
@@ -1977,7 +1985,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/device_tools/potion
 	name = "Syndicate Sentience Potion"
-	item = /obj/item/slimepotion/slime/sentience/nuclear
+	item = /obj/item/slimepotion/sentience/nuclear
 	desc = "A potion recovered at great risk by undercover Syndicate operatives and then subsequently modified with Syndicate technology. \
 			Using it will make any animal sentient, and bound to serve you, as well as implanting an internal radio for communication and an internal ID card for opening doors."
 	cost = 4
@@ -2144,6 +2152,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 8
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
+
+/datum/uplink_item/race_restricted/blood_drive
+	name = "Blood Drive Upgrade"
+	desc = "We thought you might want to become a blood-fueled robot. \
+			This allows you to heal from the blood of your enemies. Consider sharpening! \
+			Does not come with a kit to install, though you can install it yourself if you have a operating table."
+	item = /obj/item/ipc_upgrade/blood_drive
+	cost = 12
+	surplus = 0
+	restricted_species = list(SPECIES_IPC)
 
 // Role-specific items
 /datum/uplink_item/role_restricted

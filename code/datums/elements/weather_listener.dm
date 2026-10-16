@@ -28,8 +28,8 @@
 	RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(handle_z_level_change), override = TRUE)
 	RegisterSignal(target, COMSIG_MOB_LOGOUT, PROC_REF(handle_logout), override = TRUE)
 
-	var/turf/mob_turf = get_turf(target)
-	handle_z_level_change(target, null, mob_turf.z)
+	var/mob/target_mob = target
+	handle_z_level_change(target_mob, null, target_mob.z)
 
 /datum/element/weather_listener/Detach(datum/source)
 	. = ..()

@@ -11,6 +11,7 @@
 	px_y = 0
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
+	grind_results = null
 	bodypart_trait_source = CHEST_TRAIT
 	///The bodytype(s) allowed to attach to this chest.
 	var/acceptable_bodytype = BODYTYPE_HUMANOID
@@ -99,15 +100,20 @@
 	desc = "Hey buddy give me a HAND and report this to the github because you shouldn't be seeing this."
 	attack_verb_continuous = list("slaps", "punches")
 	attack_verb_simple = list("slap", "punch")
-	max_damage = 40
+	max_damage = 50
 	max_stamina_damage = 50
 	aux_layer = BODYPARTS_HIGH_LAYER
 	body_damage_coeff = 0.75
 	can_be_disabled = TRUE
+	unarmed_attack_verb = "punch" /// The classic punch, wonderfully classic and completely random
+	unarmed_damage = 7
+	body_zone = BODY_ZONE_L_ARM
 	/// Datum describing how to offset things worn on the hands of this arm, note that an x offset won't do anything here
 	var/datum/worn_feature_offset/worn_glove_offset
 	/// Datum describing how to offset things held in the hands of this arm, the x offset IS functional here
 	var/datum/worn_feature_offset/held_hand_offset
+	/// The noun to use when referring to this arm's appendage, e.g. "hand" or "paw"
+	var/appendage_noun = "hand"
 
 /obj/item/bodypart/arm/Destroy()
 	QDEL_NULL(worn_glove_offset)
@@ -130,7 +136,7 @@
 	px_y = 0
 	bodypart_trait_source = LEFT_ARM_TRAIT
 
-/obj/item/bodypart/arm/left/set_owner(new_owner)
+/obj/item/bodypart/arm/left/set_owner(mob/living/carbon/new_owner)
 	. = ..()
 	if(. == FALSE)
 		return
@@ -196,6 +202,8 @@
 	px_x = -5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
+	appendage_noun = "paw"
+	unarmed_damage = 3
 
 /obj/item/bodypart/arm/left/monkey/teratoma
 	icon_state = "teratoma_l_arm"
@@ -212,6 +220,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
+	appendage_noun = "scythe-like hand"
 
 /obj/item/bodypart/arm/right
 	name = "right arm"
@@ -293,6 +302,8 @@
 	px_x = 5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
+	appendage_noun = "paw"
+	unarmed_damage = 3
 
 /obj/item/bodypart/arm/right/monkey/teratoma
 	icon_state = "teratoma_r_arm"
@@ -310,6 +321,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
+	appendage_noun = "scythe-like hand"
 
 /obj/item/bodypart/leg
 	abstract_type = /obj/item/bodypart/leg
@@ -317,10 +329,13 @@
 	desc = "This item shouldn't exist. Talk about breaking a leg. Badum-Tss!"
 	attack_verb_continuous = list("kicks", "stomps")
 	attack_verb_simple = list("kick", "stomp")
-	max_damage = 40
+	max_damage = 50
 	body_damage_coeff = 0.75
 	max_stamina_damage = 50
 	can_be_disabled = TRUE
+	unarmed_attack_effect = ATTACK_EFFECT_KICK
+	unarmed_attack_verb = "kick" // The lovely kick, typically only accessable by attacking a grouded foe. 1.5 times better than the punch.
+	unarmed_damage = 7
 	/// Datum describing how to offset things worn on the foot of this leg, note that an x offset won't do anything here
 	var/datum/worn_feature_offset/worn_foot_offset
 
@@ -400,6 +415,7 @@
 	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	px_y = 4
 	dmg_overlay_type = SPECIES_MONKEY
+	unarmed_damage = 3
 
 /obj/item/bodypart/leg/left/monkey/teratoma
 	icon_state = "teratoma_l_leg"
@@ -492,6 +508,7 @@
 	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	px_y = 4
 	dmg_overlay_type = SPECIES_MONKEY
+	unarmed_damage = 3
 
 /obj/item/bodypart/leg/right/monkey/teratoma
 	icon_state = "teratoma_r_leg"

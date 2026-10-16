@@ -106,16 +106,14 @@
 #define VV_HK_IRRADIATE "irradiate"
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
+#define VV_HK_TEST_MATRIXES "test_matrixes"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
 #define VV_HK_ARMOR_MOD "mod_obj_armor"
 #define VV_HK_ADD_EMITTER "add_emitter"
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
-// /datum/gas_mixture
-#define VV_HK_SET_MOLES "set_moles"
-#define VV_HK_EMPTY "empty"
-#define VV_HK_SET_TEMPERATURE "set_temp"
+// /turf
 #define VV_HK_UPDATE_ACTIVE_TURF "update_active_turfs"
 
 // /obj

@@ -71,7 +71,7 @@
 	var/notified = FALSE
 
 /datum/quirk/brainproblems/on_process(delta_time)
-	if(!quirk_target.reagents.has_reagent(/datum/reagent/medicine/mannitol))
+	if(!quirk_target.has_reagent(/datum/reagent/medicine/mannitol))
 		if(prob(80))
 			quirk_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
 	var/obj/item/organ/brain/B = quirk_target.get_organ_by_type(/obj/item/organ/brain)
@@ -519,7 +519,6 @@
 	icon = "pills"
 	quirk_value = -1
 	gain_text = span_danger("You suddenly feel the craving for drugs.")
-	lose_text = span_notice("You feel like you should kick your drug habit.")
 	medical_record_text = "Patient has a history of hard drugs."
 	process = TRUE
 	var/list/drug_list = list(/datum/reagent/drug/crank, /datum/reagent/drug/krokodil, /datum/reagent/medicine/morphine, /datum/reagent/drug/happiness, /datum/reagent/drug/methamphetamine, /datum/reagent/drug/ketamine) //List of possible IDs
@@ -547,7 +546,7 @@
 	if (istype(drug_instance, /obj/item/storage/pill_bottle))
 		var/pill_state = pick(PILL_SHAPE_LIST)
 		for(var/i in 1 to 7)
-			var/obj/item/reagent_containers/pill/P = new(drug_instance)
+			var/obj/item/reagent_containers/applicator/pill/P = new(drug_instance)
 			P.icon_state = pill_state
 			P.reagents.add_reagent(reagent_type, 1)
 
@@ -573,6 +572,8 @@
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] of [initial(reagent_type.name)] [where_drug]. Better hope you don't run out..."))
 
 /datum/quirk/junkie/on_process()
+	if(HAS_TRAIT(quirk_holder, TRAIT_LIVERLESS_METABOLISM))
+		return
 	if(!COOLDOWN_FINISHED(src, next_process))
 		return
 	COOLDOWN_START(src, next_process, process_interval)

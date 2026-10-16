@@ -10,8 +10,9 @@
 	icon_dead = "cluwne_dead"
 	speak_emote = list("sadly honks")
 	attack_sound = 'sound/items/bikehorn.ogg'
+	attack_vis_effect = null
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
 	maxHealth = 150
@@ -49,6 +50,6 @@
 	..()
 
 
-/mob/living/simple_animal/cluwne/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/cluwne/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode, list/message_mods)
 	message = pick(speak)
 	..()

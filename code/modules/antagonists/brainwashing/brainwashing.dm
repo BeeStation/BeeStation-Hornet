@@ -88,7 +88,7 @@
 	return ..()
 
 /datum/antagonist/brainwashed/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/brainwash.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/antag/brainwash.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, span_warning("Your mind reels as it begins focusing on a single purpose..."))
 	to_chat(owner, "<big>[span_warning("<b>Follow the Directives, at any cost!</b>")]</big>")
 	var/i = 1

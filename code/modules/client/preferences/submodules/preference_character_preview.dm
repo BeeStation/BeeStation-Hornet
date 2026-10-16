@@ -24,7 +24,6 @@
 		consistent = TRUE,
 	)
 
-	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance
 
 /// A preview of a character for use in the preferences menu
@@ -59,6 +58,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_vi
 		create_body()
 	else
 		body.wipe_state()
+
 	body.appearance = preferences.render_new_preview_appearance(body, show_job_clothes)
 
 /atom/movable/screen/map_view/character_preview_view/proc/create_body()

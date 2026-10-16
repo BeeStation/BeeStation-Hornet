@@ -342,7 +342,7 @@
 	required_atoms = list(/mob/living/carbon/human = 4)
 	route = HERETIC_PATH_FLESH
 	announcement_text = "Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %USER% has ascended! Fear the ever-twisting hand!"
-	announcement_sound = 'sound/ambience/antag/heretic/ascend_flesh.ogg'
+	announcement_sound = 'sound/effects/antag/heretic/ascend_flesh.ogg'
 
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()

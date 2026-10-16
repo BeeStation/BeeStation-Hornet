@@ -64,6 +64,7 @@
 	combat_mode = TRUE //parrots now start "aggressive" since only player parrots will nuzzle.
 	attack_verb_continuous = "chomps"
 	attack_verb_simple = "chomp"
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	friendly_verb_continuous = "grooms"
 	friendly_verb_simple = "groom"
 	mob_size = MOB_SIZE_SMALL
@@ -325,7 +326,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 		icon_state = icon_living
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/living/user, params)
+/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/living/user, list/modifiers)
 	if(!stat && !client && !istype(O, /obj/item/stack/medical) && !istype(O, /obj/item/food/cracker))
 		if(O.force)
 			if(parrot_state == PARROT_PERCH)

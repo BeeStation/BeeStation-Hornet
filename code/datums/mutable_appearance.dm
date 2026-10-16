@@ -38,13 +38,26 @@
 	appearance.color = found
 	return appearance
 
+// This is a semi hot proc, so we micro it. saves maybe 150ms
+// sorry :)
+/proc/fast_emissive_blocker(atom/make_blocker)
+	var/mutable_appearance/blocker = new()
+	blocker.icon = make_blocker.icon
+	blocker.icon_state = make_blocker.icon_state
+	blocker.layer = make_blocker.layer
+	blocker.appearance_flags |= make_blocker.appearance_flags | EMISSIVE_APPEARANCE_FLAGS
+	blocker.dir = make_blocker.dir
+	blocker.color = make_blocker.alpha == 255 ? GLOB.em_block_color : _EM_BLOCK_COLOR(make_blocker.alpha / 255)
+	blocker.plane = EMISSIVE_PLANE
+	return blocker
+
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE], but instead of more opaque being white, more opaque is black.
 /// Setting the layer is highly important
 /proc/emissive_blocker(icon, icon_state = "", layer = FLOAT_LAYER, alpha = 255, appearance_flags = NONE)
 	// Note: alpha doesn't "do" anything, since it's overridden by the color set shortly after
 	// Consider removing it someday?
 	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
-	appearance.color = GLOB.em_blocker_matrix
+	appearance.color = GLOB.em_block_color
 	return appearance
 
 /// Takes an input mutable appearance, returns a copy of it with the hidden flag flipped to avoid inheriting dir from what it's drawn on

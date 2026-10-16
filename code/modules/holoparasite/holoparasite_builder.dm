@@ -424,7 +424,7 @@
 	return src
 
 /datum/holoparasite_builder/admin/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/holoparasite_builder/admin/ui_status(mob/user, datum/ui_state/_state)
 	if(check_rights_for(user.client, R_FUN))

@@ -117,8 +117,9 @@
 		data["holding"] = null
 	return data
 
-/obj/machinery/portable_atmospherics/pump/ui_act(action, params)
-	if(..())
+/obj/machinery/portable_atmospherics/pump/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("power")
@@ -126,11 +127,11 @@
 			if(on)
 				SSair.start_processing_machine(src)
 			if(on && !holding)
-				var/plasma = GET_MOLES(/datum/gas/plasma, air_contents)
-				var/n2o = GET_MOLES(/datum/gas/nitrous_oxide, air_contents)
-				if(n2o || plasma)
-					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
-					log_admin("[key_name(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [AREACOORD(src)]")
+				var/plasma_moles = air_contents.moles[/datum/gas/plasma]
+				var/n2o_moles = air_contents.moles[/datum/gas/nitrous_oxide]
+				if(n2o_moles || plasma_moles)
+					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o_moles ? "N2O" : ""][n2o_moles && plasma_moles ? " & " : ""][plasma_moles ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
+					log_admin("[key_name(usr)] turned on a pump that contains [n2o_moles ? "N2O" : ""][n2o_moles && plasma_moles ? " & " : ""][plasma_moles ? "Plasma" : ""] at [AREACOORD(src)]")
 			else if(on && direction == PUMP_OUT)
 				usr.investigate_log(" started a transfer into [holding].", INVESTIGATE_ATMOS)
 			. = TRUE

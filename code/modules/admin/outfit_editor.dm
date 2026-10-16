@@ -23,7 +23,7 @@
 		drip.name = "New Outfit"
 
 /datum/outfit_editor/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/outfit_editor/ui_status(mob/user, datum/ui_state/state)
 	if(QDELETED(drip))
@@ -101,7 +101,7 @@
 				drip.vars[slot] = null
 
 		if("rename")
-			var/newname = tgui_input_text(owner, "What do you want to name this outfit?", OUTFIT_EDITOR_NAME)
+			var/newname = tgui_input_text(owner, "What do you want to name this outfit?", OUTFIT_EDITOR_NAME, max_length = MAX_NAME_LEN)
 			if(newname)
 				drip.name = newname
 		if("save")

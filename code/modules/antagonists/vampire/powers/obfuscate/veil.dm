@@ -15,7 +15,7 @@
 	var/prev_gender
 	var/prev_skin_tone
 	var/prev_hair_style
-	var/prev_facial_hair_style
+	var/prev_facial_hairstyle
 	var/prev_hair_color
 	var/prev_facial_hair_color
 	var/prev_underwear
@@ -38,7 +38,7 @@
 	prev_gender = user.gender
 	prev_skin_tone = user.skin_tone
 	prev_hair_style = user.hair_style
-	prev_facial_hair_style = user.facial_hair_style
+	prev_facial_hairstyle = user.facial_hairstyle
 	prev_hair_color = user.hair_color
 	prev_facial_hair_color = user.facial_hair_color
 	prev_underwear = user.underwear
@@ -57,10 +57,10 @@
 	// Change Appearance
 	user.gender = pick(MALE, FEMALE, PLURAL)
 	user.skin_tone = pick(GLOB.skin_tones)
-	user.hair_style = random_hair_style(user.gender)
-	user.facial_hair_style = pick(random_facial_hair_style(user.gender), "Shaved")
-	user.hair_color = "#[random_color()]"
-	user.facial_hair_color = user.hair_color
+	user.set_hairstyle(random_hair_style(user.gender), update = FALSE)
+	user.set_facial_hairstyle(pick(random_facial_hairstyle(user.gender), "Shaved"), update = FALSE)
+	user.set_haircolor("#[random_color()]", update = FALSE)
+	user.set_facial_haircolor(user.hair_color, update = FALSE)
 	user.underwear = random_underwear(user.gender)
 	user.undershirt = random_undershirt(user.gender)
 	user.socks = random_socks(user.gender)
@@ -76,7 +76,6 @@
 	user.override_voice = user.name
 	user.update_body() // Outfit and underwear, also body.
 	user.update_mutant_bodyparts() // Lizard tails etc
-	user.update_hair()
 	user.update_body_parts()
 
 	to_chat(owner, span_warning("You mystify the air around your person. Your identity is now altered."))
@@ -94,10 +93,10 @@
 	// Revert Appearance
 	user.gender = prev_gender
 	user.skin_tone = prev_skin_tone
-	user.hair_style = prev_hair_style
-	user.facial_hair_style = prev_facial_hair_style
-	user.hair_color = prev_hair_color
-	user.facial_hair_color = prev_facial_hair_color
+	user.set_facial_hairstyle(prev_hair_style, update = FALSE)
+	user.set_hairstyle(prev_facial_hairstyle, update = FALSE)
+	user.set_haircolor(prev_hair_color, update = FALSE)
+	user.set_facial_haircolor(prev_facial_hair_color, update = FALSE)
 	user.underwear = prev_underwear
 	user.undershirt = prev_undershirt
 	user.socks = prev_socks
@@ -112,7 +111,6 @@
 	// Apply Appearance
 	user.override_voice = null
 	user.update_body() // Outfit and underwear, also body.
-	user.update_hair()
 	user.update_body_parts() // Body itself, maybe skin color?
 
 	cast_effect() // POOF

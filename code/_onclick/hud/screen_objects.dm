@@ -209,7 +209,7 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
+	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		item_overlay.color = COLOR_RED
 	else
 		item_overlay.color = COLOR_VIBRANT_LIME
@@ -450,10 +450,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	if (master && !istype(master))
 		CRASH("Attempting to create a backpack close without referencing a storage datum.")
 
-/atom/movable/screen/storage/attackby(location, control, params)
+/atom/movable/screen/storage/Click(location, control, params)
 	var/datum/storage/storage_master = master
 	if(!istype(storage_master))
 		return FALSE
+
+	if(world.time <= usr.next_move)
+		return TRUE
+	if(usr.incapacitated)
+		return TRUE
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 
 	var/obj/item/inserted = usr.get_active_held_item()
 	if(inserted)

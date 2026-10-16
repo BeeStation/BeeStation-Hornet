@@ -38,7 +38,7 @@
 	var/datum/point/vector/trajectory
 	var/trajectory_ignore_forcemove = FALSE	//instructs forceMove to NOT reset our trajectory to the new location!
 	/// We already impacted these things, do not impact them again. Used to make sure we can pierce things we want to pierce. Lazylist, typecache style (object = TRUE) for performance.
-	var/list/impacted
+	var/list/impacted = list()
 	/// If TRUE, we can hit our firer.
 	var/ignore_source_check = FALSE
 	/// We are flagged PHASING temporarily to not stop moving when we Bump something but want to keep going anyways.
@@ -372,7 +372,7 @@
 	if(!trajectory)
 		qdel(src)
 		return FALSE
-	if(impacted[A])		// NEVER doublehit
+	if(impacted[A]) // NEVER doublehit
 		return FALSE
 	var/datum/point/point_cache = trajectory.copy_to()
 	var/turf/T = get_turf(A)
@@ -394,7 +394,7 @@
 	else if (!def_zone)
 		def_zone = ran_zone()
 
-	return process_hit(T, select_target(T, A, A), A)		// SELECT TARGET FIRST!
+	return process_hit(T, select_target(T), A) // SELECT TARGET FIRST!
 
 /**
  * The primary workhorse proc of projectile impacts.
@@ -434,7 +434,7 @@
 		if(!(movement_type & PHASING))
 			temporary_unstoppable_movement = TRUE
 			movement_type |= PHASING
-		return process_hit(T, select_target(T, target, bumped), bumped, hit_something)	// try to hit something else
+		return process_hit(T, select_target(T, bumped), bumped, hit_something)	// try to hit something else
 	// at this point we are going to hit the thing
 	// in which case send signal to it
 	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, src, args)
@@ -446,7 +446,7 @@
 		if(!(movement_type & PHASING))
 			temporary_unstoppable_movement = TRUE
 			movement_type |= PHASING
-		return process_hit(T, select_target(T, target, bumped), bumped, TRUE)
+		return process_hit(T, select_target(T, bumped), bumped, TRUE)
 	qdel(src)
 	return hit_something
 
@@ -455,7 +455,6 @@
  *
  * @params
  * T - The turf
- * target - The "preferred" atom to hit, usually what we Bumped() first.
  * bumped - used to track if something is the reason we impacted in the first place.
  *    If set, this atom is always treated as dense by can_hit_target.
  *
@@ -469,32 +468,27 @@
  * 4. Turf
  * 5. Nothing
  */
-/obj/projectile/proc/select_target(turf/T, atom/target, atom/bumped)
+/obj/projectile/proc/select_target(turf/our_turf, atom/bumped)
 	// 1. original
 	if(can_hit_target(original, TRUE, FALSE, original == bumped))
 		return original
-	var/list/atom/possible = list()		// let's define these ONCE
-	var/list/atom/considering = list()
+	var/list/atom/considering = list()  // let's define this ONCE
 	// 2. mobs
-	possible = typecache_filter_list(T, GLOB.typecache_living)	// living only
-	for(var/i in possible)
-		if(!can_hit_target(i, i == original, TRUE, i == bumped))
-			continue
-		considering += i
+	for(var/mob/living/iter_possible_target in our_turf)
+		if(can_hit_target(iter_possible_target, iter_possible_target == original, TRUE, iter_possible_target == bumped))
+			considering += iter_possible_target
 	if(considering.len)
-		var/mob/living/M = pick(considering)
-		return M.lowest_buckled_mob()
-	considering.len = 0
+		var/mob/living/hit_living = pick(considering)
+		return hit_living.lowest_buckled_mob()
 	// 3. objs and other dense things
-	for(var/i in T.contents)
-		if(!can_hit_target(i, i == original, TRUE, i == bumped))
-			continue
-		considering += i
+	for(var/i in our_turf)
+		if(can_hit_target(i, i == original, TRUE, i == bumped))
+			considering += i
 	if(considering.len)
 		return pick(considering)
 	// 4. turf
-	if(can_hit_target(T, T == original, TRUE, T == bumped))
-		return T
+	if(can_hit_target(our_turf, our_turf == original, TRUE, our_turf == bumped))
+		return our_turf
 	// 5. nothing
 		// (returns null)
 
@@ -506,10 +500,8 @@
 	if(!ignore_loc && (loc != target.loc))
 		return FALSE
 	// if pass_flags match, pass through entirely - unless direct target is set.
-	if (!direct_target)
-		// Calling CanAllowThrough introduces side effects
-		if(target.pass_flags_self & pass_flags)
-			return FALSE
+	if((target.pass_flags_self & pass_flags) && !direct_target)
+		return FALSE
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
@@ -518,14 +510,14 @@
 		var/mob/target_mob = target
 		if(faction_check(target_mob.faction, ignored_factions))
 			return FALSE
-	if(target.density || cross_failed)		//This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
+	if(target.density || cross_failed) //This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
 		return TRUE
 	if(!isliving(target))
-		if(isturf(target))		// non dense turfs
+		if(isturf(target)) // non dense turfs
 			return FALSE
 		if(target.layer < hit_threshhold)
 			return FALSE
-		else if(!direct_target)		// non dense objects do not get hit unless specifically clicked
+		else if(!direct_target) // non dense objects do not get hit unless specifically clicked
 			return FALSE
 	else
 		var/mob/living/L = target
@@ -574,10 +566,10 @@
 	// and hope projectiles get refactored again in the future to have a less stupid impact detection system
 	// that hopefully won't also involve a ton of overhead
 	if(can_hit_target(original, TRUE, FALSE))
-		Impact(original)		// try to hit thing clicked on
+		Impact(original) // try to hit thing clicked on
 	// else, try to hit mobs
-	else		// because if we impacted original and pierced we'll already have select target'd and hit everything else we should be hitting
-		for(var/mob/M in loc)		// so I guess we're STILL doing a for loop of mobs because living movement would otherwise have snowflake code for projectile CanPass
+	else // because if we impacted original and pierced we'll already have select target'd and hit everything else we should be hitting
+		for(var/mob/M in loc) // so I guess we're STILL doing a for loop of mobs because living movement would otherwise have snowflake code for projectile CanPass
 			// so the snowflake vs performance is pretty arguable here
 			if(can_hit_target(M, M == original, TRUE))
 				Impact(M)
@@ -877,66 +869,109 @@
 	if(prob(50))
 		homing_offset_y = -homing_offset_y
 
-//Spread is FORCED!
-/obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, list/modifiers = null, spread = 0)
+/**
+ * Aims the projectile at a target.
+ *
+ * Must be passed at least one of a target or a list of click parameters.
+ * If only passed the click modifiers the source atom must be a mob with a client.
+ *
+ * Arguments:
+ * - [target][/atom]: (Optional) The thing that the projectile will be aimed at.
+ * - [source][/atom]: The initial location of the projectile or the thing firing it.
+ * - [modifiers][/list]: (Optional) A list of click parameters to apply to this operation.
+ * - deviation: (Optional) How the trajectory should deviate from the target in degrees.
+ *   - //Spread is FORCED!
+ */
+/obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, list/modifiers = null, deviation = 0)
 	if(!(isnull(modifiers) || islist(modifiers)))
 		stack_trace("WARNING: Projectile [type] fired with non-list modifiers, likely was passed click params.")
 		modifiers = null
 
-	var/turf/current_location = get_turf(source)
-	var/turf/targloc = get_turf(target)
-	trajectory_ignore_forcemove = TRUE
-	forceMove(get_turf(source))
-	trajectory_ignore_forcemove = FALSE
-	starting = get_turf(source)
-	original = target
-	if(targloc || !length(modifiers))
-		yo = targloc.y - current_location.y
-		xo = targloc.x - current_location.x
-		set_angle(get_angle(src, targloc) + spread)
+	var/turf/source_loc = get_turf(source)
+	var/turf/target_loc = get_turf(target)
 
-	if(isliving(source) && length(modifiers))
-		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, modifiers)
+	if(isnull(source_loc))
+		stack_trace("WARNING: Projectile [type] fired from nullspace.")
+		qdel(src)
+		return FALSE
+
+	if(fired)
+		stack_trace("WARNING: Projectile [type] was aimed after already being fired.")
+		qdel(src)
+		return FALSE
+
+	trajectory_ignore_forcemove = TRUE
+	forceMove(source_loc)
+	trajectory_ignore_forcemove = FALSE
+
+	starting = source_loc
+	pixel_x = source.pixel_x
+	pixel_y = source.pixel_y
+	original = target
+	if(length(modifiers))
+		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, target_loc && target, modifiers)
+
 		p_x = calculated[2]
 		p_y = calculated[3]
+		set_angle(calculated[1] + deviation)
+		return TRUE
 
-		set_angle(calculated[1] + spread)
-	else if(targloc)
-		yo = targloc.y - current_location.y
-		xo = targloc.x - current_location.x
-		set_angle(get_angle(src, targloc) + spread)
-	else
-		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
-		qdel(src)
+	if(target_loc)
+		yo = target_loc.y - source_loc.y
+		xo = target_loc.x - source_loc.x
+		set_angle(get_angle(src, target_loc) + deviation)
+		return TRUE
 
-/proc/calculate_projectile_angle_and_pixel_offsets(mob/user, modifiers)
-	var/p_x = 0
-	var/p_y = 0
+	stack_trace("WARNING: Projectile [type] fired without a target or mouse parameters to aim with.")
+	qdel(src)
+	return FALSE
+
+/**
+ * Calculates the pixel offsets and angle that a projectile should be launched at.
+ *
+ * Arguments:
+ * - [source][/atom]: The thing that the projectile is being shot from.
+ * - [target][/atom]: (Optional) The thing that the projectile is being shot at.
+ *   - If this is not provided the  source atom must be a mob with a client.
+ * - [modifiers][/list]: A list of click parameters used to modify the shot angle.
+ */
+/proc/calculate_projectile_angle_and_pixel_offsets(atom/source, atom/target, modifiers)
 	var/angle = 0
-	if(LAZYACCESS(modifiers, ICON_X))
-		p_x = text2num(LAZYACCESS(modifiers, ICON_X))
-	if(LAZYACCESS(modifiers, ICON_Y))
-		p_y = text2num(LAZYACCESS(modifiers, ICON_Y))
-	if(LAZYACCESS(modifiers, SCREEN_LOC))
-		//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-		var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
+	var/p_x = LAZYACCESS(modifiers, ICON_X) ? text2num(LAZYACCESS(modifiers, ICON_X)) : ICON_SIZE_X / 2 // ICON_(X|Y) are measured from the bottom left corner of the icon.
+	var/p_y = LAZYACCESS(modifiers, ICON_Y) ? text2num(LAZYACCESS(modifiers, ICON_Y)) : ICON_SIZE_Y / 2 // This centers the target if modifiers aren't passed.
 
-		//Split X+Pixel_X up into list(X, Pixel_X)
-		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
+	if(target)
+		var/turf/source_loc = get_turf(source)
+		var/turf/target_loc = get_turf(target)
+		var/dx = ((target_loc.x - source_loc.x) * ICON_SIZE_X) + (target.pixel_x - source.pixel_x) + (p_x - (ICON_SIZE_X / 2))
+		var/dy = ((target_loc.y - source_loc.y) * ICON_SIZE_Y) + (target.pixel_y - source.pixel_y) + (p_y - (ICON_SIZE_Y / 2))
 
-		//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-		var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-		var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
-		var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32
+		angle = ATAN2(dy, dx)
+		return list(angle, p_x, p_y)
 
-		//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
-		var/list/screenview = getviewsize(user.client.view)
-		var/screenviewX = screenview[1] * ICON_SIZE_X
-		var/screenviewY = screenview[2] * ICON_SIZE_Y
+	if(!ismob(source) || !LAZYACCESS(modifiers, SCREEN_LOC))
+		CRASH("Can't make trajectory calculations without a target or click modifiers and a client.")
 
-		var/ox = round(screenviewX/2) - user.client.pixel_x //"origin" x
-		var/oy = round(screenviewY/2) - user.client.pixel_y //"origin" y
-		angle = ATAN2(y - oy, x - ox)
+	var/mob/user = source
+	if(!user.client)
+		CRASH("Can't make trajectory calculations without a target or click modifiers and a client.")
+
+	//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
+	var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
+	//Split X+Pixel_X up into list(X, Pixel_X)
+	var/list/screen_loc_X = splittext(screen_loc_params[1],":")
+	//Split Y+Pixel_Y up into list(Y, Pixel_Y)
+	var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
+
+	var/tx = (text2num(screen_loc_X[1]) - 1) * ICON_SIZE_X + text2num(screen_loc_X[2])
+	var/ty = (text2num(screen_loc_Y[1]) - 1) * ICON_SIZE_Y + text2num(screen_loc_Y[2])
+
+	//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
+	var/list/screenview = view_to_pixels(user.client.view)
+
+	var/ox = round(screenview[1] / 2) - user.client.pixel_x //"origin" x
+	var/oy = round(screenview[2] / 2) - user.client.pixel_y //"origin" y
+	angle = ATAN2(ty - oy, tx - ox)
 	return list(angle, p_x, p_y)
 
 /obj/projectile/proc/on_entered(datum/source, atom/movable/AM)

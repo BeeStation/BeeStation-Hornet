@@ -39,8 +39,7 @@ SUBSYSTEM_DEF(ambience)
 		ambience_listening_clients -= to_process
 		return
 
-	if(current_area.ambient_buzz)
-		play_buzz(current_mob, current_area)
+	play_buzz(current_mob, current_area)
 
 	if(ambience_listening_clients[to_process] > world.time)
 		return //Not ready for the next sound
@@ -71,7 +70,7 @@ SUBSYSTEM_DEF(ambience)
 
 /// Buzzing sound, the low ship drone that plays constantly, IC (requires the user to be able to hear)
 /datum/controller/subsystem/ambience/proc/play_buzz(mob/ambience_hearer, area/buzz_area)
-	if(ambience_hearer.can_hear_ambience())
+	if(ambience_hearer.can_hear_ambience() && !isnull(buzz_area.ambient_buzz))
 		var/buzz_info = "[buzz_area.ambient_buzz][buzz_area.ambient_buzz_vol]"
 		var/pref_volume = ambience_hearer.client?.prefs.read_player_preference(/datum/preference/numeric/volume/sound_ambient_buzz_volume)
 		if (pref_volume > 0 && (!ambience_hearer.client?.buzz_playing || ambience_hearer.client?.buzz_playing != buzz_info))

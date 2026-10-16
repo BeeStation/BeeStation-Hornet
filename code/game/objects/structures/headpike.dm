@@ -41,11 +41,10 @@
 /obj/structure/headpike/update_icon()
 	..()
 	var/obj/item/bodypart/head/H = locate() in contents
-	var/mutable_appearance/MA = new()
 	if(H)
-		MA.copy_overlays(H)
+		var/mutable_appearance/MA = new(H)
 		MA.pixel_y = 12
-		add_overlay(H)
+		add_overlay(MA)
 
 /obj/structure/headpike/attack_hand(mob/user, list/modifiers)
 	. = ..()

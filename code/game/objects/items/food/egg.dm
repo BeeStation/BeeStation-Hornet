@@ -70,7 +70,7 @@
 	reagents.expose(hit_atom, TOUCH)
 	qdel(src)
 
-/obj/item/food/egg/attackby(obj/item/W, mob/user, params)
+/obj/item/food/egg/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		var/clr = C.crayon_color
@@ -95,7 +95,7 @@
 	else
 		..()
 
-/obj/item/food/egg/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/food/egg/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
@@ -210,7 +210,7 @@
 	crafting_complexity = FOOD_COMPLEXITY_2
 	crafted_food_buff = /datum/status_effect/food/speech/french
 
-/obj/item/food/omelette/attackby(obj/item/W, mob/user, params)
+/obj/item/food/omelette/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/kitchen/fork))
 		var/obj/item/kitchen/fork/F = W
 		if(F.forkload)

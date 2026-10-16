@@ -55,7 +55,7 @@
 	volume_preference = /datum/preference/numeric/volume/sound_weather_volume
 
 /datum/looping_sound/void_loop
-	mid_sounds = list('sound/ambience/VoidsEmbrace.ogg'=1)
+	mid_sounds = list('sound/weather/heretic/VoidsEmbrace.ogg'=1)
 	mid_length = 1669 // exact length of the music in ticks
 	volume = 100
 	extra_range = 30

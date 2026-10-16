@@ -5,7 +5,7 @@
 	limb_id = SPECIES_MOTH
 	is_dimorphic = FALSE
 	should_draw_greyscale = TRUE
-	head_flags = HEAD_EYESPRITES
+	head_flags = HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYEHOLES|HEAD_DEBRAIN //what the fuck, moths have lips?
 
 /obj/item/bodypart/chest/moth
 	icon = 'icons/mob/human/species/moth/bodyparts.dmi'
@@ -14,6 +14,7 @@
 	limb_id = SPECIES_MOTH
 	is_dimorphic = TRUE
 	should_draw_greyscale = TRUE
+	bodypart_traits = list(TRAIT_TACKLING_WINGED_ATTACKER)
 
 /obj/item/bodypart/arm/left/moth
 	icon = 'icons/mob/human/species/moth/bodyparts.dmi'

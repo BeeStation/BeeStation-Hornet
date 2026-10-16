@@ -69,7 +69,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/PreInit()
 	..()
 #ifdef FORCE_MAP
-	current_map = load_map_config(FORCE_MAP, MAP_DIRECTORY)
+	current_map = load_map_config(FORCE_MAP, MAP_DIRECTORY_MAPS)
 #else
 	current_map = load_map_config(error_if_missing = FALSE)
 #endif
@@ -376,9 +376,9 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	if(IsAdminAdvancedProcCall())
 		return
 
-	var/list/filelist = flist("[MAP_DIRECTORY]/templates/")
+	var/list/filelist = flist("_maps/templates/")
 	for(var/map in filelist)
-		var/datum/map_template/T = new(path = "[MAP_DIRECTORY]/templates/[map]", rename = "[map]")
+		var/datum/map_template/T = new(path = "_maps/templates/[map]", rename = "[map]")
 		map_templates[T.name] = T
 
 	preloadRuinTemplates()

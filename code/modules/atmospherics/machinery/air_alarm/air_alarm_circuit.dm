@@ -164,8 +164,9 @@
 			"Temperature" = "temperature"
 		)
 
-		for(var/gas_id in GLOB.meta_gas_info)
-			component_options[GLOB.meta_gas_info[gas_id][META_GAS_NAME]] = gas_id2path(gas_id)
+		var/cached_gas_info = GLOB.meta_gas_info
+		for(var/gas_path, gas_id in cached_gas_info[META_GAS_ID])
+			component_options[cached_gas_info[META_GAS_NAME][gas_path]] = gas_id2path(gas_id)
 
 	air_alarm_options = add_option_port("Air Alarm Options", component_options)
 	options_map = component_options
@@ -230,7 +231,7 @@
 	pressure.set_output(round(environment.return_pressure()))
 	temperature.set_output(round(environment.temperature))
 	if(ispath(options_map[current_option]))
-		gas_amount.set_output(round(environment.gases[options_map[current_option]][MOLES]))
+		gas_amount.set_output(round(environment.moles[options_map[current_option]]))
 
 	update_received.set_output(COMPONENT_SIGNAL)
 
@@ -350,9 +351,10 @@
 /obj/item/circuit_component/air_alarm_scrubbers/get_ui_notices()
 	. = ..()
 	var/static/list/meta_data = list()
-	if(length(meta_data) == 0)
-		for(var/typepath as anything in GLOB.meta_gas_info)
-			meta_data += GLOB.meta_gas_info[typepath][META_GAS_ID]
+	if(!length(meta_data))
+		var/cached_gas_info = GLOB.meta_gas_info
+		for(var/gas_path in cached_gas_info[META_GAS_ID])
+			meta_data += cached_gas_info[META_GAS_ID][gas_path]
 	. += create_table_notices(meta_data)
 
 /obj/item/circuit_component/air_alarm_scrubbers/proc/set_gas_to_filter(datum/port/input/port)

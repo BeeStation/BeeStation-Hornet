@@ -104,6 +104,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
+/obj/item/clothing/glasses/hud/health/night/science
+	name = "night vision medical science scanner HUD"
+	desc = "A clandestine medical science heads-up display that allows operatives to find \
+		dying captains and the perfect poison to finish them off in complete darkness."
+	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_REAGENT_SCANNER)
+
 /obj/item/clothing/glasses/hud/health/sunglasses
 	gender = PLURAL
 	name = "medical HUDSunglasses"
@@ -120,7 +126,7 @@
 	desc = "Prescription glasses with a built-in medical HUD."
 	icon_state = "prescmedhud"
 	emissive_state = "prehud_emissive"
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
@@ -165,7 +171,7 @@
 	desc = "Prescription glasses with a built-in diagnostic HUD."
 	icon_state = "prescdiaghud"
 	emissive_state = "prehud_emissive"
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_DIAGNOSTIC_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -230,7 +236,7 @@
 	desc = "Prescription glasses with a built-in security HUD. They do not provide flash protection."
 	icon_state = "prescsechud"
 	emissive_state = "prehud_emissive"
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_SECURITY_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"

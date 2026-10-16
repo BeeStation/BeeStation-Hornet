@@ -371,9 +371,11 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/datum/excited_group/EG = currentrun[currentrun.len]
 		currentrun.len--
+		var/volatile_reaction = EG.turf_reactions & VOLATILE_REACTION
 		EG.breakdown_cooldown++
-		EG.dismantle_cooldown++
-		if(EG.breakdown_cooldown >= EXCITED_GROUP_BREAKDOWN_CYCLES)
+		if(!volatile_reaction)
+			EG.dismantle_cooldown++
+		if(EG.breakdown_cooldown >= EXCITED_GROUP_BREAKDOWN_CYCLES && !volatile_reaction)
 			EG.self_breakdown(poke_turfs = TRUE)
 		else if(EG.dismantle_cooldown >= EXCITED_GROUP_DISMANTLE_CYCLES && !(EG.turf_reactions & (REACTING | STOP_REACTIONS)))
 			EG.dismantle()
@@ -541,8 +543,7 @@ SUBSYSTEM_DEF(air)
 			if(enemy_tile.current_cycle == -INFINITY)
 				continue
 			// .air instead of .return_air() because we can guarentee that the proc won't do anything
-			if(potential_diff.air.compare(enemy_tile.air, MOLES))
-				//testing("Active turf found. Return value of compare(): [T.air.compare(enemy_tile.air, MOLES)]")
+			if(potential_diff.air.compare(enemy_tile.air, FALSE))
 				if(!potential_diff.excited)
 					potential_diff.excited = TRUE
 					SSair.active_turfs += potential_diff
@@ -694,11 +695,12 @@ GLOBAL_LIST_EMPTY(colored_images)
 		gas -= "TEMP"
 	else // if we do not have a temp in the new gas mix lets assume room temp.
 		canonical_mix.temperature = T20C
+	var/list/cached_moles = canonical_mix.moles
 	for(var/id in gas)
 		var/path = id
 		if(!ispath(path))
 			path = gas_id2path(path) //a lot of these strings can't have embedded expressions (especially for mappers), so support for IDs needs to stick around
-		SET_MOLES(path, canonical_mix, text2num(gas[id]))
+		cached_moles[path] = text2num(gas[id])
 
 	if(istype(canonical_mix, /datum/gas_mixture/immutable))
 		return canonical_mix

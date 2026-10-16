@@ -19,7 +19,7 @@
 	owner.special_role = ROLE_TRAITOR
 	if(give_objectives)
 		forge_objectives()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	..()
 
 /datum/antagonist/contractor_support/greet()

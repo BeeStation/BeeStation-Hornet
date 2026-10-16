@@ -40,18 +40,20 @@
 		user.put_in_hands(bomb)
 		user.visible_message(span_warning("[user] detaches [bomb] from [src]."))
 		bomb = null
-	update_icon()
+	update_appearance()
 	return ..()
 
-/obj/item/gun/blastcannon/update_icon()
-	if(bomb)
-		icon_state = icon_state_loaded
-		name = "blast cannon"
-		desc = "A makeshift device used to concentrate a bomb's blast energy to a narrow wave."
-	else
-		icon_state = initial(icon_state)
-		name = initial(name)
-		desc = initial(desc)
+/obj/item/gun/blastcannon/update_icon_state()
+	. = ..()
+	icon_state = bomb ? icon_state_loaded : initial(icon_state)
+
+/obj/item/gun/blastcannon/update_name(updates)
+	name = bomb ? "blast cannon" : initial(name)
+	return ..()
+
+/obj/item/gun/blastcannon/update_desc(updates)
+	desc = bomb ? "A makeshift device used to concentrate a bomb's blast energy to a narrow wave." : initial(desc)
+	return ..()
 
 /obj/item/gun/blastcannon/attackby(obj/item/transfer_valve/bomb_to_attach, mob/user)
 	if(!istype(bomb_to_attach))
@@ -66,7 +68,7 @@
 
 	user.visible_message(span_warning("[user] attaches [bomb_to_attach] to [src]!"))
 	bomb = bomb_to_attach
-	update_icon()
+	update_appearance()
 	return TRUE
 
 //returns the third value of a bomb blast
@@ -87,13 +89,13 @@
 		return 0
 	return ((pressure - TANK_FRAGMENT_PRESSURE) / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/pull_trigger(atom/target, mob/living/user, params, aimed)
+/obj/item/gun/blastcannon/pull_trigger(atom/target, mob/living/user, list/modifiers, aimed)
 	if((!bomb && bombcheck) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = bomb? calculate_bomb() : debug_power
 	power = min(power, max_power)
 	QDEL_NULL(bomb)
-	update_icon()
+	update_appearance()
 	var/heavy = power * 0.25
 	var/medium = power * 0.5
 	var/light = power
@@ -105,7 +107,6 @@
 	log_game("Blast wave fired from [AREACOORD(starting)] at [AREACOORD(targturf)] ([target.name]) by [key_name(user)] with power [heavy]/[medium]/[light].")
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.hugbox = hugbox
-	var/modifiers = params2list(params)
 	BW.preparePixelProjectile(target, get_turf(src), modifiers, 0)
 	BW.fire()
 

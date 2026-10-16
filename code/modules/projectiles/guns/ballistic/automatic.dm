@@ -27,12 +27,12 @@
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
 
-/obj/item/gun/ballistic/automatic/update_icon()
-	..()
+/obj/item/gun/ballistic/automatic/update_overlays()
+	. = ..()
 	if(!select)
-		add_overlay("[initial(icon_state)]_semi")
+		. += "[initial(icon_state)]_semi"
 	if(select == 1)
-		add_overlay("[initial(icon_state)]_burst")
+		. += "[initial(icon_state)]_burst"
 
 /obj/item/gun/ballistic/automatic/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_firemode))
@@ -145,30 +145,20 @@
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted(src)
 	update_icon()
 
-/obj/item/gun/ballistic/automatic/m90/ranged_attack_secondary(atom/target, mob/living/user, params)
-	underbarrel.pull_trigger(target, user, params)
+/obj/item/gun/ballistic/automatic/m90/ranged_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	underbarrel.pull_trigger(target, user, modifiers)
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/gun/ballistic/automatic/m90/pre_attack_secondary(atom/target, mob/living/user, params)
-	underbarrel.pull_trigger(target, user, params)
+/obj/item/gun/ballistic/automatic/m90/pre_attack_secondary(atom/target, mob/living/user, list/modifiers)
+	underbarrel.pull_trigger(target, user, modifiers)
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/gun/ballistic/automatic/m90/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_casing))
-		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self()
-			underbarrel.attackby(A, user, params)
-	else
-		..()
-
-/obj/item/gun/ballistic/automatic/m90/update_icon()
-	..()
-	switch(select)
-		if(0)
-			add_overlay("[initial(icon_state)]_semi")
-		if(1)
-			add_overlay("[initial(icon_state)]_burst")
-	return
+/obj/item/gun/ballistic/automatic/m90/attackby(obj/item/A, mob/user, list/modifiers)
+	if(!istype(A, /obj/item/ammo_casing))
+		return ..()
+	if(istype(A, underbarrel.magazine.ammo_type))
+		underbarrel.attack_self()
+		underbarrel.attackby(A, user, modifiers)
 
 /obj/item/gun/ballistic/automatic/m90/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -263,7 +253,7 @@
 	. = ..()
 	. += "l6_door_[cover_open ? "open" : "closed"]"
 
-/obj/item/gun/ballistic/automatic/l6_saw/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
+/obj/item/gun/ballistic/automatic/l6_saw/pull_trigger(atom/target, mob/living/user, flag, list/modifiers, aimed)
 	if(cover_open)
 		to_chat(user, span_warning("[src]'s cover is open! Close it before firing!"))
 		return
@@ -281,7 +271,7 @@
 		return
 	..()
 
-/obj/item/gun/ballistic/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/automatic/l6_saw/attackby(obj/item/A, mob/user, list/modifiers)
 	if(!cover_open && istype(A, mag_type))
 		to_chat(user, span_warning("[src]'s dust cover prevents a magazine from being fit."))
 		return

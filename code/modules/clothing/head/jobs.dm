@@ -12,7 +12,6 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
-	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -64,6 +63,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#0070B7#FFCE5B"
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 //Head of Personnel
 /obj/item/clothing/head/hats/hopcap
@@ -191,6 +191,7 @@
 	greyscale_config_worn = /datum/greyscale_config/beret/worn
 	greyscale_colors = "#972A2A"
 	flags_1 = IS_PLAYER_COLORABLE_1
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 /obj/item/clothing/head/beret/color
 	name = "white beret"
@@ -230,7 +231,6 @@
 	icon_state = "hoscap"
 	armor_type = /datum/armor/hats_hos
 	strip_delay = 80
-	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
 
@@ -258,6 +258,7 @@
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
 	greyscale_colors = "#39393f#f0cc8f"
+	hair_mask = /datum/hair_mask/standard_hat_middle
 
 /obj/item/clothing/head/hats/hos/beret/navyhos
 	name = "head of security's beret"
@@ -503,7 +504,7 @@
 	icon_state = "beret_badge"
 	greyscale_config = /datum/greyscale_config/beret_badge
 	greyscale_config_worn = /datum/greyscale_config/beret_badge/worn
-	greyscale_colors = "#E1E1E1#EDCC6A"
+	greyscale_colors = "#E1E1E1#A3EAFF"
 	armor_type = /datum/armor/beret_med
 	flags_1 = NONE
 

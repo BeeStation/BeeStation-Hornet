@@ -292,7 +292,7 @@
 		return
 	togglelock(user)
 
-/mob/living/silicon/robot/attackby(obj/item/attacking_item, mob/living/user, params)
+/mob/living/silicon/robot/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if (user.combat_mode)
 		return ..()
 
@@ -763,8 +763,6 @@
 	if (cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
-	// Call destroy() before deleting to ensure that the borg's brain stays connected
-	Destroy()
 	qdel(src)
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)

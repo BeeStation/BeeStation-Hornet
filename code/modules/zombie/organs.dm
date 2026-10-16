@@ -25,6 +25,10 @@
 	GLOB.zombie_infection_list -= src
 	. = ..()
 
+/obj/item/organ/zombie_infection/feel_for_damage(self_aware)
+	// keep stealthy for now, revisit later
+	return ""
+
 /obj/item/organ/zombie_infection/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
 	if(!.)
@@ -51,7 +55,7 @@
 		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
-	if(owner.mob_biotypes & MOB_INORGANIC)//does not process in inorganic things
+	if(owner.mob_biotypes & MOB_MINERAL)//does not process in inorganic things
 		return
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)

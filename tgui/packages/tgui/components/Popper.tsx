@@ -1,4 +1,4 @@
-import { Placement } from '@popperjs/core';
+import { detectOverflow, Modifier, Placement } from '@popperjs/core';
 import {
   PropsWithChildren,
   ReactNode,
@@ -8,6 +8,39 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
+
+const MAX_SIZE_MODIFIER: Modifier<'maxSize', Record<string, unknown>> = {
+  name: 'maxSize',
+  enabled: true,
+  phase: 'main',
+  requiresIfExists: ['offset'],
+  fn({ state }) {
+    const overflow = detectOverflow(state, { padding: 8 });
+    const { height } = state.rects.popper;
+    const basePlacement = state.placement.split('-')[0];
+    const heightProp = basePlacement === 'top' ? 'top' : 'bottom';
+
+    state.modifiersData.maxSize = {
+      height: height - overflow[heightProp],
+    };
+  },
+};
+
+const APPLY_MAX_SIZE_MODIFIER: Modifier<
+  'applyMaxSize',
+  Record<string, unknown>
+> = {
+  name: 'applyMaxSize',
+  enabled: true,
+  phase: 'beforeWrite',
+  requires: ['maxSize'],
+  fn({ state }) {
+    const { height } = state.modifiersData.maxSize;
+    state.styles.popper.maxHeight = `${height}px`;
+  },
+};
+
+const POPPER_MODIFIERS = [MAX_SIZE_MODIFIER, APPLY_MAX_SIZE_MODIFIER];
 
 type RequiredProps = {
   /** The content to display in the popper */
@@ -46,6 +79,7 @@ export function Popper(props: PropsWithChildren<Props>) {
 
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement,
+    modifiers: POPPER_MODIFIERS,
   });
 
   /** Close the popper when the user clicks outside */
@@ -87,7 +121,11 @@ export function Popper(props: PropsWithChildren<Props>) {
               setPopperElement(node);
               popperRef.current = node;
             }}
-            style={{ ...styles.popper, zIndex: 5 }}
+            style={{
+              ...styles.popper,
+              zIndex: 5,
+              overflowY: 'auto',
+            }}
             {...attributes.popper}
           >
             {content}

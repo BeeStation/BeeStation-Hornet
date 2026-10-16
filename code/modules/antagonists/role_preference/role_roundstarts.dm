@@ -19,9 +19,8 @@
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_held_items()
-	H.hair_style = "Messy"
-	H.hair_color = "#443311"
-	H.update_hair()
+	H.set_hairstyle("Messy", update = FALSE)
+	H.set_haircolor("#443311", update = TRUE)
 
 /datum/role_preference/roundstart/changeling
 	name = "Changeling"
@@ -154,8 +153,7 @@
 
 /datum/role_preference/roundstart/revolutionary/proc/make_assistant_icon(hair_style)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
-	assistant.hair_style = hair_style
-	assistant.update_hair()
+	assistant.set_hairstyle(hair_style, update = TRUE)
 
 	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)
 	assistant_icon.ChangeOpacity(0.5)

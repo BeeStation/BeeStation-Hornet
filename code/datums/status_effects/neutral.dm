@@ -227,7 +227,6 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 
-
 /atom/movable/screen/alert/status_effect/leaning
 	name = "Leaning"
 	desc = "You're leaning on something!"
@@ -254,6 +253,7 @@
 	if(!.)
 		return
 	new_owner.start_leaning(object, leaning_offset)
+
 //this effect gives the user an alert they can use to surrender quickly
 /datum/status_effect/grouped/surrender
 	id = "surrender"

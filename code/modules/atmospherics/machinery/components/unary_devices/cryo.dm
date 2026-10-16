@@ -71,8 +71,8 @@
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal, /mob/living/basic)
 	processing_flags = START_PROCESSING_MANUALLY
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 75
-	active_power_usage = 150
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.75
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 1.5
 	flags_1 = PREVENT_CLICK_UNDER_1
 	seller_department = ACCOUNT_MED_BITFLAG
 	fair_market_price = 10
@@ -163,9 +163,10 @@
 	update_appearance(UPDATE_ICON)
 
 /obj/machinery/cryo_cell/RefreshParts()
+	. = ..()
 	var/max_tier = 0
-	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		max_tier += bin.rating
+	for(var/datum/stock_part/matter_bin/bin in component_parts)
+		max_tier += bin.tier
 
 	efficiency = initial(efficiency) * max_tier
 	sleep_factor = initial(sleep_factor) / max_tier
@@ -190,6 +191,14 @@
 
 /obj/machinery/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+
+/obj/machinery/cryo_cell/deconstruct(disassembled)
+	if(!QDELETED(occupant))
+		occupant.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FORCED_STANDING), CRYO_TRAIT)
+	return ..()
+
+/obj/machinery/cryo_cell/on_deconstruction(disassembled)
+	beaker?.forceMove(drop_location())
 
 /obj/machinery/cryo_cell/contents_explosion(severity, target)
 	. = ..()
@@ -314,7 +323,7 @@
 				var/mob/living/carbon/human/humi = mob_occupant
 				humi.adjust_coretemperature(humi.bodytemperature - humi.coretemperature)
 
-		SET_MOLES(/datum/gas/oxygen, air1, max(0,GET_MOLES(/datum/gas/oxygen, air1) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
+		air1.adjust_gas(/datum/gas/oxygen, -0.5 / efficiency) // Magically consume gas? Why not, we run on cryo magic.
 
 	//spread temperature changes throughout the pipenet
 	internal_connector.gas_connector.update_parents()
@@ -365,7 +374,7 @@
 		)
 		open_machine()
 
-/obj/machinery/cryo_cell/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/cryo_cell/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(user.combat_mode || (attacking_item.item_flags & ABSTRACT) || (attacking_item.flags_1 & HOLOGRAM_1) || !istype(attacking_item, /obj/item/reagent_containers/cup))
 		return ..()
 
@@ -393,7 +402,7 @@
 	else if(panel_open) //can deconstruct
 		can_crowbar = TRUE
 	if(!can_crowbar)
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 
 	var/obj/machinery/atmospherics/node = internal_connector.gas_connector.nodes[1]
 	var/internal_pressure = 0
@@ -427,41 +436,41 @@
 	tool.play_tool_sound(src, 50)
 	if(deconstruct)
 		deconstruct(TRUE)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/cryo_cell/wrench_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode)
 		return
 	if(on)
 		balloon_alert(user, "turn off!")
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	if(occupant)
 		balloon_alert(user, "occupant inside!")
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	if(state_open)
 		balloon_alert(user, "close first!")
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	if(!panel_open)
 		balloon_alert(user, "open panel first!")
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 
 	if(default_change_direction_wrench(user, tool))
 		update_appearance(UPDATE_ICON)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/cryo_cell/screwdriver_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode)
 		return
 	if(on)
 		balloon_alert(user, "turn off!")
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	if(occupant)
 		balloon_alert(user, "occupant inside!")
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 
 	if(default_deconstruction_screwdriver(user, "pod-off", "pod-off", tool))
 		update_appearance(UPDATE_ICON)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/cryo_cell/ui_state(mob/user)
 	return GLOB.notcontained_state
@@ -609,7 +618,7 @@
  */
 /obj/machinery/cryo_cell/proc/has_valid_gas_enviroment()
 	var/datum/gas_mixture/air1 = internal_connector.gas_connector.airs[1]
-	return internal_connector.gas_connector.nodes[1] && length(air1?.gases) && air1.total_moles() >= CRYO_MIN_GAS_MOLES
+	return internal_connector.gas_connector.nodes[1] && length(air1?.moles) && air1.total_moles() >= CRYO_MIN_GAS_MOLES
 
 /datum/aas_config_entry/medical_cryo_announcements
 	name = "Medical Alert: Cryogenics Reports"

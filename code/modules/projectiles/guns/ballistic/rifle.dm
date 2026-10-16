@@ -16,10 +16,6 @@
 	tac_reloads = FALSE
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/ballistic/rifle/update_icon()
-	..()
-	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
-
 /obj/item/gun/ballistic/rifle/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
 		if(!is_wielded)
@@ -98,7 +94,7 @@
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/attack_self()
 	return
 
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/ballistic/rifle/boltaction/enchanted/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	. = ..()
 	if(!.)
 		return
@@ -172,7 +168,7 @@
 	else
 		. += "You could improvise a shoulder sling from some cabling..."
 
-/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, list/modifiers)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)

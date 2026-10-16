@@ -119,7 +119,7 @@
 /datum/quirk/monochromatic/post_spawn()
 	if(is_detective_job(quirk_holder.assigned_role))
 		to_chat(quirk_target, span_boldannounce("Mmm. Nothing's ever clear on this station. It's all shades of gray."))
-		quirk_target.playsound_local(quirk_target, 'sound/ambience/ambidet1.ogg', 50, FALSE)
+		quirk_target.playsound_local(quirk_target, 'sound/ambience/security/ambidet1.ogg', 50, FALSE)
 
 /datum/quirk/monochromatic/remove()
 	quirk_target.remove_client_colour(/datum/client_colour/monochrome)

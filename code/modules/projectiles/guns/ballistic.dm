@@ -124,17 +124,10 @@
 	if(vname in list(NAMEOF(src, internal_magazine), NAMEOF(src, magazine), NAMEOF(src, chambered), NAMEOF(src, empty_indicator), NAMEOF(src, sawn_off), NAMEOF(src, bolt_locked), NAMEOF(src, bolt_type)))
 		update_appearance()
 
-/obj/item/gun/ballistic/update_icon()
-	if (QDELETED(src))
-		return
-	..()
-	if(current_skin)
-		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
-	else
-		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
-
 /obj/item/gun/ballistic/update_overlays()
 	. = ..()
+	if (QDELETED(src))
+		return
 	switch(bolt_type)
 		if(BOLT_TYPE_LOCKING, BOLT_TYPE_PUMP, BOLT_TYPE_TWO_STEP)
 			. += "[icon_state]_bolt[bolt_locked ? "_locked" : ""]"
@@ -170,6 +163,8 @@
 				. += "[icon_state]_mag_[capacity_number]"
 
 /obj/item/gun/ballistic/update_icon_state()
+	if (QDELETED(src))
+		return
 	. = ..()
 	if(current_skin)
 		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
@@ -310,7 +305,7 @@
 		return FALSE
 	return chambered && ..()
 
-/obj/item/gun/ballistic/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/attackby(obj/item/A, mob/user, list/modifiers)
 	..()
 	if (.)
 		return
@@ -352,7 +347,7 @@
 			to_chat(user, span_warning("There's nowhere to load a [cartridge_wording] into!"))
 			return
 		//Otherwise, try loading into the internal magazine next.
-		var/num_loaded = magazine.attackby(A, user, params, TRUE)
+		var/num_loaded = magazine.attackby(A, user, modifiers, TRUE)
 		if (num_loaded)
 			to_chat(user, span_notice("You load [num_loaded] [cartridge_wording]\s into \the [src]."))
 			playsound(src, load_sound, load_sound_volume, load_sound_vary)
@@ -440,7 +435,7 @@
 			bolt_locked = TRUE
 			update_icon()
 
-/obj/item/gun/ballistic/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
+/obj/item/gun/ballistic/pull_trigger(atom/target, mob/living/user, flag, list/modifiers, aimed)
 	prefire_empty_checks()
 	return ..()
 

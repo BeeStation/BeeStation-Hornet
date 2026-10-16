@@ -7,15 +7,10 @@
 /area/misc/hilbertshotel)
 "ac" = (
 /obj/structure/table/wood/fancy,
-/obj/structure/mirror{
-	broken = 1;
-	desc = "Oh no, seven years of bad luck!";
-	icon_state = "mirror_broke";
-	pixel_y = 24
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/mirror/broken/directional/north,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "ad" = (
@@ -170,9 +165,7 @@
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "aI" = (
-/obj/structure/mirror{
-	pixel_x = -32
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/sink/directional/east,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
@@ -275,9 +268,7 @@
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)
 "bb" = (
-/obj/structure/mirror{
-	pixel_x = -32
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/hoteltile,

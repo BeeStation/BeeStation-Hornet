@@ -66,9 +66,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_mutant_bodypart = null
 
-	/// If the selected species has this in its /datum/species/species_traits,
+	/// If the selected species has this in its /datum/species/inherent_traits,
 	/// will show the feature as selectable.
-	var/relevant_species_trait = null
+	var/relevant_inherent_trait = null
 
 	/// Indicates that create_informed_default_value is used.
 	var/informed = FALSE
@@ -274,7 +274,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if (!isnull(relevant_mutant_bodypart) || !isnull(relevant_species_trait))
+	if ( \
+		!isnull(relevant_mutant_bodypart) \
+		|| !isnull(relevant_inherent_trait) \
+		|| !isnull(relevant_head_flag) \
+	)
 		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 
 		var/datum/species/species = GLOB.species_prototypes[species_type]

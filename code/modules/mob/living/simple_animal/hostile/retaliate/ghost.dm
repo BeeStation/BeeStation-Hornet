@@ -27,7 +27,7 @@
 	speak_emote = list("weeps")
 	death_message = "wails, disintegrating into a pile of ectoplasm!"
 	loot = list(/obj/item/ectoplasm)
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
 	is_flying_animal = TRUE
@@ -39,7 +39,7 @@
 	light_power = 2
 	var/ghost_hair_color
 	var/mutable_appearance/ghost_hair
-	var/ghost_facial_hair_style
+	var/ghost_facial_hairstyle
 	var/ghost_facial_hair_color
 	var/mutable_appearance/ghost_facial_hair
 	var/random = TRUE //if you want random names for ghosts or not
@@ -68,8 +68,8 @@
 		ghost_hair.alpha = 200
 		ghost_hair.color = ghost_hair_color
 		add_overlay(ghost_hair)
-	if(ghost_facial_hair_style != null)
-		ghost_facial_hair = mutable_appearance('icons/mob/human/human_face.dmi', "facial_[ghost_facial_hair_style]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
+	if(ghost_facial_hairstyle != null)
+		ghost_facial_hair = mutable_appearance('icons/mob/human/human_face.dmi', "facial_[ghost_facial_hairstyle]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 		ghost_facial_hair.alpha = 200
 		ghost_facial_hair.color = ghost_facial_hair_color
 		add_overlay(ghost_facial_hair)

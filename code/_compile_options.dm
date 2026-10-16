@@ -127,16 +127,15 @@
 #endif				// 1 to use the default behaviour;
 					// 2 for preloading absolutely everything;
 
-//#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
 	#warn WARNING: Compiling with LOWMEMORYMODE.
 	#ifdef FORCE_MAP
-	#warn WARNING: FORCE_MAP is already defined.
+		#warn WARNING: FORCE_MAP is already defined.
 	#else
-	#define FORCE_MAP "runtimestation"
+		#define FORCE_MAP "runtimestation"
 	#endif
 	#ifdef CIBUILDING
-	#error LOWMEMORYMODE is enabled, disable this!
+		#error LOWMEMORYMODE is enabled, disable this!
 	#endif
 #endif
 
@@ -156,17 +155,22 @@
 #endif
 
 #ifdef CITESTING
-#define TESTING
+	#define TESTING
 #endif
 
 #if defined(UNIT_TESTS)
-//Hard del testing defines
-#define REFERENCE_TRACKING
-#define REFERENCE_TRACKING_DEBUG
-#define FIND_REF_NO_CHECK_TICK
-#define GC_FAILURE_HARD_LOOKUP
-//Test at full capacity, the extra cost doesn't matter
-#define TIMER_DEBUG
+	//Hard del testing defines
+	#define REFERENCE_TRACKING
+	#define REFERENCE_TRACKING_DEBUG
+	#define FIND_REF_NO_CHECK_TICK
+	#define GC_FAILURE_HARD_LOOKUP
+	//Test at full capacity, the extra cost doesn't matter
+	#define TIMER_DEBUG
+
+	// Checks if unit tests are being run locally or well, not
+	#if !defined(CIBUILDING) && !defined(SPACEMAN_DMM) && !defined(OPENDREAM)
+		#define RUNNING_LOCAL_TESTS
+	#endif
 #endif
 
 #ifdef TGS
@@ -174,11 +178,10 @@
 #define CBT
 #endif
 
-
 #if defined(OPENDREAM) && !defined(CIBUILDING)
-#warn You are building with OpenDream. Remember to build TGUI manually.
-#warn You can do this by running tgui-build.cmd from the bin directory.
+	#warn You are building with OpenDream. Remember to build TGUI manually.
+	#warn You can do this by running tgui-build.cmd from the bin directory.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM) && !defined(CIBUILDING)
-#warn Building with Dream Maker is no longer supported and will result in missing interface files.
-#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
+	#warn Building with Dream Maker is no longer supported and will result in missing interface files.
+	#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif

@@ -1,0 +1,4 @@
+aurora_caelus.ogg is Music for Manatees, by Kevin Macleod. It has been licensed under CC-BY 3.0 license, found here: https://creativecommons.org/licenses/by/3.0/
+	It has been cropped for use ingame, and also fades out.
+
+PinkSuzuki_DaxtersPlace.ogg, PinkSuzuki_DaxtersPlaceOutro.ogg, PinkSuzuki_HappyPlace.ogg, & PinkSuzuki_HellraiserAnthem.ogg are from https://github.com/BeeStation/BeeStation-Hornet/pull/12917

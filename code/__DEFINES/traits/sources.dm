@@ -55,6 +55,8 @@
 #define TRAIT_RUSTY "rust_trait"
 /// Trait from being under the floor in some manner
 #define TRAIT_UNDERFLOOR "underfloor"
+/// If the movable shouldn't be reflected by mirrors.
+#define TRAIT_NO_MIRROR_REFLECTION "no_mirror_reflection"
 #define ACTION_TRAIT "action_trait"
 #define LEANING_TRAIT "leaning"
 #define TRAIT_REGEN_COMA "regencoma"
@@ -106,6 +108,7 @@
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
+#define UPGRADE_TRAIT "upgrade_trait"
 #define CRAYON_TRAIT "crayon_trait"
 #define HOLYWATER_TRAIT "holywater"
 #define VANGUARD_TRAIT "vanguard"
@@ -155,6 +158,8 @@
 #define LICH_TRAIT "lich_trait"
 /// Trait given by stabilized light pink extracts
 #define STABILIZED_LIGHT_PINK_EXTRACT_TRAIT "stabilized_light_pink"
+/// Trait granted by lipstick
+#define LIPSTICK_TRAIT "lipstick_trait"
 /// Trait given by adamantine extracts
 #define ADAMANTINE_EXTRACT_TRAIT "adamantine_extract"
 /// Trait given to an atom/movable when they orbit something.

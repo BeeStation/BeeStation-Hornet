@@ -23,7 +23,6 @@
 	var/mob/target_mob
 
 	var/dummy_key
-	var/mob/living/carbon/human/dummy/dummy
 
 	//static list to share all the outfit typepaths between all instances of this datum.
 	var/static/list/cached_outfits
@@ -33,6 +32,10 @@
 	var/datum/outfit/selected_outfit = /datum/outfit
 	//serializable string for the UI to keep track of which outfit is selected
 	var/selected_identifier = "/datum/outfit"
+	/// Cached flat icon of the dummy wearing selected_outfit, so ui_data() doesn't redraw the sprite on every refresh when it doesn't need to
+	var/icon/cached_dummy_icon
+	/// The selected_identifier cached_dummy_icon was last rendered for.
+	var/cached_for_identifier
 
 /datum/select_equipment/New(_user, mob/target)
 	user = CLIENT_FROM_VAR(_user)
@@ -50,7 +53,7 @@
 		ui.set_autoupdate(FALSE)
 
 /datum/select_equipment/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/select_equipment/ui_status(mob/user, datum/ui_state/state)
 	if(QDELETED(target_mob))
@@ -93,7 +96,7 @@
 
 /datum/select_equipment/proc/make_outfit_entries(category="General", list/outfit_list)
 	var/list/entries = list()
-	for(var/path as anything in outfit_list)
+	for(var/path in outfit_list)
 		var/datum/outfit/outfit = path
 		entries += list(outfit_entry(category, path, initial(outfit.name)))
 	return entries
@@ -110,12 +113,16 @@
 	if(!dummy_key)
 		init_dummy()
 
-	var/icon/dummysprite = get_flat_human_icon(null,
-		dummy_key = dummy_key,
-		outfit_override = selected_outfit,
-		no_anim = TRUE,
-	)
-	data["icon64"] = icon2base64(dummysprite)
+	if(isnull(cached_dummy_icon) || cached_for_identifier != selected_identifier)
+		cached_dummy_icon = get_flat_human_icon(null,
+			dummy_key = dummy_key,
+			showDirs = list(SOUTH),
+			outfit_override = selected_outfit,
+			no_anim = TRUE,
+		)
+		cached_for_identifier = selected_identifier
+
+	data["icon64"] = icon2base64(cached_dummy_icon)
 	data["name"] = target_mob
 
 	var/datum/preferences/prefs = user?.client?.prefs
@@ -155,7 +162,7 @@
 			return custom_outfit
 
 
-/datum/select_equipment/ui_act(action, params)
+/datum/select_equipment/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	. = TRUE
@@ -212,7 +219,7 @@
 	else
 		human_target = target
 		if(human_target.l_store || human_target.r_store || human_target.s_store) //saves a lot of time for admins and coders alike
-			if(tgui_alert(usr,"Drop Items in Pockets? No will delete them.", "Robust quick dress shop", list("Yes", "No")) == "No")
+			if(tgui_alert(usr,"Do you need the items in your pockets?", "Pocket Items", list("Delete Them", "Drop Them")) == "Delete Them")
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

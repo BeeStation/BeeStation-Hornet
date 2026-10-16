@@ -489,8 +489,8 @@
 		new_profile.id_hud_state = id_card.hud_state
 
 	// Hair and facial hair gradients, alongside their colours.
-	//new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
-	//new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
+	//new_profile.gradient_style = LAZYLISTDUPLICATE(target.gradient_style)
+	//new_profile.gradient_color = LAZYLISTDUPLICATE(target.gradient_color)
 
 	// Make an icon snapshot of what they currently look like
 	var/datum/icon_snapshot/entry = new()
@@ -603,7 +603,7 @@
 
 /datum/antagonist/changeling/greet()
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/effects/antag/ling_aler.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 	owner.announce_objectives()
 
@@ -664,8 +664,8 @@
 	user.socks = chosen_profile.socks
 	user.age = chosen_profile.age
 	//user.physique = chosen_profile.physique
-	//user.grad_style = LAZYLISTDUPLICATE(chosen_profile.grad_style)
-	//user.grad_color = LAZYLISTDUPLICATE(chosen_profile.grad_color)
+	user.gradient_style = LAZYLISTDUPLICATE(chosen_profile.gradient_style)
+	user.gradient_color = LAZYLISTDUPLICATE(chosen_profile.gradient_color)
 
 	chosen_dna.transfer_identity(user, TRUE)
 
@@ -771,9 +771,9 @@
 	/// The body type of the profile source.
 	var/physique
 	/// The hair and facial hair gradient styles of the profile source.
-	var/list/grad_style = list("None", "None")
+	var/list/gradient_style = list("None", "None")
 	/// The hair and facial hair gradient colours of the profile source.
-	var/list/grad_color = list(null, null)
+	var/list/gradient_color = list(null, null)
 
 /datum/changeling_profile/Destroy()
 	qdel(dna)
@@ -805,8 +805,8 @@
 	new_profile.id_hud_state = id_hud_state
 	new_profile.age = age
 	new_profile.physique = physique
-	new_profile.grad_style = LAZYLISTDUPLICATE(grad_style)
-	new_profile.grad_color = LAZYLISTDUPLICATE(grad_color)
+	new_profile.gradient_style = LAZYLISTDUPLICATE(gradient_style)
+	new_profile.gradient_color = LAZYLISTDUPLICATE(gradient_color)
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"

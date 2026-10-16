@@ -199,7 +199,7 @@
 	if(holder && holder.my_atom)
 		var/turf/open/T = get_turf(holder.my_atom)
 		if(istype(T))
-			T.atmos_spawn_air("n2=50;TEMP=2.7")
+			T.atmos_spawn_air("[GAS_N2]=50;TEMP=2.7")
 
 /datum/chemical_reaction/slime/slimefireproof
 	name = "Slime Fireproof"
@@ -236,8 +236,7 @@
 	if(holder && holder.my_atom)
 		var/turf/open/T = get_turf(holder.my_atom)
 		if(istype(T))
-			T.atmos_spawn_air("plasma=50;TEMP=1000")
-
+			T.atmos_spawn_air("[GAS_PLASMA]=50;TEMP=1000")
 
 /datum/chemical_reaction/slime/slimesmoke
 	name = "Slime Smoke"
@@ -403,7 +402,7 @@
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 
 /datum/chemical_reaction/slime/slimepotion2/on_reaction(datum/reagents/holder)
-	new /obj/item/slimepotion/slime/sentience(get_turf(holder.my_atom))
+	new /obj/item/slimepotion/sentience(get_turf(holder.my_atom))
 	..()
 
 /datum/chemical_reaction/slime/renaming
@@ -412,7 +411,7 @@
 	required_reagents = list(/datum/reagent/water = 1)
 
 /datum/chemical_reaction/slime/renaming/on_reaction(datum/reagents/holder)
-	new /obj/item/slimepotion/slime/renaming(holder.my_atom.drop_location())
+	new /obj/item/slimepotion/renaming(holder.my_atom.drop_location())
 	..()
 
 
@@ -659,7 +658,7 @@
 
 /datum/chemical_reaction/slime/lavasteroid/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	new /obj/item/slimepotion/slime/lavasteroid(T)
+	new /obj/item/slimepotion/lavasteroid(T)
 	..()
 
 /datum/chemical_reaction/slime/techshell

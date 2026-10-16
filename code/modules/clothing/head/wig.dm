@@ -26,7 +26,7 @@
 	REMOVE_TRAIT(src, TRAIT_EXAMINE_SKIP, CLOTHING_TRAIT)
 
 /obj/item/clothing/head/wig/update_icon_state()
-	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_list[hairstyle]
+	var/datum/sprite_accessory/hair/hair_style = GLOB.hairstyles_list[hairstyle]
 	if(hair_style)
 		icon = hair_style.icon
 		icon_state = hair_style.icon_state
@@ -37,19 +37,20 @@
 	if(isinhands)
 		return
 
-	var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_list[hairstyle]
+	var/datum/sprite_accessory/hair/hair = GLOB.hairstyles_list[hairstyle]
 	if(!hair)
 		return
 
 	var/mutable_appearance/hair_overlay = mutable_appearance(hair.icon, hair.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER), appearance_flags = RESET_COLOR)
 	hair_overlay.color = color
+	hair_overlay.pixel_y = hair.y_offset
 	. += hair_overlay
 
 	// So that the wig actually blocks emissives.
 	hair_overlay.overlays += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, src, alpha = hair_overlay.alpha)
 
 /obj/item/clothing/head/wig/attack_self(mob/user)
-	var/new_style = tgui_input_list(user, "Select a hairstyle", "Wig Styling", GLOB.hair_styles_list - "Bald")
+	var/new_style = tgui_input_list(user, "Select a hairstyle", "Wig Styling", GLOB.hairstyles_list - "Bald")
 	var/newcolor = adjustablecolor ? tgui_color_picker(usr,"","Choose Color",color) : null
 	if(!user.canUseTopic(src, be_close = TRUE))
 		return
@@ -92,7 +93,7 @@
 		update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
-	hairstyle = pick(GLOB.hair_styles_list - "Bald") //Don't want invisible wig
+	hairstyle = pick(GLOB.hairstyles_list - "Bald") //Don't want invisible wig
 	add_atom_colour("#[random_short_color()]", FIXED_COLOUR_PRIORITY)
 	. = ..()
 
@@ -104,7 +105,7 @@
 	custom_price = 25
 
 /obj/item/clothing/head/wig/natural/Initialize(mapload)
-	hairstyle = pick(GLOB.hair_styles_list - "Bald")
+	hairstyle = pick(GLOB.hairstyles_list - "Bald")
 	. = ..()
 
 /obj/item/clothing/head/wig/natural/visual_equipped(mob/living/carbon/human/user, slot)

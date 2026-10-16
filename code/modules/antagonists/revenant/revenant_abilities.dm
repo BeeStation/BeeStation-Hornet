@@ -169,6 +169,7 @@
 	use_runechat_telepathy = TRUE
 
 /datum/action/spell/aoe/revenant
+	abstract_type = /datum/action/spell/aoe/revenant
 	background_icon_state = "bg_revenant"
 	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"
@@ -406,7 +407,7 @@
 		if(iscarbon(mob))
 			if(ishuman(mob))
 				var/mob/living/carbon/human/H = mob
-				//H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
+				H.set_haircolor("#1d2953", override = TRUE) //will be reset when blight is cured
 				var/blightfound = FALSE
 				for(var/datum/disease/revblight/blight in H.diseases)
 					blightfound = TRUE

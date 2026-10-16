@@ -95,10 +95,10 @@
 		if(0 to 50) // Boohoo you lost the lottery
 			new /obj/item/reagent_containers/hypospray/medipen(src)
 		if(51 to 90) // 2
-			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/applicator/patch/silver_sulf(src)
 		if(91 to 100) // 3
-			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
-			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/applicator/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/applicator/patch/silver_sulf(src)
 
 
 	// Roll for 2 supplementary items

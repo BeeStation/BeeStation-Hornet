@@ -48,7 +48,6 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	icon = 'icons/obj/machines/rbmk.dmi'
 	icon_state = "reactor"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = IDLE_POWER_USE
 	layer = NUCLEAR_REACTOR_LAYER
 	///Vars for the state of the icon of the object (open, closed, fuel rod counts (1>5))
 	icon_state_open = "reactor_open"

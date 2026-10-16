@@ -4,9 +4,6 @@
 	id = SPECIES_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
-	species_traits = list(
-		ENVIROSUIT
-	)
 	inherent_traits = list(
 		TRAIT_GENELESS,
 		TRAIT_RESISTCOLD,
@@ -14,12 +11,14 @@
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_ENVIROSUIT,
+		TRAIT_UNHUSKABLE,
 	)
-	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
+	inherent_biotypes = MOB_HUMANOID|MOB_MINERAL
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
-	mutantliver = /obj/item/organ/liver/plasmaman
-	mutantstomach = /obj/item/organ/stomach/plasmaman
+	mutantliver = /obj/item/organ/liver/bone/plasmaman
+	mutantstomach = /obj/item/organ/stomach/bone/plasmaman
 	mutantappendix = null
 	mutantheart = null
 	heatmod = 1.5
@@ -53,6 +52,7 @@
 	C.set_safe_hunger_level()
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
+	. = ..()
 	var/atmos_sealed = FALSE
 	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -66,14 +66,12 @@
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment?.total_moles())
-			if(!HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
-				if(GET_MOLES(/datum/gas/oxygen, environment) >= 1) //Same threshold that extinguishes fire
-					H.adjust_fire_stacks(0.5)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
-					H.ignite_mob()
-					internal_fire = TRUE
+		if(environment?.moles[/datum/gas/oxygen] >= 1 && !HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
+			H.adjust_fire_stacks(0.5)
+			if(!H.on_fire && H.fire_stacks > 0)
+				H.visible_message(span_danger("[H]'s body reacts with the atmosphere and bursts into flames!"),span_userdanger("Your body reacts with the atmosphere and bursts into flame!"))
+			H.ignite_mob()
+			internal_fire = TRUE
 	else if(H.fire_stacks)
 		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
 		if(istype(P))
@@ -83,7 +81,7 @@
 		internal_fire = FALSE
 	H.update_appearance(UPDATE_OVERLAYS)
 
-/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
+/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, no_protection = FALSE)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
@@ -117,48 +115,6 @@
 		return 0
 	if(is_clown_job(rank) || is_mime_job(rank))//No funny bussiness
 		return 0
-	return ..()
-
-/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
-	if(chem.type == /datum/reagent/consumable/milk)
-		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
-			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
-		H.heal_bodypart_damage(1.5,0, 0)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5 * REM * delta_time, 0)
-		H.adjustBruteLoss(0.5 * REM * delta_time, 0)
-		if(DT_PROB(10, delta_time))
-			switch(rand(1, 3))
-				if(1)
-					H.say(pick("oof.", "ouch.", "my bones.", "oof ouch.", "oof ouch my bones."), forced = /datum/reagent/toxin/bonehurtingjuice)
-				if(2)
-					H.emote("me", 1, pick("oofs silently.", "looks like their bones hurt.", "grimaces, as though their bones hurt."))
-				if(3)
-					to_chat(H, span_warning("Your bones hurt!"))
-		if(chem.overdosed)
-			if(DT_PROB(2, delta_time) && iscarbon(H)) //big oof
-				var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) //God help you if the same limb gets picked twice quickly.
-				var/obj/item/bodypart/bp = H.get_bodypart(selected_part) //We're so sorry skeletons, you're so misunderstood
-				if(bp)
-					playsound(H, get_sfx("desecration"), 50, TRUE, -1) //You just want to socialize
-					H.visible_message(span_warning("[H] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
-					H.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-					bp.receive_damage(200, 0, 0) //But I don't think we should
-				else
-					to_chat(H, span_warning("Your missing arm aches from wherever you left it."))
-					H.emote("sigh")
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
-		return TRUE
-
-	if(istype(chem, /datum/reagent/blackpowder))
-		H.set_drugginess(7.5 * delta_time)
-		if(H.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10 < chem.volume)
-			H.adjust_hallucinations(2.5 SECONDS * delta_time)
-		// Do normal metabolism
-		return FALSE
 	return ..()
 
 /datum/species/plasmaman/get_scream_sound(mob/living/carbon/user)

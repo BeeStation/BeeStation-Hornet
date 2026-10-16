@@ -122,7 +122,7 @@
  * Signal proc for [COMSIG_ITEM_ATTACK_EFFECT].
  * Allows the ritual items to remove runes.
  */
-/datum/component/cult_ritual_item/proc/try_clear_rune(datum/source, obj/effect/target, mob/living/cultist, params)
+/datum/component/cult_ritual_item/proc/try_clear_rune(datum/source, obj/effect/target, mob/living/cultist, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!isliving(cultist) || !IS_CULTIST(cultist))
@@ -351,7 +351,7 @@
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
 	var/static/cult_music_played = FALSE
-	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/ambience/antag/bloodcult_scribe.ogg')
+	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", cult_music_played ? ANNOUNCER_SPANOMALIES : 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg')
 	cult_music_played = TRUE
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))
