@@ -13,7 +13,7 @@ import {
 } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
-import { Graph } from '../../components';
+import { Graph, Tooltip } from '../../components';
 
 type CoreComposition = Record<string, number>;
 
@@ -33,6 +33,7 @@ export type CdrData = {
   metallization_ratio: number;
   core_stability: number;
   core_instability: number;
+  base_instability: number;
   core_health: number;
   max_core_health: number;
   power_output: string;
@@ -50,6 +51,22 @@ const DisplayGasOutput = (core_composition: CoreComposition) => {
       <Flex.Item>{core_composition[name].toFixed(2) + ' mol'}</Flex.Item>
     </Flex>
   ));
+};
+
+const FormatLargeNum = (
+  large_number: number,
+  when_to_format: number,
+  to_digits: number,
+) => {
+  return Math.abs(large_number) > 10 ** when_to_format
+    ? large_number.toExponential(to_digits)
+    : large_number.toFixed(0);
+};
+
+const FormatLargePercent = (
+  large_percent: number
+) => {
+  return Math.abs(large_percent) > 300 ? large_percent > 0 ? ">300" : "<-300" : large_percent.toFixed(0);
 };
 
 export const CdrContent = (props: CdrData) => {
@@ -70,12 +87,12 @@ export const CdrContent = (props: CdrData) => {
     metallization_ratio,
     core_stability,
     core_instability,
+    base_instability,
     core_health,
     max_core_health,
     power_output,
   } = props;
-  const adjusted_parabolic_limit = parabolic_upper_limit * parabolic_setting;
-  const sqrt_parabolic_limit = Math.sqrt(adjusted_parabolic_limit);
+  const sqrt_parabolic_limit = Math.sqrt(parabolic_upper_limit);
   return (
     <Box>
       <Section title="Controls">
@@ -163,48 +180,64 @@ export const CdrContent = (props: CdrData) => {
           <Flex.Item grow={1} m={1}>
             <Box>
               <LabeledList>
-                <LabeledList.Item
-                  key={'Core Stability'}
-                  label={'Core Stability'}
+                <Tooltip
+                  content={'Overhead, how much core instability compares to stability. Keep this above 0%.'}
                 >
-                  {core_stability.toFixed(0)}
-                </LabeledList.Item>
-                <LabeledList.Item
-                  key={'Core Instability'}
-                  label={'Core Instability'}
+                  <LabeledList.Item key={'OVRHD'} label={'OVRHD'}>
+                    {`${core_stability ? FormatLargePercent((core_instability - core_stability) / core_instability * 100) : '0'}%`}
+                  </LabeledList.Item>
+                </Tooltip>
+                <Tooltip
+                  content={'Total Instability. Keep this above 0.'}
                 >
-                  {(core_stability ? core_instability / core_stability : 0).toFixed(0)}
-                </LabeledList.Item>
-                <LabeledList.Item
-                  key={'Delta Stability'}
-                  label={'Delta Stability'}
+                  <LabeledList.Item key={'INSTAB'} label={'INSTAB'}>
+                    {FormatLargeNum(core_instability - core_stability, 5, 4)}
+                  </LabeledList.Item>
+                </Tooltip>
+                <Tooltip
+                  content={'Spin of the gravimetric toroid. This affects the parabola.'}
                 >
-                  {(core_stability - core_instability).toFixed(0)}
+                <LabeledList.Item key={'SPIN'} label={'SPIN'}>
+                  {FormatLargeNum(toroid_spin, 5, 4)}
                 </LabeledList.Item>
-                <LabeledList.Item key={'Toroid Spin'} label={'Toroid Spin'}>
-                  {toroid_spin.toFixed(0)}
-                </LabeledList.Item>
+                </Tooltip>
+                <Tooltip
+                  content={'Flux Multiplier. Keep this high.'}
+                >
                 <LabeledList.Item
-                  key={'Toroid Flux Mult'}
-                  label={'Toroid Flux Mult'}
+                  key={'FLXMULT'}
+                  label={'FLXMULT'}
                 >
                   {toroid_flux_mult.toFixed(2)}
                 </LabeledList.Item>
-                <LabeledList.Item
-                  key={'Core Temperature'}
-                  label={'Core Temperature'}
+                </Tooltip>
+                <Tooltip
+                  content={'Core Temperature. Keep this high to increase instability.'}
                 >
-                  {core_temperature.toFixed(2)}
+                <LabeledList.Item
+                  key={'CORETEMP'}
+                  label={'CORETEMP'}
+                >
+                  {FormatLargeNum(core_temperature, 5, 4)}
                 </LabeledList.Item>
-                <LabeledList.Item key={'Output Power'} label={'Output Power'}>
+                </Tooltip>
+                <Tooltip
+                  content={'Energy Stored. Large quantities will be ejected in a graviton particle.'}
+                >
+                <LabeledList.Item key={'STRDENGY'} label={'STRDENGY'}>
                   {power_output}
                 </LabeledList.Item>
+                </Tooltip>
               </LabeledList>
             </Box>
           </Flex.Item>
           <br />
           <Flex.Item grow={1} m={1} align="center">
-            Parabolic Multiplier
+            <Tooltip content={"Toroid spin is represented by the red bar. Keep it in the middle of the parabola."}>
+              <Box>
+                Parabolic Multiplier
+              </Box>
+            </Tooltip>
             <Box width="100%" m={1}>
               <Box
                 width="100%"
@@ -243,6 +276,7 @@ export const CdrContent = (props: CdrData) => {
                   strokeWidth={0.05}
                   fillColor="#ffffff00"
                   lineColor="#ffffff"
+                  modifier={parabolic_setting}
                 />
               </Box>
             </Box>

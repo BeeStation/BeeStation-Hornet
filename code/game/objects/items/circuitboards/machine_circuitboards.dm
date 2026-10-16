@@ -289,13 +289,13 @@
 			return FALSE
 	return ..()
 
-/obj/item/circuitboard/machine/flux_harvester
-	name = "flux harvester (Machine Board)"
+/obj/item/circuitboard/machine/graviton_target
+	name = "graviton wave disperser (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/power/energy_accumulator/flux_harvester/
+	build_path = /obj/machinery/power/energy_accumulator/graviton_target
 	req_components = list(
-		/obj/item/stock_parts/capacitor = 5,
 		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/capacitor/quadratic = 6,
 	)
 
 /obj/item/circuitboard/machine/cdr
@@ -314,15 +314,6 @@
 				balloon_alert(user, "tile occupied!")
 			return FALSE
 	return ..()
-
-/obj/item/circuitboard/machine/flux_harvester
-	name = "flux harvester (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/power/energy_accumulator/flux_harvester/
-	req_components = list(
-		/obj/item/stock_parts/capacitor = 5,
-		/obj/item/stack/cable_coil = 5
-	)
 
 /obj/item/circuitboard/machine/igniter
 	name = "Igniter"

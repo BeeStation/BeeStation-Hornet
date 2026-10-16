@@ -59,6 +59,7 @@
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 
 	COOLDOWN_DECLARE(radio_cooldown)
+	COOLDOWN_DECLARE(alert_cooldown)
 
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
@@ -79,6 +80,8 @@
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
 	if(!activated)
 		return
+	if(flux > CDR_FLUX_MIN_PARTICLE)
+		fire_graviton()
 
 /obj/machinery/atmospherics/components/unary/cdr/process_atmos()
 	update_parents() //needs to process constantly for gases to not get stuck
@@ -158,6 +161,7 @@
 	data["parabolic_ratio"] = parabolic_ratio
 	data["core_stability"] = core_stability
 	data["core_instability"] = core_instability
+	data["base_instability"] = base_instability
 	data["core_health"] = core_health
 	data["power_output"] = display_power_persec(flux * CDR_FLUX_TO_POWER)
 	return data
@@ -262,8 +266,8 @@
 	var/datum/condensate_gas/bz_gas = cdr_gas_factors[/datum/gas/bz]
 	var/bz_mols = GET_MOLES(/datum/gas/bz, core_composition)
 	core_stability = get_core_stability()
-	base_instability = bz_mols * bz_gas.threshold + component_instability_factor
-	core_instability = (max(core_composition.temperature >= 100000 ? 50000 * (log(10, core_composition.temperature) - 4) : 0.5 * core_composition.temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
+	base_instability = (bz_mols * bz_gas.threshold) + component_instability_factor
+	core_instability = (max(core_composition.temperature >= 100000 ? 50000 * (log(10, core_composition.temperature) - 4) + base_instability : 0.5 * core_composition.temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
 	var/delta_stability = core_instability - core_stability
 	adjust_health(delta_stability > 0 ? max(log(10, abs(delta_stability)) / CDR_HEALTH_DELTA_DIVISOR, 0) : min(-log(10, abs(delta_stability)) / CDR_HEALTH_DELTA_DIVISOR, 0))
 
@@ -278,14 +282,19 @@
 	core_health = health_delta
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/alert_radio(decreasing)
-	if(!COOLDOWN_FINISHED(src, radio_cooldown) || core_health > CDR_MAX_CORE_HEALTH * 0.6)
-		return
-	radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? null : RADIO_CHANNEL_ENGINEERING)
-	COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
+	if(COOLDOWN_FINISHED(src, radio_cooldown) && core_health < CDR_MAX_CORE_HEALTH * 0.6)
+		radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? null : RADIO_CHANNEL_ENGINEERING)
+		COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
+	if(COOLDOWN_FINISHED(src, alert_cooldown) && core_health < CDR_MAX_CORE_HEALTH * 0.4)
+		playsound(get_turf(src), 'sound/misc/alert.ogg', 100, TRUE, 5)
+		COOLDOWN_START(src, alert_cooldown, CDR_ALERT_COOLDOWN + rand(-5, 5))
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
 	investigate_log("failed. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
-	//TODO: do something
+	for(var/turf/nearby_turf in orange(CDR_DET_RADIUS, src))
+		for(var/obj/object in nearby_turf.contents)
+			SSexplosions.high_mov_atom += object
+		SSexplosions.highturf += nearby_turf
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_toroid()
@@ -297,12 +306,12 @@
 	airs[1].pump_gas_volume(toroid_mix, input_volume)
 
 	if(toroid_mix)
-		toroid_spin += (length(toroid_mix.gases) ? toroid_mix.heat_capacity() / length(toroid_mix.gases) : 0) * CDR_MOL_TO_SPIN
+		toroid_spin += (length(toroid_mix.gases) ? toroid_mix.heat_capacity() / length(toroid_mix.gases) : 0) * (1 / parabolic_setting ** 2) * CDR_MOL_TO_SPIN
 
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
 
-	toroid_flux_mult = round(max(-1 * (parabolic_ratio - sqrt(parabolic_upper_limit * parabolic_setting))**2 + (parabolic_upper_limit * parabolic_setting), 0), (parabolic_upper_limit * parabolic_setting) / CDR_PARABOLIC_ACCURACY) //hopefully this rounding removes some issues
+	toroid_flux_mult = round(max(parabolic_ratio * (-1 * (parabolic_ratio - sqrt(parabolic_upper_limit))**2 + (parabolic_upper_limit)), 0), (parabolic_upper_limit * parabolic_setting) / CDR_PARABOLIC_ACCURACY) //hopefully this rounding removes some issues
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
@@ -332,4 +341,35 @@
 		turf_mix.garbage_collect()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/set_flux(flux_to_add)
-	flux = flux_to_add * toroid_flux_mult
+	flux += flux_to_add * toroid_flux_mult
+
+/obj/machinery/atmospherics/components/unary/cdr/proc/fire_graviton()
+	var/obj/projectile/energy/graviton_particle/particle = new /obj/projectile/energy/graviton_particle(src)
+	particle.carried_energy = flux * CDR_FLUX_TO_POWER
+	particle.damage = min(300, round(log(2, flux)))
+	flux = 0
+	playsound(get_turf(src), 'sound/weapons/graviton.ogg', 100, TRUE)
+	particle.fire(rand(0, 360))
+
+
+/obj/machinery/power/energy_accumulator/graviton_target
+	name = "graviton wave disperser"
+	desc = "This can absorb graviton particles and convert them to electrical power. Steam turbines are king no longer!"
+	icon = 'icons/obj/machines/power/graviton_target.dmi'
+	icon_state = "target"
+
+/obj/machinery/power/energy_accumulator/graviton_target/bullet_act(obj/projectile/projectile)
+	if(!istype(projectile, /obj/projectile/energy/graviton_particle))
+		return ..()
+	var/obj/projectile/energy/graviton_particle/grav = projectile
+	stored_energy += grav.carried_energy
+	add_emitter(/obj/emitter/electrified, "electrified", 10, 10)
+	playsound(src, 'sound/weapons/graviton_impact.ogg', 65, TRUE)
+	return BULLET_ACT_BLOCK
+
+/obj/machinery/power/energy_accumulator/graviton_target/attackby(obj/item/attacking_item, mob/user, params)
+	if(default_unfasten_wrench(user, attacking_item))
+		return
+	return ..()
+
+

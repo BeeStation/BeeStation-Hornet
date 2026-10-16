@@ -91,11 +91,11 @@
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/board/flux_harvester
-	name = "Machine Design (Flux Harvester)"
-	desc = "The circuit board for a flux harvester."
-	id = "flux_harvester"
-	build_path = /obj/item/circuitboard/machine/flux_harvester
+/datum/design/board/graviton_target
+	name = "Machine Design (Condensate Decay Reactor)"
+	desc = "The circuit board for a graviton wave disperser."
+	id = "graviton_target"
+	build_path = /obj/item/circuitboard/machine/graviton_target
 	category = list ("Engineering Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 

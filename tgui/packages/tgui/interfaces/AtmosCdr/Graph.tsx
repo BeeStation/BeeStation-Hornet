@@ -10,6 +10,7 @@ type Props = {
   lineColor: string;
   fillColor: string;
   strokeWidth: number;
+  modifier?: number;
 };
 
 export class Graph extends Component<Props> {
@@ -22,11 +23,12 @@ export class Graph extends Component<Props> {
     distPerStep: number,
     leftLimit: number,
     steps: number,
+    modifier: number = 1,
   ) {
     let points: string[][] = [];
     for (let i = 0; i <= steps; i++) {
       let xPos = i * distPerStep + leftLimit;
-      points.push([xPos.toString(), funct(xPos).toString()]);
+      points.push([xPos.toString(), (modifier * funct(xPos)).toString()]);
     }
     return points;
   }
@@ -42,6 +44,7 @@ export class Graph extends Component<Props> {
       lineColor,
       fillColor,
       strokeWidth,
+      modifier,
     } = this.props;
     let distPerStep = (rightLimit - leftLimit) / steps;
     return (
@@ -59,7 +62,7 @@ export class Graph extends Component<Props> {
           fill={fillColor}
           stroke={lineColor}
           strokeWidth={strokeWidth}
-          points={`${this.iterateOverNodes(funct, distPerStep, leftLimit, steps)}`}
+          points={`${this.iterateOverNodes(funct, distPerStep, leftLimit, steps, modifier)}`}
         />
       </svg>
     );
