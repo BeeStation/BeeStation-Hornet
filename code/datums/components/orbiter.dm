@@ -7,7 +7,10 @@
 	var/list/orbiter_params
 	/// Movement tracker used to check when our owner moves
 	var/datum/movement_detector/tracker
-	var/datum/weakref/back_to /// when 'send_observers_back_to_original_orbit()' proc is called, ghost will go back to this weakref.
+	/// when 'send_observers_back_to_original_orbit()' proc is called, ghost will go back to this weakref.
+	var/datum/weakref/back_to
+	/// The next registration completes a component transfer, rather than initial construction.
+	var/transferring = FALSE
 
 //radius: range to orbit at, radius of the circle formed by orbiting (in pixels)
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -21,7 +24,7 @@
 	current_orbiters = list()
 	orbiter_params = list()
 
-	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
+	return begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
@@ -31,6 +34,12 @@
 		tracker = new(target, CALLBACK(src, PROC_REF(move_react)))
 
 	RegisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(orbiter_glide_size_update))
+	if(transferring)
+		transferring = FALSE
+		for(var/atom/movable/orbiter as anything in current_orbiters)
+			orbiter.orbit_target = target
+			SEND_SIGNAL(target, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
+	move_react(target)
 
 /datum/component/orbiter/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
@@ -60,15 +69,24 @@
 		newcomp.UnregisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED)
 		RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
 
-	current_orbiters += newcomp.current_orbiters
+	var/list/incoming_orbiters = newcomp.current_orbiters
+	current_orbiters += incoming_orbiters
 	orbiter_params += newcomp.orbiter_params
 	newcomp.current_orbiters = null
 	newcomp.orbiter_params = null
+	for(var/atom/movable/incoming_orbiter as anything in incoming_orbiters)
+		incoming_orbiter.orbit_target = parent
+		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, incoming_orbiter)
+	move_react(parent)
+
+/datum/component/orbiter/PreTransfer(datum/new_parent)
+	for(var/atom/movable/orbiter as anything in current_orbiters)
+		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
 		return COMPONENT_INCOMPATIBLE
-	move_react(parent)
+	transferring = TRUE
 
 /datum/component/orbiter/proc/begin_orbit(atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 	if(orbiter.orbiting)
@@ -77,9 +95,13 @@
 		else
 			orbiter.orbiting.end_orbit(orbiter)
 
+	if(QDELETED(orbiter))
+		return COMPONENT_REDUNDANT
+
 	orbiter_params[orbiter] = args.Copy(2)
 	current_orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
+	orbiter.orbit_target = parent
 
 	ADD_TRAIT(orbiter, TRAIT_NO_FLOATING_ANIM, ORBITING_TRAIT)
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
@@ -165,6 +187,7 @@
 	SEND_SIGNAL(new_target, COMSIG_ATOM_ORBIT_BEGIN, incoming_orbiter)
 
 	incoming_orbiter.orbiting = new_target.orbit_datum
+	incoming_orbiter.orbit_target = new_target
 	new_target.orbit_datum.current_orbiters[incoming_orbiter] = current_orbiters[incoming_orbiter]
 	current_orbiters -= incoming_orbiter
 
@@ -214,14 +237,16 @@
 	orbit(A, orbitsize)
 
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE)
-	if(!istype(A) || !get_turf(A) || A == src)
+	if(QDELETED(src) || !istype(A) || !get_turf(A) || A == src)
 		return
 	if (HAS_TRAIT(A, TRAIT_ORBITING_FORBIDDEN))
 		// Stealth-mins have an empty name, don't want "You cannot orbit x at this time."
-		to_chat(src, "<span class='notice'>You cannot orbit ["[A]" || "them"] at this time.</span>")
+		to_chat(src, span_notice("You cannot orbit ["[A]" || "them"] at this time."))
 		return
-
-	orbit_target = A
+	if(orbiting && orbiting.parent != A)
+		orbiting.end_orbit(src)
+		if(QDELETED(src))
+			return
 	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
 /atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)

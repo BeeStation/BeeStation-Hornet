@@ -1,8 +1,6 @@
 
 ///Reference to atom being orbited
 /atom/var/atom/orbit_target
-///The orbiter component, if there's anything orbiting this atom
-/atom/var/datum/component/orbiter/orbiters
 
 /**
  * Recursive getter method to return a list of all ghosts orbitting this atom
@@ -23,7 +21,7 @@
 		output += src
 
 	processed += src
-	for(var/atom/atom_orbiter as anything in orbiters?.current_orbiters)
+	for(var/atom/atom_orbiter as anything in orbit_datum?.current_orbiters)
 		output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
 	return output
 
