@@ -48,7 +48,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 	)
 
 	singularity_component = WEAKREF(new_component)
-	energy = starting_energy
 	expand(current_size)
 
 	for(var/obj/machinery/power/singularity_beacon/singubeacon as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/singularity_beacon))
@@ -441,22 +440,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity/deadchat_controlled)
 /obj/anomaly/singularity/stationary/process(delta_time)
 	if(DT_PROB(0.5, delta_time))
 		mezzer()
-
-
-/obj/anomaly/singularity/temporary
-
-/obj/anomaly/singularity/temporary/Initialize(mapload, starting_energy = 50, time_to_explode = 30 SECONDS)
-	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(explode)), time_to_explode)
-
-/obj/anomaly/singularity/temporary/proc/explode()
-	explosion(
-		epicenter = get_turf(src),
-		devastation_range = 6,
-		heavy_impact_range = 12,
-		light_impact_range = 24,
-		flash_range = 32,
-		adminlog = TRUE,
-		ignorecap = TRUE,
-	)
-	qdel(src)

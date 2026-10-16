@@ -144,8 +144,8 @@
 	var/list/data = list()
 
 	var/list/core_composition_named = list()
-	for(var/gastype in core_composition.gases)
-		core_composition_named[GLOB.meta_gas_info[gastype]?[META_GAS_NAME]] = GET_MOLES(gastype, core_composition)
+	for(var/gastype in core_composition.moles)
+		core_composition_named[GLOB.meta_gas_info[META_GAS_NAME][gastype]] = core_composition.moles[gastype]
 
 	data["toroid_spin"] = toroid_spin
 	data["parabolic_setting"] = parabolic_setting
@@ -210,13 +210,13 @@
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_core_stability()
 	var/stability_value = 0
 
-	for(var/gastype in core_composition.gases) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
+	for(var/gastype in core_composition.moles) //I loop over this a lot, it would possibly be better to only loop it once but that would make the code really messy
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
-		stability_value += GET_MOLES(gastype, core_composition) * cdr_gas?.stability_val
+		stability_value += core_composition.moles[gastype] * cdr_gas?.stability_val
 	return stability_value * get_temp_stab_factor()
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/get_temp_stab_factor()
-	var/n2o_mols = GET_MOLES(/datum/gas/nitrous_oxide, core_composition)
+	var/n2o_mols = core_composition.moles[/datum/gas/nitrous_oxide]
 	var/maximum_temp_factor = n2o_mols ? max(100 - n2o_mols * 0.1, 10) : 100 //when n2o mols > 1000 temp_factor = 10
 	var/temp_slope = 0.01
 	return max(-core_composition.temperature * temp_slope + maximum_temp_factor, 1)
@@ -225,9 +225,9 @@
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
 	var/total_energy_consumed = 0
 	var/total_flux_produced = 0
-	for(var/gastype in core_composition.gases)
+	for(var/gastype in core_composition.moles)
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
-		var/gas_moles = GET_MOLES(gastype, core_composition)
+		var/gas_moles = core_composition.moles[gastype]
 		if(!cdr_gas.decays_into)
 			continue
 		if(!gas_moles)
@@ -239,8 +239,7 @@
 		total_energy_consumed += decayed_gas * CDR_HEAT_CONSUMED_PER_MOL * cdr_gas.decay_flux_mult
 
 		total_flux_produced += cdr_gas.decay_flux_mult * gas_moles
-		REMOVE_MOLES(gastype, core_composition, decayed_gas)
-		ADD_MOLES(cdr_gas.decays_into, core_composition, decayed_gas)
+		core_composition.convert_gas(gastype, cdr_gas.decays_into, decayed_gas)
 
 	set_flux(total_flux_produced * get_mass_multiplier())
 
@@ -255,6 +254,7 @@
 	return max(core_composition.total_moles() / CDR_CORE_MASS_DIV, 1)
 
 /obj/machinery/atmospherics/components/unary/cdr/RefreshParts()
+	. = ..()
 	var/total_rating = 0
 	var/total_parts = 0
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
@@ -264,7 +264,7 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_stability()
 	var/datum/condensate_gas/bz_gas = cdr_gas_factors[/datum/gas/bz]
-	var/bz_mols = GET_MOLES(/datum/gas/bz, core_composition)
+	var/bz_mols = core_composition.moles[/datum/gas/bz]
 	core_stability = get_core_stability()
 	base_instability = (bz_mols * bz_gas.threshold) + component_instability_factor
 	core_instability = (max(core_composition.temperature >= 100000 ? 50000 * (log(10, core_composition.temperature) - 4) + base_instability : 0.5 * core_composition.temperature, 0) + base_instability) //I could make this a define, but really, whos going to change it? :clueless: IF YOU DO TOUCH IT, make sure to recalculate the entire function
@@ -306,7 +306,7 @@
 	airs[1].pump_gas_volume(toroid_mix, input_volume)
 
 	if(toroid_mix)
-		toroid_spin += (length(toroid_mix.gases) ? toroid_mix.heat_capacity() / length(toroid_mix.gases) : 0) * (1 / parabolic_setting ** 2) * CDR_MOL_TO_SPIN
+		toroid_spin += (length(toroid_mix.moles) ? toroid_mix.heat_capacity() / length(toroid_mix.moles) : 0) * (1 / parabolic_setting ** 2) * CDR_MOL_TO_SPIN
 
 	parabolic_upper_limit = get_mass_multiplier()
 	parabolic_ratio = toroid_spin / 10000
@@ -315,9 +315,9 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_diffusion()
 	var/datum/gas_mixture/turf_mix = src.loc.return_air()
-	for(var/turf_gas in (turf_mix.gases | core_composition.gases))
-		var/turf_mix_mols = GET_MOLES(turf_gas, turf_mix)
-		var/core_comp_mols = GET_MOLES(turf_gas, core_composition)
+	for(var/turf_gas in (turf_mix.moles | core_composition.moles))
+		var/turf_mix_mols = turf_mix.moles[turf_gas]
+		var/core_comp_mols = core_composition.moles[turf_gas]
 		var/total_gas = core_comp_mols + turf_mix_mols
 
 		if(!total_gas)
@@ -330,11 +330,11 @@
 		gas_diffused = clamp(gas_diffused, gas_diffused > 0 ? 0 : -turf_mix_mols, gas_diffused < 0 ? 0 : core_comp_mols)
 
 		if(gas_diffused > 0)
-			REMOVE_MOLES(turf_gas, core_composition, gas_diffused)
-			ADD_MOLES(turf_gas, turf_mix, gas_diffused)
+			core_composition.adjust_gas(turf_gas, -gas_diffused)
+			turf_mix.adjust_gas(turf_gas, gas_diffused)
 		else
-			ADD_MOLES(turf_gas, core_composition, -gas_diffused)
-			REMOVE_MOLES(turf_gas, turf_mix, -gas_diffused)
+			core_composition.adjust_gas(turf_gas, -gas_diffused)
+			turf_mix.adjust_gas(turf_gas, gas_diffused)
 
 		src.air_update_turf(FALSE, FALSE)
 		core_composition.garbage_collect()
