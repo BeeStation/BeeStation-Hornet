@@ -22,7 +22,7 @@
 
 	radio = /obj/item/radio/borg
 
-	blocks_emissive = EMISSIVE_BLOCK_NONE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_on = FALSE
 

@@ -58,7 +58,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 /obj/effect/overlay/solar_panel
 	vis_flags = VIS_INHERIT_ID | VIS_INHERIT_ICON
 	appearance_flags = TILE_BOUND
-	blocks_emissive = EMISSIVE_BLOCK_NONE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/machinery/power/solar/proc/add_panel_overlay(icon_state, y_offset)
 	var/obj/effect/overlay/solar_panel/overlay = new(src)
