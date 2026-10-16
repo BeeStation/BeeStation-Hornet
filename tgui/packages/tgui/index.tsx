@@ -46,6 +46,7 @@ import './styles/themes/retro.scss';
 import './styles/themes/spooky.scss';
 import './styles/themes/syndicate.scss';
 import './styles/themes/thinktronic-classic.scss';
+import './styles/themes/plant_menu.scss';
 
 import { perf } from 'common/perf';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';

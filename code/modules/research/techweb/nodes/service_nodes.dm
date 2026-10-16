@@ -56,10 +56,8 @@
 		"biogenerator",
 		"diskplantgene",
 		"flora_gun",
-		"hydro_tray",
-		"plantgenes",
 		"portaseeder",
-		"seed_extractor",
+		"traymaker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SERVICE)

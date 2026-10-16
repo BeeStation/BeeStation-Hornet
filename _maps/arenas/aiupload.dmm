@@ -10,7 +10,7 @@
 /turf/open/floor/iron/techmaint,
 /area/misc/space)
 "g" = (
-/obj/item/kirbyplants/photosynthetic,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/techmaint,
 /area/misc/space)
 "h" = (

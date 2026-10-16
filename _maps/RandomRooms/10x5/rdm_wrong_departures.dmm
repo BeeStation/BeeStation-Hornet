@@ -99,7 +99,7 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/grass,
 /area/template_noop)
 "w" = (
@@ -257,7 +257,7 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/grass,
 /area/template_noop)
 "X" = (

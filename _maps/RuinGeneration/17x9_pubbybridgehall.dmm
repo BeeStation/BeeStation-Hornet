@@ -1,24 +1,41 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/closed/wall,
-/area/ruin/powered)
-"b" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
+"d" = (
+/obj/effect/abstract/open_area_marker,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"f" = (
-/turf/open/floor/iron,
-/area/ruin/powered)
-"h" = (
+"e" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"i" = (
+"g" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"l" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"n" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
+"q" = (
+/turf/open/floor/plating,
+/area/ruin/powered)
+"r" = (
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -28,33 +45,18 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered)
-"k" = (
-/obj/item/toy/plush/lizard_plushie,
+"t" = (
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
 /area/ruin/powered)
-"m" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"o" = (
-/turf/open/floor/plating,
-/area/ruin/powered)
-"p" = (
-/obj/effect/abstract/doorway_marker,
-/turf/open/floor/plating,
-/area/ruin/powered)
-"s" = (
-/obj/structure/closet/firecloset,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+"x" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"u" = (
-/obj/structure/closet/emcloset,
-/turf/open/floor/plating,
+"y" = (
+/turf/open/floor/iron,
 /area/ruin/powered)
-"v" = (
+"A" = (
 /obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -62,42 +64,16 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/powered)
-"w" = (
-/obj/effect/abstract/open_area_marker,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"z" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+"D" = (
+/obj/structure/sign/poster/contraband/lizard{
+	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"C" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/ruin/powered)
-"F" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"G" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ruin/powered)
-"I" = (
-/obj/item/kirbyplants/photosynthetic,
-/obj/structure/window/fulltile,
+"E" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "J" = (
@@ -107,6 +83,18 @@
 	},
 /turf/template_noop,
 /area/misc/space)
+"K" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/powered)
+"L" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/powered)
 "M" = (
 /obj/structure/lattice,
 /obj/structure/sign/logo{
@@ -115,8 +103,9 @@
 	},
 /turf/template_noop,
 /area/misc/space)
-"O" = (
-/obj/structure/reagent_dispensers/fueltank,
+"N" = (
+/obj/item/plant_tray/pot/random,
+/obj/structure/window/fulltile,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "P" = (
@@ -127,16 +116,20 @@
 	},
 /turf/template_noop,
 /area/misc/space)
-"V" = (
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/powered)
-"W" = (
-/obj/structure/sign/poster/contraband/lizard{
-	pixel_y = 32
-	},
-/obj/effect/spawner/random/maintenance,
+"Q" = (
+/obj/structure/closet/emcloset,
 /turf/open/floor/plating,
+/area/ruin/powered)
+"R" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"S" = (
+/obj/item/toy/plush/lizard_plushie,
+/turf/open/floor/plating,
+/area/ruin/powered)
+"T" = (
+/turf/closed/wall,
 /area/ruin/powered)
 "X" = (
 /obj/structure/lattice,
@@ -154,191 +147,198 @@
 	},
 /turf/template_noop,
 /area/misc/space)
+"Z" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-V
-G
-b
-a
+T
+T
+T
+T
+T
+x
+n
+g
+T
 "}
 (2,1,1) = {"
-m
-z
-b
-f
-f
-f
-f
-f
-b
+L
+l
+g
+y
+y
+y
+y
+y
+g
 "}
 (3,1,1) = {"
-m
-s
-f
-f
-f
-f
-f
-f
-w
+L
+Z
+y
+y
+y
+y
+y
+y
+d
 "}
 (4,1,1) = {"
-m
-F
-V
-f
-f
-f
-V
-V
-V
+L
+K
+x
+y
+y
+y
+x
+x
+x
 "}
 (5,1,1) = {"
-a
-a
-a
-V
-f
-b
-a
-a
-a
+T
+T
+T
+x
+y
+g
+T
+T
+T
 "}
 (6,1,1) = {"
-a
-I
-a
-V
-f
-b
-a
-O
-a
+T
+N
+T
+x
+y
+g
+T
+t
+T
 "}
 (7,1,1) = {"
-a
+T
 J
-m
-V
-f
-b
-C
-o
-p
+L
+x
+y
+g
+E
+q
+R
 "}
 (8,1,1) = {"
-a
+T
 M
-m
-V
-f
-b
-a
-o
-a
+L
+x
+y
+g
+T
+q
+T
 "}
 (9,1,1) = {"
-a
+T
 P
-m
-V
-f
-b
-a
-u
-a
+L
+x
+y
+g
+T
+Q
+T
 "}
 (10,1,1) = {"
-a
+T
 X
-m
-V
-f
-b
-a
-a
-a
+L
+x
+y
+g
+T
+T
+T
 "}
 (11,1,1) = {"
-a
+T
 Y
-m
-V
-f
-b
-a
-W
-a
+L
+x
+y
+g
+T
+D
+T
 "}
 (12,1,1) = {"
-a
-I
-a
-V
-f
-b
-a
-k
-a
+T
+N
+T
+x
+y
+g
+T
+S
+T
 "}
 (13,1,1) = {"
-a
-a
-a
-V
-f
-b
-a
-a
-a
+T
+T
+T
+x
+y
+g
+T
+T
+T
 "}
 (14,1,1) = {"
-m
-i
-b
-f
-f
-f
-b
-b
-b
+L
+r
+g
+y
+y
+y
+g
+g
+g
 "}
 (15,1,1) = {"
-m
-h
-f
-f
-f
-f
-f
-f
-w
+L
+e
+y
+y
+y
+y
+y
+y
+d
 "}
 (16,1,1) = {"
-m
-v
-V
-f
-f
-f
-f
-f
-V
+L
+A
+x
+y
+y
+y
+y
+y
+x
 "}
 (17,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
+T
+T
+T
+T
+T
+T
+T
+T
+T
 "}
