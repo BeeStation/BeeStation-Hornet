@@ -66,13 +66,6 @@ jobs:
             fileName: "DMCompiler_linux-x64.tar.gz"
             extract: true
 
-        - name: Install Tools
-          run: |
-            pip3 install setuptools
-            bash tools/ci/install_spaceman_dmm.sh dreamchecker
-            bash tools/ci/install_ripgrep.sh
-            tools/bootstrap/python -c ''
-
       - name: Run grep checks
         if: ${{ !cancelled() }}
         background: true
