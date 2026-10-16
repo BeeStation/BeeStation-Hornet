@@ -225,12 +225,12 @@ DEFINE_BUFFER_HANDLER(/obj/item/mod/control)
 	if(gone == cell)
 		cell = null
 
-/obj/item/clothing/neck/link_scryer/attack_hand_secondary(mob/user, list/modifiers)
+/obj/item/clothing/neck/link_scryer/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!cell)
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
+		return NONE
 	balloon_alert(user, "cell removed")
 	user.put_in_hands(cell)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ITEM_INTERACT_SUCCESS
 
 REGISTER_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
