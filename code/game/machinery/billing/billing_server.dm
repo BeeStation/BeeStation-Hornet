@@ -5,6 +5,8 @@
 	density = TRUE
 	/// List of server's connected to us
 	var/list/linked_terminals = list()
+	/// List of accounts we can bill
+	var/list/billables = list()
 	/// List of ongoing bills
 	var/list/bills = list()
 	/// List of existing agents
@@ -33,7 +35,7 @@
 	for(var/atom/agent as anything in agents)
 		UnregisterSignal(agent, COMSIG_QDELETING)
 
-/obj/machinery/billing_server/proc/link_terminal(obj/console)
+/obj/machinery/billing_server/proc/link_terminal(obj/machinery/computer/billing/console)
 	linked_terminals += console
 	RegisterSignal(console, COMSIG_QDELETING, PROC_REF(catch_terminal))
 

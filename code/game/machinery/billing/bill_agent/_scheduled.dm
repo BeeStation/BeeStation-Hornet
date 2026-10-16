@@ -49,7 +49,7 @@
 	bill_time = BILLING_PERIOD_UPKEEP
 
 /datum/component/bill_agent/scheduled/bill_all/make_scheduled()
-	for(var/victim_ID in SSbilling.billables)
+	for(var/victim_ID in server?.billables)
 		if(victim_ID == department_ID)
 			continue
 		var/datum/bill/timed_bill = server?.create_new_bill(victim_ID, department_ID, amount, FALSE, FALSE, tags)

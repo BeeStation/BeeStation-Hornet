@@ -47,7 +47,7 @@
 */
 // Techfab designs, for science
 /datum/billing_setting/number/techfab_design
-	name = "Techfab Design Cost Coefficient"
+	name = "Techfab Design Cost"
 	number = BILLING_COST_FAB_DESIGN
 	upper = 100
 	lower = 1

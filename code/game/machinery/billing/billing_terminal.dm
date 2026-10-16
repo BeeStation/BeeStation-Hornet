@@ -11,6 +11,7 @@ Peanut Posting
 
 TODO
 	Give service a shutoff service to bill for
+	add a tool to link terminals to servers. Same tool can be used to setup agents and settings
 */
 
 /obj/machinery/computer/billing
@@ -18,8 +19,8 @@ TODO
 	desc = "A terminal used to bill"
 	icon_screen = "billing"
 	icon_keyboard = "power_key"
-	// req_access = list(ACCESS_HEADS)
-	light_color = LIGHT_COLOR_BLUE
+	// req_access = list(ACCESS_HEADS) // Allowing people to fuck with it might be more interesting
+	light_color = LIGHT_COLOR_GREEN
 	clicksound = null
 	circuit = /obj/item/circuitboard/computer/billing
 
@@ -50,19 +51,26 @@ TODO
 	if(mapload)
 		roundstart = TRUE
 		link_budget_card(locate(/obj/item/card/id/departmental_budget) in loc)
-	RegisterSignal(SSjob, COMSIG_JOB_RECEIVED, PROC_REF(catch_job))
 	// Add some forgiveness to the area
 	var/area/A = get_area(src)
 	A?.extra_overdraft += 10
-
+	// Agent helper
 	if(bill_schedule_path)
 		AddComponent(bill_schedule_path, budget_card?.department_ID, TRUE)
 
 /obj/machinery/computer/billing/LateInitialize()
 	. = ..()
 	if(roundstart)
-		SSbilling?.roundstart_server?.link_terminal(src)
 		link_server(SSbilling?.roundstart_server)
+		// Chargeback bewl shit
+		RegisterSignal(SSjob, COMSIG_JOB_RECEIVED, PROC_REF(catch_job))
+
+/obj/machinery/computer/billing/Destroy()
+	. = ..()
+	if(server)
+		server?.billables -= budget_card?.department_ID
+		UnregisterSignal(server, COMSIG_QDELETING, COMSIG_BILLING_NEW_BILL)
+	UnregisterSignal(SSjob, COMSIG_JOB_RECEIVED)
 
 /obj/machinery/computer/billing/examine(mob/user)
 	. = ..()
@@ -141,7 +149,7 @@ TODO
 	// Which server are we linked to?
 	data["server_id"] = server?.name
 	// Active budgets we can bill
-	data["billables"] = SSbilling?.billables-budget_card?.department_ID
+	data["billables"] = server?.billables-budget_card?.department_ID
 	// Filters
 	data["bill_filter"] = bill_tag_filter
 	data["autopay_filter"] = autopay_filter
@@ -289,10 +297,10 @@ TODO
 	if(account_bit & ACCOUNT_SCI_BITFLAG && our_bit & ACCOUNT_SCI_BITFLAG)
 		chargeback = FALSE
 
-
 /// Set this terminal to manage a new budget card
 /obj/machinery/computer/billing/proc/link_budget_card(obj/new_card)
 	if(!new_card)
+		server?.billables -= budget_card.department_ID
 		name = "[src::name]"
 		budget_card = null
 		account = null
@@ -302,11 +310,15 @@ TODO
 	account = SSeconomy.get_budget_account(budget_card.department_ID)
 	// Update our identity
 	name = "[src::name] ([budget_card.department_name])"
+	// update the server
+	server?.billables |= budget_card.department_ID
 
 /obj/machinery/computer/billing/proc/link_server(obj/machinery/billing_server/new_server)
 	if(server)
-		UnregisterSignal(server, COMSIG_BILLING_NEW_BILL)
+		UnregisterSignal(server, COMSIG_BILLING_NEW_BILL, COMSIG_QDELETING)
 	server = new_server
+	server.link_terminal(src)
+	server.billables |= budget_card.department_ID
 	RegisterSignal(server, COMSIG_QDELETING, PROC_REF(catch_server))
 	RegisterSignal(server, COMSIG_BILLING_NEW_BILL, PROC_REF(catch_new_bill))
 
