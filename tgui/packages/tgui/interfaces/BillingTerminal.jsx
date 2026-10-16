@@ -42,8 +42,9 @@ export const BillingTerminal = (props) => {
           <Flex.Item>
             <Section>
               <LabeledList.Item label="Department ID">
-                {account_id ? '' + account_id + ' ($' + account_amount + ')' :
-                  'No budget card inserted...'}
+                {account_id
+                  ? '' + account_id + ' ($' + account_amount + ')'
+                  : 'No budget card inserted...'}
               </LabeledList.Item>
               <LabeledList.Item label="Linked Server">
                 {server_id || 'No server linked...'}
