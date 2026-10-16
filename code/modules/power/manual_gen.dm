@@ -49,7 +49,7 @@
 		to_chat(user, span_notice("You carefully remove the mouse from the wheel."))
 
 /obj/machinery/power/port_gen/hamster_wheel/wrench_act(mob/living/user, obj/item/tool)
-	if(!active)
+	if(active)
 		return ITEM_INTERACT_BLOCKING
 
 	if(!anchored && !isinspace())
@@ -137,7 +137,7 @@
 		disconnect_from_network()
 
 /obj/machinery/power/port_gen/hamsterperson_wheel/wrench_act(mob/living/user, obj/item/tool)
-	if(!active)
+	if(active)
 		return ITEM_INTERACT_BLOCKING
 
 	if(!anchored && !isinspace())

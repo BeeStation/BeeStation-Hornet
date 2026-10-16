@@ -183,7 +183,8 @@
 			var/image/override_image = image_overrides[first_atom]
 			atom_name = override_image.name
 			image_icon = FAST_REF(override_image)
-		else
+		// the client can crash drawing a \ref image of an atom with a render_target i.e EMISSIVE_BLOCK_UNIQUE, among other shit
+		else if (!first_atom.render_target)
 			image_icon = FAST_REF(first_atom)
 		tab_data[REF(first_atom)] = list(
 			text = "[atom_name][item_count > 1 ? " (x[item_count])" : ""]",
@@ -195,7 +196,7 @@
 	tab_data[REF(client.mob)] = list(
 		text = client.mob.name,
 		tag = "You",
-		image = FAST_REF(client.mob),
+		image = client.mob.render_target ? null : FAST_REF(client.mob),
 		type = STAT_ATOM
 	)
 
