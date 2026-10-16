@@ -738,6 +738,11 @@ h2.alert {
 .green {
   color: hsl(132.9, 100%, 50.6%);
 }
+
+.grey {
+  color: hsl(0, 0%, 51.4%);
+}
+
 .red {
   color: hsl(0, 100%, 50%);
 }
@@ -747,6 +752,12 @@ h2.alert {
 .nicegreen {
   color: hsl(132.6, 78.7%, 36.9%);
 }
+
+.boldnicegreen {
+  color: hsl(132.6, 78.7%, 36.9%);
+  font-weight: bold;
+}
+
 .shadowling {
   color: hsl(258.2, 45.8%, 28.2%);
 }

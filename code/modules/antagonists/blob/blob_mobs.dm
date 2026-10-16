@@ -84,10 +84,8 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
-	for(var/M in GLOB.mob_list)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode, list/message_mods)
 	INVOKE_ASYNC(src, PROC_REF(send_blob_telepathy), message)
-	return
 
 /mob/living/simple_animal/hostile/blob/proc/send_blob_telepathy(message)
 	var/list/message_mods = list()

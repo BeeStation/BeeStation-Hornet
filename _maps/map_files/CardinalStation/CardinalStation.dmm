@@ -10942,6 +10942,7 @@
 	pixel_x = -13;
 	pixel_y = -4
 	},
+/obj/structure/closet/crate/mod,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/station/science/robotics/lab)
 "cEc" = (

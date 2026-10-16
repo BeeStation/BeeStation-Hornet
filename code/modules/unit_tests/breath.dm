@@ -30,5 +30,22 @@
 
 	TEST_ASSERT(!lab_rat.has_alert(ALERT_NOT_ENOUGH_OXYGEN), "Humans can't get a full breath from the standard initial_gas_mix on a turf")
 
+/// Tests to make sure aliens, who have no lungs, still take breaths instead of missing every one (and gasping)
+/datum/unit_test/breath_sanity_alien
+
+/datum/unit_test/breath_sanity_alien/Run()
+	var/mob/living/carbon/alien/humanoid/drone/lab_xeno = allocate(/mob/living/carbon/alien/humanoid/drone)
+	var/turf/open/to_fill = run_loc_floor_bottom_left
+	to_fill.copy_air(SSair.parse_gas_string(GAS_PLASMA + "=100;TEMP=293.15", /datum/gas_mixture/turf))
+	lab_xeno.adjustPlasma(-lab_xeno.getPlasma())
+
+	lab_xeno.breathe()
+
+	TEST_ASSERT(lab_xeno.getPlasma() > 0, "Aliens can't absorb plasma from the air they breathe")
+
+/datum/unit_test/breath_sanity_alien/Destroy()
+	restore_atmos()
+	return ..()
+
 
 
