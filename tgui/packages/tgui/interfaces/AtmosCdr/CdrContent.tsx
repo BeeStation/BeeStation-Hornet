@@ -63,10 +63,12 @@ const FormatLargeNum = (
     : large_number.toFixed(0);
 };
 
-const FormatLargePercent = (
-  large_percent: number
-) => {
-  return Math.abs(large_percent) > 300 ? large_percent > 0 ? ">300" : "<-300" : large_percent.toFixed(0);
+const FormatLargePercent = (large_percent: number) => {
+  return Math.abs(large_percent) > 300
+    ? large_percent > 0
+      ? '>300'
+      : '<-300'
+    : large_percent.toFixed(0);
 };
 
 export const CdrContent = (props: CdrData) => {
@@ -181,62 +183,62 @@ export const CdrContent = (props: CdrData) => {
             <Box>
               <LabeledList>
                 <Tooltip
-                  content={'Overhead, how much core instability compares to stability. Keep this above 0%.'}
+                  content={
+                    'Overhead, how much core instability compares to stability. Keep this above 0%.'
+                  }
                 >
                   <LabeledList.Item key={'OVRHD'} label={'OVRHD'}>
-                    {`${core_stability ? FormatLargePercent((core_instability - core_stability) / core_instability * 100) : '0'}%`}
+                    {`${core_stability ? FormatLargePercent(((core_instability - core_stability) / core_instability) * 100) : '0'}%`}
                   </LabeledList.Item>
                 </Tooltip>
-                <Tooltip
-                  content={'Total Instability. Keep this above 0.'}
-                >
+                <Tooltip content={'Total Instability. Keep this above 0.'}>
                   <LabeledList.Item key={'INSTAB'} label={'INSTAB'}>
                     {FormatLargeNum(core_instability - core_stability, 5, 4)}
                   </LabeledList.Item>
                 </Tooltip>
                 <Tooltip
-                  content={'Spin of the gravimetric toroid. This affects the parabola.'}
+                  content={
+                    'Spin of the gravimetric toroid. This affects the parabola.'
+                  }
                 >
-                <LabeledList.Item key={'SPIN'} label={'SPIN'}>
-                  {FormatLargeNum(toroid_spin, 5, 4)}
-                </LabeledList.Item>
+                  <LabeledList.Item key={'SPIN'} label={'SPIN'}>
+                    {FormatLargeNum(toroid_spin, 5, 4)}
+                  </LabeledList.Item>
+                </Tooltip>
+                <Tooltip content={'Flux Multiplier. Keep this high.'}>
+                  <LabeledList.Item key={'FLXMULT'} label={'FLXMULT'}>
+                    {toroid_flux_mult.toFixed(2)}
+                  </LabeledList.Item>
                 </Tooltip>
                 <Tooltip
-                  content={'Flux Multiplier. Keep this high.'}
+                  content={
+                    'Core Temperature. Keep this high to increase instability.'
+                  }
                 >
-                <LabeledList.Item
-                  key={'FLXMULT'}
-                  label={'FLXMULT'}
-                >
-                  {toroid_flux_mult.toFixed(2)}
-                </LabeledList.Item>
+                  <LabeledList.Item key={'CORETEMP'} label={'CORETEMP'}>
+                    {FormatLargeNum(core_temperature, 5, 4)}
+                  </LabeledList.Item>
                 </Tooltip>
                 <Tooltip
-                  content={'Core Temperature. Keep this high to increase instability.'}
+                  content={
+                    'Energy Stored. Large quantities will be ejected in a graviton particle.'
+                  }
                 >
-                <LabeledList.Item
-                  key={'CORETEMP'}
-                  label={'CORETEMP'}
-                >
-                  {FormatLargeNum(core_temperature, 5, 4)}
-                </LabeledList.Item>
-                </Tooltip>
-                <Tooltip
-                  content={'Energy Stored. Large quantities will be ejected in a graviton particle.'}
-                >
-                <LabeledList.Item key={'STRDENGY'} label={'STRDENGY'}>
-                  {power_output}
-                </LabeledList.Item>
+                  <LabeledList.Item key={'STRDENGY'} label={'STRDENGY'}>
+                    {power_output}
+                  </LabeledList.Item>
                 </Tooltip>
               </LabeledList>
             </Box>
           </Flex.Item>
           <br />
           <Flex.Item grow={1} m={1} align="center">
-            <Tooltip content={"Toroid spin is represented by the red bar. Keep it in the middle of the parabola."}>
-              <Box>
-                Parabolic Multiplier
-              </Box>
+            <Tooltip
+              content={
+                'Toroid spin is represented by the red bar. Keep it in the middle of the parabola.'
+              }
+            >
+              <Box>Parabolic Multiplier</Box>
             </Tooltip>
             <Box width="100%" m={1}>
               <Box
