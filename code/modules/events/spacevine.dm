@@ -277,8 +277,8 @@
 		holder.set_density(TRUE)
 	holder.modify_max_integrity(100)
 
-/datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(I?.get_sharpness())
+/datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
+	if(item?.sharpness >= SHARP)
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -360,16 +360,16 @@
 	if(!override)
 		qdel(src)
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
-	var/damage_dealt = I.force
-	if(I.get_sharpness())
+/obj/structure/spacevine/attacked_by(obj/item/item, mob/living/user)
+	var/damage_dealt = item.force
+	if(item.sharpness >= SHARP)
 		damage_dealt *= 4
-	if(I.damtype == BURN)
+	if(item.damtype == BURN)
 		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/SM in mutations)
-		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	take_damage(damage_dealt, I.damtype, MELEE, 1)
+		damage_dealt = SM.on_hit(src, user, item, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+	take_damage(damage_dealt, item.damtype, MELEE, 1)
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

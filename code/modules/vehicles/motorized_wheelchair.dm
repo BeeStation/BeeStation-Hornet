@@ -186,13 +186,13 @@
 		if(HAS_TRAIT(H, TRAIT_PROSKATER))
 			multiplier = 0.7 //30% reduction
 		H.Knockdown(100 * multiplier)
-		H.adjustStaminaLoss(40 * multiplier)
+		H.stamina.adjust(-40 * multiplier)
 		if(isliving(M))
 			var/mob/living/D = M
 			throw_target = get_edge_target_turf(D, pick(GLOB.cardinals))
 			D.throw_at(throw_target, 2, 3)
 			D.Knockdown(80)
-			D.adjustStaminaLoss(35)
+			D.stamina.adjust(-35)
 			visible_message(span_danger("[src] crashes into [M], sending [H] and [D] flying!"))
 		else
 			visible_message(span_danger("[src] crashes into [M], sending [H] flying!"))

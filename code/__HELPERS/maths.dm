@@ -174,3 +174,6 @@
 		stack_trace("No code length forwarded as argument")
 	while(length(.) < n_length)
 		. += "[rand(0, 9)]" // we directly write into the return value (.) here
+
+/// Value or the next integer in a positive direction: Ceil(-1.5) = -1 , Ceil(1.5) = 2
+#define Ceil(value) ( -round(-(value)) )

@@ -39,6 +39,8 @@
 #define BODYPART_IMPLANTED (1<<2)
 /// Bodypart never displays as a husk
 #define BODYPART_UNHUSKABLE (1<<3)
+/// Robotic bodypart that EMPs don't lock up
+#define BODYPART_EMP_HARDENED (1<<4)
 
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()

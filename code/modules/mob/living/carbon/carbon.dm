@@ -12,6 +12,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, SIGNAL_UPDATETRAIT(TRAIT_OVERRIDE_SKIN_COLOUR), PROC_REF(_signal_body_part_update))
+	AddComponent(/datum/component/carbon_sprint)
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
@@ -553,37 +554,35 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 	var/total_burn	= 0
 	var/total_brute	= 0
-	var/total_stamina = 0
 	for(var/obj/item/bodypart/BP as anything in get_bodyparts())
 		total_brute	+= (BP.brute_dam * BP.body_damage_coeff)
 		total_burn	+= (BP.burn_dam * BP.body_damage_coeff)
-		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
 	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
-	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	update_stat()
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk(BURN)
 	med_hud_set_health()
-	if(stat == SOFT_CRIT)
-		add_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 
-/mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
-	var/stam = getStaminaLoss()
-	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
-		if(!stat)
-			if(extend_stam_crit || !HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
-				enter_stamcrit()
-	else if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
-		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	else
-		return
+/mob/living/carbon/on_stamina_update()
+	var/stam = stamina.current
+	var/max = stamina.maximum
+	var/is_exhausted = HAS_TRAIT_FROM(src, TRAIT_EXHAUSTED, STAMINA)
+	var/no_stamcrit = HAS_TRAIT(src, TRAIT_NOSTAMCRIT)
+	if((stam < max * STAMINA_EXHAUSTION_THRESHOLD_MODIFIER) && !is_exhausted && !no_stamcrit)
+		ADD_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
+	if(is_exhausted && (no_stamcrit || stam > max * STAMINA_EXHAUSTION_RECOVERY_THRESHOLD_MODIFIER))
+		REMOVE_TRAIT(src, TRAIT_EXHAUSTED, STAMINA)
 	update_stamina_hud()
+
+/mob/living/carbon/on_stamina_loss()
+	if((stamina.current < stamina.maximum * STAMINA_STUN_THRESHOLD_MODIFIER) && stat <= SOFT_CRIT)
+		stamina_stun()
+
+/mob/living/carbon/stamina_swing(cost as num)
+	if((get_shown_stamina() - cost) > STAMINA_MAXIMUM_TO_SWING)
+		stamina.adjust(-cost, TRUE)
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -680,8 +679,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 
 	if(health <= crit_threshold && !HAS_TRAIT(src,TRAIT_NOSOFTCRIT))
+		//These ranges were made for dying at -100, so scale health to our own death threshold
+		var/crit_health = health * 100 / -death_threshold
 		var/severity = 0
-		switch(health)
+		switch(crit_health)
 			if(-20 to -10)
 				severity = 1
 			if(-30 to -20)
@@ -804,32 +805,45 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		hud_used.healths.icon_state = "health6"
 
 /mob/living/carbon/update_stamina_hud(shown_stamina_loss)
-	if(!client || !hud_used?.stamina)
+	if(!client || !hud_used?.stamina || !stamina)
 		return
-
-	var/stam_crit_threshold = maxHealth - crit_threshold
 
 	if(stat == DEAD)
 		hud_used.stamina.icon_state = "stamina_dead"
+		hud_used.stamina.set_warning(FALSE)
 	else
-
+		var/max = stamina.maximum
+		var/current = get_shown_stamina()
+		hud_used.stamina.set_warning(!HAS_TRAIT(src, TRAIT_EXHAUSTED) && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT) && current < max * STAMINA_EXHAUSTION_WARNING_MODIFIER)
 		if(shown_stamina_loss == null)
-			shown_stamina_loss = getStaminaLoss()
-
-		if(shown_stamina_loss >= stam_crit_threshold)
+			shown_stamina_loss = max - current
+		if(shown_stamina_loss >= max || HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 			hud_used.stamina.icon_state = "stamina_crit"
-		else if(shown_stamina_loss > maxHealth*0.8)
+		else if(shown_stamina_loss > max*0.8)
 			hud_used.stamina.icon_state = "stamina_5"
-		else if(shown_stamina_loss > maxHealth*0.6)
+		else if(shown_stamina_loss > max*0.6)
 			hud_used.stamina.icon_state = "stamina_4"
-		else if(shown_stamina_loss > maxHealth*0.4)
+		else if(shown_stamina_loss > max*0.4)
 			hud_used.stamina.icon_state = "stamina_3"
-		else if(shown_stamina_loss > maxHealth*0.2)
+		else if(shown_stamina_loss > max*0.2)
 			hud_used.stamina.icon_state = "stamina_2"
 		else if(shown_stamina_loss > 0)
 			hud_used.stamina.icon_state = "stamina_1"
 		else
 			hud_used.stamina.icon_state = "stamina_full"
+
+///Stamina as the HUD shows it. Mobs with [TRAIT_STAMINA_DRAINS_POWER] show their charge, unless a stamina pool carried over from another species is lower
+/mob/living/carbon/proc/get_shown_stamina()
+	. = stamina.current
+	if(HAS_TRAIT(src, TRAIT_STAMINA_DRAINS_POWER))
+		. = min(., stamina.maximum * get_stamina_power())
+
+///Charge as a fraction of a full cell, for mobs with [TRAIT_STAMINA_DRAINS_POWER]
+/mob/living/carbon/proc/get_stamina_power()
+	var/obj/item/organ/stomach/electrical/ipc/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(battery))
+		return 0
+	return min(battery.cell.charge / ETHEREAL_CHARGE_FULL, 1)
 
 /mob/living/carbon/proc/update_spacesuit_hud_icon(cell_state = "empty")
 	if(hud_used?.spacesuit)
@@ -854,13 +868,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
+		if(health <= death_threshold && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
 			return
 		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
 			set_stat(HARD_CRIT)
 		else if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
 			set_stat(UNCONSCIOUS)
+			update_unconscious_crit_traits()
 		else if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 			set_stat(SOFT_CRIT)
 		else
@@ -950,13 +965,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		QDEL_NULL(legcuffed)
 		set_handcuffed(null)
 		update_handcuffed()
-
-	// clear bodypart stamina since stam_damage_coeff causes setStaminaLoss(0) to insufficient heal (coefficient-adjusted total < raw total)
-	if(heal_flags & HEAL_STAM)
-		for(var/obj/item/bodypart/BP as anything in bodyparts)
-			if(BP.stamina_dam)
-				BP.heal_damage(0, 0, BP.stamina_dam, forced = TRUE)
-		update_stamina()
 
 	return ..()
 

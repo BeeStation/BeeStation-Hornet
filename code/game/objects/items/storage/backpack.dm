@@ -17,6 +17,10 @@
 	icon_state = "backpack"
 	inhand_icon_state = "backpack"
 	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
+
+	stamina_damage = 0
+	stamina_cost = 0
+
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY

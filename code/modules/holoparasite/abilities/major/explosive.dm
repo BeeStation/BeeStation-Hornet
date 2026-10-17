@@ -138,7 +138,8 @@
 			if(owner.has_matching_summoner(collateral))
 				continue
 			to_chat(collateral, span_userdanger("The shockwave from [owner.color_name]'s explosive punch hits you, injuring you!"))
-			collateral.take_overall_damage(brute = rand(10, 15), stamina = rand(5, 15))
+			collateral.apply_damage(rand(10, 15), BRUTE)
+			collateral.stamina.adjust(-1 * rand(5, 15))
 			collateral.log_message("was hit by collateral damage from [key_name(owner)] attacking [key_name(target)]", LOG_ATTACK)
 			owner.log_message("dealt collateral damage to [key_name(collateral)] while attacking [key_name(target)]", LOG_ATTACK, log_globally = FALSE)
 

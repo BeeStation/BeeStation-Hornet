@@ -85,8 +85,12 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 28
+	damage = 0
 	damage_type = STAMINA
+	disorient_length = 2 SECONDS
+	disorient_damage = 50
+	disorient_status_length = 4 SECONDS
+	disorient_stack_status = FALSE
 	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
@@ -98,8 +102,7 @@
 
 /obj/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
 	name = "beam-disabler"
-	damage = 50
-	damage_type = STAMINA
+	disorient_damage = 90
 	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
 /obj/projectile/beam/pulse
@@ -199,7 +202,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.adjustStaminaLoss(34)
+				M.stamina.adjust(-34)
 
 /obj/projectile/beam/lasertag/redtag
 	icon_state = "laser"

@@ -34,7 +34,9 @@
 /obj/projectile/bullet/c38/match/bouncy
 	name = ".38 Bouncy Rubber bullet"
 	damage = 7
-	stamina = 27
+	disorient_length = 1 SECONDS
+	disorient_damage = 30
+	disorient_status_length = 4 SECONDS
 	bleed_force = BLEED_SCRATCH
 	ricochets_max = 5
 	ricochet_incidence_leeway = 70

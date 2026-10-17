@@ -121,6 +121,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/extinguisher_cabinet)
 	if(opened && broken)
 		to_chat(user, span_warning("[src] is broken open."))
 	else
+		user.animate_interact(src)
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 		opened = !opened
 		update_icon()

@@ -147,7 +147,7 @@
 	need_mob_update += source.adjustFireLoss(-2, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-2, updating_health = FALSE, forced = TRUE) // Slimes are people too
 	need_mob_update += source.adjustOxyLoss(-0.5, updating_health = FALSE)
-	need_mob_update += source.adjustStaminaLoss(-2, updating_stamina = FALSE)
+	source.stamina.adjust(2)
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc
@@ -351,7 +351,7 @@
 	need_mob_update += source.adjustFireLoss(-4, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-4, updating_health = FALSE, forced = TRUE)
 	need_mob_update += source.adjustOxyLoss(-4, updating_health = FALSE)
-	need_mob_update += source.adjustStaminaLoss(-20, updating_stamina = FALSE)
+	need_mob_update += source.stamina.adjust(20)
 	if(need_mob_update)
 		source.updatehealth()
 
