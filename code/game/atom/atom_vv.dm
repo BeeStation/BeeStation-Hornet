@@ -17,6 +17,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_IRRADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
+	VV_DROPDOWN_OPTION(VV_HK_TEST_MATRIXES, "Test Matrices")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
 	if(greyscale_colors)
@@ -154,12 +155,13 @@
 		ai_controller = new result(src)
 
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_filter_editor(src)
+		usr.client?.open_filter_editor(src)
 
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
-		var/client/C = usr.client
-		C?.open_color_matrix_editor(src)
+		usr.client?.open_color_matrix_editor(src)
+
+	if(href_list[VV_HK_TEST_MATRIXES] && check_rights(R_VAREDIT))
+		usr.client?.open_matrix_tester(src)
 
 /atom/vv_get_header()
 	. = ..()

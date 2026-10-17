@@ -175,6 +175,9 @@
 	/// Active acting head role, if any
 	var/datum/access_grant/acting_head/acting_head
 
+	/// Icons to be displayed in the orbit ui. Source: FontAwesome v6 Free Edition.
+	var/orbit_icon
+
 	/// Access levels held by this card.
 	var/list/access = list()
 	/// Mapping aid for access

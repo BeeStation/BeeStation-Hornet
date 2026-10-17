@@ -24,7 +24,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/emissive_blocker)
 
 	render_source = source
 	// Set the colour to be more opaque meaning more black.
-	color = GLOB.em_blocker_matrix
+	color = GLOB.em_block_color
 	// Join the layer of our source object, so that we can respect layering
 	layer = loc.layer
 

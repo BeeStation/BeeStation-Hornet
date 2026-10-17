@@ -4,7 +4,7 @@ import { useBackend } from '../backend';
 import { BlockQuote, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
-import { Objective, ObjectivesSection } from './common/ObjectiveSection';
+import { Objective, ObjectivesSection } from './common/Objectives';
 
 const badstyle = {
   color: 'red',

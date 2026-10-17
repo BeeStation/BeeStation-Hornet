@@ -64,10 +64,5 @@
 #define DATA_HUD_AI_DETECT 8
 #define DATA_HUD_HACKED_APC 9
 
-// Notification action types
-#define NOTIFY_JUMP "jump"
-#define NOTIFY_ATTACK "attack"
-#define NOTIFY_ORBIT "orbit"
-
 /// cooldown for being shown the images for any particular data hud
 #define ADD_HUD_TO_COOLDOWN 20
