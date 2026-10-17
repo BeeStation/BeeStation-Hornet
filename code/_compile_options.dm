@@ -60,10 +60,6 @@
 
 /////////////////////// ZMIMIC
 
-///Enables Multi-Z lighting
-/// Doesn't work and causes artifacts when lights are deleted
-//#define ZMIMIC_LIGHT_BLEED
-
 ///Enables multi-z speech
 #define ZMIMIC_MULTIZ_SPEECH
 

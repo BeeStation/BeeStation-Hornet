@@ -37,12 +37,6 @@ Lighting is copied in the z-copy subsystem during atom copying. If the z-copy su
 
 The lighting subsystem then will perform an update on the multiplier whenever it changes a turf that is being mimiced, again reducing overhead. This is done in `lighting_object/proc/update()`, where copy_lighting is directly called onto the `shadower`, which is a direct link to a turf's multiplier object. This part is not queued into the subsystem since that would be a waste of processing.
 
-#### MultiZ Lighting
-
-MultiZ Lighting is only tangentially related to Z-Mimic, however it works by simply adding `update_below_lumcount`, `UPDATE_SUM_LUM` and `UPDATE_ABOVE_LUM`.
-
-`UPDATE_SUM_LUM` determines the turf's current luminosity by using the lum of the turf above and below the current one added. Then, `UPDATE_ABOVE_LUM` is called on the turf above the current one, if any. The turf has its lighting generated using `UPDATE_SUM_LUM` again, and then the turf above also updates the turf below with its own luminosity (via `update_below_lumcount`, again using `UPDATE_SUM_LUM`), if any. Now that both corners are generated `UPDATE_ABOVE_LUM` will not recurse.
-
 ### Ambient Occlusion
 
 Adding ambient occlusion to game objects is current done through a client plane master filter adding drop shadow to all objects. Z-Mimic was not designed with this in mind, as planes are used for ordering and not effects, and thus does not support it natively, unless overlay AO is used. This means any objects rendered via Z-mimic will lack any ambient occlusion. This also means that openspace edges will not render darker at the edges, like they previously did. However, a workaround has been made. A drop_shadow added to FLOOR_PLANE means that any edges on the floor plane (openspace) will render a shadow, functionally recreating the drop shadow. However, this may have a negative impact on client performance.
