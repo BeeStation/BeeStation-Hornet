@@ -18,10 +18,6 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SERVICE,
 	)
-	extra_access = list(
-		ACCESS_BAR,
-		ACCESS_KITCHEN,
-	)
 
 	departments_list = list(
 		/datum/department_group/service,

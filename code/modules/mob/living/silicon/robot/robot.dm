@@ -539,10 +539,10 @@
 	if(!istype(I, /obj/item/card/id) && isitem(I))
 		I = I.GetID()
 
-	if(!I || !length(I.access)) //not ID or no access
+	if(!I || !length(I.GetAccess())) //not ID or no access
 		return 0
 	for(var/req in req_access)
-		if(!(req in I.access))
+		if(!(req in I.GetAccess()))
 			return 0 //doesn't have this access
 	return 1
 

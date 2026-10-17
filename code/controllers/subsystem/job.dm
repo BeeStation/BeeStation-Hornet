@@ -68,6 +68,12 @@ SUBSYSTEM_DEF(job)
 	/// Dictionary that maps job priorities to low/medium/high. Keys have to be number-strings as assoc lists cannot be indexed by integers. Set in setup_job_lists.
 	var/list/job_priorities_to_strings
 
+	/// Access only heads of staff start with
+	var/list/head_only_access = list()
+	var/list/datum/skeleton_access/skeleton_rules = list()
+	var/list/skeleton_access_by_job = list()
+	var/list/datum/access_grant/acting_head/acting_heads = list()
+
 /datum/controller/subsystem/job/Initialize()
 	if(!length(all_occupations))
 		setup_occupations()
@@ -88,6 +94,11 @@ SUBSYSTEM_DEF(job)
 			crew_obj_jobs["[job]"] += list(type)
 		qdel(obj)
 
+	setup_head_only_access()
+	for(var/rule_type in subtypesof(/datum/skeleton_access))
+		skeleton_rules += new rule_type
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
+
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/Recover()
@@ -105,6 +116,12 @@ SUBSYSTEM_DEF(job)
 	spare_id_safe_code = SSjob.spare_id_safe_code
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
+
+	head_only_access = SSjob.head_only_access
+	skeleton_rules = SSjob.skeleton_rules
+	skeleton_access_by_job = SSjob.skeleton_access_by_job
+	acting_heads = SSjob.acting_heads
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
 
 /// Returns a list of jobs that we are allowed to fuck with during random events
 /datum/controller/subsystem/job/proc/get_valid_overflow_jobs()
@@ -271,14 +288,15 @@ SUBSYSTEM_DEF(job)
 		player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Joined the station as a roundstart crew member.")
 	return TRUE
 
-/datum/controller/subsystem/job/proc/FreeRole(rank)
-	if(!rank)
+/datum/controller/subsystem/job/proc/FreeRole(job_or_type)
+	if(!job_or_type)
 		return
-	job_debug("Freeing role: [rank]")
-	var/datum/job/job = get_job_type(rank)
+	job_debug("Freeing role: [job_or_type]")
+	var/datum/job/job = istype(job_or_type, /datum/job) ? job_or_type : get_job_type(job_or_type)
 	if(!job)
 		return FALSE
 	job.current_positions = max(0, job.current_positions - 1)
+	refresh_skeleton_access()
 
 /datum/controller/subsystem/job/proc/find_occupation_candidates(datum/job/job, level)
 	job_debug("FOC: Now running, Job: [job], Level: [job_priority_level_to_string(level)]")
@@ -470,6 +488,8 @@ SUBSYSTEM_DEF(job)
 
 	//Scale number of open security officer slots to population
 	setup_officer_positions()
+	// Must run before characters are equipped
+	refresh_skeleton_access()
 	job_debug("All divide occupations tasks completed.")
 	job_debug("---------------------------------------------------")
 	return TRUE
@@ -862,6 +882,49 @@ SUBSYSTEM_DEF(job)
 			continue
 		. += head
 
+/datum/controller/subsystem/job/proc/setup_head_only_access()
+	var/list/crew_access = list()
+	for(var/datum/job/job as anything in all_occupations)
+		if(!(job.job_flags & JOB_HEAD_OF_STAFF))
+			crew_access |= job.base_access
+	head_only_access = get_all_accesses() - crew_access
+
+/datum/controller/subsystem/job/proc/on_job_after_latejoin_spawn(datum/source, datum/job/job, mob/living/spawning)
+	SIGNAL_HANDLER
+	refresh_skeleton_access()
+
+/datum/controller/subsystem/job/proc/refresh_skeleton_access()
+	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
+		rule.refresh()
+
+/datum/controller/subsystem/job/proc/update_skeleton_access()
+	skeleton_access_by_job = list()
+	for(var/datum/job/job as anything in all_occupations)
+		var/list/job_access = list()
+		for(var/datum/skeleton_access/rule as anything in skeleton_rules)
+			if(rule.enabled && rule.applies_to(job.title))
+				job_access |= rule.access
+		if(length(job_access))
+			skeleton_access_by_job[job.title] = job_access
+
+/datum/controller/subsystem/job/proc/get_skeleton_rules_for(job_title)
+	. = list()
+	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
+		if(rule.enabled && rule.applies_to(job_title))
+			. += rule
+
+/// Filled job slots. KEEP THIS UNCHANGED if death occurs
+/datum/controller/subsystem/job/proc/get_crew_count()
+	. = 0
+	for(var/datum/job/job as anything in all_occupations)
+		. += job.current_positions
+
+/datum/controller/subsystem/job/proc/has_acting_head(title)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		if(acting_head.job.title == title)
+			return TRUE
+	return FALSE
+
 /// Returns a list of minds of all heads of staff
 /datum/controller/subsystem/job/proc/get_all_heads()
 	. = list()
@@ -927,15 +990,17 @@ SUBSYSTEM_DEF(job)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
 	if(acting_captain)
-		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
+		to_chat(H, span_notice("Due to your position in the chain of command, you have been appointed Acting Captain. As a backup, the code to the captain's spare ID safe on the Bridge is [where]."))
 	else
 		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
-	// Force-give their ID card bridge access.
-	if(H.wear_id?.GetID())
-		var/obj/item/card/id/id_card = H.wear_id
-		if(!(ACCESS_HEADS in id_card.access))
-			LAZYADD(id_card.access, ACCESS_HEADS)
+	var/obj/item/card/id/id_card = H.wear_id?.GetID()
+	if(!id_card)
+		stack_trace("Promoted [H.real_name] to Captain without an ID card.")
+	if(acting_captain)
+		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", announce = FALSE)
+	else
+		id_card?.add_access(ACCESS_HEADS, "captaincy")
 
 	assigned_captain = TRUE
 
@@ -958,9 +1023,10 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/has_minimum_jobs(crew_threshold, list/jobs = list(), list/head_jobs = list())
 	var/employees = 0
 	for(var/datum/record/crew/target in GLOB.manifest.general)
-		if(target.rank in head_jobs)
+		var/list/titles = list(target.job_title || target.rank, target.acting_job_title)
+		if(length(titles & head_jobs))
 			return TRUE
-		if(target.rank in jobs)
+		if(length(titles & jobs))
 			employees++
 
 	if(employees >= crew_threshold)
