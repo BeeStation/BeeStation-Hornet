@@ -256,6 +256,7 @@
 		inhand_icon_change = FALSE, \
 	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+	RegisterSignal(src, COMSIG_DETECTIVE_SCANNED, PROC_REF(on_scan))
 
 /obj/item/pen/edagger/suicide_act(mob/living/user)
 	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
@@ -296,6 +297,9 @@
 	set_light_on(active)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
+/obj/item/pen/edagger/proc/on_scan(datum/source, mob/user, list/extra_data)
+	SIGNAL_HANDLER
+	LAZYADD(extra_data[DETSCAN_CATEGORY_ILLEGAL], "Hard-light generator detected.")
 
 /*
  * Screwdriver Pen

@@ -571,6 +571,13 @@
 	if(!operating)	//If the APC is off, lets not have it draw?
 		lastused_total = 0
 
+	// Only static users are billed here. Dynamic draw is already paid for at the call site in use_power().
+	var/static_usage = 0
+	if(operating)
+		static_usage += APC_CHANNEL_IS_ON(lighting) * area.power_usage[AREA_USAGE_STATIC_LIGHT]
+		static_usage += APC_CHANNEL_IS_ON(equipment) * area.power_usage[AREA_USAGE_STATIC_EQUIP]
+		static_usage += APC_CHANNEL_IS_ON(environ) * area.power_usage[AREA_USAGE_STATIC_ENVIRON]
+
 	//store states to update icon if any change
 	var/last_lt = lighting
 	var/last_eq = equipment
@@ -609,8 +616,8 @@
 		environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
-		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
-		var/remaining_load = lastused_total - surplus_used
+		var/surplus_used = min(surplus(), static_usage)	//Here we're using the powernet to meet demand
+		var/remaining_load = static_usage - surplus_used
 		add_load(surplus_used)
 		if(remaining_load)	// Here we're using cell charge to meet demand (if any and whatever is left even if all)
 			charging = APC_NOT_CHARGING

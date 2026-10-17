@@ -21,7 +21,6 @@ Reproductive extracts:
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/food/monkeycube)
 	create_storage(storage_type = /datum/storage/extract_inventory)
-	atom_storage.can_hold = typecache_to_take
 
 /obj/item/slimecross/reproductive/examine()
 	. = ..()
@@ -53,7 +52,7 @@ Reproductive extracts:
 		return
 
 	else if(istype(O, /obj/item/food/monkeycube))
-		if(atom_storage?.attempt_insert(O, user, override = TRUE, force = TRUE))
+		if(atom_storage?.attempt_insert(O, user, override = TRUE, force = STORAGE_FULLY_LOCKED))
 			to_chat(user, span_notice("You feed a Monkey Cube to [src], and it pulses gently."))
 			slime_storage?.process_cubes(src, user)
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)

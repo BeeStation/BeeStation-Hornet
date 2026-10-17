@@ -54,9 +54,9 @@
 	organ_owner.clear_alert(ALERT_ETHEREAL_OVERCHARGE)
 	update_powered_organs(organ_owner)
 
-/obj/item/organ/stomach/electrical/proc/charge(datum/source, amount, repairs)
+/obj/item/organ/stomach/electrical/proc/charge(datum/source, datum/callback/charge_cell, seconds_per_tick, repairs)
 	SIGNAL_HANDLER
-	adjust_charge(amount / 3.5)
+	charge_cell.Invoke(cell, seconds_per_tick / 3.5)
 
 /**Changes the energy of the electrical stomach.
 * Args:

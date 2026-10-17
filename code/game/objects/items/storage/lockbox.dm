@@ -50,14 +50,12 @@
 	return TRUE
 
 /obj/item/storage/lockbox/proc/toggle_locked(mob/living/user)
-	atom_storage.locked = !atom_storage.locked
-	update_appearance(UPDATE_ICON_STATE)
+	atom_storage.set_locked(atom_storage.locked ? STORAGE_NOT_LOCKED : STORAGE_FULLY_LOCKED)
 	balloon_alert(user, atom_storage.locked ? "locked" : "unlocked")
 
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
-	atom_storage.locked = FALSE
-	update_appearance(UPDATE_ICON_STATE)
+	atom_storage.set_locked(STORAGE_NOT_LOCKED)
 	user?.visible_message(span_warning("[user] breaks [src] with an electromagnetic card!"))
 
 /obj/item/storage/lockbox/loyalty
@@ -85,10 +83,12 @@
 		context.add_alt_click_action(open ? "Close" : "Open")
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE) || atom_storage.locked)
+	if(!user.canUseTopic(src, BE_CLOSE))
 		return
-	open = !open
-	update_appearance(UPDATE_ICON)
+	if(!atom_storage.locked)
+		open = !open
+		update_appearance(UPDATE_ICON)
+	..()
 
 /obj/item/storage/lockbox/medal/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

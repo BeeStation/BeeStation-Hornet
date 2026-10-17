@@ -127,12 +127,7 @@
 	if(is_robotic)
 		required_tool_type = TOOL_SCREWDRIVER
 
-	if(iscyborg(user))
-		close_tool = locate(/obj/item/cautery) in user.held_items
-		if(!close_tool)
-			patient.balloon_alert(user, "need a cautery in an inactive slot to stop the surgery!")
-			return
-	else if(!close_tool || close_tool.tool_behaviour != required_tool_type)
+	if(!close_tool || close_tool.tool_behaviour != required_tool_type)
 		patient.balloon_alert(user, "need a [is_robotic ? "screwdriver": "cautery"] in your inactive hand to stop the surgery!")
 		return
 
@@ -219,7 +214,7 @@
 	)
 
 /datum/component/surgery_initiator/ui_data(mob/user)
-	var/mob/living/surgery_target = surgery_target_ref.resolve()
+	var/mob/living/surgery_target = surgery_target_ref?.resolve()
 
 	var/list/surgeries = list()
 	if (!isnull(surgery_target))
@@ -246,10 +241,6 @@
 	return ..()
 
 /datum/component/surgery_initiator/ui_status(mob/user, datum/ui_state/state)
-	var/obj/item/item_parent = parent
-	if (user != item_parent.loc)
-		return UI_CLOSE
-
 	var/mob/living/surgery_target = surgery_target_ref?.resolve()
 	if (isnull(surgery_target))
 		return UI_CLOSE
@@ -264,7 +255,8 @@
 		return FALSE
 
 	// The item was moved somewhere else
-	if (!(parent in user))
+	var/atom/movable/tool = parent
+	if (tool.loc != user)
 		return FALSE
 
 	// While we were choosing, another surgery was started at the same location

@@ -407,12 +407,25 @@
 /obj/item/organ/cyberimp/arm/botany
 	name = "botanical arm implant"
 	desc = "A rather simple arm implant containing tools used in gardening and botanical research."
-	items_to_create = list(/obj/item/cultivator, /obj/item/shovel/spade, /obj/item/hatchet, /obj/item/plant_analyzer, /obj/item/storage/bag/plants/portaseeder/compact)
+	items_to_create = list(
+		/obj/item/cultivator,
+		/obj/item/shovel/spade,
+		/obj/item/hatchet,
+		/obj/item/plant_analyzer,
+		/obj/item/storage/bag/plants/portaseeder/compact
+	)
 
 /obj/item/organ/cyberimp/arm/janitor
 	name = "janitorial tools implant"
 	desc = "A set of janitorial tools on the user's arm."
-	items_to_create = list(/obj/item/lightreplacer/cyborg, /obj/item/holosign_creator/janibarrier, /obj/item/soap/nanotrasen, /obj/item/reagent_containers/spray/cyborg/drying_agent, /obj/item/mop/advanced/cyborg, /obj/item/paint/paint_remover, /obj/item/reagent_containers/spray/cleaner)
+	items_to_create = list(
+		/obj/item/holosign_creator/janibarrier,
+		/obj/item/soap/nanotrasen,
+		/obj/item/reagent_containers/spray/cyborg/drying_agent,
+		/obj/item/mop/advanced,
+		/obj/item/paint/paint_remover,
+		/obj/item/reagent_containers/spray/cleaner
+	)
 
 /obj/item/organ/cyberimp/arm/janitor/on_emag(mob/user)
 	..()

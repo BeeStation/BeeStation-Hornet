@@ -973,6 +973,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/Destroy()
 	severity = 0
+	master_ref = null
 	owner = null
 	screen_loc = ""
 	return ..()

@@ -733,7 +733,7 @@
 /obj/item/storage/pod/Initialize(mapload)
 	. = ..()
 	if(must_be_locked == TRUE)
-		atom_storage.locked = TRUE
+		atom_storage.set_locked(STORAGE_FULLY_LOCKED)
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(alert_unlock))
 	else
 		add_overlay(icon_opened)
@@ -780,7 +780,7 @@
 	unlock()
 
 /obj/item/storage/pod/proc/unlock()
-	atom_storage.locked = FALSE
+	atom_storage.set_locked(STORAGE_NOT_LOCKED)
 	UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
 
 /obj/item/storage/pod/proc/alert_unlock(datum/source, new_level)

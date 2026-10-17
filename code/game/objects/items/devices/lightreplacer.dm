@@ -263,9 +263,6 @@
 	J.myreplacer = src
 	J.update_icon()
 
-/obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
-
 /obj/item/lightreplacer/bluespace
 	name = "bluespace light replacer"
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."

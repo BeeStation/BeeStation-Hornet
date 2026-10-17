@@ -924,7 +924,7 @@ SUBSYSTEM_DEF(job)
 		"in your backpack" = ITEM_SLOT_BACKPACK,
 		"in your hands" = ITEM_SLOT_HANDS
 	)
-	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
+	var/where = H.equip_in_one_of_slots(paper, slots, FALSE, indirect_action = TRUE) || "at your feet"
 
 	if(acting_captain)
 		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))

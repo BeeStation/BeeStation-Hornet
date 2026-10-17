@@ -91,66 +91,65 @@
 		legcuffed,
 	)
 
-/mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = TRUE)
+/mob/living/carbon/proc/equip_in_one_of_slots(obj/item/equipping, list/slots, qdel_on_fail = TRUE, indirect_action = FALSE)
 	for(var/slot in slots)
-		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = FALSE, disable_warning = TRUE))
+		if(equip_to_slot_if_possible(equipping, slots[slot], disable_warning = TRUE, indirect_action = indirect_action))
 			return slot
 	if(qdel_on_fail)
-		qdel(I)
+		qdel(equipping)
 	return null
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
-/mob/living/carbon/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE)
+/mob/living/carbon/equip_to_slot(obj/item/equipping, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
 	if(!slot)
 		return
-	if(!istype(I))
+	if(!istype(equipping))
 		return
 
-	var/index = get_held_index_of_item(I)
+	var/index = get_held_index_of_item(equipping)
 	if(index)
 		held_items[index] = null
 
-	if(I.pulledby)
-		I.pulledby.stop_pulling()
+	if(equipping.pulledby)
+		equipping.pulledby.stop_pulling()
 
-	I.screen_loc = null
+	equipping.screen_loc = null
 	if(client)
-		client.screen -= I
+		client.screen -= equipping
 	if(observers?.len)
-		for(var/M in observers)
-			var/mob/dead/observe = M
+		for(var/mob/dead/observe as anything in observers)
 			if(observe.client)
-				observe.client.screen -= I
+				observe.client.screen -= equipping
 	//Call pickup behaviour on items put on mobs
-	if(!(I.item_flags & PICKED_UP))
-		I.pickup(src)
-	I.forceMove(src)
-	I.plane = ABOVE_HUD_PLANE
+	if(!(equipping.item_flags & PICKED_UP))
+		equipping.pickup(src)
+	equipping.forceMove(src)
+	equipping.plane = ABOVE_HUD_PLANE
 	var/not_handled = FALSE
 	switch(slot)
 		if(ITEM_SLOT_BACK)
-			back = I
+			back = equipping
 			update_worn_back()
 		if(ITEM_SLOT_MASK)
-			wear_mask = I
-			wear_mask_update(I, toggle_off = 0)
+			wear_mask = equipping
+			wear_mask_update(equipping, toggle_off = 0)
 		if(ITEM_SLOT_HEAD)
-			head = I
-			head_update(I)
+			head = equipping
+			head_update(equipping)
 		if(ITEM_SLOT_NECK)
-			wear_neck = I
-			update_worn_neck(I)
+			wear_neck = equipping
+			update_worn_neck(equipping)
 		if(ITEM_SLOT_HANDCUFFED)
-			set_handcuffed(I)
+			set_handcuffed(equipping)
 			update_handcuffed()
 		if(ITEM_SLOT_LEGCUFFED)
-			legcuffed = I
+			legcuffed = equipping
 			update_worn_legcuffs()
 		if(ITEM_SLOT_HANDS)
-			put_in_hands(I)
+			put_in_hands(equipping)
 			update_held_items()
 		if(ITEM_SLOT_BACKPACK)
-			if(!back || !back.atom_storage?.attempt_insert(I, src, override = TRUE))
+			if(!back || !back.atom_storage?.attempt_insert(equipping, src, override = TRUE, force = indirect_action ? STORAGE_SOFT_LOCKED : STORAGE_NOT_LOCKED))
 				not_handled = TRUE
 		else
 			not_handled = TRUE
@@ -159,40 +158,40 @@
 	//We cannot call it for items that have not been handled as they are not yet correctly
 	//in a slot (handled further down inheritance chain, probably living/carbon/human/equip_to_slot
 	if(!not_handled)
-		has_equipped(I, slot)
+		has_equipped(equipping, slot, initial)
 		hud_used?.update_locked_slots()
 
 	return not_handled
 
-/mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
+/mob/living/carbon/doUnEquip(obj/item/item_dropping, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	. = ..() //Sets the default return value to what the parent returns.
-	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+	if(!. || !item_dropping) //We don't want to set anything to null if the parent returned 0.
 		return
 
 	var/not_handled = FALSE //if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
-	if(I == head)
+	if(item_dropping == head)
 		head = null
 		if(!QDELETED(src))
-			head_update(I)
-	else if(I == back)
+			head_update(item_dropping)
+	else if(item_dropping == back)
 		back = null
 		if(!QDELETED(src))
 			update_worn_back()
-	else if(I == wear_mask)
+	else if(item_dropping == wear_mask)
 		wear_mask = null
 		if(!QDELETED(src))
-			wear_mask_update(I, toggle_off = 1)
-	if(I == wear_neck)
+			wear_mask_update(item_dropping, toggle_off = 1)
+	if(item_dropping == wear_neck)
 		wear_neck = null
 		if(!QDELETED(src))
-			update_worn_neck(I)
-	else if(I == handcuffed)
+			update_worn_neck(item_dropping)
+	else if(item_dropping == handcuffed)
 		set_handcuffed(null)
 		if(buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		if(!QDELETED(src))
 			update_handcuffed()
-	else if(I == legcuffed)
+	else if(item_dropping == legcuffed)
 		legcuffed = null
 		if(!QDELETED(src))
 			update_worn_legcuffs()
@@ -200,7 +199,7 @@
 		not_handled = TRUE
 
 
-	if(I == internal && (QDELETED(src) || QDELETED(I) || I.loc != src))
+	if(item_dropping == internal && (QDELETED(src) || QDELETED(item_dropping) || item_dropping.loc != src))
 		cutoff_internals()
 		if(!QDELETED(src))
 			update_action_buttons_icon(status_only = TRUE)
@@ -209,7 +208,7 @@
 		return
 
 	update_equipment_speed_mods()
-	update_obscured_slots(I.flags_inv)
+	update_obscured_slots(item_dropping.flags_inv)
 	hud_used?.update_locked_slots()
 
 /// Returns TRUE if an air tank compatible helmet is equipped.

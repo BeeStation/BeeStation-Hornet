@@ -737,13 +737,13 @@
 			return host.loc
 	return null
 
-/obj/item/borg/projectile_dampen/dropped()
-	..()
-	host = loc
-
 /obj/item/borg/projectile_dampen/equipped()
-	. = ..()
 	host = loc
+	return ..()
+
+/obj/item/borg/projectile_dampen/dropped()
+	host = loc
+	return ..()
 
 /obj/item/borg/projectile_dampen/cyborg_unequip(mob/user)
 	if(!active)
@@ -800,8 +800,23 @@
 						HUD/SIGHT things
 ***********************************************************************/
 /obj/item/borg/sight
+	icon = 'icons/obj/clothing/glasses.dmi'
+	///Define to a sight mode that we give to a cyborg while this item is equipped.
 	var/sight_mode = null
 
+/obj/item/borg/sight/equipped(mob/living/silicon/robot/user, slot, initial = FALSE)
+	. = ..()
+	if(!iscyborg(user))
+		return .
+	user.sight_mode |= sight_mode
+	user.update_sight()
+
+/obj/item/borg/sight/dropped(mob/living/silicon/robot/user, silent)
+	if(!iscyborg(user))
+		return ..()
+	user.sight_mode &= ~sight_mode
+	user.update_sight()
+	return ..()
 
 /obj/item/borg/sight/xray
 	name = "\proper X-ray vision"
@@ -851,227 +866,5 @@
 /obj/item/borg/sight/hud/sec/Initialize(mapload)
 	. = ..()
 	hud = new /obj/item/clothing/glasses/hud/security(src)
-
-/**********************************************************************
-						Borg apparatus
-***********************************************************************/
-//These are tools that can hold only specific items. For example, the mediborg and service borg get one that can only hold reagent containers
-
-/obj/item/borg/apparatus
-	name = "unknown storage apparatus"
-	desc = "This device seems nonfunctional."
-	icon = 'icons/mob/robot_items.dmi'
-	icon_state = "hugmodule"
-	/// The item stored inside of this apparatus
-	var/obj/item/stored
-	/// Whitelist of types allowed in this apparatus
-	var/list/storable = list()
-
-/obj/item/borg/apparatus/Initialize(mapload)
-	. = ..()
-	RegisterSignal(loc.loc, COMSIG_BORG_SAFE_DECONSTRUCT, PROC_REF(safedecon))
-
-/obj/item/borg/apparatus/Destroy()
-	QDEL_NULL(stored)
-	return ..()
-
-///If we're safely deconstructed, we put the item neatly onto the ground, rather than deleting it.
-/obj/item/borg/apparatus/proc/safedecon()
-	SIGNAL_HANDLER
-
-	if(stored)
-		stored.forceMove(get_turf(src))
-		stored = null
-
-/obj/item/borg/apparatus/Exited(atom/movable/gone, direction)
-	if(gone == stored) //sanity check
-		UnregisterSignal(stored, COMSIG_ATOM_UPDATE_ICON)
-		stored = null
-	update_appearance(UPDATE_ICON)
-	return ..()
-
-///A right-click verb, for those not using hotkey mode.
-/obj/item/borg/apparatus/verb/verb_dropHeld()
-	set category = "Object"
-	set name = "Drop"
-
-	if(usr != loc || !stored)
-		return
-	stored.forceMove(get_turf(usr))
-
-/obj/item/borg/apparatus/get_proxy_attacker_for(atom/target, mob/user)
-	return stored || ..() // Use the stored item if available
-
-/obj/item/borg/apparatus/attack_self(mob/living/user, list/modifiers)
-	if(!stored || !issilicon(user))
-		return ..()
-	stored.attack_self(user, modifiers)
-
-//Alt click drops stored item
-/obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(!stored)
-		return ..()
-	stored.forceMove(get_turf(user))
-
-/obj/item/borg/apparatus/pre_attack(atom/target, mob/living/user, list/modifiers)
-	if(istype(target.loc, /mob/living/silicon/robot) || istype(target.loc, /obj/item/robot_model) || HAS_TRAIT(target, TRAIT_NODROP))
-		return ..() // Borgs should not be grabbing their own modules
-
-	if(!is_type_in_list(target, storable))
-		return ..()
-
-	var/obj/item/item_target = target
-	item_target.forceMove(src)
-	stored = item_target
-	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_stored_updated_icon))
-	update_appearance(UPDATE_ICON)
-	return TRUE
-
-/**
- * Updates the appearance of the apparatus when the stored object's icon gets updated.
- *
- * Returns NONE as we have not done anything to the stored object itself,
- * which is where this signal that this handler intercepts is sent from.
- */
-/obj/item/borg/apparatus/proc/on_stored_updated_icon(datum/source, updates)
-	SIGNAL_HANDLER
-	update_appearance(UPDATE_ICON)
-	return NONE
-
-/obj/item/borg/apparatus/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(!stored)
-		return NONE
-	tool.melee_attack_chain(user, stored, modifiers)
-	return ITEM_INTERACT_SUCCESS
-
-////////////////////
-//container holder//
-////////////////////
-
-/obj/item/borg/apparatus/container
-	name = "container storage apparatus"
-	desc = "A special apparatus for carrying containers without spilling the contents. It can also synthesize new beakers!"
-	icon_state = "borg_beaker_apparatus"
-	storable = list(/obj/item/reagent_containers/cup)
-	var/defaultcontainer = /obj/item/reagent_containers/cup/beaker
-
-/obj/item/borg/apparatus/container/examine()
-	. = ..()
-	//apparatus/container/service means this will not always be true.
-	if(istype(stored, /obj/item/reagent_containers/cup))
-		var/obj/item/reagent_containers/C = stored
-		. += "The apparatus currently has [C] secured, which contains:"
-		if(length(C.reagents.reagent_list))
-			for(var/datum/reagent/R in C.reagents.reagent_list)
-				. += "[R.volume] units of [R.name]"
-		else
-			. += "Nothing."
-		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
-
-/obj/item/borg/apparatus/container/update_overlays()
-	. = ..()
-	var/mutable_appearance/arm = mutable_appearance(icon = icon, icon_state = "borg_beaker_apparatus_arm")
-	if(stored)
-		stored.pixel_x = 0
-		stored.pixel_y = 0
-		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
-		if(istype(stored, /obj/item/reagent_containers/cup/beaker))
-			arm.pixel_y = arm.pixel_y - 3
-		stored_copy.layer = FLOAT_LAYER
-		stored_copy.plane = FLOAT_PLANE
-		. += stored_copy
-	else
-		arm.pixel_y = arm.pixel_y - 5
-	. += arm
-
-/obj/item/borg/apparatus/container/attack_self(mob/living/silicon/robot/user)
-	if(!stored)
-		stored = new defaultcontainer(src)
-		to_chat(user, span_notice("You synthesize a new [stored]!"))
-		playsound(src, 'sound/machines/click.ogg', 10, TRUE)
-		update_icon()
-		return
-	if(!user.client?.keys_held["Alt"] && user.combat_mode)
-		var/obj/item/reagent_containers/C = stored
-		C.splash_reagents(get_turf(user), user)
-		loc.visible_message(span_notice("[user] spills the contents of the [C] all over the floor."))
-		return
-	return ..()
-
-/obj/item/borg/apparatus/container/extra
-	name = "container storage apparatus"
-	desc = "A supplementary container storage apparatus."
-
-////////////////////
-//engi part holder//
-////////////////////
-
-/obj/item/borg/apparatus/circuit
-	name = "circuit manipulation apparatus"
-	desc = "A special apparatus for carrying and manipulating circuit boards."
-	icon_state = "borg_hardware_apparatus"
-	storable = list(/obj/item/circuitboard,
-				/obj/item/electronics)
-
-/obj/item/borg/apparatus/circuit/Initialize(mapload)
-	. = ..()
-	update_icon()
-
-/obj/item/borg/apparatus/circuit/update_overlays()
-	. = ..()
-	var/mutable_appearance/arm = mutable_appearance(icon, "borg_hardware_apparatus_arm1")
-	if(stored)
-		stored.pixel_x = -3
-		stored.pixel_y = 0
-		if(!istype(stored, /obj/item/circuitboard))
-			arm.icon_state = "borg_hardware_apparatus_arm2"
-		var/mutable_appearance/stored_copy = new /mutable_appearance(stored)
-		stored_copy.layer = FLOAT_LAYER
-		stored_copy.plane = FLOAT_PLANE
-		. += stored_copy
-	. += arm
-
-/obj/item/borg/apparatus/circuit/examine()
-	. = ..()
-	if(stored)
-		. += "The apparatus currently has [stored] secured."
-		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
-
-/obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, list/modifiers)
-	. = ..()
-	if(istype(A, /obj/item/ai_module) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
-		to_chat(user, span_warning("This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up."))
-
-////////////////////
-//versatile service holder//
-////////////////////
-
-/obj/item/borg/apparatus/container/service
-	name = "versatile service grasper"
-	desc = "Specially designed for carrying glasses, food and seeds. It can also synthesize glasses for drinks!"
-	storable = list(
-	/obj/item/food,
-	/obj/item/reagent_containers/condiment,
-	/obj/item/reagent_containers/cup,
-	/obj/item/seeds,
-	/obj/item/storage/fancy/donut_box,
-	/obj/item/storage/fancy/egg_box,
-	/obj/item/cigarette,
-	/obj/item/storage/fancy/cigarettes,
-	/obj/item/reagent_containers/cup/beaker,
-	/obj/item/reagent_containers/cup/bottle,
-	/obj/item/reagent_containers/cup/bucket
-	)
-	defaultcontainer = /obj/item/reagent_containers/cup/glass/drinkingglass
-
-
-/obj/item/borg/apparatus/container/service/examine()
-	. = ..()
-	//Parent type handles this type. All other objects held are handled here.
-	if(!istype(stored, /obj/item/reagent_containers/cup))
-		. += "You are currently holding [stored]."
-		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
 #undef PKBORG_DAMPEN_CYCLE_DELAY
