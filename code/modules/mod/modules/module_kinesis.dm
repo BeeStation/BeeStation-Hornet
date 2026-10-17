@@ -30,6 +30,8 @@
 	var/datum/beam/kinesis_beam
 	/// Overlay we add to each grabbed atom.
 	var/mutable_appearance/kinesis_icon
+	/// Emissive overlay we add to each grabbed atom.
+	var/mutable_appearance/kinesis_emissive
 	/// Our mouse movement catcher.
 	var/atom/movable/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
@@ -167,8 +169,8 @@
 	playsound(grabbed_atom, 'sound/effects/contractorbatonhit.ogg', 75, TRUE)
 	kinesis_icon = mutable_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1)
 	kinesis_icon.appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM
-	kinesis_icon.overlays += emissive_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis")
-	grabbed_atom.add_overlay(kinesis_icon)
+	kinesis_emissive = emissive_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1, appearance_flags = RESET_ALPHA|RESET_TRANSFORM)
+	grabbed_atom.add_overlay(list(kinesis_icon, kinesis_emissive))
 	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
 	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
 	kinesis_catcher.assign_to_mob(mod.wearer)
@@ -185,7 +187,7 @@
 	UnregisterSignal(grabbed_atom, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_SET_ANCHORED))
 	kinesis_catcher = null
 	mod.wearer.clear_fullscreen("kinesis")
-	grabbed_atom.cut_overlay(kinesis_icon)
+	grabbed_atom.cut_overlay(list(kinesis_icon, kinesis_emissive))
 	QDEL_NULL(kinesis_beam)
 	if(isliving(grabbed_atom))
 		REMOVE_TRAIT(grabbed_atom, TRAIT_IMMOBILIZED, REF(src))

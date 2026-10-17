@@ -100,3 +100,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
 		LIGHTING_PLANE,
 		LIGHTING_PLANE_ADDITIVE,
 	)
+
+/atom/movable/plane_master_controller/game/Initialize(mapload, datum/hud/hud)
+	for(var/plane in ZMIMIC_MAX_PLANE to ZMIMIC_MAX_PLANE - ZMIMIC_MAX_DEPTH step -1)
+		controlled_planes += plane
+	return ..()

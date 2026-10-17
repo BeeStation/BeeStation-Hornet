@@ -212,7 +212,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		return
 
 /obj/machinery/disposal/proc/flushAnimation()
-	flick("[icon_state]-flush", src)
+	z_flick("[icon_state]-flush", src)
 
 // called when holder is expelled from a disposal
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)

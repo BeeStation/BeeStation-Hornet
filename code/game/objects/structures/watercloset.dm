@@ -305,7 +305,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14))
 	if(istype(O, /obj/item/melee/baton/security))
 		var/obj/item/melee/baton/security/baton = O
 		if(baton.cell?.charge && baton.active)
-			flick("baton_active", src)
+			z_flick("baton_active", src)
 			user.Paralyze(baton.knockdown_time)
 			user.set_stutter(baton.knockdown_time)
 			baton.cell.use(baton.cell_hit_cost)

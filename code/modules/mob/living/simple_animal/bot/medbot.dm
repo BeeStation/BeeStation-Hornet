@@ -320,7 +320,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 		if(user)
 			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
 		audible_message(span_danger("[src] buzzes oddly!"))
-		flick("medibot_spark", src)
+		z_flick("medibot_spark", src)
 		playsound(src, "sparks", 75, TRUE)
 		if(user)
 			oldpatient = user

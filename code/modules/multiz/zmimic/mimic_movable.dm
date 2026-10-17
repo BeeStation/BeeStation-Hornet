@@ -114,7 +114,6 @@
 		return
 	icon_state = "dark"
 	luminosity = 0
-	// Underlay lighting stuff, if it gets ported: appearance = lighting_object.current_underlay
 	appearance = lighting_object
 	layer = MIMICKED_LIGHTING_LAYER
 	plane = ZMIMIC_MAX_PLANE
@@ -179,12 +178,38 @@
 /atom/movable/openspace/mimic/Destroy()
 	SSzcopy.openspace_overlays -= 1
 	queued = 0
+	if (HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
+		lose_hearing_sensitivity()
 	if (associated_atom)
 		associated_atom.bound_overlay = null
 		associated_atom = null
 	if (destruction_timer)
 		deltimer(destruction_timer)
 	return ..()
+
+/// Copies the data huds and alternate appearances of the given atom.
+/atom/movable/openspace/mimic/proc/copy_huds(atom/movable/target)
+	hud_list = list()
+	for(var/hud_category in target.hud_list)
+		var/image/target_hud_image = target.hud_list[hud_category]
+		if(!isimage(target_hud_image) || target.alternate_appearances?[hud_category])
+			continue
+		var/image/mimic_hud_image = image(loc = src)
+		mimic_hud_image.appearance = target_hud_image.appearance
+		hud_list[hud_category] = mimic_hud_image
+		if(target.active_hud_list?[hud_category])
+			LAZYSET(active_hud_list, hud_category, mimic_hud_image)
+
+	for(var/datum/atom_hud/hud as anything in GLOB.all_huds)
+		if(hud.hud_atoms_all_z_levels[target] && !istype(hud, /datum/atom_hud/alternate_appearance))
+			hud.add_atom_to_hud(src)
+
+	// Ghost versions come after their parent, whose copy makes its own
+	for(var/key in target.alternate_appearances)
+		if(alternate_appearances?[key])
+			continue
+		var/datum/atom_hud/alternate_appearance/basic/alt_appearance = target.alternate_appearances[key]
+		alt_appearance.mimic(src)
 
 /atom/movable/openspace/mimic/attackby(obj/item/W, mob/user)
 	to_chat(user, span_notice("\The [src] is too far away."))
@@ -207,14 +232,38 @@
 	else if (!destruction_timer)
 		destruction_timer = QDEL_IN_STOPPABLE(src, 10 SECONDS)
 
+/atom/movable/openspace/mimic/newtonian_move(direction, instant)
+	return TRUE
+
+/atom/movable/openspace/mimic/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range = 0)
+	var/turf/speaker_turf = get_turf(speaker)
+	var/turf/our_turf = loc
+	if(!speaker_turf || GET_TURF_DEPTH(speaker_turf) != GET_TURF_DEPTH(our_turf))
+		return
+	associated_atom.Hear(arglist(args))
+
 // Called when the turf we're on is deleted/changed.
 /atom/movable/openspace/mimic/proc/owning_turf_changed()
 	if (!destruction_timer)
 		destruction_timer = QDEL_IN_STOPPABLE(src, 10 SECONDS)
 
+/atom/movable/openspace/mimic/proc/z_shift()
+	if (istype(associated_atom, type) && associated_atom:override_depth)
+		depth = associated_atom:override_depth
+	else if (isturf(associated_atom.loc))
+		var/turf/source_turf = associated_atom.loc
+		depth = min(ZMIMIC_MAX_DEPTH - GET_TURF_DEPTH(source_turf), ZMIMIC_MAX_DEPTH)
+		override_depth = depth
+
+	plane = ZMIMIC_MAX_PLANE - depth
+
+	bound_overlay?.z_shift()
+
 // Get actual source atom when orbiting
 /atom/movable/openspace/mimic/get_orbitable()
-	return associated_atom
+	. = associated_atom
+	while (istype(., /atom/movable/openspace/mimic))
+		. = (.):associated_atom
 
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.

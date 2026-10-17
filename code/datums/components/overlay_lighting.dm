@@ -199,6 +199,8 @@
 /datum/component/overlay_lighting/proc/add_dynamic_lumi()
 	LAZYSET(current_holder.affected_dynamic_lights, src, lumcount_range + 1)
 	current_holder.underlays += visible_mask
+	// Mimics of the holder have to hide the mask
+	current_holder.zmm_flags |= ZMM_MANGLE_PLANES
 	current_holder.update_dynamic_luminosity()
 	if(directional)
 		current_holder.underlays += cone

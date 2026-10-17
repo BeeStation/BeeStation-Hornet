@@ -17,6 +17,16 @@
 	///reference: current relay this plane is utilizing to render
 	var/atom/movable/render_plane_relay/relay
 
+/proc/generate_plane_masters(excluded_types)
+	. = list()
+	for(var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - excluded_types - /atom/movable/screen/plane_master/zmimic)
+		. += new plane_master_type()
+	for(var/plane in ZMIMIC_MAX_PLANE to ZMIMIC_MAX_PLANE - ZMIMIC_MAX_DEPTH step -1)
+		var/atom/movable/screen/plane_master/zmimic/mimic_plane = new()
+		mimic_plane.name = "[mimic_plane.name] [plane]"
+		mimic_plane.plane = plane
+		. += mimic_plane
+
 /atom/movable/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
 
@@ -195,6 +205,13 @@
 /atom/movable/screen/plane_master/parallax_white
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
+
+/// Not relayed, the game plate would light lower levels twice
+/atom/movable/screen/plane_master/zmimic
+	name = "zmimic plane master"
+	plane = ZMIMIC_MAX_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	render_relay_plane = null
 
 /atom/movable/screen/plane_master/pipecrawl
 	name = "pipecrawl plane master"
