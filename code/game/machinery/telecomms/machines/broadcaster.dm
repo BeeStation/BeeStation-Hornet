@@ -55,7 +55,7 @@ GLOBAL_VAR_INIT(message_delay, FALSE)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_message_delay)), 1 SECONDS)
 
 	/* --- Do a snazzy animation! --- */
-	flick("broadcaster_send", src)
+	z_flick("broadcaster_send", src)
 
 	use_power(idle_power_usage)
 

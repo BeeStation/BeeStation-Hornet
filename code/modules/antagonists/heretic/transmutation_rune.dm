@@ -144,7 +144,7 @@
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
-	flick("[icon_state]_active", src)
+	z_flick("[icon_state]_active", src)
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// - We temporarily make all of our chosen atoms invisible, as some rituals may sleep,

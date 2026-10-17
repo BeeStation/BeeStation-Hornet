@@ -16,7 +16,7 @@
 	if(cooldown > world.time)
 		return
 	cooldown = world.time + 200
-	flick("flipper", src)
+	z_flick("flipper", src)
 	for(var/atom/movable/AM in get_turf(src))
 		if(AM.anchored)
 			continue

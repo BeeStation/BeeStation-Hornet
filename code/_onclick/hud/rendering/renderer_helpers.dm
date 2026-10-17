@@ -17,9 +17,7 @@
 	cam_plane_masters = list()
 	relay_images = list()
 	// Create all the plane masters
-	for(var/atom/movable/screen/plane_master/plane as anything in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
-		// Otherwise continue
-		var/atom/movable/screen/plane_master/instance = new plane()
+	for(var/atom/movable/screen/plane_master/instance as anything in generate_plane_masters(/atom/movable/screen/plane_master/blackness))
 		if(instance.blend_mode_override)
 			instance.blend_mode = instance.blend_mode_override
 		instance.assigned_map = map_name

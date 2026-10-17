@@ -124,7 +124,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	var/turf/target = locate(target_x, target_y, z)
 	var/area/A = get_area(target)
 
-	flick(icon_teleport, src)
+	z_flick(icon_teleport, src)
 
 	//Change the indicator's icon to show that we're teleporting
 	if(sending)
