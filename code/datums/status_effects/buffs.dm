@@ -533,34 +533,22 @@
 	id = "invisibility"
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
 	tick_interval = STATUS_EFFECT_AUTO_TICK
-	duration = 40 SECONDS
-	show_duration = TRUE
-	var/can_see_self = FALSE
-	var/last_time_update = 0
+	duration = STATUS_EFFECT_PERMANENT
+	/// Lowest alpha the cloak fades the owner to
+	var/min_alpha = 0
+	/// Whether bumping into a mob breaks the cloak
+	var/break_on_bump = FALSE
+
+/datum/status_effect/cloaked/on_creation(mob/living/new_owner, min_alpha = 0, break_on_bump = FALSE)
+	src.min_alpha = min_alpha
+	src.break_on_bump = break_on_bump
+	return ..()
 
 /datum/status_effect/cloaked/tick(delta_time)
 	if(owner.on_fire)
 		terminate_effect()
 		return
-	owner.alpha = max(owner.alpha - 50 * delta_time, 0)
-	if (owner.alpha <= 100 && !can_see_self)
-		// Make it so the user can always see themselves while cloaked
-		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
-		self_appearance.alpha = 100
-		self_appearance.override = TRUE
-		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), null, owner)
-		can_see_self = TRUE
-	if (owner.alpha > 100 && can_see_self)
-		owner.remove_alt_appearance(REF(src))
-	// Check for restoring the duration
-	var/turf/location = get_turf(owner)
-	if (location.get_lumcount() < LIGHTING_TILE_IS_DARK)
-		var/time_left = duration - world.time
-		// Calculate how much real time has passed
-		// Add on tick interval + 1 to make it never stutter when increasing
-		var/new_time = min(time_left + ((world.time - last_time_update) / (1 SECONDS)) * 2 SECONDS, initial(duration))
-		duration = world.time + new_time
-	last_time_update = world.time
+	owner.alpha = max(owner.alpha - 50 * delta_time, min_alpha)
 
 /datum/status_effect/cloaked/on_apply()
 	if(!..())
@@ -570,7 +558,6 @@
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
 	// Effects that terminate the cloak
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
-	RegisterSignal(owner, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_MOB_THROW, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_HAND, PROC_REF(terminate_effect))
@@ -578,11 +565,12 @@
 	RegisterSignal(owner, COMSIG_ATOM_HULK_ATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_PAW, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(terminate_effect))
-	RegisterSignal(owner, COMSIG_MOB_ABILITY_STARTED, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
+	if(break_on_bump)
+		RegisterSignal(owner, COMSIG_LIVING_MOB_BUMP, PROC_REF(terminate_effect))
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()
-	owner.remove_alt_appearance(REF(src))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()
@@ -590,6 +578,12 @@
 
 /datum/status_effect/cloaked/proc/terminate_effect()
 	qdel(src)
+
+/datum/status_effect/cloaked/proc/on_bullet_act(datum/source, obj/projectile/projectile)
+	SIGNAL_HANDLER
+	if(projectile.nodamage)
+		return
+	terminate_effect()
 
 /atom/movable/screen/alert/status_effect/cloaked
 	name = "Cloaked"
