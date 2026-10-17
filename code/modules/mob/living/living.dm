@@ -21,6 +21,7 @@
 	diag_hud.add_atom_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
+	SSpoints_of_interest.make_point_of_interest(src)
 	if (playable)
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
@@ -939,9 +940,9 @@
 		puller.set_pull_offsets(src, puller.grab_state)
 
 	if(active_storage)
-		var/storage_is_important_recurisve = (active_storage.parent in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE])
-		var/can_reach_active_storage = CanReach(active_storage.parent, view_only = TRUE)
-		if(!storage_is_important_recurisve && !can_reach_active_storage)
+		var/storage_is_important_recursive = (active_storage.parent in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE])
+		var/can_reach_active_storage = active_storage.parent?.IsReachableBy(src, depth = REACH_DEPTH_STORAGE(2))
+		if(!storage_is_important_recursive && !can_reach_active_storage)
 			active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
@@ -951,7 +952,7 @@
  * Called by mob/living attackby()
  * Checks if there's active surgery on the mob that can be continued with the item
  */
-/mob/living/proc/can_perform_surgery(mob/living/user, params)
+/mob/living/proc/can_perform_surgery(mob/living/user, list/modifiers)
 	for(var/datum/surgery/operations as anything in surgeries)
 		if(user.combat_mode)
 			break
@@ -959,7 +960,6 @@
 			continue
 		if(!(operations.surgery_flags & SURGERY_SELF_OPERABLE) && (user == src))
 			continue
-		var/list/modifiers = params2list(params)
 		if(operations.next_step(user, modifiers))
 			return TRUE
 	return FALSE
@@ -2119,6 +2119,13 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 //Used specifically for the clown box suicide act
 /mob/living/carbon/human/will_escape_storage()
 	return TRUE
+
+/mob/living/set_nutrition(change)
+	..()
+	if(nutrition > 0 || !HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+		return
+	apply_status_effect(mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
+
 
 /// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
 /mob/living/proc/set_safe_hunger_level()

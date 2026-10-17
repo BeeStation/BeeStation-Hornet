@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
-import { Objective, ObjectivesSection } from './common/ObjectiveSection';
+import { Objective, ObjectivesSection } from './common/Objectives';
 
 type Info = {
   antag_name: string;

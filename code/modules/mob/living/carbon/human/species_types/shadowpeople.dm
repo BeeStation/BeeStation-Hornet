@@ -262,7 +262,7 @@
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
-/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -552,7 +552,7 @@
 /datum/action/innate/shadow_comms
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/shadow_comms/is_available()
 	if(!isblessedshadow(owner))

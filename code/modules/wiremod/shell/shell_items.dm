@@ -72,6 +72,12 @@
 	shell_to_spawn = /obj/item/organ/cyberimp/bci
 	w_class = WEIGHT_CLASS_TINY
 
+/obj/item/shell/ipc_control
+	name = "upgrade control module assembly"
+	icon_state = "setup_implant-open"
+	shell_to_spawn = /obj/item/organ/cyberimp/ipc_control
+	w_class = WEIGHT_CLASS_TINY
+
 /obj/item/shell/scanner_gate
 	name = "scanner gate assembly"
 	icon = 'icons/obj/machines/scangate.dmi'

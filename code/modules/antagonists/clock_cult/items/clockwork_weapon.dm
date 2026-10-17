@@ -210,7 +210,7 @@
 	magazine.give_round(CB)
 	update_icon()
 
-/obj/item/gun/ballistic/bow/clockbolt/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/ballistic/bow/clockbolt/attackby(obj/item/I, mob/user, list/modifiers)
 	return
 
 /obj/item/ammo_box/magazine/internal/bow/clockcult

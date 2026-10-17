@@ -79,20 +79,24 @@
 
 		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
 		if(A == loc || (A in loc) || (A in contents))
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 			return
 
 		if(!isturf(loc))
 			return
 
-		// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
-		if(isturf(A) || isturf(A.loc))
-			if(A.Adjacent(src)) // see adjacent.dm
-				W.melee_attack_chain(src, A, params)
-				return
+		// cyborg rightclick code, allowing borgos to use weapons at range
+		if(A.IsReachableBy(src, W?.reach))
+			W.melee_attack_chain(src, A, modifiers)
+			return
+		else if(isturf(A) || isturf(A.loc))
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, modifiers)
+
+				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
+					W.afterattack(A, src, FALSE, modifiers)
 			else
-				W.afterattack(A, src, 0, params)
-				return
+				W.afterattack(A, src, FALSE, modifiers)
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks
 // for non-doors/apcs

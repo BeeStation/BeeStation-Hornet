@@ -59,7 +59,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/origami)
 	qdel(src)
 	user.put_in_hands(internal_paper_tmp)
 
-/obj/item/origami/attackby(obj/item/P, mob/living/carbon/human/user, params)
+/obj/item/origami/attackby(obj/item/P, mob/living/carbon/human/user, list/modifiers)
 	..()
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		to_chat(user, span_notice("You should unfold [src] before changing it."))

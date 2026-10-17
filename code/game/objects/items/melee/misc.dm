@@ -100,7 +100,7 @@
 		var/list/legs = list()
 		var/obj/item/bodypart/bodypart
 
-		for(bodypart in Cuser.bodyparts)
+		for(bodypart in Cuser.get_bodyparts())
 			if(bodypart == holding_bodypart)
 				continue
 			if(bodypart.body_part & ARMS)
@@ -592,7 +592,7 @@
 	///Time it takes to embed the stake into someone's chest.
 	var/staketime = 4 SECONDS
 
-/obj/item/stake/attack(mob/living/target, mob/living/user, params)
+/obj/item/stake/attack(mob/living/target, mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

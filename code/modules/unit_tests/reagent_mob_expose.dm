@@ -17,20 +17,20 @@
 	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human/consistent)
 	var/obj/item/reagent_containers/dropper/dropper = allocate(/obj/item/reagent_containers/dropper)
 	var/obj/item/reagent_containers/cup/glass/bottle/drink = allocate(/obj/item/reagent_containers/cup/glass/bottle)
-	var/obj/item/reagent_containers/pill/patch/patch = allocate(/obj/item/reagent_containers/pill/patch)
+	var/obj/item/reagent_containers/applicator/patch/patch = allocate(/obj/item/reagent_containers/applicator/patch)
 	var/obj/item/reagent_containers/syringe/syringe = allocate(/obj/item/reagent_containers/syringe)
 
 	// INGEST
 	TEST_ASSERT_EQUAL(human.fire_stacks, 0, "Human has fire stacks before taking phlogiston")
 	drink.reagents.add_reagent(/datum/reagent/phlogiston, 10)
-	drink.attack(human, human)
+	drink.melee_attack_chain(human, human)
 	TEST_ASSERT_EQUAL(human.fire_stacks, 1, "Human does not have fire stacks after taking phlogiston")
 	human.Life(SSMOBS_DT)
 	TEST_ASSERT(human.fire_stacks > 1, "Human fire stacks did not increase after life tick")
 
 	// TOUCH
 	dropper.reagents.add_reagent(/datum/reagent/water, 5)
-	dropper.afterattack(human, human, TRUE)
+	dropper.melee_attack_chain(human, human)
 	TEST_ASSERT(human.fire_stacks < 0, "Human still has fire stacks after touching water")
 
 	// VAPOR
@@ -50,7 +50,7 @@
 	TEST_ASSERT_EQUAL(human.getBruteLoss(), 0, "Human health did not set properly")
 	patch.reagents.add_reagent(/datum/reagent/method_patch_test, 1)
 	patch.self_delay = 0
-	patch.attack(human, human)
+	patch.interact_with_atom(human, human)
 	human.Life(SSMOBS_DT)
 	TEST_ASSERT_EQUAL(human.getBruteLoss(), 20, "Human health did not update after patch was applied")
 

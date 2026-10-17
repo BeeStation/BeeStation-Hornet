@@ -93,6 +93,11 @@
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
+// Point of interest signals
+/// Sent from base of /datum/controller/subsystem/points_of_interest/proc/on_poi_element_added : (atom/new_poi)
+#define COMSIG_ADDED_POINT_OF_INTEREST "added_point_of_interest"
+/// Sent from base of /datum/controller/subsystem/points_of_interest/proc/on_poi_element_removed : (atom/old_poi)
+#define COMSIG_REMOVED_POINT_OF_INTEREST "removed_point_of_interest"
 
 // /datum/component/two_handed signals
 
@@ -159,3 +164,7 @@
 #define COMSIG_DAMPENER_CAPTURE "dampener_capture"
 /// Called when a projectile dampener releases an object.
 #define COMSIG_DAMPENER_RELEASE "dampener_release"
+
+/// IPC upgrade signals.
+#define COMSIG_UPGRADE_ACTIVATED "upgrade_activated"
+#define COMSIG_UPGRADE_DEACTIVATED "upgrade_deactivated"

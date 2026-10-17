@@ -32,7 +32,7 @@ Woods Sheets
 /obj/item/stack/sheet/wood/get_recipes()
 	return GLOB.wood_recipes
 
-/obj/item/stack/sheet/wood/attackby(obj/item/item, mob/user, params)
+/obj/item/stack/sheet/wood/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!item.get_sharpness())
 		return ..()
 	user.visible_message(

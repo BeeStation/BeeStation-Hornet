@@ -38,3 +38,5 @@
 #define COMSIG_ITEM_WEIGHT_CLASS_CHANGED "item_weight_class_changed"
 /// Sent from /obj/item/update_weight_class(), to it's loc. (obj/item/changed_item, old_w_class, new_w_class)
 #define COMSIG_ATOM_CONTENTS_WEIGHT_CLASS_CHANGED "atom_contents_weight_class_changed"
+/// Sent from /datum/component/reflection when the reflection is updated to the mob reflecting: (atom/movable/reflecting_in, obj/effect/abstract/reflection)
+#define COMSIG_REFLECTION_UPDATED "reflection_updated"

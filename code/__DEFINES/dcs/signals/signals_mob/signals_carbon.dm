@@ -27,6 +27,10 @@
 //! from base of mob/living/carbon/set_species(): (new_race)
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"
 
+///Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+///Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 
 ///from base of /obj/item/bodypart/proc/can_attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_ATTEMPT_CARBON_ATTACH_LIMB "attempt_carbon_attach_limb"

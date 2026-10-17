@@ -330,7 +330,7 @@
 			if (!state_open)
 				open_machine(drop = FALSE)
 				if (occupant)
-					dump_contents()
+					dump_inventory_contents()
 		if ("close")
 			if (state_open)
 				close_machine()
@@ -378,6 +378,8 @@
 	return image
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
+	if(..())
+		return
 	if(!istype(user) || user.stat || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	if(isliving(user))
@@ -543,7 +545,7 @@
 	add_fingerprint(user)
 
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_CROWBAR && user.combat_mode && !panel_open && machine_stat & NOPOWER)
 		if(locked)
 			to_chat(user, span_warning("[src]'s door won't budge!"))

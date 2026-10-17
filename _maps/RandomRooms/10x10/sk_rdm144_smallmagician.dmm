@@ -43,9 +43,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/mirror{
-	pixel_y = 26
-	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "j" = (

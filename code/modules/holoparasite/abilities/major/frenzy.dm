@@ -79,7 +79,7 @@
 	to_chat(summoner, span_noticeholoparasite("You feel the incredible energy within you fade away, leaving you to move at a normal speed once more..."))
 	summoner.balloon_alert(summoner, "frenzy speed boost lost", show_in_chat = FALSE)
 
-/datum/holoparasite_ability/major/frenzy/proc/on_ranged_attack(datum/_source, mob/living/target, params)
+/datum/holoparasite_ability/major/frenzy/proc/on_ranged_attack(datum/_source, mob/living/target, list/modifiers)
 	SIGNAL_HANDLER
 	ASSERT_ABILITY_USABILITY
 	if(!istype(target) || !COOLDOWN_FINISHED(src, rush_cooldown) || !owner.is_manifested())

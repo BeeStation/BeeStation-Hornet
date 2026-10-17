@@ -41,7 +41,7 @@
 		active = FALSE
 	update_icon()
 
-/obj/machinery/power/emitter/energycannon/magical/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/emitter/energycannon/magical/attackby(obj/item/W, mob/user, list/modifiers)
 	return
 
 /obj/machinery/power/emitter/energycannon/magical/ex_act(severity)

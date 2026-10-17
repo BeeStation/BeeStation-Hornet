@@ -75,7 +75,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
 	else
 		return 0
 
-/obj/item/holochip/attackby(obj/item/I, mob/user, params)
+/obj/item/holochip/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/H = I
@@ -109,7 +109,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holochip)
 		visible_message(span_warning("[src] fizzles and disappears!"))
 		qdel(src) //rip cash
 
-/obj/item/holochip/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/holochip/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(istype(target, /obj/machinery/vending))
 		var/obj/machinery/vending/vendor = target

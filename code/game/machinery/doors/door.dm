@@ -61,6 +61,10 @@
 	air_update_turf(TRUE, TRUE)
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
+	if(density)
+		flags_1 |= PREVENT_CLICK_UNDER_1
+	else
+		flags_1 &= ~PREVENT_CLICK_UNDER_1
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
@@ -212,15 +216,15 @@
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
 	if (!user.combat_mode)
 		try_to_weld(tool, user)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
 		return
 	try_to_crowbar(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
-/obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/door/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(!user.combat_mode && HAS_TRAIT(attacking_item, TRAIT_DOOR_PRYER))
 		try_to_crowbar(attacking_item, user, forced = TRUE)
 		return TRUE
@@ -237,13 +241,13 @@
 
 /obj/machinery/door/welder_act_secondary(mob/living/user, obj/item/tool)
 	try_to_weld_secondary(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/crowbar_act_secondary(mob/living/user, obj/item/tool)
 	if(HAS_TRAIT(tool, TRAIT_DOOR_PRYER))
 		return
 	try_to_crowbar(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
@@ -302,6 +306,7 @@
 	set_opacity(0)
 	sleep(open_speed)
 	set_density(FALSE)
+	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	sleep(open_speed)
 	layer = initial(layer)
@@ -336,6 +341,7 @@
 		z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	set_density(TRUE)
+	flags_1 |= PREVENT_CLICK_UNDER_1
 	z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	update_appearance()

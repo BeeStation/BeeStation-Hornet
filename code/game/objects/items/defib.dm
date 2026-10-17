@@ -112,7 +112,7 @@
 		ui_action_click() //checks for this are handled in defibrillator.mount.dm
 	return ..()
 
-/obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W == paddles)
 		toggle_paddles()
 	else if(istype(W, /obj/item/stock_parts/cell))
@@ -281,7 +281,7 @@
 	cell = new /obj/item/stock_parts/cell/infinite(src)
 	update_power()
 
-/obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W == paddles)
 		toggle_paddles()
 		return
@@ -431,7 +431,7 @@
 	defib.on = FALSE
 	defib.update_power()
 
-/obj/item/shockpaddles/attack(mob/M, mob/living/user, params)
+/obj/item/shockpaddles/attack(mob/M, mob/living/user, list/modifiers)
 	if(busy)
 		return
 	if(req_defib && !defib.powered)
@@ -451,7 +451,6 @@
 			to_chat(user, span_warning("[src] are recharging!"))
 		return
 
-	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		do_disarm(M, user)
 		return

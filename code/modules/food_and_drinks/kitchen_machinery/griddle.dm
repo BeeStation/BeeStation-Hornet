@@ -43,6 +43,9 @@
 		return
 	variant = rand(1,3)
 
+/obj/machinery/griddle/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return ..() || (contained in griddled_objects)
+
 /obj/machinery/griddle/proc/on_expose_reagent(atom/parent_atom, datum/reagent/exposing_reagent, reac_volume)
 	SIGNAL_HANDLER
 
@@ -63,11 +66,10 @@
 	. = ..()
 	return default_deconstruction_crowbar(I, ignore_panel = TRUE)
 
-/obj/machinery/griddle/attackby(obj/item/I, mob/user, params)
+/obj/machinery/griddle/attackby(obj/item/I, mob/user, list/modifiers)
 	if(griddled_objects.len >= max_items)
 		to_chat(user, span_notice("[src] can't fit more items!"))
 		return
-	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return
@@ -94,7 +96,6 @@
 /obj/machinery/griddle/proc/AddToGrill(obj/item/item_to_grill, mob/user)
 	vis_contents += item_to_grill
 	griddled_objects += item_to_grill
-	item_to_grill.flags_1 |= IS_ONTOP_1
 	SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_PLACED, user)
 	RegisterSignal(item_to_grill, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_grill, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
@@ -104,7 +105,6 @@
 
 /obj/machinery/griddle/proc/ItemRemovedFromGrill(obj/item/I)
 	SIGNAL_HANDLER
-	I.flags_1 &= ~IS_ONTOP_1
 	griddled_objects -= I
 	vis_contents -= I
 	UnregisterSignal(I, list(COMSIG_GRILL_COMPLETED, COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))

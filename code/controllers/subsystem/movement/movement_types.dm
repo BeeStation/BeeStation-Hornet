@@ -56,7 +56,8 @@
 	if(loop_type == type && priority == src.priority && flags == src.flags && delay == src.delay && timeout == lifetime)
 		return TRUE
 
-/datum/move_loop/proc/start_loop()
+///Called when a loop is starting by a movement subsystem
+/datum/move_loop/proc/loop_started()
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_START)
 	status |= MOVELOOP_STATUS_RUNNING
@@ -67,7 +68,8 @@
 		return
 	timer = world.time + delay
 
-/datum/move_loop/proc/stop_loop()
+///Called when a loop is stopped, doesn't stop the loop itself
+/datum/move_loop/proc/loop_stopped()
 	SHOULD_CALL_PARENT(TRUE)
 	status &= ~MOVELOOP_STATUS_RUNNING
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_STOP)
@@ -88,6 +90,18 @@
 ///Exists as a helper so outside code can modify delay in a sane way
 /datum/move_loop/proc/set_delay(new_delay)
 	delay =  max(new_delay, world.tick_lag)
+
+///Pauses the move loop for some passed in period
+///This functionally means shifting its timer up, and clearing it from its current bucket
+/datum/move_loop/proc/pause_for(time)
+	if(!controller || !(status & MOVELOOP_STATUS_RUNNING)) //No controller or not running? go away
+		return
+	//Dequeue us from our current bucket
+	controller.dequeue_loop(src)
+	//Offset our timer
+	timer = world.time + time
+	//Now requeue us with our new target start time
+	controller.queue_loop(src)
 
 /datum/move_loop/process()
 	if(isnull(controller))
@@ -401,12 +415,12 @@
 		return TRUE
 	return FALSE
 
-/datum/move_loop/has_target/jps/start_loop()
+/datum/move_loop/has_target/jps/loop_started()
 	. = ..()
 	if(!movement_path)
 		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 
-/datum/move_loop/has_target/jps/stop_loop()
+/datum/move_loop/has_target/jps/loop_stopped()
 	. = ..()
 	movement_path = null
 

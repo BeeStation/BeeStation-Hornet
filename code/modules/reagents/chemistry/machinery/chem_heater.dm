@@ -77,7 +77,7 @@
 			use_power(active_power_usage + abs(ROUND_UP(energy) / 120))
 			beaker.reagents.handle_reactions()
 
-/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I))
 		return
 

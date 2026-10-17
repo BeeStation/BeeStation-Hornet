@@ -25,7 +25,7 @@
 	if(fragile)
 		AddElement(/datum/element/shatters_when_thrown)
 
-/obj/item/plate/attackby(obj/item/I, mob/user, params)
+/obj/item/plate/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!IS_EDIBLE(I))
 		balloon_alert(user, "not food!")
 		return
@@ -35,7 +35,6 @@
 	if(contents.len >= max_items)
 		balloon_alert(user, "can't fit!")
 		return
-	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return
@@ -47,7 +46,7 @@
 	else
 		return ..()
 
-/obj/item/plate/pre_attack(atom/A, mob/living/user, params)
+/obj/item/plate/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(!iscarbon(A))
 		return
 	if(!contents.len)
@@ -56,10 +55,12 @@
 	A.attackby(object_to_eat, user)
 	return TRUE //No normal attack
 
+/obj/item/plate/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return TRUE
+
 ///This proc adds the food to viscontents and makes sure it can deregister if this changes.
 /obj/item/plate/proc/AddToPlate(obj/item/item_to_plate)
 	vis_contents += item_to_plate
-	item_to_plate.flags_1 |= IS_ONTOP_1
 	RegisterSignal(item_to_plate, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_plate, COMSIG_QDELETING, PROC_REF(ItemMoved))
 	update_appearance()
@@ -69,7 +70,6 @@
 
 ///This proc cleans up any signals on the item when it is removed from a plate, and ensures it has the correct state again.
 /obj/item/plate/proc/ItemRemovedFromPlate(obj/item/removed_item)
-	removed_item.flags_1 &= ~IS_ONTOP_1
 	vis_contents -= removed_item
 	UnregisterSignal(removed_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	// We need to ensure the weight class is accurate now that we've lost something

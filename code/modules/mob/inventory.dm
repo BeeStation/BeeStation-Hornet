@@ -112,9 +112,9 @@
 	var/best_quality = INFINITY
 
 	for(var/obj/item/I in held_items)
-		if(I.tool_behaviour == quality && I.toolspeed < best_quality)
+		if(I.tool_behaviour == quality && I.get_toolspeed(src) < best_quality)
 			best_item = I
-			best_quality = I.toolspeed
+			best_quality = I.get_toolspeed(src)
 
 	return best_item
 
@@ -406,9 +406,6 @@
 /mob/verb/quick_equip()
 	set name = "quick-equip"
 	set hidden = 1
-
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		return TRUE
 
 	var/obj/item/I = get_active_held_item()
 	if(!I)

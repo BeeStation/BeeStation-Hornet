@@ -87,7 +87,7 @@
 		src.icon_state = ""
 	return
 
-/obj/item/clothing/shoes/sneakers/orange/attackby(obj/H, loc, params)
+/obj/item/clothing/shoes/sneakers/orange/attackby(obj/H, loc, list/modifiers)
 	..()
 	// Note: not using istype here because we want to ignore all subtypes
 	if (!chained && H.type == /obj/item/restraints/handcuffs)
@@ -101,16 +101,6 @@
 	if(user.get_item_by_slot(slot_flags) == src && chained)
 		to_chat(user, span_warning("You need help taking these off!"))
 		return FALSE
-	return ..()
-
-/obj/item/clothing/shoes/sneakers/orange/MouseDrop(atom/over)
-	var/mob/m = usr
-	if(ishuman(m))
-		var/mob/living/carbon/human/hummie = m
-		if(hummie.shoes == src && chained)
-			to_chat(hummie, span_warning("You start taking off your [src]!"))
-			if(!do_after(hummie,15 SECONDS, src))
-				return FALSE
 	return ..()
 
 /obj/item/clothing/shoes/sneakers/mime

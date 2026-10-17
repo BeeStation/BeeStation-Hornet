@@ -205,7 +205,7 @@
 		return
 	open_machine()
 
-/obj/machinery/nanite_chamber/attackby(obj/item/I, mob/user, params)
+/obj/machinery/nanite_chamber/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!occupant && default_deconstruction_screwdriver(user, icon_state, icon_state, I))//sent icon_state is irrelevant...
 		update_icon()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
 		return
@@ -222,6 +222,8 @@
 	toggle_open(user)
 
 /obj/machinery/nanite_chamber/MouseDrop_T(mob/target, mob/user)
+	if(..())
+		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) || !Adjacent(target) || !user.Adjacent(target) || !iscarbon(target))
 		return
 	if(close_machine(target))

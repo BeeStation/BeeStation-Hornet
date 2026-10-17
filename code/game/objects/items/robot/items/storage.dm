@@ -62,9 +62,9 @@
 		return ..()
 	stored.forceMove(user.drop_location())
 
-/obj/item/borg/apparatus/pre_attack(atom/atom, mob/living/user, params)
+/obj/item/borg/apparatus/pre_attack(atom/atom, mob/living/user, list/modifiers)
 	if(stored)
-		stored.melee_attack_chain(user, atom, params)
+		stored.melee_attack_chain(user, atom, modifiers)
 		return TRUE
 
 	if(istype(atom.loc, /mob/living/silicon/robot) || istype(atom.loc, /obj/item/robot_model) || HAS_TRAIT(atom, TRAIT_NODROP))
@@ -84,11 +84,11 @@
 		return TRUE
 	return ..()
 
-/obj/item/borg/apparatus/attackby(obj/item/W, mob/user, params)
+/obj/item/borg/apparatus/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(!stored)
-		return
-	W.melee_attack_chain(user, stored, params)
-	. = ..()
+		return NONE
+	tool.melee_attack_chain(user, stored, modifiers)
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Updates the appearance of the apparatus when the stored object's icon gets updated.
@@ -307,7 +307,7 @@
 		. += "The apparatus currently has [stored] secured."
 	. += span_notice(" <i>Alt-click</i> will drop the currently stored item. ")
 
-/obj/item/borg/apparatus/engineering/pre_attack(atom/atom, mob/living/user, params)
+/obj/item/borg/apparatus/engineering/pre_attack(atom/atom, mob/living/user, list/modifiers)
 	if(istype(atom, /obj/item/ai_module) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, span_warning("This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up."))
 		return TRUE

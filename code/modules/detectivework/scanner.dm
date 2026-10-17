@@ -74,11 +74,11 @@
 	// Clear the logs
 	log = list()
 
-/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, params)
+/obj/item/detective_scanner/pre_attack_secondary(atom/A, mob/user, list/modifiers)
 	safe_scan(user, atom_to_scan = A)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/detective_scanner/afterattack(atom/A, mob/user, params)
+/obj/item/detective_scanner/afterattack(atom/A, mob/user, list/modifiers)
 	. = ..()
 	safe_scan(user, atom_to_scan = A)
 	return FALSE

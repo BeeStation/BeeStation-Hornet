@@ -541,7 +541,7 @@
 		return FALSE
 	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		unbuckle_all_mobs(TRUE)
-		return TOOL_ACT_TOOLTYPE_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 	return FALSE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
@@ -556,7 +556,7 @@
 		to_chat(user, span_warning("You must first secure [src]."))
 	return TRUE
 
-/obj/machinery/vending/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/vending/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
 		return
@@ -1096,7 +1096,7 @@
 	if(greyscale_colors)
 		vended_item.set_greyscale(colors=greyscale_colors)
 	R.amount--
-	if(usr.CanReach(src) && usr.put_in_hands(vended_item))
+	if(IsReachableBy(usr) && usr.put_in_hands(vended_item))
 		to_chat(usr, span_notice("You take [R.name] out of the slot."))
 	else
 		to_chat(usr, span_warning("[capitalize(R.name)] falls onto the floor!"))
@@ -1329,7 +1329,7 @@
 					if(compartmentLoadAccessCheck(usr))
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
-						if (usr.CanReach(src) && usr.put_in_hands(S))
+						if (IsReachableBy(usr) && usr.put_in_hands(S))
 							to_chat(usr, span_notice("You take [S.name] out of the slot."))
 						else
 							to_chat(usr, span_warning("[capitalize(S.name)] falls onto the floor!"))
@@ -1367,7 +1367,7 @@
 	SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
 	vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 	bought_item.forceMove(drop_location())
-	if (usr.CanReach(src) && usr.put_in_hands(bought_item))
+	if (IsReachableBy(usr) && usr.put_in_hands(bought_item))
 		to_chat(usr, span_notice("You take [bought_item.name] out of the slot."))
 	else
 		to_chat(usr, span_warning("[capitalize(bought_item.name)] falls onto the floor!"))
@@ -1380,7 +1380,7 @@
 		last_shopper = REF(usr)
 	vend_ready = TRUE
 
-/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vending/custom/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!private_a)
 		var/mob/living/carbon/human/H
 		var/obj/item/card/id/C

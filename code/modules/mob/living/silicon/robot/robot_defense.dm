@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user, params)
+/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && !user.combat_mode && !is_type_in_typecache(I, blacklisted_hats))
 		to_chat(user, span_notice("You begin to place [I] on [src]'s head..."))
 		to_chat(src, span_notice("[user] is placing [I] on your head..."))

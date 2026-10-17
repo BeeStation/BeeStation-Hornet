@@ -115,7 +115,6 @@ SUBSYSTEM_DEF(move_manager)
 	var/datum/controller/subsystem/movement/current_subsystem = running_loop.controller
 
 	var/current_running_loop = running_loop
-
 	running_loop = contestant
 	current_subsystem.remove_loop(current_running_loop)
 	if(running_loop != contestant) // A signal registrant could have messed with things

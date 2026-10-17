@@ -96,7 +96,7 @@
 		install_cell(cell)
 	RegisterSignal(mod, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
-	RegisterSignal(mod, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(mod, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(on_mod_interaction))
 	RegisterSignal(mod, COMSIG_MOD_WEARER_SET, PROC_REF(on_wearer_set))
 	if(mod.wearer)
 		on_wearer_set(mod, mod.wearer)
@@ -184,7 +184,7 @@
 	if(mod.seconds_electrified && charge_amount() && mod.shock(user))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(mod.open && mod.loc == user)
-		INVOKE_ASYNC(src,  PROC_REF(mod_uninstall_cell), user)
+		INVOKE_ASYNC(src, PROC_REF(mod_uninstall_cell), user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return NONE
 
@@ -203,24 +203,29 @@
 	user.put_in_hands(cell_to_move)
 	mod.update_charge_alert()
 
-/obj/item/mod/core/standard/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
+/obj/item/mod/core/standard/proc/on_mod_interaction(datum/source, mob/living/user, obj/item/thing, list/modifiers)
 	SIGNAL_HANDLER
 
-	if(istype(attacking_item, /obj/item/stock_parts/cell))
-		if(!mod.open)
-			mod.balloon_alert(user, "cover closed!")
-			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return NONE
-		if(cell)
-			mod.balloon_alert(user, "already has cell!")
-			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return COMPONENT_NO_AFTERATTACK
-		install_cell(attacking_item)
-		mod.balloon_alert(user, "cell installed")
-		playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-		mod.update_charge_alert()
-		return COMPONENT_NO_AFTERATTACK
-	return NONE
+	return item_interaction(user, thing, modifiers)
+
+/obj/item/mod/core/standard/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	return replace_cell(tool, user) ? ITEM_INTERACT_SUCCESS : NONE
+
+/obj/item/mod/core/standard/proc/replace_cell(obj/item/attacking_item, mob/user)
+	if(!istype(attacking_item, /obj/item/stock_parts/cell))
+		return FALSE
+	if(!mod.open)
+		mod.balloon_alert(user, "cover closed!")
+		playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(cell)
+		mod.balloon_alert(user, "already has cell!")
+		playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	install_cell(attacking_item)
+	mod.balloon_alert(user, "cell installed")
+	playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+	return TRUE
 
 /obj/item/mod/core/standard/proc/on_wearer_set(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -300,19 +305,17 @@
 	/// How much charge we are currently storing.
 	var/charge = 10000
 	/// Associated list of charge sources and how much they charge, only stacks allowed.
-	var/list/charger_list = list(/obj/item/stack/ore/plasma = PLASMA_CORE_ORE_CHARGE, /obj/item/stack/sheet/mineral/plasma = PLASMA_CORE_SHEET_CHARGE)
+	var/list/charger_list = list(
+		/obj/item/stack/ore/plasma = PLASMA_CORE_ORE_CHARGE,
+		/obj/item/stack/sheet/mineral/plasma = PLASMA_CORE_SHEET_CHARGE,
+	)
 
 /obj/item/mod/core/plasma/install(obj/item/mod/control/mod_unit)
 	. = ..()
-	RegisterSignal(mod, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(mod, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(on_mod_interaction))
 
 /obj/item/mod/core/plasma/uninstall()
-	UnregisterSignal(mod, COMSIG_ATOM_ATTACKBY)
-	return ..()
-
-/obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)
-	if(charge_plasma(attacking_item, user))
-		return TRUE
+	UnregisterSignal(mod, COMSIG_ATOM_ITEM_INTERACTION)
 	return ..()
 
 /obj/item/mod/core/plasma/charge_source()
@@ -349,23 +352,19 @@
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell/plasma)
 
-
-
-#undef PLASMA_CORE_ORE_CHARGE
-#undef PLASMA_CORE_SHEET_CHARGE
-
-/obj/item/mod/core/plasma/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
+/obj/item/mod/core/plasma/proc/on_mod_interaction(datum/source, mob/living/user, obj/item/thing, list/modifiers)
 	SIGNAL_HANDLER
 
-	if(charge_plasma(attacking_item, user))
-		return COMPONENT_NO_AFTERATTACK
-	return NONE
+	return item_interaction(user, thing, modifiers)
+
+/obj/item/mod/core/plasma/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	return charge_plasma(tool, user) ? ITEM_INTERACT_SUCCESS : NONE
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
 	var/charge_given = 0
-	for(var/charger in charger_list)
-		if(istype(plasma, charger))
-			charge_given = charger_list[charger]
+	for(var/charge_type, charge_amount in charger_list)
+		if(istype(plasma, charge_type))
+			charge_given = charge_amount
 			break
 	if(!charge_given)
 		return FALSE
@@ -375,3 +374,6 @@
 	add_charge(uses_needed * charge_given)
 	balloon_alert(user, "core refueled")
 	return TRUE
+
+#undef PLASMA_CORE_ORE_CHARGE
+#undef PLASMA_CORE_SHEET_CHARGE

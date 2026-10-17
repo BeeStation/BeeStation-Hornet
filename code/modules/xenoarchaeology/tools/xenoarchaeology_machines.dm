@@ -14,12 +14,11 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, INNATE_TRAIT)
 
-/obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.combat_mode || (I.item_flags & ABSTRACT))
 		return ..()
 	if(move_inside && length(held_contents) >= max_contents)
 		return
-	var/list/modifiers = params2list(params)
 	var/atom/target = get_target()
 	///Move the item to our target, so we can work with it, like we're a table
 	if(user.transferItemToLoc(I, target, silent = FALSE))
