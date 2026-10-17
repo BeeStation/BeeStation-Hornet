@@ -157,11 +157,19 @@
 		message_admins("[key_name_admin(user)] has [ctf_enabled ? "enabled" : "disabled"] CTF!")
 	else if(automated)
 		message_admins("CTF has finished a round and automatically restarted.")
-		notify_ghosts("CTF has automatically restarted after a round finished in [A]!",'sound/effects/ghost2.ogg')
+		notify_ghosts(
+			"CTF has automatically restarted after a round finished in [A]!",
+			ghost_sound = 'sound/effects/ghost2.ogg',
+			header = "CTF Restarted"
+		)
 	else
 		message_admins("The players have spoken! Voting has enabled CTF!")
 	if(!automated)
-		notify_ghosts("CTF has been [ctf_enabled? "enabled" : "disabled"] in [A]!",'sound/effects/ghost2.ogg')
+		notify_ghosts(
+			"CTF has been [ctf_enabled? "enabled" : "disabled"] in [A]!",
+			ghost_sound = 'sound/effects/ghost2.ogg',
+			header = "CTF [ctf_enabled? "Enabled" : "Disabled"]"
+		)
 
 /obj/machinery/capture_the_flag
 	name = "CTF Controller"
@@ -210,7 +218,7 @@
 
 /obj/machinery/capture_the_flag/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 
 /obj/machinery/capture_the_flag/process(delta_time)
 	for(var/mob/living/living_participant as anything in spawned_mobs)
@@ -345,12 +353,6 @@
 	team_members |= new_team_member.ckey
 	return M //used in medisim.dm
 
-/obj/machinery/capture_the_flag/Topic(href, href_list)
-	if(href_list["join"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
-			attack_ghost(ghost)
-
 /obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/ctf))
 		var/obj/item/ctf/flag = I
@@ -403,7 +405,11 @@
 
 	dead_barricades.Cut()
 
-	notify_ghosts("[name] has been activated!", enter_link="<a href='byond://?src=[REF(src)];join=1'>(Click to join the [team] team!)</a> or click on the controller directly!", source = src, action=NOTIFY_ATTACK, header = "CTF has been activated")
+	notify_ghosts(
+		"[name] has been activated!",
+		source = src,
+		header = "CTF has been activated"
+	)
 
 	if(!arena_reset)
 		reset_the_arena()

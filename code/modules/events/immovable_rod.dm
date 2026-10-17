@@ -64,7 +64,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	z_original = get_virtual_z_level()
 	destination = end
 	special_target = aimed_at
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 	var/special_target_valid = FALSE
