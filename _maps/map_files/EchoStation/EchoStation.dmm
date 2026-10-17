@@ -2126,12 +2126,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/hallway)
-"bDS" = (
-/obj/structure/sink/directional/south,
-/obj/structure/cable/yellow,
-/obj/structure/mirror/directional/north,
-/turf/open/floor/prison/dark,
-/area/station/security/prison/safe)
 "bDT" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
@@ -9646,12 +9640,6 @@
 	},
 /turf/open/floor/iron/textured_corner,
 /area/station/engineering/atmos)
-"fWE" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/closet/crate/mod,
-/obj/item/mod/module/longfall,
-/turf/open/floor/iron/white,
-/area/station/science/robotics)
 "fWR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11127,6 +11115,26 @@
 /obj/structure/sign/warning/radiation/rad_area,
 /turf/closed/wall,
 /area/station/engineering/main)
+"gPx" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/structure/closet/secure_closet/engineering_chief,
+/obj/item/powertool/jaws_of_life,
+/obj/item/reagent_containers/applicator/patch/silver_sulf,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 4
+	},
+/obj/item/lighter,
+/obj/machinery/computer/security/telescreen/ce{
+	dir = 8;
+	pixel_x = 31
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblue,
+/area/station/command/heads_quarters/chief)
 "gPN" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /mob/living/simple_animal/slime,
@@ -11611,6 +11619,29 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/station/cargo/storage)
+"hgs" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/electrical,
+/obj/item/extinguisher/advanced{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/fourcolor,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 4
+	},
+/area/station/engineering/atmos)
 "hgO" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -16558,26 +16589,6 @@
 	name = "mainframe floor"
 	},
 /area/station/tcommsat/server)
-"kiU" = (
-/obj/structure/closet{
-	name = "Evidence Closet"
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/item/clothing/mask/balaclava/russian_balaclava{
-	pixel_y = 8
-	},
-/obj/item/clothing/suit/armor/vest/russian_coat{
-	pixel_y = -4
-	},
-/turf/open/floor/iron/dark,
-/area/station/security/brig)
 "kjg" = (
 /obj/machinery/cryo_cell{
 	dir = 8
@@ -18834,27 +18845,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/genetics)
-"lEj" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/welding{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/obj/item/toy/crayon/spraycan{
-	pixel_y = 6;
-	pixel_x = -7
-	},
-/turf/open/floor/iron/dark,
-/area/station/science/robotics)
 "lEP" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/ai_slipper{
@@ -19620,6 +19610,12 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron,
 /area/station/maintenance/department/engine)
+"mds" = (
+/obj/structure/sink/directional/south,
+/obj/structure/cable/yellow,
+/obj/structure/mirror/directional/north,
+/turf/open/floor/prison/dark,
+/area/station/security/prison/safe)
 "mdx" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine,
@@ -21802,6 +21798,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/maintenance/department/science/central)
+"noD" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 8;
+	volume_rate = 200
+	},
+/turf/open/floor/plating/asteroid/planetary,
+/area/station/engineering/main)
 "noI" = (
 /obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = -8;
@@ -21826,26 +21829,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hos)
-"npg" = (
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/obj/structure/closet/secure_closet/engineering_chief,
-/obj/item/powertool/jaws_of_life,
-/obj/item/reagent_containers/applicator/patch/silver_sulf,
-/obj/item/clothing/glasses/meson{
-	pixel_y = 4
-	},
-/obj/item/lighter,
-/obj/machinery/computer/security/telescreen/ce{
-	dir = 8;
-	pixel_x = 31
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblue,
-/area/station/command/heads_quarters/chief)
 "npP" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -22311,33 +22294,6 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/station/medical/surgery)
-"nDl" = (
-/obj/structure/table/wood,
-/obj/machinery/light{
-	bulb_colour = "#22bfa2";
-	bulb_vacuum_colour = "#22bfa2";
-	dir = 8;
-	nightshift_light_color = "#22bfa2"
-	},
-/obj/item/paper_bin{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/stamp/clown{
-	pixel_x = 9;
-	pixel_y = 12
-	},
-/obj/item/pen/invisible{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/stamp/mime{
-	pixel_x = 9;
-	pixel_y = 2
-	},
-/obj/structure/mirror/directional/west,
-/turf/open/floor/wood,
-/area/station/service/theater/backstage)
 "nEb" = (
 /obj/structure/ladder,
 /obj/structure/sign/warning/pods{
@@ -25090,13 +25046,6 @@
 	},
 /turf/open/floor/engine/n2o,
 /area/station/engineering/atmos)
-"ppb" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8;
-	volume_rate = 200
-	},
-/turf/open/floor/plating/asteroid/planetary,
-/area/station/engineering/main)
 "ppd" = (
 /turf/open/openspace/planetary,
 /area/station/command/bridge)
@@ -31606,31 +31555,6 @@
 /obj/structure/lattice,
 /turf/open/openspace/planetary,
 /area/station/hallway/primary/fore)
-"tis" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/electrical,
-/obj/item/circuitboard/machine/circulator,
-/obj/item/extinguisher/advanced{
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/fourcolor,
-/obj/item/circuitboard/machine/generator,
-/turf/open/floor/iron/dark/smooth_corner{
-	dir = 4
-	},
-/area/station/engineering/atmos)
 "tit" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -31944,6 +31868,26 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/station/maintenance/department/crew_quarters/bar)
+"tsV" = (
+/obj/structure/closet{
+	name = "Evidence Closet"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/item/clothing/mask/balaclava/russian_balaclava{
+	pixel_y = 8
+	},
+/obj/item/clothing/suit/armor/vest/russian_coat{
+	pixel_y = -4
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "tsY" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
@@ -33541,17 +33485,6 @@
 "uuI" = (
 /turf/closed/wall/r_wall,
 /area/station/security/execution/education)
-"uuO" = (
-/obj/structure/mirror/directional/west{
-	pixel_y = -2
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/shower{
-	dir = 4;
-	name = "emergency shower"
-	},
-/turf/open/floor/iron/white/textured,
-/area/station/medical/genetics)
 "uuV" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -35037,6 +34970,33 @@
 "vpD" = (
 /turf/open/floor/plating,
 /area/paradise/surface)
+"vqj" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	bulb_colour = "#22bfa2";
+	bulb_vacuum_colour = "#22bfa2";
+	dir = 8;
+	nightshift_light_color = "#22bfa2"
+	},
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/stamp/clown{
+	pixel_x = 9;
+	pixel_y = 12
+	},
+/obj/item/pen/invisible{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/stamp/mime{
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/structure/mirror/directional/west,
+/turf/open/floor/wood,
+/area/station/service/theater/backstage)
 "vqt" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow,
@@ -37765,6 +37725,12 @@
 "wLR" = (
 /turf/closed/indestructible/rock/snow,
 /area/misc/space)
+"wLS" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/closet/crate/mod,
+/obj/item/mod/module/longfall,
+/turf/open/floor/iron/white,
+/area/station/science/robotics)
 "wMl" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/disposal/bin,
@@ -37842,6 +37808,17 @@
 	},
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
+"wPT" = (
+/obj/structure/mirror/directional/west{
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/shower{
+	dir = 4;
+	name = "emergency shower"
+	},
+/turf/open/floor/iron/white/textured,
+/area/station/medical/genetics)
 "wQX" = (
 /obj/machinery/atmospherics/components/binary/valve,
 /obj/machinery/button/ignition/incinerator/toxmix{
@@ -39697,6 +39674,27 @@
 /obj/structure/holosign/barrier/atmos/robust,
 /turf/open/floor/plating,
 /area/station/science/mixing/chamber)
+"yah" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/item/toy/crayon/spraycan{
+	pixel_y = 6;
+	pixel_x = -7
+	},
+/turf/open/floor/iron/dark,
+/area/station/science/robotics)
 "yao" = (
 /obj/structure/railing{
 	dir = 4
@@ -50048,7 +50046,7 @@ cAM
 vAF
 qJV
 jqe
-tis
+hgs
 ixT
 iHe
 viy
@@ -52116,7 +52114,7 @@ rYd
 vjR
 vUs
 vQk
-ppb
+noD
 gDu
 pVb
 qdb
@@ -115299,7 +115297,7 @@ gAM
 jPe
 mBD
 dtq
-bDS
+mds
 agX
 nOU
 aNh
@@ -120716,7 +120714,7 @@ tzI
 xOP
 mQu
 sxV
-npg
+gPx
 vzv
 lnD
 mJT
@@ -122214,7 +122212,7 @@ mGR
 mGR
 ijD
 dsd
-nDl
+vqj
 sfI
 mTI
 ijD
@@ -182400,7 +182398,7 @@ vSA
 vOS
 fqT
 uvv
-kiU
+tsV
 gRl
 kGr
 puw
@@ -182877,7 +182875,7 @@ eEv
 eEv
 pjr
 wnr
-uuO
+wPT
 wWG
 qye
 sie
@@ -187768,7 +187766,7 @@ cWo
 vsl
 naY
 szS
-lEj
+yah
 aNm
 rhW
 tCB
@@ -188281,7 +188279,7 @@ mth
 cWo
 hSU
 cEn
-fWE
+wLS
 tUa
 isg
 vLs

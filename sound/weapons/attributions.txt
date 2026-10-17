@@ -27,3 +27,9 @@ throw.ogg, throwhard.ogg and throwsoft.ogg (Royalty-Free and Copyright-Free) are
 https://uppbeat.io/sfx/whoosh-swift-cut/7727/23617
 https://uppbeat.io/sfx/whoosh-air-punch/114/1168
 https://uppbeat.io/sfx/throwing-item-swing/9430/25267
+
+graviton.ogg is made from this clip by FunnyVoices, which is Creative Commons 0
+https://freesound.org/people/FunnyVoices/sounds/791140/
+
+graviton_impact.ogg is made from this clip by D_Yonqui, which is Creative Commons 0
+https://freesound.org/people/D_Yonqui/sounds/864886/

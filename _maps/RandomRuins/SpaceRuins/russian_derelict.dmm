@@ -5199,15 +5199,6 @@
 /area/misc/space/nearstation)
 "Jy" = (
 /obj/structure/rack,
-/obj/item/circuitboard/machine/circulator{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/circuitboard/machine/generator,
-/obj/item/circuitboard/machine/circulator{
-	pixel_x = -6;
-	pixel_y = -6
-	},
 /turf/open/floor/circuit/red/off,
 /area/ruin/space/ks13/ai/corridor)
 "Jz" = (
