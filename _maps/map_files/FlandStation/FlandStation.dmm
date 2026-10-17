@@ -18826,9 +18826,9 @@
 /area/station/maintenance/central/greater)
 "fCs" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Engineering Maintenance";
-	req_one_access_txt = "10;24"
+	name = "Engineering Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/engine)
 "fCE" = (
@@ -65039,11 +65039,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/tech/grid,
 /area/station/ai_monitored/turret_protected/ai_upload_foyer)
-"tlm" = (
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
-/turf/open/floor/iron/ameridiner,
-/area/station/engineering/supermatter/room)
 "tlr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -133161,7 +133156,7 @@ lBF
 dJU
 kZe
 oNq
-tlm
+iAC
 iAC
 oMV
 dzT

@@ -7646,17 +7646,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
-"cSz" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron/tech,
-/area/station/engineering/atmos)
 "cSB" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/disposal/bin,
@@ -14708,21 +14697,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/maintenance/department/security)
-"fxS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/tech,
-/area/station/engineering/atmos)
 "fya" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -34492,17 +34466,6 @@
 "ncM" = (
 /turf/closed/wall/r_wall,
 /area/station/security/warden)
-"ncT" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable,
-/obj/machinery/power/generator{
-	dir = 4
-	},
-/turf/open/floor/iron/tech,
-/area/station/engineering/atmos)
 "ndf" = (
 /obj/effect/turf_decal/tile/dark_green/corner_ramp,
 /obj/effect/turf_decal/guideline/guideline_half_edge/green{
@@ -45451,20 +45414,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/central)
-"rah" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/stack/cable_coil,
-/turf/open/floor/iron/tech,
-/area/station/engineering/atmos)
 "rao" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -99352,8 +99301,8 @@ fnP
 qAW
 lfm
 mQp
-rah
-fxS
+mQp
+mQp
 mQp
 mQp
 vYC
@@ -99610,7 +99559,7 @@ pdE
 bbk
 bfk
 bfk
-cSz
+bfk
 bfk
 bfk
 cZY
@@ -99867,7 +99816,7 @@ pdE
 bbk
 bfk
 bfk
-ncT
+bfk
 bfk
 bfk
 cZY
