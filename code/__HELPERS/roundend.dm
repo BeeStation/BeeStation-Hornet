@@ -91,19 +91,22 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	var/datum/station_state/end_state = new /datum/station_state()
 	end_state.count()
 	var/station_integrity = min(PERCENT(GLOB.start_state.score(end_state)), 100)
+	var/most_profitable = SSbilling.get_most_profitable()
 	file_data["additional data"]["station integrity"] = station_integrity
+	file_data["additional data"]["most profitable deparment"] = most_profitable
 	WRITE_FILE(json_file, json_encode(file_data))
 
 	SSblackbox.record_feedback("nested tally", "round_end_stats", num_survivors, list("survivors", "total"))
 	SSblackbox.record_feedback("nested tally", "round_end_stats", num_escapees, list("escapees", "total"))
 	SSblackbox.record_feedback("nested tally", "round_end_stats", GLOB.joined_player_list.len, list("players", "total"))
 	SSblackbox.record_feedback("nested tally", "round_end_stats", GLOB.joined_player_list.len - num_survivors, list("players", "dead"))
-	sendtodiscord(num_survivors, num_escapees, station_integrity)
+	sendtodiscord(num_survivors, num_escapees, station_integrity, most_profitable)
 	. = list()
 	.[POPCOUNT_SURVIVORS] = num_survivors
 	.[POPCOUNT_ESCAPEES] = num_escapees
 	.[POPCOUNT_SHUTTLE_ESCAPEES] = num_shuttle_escapees
 	.["station_integrity"] = station_integrity
+	.["most_profitable_deparment"] = most_profitable
 
 
 /datum/controller/subsystem/ticker/proc/gather_antag_data()
@@ -354,6 +357,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
 	parts += "[GLOB.TAB]Station Integrity: <B>[GLOB.station_was_nuked ? span_redtext("Destroyed") : "[popcount["station_integrity"]]%"]</B>"
+	parts += "[GLOB.TAB]Most Profitable Department: <B>[popcount["most_profitable_deparment"]]</B>"
 	parts += "[GLOB.TAB]Station Traits: <B>[english_list(SSstation.station_traits, nothing_text="none")]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
@@ -560,9 +564,13 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		parts += "An average of [station_vault/total_players] credits were collected.<br>"
 		log_econ("Roundend credit total: [station_vault] credits. Average Credits: [station_vault/total_players]")
 	if(mr_moneybags)
-		parts += "The most affluent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr!</div>"
+		parts += "The most affluent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr<br>!"
 	else
-		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
+		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...<br>"
+// Departments / SSBilling
+	var/most_profitable = SSbilling.get_most_profitable()
+	parts += "<b>[most_profitable]</b> was the most profitable department, claiming <b>[SSbilling.profit[most_profitable]]</b> cr from other departments.<br></div>"
+
 	return parts
 
 /datum/controller/subsystem/ticker/proc/medal_report()
@@ -790,7 +798,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 		qdel(query_check_everything_ranks)
 
 
-/datum/controller/subsystem/ticker/proc/sendtodiscord(survivors, escapees, integrity)
+/datum/controller/subsystem/ticker/proc/sendtodiscord(survivors, escapees, integrity, most_profitable)
 	var/discordmsg = ""
 	discordmsg += "--------------ROUND END--------------\n"
 	discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
@@ -801,6 +809,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	discordmsg += "Escapees: [escapees]\n"
 	discordmsg += "Total Crew: [GLOB.joined_player_list.len] (Roundstart: [SSjob.initial_players_to_assign])\n"
 	discordmsg += "Integrity: [integrity]\n"
+	discordmsg += "Most Profitable Department: [most_profitable]\n"
 	discordmsg += "Dynamic Storyteller: [SSdynamic.current_storyteller?["Name"] || "None"]\n"
 
 	// Roundstart
