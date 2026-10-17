@@ -1,6 +1,6 @@
 /datum/job/station_engineer
 	title = JOB_NAME_STATIONENGINEER
-	description = "Ensure the station has an adequate power supply, repair and build new machinery, repair wiring chewed up by mice."
+	description = "Ensure the station has an adequate power supply, repair and build new machinery, repair wiring chewed up by mice. Outstanding repairs are listed as work orders on your PDA's alarm monitor."
 	department_for_prefs = DEPARTMENT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
