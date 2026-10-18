@@ -31,7 +31,14 @@ SUBSYSTEM_DEF(pai)
 	playsound(src, 'sound/machines/ping.ogg', 20, TRUE)
 	to_chat(user, span_notice("You have requested pAI assistance."))
 	var/mutable_appearance/alert_overlay = mutable_appearance('icons/obj/aicards.dmi', "pai")
-	notify_ghosts("[user] is requesting a pAI personality! Use the pAI button to submit yourself as one.", source=user, alert_overlay = alert_overlay, action=NOTIFY_ORBIT, header="pAI Request!", ignore_key = POLL_IGNORE_PAI)
+	notify_ghosts(
+		"[user] is requesting a pAI companion! Use the pAI button to submit yourself as one.",
+		source = user,
+		header = "pAI Request!",
+		alert_overlay = alert_overlay,
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		ignore_key = POLL_IGNORE_PAI,
+	)
 	addtimer(VARSET_LIST_CALLBACK(request_spam, user.ckey, FALSE), 10 SECONDS)
 	return TRUE
 
