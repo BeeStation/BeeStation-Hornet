@@ -39,12 +39,10 @@
 	if(roll_unusual)
 		generate_unusual()
 
-/obj/item/sticker/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/sticker/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
 		return
-
-	var/list/modifiers = params2list(click_parameters)
 	stick_to(target, text2num(LAZYACCESS(modifiers, ICON_X)), text2num(LAZYACCESS(modifiers, ICON_Y)))
 
 /obj/item/sticker/attack_hand(mob/living/user)
@@ -78,11 +76,11 @@
 		return
 	return ..()
 
-/obj/item/sticker/attackby(obj/item/I, mob/living/user, params)
+/obj/item/sticker/attackby(obj/item/I, mob/living/user, list/modifiers)
 	//If we're stuck to something, pass the attack to our loc
 	if(sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
-		A.attackby(I, user, params)
+		A.attackby(I, user, modifiers)
 		if(prob(33)) //We have a 1/3 chance of falling off
 			unstick()
 			forceMove(get_turf(user))

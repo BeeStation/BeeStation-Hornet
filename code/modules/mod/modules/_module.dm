@@ -226,7 +226,7 @@
 /// Called when an activated module without a device is active and the user alt/middle-clicks
 /obj/item/mod/module/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
-	on_select_use(target)
+	INVOKE_ASYNC(src, PROC_REF(on_select_use), target)
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process
@@ -444,10 +444,9 @@
 		. += span_notice("You need to insert \a [english_list(core_list, and_text = " or ")] for this module to function.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
-	if(!core)
-		balloon_alert(mod.wearer, "no core!")
-		return
-	return ..()
+	if(core)
+		return ..()
+	balloon_alert(mod.wearer, "no core!")
 
 /obj/item/mod/module/anomaly_locked/on_process(delta_time)
 	. = ..()
@@ -455,11 +454,9 @@
 		return FALSE
 
 /obj/item/mod/module/anomaly_locked/on_active_process(delta_time)
-	if(!core)
-		return FALSE
-	return TRUE
+	return !!core
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(item.type in accepted_anomalies)
 		if(core)
 			balloon_alert(user, "core already in!")

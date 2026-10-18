@@ -53,11 +53,8 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-/obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
-
-	var/list/modifiers = params2list(click_parameters)
-
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !target.density)
 		jaunt?.teleport(user, target)
 	if(proximity_flag && (isobj(target) || issilicon(target)))

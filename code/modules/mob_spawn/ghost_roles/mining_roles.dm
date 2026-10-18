@@ -56,7 +56,7 @@
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
-	mob_name = "Beach Bum"
+	mob_name = "a beach bum"
 	name = "beach bum sleeper"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
@@ -68,6 +68,7 @@
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
 	short_desc = "You're a spunky lifeguard!"
+	mob_name = "a beach lifeguard"
 	flavour_text = "It's up to you to make sure nobody drowns or gets eaten by sharks and stuff."
 	mob_gender = "female"
 	name = "lifeguard sleeper"
@@ -99,6 +100,7 @@
 	roundstart = FALSE
 	random = TRUE
 	name = "bartender sleeper"
+	mob_name = "a beach bartender"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	short_desc = "You are a space bartender!"
@@ -220,6 +222,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 
 /obj/effect/mob_spawn/human/lavaland_syndicate
 	name = "Syndicate Bioweapon Scientist"
+	mob_name = "a syndicate bioweapon scientist"
 	roundstart = FALSE
 	death = FALSE
 	random = TRUE
@@ -235,6 +238,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/officer
 	name = "Syndicate Officer"
+	mob_name = "a syndicate officer"
 	short_desc = "You are a syndicate officer, leading a recon team onboard a Syndicate vessel."
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your reconnaissance as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
@@ -277,6 +281,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"
+	mob_name = "a syndicate comms agent"
 	short_desc = "You are a syndicate comms agent, employed in a top secret research facility developing biological weapons."
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
 	important_info = "DO NOT abandon the base."

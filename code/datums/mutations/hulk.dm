@@ -28,14 +28,20 @@
 		return
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
-	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
-		part.variable_color = "#00aa00"
+	for(var/obj/item/bodypart/part as anything in owner.get_bodyparts())
+		part.variable_color = COLOR_DARK_LIME
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	owner.update_body_parts()
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)
-	if(proximity) //no telekinetic hulk attack
-		return target.attack_hulk(owner)
+	if(!owner.combat_mode || !proximity) //no telekinetic hulk attack
+		return
+	if(!target.attack_hulk(owner))
+		return
+
+	owner.changeNext_move(CLICK_CD_MELEE)
+	log_combat(owner, src, "punched", "hulk powers")
+	owner.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 
 /datum/mutation/hulk/on_life(delta_time, times_fired)
 	if(owner.health < owner.crit_threshold)
@@ -49,6 +55,6 @@
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
-	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
+	for(var/obj/item/bodypart/part as anything in owner.get_bodyparts())
 		part.variable_color = null
 	owner.update_body_parts()

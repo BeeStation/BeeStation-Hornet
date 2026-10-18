@@ -16,6 +16,7 @@
 	anchored = TRUE //Can't drag/grab the net.
 	layer = ABOVE_ALL_MOB_LAYER
 	//plane = ABOVE_GAME_PLANE
+	mouse_opacity = MOUSE_OPACITY_OPAQUE // The net is mostly holes, so this can have the issue of hitting yourself trying to hit the net
 	max_integrity = 60 //How much health it has.
 	can_buckle = TRUE
 	buckle_lying = 0
@@ -41,6 +42,12 @@
 /obj/structure/energy_net/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
+
+/obj/structure/energy_net/examine(mob/user) // Every click is going towards the net, so.. we can still examine whoever is inside
+	. = ..()
+	for(var/mob/living/caught as anything in buckled_mobs)
+		. += span_warning("[caught] is tangled up inside!")
+		. += caught.examine(user)
 
 /obj/structure/energy_net/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BRUTE || damage_type == BURN)

@@ -47,7 +47,7 @@
 	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
 	icon_state = "debug"
 
-/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/cotton))
 		var/obj/item/stack/S = I
 		if(S.amount< 3)
@@ -97,7 +97,7 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
-/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents)
 			if(I.reagents.total_volume <= 0)
@@ -230,7 +230,7 @@
 	. = ..()
 	. += "There [bullets == 1 ? "is" : "are"] [bullets] cap\s left."
 
-/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, params)
+/obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, list/modifiers)
 
 	if(istype(A, /obj/item/toy/ammo/gun))
 		if (src.bullets >= 7)
@@ -361,7 +361,7 @@
 	update_appearance(UPDATE_ICON)
 
 // Copied from /obj/item/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/weapon, mob/living/user, params)
+/obj/item/toy/sword/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(istype(weapon, /obj/item/toy/sword))
 		var/obj/item/toy/sword/attatched_sword = weapon
 		if(HAS_TRAIT(weapon, TRAIT_NODROP))
@@ -972,7 +972,7 @@
 		user.visible_message(span_notice("[user] shuffles the deck."), span_notice("You shuffle the deck."))
 		cooldown = world.time
 
-/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard))
 		var/obj/item/toy/cards/singlecard/SC = I
 		if(SC.parentdeck == src)
@@ -1067,7 +1067,7 @@
 		cardUser.put_in_hands(N)
 		to_chat(cardUser, span_notice("You also take [currenthand[1]] and hold it."))
 
-/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, list/modifiers)
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
@@ -1166,7 +1166,7 @@
 		src.name = "card"
 		src.pixel_x = -5
 
-/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == src.parentdeck)

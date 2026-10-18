@@ -673,13 +673,18 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(custom_title)
 		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
-/proc/printplayer(datum/mind/ply, fleecheck)
+/proc/printplayer(datum/mind/ply, fleecheck, status_override)
 	var/jobtext = ""
 	if(!is_unassigned_job(ply.assigned_role))
 		jobtext = " the <b>[ply.assigned_role.title]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and"
+	if(status_override) // So we can support "Was deconverted" as a roundend state
+		text += " [status_override]"
+		if(ply.current && ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+		return text
 	if(ply.cryoed)
 		text += " [span_bluetext("entered cryosleep")]"
 	else if(ply.current)

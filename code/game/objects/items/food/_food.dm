@@ -119,7 +119,7 @@
 		..()
 		qdel(src)
 
-/obj/item/food/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/food/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	. = ..()
 	if(istype(attacking_item, /obj/item/kitchen/fork) && iscarbon(user))
 		var/obj/item/kitchen/fork/utensil = attacking_item

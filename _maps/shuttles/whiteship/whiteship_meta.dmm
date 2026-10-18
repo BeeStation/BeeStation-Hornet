@@ -477,9 +477,7 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/freezer,
 /area/shuttle/abandoned/crew)
 "bH" = (

@@ -52,7 +52,7 @@ Metals Sheets
 	user.visible_message(span_suicide("[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
-/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	if(istype(target, /turf/open))
 		var/turf/open/build_on = target
 		if(!user.Adjacent(build_on))
@@ -122,7 +122,7 @@ Metals Sheets
 	throw_range = 3
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/teslium = 15)
 	merge_type = /obj/item/stack/sheet/brass
-	custom_materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
+	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
 
 /obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)

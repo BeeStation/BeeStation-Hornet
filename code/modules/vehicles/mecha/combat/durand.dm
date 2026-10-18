@@ -116,33 +116,29 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 	return
 
 /obj/vehicle/sealed/mecha/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
-	if(defense_check(user.loc))
-		log_message("Attack absorbed by defense field. Attacker - [user].", LOG_MECHA, color="orange")
-		shield.attack_generic(user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
-	else
-		. = ..()
+	if(!defense_check(user.loc))
+		return ..()
+	log_message("Attack absorbed by defense field. Attacker - [user].", LOG_MECHA, color="orange")
+	shield.attack_generic(user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
 
 /obj/vehicle/sealed/mecha/durand/blob_act(obj/structure/blob/B)
-	if(defense_check(B.loc))
-		log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
-		log_message("Attack absorbed by defense field.", LOG_MECHA, color="orange")
-		shield.blob_act(B)
-	else
-		. = ..()
+	if(!defense_check(B.loc))
+		return ..()
+	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
+	log_message("Attack absorbed by defense field.", LOG_MECHA, color="orange")
+	shield.blob_act(B)
 
-/obj/vehicle/sealed/mecha/durand/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(defense_check(user.loc))
-		log_message("Attack absorbed by defense field. Attacker - [user], with [W]", LOG_MECHA, color="orange")
-		shield.attackby(W, user, params)
-	else
-		. = ..()
+/obj/vehicle/sealed/mecha/durand/attackby(obj/item/W, mob/user, list/modifiers)
+	if(!defense_check(user.loc))
+		return ..()
+	log_message("Attack absorbed by defense field. Attacker - [user], with [W]", LOG_MECHA, color="orange")
+	shield.attackby(W, user, modifiers)
 
 /obj/vehicle/sealed/mecha/durand/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(defense_check(AM.loc))
-		log_message("Impact with [AM] absorbed by defense field.", LOG_MECHA, color="orange")
-		shield.hitby(AM, skipcatch, hitpush, blocked, throwingdatum)
-	else
-		. = ..()
+	if(!defense_check(AM.loc))
+		return ..()
+	log_message("Impact with [AM] absorbed by defense field.", LOG_MECHA, color="orange")
+	shield.hitby(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /datum/action/vehicle/sealed/mecha/mech_defense_mode
 	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."

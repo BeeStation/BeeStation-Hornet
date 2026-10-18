@@ -52,7 +52,6 @@
 
 	rotate_on_lying = TRUE
 
-	var/list/icon_render_keys = list()
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
 		/obj/item/bodypart/head,
@@ -62,11 +61,11 @@
 		/obj/item/bodypart/leg/left
 	)
 
-	//Gets filled up in create_bodyparts()
+	/// A collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
+	var/list/hand_bodyparts = list()
 
-	var/list/hand_bodyparts = list() //a collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
-
-
+	///A cache of bodypart = icon to prevent excessive icon creation.
+	var/list/icon_render_keys = list()
 	var/static/list/limb_icon_cache = list()
 
 	/// Used to temporarily increase severity of / apply a new damage overlay (the red ring around the ui / screen).

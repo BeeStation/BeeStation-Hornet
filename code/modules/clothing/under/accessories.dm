@@ -116,44 +116,59 @@
 	var/commended = FALSE
 
 //Pinning medals on people
-/obj/item/clothing/accessory/medal/attack(mob/living/carbon/human/M, mob/living/user)
-	if(ishuman(M) && !user.combat_mode)
+/obj/item/clothing/accessory/medal/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!ishuman(interacting_with) || user.combat_mode)
+		return NONE
+	var/mob/living/carbon/human/outstanding_crewmember = interacting_with
 
-		if(M.wear_suit)
-			if((M.wear_suit.flags_inv & HIDEJUMPSUIT)) //Check if the jumpsuit is covered
-				to_chat(user, span_warning("Medals can only be pinned on jumpsuits."))
-				return
+	//Check if the jumpsuit is covered or doesn't exist
+	if(!outstanding_crewmember.w_uniform || (outstanding_crewmember.wear_suit?.flags_inv & HIDEJUMPSUIT))
+		to_chat(user, span_warning("Medals can only be pinned on jumpsuits."))
+		return ITEM_INTERACT_BLOCKING
 
-		if(M.w_uniform)
-			var/obj/item/clothing/under/U = M.w_uniform
-			var/delay = 20
-			if(user == M)
-				delay = 0
-			else
-				user.visible_message("[user] is trying to pin [src] on [M]'s chest.", \
-									span_notice("You try to pin [src] on [M]'s chest."))
-			var/input
-			if(!commended && user != M)
-				input = stripped_input(user,"Please input a reason for this commendation, it will be recorded by Nanotrasen.", ,"", 140)
-			if(do_after(user, delay, target = M))
-				if(U.attach_accessory(src, user, 0)) //Attach it, do not notify the user of the attachment
-					if(user == M)
-						to_chat(user, span_notice("You attach [src] to [U]."))
-					else
-						user.visible_message("[user] pins \the [src] on [M]'s chest.", \
-											span_notice("You pin \the [src] on [M]'s chest."))
-						if(input)
-							SSblackbox.record_feedback("associative", "commendation", 1, list("commender" = "[user.real_name]", "commendee" = "[M.real_name]", "medal" = "[src]", "reason" = input))
-							GLOB.commendations += "[user.real_name] awarded <b>[M.real_name]</b> the [span_medaltext("[name]")]! \n- [input]"
-							commended = TRUE
-							desc += "<br>The inscription reads: [input] - [user.real_name]"
-							log_game("<b>[key_name(M)]</b> was given the following commendation by <b>[key_name(user)]</b>: [input]")
-							message_admins("<b>[key_name_admin(M)]</b> was given the following commendation by <b>[key_name_admin(user)]</b>: [input]")
+	var/obj/item/clothing/under/jumpsuit = outstanding_crewmember.w_uniform
 
-		else
-			to_chat(user, span_warning("Medals can only be pinned on jumpsuits!"))
+	var/delay = 2 SECONDS
+	var/input
+
+	if(user == outstanding_crewmember)
+		delay = 0 SECONDS
 	else
-		..()
+		user.visible_message(
+			span_notice("[user] is trying to pin [src] on [outstanding_crewmember]'s chest."),
+			span_notice("You try to pin [src] on [outstanding_crewmember]'s chest."),
+		)
+		if(!commended)
+			input = tgui_input_text(user, "Please input a reason for this commendation, it will be recorded by Nanotrasen.", "Commendation", "", 140)
+			if(QDELETED(src) || QDELETED(user) || QDELETED(outstanding_crewmember))
+				return ITEM_INTERACT_BLOCKING
+
+	if(!do_after(user, delay, target = outstanding_crewmember))
+		user.balloon_alert(user, "interrupted!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(QDELETED(src) || QDELETED(user) || QDELETED(outstanding_crewmember))
+		return ITEM_INTERACT_BLOCKING
+
+	if(jumpsuit.attach_accessory(src, user, FALSE) != ITEM_INTERACT_SUCCESS)
+		return ITEM_INTERACT_BLOCKING
+
+	if(user == outstanding_crewmember)
+		to_chat(user, span_notice("You attach [src] to [jumpsuit]."))
+	else
+		user.visible_message(
+			span_notice("[user] pins \the [src] on [outstanding_crewmember]'s chest."),
+			span_notice("You pin \the [src] on [outstanding_crewmember]'s chest."),
+		)
+		if(input)
+			SSblackbox.record_feedback("associative", "commendation", 1, list("commender" = "[user.real_name]", "commendee" = "[outstanding_crewmember.real_name]", "medal" = "[src]", "reason" = input))
+			GLOB.commendations += "[user.real_name] awarded <b>[outstanding_crewmember.real_name]</b> the [span_medaltext("[name]")]! \n- [input]"
+			commended = TRUE
+			desc += "<br>[span_notice("The inscription reads: <b>[input] - [user.real_name]</b>")]"
+			log_game("<b>[key_name(outstanding_crewmember)]</b> was given the following commendation by <b>[key_name(user)]</b>: [input]")
+			message_admins("<b>[key_name_admin(outstanding_crewmember)]</b> was given the following commendation by <b>[key_name_admin(user)]</b>: [input]")
+
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/clothing/accessory/medal/conduct
 	name = "distinguished conduct medal"
@@ -220,7 +235,6 @@
 	medaltype = "medal-plasma"
 	armor_type = /datum/armor/medal_plasma
 	custom_materials = list(/datum/material/plasma=1000)
-
 
 /datum/armor/medal_plasma
 	fire = -10
@@ -395,7 +409,6 @@
 	armor_type = /datum/armor/accessory_skullcodpiece
 	attachment_slot = GROIN
 
-
 /datum/armor/accessory_skullcodpiece
 	melee = 5
 	bullet = 5
@@ -462,28 +475,31 @@
 
 /obj/item/clothing/accessory/badge/examine(mob/user)
 	. = ..()
-	if(officer_name)
-		to_chat(user, "The [src]'s text reads: [officer_name], [badge_title].")
+	. += span_notice("It reads: <b>[officer_name ? "[officer_name], [badge_title]" : badge_title]</b>.")
 
 /obj/item/clothing/accessory/badge/attack_self(mob/user)
 	if (!officer_name)
-		to_chat(user, "You inspect your [src.name]. Everything seems to be in order and you give it a quick cleaning with your hand.")
+		to_chat(user, span_notice("You inspect your [src.name]. Everything seems to be in order and you give it a quick cleaning with your hand."))
 		officer_name = user.real_name
-		desc = usr
 		return
 	if (isliving(user))
-		if(officer_name)
-			user.visible_message(span_notice("[user] displays their [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."),span_notice("You display your [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."))
-		else
-			user.visible_message(span_notice("[user] displays their [src.name].\nIt reads: [badge_title]."),span_notice("You display your [src.name]. It reads: [badge_title]."))
-	..()
+		var/what_does_it_read = "<b>[officer_name ? "[officer_name], [badge_title]" : badge_title]</b>"
+		user.visible_message(
+			span_notice("[user] displays [user.p_their()] [src.name]. It reads: [what_does_it_read]."),
+			span_notice("You display your [src.name]. It reads: [what_does_it_read]."),
+		)
+	return ..()
 
-/obj/item/clothing/accessory/badge/attack(mob/living/target, mob/living/user, params)
-	. = ..()
-	if (isliving(user) && istype(target))
-		user.visible_message(span_danger("[user] invades [target]'s personal space, thrusting \the [src] into their face insistently."), span_danger("You invade [target]'s personal space, thrusting \the [src] into their face insistently."))
-		if (officer_name)
-			to_chat(target, span_warning("The [src]'s text reads: [officer_name], [badge_title]."))
+/obj/item/clothing/accessory/badge/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isliving(interacting_with) || interacting_with == user)
+		return NONE
+
+	user.visible_message(
+		span_danger("[user] invades [interacting_with]'s personal space, thrusting \the [src] into their face insistently."),
+		span_notice("You invade [interacting_with]'s personal space, thrusting \the [src] into their face insistently."),
+	)
+	to_chat(interacting_with, span_warning("\The [src]'s text reads: <b>[officer_name ? "[officer_name], [badge_title]" : badge_title]</b>."))
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/clothing/accessory/badge/det
 	icon_state = "detbadge"

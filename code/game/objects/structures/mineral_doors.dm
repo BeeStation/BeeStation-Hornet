@@ -263,7 +263,7 @@
 /obj/structure/mineral_door/transparent/plasma/welder_act(mob/living/user, obj/item/I)
 	return
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.get_temperature() > 300)
 		plasma_ignition(6, user)
 	else

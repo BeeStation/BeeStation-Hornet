@@ -181,7 +181,7 @@
 			brain = null
 			update_icon_dropped()
 		else
-			if(istype(head_item, /obj/item/reagent_containers/pill))
+			if(istype(head_item, /obj/item/reagent_containers/applicator/pill))
 				for(var/datum/action/item_action/hands_free/activate_pill/AP in head_item.actions)
 					qdel(AP)
 			else if(isorgan(head_item))

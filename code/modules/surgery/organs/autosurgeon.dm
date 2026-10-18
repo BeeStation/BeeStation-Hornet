@@ -45,7 +45,7 @@
 /obj/item/autosurgeon/attack_self_tk(mob/user)
 	return //stops TK fuckery
 
-/obj/item/autosurgeon/attackby(obj/item/I, mob/user, params)
+/obj/item/autosurgeon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, organ_type))
 		if(storedorgan)
 			to_chat(user, span_notice("[src] already has an implant stored."))

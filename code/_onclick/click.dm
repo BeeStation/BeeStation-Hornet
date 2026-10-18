@@ -54,18 +54,17 @@
 		usr.MouseWheelOn(src, delta_x, delta_y, params)
 
 /**
-  * Standard mob ClickOn()
-  * Handles exceptions: Buildmode, middle click, modified clicks, mech actions
-  *
-  * After that, mostly just check your state, check whether you're holding an item,
-  * check whether you're adjacent to the target, then pass off the click to whoever
-  * is receiving it.
-  * The most common are:
-  * * [mob/proc/UnarmedAttack] (atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
-  * * [atom/proc/attackby] (item,user) - used only when adjacent
-  * * [obj/item/proc/afterattack] (atom,user,adjacent,params) - used both ranged and adjacent
-  * * [mob/proc/RangedAttack] (atom,params) - used only ranged, only used for tk and laser eyes but could be changed
-  */
+ * Standard mob ClickOn()
+ *
+ * After that, mostly just check your state, check whether you're holding an item,
+ * check whether you're adjacent to the target, then pass off the click to whoever is receiving it.
+ *
+ * The most common are:
+ * * [mob/proc/UnarmedAttack] (atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
+ * * [atom/proc/attackby] (item,user) - used only when adjacent
+ * * [obj/item/proc/afterattack] (atom,user,adjacent,params) - used both ranged and adjacent
+ * * [mob/proc/RangedAttack] (atom,modifiers) - used only ranged, only used for tk and laser eyes but could be changed
+ */
 /mob/proc/ClickOn( atom/A, params )
 	if(world.time <= next_click)
 		return
@@ -77,6 +76,9 @@
 	var/list/modifiers = params2list(params)
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
+	if(LAZYACCESS(modifiers, BUTTON4) || LAZYACCESS(modifiers, BUTTON5))
 		return
 
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
@@ -141,7 +143,7 @@
 	//User itself, current loc, and user inventory
 	if(HasDirectAccess(A))
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -162,7 +164,7 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -171,25 +173,25 @@
 		if(W)
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				// Try the ranged attack first
-				var/ranged_attack_result = W.ranged_attack_secondary(A, src, params)
+				var/ranged_attack_result = W.ranged_attack_secondary(A, src, modifiers)
 
 				// Defer to normal ranged attack
 				if (ranged_attack_result == SECONDARY_ATTACK_CALL_NORMAL)
-					if (W.ranged_attack(A, src, params))
+					if (W.ranged_attack(A, src, modifiers))
 						return
 
-				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
+				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, modifiers)
 
 				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
-					W.afterattack(A, src, FALSE, params)
+					W.afterattack(A, src, FALSE, modifiers)
 			else
-				if (!W.ranged_attack(A, src, params))
-					W.afterattack(A,src,0,params)
+				if (!W.ranged_attack(A, src, modifiers))
+					W.afterattack(A, src, FALSE, modifiers)
 		else
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				ranged_secondary_attack(A, modifiers)
 			else
-				RangedAttack(A,modifiers)
+				RangedAttack(A, modifiers)
 
 /// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
@@ -308,7 +310,10 @@
 
 
 /*
- * Translates into [atom/proc/attack_hand], etc.
+ * UnarmedAttack: The higest level of mob click chain discounting click itself.
+ *
+ * This handles, just "clicking on something" without an item. It translates
+ * into [atom/proc/attack_hand], [atom/proc/attack_animal] etc.
  *
  * Note: proximity_flag here is used to distinguish between normal usage (flag=1),
  * and usage when clicking on things telekinetically (flag=0).  This proc will
@@ -332,7 +337,7 @@
   * for things like ranged glove touches, spitting alien acid/neurotoxin,
   * animals lunging, etc.
   */
-/mob/proc/RangedAttack(atom/A, modifiers)
+/mob/proc/RangedAttack(atom/A, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
