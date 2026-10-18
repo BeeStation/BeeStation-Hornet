@@ -9,10 +9,10 @@
 	count = 200
 	lifespan = 20
 	fade = 2
-	position = vector(0, 0)
+	position = list(0, 0)
 	gravity = list(0, 0)
-	scale = vector(0.8, 0.8)
-	grow = vector(-0.5, -0.5)
+	scale = list(0.8, 0.8)
+	grow = list(-0.5, -0.5)
 	#ifndef SPACEMAN_DMM
 	fadein = 1
 	#endif
