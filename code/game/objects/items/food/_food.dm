@@ -122,13 +122,13 @@
 /obj/item/food/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	. = ..()
 	if(istype(attacking_item, /obj/item/kitchen/fork) && iscarbon(user))
-		var/obj/item/kitchen/fork/utensil = attacking_item
+		var/obj/item/kitchen/fork/utensil = attacking_item // Forks Work For ALL Non-Soups!
 		var/is_soup = istype(src, /obj/item/food/soup)
-		if(is_soup != istype(utensil, /obj/item/kitchen/fork/spoon))
+		if(is_soup != istype(utensil, /obj/item/kitchen/fork/spoon))  // Soup Needs Spoons!
 			if(is_soup)
-				to_chat(user, span_warning("You try to pick up [src] with your [utensil], but it falls through the prongs! Maybe try a spoon.")) // Message using a fork on soup / Doesnt Work!
+				to_chat(user, span_warning("You try to scoop up [src] with your [utensil], but it slips through the prongs! Maybe try a spoon."))
 			else
-				to_chat(user, span_warning("You can't seem to fit [src] on your [utensil]! Maybe try a fork.")) // Message when using spoon on non-soup / Doesnt Work!
+				to_chat(user, span_warning("[src] doesn't seem to fit on your [utensil]! Maybe try a fork."))
 			return
 		if(utensil.foodload)
 			to_chat(user, span_warning("You already have food on your [utensil]!"))
