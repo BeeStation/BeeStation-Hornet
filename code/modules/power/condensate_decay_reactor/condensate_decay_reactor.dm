@@ -103,7 +103,7 @@
 		collapse.blend_mode = BLEND_ADD
 		collapse.add_filter("cdr_orb_glow", 1, list(type = "bloom", size = 1, threshold = rgb(156, 156, 156)))
 		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
-		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE)
+		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE, pressure_affected = FALSE)
 		return PROCESS_KILL
 
 /obj/machinery/atmospherics/components/unary/cdr/screwdriver_act(mob/living/user, obj/item/tool)
@@ -295,7 +295,7 @@
 		radio.talk_into(src, "Core health is [decreasing ? "decreasing" : "increasing"] to [round(core_health)]!", core_health < CDR_MAX_CORE_HEALTH * 0.25 ? null : RADIO_CHANNEL_ENGINEERING)
 		COOLDOWN_START(src, radio_cooldown, CDR_RADIO_COOLDOWN)
 	if(COOLDOWN_FINISHED(src, alert_cooldown) && core_health < CDR_MAX_CORE_HEALTH * 0.4)
-		playsound(get_turf(src), 'sound/misc/alert.ogg', 100, TRUE, 5)
+		playsound(get_turf(src), 'sound/misc/alert.ogg', 100, TRUE, 5, pressure_affected = FALSE)
 		COOLDOWN_START(src, alert_cooldown, CDR_ALERT_COOLDOWN + rand(-5, 5))
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
