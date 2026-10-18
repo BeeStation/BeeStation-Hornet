@@ -14,7 +14,7 @@
 	/// List of billing settings - Used to configure things like power cost
 	var/list/settings = list(/datum/billing_setting/number/power, /datum/billing_setting/number/upkeep/medical,
 	/datum/billing_setting/number/upkeep/security, /datum/billing_setting/number/upkeep/service, /datum/billing_setting/number/techfab_design,
-	/datum/billing_setting/number/techfab_material, /datum/billing_setting/number/suit_sensor_upkeep)
+	/datum/billing_setting/number/techfab_material, /datum/billing_setting/number/suit_sensor_upkeep, /datum/billing_setting/number/vending_rental)
 
 /obj/machinery/billing_server/Initialize(mapload)
 	. = ..()

@@ -366,8 +366,11 @@
 	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
-	if(bill_agent_designs?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_FAB)
-		say("Too many outstanding invoices.")
+	if(bill_agent_designs && !bill_agent_designs.check_forgiveness())
+		say("Too many outstanding design invoices.")
+		return FALSE
+	if(bill_agent_materials && !bill_agent_materials.check_forgiveness())
+		say("Too many outstanding material invoices.")
 		return FALSE
 
 	var/material_cost = 0 // For billing

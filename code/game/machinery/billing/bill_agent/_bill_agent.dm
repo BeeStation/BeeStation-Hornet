@@ -18,6 +18,8 @@
 	var/disabled = FALSE
 	/// How much mula we've made
 	var/income = 0
+	/// Outstanding bracket for shutoff
+	var/upper_outstanding
 
 /datum/component/bill_agent/Initialize(_department_ID, auto_link = TRUE, _tags) // TODO: Should non roundstart stuff auto link to the server - Racc
 	. = ..()
@@ -38,6 +40,10 @@
 		if(!bill.paid)
 			outstanding += 1
 	return outstanding
+
+/// True is forgiven, false is condemed
+/datum/component/bill_agent/proc/check_forgiveness()
+	return !(get_outstanding_bills() > upper_outstanding) // Add any extra forgiveness logic here
 
 /datum/component/bill_agent/proc/catch_new_server(datum/source, obj/machinery/billing_server/_server)
 	SIGNAL_HANDLER

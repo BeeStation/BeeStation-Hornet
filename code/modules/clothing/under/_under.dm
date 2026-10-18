@@ -199,7 +199,7 @@
 		to_chat(user, span_warning("This suit does not have any sensors."))
 		return FALSE
 	// Billing lockout
-	if(bill_agent_sensors && bill_agent_sensors.get_outstanding_bills() >= BILLING_MAX_OUTSTANDING_SENSORS)
+	if(bill_agent_sensors && !bill_agent_sensors.check_forgiveness())
 		to_chat(user, span_warning("Too many outstanding invoices, disabling sensors..."))
 		set_sensor_mode(SENSOR_OFF)
 		log_combat(user, src.loc, "changed sensors to [SENSOR_OFF] due to a billing interaction")

@@ -20,7 +20,7 @@
 // variant for agents that use a setting as a coefficient
 /datum/component/bill_agent/generic/number_coef
 	/// Amount coef setting - only works with number settings by default
-	var/setting_path
+	var/setting_path // TODO: When you add manual linking, make setting this a repeatable proc - Racc
 
 /datum/component/bill_agent/generic/number_coef/add_bill(datum/bill/new_bill)
 	. = ..()

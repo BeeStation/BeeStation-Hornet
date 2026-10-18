@@ -167,7 +167,7 @@ const Settings = (_props) => {
     <Section scrollable title={'Settings (' + settings?.length + ')'} fill>
       {settings
         ? settings.map((setting) => (
-            <Section key={setting['ui_type']} title={setting['name']} m={0.1}>
+            <Section key={setting['ui_type']} title={setting['name']} m={0.2}>
               {setting['desc'] ? (
                 <LabeledList.Item label="Description">
                   {setting['desc']}

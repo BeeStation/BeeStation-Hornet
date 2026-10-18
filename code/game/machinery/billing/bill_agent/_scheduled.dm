@@ -21,7 +21,7 @@
 
 /datum/component/bill_agent/scheduled/Destroy(force)
 	. = ..()
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSobj, src) // TODO: only start / stop when there's a server linked - Racc
 
 /datum/component/bill_agent/scheduled/process(delta_time)
 	if(COOLDOWN_FINISHED(src, bill_cooldown) && server)

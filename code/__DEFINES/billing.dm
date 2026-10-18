@@ -5,6 +5,8 @@
 #define BILLING_COST_FAB_MATERIAL 0.025
 /// Electricity in whatever unit
 #define BILLING_COST_ELECTRICITY 0.0003
+/// Vending rent
+#define BILLING_COST_VENDING_RENT 5
 
 /// Generic services cost
 #define BILLING_UPKEEP_GENERIC 100
@@ -16,14 +18,18 @@
 #define BILLING_PERIOD_UPKEEP 8 MINUTES
 /// Suit sensors
 #define BILLING_PERIOD_SUIT_SENSORS 5 MINUTES
+/// Vendor rent
+#define BILLING_PERIOD_VENDING_RENT 5 MINUTES
 
 // Max outstanding bills for gated agents
 /// Techfab
-#define BILLING_MAX_OUTSTANDING_FAB 5
+#define BILLING_MAX_OUTSTANDING_FAB 3
 /// Area Power Control
-#define BILLING_MAX_OUTSTANDING_APC 2
+#define BILLING_MAX_OUTSTANDING_APC 1
 /// Suit sensors
 #define BILLING_MAX_OUTSTANDING_SENSORS 2
+/// Vending Rent
+#define BILLING_MAX_OUTSTANDING_VENDING_RENT 1
 
 // Tags / bitflags for bills
 #define BILL_TAG_PAID (1<<0)

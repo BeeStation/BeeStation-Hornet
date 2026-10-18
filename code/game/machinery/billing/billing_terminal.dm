@@ -2,16 +2,19 @@
 Consider
 	make the system self sustaining until unbalanced maybe
 	make chargebacks only happen in that billing category is enabled, or make a seperate chareback bitflagh
+	add billing to medibots and air alarms / vents
+
+	Consider adding an extra option to agents to force disable usage of the parent
 
 Peanut Posting
 	If we make more power lower electricity costs. Or allow engineering to adjust the price, with a minimum based on how much theyre making
 	Make the department upkeep equal to its last power bill
 	Arrestinbg a person bills the department
-	Service lockout fee could be the food / all vending machines
 
 TODO
-	Give service a shutoff service to bill for
+	Add shutoff / billing for sec outside upkeep
 	add a tool to link terminals to servers. Same tool can be used to setup agents and settings
+	improve apc control for AI
 */
 
 /obj/machinery/computer/billing

@@ -571,13 +571,13 @@
 	if ((malfhack || (obj_flags & EMAGGED)) && COOLDOWN_FINISHED(src, last_hacked_flicker))
 		flicker_hacked_icon()
 	// Billing shut off
-	// TODO: This is a terrible way of doing this, should preserve the settings. Also command buff is hardcoded and bad. - Racc
-	var/area/A = get_area(src)
-	if(bill_agent?.get_outstanding_bills() > BILLING_MAX_OUTSTANDING_APC+A?.extra_overdraft && operating && department_ID)
+	// TODO: This is a terrible way of doing this, should preserve the settings. - Racc
+	// TODO: Move this to a check proc inside the agent - racc
+	if(!bill_agent?.check_forgiveness() && operating && department_ID)
 		say("Outstanding invoices, shutting down...")
 		operating = FALSE
 		update()
-	if(bill_agent?.get_outstanding_bills() < BILLING_MAX_OUTSTANDING_APC && !operating && department_ID)
+	if(bill_agent?.check_forgiveness() && !operating && department_ID)
 		operating = TRUE
 		update()
 	// Vars for the power usage of the different channels

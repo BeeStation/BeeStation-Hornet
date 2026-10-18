@@ -1508,6 +1508,7 @@
 #include "code\game\machinery\billing\bill_agent\department_coefs.dm"
 #include "code\game\machinery\billing\bill_agent\suit_sensors.dm"
 #include "code\game\machinery\billing\bill_agent\upkeep.dm"
+#include "code\game\machinery\billing\bill_agent\vendor_rent.dm"
 #include "code\game\machinery\billing\billing_setting\_billing_setting.dm"
 #include "code\game\machinery\billing\billing_setting\department.dm"
 #include "code\game\machinery\camera\camera.dm"

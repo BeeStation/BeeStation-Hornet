@@ -3,8 +3,10 @@
 	tags = BILL_TAG_FEE
 	bill_time = BILLING_PERIOD_SUIT_SENSORS
 	setting_path = /datum/billing_setting/number/suit_sensor_upkeep
+	upper_outstanding = BILLING_MAX_OUTSTANDING_SENSORS
 
 // TODO: This is a little expensive to have every suit processing, make it only tick when worn - Racc
+// TODO: I did implement a solution for this, but it's pretty temp and gross. A real solution would use signals on this to start and stop - Racc
 
 /datum/component/bill_agent/scheduled/suit_sensors/make_scheduled()
 	var/obj/item/clothing/under/suit = parent
@@ -14,7 +16,7 @@
 	var/mob/living/wearer = suit.loc
 	if(!istype(wearer))
 		return
-	if(get_outstanding_bills() > BILLING_MAX_OUTSTANDING_SENSORS)
+	if(!check_forgiveness())
 		return
 	// Find out who the wearer works for
 	var/obj/item/card/id/id_card = wearer.get_idcard(FALSE)
@@ -31,7 +33,7 @@
 		timed_bill.body = "For the continued use of [department_ID]'s suit sensor program on [parent]."
 		add_bill(timed_bill)
 	// Lock out
-	if(get_outstanding_bills() > BILLING_MAX_OUTSTANDING_SENSORS)
+	if(!check_forgiveness())
 		suit.say("Outstanding invoices, disabling sensors...")
 		suit.set_sensor_mode(SENSOR_OFF)
 		return
