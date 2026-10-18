@@ -1,8 +1,3 @@
-/// The multiplication factor for openturf shadower darkness. Lighting will be multiplied by this.
-#define SHADOWER_DARKENING_FACTOR 0.8
-/// The above, but as an RGB string for lighting-less turfs.
-#define SHADOWER_DARKENING_COLOR "#CCCCCC"
-
 /// The mimic (if any) that's *directly* copying us.
 /atom/movable/var/tmp/atom/movable/openspace/mimic/bound_overlay
 /// General MultiZ flags, not entirely related to zmimic but better than using obj_flags
@@ -92,9 +87,10 @@
 	icon = LIGHTING_ICON
 	icon_state = "dark"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plane = ZMIMIC_MAX_PLANE
+	plane = ZMIMIC_SHADOW_PLANE(ZMIMIC_MAX_PLANE)
 	layer = MIMICKED_LIGHTING_LAYER
-	blend_mode = BLEND_MULTIPLY
+	// blend shadow array and not self :P
+	blend_mode = BLEND_OVERLAY
 	color = SHADOWER_DARKENING_COLOR
 
 /atom/movable/openspace/multiplier/Destroy(force)
@@ -116,8 +112,9 @@
 	luminosity = 0
 	appearance = lighting_object
 	layer = MIMICKED_LIGHTING_LAYER
-	plane = ZMIMIC_MAX_PLANE
-	blend_mode = BLEND_MULTIPLY
+	// hacky solution so that overlay lights get mimicked too
+	plane = ZMIMIC_SHADOW_PLANE(ZMIMIC_MAX_PLANE - ZMIMIC_DEPTH(GET_TURF_DEPTH(below)))
+	blend_mode = BLEND_OVERLAY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = 0
 	if (islist(color))
@@ -252,7 +249,7 @@
 		depth = associated_atom:override_depth
 	else if (isturf(associated_atom.loc))
 		var/turf/source_turf = associated_atom.loc
-		depth = min(ZMIMIC_MAX_DEPTH - GET_TURF_DEPTH(source_turf), ZMIMIC_MAX_DEPTH)
+		depth = ZMIMIC_DEPTH(GET_TURF_DEPTH(source_turf))
 		override_depth = depth
 
 	plane = ZMIMIC_MAX_PLANE - depth
@@ -305,6 +302,3 @@
 /atom/movable/openspace/turf_mimic/examine(mob/examiner)
 	SHOULD_CALL_PARENT(FALSE)
 	. = delegate.examine(examiner)
-
-#undef SHADOWER_DARKENING_FACTOR
-#undef SHADOWER_DARKENING_COLOR

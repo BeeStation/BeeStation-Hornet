@@ -72,8 +72,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_vi
 	body.wipe_state() // cleanup the body immediately since it spawns with overlays, AI and cyborgs will retain them.
 	vis_contents += body
 
-/atom/movable/screen/map_view/character_preview_view/generate_view(map_key)
-	. = ..()
-	var/atom/lighting_plane = remote_view?.get_plane(/atom/movable/screen/plane_master/lighting)
+/atom/movable/screen/map_view/character_preview_view/display_to_client(client/show_to)
+	var/datum/plane_master_group/popup/pop_planes = ..()
+	var/atom/lighting_plane = pop_planes?.get_plane(LIGHTING_PLANE)
 	lighting_plane?.alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	return pop_planes
 

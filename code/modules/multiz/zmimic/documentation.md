@@ -29,7 +29,7 @@ What makes Z-mimic so performant is that the performance overhead of checking fo
 
 ### Lighting
 
-Z-Mimic's lighting is relatively simplistic, rather than using the lighting plane, lighting is included on the plane with the atom, and the blend mode is set on the lighting object. All lighting on lower turfs has a color multiplier added to it, causing lower turfs to appear darker. The lighting is placed onto the openspace multiplier atom, which is an internal atom designed to host ambient occlusion, lighting, and apply darkness.
+Z-Mimic's lighting is relatively simplistic, rather than using the lighting plane, the lighting of each level is copied onto a shadow plane. Each Z-Mimic plane has its own shadow plane, relayed just above it with a multiply blend, so it darkens that plane and everything deeper. Overlay lights (flashlights, flares and other movable lights) are mimicked onto the same shadow plane, drawn over the copied lighting, so they light the level they are on. All lighting on lower turfs has a color multiplier added to it, causing lower turfs to appear darker. The lighting is placed onto the openspace multiplier atom, which is an internal atom designed to host ambient occlusion, lighting, and apply darkness.
 
 Additive lighting (bloom) is a turf underlay, so z-turfs keep their own instead of copying the one below.
 
