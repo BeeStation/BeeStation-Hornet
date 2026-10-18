@@ -157,23 +157,24 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
-	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
-	if(N)
+	var/disk_count = 1
+	for(var/obj/item/disk/nuclear/nuke_disk as anything in SSpoints_of_interest.real_nuclear_disks)
 		var/list/data = list()
-		var/turf/T = get_turf(N)
-		if(T)
-			data["x"] = T.x
-			data["y"] = T.y
-			data["z"] = T.z
-		var/atom/outer = get_atom_on_turf(N,/mob/living)
-		if(outer != N)
+		var/turf/disk_turf = get_turf(nuke_disk)
+		if(disk_turf)
+			data["x"] = disk_turf.x
+			data["y"] = disk_turf.y
+			data["z"] = disk_turf.z
+		var/atom/outer = get_atom_on_turf(nuke_disk, /mob/living)
+		if(outer != nuke_disk)
 			if(isliving(outer))
-				var/mob/living/L = outer
-				data["holder"] = L.real_name
+				var/mob/living/disk_holder = outer
+				data["holder"] = disk_holder.real_name
 			else
 				data["holder"] = outer.name
 
-		SSblackbox.record_feedback("associative", "roundend_nukedisk", 1 , data)
+		SSblackbox.record_feedback("associative", "roundend_nukedisk", disk_count, data)
+		disk_count++
 
 /datum/controller/subsystem/ticker/proc/gather_newscaster()
 	var/json_file = file("[GLOB.log_directory]/newscaster.json")
@@ -673,13 +674,18 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	if(custom_title)
 		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
-/proc/printplayer(datum/mind/ply, fleecheck)
+/proc/printplayer(datum/mind/ply, fleecheck, status_override)
 	var/jobtext = ""
 	if(!is_unassigned_job(ply.assigned_role))
 		jobtext = " the <b>[ply.assigned_role.title]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and"
+	if(status_override) // So we can support "Was deconverted" as a roundend state
+		text += " [status_override]"
+		if(ply.current && ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+		return text
 	if(ply.cryoed)
 		text += " [span_bluetext("entered cryosleep")]"
 	else if(ply.current)

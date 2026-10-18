@@ -97,7 +97,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
+/obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, list/modifiers)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
 	switch(state)

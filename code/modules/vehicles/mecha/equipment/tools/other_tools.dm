@@ -150,6 +150,7 @@
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/armor
+	abstract_type = /obj/item/mecha_parts/mecha_equipment/armor
 	equipment_slot = MECHA_ARMOR
 	///short protection name to display in the UI
 	var/protect_name = "you're mome"
@@ -322,7 +323,7 @@
 			log_message("Deactivated.", LOG_MECHA)
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon, mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon, mob/user, list/modifiers)
 	. = ..()
 	load_fuel(weapon, user)
 
@@ -342,7 +343,7 @@
 		to_chat(user, "[icon2html(src, user)][span_warning("[fuel] traces in target minimal! [P] cannot be used as fuel.")]")
 		return
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, list/modifiers)
 	load_fuel(weapon)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process(delta_time)

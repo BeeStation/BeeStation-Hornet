@@ -160,7 +160,7 @@
 		update_icon()
 		user.regenerate_icons()
 
-/obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
+/obj/item/pizzabox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pizzabox))
 		var/obj/item/pizzabox/newbox = I
 		if(!open && !newbox.open)

@@ -46,6 +46,9 @@
 	/// If we support smartly removing/inserting things from ourselves
 	var/supports_smart_equip = TRUE
 
+	/// Do we insert items when clicked by them?
+	var/insert_on_attack = TRUE
+
 	/// shows what we can hold in examine text
 	var/can_hold_description
 
@@ -116,12 +119,12 @@
 		qdel(src)
 		return
 
+	ADD_TRAIT(resolve_parent, TRAIT_COMBAT_MODE_SKIP_INTERACTION, REF(src))
 	RegisterSignals(resolve_parent, list(COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_ATTACK_HAND), PROC_REF(on_attack))
 	RegisterSignal(resolve_parent, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
 	RegisterSignal(resolve_parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(on_mousedropped_onto))
 
 	RegisterSignal(resolve_parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-	RegisterSignal(resolve_parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(resolve_parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(on_preattack))
 	RegisterSignal(resolve_parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_deconstruct))
 
@@ -566,10 +569,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_location)
 		return
 
-	if(!force)
-		if(check_adjacent)
-			if(!user || !user.CanReach(destination) || !user.CanReach(resolve_location))
-				return FALSE
+	if(!force && check_adjacent)
+		if(!user || !destination.IsReachableBy(user) || !resolve_location.IsReachableBy(user))
+			return FALSE
 	var/list/taking = typecache_filter_list(resolve_location.contents, typecacheof(type))
 	if(taking.len > amount)
 		taking.len = amount
@@ -647,7 +649,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		thing.emp_act(severity)
 
 /// Signal handler for preattack from an object.
-/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, params)
+/datum/storage/proc/on_preattack(datum/source, atom/thing, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!allow_quick_gather || thing.atom_storage)
@@ -748,29 +750,51 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/obj/item/resolve_parent = parent?.resolve()
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_parent || !resolve_location)
-		return
+		return NONE
 
 	if(ismecha(user.loc) || user.incapacitated || !user.canUseStorage())
-		return
-
-	resolve_parent.add_fingerprint(user)
+		return NONE
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
+		if(resolve_location.loc != user || !user.canUseTopic(resolve_parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+			return NONE
 
-		if(resolve_parent.loc != user)
-			return
+		if(isitem(resolve_parent))
+			var/obj/item/item_parent = resolve_parent
+			if(!item_parent.can_mob_unequip(user))
+				return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 		var/atom/movable/screen/inventory/hand/hand = over_object
 		user.putItemFromInventoryInHandIfPossible(resolve_parent, hand.held_index)
+		resolve_parent.add_fingerprint(user)
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
-	else if(ismob(over_object))
-		if(over_object != user)
-			return
+	if(over_object == user)
+		if(!user.canUseTopic(resolve_parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+			return NONE
 
+		resolve_parent.add_fingerprint(user)
 		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
-	else if(!istype(over_object, /atom/movable/screen))
-		INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, user)
+	if(istype(over_object, /atom/movable/screen) || ismob(over_object))
+		return NONE
+
+	if(!user.canUseTopic(over_object, be_close = TRUE, no_tk = TRUE))
+		return NONE
+
+	resolve_parent.add_fingerprint(user)
+
+	var/atom/dump_loc = over_object.get_dumping_location()
+	if(isnull(dump_loc))
+		return NONE
+
+	/// Don't dump *onto* objects in the same storage as ourselves
+	if (over_object.loc == resolve_parent.loc && !isnull(resolve_parent.loc.atom_storage) && isnull(over_object.atom_storage))
+		return NONE
+
+	INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, user)
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /**
  * Dumps all of our contents at a specific location.
@@ -783,8 +807,9 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/obj/item/resolve_location = real_location.resolve()
 
 	if(locked)
+		user.balloon_alert(user, "closed!")
 		return
-	if(!user.CanReach(resolve_parent) || !user.CanReach(dest_object))
+	if(!resolve_parent.IsReachableBy(user) || !dest_object.IsReachableBy(user))
 		return
 
 	if(SEND_SIGNAL(dest_object, COMSIG_STORAGE_DUMP_CONTENT, resolve_location, user) & STORAGE_DUMP_HANDLED)
@@ -838,23 +863,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	attempt_insert(dropping, user)
-
-/// Signal handler for whenever we're attacked by an object.
-/datum/storage/proc/on_attackby(datum/source, obj/item/thing, mob/user, params)
-	SIGNAL_HANDLER
-
-	var/obj/item/resolve_parent = parent?.resolve()
-	if(!resolve_parent)
-		return
-
-	if(!thing.attackby_storage_insert(src, resolve_parent, user))
-		return
-
-	if(iscyborg(user))
-		return COMPONENT_NO_AFTERATTACK
-
-	attempt_insert(thing, user)
-	return COMPONENT_NO_AFTERATTACK
+	return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 /// Signal handler for whenever we're attacked by a mob.
 /datum/storage/proc/on_attack(datum/source, mob/user)
@@ -1000,7 +1009,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		show_contents(to_show)
 		return FALSE
 
-	if(!to_show.CanReach(resolve_parent))
+	if(!resolve_parent.IsReachableBy(to_show))
 		resolve_parent.balloon_alert(to_show, "can't reach!")
 		return FALSE
 
@@ -1055,8 +1064,16 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	for(var/mob/user in can_see_contents())
-		if (!user.CanReach(resolve_parent))
+		if (!can_be_reached_by(user))
 			hide_contents(user)
+
+/// Relay for parent.IsReachableBy
+/datum/storage/proc/can_be_reached_by(mob/user)
+	var/obj/item/resolve_parent = parent?.resolve()
+	if(!resolve_parent)
+		return
+
+	return resolve_parent.IsReachableBy(user)
 
 /// Close the storage UI for everyone viewing us.
 /datum/storage/proc/close_all()

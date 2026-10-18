@@ -120,7 +120,8 @@ h1.alert, h2.alert		{color: #000000;}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
-.nicegreen					{color: #14a833;}
+.nicegreen				{color: #14a833;}
+.boldnicegreen			{color: #14a833;	font-weight: bold;}
 .shadowling				{color: #3b2769;}
 .cult					{color: #973e3b;}
 .cultlarge				{color: #973e3b; font-weight: bold; font-size: 3;}
@@ -184,6 +185,8 @@ h1.alert, h2.alert		{color: #000000;}
 .spiderlarge			{color: #4d004d;	font-size: 3 ; font-weight: bold;}
 
 .interface				{color: #330033;}
+
+.blob					{color: #556B2F;	font-weight: bold;	font-size: 3;}
 
 .sans					{font-family: "Comic Sans MS", cursive, sans-serif;}
 .papyrus				{font-family: "Papyrus", cursive, sans-serif;}

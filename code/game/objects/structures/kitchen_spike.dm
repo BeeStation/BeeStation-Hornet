@@ -10,7 +10,7 @@
 	anchored = FALSE
 	max_integrity = 200
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(default_unfasten_wrench(user, I))
 		return

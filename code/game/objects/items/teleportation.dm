@@ -127,7 +127,7 @@
 	active_portal_pairs = list()
 	AddElement(/datum/element/trackable)
 
-/obj/item/hand_tele/pre_attack(atom/target, mob/user, params)
+/obj/item/hand_tele/pre_attack(atom/target, mob/user, list/modifiers)
 	if(try_dispel_portal(target, user))
 		return TRUE
 	return ..()

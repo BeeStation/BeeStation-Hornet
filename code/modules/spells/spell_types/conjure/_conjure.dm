@@ -1,4 +1,5 @@
 /datum/action/spell/conjure
+	abstract_type = /datum/action/spell/conjure
 	sound = 'sound/items/welder.ogg'
 	school = SCHOOL_CONJURATION
 

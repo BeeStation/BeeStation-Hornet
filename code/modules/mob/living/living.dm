@@ -21,6 +21,7 @@
 	diag_hud.add_atom_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
+	SSpoints_of_interest.make_point_of_interest(src)
 	if (playable)
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
@@ -937,8 +938,12 @@
 		var/mob/living/puller = pulledby
 		puller.set_pull_offsets(src, puller.grab_state)
 
-	if(active_storage && !((active_storage.parent?.resolve() in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE]) || CanReach(active_storage.parent?.resolve(),view_only = TRUE)))
-		active_storage.hide_contents(src)
+	if(active_storage)
+		var/obj/item/storage_parent = active_storage.parent?.resolve()
+		var/storage_is_important_recursive = (storage_parent in important_recursive_contents?[RECURSIVE_CONTENTS_ACTIVE_STORAGE])
+		var/can_reach_active_storage = storage_parent?.IsReachableBy(src, depth = REACH_DEPTH_STORAGE(2))
+		if(!storage_is_important_recursive && !can_reach_active_storage)
+			active_storage.hide_contents(src)
 
 	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, old_loc, old_direction)
@@ -947,7 +952,7 @@
  * Called by mob/living attackby()
  * Checks if there's active surgery on the mob that can be continued with the item
  */
-/mob/living/proc/can_perform_surgery(mob/living/user, params)
+/mob/living/proc/can_perform_surgery(mob/living/user, list/modifiers)
 	for(var/datum/surgery/operations as anything in surgeries)
 		if(user.combat_mode)
 			break
@@ -955,7 +960,6 @@
 			continue
 		if(!(operations.surgery_flags & SURGERY_SELF_OPERABLE) && (user == src))
 			continue
-		var/list/modifiers = params2list(params)
 		if(operations.next_step(user, modifiers))
 			return TRUE
 	return FALSE
@@ -1485,6 +1489,12 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 
 	return fire_status.ignite(silent)
 
+/**
+ * Extinguish all fire on the mob
+ *
+ * This removes all fire stacks, fire effects, alerts, and moods
+ * Signals the extinguishing.
+ */
 /mob/living/proc/extinguish_mob()
 	if(HAS_TRAIT(src, TRAIT_NO_EXTINGUISH)) //The everlasting flames will not be extinguished
 		return
@@ -2110,6 +2120,13 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 /mob/living/carbon/human/will_escape_storage()
 	return TRUE
 
+/mob/living/set_nutrition(change)
+	..()
+	if(nutrition > 0 || !HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
+		return
+	apply_status_effect(mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
+
+
 /// Sets the mob's hunger levels to a safe overall level. Useful for TRAIT_NOHUNGER species changes.
 /mob/living/proc/set_safe_hunger_level()
 	// Nutrition reset and alert clearing.
@@ -2123,7 +2140,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			to_chat(src, span_notice("Your transformation restores your body's natural fitness!"))
 
 		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
-		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		update_worn_undersuit()
 		update_worn_oversuit()
 

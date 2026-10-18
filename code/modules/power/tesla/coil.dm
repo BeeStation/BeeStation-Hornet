@@ -39,11 +39,12 @@
 	return ..()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
+	. = ..()
 	var/power_multiplier = 0
 	cooldown_time = 10 SECONDS
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		power_multiplier += capacitor.rating
-		cooldown_time -= capacitor.rating * 2 SECONDS
+	for(var/datum/stock_part/capacitor/capacitor in component_parts)
+		power_multiplier += capacitor.tier
+		cooldown_time -= capacitor.tier * 2 SECONDS
 	input_power_multiplier = max(power_multiplier / 8, 0.25) //Max out at 50% efficency.
 
 /obj/machinery/power/energy_accumulator/tesla_coil/examine(mob/user)
@@ -71,7 +72,7 @@
 		else
 			disconnect_from_network()
 
-/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", W))
 		return
 
@@ -182,7 +183,7 @@
 		else
 			icon_state = "rpcoil[anchored]"
 
-/obj/machinery/power/energy_accumulator/tesla_coil/research/attackby(obj/item/W, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/research/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "rpcoil_open[anchored]", "rpcoil[anchored]", W))
 		return
 	return ..()

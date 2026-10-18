@@ -90,9 +90,7 @@
 /turf/open/floor/iron/ameridiner,
 /area/template_noop)
 "y" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#742925";

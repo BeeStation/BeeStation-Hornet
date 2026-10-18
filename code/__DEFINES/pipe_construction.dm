@@ -1,36 +1,34 @@
-//Construction Categories
-#define PIPE_STRAIGHT			0 //! 2 directions: N/S, E/W
-#define PIPE_BENDABLE			1 //! 6 directions: N/S, E/W, N/E, N/W, S/E, S/W
-#define PIPE_TRINARY			2 //! 4 directions: N/E/S, E/S/W, S/W/N, W/N/E
-#define PIPE_TRIN_M				3 //! 8 directions: N->S+E, S->N+E, N->S+W, S->N+W, E->W+S, W->E+S, E->W+N, W->E+N
-#define PIPE_UNARY				4 //! 4 directions: N, S, E, W
-#define PIPE_ONEDIR				5 //! 1 direction: N/S/E/W
-#define PIPE_UNARY_FLIPPABLE	6 //! 8 directions: N/S/E/W/N-flipped/S-flipped/E-flipped/W-flipped
-#define PIPE_ONEDIR_FLIPPABLE	7 //2 direction: N/S/E/W, N-flipped/S-flipped/E-flipped/W-flipped
+// Construction Categories
 
-//Disposal pipe relative connection directions
-#define DISP_DIR_BASE	0
-#define DISP_DIR_LEFT	1
-#define DISP_DIR_RIGHT	2
-#define DISP_DIR_FLIP	4
-#define DISP_DIR_NONE	8
+/// 2 directions: N/S, E/W
+#define PIPE_STRAIGHT 0
+/// 6 directions: N/S, E/W, N/E, N/W, S/E, S/W
+#define PIPE_BENDABLE 1
+/// 4 directions: N/E/S, E/S/W, S/W/N, W/N/E
+#define PIPE_TRINARY 2
+/// 8 directions: N->S+E, S->N+E, N->S+W, S->N+W, E->W+S, W->E+S, E->W+N, W->E+N
+#define PIPE_TRIN_M 3
+/// 4 directions: N, S, E, W
+#define PIPE_UNARY 4
+/// 1 direction: N/S/E/W
+#define PIPE_ONEDIR 5
+/// 8 directions: N/S/E/W/N-flipped/S-flipped/E-flipped/W-flipped
+#define PIPE_UNARY_FLIPPABLE 6
+/// 2 direction: N/S/E/W, N-flipped/S-flipped/E-flipped/W-flipped
+#define PIPE_ONEDIR_FLIPPABLE 7
 
-//Transit tubes
-#define TRANSIT_TUBE_STRAIGHT			0
-#define TRANSIT_TUBE_STRAIGHT_CROSSING	1
-#define TRANSIT_TUBE_CURVED				2
-#define TRANSIT_TUBE_DIAGONAL			3
-#define TRANSIT_TUBE_DIAGONAL_CROSSING	4
-#define TRANSIT_TUBE_JUNCTION			5
-#define TRANSIT_TUBE_STATION			6
-#define TRANSIT_TUBE_TERMINUS			7
-#define TRANSIT_TUBE_POD				8
+// Disposal pipe relative connection directions
+#define DISP_DIR_BASE 0
+#define DISP_DIR_LEFT 1
+#define DISP_DIR_RIGHT 2
+#define DISP_DIR_FLIP 4
+#define DISP_DIR_NONE 8
 
-//the open status of the transit tube station
-#define STATION_TUBE_OPEN		0
-#define STATION_TUBE_OPENING	1
-#define STATION_TUBE_CLOSED		2
-#define STATION_TUBE_CLOSING	3
+// The open status of the transit tube station
+#define STATION_TUBE_OPEN 0
+#define STATION_TUBE_OPENING 1
+#define STATION_TUBE_CLOSED 2
+#define STATION_TUBE_CLOSING 3
 
 // Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
 // the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
@@ -163,45 +161,109 @@ MAPPING_HELPER_SORT(detective_office, 30)
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
 GLOBAL_LIST_INIT(tagger_destination_areas, list(
-	"Disposals" = list(/area/station/maintenance/disposal, /area/station/cargo/sorting,
-/area/station/service/janitor),
-	"Cargo Bay"  = list(/area/station/cargo),
-	"QM Office" = list(/area/station/cargo/qm, /area/station/cargo/qm_bedroom),
-	"Engineering" = list(/area/station/engineering, /area/station/engineering),
-	"CE Office" = list(/area/station/command/heads_quarters/chief),
-	"Atmospherics" = list(/area/station/engineering/atmos, /area/station/engineering/atmospherics_engine),
-	"Security" = list(/area/station/security),
-	"HoS Office" = list(/area/station/command/heads_quarters/hos),
-	"Medbay" = list(/area/station/medical),
-	"CMO Office" = list(/area/station/command/heads_quarters/cmo),
-	"Chemistry" = list(/area/station/medical/chemistry, /area/station/medical/pharmacy),
-	"Research" = list(/area/station/science),
-	"RD Office" = list(/area/station/command/heads_quarters/rd),
-	"Robotics" = list(/area/station/science/robotics),
-	"HoP Office" = list(/area/station/command/heads_quarters/hop),
+	"Disposals" = list(
+		/area/station/maintenance/disposal,
+		/area/station/cargo/sorting,
+		/area/station/service/janitor,
+	),
+	"Cargo Bay" = list(
+		/area/station/cargo,
+	),
+	"QM Office" = list(
+		/area/station/cargo/qm,
+		/area/station/cargo/qm_bedroom,
+	),
+	"Engineering" = list(
+		/area/station/engineering,
+		/area/station/engineering,
+	),
+	"CE Office" = list(
+		/area/station/command/heads_quarters/chief,
+	),
+	"Atmospherics" = list(
+		/area/station/engineering/atmos,
+		/area/station/engineering/atmospherics_engine,
+	),
+	"Security" = list(
+		/area/station/security,
+	),
+	"HoS Office" = list(
+		/area/station/command/heads_quarters/hos,
+	),
+	"Medbay" = list(
+		/area/station/medical,
+	),
+	"CMO Office" = list(
+		/area/station/command/heads_quarters/cmo,
+	),
+	"Chemistry" = list(
+		/area/station/medical/chemistry,
+		/area/station/medical/pharmacy,
+	),
+	"Research" = list(
+		/area/station/science,
+	),
+	"RD Office" = list(
+		/area/station/command/heads_quarters/rd,
+	),
+	"Robotics" = list(
+		/area/station/science/robotics,
+	),
+	"HoP Office" = list(
+		/area/station/command/heads_quarters/hop,
+	),
 	"Library" = list(
-/area/station/service/library),
+		/area/station/service/library,
+	),
 	"Chapel" = list(
-/area/station/service/chapel),
+		/area/station/service/chapel,
+	),
 	"Theatre" = list(
-/area/station/service/theater),
+		/area/station/service/theater,
+	),
 	"Bar" = list(
-/area/station/service/bar, /area/station/service/cafeteria),
+		/area/station/service/bar,
+		/area/station/service/cafeteria,
+	),
 	"Kitchen" = list(
-/area/station/service/kitchen),
+		/area/station/service/kitchen,
+	),
 	"Hydroponics" = list(
-/area/station/service/hydroponics),
+		/area/station/service/hydroponics,
+	),
 	"Janitor Closet" = list(
-/area/station/service/janitor),
-	"Genetics" = list(/area/station/medical/genetics),
-	"Testing Range" = list(/area/station/science/misc_lab, /area/station/science/test_area, /area/station/science/mixing),
-	"Toxins" = list(/area/station/science/misc_lab, /area/station/science/test_area, /area/station/science/mixing),
-	"Dormitories" = list(/area/station/commons/dorms, /area/station/commons/dorms, /area/station/commons/fitness),
-	"Virology" = list(/area/station/medical/virology),
-	"Xenobiology" = list(/area/station/science/xenobiology),
+		/area/station/service/janitor,
+	),
+	"Genetics" = list(
+		/area/station/medical/genetics,
+	),
+	"Testing Range" = list(
+		/area/station/science/misc_lab,
+		/area/station/science/test_area,
+		/area/station/science/mixing,
+	),
+	"Toxins" = list(
+		/area/station/science/misc_lab,
+		/area/station/science/test_area,
+		/area/station/science/mixing,
+	),
+	"Dormitories" = list(
+		/area/station/commons/dorms,
+		/area/station/commons/dorms,
+		/area/station/commons/fitness,
+	),
+	"Virology" = list(
+		/area/station/medical/virology,
+	),
+	"Xenobiology" = list(
+		/area/station/science/xenobiology,
+	),
 	"Law Office" = list(
-/area/station/service/lawoffice),
-	"Detective's Office" = list(/area/station/security/detectives_office),
+		/area/station/service/lawoffice,
+	),
+	"Detective's Office" = list(
+		/area/station/security/detectives_office,
+	),
 ))
 
 #endif

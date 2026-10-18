@@ -92,8 +92,8 @@
 		missing_parts += "power cell"
 	if(isnull(capacitor))
 		missing_parts += "capacitor"
-	if(isnull(servo))
-		missing_parts += "micro-servo"
+	if(isnull(manipulator))
+		missing_parts += "micro-manipulator"
 	if(length(missing_parts))
 		if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_MESSAGE))
 			to_chat(occupants, "[icon2html(src, occupants)][span_warning("Missing [english_list(missing_parts)].")]")
