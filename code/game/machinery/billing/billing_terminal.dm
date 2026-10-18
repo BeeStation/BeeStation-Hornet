@@ -189,7 +189,7 @@ TODO
 			if(!server || !budget_card)
 				return
 			var/datum/component/bill_agent/agent= locate(params["ref"])
-			agent?.disabled = !agent?.disabled
+			agent?.toggle_disabled(!agent?.disabled)
 			. = TRUE
 	// Pay the bills
 		if("pay_bill")

@@ -74,3 +74,6 @@
 	SIGNAL_HANDLER
 
 	local_bills -= source
+
+/datum/component/bill_agent/proc/toggle_disabled(state)
+	disabled = state

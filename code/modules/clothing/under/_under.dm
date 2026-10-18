@@ -50,6 +50,10 @@
 		set_sensor_mode(pick(SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_LIVING, SENSOR_LIVING, SENSOR_COORDS, SENSOR_COORDS, SENSOR_OFF))
 	//ensure we add or remove relevant clothing traits based on base sensor status and mode
 	update_wearer_status()
+	// Billing
+	var/turf/T = get_turf(src)
+	if(T && is_station_level(T.z))
+		bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_FEE)
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
@@ -175,14 +179,16 @@
 			var/obj/item/clothing/accessory/accessory = attached_accessories[acc_slot]
 			accessory.on_uniform_equip(src, user)
 		update_wearer_status()
+		// Billing
+		// TODO: This feels a little dumb. Fix for outfits that get made in the void then worn - Racc
 		var/turf/T = get_turf(src)
-		if(!bill_agent_sensors && is_station_level(T.z))
+		if(!bill_agent_sensors && T && is_station_level(T.z))
 			bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_FEE)
+		bill_agent_sensors?.toggle_disabled(FALSE)
 
 /obj/item/clothing/under/dropped(mob/user)
 	. = ..()
-	if(bill_agent_sensors)
-		QDEL_NULL(bill_agent_sensors)
+	bill_agent_sensors?.toggle_disabled(TRUE)
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(user.stat != CONSCIOUS)
