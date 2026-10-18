@@ -58,6 +58,8 @@
 	/// The key our internal radio uses
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 
+	var/obj/effect/abstract/particle_holder/collapse
+
 	COOLDOWN_DECLARE(radio_cooldown)
 	COOLDOWN_DECLARE(alert_cooldown)
 
@@ -75,6 +77,7 @@
 /obj/machinery/atmospherics/components/unary/cdr/Destroy()
 	QDEL_NULL(soundloop)
 	QDEL_NULL(radio)
+	QDEL_NULL(collapse)
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cdr/process(delta_time)
@@ -93,6 +96,12 @@
 	process_stability()
 	update_appearance(UPDATE_OVERLAYS)
 	if (core_health <= 0)
+		collapse = new(loc, /particles/cdr_collapse)
+		collapse.pixel_y = 20
+		collapse.vis_flags = NONE
+		collapse.plane = ABOVE_LIGHTING_PLANE
+		collapse.blend_mode = BLEND_ADD
+		collapse.add_filter("cdr_orb_glow", 1, list(type = "bloom", size = 1, threshold = rgb(156, 156, 156)))
 		addtimer(CALLBACK(src, PROC_REF(fail)), 3 SECONDS)
 		playsound(src, 'sound/machines/cdr-collapse.ogg', 200, FALSE, 40, falloff_distance = 25, ignore_walls = TRUE)
 		return PROCESS_KILL

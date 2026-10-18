@@ -1,15 +1,18 @@
-/particles/debris
-	width = 124
-	height = 124
-	count = 16
-	spawning = SPAWN_ALL_PARTICLES_INSTANTLY //spawn all instantly
-	lifespan = 0.75 SECONDS
-	fadein = 0.35 SECONDS
-	fade = 0.1 SECONDS
-	position = generator("box", list(-10, -10), list(10, 10), NORMAL_RAND)
-	velocity = generator("circle", -15, 15, NORMAL_RAND)
-	friction = 0
+/particles/cdr_collapse
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = list("orb_particle")
+	width = 96
+	height = 96
+	color = generator("color", "#77fff1", "#a9d8ff", UNIFORM_RAND)
+	rotation = generator(GEN_NUM, 0, 360, UNIFORM_RAND)
+	spawning = 3
+	count = 200
+	lifespan = 20
+	fade = 2
+	position = vector(0, 0)
 	gravity = list(0, 0)
-	icon = 'icons/effects/particles/rocks.dmi'
-	icon_state = list("rock1", "rock2", "rock3", "rock4", "rock5")
-	rotation = generator("num", 0, 360, NORMAL_RAND)
+	scale = vector(0.8, 0.8)
+	grow = vector(-0.5, -0.5)
+	#ifndef SPACEMAN_DMM
+	fadein = 1
+	#endif

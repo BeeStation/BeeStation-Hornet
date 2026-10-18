@@ -4082,6 +4082,7 @@
 #include "code\modules\particles\byond_particles\emitter\spark.dm"
 #include "code\modules\particles\byond_particles\emitter\weather.dm"
 #include "code\modules\particles\byond_particles\particle\burst.dm"
+#include "code\modules\particles\byond_particles\particle\cdr_particles.dm"
 #include "code\modules\particles\byond_particles\particle\fire.dm"
 #include "code\modules\particles\byond_particles\particle\misc.dm"
 #include "code\modules\particles\byond_particles\particle\rain.dm"
