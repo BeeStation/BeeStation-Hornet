@@ -602,7 +602,7 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/arm/left/golem/durathread/set_owner(mob/living/carbon/new_owner)
+/obj/item/bodypart/arm/left/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
 	. = ..()
 	if(. == FALSE)
 		return
@@ -622,7 +622,7 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/arm/right/golem/durathread/set_owner(mob/living/carbon/new_owner)
+/obj/item/bodypart/arm/right/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
 	. = ..()
 	if(. == FALSE)
 		return

@@ -103,8 +103,6 @@
 
 	med_hud_set_health()
 	med_hud_set_status()
-
-
 	stop_pulling()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)

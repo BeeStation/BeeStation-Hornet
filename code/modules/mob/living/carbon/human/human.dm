@@ -1,11 +1,3 @@
-/mob/living/carbon/human
-	name = "Unknown"
-	real_name = "Unknown"
-	icon = 'icons/mob/human.dmi'
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
-	COOLDOWN_DECLARE(special_emote_cooldown)
-	COOLDOWN_DECLARE(block_cooldown)
-
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)

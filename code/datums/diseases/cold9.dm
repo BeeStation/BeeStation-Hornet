@@ -9,6 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "If left untreated the subject will slow, as if partly frozen."
 	danger = DISEASE_HARMFUL
+	required_organ = ORGAN_SLOT_LUNGS
 
 /datum/disease/cold9/stage_act(delta_time, times_fired)
 	. = ..()

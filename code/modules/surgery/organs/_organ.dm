@@ -6,6 +6,10 @@
 	throwforce = 0
 	/// The mob that owns this organ.
 	var/mob/living/carbon/owner = null
+	/// Reference to the limb we're inside of
+	var/obj/item/bodypart/bodypart_owner
+	/// The cached info about the blood this organ belongs to
+	var/list/blood_dna_info = list("Synthetic DNA" = "O+") // not every organ spawns inside a person
 	/// The body zone this organ is supposed to inhabit.
 	var/zone = BODY_ZONE_CHEST
 	/**
@@ -14,7 +18,7 @@
 	 */
 	var/slot
 	/// Random flags that describe this organ
-	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE
+	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE | ORGAN_VIRGIN
 	/// Maximum damage the organ can take, ever.
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	/**
@@ -76,107 +80,16 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
-/*
- * Insert the organ into the select mob.
- *
- * receiver - the mob who will get our organ
- * special - "quick swapping" an organ out - when TRUE, the mob will be unaffected by not having that organ for the moment
- * drop_if_replaced - if there's an organ in the slot already, whether we drop it afterwards
- * pref_load - some lazy shit used only for passing an arg into another proc
- */
-/obj/item/organ/proc/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-
-	if(!iscarbon(receiver) || owner == receiver)
-		return FALSE
-
-	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
-	if(replaced)
-		replaced.Remove(receiver, special = TRUE, pref_load = pref_load)
-		if(drop_if_replaced)
-			replaced.forceMove(get_turf(receiver))
-		else
-			qdel(replaced)
-
-	receiver.internal_organs |= src
-	receiver.internal_organs_slot[slot] = src
-	owner = receiver
-
-
-	// Apply unique side-effects. Return value does not matter.
-	on_insert(receiver, special)
-
-	STOP_PROCESSING(SSobj, src)
-
-	return TRUE
-
-/// Called after the organ is inserted into a mob.
-/// Adds Traits, Actions, and Status Effects on the mob in which the organ is impanted.
-/// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
-/obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
-	SHOULD_CALL_PARENT(TRUE)
-
-	moveToNullspace()
-
-	for(var/trait in organ_traits)
-		ADD_TRAIT(organ_owner, trait, REF(src))
-		//message_admins("[key_name(organ_owner)] has gained organ [src] ([slot]) and trait [trait] added.")
-
-	for(var/datum/action/action as anything in actions)
-		action.Grant(organ_owner)
-
-	for(var/datum/status_effect/effect as anything in organ_effects)
-		organ_owner.apply_status_effect(effect, type)
-
-	if(!special)
-		organ_owner.hud_used?.update_locked_slots()
-	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
-	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
-
-	sortTim(owner.internal_organs_slot, GLOBAL_PROC_REF(cmp_organ_slot_asc))
-
-//Special is for instant replacement like autosurgeons
-/obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE, pref_load = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-
-	owner = null
-	if(organ_owner)
-		organ_owner.internal_organs -= src
-		if(organ_owner.internal_organs_slot[slot] == src)
-			organ_owner.internal_organs_slot.Remove(slot)
-		if((organ_flags & ORGAN_VITAL) && !special && !HAS_TRAIT(organ_owner, TRAIT_GODMODE))
-			if(organ_owner.stat != DEAD)
-				organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
-			organ_owner.death()
-
-	// Apply or reset unique side-effects. Return value does not matter.
-	on_remove(organ_owner, special)
-
-	START_PROCESSING(SSobj, src)
-
-	return TRUE
-
-/// Called after the organ is removed from a mob.
-/// Removes Traits, Actions, and Status Effects on the mob in which the organ was impanted.
-/// Override this proc to create unique side-effects for removing your organ. Must be called by overrides.
-/obj/item/organ/proc/on_remove(mob/living/carbon/organ_owner, special)
-	SHOULD_CALL_PARENT(TRUE)
-
-	for(var/trait in organ_traits)
-		REMOVE_TRAIT(organ_owner, trait, REF(src))
-		//message_admins("[key_name(organ_owner)] has lost organ [src] ([slot]) and trait [trait] removed.")
-
-	for(var/datum/action/action as anything in actions)
-		action.Remove(organ_owner)
-
-	for(var/datum/status_effect/effect as anything in organ_effects)
-		organ_owner.remove_status_effect(effect, type)
-
-	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
-	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
-
-	if(!special)
-		organ_owner.hud_used?.update_locked_slots()
+/obj/item/organ/Destroy()
+	if(bodypart_owner && !owner && !QDELETED(bodypart_owner))
+		bodypart_remove(bodypart_owner)
+	else if(owner)
+		// The special flag is important, because otherwise mobs can die
+		// while undergoing transformation into different mobs.
+		Remove(owner, special=TRUE)
+	else
+		STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /// Add a trait to an organ that it will give its owner.
 /obj/item/organ/proc/add_organ_trait(trait)
@@ -208,6 +121,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
+
+/obj/item/organ/wash(clean_types)
+	. = ..()
+
+	// always add the original dna to the organ after it's washed
+	if(!IS_ROBOTIC_ORGAN(src) && (clean_types & CLEAN_TYPE_BLOOD))
+		add_blood_DNA(blood_dna_info)
 
 /obj/item/organ/process(delta_time, times_fired)
 	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
@@ -474,3 +394,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(damage < high_threshold)
 		return span_warning("[self_aware ? "[capitalize(slot)]" : "It"] feels a bit off.")
 	return span_boldwarning("[self_aware ? "[capitalize(slot)]" : "It"] feels terrible!")
+
+/// Tries to replace the existing organ on the passed mob with this one, with special handling for replacing a brain without ghosting target
+/obj/item/organ/proc/replace_into(mob/living/carbon/new_owner)
+	Insert(new_owner, special = TRUE, movement_flags = DELETE_IF_REPLACED)

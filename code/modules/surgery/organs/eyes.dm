@@ -47,7 +47,7 @@
 	/// indication that the eyes are undergoing some negative effect
 	var/damaged = FALSE
 
-/obj/item/organ/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
+/obj/item/organ/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	if(!.)
 		return
@@ -76,12 +76,13 @@
 	if(call_update)
 		affected_human.update_body()
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special, movement_flags)
 	..()
 	if(ishuman(eye_owner))
 		var/mob/living/carbon/human/human_owner = eye_owner
 		human_owner.remove_eye_color(EYE_COLOR_ORGAN_PRIORITY, update_body = FALSE)
-		human_owner.update_body()
+		if(!special)
+			human_owner.update_body()
 
 	// Cure blindness from eye damage
 	eye_owner.cure_blind(EYE_DAMAGE)
@@ -291,7 +292,7 @@
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
-/obj/item/organ/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
+/obj/item/organ/eyes/robotic/flashlight/on_mob_insert(mob/living/carbon/victim)
 	. = ..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
@@ -301,7 +302,7 @@
 	victim.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/eyes/robotic/flashlight/on_remove(mob/living/carbon/victim)
+/obj/item/organ/eyes/robotic/flashlight/on_mob_remove(mob/living/carbon/victim)
 	. = ..()
 	eye.set_light_on(FALSE)
 	eye.update_brightness(victim)
@@ -358,19 +359,15 @@
 		return
 	deactivate(close_ui = TRUE)
 
-/// Set the initial color of the eyes on insert to be the mob's previous eye color.
-/obj/item/organ/eyes/robotic/glow/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+/obj/item/organ/eyes/robotic/glow/on_mob_insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags)
 	. = ..()
 	left_eye_color_string = eye_color_left
 	right_eye_color_string = eye_color_right
 	update_mob_eye_color(eye_recipient)
-
-/obj/item/organ/eyes/robotic/glow/on_insert(mob/living/carbon/eye_recipient)
-	. = ..()
 	deactivate(close_ui = TRUE)
 	eye.forceMove(eye_recipient)
 
-/obj/item/organ/eyes/robotic/glow/on_remove(mob/living/carbon/eye_owner)
+/obj/item/organ/eyes/robotic/glow/on_mob_remove(mob/living/carbon/eye_owner)
 	deactivate(eye_owner, close_ui = TRUE)
 	if(!QDELETED(eye))
 		eye.forceMove(src)
@@ -626,14 +623,14 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 
-/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/eye_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED, initialising)
 	. = ..()
 	eye_owner.become_blind_with_overlay(PSYPHOZA_BLINDNESS_SOURCE, /atom/movable/screen/fullscreen/blind/psychic)
 
 	var/datum/action/item_action/organ_action/psychic_highlight/highlight_ability = new(src)
 	highlight_ability.Grant(eye_owner)
 
-/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/eye_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/eye_owner, special = FALSE, movement_flags)
 	eye_owner.cure_blind(PSYPHOZA_BLINDNESS_SOURCE)
 	var/datum/action/item_action/organ_action/psychic_highlight/highlight_ability = locate() in eye_owner.actions
 	highlight_ability?.Remove(eye_owner)

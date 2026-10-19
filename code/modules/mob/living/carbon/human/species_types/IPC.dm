@@ -282,8 +282,13 @@
 
 /datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
+	apply_chassis(C)
 
+/// Restyles the target's limbs to match their "ipc_chassis" feature
+/datum/species/ipc/proc/apply_chassis(mob/living/carbon/C)
 	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
+	if(!chassis_of_choice)
+		return
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
 		BP.species_color = C.dna?.features["mcolor"]

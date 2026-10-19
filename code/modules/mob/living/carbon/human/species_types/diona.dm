@@ -152,7 +152,7 @@
 	partition_ability.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(drone_state_check))
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species)
 	. = ..()
 	split_ability.Remove(H)
 	QDEL_NULL(split_ability)
@@ -278,7 +278,7 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
 		return

@@ -2,7 +2,7 @@
 	icon_static = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon = 'icons/mob/human/species/ipc/bodyparts.dmi'
 	icon_state = "synth_head"
-	limb_id = "synth" //Overriden in /species/ipc/replace_body()
+	limb_id = "synth" //Overriden in /species/ipc/apply_chassis()
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
