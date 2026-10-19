@@ -1055,6 +1055,8 @@
 	/obj/item/plate,
 	/obj/item/plate/large,
 	/obj/item/plate/small,
+	/obj/item/oven_tray,
+	/obj/item/storage/bag/tray,
 	/obj/item/food,
 	/obj/item/reagent_containers/condiment,
 	/obj/item/reagent_containers/cup,
@@ -1066,6 +1068,7 @@
 	/obj/item/reagent_containers/cup/beaker,
 	/obj/item/reagent_containers/cup/bottle,
 	/obj/item/reagent_containers/cup/bucket
+	/obj/item/kitchen/rollingpin
 	)
 	defaultcontainer = /obj/item/reagent_containers/cup/glass/drinkingglass
 
