@@ -47,14 +47,12 @@
 	/// indication that the eyes are undergoing some negative effect
 	var/damaged = FALSE
 
-/obj/item/organ/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
+/obj/item/organ/eyes/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
 
-	eye_recipient.cure_blind(NO_EYES)
+	receiver.cure_blind(NO_EYES)
 	apply_damaged_eye_effects()
-	refresh(eye_recipient, call_update = TRUE)
+	refresh(receiver, call_update = TRUE)
 
 /// Refreshes the visuals of the eyes
 /// If call_update is TRUE, we also will call udpate_body
@@ -76,26 +74,27 @@
 	if(call_update)
 		affected_human.update_body()
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/eye_owner, special, movement_flags)
-	..()
-	if(ishuman(eye_owner))
-		var/mob/living/carbon/human/human_owner = eye_owner
+/obj/item/organ/eyes/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	. = ..()
+
+	if(ishuman(organ_owner))
+		var/mob/living/carbon/human/human_owner = organ_owner
 		human_owner.remove_eye_color(EYE_COLOR_ORGAN_PRIORITY, update_body = FALSE)
 		if(!special)
 			human_owner.update_body()
 
 	// Cure blindness from eye damage
-	eye_owner.cure_blind(EYE_DAMAGE)
-	eye_owner.cure_nearsighted(EYE_DAMAGE)
+	organ_owner.cure_blind(EYE_DAMAGE)
+	organ_owner.cure_nearsighted(EYE_DAMAGE)
 	// Eye blind and temp blind go to, even if this is a bit of cheesy way to clear blindness
-	eye_owner.remove_status_effect(/datum/status_effect/eye_blur)
-	eye_owner.remove_status_effect(/datum/status_effect/temporary_blindness)
+	organ_owner.remove_status_effect(/datum/status_effect/eye_blur)
+	organ_owner.remove_status_effect(/datum/status_effect/temporary_blindness)
 	// Then become blind anyways (if not special)
 	if(!special)
-		eye_owner.become_blind(NO_EYES)
+		organ_owner.become_blind(NO_EYES)
 
-	eye_owner.update_tint()
-	eye_owner.update_sight()
+	organ_owner.update_tint()
+	organ_owner.update_sight()
 
 #define OFFSET_X 1
 #define OFFSET_Y 2
@@ -623,7 +622,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 
-/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/eye_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED, initialising)
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/eye_owner, special = FALSE, movement_flags, initialising)
 	. = ..()
 	eye_owner.become_blind_with_overlay(PSYPHOZA_BLINDNESS_SOURCE, /atom/movable/screen/fullscreen/blind/psychic)
 

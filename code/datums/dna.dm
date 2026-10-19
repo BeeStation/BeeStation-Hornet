@@ -762,6 +762,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		organ_eyes.eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
 
+	//for(var/obj/item/organ/organ in organs)
+	//	organ.mutate_feature(dna.unique_features, src)
+
 	if(icon_update)
 		update_body(is_creating = mutcolor_update)
 		if(mutations_overlay_update)

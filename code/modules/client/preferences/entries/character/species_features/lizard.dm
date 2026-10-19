@@ -127,7 +127,7 @@
 		new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
 
-/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	if(!..())
 		return FALSE
 	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)

@@ -70,7 +70,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSobj, src)
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
 		initial_reagents = food_reagents,\
@@ -80,13 +79,19 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
+	//if(bodypart_overlay)
+	//	setup_bodypart_overlay()
+
+	START_PROCESSING(SSobj, src)
+
 /obj/item/organ/Destroy()
 	if(bodypart_owner && !owner && !QDELETED(bodypart_owner))
 		bodypart_remove(bodypart_owner)
-	else if(owner)
-		// The special flag is important, because otherwise mobs can die
-		// while undergoing transformation into different mobs.
+	else if(owner && QDESTROYING(owner))
+		// The mob is being deleted, don't update the mob
 		Remove(owner, special=TRUE)
+	else if(owner)
+		Remove(owner)
 	else
 		STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -129,13 +134,19 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!IS_ROBOTIC_ORGAN(src) && (clean_types & CLEAN_TYPE_BLOOD))
 		add_blood_DNA(blood_dna_info)
 
-/obj/item/organ/process(delta_time, times_fired)
-	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
-
-/obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
+/obj/item/organ/proc/on_death(delta_time) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
 		return
-	apply_organ_damage(decay_factor * maxHealth * delta_time)
+
+	if(owner)
+		if(owner.bodytemperature > T0C)
+			var/air_temperature_factor = min((owner.bodytemperature - T0C) / 20, 1)
+			apply_organ_damage(decay_factor * maxHealth * delta_time * air_temperature_factor)
+	else
+		var/datum/gas_mixture/exposed_air = return_air()
+		if(exposed_air && exposed_air.temperature > T0C)
+			var/air_temperature_factor = min((exposed_air.temperature - T0C) / 20, 1)
+			apply_organ_damage(decay_factor * maxHealth * delta_time * air_temperature_factor)
 
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
@@ -398,3 +409,15 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /// Tries to replace the existing organ on the passed mob with this one, with special handling for replacing a brain without ghosting target
 /obj/item/organ/proc/replace_into(mob/living/carbon/new_owner)
 	Insert(new_owner, special = TRUE, movement_flags = DELETE_IF_REPLACED)
+
+/// Get all possible organ slots by checking every organ, and then store it and give it whenever needed
+/proc/get_all_slots()
+	var/static/list/all_organ_slots = list()
+
+	if(!all_organ_slots.len)
+		for(var/obj/item/organ/an_organ as anything in subtypesof(/obj/item/organ))
+			if(!initial(an_organ.slot))
+				continue
+			all_organ_slots |= initial(an_organ.slot)
+
+	return all_organ_slots

@@ -62,7 +62,7 @@
 	if(variant_traits_added)
 		organ_traits |= variant_traits_added
 
-/obj/item/organ/brain/mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
+/obj/item/organ/brain/on_mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
 	if(!.)
 		return
@@ -116,9 +116,10 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_body_parts()
+	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		brain_owner.update_body_parts()
 
-/obj/item/organ/brain/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+/obj/item/organ/brain/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 
 	for(var/X in traumas)
@@ -135,7 +136,8 @@
 		transfer_identity(organ_owner)
 
 	if(!special)
-		organ_owner.update_body_parts()
+		if(!(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+			organ_owner.update_body_parts()
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
