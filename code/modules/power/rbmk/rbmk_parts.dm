@@ -82,7 +82,6 @@
 REGISTER_BUFFER_HANDLER(/obj/machinery/computer/reactor)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/reactor)
-/obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, list/modifiers)
 	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = buffer
 	if(istype(reactor_core) && !(src in reactor_core.linked_interface))
 		reactor_core.linked_interface = src
