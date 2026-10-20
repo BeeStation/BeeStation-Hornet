@@ -8,7 +8,7 @@
 	layer = ABOVE_MOB_LAYER
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
-	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
+	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE|ORGAN_VIRGIN
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
 	attack_verb_simple = list("attack", "slap", "whack")
 
@@ -64,8 +64,6 @@
 
 /obj/item/organ/brain/on_mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
 
 	name = initial(name)
 	if(brain_owner?.has_dna() && isnull(brain_dna)) // if "brain_dna = FALSE", we do not copy.

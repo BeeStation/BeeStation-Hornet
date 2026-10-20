@@ -97,7 +97,6 @@
 	db_key = "feature_lizard_legs"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	priority = PREFERENCE_PRIORITY_BODYPARTS
 
 /datum/preference/choiced/lizard_legs/init_possible_values()
 	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)

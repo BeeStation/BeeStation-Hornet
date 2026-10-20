@@ -31,8 +31,6 @@
 
 /obj/item/organ/zombie_infection/on_mob_insert(mob/living/carbon/M, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return .
 	START_PROCESSING(SSobj, src)
 	// Find all antag datums and mark romerol objectives as complete
 	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)

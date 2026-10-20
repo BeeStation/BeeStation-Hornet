@@ -249,10 +249,10 @@
 					qdel(attach_surgery)
 					break
 
-		for(var/obj/item/organ/organ as anything in new_limb_owner.internal_organs)
-			if(deprecise_zone(organ.zone) != body_zone)
-				continue
-			organ.bodypart_insert(src)
+			for(var/obj/item/organ/organ as anything in new_limb_owner.internal_organs)
+				if(deprecise_zone(organ.zone) != body_zone)
+					continue
+				organ.bodypart_insert(src)
 
 	update_bodypart_damage_state()
 	if(can_be_disabled)

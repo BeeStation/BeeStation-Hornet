@@ -157,7 +157,8 @@
 	if(ishuman(owner)) //No MONKEYS!!!
 		update_hair_and_lips(dropping_limb, is_creating)
 
-	is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
+	if(owner)
+		is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	. = ..()

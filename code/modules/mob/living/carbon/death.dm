@@ -11,7 +11,7 @@
 		var/datum/brain_trauma/BT = T
 		BT.on_death()
 
-/mob/living/carbon/gib(no_brain, no_organs, no_bodypartss, safe_gib = FALSE)
+/mob/living/carbon/gib(no_brain, no_organs, no_bodyparts, safe_gib = FALSE)
 	if(safe_gib)
 		for(var/obj/item/W in src)
 			if(dropItemToGround(W))

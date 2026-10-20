@@ -7,6 +7,9 @@
 	ling.mind.add_antag_datum(/datum/antagonist/changeling)
 	test_setup(ling)
 
+	normal_guy.health = HEALTH_THRESHOLD_CRIT
+	normal_guy.set_stat(SOFT_CRIT)
+
 	var/obj/item/bodypart/head/noggin = ling.get_bodypart(BODY_ZONE_HEAD)
 	noggin.dismember()
 	TEST_ASSERT_NULL(ling.get_bodypart(BODY_ZONE_HEAD), "Changeling failed to be decapitated.")
@@ -34,7 +37,7 @@
 /datum/unit_test/ling_decap/post_species_change/test_setup(mob/living/carbon/human/ling)
 	// Regression test for a bug where changing to a species with a new brain would wipe the special changeling handling
 	var/obj/item/organ/brain/oldbrain = ling.get_organ_slot(ORGAN_SLOT_BRAIN)
-	ling.set_species(/datum/species/human/felinid)
+	ling.set_species(/datum/species/lizard)
 	var/obj/item/organ/brain/newbrain = ling.get_organ_slot(ORGAN_SLOT_BRAIN)
 	TEST_ASSERT(oldbrain.type != newbrain.type, "Changeling decap test setup failed to change the ling's brain typepath when changing their species.")
 
@@ -45,6 +48,9 @@
 	var/mob/living/carbon/human/normal_guy = allocate(/mob/living/carbon/human/consistent)
 	normal_guy.mind_initialize()
 	var/my_guys_mind = normal_guy.mind
+
+	normal_guy.health = HEALTH_THRESHOLD_CRIT
+	normal_guy.set_stat(SOFT_CRIT)
 
 	var/obj/item/bodypart/head/noggin = normal_guy.get_bodypart(BODY_ZONE_HEAD)
 	noggin.dismember()

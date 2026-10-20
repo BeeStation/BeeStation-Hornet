@@ -9,7 +9,7 @@
 	/// Reference to the limb we're inside of
 	var/obj/item/bodypart/bodypart_owner
 	/// The cached info about the blood this organ belongs to
-	var/list/blood_dna_info = list("Synthetic DNA" = "O+") // not every organ spawns inside a person
+	var/list/blood_dna_info
 	/// The body zone this organ is supposed to inhabit.
 	var/zone = BODY_ZONE_CHEST
 	/**
@@ -70,6 +70,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
+	// not every organ spawns inside a person
+	blood_dna_info = list("Synthetic DNA" = get_blood_type("O+"))
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
 		initial_reagents = food_reagents,\
@@ -200,14 +202,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/enter_wardrobe()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/organ/Destroy()
-	if(owner)
-		// The special flag is important, because otherwise mobs can die
-		// while undergoing transformation into different mobs.
-		Remove(owner, special=TRUE)
-	else
-		STOP_PROCESSING(SSobj, src)
-	return ..()
+/obj/item/organ/process(delta_time, times_fired)
+	on_death(delta_time) //Kinda hate doing it like this, but I really don't want to call process directly.
 
 // Put any "can we eat this" checks for edible organs here
 /obj/item/organ/proc/pre_eat(eater, feeder)
