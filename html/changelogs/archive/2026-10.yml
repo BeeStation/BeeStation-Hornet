@@ -195,3 +195,6 @@
     - admin: Fixes admin observe showing all antags as revs upon enabling Real Name
         Display.
     - admin: Admins can now filter observable mobs by ckey.
+2026-10-18:
+  DrDuckedGoose:
+  - bugfix: Fix grav-pulse plane based effects
