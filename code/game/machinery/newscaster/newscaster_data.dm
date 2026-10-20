@@ -117,7 +117,6 @@ GLOBAL_LIST_EMPTY(completed_request_list)
 
 /datum/feed_channel/New()
 	. = ..()
-	allowed_posters = list()
 	channel_ID = random_channel_id_setup()
 
 /**
