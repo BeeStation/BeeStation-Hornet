@@ -194,7 +194,7 @@
 	src.rider = rider
 	board.bounce = src
 	RegisterSignal(board, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(on_board_changed))
-	expire_timer = addtimer(CALLBACK(src, PROC_REF(expire)), 3 SECONDS, TIMER_STOPPABLE)
+	expire_timer = addtimer(CALLBACK(src, PROC_REF(expire)), 3 SECONDS, TIMER_STOPPABLE) // Timer For How Long Bounce Is Active After Triggering
 	tilt_board(BOUNCE_WHEELIE_ANGLE, 3) //Tilt the board into a wheelie for ready visual cue
 
 /datum/skate_bounce/proc/tilt_board(angle, time)
@@ -279,7 +279,7 @@
 			first_press_done = TRUE
 			press_ignore_until = world.time + 2 // Gives Window To Let Go Of Held Key Without Triggering Bounce Input
 			animate(first_ring, color = bounce_tint(BOUNCE_GREEN), alpha = 0, time = 3, flags = ANIMATION_PARALLEL)
-			board.balloon_alert(rider, "1/2!", show_in_chat = FALSE)
+			board.balloon_alert(rider, "One More!", show_in_chat = FALSE)
 			return TRUE
 		resolve(elapsed >= perfect_time - leeway + double_gap)
 	else if(direction != bounce_dir)
