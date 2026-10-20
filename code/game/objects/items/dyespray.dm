@@ -35,7 +35,7 @@
 		return
 
 	var/new_grad_color = input(user, "Choose a secondary hair color:", "Character Preference",human_target.gradient_color) as color|null
-	if(!new_grad_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE) || !user.CanReach(target))
+	if(!new_grad_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE) || !target.IsReachableBy(user))
 		return
 
 	to_chat(user, span_notice("You start applying the hair dye..."))
