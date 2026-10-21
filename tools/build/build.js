@@ -76,6 +76,7 @@ export const DmMapsIncludeTarget = new Juke.Target({
       ...Juke.glob('_maps/RandomZLevels/**/*.dmm'),
       ...Juke.glob('_maps/shuttles/**/*.dmm'),
       ...Juke.glob('_maps/templates/**/*.dmm'),
+      ...Juke.glob('_maps/holodeck/**/*.dmm'),
     ];
     const content = folders
       .map((file) => file.replace('_maps/', ''))
