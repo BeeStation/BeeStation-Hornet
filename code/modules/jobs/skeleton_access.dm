@@ -49,25 +49,23 @@
 
 /datum/skeleton_access/proc/covering_for()
 	if(covered_department_name)
-		return "the [covered_department_name] department"
+		return covered_department_name
 	if(length(covered_jobs))
-		return "the [english_list(covered_jobs)]"
+		return english_list(covered_jobs)
 	return "an understaffed station"
 
 /datum/skeleton_access/proc/end_condition()
-	var/list/conditions = list()
 	if(covered_department_name)
-		conditions += "someone joins [covered_department_name]"
-	else if(length(covered_jobs))
-		conditions += "a new [english_list(covered_jobs, and_text = " or ")] arrives"
-	conditions += "the crew reaches [population_limit]"
-	return "until [english_list(conditions, and_text = " or ")]"
+		return "ends when department has staff or total crew reaches [population_limit]"
+	if(length(covered_jobs))
+		return "ends when position has staff or total crew reaches [population_limit]"
+	return "ends when total crew reaches [population_limit]"
 
 /datum/skeleton_access/proc/briefing_prefix()
 	return "Covering for [covering_for()]: "
 
-/datum/skeleton_access/proc/get_briefing(list/accesses = access)
-	return "[briefing_prefix()][access_names(accesses)] access authorized [end_condition()]."
+/datum/skeleton_access/proc/get_briefing()
+	return "[briefing_prefix()][access_names()] access authorized ([end_condition()])."
 
 /datum/skeleton_access/proc/get_examine_reason()
 	return "Covering for [covering_for()]"
@@ -86,13 +84,13 @@
 			revoke_timer = null
 			SSjob.update_skeleton_access()
 			log_id("Skeleton crew access to [access_names()] continues.")
-			announce("Handover cancelled: ", " access continues [end_condition()].")
+			announce("Handover cancelled: ", " access continues ([end_condition()]).")
 			revoke_after_assignment = null
 		else if(!enabled)
 			enabled = TRUE
 			SSjob.update_skeleton_access()
 			log_id("Skeleton crew access on. [get_briefing()]")
-			announce(briefing_prefix(), " access authorized [end_condition()].")
+			announce(briefing_prefix(), " access authorized ([end_condition()]).")
 		return
 	if(!enabled || revoke_timer)
 		return

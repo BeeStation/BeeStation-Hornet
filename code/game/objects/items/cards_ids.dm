@@ -366,7 +366,7 @@
 	card_talk("Temporary [grant.access_names()] access authorized[duration ? ", expiring in [DisplayTimeText(duration)]" : ""].")
 	return grant
 
-/obj/item/card/id/proc/card_talk(message, warning = FALSE, check_pref = FALSE)
+/obj/item/card/id/proc/card_talk(message, warning = FALSE, check_pref = FALSE, boxed = FALSE)
 	var/list/listeners
 	var/atom/sound_source
 	var/mob/holder = recursive_loc_check(src, /mob)
@@ -388,7 +388,8 @@
 		if(check_pref && !listener.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard))
 			continue
 		listener.playsound_local(get_turf(sound_source), sound_file, 50, TRUE)
-		to_chat(listener, "[icon2html(get_cached_flat_icon(), listener)] [warning ? span_warning(message) : span_notice(message)]")
+		var/text = "[icon2html(get_cached_flat_icon(), listener)] [warning ? span_warning(message) : span_notice(message)]"
+		to_chat(listener, boxed ? examine_block(text) : text)
 
 /// Intended so it escapes the massive fucking wall of text and gets noticed by the player
 /obj/item/card/id/proc/queue_spawn_briefing()
@@ -411,12 +412,13 @@
 		if(!length(gained))
 			continue
 		known |= gained
-		skeleton_lines += rule.get_briefing(gained)
+		var/areas = span_tooltip(rule.access_names(gained), "[length(gained)] extra area\s")
+		skeleton_lines += "&bull; [rule.briefing_prefix()][areas] ([rule.end_condition()])"
 	if(length(skeleton_lines))
-		lines += "Skeleton crew protocol in effect."
+		lines += "<b>Skeleton crew protocol in effect</b>"
 		lines += skeleton_lines
 	if(length(lines))
-		card_talk(jointext(lines, " "))
+		card_talk(jointext(lines, "\n"), boxed = TRUE)
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
