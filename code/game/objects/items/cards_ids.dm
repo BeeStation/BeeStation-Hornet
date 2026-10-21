@@ -186,6 +186,8 @@
 	var/list/access_grants
 	/// Skeleton crew access removed at a console
 	var/list/withheld_skeleton_access
+	/// stored SSjob.job_assignment_count
+	var/job_assignment_id = 0
 
 	/// The HUD given to our wearer
 	var/hud_state = JOB_HUD_UNKNOWN
@@ -296,6 +298,7 @@
 	access |= new_job.get_access()
 	withheld_skeleton_access = null
 	job_title = new_job.title
+	job_assignment_id = ++SSjob.job_assignment_count
 	assignment = new_job.title
 	update_label()
 
@@ -400,9 +403,15 @@
 	if(acting_head && !acting_head.revoking)
 		lines += "Appointed Acting [acting_head.job.title]."
 	var/list/skeleton_lines = list()
+	var/list/known = get_non_skeleton_access()
 	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
-		if(rule.notifies(job_title) && !rule.revoke_timer)
-			skeleton_lines += rule.get_briefing()
+		if(!rule.notifies(job_title) || rule.revoke_timer)
+			continue
+		var/list/gained = rule.access - known - withheld_skeleton_access
+		if(!length(gained))
+			continue
+		known |= gained
+		skeleton_lines += rule.get_briefing(gained)
 	if(length(skeleton_lines))
 		lines += "Skeleton crew protocol in effect."
 		lines += skeleton_lines
@@ -608,8 +617,9 @@
 	for(var/datum/access_grant/grant as anything in access_grants)
 		if(grant != acting_head)
 			add_access_entries(entries, entry_ending, grant.accesses - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
+	var/list/skeleton_access = get_skeleton_access()
 	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
-		add_access_entries(entries, entry_ending, rule.access - withheld_skeleton_access - listed_elsewhere, rule.get_examine_reason(), rule.timing_text(), !!rule.revoke_timer)
+		add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.get_examine_reason(), rule.timing_text(), !!rule.revoke_timer)
 	if(length(entries))
 		var/list/entry_texts = list()
 		for(var/key in entries)
@@ -679,9 +689,27 @@
 	if(!job_title)
 		return null
 	var/list/job_access = SSjob.skeleton_access_by_job[job_title]
-	if(!job_access || !withheld_skeleton_access)
+	if(!job_access)
+		return null
+	// To prevent latejoins from getting access thats already in grace period, because that would suck
+	var/list/late_access
+	for(var/datum/skeleton_access/rule as anything in SSjob.ending_skeleton_rules)
+		if(rule.excludes(src) && rule.applies_to(job_title))
+			LAZYOR(late_access, rule.access)
+	if(late_access)
+		for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
+			if(!rule.revoke_timer)
+				late_access -= rule.access
+	if(!length(late_access) && !withheld_skeleton_access)
 		return job_access
-	return job_access - withheld_skeleton_access
+	return job_access - withheld_skeleton_access - late_access
+
+/// Access held outside skeleton crew rules
+/obj/item/card/id/proc/get_non_skeleton_access()
+	RETURN_TYPE(/list)
+	. = access.Copy()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		. |= grant.accesses
 
 /// Access that counts for editing IDs. Skeleton crew and console grants only open doors
 /obj/item/card/id/proc/get_authority_access()

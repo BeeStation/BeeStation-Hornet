@@ -477,6 +477,7 @@
 		// Corpses wear job outfits too
 		if(equipped.mind?.assigned_role == equipped_job)
 			card.job_title = equipped_job.title
+			card.job_assignment_id = ++SSjob.job_assignment_count
 			card.queue_spawn_briefing()
 
 		if(equipped.age)

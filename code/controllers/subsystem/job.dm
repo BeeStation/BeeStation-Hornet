@@ -72,6 +72,9 @@ SUBSYSTEM_DEF(job)
 	var/list/head_only_access = list()
 	var/list/datum/skeleton_access/skeleton_rules = list()
 	var/list/skeleton_access_by_job = list()
+	var/list/datum/skeleton_access/ending_skeleton_rules = list()
+	/// integer for each job assigned. Entirely to announce to players, has no code bearing lol
+	var/job_assignment_count = 0
 	var/list/datum/access_grant/acting_head/acting_heads = list()
 
 /datum/controller/subsystem/job/Initialize()
@@ -120,6 +123,8 @@ SUBSYSTEM_DEF(job)
 	head_only_access = SSjob.head_only_access
 	skeleton_rules = SSjob.skeleton_rules
 	skeleton_access_by_job = SSjob.skeleton_access_by_job
+	ending_skeleton_rules = SSjob.ending_skeleton_rules
+	job_assignment_count = SSjob.job_assignment_count
 	acting_heads = SSjob.acting_heads
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
 
@@ -891,14 +896,18 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/on_job_after_latejoin_spawn(datum/source, datum/job/job, mob/living/spawning)
 	SIGNAL_HANDLER
-	refresh_skeleton_access()
+	refresh_skeleton_access(spawning)
 
-/datum/controller/subsystem/job/proc/refresh_skeleton_access()
+/datum/controller/subsystem/job/proc/refresh_skeleton_access(mob/living/arrival)
 	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
-		rule.refresh()
+		rule.refresh(arrival)
 
 /datum/controller/subsystem/job/proc/update_skeleton_access()
 	skeleton_access_by_job = list()
+	ending_skeleton_rules = list()
+	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
+		if(rule.revoke_timer)
+			ending_skeleton_rules += rule
 	for(var/datum/job/job as anything in all_occupations)
 		var/list/job_access = list()
 		for(var/datum/skeleton_access/rule as anything in skeleton_rules)

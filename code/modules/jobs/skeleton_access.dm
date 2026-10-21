@@ -8,6 +8,8 @@
 	var/list/recipients
 	/// Titles of the jobs being covered for. The rule is off while any of them is filled
 	var/list/covered_jobs = list()
+	/// Shown instead of the covered jobs when they make up a whole department
+	var/covered_department_name
 	var/list/access
 	/// The rule is off once the crew count reaches this
 	var/population_limit = LOWPOP_JOB_LIMIT
@@ -15,6 +17,8 @@
 	var/enabled = FALSE
 	var/revoke_timer
 	var/cause
+	/// Never give assignment after this assignment integer
+	var/revoke_after_assignment
 
 /// Why the rule should be off, or null if it should be on
 /datum/skeleton_access/proc/get_inactive_reason()
@@ -27,6 +31,10 @@
 		return "Crew levels restored"
 	return null
 
+/// its possible to get the job after the handover starts, so for the love of god avoid giving them access
+/datum/skeleton_access/proc/excludes(obj/item/card/id/card)
+	return !isnull(revoke_after_assignment) && card.job_assignment_id > revoke_after_assignment
+
 /datum/skeleton_access/proc/applies_to(job_title)
 	return job_title && (isnull(recipients) || (job_title in recipients))
 
@@ -36,58 +44,89 @@
 	var/datum/job/job = SSjob.get_job(job_title)
 	return department in job?.departments_list
 
-/datum/skeleton_access/proc/access_names()
-	return english_list(get_access_descs(access))
+/datum/skeleton_access/proc/access_names(list/accesses = access)
+	return english_list(get_access_descs(accesses))
 
-/datum/skeleton_access/proc/get_briefing()
+/datum/skeleton_access/proc/covering_for()
+	if(covered_department_name)
+		return "the [covered_department_name] department"
 	if(length(covered_jobs))
-		return "No [english_list(covered_jobs)] on duty: [access_names()] access authorized."
-	return "Station understaffed: [access_names()] access authorized."
+		return "the [english_list(covered_jobs)]"
+	return "an understaffed station"
+
+/datum/skeleton_access/proc/end_condition()
+	var/list/conditions = list()
+	if(covered_department_name)
+		conditions += "someone joins [covered_department_name]"
+	else if(length(covered_jobs))
+		conditions += "a new [english_list(covered_jobs, and_text = " or ")] arrives"
+	conditions += "the crew reaches [population_limit]"
+	return "until [english_list(conditions, and_text = " or ")]"
+
+/datum/skeleton_access/proc/briefing_prefix()
+	return "Covering for [covering_for()]: "
+
+/datum/skeleton_access/proc/get_briefing(list/accesses = access)
+	return "[briefing_prefix()][access_names(accesses)] access authorized [end_condition()]."
 
 /datum/skeleton_access/proc/get_examine_reason()
-	if(length(covered_jobs))
-		return "Skeleton crew protocol: no [english_list(covered_jobs)] on duty"
-	return "Skeleton crew protocol: station understaffed"
+	return "Covering for [covering_for()]"
 
 /datum/skeleton_access/proc/timing_text()
 	if(revoke_timer)
-		return "ending in [DisplayTimeText(timeleft(revoke_timer))]"
-	return "active until revoked"
+		return "handing over in [DisplayTimeText(timeleft(revoke_timer))]"
+	return end_condition()
 
 /// Turning off waits out SKELETON_ACCESS_GRACE
-/datum/skeleton_access/proc/refresh()
+/datum/skeleton_access/proc/refresh(mob/living/arrival)
 	var/inactive_reason = get_inactive_reason()
 	if(isnull(inactive_reason))
 		if(revoke_timer)
 			deltimer(revoke_timer)
 			revoke_timer = null
+			SSjob.update_skeleton_access()
 			log_id("Skeleton crew access to [access_names()] continues.")
-			announce("[access_names()] access withdrawal cancelled.")
+			announce("Handover cancelled: ", " access continues [end_condition()].")
+			revoke_after_assignment = null
 		else if(!enabled)
 			enabled = TRUE
 			SSjob.update_skeleton_access()
 			log_id("Skeleton crew access on. [get_briefing()]")
-			announce(get_briefing())
+			announce(briefing_prefix(), " access authorized [end_condition()].")
 		return
 	if(!enabled || revoke_timer)
 		return
 	cause = inactive_reason
+	var/obj/item/card/id/arrival_card = arrival?.get_idcard(hand_first = FALSE)
+	revoke_after_assignment = arrival_card ? arrival_card.job_assignment_id - 1 : SSjob.job_assignment_count
 	revoke_timer = addtimer(CALLBACK(src, PROC_REF(finish_revoke)), SKELETON_ACCESS_GRACE, TIMER_STOPPABLE)
+	SSjob.update_skeleton_access()
 	log_id("Skeleton crew access to [access_names()] ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)], [cause].")
-	announce("[cause]. [access_names()] access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)].", warning = TRUE)
+	announce("[cause]. Finish up and hand over: ", " access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)].", warning = TRUE)
 
 /datum/skeleton_access/proc/finish_revoke()
 	revoke_timer = null
 	enabled = FALSE
 	SSjob.update_skeleton_access()
 	log_id("Skeleton crew access to [access_names()] withdrawn, [cause].")
-	announce("[cause]. [access_names()] access withdrawn.", warning = TRUE)
+	announce("[cause]: ", " access handed over. Thanks for covering.")
+	revoke_after_assignment = null
 
-/datum/skeleton_access/proc/announce(message, warning = FALSE)
+/// what access has changed
+/datum/skeleton_access/proc/announce(prefix, suffix, warning = FALSE)
 	for(var/datum/mind/crew_mind as anything in get_crewmember_minds())
 		var/obj/item/card/id/card = crew_mind.current?.get_idcard(hand_first = FALSE)
-		if(card && applies_to(card.job_title) && notifies(card.job_title))
-			card.card_talk(message, warning)
+		if(!card || !applies_to(card.job_title) || !notifies(card.job_title))
+			continue
+		if(excludes(card))
+			continue
+		var/list/changed = access - card.get_non_skeleton_access() - card.withheld_skeleton_access
+		for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(card.job_title))
+			// grace period sanity check
+			if(rule != src && !(revoke_timer && rule.revoke_timer))
+				changed -= rule.access
+		if(length(changed))
+			card.card_talk("[prefix][access_names(changed)][suffix]", warning)
 
 // Engineering
 
@@ -103,6 +142,12 @@
 	recipients = list(JOB_NAME_STATIONENGINEER)
 	covered_jobs = list(JOB_NAME_ATMOSPHERICTECHNICIAN)
 	access = list(ACCESS_ATMOSPHERICS)
+
+/datum/skeleton_access/station_engineer
+	department = /datum/department_group/engineering
+	recipients = list(JOB_NAME_ATMOSPHERICTECHNICIAN)
+	covered_jobs = list(JOB_NAME_STATIONENGINEER)
+	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE)
 
 // Medical
 
@@ -125,6 +170,12 @@
 	covered_jobs = list(JOB_NAME_GENETICIST)
 	access = list(ACCESS_GENETICS)
 
+/datum/skeleton_access/medical_doctor
+	department = /datum/department_group/medical
+	recipients = list(JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
+	covered_jobs = list(JOB_NAME_MEDICALDOCTOR)
+	access = list(ACCESS_SURGERY, ACCESS_CLONING, ACCESS_VIROLOGY)
+
 // Science
 
 /datum/skeleton_access/research_director
@@ -145,6 +196,12 @@
 	recipients = list(JOB_NAME_SCIENTIST)
 	covered_jobs = list(JOB_NAME_EXPLORATIONCREW)
 	access = list(ACCESS_EXPLORATION)
+
+/datum/skeleton_access/scientist
+	department = /datum/department_group/science
+	recipients = list(JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW)
+	covered_jobs = list(JOB_NAME_SCIENTIST)
+	access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
 /datum/skeleton_access/science_tech_storage
 	department = /datum/department_group/science
@@ -190,6 +247,12 @@
 	recipients = list(JOB_NAME_CARGOTECHNICIAN)
 	covered_jobs = list(JOB_NAME_SHAFTMINER)
 	access = list(ACCESS_GATEWAY, ACCESS_MINING, ACCESS_MINING_STATION)
+
+/datum/skeleton_access/cargo_technician
+	department = /datum/department_group/cargo
+	recipients = list(JOB_NAME_SHAFTMINER)
+	covered_jobs = list(JOB_NAME_CARGOTECHNICIAN)
+	access = list(ACCESS_CARGO)
 
 /datum/skeleton_access/cargo_gateway
 	department = /datum/department_group/cargo
@@ -239,20 +302,21 @@
 /datum/skeleton_access/station_unlock
 	population_limit = STATION_UNLOCK_POPULATION
 	access = list(
-		ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA,
-		ACCESS_CHAPEL_OFFICE, ACCESS_TECH_STORAGE, ACCESS_BAR,
-		ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN,
-		ACCESS_CONSTRUCTION, ACCESS_HYDROPONICS, ACCESS_LIBRARY,
-		ACCESS_THEATRE, ACCESS_MAILSORTING, ACCESS_MINING_STATION,
-		ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_CHAPEL_OFFICE, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LIBRARY,ACCESS_THEATRE, //service
+		ACCESS_MAILSORTING, ACCESS_MINING_STATION, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, //cargo
+		ACCESS_CONSTRUCTION, //engi
 	)
 
 /datum/skeleton_access/station_unlock/cargo
 	covered_jobs = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
+	covered_department_name = "Cargo"
 	access = list(ACCESS_CARGO)
 
 /datum/skeleton_access/station_unlock/science
 	covered_jobs = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW)
+	covered_department_name = "Science"
 	access = list(
 		ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS,
 		ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_XENOBIOLOGY
@@ -260,10 +324,12 @@
 
 /datum/skeleton_access/station_unlock/engineering
 	covered_jobs = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	covered_department_name = "Engineering"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 
 /datum/skeleton_access/station_unlock/medical
 	covered_jobs = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
+	covered_department_name = "Medical"
 	access = list(
 		ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS,
 		ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY,
