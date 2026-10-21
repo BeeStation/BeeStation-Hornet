@@ -621,20 +621,24 @@
 			add_access_entries(entries, entry_ending, grant.accesses - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
 	var/list/skeleton_access = get_skeleton_access()
 	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
-		add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.get_examine_reason(), rule.timing_text(), !!rule.revoke_timer)
+		add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.get_examine_reason(), rule.timing_text(), !!rule.revoke_timer, rule.get_colour_class())
 	if(length(entries))
 		var/list/entry_texts = list()
 		for(var/key in entries)
 			entry_texts += entries[key]
 		. += span_notice("<b>Temporary access:</b> [jointext(entry_texts, ", ")]")
 
-/obj/item/card/id/proc/add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending)
+/obj/item/card/id/proc/add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending, colour_class)
 	for(var/access_id in access_ids)
 		var/key = "[access_id]"
 		if(entries[key] && !entry_ending[key])
 			continue
 		var/entry = span_tooltip("[reason]. [capitalize(timing)].", get_access_desc(access_id))
-		entries[key] = ending ? span_warning(entry) : entry
+		if(ending)
+			entry = span_warning(entry)
+		else if(colour_class)
+			entry = "<span class='[colour_class]'>[entry]</span>"
+		entries[key] = entry
 		entry_ending[key] = ending
 
 /obj/item/card/id/examine(mob/user)

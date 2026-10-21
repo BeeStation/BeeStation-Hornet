@@ -9,7 +9,7 @@
 	/// Titles of the jobs being covered for. The rule is off while any of them is filled
 	var/list/covered_jobs = list()
 	/// Shown instead of the covered jobs when they make up a whole department
-	var/covered_department_name
+	var/datum/department_group/covered_department
 	var/list/access
 	/// The rule is off once the crew count reaches this
 	var/population_limit = LOWPOP_JOB_LIMIT
@@ -48,24 +48,33 @@
 	return english_list(get_access_descs(accesses))
 
 /datum/skeleton_access/proc/covering_for()
-	if(covered_department_name)
-		return covered_department_name
+	if(covered_department)
+		return initial(covered_department.department_name)
 	if(length(covered_jobs))
 		return english_list(covered_jobs)
 	return "an understaffed station"
 
 /datum/skeleton_access/proc/end_condition()
-	if(covered_department_name)
+	if(covered_department)
 		return "ends when department has staff or total crew reaches [population_limit]"
 	if(length(covered_jobs))
 		return "ends when position has staff or total crew reaches [population_limit]"
 	return "ends when total crew reaches [population_limit]"
 
+/// I have colored it by department chat colors in lieu of having anything else
+/datum/skeleton_access/proc/get_colour_class()
+	var/datum/department_group/colour_department = covered_department || department
+	var/channel = colour_department && initial(colour_department.dept_radio_channel)
+	return channel && get_radio_span(channel)
+
 /datum/skeleton_access/proc/briefing_prefix()
-	return "Covering for [covering_for()]: "
+	var/colour_class = get_colour_class()
+	if(!colour_class)
+		return "Covering for [covering_for()]: "
+	return "Covering for <span class='[colour_class]'>[covering_for()]</span>: "
 
 /datum/skeleton_access/proc/get_briefing()
-	return "[briefing_prefix()][access_names()] access authorized ([end_condition()])."
+	return "Covering for [covering_for()]: [access_names()] access authorized ([end_condition()])."
 
 /datum/skeleton_access/proc/get_examine_reason()
 	return "Covering for [covering_for()]"
@@ -309,12 +318,12 @@
 
 /datum/skeleton_access/station_unlock/cargo
 	covered_jobs = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
-	covered_department_name = "Cargo"
+	covered_department = /datum/department_group/cargo
 	access = list(ACCESS_CARGO)
 
 /datum/skeleton_access/station_unlock/science
 	covered_jobs = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW)
-	covered_department_name = "Science"
+	covered_department = /datum/department_group/science
 	access = list(
 		ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS,
 		ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_XENOBIOLOGY
@@ -322,12 +331,12 @@
 
 /datum/skeleton_access/station_unlock/engineering
 	covered_jobs = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
-	covered_department_name = "Engineering"
+	covered_department = /datum/department_group/engineering
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 
 /datum/skeleton_access/station_unlock/medical
 	covered_jobs = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
-	covered_department_name = "Medical"
+	covered_department = /datum/department_group/medical
 	access = list(
 		ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS,
 		ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY,
