@@ -321,44 +321,6 @@
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= ACCESS_MAINT_TUNNELS
-	// Gain massive access in super lowpop mode
-	if (SSjob.initial_players_to_assign < STATION_UNLOCK_POPULATION)
-		// Base increased access
-		. |= list(
-			ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA,
-			ACCESS_CHAPEL_OFFICE, ACCESS_TECH_STORAGE, ACCESS_BAR,
-			ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN,
-			ACCESS_CONSTRUCTION, ACCESS_HYDROPONICS, ACCESS_LIBRARY,
-			ACCESS_THEATRE, ACCESS_MAILSORTING, ACCESS_MINING_STATION,
-			ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING
-		)
-		// Access to cargo
-		if (SSjob.is_job_empty(JOB_NAME_CARGOTECHNICIAN))
-			. |= list(
-				ACCESS_CARGO
-			)
-		// Access to the bridge to request spare ID
-		if (SSjob.is_job_empty(JOB_NAME_CAPTAIN))
-			. |= ACCESS_HEADS
-			. |= ACCESS_KEYCARD_AUTH
-		// Access to science
-		if (SSjob.is_job_empty(JOB_NAME_SCIENTIST))
-			. |= list(
-				ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS,
-				ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_XENOBIOLOGY
-			)
-		// Access to engineering to setup the engine
-		if (SSjob.is_job_empty(JOB_NAME_STATIONENGINEER))
-			. |= list(
-				ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS
-			)
-		// Access to medical. Jobs like geneticist don't count
-		if (SSjob.is_job_empty(JOB_NAME_MEDICALDOCTOR))
-			. |= list(
-				ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS,
-				ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY,
-				ACCESS_CLONING
-			)
 
 /// tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 /datum/job/proc/announce_head(mob/living/carbon/human/human, channels)
@@ -434,8 +396,6 @@
 	if(req_admin_notify)
 		info += "<b>You are playing a job that is important for Game Progression. \
 			If you have to disconnect, please notify the admins via adminhelp.</b>"
-	if(length(get_access()) != length(base_access))
-		info += span_notice("<b>You have been granted with additional access and responsibilities due to a lack of station personnel.</b>")
 	return info
 
 /// Returns information pertaining to this job's radio.

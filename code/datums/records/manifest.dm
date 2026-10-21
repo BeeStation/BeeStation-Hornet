@@ -49,7 +49,7 @@
 			placements[dept_to_category[DEPARTMENT_NAME_UNASSIGNED]] = is_captain
 		for(var/category in placements)
 			var/list/department_list = manifest_out[category]
-			department_list.Insert(placements[category], list(entry))
+			department_list.Insert(placements[category] ? 1 : 0, list(entry))
 
 	// Trim empty categories.
 	for(var/category in manifest_out)

@@ -2,7 +2,7 @@
 
 /// Lowpop access for the recipient jobs while the jobs they cover are empty
 /datum/skeleton_access
-	/// Only recipients in this department are notified
+	/// Only recipients in this department are notified. Null notifies all recipients
 	var/datum/department_group/department
 	/// Titles of the jobs that get the access. Null means everyone
 	var/list/recipients
@@ -31,6 +31,8 @@
 	return job_title && (isnull(recipients) || (job_title in recipients))
 
 /datum/skeleton_access/proc/notifies(job_title)
+	if(!department)
+		return TRUE
 	var/datum/job/job = SSjob.get_job(job_title)
 	return department in job?.departments_list
 
@@ -231,5 +233,41 @@
 	department = /datum/department_group/civilian
 	recipients = list(JOB_NAME_ASSISTANT)
 	access = list(ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_AUX_BASE)
+
+// Station unlock. Everyone covers for departments with nobody in them
+
+/datum/skeleton_access/station_unlock
+	population_limit = STATION_UNLOCK_POPULATION
+	access = list(
+		ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA,
+		ACCESS_CHAPEL_OFFICE, ACCESS_TECH_STORAGE, ACCESS_BAR,
+		ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN,
+		ACCESS_CONSTRUCTION, ACCESS_HYDROPONICS, ACCESS_LIBRARY,
+		ACCESS_THEATRE, ACCESS_MAILSORTING, ACCESS_MINING_STATION,
+		ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING
+	)
+
+/datum/skeleton_access/station_unlock/cargo
+	covered_jobs = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
+	access = list(ACCESS_CARGO)
+
+/datum/skeleton_access/station_unlock/science
+	covered_jobs = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW)
+	access = list(
+		ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS,
+		ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_XENOBIOLOGY
+	)
+
+/datum/skeleton_access/station_unlock/engineering
+	covered_jobs = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
+
+/datum/skeleton_access/station_unlock/medical
+	covered_jobs = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
+	access = list(
+		ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS,
+		ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY,
+		ACCESS_CLONING
+	)
 
 #undef SKELETON_ACCESS_GRACE
