@@ -7,8 +7,8 @@
 	ling.mind.add_antag_datum(/datum/antagonist/changeling)
 	test_setup(ling)
 
-	normal_guy.health = HEALTH_THRESHOLD_CRIT
-	normal_guy.set_stat(SOFT_CRIT)
+	ling.health = HEALTH_THRESHOLD_CRIT
+	ling.set_stat(SOFT_CRIT)
 
 	var/obj/item/bodypart/head/noggin = ling.get_bodypart(BODY_ZONE_HEAD)
 	noggin.dismember()
