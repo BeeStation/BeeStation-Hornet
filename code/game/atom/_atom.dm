@@ -781,7 +781,7 @@
 	var/stam
 	if(iscarbon(living_target))
 		var/mob/living/carbon/C = living_target
-		stam = "(STAM: [C.getStaminaLoss()]) "
+		stam = "(STAM: [C.stamina.loss_as_percent]%) "
 
 	var/sobject = ""
 	if(object)

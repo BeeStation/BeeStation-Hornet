@@ -16,6 +16,12 @@ Woods Sheets
 	icon_state = "sheet-wood"
 	inhand_icon_state = "sheet-wood"
 	icon = 'icons/obj/stacks/organic.dmi'
+
+	//BONK
+	stamina_damage = 50
+	stamina_cost = 25
+	stamina_critical_chance = 10
+
 	mats_per_unit = list(/datum/material/wood=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "wood"
 	armor_type = /datum/armor/sheet_wood

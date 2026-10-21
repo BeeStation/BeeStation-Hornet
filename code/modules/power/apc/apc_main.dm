@@ -476,12 +476,15 @@
 				else
 					locked = !locked
 					update_appearance()
+					usr.animate_interact(src)
 					. = TRUE
 		if("cover")
 			coverlocked = !coverlocked
+			usr.animate_interact(src)
 			. = TRUE
 		if("breaker")
 			toggle_breaker(usr)
+			usr.animate_interact(src)
 			. = TRUE
 		if("toggle_nightshift")
 			toggle_nightshift_lights()
@@ -491,6 +494,7 @@
 			if(!chargemode)
 				charging = APC_NOT_CHARGING
 				update_appearance()
+			usr.animate_interact(src)
 			. = TRUE
 		if("channel")
 			if(params["eqp"])
@@ -507,10 +511,12 @@
 				update()
 			else
 				return FALSE
+			usr.animate_interact(src)
 			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
 				overload_lighting()
+				usr.animate_interact(src)
 				. = TRUE
 		if("hack")
 			if(get_malf_status(usr))
@@ -526,6 +532,7 @@
 				. = TRUE
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
+			usr.animate_interact(src)
 			for(var/obj/machinery/light/L in area)
 				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
 					L.no_emergency = emergency_lights

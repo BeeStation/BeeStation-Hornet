@@ -352,18 +352,16 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 
 /datum/voice_of_god_command/walk/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/target as anything in listeners)
-		if(target.move_intent != MOVE_INTENT_WALK)
-			target.toggle_move_intent()
+		target.set_move_intent(/datum/move_intent/walk)
 
 /// This command forces the listeners to switch to run intent.
 /datum/voice_of_god_command/run
 	trigger = "run"
 	is_regex = FALSE
 
-/datum/voice_of_god_command/walk/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
+/datum/voice_of_god_command/run/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/target as anything in listeners)
-		if(target.move_intent != MOVE_INTENT_RUN)
-			target.toggle_move_intent()
+		target.set_move_intent(/datum/move_intent/run)
 
 /// This command turns the listeners' throw mode on.
 /datum/voice_of_god_command/throw_catch

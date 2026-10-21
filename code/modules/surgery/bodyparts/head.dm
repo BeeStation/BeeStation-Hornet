@@ -12,8 +12,7 @@
 	throw_range = 2 //No head bowling
 	px_x = 0
 	px_y = -8
-	stam_damage_coeff = 1
-	max_stamina_damage = 100
+	grind_results = null
 	is_dimorphic = TRUE
 	unarmed_attack_verb = "bite"
 	unarmed_attack_effect = ATTACK_EFFECT_BITE

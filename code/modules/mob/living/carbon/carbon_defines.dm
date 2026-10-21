@@ -5,6 +5,7 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,GLAND_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
 	has_limbs = TRUE
 	held_items = list(null, null)
+	move_intents = list(/datum/move_intent/walk, /datum/move_intent/run, /datum/move_intent/sprint)
 	num_legs = 0 //Populated on init through list/bodyparts
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
@@ -73,9 +74,6 @@
 	/// (For example, setting damageoverlaytemp = 20 will add 20 "damage" to the overlay the next time it updates.)
 	/// This number is also reset to 0 every tick of carbon Life(). Pain.
 	var/damageoverlaytemp = 0
-
-	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
-	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.
 
 	/// Protection (insulation) from the heat, Value 0-1 corresponding to the percentage of protection
 	var/heat_protection = 0 // No heat protection

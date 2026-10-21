@@ -1,7 +1,7 @@
 //The contant in the rate of reagent transfer on life ticks
 #define STOMACH_METABOLISM_CONSTANT 0.5
-//Stamina drained per second once nutrition is gone and there is nothing left to digest
-#define STARVATION_STAMINA_DRAIN 2
+//Stamina drained per second once nutrition is gone and there is nothing left to digest, 2% of the pool
+#define STARVATION_STAMINA_DRAIN (STAMINA_MAX * 0.02)
 
 /obj/item/organ/stomach
 	name = "stomach"
@@ -234,7 +234,7 @@
 		)
 
 	if(!HAS_TRAIT_FROM(human, TRAIT_INCAPACITATED, STAMINA))
-		human.adjustStaminaLoss(STARVATION_STAMINA_DRAIN * delta_time)
+		human.stamina.adjust(-STARVATION_STAMINA_DRAIN * delta_time)
 
 ///Your stomach craves sustenance (no one looks at the HUD)
 /obj/item/organ/stomach/proc/handle_hunger_pangs(mob/living/carbon/human/human, delta_time)

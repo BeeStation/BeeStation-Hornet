@@ -13,9 +13,16 @@
 #define CURRENT_DEAD_PLAYERS "dead_players_list"
 #define CURRENT_OBSERVERS "current_observers_list"
 
-//movement intent defines for the move_intent var
-#define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
+//movement intent flags, see [/datum/move_intent]
+///Careful movement that avoids slipping and stepping on things
+#define MOVE_INTENT_DELIBERATE (1<<0)
+///Burns extra nutrition
+#define MOVE_INTENT_EXERTIVE (1<<1)
+///Costs stamina
+#define MOVE_INTENT_QUICK (1<<2)
+
+#define MOVING_DELIBERATELY(X) (X.move_intent.flags & MOVE_INTENT_DELIBERATE)
+#define MOVING_QUICKLY(X) (X.move_intent.flags & MOVE_INTENT_QUICK)
 
 // Bleed rates
 // See blood.dm for calculations
@@ -144,9 +151,6 @@
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSMOBS_DT/3)
-
-#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
-#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
 #define HEAT_DAMAGE_LEVEL_1 1 //Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 400K point
@@ -458,9 +462,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // AI Toggles
 #define AI_CAMERA_LUMINOSITY	5
 #define AI_VOX //! Comment out if you don't want VOX to be enabled and have players download the voice sounds.
-
-// /obj/item/bodypart on_mob_life() retval flag
-#define BODYPART_LIFE_UPDATE_HEALTH (1<<0)
 
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180

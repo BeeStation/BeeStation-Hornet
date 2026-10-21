@@ -46,6 +46,8 @@
 #define SUIT_TRAIT "suit"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).
 #define LYING_DOWN_TRAIT "lying-down"
+/// Is currently EMP'd
+#define EMP_TRAIT "emp"
 /// Trait associated to lacking electrical power.
 #define POWER_LACK_TRAIT "power-lack"
 #define GLASSES_TRAIT "glasses"

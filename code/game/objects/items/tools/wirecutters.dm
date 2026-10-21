@@ -9,9 +9,14 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
+
 	force = 6
 	throw_speed = 3
 	throw_range = 7
+	stamina_damage = 15
+	stamina_cost = 10
+	stamina_critical_chance = 30
+
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=80)
 	attack_verb_continuous = list("pinches", "nips")

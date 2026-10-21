@@ -71,12 +71,8 @@
 	if(stimulant)
 		if(isliving(loc))
 			var/mob/living/L = loc
-			L.SetStun(0)
-			L.SetKnockdown(0)
 			L.SetSleeping(0)
-			L.SetImmobilized(0)
-			L.SetParalyzed(0)
-			L.SetUnconscious(0)
+			L.SetAllImmobility(0)
 			L.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, clamp(5 - L.reagents.get_reagent_amount(/datum/reagent/medicine/muscle_stimulant), 0, 5))	//If you don't have legs or get bola'd, tough luck!
 			colorize(L)
 

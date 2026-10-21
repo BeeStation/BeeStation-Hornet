@@ -80,6 +80,14 @@
 	addiction_types = list(/datum/addiction/stimulants = 14) //5.6 per 2 seconds
 	metabolized_traits = list(TRAIT_NOBLOCK)
 
+/datum/reagent/drug/crank/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 9)
+
+/datum/reagent/drug/crank/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/drug/crank/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
@@ -96,8 +104,7 @@
 	affected_mob.AdjustImmobilized(-20 * REM * delta_time)
 	affected_mob.AdjustParalyzed(-20 * REM * delta_time)
 	affected_mob.adjustToxLoss(0.75 * REM * delta_time, updating_health = FALSE)
-	if(affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/crank/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -154,10 +161,12 @@
 	. = ..()
 	affected_mob.client?.give_award(/datum/award/achievement/misc/meth, affected_mob)
 	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
+	affected_mob.stamina.add_regen_modifier(type, 18)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
+	affected_mob.stamina?.remove_regen_modifier(type)
 
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -175,8 +184,7 @@
 	affected_mob.set_drowsiness_if_lower(-8 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
-	if(affected_mob.adjustStaminaLoss(-40 * REM * delta_time, updating_stamina = FALSE))
-		return UPDATE_MOB_HEALTH
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/drug/methamphetamine/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -228,8 +236,8 @@
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
 	var/need_mob_update
-	need_mob_update = affected_mob.adjustStaminaLoss(-5 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time, required_organ_flag = affected_organ_flags)
+	affected_mob.stamina.adjust(5 * REM * delta_time)
+	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time, required_organ_flag = affected_organ_flags)
 	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 	if(need_mob_update)
 		. = UPDATE_MOB_HEALTH
@@ -262,14 +270,21 @@
 	metabolized_traits = list(TRAIT_NOBLOCK)
 	addiction_types = list(/datum/addiction/stimulants = 75)
 
+/datum/reagent/drug/aranesp/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina.add_regen_modifier(type, 9)
+
+/datum/reagent/drug/aranesp/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	affected_mob.stamina?.remove_regen_modifier(type)
+
 /datum/reagent/drug/aranesp/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")))
 
 	var/need_mob_update
-	need_mob_update = affected_mob.adjustStaminaLoss(-18 * REM * delta_time, updating_stamina = FALSE, required_biotype = affected_biotype)
-	need_mob_update += affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
+	need_mob_update = affected_mob.adjustToxLoss(0.5 * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype)
 	if(DT_PROB(30, delta_time))
 		affected_mob.losebreath++
 		need_mob_update += affected_mob.adjustOxyLoss(1, FALSE, required_biotype = affected_biotype)
