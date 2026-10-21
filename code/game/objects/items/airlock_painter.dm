@@ -396,6 +396,22 @@
 	icon_state = "decal_sprayer_ex"
 	initial_ink_type = /obj/item/toner/extreme
 
+
+/obj/item/airlock_painter/decal/cyborg
+	icon_state = "decal_sprayer_borg"
+	initial_ink_type = /obj/item/toner/infinite
+
+/obj/item/airlock_painter/decal/cyborg/use_paint(mob/user)
+	var/mob/living/silicon/robot/cyborg = user
+	if(!iscyborg(cyborg) || !cyborg.cell)
+		return FALSE
+	if(cyborg.cell.charge <= 0)
+		balloon_alert(user, "not enough energy!")
+		return FALSE
+	. = ..()
+	if(.)
+		cyborg.cell.use(0.025 * STANDARD_CELL_CHARGE)
+
 /obj/item/airlock_painter/decal/tile
 	name = "tile sprayer"
 	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."

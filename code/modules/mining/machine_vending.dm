@@ -385,7 +385,7 @@
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"
-	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+	desc = "A duffel bag containing everything a crewmember needs to support a shaft miner in the field."
 
 /obj/item/storage/backpack/duffelbag/mining_conscript/PopulateContents()
 	new /obj/item/pickaxe/mini(src)
