@@ -88,7 +88,7 @@
 	desc = "The circuit board for a condensate decay reactor."
 	id = "cdr"
 	build_path = /obj/item/circuitboard/machine/cdr
-	category = list ("Engineering Machinery")
+	category = list (RND_CATEGORY_ENGINEERING_MACHINERY)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/graviton_target
@@ -96,7 +96,7 @@
 	desc = "The circuit board for a graviton wave disperser."
 	id = "graviton_target"
 	build_path = /obj/item/circuitboard/machine/graviton_target
-	category = list ("Engineering Machinery")
+	category = list (RND_CATEGORY_ENGINEERING_MACHINERY)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/thermomachine

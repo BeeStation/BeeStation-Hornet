@@ -276,11 +276,11 @@
 	)
 
 /obj/item/circuitboard/machine/cdr
-	name = "condensate decay reactor (Machine Board)"
+	name = "condensate decay reactor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/unary/cdr
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
+		/datum/stock_part/matter_bin = 2,
 		/obj/item/stack/sheet/plasmaglass = 10,
 	)
 
@@ -293,30 +293,13 @@
 	return ..()
 
 /obj/item/circuitboard/machine/graviton_target
-	name = "graviton wave disperser (Machine Board)"
+	name = "graviton wave disperser"
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/energy_accumulator/graviton_target
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/capacitor/quadratic = 6,
+		/datum/stock_part/capacitor/quadratic = 6,
 	)
-
-/obj/item/circuitboard/machine/cdr
-	name = "condensate decay reactor (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/cdr
-	req_components = list(
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stack/sheet/plasmaglass = 10
-	)
-
-/obj/item/circuitboard/machine/cdr/can_construct(mob/living/user)
-	for(var/obj/machinery/atmospherics/device in get_turf(src))
-		if(device.piping_layer == 3) // the CDR will always be on layer three
-			if(user)
-				balloon_alert(user, "tile occupied!")
-			return FALSE
-	return ..()
 
 /obj/item/circuitboard/machine/igniter
 	name = "Igniter"
