@@ -71,7 +71,7 @@ export const DmMapsIncludeTarget = new Juke.Target({
   executes: async () => {
     const folders = [
       ...Juke.glob('_maps/**/*.dmm'),
-    ];
+    ].filter((file) => !file.startsWith('_maps/map_files/'));
     const content = folders
       .map((file) => file.replace('_maps/', ''))
       .map((file) => `#include "${file}"`)
