@@ -6,6 +6,7 @@
 	inhand_icon_state = "bandaid_small_cross"
 	volume = 40
 	apply_method = "apply"
+	self_delay = 3 SECONDS
 
 /obj/item/reagent_containers/applicator/patch/canconsume(mob/eater, mob/user)
 	return TRUE // Masks were stopping people from "eating" patches. Thanks, inheritance.

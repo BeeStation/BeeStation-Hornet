@@ -10,6 +10,10 @@
 	..()
 	to_chat(finder, span_warning("You found an unknown alien organism in [owner]'s [zone]!"))
 
+/obj/item/organ/body_egg/feel_for_damage(self_aware)
+	// keep these stealthy for now, revisit later
+	return ""
+
 /obj/item/organ/body_egg/New(loc)
 	if(iscarbon(loc))
 		src.Insert(loc)

@@ -24,9 +24,11 @@
 /mob/living/carbon/regenerate_icons()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
+	icon_render_keys = list() //Clear this bad larry out
 	update_held_items()
 	update_worn_handcuffs()
 	update_worn_legcuffs()
+	update_body()
 	update_appearance(UPDATE_OVERLAYS)
 
 /mob/living/carbon/update_held_items()
@@ -75,21 +77,26 @@
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
 
-	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
+	var/mutable_appearance/damage_overlay
+	for(var/obj/item/bodypart/iter_part as anything in get_bodyparts())
+		if(!iter_part.dmg_overlay_type)
+			continue
+		if(isnull(damage_overlay) && (iter_part.brutestate || iter_part.burnstate))
+			damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), appearance_flags = KEEP_TOGETHER)
+		if(iter_part.brutestate)
+			var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[iter_part.dmg_overlay_type]_[iter_part.body_zone]_[iter_part.brutestate]0")
+			if(iter_part.use_damage_color && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+				//Set damage_color to species blood color
+				iter_part.damage_color = src.dna.blood_type.blood_color
+				brute_overlay.color = iter_part.damage_color
+			damage_overlay.add_overlay(brute_overlay)
+		if(iter_part.burnstate)
+			damage_overlay.add_overlay("[iter_part.dmg_overlay_type]_[iter_part.body_zone]_0[iter_part.burnstate]")
+
+	if(isnull(damage_overlay))
+		return
+
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
-
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		if(BP.dmg_overlay_type && !BP.is_husked)
-			if(BP.brutestate)
-				var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")
-				if(BP.use_damage_color && !HAS_TRAIT(src, TRAIT_NOBLOOD))
-					//Set damage_color to species blood color
-					BP.damage_color = src.dna.blood_type.blood_color
-					brute_overlay.color = BP.damage_color
-				damage_overlay.add_overlay(brute_overlay)
-			if(BP.burnstate)
-				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
-
 	apply_overlay(DAMAGE_LAYER)
 
 
@@ -208,6 +215,8 @@
 	RETURN_TYPE(/list)
 
 	. = list()
+	if(blocks_emissive != EMISSIVE_BLOCK_NONE)
+		. += emissive_blocker(standing.icon, standing.icon_state, src)
 	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
 /mob/living/carbon/update_body(is_creating = FALSE)
@@ -220,37 +229,34 @@
 ///Returns an integer representing the number of limbs that were updated.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	update_damage_overlays()
-	var/list/needs_update = list()
 	var/limb_count_update = 0
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+	var/list/new_limbs = list()
+	for(var/body_zone, limb_untyped in get_bodyparts_by_zones())
+		var/obj/item/bodypart/limb = limb_untyped
+		if(isnull(limb))
+			if(icon_render_keys[body_zone])
+				icon_render_keys -= body_zone
+				limb_count_update += 1
+			continue
 
-		var/old_key = icon_render_keys?[limb.body_zone]
-		icon_render_keys[limb.body_zone] = (limb.is_husked) ? limb.generate_husk_key().Join() : limb.generate_icon_key().Join() //Generates a key for the current bodypart
+		// Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		limb.update_limb(is_creating = update_limb_data)
 
-		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
-			needs_update += limb
+		var/old_key = icon_render_keys[limb.body_zone]
+		var/new_key = limb.get_cache_key()
 
-	limb_count_update += length(needs_update)
-	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
-		limb_count_update += 1
-		for(var/missing_limb in missing_bodyparts)
-			icon_render_keys -= missing_limb
+		if(new_key == old_key)
+			new_limbs += limb_icon_cache[new_key]
+
+		else
+			limb_icon_cache[new_key] ||= limb.get_limb_icon(dropped = FALSE)
+			new_limbs += limb_icon_cache[new_key]
+			icon_render_keys[limb.body_zone] = new_key
+			limb_count_update += 1
 
 	. = limb_count_update
 	if(!.)
 		return
-
-	//GENERATE NEW LIMBS
-	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		if(limb in needs_update)
-			var/bodypart_icon = limb.get_limb_icon()
-			new_limbs += bodypart_icon
-			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon //Caches the icon with the bodypart key, as it is new
-		else
-			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
 
 	remove_overlay(BODYPARTS_LAYER)
 
@@ -262,6 +268,13 @@
 /////////////////////////
 // Limb Icon Cache 2.0 //
 /////////////////////////
+
+/// Returns a string representing the bodyparts icon cache key
+/obj/item/bodypart/proc/get_cache_key()
+	if(is_husked)
+		return jointext(generate_husk_key(), "-")
+	return jointext(generate_icon_key(), "-")
+
 //Updated by Kapu#1178
 /**
  * Called from update_body_parts() these procs handle the limb icon cache.
@@ -277,11 +290,11 @@
 	RETURN_TYPE(/list)
 	. = list()
 	if(is_dimorphic)
-		. += "[limb_gender]-"
-	. += "[limb_id]"
-	. += "-[body_zone]"
+		. += limb_gender
+	. += limb_id
+	. += body_zone
 	if(should_draw_greyscale && draw_color)
-		. += "-[draw_color]"
+		. += draw_color
 	/*
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
 		if(!overlay.can_draw_on_bodypart(src, owner))
@@ -297,10 +310,13 @@
 /obj/item/bodypart/proc/generate_husk_key()
 	RETURN_TYPE(/list)
 	. = list()
-	. += "[limb_id]-"
-	. += "[husk_type]"
-	. += "-husk"
-	. += "-[body_zone]"
+	if(is_dimorphic)
+		. += limb_gender
+	. += limb_id
+	. += husk_type
+	. += "husk"
+	. += body_zone
+	. += get_husk_blood_color()
 	return .
 
 /obj/item/bodypart/head/generate_icon_key()

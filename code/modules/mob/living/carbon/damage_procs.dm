@@ -78,14 +78,14 @@
 //These procs fetch a cumulative total damage from all bodyparts
 /mob/living/carbon/getBruteLoss()
 	var/amount = 0
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		amount += BP.brute_dam
+	for(var/obj/item/bodypart/bodypart as anything in get_bodyparts())
+		amount += bodypart.brute_dam
 	return round(amount, DAMAGE_PRECISION)
 
 /mob/living/carbon/getFireLoss()
 	var/amount = 0
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		amount += BP.burn_dam
+	for(var/obj/item/bodypart/bodypart as anything in get_bodyparts())
+		amount += bodypart.burn_dam
 	return round(amount, DAMAGE_PRECISION)
 
 /mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
@@ -213,7 +213,7 @@
 //Returns a list of damaged bodyparts
 /mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, required_bodytype = NONE, target_zone = null)
 	var/list/obj/item/bodypart/parts = list()
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in get_bodyparts())
 		if(required_bodytype && !(BP.bodytype & required_bodytype))
 			continue
 		if(!isnull(target_zone) && BP.body_zone != target_zone)
@@ -225,7 +225,7 @@
 ///Returns a list of damageable bodyparts
 /mob/living/carbon/proc/get_damageable_bodyparts(required_bodytype)
 	var/list/obj/item/bodypart/parts = list()
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in get_bodyparts())
 		if(required_bodytype && !(BP.bodytype & required_bodytype))
 			continue
 		if(BP.brute_dam + BP.burn_dam < BP.max_damage)

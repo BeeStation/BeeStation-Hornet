@@ -330,7 +330,7 @@
 			if (!state_open)
 				open_machine(drop = FALSE)
 				if (occupant)
-					dump_contents()
+					dump_inventory_contents()
 		if ("close")
 			if (state_open)
 				close_machine()
@@ -378,6 +378,8 @@
 	return image
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
+	if(..())
+		return
 	if(!istype(user) || user.stat || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	if(isliving(user))
