@@ -753,7 +753,7 @@
 	else
 		draw_color = null
 
-	if(!is_creating || !owner)
+	if(!is_creating || !ishuman(owner))
 		return
 
 	// There should technically to be an ishuman(owner) check here, but it is absent because no basetype carbons use bodyparts
