@@ -92,7 +92,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/graviton_target
-	name = "Machine Design (Condensate Decay Reactor)"
+	name = "Machine Design (Graviton Wave Disperser)"
 	desc = "The circuit board for a graviton wave disperser."
 	id = "graviton_target"
 	build_path = /obj/item/circuitboard/machine/graviton_target
