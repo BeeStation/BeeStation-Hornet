@@ -64,12 +64,6 @@
 		return
 	eject_incapacitated_occupant(source)
 
-/obj/vehicle/sealed/proc/on_occupant_death(mob/living/source, gibbed)
-	SIGNAL_HANDLER
-	if(gibbed) // Shouldn't ever happen.. but people have found weird ways for everything
-		return
-	eject_incapacitated_occupant(source)
-
 /obj/vehicle/sealed/proc/eject_incapacitated_occupant(mob/living/occupant)
 	if(!ismecha(src) || !(occupant in occupants))
 		return

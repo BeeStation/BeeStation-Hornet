@@ -781,7 +781,7 @@
 		return .
 	if(isslime(interacting_with))
 		return interact_with_slime(interacting_with, user, modifiers)
-	if(ismob(interacting_with))
+	if(isliving(interacting_with))
 		to_chat(user, span_warning("It appears [src] must be given directly to a slime to absorb."))
 	return NONE
 
