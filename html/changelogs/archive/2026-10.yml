@@ -198,3 +198,6 @@
 2026-10-18:
   DrDuckedGoose:
   - bugfix: Fix grav-pulse plane based effects
+2026-10-22:
+  mrmanlikesbt:
+  - bugfix: Fixed some holodeck templates not spawning with some of their items.
