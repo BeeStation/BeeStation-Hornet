@@ -65,7 +65,7 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
-	new obj/item/paper/fluff/cdr(get_turf(src))
+	new /obj/item/paper/fluff/cdr(get_turf(src))
 	core_composition = new()
 	cdr_gas_factors = init_condensate_gas()
 	cdr_uid = gl_cdr_uid++
