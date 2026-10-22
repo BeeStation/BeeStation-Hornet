@@ -132,8 +132,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/bci_core/unregister_shell(atom/movable/shell)
-	bci = shell
-
 	bci.actions -= charge_action
 	QDEL_NULL(charge_action)
 
@@ -141,6 +139,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 		COMSIG_ORGAN_IMPLANTED,
 		COMSIG_ORGAN_REMOVED,
 	))
+
+	bci = null
 
 /obj/item/circuit_component/bci_core/should_receive_input(datum/port/input/port)
 	if (!COMPONENT_TRIGGERED_BY(send_message_signal, port))

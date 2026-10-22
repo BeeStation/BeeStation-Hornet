@@ -329,13 +329,14 @@
 		if(iscarbon(owner))
 			var/mob/living/carbon/itemUser = owner
 			var/obj/item/heldItem = itemUser.get_item_for_held_index(hand)
-			if(heldItem == null || heldItem.type != /obj/item/rod_of_asclepius) //Checks to make sure the rod is still in their hand
+			var/obj/item/bodypart/rod_arm = itemUser.hand_bodyparts[hand]
+			if((heldItem == null || heldItem.type != /obj/item/rod_of_asclepius) && !rod_arm?.bodypart_disabled) //Checks to make sure the rod is still in their hand
 				var/obj/item/rod_of_asclepius/newRod = new(itemUser.loc)
 				newRod.activated()
 				if(!itemUser.has_hand_for_held_index(hand))
 					//If user does not have the corresponding hand anymore, give them one and return the rod to their hand
 					var/zone = IS_LEFT_INDEX(hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
-					if(itemUser.regenerate_limb(zone, FALSE))
+					if(itemUser.regenerate_limb(zone))
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
 						consume_owner() //we can't regrow, abort abort
@@ -383,7 +384,8 @@
 /datum/status_effect/hippocratic_oath/proc/consume_owner()
 	owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
 	var/list/chems = list(/datum/reagent/medicine/sal_acid, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/kelotane)
-	var/mob/living/simple_animal/hostile/retaliate/poison/snake/spawned = new(owner.loc, pick(chems))
+	var/mob/living/simple_animal/hostile/retaliate/poison/snake/spawned = new(owner.loc)
+	spawned.poison_type = pick(chems)
 	spawned.name = "Asclepius's Snake"
 	spawned.real_name = "Asclepius's Snake"
 	spawned.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."

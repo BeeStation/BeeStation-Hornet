@@ -126,7 +126,7 @@
 
 /obj/item/organ/regenerative_core/on_mob_remove(mob/living/carbon/M, special = FALSE)
 	if(!inert && !special)
-		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
+		M?.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()
 	return ..()
 
