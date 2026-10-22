@@ -48,26 +48,14 @@
 	. = ..()
 	if(!.)
 		return
-	RegisterSignal(occupant_entering, COMSIG_MOB_STATCHANGE, PROC_REF(on_occupant_statchange))
 	RegisterSignal(occupant_entering, COMSIG_MOB_CI_TOGGLED, PROC_REF(mob_toggled_ci))
 	handle_ci_migration(occupant_entering)
 
 //Unregister the signal then disable CI if the vehicle has no other drivers within it.
 /obj/vehicle/sealed/remove_occupant(mob/occupant_exiting)
-	UnregisterSignal(occupant_exiting, list(COMSIG_MOB_STATCHANGE, COMSIG_MOB_CI_TOGGLED))
+	UnregisterSignal(occupant_exiting, COMSIG_MOB_CI_TOGGLED)
 	. = ..()
 	disable_ci(occupant_exiting)
-
-/obj/vehicle/sealed/proc/on_occupant_statchange(mob/living/source, new_stat)
-	SIGNAL_HANDLER
-	if(new_stat < SOFT_CRIT)
-		return
-	eject_incapacitated_occupant(source)
-
-/obj/vehicle/sealed/proc/eject_incapacitated_occupant(mob/living/occupant)
-	if(!ismecha(src) || !(occupant in occupants))
-		return
-	INVOKE_ASYNC(src, PROC_REF(mob_exit), occupant, TRUE, TRUE)
 
 /obj/vehicle/sealed/MouseDrop_T(atom/dropping, mob/M)
 	if(!istype(dropping) || !istype(M))
