@@ -90,7 +90,7 @@
 /turf/open/floor/iron/techmaint,
 /area/misc/space)
 "Q" = (
-/obj/structure/AIcore/deactivated,
+/obj/structure/ai_core/deactivated,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -98,9 +98,9 @@
 /area/misc/space)
 "R" = (
 /obj/structure/table/reinforced,
-/obj/item/ai_module/ion,
 /obj/item/ai_module/core/full/damaged,
-/obj/item/ai_module/core/full/overthrow,
+/obj/item/ai_module/core/full/damaged,
+/obj/item/ai_module/core/full/overlord,
 /obj/item/ai_module/core/full/peacekeeper,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/window/reinforced/spawner/directional/west,
@@ -125,7 +125,7 @@
 /turf/open/floor/monotile/steel,
 /area/misc/space)
 "Y" = (
-/obj/structure/AIcore/deactivated,
+/obj/structure/ai_core/deactivated,
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/misc/space)

@@ -127,7 +127,7 @@
 		affected.adjustFireLoss(-0.5 * REM * delta_time)
 
 /datum/species/diona/on_hit(obj/projectile/P, mob/living/carbon/human/H)
-	if(P.type == (/obj/projectile/energy/floramut || /obj/projectile/energy/florayield))
+	if(istype(P, /obj/projectile/energy/floramut) || istype(P, /obj/projectile/energy/florayield))
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
@@ -151,19 +151,28 @@
 	partition_ability = new
 	partition_ability.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(drone_state_check))
+	RegisterSignal(H, COMSIG_CARBON_POST_REMOVE_LIMB, PROC_REF(on_limb_removed))
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species)
 	. = ..()
 	split_ability.Remove(H)
 	QDEL_NULL(split_ability)
 	partition_ability.Remove(H)
 	QDEL_NULL(partition_ability)
-	qdel(drone_ref)
-	for(var/status_effect as anything in H.status_effects)
-		if(status_effect == /datum/status_effect/planthealing)
-			H.remove_status_effect(/datum/status_effect/planthealing)
+	qdel(drone_ref?.resolve())
+	drone_ref = null
+	H.remove_status_effect(/datum/status_effect/planthealing)
 
-	UnregisterSignal(H, COMSIG_LIVING_HEALTH_UPDATE)
+	UnregisterSignal(H, list(COMSIG_LIVING_HEALTH_UPDATE, COMSIG_CARBON_POST_REMOVE_LIMB))
+
+/// removing a limb dumps nymph
+/datum/species/diona/proc/on_limb_removed(mob/living/carbon/human/source, obj/item/bodypart/limb, special, dismembered)
+	SIGNAL_HANDLER
+	if(special || limb.limb_id != SPECIES_DIONA || !(locate(/obj/item/organ/nymph_organ) in limb))
+		return
+	new /mob/living/simple_animal/hostile/retaliate/nymph(source.drop_location())
+	// delete next tick
+	QDEL_IN(limb, 0)
 
 /datum/species/diona/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -236,7 +245,7 @@
 		gambling_nymph.adjustBruteLoss(50) // Aw dangit.
 		alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
 
-	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
+	if(nymph.stat == DEAD && length(alive_nymphs)) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)
 	for(var/obj/item/I in H.contents) //Drop the player's items on the ground
 		H.dropItemToGround(I, TRUE)
@@ -278,25 +287,20 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "nymph"
 
-/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, pref_load)
+/obj/item/organ/nymph_organ/Remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(istype(organ_owner, /mob/living/carbon/human/dummy) || special)
+	// Being deleted is not a nymph leaving
+	if(special || QDELING(src) || !isdiona(organ_owner) || istype(organ_owner, /mob/living/carbon/human/dummy))
 		return
+	// delete next tick
+	QDEL_IN(src, 0)
 	var/obj/item/bodypart/body_part = organ_owner.get_bodypart(zone)
-	for(var/datum/surgery/organ_manipulation/surgery in organ_owner.surgeries)
-		qdel(surgery)
 	if(istype(body_part, /obj/item/bodypart/chest)) //Does the same things as removing the brain would, since the torso is what keeps the diona together.
-		organ_owner.dna.species.spec_death(FALSE, src)
-		qdel(src)
+		organ_owner.dna.species.spec_death(FALSE, organ_owner)
 		return
 	new /mob/living/simple_animal/hostile/retaliate/nymph(organ_owner.loc)
 	qdel(body_part)
-	qdel(src)
 	organ_owner.update_body()
-
-/obj/item/organ/nymph_organ/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
-	Remove(C, FALSE)
-	forceMove(LB)
 
 /obj/item/organ/nymph_organ/r_arm
 	zone = BODY_ZONE_R_ARM

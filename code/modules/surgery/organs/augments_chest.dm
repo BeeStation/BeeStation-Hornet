@@ -124,13 +124,13 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = FALSE, movement_flags)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
 	ion_trail.set_up(M)
 
-/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special, movement_flags)
 	if(on)
 		toggle(silent = TRUE)
 	..()

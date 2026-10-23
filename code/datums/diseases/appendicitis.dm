@@ -11,7 +11,7 @@
 	disease_flags = CAN_CARRY|CAN_RESIST
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 	visibility_flags = HIDDEN_PANDEMIC
-	required_organs = list(/obj/item/organ/appendix)
+	required_organ = ORGAN_SLOT_APPENDIX
 	bypasses_immunity = TRUE // Immunity is based on not having an appendix; this isn't a virus
 
 /datum/disease/appendicitis/stage_act(delta_time, times_fired)

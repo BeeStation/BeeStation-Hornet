@@ -34,13 +34,13 @@
 		return TRUE
 	return ..()
 
-/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving
 	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
 
-/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
