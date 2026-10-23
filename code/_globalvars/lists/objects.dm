@@ -60,8 +60,6 @@ GLOBAL_LIST_EMPTY(intercoms_list)
 GLOBAL_LIST_EMPTY(tracked_implants)
 /// list of implants the prisoner console can track and send inject commands too
 GLOBAL_LIST_EMPTY(tracked_chem_implants)
-/// list of points of interest for observe/follow
-GLOBAL_LIST_EMPTY(poi_list)
 /// list of all pinpointers. Used to change stuff they are pointing to all at once.
 GLOBAL_LIST_EMPTY(pinpointer_list)
 /// A list of all zombie_infection organs, for any mass "animation"
@@ -88,7 +86,6 @@ GLOBAL_LIST_EMPTY(mob_spawners)
 GLOBAL_LIST_INIT(prototype_organs, typecacheof(list(
 	/obj/item/organ,
 	/obj/item/organ/wings,
-	/obj/item/organ/wings/moth,
 	/obj/item/organ/cyberimp,
 	/obj/item/organ/cyberimp/brain,
 	/obj/item/organ/cyberimp/mouth,

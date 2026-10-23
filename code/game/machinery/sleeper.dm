@@ -76,12 +76,13 @@
 			created_vials++
 
 /obj/machinery/sleeper/RefreshParts()
+	. = ..()
 	var/E
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		E += B.rating
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		E += B.tier
 	var/I
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		I += M.rating
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		I += M.tier
 
 	max_vials = initial(max_vials) - 1 + E
 	efficiency = initial(efficiency) * sqrt(I)
@@ -99,7 +100,7 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
-/obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if ((istype(I, /obj/item/reagent_containers/cup) \
 		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
 		&& !user.combat_mode)
@@ -158,6 +159,8 @@
 
 
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
+	if(..())
+		return
 	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
 		return
 
@@ -228,6 +231,7 @@
 /obj/machinery/sleeper/process()
 	..()
 	check_nap_violations()
+	use_power(active_power_usage)
 
 /obj/machinery/sleeper/nap_violation(mob/violator)
 	open_machine()
@@ -380,6 +384,7 @@
 	synthesizing = TRUE
 
 /obj/machinery/sleeper/clockwork/RefreshParts()
+	SHOULD_CALL_PARENT(FALSE)
 	return // nah
 
 /obj/machinery/sleeper/old

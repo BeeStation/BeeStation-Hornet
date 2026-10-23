@@ -94,13 +94,13 @@
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
 /obj/item/organ/alien/hivenode/on_mob_insert(mob/living/carbon/organ_owner)
+	. = ..()
 	organ_owner.faction |= FACTION_ALIEN
-	return ..()
 
 /obj/item/organ/alien/hivenode/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	if(organ_owner)
-		organ_owner.faction -= ROLE_ALIEN
-	return ..()
+		organ_owner.faction -= FACTION_ALIEN
+	. = ..()
 
 //When the alien queen dies, all aliens suffer a penalty as punishment for failing to protect her.
 /obj/item/organ/alien/hivenode/proc/queen_death()

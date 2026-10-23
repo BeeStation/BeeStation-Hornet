@@ -20,7 +20,7 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/human/felinid/on_species_gain(mob/living/carbon/carbon_being, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/human/felinid/on_species_gain(mob/living/carbon/carbon_being, datum/species/old_species)
 	if(ishuman(carbon_being))
 		var/mob/living/carbon/human/target_human = carbon_being
 
@@ -32,21 +32,22 @@
 		ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 	return ..()
 
-/datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
+/datum/species/human/felinid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
-			M.adjust_disgust(20)
+			affected.adjust_disgust(20)
 		if(prob(5))
-			M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","sputters!")]"))
+			affected.visible_message(span_warning("[affected] [pick("dry heaves!","coughs!","sputters!")]"))
 		if(prob(10))
 			var/sick_message = pick("You feel nauseous.", "You feel like your insides are melting.")
-			to_chat(M, span_notice("[sick_message]"))
+			to_chat(affected, span_notice("[sick_message]"))
 		if(prob(15))
-			if(locate(/obj/item/organ/stomach) in M.organs)
-				var/obj/item/organ/stomach/cat_stomach = M.organs_slot[ORGAN_SLOT_STOMACH]
+			if(locate(/obj/item/organ/stomach) in affected.organs)
+				var/obj/item/organ/stomach/cat_stomach = affected.organs_slot[ORGAN_SLOT_STOMACH]
 				cat_stomach.apply_organ_damage(15)
-		return FALSE
-	return ..() //second part of this effect is handled elsewhere
 
 /datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
 	var/list/features = ..()

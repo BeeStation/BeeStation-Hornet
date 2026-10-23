@@ -15,7 +15,7 @@
 	/// How many points this ruleset costs to run.
 	var/points_cost = 7
 	/// The minimum amount of players that have to be connected for this ruleset to run
-	var/minimum_players_required = 0
+	var/minimum_players_required = 6
 	/// The amount of people drafted by this ruleset.
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset

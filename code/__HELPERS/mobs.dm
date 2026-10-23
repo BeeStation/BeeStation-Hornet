@@ -559,7 +559,12 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 
 /// Returns the brainmob from a thing
 /proc/get_brainmob(obj/target_item, finds_mmi = FALSE)
-	if(istype(target_item, /obj/item/organ/brain))
+	if(istype(target_item, /obj/item/bodypart/head))
+		var/obj/item/bodypart/head/head = target_item
+		var/obj/item/organ/brain/head_brain = locate(/obj/item/organ/brain) in head
+		return head_brain?.brainmob
+
+	else if(istype(target_item, /obj/item/organ/brain))
 		var/obj/item/organ/brain/brain = target_item
 		return brain.brainmob
 

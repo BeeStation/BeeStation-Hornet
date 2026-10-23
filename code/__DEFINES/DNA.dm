@@ -126,6 +126,7 @@
 #define ORGAN_SLOT_STOMACH_AID "stomach_aid"
 #define ORGAN_SLOT_THRUSTERS "thrusters"
 #define ORGAN_SLOT_TONGUE "tongue"
+#define ORGAN_SLOT_UPGRADE_CONTROL "upgrade_control"
 #define ORGAN_SLOT_VOICE "vocal_cords"
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
 
@@ -146,12 +147,12 @@
 #define ORGAN_SLOT_EXTERNAL_BODYMARKINGS "bodymarkings"
 
 /// Xenomorph organ slots
-#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
-#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
-#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
 #define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
-#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
 #define ORGAN_SLOT_XENO_EGGSAC "eggsac"
+#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
+#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
+#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
+#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100

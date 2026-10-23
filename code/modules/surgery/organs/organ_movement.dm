@@ -17,6 +17,13 @@
 
 	if(!mob_insert(receiver, special, movement_flags))
 		return FALSE
+	if(bodypart_owner && loc == bodypart_owner && receiver == bodypart_owner.owner)
+		// ok this is a bit confusing but essentially, thanks to some EXTREME shenanigans
+		// (tl;dr mob_insert -> set_species -> replace_limb -> bodypart_insert)
+		// mob_insert can result in bodypart_insert being handled already
+		// to avoid double insertion, and potential bugs, we'll stop here
+		return TRUE
+
 	bodypart_insert(limb_owner = receiver, movement_flags = movement_flags)
 
 	if(!special && !(receiver.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
@@ -50,9 +57,9 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	if(!iscarbon(receiver))
-		#ifdef TESTING
-		stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
-		#endif
+		//We try to insert the organ in a corgi when running the test, expecting it to return FALSE.
+		//if(!PERFORM_ALL_TESTS(organ_sanity))
+		//	stack_trace("Tried to insert organ into non-carbon: [receiver.type]")
 		return FALSE
 
 	if(owner == receiver)
@@ -116,15 +123,21 @@
 	if(limb_owner)
 		bodypart = limb_owner.get_bodypart(deprecise_zone(zone))
 
-	// The true movement
-	forceMove(bodypart)
-	bodypart.contents |= src
-	bodypart_owner = bodypart
+	if(bodypart_owner == bodypart)
+		stack_trace("Organ bodypart_insert called when organ is already owned by that bodypart")
+	else if(!isnull(bodypart_owner))
+		stack_trace("Organ bodypart_insert called when organ is already owned by a different bodypart")
 
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(forced_removal))
+	// In the event that we're already in the bodypart, DO NOT MOVE IT! otherwise it triggers forced_removal
+	if(loc != bodypart)
+		forceMove(bodypart)
 
-	// Apply unique side-effects. Return value does not matter.
-	on_bodypart_insert(bodypart)
+	// Don't re-register if we are already owned
+	if(bodypart_owner != bodypart)
+		bodypart_owner = bodypart
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(forced_removal))
+		// Apply unique side-effects. Return value does not matter.
+		on_bodypart_insert(bodypart)
 
 	return TRUE
 
@@ -186,7 +199,7 @@
 	if(!special)
 		organ_owner.hud_used?.update_locked_slots()
 
-	if((organ_flags & ORGAN_VITAL) && !special)
+	if((organ_flags & ORGAN_VITAL) && !special && !HAS_TRAIT(organ_owner, TRAIT_GODMODE))
 		if(organ_owner.stat != DEAD)
 			organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
 		organ_owner.death()
@@ -209,7 +222,7 @@
 
 		diseases_to_add += disease
 
-	if(LAZYLEN(diseases_to_add) && !QDELING(src))
+	if(LAZYLEN(diseases_to_add))
 		AddComponent(/datum/component/infective, diseases_to_add)
 
 /// Called to remove an organ from a limb. Do not put any mob operations here (except the bodypart_getter at the start)
@@ -234,9 +247,7 @@
 /obj/item/organ/proc/on_bodypart_remove(obj/item/bodypart/limb, movement_flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	// Only add blood decal if the organ has its own icon/icon_state (not bodypart overlay-based)
-	var/has_own_sprite = (initial(icon) || icon) && (initial(icon_state) || icon_state)
-	if(!IS_ROBOTIC_ORGAN(src) && !(item_flags & NO_BLOOD_ON_ITEM) && !QDELING(src) && has_own_sprite)
+	if(!IS_ROBOTIC_ORGAN(src) && !(item_flags & NO_BLOOD_ON_ITEM) && !QDELING(src))
 		AddElement(/datum/element/decal/blood, initial(icon) || icon, initial(icon_state) || icon_state, _color = get_blood_dna_color(blood_dna_info))
 
 	item_flags &= ~ABSTRACT
@@ -266,13 +277,19 @@
 	color = bodypart_overlay.draw_color //Defaults to the legacy behaviour of applying the color to the item.
 
 /// In space station videogame, nothing is sacred. If somehow an organ is removed unexpectedly, handle it properly
-/obj/item/organ/proc/forced_removal()
+/obj/item/organ/proc/forced_removal(datum/source, atom/old_loc, ...)
 	SIGNAL_HANDLER
 
 	if(owner)
-		Remove(owner)
+		if(loc?.loc == owner) // loc = some bodypart, loc.loc = some bodypart's owner
+			stack_trace("Forced removal triggered on [src] ([type]) moving into the same mob [owner] ([owner.type])!")
+		else
+			Remove(owner)
 	else if(bodypart_owner)
-		bodypart_remove(bodypart_owner)
+		if(loc == bodypart_owner)
+			stack_trace("Forced removal triggered on [src] ([type]) moving into the same bodypart [bodypart_owner] ([bodypart_owner.type])!")
+		else
+			bodypart_remove(bodypart_owner)
 	else
 		stack_trace("Force removed an already removed organ!")
 
@@ -281,11 +298,12 @@
  */
 /obj/item/organ/proc/on_surgical_removal(mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
 	SHOULD_CALL_PARENT(TRUE)
-	//SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
+	SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
 	RemoveElement(/datum/element/decal/blood)
+
 /**
  * Proc that gets called when the organ is surgically inserted by someone. Seem familiar?
  */
 /obj/item/organ/proc/on_surgical_insertion(mob/living/user, mob/living/carbon/new_owner, target_zone, obj/item/tool)
 	SHOULD_CALL_PARENT(TRUE)
-	//SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_INSERTED, user, new_owner, target_zone, tool)
+	SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_INSERTED, user, new_owner, target_zone, tool)

@@ -43,7 +43,7 @@
 	C.blood_volume = min(C.blood_volume, BLOOD_VOLUME_NORMAL)
 	..()
 
-/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/new_slimeperson, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/oozeling/slime/on_species_gain(mob/living/carbon/new_slimeperson, datum/species/old_species, regenerate_icons)
 	..()
 	if(ishuman(new_slimeperson))
 		slime_split = new
@@ -76,14 +76,13 @@
 	bodies = old_species.bodies
 
 /datum/species/oozeling/slime/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 		if(prob(5))
 			to_chat(H, span_notice("You feel very bloated!"))
 	else if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 		H.blood_volume += 3
 		H.adjust_nutrition(-2.5)
-
-	..()
 
 /datum/action/innate/split_body
 	name = "Split Body"
@@ -140,6 +139,7 @@
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)
+	spare.gender = H.gender
 	spare.domutcheck()
 	spare.Move(get_step(H.loc, pick(NORTH,SOUTH,EAST,WEST)))
 
@@ -338,7 +338,7 @@
 	QDEL_NULL(extract_minor)
 	return ..()
 
-/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/oozeling/luminescent/on_species_gain(mob/living/carbon/new_jellyperson, datum/species/old_species, regenerate_icons)
 	..()
 	glow = new_jellyperson.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	update_glow(new_jellyperson)
@@ -505,7 +505,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	/// Special "project thought" telepathy action for stargazers.
 	var/datum/action/innate/project_thought/project_action
 
-/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species, regenerate_icons)
 	. = ..()
 	project_action = new(src)
 	project_action.Grant(grant_to)

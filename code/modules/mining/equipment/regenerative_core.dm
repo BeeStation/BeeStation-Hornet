@@ -111,16 +111,21 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/target_carbon, special, movement_flags)
+/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/target_carbon, special = FALSE, movement_flags)
 	. = ..()
 
-	if(!preserved && !inert)
-		preserved(TRUE)
-		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
+	if(preserved && inert)
+		to_chat(target_carbon, span_notice("[src] breaks down as you try to insert it."))
+		qdel(src)
+		return FALSE
 
-/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/M, special, movement_flags)
+	preserved(TRUE)
+	owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
+	return TRUE
+
+/obj/item/organ/regenerative_core/on_mob_remove(mob/living/carbon/M, special = FALSE)
 	if(!inert && !special)
-		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
+		M?.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()
 	return ..()
 

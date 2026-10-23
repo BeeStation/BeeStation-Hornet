@@ -40,30 +40,6 @@
 	SEND_SOUND(owner, sound('sound/magic/summon_karp.ogg', volume = 25))
 	owner.adjustBruteLoss(3)
 
-/datum/status_effect/cyborg_power_regen
-	id = "power_regen"
-	duration = 100
-	alert_type = /atom/movable/screen/alert/status_effect/power_regen
-	var/power_to_give = 0 //how much power is gained each tick
-
-/datum/status_effect/cyborg_power_regen/on_creation(mob/living/new_owner, new_power_per_tick)
-	. = ..()
-	if(. && IS_FINITE(new_power_per_tick))
-		power_to_give = new_power_per_tick
-
-/atom/movable/screen/alert/status_effect/power_regen
-	name = "Power Regeneration"
-	desc = "You are quickly regenerating power!"
-	icon_state = "power_regen"
-
-/datum/status_effect/cyborg_power_regen/tick()
-	var/mob/living/silicon/robot/cyborg = owner
-	if(!istype(cyborg) || !cyborg.cell)
-		qdel(src)
-		return
-	playsound(cyborg, 'sound/effects/light_flicker.ogg', 50, 1)
-	cyborg.cell.give(power_to_give)
-
 /datum/status_effect/his_grace
 	id = "his_grace"
 	duration = STATUS_EFFECT_PERMANENT
@@ -136,35 +112,6 @@
 	name = "Wish Granter's Immortality"
 	desc = "You are being resurrected!"
 	icon_state = "wish_granter"
-
-/datum/status_effect/cult_master
-	id = "The Cult Master"
-	duration = STATUS_EFFECT_PERMANENT
-	alert_type = null
-	on_remove_on_mob_delete = TRUE
-	var/alive = TRUE
-
-/datum/status_effect/cult_master/proc/deathrattle()
-	if(!QDELETED(GLOB.narsie))
-		return //if Nar'Sie is alive, don't even worry about it
-	var/area/area = get_area(owner)
-	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
-		if(isliving(cult_mind.current))
-			var/mob/living/cultist_body = cult_mind.current
-			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
-			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
-
-/datum/status_effect/cult_master/tick()
-	if(owner.stat != DEAD && !alive)
-		alive = TRUE
-		return
-	if(owner.stat == DEAD && alive)
-		alive = FALSE
-		deathrattle()
-
-/datum/status_effect/cult_master/on_remove()
-	deathrattle()
-	. = ..()
 
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
@@ -377,34 +324,23 @@
 		if(deathTick < 4)
 			deathTick += 1
 		else
-			owner.visible_message("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.")
-			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
-			var/list/chems = list(/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/antitoxin)
-			healSnake.poison_type = pick(chems)
-			healSnake.name = "Asclepius's Snake"
-			healSnake.real_name = "Asclepius's Snake"
-			healSnake.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
-			new /obj/effect/decal/cleanable/ash(owner.loc)
-			new /obj/item/rod_of_asclepius(owner.loc)
-			owner.investigate_log("has been consumed by the Rod of Asclepius.", INVESTIGATE_DEATHS)
-			qdel(owner)
+			consume_owner()
 	else
 		if(iscarbon(owner))
 			var/mob/living/carbon/itemUser = owner
 			var/obj/item/heldItem = itemUser.get_item_for_held_index(hand)
-			if(heldItem == null || heldItem.type != /obj/item/rod_of_asclepius) //Checks to make sure the rod is still in their hand
+			var/obj/item/bodypart/rod_arm = itemUser.hand_bodyparts[hand]
+			if((heldItem == null || heldItem.type != /obj/item/rod_of_asclepius) && !rod_arm?.bodypart_disabled) //Checks to make sure the rod is still in their hand
 				var/obj/item/rod_of_asclepius/newRod = new(itemUser.loc)
 				newRod.activated()
 				if(!itemUser.has_hand_for_held_index(hand))
 					//If user does not have the corresponding hand anymore, give them one and return the rod to their hand
-					if(((hand % 2) == 0))
-						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_R_ARM, FALSE, FALSE)
-						L.try_attach_limb(itemUser)
+					var/zone = IS_LEFT_INDEX(hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
+					if(itemUser.regenerate_limb(zone))
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
-						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_L_ARM, FALSE, FALSE)
-						L.try_attach_limb(itemUser)
-						itemUser.put_in_hand(newRod, hand, forced = TRUE)
+						consume_owner() //we can't regrow, abort abort
+						return
 					to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else
 					//Otherwise get rid of whatever else is in their hand and return the rod to said hand
@@ -444,6 +380,19 @@
 				// Check if the mob is NOT a spirit AND NOT an undead.
 				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
 					SM.adjustHealth(-3.5, forced = TRUE)
+
+/datum/status_effect/hippocratic_oath/proc/consume_owner()
+	owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
+	var/list/chems = list(/datum/reagent/medicine/sal_acid, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/kelotane)
+	var/mob/living/simple_animal/hostile/retaliate/poison/snake/spawned = new(owner.loc)
+	spawned.poison_type = pick(chems)
+	spawned.name = "Asclepius's Snake"
+	spawned.real_name = "Asclepius's Snake"
+	spawned.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
+	new /obj/effect/decal/cleanable/ash(owner.loc)
+	new /obj/item/rod_of_asclepius(owner.loc)
+	owner.investigate_log("has been consumed by the Rod of Asclepius.", INVESTIGATE_DEATHS)
+	qdel(owner)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Blessing of the Necropolis"
@@ -498,10 +447,7 @@
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
-	owner.AddComponent(/datum/component/anti_magic, \
-		_source = MAGIC_TRAIT, \
-		antimagic_flags = MAGIC_RESISTANCE, \
-	)
+	owner.AddComponent(/datum/component/anti_magic, source = MAGIC_TRAIT, antimagic_flags = MAGIC_RESISTANCE)
 	//glowing wings overlay
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, FALSE)
 	return ..()

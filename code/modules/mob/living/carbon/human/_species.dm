@@ -213,6 +213,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		plural_form = "[name]\s"
 	if(!examine_limb_id)
 		examine_limb_id = id
+	// Carbons determine bodypart order by this list, so we need to make sure it's sorted properly
+	sortTim(bodypart_overrides, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc), associative = TRUE)
 
 	return ..()
 
@@ -324,7 +326,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Arguments:
  * * old_species - The species that the carbon used to be before copying
  */
-/datum/species/proc/copy_properties_from(datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/proc/copy_properties_from(datum/species/old_species, regenerate_icons)
 	return
 
 /**
@@ -437,7 +439,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		final_bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
 		final_bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
-	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
+	for(var/obj/item/bodypart/old_part as anything in target.get_bodyparts())
 		if((old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (old_part.bodypart_flags & BODYPART_IMPLANTED))
 			continue
 
@@ -445,7 +447,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/bodypart/new_part
 		if(path)
 			new_part = new path()
-			new_part.replace_limb(target, TRUE)
+			new_part.replace_limb(target)
 			new_part.update_limb(is_creating = TRUE)
 			//new_part.set_initial_damage(old_part.brute_dam, old_part.burn_dam)
 		qdel(old_part)
@@ -458,25 +460,22 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Arguments:
  * * C - Carbon, this is whoever became the new species.
  * * old_species - The species that the carbon used to be before becoming this race, used for regenerating organs.
- * * pref_load - Preferences to be loaded from character setup, loads in preferred mutant things like bodyparts, digilegs, skin color, etc.
  * * regenerate_icons - Whether or not to update the bodies icons
  */
-/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load, regenerate_icons = TRUE)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, regenerate_icons = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
-	// Drop the items the new species can't wear
-	if(C.hud_used)
-		C.hud_used.update_locked_slots()
 
 	C.mob_biotypes = inherent_biotypes
 	C.butcher_results = knife_butcher_results?.Copy()
 
-	if(pref_load || old_species.type != type)
+	if(old_species.type != type)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)
-
+	// Update locked slots AFTER all organ and body stuff is handled
+	C.hud_used?.update_locked_slots()
 	// Drop the items the new species can't wear
 	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
 
@@ -525,9 +524,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * Arguments:
  * * C - Carbon, this is whoever lost this species.
  * * new_species - The new species that the carbon became, used for genetics mutations.
- * * pref_load - Preferences to be loaded from character setup, loads in preferred mutant things like bodyparts, digilegs, skin color, etc.
  */
-/datum/species/proc/on_species_loss(mob/living/carbon/human/human, datum/species/new_species, pref_load)
+/datum/species/proc/on_species_loss(mob/living/carbon/human/human, datum/species/new_species)
 	SHOULD_CALL_PARENT(TRUE)
 
 	human.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay removed.
@@ -1038,25 +1036,38 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	equipping.equipOutfit(outfit_path, visuals_only)
 
 /**
- * Handling special reagent types.
+ * Handling special reagent interactions.
  *
- * Return False to run the normal on_mob_life() for that reagent.
- * Return True to not run the normal metabolism effects.
- * NOTE: If you return TRUE, that reagent will not be removed liike normal! You must handle it manually.
- */
-/datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+ * Return null continue running the normal on_mob_life() for that reagent.
+ * Return COMSIG_MOB_STOP_REAGENT_CHECK to not run the normal metabolism effects.
+ *
+ * NOTE: If you return COMSIG_MOB_STOP_REAGENT_CHECK, that reagent will not be removed liike normal! You must handle it manually.
+ **/
+/datum/species/proc/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
 	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		H.reagents.del_reagent(chem.type)
-		return TRUE
+		affected.blood_volume = min(affected.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		affected.reagents.del_reagent(chem.type)
+		return COMSIG_MOB_STOP_REAGENT_CHECK
+	if(process_out_reagents(chem, affected))
+		return COMSIG_MOB_STOP_REAGENT_CHECK
+	if(!chem.overdosed && chem.overdose_threshold && chem.volume >= chem.overdose_threshold)
+		chem.overdosed = TRUE
+		chem.overdose_start(affected)
+		log_game("[key_name(affected)] has started overdosing on [chem.name] at [chem.volume] units.")
+	return SEND_SIGNAL(affected, COMSIG_SPECIES_HANDLE_CHEMICAL, chem, delta_time, times_fired)
+
+/datum/species/proc/process_out_reagents(datum/reagent/chem, mob/living/carbon/human/affected)
 	//This handles dumping unprocessable reagents.
 	var/dump_reagent = TRUE
-	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	if((chem.process_flags & SYNTHETIC) && (affected.dna.species.reagent_tag & PROCESS_SYNTHETIC))
 		dump_reagent = FALSE
-	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+	//ORGANIC-oriented reagents require PROCESS_ORGANIC
+	if((chem.process_flags & ORGANIC) && (affected.dna.species.reagent_tag & PROCESS_ORGANIC))
 		dump_reagent = FALSE
 	if(dump_reagent)
+		affected.adjustToxLoss(0.5 * REM)
 		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return FALSE
@@ -1071,129 +1082,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/datum/outfit/outfit = new outfit_important_for_life()
 	outfit.equip(human_to_equip)
 	qdel(outfit)
-
-////////
-//LIFE//
-////////
-
-/datum/species/proc/handle_digestion(mob/living/carbon/human/H, delta_time, times_fired)
-	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-		return //hunger is for BABIES
-
-	//The fucking TRAIT_FAT mutation is the dumbest shit ever. It makes the code so difficult to work with
-	if(HAS_TRAIT_FROM(H, TRAIT_FAT, OBESITY))//I share your pain, past coder.
-		if(H.overeatduration < (200 SECONDS))
-			to_chat(H, "<span class='notice'>You feel fit again!</span>")
-			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
-			REMOVE_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
-			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_worn_undersuit()
-			H.update_worn_oversuit()
-	else
-		if(H.overeatduration >= (200 SECONDS))
-			to_chat(H, "<span class='danger'>You suddenly feel blubbery!</span>")
-			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
-			ADD_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_worn_undersuit()
-			H.update_worn_oversuit()
-
-	// nutrition decrease and satiety
-	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-		// THEY HUNGER
-		var/hunger_rate = HUNGER_FACTOR
-		var/datum/component/mood/mood = H.GetComponent(/datum/component/mood)
-		if(mood && mood.sanity > SANITY_DISTURBED)
-			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 to 0.75
-		// Whether we cap off our satiety or move it towards 0
-		if(H.satiety > MAX_SATIETY)
-			H.satiety = MAX_SATIETY
-		else if(H.satiety > 0)
-			H.satiety--
-		else if(H.satiety < -MAX_SATIETY)
-			H.satiety = -MAX_SATIETY
-		else if(H.satiety < 0)
-			H.satiety++
-			if(DT_PROB(round(-H.satiety/77), delta_time))
-				H.set_jitter_if_lower(10 SECONDS)
-			hunger_rate = 3 * HUNGER_FACTOR
-		hunger_rate *= H.physiology.hunger_mod
-		H.adjust_nutrition(-hunger_rate * delta_time)
-
-	if(H.nutrition > NUTRITION_LEVEL_FULL)
-		if(H.overeatduration < 20 MINUTES) //capped so people don't take forever to unfat
-			H.overeatduration = min(H.overeatduration + (1 SECONDS * delta_time), 20 MINUTES)
-	else
-		if(H.overeatduration > 0)
-			H.overeatduration = max(H.overeatduration - (2 SECONDS * delta_time), 0) //doubled the unfat rate
-
-	//metabolism change
-	if(H.nutrition > NUTRITION_LEVEL_FAT)
-		H.metabolism_efficiency = 1
-	else if(H.nutrition > NUTRITION_LEVEL_FED && H.satiety > 80)
-		if(H.metabolism_efficiency != 1.25 && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-			to_chat(H, span_notice("You feel vigorous."))
-			H.metabolism_efficiency = 1.25
-	else if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		if(H.metabolism_efficiency != 0.8)
-			to_chat(H, span_notice("You feel sluggish."))
-		H.metabolism_efficiency = 0.8
-	else
-		if(H.metabolism_efficiency == 1.25)
-			to_chat(H, span_notice("You no longer feel vigorous."))
-		H.metabolism_efficiency = 1
-
-	if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
-		handle_charge(H)
-	else
-		switch(H.nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
-				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-				H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_FULL)
-				H.clear_alert("nutrition")
-				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-				H.add_actionspeed_modifier(/datum/actionspeed_modifier/well_fed)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				H.clear_alert("nutrition")
-				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-				H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				H.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
-				H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/hungry)
-				H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-			if(0 to NUTRITION_LEVEL_STARVING)
-				H.throw_alert("nutrition", /atom/movable/screen/alert/starving)
-				H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
-				H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-
-/datum/species/proc/handle_charge(mob/living/carbon/human/H)
-	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FED to INFINITY)
-			H.clear_alert("nutrition")
-			H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/well_fed)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 1)
-			H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
-			H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 2)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/hungry)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-		if(1 to NUTRITION_LEVEL_STARVING)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 3)
-			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-		else
-			H.add_movespeed_modifier(/datum/movespeed_modifier/visible_hunger/starving)
-			H.add_actionspeed_modifier(/datum/actionspeed_modifier/starving)
-			var/obj/item/organ/stomach/battery/battery = H.get_organ_slot(ORGAN_SLOT_STOMACH)
-			if(!istype(battery))
-				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
-			else
-				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
 /**
  * Species based handling for irradiation
@@ -1211,7 +1099,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(source, span_danger("You feel weak."))
 
 	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
-		source.vomit(10, TRUE)
+		source.vomit(VOMIT_CATEGORY_BLOOD, lost_nutrition = 10)
 
 	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		var/obj/item/bodypart/head/head = source.get_bodypart(BODY_ZONE_HEAD)
@@ -1256,9 +1144,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //////////////////
 // ATTACK PROCS //
 //////////////////
-
-/datum/species/proc/spec_updatehealth(mob/living/carbon/human/H)
-	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style?.help_act(user, target) == MARTIAL_ATTACK_SUCCESS)
@@ -1353,7 +1238,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
-	user.dna.species.spec_unarmedattack(user, target)
 
 	if(user.limb_destroyer)
 		target.dismembering_strike(user, affecting.body_zone)
@@ -1371,9 +1255,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(damage >= 9)
 			target.force_say()
 		log_combat(user, target, "punched", "punch")
-
-/datum/species/proc/spec_unarmedattack(mob/living/carbon/human/user, atom/target, modifiers)
-	return FALSE
 
 /datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1775,7 +1656,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 
 	// Lets pick a random body part and check for an existing burn
-	var/obj/item/bodypart/bodypart = pick(humi.bodyparts)
+	var/obj/item/bodypart/bodypart = pick(humi.get_bodyparts())
 	/* No wounds yet
 	var/datum/wound/burn/existing_burn = locate(/datum/wound/burn) in bodypart.wounds
 
@@ -1850,7 +1731,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 // FIRE //
 //////////
 
-/datum/species/proc/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
+/datum/species/proc/handle_fire(mob/living/carbon/human/H, delta_time, no_protection = FALSE)
 	return no_protection
 
 
@@ -2384,14 +2265,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_DESC = "[plural_form] have tough skin, blocking piercing and embedding of sharp objects, including needles.",
 		))
 
-	if(TRAIT_POWERHUNGRY in inherent_traits)
-		to_add += list(list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "bolt",
-			SPECIES_PERK_NAME = "Shockingly Tasty",
-			SPECIES_PERK_DESC = "[plural_form] can feed on electricity from APCs and powercells; and do not otherwise need to eat.",
-		))
-
 	return to_add
 
 /**
@@ -2484,7 +2357,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /// Creates body parts for the target completely from scratch based on the species
 /datum/species/proc/create_fresh_body(mob/living/carbon/target)
-	target.create_bodyparts(bodypart_overrides)
+	var/list/override_limbs = list()
+	for(var/bodypart in bodypart_overrides)
+		override_limbs += bodypart_overrides[bodypart]
+	target.create_bodyparts(override_limbs)
 
 /**
  * Checks if the species has a head with these head flags, by default.

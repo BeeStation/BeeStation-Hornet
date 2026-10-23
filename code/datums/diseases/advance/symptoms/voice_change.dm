@@ -30,11 +30,12 @@ Bonus
 	symptom_delay_max = 120
 	required_organ = ORGAN_SLOT_TONGUE
 	prefixes = list("Vocal ")
-	var/scramble_language = FALSE
-	var/datum/language/current_language
 	threshold_desc = "<b>Transmission 10:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
 						<b>Stage Speed 7:</b> Changes voice more often.<br>\
 						<b>Stealth 3:</b> The symptom remains hidden until active."
+
+	var/scramble_language = FALSE
+	var/datum/language/current_language
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()

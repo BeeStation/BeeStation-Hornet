@@ -109,8 +109,9 @@
 		else if(brain.suicided || brain.brainmob?.suiciding)
 			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
 		else if(brain.brainmob)
-			if(brain.brainmob?.health <= HEALTH_THRESHOLD_DEAD)
+			if(brain.brain_death || brain.brainmob?.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's leaking some kind of... clear fluid? The brain inside must be in pretty bad shape.")
+
 			if(brain.brainmob.key || brain.brainmob.get_ghost(FALSE, TRUE))
 				. += span_info("Its muscles are still twitching slightly... It still seems to have a bit of life left to it.")
 			else

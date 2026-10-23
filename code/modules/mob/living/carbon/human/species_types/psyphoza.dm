@@ -42,20 +42,20 @@
 	/// Weakref to the psychic highlight action given by our eyes
 	var/datum/weakref/ability_weakref
 
-/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	ability_weakref = WEAKREF(locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions)
 
-/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	ability_weakref = null
 
-/datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/psyphoza/handle_chemical(datum/reagent/chem, mob/living/carbon/human/H)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
 		H.blood_volume += chem.volume * 15
-		H.reagents.remove_reagent(chem.type, chem.volume)
-		return FALSE
-	return ..()
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')

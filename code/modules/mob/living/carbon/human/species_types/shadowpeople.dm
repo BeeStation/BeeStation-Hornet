@@ -153,7 +153,7 @@
 	var/info_text = "You are a " + span_danger("Nightmare") + ". The ability " + span_warning("shadow walk") + " allows unlimited, unrestricted movement in the dark while activated. \
 					Your " + span_warning("light eater") + " will destroy any light producing objects you attack, as well as destroy any lights a living creature may be holding. You will automatically dodge gunfire and melee attacks when on a dark tile. If killed, you will eventually revive if left in darkness."
 
-/datum/species/shadow/nightmare/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/shadow/nightmare/on_species_gain(mob/living/carbon/C, datum/species/old_species, regenerate_icons)
 	. = ..()
 	to_chat(C, "[info_text]")
 
@@ -294,7 +294,7 @@
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
-/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/light_eater/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -433,7 +433,7 @@
 /datum/species/shadow/blessed/check_roundstart_eligible()
 	return FALSE
 
-/datum/species/shadow/blessed/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/shadow/blessed/on_species_gain(mob/living/carbon/C, datum/species/old_species, regenerate_icons)
 	. = ..()
 	if (istype(GLOB.religious_sect, /datum/religion_sect/shadow_sect))
 		change_hearts_ritual(C)
@@ -586,7 +586,7 @@
 /datum/action/innate/shadow_comms
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/shadow_comms/is_available()
 	if(!isblessedshadow(owner))

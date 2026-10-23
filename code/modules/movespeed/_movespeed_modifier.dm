@@ -142,6 +142,11 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 		update_movespeed(TRUE)
 	return final
 
+/// Proc used for custom metabolization of reagents, if any
+/mob/proc/reagent_check(datum/reagent/chem, seconds_per_tick, times_fired)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_MOB_REAGENT_CHECK, chem, seconds_per_tick, times_fired)
+
 /// Handles the special case of editing the movement var
 /mob/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, control_object))

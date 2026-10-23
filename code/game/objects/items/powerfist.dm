@@ -38,7 +38,7 @@
 		. += span_notice("Its pressure gauge reads [round(tank.air_contents.total_moles(), 0.01)] mol at [round(tank.air_contents.return_pressure(),0.01)] kPa.")
 
 
-/obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
+/obj/item/melee/powerfist/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/tank/internals))
 		if(!tank)
 			var/obj/item/tank/internals/IT = W

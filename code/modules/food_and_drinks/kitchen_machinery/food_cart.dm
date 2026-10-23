@@ -30,7 +30,7 @@
 /obj/machinery/food_cart/proc/isFull()
 	return food_stored >= STORAGE_CAPACITY
 
-/obj/machinery/food_cart/attackby(obj/item/O, mob/user, params)
+/obj/machinery/food_cart/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, 0)
 		return TRUE

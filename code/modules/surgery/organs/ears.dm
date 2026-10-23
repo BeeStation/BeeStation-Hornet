@@ -4,7 +4,6 @@
 	desc = "There are three parts to the ear. Inner, middle and outer. Only one of these parts should be normally visible."
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EARS
-
 	gender = PLURAL
 
 	healing_factor = STANDARD_ORGAN_HEALING
@@ -56,6 +55,10 @@
 		return
 	set_organ_damage(clamp(damage + (ddmg * damage_multiplier), 0, maxHealth))
 	deaf = max(deaf + (ddeaf * damage_multiplier), 0)
+
+/obj/item/organ/ears/feel_for_damage(self_aware)
+	// Ear damage has audible effects, so we don't really need to "feel" it when self-examining
+	return ""
 
 /obj/item/organ/ears/invincible
 	damage_multiplier = 0
@@ -140,9 +143,6 @@
 	name = "auditory sensors"
 	icon_state = "robotic_ears"
 	desc = "A pair of microphones intended to be installed in an IPC head, that grant the ability to hear."
-	zone = "head"
-	slot = "ears"
-	gender = PLURAL
 	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/ears/robot/emp_act(severity)

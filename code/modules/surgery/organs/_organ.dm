@@ -9,7 +9,7 @@
 	/// Reference to the limb we're inside of
 	var/obj/item/bodypart/bodypart_owner
 	/// The cached info about the blood this organ belongs to
-	var/list/blood_dna_info = list("Synthetic DNA" = "O+") // not every organ spawns inside a person
+	var/list/blood_dna_info
 	/// The body zone this organ is supposed to inhabit.
 	var/zone = BODY_ZONE_CHEST
 	/**
@@ -17,7 +17,7 @@
 	 * Do NOT add slots with matching names to different zones - it will break the organs_slot list!
 	 */
 	var/slot
-	// DO NOT add slots with matching names to different zones - it will break organs_slot list!
+	/// Random flags that describe this organ
 	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE | ORGAN_VIRGIN
 	/// Maximum damage the organ can take, ever.
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
@@ -31,7 +31,7 @@
 	var/decay_factor = 0 //same as above but when without a living owner, set to 0 for generic organs
 	var/high_threshold = STANDARD_ORGAN_THRESHOLD * 0.45 //when severe organ damage occurs
 	var/low_threshold = STANDARD_ORGAN_THRESHOLD * 0.1 //when minor organ damage occurs
-	var/severe_cooldown //cooldown for severe effects, used for synthetic organ emp effects.
+	var/emp_cooldown //cooldown for severe effects, used for synthetic organ emp effects.
 
 	// Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
 	var/prev_damage = 0
@@ -52,7 +52,7 @@
 
 	/// Time this organ has failed for
 	var/failure_time = 0
-	/// Do we affect the appearance of our mob. Used to save time in preference code
+	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
 	/**
 	 * Traits that are given to the holder of the organ.
@@ -70,12 +70,16 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
+	// not every organ spawns inside a person
+	blood_dna_info = list("Synthetic DNA" = get_blood_type("O+"))
 	if(organ_flags & ORGAN_EDIBLE)
 		AddComponent(/datum/component/edible,\
-			initial_reagents = food_reagents,\
-			foodtypes = RAW | MEAT | GROSS,\
-			volume = reagent_vol,\
-			after_eat = CALLBACK(src, PROC_REF(OnEatFrom)))
+		initial_reagents = food_reagents,\
+		foodtypes = RAW | MEAT | GORE,\
+		volume = reagent_vol,\
+		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
+		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
+		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
 	if(bodypart_overlay)
 		setup_bodypart_overlay()
@@ -93,7 +97,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/// Add a Trait to an organ that it will give its owner.
+/// Add a trait to an organ that it will give its owner.
 /obj/item/organ/proc/add_organ_trait(trait)
 	LAZYADD(organ_traits, trait)
 	if(isnull(owner))
@@ -131,16 +135,33 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!IS_ROBOTIC_ORGAN(src) && (clean_types & CLEAN_TYPE_BLOOD))
 		add_blood_DNA(blood_dna_info)
 
-/obj/item/organ/proc/on_death(delta_time, times_fired) //runs decay when outside of a person
+/obj/item/organ/proc/on_death(delta_time) //runs decay when outside of a person
 	if(organ_flags & (ORGAN_ROBOTIC | ORGAN_FROZEN))
 		return
-	apply_organ_damage(decay_factor * maxHealth * delta_time)
+
+	if(owner)
+		if(owner.bodytemperature > T0C)
+			var/air_temperature_factor = min((owner.bodytemperature - T0C) / 20, 1)
+			apply_organ_damage(decay_factor * maxHealth * delta_time * air_temperature_factor)
+	else
+		var/datum/gas_mixture/exposed_air = return_air()
+		if(exposed_air && exposed_air.temperature > T0C)
+			var/air_temperature_factor = min((exposed_air.temperature - T0C) / 20, 1)
+			apply_organ_damage(decay_factor * maxHealth * delta_time * air_temperature_factor)
 
 /// NOTE: THIS IS VERY HOT. Be careful what you put in here
 /// To give you some scale, if there's 100 carbons in the game, they each have maybe 9 organs
 /// So that's 900 calls to this proc every life process. Please don't be dumb
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
 	if(organ_flags & ORGAN_FAILING)
+		handle_failing_organs(delta_time)
+		return
+
+	if(failure_time > 0) //recovers in the same units it accrued in
+		failure_time = max(failure_time - delta_time, 0)
+
+	if(organ_flags & ORGAN_EMP)
+		apply_organ_damage(decay_factor * maxHealth * delta_time)
 		return
 
 	if(!damage) // No sense healing if you're not even hurt bro
@@ -152,8 +173,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	///Damage decrements by a percent of its maxhealth
 	var/healing_amount = healing_factor
 	///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
-	if(owner)
-		healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
+	healing_amount += (owner.satiety > 0) ? (4 * healing_factor * owner.satiety / MAX_SATIETY) : 0
 	apply_organ_damage(-healing_amount * maxHealth * delta_time, damage) // pass current damage incase we are over cap
 
 /obj/item/organ/examine(mob/user)
@@ -163,7 +183,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	if(organ_flags & ORGAN_FAILING)
 		if(IS_ROBOTIC_ORGAN(src))
-			. += span_warning("[src] seems to be broken.")
+			. += span_warning("[src] seems to be malfunctioning.")
 			return
 		. += span_warning("[src] has decayed for too long, and has turned a sickly color. It probably won't work without repairs.")
 		return
@@ -184,10 +204,23 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/process(delta_time, times_fired)
-	on_death(delta_time, times_fired) //Kinda hate doing it like this, but I really don't want to call process directly.
+	on_death(delta_time) //Kinda hate doing it like this, but I really don't want to call process directly.
 
-/obj/item/organ/proc/OnEatFrom(eater, feeder)
-	useable = FALSE //You can't use it anymore after eating it you spaztic
+// Put any "can we eat this" checks for edible organs here
+/obj/item/organ/proc/pre_eat(eater, feeder)
+	if(iscarbon(eater))
+		var/mob/living/carbon/target = eater
+		for(var/S in target.surgeries)
+			var/datum/surgery/surgery = S
+			if(surgery.location == zone)
+				return FALSE
+	return TRUE
+
+/obj/item/organ/proc/pre_compost(user)
+	return TRUE
+
+/obj/item/organ/proc/on_eat_from(eater, feeder)
+	useable = FALSE //You bit it, no more using it
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
@@ -350,9 +383,29 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	return status
 
+/**
+ * Used when a mob is examining themselves / their limbs
+ *
+ * Reports how they feel based on how the status of this organ
+ *
+ * It should be formatted as an extension of the limb:
+ * Input is something like "Your chest is bruised. It is bleeding.",
+ * you would add something like "It hurts a little, and your stomach cramps."
+ *
+ * * self_aware - if TRUE, the examiner is more aware of themselves and thus may get more detailed information
+ *
+ * Return a string, to be concatenated with other organ / limb status strings. Include spans and punctuation.
+ */
+/obj/item/organ/proc/feel_for_damage(self_aware)
+	if(damage < low_threshold)
+		return ""
+	if(damage < high_threshold)
+		return span_warning("[self_aware ? "[capitalize(slot)]" : "It"] feels a bit off.")
+	return span_boldwarning("[self_aware ? "[capitalize(slot)]" : "It"] feels terrible!")
+
 /// Tries to replace the existing organ on the passed mob with this one, with special handling for replacing a brain without ghosting target
 /obj/item/organ/proc/replace_into(mob/living/carbon/new_owner)
-	return Insert(new_owner, special = TRUE, movement_flags = DELETE_IF_REPLACED)
+	Insert(new_owner, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 
 /// Get all possible organ slots by checking every organ, and then store it and give it whenever needed
 /proc/get_all_slots()

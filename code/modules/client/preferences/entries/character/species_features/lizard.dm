@@ -114,7 +114,7 @@
 		correct_legs[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
 		correct_legs[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
-	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
+	for(var/obj/item/bodypart/old_part as anything in target.get_bodyparts())
 		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
 			continue
 
@@ -122,9 +122,15 @@
 		if(!path)
 			continue
 		var/obj/item/bodypart/new_part = new path()
-		new_part.replace_limb(target, TRUE)
+		new_part.replace_limb(target)
 		new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
+
+/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if(!..())
+		return FALSE
+	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	return initial(species_type.digitigrade_customization) == DIGITIGRADE_OPTIONAL
 
 /datum/preference/choiced/lizard_snout
 	db_key = "feature_lizard_snout"

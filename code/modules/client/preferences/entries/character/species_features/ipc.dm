@@ -51,7 +51,6 @@
 	if (istype(eyes_organ))
 		if (!initial(eyes_organ.eye_color_left))
 			eyes_organ.eye_color_left = value
-		eyes_organ.old_eye_color_left = value
 
 /datum/preference/color/ipc_screen_color/create_default_value()
 	return COLOR_WHITE
@@ -118,6 +117,7 @@
 	main_feature_name = "Chassis Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "ipc_chassis"
+	priority = PREFERENCE_PRIORITY_BODYPARTS
 
 /datum/preference/choiced/ipc_chassis/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.ipc_chassis_list)
@@ -144,3 +144,6 @@
 
 /datum/preference/choiced/ipc_chassis/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ipc_chassis"] = value
+	if(isipc(target))
+		var/datum/species/ipc/ipc_species = target.dna.species
+		ipc_species.apply_chassis(target)

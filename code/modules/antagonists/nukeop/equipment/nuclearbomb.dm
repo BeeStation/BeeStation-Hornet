@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	else
 		return TRUE
 
-/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if (istype(I, /obj/item/disk/nuclear))
 		if(!disk_check(I))
 			return
@@ -443,6 +443,11 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+		notify_ghosts(
+			"A nuclear device has been armed in [get_area_name(src)]!",
+			source = src,
+			header = "Nuke Armed",
+		)
 
 		if(proper_bomb) // Why does this exist
 			play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
@@ -555,7 +560,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	else
 		to_chat(user, span_danger("It's empty."))
 
-/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, params)
+/obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.is_refillable())
 		W.afterattack(keg, user, TRUE) 	// redirect refillable containers to the keg, allowing them to be filled
 		return TRUE 										// pretend we handled the attack, too.

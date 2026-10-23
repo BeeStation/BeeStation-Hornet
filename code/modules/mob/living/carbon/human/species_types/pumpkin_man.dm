@@ -36,13 +36,13 @@
 	return ..()
 
 /*
-/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, regenerate_icons)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving
 	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
 
-/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 */
@@ -66,12 +66,12 @@
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(brute = 2, required_bodytype = BODYTYPE_ORGANIC)
 
-/datum/species/pumpkin_man/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/pumpkin_man/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/plantbgone)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return TRUE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/pumpkin_man/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	switch(P.type)

@@ -23,9 +23,7 @@ export const AlertPane = (props) => {
   const {
     internal_damage,
     internal_damage_keys,
-    servo_rating,
     scanmod_rating,
-    capacitor_rating,
     can_use_overclock,
     overclock_mode,
     overclock_temp_percentage,

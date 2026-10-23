@@ -3,26 +3,31 @@
  * If we can't do that, add it to a list of ignored items.
  */
 /datum/ai_behavior/fetch_seek
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT|AI_BEHAVIOR_REQUIRE_REACH|AI_BEHAVIOR_MOVE_AND_PERFORM
 
 /datum/ai_behavior/fetch_seek/setup(datum/ai_controller/controller, target_key, delivery_key)
+	. = ..()
 	var/obj/item/fetch_thing = controller.blackboard[target_key]
 	// It stopped existing
 	if (QDELETED(fetch_thing))
 		return FALSE
+	// Only fetch things lying around, not things held or stored
+	if (!isturf(fetch_thing.loc))
+		return FALSE
 	set_movement_target(controller, fetch_thing)
 
 /datum/ai_behavior/fetch_seek/perform(delta_time, datum/ai_controller/controller, target_key, delivery_key)
-	. = ..()
 	var/obj/item/fetch_thing = controller.blackboard[target_key]
 
 	// It stopped existing
 	if (QDELETED(fetch_thing))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-	var/mob/living/living_pawn = controller.pawn
-	// We can't pick this up
-	if (fetch_thing.anchored || !isturf(fetch_thing.loc) || !living_pawn.CanReach(fetch_thing))
+	// We can't pick this up, or someone else got to it first
+	if (fetch_thing.anchored || !isturf(fetch_thing.loc))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	// Still on our way
+	if (!fetch_thing.IsReachableBy(controller.pawn))
+		return AI_BEHAVIOR_INSTANT
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/fetch_seek/finish_action(datum/ai_controller/controller, success, target_key, delivery_key)
@@ -40,7 +45,7 @@
  * The second half of fetching, deliver the item to a target.
  */
 /datum/ai_behavior/deliver_fetched_item
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT|AI_BEHAVIOR_REQUIRE_REACH
 
 /datum/ai_behavior/deliver_fetched_item/setup(datum/ai_controller/controller, delivery_key, storage_key)
 	. = ..()

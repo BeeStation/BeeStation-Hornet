@@ -11,12 +11,12 @@
 		TRAIT_FAKEDEATH,
 		TRAIT_FAST_CUFF_REMOVAL,
 		TRAIT_LIMBATTACHMENT,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_NODEATH,
 		TRAIT_NOHUNGER,
-		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOSTASIS,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTCOLD,
@@ -83,11 +83,11 @@
 		TRAIT_FAKEDEATH,
 		TRAIT_FAST_CUFF_REMOVAL,
 		TRAIT_LIMBATTACHMENT,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NODEATH,
 		TRAIT_NOHUNGER,
-		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOSTASIS,
 		TRAIT_RADIMMUNE,
 		TRAIT_RESISTCOLD,
@@ -112,7 +112,7 @@
 
 	var/muthands_path = /obj/item/mutant_hand/zombie
 
-/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species, pref_load, regenerate_icons)
+/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species)
 	. = ..()
 	new_zombie.set_combat_mode(TRUE)
 
@@ -139,10 +139,10 @@
 		outline_colour = null, \
 	)
 
-/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/was_zombie, datum/species/new_species)
 	. = ..()
-	qdel(C.GetComponent(/datum/component/mutant_hands))
-	qdel(C.GetComponent(/datum/component/regenerator))
+	qdel(was_zombie.GetComponent(/datum/component/mutant_hands))
+	qdel(was_zombie.GetComponent(/datum/component/regenerator))
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
 	return FALSE

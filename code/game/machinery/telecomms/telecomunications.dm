@@ -11,6 +11,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.01
+	/// Stock parts do nothing for telecomms
+	part_power_scaling = MACHINE_POWER_SCALES_NONE
 	/// list of machines this machine is linked to
 	var/list/links = list()
 	/**

@@ -4,6 +4,7 @@ import { multiline } from 'common/string';
 import { useBackend } from '../backend';
 import { BlockQuote, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { Objective, ObjectivePrintout } from './common/Objectives';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -20,12 +21,6 @@ const goalstyle = {
   fontWeight: 'bold',
 };
 
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-};
-
 type Info = {
   has_codewords: BooleanLike;
   phrases: string;
@@ -38,33 +33,19 @@ type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (props) => {
-  const { data } = useBackend<Info>();
-  const { objectives } = data;
-  return (
-    <Stack vertical>
-      <Stack.Item bold>Your prime objectives:</Stack.Item>
-      <Stack.Item>
-        {(!objectives && 'None!') ||
-          objectives.map((objective) => (
-            <Stack.Item key={objective.count}>
-              &#8805-{objective.count}: {objective.explanation}
-            </Stack.Item>
-          ))}
-      </Stack.Item>
-    </Stack>
-  );
-};
-
 const IntroductionSection = (props) => {
   const { data } = useBackend<Info>();
-  const { intro } = data;
+  const { intro, objectives } = data;
   return (
     <Section fill title="Intro" scrollable>
       <Stack vertical fill>
         <Stack.Item fontSize="25px">{intro}</Stack.Item>
         <Stack.Item grow>
-          <ObjectivePrintout />
+          <ObjectivePrintout
+            objectives={objectives}
+            titleMessage="Your prime objectives:"
+            objectivePrefix="&#8805-"
+          />
         </Stack.Item>
       </Stack>
     </Section>

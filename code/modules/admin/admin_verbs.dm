@@ -1,9 +1,6 @@
 //admin verb groups - They can overlap if you so wish. Only one of each verb will exist in the verbs list regardless
 //the procs are cause you can't put the comments in the GLOB var define
-GLOBAL_LIST_INIT(admin_verbs_default, world.AVerbsDefault())
-GLOBAL_PROTECT(admin_verbs_default)
-/world/proc/AVerbsDefault()
-	return list(
+GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin,				/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
@@ -20,13 +17,11 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/mark_datum_mapview,
 	/client/proc/tag_datum_mapview,
 	/client/proc/requests,
-	)
-GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
-GLOBAL_PROTECT(admin_verbs_admin)
-/world/proc/AVerbsAdmin()
-	return list(
+))
+GLOBAL_PROTECT(admin_verbs_default)
+
+GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
-//	/datum/admins/proc/show_traitor_panel,	/*interface which shows a mob's mind*/ -Removed due to rare practical use. Moved to debug verbs ~Errorage
 	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
 	/client/proc/playerpanel,
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
@@ -51,7 +46,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
-//	/client/proc/sendmob,				/*sends a mob somewhere*/ -Removed due to it needing two sorting procs to work, which were executed every time an admin right-clicked. ~Errorage
 	/client/proc/jumptoarea,
 	/client/proc/jumptokey,				/*allows us to jump to the location of a mob with a certain ckey*/
 	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
@@ -79,11 +73,26 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/cmd_admin_send_pda_msg,
 	/client/proc/fax_panel, /*send a paper to fax*/
 	/datum/admins/proc/display_tags,
-	)
-GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/old_ban_panel))
+	/client/proc/modify_antag_tokens,
+))
+GLOBAL_PROTECT(admin_verbs_admin)
+
+GLOBAL_LIST_INIT(admin_verbs_ban, list(
+	/client/proc/unban_panel,
+	/client/proc/ban_panel,
+	/client/proc/stickybanpanel,
+	/client/proc/old_ban_panel,
+))
 GLOBAL_PROTECT(admin_verbs_ban)
-GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_sound, /client/proc/set_round_end_sound, /client/proc/play_soundtrack))
+
+GLOBAL_LIST_INIT(admin_verbs_sounds, list(
+	/client/proc/play_local_sound,
+	/client/proc/play_sound,
+	/client/proc/set_round_end_sound,
+	/client/proc/play_soundtrack,
+))
 GLOBAL_PROTECT(admin_verbs_sounds)
+
 GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/cmd_select_equipment,
 	/client/proc/cmd_admin_gib_self,
@@ -114,8 +123,9 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/debug_spell_requirements,
 	/datum/admins/proc/station_traits_panel,
 	/client/proc/force_directive,
-	))
+))
 GLOBAL_PROTECT(admin_verbs_fun)
+
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,
 	/datum/admins/proc/podspawn_atom,
@@ -123,13 +133,11 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_objasmob,
 	/datum/admins/proc/beaker_panel,
 	/client/proc/respawn_character,
-	/client/proc/centcom_podlauncher,/*Open a window to launch a Supplypod and configure it or it's contents*/
-	))
+	/client/proc/centcom_podlauncher, /*Open a window to launch a Supplypod and configure it or it's contents*/
+))
 GLOBAL_PROTECT(admin_verbs_spawn)
-GLOBAL_LIST_INIT(admin_verbs_server, world.AVerbsServer())
-GLOBAL_PROTECT(admin_verbs_server)
-/world/proc/AVerbsServer()
-	return list(
+
+GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/end_round,
@@ -148,11 +156,10 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/client/proc/toggle_interviews,
 	/client/proc/toggle_hub,
 	/client/proc/toggle_cdn
-	)
-GLOBAL_LIST_INIT(admin_verbs_debug, world.AVerbsDebug())
-GLOBAL_PROTECT(admin_verbs_debug)
-/world/proc/AVerbsDebug()
-	return list(
+))
+GLOBAL_PROTECT(admin_verbs_server)
+
+GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
@@ -171,8 +178,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/check_bomb_impacts,
 	/proc/machine_upgrade,
 	/client/proc/populate_world,
-	/client/proc/get_dynex_power,		//*debug verbs for dynex explosions.
-	/client/proc/get_dynex_range,		//*debug verbs for dynex explosions.
+	/client/proc/get_dynex_power, //*debug verbs for dynex explosions.
+	/client/proc/get_dynex_range, //*debug verbs for dynex explosions.
 	/client/proc/set_dynex_scale,
 	/client/proc/cmd_display_del_log,
 	/client/proc/outfit_manager,
@@ -208,12 +215,12 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/give_all_spells_touch,
 	/client/proc/atmos_control,
 	/datum/admins/proc/create_or_modify_area,
-	#ifdef TESTING
+#ifdef TESTING
 	/client/proc/check_missing_sprites,
-	#endif
-	#ifdef SENDMAPS_PROFILE
+#endif
+#ifdef SENDMAPS_PROFILE
 	/client/proc/display_sendmaps,
-	#endif
+#endif
 	/client/proc/toggle_cdn,
 	/client/proc/check_timer_sources,
 	/client/proc/test_dview_to_lum_changes,
@@ -222,13 +229,24 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/view_runtimes,
 	/client/proc/debug_hallucination_weighted_list_per_type,
 	/datum/admins/proc/dynamic_panel,
-	)
+))
+GLOBAL_PROTECT(admin_verbs_debug)
 
-GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release_obj)))
+GLOBAL_LIST_INIT(admin_verbs_possess, list(
+	/proc/possess,
+	GLOBAL_PROC_REF(release_obj),
+))
 GLOBAL_PROTECT(admin_verbs_possess)
-GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions, /client/proc/edit_mentors))
+
+GLOBAL_LIST_INIT(admin_verbs_permissions, list(
+	/client/proc/edit_admin_permissions,
+	/client/proc/edit_mentors,
+))
 GLOBAL_PROTECT(admin_verbs_permissions)
-GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/poll_panel))
+
+GLOBAL_LIST_INIT(admin_verbs_poll, list(
+	/client/proc/poll_panel,
+))
 GLOBAL_PROTECT(admin_verbs_poll)
 
 //verbs which can be hidden - needs work
@@ -295,8 +313,8 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/toggle_nuke,
 	/client/proc/cmd_display_del_log,
 	/client/proc/toggle_combo_hud,
-	/client/proc/debug_huds
-	))
+	/client/proc/debug_huds,
+))
 GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/add_admin_verbs()
@@ -604,7 +622,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 #define STEALTH_MODE_TRAIT "stealth_mode"
 
 /client/proc/enable_stealth_mode()
-	var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
+	var/new_key = ckeyEx(tgui_input_text(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
 	if(!new_key)
 		return
 	holder.fakekey = new_key
@@ -621,6 +639,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	log_admin("[key_name(usr)] has turned stealth mode ON")
 	message_admins("[key_name_admin(usr)] has turned stealth mode ON")
+	prompt_hide_mentor_from_staffwho()
 
 /client/proc/disable_stealth_mode()
 	holder.fakekey = null
@@ -638,10 +657,22 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		mob.mouse_opacity = initial(mob.mouse_opacity)
 
 	REMOVE_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+	GLOB.mentor_staffwho_hidden -= ckey
 	log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 	message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 
 #undef STEALTH_MODE_TRAIT
+
+/// If an admin also has the mentor role, we asks whether they want to be hidden from the mentor list when using staffwho.
+/client/proc/prompt_hide_mentor_from_staffwho()
+	if(!mentor_datum)
+		return
+	var/choice = tgui_alert(src, "Would you like to also appear hidden from the mentor role?", "Mentor Role", list("Yes", "No"))
+	if(choice == "Yes")
+		GLOB.mentor_staffwho_hidden |= ckey
+		to_chat(src, span_interface("Your mentor role will no longer appear in staffwho."))
+	else
+		GLOB.mentor_staffwho_hidden -= ckey
 
 /client/proc/drop_bomb()
 	set category = "Fun"
@@ -751,10 +782,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(usr, ("<span class='warning'>The intended spell recipient no longer exists.</span>"))
 		return
 	var/list/spell_list = list()
-	for(var/datum/action/spell/to_add as anything in subtypesof(/datum/action/spell))
+	for(var/datum/action/spell/to_add as anything in valid_subtypesof(/datum/action/spell))
 		var/spell_name = initial(to_add.name)
-		if(spell_name == "Spell") // abstract or un-named spells should be skipped.
-			continue
 
 		if(which == "Name")
 			spell_list[spell_name] = to_add
@@ -872,6 +901,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] deadmined themself.")
 	message_admins("[src] deadmined themself.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Deadmin")
+	prompt_hide_mentor_from_staffwho()
 
 /client/proc/readmin()
 	set name = "Readmin"
@@ -893,6 +923,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if (!holder)
 		return //This can happen if an admin attempts to vv themself into somebody elses's deadmin datum by getting ref via brute force
 
+	GLOB.mentor_staffwho_hidden -= ckey
 	to_chat(src, span_interface("You are now an admin."))
 	message_admins("[src] re-adminned themselves.")
 	log_admin("[src] re-adminned themselves.")
@@ -903,36 +934,27 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
 
-	if(amount > 0)
-		var/area/area
-		var/list/candidates
-		var/turf/open/floor/tile
-		var/j,k
+	var/list/tiles = get_safe_random_station_turfs(amount = amount)
+	if(!islist(tiles))
+		tiles = tiles ? list(tiles) : list()
+	if(length(tiles) < amount)
+		to_chat(usr, span_warning("Only found [length(tiles)] valid spawn locations for [amount] test mobs."))
 
-		for(var/i = 1 to amount)
-			j = 100
-
-			do
-				area = pick(GLOB.the_station_areas)
-
-				if(area)
-
-					candidates = get_area_turfs(area)
-
-					if(candidates.len)
-						k = 100
-
-						do
-							tile = pick(candidates)
-						while ((!tile || !istype(tile)) && --k > 0)
-
-						if(tile)
-							var/mob/living/carbon/human/hooman = new(tile)
-							if (give_minds == "Yes")
-								hooman.mind_initialize()
-							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
-							testing("Spawned test mob at [COORD(tile)]")
-			while(!area && --j > 0)
+	for(var/turf/tile as anything in tiles)
+		var/mob/living/carbon/human/hooman = new(tile)
+		var/outfit_type = pick(subtypesof(/datum/outfit))
+		if (give_minds == "Give minds")
+			hooman.mind_initialize() // Required for orbit menu validation
+		hooman.equipOutfit(outfit_type)
+		if(hooman.mind)
+			// Try to match the outfit's job if it's a job outfit
+			var/datum/outfit/outfit = outfit_type
+			var/datum/job/job
+			if(ispath(outfit, /datum/outfit/job))
+				var/datum/outfit/job/job_outfit = outfit
+				job = SSjob.get_job_type(initial(job_outfit.jobtype))
+			hooman.mind.set_assigned_role(job || SSjob.get_job_type(/datum/job/assistant))
+		testing("Spawned test mob at [get_area_name(tile, TRUE)] ([tile.x],[tile.y],[tile.z])")
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"
@@ -1015,10 +1037,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/header = "<tr><th>Name</th> <th>Requirements</th>"
 	var/all_requirements = list()
-	for(var/datum/action/spell/spell as anything in typesof(/datum/action/spell))
-		if(initial(spell.name) == "Spell")
-			continue
-
+	for(var/datum/action/spell/spell as anything in valid_subtypesof(/datum/action/spell))
 		var/list/real_reqs = list()
 		var/reqs = initial(spell.spell_requirements)
 		if(reqs & SPELL_CASTABLE_AS_BRAIN)
@@ -1046,7 +1065,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	popup.set_content(page_contents)
 	popup.open()
 
-
 #ifdef SENDMAPS_PROFILE
 /client/proc/display_sendmaps()
 	set name = "Send Maps Profile"
@@ -1054,5 +1072,3 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	src << link("?debug=profile&type=sendmaps&window=test")
 #endif
-
-

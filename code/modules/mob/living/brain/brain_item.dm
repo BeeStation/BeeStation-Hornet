@@ -73,8 +73,6 @@
 
 /obj/item/organ/brain/on_mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
 
 	name = initial(name)
 	if(brain_owner?.has_dna() && isnull(brain_dna)) // if "brain_dna = FALSE", we do not copy.
@@ -82,7 +80,7 @@
 		brain_owner.dna.copy_dna_to(brain_dna)
 
 	// Special check for if you're trapped in a body you can't control because it's owned by a ling.
-	if(brain_owner?.mind?.has_antag_datum(/datum/antagonist/changeling) && !(movement_flags & NO_ID_TRANSFER))	//congrats, you're trapped in a body you don't control
+	if(brain_owner?.mind?.has_antag_datum(/datum/antagonist/changeling) && !(movement_flags & NO_ID_TRANSFER)) //congrats, you're trapped in a body you don't control
 		if(brainmob && !(brain_owner.stat == DEAD || (HAS_TRAIT(brain_owner, TRAIT_DEATHCOMA))))
 			to_chat(brainmob, span_danger("You can't feel your body! You're still just a brain!"))
 		forceMove(brain_owner)
@@ -129,7 +127,6 @@
 		brain_owner.update_body_parts()
 
 /obj/item/organ/brain/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
-
 	. = ..()
 
 	for(var/X in traumas)
@@ -144,6 +141,7 @@
 
 	if((!QDELETED(src) || !QDELETED(owner)) && !(movement_flags & NO_ID_TRANSFER))
 		transfer_identity(organ_owner)
+
 	if(!special)
 		if(!(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 			organ_owner.update_body_parts()
@@ -156,10 +154,16 @@
 		brainmob?.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
-	name = "[L.name]'s brain"
-	if(brainmob || decoy_override)
-		return
+	name = "[L.name]'s [initial(name)]"
+	if(brainmob)
+		if(!decoy_override)
+			return
 
+		// it's just a dummy, throw it out
+		QDEL_NULL(brainmob)
+
+	if(!L.mind)
+		return
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
@@ -178,11 +182,22 @@
 		if(ZI)
 			brainmob.set_species(ZI.old_species) //For if the brain is cloned
 
-	if(L.mind && L.mind.current)
+	if(L.mind && L.mind.current && !decoy_override)
 		L.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 
-/obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
+/obj/item/organ/brain/feel_for_damage(self_aware)
+	if(damage < low_threshold)
+		return ""
+	if(self_aware)
+		if(damage < high_threshold)
+			return span_warning("Your brain hurts a bit.")
+		return span_warning("Your brain hurts a lot.")
+	if(damage < high_threshold)
+		return span_warning("It feels a bit fuzzy.")
+	return span_warning("It aches incessantly.")
+
+/obj/item/organ/brain/attackby(obj/item/O, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(O, /obj/item/organ_storage))
@@ -321,6 +336,14 @@
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
 	variant_traits_added = list(TRAIT_PRIMITIVE)
 
+/obj/item/organ/brain/primate/on_mob_insert(mob/living/carbon/primate)
+	. = ..()
+	primate.AddElement(/datum/element/human_biter)
+
+/obj/item/organ/brain/primate/on_mob_remove(mob/living/carbon/primate)
+	. = ..()
+	primate.RemoveElement(/datum/element/human_biter)
+
 /obj/item/organ/brain/lizard
 	name = "lizard brain"
 	desc = "This juicy piece of meat has a oversized brain stem and cerebellum, with not much of a limbic system to speak of at all. You would expect its owner to be pretty cold blooded."
@@ -364,7 +387,7 @@
 			if(H.health > 0)
 				H.revive()
 
-/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/organ/brain/positron/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	if(istype(attacking_item, /obj/item/organ_storage))

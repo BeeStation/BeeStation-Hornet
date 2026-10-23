@@ -34,6 +34,7 @@
 	var/naturally_occuring = TRUE
 	///If the symptom requires an organ for the effects to function, robotic organs are immune to disease unless inorganic biology symptom is present
 	var/required_organ
+
 	var/list/prefixes = list()
 	var/list/bodies = list()
 	var/list/suffixes = list()
@@ -70,6 +71,7 @@
 	if(required_organ)
 		if(!advanced_disease.has_required_infectious_organ(advanced_disease.affected_mob, required_organ))
 			return FALSE
+
 	if(world.time < next_activation)
 		return FALSE
 	else

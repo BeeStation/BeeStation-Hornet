@@ -65,6 +65,7 @@
 		return FALSE
 	if(HAS_TRAIT(chest_owner, TRAIT_NODISMEMBER))
 		return FALSE
+
 	. = list()
 	if(isturf(chest_owner.loc) && can_bleed())
 		chest_owner.add_splatter_floor(chest_owner.loc)
@@ -75,7 +76,8 @@
 		if(org_zone != BODY_ZONE_CHEST)
 			continue
 		organ.Remove(chest_owner)
-		organ.forceMove(chest_owner.loc)
+		if(chest_owner.loc)
+			organ.forceMove(chest_owner.loc)
 		. += organ
 
 	if(cavity_item)
@@ -83,7 +85,7 @@
 		. += cavity_item
 		cavity_item = null
 
-///limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
+//limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
 /obj/item/bodypart/proc/drop_limb(special, dismembered, move_to_floor = TRUE)
 	if(!owner)
 		return
@@ -194,16 +196,15 @@
 	return ..()
 
 ///Try to attach this bodypart to a mob, while replacing one if it exists, does nothing if it fails.
-/obj/item/bodypart/proc/replace_limb(mob/living/carbon/limb_owner, special)
+/obj/item/bodypart/proc/replace_limb(mob/living/carbon/limb_owner)
 	if(!istype(limb_owner))
 		return
 	var/obj/item/bodypart/old_limb = limb_owner.get_bodypart(body_zone)
-	if(old_limb)
-		old_limb.drop_limb(TRUE)
+	old_limb?.drop_limb(TRUE)
 
-	. = try_attach_limb(limb_owner, special)
+	. = try_attach_limb(limb_owner, TRUE)
 	if(!.) //If it failed to replace, re-attach their old limb as if nothing happened.
-		old_limb.try_attach_limb(limb_owner, TRUE)
+		old_limb?.try_attach_limb(limb_owner, TRUE)
 
 ///Checks if a limb qualifies as a BODYPART_IMPLANTED
 /obj/item/bodypart/proc/check_for_frankenstein(mob/living/carbon/human/monster)
@@ -224,51 +225,53 @@
 		return FALSE
 	return TRUE
 
-///Attach src to target mob if able, returns FALSE if it fails to.
-/obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_limb_owner, special)
+/*
+ * Attach src to target mob if able, returns FALSE if it fails to.
+ * Arguments:
+ * special - The limb is being hotswapped or removed without side effects for some reason
+ * lazy - The owner is currently initializing, so we don't need to call any update procs
+ */
+/obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_limb_owner, special, lazy)
 	if(!can_attach_limb(new_limb_owner, special))
 		return FALSE
 
-	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_ATTACH_LIMB, src, special)
-	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, new_limb_owner, special)
-	new_limb_owner.add_bodypart(src)
+	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_ATTACH_LIMB, src, special, lazy)
+	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, new_limb_owner, special, lazy)
+	new_limb_owner.add_bodypart(src, special, lazy)
 
-	if(special) //non conventional limb attachment
-		for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
-			var/surgery_zone = check_zone(attach_surgery.location)
-			if(surgery_zone == body_zone)
-				new_limb_owner.surgeries -= attach_surgery
-				qdel(attach_surgery)
-				break
+	if(!lazy)
+		//LAZYREMOVE(new_limb_owner.body_zone_dismembered_by, body_zone)
 
-		for(var/obj/item/organ/organ as anything in new_limb_owner.organs)
-			if(deprecise_zone(organ.zone) != body_zone)
-				continue
-			organ.bodypart_insert(src)
+		if(special) //non conventional limb attachment
+			for(var/obj/item/organ/organ as anything in new_limb_owner.organs)
+				if(deprecise_zone(organ.zone) != body_zone)
+					continue
+				if(organ.bodypart_owner == src) // someone manually updated the organs already
+					continue
+				organ.bodypart_insert(src)
 
 	update_bodypart_damage_state()
 	if(can_be_disabled)
 		update_disabled()
 
-	// Bodyparts need to be sorted for leg masking to be done properly. It also will allow for some predictable
-	// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
-	new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
-	new_limb_owner.updatehealth()
-	new_limb_owner.update_body()
-	new_limb_owner.update_damage_overlays()
-	if(!special)
-		new_limb_owner.hud_used?.update_locked_slots()
+	if(!lazy)
+		// Bodyparts need to be sorted for leg masking to be done properly. It also will allow for some predictable
+		// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
+		new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
+		new_limb_owner.updatehealth()
+		new_limb_owner.update_body()
+		new_limb_owner.update_damage_overlays()
+		if(!special)
+			new_limb_owner.hud_used?.update_locked_slots()
 
-	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
+	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special, lazy)
 	return TRUE
 
-/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE)
+/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special, lazy)
 	// These are stored before calling super. This is so that if the head is from a different body, it persists its appearance.
-	var/old_real_name = src.real_name
-
+	var/old_real_name = real_name
 	. = ..()
-
-	if(!.)
+	if(!. || lazy)
 		return
 
 	if(old_real_name)
@@ -276,10 +279,10 @@
 	real_name = new_head_owner.real_name
 
 	//Handle dental implants
-	for(var/obj/item/reagent_containers/pill/pill in src)
-		for(var/datum/action/item_action/hands_free/activate_pill/pill_action in pill.actions)
-			pill.forceMove(new_head_owner)
-			pill_action.Grant(new_head_owner)
+	for(var/obj/item/reagent_containers/applicator/pill/P in src)
+		for(var/datum/action/item_action/hands_free/activate_pill/AP in P.actions)
+			P.forceMove(new_head_owner)
+			AP.Grant(new_head_owner)
 			break
 
 	///Transfer existing hair properties to the new human.
@@ -298,17 +301,14 @@
 	new_head_owner.update_body()
 	new_head_owner.update_damage_overlays()
 
-/obj/item/bodypart/arm/try_attach_limb(mob/living/carbon/new_arm_owner, special = FALSE)
+/obj/item/bodypart/arm/try_attach_limb(mob/living/carbon/new_arm_owner, special, lazy)
 	. = ..()
-
-	if(!.)
-		return
-
-	new_arm_owner.update_worn_gloves() // To apply bloody hands overlay
+	if(. && !lazy)
+		new_arm_owner.update_worn_gloves() // To apply bloody hands overlay
 
 /mob/living/carbon/proc/regenerate_limbs(list/excluded_zones = list())
 	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_LIMBS, excluded_zones)
-	var/list/zone_list = GLOB.all_body_zones.Copy()
+	var/list/zone_list = get_all_limbs()
 
 	if(length(excluded_zones))
 		zone_list -= excluded_zones
@@ -320,20 +320,21 @@
 	if(get_bodypart(limb_zone))
 		return FALSE
 	limb = newBodyPart(limb_zone, 0, 0)
-	if(limb)
-		if(!limb.try_attach_limb(src, TRUE))
-			qdel(limb)
-			return FALSE
-		limb.update_limb(is_creating = TRUE)
+	if(!limb)
+		return
+	if(!limb.try_attach_limb(src, TRUE))
+		qdel(limb)
+		return FALSE
+	limb.update_limb(is_creating = TRUE)
 
-		//Copied from /datum/species/proc/on_species_gain()
-		for(var/obj/item/organ/organ_path as anything in dna.species.mutant_organs)
-			//Load a persons preferences from DNA
-			var/zone = initial(organ_path.zone)
-			if(zone != limb_zone)
-				continue
-			var/obj/item/organ/new_organ = SSwardrobe.provide_type(organ_path)
-			new_organ.Insert(src)
+	//Copied from /datum/species/proc/on_species_gain()
+	for(var/obj/item/organ/organ_path as anything in dna.species.mutant_organs)
+		//Load a persons preferences from DNA
+		var/zone = initial(organ_path.zone)
+		if(zone != limb_zone)
+			continue
+		var/obj/item/organ/new_organ = SSwardrobe.provide_type(organ_path)
+		new_organ.Insert(src)
 
-		update_body_parts()
-		return TRUE
+	update_body_parts()
+	return TRUE

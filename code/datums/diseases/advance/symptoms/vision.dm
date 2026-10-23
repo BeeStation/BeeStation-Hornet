@@ -61,8 +61,6 @@ Bonus
 		return
 	var/mob/living/carbon/ill_mob = source_disease.affected_mob
 	var/obj/item/organ/eyes/eyes = ill_mob.get_organ_slot(ORGAN_SLOT_EYES)
-	if(!eyes)
-		return // can't do much
 
 	switch(source_disease.stage)
 		if(1, 2)

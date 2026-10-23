@@ -264,13 +264,9 @@
 		return
 
 	// Find any leg of our human and add that to the footprint, instead of the default which is to just add the human type
-	for(var/X in wielder.bodyparts)
-		var/obj/item/bodypart/affecting = X
-		if(affecting.body_part == LEG_RIGHT || affecting.body_part == LEG_LEFT)
-			if(!affecting.bodypart_disabled)
-				FP.species_types |= affecting.limb_id
-				break
-
+	for(var/obj/item/bodypart/leg/affecting in wielder.get_bodyparts())
+		if(!affecting.bodypart_disabled)
+			FP.species_types |= affecting.limb_id
 
 /datum/component/bloodysoles/feet/is_obscured()
 	if(wielder.shoes)

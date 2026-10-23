@@ -38,14 +38,18 @@
 /mob/living/carbon/proc/apply_overlay(cache_index)
 	if((. = overlays_standing[cache_index]))
 		add_overlay(.)
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
-		return TRUE
-	return FALSE
+		. = TRUE
+	else
+		. = FALSE
+	SEND_SIGNAL(src, COMSIG_CARBON_REMOVE_OVERLAY, cache_index, I)
+	return .
 
 //used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
@@ -119,7 +123,7 @@
 		if(!iter_part.dmg_overlay_type)
 			continue
 		if(isnull(damage_overlay) && (iter_part.brutestate || iter_part.burnstate))
-			damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
+			damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", layer = CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), appearance_flags = KEEP_TOGETHER)
 			damage_overlay.color = iter_part.damage_overlay_color
 		if(iter_part.brutestate)
 			var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[iter_part.dmg_overlay_type]_[iter_part.body_zone]_[iter_part.brutestate]0")
@@ -254,7 +258,7 @@
 	RETURN_TYPE(/list)
 
 	. = list()
-	if(blocks_emissive)
+	if(blocks_emissive != EMISSIVE_BLOCK_NONE)
 		. += emissive_blocker(standing.icon, standing.icon_state, alpha = standing.alpha)
 	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
@@ -262,38 +266,34 @@
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
-	//update_wound_overlays()
-	var/list/needs_update = list()
 	var/limb_count_update = 0
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		limb.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+	var/list/new_limbs = list()
+	for(var/body_zone, limb_untyped in get_bodyparts_by_zones())
+		var/obj/item/bodypart/limb = limb_untyped
+		if(isnull(limb))
+			if(icon_render_keys[body_zone])
+				icon_render_keys -= body_zone
+				limb_count_update += 1
+			continue
 
-		var/old_key = icon_render_keys?[limb.body_zone] //Checks the mob's icon render key list for the bodypart
-		icon_render_keys[limb.body_zone] = (limb.is_husked) ? limb.generate_husk_key().Join() : limb.generate_icon_key().Join() //Generates a key for the current bodypart
+		// Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		limb.update_limb(is_creating = update_limb_data)
 
-		if(icon_render_keys[limb.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
-			needs_update += limb
+		var/old_key = icon_render_keys[limb.body_zone]
+		var/new_key = limb.get_cache_key()
 
-	limb_count_update += length(needs_update)
-	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
-		limb_count_update += 1
-		for(var/missing_limb in missing_bodyparts)
-			icon_render_keys -= missing_limb //Removes dismembered limbs from the key list
+		if(new_key == old_key)
+			new_limbs += limb_icon_cache[new_key]
+
+		else
+			limb_icon_cache[new_key] ||= limb.get_limb_icon(dropped = FALSE)
+			new_limbs += limb_icon_cache[new_key]
+			icon_render_keys[limb.body_zone] = new_key
+			limb_count_update += 1
 
 	. = limb_count_update
 	if(!.)
 		return
-
-		//GENERATE NEW LIMBS
-	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		if(limb in needs_update) //Checks to see if the limb needs to be redrawn
-			var/bodypart_icon = limb.get_limb_icon()
-			new_limbs += bodypart_icon
-			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon //Caches the icon with the bodypart key, as it is new
-		else
-			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
 
 	remove_overlay(BODYPARTS_LAYER)
 
@@ -305,6 +305,14 @@
 /////////////////////////
 // Limb Icon Cache 2.0 //
 /////////////////////////
+
+/// Returns a string representing the bodyparts icon cache key
+/obj/item/bodypart/proc/get_cache_key()
+	if(is_husked)
+		return jointext(generate_husk_key(), "-")
+	return jointext(generate_icon_key(), "-")
+
+//Updated by Kapu#1178
 /**
  * Called from update_body_parts() these procs handle the limb icon cache.
  * the limb icon cache adds an icon_render_key to a human mob, it represents:
@@ -319,11 +327,11 @@
 	RETURN_TYPE(/list)
 	. = list()
 	if(is_dimorphic)
-		. += "[limb_gender]-"
-	. += "[limb_id]"
-	. += "-[body_zone]"
+		. += limb_gender
+	. += limb_id
+	. += body_zone
 	if(should_draw_greyscale && draw_color)
-		. += "-[draw_color]"
+		. += draw_color
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
 		if(!overlay.can_draw_on_bodypart(src, owner))
 			continue
@@ -335,10 +343,13 @@
 /obj/item/bodypart/proc/generate_husk_key()
 	RETURN_TYPE(/list)
 	. = list()
-	. += "[limb_id]-"
-	. += "[husk_type]"
-	. += "-husk"
-	. += "-[body_zone]"
+	if(is_dimorphic)
+		. += limb_gender
+	. += limb_id
+	. += husk_type
+	. += "husk"
+	. += body_zone
+	. += get_husk_blood_color()
 	return .
 
 /obj/item/bodypart/head/generate_icon_key()

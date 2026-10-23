@@ -3,9 +3,7 @@
 		return
 
 	losebreath = 0
-
-	if(!gibbed)
-		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
+	reagents.end_metabolization(src)
 
 	. = ..()
 
@@ -29,7 +27,7 @@
 	for(var/mob/M in src)
 		M.forceMove(Tsec)
 		visible_message(span_danger("[M] bursts out of [src]!"))
-	. = ..()
+	return ..()
 
 /mob/living/carbon/spill_organs(no_brain, no_organs, no_bodyparts)
 	var/atom/Tsec = drop_location()
@@ -62,6 +60,8 @@
 
 
 /mob/living/carbon/spread_bodyparts()
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		BP.drop_limb()
-		BP.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
+	for(var/obj/item/bodypart/part as anything in get_bodyparts())
+		if(part.body_zone == BODY_ZONE_CHEST)
+			continue // never drop this
+		part.drop_limb()
+		part.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)

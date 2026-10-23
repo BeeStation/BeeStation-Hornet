@@ -29,3 +29,4 @@
 			if(bodypart.body_zone != deprecise_zone(organ.zone))
 				continue
 			TEST_ASSERT(organ in hollow_boy.organs, "Organ '[organ.name] was put in an empty bodypart that replaced a humans, but the organ did not come with.")
+

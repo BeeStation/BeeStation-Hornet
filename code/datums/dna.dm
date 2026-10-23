@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			stored_dna.species = mrace //not calling any species update procs since we're a brain, not a monkey/human
 
 
-/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE)
 	if(QDELETED(src))
 		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
 	if(isnull(mrace))
@@ -606,12 +606,12 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	dna.update_species(new_race)
 
 	if (old_species.properly_gained)
-		old_species.on_species_loss(src, new_race, pref_load)
+		old_species.on_species_loss(src, new_race)
 
-	dna.species.on_species_gain(src, old_species, pref_load, regenerate_icons = icon_update)
+	dna.species.on_species_gain(src, old_species, regenerate_icons = icon_update)
 	SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 
-/mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
 	..()
 	if(icon_update)
 		update_body(is_creating = TRUE)
@@ -639,7 +639,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
 	if(newfeatures)
 		dna.features = newfeatures
-		dna.generate_unique_features()
+		dna.unique_features = dna.generate_unique_features()
 
 	if(mrace)
 		var/datum/species/newrace = new mrace.type
@@ -648,7 +648,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(newreal_name)
 		real_name = newreal_name
-		dna.generate_unique_enzymes()
+		dna.unique_enzymes = dna.generate_unique_enzymes()
 
 	dna.age = age
 	dna.gender = gender
@@ -794,9 +794,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color_left = eye_color_left
-		organ_eyes.old_eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
-		organ_eyes.old_eye_color_right = eye_color_right
 
 	for(var/obj/item/organ/organ in organs)
 		organ.mutate_feature(features, src)
@@ -1013,7 +1011,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				var/list/elligible_organs = list()
 				for(var/obj/item/organ/internal_organ as anything in organs) //make sure we dont get an implant or cavity item
 					elligible_organs += internal_organ
-				vomit(20, TRUE)
+				vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 10)
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)

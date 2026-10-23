@@ -18,8 +18,8 @@
 /// Folder directory for data
 #define DATA_DIRECTORY "data"
 
-/// Folder directory for maps
-#define MAP_DIRECTORY "_maps"
+/// List of directories we can load map .json files from
+#define MAP_DIRECTORY_MAPS "_maps/map_jsons"
 
 /// Folder directory for config
 #define CONFIG_DIRECTORY "config"
@@ -27,7 +27,6 @@
 /// File defines, most of them are loaded from STRING_DIRECTORY
 #define DSAY_NICKNAME_FILE "admin_nicknames.json"	//loaded from CONFIG_DIRECTORY
 #define PHOBIA_FILE "phobia.json"
-#define ION_LAWS_FILE "ion_laws.json"
 #define OWO_TALK_FILE "owo_talk.json"
 #define GONGOLA_TALK_FILE "spurdo_replacement.json"
 /// File location for brain damage traumas

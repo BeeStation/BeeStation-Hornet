@@ -192,8 +192,8 @@
 	var/depth = get_depth()
 	var/temp_power_usage = max(initial(active_power_usage) * (depth / 200), 2 KILOWATT)
 	if (active_power_usage != temp_power_usage)
-		active_power_usage = temp_power_usage // 100 depth is 12.5 kW/s 200 depth is 25 300 is 37.5, 1000 is 125 kW.
-		update_current_power_usage()
+		// 100 depth is 12.5 kW/s, 200 is 25, 300 is 37.5, 1000 is 125 kW.
+		update_mode_power_usage(ACTIVE_POWER_USE, temp_power_usage)
 
 /obj/machinery/atmospherics/gasrig/core/proc/get_fracking_efficiency(datum/gas_mixture/air)
 	var/datum/gas_mixture/temp_air = new
@@ -299,7 +299,7 @@
 		balloon_alert(user, "You repair the rig's damage!")
 		return TRUE
 
-/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/atmospherics/gasrig/core/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/plasteel_sheets = attacking_item
 		if(!needs_repairs)
@@ -428,8 +428,8 @@
 	if(parent.welder_act(user, tool))
 		return TRUE
 
-/obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, params)
-	return parent.attackby(I, user, params)
+/obj/machinery/atmospherics/components/unary/gasrig/attackby(obj/item/I, mob/user, list/modifiers)
+	return parent.attackby(I, user, modifiers)
 
 /obj/machinery/atmospherics/components/unary/gasrig/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -499,8 +499,8 @@
 	if(parent.welder_act(user, tool))
 		return TRUE
 
-/obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, params)
-	return parent.attackby(I, user, params)
+/obj/machinery/atmospherics/gasrig/dummy/attackby(obj/item/I, mob/user, list/modifiers)
+	return parent.attackby(I, user, modifiers)
 
 /obj/machinery/atmospherics/gasrig/dummy/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

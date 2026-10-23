@@ -8,7 +8,9 @@
 	dna_block = DNA_MOTH_WINGS_BLOCK
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings/moth
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
+	//Not very capable under normal circumstances, try as they might.
 	flight_level = WINGS_FLIGHTLESS
 
 	///Are we burned?
@@ -63,15 +65,21 @@
 	burnt = TRUE
 
 ///heal our wings back up!!
-/obj/item/organ/wings/moth/proc/heal_wings()
+/obj/item/organ/wings/moth/proc/heal_wings(datum/source, heal_flags)
 	SIGNAL_HANDLER
 
 	if(!burnt)
 		return
 
-	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
-	wings.burnt = FALSE
-	burnt = FALSE
+	if(heal_flags & (HEAL_LIMBS|HEAL_ORGANS))
+		var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
+		wings.burnt = FALSE
+		burnt = FALSE
+
+/obj/item/organ/wings/moth/feel_for_damage(self_aware)
+	if(burnt)
+		return "Your wings are all burnt up!"
+	return ..()
 
 ///Moth wing bodypart overlay, including burn functionality!
 /datum/bodypart_overlay/mutant/wings/moth
@@ -109,14 +117,14 @@
 
 /*
 ///mothra wings, which relate to moths.
-/obj/item/organ/wings/moth/mothra
+/obj/item/organ/wings/mothra
 	name = "mothra wings"
 	desc = "Fly like the mighty mothra of legend once did."
 	sprite_accessory_override = /datum/sprite_accessory/wings/mothra
 	flight_level = WINGS_AIRWORTHY
 
 ///megamoth wings, which relate to moths as an alternate choice. they're both pretty cool.
-/obj/item/organ/wings/moth/megamoth
+/obj/item/organ/wings/megamoth
 	name = "megamoth wings"
 	desc = "Don't get murderous."
 	sprite_accessory_override = /datum/sprite_accessory/wings/megamoth

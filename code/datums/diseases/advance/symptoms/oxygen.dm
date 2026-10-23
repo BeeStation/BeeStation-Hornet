@@ -28,8 +28,8 @@ Bonus
 	base_message_chance = 5
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	prefixes = list("Breathless ", "Anaerobic ")
 	required_organ = ORGAN_SLOT_LUNGS
+	prefixes = list("Breathless ", "Anaerobic ")
 	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood.<br>"
 	var/regenerate_blood = FALSE
 

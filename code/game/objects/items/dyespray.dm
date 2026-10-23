@@ -76,7 +76,7 @@
 		return
 
 	var/new_grad_color = tgui_color_picker(user, "Choose a secondary hair color:", "Character Preference",human_target.grad_color)
-	if(!new_grad_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE) || !user.CanReach(target))
+	if(!new_grad_color || !user.canUseTopic(src, be_close = TRUE, no_dexterity = TRUE, no_tk = FALSE) || !target.IsReachableBy(user))
 		return
 
 	to_chat(user, span_notice("You start applying the hair dye..."))

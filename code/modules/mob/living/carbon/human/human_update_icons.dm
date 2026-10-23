@@ -183,7 +183,7 @@ There are several things that need to be remembered:
 		if(!blood_in_hands || !num_hands)
 			return
 		var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
-		var/blood_color = length(blood_dna) ? get_blood_dna_color(blood_dna) : COLOR_BLOOD
+		var/blood_color = length(blood_dna) ? get_blood_dna_color(blood_dna) : BLOOD_COLOR_RED
 		// When byond gives us filters that respect dirs we can just use an alpha mask for this but until then, two icons weeeee
 		var/mutable_appearance/hands_combined = mutable_appearance(layer = CALCULATE_MOB_OVERLAY_LAYER(GLOVES_LAYER), appearance_flags = KEEP_TOGETHER)
 		if(has_left_hand(check_disabled = FALSE))

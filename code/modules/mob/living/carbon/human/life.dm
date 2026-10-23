@@ -23,31 +23,23 @@
 		return
 
 	. = ..()
-
 	if(QDELETED(src))
 		return FALSE
 
-	if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
-		if(stat != DEAD)
-			if(undergoing_cardiac_arrest())
-				//heart attack stuff
-				var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+	//Body temperature stability and damage
+	dna.species.handle_body_temperature(src, delta_time, times_fired)
+	if(HAS_TRAIT(src, TRAIT_STASIS))
+		return stat != DEAD
 
-				if(we_breath)
-					adjustOxyLoss(4 * delta_time)
-					Unconscious(80)
+	if(stat == DEAD)
+		return FALSE
 
-				// Tissues die without blood circulation, machines burn without coolant circulation
-				if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
-					adjustFireLoss(0.5 * delta_time)
-				else
-					adjustBruteLoss(1 * delta_time)
-			handle_liver()
+	//heart attack stuff
+	handle_heart(delta_time)
+	//handles liver failure effects, if we lack a liver
+	handle_liver(delta_time)
 
-		//Body temperature stability and damage
-		dna.species.handle_body_temperature(src, delta_time, times_fired)
-
-		dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
+	dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -272,7 +264,7 @@
 
 	lastpuke += DT_PROB(30, delta_time)
 	if(lastpuke >= 50) // about 25 second delay I guess // This is actually closer to 150 seconds
-		vomit(20)
+		vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 		lastpuke = 0
 
 
@@ -288,6 +280,22 @@
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
 	return ..()
+
+/mob/living/carbon/human/proc/handle_heart(delta_time)
+	var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+
+	if(!undergoing_cardiac_arrest())
+		return
+
+	if(we_breath)
+		adjustOxyLoss(4 * delta_time)
+		Unconscious(80)
+
+	// Tissues die without blood circulation, machines burn without coolant circulation
+	if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+		adjustFireLoss(0.5 * delta_time)
+	else
+		adjustBruteLoss(1 * delta_time)
 
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST

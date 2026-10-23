@@ -40,6 +40,14 @@
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
+/datum/component/infective/proc/on_organ_insertion(obj/item/organ/target, mob/living/carbon/receiver)
+	SIGNAL_HANDLER
+
+	for(var/datum/disease/disease in diseases)
+		receiver.ForceContractDisease(disease)
+
+	qdel(src) // once organ is implanted delete the infective component
+
 /datum/component/infective/UnregisterFromParent()
 	. = ..()
 	UnregisterSignal(parent, list(
@@ -55,14 +63,6 @@
 		COMSIG_GIBS_STREAK,
 	))
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
-
-/datum/component/infective/proc/on_organ_insertion(obj/item/organ/target, mob/living/carbon/receiver)
-	SIGNAL_HANDLER
-
-	for(var/datum/disease/disease in diseases)
-		receiver.ForceContractDisease(disease)
-
-	qdel(src) // once organ is implanted delete the infective component
 
 /datum/component/infective/proc/try_infect_eat(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER

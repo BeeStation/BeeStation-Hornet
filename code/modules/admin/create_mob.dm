@@ -29,7 +29,7 @@
 	// Needs to be called towards the end to update all the UIs just set above
 	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)
 	// Snowflake stuff (ethereals)
-	human.dna.species.spec_updatehealth(human)
+	human.updatehealth()
 	human.updateappearance(mutcolor_update = TRUE)
 
 /**
@@ -77,6 +77,6 @@
 
 	// Normal DNA init stuff, these can generally be wacky but we care less, they're aliens after all
 	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)
-	human.dna.species.spec_updatehealth(human)
+	human.updatehealth()
 	if(update_body)
 		human.updateappearance(mutcolor_update = TRUE)

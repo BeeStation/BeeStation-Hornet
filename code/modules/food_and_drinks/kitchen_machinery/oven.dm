@@ -16,11 +16,12 @@
 	density = TRUE
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/oven
 	processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = FIRE_PROOF
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.8
 
 	///The tray inside of this oven, if there is one.
 	var/obj/item/plate/oven_tray/used_tray
@@ -45,6 +46,9 @@
 	if (particle_type)
 		remove_shared_particles(particle_type)
 	return ..()
+
+/obj/machinery/oven/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return ..() || istype(contained, /obj/item/plate/oven_tray)
 
 /obj/machinery/oven/update_icon_state()
 	if(!open && used_tray?.contents.len)
@@ -92,9 +96,9 @@
 			visible_message(span_danger("You smell a burnt smell coming from [src]!"))
 	set_smoke_state(worst_cooked_food_state)
 	update_appearance()
+	use_power(active_power_usage)
 
-
-/obj/machinery/oven/attackby(obj/item/I, mob/user, params)
+/obj/machinery/oven/attackby(obj/item/I, mob/user, list/modifiers)
 	if(open && !used_tray && istype(I, /obj/item/plate/oven_tray))
 		if(user.transferItemToLoc(I, src, silent = FALSE))
 			to_chat(user, span_notice("You put [I] in [src]."))
@@ -109,7 +113,6 @@
 	if(!open)
 		oven_tray.vis_flags |= VIS_HIDE
 	vis_contents += oven_tray
-	oven_tray.flags_1 |= IS_ONTOP_1
 	oven_tray.vis_flags |= VIS_INHERIT_PLANE
 	oven_tray.pixel_y = OVEN_TRAY_Y_OFFSET
 	oven_tray.pixel_x = OVEN_TRAY_X_OFFSET
@@ -126,7 +129,6 @@
 
 /obj/machinery/oven/proc/tray_removed_from_oven(obj/item/oven_tray)
 	SIGNAL_HANDLER
-	oven_tray.flags_1 &= ~IS_ONTOP_1
 	oven_tray.vis_flags &= ~VIS_INHERIT_PLANE
 	vis_contents -= oven_tray
 	oven_tray.invisibility = 0
