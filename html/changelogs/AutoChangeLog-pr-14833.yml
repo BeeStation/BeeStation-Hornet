@@ -1,0 +1,20 @@
+author: rkz, timothymtorres, timegreen, ghommie
+delete-after: true
+changes:
+  - refactor: Your organs are now inside your body. Please report any issues with
+      bodypart and organ movement, including exotic organ, on github
+  - bugfix: Cases of unexpected organ movement, such as teleporting bodyparts and
+      organs with spells, now invokes a proper reaction (usually violent death)
+  - bugfix: Fixes lag when species swapping
+  - code_imp: Improves digitgrade handling in preference code
+  - bugfix: Fix robotic organs to not gain health passively, from revival, smart organ
+      fridge, oculine, and earmuffs.
+  - rscadd: Some diseases now require the appropriate internal organ to work. A robotic
+      organ will give immunity to the disease symptom unless the disease has "Inorganic
+      Biology".
+  - rscadd: Disease transmission methods now require an internal organ to be successful.
+      Robotic organs give immunity. Airborne disease transmission require lungs. Ingested
+      disease transmission requires a stomach. Blood disease transmission requires
+      a heart.
+  - rscadd: Organs removed from a mob that is afflicted with a disease will be infectious
+      while handling or transplanting it
