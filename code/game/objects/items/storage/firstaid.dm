@@ -591,7 +591,7 @@
 		icon_state = "[pill_type][rand(0,6)]"
 
 	atom_storage.allow_quick_gather = TRUE
-	atom_storage.set_holdable(list(/obj/item/reagent_containers/applicator/pill))
+	atom_storage.set_holdable(list(/obj/item/reagent_containers/applicator/pill, /obj/item/reagent_containers/applicator/patch))
 
 /obj/item/storage/pill_bottle/attackby(obj/item/P, mob/user, list/modifiers)
 	// Allow labeling with a pen
