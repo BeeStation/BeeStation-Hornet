@@ -1027,6 +1027,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands + 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart, special)
@@ -1053,6 +1054,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands - 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Updates the bodypart speed modifier based on our bodyparts.
 /mob/living/carbon/proc/update_bodypart_movespeed_contribution()
@@ -1310,23 +1312,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		update_worn_gloves()
 		. = TRUE
 
-/mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	var/opposite_gender = gender != ngender
-	. = ..()
-	if(!.)
-		return
-	if(dna && opposite_gender)
-		if(ngender == MALE || ngender == FEMALE)
-			dna.features["body_model"] = ngender
-			if(!silent)
-				var/adj = ngender == MALE ? "masculine" : "feminine"
-				visible_message(span_boldnotice("[src] suddenly looks more [adj]!"), span_boldwarning("You suddenly feel more [adj]!"))
-		else if(ngender == NEUTER)
-			dna.features["body_model"] = MALE
-	if(update_icon)
-		update_body()
-		update_body_parts(TRUE)
-
 /// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
 /mob/living/carbon/proc/set_handcuffed(new_value)
 	if(handcuffed == new_value)
@@ -1431,3 +1416,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(item && ((item in internal_organs) || (item in bodyparts))) //let's not do this, aight?
 		return FALSE
 	return ..()
+
+/// Helper to cleanly trigger tail wagging
+/// Accepts an optional timeout after which we remove the tail wagging
+/// Returns true if successful, false otherwise
+/mob/living/carbon/proc/wag_tail(timeout = INFINITY)
+	var/obj/item/organ/tail/wagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(!wagged)
+		return FALSE
+	return wagged.start_wag(src, timeout)
+
+/// Helper to cleanly stop all tail wagging
+/// Returns true if successful, false otherwise
+/mob/living/carbon/proc/unwag_tail() // can't unwag a tail
+	var/obj/item/organ/tail/unwagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(!unwagged)
+		return FALSE
+	return unwagged.stop_wag(src)

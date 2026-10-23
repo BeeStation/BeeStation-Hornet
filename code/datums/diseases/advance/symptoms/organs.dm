@@ -155,7 +155,7 @@
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_HEART, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_LIVER, -1, required_organ_flag = organtype)
-		M.adjustOrganLoss(ORGAN_SLOT_TAIL, -1, required_organ_flag = organtype)
+		M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, -1, required_organ_flag = organtype)
 		M.adjustOrganLoss(ORGAN_SLOT_WINGS, -1, required_organ_flag = organtype)
 		if(curing)
 			for(var/datum/disease/D in M.diseases)

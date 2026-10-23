@@ -227,7 +227,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 			user.update_clothing(ITEM_SLOT_ICLOTHING)
 
 		if("hair")
-			var/hairchoice = alert(user, "Hair style or hair color?", "Change Hair", "Style", "Color")
+			var/hairchoice = tgui_alert(user, "Hairstyle or hair color?", "Change Hair", list("Style", "Color"))
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(hairchoice == "Style") //So you just want to use a mirror then?
@@ -235,20 +235,19 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_style)
-					user.hair_style = new_style
+					user.set_hairstyle(new_style)
 			else
 				var/new_hair_color = tgui_color_picker(user, "Choose your hair color", "Hair Color", user.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_hair_color)
-					user.hair_color = sanitize_hexcolor(new_hair_color)
+					user.set_haircolor(sanitize_hexcolor(new_hair_color))
 					user.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 				if(user.gender == "male")
 					var/new_face_color = tgui_color_picker(user, "Choose your facial hair color", "Hair Color", user.facial_hair_color)
 					if(new_face_color)
-						user.facial_hair_color = sanitize_hexcolor(new_face_color)
+						user.set_facial_haircolor(sanitize_hexcolor(new_face_color))
 						user.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
-			user.update_body_parts()
 
 		if(BODY_ZONE_PRECISE_EYES)
 			var/new_eye_color = tgui_color_picker(user, "Choose your eye color", "Eye Color", user.eye_color_left)

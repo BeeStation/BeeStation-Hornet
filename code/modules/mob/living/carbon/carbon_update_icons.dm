@@ -295,15 +295,10 @@
 	. += body_zone
 	if(should_draw_greyscale && draw_color)
 		. += draw_color
-	/*
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
-		if(!overlay.can_draw_on_bodypart(src, owner))
+		if(!overlay.can_draw_on_bodypart(src, owner, is_husked))
 			continue
-		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		. += "-[human_owner.mob_height]"
-	*/
+		. += overlay.generate_icon_cache(src)
 	return .
 
 ///Generates a cache key specifically for husks
@@ -316,6 +311,9 @@
 	. += husk_type
 	. += "husk"
 	. += body_zone
+	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
+		if(overlay.can_draw_on_bodypart(src, owner, TRUE))
+			. += overlay.generate_icon_cache(src)
 	. += get_husk_blood_color()
 	return .
 
@@ -353,4 +351,56 @@
 		if(LAZYLEN(hair_masks))
 			. += "-[jointext(hair_masks, "-")]"
 
+	return .
+
+GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
+
+/**
+ * This proc serves as a way to ensure that legs layer properly on a mob.
+ * To do this, two separate images are created - A low layer one, and a normal layer one.
+ * Each of the image will appropriately crop out dirs that are not used on that given layer.
+
+ *
+ * Arguments:
+ * * limb_overlay - The limb image being masked, not necessarily the original limb image as it could be an overlay on top of it
+ * * image_dir - Direction of the masked images.
+ *
+ * Returns the list of masked images, or `null` if the limb_overlay didn't exist
+ */
+/obj/item/bodypart/leg/proc/generate_masked_leg(mutable_appearance/limb_overlay, image_dir = NONE)
+	RETURN_TYPE(/list)
+	if(!limb_overlay)
+		return
+	. = list()
+
+	var/icon_cache_key = "[limb_overlay.icon]-[limb_overlay.icon_state]-[body_zone]"
+	var/icon/new_leg_icon
+	var/icon/new_leg_icon_lower
+
+	//in case we do not have a cached version of the two cropped icons for this key, we have to create it
+	if(!GLOB.masked_leg_icons_cache[icon_cache_key])
+		var/icon/leg_crop_mask = (body_zone == BODY_ZONE_R_LEG ? icon('icons/mob/leg_masks.dmi', "right_leg") : icon('icons/mob/leg_masks.dmi', "left_leg"))
+		var/icon/leg_crop_mask_lower = (body_zone == BODY_ZONE_R_LEG ? icon('icons/mob/leg_masks.dmi', "right_leg_lower") : icon('icons/mob/leg_masks.dmi', "left_leg_lower"))
+
+		new_leg_icon = icon(limb_overlay.icon, limb_overlay.icon_state)
+		new_leg_icon.Blend(leg_crop_mask, ICON_MULTIPLY)
+
+		new_leg_icon_lower = icon(limb_overlay.icon, limb_overlay.icon_state)
+		new_leg_icon_lower.Blend(leg_crop_mask_lower, ICON_MULTIPLY)
+
+		GLOB.masked_leg_icons_cache[icon_cache_key] = list(new_leg_icon, new_leg_icon_lower)
+	new_leg_icon = GLOB.masked_leg_icons_cache[icon_cache_key][1]
+	new_leg_icon_lower = GLOB.masked_leg_icons_cache[icon_cache_key][2]
+
+	//this could break layering in oddjob cases, but i'm sure it will work fine most of the time... right?
+	var/mutable_appearance/new_leg_appearance = new(limb_overlay)
+	new_leg_appearance.icon = new_leg_icon
+	new_leg_appearance.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER)
+	new_leg_appearance.dir = image_dir //for some reason, things do not work properly otherwise
+	. += new_leg_appearance
+	var/mutable_appearance/new_leg_appearance_lower = new(limb_overlay)
+	new_leg_appearance_lower.icon = new_leg_icon_lower
+	new_leg_appearance_lower.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LOW_LAYER)
+	new_leg_appearance_lower.dir = image_dir
+	. += new_leg_appearance_lower
 	return .

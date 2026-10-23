@@ -11,6 +11,7 @@
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 	// STOP_OVERLAY_UPDATE_BODY_PARTS is removed after we call update_body_parts() during init.
 	living_flags = ALWAYS_DEATHGASP|STOP_OVERLAY_UPDATE_BODY_PARTS
 	/// List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
@@ -93,4 +94,7 @@
 	var/visual_only_organs = FALSE
 
 	/// A bitfield of "bodytypes", updated by /obj/item/bodypart/proc/synchronize_bodytypes()
-	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	var/bodytype = BODYTYPE_ORGANIC
+
+	/// A bitfield of "bodyshapes", updated by /obj/item/bodypart/proc/synchronize_bodyshapes()
+	var/bodyshape = BODYSHAPE_HUMANOID

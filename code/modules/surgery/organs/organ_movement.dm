@@ -81,11 +81,6 @@
 		wash(CLEAN_TYPE_BLOOD)
 		organ_flags &= ~ORGAN_VIRGIN
 
-	//if(external_bodytypes)
-	//	receiver.synchronize_bodytypes()
-	//if(external_bodyshapes)
-	//	receiver.synchronize_bodyshapes()
-
 	receiver.internal_organs |= src
 	receiver.internal_organs_slot[slot] = src
 	owner = receiver
@@ -135,7 +130,7 @@
 
 	// In the event that we're already in the bodypart, DO NOT MOVE IT! otherwise it triggers forced_removal
 	if(loc != bodypart)
-		forceMove(bodypart)
+		forceMove(bodypart) // The true movement
 
 	// Don't re-register if we are already owned
 	if(bodypart_owner != bodypart)
@@ -154,8 +149,13 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 
-	//if(bodypart_overlay)
-	//	limb.add_bodypart_overlay(bodypart_overlay)
+	if(external_bodytypes)
+		limb.owner?.synchronize_bodytypes()
+	if(external_bodyshapes)
+		limb.owner?.synchronize_bodyshapes()
+
+	if(bodypart_overlay)
+		limb.add_bodypart_overlay(bodypart_overlay)
 
 /*
  * Remove the organ from the select mob.
@@ -196,8 +196,6 @@
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
 
-	organ_owner.synchronize_bodytypes()
-	//organ_owner.synchronize_bodyshapes()
 	if(!special)
 		organ_owner.hud_used?.update_locked_slots()
 
@@ -207,6 +205,9 @@
 		organ_owner.death()
 
 	START_PROCESSING(SSobj, src)
+
+	if(QDELING(src))
+		return
 
 	var/list/diseases = organ_owner.get_static_viruses()
 	if(!LAZYLEN(diseases))
@@ -232,7 +233,7 @@
 /obj/item/organ/proc/bodypart_remove(obj/item/bodypart/limb, mob/living/carbon/limb_owner, movement_flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(limb_owner)
+	if(!isnull(limb_owner))
 		limb = limb_owner.get_bodypart(deprecise_zone(zone))
 
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED) //DONT MOVE THIS!!!! we moves the organ right after, so we unregister before we move them physically
@@ -256,7 +257,9 @@
 	REMOVE_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 	interaction_flags_item |= INTERACT_ITEM_ATTACK_HAND_PICKUP
 
-	/*
+	limb.owner?.synchronize_bodytypes()
+	limb.owner?.synchronize_bodyshapes()
+
 	if(!bodypart_overlay)
 		return
 
@@ -266,7 +269,6 @@
 		update_appearance(UPDATE_OVERLAYS)
 
 	color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
-	*/
 
 /// In space station videogame, nothing is sacred. If somehow an organ is removed unexpectedly, handle it properly
 /obj/item/organ/proc/forced_removal(datum/source, atom/old_loc, ...)

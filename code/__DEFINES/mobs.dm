@@ -94,20 +94,22 @@
 #define BODYTYPE_ORGANIC (1<<0)
 ///The limb is robotic.
 #define BODYTYPE_ROBOTIC (1<<1)
-///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
-#define BODYTYPE_HUMANOID (1<<2)
-///The limb is digitigrade.
-#define BODYTYPE_DIGITIGRADE (1<<3)
-///The limb fits the monkey mold.
-#define BODYTYPE_MONKEY (1<<4)
-///The limb is snouted.
-#define BODYTYPE_SNOUTED (1<<5)
 ///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
-#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<2)
 ///The limb is from a xenomorph.
-#define BODYTYPE_ALIEN (1<<7)
+#define BODYTYPE_ALIEN (1<<3)
 ///The limb is from a golem
-#define BODYTYPE_GOLEM (1<<8)
+#define BODYTYPE_GOLEM (1<<4)
+
+// Bodyshape defines for how things can be worn, i.e., what "shape" the mob sprite is
+///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
+#define BODYSHAPE_HUMANOID (1<<0)
+///The limb fits the monkey mold.
+#define BODYSHAPE_MONKEY (1<<1)
+///The limb is digitigrade.
+#define BODYSHAPE_DIGITIGRADE (1<<2)
+///The limb is snouted.
+#define BODYSHAPE_SNOUTED (1<<3)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -641,6 +643,16 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define TYPING_LAYER 2
 /// The highest most layer for mob overlays
 #define HIGHEST_LAYER 1
+
+//Bitflags for the layers a bodypart overlay can draw on (can be drawn on multiple layers)
+/// Draws overlay on the BODY_FRONT_LAYER
+#define EXTERNAL_FRONT (1 << 0)
+/// Draws overlay on the BODY_ADJ_LAYER
+#define EXTERNAL_ADJACENT (1 << 1)
+/// Draws overlay on the BODY_BEHIND_LAYER
+#define EXTERNAL_BEHIND (1 << 2)
+/// Draws organ on all EXTERNAL layers
+#define ALL_EXTERNAL_OVERLAYS EXTERNAL_FRONT | EXTERNAL_ADJACENT | EXTERNAL_BEHIND
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"

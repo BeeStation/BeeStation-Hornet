@@ -1970,12 +1970,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		eminence.selected_mob = src
 		to_chat(eminence, span_brass("You select [src]."))
 
-/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	if(forced)
-		gender = ngender
-		return TRUE
-	return FALSE
-
 /**
   * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.
   *

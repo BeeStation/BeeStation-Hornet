@@ -18,7 +18,7 @@
 	 */
 	var/slot
 	/// Random flags that describe this organ
-	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE | ORGAN_VIRGIN
+	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE
 	/// Maximum damage the organ can take, ever.
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	/**
@@ -47,6 +47,8 @@
 
 	/// Food reagents if the organ is edible
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	/// Foodtypes if the organ is edible
+	var/foodtype_flags = RAW | MEAT | GORE
 	/// The size of the reagent container if the organ is edible
 	var/reagent_vol = 10
 
@@ -70,19 +72,21 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
+	organ_flags |= ORGAN_VIRGIN
 	// not every organ spawns inside a person
 	blood_dna_info = list("Synthetic DNA" = get_blood_type("O+"))
 	if(organ_flags & ORGAN_EDIBLE)
-		AddComponent(/datum/component/edible,\
-		initial_reagents = food_reagents,\
-		foodtypes = RAW | MEAT | GORE,\
-		volume = reagent_vol,\
-		pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
-		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
-		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+		AddComponent(/datum/component/edible, \
+			initial_reagents = food_reagents, \
+			foodtypes = foodtype_flags, \
+			volume = reagent_vol,\
+			pre_eat = CALLBACK(src, PROC_REF(pre_eat)),\
+			on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
+			after_eat = CALLBACK(src, PROC_REF(on_eat_from)),\
+		)
 
-	//if(bodypart_overlay)
-	//	setup_bodypart_overlay()
+	if(bodypart_overlay)
+		setup_bodypart_overlay()
 
 	START_PROCESSING(SSobj, src)
 
@@ -197,6 +201,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+	bodypart_overlay?.imprint_on_next_insertion = TRUE
 
 //See above
 /obj/item/organ/proc/enter_wardrobe()
@@ -396,6 +401,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
  * Return a string, to be concatenated with other organ / limb status strings. Include spans and punctuation.
  */
 /obj/item/organ/proc/feel_for_damage(self_aware)
+	if(organ_flags & ORGAN_EXTERNAL)
+		return ""
 	if(damage < low_threshold)
 		return ""
 	if(damage < high_threshold)

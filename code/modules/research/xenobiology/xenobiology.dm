@@ -388,14 +388,19 @@
 				to_chat(user, span_warning("You can't swap your gender!"))
 				return 5 SECONDS
 
-			user.set_gender(user.gender == MALE ? FEMALE : MALE, forced = TRUE) //You are doing this to yourself.
+			if(user.gender == MALE)
+				user.gender = FEMALE
+				user.visible_message(span_boldnotice("[user] suddenly looks more feminine!"), span_boldwarning("You suddenly feel more feminine!"))
+			else
+				user.gender = MALE
+				user.visible_message(span_boldnotice("[user] suddenly looks more masculine!"), span_boldwarning("You suddenly feel more masculine!"))
 			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message(span_warning("[user]'s skin starts flashing hypnotically..."), span_notice("Your skin starts forming odd patterns, pacifying creatures around you."))
 			for(var/mob/living/carbon/C in oviewers(user))
 				C.reagents.add_reagent(/datum/reagent/pax,2)
-			return 600
+			return 60 SECONDS
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
@@ -1128,9 +1133,13 @@
 
 	to_chat(user, span_notice("You feed [span_name("[living_mob]")] [src]!"))
 
-	if(!living_mob.set_gender(living_mob.gender == MALE ? FEMALE : MALE, forced = TRUE))
-		return ITEM_INTERACT_BLOCKING
-
+	if(living_mob.gender == MALE)
+		living_mob.gender = FEMALE
+		living_mob.visible_message(span_boldnotice("[living_mob] suddenly looks more feminine!"), span_boldwarning("You suddenly feel more feminine!"))
+	else
+		living_mob.gender = MALE
+		living_mob.visible_message(span_boldnotice("[living_mob] suddenly looks more masculine!"), span_boldwarning("You suddenly feel more masculine!"))
+	living_mob.regenerate_icons()
 	qdel(src)
 	return ITEM_INTERACT_SUCCESS
 

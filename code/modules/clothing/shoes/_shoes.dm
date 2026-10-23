@@ -74,3 +74,6 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_worn_shoes()
+
+/obj/item/clothing/shoes/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	return icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "boots_worn")

@@ -180,9 +180,6 @@
 		for(var/obj/item/head_item as anything in list(owner.glasses, owner.ears, owner.wear_mask, owner.head))
 			owner.dropItemToGround(head_item, force = TRUE)
 
-	//Remove the creampie overlay
-	qdel(owner.GetComponent(/datum/component/creamed))
-
 	//Handle dental implants
 	for(var/datum/action/item_action/hands_free/activate_pill/AP in owner.actions)
 		AP.Remove(owner)
@@ -219,7 +216,7 @@
 		return FALSE
 
 	var/obj/item/bodypart/chest/mob_chest = new_limb_owner.get_bodypart(BODY_ZONE_CHEST)
-	if(mob_chest && !(mob_chest.acceptable_bodytype & bodytype) && !special)
+	if(mob_chest && !(mob_chest.acceptable_bodytype & bodytype) && !(mob_chest.acceptable_bodyshape & bodyshape) && !special)
 		return FALSE
 	return TRUE
 
