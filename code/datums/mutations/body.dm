@@ -424,30 +424,56 @@
 	instability = 25
 	power_coeff = 1
 	species_allowed = list(SPECIES_FELINID)
-	var/added_damage = 6
+	var/damage_boost = 6
 
 /datum/mutation/catclaws/on_acquiring()
 	if(..())
 		return
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
-	owner.dna.species.attack_verb = "slash"
-	owner.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
+
+	// Modify both arm limbs to have claws
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+
+			// Apply claw damage and effects
+			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
+			arm.unarmed_damage += damage_increase
+			arm.unarmed_attack_verb = "slash"
+			arm.unarmed_attack_sound = 'sound/weapons/slash.ogg'
+			arm.unarmed_miss_sound = 'sound/weapons/slashmiss.ogg'
+
 	to_chat(owner, span_notice("Claws extend from your fingertips."))
 
 /datum/mutation/catclaws/on_losing()
 	if(..())
 		return
-	to_chat(owner, span_warning(" Your claws retract into your hand."))
-	owner.dna.species.punchdamage -= added_damage
-	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
-	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
-	owner.dna.species.miss_sound = initial(owner.dna.species.miss_sound)
+
+	// Restore original arm attack values
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM))
+			// Only restore if the original values exist
+			if(isnum(arm.unarmed_damage))
+				arm.unarmed_damage = initial(arm.unarmed_damage)
+
+			if(arm.unarmed_attack_verb)
+				arm.unarmed_attack_verb = initial(arm.unarmed_attack_verb)
+
+			if(arm.unarmed_attack_sound)
+				arm.unarmed_attack_sound = initial(arm.unarmed_attack_sound)
+
+			if(arm.unarmed_miss_sound)
+				arm.unarmed_miss_sound = initial(arm.unarmed_miss_sound)
+
+	to_chat(owner, span_warning("Your claws retract into your hands."))
 
 /datum/mutation/catclaws/modify()
 	..()
-	if(added_damage)
-		owner.dna.species.punchdamage -= added_damage
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
+
+	// Update damage values when mutation power changes
+	for(var/obj/item/bodypart/arm in owner.bodyparts)
+		if((arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM) && isnum(arm.unarmed_damage))
+			// Reset to original values first
+			arm.unarmed_damage = initial(arm.unarmed_damage)
+
+			// Apply updated damage boost
+			var/damage_increase = min(17, damage_boost * GET_MUTATION_POWER(src))
+			arm.unarmed_damage += damage_increase

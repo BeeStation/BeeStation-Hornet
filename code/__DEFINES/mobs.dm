@@ -62,8 +62,8 @@
 // Mob bio-type flags
 /// The mob is organic, can heal from medical sutures.
 #define MOB_ORGANIC (1 << 0)
-/// The mob isn't organic. For example, golems and IPCs.
-#define MOB_INORGANIC (1 << 1)
+///The mob is of a rocky make, most likely a golem. Iron within, iron without!
+#define MOB_MINERAL (1 << 1)
 /// The mob is a synthetic lifeform, like station borgs.
 #define MOB_ROBOTIC (1 << 2)
 /// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.

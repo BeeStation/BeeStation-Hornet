@@ -7,11 +7,12 @@
 		TRAIT_BEEFRIEND,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
+	mutant_bodyparts = list(
+		"apid_stripes" = "thick",
+		"apid_headstripes" = "thick",
+		"apid_antenna" = "curled"
+	)
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid

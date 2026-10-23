@@ -383,22 +383,22 @@
 
 
 /obj/item/bodypart/head/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/chest/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/arm/left/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/arm/right/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/leg/left/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 /obj/item/bodypart/leg/right/robot/android
-	change_exempt_flags = null
+	change_exempt_flags = NONE
 
 #undef ROBOTIC_LIGHT_BRUTE_MSG
 #undef ROBOTIC_MEDIUM_BRUTE_MSG

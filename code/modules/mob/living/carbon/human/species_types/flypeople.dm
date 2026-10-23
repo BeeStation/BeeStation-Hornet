@@ -15,7 +15,6 @@
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
-	speedmod = 0.7
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/fly,

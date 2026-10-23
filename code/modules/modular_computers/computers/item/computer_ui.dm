@@ -167,6 +167,12 @@
 	if(.)
 		return
 
+	if(ishuman(usr) && !allow_chunky)
+		var/mob/living/carbon/human/human_user = usr
+		if(human_user.check_chunky_fingers())
+			balloon_alert(human_user, "fingers are too big!")
+			return TRUE
+
 	if(!issilicon(ui.user))
 		playsound(src, "keyboard_clicks", 10, TRUE, FALSE)
 	if(device_theme == THEME_THINKTRONIC)

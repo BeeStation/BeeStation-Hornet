@@ -22,6 +22,7 @@
 	speed = 1
 	melee_damage = 10
 	attack_sound = 'sound/items/bikehorn.ogg'
+	attack_vis_effect = null
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	del_on_death = TRUE

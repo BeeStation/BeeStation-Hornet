@@ -107,6 +107,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// People looking at the computer
 	var/list/computer_users = list()
 
+	/// Allow people with chunky fingers to use?
+	var/allow_chunky = FALSE
+
 	/// Looping sound for when the computer is on.
 	var/datum/looping_sound/computer/soundloop
 	/// Whether or not this modular computer uses the looping sound

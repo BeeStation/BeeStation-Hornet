@@ -209,7 +209,7 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
+	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 		item_overlay.color = COLOR_RED
 	else
 		item_overlay.color = COLOR_VIBRANT_LIME

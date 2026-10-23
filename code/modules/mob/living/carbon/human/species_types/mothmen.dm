@@ -21,9 +21,6 @@
 		"moth_eyes" = "Default",
 		"body_size" = "Normal"
 	)
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
 	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
@@ -89,6 +86,7 @@
 	QDEL_NULL(cocoon_action)
 
 /datum/species/moth/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(cocoon_action)
 		cocoon_action.update_buttons()
 

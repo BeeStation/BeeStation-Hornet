@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	destination.dna.unique_identity = unique_identity
 	destination.dna.blood_type = blood_type
 	destination.dna.features = features.Copy()
+	destination.dna.unique_features = unique_features
 	destination.dna.real_name = real_name
 	destination.dna.age = age
 	destination.dna.gender = gender
@@ -554,6 +555,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /mob/living/brain/set_species(datum/species/mrace, icon_update = 1)
@@ -576,7 +578,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			return
 		death_sound = new_race.deathsound
 
-		dna.species.on_species_loss(src, new_race, pref_load)
+		if (dna.species.properly_gained)
+			dna.species.on_species_loss(src, new_race, pref_load)
+
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
@@ -607,7 +611,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(has_dna() && !HAS_TRAIT(src, TRAIT_GENELESS) && !HAS_TRAIT(src, TRAIT_BADDNA))
 		return TRUE
 
-/mob/living/carbon/human/proc/hardset_dna(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/mutations, force_transfer_mutations, list/default_mutation_genes)
+/mob/living/carbon/human/proc/hardset_dna(unique_identity, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/mutations, force_transfer_mutations, list/default_mutation_genes)
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
 	if(newfeatures)
 		dna.features = newfeatures
@@ -617,14 +621,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		var/datum/species/newrace = new mrace.type
 		newrace.copy_properties_from(mrace)
 		set_species(newrace, icon_update=0)
-
-	if(LAZYLEN(mutation_index))
-		dna.mutation_index = mutation_index.Copy()
-		if(LAZYLEN(default_mutation_genes))
-			dna.default_mutation_genes = default_mutation_genes.Copy()
-		else
-			dna.default_mutation_genes = mutation_index.Copy()
-		domutcheck()
 
 	if(newreal_name)
 		real_name = newreal_name
@@ -636,19 +632,26 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(newblood_type)
 		dna.blood_type = newblood_type
 
-	if(ui)
-		dna.unique_identity = ui
+	if(unique_identity)
+		dna.unique_identity = unique_identity
 		updateappearance(icon_update=0)
 
-	if(mrace || newfeatures || ui)
+	if(LAZYLEN(mutation_index))
+		dna.mutation_index = mutation_index.Copy()
+		if(LAZYLEN(default_mutation_genes))
+			dna.default_mutation_genes = default_mutation_genes.Copy()
+		else
+			dna.default_mutation_genes = mutation_index.Copy()
+		domutcheck()
+
+	if(mrace || newfeatures || unique_identity)
 		update_body(is_creating = TRUE)
 		update_body_parts()
 		update_mutations_overlay()
 
-	if(LAZYLEN(mutations))
-		for(var/datum/mutation/HM as anything in mutations)
-			if(HM.allow_transfer || force_transfer_mutations)
-				dna.force_give(new HM.type(HM.class, copymut=HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
+	if(LAZYLEN(mutations) && force_transfer_mutations)
+		for(var/datum/mutation/mutation as anything in mutations)
+			dna.force_give(new mutation.type(mutation.class, copymut = mutation)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
 
 /mob/living/carbon/proc/create_dna()
 	dna = new /datum/dna(src)
@@ -758,15 +761,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/obj/item/organ/eyes/organ_eyes = get_organ_by_type(/obj/item/organ/eyes)
 	if(organ_eyes)
 		organ_eyes.eye_color_left = eye_color_left
-		organ_eyes.old_eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
-		organ_eyes.old_eye_color_right = eye_color_right
 
 	if(icon_update)
-		if(mutcolor_update)
-			update_body(is_creating = TRUE)
-		else
-			update_body()
+		update_body(is_creating = mutcolor_update)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
 
