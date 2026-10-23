@@ -621,6 +621,7 @@ SUBSYSTEM_DEF(job)
 	equipping.job = job.title
 
 	SEND_SIGNAL(equipping, COMSIG_JOB_RECEIVED, job)
+	SEND_SIGNAL(src, COMSIG_JOB_RECEIVED, job) //TODO: poopy illegal change - Racc
 
 	equipping.mind?.set_assigned_role_with_greeting(job, player_client)
 	equipping.on_job_equipping(job, null, player_client)
