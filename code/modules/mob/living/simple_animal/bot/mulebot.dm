@@ -134,7 +134,7 @@
 	reached_target = FALSE
 	new_destination = null
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		. = ..()
 		if(open)
@@ -361,6 +361,8 @@
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
+	if(..())
+		return
 	var/mob/living/L = user
 
 	if (!istype(L))

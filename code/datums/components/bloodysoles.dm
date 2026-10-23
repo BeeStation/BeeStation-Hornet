@@ -43,7 +43,7 @@
   * Returns true if the parent item is obscured by something else that the wielder is wearing
   */
 /datum/component/bloodysoles/proc/is_obscured()
-	return equipped_slot in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & equipped_slot
 
 /**
   * Run to update the icon of the parent
@@ -264,18 +264,14 @@
 		return
 
 	// Find any leg of our human and add that to the footprint, instead of the default which is to just add the human type
-	for(var/X in wielder.bodyparts)
-		var/obj/item/bodypart/affecting = X
-		if(affecting.body_part == LEG_RIGHT || affecting.body_part == LEG_LEFT)
-			if(!affecting.bodypart_disabled)
-				FP.species_types |= affecting.limb_id
-				break
-
+	for(var/obj/item/bodypart/leg/affecting in wielder.get_bodyparts())
+		if(!affecting.bodypart_disabled)
+			FP.species_types |= affecting.limb_id
 
 /datum/component/bloodysoles/feet/is_obscured()
 	if(wielder.shoes)
 		return TRUE
-	return ITEM_SLOT_FEET in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & ITEM_SLOT_FEET
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)

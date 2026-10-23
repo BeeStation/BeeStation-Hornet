@@ -44,24 +44,23 @@
 
 	var/datum/action/innate/cocoon/cocoon_action
 
-/datum/species/moth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/moth/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return FALSE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
-/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+/datum/species/moth/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species)
 	if(human_who_gained_species.dna?.features["moth_eyes"] == "Domestic")
 		mutanteyes = /obj/item/organ/eyes/moth/domestic
 	else
 		mutanteyes = /obj/item/organ/eyes/moth
-	if(!pref_load)
-		human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
+	human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
-/datum/species/moth/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/moth/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 
@@ -95,7 +94,7 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
 	button_icon = 'icons/hud/actions/actions_animal.dmi'
 

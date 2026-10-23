@@ -10,9 +10,12 @@
 	buckle_lying = 90
 	buckle_dir = SOUTH
 	circuit = /obj/item/circuitboard/machine/stasis
-	idle_power_usage = 50
-	active_power_usage = 500
 	fair_market_price = 10
+	use_power = IDLE_POWER_USE
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 3
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+	// You cannot be *more* stasis'd, so power draw scales down
+	part_power_scaling = MACHINE_POWER_SCALES_DOWN
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0

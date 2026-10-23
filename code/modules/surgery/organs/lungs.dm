@@ -313,6 +313,21 @@
 /obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantlungs
 
+/obj/item/organ/lungs/feel_for_damage(self_aware)
+	if(organ_flags & ORGAN_FAILING)
+		if(self_aware)
+			return span_boldwarning("Your lungs hurt madly[HAS_TRAIT(owner, TRAIT_NOBREATH) ? "" : ", and you can't breathe"]!")
+		return span_boldwarning("It hurts madly[HAS_TRAIT(owner, TRAIT_NOBREATH) ? "" : ", and you can't breathe"]!")
+	if(damage < low_threshold)
+		return ""
+	if(damage < high_threshold)
+		if(self_aware)
+			return span_warning("Your lungs feel tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and breathing is harder"].")
+		return span_warning("It feels tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and breathing is harder"].")
+	if(self_aware)
+		return span_boldwarning("Your lungs feel extremely tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and every breath is a struggle"].")
+	return span_boldwarning("It feels extremely tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and every breath is a struggle"].")
+
 #define SMOKER_ORGAN_HEALTH (STANDARD_ORGAN_THRESHOLD * 0.75)
 #define SMOKER_LUNG_HEALING (STANDARD_ORGAN_HEALING * 0.75)
 
@@ -320,6 +335,8 @@
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
+	organ_traits = list(TRAIT_NOHUNGER) // A fresh breakfast of plasma is a great start to any morning.
+	organ_flags = ORGAN_MINERAL | ORGAN_ORGANIC
 
 	breathing_class = BREATH_PLASMA
 
@@ -356,13 +373,7 @@
 	safe_breath_min = 13
 	safe_breath_max = 100
 
-/obj/item/organ/lungs/cybernetic/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(30/severity))
-		owner.losebreath += 10
-
+	var/emp_vulnerability = 60
 
 /obj/item/organ/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
@@ -379,6 +390,18 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+	emp_vulnerability = 40
+
+/obj/item/organ/lungs/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
+		owner.losebreath += 10
+		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/lungs/apid
 	name = "apid lungs"

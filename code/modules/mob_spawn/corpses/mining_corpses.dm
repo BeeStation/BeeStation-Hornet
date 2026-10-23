@@ -105,7 +105,7 @@
 			outfit = /datum/outfit/syndicatecommandocorpse
 		if("Shadow")
 			mob_species = /datum/species/shadow
-			r_pocket = /obj/item/reagent_containers/pill/shadowtoxin
+			r_pocket = /obj/item/reagent_containers/applicator/pill/shadowtoxin
 			neck = /obj/item/clothing/accessory/medal/plasma/nobel_science
 			uniform = /obj/item/clothing/under/color/black
 			shoes = /obj/item/clothing/shoes/sneakers/black

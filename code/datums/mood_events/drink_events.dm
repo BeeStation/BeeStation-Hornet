@@ -6,9 +6,10 @@
 
 /datum/mood_event/drunk/add_effects(drunkness)
 	update_change(drunkness)
-	if(!ishuman(owner))
+	var/datum/component/mood/mood = owner
+	if(!ishuman(mood.parent))
 		return
-	var/mob/living/carbon/human/human_owner = owner
+	var/mob/living/carbon/human/human_owner = mood.parent
 	blush_overlay = human_owner.give_emote_overlay(/datum/bodypart_overlay/simple/emote/blush)
 
 /// Updates the description and value of the moodlet according to the passed drunkness value
@@ -32,9 +33,7 @@
 			mood_change = 3 // crash out
 			description = "You're my BESSST frien'... You and me agains' th' world, buddy. Le's get another drink."
 	if(old_mood != mood_change)
-		var/datum/component/mood/mood = owner.GetComponent(/datum/component/mood)
-		if(!mood)
-			return
+		var/datum/component/mood/mood = owner
 		mood.update_mood()
 
 /datum/mood_event/drunk/remove_effects()

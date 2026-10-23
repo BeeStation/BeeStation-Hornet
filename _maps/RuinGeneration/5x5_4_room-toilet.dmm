@@ -7,9 +7,7 @@
 /area/ruin/powered)
 "g" = (
 /obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
+/obj/structure/mirror/directional/west,
 /turf/open/floor/iron,
 /area/ruin/powered)
 "l" = (

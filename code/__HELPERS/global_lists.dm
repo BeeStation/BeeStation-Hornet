@@ -16,7 +16,7 @@
 	//bodypart accessories (blizzard intensifies)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/lizard_markings, GLOB.lizard_markings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/felinid, GLOB.tails_list_felinid)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey, GLOB.tails_list_monkey)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/horns,GLOB.horns_list)
@@ -26,7 +26,6 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tail_spines, GLOB.tail_spines_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
@@ -62,6 +61,7 @@
 	GLOB.emote_list = init_emote_list()
 
 	init_hair_gradients()
+	init_hair_masks()
 	// Keybindings
 	init_keybindings()
 
@@ -78,6 +78,12 @@
 			GLOB.hair_gradients_list[gradient.name] = gradient
 		if(gradient.gradient_category & GRADIENT_APPLIES_TO_FACIAL_HAIR)
 			GLOB.facial_hair_gradients_list[gradient.name] = gradient
+
+/proc/init_hair_masks()
+	GLOB.hair_masks_list = list()
+	for(var/path in subtypesof(/datum/hair_mask))
+		var/datum/hair_mask/mask = new path
+		GLOB.hair_masks_list[path] = mask
 
 /// Inits crafting recipe lists
 /proc/init_crafting_recipes(list/crafting_recipes)

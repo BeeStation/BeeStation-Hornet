@@ -187,3 +187,10 @@ handles linking back and forth.
 /datum/component/remote_materials/proc/propagate_signal()
 	SIGNAL_HANDLER
 	SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
+
+/// Returns `TRUE` if and only if the given material ref can be inserted/removed from this component
+/datum/component/remote_materials/proc/can_hold_material(datum/material/material_ref)
+	if(!mat_container)
+		return FALSE
+
+	return mat_container.can_hold_material(material_ref)

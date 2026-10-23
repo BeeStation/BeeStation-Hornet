@@ -175,7 +175,7 @@
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check, intentional)
 	var/obj/item/organ/tail/tail = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	if(tail?.wag_flags & WAG_ABLE)
+	if(istype(tail) && (tail.wag_flags & WAG_ABLE))
 		return ..()
 	return FALSE
 

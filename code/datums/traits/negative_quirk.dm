@@ -71,7 +71,7 @@
 	var/notified = FALSE
 
 /datum/quirk/brainproblems/on_process(delta_time)
-	if(!quirk_target.reagents.has_reagent(/datum/reagent/medicine/mannitol))
+	if(!quirk_target.has_reagent(/datum/reagent/medicine/mannitol))
 		if(prob(80))
 			quirk_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
 	var/obj/item/organ/brain/B = quirk_target.get_organ_by_type(/obj/item/organ/brain)
@@ -546,7 +546,7 @@
 	if (istype(drug_instance, /obj/item/storage/pill_bottle))
 		var/pill_state = pick(PILL_SHAPE_LIST)
 		for(var/i in 1 to 7)
-			var/obj/item/reagent_containers/pill/P = new(drug_instance)
+			var/obj/item/reagent_containers/applicator/pill/P = new(drug_instance)
 			P.icon_state = pill_state
 			P.reagents.add_reagent(reagent_type, 1)
 
@@ -620,7 +620,7 @@
 			smoker_lungs = /obj/item/organ/lungs/smoker_lungs
 	if(!isnull(smoker_lungs))
 		smoker_lungs = new smoker_lungs
-		smoker_lungs.Insert(carbon_holder, special = TRUE, drop_if_replaced = FALSE)
+		smoker_lungs.Insert(carbon_holder, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 
 /datum/quirk/junkie/smoker/announce_drugs()
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] [where_drug], and a lighter [where_accessory]. Make sure you get your favorite brand when you run out."))

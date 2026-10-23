@@ -85,7 +85,7 @@
 			log_combat(user, target, "flamethrowered", src)
 			flame_turf(turflist)
 
-/obj/item/flamethrower/attackby(obj/item/W, mob/user, params)
+/obj/item/flamethrower/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_WRENCH && !status)//Taking this apart
 		var/turf/T = get_turf(src)
 		if(weldtool)

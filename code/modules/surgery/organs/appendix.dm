@@ -30,17 +30,27 @@
 		// forced to ensure people don't use it to gain tox as slime person
 		owner.adjustToxLoss(2 * delta_time, forced = TRUE)
 
+/obj/item/organ/appendix/feel_for_damage(self_aware)
+	var/effective_stage = floor(!!inflamed + (damage / maxHealth))
+	switch(effective_stage)
+		if(1)
+			return span_warning("Your [self_aware ? "appendix" : "lower abdomen"] feels a little off.")
+		if(2)
+			return span_warning("Your [self_aware ? "appendix" : "lower right abdomen"] feels sore.")
+		if(3 to INFINITY)
+			return span_boldwarning("Your [self_aware ? "appendix" : "lower right abdomen"] feels like it's on fire!")
+
 /obj/item/organ/appendix/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantappendix
 
-/obj/item/organ/appendix/on_remove(mob/living/carbon/organ_owner)
+/obj/item/organ/appendix/on_mob_remove(mob/living/carbon/organ_owner)
 	. = ..()
 	for(var/datum/disease/appendicitis/A in organ_owner.diseases)
 		A.cure()
 		inflamed = TRUE
 	update_icon()
 
-/obj/item/organ/appendix/on_insert(mob/living/carbon/organ_owner)
+/obj/item/organ/appendix/on_mob_insert(mob/living/carbon/organ_owner)
 	. = ..()
 	if(inflamed)
 		organ_owner.ForceContractDisease(new /datum/disease/appendicitis(), FALSE, TRUE)

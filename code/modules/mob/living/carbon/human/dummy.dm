@@ -27,7 +27,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/Life(delta_time = SSMOBS_DT, times_fired)
 	return
 
-/mob/living/carbon/human/dummy/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/human/dummy/set_species(datum/species/mrace, icon_update = TRUE)
 	harvest_organs()
 	return ..()
 
@@ -89,9 +89,6 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/proc/wipe_state()
 	delete_equipment()
 	cut_overlays()
-	// Wipe anything from custom icon appearances (AI/cyborg)
-	icon = initial(icon)
-	icon_state = initial(icon_state)
 
 /mob/living/carbon/human/dummy/setup_human_dna()
 	create_dna(src)

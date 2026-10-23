@@ -1,11 +1,3 @@
-/mob/living/carbon/human
-	name = "Unknown"
-	real_name = "Unknown"
-	icon = 'icons/mob/human.dmi'
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
-	COOLDOWN_DECLARE(special_emote_cooldown)
-	COOLDOWN_DECLARE(block_cooldown)
-
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/toggle_resting)
@@ -27,9 +19,6 @@
 	living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	prepare_huds() //Prevents a nasty runtime on human init
-
-	//initialise organs
-	create_internal_organs() //most of it is done in set_species now, this is only for parent call
 
 	. = ..()
 
@@ -587,8 +576,8 @@
   * Returns false if we couldn't wash our hands due to them being obscured, otherwise true
   */
 /mob/living/carbon/human/proc/wash_hands(clean_types)
-	var/list/obscured = check_obscured_slots()
-	if(ITEM_SLOT_GLOVES in obscured)
+	var/obscured = check_obscured_slots()
+	if(obscured & ITEM_SLOT_GLOVES)
 		return FALSE
 
 	if(gloves)
@@ -612,8 +601,8 @@
 		update_worn_glasses()
 		. = TRUE
 
-	var/list/obscured = check_obscured_slots()
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
+	var/obscured = check_obscured_slots()
+	if(wear_mask && !(obscured & ITEM_SLOT_MASK) && wear_mask.wash(clean_types))
 		update_worn_mask()
 		. = TRUE
 
@@ -633,9 +622,9 @@
 		. = TRUE
 
 	// Check and wash stuff that can be covered
-	var/list/obscured = check_obscured_slots()
+	var/obscured = check_obscured_slots()
 
-	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && w_uniform.wash(clean_types))
+	if(!(obscured & ITEM_SLOT_ICLOTHING) && w_uniform?.wash(clean_types))
 		update_worn_undersuit()
 		. = TRUE
 
@@ -643,7 +632,7 @@
 		. = TRUE
 
 	// Wash hands if exposed
-	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(ITEM_SLOT_GLOVES in obscured))
+	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(obscured & ITEM_SLOT_GLOVES))
 		blood_in_hands = 0
 		update_worn_gloves()
 		. = TRUE
@@ -771,15 +760,22 @@
 
 	return ..()
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
-	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
-		if(message)
-			visible_message(span_warning("[src] dry heaves!"), \
-							span_userdanger("You try to throw up, but there's nothing in your stomach!"))
-		if(stun)
-			Paralyze(200)
-		return 1
-	..()
+/mob/living/carbon/human/is_literate()
+	return TRUE
+
+/mob/living/carbon/human/vomit(vomit_flags = VOMIT_CATEGORY_DEFAULT, vomit_type = /obj/effect/decal/cleanable/vomit/toxic, lost_nutrition = 10, distance = 1, purge_ratio = 0.1)
+	if(!((vomit_flags & MOB_VOMIT_BLOOD) && HAS_TRAIT(src, TRAIT_NOBLOOD) && !HAS_TRAIT(src, TRAIT_TOXINLOVER)))
+		return ..()
+
+	if(vomit_flags & MOB_VOMIT_MESSAGE)
+		visible_message(
+			span_warning("[src] dry heaves!"),
+			span_userdanger("You try to throw up, but there's nothing in your stomach!"),
+		)
+	if(vomit_flags & MOB_VOMIT_STUN)
+		Paralyze(20 SECONDS)
+
+	return TRUE
 
 /mob/living/carbon/human/vv_get_dropdown()
 	. = ..()
@@ -1046,9 +1042,14 @@
 		return FALSE
 	return ..()
 
+/mob/living/carbon/human/reagent_check(datum/reagent/chem, seconds_per_tick, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
+	return dna.species.handle_chemical(chem, src, seconds_per_tick, times_fired)
+
 /mob/living/carbon/human/updatehealth()
 	. = ..()
-	dna?.species.spec_updatehealth(src)
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
@@ -1060,27 +1061,6 @@
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
-
-
-/mob/living/carbon/human/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(battery))
-			battery.adjust_charge_scaled(change)
-		return FALSE
-	return ..()
-
-/mob/living/carbon/human/set_nutrition(change) //Seriously fuck you oldcoders.
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = get_organ_slot(ORGAN_SLOT_STOMACH)
-		if(istype(battery))
-			battery.set_charge_scaled(change)
-		return FALSE
-	return ..()
 
 /mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
@@ -1096,6 +1076,52 @@
 
 	if(mind.assigned_role.title in SSjob.name_occupations)
 		.[mind.assigned_role.title] = minutes
+
+/mob/living/carbon/human/proc/add_eye_color_left(color, color_priority, update_body = TRUE)
+	LAZYSET(eye_color_left_overrides, "[color_priority]", color)
+	if (update_body)
+		update_body()
+
+/mob/living/carbon/human/proc/add_eye_color_right(color, color_priority, update_body = TRUE)
+	LAZYSET(eye_color_right_overrides, "[color_priority]", color)
+	if (update_body)
+		update_body()
+
+/mob/living/carbon/human/proc/add_eye_color(color, color_priority, update_body = TRUE)
+	add_eye_color_left(color, color_priority, update_body = FALSE)
+	add_eye_color_right(color, color_priority, update_body = update_body)
+
+/mob/living/carbon/human/proc/remove_eye_color(color_priority, update_body = TRUE)
+	LAZYREMOVE(eye_color_left_overrides, "[color_priority]")
+	LAZYREMOVE(eye_color_right_overrides, "[color_priority]")
+	if (update_body)
+		update_body()
+
+/mob/living/carbon/human/proc/get_right_eye_color()
+	if (!LAZYLEN(eye_color_right_overrides))
+		return eye_color_right
+
+	var/eye_color = eye_color_right
+	var/priority
+	for (var/override_priority in eye_color_right_overrides)
+		var/new_priority = text2num(override_priority)
+		if (new_priority > priority)
+			priority = new_priority
+			eye_color = eye_color_right_overrides[override_priority]
+	return eye_color
+
+/mob/living/carbon/human/proc/get_left_eye_color()
+	if (!LAZYLEN(eye_color_left_overrides))
+		return eye_color_left
+
+	var/eye_color = eye_color_left
+	var/priority
+	for (var/override_priority in eye_color_left_overrides)
+		var/new_priority = text2num(override_priority)
+		if (new_priority > priority)
+			priority = new_priority
+			eye_color = eye_color_left_overrides[override_priority]
+	return eye_color
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
@@ -1257,9 +1283,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
 /mob/living/carbon/human/species/zombie/infectious
 	race = /datum/species/zombie/infectious
-
-/mob/living/carbon/human/species/zombie/krokodil_addict
-	race = /datum/species/human/krokodil_addict
 
 /mob/living/carbon/human/species/pumpkin_man
 	race = /datum/species/pumpkin_man

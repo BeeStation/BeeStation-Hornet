@@ -134,11 +134,15 @@
 	var/health_doll_icon
 
 	var/last_bumped = 0
-	var/unique_name = 0 //if a mob's name should be appended with an id when created e.g. Mob (666)
+	///if a mob's name should be appended with an id when created e.g. Mob (666)
+	var/unique_name = FALSE
 
-	var/list/butcher_results = null //these will be yielded from butchering with a probability chance equal to the butcher item's effectiveness
-	var/list/guaranteed_butcher_results = null //these will always be yielded from butchering
-	var/butcher_difficulty = 0 //effectiveness prob. is modified negatively by this amount; positive numbers make it more difficult, negative ones make it easier
+	///these will be yielded from butchering with a probability chance equal to the butcher item's effectiveness
+	var/list/butcher_results = null
+	///these will always be yielded from butchering
+	var/list/guaranteed_butcher_results = null
+	///effectiveness prob. is modified negatively by this amount; positive numbers make it more difficult, negative ones make it easier
+	var/butcher_difficulty = 0
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
@@ -170,7 +174,7 @@
 
 	var/slowed_by_drag = TRUE //Whether the mob is slowed down when dragging another prone mob
 
-	/// List of changes to body temperature, used by desease symtoms like fever
+	/// List of changes to body temperature, used by disease symptoms like fever
 	var/list/body_temp_changes = list()
 
 	var/is_busy = FALSE //Used for random actions that take time. ex: curbstomping. We need to make sure we can only do one of these at a time.
@@ -209,3 +213,9 @@
 	/// Modify this via add_offsets and remove_offsets,
 	/// NOT directly (and definitely avoid modifying offsets directly)
 	VAR_PRIVATE/list/offsets
+
+	///How effectively this mob uses tools
+	var/tool_proficiency = 1
+
+	/// how many tiles can this mob reach with their hands? 1 tile is adjacent.
+	var/reach_length = 1

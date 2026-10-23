@@ -58,8 +58,8 @@
 	return picked?.name || "Nude"
 
 /proc/random_features(gender)
-	if(!GLOB.tails_list_human.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
+	if(!GLOB.tails_list_felinid.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/felinid, GLOB.tails_list_felinid)
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	if(!GLOB.snouts_list.len)
@@ -72,8 +72,6 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	if(!GLOB.spines_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
-	if(!GLOB.legs_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
 	if(!GLOB.lizard_markings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/lizard_markings, GLOB.lizard_markings_list)
 	if(!GLOB.wings_list.len)
@@ -133,7 +131,6 @@
 		"frills" = pick(GLOB.frills_list),
 		"spines" = pick(GLOB.spines_list),
 		"lizard_markings" = pick(GLOB.lizard_markings_list),
-		"legs" = "Normal Legs",
 		"moth_wings" = pick(GLOB.moth_wings_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
 		"moth_markings" = pick(GLOB.moth_markings_list),
@@ -570,6 +567,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			return "left foot"
 		if(BODY_ZONE_PRECISE_R_FOOT)
 			return "right foot"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "groin"
 		else
 			return zone
 
@@ -654,7 +653,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 /proc/get_brainmob(obj/target_item, finds_mmi = FALSE)
 	if(istype(target_item, /obj/item/bodypart/head))
 		var/obj/item/bodypart/head/head = target_item
-		return head.brainmob
+		var/obj/item/organ/brain/head_brain = locate(/obj/item/organ/brain) in head
+		return head_brain?.brainmob
 
 	else if(istype(target_item, /obj/item/organ/brain))
 		var/obj/item/organ/brain/brain = target_item

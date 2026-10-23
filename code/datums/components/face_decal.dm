@@ -40,9 +40,9 @@
 			return
 		bodypart_overlay = new()
 		bodypart_overlay.layers = layers
-		if(carbon_parent.bodytype & BODYTYPE_SNOUTED) //stupid, but external organ bodytypes are not stored on the limb
+		if(carbon_parent.bodyshape & BODYSHAPE_SNOUTED) //stupid, but external organ bodytypes are not stored on the limb
 			bodypart_overlay.icon_state = "[icon_state]_lizard"
-		else if(my_head.bodytype & BODYTYPE_MONKEY)
+		else if(my_head.bodyshape & BODYSHAPE_MONKEY)
 			bodypart_overlay.icon_state = "[icon_state]_monkey"
 		else
 			bodypart_overlay.icon_state = "[icon_state]_human"
@@ -113,6 +113,7 @@
 
 GLOBAL_LIST_INIT(splattable, zebra_typecacheof(list(
 	/mob/living/carbon/human = "human",
+	/mob/living/carbon/monkey = "monkey",
 	/mob/living/basic/pet/dog/corgi = "corgi",
 	/mob/living/silicon/ai = "ai",
 )))
@@ -132,7 +133,7 @@ GLOBAL_LIST_INIT(splattable, zebra_typecacheof(list(
 	src.mood_event_type = mood_event_type
 
 /datum/component/face_decal/splat/get_normal_overlay()
-	return mutable_appearance('icons/mob/effects/face_decal.dmi', "[icon_state]_[GLOB.splattable[type]]")
+	return mutable_appearance('icons/mob/effects/face_decal.dmi', "[icon_state]_[is_type_in_list(parent, GLOB.splattable, zebra = TRUE)]")
 
 /datum/component/face_decal/splat/RegisterWithParent()
 	. = ..()

@@ -36,11 +36,12 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
+	. = ..()
 	var/ore_multiplier_temp = 1
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		ore_multiplier_temp = 0.65 + (0.35 * B.rating)
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		ore_multiplier_temp += (0.25 * L.rating)
+	for(var/datum/stock_part/matter_bin/B in component_parts)
+		ore_multiplier_temp = 0.65 + (0.35 * B.tier)
+	for(var/datum/stock_part/micro_laser/L in component_parts)
+		ore_multiplier_temp += (0.25 * L.tier)
 	ore_multiplier = min(round(ore_multiplier_temp, 0.01), 3) // i dont want that stupid 0.05 in my text
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
@@ -170,7 +171,7 @@
 	else
 		unregister_input_turf() // someone just un-wrenched us, unregister the turf
 
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
+/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, list/modifiers)
 	if(default_unfasten_wrench(user, W))
 		return
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))

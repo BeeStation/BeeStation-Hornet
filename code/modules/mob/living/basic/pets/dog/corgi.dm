@@ -109,7 +109,7 @@
 			armorval += inventory_back.get_armor_rating(type)
 	return armorval * 0.5
 
-/mob/living/basic/pet/dog/corgi/attackby(obj/item/attacking_item, mob/user, params)
+/mob/living/basic/pet/dog/corgi/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/razor))
 		if(shaved)
 			to_chat(user, span_warning("You can't shave this corgi, [p_they()] has already been shaved!"))
@@ -292,7 +292,7 @@
 			possible_headwear += item
 	if(!length(possible_headwear))
 		for(var/obj/item/item in orange(1))
-			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && CanReach(item))
+			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && item.IsReachableBy(src))
 				possible_headwear += item
 	if(!length(possible_headwear))
 		return

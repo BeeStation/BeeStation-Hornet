@@ -19,5 +19,5 @@
 	var/ghost_name = "Astral Shade of [ghost.name]"
 	ghost.name = ghost_name
 	ghost.deadchat_name = ghost_name
-	ghost.add_filter("astral_projection", 1, outline_filter(size = 1, color = COLOR_BLOOD))
+	ghost.add_filter("astral_projection", 1, outline_filter(size = 1, color = BLOOD_COLOR_RED))
 	deactivate_power()

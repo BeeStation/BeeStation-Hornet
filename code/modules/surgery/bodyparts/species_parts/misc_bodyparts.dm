@@ -602,9 +602,39 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
+/obj/item/bodypart/arm/left/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
+	. = ..()
+	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/left/golem/durathread/clear_ownership(mob/living/carbon/old_owner)
+	. = ..()
+	UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
+
+/obj/item/bodypart/arm/left/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
+	SIGNAL_HANDLER
+	if(source.get_active_hand() != src || !iscarbon(target))
+		return
+	var/mob/living/carbon/carbon_target = target
+	carbon_target.apply_status_effect(/datum/status_effect/strandling)
+
 /obj/item/bodypart/arm/right/golem/durathread
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
+
+/obj/item/bodypart/arm/right/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
+	. = ..()
+	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/right/golem/durathread/clear_ownership(mob/living/carbon/old_owner)
+	. = ..()
+	UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
+
+/obj/item/bodypart/arm/right/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
+	SIGNAL_HANDLER
+	if(source.get_active_hand() != src || !iscarbon(target))
+		return
+	var/mob/living/carbon/carbon_target = target
+	carbon_target.apply_status_effect(/datum/status_effect/strandling)
 
 /obj/item/bodypart/leg/left/golem/durathread
 	limb_id = "d_golem"
@@ -827,7 +857,7 @@
 	icon_state = "blank"
 	layers = EXTERNAL_ADJACENT
 
-/datum/bodypart_overlay/simple/pumpkin_face/generate_icon_cache()
+/datum/bodypart_overlay/simple/pumpkin_face/generate_icon_cache(obj/item/bodypart/limb)
 	return list(icon_state)
 
 /obj/item/bodypart/head/pumpkin_man

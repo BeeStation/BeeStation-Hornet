@@ -24,6 +24,8 @@
 #define ORGAN_UNREMOVABLE (1<<8)
 /// Can't be seen by scanners, doesn't anger body purists
 #define ORGAN_HIDDEN (1<<9)
+/// Has the organ already been inserted inside someone
+#define ORGAN_VIRGIN (1<<10)
 /// This is an external organ, not an inner one. Used in several checks.
 #define ORGAN_EXTERNAL (1<<13)
 
@@ -41,6 +43,8 @@
 #define BODYPART_IMPLANTED (1<<2)
 /// Bodypart never displays as a husk
 #define BODYPART_UNHUSKABLE (1<<3)
+/// Bodypart has never been added to a mob
+#define BODYPART_VIRGIN (1<<4)
 
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()
@@ -60,6 +64,12 @@
 #define SURGERY_REQUIRE_LIMB (1<<3)
 ///Will allow the surgery to work only if there's a real (eg. not pseudopart) limb.
 #define SURGERY_REQUIRES_REAL_LIMB (1<<4)
+/**
+ * Instead of checking if the tool used is an actual surgery tool to avoid accidentally whacking patients with the wrong tool,
+ * it'll check if it has a defined tool behaviour instead. Useful for surgeries that use mechanical tools instead of medical ones,
+ * like hardware manipulation.
+ */
+#define SURGERY_CHECK_TOOL_BEHAVIOUR (1<<5)
 
 ///Return true if target is not in a valid body position for the surgery
 #define IS_IN_INVALID_SURGICAL_POSITION(target, surgery) ((surgery.surgery_flags & SURGERY_REQUIRE_RESTING) && (target.mobility_flags & MOBILITY_LIEDOWN && target.body_position != LYING_DOWN))

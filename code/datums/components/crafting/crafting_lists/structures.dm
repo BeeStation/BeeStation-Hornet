@@ -231,6 +231,39 @@
 	category = CAT_STRUCTURE
 	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
 
+/datum/crafting_recipe/hamster_wheel
+	name = "Hamster wheel"
+	result = /obj/machinery/power/port_gen/hamster_wheel
+	time = 10 SECONDS
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 3,
+		/obj/item/stack/rods = 6,
+		/obj/item/stock_parts/manipulator = 1
+	)
+	parts = list(
+		/obj/item/stock_parts/manipulator = 1
+	)
+	category = CAT_STRUCTURE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
+
+/datum/crafting_recipe/hamsterperson_wheel
+	name = "Hamsterperson wheel"
+	result = /obj/machinery/power/port_gen/hamsterperson_wheel
+	time = 20 SECONDS
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 20,
+		/obj/item/stack/sheet/iron = 20,
+		/obj/item/stack/rods = 12,
+		/obj/item/stock_parts/manipulator = 1
+	)
+	parts = list(
+		/obj/item/stock_parts/manipulator = 1
+	)
+	category = CAT_STRUCTURE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF
+
 /datum/crafting_recipe/noose
 	name = "Noose"
 	result = /obj/structure/chair/noose

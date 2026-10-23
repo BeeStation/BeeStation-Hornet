@@ -113,6 +113,7 @@
 	antag_datum = /datum/antagonist/heretic
 	weight = 7
 	points_cost = 30
+	minimum_players_required = 14
 
 /datum/dynamic_ruleset/midround/living/heretic/get_poll_icon()
 	return /obj/item/codex_cicatrix

@@ -16,18 +16,18 @@
 
 	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
 
-/obj/item/organ/spines/on_insert(mob/living/carbon/receiver, special)
+/obj/item/organ/spines/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	// If we have a tail, attempt to add a tail spines overlay
-	var/obj/item/organ/tail/our_tail = receiver?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	if(our_tail)
-		our_tail.try_insert_tail_spines(our_tail.get_bodypart_owner(receiver))
+	var/obj/item/organ/tail/our_tail = receiver.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(istype(our_tail))
+		our_tail.try_insert_tail_spines(our_tail.bodypart_owner)
 	return ..()
 
-/obj/item/organ/spines/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/spines/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	// If we have a tail, remove any tail spines overlay
-	var/obj/item/organ/tail/our_tail = organ_owner?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
-	if(our_tail)
-		our_tail.remove_tail_spines(our_tail.get_bodypart_owner(organ_owner))
+	var/obj/item/organ/tail/our_tail = organ_owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(istype(our_tail))
+		our_tail.remove_tail_spines(our_tail.bodypart_owner)
 	return ..()
 
 ///Bodypart overlay for spines
@@ -35,9 +35,15 @@
 	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
 	feature_key = "spines"
 	dyable = TRUE
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 
 /datum/bodypart_overlay/mutant/spines/get_global_feature_list()
 	return GLOB.spines_list
 
-/datum/bodypart_overlay/mutant/spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+/datum/bodypart_overlay/mutant/spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !jumpsuit_hidden(owner)
+
+/datum/bodypart_overlay/mutant/spines/set_dye_color(new_color, obj/item/organ/tail/organ)
+	var/obj/item/organ/tail/tail = organ?.owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	tail?.tail_spines_overlay?.set_dye_color(new_color, organ)
+	return ..()

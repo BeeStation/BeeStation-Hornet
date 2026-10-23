@@ -29,7 +29,12 @@
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("A swarmer shell has been created in [A.name].", 'sound/effects/bin_close.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
+		notify_ghosts(
+			"A swarmer shell has been created in [A.name].",
+			'sound/effects/bin_close.ogg',
+			source = src,
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 
 /obj/effect/mob_spawn/swarmer/attack_hand(mob/living/user)
 	. = ..()
@@ -37,7 +42,7 @@
 		return
 	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this. You could probably disable it if you had a screwdriver."))
 
-/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/living/user, params)
+/obj/effect/mob_spawn/swarmer/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && !user.combat_mode)
 		user.visible_message(span_warning("[usr.name] deactivates [src]."),
 			span_notice("After some fiddling, you find a way to disable [src]'s power source."),
@@ -529,6 +534,9 @@
 		new /obj/item/stack/sheet/iron(Tsec, 5)
 		for(var/obj/item/I in target.component_parts)
 			I.forceMove(Tsec)
+		for(var/datum/stock_part/stock_part in target.component_parts)
+			var/physical_object_type = stock_part.physical_object_type
+			new physical_object_type(Tsec)
 		var/obj/effect/temp_visual/swarmer/disintegration/N = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y

@@ -16,7 +16,7 @@
 
 /obj/item/mod/module/gps/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/gps/item, "MOD0", state = GLOB.deep_inventory_state, overlay_state = FALSE)
+	AddComponent(/datum/component/gps/item, "MOD0", state = GLOB.deep_inventory_state, working_overlay = FALSE, emp_overlay = FALSE)
 
 /obj/item/mod/module/gps/on_use()
 	attack_self(mod.wearer)
@@ -90,6 +90,9 @@
 /obj/item/mod/module/clamp/proc/check_crate_pickup(atom/movable/target)
 	if(length(stored_crates) >= max_crates)
 		balloon_alert(mod.wearer, "too many crates!")
+		return FALSE
+	if(istype(target.loc, /obj/structure/crate_shelf))
+		balloon_alert(mod.wearer, "crate is on a shelf!")
 		return FALSE
 	for(var/mob/living/mob in target.GetAllContents())
 		if(mob.mob_size < MOB_SIZE_HUMAN)

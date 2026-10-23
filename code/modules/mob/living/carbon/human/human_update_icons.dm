@@ -157,10 +157,10 @@ There are several things that need to be remembered:
 		var/icon_file
 		var/woman
 		//BEGIN SPECIES HANDLING
-		if((bodytype & BODYTYPE_DIGITIGRADE) && (uniform.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION))
+		if((bodyshape & BODYSHAPE_DIGITIGRADE) && (uniform.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION))
 			icon_file = DIGITIGRADE_UNIFORM_FILE
 		//Female sprites have lower priority than digitigrade sprites
-		else if(dna?.species.sexes && (bodytype & BODYTYPE_HUMANOID) && (dna.features["body_model"] == FEMALE) && !(uniform.female_sprite_flags & NO_FEMALE_UNIFORM))
+		else if(dna?.species.sexes && (bodyshape & BODYSHAPE_HUMANOID) && physique == FEMALE && !(uniform.female_sprite_flags & NO_FEMALE_UNIFORM))
 			woman = TRUE
 
 		if(!icon_exists(icon_file, RESOLVE_ICON_STATE(uniform)))
@@ -184,7 +184,7 @@ There are several things that need to be remembered:
 
 	apply_overlay(UNIFORM_LAYER)
 	update_mutant_bodyparts()
-	check_body_shape(BODYTYPE_DIGITIGRADE, ITEM_SLOT_ICLOTHING)
+	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_ICLOTHING)
 
 /mob/living/carbon/human/update_worn_id(update_obscured = TRUE)
 	remove_overlay(ID_LAYER)
@@ -393,7 +393,7 @@ There are several things that need to be remembered:
 		overlays_standing[SHOES_LAYER] = shoes_overlay
 
 	apply_overlay(SHOES_LAYER)
-	check_body_shape(BODYTYPE_DIGITIGRADE, ITEM_SLOT_FEET)
+	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_FEET)
 
 /mob/living/carbon/human/update_suit_storage(update_obscured = TRUE)
 	remove_overlay(SUIT_STORE_LAYER)
@@ -447,7 +447,7 @@ There are several things that need to be remembered:
 
 	apply_overlay(HEAD_LAYER)
 	update_mutant_bodyparts()
-	check_body_shape(BODYTYPE_SNOUTED, ITEM_SLOT_HEAD)
+	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_HEAD)
 
 /mob/living/carbon/human/update_worn_belt(update_obscured = TRUE)
 	remove_overlay(BELT_LAYER)
@@ -502,7 +502,7 @@ There are several things that need to be remembered:
 
 	apply_overlay(SUIT_LAYER)
 	update_mutant_bodyparts()
-	check_body_shape(BODYTYPE_DIGITIGRADE, ITEM_SLOT_OCLOTHING)
+	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_OCLOTHING)
 
 /mob/living/carbon/human/update_pockets()
 	if(client && hud_used)
@@ -554,7 +554,7 @@ There are several things that need to be remembered:
 
 	apply_overlay(FACEMASK_LAYER)
 	update_mutant_bodyparts() //e.g. upgate needed because mask now hides lizard snout
-	check_body_shape(BODYTYPE_SNOUTED, ITEM_SLOT_MASK)
+	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_MASK)
 
 /mob/living/carbon/human/update_worn_back(update_obscured = TRUE)
 	remove_overlay(BACK_LAYER)
@@ -883,7 +883,7 @@ generate/load female uniform sprites matching all previously decided variables
 	var/target_layer = CALCULATE_MOB_OVERLAY_LAYER(layer2use) + 0.0001
 
 	var/mob/living/carbon/wearer = loc
-	var/is_digi = istype(wearer) && (wearer.bodytype & BODYTYPE_DIGITIGRADE) && !wearer.is_digitigrade_squished()
+	var/is_digi = istype(wearer) && (wearer.bodyshape & BODYSHAPE_DIGITIGRADE) && !wearer.is_digitigrade_squished()
 
 	var/mutable_appearance/standing // this is the actual resulting MA
 	var/icon/building_icon // used to construct an icon across multiple procs before converting it to MA
@@ -1007,17 +1007,17 @@ generate/load female uniform sprites matching all previously decided variables
  *
  * return an integer, the number of limbs updated
  */
-/mob/living/carbon/human/proc/check_body_shape(check_shapes = BODYTYPE_DIGITIGRADE|BODYTYPE_SNOUTED, ignore_slots = NONE)
+/mob/living/carbon/human/proc/check_body_shape(check_shapes = BODYSHAPE_DIGITIGRADE|BODYSHAPE_SNOUTED, ignore_slots = NONE)
 	. = 0
-	if(!(bodytype & check_shapes))
+	if(!(bodyshape & check_shapes))
 		// optimization - none of our limbs or organs have the desired shape
 		return .
 
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		var/checked_bodyshape = limb.bodytype
+	for(var/obj/item/bodypart/limb as anything in get_bodyparts())
+		var/checked_bodyshape = limb.bodyshape
 		// accounts for stuff like snouts
 		for(var/obj/item/organ/organ in limb)
-			checked_bodyshape |= organ.external_bodytypes
+			checked_bodyshape |= organ.external_bodyshapes
 
 		// any limb needs to be updated, so stop here and do it
 		if(checked_bodyshape & check_shapes)
@@ -1028,8 +1028,8 @@ generate/load female uniform sprites matching all previously decided variables
 		return
 	// hardcoding this here until bodypart updating is more sane
 	// we need to update clothing items that may have been affected by bodyshape updates
-	if(check_shapes & BODYTYPE_DIGITIGRADE)
-		for(var/obj/item/thing as anything in get_equipped_items())
+	if(check_shapes & BODYSHAPE_DIGITIGRADE)
+		for(var/obj/item/thing as anything in get_equipped_items(INCLUDE_PROSTHETICS|INCLUDE_ABSTRACT))
 			if(thing.slot_flags & ignore_slots)
 				continue
 			if(thing.supports_variations_flags & DIGITIGRADE_VARIATIONS)

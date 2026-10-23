@@ -144,7 +144,7 @@
 		RemoveContents(living_target)
 		living_target.death(FALSE)
 		living_target.take_overall_damage(burn = 50)
-		living_target.become_husk("burn") // Digested bodies can be fixed with synthflesh.
+		living_target.become_husk(BURN) // Digested bodies can be fixed with synthflesh.
 		adjustHealth(-(living_target.maxHealth * 0.5))
 		to_chat(src, span_danger("You digest [span_name("[living_target]")], restoring some health"))
 		playsound(src, 'sound/effects/splat.ogg', vol = 50, vary = TRUE)

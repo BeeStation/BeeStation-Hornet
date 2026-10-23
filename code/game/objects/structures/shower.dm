@@ -28,7 +28,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
 	. = ..()
 	AddElement(/datum/element/simple_rotation)
 
-/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a shower...")
 		if(do_after(user, 4 SECONDS, target = src))
@@ -73,7 +73,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
 			var/turf/open/tile = loc
 			tile.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shower/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		to_chat(user, span_notice("The water temperature seems to be [current_temperature]."))
 	else

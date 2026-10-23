@@ -54,7 +54,7 @@
 		if(2)
 			if(prob(1) && iscarbon(M))
 				var/mob/living/carbon/C = M
-				C.vomit(5, TRUE, FALSE)
+				C.vomit(MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM | MOB_VOMIT_BLOOD, lost_nutrition = 5)
 		if(3, 4)
 			if(prob(10))
 				to_chat(M, span_notice("You feel blobby?"))

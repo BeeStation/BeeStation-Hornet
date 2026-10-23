@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(facial_hairstyles_male_list)	//stores only hair names
 GLOBAL_LIST_EMPTY(facial_hairstyles_female_list)	//stores only hair names
 GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/gradient indexed by name
 GLOBAL_LIST_EMPTY(facial_hair_gradients_list)
+GLOBAL_LIST_EMPTY(hair_masks_list)
 
 	//Underwear
 GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
@@ -33,10 +34,10 @@ GLOBAL_LIST_EMPTY(snouts_list)
 GLOBAL_LIST_EMPTY(horns_list)
 GLOBAL_LIST_EMPTY(frills_list)
 GLOBAL_LIST_EMPTY(spines_list)
-GLOBAL_LIST_EMPTY(legs_list)
+
 
 	//Mutant Human bits
-GLOBAL_LIST_EMPTY(tails_list_human)
+GLOBAL_LIST_EMPTY(tails_list_felinid)
 GLOBAL_LIST_EMPTY(tails_list_monkey)
 GLOBAL_LIST_EMPTY(ears_list)
 GLOBAL_LIST_EMPTY(wings_list)

@@ -69,17 +69,19 @@ GLOBAL_LIST_INIT(disposal_pipe_recipes, list(
 
 GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	"Transit Tubes" = list(
-		new /datum/pipe_info/transit("Straight Tube",				/obj/structure/c_transit_tube, PIPE_STRAIGHT),
-		new /datum/pipe_info/transit("Straight Tube with Crossing",	/obj/structure/c_transit_tube/crossing, PIPE_STRAIGHT),
-		new /datum/pipe_info/transit("Curved Tube",					/obj/structure/c_transit_tube/curved, PIPE_UNARY_FLIPPABLE),
-		new /datum/pipe_info/transit("Diagonal Tube",				/obj/structure/c_transit_tube/diagonal, PIPE_STRAIGHT),
-		new /datum/pipe_info/transit("Diagonal Tube with Crossing",	/obj/structure/c_transit_tube/diagonal/crossing, PIPE_STRAIGHT),
-		new /datum/pipe_info/transit("Junction",					/obj/structure/c_transit_tube/junction, PIPE_UNARY_FLIPPABLE),
+		new /datum/pipe_info/transit("Straight Tube", /obj/structure/c_transit_tube, PIPE_STRAIGHT),
+		new /datum/pipe_info/transit("Straight Tube with Crossing", /obj/structure/c_transit_tube/crossing, PIPE_STRAIGHT),
+		new /datum/pipe_info/transit("Curved Tube", /obj/structure/c_transit_tube/curved, PIPE_UNARY_FLIPPABLE),
+		new /datum/pipe_info/transit("Diagonal Tube", /obj/structure/c_transit_tube/diagonal, PIPE_STRAIGHT),
+		new /datum/pipe_info/transit("Diagonal Tube with Crossing", /obj/structure/c_transit_tube/diagonal/crossing, PIPE_STRAIGHT),
+		new /datum/pipe_info/transit("Junction", /obj/structure/c_transit_tube/junction, PIPE_UNARY_FLIPPABLE),
 	),
 	"Station Equipment" = list(
-		new /datum/pipe_info/transit("Through Tube Station",		/obj/structure/c_transit_tube/station, PIPE_STRAIGHT),
-		new /datum/pipe_info/transit("Terminus Tube Station", 		/obj/structure/c_transit_tube/station/reverse, PIPE_UNARY_FLIPPABLE),
-		new /datum/pipe_info/transit("Transit Tube Pod",			/obj/structure/c_transit_tube_pod, PIPE_ONEDIR),
+		new /datum/pipe_info/transit("Through Tube Station", /obj/structure/c_transit_tube/station, PIPE_STRAIGHT),
+		new /datum/pipe_info/transit("Terminus Tube Station", /obj/structure/c_transit_tube/station/reverse, PIPE_UNARY_FLIPPABLE),
+		new /datum/pipe_info/transit("Through Tube Dispenser Station", /obj/structure/c_transit_tube/station/dispenser, PIPE_STRAIGHT),
+		new /datum/pipe_info/transit("Terminus Tube Dispenser Station", /obj/structure/c_transit_tube/station/dispenser/reverse, PIPE_UNARY_FLIPPABLE),
+		new /datum/pipe_info/transit("Transit Tube Pod", /obj/structure/c_transit_tube_pod, PIPE_ONEDIR),
 	)
 ))
 
@@ -283,10 +285,6 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 		get_asset_datum(/datum/asset/spritesheet_batched/pipes),
 	)
 
-
-/obj/item/pipe_dispenser/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/item/pipe_dispenser/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -412,7 +410,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
 	return TRUE
 
-/obj/item/pipe_dispenser/pre_attack(atom/atom_to_attack, mob/user, params)
+/obj/item/pipe_dispenser/pre_attack(atom/atom_to_attack, mob/user, list/modifiers)
 	if(!ISADVANCEDTOOLUSER(user) || istype(atom_to_attack, /turf/open/space/transit))
 		return ..()
 
@@ -515,7 +513,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	if(mode & BUILD_MODE)
 		switch(category) //if we've gotten this var, the target is valid
 			if(ATMOS_CATEGORY) //Making pipes
-				if(!do_pipe_build(attack_target, user, params))
+				if(!do_pipe_build(attack_target, user))
 					return ..()
 				return TRUE
 
@@ -580,7 +578,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			else
 				return ..()
 
-/obj/item/pipe_dispenser/attackby(obj/item/item, mob/user, params)
+/obj/item/pipe_dispenser/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/rpd_upgrade))
 		install_upgrade(item, user)
 		return TRUE
@@ -613,7 +611,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	var/can_we_make_pipe = (isturf(target_of_attack) || is_type_in_typecache(target_of_attack, make_pipe_whitelist))
 	return can_we_make_pipe
 
-/obj/item/pipe_dispenser/proc/do_pipe_build(atom/atom_to_target, mob/user, params)
+/obj/item/pipe_dispenser/proc/do_pipe_build(atom/atom_to_target, mob/user)
 	//So that changing the menu settings doesn't affect the pipes already being built.
 	var/queued_pipe_type = recipe.id
 	var/queued_pipe_dir = p_dir

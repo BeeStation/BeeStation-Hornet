@@ -23,13 +23,10 @@
 	///The overlay for tail spines, if any
 	var/datum/bodypart_overlay/mutant/tail_spines/tail_spines_overlay
 
-/obj/item/organ/tail/on_insert(mob/living/carbon/receiver, special)
+/obj/item/organ/tail/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "tail_lost")
 	SEND_SIGNAL(receiver, COMSIG_CLEAR_MOOD_EVENT, "tail_balance_lost")
-
-	if(receiver.get_organ_slot(ORGAN_SLOT_EXTERNAL_SPINES))
-		try_insert_tail_spines(get_bodypart_owner(receiver))
 
 	if(!special) // if some admin wants to give someone tail moodles for tail shenanigans, they can spawn it and do it by hand
 		original_owner ||= WEAKREF(receiver)
@@ -44,10 +41,20 @@
 		else
 			SEND_SIGNAL(receiver, COMSIG_ADD_MOOD_EVENT, "tail_regained", /datum/mood_event/tail_regained_wrong)
 
+/obj/item/organ/tail/on_bodypart_insert(obj/item/bodypart/bodypart)
+	var/obj/item/organ/spines/our_spines = bodypart.owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_SPINES)
+	if(our_spines)
+		try_insert_tail_spines(bodypart)
+	return ..()
+
+/obj/item/organ/tail/on_bodypart_remove(obj/item/bodypart/bodypart)
+	remove_tail_spines(bodypart)
+	return ..()
+
 /// If the owner has spines and an appropriate overlay exists, add a tail spines overlay.
 /obj/item/organ/tail/proc/try_insert_tail_spines(obj/item/bodypart/bodypart)
 	// Don't insert another overlay if there already is one.
-	if(isnull(bodypart) || tail_spines_overlay)
+	if(tail_spines_overlay)
 		return
 	// If this tail doesn't have a valid set of tail spines, don't insert them
 	var/datum/sprite_accessory/tails/tail_sprite_datum = bodypart_overlay.sprite_datum
@@ -67,12 +74,10 @@
 /obj/item/organ/tail/proc/remove_tail_spines(obj/item/bodypart/bodypart)
 	if(!tail_spines_overlay)
 		return
-	bodypart?.remove_bodypart_overlay(tail_spines_overlay)
+	bodypart.remove_bodypart_overlay(tail_spines_overlay)
 	QDEL_NULL(tail_spines_overlay)
 
-/obj/item/organ/tail/on_remove(mob/living/carbon/organ_owner, special)
-	remove_tail_spines(get_bodypart_owner(organ_owner))
-
+/obj/item/organ/tail/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 
 	if(wag_flags & WAG_WAGGING)
@@ -140,7 +145,7 @@
 /datum/bodypart_overlay/mutant/tail/get_base_icon_state()
 	return "[wagging ? "wagging_" : ""][sprite_datum.icon_state]" //add the wagging tag if we be wagging
 
-/datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+/datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !jumpsuit_hidden(owner)
 
 /obj/item/organ/tail/cat
@@ -160,7 +165,7 @@
 	color_source = ORGAN_COLOR_HAIR
 
 /datum/bodypart_overlay/mutant/tail/cat/get_global_feature_list()
-	return GLOB.tails_list_human
+	return GLOB.tails_list_felinid
 
 /obj/item/organ/tail/monkey
 	name = "monkey tail"
@@ -190,6 +195,7 @@
 ///Lizard tail bodypart overlay datum
 /datum/bodypart_overlay/mutant/tail/lizard
 	feature_key = "tail_lizard"
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
 	return GLOB.tails_list_lizard
@@ -202,6 +208,7 @@
 /datum/bodypart_overlay/mutant/tail_spines
 	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
 	feature_key = "tailspines"
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 	///Spines wag when the tail does
 	var/wagging = FALSE
 	/// Key for tail spine states, depends on the shape of the tail. Defined in the tail sprite datum.
@@ -213,5 +220,8 @@
 /datum/bodypart_overlay/mutant/tail_spines/get_base_icon_state()
 	return (!isnull(tail_spine_key) ? "[tail_spine_key]_" : "") + (wagging ? "wagging_" : "") + sprite_datum.icon_state // Select the wagging state if appropriate
 
-/datum/bodypart_overlay/mutant/tail_spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+/datum/bodypart_overlay/mutant/tail_spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !jumpsuit_hidden(owner)
+
+/datum/bodypart_overlay/mutant/tail_spines/set_dye_color(new_color, obj/item/organ/organ)
+	dye_color = new_color //no update_body_parts() call, tail/set_dye_color will do it.
