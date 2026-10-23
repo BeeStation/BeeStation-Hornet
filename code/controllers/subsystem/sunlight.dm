@@ -40,17 +40,15 @@ SUBSYSTEM_DEF(sunlight)
 			//randomize the next sol timer
 			time_til_cycle = round(rand((TIME_VAMPIRE_NIGHT-TIME_VAMPIRE_SOL_DELAY), (TIME_VAMPIRE_NIGHT+TIME_VAMPIRE_SOL_DELAY)), 1)
 			if(send_messages)
-				notify_ghosts(
-					"VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.)",
-					notify_flags = NOTIFY_CATEGORY_NOFLASH
-					)
+				notify_ghosts("VAMPIRE NOTICE: Daylight Ended. Resetting to Night (Lasts for [time_til_cycle / 60] minutes.)", notify_flags = NOTIFY_CATEGORY_NOFLASH)
 			GLOB.news_network.submit_article(
-				"<h1>IWA Status Update - Solar Flare Passed</h1><br><br>\
-				This is an update from the Interstellar Weather Authority. The latest Class I solar flare has now fully passed Station [station_name()]'s orbital path.<br><br>\
+				"This is an update from the Interstellar Weather Authority. The latest Class I solar flare has now fully passed Station [station_name()]'s orbital path.<br><br>\
 				No anomalies or disruptions have been detected.<br><br>\
 				- IWA Monitoring Admin",
 				"Interstellar Weather Authority (IWA)",
-				"AuriNet WeatherCast"
+				"AuriNet WeatherCast",
+				null,
+				headline = "IWA Status Update - Solar Flare Passed",
 			)
 			SEND_SIGNAL(src, COMSIG_SOL_END)
 			warn_daylight(
@@ -63,23 +61,23 @@ SUBSYSTEM_DEF(sunlight)
 	switch(time_til_cycle)
 		if(TIME_VAMPIRE_DAY_WARN_1)
 			SEND_SIGNAL(src, COMSIG_SOL_NEAR_START)
-			GLOB.news_network.submit_article("<h1>IWA Advisory Bulletin - Minor Solar Activity Detected</h1><br><br>\
-												This is a routine advisory from the Interstellar Weather Authority. A <b>Class I solar flare</b> has been observed emanating from Auri Geminae.<br><br>\
-												<b>Projected impact on Station [station_name()] in approximately [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes.</b><br><br>\
-												No shielding protocols are required. Minor fluctuations in long-range sensors and comms may occur. Crew are advised to remain alert and report any anomalies to station operations.<br><br>\
-												- IWA Monitoring Admin",
-												"Interstellar Weather Authority (IWA)",
-												"AuriNet WeatherCast")
+			GLOB.news_network.submit_article(
+				"This is a routine advisory from the Interstellar Weather Authority. A <b>Class I solar flare</b> has been observed emanating from Auri Geminae.<br><br>\
+				<b>Projected impact on Station [station_name()] in approximately [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes.</b><br><br>\
+				No shielding protocols are required. Minor fluctuations in long-range sensors and comms may occur. Crew are advised to remain alert and report any anomalies to station operations.<br><br>\
+				- IWA Monitoring Admin",
+				"Interstellar Weather Authority (IWA)",
+				"AuriNet WeatherCast",
+				null,
+				headline = "IWA Advisory Bulletin - Minor Solar Activity Detected",
+			)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_FIRST_WARNING,
 				vampire_warning_message = span_danger("Solar Flares will bombard the station with dangerous UV radiation in [TIME_VAMPIRE_DAY_WARN_1 / 60] minutes. <b>Prepare to seek cover in a coffin or closet.</b>")
 			)
 		if(TIME_VAMPIRE_DAY_WARN_2)
 			if(send_messages)
-				notify_ghosts(
-					"VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_WARN_2] seconds.",
-					notify_flags = NOTIFY_CATEGORY_NOFLASH
-				)
+				notify_ghosts("VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_WARN_2] seconds.", notify_flags = NOTIFY_CATEGORY_NOFLASH)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
 				vampire_warning_message = span_dangerbold("Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_WARN_2] seconds to find cover!"),
@@ -95,10 +93,7 @@ SUBSYSTEM_DEF(sunlight)
 			//set the timer to countdown daytime now.
 			time_til_cycle = TIME_VAMPIRE_DAY
 			if(send_messages)
-				notify_ghosts(
-						"VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)",
-						notify_flags = NOTIFY_CATEGORY_NOFLASH
-					)
+				notify_ghosts("VAMPIRE NOTICE: Daylight Beginning (Lasts for [TIME_VAMPIRE_DAY / 60] minutes.)", notify_flags = NOTIFY_CATEGORY_NOFLASH)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
 				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minute\s!"),
