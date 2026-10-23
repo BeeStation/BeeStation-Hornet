@@ -16,7 +16,6 @@
 	outfit = /datum/outfit/job/deputy
 
 	base_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/security,

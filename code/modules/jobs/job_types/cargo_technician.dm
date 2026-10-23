@@ -18,13 +18,6 @@
 		ACCESS_MAILSORTING,
 		ACCESS_MINERAL_STOREROOM
 	)
-	extra_access = list(
-		ACCESS_QM,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		ACCESS_MECH_MINING,
-		ACCESS_GATEWAY
-	)
 
 	departments_list = list(
 		/datum/department_group/cargo,
@@ -43,16 +36,6 @@
 	biohazard = 25
 
 	lightup_areas = list(/area/station/cargo/qm, /area/station/cargo/qm_bedroom)
-
-/datum/job/cargo_technician/get_access()
-	. = ..()
-	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_GATEWAY
-	LOWPOP_GRANT_ACCESS(JOB_NAME_QUARTERMASTER, ACCESS_QM)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_QUARTERMASTER, ACCESS_VAULT)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_SHAFTMINER, ACCESS_GATEWAY)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_SHAFTMINER, ACCESS_MINING)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_SHAFTMINER, ACCESS_MINING_STATION)
 
 /datum/outfit/job/cargo_technician
 	name = JOB_NAME_CARGOTECHNICIAN

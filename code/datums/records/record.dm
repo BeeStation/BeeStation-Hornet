@@ -68,6 +68,10 @@
 /datum/record/crew
 	/// Unique ID generated that is used to fetch lock record
 	var/lock_ref
+	/// Title of the crewmember's own job
+	var/job_title
+	/// Title of the head job this crewmember is acting as, if any
+	var/acting_job_title
 	/// List of medical notes
 	var/list/medical_notes = list()
 	/// Names of major disabilities

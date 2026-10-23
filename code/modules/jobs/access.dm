@@ -56,6 +56,8 @@
 			return TRUE
 
 /obj/item/proc/GetAccess()
+	RETURN_TYPE(/list)
+	SHOULD_NOT_SLEEP(TRUE)
 	return list()
 
 /obj/item/proc/GetID()
@@ -297,6 +299,12 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 
 /proc/get_access_desc(access_code)
 	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
+
+/proc/get_access_descs(list/accesses)
+	var/list/descriptions = list()
+	for(var/access in accesses)
+		descriptions += get_access_desc(access)
+	return descriptions
 
 
 /proc/get_all_centcom_jobs()

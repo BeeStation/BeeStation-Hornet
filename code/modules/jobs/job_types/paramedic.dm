@@ -22,7 +22,6 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_AUX_BASE
 	)
-	extra_access = list(ACCESS_SURGERY, ACCESS_MINERAL_STOREROOM, ACCESS_VIROLOGY)
 
 	departments_list = list(
 		/datum/department_group/medical,
