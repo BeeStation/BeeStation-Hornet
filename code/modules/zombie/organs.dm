@@ -29,20 +29,18 @@
 	// keep stealthy for now, revisit later
 	return ""
 
-/obj/item/organ/zombie_infection/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/zombie_infection/on_mob_insert(mob/living/carbon/M, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return .
 	START_PROCESSING(SSobj, src)
 	// Find all antag datums and mark romerol objectives as complete
 	for (var/datum/antagonist/antagonist as anything in GLOB.active_antagonists)
 		for (var/datum/objective/romerol/objective in antagonist.objectives)
 			objective.released = TRUE
 
-/obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/zombie_infection/on_mob_remove(mob/living/carbon/M, special = 0, movement_flags)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
-	if(iszombie(M) && old_species && !QDELETED(M) && !special)
+	if(iszombie(M) && old_species && !special)
 		M.set_species(old_species)
 	if(timer_id)
 		deltimer(timer_id)
