@@ -1,0 +1,11 @@
+author: Isaacnml
+delete-after: true
+changes:
+  - bugfix: You can grab cleanbots/larrys again
+  - bugfix: Mechs will throw you out if you reach softcrit
+  - bugfix: You can milk pete/cows again
+  - bugfix: You can place plasmaglass into RPEDs
+  - bugfix: You can place patches into pill bottles once again
+  - bugfix: Slimes wont show weird messages before latching on
+  - bugfix: Xenobio console can place potions into slimes again
+  - bugfix: N2O wont put you to sleep if you have sleep immunity
