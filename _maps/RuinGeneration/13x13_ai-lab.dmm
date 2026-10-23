@@ -164,7 +164,7 @@
 /area/ruin/powered)
 "vv" = (
 /obj/structure/ai_core{
-	name = "\broken AI core"
+	name = "broken AI core"
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/powered)

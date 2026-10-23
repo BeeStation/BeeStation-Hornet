@@ -5,5 +5,9 @@
 #define COMSIG_ORGAN_REMOVED "organ_removed"
 /// Called when an organ is being regenerated with a new copy in species regenerate_organs (obj/item/organ/replacement)
 #define COMSIG_ORGAN_BEING_REPLACED "organ_being_replaced"
+/// Called when an organ gets surgically removed (mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
+#define COMSIG_ORGAN_SURGICALLY_REMOVED "organ_surgically_removed"
+/// Called when an organ gets surgically removed (mob/living/user, mob/living/carbon/new_owner, target_zone, obj/item/tool)
+#define COMSIG_ORGAN_SURGICALLY_INSERTED "organ_surgically_inserted"
 /// Called when a battery organ adjusts it's charge (/obj/item/organ/stomach/battery/adjusted_battery, amount)
 #define COMSIG_ORGAN_BATTERY_CHARGED "organ_battery_charged"
