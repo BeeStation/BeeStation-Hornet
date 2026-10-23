@@ -117,6 +117,7 @@
 	main_feature_name = "Chassis Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "ipc_chassis"
+	priority = PREFERENCE_PRIORITY_BODYPARTS
 
 /datum/preference/choiced/ipc_chassis/init_possible_values()
 	return assoc_to_keys_features(GLOB.ipc_chassis_list)
@@ -143,3 +144,6 @@
 
 /datum/preference/choiced/ipc_chassis/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ipc_chassis"] = value
+	if(isipc(target))
+		var/datum/species/ipc/ipc_species = target.dna.species
+		ipc_species.apply_chassis(target)

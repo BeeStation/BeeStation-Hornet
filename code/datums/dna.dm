@@ -565,7 +565,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		else
 			stored_dna.species = mrace //not calling any species update procs since we're a brain, not a monkey/human
 
-/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE)
 	if(QDELETED(src))
 		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
 	if(mrace && has_dna())
@@ -579,17 +579,17 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		death_sound = new_race.deathsound
 
 		if (dna.species.properly_gained)
-			dna.species.on_species_loss(src, new_race, pref_load)
+			dna.species.on_species_loss(src, new_race)
 
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
-		dna.species.on_species_gain(src, old_species, pref_load)
+		dna.species.on_species_gain(src, old_species)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 		if(icon_update)
 			update_mutations_overlay()// no lizard with human hulk overlay please.
 
-/mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
 	..()
 	if(icon_update)
 		update_body(is_creating = TRUE)
@@ -761,6 +761,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(organ_eyes)
 		organ_eyes.eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
+
+	//for(var/obj/item/organ/organ in organs)
+	//	organ.mutate_feature(dna.unique_features, src)
 
 	if(icon_update)
 		update_body(is_creating = mutcolor_update)

@@ -1,12 +1,10 @@
 CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
-/mob/living/carbon
-	blood_volume = BLOOD_VOLUME_NORMAL
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	create_carbon_reagents()
-	update_body_parts() //to update the carbon's new bodyparts appearance
+	update_body(is_creating = TRUE) //to update the carbon's new bodyparts appearance
+	living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
@@ -16,6 +14,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
+
+	living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	QDEL_LIST(hand_bodyparts)
 	QDEL_LIST(internal_organs)
@@ -897,6 +897,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				continue
 
 			target_organ.apply_organ_damage(excess_healing * -1, required_organ_flag = ORGAN_ORGANIC) //1 excess = 5 organ damage healed
+
 	if(HAS_TRAIT(src, TRAIT_DIES_NO_NUTRITION))
 		if(nutrition <= 0)
 			apply_status_effect(mob_biotypes & MOB_ROBOTIC ? /datum/status_effect/imminent_death/robotic : /datum/status_effect/imminent_death)
@@ -984,7 +985,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Creates body parts for this carbon completely from scratch.
 /// Optionally takes a map of body zones to what type to instantiate instead of them.
 /mob/living/carbon/proc/create_bodyparts(list/overrides)
-	var/list/bodyparts_paths = bodyparts.Copy()
+	var/list/bodyparts_paths = overrides?.Copy() || bodyparts.Copy()
 	bodyparts = list()
 	for(var/obj/item/bodypart/bodypart_path as anything in bodyparts_paths)
 		var/real_body_part_path = overrides?[initial(bodypart_path.body_zone)] || bodypart_path
@@ -1003,12 +1004,17 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/on_lost_hand(obj/item/bodypart/arm/lost_hand)
 	hand_bodyparts[lost_hand.held_index] = null
 
-///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/attach_limb()].
-/mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
+///Proc to hook behavior on bodypart additions. Do not directly call. You're looking for [/obj/item/bodypart/proc/try_attach_limb()].
+/mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart, special, lazy)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
+	new_bodypart.on_adding(src)
 	bodyparts += new_bodypart
-	new_bodypart.set_owner(src)
+	new_bodypart.update_owner(src)
+
+	// Tell the organs in the bodyparts that we are in a mob again
+	for(var/obj/item/organ/organ in new_bodypart)
+		organ.mob_insert(src)
 
 	switch(new_bodypart.body_part)
 		if(LEG_LEFT, LEG_RIGHT)
@@ -1023,10 +1029,17 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	synchronize_bodytypes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
-/mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
+/mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart, special)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	old_bodypart.on_removal()
+	if(special)
+		for(var/obj/item/organ/organ in old_bodypart)
+			organ.bodypart_remove(limb_owner = src, movement_flags = NO_ID_TRANSFER)
+	else
+		for(var/obj/item/organ/organ in old_bodypart)
+			organ.mob_remove(src, special)
+
+	old_bodypart.on_removal(src)
 	bodyparts -= old_bodypart
 
 	switch(old_bodypart.body_part)
@@ -1413,3 +1426,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(gloves?.max_heat_protection_temperature >= BURNING_ITEM_MINIMUM_TEMPERATURE)
 		return TRUE
 	return FALSE
+
+/mob/living/carbon/dropItemToGround(obj/item/item, force = FALSE, silent = FALSE, invdrop = TRUE)
+	if(item && ((item in internal_organs) || (item in bodyparts))) //let's not do this, aight?
+		return FALSE
+	return ..()

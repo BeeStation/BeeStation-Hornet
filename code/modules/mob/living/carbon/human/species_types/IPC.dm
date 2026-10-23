@@ -282,13 +282,18 @@
 
 /datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
+	apply_chassis(C)
 
-	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
+/// Restyles the target's limbs to match their "ipc_chassis" feature
+/datum/species/ipc/proc/apply_chassis(mob/living/carbon/C)
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]] || GLOB.ipc_chassis_list[mutant_bodyparts["ipc_chassis"]]
 
-	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
-		BP.species_color = C.dna?.features["mcolor"]
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts)
+		if((BP.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (BP.bodypart_flags & BODYPART_IMPLANTED))
+			continue
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
-		BP.change_appearance(icon = BP.icon_static, id = chassis_of_choice.limbs_id, greyscale = !!chassis_of_choice.color_src)
+		BP.limb_id = chassis_of_choice.limbs_id
+		BP.should_draw_greyscale = !!chassis_of_choice.color_src
 
 /datum/species/ipc/get_species_description()
 	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \

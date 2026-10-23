@@ -36,14 +36,14 @@
 	handle_charge(owner, delta_time, times_fired)
 	announce_charge_transitions(owner)
 
-/obj/item/organ/stomach/electrical/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/stomach/electrical/on_mob_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
 	RegisterSignal(organ_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	RegisterSignal(organ_owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 	last_charge = cell.charge
 	update_powered_organs(organ_owner)
 
-/obj/item/organ/stomach/electrical/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/stomach/electrical/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	UnregisterSignal(organ_owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
 	UnregisterSignal(organ_owner, COMSIG_LIVING_ELECTROCUTE_ACT)
