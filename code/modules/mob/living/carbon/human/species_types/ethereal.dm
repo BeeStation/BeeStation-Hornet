@@ -59,6 +59,10 @@
 		COMSIG_ATOM_SHOULD_EMAG,
 		COMSIG_ATOM_ON_EMAG,
 	))
+	//Is this physiology setter bad and hacky?
+	//Yes. But ethereals suck ass and its better than the alternative of someone
+	//getting stuck with double fucking burn damage when swapping to another species.
+	former_ethereal.physiology.brute_mod = 1
 	return ..()
 
 /datum/species/ethereal/proc/should_emag(mob/living/carbon/human/H, mob/user)

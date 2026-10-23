@@ -8,7 +8,7 @@
 	hud_type = /datum/hud/human
 	pressure_resistance = 25
 	buckle_lying = 0
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = EMISSIVE_BLOCK_NONE
@@ -19,19 +19,18 @@
 	///Hair color
 	var/hair_color = COLOR_BLACK
 	///Hair style
-	var/hair_style = "Bald"
+	var/hairstyle = "Bald"
 
 	///Colours used for hair and facial hair gradients.
-	var/list/gradient_color = list(
+	var/list/grad_color = list(
 		COLOR_BLACK, //Hair Gradient Color
 		COLOR_BLACK, //Facial Hair Gradient Color
 	)
 	///Styles used for hair and facial hair gradients.
-	var/list/gradient_style = list(
+	var/list/grad_style = list(
 		"None", //Hair Gradient Style
 		"None", //Facial Hair Gradient Style
 	)
-
 	///Facial hair colour
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair style
@@ -51,6 +50,9 @@
 	var/lip_color = COLOR_WHITE
 
 	var/age = 30 //Player's age
+
+	/// Which body type to use
+	var/physique = MALE
 
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
 	var/underwear = "Nude" //Which underwear the player wants

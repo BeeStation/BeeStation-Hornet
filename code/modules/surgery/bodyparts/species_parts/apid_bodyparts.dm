@@ -4,6 +4,7 @@
 	limb_id = SPECIES_APID
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
+	head_flags = HEAD_LIPS|HEAD_EYEHOLES|HEAD_DEBRAIN
 	brute_modifier = 0.8
 	head_flags = HEAD_LIPS|HEAD_EYEHOLES|HEAD_DEBRAIN
 

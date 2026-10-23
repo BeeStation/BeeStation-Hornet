@@ -14,7 +14,7 @@
 	friendly_verb_continuous = "nudges"
 	friendly_verb_simple = "nudge"
 	held_state = "cardinal"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	speak = list("Chirp.","Chirp?","Squawk.","Squawk!")
 	speak_emote = list("Chirps")
 	speak_language = /datum/language/metalanguage

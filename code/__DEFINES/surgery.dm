@@ -26,6 +26,8 @@
 #define ORGAN_HIDDEN (1<<9)
 /// Has the organ already been inserted inside someone
 #define ORGAN_VIRGIN (1<<10)
+/// This is an external organ, not an inner one. Used in several checks.
+#define ORGAN_EXTERNAL (1<<13)
 
 /// Helper to figure out if a limb is organic
 #define IS_ORGANIC_LIMB(limb) (limb.bodytype & BODYTYPE_ORGANIC)
@@ -45,6 +47,24 @@
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()
 #define BP_BLOCK_CHANGE_SPECIES (1<<0)
+
+// Flags for the head_flags var on /obj/item/bodypart/head
+/// Head can have hair
+#define HEAD_HAIR (1<<0)
+/// Head can have facial hair
+#define HEAD_FACIAL_HAIR (1<<1)
+/// Head can have lips
+#define HEAD_LIPS (1<<2)
+/// Head can have eye sprites
+#define HEAD_EYESPRITES (1<<3)
+/// Head will have colored eye sprites
+#define HEAD_EYECOLOR (1<<4)
+/// Head can have eyeholes when missing eyes
+#define HEAD_EYEHOLES (1<<5)
+/// Head can have debrain overlay
+#define HEAD_DEBRAIN (1<<6)
+/// All head flags, default for most heads
+#define HEAD_ALL_FEATURES (HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN)
 
 /// When the surgery step fails :(
 #define SURGERY_STEP_FAIL -1
@@ -70,20 +90,9 @@
 ///Return true if target is not in a valid body position for the surgery
 #define IS_IN_INVALID_SURGICAL_POSITION(target, surgery) ((surgery.surgery_flags & SURGERY_REQUIRE_RESTING) && (target.mobility_flags & MOBILITY_LIEDOWN && target.body_position != LYING_DOWN))
 
-// Flags for the head_flags var on /obj/item/bodypart/head
-/// Head can have hair
-#define HEAD_HAIR (1<<0)
-/// Head can have facial hair
-#define HEAD_FACIAL_HAIR (1<<1)
-/// Head can have lips
-#define HEAD_LIPS (1<<2)
-/// Head can have eye sprites
-#define HEAD_EYESPRITES (1<<3)
-/// Head will have colored eye sprites
-#define HEAD_EYECOLOR (1<<4)
-/// Head can have eyeholes when missing eyes
-#define HEAD_EYEHOLES (1<<5)
-/// Head can have debrain overlay
-#define HEAD_DEBRAIN (1<<6)
-/// All head flags, default for most heads
-#define HEAD_ALL_FEATURES (HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN)
+#define BODYZONE_STYLE_DEFAULT 0
+#define BODYZONE_STYLE_MEDICAL 1
+
+#define BODYZONE_CONTEXT_COMBAT 0
+#define BODYZONE_CONTEXT_INJECTION 1
+#define BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING 2

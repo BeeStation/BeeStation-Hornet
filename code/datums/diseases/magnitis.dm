@@ -10,7 +10,7 @@
 	spreading_modifier = 0.75
 	desc = "This disease disrupts the magnetic field of your body, making it act as if a powerful magnet. Injections of iron help stabilize the field."
 	danger = DISEASE_MEDIUM
-	infectable_biotypes = MOB_ORGANIC | MOB_ROBOTIC
+	infectable_biotypes = MOB_ORGANIC|MOB_ROBOTIC
 	process_dead = TRUE
 
 

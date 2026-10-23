@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	var/mob/living/carbon/human/human = source
 	var/obj/item/bodypart/bodypart = human.get_bodypart(BODY_ZONE_CHEST)
-	if(!human.w_uniform && HAS_TRAIT(human, TRAIT_NO_JUMPSUIT) && (!bodypart || IS_ORGANIC_LIMB(bodypart)))
+	if(!human.w_uniform && !HAS_TRAIT(human, TRAIT_NO_JUMPSUIT) && (!bodypart || IS_ORGANIC_LIMB(bodypart)))
 		return TRUE
 
 /datum/strippable_item/mob_item_slot/needs_jumpsuit/id

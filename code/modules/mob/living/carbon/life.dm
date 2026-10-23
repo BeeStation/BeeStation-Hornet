@@ -6,7 +6,7 @@
 		damageoverlaytemp = 0
 		update_damage_hud()
 
-	if(IS_IN_STASIS(src))
+	if(HAS_TRAIT(src, TRAIT_STASIS))
 		. = ..()
 	else
 		//Reagent processing needs to come before breathing, to prevent edge cases.
@@ -287,10 +287,10 @@
 	var/force_heal = 0
 	//Find how many bodyparts we have with stamina damage
 	if(stam_regen)
-		for(var/obj/item/bodypart/BP as anything in bodyparts)
-			if(BP.stamina_dam >= DAMAGE_PRECISION)
+		for(var/obj/item/bodypart/limb as anything in bodyparts)
+			if(limb.stamina_dam >= DAMAGE_PRECISION)
 				bodyparts_with_stam++
-				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
+				total_stamina_loss += limb.stamina_dam * limb.stam_damage_coeff
 		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
 		force_heal = max(0, total_stamina_loss - 120) / max(bodyparts_with_stam, 1)
 	//Increase damage the more stam damage
@@ -299,9 +299,9 @@
 	//How well fed we are scales natural recovery. Never touch forced stamcrit however
 	var/nutrition_coeff = bodyparts_with_stam ? get_stamina_nutrition_coeff() : 1
 	//Heal bodypart stamina damage
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		if(BP.needs_processing)
-			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier * nutrition_coeff) / max(bodyparts_with_stam, 1))))
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		if(limb.needs_processing)
+			. |= limb.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier * nutrition_coeff) / max(bodyparts_with_stam, 1))))
 
 /**
  * Multiplier on natural stamina regeneration from how well fed we are
@@ -316,9 +316,9 @@
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)
 	if(stat == DEAD)
-		if(reagents && reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
+		if(reagents && (reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1) || reagents.has_reagent(/datum/reagent/cryostylane))) // No organ decay if the body contains formaldehyde.
 			return
-		for(var/obj/item/organ/organ in internal_organs)
+		for(var/obj/item/organ/organ in organs)
 			// On-death is where organ decay is handled
 			if(organ?.owner) // organ + owner can be null due to reagent metabolization causing organ shuffling
 				organ.on_death(delta_time)
@@ -328,10 +328,10 @@
 		return
 
 	// NOTE: organs_slot is sorted by GLOB.organ_process_order on insertion
-	for(var/slot in internal_organs_slot)
+	for(var/slot in organs_slot)
 		// We don't use get_organ_slot here because we know we have the organ we want, since we're iterating the list containing em already
 		// This code is hot enough that it's just not worth the time
-		var/obj/item/organ/organ = internal_organs_slot[slot]
+		var/obj/item/organ/organ = organs_slot[slot]
 		if(organ?.owner) // This exist mostly because reagent metabolization can cause organ reshuffling
 			organ.on_life(delta_time, times_fired)
 

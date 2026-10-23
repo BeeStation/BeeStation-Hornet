@@ -8,7 +8,7 @@
 	layer = ABOVE_MOB_LAYER
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
-	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE|ORGAN_VIRGIN
+	organ_flags = ORGAN_ORGANIC | ORGAN_VITAL
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
 	attack_verb_simple = list("attack", "slap", "whack")
 
@@ -61,6 +61,15 @@
 	organ_traits.Remove(variant_traits_removed)
 	if(variant_traits_added)
 		organ_traits |= variant_traits_added
+
+/*
+/obj/item/organ/brain/examine()
+	. = ..()
+	if(brain_size < 1)
+		. += span_notice("It is a bit on the smaller side...")
+	if(brain_size > 1)
+		. += span_notice("It is bigger than average...")
+*/
 
 /obj/item/organ/brain/on_mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
@@ -254,16 +263,6 @@
 		owner.mind.set_current(null)
 	return ..()
 
-// We really don't want people eating brains unless they're zombies.
-/obj/item/organ/brain/pre_eat(eater, feeder)
-	if(!iszombie(eater))
-		return FALSE
-	return TRUE
-
-// Ditto for composting
-/obj/item/organ/brain/pre_compost(user)
-	return FALSE
-
 /obj/item/organ/brain/on_life(delta_time, times_fired)
 	SHOULD_CALL_PARENT(FALSE)
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
@@ -367,10 +366,10 @@
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
+	organ_flags = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
-	organ_flags = ORGAN_ROBOTIC
 	base_icon_state = "posibrain"
 	brain_dna = FALSE // we do not store dna
 	text_soul_but_damaged = "The S.O.U.L. light is green, but it is blinking unsteadily... You may be able to repair it with a <b>multitool</b>."

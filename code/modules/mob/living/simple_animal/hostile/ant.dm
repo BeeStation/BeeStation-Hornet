@@ -15,7 +15,7 @@
 	gender = PLURAL // We are Ven-ant
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC | MOB_BUG
+	mob_biotypes = MOB_ORGANIC|MOB_BUG
 	minbodytemp = 200
 	maxbodytemp = 400
 	hardattacks = TRUE

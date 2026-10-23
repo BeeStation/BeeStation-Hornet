@@ -7,7 +7,7 @@
 	relevant_mutant_bodypart = "diona_leaves"
 
 /datum/preference/choiced/diona_leaves/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_leaves_list)
+	return assoc_to_keys_features(SSaccessories.diona_leaves_list)
 
 /datum/preference/choiced/diona_leaves/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -24,7 +24,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_leaves_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_leaves_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -54,7 +54,7 @@
 	relevant_mutant_bodypart = "diona_thorns"
 
 /datum/preference/choiced/diona_thorns/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_thorns_list)
+	return assoc_to_keys_features(SSaccessories.diona_thorns_list)
 
 /datum/preference/choiced/diona_thorns/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -67,7 +67,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_thorns_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_thorns_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -97,7 +97,7 @@
 	relevant_mutant_bodypart = "diona_flowers"
 
 /datum/preference/choiced/diona_flowers/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_flowers_list)
+	return assoc_to_keys_features(SSaccessories.diona_flowers_list)
 
 /datum/preference/choiced/diona_flowers/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -110,7 +110,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_flowers_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_flowers_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -140,7 +140,7 @@
 	relevant_mutant_bodypart = "diona_moss"
 
 /datum/preference/choiced/diona_moss/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_moss_list)
+	return assoc_to_keys_features(SSaccessories.diona_moss_list)
 
 /datum/preference/choiced/diona_moss/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -148,7 +148,7 @@
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_CHEST]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_moss_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_moss_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -178,7 +178,7 @@
 	relevant_mutant_bodypart = "diona_mushroom"
 
 /datum/preference/choiced/diona_mushroom/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_mushroom_list)
+	return assoc_to_keys_features(SSaccessories.diona_mushroom_list)
 
 /datum/preference/choiced/diona_mushroom/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -186,7 +186,7 @@
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_HEAD]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_mushroom_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_mushroom_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -216,7 +216,7 @@
 	relevant_mutant_bodypart = "diona_antennae"
 
 /datum/preference/choiced/diona_antennae/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_antennae_list)
+	return assoc_to_keys_features(SSaccessories.diona_antennae_list)
 
 /datum/preference/choiced/diona_antennae/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -224,7 +224,7 @@
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_HEAD]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_antennae_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_antennae_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -254,10 +254,10 @@
 	relevant_mutant_bodypart = "diona_eyes"
 
 /datum/preference/choiced/diona_eyes/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_eyes_list)
+	return assoc_to_keys_features(SSaccessories.diona_eyes_list)
 
 /datum/preference/choiced/diona_eyes/icon_for(value)
-	var/datum/sprite_accessory/markings = GLOB.diona_eyes_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_eyes_list[value]
 	var/datum/universal_icon/icon_with_markings = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	if (value != SPRITE_ACCESSORY_NONE)
@@ -287,7 +287,7 @@
 	relevant_mutant_bodypart = "diona_pbody"
 
 /datum/preference/choiced/diona_pbody/init_possible_values()
-	return assoc_to_keys_features(GLOB.diona_pbody_list)
+	return assoc_to_keys_features(SSaccessories.diona_pbody_list)
 
 /datum/preference/choiced/diona_pbody/icon_for(value)
 	var/static/datum/universal_icon/diona_body
@@ -295,7 +295,7 @@
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 		diona_body.blend_icon(uni_icon('icons/mob/human/species/diona/bodyparts.dmi', "diona_[BODY_ZONE_CHEST]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = GLOB.diona_pbody_list[value]
+	var/datum/sprite_accessory/markings = SSaccessories.diona_pbody_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != SPRITE_ACCESSORY_NONE)

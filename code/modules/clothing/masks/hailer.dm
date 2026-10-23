@@ -93,7 +93,7 @@
 	if(istype(action, /datum/action/item_action/halt))
 		halt()
 	else
-		adjustmask(user)
+		adjust_visor(user)
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()

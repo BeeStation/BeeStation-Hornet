@@ -2,7 +2,7 @@
 	name = "tongue"
 	desc = "A fleshy muscle mostly used for lying."
 	icon_state = "tonguenormal"
-	visual = FALSE
+
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
@@ -151,6 +151,9 @@
 /obj/item/organ/tongue/could_speak_language(datum/language/language_path)
 	return (language_path in languages_possible)
 
+/obj/item/organ/tongue/get_availability(datum/species/owner_species, mob/living/owner_mob)
+	return owner_species.mutanttongue
+	
 /obj/item/organ/tongue/feel_for_damage(self_aware)
 	// No effect
 	return ""

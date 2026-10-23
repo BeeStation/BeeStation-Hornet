@@ -6,7 +6,7 @@
 /obj/item/organ/stomach
 	name = "stomach"
 	icon_state = "stomach"
-	visual = FALSE
+
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_STOMACH
@@ -333,7 +333,7 @@
 			disgusted.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/stomach/Remove(mob/living/carbon/stomach_owner, special = 0, movement_flags)
+/obj/item/organ/stomach/Remove(mob/living/carbon/stomach_owner, special, movement_flags)
 	if(ishuman(stomach_owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.clear_alert("disgust")

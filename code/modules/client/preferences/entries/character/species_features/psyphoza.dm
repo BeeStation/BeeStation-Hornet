@@ -7,14 +7,14 @@
 	relevant_mutant_bodypart = "psyphoza_cap"
 
 /datum/preference/choiced/psyphoza_cap/init_possible_values()
-	return assoc_to_keys_features(GLOB.psyphoza_cap_list)
+	return assoc_to_keys_features(SSaccessories.psyphoza_cap_list)
 
 /datum/preference/choiced/psyphoza_cap/icon_for(value)
 	var/static/datum/universal_icon/psyphoza_head
 	if (isnull(psyphoza_head))
 		psyphoza_head = uni_icon('icons/mob/human/species/psyphoza/bodyparts.dmi', "psyphoza_head", dir = SOUTH)
 
-	var/datum/sprite_accessory/cap = GLOB.psyphoza_cap_list[value]
+	var/datum/sprite_accessory/cap = SSaccessories.psyphoza_cap_list[value]
 	var/datum/universal_icon/icon_with_cap = psyphoza_head.copy()
 
 	if (!isnull(cap) && cap.icon_state != SPRITE_ACCESSORY_NONE)

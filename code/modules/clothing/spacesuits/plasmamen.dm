@@ -75,6 +75,7 @@
 	var/visor_state = "enviro_visor"
 	var/lamp_functional = TRUE
 
+
 /datum/armor/space_plasmaman
 	bio = 100
 	fire = 100
@@ -91,23 +92,24 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
-		toggle_welding_screen(user)
+		adjust_visor(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_welding_screen))
-		toggle_welding_screen(user)
+		adjust_visor(user)
 		return
 
 	return ..()
 
-/obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
-	if(!weldingvisortoggle(user))
+/obj/item/clothing/head/helmet/space/plasmaman/adjust_visor(mob/living/user)
+	. = ..()
+	if(!.)
 		return
 	if(helmet_on)
 		to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 		helmet_on = FALSE
-	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	update_icon()
+	playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
+	update_appearance()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
 	update_overlays()
@@ -649,6 +651,12 @@
 	icon_state = "clown_mark2"
 	inhand_icon_state = "clown_mark2"
 	visor_state = "clown_visor_mk2"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat(src)
+	var/datum/component/hat_stabilizer/stabilizer = GetComponent(/datum/component/hat_stabilizer)
+	stabilizer.attach_hat(hat)
 
 // The Protective helmet variants
 /obj/item/clothing/head/helmet/space/plasmaman/protective

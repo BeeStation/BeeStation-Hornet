@@ -119,7 +119,7 @@
 	to_chat(carbon_parent, span_userdanger("You have to keep pumping your blood!"))
 	COOLDOWN_START(src, heart_timer, MANUAL_HEART_GRACE_PERIOD) //give two full seconds before losing more blood
 	if(add_colour)
-		carbon_parent.add_client_colour(/datum/client_colour/cursed_heart_blood)
+		carbon_parent.add_client_colour(/datum/client_colour/manual_heart_blood)
 		add_colour = FALSE
 
 ///If a new heart is added, start processing.

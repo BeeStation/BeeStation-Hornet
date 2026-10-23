@@ -33,7 +33,7 @@
 	var/low_threshold = STANDARD_ORGAN_THRESHOLD * 0.1 //when minor organ damage occurs
 	var/emp_cooldown //cooldown for severe effects, used for synthetic organ emp effects.
 
-	///Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
+	// Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
 	var/prev_damage = 0
 	var/low_threshold_passed
 	var/high_threshold_passed
@@ -42,7 +42,7 @@
 	var/high_threshold_cleared
 	var/low_threshold_cleared
 
-	/// When set to false, this can't be used in surgeries and such
+	/// When set to false, this can't be used in surgeries and such - Honestly a terrible variable.
 	var/useable = TRUE
 
 	/// Food reagents if the organ is edible
@@ -81,9 +81,8 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		on_compost = CALLBACK(src, PROC_REF(pre_compost)),\
 		after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
-	//if(bodypart_overlay)
-	//	setup_bodypart_overlay()
-
+	if(bodypart_overlay)
+		setup_bodypart_overlay()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/organ/Destroy()
@@ -105,7 +104,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return
 	ADD_TRAIT(owner, trait, REF(src))
 
-/// Removes a trait from an organ, and by extension, its owner.
+/// Removes a Trait from an organ, and by extension, its owner.
 /obj/item/organ/proc/remove_organ_trait(trait)
 	LAZYREMOVE(organ_traits, trait)
 	if(isnull(owner))
@@ -150,9 +149,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			var/air_temperature_factor = min((exposed_air.temperature - T0C) / 20, 1)
 			apply_organ_damage(decay_factor * maxHealth * delta_time * air_temperature_factor)
 
+/// NOTE: THIS IS VERY HOT. Be careful what you put in here
+/// To give you some scale, if there's 100 carbons in the game, they each have maybe 9 organs
+/// So that's 900 calls to this proc every life process. Please don't be dumb
 /obj/item/organ/proc/on_life(delta_time, times_fired) //repair organ damage if the organ is not failing
-	SHOULD_CALL_PARENT(TRUE) //PASS YOUR ARGS FUCKER
-
 	if(organ_flags & ORGAN_FAILING)
 		handle_failing_organs(delta_time)
 		return
@@ -179,13 +179,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/examine(mob/user)
 	. = ..()
 
-	. += span_info("[src] fit[name[length(name)] == "s" ? "" : "s"] in the <b>[parse_zone(zone)]</b>.")
+	. += span_notice("It should be inserted in the [parse_zone(zone)].")
 
 	if(organ_flags & ORGAN_FAILING)
 		if(IS_ROBOTIC_ORGAN(src))
 			. += span_warning("[src] seems to be malfunctioning.")
 			return
-		. += span_warning("[src] has decayed for too long, and has turned a sickly color! It doesn't look like it will work anymore!")
+		. += span_warning("[src] has decayed for too long, and has turned a sickly color. It probably won't work without repairs.")
 		return
 
 	if(damage > high_threshold)
@@ -197,6 +197,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()
 	START_PROCESSING(SSobj, src)
+	bodypart_overlay?.imprint_on_next_insertion = TRUE
 
 //See above
 /obj/item/organ/proc/enter_wardrobe()
@@ -221,11 +222,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_eat_from(eater, feeder)
 	useable = FALSE //You bit it, no more using it
 
-/obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
-	for(var/datum/surgery/S in H.surgeries)
-		return TRUE			//no snacks mid surgery
-	return FALSE
-
 /obj/item/organ/item_action_slot_check(slot,mob/user)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
@@ -240,8 +236,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 		return FALSE
 	damage = clamp(damage + damage_amount, 0, maximum)
 	. = (prev_damage - damage) // return net damage
-	var/message = check_damage_thresholds(owner)
+	var/message = check_damage_thresholds()
 	prev_damage = damage
+
+	if(damage >= maxHealth)
+		organ_flags |= ORGAN_FAILING
+	else
+		organ_flags &= ~ORGAN_FAILING
 
 	if(message && owner && owner.stat <= SOFT_CRIT)
 		to_chat(owner, message)
@@ -263,20 +264,19 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	var/delta = damage - prev_damage
 	if(delta > 0)
 		if(damage >= maxHealth)
-			organ_flags |= ORGAN_FAILING
 			return now_failing
 		if(damage > high_threshold && prev_damage <= high_threshold)
 			return high_threshold_passed
 		if(damage > low_threshold && prev_damage <= low_threshold)
 			return low_threshold_passed
 	else
-		organ_flags &= ~ORGAN_FAILING
 		if(prev_damage > low_threshold && damage <= low_threshold)
 			return low_threshold_cleared
 		if(prev_damage > high_threshold && damage <= high_threshold)
 			return high_threshold_cleared
 		if(prev_damage == maxHealth)
 			return now_fixed
+
 
 //Looking for brains?
 //Try code/modules/mob/living/carbon/brain/brain_item.dm
@@ -287,13 +287,20 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
  * * regenerate_existing - if TRUE, existing organs will be deleted and replaced with new ones
  */
 /mob/living/carbon/proc/regenerate_organs(regenerate_existing = FALSE)
+
 	// Delegate to species if possible.
 	if(dna?.species)
 		dna.species.regenerate_organs(src, replace_current = regenerate_existing)
+
 		// Species regenerate organs doesn't ALWAYS handle healing the organs because it's dumb
-		for(var/obj/item/organ/organ as anything in internal_organs)
+		for(var/obj/item/organ/organ as anything in organs)
 			organ.set_organ_damage(0)
 		set_heartattack(FALSE)
+
+		// Ears have aditional vаr "deaf", need to update it too
+		var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
+		ears?.adjustEarDamage(0, -INFINITY) // full heal ears deafness
+
 		return
 
 	// Default organ fixing handling
@@ -328,16 +335,10 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 	if(!ears)
 		ears = new()
 		ears.Insert(src)
-	ears.set_organ_damage(0)
+	ears.adjustEarDamage(-INFINITY, -INFINITY)
 
-///Organs don't die instantly, and neither should you when you get fucked up
 /obj/item/organ/proc/handle_failing_organs(delta_time)
-	if(owner.stat == DEAD)
-		return
-
-	failure_time += delta_time
-	organ_failure(delta_time)
-
+	return
 
 /** organ_failure
  * generic proc for handling dying organs
