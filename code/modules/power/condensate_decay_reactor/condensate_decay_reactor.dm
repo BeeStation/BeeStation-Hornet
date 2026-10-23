@@ -1,7 +1,3 @@
-//TODO: make failure more interesting
-//TODO: make it produce power directly
-//TODO: make instructions sheet
-
 /obj/machinery/atmospherics/components/unary/cdr
 	name = "Condensate Decay Reactor"
 	desc = "A sphere of ultra-stable metallic gases, which generate magnetic flux by decaying into more stable gases. Use a multitool to deactivate."
@@ -110,15 +106,15 @@
 /obj/machinery/atmospherics/components/unary/cdr/screwdriver_act(mob/living/user, obj/item/tool)
 	if(activated)
 		balloon_alert(user, "deactivate first!")
-		return FALSE
-
+		return ITEM_INTERACT_BLOCKING
 	return default_deconstruction_screwdriver(user, "cdr", "cdr", tool)
 
 /obj/machinery/atmospherics/components/unary/cdr/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
 
 /obj/machinery/atmospherics/components/unary/cdr/multitool_act(mob/living/user, obj/item/tool)
-	return deactivate(user)
+	deactivate(user)
+	return ITEM_INTERACT_BLOCKING
 
 /obj/machinery/atmospherics/components/unary/cdr/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool)
@@ -238,7 +234,7 @@
 	for(var/gastype in core_composition.moles)
 		var/datum/condensate_gas/cdr_gas = cdr_gas_factors[gastype]
 		var/gas_moles = core_composition.moles[gastype]
-		if(!cdr_gas.decays_into)
+		if(!cdr_gas?.decays_into)
 			continue
 		if(!gas_moles)
 			continue

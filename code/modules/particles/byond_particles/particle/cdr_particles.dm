@@ -1,9 +1,9 @@
 /particles/cdr_collapse
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = list("orb_particle")
+	icon_state = "orb_particle"
 	width = 96
 	height = 96
-	color = generator("color", "#77fff1", "#a9d8ff", UNIFORM_RAND)
+	color = generator(GEN_COLOR, "#77fff1", "#a9d8ff", UNIFORM_RAND)
 	rotation = generator(GEN_NUM, 0, 360, UNIFORM_RAND)
 	spawning = 3
 	count = 200
