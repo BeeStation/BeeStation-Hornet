@@ -9672,10 +9672,12 @@
 /obj/machinery/door/airlock/external{
 	name = "Bridge External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi,
-/obj/effect/mapping_helpers/airlock/access/any/command,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "dJE" = (
@@ -34148,6 +34150,10 @@
 	pixel_x = 1;
 	pixel_y = 33
 	},
+/obj/item/dog_bone{
+	pixel_x = 8;
+	pixel_y = 10
+	},
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
 "mUo" = (
@@ -37079,10 +37085,12 @@
 /obj/machinery/door/airlock/external{
 	name = "Bridge External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi,
-/obj/effect/mapping_helpers/airlock/access/any/command,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "nTH" = (
@@ -50960,9 +50968,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
-	id_tag = "bridge"
-	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "tiR" = (
