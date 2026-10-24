@@ -875,6 +875,17 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	inhand_icon_on = null
 	inhand_icon_off = null
 
+/obj/item/cigarette/pipe/crackpipe
+	name = "crack pipe"
+	desc = "A backstreet pipe for smoking totally legal substances."
+	icon_state = "crackpipeoff"
+	icon_on = "crackpipeon"
+	icon_off = "crackpipeoff"
+	worn_icon = 'icons/mob/clothing/head/mask_cig.dmi'
+	inhand_icon_on = null
+	inhand_icon_off = null
+
+
 /////////
 //ZIPPO//
 /////////

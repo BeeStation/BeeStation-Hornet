@@ -9428,14 +9428,15 @@
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
 "dMb" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/brown/half/contrasted,
+/obj/machinery/light_switch/directional/east{
+	pixel_x = 23;
+	pixel_y = -5
+	},
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "dMe" = (
@@ -21169,6 +21170,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
+/obj/machinery/holopad,
 /turf/open/floor/iron,
 /area/station/cargo/office)
 "hOc" = (
@@ -22533,6 +22535,10 @@
 	},
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
+	},
+/obj/machinery/light_switch/directional/west{
+	pixel_x = -24;
+	pixel_y = 5
 	},
 /turf/open/floor/iron,
 /area/station/cargo/office)
@@ -45759,9 +45765,6 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -51899,9 +51902,6 @@
 /turf/open/floor/iron/dark,
 /area/station/science/explab)
 "rZu" = (
-/obj/structure/sign/departments/minsky/supply/cargo{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
 	},
@@ -56853,17 +56853,9 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port)
 "tJl" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = 21
-	},
-/turf/open/floor/iron,
-/area/station/hallway/primary/port)
+/obj/structure/sign/departments/minsky/supply/cargo,
+/turf/closed/wall,
+/area/station/cargo/office)
 "tJm" = (
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -60579,14 +60571,14 @@
 /turf/closed/wall,
 /area/station/engineering/main)
 "uTZ" = (
-/obj/item/radio/intercom{
-	pixel_y = 21
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "uUe" = (
@@ -67620,7 +67612,6 @@
 /area/station/science/robotics/mechbay)
 "xuk" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
@@ -89089,7 +89080,7 @@ oEN
 inr
 dFD
 dkR
-tJl
+uML
 qHx
 kBO
 mMD
@@ -90117,7 +90108,7 @@ gVi
 dMb
 gsw
 dkR
-uML
+uTZ
 qHx
 koJ
 mMD
@@ -90371,10 +90362,10 @@ vvy
 wxG
 wxG
 sli
-dkR
-dkR
 afl
-uTZ
+dkR
+tJl
+rpr
 qHx
 mtz
 mMD
