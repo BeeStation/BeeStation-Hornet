@@ -34,6 +34,9 @@
 /obj/item/organ/wings/moth/can_soften_fall()
 	return !burnt
 
+/obj/item/organ/wings/moth/can_fly(mob/living/carbon/human/human)
+	return !burnt && ..()
+
 ///Check if we can flutter around
 /obj/item/organ/wings/moth/proc/update_float_move()
 	SIGNAL_HANDLER
@@ -67,13 +70,14 @@
 /obj/item/organ/wings/moth/proc/heal_wings(datum/source, heal_flags)
 	SIGNAL_HANDLER
 
-	if(!burnt)
-		return
-
 	if(heal_flags & (HEAL_LIMBS|HEAL_ORGANS))
-		var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
-		wings.burnt = FALSE
-		burnt = FALSE
+		restore_wings()
+
+///Unburn our wings
+/obj/item/organ/wings/moth/proc/restore_wings()
+	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
+	wings.burnt = FALSE
+	burnt = FALSE
 
 /obj/item/organ/wings/moth/feel_for_damage(self_aware)
 	if(burnt)

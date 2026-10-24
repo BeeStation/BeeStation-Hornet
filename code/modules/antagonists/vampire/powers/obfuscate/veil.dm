@@ -70,7 +70,8 @@
 
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)
-	user.dna.features = user.dna.species.randomize_features()
+	user.dna.features = user.dna.species.randomize_features() | prev_features
+	user.dna.features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
 
 	// Apply Appearance
 	user.override_voice = user.name

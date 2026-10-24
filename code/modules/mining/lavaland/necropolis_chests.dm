@@ -642,7 +642,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
 			if(method == INGEST && show_message)
 				to_chat(C, span_notice("<i>You feel nothing but a terrible aftertaste.</i>"))
-			return ..()
+			return
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
@@ -1026,14 +1026,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				"body_size" = "Normal",
 				"mcolor" = "#A02720",
 				"tail_lizard" = "Dark Tiger",
-				"tail_human" = "None",
+				FEATURE_TAIL_CAT = "None",
 				"snout" = "Sharp",
 				"horns" = "Curled",
 				"ears" = "None",
 				"wings" = "None",
 				"frills" = "None",
 				"spines" = "Long",
-				"lizard_markings" = "Dark Tiger Body",
+				FEATURE_LIZARD_MARKINGS = "Dark Tiger Body",
 				"legs" = DIGITIGRADE_LEGS,
 			)
 			H.eye_color_left = "#FEE5A3"

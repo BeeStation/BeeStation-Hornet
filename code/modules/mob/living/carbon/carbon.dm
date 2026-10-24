@@ -907,8 +907,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ORGANS))
 		regenerate_organs()
-		if(ismoth(src))
-			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
 
 	if(heal_flags & HEAL_TRAUMAS)
 		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
@@ -1241,8 +1239,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	. = ..()
 	// Wash equipped stuff that cannot be covered
 	for(var/obj/item/held_thing in held_items)
-		if(held_thing.wash(clean_types))
-			. = TRUE
+		. |= held_thing.wash(clean_types)
 
 	// Check and wash stuff that isn't covered
 	var/covered = hidden_slots_to_inventory_slots(covered_slots)
@@ -1253,7 +1250,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			continue
 		if(!(covered & slot))
 			// /obj/item/wash() already updates our clothing slot
-			. ||= worn.wash(clean_types)
+			. = worn.wash(clean_types) || .
 
 /// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
 /mob/living/carbon/proc/set_handcuffed(new_value)

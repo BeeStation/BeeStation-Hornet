@@ -55,10 +55,12 @@
 	update_flight(receiver)
 
 /obj/item/organ/wings/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
-	. = ..()
-	fly?.Remove(organ_owner)
-	if(wings_open)
+	if(HAS_TRAIT_FROM(organ_owner, TRAIT_MOVE_FLOATING, SPECIES_FLIGHT_TRAIT))
 		toggle_flight(organ_owner)
+	else if(wings_open)
+		close_wings()
+	fly?.Remove(organ_owner)
+	return ..()
 
 //If some goober tries to varedit the flight_level instead of running the set_flight() proc, we take care of that
 /obj/item/organ/wings/vv_edit_var(var_name, var_value)
@@ -71,7 +73,7 @@
 	organ_owner ||= owner
 	if(!isnull(state) && state != flight_level)
 		//Force landing while old binds are still live
-		if(wings_open && !isnull(organ_owner))
+		if(!isnull(organ_owner) && HAS_TRAIT_FROM(organ_owner, TRAIT_MOVE_FLOATING, SPECIES_FLIGHT_TRAIT))
 			toggle_flight(organ_owner)
 		flight_level = state
 	update_flight(organ_owner)
@@ -82,7 +84,7 @@
 		return
 
 	fly?.Remove(organ_owner)
-	if(wings_open)
+	if(HAS_TRAIT_FROM(organ_owner, TRAIT_MOVE_FLOATING, SPECIES_FLIGHT_TRAIT))
 		toggle_flight(organ_owner)
 
 	if(flight_level <= WINGS_FLIGHTLESS)
@@ -155,7 +157,7 @@
 		human.add_traits(list(TRAIT_MOVE_FLOATING, TRAIT_IGNORING_GRAVITY), SPECIES_FLIGHT_TRAIT)
 		human.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/wings)
 		human.AddElement(/datum/element/forced_gravity, 0)
-		ADD_TRAIT(human, TRAIT_PASSTABLE, SPECIES_FLIGHT_TRAIT)
+		passtable_on(human, SPECIES_FLIGHT_TRAIT)
 		open_wings()
 		to_chat(human, span_notice("You beat your wings and begin to hover gently above the ground..."))
 		human.set_resting(FALSE, TRUE)
@@ -166,7 +168,7 @@
 	human.remove_traits(list(TRAIT_MOVE_FLOATING, TRAIT_IGNORING_GRAVITY), SPECIES_FLIGHT_TRAIT)
 	human.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/wings)
 	human.RemoveElement(/datum/element/forced_gravity, 0)
-	REMOVE_TRAIT(human, TRAIT_PASSTABLE, SPECIES_FLIGHT_TRAIT)
+	passtable_off(human, SPECIES_FLIGHT_TRAIT)
 	to_chat(human, span_notice("You settle gently back onto the ground..."))
 	close_wings()
 	human.refresh_gravity()
@@ -188,8 +190,8 @@
 		overlay?.close_wings()
 		owner.update_body_parts()
 	if(isturf(owner?.loc))
-		var/turf/location = loc
-		location.Entered(src, NONE)
+		var/turf/location = owner.loc
+		location.Entered(owner, NONE)
 	SEND_SIGNAL(src, COMSIG_WINGS_CLOSED, owner)
 
 ///hud action for starting and stopping flight
@@ -347,6 +349,8 @@
 	icon_state = "wingpack"
 	color = "#FFFFFF"
 	organ_flags = ORGAN_ROBOTIC
+	sprite_accessory_override = /datum/sprite_accessory/wings/robot
+	flap_sound = 'sound/items/change_jaws.ogg'
 
 /obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()
@@ -357,3 +361,4 @@
 /obj/item/organ/wings/cybernetic/ayy
 	name = "advanced cybernetic wingpack"
 	desc = "A compact pair of mechanical wings. They are equipped with miniaturized void engines, and can fly in any atmosphere, or lack thereof."
+	flight_level = WINGS_MAGIC

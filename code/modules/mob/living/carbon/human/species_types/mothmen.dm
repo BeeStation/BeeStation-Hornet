@@ -110,7 +110,7 @@
 	if(!wingcheck) //This is to stop easy organ farms
 		to_chat(H, span_warning("You don't have any wings to regenerate!"))
 		return
-	if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+	if(!has_burnt_parts(H))
 		to_chat(H, span_warning("Your wings are fine as they are!"))
 		return
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
@@ -126,7 +126,7 @@
 		if(H.incapacitated)
 			to_chat(H, span_warning("You cannot weave a cocoon in your current state."))
 			return
-		if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+		if(!has_burnt_parts(H))
 			to_chat(H, span_warning("Your wings are fine as they are!"))
 			return
 		H.visible_message(span_notice("[H] finishes weaving a cocoon!"), span_notice("You finish weaving your cocoon."))
@@ -142,10 +142,14 @@
 
 /datum/action/innate/cocoon/is_available()
 	if(..())
-		var/mob/living/carbon/human/H = owner
-		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-			return TRUE
-		return FALSE
+		return has_burnt_parts(owner)
+	return FALSE
+
+///Whether the moth has burnt wings or antennae for the cocoon to restore
+/datum/action/innate/cocoon/proc/has_burnt_parts(mob/living/carbon/moth)
+	var/obj/item/organ/wings/moth/wings = moth.get_organ_by_type(/obj/item/organ/wings/moth)
+	var/obj/item/organ/antennae/antennae = moth.get_organ_by_type(/obj/item/organ/antennae)
+	return wings?.burnt || antennae?.burnt
 
 //Removes moth from cocoon, restores burnt wings
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
@@ -153,15 +157,12 @@
 		if(!H.has_status_effect(/datum/status_effect/cocooned))
 			return
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
-		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
-			var/obj/item/organ/wings/moth/W = H.get_organ_by_type(/obj/item/organ/wings/moth)
-			if(W)
-				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
-				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
-					W.flight_level = WINGS_AIRWORTHY
-		H.dna.species.handle_mutant_bodyparts(H)
-		H.dna.species.handle_body(H)
+		if(ismoth(H))
+			var/obj/item/organ/wings/moth/wings = H.get_organ_by_type(/obj/item/organ/wings/moth)
+			wings?.restore_wings()
+			var/obj/item/organ/antennae/antennae = H.get_organ_by_type(/obj/item/organ/antennae)
+			antennae?.restore_antennae()
+		H.update_body_parts()
 	C.done_regenerating = TRUE
 	qdel(C)
 

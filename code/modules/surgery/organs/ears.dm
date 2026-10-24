@@ -88,6 +88,9 @@
 	/// Layer upon which we add the inner ears overlay
 	var/inner_layer = EXTERNAL_FRONT
 
+/datum/bodypart_overlay/mutant/cat_ears/get_global_feature_list()
+	return GLOB.ears_list
+
 /datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEHAIR)
 

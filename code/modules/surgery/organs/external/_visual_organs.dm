@@ -122,6 +122,9 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 /datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEHAIR)
 
+/datum/bodypart_overlay/mutant/horns/get_global_feature_list()
+	return GLOB.horns_list
+
 ///The frills of a lizard (like weird fin ears)
 /obj/item/organ/frills
 	name = "frills"
@@ -144,6 +147,9 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/frills/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEEARS)
+
+/datum/bodypart_overlay/mutant/frills/get_global_feature_list()
+	return GLOB.frills_list
 
 ///Guess what part of the lizard this is?
 /obj/item/organ/snout
@@ -188,6 +194,9 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/snout/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDESNOUT)
+
+/datum/bodypart_overlay/mutant/snout/get_global_feature_list()
+	return GLOB.snouts_list
 
 ///A moth's antennae
 /obj/item/organ/antennae
@@ -241,13 +250,14 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 /obj/item/organ/antennae/proc/heal_antennae(datum/source, heal_flags)
 	SIGNAL_HANDLER
 
-	if(!burnt)
-		return
-
 	if(heal_flags & (HEAL_LIMBS|HEAL_ORGANS))
-		var/datum/bodypart_overlay/mutant/antennae/antennae = bodypart_overlay
-		antennae.burnt = FALSE
-		burnt = FALSE
+		restore_antennae()
+
+///Unburn our antennae
+/obj/item/organ/antennae/proc/restore_antennae()
+	var/datum/bodypart_overlay/mutant/antennae/antennae = bodypart_overlay
+	antennae.burnt = FALSE
+	burnt = FALSE
 
 ///Moth antennae datum, with full burning functionality
 /datum/bodypart_overlay/mutant/antennae
@@ -263,6 +273,9 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	. = ..()
 
 	burn_datum = fetch_sprite_datum(burn_datum) //turn the path into the singleton instance
+
+/datum/bodypart_overlay/mutant/antennae/get_global_feature_list()
+	return GLOB.moth_antennae_list
 
 /datum/bodypart_overlay/mutant/antennae/get_base_icon_state()
 	return burnt ? burn_datum.icon_state : sprite_datum.icon_state

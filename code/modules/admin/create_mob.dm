@@ -46,7 +46,7 @@
 	human.eye_color_left = random_eye_color()
 	human.eye_color_right = human.eye_color_left
 	human.skin_tone = pick(GLOB.skin_tones)
-	// No underwear generation handled here
+	human.dna.species.randomize_active_underwear_only(human)
 	var/picked_color = random_hair_color()
 	human.set_haircolor(picked_color, update = FALSE)
 	human.set_facial_haircolor(picked_color, update = FALSE)
@@ -73,7 +73,7 @@
 			else
 				human.gradient_color[GRADIENT_HAIR_KEY] = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = human.gender)
-	human.gradient_style[GRADIENT_HAIR_KEY] = gradient_style.name
+	human.gradient_style[GRADIENT_HAIR_KEY] = gradient_style?.name || SPRITE_ACCESSORY_NONE
 
 	// Normal DNA init stuff, these can generally be wacky but we care less, they're aliens after all
 	human.dna.initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = randomize_mutations, randomize_features = TRUE)
