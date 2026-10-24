@@ -274,7 +274,13 @@
 		/obj/item/stack/tile/mineral/bronze,
 		/obj/item/stack/tile/mineral/bronze/flat,
 		/obj/item/stack/tile/mineral/bronze/filled,
-		)
+	)
+
+/obj/item/stack/tile/mineral/bronze/ten
+	amount = 10
+
+/obj/item/stack/tile/mineral/bronze/twenty
+	amount = 20
 
 /obj/item/stack/tile/mineral/bronze/flat
 	name = "flat bronze tile"
