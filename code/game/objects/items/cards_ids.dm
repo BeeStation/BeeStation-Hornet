@@ -218,11 +218,8 @@
 		temporary -= access
 		if(length(temporary))
 			log_id("[get_log_name()] destroyed with temporary access to [english_list(get_access_descs(temporary))].")
-	var/list/grants = access_grants
-	access_grants = null
+	QDEL_LIST(access_grants)
 	acting_head = null
-	for(var/datum/access_grant/grant as anything in grants)
-		qdel(grant)
 	return ..()
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
