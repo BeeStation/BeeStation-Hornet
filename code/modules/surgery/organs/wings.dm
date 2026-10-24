@@ -20,7 +20,7 @@
 		var/mob/living/carbon/human/H = owner
 		Refresh(H)
 
-/obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
+/obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = FALSE, movement_flags)
 	. = ..()
 	if(istype(H))
 		Refresh(H)
@@ -40,7 +40,7 @@
 		if(H.movement_type & FLYING)
 			H.dna.species.toggle_flight(H)
 
-/obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
+/obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = FALSE, movement_flags)
 	..()
 	if(istype(H))
 		H.dna.species.mutant_bodyparts -= basewings
@@ -126,7 +126,12 @@
 	flapsound = 'sound/emotes/moth/moth_flutter.ogg'
 	canopen = TRUE
 
-/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
+/obj/item/organ/wings/moth/feel_for_damage(self_aware)
+	if(HAS_TRAIT(owner, TRAIT_MOTH_BURNT))
+		return "Your wings are all burnt up!"
+	return ..()
+
+/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, movement_flags)
 	flight_level = initial(flight_level)
 	return ..()
 
@@ -176,12 +181,12 @@
 	wing_type = "Bee"
 	var/jumpdist = 3
 
-/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
+/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special, movement_flags)
 	jumpdist = initial(jumpdist)
 	return ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
-	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_HANDS_BLOCKED
 	cooldown_time = 10 SECONDS
 	var/jumpspeed = 1
 

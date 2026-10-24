@@ -54,11 +54,11 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+/datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species)
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
-/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 
@@ -68,22 +68,22 @@
 	if(istype(attacking_item, /obj/item/melee/flyswatter))
 		damage_mods += 30 // Yes, a 30x damage modifier
 
-/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/apid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
-		return FALSE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/apid/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE, datum/preferences/preference_source = null) // For roundstart
 	. = ..()
 	equipping.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
-/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species) // For transformations
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 
-/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 

@@ -14,9 +14,7 @@
 /area/mine/production)
 "af" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
+/obj/structure/mirror/directional/east,
 /obj/item/soap/nanotrasen,
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters)
@@ -1862,11 +1860,13 @@
 	},
 /area/mine/atmospost)
 "kU" = (
-/obj/machinery/portable_thermomachine,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/passive_vent,
+/obj/machinery/portable_thermomachine{
+	target_temperature = 303.15
 	},
 /turf/open/floor/iron/dark,
 /area/mine/living_quarters)
@@ -3497,9 +3497,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pressure_valve{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "vH" = (
@@ -3838,10 +3836,8 @@
 /area/mine/production)
 "xF" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 26
-	},
 /obj/structure/cable/yellow,
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/freezer,
 /area/mine/laborcamp)
 "xJ" = (
@@ -4827,8 +4823,11 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmospostengine)
 "DS" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	target_pressure = 140
+	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "DT" = (
@@ -6049,6 +6048,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/obj/item/wrench,
 /turf/open/floor/iron/grid/steel,
 /area/mine/living_quarters)
 "KN" = (

@@ -11,7 +11,7 @@
 	build_path = /obj/item/integrated_circuit/template/hello_world
 	category = list(RND_CATEGORY_TEMPLATES)
 	materials = list(/datum/material/iron = 6700, /datum/material/glass = 3550, /datum/material/copper = 550) //Hello world costs
-	build_type = IMPRINTER | COMPONENT_PRINTER
+	build_type = COMPONENT_PRINTER
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /obj/item/integrated_circuit/template/Initialize(mapload)

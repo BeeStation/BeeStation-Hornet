@@ -31,7 +31,7 @@
 	create_reagents(10, INJECTABLE | ABSOLUTELY_GRINDABLE)
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/poison_paper/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/poison_paper/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	if (!isitem(target))
 		return ..()
 	if (!reagents.total_volume)

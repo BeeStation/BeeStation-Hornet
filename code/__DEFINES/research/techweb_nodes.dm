@@ -156,5 +156,8 @@
 #define TECHWEB_NODE_TACKLE_ADVANCED "tackle_advanced"
 #define TECHWEB_NODE_TELECOMMS "telecomms"
 #define TECHWEB_NODE_UNREGULATED_BLUESPACE "unregulated_bluespace"
+#define TECHWEB_NODE_UPGRADE_BASIC "upgrade_basic"
+#define TECHWEB_NODE_UPGRADE_ADVANCED "upgrade_advanced"
+#define TECHWEB_NODE_UPGRADE_ILLEGAL "upgrade_illegal"
 #define TECHWEB_NODE_WEAPONRY "weaponry"
 #define TECHWEB_NODE_WORMHOLEGUN "wormholegun"

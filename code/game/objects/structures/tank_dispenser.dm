@@ -58,7 +58,7 @@
 	update_appearance()
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/structure/tank_dispenser/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/tank_dispenser/attackby(obj/item/I, mob/living/user, list/modifiers)
 	var/full
 	if(istype(I, /obj/item/tank/internals/plasma))
 		if(plasmatanks < TANK_DISPENSER_CAPACITY)

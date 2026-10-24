@@ -40,8 +40,11 @@
 	plane = RENDER_PLANE_GAME
 	render_relay_plane = RENDER_PLANE_MASTER
 
-/atom/movable/screen/plane_master/rendering_plate/game_world/Initialize(mapload)
+/atom/movable/screen/plane_master/rendering_plate/game_world/backdrop(mob/mymob)
 	. = ..()
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		return
 	add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
 
 ///render plate for OOC stuff like ghosts, hud-screen effects, etc

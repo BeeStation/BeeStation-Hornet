@@ -21,8 +21,9 @@
 
 //Inventory depth: limits how many nested storage items you can access directly.
 //1: stuff in mob, 2: stuff in backpack, 3: stuff in box in backpack, etc
-#define INVENTORY_DEPTH		3
-#define STORAGE_VIEW_DEPTH	2
+#define REACH_DEPTH_SELF 1
+/// A storage depth ontop of SELF. REACH_DEPTH_STORAGE(1) would allow an item inside of a backpack you are carrying.
+#define REACH_DEPTH_STORAGE(level) (level + REACH_DEPTH_SELF)
 
 //ITEM INVENTORY SLOT BITMASKS
 /// Suit slot (armors, costumes, space suits, etc.)
@@ -109,11 +110,20 @@ DEFINE_BITFIELD(no_equip_flags, list(
 ///hides antennae
 #define HIDEANTENNAE (1<<15)
 
+//Bitflags for hair appendage zones
+#define HAIR_APPENDAGE_FRONT (1<<0)
+#define HAIR_APPENDAGE_LEFT (1<<1)
+#define HAIR_APPENDAGE_RIGHT (1<<2)
+#define HAIR_APPENDAGE_REAR (1<<3)
+#define HAIR_APPENDAGE_TOP (1<<4)
+#define HAIR_APPENDAGE_HANGING_FRONT (1<<5)
+#define HAIR_APPENDAGE_HANGING_REAR (1<<6)
+#define HAIR_APPENDAGE_ALL (HAIR_APPENDAGE_FRONT|HAIR_APPENDAGE_LEFT|HAIR_APPENDAGE_RIGHT|HAIR_APPENDAGE_REAR|HAIR_APPENDAGE_TOP|HAIR_APPENDAGE_HANGING_FRONT|HAIR_APPENDAGE_HANGING_REAR)
 
 //bitflags for clothing coverage - also used for limbs
-#define HEAD (1<<0)
-#define CHEST (1<<1)
-#define GROIN (1<<2)
+#define CHEST (1<<0)
+#define GROIN (1<<1)
+#define HEAD (1<<2)
 #define LEG_LEFT (1<<3)
 #define LEG_RIGHT (1<<4)
 #define LEGS (LEG_LEFT | LEG_RIGHT)
@@ -127,7 +137,7 @@ DEFINE_BITFIELD(no_equip_flags, list(
 #define HAND_RIGHT (1<<10)
 #define HANDS (HAND_LEFT | HAND_RIGHT)
 #define NECK (1<<11)
-#define FULL_BODY (~0)
+#define FULL_BODY ALL
 
 //defines for the index of hands
 #define LEFT_HANDS 1
@@ -167,17 +177,17 @@ DEFINE_BITFIELD(no_equip_flags, list(
 #define FULL_DIGITIGRADE			1
 #define SQUISHED_DIGITIGRADE		2
 
-//! ## flags for covering body parts
-#define GLASSESCOVERSEYES	(1<<0)
-#define MASKCOVERSEYES		(1<<1)		//! get rid of some of the other stupidity in these flags
-#define HEADCOVERSEYES		(1<<2)		//! feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH		(1<<3)		//! on other items, these are just for mask/head
-#define HEADCOVERSMOUTH		(1<<4)
+//flags for covering body parts
+#define GLASSESCOVERSEYES (1<<0)
+#define MASKCOVERSEYES (1<<1) // get rid of some of the other stupidity in these flags
+#define HEADCOVERSEYES (1<<2) // feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH (1<<3) // on other items, these are just for mask/head
+#define HEADCOVERSMOUTH (1<<4)
 
-#define TINT_DARKENED 2			//! Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//! Threshold of tint level to obscure vision fully
+#define TINT_DARKENED 2 //Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 3 //Threshold of tint level to obscure vision fully
 
-//Allowed equipment lists for security vests and hardsuits.
+//Allowed equipment lists for security vests.
 
 GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/ammo_box,

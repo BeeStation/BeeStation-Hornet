@@ -43,9 +43,12 @@
 /datum/surgery_step/lobectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/lungs/L = H.get_organ_slot(ORGAN_SLOT_LUNGS)
-		L.operated = TRUE
+		var/obj/item/organ/lungs/target_lungs = H.get_organ_slot(ORGAN_SLOT_LUNGS)
 		H.setOrganLoss(ORGAN_SLOT_LUNGS, 60)
+		if(target_lungs)
+			target_lungs.operated = TRUE
+			if(target_lungs.organ_flags & ORGAN_EMP) //If our organ is failing due to an EMP, fix that
+				target_lungs.organ_flags &= ~ORGAN_EMP
 		display_results(
 			user,
 			target,

@@ -120,3 +120,17 @@
   - code_imp: refactors eye color handling
   - bugfix: fixes wheelchair bug that immobilized wheelchair'd mobs, they can do more
       stuff now
+2026-08-25:
+  r1ks-iwnl:
+  - bugfix: Fixed soap bubbles, hallucination plasmaflood, thermite overlay etc. not
+      being rendered.
+2026-08-26:
+  rkz, cruix, bloop, fikou, sheits, Hardly3D:
+  - rscadd: adds better hair layering for 43 hairstyles
+  - rscadd: resprites a lot of hair
+  - rscadd: wearing a hardhat, beret, winterhood or otherwise cranium covering thing
+      will now cover the hair appropriately
+2026-08-28:
+  r1ks-iwnl:
+  - bugfix: Fixed being unable to write manuscripts
+  - bugfix: Fixes meth grenades not exploding

@@ -51,7 +51,7 @@
 		. += span_deadsay("It appears that [t_his] brain is missing...")
 
 	var/list/disabled = list()
-	for(var/obj/item/bodypart/body_part as anything in bodyparts)
+	for(var/obj/item/bodypart/body_part as anything in get_bodyparts())
 		if(body_part.bodypart_disabled)
 			disabled += body_part
 		for(var/obj/item/embedded as anything in body_part.embedded_objects)
@@ -122,13 +122,20 @@
 	if(pulledby?.grab_state)
 		. += span_warning("[t_He] [t_is] restrained by [pulledby]'s grip.")
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
-		. += span_warning("[t_He] [t_is] severely malnourished.")
-	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
-			. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
-		else
-			. += "<b>[t_He] [t_is] quite chubby.</b>"
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+			. += span_warning("[t_He] [t_is] severely malnourished.")
+		else if(nutrition < NUTRITION_LEVEL_STARVING)
+			. += span_warning("[t_He] look[p_s()] gaunt, and move[p_s()] like every step is an effort.")
+		else if(nutrition < NUTRITION_LEVEL_HUNGRY)
+			. += span_warning("[t_He] look[p_s()] underfed.")
+		else if(nutrition < NUTRITION_LEVEL_FED)
+			. += span_notice("[t_He] look[p_s()] hungry.")
+		else if(nutrition >= NUTRITION_LEVEL_FAT)
+			if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+				. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
+			else
+				. += "<b>[t_He] [t_is] quite chubby.</b>"
 	switch(disgust)
 		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
 			. += "[t_He] look[p_s()] a bit grossed out."
@@ -487,7 +494,7 @@
 /// Reports all body parts which are mismatched with the user's species
 /mob/living/carbon/human/proc/get_mismatched_limb_text()
 	. = list()
-	for(var/obj/item/bodypart/part as anything in bodyparts)
+	for(var/obj/item/bodypart/part as anything in get_bodyparts())
 		if(part.limb_id == (dna.species.examine_limb_id || dna.species.id))
 			continue
 		. += span_notice("[p_They()] [p_have()] \a [part].")

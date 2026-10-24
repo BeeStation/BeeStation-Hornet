@@ -10,7 +10,7 @@
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
 	icon_state = "chest_implant"
-	implant_color = "#00AA00"
+	implant_color = COLOR_DARK_LIME
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = FALSE
 	var/malfunctioning = FALSE
@@ -124,13 +124,13 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = FALSE, movement_flags)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
 	ion_trail.set_up(M)
 
-/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special, movement_flags)
 	if(on)
 		toggle(silent = TRUE)
 	..()

@@ -179,7 +179,7 @@
 
 /datum/component/riding/creature/human/RegisterWithParent()
 	. = ..()
-	RegisterSignal(parent, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(on_host_unarmed_melee))
+	RegisterSignal(parent, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_host_unarmed_melee))
 	RegisterSignal(parent, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(check_carrier_fall_over))
 
 /datum/component/riding/creature/human/log_riding(mob/living/living_parent, mob/living/rider)
@@ -201,12 +201,13 @@
 	return ..()
 
 /// If the carrier shoves the person they're carrying, force the carried mob off
-/datum/component/riding/creature/human/proc/on_host_unarmed_melee(mob/living/carbon/human/human_parent, atom/target, proximity, modifiers)
+/datum/component/riding/creature/human/proc/on_host_unarmed_melee(mob/living/source, atom/target, proximity, modifiers)
 	SIGNAL_HANDLER
 
-	if(LAZYACCESS(modifiers, RIGHT_CLICK) && (target in human_parent.buckled_mobs))
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && (target in source.buckled_mobs))
 		force_dismount(target)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
+	return NONE
 
 /// If the carrier gets knocked over, force the rider(s) off and see if someone got hurt
 /datum/component/riding/creature/human/proc/check_carrier_fall_over(mob/living/carbon/human/human_parent)
@@ -222,7 +223,7 @@
 			span_hear("You hear two consecutive thuds."),
 			COMBAT_MESSAGE_RANGE,
 			ignored_mobs = rider,
-			visible_message_flags = list(ALWAYS_SHOW_SELF_MESSAGE),
+			visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
 		)
 		to_chat(rider, span_danger("[human_parent] falls to the ground, bringing you with [human_parent.p_them()]!"))
 

@@ -40,6 +40,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
+	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	if(set_dir)
 		setDir(set_dir)
 	if(req_access?.len)
@@ -272,7 +273,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	desc += "<BR>[span_warning("Its access panel is smoking slightly.")]"
 	open(2)
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(operating)
 		return
@@ -467,7 +468,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /obj/machinery/door/window/clockwork/ratvar_act()
 	return FALSE
 
-/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, list/modifiers)
 
 	if(operating)
 		return

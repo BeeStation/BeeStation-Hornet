@@ -90,13 +90,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 27
-	},
 /obj/structure/sign/poster/official/the_owl{
 	pixel_y = 32
 	},
 /obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
 "dl" = (

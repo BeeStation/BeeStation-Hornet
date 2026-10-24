@@ -67,7 +67,7 @@
 
 	. = ..()
 	// All good, turn it on.
-	if(!.)
+	if(.)
 		user.visible_message(span_notice("[user] lights \the [src]."), span_notice("You light \the [src]!"))
 		force = on_damage
 		damtype = BURN
@@ -78,7 +78,7 @@
 /obj/item/flashlight/oxycandle/get_temperature()
 	return light_on * heat
 
-/obj/item/flashlight/oxycandle/equipped(mob/user, slot)
+/obj/item/flashlight/oxycandle/equipped(mob/living/user, slot)
 	..()
 	if(!iscarbon(user))
 		return
@@ -87,15 +87,10 @@
 		return
 	if(!light_on)
 		return
-	var/hit_zone = (C.held_index_to_dir(C.active_hand_index) == "l" ? "l_":"r_") + "arm"
-	var/obj/item/bodypart/affecting = C.get_bodypart(hit_zone)
-	if(affecting)
-		if(affecting.receive_damage(0, rand(10,20)))
-			C.update_damage_overlays()
+	user.apply_damage(rand(10,20), damtype, user.get_active_hand())
 	to_chat(C, span_userdanger("The hot metal burns your bare hand!"))
 	user.dropItemToGround(src)
 	C.emote("scream")
-	return
 
 /obj/item/flashlight/oxycandle/hellfire
 	name = "Portable Hellfire"

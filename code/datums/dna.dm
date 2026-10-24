@@ -565,7 +565,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		else
 			stored_dna.species = mrace //not calling any species update procs since we're a brain, not a monkey/human
 
-/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE)
 	if(QDELETED(src))
 		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
 	if(mrace && has_dna())
@@ -579,17 +579,17 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		death_sound = new_race.deathsound
 
 		if (dna.species.properly_gained)
-			dna.species.on_species_loss(src, new_race, pref_load)
+			dna.species.on_species_loss(src, new_race)
 
 		var/datum/species/old_species = dna.species
 		dna.update_species(new_race)
 
-		dna.species.on_species_gain(src, old_species, pref_load)
+		dna.species.on_species_gain(src, old_species)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 		if(icon_update)
 			update_mutations_overlay()// no lizard with human hulk overlay please.
 
-/mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
+/mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
 	..()
 	if(icon_update)
 		update_body(is_creating = TRUE)
@@ -615,7 +615,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
 	if(newfeatures)
 		dna.features = newfeatures
-		dna.generate_unique_features()
+		dna.unique_features = dna.generate_unique_features()
 
 	if(mrace)
 		var/datum/species/newrace = new mrace.type
@@ -624,7 +624,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(newreal_name)
 		real_name = newreal_name
-		dna.generate_unique_enzymes()
+		dna.unique_enzymes = dna.generate_unique_enzymes()
 
 	dna.age = age
 	dna.gender = gender
@@ -646,7 +646,6 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(mrace || newfeatures || unique_identity)
 		update_body(is_creating = TRUE)
-		update_body_parts()
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations) && force_transfer_mutations)
@@ -663,7 +662,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/proc/updateappearance(icon_update = TRUE, mutcolor_update = FALSE, mutations_overlay_update = FALSE)
 	if(!has_dna())
 		return
-	switch(deconstruct_block(get_uni_identity_block(DNA_GENDER_BLOCK), 3))
+	switch(deconstruct_block(get_uni_identity_block(dna.unique_identity, DNA_GENDER_BLOCK), 3))
 		if(G_MALE)
 			set_gender(MALE, TRUE, forced = TRUE)
 		if(G_FEMALE)
@@ -762,6 +761,9 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(organ_eyes)
 		organ_eyes.eye_color_left = eye_color_left
 		organ_eyes.eye_color_right = eye_color_right
+
+	//for(var/obj/item/organ/organ in organs)
+	//	organ.mutate_feature(dna.unique_features, src)
 
 	if(icon_update)
 		update_body(is_creating = mutcolor_update)
@@ -976,7 +978,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				var/list/elligible_organs = list()
 				for(var/obj/item/organ/O in internal_organs) //make sure we dont get an implant or cavity item
 					elligible_organs += O
-				vomit(20, TRUE)
+				vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 10)
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)

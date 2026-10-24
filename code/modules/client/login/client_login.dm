@@ -153,7 +153,7 @@
 			if(QDELETED(src))
 				return FALSE
 			// Retrieve cached antag token count
-			get_antag_token_count_db()
+			get_antag_token_count_db(ckey)
 			if(QDELETED(src))
 				return FALSE
 		else

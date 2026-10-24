@@ -238,7 +238,7 @@
 	gun.desc = initial(desc)
 	..()
 
-/obj/item/firing_pin/paywall/attackby(obj/item/M, mob/user, params)
+/obj/item/firing_pin/paywall/attackby(obj/item/M, mob/user, list/modifiers)
 	if(istype(M, /obj/item/card/id))
 		var/obj/item/card/id/id = M
 		if(!id.registered_account)

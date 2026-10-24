@@ -38,7 +38,7 @@
 	. = ..()
 	. += span_notice("Alt-Click to disable the radio & reward notice.")
 
-/obj/item/sticker/artifact_tracker/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+/obj/item/sticker/artifact_tracker/afterattack(atom/movable/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
 		return

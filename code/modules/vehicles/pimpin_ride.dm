@@ -36,7 +36,7 @@
 	if(floorbuffer)
 		. += "It has been upgraded with a floor buffer."
 
-/obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(mybag)
 			to_chat(user, span_warning("[src] already has a trashbag hooked!"))

@@ -3,7 +3,6 @@
 	desc = "An implant that can be placed in a user's head to control circuits using their brain."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "bci"
-	visual = FALSE
 	zone = BODY_ZONE_HEAD
 	w_class = WEIGHT_CLASS_TINY
 
@@ -15,11 +14,6 @@
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/bci_core,
 	), SHELL_CAPACITY_SMALL)
-
-/obj/item/organ/cyberimp/bci/on_insert(mob/living/carbon/receiver)
-	. = ..()
-	// Organs are put in nullspace, but this breaks circuit interactions
-	forceMove(receiver)
 
 /obj/item/organ/cyberimp/bci/say(
 	message,
@@ -115,7 +109,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	var/datum/port/input/message
 	var/datum/port/input/send_message_signal
 	var/datum/port/output/user_port
-	var/datum/weakref/user
+
+	var/obj/item/organ/cyberimp/bci/bci
 
 /obj/item/circuit_component/bci_core/populate_ports()
 	message = add_input_port("Message", PORT_TYPE_STRING)
@@ -128,7 +123,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	return ..()
 
 /obj/item/circuit_component/bci_core/register_shell(atom/movable/shell)
-	var/obj/item/organ/cyberimp/bci/bci = shell
+	bci = shell
 
 	charge_action = new(src)
 	bci.actions += list(charge_action)
@@ -137,8 +132,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/bci_core/unregister_shell(atom/movable/shell)
-	var/obj/item/organ/cyberimp/bci/bci = shell
-
 	bci.actions -= charge_action
 	QDEL_NULL(charge_action)
 
@@ -146,6 +139,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 		COMSIG_ORGAN_IMPLANTED,
 		COMSIG_ORGAN_REMOVED,
 	))
+
+	bci = null
 
 /obj/item/circuit_component/bci_core/should_receive_input(datum/port/input/port)
 	if (!COMPONENT_TRIGGERED_BY(send_message_signal, port))
@@ -157,20 +152,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	if (!sent_message)
 		return
 
-	var/mob/living/carbon/resolved_owner = user?.resolve()
-	if (isnull(resolved_owner))
+	if (isnull(bci.owner))
 		return
 
-	if (resolved_owner.stat == DEAD)
+	if (bci.owner.stat == DEAD)
 		return
 
-	to_chat(resolved_owner, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
+	to_chat(bci.owner, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 /obj/item/circuit_component/bci_core/proc/on_organ_implanted(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
 
 	user_port.set_output(owner)
-	user = WEAKREF(owner)
 
 	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
@@ -180,7 +173,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	SIGNAL_HANDLER
 
 	user_port.set_output(null)
-	user = null
 
 	UnregisterSignal(owner, list(
 		COMSIG_ATOM_EXAMINE,
@@ -279,12 +271,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	icon = 'icons/obj/machines/bci_implanter.dmi'
 	icon_state = "bci_implanter"
 	layer = ABOVE_WINDOW_LAYER
-	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
-	idle_power_usage = 50
-	active_power_usage = 300
 
 	var/busy = FALSE
 	var/busy_icon_state
@@ -365,7 +354,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 
 	return ..()
 
-/obj/machinery/bci_implanter/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/bci_implanter/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if (!occupant && default_deconstruction_screwdriver(user, icon_state, icon_state, weapon))
 		update_icon()
 		update_icon_state()
@@ -406,6 +395,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	if (!occupant || busy)
 		return
 
+	update_use_power(ACTIVE_POWER_USE)
+
 	var/locked_state = locked
 	locked = TRUE
 
@@ -415,6 +406,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	addtimer(CALLBACK(src, PROC_REF(complete_process), locked_state), 3 SECONDS)
 
 /obj/machinery/bci_implanter/proc/complete_process(locked_state)
+	update_use_power(IDLE_POWER_USE)
 	locked = locked_state
 	set_busy(FALSE)
 
@@ -511,6 +503,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuit_component/equipment_action)
 	name = "Brain-Computer Interface Manipulation Chamber (Machine Board)"
 	build_path = /obj/machinery/bci_implanter
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1,
+		/datum/stock_part/micro_laser = 2,
+		/datum/stock_part/manipulator = 1,
 	)

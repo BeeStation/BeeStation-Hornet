@@ -40,7 +40,7 @@
 	playsound(src, "shatter", 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
 	qdel(src)
 
-/obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!isliving(target))
 		return

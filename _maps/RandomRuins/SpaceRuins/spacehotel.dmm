@@ -355,9 +355,7 @@
 /area/ruin/space/has_grav/hotel)
 "bM" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "bN" = (
@@ -390,9 +388,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "bS" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "bT" = (
@@ -430,9 +426,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "bY" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "bZ" = (
@@ -470,9 +464,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "ce" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "cf" = (
@@ -856,9 +848,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "dm" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "dn" = (
@@ -903,9 +893,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
 "du" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
 "dv" = (
@@ -1985,9 +1973,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hB" = (
-/obj/structure/mirror{
-	pixel_y = -32
-	},
+/obj/structure/mirror/directional/south,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hC" = (
@@ -2715,9 +2701,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/pool)
 "ln" = (
-/obj/structure/mirror{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/hotel/pool)
@@ -2822,9 +2806,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/pool)
 "mc" = (
-/obj/structure/mirror{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/space/has_grav/hotel/pool)
@@ -3252,9 +3234,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "yX" = (
-/obj/structure/mirror{
-	pixel_x = 32
-	},
+/obj/structure/mirror/directional/east,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)

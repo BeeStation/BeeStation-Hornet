@@ -18,7 +18,7 @@
 	. = ..()
 	. += "[grenades.len] / [max_grenades] grenades loaded."
 
-/obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, list/modifiers)
 
 	if((istype(I, /obj/item/grenade)))
 		if(grenades.len < max_grenades)
@@ -33,7 +33,7 @@
 /obj/item/gun/grenadelauncher/can_shoot()
 	return grenades.len && ..()
 
-/obj/item/gun/grenadelauncher/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/grenadelauncher/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	user.visible_message(span_danger("[user] fired a grenade!"), \
 						span_danger("You fire the grenade launcher!"))
 	var/obj/item/grenade/F = grenades[1] //Now with less copypasta!

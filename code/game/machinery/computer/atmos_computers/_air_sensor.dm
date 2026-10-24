@@ -10,8 +10,9 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
-	power_channel = AREA_USAGE_ENVIRON
-	active_power_usage = 1
+	// Always sensing while it has power; it's replaced by an item when switched off.
+	use_power = ACTIVE_POWER_USE
+	active_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 1.5
 
 	/// The unique string that represents which atmos chamber to associate with.
 	var/chamber_id
@@ -49,8 +50,7 @@
 /obj/machinery/air_sensor/return_air()
 	if(!on)
 		return
-	. = ..()
-	use_power = active_power_usage
+	return ..()
 
 /obj/machinery/air_sensor/process()
 	//update appearance according to power state

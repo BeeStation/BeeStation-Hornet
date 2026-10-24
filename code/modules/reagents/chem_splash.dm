@@ -22,7 +22,7 @@
 	splash_holder.my_atom = override_atom ? override_atom : epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
 
 	for(var/datum/reagents/R in reactants)
-		R.trans_to(splash_holder, R.total_volume, threatscale, 1, 1)
+		R.trans_to(splash_holder, R.total_volume, threatscale, no_react = TRUE)
 
 	splash_holder.chem_temp = max(splash_holder.chem_temp + extra_heat, TCMB) // Average temperature of reagents + extra heat.
 	splash_holder.handle_reactions() // React them now.

@@ -165,7 +165,7 @@
 	if(!helmet && helmettype)
 		. += span_notice(" The helmet on [src] seems to be malfunctioning. It's light bulb needs to be replaced.")
 
-/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/tank/jetpack/suit))
 		if(jetpack)
 			to_chat(user, span_warning("[src] already has a jetpack installed."))

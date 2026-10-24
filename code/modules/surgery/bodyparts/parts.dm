@@ -33,8 +33,18 @@
 	/// Offset to apply to equipment worn on the neck
 	var/datum/worn_feature_offset/worn_neck_offset
 
+/obj/item/bodypart/chest/forced_removal(dismembered, special, move_to_floor)
+	var/mob/living/carbon/old_owner = owner
+	..(special = TRUE) //special because we're self destructing
+
+	//If someones chest is teleported away, they die pretty hard
+	if(!old_owner)
+		return
+	message_admins("[ADMIN_LOOKUPFLW(old_owner)] was gibbed after their chest teleport to [ADMIN_VERBOSEJMP(loc)].")
+	old_owner.gib()
+
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(owner.stat < HARD_CRIT || !get_organs())
+	if(owner.stat < HARD_CRIT || !contents.len)
 		return FALSE
 	return ..()
 
@@ -112,11 +122,47 @@
 	var/datum/worn_feature_offset/worn_glove_offset
 	/// Datum describing how to offset things held in the hands of this arm, the x offset IS functional here
 	var/datum/worn_feature_offset/held_hand_offset
+	/// The noun to use when referring to this arm's appendage, e.g. "hand" or "paw"
+	var/appendage_noun = "hand"
 
 /obj/item/bodypart/arm/Destroy()
 	QDEL_NULL(worn_glove_offset)
 	QDEL_NULL(held_hand_offset)
 	return ..()
+
+/// We need to clear out hand hud items and appearance, so do that here
+/obj/item/bodypart/arm/clear_ownership(mob/living/carbon/old_owner)
+	..()
+
+	old_owner.update_worn_gloves()
+
+	if(!held_index)
+		return
+
+	old_owner.on_lost_hand(src)
+
+	if(!old_owner.hud_used)
+		return
+
+	var/atom/movable/screen/inventory/hand/hand = old_owner.hud_used.hand_slots["[held_index]"]
+	hand?.update_appearance()
+
+/// We need to add hand hud items and appearance, so do that here
+/obj/item/bodypart/arm/apply_ownership(mob/living/carbon/new_owner)
+	..()
+
+	new_owner.update_worn_gloves()
+
+	if(!held_index)
+		return
+
+	new_owner.on_added_hand(src, held_index)
+
+	if(!new_owner.hud_used)
+		return
+
+	var/atom/movable/screen/inventory/hand/hand = new_owner.hud_used.hand_slots["[held_index]"]
+	hand.update_appearance()
 
 /obj/item/bodypart/arm/left
 	name = "left arm"
@@ -134,26 +180,22 @@
 	px_y = 0
 	bodypart_trait_source = LEFT_ARM_TRAIT
 
-/obj/item/bodypart/arm/left/set_owner(new_owner)
-	. = ..()
-	if(. == FALSE)
-		return
-	if(owner)
-		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
-			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_loss))
-		else
-			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
-	if(.)
-		var/mob/living/carbon/old_owner = .
-		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_ARM))
-			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
-			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
-				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
-		else
-			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
+/obj/item/bodypart/arm/left/apply_ownership(mob/living/carbon/new_owner)
+	if(HAS_TRAIT(new_owner, TRAIT_PARALYSIS_L_ARM))
+		ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+		RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_loss))
+	else
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+		RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
+	..()
 
+/obj/item/bodypart/arm/left/clear_ownership(mob/living/carbon/old_owner)
+	if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_ARM))
+		UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+	else
+		UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
+	..()
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
 /obj/item/bodypart/arm/left/proc/on_owner_paralysis_gain(mob/living/carbon/source)
@@ -162,14 +204,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_ARM trait.
 /obj/item/bodypart/arm/left/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/arm/left/set_disabled(new_disabled)
 	. = ..()
@@ -200,6 +240,7 @@
 	px_x = -5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
+	appendage_noun = "paw"
 	unarmed_damage = 3
 
 /obj/item/bodypart/arm/left/monkey/teratoma
@@ -217,6 +258,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
+	appendage_noun = "scythe-like hand"
 
 /obj/item/bodypart/arm/right
 	name = "right arm"
@@ -232,26 +274,22 @@
 	px_y = 0
 	bodypart_trait_source = RIGHT_ARM_TRAIT
 
-/obj/item/bodypart/arm/right/set_owner(new_owner)
-	. = ..()
-	if(. == FALSE)
-		return
-	if(owner)
-		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
-			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_loss))
-		else
-			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
-	if(.)
-		var/mob/living/carbon/old_owner = .
-		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_ARM))
-			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
-			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
-				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
-		else
-			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
+/obj/item/bodypart/arm/right/apply_ownership(mob/living/carbon/new_owner)
+	if(HAS_TRAIT(new_owner, TRAIT_PARALYSIS_R_ARM))
+		ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+		RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_loss))
+	else
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+		RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
+	..()
 
+/obj/item/bodypart/arm/right/clear_ownership(mob/living/carbon/old_owner)
+	if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_ARM))
+		UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+	else
+		UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
+	..()
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_ARM trait.
 /obj/item/bodypart/arm/right/proc/on_owner_paralysis_gain(mob/living/carbon/source)
@@ -260,14 +298,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_ARM trait.
 /obj/item/bodypart/arm/right/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/arm/right/set_disabled(new_disabled)
 	. = ..()
@@ -298,6 +334,7 @@
 	px_x = 5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
+	appendage_noun = "paw"
 	unarmed_damage = 3
 
 /obj/item/bodypart/arm/right/monkey/teratoma
@@ -316,6 +353,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
+	appendage_noun = "scythe-like hand"
 
 /obj/item/bodypart/leg
 	abstract_type = /obj/item/bodypart/leg
@@ -349,34 +387,29 @@
 	px_y = 12
 	bodypart_trait_source = LEFT_LEG_TRAIT
 
-/obj/item/bodypart/leg/left/set_owner(new_owner)
-	. = ..()
-	if(. == FALSE)
-		return
-	if(owner)
-		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
-			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_loss))
-		else
-			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
-	if(.)
-		var/mob/living/carbon/old_owner = .
-		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_LEG))
-			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
-			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
-				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
-		else
-			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
+/obj/item/bodypart/leg/left/apply_ownership(mob/living/carbon/new_owner)
+	if(HAS_TRAIT(new_owner, TRAIT_PARALYSIS_L_LEG))
+		ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+		RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_loss))
+	else
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+		RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
+	..()
 
+/obj/item/bodypart/leg/left/clear_ownership(mob/living/carbon/old_owner)
+	if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_LEG))
+		UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+	else
+		UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
+	..()
 
-///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_LEG trait.
+///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
 /obj/item/bodypart/leg/left/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_loss))
-
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_LEG trait.
 /obj/item/bodypart/leg/left/proc/on_owner_paralysis_loss(mob/living/carbon/source)
@@ -384,7 +417,6 @@
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/leg/left/set_disabled(new_disabled)
 	. = ..()
@@ -442,26 +474,22 @@
 	px_y = 12
 	bodypart_trait_source = RIGHT_LEG_TRAIT
 
-/obj/item/bodypart/leg/right/set_owner(new_owner)
-	. = ..()
-	if(. == FALSE)
-		return
-	if(owner)
-		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
-			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_loss))
-		else
-			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
-	if(.)
-		var/mob/living/carbon/old_owner = .
-		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_LEG))
-			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
-			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
-				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
-		else
-			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
+/obj/item/bodypart/leg/right/apply_ownership(mob/living/carbon/new_owner)
+	if(HAS_TRAIT(new_owner, TRAIT_PARALYSIS_R_LEG))
+		ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+		RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_loss))
+	else
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+		RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
+	..()
 
+/obj/item/bodypart/leg/right/clear_ownership(mob/living/carbon/old_owner)
+	if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_LEG))
+		UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
+		REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+	else
+		UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
+	..()
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_LEG trait.
 /obj/item/bodypart/leg/right/proc/on_owner_paralysis_gain(mob/living/carbon/source)
@@ -470,14 +498,12 @@
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_loss))
 
-
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_LEG trait.
 /obj/item/bodypart/leg/right/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
 	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
-
 
 /obj/item/bodypart/leg/right/set_disabled(new_disabled)
 	. = ..()

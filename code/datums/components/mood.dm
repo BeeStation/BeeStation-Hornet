@@ -51,58 +51,98 @@
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
-	var/msg = "[span_info("<EM>Your current mood</EM>")]\n"
-	msg += span_notice("My mental status: ") //Long term
+	var/mob/living/mob_parent = parent
+	var/msg = "[span_info("<EM>My current mental status:</EM>")]<br>"
+
+	if(!HAS_TRAIT(mob_parent, TRAIT_NOHUNGER))
+		msg += span_notice("My hunger: ")
+		var/nutrition = mob_parent.nutrition
+		switch(nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				msg += "[span_info("I'm completely stuffed!")]<br>"
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				msg += "[span_info("I'm well fed!")]<br>"
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				msg += "[span_info("I'm not hungry.")]<br>"
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				msg += "[span_info("I could use a bite to eat.")]<br>"
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				msg += "[span_warning("I feel quite hungry.")]<br>" //Look, Henry's come to see us!
+			if(0 to NUTRITION_LEVEL_STARVING)
+				msg += "[span_boldwarning("I'm starving!")]<br>"
+
+	var/drunkness = mob_parent.get_drunk_amount()
+	if(drunkness >= 1)
+		msg += span_notice("My current drunkenness: ")
+		switch(drunkness)
+			if(1 to 10)
+				msg += "[span_info("I'm feeling a little tipsy.")]<br>"
+			if(11 to 21)
+				msg += "[span_info("I'm feeling a bit drunk.")]<br>"
+			if(21 to 41)
+				msg += "[span_info("I'm feeling quite drunk.")]<br>"
+			if(41 to 61)
+				msg += "[span_info("I'm feeling very drunk.")]<br>"
+			if(61 to 81)
+				msg += "[span_warning("I'm feeling like a mess.")]<br>"
+			if(81 to INFINITY)
+				msg += "[span_boldwarning("I'm completely wasted.")]<br>"
+
+	msg += span_notice("My current sanity: ") //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
-			msg += "[span_nicegreen("My mind feels like a temple!")]\n"
+			msg += "[span_boldnicegreen("My mind feels like a temple!")]<br>"
 		if(SANITY_NEUTRAL to SANITY_GREAT)
-			msg += "[span_nicegreen("I have been feeling great lately!")]\n"
+			msg += "[span_nicegreen("I have been feeling great lately!")]<br>"
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
-			msg += "[span_nicegreen("I have felt quite decent lately.")]\n"
+			msg += "[span_nicegreen("I have felt quite decent lately.")]<br>"
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
-			msg += "[span_warning("I'm feeling a little bit unhinged...")]\n"
+			msg += "[span_warning("I'm feeling a little bit unhinged...")]<br>"
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
-			msg += "[span_boldwarning("I'm freaking out!!!")]\n"
+			msg += "[span_warning("I'm freaking out!!")]<br>"
 		if(SANITY_INSANE to SANITY_CRAZY)
-			msg += "[span_boldwarning("AHAHAHAHAHAHAHAHAHAH!!!")]\n"
+			msg += "[span_boldwarning("AHAHAHAHAHAHAHAHAHAH!!")]<br>"
 
 	msg += span_notice("My current mood: ") //Short term
 	switch(mood_level)
-		if(1)
-			msg += "[span_boldwarning("I wish I was dead!")]\n"
-		if(2)
-			msg += "[span_boldwarning("I feel terrible...")]\n"
-		if(3)
-			msg += "[span_boldwarning("I feel very upset.")]\n"
-		if(4)
-			msg += "[span_boldwarning("I'm a bit sad.")]\n"
-		if(5)
-			msg += "[span_nicegreen("I'm alright.")]\n"
-		if(6)
-			msg += "[span_nicegreen("I feel pretty okay.")]\n"
-		if(7)
-			msg += "[span_nicegreen("I feel pretty good.")]\n"
-		if(8)
-			msg += "[span_nicegreen("I feel amazing!")]\n"
-		if(9)
-			msg += "[span_nicegreen("I love life!")]\n"
+		if(MOOD_LEVEL_SAD4)
+			msg += "[span_boldwarning("I wish I was dead!")]<br>"
+		if(MOOD_LEVEL_SAD3)
+			msg += "[span_boldwarning("I feel terrible...")]<br>"
+		if(MOOD_LEVEL_SAD2)
+			msg += "[span_boldwarning("I feel very upset.")]<br>"
+		if(MOOD_LEVEL_SAD1)
+			msg += "[span_warning("I'm a bit sad.")]<br>"
+		if(MOOD_LEVEL_NEUTRAL)
+			msg += "[span_grey("I'm alright.")]<br>"
+		if(MOOD_LEVEL_HAPPY1)
+			msg += "[span_nicegreen("I feel pretty okay.")]<br>"
+		if(MOOD_LEVEL_HAPPY2)
+			msg += "[span_boldnicegreen("I feel pretty good.")]<br>"
+		if(MOOD_LEVEL_HAPPY3)
+			msg += "[span_boldnicegreen("I feel amazing!")]<br>"
+		if(MOOD_LEVEL_HAPPY4)
+			msg += "[span_boldnicegreen("I love life!")]<br>"
 
-	msg += span_notice("Moodlets:\n")//All moodlets
+	msg += "[span_notice("Moodlets:")]<br>"//All moodlets
 	var/mood_msg = ""
 	var/thought_msg = ""
 	for(var/i in mood_events)
 		var/datum/mood_event/event = mood_events[i]
 		if(event.mood_change)
-			mood_msg += "[event.description]\n"
+			mood_msg += "[event.description]<br>"
 		else
-			thought_msg += "[event.description]\n"
+			thought_msg += "[event.description]<br>"
 	if(!mood_msg)
-		msg += "[span_moodneutral("I don't have much of a reaction to anything right now.")]\n"
+		msg += "&bull; [span_grey("I don't have much of a reaction to anything right now.")]<br>"
 	msg += mood_msg
 	if(thought_msg)
-		msg += "[span_notice("Thoughts:")]\n"
+		msg += "[span_notice("Thoughts:")]<br>"
 		msg += thought_msg
+
+	if(LAZYLEN(mob_parent.mind?.quirks))
+		msg += span_notice("You have these quirks: [mob_parent.get_quirk_string(FALSE, CAT_QUIRK_ALL)].")
+
 	to_chat(user || parent, examine_block(msg))
 
 ///Called after moodevent/s have been added/removed.
@@ -217,29 +257,19 @@
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
 		if(SANITY_INSANE-1 to SANITY_CRAZY)
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
-		if (-INFINITY to SANITY_INSANE) //prevents it from going below 0. This caused issues.
-			setSanity(0)
-	HandleNutrition(owner)
+	HandleNutrition()
 
-/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
-	var/mob/living/owner = parent
-
-	if(owner.stat == DEAD) // deadman can't feel mood
-		return
-
-	if(amount == sanity)
-		return
-	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.5
+///Sets sanity to the specified amount and applies effects.
+/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT, override = FALSE)
+	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.7
 	// If the new amount would move towards the acceptable range faster then use it instead
-	if(sanity < minimum && amount < sanity + 0.5)
-		amount = sanity + 0.5
-
-	// Disturbed stops you from getting any more sane
-	if(HAS_TRAIT(owner, TRAIT_UNSTABLE))
-		sanity = min(amount,sanity)
-	else
-		sanity = amount
-
+	if(amount < minimum)
+		amount += clamp(minimum - amount, 0, 0.7)
+	if((!override && HAS_TRAIT(parent, TRAIT_UNSTABLE)) || amount > maximum)
+		amount = min(sanity, amount)
+	if(amount == sanity) //Prevents stuff from flicking around.
+		return
+	sanity = amount
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)
@@ -344,7 +374,7 @@
 	hud.infodisplay += screen_obj
 	hud.infodisplay += screen_obj_sanity
 	RegisterSignal(hud, COMSIG_QDELETING, PROC_REF(unmodify_hud))
-	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
+	RegisterSignal(screen_obj, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(hud_click))
 
 /datum/component/mood/proc/unmodify_hud(datum/source)
 	SIGNAL_HANDLER
@@ -364,12 +394,12 @@
 
 	print_mood(user)
 
-/datum/component/mood/proc/HandleNutrition(mob/living/L)
+/datum/component/mood/proc/HandleNutrition()
+	var/mob/living/L = parent
+	if(istype(L.get_organ_slot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/electrical))
+		HandleCharge(L)
 	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
 		return FALSE //no mood events for nutrition
-	if(HAS_TRAIT(L, TRAIT_POWERHUNGRY))
-		HandleCharge(L)
-		return
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))
@@ -388,15 +418,18 @@
 			add_event(null, "nutrition", /datum/mood_event/starving)
 
 /datum/component/mood/proc/HandleCharge(mob/living/L)
-	switch(L.nutrition)
-		if(NUTRITION_LEVEL_WELL_FED to INFINITY)
-			add_event(null, "nutrition", /datum/mood_event/charged)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			clear_event(null, "nutrition")
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
-			add_event(null, "nutrition", /datum/mood_event/lowpower)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			add_event(null, "nutrition", /datum/mood_event/decharged)
+	var/obj/item/organ/stomach/electrical/battery = L.get_organ_slot(ORGAN_SLOT_STOMACH)
+	if(!istype(battery))
+		return
+	switch(battery.cell.charge)
+		if(ETHEREAL_CHARGE_FULL to INFINITY)
+			add_event(null, "charge", /datum/mood_event/charged)
+		if(ETHEREAL_CHARGE_NORMAL to ETHEREAL_CHARGE_FULL)
+			clear_event(null, "charge")
+		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
+			add_event(null, "charge", /datum/mood_event/lowpower)
+		if(-INFINITY to ETHEREAL_CHARGE_LOWPOWER)
+			add_event(null, "charge", /datum/mood_event/decharged)
 
 /datum/component/mood/proc/check_area_mood(datum/source, area/A)
 	SIGNAL_HANDLER
@@ -415,7 +448,7 @@
 	if(!full_heal)
 		return
 	remove_temp_moods()
-	setSanity(initial(sanity))
+	setSanity(initial(sanity), override = TRUE)
 
 #undef MOOD_SOURCE
 #undef MINOR_INSANITY_PEN
@@ -437,5 +470,5 @@
 		return
 
 	for(var/addiction_type in affected_carbon.mind.addiction_points)
-		var/datum/addiction/addiction_to_remove = SSaddiction.all_addictions[type]
+		var/datum/addiction/addiction_to_remove = GLOB.addictions[type]
 		affected_carbon.mind.remove_addiction_points(type, addiction_to_remove.high_sanity_addiction_loss) //If true was returned, we lost the addiction!
