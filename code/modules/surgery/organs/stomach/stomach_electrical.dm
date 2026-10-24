@@ -220,26 +220,16 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
-	/// store the previous display
-	var/screen_before_brownout
 
 /obj/item/organ/stomach/electrical/ipc/on_brownout_start(mob/living/carbon/carbon)
-	if(isnull(carbon.dna))
-		return
-	screen_before_brownout = carbon.dna.features["ipc_screen"]
-	carbon.dna.features["ipc_screen"] = null
-	carbon.update_body()
+	var/obj/item/organ/ipc_screen/screen = carbon.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_powered(FALSE)
 
 /obj/item/organ/stomach/electrical/ipc/on_brownout_end(mob/living/carbon/carbon)
-	if(isnull(carbon.dna))
+	if(carbon.stat == DEAD)
 		return
-	carbon.dna.features["ipc_screen"] = screen_before_brownout
-	screen_before_brownout = null
-	carbon.update_body()
-
-///Getter that skips the blanked-out screen while we're browned out
-/obj/item/organ/stomach/electrical/ipc/proc/get_true_screen(mob/living/carbon/carbon)
-	return in_brownout ? screen_before_brownout : carbon.dna?.features["ipc_screen"]
+	var/obj/item/organ/ipc_screen/screen = carbon.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_powered(TRUE)
 
 /obj/item/organ/stomach/electrical/ipc/emp_act(severity)
 	. = ..()

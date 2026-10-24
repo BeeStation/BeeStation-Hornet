@@ -597,20 +597,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
 
-	REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
-
 	if(!mutant_bodyparts)
 		return
-
-	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
-
-	if(mutant_bodyparts["ipc_screen"])
-		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & HIDEEYES) || !HD)
-			bodyparts_to_add -= "ipc_screen"
-
-	if(mutant_bodyparts["ipc_antenna"])
-		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & HIDEEARS) || !HD)
-			bodyparts_to_add -= "ipc_antenna"
 
 	if(!bodyparts_to_add)
 		return
@@ -623,10 +611,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/bodypart in bodyparts_to_add)
 			var/datum/sprite_accessory/S
 			switch(bodypart)
-				if("ipc_screen")
-					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
-				if("ipc_antenna")
-					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
 				if("insect_type")
@@ -639,11 +623,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
-
-			// Add on emissives, if they have one
-			if (S.emissive_state)
-				accessory_overlay.overlays.Add(emissive_appearance(S.icon, S.emissive_state, CALCULATE_MOB_OVERLAY_LAYER(layer), S.emissive_alpha, filters = H.filters))
-				ADD_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
 
 			accessory_overlay.alpha = S.overlay_alpha
 

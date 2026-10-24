@@ -35,11 +35,13 @@
 	mutantheart = /obj/item/organ/heart/cybernetic/ipc
 	mutantlungs = null
 	mutantappendix = null
-	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
+	mutant_organs = list(
+		/obj/item/organ/cyberimp/arm/power_cord,
+		/obj/item/organ/ipc_screen = "Static",
+		/obj/item/organ/ipc_antenna = SPRITE_ACCESSORY_NONE,
+	)
 	mutant_bodyparts = list(
 		"mcolor" = "#7D7D7D",
-		"ipc_screen" = "Static",
-		"ipc_antenna" = "None",
 		"ipc_chassis" = "Morpheus Cyberkinetics (Custom)"
 	)
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
@@ -119,18 +121,17 @@
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
 	if(!gibbed)
 		controller.shutdown_computer()
-	// access cell over DNA is intended, otherwise a dead screen gets saved T-T
-	var/obj/item/organ/stomach/electrical/ipc/battery = C.get_organ_slot(ORGAN_SLOT_STOMACH)
-	saved_screen = istype(battery) ? battery.get_true_screen(C) : C.dna.features["ipc_screen"]
-	C.dna.features["ipc_screen"] = "BSOD"
-	C.update_body()
+	var/obj/item/organ/ipc_screen/screen = C.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	if(screen)
+		saved_screen = screen.bodypart_overlay.sprite_datum.name
+		screen.set_screen("BSOD")
 	addtimer(CALLBACK(src, PROC_REF(post_death), C), 5 SECONDS)
 
 /datum/species/ipc/proc/post_death(mob/living/carbon/C)
 	if(C.stat < DEAD)
 		return
-	C.dna.features["ipc_screen"] = null //Turns off screen on death
-	C.update_body()
+	var/obj/item/organ/ipc_screen/screen = C.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_powered(FALSE)
 
 /datum/action/innate/access_controller
 	name = "Access Internal Controller"
@@ -163,9 +164,10 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	H.dna.features["ipc_screen"] = screen_choice
+	H.dna.features[FEATURE_IPC_SCREEN] = screen_choice
 	H.eye_color_left = sanitize_hexcolor(color_choice)
-	H.update_body()
+	var/obj/item/organ/ipc_screen/screen = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_screen(screen_choice)
 
 /obj/item/apc_powercord
 	name = "power cord"
@@ -252,9 +254,11 @@
 
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
-	H.dna.features["ipc_screen"] = "BSOD"
+	var/obj/item/organ/ipc_screen/screen = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	if(screen)
+		screen.set_powered(TRUE)
+		screen.set_screen("BSOD")
 	INVOKE_ASYNC(src, PROC_REF(declare_revival), H)
-	H.update_body()
 
 /datum/species/ipc/proc/declare_revival(mob/living/carbon/human/H)
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
@@ -271,7 +275,9 @@
 	if(H.stat == DEAD)
 		return
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
-	H.dna.features["ipc_screen"] = saved_screen
+	var/obj/item/organ/ipc_screen/screen = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	if(screen && saved_screen)
+		screen.set_screen(saved_screen)
 
 /datum/species/ipc/get_harm_descriptors()
 	return list(

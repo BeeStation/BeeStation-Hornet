@@ -196,8 +196,8 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features[FEATURE_APID_HEADSTRIPES] = get_consistent_feature_entry(GLOB.apid_headstripes_list)
 	target.dna.features[FEATURE_APID_ANTENNA] = get_consistent_feature_entry(GLOB.apid_antenna_list)
 	target.dna.features["insect_type"] = "fly"
-	target.dna.features["ipc_screen"] = "BSOD"
-	target.dna.features["ipc_antenna"] = SPRITE_ACCESSORY_NONE
+	target.dna.features[FEATURE_IPC_SCREEN] = "BSOD"
+	target.dna.features[FEATURE_IPC_ANTENNA] = get_consistent_feature_entry(GLOB.ipc_antennas_list)
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
 	target.dna.features[FEATURE_PSYPHOZA_CAP] = get_consistent_feature_entry(GLOB.psyphoza_cap_list)
 	target.dna.features[FEATURE_DIONA_LEAVES] = get_consistent_feature_entry(GLOB.diona_leaves_list)

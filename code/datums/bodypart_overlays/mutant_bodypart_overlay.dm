@@ -87,6 +87,8 @@
 
 	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, build_icon_state(image_layer, limb), layer = CALCULATE_MOB_OVERLAY_LAYER(image_layer))
 	appearance.alpha = sprite_datum.overlay_alpha
+	if(sprite_datum.emissive_state)
+		appearance.overlays += emissive_appearance(sprite_datum.icon, sprite_datum.emissive_state, appearance.layer, sprite_datum.emissive_alpha)
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
 

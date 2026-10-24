@@ -4,7 +4,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Screen Style"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "ipc_screen"
+	relevant_organ = /obj/item/organ/ipc_screen
 
 /datum/preference/choiced/ipc_screen/init_possible_values()
 	return assoc_to_keys_features(GLOB.ipc_screens_list)
@@ -27,7 +27,7 @@
 	return icon_with_screen
 
 /datum/preference/choiced/ipc_screen/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ipc_screen"] = value
+	target.dna.features[FEATURE_IPC_SCREEN] = value
 
 /datum/preference/choiced/ipc_screen/compile_constant_data()
 	var/list/data = ..()
@@ -40,7 +40,7 @@
 	db_key = "feature_ipc_screen_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_mutant_bodypart = "ipc_antenna"
+	relevant_organ = /obj/item/organ/ipc_screen
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/color/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
@@ -61,7 +61,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antenna Style"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "ipc_antenna"
+	relevant_organ = /obj/item/organ/ipc_antenna
 
 /datum/preference/choiced/ipc_antenna/init_possible_values()
 	return assoc_to_keys_features(GLOB.ipc_antennas_list)
@@ -86,7 +86,7 @@
 	return icon_with_antennae
 
 /datum/preference/choiced/ipc_antenna/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ipc_antenna"] = value
+	target.dna.features[FEATURE_IPC_ANTENNA] = value
 
 /datum/preference/choiced/ipc_antenna/compile_constant_data()
 	var/list/data = ..()
@@ -99,7 +99,7 @@
 	db_key = "feature_ipc_antenna_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_mutant_bodypart = "ipc_antenna"
+	relevant_organ = /obj/item/organ/ipc_antenna
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/color/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)

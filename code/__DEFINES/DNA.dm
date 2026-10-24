@@ -106,6 +106,8 @@
 #define FEATURE_DIONA_ANTENNAE "diona_antennae"
 #define FEATURE_DIONA_EYES "diona_eyes"
 #define FEATURE_DIONA_PBODY "diona_pbody"
+#define FEATURE_IPC_SCREEN "ipc_screen"
+#define FEATURE_IPC_ANTENNA "ipc_antenna"
 
 // Other
 #define FEATURE_WINGS "wings"
@@ -187,6 +189,8 @@
 #define ORGAN_SLOT_EXTERNAL_DIONA_ANTENNAE "diona_antennae"
 #define ORGAN_SLOT_EXTERNAL_DIONA_EYES "diona_eyes"
 #define ORGAN_SLOT_EXTERNAL_DIONA_PBODY "diona_pbody"
+#define ORGAN_SLOT_EXTERNAL_IPC_SCREEN "ipc_screen"
+#define ORGAN_SLOT_EXTERNAL_IPC_ANTENNA "ipc_antenna"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100
