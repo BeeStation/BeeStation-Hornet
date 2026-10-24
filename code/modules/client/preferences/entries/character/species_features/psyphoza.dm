@@ -4,7 +4,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Mushroom Cap"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "psyphoza_cap"
+	relevant_organ = /obj/item/organ/psyphoza_cap
 
 /datum/preference/choiced/psyphoza_cap/init_possible_values()
 	return assoc_to_keys_features(GLOB.psyphoza_cap_list)
@@ -27,4 +27,4 @@
 	return icon_with_cap
 
 /datum/preference/choiced/psyphoza_cap/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["psyphoza_cap"] = value
+	target.dna.features[FEATURE_PSYPHOZA_CAP] = value

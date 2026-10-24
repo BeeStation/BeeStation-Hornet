@@ -19,7 +19,8 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
+	mutant_bodyparts = list("body_size" = "Normal", "mcolor" = COLOR_WHITE)
+	mutant_organs = list(/obj/item/organ/psyphoza_cap = "Portobello")
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 
 	bodypart_overrides = list(

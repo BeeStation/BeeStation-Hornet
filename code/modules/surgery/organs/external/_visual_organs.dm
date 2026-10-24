@@ -282,3 +282,83 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/antennae/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEANTENNAE)
+
+///An apid's antennae
+/obj/item/organ/apid_antenna
+	name = "apid antennae"
+	desc = "A pair of apid antennae. They still twitch at the smell of pollen."
+	icon_state = "antennae"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_ANTENNAE
+
+	dna_block = DNA_APID_ANTENNA_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/apid_antenna
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+/datum/bodypart_overlay/mutant/apid_antenna
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_APID_ANTENNA
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/apid_antenna/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEHAIR)
+
+/datum/bodypart_overlay/mutant/apid_antenna/get_global_feature_list()
+	return GLOB.apid_antenna_list
+
+///The coloured chitin on an apid's head
+/obj/item/organ/apid_headstripes
+	name = "apid headstripes"
+	desc = "A patch of striped chitin from an apid's head."
+	icon = 'icons/mob/human/species/apid/apid_head.dmi'
+	icon_state = "m_apid_headstripes_thick_ADJ"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_HEADSTRIPES
+
+	dna_block = DNA_APID_HEADSTRIPES_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/apid_headstripes
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+/datum/bodypart_overlay/mutant/apid_headstripes
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_APID_HEADSTRIPES
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/apid_headstripes/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEEYES)
+
+/datum/bodypart_overlay/mutant/apid_headstripes/get_global_feature_list()
+	return GLOB.apid_headstripes_list
+
+///A psyphoza's mushroom cap
+/obj/item/organ/psyphoza_cap
+	name = "psyphoza cap"
+	desc = "The mushroom cap of a psyphoza. Its shape is said to decide its owner's luck."
+	icon = 'icons/mob/psyphoza_caps.dmi'
+	icon_state = "m_psyphoza_cap_wide_ADJ"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_PSYPHOZA_CAP
+
+	dna_block = DNA_PSYPHOZA_CAP_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_PLANT
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/psyphoza_cap
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+/datum/bodypart_overlay/mutant/psyphoza_cap
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_PSYPHOZA_CAP
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/psyphoza_cap/get_global_feature_list()
+	return GLOB.psyphoza_cap_list

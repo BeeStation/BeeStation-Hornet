@@ -243,14 +243,14 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_MOTH_ANTENNAE_BLOCK] = construct_block(GLOB.moth_antennae_list.Find(features["moth_antennae"]), GLOB.moth_antennae_list.len)
 	if(features["moth_markings"])
 		L[DNA_MOTH_MARKINGS_BLOCK] = construct_block(GLOB.moth_markings_list.Find(features["moth_markings"]), GLOB.moth_markings_list.len)
-	if(features["apid_antenna"])
-		L[DNA_APID_ANTENNA_BLOCK] = construct_block(GLOB.apid_antenna_list.Find(features["apid_antenna"]), GLOB.apid_antenna_list.len)
+	if(features[FEATURE_APID_ANTENNA])
+		L[DNA_APID_ANTENNA_BLOCK] = construct_block(GLOB.apid_antenna_list.Find(features[FEATURE_APID_ANTENNA]), GLOB.apid_antenna_list.len)
 	if(features["apid_stripes"])
 		L[DNA_APID_STRIPES_BLOCK] = construct_block(GLOB.apid_stripes_list.Find(features["apid_stripes"]), GLOB.apid_stripes_list.len)
-	if(features["apid_headstripes"])
-		L[DNA_APID_HEADSTRIPES_BLOCK] = construct_block(GLOB.apid_headstripes_list.Find(features["apid_headstripes"]), GLOB.apid_headstripes_list.len)
-	if(features["psyphoza_cap"])
-		L[DNA_PSYPHOZA_CAP_BLOCK] = construct_block(GLOB.psyphoza_cap_list.Find(features["psyphoza_cap"]), GLOB.psyphoza_cap_list.len)
+	if(features[FEATURE_APID_HEADSTRIPES])
+		L[DNA_APID_HEADSTRIPES_BLOCK] = construct_block(GLOB.apid_headstripes_list.Find(features[FEATURE_APID_HEADSTRIPES]), GLOB.apid_headstripes_list.len)
+	if(features[FEATURE_PSYPHOZA_CAP])
+		L[DNA_PSYPHOZA_CAP_BLOCK] = construct_block(GLOB.psyphoza_cap_list.Find(features[FEATURE_PSYPHOZA_CAP]), GLOB.psyphoza_cap_list.len)
 	if(features["insect_type"])
 		L[DNA_INSECT_TYPE_BLOCK] = construct_block(GLOB.insect_type_list.Find(features["insect_type"]), GLOB.insect_type_list.len)
 	if(features["ipc_screen"])
@@ -259,22 +259,22 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_IPC_ANTENNA_BLOCK] = construct_block(GLOB.ipc_antennas_list.Find(features["ipc_antenna"]), GLOB.ipc_antennas_list.len)
 	if(features["ipc_chassis"])
 		L[DNA_IPC_CHASSIS_BLOCK] = construct_block(GLOB.ipc_chassis_list.Find(features["ipc_chassis"]), GLOB.ipc_chassis_list.len)
-	if(features["diona_leaves"])
-		L[DNA_DIONA_LEAVES_BLOCK] = construct_block(GLOB.diona_leaves_list.Find(features["diona_leaves"]), GLOB.diona_leaves_list.len)
-	if(features["diona_thorns"])
-		L[DNA_DIONA_THORNS_BLOCK] = construct_block(GLOB.diona_thorns_list.Find(features["diona_thorns"]), GLOB.diona_thorns_list.len)
-	if(features["diona_flowers"])
-		L[DNA_DIONA_FLOWERS_BLOCK] = construct_block(GLOB.diona_flowers_list.Find(features["diona_flowers"]), GLOB.diona_flowers_list.len)
-	if(features["diona_moss"])
-		L[DNA_DIONA_MOSS_BLOCK] = construct_block(GLOB.diona_moss_list.Find(features["diona_moss"]), GLOB.diona_moss_list.len)
-	if(features["diona_mushroom"])
-		L[DNA_DIONA_MUSHROOM_BLOCK] = construct_block(GLOB.diona_mushroom_list.Find(features["diona_mushroom"]), GLOB.diona_mushroom_list.len)
-	if(features["diona_antennae"])
-		L[DNA_DIONA_ANTENNAE_BLOCK] = construct_block(GLOB.diona_antennae_list.Find(features["diona_antennae"]), GLOB.diona_antennae_list.len)
-	if(features["diona_eyes"])
-		L[DNA_DIONA_EYES_BLOCK] = construct_block(GLOB.diona_eyes_list.Find(features["diona_eyes"]), GLOB.diona_eyes_list.len)
-	if(features["diona_pbody"])
-		L[DNA_DIONA_PBODY_BLOCK] = construct_block(GLOB.diona_pbody_list.Find(features["diona_pbody"]), GLOB.diona_pbody_list.len)
+	if(features[FEATURE_DIONA_LEAVES])
+		L[DNA_DIONA_LEAVES_BLOCK] = construct_block(GLOB.diona_leaves_list.Find(features[FEATURE_DIONA_LEAVES]), GLOB.diona_leaves_list.len)
+	if(features[FEATURE_DIONA_THORNS])
+		L[DNA_DIONA_THORNS_BLOCK] = construct_block(GLOB.diona_thorns_list.Find(features[FEATURE_DIONA_THORNS]), GLOB.diona_thorns_list.len)
+	if(features[FEATURE_DIONA_FLOWERS])
+		L[DNA_DIONA_FLOWERS_BLOCK] = construct_block(GLOB.diona_flowers_list.Find(features[FEATURE_DIONA_FLOWERS]), GLOB.diona_flowers_list.len)
+	if(features[FEATURE_DIONA_MOSS])
+		L[DNA_DIONA_MOSS_BLOCK] = construct_block(GLOB.diona_moss_list.Find(features[FEATURE_DIONA_MOSS]), GLOB.diona_moss_list.len)
+	if(features[FEATURE_DIONA_MUSHROOM])
+		L[DNA_DIONA_MUSHROOM_BLOCK] = construct_block(GLOB.diona_mushroom_list.Find(features[FEATURE_DIONA_MUSHROOM]), GLOB.diona_mushroom_list.len)
+	if(features[FEATURE_DIONA_ANTENNAE])
+		L[DNA_DIONA_ANTENNAE_BLOCK] = construct_block(GLOB.diona_antennae_list.Find(features[FEATURE_DIONA_ANTENNAE]), GLOB.diona_antennae_list.len)
+	if(features[FEATURE_DIONA_EYES])
+		L[DNA_DIONA_EYES_BLOCK] = construct_block(GLOB.diona_eyes_list.Find(features[FEATURE_DIONA_EYES]), GLOB.diona_eyes_list.len)
+	if(features[FEATURE_DIONA_PBODY])
+		L[DNA_DIONA_PBODY_BLOCK] = construct_block(GLOB.diona_pbody_list.Find(features[FEATURE_DIONA_PBODY]), GLOB.diona_pbody_list.len)
 
 	for(var/blocknum in 1 to DNA_FEATURE_BLOCKS)
 		. += L[blocknum] || random_string(GET_UI_BLOCK_LEN(blocknum), GLOB.hex_characters)
@@ -417,13 +417,13 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_MOTH_MARKINGS_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.moth_markings_list.Find(features["moth_markings"]), GLOB.moth_markings_list.len))
 		if(DNA_APID_ANTENNA_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.apid_antenna_list.Find(features["apid_antenna"]), GLOB.apid_antenna_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.apid_antenna_list.Find(features[FEATURE_APID_ANTENNA]), GLOB.apid_antenna_list.len))
 		if(DNA_APID_STRIPES_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.apid_stripes_list.Find(features["apid_stripes"]), GLOB.apid_stripes_list.len))
 		if(DNA_APID_HEADSTRIPES_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.apid_headstripes_list.Find(features["apid_headstripes"]), GLOB.apid_headstripes_list.len))
-		if(DNA_APID_HEADSTRIPES_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.psyphoza_cap_list.Find(features["psyphoza_cap"]), GLOB.psyphoza_cap_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.apid_headstripes_list.Find(features[FEATURE_APID_HEADSTRIPES]), GLOB.apid_headstripes_list.len))
+		if(DNA_PSYPHOZA_CAP_BLOCK)
+			set_uni_feature_block(blocknumber, construct_block(GLOB.psyphoza_cap_list.Find(features[FEATURE_PSYPHOZA_CAP]), GLOB.psyphoza_cap_list.len))
 		if(DNA_INSECT_TYPE_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.insect_type_list.Find(features["insect_type"]), GLOB.insect_type_list.len))
 		if(DNA_IPC_SCREEN_BLOCK)
@@ -433,21 +433,21 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_IPC_CHASSIS_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.ipc_chassis_list.Find(features["ipc_chassis"]), GLOB.ipc_chassis_list.len))
 		if(DNA_DIONA_LEAVES_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_leaves_list.Find(features["diona_leaves"]), GLOB.diona_leaves_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_leaves_list.Find(features[FEATURE_DIONA_LEAVES]), GLOB.diona_leaves_list.len))
 		if(DNA_DIONA_THORNS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_thorns_list.Find(features["diona_thorns"]), GLOB.diona_thorns_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_thorns_list.Find(features[FEATURE_DIONA_THORNS]), GLOB.diona_thorns_list.len))
 		if(DNA_DIONA_FLOWERS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_flowers_list.Find(features["diona_flowers"]), GLOB.diona_flowers_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_flowers_list.Find(features[FEATURE_DIONA_FLOWERS]), GLOB.diona_flowers_list.len))
 		if(DNA_DIONA_MOSS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_moss_list.Find(features["diona_moss"]), GLOB.diona_moss_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_moss_list.Find(features[FEATURE_DIONA_MOSS]), GLOB.diona_moss_list.len))
 		if(DNA_DIONA_MUSHROOM_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_mushroom_list.Find(features["diona_mushroom"]), GLOB.diona_mushroom_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_mushroom_list.Find(features[FEATURE_DIONA_MUSHROOM]), GLOB.diona_mushroom_list.len))
 		if(DNA_DIONA_ANTENNAE_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_antennae_list.Find(features["diona_antennae"]), GLOB.diona_antennae_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_antennae_list.Find(features[FEATURE_DIONA_ANTENNAE]), GLOB.diona_antennae_list.len))
 		if(DNA_DIONA_EYES_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_eyes_list.Find(features["diona_eyes"]), GLOB.diona_eyes_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_eyes_list.Find(features[FEATURE_DIONA_EYES]), GLOB.diona_eyes_list.len))
 		if(DNA_DIONA_PBODY_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_pbody_list.Find(features["diona_pbody"]), GLOB.diona_pbody_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.diona_pbody_list.Find(features[FEATURE_DIONA_PBODY]), GLOB.diona_pbody_list.len))
 
 //Please use add_mutation or activate_mutation instead
 /datum/dna/proc/force_give(datum/mutation/mutation)
@@ -748,14 +748,14 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		dna.features["moth_antennae"] = genetic_value
 	if(dna.features["moth_markings"])
 		dna.features["moth_markings"] = GLOB.moth_markings_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_MARKINGS_BLOCK), GLOB.moth_markings_list.len)]
-	if(dna.features["apid_antenna"])
-		dna.features["apid_antenna"] = GLOB.apid_antenna_list[deconstruct_block(get_uni_feature_block(features, DNA_APID_ANTENNA_BLOCK), GLOB.apid_antenna_list.len)]
+	if(dna.features[FEATURE_APID_ANTENNA])
+		dna.features[FEATURE_APID_ANTENNA] = GLOB.apid_antenna_list[deconstruct_block(get_uni_feature_block(features, DNA_APID_ANTENNA_BLOCK), GLOB.apid_antenna_list.len)]
 	if(dna.features["apid_stripes"])
 		dna.features["apid_stripes"] = GLOB.apid_stripes_list[deconstruct_block(get_uni_feature_block(features, DNA_APID_STRIPES_BLOCK), GLOB.apid_stripes_list.len)]
-	if(dna.features["apid_headstripes"])
-		dna.features["apid_headstripes"] = GLOB.apid_headstripes_list[deconstruct_block(get_uni_feature_block(features, DNA_APID_HEADSTRIPES_BLOCK), GLOB.apid_headstripes_list.len)]
-	if(dna.features["psyphoza_cap"])
-		dna.features["psyphoza_cap"] = GLOB.psyphoza_cap_list[deconstruct_block(get_uni_feature_block(features, DNA_PSYPHOZA_CAP_BLOCK), GLOB.psyphoza_cap_list.len)]
+	if(dna.features[FEATURE_APID_HEADSTRIPES])
+		dna.features[FEATURE_APID_HEADSTRIPES] = GLOB.apid_headstripes_list[deconstruct_block(get_uni_feature_block(features, DNA_APID_HEADSTRIPES_BLOCK), GLOB.apid_headstripes_list.len)]
+	if(dna.features[FEATURE_PSYPHOZA_CAP])
+		dna.features[FEATURE_PSYPHOZA_CAP] = GLOB.psyphoza_cap_list[deconstruct_block(get_uni_feature_block(features, DNA_PSYPHOZA_CAP_BLOCK), GLOB.psyphoza_cap_list.len)]
 	if(dna.features["insect_type"])
 		dna.features["insect_type"] = GLOB.insect_type_list[deconstruct_block(get_uni_feature_block(features, DNA_INSECT_TYPE_BLOCK), GLOB.insect_type_list.len)]
 	if(dna.features["ipc_screen"])
@@ -764,22 +764,22 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		dna.features["ipc_antenna"] = GLOB.ipc_antennas_list[deconstruct_block(get_uni_feature_block(features, DNA_IPC_ANTENNA_BLOCK), GLOB.ipc_antennas_list.len)]
 	if(dna.features["ipc_chassis"])
 		dna.features["ipc_chassis"] = GLOB.ipc_chassis_list[deconstruct_block(get_uni_feature_block(features, DNA_IPC_CHASSIS_BLOCK), GLOB.ipc_chassis_list.len)]
-	if(dna.features["diona_leaves"])
-		dna.features["diona_leaves"] = GLOB.diona_leaves_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_LEAVES_BLOCK), GLOB.diona_leaves_list.len)]
-	if(dna.features["diona_thorns"])
-		dna.features["diona_thorns"] = GLOB.diona_thorns_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_THORNS_BLOCK), GLOB.diona_thorns_list.len)]
-	if(dna.features["diona_flowers"])
-		dna.features["diona_flowers"] = GLOB.diona_flowers_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_FLOWERS_BLOCK), GLOB.diona_flowers_list.len)]
-	if(dna.features["diona_moss"])
-		dna.features["diona_moss"] = GLOB.diona_moss_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_MOSS_BLOCK), GLOB.diona_moss_list.len)]
-	if(dna.features["diona_mushroom"])
-		dna.features["diona_mushroom"] = GLOB.diona_mushroom_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_MUSHROOM_BLOCK), GLOB.diona_mushroom_list.len)]
-	if(dna.features["diona_antennae"])
-		dna.features["diona_antennae"] = GLOB.diona_antennae_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_ANTENNAE_BLOCK), GLOB.diona_antennae_list.len)]
-	if(dna.features["diona_eyes"])
-		dna.features["diona_eyes"] = GLOB.diona_eyes_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_EYES_BLOCK), GLOB.diona_eyes_list.len)]
-	if(dna.features["diona_pbody"])
-		dna.features["diona_pbody"] = GLOB.diona_pbody_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
+	if(dna.features[FEATURE_DIONA_LEAVES])
+		dna.features[FEATURE_DIONA_LEAVES] = GLOB.diona_leaves_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_LEAVES_BLOCK), GLOB.diona_leaves_list.len)]
+	if(dna.features[FEATURE_DIONA_THORNS])
+		dna.features[FEATURE_DIONA_THORNS] = GLOB.diona_thorns_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_THORNS_BLOCK), GLOB.diona_thorns_list.len)]
+	if(dna.features[FEATURE_DIONA_FLOWERS])
+		dna.features[FEATURE_DIONA_FLOWERS] = GLOB.diona_flowers_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_FLOWERS_BLOCK), GLOB.diona_flowers_list.len)]
+	if(dna.features[FEATURE_DIONA_MOSS])
+		dna.features[FEATURE_DIONA_MOSS] = GLOB.diona_moss_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_MOSS_BLOCK), GLOB.diona_moss_list.len)]
+	if(dna.features[FEATURE_DIONA_MUSHROOM])
+		dna.features[FEATURE_DIONA_MUSHROOM] = GLOB.diona_mushroom_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_MUSHROOM_BLOCK), GLOB.diona_mushroom_list.len)]
+	if(dna.features[FEATURE_DIONA_ANTENNAE])
+		dna.features[FEATURE_DIONA_ANTENNAE] = GLOB.diona_antennae_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_ANTENNAE_BLOCK), GLOB.diona_antennae_list.len)]
+	if(dna.features[FEATURE_DIONA_EYES])
+		dna.features[FEATURE_DIONA_EYES] = GLOB.diona_eyes_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_EYES_BLOCK), GLOB.diona_eyes_list.len)]
+	if(dna.features[FEATURE_DIONA_PBODY])
+		dna.features[FEATURE_DIONA_PBODY] = GLOB.diona_pbody_list[deconstruct_block(get_uni_feature_block(features, DNA_DIONA_PBODY_BLOCK), GLOB.diona_pbody_list.len)]
 
 	eye_color_heterochromatic = (eye_color_left != eye_color_right)
 

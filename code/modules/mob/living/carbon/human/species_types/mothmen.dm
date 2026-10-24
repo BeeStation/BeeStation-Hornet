@@ -193,7 +193,6 @@
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
 			H.SetSleeping(0, FALSE)
 		H.remove_status_effect(/datum/status_effect/cocooned)
-		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
 		H.forceMove(loc)
 		H.log_message("[key_name(H)] [done_regenerating ? "has emerged" : "was forcefully ejected"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)

@@ -95,6 +95,17 @@
 #define FEATURE_MOTH_WINGS "moth_wings"
 #define FEATURE_MOTH_ANTENNAE "moth_antennae"
 #define FEATURE_MOTH_MARKINGS "moth_markings"
+#define FEATURE_APID_ANTENNA "apid_antenna"
+#define FEATURE_APID_HEADSTRIPES "apid_headstripes"
+#define FEATURE_PSYPHOZA_CAP "psyphoza_cap"
+#define FEATURE_DIONA_LEAVES "diona_leaves"
+#define FEATURE_DIONA_THORNS "diona_thorns"
+#define FEATURE_DIONA_FLOWERS "diona_flowers"
+#define FEATURE_DIONA_MOSS "diona_moss"
+#define FEATURE_DIONA_MUSHROOM "diona_mushroom"
+#define FEATURE_DIONA_ANTENNAE "diona_antennae"
+#define FEATURE_DIONA_EYES "diona_eyes"
+#define FEATURE_DIONA_PBODY "diona_pbody"
 
 // Other
 #define FEATURE_WINGS "wings"
@@ -166,6 +177,16 @@
 #define ORGAN_SLOT_EXTERNAL_HORNS "horns"
 #define ORGAN_SLOT_EXTERNAL_WINGS "wings"
 #define ORGAN_SLOT_EXTERNAL_ANTENNAE "antennae"
+#define ORGAN_SLOT_EXTERNAL_HEADSTRIPES "headstripes"
+#define ORGAN_SLOT_EXTERNAL_PSYPHOZA_CAP "psyphoza_cap"
+#define ORGAN_SLOT_EXTERNAL_DIONA_LEAVES "diona_leaves"
+#define ORGAN_SLOT_EXTERNAL_DIONA_THORNS "diona_thorns"
+#define ORGAN_SLOT_EXTERNAL_DIONA_FLOWERS "diona_flowers"
+#define ORGAN_SLOT_EXTERNAL_DIONA_MOSS "diona_moss"
+#define ORGAN_SLOT_EXTERNAL_DIONA_MUSHROOM "diona_mushroom"
+#define ORGAN_SLOT_EXTERNAL_DIONA_ANTENNAE "diona_antennae"
+#define ORGAN_SLOT_EXTERNAL_DIONA_EYES "diona_eyes"
+#define ORGAN_SLOT_EXTERNAL_DIONA_PBODY "diona_pbody"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100

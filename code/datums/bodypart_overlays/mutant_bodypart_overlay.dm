@@ -86,6 +86,7 @@
 		CRASH("Trying to call get_image() on [type] while it didn't have a sprite_datum. This shouldn't happen, report it as soon as possible.")
 
 	var/mutable_appearance/appearance = mutable_appearance(sprite_datum.icon, build_icon_state(image_layer, limb), layer = CALCULATE_MOB_OVERLAY_LAYER(image_layer))
+	appearance.alpha = sprite_datum.overlay_alpha
 	if(sprite_datum.center)
 		center_image(appearance, sprite_datum.dimension_x, sprite_datum.dimension_y)
 

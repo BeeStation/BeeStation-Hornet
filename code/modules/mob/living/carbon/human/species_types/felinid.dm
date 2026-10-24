@@ -5,8 +5,6 @@
 	examine_limb_id = SPECIES_HUMAN
 
 	mutant_bodyparts = list(
-		"ears" = "Cat",
-		"wings" = SPRITE_ACCESSORY_NONE,
 		"body_size" = "Normal"
 	)
 	mutant_organs = list(

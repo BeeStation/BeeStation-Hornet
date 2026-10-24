@@ -193,21 +193,21 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features[FEATURE_TAIL_LIZARD] = get_consistent_feature_entry(GLOB.tails_list_lizard)
 	target.dna.features[FEATURE_TAIL_MONKEY] = get_consistent_feature_entry(GLOB.tails_list_monkey)
 	target.dna.features["apid_stripes"] = "thick"
-	target.dna.features["apid_headstripes"] = "thick"
-	target.dna.features["apid_antenna"] = "curled"
+	target.dna.features[FEATURE_APID_HEADSTRIPES] = get_consistent_feature_entry(GLOB.apid_headstripes_list)
+	target.dna.features[FEATURE_APID_ANTENNA] = get_consistent_feature_entry(GLOB.apid_antenna_list)
 	target.dna.features["insect_type"] = "fly"
 	target.dna.features["ipc_screen"] = "BSOD"
 	target.dna.features["ipc_antenna"] = SPRITE_ACCESSORY_NONE
 	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
-	target.dna.features["psyphoza_cap"] = "Portobello"
-	target.dna.features["diona_leaves"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_thorns"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_flowers"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_moss"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_mushroom"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_antennae"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_eyes"] = SPRITE_ACCESSORY_NONE
-	target.dna.features["diona_pbody"] = SPRITE_ACCESSORY_NONE
+	target.dna.features[FEATURE_PSYPHOZA_CAP] = get_consistent_feature_entry(GLOB.psyphoza_cap_list)
+	target.dna.features[FEATURE_DIONA_LEAVES] = get_consistent_feature_entry(GLOB.diona_leaves_list)
+	target.dna.features[FEATURE_DIONA_THORNS] = get_consistent_feature_entry(GLOB.diona_thorns_list)
+	target.dna.features[FEATURE_DIONA_FLOWERS] = get_consistent_feature_entry(GLOB.diona_flowers_list)
+	target.dna.features[FEATURE_DIONA_MOSS] = get_consistent_feature_entry(GLOB.diona_moss_list)
+	target.dna.features[FEATURE_DIONA_MUSHROOM] = get_consistent_feature_entry(GLOB.diona_mushroom_list)
+	target.dna.features[FEATURE_DIONA_ANTENNAE] = get_consistent_feature_entry(GLOB.diona_antennae_list)
+	target.dna.features[FEATURE_DIONA_EYES] = get_consistent_feature_entry(GLOB.diona_eyes_list)
+	target.dna.features[FEATURE_DIONA_PBODY] = get_consistent_feature_entry(GLOB.diona_pbody_list)
 	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
 	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
 	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency

@@ -37,7 +37,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antennae Style"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "apid_antenna"
+	relevant_organ = /obj/item/organ/apid_antenna
 
 /datum/preference/choiced/apid_antenna/init_possible_values()
 	return assoc_to_keys_features(GLOB.apid_antenna_list)
@@ -61,7 +61,7 @@
 	return icon_with_antennae
 
 /datum/preference/choiced/apid_antenna/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["apid_antenna"] = value
+	target.dna.features[FEATURE_APID_ANTENNA] = value
 
 /datum/preference/choiced/apid_headstripes
 	db_key = "feature_apid_headstripes"
@@ -69,7 +69,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Headstripe Pattern"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "apid_headstripes"
+	relevant_organ = /obj/item/organ/apid_headstripes
 
 /datum/preference/choiced/apid_headstripes/init_possible_values()
 	return assoc_to_keys_features(GLOB.apid_headstripes_list)
@@ -93,4 +93,4 @@
 	return icon_with_headstripes
 
 /datum/preference/choiced/apid_headstripes/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["apid_headstripes"] = value
+	target.dna.features[FEATURE_APID_HEADSTRIPES] = value
