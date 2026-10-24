@@ -211,10 +211,8 @@
 			all_limb_flags |= organ.external_bodyshapes
 		all_limb_flags |= limb.bodyshape
 
-	for(var/obj/item/worn_item in get_equipped_items())
-		if(worn_item.flags_inv & HIDESNOUT)
-			all_limb_flags &= ~BODYSHAPE_SNOUTED
-			break
+	if(obscured_slots & HIDESNOUT)
+		all_limb_flags &= ~BODYSHAPE_SNOUTED
 
 	bodyshape = all_limb_flags
 
