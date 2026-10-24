@@ -218,7 +218,7 @@
 		temporary -= access
 		if(length(temporary))
 			log_id("[get_log_name()] destroyed with temporary access to [english_list(get_access_descs(temporary))].")
-	QDEL_LIST(access_grants)
+	QDEL_LAZYLIST(access_grants)
 	acting_head = null
 	return ..()
 
