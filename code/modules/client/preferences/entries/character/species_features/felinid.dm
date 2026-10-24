@@ -20,7 +20,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
-	relevant_mutant_bodypart = "ears"
+	relevant_organ = /obj/item/organ/ears/cat
 
 /datum/preference/choiced/ears/init_possible_values()
 	return assoc_to_keys(GLOB.ears_list)

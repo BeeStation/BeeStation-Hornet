@@ -50,9 +50,6 @@ There are several things that need to be remembered:
 
 */
 
-/mob/living/carbon/human/proc/update_mutant_bodyparts()
-	dna.species.handle_mutant_bodyparts(src)
-
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
@@ -172,7 +169,6 @@ There are several things that need to be remembered:
 		overlays_standing[UNIFORM_LAYER] = uniform_overlay
 
 	apply_overlay(UNIFORM_LAYER)
-	update_mutant_bodyparts()
 	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_ICLOTHING)
 
 /mob/living/carbon/human/update_worn_id()
@@ -411,7 +407,6 @@ There are several things that need to be remembered:
 		overlays_standing[HEAD_LAYER] = head_overlay
 
 	apply_overlay(HEAD_LAYER)
-	update_mutant_bodyparts()
 	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_HEAD)
 
 /mob/living/carbon/human/update_worn_belt()
@@ -460,7 +455,6 @@ There are several things that need to be remembered:
 		overlays_standing[SUIT_LAYER] = suit_overlay
 
 	apply_overlay(SUIT_LAYER)
-	update_mutant_bodyparts()
 	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_OCLOTHING)
 
 /mob/living/carbon/human/update_pockets()
@@ -509,7 +503,6 @@ There are several things that need to be remembered:
 		overlays_standing[FACEMASK_LAYER] = mask_overlay
 
 	apply_overlay(FACEMASK_LAYER)
-	update_mutant_bodyparts() //e.g. upgate needed because mask now hides lizard snout
 	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_MASK)
 
 /mob/living/carbon/human/update_worn_back()

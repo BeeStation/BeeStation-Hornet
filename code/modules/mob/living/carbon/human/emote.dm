@@ -35,7 +35,7 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return ("ears" in H.dna?.species?.mutant_bodyparts)
+	return istype(H.get_organ_slot(ORGAN_SLOT_EARS), /obj/item/organ/ears/cat)
 
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"

@@ -124,7 +124,7 @@
 /datum/species/ethereal/get_features()
 	var/list/features = ..()
 
-	features += "feature_ethcolor"
+	features |= "feature_ethcolor"
 
 	return features
 

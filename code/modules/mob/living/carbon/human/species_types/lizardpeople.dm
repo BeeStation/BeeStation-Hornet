@@ -7,9 +7,6 @@
 		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
-	mutant_bodyparts = list(
-		"body_size" = "Normal"
-	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/lizard = SPRITE_ACCESSORY_NONE,
 	)

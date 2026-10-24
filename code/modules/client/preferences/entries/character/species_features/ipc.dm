@@ -116,8 +116,10 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Chassis Style"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "ipc_chassis"
 	priority = PREFERENCE_PRIORITY_BODYPARTS
+
+/datum/preference/choiced/ipc_chassis/has_relevant_feature(datum/preferences/preferences)
+	return current_species_has_savekey(preferences)
 
 /datum/preference/choiced/ipc_chassis/init_possible_values()
 	return assoc_to_keys_features(GLOB.ipc_chassis_list)

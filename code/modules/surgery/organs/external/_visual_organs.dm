@@ -338,6 +338,31 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 /datum/bodypart_overlay/mutant/apid_headstripes/get_global_feature_list()
 	return GLOB.apid_headstripes_list
 
+///The coloured chitin on an apid's body
+/obj/item/organ/apid_stripes
+	name = "apid stripes"
+	desc = "A sheet of striped chitin from an apid's body."
+	icon = 'icons/mob/human/species/apid/apid_body.dmi'
+	icon_state = "m_apid_stripes_thick_ADJ"
+
+	zone = BODY_ZONE_CHEST
+	slot = ORGAN_SLOT_EXTERNAL_STRIPES
+
+	dna_block = DNA_APID_STRIPES_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/apid_stripes
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+/datum/bodypart_overlay/mutant/apid_stripes
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_APID_STRIPES
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/apid_stripes/get_global_feature_list()
+	return GLOB.apid_stripes_list
+
 ///A psyphoza's mushroom cap
 /obj/item/organ/psyphoza_cap
 	name = "psyphoza cap"

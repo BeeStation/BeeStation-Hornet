@@ -4,7 +4,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Stripe Pattern"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "apid_stripes"
+	relevant_organ = /obj/item/organ/apid_stripes
 
 /datum/preference/choiced/apid_stripes/init_possible_values()
 	return assoc_to_keys_features(GLOB.apid_stripes_list)
@@ -29,7 +29,7 @@
 	return icon_with_stripes
 
 /datum/preference/choiced/apid_stripes/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["apid_stripes"] = value
+	target.dna.features[FEATURE_APID_STRIPES] = value
 
 /datum/preference/choiced/apid_antenna
 	db_key = "feature_apid_antenna"

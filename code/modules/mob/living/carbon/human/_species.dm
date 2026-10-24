@@ -64,16 +64,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// Use a [language holder datum][/datum/language_holder] typepath in this var.
 	/// Should never be null.
 	var/datum/language_holder/species_language_holder = /datum/language_holder/human_basic
-	/**
-	  * Visible CURRENT bodyparts that are unique to a species.
-	  * DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK
-	  * SHIT UP! Changes to this list for non-species specific bodyparts (ie
-	  * cat ears and tails) should be assigned at organ level if possible.
-	  * Assoc values are defaults for given bodyparts, also modified by aforementioned organs.
-	  * They also allow for faster '[]' list access versus 'in'. Other than that, they are useless right now.
-	  * Layer hiding is handled by [/datum/species/proc/handle_mutant_bodyparts] below.
-	  */
-	var/list/mutant_bodyparts = list()
 	///Internal organs that are unique to this race, like a tail.
 	var/list/mutant_organs = list()
 	///The bodyparts this species uses. assoc of bodypart string - bodypart type. Make sure all the fucking entries are in or I'll skin you alive.
@@ -534,7 +524,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /*
  * Handles lipstick, having no eyes, eye color, undergarnments like underwear, undershirts, and socks, and body layers.
- * Calls [handle_mutant_bodyparts][/datum/species/proc/handle_mutant_bodyparts]
  * Arguments:
  * * species_human - Human, whoever we're handling the body for
  */
@@ -586,87 +575,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		species_human.overlays_standing[BODY_LAYER] = standing
 
 	species_human.apply_overlay(BODY_LAYER)
-	handle_mutant_bodyparts(species_human)
-
-/datum/species/proc/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
-	var/list/bodyparts_to_add = mutant_bodyparts.Copy()
-	var/list/relevent_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER)
-	var/list/standing	= list()
-
-	H.remove_overlay(BODY_BEHIND_LAYER)
-	H.remove_overlay(BODY_ADJ_LAYER)
-	H.remove_overlay(BODY_FRONT_LAYER)
-
-	if(!mutant_bodyparts)
-		return
-
-	if(!bodyparts_to_add)
-		return
-
-	var/g = (H.physique == FEMALE) ? "f" : "m"
-
-	for(var/layer in relevent_layers)
-		var/layertext = mutant_bodyparts_layertext(layer)
-
-		for(var/bodypart in bodyparts_to_add)
-			var/datum/sprite_accessory/S
-			switch(bodypart)
-				if("ipc_chassis")
-					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
-				if("insect_type")
-					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
-				if("apid_stripes")
-					S = GLOB.apid_stripes_list[H.dna.features["apid_stripes"]]
-
-
-			if(!S || S.icon_state == SPRITE_ACCESSORY_NONE || !S?.icon_state)
-				continue
-
-			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
-
-			accessory_overlay.alpha = S.overlay_alpha
-
-			if(S.gender_specific)
-				accessory_overlay.icon_state = "[g]_[bodypart]_[S.icon_state]_[layertext]"
-			else
-				accessory_overlay.icon_state = "m_[bodypart]_[S.icon_state]_[layertext]"
-
-			if(S.center)
-				accessory_overlay = center_image(accessory_overlay, S.dimension_x, S.dimension_y)
-
-			if(!HAS_TRAIT(H, TRAIT_HUSK))
-				if(!forced_colour)
-					switch(S.color_src)
-						if(MUTANT_COLOR)
-							accessory_overlay.color = fixed_mut_color || H.dna.features[FEATURE_MUTANT_COLOR]
-						if(HAIR_COLOR)
-							accessory_overlay.color = get_fixed_hair_color(H) || H.hair_color
-						if(FACIAL_HAIR_COLOR)
-							accessory_overlay.color = get_fixed_hair_color(H) || H.facial_hair_color
-						if(EYE_COLOR)
-							accessory_overlay.color = H.eye_color_left
-				else
-					accessory_overlay.color = forced_colour
-			standing += accessory_overlay
-
-		H.overlays_standing[layer] = standing.Copy()
-		standing = list()
-
-	H.apply_overlay(BODY_BEHIND_LAYER)
-	H.apply_overlay(BODY_ADJ_LAYER)
-	H.apply_overlay(BODY_FRONT_LAYER)
-
-
-//This exists so sprite accessories can still be per-layer without having to include that layer's
-//number in their sprite name, which causes issues when those numbers change.
-/datum/species/proc/mutant_bodyparts_layertext(layer)
-	switch(layer)
-		if(BODY_BEHIND_LAYER)
-			return "BEHIND"
-		if(BODY_ADJ_LAYER)
-			return "ADJ"
-		if(BODY_FRONT_LAYER)
-			return "FRONT"
 
 ///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
 /// but will not update the body right away.
@@ -1699,7 +1607,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /// Returns a list of strings representing features this species has.
 /// Used by the preferences UI to know what buttons to show.
-/// Should only need to override if the feature is not attached to a mutant bodypart or trait
+/// Should only need to override if the feature is not attached to an organ or trait
 /datum/species/proc/get_features()
 	var/cached_features = GLOB.features_by_species[type]
 	if (!isnull(cached_features))
@@ -1712,8 +1620,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 
 		if ( \
-			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
-			|| (preference.relevant_inherent_trait in inherent_traits) \
+			(preference.relevant_inherent_trait in inherent_traits) \
 			|| (preference.relevant_organ in mut_organs) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 			|| (preference.relevant_body_markings in body_markings) \

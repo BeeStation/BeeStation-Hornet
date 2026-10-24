@@ -4,9 +4,6 @@
 	id = SPECIES_FELINID
 	examine_limb_id = SPECIES_HUMAN
 
-	mutant_bodyparts = list(
-		"body_size" = "Normal"
-	)
 	mutant_organs = list(
 		/obj/item/organ/tail/cat = "Cat",
 	)

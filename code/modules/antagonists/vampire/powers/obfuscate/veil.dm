@@ -76,7 +76,6 @@
 	// Apply Appearance
 	user.override_voice = user.name
 	user.update_body() // Outfit and underwear, also body.
-	user.update_mutant_bodyparts() // Lizard tails etc
 	user.update_body_parts()
 
 	to_chat(owner, span_warning("You mystify the air around your person. Your identity is now altered."))

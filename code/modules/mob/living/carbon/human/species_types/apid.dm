@@ -7,12 +7,10 @@
 		TRAIT_BEEFRIEND,
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	mutant_bodyparts = list(
-		"apid_stripes" = "thick",
-	)
 	mutant_organs = list(
 		/obj/item/organ/apid_antenna = "Curled Antenna",
 		/obj/item/organ/apid_headstripes = "Thick Headstripes",
+		/obj/item/organ/apid_stripes = "Thick Stripes",
 		/obj/item/organ/wings/bee = "Bee",
 		/obj/item/organ/apid_stinger = ""
 	)

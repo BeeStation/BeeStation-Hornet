@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	target.dna.features[FEATURE_TAIL_CAT] = get_consistent_feature_entry(GLOB.tails_list_felinid) // it's a lie
 	target.dna.features[FEATURE_TAIL_LIZARD] = get_consistent_feature_entry(GLOB.tails_list_lizard)
 	target.dna.features[FEATURE_TAIL_MONKEY] = get_consistent_feature_entry(GLOB.tails_list_monkey)
-	target.dna.features["apid_stripes"] = "thick"
+	target.dna.features[FEATURE_APID_STRIPES] = get_consistent_feature_entry(GLOB.apid_stripes_list)
 	target.dna.features[FEATURE_APID_HEADSTRIPES] = get_consistent_feature_entry(GLOB.apid_headstripes_list)
 	target.dna.features[FEATURE_APID_ANTENNA] = get_consistent_feature_entry(GLOB.apid_antenna_list)
 	target.dna.features["insect_type"] = "fly"

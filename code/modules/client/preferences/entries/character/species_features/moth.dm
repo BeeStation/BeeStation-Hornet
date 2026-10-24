@@ -105,7 +105,9 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	main_feature_name = "Eye Type"
-	relevant_mutant_bodypart = "moth_eyes"
+
+/datum/preference/choiced/moth_eyes/has_relevant_feature(datum/preferences/preferences)
+	return current_species_has_savekey(preferences)
 
 /datum/preference/choiced/moth_eyes/init_possible_values()
 	return list("Default", "Domestic")

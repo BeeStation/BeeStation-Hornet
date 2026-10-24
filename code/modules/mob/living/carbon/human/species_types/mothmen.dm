@@ -13,10 +13,6 @@
 		TRAIT_MUTANT_COLORS,
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
-	mutant_bodyparts = list(
-		"moth_eyes" = "Default",
-		"body_size" = "Normal"
-	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/moth = SPRITE_ACCESSORY_NONE,
 	)
@@ -216,6 +212,11 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+
+/datum/species/moth/get_features()
+	var/list/features = ..()
+	features |= "feature_moth_eyes"
+	return features
 
 /datum/species/moth/get_species_description()
 	return "Mothpeople are an intelligent species, known for their affinity to all things moth - lights, cloth, wings, and friendship."
