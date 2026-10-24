@@ -250,7 +250,7 @@
 	var/list/skeleton_removed = get_skeleton_access() & access_to_remove
 	if(length(skeleton_removed))
 		LAZYOR(withheld_skeleton_access, skeleton_removed)
-	for(var/datum/access_grant/grant as anything in LAZYCOPY(access_grants))
+	for(var/datum/access_grant/grant as anything in access_grants)
 		grant.accesses -= access_to_remove
 		if(length(grant.accesses))
 			continue
