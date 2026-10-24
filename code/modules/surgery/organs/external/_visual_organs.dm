@@ -120,7 +120,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	draw_on_husks = HUSK_OVERLAY_NORMAL
 
 /datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
-	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDEHAIR)
+	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEHAIR)
 
 ///The frills of a lizard (like weird fin ears)
 /obj/item/organ/frills
@@ -143,7 +143,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	feature_key = FEATURE_FRILLS
 
 /datum/bodypart_overlay/mutant/frills/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
-	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDEEARS)
+	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEEARS)
 
 ///Guess what part of the lizard this is?
 /obj/item/organ/snout
@@ -187,7 +187,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 
 /datum/bodypart_overlay/mutant/snout/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
-	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDESNOUT)
+	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDESNOUT)
 
 ///A moth's antennae
 /obj/item/organ/antennae
@@ -268,4 +268,4 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	return burnt ? burn_datum.icon_state : sprite_datum.icon_state
 
 /datum/bodypart_overlay/mutant/antennae/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
-	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDEANTENNAE)
+	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEANTENNAE)

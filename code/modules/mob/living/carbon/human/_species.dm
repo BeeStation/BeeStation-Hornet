@@ -605,19 +605,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
 
 	if(mutant_bodyparts["ipc_screen"])
-		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
+		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & HIDEEYES) || !HD)
 			bodyparts_to_add -= "ipc_screen"
 
 	if(mutant_bodyparts["ipc_antenna"])
-		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == SPRITE_ACCESSORY_NONE || (H.head?.flags_inv & HIDEEARS) || !HD)
+		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & HIDEEARS) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
 	if(mutant_bodyparts["apid_antenna"])
-		if(!H.dna.features["apid_antenna"] || H.dna.features["apid_antenna"] == SPRITE_ACCESSORY_NONE || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
+		if(!H.dna.features["apid_antenna"] || H.dna.features["apid_antenna"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & HIDEHAIR) || !HD)
 			bodyparts_to_add -= "apid_antenna"
 
 	if(mutant_bodyparts["apid_headstripe"])
-		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
+		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & HIDEEYES) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
 
 	if(mutant_bodyparts["psyphoza_cap"])
@@ -625,19 +625,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			bodyparts_to_add -= "psyphoza_cap"
 
 	if("diona_leaves" in mutant_bodyparts)
-		if(!H.dna.features["diona_leaves"] || H.dna.features["diona_leaves"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_leaves"] || H.dna.features["diona_leaves"] == SPRITE_ACCESSORY_NONE || ((H.obscured_slots & HIDEJUMPSUIT) && !is_type_in_list(src, H.wear_suit?.species_exception)))
 			bodyparts_to_add -= "diona_leaves"
 
 	if("diona_thorns" in mutant_bodyparts)
-		if(!H.dna.features["diona_thorns"] || H.dna.features["diona_thorns"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_thorns"] || H.dna.features["diona_thorns"] == SPRITE_ACCESSORY_NONE || ((H.obscured_slots & HIDEJUMPSUIT) && !is_type_in_list(src, H.wear_suit?.species_exception)))
 			bodyparts_to_add -= "diona_thorns"
 
 	if("diona_flowers" in mutant_bodyparts)
-		if(!H.dna.features["diona_flowers"] || H.dna.features["diona_flowers"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_flowers"] || H.dna.features["diona_flowers"] == SPRITE_ACCESSORY_NONE || ((H.obscured_slots & HIDEJUMPSUIT) && !is_type_in_list(src, H.wear_suit?.species_exception)))
 			bodyparts_to_add -= "diona_flowers"
 
 	if("diona_moss" in mutant_bodyparts)
-		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == SPRITE_ACCESSORY_NONE || ((H.obscured_slots & HIDEJUMPSUIT) && !is_type_in_list(src, H.wear_suit?.species_exception)))
 			bodyparts_to_add -= "diona_moss"
 
 	if("diona_mushroom" in mutant_bodyparts)
@@ -649,11 +649,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			bodyparts_to_add -= "diona_antennae"
 
 	if("diona_eyes" in mutant_bodyparts)
-		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
+		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == SPRITE_ACCESSORY_NONE || (H.obscured_slots & (HIDEEYES|HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "diona_eyes"
 
 	if("diona_pbody" in mutant_bodyparts)
-		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == SPRITE_ACCESSORY_NONE || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == SPRITE_ACCESSORY_NONE || ((H.obscured_slots & HIDEJUMPSUIT) && !is_type_in_list(src, H.wear_suit?.species_exception)))
 			bodyparts_to_add -= "diona_pbody"
 
 	if(!bodyparts_to_add)
@@ -821,7 +821,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	qdel(H) //src doesn't work, we aren't in the mob anymore, this just deletes the species!!
 	return
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	if(no_equip_flags & slot)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
@@ -838,7 +838,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// Anything that's small or smaller can fit into a pocket by default
 		if((slot & (ITEM_SLOT_RPOCKET|ITEM_SLOT_LPOCKET)) && I.w_class <= WEIGHT_CLASS_SMALL)
 			excused = TRUE
-		else if(slot & (ITEM_SLOT_SUITSTORE|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDS))
+		else if(slot & (ITEM_SLOT_SUITSTORE|ITEM_SLOT_HANDS))
 			excused = TRUE
 		if(!excused)
 			return FALSE
@@ -959,10 +959,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
-		if(ITEM_SLOT_BACKPACK)
-			if(H.back && H.back.atom_storage?.can_insert(I, H, messages = TRUE))
-				return TRUE
-			return FALSE
 	return FALSE //Unsupported slot
 
 /datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)

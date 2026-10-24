@@ -146,12 +146,12 @@
 /datum/quirk/photographer/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/camera/spooky/camera = new(get_turf(H))
-	var/list/camera_slots = list (
-		"neck" = ITEM_SLOT_NECK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET,
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS
+	var/list/camera_slots = list(
+		LOCATION_NECK,
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE)
 	H.regenerate_icons()
@@ -186,7 +186,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/toy/crayon/spraycan/spraycan = new(get_turf(H))
 	H.put_in_hands(spraycan)
-	H.equip_to_slot(spraycan, ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(spraycan, ITEM_SLOT_BACK)
 	H.regenerate_icons()
 
 /datum/quirk/voracious
@@ -228,7 +228,7 @@
 
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 /datum/quirk/computer_whiz
 	name = "Computer Whiz"

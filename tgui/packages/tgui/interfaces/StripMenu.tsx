@@ -26,7 +26,11 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
 enum ObscuringLevel {
   Completely = 1,
   Hidden = 2,
+  Inaccessible = 3,
 }
+
+const isHidden = (obscured: ObscuringLevel | null | undefined) =>
+  obscured === ObscuringLevel.Completely || obscured === ObscuringLevel.Hidden;
 
 type Interactable = {
   interacting: BooleanLike;
@@ -161,6 +165,7 @@ type StripMenuItem =
           name: string;
           alternate?: string;
           extra_actions?: StripMenuActions;
+          obscured: ObscuringLevel;
         }
       | {
           obscured: ObscuringLevel;
@@ -201,11 +206,12 @@ interface StripMenuRowProps {
 const StripMenuRow = (props: StripMenuRowProps) => {
   const { act, data } = useBackend<StripMenuData>();
 
-  const name = props.obscured
+  const name = isHidden(props.obscured)
     ? 'Obscured'
     : props.empty
       ? 'Empty'
       : props.itemName;
+  const inaccessible = props.obscured === ObscuringLevel.Inaccessible;
 
   return (
     <Table.Row
@@ -225,7 +231,9 @@ const StripMenuRow = (props: StripMenuRowProps) => {
               <Button
                 compact
                 content={name}
-                disabled={props.obscured === ObscuringLevel.Completely}
+                disabled={
+                  props.obscured === ObscuringLevel.Completely || inaccessible
+                }
                 color={props.empty ? 'transparent' : null}
                 ellipsis
                 maxWidth="100%"
@@ -240,6 +248,7 @@ const StripMenuRow = (props: StripMenuRowProps) => {
               <Button
                 compact
                 content={alternate.text}
+                disabled={inaccessible}
                 onClick={() => act('alt', { key: props.slotID })}
               />
             </Flex.Item>
@@ -251,6 +260,7 @@ const StripMenuRow = (props: StripMenuRowProps) => {
                 content={alternate.action_name}
                 color={alternate.action_color || 'default'}
                 icon={alternate.action_icon}
+                disabled={inaccessible}
                 onClick={() =>
                   act('extra_act', {
                     key: props.slotID,
@@ -302,7 +312,10 @@ export const StripMenu = (props) => {
             slotID={slot.id}
             unavailable={item && 'unavailable' in item && item.unavailable}
             alternates={alternate ? [alternate] : undefined}
-            empty={!item || !('name' in item || 'obscured' in item)}
+            empty={
+              !item ||
+              !('name' in item || ('obscured' in item && isHidden(item.obscured)))
+            }
             interacting={item && 'interacting' in item && item.interacting}
             extra_actions={extra_interactions}
             /* @ts-ignore: Key is a mandatory property for .map return values */

@@ -224,7 +224,6 @@
 		return
 	if(!C.handcuffed)
 		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
-		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()
 

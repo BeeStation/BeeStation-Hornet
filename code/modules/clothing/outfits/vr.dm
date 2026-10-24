@@ -28,7 +28,7 @@
 /datum/outfit/vr/syndicate/post_equip(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/uplink/U = new /obj/item/uplink/nuclear_restricted(H, H, 80)
-	H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(U, ITEM_SLOT_BACK, del_on_fail = TRUE)
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
 	W.implant(H)
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)

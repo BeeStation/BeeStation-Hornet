@@ -613,8 +613,6 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		slot_strings += "hand"
 	if(slot_flags & ITEM_SLOT_DEX_STORAGE)
 		slot_strings += "dextrous storage"
-	if(slot_flags & ITEM_SLOT_BACKPACK)
-		slot_strings += "backpack"
 	return slot_strings
 ///Takes a zone and returns it's "parent" zone, if it has one.
 /proc/deprecise_zone(precise_zone)

@@ -472,7 +472,7 @@
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
 		var/obj/item/U = new uplink_type(H, H, tc)
-		H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
+		H.equip_to_storage(U, ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
 	E.implant(H)

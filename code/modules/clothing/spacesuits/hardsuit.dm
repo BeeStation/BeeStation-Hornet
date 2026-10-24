@@ -617,6 +617,7 @@
 	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
+		C.refresh_obscured()
 		C.head_update(src, forced = 1)
 	update_action_buttons()
 

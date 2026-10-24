@@ -21,7 +21,7 @@
 
 #define BEING_REMOVED (1<<0)
 /// Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
-#define PICKED_UP (1<<1)
+#define IN_INVENTORY (1<<1)
 /// Used for tooltips
 #define FORCE_STRING_OVERRIDE (1<<2)
 /// Used by security bots to determine if this item is safe for public use.

@@ -997,8 +997,7 @@
 
 /datum/status_effect/ghoul/get_examine_text()
 	var/mob/living/carbon/human/H = owner
-	var/obscured = H.check_obscured_slots()
-	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
+	if(!(H.obscured_slots & HIDEEYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
 		return span_warning("[owner.p_They()] has a blank, catatonic like stare.")
 
 /atom/movable/screen/alert/status_effect/ghoul

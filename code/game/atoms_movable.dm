@@ -1342,7 +1342,6 @@
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
 /obj/item/proc/do_pickup_animation(atom/target, turf/source)
-	set waitfor = FALSE
 	if(!source)
 		if(!istype(loc, /turf))
 			return

@@ -39,7 +39,7 @@
 	if(!QDELETED(dexterity.internal_storage))
 		return list(dexterity.internal_storage)
 
-/mob/living/simple_animal/hostile/holoparasite/can_equip(obj/item/item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/can_equip(obj/item/item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity) || !can_use_abilities)
 		return FALSE
@@ -47,7 +47,7 @@
 		return item.w_class <= dexterity.max_w_class && QDELETED(dexterity.internal_storage)
 	return ..()
 
-/mob/living/simple_animal/hostile/holoparasite/equip_to_slot(obj/item/item, slot)
+/mob/living/simple_animal/hostile/holoparasite/equip_to_slot(obj/item/item, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity) || !is_manifested() || !can_use_abilities)
 		return

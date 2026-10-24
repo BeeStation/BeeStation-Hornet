@@ -52,7 +52,7 @@
 		. += bloody_shoes
 
 /obj/item/clothing/shoes/visual_equipped(mob/user, slot)
-	..()
+	. = ..()
 	if(offset && (slot_flags & slot))
 		user.pixel_y += offset
 		worn_y_dimension -= (offset * 2)

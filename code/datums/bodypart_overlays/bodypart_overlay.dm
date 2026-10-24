@@ -88,10 +88,7 @@
 //TEMP - kl remove
 ///Whether the owner is wearing something that hides the jumpsuit, and with it anything mounted on the body
 /datum/bodypart_overlay/proc/jumpsuit_hidden(mob/living/carbon/owner)
-	var/mob/living/carbon/human/human_owner = owner
-	if(!istype(human_owner))
-		return FALSE
-	return !!(human_owner.wear_suit?.flags_inv & HIDEJUMPSUIT)
+	return !!(owner?.obscured_slots & HIDEJUMPSUIT)
 
 ///Colorizes the limb it's inserted to, if required.
 /datum/bodypart_overlay/proc/override_color(rgb_value)

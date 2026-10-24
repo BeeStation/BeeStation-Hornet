@@ -112,7 +112,7 @@
 		return FALSE
 	//Jumpsuits have tail holes, so it makes sense they have wing holes too
 	var/datum/bodypart_overlay/mutant/wings/wing_overlay = bodypart_overlay
-	if(!cant_hide && wing_overlay && (human.get_obscured_flags() & wing_overlay.slot_blocker) && !is_type_in_list(src, human.wear_suit?.species_exception))
+	if(!cant_hide && wing_overlay && (human.obscured_slots  & wing_overlay.slot_blocker) && !is_type_in_list(src, human.wear_suit?.species_exception))
 		to_chat(human, span_warning("Your suit blocks your wings from extending!"))
 		return FALSE
 	var/turf/location = get_turf(human)
@@ -215,7 +215,7 @@
 	var/slot_blocker = HIDEJUMPSUIT|HIDEMUTWINGS
 
 /datum/bodypart_overlay/mutant/wings/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
-	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & slot_blocker)
+	return ..() && !(bodypart_owner.owner?.obscured_slots  & slot_blocker)
 
 /datum/bodypart_overlay/mutant/wings/get_global_feature_list()
 	if(wings_open)

@@ -587,12 +587,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack)
   * Arguments:
   * - [check][/obj/item/stack]: The stack to check for mergeability.
   */
-/obj/item/stack/proc/can_merge(obj/item/stack/check)
-	if(!istype(check, merge_type))
+/obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	if(!istype(check, merge_type) || check.merge_type != merge_type)
 		return FALSE
 	if(mats_per_unit != check.mats_per_unit)
 		return FALSE
-	if(is_cyborg)	// No merging cyborg stacks into other stacks
+	if(is_cyborg) // No merging cyborg stacks into other stacks
 		return FALSE
 	return TRUE
 

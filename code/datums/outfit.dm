@@ -244,7 +244,7 @@
 				if(!IS_FINITE(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
-					EQUIP_OUTFIT_ITEM(path, ITEM_SLOT_BACKPACK)
+					user.equip_to_storage(SSwardrobe.provide_type(path, user), ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 	if(!user.head && toggle_helmet && istype(user.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = user.wear_suit
