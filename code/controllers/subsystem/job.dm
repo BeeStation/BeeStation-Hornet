@@ -98,8 +98,7 @@ SUBSYSTEM_DEF(job)
 		qdel(obj)
 
 	setup_head_only_access()
-	for(var/rule_type in subtypesof(/datum/skeleton_access))
-		skeleton_rules += new rule_type
+	init_subtypes(/datum/skeleton_access, skeleton_rules)
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
 
 	return SS_INIT_SUCCESS
