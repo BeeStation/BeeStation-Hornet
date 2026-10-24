@@ -5129,3 +5129,6 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
+#ifdef __DEMIR_BAKE__
+#include "code\__HELPERS\demir.dm"
+#endif
