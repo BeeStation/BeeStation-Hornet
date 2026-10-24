@@ -129,8 +129,8 @@
 			overlay_state = "sphere_1"
 		if(500 to 5000)
 			overlay_state = "sphere_2"
-	. += mutable_appearance(icon, overlay_state, layer = GASFIRE_LAYER)
-	. += emissive_appearance(icon, overlay_state, layer = GASFIRE_LAYER)
+	. += mutable_appearance(icon, overlay_state, layer = ABOVE_GASFIRE_LAYER)
+	. += emissive_appearance(icon, overlay_state, layer = ABOVE_GASFIRE_LAYER)
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
