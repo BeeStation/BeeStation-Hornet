@@ -11,6 +11,9 @@
 	id = MOVESPEED_ID_JETPACK
 	multiplicative_slowdown = -0.5
 
+/datum/movespeed_modifier/jetpack/wings
+	multiplicative_slowdown = -0.3
+
 /datum/movespeed_modifier/die_of_fate
 	multiplicative_slowdown = 1
 

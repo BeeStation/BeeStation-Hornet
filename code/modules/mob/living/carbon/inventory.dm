@@ -1,11 +1,15 @@
-/// Returns a list of slots that are *visibly* covered by clothing and thus cannot be seen by others
-/mob/living/carbon/proc/check_obscured_slots()
+/// Returns the combined HIDEX flags of everything worn
+/mob/living/carbon/proc/get_obscured_flags()
 	var/hidden_slots = NONE
 
 	for(var/obj/item/equipped_item in get_equipped_items())
 		hidden_slots |= equipped_item.flags_inv
 
-	return hidden_slots_to_inventory_slots(hidden_slots)
+	return hidden_slots
+
+/// Returns a list of slots that are *visibly* covered by clothing and thus cannot be seen by others
+/mob/living/carbon/proc/check_obscured_slots()
+	return hidden_slots_to_inventory_slots(get_obscured_flags())
 
 /// Returns a list of slots that are protected by other clothing, but could possibly be seen by others, via transparent visors and similar stuff
 /mob/living/carbon/proc/check_covered_slots()

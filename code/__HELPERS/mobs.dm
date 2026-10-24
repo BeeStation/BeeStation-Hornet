@@ -57,6 +57,7 @@
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, required_gender = gender)
 	return picked?.name || "Nude"
 
+/*
 /proc/random_features(gender)
 	if(!GLOB.tails_list_felinid.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/felinid, GLOB.tails_list_felinid)
@@ -152,6 +153,7 @@
 		"diona_pbody" = pick(GLOB.diona_pbody_list)
 		)
 	)
+*/
 
 /proc/random_hair_style(gender)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hairstyles_list, required_gender = gender)

@@ -151,3 +151,8 @@
 
 /// Called by poison paper when a user applies it (atom/target, mob/living/user)
 #define COMSIG_POISON_PAPER_APPLIED "posion_paper_applied"
+
+/// Sent from /obj/item/organ/wings/proc/open_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_OPENED "wings_opened"
+/// Sent from /obj/item/organ/wings/proc/close_wings(): (mob/living/carbon/owner)
+#define COMSIG_WINGS_CLOSED "wings_closed"

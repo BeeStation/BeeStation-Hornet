@@ -18,7 +18,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *
  */
 /datum/species
-/datum/species
 	///If the game needs to manually check your race to do something not included in a proc here, it will use this.
 	var/id
 	///This is used for children, it will determine their default limb ID for use of examine. See [/mob/living/carbon/human/proc/examine].
@@ -154,8 +153,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/organ/stomach/mutantstomach = /obj/item/organ/stomach
 	///Replaces default appendix with a different organ.
 	var/obj/item/organ/appendix/mutantappendix = /obj/item/organ/appendix
-	///Replaces default wings with a different organ. (There should be no default wings, only those on moths & apids, thus null)
-	var/obj/item/organ/wings/mutantwings = null
 
 	/// Store body marking defines. See mobs.dm for bitflags
 	var/list/body_markings = list()
@@ -315,8 +312,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return mutantliver
 		if(ORGAN_SLOT_STOMACH)
 			return mutantstomach
-		if(ORGAN_SLOT_WINGS)
-			return mutantwings
 		else
 			// Non-standard organs we might have
 			for(var/obj/item/organ/extra_organ as anything in mutant_organs)
@@ -609,40 +604,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
 
-	if(mutant_bodyparts["snout"]) //Take a closer look at that snout!
-		if((H.wear_mask?.flags_inv & HIDESNOUT) || (H.head?.flags_inv & HIDESNOUT) || !HD)
-			bodyparts_to_add -= "snout"
-
-	if(mutant_bodyparts["frills"])
-		if(!H.dna.features["frills"] || H.dna.features["frills"] == SPRITE_ACCESSORY_NONE || (H.head?.flags_inv & HIDEEARS) || !HD)
-			bodyparts_to_add -= "frills"
-
-	if(mutant_bodyparts["horns"])
-		if(!H.dna.features["horns"] || H.dna.features["horns"] == SPRITE_ACCESSORY_NONE || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
-			bodyparts_to_add -= "horns"
-
-	if(mutant_bodyparts["ears"])
-		if(!H.dna.features["ears"] || H.dna.features["ears"] == SPRITE_ACCESSORY_NONE || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
-			bodyparts_to_add -= "ears"
-
-	if(mutant_bodyparts["wings"])
-		if(!H.dna.features["wings"] || H.dna.features["wings"] == SPRITE_ACCESSORY_NONE || (H?.wear_suit?.flags_inv & HIDEMUTWINGS) || ((H?.wear_suit?.flags_inv & HIDEJUMPSUIT) && (!H?.wear_suit?.species_exception || !is_type_in_list(src, H?.wear_suit?.species_exception))))
-			bodyparts_to_add -= "wings"
-
-	if(mutant_bodyparts["moth_wings"])
-		if(!H.dna.features["moth_wings"] || H.dna.features["moth_wings"] == SPRITE_ACCESSORY_NONE || (H?.wear_suit?.flags_inv & HIDEMUTWINGS))
-			bodyparts_to_add -= "moth_wings"
-
-	if(mutant_bodyparts["wings_open"])
-		if((H?.wear_suit.flags_inv & HIDEMUTWINGS) || ((H?.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H?.wear_suit.species_exception || !is_type_in_list(src, H?.wear_suit.species_exception))))
-			bodyparts_to_add -= "wings_open"
-		else if (mutant_bodyparts["wings"])
-			bodyparts_to_add -= "wings_open"
-
-	if(mutant_bodyparts["moth_antennae"])
-		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == SPRITE_ACCESSORY_NONE || (H?.head?.flags_inv & HIDEANTENNAE) || !HD)
-			bodyparts_to_add -= "moth_antennae"
-
 	if(mutant_bodyparts["ipc_screen"])
 		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == SPRITE_ACCESSORY_NONE || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "ipc_screen"
@@ -706,30 +667,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/bodypart in bodyparts_to_add)
 			var/datum/sprite_accessory/S
 			switch(bodypart)
-				if("snout")
-					S = GLOB.snouts_list[H.dna.features["snout"]]
-				if("frills")
-					S = GLOB.frills_list[H.dna.features["frills"]]
-				if("horns")
-					S = GLOB.horns_list[H.dna.features["horns"]]
-				if("ears")
-					S = GLOB.ears_list[H.dna.features["ears"]]
-				if("wings")
-					S = GLOB.wings_list[H.dna.features["wings"]]
-				if("wingsopen")
-					S = GLOB.wings_open_list[H.dna.features["wings"]]
-				if("moth_wings")
-					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-						S = GLOB.moth_wings_list["Burnt Off"]
-					else
-						S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
-				if("moth_antennae")
-					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-						S = GLOB.moth_antennae_list["Burnt Off"]
-					else
-						S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
-				if("moth_wingsopen")
-					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("ipc_screen")
 					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
 				if("ipc_antenna")
@@ -776,12 +713,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			accessory_overlay.alpha = S.overlay_alpha
 
-			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
-			if(bodypart == "tail_lizard" || bodypart == "tail_human")
-				bodypart = "tail"
-			else if(bodypart == "waggingtail_lizard" || bodypart == "waggingtail_human")
-				bodypart = "waggingtail"
-
 			if(S.gender_specific)
 				accessory_overlay.icon_state = "[g]_[bodypart]_[S.icon_state]_[layertext]"
 			else
@@ -794,7 +725,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(!forced_colour)
 					switch(S.color_src)
 						if(MUTANT_COLOR)
-							accessory_overlay.color = fixed_mut_color || H.dna.features["mcolor"]
+							accessory_overlay.color = fixed_mut_color || H.dna.features[FEATURE_MUTANT_COLOR]
 						if(HAIR_COLOR)
 							accessory_overlay.color = get_fixed_hair_color(H) || H.hair_color
 						if(FACIAL_HAIR_COLOR)
@@ -804,18 +735,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
-
-			if(S.hasinner)
-				var/mutable_appearance/inner_accessory_overlay = mutable_appearance(S.icon, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
-				if(S.gender_specific)
-					inner_accessory_overlay.icon_state = "[g]_[bodypart]inner_[S.icon_state]_[layertext]"
-				else
-					inner_accessory_overlay.icon_state = "m_[bodypart]inner_[S.icon_state]_[layertext]"
-
-				if(S.center)
-					inner_accessory_overlay = center_image(inner_accessory_overlay, S.dimension_x, S.dimension_y)
-
-				standing += inner_accessory_overlay
 
 		H.overlays_standing[layer] = standing.Copy()
 		standing = list()
@@ -848,15 +767,39 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	randomize_active_underwear_only(human_mob)
 	human_mob.update_body()
 
+/datum/species/proc/randomize_active_features(mob/living/carbon/human/human_mob)
+	var/list/new_features = randomize_features()
+	for(var/feature_key in new_features)
+		human_mob.dna.features[feature_key] = new_features[feature_key]
+	human_mob.updateappearance(mutcolor_update = TRUE)
+
+/**
+ * Returns a list of features, randomized, to be used by DNA
+ */
+/datum/species/proc/randomize_features()
+	SHOULD_CALL_PARENT(TRUE)
+
+	var/list/new_features = list()
+	var/static/list/organs_to_randomize = list()
+	for(var/obj/item/organ/organ_path as anything in get_organs())
+		if(!organ_path.bodypart_overlay)
+			continue
+		var/overlay_path = initial(organ_path.bodypart_overlay)
+		var/datum/bodypart_overlay/mutant/sample_overlay = organs_to_randomize[overlay_path]
+		if(isnull(sample_overlay))
+			sample_overlay = new overlay_path()
+			organs_to_randomize[overlay_path] = sample_overlay
+
+		new_features["[sample_overlay.feature_key]"] = sample_overlay.get_random_appearance().name
+
+	return new_features
+
 /datum/species/proc/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	SHOULD_CALL_PARENT(TRUE)
 	if(H.stat == DEAD)
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH) && (H.health <= H.crit_threshold) && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		H.adjustBruteLoss(0.5 * delta_time)
-
-	if(H.get_organ_by_type(/obj/item/organ/wings))
-		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
@@ -1208,7 +1151,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/damage = attacking_bodypart.unarmed_damage
 
-	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
+	var/obj/item/bodypart/affecting = target.get_bodypart(target.get_random_valid_zone(target.get_combat_bodyzone(src)))
 
 	if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 		playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, 1, -1)
@@ -1446,7 +1389,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 
 	//Only stabilise core temp when alive and not in statis
-	if(humi.stat < DEAD && !IS_IN_STASIS(humi))
+	if(humi.stat < DEAD && !HAS_TRAIT(humi, TRAIT_STASIS))
 		body_temperature_core(humi, delta_time, times_fired)
 
 	//These do run in status
@@ -1454,7 +1397,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	body_temperature_alerts(humi, delta_time, times_fired)
 
 	//Do not cause more damage in statis
-	if(!IS_IN_STASIS(humi))
+	if(!HAS_TRAIT(humi, TRAIT_STASIS))
 		body_temperature_damage(humi, delta_time, times_fired)
 
 /**
@@ -1736,39 +1679,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 ////////////
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-	if(H.get_organ_by_type(/obj/item/organ/wings))
-		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
-			flyslip(H)
-	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
-
-//////////////
-//Space Move//
-//////////////
-
-/datum/species/proc/space_move(mob/living/carbon/human/H)
-	if(H.loc && !isspaceturf(H.loc) && H.get_organ_by_type(/obj/item/organ/wings))
-		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-		if(wings.flight_level == WINGS_FLIGHTLESS)
-			var/datum/gas_mixture/current = H.loc.return_air()
-			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
-				return TRUE
 	if(H.movement_type & FLYING)
-		return TRUE
-	if(!can_fly(H))
-		return FALSE
-	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-	if(wings?.flight_level == WINGS_FLIGHTLESS)
-		var/datum/gas_mixture/current = H.loc.return_air()
-		if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
-			return TRUE
-
-/datum/species/proc/can_fly(mob/living/carbon/human/H)
-	if(H.wear_suit?.flags_inv & HIDEMUTWINGS)
-		return FALSE //Can't fly with hidden wings
-	if(H.loc && isspaceturf(H.loc) && H.get_organ_by_type(/obj/item/organ/wings))
-		return FALSE //No flight in space wings
-	return TRUE
+		var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+		if(wings)
+			wings.toggle_flight(H)
+			wings.fly_slip(H)
+	. = max(stunmod + H.physiology.stun_add, 0) * H.physiology.stun_mod * amount
 
 /datum/species/proc/negates_gravity(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
@@ -1788,78 +1704,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SEND_SIGNAL(former_tail_owner, COMSIG_CLEAR_MOOD_EVENT, "tail_lost")
 	SEND_SIGNAL(former_tail_owner, COMSIG_CLEAR_MOOD_EVENT, "tail_balance_lost")
 	SEND_SIGNAL(former_tail_owner, COMSIG_CLEAR_MOOD_EVENT, "tail_regained")
-
-///////////////
-//FLIGHT SHIT//
-///////////////
-
-/datum/species/proc/handle_flight(mob/living/carbon/human/H)
-	if(H.movement_type & FLYING)
-		if(!CanFly(H))
-			toggle_flight(H)
-			return FALSE
-		return TRUE
-	else
-		return FALSE
-
-/datum/species/proc/CanFly(mob/living/carbon/human/H)
-	var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
-	if(!H.get_organ_by_type(/obj/item/organ/wings))
-		return FALSE
-	if(H.stat || H.body_position == LYING_DOWN)
-		return FALSE
-	var/turf/T = get_turf(H)
-	if(!T)
-		return FALSE
-	if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-		return FALSE
-	var/datum/gas_mixture/environment = T.return_air()
-	if(environment && !(environment.return_pressure() > 30) && wings.flight_level <= WINGS_FLYING)
-		to_chat(H, span_warning("The atmosphere is too thin for you to fly!"))
-		return FALSE
-	else
-		return TRUE
-
-/datum/species/proc/flyslip(mob/living/carbon/human/H)
-	var/obj/buckled_obj
-	if(H.buckled)
-		buckled_obj = H.buckled
-
-	to_chat(H, span_notice("Your wings spazz out and launch you!"))
-
-	for(var/obj/item/I in H.held_items)
-		H.accident(I)
-
-	var/olddir = H.dir
-
-	H.stop_pulling()
-	if(buckled_obj)
-		buckled_obj.unbuckle_mob(H)
-		step(buckled_obj, olddir)
-	else
-		new /datum/forced_movement(H, get_ranged_target_turf(H, olddir, 4), 1, FALSE, CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, spin), 1, 1))
-	return TRUE
-
-//UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
-/datum/species/proc/toggle_flight(mob/living/carbon/human/H)
-	if(!HAS_TRAIT_FROM(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT))
-		stunmod *= 2
-		H.add_movespeed_modifier(/datum/movespeed_modifier/species_flight)
-		ADD_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
-		H.pass_flags |= PASSTABLE
-		if((H.dna.species.mutant_bodyparts["wings"]) || (H.dna.species.mutant_bodyparts["moth_wings"]))
-			H.Togglewings()
-	else
-		stunmod *= 0.5
-		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_flight)
-		REMOVE_TRAIT(H, TRAIT_MOVE_FLYING, SPECIES_FLIGHT_TRAIT)
-		H.pass_flags &= ~PASSTABLE
-		if((H.dna.species.mutant_bodyparts["wingsopen"]) || (H.dna.species.mutant_bodyparts["moth_wingsopen"]))
-			H.Togglewings()
-		if(isturf(H.loc))
-			var/turf/T = H.loc
-			T.Entered(H)
-	H.refresh_gravity()
 
 /datum/species/proc/get_item_offsets_for_index(i)
 	return
@@ -1953,6 +1797,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return cached_features
 
 	var/list/features = list()
+	var/list/mut_organs = get_organs()
 
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
@@ -1960,16 +1805,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
 			|| (preference.relevant_inherent_trait in inherent_traits) \
-			|| (preference.relevant_external_organ in get_mut_organs()) \
+			|| (preference.relevant_organ in mut_organs) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 			|| (preference.relevant_body_markings in body_markings) \
 		)
 			features += preference.db_key
-
-	for (var/obj/item/organ/organ_type as anything in mutant_organs)
-		var/preference = initial(organ_type.preference)
-		if (!isnull(preference))
-			features += preference
 
 	GLOB.features_by_species[type] = features
 
@@ -2449,7 +2289,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_species_height()
 	return species_height
 
-/datum/species/proc/get_mut_organs(include_brain = TRUE)
+/// Returns a list of all organ typepaths this species probably has
+/datum/species/proc/get_organs(include_brain = TRUE)
 	var/list/mut_organs = list()
 	mut_organs += mutant_organs
 	if (include_brain)
@@ -2462,13 +2303,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	mut_organs += mutantliver
 	mut_organs += mutantstomach
 	mut_organs += mutantappendix
-	//TEMP - kl remove
-	mut_organs += mutantwings
 	list_clear_nulls(mut_organs)
 	return mut_organs
 
 /datum/species/proc/get_types_to_preload()
-	return get_mut_organs(FALSE)
+	return get_organs(FALSE)
 
 /**
  * Checks if the species has a head with these head flags, by default.
@@ -2492,7 +2331,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	ASSERT(!isnull(for_mob))
 	switch(hair_color_mode)
 		if(USE_MUTANT_COLOR)
-			return for_mob.dna.features["mcolor"]
+			return for_mob.dna.features[FEATURE_MUTANT_COLOR]
 		if(USE_FIXED_MUTANT_COLOR)
 			return fixed_mut_color
 
@@ -2509,7 +2348,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				continue
 
 			var/datum/bodypart_overlay/simple/body_marking/overlay = new markings_type()
-			overlay.set_appearance(accessory_name, hooman.dna.features["mcolor"])
+			overlay.set_appearance(accessory_name, hooman.dna.features[FEATURE_MUTANT_COLOR])
 			people_part.add_bodypart_overlay(overlay)
 
 		qdel(markings)

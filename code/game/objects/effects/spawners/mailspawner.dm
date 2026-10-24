@@ -32,7 +32,7 @@
 		/obj/item/organ/wings,
 		/obj/item/organ/wings/moth,
 		/obj/item/organ/wings/bee,
-		/obj/item/organ/wings/dragon/fake,)
+	)
 	new mail_organminor(loc)
 	return ..()
 

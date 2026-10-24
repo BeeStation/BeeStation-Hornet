@@ -7,10 +7,8 @@
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_EXTERNAL_SPINES
 
-	preference = "feature_lizard_spines"
-
 	dna_block = DNA_SPINES_BLOCK
-	//restyle_flags = EXTERNAL_RESTYLE_FLESH
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/spines
 
@@ -33,7 +31,7 @@
 ///Bodypart overlay for spines
 /datum/bodypart_overlay/mutant/spines
 	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
-	feature_key = "spines"
+	feature_key = FEATURE_SPINES
 	dyable = TRUE
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 

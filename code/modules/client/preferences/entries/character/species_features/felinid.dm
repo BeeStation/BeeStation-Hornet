@@ -3,7 +3,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
-	relevant_external_organ = /obj/item/organ/tail/cat
+	relevant_organ = /obj/item/organ/tail/cat
 
 /datum/preference/choiced/tail_human/init_possible_values()
 	return assoc_to_keys(GLOB.tails_list_felinid)
@@ -26,7 +26,7 @@
 	return assoc_to_keys(GLOB.ears_list)
 
 /datum/preference/choiced/ears/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ears"] = value
+	target.dna.features[FEATURE_EARS] = value
 
 /datum/preference/choiced/ears/create_default_value()
 	var/datum/sprite_accessory/ears/cat/ears = /datum/sprite_accessory/ears/cat

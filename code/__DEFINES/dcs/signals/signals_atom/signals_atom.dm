@@ -171,6 +171,9 @@
 #define COMSIG_ATOM_ON_LAZARUS_INJECTOR "atom_on_lazarus_injector"
 	#define LAZARUS_INJECTOR_USED (1<<0) //Early return.
 
+/// from cosmetic items to restyle certain mobs, objects or organs: (atom/source, mob/living/trimmer, atom/movable/original_target, body_zone, restyle_type, style_speed)
+#define COMSIG_ATOM_RESTYLE "atom_restyle"
+
 /// when a timestop ability is used on the atom: (datum/proximity_monitor/advanced/timestop)
 #define COMSIG_ATOM_TIMESTOP_FREEZE "atom_timestop_freeze"
 /// when the timestop ability effect ends on the atom: (datum/proximity_monitor/advanced/timestop)

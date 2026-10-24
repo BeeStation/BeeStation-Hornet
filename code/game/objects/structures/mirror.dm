@@ -184,14 +184,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror/broken, 28)
 					user.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			else if(HAS_TRAIT(user, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(user, TRAIT_FIXED_MUTANT_COLORS))
-				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", user.dna.features["mcolor"])
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change", user.dna.features[FEATURE_MUTANT_COLOR])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
 					var/list/mutant_hsv = rgb2hsv(new_mutantcolor)
 
 					if(mutant_hsv[3] >= 50) // mutantcolors must be bright
-						user.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
+						user.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(new_mutantcolor)
 						user.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 
 					else

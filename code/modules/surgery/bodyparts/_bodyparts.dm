@@ -164,6 +164,8 @@
 		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
 		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
 
+	RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
+
 	if(!IS_ORGANIC_LIMB(src))
 		grind_results = null
 
@@ -618,7 +620,7 @@
 	//	SIGNAL_ADDTRAIT(TRAIT_NOBLOOD),
 		))
 
-	//UnregisterSignal(old_owner, COMSIG_ATOM_RESTYLE)
+	UnregisterSignal(old_owner, COMSIG_ATOM_RESTYLE)
 
 
 /// Apply ownership of a limb to someone, giving the appropriate traits, updates and signals
@@ -647,7 +649,7 @@
 	if(can_be_disabled)
 		update_disabled()
 
-	//RegisterSignal(owner, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle_mob))
+	RegisterSignal(owner, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle_mob))
 
 	forceMove(owner)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_forced_removal)) //this must be set after we moved, or we insta gib
@@ -778,7 +780,7 @@
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
 		else
-			species_color = human_owner.dna.features["mcolor"]
+			species_color = human_owner.dna.features[FEATURE_MUTANT_COLOR]
 	else
 		skin_tone = ""
 		species_color = ""

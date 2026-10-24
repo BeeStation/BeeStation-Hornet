@@ -2353,7 +2353,58 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	center = TRUE
 	dimension_y = 32
 
-/datum/sprite_accessory/wings/apid
+/datum/sprite_accessory/wings/skeleton
+	name = "Skeleton"
+	icon_state = "skele"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/skeleton
+	name = "Skeleton"
+	icon_state = "skele"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/robotic
+	name = "Robotic"
+	icon_state = "robotic"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/robotic
+	name = "Robotic"
+	icon_state = "robotic"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/fly
+	name = "Fly"
+	icon_state = "fly"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/fly
+	name = "Fly"
+	icon_state = "fly"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/bee
 	name = "Bee"
 	icon = 'icons/mob/human/species/apid/apid_wings.dmi'
 	icon_state = "apid"
@@ -2363,7 +2414,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	dimension_y = 32
 	overlay_alpha = 120
 
-/datum/sprite_accessory/wings_open/apid
+/datum/sprite_accessory/wings_open/bee
 	name = "Bee"
 	icon = 'icons/mob/human/species/apid/apid_wingsopen.dmi'
 	icon_state = "apid"

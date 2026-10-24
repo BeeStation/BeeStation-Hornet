@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //wing defines
 #define WINGS_COSMETIC 0 //Absolutely fucking useless
 #define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
-#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
+#define WINGS_AIRWORTHY 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
 
 //Health hud screws for carbon mobs
@@ -653,6 +653,15 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define EXTERNAL_BEHIND (1 << 2)
 /// Draws organ on all EXTERNAL layers
 #define ALL_EXTERNAL_OVERLAYS EXTERNAL_FRONT | EXTERNAL_ADJACENT | EXTERNAL_BEHIND
+
+// Bitflags for external organs restylability
+#define EXTERNAL_RESTYLE_ALL ALL
+/// This organ allows restyle through plant restyling (like secateurs)
+#define EXTERNAL_RESTYLE_PLANT (1 << 0)
+/// This organ allows restyling with flesh restyling stuff (surgery or something idk)
+#define EXTERNAL_RESTYLE_FLESH (1 << 1)
+/// This organ allows restyling with enamel restyling (like a fucking file or something?). It's for horns and shit
+#define EXTERNAL_RESTYLE_ENAMEL (1 << 2)
 
 //Mob Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"

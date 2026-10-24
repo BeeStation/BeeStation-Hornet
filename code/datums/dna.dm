@@ -52,10 +52,13 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /datum/dna
 	var/unique_enzymes
 	var/unique_identity
-	var/unique_features
 	var/datum/blood_type/blood_type
-	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/features = list(COLOR_WHITE) //first value is mutant color
+	///The type of mutant race the player is if applicable (i.e. potato-man)
+	var/datum/species/species = new /datum/species/human
+	/// Assoc list of feature keys to their value
+	/// Note if you set these manually, and do not update [unique_features] afterwards, it will likely be reset.
+	var/list/features = list("mcolor" = COLOR_WHITE)
+	var/unique_features
 	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
 
 	var/age //Stores the real age of the mob - used at clone
@@ -214,16 +217,16 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	var/list/L = new /list(DNA_FEATURE_BLOCKS)
 
-	if(features["mcolor"])
-		L[DNA_MUTANT_COLOR_BLOCK] = sanitize_hexcolor(features["mcolor"], include_crunch = FALSE)
+	if(features[FEATURE_MUTANT_COLOR])
+		L[DNA_MUTANT_COLOR_BLOCK] = sanitize_hexcolor(features[FEATURE_MUTANT_COLOR], include_crunch = FALSE)
 	if(features["ethcolor"])
 		L[DNA_ETHEREAL_COLOR_BLOCK] = sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE)
-	if(features["lizard_markings"])
-		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.lizard_markings_list.Find(features["lizard_markings"]), GLOB.lizard_markings_list.len)
-	if(features["tail_human"])
-		L[DNA_TAIL_BLOCK] = construct_block(GLOB.tails_list_felinid.Find(features["tail_human"]), GLOB.tails_list_felinid.len)
-	if(features["tail_lizard"])
-		L[DNA_LIZARD_TAIL_BLOCK] = construct_block(GLOB.tails_list_lizard.Find(features["tail_lizard"]), GLOB.tails_list_lizard.len)
+	if(features[FEATURE_LIZARD_MARKINGS])
+		L[DNA_LIZARD_MARKINGS_BLOCK] = construct_block(GLOB.lizard_markings_list.Find(features[FEATURE_LIZARD_MARKINGS]), GLOB.lizard_markings_list.len)
+	if(features[FEATURE_TAIL_CAT])
+		L[DNA_TAIL_BLOCK] = construct_block(GLOB.tails_list_felinid.Find(features[FEATURE_TAIL_CAT]), GLOB.tails_list_felinid.len)
+	if(features[FEATURE_TAIL_LIZARD])
+		L[DNA_LIZARD_TAIL_BLOCK] = construct_block(GLOB.tails_list_lizard.Find(features[FEATURE_TAIL_LIZARD]), GLOB.tails_list_lizard.len)
 	if(features["snout"])
 		L[DNA_SNOUT_BLOCK] = construct_block(GLOB.snouts_list.Find(features["snout"]), GLOB.snouts_list.len)
 	if(features["horns"])
@@ -232,8 +235,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		L[DNA_FRILLS_BLOCK] = construct_block(GLOB.frills_list.Find(features["frills"]), GLOB.frills_list.len)
 	if(features["spines"])
 		L[DNA_SPINES_BLOCK] = construct_block(GLOB.spines_list.Find(features["spines"]), GLOB.spines_list.len)
-	if(features["ears"])
-		L[DNA_EARS_BLOCK] = construct_block(GLOB.ears_list.Find(features["ears"]), GLOB.ears_list.len)
+	if(features[FEATURE_EARS])
+		L[DNA_EARS_BLOCK] = construct_block(GLOB.ears_list.Find(features[FEATURE_EARS]), GLOB.ears_list.len)
 	if(features["moth_wings"] != "Burnt Off")
 		L[DNA_MOTH_WINGS_BLOCK] = construct_block(GLOB.moth_wings_list.Find(features["moth_wings"]), GLOB.moth_wings_list.len)
 	if(features["moth_antennae"] != "Burnt Off")
@@ -388,7 +391,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	switch(blocknumber)
 		if(DNA_MUTANT_COLOR_BLOCK)
-			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["mcolor"], include_crunch = FALSE))
+			set_uni_feature_block(blocknumber, sanitize_hexcolor(features[FEATURE_MUTANT_COLOR], include_crunch = FALSE))
 		if(DNA_ETHEREAL_COLOR_BLOCK)
 			set_uni_feature_block(blocknumber, sanitize_hexcolor(features["ethcolor"], include_crunch = FALSE))
 		if(DNA_LIZARD_MARKINGS_BLOCK)
@@ -406,7 +409,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(DNA_TAIL_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.tails_list_felinid.Find(features["tail_human"]), GLOB.tails_list_felinid.len))
 		if(DNA_EARS_BLOCK)
-			set_uni_feature_block(blocknumber, construct_block(GLOB.ears_list.Find(features["ears"]), GLOB.ears_list.len))
+			set_uni_feature_block(blocknumber, construct_block(GLOB.ears_list.Find(features[FEATURE_EARS]), GLOB.ears_list.len))
 		if(DNA_MOTH_WINGS_BLOCK)
 			set_uni_feature_block(blocknumber, construct_block(GLOB.moth_wings_list.Find(features["moth_wings"]), GLOB.moth_wings_list.len))
 		if(DNA_MOTH_ANTENNAE_BLOCK)
@@ -501,21 +504,37 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		if(message)
 			to_chat(holder, message)
 
-//used to update dna UI, UE, and dna.real_name.
+/// Updates the UI, UE, and UF of the DNA according to the features, appearance, name, etc. of the DNA / holder.
 /datum/dna/proc/update_dna_identity()
 	unique_identity = generate_unique_identity()
 	unique_features = generate_unique_features()
 	unique_enzymes = generate_unique_enzymes()
 
-/datum/dna/proc/initialize_dna(newblood_type, skip_index = FALSE)
+/**
+ * Sets up DNA codes and initializes some features.
+ *
+ * * newblood_type - Optional, the blood type to set the DNA to
+ * * create_mutation_blocks - If true, generate_dna_blocks is called, which is used to set up mutation blocks (what a mob can naturally mutate).
+ * * randomize_features - If true, all entries in the features list will be randomized.
+ */
+/datum/dna/proc/initialize_dna(newblood_type, create_mutation_blocks = TRUE, randomize_features = TRUE)
 	if(newblood_type)
 		blood_type = newblood_type
-	unique_enzymes = generate_unique_enzymes()
-	unique_identity = generate_unique_identity()
-	if(!skip_index) //I hate this
+	if(create_mutation_blocks) //I hate this
 		generate_dna_blocks()
-	features = random_features(holder.gender)
-	unique_features = generate_unique_features()
+	if(randomize_features)
+		var/static/list/all_species_protoypes
+		if(isnull(all_species_protoypes))
+			all_species_protoypes = list()
+			for(var/species_path in subtypesof(/datum/species))
+				all_species_protoypes += new species_path()
+
+		for(var/datum/species/random_species as anything in all_species_protoypes)
+			features |= random_species.randomize_features()
+
+		features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
+
+	update_dna_identity()
 
 /datum/dna/stored //subtype used by brain mob's stored_dna
 
@@ -568,26 +587,33 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE)
 	if(QDELETED(src))
 		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
-	if(mrace && has_dna())
-		var/datum/species/new_race
-		if(ispath(mrace))
-			new_race = new mrace
-		else if(istype(mrace))
-			new_race = mrace
-		else
-			return
-		death_sound = new_race.deathsound
+	if(isnull(mrace))
+		CRASH("set_species called without a species to set to")
+	if(!has_dna())
+		return
 
-		if (dna.species.properly_gained)
-			dna.species.on_species_loss(src, new_race)
+	var/datum/species/new_race
+	if(ispath(mrace))
+		new_race = new mrace
+	else if(istype(mrace))
+		if(QDELING(mrace))
+			CRASH("someone is calling set_species() and is passing it a qdeling species datum, this is VERY bad, stop it")
+		new_race = mrace
+	else
+		CRASH("set_species called with an invalid mrace [mrace]")
 
-		var/datum/species/old_species = dna.species
-		dna.update_species(new_race)
+	death_sound = new_race.deathsound
 
-		dna.species.on_species_gain(src, old_species)
-		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
-		if(icon_update)
-			update_mutations_overlay()// no lizard with human hulk overlay please.
+	var/datum/species/old_species = dna.species
+	dna.update_species(new_race)
+
+	if (dna.species.properly_gained)
+		dna.species.on_species_loss(src, new_race)
+
+	dna.species.on_species_gain(src, old_species)
+	SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
+	if(icon_update)
+		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
 	..()
@@ -692,8 +718,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	set_hair_gradient_style(x2, update = FALSE)
 
 	var/features = dna.unique_features
-	if(dna.features["mcolor"])
-		dna.features["mcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
+	if(dna.features[FEATURE_MUTANT_COLOR])
+		dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(get_uni_feature_block(features, DNA_MUTANT_COLOR_BLOCK))
 	if(dna.features["ethcolor"])
 		dna.features["ethcolor"] = sanitize_hexcolor(get_uni_feature_block(features, DNA_ETHEREAL_COLOR_BLOCK))
 	if(dna.features["lizard_markings"])
@@ -710,8 +736,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		dna.features["spines"] = GLOB.spines_list[deconstruct_block(get_uni_feature_block(features, DNA_SPINES_BLOCK), GLOB.spines_list.len)]
 	if(dna.features["tail_human"])
 		dna.features["tail_human"] = GLOB.tails_list_felinid[deconstruct_block(get_uni_feature_block(features, DNA_TAIL_BLOCK), GLOB.tails_list_felinid.len)]
-	if(dna.features["ears"])
-		dna.features["ears"] = GLOB.ears_list[deconstruct_block(get_uni_feature_block(features, DNA_EARS_BLOCK), GLOB.ears_list.len)]
+	if(dna.features[FEATURE_EARS])
+		dna.features[FEATURE_EARS] = GLOB.ears_list[deconstruct_block(get_uni_feature_block(features, DNA_EARS_BLOCK), GLOB.ears_list.len)]
 	if(dna.features["moth_wings"])
 		var/genetic_value = GLOB.moth_wings_list[deconstruct_block(get_uni_feature_block(features, DNA_MOTH_WINGS_BLOCK), GLOB.moth_wings_list.len)]
 		dna.features["original_moth_wings"] = genetic_value

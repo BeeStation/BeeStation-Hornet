@@ -77,6 +77,33 @@
 #define DNA_MUTATION_BLOCKS 8
 #define DNA_UNIQUE_ENZYMES_LEN 32
 
+//Features - No more magic strings
+//These can't just simply use dna block paths like identities, because there's keys that aren't tied to blocks
+
+// Block tied
+#define FEATURE_MUTANT_COLOR "mcolor"
+#define FEATURE_ETHEREAL_COLOR "ethcolor"
+#define FEATURE_EARS "ears"
+#define FEATURE_TAIL_CAT "tail_cat"
+#define FEATURE_TAIL_LIZARD "tail_lizard"
+#define FEATURE_TAIL_FISH "fish_tail"
+#define FEATURE_SNOUT "snout"
+#define FEATURE_LIZARD_MARKINGS "marking_lizard"
+#define FEATURE_HORNS "horns"
+#define FEATURE_FRILLS "frills"
+#define FEATURE_SPINES "spines"
+#define FEATURE_MOTH_WINGS "moth_wings"
+#define FEATURE_MOTH_ANTENNAE "moth_antennae"
+#define FEATURE_MOTH_MARKINGS "moth_markings"
+
+// Other
+#define FEATURE_WINGS "wings"
+#define FEATURE_WINGS_OPEN "wingsopen"
+#define FEATURE_TAIL_MONKEY "tail_monkey"
+#define FEATURE_TAIL_XENO "tail_xeno"
+#define FEATURE_TAILSPINES "tailspines" // Different from regular spines, these appear on tails
+#define FEATURE_LEGS "legs"
+
 //Transformation proc stuff
 #define TR_KEEPITEMS (1<<0)
 #define TR_KEEPVIRUS (1<<1)
@@ -117,7 +144,6 @@
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_UPGRADE_CONTROL "upgrade_control"
-#define ORGAN_SLOT_WINGS "wings"
 #define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
 #define ORGAN_SLOT_L_ARM_NYMPH "l_arm_nymph"
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
@@ -135,6 +161,11 @@
 /// Organ slot external
 #define ORGAN_SLOT_EXTERNAL_TAIL "tail"
 #define ORGAN_SLOT_EXTERNAL_SPINES "spines"
+#define ORGAN_SLOT_EXTERNAL_SNOUT "snout"
+#define ORGAN_SLOT_EXTERNAL_FRILLS "frills"
+#define ORGAN_SLOT_EXTERNAL_HORNS "horns"
+#define ORGAN_SLOT_EXTERNAL_WINGS "wings"
+#define ORGAN_SLOT_EXTERNAL_ANTENNAE "antennae"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100

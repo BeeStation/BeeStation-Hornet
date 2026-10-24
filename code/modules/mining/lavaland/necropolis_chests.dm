@@ -635,6 +635,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	. = ..()
 	if(iscarbon(M) && M.stat != DEAD)
 		var/mob/living/carbon/C = M
 		var/holycheck = ishumanbasic(C)
@@ -644,11 +645,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			return ..()
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
+			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 			if(H.get_organ_by_type(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
-					wings.flight_level += 1 //upgrade the flight level
-					wings.Refresh(H) //they need to insert to get the flight emote
+					wings.set_flight(H, wings.flight_level + 1)
 			else
 				if(H.mob_biotypes & MOB_ROBOTIC)
 					var/obj/item/organ/wings/cybernetic/newwings = new()
@@ -666,7 +666,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 		if(holycheck)
 			to_chat(C, span_notice("You feel blessed!"))
 			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, MAGIC_RESISTANCE_HOLY)
-	..()
 
 
 /obj/item/jacobs_ladder

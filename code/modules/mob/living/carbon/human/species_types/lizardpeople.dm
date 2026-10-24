@@ -8,16 +8,15 @@
 	)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_REPTILE
 	mutant_bodyparts = list(
-		"snout" = "Round",
-		"horns" = SPRITE_ACCESSORY_NONE,
-		"frills" = SPRITE_ACCESSORY_NONE,
-
 		"body_size" = "Normal"
 	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/lizard = SPRITE_ACCESSORY_NONE,
 	)
 	mutant_organs = list(
+		/obj/item/organ/horns = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/frills = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/snout = "Round",
 		/obj/item/organ/spines = SPRITE_ACCESSORY_NONE,
 		/obj/item/organ/tail/lizard = "Smooth",
 	)
@@ -47,6 +46,11 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/lizard,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/lizard,
 	)
+
+/datum/species/lizard/randomize_features()
+	var/list/features = ..()
+	features[FEATURE_LIZARD_MARKINGS] = pick(GLOB.lizard_markings_list)
+	return features
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
 /datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)

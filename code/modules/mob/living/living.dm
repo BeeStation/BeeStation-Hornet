@@ -485,7 +485,7 @@
 		incap_status |= INCAPABLE_RESTRAINTS
 	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		incap_status |= INCAPABLE_GRAB
-	if(IS_IN_STASIS(src))
+	if(HAS_TRAIT(src, TRAIT_STASIS))
 		incap_status |= INCAPABLE_STASIS
 
 	return incap_status

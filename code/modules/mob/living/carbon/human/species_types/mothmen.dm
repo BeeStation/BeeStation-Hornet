@@ -12,19 +12,20 @@
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
 	)
-	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	mutant_bodyparts = list(
-		"moth_wings" = "Plain",
-		"moth_antennae" = "Plain",
 		"moth_eyes" = "Default",
 		"body_size" = "Normal"
 	)
 	body_markings = list(
 		/datum/bodypart_overlay/simple/body_marking/moth = SPRITE_ACCESSORY_NONE,
 	)
+	mutant_organs = list(
+		/obj/item/organ/wings/moth = "Plain",
+		/obj/item/organ/antennae = "Plain",
+	)
 	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
-	mutantwings = /obj/item/organ/wings/moth
 	mutanttongue = /obj/item/organ/tongue/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
@@ -44,6 +45,11 @@
 
 	var/datum/action/innate/cocoon/cocoon_action
 
+/datum/species/moth/randomize_features()
+	var/list/features = ..()
+	features[FEATURE_MOTH_MARKINGS] = pick(GLOB.moth_markings_list)
+	return features
+
 /datum/species/moth/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
 	. = ..()
 	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
@@ -56,7 +62,7 @@
 		mutanteyes = /obj/item/organ/eyes/moth/domestic
 	else
 		mutanteyes = /obj/item/organ/eyes/moth
-	human_who_gained_species.dna?.features["mcolor"] = "#f4d697"
+	human_who_gained_species.dna?.features[FEATURE_MUTANT_COLOR] = "#f4d697"
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
@@ -153,7 +159,7 @@
 			if(W)
 				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
 				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
-					W.flight_level = WINGS_FLYING
+					W.flight_level = WINGS_AIRWORTHY
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
 	C.done_regenerating = TRUE
@@ -244,5 +250,5 @@
 	return to_add
 
 /datum/species/moth/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.dna.features["mcolor"] = "#f4d697"
+	human.dna.features[FEATURE_MUTANT_COLOR] = "#f4d697"
 	human.update_body(TRUE)

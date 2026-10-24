@@ -59,8 +59,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 /// Causes death-like unconsciousness
 #define TRAIT_DEATHCOMA "deathcoma"
-#define TRAIT_FAKEDEATH "fakedeath" //Makes the owner appear as dead to most forms of medical examination
-#define TRAIT_DISFIGURED		"disfigured"
+/// The mob has the stasis effect.
+/// Does nothing on its own, applied via status effect.
+#define TRAIT_STASIS "in_stasis"
+/// Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_FAKEDEATH "fakedeath"
+/// When applied to a mob's head, their face will be unrecognizable and get displayed as Unknown
+#define TRAIT_DISFIGURED "disfigured"
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
@@ -550,6 +555,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_PHASING		"move_phasing"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
+/// Lets the mob move in zero gravity without anything to push off from
+#define TRAIT_FREE_FLOAT_MOVEMENT "free_float_movement"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.

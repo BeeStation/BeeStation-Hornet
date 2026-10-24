@@ -112,7 +112,7 @@
 		adjust_nanites(amount = amount) //just add to the nanite volume
 
 /datum/component/nanites/process(delta_time)
-	if(!IS_IN_STASIS(host_mob))
+	if(!HAS_TRAIT(host_mob, TRAIT_STASIS))
 		var/harmonic_researched = assigned_techweb?.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC]
 		adjust_nanites(amount = (regen_rate + (harmonic_researched ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()

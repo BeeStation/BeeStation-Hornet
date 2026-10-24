@@ -9,7 +9,7 @@
 	slot = ORGAN_SLOT_EXTERNAL_TAIL
 
 	dna_block = DNA_TAIL_BLOCK
-	//restyle_flags = EXTERNAL_RESTYLE_FLESH
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	// defaults to cat, but the parent type shouldn't be created regardless
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/cat
@@ -151,9 +151,9 @@
 /obj/item/organ/tail/cat
 	name = "cat tail"
 	desc = "A severed cat tail. Who's wagging now?"
-	preference = "feature_human_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/cat
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	wag_flags = WAG_ABLE
 
@@ -161,7 +161,7 @@
 
 ///Cat tail bodypart overlay
 /datum/bodypart_overlay/mutant/tail/cat
-	feature_key = "tail_human"
+	feature_key = FEATURE_TAIL_CAT
 	color_source = ORGAN_COLOR_HAIR
 
 /datum/bodypart_overlay/mutant/tail/cat/get_global_feature_list()
@@ -169,7 +169,6 @@
 
 /obj/item/organ/tail/monkey
 	name = "monkey tail"
-	preference = "feature_monkey_tail"
 	icon_state = "severedmonkeytail"
 	dna_block = null
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
@@ -177,7 +176,7 @@
 ///Monkey tail bodypart overlay
 /datum/bodypart_overlay/mutant/tail/monkey
 	color_source = NONE
-	feature_key = "tail_monkey"
+	feature_key = FEATURE_TAIL_MONKEY
 
 /datum/bodypart_overlay/mutant/tail/monkey/get_global_feature_list()
 	return GLOB.tails_list_monkey
@@ -185,7 +184,6 @@
 /obj/item/organ/tail/lizard
 	name = "lizard tail"
 	desc = "A severed lizard tail. Somewhere, no doubt, a lizard hater is very pleased with themselves."
-	preference = "feature_lizard_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/lizard
 
@@ -194,7 +192,7 @@
 
 ///Lizard tail bodypart overlay datum
 /datum/bodypart_overlay/mutant/tail/lizard
-	feature_key = "tail_lizard"
+	feature_key = FEATURE_TAIL_LIZARD
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
@@ -207,7 +205,7 @@
 ///Bodypart overlay for tail spines. Handled by the tail - has no actual organ associated.
 /datum/bodypart_overlay/mutant/tail_spines
 	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
-	feature_key = "tailspines"
+	feature_key = FEATURE_TAILSPINES
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 	///Spines wag when the tail does
 	var/wagging = FALSE

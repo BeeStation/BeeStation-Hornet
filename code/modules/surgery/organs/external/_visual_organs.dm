@@ -7,8 +7,6 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	///The overlay datum that actually draws stuff on the limb
 	var/datum/bodypart_overlay/mutant/bodypart_overlay
 
-	/// The savefile_key of the preference this relates to. Used for the preferences UI.
-	var/preference
 	///With what DNA block do we mutate in mutate_feature() ? For genetics
 	var/dna_block
 
@@ -22,7 +20,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	var/external_bodyshapes = NONE
 
 	///Which flags does a 'modification tool' need to have to restyle us, if it all possible (located in code/_DEFINES/mobs)
-	//var/restyle_flags = NONE
+	var/restyle_flags = NONE
 
 	///If not null, overrides the appearance with this sprite accessory datum
 	var/sprite_accessory_override
@@ -47,8 +45,8 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	if(use_mob_sprite_as_obj_sprite && update_overlays)
 		update_appearance(UPDATE_OVERLAYS)
 
-	//if(restyle_flags)
-	//	RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
+	if(restyle_flags)
+		RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
 
 /// Some sanity checks, but mostly to check if the person has their preference/dna set to load
 /proc/should_visual_organ_apply_to(obj/item/organ/organpath, mob/living/carbon/target)
@@ -98,3 +96,176 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	for(var/external_layer in bodypart_overlay.all_layers)
 		if(bodypart_overlay.layers & external_layer)
 			. += bodypart_overlay.get_overlay(external_layer, bodypart_owner, bodypart_owner?.is_husked)
+
+///The horns of a lizard!
+/obj/item/organ/horns
+	name = "horns"
+	desc = "Why do lizards even have horns? Well, this one obviously doesn't."
+	icon_state = "horns"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_HORNS
+
+	dna_block = DNA_HORNS_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_ENAMEL
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/horns
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+/datum/bodypart_overlay/mutant/horns
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_HORNS
+	dyable = TRUE
+	draw_on_husks = HUSK_OVERLAY_NORMAL
+
+/datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDEHAIR)
+
+///The frills of a lizard (like weird fin ears)
+/obj/item/organ/frills
+	name = "frills"
+	desc = "Ear-like external organs often seen on aquatic reptilians."
+	icon_state = "frills"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_FRILLS
+
+	dna_block = DNA_FRILLS_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/frills
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+/datum/bodypart_overlay/mutant/frills
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_FRILLS
+
+/datum/bodypart_overlay/mutant/frills/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDEEARS)
+
+///Guess what part of the lizard this is?
+/obj/item/organ/snout
+	name = "lizard snout"
+	desc = "Take a closer look at that snout!"
+	icon_state = "snout"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_SNOUT
+
+	external_bodyshapes = BODYSHAPE_SNOUTED
+
+	dna_block = DNA_SNOUT_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/snout
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+	/// Offset to apply to equipment worn on the mouth we give to the head.
+	var/datum/worn_feature_offset/worn_mask_offset
+
+/obj/item/organ/snout/on_bodypart_insert(obj/item/bodypart/head/limb)
+	. = ..()
+	if(isnull(limb.worn_mask_offset))
+		worn_mask_offset = limb.worn_mask_offset = new(
+			attached_part = limb,
+			feature_key = OFFSET_FACEMASK,
+			offset_x = list("east" = 1, "west" = -1),
+		)
+
+/obj/item/organ/snout/on_bodypart_remove(obj/item/bodypart/head/limb, movement_flags)
+	if(worn_mask_offset)
+		QDEL_NULL(worn_mask_offset)
+		limb.worn_mask_offset = null
+	return ..()
+
+/datum/bodypart_overlay/mutant/snout
+	layers = EXTERNAL_ADJACENT
+	feature_key = FEATURE_SNOUT
+	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+
+/datum/bodypart_overlay/mutant/snout/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDESNOUT)
+
+///A moth's antennae
+/obj/item/organ/antennae
+	name = "moth antennae"
+	desc = "A moths antennae. What is it telling them? What are they sensing?"
+	icon_state = "antennae"
+
+	zone = BODY_ZONE_HEAD
+	slot = ORGAN_SLOT_EXTERNAL_ANTENNAE
+
+	dna_block = DNA_MOTH_ANTENNAE_BLOCK
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/antennae
+
+	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
+
+	///Are we burned?
+	var/burnt = FALSE
+	///Store our old datum here for if our antennae are healed
+	var/original_sprite_datum
+
+/obj/item/organ/antennae/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
+	. = ..()
+
+	RegisterSignal(receiver, COMSIG_HUMAN_BURNING, PROC_REF(try_burn_antennae))
+	RegisterSignal(receiver, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(heal_antennae))
+
+/obj/item/organ/antennae/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	. = ..()
+
+	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL))
+
+///check if our antennae can burn off ;_;
+/obj/item/organ/antennae/proc/try_burn_antennae(mob/living/carbon/human/human)
+	SIGNAL_HANDLER
+
+	if(!burnt && human.bodytemperature >= 800 && human.fire_stacks > 0) //do not go into the extremely hot light. you will not survive
+		to_chat(human, span_danger("Your precious antennae burn to a crisp!"))
+
+		burn_antennae()
+		human.update_body_parts()
+
+///Burn our antennae off ;_;
+/obj/item/organ/antennae/proc/burn_antennae()
+	var/datum/bodypart_overlay/mutant/antennae/antennae = bodypart_overlay
+	antennae.burnt = TRUE
+	burnt = TRUE
+
+///heal our antennae back up!!
+/obj/item/organ/antennae/proc/heal_antennae(datum/source, heal_flags)
+	SIGNAL_HANDLER
+
+	if(!burnt)
+		return
+
+	if(heal_flags & (HEAL_LIMBS|HEAL_ORGANS))
+		var/datum/bodypart_overlay/mutant/antennae/antennae = bodypart_overlay
+		antennae.burnt = FALSE
+		burnt = FALSE
+
+///Moth antennae datum, with full burning functionality
+/datum/bodypart_overlay/mutant/antennae
+	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
+	feature_key = FEATURE_MOTH_ANTENNAE
+	dyable = TRUE
+	///Accessory datum of the burn sprite
+	var/datum/sprite_accessory/burn_datum = /datum/sprite_accessory/moth_antennae/punished
+	///Are we burned? If so we draw differently
+	var/burnt = FALSE
+
+/datum/bodypart_overlay/mutant/antennae/New()
+	. = ..()
+
+	burn_datum = fetch_sprite_datum(burn_datum) //turn the path into the singleton instance
+
+/datum/bodypart_overlay/mutant/antennae/get_base_icon_state()
+	return burnt ? burn_datum.icon_state : sprite_datum.icon_state
+
+/datum/bodypart_overlay/mutant/antennae/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+	return ..() && !(bodypart_owner.owner?.get_obscured_flags() & HIDEANTENNAE)
