@@ -9672,10 +9672,10 @@
 /obj/machinery/door/airlock/external{
 	name = "Bridge External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi,
+/obj/effect/mapping_helpers/airlock/access/any/command,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "dJE" = (
@@ -22570,7 +22570,7 @@
 	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Captain)";
-	pixel_x = 33;
+	pixel_x = 36;
 	pixel_y = -2
 	},
 /obj/machinery/camera/directional/east,
@@ -37079,10 +37079,10 @@
 /obj/machinery/door/airlock/external{
 	name = "Bridge External Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper_multi,
+/obj/effect/mapping_helpers/airlock/access/any/command,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "nTH" = (
@@ -40206,6 +40206,7 @@
 /obj/item/stamp/captain{
 	pixel_x = -8
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "pdb" = (
@@ -44683,10 +44684,6 @@
 	},
 /obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/machinery/firealarm/directional/south,
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = 5;
-	pixel_y = -38
-	},
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "qOf" = (
@@ -46382,6 +46379,10 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/item/storage/secure/safe/caps_spare{
+	pixel_x = 6;
+	pixel_y = -29
 	},
 /turf/open/floor/iron,
 /area/station/command/bridge)
@@ -50959,6 +50960,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi{
+	id_tag = "bridge"
+	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "tiR" = (
@@ -59966,10 +59970,6 @@
 /turf/open/floor/grass/no_border,
 /area/station/hallway/secondary/exit/departure_lounge)
 "wHS" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = -1
-	},
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},

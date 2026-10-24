@@ -69,7 +69,7 @@
 	name = "Fish burger"
 	result = /obj/item/food/burger/fish
 	reqs = list(
-		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/fishmeat = 1,
 		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/bun = 1
 	)
