@@ -1,6 +1,8 @@
 import { capitalizeAll, multiline } from 'common/string';
+import { Fragment } from 'react';
 import { useBackend } from 'tgui/backend';
 import {
+  Box,
   Button,
   Flex,
   Icon,
@@ -46,7 +48,7 @@ export const SimpleBot = (_) => {
   const access = !locked || can_hack;
 
   return (
-    <Window width={450} height={320}>
+    <Window width={450} height={400}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -207,30 +209,68 @@ const SettingsDisplay = (_) => {
   );
 };
 
+const THRESHOLD_STYLE = {
+  heal_threshold_brute: { label: 'Brute', color: 'red', dim: 'brown' },
+  heal_threshold_burn: { label: 'Burn', color: 'orange', dim: 'yellow' },
+  heal_threshold_toxin: { label: 'Toxin', color: 'green', dim: 'olive' },
+  heal_threshold_oxy: { label: 'Suffocation', color: 'blue', dim: 'teal' },
+};
+
 /** Iterates over custom controls.
  * Calls the helper to identify which button to use.
  */
 const ControlsDisplay = (_) => {
   const { data } = useBackend<SimpleBotContext>();
   const { custom_controls } = data;
+  const entries = Object.entries(custom_controls);
+  const thresholds = entries.filter(([key]) => key.startsWith('heal_threshold_'));
+  const others = entries.filter(([key]) => !key.startsWith('heal_threshold_'));
 
   return (
-    <LabeledControls wrap>
-      {Object.entries(custom_controls).map((control) => {
-        if (control[0] === 'scrub_gasses') {
-          return <ControlHelper key={control[0]} control={control} />;
-        }
-        return (
-          <LabeledControls.Item
-            pb={2}
-            key={control[0]}
-            label={capitalizeAll(control[0].replace('_', ' '))}
-          >
-            <ControlHelper control={control} />
-          </LabeledControls.Item>
-        );
-      })}
-    </LabeledControls>
+    <>
+      {thresholds.length > 0 && (
+      <Section title="Healing Threshold">
+        <LabeledControls>
+          {thresholds.map((control, i) => (
+            <Fragment key={control[0]}>
+              {i > 0 && (
+                <LabeledControls.Item label={'\u00a0'}>
+                  <Box bold color="label">
+                    OR
+                  </Box>
+                </LabeledControls.Item>
+              )}
+              <LabeledControls.Item
+                label={
+                  <Box color={THRESHOLD_STYLE[control[0]].color}>
+                    {THRESHOLD_STYLE[control[0]].label}
+                  </Box>
+                }
+              >
+                <ControlHelper control={control} />
+              </LabeledControls.Item>
+            </Fragment>
+          ))}
+        </LabeledControls>
+      </Section>
+      )}
+      <LabeledControls wrap>
+        {others.map((control) => {
+          if (control[0] === 'scrub_gasses') {
+            return <ControlHelper key={control[0]} control={control} />;
+          }
+          return (
+            <LabeledControls.Item
+              pb={2}
+              key={control[0]}
+              label={capitalizeAll(control[0].replace(/_/g, ' '))}
+            >
+              <ControlHelper control={control} />
+            </LabeledControls.Item>
+          );
+        })}
+      </LabeledControls>
+    </>
   );
 };
 
@@ -243,8 +283,8 @@ const ControlHelper = (props) => {
   if (control[0] === 'sync_tech') {
     /** Control is for sync - this is medbot specific */
     return <MedbotSync control={control} />;
-  } else if (control[0] === 'heal_threshold') {
-    /** Control is a threshold - this is medbot specific */
+  } else if (control[0].startsWith('heal_threshold_')) {
+    /** Per-damage-type thresholds - this is medbot specific */
     return <MedbotThreshold control={control} />;
   } else if (control[0] === 'injection_amount') {
     /** Control is a threshold - this is medbot specific */
@@ -303,21 +343,25 @@ const MedbotSync = (props) => {
 const MedbotThreshold = (props) => {
   const { act } = useBackend<SimpleBotContext>();
   const { control } = props;
+  const damageType = control[0].replace('heal_threshold_', '');
+  const style = THRESHOLD_STYLE[control[0]];
 
   return (
-    <Tooltip content="Adjusts the sensitivity for damage treatment.">
+    <Tooltip
+      content={`Treat patients with at least this much ${damageType} damage.`}>
       <Slider
-        minValue={5}
-        maxValue={95}
+        width="50px"
+        minValue={0}
+        maxValue={100}
         ranges={{
-          good: [-Infinity, 15],
-          average: [15, 55],
-          bad: [55, Infinity],
+          [style.dim]: [-Infinity, 50],
+          [style.color]: [50, Infinity],
         }}
         step={5}
-        unit="%"
         value={control[1]}
-        onChange={(_, value) => act(control[0], { threshold: value })}
+        onChange={(_, value) =>
+          act('heal_threshold', { damage_type: damageType, threshold: value })
+        }
       />
     </Tooltip>
   );
