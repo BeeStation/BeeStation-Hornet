@@ -513,11 +513,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 /mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		var/mob/living/living_thrower = throwingdatum?.get_thrower()
-		if(I.throwforce < src.health && living_thrower)
-			if(ishuman(living_thrower))
-				var/mob/living/carbon/human/H = living_thrower
-				retaliate(H)
+		var/mob/living/thrower = throwingdatum?.get_thrower()
+		if(I.throwforce < src.health && ishuman(thrower))
+			retaliate(thrower)
 	..()
 
 /mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)

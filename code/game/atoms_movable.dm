@@ -863,10 +863,12 @@
 
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = FALSE
+	if(QDELETED(hit_atom))
+		return TRUE
 	var/hitpush = TRUE
 	var/impact_flags = pre_impact(hit_atom, throwingdatum)
 	if(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
-		return // in case a signal interceptor broke or deleted the thing before we could process our hit
+		return TRUE // in case a signal interceptor broke or deleted the thing before we could process our hit
 	if(impact_flags & COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH)
 		hitpush = FALSE
 	var/caught = hit_atom.hitby(src, throwingdatum=throwingdatum, hitpush=hitpush)

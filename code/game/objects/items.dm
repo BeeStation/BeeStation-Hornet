@@ -69,8 +69,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/hitsound = null
 	/// If it's a tool, this is the sound played when the tool is used. For example when you use a wrench it goes *ccTCTHCHHTHCHT*
 	var/usesound = null
-	/// The sound played when you throw it at something and it hits that something.
-	var/throwhitsound = null
 	///Used when yate into a mob
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot
@@ -1019,7 +1017,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(. || QDELETED(hit_atom) || !isliving(hit_atom))
+	if(.)
+		return
+	for(var/obj/item/modular_computer/computer in contents)
+		if(computer.hacked_throw_blink(src))
+			break
+	if(QDELETED(hit_atom) || !isliving(hit_atom))
 		return
 
 	var/volume = get_volume_by_throwforce_and_or_w_class()

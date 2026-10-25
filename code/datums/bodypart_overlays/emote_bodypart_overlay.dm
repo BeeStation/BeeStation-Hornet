@@ -11,8 +11,8 @@
 	var/datum/worn_feature_offset/feature_offset
 	///The bodypart that the overlay is currently applied to
 	var/datum/weakref/attached_bodypart
-	///Whether show_emote_overlay() added this and will remove it on a timer
-	var/temporary = FALSE
+	///Timer from show_emote_overlay() that deletes this overlay
+	var/removal_timer
 
 /datum/bodypart_overlay/simple/emote/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	var/image/image = ..()
@@ -29,6 +29,7 @@
 
 ///Removes the overlay from the attached bodypart and updates the necessary sprites
 /datum/bodypart_overlay/simple/emote/Destroy()
+	deltimer(removal_timer)
 	var/obj/item/bodypart/referenced_bodypart = attached_bodypart?.resolve()
 	referenced_bodypart?.remove_bodypart_overlay(src)
 	return ..()
@@ -54,10 +55,10 @@
 	var/datum/bodypart_overlay/simple/emote/overlay = locate(overlay_typepath) in bodypart.bodypart_overlays
 	if(isnull(overlay))
 		overlay = bodypart.add_bodypart_overlay(overlay_typepath)
-		overlay.temporary = TRUE
-	else if(!overlay.temporary)
+	else if(!overlay.removal_timer)
 		return
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), overlay), duration, TIMER_UNIQUE|TIMER_OVERRIDE)
+	deltimer(overlay.removal_timer)
+	overlay.removal_timer = addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), overlay), duration, TIMER_STOPPABLE)
 
 
 /datum/bodypart_overlay/simple/emote/blush

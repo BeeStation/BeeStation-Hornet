@@ -250,7 +250,7 @@
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD, PROC_REF(on_step_blood))
-	RegisterSignals(parent, list(COMSIG_MOB_EQUIPPED_ITEM, COMSIG_HUMAN_UNEQUIPPED_ITEM), PROC_REF(shoecover))
+	RegisterSignals(parent, list(COMSIG_MOB_EQUIPPED_ITEM, COMSIG_MOB_UNEQUIPPED_ITEM), PROC_REF(shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
@@ -281,7 +281,7 @@
 			FP.species_types |= affecting.limb_id
 
 /datum/component/bloodysoles/feet/is_under_feet_covered()
-	return !isnull(wielder.shoes)
+	return wielder.shoes?.item_flags & IN_INVENTORY
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)

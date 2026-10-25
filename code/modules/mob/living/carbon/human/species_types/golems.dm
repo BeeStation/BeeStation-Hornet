@@ -564,11 +564,8 @@
 
 /datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H, datum/thrownthing/throwingdatum)
 	..()
-	if(isitem(AM))
-		if(throwingdatum?.get_thrower() == H) //No throwing stuff at yourself to trigger the teleport
-			return 0
-		else
-			reactive_teleport(H)
+	if(isitem(AM) && throwingdatum?.get_thrower() != H) //No throwing stuff at yourself to trigger the teleport
+		reactive_teleport(H)
 
 /datum/species/golem/bluespace/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
@@ -705,12 +702,9 @@
 
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H, datum/thrownthing/throwingdatum)
 	..()
-	if(isitem(AM))
-		if(throwingdatum?.get_thrower() == H) //No throwing stuff at yourself to make bananas
-			return 0
-		else
-			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-			COOLDOWN_START(src, banana_cooldown, banana_delay)
+	if(isitem(AM) && throwingdatum?.get_thrower() != H) //No throwing stuff at yourself to make bananas
+		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(!active && COOLDOWN_FINISHED(src, honkooldown))
