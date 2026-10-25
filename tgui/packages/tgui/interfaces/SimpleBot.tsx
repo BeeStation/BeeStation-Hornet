@@ -223,36 +223,38 @@ const ControlsDisplay = (_) => {
   const { data } = useBackend<SimpleBotContext>();
   const { custom_controls } = data;
   const entries = Object.entries(custom_controls);
-  const thresholds = entries.filter(([key]) => key.startsWith('heal_threshold_'));
+  const thresholds = entries.filter(([key]) =>
+    key.startsWith('heal_threshold_'),
+  );
   const others = entries.filter(([key]) => !key.startsWith('heal_threshold_'));
 
   return (
     <>
       {thresholds.length > 0 && (
-      <Section title="Healing Threshold">
-        <LabeledControls>
-          {thresholds.map((control, i) => (
-            <Fragment key={control[0]}>
-              {i > 0 && (
-                <LabeledControls.Item label={'\u00a0'}>
-                  <Box bold color="label">
-                    OR
-                  </Box>
+        <Section title="Healing Threshold">
+          <LabeledControls>
+            {thresholds.map((control, i) => (
+              <Fragment key={control[0]}>
+                {i > 0 && (
+                  <LabeledControls.Item label={'\u00a0'}>
+                    <Box bold color="label">
+                      OR
+                    </Box>
+                  </LabeledControls.Item>
+                )}
+                <LabeledControls.Item
+                  label={
+                    <Box color={THRESHOLD_STYLE[control[0]].color}>
+                      {THRESHOLD_STYLE[control[0]].label}
+                    </Box>
+                  }
+                >
+                  <ControlHelper control={control} />
                 </LabeledControls.Item>
-              )}
-              <LabeledControls.Item
-                label={
-                  <Box color={THRESHOLD_STYLE[control[0]].color}>
-                    {THRESHOLD_STYLE[control[0]].label}
-                  </Box>
-                }
-              >
-                <ControlHelper control={control} />
-              </LabeledControls.Item>
-            </Fragment>
-          ))}
-        </LabeledControls>
-      </Section>
+              </Fragment>
+            ))}
+          </LabeledControls>
+        </Section>
       )}
       <LabeledControls wrap>
         {others.map((control) => {
@@ -348,7 +350,8 @@ const MedbotThreshold = (props) => {
 
   return (
     <Tooltip
-      content={`Treat patients with at least this much ${damageType} damage.`}>
+      content={`Treat patients with at least this much ${damageType} damage.`}
+    >
       <Slider
         width="50px"
         minValue={0}
