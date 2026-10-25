@@ -87,6 +87,7 @@
 	color_source = ORGAN_COLOR_HAIR
 	feature_key = FEATURE_EARS
 	dyable = TRUE
+	can_hardlight = TRUE
 
 	/// Layer upon which we add the inner ears overlay
 	var/inner_layer = EXTERNAL_FRONT
@@ -95,7 +96,7 @@
 	return GLOB.ears_list
 
 /datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
-	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEHAIR)
+	return ..() && !is_obscured(bodypart_owner, HIDEHAIR)
 
 /datum/bodypart_overlay/mutant/cat_ears/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	var/mutable_appearance/base_ears = ..()

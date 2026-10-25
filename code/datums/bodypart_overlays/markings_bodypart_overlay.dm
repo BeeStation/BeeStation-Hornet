@@ -1,6 +1,7 @@
 /// For body markings applied on the species, which need some extra code
 /datum/bodypart_overlay/simple/body_marking
 	layers = list("" = BODY_ADJ_LAYER)
+	overlay_flags = NONE
 	/// Listen to the gendercode, if the limb is bimorphic
 	var/use_gender = FALSE
 	/// Which dna feature key to draw from

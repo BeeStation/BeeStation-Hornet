@@ -18,10 +18,17 @@
 	///Take on the dna/preference from whoever we're gonna be inserted in
 	var/imprint_on_next_insertion = TRUE
 
+	///Can a MODsuit hardlight projector show this
+	var/can_hardlight = FALSE
+	///shown or hidden hardlight var
+	var/hardlight_enabled = TRUE
+
 /datum/bodypart_overlay/mutant/New(obj/item/organ/attached_organ)
 	. = ..()
 
-	RegisterSignal(attached_organ, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_mob_insert))
+	// Hardlight projections snowflake
+	if(attached_organ)
+		RegisterSignal(attached_organ, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_mob_insert))
 
 /datum/bodypart_overlay/mutant/proc/on_mob_insert(obj/item/organ/parent, mob/living/carbon/receiver)
 	SIGNAL_HANDLER
@@ -75,6 +82,16 @@
 			continue
 		valid_restyles += accessory_datum
 	return pick(valid_restyles)
+
+///hardlight projection on limb overrides clothing
+/datum/bodypart_overlay/mutant/proc/is_obscured(obj/item/bodypart/bodypart_owner, hide_flags)
+	if(can_hardlight && (locate(/datum/bodypart_texture/hardlight) in bodypart_owner.bodypart_textures))
+		return !hardlight_enabled
+	return bodypart_owner.owner?.obscured_slots & hide_flags
+
+///Shows or hides this while projected
+/datum/bodypart_overlay/mutant/proc/set_hardlight(enabled, obj/item/organ/organ)
+	hardlight_enabled = enabled
 
 ///Return the BASE icon state of the sprite datum (so not the gender, layer, feature_key)
 /datum/bodypart_overlay/mutant/proc/get_base_icon_state()

@@ -14,6 +14,7 @@
 #define BODYPART_OVERLAY_CSS_SUICIDE 3
 #define BODYPART_OVERLAY_VOIDWALKER_CURSE 4
 #define BODYPART_OVERLAY_MESH 5
+#define BODYPART_OVERLAY_HARDLIGHT 6
 
 /// Do not draw this bodypart overlay on husks
 #define HUSK_OVERLAY_NONE 0

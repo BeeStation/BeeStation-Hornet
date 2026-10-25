@@ -149,3 +149,35 @@
 /datum/bodypart_texture/mesh/space
 	texture_icon_state = "mesh_mask_space"
 	outline_color = "#1F1F1F"
+
+/// Visual distinctions for hidden organs, among other aura shit
+/datum/bodypart_texture/hardlight
+	texture_icon_state = "standard_blue"
+	texture_icon = 'icons/mob/clothing/modsuit/hardlight.dmi'
+	overlay_priority = BODYPART_OVERLAY_HARDLIGHT
+
+/datum/bodypart_texture/hardlight/modify_bodypart_appearance(image/appearance, overlay_flags)
+	if(overlay_flags & LIMB_OVERLAY_CORE)
+		return
+	return ..()
+
+/datum/bodypart_texture/hardlight/extrashield_green
+	texture_icon_state = "extrashield_green"
+
+/datum/bodypart_texture/hardlight/cosmic_blue
+	texture_icon_state = "cosmic_blue"
+
+/datum/bodypart_texture/hardlight/royal_purple
+	texture_icon_state = "royal_purple"
+
+/datum/bodypart_texture/hardlight/evil_green
+	texture_icon_state = "evil_green"
+
+/datum/bodypart_texture/hardlight/alert_amber
+	texture_icon_state = "alert_amber"
+
+/datum/bodypart_texture/hardlight/hazard_orange
+	texture_icon_state = "hazard_orange"
+
+/datum/bodypart_texture/hardlight/contractor_red
+	texture_icon_state = "contractor_red"

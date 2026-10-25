@@ -657,3 +657,75 @@
 		Syndicate Operatives and Agents alike, enabling them to continue to style on the opposition even while in their MODsuit."
 	complexity = 0
 	removable = FALSE
+
+///Hardlight Projector - Shows the wearer's ears, tail, wings and such through sealed parts as hardlight.
+/obj/item/mod/module/hardlight_projector
+	name = "\improper MOD hardlight projector module"
+	desc = "A web of emitters along the suit's seals, projecting a hardlight shell around any ears, horns, \
+		tails or wings the suit would otherwise squash flat. Purely cosmetic, though the wearers swear by it."
+	icon_state = "patient_transport"
+	module_type = MODULE_USABLE
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/hardlight_projector)
+	/// Limbs we project onto
+	var/static/list/zone_to_slot = list(
+		BODY_ZONE_HEAD = ITEM_SLOT_HEAD,
+		BODY_ZONE_CHEST = ITEM_SLOT_OCLOTHING,
+	)
+
+/obj/item/mod/module/hardlight_projector/on_part_activation()
+	RegisterSignal(mod, COMSIG_MOD_PART_SEALED, PROC_REF(update_projections))
+	RegisterSignal(mod.wearer, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(update_projections))
+	RegisterSignal(mod.wearer, COMSIG_CARBON_POST_REMOVE_LIMB, PROC_REF(on_limb_removed))
+	update_projections()
+
+/obj/item/mod/module/hardlight_projector/on_part_deactivation(deleting = FALSE)
+	UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
+	UnregisterSignal(mod.wearer, list(COMSIG_CARBON_POST_ATTACH_LIMB, COMSIG_CARBON_POST_REMOVE_LIMB))
+	for(var/zone in zone_to_slot)
+		mod.wearer.get_bodypart(zone)?.remove_bodypart_texture(mod.theme.hardlight_texture)
+
+/obj/item/mod/module/hardlight_projector/on_use()
+	INVOKE_ASYNC(src, PROC_REF(choose_parts))
+
+/// Projects onto each limb whose suit part is sealed, and stops on the rest
+/obj/item/mod/module/hardlight_projector/proc/update_projections()
+	SIGNAL_HANDLER
+
+	for(var/zone in zone_to_slot)
+		var/obj/item/bodypart/limb = mod.wearer.get_bodypart(zone)
+		var/datum/mod_part/part_datum = mod.mod_parts["[zone_to_slot[zone]]"]
+		if(part_datum?.sealed)
+			limb?.add_bodypart_texture(mod.theme.hardlight_texture)
+		else
+			limb?.remove_bodypart_texture(mod.theme.hardlight_texture)
+
+/obj/item/mod/module/hardlight_projector/proc/on_limb_removed(mob/living/carbon/source, obj/item/bodypart/limb)
+	SIGNAL_HANDLER
+
+	limb.remove_bodypart_texture(mod.theme.hardlight_texture)
+
+/// Radial menu for picking which parts get projected. Repeats until closed.
+/obj/item/mod/module/hardlight_projector/proc/choose_parts()
+	var/list/items = list()
+	var/list/name_to_organ = list()
+	for(var/zone in zone_to_slot)
+		for(var/obj/item/organ/organ in mod.wearer.get_bodypart(zone))
+			if(!organ.bodypart_overlay?.can_hardlight)
+				continue
+			var/image/organ_image = image(organ)
+			if(organ.bodypart_overlay.hardlight_enabled)
+				organ_image.underlays += image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "module_active")
+			items[organ.name] = organ_image
+			name_to_organ[organ.name] = organ
+	if(!length(items))
+		balloon_alert(mod.wearer, "nothing to project!")
+		return
+	var/pick = show_radial_menu(mod.wearer, mod, items, custom_check = FALSE, require_near = TRUE, tooltips = TRUE)
+	if(!pick || !mod?.wearer)
+		return
+	var/obj/item/organ/organ = name_to_organ[pick]
+	if(organ.owner != mod.wearer)
+		return
+	organ.bodypart_overlay.set_hardlight(!organ.bodypart_overlay.hardlight_enabled, organ)
+	choose_parts()

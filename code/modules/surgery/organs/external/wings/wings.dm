@@ -218,13 +218,14 @@
 	/// Feature key used for icon states while open
 	var/open_feature_key = FEATURE_WINGS_OPEN
 	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_WIDE_ICON | LIMB_OVERLAY_TALL_ICON
+	can_hardlight = TRUE
 	///Are our wings currently open? Change through open_wings or close_wings()
 	VAR_PRIVATE/wings_open = FALSE
 	/// Slot we check against
 	var/slot_blocker = HIDEJUMPSUIT|HIDEMUTWINGS
 
 /datum/bodypart_overlay/mutant/wings/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
-	return ..() && !(bodypart_owner.owner?.obscured_slots  & slot_blocker)
+	return ..() && !is_obscured(bodypart_owner, slot_blocker)
 
 /datum/bodypart_overlay/mutant/wings/get_global_feature_list()
 	if(wings_open)

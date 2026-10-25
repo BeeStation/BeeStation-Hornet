@@ -105,6 +105,8 @@
 	for(var/obj/item/mod/module/module as anything in theme.inbuilt_modules)
 		module = new module(src)
 		install(module)
+	if(theme.hardlight_texture)
+		install(new /obj/item/mod/module/hardlight_projector(src))
 	START_PROCESSING(SSobj, src)
 	AddElement(/datum/element/drag_pickup)
 
