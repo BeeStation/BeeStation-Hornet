@@ -280,9 +280,11 @@
 	if(should_draw_greyscale && draw_color)
 		. += draw_color
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
-		if(!overlay.can_draw_on_bodypart(src, owner, is_husked))
-			continue
-		. += overlay.generate_icon_cache(src)
+		if(overlay.can_draw_on_bodypart(src, owner))
+			. += overlay.icon_render_key(src)
+	for(var/datum/bodypart_texture/texture as anything in bodypart_textures)
+		if(texture.can_texture_bodypart(src))
+			. += texture.icon_render_key()
 	return .
 
 ///Generates a cache key specifically for husks
@@ -296,8 +298,8 @@
 	. += "husk"
 	. += body_zone
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
-		if(overlay.can_draw_on_bodypart(src, owner, TRUE))
-			. += overlay.generate_icon_cache(src)
+		if(overlay.can_draw_on_bodypart(src, owner))
+			. += overlay.icon_render_key(src)
 	. += get_husk_blood_color()
 	return .
 
@@ -347,11 +349,14 @@ GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
  *
  * Arguments:
  * * limb_overlay - The limb image being masked, not necessarily the original limb image as it could be an overlay on top of it
- * * image_dir - Direction of the masked images.
  *
  * Returns the list of masked images, or `null` if the limb_overlay didn't exist
  */
-/obj/item/bodypart/leg/proc/generate_masked_leg(mutable_appearance/limb_overlay, image_dir = NONE)
+/obj/item/bodypart/proc/handle_masking(image/limb_overlay)
+	PROTECTED_PROC(TRUE)
+	return
+
+/obj/item/bodypart/leg/handle_masking(image/limb_overlay)
 	RETURN_TYPE(/list)
 	if(!limb_overlay)
 		return
@@ -380,11 +385,9 @@ GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
 	var/mutable_appearance/new_leg_appearance = new(limb_overlay)
 	new_leg_appearance.icon = new_leg_icon
 	new_leg_appearance.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER)
-	new_leg_appearance.dir = image_dir //for some reason, things do not work properly otherwise
 	. += new_leg_appearance
 	var/mutable_appearance/new_leg_appearance_lower = new(limb_overlay)
 	new_leg_appearance_lower.icon = new_leg_icon_lower
 	new_leg_appearance_lower.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LOW_LAYER)
-	new_leg_appearance_lower.dir = image_dir
 	. += new_leg_appearance_lower
 	return .

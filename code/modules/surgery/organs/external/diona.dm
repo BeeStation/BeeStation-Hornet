@@ -10,11 +10,11 @@
 	organ_flags = parent_type::organ_flags | ORGAN_EXTERNAL
 
 /datum/bodypart_overlay/mutant/diona
-	layers = EXTERNAL_ADJACENT
+	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	///Hidden by suits that cover the jumpsuit, unless the suit lists the wearer's species in species_exception
 	var/hidden_by_suit = TRUE
 
-/datum/bodypart_overlay/mutant/diona/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/diona/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	. = ..()
 	var/mob/living/carbon/human/human_owner = bodypart_owner.owner
 	if(!. || !hidden_by_suit || !(human_owner?.obscured_slots & HIDEJUMPSUIT))
@@ -136,7 +136,7 @@
 	feature_key = FEATURE_DIONA_EYES
 	hidden_by_suit = FALSE
 
-/datum/bodypart_overlay/mutant/diona/eyes/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/diona/eyes/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & (HIDEEYES|HIDEHAIR))
 
 /datum/bodypart_overlay/mutant/diona/eyes/get_global_feature_list()

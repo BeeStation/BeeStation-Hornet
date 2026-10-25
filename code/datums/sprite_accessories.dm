@@ -50,6 +50,8 @@
 	var/icon_state		//the icon_state of the accessory
 	var/emissive_state	//state of the emissive overlay
 	var/emissive_alpha = 255	//Alpha of the emissive
+	/// a list of layers which render an extra emissive overlay
+	var/list/emissive_layers = list()
 	var/name			//the preview name of the accessory
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
 	var/use_static		//determines if the accessory will be skipped by color preferences
@@ -2383,6 +2385,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/horns/angler
 	name = "Angeler"
 	icon_state = "angler"
+	emissive_layers = list(EXTERNAL_FRONT)
 
 /datum/sprite_accessory/ears
 	icon = 'icons/mob/mutant_bodyparts.dmi'

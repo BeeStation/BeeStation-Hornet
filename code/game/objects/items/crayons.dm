@@ -627,7 +627,7 @@
 		set_painting_tool_color(COLOR_SILVER)
 	update_icon()
 	if(actually_paints)
-		user.AddComponent(/datum/component/face_decal, "spray", EXTERNAL_ADJACENT, paint_color)
+		user.AddComponent(/datum/component/face_decal, "spray", list("" = BODY_ADJ_LAYER), paint_color)
 	var/used = use_charges(user, 10, FALSE)
 	var/fraction = min(1, used / reagents.maximum_volume)
 	reagents.expose(user, VAPOR, fraction * volume_multiplier)
@@ -713,7 +713,7 @@
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
 			var/mob/living/carbon/human/human_target = C
-			human_target.AddComponent(/datum/component/face_decal, "spray", EXTERNAL_ADJACENT, paint_color)
+			human_target.AddComponent(/datum/component/face_decal, "spray", list("" = BODY_ADJ_LAYER), paint_color)
 
 		. = use_charges(user, 10, FALSE)
 		var/fraction = min(1, . / reagents.maximum_volume)

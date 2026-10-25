@@ -39,8 +39,6 @@
 	///Last fingerprints to touch this atom
 	var/fingerprintslast
 
-	var/list/filter_data //For handling persistent filters
-
 	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
 	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
@@ -817,7 +815,7 @@
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
 		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
 
-/** Add a filter to the atom.
+/** Add a filter to the atom or image.
  * Can also be used to assert a filter's existence. I.E. update a filter regardless if it exists or not.
  *
  * Arguments:
@@ -825,21 +823,24 @@
  * * priority - Priority used when sorting the filter.
  * * params - Parameters of the filter.
  */
-/atom/proc/add_filter(name, priority, list/params)
+/datum/proc/add_filter(name, priority, list/params)
+	ASSERT(isatom(src) || isimage(src))
 	LAZYINITLIST(filter_data)
 	var/list/p = params.Copy()
 	p["priority"] = priority
 	filter_data[name] = p
 	update_filters()
 
-/atom/proc/update_filters()
-	filters = null
+/datum/proc/update_filters()
+	ASSERT(isatom(src) || isimage(src))
+	var/atom/atom_cast = src // filters only work with images or atoms
+	atom_cast.filters = null
 	filter_data = sortTim(filter_data, GLOBAL_PROC_REF(cmp_filter_data_priority), TRUE)
 	for(var/f in filter_data)
 		var/list/data = filter_data[f]
 		var/list/arguments = data.Copy()
 		arguments -= "priority"
-		filters += filter(arglist(arguments))
+		atom_cast.filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
 /** Update a filter's parameter and animate this change. If the filter doesnt exist we won't do anything.

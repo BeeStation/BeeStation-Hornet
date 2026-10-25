@@ -80,7 +80,10 @@
 
 /// Bodypart overlay for the horrible cat ears
 /datum/bodypart_overlay/mutant/cat_ears
-	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER
+	)
 	color_source = ORGAN_COLOR_HAIR
 	feature_key = FEATURE_EARS
 	dyable = TRUE
@@ -91,27 +94,27 @@
 /datum/bodypart_overlay/mutant/cat_ears/get_global_feature_list()
 	return GLOB.ears_list
 
-/datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEHAIR)
 
-/datum/bodypart_overlay/mutant/cat_ears/get_image(image_layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/mutant/cat_ears/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	var/mutable_appearance/base_ears = ..()
 	base_ears.color = (dye_color || draw_color)
 
 	// Only add inner ears on the inner layer
-	if(image_layer != all_layers[inner_layer])
+	if(layer_index != inner_layer)
 		return base_ears
 
 	// Construct image of inner ears, apply to base ears as an overlay
 	feature_key += "inner"
 	var/mutable_appearance/inner_ears = ..()
 	feature_key = initial(feature_key)
-	var/mutable_appearance/ear_holder = mutable_appearance(layer = image_layer)
+	var/mutable_appearance/ear_holder = mutable_appearance(layer = layer_real)
 	ear_holder.overlays += base_ears
 	ear_holder.overlays += inner_ears
 	return ear_holder
 
-/datum/bodypart_overlay/mutant/cat_ears/color_image(image/overlay, layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/mutant/cat_ears/color_image(image/overlay, obj/item/bodypart/limb, layer_index)
 	return // We color base ears manually above in get_image
 
 /obj/item/organ/ears/penguin

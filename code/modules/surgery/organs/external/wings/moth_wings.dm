@@ -87,7 +87,11 @@
 ///Moth wing bodypart overlay, including burn functionality!
 /datum/bodypart_overlay/mutant/wings/moth
 	feature_key = "moth_wings"
-	layers = EXTERNAL_BEHIND | EXTERNAL_FRONT
+	open_feature_key = "moth_wingsopen"
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER,
+	)
 	slot_blocker = HIDEMUTWINGS
 	///Accessory datum of the burn sprite
 	var/datum/sprite_accessory/burn_datum = /datum/sprite_accessory/moth_wings/punished

@@ -209,14 +209,21 @@
 
 ///Bodypart overlay of default wings. Does not have any wing functionality
 /datum/bodypart_overlay/mutant/wings
-	layers = ALL_EXTERNAL_OVERLAYS
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER,
+		EXTERNAL_ADJACENT = BODY_ADJ_LAYER,
+	)
 	feature_key = FEATURE_WINGS
+	/// Feature key used for icon states while open
+	var/open_feature_key = FEATURE_WINGS_OPEN
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_WIDE_ICON | LIMB_OVERLAY_TALL_ICON
 	///Are our wings currently open? Change through open_wings or close_wings()
 	VAR_PRIVATE/wings_open = FALSE
 	/// Slot we check against
 	var/slot_blocker = HIDEJUMPSUIT|HIDEMUTWINGS
 
-/datum/bodypart_overlay/mutant/wings/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/wings/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots  & slot_blocker)
 
 /datum/bodypart_overlay/mutant/wings/get_global_feature_list()
@@ -228,7 +235,7 @@
 ///Update our wingsprite to the open wings variant
 /datum/bodypart_overlay/mutant/wings/proc/open_wings()
 	wings_open = TRUE
-	feature_key = FEATURE_WINGS_OPEN
+	feature_key = open_feature_key
 	set_appearance_from_name(sprite_datum.name) //It'll look for the same name again, but this time from the open wings list
 
 ///Update our wingsprite to the closed wings variant
@@ -237,7 +244,7 @@
 	feature_key = initial(feature_key)
 	set_appearance_from_name(sprite_datum.name)
 
-/datum/bodypart_overlay/mutant/wings/generate_icon_cache()
+/datum/bodypart_overlay/mutant/wings/icon_render_key()
 	. = ..()
 	. += wings_open ? "open" : "closed"
 
@@ -254,26 +261,6 @@
 	name = "dragon wings"
 	desc = "Hey, HEY- NOT lizard wings. Dragon wings. Mighty dragon wings."
 	sprite_accessory_override = /datum/sprite_accessory/wings/dragon
-
-///robotic wings, which relate to androids.
-/obj/item/organ/wings/robotic
-	name = "robotic wings"
-	desc = "Using microscopic hover-engines, or \"microwings,\" as they're known in the trade, these tiny devices are able to lift a few grams at a time. Gathering enough of them, and you can lift impressively large things."
-	organ_flags = ORGAN_ROBOTIC
-	sprite_accessory_override = /datum/sprite_accessory/wings/robotic
-
-///skeletal wings, which relate to skeletal races.
-/obj/item/organ/wings/skeleton
-	name = "skeletal wings"
-	desc = "Powered by pure edgy-teenager-notebook-scribblings. Just kidding. But seriously, how do these keep you flying?!"
-	sprite_accessory_override = /datum/sprite_accessory/wings/skeleton
-
-///fly wings, which relate to flies.
-/obj/item/organ/wings/fly
-	name = "fly wings"
-	desc = "Fly as a fly."
-	sprite_accessory_override = /datum/sprite_accessory/wings/fly
-	//flight_level = WINGS_COSMETIC
 
 ///Bee wings with special dash ability
 /obj/item/organ/wings/bee

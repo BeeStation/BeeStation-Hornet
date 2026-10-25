@@ -42,7 +42,7 @@
 		REMOVE_LUM_SOURCE(owner, LUM_SOURCE_MUTANT_BODYPART)
 
 /datum/bodypart_overlay/mutant/ipc_screen
-	layers = EXTERNAL_ADJACENT
+	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_IPC_SCREEN
 	color_source = ORGAN_COLOR_OVERRIDE
 	// A blocker drawn over the screen would hide its own emissive
@@ -50,7 +50,7 @@
 	///Unpowered screens draw nothing
 	var/powered = TRUE
 
-/datum/bodypart_overlay/mutant/ipc_screen/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/ipc_screen/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && powered && !(bodypart_owner.owner?.obscured_slots & HIDEEYES)
 
 /datum/bodypart_overlay/mutant/ipc_screen/override_color(obj/item/bodypart/bodypart_owner)
@@ -78,11 +78,14 @@
 
 /datum/bodypart_overlay/mutant/ipc_antenna
 	// Each antenna only has sprites for some of these layers
-	layers = EXTERNAL_ADJACENT | EXTERNAL_FRONT
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_ADJACENT = BODY_ADJ_LAYER,
+		)
 	feature_key = FEATURE_IPC_ANTENNA
 	color_source = ORGAN_COLOR_OVERRIDE
 
-/datum/bodypart_overlay/mutant/ipc_antenna/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/ipc_antenna/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEEARS)
 
 /datum/bodypart_overlay/mutant/ipc_antenna/override_color(obj/item/bodypart/bodypart_owner)

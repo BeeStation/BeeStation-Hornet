@@ -95,7 +95,7 @@
 /obj/item/organ/tail/proc/start_wag(mob/living/carbon/organ_owner, stop_after = INFINITY)
 	if(wag_flags & WAG_WAGGING || !(wag_flags & WAG_ABLE)) // we are already wagging
 		return FALSE
-	if(organ_owner.stat == DEAD || organ_owner != owner) // no wagging when owner is dead or tail has been disembodied
+	if(IS_UNCONSCIOUS_OR_CRIT(organ_owner) || organ_owner != owner) // no wagging when owner is ko'd or tail has been disembodied
 		return FALSE
 
 	if(stop_after != INFINITY)
@@ -107,12 +107,13 @@
 	if(tail_spines_overlay) //if there are spines, they should wag with the tail
 		tail_spines_overlay.wagging = TRUE
 	organ_owner.update_body_parts()
-	RegisterSignal(organ_owner, COMSIG_LIVING_DEATH, PROC_REF(owner_died))
+	RegisterSignals(organ_owner, list(COMSIG_MOB_STATCHANGE, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT)), PROC_REF(owner_kod))
 	return TRUE
 
-/obj/item/organ/tail/proc/owner_died(mob/living/carbon/organ_owner) // Resisting the urge to replace owner with daddy
+/obj/item/organ/tail/proc/owner_kod(mob/living/carbon/organ_owner) // Resisting the urge to replace owner with daddy
 	SIGNAL_HANDLER
-	stop_wag(organ_owner)
+	if(IS_UNCONSCIOUS_OR_CRIT(organ_owner))
+		stop_wag(organ_owner)
 
 ///We need some special behaviour for accessories, wrapped here so we can easily add more interactions later
 ///Returns false if the wag stopping worked, true otherwise
@@ -133,20 +134,32 @@
 		return succeeded
 
 	organ_owner.update_body_parts()
-	UnregisterSignal(organ_owner, COMSIG_LIVING_DEATH)
+	UnregisterSignal(organ_owner, list(COMSIG_MOB_STATCHANGE, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT)))
 	return succeeded
 
 ///Tail parent type, with wagging functionality
 /datum/bodypart_overlay/mutant/tail
-	layers = EXTERNAL_FRONT|EXTERNAL_BEHIND
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER,
+	)
 	dyable = TRUE
+	/// Tracks if it's currently wagging or not
 	var/wagging = FALSE
+	/// If TRUE the tail is shown when over supported suits like space suits
+	var/mesh_in_suits = FALSE
 
 /datum/bodypart_overlay/mutant/tail/get_base_icon_state()
 	return "[wagging ? "wagging_" : ""][sprite_datum.icon_state]" //add the wagging tag if we be wagging
 
-/datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
-	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEJUMPSUIT)
+/datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+	if(!(bodypart_owner.owner?.obscured_slots & HIDEJUMPSUIT))
+		return ..()
+	if(!mesh_in_suits)
+		return FALSE
+	if(locate(/datum/bodypart_texture/mesh) in bodypart_owner.bodypart_textures)
+		return ..()
+	return FALSE
 
 /obj/item/organ/tail/cat
 	name = "cat tail"
@@ -194,6 +207,7 @@
 /datum/bodypart_overlay/mutant/tail/lizard
 	feature_key = FEATURE_TAIL_LIZARD
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
+	mesh_in_suits = TRUE
 
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
 	return GLOB.tails_list_lizard
@@ -204,7 +218,10 @@
 
 ///Bodypart overlay for tail spines. Handled by the tail - has no actual organ associated.
 /datum/bodypart_overlay/mutant/tail_spines
-	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
+	layers = list(
+		EXTERNAL_ADJACENT = BODY_ADJ_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER
+	)
 	feature_key = FEATURE_TAILSPINES
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
 	///Spines wag when the tail does
@@ -218,7 +235,7 @@
 /datum/bodypart_overlay/mutant/tail_spines/get_base_icon_state()
 	return (!isnull(tail_spine_key) ? "[tail_spine_key]_" : "") + (wagging ? "wagging_" : "") + sprite_datum.icon_state // Select the wagging state if appropriate
 
-/datum/bodypart_overlay/mutant/tail_spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/mutant/tail_spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEJUMPSUIT)
 
 /datum/bodypart_overlay/mutant/tail_spines/set_dye_color(new_color, obj/item/organ/organ)

@@ -1,6 +1,6 @@
 /// For body markings applied on the species, which need some extra code
 /datum/bodypart_overlay/simple/body_marking
-	layers = EXTERNAL_ADJACENT
+	layers = list("" = BODY_ADJ_LAYER)
 	/// Listen to the gendercode, if the limb is bimorphic
 	var/use_gender = FALSE
 	/// Which dna feature key to draw from
@@ -29,16 +29,16 @@
 	use_gender = accessory.gender_specific
 	draw_color = accessory.color_src ? set_color : null
 
-/datum/bodypart_overlay/simple/body_marking/generate_icon_cache(obj/item/bodypart/limb)
+/datum/bodypart_overlay/simple/body_marking/icon_render_key(obj/item/bodypart/limb)
 	. = ..()
 	. += use_gender
 
-/datum/bodypart_overlay/simple/body_marking/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner, is_husked = FALSE)
+/datum/bodypart_overlay/simple/body_marking/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && icon_state != SPRITE_ACCESSORY_NONE
 
-/datum/bodypart_overlay/simple/body_marking/get_image(layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/simple/body_marking/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	var/gender_string = (use_gender && limb.is_dimorphic) ? (limb.limb_gender == "m" ? "male_" : "female_") : "" //we only got male and female sprites
-	return mutable_appearance(icon, gender_string + icon_state + "_" + limb.body_zone, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
+	return mutable_appearance(icon, gender_string + icon_state + "_" + limb.body_zone, layer = layer_real)
 
 /datum/bodypart_overlay/simple/body_marking/moth
 	dna_feature_key = FEATURE_MOTH_MARKINGS

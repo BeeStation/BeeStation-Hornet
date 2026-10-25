@@ -855,9 +855,9 @@
 /datum/bodypart_overlay/simple/pumpkin_face
 	icon = 'icons/mob/pumpkin_faces.dmi'
 	icon_state = "blank"
-	layers = EXTERNAL_ADJACENT
+	layers = list("" = BODY_ADJ_LAYER)
 
-/datum/bodypart_overlay/simple/pumpkin_face/generate_icon_cache(obj/item/bodypart/limb)
+/datum/bodypart_overlay/simple/pumpkin_face/icon_render_key(obj/item/bodypart/limb)
 	return list(icon_state)
 
 /obj/item/bodypart/head/pumpkin_man

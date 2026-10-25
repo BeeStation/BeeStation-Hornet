@@ -1,6 +1,8 @@
 ///Variant of bodypart_overlay for displaying emote overlays. See [/datum/emote/living/blush/run_emote] for an example on how to use one of these.
 /datum/bodypart_overlay/simple/emote
 	icon = 'icons/mob/human/emote_visuals.dmi'
+	layers = list("" = BODY_ADJ_LAYER)
+	overlay_flags = NONE
 	///The body zone to attach the overlay to, overlay won't be added if no bodypart can be found with this
 	var/attached_body_zone = BODY_ZONE_CHEST
 	///The feature key used to figure out what specific bodily feature we offset this to follow
@@ -10,7 +12,7 @@
 	///The bodypart that the overlay is currently applied to
 	var/datum/weakref/attached_bodypart
 
-/datum/bodypart_overlay/simple/emote/get_image(layer, obj/item/bodypart/limb)
+/datum/bodypart_overlay/simple/emote/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	var/image/image = ..()
 	feature_offset?.apply_offset(image)
 	return image
@@ -25,10 +27,8 @@
 
 ///Removes the overlay from the attached bodypart and updates the necessary sprites
 /datum/bodypart_overlay/simple/emote/Destroy()
-	var/obj/item/bodypart/referenced_bodypart = attached_bodypart.resolve()
-	if(!referenced_bodypart)
-		return ..()
-	referenced_bodypart.remove_bodypart_overlay(src)
+	var/obj/item/bodypart/referenced_bodypart = attached_bodypart?.resolve()
+	referenced_bodypart?.remove_bodypart_overlay(src)
 	return ..()
 
 /**
@@ -37,16 +37,19 @@
  * * Arguments:
  * * overlay_typepath - Typepath to the overlay that should be applied. Should be a subtype of datum/bodypart_overlay/simple/emote.
  *
- * Returns the given overlay, which can be deleted to stop displaying it. Will return null if no bodypart matching the overlay's attached_body_zone field can be found.
+ * Returns the given overlay, which can be deleted to stop displaying it. Will return null if no bodypart matching the overlay's attached_body_zone field can be found,
+ * or if the bodypart already has an overlay of that type.
  */
-/mob/living/carbon/human/proc/give_emote_overlay(overlay_typepath)
-	var/datum/bodypart_overlay/simple/emote/overlay = new overlay_typepath()
-	var/obj/item/bodypart/bodypart = src.get_bodypart(overlay.attached_body_zone)
-	if(!bodypart)
-		return null
-	bodypart.add_bodypart_overlay(overlay)
-	return overlay
+/mob/living/carbon/human/proc/give_emote_overlay(datum/bodypart_overlay/simple/emote/overlay_typepath)
+	var/obj/item/bodypart/bodypart = get_bodypart(overlay_typepath::attached_body_zone)
+	return bodypart?.add_bodypart_overlay(overlay_typepath)
 
+
+/datum/bodypart_overlay/simple/emote/blush
+	icon_state = "blush"
+	draw_color = COLOR_BLUSH_PINK
+	offset_key = OFFSET_FACE
+	attached_body_zone = BODY_ZONE_HEAD
 
 /datum/bodypart_overlay/simple/emote/blush/added_to_limb(obj/item/bodypart/limb)
 	..()
@@ -56,16 +59,8 @@
 		if(istype(human_owner) && human_owner.dna?.species?.blush_color)
 			draw_color = human_owner.dna.species.blush_color
 
-/datum/bodypart_overlay/simple/emote/blush
-	icon_state = "blush"
-	draw_color = COLOR_BLUSH_PINK
-	layers = EXTERNAL_ADJACENT
-	offset_key = OFFSET_FACE
-	attached_body_zone = BODY_ZONE_HEAD
-
 /datum/bodypart_overlay/simple/emote/cry
 	icon_state = "tears"
 	draw_color = COLOR_DARK_CYAN
-	layers = EXTERNAL_ADJACENT
 	offset_key = OFFSET_FACE
 	attached_body_zone = BODY_ZONE_HEAD
