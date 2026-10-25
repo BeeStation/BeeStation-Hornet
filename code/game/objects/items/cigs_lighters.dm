@@ -890,7 +890,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	inhand_icon_off = null
 	packed_smoketime = 4 MINUTES
 
-
 /////////
 //ZIPPO//
 /////////
