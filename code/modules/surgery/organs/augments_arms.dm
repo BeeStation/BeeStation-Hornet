@@ -204,7 +204,7 @@
 	active_item.slot_flags = null
 	active_item.set_custom_materials(null)
 
-	var/side = zone == BODY_ZONE_R_ARM ? "right" : "left"
+	var/side = zone == BODY_ZONE_R_ARM ? RIGHT_HANDS : LEFT_HANDS
 	var/hand = owner.get_empty_held_index_for_side(side)
 	if(hand)
 		owner.put_in_hand(active_item, hand)
