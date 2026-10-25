@@ -80,8 +80,7 @@
 				ui_update()
 		else if(!(obj_flags & EMAGGED))
 			to_chat(user, span_notice("You lock [src] with [W]."))
-			var/list/access = W.GetAccess()
-			req_access = access
+			req_access = card.access.Copy()
 			locked = TRUE
 			//Update to viewers
 			ui_update()
