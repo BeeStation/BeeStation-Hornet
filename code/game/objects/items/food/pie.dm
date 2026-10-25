@@ -58,6 +58,12 @@
 /obj/item/food/pie/cream/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/splat, hit_callback = CALLBACK(src, PROC_REF(stun_and_blur)))
+	RegisterSignal(src, COMSIG_MOVABLE_SPLAT, PROC_REF(expose_splat_target))
+
+/obj/item/food/pie/cream/proc/expose_splat_target(datum/source, atom/hit_atom)
+	SIGNAL_HANDLER
+	if(reagents?.total_volume)
+		reagents.expose(hit_atom, TOUCH)
 
 /obj/item/food/pie/cream/proc/stun_and_blur(mob/living/victim, can_splat_on)
 	if(stunning)

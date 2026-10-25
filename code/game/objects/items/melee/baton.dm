@@ -947,7 +947,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	. = ..()
 	//base 35% success chance if you throw it
 	if(!. && active && prob(throw_stun_chance) && isliving(hit_atom))
-		finalize_baton_attack(hit_atom, thrownby?.resolve(), in_attack_chain = FALSE, is_harm = FALSE)
+		finalize_baton_attack(hit_atom, throwingdatum?.get_thrower(), in_attack_chain = FALSE, is_harm = FALSE)
 
 /obj/item/melee/baton/security/emp_act(severity)
 	. = ..()

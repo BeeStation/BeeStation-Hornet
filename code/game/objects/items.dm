@@ -156,8 +156,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/sprite_sheets = null
 	///A bitfield of species that the item cannot be worn by.
 	var/species_restricted = null
-	///A weakref to the mob who threw the item
-	var/datum/weakref/thrownby = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
@@ -1010,60 +1008,36 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/atom/location = master_storage.real_location?.resolve()
 	do_drop_animation(location)
 
-/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(QDELETED(hit_atom))
-		return
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum) & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
-		return
-
-	if(get_temperature() && isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		L.ignite_mob()
-	var/itempush = 1
+/obj/item/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = ..()
 	if(w_class < WEIGHT_CLASS_NORMAL)
-		itempush = 0 //too light to push anything
-	if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-		var/volume = get_volume_by_throwforce_and_or_w_class()
-		if (throwforce > 0)
-			if (mob_throw_hit_sound)
-				playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
-			else if(hitsound)
-				playsound(hit_atom, hitsound, volume, TRUE, -1)
-			else
-				playsound(hit_atom, 'sound/weapons/genhit.ogg',volume, TRUE, -1)
-		else
-			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
-	var/obj/item/modular_computer/comp
-	var/obj/item/computer_hardware/processor_unit/cpu
-	for(var/obj/item/modular_computer/M in contents)
-		cpu = M.all_components[MC_CPU]
-		if(cpu?.hacked)
-			comp = M
-		break
-	if(comp)
-		if(!cpu)
-			return
-		var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-		var/turf/start = get_turf(src)
-		if(!comp.enabled)
-			new /obj/effect/particle_effect/sparks(start)
-			playsound(start, "sparks", 50, 1)
-			return
-		if(!target)
-			return
-		// The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
-		do_dash(src, start, target, 0, TRUE)
-		comp.use_power((250 * cpu.max_idle_programs))
-	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH
+	if(!(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND) && get_temperature() && isliving(hit_atom))
+		var/mob/living/victim = hit_atom
+		victim.ignite_mob()
+	return impact_flags
 
+/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(. || QDELETED(hit_atom) || !isliving(hit_atom))
+		return
+
+	var/volume = get_volume_by_throwforce_and_or_w_class()
+	if(!volume)
+		return
+	if (throwforce > 0)
+		if (mob_throw_hit_sound)
+			playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
+		else if(hitsound)
+			playsound(hit_atom, hitsound, volume, TRUE, -1)
+		else
+			playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+	else
+		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
-	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
@@ -1372,7 +1346,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/mob/owner = loc
 	// This should remove the IN_INVENTORY flag. Otherwise we'll end up having a loop
-	owner.transferItemToLoc(src, destination, force = TRUE, silent = TRUE, animated = FALSE)
+	return owner.transferItemToLoc(src, destination, force = TRUE, silent = TRUE, animated = FALSE)
 
 /obj/item/proc/embedded(atom/embedded_target)
 

@@ -13,7 +13,14 @@
 
 /obj/structure/destructible/cult/pylon/Initialize(mapload)
 	. = ..()
+	update_healing_aura()
+	START_PROCESSING(SSfastprocess, src)
 
+/obj/structure/destructible/cult/pylon/proc/update_healing_aura()
+	/// No fuckery boyo
+	if(!anchored || invisibility)
+		qdel(GetComponent(/datum/component/aura_healing))
+		return
 	AddComponent( \
 		/datum/component/aura_healing, \
 		range = 5, \
@@ -27,7 +34,10 @@
 		healing_color = COLOR_CULT_RED, \
 	)
 
-	START_PROCESSING(SSfastprocess, src)
+/obj/structure/destructible/cult/pylon/set_anchored(anchorvalue)
+	. = ..()
+	if(!isnull(.))
+		update_healing_aura()
 
 /obj/structure/destructible/cult/pylon/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -75,7 +85,9 @@
 /obj/structure/destructible/cult/pylon/conceal()
 	. = ..()
 	STOP_PROCESSING(SSfastprocess, src)
+	update_healing_aura()
 
 /obj/structure/destructible/cult/pylon/reveal()
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
+	update_healing_aura()

@@ -964,7 +964,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/damage = attacking_bodypart.unarmed_damage
 
-	var/obj/item/bodypart/affecting = target.get_bodypart(target.get_random_valid_zone(target.get_combat_bodyzone(src)))
+	var/hit_zone = target.get_random_valid_zone(user.get_combat_bodyzone(target), blacklisted_parts = (user == target ? list(attacking_bodypart.body_zone) : null))
+	var/obj/item/bodypart/affecting = target.get_bodypart(hit_zone)
 
 	if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 		playsound(target.loc, attacking_bodypart.unarmed_miss_sound, 25, 1, -1)
@@ -1034,7 +1035,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	else
 		user.disarm(target)
 
-/datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+/datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H, datum/thrownthing/throwingdatum)
 	return
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/attacker, mob/living/carbon/human/target, datum/martial_art/attacker_style, modifiers)

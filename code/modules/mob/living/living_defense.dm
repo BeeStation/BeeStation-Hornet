@@ -157,7 +157,7 @@
 			var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor)
 
-			var/mob/thrown_by = I.thrownby?.resolve()
+			var/mob/thrown_by = throwingdatum?.get_thrower()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
 			if(!INCAPACITATED_IGNORING(src, INCAPABLE_GRAB)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.

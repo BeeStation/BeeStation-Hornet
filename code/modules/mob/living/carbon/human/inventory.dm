@@ -291,6 +291,7 @@
 		s_store = null
 		if(!QDELETED(src))
 			update_suit_storage()
+	SEND_SIGNAL(src, COMSIG_HUMAN_UNEQUIPPED_ITEM, I)
 
 /// Adds the passed item's coverage to the mob's coverage related flags
 /mob/living/carbon/proc/add_item_coverage(obj/item/item)

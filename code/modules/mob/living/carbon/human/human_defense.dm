@@ -140,7 +140,7 @@
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(dna && dna.species)
-		var/spec_return = dna.species.spec_hitby(AM, src)
+		var/spec_return = dna.species.spec_hitby(AM, src, throwingdatum)
 		if(spec_return)
 			return spec_return
 	var/obj/item/I
@@ -148,7 +148,7 @@
 	if(istype(AM, /obj/item))
 		I = AM
 		throwpower = I.throwforce
-		if(I.thrownby == WEAKREF(src)) //No throwing stuff at yourself to trigger hit reactions
+		if(throwingdatum?.get_thrower() == src) //No throwing stuff at yourself to trigger hit reactions
 			return ..()
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE

@@ -37,6 +37,10 @@
 /obj/item/organ/wings/moth/can_fly(mob/living/carbon/human/human)
 	return !burnt && ..()
 
+/obj/item/organ/wings/moth/can_open()
+	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
+	return !burnt && (wings.sprite_datum.name in GLOB.moth_wingsopen_list) && ..()
+
 ///Check if we can flutter around
 /obj/item/organ/wings/moth/proc/update_float_move()
 	SIGNAL_HANDLER
@@ -62,6 +66,8 @@
 
 ///burn the wings off
 /obj/item/organ/wings/moth/proc/burn_wings()
+	if(wings_open)
+		close_wings()
 	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
 	wings.burnt = TRUE
 	burnt = TRUE

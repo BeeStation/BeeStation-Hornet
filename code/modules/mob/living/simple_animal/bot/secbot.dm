@@ -206,7 +206,7 @@
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
-		var/mob/thrown_by = I.thrownby?.resolve()
+		var/mob/thrown_by = throwingdatum?.get_thrower()
 		if(I.throwforce < src.health && thrown_by && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)

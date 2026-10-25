@@ -169,7 +169,7 @@ have ways of interacting with a specific mob and control it.
 	if(istype(AM, /obj/item))
 		var/mob/living/living_pawn = pawn
 		var/obj/item/I = AM
-		var/mob/thrown_by = I.thrownby?.resolve()
+		var/mob/thrown_by = throwingdatum?.get_thrower()
 		if(I.throwforce && I.throwforce < living_pawn.health && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)

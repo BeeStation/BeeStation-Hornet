@@ -16,7 +16,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	QDEL_IN(human_user.give_emote_overlay(/datum/bodypart_overlay/simple/emote/blush), 5.2 SECONDS)
+	human_user.show_emote_overlay(/datum/bodypart_overlay/simple/emote/blush, 5.2 SECONDS)
 
 /datum/emote/living/bow
 	key = "bow"
@@ -138,7 +138,7 @@
 		return
 	wings.make_flap_sound(human_user)
 
-	if(!wings.has_open_sprite)
+	if(!wings.can_open())
 		return
 	var/open = wings.wings_open
 	if(open)

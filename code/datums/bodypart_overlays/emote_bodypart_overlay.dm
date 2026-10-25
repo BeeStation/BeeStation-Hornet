@@ -11,6 +11,8 @@
 	var/datum/worn_feature_offset/feature_offset
 	///The bodypart that the overlay is currently applied to
 	var/datum/weakref/attached_bodypart
+	///Whether show_emote_overlay() added this and will remove it on a timer
+	var/temporary = FALSE
 
 /datum/bodypart_overlay/simple/emote/get_image(obj/item/bodypart/limb, layer_index, layer_real)
 	var/image/image = ..()
@@ -43,6 +45,19 @@
 /mob/living/carbon/human/proc/give_emote_overlay(datum/bodypart_overlay/simple/emote/overlay_typepath)
 	var/obj/item/bodypart/bodypart = get_bodypart(overlay_typepath::attached_body_zone)
 	return bodypart?.add_bodypart_overlay(overlay_typepath)
+
+/// Shows an emote overlay for a duration
+/mob/living/carbon/human/proc/show_emote_overlay(datum/bodypart_overlay/simple/emote/overlay_typepath, duration)
+	var/obj/item/bodypart/bodypart = get_bodypart(overlay_typepath::attached_body_zone)
+	if(isnull(bodypart))
+		return
+	var/datum/bodypart_overlay/simple/emote/overlay = locate(overlay_typepath) in bodypart.bodypart_overlays
+	if(isnull(overlay))
+		overlay = bodypart.add_bodypart_overlay(overlay_typepath)
+		overlay.temporary = TRUE
+	else if(!overlay.temporary)
+		return
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), overlay), duration, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
 /datum/bodypart_overlay/simple/emote/blush

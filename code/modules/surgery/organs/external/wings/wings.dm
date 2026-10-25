@@ -173,13 +173,17 @@
 	close_wings()
 	human.refresh_gravity()
 
+///Whether the wings have an open sprite to switch to right now
+/obj/item/organ/wings/proc/can_open()
+	return has_open_sprite
+
 ///Spread wings
 /obj/item/organ/wings/proc/open_wings()
 	wings_open = TRUE
-	if(has_open_sprite)
+	if(can_open())
 		var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 		overlay?.open_wings()
-		owner.update_body_parts()
+		owner?.update_body_parts()
 	SEND_SIGNAL(src, COMSIG_WINGS_OPENED, owner)
 
 ///Close wings
@@ -188,7 +192,7 @@
 	if(has_open_sprite)
 		var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 		overlay?.close_wings()
-		owner.update_body_parts()
+		owner?.update_body_parts()
 	if(isturf(owner?.loc))
 		var/turf/location = owner.loc
 		location.Entered(owner, NONE)

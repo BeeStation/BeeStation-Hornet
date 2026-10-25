@@ -5,6 +5,8 @@
 // /mob/living/carbon/human signals
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"	//! Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
 #define COMSIG_HUMAN_ATTACKED "carbon_attacked"					//hit by something that checks shields.
+///From /mob/living/carbon/human/doUnEquip() after the item's slot is cleared: (obj/item/item)
+#define COMSIG_HUMAN_UNEQUIPPED_ITEM "human_unequipped_item"
 
 // Mob transformation signals
 ///Called when a human turns into a monkey, from /mob/living/carbon/proc/finish_monkeyize()

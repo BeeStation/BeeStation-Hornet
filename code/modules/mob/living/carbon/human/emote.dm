@@ -14,7 +14,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	QDEL_IN(human_user.give_emote_overlay(/datum/bodypart_overlay/simple/emote/cry), 12.8 SECONDS)
+	human_user.show_emote_overlay(/datum/bodypart_overlay/simple/emote/cry, 12.8 SECONDS)
 
 /datum/emote/living/carbon/human/dap
 	key = "dap"
@@ -202,7 +202,8 @@
 	return "[emote_verb] [message]"
 
 /datum/emote/living/carbon/human/wing/can_run_emote(mob/user, status_check = TRUE, intentional)
-	if(!istype(user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS), /obj/item/organ/wings))
+	var/obj/item/organ/wings/wings = user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
+	if(!istype(wings) || !wings.can_open())
 		return FALSE
 	return ..()
 

@@ -315,18 +315,19 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	return FALSE
 
 /obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
+	. = ..()
+	if(.)
+		return
 	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
-	if(!cpu)
+	if(!cpu?.hacked)
 		return
-	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
 	var/turf/start = get_turf(src)
-	if(!target)
-		return
-	if(!cpu.hacked)
-		return
 	if(!enabled)
 		new /obj/effect/particle_effect/sparks(start)
 		playsound(start, "sparks", 50, 1)
+		return
+	var/turf/target = get_blink_destination(start, dir, (cpu.max_idle_programs * 2))
+	if(!target)
 		return
 	// The better the CPU the farther it goes, and the more battery it needs
 	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
