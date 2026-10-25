@@ -998,7 +998,7 @@ SUBSYSTEM_DEF(job)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
 	if(acting_captain)
-		to_chat(H, span_notice("Due to your position in the chain of command, you have been appointed Acting Captain. As a backup, the code to the captain's spare ID safe on the Bridge is [where]."))
+		to_chat(H, span_notice("Due to your position in the chain of command, you have been appointed Acting Captain. The code to the captain's spare ID safe on the Bridge is [where]."))
 	else
 		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
