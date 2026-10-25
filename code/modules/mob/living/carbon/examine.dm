@@ -491,11 +491,25 @@
 
 /// Reports all body parts which are mismatched with the user's species
 /mob/living/carbon/human/proc/get_mismatched_limb_text()
-	. = list()
+	var/list/covered = get_covered_body_zones()
+	var/list/texts = list()
 	for(var/obj/item/bodypart/part as anything in get_bodyparts())
-		if(part.limb_id == (dna.species.examine_limb_id || dna.species.id))
+		var/part_id = part.limb_id
+		var/obj/item/bodypart/expected_part = dna?.species?.bodypart_overrides[part.body_zone]
+		var/expected_id = initial(expected_part?.limb_id)
+		// only report abnormal bodyparts
+		if(part_id == expected_id)
 			continue
-		. += span_notice("[p_They()] [p_have()] \a [part].")
+		if(part_id == BODYPART_ID_DIGITIGRADE && dna.species.digitigrade_customization != DIGITIGRADE_NEVER)
+			continue
+		// same shape bodyparts are concealed by clothing
+		// this means you can see ex. digitigrade legs through clothes
+		// but you can't see ex. cybernetic legs through clothes
+		if(part.bodyshape == initial(expected_part?.bodyshape) && (part.body_zone in covered))
+			continue
+		texts += span_notice("[p_They()] [p_have()] \a [part].")
+
+	return texts
 
 /// Reports how old the mob appears to be
 /mob/living/carbon/human/proc/get_age_text()

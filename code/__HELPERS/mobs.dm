@@ -41,19 +41,19 @@
 
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, required_gender = gender)
 	return picked?.name || "Nude"
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, required_gender = gender)
 	return picked?.name || "Nude"
 
 /proc/random_socks(gender)
 	if(!GLOB.socks_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/socks, GLOB.socks_list)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, required_gender = gender)
 	return picked?.name || "Nude"
 

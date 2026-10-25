@@ -163,8 +163,6 @@ DEFINE_BITFIELD(no_equip_flags, list(
 //This system takes priority over Sprite Sheets.
 
 //Flags (actual flags, fucker ^) for /obj/item/var/supports_variations_flags
-
-
 /// Has a sprite for digitigrade legs specifically.
 #define CLOTHING_DIGITIGRADE_VARIATION (1<<0)
 /// The sprite works fine for digitigrade legs as-is.

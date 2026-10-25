@@ -543,33 +543,30 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					standing += eye_overlay
 
 	//Underwear, Undershirts & Socks
-	if(!(HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR)))
+	if(!HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR) && !HAS_TRAIT(species_human, TRAIT_HUSK))
+		var/body_type = MALE
+		if(sexes)
+			var/obj/item/bodypart/chest/our_chest = species_human.get_bodypart(BODY_ZONE_CHEST)
+			if(our_chest?.is_dimorphic)
+				body_type = species_human.physique
+
 		if(species_human.underwear)
-			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
-			if(underwear)
-				var/mutable_appearance/underwear_overlay
-				if(species_human.dna.species.sexes && species_human.physique == FEMALE && (underwear.use_default_gender == MALE))
-					underwear_overlay = mutable_appearance(wear_female_version(underwear.icon_state, underwear.icon, FEMALE_UNIFORM_FULL), layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				else
-					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				if(!underwear.use_static)
-					underwear_overlay.color = species_human.underwear_color
+			var/datum/sprite_accessory/clothing/underwear/undie_accessory = GLOB.underwear_list[species_human.underwear]
+			var/mutable_appearance/underwear_overlay = undie_accessory?.make_appearance(species_human.underwear_color, body_type, species_human.bodyshape)
+			if(underwear_overlay)
 				standing += underwear_overlay
 
 		if(species_human.undershirt)
-			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[species_human.undershirt]
-			if(undershirt)
-				var/mutable_appearance/working_shirt
-				if(species_human.dna.species.sexes && species_human.physique == FEMALE)
-					working_shirt = mutable_appearance(wear_female_version(undershirt.icon_state, undershirt.icon), layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				else
-					working_shirt = mutable_appearance(undershirt.icon, undershirt.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
-				standing += working_shirt
+			var/datum/sprite_accessory/clothing/undershirt/shirt_accessory = GLOB.undershirt_list[species_human.undershirt]
+			var/mutable_appearance/shirt_overlay = shirt_accessory?.make_appearance(null, body_type, species_human.bodyshape)
+			if(shirt_overlay)
+				standing += shirt_overlay
 
 		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
-			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
-			if(socks)
-				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+			var/datum/sprite_accessory/clothing/socks/sock_accessory = GLOB.socks_list[species_human.socks]
+			var/mutable_appearance/socks_overlay = sock_accessory?.make_appearance(null, body_type, species_human.bodyshape)
+			if(socks_overlay)
+				standing += socks_overlay
 
 	if(standing.len)
 		species_human.overlays_standing[BODY_LAYER] = standing
@@ -694,7 +691,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_BELT)
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-
 			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
