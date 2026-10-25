@@ -38,6 +38,9 @@ GLOBAL_LIST(chemical_reagents_list)
 /// list of all surgeries by name, associated with their path.
 GLOBAL_LIST_EMPTY(surgeries_list)
 
+/// list of all surgery steps, associated by their path.
+GLOBAL_LIST_INIT(surgery_steps, init_subtypes_w_path_keys(/datum/surgery_step, list()))
+
 /// Global list of all non-cooking related crafting recipes.
 GLOBAL_LIST_EMPTY(crafting_recipes)
 /// This is a global list of typepaths, these typepaths are atoms or reagents that are associated with crafting recipes.
@@ -78,3 +81,16 @@ GLOBAL_LIST_EMPTY(wire_name_directory)
 
 /// List of all instances of /obj/effect/mob_spawn/ghost_role in the game world
 GLOBAL_LIST_EMPTY(mob_spawners)
+
+// List of organ typepaths that are not unit test-able, and shouldn't be spawned by some things, such as certain class prototypes.
+GLOBAL_LIST_INIT(prototype_organs, typecacheof(list(
+	/obj/item/organ,
+	/obj/item/organ/wings,
+	/obj/item/organ/cyberimp,
+	/obj/item/organ/cyberimp/brain,
+	/obj/item/organ/cyberimp/mouth,
+	/obj/item/organ/cyberimp/arm,
+	/obj/item/organ/cyberimp/chest,
+	/obj/item/organ/cyberimp/eyes,
+	/obj/item/organ/alien,
+), only_root_path = TRUE))
