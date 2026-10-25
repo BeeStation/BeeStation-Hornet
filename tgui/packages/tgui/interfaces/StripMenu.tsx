@@ -314,7 +314,10 @@ export const StripMenu = (props) => {
             alternates={alternate ? [alternate] : undefined}
             empty={
               !item ||
-              !('name' in item || ('obscured' in item && isHidden(item.obscured)))
+              !(
+                'name' in item ||
+                ('obscured' in item && isHidden(item.obscured))
+              )
             }
             interacting={item && 'interacting' in item && item.interacting}
             extra_actions={extra_interactions}
