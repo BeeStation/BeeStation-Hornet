@@ -325,7 +325,7 @@
 		grant.revoke(reason, 0)
 
 /obj/item/card/id/proc/sync_manifest()
-	GLOB.manifest.modify(registered_name, assignment, hud_state, job_title, acting_head ? acting_head.job.title : null)
+	GLOB.manifest.modify(registered_name, assignment, hud_state, job_title, acting_head?.job.title)
 
 /obj/item/card/id/proc/refresh_holder_hud()
 	var/mob/living/carbon/human/holder = get(src, /mob/living/carbon/human)
