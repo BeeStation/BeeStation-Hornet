@@ -1042,7 +1042,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(cig.lit)
 		to_chat(user, span_warning("The [cig.name] is already lit!"))
 	if(M == user)
-		cig.attackby(src, user)
+		cig.attempt_light(user, src)
 		return
 
 	if(fancy)

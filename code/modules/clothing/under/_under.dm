@@ -70,7 +70,9 @@
 		set_has_sensor(HAS_SENSORS)
 		to_chat(user, span_notice("You repair the suit sensors on [src] with [cable]."))
 		return ITEM_INTERACT_SUCCESS
-	return attach_accessory(tool, user)
+	if(istype(tool, /obj/item/clothing/accessory))
+		return attach_accessory(tool, user)
+	return ..()
 
 /obj/item/clothing/under/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
