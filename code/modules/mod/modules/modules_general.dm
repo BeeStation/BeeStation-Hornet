@@ -661,7 +661,7 @@
 ///Hardlight Projector - Shows the wearer's ears, antennae, tail and wings through sealed parts as hardlight.
 /obj/item/mod/module/hardlight_projector
 	name = "\improper MOD hardlight projector module"
-	desc = "A web of emitters along the suit's seals, projecting a hardlight shell around any tail or wings poking out of the suit.
+	desc = "A web of emitters along the suit's seals, projecting a hardlight shell around any tail or wings poking out of the suit."
 	icon_state = "patient_transport"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/hardlight_projector)
