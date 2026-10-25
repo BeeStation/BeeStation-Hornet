@@ -321,7 +321,7 @@
 	return acting_head
 
 /obj/item/card/id/proc/clear_temporary_access(reason = "revoked")
-	for(var/datum/access_grant/grant as anything in LAZYCOPY(access_grants))
+	for(var/datum/access_grant/grant as anything in access_grants)
 		grant.revoke(reason, 0)
 
 /obj/item/card/id/proc/sync_manifest()
@@ -332,7 +332,7 @@
 	holder?.sec_hud_set_ID()
 
 /obj/item/card/id/proc/get_log_name()
-	return "[src] ([registered_name || "unregistered"])"
+	return "[name] ([registered_name || "unregistered"])"
 
 /obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
 	if(!length(changed_access))
@@ -1609,7 +1609,7 @@ do { \
 		if(!idcard.electric)
 			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
-		idcard.add_access(access, "\a [name]", user)
+		idcard.add_access(access, "\a [src]", user)
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))
