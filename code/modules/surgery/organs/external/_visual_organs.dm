@@ -121,7 +121,6 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	feature_key = FEATURE_HORNS
 	dyable = TRUE
 	draw_on_husks = HUSK_OVERLAY_NORMAL
-	can_hardlight = TRUE
 
 /datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !is_obscured(bodypart_owner, HIDEHAIR)
@@ -151,7 +150,6 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 		EXTERNAL_ADJACENT = BODY_ADJ_LAYER,
 		)
 	feature_key = FEATURE_FRILLS
-	can_hardlight = TRUE
 
 /datum/bodypart_overlay/mutant/frills/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !is_obscured(bodypart_owner, HIDEHAIR)
@@ -303,7 +301,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	)
 	feature_key = FEATURE_MOTH_ANTENNAE
 	dyable = TRUE
-	can_hardlight = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
 	///Accessory datum of the burn sprite
 	var/datum/sprite_accessory/burn_datum = /datum/sprite_accessory/moth_antennae/punished
 	///Are we burned? If so we draw differently
@@ -343,7 +341,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_APID_ANTENNA
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
-	can_hardlight = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
 
 /datum/bodypart_overlay/mutant/apid_antenna/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !is_obscured(bodypart_owner, HIDEHAIR)
@@ -372,7 +370,6 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_APID_HEADSTRIPES
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
-	overlay_flags = NONE
 
 /datum/bodypart_overlay/mutant/apid_headstripes/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & HIDEEYES)
@@ -401,7 +398,6 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_APID_STRIPES
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
-	overlay_flags = NONE
 
 /datum/bodypart_overlay/mutant/apid_stripes/get_global_feature_list()
 	return GLOB.apid_stripes_list

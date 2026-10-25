@@ -37,7 +37,6 @@
 	feature_key = FEATURE_SPINES
 	dyable = TRUE
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
-	can_hardlight = TRUE
 
 /datum/bodypart_overlay/mutant/spines/get_global_feature_list()
 	return GLOB.spines_list

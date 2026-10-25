@@ -45,7 +45,6 @@
 	layers = list(EXTERNAL_ADJACENT = BODY_ADJ_LAYER)
 	feature_key = FEATURE_IPC_SCREEN
 	color_source = ORGAN_COLOR_OVERRIDE
-	overlay_flags = NONE
 	// A blocker drawn over the screen would hide its own emissive
 	blocks_emissive = EMISSIVE_BLOCK_NONE
 	///Unpowered screens draw nothing
@@ -85,7 +84,6 @@
 		)
 	feature_key = FEATURE_IPC_ANTENNA
 	color_source = ORGAN_COLOR_OVERRIDE
-	can_hardlight = TRUE
 
 /datum/bodypart_overlay/mutant/ipc_antenna/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !is_obscured(bodypart_owner, HIDEEARS)

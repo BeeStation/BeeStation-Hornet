@@ -157,9 +157,8 @@
 	overlay_priority = BODYPART_OVERLAY_HARDLIGHT
 
 /datum/bodypart_texture/hardlight/modify_bodypart_appearance(image/appearance, overlay_flags)
-	if(overlay_flags & LIMB_OVERLAY_CORE)
-		return
-	return ..()
+	if(overlay_flags & LIMB_OVERLAY_HARDLIGHT)
+		return ..()
 
 /datum/bodypart_texture/hardlight/extrashield_green
 	texture_icon_state = "extrashield_green"

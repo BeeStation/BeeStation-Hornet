@@ -135,7 +135,6 @@
 /datum/bodypart_overlay/mutant/diona/eyes
 	feature_key = FEATURE_DIONA_EYES
 	hidden_by_suit = FALSE
-	overlay_flags = NONE
 
 /datum/bodypart_overlay/mutant/diona/eyes/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
 	return ..() && !(bodypart_owner.owner?.obscured_slots & (HIDEEYES|HIDEHAIR))

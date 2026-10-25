@@ -66,7 +66,6 @@
 
 	tail_spines_overlay = new
 	tail_spines_overlay.tail_spine_key = tail_spine_key
-	tail_spines_overlay.hardlight_enabled = bodypart_overlay.hardlight_enabled
 	var/feature_name = bodypart.owner.dna.features["spines"] //tail spines don't live in DNA, but share feature names with regular spines
 	tail_spines_overlay.set_appearance_from_name(feature_name)
 	bodypart.add_bodypart_overlay(tail_spines_overlay)
@@ -145,28 +144,16 @@
 		EXTERNAL_BEHIND = BODY_BEHIND_LAYER,
 	)
 	dyable = TRUE
-	can_hardlight = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
+	mesh_in_suits = TRUE
 	/// Tracks if it's currently wagging or not
 	var/wagging = FALSE
-	/// If TRUE the tail is shown when over supported suits like space suits
-	var/mesh_in_suits = FALSE
 
 /datum/bodypart_overlay/mutant/tail/get_base_icon_state()
 	return "[wagging ? "wagging_" : ""][sprite_datum.icon_state]" //add the wagging tag if we be wagging
 
 /datum/bodypart_overlay/mutant/tail/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
-	if(!is_obscured(bodypart_owner, HIDEJUMPSUIT))
-		return ..()
-	if(!mesh_in_suits)
-		return FALSE
-	var/datum/bodypart_texture/mesh/mesh = locate() in bodypart_owner.bodypart_textures
-	if(mesh?.can_texture_bodypart(bodypart_owner))
-		return ..()
-	return FALSE
-
-/datum/bodypart_overlay/mutant/tail/set_hardlight(enabled, obj/item/organ/tail/organ)
-	organ.tail_spines_overlay?.set_hardlight(enabled, organ)
-	return ..()
+	return ..() && !is_obscured(bodypart_owner, HIDEJUMPSUIT)
 
 /obj/item/organ/tail/cat
 	name = "cat tail"
@@ -214,7 +201,6 @@
 /datum/bodypart_overlay/mutant/tail/lizard
 	feature_key = FEATURE_TAIL_LIZARD
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
-	mesh_in_suits = TRUE
 
 /datum/bodypart_overlay/mutant/tail/lizard/get_global_feature_list()
 	return GLOB.tails_list_lizard
@@ -231,7 +217,8 @@
 	)
 	feature_key = FEATURE_TAILSPINES
 	draw_on_husks = HUSK_OVERLAY_GRAYSCALE
-	can_hardlight = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
+	mesh_in_suits = TRUE
 	///Spines wag when the tail does
 	var/wagging = FALSE
 	/// Key for tail spine states, depends on the shape of the tail. Defined in the tail sprite datum.
@@ -248,6 +235,3 @@
 
 /datum/bodypart_overlay/mutant/tail_spines/set_dye_color(new_color, obj/item/organ/organ)
 	dye_color = new_color //no update_body_parts() call, tail/set_dye_color will do it.
-
-/datum/bodypart_overlay/mutant/tail_spines/set_hardlight(enabled, obj/item/organ/organ)
-	hardlight_enabled = enabled //no update_body_parts() call, tail/set_hardlight will do it.

@@ -217,8 +217,8 @@
 	feature_key = FEATURE_WINGS
 	/// Feature key used for icon states while open
 	var/open_feature_key = FEATURE_WINGS_OPEN
-	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_WIDE_ICON | LIMB_OVERLAY_TALL_ICON
-	can_hardlight = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_WIDE_ICON | LIMB_OVERLAY_TALL_ICON | LIMB_OVERLAY_HARDLIGHT
+	mesh_in_suits = TRUE
 	///Are our wings currently open? Change through open_wings or close_wings()
 	VAR_PRIVATE/wings_open = FALSE
 	/// Slot we check against

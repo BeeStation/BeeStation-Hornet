@@ -35,3 +35,5 @@
 #define LIMB_OVERLAY_TALL_ICON (1<<3)
 /// Core part of the bodypart, like the actual bodypart icon
 #define LIMB_OVERLAY_CORE (1<<4)
+/// MODsuit hardlight projectors show and tint this
+#define LIMB_OVERLAY_HARDLIGHT (1<<5)

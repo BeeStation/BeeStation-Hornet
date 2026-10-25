@@ -87,7 +87,7 @@
 	color_source = ORGAN_COLOR_HAIR
 	feature_key = FEATURE_EARS
 	dyable = TRUE
-	can_hardlight = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
 
 	/// Layer upon which we add the inner ears overlay
 	var/inner_layer = EXTERNAL_FRONT

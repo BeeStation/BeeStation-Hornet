@@ -27,6 +27,7 @@
 	if(!editing_mod)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
+	ui.set_autoupdate(TRUE)
 	if(!ui)
 		ui = new(user, src, "MODpaint", name)
 		ui.open()

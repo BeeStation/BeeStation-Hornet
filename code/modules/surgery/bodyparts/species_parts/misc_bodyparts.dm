@@ -856,7 +856,6 @@
 	icon = 'icons/mob/pumpkin_faces.dmi'
 	icon_state = "blank"
 	layers = list("" = BODY_ADJ_LAYER)
-	overlay_flags = NONE
 
 /datum/bodypart_overlay/simple/pumpkin_face/icon_render_key(obj/item/bodypart/limb)
 	return list(icon_state)
