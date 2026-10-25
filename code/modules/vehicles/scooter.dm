@@ -10,6 +10,7 @@
 #define BOUNCE_FLOOR_TOP (0.5 SECONDS) // 0 Streak Minimum-Time
 #define BOUNCE_FLOOR_MID (0.4 SECONDS) // 25+ Streak Minimum-Time
 #define BOUNCE_FLOOR_BOT (0.3 SECONDS) // 40+ Streak Minimum-Time
+#define PROSKATER_MULTIPLIER 0.3 // Stamina drain for Skate Trait Users - 70% reduction
 
 /obj/vehicle/ridden/scooter
 	name = "scooter"
@@ -115,7 +116,7 @@
 /obj/vehicle/ridden/scooter/skateboard/proc/crash(mob/living/rider, atom/A, force = FALSE)
 	var/multiplier = 1
 	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
-		multiplier = 0.3 //70% reduction
+		multiplier = PROSKATER_MULTIPLIER
 	rider.adjustStaminaLoss(multiplier * instability * 6)
 	playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
 	if(force || !iscarbon(rider) || rider.getStaminaLoss() >= 100 || grinding || world.time < next_crash)
@@ -146,7 +147,7 @@
 	var/mob/living/L = buckled_mobs[1]
 	var/multiplier = 1
 	if(HAS_TRAIT(L, TRAIT_PROSKATER))
-		multiplier = 0.3 //70% reduction
+		multiplier = PROSKATER_MULTIPLIER
 	L.adjustStaminaLoss(multiplier * instability * 0.5)
 	if (L.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
@@ -304,7 +305,7 @@
 		hardest = BOUNCE_FLOOR_BOT
 	else if(streak >= 25)
 		hardest = BOUNCE_FLOOR_MID
-	if(iscarbon(obstacle_hit) || issilicon(obstacle_hit))
+	if(isliving(obstacle_hit) || issilicon(obstacle_hit))
 		window_time = hardest // Hitting a person ALWAYS uses the floor
 	else if(streak < BOUNCE_MAX_STREAK)
 		window_time = BOUNCE_WINDOW_TIME - 2 * streak
@@ -414,7 +415,7 @@
 	step(board, launch_dir)
 	rider.spin(4, 1)
 	if(!perfect)
-		var/multiplier = HAS_TRAIT(rider, TRAIT_PROSKATER) ? 0.3 : 1
+		var/multiplier = HAS_TRAIT(rider, TRAIT_PROSKATER) ? PROSKATER_MULTIPLIER : 1
 		rider.adjustStaminaLoss(multiplier * board.instability * 2)
 		board.balloon_alert(rider, "too early!") //Too early means no crash, but the bounce costs stamina and ends the chain
 		board.visible_message(span_notice("[rider] bounces off the wall, a little early."))
@@ -645,3 +646,7 @@
 #undef BOUNCE_GREEN
 #undef BOUNCE_ORANGE
 #undef BOUNCE_RED
+#undef BOUNCE_FLOOR_TOP
+#undef BOUNCE_FLOOR_MID
+#undef BOUNCE_FLOOR_BOT
+#undef PROSKATER_MULTIPLIER
