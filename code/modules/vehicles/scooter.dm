@@ -11,6 +11,7 @@
 #define BOUNCE_FLOOR_MID (0.4 SECONDS) // 25+ Streak Minimum-Time
 #define BOUNCE_FLOOR_BOT (0.3 SECONDS) // 40+ Streak Minimum-Time
 #define PROSKATER_MULTIPLIER 0.3 // Stamina drain for Skate Trait Users - 70% reduction
+#define REGSKATER_MULTIPLIER 1 // Stamina drain for regular skaters
 
 /obj/vehicle/ridden/scooter
 	name = "scooter"
@@ -114,7 +115,7 @@
 	crash(buckled_mobs[1], A)
 
 /obj/vehicle/ridden/scooter/skateboard/proc/crash(mob/living/rider, atom/A, force = FALSE)
-	var/multiplier = 1
+	var/multiplier = REGSKATER_MULTIPLIER
 	if(HAS_TRAIT(rider, TRAIT_PROSKATER))
 		multiplier = PROSKATER_MULTIPLIER
 	rider.adjustStaminaLoss(multiplier * instability * 6)
@@ -145,7 +146,7 @@
 		return
 
 	var/mob/living/L = buckled_mobs[1]
-	var/multiplier = 1
+	var/multiplier = REGSKATER_MULTIPLIER
 	if(HAS_TRAIT(L, TRAIT_PROSKATER))
 		multiplier = PROSKATER_MULTIPLIER
 	L.adjustStaminaLoss(multiplier * instability * 0.5)
@@ -415,7 +416,7 @@
 	step(board, launch_dir)
 	rider.spin(4, 1)
 	if(!perfect)
-		var/multiplier = HAS_TRAIT(rider, TRAIT_PROSKATER) ? PROSKATER_MULTIPLIER : 1
+		var/multiplier = HAS_TRAIT(rider, TRAIT_PROSKATER) ? PROSKATER_MULTIPLIER : REGSKATER_MULTIPLIER
 		rider.adjustStaminaLoss(multiplier * board.instability * 2)
 		board.balloon_alert(rider, "too early!") //Too early means no crash, but the bounce costs stamina and ends the chain
 		board.visible_message(span_notice("[rider] bounces off the wall, a little early."))
@@ -650,3 +651,4 @@
 #undef BOUNCE_FLOOR_MID
 #undef BOUNCE_FLOOR_BOT
 #undef PROSKATER_MULTIPLIER
+#undef REGSKATER_MULTIPLIER
