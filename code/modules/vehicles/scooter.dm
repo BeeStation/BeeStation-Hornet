@@ -1,5 +1,5 @@
 #define BOUNCE_BOOST_TIME (2 SECONDS) // How Long A Speed Boost Applies After A Bounce
-#define BOUNCE_WINDOW_TIME 10
+#define BOUNCE_WINDOW_TIME (1 SECONDS)
 #define BOUNCE_TARGET_SCALE 0.5
 #define BOUNCE_MAX_STREAK 3 // Cap for scaling features, wheelie tilt, speedboost, when random bounces start...
 #define BOUNCE_WHEELIE_ANGLE 15 // Board Tilt For Wheelie
@@ -7,6 +7,9 @@
 #define BOUNCE_GREEN "#4cff6a"
 #define BOUNCE_ORANGE "#ff9500"
 #define BOUNCE_RED "#ff3b30"
+#define BOUNCE_FLOOR_TOP (0.5 SECONDS) // 0 Streak Minimum-Time
+#define BOUNCE_FLOOR_MID (0.4 SECONDS) // 25+ Streak Minimum-Time
+#define BOUNCE_FLOOR_BOT (0.3 SECONDS) // 40+ Streak Minimum-Time
 
 /obj/vehicle/ridden/scooter
 	name = "scooter"
@@ -296,11 +299,11 @@
 	if(!(hit_dir in GLOB.cardinals))
 		hit_dir = board.dir
 	obstacle = WEAKREF(obstacle_hit)
-	var/hardest = 5 // Floor for timing window, Starts at 0.5s
+	var/hardest = BOUNCE_FLOOR_TOP
 	if(streak >= 40)
-		hardest = 3 // Streaks 40+ get up to a 0.3s floor
+		hardest = BOUNCE_FLOOR_BOT
 	else if(streak >= 25)
-		hardest = 4 // Streaks of 25+ have up to 0.4s for a timing floor
+		hardest = BOUNCE_FLOOR_MID
 	if(iscarbon(obstacle_hit) || issilicon(obstacle_hit))
 		window_time = hardest // Hitting a person ALWAYS uses the floor
 	else if(streak < BOUNCE_MAX_STREAK)
