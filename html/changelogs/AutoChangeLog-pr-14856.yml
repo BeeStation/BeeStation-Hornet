@@ -1,0 +1,6 @@
+author: rkz, melbert
+delete-after: true
+changes:
+  - bugfix: fixes most broken item interactions
+  - bugfix: you will no longer tackle in a direction when in throw mode and shiftclicking/altclicking
+      a turf
