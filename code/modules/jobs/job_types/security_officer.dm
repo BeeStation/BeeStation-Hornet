@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	// If there's a departmental access to apply to the card, overwrite
 	if(dep_access)
 		var/obj/item/card/id/worn_id = spawning.get_idcard(hand_first = FALSE)
-		worn_id.add_access(dep_access, "security department assignment")
+		worn_id.add_access(dep_access)
 		spawning.sec_hud_set_ID()
 
 		// Update PDA.

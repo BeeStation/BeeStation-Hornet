@@ -1,17 +1,17 @@
 /// Temporary access on an ID card
 /datum/access_grant
 	var/obj/item/card/id/card
-	var/list/accesses
+	var/list/access
 	var/source
 	/// Timer id for auto-expiry, then for the grace period once revoking. Null if the grant is indefinite
 	var/timer_id
 	var/grace_period = 0
 	var/revoking = FALSE
 
-/datum/access_grant/New(obj/item/card/id/card, list/accesses, source, duration, grace_period = 0)
+/datum/access_grant/New(obj/item/card/id/card, list/access, source, duration, grace_period = 0)
 	. = ..()
 	src.card = card
-	src.accesses = accesses.Copy()
+	src.access = access.Copy()
 	src.source = source
 	src.grace_period = grace_period
 	if(duration)
@@ -55,17 +55,14 @@
 /datum/access_grant/proc/announce_revocation(note, phrase, mob/user)
 	if(!card)
 		return
-	card.log_access_change(get_unique_access(), "[source] (temporary access [note])", user, granting = FALSE)
-	card.card_talk("Temporary [access_names()] access [phrase].", warning = TRUE)
-
-/datum/access_grant/proc/get_unique_access()
-	. = accesses - card.access - card.get_skeleton_access()
-	for(var/datum/access_grant/other as anything in card.access_grants)
-		if(other != src)
-			. -= other.accesses
-
-/datum/access_grant/proc/access_names()
-	return english_list(get_access_descs(accesses))
+	var/list/lost = access - card.get_non_skeleton_access(except = src) - card.get_skeleton_access()
+	if(length(lost))
+		var/access_desc = get_access_desc(lost)
+		if(user)
+			card.log_card("removed temporary [access_desc] access from [card] ([note], granted using [source])", user)
+		else
+			card.log_card("temporary [access_desc] access [note] (granted using [source])")
+	card.card_talk("Temporary [get_access_desc(access)] access [phrase].", warning = TRUE)
 
 /datum/access_grant/proc/get_examine_reason()
 	return "Authorized at an ID console"
@@ -114,7 +111,13 @@
 /datum/access_grant/acting_head/Destroy()
 	restore_card()
 	SSjob.acting_heads -= src
+	// Off the card first, so skeleton crew announcements count this access as gone
+	if(card)
+		LAZYREMOVE(card.access_grants, src)
 	SSjob.refresh_skeleton_access()
+	// After the refresh, since skeleton crew rules can give some of it straight back
+	if(!QDESTROYING(card))
+		card.log_access_change(access - card.GetAccess(), "end of acting [job.title] appointment", granting = FALSE)
 	return ..()
 
 /datum/access_grant/acting_head/proc/restore_card()
@@ -138,12 +141,17 @@
 /datum/access_grant/acting_head/announce_revocation(note, phrase, mob/user)
 	if(!card)
 		return
+	var/detail = note
+	if(cause)
+		detail = "[note], [cause]"
 	if(user)
-		log_id("[key_name(user)] ended acting [job.title] status on [card.get_log_name()] ([note]).")
+		card.log_card("ended acting [job.title] status on [card] ([detail])", user)
 	else
-		log_id("Acting [job.title] status on [card.get_log_name()] [note][cause ? ", [cause]" : ""].")
-	card.log_access_change(get_unique_access(), "[source] (acting [job.title] [note])", user, granting = FALSE)
-	card.card_talk("[cause ? "[cause]. " : ""]Acting [job.title] appointment [phrase].", warning = TRUE)
+		card.log_card("acting [job.title] status [detail]")
+	if(cause)
+		card.card_talk("[capitalize(cause)]. Acting [job.title] appointment [phrase].", warning = TRUE)
+	else
+		card.card_talk("Acting [job.title] appointment [phrase].", warning = TRUE)
 
 /datum/access_grant/acting_head/proc/on_latejoin(datum/source, datum/job/joined_job, mob/living/spawned)
 	SIGNAL_HANDLER

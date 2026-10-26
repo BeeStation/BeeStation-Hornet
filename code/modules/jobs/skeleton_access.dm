@@ -45,7 +45,7 @@
 	return department in job?.departments_list
 
 /datum/skeleton_access/proc/access_names(list/accesses = access)
-	return english_list(get_access_descs(accesses))
+	return get_access_desc(accesses)
 
 /datum/skeleton_access/proc/covering_for()
 	if(covered_department)

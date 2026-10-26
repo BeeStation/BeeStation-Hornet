@@ -10,21 +10,21 @@
 	TEST_ASSERT(ACCESS_ENGINE in card.access, "add_access(list) did not grant ACCESS_ENGINE")
 	TEST_ASSERT_EQUAL(length(card.access), 2, "add_access(list) changed the access count unexpectedly")
 
-	card.add_access(ACCESS_BRIG, "unit test")
-	TEST_ASSERT(ACCESS_BRIG in card.access, "add_access(single) did not grant ACCESS_BRIG")
-	TEST_ASSERT_EQUAL(length(card.access), 3, "add_access(single) changed the access count unexpectedly")
+	card.add_access(list(ACCESS_BRIG), "unit test")
+	TEST_ASSERT(ACCESS_BRIG in card.access, "add_access() did not grant ACCESS_BRIG")
+	TEST_ASSERT_EQUAL(length(card.access), 3, "add_access() changed the access count unexpectedly")
 
-	card.add_access(ACCESS_BRIG, "unit test")
+	card.add_access(list(ACCESS_BRIG), "unit test")
 	TEST_ASSERT_EQUAL(length(card.access), 3, "add_access() duplicated an access the card already held")
 
-	card.remove_access(ACCESS_BRIG, "unit test")
-	TEST_ASSERT(!(ACCESS_BRIG in card.access), "remove_access(single) did not revoke ACCESS_BRIG")
-	TEST_ASSERT_EQUAL(length(card.access), 2, "remove_access(single) changed the access count unexpectedly")
+	card.remove_access(list(ACCESS_BRIG), "unit test")
+	TEST_ASSERT(!(ACCESS_BRIG in card.access), "remove_access() did not revoke ACCESS_BRIG")
+	TEST_ASSERT_EQUAL(length(card.access), 2, "remove_access() changed the access count unexpectedly")
 
 	card.remove_access(list(ACCESS_MEDICAL, ACCESS_ENGINE), "unit test")
 	TEST_ASSERT_EQUAL(length(card.access), 0, "remove_access(list) did not revoke all listed access")
 
-	card.remove_access(ACCESS_MEDICAL, "unit test")
+	card.remove_access(list(ACCESS_MEDICAL), "unit test")
 	TEST_ASSERT_EQUAL(length(card.access), 0, "remove_access() of an absent access altered the access list")
 
 /// Checks temporary access grants through GetAccess()
@@ -34,7 +34,7 @@
 	var/obj/item/card/id/card = allocate(/obj/item/card/id)
 	card.access = list(ACCESS_MEDICAL)
 
-	var/datum/access_grant/grant = card.grant_temporary_access(ACCESS_ENGINE, "unit test")
+	var/datum/access_grant/grant = card.grant_temporary_access(list(ACCESS_ENGINE), "unit test")
 	TEST_ASSERT_NOTNULL(grant, "grant_temporary_access did not return a grant")
 	TEST_ASSERT(ACCESS_ENGINE in card.GetAccess(), "temporary access did not surface through GetAccess()")
 	TEST_ASSERT(!(ACCESS_ENGINE in card.access), "temporary access leaked into the permanent access list")
@@ -43,16 +43,16 @@
 	TEST_ASSERT(!(ACCESS_ENGINE in card.GetAccess()), "revoked temporary access still surfaced through GetAccess()")
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), 0, "revoked grant was not cleared from the card")
 
-	var/datum/access_grant/overlap = card.grant_temporary_access(ACCESS_MEDICAL, "unit test")
+	var/datum/access_grant/overlap = card.grant_temporary_access(list(ACCESS_MEDICAL), "unit test")
 	overlap.revoke()
 	TEST_ASSERT(ACCESS_MEDICAL in card.GetAccess(), "revoking an overlapping temporary grant stripped permanent access")
 
-	var/datum/access_grant/timed = card.grant_temporary_access(ACCESS_BRIG, "unit test")
+	var/datum/access_grant/timed = card.grant_temporary_access(list(ACCESS_BRIG), "unit test")
 	timed.expire()
 	TEST_ASSERT(!(ACCESS_BRIG in card.GetAccess()), "expired temporary access still surfaced through GetAccess()")
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), 0, "expired grant was not cleared from the card")
 
-	var/datum/access_grant/graced = card.grant_temporary_access(ACCESS_BRIG, "unit test")
+	var/datum/access_grant/graced = card.grant_temporary_access(list(ACCESS_BRIG), "unit test")
 	graced.revoke("revoked", 30 SECONDS)
 	TEST_ASSERT(ACCESS_BRIG in card.GetAccess(), "grace-period revocation cut access immediately")
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), 1, "grace-period grant was dropped before its grace elapsed")
@@ -126,7 +126,7 @@
 	TEST_ASSERT(ACCESS_CAPTAIN in card.GetAccess(), "Captain access not granted")
 	TEST_ASSERT(!(ACCESS_CAPTAIN in card.access), "Captain access granted permanently")
 
-	card.remove_access(ACCESS_CAPTAIN, "unit test")
+	card.remove_access(list(ACCESS_CAPTAIN), "unit test")
 	TEST_ASSERT(!(ACCESS_CAPTAIN in card.GetAccess()), "Captain access not removed")
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), grants_before, "Emptied grant not deleted")
 
@@ -138,7 +138,7 @@
 
 	var/obj/item/card/id/chief_card = allocate(/obj/item/card/id)
 	chief_card.job_title = JOB_NAME_CHIEFENGINEER
-	chief_card.add_console_access(ACCESS_CE, "unit test")
+	chief_card.add_console_access(list(ACCESS_CE), "unit test")
 	TEST_ASSERT(ACCESS_CE in chief_card.access, "CE access not permanent on CE card")
 
 /// Checks acting heads on the manifest
@@ -212,7 +212,7 @@
 
 	var/obj/item/card/id/withheld_card = allocate(/obj/item/card/id)
 	withheld_card.assign_job(engineer)
-	withheld_card.remove_access(ACCESS_CE, "unit test")
+	withheld_card.remove_access(list(ACCESS_CE), "unit test")
 	TEST_ASSERT(!(ACCESS_CE in withheld_card.GetAccess()), "Withheld skeleton access still on")
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Withholding affected another card")
 
@@ -276,7 +276,7 @@
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Engineer missing CE access with no CE")
 	TEST_ASSERT(!program.authenticate(null, card), "Skeleton access can edit IDs")
 
-	card.grant_temporary_access(ACCESS_CE, "unit test")
+	card.grant_temporary_access(list(ACCESS_CE), "unit test")
 	TEST_ASSERT(!program.authenticate(null, card), "Console grant can edit IDs")
 
 	card.grant_acting_head(chief, "unit test")
@@ -304,7 +304,7 @@
 	console.inserted_scan_id = card
 	TEST_ASSERT(!console.can_manage_pay(ACCOUNT_SRV_ID), "Bridge access can change pay")
 
-	card.grant_temporary_access(ACCESS_HOP, "unit test")
+	card.grant_temporary_access(list(ACCESS_HOP), "unit test")
 	TEST_ASSERT(!console.can_manage_pay(ACCOUNT_SRV_ID), "Console grant can change pay")
 
 	card.access |= ACCESS_HOP

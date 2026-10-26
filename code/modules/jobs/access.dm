@@ -295,14 +295,14 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_BLOODCULT]" = "Bloodcult",
 	"[ACCESS_CLOCKCULT]" = "Clockcult"))
 
+/// Takes one access or a list of them
 /proc/get_access_desc(access_code)
+	if(islist(access_code))
+		var/list/descriptions = list()
+		for(var/access in access_code)
+			descriptions += get_access_desc(access)
+		return english_list(descriptions)
 	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
-
-/proc/get_access_descs(list/accesses)
-	var/list/descriptions = list()
-	for(var/access in accesses)
-		descriptions += get_access_desc(access)
-	return descriptions
 
 
 /proc/get_all_centcom_jobs()

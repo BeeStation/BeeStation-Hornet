@@ -199,9 +199,9 @@
 				return
 			var/access_source = get_log_source(user_id_card)
 			if(access_type in target_id_card.GetAccess())
-				target_id_card.remove_access(access_type, access_source, usr)
+				target_id_card.remove_access(list(access_type), access_source, usr)
 			else
-				target_id_card.add_console_access(access_type, access_source, usr)
+				target_id_card.add_console_access(list(access_type), access_source, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_grantall")
@@ -240,7 +240,7 @@
 
 
 /datum/computer_file/program/card_mod/proc/get_log_source(obj/item/card/id/user_id_card)
-	return "[user_id_card] at a portable ID console at [AREACOORD(usr)]"
+	return "[user_id_card] via a portable ID console"
 
 /datum/computer_file/program/card_mod/ui_static_data(mob/user)
 	var/list/data = list()

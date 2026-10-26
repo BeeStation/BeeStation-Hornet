@@ -1008,7 +1008,7 @@ SUBSYSTEM_DEF(job)
 	if(acting_captain)
 		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", announce = FALSE)
 	else
-		id_card?.add_access(ACCESS_HEADS, "captaincy")
+		id_card?.add_access(list(ACCESS_HEADS))
 
 	assigned_captain = TRUE
 

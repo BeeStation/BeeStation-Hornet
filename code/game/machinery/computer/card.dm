@@ -636,9 +636,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [inserted_modify_id] using [inserted_scan_id] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on...")
 						return
 					if(access_allowed == 1)
-						inserted_modify_id.add_console_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
+						inserted_modify_id.add_console_access(list(access_type), "[inserted_scan_id]", usr)
 					else
-						inserted_modify_id.remove_access(access_type, "[inserted_scan_id] at an ID console at [AREACOORD(usr)]", usr)
+						inserted_modify_id.remove_access(list(access_type), "[inserted_scan_id]", usr)
 					playsound(src, "terminal_type", 50, FALSE)
 					inserted_modify_id.update_label()
 					// Refresh only the access grid :)
@@ -687,7 +687,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
 						updateUsrDialog()
 						return
-					var/assign_source = "[inserted_scan_id] at an ID console at [AREACOORD(usr)]"
+					var/assign_source = "[inserted_scan_id]"
 					if(inserted_modify_id.needs_acting_head_for(jobdatum))
 						inserted_modify_id.grant_acting_head(jobdatum, assign_source, usr)
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
