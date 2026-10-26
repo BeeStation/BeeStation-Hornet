@@ -184,7 +184,7 @@
 	var/datum/job/engineer = SSjob.get_job(JOB_NAME_STATIONENGINEER)
 	var/datum/job/chief = SSjob.get_job(JOB_NAME_CHIEFENGINEER)
 	var/datum/job/assistant = SSjob.get_job(JOB_NAME_ASSISTANT)
-	var/datum/skeleton_access/rule = locate(/datum/skeleton_access/chief_engineer) in SSjob.skeleton_rules
+	var/datum/skeleton_access/rule = locate(/datum/skeleton_access/engineering/chief_engineer) in SSjob.skeleton_rules
 	TEST_ASSERT_NOTNULL(rule, "CE skeleton rule missing")
 	TEST_ASSERT(SSjob.get_crew_count() < COMMAND_POPULATION_MINIMUM, "Too much crew for skeleton access")
 	old_chiefs = chief.current_positions
@@ -197,7 +197,7 @@
 	card.assign_job(engineer)
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Engineer missing CE access with no CE")
 	TEST_ASSERT(!(ACCESS_CE in card.access), "Skeleton access is permanent")
-	var/datum/skeleton_access/cook_rule = locate(/datum/skeleton_access/cook) in SSjob.skeleton_rules
+	var/datum/skeleton_access/cook_rule = locate(/datum/skeleton_access/service/cook) in SSjob.skeleton_rules
 	TEST_ASSERT(rule.notifies(JOB_NAME_STATIONENGINEER) && !cook_rule.notifies(JOB_NAME_STATIONENGINEER), "Skeleton access announced outside its department")
 
 	var/mob/living/carbon/human/corpse = allocate(/mob/living/carbon/human/consistent)
@@ -264,7 +264,7 @@
 /datum/unit_test/id_card_authority/Run()
 	var/datum/job/engineer = SSjob.get_job(JOB_NAME_STATIONENGINEER)
 	var/datum/job/chief = SSjob.get_job(JOB_NAME_CHIEFENGINEER)
-	var/datum/skeleton_access/rule = locate(/datum/skeleton_access/chief_engineer) in SSjob.skeleton_rules
+	var/datum/skeleton_access/rule = locate(/datum/skeleton_access/engineering/chief_engineer) in SSjob.skeleton_rules
 	old_chiefs = chief.current_positions
 	chief.current_positions = 0
 	SSjob.refresh_skeleton_access()

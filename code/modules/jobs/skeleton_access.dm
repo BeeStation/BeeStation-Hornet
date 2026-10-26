@@ -2,13 +2,13 @@
 
 /// Lowpop access for the recipient jobs while the jobs they cover are empty
 /datum/skeleton_access
-	/// Only recipients in this department are notified. Null notifies all recipients
+	/// Colors the rule. With no recipients set, only this department is notified
 	var/datum/department_group/department
 	/// Titles of the jobs that get the access. Null means everyone
 	var/list/recipients
 	/// Titles of the jobs being covered for. The rule is off while any of them is filled
 	var/list/covered_jobs = list()
-	/// Shown instead of the covered jobs when they make up a whole department
+	/// Covers every job in this department instead of covered_jobs
 	var/datum/department_group/covered_department
 	var/list/access
 	/// The rule is off once the crew count reaches this
@@ -21,9 +21,16 @@
 	/// Cards that got their job after this job_assignment_id don't get the access. Null means no cutoff
 	var/revoke_after_assignment
 
+/datum/skeleton_access/proc/get_covered_jobs()
+	RETURN_TYPE(/list)
+	if(!covered_department)
+		return covered_jobs
+	var/datum/department_group/department_datum = SSdepartment.department_datums_by_type[covered_department]
+	return SSdepartment.get_job_titles_by_dept_id(department_datum.dept_id)
+
 /// Why the rule should be off, or null if it should be on
 /datum/skeleton_access/proc/get_inactive_reason()
-	for(var/title in covered_jobs)
+	for(var/title in get_covered_jobs())
 		if(!SSjob.is_job_empty(title))
 			return "[title] reported for duty"
 		if(SSjob.has_acting_head(title))
@@ -40,7 +47,7 @@
 	return isnull(revoke_after_assignment) || card.job_assignment_id <= revoke_after_assignment
 
 /datum/skeleton_access/proc/notifies(job_title)
-	if(!department)
+	if(recipients || !department)
 		return TRUE
 	var/datum/job/job = SSjob.get_job(job_title)
 	return department in job?.departments_list
@@ -147,169 +154,141 @@
 		if(outlasts_change)
 			. -= other.access
 
-// Engineering
-
-/datum/skeleton_access/chief_engineer
+/datum/skeleton_access/engineering
+	abstract_type = /datum/skeleton_access/engineering
 	department = /datum/department_group/engineering
 	recipients = list(JOB_NAME_STATIONENGINEER)
+
+/datum/skeleton_access/engineering/chief_engineer
 	covered_jobs = list(JOB_NAME_CHIEFENGINEER)
 	access = list(ACCESS_CE)
 	population_limit = COMMAND_POPULATION_MINIMUM
 
-/datum/skeleton_access/atmospheric_technician
-	department = /datum/department_group/engineering
-	recipients = list(JOB_NAME_STATIONENGINEER)
+/datum/skeleton_access/engineering/atmospheric_technician
 	covered_jobs = list(JOB_NAME_ATMOSPHERICTECHNICIAN)
 	access = list(ACCESS_ATMOSPHERICS)
 
-/datum/skeleton_access/station_engineer
-	department = /datum/department_group/engineering
+/datum/skeleton_access/engineering/station_engineer
 	recipients = list(JOB_NAME_ATMOSPHERICTECHNICIAN)
 	covered_jobs = list(JOB_NAME_STATIONENGINEER)
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE)
 
-// Medical
-
-/datum/skeleton_access/chief_medical_officer
+/datum/skeleton_access/medical
+	abstract_type = /datum/skeleton_access/medical
 	department = /datum/department_group/medical
 	recipients = list(JOB_NAME_MEDICALDOCTOR)
+
+/datum/skeleton_access/medical/chief_medical_officer
 	covered_jobs = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	access = list(ACCESS_CMO)
 	population_limit = COMMAND_POPULATION_MINIMUM
 
-/datum/skeleton_access/chemist
-	department = /datum/department_group/medical
-	recipients = list(JOB_NAME_MEDICALDOCTOR)
+/datum/skeleton_access/medical/chemist
 	covered_jobs = list(JOB_NAME_CHEMIST)
 	access = list(ACCESS_CHEMISTRY)
 
-/datum/skeleton_access/geneticist
-	department = /datum/department_group/medical
-	recipients = list(JOB_NAME_MEDICALDOCTOR)
+/datum/skeleton_access/medical/geneticist
 	covered_jobs = list(JOB_NAME_GENETICIST)
 	access = list(ACCESS_GENETICS)
 
-/datum/skeleton_access/medical_doctor
-	department = /datum/department_group/medical
+/datum/skeleton_access/medical/medical_doctor
 	recipients = list(JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
 	covered_jobs = list(JOB_NAME_MEDICALDOCTOR)
 	access = list(ACCESS_SURGERY, ACCESS_CLONING, ACCESS_VIROLOGY)
 
-// Science
-
-/datum/skeleton_access/research_director
+/datum/skeleton_access/science
+	abstract_type = /datum/skeleton_access/science
 	department = /datum/department_group/science
 	recipients = list(JOB_NAME_SCIENTIST)
+
+/datum/skeleton_access/science/research_director
 	covered_jobs = list(JOB_NAME_RESEARCHDIRECTOR)
 	access = list(ACCESS_RD, ACCESS_RD_SERVER)
 	population_limit = COMMAND_POPULATION_MINIMUM
 
-/datum/skeleton_access/roboticist
-	department = /datum/department_group/science
-	recipients = list(JOB_NAME_SCIENTIST)
+/datum/skeleton_access/science/roboticist
 	covered_jobs = list(JOB_NAME_ROBOTICIST)
 	access = list(ACCESS_ROBOTICS)
 
-/datum/skeleton_access/exploration_crew
-	department = /datum/department_group/science
-	recipients = list(JOB_NAME_SCIENTIST)
+/datum/skeleton_access/science/exploration_crew
 	covered_jobs = list(JOB_NAME_EXPLORATIONCREW)
 	access = list(ACCESS_EXPLORATION)
 
-/datum/skeleton_access/scientist
-	department = /datum/department_group/science
+/datum/skeleton_access/science/scientist
 	recipients = list(JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW)
 	covered_jobs = list(JOB_NAME_SCIENTIST)
 	access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
-/datum/skeleton_access/science_tech_storage
-	department = /datum/department_group/science
-	recipients = list(JOB_NAME_SCIENTIST)
+/datum/skeleton_access/science/tech_storage
 	access = list(ACCESS_TECH_STORAGE)
 
-// Security
-
-/datum/skeleton_access/armory
+/datum/skeleton_access/security
+	abstract_type = /datum/skeleton_access/security
 	department = /datum/department_group/security
 	recipients = list(JOB_NAME_SECURITYOFFICER)
+
+/datum/skeleton_access/security/armory
 	covered_jobs = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN)
 	access = list(ACCESS_ARMORY)
 	population_limit = COMMAND_POPULATION_MINIMUM
 
-/datum/skeleton_access/detective
-	department = /datum/department_group/security
-	recipients = list(JOB_NAME_SECURITYOFFICER)
+/datum/skeleton_access/security/detective
 	covered_jobs = list(JOB_NAME_DETECTIVE)
 	access = list(ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE)
 
-/datum/skeleton_access/brig_physician
-	department = /datum/department_group/security
-	recipients = list(JOB_NAME_SECURITYOFFICER)
+/datum/skeleton_access/security/brig_physician
 	covered_jobs = list(JOB_NAME_BRIGPHYSICIAN)
 	access = list(ACCESS_BRIGPHYS)
 
-/datum/skeleton_access/security_maintenance
-	department = /datum/department_group/security
-	recipients = list(JOB_NAME_SECURITYOFFICER)
+/datum/skeleton_access/security/maintenance
 	access = list(ACCESS_MAINT_TUNNELS)
 
-// Cargo
-
-/datum/skeleton_access/quartermaster
+/datum/skeleton_access/cargo
+	abstract_type = /datum/skeleton_access/cargo
 	department = /datum/department_group/cargo
 	recipients = list(JOB_NAME_CARGOTECHNICIAN)
+
+/datum/skeleton_access/cargo/quartermaster
 	covered_jobs = list(JOB_NAME_QUARTERMASTER)
 	access = list(ACCESS_QM, ACCESS_VAULT)
 
-/datum/skeleton_access/shaft_miner
-	department = /datum/department_group/cargo
-	recipients = list(JOB_NAME_CARGOTECHNICIAN)
+/datum/skeleton_access/cargo/shaft_miner
 	covered_jobs = list(JOB_NAME_SHAFTMINER)
 	access = list(ACCESS_GATEWAY, ACCESS_MINING, ACCESS_MINING_STATION)
 
-/datum/skeleton_access/cargo_technician
-	department = /datum/department_group/cargo
+/datum/skeleton_access/cargo/cargo_technician
 	recipients = list(JOB_NAME_SHAFTMINER)
 	covered_jobs = list(JOB_NAME_CARGOTECHNICIAN)
 	access = list(ACCESS_CARGO)
 
-/datum/skeleton_access/cargo_gateway
-	department = /datum/department_group/cargo
-	recipients = list(JOB_NAME_CARGOTECHNICIAN)
+/datum/skeleton_access/cargo/gateway
 	access = list(ACCESS_GATEWAY)
 
-// Service
-
-/datum/skeleton_access/cook
+/datum/skeleton_access/service
+	abstract_type = /datum/skeleton_access/service
 	department = /datum/department_group/service
+	recipients = list(JOB_NAME_ASSISTANT)
+
+/datum/skeleton_access/service/cook
+	recipients = null
 	covered_jobs = list(JOB_NAME_COOK)
 	access = list(ACCESS_KITCHEN)
 
-/datum/skeleton_access/bartender
-	department = /datum/department_group/service
-	recipients = list(JOB_NAME_ASSISTANT)
+/datum/skeleton_access/service/bartender
 	covered_jobs = list(JOB_NAME_BARTENDER)
 	access = list(ACCESS_BAR, ACCESS_JANITOR)
 
-/datum/skeleton_access/botanist
-	department = /datum/department_group/service
-	recipients = list(JOB_NAME_ASSISTANT)
+/datum/skeleton_access/service/botanist
 	covered_jobs = list(JOB_NAME_BOTANIST)
 	access = list(ACCESS_HYDROPONICS)
 
-/datum/skeleton_access/clown
-	department = /datum/department_group/service
-	recipients = list(JOB_NAME_ASSISTANT)
+/datum/skeleton_access/service/clown
 	covered_jobs = list(JOB_NAME_CLOWN)
 	access = list(ACCESS_THEATRE)
 
-/datum/skeleton_access/curator
-	department = /datum/department_group/service
-	recipients = list(JOB_NAME_ASSISTANT)
+/datum/skeleton_access/service/curator
 	covered_jobs = list(JOB_NAME_CURATOR)
 	access = list(ACCESS_LIBRARY)
-
-// Civilian
 
 /datum/skeleton_access/assistant_maintenance
 	department = /datum/department_group/civilian
@@ -323,18 +302,16 @@
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_CHAPEL_OFFICE, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LIBRARY,ACCESS_THEATRE, //service
-		ACCESS_MAILSORTING, ACCESS_MINING_STATION, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, //cargo
-		ACCESS_CONSTRUCTION, //engi
+		ACCESS_CHAPEL_OFFICE, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LIBRARY,ACCESS_THEATRE,
+		ACCESS_MAILSORTING, ACCESS_MINING_STATION, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINING,
+		ACCESS_CONSTRUCTION,
 	)
 
 /datum/skeleton_access/station_unlock/cargo
-	covered_jobs = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
 	covered_department = /datum/department_group/cargo
 	access = list(ACCESS_CARGO)
 
 /datum/skeleton_access/station_unlock/science
-	covered_jobs = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW)
 	covered_department = /datum/department_group/science
 	access = list(
 		ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_ROBOTICS,
@@ -342,12 +319,10 @@
 	)
 
 /datum/skeleton_access/station_unlock/engineering
-	covered_jobs = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	covered_department = /datum/department_group/engineering
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 
 /datum/skeleton_access/station_unlock/medical
-	covered_jobs = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_PARAMEDIC, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST)
 	covered_department = /datum/department_group/medical
 	access = list(
 		ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS,
