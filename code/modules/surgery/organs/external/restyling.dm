@@ -88,7 +88,7 @@
 	desc = "Uses shearing action and growth inducers to reshape your coworkers external features!"
 
 	icon_state = "flesh_shaper"
-	icon = 'icons/obj/medical/surgery_tools.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 
 	inhand_icon_state = "flesh_shaper"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
