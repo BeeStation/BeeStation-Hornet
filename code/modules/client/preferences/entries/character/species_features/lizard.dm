@@ -108,7 +108,7 @@
 	target.dna.features[FEATURE_LEGS] = value
 	// Hack to update the dummy in the preference menu
 	// (Because digi legs are ONLY handled on species change)
-	if(!isdummy(target) || target.dna.species.digitigrade_customization == DIGITIGRADE_NEVER)
+	if(!isdummy(target) || target.dna.species.digitigrade_customization != DIGITIGRADE_OPTIONAL)
 		return
 
 	var/list/correct_legs = target.dna.species.bodypart_overrides.Copy() & list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
