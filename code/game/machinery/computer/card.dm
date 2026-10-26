@@ -79,7 +79,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		qdel(inserted_scan_id)
 		inserted_scan_id = null
 	if(inserted_modify_id)
-		inserted_modify_id.sync_manifest()
 		qdel(inserted_modify_id)
 		inserted_modify_id = null
 	return ..()
@@ -90,7 +89,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_scan_id = null
 		updateUsrDialog()
 	if(A == inserted_modify_id)
-		inserted_modify_id.sync_manifest()
 		inserted_modify_id = null
 		updateUsrDialog()
 
@@ -99,7 +97,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_scan_id.forceMove(drop_location())
 		inserted_scan_id = null
 	if(inserted_modify_id)
-		inserted_modify_id.sync_manifest()
 		inserted_modify_id.forceMove(drop_location())
 		inserted_modify_id = null
 
@@ -177,8 +174,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		to_chat(user, span_warning("That slot is empty!"))
 		return FALSE
 	else
-		if(target == inserted_modify_id)
-			inserted_modify_id.sync_manifest()
 		target.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
 			user.put_in_hands(target)
@@ -344,7 +339,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/scan_name = inserted_scan_id ? html_encode(inserted_scan_id.name) : "--------"
 		var/target_name = inserted_modify_id ? html_encode(inserted_modify_id.name) : "--------"
 		var/target_owner = (inserted_modify_id && inserted_modify_id.registered_name) ? html_encode(inserted_modify_id.registered_name) : "--------"
-		var/target_rank = (inserted_modify_id && inserted_modify_id.assignment) ? html_encode(inserted_modify_id.assignment) : "Unassigned"
+		var/target_rank = inserted_modify_id?.get_assignment() ? html_encode(inserted_modify_id.get_assignment()) : "Unassigned"
 
 		header += "<div class='idc-section'><h4>Console Status</h4><div class='idc-section-body'>"
 		if(!authenticated)

@@ -67,7 +67,7 @@
 	for(var/i in authorized)
 		var/obj/item/card/id/ID = i
 		var/name = ID.registered_name
-		var/job = ID.assignment
+		var/job = ID.get_assignment()
 
 		if(obj_flags & EMAGGED)
 			name = Gibberish(name, 0)

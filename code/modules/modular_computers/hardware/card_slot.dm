@@ -79,7 +79,7 @@
 		var/mob/living/carbon/human/H = user
 		H.sec_hud_set_ID()
 	current_identification = stored_card.registered_name
-	current_job = stored_card.assignment
+	current_job = stored_card.get_assignment()
 	holder?.on_id_insert()
 	holder?.update_appearance()
 	return TRUE

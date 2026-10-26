@@ -43,8 +43,7 @@
 		)
 		var/list/placements = list()
 		add_job_placements(placements, job, is_captain, dept_to_category)
-		add_job_placements(placements, SSjob.name_occupations[person_record.acting_job_title], is_captain, dept_to_category)
-		// Unlawful custom rank, or a job with no department, lands in the unassigned category.
+		add_job_placements(placements, person_record.get_acting_job(), is_captain, dept_to_category)
 		if(!length(placements) && (!job || !LAZYLEN(job.departments_list)))
 			placements[dept_to_category[DEPARTMENT_NAME_UNASSIGNED]] = is_captain
 		for(var/category in placements)
@@ -140,7 +139,7 @@
 			gender = gender_string,
 			initial_rank = assignment,
 			name = person.real_name,
-			rank = acting_head ? id_card.assignment : assignment,
+			rank = acting_head ? id_card.get_assignment() : assignment,
 			species = record_dna.species,
 			hud = person.get_job_id(),
 			active_department = bank_account.active_departments),
@@ -159,11 +158,10 @@
 			wanted_status = null)
 	)
 	crew_record.job_title = assignment
-	crew_record.acting_job_title = acting_head?.job?.title
 	if(!nosignal)
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
-/// whether the entry goes at the top
+/// Adds the job's manifest categories to placements, each mapped to whether the entry goes at the top
 /datum/manifest/proc/add_job_placements(list/placements, datum/job/job, is_captain, list/dept_to_category)
 	if(!job)
 		return
@@ -176,13 +174,13 @@
 			stack_trace("get_manifest() failed to get job department for [department_type] of [job.type]")
 			continue
 		var/category = dept_to_category[department.dept_id]
-		if(isnull(category)) // jobs not shown on the crew manifest
+		if(isnull(category)) // department has jobs but isn't shown on the crew manifest
 			continue
-		// add to beginning of list if captain, acting captain, or departments head
+		// Goes at the top for the captain, acting captain, or this department's head.
 		placements[category] = placements[category] || is_captain || istype(job, department.department_head)
 
 /// Edits the rank of the found record.
-/datum/manifest/proc/modify(name, assignment, hud_state, job_title, acting_job_title)
+/datum/manifest/proc/modify(name, assignment, hud_state, job_title)
 	var/datum/record/crew/target = find_record(name, GLOB.manifest.general)
 	if(!target)
 		return
@@ -190,7 +188,6 @@
 	target.rank = assignment
 	target.hud = hud_state
 	target.job_title = job_title
-	target.acting_job_title = acting_job_title
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREW_MANIFEST_UPDATE)
 
 /**

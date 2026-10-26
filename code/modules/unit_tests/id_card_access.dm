@@ -71,22 +71,22 @@
 	var/obj/item/card/id/card = allocate(/obj/item/card/id)
 	card.assign_job(engineer)
 	var/list/engineer_access = card.GetAccess().Copy()
-	var/engineer_hud = card.hud_state
+	var/engineer_hud = card.get_hud_state()
 	var/list/head_extra = chief.get_access() - engineer_access
 	TEST_ASSERT(length(head_extra), "CE has no access beyond an engineer's")
 
 	TEST_ASSERT(card.needs_acting_head_for(chief), "Engineer card didn't need acting CE")
 	card.grant_acting_head(chief, "unit test")
-	TEST_ASSERT_EQUAL(card.assignment, "Acting [JOB_NAME_CHIEFENGINEER]", "Acting CE has the wrong title")
+	TEST_ASSERT_EQUAL(card.get_assignment(), "Acting [JOB_NAME_CHIEFENGINEER]", "Acting CE has the wrong title")
 	TEST_ASSERT_EQUAL(card.job_title, JOB_NAME_STATIONENGINEER, "Acting CE changed the card's job")
-	TEST_ASSERT_EQUAL(card.hud_state, JOB_HUD_CHIEFENGINEER, "Acting CE has the wrong HUD")
+	TEST_ASSERT_EQUAL(card.get_hud_state(), JOB_HUD_CHIEFENGINEER, "Acting CE has the wrong HUD")
 	TEST_ASSERT_EQUAL(length(card.GetAccess() & head_extra), length(head_extra), "Acting CE is missing CE access")
 	TEST_ASSERT(!length(card.access & head_extra), "Acting CE access is permanent")
 
 	card.acting_head.revoke("revoked", 0)
 	TEST_ASSERT_NULL(card.acting_head, "Acting role not cleared")
-	TEST_ASSERT_EQUAL(card.assignment, JOB_NAME_STATIONENGINEER, "Title not restored")
-	TEST_ASSERT_EQUAL(card.hud_state, engineer_hud, "HUD not restored")
+	TEST_ASSERT_EQUAL(card.get_assignment(), JOB_NAME_STATIONENGINEER, "Title not restored")
+	TEST_ASSERT_EQUAL(card.get_hud_state(), engineer_hud, "HUD not restored")
 	TEST_ASSERT(!length(card.GetAccess() & head_extra), "CE access kept after revoke")
 	TEST_ASSERT_EQUAL(length(card.GetAccess() & engineer_access), length(engineer_access), "Engineer access lost after revoke")
 
@@ -94,7 +94,7 @@
 	chief_card.job_title = JOB_NAME_CHIEFENGINEER
 	TEST_ASSERT(!chief_card.needs_acting_head_for(chief), "CE card needed acting CE")
 	chief_card.assign_job(chief)
-	TEST_ASSERT_EQUAL(chief_card.assignment, JOB_NAME_CHIEFENGINEER, "CE card got an acting title")
+	TEST_ASSERT_EQUAL(chief_card.get_assignment(), JOB_NAME_CHIEFENGINEER, "CE card got an acting title")
 
 	var/obj/item/card/id/replacement_card = allocate(/obj/item/card/id)
 	replacement_card.registered_account = allocate(/datum/bank_account, "Replacement Card Test", chief)
@@ -155,7 +155,7 @@
 	card.grant_acting_head(SSjob.get_job(JOB_NAME_CAPTAIN), "unit test")
 	TEST_ASSERT(ACCESS_CHANGE_IDS in card.get_authority_access(), "Acting captain can't edit IDs")
 	TEST_ASSERT_EQUAL(record.rank, "Acting [JOB_NAME_CAPTAIN]", "Record rank not synced")
-	TEST_ASSERT_EQUAL(record.acting_job_title, JOB_NAME_CAPTAIN, "Record acting job not synced")
+	TEST_ASSERT_EQUAL(record.get_acting_job()?.title, JOB_NAME_CAPTAIN, "Record acting job not synced")
 	TEST_ASSERT(SSjob.has_minimum_jobs(99, head_jobs = list(JOB_NAME_CHIEFENGINEER)), "Acting captain no longer counts as CE")
 	TEST_ASSERT(SSjob.has_minimum_jobs(99, head_jobs = list(JOB_NAME_CAPTAIN)), "Acting captain doesn't count as captain")
 
@@ -167,7 +167,7 @@
 
 	card.acting_head.revoke("revoked", 0)
 	TEST_ASSERT_EQUAL(record.rank, JOB_NAME_CHIEFENGINEER, "Record rank not restored")
-	TEST_ASSERT_NULL(record.acting_job_title, "Record acting job not cleared")
+	TEST_ASSERT_NULL(record.get_acting_job(), "Record acting job not cleared")
 
 /datum/unit_test/id_card_acting_head_manifest/proc/manifest_lists(list/category, name)
 	for(var/list/entry as anything in category)

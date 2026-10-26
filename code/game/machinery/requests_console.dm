@@ -496,9 +496,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 
 	if(ID)
-		auth_id = "[ID.registered_name] ([ID.assignment])"
+		auth_id = "[ID.registered_name] ([ID.get_assignment()])"
 		if(screen == REQ_SCREEN_AUTHENTICATE)
-			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"
+			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.get_assignment()])</b></font>"
 			updateUsrDialog()
 		if(screen == REQ_SCREEN_ANNOUNCE)
 			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())

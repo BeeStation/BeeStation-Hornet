@@ -808,7 +808,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(living_speaker.wear_id)
 				var/obj/item/card/id/has_id = living_speaker.wear_id.GetID()
 				if(has_id)
-					jobpart = has_id.assignment
+					jobpart = has_id.get_assignment()
 		if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
 			var/obj/effect/overlay/holo_pad_hologram/holo = speaker
 			if(holo.Impersonation?.job)
@@ -846,7 +846,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		if(S.wear_id)
 			var/obj/item/card/id/I = S.wear_id.GetID()
 			if(I)
-				jobpart = "[I.assignment]"
+				jobpart = "[I.get_assignment()]"
 
 	// duplication part from `game/say.dm` to make a language icon
 	var/language_icon = ""

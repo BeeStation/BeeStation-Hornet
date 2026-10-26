@@ -94,7 +94,7 @@
 						<u>Prepared By:</u> [user_id_card && user_id_card.registered_name ? user_id_card.registered_name : "Unknown"]<br>
 						<u>For:</u> [target_id_card.registered_name ? target_id_card.registered_name : "Unregistered"]<br>
 						<hr>
-						<u>Assignment:</u> [target_id_card.assignment]<br>
+						<u>Assignment:</u> [target_id_card.get_assignment()]<br>
 						<u>Access:</u><br>
 						"}
 
@@ -114,7 +114,6 @@
 			if(!card_slot2)
 				return
 			if(target_id_card)
-				target_id_card.sync_manifest()
 				return card_slot2.try_eject(user)
 			else
 				var/obj/item/I = user.get_active_held_item()
@@ -130,6 +129,7 @@
 			target_id_card.job_title = null
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
+			target_id_card.sync_manifest()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -180,7 +180,7 @@
 					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
+				// tablet program doesn't change bank status. check 'card.dm' for the detail
 				var/assign_source = get_log_source(user_id_card)
 				if(target_id_card.needs_acting_head_for(jobdatum))
 					target_id_card.grant_acting_head(jobdatum, assign_source, usr)
@@ -188,6 +188,7 @@
 					target_id_card.assign_job(jobdatum)
 					log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 
+			target_id_card.sync_manifest()
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_access")
@@ -314,7 +315,7 @@
 	data["has_id"] = !!id_card
 	data["id_name"] = id_card ? id_card.name : "-----"
 	if(id_card)
-		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
+		data["id_rank"] = id_card.get_assignment() || "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
 		data["access_on_card"] = id_card.GetAccess()
 

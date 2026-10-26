@@ -14,6 +14,7 @@
 	src.access = access.Copy()
 	src.source = source
 	src.grace_period = grace_period
+	LAZYADD(card.access_grants, src)
 	if(duration)
 		timer_id = addtimer(CALLBACK(src, PROC_REF(expire)), duration, TIMER_STOPPABLE)
 
@@ -79,9 +80,6 @@
 	var/datum/job/job
 	/// Grace period before access is cut when a "real"(lmao) head of this job latejoins
 	var/arrival_grace = 5 MINUTES
-	VAR_PRIVATE/previous_assignment
-	VAR_PRIVATE/previous_hud_state
-	VAR_PRIVATE/acting_hud_state
 	VAR_PRIVATE/datum/bank_account/paid_account
 	VAR_PRIVATE/previous_command_pay
 	VAR_PRIVATE/acting_command_pay
@@ -90,27 +88,22 @@
 /datum/access_grant/acting_head/New(obj/item/card/id/card, datum/job/job, source)
 	src.job = job
 	..(card, job.get_access(), source)
-	previous_assignment = card.assignment
-	previous_hud_state = card.hud_state
-	card.assignment = "Acting [job.title]"
-	card.hud_state = get_hud_by_jobname(card.assignment, returns_unknown = FALSE) || get_hud_by_jobname(job.title)
-	acting_hud_state = card.hud_state
-	card.update_label()
-	card.refresh_holder_hud()
+	var/old_assignment = card.get_assignment()
+	card.acting_head = src
+	card.assignment_changed(old_assignment)
 	var/command_pay = job.payment_per_department[ACCOUNT_COM_ID]
 	if(card.registered_account && command_pay)
 		paid_account = card.registered_account
 		previous_command_pay = paid_account.payment_per_department[ACCOUNT_COM_ID]
 		acting_command_pay = max(previous_command_pay, command_pay)
 		paid_account.payment_per_department[ACCOUNT_COM_ID] = acting_command_pay
-	LAZYADD(card.access_grants, src)
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_latejoin))
 	SSjob.acting_heads += src
 	SSjob.refresh_skeleton_access()
 
 /datum/access_grant/acting_head/Destroy()
-	restore_card()
 	SSjob.acting_heads -= src
+	_restore_card()
 	// Off the card first, so skeleton crew announcements count this access as gone
 	if(card)
 		LAZYREMOVE(card.access_grants, src)
@@ -120,7 +113,7 @@
 		card.log_access_change(access - card.GetAccess(), "end of acting [job.title] appointment", granting = FALSE)
 	return ..()
 
-/datum/access_grant/acting_head/proc/restore_card()
+/datum/access_grant/acting_head/proc/_restore_card()
 	PRIVATE_PROC(TRUE)
 	if(paid_account)
 		if(paid_account.payment_per_department[ACCOUNT_COM_ID] == acting_command_pay)
@@ -128,15 +121,10 @@
 		paid_account = null
 	if(!card)
 		return
+	var/acting_assignment = card.get_assignment()
 	if(card.acting_head == src)
 		card.acting_head = null
-	if(card.assignment == "Acting [job.title]")
-		card.assignment = previous_assignment
-	if(card.hud_state == acting_hud_state)
-		card.hud_state = previous_hud_state
-	card.update_label()
-	card.refresh_holder_hud()
-	card.sync_manifest()
+	card.assignment_changed(acting_assignment)
 
 /datum/access_grant/acting_head/announce_revocation(note, phrase, mob/user)
 	if(!card)

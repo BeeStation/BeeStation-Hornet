@@ -927,6 +927,12 @@ SUBSYSTEM_DEF(job)
 	for(var/datum/job/job as anything in all_occupations)
 		. += job.current_positions
 
+/// The acting appointment on a card registered to this name, if any
+/datum/controller/subsystem/job/proc/get_acting_head_for(name)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		if(acting_head.card?.registered_name == name)
+			return acting_head
+
 /datum/controller/subsystem/job/proc/has_acting_head(title)
 	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
 		if(acting_head.job.title == title)
@@ -1031,7 +1037,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/has_minimum_jobs(crew_threshold, list/jobs = list(), list/head_jobs = list())
 	var/employees = 0
 	for(var/datum/record/crew/target in GLOB.manifest.general)
-		var/list/titles = list(target.job_title || target.rank, target.acting_job_title)
+		var/list/titles = list(target.job_title || target.rank, target.get_acting_job()?.title)
 		if(length(titles & head_jobs))
 			return TRUE
 		if(length(titles & jobs))

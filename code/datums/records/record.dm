@@ -70,8 +70,6 @@
 	var/lock_ref
 	/// Title of the crewmember's own job
 	var/job_title
-	/// Title of the head job this crewmember is acting as, if any
-	var/acting_job_title
 	/// List of medical notes
 	var/list/medical_notes = list()
 	/// Names of major disabilities
@@ -162,6 +160,9 @@
 	QDEL_LIST_ASSOC_VAL(record_photos)
 	return ..()
 
+
+/datum/record/crew/proc/get_acting_job()
+	return SSjob.get_acting_head_for(name)?.job
 
 /datum/record/crew/proc/get_info_list()
 	var/list/list_of_medical_notes

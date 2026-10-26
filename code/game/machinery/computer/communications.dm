@@ -323,7 +323,7 @@
 				if (check_access(id_card))
 					authenticated = TRUE
 					authorize_access = id_card.GetAccess()
-					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
+					authorize_name = "[id_card.registered_name] - [id_card.get_assignment()]"
 
 			state = STATE_MESSAGES
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)

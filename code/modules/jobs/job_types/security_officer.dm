@@ -141,8 +141,8 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 		// Update PDA.
 		var/obj/item/modular_computer/tablet/pda = spawning.get_item_by_slot(ITEM_SLOT_BELT)
-		if(istype(pda) && !isnull(worn_id.assignment))
-			pda.imprint_id(spawning.real_name, worn_id.assignment)
+		if(istype(pda) && !isnull(worn_id.get_assignment()))
+			pda.imprint_id(spawning.real_name, worn_id.get_assignment())
 
 	var/spawn_point = pick(LAZYACCESS(GLOB.department_security_spawns, department))
 

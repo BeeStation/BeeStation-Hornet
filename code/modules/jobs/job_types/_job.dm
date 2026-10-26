@@ -496,7 +496,7 @@
 	var/obj/item/modular_computer/tablet/pda/PDA = equipped.get_item_by_slot(pda_slot)
 	if(istype(PDA))
 		PDA.saved_identification = card.registered_name
-		PDA.saved_job = card.assignment
+		PDA.saved_job = card.get_assignment()
 		PDA.update_id_display()
 
 /datum/outfit/job/get_chameleon_disguise_info()

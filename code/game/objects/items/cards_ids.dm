@@ -168,11 +168,10 @@
 	/// Linked holopay.
 	var/obj/machinery/paystand/my_store
 
-	/// The job name registered on the card (for example: Assistant).
+	/// The job name registered on the card (for example: Assistant). Use get_assignment() to include an acting role
 	var/assignment
-	/// Job the card belongs to. blacklist custom and acting titles
+	/// Title of the card's real job. Never a custom or acting title. Null when unassigned
 	var/job_title
-	/// Active acting head role, if any
 	var/datum/access_grant/acting_head/acting_head
 
 	/// Icons to be displayed in the orbit ui. Source: FontAwesome v6 Free Edition.
@@ -189,7 +188,7 @@
 	/// stored SSjob.job_assignment_count
 	var/job_assignment_id = 0
 
-	/// The HUD given to our wearer
+	/// The HUD given to our wearer. Use get_hud_state() to include an acting role
 	var/hud_state = JOB_HUD_UNKNOWN
 
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
@@ -218,6 +217,14 @@
 	QDEL_LAZYLIST(access_grants)
 	acting_head = null
 	return ..()
+
+/obj/item/card/id/proc/get_assignment()
+	return acting_head ? "Acting [acting_head.job.title]" : assignment
+
+/obj/item/card/id/proc/get_hud_state()
+	if(!acting_head)
+		return hud_state
+	return get_hud_by_jobname("Acting [acting_head.job.title]", returns_unknown = FALSE) || get_hud_by_jobname(acting_head.job.title)
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
@@ -296,7 +303,7 @@
 		return
 	acting_head?.revoke("replaced", 0, user)
 	var/list/held_before = GetAccess()
-	acting_head = new(src, head_job, source)
+	new /datum/access_grant/acting_head(src, head_job, source)
 	var/list/gained = acting_head.access - held_before
 	var/adding = length(gained) ? ", adding [get_access_desc(gained)]" : ""
 	if(user)
@@ -305,7 +312,6 @@
 		log_card("made acting [head_job.title] via [source][adding]")
 	if(announce)
 		card_talk("Appointed Acting [head_job.title].")
-	sync_manifest()
 	return acting_head
 
 /obj/item/card/id/proc/clear_temporary_access(reason = "revoked")
@@ -313,11 +319,32 @@
 		grant.revoke(reason, 0)
 
 /obj/item/card/id/proc/sync_manifest()
-	GLOB.manifest.modify(registered_name, assignment, hud_state, job_title, acting_head?.job.title)
+	// The manifest goes by name, so another acting card with this name keeps its entry
+	var/obj/item/card/id/source = acting_head ? src : (SSjob.get_acting_head_for(registered_name)?.card || src)
+	GLOB.manifest.modify(registered_name, source.get_assignment(), source.get_hud_state(), source.job_title)
 
-/obj/item/card/id/proc/refresh_holder_hud()
-	var/mob/living/carbon/human/holder = get(src, /mob/living/carbon/human)
-	holder?.sec_hud_set_ID()
+/obj/item/card/id/proc/assignment_changed(old_assignment)
+	update_label()
+	refresh_holder(old_assignment)
+	sync_manifest()
+
+/obj/item/card/id/proc/refresh_holder(old_assignment)
+	var/list/computers = list()
+	var/mob/living/carbon/holder = get(src, /mob/living/carbon)
+	if(holder)
+		astype(holder, /mob/living/carbon/human)?.sec_hud_set_ID()
+		for(var/obj/item/modular_computer/computer in holder.get_all_gear())
+			computers += computer
+	var/obj/item/modular_computer/container = get(src, /obj/item/modular_computer)
+	if(container)
+		computers |= container
+	for(var/obj/item/modular_computer/computer as anything in computers)
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		if(card_slot?.stored_card == src)
+			card_slot.current_job = get_assignment()
+		if(computer.saved_identification == registered_name && computer.saved_job == old_assignment)
+			computer.saved_job = get_assignment()
+			computer.update_id_display()
 
 /obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
 	if(!length(changed_access))
@@ -351,7 +378,6 @@
 /obj/item/card/id/proc/grant_temporary_access(list/access_to_grant, source, mob/user, duration, grace_period = 0)
 	var/list/new_access = access_to_grant - GetAccess()
 	var/datum/access_grant/grant = new(src, access_to_grant, source, duration, grace_period)
-	LAZYADD(access_grants, grant)
 	var/access_desc = get_access_desc(grant.access)
 	if(duration)
 		log_access_change(new_access, "[source] (temporary, expires in [DisplayTimeText(duration)])", user, granting = TRUE)
@@ -744,9 +770,10 @@
 /// Updates the name based on the card's vars and state.
 /obj/item/card/id/proc/update_label()
 	var/name_string = registered_name ? "[registered_name]'s ID Card" : initial(name)
-	var/assignment_string = " ([assignment])"
+	var/assignment_string = " ([get_assignment()])"
 
 	name = "[name_string][assignment_string]"
+	update_in_wallet()
 
 /obj/item/card/id/silver
 	name = "silver identification card"
