@@ -202,6 +202,15 @@
   mrmanlikesbt:
   - bugfix: Fixed some holodeck templates not spawning with some of their items.
 2026-10-23:
+  Isaacnml:
+  - bugfix: You can grab cleanbots/larrys again
+  - bugfix: Mechs will throw you out if you reach softcrit
+  - bugfix: You can milk pete/cows again
+  - bugfix: You can place plasmaglass into RPEDs
+  - bugfix: You can place patches into pill bottles once again
+  - bugfix: Slimes wont show weird messages before latching on
+  - bugfix: Xenobio console can place potions into slimes again
+  - bugfix: N2O wont put you to sleep if you have sleep immunity
   rkz, timothymtorres, timegreen, ghommie:
   - refactor: Your organs are now inside your body. Please report any issues with
       bodypart and organ movement, including exotic organ, on github
@@ -220,3 +229,8 @@
       a heart.
   - rscadd: Organs removed from a mob that is afflicted with a disease will be infectious
       while handling or transplanting it
+2026-10-26:
+  rkz, melbert:
+  - bugfix: fixes most broken item interactions
+  - bugfix: you will no longer tackle in a direction when in throw mode and shiftclicking/altclicking
+      a turf
