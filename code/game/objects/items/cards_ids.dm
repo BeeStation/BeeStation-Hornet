@@ -323,6 +323,13 @@
 	var/obj/item/card/id/source = acting_head ? src : (SSjob.get_acting_head_for(registered_name)?.card || src)
 	GLOB.manifest.modify(registered_name, source.get_assignment(), source.get_hud_state(), source.job_title)
 
+/obj/item/card/id/proc/set_registered_account(datum/bank_account/account)
+	var/datum/bank_account/old_account = registered_account
+	old_account?.bank_cards -= src
+	registered_account = account
+	account?.bank_cards += src
+	acting_head?.on_account_changed(old_account)
+
 /obj/item/card/id/proc/assignment_changed(old_assignment)
 	update_label()
 	refresh_holder(old_assignment)
@@ -567,7 +574,6 @@
 // Returns true if new account was set.
 /obj/item/card/id/proc/set_new_account(mob/living/user)
 	. = FALSE
-	var/datum/bank_account/old_account = registered_account
 
 	var/new_bank_id = input(user, "Enter your account ID number.", "Account Reclamation", 111111) as num
 
@@ -582,11 +588,7 @@
 
 	var/datum/bank_account/B = SSeconomy.bank_accounts_by_id["[new_bank_id]"]
 	if(B)
-		if (old_account)
-			old_account.bank_cards -= src
-
-		B.bank_cards += src
-		registered_account = B
+		set_registered_account(B)
 		to_chat(user, span_notice("The provided account has been linked to this ID card."))
 
 		return TRUE
@@ -906,8 +908,7 @@
 	if (first_use && !registered_account && ishuman(user))
 		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
 		if(account)
-			account.bank_cards += src
-			registered_account = account
+			set_registered_account(account)
 			to_chat(user, span_notice("Your account number has been automatically assigned."))
 
 #define BREAK_CHAMELEON_ACTION(item) \

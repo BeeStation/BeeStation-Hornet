@@ -23,6 +23,8 @@
 	var/list/payment_per_department = list()
 	/// bonus from each department.
 	var/list/bonus_per_department = list()
+	/// Command pay from before acting head appointments raised it. Null while there are none
+	var/base_command_pay
 
 /datum/bank_account/New(newname, job, modifier = 1)
 	account_holder = newname
@@ -96,6 +98,20 @@
 		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
+
+/datum/bank_account/proc/refresh_acting_pay()
+	var/top_pay = 0
+	for(var/datum/access_grant/acting_head/acting_head as anything in SSjob.acting_heads)
+		if(acting_head.card?.registered_account == src)
+			top_pay = max(top_pay, acting_head.job.payment_per_department[ACCOUNT_COM_ID])
+	if(!top_pay)
+		if(!isnull(base_command_pay))
+			payment_per_department[ACCOUNT_COM_ID] = base_command_pay
+			base_command_pay = null
+		return
+	if(isnull(base_command_pay))
+		base_command_pay = payment_per_department[ACCOUNT_COM_ID]
+	payment_per_department[ACCOUNT_COM_ID] = max(base_command_pay, top_pay)
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(!account_job)
