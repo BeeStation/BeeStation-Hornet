@@ -167,7 +167,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		set_eye_blur_if_lower(2 SECONDS)
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
-		to_chat(src, "[span_userdanger("[blood.name] starts rushing out of the open wound!")]")
+		if(blood)
+			to_chat(src, span_userdanger("[initial(blood.name)] starts rushing out of the open wound!"))
 
 /mob/living/carbon/human/add_bleeding(bleed_level)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))

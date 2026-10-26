@@ -407,6 +407,13 @@ Behavior that's still missing from this component that original food items had t
 	if(after_eat)
 		after_eat.Invoke(eater, feeder, bitecount)
 
+	//Invoke the eater's stomach's after_eat callback if valid
+	if(iscarbon(eater))
+		var/mob/living/carbon/carbon_eater = eater
+		var/obj/item/organ/stomach/stomach = carbon_eater.getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(stomach))
+			stomach.after_eat(owner)
+
 	return TRUE
 
 ///Checks if we can compost something, and handles it
