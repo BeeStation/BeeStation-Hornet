@@ -1,5 +1,3 @@
-#define SKELETON_ACCESS_GRACE (5 MINUTES)
-
 /// Lowpop access for the recipient jobs while the jobs they cover are empty
 /datum/skeleton_access
 	/// Colors the rule. With no recipients set, only this department is notified
@@ -79,7 +77,7 @@
 		return "ends when position has staff or total crew reaches [population_limit]"
 	return "ends when total crew reaches [population_limit]"
 
-/// Turning off waits out SKELETON_ACCESS_GRACE
+/// Turning off waits out HANDOVER_GRACE_PERIOD
 /datum/skeleton_access/proc/refresh(mob/living/arrival)
 	var/inactive_reason = get_inactive_reason()
 	if(isnull(inactive_reason))
@@ -106,11 +104,11 @@
 	cause = inactive_reason
 	var/obj/item/card/id/arrival_card = arrival?.get_idcard(hand_first = FALSE)
 	revoke_after_assignment = arrival_card?.job_assignment_id ? arrival_card.job_assignment_id - 1 : SSjob.job_assignment_count
-	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke)), SKELETON_ACCESS_GRACE, TIMER_STOPPABLE)
-	log_id("Skeleton crew. [covering_text()]: [get_access_desc(access)] access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)], [cause].")
+	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke)), HANDOVER_GRACE_PERIOD, TIMER_STOPPABLE)
+	log_id("Skeleton crew. [covering_text()]: [get_access_desc(access)] access ends in [DisplayTimeText(HANDOVER_GRACE_PERIOD)], [cause].")
 	var/list/changes = get_notified_changes()
 	for(var/obj/item/card/id/card as anything in changes)
-		card.card_talk("[cause]. Finish up and hand over: [get_access_desc(changes[card])] access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)].", warning = TRUE)
+		card.card_talk("[cause]. Finish up and hand over: [get_access_desc(changes[card])] access ends in [DisplayTimeText(HANDOVER_GRACE_PERIOD)].", warning = TRUE)
 
 /datum/skeleton_access/proc/set_enabled(new_enabled)
 	enabled = new_enabled
@@ -329,5 +327,3 @@
 		ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_SURGERY,
 		ACCESS_CLONING
 	)
-
-#undef SKELETON_ACCESS_GRACE

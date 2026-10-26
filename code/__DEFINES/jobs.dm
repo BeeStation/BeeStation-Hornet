@@ -2,12 +2,15 @@
 // At or below this value, certain jobs may also be disabled.
 #define MINPOP_JOB_LIMIT 9
 /// Minimum roundstart population required for command roles to spawn
+/// Head office skeleton rules also end at this crew count
 #define COMMAND_POPULATION_MINIMUM 6
 /// The population at which the station enters into an open mode, where
 /// access restrictions are significantly diminished.
 #define STATION_UNLOCK_POPULATION 6
-// Below this crew count, skeleton crew access covers for empty jobs
+// Roundstart population below this is lowpop. Skeleton crew rules also end once crew count reaches it
 #define LOWPOP_JOB_LIMIT 14
+/// How long skeleton crew and acting head access lasts after the real staff arrive
+#define HANDOVER_GRACE_PERIOD (5 MINUTES)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1

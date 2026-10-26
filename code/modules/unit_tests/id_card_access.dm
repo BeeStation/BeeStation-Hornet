@@ -53,7 +53,7 @@
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), 0, "expired grant was not cleared from the card")
 
 	var/datum/access_grant/graced = card.grant_temporary_access(list(ACCESS_BRIG), "unit test")
-	graced.revoke("revoked", 30 SECONDS)
+	graced.revoke_after(30 SECONDS)
 	TEST_ASSERT(ACCESS_BRIG in card.GetAccess(), "grace-period revocation cut access immediately")
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), 1, "grace-period grant was dropped before its grace elapsed")
 
@@ -83,7 +83,7 @@
 	TEST_ASSERT_EQUAL(length(card.GetAccess() & head_extra), length(head_extra), "Acting CE is missing CE access")
 	TEST_ASSERT(!length(card.access & head_extra), "Acting CE access is permanent")
 
-	card.acting_head.revoke("revoked", 0)
+	card.acting_head.revoke()
 	TEST_ASSERT_NULL(card.acting_head, "Acting role not cleared")
 	TEST_ASSERT_EQUAL(card.get_assignment(), JOB_NAME_STATIONENGINEER, "Title not restored")
 	TEST_ASSERT_EQUAL(card.get_hud_state(), engineer_hud, "HUD not restored")
@@ -108,7 +108,7 @@
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, chief, arrival)
 	TEST_ASSERT(acting_head.revoking, "CE latejoin didn't end acting CE")
 	TEST_ASSERT(length(card.GetAccess() & head_extra), "Acting CE access ended before grace")
-	acting_head.finish_revoke()
+	acting_head.revoke()
 	TEST_ASSERT(!length(card.GetAccess() & head_extra), "Acting CE access kept after grace")
 
 /// Checks head-only console access is temporary
@@ -165,7 +165,7 @@
 	TEST_ASSERT(manifest_lists(manifest[engineering.manifest_category_name], card.registered_name), "Acting captain missing from engineering")
 	TEST_ASSERT(manifest_lists(manifest[command.manifest_category_name], card.registered_name), "Acting captain missing from command")
 
-	card.acting_head.revoke("revoked", 0)
+	card.acting_head.revoke()
 	TEST_ASSERT_EQUAL(record.rank, JOB_NAME_CHIEFENGINEER, "Record rank not restored")
 	TEST_ASSERT_NULL(record.get_acting_job(), "Record acting job not cleared")
 
@@ -231,7 +231,7 @@
 	acting_card.assign_job(engineer)
 	acting_card.grant_acting_head(chief, "unit test")
 	TEST_ASSERT(rule.revoking, "Acting CE didn't start grace")
-	acting_card.acting_head.revoke("revoked", 0)
+	acting_card.acting_head.revoke()
 	TEST_ASSERT(!rule.revoking, "Acting CE ending didn't cancel grace")
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Skeleton access ended after acting CE")
 
@@ -281,7 +281,7 @@
 
 	card.grant_acting_head(chief, "unit test")
 	TEST_ASSERT(program.authenticate(null, card), "Acting CE can't edit IDs")
-	card.acting_head.revoke("revoked", 0)
+	card.acting_head.revoke()
 
 /datum/unit_test/id_card_authority/Destroy()
 	if(!isnull(old_chiefs))

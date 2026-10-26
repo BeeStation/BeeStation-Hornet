@@ -147,8 +147,7 @@
 				to_chat(usr, span_notice("Software error: The ID card rejected the new name as it contains prohibited characters."))
 				return
 			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-			target_id_card.registered_name = new_name
-			target_id_card.update_label()
+			target_id_card.set_registered_name(new_name, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_assign")

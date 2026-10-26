@@ -255,7 +255,7 @@
 		if(length(grant.access))
 			continue
 		if(grant == acting_head)
-			acting_head.revoke("revoked", 0, user)
+			acting_head.revoke(user = user)
 		else
 			qdel(grant)
 	if(source && length(removed))
@@ -293,15 +293,12 @@
 	assignment = new_job.title
 	update_label()
 
-/**
- * Makes this card an acting head of the given job until revoked, replacing any current acting role
- * Arguments:
- * * announce - if FALSE, no announcement
- */
+/// Replaces any current acting role
 /obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
-	if(QDELETED(src))
-		return
-	acting_head?.revoke("replaced", 0, user)
+	// Replacing it would restart skeleton crew handovers for this job
+	if(acting_head?.job.type == head_job.type && !acting_head.revoking)
+		return acting_head
+	acting_head?.revoke("replaced", user)
 	var/list/held_before = GetAccess()
 	new /datum/access_grant/acting_head(src, head_job, source)
 	var/list/gained = acting_head.access - held_before
@@ -314,14 +311,29 @@
 		card_talk("Appointed Acting [head_job.title].")
 	return acting_head
 
-/obj/item/card/id/proc/clear_temporary_access(reason = "revoked")
+/obj/item/card/id/proc/end_acting_head(cause, mob/user)
+	if(!acting_head)
+		return
+	if(cause)
+		acting_head.cause = cause
+	acting_head.revoke(user = user)
+
+/obj/item/card/id/proc/clear_temporary_access(reason = "revoked", mob/user)
 	for(var/datum/access_grant/grant as anything in access_grants)
-		grant.revoke(reason, 0)
+		grant.revoke(reason, user)
 
 /obj/item/card/id/proc/sync_manifest()
 	// The manifest goes by name, so another acting card with this name keeps its entry
 	var/obj/item/card/id/source = acting_head ? src : (SSjob.get_acting_head_for(registered_name)?.card || src)
 	GLOB.manifest.modify(registered_name, source.get_assignment(), source.get_hud_state(), source.job_title)
+
+/// Renaming ends an acting appointment, since it belongs to the person named
+/obj/item/card/id/proc/set_registered_name(new_name, mob/user)
+	if(new_name == registered_name)
+		return
+	end_acting_head("registered name changed", user)
+	registered_name = new_name
+	update_label()
 
 /obj/item/card/id/proc/set_registered_account(datum/bank_account/account)
 	var/datum/bank_account/old_account = registered_account
@@ -380,11 +392,10 @@
  * Returns the grant, so the caller can revoke() it early (e.g. on a condition change)
  * Arguments:
  * * duration - lifespan in deciseconds. 0 or null means indefinite
- * * grace_period - deciseconds the access lingers after expiry/revocation. 0 means immediate
  */
-/obj/item/card/id/proc/grant_temporary_access(list/access_to_grant, source, mob/user, duration, grace_period = 0)
+/obj/item/card/id/proc/grant_temporary_access(list/access_to_grant, source, mob/user, duration)
 	var/list/new_access = access_to_grant - GetAccess()
-	var/datum/access_grant/grant = new(src, access_to_grant, source, duration, grace_period)
+	var/datum/access_grant/grant = new(src, access_to_grant, source, duration)
 	var/access_desc = get_access_desc(grant.access)
 	if(duration)
 		log_access_change(new_access, "[source] (temporary, expires in [DisplayTimeText(duration)])", user, granting = TRUE)
@@ -469,6 +480,8 @@
 		return TRUE
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, registered_name) && var_value != registered_name)
+		end_acting_head("registered name changed", usr)
 	. = ..()
 	if(.)
 		switch(var_name)
@@ -892,7 +905,7 @@
 	target_occupation ||= (assignment || JOB_NAME_ASSISTANT)
 
 	log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] [target_id_style ? "with [target_id_style] card style" : "with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
-	registered_name = input_name
+	set_registered_name(input_name, user)
 	assignment = capitalize(target_occupation)
 	if(target_id_style)
 		icon_state = get_cardstyle_by_jobname(target_id_style)
@@ -1144,8 +1157,7 @@ do { \
 	. = ..()
 	if(need_setup)
 		if(isgolem(user))
-			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
-			update_label()
+			set_registered_name(user.name) // automatically change registered name if it's picked up by a golem at first time
 		need_setup = FALSE
 		// if non-golem picks it up, the renaming feature will be disabled
 
@@ -1169,7 +1181,7 @@ do { \
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
-		registered_name = target_name || registered_name  // in case they hit cancel
+		set_registered_name(target_name || registered_name, user)  // in case they hit cancel
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
 		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
 		assignment = target_job || assignment

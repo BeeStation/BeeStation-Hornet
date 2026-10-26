@@ -287,14 +287,13 @@ SUBSYSTEM_DEF(job)
 		player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Joined the station as a roundstart crew member.")
 	return TRUE
 
-/datum/controller/subsystem/job/proc/FreeRole(job_or_type)
-	if(!job_or_type)
-		return
-	job_debug("Freeing role: [job_or_type]")
-	var/datum/job/job = istype(job_or_type, /datum/job) ? job_or_type : get_job_type(job_or_type)
+/datum/controller/subsystem/job/proc/FreeRole(datum/job/job)
 	if(!job)
 		return FALSE
+	job_debug("Freeing role: [job]")
 	job.current_positions = max(0, job.current_positions - 1)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		acting_head.on_head_departure(job)
 	refresh_skeleton_access()
 
 /datum/controller/subsystem/job/proc/find_occupation_candidates(datum/job/job, level)
@@ -883,6 +882,8 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/on_job_after_latejoin_spawn(datum/source, datum/job/job, mob/living/spawning)
 	SIGNAL_HANDLER
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		acting_head.on_head_arrival(job)
 	refresh_skeleton_access(spawning)
 
 /datum/controller/subsystem/job/proc/refresh_skeleton_access(mob/living/arrival)
@@ -894,6 +895,12 @@ SUBSYSTEM_DEF(job)
 	. = 0
 	for(var/datum/job/job as anything in all_occupations)
 		. += job.current_positions
+
+/// Ends acting appointments on cards registered to this name
+/datum/controller/subsystem/job/proc/end_acting_heads_for(name, cause)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		if(acting_head.card?.registered_name == name)
+			acting_head.card.end_acting_head(cause)
 
 /// The acting appointment on a card registered to this name, if any
 /datum/controller/subsystem/job/proc/get_acting_head_for(name)
@@ -971,15 +978,18 @@ SUBSYSTEM_DEF(job)
 	)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
-	if(acting_captain)
+	var/appoint_acting = acting_captain && !has_acting_head(JOB_NAME_CAPTAIN)
+	if(appoint_acting)
 		to_chat(H, span_notice("Due to your position in the chain of command, you have been appointed Acting Captain. The code to the captain's spare ID safe on the Bridge is [where]."))
+	else if(acting_captain)
+		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find the code to its safe on the Bridge [where]."))
 	else
 		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
 	var/obj/item/card/id/id_card = H.wear_id?.GetID()
 	if(!id_card)
 		stack_trace("Promoted [H.real_name] to Captain without an ID card.")
-	if(acting_captain)
+	if(appoint_acting)
 		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", announce = FALSE)
 	else
 		id_card?.add_access(list(ACCESS_HEADS))

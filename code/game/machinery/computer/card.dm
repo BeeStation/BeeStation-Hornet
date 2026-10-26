@@ -728,13 +728,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			if(inserted_modify_id.acting_head)
-				// End it only if you can make it, son
+				// Only a full login can appoint acting heads, so only a full login can end them
 				if(authenticated != 2)
 					to_chat(usr, span_warning("Insufficient access to end an acting appointment."))
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					updateUsrDialog()
 					return
-				inserted_modify_id.acting_head.revoke("revoked", 0, usr)
+				inserted_modify_id.end_acting_head(user = usr)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 				updateUsrDialog()
 				return
@@ -755,7 +755,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					if(new_name)
 						log_id("[key_name(usr)] changed [inserted_modify_id] name to '[new_name]', using [inserted_scan_id] at [AREACOORD(usr)].")
-						inserted_modify_id.registered_name = new_name
+						inserted_modify_id.set_registered_name(new_name, usr)
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 					else
 						to_chat(usr, span_error("Invalid name entered."))

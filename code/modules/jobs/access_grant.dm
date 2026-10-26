@@ -5,15 +5,13 @@
 	var/source
 	/// Timer id for auto-expiry, then for the grace period once revoking. Null if the grant is indefinite
 	var/timer_id
-	var/grace_period = 0
 	var/revoking = FALSE
 
-/datum/access_grant/New(obj/item/card/id/card, list/access, source, duration, grace_period = 0)
+/datum/access_grant/New(obj/item/card/id/card, list/access, source, duration)
 	. = ..()
 	src.card = card
 	src.access = access.Copy()
 	src.source = source
-	src.grace_period = grace_period
 	LAZYADD(card.access_grants, src)
 	if(duration)
 		timer_id = addtimer(CALLBACK(src, PROC_REF(expire)), duration, TIMER_STOPPABLE)
@@ -28,25 +26,25 @@
 
 /datum/access_grant/proc/expire()
 	timer_id = null
-	revoke("expired")
+	announce_revocation("expired", "expired")
+	qdel(src)
 
-/datum/access_grant/proc/revoke(reason = "revoked", grace = null, mob/user)
+/datum/access_grant/proc/revoke(reason = "revoked", mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(QDELETED(src))
 		return
-	if(isnull(grace))
-		grace = grace_period
-	if(grace <= 0 || revoking)
-		finish_revoke(reason, user)
+	announce_revocation(reason, "withdrawn", user)
+	qdel(src)
+
+/// Calling revoke() during the grace period ends it early
+/datum/access_grant/proc/revoke_after(grace, reason = "revoked", mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(QDELETED(src) || revoking)
 		return
 	revoking = TRUE
 	deltimer(timer_id)
-	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke), reason), grace, TIMER_STOPPABLE)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(revoke), reason), grace, TIMER_STOPPABLE)
 	announce_revocation("[reason], ends in [DisplayTimeText(grace)]", "ends in [DisplayTimeText(grace)]", user)
-
-/datum/access_grant/proc/finish_revoke(reason = "revoked", mob/user)
-	announce_revocation(reason, reason == "expired" ? "expired" : "withdrawn", user)
-	qdel(src)
 
 /**
  * Arguments:
@@ -70,7 +68,7 @@
 
 /datum/access_grant/proc/timing_text()
 	if(revoking)
-		return "ending in [DisplayTimeText(timeleft(timer_id))]"
+		return "handing over in [DisplayTimeText(timeleft(timer_id))]"
 	if(timer_id)
 		return "expires in [DisplayTimeText(timeleft(timer_id))]"
 	return "active until revoked"
@@ -78,8 +76,6 @@
 /// A head job's access, title, HUD and command pay layered over the card's own job
 /datum/access_grant/acting_head
 	var/datum/job/job
-	/// Grace period before access is cut when a "real"(lmao) head of this job latejoins
-	var/arrival_grace = 5 MINUTES
 	var/cause
 
 /datum/access_grant/acting_head/New(obj/item/card/id/card, datum/job/job, source)
@@ -88,7 +84,6 @@
 	var/old_assignment = card.get_assignment()
 	card.acting_head = src
 	card.assignment_changed(old_assignment)
-	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_latejoin))
 	SSjob.acting_heads += src
 	card.registered_account?.refresh_acting_pay()
 	SSjob.refresh_skeleton_access()
@@ -134,9 +129,18 @@
 	else
 		card.card_talk("Acting [job.title] appointment [phrase].", warning = TRUE)
 
-/datum/access_grant/acting_head/proc/on_latejoin(datum/source, datum/job/joined_job, mob/living/spawned)
-	SIGNAL_HANDLER
+/datum/access_grant/acting_head/proc/on_head_arrival(datum/job/joined_job)
 	if(revoking || joined_job.type != job.type)
 		return
 	cause = "[joined_job.title] reported for duty"
-	revoke("revoked", arrival_grace)
+	revoke_after(HANDOVER_GRACE_PERIOD)
+
+/datum/access_grant/acting_head/proc/on_head_departure(datum/job/left_job)
+	if(!revoking || left_job.type != job.type || !SSjob.is_job_empty(job.title))
+		return
+	revoking = FALSE
+	deltimer(timer_id)
+	timer_id = null
+	cause = null
+	card.log_card("acting [job.title] status kept, [left_job.title] left")
+	card.card_talk("[left_job.title] left. Acting [job.title] appointment continues.")
