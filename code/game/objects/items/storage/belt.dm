@@ -332,7 +332,8 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/holosign_creator/medical,
 		/obj/item/construction/plumbing,
-		/obj/item/plunger
+		/obj/item/plunger,
+		/obj/item/flesh_shears,
 		))
 
 /obj/item/storage/belt/medical/ert
