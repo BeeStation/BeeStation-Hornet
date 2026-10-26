@@ -117,6 +117,14 @@ SUBSYSTEM_DEF(department)
 		titles |= job.title
 	return titles
 
+/datum/controller/subsystem/department/proc/get_head_only_access()
+	RETURN_TYPE(/list)
+	var/list/crew_access = list()
+	for(var/datum/job/job as anything in SSjob.all_occupations)
+		if(!(job.job_flags & JOB_HEAD_OF_STAFF))
+			crew_access |= job.base_access
+	return get_all_accesses() - crew_access
+
 /// Returns a nation name for this department.
 /datum/department_group/proc/generate_nation_name()
 	var/static/list/nation_suffixes = list("stan", "topia", "land", "nia", "ca", "tova", "dor", "ador", "tia", "sia", "ano", "tica", "tide", "cis", "marea", "co", "taoide", "slavia", "stotzka")

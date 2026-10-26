@@ -13,11 +13,12 @@
 	var/list/access
 	/// The rule is off once the crew count reaches this
 	var/population_limit = LOWPOP_JOB_LIMIT
-	/// Includes the grace period
+	/// Includes the grace period. Change it with set_enabled()
 	var/enabled = FALSE
-	var/revoke_timer
+	var/timer_id
+	var/revoking = FALSE
 	var/cause
-	/// Never give assignment after this assignment integer
+	/// Cards that got their job after this job_assignment_id don't get the access. Null means no cutoff
 	var/revoke_after_assignment
 
 /// Why the rule should be off, or null if it should be on
@@ -31,12 +32,12 @@
 		return "Crew levels restored"
 	return null
 
-/// its possible to get the job after the handover starts, so for the love of god avoid giving them access
-/datum/skeleton_access/proc/excludes(obj/item/card/id/card)
-	return !isnull(revoke_after_assignment) && card.job_assignment_id > revoke_after_assignment
-
-/datum/skeleton_access/proc/applies_to(job_title)
-	return job_title && (isnull(recipients) || (job_title in recipients))
+/// Whether the card gets this rule's access while the rule is on
+/datum/skeleton_access/proc/gives_to(obj/item/card/id/card)
+	if(!card.job_title || (!isnull(recipients) && !(card.job_title in recipients)))
+		return FALSE
+	// Someone hired after the handover started shouldn't get access that's already ending
+	return isnull(revoke_after_assignment) || card.job_assignment_id <= revoke_after_assignment
 
 /datum/skeleton_access/proc/notifies(job_title)
 	if(!department)
@@ -44,96 +45,107 @@
 	var/datum/job/job = SSjob.get_job(job_title)
 	return department in job?.departments_list
 
-/datum/skeleton_access/proc/access_names(list/accesses = access)
-	return get_access_desc(accesses)
+/datum/skeleton_access/proc/get_color_class()
+	var/datum/department_group/color_department = covered_department || department
+	var/channel = color_department && initial(color_department.dept_radio_channel)
+	return channel && get_radio_span(channel)
 
-/datum/skeleton_access/proc/covering_for()
+/datum/skeleton_access/proc/covering_text(colored = FALSE)
+	var/subject
 	if(covered_department)
-		return initial(covered_department.department_name)
-	if(length(covered_jobs))
-		return english_list(covered_jobs)
-	return "an understaffed station"
+		subject = initial(covered_department.department_name)
+	else if(length(covered_jobs))
+		subject = english_list(covered_jobs)
+	else
+		subject = "an understaffed station"
+	var/color_class = colored && get_color_class()
+	if(color_class)
+		subject = "<span class='[color_class]'>[subject]</span>"
+	return "Covering for [subject]"
 
-/datum/skeleton_access/proc/end_condition()
+/datum/skeleton_access/proc/timing_text()
+	if(revoking)
+		return "handing over in [DisplayTimeText(timeleft(timer_id))]"
 	if(covered_department)
 		return "ends when department has staff or total crew reaches [population_limit]"
 	if(length(covered_jobs))
 		return "ends when position has staff or total crew reaches [population_limit]"
 	return "ends when total crew reaches [population_limit]"
 
-/// I have colored it by department chat colors in lieu of having anything else
-/datum/skeleton_access/proc/get_colour_class()
-	var/datum/department_group/colour_department = covered_department || department
-	var/channel = colour_department && initial(colour_department.dept_radio_channel)
-	return channel && get_radio_span(channel)
-
-/datum/skeleton_access/proc/briefing_prefix()
-	var/colour_class = get_colour_class()
-	if(!colour_class)
-		return "Covering for [covering_for()]: "
-	return "Covering for <span class='[colour_class]'>[covering_for()]</span>: "
-
-/datum/skeleton_access/proc/get_briefing()
-	return "Covering for [covering_for()]: [access_names()] access authorized ([end_condition()])."
-
-/datum/skeleton_access/proc/get_examine_reason()
-	return "Covering for [covering_for()]"
-
-/datum/skeleton_access/proc/timing_text()
-	if(revoke_timer)
-		return "handing over in [DisplayTimeText(timeleft(revoke_timer))]"
-	return end_condition()
-
 /// Turning off waits out SKELETON_ACCESS_GRACE
 /datum/skeleton_access/proc/refresh(mob/living/arrival)
 	var/inactive_reason = get_inactive_reason()
 	if(isnull(inactive_reason))
-		if(revoke_timer)
-			deltimer(revoke_timer)
-			revoke_timer = null
-			SSjob.update_skeleton_access()
-			log_id("Skeleton crew access to [access_names()] continues.")
-			announce("Handover cancelled: ", " access continues ([end_condition()]).")
+		if(revoking)
+			revoking = FALSE
+			deltimer(timer_id)
+			timer_id = null
 			revoke_after_assignment = null
-		else if(!enabled)
-			enabled = TRUE
-			SSjob.update_skeleton_access()
-			log_id("Skeleton crew access on. [get_briefing()]")
-			announce(briefing_prefix(), " access authorized ([end_condition()]).")
+			log_id("Skeleton crew. [covering_text()]: handover cancelled, [get_access_desc(access)] access continues.")
+			var/list/changes = get_notified_changes()
+			for(var/obj/item/card/id/card as anything in changes)
+				card.card_talk("Handover cancelled: [get_access_desc(changes[card])] access continues ([timing_text()]).")
+			return
+		if(!enabled)
+			set_enabled(TRUE)
+			log_id("Skeleton crew. [covering_text()]: [get_access_desc(access)] access authorized ([timing_text()]).")
+			var/list/changes = get_notified_changes()
+			for(var/obj/item/card/id/card as anything in changes)
+				card.card_talk("[covering_text(TRUE)]: [get_access_desc(changes[card])] access authorized ([timing_text()]).")
 		return
-	if(!enabled || revoke_timer)
+	if(!enabled || revoking)
 		return
+	revoking = TRUE
 	cause = inactive_reason
 	var/obj/item/card/id/arrival_card = arrival?.get_idcard(hand_first = FALSE)
-	revoke_after_assignment = arrival_card ? arrival_card.job_assignment_id - 1 : SSjob.job_assignment_count
-	revoke_timer = addtimer(CALLBACK(src, PROC_REF(finish_revoke)), SKELETON_ACCESS_GRACE, TIMER_STOPPABLE)
-	SSjob.update_skeleton_access()
-	log_id("Skeleton crew access to [access_names()] ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)], [cause].")
-	announce("[cause]. Finish up and hand over: ", " access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)].", warning = TRUE)
+	revoke_after_assignment = arrival_card?.job_assignment_id ? arrival_card.job_assignment_id - 1 : SSjob.job_assignment_count
+	timer_id = addtimer(CALLBACK(src, PROC_REF(finish_revoke)), SKELETON_ACCESS_GRACE, TIMER_STOPPABLE)
+	log_id("Skeleton crew. [covering_text()]: [get_access_desc(access)] access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)], [cause].")
+	var/list/changes = get_notified_changes()
+	for(var/obj/item/card/id/card as anything in changes)
+		card.card_talk("[cause]. Finish up and hand over: [get_access_desc(changes[card])] access ends in [DisplayTimeText(SKELETON_ACCESS_GRACE)].", warning = TRUE)
+
+/datum/skeleton_access/proc/set_enabled(new_enabled)
+	enabled = new_enabled
+	if(enabled)
+		SSjob.enabled_skeleton_rules |= src
+	else
+		SSjob.enabled_skeleton_rules -= src
 
 /datum/skeleton_access/proc/finish_revoke()
-	revoke_timer = null
-	enabled = FALSE
-	SSjob.update_skeleton_access()
-	log_id("Skeleton crew access to [access_names()] withdrawn, [cause].")
-	announce("[cause]: ", " access handed over. Thanks for covering.")
+	timer_id = null
+	revoking = FALSE
+	set_enabled(FALSE)
+	log_id("Skeleton crew. [covering_text()]: [get_access_desc(access)] access withdrawn, [cause].")
+	var/list/changes = get_notified_changes()
+	for(var/obj/item/card/id/card as anything in changes)
+		card.card_talk("[cause]: [get_access_desc(changes[card])] access handed over. Thanks for covering.")
 	revoke_after_assignment = null
 
-/// what access has changed
-/datum/skeleton_access/proc/announce(prefix, suffix, warning = FALSE)
+/// Cards to tell about this rule's change, each mapped to the access it changes on that card
+/datum/skeleton_access/proc/get_notified_changes()
+	RETURN_TYPE(/list)
+	. = list()
 	for(var/datum/mind/crew_mind as anything in get_crewmember_minds())
 		var/obj/item/card/id/card = crew_mind.current?.get_idcard(hand_first = FALSE)
-		if(!card || !applies_to(card.job_title) || !notifies(card.job_title))
+		if(!card || !gives_to(card) || !notifies(card.job_title))
 			continue
-		if(excludes(card))
-			continue
-		var/list/changed = access - card.get_non_skeleton_access() - card.withheld_skeleton_access
-		for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(card.job_title))
-			// grace period sanity check
-			if(rule != src && !(revoke_timer && rule.revoke_timer))
-				changed -= rule.access
+		var/list/changed = get_changed_access(card)
 		if(length(changed))
-			card.card_talk("[prefix][access_names(changed)][suffix]", warning)
+			.[card] = changed
+
+/// Access this rule's change affects on the card, leaving out access another rule keeps giving it
+/datum/skeleton_access/proc/get_changed_access(obj/item/card/id/card)
+	RETURN_TYPE(/list)
+	. = card.get_skeleton_gain(access)
+	var/already_ended = !enabled
+	for(var/datum/skeleton_access/other as anything in card.get_skeleton_rules())
+		if(other == src)
+			continue
+		// Only announce access the card actually loses. A rule also handing over won't keep it, unless this rule has already ended
+		var/outlasts_change = !other.revoking || already_ended
+		if(outlasts_change)
+			. -= other.access
 
 // Engineering
 

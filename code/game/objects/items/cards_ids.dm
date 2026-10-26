@@ -265,7 +265,7 @@
 /// grant head-only access temporarily
 /obj/item/card/id/proc/add_console_access(list/access_to_add, source, mob/user)
 	LAZYREMOVE(withheld_skeleton_access, access_to_add)
-	var/list/head_only = access_to_add & SSjob.head_only_access
+	var/list/head_only = access_to_add & SSdepartment.get_head_only_access()
 	var/datum/job/own_job = SSjob.get_job(job_title)
 	if(own_job)
 		head_only -= own_job.get_access()
@@ -432,16 +432,16 @@
 	if(acting_head && !acting_head.revoking)
 		lines += "Appointed Acting [acting_head.job.title]."
 	var/list/skeleton_lines = list()
-	var/list/known = get_non_skeleton_access()
-	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
-		if(!rule.notifies(job_title) || rule.revoke_timer)
+	var/list/listed = list()
+	for(var/datum/skeleton_access/rule as anything in get_skeleton_rules())
+		if(!rule.notifies(job_title) || rule.revoking)
 			continue
-		var/list/gained = rule.access - known - withheld_skeleton_access
+		var/list/gained = get_skeleton_gain(rule.access) - listed
 		if(!length(gained))
 			continue
-		known |= gained
-		var/areas = span_tooltip(rule.access_names(gained), "[length(gained)] extra area\s")
-		skeleton_lines += "&bull; [rule.briefing_prefix()][areas] ([rule.end_condition()])"
+		listed |= gained
+		var/areas = span_tooltip(get_access_desc(gained), "[length(gained)] extra area\s")
+		skeleton_lines += "&bull; [rule.covering_text(TRUE)]: [areas] ([rule.timing_text()])"
 	if(length(skeleton_lines))
 		lines += "<b>Skeleton crew protocol in effect</b>"
 		lines += skeleton_lines
@@ -646,17 +646,18 @@
 	var/list/entry_ending = list()
 	for(var/datum/access_grant/grant as anything in access_grants)
 		if(grant != acting_head)
-			add_access_entries(entries, entry_ending, grant.access - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
+			_add_access_entries(entries, entry_ending, grant.access - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
 	var/list/skeleton_access = get_skeleton_access()
-	for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
-		add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.get_examine_reason(), rule.timing_text(), !!rule.revoke_timer, rule.get_colour_class())
+	for(var/datum/skeleton_access/rule as anything in get_skeleton_rules())
+		_add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.covering_text(), rule.timing_text(), rule.revoking, rule.get_color_class())
 	if(length(entries))
 		var/list/entry_texts = list()
 		for(var/key in entries)
 			entry_texts += entries[key]
 		. += span_notice("<b>Temporary access:</b> [jointext(entry_texts, ", ")]")
 
-/obj/item/card/id/proc/add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending, colour_class)
+/obj/item/card/id/proc/_add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending, color_class)
+	PRIVATE_PROC(TRUE)
 	for(var/access_id in access_ids)
 		var/key = "[access_id]"
 		if(entries[key] && !entry_ending[key])
@@ -664,8 +665,8 @@
 		var/entry = span_tooltip("[reason]. [capitalize(timing)].", get_access_desc(access_id))
 		if(ending)
 			entry = span_warning(entry)
-		else if(colour_class)
-			entry = "<span class='[colour_class]'>[entry]</span>"
+		else if(color_class)
+			entry = "<span class='[color_class]'>[entry]</span>"
 		entries[key] = entry
 		entry_ending[key] = ending
 
@@ -709,34 +710,28 @@
 
 /obj/item/card/id/GetAccess()
 	RETURN_TYPE(/list)
-	var/list/skeleton_access = get_skeleton_access()
-	if(!LAZYLEN(access_grants) && !length(skeleton_access))
+	if(!LAZYLEN(access_grants) && (!job_title || !length(SSjob.enabled_skeleton_rules)))
 		return access
-	var/list/all_access = access.Copy()
-	if(skeleton_access)
-		all_access |= skeleton_access
-	for(var/datum/access_grant/grant as anything in access_grants)
-		all_access |= grant.access
-	return all_access
+	return get_non_skeleton_access() | get_skeleton_access()
 
 /obj/item/card/id/proc/get_skeleton_access()
+	RETURN_TYPE(/list)
+	. = list()
 	if(!job_title)
-		return null
-	var/list/job_access = SSjob.skeleton_access_by_job[job_title]
-	if(!job_access)
-		return null
-	// To prevent latejoins from getting access thats already in grace period, because that would suck
-	var/list/late_access
-	for(var/datum/skeleton_access/rule as anything in SSjob.ending_skeleton_rules)
-		if(rule.excludes(src) && rule.applies_to(job_title))
-			LAZYOR(late_access, rule.access)
-	if(late_access)
-		for(var/datum/skeleton_access/rule as anything in SSjob.get_skeleton_rules_for(job_title))
-			if(!rule.revoke_timer)
-				late_access -= rule.access
-	if(!length(late_access) && !withheld_skeleton_access)
-		return job_access
-	return job_access - withheld_skeleton_access - late_access
+		return
+	for(var/datum/skeleton_access/rule as anything in SSjob.enabled_skeleton_rules)
+		if(rule.gives_to(src))
+			. |= rule.access
+	if(withheld_skeleton_access)
+		. -= withheld_skeleton_access
+
+/// Skeleton crew rules giving this card access, in rule order
+/obj/item/card/id/proc/get_skeleton_rules()
+	RETURN_TYPE(/list)
+	. = list()
+	for(var/datum/skeleton_access/rule as anything in SSjob.skeleton_rules)
+		if(rule.enabled && rule.gives_to(src))
+			. += rule
 
 /// Permanent access plus temporary grants, without the except grant
 /obj/item/card/id/proc/get_non_skeleton_access(datum/access_grant/except)
@@ -745,6 +740,10 @@
 	for(var/datum/access_grant/grant as anything in access_grants)
 		if(grant != except)
 			. |= grant.access
+
+/obj/item/card/id/proc/get_skeleton_gain(list/rule_access)
+	RETURN_TYPE(/list)
+	return rule_access - get_non_skeleton_access() - withheld_skeleton_access
 
 /// Access that counts for editing IDs. Skeleton crew and console grants only open doors
 /obj/item/card/id/proc/get_authority_access()

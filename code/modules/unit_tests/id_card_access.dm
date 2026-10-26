@@ -130,7 +130,7 @@
 	TEST_ASSERT(!(ACCESS_CAPTAIN in card.GetAccess()), "Captain access not removed")
 	TEST_ASSERT_EQUAL(LAZYLEN(card.access_grants), grants_before, "Emptied grant not deleted")
 
-	var/list/head_only = (chief.get_access() & SSjob.head_only_access) - engineer.get_access()
+	var/list/head_only = (chief.get_access() & SSdepartment.get_head_only_access()) - engineer.get_access()
 	TEST_ASSERT(length(head_only), "CE has no head-only access beyond an engineer's")
 	card.grant_acting_head(chief, "unit test")
 	card.add_console_access(get_all_accesses(), "unit test")
@@ -218,7 +218,7 @@
 
 	chief.current_positions = 1
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, chief, allocate(/mob/living/carbon/human/consistent))
-	TEST_ASSERT(rule.revoke_timer, "CE latejoin didn't start grace")
+	TEST_ASSERT(rule.revoking, "CE latejoin didn't start grace")
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Skeleton access ended before grace")
 	rule.finish_revoke()
 	TEST_ASSERT(!(ACCESS_CE in card.GetAccess()), "Skeleton access kept after grace")
@@ -230,18 +230,18 @@
 	var/obj/item/card/id/acting_card = allocate(/obj/item/card/id)
 	acting_card.assign_job(engineer)
 	acting_card.grant_acting_head(chief, "unit test")
-	TEST_ASSERT(rule.revoke_timer, "Acting CE didn't start grace")
+	TEST_ASSERT(rule.revoking, "Acting CE didn't start grace")
 	acting_card.acting_head.revoke("revoked", 0)
-	TEST_ASSERT(!rule.revoke_timer, "Acting CE ending didn't cancel grace")
+	TEST_ASSERT(!rule.revoking, "Acting CE ending didn't cancel grace")
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Skeleton access ended after acting CE")
 
 	assistant.current_positions += COMMAND_POPULATION_MINIMUM
 	SSjob.refresh_skeleton_access()
-	TEST_ASSERT(rule.revoke_timer, "Crew limit didn't start grace")
+	TEST_ASSERT(rule.revoking, "Crew limit didn't start grace")
 
 	assistant.current_positions = old_assistants
 	SSjob.refresh_skeleton_access()
-	TEST_ASSERT(rule.enabled && !rule.revoke_timer, "Dropping under the limit didn't cancel grace")
+	TEST_ASSERT(rule.enabled && !rule.revoking, "Dropping under the limit didn't cancel grace")
 
 /datum/unit_test/skeleton_crew_access/Destroy()
 	if(!isnull(old_chiefs))
@@ -251,10 +251,10 @@
 		var/datum/job/assistant = SSjob.get_job(JOB_NAME_ASSISTANT)
 		assistant.current_positions = old_assistants
 	for(var/datum/skeleton_access/rule as anything in SSjob.skeleton_rules)
-		deltimer(rule.revoke_timer)
-		rule.revoke_timer = null
-		rule.enabled = FALSE
-	SSjob.update_skeleton_access()
+		deltimer(rule.timer_id)
+		rule.timer_id = null
+		rule.revoking = FALSE
+		rule.set_enabled(FALSE)
 	return ..()
 
 /// Checks only head and acting head access can edit IDs
@@ -288,10 +288,10 @@
 		var/datum/job/chief = SSjob.get_job(JOB_NAME_CHIEFENGINEER)
 		chief.current_positions = old_chiefs
 	for(var/datum/skeleton_access/rule as anything in SSjob.skeleton_rules)
-		deltimer(rule.revoke_timer)
-		rule.revoke_timer = null
-		rule.enabled = FALSE
-	SSjob.update_skeleton_access()
+		deltimer(rule.timer_id)
+		rule.timer_id = null
+		rule.revoking = FALSE
+		rule.set_enabled(FALSE)
 	return ..()
 
 /// Checks ID console pay changes need head authority over the department

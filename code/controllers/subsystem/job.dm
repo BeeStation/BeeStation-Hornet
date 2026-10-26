@@ -68,12 +68,10 @@ SUBSYSTEM_DEF(job)
 	/// Dictionary that maps job priorities to low/medium/high. Keys have to be number-strings as assoc lists cannot be indexed by integers. Set in setup_job_lists.
 	var/list/job_priorities_to_strings
 
-	/// Access only heads of staff start with
-	var/list/head_only_access = list()
 	var/list/datum/skeleton_access/skeleton_rules = list()
-	var/list/skeleton_access_by_job = list()
-	var/list/datum/skeleton_access/ending_skeleton_rules = list()
-	/// integer for each job assigned. Entirely to announce to players, has no code bearing lol
+	/// The skeleton_rules that are on, so GetAccess() doesn't check every rule
+	var/list/datum/skeleton_access/enabled_skeleton_rules = list()
+	/// Bumped each time a card gets a job, so skeleton rules can skip anyone hired after a handover starts
 	var/job_assignment_count = 0
 	var/list/datum/access_grant/acting_head/acting_heads = list()
 
@@ -97,7 +95,6 @@ SUBSYSTEM_DEF(job)
 			crew_obj_jobs["[job]"] += list(type)
 		qdel(obj)
 
-	setup_head_only_access()
 	init_subtypes(/datum/skeleton_access, skeleton_rules)
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
 
@@ -119,10 +116,8 @@ SUBSYSTEM_DEF(job)
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
 
-	head_only_access = SSjob.head_only_access
 	skeleton_rules = SSjob.skeleton_rules
-	skeleton_access_by_job = SSjob.skeleton_access_by_job
-	ending_skeleton_rules = SSjob.ending_skeleton_rules
+	enabled_skeleton_rules = SSjob.enabled_skeleton_rules
 	job_assignment_count = SSjob.job_assignment_count
 	acting_heads = SSjob.acting_heads
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
@@ -492,7 +487,7 @@ SUBSYSTEM_DEF(job)
 
 	//Scale number of open security officer slots to population
 	setup_officer_positions()
-	// Must run before characters are equipped
+	// Before players are in their mobs, so the spawn briefing announces skeleton access instead of each rule
 	refresh_skeleton_access()
 	job_debug("All divide occupations tasks completed.")
 	job_debug("---------------------------------------------------")
@@ -886,13 +881,6 @@ SUBSYSTEM_DEF(job)
 			continue
 		. += head
 
-/datum/controller/subsystem/job/proc/setup_head_only_access()
-	var/list/crew_access = list()
-	for(var/datum/job/job as anything in all_occupations)
-		if(!(job.job_flags & JOB_HEAD_OF_STAFF))
-			crew_access |= job.base_access
-	head_only_access = get_all_accesses() - crew_access
-
 /datum/controller/subsystem/job/proc/on_job_after_latejoin_spawn(datum/source, datum/job/job, mob/living/spawning)
 	SIGNAL_HANDLER
 	refresh_skeleton_access(spawning)
@@ -901,27 +889,7 @@ SUBSYSTEM_DEF(job)
 	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
 		rule.refresh(arrival)
 
-/datum/controller/subsystem/job/proc/update_skeleton_access()
-	skeleton_access_by_job = list()
-	ending_skeleton_rules = list()
-	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
-		if(rule.revoke_timer)
-			ending_skeleton_rules += rule
-	for(var/datum/job/job as anything in all_occupations)
-		var/list/job_access = list()
-		for(var/datum/skeleton_access/rule as anything in skeleton_rules)
-			if(rule.enabled && rule.applies_to(job.title))
-				job_access |= rule.access
-		if(length(job_access))
-			skeleton_access_by_job[job.title] = job_access
-
-/datum/controller/subsystem/job/proc/get_skeleton_rules_for(job_title)
-	. = list()
-	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
-		if(rule.enabled && rule.applies_to(job_title))
-			. += rule
-
-/// Filled job slots. KEEP THIS UNCHANGED if death occurs
+/// Counts filled job slots, so deaths don't lower it
 /datum/controller/subsystem/job/proc/get_crew_count()
 	. = 0
 	for(var/datum/job/job as anything in all_occupations)
