@@ -56,8 +56,6 @@
 			return TRUE
 
 /obj/item/proc/GetAccess()
-	RETURN_TYPE(/list)
-	SHOULD_NOT_SLEEP(TRUE)
 	return list()
 
 /obj/item/proc/GetID()

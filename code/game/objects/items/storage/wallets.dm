@@ -86,10 +86,12 @@
 	return FALSE
 
 /obj/item/storage/wallet/GetAccess()
-	var/list/combined_access = list()
+	if(length(contents) == 1)
+		var/obj/item/card/id/only_card = contents[1]
+		return istype(only_card) ? only_card.GetAccess() : list()
+	. = list()
 	for(var/obj/item/card/id/id_card in contents)
-		combined_access |= id_card.GetAccess()
-	return length(combined_access) ? combined_access : ..()
+		. |= id_card.GetAccess()
 
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"
