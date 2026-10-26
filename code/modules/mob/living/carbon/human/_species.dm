@@ -439,19 +439,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(old_species.type != type)
 		replace_body(C, src)
 
+	//Assigns exotic blood type if the species has one
+	if(exotic_bloodtype)
+		C.set_blood_type(exotic_bloodtype)
+	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
+	else if(old_species.exotic_bloodtype)
+		C.set_blood_type(random_blood_type())
+
 	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)
 	// Update locked slots AFTER all organ and body stuff is handled
 	C.hud_used?.update_locked_slots()
 	// Drop the items the new species can't wear
 	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
-
-	//Assigns exotic blood type if the species has one
-	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
-		C.dna.blood_type = get_blood_type(exotic_bloodtype)
-	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
-	//(why the fuck is blood type not tied to a DNA block?)
-	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
-		C.dna.blood_type = random_blood_type()
 
 	add_body_markings(C)
 
