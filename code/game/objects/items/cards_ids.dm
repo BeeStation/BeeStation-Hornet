@@ -765,6 +765,16 @@
 		return access
 	return access | acting_head.access
 
+/// Departments this card can edit at an ID console, as a region bitflag
+/obj/item/card/id/proc/get_accessible_regions(console_departments)
+	. = NONE
+	var/list/authority = get_authority_access()
+	for(var/datum/department_group/department as anything in SSdepartment.department_datums)
+		if(department.manager_access && (department.manager_access in authority))
+			. |= department.department_bitflags
+	if(console_departments)
+		. &= console_departments
+
 /obj/item/card/id/GetID()
 	return src
 

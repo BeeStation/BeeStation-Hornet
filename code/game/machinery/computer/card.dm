@@ -584,10 +584,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					updateUsrDialog()
 		if ("auth")
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
-				if (check_access_list(inserted_scan_id?.get_authority_access()))
+				var/list/authority = inserted_scan_id?.get_authority_access()
+				if (check_access_list(authority))
 					accessible_region_bitflag = NONE
 					accessible_dept_payment_bitflag = NONE
-					if(ACCESS_CHANGE_IDS in inserted_scan_id.get_authority_access())
+					if(ACCESS_CHANGE_IDS in authority)
 						if(department_bitflag)
 							accessible_region_bitflag |= department_bitflag
 							accessible_dept_payment_bitflag = ALL
@@ -598,21 +599,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 
 					else
-						if((ACCESS_HOP in inserted_scan_id.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
-							accessible_region_bitflag |= DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CIVILIAN | DEPARTMENT_BITFLAG_CARGO
-							accessible_dept_payment_bitflag |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
-						if((ACCESS_HOS in inserted_scan_id.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
-							accessible_region_bitflag |= DEPARTMENT_BITFLAG_SECURITY
-							accessible_dept_payment_bitflag |= ACCOUNT_SEC_BITFLAG
-						if((ACCESS_CMO in inserted_scan_id.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
-							accessible_region_bitflag |= DEPARTMENT_BITFLAG_MEDICAL
-							accessible_dept_payment_bitflag |= ACCOUNT_MED_BITFLAG
-						if((ACCESS_RD in inserted_scan_id.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
-							accessible_region_bitflag |= DEPARTMENT_BITFLAG_SCIENCE
-							accessible_dept_payment_bitflag |= ACCOUNT_SCI_BITFLAG
-						if((ACCESS_CE in inserted_scan_id.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
-							accessible_region_bitflag |= DEPARTMENT_BITFLAG_ENGINEERING
-							accessible_dept_payment_bitflag |= ACCOUNT_ENG_BITFLAG
+						var/regions = inserted_scan_id.get_accessible_regions(department_bitflag)
+						accessible_region_bitflag |= regions
+						for(var/dept_id in get_paycheck_departments(regions))
+							accessible_dept_payment_bitflag |= SSeconomy.get_budget_acc_bitflag(dept_id)
 						if(accessible_region_bitflag)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!inserted_modify_id))
@@ -974,24 +964,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_modify_id.update_label()
 	updateUsrDialog()
 
-/// Departments the inserted ID can manage pay for without logging in
-/obj/machinery/computer/card/proc/get_paycheck_departments()
+/// Budget account ids whose pay the inserted ID can set. Pass regions if you already have them
+/obj/machinery/computer/card/proc/get_paycheck_departments(regions)
 	. = list()
-	if(!inserted_scan_id)
+	if(isnull(regions))
+		regions = inserted_scan_id?.get_accessible_regions(department_bitflag)
+	if(!regions)
 		return
-	var/list/authority = inserted_scan_id.get_authority_access()
-	if((ACCESS_HOP in authority) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
-		. |= ACCOUNT_SRV_ID
-		. |= ACCOUNT_CIV_ID
-		. |= ACCOUNT_CAR_ID //Currently no seperation between service/civillian and supply
-	if((ACCESS_HOS in authority) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
-		. |= ACCOUNT_SEC_ID
-	if((ACCESS_CMO in authority) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
-		. |= ACCOUNT_MED_ID
-	if((ACCESS_RD in authority) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
-		. |= ACCOUNT_SCI_ID
-	if((ACCESS_CE in authority) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
-		. |= ACCOUNT_ENG_ID
+	for(var/datum/department_group/department as anything in SSdepartment.department_datums)
+		if(!department.budget_account_id)
+			continue
+		var/datum/department_group/manager = department
+		if(department.budget_managed_by)
+			manager = SSdepartment.department_datums_by_type[department.budget_managed_by]
+		if(manager.department_bitflags & regions)
+			. |= department.budget_account_id
 
 /obj/machinery/computer/card/proc/can_manage_pay(dept_id)
 	if(!(dept_id in available_paycheck_departments))

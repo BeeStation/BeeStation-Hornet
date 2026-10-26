@@ -38,16 +38,7 @@
 			accessible_region_bitflag |= ALL
 	else
 		minor = TRUE
-		if((ACCESS_HOP in manager_card.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CIVILIAN | DEPARTMENT_BITFLAG_CARGO
-		if((ACCESS_HOS in manager_card.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SECURITY
-		if((ACCESS_CMO in manager_card.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_MEDICAL
-		if((ACCESS_RD in manager_card.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SCIENCE
-		if((ACCESS_CE in manager_card.get_authority_access()) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_ENGINEERING
+		accessible_region_bitflag |= manager_card.get_accessible_regions(department_bitflag)
 
 	if(accessible_region_bitflag)
 		authenticated = TRUE
