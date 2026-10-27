@@ -4,7 +4,7 @@
 	reference https://github.com/exdal/rmd/blob/master/examples/profiles/tgstation.dm
 */
 
-#ifdef __DEMIR_BAKE__
+#if defined(__DEMIR_BAKE__) || defined(CIBUILDING)
 
 #define DEMIR_GROUP_CABLES (1<<0)
 #define DEMIR_GROUP_PIPES (1<<1)
@@ -91,7 +91,7 @@
 	var/power_all = TRUE
 // Lighting settings
 	// Are moveable lights enabled? These are pretty obnoxious in the mapper
-	var/moveable_lights = TRUE
+	var/moveable_lights = FALSE
 
 /datum/demir/hornet/New()
 	..()
