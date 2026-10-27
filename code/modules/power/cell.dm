@@ -259,10 +259,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stock_parts/cell)
 /obj/item/stock_parts/cell/get_part_rating()
 	return rating * maxcharge
 
-/obj/item/stock_parts/cell/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
-	var/obj/item/mod/control/mod = storage_holder
-	return !(istype(mod) && mod.open)
-
 /* Cell variants*/
 /obj/item/stock_parts/cell/empty/Initialize(mapload)
 	. = ..()
