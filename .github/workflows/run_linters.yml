@@ -72,7 +72,6 @@ jobs:
             bash tools/ci/install_spaceman_dmm.sh dreamchecker
             bash tools/ci/install_ripgrep.sh
             tools/bootstrap/python -c ''
-            bash tools/hooks/install.sh
 
       - name: Run grep checks
         if: ${{ !cancelled() }}
