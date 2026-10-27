@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - code_imp: DM will only recompile if the build inputs have changed. In other words,
-      you don't recompile unless you actually changed code.
