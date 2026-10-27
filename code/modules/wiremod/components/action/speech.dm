@@ -27,8 +27,8 @@
 
 /obj/item/circuit_component/speech/populate_options()
     var/list/station_language_names = list()
-    for(var/datum/language/i as anything in GLOB.station_languages)
-        station_language_names += i::name
+    for(var/datum/language/each_language as anything in GLOB.station_languages)
+        station_language_names += each_language::name
     language_option = add_option_port("Language", station_language_names)
 
 /obj/item/circuit_component/speech/input_received(datum/port/input/port)
