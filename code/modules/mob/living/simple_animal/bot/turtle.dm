@@ -50,7 +50,7 @@
 	//Build a pot mask
 	mask = icon('icons/obj/hydroponics/features/pots.dmi', "pot_mask")
 
-/mob/living/simple_animal/bot/update_icon_state()
+/mob/living/simple_animal/bot/turtle/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)]"
 
@@ -141,7 +141,7 @@
 	add_overlay(on_overlay)
 	dispensed_reagent = /datum/reagent/medicine/earthsblood
 
-/mob/living/simple_animal/bot/turtle/insertpai(mob/user, obj/item/pai_card/card)
+/mob/living/simple_animal/bot/turtle/ejectpai(mob/user, announce)
 	. = ..()
 	cut_overlay(on_overlay)
 

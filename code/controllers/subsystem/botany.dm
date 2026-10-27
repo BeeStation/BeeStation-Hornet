@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(botany)
 	var/list/traits = subtypesof(/datum/plant_trait)
 	for(var/datum/plant_trait/trait as anything in traits)
 		var/datum/plant_trait/entry_trait = new trait()
-		if(trait.type == trait.abstract_type)
+		if(entry_trait.type == entry_trait.abstract_type)
 			qdel(entry_trait)
 			continue
 		chapters["Traits"] += entry_trait
@@ -181,7 +181,7 @@ SUBSYSTEM_DEF(botany)
 		var/list/copy_list = random_seeds["[flags]"]
 		unused_random_seeds["[flags]"] = copy_list.Copy()
 	var/seed = pick(unused_random_seeds["[flags]"])
-	unused_random_seeds -= seed
+	unused_random_seeds["[flags]"] -= seed
 	return seed
 
 /datum/controller/subsystem/botany/proc/get_random_need()
@@ -269,6 +269,6 @@ SUBSYSTEM_DEF(botany)
 	var/list/genes = list()
 	SEND_SIGNAL(fruit, COMSIG_PLANT_GET_GENES, genes)
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in genes[PLANT_GENE_INDEX_FEATURES]
-	return fruit_feature?.trait_power
+	return fruit_feature?.trait_power || 1
 
 #undef MAINT_FLORA_COST

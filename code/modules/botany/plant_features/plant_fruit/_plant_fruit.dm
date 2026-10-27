@@ -201,6 +201,8 @@
 	fruits += new_fruit
 	RegisterSignal(new_fruit, COMSIG_QDELETING, PROC_REF(catch_fruit_qdel))
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT, new_fruit) //Used when we're done prepping the fruit and we want to add stuff to it, like reagents
+	if(!parent)
+		return new_fruit
 	SEND_SIGNAL(parent, COMSIG_FRUIT_BUILT_POST, new_fruit, src) //Essentially the same as before, but for things that come after reagents
 	return new_fruit
 
