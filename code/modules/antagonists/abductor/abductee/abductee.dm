@@ -17,10 +17,8 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductee", "Something isn't right with your brain, you feel like there is something you have to do no matter what...")
 
 /datum/antagonist/abductee/proc/give_objective()
-
 	// Give the base objective
 	add_objective(new /datum/objective/abductee())
-
 
 	//pick flavor objective
 	var/datum/objective/abductee/extra_objective
