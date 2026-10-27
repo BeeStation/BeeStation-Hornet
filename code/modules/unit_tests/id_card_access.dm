@@ -212,7 +212,7 @@
 
 	var/obj/item/card/id/withheld_card = allocate(/obj/item/card/id)
 	withheld_card.assign_job(engineer)
-	withheld_card.remove_access(list(ACCESS_CE), "unit test")
+	withheld_card.remove_console_access(list(ACCESS_CE), "unit test")
 	TEST_ASSERT(!(ACCESS_CE in withheld_card.GetAccess()), "Withheld skeleton access still on")
 	TEST_ASSERT(ACCESS_CE in card.GetAccess(), "Withholding affected another card")
 

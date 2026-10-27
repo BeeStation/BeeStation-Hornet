@@ -410,6 +410,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				carddesc += "<b>Assignment:</b> "
 
 				jobs += "<span id='alljobsslot'><a class='idc-badge idc-badge-toggle' href='#' onclick='showAll()'>[target_rank]</a></span>" //CHECK THIS
+				if(inserted_modify_id.acting_head)
+					jobs += " (<a href='byond://?src=[REF(src)];choice=demote'>End appointment</a>)"
 
 			else
 				carddesc += "<b>registered name:</b> [target_owner]"
@@ -623,7 +625,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(access_allowed == 1)
 						inserted_modify_id.add_console_access(list(access_type), "[inserted_scan_id]", usr)
 					else
-						inserted_modify_id.remove_access(list(access_type), "[inserted_scan_id]", usr)
+						inserted_modify_id.remove_console_access(list(access_type), "[inserted_scan_id]", usr)
 					playsound(src, "terminal_type", 50, FALSE)
 					inserted_modify_id.update_label()
 					// Refresh only the access grid :)
@@ -641,9 +643,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
-					inserted_modify_id.clear_temporary_access("unassigned")
-					inserted_modify_id.access -= get_all_accesses()
-					inserted_modify_id.job_title = null
+					inserted_modify_id.unassign_job(user = usr)
 
 					// These lines are to make an individual to an assistant
 					if(B)
@@ -678,7 +678,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 						updateUsrDialog()
 						return
-					inserted_modify_id.assign_job(jobdatum)
+					inserted_modify_id.assign_job(jobdatum, usr)
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment
@@ -729,6 +729,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			inserted_modify_id.assignment = "Demoted"
+			inserted_modify_id.job_title = null
 			log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			inserted_modify_id.sync_manifest()

@@ -185,7 +185,7 @@
 	var/list/access_grants
 	/// Skeleton crew access removed at a console
 	var/list/withheld_skeleton_access
-	/// stored SSjob.job_assignment_count
+	/// SSjob.job_assignment_count when the card got its job
 	var/job_assignment_id = 0
 
 	/// The HUD given to our wearer. Use get_hud_state() to include an acting role
@@ -245,11 +245,8 @@
 /obj/item/card/id/proc/remove_access(list/access_to_remove, source, mob/user)
 	if(isnull(access_to_remove))
 		return FALSE
-	var/list/removed = GetAccess() & access_to_remove
+	var/list/removed = get_non_skeleton_access() & access_to_remove
 	access -= access_to_remove
-	var/list/skeleton_removed = get_skeleton_access() & access_to_remove
-	if(length(skeleton_removed))
-		LAZYOR(withheld_skeleton_access, skeleton_removed)
 	for(var/datum/access_grant/grant as anything in access_grants)
 		grant.access -= access_to_remove
 		if(length(grant.access))
@@ -262,36 +259,89 @@
 		log_access_change(removed, source, user, granting = FALSE)
 	return TRUE
 
-/// grant head-only access temporarily
+/// Head-only access goes on as a temporary grant, the rest permanently
 /obj/item/card/id/proc/add_console_access(list/access_to_add, source, mob/user)
-	LAZYREMOVE(withheld_skeleton_access, access_to_add)
-	var/list/head_only = access_to_add & SSdepartment.get_head_only_access()
-	var/datum/job/own_job = SSjob.get_job(job_title)
-	if(own_job)
-		head_only -= own_job.get_access()
+	var/list/head_only = _get_head_only(access_to_add)
+	var/list/restored = _restore_skeleton_access(access_to_add) | _restore_acting_head_access(head_only, source, user)
+	// Don't edit the caller's list. It can be a department's access list
+	access_to_add = access_to_add - restored
+	head_only -= restored
 	add_access(access_to_add - head_only, source, user)
 	// Skeleton crew and acting head access don't count as held, so the console grant outlives them
 	var/list/temporary = head_only - get_non_skeleton_access(except = acting_head)
 	if(length(temporary))
 		grant_temporary_access(temporary, source, user)
 
-/// Whether assigning this head job only makes the card acting. Goes by the bank account's starting job
+/// Also withholds any skeleton crew access in the list
+/obj/item/card/id/proc/remove_console_access(list/access_to_remove, source, mob/user)
+	// Logged here since withheld skeleton access is gone from GetAccess() before remove_access() runs
+	var/list/removed = GetAccess() & access_to_remove
+	var/list/skeleton_removed = get_skeleton_access() & access_to_remove
+	if(length(skeleton_removed))
+		LAZYOR(withheld_skeleton_access, skeleton_removed)
+	remove_access(access_to_remove, user = user)
+	log_access_change(removed, source, user, granting = FALSE)
+
+/// Stops withholding these skeleton access. Returns the ones skeleton crew rules cover again
+/obj/item/card/id/proc/_restore_skeleton_access(list/access_list)
+	PRIVATE_PROC(TRUE)
+	if(!withheld_skeleton_access)
+		return list()
+	var/list/restored = access_list & withheld_skeleton_access
+	LAZYREMOVE(withheld_skeleton_access, access_list)
+	return restored & get_skeleton_access()
+
+/// Gives the acting head back access its job grants that a console removed. Returns what it gave back
+/obj/item/card/id/proc/_restore_acting_head_access(list/access_list, source, mob/user)
+	PRIVATE_PROC(TRUE)
+	if(!acting_head)
+		return list()
+	var/list/restored = access_list & (acting_head.job.get_access() - acting_head.access)
+	if(length(restored))
+		log_access_change(restored, "[source] (restored to acting [acting_head.job.title] appointment)", user, granting = TRUE)
+		acting_head.access |= restored
+	return restored
+
+/obj/item/card/id/proc/_get_head_only(list/access_list)
+	PRIVATE_PROC(TRUE)
+	. = access_list & SSdepartment.get_head_only_access()
+	var/datum/job/own_job = SSjob.get_job(job_title)
+	if(own_job)
+		. -= own_job.get_access()
+
+/// Whether assigning this head job only makes the card acting. Goes by the bank account's starting job, otherwise the manifest
 /obj/item/card/id/proc/needs_acting_head_for(datum/job/target_job)
 	SHOULD_BE_PURE(TRUE)
 	if(!(target_job.job_flags & JOB_HEAD_OF_STAFF) || target_job.title == job_title)
 		return FALSE
-	return registered_account?.account_job?.type != target_job.type
+	if(registered_account)
+		return registered_account.account_job?.type != target_job.type
+	var/datum/record/crew/record = find_record(registered_name, GLOB.manifest.general)
+	return !record || record.initial_rank != target_job.title
 
 /// Check needs_acting_head_for() first
-/obj/item/card/id/proc/assign_job(datum/job/new_job)
-	clear_temporary_access("reassigned")
-	access -= get_all_accesses()
+/obj/item/card/id/proc/assign_job(datum/job/new_job, mob/user)
+	var/same_job = job_title == new_job.title
+	unassign_job("reassigned", user)
 	access |= new_job.get_access()
-	withheld_skeleton_access = null
-	job_title = new_job.title
-	job_assignment_id = ++SSjob.job_assignment_count
+	// Reprinting the same job isn't a new hire, so it stays covered by any handover
+	if(same_job)
+		job_title = new_job.title
+	else
+		set_job_title(new_job)
 	assignment = new_job.title
 	update_label()
+
+/obj/item/card/id/proc/set_job_title(datum/job/new_job)
+	job_title = new_job.title
+	job_assignment_id = ++SSjob.job_assignment_count
+
+/// Strips job access and temporary access. Callers set the new assignment
+/obj/item/card/id/proc/unassign_job(reason = "unassigned", mob/user)
+	clear_temporary_access(reason, user)
+	access -= get_all_accesses()
+	withheld_skeleton_access = null
+	job_title = null
 
 /// Replaces any current acting role
 /obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
@@ -430,7 +480,7 @@
 		var/text = "[icon2html(get_cached_flat_icon(), listener)] [warning ? span_warning(message) : span_notice(message)]"
 		to_chat(listener, boxed ? examine_block(text) : text)
 
-/// Intended so it escapes the massive fucking wall of text and gets noticed by the player
+/// Waits until roundstart so the roundstart text doesn't bury it
 /obj/item/card/id/proc/queue_spawn_briefing()
 	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(start_spawn_briefing)))
 
@@ -651,10 +701,7 @@
 			role_tip = "[timing]."
 		var/role_text = span_tooltip(role_tip, "Acting [acting_head.job.title]")
 		. += span_notice("<b>Appointment:</b> [acting_head.revoking ? span_warning(role_text) : role_text]")
-	// Acting head access is listed under the appointment
-	var/list/listed_elsewhere = access.Copy()
-	if(acting_head)
-		listed_elsewhere |= acting_head.access
+	var/list/listed_elsewhere = get_authority_access()
 	var/list/entries = list()
 	var/list/entry_ending = list()
 	for(var/datum/access_grant/grant as anything in access_grants)

@@ -115,9 +115,8 @@
 			if(!authenticated)
 				return
 
-			target_id_card.clear_temporary_access("terminated")
-			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
-			target_id_card.job_title = null
+			target_id_card.unassign_job("terminated", usr)
+			target_id_card.access -= get_all_centcom_access()
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
 			target_id_card.sync_manifest()
@@ -175,7 +174,7 @@
 				if(target_id_card.needs_acting_head_for(jobdatum))
 					target_id_card.grant_acting_head(jobdatum, assign_source, usr)
 				else
-					target_id_card.assign_job(jobdatum)
+					target_id_card.assign_job(jobdatum, usr)
 					log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 
 			target_id_card.sync_manifest()
@@ -190,7 +189,7 @@
 				return
 			var/access_source = get_log_source(user_id_card)
 			if(access_type in target_id_card.GetAccess())
-				target_id_card.remove_access(list(access_type), access_source, usr)
+				target_id_card.remove_console_access(list(access_type), access_source, usr)
 			else
 				target_id_card.add_console_access(list(access_type), access_source, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
@@ -204,7 +203,7 @@
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.remove_access(is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses(), get_log_source(user_id_card), usr)
+			target_id_card.remove_console_access(is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses(), get_log_source(user_id_card), usr)
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_grantregion")
@@ -224,7 +223,7 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.remove_access(dept_datum.access_list, get_log_source(user_id_card), usr)
+			target_id_card.remove_console_access(dept_datum.access_list, get_log_source(user_id_card), usr)
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 

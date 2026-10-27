@@ -213,7 +213,6 @@
 		return 0
 	if (player_count > max_pop)
 		return 0
-	// Unlimited, unless we're in a dynamic spawn group
 	if (total_positions == -1 && !dynamic_spawn_group)
 		return -1
 	if (!dynamic_spawn_group)
@@ -474,10 +473,9 @@
 		card.registered_name = equipped.real_name
 		card.assignment = equipped_job.title
 		card.set_hud_icon_on_spawn(equipped_job.title)
-		// Corpses wear job outfits too
+		// Corpses wear job outfits too, and shouldn't get a job or skeleton access
 		if(equipped.mind?.assigned_role == equipped_job)
-			card.job_title = equipped_job.title
-			card.job_assignment_id = ++SSjob.job_assignment_count
+			card.set_job_title(equipped_job)
 			card.queue_spawn_briefing()
 
 		if(equipped.age)
