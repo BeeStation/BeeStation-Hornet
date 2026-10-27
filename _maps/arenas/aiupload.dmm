@@ -2,15 +2,16 @@
 "a" = (
 /turf/open/floor/circuit/green,
 /area/misc/space)
+"d" = (
+/obj/structure/ai_core/deactivated,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/iron/techmaint,
+/area/misc/space)
 "e" = (
 /obj/structure/table/reinforced,
 /obj/item/aicard,
 /obj/item/ai_module/core/freeformcore,
 /obj/machinery/door/window/brigdoor/southright,
-/turf/open/floor/iron/techmaint,
-/area/misc/space)
-"g" = (
-/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/techmaint,
 /area/misc/space)
 "h" = (
@@ -51,6 +52,16 @@
 /obj/machinery/computer,
 /turf/open/floor/circuit/green,
 /area/misc/space)
+"s" = (
+/obj/structure/table/reinforced,
+/obj/item/ai_module/core/full/damaged,
+/obj/item/ai_module/core/full/damaged,
+/obj/item/ai_module/core/full/overlord,
+/obj/item/ai_module/core/full/peacekeeper,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/techmaint,
+/area/misc/space)
 "w" = (
 /obj/effect/temp_visual/ratvar/door/window,
 /turf/open/floor/circuit/green,
@@ -89,26 +100,20 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/misc/space)
-"Q" = (
-/obj/structure/AIcore/deactivated,
+"P" = (
+/obj/structure/ai_core/deactivated,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
 /area/misc/space)
-"R" = (
-/obj/structure/table/reinforced,
-/obj/item/ai_module/ion,
-/obj/item/ai_module/core/full/damaged,
-/obj/item/ai_module/core/full/overthrow,
-/obj/item/ai_module/core/full/peacekeeper,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/techmaint,
-/area/misc/space)
 "T" = (
 /obj/machinery/holopad,
 /turf/open/floor/circuit/green,
+/area/misc/space)
+"U" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/techmaint,
 /area/misc/space)
 "W" = (
 /obj/structure/table/reinforced,
@@ -124,11 +129,6 @@
 /obj/machinery/ai_slipper,
 /turf/open/floor/monotile/steel,
 /area/misc/space)
-"Y" = (
-/obj/structure/AIcore/deactivated,
-/obj/effect/turf_decal/tile/green/half/contrasted,
-/turf/open/floor/iron/techmaint,
-/area/misc/space)
 "Z" = (
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
@@ -139,14 +139,14 @@
 /area/misc/space)
 
 (1,1,1) = {"
-Q
+P
 K
 K
 K
 K
 K
 K
-Q
+P
 "}
 (2,1,1) = {"
 z
@@ -159,14 +159,14 @@ h
 x
 "}
 (3,1,1) = {"
-g
+U
 h
 h
 h
 h
 h
 h
-g
+U
 "}
 (4,1,1) = {"
 x
@@ -206,7 +206,7 @@ a
 a
 a
 a
-R
+s
 "}
 (8,1,1) = {"
 e
@@ -259,14 +259,14 @@ h
 x
 "}
 (13,1,1) = {"
-g
+U
 h
 h
 h
 h
 h
 h
-g
+U
 "}
 (14,1,1) = {"
 C
@@ -279,12 +279,12 @@ h
 x
 "}
 (15,1,1) = {"
-Y
+d
 l
 l
 l
 l
 l
 l
-Y
+d
 "}

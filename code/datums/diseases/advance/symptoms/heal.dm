@@ -46,6 +46,7 @@
 
 /datum/symptom/heal/chem
 	name = "Toxolysis"
+	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
 	stealth = 0
 	resistance = -2
 	stage_speed = 2
@@ -53,10 +54,10 @@
 	level = 6
 	power = 2
 	prefixes = list("Toxo")
-	var/food_conversion = FALSE
-	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
+	required_organ = ORGAN_SLOT_HEART
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
 						<b>Stage Speed 6:</b> Consumed chemicals nourish the host."
+	var/food_conversion = FALSE
 
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
@@ -229,19 +230,20 @@
 
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"
+	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
+		but also causing increased hunger."
 	stealth = -1
 	resistance = -2
 	stage_speed = 2
 	transmission = 1
 	level = 6
+	required_organ = ORGAN_SLOT_STOMACH
 	prefixes = list("Metabolic ", "Junkie's ", "Chemical ")
 	bodies = list("Hunger")
-	var/triple_metabolism = FALSE
-	var/reduced_hunger = FALSE
-	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
-		but also causing increased hunger."
 	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
 						<b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
+	var/triple_metabolism = FALSE
+	var/reduced_hunger = FALSE
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())

@@ -199,7 +199,7 @@
 		attempt_hijack_stage(user)
 
 /obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
-	if(!user.CanReach(src))
+	if(!IsReachableBy(user))
 		return
 	if(!user?.mind?.get_hijack_speed() || !user?.mind?.is_murderbone())
 		to_chat(user, span_warning("You manage to open a user-mode shell on [src], and hundreds of lines of debugging output fly through your vision. It is probably best to leave this alone."))
@@ -751,10 +751,6 @@
 	new /obj/item/pickaxe/emergency(src)
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/storage/toolbox/emergency(src)
-
-/obj/item/storage/pod/attackby(obj/item/W, mob/user, list/modifiers)
-	if (can_interact(user))
-		return ..()
 
 /obj/item/storage/pod/attack_hand(mob/user, list/modifiers)
 	if (can_interact(user))

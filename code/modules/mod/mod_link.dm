@@ -526,6 +526,8 @@ DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 
 /atom/movable/screen/alert/modlink_call/Click(location, control, params)
 	. = ..()
+	if(!.)
+		return
 	if(usr != owner)
 		return
 	var/datum/mod_link/link_caller = link_caller_ref.resolve()

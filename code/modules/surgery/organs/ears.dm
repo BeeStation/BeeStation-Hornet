@@ -72,14 +72,14 @@
 	visual = TRUE
 	bang_protect = -2
 
-/obj/item/organ/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/ears/cat/on_mob_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
 		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
 		ear_owner.update_body()
 
-/obj/item/organ/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/ears/cat/on_mob_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
@@ -92,13 +92,13 @@
 	desc = "The source of a penguin's happy feet."
 	var/datum/component/waddle
 
-/obj/item/organ/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/ears/penguin/on_mob_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
 		waddle = ear_owner.AddComponent(/datum/component/waddling)
 
-/obj/item/organ/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/ears/penguin/on_mob_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner))
 		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
@@ -114,9 +114,6 @@
 	name = "auditory sensors"
 	icon_state = "robotic_ears"
 	desc = "A pair of microphones intended to be installed in an IPC head, that grant the ability to hear."
-	zone = "head"
-	slot = "ears"
-	gender = PLURAL
 	organ_flags = ORGAN_ROBOTIC
 
 /obj/item/organ/ears/robot/emp_act(severity)

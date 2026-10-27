@@ -1,0 +1,11 @@
+/obj/machinery/aug_manipulator : @DELETE
+
+/obj/item/clothing/suit/judgerobe : /obj/item/clothing/suit/costume/judgerobe{@OLD}
+/obj/item/clothing/head/helmet/chaplain/witchunter_hat : /obj/item/clothing/head/helmet/monsterhunter_hat{@OLD}
+/obj/structure/AIcore/deactivated : /obj/structure/ai_core/deactivated{@OLD}
+/obj/item/ai_module/ion : /obj/item/ai_module/core/full/damaged{@OLD}
+/obj/item/ai_module/core/full/overthrow : /obj/item/ai_module/core/full/overlord{@OLD}
+/obj/item/storage/backpack/old : /obj/item/storage/backpack{@OLD}
+/obj/effect/mob_spawn/human/oldsec : /obj/effect/mob_spawn/human/oldstation/sec{@OLD}
+/obj/effect/mob_spawn/human/oldeng : /obj/effect/mob_spawn/human/oldstation/eng{@OLD}
+/obj/effect/mob_spawn/human/oldsci : /obj/effect/mob_spawn/human/oldstation/sci{@OLD}

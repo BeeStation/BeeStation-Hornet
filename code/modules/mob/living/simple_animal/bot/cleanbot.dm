@@ -233,6 +233,7 @@
 			visible_message(span_notice("[src] cleans \the [T]."))
 			target = null
 
+		set_anchored(FALSE)
 		mode = BOT_IDLE
 		icon_state = "cleanbot[on]"
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
@@ -275,6 +276,7 @@
 /mob/living/simple_animal/bot/cleanbot/proc/clean(atom/A)
 	mode = BOT_IDLE
 	icon_state = "cleanbot[on]"
+	set_anchored(FALSE)
 	if(!on)
 		return
 	if(A && isturf(A.loc))
@@ -282,7 +284,6 @@
 		if(istype(AM, /obj/effect/decal/cleanable))
 			for(var/obj/effect/decal/cleanable/C in A.loc)
 				qdel(C)
-	anchored = FALSE
 	target = null
 
 /mob/living/simple_animal/bot/cleanbot/explode()

@@ -48,10 +48,6 @@
 /obj/machinery/light,
 /turf/open/floor/circuit/red,
 /area/ruin/powered)
-"hB" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/iron/tech/grid,
-/area/ruin/powered)
 "iT" = (
 /obj/structure/table/reinforced,
 /obj/item/pai_card{
@@ -78,10 +74,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
-/area/ruin/powered)
-"nN" = (
-/obj/item/plant_tray/pot/random,
-/turf/open/floor/carpet/black,
 /area/ruin/powered)
 "py" = (
 /obj/structure/sign/warning/electric_shock,
@@ -158,12 +150,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
-"vv" = (
-/obj/structure/ai_core{
-	name = "\broken AI core"
-	},
-/turf/open/floor/circuit/red,
-/area/ruin/powered)
 "vX" = (
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/shutters/preopen,
@@ -184,13 +170,6 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/carpet/black,
-/area/ruin/powered)
-"za" = (
-/obj/item/plant_tray/pot/random,
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
 "AP" = (
 /obj/structure/window/reinforced/survival_pod/spawner/directional/east,
@@ -218,6 +197,10 @@
 "Dy" = (
 /obj/item/ammo_casing/c9mm,
 /turf/open/floor/carpet/black,
+/area/ruin/powered)
+"EN" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
 "Fw" = (
 /turf/open/floor/circuit/red/anim,
@@ -288,6 +271,13 @@
 /obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/powered)
+"Nt" = (
+/obj/item/plant_tray/pot/random,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/iron/tech/grid,
+/area/ruin/powered)
 "NP" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
@@ -310,6 +300,10 @@
 	pixel_x = -10
 	},
 /turf/open/floor/iron/tech/grid,
+/area/ruin/powered)
+"PD" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/carpet/black,
 /area/ruin/powered)
 "Qa" = (
 /obj/effect/spawner/random/ruinloot/important,
@@ -340,6 +334,12 @@
 	pixel_y = 3
 	},
 /turf/open/floor/carpet/black,
+/area/ruin/powered)
+"UH" = (
+/obj/structure/ai_core{
+	name = "broken AI core"
+	},
+/turf/open/floor/circuit/red,
 /area/ruin/powered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
@@ -406,11 +406,11 @@ er
 Kx
 MV
 JS
-hB
+EN
 ZS
 JG
 Os
-hB
+EN
 JS
 "}
 (3,1,1) = {"
@@ -520,17 +520,17 @@ JS
 "}
 (10,1,1) = {"
 JS
-vv
+UH
 sx
 tA
 tO
 tO
 KU
-za
+Nt
 SV
 wO
 TP
-nN
+PD
 JS
 "}
 (11,1,1) = {"
