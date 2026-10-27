@@ -55,29 +55,29 @@
 		blob.color = foodload_color
 		. += blob
 
-/obj/item/kitchen/fork/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M))
+/obj/item/kitchen/fork/attack(mob/living/carbon/eating_person, mob/living/carbon/user)
+	if(!istype(eating_person))
 		return ..()
 
 	if(foodload)
-		if(M != user)
-			M.visible_message(span_notice("[user] starts feeding [M] a [bite_word] of food..."), span_userdanger("[user] starts feeding you a [bite_word]..."))
-			if(!do_after(user, 1.5 SECONDS, M, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded)))) // Feeding Others Has A Delay Similar To Self Eating
+		if(eating_person != user)
+			eating_person.visible_message(span_notice("[user] starts feeding [eating_person] a [bite_word] of food..."), span_userdanger("[user] starts feeding you a [bite_word]..."))
+			if(!do_after(user, 1.5 SECONDS, eating_person, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded)))) // Feeding Others Has A Delay Similar To Self Eating
 				return
-		if(M == user)
-			M.visible_message(span_notice("[user] eats a [bite_word] of food!"))
+		if(eating_person == user)
+			eating_person.visible_message(span_notice("[user] eats a [bite_word] of food!"))
 		else
-			M.visible_message(span_notice("[user] feeds [M] a [bite_word] of food!"))
-		playsound(M, eat_sound, 25, TRUE)
-		M.reagents.add_reagent(foodload, 1)
+			eating_person.visible_message(span_notice("[user] feeds [eating_person] a [bite_word] of food!"))
+		playsound(eating_person, eat_sound, 25, TRUE)
+		eating_person.reagents.add_reagent(foodload, 1)
 		foodload = null
 		foodload_color = null
 		update_appearance()
 		return // skip damage when eating
 	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-			M = user
-		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
+			eating_person = user
+		if (eyestab(eating_person, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
 	return ..()
 
