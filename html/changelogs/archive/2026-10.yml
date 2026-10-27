@@ -229,3 +229,8 @@
       a heart.
   - rscadd: Organs removed from a mob that is afflicted with a disease will be infectious
       while handling or transplanting it
+2026-10-26:
+  rkz, melbert:
+  - bugfix: fixes most broken item interactions
+  - bugfix: you will no longer tackle in a direction when in throw mode and shiftclicking/altclicking
+      a turf

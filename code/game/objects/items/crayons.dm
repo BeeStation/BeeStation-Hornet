@@ -264,11 +264,17 @@
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
 	return replacetext(LOWER_TEXT(text), crayon_r, "")
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, list/modifiers)
-	. = ..()
-	if(!proximity || !check_allowed_items(target))
-		return
+/obj/item/toy/crayon/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!check_allowed_items(interacting_with) || !can_use_on(interacting_with, user, modifiers))
+		return NONE
+	use_on(interacting_with, user, modifiers)
+	return ITEM_INTERACT_SUCCESS
 
+/obj/item/toy/crayon/proc/can_use_on(atom/target, mob/user, list/modifiers)
+	return isturf(target) || istype(target, /obj/effect/decal)
+
+/// Attempts to color the target. Returns how many charges were used.
+/obj/item/toy/crayon/proc/use_on(atom/target, mob/user, list/modifiers)
 	if(is_capped)
 		return
 
@@ -505,9 +511,9 @@
 	dye_color = DYE_RAINBOW
 	charges = -1
 
-/obj/item/toy/crayon/rainbow/afterattack(atom/target, mob/user, proximity, list/modifiers)
+/obj/item/toy/crayon/rainbow/use_on(atom/target, mob/user, list/modifiers)
 	set_painting_tool_color(rgb(rand(0,255), rand(0,255), rand(0,255)))
-	. = ..()
+	return ..()
 
 /*
  * Crayon Box
@@ -522,7 +528,7 @@
 	custom_price = 15
 
 /obj/item/storage/crayons/Initialize(mapload)
-	create_storage(canhold = list(/obj/item/toy/crayon))
+	create_storage(canhold = list(/obj/item/toy/crayon), canthold = list(/obj/item/toy/crayon/spraycan, /obj/item/toy/crayon/mime, /obj/item/toy/crayon/rainbow))
 	return ..()
 
 /obj/item/storage/crayons/PopulateContents()
@@ -539,21 +545,6 @@
 	. = ..()
 	for(var/obj/item/toy/crayon/crayon in contents)
 		. += mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color)
-
-/obj/item/storage/crayons/attackby(obj/item/W, mob/user, list/modifiers)
-	if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
-		switch(C.crayon_color)
-			if("mime")
-				to_chat(usr, "This crayon is too sad to be contained in this box.")
-				return
-			if("rainbow")
-				to_chat(usr, "This crayon is too powerful to be contained in this box.")
-				return
-		if(istype(W, /obj/item/toy/crayon/spraycan))
-			to_chat(user, "Spraycans are not crayons.")
-			return
-	return ..()
 
 /obj/item/storage/crayons/attack_self(mob/user)
 	. = ..()
@@ -685,13 +676,17 @@
 	else if(isValidSurface(target))
 		context.add_left_click_action("Draw [drawtype]")
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, list/modifiers)
-	if(!proximity)
-		return ..()
+/obj/item/toy/crayon/spraycan/can_use_on(atom/target, mob/user, list/modifiers)
+	if(iscarbon(target))
+		return TRUE
+	if(is_capped && (is_type_in_typecache(target, spraycan_touch_normally) || HAS_TRAIT(target, TRAIT_COMBAT_MODE_SKIP_INTERACTION)))
+		return FALSE
+	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
+		return TRUE
+	return ..()
 
+/obj/item/toy/crayon/spraycan/use_on(atom/target, mob/user, list/modifiers)
 	if(is_capped)
-		if(is_type_in_typecache(target, spraycan_touch_normally) || target.atom_storage)
-			return ..()
 		balloon_alert(user, "take the cap off first!")
 		return
 
@@ -763,24 +758,21 @@
 
 	. = ..()
 
-/obj/item/toy/crayon/spraycan/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
-	return is_capped
-
 /obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = is_capped ? icon_capped : icon_uncapped
 	return ..()
 
-/obj/item/toy/crayon/spraycan/afterattack_secondary(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+/obj/item/toy/crayon/spraycan/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(is_capped)
+		if(!interacting_with.color)
+			return NONE
 		balloon_alert(user, "take the cap off first!")
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		return ITEM_INTERACT_BLOCKING
 	if(check_empty(user))
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		return ITEM_INTERACT_BLOCKING
 
-	if(isbodypart(target) && actually_paints)
-		var/obj/item/bodypart/limb = target
+	if(isbodypart(interacting_with) && actually_paints)
+		var/obj/item/bodypart/limb = interacting_with
 		if(!IS_ORGANIC_LIMB(limb))
 			var/list/skins = list()
 			var/static/list/style_list_icons = list(
@@ -798,16 +790,14 @@
 			if(choice && (use_charges(user, 5, requires_full = FALSE) == 5))
 				playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 				limb.change_appearance(style_list_icons[choice], greyscale = FALSE)
-			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	if(target.color)
-		paint_color = target.color
-		to_chat(user, span_notice("You adjust the color of [src] to match [target]."))
+			return ITEM_INTERACT_SUCCESS
+	if(interacting_with.color)
+		paint_color = interacting_with.color
+		to_chat(user, span_notice("You adjust the color of [src] to match [interacting_with]."))
 		update_appearance()
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	else
-		to_chat(user, span_warning("[target] is not colorful enough, you can't match that color!"))
-
-	return SECONDARY_ATTACK_CONTINUE_CHAIN
+		return ITEM_INTERACT_BLOCKING
+	to_chat(user, span_warning("[interacting_with] is not colorful enough, you can't match that color!"))
+	return ITEM_INTERACT_BLOCKING
 
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
@@ -821,7 +811,7 @@
 	desc = "A metallic container containing shiny synthesised paint."
 	charges = -1
 
-/obj/item/toy/crayon/spraycan/borg/afterattack(atom/target,mob/user,proximity, list/modifiers)
+/obj/item/toy/crayon/spraycan/borg/use_on(atom/target, mob/user, list/modifiers)
 	var/diff = ..()
 	if(!iscyborg(user))
 		to_chat(user, span_notice("How did you get this?"))
