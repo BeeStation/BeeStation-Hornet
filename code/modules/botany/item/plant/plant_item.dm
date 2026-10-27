@@ -3,7 +3,6 @@
 	desc = "A little bit of nature, mostly stationary."
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = ""
-	flags_1 = IS_ONTOP_1
 	appearance_flags = TILE_BOUND | LONG_GLIDE | KEEP_APART | KEEP_TOGETHER
 	interaction_flags_item = NONE
 	layer = OBJ_LAYER
@@ -16,6 +15,7 @@
 	. = ..()
 	name = _plant_name || name
 	AddComponent(/datum/component/plant, src, _plant_features, _species_id, skip_growth)
+	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, INNATE_TRAIT)
 
 /obj/item/plant/attack_hand(mob/user, modifiers)
 	. = ..()
@@ -26,9 +26,6 @@
 	if(!isliving(user))
 		return
 	context.add_left_click_item_action("Move", /obj/item/shovel)
-
-/obj/item/plant/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
-	return FALSE
 
 /obj/item/plant/apply_outline(colour)
 	return

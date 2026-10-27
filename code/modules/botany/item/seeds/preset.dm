@@ -238,7 +238,7 @@
 /obj/item/plant_seeds/preset/liberty
 	name = "liberty-cap spores"
 	name_override = "liberty-cap mushroom"
-	name_override = "mycelium-liberty"
+	icon_state = "mycelium-liberty"
 	plant_features = list(/datum/plant_feature/roots/hyphae, /datum/plant_feature/body/mushroom, /datum/plant_feature/fruit/mushroom/liberty)
 
 //Plump
