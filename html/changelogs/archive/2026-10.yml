@@ -238,3 +238,6 @@
   mrmanlikesbt:
   - code_imp: DM will only recompile if the build inputs have changed. In other words,
       you don't recompile unless you actually changed code.
+2026-10-28:
+  Tsar-Salat:
+  - bugfix: fixes goliath pushing exploit
