@@ -122,23 +122,18 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = FALSE
-	var/datum/callback/get_mover
-	var/datum/callback/check_on_move
 
 /obj/item/organ/cyberimp/chest/thrusters/Initialize(mapload)
 	. = ..()
-	get_mover = CALLBACK(src, .proc/get_user)
-	check_on_move = CALLBACK(src, .proc/allow_thrust, 0.01)
-	refresh_jetpack()
-
-/obj/item/organ/cyberimp/chest/thrusters/Destroy()
-	get_mover = null
-	check_on_move = null
-	return ..()
-
-
-/obj/item/organ/cyberimp/chest/thrusters/proc/refresh_jetpack()
-	AddComponent(/datum/component/jetpack, FALSE, COMSIG_THRUSTER_ACTIVATED, COMSIG_THRUSTER_DEACTIVATED, THRUSTER_ACTIVATION_FAILED, get_mover, check_on_move, /datum/effect_system/trail_follow/ion)
+	AddComponent( \
+		/datum/component/jetpack, \
+		FALSE, \
+		COMSIG_THRUSTER_ACTIVATED, \
+		COMSIG_THRUSTER_DEACTIVATED, \
+		THRUSTER_ACTIVATION_FAILED, \
+		CALLBACK(src, PROC_REF(allow_thrust), 0.01), \
+		/datum/effect_system/trail_follow/ion \
+	)
 
 /obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special, movement_flags)
 	if(on)
@@ -161,7 +156,7 @@
 		if(!silent)
 			to_chat(owner, span_warning("Your thrusters set seems to be broken!"))
 		return
-	if(SEND_SIGNAL(src, COMSIG_THRUSTER_ACTIVATED) & THRUSTER_ACTIVATION_FAILED)
+	if(SEND_SIGNAL(src, COMSIG_THRUSTER_ACTIVATED, owner) & THRUSTER_ACTIVATION_FAILED)
 		return
 
 	on = TRUE
@@ -173,7 +168,7 @@
 /obj/item/organ/cyberimp/chest/thrusters/proc/deactivate(silent = FALSE)
 	if(!on)
 		return
-	SEND_SIGNAL(src, COMSIG_THRUSTER_DEACTIVATED)
+	SEND_SIGNAL(src, COMSIG_THRUSTER_DEACTIVATED, owner)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/cybernetic)
 	if(!silent)
 		to_chat(owner, span_notice("You turn your thrusters set off."))
@@ -216,6 +211,3 @@
 
 	deactivate(silent = TRUE)
 	return FALSE
-
-/obj/item/organ/cyberimp/chest/thrusters/proc/get_user()
-	return owner

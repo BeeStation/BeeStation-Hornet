@@ -10,26 +10,40 @@
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/gas_type = /datum/gas/oxygen
 	var/on = FALSE
-	var/stabilizers = FALSE
 	var/full_speed = TRUE // If the jetpack will have a speedboost in space/nograv or not
-	var/datum/callback/get_mover
-	var/datum/callback/check_on_move
+	var/stabilize = FALSE
+	var/thrust_callback
 	var/use_ion_trail = TRUE
 
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob, ITEM_SLOT_SUITSTORE)
 	if(use_ion_trail)
-		get_mover = CALLBACK(src, .proc/get_user)
-		check_on_move = CALLBACK(src, .proc/allow_thrust, 0.01)
-		refresh_jetpack()
+		thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.01)
+	configure_jetpack(stabilize)
 
 /obj/item/tank/jetpack/Destroy()
-	get_mover = null
-	check_on_move = null
+	thrust_callback = null
 	return ..()
 
-/obj/item/tank/jetpack/proc/refresh_jetpack()
-	AddComponent(/datum/component/jetpack, stabilizers, COMSIG_JETPACK_ACTIVATED, COMSIG_JETPACK_DEACTIVATED, JETPACK_ACTIVATION_FAILED, get_mover, check_on_move, /datum/effect_system/trail_follow/ion)
+/**
+ * configures/re-configures the jetpack component
+ *
+ * Arguments
+ * stabilize - Should this jetpack be stabalized
+ */
+/obj/item/tank/jetpack/proc/configure_jetpack(stabilize)
+	src.stabilize = stabilize
+
+	AddComponent( \
+		/datum/component/jetpack, \
+		src.stabilize, \
+		COMSIG_JETPACK_ACTIVATED, \
+		COMSIG_JETPACK_DEACTIVATED, \
+		JETPACK_ACTIVATION_FAILED, \
+		thrust_callback, \
+		/datum/effect_system/trail_follow/ion \
+	)
 
 /obj/item/tank/jetpack/item_action_slot_check(slot)
 	if(slot & slot_flags)
@@ -55,8 +69,8 @@
 		cycle(user)
 	else if(istype(action, /datum/action/item_action/jetpack_stabilization))
 		if(on)
-			set_stabilizers(!stabilizers)
-			to_chat(user, span_notice("You turn the jetpack stabilization [stabilizers ? "on" : "off"]."))
+			configure_jetpack(!stabilize)
+			to_chat(user, span_notice("You turn the jetpack stabilization [stabilize ? "on" : "off"]."))
 	else
 		toggle_internals(user)
 
@@ -73,6 +87,7 @@
 	else
 		turn_off(user)
 		to_chat(user, span_notice("You turn the jetpack off."))
+
 	update_action_buttons()
 
 /obj/item/tank/jetpack/equipped(mob/user, slot)
@@ -114,17 +129,9 @@
 	UnregisterSignal(known_user, COMSIG_QDELETING)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE)
 
-/obj/item/tank/jetpack/proc/set_stabilizers(new_stabilizers)
-	if(new_stabilizers == stabilizers)
-		return
-	stabilizers = new_stabilizers
-	refresh_jetpack()
-
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
-	if(!known_user)
+	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED, user) & JETPACK_ACTIVATION_FAILED)
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED) & JETPACK_ACTIVATION_FAILED)
-		return
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
 	if(full_speed)
@@ -132,20 +139,19 @@
 	return TRUE
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
-	if(!known_user)
-		return
-	SEND_SIGNAL(src, COMSIG_JETPACK_DEACTIVATED)
+	SEND_SIGNAL(src, COMSIG_JETPACK_DEACTIVATED, user)
 	on = FALSE
-	set_stabilizers(FALSE)
 	icon_state = initial(icon_state)
 	if(user)
 		known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, use_fuel = TRUE)
-	if(!known_user)
-		return
+	if(!ismob(loc))
+		return FALSE
+	var/mob/user = loc
+
 	if((num < 0.005 || num > THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
-		turn_off(get_user())
+		turn_off(user)
 		return FALSE
 
 	// We've got the gas, it's chill
@@ -155,12 +161,6 @@
 	remove_air(num)
 
 	return TRUE
-
-// Gives the jetpack component the user it expects
-/obj/item/tank/jetpack/proc/get_user()
-	if(!ismob(loc))
-		return null
-	return loc
 
 /obj/item/tank/jetpack/suicide_act(mob/living/user)
 	if (!ishuman(user))
@@ -181,9 +181,9 @@
 	full_speed = FALSE //moves at hardsuit jetpack speeds
 
 /obj/item/tank/jetpack/improvised/allow_thrust(num)
-	var/mob/user = get_user()
-	if(!user)
+	if(!ismob(loc))
 		return FALSE
+	var/mob/user = loc
 	if(rand(0,250) == 0)
 		to_chat(user, span_notice("You feel your jetpack's engines cut out."))
 		turn_off(user)
