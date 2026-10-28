@@ -33,8 +33,9 @@
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(before_move))
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(after_move))
 	RegisterSignal(drifting_loop, COMSIG_QDELETING, PROC_REF(loop_death))
+	RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, PROC_REF(newtonian_impulse))
 	if(drifting_loop.status & MOVELOOP_STATUS_RUNNING)
-		RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, PROC_REF(newtonian_impulse)) // There's a good chance it'll autostart, gotta catch that
+		drifting_start(drifting_loop) // There's a good chance it'll autostart, gotta catch that
 
 	var/visual_delay = movable_parent.inertia_move_delay
 
@@ -76,7 +77,8 @@
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
-	drifting_loop.direction = inertia_direction
+	if(drifting_loop)
+		drifting_loop.direction = inertia_direction
 	if(!inertia_direction)
 		qdel(src)
 	return COMPONENT_MOVABLE_NEWTONIAN_BLOCK
@@ -86,19 +88,18 @@
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
 	RegisterSignal(movable_parent, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
-	RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, PROC_REF(newtonian_impulse))
 	// We will use glide size to intuit how long to delay our loop's next move for
 	// This way you can't ride two movements at once while drifting, since that'd be dumb as fuck
-	RegisterSignal(movable_parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, .proc/handle_glidesize_update)
+	RegisterSignal(movable_parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(handle_glidesize_update))
 	// If you stop pulling something mid drift, I want it to retain that momentum
-	RegisterSignal(movable_parent, COMSIG_ATOM_NO_LONGER_PULLING, .proc/stopped_pulling)
+	RegisterSignal(movable_parent, COMSIG_ATOM_NO_LONGER_PULLING, PROC_REF(stopped_pulling))
 
 /datum/component/drift/proc/drifting_stop()
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
 	ignore_next_glide = FALSE
-	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_NEWTONIAN_MOVE, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, COMSIG_ATOM_NO_LONGER_PULLING))
+	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, COMSIG_ATOM_NO_LONGER_PULLING))
 
 /datum/component/drift/proc/before_move(datum/source)
 	SIGNAL_HANDLER
@@ -130,7 +131,6 @@
 /datum/component/drift/proc/loop_death(datum/source)
 	SIGNAL_HANDLER
 	drifting_loop = null
-	UnregisterSignal(parent, COMSIG_MOVABLE_NEWTONIAN_MOVE)
 
 /datum/component/drift/proc/handle_move(datum/source, old_loc)
 	SIGNAL_HANDLER

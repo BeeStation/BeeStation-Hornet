@@ -23,4 +23,5 @@
 			action.unset_click_ability(src)
 
 	clear_important_client_contents(client)
+	canon_client = null
 	return TRUE

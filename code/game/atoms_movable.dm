@@ -561,8 +561,9 @@
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
-				//if(client_mobs_in_contents)
-				//	update_parallax_contents()
+			// We're done moving, update our parallax now
+			for(var/mob/client_mob as anything in important_recursive_contents?[RECURSIVE_CONTENTS_CLIENT_MOBS])
+				SSparallax.update_client_parallax(client_mob.client)
 			moving_diagonally = 0
 			return
 
@@ -582,7 +583,6 @@
 				pulling.Move(current_turf, get_dir(pulling, current_turf), glide_size) //the pullee tries to reach our previous position
 				pulling.moving_from_pull = null
 			check_pulling()
-
 
 	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
 	//This means that if you don't override it late like this, it will just be set back by the movement update that's called when you move turfs.
