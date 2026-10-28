@@ -254,9 +254,9 @@
 
 	switch(var_name)
 		if(NAMEOF(src, x))
-			var/turf/T = locate(var_value, y, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(var_value, y, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, y))

@@ -112,7 +112,8 @@
 		log_admin("[key_name(usr)] teleported [key_name(src)] to nullspace")
 		moveToNullspace()
 	else
-		log_admin("[key_name(usr)] teleported [key_name(src)] to [AREACOORD(loc)]")
+		var/turf/location = get_turf(new_location)
+		log_admin("[key_name(usr)] teleported [key_name(src)] to [AREACOORD(location)]")
 		forceMove(new_location)
 
 /mob/admin_teleport(atom/new_location)
