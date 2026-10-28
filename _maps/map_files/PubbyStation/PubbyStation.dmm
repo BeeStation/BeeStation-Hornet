@@ -108,8 +108,8 @@
 /area/station/cargo/office)
 "abG" = (
 /obj/structure/table/wood,
-/obj/item/pen,
 /obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/carpet,
 /area/station/command/heads_quarters/captain)
 "abI" = (
@@ -12514,7 +12514,7 @@
 /obj/item/clothing/suit/chaplainsuit/nun,
 /obj/machinery/button/door{
 	id = "Cell1";
-	name = "Cell Bolt Control";
+	name = "Dorm Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	specialfunctions = 4
@@ -56262,7 +56262,7 @@
 /obj/item/clothing/suit/chaplainsuit/nun,
 /obj/machinery/button/door{
 	id = "Cell2";
-	name = "Cell Bolt Control";
+	name = "Dorm Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	specialfunctions = 4
