@@ -229,3 +229,12 @@
       a heart.
   - rscadd: Organs removed from a mob that is afflicted with a disease will be infectious
       while handling or transplanting it
+2026-10-26:
+  rkz, melbert:
+  - bugfix: fixes most broken item interactions
+  - bugfix: you will no longer tackle in a direction when in throw mode and shiftclicking/altclicking
+      a turf
+2026-10-27:
+  mrmanlikesbt:
+  - code_imp: DM will only recompile if the build inputs have changed. In other words,
+      you don't recompile unless you actually changed code.
