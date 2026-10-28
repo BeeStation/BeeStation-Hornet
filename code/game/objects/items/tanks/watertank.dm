@@ -566,7 +566,8 @@
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
 
-/obj/effect/resin_container/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+// Please don't spacedrift thanks
+/obj/effect/resin_container/newtonian_move(direction, instant = FALSE, start_delay = 0)
 	return TRUE
 
 /obj/effect/resin_container/chainreact
