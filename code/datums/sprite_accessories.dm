@@ -58,7 +58,6 @@
 	var/color_src = MUTANT_COLOR	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR_COLOR, FACIAL_HAIR_COLOR, EYECOLOR and 0 if none.
 	/// Alpha applied to the overlay when rendered on a mob. 255 = fully opaque.
 	var/overlay_alpha = 255
-	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
 	/// The width of the sprite in pixels. Used to center it if necessary.
 	var/dimension_x = 32
@@ -2388,7 +2387,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	emissive_layers = list(EXTERNAL_FRONT)
 
 /datum/sprite_accessory/ears
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/cat_features.dmi'
 
 /datum/sprite_accessory/ears/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2397,7 +2396,6 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
-	hasinner = 1
 	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/wings/none
