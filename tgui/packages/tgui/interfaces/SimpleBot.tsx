@@ -220,39 +220,56 @@ const THRESHOLD_STYLE = {
  * Calls the helper to identify which button to use.
  */
 const ControlsDisplay = (_) => {
-  const { data } = useBackend<SimpleBotContext>();
+  const { act, data } = useBackend<SimpleBotContext>();
   const { custom_controls } = data;
   const entries = Object.entries(custom_controls);
+  const types = custom_controls['heal_types'] as unknown as Record<
+    string,
+    boolean
+  >;
   const thresholds = entries.filter(([key]) =>
     key.startsWith('heal_threshold_'),
   );
-  const others = entries.filter(([key]) => !key.startsWith('heal_threshold_'));
+  const others = entries.filter(
+    ([key]) => !key.startsWith('heal_threshold_') && key !== 'heal_types',
+  );
 
   return (
     <>
       {thresholds.length > 0 && (
         <Section title="Healing Threshold">
           <LabeledControls>
-            {thresholds.map((control, i) => (
-              <Fragment key={control[0]}>
-                {i > 0 && (
-                  <LabeledControls.Item label={'\u00a0'}>
-                    <Box bold color="label">
-                      OR
-                    </Box>
+            {thresholds.map((control, i) => {
+              const damageType = control[0].replace('heal_threshold_', '');
+              const style = THRESHOLD_STYLE[control[0]];
+              return (
+                <Fragment key={control[0]}>
+                  {i > 0 && (
+                    <LabeledControls.Item label={'\u00a0'}>
+                      <Box bold color="label">
+                        OR
+                      </Box>
+                    </LabeledControls.Item>
+                  )}
+                  <LabeledControls.Item
+                    label={
+                      <Button
+                        compact
+                        color={types?.[damageType] ? 'green' : 'red'}
+                        tooltip="Toggle checking this damage type."
+                        onClick={() =>
+                          act('heal_type', { damage_type: damageType })
+                        }
+                      >
+                        {style.label}
+                      </Button>
+                    }
+                  >
+                    <ControlHelper control={control} />
                   </LabeledControls.Item>
-                )}
-                <LabeledControls.Item
-                  label={
-                    <Box color={THRESHOLD_STYLE[control[0]].color}>
-                      {THRESHOLD_STYLE[control[0]].label}
-                    </Box>
-                  }
-                >
-                  <ControlHelper control={control} />
-                </LabeledControls.Item>
-              </Fragment>
-            ))}
+                </Fragment>
+              );
+            })}
           </LabeledControls>
         </Section>
       )}
@@ -354,7 +371,7 @@ const MedbotThreshold = (props) => {
     >
       <Slider
         width="50px"
-        minValue={0}
+        minValue={10}
         maxValue={100}
         ranges={{
           [style.dim]: [-Infinity, 50],
@@ -363,7 +380,10 @@ const MedbotThreshold = (props) => {
         step={5}
         value={control[1]}
         onChange={(_, value) =>
-          act('heal_threshold', { damage_type: damageType, threshold: value })
+          act('heal_threshold_type', {
+            damage_type: damageType,
+            threshold: value,
+          })
         }
       />
     </Tooltip>
