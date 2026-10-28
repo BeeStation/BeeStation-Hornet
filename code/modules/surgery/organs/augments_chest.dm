@@ -186,6 +186,7 @@
 	var/turf/T = get_turf(owner)
 	if(!T) // No more runtimes from being stuck in nullspace.
 		return FALSE
+		
 	if((owner.movement_type & (FLOATING|FLYING)) && owner.has_gravity())
 		return FALSE
 	// Priority 1: use air from environment.
@@ -207,6 +208,9 @@
 			return TRUE
 		var/datum/gas_mixture/removed = internal_mix.remove(num)
 		if(removed.total_moles() > 0.005)
+			T.assume_air(removed)
+			return TRUE
+		else
 			T.assume_air(removed)
 
 	deactivate(silent = TRUE)

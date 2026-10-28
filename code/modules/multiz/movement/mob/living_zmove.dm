@@ -25,7 +25,7 @@
 		return MOVETYPE_FLOAT
 	else if(movement_type & FLYING)
 		return MOVETYPE_FLY
-	else if(has_jetpack_power(TRUE, THRUST_REQUIREMENT_GRAVITY * (upwards ? 2 : 0.5), require_stabilization = FALSE, use_fuel = !pre_move))
+	else if(has_jetpack_power(THRUST_REQUIREMENT_GRAVITY * (upwards ? 2 : 0.5), use_fuel = !pre_move))
 		return MOVETYPE_JETPACK
 	else if(can_climb)
 		return MOVETYPE_CLIMB

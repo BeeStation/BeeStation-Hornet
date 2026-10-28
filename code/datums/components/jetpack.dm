@@ -72,6 +72,8 @@
 /datum/component/jetpack/proc/setup_trail(mob/user)
 	if(trail)
 		QDEL_NULL(trail)
+	if(!effect_type)
+		return
 
 	trail = new effect_type
 	trail.auto_process = FALSE
@@ -116,7 +118,7 @@
 		return
 	if(user.throwing)//You don't must use jet if you thrown
 		return
-	if(length(user.client.keys_held & user.client.movement_keys))//You use jet when press keys. yes.
+	if(length(user.client.keys_held & SSinput.movement_keys))//You use jet when press keys. yes.
 		thrust()
 
 /datum/component/jetpack/proc/pre_move_react(mob/user)
@@ -138,7 +140,7 @@
 /datum/component/jetpack/proc/thrust()
 	if(!check_on_move.Invoke(TRUE))
 		return FALSE
-	trail.generate_effect()
+	trail?.generate_effect()
 	return TRUE
 
 /// Basically, tell the drift component not to do its starting visuals, because they look dumb for us

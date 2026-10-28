@@ -18,8 +18,7 @@
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob, ITEM_SLOT_SUITSTORE)
-	if(use_ion_trail)
-		thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.01)
+	thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.01)
 	configure_jetpack(stabilize)
 
 /obj/item/tank/jetpack/Destroy()
@@ -42,7 +41,7 @@
 		COMSIG_JETPACK_DEACTIVATED, \
 		JETPACK_ACTIVATION_FAILED, \
 		thrust_callback, \
-		/datum/effect_system/trail_follow/ion \
+		use_ion_trail ? /datum/effect_system/trail_follow/ion : null \
 	)
 
 /obj/item/tank/jetpack/item_action_slot_check(slot)
@@ -90,45 +89,6 @@
 
 	update_action_buttons()
 
-/obj/item/tank/jetpack/equipped(mob/user, slot)
-	..()
-	if(slot_flags & slot)
-		update_known_user(user)
-	else
-		lose_known_user()
-
-/obj/item/tank/jetpack/dropped(mob/user)
-	..()
-	lose_known_user()
-
-// Sets our known user to user, letting them use the jetpack.
-/obj/item/tank/jetpack/proc/update_known_user(mob/user)
-	if(user == known_user)
-		return
-	if(known_user)
-		lose_known_user()
-	known_user = user
-	if(known_user)
-		on_user_add()
-
-/obj/item/tank/jetpack/proc/on_user_add()
-	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
-	RegisterSignal(known_user, COMSIG_QDELETING, PROC_REF(lose_known_user))
-	RegisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
-
-/// Resets our current user, preventing them from using the jetpack.
-/obj/item/tank/jetpack/proc/lose_known_user()
-	SIGNAL_HANDLER
-	if(known_user)
-		on_user_loss()
-	known_user = null
-
-/obj/item/tank/jetpack/proc/on_user_loss()
-	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
-	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(known_user, COMSIG_QDELETING)
-	UnregisterSignal(known_user, COMSIG_MOVABLE_SPACEMOVE)
-
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED, user) & JETPACK_ACTIVATION_FAILED)
 		return FALSE
@@ -143,7 +103,7 @@
 	on = FALSE
 	icon_state = initial(icon_state)
 	if(user)
-		known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!ismob(loc))
@@ -246,6 +206,8 @@
 	var/obj/emitter/left_emitter
 	var/obj/emitter/right_emitter
 	var/tilt_timer = 0
+	/// The mob the flame emitters are attached to while we're on
+	var/mob/jet_user
 
 /obj/item/tank/jetpack/combustion/Initialize(mapload)
 	. = ..()
@@ -254,38 +216,30 @@
 	left_emitter = new /obj/emitter/fire_jet/left
 	right_emitter = new /obj/emitter/fire_jet/right
 
-/obj/item/tank/jetpack/combustion/on_user_add()
-	..()
-	on_user_dir_change(null, null, known_user.dir)
-	RegisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_user_dir_change))
-
-/obj/item/tank/jetpack/combustion/on_user_loss()
-	..()
-	single_left_emitter.vis_locs -= known_user
-	single_right_emitter.vis_locs -= known_user
-	left_emitter.vis_locs -= known_user
-	right_emitter.vis_locs -= known_user
-	UnregisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE)
+/obj/item/tank/jetpack/combustion/Destroy()
+	if(jet_user)
+		turn_off(jet_user)
+	return ..()
 
 /obj/item/tank/jetpack/combustion/proc/on_user_dir_change(atom/thing, old_dir, new_dir)
 	SIGNAL_HANDLER
 	if(new_dir == old_dir)
 		return
 	if(new_dir == EAST)
-		single_left_emitter.vis_locs |= known_user
-		single_right_emitter.vis_locs -= known_user
-		left_emitter.vis_locs -= known_user
-		right_emitter.vis_locs -= known_user
+		single_left_emitter.vis_locs |= thing
+		single_right_emitter.vis_locs -= thing
+		left_emitter.vis_locs -= thing
+		right_emitter.vis_locs -= thing
 	else if(new_dir == WEST)
-		single_left_emitter.vis_locs -= known_user
-		single_right_emitter.vis_locs |= known_user
-		left_emitter.vis_locs -= known_user
-		right_emitter.vis_locs -= known_user
+		single_left_emitter.vis_locs -= thing
+		single_right_emitter.vis_locs |= thing
+		left_emitter.vis_locs -= thing
+		right_emitter.vis_locs -= thing
 	else if(new_dir == NORTH || new_dir == SOUTH)
-		single_left_emitter.vis_locs -= known_user
-		single_right_emitter.vis_locs -= known_user
-		left_emitter.vis_locs |= known_user
-		right_emitter.vis_locs |= known_user
+		single_left_emitter.vis_locs -= thing
+		single_right_emitter.vis_locs -= thing
+		left_emitter.vis_locs |= thing
+		right_emitter.vis_locs |= thing
 	if(new_dir == SOUTH)
 		single_left_emitter.layer = BELOW_MOB_LAYER
 		single_right_emitter.layer = BELOW_MOB_LAYER
@@ -328,36 +282,44 @@
 	right_emitter.particles.lifespan = lifespan
 
 /obj/item/tank/jetpack/combustion/turn_on(mob/user)
-	..()
-	if(!known_user)
+	. = ..()
+	if(!.)
 		return
+	jet_user = user
+	on_user_dir_change(user, null, user.dir)
+	RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_user_dir_change))
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_moved))
 	update_particle_counts(100)
 	update_fade(100)
 	update_lifespan(3)
 
 /obj/item/tank/jetpack/combustion/turn_off(mob/user)
 	..()
-	if(!known_user)
-		return
 	update_particle_counts(0)
-
-/obj/item/tank/jetpack/combustion/move_react(mob/user)
-	..()
-	if(!on)
+	if(!jet_user)
 		return
-	var/turf/user_loc = get_turf(known_user)
+	single_left_emitter.vis_locs -= jet_user
+	single_right_emitter.vis_locs -= jet_user
+	left_emitter.vis_locs -= jet_user
+	right_emitter.vis_locs -= jet_user
+	UnregisterSignal(jet_user, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_MOVABLE_MOVED))
+	jet_user = null
+
+/obj/item/tank/jetpack/combustion/proc/on_user_moved(mob/user)
+	SIGNAL_HANDLER
+	var/turf/user_loc = get_turf(user)
 	if(!isopenspace(user_loc))
 		update_fade(100)
 		update_lifespan(3)
-		update_particle_counts(on ? 100 : 0)
+		update_particle_counts(100)
 	// tilt animation
-	else if(known_user.dir == EAST || known_user.dir == WEST)
+	else if(user.dir == EAST || user.dir == WEST)
 		var/matrix/M = matrix()
-		M.Turn(known_user.dir == EAST ? 15 : -15)
+		M.Turn(user.dir == EAST ? 15 : -15)
 		if(tilt_timer)
 			deltimer(tilt_timer)
-		animate(known_user, transform = M, time = 2)
-		tilt_timer = addtimer(CALLBACK(src, PROC_REF(reset_animation), known_user), 2, TIMER_STOPPABLE)
+		animate(user, transform = M, time = 2)
+		tilt_timer = addtimer(CALLBACK(src, PROC_REF(reset_animation), user), 2, TIMER_STOPPABLE)
 
 /obj/item/tank/jetpack/combustion/proc/reset_animation(mob/who)
 	animate(who, transform = null, time = 2)
@@ -369,9 +331,10 @@
 	our_mix.set_gas(/datum/gas/plasma, moles_full * (1 - ideal_o2_percent))
 	our_mix.set_gas(/datum/gas/oxygen, moles_full * ideal_o2_percent)
 
-/obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
-	if(!on || !known_user)
-		return
+/obj/item/tank/jetpack/combustion/allow_thrust(num, use_fuel = TRUE)
+	if(!ismob(loc))
+		return FALSE
+	var/mob/user = loc
 	if(num < 0.005)
 		turn_off(user)
 		return
@@ -419,3 +382,21 @@
 	inhand_icon_state =  "jetpack-black"
 	distribute_pressure = 0
 	gas_type = /datum/gas/carbon_dioxide
+
+/// Attempts to use jetpack power for z-level movement in gravity
+/mob/living/proc/has_jetpack_power(thrust, use_fuel = TRUE)
+	return FALSE
+
+/mob/living/carbon/has_jetpack_power(thrust, use_fuel = TRUE)
+	var/obj/item/organ/cyberimp/chest/thrusters/thrusters = get_organ_slot(ORGAN_SLOT_THRUSTERS)
+	if(istype(thrusters) && thrusters.allow_thrust(thrust, use_fuel))
+		return TRUE
+
+	var/obj/item/tank/jetpack/jetpack = get_jetpack()
+	return jetpack?.on && jetpack.allow_thrust(thrust, use_fuel)
+
+/// Returns the jetpack worn on this mob's back, if any
+/mob/living/carbon/proc/get_jetpack()
+	var/obj/item/tank/jetpack/jetpack = back
+	if(istype(jetpack))
+		return jetpack

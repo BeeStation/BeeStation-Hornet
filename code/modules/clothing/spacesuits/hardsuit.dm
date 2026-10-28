@@ -150,11 +150,6 @@
 	stamina = 20
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
-	if(jetpack && ispath(jetpack))
-		jetpack = new jetpack(src)
-	. = ..()
-
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
@@ -165,20 +160,7 @@
 		. += span_notice(" The helmet on [src] seems to be malfunctioning. It's light bulb needs to be replaced.")
 
 /obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, list/modifiers)
-	if(!cell_cover_open && I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!jetpack)
-			to_chat(user, span_warning("[src] has no jetpack installed."))
-			return
-		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
-			to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
-			return
-
-		jetpack.turn_off(user)
-		jetpack.forceMove(drop_location())
-		jetpack = null
-		to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
-		return
-	else if(istype(I, /obj/item/light) && helmettype)
+	if(istype(I, /obj/item/light) && helmettype)
 		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
 			to_chat(user, span_warning("You cannot replace the bulb in the helmet of [src] while wearing it."))
 			return
@@ -195,25 +177,6 @@
 			to_chat(user, span_notice("You have successfully repaired [src]'s helmet."))
 			new /obj/item/light/bulb/broken(drop_location())
 	return ..()
-
-
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
-	..()
-	if(isatom(jetpack))
-		if(slot == ITEM_SLOT_OCLOTHING)
-			jetpack.update_known_user(user)
-			for(var/X in jetpack.actions)
-				var/datum/action/A = X
-				A.Grant(user)
-
-/obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
-	..()
-	if(isatom(jetpack))
-		jetpack.turn_off()
-		jetpack.lose_known_user()
-		for(var/X in jetpack.actions)
-			var/datum/action/A = X
-			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
@@ -758,52 +721,6 @@
 	stamina = 30
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/shielded
-	name = "shielded hardsuit"
-	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
-	icon_state = "hardsuit-hos"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-	allowed = null
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
-	armor_type = /datum/armor/hardsuit_shielded
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
-	/// How many charges total the shielding has
-	var/shield_integrity = 60
-	/// How long after we've been shot before we can start recharging.
-	var/recharge_delay = 20 SECONDS
-	/// How quickly the shield recharges each charge once it starts charging
-	var/recharge_rate = 1 SECONDS
-	/// The icon for the shield
-	var/shield_icon = "shield-old"
-
-/datum/armor/hardsuit_shielded
-	melee = 30
-	bullet = 15
-	laser = 30
-	energy = 40
-	bomb = 10
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 60
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
-	. = ..()
-	if(!allowed)
-		allowed = GLOB.advanced_hardsuit_allowed
-	AddComponent(
-		/datum/component/shielded, \
-		max_integrity = shield_integrity, \
-		recharge_start_delay = recharge_delay, \
-		charge_increment_delay = recharge_rate, \
-		shield_icon = shield_icon \
-	)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
 ///////////////Capture the Flag////////////////////
 
 // SHIELDED VEST
@@ -883,83 +800,5 @@
 	inhand_icon_state = "ert_command"
 	team_shield_icon = "shield-old"
 	greyscale_colors = COLOR_DARK_CYAN
-
-
-///SWAT version
-/obj/item/clothing/suit/space/hardsuit/shielded/swat
-	name = "death commando spacesuit"
-	desc = "An advanced hardsuit favored by commandos for use in special operations."
-	icon_state = "deathsquad"
-	inhand_icon_state = "swat_suit"
-	hardsuit_type = "syndi"
-	shield_integrity = 80
-	recharge_delay = 1.5 SECONDS
-	armor_type = /datum/armor/shielded_swat
-	strip_delay = 130
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
-	dog_fashion = /datum/dog_fashion/back/deathsquad
-
-
-/datum/armor/shielded_swat
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy =60
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
-
-/obj/item/clothing/suit/space/hardsuit/shielded/swat/Initialize(mapload)
-	. = ..()
-	AddComponent(
-		/datum/component/shielded, \
-		max_integrity = 80, \
-		charge_recovery = 20, \
-		recharge_start_delay = 1.5 SECONDS, \
-		charge_increment_delay = 1 SECONDS, \
-		shield_icon = "shield-old" \
-	)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
-	name = "death commando helmet"
-	desc = "A tactical helmet with built in energy shielding."
-	icon_state = "deathsquad"
-	inhand_icon_state = "deathsquad"
-	hardsuit_type = "syndi"
-	armor_type = /datum/armor/shielded_swat
-	strip_delay = 130
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	actions_types = list()
-
-/datum/armor/shielded_swat
-	melee = 80
-	bullet = 80
-	laser = 50
-	energy = 60
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
-
-/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk
-	name = "honk squad spacesuit"
-	desc = "A hilarious hardsuit favored by HONK squad troopers for use in special pranks."
-	icon_state = "hardsuit-clown"
-	inhand_icon_state = "clown_hardsuit"
-	hardsuit_type = "clown"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
-	name = "honk squad helmet"
-	desc = "A hilarious helmet with built in anti-mime propaganda shielding."
-	icon_state = "hardsuit0-clown"
-	inhand_icon_state = "hardsuit0-clown"
-	hardsuit_type = "clown"
 
 #undef HARDSUIT_EMP_BURN
