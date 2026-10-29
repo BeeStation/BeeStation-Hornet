@@ -20,7 +20,7 @@
 		var/mob/living/carbon/human/H = owner
 		Refresh(H)
 
-/obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
+/obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = FALSE, movement_flags)
 	. = ..()
 	if(istype(H))
 		Refresh(H)
@@ -40,7 +40,7 @@
 		if(H.movement_type & FLYING)
 			H.dna.species.toggle_flight(H)
 
-/obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
+/obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = FALSE, movement_flags)
 	..()
 	if(istype(H))
 		H.dna.species.mutant_bodyparts -= basewings
@@ -131,7 +131,7 @@
 		return "Your wings are all burnt up!"
 	return ..()
 
-/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
+/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, movement_flags)
 	flight_level = initial(flight_level)
 	return ..()
 
@@ -181,7 +181,7 @@
 	wing_type = "Bee"
 	var/jumpdist = 3
 
-/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
+/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special, movement_flags)
 	jumpdist = initial(jumpdist)
 	return ..()
 

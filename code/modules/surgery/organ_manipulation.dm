@@ -38,9 +38,9 @@
 		)
 
 /datum/surgery/organ_manipulation/mechanic
-	name = "Prosthesis organ manipulation"
+	name = "Hardware Manipulation"
 	requires_bodypart_type = BODYTYPE_ROBOTIC
-	surgery_flags = SURGERY_SELF_OPERABLE | SURGERY_REQUIRE_LIMB
+	surgery_flags = SURGERY_SELF_OPERABLE | SURGERY_REQUIRE_LIMB | SURGERY_CHECK_TOOL_BEHAVIOUR
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	steps = list(
 		/datum/surgery_step/mechanic_open,
@@ -51,28 +51,6 @@
 		/datum/surgery_step/mechanic_wrench,
 		/datum/surgery_step/mechanic_close
 		)
-
-/datum/surgery/organ_manipulation/mechanic/next_step(mob/living/user, modifiers)
-	if(user.combat_mode)
-		return FALSE
-	if(step_in_progress)
-		return TRUE
-
-	var/try_to_fail = FALSE
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		try_to_fail = TRUE
-
-	var/datum/surgery_step/step = get_surgery_step()
-	if(isnull(step))
-		return FALSE
-	var/obj/item/tool = user.get_active_held_item()
-	if(step.try_op(user, target, location, tool, src, try_to_fail))
-		return TRUE
-	if(tool && tool.tool_behaviour) //Mechanic organ manipulation isn't done with just surgery tools
-		to_chat(user, span_warning("This step requires a different tool!"))
-		return TRUE
-
-	return FALSE
 
 /datum/surgery/organ_manipulation/mechanic/soft
 	possible_locs = list(
@@ -149,7 +127,7 @@
 			to_chat(user, span_warning("[target_organ] seems to have been chewed on, you can't use this!"))
 			return SURGERY_STEP_FAIL
 
-		if(!can_use_organ(user, meatslab))
+		if(!can_use_organ(meatslab))
 			return SURGERY_STEP_FAIL
 
 		if (target_zone == BODY_ZONE_PRECISE_EYES)
@@ -168,7 +146,7 @@
 		var/list/unfiltered_organs = target.get_organs_for_zone(target_zone)
 		var/list/organs = list()
 		for(var/organ in unfiltered_organs)
-			if(can_use_organ(user, organ))
+			if(can_use_organ(organ))
 				organs.Add(organ)
 		if (target_zone == BODY_ZONE_PRECISE_EYES)
 			target_zone = check_zone(target_zone)
@@ -213,21 +191,20 @@
 			tool = tool.contents[1]
 		target_organ = tool
 		user.temporarilyRemoveItemFromInventory(target_organ, TRUE)
-		if(target_organ.Insert(target))
-			if(apparatus)
-				apparatus.icon_state = initial(apparatus.icon_state)
-				apparatus.desc = initial(apparatus.desc)
-				apparatus.cut_overlays()
-			display_results(
-				user,
-				target,
-				span_notice("You insert [tool] into [target]'s [parse_zone(target_zone)]."),
-				span_notice("[user] inserts [tool] into [target]'s [parse_zone(target_zone)]!"),
-				span_notice("[user] inserts something into [target]'s [parse_zone(target_zone)]!"),
-			)
-			log_combat(user, target, "surgically installed [target_organ.name] into")
-		else
-			target_organ.forceMove(target.loc)
+		target_organ.Insert(target)
+		if(apparatus)
+			apparatus.icon_state = initial(apparatus.icon_state)
+			apparatus.desc = initial(apparatus.desc)
+			apparatus.cut_overlays()
+		display_results(
+			user,
+			target,
+			span_notice("You insert [tool] into [target]'s [target.parse_zone_with_bodypart(target_zone)]."),
+			span_notice("[user] inserts [tool] into [target]'s [target.parse_zone_with_bodypart(target_zone)]!"),
+			span_notice("[user] inserts something into [target]'s [target.parse_zone_with_bodypart(target_zone)]!"),
+		)
+		log_combat(user, target, "surgically installed [target_organ.name] into")
+		target_organ.on_surgical_insertion(user, target, target_zone, tool)
 
 	else if(current_type == "extract")
 		if(target_organ && target_organ.owner == target)
@@ -252,7 +229,7 @@
 	return ..()
 
 ///You can never use this MUHAHAHAHAHAHAH (because its the byond version of abstract)
-/datum/surgery_step/manipulate_organs/proc/can_use_organ(mob/user, obj/item/organ/organ)
+/datum/surgery_step/manipulate_organs/proc/can_use_organ(obj/item/organ/organ)
 	return FALSE
 
 ///Surgery step for internal organs, like hearts and brains
@@ -261,7 +238,7 @@
 	name = "manipulate organs (hemostat/organ)"
 
 ///only operate on internal organs
-/datum/surgery_step/manipulate_organs/internal/can_use_organ(mob/user, obj/item/organ/organ)
+/datum/surgery_step/manipulate_organs/internal/can_use_organ(obj/item/organ/organ)
 	return TRUE
 
 ///prosthetic surgery gives full effectiveness to crowbars (and hemostats)

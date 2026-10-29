@@ -59,18 +59,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_vi
 	else
 		body.wipe_state()
 
-	body.appearance = preferences.render_new_preview_appearance(body, show_job_clothes)
+	appearance = preferences.render_new_preview_appearance(body, show_job_clothes)
+	// Without this, it doesn't show up in the menu
+	appearance_flags &= ~KEEP_TOGETHER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/map_view/character_preview_view/proc/create_body()
-	vis_contents.Cut()
 	QDEL_NULL(body)
 
 	body = new
-
-	// Without this, it doesn't show up in the menu
-	body.appearance_flags &= ~KEEP_TOGETHER
-	body.wipe_state() // cleanup the body immediately since it spawns with overlays, AI and cyborgs will retain them.
-	vis_contents += body
+	body.wipe_state() // cleanup the body immediately since it spawns with overlays
 
 /atom/movable/screen/map_view/character_preview_view/generate_view(map_key)
 	. = ..()

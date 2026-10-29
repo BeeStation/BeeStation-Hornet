@@ -59,7 +59,12 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_VERBOSEJMP(target)]")
 		log_game("[key_name(user)] planted [name] on [target.name] at [AREACOORD(user)]")
 
-		notify_ghosts("[user] has planted \a [src] on [target]!", source = target, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Explosive Planted")
+		notify_ghosts(
+			"[user] has planted \a [src] on [target]!",
+			source = target,
+			header = "Explosive Planted",
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 
 		moveToNullspace()	//Yep
 

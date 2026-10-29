@@ -58,7 +58,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/transit_tube)
 
 /obj/structure/transit_tube/crowbar_act(mob/living/user, obj/item/tool)
 	for(var/obj/structure/transit_tube_pod/pod in loc)
-		pod.attackby(tool, user)
+		pod.crowbar_act(user, tool)
 	return ITEM_INTERACT_SUCCESS
 
 // Called to check if a pod should stop upon entering this tube.
