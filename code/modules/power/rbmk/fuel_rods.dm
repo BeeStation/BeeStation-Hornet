@@ -140,8 +140,8 @@
 		to_chat(user, span_warning("\The [src]'s material slots are full!"))
 		return ITEM_INTERACT_BLOCKING
 
-	var/adding = min(max_initial_amount - initial_amount, material.get_amount()))
-	if(!material.use(adding)
+	var/adding = min(max_initial_amount - initial_amount, material.get_amount())
+	if(!material.use(adding))
 		to_chat(user, span_notice("You try to insert nothing into \the [src] but... nothing happens!"))
 		return ITEM_INTERACT_BLOCKING
 	initial_amount += adding
