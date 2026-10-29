@@ -803,11 +803,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	inhand_icon_on = null
 	inhand_icon_off = null
 	smoketime = 0
+	smoke_all = TRUE
 	chem_volume = 200 // So we can fit densified chemicals plants
 	list_reagents = null
 	w_class = WEIGHT_CLASS_SMALL
 	///name of the stuff packed inside this pipe
 	var/packeditem
+	var/packed_smoketime = 8 MINUTES
+	var/to_smoke
 
 /obj/item/cigarette/pipe/Initialize(mapload)
 	. = ..()
@@ -830,19 +833,20 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	QDEL_NULL(cig_smoke)
 
 /obj/item/cigarette/pipe/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(!istype(tool, /obj/item/food/grown))
+	var/pill = istype(tool, /obj/item/reagent_containers/applicator/pill)
+	if(!pill && !istype(tool, /obj/item/food/grown))
 		return ..()
 
 	if(packeditem)
 		to_chat(user, span_warning("It is already packed!"))
 		return ITEM_INTERACT_BLOCKING
 
-	if(!HAS_TRAIT(tool, TRAIT_DRIED))
+	if(!pill && !HAS_TRAIT(tool, TRAIT_DRIED))
 		to_chat(user, span_warning("It has to be dried first!"))
 		return ITEM_INTERACT_BLOCKING
 
 	to_chat(user, span_notice("You stuff [tool] into [src]."))
-	smoketime = 13 MINUTES
+	smoketime = packed_smoketime
 	packeditem = tool.name
 	update_appearance(UPDATE_NAME)
 	tool.reagents?.trans_to(src, tool.reagents.total_volume, transfered_by = user)
@@ -874,6 +878,17 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_off = "cobpipeoff"
 	inhand_icon_on = null
 	inhand_icon_off = null
+
+/obj/item/cigarette/pipe/crackpipe
+	name = "crack pipe"
+	desc = "A backstreet pipe for smoking totally legal substances."
+	icon_state = "crackpipeoff"
+	icon_on = "crackpipeon"
+	icon_off = "crackpipeoff"
+	worn_icon = 'icons/mob/clothing/head/mask_cig.dmi'
+	inhand_icon_on = null
+	inhand_icon_off = null
+	packed_smoketime = 4 MINUTES
 
 /////////
 //ZIPPO//

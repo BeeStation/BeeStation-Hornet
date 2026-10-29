@@ -279,3 +279,25 @@
 		to_chat(user, span_warning("You have to be standing on top of a chair to make a noose!"))
 		return FALSE
 	return ..()
+
+/datum/crafting_recipe/trash_cart
+	name = "Trash Cart"
+	result = /obj/structure/closet/crate/trashcart
+	time = 6 SECONDS
+	tool_behaviors = list(TOOL_WELDER)
+	reqs = list(
+		/obj/item/stack/sheet/iron = 5,
+	)
+	category = CAT_CONTAINERS
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND
+
+/datum/crafting_recipe/trash_bin
+	name = "Trash Bin"
+	result = /obj/structure/closet/crate/bin
+	time = 3 SECONDS
+	tool_behaviors = list(TOOL_WELDER)
+	reqs = list(
+		/obj/item/stack/sheet/iron = 3,
+	)
+	category = CAT_CONTAINERS
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND
