@@ -41,7 +41,7 @@
 			else
 				break
 		if(!(obj_flags & EMAGGED))
-			flick("apc-spark", hacking_module)
+			z_flick("apc-spark", hacking_module)
 			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			obj_flags |= EMAGGED
 			locked = FALSE

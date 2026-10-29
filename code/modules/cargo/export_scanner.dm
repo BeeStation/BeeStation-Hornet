@@ -96,5 +96,5 @@
 	. = ..()
 	is_on = !is_on
 	playsound(src, 'sound/weapons/pistolrack.ogg', 50)
-	flick("export_scanner_rack", src)
+	z_flick("export_scanner_rack", src)
 	balloon_alert(user, "Scanning: [is_on ? "<font color='#66c427'>Enabled</font>" : "<font color='#c41d1d'>Disabled</font>"]")

@@ -23,27 +23,27 @@ Because the mimic is not directly attached to the object it is mimicing, several
 -   `/turf/ChangeTurf()`
 -   `/turf/update_icon()`
 
-Additionally, one of the most important hooks is an override in the SSoverlays queueing system, which can catch many update_icon() misses and other overlay modifications.
+Additionally, the SSoverlays procs notify mimics, catching overlay changes made outside of update_icon().
 
 What makes Z-mimic so performant is that the performance overhead of checking for an update is extremely minimal, as it's performed on the side of the atom being mimiced, rather than the turf checking on the atom. Caching in `ZMM_MANGLE_PLANES` also helps reduce processing. When Z-mimic is told to update by the mimiced atom, it is queued into the Z-copy subsystem, which then actually performs the atom copies.
 
 ### Lighting
 
-Z-Mimic's lighting is relatively simplistic, rather than using the lighting plane, lighting is included on the plane with the atom, and the blend mode is set on the lighting object. All lighting on lower turfs has a color multiplier added to it, causing lower turfs to appear darker. The lighting is placed onto the openspace multiplier atom, which is an internal atom designed to host ambient occlusion, lighting, and apply darkness.
+Z-Mimic's lighting is relatively simplistic, rather than using the lighting plane, the lighting of each level is copied onto a shadow plane. Each Z-Mimic plane has its own shadow plane, relayed just above it with a multiply blend, so it darkens that plane and everything deeper. Overlay lights (flashlights, flares and other movable lights) are mimicked onto the same shadow plane, drawn over the copied lighting, so they light the level they are on. All lighting on lower turfs has a color multiplier added to it, causing lower turfs to appear darker. The lighting is placed onto the openspace multiplier atom, which is an internal atom designed to host ambient occlusion, lighting, and apply darkness.
+
+Additive lighting (bloom) is a turf underlay, so z-turfs keep their own instead of copying the one below.
 
 Lighting is copied in the z-copy subsystem during atom copying. If the z-copy subsystem encounters a lighting object, it forwards it to the multiplier via the `copy_lighting` proc. This proc simply copies the appearance of the lighting object, applies a color matrix transformation for darkening, and sets the relevant layers and blend mode onto the multiplier object.
 
 The lighting subsystem then will perform an update on the multiplier whenever it changes a turf that is being mimiced, again reducing overhead. This is done in `lighting_object/proc/update()`, where copy_lighting is directly called onto the `shadower`, which is a direct link to a turf's multiplier object. This part is not queued into the subsystem since that would be a waste of processing.
 
-#### MultiZ Lighting
-
-MultiZ Lighting is only tangentially related to Z-Mimic, however it works by simply adding `update_below_lumcount`, `UPDATE_SUM_LUM` and `UPDATE_ABOVE_LUM`.
-
-`UPDATE_SUM_LUM` determines the turf's current luminosity by using the lum of the turf above and below the current one added. Then, `UPDATE_ABOVE_LUM` is called on the turf above the current one, if any. The turf has its lighting generated using `UPDATE_SUM_LUM` again, and then the turf above also updates the turf below with its own luminosity (via `update_below_lumcount`, again using `UPDATE_SUM_LUM`), if any. Now that both corners are generated `UPDATE_ABOVE_LUM` will not recurse.
-
 ### Ambient Occlusion
 
 Adding ambient occlusion to game objects is current done through a client plane master filter adding drop shadow to all objects. Z-Mimic was not designed with this in mind, as planes are used for ordering and not effects, and thus does not support it natively, unless overlay AO is used. This means any objects rendered via Z-mimic will lack any ambient occlusion. This also means that openspace edges will not render darker at the edges, like they previously did. However, a workaround has been made. A drop_shadow added to FLOOR_PLANE means that any edges on the floor plane (openspace) will render a shadow, functionally recreating the drop shadow. However, this may have a negative impact on client performance.
+
+### Speech
+
+With `ZMIMIC_MULTIZ_SPEECH` defined, speech and messages carry one level up and down through mimics.
 
 ## Types
 
@@ -82,6 +82,12 @@ Adding ambient occlusion to game objects is current done through a client plane 
 -   atom/update_above()
     -   similar to UPDATE_OO_IF_PRESENT, but for both turfs and movables
     -   less cheap (pretty much just proc-call overhead)
+-   z_animate(thing, args...) / z_flick(icon, thing)
+    -   valid on movables only
+    -   animate() or flick() the movable and its mimics
+    -   z_animate can't be followed by bare animate() steps, use ANIMATION_CONTINUE
+
+Data huds and alternate appearances are copied onto new mimics and kept in sync.
 
 ### Checking state
 
@@ -117,6 +123,8 @@ Adding ambient occlusion to game objects is current done through a client plane 
         -   ZMM_LOOKAHEAD: Look one turf ahead and one turf back when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
         -   ZMM_LOOKBESIDE: Look one turf to the left and right when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
         -   ZMM_AUTOMANGLE: Behaves the same as ZMM_MANGLE_PLANES, but is automatically applied by SSoverlays. Do not manually use.
+        -   ZMM_NO_CACHE_ROOT: When mangling, do not cache the root appearance. Set this on mangled types that change appearance frequently.
+
 
 ### Z-Mimic: A Practical Guide
 

@@ -167,7 +167,7 @@
 	SIGNAL_HANDLER
 	if(!istype(arrived, /mob))
 		return
-	flick("operate", src)
+	z_flick("operate", src)
 	playsound(src,'sound/items/ratchet.ogg',50,0,3)
 	if(arrived.pulledby) // don't do anything else for prisoners that are being escorted.
 		return
@@ -193,7 +193,7 @@
 	if(!ismob(movable)) //Try to mimmick how airlocks act when bumped by items and the likes. Except when pulled (for crates and beds etc.)
 		if(movable.pulledby)
 			return
-		flick("deny", src)
+		z_flick("deny", src)
 		playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 		return
 	if(machine_stat & BROKEN) //try to shock mobs if we're broken
@@ -201,7 +201,7 @@
 		return
 	//pretend to be an airlock if a mob bumps us
 	//(which means they tried to move through but didn't have access)
-	flick("deny", src)
+	z_flick("deny", src)
 	playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 
 ///Shock attacker if we're broken

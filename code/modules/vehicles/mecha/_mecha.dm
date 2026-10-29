@@ -236,7 +236,7 @@
 	update_access()
 	wires = new /datum/wires/mecha(src)
 	START_PROCESSING(SSobj, src)
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 	log_message("[src.name] created.", LOG_MECHA)
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
@@ -420,7 +420,7 @@
 	if(!phasing || get_charge() <= phasing_energy_drain || throwing)
 		return ..()
 	if(phase_state)
-		flick(phase_state, src)
+		z_flick(phase_state, src)
 	var/turf/destination_turf = get_step(loc, movement_dir)
 	var/area/destination_area = destination_turf.loc
 	if(destination_area.teleport_restriction >= TELEPORT_ALLOW_NONE)

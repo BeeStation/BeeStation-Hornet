@@ -61,6 +61,10 @@
 	air_update_turf(TRUE, TRUE)
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
+	if(density)
+		flags_1 |= PREVENT_CLICK_UNDER_1
+	else
+		flags_1 &= ~PREVENT_CLICK_UNDER_1
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
@@ -278,17 +282,17 @@
 	switch(animation)
 		if("opening")
 			if(panel_open)
-				flick("o_doorc0", src)
+				z_flick("o_doorc0", src)
 			else
-				flick("doorc0", src)
+				z_flick("doorc0", src)
 		if("closing")
 			if(panel_open)
-				flick("o_doorc1", src)
+				z_flick("o_doorc1", src)
 			else
-				flick("doorc1", src)
+				z_flick("doorc1", src)
 		if("deny")
 			if(!machine_stat)
-				flick("door_deny", src)
+				z_flick("door_deny", src)
 
 
 /obj/machinery/door/proc/open()
@@ -302,6 +306,7 @@
 	set_opacity(0)
 	sleep(open_speed)
 	set_density(FALSE)
+	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	sleep(open_speed)
 	layer = initial(layer)
@@ -336,6 +341,7 @@
 		z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	set_density(TRUE)
+	flags_1 |= PREVENT_CLICK_UNDER_1
 	z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	update_appearance()

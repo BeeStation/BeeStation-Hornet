@@ -371,7 +371,7 @@
 		newstruct.drops_shard = FALSE
 	var/makeicon = newstruct.icon_state
 	var/theme = newstruct.theme
-	flick("make_[makeicon][theme]", newstruct)
+	z_flick("make_[makeicon][theme]", newstruct)
 	playsound(newstruct, 'sound/effects/constructform.ogg', 50)
 	if(stoner)
 		newstruct.faction |= "[REF(stoner)]"
@@ -384,7 +384,7 @@
 	newstruct.key = target.key
 	var/atom/movable/screen/alert/bloodsense/BS
 	if(newstruct.mind && ((stoner && IS_CULTIST(stoner)) || cultoverride))
-		newstruct.mind.add_antag_datum(/datum/antagonist/cult)
+		newstruct.mind.add_antag_datum(/datum/antagonist/cult/construct)
 	if(IS_CULTIST(stoner) || cultoverride)
 		to_chat(newstruct, "<b>You are still bound to serve the cult[stoner ? " and [stoner]":""], follow [stoner ? stoner.p_their() : "their"] orders and help [stoner ? stoner.p_them() : "them"] complete [stoner ? stoner.p_their() : "their"] goals at all costs.</b>")
 	else if(stoner)

@@ -12,6 +12,8 @@
 
 	///the underlay we are currently applying to our turf to apply light
 	var/mutable_appearance/additive_underlay
+	///whether additive_underlay is currently on our turf
+	var/applying_additive = FALSE
 
 	/// whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
@@ -115,8 +117,10 @@
 		)
 
 		affected_turf.underlays += additive_underlay
+		applying_additive = TRUE
 	else
 		affected_turf.underlays -= additive_underlay
+		applying_additive = FALSE
 
 	// Use luminosity directly because we are the lighting object
 	// and not the turf

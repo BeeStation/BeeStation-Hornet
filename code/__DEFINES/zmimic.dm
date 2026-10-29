@@ -9,16 +9,38 @@
 
 /// Is this movable visible from a turf that is mimicking below? Note: this does not necessarily mean *directly* below.
 #define MOVABLE_IS_BELOW_ZTURF(M) (\
-	isturf(loc) && (TURF_IS_MIMICKING(loc:above) \
+	isturf(M:loc) && (TURF_IS_MIMICKING(M:loc:above) \
 	|| ((M:zmm_flags & ZMM_LOOKAHEAD) && ZM_INTERNAL_SCAN_LOOKAHEAD(M, above?:z_flags, Z_MIMIC_BELOW))  \
 	|| ((M:zmm_flags & ZMM_LOOKBESIDE) && ZM_INTERNAL_SCAN_LOOKBESIDE(M, above?:z_flags, Z_MIMIC_BELOW))) \
 )
 /// Is this movable located on a turf that is mimicking below? Note: this does not necessarily mean *directly* on.
 #define MOVABLE_IS_ON_ZTURF(M) (\
-	isturf(loc) && (TURF_IS_MIMICKING(loc:above) \
+	isturf(M:loc) && (TURF_IS_MIMICKING(M:loc) \
 	|| ((M:zmm_flags & ZMM_LOOKAHEAD) && ZM_INTERNAL_SCAN_LOOKAHEAD(M, z_flags, Z_MIMIC_BELOW)) \
 	|| ((M:zmm_flags & ZMM_LOOKBESIDE) && ZM_INTERNAL_SCAN_LOOKBESIDE(M, z_flags, Z_MIMIC_BELOW))) \
 )
+
+/// Performs an animate() call on the given object and its mimics.
+#define z_animate(thing, args...) \
+	do { \
+		animate(thing, ##args); \
+		var/atom/movable/openspace/mimic/__mimic = thing.bound_overlay; \
+		while(!QDELETED(__mimic) && !__mimic.destruction_timer) { \
+			animate(__mimic, ##args); \
+			__mimic = __mimic.bound_overlay; \
+		} \
+	} while(FALSE)
+
+/// Performs a flick() call on the given object and its mimics.
+#define z_flick(Icon, Object) \
+	do { \
+		flick(Icon, Object); \
+		var/atom/movable/openspace/mimic/__mimic = Object.bound_overlay; \
+		while(!QDELETED(__mimic) && !__mimic.destruction_timer) { \
+			flick(Icon, __mimic); \
+			__mimic = __mimic.bound_overlay; \
+		} \
+	} while(FALSE)
 
 
 // Z-level flags, used by zmove and Z-Mimic.
@@ -52,6 +74,7 @@ GLOBAL_LIST_INIT(z_defines, list(
 #define ZMM_LOOKAHEAD       (1 << 2)	//! Look one turf ahead and one turf back when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
 #define ZMM_LOOKBESIDE      (1 << 3)	//! Look one turf to the left and right when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
 #define ZMM_AUTOMANGLE      (1 << 4)	//! Behaves the same as ZMM_MANGLE_PLANES, but is automatically applied by SSoverlays. Do not manually use.
+#define ZMM_NO_CACHE_ROOT   (1 << 5)	//! When performing mangling, do not cache the root (depth=0) appearance. Set this on mangled types that change appearance frequently.
 
 // convenience flags
 // This is intended for use on dev-defined openspace turfs, don't put _OVERWRITE in here unless you feel like having people ask why their zturfs are empty
@@ -64,3 +87,10 @@ On ZMM_AUTOMANGLE:
 */
 
 #define GET_TURF_DEPTH(turf) (!isnull((turf).z_depth) ? (turf).z_depth : (turf).calculate_zdepth())
+
+#define ZMIMIC_DEPTH(turf_depth) min(ZMIMIC_MAX_DEPTH - (turf_depth), ZMIMIC_MAX_DEPTH)
+
+/// The multiplication factor for openturf shadower darkness
+#define SHADOWER_DARKENING_FACTOR 0.8
+/// The above, but as an RGB string for lightless turfs
+#define SHADOWER_DARKENING_COLOR "#CCCCCC"

@@ -43,7 +43,7 @@
 	autoclose = TRUE
 	explosion_block = 1
 	hud_possible = list(DIAG_AIRLOCK_HUD)
-	flags_1 = PREVENT_CLICK_UNDER_1 & HTML_USE_INITAL_ICON_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | HTML_USE_INITAL_ICON_1
 	var/allow_repaint = TRUE //Set to FALSE if the airlock should not be allowed to be repainted.
 
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
@@ -855,7 +855,7 @@
 		security_level = AIRLOCK_SECURITY_PLASTEEL_O
 		return .
 	if(note)
-		if(user.CanReach(src))
+		if(IsReachableBy(user))
 			user.visible_message(span_notice("[user] cuts down [note] from [src]."), span_notice("You remove [note] from [src]."))
 		else //telekinesis
 			visible_message(span_notice("[tool] cuts down [note] from [src]."))
@@ -1229,10 +1229,11 @@
 	use_power(active_power_usage)
 	update_icon(ALL, AIRLOCK_OPENING, TRUE)
 	sleep(1)
-	set_opacity(0)
+	set_opacity(FALSE)
 	update_freelook_sight()
 	sleep(open_speed - 1)
-	density = FALSE
+	set_density(FALSE)
+	flags_1 &= ~PREVENT_CLICK_UNDER_1
 	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	air_update_turf(TRUE, FALSE)
 	sleep(1)
@@ -1278,11 +1279,13 @@
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
 		set_density(TRUE)
+		flags_1 |= PREVENT_CLICK_UNDER_1
 		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(TRUE, TRUE)
 	sleep(1)
 	if(!air_tight)
 		set_density(TRUE)
+		flags_1 |= PREVENT_CLICK_UNDER_1
 		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(TRUE, TRUE)
 	sleep(open_speed - 1)

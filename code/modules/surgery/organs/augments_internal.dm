@@ -82,7 +82,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special, movement_flags)
 	if(active)
 		ui_action_click()
 	..()
@@ -102,11 +102,11 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
+/obj/item/organ/cyberimp/brain/anti_stun/on_mob_remove(mob/living/carbon/implant_owner)
 	. = ..()
 	UnregisterSignal(implant_owner, signalCache)
 
-/obj/item/organ/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/cyberimp/brain/anti_stun/on_mob_insert(mob/living/carbon/receiver)
 	. = ..()
 	RegisterSignals(receiver, signalCache, PROC_REF(on_signal))
 

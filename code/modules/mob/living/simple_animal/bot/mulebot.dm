@@ -184,7 +184,7 @@
 	if(!open)
 		locked = !locked
 		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
-	flick("[base_icon]-emagged", src)
+	z_flick("[base_icon]-emagged", src)
 	playsound(src, "sparks", 100, FALSE)
 
 /mob/living/simple_animal/bot/mulebot/update_icon_state() //if you change the icon_state names, please make sure to update /datum/wires/mulebot/on_pulse() as well. <3
@@ -355,12 +355,14 @@
 		if(CHIME)
 			audible_message("[src] makes a chiming sound!", span_italics("You hear a chime."))
 			playsound(loc, 'sound/machines/chime.ogg', 50, 0)
-	flick("[base_icon]1", src)
+	z_flick("[base_icon]1", src)
 
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
+	if(..())
+		return
 	var/mob/living/L = user
 
 	if (!istype(L))

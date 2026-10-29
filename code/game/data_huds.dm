@@ -217,12 +217,9 @@
 //HOOKS
 
 /mob/living/carbon/human/proc/sec_hud_set_ID()
-	var/sechud_icon_state = "hudno_id"
-	var/obj/item/id_to_look_at = wear_id?.GetID()
-
-	if(id_to_look_at && !HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
-		sechud_icon_state = "hud[id_to_look_at.get_item_job_icon()]"
-
+	var/sechud_icon_state = wear_id?.get_sechud_job_icon_state()
+	if(!sechud_icon_state || HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
+		sechud_icon_state = "hudno_id"
 	set_hud_image_state(ID_HUD, sechud_icon_state)
 	sec_hud_set_security_status()
 
@@ -521,3 +518,6 @@
 	if (x_offset || y_offset)
 		holder.pixel_x += x_offset
 		holder.pixel_y += y_offset
+	if (ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_state(hud_type, hud_state, x_offset, y_offset)
