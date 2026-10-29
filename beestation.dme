@@ -4166,6 +4166,7 @@
 #include "code\modules\power\lighting\light_mapping_helpers.dm"
 #include "code\modules\power\lighting\light_wallframes.dm"
 #include "code\modules\power\rbmk\fuel_rods.dm"
+#include "code\modules\power\rbmk\nuclear_sludge.dm"
 #include "code\modules\power\rbmk\rbmk_core.dm"
 #include "code\modules\power\rbmk\rbmk_main_processes.dm"
 #include "code\modules\power\rbmk\rbmk_parts.dm"

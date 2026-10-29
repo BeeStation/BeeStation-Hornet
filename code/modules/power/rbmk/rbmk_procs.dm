@@ -1,199 +1,188 @@
-//This section contain all procs that helps building, destroy and control the RBMK
+/obj/machinery/atmospherics/components/unary/rbmk/core/Exited(atom/movable/gone, direction)
+	. = ..()
+	fuel_rods -= gone
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/attackby(obj/item/attacked_item, mob/user, list/modifiers)
-	if(istype(attacked_item, /obj/item/fuel_rod))
+/obj/machinery/atmospherics/components/unary/rbmk/core/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/fuel_rod))
 		if(power >= SAFE_POWER_LEVEL)
 			to_chat(user, span_notice("You cannot insert fuel into [src] when it has been raised above [SAFE_POWER_LEVEL]% power."))
-			return FALSE
+			return ITEM_INTERACT_BLOCKING
 		if(length(fuel_rods) >= 5)
 			to_chat(user, span_warning("[src] is already at maximum fuel load."))
-			return FALSE
-		to_chat(user, span_notice("You start to insert [attacked_item] into [src]..."))
+			return ITEM_INTERACT_BLOCKING
+
+		to_chat(user, span_notice("You start to insert [tool] into [src]..."))
 		radiation_pulse(src, max_range = 3, threshold = RAD_EXTREME_INSULATION)
-		if(do_after(user, 5 SECONDS, target=src))
-			if(length(fuel_rods) >= 5)
-				to_chat(user, span_warning("[src] is already at maximum fuel load."))
-				return FALSE
-			else if(length(fuel_rods) == 0)
-				fuel_rods += attacked_item
-				attacked_item.forceMove(src)
-				activate(user) //That was the first fuel rod. Let's heat it up.
-			else  // Not the first fuel rod? Play the sound.
-				playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
-				fuel_rods += attacked_item
-				attacked_item.forceMove(src)
-			update_appearance()
-		return TRUE
-	if(istype(attacked_item, /obj/item/sealant))
-		var/obj/item/sealant/sealant = attacked_item
+
+		if(!do_after(user, 5 SECONDS, target = src))
+			return ITEM_INTERACT_BLOCKING
+		if(length(fuel_rods) >= 5)
+			to_chat(user, span_warning("[src] is already at maximum fuel load."))
+			return ITEM_INTERACT_BLOCKING
+
+		fuel_rods += tool
+		tool.forceMove(src)
+
+		if(!length(fuel_rods)) // That was the first fuel rod. Let's heat it up.
+			activate(user)
+		else // Not the first fuel rod? Play the sound.
+			playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+
+		update_appearance(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/sealant))
 		if(power >= SAFE_POWER_LEVEL)
 			to_chat(user, span_notice("You cannot repair [src] while it is running at above [SAFE_POWER_LEVEL]% power."))
-			return FALSE
+			return ITEM_INTERACT_BLOCKING
 		if(critical_threshold_proximity <= REACTOR_NEW_SEALS * critical_threshold_proximity_archived)
-			to_chat(user, span_notice("[src]'s seals are already in-tact, repairing them further would require a new set of seals."))
-			return FALSE
+			to_chat(user, span_notice("[src]'s seals are already intact, repairing them further would require a new set of seals."))
+			return ITEM_INTERACT_BLOCKING
 		if(critical_threshold_proximity >= REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived) //Heavily damaged.
 			to_chat(user, span_notice("[src]'s reactor vessel is cracked and worn, you need to repair the cracks with a welder before you can repair the seals."))
-			return FALSE
-		if(do_after(user, 5 SECONDS, target=src))
-			if(critical_threshold_proximity <= REACTOR_NEW_SEALS*critical_threshold_proximity_archived)	//They might've stacked doafters
-				to_chat(user, span_notice("[src]'s seals are already in-tact, repairing them further would require a new set of seals."))
-				return FALSE
-			playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
-			user.visible_message(span_warning("[user] applies sealant to some of [src]'s worn out seals."), span_notice("You apply sealant to some of [src]'s worn out seals."))
-			critical_threshold_proximity -= sealant.repair_power // Default is 10
-			critical_threshold_proximity = clamp(critical_threshold_proximity, 0, initial(critical_threshold_proximity))
-		return TRUE
-	if(attacked_item.tool_behaviour == TOOL_WELDER)
+			return ITEM_INTERACT_BLOCKING
+
+		if(!do_after(user, 5 SECONDS, target = src))
+			return ITEM_INTERACT_BLOCKING
+		if(critical_threshold_proximity <= REACTOR_NEW_SEALS * critical_threshold_proximity_archived) //They might've stacked doafters
+			to_chat(user, span_notice("[src]'s seals are already intact, repairing them further would require a new set of seals."))
+			return ITEM_INTERACT_BLOCKING
+
+		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
+		user.visible_message(
+			span_warning("[user] applies sealant to some of [src]'s worn out seals."),
+			span_notice("You apply sealant to some of [src]'s worn out seals."),
+		)
+
+		var/obj/item/sealant/sealant = tool
+
+		critical_threshold_proximity -= sealant.repair_power // Default is 10
+		critical_threshold_proximity = clamp(critical_threshold_proximity, 0, initial(critical_threshold_proximity))
+		return ITEM_INTERACT_SUCCESS
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/welder_act(mob/living/user, obj/item/tool)
+	if(power >= SAFE_POWER_LEVEL)
+		to_chat(user, span_notice("You can't repair [src] while it is running at above [SAFE_POWER_LEVEL]% power."))
+		return ITEM_INTERACT_BLOCKING
+	if(critical_threshold_proximity < REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived)
+		to_chat(user, span_notice("[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant."))
+		return ITEM_INTERACT_BLOCKING
+
+	if(!tool.use_tool(src, user, 0 SECONDS, volume = 40))
+		return ITEM_INTERACT_BLOCKING
+	if(critical_threshold_proximity < REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived)
+		to_chat(user, span_notice("[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant."))
+		return ITEM_INTERACT_BLOCKING
+
+	critical_threshold_proximity -= 20
+	to_chat(user, span_notice("You weld together some of [src]'s cracks."))
+	return ITEM_INTERACT_SUCCESS
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/screwdriver_act(mob/living/user, obj/item/tool)
+	if(power >= SAFE_POWER_LEVEL)
+		to_chat(user, span_notice("You can't open the maintenance panel of \the [src] while it's still above [SAFE_POWER_LEVEL]% power!"))
+		return ITEM_INTERACT_BLOCKING
+	if (length(fuel_rods))
+		to_chat(user, span_notice("You can't open the maintenance panel of \the [src] while it still has fuel rods inside!"))
+		return ITEM_INTERACT_BLOCKING
+
+	default_deconstruction_screwdriver(user, "reactor", "reactor_open", tool)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/crowbar_act(mob/living/user, obj/item/tool)
+	if(panel_open)
 		if(power >= SAFE_POWER_LEVEL)
-			to_chat(user, span_notice("You can't repair [src] while it is running at above [SAFE_POWER_LEVEL]% power."))
-			return FALSE
-		if(critical_threshold_proximity < REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived)
-			to_chat(user, span_notice("[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant."))
-			return FALSE
-		if(attacked_item.use_tool(src, user, 0, volume=40))
-			if(critical_threshold_proximity < REACTOR_CRACKED_SEALS * critical_threshold_proximity_archived)
-				to_chat(user, span_notice("[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant."))
-				return FALSE
-			critical_threshold_proximity -= 20
-			to_chat(user, span_notice("You weld together some of [src]'s cracks. This'll do for now."))
-			return TRUE
-	if(attacked_item.tool_behaviour == TOOL_SCREWDRIVER)
-		if(power >= SAFE_POWER_LEVEL)
-			to_chat(user, span_notice("You can't open the maintenance panel of \the [src] while it's still above [SAFE_POWER_LEVEL]% power!"))
-			return FALSE
-		if (length(fuel_rods) > 0)
-			to_chat(user, span_notice("You can't open the maintenance panel of \the [src] while it still has fuel rods inside!"))
-			return FALSE
-		default_deconstruction_screwdriver(user, "reactor", "reactor_open", attacked_item)
-		update_appearance()
-		return TRUE
-	if(attacked_item.tool_behaviour == TOOL_CROWBAR)
-		if(panel_open)
-			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, span_notice("You can't deconstruct \the [src] while it's still above [SAFE_POWER_LEVEL]% power!"))
-				return FALSE
-			if (length(fuel_rods) > 0)
-				to_chat(user, span_notice("You can't deconstruct \the [src] while it still has fuel rods inside!"))
-				return FALSE
-			disassemble(attacked_item)
-			return TRUE
-		else
-			if(power >= SAFE_POWER_LEVEL)
-				to_chat(user, span_notice("You can't remove any fuel rods while \the [src] is above [SAFE_POWER_LEVEL]% power!"))
-				return FALSE
-			if (length(fuel_rods) == 0)
-				to_chat(user, span_notice("\the [src] is empty of fuel rods!"))
-				return FALSE
-			removeFuelRod(user, src)
-			update_appearance()
-			return TRUE
-	if(attacked_item.tool_behaviour == TOOL_MULTITOOL)
-		var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
-		STORE_IN_BUFFER(heldmultitool.parent, src)
-		. = TRUE
+			to_chat(user, span_notice("You can't deconstruct \the [src] while it's still above [SAFE_POWER_LEVEL]% power!"))
+			return ITEM_INTERACT_BLOCKING
+		if (length(fuel_rods))
+			to_chat(user, span_notice("You can't deconstruct \the [src] while it still has fuel rods inside!"))
+			return ITEM_INTERACT_BLOCKING
+		disassemble(tool)
+		return ITEM_INTERACT_SUCCESS
+
+	if(power >= SAFE_POWER_LEVEL)
+		to_chat(user, span_notice("You can't remove fuel rods while \the [src] is above [SAFE_POWER_LEVEL]% power!"))
+		return ITEM_INTERACT_BLOCKING
+	if(!length(fuel_rods))
+		to_chat(user, span_notice("[src] has no fuel rods!"))
+		return ITEM_INTERACT_BLOCKING
+
+	// remove a fuel rod
+	var/obj/item/fuel_rod/fuel_rod
+	if(length(fuel_rods) == 1)
+		fuel_rod = fuel_rods[1]
+	else
+		fuel_rod = tgui_input_list(user, "Select a fuel rod to remove", "Remove Fuel Rod", fuel_rods)
+		if(!fuel_rod)
+			return
+
+	playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+	fuel_rod.forceMove(drop_location())
+	fuel_rods -= fuel_rod
+	update_appearance(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_SUCCESS
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/rbmk/core)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/rbmk/core)
+	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, span_notice("You download the link from the nuclear reactor."))
-		return TRUE
-	return ..()
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
 
 /*
 Called by multitool_act() in rbmk_parts.dm, by atmos_process() in rbmk_main_processes.dm and by atmos_process() in the same file
 This proc checks the surrounding of the core to ensure that the machine has been build correctly, returns false if there is a missing piece/wrong placed one
 */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_part_connectivity()
-	. = TRUE
 	if(!anchored)
 		return FALSE
 
-	for(var/obj/machinery/rbmk/object in orange(1,src))
-		if(. == FALSE)
-			break
-
+	for(var/obj/machinery/atmospherics/components/unary/rbmk/object in orange(1, src))
 		if(object.panel_open)
-			. = FALSE
+			return FALSE
 
-		if(get_step(object,REVERSE_DIR(object.dir)) != loc)
-			. = FALSE
+		if(get_step(object, REVERSE_DIR(object.dir)) != loc)
+			return FALSE
 
-	for(var/obj/machinery/atmospherics/components/unary/rbmk/object in orange(1,src))
-		if(. == FALSE)
-			break
-
-		if(object.panel_open)
-			. = FALSE
-
-		if(get_step(object,REVERSE_DIR(object.dir)) != loc)
-			. = FALSE
-
-		if(istype(object,/obj/machinery/atmospherics/components/unary/rbmk/coolant_input))
+		if(istype(object, /obj/machinery/atmospherics/components/unary/rbmk/coolant_input))
 			if(linked_input && linked_input != object)
-				. = FALSE
+				return FALSE
 			linked_input = object
-			machine_parts |= object
 
-		if(istype(object,/obj/machinery/atmospherics/components/unary/rbmk/waste_output))
+		else if(istype(object, /obj/machinery/atmospherics/components/unary/rbmk/waste_output))
 			if(linked_output && linked_output != object)
-				. = FALSE
+				return FALSE
 			linked_output = object
-			machine_parts |= object
 
-		if(istype(object,/obj/machinery/atmospherics/components/unary/rbmk/moderator_input))
+		else if(istype(object, /obj/machinery/atmospherics/components/unary/rbmk/moderator_input))
 			if(linked_moderator && linked_moderator != object)
-				. = FALSE
+				return FALSE
 			linked_moderator = object
-			machine_parts |= object
 
 	if(!linked_input || !linked_moderator || !linked_output)
-		. = FALSE
+		return FALSE
 
-/*
-Called by multitool_act() in rbmk_parts.dm
-It sets the pieces to active, allowing the player to start the main reaction
-Arguments:
-* -user: the player doing the action
-*/
+	return TRUE
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/user_activate(mob/living/user)
-	if(active)
-		to_chat(user, span_notice("You already activated the machine."))
-		return
-	to_chat(user, span_notice("You activate the machine."))
-	activate()
-
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate()
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/user)
 	active = TRUE
-	start_power = TRUE
 	update_appearance()
 	if (linked_interface)
-		linked_interface.active = TRUE
 		linked_interface.update_appearance()
 		RegisterSignal(linked_interface, COMSIG_QDELETING, PROC_REF(unregister_signals))
-	linked_input.active = TRUE
 	linked_input.update_appearance()
 	RegisterSignal(linked_input, COMSIG_QDELETING, PROC_REF(unregister_signals))
-	linked_output.active = TRUE
 	linked_output.update_appearance()
 	RegisterSignal(linked_output, COMSIG_QDELETING, PROC_REF(unregister_signals))
-	linked_moderator.active = TRUE
 	linked_moderator.update_appearance()
 	RegisterSignal(linked_moderator, COMSIG_QDELETING, PROC_REF(unregister_signals))
 	START_PROCESSING(SSmachines, src)
 	desired_reate_of_reaction = 1
-	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
-	playsound(loc, startup_sound, 50)
+	playsound(loc, pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg'), 50)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "started")
 	soundloop.start()
-
-/obj/machinery/atmospherics/components/unary/rbmk/proc/get_held_buffer_item(mob/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/ai_user = user
-		return ai_user.aiMulti.GetComponent(/datum/component/buffer)
-
-	var/obj/item/held_item = user.get_active_held_item()
-	var/found_component = held_item?.GetComponent(/datum/component/buffer)
-	if(found_component && in_range(user, src))
-		return found_component
 
 /*
  * Called when a part gets deleted around the rbmk, called on Destroy() of the rbmk core in rbmk_core.dm
@@ -204,8 +193,7 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/unregister_signals(only_signals = FALSE)
 	SIGNAL_HANDLER
-	if(linked_interface)
-		UnregisterSignal(linked_interface, COMSIG_QDELETING)
+
 	if(linked_input)
 		UnregisterSignal(linked_input, COMSIG_QDELETING)
 	if(linked_output)
@@ -216,27 +204,18 @@ Arguments:
 		deactivate()
 
 /**
- * Called by unregister_signals() in this file, called when the main fusion processes check_part_connectivity() returns false
+ * Called by unregister_signals() in this file, called when the main fission processes check_part_connectivity() returns false
  * Deactivate the various machines by setting the active var to false, updates the machines icon and set the linked machine vars to null
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/deactivate()
 	if(!active)
 		return
 	active = FALSE
-	start_power = FALSE
 	update_appearance()
-	if(linked_interface)
-		linked_interface.active = FALSE
-		linked_interface.update_appearance()
-	if(linked_input)
-		linked_input.active = FALSE
-		linked_input.update_appearance()
-	if(linked_output)
-		linked_output.active = FALSE
-		linked_output.update_appearance()
-	if(linked_moderator)
-		linked_moderator.active = FALSE
-		linked_moderator.update_appearance()
+	linked_interface?.update_appearance()
+	linked_input?.update_appearance()
+	linked_output?.update_appearance()
+	linked_moderator?.update_appearance()
 	STOP_PROCESSING(SSmachines, src)
 	rate_of_reaction = 0
 	desired_reate_of_reaction = 0
@@ -244,21 +223,23 @@ Arguments:
 	soundloop.stop()
 	update_appearance()
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/disassemble(obj/item/I)
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/disassemble(obj/item/tool)
 	unregister_signals()
 	deactivate()
-	var/parts = list(/obj/item/RBMK_box/core,
-					/obj/item/RBMK_box/body/coolant_input,
-					/obj/item/RBMK_box/body/moderator_input,
-					/obj/item/RBMK_box/body/waste_output,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body)
-	for(var/item in parts)
-		new item(get_turf(src))
-	I.play_tool_sound(src, 50)
+
+	var/list/parts_to_drop = list(
+		/obj/item/rbmk_box/core = 1,
+		/obj/item/rbmk_box/body/coolant_input = 1,
+		/obj/item/rbmk_box/body/moderator_input = 1,
+		/obj/item/rbmk_box/body/waste_output = 1,
+		/obj/item/rbmk_box/body = 5,
+	)
+
+	var/atom/drop_location = drop_location()
+	for(var/item, amount in parts_to_drop)
+		for(var/i = 1 to amount)
+			new item(drop_location)
+	tool.play_tool_sound(src, 50)
 	qdel(src)
 
 /**
@@ -271,7 +252,7 @@ Arguments:
 	linked_moderator.update_parents()
 
 /**
- * Called by the main fusion processes in hfr_main_processes.dm
+ * Called by the main fission processes in hfr_main_processes.dm
  * Check the power use of the machine, return TRUE if there is enough power in the powernet
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_power_use()
@@ -283,21 +264,6 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/has_fuel()
 	return length(fuel_rods)
-
-
-/obj/machinery/atmospherics/components/unary/rbmk/core/proc/removeFuelRod(mob/user, /obj/machinery/atmospherics/components/unary/rbmk/core/reactor)
-	if(src.power > SAFE_POWER_LEVEL)
-		to_chat(user, span_warning("You cannot remove fuel from [src] when it is above [SAFE_POWER_LEVEL]% power."))
-		return FALSE
-	if(length(fuel_rods) == 0)
-		to_chat(user, span_warning("[src] does not have any fuel rods loaded."))
-		return FALSE
-	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "Fuel Rods List", null) as null|anything in src.fuel_rods
-	if(!fuel_rod)
-		return
-	playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
-	fuel_rod.forceMove(get_turf(src))
-	src.fuel_rods -= fuel_rod
 
 /**
  * Check the integrity level and returns the status of the machine
@@ -314,7 +280,7 @@ Arguments:
 			return REACTOR_NOMINAL
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/start_alarm()
-	if(alarm == FALSE)
+	if(!alarm)
 		alarm = TRUE
 		alarmloop.start()
 
@@ -373,7 +339,6 @@ Arguments:
 	SIGNAL_HANDLER
 	grilled_item = grilled_result //use the new item!!
 
-
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler(delta_time)
 	critical_threshold_proximity_archived = critical_threshold_proximity
 
@@ -387,8 +352,9 @@ Arguments:
 		if(critical_threshold_proximity >= melting_point)
 			countdown() //Oops! All meltdown
 			return
-	if(temperature < -200) //That's as cold as I'm letting you get it, engineering.
-		temperature = -200
+
+	temperature = clamp(temperature, -200, INFINITY) //That's as cold as I'm letting you get it, engineering.
+
 	if (pressure >= RBMK_PRESSURE_CRITICAL)
 		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		core_turf.atmos_spawn_air("[GAS_WATER_VAPOR]=[pressure/100];TEMP=[temperature+273.15]")
@@ -448,13 +414,13 @@ Arguments:
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/countdown()
 	set waitfor = FALSE
-
 	if(final_countdown) // We're already doing it go away
 		return
 	final_countdown = TRUE
+
 	var/speaking = "[emergency_alert] The RBMK has reached critical integrity failure. Emergency control rods lowered."
 	radio.talk_into(src, speaking, common_channel, language = get_selected_language())
-	var/mutable_appearance/reactor_overlay = mutable_appearance('icons/obj/machines/rbmkparts.dmi', "nuclearwaste_green")
+	var/mutable_appearance/reactor_overlay = mutable_appearance('icons/obj/machines/power/rbmk/rbmk_parts.dmi', "nuclearwaste_green")
 	notify_ghosts(
 		"The [src] has begun melting down!",
 		source = src,
@@ -488,27 +454,23 @@ Arguments:
 	else
 		meltdown() //This is caused if neither pressure nor temperature was in critical. We still want to explode
 
-
 /**
  * Called by countdown() in this file
  * Create the explosion before deleting the machine core.
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/meltdown()
 	set waitfor = FALSE
-	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
-	update_icon()
-	STOP_PROCESSING(SSmachines, src)
-	AddElement(/datum/element/radioactive, intensity = 20, threshold = RAD_EXTREME_INSULATION)
 	var/turf/reactor_turf = get_turf(src)
-	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
-	for(var/mob/player_mob in GLOB.player_list)
-		if(compare_z(rbmkzlevel, player_mob.get_virtual_z_level()))
+
+	for(var/mob/living/player_mob in GLOB.player_list)
+		if(is_valid_z_level(reactor_turf, get_turf(player_mob)))
 			to_chat(player_mob, span_userdanger("You hear a horrible metallic hissing."))
 			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 
 	for(var/obj/machinery/power/apc/apc as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
-		if(prob(70) && compare_z(rbmkzlevel, apc.get_virtual_z_level()))
+		if(prob(70) && is_valid_z_level(reactor_turf, get_turf(apc)))
 			apc.overload_lighting()
+
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
 	var/datum/gas_mixture/coolant_output = linked_output.airs[1]
@@ -517,105 +479,35 @@ Arguments:
 	reactor_turf.assume_air(coolant_input)
 	reactor_turf.assume_air(moderator_input)
 	reactor_turf.assume_air(coolant_output)
-	explosion(get_turf(src), 0, 5, 10, 20, TRUE, TRUE)
-	empulse(get_turf(src), 20, 30)
+
+	explosion(reactor_turf, 0, 5, 10, 20, TRUE, TRUE)
+	empulse(reactor_turf, 20, 30)
+
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
 	// make a little bit of spicy mess, maximum of 4+25=29 tile radius, minimum of 4+4=8 tile radius, scaled on how far over temperature it is
-	var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/effect/nuclear_sludge_spawner(get_turf(src))
+	var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = new(reactor_turf)
 	nuclear_sludge_spawner.range = 4 + min(25,floor(4 * max(1,(temperature-RBMK_TEMPERATURE_CRITICAL)/RBMK_TEMPERATURE_CRITICAL))) // scales by an extra 4 tile radius per 100% over maximum
 	nuclear_sludge_spawner.fire()
+
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/blowout()
-	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
 	var/turf/reactor_turf = get_turf(src)
-	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
+
+	explosion(reactor_turf, GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
+
 	for(var/mob/player_mob in GLOB.player_list)
-		if(compare_z(rbmkzlevel, player_mob.get_virtual_z_level()))
+		if(is_valid_z_level(reactor_turf, get_turf(player_mob)))
 			SEND_SOUND(player_mob, 'sound/effects/rbmk/explode.ogg')
 			to_chat(player_mob, span_userdanger("You hear a horrible metallic explosion."))
 			SEND_SIGNAL(player_mob, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
-	for(var/nuclear_sludge_landmark in GLOB.landmarks_list)
-		if(istype(nuclear_sludge_landmark, /obj/effect/nuclear_sludge_spawner))
-			var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = nuclear_sludge_landmark
-			if(compare_z(rbmkzlevel, nuclear_sludge_spawner.get_virtual_z_level())) //Begin the SLUDGING
-				nuclear_sludge_spawner.fire()
-	var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner = new /obj/effect/nuclear_sludge_spawner/strong(get_turf(src))
+
+	for(var/obj/effect/nuclear_sludge_spawner/nuclear_sludge_spawner in GLOB.landmarks_list)
+		if(is_valid_z_level(reactor_turf, get_turf(nuclear_sludge_spawner))) //Begin the SLUDGING
+			nuclear_sludge_spawner.fire()
+
+	var/obj/effect/nuclear_sludge_spawner/strong/nuclear_sludge_spawner = new(reactor_turf)
 	nuclear_sludge_spawner.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	meltdown() //Double kill.
-
-//Plutonium sludge
-
-#define PLUTONIUM_SLUDGE_RANGE 50
-#define PLUTONIUM_SLUDGE_RANGE_STRONG 80
-#define PLUTONIUM_SLUDGE_RANGE_WEAK 20
-
-#define PLUTONIUM_SLUDGE_CHANCE 15
-
-
-/obj/effect/nuclear_sludge_spawner //Clean way of spawning nuclear gunk after a reactor core meltdown.
-	name = "nuclear waste spawner"
-	var/range = PLUTONIUM_SLUDGE_RANGE //tile radius to spawn goop
-	var/center_sludge = TRUE // Whether or not the center turf should spawn sludge or not.
-	var/static/list/avoid_objs = typecacheof(list( // List of objs that the waste does not spawn on
-		/obj/structure/stairs, // Sludge is hidden below stairs
-		/obj/structure/ladder, // Going down the ladder directly on sludge bad
-		/obj/effect/decal/cleanable/nuclear_waste, // No stacked sludge
-		/obj/structure/girder,
-		/obj/structure/grille,
-		/obj/structure/window/fulltile,
-		/obj/structure/window/plasma/fulltile,
-		/obj/structure/window/reinforced/plasma/fulltile,
-		/obj/structure/window/reinforced/plasma/plastitanium,
-		/obj/structure/window/reinforced/fulltile,
-		/obj/structure/window/reinforced/clockwork/fulltile,
-		/obj/structure/window/reinforced/tinted/fulltile,
-		/obj/structure/window,
-		/obj/structure/window/shuttle,
-		/obj/machinery/gateway,
-		/obj/machinery/gravity_generator,
-	))
-/// Tries to place plutonium sludge on 'floor'. Returns TRUE if the turf has been successfully processed, FALSE otherwise.
-/obj/effect/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
-	if(!floor)
-		return FALSE
-
-	if(epicenter)
-		for(var/obj/effect/decal/cleanable/nuclear_waste/waste in floor) //Replace nuclear waste with the stronger version
-			qdel(waste)
-		return TRUE
-
-	if(!prob(PLUTONIUM_SLUDGE_CHANCE)) //Scatter the sludge, don't smear it everywhere
-		return TRUE
-
-	for(var/obj/object in floor)
-		if(avoid_objs[object.type])
-			return TRUE
-
-	new /obj/effect/decal/cleanable/nuclear_waste (floor)
-	return TRUE
-
-/obj/effect/nuclear_sludge_spawner/strong
-	range = PLUTONIUM_SLUDGE_RANGE_STRONG
-
-/obj/effect/nuclear_sludge_spawner/weak
-	range = PLUTONIUM_SLUDGE_RANGE_WEAK
-	center_sludge = FALSE
-
-/obj/effect/nuclear_sludge_spawner/proc/fire()
-	playsound(src, 'sound/effects/gib_step.ogg', 100)
-
-	if(center_sludge)
-		place_sludge(get_turf(src), TRUE)
-
-	for(var/turf/open/floor in orange(range, get_turf(src)))
-		place_sludge(floor, FALSE)
-
-	qdel(src)
-
-#undef PLUTONIUM_SLUDGE_RANGE
-#undef PLUTONIUM_SLUDGE_RANGE_STRONG
-#undef PLUTONIUM_SLUDGE_RANGE_WEAK
-#undef PLUTONIUM_SLUDGE_CHANCE
