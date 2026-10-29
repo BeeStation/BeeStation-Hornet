@@ -12,7 +12,7 @@
 /area/centcom/tdome/arena)
 "c" = (
 /obj/item/reagent_containers/cup/beaker{
-	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
+	list_reagents = list(/datum/reagent/consumable/nutriment/fat/oil = 50)
 	},
 /turf/open/floor/plating/beach/sand,
 /area/centcom/tdome/arena)

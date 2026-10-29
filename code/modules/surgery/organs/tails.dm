@@ -25,18 +25,18 @@
 
 	organ_traits = list(TRAIT_LIGHT_LANDING)
 
-/obj/item/organ/tail/cat/on_insert(mob/living/carbon/human/tail_owner)
+/obj/item/organ/tail/cat/on_mob_insert(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(istype(tail_owner) && tail_owner.dna)
-		tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
-		tail_owner.update_body()
+	if(istype(organ_owner) && organ_owner.dna)
+		organ_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
+		organ_owner.update_body()
 
-/obj/item/organ/tail/cat/on_remove(mob/living/carbon/human/tail_owner)
+/obj/item/organ/tail/cat/on_mob_remove(mob/living/carbon/human/organ_owner, special, movement_flags)
 	. = ..()
-	if(istype(tail_owner) && tail_owner.dna)
-		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
-		color = tail_owner.hair_color
-		tail_owner.update_body()
+	if(istype(organ_owner) && organ_owner.dna)
+		organ_owner.dna.species.mutant_bodyparts -= "tail_human"
+		color = organ_owner.hair_color
+		organ_owner.update_body()
 
 /obj/item/organ/tail/cat/is_wagging(mob/living/carbon/human/H)
 	if(!H?.dna?.species)
@@ -63,7 +63,7 @@
 	color = "#116611"
 	var/spines
 
-/obj/item/organ/tail/lizard/on_insert(mob/living/carbon/human/tail_owner)
+/obj/item/organ/tail/lizard/on_mob_insert(mob/living/carbon/human/tail_owner)
 	. = ..()
 	if(istype(tail_owner) && tail_owner.dna)
 		// Checks here are necessary so it wouldn't overwrite the tail of a lizard it spawned in
@@ -83,7 +83,7 @@
 
 		tail_owner.update_body()
 
-/obj/item/organ/tail/lizard/on_remove(mob/living/carbon/human/tail_owner)
+/obj/item/organ/tail/lizard/on_mob_remove(mob/living/carbon/human/tail_owner)
 	. = ..()
 	if(istype(tail_owner) && tail_owner.dna)
 		tail_owner.dna.species.mutant_bodyparts -= "tail_lizard"

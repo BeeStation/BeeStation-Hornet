@@ -781,9 +781,9 @@
 		return .
 	if(isslime(interacting_with))
 		return interact_with_slime(interacting_with, user, modifiers)
-	else
+	if(isliving(interacting_with))
 		to_chat(user, span_warning("It appears [src] must be given directly to a slime to absorb."))
-		return NONE
+	return NONE
 
 /obj/item/slimepotion/slime/proc/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
 	return

@@ -120,3 +120,124 @@
       this time the TTV will shake vigorously, play a loud rumbling sound, and display
       a balloon alert until finally killing you (or not if you escape the blast radius).
   - sound: Valves now make a sound when being opened
+2026-10-17:
+  ? rkz, IndieanaJones, XDTM, Timberpoes, JohnFulpWillard, Ryll-Ryll, LemonInTheDark,
+    Fikou, jlsnow301, NamelessFairy, Rhials, 13spacemen, MrMelbert, SmArtKar, mcbalaam,
+    Ghommie, vinylspiders
+  : - balance: Reports show Hazard-5 entities have mutated to keep their important
+        cells protected from lava. Reports also indicate that these Hazard-5 entities
+        now take longer to detect from Central Command, among other things.
+    - rscadd: Positronic brains can now be given a "personality seed" by Alt-clicking
+        them, telling ghosts what you plan on using the posibrain for.
+    - rscadd: The orbit UI now brings up tooltips to show health, job, and full name
+        information.
+    - rscadd: The orbit UI now puts disguised names in quotes. Hover to get real name.
+    - rscadd: Orbit UI now gives tooltips on SM crystal, nuke disk, and nuclear devices.
+    - rscadd: You can now search by job in the orbit UI.
+    - rscadd: Orbit UI buttons now reflect health and show job icons.
+    - rscadd: ID trims now have an orbit icon variable for display on the observer
+        menu.
+    - rscadd: Blobs now get antag info screens and style text for victories.
+    - rscadd: Blob minions get objectives (protect the core!).
+    - rscadd: Many minor antagonists now have objectives.
+    - rscadd: Ghost notifications have been upgraded to their own announcements.
+    - rscadd: AFK players are greyed out in the orbit UI.
+    - rscadd: Living NPCs now display health in the orbit UI.
+    - rscadd: Icons displayed are now based on hud icons, including icons for player-visible
+        antagonists.
+    - rscadd: You can now sort by job department in the orbit UI.
+    - rscadd: Round ending "critical" items will be listed at the top of the orbit
+        UI.
+    - rscadd: Your current orbit target is highlighted in the orbit UI.
+    - qol: The orbit menu now sorts antagonists into groups more effectively, with
+        some getting new named groups.
+    - qol: Everything deadchat controlled will now be highlighted in the orbit menu.
+    - qol: Fugitives, Bounty Hunters, and Paradox Clones will now appear in the orbit
+        menu.
+    - qol: The on-screen deadchat popups now contain the notification blurb when hovered.
+    - qol: Nearly every ghost alert now features a "VIEW" button, even those with
+        click interaction.
+    - qol: The "Explosive Planted" alert for C4 actually shows the C4.
+    - qol: Ghost orbit menu now always displays a person's real name and roundstart
+        job, and cannot be fooled by disguises.
+    - qol: All antagonists are now visible to admins in the orbit menu.
+    - rscdel: Ghost alerts no longer show the entire message in the tooltip; replaced
+        with titles.
+    - bugfix: Observers can no longer click on alert icons to perform actions when
+        auto-observing players.
+    - bugfix: Ghosts can now enter a posibrain that has already had a player in it
+        before.
+    - bugfix: Stealthed admins orbiting something will no longer count for that atom's
+        orbiter count.
+    - bugfix: Fixes some weird behavior with items falling out of your hands when
+        space moving.
+    - bugfix: Ghost alerts now resize to 32x32 if larger.
+    - bugfix: Orbit UI buttons no longer clip on extra long names.
+    - bugfix: Sorting for disguised names should work better.
+    - bugfix: ERTs should now be properly grouped in the orbit UI.
+    - bugfix: Orbit heatmap is now working properly.
+    - bugfix: Blob minions are now sorted into biohazards in orbit UI.
+    - bugfix: AI eyes, megafauna and robots will appear in the orbit menu NPC section
+        again.
+    - bugfix: Ghost alerts have been tuned down a bit.
+    - bugfix: The screen alert no longer breaks ghost UI when it's huge.
+    - bugfix: Blocks mobs from trying to physically interact with some of their HUD
+        elements.
+    - bugfix: Fixed an issue preventing space ninjas from having a HUD icon.
+    - code_imp: Notify ghost alerts and healing robotic limbs' code brought up to
+        coding standards.
+    - code_imp: Orbit UI heatmap is now toggleable with health.
+    - code_imp: The notify_ghosts proc has been cleaned up.
+    - refactor: Refactored Orbit into a folder.
+    - refactor: Refactors some blob & blob minion code.
+    - refactor: Refactors code in several antag datums.
+    - admin: Traitor panel should have slightly more sane categories.
+    - admin: Fixes admin observe showing all antags as revs upon enabling Real Name
+        Display.
+    - admin: Admins can now filter observable mobs by ckey.
+2026-10-18:
+  DrDuckedGoose:
+  - bugfix: Fix grav-pulse plane based effects
+2026-10-22:
+  mrmanlikesbt:
+  - bugfix: Fixed some holodeck templates not spawning with some of their items.
+2026-10-23:
+  Isaacnml:
+  - bugfix: You can grab cleanbots/larrys again
+  - bugfix: Mechs will throw you out if you reach softcrit
+  - bugfix: You can milk pete/cows again
+  - bugfix: You can place plasmaglass into RPEDs
+  - bugfix: You can place patches into pill bottles once again
+  - bugfix: Slimes wont show weird messages before latching on
+  - bugfix: Xenobio console can place potions into slimes again
+  - bugfix: N2O wont put you to sleep if you have sleep immunity
+  rkz, timothymtorres, timegreen, ghommie:
+  - refactor: Your organs are now inside your body. Please report any issues with
+      bodypart and organ movement, including exotic organ, on github
+  - bugfix: Cases of unexpected organ movement, such as teleporting bodyparts and
+      organs with spells, now invokes a proper reaction (usually violent death)
+  - bugfix: Fixes lag when species swapping
+  - code_imp: Improves digitgrade handling in preference code
+  - bugfix: Fix robotic organs to not gain health passively, from revival, smart organ
+      fridge, oculine, and earmuffs.
+  - rscadd: Some diseases now require the appropriate internal organ to work. A robotic
+      organ will give immunity to the disease symptom unless the disease has "Inorganic
+      Biology".
+  - rscadd: Disease transmission methods now require an internal organ to be successful.
+      Robotic organs give immunity. Airborne disease transmission require lungs. Ingested
+      disease transmission requires a stomach. Blood disease transmission requires
+      a heart.
+  - rscadd: Organs removed from a mob that is afflicted with a disease will be infectious
+      while handling or transplanting it
+2026-10-26:
+  rkz, melbert:
+  - bugfix: fixes most broken item interactions
+  - bugfix: you will no longer tackle in a direction when in throw mode and shiftclicking/altclicking
+      a turf
+2026-10-27:
+  mrmanlikesbt:
+  - code_imp: DM will only recompile if the build inputs have changed. In other words,
+      you don't recompile unless you actually changed code.
+2026-10-28:
+  Tsar-Salat:
+  - bugfix: fixes goliath pushing exploit

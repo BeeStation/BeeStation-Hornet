@@ -40,7 +40,7 @@
 		if (!isturf(instrument.loc) || !can_see(pawn, instrument))
 			controller.clear_blackboard_key(BB_SONG_INSTRUMENT)
 			return
-		if (pawn.CanReach(instrument))
+		if (instrument.IsReachableBy(pawn))
 			return
 		controller.queue_behavior(/datum/ai_behavior/travel_towards/adjacent, BB_SONG_INSTRUMENT)
 		return SUBTREE_RETURN_FINISH_PLANNING
@@ -63,7 +63,7 @@
 		if(QDELETED(wheel) || !isturf(wheel.loc) || !can_see(pawn, wheel) || !wheel.anchored || wheel.active || !isnull(wheel.occupant))
 			controller.clear_blackboard_key(BB_HAMSTER_WHEEL)
 			return
-		if (pawn.CanReach(wheel))
+		if (wheel.IsReachableBy(pawn))
 			return
 		controller.queue_behavior(/datum/ai_behavior/travel_towards/adjacent, BB_HAMSTER_WHEEL)
 		return SUBTREE_RETURN_FINISH_PLANNING

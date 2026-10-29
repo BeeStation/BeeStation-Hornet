@@ -75,7 +75,7 @@
 /mob/living/proc/death(gibbed)
 	var/was_dead_before = stat == DEAD
 
-	if(!gibbed && (death_sound || death_message))
+	if(!gibbed && (death_sound || death_message || (living_flags & ALWAYS_DEATHGASP)))
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 
 	set_stat(DEAD)
@@ -103,8 +103,6 @@
 
 	med_hud_set_health()
 	med_hud_set_status()
-
-
 	stop_pulling()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)

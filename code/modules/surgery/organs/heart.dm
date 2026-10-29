@@ -33,7 +33,7 @@
 	. = ..()
 	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
 
-/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, movement_flags)
 	..()
 	if(!special)
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
@@ -135,11 +135,11 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/heart/cursed/on_insert(mob/living/carbon/accursed)
+/obj/item/organ/heart/cursed/on_mob_insert(mob/living/carbon/accursed)
 	. = ..()
 	accursed.AddComponent(/datum/component/manual_heart, pump_delay = pump_delay, blood_loss = blood_loss, heal_brute = heal_brute, heal_burn = heal_burn, heal_oxy = heal_oxy)
 
-/obj/item/organ/heart/cursed/Remove(mob/living/carbon/accursed, special = 0, pref_load = FALSE)
+/obj/item/organ/heart/cursed/on_mob_remove(mob/living/carbon/accursed, special = FALSE, movement_flags)
 	. = ..()
 	qdel(accursed.GetComponent(/datum/component/manual_heart))
 
@@ -261,7 +261,7 @@
 	QDEL_NULL(ethereal_light)
 	return ..()
 
-/obj/item/organ/heart/ethereal/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/heart/ethereal/on_mob_insert(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	. = ..()
 	ethereal_light = organ_owner.mob_light(light_type = /obj/effect/dummy/lighting_obj/moblight/species)
 	RegisterSignal(organ_owner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(refresh_light_color))
@@ -271,7 +271,7 @@
 	else
 		refresh_light_color(organ_owner)
 
-/obj/item/organ/heart/ethereal/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/heart/ethereal/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	UnregisterSignal(organ_owner, list(COMSIG_LIVING_HEALTH_UPDATE, COMSIG_ATOM_EMP_ACT))
 	QDEL_NULL(ethereal_light)

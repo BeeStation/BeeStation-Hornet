@@ -19,6 +19,7 @@
 	 */
 	var/static/list/allowed_material_types = list(
 		/obj/item/stack/sheet/glass,
+		/obj/item/stack/sheet/plasmaglass,
 		/obj/item/stack/sheet/plasteel,
 		/obj/item/stack/cable_coil,
 	)

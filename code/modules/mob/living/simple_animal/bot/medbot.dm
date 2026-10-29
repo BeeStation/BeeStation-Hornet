@@ -260,26 +260,28 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 					speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
 					window_name = "Automatic Medical Unit v[efficiency]"
 
+/mob/living/simple_animal/bot/medbot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/reagent_containers))
+		return ..()
+	if(locked)
+		to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
+		return ITEM_INTERACT_BLOCKING
+	if(!isnull(reagent_glass))
+		to_chat(user, span_warning("There is already a beaker loaded!"))
+		return ITEM_INTERACT_BLOCKING
+	if(!user.transferItemToLoc(tool, src))
+		return ITEM_INTERACT_BLOCKING
+
+	reagent_glass = tool
+	mode = BOT_IDLE
+	to_chat(user, span_notice("You insert [tool]."))
+	var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
+	log_combat(user, src, "inserted a [tool] with [reagentlist]" )
+	add_fingerprint(user)
+	update_icon()
+	return ITEM_INTERACT_SUCCESS
+
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, list/modifiers)
-	if(istype(W, /obj/item/reagent_containers))
-		. = 1 //no afterattack
-		if(locked)
-			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
-			return
-		if(!isnull(reagent_glass))
-			to_chat(user, span_warning("There is already a beaker loaded!"))
-			return
-		if(!user.transferItemToLoc(W, src))
-			return
-
-		reagent_glass = W
-		mode = BOT_IDLE
-		to_chat(user, span_notice("You insert [W]."))
-		var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
-		log_combat(user, src, "inserted a [W] with [reagentlist]" )
-		add_fingerprint(user)
-		update_icon()
-
 	if(istype(W, /obj/item/pen)&&!locked)
 		rename_bot()
 		return

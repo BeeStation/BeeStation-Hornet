@@ -347,7 +347,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in remote_eye.loc)
-			X.current_potion.attack(S, C)
+			X.current_potion.interact_with_atom(S, C)
 			break
 	else
 		to_chat(owner, span_warning("Target is not near a camera. Cannot proceed."))
@@ -433,7 +433,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		to_chat(C, span_warning("No potion loaded."))
 		return
 	if(mobarea.name == E.allowed_area || (mobarea.area_flags & XENOBIOLOGY_COMPATIBLE))
-		X.current_potion.attack(S, C)
+		X.current_potion.interact_with_atom(S, C)
 
 //Picks up slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/S)
