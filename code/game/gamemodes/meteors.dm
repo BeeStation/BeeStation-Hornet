@@ -177,7 +177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 		qdel(src)
 		return
 
-/obj/effect/meteor/Process_Spacemove(movement_dir = 0)
+/obj/effect/meteor/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE //Keeps us from drifting for no reason
 
 /obj/effect/meteor/Bump(atom/A)
