@@ -140,11 +140,12 @@
 		to_chat(user, span_warning("\The [src]'s material slots are full!"))
 		return ITEM_INTERACT_BLOCKING
 
-	var/adding = min((max_initial_amount - initial_amount), material.amount)
-	material.amount -= adding
+	var/adding = min(max_initial_amount - initial_amount, material.get_amount()))
+	if(!material.use(adding)
+		to_chat(user, span_notice("You try to insert nothing into \the [src] but... nothing happens!"))
+		return ITEM_INTERACT_BLOCKING
 	initial_amount += adding
 	to_chat(user, span_notice("You insert [adding] [adding == 1 ? material_name_singular : material_name] into \the [src]."))
-	material.is_zero_amount()
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/fuel_rod/material/attack_self(mob/user)
