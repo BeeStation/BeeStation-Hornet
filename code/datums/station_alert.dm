@@ -31,9 +31,85 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
+/// The z-level the map renders. Consoles are bound to one z level and silicons will use the primary one
+/datum/station_alert/proc/get_map_z()
+	if(length(listener.allowed_z_levels))
+		return listener.allowed_z_levels[1]
+	var/list/station_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
+	return length(station_levels) ? station_levels[1] : null
+
+/**
+ * Where the viewer sits on the schematic, as list(x, y) in cropped map space
+ */
+/datum/station_alert/proc/get_viewer_point(datum/minimap/minimap, map_z)
+	var/atom/console = holder
+	if(!ismachinery(console) || console.z != map_z)
+		return null
+	var/turf/console_turf = get_turf(console)
+	if(isnull(console_turf))
+		return null
+	return minimap.to_map_point(console_turf.x, console_turf.y)
+
+/// TGUI sends assets before it asks for payload, so prefer ui_assets as opposed to static :)
+/datum/station_alert/ui_assets(mob/user)
+	var/map_z = get_map_z()
+	if(!isnull(map_z))
+		get_minimap_for_z(map_z)
+	return list(get_asset_datum(/datum/asset/minimap))
+
+/datum/station_alert/ui_static_data(mob/user)
+	var/list/data = list()
+	data["map"] = null
+
+	var/map_z = get_map_z()
+	if(isnull(map_z))
+		return data
+	var/datum/minimap/minimap = GLOB.minimaps[map_z]
+	if(!minimap)
+		return data
+
+	data["map"] = list(
+		"url" = SSassets.transport.get_asset_url(minimap.asset_name),
+		"width" = minimap.width,
+		"height" = minimap.height,
+		"areas" = minimap.areas,
+		"viewer" = get_viewer_point(minimap, map_z),
+	)
+	// Static because we derived it entirely from area vars fixed at compile time
+	var/list/not_applicable = list()
+	for(var/list/map_area as anything in minimap.areas)
+		var/area/checked_area = locate(map_area["ref"])
+		if(!istype(checked_area))
+			continue
+		var/list/na = list()
+		if(!checked_area.reports_atmosphere())
+			na += ALARM_ATMOS
+			na += ALARM_FIRE
+		if(!checked_area.reports_power())
+			na += ALARM_POWER
+			na += ALERT_LAYER_GRID
+		if(length(na))
+			not_applicable[map_area["ref"]] = na
+	data["areaNotApplicable"] = not_applicable
+	return data
+
 /datum/station_alert/ui_data(mob/user)
 	var/list/data = list()
 	data["cameraView"] = camera_view
+
+	// KEEP THIS SHIT CENTRAL!!11!! One sweep per tick, conjoining all workorder maps aboard
+	var/list/area_status = SSwork_orders.get_area_status(get_map_z())
+	data["areaStatus"] = area_status
+	var/board = !issilicon(user)
+	// null status means no schematic
+	data["workOrders"] = board && !isnull(area_status) ? SSwork_orders.get_orders() : null
+	data["canAssign"] = board && can_assign_work(user)
+	var/list/assignable = list()
+	if(board)
+		for(var/list/member in SSwork_orders.get_department_crew())
+			if(member["ckey"] != user?.ckey)
+				assignable += list(member)
+	data["crew"] = board ? assignable : null
 	data["alarms"] = list()
 	var/list/nominal_types = alarm_types.Copy()
 	var/list/alarms = listener.alarms
@@ -47,6 +123,8 @@
 			var/list/alert_details = alerts[alert]
 			alarm_category["alerts"] += list(list(
 				"name" = get_area_name(alert_details[1], TRUE),
+				// Join key with the schematic
+				"areaRef" = REF(alert_details[1]),
 				"cameras" = camera_view ? length(alert_details[2]) : null,
 				"sources" = camera_view ? length(alert_details[3]) : null,
 				"ref" = camera_view ? REF(alert) : null,
@@ -68,6 +146,71 @@
 		return
 
 	switch(action)
+		if("toggle_claim")
+			if(!usr.get_idcard(FALSE))
+				return
+			var/key = params["key"]
+			if(!key)
+				return
+			var/description = SSwork_orders.known_orders[key]
+			if(!description)
+				return
+			var/claimant = usr.get_work_claimant_name()
+			var/datum/work_claim/existing = SSwork_orders.claims[key]
+			// Claim it, drop your own, or take over someone else's. Ungated on purpose
+			if(existing?.claimant_ckey == usr?.ckey)
+				SSwork_orders.resolve_claim(key, WORK_OUTCOME_DROPPED)
+				to_chat(usr, span_notice("You take your name off: [description]."))
+				// Tell whoever assigned it, so they aren't left thinking it's handled.
+				var/mob/assigner = existing.get_assigner_mob()
+				if(assigner && assigner != usr)
+					to_chat(assigner, span_warning("[existing.claimant] has dropped the work order you assigned: [description]."))
+			else
+				if(existing)
+					var/mob/displaced = existing.get_claimant_mob()
+					if(displaced && displaced != usr)
+						to_chat(displaced, span_warning("[claimant] has taken over your work order: [description]."))
+				SSwork_orders.resolve_claim(key, WORK_OUTCOME_REASSIGNED)
+				SSwork_orders.claims[key] = new /datum/work_claim(claimant, usr?.ckey)
+				SSblackbox.record_feedback("tally", "work_orders_claimed", 1, "self")
+				to_chat(usr, span_notice("You put your name to: [description]."))
+			playsound(ui_host(), 'sound/machines/terminal_prompt_confirm.ogg', 40, FALSE)
+			return TRUE
+
+		if("assign_order")
+			if(!can_assign_work(usr))
+				to_chat(usr, span_warning("You are not authorised to direct engineering staff."))
+				playsound(ui_host(), 'sound/machines/terminal_prompt_deny.ogg', 40, FALSE)
+				return
+			var/key = params["key"]
+			var/target_ckey = params["ckey"]
+			var/description = SSwork_orders.known_orders[key]
+			if(!key || !target_ckey || !description)
+				return
+			var/mob/target = get_mob_by_ckey(target_ckey)
+			if(!target)
+				to_chat(usr, span_warning("That crewmember is no longer reachable."))
+				return
+
+			var/assigner = usr.get_work_claimant_name()
+			var/target_name = target.get_work_claimant_name()
+			var/datum/work_claim/existing = SSwork_orders.claims[key]
+			if(existing?.claimant_ckey == target_ckey)
+				to_chat(usr, span_warning("[existing.claimant] already has that job."))
+				return
+			if(existing)
+				var/mob/displaced = existing.get_claimant_mob()
+				if(displaced && displaced != target)
+					to_chat(displaced, span_warning("[assigner] has reassigned your work order to [target_name]: [description]."))
+				SSwork_orders.resolve_claim(key, WORK_OUTCOME_REASSIGNED)
+
+			SSwork_orders.claims[key] = new /datum/work_claim(target_name, target_ckey, assigner, usr?.ckey)
+			SSblackbox.record_feedback("tally", "work_orders_claimed", 1, "assigned")
+			notify_work_assignment(target, assigner, description)
+			to_chat(usr, span_notice("You assign [target_name] to: [description]."))
+			playsound(ui_host(), 'sound/machines/terminal_prompt_confirm.ogg', 40, FALSE)
+			return TRUE
+
 		if("select_camera")
 			var/mob/living/silicon/ai/ai = usr
 			if(!istype(ai))

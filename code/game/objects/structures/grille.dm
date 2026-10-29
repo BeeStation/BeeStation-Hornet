@@ -10,6 +10,7 @@ WANTS_POWER_NODE(/obj/structure/grille)
 	icon_state = "grille"
 	base_icon_state = "grille"
 	density = TRUE
+	tacmap_color = MINIMAP_COLOR_GRILLE
 	anchored = TRUE
 	pass_flags_self = PASSGRILLE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
