@@ -216,6 +216,9 @@
 ///trait source that sign language should use
 #define SPEAKING_FROM_HANDS "hands"
 
+/// Trait from an organ being inside a bodypart
+#define ORGAN_INSIDE_BODY_TRAIT "organ_inside_body"
+
 /// Trait granted by [/mob/living/silicon/robot]
 /// Traits applied to a silicon mob by their module.
 #define MODULE_TRAIT "module_trait"

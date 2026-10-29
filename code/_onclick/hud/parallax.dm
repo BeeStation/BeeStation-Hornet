@@ -28,7 +28,7 @@
 		C.parallax_layers.len = C.parallax_layers_max
 
 	C.screen |= (C.parallax_layers)
-	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
+	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.get_plane_master(PLANE_SPACE)
 	if(PM)
 		if(screenmob != mymob)
 			C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen
@@ -46,7 +46,7 @@
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 	C.screen -= (C.parallax_layers_cached)
-	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
+	var/atom/movable/screen/plane_master/PM = screenmob.hud_used.get_plane_master(PLANE_SPACE)
 	if(PM)
 		if(screenmob != mymob)
 			C.screen -= locate(/atom/movable/screen/plane_master/parallax_white) in C.screen

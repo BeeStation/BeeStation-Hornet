@@ -87,7 +87,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 
 	placed_poster.poster_item_type = type
 	poster_structure = null
-	flick("poster_being_set", placed_poster)
+	z_flick("poster_being_set", placed_poster)
 	playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
 	qdel(src)
 
