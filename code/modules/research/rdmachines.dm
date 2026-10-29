@@ -53,9 +53,8 @@
 		context.add_left_click_tool_action("Open Wires", TOOL_MULTITOOL)
 	else if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
-		var/obj/item/tool = carbon_user.get_active_held_item()
-		var/datum/component/buffer/buffer_component = tool?.GetComponent(/datum/component/buffer)
-		if(istype(buffer_component?.target, /datum/techweb))
+		var/obj/item/held_item = carbon_user.get_active_held_item()
+		if(held_item && istype(GET_BUFFER(held_item), /datum/techweb))
 			context.add_left_click_action("Upload Techweb")
 
 /// Called when attempting to connect the machine to a techweb, forgetting the old.

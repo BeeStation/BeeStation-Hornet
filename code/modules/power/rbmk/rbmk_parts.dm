@@ -76,30 +76,18 @@
 	. = ..()
 	attack_hand(user)
 
-/obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, list/modifiers)
-	if(tool.tool_behaviour == TOOL_MULTITOOL)
-		var/datum/component/buffer/heldmultitool = get_held_buffer_item(user)
-		if(heldmultitool)
-			var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = heldmultitool.target
-			if(istype(reactor_core) && reactor_core != src)
-				if(!(src in reactor_core.linked_interface))
-					reactor_core.linked_interface = src
-					reactor_core.ui_update()
-					reactor = reactor_core
-					to_chat(user, span_notice("You upload the link to the [src]."))
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/reactor)
 
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/reactor)
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = buffer
+	if(!istype(reactor_core) || reactor_core.linked_interface == src)
+		return NONE
 
-/obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/ai_user = user
-		return ai_user.aiMulti.GetComponent(/datum/component/buffer)
-
-	var/obj/item/held_item = user.get_active_held_item()
-	var/found_component = held_item?.GetComponent(/datum/component/buffer)
-	if(found_component && in_range(user, src))
-		return found_component
-
-	return null
+	reactor_core.linked_interface = src
+	reactor_core.ui_update()
+	reactor = reactor_core
+	to_chat(user, span_notice("You upload the link to the [src]."))
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/atmospherics/components/unary/rbmk
 	icon = 'icons/obj/machines/rbmkparts.dmi'
