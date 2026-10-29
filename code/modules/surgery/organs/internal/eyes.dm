@@ -111,16 +111,9 @@
 	var/mutable_appearance/eye_right = mutable_appearance(eye_icon, "[eye_icon_state]_r", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 	var/list/overlays = list(eye_left, eye_right)
 
-	var/obscured = parent.check_obscured_slots(TRUE)
-	if(overlay_ignore_lighting && !(obscured & ITEM_SLOT_EYES))
+	if(overlay_ignore_lighting && !(parent.obscured_slots & HIDEEYES))
 		overlays += emissive_appearance(eye_left.icon, eye_left.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), alpha = eye_left.alpha)
 		overlays += emissive_appearance(eye_right.icon, eye_right.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), alpha = eye_right.alpha)
-
-	// Cry emote overlay
-	if (HAS_TRAIT(parent, TRAIT_CRYING)) // Caused by either using *cry or being pepper sprayed
-		var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "tears", CALCULATE_MOB_OVERLAY_LAYER(BODY_ADJ_LAYER))
-		tears_overlay.color = COLOR_DARK_CYAN
-		overlays += tears_overlay
 
 	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)
 	if(my_head)

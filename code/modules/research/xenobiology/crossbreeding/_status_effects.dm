@@ -811,7 +811,7 @@
 		originalDNA = new H.dna.type
 		originalname = H.real_name
 		H.dna.copy_dna_to(originalDNA)
-		randomize_human(H, TRUE)
+		randomize_human(H)
 	return ..()
 
 // Only occasionally give examiners a warning.

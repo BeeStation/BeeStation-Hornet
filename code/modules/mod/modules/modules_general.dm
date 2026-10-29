@@ -657,3 +657,63 @@
 		Syndicate Operatives and Agents alike, enabling them to continue to style on the opposition even while in their MODsuit."
 	complexity = 0
 	removable = FALSE
+
+///Hardlight Projector - Shows the wearer's ears, antennae, tail and wings through sealed parts as hardlight.
+/obj/item/mod/module/hardlight_projector
+	name = "\improper MOD hardlight projector module"
+	desc = "A web of emitters along the suit's seals, projecting a hardlight shell around any tail or wings poking out of the suit."
+	icon_state = "patient_transport"
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/hardlight_projector)
+	/// Limbs we project onto
+	var/static/list/zone_to_slot = list(
+		BODY_ZONE_HEAD = ITEM_SLOT_HEAD,
+		BODY_ZONE_CHEST = ITEM_SLOT_OCLOTHING,
+	)
+	/// Organ slots the wearer can show or hide while projecting
+	var/static/list/toggleable_slots = list(ORGAN_SLOT_EARS, ORGAN_SLOT_EXTERNAL_ANTENNAE)
+
+/obj/item/mod/module/hardlight_projector/on_part_activation()
+	RegisterSignal(mod, COMSIG_MOD_PART_SEALED, PROC_REF(update_projections))
+	RegisterSignal(mod.wearer, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(update_projections))
+	RegisterSignal(mod.wearer, COMSIG_CARBON_POST_REMOVE_LIMB, PROC_REF(on_limb_removed))
+	update_projections()
+
+/obj/item/mod/module/hardlight_projector/on_part_deactivation(deleting = FALSE)
+	UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
+	UnregisterSignal(mod.wearer, list(COMSIG_CARBON_POST_ATTACH_LIMB, COMSIG_CARBON_POST_REMOVE_LIMB))
+	for(var/zone in zone_to_slot)
+		mod.wearer.get_bodypart(zone)?.remove_bodypart_texture(mod.theme.hardlight_texture, update = FALSE)
+	mod.wearer.update_body_parts()
+
+/obj/item/mod/module/hardlight_projector/get_configuration(mob/user)
+	. = ..()
+	for(var/slot in toggleable_slots)
+		var/obj/item/organ/organ = mod.wearer?.get_organ_slot(slot)
+		if(organ?.bodypart_overlay?.overlay_flags & LIMB_OVERLAY_HARDLIGHT)
+			.[slot] = add_ui_configuration(capitalize(organ.name), "bool", organ.bodypart_overlay.hardlight_enabled)
+
+/obj/item/mod/module/hardlight_projector/configure_edit(key, value)
+	var/obj/item/organ/organ = mod.wearer?.get_organ_slot(key)
+	if(!(key in toggleable_slots) || !organ?.bodypart_overlay)
+		return
+	organ.bodypart_overlay.hardlight_enabled = value
+	mod.wearer.update_body_parts()
+
+/// Projects onto each limb whose suit part is sealed
+/obj/item/mod/module/hardlight_projector/proc/update_projections()
+	SIGNAL_HANDLER
+
+	for(var/zone, slot in zone_to_slot)
+		var/datum/mod_part/part = mod.get_part_datum_from_slot(slot)
+		var/obj/item/bodypart/limb = mod.wearer.get_bodypart(zone)
+		if(part?.sealed)
+			limb?.add_bodypart_texture(mod.theme.hardlight_texture, update = FALSE)
+		else
+			limb?.remove_bodypart_texture(mod.theme.hardlight_texture, update = FALSE)
+	mod.wearer.update_body_parts()
+
+/obj/item/mod/module/hardlight_projector/proc/on_limb_removed(mob/living/carbon/source, obj/item/bodypart/limb)
+	SIGNAL_HANDLER
+
+	limb.remove_bodypart_texture(mod.theme.hardlight_texture)

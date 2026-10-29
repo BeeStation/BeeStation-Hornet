@@ -157,7 +157,8 @@
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	trade_flags = TRADE_NOT_SELLABLE
-
+	flags_1 = UNPAINTABLE_1
+	
 	/// The name registered on the card (for example: Dr Bryan See)
 	var/registered_name = null
 	/// Registered owner's age.

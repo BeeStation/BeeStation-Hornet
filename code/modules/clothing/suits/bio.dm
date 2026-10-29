@@ -11,11 +11,14 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/biosuit
 	custom_price = 50
 
 /obj/item/clothing/head/bio_hood/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, texture_type)
 
 /datum/armor/head_bio_hood
 	bio = 100
@@ -40,6 +43,10 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
+	bodyshapes_with_variations = BODYSHAPE_DIGITIGRADE
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/biosuit
 	custom_price = 100
 
 
@@ -52,6 +59,7 @@
 /obj/item/clothing/suit/bio_suit/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 75)
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, texture_type)
 
 //Standard biosuit, orange stripe
 /obj/item/clothing/head/bio_hood/general
@@ -106,10 +114,12 @@
 
 /obj/item/clothing/head/bio_hood/janitor
 	icon_state = "bio_janitor"
+	texture_type = /datum/bodypart_texture/mesh/biosuit_dark
 
 /obj/item/clothing/suit/bio_suit/janitor
 	icon_state = "bio_janitor"
 	allowed = list(/obj/item/storage/bag/trash)
+	texture_type = /datum/bodypart_texture/mesh/biosuit_dark
 
 //Scientist's biosuit, white with a pink-ish hue
 /obj/item/clothing/head/bio_hood/scientist
@@ -135,3 +145,4 @@
 	inhand_icon_state = "bio_suit"
 	strip_delay = 40
 	equip_delay_other = 20
+	texture_type = /datum/bodypart_texture/mesh/black

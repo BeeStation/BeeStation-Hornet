@@ -581,6 +581,7 @@ BLIND	 // can't see anything
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
+		C.refresh_obscured()
 		C.head_update(src, forced = TRUE)
 	update_action_buttons()
 	return TRUE

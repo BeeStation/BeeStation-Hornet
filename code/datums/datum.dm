@@ -59,6 +59,9 @@
 	*/
 	var/list/cooldowns
 
+	/// List for handling persistent filters
+	var/list/filter_data
+
 #ifdef REFERENCE_TRACKING
 	/// When was this datum last touched by a reftracker?
 	/// If this value doesn't match with the start of the search

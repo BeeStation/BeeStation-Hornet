@@ -256,7 +256,7 @@
 
 /datum/design/searingtool
 	name = "Searing Tool"
-	desc = "Used to mend tissue togheter."
+	desc = "Used to mend tissue together."
 	id = "searingtool"
 	build_path = /obj/item/cautery/advanced
 	build_type = PROTOLATHE
@@ -273,6 +273,24 @@
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 200)
 	category = list(RND_CATEGORY_TOOL_DESIGNS + RND_SUBCATEGORY_TOOLS_MEDICAL)
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/flesh_reshapers
+	name = "Flesh Reshaper"
+	desc = "Reshape those external features!"
+	id = "fleshreshaper"
+	build_path = /obj/item/flesh_shears
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/silver = 2000)
+	category = list(
+		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MEDICAL_ADVANCED
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
+
+/datum/design/flesh_reshapers/medical // slight variant with different color palette
+	name = "Medical Flesh Reshaper"
+	id = "fleshreshapermed"
+	build_path = /obj/item/flesh_shears/medical
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
 
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////

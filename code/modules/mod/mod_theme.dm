@@ -47,6 +47,8 @@
 	var/ui_theme = "ntos"
 	/// List of inbuilt modules. These are different from the pre-equipped suits, you should mainly use these for unremovable modules with 0 complexity.
 	var/list/inbuilt_modules = list()
+	/// Texture the hardlight projector puts on parts normally obscured
+	var/datum/bodypart_texture/hardlight_texture = /datum/bodypart_texture/hardlight
 	/// Allowed items in the chestplate's suit storage.
 	var/list/allowed_suit_storage = list()
 	/// List of variants and items created by them, with the flags we set.
@@ -166,6 +168,7 @@
 		part.worn_icon = used_skin[MOD_WORN_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 		part.icon_state = "[skin]-[part.base_icon_state][mod.get_part_datum(part).sealed ? "-sealed" : ""]"
 		mod.wearer?.update_clothing(part.slot_flags)
+	mod.wearer?.refresh_obscured()
 
 /datum/armor/mod_theme
 	melee = 10
@@ -234,6 +237,7 @@
 		a shock-resistant outer layer, making the suit nigh-invulnerable against even the extremes of high-voltage electricity. \
 		However, the capacity for modification remains the same as civilian-grade suits."
 	default_skin = "engineering"
+	hardlight_texture = /datum/bodypart_texture/hardlight/extrashield_green
 	armor_type = /datum/armor/mod_theme_engineering
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
@@ -298,6 +302,7 @@
 		corrosive gasses and liquids, useful in the world of pipes. \
 		However, the capacity for modification remains the same as civilian-grade suits."
 	default_skin = "atmospheric"
+	hardlight_texture = /datum/bodypart_texture/hardlight/extrashield_green
 	armor_type = /datum/armor/mod_theme_atmospheric
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -364,6 +369,7 @@
 		The paint used is almost entirely immune to corrosives, and certainly looks damn fine. \
 		These come pre-installed with magnetic boots, using an advanced system to toggle them on or off as the user walks."
 	default_skin = "advanced"
+	hardlight_texture = /datum/bodypart_texture/hardlight/hazard_orange
 	armor_type = /datum/armor/mod_theme_advanced
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -547,6 +553,7 @@
 		the user being able to run at greater speeds for much longer distances and times than an unsuited equivalent. \
 		A lot of people would say loading cargo is a dull job. You could not disagree more."
 	default_skin = "loader"
+	hardlight_texture = null
 	armor_type = /datum/armor/mod_theme_loader
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -790,6 +797,7 @@
 		missiles and artillery, all the explosive resistance is mostly working to keep the user intact, \
 		not alive. The user will also find narrow doorframes nigh-impossible to surmount."
 	default_skin = "research"
+	hardlight_texture = /datum/bodypart_texture/hardlight/royal_purple
 	armor_type = /datum/armor/mod_theme_research
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -858,6 +866,7 @@
 		allowing the suit to do more work in carrying the weight. However, the systems used in these suits are more than \
 		a few years out of date, leading to an overall lower capacity for modules."
 	default_skin = "security"
+	hardlight_texture = /datum/bodypart_texture/hardlight/alert_amber
 	armor_type = /datum/armor/mod_theme_security
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	slowdown_deployed = 0.5
@@ -924,6 +933,7 @@
 		Heatsinks line the sides of the suit, and greater technology has been used in insulating it against \
 		both corrosive environments and sudden impacts to the user's joints."
 	default_skin = "safeguard"
+	hardlight_texture = /datum/bodypart_texture/hardlight/alert_amber
 	armor_type = /datum/armor/mod_theme_safeguard
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
@@ -993,6 +1003,7 @@
 		and bluespace processing to allow for a wide array of onboard modules to be supported, and only the best actuators \
 		have been employed for speed. The resemblance to a Gorlex Marauder helmet is purely coincidental."
 	default_skin = "magnate"
+	hardlight_texture = /datum/bodypart_texture/hardlight/royal_purple
 	armor_type = /datum/armor/mod_theme_magnate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -1059,6 +1070,7 @@
 		this particular model does not employ manganese bipolar capacitor cleaners, thank the Honkmother. \
 		All you know is that this suit is mysteriously power-efficient, and far too colorful for the Mime to steal."
 	default_skin = "cosmohonk"
+	hardlight_texture = /datum/bodypart_texture/hardlight/contractor_red
 	armor_type = /datum/armor/mod_theme_cosmohonk
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.25
 	slowdown_deployed = 1
@@ -1126,6 +1138,7 @@
 		A small tag hangs off of it reading; 'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
 		All rights reserved, tampering with suit will void warranty."
 	default_skin = "syndicate"
+	hardlight_texture = /datum/bodypart_texture/hardlight/evil_green
 	armor_type = /datum/armor/mod_theme_syndicate
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 3
@@ -1233,6 +1246,7 @@
 		'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
 		All rights reserved, tampering with suit will void life expectancy.'"
 	default_skin = "elite"
+	hardlight_texture = /datum/bodypart_texture/hardlight/alert_amber
 	armor_type = /datum/armor/mod_theme_elite
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -1308,6 +1322,7 @@
 		backed by inbuilt psi-emitters, heightening stressors common amongst Nanotrasen staff, and clouding identifiable information. \
 		Scrubbed statistical data presented a single correlation within documented psychological profiles. The fear of the Unknown."
 	default_skin = "infiltrator"
+	hardlight_texture = null
 	armor_type = /datum/armor/mod_theme_infiltrator
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -1381,6 +1396,7 @@
 		default means of power. The hood and platform boots are of unknown usage, but it's speculated that \
 		wizards trend towards the dramatic."
 	default_skin = "enchanted"
+	hardlight_texture = /datum/bodypart_texture/hardlight/cosmic_blue
 	armor_type = /datum/armor/mod_theme_enchanted
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1462,6 +1478,7 @@
 		nigh-immune to even volcanic heat. It's entirely sealed against even the strongest acids, \
 		and the myoelectric artificial muscles of the suit leave it light as a feather during movement."
 	default_skin = "ninja"
+	hardlight_texture = /datum/bodypart_texture/hardlight/evil_green
 	armor_type = /datum/armor/mod_theme_ninja
 	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.5
@@ -1701,6 +1718,7 @@
 		Whether the wearer uses it or not is up to them. \
 		There seems to be a little inscription on the wrist that reads; \'squiddie', d'aww."
 	default_skin = "apocryphal"
+	hardlight_texture = /datum/bodypart_texture/hardlight/alert_amber
 	armor_type = /datum/armor/mod_theme_apocryphal
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -1772,6 +1790,7 @@
 		reflective reinforced-plasmaglass shielding weaved with advanced kevlar fibers. Sources say that some of the armor \
 		is ripped straight from an Apocryphal MODsuit."
 	default_skin = "corporate"
+	hardlight_texture = /datum/bodypart_texture/hardlight/extrashield_green
 	armor_type = /datum/armor/mod_theme_corporate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -1837,6 +1856,7 @@
 		and sometimes hilariously painful side effects of jumping timelines, while providing inbuilt equipment for \
 		making timeline adjustments to correct a bad course."
 	default_skin = "chrono"
+	hardlight_texture = /datum/bodypart_texture/hardlight/cosmic_blue
 	armor_type = /datum/armor/mod_theme_chrono
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
@@ -1900,6 +1920,7 @@
 		Contains an internal self-recharging high-current capacitor for short, powerful bo- \
 		Oh wait, this is not actually a flight suit. Fuck."
 	default_skin = "debug"
+	hardlight_texture = /datum/bodypart_texture/hardlight/cosmic_blue
 	armor_type = /datum/armor/mod_theme_debug
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
@@ -1966,6 +1987,7 @@
 		have all the fun. If this continues to be a pattern for your \"events\" (Admin Abuse) \
 		there will be an admin complaint. You have been warned."
 	default_skin = "debug"
+	hardlight_texture = /datum/bodypart_texture/hardlight/cosmic_blue
 	armor_type = /datum/armor/mod_theme_administrative
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1

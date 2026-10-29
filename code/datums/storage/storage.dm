@@ -396,17 +396,22 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * @param mob/user the user who is inserting the item
  * @param override see item_insertion_feedback()
  * @param force bypass locked storage
+ * @param messages whether to tell the user why the insertion failed
  */
-/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = FALSE)
+/datum/storage/proc/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = FALSE, messages = TRUE)
 	var/obj/item/resolve_location = real_location?.resolve()
 	if(!resolve_location)
 		return FALSE
 
-	if(!can_insert(to_insert, user, force = force))
+	if(!can_insert(to_insert, user, messages = messages, force = force))
 		return FALSE
 
 	to_insert.item_flags |= IN_STORAGE
-	to_insert.forceMove(resolve_location)
+	if(ismob(to_insert.loc))
+		var/mob/item_carrier = to_insert.loc
+		item_carrier.transferItemToLoc(to_insert, resolve_location) // This allows has_unequipped() to be properly called.
+	else
+		to_insert.forceMove(resolve_location)
 	item_insertion_feedback(user, to_insert, override)
 	resolve_location.update_appearance()
 	return TRUE

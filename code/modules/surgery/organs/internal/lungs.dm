@@ -335,6 +335,7 @@
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
 	organ_traits = list(TRAIT_NOHUNGER) // A fresh breakfast of plasma is a great start to any morning.
+	organ_flags = ORGAN_MINERAL | ORGAN_ORGANIC
 
 	breathing_class = BREATH_PLASMA
 

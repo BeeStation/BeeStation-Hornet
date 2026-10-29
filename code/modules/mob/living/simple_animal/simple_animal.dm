@@ -588,8 +588,8 @@
 			H.update_icon()
 	refresh_self_screentips()
 
-/mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
-	. = ..(I, del_on_fail, merge_stacks)
+/mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE, ignore_animation = TRUE, visuals_only = FALSE)
+	. = ..()
 	update_held_items()
 
 /mob/living/simple_animal/update_held_items()

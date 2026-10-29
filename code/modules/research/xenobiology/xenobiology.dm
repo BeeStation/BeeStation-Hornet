@@ -285,7 +285,7 @@
 				return 60 SECONDS
 			else
 				var/obj/effect/dummy/lighting_obj/moblight/glow = new(user) //copied from glowy mutation, copied from luminescents
-				glow.set_light(2.5, 2.5, user.dna.features["mcolor"]) //Weaker than regular luminescents
+				glow.set_light(2.5, 2.5, user.dna.features[FEATURE_MUTANT_COLOR]) //Weaker than regular luminescents
 				QDEL_IN(glow, 600)
 				return 60 SECONDS
 
@@ -388,14 +388,19 @@
 				to_chat(user, span_warning("You can't swap your gender!"))
 				return 5 SECONDS
 
-			user.set_gender(user.gender == MALE ? FEMALE : MALE, forced = TRUE) //You are doing this to yourself.
+			if(user.gender == MALE)
+				user.gender = FEMALE
+				user.visible_message(span_boldnotice("[user] suddenly looks more feminine!"), span_boldwarning("You suddenly feel more feminine!"))
+			else
+				user.gender = MALE
+				user.visible_message(span_boldnotice("[user] suddenly looks more masculine!"), span_boldwarning("You suddenly feel more masculine!"))
 			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message(span_warning("[user]'s skin starts flashing hypnotically..."), span_notice("Your skin starts forming odd patterns, pacifying creatures around you."))
 			for(var/mob/living/carbon/C in oviewers(user))
 				C.reagents.add_reagent(/datum/reagent/pax,2)
-			return 600
+			return 60 SECONDS
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
@@ -685,7 +690,7 @@
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			user.dna.features["mcolor"] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
+			user.dna.features[FEATURE_MUTANT_COLOR] = pick(COLOR_WHITE, "#7F7F7F", "#7FFF7F", "#7F7FFF", "#FF7F7F", "#7FFFFF", "#FF7FFF", "#FFFF7F")
 			user.updateappearance(mutcolor_update = TRUE)
 			if(istype(species,/datum/species/oozeling/luminescent))
 				var/datum/species/oozeling/luminescent/lum_species = species
@@ -1128,9 +1133,13 @@
 
 	to_chat(user, span_notice("You feed [span_name("[living_mob]")] [src]!"))
 
-	if(!living_mob.set_gender(living_mob.gender == MALE ? FEMALE : MALE, forced = TRUE))
-		return ITEM_INTERACT_BLOCKING
-
+	if(living_mob.gender == MALE)
+		living_mob.gender = FEMALE
+		living_mob.visible_message(span_boldnotice("[living_mob] suddenly looks more feminine!"), span_boldwarning("You suddenly feel more feminine!"))
+	else
+		living_mob.gender = MALE
+		living_mob.visible_message(span_boldnotice("[living_mob] suddenly looks more masculine!"), span_boldwarning("You suddenly feel more masculine!"))
+	living_mob.regenerate_icons()
 	qdel(src)
 	return ITEM_INTERACT_SUCCESS
 

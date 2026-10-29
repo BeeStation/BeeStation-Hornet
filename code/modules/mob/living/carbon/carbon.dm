@@ -328,32 +328,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/proc/uncuff()
 	if (handcuffed)
-		var/obj/item/W = handcuffed
-		set_handcuffed(null)
-		if (buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob(src)
-		update_handcuffed()
-		if (client)
-			client.screen -= W
-		if (W)
-			W.forceMove(drop_location())
-			W.dropped(src)
-			if (W)
-				W.layer = initial(W.layer)
-				W.plane = initial(W.plane)
+		dropItemToGround(handcuffed, TRUE)
 		changeNext_move(0)
 	if (legcuffed)
-		var/obj/item/W = legcuffed
-		legcuffed = null
-		update_worn_legcuffs()
-		if (client)
-			client.screen -= W
-		if (W)
-			W.forceMove(drop_location())
-			W.dropped(src)
-			if (W)
-				W.layer = initial(W.layer)
-				W.plane = initial(W.plane)
+		dropItemToGround(legcuffed, TRUE)
 		changeNext_move(0)
 	update_equipment_speed_mods() // In case cuffs ever change speed
 
@@ -372,18 +350,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	else
 		if(I == handcuffed)
-			handcuffed.forceMove(drop_location())
-			set_handcuffed(null)
-			I.dropped(src)
-			if(buckled?.buckle_requires_restraints)
-				buckled.unbuckle_mob(src)
-			update_handcuffed()
-			return
+			dropItemToGround(I, TRUE)
+			return TRUE
 		if(I == legcuffed)
-			legcuffed.forceMove(drop_location())
-			legcuffed = null
-			I.dropped(src)
-			update_worn_legcuffs()
+			dropItemToGround(I, TRUE)
 			return TRUE
 
 /mob/living/carbon/proc/accident(obj/item/I)
@@ -937,8 +907,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ORGANS))
 		regenerate_organs()
-		if(ismoth(src))
-			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
 
 	if(heal_flags & HEAL_TRAUMAS)
 		cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
@@ -949,8 +917,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(heal_flags & HEAL_RESTRAINTS)
 		QDEL_NULL(handcuffed)
 		QDEL_NULL(legcuffed)
-		set_handcuffed(null)
-		update_handcuffed()
 
 	// clear bodypart stamina since stam_damage_coeff causes setStaminaLoss(0) to insufficient heal (coefficient-adjusted total < raw total)
 	if(heal_flags & HEAL_STAM)
@@ -1027,6 +993,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands + 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart, special)
@@ -1053,6 +1020,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands - 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Updates the bodypart speed modifier based on our bodyparts.
 /mob/living/carbon/proc/update_bodypart_movespeed_contribution()
@@ -1269,63 +1237,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/wash(clean_types)
 	. = ..()
-
 	// Wash equipped stuff that cannot be covered
 	for(var/obj/item/held_thing in held_items)
-		if(held_thing.wash(clean_types))
-			. = TRUE
+		. |= held_thing.wash(clean_types)
 
-	if(back?.wash(clean_types))
-		update_worn_back(0)
-		. = TRUE
-
-	// Check and wash stuff that can be covered
-	var/obscured = check_obscured_slots()
-
-	if(!(obscured & ITEM_SLOT_HEAD) && head?.wash(clean_types))
-		update_worn_head()
-		. = TRUE
-
-	if(is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses?.wash(clean_types))
-		update_worn_glasses()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_MASK) && wear_mask?.wash(clean_types))
-		update_worn_mask()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_EARS) && ears?.wash(clean_types))
-		update_worn_ears()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_NECK) && wear_neck?.wash(clean_types))
-		update_worn_neck()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_FEET) && shoes?.wash(clean_types))
-		update_worn_shoes()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_GLOVES) && gloves?.wash(clean_types))
-		update_worn_gloves()
-		. = TRUE
-
-/mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	var/opposite_gender = gender != ngender
-	. = ..()
-	if(!.)
-		return
-	if(dna && opposite_gender)
-		if(ngender == MALE || ngender == FEMALE)
-			dna.features["body_model"] = ngender
-			if(!silent)
-				var/adj = ngender == MALE ? "masculine" : "feminine"
-				visible_message(span_boldnotice("[src] suddenly looks more [adj]!"), span_boldwarning("You suddenly feel more [adj]!"))
-		else if(ngender == NEUTER)
-			dna.features["body_model"] = MALE
-	if(update_icon)
-		update_body()
-		update_body_parts(TRUE)
+	// Check and wash stuff that isn't covered
+	var/covered = hidden_slots_to_inventory_slots(covered_slots)
+	for(var/obj/item/worn as anything in get_equipped_items())
+		var/slot = get_slot_by_item(worn)
+		// Don't wash glasses if something other than them is covering our eyes
+		if(slot == ITEM_SLOT_EYES && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD))
+			continue
+		if(!(covered & slot))
+			// /obj/item/wash() already updates our clothing slot
+			. = worn.wash(clean_types) || .
 
 /// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
 /mob/living/carbon/proc/set_handcuffed(new_value)
@@ -1338,6 +1263,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
 	else if(handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+	update_handcuffed()
 
 
 /mob/living/carbon/on_lying_down(new_lying_angle)
@@ -1431,3 +1357,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(item && ((item in internal_organs) || (item in bodyparts))) //let's not do this, aight?
 		return FALSE
 	return ..()
+
+/// Helper to cleanly trigger tail wagging
+/// Accepts an optional timeout after which we remove the tail wagging
+/// Returns true if successful, false otherwise
+/mob/living/carbon/proc/wag_tail(timeout = INFINITY)
+	var/obj/item/organ/tail/wagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(!wagged)
+		return FALSE
+	return wagged.start_wag(src, timeout)
+
+/// Helper to cleanly stop all tail wagging
+/// Returns true if successful, false otherwise
+/mob/living/carbon/proc/unwag_tail() // can't unwag a tail
+	var/obj/item/organ/tail/unwagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(!unwagged)
+		return FALSE
+	return unwagged.stop_wag(src)

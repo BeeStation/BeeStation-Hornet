@@ -183,7 +183,7 @@
 		var/mob/living/carbon/human/human = carbon
 		if(human.dna?.species)
 			//fixed_mut_color is also ethereal color (for some reason)
-			carbon.flash_lighting_fx(5, 7, human.dna.species.fixed_mut_color ? human.dna.species.fixed_mut_color : human.dna.features["mcolor"])
+			carbon.flash_lighting_fx(5, 7, human.dna.species.fixed_mut_color ? human.dna.species.fixed_mut_color : human.dna.features[FEATURE_MUTANT_COLOR])
 
 	playsound(carbon, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 	var/vented_energy = -adjust_charge(ETHEREAL_CHARGE_FULL - cell.charge)
@@ -220,26 +220,16 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	organ_flags = ORGAN_ROBOTIC
 	biological = FALSE
-	/// store the previous display
-	var/screen_before_brownout
 
 /obj/item/organ/stomach/electrical/ipc/on_brownout_start(mob/living/carbon/carbon)
-	if(isnull(carbon.dna))
-		return
-	screen_before_brownout = carbon.dna.features["ipc_screen"]
-	carbon.dna.features["ipc_screen"] = null
-	carbon.update_body()
+	var/obj/item/organ/ipc_screen/screen = carbon.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_powered(FALSE)
 
 /obj/item/organ/stomach/electrical/ipc/on_brownout_end(mob/living/carbon/carbon)
-	if(isnull(carbon.dna))
+	if(carbon.stat == DEAD)
 		return
-	carbon.dna.features["ipc_screen"] = screen_before_brownout
-	screen_before_brownout = null
-	carbon.update_body()
-
-///Getter that skips the blanked-out screen while we're browned out
-/obj/item/organ/stomach/electrical/ipc/proc/get_true_screen(mob/living/carbon/carbon)
-	return in_brownout ? screen_before_brownout : carbon.dna?.features["ipc_screen"]
+	var/obj/item/organ/ipc_screen/screen = carbon.get_organ_slot(ORGAN_SLOT_EXTERNAL_IPC_SCREEN)
+	screen?.set_powered(TRUE)
 
 /obj/item/organ/stomach/electrical/ipc/emp_act(severity)
 	. = ..()

@@ -485,7 +485,7 @@
 		incap_status |= INCAPABLE_RESTRAINTS
 	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		incap_status |= INCAPABLE_GRAB
-	if(IS_IN_STASIS(src))
+	if(HAS_TRAIT(src, TRAIT_STASIS))
 		incap_status |= INCAPABLE_STASIS
 
 	return incap_status
@@ -1969,12 +1969,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(IS_SERVANT_OF_RATVAR(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, span_brass("You select [src]."))
-
-/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	if(forced)
-		gender = ngender
-		return TRUE
-	return FALSE
 
 /**
   * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.

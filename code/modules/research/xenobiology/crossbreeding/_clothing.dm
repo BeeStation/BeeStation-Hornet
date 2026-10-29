@@ -143,6 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
 	clothing_flags = THICKMATERIAL
+	texture_type = /datum/bodypart_texture/mesh/biosuit_dark
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)

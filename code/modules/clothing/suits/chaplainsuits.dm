@@ -144,6 +144,10 @@
 	slowdown = 0
 	move_sound = null
 
+/obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/biosuit_dark)
+
 /obj/item/clothing/head/helmet/plate/crusader
 	name = "Crusader's Hood"
 	desc = "A brownish hood."
@@ -222,11 +226,19 @@
 	icon_state = "knight_ancient"
 	inhand_icon_state = null
 
+/obj/item/clothing/head/helmet/chaplain/ancient/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/biosuit_dark)
+
 /obj/item/clothing/suit/chaplainsuit/armor/ancient
 	name = "ancient armour"
 	desc = "Defend the treasure..."
 	icon_state = "knight_ancient"
 	inhand_icon_state = null
+
+/obj/item/clothing/suit/chaplainsuit/armor/ancient/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/biosuit_dark)
 
 /obj/item/clothing/head/helmet/chaplain/adept
 	name = "adept hood"

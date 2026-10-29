@@ -72,20 +72,51 @@
 	visual = TRUE
 	bang_protect = -2
 
-/obj/item/organ/ears/cat/on_mob_insert(mob/living/carbon/human/ear_owner)
-	. = ..()
-	if(istype(ear_owner) && ear_owner.dna)
-		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
-		ear_owner.update_body()
+	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
-/obj/item/organ/ears/cat/on_mob_remove(mob/living/carbon/human/ear_owner)
-	. = ..()
-	if(istype(ear_owner) && ear_owner.dna)
-		color = ear_owner.hair_color
-		ear_owner.dna.features["ears"] = SPRITE_ACCESSORY_NONE
-		ear_owner.dna.species.mutant_bodyparts -= "ears"
-		ear_owner.update_body()
+	dna_block = DNA_EARS_BLOCK
+
+	bodypart_overlay = /datum/bodypart_overlay/mutant/cat_ears
+
+/// Bodypart overlay for the horrible cat ears
+/datum/bodypart_overlay/mutant/cat_ears
+	layers = list(
+		EXTERNAL_FRONT = BODY_FRONT_LAYER,
+		EXTERNAL_BEHIND = BODY_BEHIND_LAYER
+	)
+	color_source = ORGAN_COLOR_HAIR
+	feature_key = FEATURE_EARS
+	dyable = TRUE
+	overlay_flags = parent_type::overlay_flags | LIMB_OVERLAY_HARDLIGHT
+
+	/// Layer upon which we add the inner ears overlay
+	var/inner_layer = EXTERNAL_FRONT
+
+/datum/bodypart_overlay/mutant/cat_ears/get_global_feature_list()
+	return GLOB.ears_list
+
+/datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner, mob/living/carbon/owner)
+	return ..() && !is_obscured(bodypart_owner, HIDEHAIR)
+
+/datum/bodypart_overlay/mutant/cat_ears/get_image(obj/item/bodypart/limb, layer_index, layer_real)
+	var/mutable_appearance/base_ears = ..()
+	base_ears.color = (dye_color || draw_color)
+
+	// Only add inner ears on the inner layer
+	if(layer_index != inner_layer)
+		return base_ears
+
+	// Construct image of inner ears, apply to base ears as an overlay
+	feature_key += "inner"
+	var/mutable_appearance/inner_ears = ..()
+	feature_key = initial(feature_key)
+	var/mutable_appearance/ear_holder = mutable_appearance(layer = layer_real)
+	ear_holder.overlays += base_ears
+	ear_holder.overlays += inner_ears
+	return ear_holder
+
+/datum/bodypart_overlay/mutant/cat_ears/color_image(image/overlay, obj/item/bodypart/limb, layer_index)
+	return // We color base ears manually above in get_image
 
 /obj/item/organ/ears/penguin
 	name = "penguin ears"

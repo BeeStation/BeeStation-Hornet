@@ -26,6 +26,8 @@
 #define ORGAN_HIDDEN (1<<9)
 /// Has the organ already been inserted inside someone
 #define ORGAN_VIRGIN (1<<10)
+/// This is an external organ, not an inner one. Used in several checks.
+#define ORGAN_EXTERNAL (1<<13)
 
 /// Helper to figure out if a limb is organic
 #define IS_ORGANIC_LIMB(limb) (limb.bodytype & BODYTYPE_ORGANIC)
@@ -41,6 +43,8 @@
 #define BODYPART_IMPLANTED (1<<2)
 /// Bodypart never displays as a husk
 #define BODYPART_UNHUSKABLE (1<<3)
+/// Bodypart has never been added to a mob
+#define BODYPART_VIRGIN (1<<4)
 
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()

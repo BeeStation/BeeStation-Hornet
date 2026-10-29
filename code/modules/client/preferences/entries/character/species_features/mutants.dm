@@ -9,7 +9,7 @@
 	return sanitize_hexcolor("[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]")
 
 /datum/preference/color/mutant_color/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["mcolor"] = value
+	target.dna.features[FEATURE_MUTANT_COLOR] = value
 	if(isluminescent(target))
 		var/datum/species/oozeling/luminescent/luminescent_species = target.dna.species
 		luminescent_species.update_glow(target)
@@ -18,7 +18,7 @@
 	if (!..(value))
 		return FALSE
 
-	if (is_color_dark_with_saturation(value))
+	if (is_color_dark_with_saturation(value, 15))
 		return FALSE
 
 	return TRUE

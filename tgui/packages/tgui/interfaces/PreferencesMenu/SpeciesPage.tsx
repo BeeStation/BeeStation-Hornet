@@ -54,6 +54,9 @@ const FOOD_NAMES: Record<keyof typeof FOOD_ICONS, string> = {
   [Food.Vegetables]: 'Vegetables',
 };
 
+// Species forced by ordering
+const PINNED_SPECIES = ['human', 'lizard'];
+
 const IGNORE_UNLESS_LIKED: Set<Food> = new Set([
   Food.Bugs,
   Food.Cloth,
@@ -238,11 +241,14 @@ const SpeciesPageInner = (props: {
     },
   );
 
-  // Humans are always the top of the list
-  const humanIndex = species.findIndex(([species]) => species === 'human');
-  const swapWith = species[0];
-  species[0] = species[humanIndex];
-  species[humanIndex] = swapWith;
+  // Pinned species come first, relegate rest to server-side order
+  const pinned = PINNED_SPECIES.map((pinnedKey) =>
+    species.find(([speciesKey]) => speciesKey === pinnedKey),
+  ).filter((entry): entry is [string, Species] => entry !== undefined);
+
+  species = pinned.concat(
+    species.filter(([speciesKey]) => !PINNED_SPECIES.includes(speciesKey)),
+  );
 
   const currentSpecies = species.filter(([speciesKey]) => {
     return speciesKey === data.character_preferences.misc.species;

@@ -193,15 +193,28 @@
 	if(new_bodypart)
 		new_bodypart.update_limb(is_creating = TRUE)
 
-/// Makes sure that the owner's bodytype flags match the flags of all of it's parts and organs
+/// Makes sure that the owner's bodytype flags match the flags of all of its parts and organs
 /mob/living/carbon/proc/synchronize_bodytypes()
-	var/all_limb_flags = NONE
+	var/all_overlay_flags = NONE
 	for(var/obj/item/bodypart/limb as anything in get_bodyparts())
-		//for(var/obj/item/organ/organ in limb)
-		//	all_limb_flags |= organ.external_bodytypes
-		all_limb_flags |= limb.bodytype
+		for(var/obj/item/organ/organ in limb)
+			all_overlay_flags |= organ.external_bodytypes
+		all_overlay_flags |= limb.bodytype
 
-	bodytype = all_limb_flags
+	bodytype = all_overlay_flags
+
+/// Makes sure that the owner's bodyshape flags match the flags of all of its parts and organs
+/mob/living/carbon/proc/synchronize_bodyshapes()
+	var/all_overlay_flags = NONE
+	for(var/obj/item/bodypart/limb as anything in get_bodyparts())
+		for(var/obj/item/organ/organ in limb)
+			all_overlay_flags |= organ.external_bodyshapes
+		all_overlay_flags |= limb.bodyshape
+
+	if(obscured_slots & HIDESNOUT)
+		all_overlay_flags &= ~BODYSHAPE_SNOUTED
+
+	bodyshape = all_overlay_flags
 
 /proc/skintone2hex(skin_tone)
 	. = 0

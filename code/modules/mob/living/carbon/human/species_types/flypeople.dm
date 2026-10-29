@@ -14,7 +14,6 @@
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
-	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/fly,
@@ -45,7 +44,7 @@
 		return
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
-		BP.species_color = C.dna?.features["mcolor"]
+		BP.species_color = C.dna?.features[FEATURE_MUTANT_COLOR]
 		BP.name = "\improper[type_selection.name] [parse_zone(BP.body_zone)]"
 		// Bee insect_type has dimorphic parts while flies do not.
 		var/is_dimorphic_part = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
@@ -64,6 +63,11 @@
 
 	if(istype(attacking_item, /obj/item/melee/flyswatter))
 		damage_mods += 30 // Yes, a 30x damage modifier
+
+/datum/species/fly/get_features()
+	var/list/features = ..()
+	features |= "feature_insect_type"
+	return features
 
 /datum/species/fly/get_species_description()
 	return "With no official documentation or knowledge of the origin of \

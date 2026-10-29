@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(callout_capable)
 		desc += span_notice("It has a network uplink which allows the user to quickly transmit commands to their comrades and amplifies their voice in low-pressure environments.")
 
-	if(item_flags & PICKED_UP && loc == user)
+	if(item_flags & IN_INVENTORY && loc == user)
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
 		if(translate_binary)

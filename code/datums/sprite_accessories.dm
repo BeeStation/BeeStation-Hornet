@@ -50,16 +50,22 @@
 	var/icon_state		//the icon_state of the accessory
 	var/emissive_state	//state of the emissive overlay
 	var/emissive_alpha = 255	//Alpha of the emissive
+	/// a list of layers which render an extra emissive overlay
+	var/list/emissive_layers = list()
 	var/name			//the preview name of the accessory
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
 	var/use_static		//determines if the accessory will be skipped by color preferences
 	var/color_src = MUTANT_COLOR	//Currently only used by mutantparts so don't worry about hair and stuff. This is the source that this accessory will get its color from. Default is MUTCOLOR, but can also be HAIR_COLOR, FACIAL_HAIR_COLOR, EYECOLOR and 0 if none.
 	/// Alpha applied to the overlay when rendered on a mob. 255 = fully opaque.
 	var/overlay_alpha = 255
-	var/hasinner		//Decides if this sprite has an "inner" part, such as the fleshy parts on ears.
 	var/locked = FALSE		//Is this part locked from roundstart selection? Used for parts that apply effects
+	/// The width of the sprite in pixels. Used to center it if necessary.
 	var/dimension_x = 32
+	/// The height of the sprite in pixels. Used to center it if necessary.
 	var/dimension_y = 32
+	/// Determines if this is considered "sane" for the purpose of [/proc/randomize_human_normie]
+	/// Basically this is to blacklist the extremely wacky stuff from being picked in random human generation.
+	var/natural_spawn = TRUE
 	var/center = FALSE	//Should we center the sprite?
 	var/limbs_id // The limbs id supplied for full-body replacing features.
 	/// Is this sprite accessory okay to use for a default option
@@ -242,6 +248,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Bedhead 3"
 	icon_state = "hair_bedheadv3"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/bedheadv4
 	name = "Bedhead 4x"
@@ -252,11 +259,13 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Long Bedhead"
 	icon_state = "hair_long_bedhead"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/bedheadfloorlength
 	name = "Floorlength Bedhead"
 	icon_state = "hair_floorlength_bedhead"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/badlycut
 	name = "Shorter Long Bedhead"
@@ -588,6 +597,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "hair_bigflattop"
 	use_default = FALSE
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/gelled
 	name = "Gelled Back"
@@ -663,6 +673,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Joestar"
 	icon_state = "hair_joestar"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/keanu
 	name = "Keanu Hair"
@@ -738,16 +749,19 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Mohawk"
 	icon_state = "hair_d"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/nitori
 	name = "Nitori"
 	icon_state = "hair_nitori"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/reversemohawk
 	name = "Mohawk (Reverse)"
 	icon_state = "hair_reversemohawk"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/reversemohawkold
 	name = "Mohawk (Reverse, Old)"
@@ -758,11 +772,13 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Mohawk (Shaved)"
 	icon_state = "hair_shavedmohawk"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/unshavenmohawk
 	name = "Mohawk (Unshaven)"
 	icon_state = "hair_unshaven_mohawk"
 	use_default_gender = MALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/moustache
 	name = "Moustache"
@@ -783,6 +799,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Odango"
 	icon_state = "hair_odango"
 	use_default_gender = FEMALE
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/ombre
 	name = "Ombre"
@@ -827,17 +844,20 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Pigtails"
 	icon_state = "hair_kagami"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/pigtail
 	name = "Pigtails 2"
 	icon_state = "hair_pigtails"
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/pigtail2
 	name = "Pigtails 3"
 	icon_state = "hair_pigtails2"
 	hair_appendages_inner = list("hair_pigtails2_a1" = HAIR_APPENDAGE_LEFT, "hair_pigtails2_a2" = HAIR_APPENDAGE_RIGHT)
 	use_default_gender = NEUTER
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/hair/pixie
 	name = "Pixie Cut"
@@ -1347,6 +1367,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/facial_hair/brokenman
 	name = "Beard (Broken Man)"
 	icon_state = "facial_brokenman"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/facial_hair/chinstrap
 	name = "Beard (Chinstrap)"
@@ -1391,6 +1412,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/facial_hair/martialartist
 	name = "Beard (Martial Artist)"
 	icon_state = "facial_martialartist"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/facial_hair/chinlessbeard
 	name = "Beard (Chinless Beard)"
@@ -1504,181 +1526,259 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Sideburns"
 	icon_state = "facial_sideburn"
 
+/datum/sprite_accessory/clothing
+	abstract_type = /datum/sprite_accessory/clothing
+	/// Allows you to specify a greyscale config
+	var/greyscale_config
+	/// Icon state in the digitigrade template file to use if the wearer is digitigrade.
+	/// If null, no special digitigrade handling is done.
+	var/digi_icon_state
+	/// Color pallete for static colored underwear, like hearts.
+	/// Used so greyscale copies can have the same palette.
+	var/greyscale_colors = "#FFFFFF#FFFFFF#FFFFFF"
+	/// The layer this sprite accessory should render on
+	var/layer = BODY_LAYER
+	/// What kind of gender shaping this sprite accessory should use (in case your sprite gets a weird missing pixel in the center)
+	var/female_sprite_flags = FEMALE_UNIFORM_FULL
+
+/// Override to return a different icon state given a bodytype or physique
+/datum/sprite_accessory/clothing/proc/get_icon_state(physique, bodyshape)
+	return icon_state
+
+/**
+ * Generate an appearance from this clothing datum
+ *
+ * * color - if this is NOT a statically colored clothing article and NOT gags, uses this color.
+ * * physique - physique of the wearer (male or female)
+ * * bodyshape - bodyshape of the wearer (humanoid, digitigrade, etc)
+ */
+/datum/sprite_accessory/clothing/proc/make_appearance(color = COLOR_WHITE, physique = MALE, bodyshape = BODYSHAPE_HUMANOID)
+	var/static/list/cached_icons = list()
+	var/use_female = physique == FEMALE && female_sprite_flags
+	var/use_digi = digi_icon_state && (bodyshape & BODYSHAPE_DIGITIGRADE)
+	var/female_sprite_flags_to_use = female_sprite_flags
+	var/icon_state_to_use = get_icon_state(physique, bodyshape)
+	if(use_digi && female_sprite_flags_to_use)
+		female_sprite_flags_to_use = FEMALE_UNIFORM_TOP_ONLY // No bottom gender shaping for the digi legs
+
+	var/key = "[icon_state_to_use]-[greyscale_config || "ng"]-[use_female]-[use_digi]-[greyscale_colors]"
+	var/mutable_appearance/result
+	if(cached_icons[key]) // it's already cached
+		result = mutable_appearance(icon(cached_icons[key]))
+
+	else if(greyscale_config || use_female || use_digi) // icon ops ahead
+		var/icon_file_path = greyscale_config ? SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors) : icon
+		var/icon/created = icon(icon_file_path, icon_state_to_use)
+		if(use_female)
+			created = wear_female_version(icon_state_to_use, icon_file_path, icon_file_path, female_sprite_flags_to_use)
+		if(use_digi)
+			var/icon/replacement = icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade_underwear, greyscale_colors), digi_icon_state)
+			created = replace_icon_legs(created, replacement)
+
+		cached_icons[key] = fcopy_rsc(created)
+		result = mutable_appearance(created)
+
+	else // no caching necessary
+		result = mutable_appearance(icon, icon_state_to_use)
+
+	result.layer = CALCULATE_MOB_OVERLAY_LAYER(layer)
+	result.color = use_static ? null : color
+
+	return result
+
 ///////////////////////////
 // Underwear Definitions //
 ///////////////////////////
 
-/datum/sprite_accessory/underwear
+/datum/sprite_accessory/clothing/underwear
 	icon = 'icons/mob/clothing/underwear.dmi'
 	use_static = FALSE
-
+	abstract_type = /datum/sprite_accessory/clothing/underwear
 
 //MALE UNDERWEAR
-/datum/sprite_accessory/underwear/nude
+/datum/sprite_accessory/clothing/underwear/nude
 	name = "Nude"
 	icon_state = null
 	use_default_gender = NEUTER
 	use_default = FALSE
 
-/datum/sprite_accessory/underwear/male_briefs
+/datum/sprite_accessory/clothing/underwear/nude/make_appearance(mob/living/carbon/human/for_who)
+	return
+
+/datum/sprite_accessory/clothing/underwear/male_briefs
 	name = "Men's Briefs"
 	icon_state = "male_briefs"
 	use_default_gender = MALE
 
-/datum/sprite_accessory/underwear/male_boxers
+/datum/sprite_accessory/clothing/underwear/male_boxers
 	name = "Men's Boxer"
 	icon_state = "male_boxers"
 	use_default_gender = MALE
+	digi_icon_state = "boxers"
 
-/datum/sprite_accessory/underwear/male_stripe
+/datum/sprite_accessory/clothing/underwear/male_stripe
 	name = "Men's Striped Boxer"
 	icon_state = "male_stripe"
 	use_default_gender = MALE
+	digi_icon_state = "boxers_stripe"
 
-/datum/sprite_accessory/underwear/male_midway
+/datum/sprite_accessory/clothing/underwear/male_midway
 	name = "Men's Midway Boxer"
 	icon_state = "male_midway"
 	use_default_gender = MALE
+	digi_icon_state = "midway"
 
-/datum/sprite_accessory/underwear/male_longjohns
+/datum/sprite_accessory/clothing/underwear/male_longjohns
 	name = "Men's Long Johns"
 	icon_state = "male_longjohns"
 	use_default_gender = MALE
+	digi_icon_state = "longjohns"
 
-/datum/sprite_accessory/underwear/male_kinky
+/datum/sprite_accessory/clothing/underwear/male_kinky
 	name = "Men's Kinky"
 	icon_state = "male_kinky"
 	use_default_gender = MALE
 	use_default = FALSE
 
-/datum/sprite_accessory/underwear/male_mankini
+/datum/sprite_accessory/clothing/underwear/male_mankini
 	name = "Mankini"
 	icon_state = "male_mankini"
 	use_default_gender = MALE
 	use_default = FALSE
 
-/datum/sprite_accessory/underwear/male_hearts
+/datum/sprite_accessory/clothing/underwear/male_hearts
 	name = "Men's Hearts Boxer"
 	icon_state = "male_hearts"
 	use_default_gender = MALE
 	use_static = TRUE
+	digi_icon_state = "boxers_stripe_threecolor"
+	greyscale_colors = "#D62626#EEEEEE#D62626#"
 
-/datum/sprite_accessory/underwear/male_commie
+/datum/sprite_accessory/clothing/underwear/male_commie
 	name = "Men's Striped Commie Boxer"
 	icon_state = "male_commie"
 	use_default_gender = MALE
 	use_static = TRUE
+	digi_icon_state = "boxers_stripe_threecolor"
+	greyscale_colors = "#D62626#D1B62C#D62626"
 
-/datum/sprite_accessory/underwear/male_usastripe
+/datum/sprite_accessory/clothing/underwear/male_usastripe
 	name = "Men's Striped Freedom Boxer"
 	icon_state = "male_assblastusa"
 	use_default_gender = MALE
 	use_static = TRUE
+	digi_icon_state = "boxers_stripe_threecolor"
+	greyscale_colors = "#D62626#EEEEEE#2E26D6"
 
-/datum/sprite_accessory/underwear/male_uk
+/datum/sprite_accessory/clothing/underwear/male_uk
 	name = "Men's Striped UK Boxer"
 	icon_state = "male_uk"
 	use_default_gender = MALE
 	use_static = TRUE
-
+	digi_icon_state = "boxers_stripe_threecolor"
+	greyscale_colors = "#D62626#EEEEEE#2E26D6"
 
 //FEMALE UNDERWEAR
-/datum/sprite_accessory/underwear/female_bikini
+/datum/sprite_accessory/clothing/underwear/female_bikini
 	name = "Ladies' Bikini"
 	icon_state = "female_bikini"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/female_lace
+/datum/sprite_accessory/clothing/underwear/female_lace
 	name = "Ladies' Lace"
 	icon_state = "female_lace"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/female_bralette
+/datum/sprite_accessory/clothing/underwear/female_bralette
 	name = "Ladies' Bralette"
 	icon_state = "female_bralette"
 	use_default_gender = FEMALE
+	digi_icon_state = "short_short"
 
-/datum/sprite_accessory/underwear/female_sport
+/datum/sprite_accessory/clothing/underwear/female_sport
 	name = "Ladies' Sport"
 	icon_state = "female_sport"
 	use_default_gender = FEMALE
+	digi_icon_state = "short"
 
-/datum/sprite_accessory/underwear/female_thong
+/datum/sprite_accessory/clothing/underwear/female_thong
 	name = "Ladies' Thong"
 	icon_state = "female_thong"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/female_strapless
+/datum/sprite_accessory/clothing/underwear/female_strapless
 	name = "Ladies' Strapless"
 	icon_state = "female_strapless"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/female_babydoll
+/datum/sprite_accessory/clothing/underwear/female_babydoll
 	name = "Babydoll"
 	icon_state = "female_babydoll"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/swimsuit_onepiece
+/datum/sprite_accessory/clothing/underwear/swimsuit_onepiece
 	name = "Ladies' One Piece Swimsuit"
 	icon_state = "swim_onepiece"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/swimsuit_strapless_onepiece
+/datum/sprite_accessory/clothing/underwear/swimsuit_strapless_onepiece
 	name = "Ladies' Strapless One Piece Swimsuit"
 	icon_state = "swim_strapless_onepiece"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/swimsuit_twopiece
+/datum/sprite_accessory/clothing/underwear/swimsuit_twopiece
 	name = "Ladies' Two Piece Swimsuit"
 	icon_state = "swim_twopiece"
 	use_default_gender = FEMALE
+	digi_icon_state = "short_short"
 
-/datum/sprite_accessory/underwear/swimsuit_strapless_twopiece
+/datum/sprite_accessory/clothing/underwear/swimsuit_strapless_twopiece
 	name = "Ladies' Strapless Two Piece Swimsuit"
 	icon_state = "swim_strapless_twopiece"
 	use_default_gender = FEMALE
+	digi_icon_state = "short_short"
 
-/datum/sprite_accessory/underwear/swimsuit_stripe
+/datum/sprite_accessory/clothing/underwear/swimsuit_stripe
 	name = "Ladies' Stripe Swimsuit"
 	icon_state = "swim_stripe"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/swimsuit_halter
+/datum/sprite_accessory/clothing/underwear/swimsuit_halter
 	name = "Ladies' Halter Swimsuit"
 	icon_state = "swim_halter"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/underwear/female_white_neko
+/datum/sprite_accessory/clothing/underwear/female_white_neko
 	name = "Ladies' White Neko"
 	icon_state = "female_neko_white"
 	use_default_gender = FEMALE
 	use_static = TRUE
 
-/datum/sprite_accessory/underwear/female_black_neko
+/datum/sprite_accessory/clothing/underwear/female_black_neko
 	name = "Ladies' Black Neko"
 	icon_state = "female_neko_black"
 	use_default_gender = FEMALE
 	use_static = TRUE
 
-/datum/sprite_accessory/underwear/female_commie
+/datum/sprite_accessory/clothing/underwear/female_commie
 	name = "Ladies' Commie"
 	icon_state = "female_commie"
 	use_default_gender = FEMALE
 	use_static = TRUE
 
-/datum/sprite_accessory/underwear/female_usastripe
+/datum/sprite_accessory/clothing/underwear/female_usastripe
 	name = "Ladies' Freedom"
 	icon_state = "female_assblastusa"
 	use_default_gender = FEMALE
 	use_static = TRUE
 
-/datum/sprite_accessory/underwear/female_uk
+/datum/sprite_accessory/clothing/underwear/female_uk
 	name = "Ladies' UK"
 	icon_state = "female_uk"
 	use_default_gender = FEMALE
 	use_static = TRUE
 
-/datum/sprite_accessory/underwear/female_kinky
+/datum/sprite_accessory/clothing/underwear/female_kinky
 	name = "Ladies' Kinky"
 	icon_state = "female_kinky"
 	use_default_gender = FEMALE
@@ -1689,298 +1789,302 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 // Undershirt Definitions //
 ////////////////////////////
 
-/datum/sprite_accessory/undershirt
+/datum/sprite_accessory/clothing/undershirt
 	icon = 'icons/mob/clothing/underwear.dmi'
 	use_default = TRUE
+	abstract_type = /datum/sprite_accessory/clothing/undershirt
 
-/datum/sprite_accessory/undershirt/nude
+/datum/sprite_accessory/clothing/undershirt/nude
 	name = "Nude"
 	icon_state = null
 	use_default_gender = NEUTER
 
+/datum/sprite_accessory/clothing/undershirt/nude/make_appearance(mob/living/carbon/human/for_who)
+	return
+
 // please make sure they're sorted alphabetically and categorized
 
-/datum/sprite_accessory/undershirt/bluejersey
+/datum/sprite_accessory/clothing/undershirt/bluejersey
 	name = "Jersey (Blue)"
 	icon_state = "shirt_bluejersey"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/redjersey
+/datum/sprite_accessory/clothing/undershirt/redjersey
 	name = "Jersey (Red)"
 	icon_state = "shirt_redjersey"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/bluepolo
+/datum/sprite_accessory/clothing/undershirt/bluepolo
 	name = "Polo Shirt (Blue)"
 	icon_state = "bluepolo"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/grayyellowpolo
+/datum/sprite_accessory/clothing/undershirt/grayyellowpolo
 	name = "Polo Shirt (Gray-Yellow)"
 	icon_state = "grayyellowpolo"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/redpolo
+/datum/sprite_accessory/clothing/undershirt/redpolo
 	name = "Polo Shirt (Red)"
 	icon_state = "redpolo"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/whitepolo
+/datum/sprite_accessory/clothing/undershirt/whitepolo
 	name = "Polo Shirt (White)"
 	icon_state = "whitepolo"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/alienshirt
+/datum/sprite_accessory/clothing/undershirt/alienshirt
 	name = "Shirt (Alien)"
 	icon_state = "shirt_alien"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/mondmondjaja
+/datum/sprite_accessory/clothing/undershirt/mondmondjaja
 	name = "Shirt (Band)"
 	icon_state = "band"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/shirt_black
+/datum/sprite_accessory/clothing/undershirt/shirt_black
 	name = "Shirt (Black)"
 	icon_state = "shirt_black"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/blueshirt
+/datum/sprite_accessory/clothing/undershirt/blueshirt
 	name = "Shirt (Blue)"
 	icon_state = "shirt_blue"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/clownshirt
+/datum/sprite_accessory/clothing/undershirt/clownshirt
 	name = "Shirt (Clown)"
 	icon_state = "shirt_clown"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/commie
+/datum/sprite_accessory/clothing/undershirt/commie
 	name = "Shirt (Commie)"
 	icon_state = "shirt_commie"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/greenshirt
+/datum/sprite_accessory/clothing/undershirt/greenshirt
 	name = "Shirt (Green)"
 	icon_state = "shirt_green"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/shirt_grey
+/datum/sprite_accessory/clothing/undershirt/shirt_grey
 	name = "Shirt (Grey)"
 	icon_state = "shirt_grey"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/ian
+/datum/sprite_accessory/clothing/undershirt/ian
 	name = "Shirt (Ian)"
 	icon_state = "ian"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/ilovent
+/datum/sprite_accessory/clothing/undershirt/ilovent
 	name = "Shirt (I Love NT)"
 	icon_state = "ilovent"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/lover
+/datum/sprite_accessory/clothing/undershirt/lover
 	name = "Shirt (Lover)"
 	icon_state = "lover"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/matroska
+/datum/sprite_accessory/clothing/undershirt/matroska
 	name = "Shirt (Matroska)"
 	icon_state = "matroska"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/meat
+/datum/sprite_accessory/clothing/undershirt/meat
 	name = "Shirt (Meat)"
 	icon_state = "shirt_meat"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/nano
+/datum/sprite_accessory/clothing/undershirt/nano
 	name = "Shirt (Nanotrasen)"
 	icon_state = "shirt_nano"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/peace
+/datum/sprite_accessory/clothing/undershirt/peace
 	name = "Shirt (Peace)"
 	icon_state = "peace"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/pacman
+/datum/sprite_accessory/clothing/undershirt/pacman
 	name = "Shirt (Pogoman)"
 	icon_state = "pogoman"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/question
+/datum/sprite_accessory/clothing/undershirt/question
 	name = "Shirt (Question)"
 	icon_state = "shirt_question"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/redshirt
+/datum/sprite_accessory/clothing/undershirt/redshirt
 	name = "Shirt (Red)"
 	icon_state = "shirt_red"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/skull
+/datum/sprite_accessory/clothing/undershirt/skull
 	name = "Shirt (Skull)"
 	icon_state = "shirt_skull"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/ss13
+/datum/sprite_accessory/clothing/undershirt/ss13
 	name = "Shirt (SS13)"
 	icon_state = "shirt_ss13"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/stripe
+/datum/sprite_accessory/clothing/undershirt/stripe
 	name = "Shirt (Striped)"
 	icon_state = "shirt_stripes"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/tiedye
+/datum/sprite_accessory/clothing/undershirt/tiedye
 	name = "Shirt (Tie-dye)"
 	icon_state = "shirt_tiedye"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/uk
+/datum/sprite_accessory/clothing/undershirt/uk
 	name = "Shirt (UK)"
 	icon_state = "uk"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/usa
+/datum/sprite_accessory/clothing/undershirt/usa
 	name = "Shirt (USA)"
 	icon_state = "shirt_assblastusa"
 	use_default_gender = MALE
 
-/datum/sprite_accessory/undershirt/shirt_white
+/datum/sprite_accessory/clothing/undershirt/shirt_white
 	name = "Shirt (White)"
 	icon_state = "shirt_white"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/blackshortsleeve
+/datum/sprite_accessory/clothing/undershirt/blackshortsleeve
 	name = "Short-sleeved Shirt (Black)"
 	icon_state = "blackshortsleeve"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/blueshortsleeve
+/datum/sprite_accessory/clothing/undershirt/blueshortsleeve
 	name = "Short-sleeved Shirt (Blue)"
 	icon_state = "blueshortsleeve"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/greenshortsleeve
+/datum/sprite_accessory/clothing/undershirt/greenshortsleeve
 	name = "Short-sleeved Shirt (Green)"
 	icon_state = "greenshortsleeve"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/purpleshortsleeve
+/datum/sprite_accessory/clothing/undershirt/purpleshortsleeve
 	name = "Short-sleeved Shirt (Purple)"
 	icon_state = "purpleshortsleeve"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/whiteshortsleeve
+/datum/sprite_accessory/clothing/undershirt/whiteshortsleeve
 	name = "Short-sleeved Shirt (White)"
 	icon_state = "whiteshortsleeve"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/sports_bra
+/datum/sprite_accessory/clothing/undershirt/sports_bra
 	name = "Sports Bra"
 	icon_state = "sports_bra"
 	use_default_gender = FEMALE
 	// Conflicts with female underwear
 	use_default = FALSE
 
-/datum/sprite_accessory/undershirt/sports_bra2
+/datum/sprite_accessory/clothing/undershirt/sports_bra2
 	name = "Sports Bra (Alt)"
 	icon_state = "sports_bra_alt"
 	use_default_gender = FEMALE
 	// Conflicts with female underwear
 	use_default = FALSE
 
-/datum/sprite_accessory/undershirt/blueshirtsport
+/datum/sprite_accessory/clothing/undershirt/blueshirtsport
 	name = "Sports Shirt (Blue)"
 	icon_state = "blueshirtsport"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/greenshirtsport
+/datum/sprite_accessory/clothing/undershirt/greenshirtsport
 	name = "Sports Shirt (Green)"
 	icon_state = "greenshirtsport"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/redshirtsport
+/datum/sprite_accessory/clothing/undershirt/redshirtsport
 	name = "Sports Shirt (Red)"
 	icon_state = "redshirtsport"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/tank_black
+/datum/sprite_accessory/clothing/undershirt/tank_black
 	name = "Tank Top (Black)"
 	icon_state = "tank_black"
 	// Conflicts with female underwear
 	use_default_gender = MALE
 
-/datum/sprite_accessory/undershirt/tankfire
+/datum/sprite_accessory/clothing/undershirt/tankfire
 	name = "Tank Top (Fire)"
 	icon_state = "tank_fire"
 	// Conflicts with female underwear
 	use_default_gender = MALE
 
-/datum/sprite_accessory/undershirt/tank_grey
+/datum/sprite_accessory/clothing/undershirt/tank_grey
 	name = "Tank Top (Grey)"
 	icon_state = "tank_grey"
 	// Conflicts with female underwear
 	use_default_gender = MALE
 
-/datum/sprite_accessory/undershirt/female_midriff
+/datum/sprite_accessory/clothing/undershirt/female_midriff
 	name = "Tank Top (Midriff)"
 	icon_state = "tank_midriff"
 	use_default_gender = FEMALE
 	// Conflicts with female underwear
 	use_default = FALSE
 
-/datum/sprite_accessory/undershirt/tank_red
+/datum/sprite_accessory/clothing/undershirt/tank_red
 	name = "Tank Top (Red)"
 	icon_state = "tank_red"
 	// Conflicts with female underwear
 	use_default_gender = MALE
 
-/datum/sprite_accessory/undershirt/tankstripe
+/datum/sprite_accessory/clothing/undershirt/tankstripe
 	name = "Tank Top (Striped)"
 	icon_state = "tank_stripes"
 	// Conflicts with female underwear
 	use_default_gender = MALE
-/datum/sprite_accessory/undershirt/tank_white
+/datum/sprite_accessory/clothing/undershirt/tank_white
 	name = "Tank Top (White)"
 	icon_state = "tank_white"
 	// Conflicts with female underwear
 	use_default_gender = MALE
 
-/datum/sprite_accessory/undershirt/redtop
+/datum/sprite_accessory/clothing/undershirt/redtop
 	name = "Top (Red)"
 	icon_state = "redtop"
 	use_default_gender = FEMALE
 	// Conflicts with female underwear
 	use_default = FALSE
 
-/datum/sprite_accessory/undershirt/whitetop
+/datum/sprite_accessory/clothing/undershirt/whitetop
 	name = "Top (White)"
 	icon_state = "whitetop"
 	use_default_gender = FEMALE
 	// Conflicts with female underwear
 	use_default = FALSE
 
-/datum/sprite_accessory/undershirt/tshirt_blue
+/datum/sprite_accessory/clothing/undershirt/tshirt_blue
 	name = "T-Shirt (Blue)"
 	icon_state = "blueshirt"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/tshirt_green
+/datum/sprite_accessory/clothing/undershirt/tshirt_green
 	name = "T-Shirt (Green)"
 	icon_state = "greenshirt"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/tshirt_red
+/datum/sprite_accessory/clothing/undershirt/tshirt_red
 	name = "T-Shirt (Red)"
 	icon_state = "redshirt"
 	use_default_gender = NEUTER
 
-/datum/sprite_accessory/undershirt/yellowshirt
+/datum/sprite_accessory/clothing/undershirt/yellowshirt
 	name = "T-Shirt (Yellow)"
 	icon_state = "yellowshirt"
 	use_default_gender = NEUTER
@@ -1989,74 +2093,78 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 // Socks Definitions //
 ///////////////////////
 
-/datum/sprite_accessory/socks
+/datum/sprite_accessory/clothing/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
+	abstract_type = /datum/sprite_accessory/clothing/socks
 
-/datum/sprite_accessory/socks/nude
+/datum/sprite_accessory/clothing/socks/nude
 	name = "Nude"
 	icon_state = null
 
+/datum/sprite_accessory/clothing/socks/nude/make_appearance(mob/living/carbon/human/for_who)
+	return
+
 // please make sure they're sorted alphabetically and categorized
 
-/datum/sprite_accessory/socks/black_knee
+/datum/sprite_accessory/clothing/socks/black_knee
 	name = "Knee-high (Black)"
 	icon_state = "black_knee"
 
-/datum/sprite_accessory/socks/commie_knee
+/datum/sprite_accessory/clothing/socks/commie_knee
 	name = "Knee-High (Commie)"
 	icon_state = "commie_knee"
 
-/datum/sprite_accessory/socks/usa_knee
+/datum/sprite_accessory/clothing/socks/usa_knee
 	name = "Knee-High (Freedom)"
 	icon_state = "assblastusa_knee"
 
-/datum/sprite_accessory/socks/rainbow_knee
+/datum/sprite_accessory/clothing/socks/rainbow_knee
 	name = "Knee-high (Rainbow)"
 	icon_state = "rainbow_knee"
 
-/datum/sprite_accessory/socks/striped_knee
+/datum/sprite_accessory/clothing/socks/striped_knee
 	name = "Knee-high (Striped)"
 	icon_state = "striped_knee"
 
-/datum/sprite_accessory/socks/thin_knee
+/datum/sprite_accessory/clothing/socks/thin_knee
 	name = "Knee-high (Thin)"
 	icon_state = "thin_knee"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/uk_knee
+/datum/sprite_accessory/clothing/socks/uk_knee
 	name = "Knee-High (UK)"
 	icon_state = "uk_knee"
 
-/datum/sprite_accessory/socks/white_knee
+/datum/sprite_accessory/clothing/socks/white_knee
 	name = "Knee-high (White)"
 	icon_state = "white_knee"
 
-/datum/sprite_accessory/socks/bee_knee
+/datum/sprite_accessory/clothing/socks/bee_knee
 	name = "Knee-high (Bee)"
 	icon_state = "bee_knee"
 
-/datum/sprite_accessory/socks/black_norm
+/datum/sprite_accessory/clothing/socks/black_norm
 	name = "Normal (Black)"
 	icon_state = "black_norm"
 
-/datum/sprite_accessory/socks/white_norm
+/datum/sprite_accessory/clothing/socks/white_norm
 	name = "Normal (White)"
 	icon_state = "white_norm"
 
-/datum/sprite_accessory/socks/pantyhose
+/datum/sprite_accessory/clothing/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/black_short
+/datum/sprite_accessory/clothing/socks/black_short
 	name = "Short (Black)"
 	icon_state = "black_short"
 
-/datum/sprite_accessory/socks/white_short
+/datum/sprite_accessory/clothing/socks/white_short
 	name = "Short (White)"
 	icon_state = "white_short"
 
-/datum/sprite_accessory/socks/black_thigh
+/datum/sprite_accessory/clothing/socks/black_thigh
 	name = "Thigh-high (Black)"
 	icon_state = "black_thigh"
 	// These often look weird when combined with other
@@ -2064,7 +2172,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/commie_thigh
+/datum/sprite_accessory/clothing/socks/commie_thigh
 	name = "Thigh-high (Commie)"
 	icon_state = "commie_thigh"
 	// These often look weird when combined with other
@@ -2072,7 +2180,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/usa_thigh
+/datum/sprite_accessory/clothing/socks/usa_thigh
 	name = "Thigh-high (Freedom)"
 	icon_state = "assblastusa_thigh"
 	// These often look weird when combined with other
@@ -2080,7 +2188,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/rainbow_thigh
+/datum/sprite_accessory/clothing/socks/rainbow_thigh
 	name = "Thigh-high (Rainbow)"
 	icon_state = "rainbow_thigh"
 	// These often look weird when combined with other
@@ -2088,7 +2196,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/striped_thigh
+/datum/sprite_accessory/clothing/socks/striped_thigh
 	name = "Thigh-high (Striped)"
 	icon_state = "striped_thigh"
 	// These often look weird when combined with other
@@ -2096,7 +2204,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/thin_thigh
+/datum/sprite_accessory/clothing/socks/thin_thigh
 	name = "Thigh-high (Thin)"
 	icon_state = "thin_thigh"
 	// These often look weird when combined with other
@@ -2104,7 +2212,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/uk_thigh
+/datum/sprite_accessory/clothing/socks/uk_thigh
 	name = "Thigh-high (UK)"
 	icon_state = "uk_thigh"
 	// These often look weird when combined with other
@@ -2112,7 +2220,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/white_thigh
+/datum/sprite_accessory/clothing/socks/white_thigh
 	name = "Thigh-high (White)"
 	icon_state = "white_thigh"
 	// These often look weird when combined with other
@@ -2120,7 +2228,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/bee_thigh
+/datum/sprite_accessory/clothing/socks/bee_thigh
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
 	// These often look weird when combined with other
@@ -2128,7 +2236,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/codersocks_pink
+/datum/sprite_accessory/clothing/socks/codersocks_pink
 	name = "Coder Socks (Pink)"
 	icon_state = "codersocks_pink"
 	// These often look weird when combined with other
@@ -2136,7 +2244,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/codersocks_blue
+/datum/sprite_accessory/clothing/socks/codersocks_blue
 	name = "Coder Socks (Blue)"
 	icon_state = "codersocks_blue"
 	// These often look weird when combined with other
@@ -2144,7 +2252,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	use_default = FALSE
 	use_default_gender = FEMALE
 
-/datum/sprite_accessory/socks/codersocks_trans
+/datum/sprite_accessory/clothing/socks/codersocks_trans
 	name = "Coder Socks (Trans)"
 	icon_state = "codersocks_trans"
 	// These often look weird when combined with other
@@ -2156,39 +2264,42 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 // MutantParts Definitions //
 /////////////////////////////
 
-/datum/sprite_accessory/body_markings
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+/datum/sprite_accessory/lizard_markings
+	icon = 'icons/mob/human/species/lizard/lizard_markings.dmi'
 
-/datum/sprite_accessory/body_markings/none
+/datum/sprite_accessory/lizard_markings/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
-/datum/sprite_accessory/body_markings/dtiger
+/datum/sprite_accessory/lizard_markings/dtiger
 	name = "Dark Tiger Body"
 	icon_state = "dtiger"
-	gender_specific = 1
+	gender_specific = TRUE
 
-/datum/sprite_accessory/body_markings/ltiger
+/datum/sprite_accessory/lizard_markings/ltiger
 	name = "Light Tiger Body"
 	icon_state = "ltiger"
-	gender_specific = 1
+	gender_specific = TRUE
 
-/datum/sprite_accessory/body_markings/lbelly
+/datum/sprite_accessory/lizard_markings/lbelly
 	name = "Light Belly"
 	icon_state = "lbelly"
-	gender_specific = 1
+	gender_specific = TRUE
 
 /datum/sprite_accessory/tails
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	/// Describes which tail spine sprites to use, if any.
+	var/spine_key = NONE
 
-/datum/sprite_accessory/tails_animated
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+/datum/sprite_accessory/tails/lizard
+	icon = 'icons/mob/human/species/lizard/lizard_tails.dmi'
+	spine_key = SPINE_KEY_LIZARD
+
+/datum/sprite_accessory/tails/lizard/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
+	natural_spawn = FALSE
 
 /datum/sprite_accessory/tails/lizard/smooth
-	name = "Smooth"
-	icon_state = "smooth"
-
-/datum/sprite_accessory/tails_animated/lizard/smooth
 	name = "Smooth"
 	icon_state = "smooth"
 
@@ -2196,15 +2307,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Dark Tiger"
 	icon_state = "dtiger"
 
-/datum/sprite_accessory/tails_animated/lizard/dtiger
-	name = "Dark Tiger"
-	icon_state = "dtiger"
-
 /datum/sprite_accessory/tails/lizard/ltiger
-	name = "Light Tiger"
-	icon_state = "ltiger"
-
-/datum/sprite_accessory/tails_animated/lizard/ltiger
 	name = "Light Tiger"
 	icon_state = "ltiger"
 
@@ -2212,42 +2315,32 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Spikes"
 	icon_state = "spikes"
 
-/datum/sprite_accessory/tails_animated/lizard/spikes
-	name = "Spikes"
-	icon_state = "spikes"
-
-/datum/sprite_accessory/tails/human/none
+/datum/sprite_accessory/tails/felinid/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
+	natural_spawn = FALSE
 
-/datum/sprite_accessory/tails_animated/human/none
+/datum/sprite_accessory/tails/felinid/cat
+	name = "Cat"
+	icon = 'icons/mob/human/cat_features.dmi'
+	icon_state = "default"
+	color_src = HAIR_COLOR
+
+/datum/sprite_accessory/tails/monkey
+
+/datum/sprite_accessory/tails/monkey/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
+	natural_spawn = FALSE
 
-/datum/sprite_accessory/tails/human/cat
-	name = "Cat"
-	icon_state = "cat"
-	color_src = HAIR_COLOR
-
-/datum/sprite_accessory/tails_animated/human/cat
-	name = "Cat"
-	icon_state = "cat"
-	color_src = HAIR_COLOR
-
-/datum/sprite_accessory/tails/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
-
-/datum/sprite_accessory/tails_animated/human/clock
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-	color_src = null
+/datum/sprite_accessory/tails/monkey/default
+	name = "Monkey"
+	icon = 'icons/mob/human/species/monkey/monkey_tail.dmi'
+	icon_state = "default"
+	color_src = FALSE
 
 /datum/sprite_accessory/snouts
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/snouts/sharp
 	name = "Sharp"
@@ -2266,7 +2359,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "roundlight"
 
 /datum/sprite_accessory/horns
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/horns/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2291,9 +2384,10 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/horns/angler
 	name = "Angeler"
 	icon_state = "angler"
+	emissive_layers = list(EXTERNAL_FRONT)
 
 /datum/sprite_accessory/ears
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/cat_features.dmi'
 
 /datum/sprite_accessory/ears/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2302,7 +2396,6 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 /datum/sprite_accessory/ears/cat
 	name = "Cat"
 	icon_state = "cat"
-	hasinner = 1
 	color_src = HAIR_COLOR
 
 /datum/sprite_accessory/wings/none
@@ -2347,7 +2440,58 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	center = TRUE
 	dimension_y = 32
 
-/datum/sprite_accessory/wings/apid
+/datum/sprite_accessory/wings/skeleton
+	name = "Skeleton"
+	icon_state = "skele"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/skeleton
+	name = "Skeleton"
+	icon_state = "skele"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/robotic
+	name = "Robotic"
+	icon_state = "robotic"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/robotic
+	name = "Robotic"
+	icon_state = "robotic"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/fly
+	name = "Fly"
+	icon_state = "fly"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+	locked = TRUE
+
+/datum/sprite_accessory/wings_open/fly
+	name = "Fly"
+	icon_state = "fly"
+	color_src = FALSE
+	dimension_x = 96
+	center = TRUE
+	dimension_y = 32
+
+/datum/sprite_accessory/wings/bee
 	name = "Bee"
 	icon = 'icons/mob/human/species/apid/apid_wings.dmi'
 	icon_state = "apid"
@@ -2357,7 +2501,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	dimension_y = 32
 	overlay_alpha = 120
 
-/datum/sprite_accessory/wings_open/apid
+/datum/sprite_accessory/wings_open/bee
 	name = "Bee"
 	icon = 'icons/mob/human/species/apid/apid_wingsopen.dmi'
 	icon_state = "apid"
@@ -2383,7 +2527,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	dimension_y = 34
 
 /datum/sprite_accessory/frills
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_misc.dmi'
 
 /datum/sprite_accessory/frills/none
 	name = SPRITE_ACCESSORY_NONE
@@ -2402,16 +2546,16 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "aqua"
 
 /datum/sprite_accessory/spines
-	icon = 'icons/mob/mutant_bodyparts.dmi'
-
-/datum/sprite_accessory/spines_animated
-	icon = 'icons/mob/mutant_bodyparts.dmi'
+	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
 
 /datum/sprite_accessory/spines/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
-/datum/sprite_accessory/spines_animated/none
+/datum/sprite_accessory/tail_spines
+	icon = 'icons/mob/human/species/lizard/lizard_spines.dmi'
+
+/datum/sprite_accessory/tail_spines/none
 	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 
@@ -2419,7 +2563,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Short"
 	icon_state = "short"
 
-/datum/sprite_accessory/spines_animated/short
+/datum/sprite_accessory/tail_spines/short
 	name = "Short"
 	icon_state = "short"
 
@@ -2427,7 +2571,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Short + Membrane"
 	icon_state = "shortmeme"
 
-/datum/sprite_accessory/spines_animated/shortmeme
+/datum/sprite_accessory/tail_spines/shortmeme
 	name = "Short + Membrane"
 	icon_state = "shortmeme"
 
@@ -2435,7 +2579,7 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Long"
 	icon_state = "long"
 
-/datum/sprite_accessory/spines_animated/long
+/datum/sprite_accessory/tail_spines/long
 	name = "Long"
 	icon_state = "long"
 
@@ -2443,15 +2587,15 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	name = "Long + Membrane"
 	icon_state = "longmeme"
 
-/datum/sprite_accessory/spines_animated/longmeme
+/datum/sprite_accessory/tail_spines/longmeme
 	name = "Long + Membrane"
 	icon_state = "longmeme"
 
-/datum/sprite_accessory/spines/aqautic
+/datum/sprite_accessory/spines/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
 
-/datum/sprite_accessory/spines_animated/aqautic
+/datum/sprite_accessory/tail_spines/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
 
