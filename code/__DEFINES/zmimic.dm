@@ -87,3 +87,10 @@ On ZMM_AUTOMANGLE:
 */
 
 #define GET_TURF_DEPTH(turf) (!isnull((turf).z_depth) ? (turf).z_depth : (turf).calculate_zdepth())
+
+#define ZMIMIC_DEPTH(turf_depth) min(ZMIMIC_MAX_DEPTH - (turf_depth), ZMIMIC_MAX_DEPTH)
+
+/// The multiplication factor for openturf shadower darkness
+#define SHADOWER_DARKENING_FACTOR 0.8
+/// The above, but as an RGB string for lightless turfs
+#define SHADOWER_DARKENING_COLOR "#CCCCCC"

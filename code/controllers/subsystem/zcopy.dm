@@ -332,7 +332,7 @@ SUBSYSTEM_DEF(zcopy)
 				deltimer(OO.destruction_timer)
 				OO.destruction_timer = null
 
-			OO.depth = override_depth || min(ZMIMIC_MAX_DEPTH - original_depth, ZMIMIC_MAX_DEPTH)
+			OO.depth = override_depth || ZMIMIC_DEPTH(original_depth)
 
 			// These types need to be pushed a layer down for bigturfs to function correctly.
 			switch (original_type)
@@ -412,6 +412,8 @@ SUBSYSTEM_DEF(zcopy)
 			OO.render_target = null
 		OO.zmm_flags = OO.associated_atom.zmm_flags
 		OO.plane = ZMIMIC_MAX_PLANE - OO.depth
+		if (OO.mimiced_type == /atom/movable/openspace/multiplier)
+			OO.plane = ZMIMIC_SHADOW_PLANE(OO.plane)
 
 		OO.opacity = FALSE
 		OO.queued = 0
@@ -492,14 +494,17 @@ SUBSYSTEM_DEF(zcopy)
 
 	var/plane_needs_fix = FALSE
 	var/obliterate = FALSE
+	var/light_needs_fix = FALSE
 
 	// Don't fixup the root object's plane.
 	if (depth > 0)
 		switch (appearance:plane)
-			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE)
+			if (GAME_PLANE, FLOOR_PLANE, FLOAT_PLANE, FLOAT_PLANE + ZMIMIC_SHADOW_PLANE_OFFSET)
 				// fine
-			if (EMISSIVE_PLANE, GRAVITY_PULSE_PLANE, LIGHTING_PLANE, LIGHTING_PLANE_ADDITIVE, O_LIGHTING_VISUAL_PLANE)
+			if (EMISSIVE_PLANE, GRAVITY_PULSE_PLANE, LIGHTING_PLANE, LIGHTING_PLANE_ADDITIVE)
 				obliterate = TRUE
+			if (O_LIGHTING_VISUAL_PLANE)
+				light_needs_fix = TRUE
 			else
 				plane_needs_fix = TRUE
 
@@ -538,7 +543,7 @@ SUBSYSTEM_DEF(zcopy)
 					fixed_underlays[i] = appearance:underlays[i]
 
 	// If we did nothing (no violations), don't bother creating a new appearance
-	if (!plane_needs_fix && !obliterate && !fixed_overlays && !fixed_underlays)
+	if (!plane_needs_fix && !obliterate && !light_needs_fix && !fixed_overlays && !fixed_underlays)
 		fixup_noop += 1
 		if (depth >= cache_minimum_depth)
 			fixup_known_good[appearance] = TRUE
@@ -550,6 +555,11 @@ SUBSYSTEM_DEF(zcopy)
 	if (plane_needs_fix)
 		MA.plane = depth == 0 ? GAME_PLANE : FLOAT_PLANE
 		MA.layer = FLY_LAYER	// probably fine
+	if (light_needs_fix)
+		// Overlay lights light the level below through its shadow plane
+		MA.plane = FLOAT_PLANE + ZMIMIC_SHADOW_PLANE_OFFSET
+		MA.layer = MIMICKED_OVERLAY_LIGHTING_LAYER
+		MA.blend_mode = BLEND_OVERLAY
 	if (obliterate)
 		// Emissive, hide it.
 		MA.invisibility = INVISIBILITY_ABSTRACT
@@ -680,6 +690,16 @@ SUBSYSTEM_DEF(zcopy)
 		SSzcopy.debug_fmt_planelist(atoms_list_list["[pl]"], out, T)
 
 		// Flush the list so we can find orphans.
+		atoms_list_list -= "[pl]"
+
+	for (var/d in 0 to ZMIMIC_MAX_DEPTH)
+		var/pl = ZMIMIC_SHADOW_PLANE(ZMIMIC_MAX_PLANE - d)
+		if (!atoms_list_list["[pl]"])
+			continue
+
+		out += "<strong>Depth [d], shadow plane [pl]</strong>"
+		SSzcopy.debug_fmt_planelist(atoms_list_list["[pl]"], out, T)
+
 		atoms_list_list -= "[pl]"
 
 	if (atoms_list_list["[PLANE_SPACE]"])	// Space parallax plane

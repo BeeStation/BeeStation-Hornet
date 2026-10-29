@@ -199,11 +199,12 @@
 /datum/component/overlay_lighting/proc/add_dynamic_lumi()
 	LAZYSET(current_holder.affected_dynamic_lights, src, lumcount_range + 1)
 	current_holder.underlays += visible_mask
-	// Mimics of the holder have to hide the mask
+	// Mimics of the holder move the mask onto their shadow plane
 	current_holder.zmm_flags |= ZMM_MANGLE_PLANES
 	current_holder.update_dynamic_luminosity()
 	if(directional)
 		current_holder.underlays += cone
+	current_holder.update_above()
 
 ///Removes the luminosity and source for the affected movable atoms to keep track of their visibility.
 /datum/component/overlay_lighting/proc/remove_dynamic_lumi()
@@ -212,6 +213,7 @@
 	current_holder.update_dynamic_luminosity()
 	if(directional)
 		current_holder.underlays -= cone
+	current_holder.update_above()
 
 ///Called to change the value of parent_attached_to.
 /datum/component/overlay_lighting/proc/set_parent_attached_to(atom/movable/new_parent_attached_to)
@@ -357,6 +359,7 @@
 		visible_mask.transform = transform
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
+		current_holder.update_above()
 	if(directional)
 		if(beam)
 			cast_range = max(round(new_range * 0.5), 1)
@@ -377,6 +380,7 @@
 	visible_mask.alpha = set_alpha
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
+		current_holder.update_above()
 	if(!directional)
 		return
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
@@ -384,6 +388,7 @@
 	cone.alpha = min(200, (abs(new_power) * 90)+20)
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += cone
+		current_holder.update_above()
 
 
 ///Changes the light's color, pretty straightforward.
@@ -395,6 +400,7 @@
 	visible_mask.color = new_color
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
+		current_holder.update_above()
 	if(!directional)
 		return
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
@@ -402,6 +408,7 @@
 	cone.color = new_color
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += cone
+		current_holder.update_above()
 
 
 ///Toggles the light on and off.
@@ -505,6 +512,7 @@
 			if(beam && range > 1)
 				scale_y = 1 / (range - (range/5))
 
+	var/mask_changed = FALSE
 	if((directional_offset_x != translate_x) || (directional_offset_y != translate_y))
 		directional_offset_x = translate_x
 		directional_offset_y = translate_y
@@ -513,8 +521,11 @@
 			transform.Scale(scale_x, scale_y)
 		transform.Translate(translate_x, translate_y)
 		visible_mask.transform = transform
+		mask_changed = TRUE
 	if(overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
+		if(mask_changed)
+			current_holder.update_above()
 
 ///Called when current_holder changes loc.
 /datum/component/overlay_lighting/proc/on_holder_dir_change(atom/movable/source, olddir, newdir)
