@@ -15,6 +15,8 @@
 		return
 
 	if (MOVABLE_IS_BELOW_ZTURF(src))
+		if (bound_overlay.queued)
+			return
 		SSzcopy.queued_overlays += bound_overlay
 		bound_overlay.queued += 1
 	else if (bound_overlay && !bound_overlay.destruction_timer)

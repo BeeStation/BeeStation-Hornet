@@ -210,6 +210,8 @@
 /datum/component/overlay_lighting/proc/remove_dynamic_lumi()
 	LAZYREMOVE(current_holder.affected_dynamic_lights, src)
 	current_holder.underlays -= visible_mask
+	if(!LAZYLEN(current_holder.affected_dynamic_lights) && !(initial(current_holder.zmm_flags) & ZMM_MANGLE_PLANES))
+		current_holder.zmm_flags &= ~ZMM_MANGLE_PLANES
 	current_holder.update_dynamic_luminosity()
 	if(directional)
 		current_holder.underlays -= cone

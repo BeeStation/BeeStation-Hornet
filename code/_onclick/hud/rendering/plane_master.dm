@@ -298,7 +298,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		color = null
 		return
 	var/lit = lighting_alpha / 255
-	// Scaled by alpha
 	var/dark = (1 - lit) * SHADOWER_DARKENING_FACTOR
 	color = list(lit,0,0,0, 0,lit,0,0, 0,0,lit,0, dark,dark,dark,1, 0,0,0,0)
 

@@ -80,7 +80,7 @@
 /// Called by the blob creation power to give us a mind and a basic task orientation
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/assign_key(ckey, datum/blobstrain/blobstrain)
 	key = ckey
-	z_flick("blobbernaut_produce", blobber)
+	z_flick("blobbernaut_produce", src)
 	health = maxHealth / 2 // Start out injured to encourage not beelining away from the blob
 	SEND_SOUND(src, sound('sound/effects/blobattack.ogg'))
 	SEND_SOUND(src, sound('sound/effects/attackblob.ogg'))

@@ -81,8 +81,10 @@
 /datum/plane_master_group/main
 
 /// Holds plane masters for popups, like camera windows
+/// Note: We do not scale this plane, even though we could
+/// This is because it's annoying to get turfs to position inside it correctly
+/// If you wanna try someday feel free, but I can't manage it
 /datum/plane_master_group/popup
 
 /datum/plane_master_group/popup/get_plane_types()
-	// Popups have never rendered blackness
 	return ..() - /atom/movable/screen/plane_master/blackness
