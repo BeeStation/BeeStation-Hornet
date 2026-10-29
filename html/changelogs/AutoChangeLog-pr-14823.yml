@@ -1,0 +1,20 @@
+author: rkz, Lohikar, kapu1178, lemon, vinylspiders
+delete-after: true
+changes:
+  - bugfix: the game no longer keeps a permanent saved copy of every appearance a
+      mob has ever had whilst being seen from another zlevel. (I too hate memory and
+      wish cascading memory bloat on my local box)
+  - bugfix: zmimic copying no longer attempts to copy every tick() when it has nothing
+      to process
+  - bugfix: zmimics can no longer... float like they were in space
+  - bugfix: people seen from a zlevel above will now properly update sprites
+  - bugfix: fixes lighting seen from different zlevels
+  - bugfix: atoms with unique emissive blockers (cyborgs) no longer break when seen
+      through zlevels
+  - bugfix: bloom on one zlevel no longer badly copies the bloom of the level below
+      and it discards its own value
+  - rscadd: talking can go between zlevels through openspace
+  - rscadd: hud icons (sec, medical, etc) now can show through openspace to levels
+      above
+  - rscadd: animations are shown to zlevels who can see it
+  - rscadd: screen effects now apply to all floors you can see
