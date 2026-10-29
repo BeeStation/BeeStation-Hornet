@@ -1465,7 +1465,7 @@
 	armor_type = /datum/armor/mod_theme_ninja
 	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.5
-	complexity_max = DEFAULT_MAX_COMPLEXITY + 2 //Minor enough to allow for installing HUDs or storage expander if the crew research it
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 4 //Minor enough to allow for installing HUDs or storage expander if the crew research it
 	siemens_coefficient = 0
 	slowdown_deployed = 0
 	ui_theme = "hackerman"
@@ -1511,7 +1511,7 @@
 	)
 
 /datum/armor/mod_theme_ninja
-	melee = 10
+	melee = 40
 	bullet = 30
 	laser = 30
 	energy = 30
@@ -1520,6 +1520,7 @@
 	fire = 100
 	acid = 100
 	bleed = 60
+	stamina = 50
 
 /datum/mod_theme/prototype
 	name = "prototype"
