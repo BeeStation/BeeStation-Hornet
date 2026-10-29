@@ -95,7 +95,7 @@
 		humanspawned.equip_in_one_of_slots(silly_little_scarf, backup_slots, qdel_on_fail = FALSE)
 
 	var/obj/item/clothing/neck/link_scryer/loaded/new_scryer = new(spawned)
-	new_scryer.label = spawned.name
+	new_scryer.mod_link.label = spawned.name
 	new_scryer.update_name()
 
 	spawned.equip_to_slot_or_del(new_scryer, ITEM_SLOT_NECK, initial = FALSE)
