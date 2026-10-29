@@ -168,8 +168,9 @@
 
 /datum/skeleton_access/engineering/station_engineer
 	recipients = list(JOB_NAME_ATMOSPHERICTECHNICIAN)
-	covered_jobs = list(JOB_NAME_STATIONENGINEER)
+	covered_jobs = list(JOB_NAME_STATIONENGINEER, JOB_NAME_CHIEFENGINEER)
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE)
+	population_limit = INFINITY
 
 /datum/skeleton_access/medical
 	abstract_type = /datum/skeleton_access/medical
