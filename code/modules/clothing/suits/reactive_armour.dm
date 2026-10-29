@@ -57,6 +57,10 @@
 	acid = 100
 	bleed = 10
 
+/obj/item/clothing/suit/armor/reactive/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
 	if(active)

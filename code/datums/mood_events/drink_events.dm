@@ -1,14 +1,15 @@
 /datum/mood_event/drunk
 	mood_change = 3
 	description = span_nicegreen("Everything just feels better after a drink or two.")
+	// The blush overlay to display when the owner is drunk
+	var/datum/bodypart_overlay/simple/emote/blush_overlay
 
 /datum/mood_event/drunk/add_effects(drunkness)
 	update_change(drunkness)
-	// Display blush visual
-	var/datum/component/L = owner
-	var/mob/living/T = L.parent
-	ADD_TRAIT(T, TRAIT_BLUSHING, "[type]")
-	T.update_body()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	blush_overlay = human_owner.give_emote_overlay(/datum/bodypart_overlay/simple/emote/blush)
 
 /// Updates the description and value of the moodlet according to the passed drunkness value
 /// (Does not add to or remove from the current level - it will sets it directly to the new value)
@@ -37,11 +38,7 @@
 		mood.update_mood()
 
 /datum/mood_event/drunk/remove_effects()
-	// Stop displaying blush visual
-	var/datum/component/L = owner
-	var/mob/living/T = L.parent
-	REMOVE_TRAIT(T, TRAIT_BLUSHING, "[type]")
-	T.update_body()
+	QDEL_NULL(blush_overlay)
 
 /datum/mood_event/quality_bad
 	description = span_warning("That drink wasn't good at all.")

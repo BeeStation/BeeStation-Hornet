@@ -13,7 +13,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
@@ -231,7 +231,7 @@
 		adult.dna.features = features
 	else
 		adult.fully_replace_character_name(name, generate_random_name_species_based(gender = gender, species_type = /datum/species/diona))
-		adult.dna.features["mcolor"] = sanitize_hexcolor(RANDOM_COLOUR)
+		adult.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(RANDOM_COLOUR)
 	if(mind)
 		mind.transfer_to(adult)
 	else

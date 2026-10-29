@@ -49,11 +49,16 @@
 		undershirt.accessory_overlay_over.layer = item_layer + 0.0001
 		. += undershirt.accessory_overlay_over
 
+
 /obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_worn_oversuit()
+
+/obj/item/clothing/suit/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	var/icon/legs = icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "oversuit_worn")
+	return replace_icon_legs(base_icon, legs)
 
 /obj/item/clothing/suit/proc/on_mob_move()
 	SIGNAL_HANDLER

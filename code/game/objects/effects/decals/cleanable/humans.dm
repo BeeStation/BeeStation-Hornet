@@ -31,10 +31,10 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/decal/cleanable/blood/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
+/obj/effect/decal/cleanable/blood/add_blood_DNA(list/blood_DNA_to_add, list/datum/disease/diseases)
 	. = ..()
-	if(blood_dna)
-		color = get_blood_dna_color(blood_dna)
+	if(blood_DNA_to_add)
+		color = get_blood_dna_color(blood_DNA_to_add)
 
 /obj/effect/decal/cleanable/blood/proc/get_timer()
 	drytime = world.time + 3 MINUTES

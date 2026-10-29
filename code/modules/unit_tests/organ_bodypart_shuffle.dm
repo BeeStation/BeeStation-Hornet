@@ -2,17 +2,17 @@
 /datum/unit_test/organ_bodypart_shuffle
 
 /datum/unit_test/organ_bodypart_shuffle/Run()
-	var/mob/living/carbon/human/hollow_boy = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/carbon/human/hollow_boy = allocate(/mob/living/carbon/human/consistent) //freshly filled with wet insides
 
 	// Test if organs are all properly updating when forcefully removed
 	var/list/removed_organs = list()
 
-	for(var/obj/item/organ/organ as anything in hollow_boy.internal_organs)
+	for(var/obj/item/organ/organ as anything in hollow_boy.organs)
 		organ.moveToNullspace()
 		removed_organs += organ
 
 	for(var/obj/item/organ/organ as anything in removed_organs)
-		TEST_ASSERT(!(organ in hollow_boy.internal_organs), "Organ '[organ.name] remained inside human after forceMove into nullspace.")
+		TEST_ASSERT(!(organ in hollow_boy.organs), "Organ '[organ.name] remained inside human after forceMove into nullspace.")
 		TEST_ASSERT(organ.loc == null, "Organ '[organ.name] did not move to nullspace after being forced to.")
 		TEST_ASSERT(!(organ.owner), "Organ '[organ.name] kept reference to human after forceMove into nullspace.")
 		TEST_ASSERT(!(organ.bodypart_owner), "Organ '[organ.name] kept reference to bodypart after forceMove into nullspace.")
@@ -28,7 +28,5 @@
 		for(var/obj/item/organ/organ as anything in removed_organs) //technically readded organ now
 			if(bodypart.body_zone != deprecise_zone(organ.zone))
 				continue
-			TEST_ASSERT(organ in hollow_boy.internal_organs, "Organ '[organ.name] was put in an empty bodypart that replaced a humans, but the organ did not come with.")
+			TEST_ASSERT(organ in hollow_boy.organs, "Organ '[organ.name] was put in an empty bodypart that replaced a humans, but the organ did not come with.")
 
-	// Test if bodyparts are all properly updating when forcefully removed
-	hollow_boy = allocate(/mob/living/carbon/human/consistent) //freshly filled with wet insides

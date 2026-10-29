@@ -23,13 +23,13 @@
 	var/obj/item/bodypart/aug = tool
 	if(IS_ORGANIC_LIMB(aug))
 		to_chat(user, span_warning("That's not an augment, silly!"))
-		return -1
+		return SURGERY_STEP_FAIL
 	if(aug.body_zone != target_zone)
 		to_chat(user, span_warning("[tool] isn't the right type for [parse_zone(target_zone)]."))
-		return -1
+		return SURGERY_STEP_FAIL
 	if(!aug.can_attach_limb(target))
 		to_chat(user, span_warning("[target]'s body would reject [aug]!"))
-		return -1
+		return SURGERY_STEP_FAIL
 	L = surgery.operated_bodypart
 	if(!L)
 		user.visible_message("[user] looks for [target]'s [parse_zone(target_zone)].", span_notice("You look for [target]'s [parse_zone(target_zone)]..."))
@@ -37,7 +37,7 @@
 
 	if(L?.bodypart_disabled)
 		to_chat(user, span_warning("You can't augment a limb with paralysis!"))
-		return -1
+		return SURGERY_STEP_FAIL
 	else
 		display_results(
 			user,

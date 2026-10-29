@@ -35,7 +35,7 @@
 				if(isopenturf(OT))
 					OT.MakeSlippery(TURF_WET_LUBE, 100)
 		if(4)
-			var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes/snail) in affected_mob.internal_organs
+			var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes/snail) in affected_mob.organs
 			if(!eyes && DT_PROB(2.5, delta_time))
 				var/obj/item/organ/eyes/snail/new_eyes = new()
 				new_eyes.Insert(affected_mob)
@@ -55,7 +55,7 @@
 					affected_mob.emote("scream")
 					return
 
-			var/obj/item/organ/tongue/tongue = locate(/obj/item/organ/tongue/snail) in affected_mob.internal_organs
+			var/obj/item/organ/tongue/tongue = locate(/obj/item/organ/tongue/snail) in affected_mob.organs
 			if(!tongue && DT_PROB(2.5, delta_time))
 				var/obj/item/organ/tongue/snail/new_tongue = new()
 				new_tongue.Insert(affected_mob)
@@ -82,11 +82,11 @@
 	. = ..()
 	if(!is_species(affected_mob, /datum/species/snail)) //undo all the snail fuckening
 		var/mob/living/carbon/human/H = affected_mob
-		var/obj/item/organ/tongue/tongue = locate(/obj/item/organ/tongue/snail) in H.internal_organs
+		var/obj/item/organ/tongue/tongue = locate(/obj/item/organ/tongue/snail) in H.organs
 		if(tongue)
 			var/obj/item/organ/tongue/new_tongue = new H.dna.species.mutanttongue ()
 			new_tongue.Insert(H)
-		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes/snail) in H.internal_organs
+		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes/snail) in H.organs
 		if(eyes)
 			var/obj/item/organ/eyes/new_eyes = new H.dna.species.mutanteyes ()
 			new_eyes.Insert(H)

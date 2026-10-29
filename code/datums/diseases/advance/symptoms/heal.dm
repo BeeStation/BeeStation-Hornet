@@ -21,7 +21,8 @@
 	return TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
@@ -253,17 +254,15 @@
 	if(A.stealth >= 3)
 		reduced_hunger = TRUE
 
-/datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
-	if(!istype(C))
-		return
+/datum/symptom/heal/metabolism/Heal(mob/living/carbon/infected_mob, datum/disease/advance/A, actual_power)
 	var/metabolic_boost = triple_metabolism ? 2 : 1
-	C.reagents.metabolize(C, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
-	C.overeatduration = max(C.overeatduration - 4 SECONDS, 0)
+	infected_mob.reagents.metabolize(infected_mob, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	infected_mob.overeatduration = max(infected_mob.overeatduration - 4 SECONDS, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
-	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
-	if(prob(2) && C.stat != DEAD)
-		to_chat(C, span_notice("You feel an odd gurgle in your stomach, as if it was working much faster than normal."))
-	return 1
+	infected_mob.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
+	if(prob(2))
+		to_chat(infected_mob, span_notice("You feel an odd gurgle in your stomach, as if it was working much faster than normal."))
+	return TRUE
 
 /*
 //////////////////////////////////////
@@ -451,7 +450,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
+				M.heal_overall_damage(0, 1.5 * power) //no checks here, this does all bodyparts equally
 			if(M.stat == DEAD)
 				return
 			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
@@ -603,7 +602,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
-	var/datum/blood_type/bloodtypearchive
+	var/bloodtypearchive
 	var/bruteheal = FALSE
 	var/aggression = FALSE
 	var/vampire = FALSE
@@ -641,7 +640,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = /datum/blood_type/universal
+		H.dna.blood_type = "U"
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -652,7 +651,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(5) && M.stat != DEAD)
 				to_chat(M, span_warning("[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]"))
 		if(5)
-			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+			ADD_TRAIT(A.affected_mob, TRAIT_DRINKS_BLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
 			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood)
 				var/missing = BLOOD_VOLUME_NORMAL - M.blood_volume
@@ -687,7 +686,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/End(datum/disease/advance/A)
 	. = ..()
-	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKS_BLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.dna.blood_type = bloodtypearchive

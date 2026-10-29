@@ -13,14 +13,14 @@
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
 	// STOP_OVERLAY_UPDATE_BODY_PARTS is removed after we call update_body_parts() during init.
 	living_flags = ALWAYS_DEATHGASP|STOP_OVERLAY_UPDATE_BODY_PARTS
-	/// List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
-	var/list/internal_organs = list()
-	/// Same as above, but stores "slot ID" - "organ" pairs for easy access.
-	var/list/internal_organs_slot = list()
+	///List of [/obj/item/organ] in the mob. They don't go in the contents for some reason I don't want to know.
+	var/list/obj/item/organ/organs = list()
+	///Same as [above][/mob/living/carbon/var/organs], but stores "slot ID" - "organ" pairs for easy access.
+	var/list/organs_slot = list()
 
-	/// Whether or not the mob is handcuffed
+	///Whether or not the mob is handcuffed
 	var/obj/item/handcuffed = null
-	/// Same as handcuffs but for legs. Bear traps use this.
+	///Same as handcuffs but for legs. Bear traps use this.
 	var/obj/item/legcuffed = null
 
 	/// Measure of how disgusted we are. See DISGUST_LEVEL_GROSS and friends
@@ -56,6 +56,9 @@
 
 	rotate_on_lying = TRUE
 
+	/// Gets filled up in [/datum/species/proc/replace_body].
+	/// Will either contain a list of typepaths if nothing has been created yet,
+	/// or a list of the body part objects.
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
 		/obj/item/bodypart/head,
@@ -93,4 +96,8 @@
 	var/visual_only_organs = FALSE
 
 	/// A bitfield of "bodytypes", updated by /obj/item/bodypart/proc/synchronize_bodytypes()
-	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	var/bodytype = BODYTYPE_ORGANIC
+
+	/// A bitfield of "bodyshapes", updated by /obj/item/bodypart/proc/synchronize_bodyshapes()
+	var/bodyshape = BODYSHAPE_HUMANOID
+

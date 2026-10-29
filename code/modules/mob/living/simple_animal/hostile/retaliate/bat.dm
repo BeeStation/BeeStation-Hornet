@@ -10,7 +10,7 @@
 	response_help_simple = "brush aside"
 	response_disarm_continuous = "flails at"
 	response_disarm_simple = "flail at"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	speak_chance = 0
 	maxHealth = 15
 	health = 15

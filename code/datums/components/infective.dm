@@ -15,6 +15,7 @@
 	if(expire_in)
 		expire_time = world.time + expire_in
 		QDEL_IN(src, expire_in)
+
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -123,7 +124,6 @@
 
 /datum/component/infective/proc/try_infect_attack(datum/source, mob/living/target, mob/living/user)
 	SIGNAL_HANDLER
-
 	if(!iscarbon(target)) //this case will be handled by try_infect_attack_zone
 		try_infect(target)
 	try_infect(user, BODY_ZONE_L_ARM)

@@ -177,13 +177,13 @@
 		/obj/item/organ/wings = 1,
 		/obj/item/organ/wings/moth = 1,
 		/obj/item/organ/wings/bee = 1,
-		/obj/item/organ/wings/dragon/fake = 1
+		/obj/item/organ/wings/dragon = 1
 	)
 
 /obj/effect/spawner/random/medical/teratoma/major
 	name = "major teratoma spawner"
 	loot = list(
-		/obj/item/organ/adamantine_resonator = 2,,
+		/obj/item/organ/adamantine_resonator = 2,
 		/obj/item/organ/ears/penguin = 2,
 		/obj/item/organ/heart/gland/viral = 1,
 		/obj/item/organ/eyes/night_vision = 1,

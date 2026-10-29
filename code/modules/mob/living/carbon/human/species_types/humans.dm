@@ -9,9 +9,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	name_key = SPECIES_NAME_HUMANOID
 
-/datum/species/human/qualifies_for_rank(datum/job/rank, list/features)
-	return TRUE	//Pure humans are always allowed in all roles.
-
 /datum/species/human/get_laugh_sound(mob/living/carbon/user)
 	return user.gender == FEMALE ? 'sound/voice/human/womanlaugh.ogg' : pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
 

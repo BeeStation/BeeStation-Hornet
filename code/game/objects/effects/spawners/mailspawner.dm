@@ -32,7 +32,8 @@
 		/obj/item/organ/wings,
 		/obj/item/organ/wings/moth,
 		/obj/item/organ/wings/bee,
-		/obj/item/organ/wings/dragon/fake,)
+		/obj/item/organ/wings/dragon,
+	)
 	new mail_organminor(loc)
 	return ..()
 
@@ -57,8 +58,9 @@
 		/obj/item/organ/vocal_cords/adamantine,
 		/obj/effect/gibspawner/xeno,
 		/obj/effect/mob_spawn/human/corpse/assistant,
-		/obj/item/organ/wings/moth/robust,
-		/obj/item/organ/wings/dragon,)
+		/obj/item/organ/wings/moth,
+		/obj/item/organ/wings/dragon,
+	)
 	new mail_organmajor(loc)
 	return ..()
 

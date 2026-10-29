@@ -195,8 +195,8 @@
 #define RND_SUBCATEGORY_IPC_UPGRADES_EXTERNAL "/Cybernetics/External Upgrades"
 
 // Limb Categories
-#define RND_CATEGORY_DIGITIGRADE "digitigrade"
-#define RND_CATEGORY_OTHER "other"
+#define RND_CATEGORY_LIMBS_DIGITIGRADE "digitigrade"
+#define RND_CATEGORY_LIMBS_OTHER "other"
 
 /// Biogenerator Categories
 #define RND_CATEGORY_FOOD "Food"

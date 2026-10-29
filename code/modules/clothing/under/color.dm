@@ -4,15 +4,14 @@
 	dying_key = DYE_REGISTRY_UNDER
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit
+	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
-	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
 	icon = 'icons/obj/clothing/under/color.dmi'
 	icon_state = "jumpsuit"
 	inhand_icon_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
 	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/under/color/jumpskirt
@@ -20,7 +19,7 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	icon_state = "jumpskirt"
-	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -36,15 +35,26 @@
 		new C(loc)
 	return INITIALIZE_HINT_QDEL
 
+/// Returns a random, acceptable jumpsuit typepath
+/proc/get_random_jumpsuit()
+	return pick(
+		subtypesof(/obj/item/clothing/under/color) \
+			- typesof(/obj/item/clothing/under/color/jumpskirt) \
+			- /obj/item/clothing/under/color/random \
+			- /obj/item/clothing/under/color/grey/glorf \
+			- /obj/item/clothing/under/color/black/ghost \
+			- /obj/item/clothing/under/rank/prisoner \
+	)
+
 /obj/item/clothing/under/color/jumpskirt/random
 	icon_state = "random_jumpsuit" //Skirt variant needed
 
 /obj/item/clothing/under/color/jumpskirt/random/Initialize(mapload)
 	..()
-	var/obj/item/clothing/under/color/jumpskirt/C = pick(subtypesof(/obj/item/clothing/under/color/jumpskirt) - /obj/item/clothing/under/color/jumpskirt/random)
+	var/obj/item/clothing/under/color/jumpskirt/C = get_random_jumpsuit()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING)
+		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING, initial = TRUE)
 	else
 		new C(loc)
 	return INITIALIZE_HINT_QDEL
@@ -266,6 +276,9 @@
 	greyscale_config_worn = null
 	can_adjust = FALSE
 	flags_1 = NONE
+
+/obj/item/clothing/under/color/rainbow/get_general_color(icon/base_icon)
+	return "#3f3f3f"
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"

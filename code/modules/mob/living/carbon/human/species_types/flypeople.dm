@@ -5,9 +5,9 @@
 	inherent_traits = list(
 		TRAIT_TACKLING_FRAIL_ATTACKER,
 		TRAIT_NO_UNDERWEAR,
-		TRAIT_BEEFRIEND,
+		TRAIT_BEEFRIEND
 	)
-	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	meat = /obj/item/food/meat/slab/human/mutant/fly
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/fly
@@ -40,7 +40,7 @@
 
 /// Restyles the target's limbs to match their "insect_type" feature
 /datum/species/fly/proc/apply_insect_type(mob/living/carbon/C)
-	var/datum/sprite_accessory/insect_type/type_selection = GLOB.insect_type_list[C.dna.features["insect_type"]]
+	var/datum/sprite_accessory/insect_type/type_selection = SSaccessories.insect_type_list[C.dna.features["insect_type"]]
 	if(!istype(type_selection))
 		return
 
