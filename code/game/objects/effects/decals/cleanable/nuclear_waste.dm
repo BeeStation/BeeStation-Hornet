@@ -24,8 +24,7 @@
 /obj/effect/decal/cleanable/nuclear_waste/on_entered(datum/source, atom/movable/entered_mob)
 	if(isliving(entered_mob))
 		var/mob/living/L = entered_mob
-		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
-
+		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, TRUE)
 	radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, intensity = 15)
 
 /obj/effect/decal/cleanable/nuclear_waste/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
