@@ -21,7 +21,6 @@
 	// Give the base objective
 	add_objective(new /datum/objective/abductee())
 
-
 	//pick flavor objective
 	var/datum/objective/abductee/extra_objective
 	switch(rand(1,10))
