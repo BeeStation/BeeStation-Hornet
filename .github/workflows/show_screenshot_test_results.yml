@@ -23,7 +23,7 @@ jobs:
           echo "{\"type\": \"module\"}" > package.json
           npm install node-fetch
       - name: Show screenshot test results
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           script: |
             const { showScreenshotTestResults } = await import('${{ github.workspace }}/tools/ci/show_screenshot_test_results.js')
