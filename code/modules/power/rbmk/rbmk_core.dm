@@ -45,47 +45,46 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /obj/machinery/atmospherics/components/unary/rbmk/core
 	name = "\improper Advanced Gas-Cooled Nuclear Reactor"
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
-	icon = 'icons/obj/machines/rbmk.dmi'
+	icon = 'icons/obj/machines/power/rbmk/rbmk_reactor.dmi'
 	icon_state = "reactor"
+	base_icon_state = "reactor"
 	use_power = IDLE_POWER_USE
 	layer = NUCLEAR_REACTOR_LAYER
-	///Vars for the state of the icon of the object (open, closed, fuel rod counts (1>5))
-	icon_state_open = "reactor_open"
-	icon_state_off = "reactor"
+	// This is to offset the entire reactor by one tile down and left, so it actually looks right.
+	pixel_x = -32
+	pixel_y = -32
 
 	//Processing checks
 
-	/// Checks if the user has started the machine
-	var/start_power = FALSE
-	/// Checks for the cooling to start
-	var/start_cooling = FALSE
-	/// Checks for the moderators to be injected
-	var/start_moderator = FALSE
+	/// If the reactor is active or not
+	var/active = FALSE
 
 	// RBMK internal gasmix
 
 	/// Stores the information for the control rods computer
-	var/obj/machinery/computer/reactor/control_rods/linked_interface
+	var/obj/machinery/computer/reactor_control_rods/linked_interface
 	/// Stores the information of the moderator input
 	var/obj/machinery/atmospherics/components/unary/rbmk/moderator_input/linked_moderator
 	/// Stores the information of the fuel input
 	var/obj/machinery/atmospherics/components/unary/rbmk/coolant_input/linked_input
 	/// Stores the information of the waste output
 	var/obj/machinery/atmospherics/components/unary/rbmk/waste_output/linked_output
-	/// Stores the information of the corners of the machine
-	var/list/corners = list()
-	/// Stores the three inputs/outputs of the RBMK
-	var/list/machine_parts = list()
 
 	// Variables essential to operation
 
-	var/temperature =  0//Lose control of this -> Meltdown
-	var/pressure = 0 //Lose control of this -> Blowout
-	var/rate_of_reaction = 0 //Rate of reaction.
+	/// Lose control of this -> Meltdown
+	var/temperature = 0
+	/// Lose control of this -> Blowout
+	var/pressure = 0
+	// Rate of reaction.
+	var/rate_of_reaction = 0
 	var/desired_reate_of_reaction = 0
-	var/control_rod_effectiveness = 0.5 //Starts off with a lot of control over rate_of_reaction. If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
-	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
-	var/power_modifier = 1 //Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
+	/// Starts off with a lot of control over rate_of_reaction.
+	/// If you flood this thing with plasma, you lose your ability to control rate_of_reaction as easily.
+	var/control_rod_effectiveness = 0.5
+	/// 0-100%. A function of the maximum heat you can achieve within operating temperature
+	var/power = 0
+	/// The fuel rods in this reactor
 	var/list/fuel_rods = list()
 	var/gas_absorption_effectiveness = 0.5
 	var/gas_absorption_constant = 0.5 //We refer to this one as it's set on init, randomized.
@@ -96,7 +95,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	/// The key our internal radio uses
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 	/// The engineering channel
-	var/engineering_channel = "Engineering"
+	var/engineering_channel = RADIO_CHANNEL_ENGINEERING
 	/// The common channel
 	var/common_channel = null
 
@@ -110,8 +109,10 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	/// Console statistics
 	var/last_coolant_temperature = 0
 	var/last_output_temperature = 0
-	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set rate_of_reaction at.
-	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	/// For administrative cheating only. Knowing the delta lets you know EXACTLY what to set rate_of_reaction at.
+	var/last_heat_delta = 0
+	/// How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	var/no_coolant_ticks = 0
 
 	/// Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
@@ -126,8 +127,6 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/safe_alert = "RBMK reactor returning to safe operating parameters."
 	/// The point at which we should start sending messeges about the critical_threshold_proximity to the engi channels.
 	var/warning_point = 50
-	/// The alert we send when we've reached warning_point
-	var/warning_alert = "Danger! RBMK reactor faltering!"
 	/// The point at which we start sending messages to the common channel
 	var/emergency_point = 700
 	/// The alert we send when we've reached emergency_point
@@ -161,71 +160,44 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	var/stat_update_delay = 1 SECONDS
 	COOLDOWN_DECLARE(next_stat_interval)
 
-/obj/effect/overlay/reactor_top_0
-	name = "reactor overlay"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_top_0"
-
-/obj/effect/overlay/reactor_top_1
-	name = "reactor overlay"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_top_1"
-
-/obj/effect/overlay/reactor_top_2
-	name = "reactor overlay"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_top_2"
-
-/obj/effect/overlay/reactor_top_3
-	name = "reactor overlay"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_top_3"
-
-/obj/effect/overlay/reactor_top_4
-	name = "reactor overlay"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_top_4"
-
-/obj/effect/overlay/reactor_top_5
-	name = "reactor overlay"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_top_5"
-
 /obj/machinery/atmospherics/components/unary/rbmk/core/Initialize(mapload)
 	. = ..()
-	grill_loop = new(src, FALSE)
-	radio = new/obj/item/radio(src)
+	grill_loop = new(src)
+	soundloop = new(src)
+	alarmloop = new(src)
+
+	radio = new(src)
 	radio.keyslot = new radio_key
 	radio.set_listening(FALSE)
 	radio.recalculateChannels()
+
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/point_of_interest)
+
+	// All reactors are slightly different. This will result in you having to figure out what the balance is for rate_of_reaction.
+	gas_absorption_effectiveness = RANDOM_DECIMAL(0.5, 0.6)
+	// And set this up for the rest of the round.
+	gas_absorption_constant = gas_absorption_effectiveness
+
 	investigate_log("has been created.", INVESTIGATE_ENGINES)
-	pixel_x = -32 //This is to offset the entire reactor by one tile down and left, so it actually looks right.
-	pixel_y = -32
-	reactorcount++
-	src.name = name + " ([reactorcount])"
-	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for rate_of_reaction.
-	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
-	soundloop = new(src,  FALSE)
-	alarmloop = new(src, FALSE)
 	check_part_connectivity()
 	set_init_directions()
 	connect_nodes()
 	update_appearance()
 	update_pipenets()
 
+	reactorcount++
+	name += " ([reactorcount])"
+
 	uid = gl_uid
 	gl_uid++
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Destroy()
-	soundloop.stop()
-	alarmloop.stop()
-	unregister_signals(TRUE)
+	unregister_signals(only_signals = TRUE)
 	if(linked_input)
 		QDEL_NULL(linked_input)
 	if(linked_output)
@@ -240,70 +212,49 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	QDEL_NULL(radio)
 	QDEL_NULL(soundloop)
 	QDEL_NULL(alarmloop)
-	cut_overlays()
-	machine_parts = null
+
+	SSair.atmos_machinery -= src
+	STOP_PROCESSING(SSmachines, src)
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/rbmk/core/update_appearance()
+/obj/machinery/atmospherics/components/unary/rbmk/core/update_icon_state()
 	. = ..()
 	if(panel_open)
-		icon_state = icon_state_open
-	else if((start_power == FALSE) && (power == 0))
-		icon_state = icon_state_off
-	else if((start_power == TRUE) && power < 20)
-		icon_state = "reactor_startup"
+		icon_state = "[base_icon_state]_open"
+	else if(!active && !power)
+		icon_state = base_icon_state
+	else if(active && power < 20)
+		icon_state = "[base_icon_state]_startup"
 	else
-		icon_state = "reactor_active"
-	cut_overlays()
-	switch(length(fuel_rods))
-		if(0)
-			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_0"))
-		if(1)
-			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_1"))
-		if(2)
-			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_2"))
-		if(3)
-			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_3"))
-		if(4)
-			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_4"))
-		if(5)
-			add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_5"))
+		icon_state = "[base_icon_state]_active"
 
-	// Lord forgive me for what I'm about to do.
-	var/mutable_appearance/InputOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"input")
-	InputOverlay.transform = InputOverlay.transform.Turn(dir2angle(linked_input.dir))
-	add_overlay(InputOverlay)
-	var/mutable_appearance/OutputOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"output")
-	OutputOverlay.transform = OutputOverlay.transform.Turn(dir2angle(linked_output.dir))
-	add_overlay(OutputOverlay)
-	var/mutable_appearance/ModeratorOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"moderator")
-	ModeratorOverlay.transform = ModeratorOverlay.transform.Turn(dir2angle(linked_moderator.dir))
-	add_overlay(ModeratorOverlay)
+/obj/machinery/atmospherics/components/unary/rbmk/core/update_overlays()
+	. = ..()
+	if(ISINRANGE(length(fuel_rods), 0, 5))
+		. += mutable_appearance('icons/obj/machines/power/rbmk/rbmk_reactor.dmi', "reactor_top_[length(fuel_rods)]")
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()
-	var/percent = get_integrity_percent()
-	var/msg = span_warning("The reactor looks operational.")
-	switch(percent)
+	switch(get_integrity_percent())
 		if(0 to 10)
-			msg = span_boldwarning("[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! ")
+			. += span_boldwarning("[src]'s seals are dangerously warped and you can see cracks all over the reactor vessel! ")
 		if(10 to 40)
-			msg = span_boldwarning("[src]'s seals are heavily warped and cracked! ")
+			. += span_boldwarning("[src]'s seals are heavily warped and cracked! ")
 		if(40 to 60)
-			msg = span_warning("[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.")
+			. += span_warning("[src]'s seals are holding, but barely. You can see some micro-fractures forming in the reactor vessel.")
 		if(60 to 80)
-			msg = span_warning("[src]'s seals are in-tact, but slightly worn. There are no visible cracks in the reactor vessel.")
+			. += span_warning("[src]'s seals are intact, but slightly worn. There are no visible cracks in the reactor vessel.")
 		if(80 to 90)
-			msg = span_notice("[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.")
+			. += span_notice("[src]'s seals are in good shape, and there are no visible cracks in the reactor vessel.")
 		if(95 to 100)
-			msg = span_notice("[src]'s seals look factory new, and the reactor's in excellent shape.")
-	. += msg
+			. += span_notice("[src]'s seals look factory new, and the reactor's in excellent shape.")
+		else
+			. += span_warning("The reactor looks operational.")
 
 // Nuclear reactor UI for ghosts only. Inherited attack_ghost will call this.
 /obj/machinery/atmospherics/components/unary/rbmk/core/ui_interact(mob/user, datum/tgui/ui)
 	if(!isobserver(user))
 		return FALSE
-	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Rbmk")
@@ -318,7 +269,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 /**
  * Log the last 100 seconds of data for the RBMK reactor.
  * This is used to create graphs in the UI.
-**/
+ */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/update_logged_data()
 	COOLDOWN_START(src, next_stat_interval, stat_update_delay)
 

@@ -10453,11 +10453,11 @@
 /obj/structure/table,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/structure/cable/yellow,
-/obj/item/RBMK_box/body,
-/obj/item/RBMK_box/body,
-/obj/item/RBMK_box/body,
-/obj/item/RBMK_box/body,
-/obj/item/RBMK_box/body,
+/obj/item/rbmk_box/body,
+/obj/item/rbmk_box/body,
+/obj/item/rbmk_box/body,
+/obj/item/rbmk_box/body,
+/obj/item/rbmk_box/body,
 /obj/item/circuitboard/computer/control_rods,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmospherics_engine)
@@ -23532,10 +23532,10 @@
 /area/station/engineering/atmos)
 "iEk" = (
 /obj/structure/table,
-/obj/item/RBMK_box/body/coolant_input,
-/obj/item/RBMK_box/body/moderator_input,
-/obj/item/RBMK_box/body/waste_output,
-/obj/item/RBMK_box/core,
+/obj/item/rbmk_box/body/coolant_input,
+/obj/item/rbmk_box/body/moderator_input,
+/obj/item/rbmk_box/body/waste_output,
+/obj/item/rbmk_box/core,
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmospherics_engine)
 "iEm" = (

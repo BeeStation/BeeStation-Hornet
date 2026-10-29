@@ -8,7 +8,6 @@
 	var/depletion = 0 //Each fuel rod will deplete in around 30 minutes.
 	var/fuel_power = 0.10
 
-	var/rad_strength = 500
 	var/half_life = 2000 // how many depletion ticks are needed to half the fuel_power (1 tick = 1 second)
 	var/time_created = 0
 	var/og_fuel_power = 0.20 //the original fuel power value
@@ -23,7 +22,7 @@
 /obj/item/fuel_rod/Initialize(mapload)
 	. = ..()
 	time_created = world.time
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	AddElement(/datum/element/radioactive)
 	if(process)
 		START_PROCESSING(SSobj, src)
@@ -31,9 +30,6 @@
 /obj/item/fuel_rod/Destroy()
 	if(process)
 		STOP_PROCESSING(SSobj, src)
-	if(istype(loc, /obj/machinery/atmospherics/components/unary/rbmk/core))
-		var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = loc
-		reactor_core.fuel_rods -= src
 	return ..()
 
 // This proc will try to convert your fuel rod if you don't override this proc
@@ -75,7 +71,6 @@
 	name = "plutonium-239 fuel rod"
 	desc = "A highly energetic titanium sheathed rod containing a sizeable measure of weapons grade plutonium, it's highly efficient as nuclear fuel, but will cause the reaction to get out of control if not properly utilised."
 	icon_state = "inferior"
-	rad_strength = 1500
 	process = TRUE
 	depletion_threshold = 300
 	depletion_conversion_type = "depleted"
@@ -88,7 +83,6 @@
 	name = "depleted fuel rod"
 	desc = "A highly radioactive fuel rod which has expended most of it's useful energy."
 	icon_state = "normal"
-	rad_strength = 6000 // smelly
 	depletion_conversion_type = null // we don't want it to turn into anything
 	process = TRUE
 
@@ -128,30 +122,30 @@
 
 // The actual growth
 /obj/item/fuel_rod/material/depletion_final(result_rod)
+	// So if you put anything into depletion_conversion_type then your fuel rod will be converted (or not) and *won't grow*
 	if(result_rod)
-		..() // So if you put anything into depletion_conversion_type then your fuel rod will be converted (or not) and *won't grow*
-	else
-		grown_amount = initial_amount * multiplier
-
-/obj/item/fuel_rod/material/attackby(obj/item/attacked_item, mob/user, list/modifiers)
-	var/obj/item/stack/material = attacked_item
-	if(istype(material, material_type))
-		if(!check_material_input(user))
-			return
-		if(initial_amount < max_initial_amount)
-			var/adding = min((max_initial_amount - initial_amount), material.amount)
-			material.amount -= adding
-			initial_amount += adding
-			if(adding == 1)
-				to_chat(user, span_notice("You insert [adding] [material_name_singular] into \the [src]."))
-			else
-				to_chat(user, span_notice("You insert [adding] [material_name] into \the [src]."))
-			material.is_zero_amount()
-		else
-			to_chat(user, span_warning("\The [src]'s material slots are full!"))
-			return
-	else
 		return ..()
+
+	grown_amount = initial_amount * multiplier
+
+/obj/item/fuel_rod/material/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, material_type))
+		return NONE
+
+	var/obj/item/stack/material = tool
+	if(!check_material_input(user))
+		return ITEM_INTERACT_BLOCKING
+
+	if(initial_amount >= max_initial_amount)
+		to_chat(user, span_warning("\The [src]'s material slots are full!"))
+		return ITEM_INTERACT_BLOCKING
+
+	var/adding = min((max_initial_amount - initial_amount), material.amount)
+	material.amount -= adding
+	initial_amount += adding
+	to_chat(user, span_notice("You insert [adding] [adding == 1 ? material_name_singular : material_name] into \the [src]."))
+	material.is_zero_amount()
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/fuel_rod/material/attack_self(mob/user)
 	if(expended)
@@ -162,25 +156,19 @@
 		if(!grown_amount)
 			return
 		new material_type(user.loc, grown_amount)
-		if(grown_amount == 1)
-			to_chat(user, span_notice("You harvest [grown_amount] [material_name_singular] from \the [src].")) // Unlikely
-		else
-			to_chat(user, span_notice("You harvest [grown_amount] [material_name] from \the [src]."))
-		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
+		to_chat(user, span_notice("You harvest [grown_amount] [grown_amount == 1 ? material_name_singular : material_name] from \the [src]."))
+		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 		grown_amount = 0
 		expend()
 		return
 	if(depletion)
 		to_chat(user, span_warning("\The [src] has not fissiled enough to fully grow the sample. The progress bar shows it is [min(depletion/depletion_threshold*100,100)]% complete."))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		return
 	if(initial_amount)
 		new material_type(user.loc, initial_amount)
-		if(initial_amount == 1)
-			to_chat(user, span_notice("You remove [initial_amount] [material_name_singular] from \the [src]."))
-		else
-			to_chat(user, span_notice("You remove [initial_amount] [material_name] from \the [src]."))
-		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
+		to_chat(user, span_notice("You remove [initial_amount] [initial_amount == 1 ? material_name_singular : material_name] from \the [src]."))
+		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, TRUE)
 		initial_amount = 0
 
 /obj/item/fuel_rod/material/examine(mob/user)
@@ -202,7 +190,6 @@
 	icon_state = "bananium"
 	fuel_power = 0.15
 	depletion_speed_modifier = 3
-	rad_strength = 350
 	max_initial_amount = 10
 	multiplier = 3
 	material_type = /obj/item/stack/sheet/mineral/bananium
@@ -225,9 +212,9 @@
 	AddElement(/datum/element/radioactive, 10)
 
 /obj/item/sealant
-	name = "Flexi-seal"
+	name = "flexi-seal"
 	desc = "A neat spray can that can repair torn reactor segments!"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "sealant"
-	w_class = 1
+	w_class = WEIGHT_CLASS_TINY
 	var/repair_power = 10 //How much damage does the sealant repair per use

@@ -1,7 +1,7 @@
 /obj/effect/decal/cleanable/nuclear_waste
 	name = "plutonium sludge"
 	desc = "A writhing pool of heavily irradiated, spent reactor fuel. You probably shouldn't step through this..."
-	icon = 'icons/obj/machines/rbmkparts.dmi'
+	icon = 'icons/obj/machines/power/rbmk/rbmk_parts.dmi'
 	icon_state = "nuclearwaste"
 	alpha = 150
 	light_color = LIGHT_COLOR_CYAN
@@ -28,12 +28,14 @@
 
 	radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, intensity = 15)
 
-/obj/effect/decal/cleanable/nuclear_waste/attackby(obj/item/tool, mob/user)
-	if(tool.tool_behaviour == TOOL_SHOVEL)
-		radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, intensity = 20)
-		to_chat(user, span_notice("You start to clear [src]..."))
-		if(tool.use_tool(src, user, 50, volume=100))
-			to_chat(user, span_notice("You clear [src]. "))
-			qdel(src)
-			return
-	. = ..()
+/obj/effect/decal/cleanable/nuclear_waste/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(tool.tool_behaviour != TOOL_SHOVEL)
+		return NONE
+
+	radiation_pulse(src, max_range = 1, threshold = RAD_EXTREME_INSULATION, intensity = 20)
+	to_chat(user, span_notice("You start to clear [src]..."))
+	if(!tool.use_tool(src, user, 50, volume = 100))
+		return ITEM_INTERACT_BLOCKING
+	to_chat(user, span_notice("You clear [src]."))
+	qdel(src)
+	return ITEM_INTERACT_SUCCESS

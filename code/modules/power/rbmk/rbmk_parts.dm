@@ -1,24 +1,20 @@
-/**
- * This file contain the five main parts of the RBMK, those are the: fuel input, moderator input, waste output, control rod computer and rbmk core
- */
-
-/obj/machinery/computer/reactor
-	name = "reactor control console"
-	desc = "Scream"
-	light_color = "#55BA55"
-	light_power = 1
-	light_range = 3
-	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor
-	var/active = FALSE
-
-/obj/machinery/computer/reactor/control_rods
+/obj/machinery/computer/reactor_control_rods
 	name = "control rod management computer"
 	desc = "A computer which can remotely raise / lower the control rods of an RBMK class nuclear reactor."
 	circuit = /obj/item/circuitboard/computer/control_rods
 	icon_screen = "smmon_1"
 	icon_keyboard = "tech_key"
+	light_color = "#55BA55"
+	light_power = 1
+	light_range = 3
 
-/obj/machinery/computer/reactor/control_rods/process()
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor
+
+/obj/machinery/computer/reactor_control_rods/Destroy()
+	reactor = null
+	return ..()
+
+/obj/machinery/computer/reactor_control_rods/process()
 	. = ..()
 	if(reactor)
 		var/last_status = reactor.desired_reate_of_reaction
@@ -40,7 +36,7 @@
 	update_overlays()
 	update_appearance()
 
-/obj/machinery/computer/reactor/control_rods/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/computer/reactor_control_rods/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -48,8 +44,9 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/reactor/control_rods/ui_act(action, params)
-	if(..())
+/obj/machinery/computer/reactor_control_rods/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 	if(!reactor)
 		return
@@ -57,213 +54,157 @@
 		var/input = text2num(params["target"])
 		reactor.desired_reate_of_reaction = clamp(input, 0, 3)
 
-/obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
+/obj/machinery/computer/reactor_control_rods/ui_data(mob/user)
 	var/list/data = list()
-	data["control_rods"] = 0
-	data["k"] = 0
-	data["desiredK"] = 0
 	if(reactor)
 		data["k"] = reactor.rate_of_reaction
 		data["desiredK"] = reactor.desired_reate_of_reaction
 		data["control_rods"] = 100 - (reactor.desired_reate_of_reaction / 3 * 100) //Rod insertion is extrapolated as a function of the percentage of rate_of_reaction
+	else
+		data["control_rods"] = 0
+		data["k"] = 0
+		data["desiredK"] = 0
 	return data
 
-/obj/machinery/computer/reactor/attack_robot(mob/user)
-	. = ..()
-	attack_hand(user)
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/reactor_control_rods)
 
-/obj/machinery/computer/reactor/attack_ai(mob/user)
-	. = ..()
-	attack_hand(user)
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/reactor_control_rods)
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = buffer
+	if(!istype(reactor_core) || reactor_core.linked_interface == src)
+		return NONE
 
-/obj/machinery/computer/reactor/attackby(obj/item/tool, mob/user, list/modifiers)
-	if(tool.tool_behaviour == TOOL_MULTITOOL)
-		var/datum/component/buffer/heldmultitool = get_held_buffer_item(user)
-		if(heldmultitool)
-			var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor_core = heldmultitool.target
-			if(istype(reactor_core) && reactor_core != src)
-				if(!(src in reactor_core.linked_interface))
-					reactor_core.linked_interface = src
-					reactor_core.ui_update()
-					reactor = reactor_core
-					to_chat(user, span_notice("You upload the link to the [src]."))
-
-
-/obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/ai_user = user
-		return ai_user.aiMulti.GetComponent(/datum/component/buffer)
-
-	var/obj/item/held_item = user.get_active_held_item()
-	var/found_component = held_item?.GetComponent(/datum/component/buffer)
-	if(found_component && in_range(user, src))
-		return found_component
-
-	return null
+	reactor_core.linked_interface = src
+	reactor_core.ui_update()
+	reactor = reactor_core
+	to_chat(user, span_notice("You upload the link to the [src]."))
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/machinery/atmospherics/components/unary/rbmk
-	icon = 'icons/obj/machines/rbmkparts.dmi'
-	name = "thermomachine"
-	desc = "Heats or cools gas in connected pipes."
-	anchored = TRUE
-	density = FALSE
+	abstract_type = /obj/machinery/atmospherics/components/unary/rbmk
+	icon = 'icons/obj/machines/power/rbmk/rbmk_parts.dmi'
+	layer = NUCLEAR_REACTOR_LAYER + 0.001
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	layer = OBJ_LAYER
+	circuit = /obj/item/circuitboard/machine/thermomachine
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	circuit = /obj/item/circuitboard/machine/thermomachine
-	///Check if the machine has been activated
-	var/active = FALSE
-	///Vars for the state of the icon of the object (open, off, active)
-	var/icon_state_open
-	var/icon_state_off
-
-/obj/machinery/atmospherics/components/unary/rbmk/Initialize(mapload)
-	. = ..()
-	initialize_directions = dir
-
-/obj/machinery/atmospherics/components/unary/rbmk/update_overlays()
-	. = ..()
+	showpipe = FALSE
 
 /obj/machinery/atmospherics/components/unary/rbmk/update_layer()
 	return
 
 /obj/machinery/atmospherics/components/unary/rbmk/coolant_input
-	name = "RBMK coolant input port"
-	desc = "Input port for the RBMK Fusion Reactor, designed to take in coolant."
-	icon = 'icons/obj/machines/rbmk.dmi'
-	layer = GAS_PIPE_HIDDEN_LAYER
+	name = "\improper RBMK coolant input port"
+	desc = "Input port for the RBMK Fission Reactor, designed to take in coolant."
+	icon_state = "input_pipe"
 
 /obj/machinery/atmospherics/components/unary/rbmk/waste_output
 	name = "RBMK waste output port"
-	desc = "Waste port for the RBMK Fusion Reactor, designed to output the hot waste gases coming from the core of the machine."
-	icon = 'icons/obj/machines/rbmk.dmi'
-	layer = GAS_PIPE_HIDDEN_LAYER
+	desc = "\improper Waste port for the RBMK Fission Reactor, designed to output the hot waste gases coming from the core of the machine."
+	icon_state = "output_pipe"
 
 /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
 	name = "RBMK moderator input port"
-	desc = "Moderator port for the RBMK Fusion Reactor, designed to move gases inside the machine to cool and control the flow of the reaction."
-	icon = 'icons/obj/machines/rbmk.dmi'
-	layer = GAS_PIPE_HIDDEN_LAYER
-
-/*
-* Interface and corners
-*/
-/obj/machinery/rbmk
-	name = "rbmk_core"
-	desc = "rbmk_core"
-	icon = 'icons/obj/machines/rbmkparts.dmi'
-	icon_state = "core"
-	move_resist = INFINITY
-	anchored = TRUE
-	density = FALSE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	power_channel = AREA_USAGE_ENVIRON
+	desc = "\improper Moderator port for the RBMK Fission Reactor, designed to move gases inside the machine to cool and control the flow of the reaction."
+	icon_state = "moderator_pipe"
 
 /obj/item/book/manual/wiki/rbmk
 	name = "\improper Hayne's nuclear reactor owner's manual"
-	icon_state ="bookEngineering2"
+	icon_state = "bookEngineering2"
 	author = "CogWerk Engineering Reactor Design Department"
 	title = "Haynes nuclear reactor owner's manual"
 	page_link = "Guide_to_the_Nuclear_Reactor"
 
-/obj/item/RBMK_box
-	name = "RBMK box"
-	desc = "If you see this, call the police."
-	icon = 'icons/obj/machines/rbmkparts.dmi'
-	icon_state = "core"
+/obj/item/rbmk_box
+	abstract_type = /obj/item/rbmk_box
+	icon = 'icons/obj/machines/power/rbmk/rbmk_parts.dmi'
 	item_flags = NO_PIXEL_RANDOM_DROP
-	var/box_type = "impossible" //	///What kind of box are we handling?
-	var/part_path //What's the path of the machine we making?
 
-/obj/item/RBMK_box/body
-	name = "RBMK box body"
+	/// What's the path of the machine we making?
+	var/part_path = null
+
+/obj/item/rbmk_box/body
+	name = "\improper RBMK box body"
 	desc = "A main storage body housing for your RBMK nuclear reactor."
 	icon_state = "wall"
-	box_type = "normal"
 
-/obj/item/RBMK_box/body/coolant_input
-	name = "RBMK box coolant input"
+/obj/item/rbmk_box/body/coolant_input
+	name = "\improper RBMK box coolant input"
 	icon_state = "input"
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/coolant_input
-	box_type = "coolant_input"
 
-/obj/item/RBMK_box/body/moderator_input
-	name = "RBMK box moderator input"
+/obj/item/rbmk_box/body/moderator_input
+	name = "\improper RBMK box moderator input"
 	icon_state = "moderator"
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
-	box_type = "moderator_input"
 
-/obj/item/RBMK_box/body/waste_output
-	name = "RBMK box waste output"
+/obj/item/rbmk_box/body/waste_output
+	name = "\improper RBMK box waste output"
 	icon_state = "output"
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/waste_output
-	box_type = "waste_output"
 
-/obj/item/RBMK_box/core
-	name = "RBMK box core"
+/obj/item/rbmk_box/core
+	name = "\improper RBMK box core"
 	icon_state = "core"
 	desc = "A box for the center piece core of the RBMK nuclear reactor."
-	part_path = /obj/machinery/atmospherics/components/unary/rbmk/core
-	box_type = "center"
+	part_path = null
 
-/obj/item/RBMK_box/core/multitool_act(mob/living/user, obj/item/I)
-	. = ..()
-	var/list/parts = get_parts()
-
+/obj/item/rbmk_box/core/multitool_act(mob/living/user, obj/item/tool)
+	var/list/parts = try_get_parts()
 	if(length(parts) == 8)
-		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
-		newCore.user_activate(user)
-	return
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/new_core = build_reactor(parts)
+		new_core.activate()
+		return ITEM_INTERACT_SUCCESS
+	return NONE
 
-/obj/item/RBMK_box/core/proc/get_parts()
+/obj/item/rbmk_box/core/proc/try_get_parts()
 	var/list/parts = list()
-	var/types_seen = list()
-	for(var/obj/item/RBMK_box/box in orange(1,src))
-		var/direction = get_dir(src, box)
-		box.dir = direction
-		if(box.box_type in list("coolant_input", "waste_output", "moderator_input"))
-			if(box.Adjacent(box, src))
-				if(box.box_type in types_seen)
-					return
-				else
-					parts |= box
-					types_seen += box.box_type
-		else
-			parts |= box
-	return parts
 
-/obj/item/RBMK_box/core/pre_assemble_reactor/Initialize(mapload)
-	. = ..()
-	var/list/parts = get_parts()
+	var/static/list/types_required
+	if(!types_required)
+		types_required = list()
+		for(var/obj/item/rbmk_box/box_type as anything in subtypesof(/obj/item/rbmk_box))
+			if(ispath(box_type::part_path, /obj/machinery/atmospherics/components/unary/rbmk))
+				types_required += box_type::part_path
 
-	if(length(parts) == 8)
-		var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = build_reactor(parts)
-		newCore.activate()
-	return
+	var/list/types_seen = list()
+	var/list/locations_used = list()
+	for(var/obj/item/rbmk_box/nearby_box in orange(1, src))
+		if(nearby_box.loc in locations_used)
+			continue
 
-/obj/item/RBMK_box/core/proc/build_reactor(list/parts)
-	for(var/obj/item/RBMK_box/box in orange(1,src))
-		if(box.box_type == "coolant_input")
-			var/obj/machinery/atmospherics/components/unary/rbmk/coolant_input/coolant_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/coolant_input(box.loc, TRUE)
-			coolant_input_machine.dir = box.dir
-			coolant_input_machine.set_init_directions()
-			coolant_input_machine.connect_nodes()
-		else if(box.box_type == "moderator_input")
-			var/obj/machinery/atmospherics/components/unary/rbmk/moderator_input/moderator_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/moderator_input(box.loc, TRUE)
-			moderator_input_machine.dir = box.dir
-			moderator_input_machine.set_init_directions()
-			moderator_input_machine.connect_nodes()
-		else if(box.box_type == "waste_output")
-			var/obj/machinery/atmospherics/components/unary/rbmk/waste_output/waste_output_machine = new/obj/machinery/atmospherics/components/unary/rbmk/waste_output(box.loc, TRUE)
-			waste_output_machine.dir = box.dir
-			waste_output_machine.set_init_directions()
-			waste_output_machine.connect_nodes()
-	var/obj/machinery/atmospherics/components/unary/rbmk/core/newCore = new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE) // create object before qdel'ing ourselves
+		// ports must be in cardinal directions
+		if((nearby_box.part_path in types_required) && (get_dir(nearby_box, src) in GLOB.cardinals))
+			// no duplicate boxes please
+			if(nearby_box.part_path in types_seen)
+				continue
+			types_seen += nearby_box.part_path
 
-	for(var/obj/item/RBMK_box/box in parts)
+		parts += nearby_box
+		locations_used += nearby_box.loc
+
+	if(length(types_seen) == length(types_required))
+		return parts
+
+/obj/item/rbmk_box/core/proc/build_reactor(list/parts, list/user)
+	for(var/obj/item/rbmk_box/box in parts)
+		// the list will contain RBMK body parts, i.e: ones with no part_path set.
+		if(ispath(box.part_path, /obj/machinery/atmospherics/components/unary/rbmk))
+			var/obj/machinery/atmospherics/components/unary/rbmk/box_port = new box.part_path(box.loc)
+			box_port.setDir(get_dir(src, box))
+			box_port.set_init_directions()
+			box_port.connect_nodes()
 		qdel(box)
-	qdel(src)
 
-	return newCore
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/new_core = new(loc) // create object before qdel'ing ourselves
+	qdel(src)
+	return new_core
+
+/obj/item/rbmk_box/core/pre_assemble_reactor
+
+/obj/item/rbmk_box/core/pre_assemble_reactor/Initialize(mapload)
+	. = ..()
+	var/list/parts = try_get_parts()
+	if(length(parts) == 8)
+		var/obj/machinery/atmospherics/components/unary/rbmk/core/new_core = build_reactor(parts)
+		new_core.activate()
