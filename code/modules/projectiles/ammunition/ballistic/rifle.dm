@@ -12,7 +12,6 @@
 	desc = "A handmade 7.62 cartidge, made from metal and some other scraps. It reeks of welding fuel."
 	icon_state = "762improv"
 	projectile_type = /obj/projectile/bullet/a762/weak
-	gun_damage = 50
 
 /obj/item/ammo_casing/a762/improv/hotload
 	name = "7.62 hotload cartridge"
