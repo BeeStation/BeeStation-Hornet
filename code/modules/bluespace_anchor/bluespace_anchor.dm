@@ -60,7 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/bluespace_anchor)
 		return FALSE
 	//Update icon
 	update_icon()
-	flick("anchor_pulse", src)
+	z_flick("anchor_pulse", src)
 	//Spark and shock people adjacent
 	for (var/mob/living/L in view(1, src))
 		src.Beam(L, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)

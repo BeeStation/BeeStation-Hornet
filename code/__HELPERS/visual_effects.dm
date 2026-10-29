@@ -1,19 +1,17 @@
 /**
- * Causes the passed atom / image to appear floating,
+ * Causes the passed movable to appear floating,
  * playing a simple animation where they move up and down by 2 pixels (looping)
  *
  * In most cases you should NOT call this manually, instead use [/datum/element/movetype_handler]!
- * This is just so you can apply the animation to things which can be animated but are not movables (like images)
  */
 #define DO_FLOATING_ANIM(target) \
-	animate(target, pixel_y = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE); \
-	animate(pixel_y = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	z_animate(target, pixel_y = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE); \
+	z_animate(target, pixel_y = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_CONTINUE)
 
 /**
- * Stops the passed atom / image from appearing floating
+ * Stops the passed movable from appearing floating
  *
  * In most cases you should NOT call this manually, instead use [/datum/element/movetype_handler]!
- * This is just so you can apply the animation to things which can be animated but are not movables (like images)
  */
 #define STOP_FLOATING_ANIM(target) \
 	var/__final_pixel_y = 0; \
@@ -25,7 +23,7 @@
 		var/mob/living/__living_target = target; \
 		__final_pixel_y += __living_target.has_offset(pixel = PIXEL_Y_OFFSET); \
 	}; \
-	animate(target, pixel_y = __final_pixel_y, time = 1 SECONDS)
+	z_animate(target, pixel_y = __final_pixel_y, time = 1 SECONDS)
 
 /// The duration of the animate call in mob/living/update_transform
 #define UPDATE_TRANSFORM_ANIMATION_TIME (0.2 SECONDS)

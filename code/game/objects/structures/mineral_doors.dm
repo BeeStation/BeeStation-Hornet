@@ -99,7 +99,7 @@
 	isSwitchingStates = TRUE
 	playsound(src, openSound, 100, TRUE)
 	set_opacity(FALSE)
-	flick("[initial(icon_state)]opening",src)
+	z_flick("[initial(icon_state)]opening",src)
 	sleep(1 SECONDS)
 	set_density(FALSE)
 	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
@@ -119,7 +119,7 @@
 		return
 	isSwitchingStates = TRUE
 	playsound(src, closeSound, 100, TRUE)
-	flick("[initial(icon_state)]closing",src)
+	z_flick("[initial(icon_state)]closing",src)
 	sleep(1 SECONDS)
 	set_density(TRUE)
 	z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)

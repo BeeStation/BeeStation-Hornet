@@ -86,6 +86,8 @@
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
 #define MIMICKED_LIGHTING_LAYER 5.06
+///Overlay lights from below, drawn over the z-mimic lighting they share a shadow plane with
+#define MIMICKED_OVERLAY_LIGHTING_LAYER 5.07
 #define RIPPLE_LAYER 5.1
 
 //---------- LIGHTING -------------
@@ -126,6 +128,11 @@
 
 #define CLICKCATCHER_PLANE -99
 
+///Render plate for everything drawn under the game plate: space and z-mimic. Not lit by the game plate's lighting.
+#define RENDER_PLANE_BELOW_GAME -98
+///Render plate for space, so it is lit without lighting z-mimic as well
+#define RENDER_PLANE_SPACE -97
+
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
@@ -139,6 +146,9 @@
 #define ZMIMIC_MAX_PLANE -70
 /// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
 #define ZMIMIC_MAX_DEPTH 10
+/// Z-mimic lighting is copied onto a shadow plane this far above the z-mimic plane it darkens, -69 to -59
+#define ZMIMIC_SHADOW_PLANE_OFFSET 11
+#define ZMIMIC_SHADOW_PLANE(mimic_plane) ((mimic_plane) + ZMIMIC_SHADOW_PLANE_OFFSET)
 
 //---------- ABSTRACT LIGHTING -------------
 // Layering order of these is not particularly meaningful.
@@ -159,7 +169,7 @@
 
 #define GAME_PLANE -4
 #define ABOVE_GAME_PLANE -3
-#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
+#define GAME_PLANE_RENDER_TARGET "*GAME_PLANE_RENDER_TARGET"
 
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
@@ -179,7 +189,7 @@
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
 #define O_LIGHTING_VISUAL_LAYER 110
-#define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
+#define O_LIGHTING_VISUAL_RENDER_TARGET "*O_LIGHT_VISUAL_PLANE"
 
 ///Things that should render ignoring lighting
 #define ABOVE_LIGHTING_PLANE 120
@@ -244,6 +254,10 @@
 
 ///Plane of the "splash" icon used that shows on the lobby screen. Nothing should ever be above this.
 #define SPLASHSCREEN_PLANE 9999
+
+///Plane master group keys
+#define PLANE_GROUP_MAIN "main"
+#define PLANE_GROUP_POPUP_WINDOW(screen) "popup-[REF(screen)]"
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"

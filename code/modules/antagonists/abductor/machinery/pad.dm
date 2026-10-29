@@ -12,7 +12,7 @@
 /obj/machinery/abductor/pad/proc/Send()
 	if(teleport_target == null)
 		teleport_target = GLOB.teleportlocs[pick(GLOB.teleportlocs)]
-	flick("alien-pad", src)
+	z_flick("alien-pad", src)
 	for(var/mob/living/target in loc)
 		do_teleport(target, teleport_target, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
@@ -27,12 +27,12 @@
 				abductor_vest.combat_cooldown = max(abductor_vest.combat_cooldown, 6)
 
 /obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
-	flick("alien-pad", src)
+	z_flick("alien-pad", src)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 	Warp(target)
 
 /obj/machinery/abductor/pad/proc/doMobToLoc(place, atom/movable/target)
-	flick("alien-pad", src)
+	z_flick("alien-pad", src)
 	do_teleport(target, place, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 
@@ -41,7 +41,7 @@
 	addtimer(CALLBACK(src, PROC_REF(doMobToLoc), place, target), 80)
 
 /obj/machinery/abductor/pad/proc/doPadToLoc(place)
-	flick("alien-pad", src)
+	z_flick("alien-pad", src)
 	for(var/mob/living/target in get_turf(src))
 		do_teleport(target, place, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_ALLOW_ABDUCTORS)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)

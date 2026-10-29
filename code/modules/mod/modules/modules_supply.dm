@@ -229,10 +229,15 @@
 	. = ..()
 	if(!.)
 		return
-	var/atom/game_renderer = mod.wearer.hud_used.plane_masters["[RENDER_PLANE_GAME]"]
-	var/matrix/render_matrix = matrix(game_renderer.transform)
-	render_matrix.Scale(1.25, 1.25)
-	animate(game_renderer, launch_time, flags = SINE_EASING|EASE_IN, transform = render_matrix)
+	// Space and z-mimic go on their own plate
+	var/list/renderers = list(
+		mod.wearer.hud_used.get_plane_master(RENDER_PLANE_GAME),
+		mod.wearer.hud_used.get_plane_master(RENDER_PLANE_BELOW_GAME),
+	)
+	for(var/atom/renderer as anything in renderers)
+		var/matrix/render_matrix = matrix(renderer.transform)
+		render_matrix.Scale(1.25, 1.25)
+		animate(renderer, launch_time, flags = SINE_EASING|EASE_IN, transform = render_matrix)
 	var/current_time = world.time
 	mod.wearer.visible_message(span_warning("[mod.wearer] starts whirring!"), \
 		blind_message = span_hear("You hear a whirring sound."))
@@ -243,11 +248,13 @@
 	var/power = launch_time
 	if(!do_after(mod.wearer, launch_time, target = mod))
 		power = world.time - current_time
-		animate(game_renderer)
+		for(var/atom/renderer as anything in renderers)
+			animate(renderer)
 	drain_power(use_power_cost)
 	new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
-	game_renderer.transform = game_renderer.transform.Scale(0.8, 0.8)
+	for(var/atom/renderer as anything in renderers)
+		renderer.transform = renderer.transform.Scale(0.8, 0.8)
 	mod.wearer.cut_overlay(lightning)
 	var/angle = get_angle(mod.wearer, target)
 	mod.wearer.transform = mod.wearer.transform.Turn(angle)
