@@ -36,7 +36,7 @@
 /datum/component/buffer/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	if(contained_buffer)
-		examine_list += span_notice("Its buffer contains [contained_buffer].")
+		examine_list += span_notice("[parent.p_Theirs()] buffer contains [contained_buffer].")
 
 /datum/component/buffer/proc/self_flush_buffer(datum/source, mob/user)
 	SIGNAL_HANDLER
