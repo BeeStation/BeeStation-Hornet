@@ -35,7 +35,7 @@
 	// This is a hack to make spray bottles fillable from / transferable to these sources
 	// However it can be completely removed when these objects are updated to use the new interaction system
 	// (because the desired effect will just work out of the box)
-	if(istype(interacting_with, /obj/structure/sink) || istype(interacting_with, /obj/structure/janitorialcart) || istype(interacting_with, /obj/machinery/hydroponics))
+	if(istype(interacting_with, /obj/structure/sink) || istype(interacting_with, /obj/structure/janitorialcart) || istype(interacting_with, /obj/item/plant_tray))
 		return NONE
 	// Always skip on storage and tables
 	if(HAS_TRAIT(interacting_with, TRAIT_COMBAT_MODE_SKIP_INTERACTION))

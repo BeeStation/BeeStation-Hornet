@@ -129,14 +129,6 @@
 /obj/machinery/chem_master,
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
-"bk" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/flashlight/glowstick/blue,
-/obj/item/flashlight/glowstick/blue,
-/obj/item/flashlight/glowstick/blue,
-/obj/machinery/light/small,
-/turf/open/floor/plating,
-/area/ruin/powered/animal_hospital)
 "bn" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -161,10 +153,6 @@
 /obj/machinery/computer/crew{
 	dir = 8
 	},
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
-"bt" = (
-/obj/item/kirbyplants,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "bv" = (
@@ -519,6 +507,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"sq" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/blue,
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
 "tu" = (
 /obj/machinery/vending/snack,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -668,6 +664,18 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
+"zE" = (
+/obj/structure/closet/crate/bin,
+/obj/item/trash/pistachios,
+/obj/item/lipstick/random,
+/obj/item/plant_seeds/preset/apple,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "zK" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Morgue"
@@ -752,6 +760,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
+"EN" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/iron,
+/area/ruin/powered/animal_hospital)
 "Fv" = (
 /obj/structure/table,
 /obj/item/cautery{
@@ -807,18 +819,6 @@
 "HP" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
-/area/ruin/powered/animal_hospital)
-"Ik" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/seeds/apple,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "Ji" = (
@@ -897,6 +897,19 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
+"PA" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/mob/living/basic/pet/cat/kitten{
+	name = "Director";
+	desc = "The Animal Hospital's youngest employee."
+	},
+/turf/open/floor/iron/white,
+/area/ruin/powered/animal_hospital)
 "PU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -909,19 +922,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
-/area/ruin/powered/animal_hospital)
-"QL" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/mob/living/basic/pet/cat/kitten{
-	name = "Director";
-	desc = "The Animal Hospital's youngest employee."
-	},
-/turf/open/floor/iron/white,
 /area/ruin/powered/animal_hospital)
 "QW" = (
 /obj/item/stack/cable_coil,
@@ -1273,7 +1273,7 @@ oj
 Qm
 zK
 HP
-Ik
+zE
 hX
 lX
 ae
@@ -1382,7 +1382,7 @@ ab
 ac
 af
 rt
-QL
+PA
 lQ
 ae
 Nv
@@ -1423,7 +1423,7 @@ ae
 Ms
 ae
 me
-bt
+EN
 aK
 aK
 bW
@@ -1570,7 +1570,7 @@ aK
 cm
 QW
 be
-bk
+sq
 ae
 bo
 KK

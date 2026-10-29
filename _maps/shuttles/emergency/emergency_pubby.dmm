@@ -195,9 +195,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bu" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bw" = (
@@ -374,9 +372,7 @@
 /area/shuttle/escape)
 "wD" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/kirbyplants{
-	icon_state = "plant-11"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)
@@ -464,11 +460,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},

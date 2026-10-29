@@ -65,7 +65,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/supermatter)
 "as" = (
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/command/bridge)
@@ -486,7 +486,7 @@
 /area/ruin/space/ks13/ai/corridor)
 "eE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/service/cafe)
 "eG" = (
@@ -551,7 +551,7 @@
 /area/ruin/space/ks13/engineering/supermatter)
 "fz" = (
 /obj/structure/sign/departments/medbay/alt/directional/west,
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/hallway/central)
 "fC" = (
@@ -666,7 +666,7 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "gU" = (
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/security/court)
@@ -771,7 +771,7 @@
 "iL" = (
 /obj/structure/sign/departments/medbay/alt/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/airless,
 /area/ruin/space/ks13/hallway/central)
 "iR" = (
@@ -1091,7 +1091,7 @@
 /turf/template_noop,
 /area/misc/space/nearstation)
 "nf" = (
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/hallway/central)
 "nm" = (
@@ -2105,7 +2105,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/ks13/engineering/sb_bow_solars_control)
 "sQ" = (
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/security/court)
 "sR" = (
@@ -4951,7 +4951,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/supermatter)
 "Ia" = (
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/ruin/space/ks13/command/bridge_hall)
 "Ib" = (
@@ -7970,7 +7970,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/ks13/engineering/aux_storage)
 "XV" = (
-/obj/item/kirbyplants/dead,
+/obj/item/plant_tray/pot/random,
 /obj/effect/mapping_helpers/broken_floor,
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/plating/airless,

@@ -15,6 +15,15 @@
 "bn" = (
 /turf/open/floor/plating,
 /area/ruin/powered)
+"bw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered)
 "cm" = (
 /obj/structure/table,
 /obj/item/mmi,
@@ -243,15 +252,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/ruin/powered)
-"QL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/powered)
 "QV" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -393,7 +393,7 @@ ak
 ak
 hB
 aU
-QL
+bw
 QV
 ak
 Pd
