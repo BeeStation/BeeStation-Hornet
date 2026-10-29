@@ -41,7 +41,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /// Sets the plane group that owns us, it also determines what screen we render to
 /atom/movable/screen/plane_master/proc/set_home(datum/plane_master_group/home)
 	src.home = home
-	if(home?.map)
+	if(home.map)
 		assigned_map = home.map
 		screen_loc = "[home.map]:[screen_loc]"
 
@@ -80,7 +80,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 
 /// Returns the screen_loc our relays should use for the passed in client
 /atom/movable/screen/plane_master/proc/get_relay_loc(client/viewer)
-	if(home?.map)
+	if(home.map)
 		return "[home.map]:1,1"
 	return (viewer?.byond_version > 515) ? "1,1" : "CENTER"
 
@@ -180,7 +180,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /atom/movable/screen/plane_master/lighting/show_to(mob/mymob)
 	. = ..()
 	// Fullscreens only exist on the main map
-	if(home?.map)
+	if(home.map)
 		return
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
@@ -249,7 +249,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 
 /atom/movable/screen/plane_master/emissive/show_to(mob/mymob)
 	. = ..()
-	if(home?.map)
+	if(home.map)
 		return
 	mymob.overlay_fullscreen("emissive_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop)
 
