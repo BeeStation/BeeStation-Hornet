@@ -188,12 +188,12 @@ DEFINE_BUFFER_HANDLER(/obj/item/mod/control)
 	mod_link?.end_call()
 
 /obj/item/clothing/neck/link_scryer/attack_self(mob/user, modifiers)
-	var/new_label = tgui_input_text(ui.user, "Change the visible name", "MODlink Label", mod_link.get_label(), MAX_NAME_LEN)
+	var/new_label = tgui_input_text(user, "Change the visible name", "MODlink Label", mod_link.get_label(), MAX_NAME_LEN)
 	if(!new_label || !user.is_holding(src))
 		return
 	new_label = reject_bad_text(new_label)
 	if(!new_label)
-		balloon_alert(ui.user, "invalid name!")
+		balloon_alert(user, "invalid name!")
 		return
 	mod_link.label = new_label
 	balloon_alert(user, "name set")
