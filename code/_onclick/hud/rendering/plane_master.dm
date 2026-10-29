@@ -82,7 +82,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /atom/movable/screen/plane_master/proc/get_relay_loc(client/viewer)
 	if(home.map)
 		return "[home.map]:1,1"
-	return (viewer?.byond_version > 515) ? "1,1" : "CENTER"
+	return (viewer.byond_version > 515) ? "1,1" : "CENTER"
 
 /// Applies the filters and other effects that depend on the viewer's preferences.
 /// Preference toggles call this directly, to refresh effects without reshowing anything.

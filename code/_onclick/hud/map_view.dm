@@ -103,6 +103,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view)
 	var/datum/plane_master_group/popup/pop_planes = viewer_hud.get_plane_group(PLANE_GROUP_POPUP_WINDOW(src))
 	if(!pop_planes)
 		return
-	if(viewer && viewer != viewer_hud.mymob?.client)
+	if(viewer && viewer != viewer_hud.mymob.client)
 		pop_planes.hide_from_client(viewer)
 	qdel(pop_planes)
