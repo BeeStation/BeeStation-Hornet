@@ -51,7 +51,7 @@
 	var/list/turf/valid_turfs = list()
 
 	var/used_view = hallucinator.client?.view || world.view
-	var/list/turf/valid_range = range(getexpandedview(used_view, extra_x = 2, extra_y = 2), hallucinator) - view(used_view, hallucinator)
+	var/list/turf/valid_range = range(getexpandedview(used_view, extra_x = 2, extra_y = 2), hallucinator) - range(used_view, hallucinator)
 
 	for(var/turf/out_of_view in valid_range)
 		if(!isspaceturf(out_of_view)) // Sound based hallucinations won't do anything in space
