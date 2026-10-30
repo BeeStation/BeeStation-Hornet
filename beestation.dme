@@ -5124,8 +5124,8 @@
 #include "code\modules\xenoarchaeology\traits\minors\sticky.dm"
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
-#include "code\~overrides\quickstart.dm"
+#include "code\~overrides\_quickstart.dm"
+#include "code\~overrides\demir.dm"
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
-// END_INCLUDE
