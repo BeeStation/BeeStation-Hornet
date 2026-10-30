@@ -282,17 +282,17 @@
 	switch(animation)
 		if("opening")
 			if(panel_open)
-				flick("o_doorc0", src)
+				z_flick("o_doorc0", src)
 			else
-				flick("doorc0", src)
+				z_flick("doorc0", src)
 		if("closing")
 			if(panel_open)
-				flick("o_doorc1", src)
+				z_flick("o_doorc1", src)
 			else
-				flick("doorc1", src)
+				z_flick("doorc1", src)
 		if("deny")
 			if(!machine_stat)
-				flick("door_deny", src)
+				z_flick("door_deny", src)
 
 
 /obj/machinery/door/proc/open()

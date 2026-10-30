@@ -26,7 +26,7 @@
 	if(movable_target.movement_type & (FLOATING|FLYING) && !HAS_TRAIT(movable_target, TRAIT_NO_FLOATING_ANIM))
 		DO_FLOATING_ANIM(movable_target)
 
-/datum/element/movetype_handler/Detach(datum/source)
+/datum/element/movetype_handler/Detach(atom/movable/source)
 	UnregisterSignal(source, GLOB.movement_type_addtrait_signals)
 	UnregisterSignal(source, GLOB.movement_type_removetrait_signals)
 	UnregisterSignal(source, SIGNAL_ADDTRAIT(TRAIT_NO_FLOATING_ANIM))

@@ -78,7 +78,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 			update_appearance()
 		else
 			to_chat(user, span_danger("Maintenance Access Denied."))
-			flick("[base_icon_state]-denied", src)
+			z_flick("[base_icon_state]-denied", src)
 		return
 
 	if(panel_open)
@@ -176,7 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 
 	if(!allowed(user) && !istype(user, /mob/living/simple_animal/eminence))
 		to_chat(user, span_danger("Access Denied."))
-		flick("[base_icon_state]-denied", src)
+		z_flick("[base_icon_state]-denied", src)
 		return
 
 	use_power(5)

@@ -544,7 +544,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	invisibility = 0
 	raising = TRUE
 	if(cover)
-		flick("popup", cover)
+		z_flick("popup", cover)
 	sleep(POPUP_ANIM_TIME)
 
 	raising = FALSE
@@ -560,7 +560,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	layer = OBJ_LAYER
 	raising = 1
 	if(cover)
-		flick("popdown", cover)
+		z_flick("popdown", cover)
 	sleep(POPDOWN_ANIM_TIME)
 	raising = 0
 	if(cover)

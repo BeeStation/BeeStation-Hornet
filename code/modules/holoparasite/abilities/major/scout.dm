@@ -425,6 +425,9 @@
 			show_to(mob)
 			mob.reload_huds()
 
+/datum/atom_hud/alternate_appearance/basic/except_holoparasite/copy_for_mimic(image/mimic_image)
+	new type(appearance_key, mimic_image, NONE, parent)
+
 /datum/atom_hud/alternate_appearance/basic/except_holoparasite/mobShouldSee(mob/target)
 	return !isobserver(target) && !parent.has_matching_summoner(target)
 
