@@ -180,7 +180,7 @@
 				if(H.wear_id?.GetID())
 					var/obj/item/card/id/idcard = H.wear_id.GetID()
 					if(idcard)
-						tgt_color = get_chatcolor_by_hud(idcard.hud_state)
+						tgt_color = get_chatcolor_by_hud(idcard.get_hud_state())
 				else
 					tgt_color = COLOR_PERSON_UNKNOWN
 			else

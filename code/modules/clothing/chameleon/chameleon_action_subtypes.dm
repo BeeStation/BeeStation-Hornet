@@ -100,7 +100,7 @@
 	var/obj/item/card/id/id = computer_target.GetID()
 	if(id)
 		computer_target.saved_identification = id.registered_name
-		computer_target.saved_job = id.assignment
+		computer_target.saved_job = id.get_assignment()
 		computer_target.update_id_display()
 
 /datum/action/item_action/chameleon/change/id
@@ -135,7 +135,7 @@
 		return
 
 	computer.saved_identification = id_target.registered_name
-	computer.saved_job = id_target.assignment
+	computer.saved_job = id_target.get_assignment()
 	computer.update_id_display()
 
 /datum/action/item_action/chameleon/change/id/random_look()

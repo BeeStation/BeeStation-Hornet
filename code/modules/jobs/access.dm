@@ -295,7 +295,13 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_BLOODCULT]" = "Bloodcult",
 	"[ACCESS_CLOCKCULT]" = "Clockcult"))
 
+/// Takes one access or a list of them
 /proc/get_access_desc(access_code)
+	if(islist(access_code))
+		var/list/descriptions = list()
+		for(var/access in access_code)
+			descriptions += get_access_desc(access)
+		return english_list(descriptions)
 	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
 
 
@@ -307,7 +313,7 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	var/obj/item/card/id/id_card = GetID()
 	if(!id_card)
 		return "hudno_id"
-	var/icon_hud = id_card.hud_state
+	var/icon_hud = id_card.get_hud_state()
 	if(icon_hud)
 		return "hud[icon_hud]"
 

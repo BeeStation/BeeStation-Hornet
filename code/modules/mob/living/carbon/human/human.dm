@@ -131,7 +131,7 @@
 
 		var/id_name = id.registered_name
 		var/id_age = id.registered_age
-		var/id_job = id.assignment
+		var/id_job = id.get_assignment()
 		// Should probably be recorded on the ID, but this is easier (albiet more restrictive) on chameleon ID users
 		var/datum/record/crew/record = find_record(id_name, GLOB.manifest.general)
 		var/id_blood_type = record?.blood_type
@@ -430,7 +430,7 @@
 
 	//Check for weapons
 	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
-		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
+		if(!idcard || !(ACCESS_WEAPONS in idcard.GetAccess()))
 			for(var/obj/item/I in held_items) //if they're holding a gun
 				if(weaponcheck.Invoke(I))
 					threatcount += 4

@@ -15,7 +15,6 @@
 	outfit = /datum/outfit/job/brig_physician
 
 	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
-	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
 	departments_list = list(
 		/datum/department_group/security,

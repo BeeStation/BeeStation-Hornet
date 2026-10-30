@@ -23,6 +23,8 @@
 	var/list/payment_per_department = list()
 	/// bonus from each department.
 	var/list/bonus_per_department = list()
+	/// Command pay from before acting head appointments raised it. Null while there are none
+	var/base_command_pay
 
 /datum/bank_account/New(newname, job, modifier = 1)
 	account_holder = newname
@@ -97,6 +99,20 @@
 		return TRUE
 	return FALSE
 
+/datum/bank_account/proc/refresh_acting_pay()
+	var/top_pay = 0
+	for(var/datum/access_grant/acting_head/acting_head as anything in SSjob.acting_heads)
+		if(acting_head.card?.registered_account == src)
+			top_pay = max(top_pay, acting_head.job.payment_per_department[ACCOUNT_COM_ID])
+	if(!top_pay)
+		if(!isnull(base_command_pay))
+			payment_per_department[ACCOUNT_COM_ID] = base_command_pay
+			base_command_pay = null
+		return
+	if(isnull(base_command_pay))
+		base_command_pay = payment_per_department[ACCOUNT_COM_ID]
+	payment_per_department[ACCOUNT_COM_ID] = max(base_command_pay, top_pay)
+
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(!account_job)
 		return FALSE
@@ -139,39 +155,10 @@
  * If not held, sends out a message to all nearby players.
  */
 /datum/bank_account/proc/bank_card_talk(message, force)
-	if(!message || !bank_cards.len)
+	if(!message)
 		return
-	for(var/obj/card in bank_cards)
-		var/icon_source = card
-		if(isidcard(card))
-			var/obj/item/card/id/id_card = card
-			icon_source = id_card.get_cached_flat_icon()
-		var/mob/card_holder = recursive_loc_check(card, /mob)
-		if(ismob(card_holder)) //If on a mob
-			if(!card_holder.client || (!card_holder.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force))
-				return
-
-			if(card_holder.can_hear())
-				card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
-				to_chat(card_holder, "[icon2html(icon_source, card_holder)] [span_notice("[message]")]")
-		else if(isturf(card.loc)) //If on the ground
-			var/turf/card_location = card.loc
-			for(var/mob/potential_hearer in hearers(1,card_location))
-				if(!potential_hearer.client || (!(potential_hearer.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)))
-					continue
-				if(potential_hearer.can_hear())
-					potential_hearer.playsound_local(card_location, 'sound/machines/twobeep_high.ogg', 50, TRUE)
-					to_chat(potential_hearer, "[icon2html(icon_source, potential_hearer)] [span_notice("[message]")]")
-		else
-			var/atom/sound_atom
-			for(var/mob/potential_hearer in card.loc) //If inside a container with other mobs (e.g. locker)
-				if(!potential_hearer.client || (!(potential_hearer.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard) && !force)))
-					continue
-				if(!sound_atom)
-					sound_atom = card.drop_location() //in case we're inside a bodybag in a crate or something. doing this here to only process it if there's a valid mob who can hear the sound.
-				if(potential_hearer.can_hear())
-					potential_hearer.playsound_local(get_turf(sound_atom), 'sound/machines/twobeep_high.ogg', 50, TRUE)
-					to_chat(potential_hearer, "[icon2html(icon_source, potential_hearer)] [span_notice("[message]")]")
+	for(var/obj/item/card/id/card in bank_cards)
+		card.card_talk(message, check_pref = !force)
 
 /datum/bank_account/proc/_adjust_currency(type, amt)
 	custom_currency[type] += amt

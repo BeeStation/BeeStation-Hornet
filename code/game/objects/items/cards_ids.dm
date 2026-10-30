@@ -168,8 +168,11 @@
 	/// Linked holopay.
 	var/obj/machinery/paystand/my_store
 
-	/// The job name registered on the card (for example: Assistant).
+	/// The job name registered on the card (for example: Assistant). Use get_assignment() to include an acting role
 	var/assignment
+	/// Title of the card's real job. Never a custom or acting title. Null when unassigned
+	var/job_title
+	var/datum/access_grant/acting_head/acting_head
 
 	/// Icons to be displayed in the orbit ui. Source: FontAwesome v6 Free Edition.
 	var/orbit_icon
@@ -178,8 +181,14 @@
 	var/list/access = list()
 	/// Mapping aid for access
 	var/access_txt
+	/// Temporary access grants (/datum/access_grant). Use GetAccess() to include them
+	var/list/access_grants
+	/// Skeleton crew access removed at a console
+	var/list/withheld_skeleton_access
+	/// SSjob.job_assignment_count when the card got its job
+	var/job_assignment_id = 0
 
-	/// The HUD given to our wearer
+	/// The HUD given to our wearer. Use get_hud_state() to include an acting role
 	var/hud_state = JOB_HUD_UNKNOWN
 
 	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
@@ -201,7 +210,21 @@
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	if(LAZYLEN(access_grants))
+		var/list/temporary = get_non_skeleton_access() - access
+		if(length(temporary))
+			log_card("destroyed with temporary access to [get_access_desc(temporary)]")
+	QDEL_LAZYLIST(access_grants)
+	acting_head = null
 	return ..()
+
+/obj/item/card/id/proc/get_assignment()
+	return acting_head ? "Acting [acting_head.job.title]" : assignment
+
+/obj/item/card/id/proc/get_hud_state()
+	if(!acting_head)
+		return hud_state
+	return get_hud_by_jobname("Acting [acting_head.job.title]", returns_unknown = FALSE) || get_hud_by_jobname(acting_head.job.title)
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
@@ -209,6 +232,284 @@
 		if(temp != JOB_HUD_UNKNOWN)
 			hud_state = temp
 	// This is needed for some irregular jobs
+
+/obj/item/card/id/proc/add_access(list/access_to_add, source, mob/user)
+	if(isnull(access_to_add))
+		return FALSE
+	var/list/added = access_to_add - access
+	access |= access_to_add
+	if(source && length(added))
+		log_access_change(added, source, user, granting = TRUE)
+	return TRUE
+
+/obj/item/card/id/proc/remove_access(list/access_to_remove, source, mob/user)
+	if(isnull(access_to_remove))
+		return FALSE
+	var/list/removed = get_non_skeleton_access() & access_to_remove
+	access -= access_to_remove
+	for(var/datum/access_grant/grant as anything in access_grants)
+		grant.access -= access_to_remove
+		if(length(grant.access))
+			continue
+		if(grant == acting_head)
+			acting_head.revoke(user = user)
+		else
+			qdel(grant)
+	if(source && length(removed))
+		log_access_change(removed, source, user, granting = FALSE)
+	return TRUE
+
+/// Head-only access goes on as a temporary grant, the rest permanently
+/obj/item/card/id/proc/add_console_access(list/access_to_add, source, mob/user)
+	var/list/head_only = _get_head_only(access_to_add)
+	var/list/restored = _restore_skeleton_access(access_to_add) | _restore_acting_head_access(head_only, source, user)
+	// Don't edit the caller's list. It can be a department's access list
+	access_to_add = access_to_add - restored
+	head_only -= restored
+	add_access(access_to_add - head_only, source, user)
+	// Skeleton crew and acting head access don't count as held, so the console grant outlives them
+	var/list/temporary = head_only - get_non_skeleton_access(except = acting_head)
+	if(length(temporary))
+		grant_temporary_access(temporary, source, user)
+
+/// Also withholds any skeleton crew access in the list
+/obj/item/card/id/proc/remove_console_access(list/access_to_remove, source, mob/user)
+	// Logged here since withheld skeleton access is gone from GetAccess() before remove_access() runs
+	var/list/removed = GetAccess() & access_to_remove
+	var/list/skeleton_removed = get_skeleton_access() & access_to_remove
+	if(length(skeleton_removed))
+		LAZYOR(withheld_skeleton_access, skeleton_removed)
+	remove_access(access_to_remove, user = user)
+	log_access_change(removed, source, user, granting = FALSE)
+
+/// Stops withholding these skeleton access. Returns the ones skeleton crew rules cover again
+/obj/item/card/id/proc/_restore_skeleton_access(list/access_list)
+	PRIVATE_PROC(TRUE)
+	if(!withheld_skeleton_access)
+		return list()
+	var/list/restored = access_list & withheld_skeleton_access
+	LAZYREMOVE(withheld_skeleton_access, access_list)
+	return restored & get_skeleton_access()
+
+/// Gives the acting head back access its job grants that a console removed. Returns what it gave back
+/obj/item/card/id/proc/_restore_acting_head_access(list/access_list, source, mob/user)
+	PRIVATE_PROC(TRUE)
+	if(!acting_head)
+		return list()
+	var/list/restored = access_list & (acting_head.job.get_access() - acting_head.access)
+	if(length(restored))
+		log_access_change(restored, "[source] (restored to acting [acting_head.job.title] appointment)", user, granting = TRUE)
+		acting_head.access |= restored
+	return restored
+
+/obj/item/card/id/proc/_get_head_only(list/access_list)
+	PRIVATE_PROC(TRUE)
+	. = access_list & SSdepartment.get_head_only_access()
+	var/datum/job/own_job = SSjob.get_job(job_title)
+	if(own_job)
+		. -= own_job.get_access()
+
+/// Whether assigning this head job only makes the card acting. Goes by the bank account's starting job, otherwise the manifest
+/obj/item/card/id/proc/needs_acting_head_for(datum/job/target_job)
+	SHOULD_BE_PURE(TRUE)
+	if(!(target_job.job_flags & JOB_HEAD_OF_STAFF) || target_job.title == job_title)
+		return FALSE
+	if(registered_account)
+		return registered_account.account_job?.type != target_job.type
+	var/datum/record/crew/record = find_record(registered_name, GLOB.manifest.general)
+	return !record || record.initial_rank != target_job.title
+
+/// Check needs_acting_head_for() first
+/obj/item/card/id/proc/assign_job(datum/job/new_job, mob/user)
+	var/same_job = job_title == new_job.title
+	unassign_job("reassigned", user)
+	access |= new_job.get_access()
+	// Reprinting the same job isn't a new hire, so it stays covered by any handover
+	if(same_job)
+		job_title = new_job.title
+	else
+		set_job_title(new_job)
+	assignment = new_job.title
+	update_label()
+
+/obj/item/card/id/proc/set_job_title(datum/job/new_job)
+	job_title = new_job.title
+	job_assignment_id = ++SSjob.job_assignment_count
+
+/// Strips job access and temporary access. Callers set the new assignment
+/obj/item/card/id/proc/unassign_job(reason = "unassigned", mob/user)
+	clear_temporary_access(reason, user)
+	access -= get_all_accesses()
+	withheld_skeleton_access = null
+	job_title = null
+
+/// Replaces any current acting role
+/obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
+	RETURN_TYPE(/datum/access_grant/acting_head)
+	// Replacing it would restart skeleton crew handovers for this job
+	if(acting_head?.job.type == head_job.type && !acting_head.revoking)
+		return acting_head
+	acting_head?.revoke("replaced", user)
+	var/list/held_before = GetAccess()
+	new /datum/access_grant/acting_head(src, head_job, source)
+	var/list/gained = acting_head.access - held_before
+	var/adding = length(gained) ? ", adding [get_access_desc(gained)]" : ""
+	if(user)
+		log_card("made [src] acting [head_job.title] using [source][adding]", user)
+	else
+		log_card("made acting [head_job.title] via [source][adding]")
+	if(announce)
+		card_talk("Appointed Acting [head_job.title].")
+	return acting_head
+
+/obj/item/card/id/proc/end_acting_head(cause, mob/user)
+	if(!acting_head)
+		return
+	if(cause)
+		acting_head.cause = cause
+	acting_head.revoke(user = user)
+
+/obj/item/card/id/proc/clear_temporary_access(reason = "revoked", mob/user)
+	for(var/datum/access_grant/grant as anything in access_grants)
+		grant.revoke(reason, user)
+
+/obj/item/card/id/proc/sync_manifest()
+	// The manifest goes by name, so another acting card with this name keeps its entry
+	var/obj/item/card/id/source = acting_head ? src : (SSjob.get_acting_head_for(registered_name)?.card || src)
+	GLOB.manifest.modify(registered_name, source.get_assignment(), source.get_hud_state(), source.job_title)
+
+/// Renaming ends an acting appointment, since it belongs to the person named
+/obj/item/card/id/proc/set_registered_name(new_name, mob/user)
+	if(new_name == registered_name)
+		return
+	end_acting_head("registered name changed", user)
+	registered_name = new_name
+	update_label()
+
+/obj/item/card/id/proc/set_registered_account(datum/bank_account/account)
+	var/datum/bank_account/old_account = registered_account
+	old_account?.bank_cards -= src
+	registered_account = account
+	account?.bank_cards += src
+	acting_head?.on_account_changed(old_account)
+
+/obj/item/card/id/proc/assignment_changed(old_assignment)
+	update_label()
+	refresh_holder(old_assignment)
+	sync_manifest()
+
+/obj/item/card/id/proc/refresh_holder(old_assignment)
+	var/list/computers = list()
+	var/mob/living/carbon/holder = get(src, /mob/living/carbon)
+	if(holder)
+		astype(holder, /mob/living/carbon/human)?.sec_hud_set_ID()
+		for(var/obj/item/modular_computer/computer in holder.get_all_gear())
+			computers += computer
+	var/obj/item/modular_computer/container = get(src, /obj/item/modular_computer)
+	if(container)
+		computers |= container
+	for(var/obj/item/modular_computer/computer as anything in computers)
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		if(card_slot?.stored_card == src)
+			card_slot.current_job = get_assignment()
+		if(computer.saved_identification == registered_name && computer.saved_job == old_assignment)
+			computer.saved_job = get_assignment()
+			computer.update_id_display()
+
+/obj/item/card/id/proc/log_access_change(list/changed_access, source, mob/user, granting)
+	if(!length(changed_access))
+		return
+	var/access_desc = get_access_desc(changed_access)
+	if(user)
+		if(granting)
+			log_card("added [access_desc] to [src] using [source]", user)
+		else
+			log_card("removed [access_desc] from [src] using [source]", user)
+	else
+		if(granting)
+			log_card("gained [access_desc] via [source]")
+		else
+			log_card("lost [access_desc] via [source]")
+
+/// With a user, text should name the card, like other log_id calls. Without one, the line starts with the card
+/obj/item/card/id/proc/log_card(text, mob/user)
+	if(user)
+		log_id("[key_name(user)] [text] at [AREACOORD(user)].")
+		return
+	var/turf/card_turf = get_turf(src)
+	log_id("[src] at [AREACOORD(card_turf)]: [text].")
+
+/**
+ * Returns the grant, so the caller can revoke() it early (e.g. on a condition change)
+ * Arguments:
+ * * duration - lifespan in deciseconds. 0 or null means indefinite
+ */
+/obj/item/card/id/proc/grant_temporary_access(list/access_to_grant, source, mob/user, duration)
+	RETURN_TYPE(/datum/access_grant)
+	var/list/new_access = access_to_grant - GetAccess()
+	var/datum/access_grant/grant = new(src, access_to_grant, source, duration)
+	var/access_desc = get_access_desc(grant.access)
+	if(duration)
+		log_access_change(new_access, "[source] (temporary, expires in [DisplayTimeText(duration)])", user, granting = TRUE)
+		card_talk("Temporary [access_desc] access authorized, expiring in [DisplayTimeText(duration)].")
+	else
+		log_access_change(new_access, "[source] (temporary)", user, granting = TRUE)
+		card_talk("Temporary [access_desc] access authorized.")
+	return grant
+
+/obj/item/card/id/proc/card_talk(message, warning = FALSE, check_pref = FALSE, boxed = FALSE)
+	var/list/listeners
+	var/atom/sound_source
+	var/mob/holder = recursive_loc_check(src, /mob)
+	if(holder)
+		listeners = list(holder)
+		sound_source = holder
+	else if(isturf(loc))
+		listeners = hearers(1, loc)
+		sound_source = loc
+	else
+		listeners = list()
+		for(var/mob/inside in loc)
+			listeners += inside
+		sound_source = drop_location()
+	var/sound_file = warning ? 'sound/machines/twobeep.ogg' : 'sound/machines/twobeep_high.ogg'
+	for(var/mob/listener in listeners)
+		if(!listener.client || !listener.can_hear())
+			continue
+		if(check_pref && !listener.client.prefs.read_player_preference(/datum/preference/toggle/chat_bankcard))
+			continue
+		listener.playsound_local(get_turf(sound_source), sound_file, 50, TRUE)
+		var/text = "[icon2html(get_cached_flat_icon(), listener)] [warning ? span_warning(message) : span_notice(message)]"
+		to_chat(listener, boxed ? examine_block(text) : text)
+
+/// Waits until roundstart so the roundstart text doesn't bury it
+/obj/item/card/id/proc/queue_spawn_briefing()
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(start_spawn_briefing)))
+
+/obj/item/card/id/proc/start_spawn_briefing()
+	if(!QDELETED(src))
+		addtimer(CALLBACK(src, PROC_REF(spawn_briefing)), 3 SECONDS)
+
+/obj/item/card/id/proc/spawn_briefing()
+	var/list/lines = list()
+	if(acting_head && !acting_head.revoking)
+		lines += "Appointed Acting [acting_head.job.title]."
+	var/list/skeleton_lines = list()
+	var/list/listed = list()
+	for(var/datum/skeleton_access/rule as anything in get_skeleton_rules())
+		if(!rule.notifies(job_title) || rule.revoking)
+			continue
+		var/list/gained = get_skeleton_gain(rule.access) - listed
+		if(!length(gained))
+			continue
+		listed |= gained
+		var/areas = span_tooltip(get_access_desc(gained), "[length(gained)] extra area\s")
+		skeleton_lines += "&bull; [rule.covering_text(TRUE)]: [areas] ([rule.timing_text()])"
+	if(length(skeleton_lines))
+		lines += "<b>Skeleton crew protocol in effect</b>"
+		lines += skeleton_lines
+	if(length(lines))
+		card_talk(jointext(lines, "\n"), boxed = TRUE)
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
@@ -231,6 +532,8 @@
 		return TRUE
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, registered_name) && var_value != registered_name)
+		end_acting_head("registered name changed", usr)
 	. = ..()
 	if(.)
 		switch(var_name)
@@ -336,7 +639,6 @@
 // Returns true if new account was set.
 /obj/item/card/id/proc/set_new_account(mob/living/user)
 	. = FALSE
-	var/datum/bank_account/old_account = registered_account
 
 	var/new_bank_id = input(user, "Enter your account ID number.", "Account Reclamation", 111111) as num
 
@@ -351,11 +653,7 @@
 
 	var/datum/bank_account/B = SSeconomy.bank_accounts_by_id["[new_bank_id]"]
 	if(B)
-		if (old_account)
-			old_account.bank_cards -= src
-
-		B.bank_cards += src
-		registered_account = B
+		set_registered_account(B)
 		to_chat(user, span_notice("The provided account has been linked to this ID card."))
 
 		return TRUE
@@ -393,10 +691,52 @@
 		var/difference = amount_to_remove - registered_account.account_balance
 		registered_account.bank_card_talk(span_warning("ERROR: The linked account requires [difference] more credit\s to perform that withdrawal."), TRUE)
 
+/obj/item/card/id/proc/get_temporary_access_examine()
+	. = list()
+	if(acting_head)
+		var/list/role_access = acting_head.access - access
+		var/timing = capitalize(acting_head.timing_text())
+		var/role_tip
+		if(length(role_access))
+			role_tip = "Adds [get_access_desc(role_access)] access. [timing]."
+		else
+			role_tip = "[timing]."
+		var/role_text = span_tooltip(role_tip, "Acting [acting_head.job.title]")
+		. += span_notice("<b>Appointment:</b> [acting_head.revoking ? span_warning(role_text) : role_text]")
+	var/list/listed_elsewhere = get_authority_access()
+	var/list/entries = list()
+	var/list/entry_ending = list()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		if(grant != acting_head)
+			_add_access_entries(entries, entry_ending, grant.access - listed_elsewhere, grant.get_examine_reason(), grant.timing_text(), grant.revoking)
+	var/list/skeleton_access = get_skeleton_access()
+	for(var/datum/skeleton_access/rule as anything in get_skeleton_rules())
+		_add_access_entries(entries, entry_ending, (rule.access & skeleton_access) - listed_elsewhere, rule.covering_text(), rule.timing_text(), rule.revoking, rule.get_color_class())
+	if(length(entries))
+		var/list/entry_texts = list()
+		for(var/key in entries)
+			entry_texts += entries[key]
+		. += span_notice("<b>Temporary access:</b> [jointext(entry_texts, ", ")]")
+
+/obj/item/card/id/proc/_add_access_entries(list/entries, list/entry_ending, list/access_ids, reason, timing, ending, color_class)
+	PRIVATE_PROC(TRUE)
+	for(var/access_id in access_ids)
+		var/key = "[access_id]"
+		if(entries[key] && !entry_ending[key])
+			continue
+		var/entry = span_tooltip("[reason]. [capitalize(timing)].", get_access_desc(access_id))
+		if(ending)
+			entry = span_warning(entry)
+		else if(color_class)
+			entry = "<span class='[color_class]'>[entry]</span>"
+		entries[key] = entry
+		entry_ending[key] = ending
+
 /obj/item/card/id/examine(mob/user)
 	. = ..()
 	if(!user.can_read(src))
 		return
+	. += get_temporary_access_examine()
 	if(!electric)  // forces off bank info for paper slip
 		return .
 	if(registered_account)
@@ -431,7 +771,58 @@
 		. += span_info("There is no registered account linked to this card. Alt-Click to add one.")
 
 /obj/item/card/id/GetAccess()
-	return access
+	RETURN_TYPE(/list)
+	if(!LAZYLEN(access_grants) && (!job_title || !length(SSjob.enabled_skeleton_rules)))
+		return access
+	return get_non_skeleton_access() | get_skeleton_access()
+
+/obj/item/card/id/proc/get_skeleton_access()
+	RETURN_TYPE(/list)
+	. = list()
+	if(!job_title)
+		return
+	for(var/datum/skeleton_access/rule as anything in SSjob.enabled_skeleton_rules)
+		if(rule.gives_to(src))
+			. |= rule.access
+	if(withheld_skeleton_access)
+		. -= withheld_skeleton_access
+
+/// Skeleton crew rules giving this card access, in rule order
+/obj/item/card/id/proc/get_skeleton_rules()
+	RETURN_TYPE(/list)
+	. = list()
+	for(var/datum/skeleton_access/rule as anything in SSjob.skeleton_rules)
+		if(rule.enabled && rule.gives_to(src))
+			. += rule
+
+/// Permanent access plus temporary grants, without the except grant
+/obj/item/card/id/proc/get_non_skeleton_access(datum/access_grant/except)
+	RETURN_TYPE(/list)
+	. = access.Copy()
+	for(var/datum/access_grant/grant as anything in access_grants)
+		if(grant != except)
+			. |= grant.access
+
+/obj/item/card/id/proc/get_skeleton_gain(list/rule_access)
+	RETURN_TYPE(/list)
+	return rule_access - get_non_skeleton_access() - withheld_skeleton_access
+
+/// Access that counts for editing IDs. Skeleton crew and console grants only open doors
+/obj/item/card/id/proc/get_authority_access()
+	RETURN_TYPE(/list)
+	if(!acting_head)
+		return access
+	return access | acting_head.access
+
+/// Departments this card can edit at an ID console, as a region bitflag
+/obj/item/card/id/proc/get_accessible_regions(console_departments)
+	. = NONE
+	var/list/authority = get_authority_access()
+	for(var/datum/department_group/department as anything in SSdepartment.department_datums)
+		if(department.manager_access && (department.manager_access in authority))
+			. |= department.department_bitflags
+	if(console_departments)
+		. &= console_departments
 
 /obj/item/card/id/GetID()
 	return src
@@ -452,9 +843,10 @@
 /// Updates the name based on the card's vars and state.
 /obj/item/card/id/proc/update_label()
 	var/name_string = registered_name ? "[registered_name]'s ID Card" : initial(name)
-	var/assignment_string = " ([assignment])"
+	var/assignment_string = " ([get_assignment()])"
 
 	name = "[name_string][assignment_string]"
+	update_in_wallet()
 
 /obj/item/card/id/silver
 	name = "silver identification card"
@@ -521,7 +913,7 @@
 		return ..()
 
 	var/obj/item/card/id/other_id = attacking_item
-	access |= other_id.access
+	access |= other_id.GetAccess()
 	log_id("[key_name(user)] copied all avaliable access from [other_id] to agent ID [src] at [AREACOORD(user)].")
 	if(isliving(user) && user.mind && (user.mind.special_role || anyone))
 		to_chat(usr, span_notice("The card's microscanners activate as you pass it over the ID, copying its access."))
@@ -572,7 +964,7 @@
 	target_occupation ||= (assignment || JOB_NAME_ASSISTANT)
 
 	log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] [target_id_style ? "with [target_id_style] card style" : "with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
-	registered_name = input_name
+	set_registered_name(input_name, user)
 	assignment = capitalize(target_occupation)
 	if(target_id_style)
 		icon_state = get_cardstyle_by_jobname(target_id_style)
@@ -587,8 +979,7 @@
 	if (first_use && !registered_account && ishuman(user))
 		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[user.mind.account_id]"]
 		if(account)
-			account.bank_cards += src
-			registered_account = account
+			set_registered_account(account)
 			to_chat(user, span_notice("Your account number has been automatically assigned."))
 
 #define BREAK_CHAMELEON_ACTION(item) \
@@ -825,8 +1216,7 @@ do { \
 	. = ..()
 	if(need_setup)
 		if(isgolem(user))
-			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
-			update_label()
+			set_registered_name(user.name) // automatically change registered name if it's picked up by a golem at first time
 		need_setup = FALSE
 		// if non-golem picks it up, the renaming feature will be disabled
 
@@ -850,7 +1240,7 @@ do { \
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
-		registered_name = target_name || registered_name  // in case they hit cancel
+		set_registered_name(target_name || registered_name, user)  // in case they hit cancel
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
 		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
 		assignment = target_job || assignment
@@ -864,6 +1254,9 @@ do { \
 	to_chat(user, span_warning("You can't insert money into a slip!"))  // not sure if this is triggerable but just as a safeclip
 
 /obj/item/card/id/paper/GetAccess()
+	return list()
+
+/obj/item/card/id/paper/get_authority_access()
 	return list()
 
 /obj/item/card/id/away
@@ -1318,8 +1711,7 @@ do { \
 		if(!idcard.electric)
 			to_chat(user, to_chat(user, span_warning("You swipe the id card. Nothing happens. ")))
 			return
-		for(var/give_access in access)
-			idcard.access |= give_access
+		idcard.add_access(access)
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))

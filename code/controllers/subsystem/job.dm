@@ -68,6 +68,13 @@ SUBSYSTEM_DEF(job)
 	/// Dictionary that maps job priorities to low/medium/high. Keys have to be number-strings as assoc lists cannot be indexed by integers. Set in setup_job_lists.
 	var/list/job_priorities_to_strings
 
+	var/list/datum/skeleton_access/skeleton_rules = list()
+	/// The skeleton_rules that are on, so GetAccess() doesn't check every rule
+	var/list/datum/skeleton_access/enabled_skeleton_rules = list()
+	/// Bumped each time a card gets a job, so skeleton rules can skip anyone hired after a handover starts
+	var/job_assignment_count = 0
+	var/list/datum/access_grant/acting_head/acting_heads = list()
+
 /datum/controller/subsystem/job/Initialize()
 	if(!length(all_occupations))
 		setup_occupations()
@@ -88,6 +95,9 @@ SUBSYSTEM_DEF(job)
 			crew_obj_jobs["[job]"] += list(type)
 		qdel(obj)
 
+	init_subtypes(/datum/skeleton_access, skeleton_rules)
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
+
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/Recover()
@@ -105,6 +115,12 @@ SUBSYSTEM_DEF(job)
 	spare_id_safe_code = SSjob.spare_id_safe_code
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
+
+	skeleton_rules = SSjob.skeleton_rules
+	enabled_skeleton_rules = SSjob.enabled_skeleton_rules
+	job_assignment_count = SSjob.job_assignment_count
+	acting_heads = SSjob.acting_heads
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, PROC_REF(on_job_after_latejoin_spawn))
 
 /// Returns a list of jobs that we are allowed to fuck with during random events
 /datum/controller/subsystem/job/proc/get_valid_overflow_jobs()
@@ -271,14 +287,14 @@ SUBSYSTEM_DEF(job)
 		player.client.inc_metabalance(METACOIN_READY_UP_REWARD, reason = "Joined the station as a roundstart crew member.")
 	return TRUE
 
-/datum/controller/subsystem/job/proc/FreeRole(rank)
-	if(!rank)
-		return
-	job_debug("Freeing role: [rank]")
-	var/datum/job/job = get_job_type(rank)
+/datum/controller/subsystem/job/proc/FreeRole(datum/job/job)
 	if(!job)
 		return FALSE
+	job_debug("Freeing role: [job]")
 	job.current_positions = max(0, job.current_positions - 1)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		acting_head.on_head_departure(job)
+	refresh_skeleton_access()
 
 /datum/controller/subsystem/job/proc/find_occupation_candidates(datum/job/job, level)
 	job_debug("FOC: Now running, Job: [job], Level: [job_priority_level_to_string(level)]")
@@ -470,6 +486,8 @@ SUBSYSTEM_DEF(job)
 
 	//Scale number of open security officer slots to population
 	setup_officer_positions()
+	// Before players are in their mobs, so the spawn briefing announces skeleton access instead of each rule
+	refresh_skeleton_access()
 	job_debug("All divide occupations tasks completed.")
 	job_debug("---------------------------------------------------")
 	return TRUE
@@ -862,6 +880,41 @@ SUBSYSTEM_DEF(job)
 			continue
 		. += head
 
+/datum/controller/subsystem/job/proc/on_job_after_latejoin_spawn(datum/source, datum/job/job, mob/living/spawning)
+	SIGNAL_HANDLER
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		acting_head.on_head_arrival(job)
+	refresh_skeleton_access(spawning)
+
+/datum/controller/subsystem/job/proc/refresh_skeleton_access(mob/living/arrival)
+	for(var/datum/skeleton_access/rule as anything in skeleton_rules)
+		rule.refresh(arrival)
+
+/// Counts filled job slots, so deaths don't lower it
+/datum/controller/subsystem/job/proc/get_crew_count()
+	. = 0
+	for(var/datum/job/job as anything in all_occupations)
+		. += job.current_positions
+
+/// Ends acting appointments on cards registered to this name
+/datum/controller/subsystem/job/proc/end_acting_heads_for(name, cause)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		if(acting_head.card?.registered_name == name)
+			acting_head.card.end_acting_head(cause)
+
+/// The acting appointment on a card registered to this name, if any
+/datum/controller/subsystem/job/proc/get_acting_head_for(name)
+	RETURN_TYPE(/datum/access_grant/acting_head)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		if(acting_head.card?.registered_name == name)
+			return acting_head
+
+/datum/controller/subsystem/job/proc/has_acting_head(title)
+	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
+		if(acting_head.job.title == title)
+			return TRUE
+	return FALSE
+
 /// Returns a list of minds of all heads of staff
 /datum/controller/subsystem/job/proc/get_all_heads()
 	. = list()
@@ -926,16 +979,21 @@ SUBSYSTEM_DEF(job)
 	)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
-	if(acting_captain)
-		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where]."))
+	var/appoint_acting = acting_captain && !has_acting_head(JOB_NAME_CAPTAIN)
+	if(appoint_acting)
+		to_chat(H, span_notice("Due to your position in the chain of command, you have been appointed Acting Captain. The code to the captain's spare ID safe on the Bridge is [where]."))
+	else if(acting_captain)
+		to_chat(H, span_notice("Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find the code to its safe on the Bridge [where]."))
 	else
 		to_chat(H, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
-	// Force-give their ID card bridge access.
-	if(H.wear_id?.GetID())
-		var/obj/item/card/id/id_card = H.wear_id
-		if(!(ACCESS_HEADS in id_card.access))
-			LAZYADD(id_card.access, ACCESS_HEADS)
+	var/obj/item/card/id/id_card = H.wear_id?.GetID()
+	if(!id_card)
+		stack_trace("Promoted [H.real_name] to Captain without an ID card.")
+	if(appoint_acting)
+		id_card?.grant_acting_head(get_job(JOB_NAME_CAPTAIN), "acting captaincy", announce = FALSE)
+	else
+		id_card?.add_access(list(ACCESS_HEADS))
 
 	assigned_captain = TRUE
 
@@ -958,9 +1016,10 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/has_minimum_jobs(crew_threshold, list/jobs = list(), list/head_jobs = list())
 	var/employees = 0
 	for(var/datum/record/crew/target in GLOB.manifest.general)
-		if(target.rank in head_jobs)
+		var/list/titles = list(target.job_title || target.rank, target.get_acting_job()?.title)
+		if(length(titles & head_jobs))
 			return TRUE
-		if(target.rank in jobs)
+		if(length(titles & jobs))
 			employees++
 
 	if(employees >= crew_threshold)

@@ -10,7 +10,7 @@
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_id
 	if(id)
-		. = id.assignment
+		. = id.get_assignment()
 	else
 		var/obj/item/modular_computer/pda = wear_id
 		if(istype(pda))
@@ -249,7 +249,7 @@
 	var/obj/item/card/id/I = wear_id.GetID()
 	if(!I)
 		return
-	var/I_hud = I.hud_state
+	var/I_hud = I.get_hud_state()
 	if(I_hud)
 		return I_hud
 	return "unknown"

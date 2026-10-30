@@ -57,15 +57,8 @@
 
 /datum/job/security_officer/get_access()
 	. = ..()
-	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_FORENSICS_LOCKERS)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_MORGUE)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_BRIGPHYSICIAN, ACCESS_BRIGPHYS)
 	if(check_config_for_sec_maint())
 		. |= ACCESS_MAINT_TUNNELS
-	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_MAINT_TUNNELS
-	if (SSjob.is_job_empty(JOB_NAME_WARDEN) && SSjob.is_job_empty(JOB_NAME_HEADOFSECURITY) && SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
-		. |= ACCESS_ARMORY
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
@@ -143,13 +136,13 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	// If there's a departmental access to apply to the card, overwrite
 	if(dep_access)
 		var/obj/item/card/id/worn_id = spawning.get_idcard(hand_first = FALSE)
-		worn_id.access |= dep_access
+		worn_id.add_access(dep_access)
 		spawning.sec_hud_set_ID()
 
 		// Update PDA.
 		var/obj/item/modular_computer/tablet/pda = spawning.get_item_by_slot(ITEM_SLOT_BELT)
-		if(istype(pda) && !isnull(worn_id.assignment))
-			pda.imprint_id(spawning.real_name, worn_id.assignment)
+		if(istype(pda) && !isnull(worn_id.get_assignment()))
+			pda.imprint_id(spawning.real_name, worn_id.get_assignment())
 
 	var/spawn_point = pick(LAZYACCESS(GLOB.department_security_spawns, department))
 

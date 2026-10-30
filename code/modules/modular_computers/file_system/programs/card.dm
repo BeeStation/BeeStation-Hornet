@@ -29,7 +29,7 @@
 
 	accessible_region_bitflag = NONE
 	authenticated = FALSE
-	if(ACCESS_CHANGE_IDS in manager_card.access)
+	if(ACCESS_CHANGE_IDS in manager_card.get_authority_access())
 		if(department_bitflag)
 			minor = TRUE
 			accessible_region_bitflag |= department_bitflag
@@ -38,16 +38,7 @@
 			accessible_region_bitflag |= ALL
 	else
 		minor = TRUE
-		if((ACCESS_HOP in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SERVICE) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CIVILIAN | DEPARTMENT_BITFLAG_CARGO
-		if((ACCESS_HOS in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SECURITY) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SECURITY
-		if((ACCESS_CMO in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_MEDICAL) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_MEDICAL
-		if((ACCESS_RD in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_SCIENCE) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_SCIENCE
-		if((ACCESS_CE in manager_card.access) && ((department_bitflag & DEPARTMENT_BITFLAG_ENGINEERING) || !department_bitflag))
-			accessible_region_bitflag |= DEPARTMENT_BITFLAG_ENGINEERING
+		accessible_region_bitflag |= manager_card.get_accessible_regions(department_bitflag)
 
 	if(accessible_region_bitflag)
 		authenticated = TRUE
@@ -94,12 +85,12 @@
 						<u>Prepared By:</u> [user_id_card && user_id_card.registered_name ? user_id_card.registered_name : "Unknown"]<br>
 						<u>For:</u> [target_id_card.registered_name ? target_id_card.registered_name : "Unregistered"]<br>
 						<hr>
-						<u>Assignment:</u> [target_id_card.assignment]<br>
+						<u>Assignment:</u> [target_id_card.get_assignment()]<br>
 						<u>Access:</u><br>
 						"}
 
 			var/known_access_rights = get_all_accesses()
-			for(var/A in target_id_card.access)
+			for(var/A in target_id_card.GetAccess())
 				if(A in known_access_rights)
 					contents += "  [get_access_desc(A)]"
 
@@ -114,7 +105,6 @@
 			if(!card_slot2)
 				return
 			if(target_id_card)
-				GLOB.manifest.modify(target_id_card.registered_name, target_id_card.assignment, target_id_card.hud_state)
 				return card_slot2.try_eject(user)
 			else
 				var/obj/item/I = user.get_active_held_item()
@@ -125,9 +115,11 @@
 			if(!authenticated)
 				return
 
-			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
+			target_id_card.unassign_job("terminated", usr)
+			target_id_card.access -= get_all_centcom_access()
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
+			target_id_card.sync_manifest()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -145,8 +137,7 @@
 				to_chat(usr, span_notice("Software error: The ID card rejected the new name as it contains prohibited characters."))
 				return
 			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-			target_id_card.registered_name = new_name
-			target_id_card.update_label()
+			target_id_card.set_registered_name(new_name, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_assign")
@@ -178,16 +169,15 @@
 					playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-				target_id_card.access -= get_all_accesses()
-				target_id_card.access |= jobdatum.get_access()
+				// tablet program doesn't change bank status. check 'card.dm' for the detail
+				var/assign_source = get_log_source(user_id_card)
+				if(target_id_card.needs_acting_head_for(jobdatum))
+					target_id_card.grant_acting_head(jobdatum, assign_source, usr)
+				else
+					target_id_card.assign_job(jobdatum, usr)
+					log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 
-				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
-
-				log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-
-				target_id_card.assignment = target
-				target_id_card.update_label()
-
+			target_id_card.sync_manifest()
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_access")
@@ -197,26 +187,23 @@
 			if(!is_centcom && (access_type in get_all_centcom_admin_access()))
 				log_id("[key_name(usr)] somehow attempted to manipulate [get_access_desc(access_type)](CentCom access) of [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)]. This shouldn't happen, and investigate what's going on... This seems to be href exploit.")
 				return
-			if(access_type in target_id_card.access)
-				target_id_card.access -= access_type
-				log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			var/access_source = get_log_source(user_id_card)
+			if(access_type in target_id_card.GetAccess())
+				target_id_card.remove_console_access(list(access_type), access_source, usr)
 			else
-				target_id_card.access |= access_type
-				log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				target_id_card.add_console_access(list(access_type), access_source, usr)
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access |= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
-			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.add_console_access(is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses(), get_log_source(user_id_card), usr)
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.access -= (is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses())
-			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.remove_console_access(is_centcom ? get_all_centcom_access()+get_all_accesses() : get_all_accesses(), get_log_source(user_id_card), usr)
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_grantregion")
@@ -226,8 +213,7 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.access |= dept_datum.access_list
-			log_id("[key_name(usr)] granted [dept_datum.access_group_name] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.add_console_access(dept_datum.access_list, get_log_source(user_id_card), usr)
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyregion")
@@ -237,12 +223,14 @@
 			if(isnull(region))
 				return
 			var/datum/department_group/dept_datum = SSdepartment.get_department_by_bitflag(accessible_region_bitflag)[1]
-			target_id_card.access -= dept_datum.access_list
-			log_id("[key_name(usr)] removed [dept_datum.access_group_name] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.remove_console_access(dept_datum.access_list, get_log_source(user_id_card), usr)
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 
 
+
+/datum/computer_file/program/card_mod/proc/get_log_source(obj/item/card/id/user_id_card)
+	return "[user_id_card] via a portable ID console"
 
 /datum/computer_file/program/card_mod/ui_static_data(mob/user)
 	var/list/data = list()
@@ -316,8 +304,8 @@
 	data["has_id"] = !!id_card
 	data["id_name"] = id_card ? id_card.name : "-----"
 	if(id_card)
-		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
+		data["id_rank"] = id_card.get_assignment() || "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
-		data["access_on_card"] = id_card.access
+		data["access_on_card"] = id_card.GetAccess()
 
 	return data

@@ -321,6 +321,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if((R.name == mob_occupant.real_name))
 			announce_rank = R.rank
 			qdel(R)
+	SSjob.end_acting_heads_for(mob_occupant.real_name, "[mob_occupant.real_name] entered cryogenic storage")
 
 
 	for(var/obj/machinery/computer/cloning/cloner as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/cloning))
