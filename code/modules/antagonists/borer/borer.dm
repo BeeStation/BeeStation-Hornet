@@ -113,6 +113,11 @@
 	. = ..()
 	.["briefing"] = briefing
 
+/datum/antagonist/borer/ui_status(mob/user, datum/ui_state/state)
+	if(!isobserver(user) && user.mind != owner)
+		return UI_CLOSE
+	return ..()
+
 /datum/objective/lay_borer_egg
 	name = "lay a borer egg"
 	explanation_text = "Lay at least one egg."
@@ -232,6 +237,8 @@
 	var/datum/action/innate/borer_release_control/release_control_action
 	/// Whether the borer mind is controlling the host body.
 	var/controlling_host = FALSE
+	/// Holds the host's mind while the borer controls their body.
+	var/mob/living/borer_host/host_backseat
 	var/host_actions_suspended = FALSE
 	var/hiding = FALSE
 	var/camera_hidden = FALSE
@@ -513,9 +520,8 @@
 		controlling_host = FALSE
 		update_borer_actions()
 		return FALSE
-	if(!swap_host_minds())
+	if(!transfer_host_control())
 		return FALSE
-	controlling_host = FALSE
 	update_borer_actions()
 	to_chat(src, span_notice("You release control of your host."))
 	to_chat(host, span_notice("You regain control of your body."))
@@ -531,27 +537,37 @@
 		to_chat(src, span_warning("You need [control_activation_cost] chemicals to seize control of your host."))
 		return FALSE
 	adjust_chemicals(-control_activation_cost)
-	if(!swap_host_minds())
+	if(!transfer_host_control())
 		adjust_chemicals(control_activation_cost)
 		return FALSE
-	controlling_host = TRUE
 	update_borer_actions()
 	to_chat(host, span_userdanger("You seize control of your host's body. Your chemical reserve begins to drain."))
-	to_chat(src, span_userdanger("Your cortical borer has seized control of your body!"))
+	to_chat(host_backseat, span_userdanger("Your cortical borer has seized control of your body! You can only observe until it releases control."))
 	return TRUE
 
-/// Swaps the minds occupying the borer and host bodies.
-/mob/living/simple_animal/borer/proc/swap_host_minds()
-	if(!host || !mind || !host.mind)
+/// Moves the host into a passive backseat instead of the borer's body.
+/mob/living/simple_animal/borer/proc/transfer_host_control()
+	if(!host)
 		return FALSE
+	if(controlling_host)
+		if(!host.mind || !host_backseat?.mind)
+			return FALSE
+		var/datum/mind/borer_mind = host.mind
+		var/datum/mind/host_mind = host_backseat.mind
+		borer_mind.transfer_to(src)
+		host_mind.transfer_to(host)
+		controlling_host = FALSE
+		QDEL_NULL(host_backseat)
+		return TRUE
+	if(!mind || !host.mind)
+		return FALSE
+	// Vacate each destination before transferring the other mind and its UIs.
 	var/datum/mind/borer_body_mind = mind
 	var/datum/mind/host_body_mind = host.mind
-	var/host_body_key = host.key
+	host_backseat = new(host)
+	host_body_mind.transfer_to(host_backseat)
 	borer_body_mind.transfer_to(host)
-	host_body_mind.transfer_to(src)
-	// Restore the host body's key if the second transfer did not reclaim it.
-	if(host_body_key)
-		key = host_body_key
+	controlling_host = TRUE
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/has_evolution(evolution_type)
@@ -761,6 +777,28 @@
 
 #undef FORMAT_BORER_CHEMICALS_TEXT
 #undef FORMAT_BORER_EVOLUTION_TEXT
+
+/mob/living/borer_host
+	name = "suppressed consciousness"
+	real_name = "suppressed consciousness"
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/borer_host)
+
+/mob/living/borer_host/Initialize(mapload)
+	. = ..()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/body = loc
+		name = body.real_name
+		real_name = body.real_name
+		set_mob_eye_to(body)
+
+/mob/living/borer_host/try_speak(message, ignore_spam, forced, filterproof)
+	SHOULD_CALL_PARENT(FALSE)
+	to_chat(src, span_warning("You cannot speak while the cortical borer controls your body!"))
+	return FALSE
+
+/mob/living/borer_host/emote(act, type_override = NONE, message = null, intentional = FALSE, force_silence = FALSE, forced = FALSE)
+	return FALSE
 
 /obj/item/food/borer_egg
 	name = "borer egg"

@@ -75,3 +75,41 @@
 	TEST_ASSERT_EQUAL(cyst.bodypart_owner, host.get_bodypart(BODY_ZONE_CHEST), "Migration did not move the cyst into the chest.")
 	TEST_ASSERT_NULL(host.get_cortical_borer(BODY_ZONE_L_ARM), "Migration left a borer in the old zone.")
 	TEST_ASSERT_EQUAL(host.get_cortical_borer(BODY_ZONE_CHEST), borer, "Migration did not register the borer in the new zone.")
+
+/// Possession must not grant the host the borer's role or antagonist information.
+/datum/unit_test/borer_host_control
+
+/datum/unit_test/borer_host_control/Run()
+	var/mob/living/carbon/human/host = allocate(/mob/living/carbon/human/consistent)
+	var/mob/living/simple_animal/borer/borer = allocate(/mob/living/simple_animal/borer)
+	var/obj/item/organ/borer_cyst/cyst = allocate(/obj/item/organ/borer_cyst)
+	host.mind_initialize()
+	borer.mind_initialize()
+	var/datum/mind/host_mind = host.mind
+	var/datum/mind/borer_mind = borer.mind
+	var/datum/antagonist/borer/antag = borer_mind.has_antag_datum(/datum/antagonist/borer)
+	TEST_ASSERT_NOTNULL(antag, "The borer did not receive its antagonist datum.")
+	cyst.configure(borer, BODY_ZONE_HEAD)
+	TEST_ASSERT(cyst.Insert(host), "Cyst insertion failed.")
+
+	for(var/cycle in 1 to 2)
+		TEST_ASSERT(borer.transfer_host_control(), "Could not transfer control to the borer on cycle [cycle].")
+		TEST_ASSERT_EQUAL(host.mind, borer_mind, "The borer's mind did not move into the host.")
+		TEST_ASSERT_EQUAL(host_mind.current, borer.host_backseat, "The host's mind did not move into the passive backseat.")
+		TEST_ASSERT_NULL(borer.mind, "The host's mind was moved into the borer's body.")
+		// Login initializes the mind again when a player enters the backseat.
+		borer.host_backseat.mind_initialize()
+		TEST_ASSERT(!host_mind.has_antag_datum(/datum/antagonist/borer), "Possession gave the host a borer antagonist datum.")
+		TEST_ASSERT_EQUAL(antag.owner, borer_mind, "Possession changed the borer antagonist's owner.")
+		TEST_ASSERT_EQUAL(antag.ui_status(borer.host_backseat, GLOB.always_state), UI_CLOSE, "The host can access the borer's antagonist UI.")
+		TEST_ASSERT_EQUAL(antag.ui_status(host, GLOB.always_state), UI_INTERACTIVE, "The controlling borer cannot access its antagonist UI.")
+		TEST_ASSERT(!borer.host_backseat.try_speak("test"), "The suppressed host can speak.")
+		TEST_ASSERT(!borer.host_backseat.emote("wave"), "The suppressed host can emote.")
+
+		TEST_ASSERT(borer.release_host_control(), "Could not release host control on cycle [cycle].")
+		TEST_ASSERT_EQUAL(host.mind, host_mind, "Release did not restore the host's mind.")
+		TEST_ASSERT_EQUAL(borer.mind, borer_mind, "Release did not restore the borer's mind.")
+		TEST_ASSERT_NULL(borer.host_backseat, "Release retained the host's backseat.")
+		TEST_ASSERT(!borer.controlling_host, "Release did not clear the control flag.")
+		TEST_ASSERT(!host_mind.has_antag_datum(/datum/antagonist/borer), "Release left a borer antagonist datum on the host.")
+		TEST_ASSERT_EQUAL(antag.ui_status(host, GLOB.always_state), UI_CLOSE, "The host can access borer information after release.")
