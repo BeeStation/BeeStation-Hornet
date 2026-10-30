@@ -162,6 +162,7 @@
 
 
 /datum/record/crew/proc/get_acting_job()
+	RETURN_TYPE(/datum/job)
 	return SSjob.get_acting_head_for(name)?.job
 
 /datum/record/crew/proc/get_info_list()

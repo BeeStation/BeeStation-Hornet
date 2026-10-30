@@ -904,6 +904,7 @@ SUBSYSTEM_DEF(job)
 
 /// The acting appointment on a card registered to this name, if any
 /datum/controller/subsystem/job/proc/get_acting_head_for(name)
+	RETURN_TYPE(/datum/access_grant/acting_head)
 	for(var/datum/access_grant/acting_head/acting_head as anything in acting_heads)
 		if(acting_head.card?.registered_name == name)
 			return acting_head

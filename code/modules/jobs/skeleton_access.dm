@@ -9,7 +9,7 @@
 	/// Covers every job in this department instead of covered_jobs
 	var/datum/department_group/covered_department
 	var/list/access
-	/// The rule is off once the crew count reaches this
+	/// The rule is off once the crew count reaches this. apply mostly to whole station than department specific
 	var/population_limit = LOWPOP_JOB_LIMIT
 	/// Includes the grace period. Change it with set_enabled()
 	var/enabled = FALSE
@@ -71,11 +71,14 @@
 /datum/skeleton_access/proc/timing_text()
 	if(revoking)
 		return "handing over in [DisplayTimeText(timeleft(timer_id))]"
+	var/list/endings = list()
 	if(covered_department)
-		return "ends when department has staff or total crew reaches [population_limit]"
-	if(length(covered_jobs))
-		return "ends when position has staff or total crew reaches [population_limit]"
-	return "ends when total crew reaches [population_limit]"
+		endings += "department has staff"
+	else if(length(covered_jobs))
+		endings += "position has staff"
+	if(population_limit != INFINITY)
+		endings += "total crew reaches [population_limit]"
+	return "ends when [jointext(endings, " or ")]"
 
 /// Turning off waits out HANDOVER_GRACE_PERIOD
 /datum/skeleton_access/proc/refresh(mob/living/arrival)
@@ -156,6 +159,7 @@
 	abstract_type = /datum/skeleton_access/engineering
 	department = /datum/department_group/engineering
 	recipients = list(JOB_NAME_STATIONENGINEER)
+	population_limit = INFINITY
 
 /datum/skeleton_access/engineering/chief_engineer
 	covered_jobs = list(JOB_NAME_CHIEFENGINEER)
@@ -170,12 +174,12 @@
 	recipients = list(JOB_NAME_ATMOSPHERICTECHNICIAN)
 	covered_jobs = list(JOB_NAME_STATIONENGINEER, JOB_NAME_CHIEFENGINEER)
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE)
-	population_limit = INFINITY
 
 /datum/skeleton_access/medical
 	abstract_type = /datum/skeleton_access/medical
 	department = /datum/department_group/medical
 	recipients = list(JOB_NAME_MEDICALDOCTOR)
+	population_limit = INFINITY
 
 /datum/skeleton_access/medical/chief_medical_officer
 	covered_jobs = list(JOB_NAME_CHIEFMEDICALOFFICER)
@@ -199,6 +203,7 @@
 	abstract_type = /datum/skeleton_access/science
 	department = /datum/department_group/science
 	recipients = list(JOB_NAME_SCIENTIST)
+	population_limit = INFINITY
 
 /datum/skeleton_access/science/research_director
 	covered_jobs = list(JOB_NAME_RESEARCHDIRECTOR)
@@ -220,11 +225,13 @@
 
 /datum/skeleton_access/science/tech_storage
 	access = list(ACCESS_TECH_STORAGE)
+	population_limit = LOWPOP_JOB_LIMIT
 
 /datum/skeleton_access/security
 	abstract_type = /datum/skeleton_access/security
 	department = /datum/department_group/security
 	recipients = list(JOB_NAME_SECURITYOFFICER)
+	population_limit = INFINITY
 
 /datum/skeleton_access/security/armory
 	covered_jobs = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN)
@@ -241,15 +248,18 @@
 
 /datum/skeleton_access/security/maintenance
 	access = list(ACCESS_MAINT_TUNNELS)
+	population_limit = LOWPOP_JOB_LIMIT
 
 /datum/skeleton_access/cargo
 	abstract_type = /datum/skeleton_access/cargo
 	department = /datum/department_group/cargo
 	recipients = list(JOB_NAME_CARGOTECHNICIAN)
+	population_limit = INFINITY
 
 /datum/skeleton_access/cargo/quartermaster
 	covered_jobs = list(JOB_NAME_QUARTERMASTER)
 	access = list(ACCESS_QM, ACCESS_VAULT)
+	population_limit = LOWPOP_JOB_LIMIT
 
 /datum/skeleton_access/cargo/shaft_miner
 	covered_jobs = list(JOB_NAME_SHAFTMINER)
@@ -262,6 +272,7 @@
 
 /datum/skeleton_access/cargo/gateway
 	access = list(ACCESS_GATEWAY)
+	population_limit = LOWPOP_JOB_LIMIT
 
 /datum/skeleton_access/service
 	abstract_type = /datum/skeleton_access/service

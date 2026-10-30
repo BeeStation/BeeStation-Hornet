@@ -345,6 +345,7 @@
 
 /// Replaces any current acting role
 /obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
+	RETURN_TYPE(/datum/access_grant/acting_head)
 	// Replacing it would restart skeleton crew handovers for this job
 	if(acting_head?.job.type == head_job.type && !acting_head.revoking)
 		return acting_head
@@ -444,6 +445,7 @@
  * * duration - lifespan in deciseconds. 0 or null means indefinite
  */
 /obj/item/card/id/proc/grant_temporary_access(list/access_to_grant, source, mob/user, duration)
+	RETURN_TYPE(/datum/access_grant)
 	var/list/new_access = access_to_grant - GetAccess()
 	var/datum/access_grant/grant = new(src, access_to_grant, source, duration)
 	var/access_desc = get_access_desc(grant.access)
