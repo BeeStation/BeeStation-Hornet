@@ -20,7 +20,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #define MEDBOT_HEAL_BURN (1<<1)
 #define MEDBOT_HEAL_TOXIN (1<<2)
 #define MEDBOT_HEAL_OXY (1<<3)
-#define MEDBOT_HEAL_ALL (MEDBOT_HEAL_BRUTE | MEDBOT_HEAL_BURN | MEDBOT_HEAL_TOXIN | MEDBOT_HEAL_OXY)
+#define MEDBOT_HEAL_TOTAL (1<<4)
+#define MEDBOT_HEAL_ALL (MEDBOT_HEAL_BRUTE | MEDBOT_HEAL_BURN | MEDBOT_HEAL_TOXIN | MEDBOT_HEAL_OXY | MEDBOT_HEAL_TOTAL)
 
 
 /mob/living/simple_animal/bot/medbot
@@ -56,7 +57,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
 	var/heal_threshold = 95 //Start healing when they have this much total damage
-	///Which damage types are checked individually
+	///Which damage checks are enabled to be checked
 	var/heal_damage_flags = MEDBOT_HEAL_ALL
 	///Start healing when the patient has at least this much brute damage
 	var/heal_threshold_brute = 30
@@ -217,11 +218,13 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 			"total_volume" = reagent_glass?.reagents.total_volume,
 			"maximum_volume" = reagent_glass?.reagents.maximum_volume
 		)
+		data["custom_controls"]["heal_threshold"] = heal_threshold
 		data["custom_controls"]["heal_threshold_brute"] = heal_threshold_brute
 		data["custom_controls"]["heal_threshold_burn"] = heal_threshold_burn
 		data["custom_controls"]["heal_threshold_toxin"] = heal_threshold_toxin
 		data["custom_controls"]["heal_threshold_oxy"] = heal_threshold_oxy
 		data["custom_controls"]["heal_types"] = list(
+			"total" = !!(heal_damage_flags & MEDBOT_HEAL_TOTAL),
 			"brute" = !!(heal_damage_flags & MEDBOT_HEAL_BRUTE),
 			"burn" = !!(heal_damage_flags & MEDBOT_HEAL_BURN),
 			"toxin" = !!(heal_damage_flags & MEDBOT_HEAL_TOXIN),
@@ -250,6 +253,8 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 				return
 			adjust_num = clamp(round(adjust_num), MEDBOT_THRESHOLD_MIN, MEDBOT_THRESHOLD_MAX)
 			switch(params["damage_type"])
+				if("total")
+					heal_threshold = adjust_num
 				if("brute")
 					heal_threshold_brute = adjust_num
 				if("burn")
@@ -260,6 +265,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 					heal_threshold_oxy = adjust_num
 		if("heal_type")
 			var/static/list/type_flags = list(
+				"total" = MEDBOT_HEAL_TOTAL,
 				"brute" = MEDBOT_HEAL_BRUTE,
 				"burn" = MEDBOT_HEAL_BURN,
 				"toxin" = MEDBOT_HEAL_TOXIN,
@@ -580,7 +586,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 
 /// Returns TRUE if total damage, or any damage type is at/above the defined threshold
 /mob/living/simple_animal/bot/medbot/proc/exceeds_heal_threshold(mob/living/carbon/C)
-	if(C.maxHealth - C.health >= heal_threshold)
+	if((heal_damage_flags & MEDBOT_HEAL_TOTAL) && C.maxHealth - C.health >= heal_threshold)
 		return TRUE
 	if((heal_damage_flags & MEDBOT_HEAL_BRUTE) && C.getBruteLoss() >= heal_threshold_brute)
 		return TRUE
@@ -820,3 +826,4 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 #undef MEDBOT_HEAL_TOXIN
 #undef MEDBOT_HEAL_OXY
 #undef MEDBOT_HEAL_ALL
+#undef MEDBOT_HEAL_TOTAL

@@ -48,7 +48,7 @@ export const SimpleBot = (_) => {
   const access = !locked || can_hack;
 
   return (
-    <Window width={450} height={400}>
+    <Window width={550} height={400}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -210,10 +210,11 @@ const SettingsDisplay = (_) => {
 };
 
 const THRESHOLD_STYLE = {
-  heal_threshold_brute: { label: 'Brute', color: 'red', dim: 'brown' },
+  heal_threshold_brute: { label: 'Brute', color: 'red', dim: 'maroon' },
   heal_threshold_burn: { label: 'Burn', color: 'orange', dim: 'yellow' },
   heal_threshold_toxin: { label: 'Toxin', color: 'green', dim: 'olive' },
   heal_threshold_oxy: { label: 'Suffocation', color: 'blue', dim: 'teal' },
+  heal_threshold: { label: 'Total', color: 'white', dim: 'gray' },
 };
 
 /** Iterates over custom controls.
@@ -227,11 +228,11 @@ const ControlsDisplay = (_) => {
     string,
     boolean
   >;
-  const thresholds = entries.filter(([key]) =>
-    key.startsWith('heal_threshold_'),
-  );
+  const isThreshold = (key: string) =>
+    key === 'heal_threshold' || key.startsWith('heal_threshold_');
+  const thresholds = entries.filter(([key]) => isThreshold(key));
   const others = entries.filter(
-    ([key]) => !key.startsWith('heal_threshold_') && key !== 'heal_types',
+    ([key]) => !isThreshold(key) && key !== 'heal_types',
   );
 
   return (
@@ -240,7 +241,10 @@ const ControlsDisplay = (_) => {
         <Section title="Healing Threshold">
           <LabeledControls>
             {thresholds.map((control, i) => {
-              const damageType = control[0].replace('heal_threshold_', '');
+              const damageType =
+                control[0] === 'heal_threshold'
+                  ? 'total'
+                  : control[0].replace('heal_threshold_', '');
               const style = THRESHOLD_STYLE[control[0]];
               return (
                 <Fragment key={control[0]}>
@@ -302,8 +306,8 @@ const ControlHelper = (props) => {
   if (control[0] === 'sync_tech') {
     /** Control is for sync - this is medbot specific */
     return <MedbotSync control={control} />;
-  } else if (control[0].startsWith('heal_threshold_')) {
-    /** Per-damage-type thresholds - this is medbot specific */
+  } else if (control[0] === 'heal_threshold' ||control[0].startsWith('heal_threshold_')) {
+    /** Damage thresholds, total and per type - this is medbot specific */
     return <MedbotThreshold control={control} />;
   } else if (control[0] === 'injection_amount') {
     /** Control is a threshold - this is medbot specific */
@@ -362,7 +366,7 @@ const MedbotSync = (props) => {
 const MedbotThreshold = (props) => {
   const { act } = useBackend<SimpleBotContext>();
   const { control } = props;
-  const damageType = control[0].replace('heal_threshold_', '');
+  const damageType =control[0] === 'heal_threshold'? 'total': control[0].replace('heal_threshold_', '');
   const style = THRESHOLD_STYLE[control[0]];
 
   return (
