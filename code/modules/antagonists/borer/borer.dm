@@ -701,11 +701,11 @@
 		log_talk(linked_message, LOG_SAY, tag = "cortical link")
 		relay_to_list_and_observers(rendered_link, borer_recipients, src)
 		return
-	to_chat(host, span_notice("<b>A voice in your mind:</b> \"[message]\""))
+	to_chat(host, span_borerhost("<b>A voice in your mind:</b> \"[message]\""))
 	for(var/mob/living/simple_animal/borer/other_borer in host.get_cortical_borers())
 		if(other_borer != src)
-			to_chat(other_borer, span_notice("<b>[real_name]</b> speaks within [host]: \"[message]\""))
-	to_chat(src, span_notice("You speak within [host]: \"[message]\""))
+			to_chat(other_borer, span_borerhost("<b>[real_name]</b> speaks within [host]: \"[message]\""))
+	to_chat(src, span_borerhost("You speak within [host]: \"[message]\""))
 	log_directed_talk(src, host, message, LOG_SAY, "borer host speech")
 	send_to_observers(span_notice("<b>[real_name]</b> speaks within <b>[host.real_name]</b>: \"[message]\""), src)
 	return TRUE

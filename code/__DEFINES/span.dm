@@ -46,6 +46,7 @@
 #define span_boldred(str) ("<span class='bold red'>" + (str) + "</span>")
 #define span_boldumbra(str) ("<span class='bold umbra'>" + (str) + "</span>")
 #define span_boldwarning(str) ("<span class='boldwarning'>" + (str) + "</span>")
+#define span_borerhost(str) ("<span class='notice corticallink big'>" + (str) + "</span>")
 #define span_brass(str) ("<span class='brass'>" + (str) + "</span>")
 #define span_changeling(str) ("<span class='changeling'>" + (str) + "</span>")
 #define span_clown(str) ("<span class='clown'>" + (str) + "</span>")
