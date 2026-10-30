@@ -306,7 +306,10 @@ const ControlHelper = (props) => {
   if (control[0] === 'sync_tech') {
     /** Control is for sync - this is medbot specific */
     return <MedbotSync control={control} />;
-  } else if (control[0] === 'heal_threshold' ||control[0].startsWith('heal_threshold_')) {
+  } else if (
+    control[0] === 'heal_threshold' ||
+    control[0].startsWith('heal_threshold_')
+  ) {
     /** Damage thresholds, total and per type - this is medbot specific */
     return <MedbotThreshold control={control} />;
   } else if (control[0] === 'injection_amount') {
@@ -366,7 +369,10 @@ const MedbotSync = (props) => {
 const MedbotThreshold = (props) => {
   const { act } = useBackend<SimpleBotContext>();
   const { control } = props;
-  const damageType =control[0] === 'heal_threshold'? 'total': control[0].replace('heal_threshold_', '');
+  const damageType =
+    control[0] === 'heal_threshold'
+      ? 'total'
+      : control[0].replace('heal_threshold_', '');
   const style = THRESHOLD_STYLE[control[0]];
 
   return (
