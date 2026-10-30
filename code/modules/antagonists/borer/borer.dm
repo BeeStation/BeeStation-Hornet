@@ -137,6 +137,8 @@
 	icon_state = "appendix"
 	organ_flags = ORGAN_ORGANIC
 	var/mob/living/simple_animal/borer/borer
+	/// Distinguishes full organ removal from losing the containing limb.
+	var/removing = FALSE
 
 /obj/item/organ/borer_cyst/proc/configure(mob/living/simple_animal/borer/new_borer, new_zone)
 	borer = new_borer
@@ -144,18 +146,26 @@
 	// Organ slots must be unique per body zone.
 	slot = "borer_cyst_[zone]"
 
-/obj/item/organ/borer_cyst/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/borer_cyst/on_mob_insert(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	. = ..()
 	borer?.bind_to_host(organ_owner, src)
 
-/obj/item/organ/borer_cyst/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/borer_cyst/Remove(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
+	removing = TRUE
+	. = ..()
+	removing = FALSE
 	if(!special)
 		borer?.detach(get_turf(organ_owner))
-	. = ..()
 
-/obj/item/organ/borer_cyst/transfer_to_limb(obj/item/bodypart/limb, mob/living/carbon/carbon_owner)
+/obj/item/organ/borer_cyst/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE, movement_flags)
 	. = ..()
-	borer?.on_limb_severed(limb)
+	if(!removing && borer)
+		borer.on_limb_severed(bodypart_owner)
+
+/obj/item/organ/borer_cyst/on_bodypart_remove(obj/item/bodypart/limb, movement_flags)
+	. = ..()
+	if(!removing && !owner)
+		borer?.detach(get_turf(limb))
 
 /mob/living/carbon/human/proc/get_cortical_borers()
 	var/list/borers = list()
@@ -384,7 +394,7 @@
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !istype(loc, /obj/machinery/atmospherics) || !(movement_type & VENTCRAWLING))
 		return
-	var/atom/movable/screen/plane_master/lighting = hud_used?.plane_masters["[LIGHTING_PLANE]"]
+	var/atom/movable/screen/plane_master/lighting = hud_used?.get_plane_master(LIGHTING_PLANE)
 	lighting?.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#4d4d4d")
 
 /// Updates the borer's hiding layer.
