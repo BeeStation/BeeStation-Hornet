@@ -296,11 +296,18 @@
 		COOLDOWN_START(src, alert_cooldown, CDR_ALERT_COOLDOWN + rand(-5, 5))
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/fail()
-	investigate_log("failed. The last person to use it was [last_user]", INVESTIGATE_ENGINES)
-	for(var/turf/nearby_turf in orange(CDR_DET_RADIUS, src))
-		for(var/obj/object in nearby_turf.contents)
-			SSexplosions.high_mov_atom += object
-		SSexplosions.highturf += nearby_turf
+
+	var/mass_mult = get_mass_multiplier()
+	if(mass_mult < 0.5)
+		for(var/turf/nearby_turf in orange(CDR_DET_RADIUS, src))
+			for(var/obj/object in nearby_turf.contents)
+				SSexplosions.high_mov_atom += object
+			SSexplosions.highturf += nearby_turf
+		investigate_log("failed and destroyed the area around it! The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+		qdel(src)
+		return
+	investigate_log("failed and spawned a temporary singularity! The last person to use it was [last_user]", INVESTIGATE_ENGINES)
+	new /obj/anomaly/singularity/stationary/temporary(get_turf(src), mass_mult * 200)
 	qdel(src)
 
 /obj/machinery/atmospherics/components/unary/cdr/proc/process_toroid()
