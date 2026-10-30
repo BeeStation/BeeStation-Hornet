@@ -265,8 +265,8 @@
 /// A hallucination of someone being hit with a stun prod, followed by cable cuffing.
 /datum/hallucination/battle/melee/stun_prod
 	attack_sound = 'sound/weapons/egloves.ogg'
-	miss_sound = ""
-	miss_chance = 30
+	miss_sound = 'sound/weapons/smash.ogg'
+	miss_chance = 10
 	number_of_hits_to_end = 2
 	chance_to_fall = 100
 	volume = 65
