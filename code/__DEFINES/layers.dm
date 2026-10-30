@@ -85,9 +85,10 @@
 #define SPACEVINE_MOB_LAYER 4.9
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
-#define MIMICKED_LIGHTING_LAYER 5.06
+#define ABOVE_GASFIRE_LAYER 5.06
+#define MIMICKED_LIGHTING_LAYER 5.07
 ///Overlay lights from below, drawn over the z-mimic lighting they share a shadow plane with
-#define MIMICKED_OVERLAY_LIGHTING_LAYER 5.07
+#define MIMICKED_OVERLAY_LIGHTING_LAYER 5.08
 #define RIPPLE_LAYER 5.1
 
 //---------- LIGHTING -------------
