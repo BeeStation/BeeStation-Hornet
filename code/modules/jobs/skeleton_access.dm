@@ -10,7 +10,7 @@
 	var/datum/department_group/covered_department
 	var/list/access
 	/// The rule is off once the crew count reaches this. apply mostly to whole station than department specific
-	var/population_limit = LOWPOP_JOB_LIMIT
+	var/population_limit = SKELETON_CREW_LIMIT
 	/// Includes the grace period. Change it with set_enabled()
 	var/enabled = FALSE
 	var/timer_id
@@ -225,7 +225,7 @@
 
 /datum/skeleton_access/science/tech_storage
 	access = list(ACCESS_TECH_STORAGE)
-	population_limit = LOWPOP_JOB_LIMIT
+	population_limit = SKELETON_CREW_LIMIT
 
 /datum/skeleton_access/security
 	abstract_type = /datum/skeleton_access/security
@@ -248,7 +248,7 @@
 
 /datum/skeleton_access/security/maintenance
 	access = list(ACCESS_MAINT_TUNNELS)
-	population_limit = LOWPOP_JOB_LIMIT
+	population_limit = SKELETON_CREW_LIMIT
 
 /datum/skeleton_access/cargo
 	abstract_type = /datum/skeleton_access/cargo
@@ -259,7 +259,7 @@
 /datum/skeleton_access/cargo/quartermaster
 	covered_jobs = list(JOB_NAME_QUARTERMASTER)
 	access = list(ACCESS_QM, ACCESS_VAULT)
-	population_limit = LOWPOP_JOB_LIMIT
+	population_limit = SKELETON_CREW_LIMIT
 
 /datum/skeleton_access/cargo/shaft_miner
 	covered_jobs = list(JOB_NAME_SHAFTMINER)
@@ -272,7 +272,7 @@
 
 /datum/skeleton_access/cargo/gateway
 	access = list(ACCESS_GATEWAY)
-	population_limit = LOWPOP_JOB_LIMIT
+	population_limit = SKELETON_CREW_LIMIT
 
 /datum/skeleton_access/service
 	abstract_type = /datum/skeleton_access/service

@@ -9,6 +9,8 @@
 #define STATION_UNLOCK_POPULATION 6
 // Roundstart population below this is lowpop
 #define LOWPOP_JOB_LIMIT 14
+/// Most non-departmental skeleton rulesets apply when below this pop
+#define SKELETON_CREW_LIMIT 10
 /// How long skeleton crew and acting head access lasts after the real staff arrive
 #define HANDOVER_GRACE_PERIOD (5 MINUTES)
 
