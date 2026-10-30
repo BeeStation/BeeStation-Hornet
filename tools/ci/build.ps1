@@ -4,6 +4,7 @@ if(!(Test-Path -Path "C:/byond")){
     Remove-Item C:/byond.zip
 }
 
+bash tools/ci/install_node.sh
 bash tools/build/build -Werror
 
 exit $LASTEXITCODE
