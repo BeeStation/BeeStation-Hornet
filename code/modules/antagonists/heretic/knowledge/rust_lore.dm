@@ -34,9 +34,9 @@
 	banned_knowledge = list(
 		/datum/heretic_knowledge/limited_amount/base_ash,
 		/datum/heretic_knowledge/limited_amount/base_flesh,
-		/datum/heretic_knowledge/final/ash_final,
-		/datum/heretic_knowledge/final/flesh_final,
-		/datum/heretic_knowledge/final/void_final,
+		/datum/heretic_knowledge/ultimate/ash_final,
+		/datum/heretic_knowledge/ultimate/flesh_final,
+		/datum/heretic_knowledge/ultimate/void_final,
 		/datum/heretic_knowledge/limited_amount/base_void,
 		)
 	required_atoms = list(
@@ -247,14 +247,14 @@
 		The Blacksmith was gone, and you hold their blade. Champions of hope, the Rustbringer is nigh!"
 	next_knowledge = list(
 		/datum/heretic_knowledge/spell/cleave,
-		/datum/heretic_knowledge/final/rust_final,
+		/datum/heretic_knowledge/ultimate/rust_final,
 		/datum/heretic_knowledge/summon/rusty,
 	)
 	spell_to_add = /datum/action/spell/cone/staggered/entropic_plume
 	cost = 1
 	route = HERETIC_PATH_RUST
 
-/datum/heretic_knowledge/final/rust_final
+/datum/heretic_knowledge/ultimate/rust_final
 	name = "Rustbringer's Oath"
 	desc = "The ascension ritual of the Path of Rust. \
 		Bring three corpses to a transumation rune on the bridge of the station to complete the ritual. \
@@ -286,7 +286,7 @@
 		TRAIT_NOBREATH
 		)
 
-/datum/heretic_knowledge/final/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/rust_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(ritual_location)
 		var/area/our_area = get_area(loc)
 		if(!istype(our_area, ritual_location))
@@ -294,21 +294,21 @@
 			return FALSE
 	return ..()
 
-/datum/heretic_knowledge/final/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/ultimate/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	// This map doesn't have a Bridge, for some reason??
 	// Let them complete the ritual anywhere
 	if(!GLOB.areas_by_type[ritual_location])
 		ritual_location = null
 
-/datum/heretic_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	new /datum/rust_spread(loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
-/datum/heretic_knowledge/final/rust_final/on_lose(mob/user)
+/datum/heretic_knowledge/ultimate/rust_final/on_lose(mob/user)
 	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
@@ -316,7 +316,7 @@
  *
  * Gives our heretic ([source]) buffs if they stand on rust.
  */
-/datum/heretic_knowledge/final/rust_final/proc/on_move(mob/source, atom/old_loc, dir, forced, list/old_locs)
+/datum/heretic_knowledge/ultimate/rust_final/proc/on_move(mob/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
 
 	// If we're on a rusty turf, and haven't given out our traits, buff our guy
@@ -339,7 +339,7 @@
  *
  * Gradually heals the heretic ([source]) on rust.
  */
-/datum/heretic_knowledge/final/rust_final/proc/on_life(mob/living/source, delta_time, times_fired)
+/datum/heretic_knowledge/ultimate/rust_final/proc/on_life(mob/living/source, delta_time, times_fired)
 	SIGNAL_HANDLER
 
 	var/turf/our_turf = get_turf(source)

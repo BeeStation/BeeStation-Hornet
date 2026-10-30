@@ -1,9 +1,15 @@
 /// Xeno crawls from nearby vent, jumps at you, and goes back in.
 /datum/hallucination/xeno_attack
 	random_hallucination_weight = 2
+	var/leap_back_timer
+	var/crawl_timer
+
+	// The hallucinated xeno
+	var/obj/effect/client_image_holder/hallucination/xeno/fake_xeno
+	// The vent we spawn over
+	var/turf/xeno_attack_source
 
 /datum/hallucination/xeno_attack/start()
-	var/turf/xeno_attack_source
 	for(var/obj/machinery/atmospherics/components/unary/vent_pump/nearby_pump in orange(7, hallucinator))
 		if(nearby_pump.welded)
 			continue
@@ -15,7 +21,7 @@
 
 	feedback_details += "Vent Coords: ([xeno_attack_source.x], [xeno_attack_source.y], [xeno_attack_source.z])"
 
-	var/obj/effect/client_image_holder/hallucination/xeno/fake_xeno = new(xeno_attack_source, hallucinator, src)
+	fake_xeno = new(xeno_attack_source, hallucinator, src)
 	addtimer(CALLBACK(src, PROC_REF(leap_at_target), fake_xeno, xeno_attack_source), 1 SECONDS)
 	return TRUE
 
@@ -29,7 +35,7 @@
 
 	fake_xeno.set_leaping()
 	fake_xeno.throw_at(hallucinator, 7, 1, spin = FALSE, diagonals_first = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(leap_back_to_pump), fake_xeno), 1 SECONDS)
+	leap_back_timer = addtimer(CALLBACK(src, PROC_REF(leap_back_to_pump), fake_xeno, attack_source), 1 SECONDS, TIMER_STOPPABLE)
 
 /// Leaps from the hallucinator back to the vent.
 /datum/hallucination/xeno_attack/proc/leap_back_to_pump(obj/effect/client_image_holder/hallucination/xeno/fake_xeno, turf/attack_source)
@@ -39,9 +45,11 @@
 		qdel(src)
 		return
 
+	leap_back_timer = deltimer(leap_back_timer)
+
 	fake_xeno.set_leaping()
 	fake_xeno.throw_at(attack_source, 7, 1, spin = FALSE, diagonals_first = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(begin_crawling), fake_xeno), 1 SECONDS)
+	crawl_timer = addtimer(CALLBACK(src, PROC_REF(begin_crawling), fake_xeno), 1 SECONDS, TIMER_STOPPABLE)
 
 /// Mimics ventcrawling into the vent.
 /datum/hallucination/xeno_attack/proc/begin_crawling(obj/effect/client_image_holder/hallucination/xeno/fake_xeno)
@@ -85,6 +93,11 @@
 		span_warning("[hit_living] flails around wildly."),
 		span_userdanger("[name] pounces on you!"),
 	)
+
+	var/datum/hallucination/xeno_attack/owner = parent
+
+	if(!owner.leap_back_timer && owner.crawl_timer) //We hit the hallucinator while jumping back to the pump
+		owner.leap_back_timer = addtimer(CALLBACK(owner, TYPE_PROC_REF(/datum/hallucination/xeno_attack, leap_back_to_pump), owner.fake_xeno, owner.xeno_attack_source), 0.5 SECONDS, TIMER_STOPPABLE)
 
 /// Sets our icon to look like we're leaping.
 /obj/effect/client_image_holder/hallucination/xeno/proc/set_leaping()

@@ -36,9 +36,9 @@
 		/datum/heretic_knowledge/limited_amount/base_ash,
 		/datum/heretic_knowledge/limited_amount/base_flesh,
 		/datum/heretic_knowledge/limited_amount/base_rust,
-		/datum/heretic_knowledge/final/ash_final,
-		/datum/heretic_knowledge/final/flesh_final,
-		/datum/heretic_knowledge/final/rust_final,
+		/datum/heretic_knowledge/ultimate/ash_final,
+		/datum/heretic_knowledge/ultimate/flesh_final,
+		/datum/heretic_knowledge/ultimate/rust_final,
 	)
 	required_atoms = list(/obj/item/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
@@ -213,7 +213,7 @@
 	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
 		The Aristocrat reveals themself to me again. They tell me I am late. Their pull is immense, I cannot turn back."
 	next_knowledge = list(
-		/datum/heretic_knowledge/final/void_final,
+		/datum/heretic_knowledge/ultimate/void_final,
 		/datum/heretic_knowledge/spell/blood_siphon,
 		/datum/heretic_knowledge/summon/rusty
 	)
@@ -221,7 +221,7 @@
 	cost = 1
 	route = HERETIC_PATH_VOID
 
-/datum/heretic_knowledge/final/void_final
+/datum/heretic_knowledge/ultimate/void_final
 	name = "Waltz at the End of Time"
 	desc = "The ascension ritual of the Path of Void. \
 		Bring three corpses to a transumation rune in sub-zero temperatures to complete the ritual. \
@@ -239,7 +239,7 @@
 	///Reference to the ongoing voidstrom that surrounds the heretic
 	var/datum/weather/void_storm/storm
 
-/datum/heretic_knowledge/final/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(!isopenturf(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
@@ -251,7 +251,7 @@
 
 	return ..()
 
-/datum/heretic_knowledge/final/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
 
@@ -261,7 +261,7 @@
 	RegisterSignal(user, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
-/datum/heretic_knowledge/final/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/ultimate/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
 	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_LIVING_DEATH))
 	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
@@ -274,7 +274,7 @@
  *
  * Also starts storms in any area that doesn't have one.
  */
-/datum/heretic_knowledge/final/void_final/proc/on_life(mob/living/source, delta_time, times_fired)
+/datum/heretic_knowledge/ultimate/void_final/proc/on_life(mob/living/source, delta_time, times_fired)
 	SIGNAL_HANDLER
 
 	for(var/mob/living/carbon/close_carbon in view(5, source))
@@ -302,7 +302,7 @@
  *
  * Stop the storm when the heretic passes away.
  */
-/datum/heretic_knowledge/final/void_final/proc/on_death(datum/source)
+/datum/heretic_knowledge/ultimate/void_final/proc/on_death(datum/source)
 	SIGNAL_HANDLER
 
 	if(sound_loop)
