@@ -14,6 +14,15 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #define MEDBOT_TREAT_SUCK "suck"
 #define MEDBOT_TREAT_BANDAGE "bandage"
 
+#define MEDBOT_THRESHOLD_MIN 0
+#define MEDBOT_THRESHOLD_MAX 100
+#define MEDBOT_HEAL_BRUTE (1<<0)
+#define MEDBOT_HEAL_BURN (1<<1)
+#define MEDBOT_HEAL_TOXIN (1<<2)
+#define MEDBOT_HEAL_OXY (1<<3)
+#define MEDBOT_HEAL_TOTAL (1<<4)
+#define MEDBOT_HEAL_ALL (MEDBOT_HEAL_BRUTE | MEDBOT_HEAL_BURN | MEDBOT_HEAL_TOXIN | MEDBOT_HEAL_OXY | MEDBOT_HEAL_TOTAL)
+
 
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
@@ -47,7 +56,17 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/last_found = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
-	var/heal_threshold = 95 //Start healing when they have this much damage
+	var/heal_threshold = 95 //Start healing when they have this much total damage
+	///Which damage checks are enabled to be checked
+	var/heal_damage_flags = MEDBOT_HEAL_ALL
+	///Start healing when the patient has at least this much brute damage
+	var/heal_threshold_brute = 30
+	///Start healing when the patient has at least this much burn damage
+	var/heal_threshold_burn = 30
+	///Start healing when the patient has at least this much toxin damage
+	var/heal_threshold_toxin = 30
+	///Start healing when the patient has at least this much suffocation damage
+	var/heal_threshold_oxy = 30
 	var/efficiency = 1.1 //how much of the internal beaker gets used
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
@@ -87,13 +106,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	maxHealth = 40
 	radio_key = /obj/item/encryptionkey/syndicate
 	radio_channel = RADIO_CHANNEL_SYNDICATE
-	heal_threshold = 30
 	reagent_glass = new /obj/item/reagent_containers/cup/beaker/large/nanites
 	faction = list(FACTION_SYNDICATE, FACTION_NEUTRAL, FACTION_SILICON)
 
 /mob/living/simple_animal/bot/medbot/filled
 	skin = MEDBOT_SKIN_ADVANCED
-	heal_threshold = 30
 	declare_crit = TRUE
 	reagent_glass = new /obj/item/reagent_containers/chem_bag/triamed
 
@@ -202,7 +219,17 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 			"maximum_volume" = reagent_glass?.reagents.maximum_volume
 		)
 		data["custom_controls"]["heal_threshold"] = heal_threshold
-		data["custom_controls"]["injection_amount"] = injection_amount
+		data["custom_controls"]["heal_threshold_brute"] = heal_threshold_brute
+		data["custom_controls"]["heal_threshold_burn"] = heal_threshold_burn
+		data["custom_controls"]["heal_threshold_toxin"] = heal_threshold_toxin
+		data["custom_controls"]["heal_threshold_oxy"] = heal_threshold_oxy
+		data["custom_controls"]["heal_types"] = list(
+			"total" = !!(heal_damage_flags & MEDBOT_HEAL_TOTAL),
+			"brute" = !!(heal_damage_flags & MEDBOT_HEAL_BRUTE),
+			"burn" = !!(heal_damage_flags & MEDBOT_HEAL_BURN),
+			"toxin" = !!(heal_damage_flags & MEDBOT_HEAL_TOXIN),
+			"oxy" = !!(heal_damage_flags & MEDBOT_HEAL_OXY),
+		)
 		data["custom_controls"]["speaker"] = !shut_up
 		data["custom_controls"]["crit_alerts"] = declare_crit
 		data["custom_controls"]["stationary_mode"] = stationary_mode
@@ -220,13 +247,33 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 				reagent_glass.forceMove(drop_location())
 				reagent_glass = null
 				update_icon()
-		if("heal_threshold")
-			var/adjust_num = round(text2num(params["threshold"]))
-			heal_threshold = adjust_num
-			if(heal_threshold < 5)
-				heal_threshold = 5
-			if(heal_threshold > 120)
-				heal_threshold = 120
+		if("heal_threshold_type")
+			var/adjust_num = text2num(params["threshold"])
+			if(isnull(adjust_num))
+				return
+			adjust_num = clamp(round(adjust_num), MEDBOT_THRESHOLD_MIN, MEDBOT_THRESHOLD_MAX)
+			switch(params["damage_type"])
+				if("total")
+					heal_threshold = adjust_num
+				if("brute")
+					heal_threshold_brute = adjust_num
+				if("burn")
+					heal_threshold_burn = adjust_num
+				if("toxin")
+					heal_threshold_toxin = adjust_num
+				if("oxy")
+					heal_threshold_oxy = adjust_num
+		if("heal_type")
+			var/static/list/type_flags = list(
+				"total" = MEDBOT_HEAL_TOTAL,
+				"brute" = MEDBOT_HEAL_BRUTE,
+				"burn" = MEDBOT_HEAL_BURN,
+				"toxin" = MEDBOT_HEAL_TOXIN,
+				"oxy" = MEDBOT_HEAL_OXY,
+			)
+			var/flag = type_flags[params["damage_type"]]
+			if(flag)
+				heal_damage_flags ^= flag
 		if("injection_amount")
 			var/adjust_num = round(text2num(params["inject"]))
 			injection_amount = adjust_num
@@ -537,6 +584,20 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 
 	return
 
+/// Returns TRUE if total damage, or any damage type is at/above the defined threshold
+/mob/living/simple_animal/bot/medbot/proc/exceeds_heal_threshold(mob/living/carbon/C)
+	if((heal_damage_flags & MEDBOT_HEAL_TOTAL) && C.maxHealth - C.health >= heal_threshold)
+		return TRUE
+	if((heal_damage_flags & MEDBOT_HEAL_BRUTE) && C.getBruteLoss() >= heal_threshold_brute)
+		return TRUE
+	if((heal_damage_flags & MEDBOT_HEAL_BURN) && C.getFireLoss() >= heal_threshold_burn)
+		return TRUE
+	if((heal_damage_flags & MEDBOT_HEAL_TOXIN) && C.getToxLoss() >= heal_threshold_toxin)
+		return TRUE
+	if((heal_damage_flags & MEDBOT_HEAL_OXY) && C.getOxyLoss() >= heal_threshold_oxy)
+		return TRUE
+	return FALSE
+
 /mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
 	//Time to see if they need medical help!
 	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
@@ -583,7 +644,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 		if(C.reagents.has_reagent(R.type))
 			return FALSE
 
-	if(C.maxHealth - C.health >= heal_threshold) // a true patient
+	if(exceeds_heal_threshold(C)) // a true patient
 		return TRUE
 
 	return FALSE // we shouldn't get random TRUE cases
@@ -648,8 +709,8 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 					break
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
-			if(C.maxHealth - C.get_organic_health() < heal_threshold)
-				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)"))
+			if(!exceeds_heal_threshold(C))
+				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] total damage, or [heal_threshold_brute] brute, [heal_threshold_burn] burn, [heal_threshold_toxin] toxin or [heal_threshold_oxy] suffocation damage."))
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)
 			speak(message, radio_channel)
@@ -744,6 +805,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
+
 #undef MEDBOT_PANIC_NONE
 #undef MEDBOT_PANIC_LOW
 #undef MEDBOT_PANIC_MED
@@ -755,3 +817,13 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 #undef MEDBOT_TREAT_INJECT
 #undef MEDBOT_TREAT_SUCK
 #undef MEDBOT_TREAT_BANDAGE
+
+#undef MEDBOT_THRESHOLD_MIN
+#undef MEDBOT_THRESHOLD_MAX
+
+#undef MEDBOT_HEAL_BRUTE
+#undef MEDBOT_HEAL_BURN
+#undef MEDBOT_HEAL_TOXIN
+#undef MEDBOT_HEAL_OXY
+#undef MEDBOT_HEAL_ALL
+#undef MEDBOT_HEAL_TOTAL
