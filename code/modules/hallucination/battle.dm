@@ -101,7 +101,7 @@
 /datum/hallucination/battle/gun/ballistic
 	shots_to_fire_lower_range = 3
 	shots_to_fire_upper_range = 6
-	fire_sound = list(
+	fire_sound = list( // someone port sound keys
 		'sound/weapons/shotgunshot.ogg',
 		'sound/weapons/revolver38shot.ogg',
 		'sound/weapons/revolver357shot.ogg',

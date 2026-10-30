@@ -48,7 +48,7 @@
 			qdel(instance)
 
 	// Unfortunately, this will not be synced if mass hallucinated
-	var/mob/living/carbon/human/totally_real_heretic = hallucinator
+	var/mob/living/carbon/human/totally_real_heretic = random_non_sec_crewmember()
 	if(!totally_real_heretic)
 		return FALSE
 
@@ -77,7 +77,8 @@
 	var/area/fake_summon_area = GLOB.areas_by_type[fake_summon_area_type]
 
 	priority_announce("Figments from an eldritch god are being summoned by [totally_real_cult_leader.real_name] into [fake_summon_area] from an unknown dimension. Disrupt the ritual at all costs!",
-		"Central Command Higher Dimensional Affairs", 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg')
+		"Central Command Higher Dimensional Affairs", 'sound/effects/antag/bloodcult/bloodcult_scribe.ogg',
+		players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/meteors
@@ -85,7 +86,7 @@
 
 /datum/hallucination/station_message/meteors/start()
 	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 10 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.",
-		"Meteor Alert", ANNOUNCER_METEORS)
+		"Meteor Alert", ANNOUNCER_METEORS, players = list(hallucinator))
 	return ..()
 
 /datum/hallucination/station_message/supermatter_delam

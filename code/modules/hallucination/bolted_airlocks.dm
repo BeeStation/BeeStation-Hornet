@@ -1,4 +1,4 @@
-/datum/hallucination/bolts //see if it's possible to prevent the airlock from working for you
+/datum/hallucination/bolts
 	random_hallucination_weight = 7
 	/// A list of weakrefs to airlocks we bolt down around us
 	var/list/datum/weakref/airlocks_to_hit

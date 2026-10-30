@@ -19,16 +19,3 @@
 		new /mob/living/simple_animal/hostile/floor_cluwne(T)
 	log_admin("[key_name(usr)] spawned floor cluwne.")
 	message_admins("[key_name(usr)] spawned floor cluwne.")
-
-/client/proc/hallucinate()
-	set category = "Fun"
-	set name = "Debug some hallucination"
-	set desc = "Pick a specific target or just let it select randomly and spawn the floor cluwne mob on the station. Be warned: spawning more than one may cause issues!"
-
-	var/list/halluc = list()
-	for(var/hallucination in subtypesof(/datum/hallucination))
-		halluc += hallucination
-	var/mob/living/target = src.mob
-	var/list/sel_hal = list(tgui_input_list(target, "select a hallucination", "asdqwe", halluc, /datum/hallucination), target)
-
-	target._cause_hallucination(sel_hal)
