@@ -185,7 +185,7 @@
 
 /obj/machinery/power/apc/on_emag(mob/user)
 	..()
-	flick("apc-spark", src)
+	z_flick("apc-spark", src)
 	playsound(src, "sparks", 75, 1)
 	locked = FALSE
 	wires.ui_update()

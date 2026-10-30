@@ -8,7 +8,7 @@
 		if(istype(J) && J.use_ion_trail)
 			// Render particles to show we are using fuel
 			var/obj/effect/particle_effect/ion_trails/E = new(get_turf(src))
-			flick("ion_fade", E)
+			z_flick("ion_fade", E)
 			E.icon_state = ""
 			QDEL_IN(E, 5)
 		return FALSE

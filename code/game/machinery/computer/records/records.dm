@@ -21,6 +21,10 @@
 
 /obj/machinery/computer/records/ui_close(mob/user)
 	. = ..()
+	// The preview gets sticky when swapping users and keeping old users prefs, KEEP THIS SO THEY DETACH!!!11!
+	var/atom/movable/screen/map_view/character_preview_view/user_view = user.client?.screen_maps[USER_PREVIEW_ASSIGNED_VIEW(user.ckey)]?[1]
+	if(istype(user_view))
+		qdel(user_view)
 	user.client?.screen_maps -= USER_PREVIEW_ASSIGNED_VIEW(user.ckey)
 	if((LAZYLEN(open_uis) <= 1) && character_preview_view) //only delete the preview if we're the last one to close the console.
 		QDEL_NULL(character_preview_view)
