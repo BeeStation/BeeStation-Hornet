@@ -38,11 +38,17 @@
 	var/static/list/announcement_info = list()
 
 /datum/hallucination/station_message/heretic/start()
-	for(var/ascension_path in subtypesof(/datum/heretic_knowledge/final))
-		announcement_info[ascension_path:announcement_text] = ascension_path:announcement_sound //bad
+	if(!length(announcement_info))
+		for(var/ascension in subtypesof(/datum/heretic_knowledge/ultimate))
+			var/datum/heretic_knowledge/ultimate/instance = new ascension()
+			var/text = instance.announcement_text
+			var/sound = instance.announcement_sound
+			if(text && sound)
+				announcement_info[text] = sound
+			qdel(instance)
 
 	// Unfortunately, this will not be synced if mass hallucinated
-	var/mob/living/carbon/human/totally_real_heretic = random_non_sec_crewmember()
+	var/mob/living/carbon/human/totally_real_heretic = hallucinator
 	if(!totally_real_heretic)
 		return FALSE
 
