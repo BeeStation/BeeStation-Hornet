@@ -1,6 +1,16 @@
-import { classes } from '../../common/react';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Knob, Section, Slider, Stack, Tabs } from '../components';
+import { createContext, useContext, useState } from 'react';
+import {
+  Box,
+  Button,
+  Knob,
+  Section,
+  Slider,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 enum Direction {
@@ -26,9 +36,7 @@ type LightTemplate = {
   id: TemplateID;
 };
 
-interface CategoryList {
-  [key: string]: TemplateID[];
-}
+type CategoryList = Record<string, TemplateID[]>;
 
 type Data = {
   templates: LightTemplate[];
@@ -37,17 +45,12 @@ type Data = {
   category_ids: CategoryList;
 };
 
-export const LightSpawn = (props, context) => {
-  const { act, data } = useBackend<Data>();
+export function LightSpawn(props) {
+  const { data } = useBackend<Data>();
   const { templates = [], default_id, default_category, category_ids } = data;
-  const [currentTemplate, setCurrentTemplate] = useLocalState<string>(
-    'currentTemplate',
-    default_id
-  );
-  const [currentCategory, setCurrentCategory] = useLocalState<string>(
-    'currentCategory',
-    default_category
-  );
+
+  const [currentTemplate, setCurrentTemplate] = useState(default_id);
+  const [currentCategory, setCurrentCategory] = useState(default_category);
 
   const category_keys = category_ids ? Object.keys(category_ids) : [];
 
@@ -65,7 +68,8 @@ export const LightSpawn = (props, context) => {
                     onClick={() => setCurrentCategory(category)}
                     fontSize="14px"
                     bold
-                    textColor="#eee">
+                    textColor="#eee"
+                  >
                     {category}
                   </Tabs.Tab>
                 ))}
@@ -75,13 +79,14 @@ export const LightSpawn = (props, context) => {
                   <Tabs.Tab
                     key={id}
                     selected={currentTemplate === id}
-                    onClick={() => setCurrentTemplate(id)}>
+                    onClick={() => setCurrentTemplate(id)}
+                  >
                     <Stack vertical>
                       <Stack.Item
                         align="center"
                         className={classes([
                           'lights32x32',
-                          'light_fantastic_' + id,
+                          `light_fantastic_${id}`,
                         ])}
                       />
                       <Stack.Item fontSize="14px" textColor="#cee" nowrap>
@@ -100,20 +105,19 @@ export const LightSpawn = (props, context) => {
       </Window.Content>
     </Window>
   );
-};
+}
 
 type LightInfoProps = {
   light: LightTemplate;
 };
 
-const LightInfo = (props: LightInfoProps) => {
-  const { act } = useBackend();
+function LightInfo(props: LightInfoProps) {
   const { light } = props;
   const { light_info } = light;
-  const [workingDir, setWorkingDir] = useLocalState<number>(
-    'workingDir',
-    Direction.North
-  );
+
+  const { act } = useBackend();
+  const [workingDir] = useWorkingDirection();
+
   return (
     <Section>
       <Stack vertical justify="space-between" fill>
@@ -180,10 +184,10 @@ const LightInfo = (props: LightInfoProps) => {
       </Stack>
     </Section>
   );
-};
+}
 
 // 3 vertical stacks, setup as columns
-const DirectionSelect = () => {
+function DirectionSelect() {
   return (
     <Stack align="start" mt={0.5}>
       <Stack.Item align="center">
@@ -207,20 +211,18 @@ const DirectionSelect = () => {
       </Stack.Item>
     </Stack>
   );
-};
+}
 
 type DirectedButtonProps = {
   dir: number;
   icon: string;
 };
 
-const DirectionButton = (props: DirectedButtonProps, context) => {
-  const { act, data } = useBackend<Data>();
+function DirectionButton(props: DirectedButtonProps) {
   const { dir, icon } = props;
-  const [workingDir, setWorkingDir] = useLocalState<number>(
-    'workingDir',
-    Direction.North
-  );
+
+  const [workingDir, setWorkingDir] = useWorkingDirection();
+
   return (
     <Button
       icon={icon}
@@ -228,11 +230,15 @@ const DirectionButton = (props: DirectedButtonProps, context) => {
       onClick={() => setWorkingDir(dir)}
     />
   );
+}
+
+type AngleSelectProps = {
+  angle: number;
 };
 
-const AngleSelect = (props, context) => {
-  const { act, data } = useBackend<Data>();
+function AngleSelect(props: AngleSelectProps) {
   const { angle } = props;
+
   return (
     <Knob
       mt={0.5}
@@ -245,4 +251,16 @@ const AngleSelect = (props, context) => {
       stepPixelSize={10}
     />
   );
-};
+}
+
+// It doesn't seem to realize directions are bitflags, so:
+type DirectionContextType = [number, (dir: number) => void];
+
+const DirectionContext = createContext<DirectionContextType>([
+  Direction.North,
+  () => {},
+]);
+
+export function useWorkingDirection() {
+  return useContext(DirectionContext);
+}

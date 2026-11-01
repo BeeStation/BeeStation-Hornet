@@ -1,7 +1,17 @@
-import { round } from '../../common/math';
-import { BooleanLike, classes } from '../../common/react';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Knob, Section, Slider, Stack, Tabs } from '../components';
+import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Knob,
+  Section,
+  Slider,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { type BooleanLike, classes } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 enum Direction {
@@ -41,7 +51,7 @@ type Data = {
   category_ids: CategoryList;
 };
 
-export const LightController = (props, context) => {
+export const LightController = (props) => {
   const { act, data } = useBackend<Data>();
   const {
     light_info,
@@ -50,29 +60,24 @@ export const LightController = (props, context) => {
     default_category,
     category_ids,
   } = data;
-  const [currentTemplate, setCurrentTemplate] = useLocalState<string>(
-    'currentTemplate',
-    default_id
-  );
-  const [currentCategory, setCurrentCategory] = useLocalState<string>(
-    'currentCategory',
-    default_category
-  );
+  const [currentTemplate, setCurrentTemplate] = useState(default_id);
+  const [currentCategory, setCurrentCategory] = useState(default_category);
 
   const category_keys = category_ids ? Object.keys(category_ids) : [];
 
   return (
-    <Window title={light_info.name + ': Lighting'} width={600} height={400}>
+    <Window title={`${light_info.name}: Lighting`} width={600} height={400}>
       <Window.Content scrollable>
         <Stack fill>
           <Stack.Item>
             <Section fitted fill scrollable width="170px">
-              <Tabs fluid centered>
+              <Tabs fluid align="center">
                 {category_keys.map((category, index) => (
                   <Tabs.Tab
                     key={category}
                     selected={currentCategory === category}
-                    onClick={() => setCurrentCategory(category)}>
+                    onClick={() => setCurrentCategory(category)}
+                  >
                     <Box fontSize="14px" bold textColor="#eee">
                       {category}
                     </Box>
@@ -84,7 +89,8 @@ export const LightController = (props, context) => {
                   <Tabs.Tab
                     key={id}
                     selected={currentTemplate === id}
-                    onClick={() => setCurrentTemplate(id)}>
+                    onClick={() => setCurrentTemplate(id)}
+                  >
                     <Box fontSize="14px" textColor="#cee">
                       {templates[id].light_info.name}
                     </Box>
@@ -92,7 +98,7 @@ export const LightController = (props, context) => {
                       ml={0.1}
                       className={classes([
                         'lights32x32',
-                        'light_fantastic_' + id,
+                        `light_fantastic_${id}`,
                       ])}
                     />
                   </Tabs.Tab>
@@ -134,7 +140,8 @@ const LightControl = (props: LightControlProps) => {
                 icon="brush"
                 tooltip="Change light color"
                 textColor={info.color}
-                onClick={() => act('change_color')}>
+                onClick={() => act('change_color')}
+              >
                 {info.color}
               </Button>
               <Button
@@ -193,7 +200,7 @@ const LightControl = (props: LightControlProps) => {
             color="olive"
             minValue={-1}
             maxValue={5}
-            format={(value) => round(value, 2)}
+            format={(value) => round(value, 2).toString()}
             onChange={(e, value) =>
               act('set_power', {
                 value: value,
@@ -212,7 +219,7 @@ type LightInfoProps = {
   light: LightTemplate;
 };
 
-const LightInfo = (props: LightInfoProps, context) => {
+const LightInfo = (props: LightInfoProps) => {
   const { act } = useBackend();
   const { light } = props;
   const { light_info } = light;
@@ -318,7 +325,7 @@ const DirectionButton = (props: DirectedButtonProps) => {
   );
 };
 
-const AngleSelect = (props, context) => {
+const AngleSelect = (props) => {
   const { act, data } = useBackend<Data>();
   const { light_info } = data;
   const { angle } = light_info;

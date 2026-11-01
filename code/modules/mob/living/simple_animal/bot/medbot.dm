@@ -23,7 +23,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	density = FALSE
 	anchored = FALSE
 	health = 20
-	maxHealth =
+	maxHealth = 20
 	light_power = 0.8
 	light_color = "#99ccff"
 	pass_flags = PASSMOB | PASSFLAPS
