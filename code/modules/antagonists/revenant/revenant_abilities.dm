@@ -283,7 +283,7 @@
 		addtimer(CALLBACK(src, PROC_REF(overload_shock), light, caster), 20)
 
 /datum/action/spell/aoe/revenant/overload/proc/overload_shock(obj/machinery/light/to_shock, mob/living/simple_animal/revenant/caster)
-	flick("[to_shock.base_state]2", to_shock)
+	z_flick("[to_shock.base_state]2", to_shock)
 	for(var/mob/living/carbon/human/human_mob in view(shock_range, to_shock))
 		if(human_mob == caster)
 			continue

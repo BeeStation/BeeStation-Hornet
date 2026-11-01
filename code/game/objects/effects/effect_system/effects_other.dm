@@ -52,7 +52,7 @@
 			var/obj/effect/E = new effect_type(oldposition)
 			set_dir(E)
 			if(fade)
-				flick(fadetype, E)
+				z_flick(fadetype, E)
 				E.icon_state = ""
 			if(qdel_in_time)
 				QDEL_IN(E, qdel_in_time)

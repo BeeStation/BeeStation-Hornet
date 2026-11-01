@@ -61,12 +61,17 @@
 /client/proc/clear_map(map_name)
 	if(!map_name || !screen_maps[map_name])
 		return FALSE
+	var/list/atom/movable/screen/map_view/map_views = list()
 	for(var/atom/movable/screen/screen_obj in screen_maps[map_name])
 		screen_maps[map_name] -= screen_obj
 		screen -= screen_obj
+		if(istype(screen_obj, /atom/movable/screen/map_view))
+			map_views += screen_obj
 		if(screen_obj.del_on_map_removal)
 			qdel(screen_obj)
 	screen_maps -= map_name
+	for(var/atom/movable/screen/map_view/map_view as anything in map_views)
+		map_view.hide_from_client(src)
 
 /**
  * Clears all the maps of registered screen objects.
