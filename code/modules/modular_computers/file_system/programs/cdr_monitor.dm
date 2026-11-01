@@ -1,10 +1,10 @@
 /datum/computer_file/program/cdr_monitor
 	filename = "ntcdrms"
-	filedesc = "NT CDRMS"
+	filedesc = "NT CDRMCS"
 	category = PROGRAM_CATEGORY_ENGI
 	ui_header = "smmon_0.gif"
 	program_icon_state = "smmon_0"
-	extended_desc = "The Condensate Decay Reactor monitoring system. As one might expect, it monitors CDRs."
+	extended_desc = "The Condensate Decay Reactor Monitoring and Control System. Allows for the remote monitoring and control of Condensate Decay Reactors, including remote initialization and locational data of each reactor."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CONSTRUCTION)
 	network_destination = "condensate decay reactor monitoring system"

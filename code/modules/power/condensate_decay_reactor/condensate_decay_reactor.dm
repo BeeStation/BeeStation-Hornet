@@ -61,7 +61,6 @@
 
 /obj/machinery/atmospherics/components/unary/cdr/Initialize(mapload)
 	. = ..()
-	new /obj/item/paper/fluff/cdr(get_turf(src))
 	core_composition = new()
 	cdr_gas_factors = init_condensate_gas()
 	cdr_uid = gl_cdr_uid++
@@ -142,23 +141,20 @@
 /obj/machinery/atmospherics/components/unary/cdr/ui_static_data(mob/user)
 	var/list/data = list()
 	data["uid"] = cdr_uid
-	data["area"] = AREACOORD(src)
+	data["area"] = get_area_name(src)
 	data["max_core_health"] = CDR_MAX_CORE_HEALTH
 	return data
 
 /obj/machinery/atmospherics/components/unary/cdr/ui_data(mob/user)
 	var/list/data = list()
 
-	var/list/core_composition_named = list()
-	for(var/gastype in core_composition.moles)
-		core_composition_named[GLOB.meta_gas_info[META_GAS_NAME][gastype]] = core_composition.moles[gastype]
-
 	data["toroid_spin"] = toroid_spin
 	data["parabolic_setting"] = parabolic_setting
 	data["input_volume"] = input_volume
 	data["toroid_flux_mult"] = toroid_flux_mult
 	data["core_temperature"] = core_composition.temperature
-	data["core_composition"] = core_composition_named
+	data["core_composition"] = core_composition.moles
+	data["core_moles"] = core_composition.total_moles()
 	data["can_activate"] = !activated && is_operational
 	data["activated"] = activated
 	data["metallization_ratio"] = metallization_ratio
@@ -384,7 +380,3 @@
 	if(default_unfasten_wrench(user, attacking_item))
 		return
 	return ..()
-
-/obj/item/paper/fluff/cdr
-	default_raw_text = "<p>This paper will guide you through how to operate the <strong>Condensate Decay Reactor</strong>. (henceforth referred to as the CDR)</p><p>The CDR has four components: the core, stability, the toroid, and graviton targets.</p><h3 id=\"the-core-\">The Core:</h3><hr><p>Gases will either deposit on the core, or diffuse off of it, to hit the set ratio of core-to-environment gases (called the metallization ratio) There, once they hit their decay threshold, will decay into other gases slowly. There is a decay chain, IE, one gases decays into another which decays into another. As gases decay, they release flux and cool the core, with each gas releasing a different amount of flux. Generally, more stable gases generate more flux, but also contribute to stability more.</p><br><h3 id=\"stability-\">Stability:</h3><hr><p>As gases collect on the core, they will cause the Reactor to become more stable. Stability is not optimal, and can lead to core collapse.  You can decrease stability by increasing the core temperature, or by adding BZ gas. Stability is massively increased by low temperatures, though by how much can be reduced by adding N2O.</p><br><h3 id=\"toroid-\">Toroid:</h3><hr><p>The toroid is quite simple, it will increase the amount of flux produced based on a parabolic function. As gases are input they increase toroid spin. (higher specific heats generate more spin) Toroid spin is the X-value of the parabolic function- you need to hit the sweet spot to get the most flux output. The upper limit is increased by core mass. There is also the parabolic setting variable, which makes it easier increase the X-value of the function, but the upper limit is also reduced.</p><br><h3 id=\"graviton-targets-\">Graviton Targets:</h3><hr><p>These convert graviton particles ejected from the CDR into power.</p>"
-	name = "CDR Technical Sheet"
