@@ -30,53 +30,63 @@ export const NtosCdr = (props) => {
               fitted
               title={`${activeCdr.uid}. at ${activeCdr.area}`}
               buttons={
-              <Box>
-                <Button
-                  icon="arrow-left"
-                  onClick={() => act('select_cdr', { select_cdr: null })}>
-                  Back
-                </Button>
-                <Button
-                  icon="question"
-                  selected={helpMenuOpen}
-                  onClick={() => setHelpMenuOpen(!helpMenuOpen)}>
-                  Help
-                </Button>
-              </Box>} />
+                <Box>
+                  <Button
+                    icon="arrow-left"
+                    onClick={() => act('select_cdr', { select_cdr: null })}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    icon="question"
+                    selected={helpMenuOpen}
+                    onClick={() => setHelpMenuOpen(!helpMenuOpen)}
+                  >
+                    Help
+                  </Button>
+                </Box>
+              }
+            />
             {helpMenuOpen ? <CdrHelpMenu /> : <CdrContent {...activeCdr} />}
           </Box>
         ) : (
-          <Section title="Detected Condensate Decay Reactors" buttons={
-            <Button
-              icon="sync"
-              content="Refresh"
-              onClick={() => act('refresh')}
-            />}>
+          <Section
+            title="Detected Condensate Decay Reactors"
+            buttons={
+              <Button
+                icon="sync"
+                content="Refresh"
+                onClick={() => act('refresh')}
+              />
+            }
+          >
             <Table>
               {Object.values(cdr_data).map((cdr) => {
-                const cdrOverhead = ((cdr.core_instability - cdr.core_stability) / cdr.core_instability) * 100;
+                const cdrOverhead =
+                  ((cdr.core_instability - cdr.core_stability) /
+                    cdr.core_instability) *
+                  100;
                 return (
                   <Table.Row key={cdr.uid}>
-                    <Table.Cell>
-                    {`${cdr.uid}. ${cdr.area}`}
-                    </Table.Cell>
-                    <Table.Cell color="label">
-                      Overhead:
-                    </Table.Cell>
+                    <Table.Cell>{`${cdr.uid}. ${cdr.area}`}</Table.Cell>
+                    <Table.Cell color="label">Overhead:</Table.Cell>
                     <Table.Cell width={5}>
                       <ProgressBar
                         maxValue={100}
                         minValue={0}
-                        value={cdr.core_instability === cdr.core_stability ? 0 : cdrOverhead} // if they're both 0 then that means the CDR is inactive and the overhead will not-a-number
+                        value={
+                          cdr.core_instability === cdr.core_stability
+                            ? 0
+                            : cdrOverhead
+                        } // if they're both 0 then that means the CDR is inactive and the overhead will not-a-number
                         ranges={{
                           good: [25, Infinity],
                           average: [-25, 25],
                           bad: [-Infinity, -25],
-                        }} />
+                        }}
+                      />
                     </Table.Cell>
-                    <Table.Cell color="label">
-                      Integrity:
-                    </Table.Cell>
+                    <Table.Cell color="label">Integrity:</Table.Cell>
                     <Table.Cell width={10}>
                       <ProgressBar
                         minValue={0}
@@ -84,14 +94,17 @@ export const NtosCdr = (props) => {
                         value={cdr.core_health}
                         ranges={{
                           good: [cdr.max_core_health * 0.75, Infinity],
-                          average: [cdr.max_core_health * 0.25, cdr.max_core_health * 0.75],
+                          average: [
+                            cdr.max_core_health * 0.25,
+                            cdr.max_core_health * 0.75,
+                          ],
                           bad: [-Infinity, cdr.max_core_health * 0.25],
                         }}
                       />
                     </Table.Cell>
                     <Table.Cell>
                       <Button
-                        content={"Details"}
+                        content={'Details'}
                         onClick={() =>
                           act('select_cdr', {
                             select_cdr: cdr.uid,

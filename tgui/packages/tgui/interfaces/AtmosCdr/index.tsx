@@ -13,13 +13,16 @@ export const AtmosCdr = (props) => {
     <Window height={600} width={475}>
       <Window.Content scrollable>
         <Section
-        title="CDR Monitoring & Control Panel"
-        fitted
-        buttons={
-          <Button
-            icon="question"
-            selected={helpMenuOpen}
-            onClick={() => setHelpMenuOpen(!helpMenuOpen)} />} />
+          title="CDR Monitoring & Control Panel"
+          fitted
+          buttons={
+            <Button
+              icon="question"
+              selected={helpMenuOpen}
+              onClick={() => setHelpMenuOpen(!helpMenuOpen)}
+            />
+          }
+        />
         {helpMenuOpen ? <CdrHelpMenu /> : <CdrContent {...data} />}
       </Window.Content>
     </Window>

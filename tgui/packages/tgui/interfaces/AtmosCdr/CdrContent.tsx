@@ -2,7 +2,17 @@ import { BooleanLike } from 'common/react';
 import { sortBy } from 'es-toolkit';
 import { Graph, LabeledControls, Section } from 'tgui/components';
 import {
-  Box, Button, Divider, Flex, Knob, LabeledList, NoticeBox, NumberInput, ProgressBar, Tooltip } from 'tgui-core/components';
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Knob,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  ProgressBar,
+  Tooltip,
+} from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import { getGasFromPath } from '../../constants';
@@ -34,29 +44,27 @@ export type CdrData = {
 // sortBy((material: Material) => rarity[material.name]
 const DisplayGasOutput = (core_composition, props) => {
   return core_composition.map(([gas_path, amount]) => (
-      <Flex
-        key={gas_path}
-        justify="space-between"
-        p="3px"
-        // backgroundColor={getGasFromPath(gas_path)?.color}
-        // backgroundColor={index % 2 === 0 ? '#35303b' : '#423f46ff'}
-        // backgroundColor={'rgb(136, 136, 136)'}
-      >
-        <Flex.Item grow={1}>
-          {getGasFromPath(gas_path)?.name}
-        </Flex.Item>
-        <Flex.Item grow={1} textAlign="right" mr={2}>
-          {amount.toFixed(2) + ' mol'}
-        </Flex.Item>
-        <Flex.Item grow={2}>
-          <ProgressBar
-            minValue={0}
-            maxValue={props.core_moles}
-            value={amount}
-            color={getGasFromPath(gas_path)?.color}
-          />
-        </Flex.Item>
-      </Flex>
+    <Flex
+      key={gas_path}
+      justify="space-between"
+      p="3px"
+      // backgroundColor={getGasFromPath(gas_path)?.color}
+      // backgroundColor={index % 2 === 0 ? '#35303b' : '#423f46ff'}
+      // backgroundColor={'rgb(136, 136, 136)'}
+    >
+      <Flex.Item grow={1}>{getGasFromPath(gas_path)?.name}</Flex.Item>
+      <Flex.Item grow={1} textAlign="right" mr={2}>
+        {amount.toFixed(2) + ' mol'}
+      </Flex.Item>
+      <Flex.Item grow={2}>
+        <ProgressBar
+          minValue={0}
+          maxValue={props.core_moles}
+          value={amount}
+          color={getGasFromPath(gas_path)?.color}
+        />
+      </Flex.Item>
+    </Flex>
   ));
 };
 
@@ -112,35 +120,39 @@ export const CdrContent = (props: CdrData) => {
       <Flex direction="row" pb={1}>
         <Flex.Item pr={0.5} grow={1} fill>
           <Section fill>
-            <NoticeBox textAlign="center" fontSize={1.5} success={!can_activate}>
-                Core Power
+            <NoticeBox
+              textAlign="center"
+              fontSize={1.5}
+              success={!can_activate}
+            >
+              Core Power
             </NoticeBox>
-              <Button
-                fluid
-                textAlign="center"
-                icon={'power-off'}
-                content={'PWR'}
-                selected={!activated}
-                disabled={!can_activate}
-                onClick={() => act('activate')}
-              />
+            <Button
+              fluid
+              textAlign="center"
+              icon={'power-off'}
+              content={'PWR'}
+              selected={!activated}
+              disabled={!can_activate}
+              onClick={() => act('activate')}
+            />
           </Section>
         </Flex.Item>
         <Flex.Item grow={2} pl={0.5} TextAlign="center" fill>
           <Section fill>
             <NoticeBox textAlign="center" fontSize={1.5}>
-                Core Health
+              Core Health
             </NoticeBox>
-          <ProgressBar
-            minValue={0}
-            maxValue={max_core_health}
-            value={core_health}
-            ranges={{
-              good: [max_core_health * 0.75, Infinity],
-              average: [max_core_health * 0.25, max_core_health * 0.75],
-              bad: [-Infinity, max_core_health * 0.25],
-            }}
-          />
+            <ProgressBar
+              minValue={0}
+              maxValue={max_core_health}
+              value={core_health}
+              ranges={{
+                good: [max_core_health * 0.75, Infinity],
+                average: [max_core_health * 0.25, max_core_health * 0.75],
+                bad: [-Infinity, max_core_health * 0.25],
+              }}
+            />
           </Section>
         </Flex.Item>
       </Flex>
@@ -261,64 +273,76 @@ export const CdrContent = (props: CdrData) => {
         </Flex.Item>
         <Flex.Item grow={1} pl={0.5}>
           <Section title="Data" fill>
-              <LabeledList>
-                <Tooltip
-                  content={
-                    'Overhead, how much core instability compares to stability. Keep this above 0%.'
-                  }
+            <LabeledList>
+              <Tooltip
+                content={
+                  'Overhead, how much core instability compares to stability. Keep this above 0%.'
+                }
+              >
+                <LabeledList.Item
+                  key={'OVRHD'}
+                  label={'OVRHD'}
+                  color={core_instability - core_stability < 0 ? 'red' : ''}
                 >
-                  <LabeledList.Item key={'OVRHD'} label={'OVRHD'} color={(core_instability - core_stability) < 0 ? "red" : ""}>
-                    {`${core_stability ? FormatLargePercent(((core_instability - core_stability) / core_instability) * 100) : '0'}%`}
-                  </LabeledList.Item>
-                </Tooltip>
-                <Divider />
-                <Tooltip content={'Total Instability. Keep this above 0.'} >
-                  <LabeledList.Item key={'INSTAB'} label={'INSTAB'} color={(core_instability - core_stability) < 0 ? "red" : ""}>
-                    {FormatLargeNum(core_instability - core_stability, 5, 4)}
-                  </LabeledList.Item>
-                </Tooltip>
-                <Divider />
-                <Tooltip
-                  content={
-                    'Spin of the gravimetric toroid. This affects the parabola.'
-                  }
+                  {`${core_stability ? FormatLargePercent(((core_instability - core_stability) / core_instability) * 100) : '0'}%`}
+                </LabeledList.Item>
+              </Tooltip>
+              <Divider />
+              <Tooltip content={'Total Instability. Keep this above 0.'}>
+                <LabeledList.Item
+                  key={'INSTAB'}
+                  label={'INSTAB'}
+                  color={core_instability - core_stability < 0 ? 'red' : ''}
                 >
-                  <LabeledList.Item key={'SPIN'} label={'SPIN'}>
-                    {FormatLargeNum(toroid_spin, 5, 4)}
-                  </LabeledList.Item>
-                </Tooltip>
-                <Divider />
-                <Tooltip content={'Flux Multiplier. Keep this high.'}>
-                  <LabeledList.Item key={'FLXMULT'} label={'FLXMULT'}>
-                    {toroid_flux_mult.toFixed(2)}
-                  </LabeledList.Item>
-                </Tooltip>
-                <Divider />
-                <Tooltip
-                  content={
-                    'Core Temperature. Keep this high to increase instability.'
-                  }
+                  {FormatLargeNum(core_instability - core_stability, 5, 4)}
+                </LabeledList.Item>
+              </Tooltip>
+              <Divider />
+              <Tooltip
+                content={
+                  'Spin of the gravimetric toroid. This affects the parabola.'
+                }
+              >
+                <LabeledList.Item key={'SPIN'} label={'SPIN'}>
+                  {FormatLargeNum(toroid_spin, 5, 4)}
+                </LabeledList.Item>
+              </Tooltip>
+              <Divider />
+              <Tooltip content={'Flux Multiplier. Keep this high.'}>
+                <LabeledList.Item key={'FLXMULT'} label={'FLXMULT'}>
+                  {toroid_flux_mult.toFixed(2)}
+                </LabeledList.Item>
+              </Tooltip>
+              <Divider />
+              <Tooltip
+                content={
+                  'Core Temperature. Keep this high to increase instability.'
+                }
+              >
+                <LabeledList.Item
+                  key={'CORETEMP'}
+                  label={'CORETEMP'}
+                  color={core_temperature < 10000 ? 'teal' : ''}
                 >
-                  <LabeledList.Item key={'CORETEMP'} label={'CORETEMP'} color={(core_temperature) < 10000 ? "teal" : ""}>
-                    {FormatLargeNum(core_temperature, 5, 4)}K
-                  </LabeledList.Item>
-                </Tooltip>
-                <Divider />
-                <Tooltip
-                  content={
-                    'Energy Stored. Large quantities will be ejected in a graviton particle.'
-                  }
-                >
-                  <LabeledList.Item key={'STRDENGY'} label={'STRDENGY'}>
-                    {power_output}
-                  </LabeledList.Item>
-                </Tooltip>
-              </LabeledList>
+                  {FormatLargeNum(core_temperature, 5, 4)}K
+                </LabeledList.Item>
+              </Tooltip>
+              <Divider />
+              <Tooltip
+                content={
+                  'Energy Stored. Large quantities will be ejected in a graviton particle.'
+                }
+              >
+                <LabeledList.Item key={'STRDENGY'} label={'STRDENGY'}>
+                  {power_output}
+                </LabeledList.Item>
+              </Tooltip>
+            </LabeledList>
           </Section>
         </Flex.Item>
       </Flex>
       <Section title="Core Composition" mt={2}>
-          {DisplayGasOutput(gas_composition, props)}
+        {DisplayGasOutput(gas_composition, props)}
       </Section>
     </Box>
   );
