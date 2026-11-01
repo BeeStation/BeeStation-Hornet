@@ -166,6 +166,8 @@ This proc checks the surrounding of the core to ensure that the machine has been
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/activate(mob/user)
+   if(active)
+       return
 	active = TRUE
 	update_appearance()
 	if (linked_interface)
