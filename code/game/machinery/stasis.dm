@@ -23,7 +23,6 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-// dir check for buckle_lying state
 /obj/machinery/stasis/Initialize(mapload)
 	. = ..()
 	initial_link()
