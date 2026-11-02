@@ -269,6 +269,7 @@
 		is_emote = TRUE
 
 	var/list/show_to = list()
+	var/source_in_darkness = null
 
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
@@ -286,9 +287,12 @@
 			if(!allow_inside_usr || hearing_mob != loc)
 				msg = blind_message
 				msg_type = MSG_AUDIBLE
-		else if(!HAS_TRAIT(hearing_mob, TRAIT_HEAR_THROUGH_DARKNESS) && hearing_mob.lighting_cutoff < LIGHTING_CUTOFF_HIGH && T.is_softly_lit() && !in_range(T,hearing_mob)) //if it is too dark, unless we're right next to them.
-			msg = blind_message
-			msg_type = MSG_AUDIBLE
+		else if(!in_range(T, hearing_mob) && !HAS_TRAIT(hearing_mob, TRAIT_HEAR_THROUGH_DARKNESS) && !hearing_mob.has_nightvision())
+			if(isnull(source_in_darkness))
+				source_in_darkness = T.is_softly_lit()
+			if(source_in_darkness)
+				msg = blind_message
+				msg_type = MSG_AUDIBLE
 		if(!msg)
 			continue
 

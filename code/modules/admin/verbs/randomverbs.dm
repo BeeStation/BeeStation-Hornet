@@ -890,7 +890,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	combo_hud_enabled = TRUE
 
-	usr.add_traits(ADMIN_HUDS, ADMIN_TRAIT)
+	for (var/hudtrait in ADMIN_HUDS)
+		ADD_TRAIT(mob, hudtrait, ADMIN_TRAIT)
+
 	for (var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antag_hud in GLOB.active_alternate_appearances)
 		antag_hud.show_to(mob)
 
@@ -903,7 +905,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	combo_hud_enabled = FALSE
 
-	usr.remove_traits(ADMIN_HUDS, ADMIN_TRAIT)
+	for (var/hudtrait in ADMIN_HUDS)
+		REMOVE_TRAIT(mob, hudtrait, ADMIN_TRAIT)
+
 	for (var/datum/atom_hud/alternate_appearance/basic/antagonist_hud/antag_hud in GLOB.active_alternate_appearances)
 		antag_hud.hide_from(mob)
 

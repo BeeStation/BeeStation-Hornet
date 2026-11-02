@@ -826,6 +826,9 @@
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
+
 	if(sight_mode & BORGMESON)
 		new_sight |= SEE_TURFS
 		lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, list(5, 15, 5))

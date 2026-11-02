@@ -366,6 +366,7 @@
 		register_new_cells()
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays -= visible_mask
+
 	visible_mask.icon = light_overlays["[pixel_bounds]"]
 	if(pixel_bounds == 32)
 		if(!directional) // it's important that we make it to the end of this function if we are a directional light
@@ -376,6 +377,7 @@
 		var/matrix/transform = new
 		transform.Translate(-offset, -offset)
 		visible_mask.transform = transform
+		
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
 		current_holder.update_above()
@@ -468,7 +470,6 @@
 	else // Lost the [LIGHT_ATTACHED] property
 		overlay_lighting_flags &= ~LIGHTING_ATTACHED
 		set_parent_attached_to(null)
-
 
 /// Toggles the light on.
 /datum/component/overlay_lighting/proc/turn_on()

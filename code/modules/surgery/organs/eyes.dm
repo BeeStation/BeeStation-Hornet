@@ -214,24 +214,23 @@
 /obj/item/organ/eyes/night_vision/Initialize(mapload)
 	. = ..()
 #ifdef UNIT_TESTS
-	if(length(low_light_cutoff) != 3 || length(medium_light_cutoff) != 3 || length(high_light_cutoff) != 3)
+	if(type != /obj/item/organ/eyes/night_vision && length(low_light_cutoff) != 3 || length(medium_light_cutoff) != 3 || length(high_light_cutoff) != 3)
 		stack_trace("[type] did not have fully filled out color cutoff lists")
 #endif
-	if(low_light_cutoff)
-		color_cutoffs = low_light_cutoff.Copy()
+	color_cutoffs = low_light_cutoff?.Copy()
 	light_level = NIGHTVISION_LIGHT_LOW
 
 /obj/item/organ/eyes/night_vision/ui_action_click()
 	sight_flags = initial(sight_flags)
 	switch(light_level)
 		if (NIGHTVISION_LIGHT_OFF)
-			color_cutoffs = low_light_cutoff.Copy()
+			color_cutoffs = low_light_cutoff?.Copy()
 			light_level = NIGHTVISION_LIGHT_LOW
 		if (NIGHTVISION_LIGHT_LOW)
-			color_cutoffs = medium_light_cutoff.Copy()
+			color_cutoffs = medium_light_cutoff?.Copy()
 			light_level = NIGHTVISION_LIGHT_MID
 		if (NIGHTVISION_LIGHT_MID)
-			color_cutoffs = high_light_cutoff.Copy()
+			color_cutoffs = high_light_cutoff?.Copy()
 			light_level = NIGHTVISION_LIGHT_HIG
 		else
 			color_cutoffs = null

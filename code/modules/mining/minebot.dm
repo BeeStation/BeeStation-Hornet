@@ -57,6 +57,7 @@
 	var/obj/item/gun/energy/plasmacutter/stored_cutter /// The minebot's stored plasma cutter
 	var/obj/item/pickaxe/drill/stored_drill /// The minebot's stored drill
 	var/obj/item/t_scanner/adv_mining_scanner/stored_scanner /// The minebot's stored mining scanner
+	var/meson_vision = FALSE
 
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
@@ -107,6 +108,13 @@
 	QDEL_NULL(stored_drill)
 	QDEL_NULL(stored_scanner)
 	return ..()
+
+/mob/living/simple_animal/hostile/mining_drone/update_innate_sight()
+	. = ..()
+	if(!. || !meson_vision)
+		return
+	add_sight(SEE_TURFS)
+	lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, list(5, 15, 5))
 
 /mob/living/simple_animal/hostile/mining_drone/update_health_hud()
 	if(!client || !hud_used)
@@ -506,24 +514,10 @@
 
 /datum/action/innate/minedrone/toggle_meson_vision/on_activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	if(user.sight & SEE_TURFS)
-		user.clear_sight(SEE_TURFS)
-		user.add_sight(SEE_BLACKNESS)
-		user.lighting_cutoff_red -= 5
-		user.lighting_cutoff_green -= 15
-		user.lighting_cutoff_blue -= 5
-		button_icon_state = "trayson-"
-	else
-		user.add_sight(SEE_TURFS)
-		user.clear_sight(SEE_BLACKNESS)
-		user.lighting_cutoff_red += 5
-		user.lighting_cutoff_green += 15
-		user.lighting_cutoff_blue += 5
-		button_icon_state = "trayson-meson"
-
-	user.lighting_color_cutoffs = list(user.lighting_cutoff_red, user.lighting_cutoff_green, user.lighting_cutoff_blue)
-	user.sync_lighting_plane_cutoff()
-	to_chat(user, span_notice("You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"]."))
+	user.meson_vision = !user.meson_vision
+	button_icon_state = user.meson_vision ? "trayson-meson" : "trayson-"
+	user.update_sight()
+	to_chat(user, span_notice("You toggle your meson vision [user.meson_vision ? "on" : "off"]."))
 	update_buttons()
 
 /// Toggles a minebot's inbuilt light.

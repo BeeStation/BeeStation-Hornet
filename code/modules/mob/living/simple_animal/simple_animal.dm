@@ -515,36 +515,8 @@
 	can_have_ai = FALSE
 
 /mob/living/simple_animal/update_sight()
-	if(!client)
+	if(!client || !update_innate_sight())
 		return
-	if(stat == DEAD)
-		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		set_invis_see(SEE_INVISIBLE_OBSERVER)
-		return
-
-	set_invis_see(initial(see_invisible))
-	var/new_sight = initial(sight)
-
-	if(HAS_TRAIT(src, TRAIT_TRUE_NIGHT_VISION))
-		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_HIGH)
-
-	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
-		new_sight |= SEE_TURFS
-		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
-
-	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
-		new_sight |= SEE_MOBS
-		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
-
-	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
-		new_sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
-			return
-
-	set_sight(new_sight)
 	return ..()
 
 /mob/living/simple_animal/get_idcard(hand_first)

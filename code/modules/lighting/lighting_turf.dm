@@ -117,17 +117,15 @@
 	var/furthest_range = 0
 	for (var/datum/component/overlay_lighting/light as anything in grid_cell.dynamic_light_sources)
 		furthest_range = max(furthest_range, light.lumcount_range)
-		if (isnull(light_sources[light.current_holder]))
-			light_sources[light.current_holder] = light
-		else if (islist(light_sources[light.current_holder]))
-			light_sources[light.current_holder] |= light
-		else
-			light_sources[light.current_holder] = list(light_sources[light.current_holder], light)
+		LAZYADD(light_sources[light.current_holder], light)
 
 	var/list/assigned_oranges_ears = SSspatial_grid.assign_oranges_ears(light_sources)
 	for(var/mob/oranges_ear/ear in hearers(furthest_range, src))
+		var/distance = get_dist(src, ear)
 		for (var/atom/glowie as anything in ear.references)
-			. += light_sources[glowie]
+			for (var/datum/component/overlay_lighting/light as anything in light_sources[glowie])
+				if (light.lumcount_range >= distance)
+					. += light
 
 	for(var/mob/oranges_ear/remaining_ear as anything in assigned_oranges_ears)
 		remaining_ear.unassign()
@@ -140,7 +138,7 @@
 	if (!lighting_object)
 		return FALSE
 
-	return !(lighting_object.luminosity || get_dynamic_lumcount())
+	return !(lighting_object.luminosity || get_dynamic_lumcount() > 0)
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)

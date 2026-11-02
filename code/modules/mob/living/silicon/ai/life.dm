@@ -73,6 +73,7 @@
 /mob/living/silicon/ai/update_sight()
 	set_invis_see(initial(see_invisible))
 	set_sight(initial(sight))
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 	if(aiRestorePowerRoutine)
 		clear_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
