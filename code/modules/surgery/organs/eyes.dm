@@ -214,7 +214,7 @@
 /obj/item/organ/eyes/night_vision/Initialize(mapload)
 	. = ..()
 #ifdef UNIT_TESTS
-	if(type != /obj/item/organ/eyes/night_vision && length(low_light_cutoff) != 3 || length(medium_light_cutoff) != 3 || length(high_light_cutoff) != 3)
+	if(type != /obj/item/organ/eyes/night_vision && (length(low_light_cutoff) != 3 || length(medium_light_cutoff) != 3 || length(high_light_cutoff) != 3))
 		stack_trace("[type] did not have fully filled out color cutoff lists")
 #endif
 	color_cutoffs = low_light_cutoff?.Copy()
