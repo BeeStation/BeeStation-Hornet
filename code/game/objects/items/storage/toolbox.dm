@@ -284,8 +284,10 @@
 	new /obj/item/ammo_box/c38/box(src)
 
 //floorbot assembly
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/iron/T, mob/user, list/modifiers)
-	var/list/allowed_toolbox = list(
+/obj/item/storage/toolbox/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/stack/tile/iron))
+		return ..()
+	var/static/list/allowed_toolbox = list(
 		/obj/item/storage/toolbox/emergency, //which toolboxes can be made into floorbots
 		/obj/item/storage/toolbox/electrical,
 		/obj/item/storage/toolbox/mechanical,
@@ -293,14 +295,12 @@
 		/obj/item/storage/toolbox/syndicate,
 	)
 
-	if(!istype(T, /obj/item/stack/tile/iron))
-		..()
-		return
 	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))
-		return
+		return ITEM_INTERACT_BLOCKING
 	if(contents.len >= 1)
 		to_chat(user, span_warning("They won't fit in, as there is already stuff inside!"))
-		return
+		return ITEM_INTERACT_BLOCKING
+	var/obj/item/stack/tile/iron/T = tool
 	if(T.use(10))
 		var/obj/item/bot_assembly/floorbot/B = new
 		B.toolbox = type
@@ -319,6 +319,6 @@
 		B.update_icon()
 		to_chat(user, span_notice("You add the tiles into the empty [name]. They protrude from the top."))
 		qdel(src)
-	else
-		to_chat(user, span_warning("You need 10 floor tiles to start building a floorbot!"))
-		return
+		return ITEM_INTERACT_SUCCESS
+	to_chat(user, span_warning("You need 10 floor tiles to start building a floorbot!"))
+	return ITEM_INTERACT_BLOCKING

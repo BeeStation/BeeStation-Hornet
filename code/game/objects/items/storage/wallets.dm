@@ -88,10 +88,7 @@
 	var/obj/item/card/inserting_id = inserting_item.RemoveID()
 	if(!inserting_id)
 		return FALSE
-	attackby(inserting_id)
-	if(inserting_id in contents)
-		return TRUE
-	return FALSE
+	return atom_storage.attempt_insert(inserting_id, override = TRUE)
 
 /obj/item/storage/wallet/GetAccess()
 	if(LAZYLEN(combined_access))

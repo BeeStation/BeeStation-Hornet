@@ -114,6 +114,8 @@
 	#define COMPONENT_BUFFER_STORE_SUCCESS (1 << 0)
 /// Puts a target atom into the push (datum/source, mob/user)
 #define COMSIG_ITEM_FLUSH_BUFFER "flush_buffer"
+/// Tries to get the contained buffer from an atom
+#define COMSIG_ITEM_GET_BUFFER "get_buffer"
 
 // Deployable signals
 /// Tell a deployable item to force its deployment  (datum/source, atom/location)

@@ -9673,11 +9673,10 @@
 	name = "Bridge External Access"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "dJE" = (
@@ -22572,7 +22571,7 @@
 	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Captain)";
-	pixel_x = 36;
+	pixel_x = 33;
 	pixel_y = -2
 	},
 /obj/machinery/camera/directional/east,
@@ -34150,10 +34149,6 @@
 	pixel_x = 1;
 	pixel_y = 33
 	},
-/obj/item/dog_bone{
-	pixel_x = 8;
-	pixel_y = 10
-	},
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
 "mUo" = (
@@ -37086,11 +37081,10 @@
 	name = "Bridge External Access"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "nTH" = (
@@ -40214,7 +40208,6 @@
 /obj/item/stamp/captain{
 	pixel_x = -8
 	},
-/obj/structure/extinguisher_cabinet/directional/west,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain/private)
 "pdb" = (
@@ -44692,6 +44685,10 @@
 	},
 /obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/machinery/firealarm/directional/south,
+/obj/item/storage/secure/safe/caps_spare{
+	pixel_x = 5;
+	pixel_y = -38
+	},
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "qOf" = (
@@ -46387,10 +46384,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
-	},
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = 6;
-	pixel_y = -29
 	},
 /turf/open/floor/iron,
 /area/station/command/bridge)
@@ -59975,6 +59968,10 @@
 /turf/open/floor/grass/no_border,
 /area/station/hallway/secondary/exit/departure_lounge)
 "wHS" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 32;
+	pixel_y = -1
+	},
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},

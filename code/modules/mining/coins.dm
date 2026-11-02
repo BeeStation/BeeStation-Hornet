@@ -95,7 +95,7 @@
 			to_chat(user, span_warning("The coin won't flip very well with something attached!") )
 			return FALSE//do not flip the coin
 		cooldown = world.time + 15
-		flick("coin_[coinflip]_flip", src)
+		z_flick("coin_[coinflip]_flip", src)
 		coinflip = pick(sideslist)
 		icon_state = "coin_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
