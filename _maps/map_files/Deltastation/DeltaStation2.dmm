@@ -8048,6 +8048,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/storage/secure/briefcase,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/command/heads_quarters/hos)
 "cVh" = (
@@ -14938,6 +14939,7 @@
 /area/station/service/hydroponics)
 "fmf" = (
 /obj/structure/table/reinforced,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "fmo" = (
@@ -22609,6 +22611,7 @@
 	pixel_y = 31
 	},
 /obj/machinery/chem_dispenser,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/station/medical/chemistry)
 "hzW" = (
@@ -25508,6 +25511,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "iuj" = (
@@ -27116,6 +27120,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "iUM" = (
@@ -33258,6 +33263,7 @@
 	pixel_y = -30
 	},
 /obj/item/book/manual/wiki/sopmedical,
+/obj/machinery/light/small/directional/south,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/cmo)
 "kKt" = (
@@ -43855,6 +43861,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "nVK" = (
@@ -45532,6 +45539,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -23
 	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/white,
 /area/station/medical/chemistry)
 "osI" = (
@@ -67375,6 +67383,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
