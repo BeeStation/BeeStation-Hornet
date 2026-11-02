@@ -22,7 +22,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
 	/// We need to do this because the mob on logout never actually has a reference to client
 	/// We also need to clear this var/do other cleanup in client/Destroy, since that happens before logout
-	/// HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 	var/client/canon_client
 
 	///when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
