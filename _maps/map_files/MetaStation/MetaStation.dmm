@@ -3868,6 +3868,15 @@
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/aisat/exterior)
+"bHq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/meter,
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "bHv" = (
 /obj/structure/railing{
 	dir = 1
@@ -15630,6 +15639,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/meter,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "fRl" = (
@@ -41765,7 +41775,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/structure/cable,
-/obj/machinery/meter,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "oDb" = (
@@ -69462,15 +69471,6 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating/airless,
 /area/misc/space/nearstation)
-"ybe" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
-/turf/open/floor/engine,
-/area/station/engineering/main)
 "ybi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -111956,8 +111956,8 @@ abv
 mhL
 tLR
 iex
-ybe
 riK
+bHq
 oCV
 toL
 fsg
