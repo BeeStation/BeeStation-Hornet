@@ -120,7 +120,7 @@
 		target_mob.visible_message(
 			span_danger("[name] latches onto [target_mob]!"),
 			span_userdanger("[name] latches onto [target_mob]!"),
-			visible_message_flags = list(ALWAYS_SHOW_SELF_MESSAGE),
+			visible_message_flags = ALWAYS_SHOW_SELF_MESSAGE,
 		)
 		to_chat(src, span_notice("<i>I start feeding on [target_mob]...</i>"))
 		balloon_alert(src, "feeding started")
@@ -270,7 +270,7 @@
 	if(transformeffects & SLIME_EFFECT_BLUESPACE)
 		M.add_verb(/mob/living/simple_animal/slime/proc/teleport)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		GLOB.poi_list |= M
+		SSpoints_of_interest.on_poi_element_added(M)
 		M.master = master
 		M.set_playable_slime(ROLE_SENTIENCE)
 	M.set_friends(Friends)

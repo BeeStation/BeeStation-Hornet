@@ -545,29 +545,30 @@
 	generate_items_inside(items_inside,src)
 
 //medibot assembly
-/obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, list/modifiers)
-	if((!istype(S, /obj/item/bodypart/arm/left/robot)) && (!istype(S, /obj/item/bodypart/arm/right/robot)))
+/obj/item/storage/firstaid/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/bodypart/arm/left/robot) && !istype(tool, /obj/item/bodypart/arm/right/robot))
 		return ..()
 
 	//Making a medibot!
 	if(contents.len >= 1)
 		to_chat(user, span_warning("You need to empty [src] out first!"))
-		return
+		return ITEM_INTERACT_BLOCKING
 
 	if(!src.skin_type)
 		to_chat(user, span_warning("[src] cannot be used to make a medibot!"))
-		return
+		return ITEM_INTERACT_BLOCKING
 
 	var/obj/item/bot_assembly/medbot/A = new
 	A.skin = src.skin_type
 
 
 	user.put_in_hands(A)
-	to_chat(user, span_notice("You add [S] to [src]."))
-	A.robot_arm = S.type
+	to_chat(user, span_notice("You add [tool] to [src]."))
+	A.robot_arm = tool.type
 	A.firstaid = type
-	qdel(S)
+	qdel(tool)
 	qdel(src)
+	return ITEM_INTERACT_SUCCESS
 
 /*
  * Pill Bottles
@@ -591,25 +592,19 @@
 		icon_state = "[pill_type][rand(0,6)]"
 
 	atom_storage.allow_quick_gather = TRUE
-	atom_storage.set_holdable(list(/obj/item/reagent_containers/applicator/pill))
+	atom_storage.set_holdable(list(/obj/item/reagent_containers/applicator/pill, /obj/item/reagent_containers/applicator/patch))
 
-/obj/item/storage/pill_bottle/attackby(obj/item/P, mob/user, list/modifiers)
-	// Allow labeling with a pen
-	if(istype(P, /obj/item/pen))
-		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on [src]!"))
-			return
-		var/new_label = stripped_input(user, "What would you like to label the bottle?", name, null, MAX_NAME_LEN)
-		if(!new_label || user.get_active_held_item() != P || !user.canUseTopic(src, BE_CLOSE))
-			return
-		if(new_label)
-			name = "[initial(name)] ([new_label])"
-		else
-			name = initial(name)
-		return
-
-	// For any other item, let the parent storage handle it
-	return ..()
+/obj/item/storage/pill_bottle/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/pen))
+		return ..()
+	if(!user.is_literate())
+		to_chat(user, span_notice("You scribble illegibly on [src]!"))
+		return ITEM_INTERACT_BLOCKING
+	var/new_label = stripped_input(user, "What would you like to label the bottle?", name, null, MAX_NAME_LEN)
+	if(!new_label || user.get_active_held_item() != tool || !user.canUseTopic(src, BE_CLOSE))
+		return ITEM_INTERACT_BLOCKING
+	name = "[initial(name)] ([new_label])"
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

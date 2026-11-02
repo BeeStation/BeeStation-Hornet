@@ -934,36 +934,27 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
 
-	if(amount > 0)
-		var/area/area
-		var/list/candidates
-		var/turf/open/floor/tile
-		var/j,k
+	var/list/tiles = get_safe_random_station_turfs(amount = amount)
+	if(!islist(tiles))
+		tiles = tiles ? list(tiles) : list()
+	if(length(tiles) < amount)
+		to_chat(usr, span_warning("Only found [length(tiles)] valid spawn locations for [amount] test mobs."))
 
-		for(var/i = 1 to amount)
-			j = 100
-
-			do
-				area = pick(GLOB.the_station_areas)
-
-				if(area)
-
-					candidates = get_area_turfs(area)
-
-					if(candidates.len)
-						k = 100
-
-						do
-							tile = pick(candidates)
-						while ((!tile || !istype(tile)) && --k > 0)
-
-						if(tile)
-							var/mob/living/carbon/human/hooman = new(tile)
-							if (give_minds == "Yes")
-								hooman.mind_initialize()
-							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
-							testing("Spawned test mob at [COORD(tile)]")
-			while(!area && --j > 0)
+	for(var/turf/tile as anything in tiles)
+		var/mob/living/carbon/human/hooman = new(tile)
+		var/outfit_type = pick(subtypesof(/datum/outfit))
+		if (give_minds == "Give minds")
+			hooman.mind_initialize() // Required for orbit menu validation
+		hooman.equipOutfit(outfit_type)
+		if(hooman.mind)
+			// Try to match the outfit's job if it's a job outfit
+			var/datum/outfit/outfit = outfit_type
+			var/datum/job/job
+			if(ispath(outfit, /datum/outfit/job))
+				var/datum/outfit/job/job_outfit = outfit
+				job = SSjob.get_job_type(initial(job_outfit.jobtype))
+			hooman.mind.set_assigned_role(job || SSjob.get_job_type(/datum/job/assistant))
+		testing("Spawned test mob at [get_area_name(tile, TRUE)] ([tile.x],[tile.y],[tile.z])")
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"

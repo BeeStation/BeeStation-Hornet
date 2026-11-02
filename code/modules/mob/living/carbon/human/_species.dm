@@ -314,7 +314,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(ORGAN_SLOT_WINGS)
 			return mutantwings
 		else
-			CRASH("Invalid organ slot [slot]")
+			// Non-standard organs we might have
+			for(var/obj/item/organ/extra_organ as anything in mutant_organs)
+				if(initial(extra_organ.slot) == slot)
+					return extra_organ
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
 /datum/species/proc/qualifies_for_rank(datum/job/rank, list/features)
@@ -337,51 +340,33 @@ GLOBAL_LIST_EMPTY(features_by_species)
  * * visual_only - boolean, only load organs that change how the species looks. Do not use for normal gameplay stuff
  */
 /datum/species/proc/regenerate_organs(mob/living/carbon/organ_holder, datum/species/old_species, replace_current = TRUE, list/excluded_zones, visual_only = FALSE)
-	//what should be put in if there is no mutantorgan (brains handled separately)
-	var/list/organ_slots = list(
-		ORGAN_SLOT_BRAIN,
-		ORGAN_SLOT_HEART,
-		ORGAN_SLOT_LUNGS,
-		ORGAN_SLOT_APPENDIX,
-		ORGAN_SLOT_EYES,
-		ORGAN_SLOT_EARS,
-		ORGAN_SLOT_TONGUE,
-		ORGAN_SLOT_LIVER,
-		ORGAN_SLOT_STOMACH,
-		ORGAN_SLOT_WINGS
-	)
-
-	//if theres no added wing type, we want to avoid adding a null(rkz code lol)
-	if(isnull(mutantwings))
-		organ_slots -= ORGAN_SLOT_WINGS
-
-	for(var/slot in organ_slots)
+	for(var/slot in get_all_slots())
 		var/obj/item/organ/existing_organ = organ_holder.get_organ_slot(slot)
 		var/obj/item/organ/new_organ = get_mutant_organ_type_for_slot(slot)
+		var/old_organ_type = old_species?.get_mutant_organ_type_for_slot(slot)
 
-		if(isnull(new_organ)) // if they aren't suppose to have an organ here, remove it
-			if(existing_organ)
-				existing_organ.Remove(organ_holder, special = TRUE)
+		// if we have an extra organ that before changing that the species didnt have, remove it
+		if(!new_organ)
+			if(existing_organ && (old_organ_type == existing_organ.type || replace_current))
+				existing_organ.Remove(organ_holder)
 				qdel(existing_organ)
 			continue
 
-		// we don't want to remove organs that are not the default for this species
-		if(!isnull(existing_organ))
-			if(!isnull(old_species) && existing_organ.type != old_species.get_mutant_organ_type_for_slot(slot))
-				continue
-			else if(!replace_current && existing_organ.type != get_mutant_organ_type_for_slot(slot))
+		if(existing_organ)
+			// we dont want to remove organs that were not from the old species (such as from freak surgery or prosthetics)
+			if(existing_organ.type != old_organ_type && !replace_current)
 				continue
 
-		// at this point we already know new_organ is not null
-		if(existing_organ?.type == new_organ)
-			continue // we don't want to remove organs that are the same as the new one
+			// we don't want to remove organs that are the same as the new one
+			if(existing_organ.type == new_organ)
+				continue
 
-		if(visual_only && !initial(new_organ.visual))
+		if(visual_only && (/*!initial(new_organ.bodypart_overlay) &&*/ !initial(new_organ.visual)))
 			continue
 
 		var/used_neworgan = FALSE
 		new_organ = SSwardrobe.provide_type(new_organ)
-		var/should_have = new_organ.get_availability(src, organ_holder)
+		var/should_have = new_organ.get_availability(src, organ_holder) /*&& should_visual_organ_apply_to(new_organ, organ_holder)*/
 
 		// Check for an existing organ, and if there is one check to see if we should remove it
 		var/health_pct = 1
@@ -390,66 +375,20 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			health_pct = (existing_organ.maxHealth - existing_organ.damage) / existing_organ.maxHealth
 			if(slot == ORGAN_SLOT_BRAIN)
 				var/obj/item/organ/brain/existing_brain = existing_organ
-				if(!existing_brain.decoy_override)
-					existing_brain.before_organ_replacement(new_organ)
-					existing_brain.Remove(organ_holder, special = TRUE, no_id_transfer = TRUE)
-					QDEL_NULL(existing_organ)
+				existing_brain.before_organ_replacement(new_organ)
+				existing_brain.Remove(organ_holder, special = TRUE, movement_flags = NO_ID_TRANSFER)
 			else
 				existing_organ.before_organ_replacement(new_organ)
 				existing_organ.Remove(organ_holder, special = TRUE)
-				QDEL_NULL(existing_organ)
 
-		if(isnull(existing_organ) && should_have && !(new_organ.zone in excluded_zones))
+			QDEL_NULL(existing_organ)
+		if(isnull(existing_organ) && should_have && !(new_organ.zone in excluded_zones) && organ_holder.get_bodypart(deprecise_zone(new_organ.zone)))
 			used_neworgan = TRUE
 			new_organ.set_organ_damage(new_organ.maxHealth * (1 - health_pct))
-			new_organ.Insert(organ_holder, special = TRUE, drop_if_replaced = FALSE)
+			new_organ.Insert(organ_holder, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 
 		if(!used_neworgan)
 			QDEL_NULL(new_organ)
-
-	if(!isnull(old_species))
-		for(var/mutant_organ in old_species.mutant_organs)
-			if(mutant_organ in mutant_organs)
-				continue // need this mutant organ, but we already have it!
-
-			var/obj/item/organ/current_organ = organ_holder.get_organ_by_type(mutant_organ)
-			if(current_organ)
-				current_organ.Remove(organ_holder)
-				QDEL_NULL(current_organ)
-
-	/*
-	for(var/obj/item/organ/external/external_organ in organ_holder.organs)
-		// External organ checking. We need to check the external organs owned by the carbon itself,
-		// because we want to also remove ones not shared by its species.
-		// This should be done even if species was not changed.
-		if(external_organ in external_organs)
-			continue // Don't remove external organs this species is supposed to have.
-
-		external_organ.Remove(organ_holder)
-		QDEL_NULL(external_organ)
-	*/
-
-	var/list/species_organs = mutant_organs /*+ external_organs*/
-	for(var/organ_path in species_organs)
-		var/obj/item/organ/current_organ = organ_holder.get_organ_by_type(organ_path)
-		/*
-		if(ispath(organ_path, /obj/item/organ/external) && !should_external_organ_apply_to(organ_path, organ_holder))
-			if(!isnull(current_organ) && replace_current)
-				// if we have an organ here and we're replacing organs, remove it
-				current_organ.Remove(organ_holder)
-				QDEL_NULL(current_organ)
-			continue
-		*/
-
-		if(!current_organ || replace_current)
-			var/obj/item/organ/replacement = SSwardrobe.provide_type(organ_path)
-			// If there's an existing mutant organ, we're technically replacing it.
-			// Let's abuse the snowflake proc. Basically retains
-			// feature parity with every other organ too.
-			if(current_organ)
-				current_organ.before_organ_replacement(replacement)
-			// organ.Insert will qdel any current organs in that slot, so we don't need to.
-			replacement.Insert(organ_holder, special=TRUE, drop_if_replaced=FALSE)
 
 /datum/species/proc/worn_items_fit_body_check(mob/living/carbon/wearer)
 	for(var/obj/item/equipped_item in wearer.get_equipped_items(INCLUDE_POCKETS))
@@ -475,23 +414,28 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/obj/item/bodypart/new_part
 		if(path)
 			new_part = new path()
-			new_part.replace_limb(target, TRUE)
+			new_part.replace_limb(target)
 			new_part.update_limb(is_creating = TRUE)
 		qdel(old_part)
 
 /// Creates body parts for the target completely from scratch based on the species
 /datum/species/proc/create_fresh_body(mob/living/carbon/target)
-	target.create_bodyparts(bodypart_overrides)
+	var/list/override_limbs = list()
+	for(var/bodypart in bodypart_overrides)
+		override_limbs += bodypart_overrides[bodypart]
+	target.create_bodyparts(override_limbs)
 
-/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species, pref_load)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	SHOULD_CALL_PARENT(TRUE)
+
+	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
 
 	C.mob_biotypes = inherent_biotypes
 
-	if(pref_load || old_species.type != type)
+	if(old_species.type != type)
 		replace_body(C, src)
 
-	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
+	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)
 	// Update locked slots AFTER all organ and body stuff is handled
 	C.hud_used?.update_locked_slots()
 	// Drop the items the new species can't wear
@@ -531,9 +475,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	properly_gained = TRUE
 
-/datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
+
+/datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	SHOULD_CALL_PARENT(TRUE)
 
+	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay removed.
+	C.butcher_results = null
 	for(var/X in inherent_traits)
 		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
 
@@ -561,6 +509,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		C.remove_blocked_language(language, LANGUAGE_SPECIES)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
+
+	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
 /*
  * Handles lipstick, having no eyes, eye color, undergarnments like underwear, undershirts, and socks, and body layers.
@@ -850,8 +800,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.wings_list[H.dna.features["wings"]]
 				if("wingsopen")
 					S = GLOB.wings_open_list[H.dna.features["wings"]]
-				if("legs")
-					S = GLOB.legs_list[H.dna.features["legs"]]
 				if("moth_wings")
 					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
 						S = GLOB.moth_wings_list["Burnt Off"]

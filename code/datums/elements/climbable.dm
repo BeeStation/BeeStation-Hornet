@@ -34,6 +34,8 @@
 	examine_texts += span_notice("If you wanted to, you could climb [source] by dragging yourself onto it.")
 
 /datum/element/climbable/proc/can_climb(atom/source, mob/living/user)
+	if (!source.IsReachableBy(user))
+		return FALSE
 	var/dir_step = get_dir(user, source.loc)
 	//To jump over a railing you have to be standing next to it, not far behind it.
 	if(source.flags_1 & ON_BORDER_1 && user.loc != source.loc && (dir_step & source.dir) == source.dir || user.has_status_effect(/datum/status_effect/leaning))
@@ -108,14 +110,17 @@
 ///Handles climbing onto the atom when you click-drag
 /datum/element/climbable/proc/mousedrop_receive(atom/climbed_thing, atom/movable/dropped_atom, mob/user, params)
 	SIGNAL_HANDLER
-	if(user == dropped_atom && isliving(dropped_atom))
-		var/mob/living/living_target = dropped_atom
-		if(isanimal(living_target))
-			var/mob/living/simple_animal/animal = dropped_atom
-			if (!animal.dextrous)
-				return
-		if(living_target.mobility_flags & MOBILITY_MOVE)
-			INVOKE_ASYNC(src, PROC_REF(climb_structure), climbed_thing, living_target, params)
+	if(user != dropped_atom || !isliving(dropped_atom))
+		return
+
+	var/mob/living/living_target = dropped_atom
+	if(isanimal(living_target))
+		var/mob/living/simple_animal/animal = dropped_atom
+		if (!animal.dextrous)
+			return
+	if(living_target.mobility_flags & MOBILITY_MOVE)
+		INVOKE_ASYNC(src, PROC_REF(climb_structure), climbed_thing, living_target, params)
+	return COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 ///Tries to climb onto the target if the forced movement of the mob allows it
 /datum/element/climbable/proc/try_speedrun(datum/source, mob/bumpee)

@@ -77,6 +77,9 @@ GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
 	var/location_sanity = 0
 	while((length(smashes) + num_drained) < how_many_can_we_make && location_sanity < 100)
 		var/turf/chosen_location = get_safe_random_station_turfs()
+		if(!chosen_location)
+			location_sanity++
+			continue
 
 		// We don't want them close to each other - at least 1 tile of seperation
 		var/list/nearby_things = range(1, chosen_location)

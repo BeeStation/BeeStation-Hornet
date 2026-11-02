@@ -22,12 +22,6 @@
 	unarmed_damage = 3
 	bodypart_trait_source = HEAD_TRAIT
 
-	var/mob/living/brain/brainmob //The current occupant.
-	var/obj/item/organ/brain/brain //The brain organ
-	var/obj/item/organ/eyes/eyes
-	var/obj/item/organ/ears/ears
-	var/obj/item/organ/tongue/tongue
-
 	/// Do we show the information about missing organs upon being examined? Defaults to TRUE
 	var/show_organs_on_examine = TRUE
 
@@ -99,12 +93,6 @@
 	VAR_PROTECTED/show_eyeless = FALSE
 
 /obj/item/bodypart/head/Destroy()
-	QDEL_NULL(brainmob) //order is sensitive, see warning in handle_atom_del() below
-	QDEL_NULL(brain)
-	QDEL_NULL(eyes)
-	QDEL_NULL(ears)
-	QDEL_NULL(tongue)
-
 	QDEL_NULL(worn_ears_offset)
 	QDEL_NULL(worn_glasses_offset)
 	QDEL_NULL(worn_mask_offset)
@@ -112,35 +100,19 @@
 	QDEL_NULL(worn_face_offset)
 	return ..()
 
-/obj/item/bodypart/head/handle_atom_del(atom/A)
-	if(A == brain)
-		brain = null
-		update_icon_dropped()
-		if(!QDELETED(brainmob)) //this shouldn't happen without badminnery.
-			message_admins("Brainmob: ([ADMIN_LOOKUPFLW(brainmob)]) was left stranded in [src] at [ADMIN_VERBOSEJMP(src)] without a brain!")
-			log_game("Brainmob: ([key_name(brainmob)]) was left stranded in [src] at [AREACOORD(src)] without a brain!")
-	if(A == brainmob)
-		brainmob = null
-	if(A == eyes)
-		eyes = null
-		update_icon_dropped()
-	if(A == ears)
-		ears = null
-	if(A == tongue)
-		tongue = null
-	return ..()
-
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
 	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
+		var/obj/item/organ/brain/brain = locate(/obj/item/organ/brain) in src
 		if(!brain)
 			. += span_info("The brain has been removed from [src].")
-		else if(brain.suicided || brainmob?.suiciding)
+		else if(brain.suicided || brain.brainmob?.suiciding)
 			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
-		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
-			. += span_info("It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.")
-		else if(brainmob) //We only care about the head's brainmob here
-			if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
+		else if(brain.brainmob) //We only care about the head's brainmob here
+			if(brain.brain_death || brain.brainmob?.health <= HEALTH_THRESHOLD_DEAD)
+				. += span_info("It's leaking some kind of... clear fluid? The brain inside must be in pretty bad shape.")
+
+			if(brain.brainmob.key || brain.brainmob.get_ghost(FALSE, TRUE))
 				. += span_info("Its muscles are still twitching slightly... It still seems to have a bit of life left to it.")
 			else
 				. += span_info("It seems seems particularly lifeless. Perhaps there'll be a chance for them later.")
@@ -149,13 +121,13 @@
 		else
 			. += span_info("It seems completely devoid of life.")
 
-		if(!eyes)
+		if(!(locate(/obj/item/organ/eyes) in src))
 			. += span_info("[real_name]'s eyes appear to have been removed.")
 
-		if(!ears)
+		if(!(locate(/obj/item/organ/ears) in src))
 			. += span_info("[real_name]'s ears appear to have been removed.")
 
-		if(!tongue)
+		if(!(locate(/obj/item/organ/tongue) in src))
 			. += span_info("[real_name]'s tongue appears to have been removed.")
 
 
@@ -165,34 +137,14 @@
 	return ..()
 
 /obj/item/bodypart/head/drop_organs(mob/user, violent_removal)
-	var/atom/drop_loc = drop_location()
-	for(var/obj/item/head_item in src)
-		if(head_item == brain)
-			if(user)
-				user.visible_message(span_warning("[user] saws [src] open and pulls out a brain!"), span_notice("You saw [src] open and pull out a brain."))
-			if(brainmob)
-				brainmob.container = null
-				brain.brainmob = brainmob
-				brainmob = null
-			if(violent_removal && prob(rand(80, 100))) //ghetto surgery can damage the brain.
-				to_chat(user, span_warning("[brain] was damaged in the process!"))
-				brain.set_organ_damage(brain.maxHealth)
-			brain.forceMove(drop_loc)
-			brain = null
-			update_icon_dropped()
-		else
-			if(istype(head_item, /obj/item/reagent_containers/applicator/pill))
-				for(var/datum/action/item_action/hands_free/activate_pill/AP in head_item.actions)
-					qdel(AP)
-			else if(isorgan(head_item))
-				var/obj/item/organ/organ = head_item
-				if(organ.organ_flags & ORGAN_UNREMOVABLE)
-					continue
-			head_item.forceMove(drop_loc)
-	eyes = null
-	ears = null
-	tongue = null
+	if(user)
+		user.visible_message(span_warning("[user] saws [src] open and pulls out a brain!"), span_notice("You saw [src] open and pull out a brain."))
+	var/obj/item/organ/brain/brain = locate(/obj/item/organ/brain) in src
+	if(brain && violent_removal && prob(90)) //ghetto surgery can damage the brain.
+		to_chat(user, span_warning("[brain] was damaged in the process!"))
+		brain.set_organ_damage(brain.maxHealth)
 
+	update_limb()
 	return ..()
 
 /obj/item/bodypart/head/update_limb(dropping_limb, is_creating)
@@ -205,7 +157,8 @@
 	if(ishuman(owner)) //No MONKEYS!!!
 		update_hair_and_lips(dropping_limb, is_creating)
 
-	is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
+	if(owner)
+		is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	. = ..()

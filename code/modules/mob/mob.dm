@@ -42,11 +42,13 @@
 		clear_alert(alert, TRUE)
 	for(var/mob/dead/observe as anything in observers)
 		observe.set_mob_eye_to(MOB_EYE_SELF)
+
 	qdel(hud_used)
 	QDEL_LIST(client_colours)
 	ghostize(can_reenter_corpse = FALSE)
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
+
 	return ..()
 
 /mob/New()
@@ -119,6 +121,11 @@
 
 	LAZYSET(active_hud_list, hud_category, hud_list[hud_category])
 
+	// Mimics have their own copy of any exclusive hud
+	if(!exclusive_hud && ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_active(hud_category, update_huds)
+
 	if(!update_huds)
 		return TRUE
 
@@ -134,6 +141,10 @@
 /atom/proc/set_hud_image_inactive(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
 	if(!istext(hud_category))
 		return FALSE
+
+	if(!exclusive_hud && ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_inactive(hud_category, update_huds)
 
 	if(!update_huds)
 		LAZYREMOVE(active_hud_list, hud_category)
@@ -241,6 +252,12 @@
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(vision_distance, src)) //caches the hearers and then removes ignored mobs.
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(blind_message && ismovable(src))
+		var/atom/movable/movable_source = src
+		if(movable_source.bound_overlay)
+			hearers += mob_only_listeners(get_hearers_in_view(vision_distance, movable_source.bound_overlay))
+	#endif
 	hearers -= ignored_mobs
 
 	var/raw_msg = message
@@ -320,6 +337,12 @@
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src))
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(ismovable(src))
+		var/atom/movable/movable_source = src
+		if(movable_source.bound_overlay)
+			hearers += mob_only_listeners(get_hearers_in_view(hearing_distance, movable_source.bound_overlay))
+	#endif
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
@@ -438,10 +461,6 @@
   * on the item in the slot if the users active hand is empty
   */
 /mob/proc/attack_ui(slot, params)
-	if(world.time <= usr.next_move)
-		return FALSE
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return FALSE
 	var/obj/item/W = get_active_held_item()
 	if(istype(W))
 		//IF HELD TRY APPLY TO SLOT
@@ -576,20 +595,25 @@
 
 	// This part checks what is your true eye through 'get_my_eye()'
 	// This is the reason why we use MOB_EYE_SELF, instead of doing 'set_mob_eye_to(src)'.
+	var/eye_was_remapped = FALSE
 	if(new_eye == src) // do not use when 'mob == src'
 		stack_trace("The proc received 'new_eye' as src (or it might be 'USER.set_mob_eye_to(USER)'). If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
+		eye_was_remapped = TRUE
 	else if(isnull(new_eye))
 		stack_trace("The proc received 'new_eye' as null value. If you wanted to make a mob's eye to themselves, you need to do 'set_mob_eye_to(MOB_EYE_SELF)'")
 		new_eye = get_my_eye()
+		eye_was_remapped = TRUE
 	else if(new_eye == MOB_EYE_SELF)
 		new_eye = get_my_eye()
+		eye_was_remapped = TRUE
 	if(new_eye == current_mob_eye)
 		return // no need to do this
 
 	// Changes (atom/new_eye) argument value.
 	#define _new_eye_arg 1 // first arg. Unfortunately, there's no way to use arg name.
-	revise_proc_arg_value(_new_eye_arg, new_eye)
+	if(eye_was_remapped)
+		revise_proc_arg_value(_new_eye_arg, new_eye)
 	#undef _new_eye_arg
 
 	var/atom/old_eye = current_mob_eye
@@ -1398,15 +1422,19 @@
 ///Set the lighting plane hud alpha to the mobs lighting_alpha var
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
-		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		var/atom/movable/screen/plane_master/lighting/L = hud_used.get_plane_master(LIGHTING_PLANE)
 		if (L)
 			L.alpha = lighting_alpha
-		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
+		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.get_plane_master(LIGHTING_PLANE_ADDITIVE)
 		if(LA)
 			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
 			if(client?.prefs) //If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
 				bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
 			LA.alpha = lighting_alpha * (bloom / 255)
+		// Lower levels are lit through the z-mimic shadow planes
+		var/datum/plane_master_group/main_group = hud_used.get_plane_group(PLANE_GROUP_MAIN)
+		for(var/atom/movable/screen/plane_master/zmimic_shadow/shadow as anything in main_group?.zmimic_shadow_planes)
+			shadow.set_lighting_alpha(lighting_alpha)
 
 
 
@@ -1643,7 +1671,6 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
-	update_action_buttons_icon(TRUE)
 
 /mob/key_down(key, client/client, full_key)
 	..()

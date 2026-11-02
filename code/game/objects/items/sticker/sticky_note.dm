@@ -67,21 +67,7 @@
 /obj/item/sticky_note_pile/Initialize(mapload)
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
-
-/obj/item/sticky_note_pile/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/L = usr
-	if(!istype(L) || L.incapacitated || !Adjacent(L))
-		return
-
-	if(over_object == L)
-		L.put_in_hands(src)
-
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		L.putItemFromInventoryInHandIfPossible(src, H.held_index)
-
-	add_fingerprint(L)
+	AddElement(/datum/element/drag_pickup)
 
 /obj/item/sticky_note_pile/attack_hand(mob/user)
 	. = ..()

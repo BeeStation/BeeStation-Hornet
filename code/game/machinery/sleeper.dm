@@ -137,12 +137,12 @@
 //Note: open_machine and close_machine already ui_update()
 /obj/machinery/sleeper/open_machine(drop = TRUE, density_to_set = FALSE)
 	if(!state_open && !panel_open)
-		flick("[initial(icon_state)]-anim", src)
+		z_flick("[initial(icon_state)]-anim", src)
 		..()
 
 /obj/machinery/sleeper/close_machine(mob/user, density_to_set = TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
-		flick("[initial(icon_state)]-anim", src)
+		z_flick("[initial(icon_state)]-anim", src)
 		..(user)
 		var/mob/living/mob_occupant = occupant
 		if(controls_inside)
@@ -159,6 +159,8 @@
 
 
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
+	if(..())
+		return
 	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
 		return
 

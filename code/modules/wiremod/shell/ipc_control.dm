@@ -26,11 +26,6 @@
 	UnregisterSignal(src, list(COMSIG_ORGAN_IMPLANTED, COMSIG_ORGAN_REMOVED))
 	. = ..()
 
-/obj/item/organ/cyberimp/ipc_control/on_insert(mob/living/carbon/receiver)
-	. = ..()
-	// Organs are put in nullspace, but this breaks circuit interactions
-	forceMove(receiver)
-
 /obj/item/organ/cyberimp/ipc_control/attack(mob/living/target_mob, mob/living/user, params)
 	if(isipc(target_mob))
 		if(target_mob != user)

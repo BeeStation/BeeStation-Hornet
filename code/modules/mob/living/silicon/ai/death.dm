@@ -15,7 +15,7 @@
 	else
 		icon_state = "ai_dead"
 	if(icon_exists(icon, "[old_icon]_death_transition"))
-		flick("[old_icon]_death_transition", src)
+		z_flick("[old_icon]_death_transition", src)
 
 	if(ai_tracking_target)
 		ai_stop_tracking()

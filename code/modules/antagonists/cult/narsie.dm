@@ -68,7 +68,13 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 	var/area/area = get_area(src)
 	if(area)
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "ghostalertsie")
-		notify_ghosts("Nar'Sie has risen in [area]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts(
+			"Nar'Sie has risen in [area]. Reach out to the Geometer to be given a new shell for your soul.",
+			source = src,
+			header = "Nar'Sie has risen!",
+			click_interact = TRUE,
+			alert_overlay = alert_overlay,
+		)
 	narsie_spawn_animation()
 
 /obj/eldritch/narsie/Destroy()
@@ -195,7 +201,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation()
 	setDir(SOUTH)
-	flick("narsie_spawn_anim", src)
+	z_flick("narsie_spawn_anim", src)
 	addtimer(CALLBACK(src, PROC_REF(narsie_spawn_animation_end)), 3.5 SECONDS)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation_end()

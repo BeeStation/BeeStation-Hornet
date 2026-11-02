@@ -8,7 +8,7 @@
 /atom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	if(!usr || !over)
 		return
-	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, over, usr) & COMPONENT_NO_MOUSEDROP)	//Whatever is receiving will verify themselves for adjacency.
+	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, over, usr) & COMPONENT_CANCEL_MOUSEDROP_ONTO)	//Whatever is receiving will verify themselves for adjacency.
 		return
 	if(over == src)
 		return usr.client.Click(src, src_location, src_control, params)
@@ -20,7 +20,8 @@
 
 // receive a mousedrop
 /atom/proc/MouseDrop_T(atom/dropping, mob/user, params)
-	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user, params)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user, params) & COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 
 /client/var/obj/item/active_mousedown_item = null
 /client/var/middragtime = 0

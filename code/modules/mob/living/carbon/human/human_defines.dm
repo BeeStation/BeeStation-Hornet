@@ -1,4 +1,9 @@
 /mob/living/carbon/human
+	name = "Unknown"
+	real_name = "Unknown"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "human_basic"
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD, NANITE_HUD, DIAG_NANITE_FULL_HUD,GLAND_HUD)
 	hud_type = /datum/hud/human
 	pressure_resistance = 25
@@ -7,6 +12,9 @@
 	/// build_worn_icon is reponsible for building this, as each bodypart may be emissive and clothes
 	/// or other bodyparts may block the emissive elements of it.
 	blocks_emissive = EMISSIVE_BLOCK_NONE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+	max_grab = GRAB_KILL
+	examine_thats = "This is"
 
 	///Hair color
 	var/hair_color = COLOR_BLACK
@@ -15,13 +23,13 @@
 
 	///Colours used for hair and facial hair gradients.
 	var/list/gradient_color = list(
-		COLOR_BLACK,	//Hair Gradient Color
-		COLOR_BLACK,	//Facial Hair Gradient Color
+		COLOR_BLACK, //Hair Gradient Color
+		COLOR_BLACK, //Facial Hair Gradient Color
 	)
 	///Styles used for hair and facial hair gradients.
 	var/list/gradient_style = list(
-		"None",	//Hair Gradient Style
-		"None",	//Facial Hair Gradient Style
+		"None", //Hair Gradient Style
+		"None", //Facial Hair Gradient Style
 	)
 
 	///Facial hair colour
@@ -77,3 +85,5 @@
 
 	///Exposure to damaging heat levels increases stacks, stacks clean over time when temperatures are lower. Stack is consumed to add a wound.
 	var/heat_exposure_stacks = 0
+	COOLDOWN_DECLARE(special_emote_cooldown)
+	COOLDOWN_DECLARE(block_cooldown)

@@ -38,8 +38,6 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 	/// Adds to claim, pulse, and expand range
 	var/core_range_bonus = 0
-	/// The core can sustain this many extra spores with this strain
-	var/core_spore_bonus = 0
 	/// Extra range up to which the core reinforces blobs
 	var/core_strong_reinforcement_range_bonus = 0
 	/// Extra range up to which the core reinforces blobs into reflectors
@@ -78,7 +76,6 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	overmind.color = complementary_color
 
 	if(overmind.blob_core)
-		overmind.blob_core.max_spores += core_spore_bonus
 		overmind.blob_core.claim_range += core_range_bonus
 		overmind.blob_core.pulse_range += core_range_bonus
 		overmind.blob_core.expand_range += core_range_bonus
@@ -86,7 +83,6 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		overmind.blob_core.reflector_reinforce_range += core_reflector_reinforcement_range_bonus
 
 	for(var/obj/structure/blob/special/node/N as anything in overmind.node_blobs)
-		N.max_spores += node_spore_bonus
 		N.claim_range += node_range_bonus
 		N.pulse_range += node_range_bonus
 		N.expand_range += node_range_bonus
@@ -98,7 +94,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 	for(var/obj/structure/blob/B as anything in overmind.all_blobs)
 		B.modify_max_integrity(B.max_integrity * max_structure_health_multiplier)
-		B.update_icon()
+		B.update_appearance()
 
 	for(var/mob/living/simple_animal/hostile/blob/BM as anything in overmind.blob_mobs)
 		BM.maxHealth *= max_mob_health_multiplier
@@ -109,17 +105,13 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 /datum/blobstrain/proc/on_lose()
 	if(overmind.blob_core)
-		overmind.blob_core.max_spores -= core_spore_bonus
 		overmind.blob_core.claim_range -= core_range_bonus
-		overmind.blob_core.pulse_range -= core_range_bonus
 		overmind.blob_core.expand_range -= core_range_bonus
 		overmind.blob_core.strong_reinforce_range -= core_strong_reinforcement_range_bonus
 		overmind.blob_core.reflector_reinforce_range -= core_reflector_reinforcement_range_bonus
 
 	for(var/obj/structure/blob/special/node/N as anything in overmind.node_blobs)
-		N.max_spores -= node_spore_bonus
 		N.claim_range -= node_range_bonus
-		N.pulse_range -= node_range_bonus
 		N.expand_range -= node_range_bonus
 		N.strong_reinforce_range -= node_strong_reinforcement_range_bonus
 		N.reflector_reinforce_range -= node_reflector_reinforcement_range_bonus
@@ -150,10 +142,10 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		overmind.add_points(point_rate+point_rate_bonus)
 	overmind.blob_core.repair_damage(base_core_regen + core_regen_bonus)
 
-/datum/blobstrain/proc/attack_living(mob/living/L) // When the blob attacks people
+/datum/blobstrain/proc/attack_living(mob/living/L, list/nearby_blobs) // When the blob attacks people
 	send_message(L)
 
-/datum/blobstrain/proc/blobbernaut_attack(mob/living/L) // When this blob's blobbernaut attacks people
+/datum/blobstrain/proc/blobbernaut_attack(mob/living/L, blobbernaut) // When this blob's blobbernaut attacks people
 
 /datum/blobstrain/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag, coefficient = 1) //when the blob takes damage, do this
 	return coefficient*damage
@@ -165,7 +157,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	return
 
 /datum/blobstrain/proc/tesla_reaction(obj/structure/blob/B, power, coefficient = 1) //when the blob is hit by a tesla bolt, do this
-	return 1 //return 0 to ignore damage
+	return TRUE //return 0 to ignore damage
 
 /datum/blobstrain/proc/extinguish_reaction(obj/structure/blob/B, coefficient = 1) //when the blob is hit with water, do this
 	return

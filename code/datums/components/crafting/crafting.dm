@@ -10,7 +10,7 @@
 	C.icon = H.ui_style
 	H.static_inventory += C
 	CL.screen += C
-	RegisterSignal(C, COMSIG_CLICK, PROC_REF(component_ui_interact))
+	RegisterSignal(C, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(component_ui_interact))
 
 #define COOKING TRUE
 #define CRAFTING FALSE
@@ -108,6 +108,10 @@
 			. += AM
 		else if(AM.flags_1 & HOLOGRAM_1)
 			continue
+		if(isitem(AM))
+			var/obj/item/item = AM
+			if(item.item_flags & ABSTRACT) //let's not tempt fate, shall we?
+				continue
 		. += AM
 
 

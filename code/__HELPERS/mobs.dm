@@ -74,8 +74,6 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	if(!GLOB.spines_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
-	if(!GLOB.legs_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
 	if(!GLOB.body_markings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.body_markings_list)
 	if(!GLOB.wings_list.len)
@@ -135,7 +133,6 @@
 		"frills" = pick(GLOB.frills_list),
 		"spines" = pick(GLOB.spines_list),
 		"body_markings" = pick(GLOB.body_markings_list),
-		"legs" = "Normal Legs",
 		"moth_wings" = pick(GLOB.moth_wings_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
 		"moth_markings" = pick(GLOB.moth_markings_list),
@@ -573,6 +570,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 			return "left foot"
 		if(BODY_ZONE_PRECISE_R_FOOT)
 			return "right foot"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "groin"
 		else
 			return zone
 
@@ -657,7 +656,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 /proc/get_brainmob(obj/target_item, finds_mmi = FALSE)
 	if(istype(target_item, /obj/item/bodypart/head))
 		var/obj/item/bodypart/head/head = target_item
-		return head.brainmob
+		var/obj/item/organ/brain/head_brain = locate(/obj/item/organ/brain) in head
+		return head_brain?.brainmob
 
 	else if(istype(target_item, /obj/item/organ/brain))
 		var/obj/item/organ/brain/brain = target_item

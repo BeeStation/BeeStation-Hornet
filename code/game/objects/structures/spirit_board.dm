@@ -32,7 +32,11 @@
 
 	if(virgin)
 		virgin = FALSE
-		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src, header = "Spirit board")
+		notify_ghosts(
+			"Someone has begun playing with a [src.name] in [get_area(src)]!",
+			source = src,
+			header = "Spirit board"
+		)
 
 	planchette = input("Choose the letter.", "Seance!") as null|anything in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
 	if(!planchette || !Adjacent(M) || next_use > world.time)

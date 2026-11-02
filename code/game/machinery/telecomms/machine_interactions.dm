@@ -48,20 +48,19 @@
 	data["maxfreq"] = MAX_FREE_FREQ
 	data["frequency"] = tempfreq
 
-	var/datum/component/buffer/heldmultitool = get_held_buffer_item(user)
-	data["multitool"] = heldmultitool?.parent
+	var/obj/item/buffer_item = get_held_buffer_item(user)
+	data["multitool"] = buffer_item
 
-	if(heldmultitool?.parent)
-		data["multibuff"] = heldmultitool.target
+	if(buffer_item)
+		data["multibuff"] = GET_BUFFER(buffer_item)
 
 	data["toggled"] = toggled
 	data["id"] = id
 	data["network"] = network
-	data["prefab"] = autolinkers.len ? TRUE : FALSE
+	data["prefab"] = !!length(autolinkers)
 
 	var/list/linked = list()
 	var/i = 0
-	data["linked"] = list()
 	for(var/obj/machinery/telecomms/machine in links)
 		if(machine.hide && !hide)
 			continue
@@ -73,25 +72,21 @@
 		linked += list(entry)
 	data["linked"] = linked
 
-	var/list/frequencies = list()
-	data["frequencies"] = list()
-	for(var/x in freq_listening)
-		frequencies += list(x)
-	data["frequencies"] = frequencies
+	data["frequencies"] = freq_listening.Copy()
 
 	return data
 
-/obj/machinery/telecomms/ui_act(action, params)
+/obj/machinery/telecomms/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
 
-	var/mob/living/current_user = usr
-	if(!issilicon(current_user))
-		if(!istype(current_user.get_active_held_item(), /obj/item/multitool))
-			return
+	var/mob/current_user = ui.user
+	var/obj/item/held_item = current_user.get_active_held_item()
+	if(!issilicon(current_user) && held_item.tool_behaviour != TOOL_MULTITOOL)
+		return
 
-	var/datum/component/buffer/heldmultitool = get_held_buffer_item(current_user)
+	var/obj/item/buffer_item = get_held_buffer_item(current_user)
 
 	switch(action)
 		if("toggle")
@@ -121,7 +116,7 @@
 						remove_link(linked_machine)
 						linked_machine.ui_update()
 					network = params["value"]
-					links = list()
+					links.Cut()
 					log_game("[key_name(current_user)] has changed the network for [src] at [AREACOORD(src)] to [network].")
 					. = TRUE
 		if("tempfreq")
@@ -146,14 +141,13 @@
 			if(machine_to_unlink)
 				. = remove_link(machine_to_unlink, current_user)
 		if("link")
-			if(heldmultitool)
-				var/obj/machinery/telecomms/machine_to_link = heldmultitool.target
-				. = add_new_link(machine_to_link, current_user)
+			if(buffer_item)
+				. = add_new_link(GET_BUFFER(buffer_item), current_user)
 		if("buffer")
-			STORE_IN_BUFFER(heldmultitool.parent, src)
+			STORE_IN_BUFFER(buffer_item, src)
 			. = TRUE
 		if("flush")
-			FLUSH_BUFFER(heldmultitool.parent)
+			FLUSH_BUFFER(buffer_item)
 			. = TRUE
 
 	if(add_act(action, params))
@@ -249,22 +243,15 @@
 					change_frequency = 0
 					. = TRUE
 
-
-/// Returns a multitool from a user depending on their mobtype.
+/// Returns a buffer item from a user depending on their mob type.
 /obj/machinery/telecomms/proc/get_held_buffer_item(mob/user)
-	// Let's double check
 	var/obj/item/held_item = user.get_active_held_item()
-	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
-		return held_item?.GetComponent(/datum/component/buffer)
-	else if(isAI(user))
-		var/mob/living/silicon/ai/U = user
-		return U.aiMulti.GetComponent(/datum/component/buffer)
-	else if(iscyborg(user) && in_range(user, src))
-		if(held_item?.GetComponent(/datum/component/buffer))
-			return held_item?.GetComponent(/datum/component/buffer)
-	return null
 
-/obj/machinery/telecomms/proc/canAccess(mob/user)
-	if(issilicon(user) || in_range(user, src))
-		return TRUE
-	return FALSE
+	if(!issilicon(user))
+		if(held_item?.GetComponent(/datum/component/buffer))
+			return held_item
+	else if(isAI(user))
+		var/mob/living/silicon/ai/ai_user = user
+		return ai_user.aiMulti
+	else if(iscyborg(user) && in_range(user, src) && held_item?.GetComponent(/datum/component/buffer))
+		return held_item

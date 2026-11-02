@@ -102,9 +102,9 @@
 /obj/machinery/modular_fabricator/autolathe/after_material_insert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
 	if(length(custom_materials) && custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
-		flick("autolathe_r", src)//plays glass insertion animation by default otherwise
+		z_flick("autolathe_r", src)//plays glass insertion animation by default otherwise
 	else
-		flick("autolathe_o", src)//plays metal insertion animation
+		z_flick("autolathe_o", src)//plays metal insertion animation
 
 /obj/machinery/modular_fabricator/autolathe/set_default_sprite()
 	icon_state = "autolathe"

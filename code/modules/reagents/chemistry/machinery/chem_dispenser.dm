@@ -137,7 +137,7 @@
 
 /obj/machinery/chem_dispenser/proc/work_animation()
 	if(working_state)
-		flick(working_state,src)
+		z_flick(working_state,src)
 
 /obj/machinery/chem_dispenser/update_icon_state()
 	icon_state = "[(nopower_state && !powered()) ? nopower_state : base_icon_state]"

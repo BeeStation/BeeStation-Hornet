@@ -131,6 +131,8 @@
 	qdel(src)
 
 /obj/structure/vampire/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
+	if(..())
+		return
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))

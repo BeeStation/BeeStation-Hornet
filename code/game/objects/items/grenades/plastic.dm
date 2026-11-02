@@ -107,47 +107,56 @@
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
-/obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack(atom/movable/bomb_target, mob/user, flag)
 	. = ..()
-	aim_dir = get_dir(user,AM)
+	aim_dir = get_dir(user, bomb_target)
 	if(!flag || !user.is_holding(src))
 		return
-	if(ismob(AM) && !can_attach_mob)
+	if(ismob(bomb_target) && !can_attach_mob)
 		return
 
-	if(ismob(AM))
-		to_chat(AM, span_userdanger("[user.name] is trying to plant [name] on you!"))
+	if(ismob(bomb_target))
+		to_chat(bomb_target, span_userdanger("[user.name] is trying to plant [name] on you!"))
 
 	to_chat(user, span_notice("You start planting [src]. The timer is set to [det_time]..."))
 
-	if(do_after(user, 30, target = AM))
-		if(!user.temporarilyRemoveItemFromInventory(src))
-			return
-		target = AM
+	if(!do_after(user, 3 SECONDS, target = bomb_target))
+		return
+	if(!user.temporarilyRemoveItemFromInventory(src))
+		return
+	target = bomb_target
 
-		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_VERBOSEJMP(target)] with [det_time] second fuse")
-		log_game("[key_name(user)] planted [name] on [target.name] at [AREACOORD(user)] with a [det_time] second fuse")
+	message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_VERBOSEJMP(target)] with [det_time] second fuse")
+	log_game("[key_name(user)] planted [name] on [target.name] at [AREACOORD(user)] with a [det_time] second fuse")
+	var/icon/target_icon = icon(bomb_target.icon, bomb_target.icon_state)
+	target_icon.Blend(icon(icon, icon_state), ICON_OVERLAY)
+	var/mutable_appearance/bomb_target_image = mutable_appearance(target_icon)
+	notify_ghosts(
+		"[user] has planted \a [src] on [target] with a [det_time] second fuse!",
+		source = bomb_target,
+		header = "Explosive Planted",
+		alert_overlay = bomb_target_image,
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+	)
 
-		notify_ghosts("[user] has planted \a [src] on [target] with a [det_time] second fuse!", source = AM, action = (isturf(target) ? NOTIFY_JUMP : NOTIFY_ORBIT), flashwindow = FALSE, header = "Explosive Planted")
+	moveToNullspace() //Yep
 
-		moveToNullspace()	//Yep
+	if(istype(bomb_target)) //your crappy throwing star can't fly so good with a giant brick of c4 on it.
+		var/obj/item/I = bomb_target
+		I.throw_speed = max(1, (I.throw_speed - 3))
+		I.throw_range = max(1, (I.throw_range - 3))
+		if(I.embedding)
+			I.embedding["embed_chance"] = 0
+			I.updateEmbedding()
+	else if(istype(bomb_target, /mob/living))
+		plastic_overlay.layer = FLOAT_LAYER
 
-		if(istype(AM, /obj/item)) //your crappy throwing star can't fly so good with a giant brick of c4 on it.
-			var/obj/item/I = AM
-			I.throw_speed = max(1, (I.throw_speed - 3))
-			I.throw_range = max(1, (I.throw_range - 3))
-			if(I.embedding)
-				I.embedding["embed_chance"] = 0
-				I.updateEmbedding()
-		else if(istype(AM, /mob/living))
-			plastic_overlay.layer = FLOAT_LAYER
-
-		target.add_overlay(plastic_overlay)
-		if(!nadeassembly)
-			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time]."))
-			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
-		else
-			qdel(src)	//How?
+	target.add_overlay(plastic_overlay)
+	if(!nadeassembly)
+		to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time]."))
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
+	else
+		qdel(src)	//How?
 
 /obj/item/grenade/plastic/proc/shout_syndicate_crap(mob/M)
 	if(!M)

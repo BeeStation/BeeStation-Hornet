@@ -72,7 +72,10 @@
 		var/mob/new_character = generate_ruleset_body(chosen_candidate)
 		finish_setup(new_character)
 
-		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+		notify_ghosts(
+			"[chosen_candidate] has been picked for the [src] ruleset!",
+			source = new_character,
+		)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
@@ -128,7 +131,10 @@
 		var/mob/new_character = generate_ruleset_body(chosen_candidate)
 		finish_setup(new_character)
 
-		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+		notify_ghosts(
+			"[chosen_candidate] has been picked for the [src] ruleset!",
+			source = new_character,
+		)
 
 
 /**
@@ -289,9 +295,6 @@
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_spawn_locations()
 	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
-		if(QDELETED(vent))
-			continue
-
 		if(is_station_level(vent.loc.z) && !vent.welded)
 			var/datum/pipenet/vent_parent = vent.parents[1]
 
@@ -523,9 +526,6 @@
 
 /datum/dynamic_ruleset/midround/ghost/spiders/get_spawn_locations()
 	for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/atmospherics/components/unary/vent_pump))
-		if(QDELETED(vent))
-			continue
-
 		if(is_station_level(vent.loc.z) && !vent.welded)
 			var/datum/pipenet/vent_parent = vent.parents[1]
 

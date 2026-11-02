@@ -59,6 +59,8 @@
 
 /atom/movable/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
+	if(.)
+		return
 	return mouse_buckle_handling(dropping, user)
 
 /**
@@ -122,7 +124,7 @@
 	M.set_buckled(src)
 	buckled_mobs |= M
 
-	M.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
+	M.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/buckled)
 	M.set_glide_size(glide_size)
 
 	M.Move(loc)
@@ -332,6 +334,8 @@
   * user - The mob unbuckling buckled_mob
   */
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(!(buckled_mob in buckled_mobs) || !buckled_mob.IsReachableBy(user))
+		return
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
