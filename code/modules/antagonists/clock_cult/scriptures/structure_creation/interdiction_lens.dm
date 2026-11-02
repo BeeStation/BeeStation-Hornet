@@ -98,7 +98,7 @@
 
 		// Flavor
 		icon_state = "interdiction_lens_active"
-		flick("interdiction_lens_recharged", src)
+		z_flick("interdiction_lens_recharged", src)
 
 		// Replace dampening field
 		if(istype(dampening_field))
@@ -113,7 +113,7 @@
 
 	// Flavor
 	icon_state = "interdiction_lens"
-	flick("interdiction_lens_discharged", src)
+	z_flick("interdiction_lens_discharged", src)
 
 	QDEL_NULL(dampening_field)
 

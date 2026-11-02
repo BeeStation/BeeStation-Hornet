@@ -323,7 +323,7 @@
 		proximity_monitor.set_range(0)
 		status = BURSTING
 		update_icon()
-		flick("egg_opening", src)
+		z_flick("egg_opening", src)
 		addtimer(CALLBACK(src, PROC_REF(finish_bursting), kill), 15)
 
 /obj/structure/alien/egg/proc/finish_bursting(kill = TRUE)
