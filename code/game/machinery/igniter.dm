@@ -140,7 +140,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
 		return
 
 
-	flick("[initial(icon_state)]-spark", src)
+	z_flick("[initial(icon_state)]-spark", src)
 	spark_system.start()
 	last_spark = world.time
 	use_power(active_power_usage)

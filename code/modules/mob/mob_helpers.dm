@@ -509,7 +509,7 @@
 		if (BODY_GROUP_LEGS)
 			var/left_priority = is_priority_zone(target, BODY_ZONE_L_LEG, zone_context)
 			var/right_priority = is_priority_zone(target, BODY_ZONE_R_LEG, zone_context)
-			return left_priority == right_priority ? pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) : (left_priority ? BODY_ZONE_R_LEG : BODY_ZONE_R_LEG)
+			return left_priority == right_priority ? pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) : (left_priority ? BODY_ZONE_L_LEG : BODY_ZONE_R_LEG)
 		if (BODY_GROUP_ARMS)
 			var/left_priority = is_priority_zone(target, BODY_ZONE_L_ARM, zone_context)
 			var/right_priority = is_priority_zone(target, BODY_ZONE_R_ARM, zone_context)

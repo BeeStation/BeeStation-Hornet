@@ -54,7 +54,7 @@
 			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
 				cell.give(500 WATT)
-				flick("repeater", src)
+				z_flick("repeater", src)
 				update_icon()
 			else
 				break

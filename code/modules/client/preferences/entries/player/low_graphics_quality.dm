@@ -9,4 +9,4 @@
 	if (!client)
 		return
 	for (var/atom/movable/screen/plane_master/pm in client.screen)
-		pm.backdrop(client.mob)
+		pm.update_effects(client.mob)

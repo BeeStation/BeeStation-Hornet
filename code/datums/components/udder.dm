@@ -18,12 +18,12 @@
 
 /datum/component/udder/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(on_item_interaction))
 
 /datum/component/udder/UnregisterFromParent()
 	QDEL_NULL(udder)
 	on_milk_callback = null
-	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ATTACKBY))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ITEM_INTERACTION))
 
 ///signal called on parent being examined
 /datum/component/udder/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -43,16 +43,18 @@
 			examine_list += span_notice("[parent]'s [udder] is round and full, and can be milked if you have something to contain it.")
 
 
-///signal called on parent being attacked with an item
-/datum/component/udder/proc/on_attackby(datum/source, obj/item/milking_tool, mob/user)
+///signal called on parent being interacted with an item
+/datum/component/udder/proc/on_item_interaction(datum/source, mob/living/user, obj/item/tool, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/mob/living/milked = parent
-	if(milked.stat == CONSCIOUS && istype(milking_tool, /obj/item/reagent_containers/cup))
-		udder.milk(milking_tool, user)
-		if(on_milk_callback)
-			on_milk_callback.Invoke(udder.reagents.total_volume, udder.reagents.maximum_volume)
-		return COMPONENT_NO_AFTERATTACK
+	if(milked.stat != CONSCIOUS || !istype(tool, /obj/item/reagent_containers/cup))
+		return NONE
+
+	udder.milk(tool, user)
+	if(on_milk_callback)
+		on_milk_callback.Invoke(udder.reagents.total_volume, udder.reagents.maximum_volume)
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * # udder item

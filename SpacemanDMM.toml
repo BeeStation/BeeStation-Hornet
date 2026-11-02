@@ -1,3 +1,5 @@
+environment = "beestation.dme"
+
 [langserver]
 dreamchecker = true
 

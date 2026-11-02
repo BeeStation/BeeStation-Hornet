@@ -54,11 +54,11 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+/datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species)
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
-/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 
@@ -79,11 +79,11 @@
 	. = ..()
 	equipping.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
-/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species) // For transformations
 	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 
-/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 

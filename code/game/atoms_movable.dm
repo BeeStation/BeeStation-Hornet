@@ -616,18 +616,21 @@
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_ABSTRACT_ENTERED, src, old_loc, old_locs)
 
+	var/turf/old_turf = get_turf(old_loc)
+	var/turf/new_turf = get_turf(src)
+
 	// Z-Mimic hook
 	if (bound_overlay)
 		// The overlay will handle cleaning itself up on non-openspace turfs.
-		if (isturf(loc))
-			bound_overlay.forceMove(get_step_multiz(src, UP))
+		var/turf/above_turf = isturf(loc) ? GET_TURF_ABOVE(new_turf) : null
+		if (above_turf)
+			bound_overlay.forceMove(above_turf)
 			if (bound_overlay && dir != bound_overlay.dir)
 				bound_overlay.setDir(dir)
-		else // Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
+			if (old_turf && GET_TURF_DEPTH(old_turf) != GET_TURF_DEPTH(new_turf))
+				bound_overlay.z_shift()
+		else // No turf above to show it on
 			qdel(bound_overlay)
-
-	var/turf/old_turf = get_turf(old_loc)
-	var/turf/new_turf = get_turf(src)
 
 	if (old_turf && new_turf && old_turf.z != new_turf.z)
 		onTransitZ(old_turf.z, new_turf.z)
@@ -736,9 +739,6 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
-	if(destination == null) //destination destroyed due to explosion
-		return
-
 	if(destination)
 		. = doMove(destination)
 	else
@@ -1081,8 +1081,9 @@
 
 	var/matrix/initial_transform = matrix(transform)
 	var/matrix/rotated_transform = transform.Turn(rand(13,17) * turn_dir)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
+	for(var/atom/movable/attacking as anything in get_associated_mimics() + src)
+		animate(attacking, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
+		animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING, flags = ANIMATION_PARALLEL)
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image

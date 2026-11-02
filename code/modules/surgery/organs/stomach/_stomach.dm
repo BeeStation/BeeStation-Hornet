@@ -49,7 +49,7 @@
 	if(!reagents)
 		create_reagents(reagent_vol)
 
-/obj/item/organ/stomach/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/stomach/on_mob_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
 	last_nutrition = organ_owner.nutrition
 
@@ -65,7 +65,7 @@
 	var/mob/living/carbon/body = owner
 
 	// digest food, sent all reagents that can metabolize to the body
-	for(var/datum/reagent/bit as anything in reagents.reagent_list)
+	for(var/datum/reagent/bit as anything in reagents?.reagent_list)
 
 		// If the reagent does not metabolize then it will sit in the stomach
 		// This has an effect on items like plastic causing them to take up space in the stomach
@@ -120,7 +120,7 @@
 
 ///Nutriment in the stomach, besides the organ's own food reagents. 0 if empty.
 /obj/item/organ/stomach/proc/get_free_nutriment_volume()
-	var/datum/reagent/nutri = locate(/datum/reagent/consumable/nutriment) in reagents.reagent_list
+	var/datum/reagent/nutri = locate(/datum/reagent/consumable/nutriment) in reagents?.reagent_list
 	if(!nutri)
 		return 0
 	var/amount_food = food_reagents[nutri.type]
@@ -333,7 +333,7 @@
 			disgusted.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
 			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
-/obj/item/organ/stomach/Remove(mob/living/carbon/stomach_owner, special = 0, pref_load = FALSE)
+/obj/item/organ/stomach/Remove(mob/living/carbon/stomach_owner, special = 0, movement_flags)
 	if(ishuman(stomach_owner))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.clear_alert("disgust")

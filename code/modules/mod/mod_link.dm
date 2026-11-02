@@ -85,24 +85,24 @@ DEFINE_BUFFER_HANDLER(/obj/item/mod/control)
 			return COMPONENT_BUFFER_RECEIVED
 		return NONE
 
-	if(tool_frequency)
-		if(mod_link.frequency)
-			var/response = tgui_alert(user, "Would you like to copy or imprint the frequency?", "MODlink Frequency", list("Copy", "Imprint"))
-			if(!response || !user.is_holding(buffer_parent) || QDELETED(src) || QDELETED(buffer_parent))
-				return NONE
-			switch(response)
-				if("Copy")
-					if (!TRY_STORE_IN_BUFFER(buffer_parent, mod_link))
-						return NONE
-					balloon_alert(user, "frequency copied")
-				if("Imprint")
-					mod_link.frequency = tool_frequency
-					balloon_alert(user, "frequency set")
-		else
-			mod_link.frequency = tool_frequency
-		return COMPONENT_BUFFER_RECEIVED
+	if(!tool_frequency)
+		return NONE
 
-	return NONE
+	if(mod_link.frequency)
+		var/response = tgui_alert(user, "Would you like to copy or imprint the frequency?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!response || !user.is_holding(buffer_parent) || QDELETED(src) || QDELETED(buffer_parent))
+			return NONE
+		switch(response)
+			if("Copy")
+				if (!TRY_STORE_IN_BUFFER(buffer_parent, mod_link))
+					return NONE
+				balloon_alert(user, "frequency copied")
+			if("Imprint")
+				mod_link.frequency = tool_frequency
+				balloon_alert(user, "frequency set")
+	else
+		mod_link.frequency = tool_frequency
+	return COMPONENT_BUFFER_RECEIVED
 
 /obj/item/mod/control/proc/can_call()
 	return get_charge() && wearer && wearer.stat != DEAD
@@ -149,8 +149,6 @@ DEFINE_BUFFER_HANDLER(/obj/item/mod/control)
 	var/datum/mod_link/mod_link
 	/// Initial frequency of the MODlink.
 	var/starting_frequency
-	/// An additional name tag for the scryer, seen as "MODlink scryer - [label]"
-	var/label
 
 /obj/item/clothing/neck/link_scryer/Initialize(mapload)
 	. = ..()
@@ -190,15 +188,15 @@ DEFINE_BUFFER_HANDLER(/obj/item/mod/control)
 	mod_link?.end_call()
 
 /obj/item/clothing/neck/link_scryer/attack_self(mob/user, modifiers)
-	var/new_label = reject_bad_text(tgui_input_text(user, "Change the visible name", "Set Name", label, MAX_NAME_LEN))
-	if(!user.is_holding(src))
+	var/new_label = tgui_input_text(user, "Change the visible name", "MODlink Label", mod_link.get_label(), MAX_NAME_LEN)
+	if(!new_label || !user.is_holding(src))
 		return
+	new_label = reject_bad_text(new_label)
 	if(!new_label)
 		balloon_alert(user, "invalid name!")
 		return
-	label = new_label
+	mod_link.label = new_label
 	balloon_alert(user, "name set")
-	update_name()
 
 /obj/item/clothing/neck/link_scryer/process(seconds_per_tick)
 	if(!mod_link.link_call)
@@ -216,21 +214,17 @@ DEFINE_BUFFER_HANDLER(/obj/item/mod/control)
 	balloon_alert(user, "cell installed")
 	return ITEM_INTERACT_SUCCESS
 
-/obj/item/clothing/neck/link_scryer/update_name(updates)
-	. = ..()
-	name = "[initial(name)][label ? " - [label]" : ""]"
-
 /obj/item/clothing/neck/link_scryer/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(gone == cell)
 		cell = null
 
-/obj/item/clothing/neck/link_scryer/attack_hand_secondary(mob/user, list/modifiers)
+/obj/item/clothing/neck/link_scryer/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!cell)
-		return SECONDARY_ATTACK_CONTINUE_CHAIN
+		return NONE
 	balloon_alert(user, "cell removed")
 	user.put_in_hands(cell)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ITEM_INTERACT_SUCCESS
 
 REGISTER_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
@@ -331,8 +325,8 @@ DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 
 /// A MODlink datum, used to handle unique functions that will be used in the MODlink call.
 /datum/mod_link
-	/// Generic name for multitool buffers.
-	var/name = "MODlink"
+	/// The label of this MODlink displayed to a person when they try to call a MODlink. If null, it defaults to the holder's name.
+	var/label
 	/// The frequency of the MODlink. You can only call other MODlinks on the same frequency.
 	var/frequency
 	/// The unique ID of the MODlink.
@@ -457,6 +451,9 @@ DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 	SIGNAL_HANDLER
 	qdel(src)
 
+/datum/mod_link/proc/get_label()
+	return label || "[holder]" || "MODlink"
+
 /// A MODlink call datum, used to handle the call between two MODlinks.
 /datum/mod_link_call
 	/// The MODlink that is calling.
@@ -492,6 +489,7 @@ DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 /proc/call_link(mob/user, datum/mod_link/calling_link)
 	if(!calling_link.frequency)
 		return
+
 	var/list/callers = list()
 	for(var/id, _link in GLOB.mod_link_ids)
 		var/datum/mod_link/link = _link
@@ -501,10 +499,12 @@ DEFINE_BUFFER_HANDLER(/obj/item/clothing/neck/link_scryer)
 			continue
 		if(!link.can_call_callback.Invoke())
 			continue
-		callers["[link.holder] ([id])"] = id
+		callers["[link.get_label()] ([id])"] = id
+
 	if(!length(callers))
 		calling_link.holder.balloon_alert(user, "no targets on freq [calling_link.frequency]!")
 		return
+
 	var/chosen_link = tgui_input_list(user, "Choose ID to call from [calling_link.frequency] frequency", "MODlink", callers)
 	if(!chosen_link)
 		return

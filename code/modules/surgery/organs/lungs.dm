@@ -205,19 +205,18 @@
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 
 	// N2O
-
 		var/SA_pp = PP(breath, /datum/gas/nitrous_oxide)
 		if(SA_pp > SA_para_min) // Enough to make us stunned for a bit
-			H.Unconscious(60) // 60 gives them one second to wake up and run away a bit!
-			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-				H.Sleeping(max(H.AmountSleeping() + 40, 200))
-		else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
+			if(!HAS_TRAIT(H, TRAIT_SLEEPIMMUNE))
+				H.Unconscious(6 SECONDS) // 60 gives them one second to wake up and run away a bit!
+				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
+					H.Sleeping(max(H.AmountSleeping() + 40, 200))
+		else if(SA_pp > 0.01) // There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))
 				SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "chemical_euphoria", /datum/mood_event/chemical_euphoria)
 		else
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
-
 	// BZ
 
 		var/bz_pp = PP(breath, /datum/gas/bz)

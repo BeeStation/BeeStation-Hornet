@@ -206,7 +206,7 @@
 /datum/action/changeling/sting/blind
 	name = "Blind Sting"
 	desc = "We temporarily blind our victim. Costs 25 chemicals."
-	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
+	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time. Does not work if target has robotic or missing eyes."
 	button_icon_state = "sting_blind"
 	chemical_cost = 25
 	dna_cost = 1
@@ -214,7 +214,11 @@
 /datum/action/changeling/sting/blind/sting_action(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 	if(!eyes)
-		to_chat(user, span_notice("You prepare to sting [target], but one of the voices in your hivemind points out they have no eyes."))
+		user.balloon_alert(user, "no eyes!")
+		return FALSE
+
+	if(IS_ROBOTIC_ORGAN(eyes))
+		user.balloon_alert(user, "robotic eyes!")
 		return FALSE
 
 	log_combat(user, target, "stung", "blind sting")
