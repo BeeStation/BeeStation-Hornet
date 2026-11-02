@@ -20,13 +20,12 @@
 			to_chat(user, span_warning("[src] is already at maximum fuel load."))
 			return ITEM_INTERACT_BLOCKING
 
-		fuel_rods += tool
-		tool.forceMove(src)
-
 		if(!length(fuel_rods)) // That was the first fuel rod. Let's heat it up.
 			activate(user)
 		else // Not the first fuel rod? Play the sound.
 			playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+		fuel_rods += tool
+		tool.forceMove(src)
 
 		update_appearance(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_SUCCESS
