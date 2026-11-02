@@ -32,9 +32,9 @@
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
-	var/foodload // the dominant reagent in a food item becomes the foodload for utensil eating
-	var/foodload_color // the dominant reagents color which is applied to food overlay
-	var/loaded_icon_state = "forkloaded" // The icon state for the food blob
+	var/foodload // the main reagent in a food becomes the foodload for utensil eating
+	var/foodload_color // the main reagents color is applied to the foodload overlay
+	var/food_overlay_state = "forkloaded" // Iconstate for foodload overlay ontop a utensil
 	var/bite_word = "forkful" // Term for eating messages
 	var/eat_sound = 'sound/items/eatfood.ogg' // Sound used when eating from the utensil
 
@@ -51,7 +51,7 @@
 /obj/item/kitchen/fork/update_overlays()
 	. = ..()
 	if(foodload)
-	 var/mutable_appearance/blob = mutable_appearance(icon, loaded_icon_state,
+	 var/mutable_appearance/blob = mutable_appearance(icon, food_overlay_state,
 	appearance_flags = RESET_COLOR, color = foodload_color)
 		. += blob
 
@@ -65,7 +65,7 @@
 			if(!do_after(user, 1.5 SECONDS, eating_person, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded)))) // Feeding Others Has A Delay Similar To Self Eating
 				return
 		if(eating_person == user)
-			eating_person.visible_message(span_notice("[user] eats a [bite_word] of food!"))
+			eating_person.visible_message(span_notice("[user] eats a [bite_word] of food!"), span_notice("You eat a [bite_word] of food!"))
 		else
 			eating_person.visible_message(span_notice("[user] feeds [eating_person] a [bite_word] of food!"))
 		playsound(eating_person, eat_sound, 25, TRUE)
@@ -88,7 +88,7 @@
 	name = "spoon"
 	desc = "Like a fork, but more round and shallow."
 	icon_state = "spoon"
-	loaded_icon_state = "spoonloaded"
+	food_overlay_state = "spoonloaded"
 	bite_word = "spoonful"
 	eat_sound = 'sound/items/drink.ogg'
 	attack_verb_continuous = list("attacks", "slaps", "pokes")
