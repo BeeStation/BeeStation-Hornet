@@ -131,7 +131,7 @@
 	var/obj/item/organ/eyes/eyes = H.get_organ_by_type(/obj/item/organ/eyes)
 	if(!eyes || eyes.lighting_alpha)
 		return
-	eyes.Insert(H) //refresh their eyesight and vision
+	eyes.refresh(H)
 
 /datum/quirk/photographer
 	name = "Psychic Photographer"

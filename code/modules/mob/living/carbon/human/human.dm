@@ -55,10 +55,10 @@
 	randomize_human_normie(src, randomize_mutations = TRUE)
 
 /mob/living/carbon/human/Destroy()
-	QDEL_NULL(physiology)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
-	return ..()
+	. = ..()
+	QDEL_NULL(physiology)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...

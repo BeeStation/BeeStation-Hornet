@@ -57,6 +57,8 @@
 /// Refreshes the visuals of the eyes
 /// If call_update is TRUE, we also will call udpate_body
 /obj/item/organ/eyes/proc/refresh(mob/living/carbon/eye_owner = owner, call_update = TRUE)
+	if(HAS_TRAIT(eye_owner, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	owner.update_sight()
 	owner.update_tint()
 
@@ -68,9 +70,6 @@
 		affected_human.add_eye_color_left(eye_color_left, EYE_COLOR_ORGAN_PRIORITY, update_body = FALSE)
 	if(eye_color_right)
 		affected_human.add_eye_color_right(eye_color_right, EYE_COLOR_ORGAN_PRIORITY, update_body = FALSE)
-	if(HAS_TRAIT(affected_human, TRAIT_NIGHT_VISION_WEAK) && !lighting_alpha)
-		lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
-
 	if(call_update)
 		affected_human.update_body()
 
