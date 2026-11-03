@@ -442,7 +442,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /obj/effect/temp_visual/fcluwne_manifest/Initialize(mapload)
 	. = ..()
 	playsound(src, 'sound/misc/floor_cluwne_emerge.ogg', 100, 1)
-	flick("fcluwne_manifest",src)
+	z_flick("fcluwne_manifest",src)
 
 /obj/effect/dummy/floorcluwne_orbit
 	name = "floor cluwne"

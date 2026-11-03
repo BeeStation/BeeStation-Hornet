@@ -1,0 +1,9 @@
+2026-11-02:
+  mrmanlikesbt:
+  - bugfix: Fixed things which can have goliath hide plates applied as armor throwing
+      a runtime if they were deleted without ever having any goliath plates added.
+  - bugfix: Fixed doubled up modular PC messages when you had your balloon alert preference
+      set to send alerts to your chat box.
+  - map: Fixed the RadStation command airlock not requiring command access.
+  - map: Fixed the RadStation command airlock not automatically closing one of the
+      doors when the other one was opened.

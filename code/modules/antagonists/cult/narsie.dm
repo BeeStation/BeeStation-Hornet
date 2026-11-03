@@ -201,7 +201,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation()
 	setDir(SOUTH)
-	flick("narsie_spawn_anim", src)
+	z_flick("narsie_spawn_anim", src)
 	addtimer(CALLBACK(src, PROC_REF(narsie_spawn_animation_end)), 3.5 SECONDS)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation_end()
