@@ -210,7 +210,7 @@ const SettingsDisplay = (_) => {
 };
 
 const THRESHOLD_STYLE = {
-  heal_threshold_brute: { label: 'Brute', color: 'red', dim: 'maroon' },
+  heal_threshold_brute: { label: 'Brute', color: 'red', dim: 'red' },
   heal_threshold_burn: { label: 'Burn', color: 'orange', dim: 'yellow' },
   heal_threshold_toxin: { label: 'Toxin', color: 'green', dim: 'olive' },
   heal_threshold_oxy: { label: 'Suffocation', color: 'blue', dim: 'teal' },
