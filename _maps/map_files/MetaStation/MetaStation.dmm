@@ -35949,7 +35949,6 @@
 /obj/item/cultivator,
 /obj/item/wrench,
 /obj/item/wirecutters,
-/obj/item/shovel/spade,
 /obj/item/clothing/suit/utility/beekeeper_suit,
 /obj/item/clothing/head/utility/beekeeper_head,
 /obj/effect/turf_decal/bot,
