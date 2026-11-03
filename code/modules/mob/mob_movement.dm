@@ -304,7 +304,6 @@
 	if(. || HAS_TRAIT(src, TRAIT_SPACEWALK))
 		return TRUE
 
-	// FUCK OFF
 	if(buckled)
 		return TRUE
 
@@ -317,6 +316,7 @@
 
 	if(continuous_move || !istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
+
 	// last pushoff exists for one reason
 	// to ensure pushing a mob doesn't just lead to it considering us as backup, and failing
 	last_pushoff = world.time
@@ -353,7 +353,7 @@
 			if(M.buckled)
 				continue
 		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
-		if(!rebound.density && pass_allowed)
+		if(!rebound.density && pass_allowed && !istype(rebound, /obj/structure/lattice))
 			continue
 		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
 		if(rebound.last_pushoff == world.time)

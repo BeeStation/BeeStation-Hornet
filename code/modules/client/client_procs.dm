@@ -292,6 +292,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return ..()
 
 /client/Destroy()
+	if(mob)
+		mob.become_uncliented()
+
 	GLOB.clients_unsafe -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
