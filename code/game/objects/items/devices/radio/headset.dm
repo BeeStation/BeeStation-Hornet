@@ -314,7 +314,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
 	icon_state = "cent_headset_alt"
 	worn_icon_state = "cent_headset_alt"
-	keyslot = null
 	bang_protect = 1
 
 /obj/item/radio/headset/silicon/pai
