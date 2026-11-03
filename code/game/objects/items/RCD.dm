@@ -175,7 +175,7 @@ RLD
 	if(!. && user)
 		to_chat(user, no_ammo_message)
 		if(has_ammobar)
-			flick("[icon_state]_empty", src)	//somewhat hacky thing to make RCDs with ammo counters actually have a blinking yellow light
+			z_flick("[icon_state]_empty", src)	//somewhat hacky thing to make RCDs with ammo counters actually have a blinking yellow light
 	return .
 
 /obj/item/construction/proc/range_check(atom/A, mob/user)

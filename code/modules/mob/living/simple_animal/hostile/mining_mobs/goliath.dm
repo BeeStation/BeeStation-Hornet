@@ -28,9 +28,9 @@
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
 	aggro_vision_range = 9
-	move_force = MOVE_FORCE_VERY_STRONG
-	move_resist = MOVE_FORCE_VERY_STRONG
-	pull_force = MOVE_FORCE_VERY_STRONG
+	move_force = MOVE_FORCE_STRONG
+	move_resist = MOVE_FORCE_STRONG
+	pull_force = MOVE_FORCE_STRONG
 	gender = MALE//lavaland elite goliath says that i'''' 't s female and i ''t s stronger because of sexual dimorphism, so normal goliaths should be male
 	var/pre_attack = 0
 	var/pre_attack_icon = "Goliath_preattack"

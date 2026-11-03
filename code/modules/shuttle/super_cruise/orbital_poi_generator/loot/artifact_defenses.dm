@@ -61,7 +61,7 @@
 	if(active)
 		return
 	active = TRUE
-	flick("protector_pulse", src)
+	z_flick("protector_pulse", src)
 	var/turf/target_location = get_turf(target)
 	addtimer(CALLBACK(effect, PROC_REF(trigger), src, get_turf(src), target, target_location), 1 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 1.5 SECONDS)

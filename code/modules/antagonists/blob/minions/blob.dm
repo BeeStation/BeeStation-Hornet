@@ -91,8 +91,8 @@
 	SSmove_manager.jps_move(moving = src, chasing = target, delay = delay, repath_delay = 2 SECONDS, minimum_distance = minimum_distance, simulated_only = FALSE, skip_first = TRUE, timeout = 5 SECONDS, flags = MOVEMENT_LOOP_IGNORE_GLIDE)
 	return TRUE
 
-/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
-	for(var/obj/structure/blob/blob in range(1, src))
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	for(var/obj/structure/blob/B in range(1, src))
 		return 1
 	return ..()
 

@@ -49,7 +49,7 @@
 				break
 			use_power(active_power_usage)
 			O.throw_at(target, drive_range * power, power)
-	flick("mass_driver1", src)
+	z_flick("mass_driver1", src)
 
 /obj/machinery/mass_driver/attackby(obj/item/I, mob/living/user, list/modifiers)
 

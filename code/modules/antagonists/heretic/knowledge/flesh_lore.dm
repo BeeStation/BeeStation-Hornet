@@ -40,9 +40,9 @@
 		/datum/heretic_knowledge/limited_amount/base_ash,
 		/datum/heretic_knowledge/limited_amount/base_rust,
 		/datum/heretic_knowledge/limited_amount/base_void,
-		/datum/heretic_knowledge/final/ash_final,
-		/datum/heretic_knowledge/final/rust_final,
-		/datum/heretic_knowledge/final/void_final,
+		/datum/heretic_knowledge/ultimate/ash_final,
+		/datum/heretic_knowledge/ultimate/rust_final,
+		/datum/heretic_knowledge/ultimate/void_final,
 	)
 	required_atoms = list(
 		/obj/item/knife = 1,
@@ -311,7 +311,7 @@
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. \
 		An ever shapeshifting mass of flesh, it knew well my goals. The Marshal approved."
 	next_knowledge = list(
-		/datum/heretic_knowledge/final/flesh_final,
+		/datum/heretic_knowledge/ultimate/flesh_final,
 		/datum/heretic_knowledge/summon/ashy,
 		/datum/heretic_knowledge/spell/blood_siphon,
 	)
@@ -326,7 +326,7 @@
 	cost = 1
 	route = HERETIC_PATH_FLESH
 
-/datum/heretic_knowledge/final/flesh_final
+/datum/heretic_knowledge/ultimate/flesh_final
 	name = "Priest's Final Hymn"
 	desc = "The ascension ritual of the Path of Flesh. \
 		Bring four corpses to a transumation rune to complete the ritual. \
@@ -344,7 +344,7 @@
 	announcement_text = "Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, %USER% has ascended! Fear the ever-twisting hand!"
 	announcement_sound = 'sound/effects/antag/heretic/ascend_flesh.ogg'
 
-/datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	priority_announce("[generate_heretic_text()] Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever-twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 
@@ -360,7 +360,7 @@
 	blade_ritual.limit = 999
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
-/datum/heretic_knowledge/final/flesh_final/on_lose(mob/user)
+/datum/heretic_knowledge/ultimate/flesh_final/on_lose(mob/user)
 	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 #undef GHOUL_MAX_HEALTH
