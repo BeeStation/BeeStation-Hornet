@@ -688,7 +688,15 @@
 	name = "vampire team"
 
 /datum/team/vampire/roundend_report()
-	return
+	var/list/report = list()
+	for(var/datum/mind/member as anything in members)
+		var/datum/antagonist/vampire/vampire = IS_VAMPIRE(member.current)
+		if(!vampire || vampire.get_team() != src)
+			continue
+		report += vampire.roundend_report()
+	if(!length(report))
+		return
+	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
 
 /datum/antagonist/vampire/proc/on_update_sight(mob/user)
 	SIGNAL_HANDLER

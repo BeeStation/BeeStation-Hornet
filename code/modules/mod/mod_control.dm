@@ -76,7 +76,7 @@
 	/// The MODlink datum, letting us call people from the suit.
 	var/datum/mod_link/mod_link
 	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
-	var/starting_frequency = null
+	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// Delay between moves as AI.
 	var/static/movedelay = 0
 	/// Cooldown for AI moves.
