@@ -33,6 +33,7 @@
 	plant_item = _plant_item
 	skip_growth = _skip_growth
 	use_body_appearance = !isnull(_use_body_appearance) ? _use_body_appearance : use_body_appearance
+	ADD_TRAIT(plant_item, TRAIT_SKIP_BASIC_REACH_CHECK, REF(src))
 	// Setup signals for spade behaviour
 	RegisterSignal(plant_item, COMSIG_ATOM_AFTER_ATTACKEDBY, PROC_REF(catch_attackby))
 	// Setup for investigation
@@ -55,6 +56,7 @@
 	for(var/datum/plant_feature/feature as anything in plant_features)
 		plant_features -= feature
 		qdel(feature)
+	REMOVE_TRAIT(plant_item, TRAIT_SKIP_BASIC_REACH_CHECK, REF(src))
 	plant_item = null
 	return ..()
 
