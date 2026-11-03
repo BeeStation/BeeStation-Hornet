@@ -1,3 +1,5 @@
+// Plane masters take their group and plane through Initialize, which would be delayed without this
+INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /atom/movable/screen/plane_master
 	screen_loc = "CENTER"
 	icon_state = "blank"
@@ -7,15 +9,41 @@
 	var/show_alpha = 255
 	var/hide_alpha = 0
 
+	/// The plane master group we're a member of, our "home"
+	var/datum/plane_master_group/home
+
 	//--rendering relay vars--
-	///integer: what plane we will relay this planes render to
-	var/render_relay_plane = RENDER_PLANE_GAME
-	///bool: Whether this plane should get a render target automatically generated
-	var/generate_render_target = TRUE
-	///integer: blend mode to apply to the render relay in case you dont want to use the plane_masters blend_mode
+	/// list of planes we will relay this plane's render to
+	var/list/render_relay_planes = list(RENDER_PLANE_GAME)
+	/// blend mode to apply to the render relay in case you dont want to use the plane_masters blend_mode
 	var/blend_mode_override
-	///reference: current relay this plane is utilizing to render
-	var/atom/movable/render_plane_relay/relay
+	/// list of current relays this plane is utilizing to render
+	var/list/atom/movable/render_plane_relay/relays = list()
+
+/atom/movable/screen/plane_master/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, plane_override)
+	. = ..()
+	// Set before the relays exist, the generated render target is named after us
+	if(!isnull(plane_override))
+		plane = plane_override
+		name = "[name] [plane]"
+	set_home(home)
+	generate_render_relays()
+
+/atom/movable/screen/plane_master/Destroy()
+	if(home)
+		// NOTE! We do not clear ourselves from client screens
+		// We relay on whoever qdel'd us to reset our hud, and properly purge us
+		home.plane_masters -= "[plane]"
+		home = null
+	QDEL_LIST(relays)
+	return ..()
+
+/// Sets the plane group that owns us, it also determines what screen we render to
+/atom/movable/screen/plane_master/proc/set_home(datum/plane_master_group/home)
+	src.home = home
+	if(home.map)
+		assigned_map = home.map
+		screen_loc = "[home.map]:[screen_loc]"
 
 /atom/movable/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
@@ -23,13 +51,44 @@
 /atom/movable/screen/plane_master/proc/Hide(override)
 	alpha = override || hide_alpha
 
-//Why do plane masters need a backdrop sometimes? Read https://secure.byond.com/forum/?post=2141928
-//Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
-/atom/movable/screen/plane_master/proc/backdrop(mob/mymob)
+/// Shows this plane master and its relays to the passed in mob, and applies its effects
+/// Override this to apply unique effects and such
+/atom/movable/screen/plane_master/proc/show_to(mob/mymob)
 	SHOULD_CALL_PARENT(TRUE)
-	filters = null
-	if(!isnull(render_relay_plane))
-		relay_render_to_plane(mymob, render_relay_plane)
+	update_effects(mymob)
+	var/client/our_client = mymob?.client
+	if(!our_client)
+		return
+	var/relay_loc = get_relay_loc(our_client)
+	for(var/atom/movable/render_plane_relay/relay as anything in relays)
+		relay.screen_loc = relay_loc
+	our_client.screen += src
+	our_client.screen += relays
+
+/// Hides a plane master from the passeed in mob
+/// Do your effect cleanup here
+/atom/movable/screen/plane_master/proc/hide_from(mob/oldmob)
+	SHOULD_CALL_PARENT(TRUE)
+	hide_from_client(oldmob?.client)
+
+/// Removes this plane master and its relays from the passed in client's screen
+/atom/movable/screen/plane_master/proc/hide_from_client(client/their_client)
+	if(!their_client)
+		return
+	their_client.screen -= src
+	their_client.screen -= relays
+
+/// Returns the screen_loc our relays should use for the passed in client
+/atom/movable/screen/plane_master/proc/get_relay_loc(client/viewer)
+	if(home.map)
+		return "[home.map]:1,1"
+	return (viewer.byond_version > 515) ? "1,1" : "CENTER"
+
+/// Applies the filters and other effects that depend on the viewer's preferences.
+/// Preference toggles call this directly, to refresh effects without reshowing anything.
+/atom/movable/screen/plane_master/proc/update_effects(mob/mymob)
+	SHOULD_CALL_PARENT(TRUE)
+	return
 
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor
@@ -38,8 +97,9 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-/atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/floor/update_effects(mob/mymob)
 	. = ..()
+	remove_filter("openspace_shadow")
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if (low_graphics_quality)
 		return
@@ -54,8 +114,9 @@
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
-/atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/game_world/update_effects(mob/mymob)
 	. = ..()
+	remove_filter("AO")
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion) && !low_graphics_quality)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
@@ -63,7 +124,7 @@
 /atom/movable/screen/plane_master/game_world_above
 	name = "above game world plane master"
 	plane = ABOVE_GAME_PLANE
-	render_relay_plane = GAME_PLANE
+	render_relay_planes = list(GAME_PLANE)
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
@@ -84,7 +145,7 @@
 	plane = GHOST_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
 /atom/movable/screen/plane_master/point
 	name = "point plane master"
@@ -104,6 +165,8 @@
 	blend_mode = BLEND_MULTIPLY
 	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR | PIXEL_SCALE
 	//byond internal end
+	// Hides space and z-mimic outside our view too
+	render_relay_planes = list(RENDER_PLANE_GAME, RENDER_PLANE_BELOW_GAME)
 
 ///Contains all lighting objects
 /atom/movable/screen/plane_master/lighting
@@ -111,13 +174,22 @@
 	plane = LIGHTING_PLANE
 	blend_mode_override = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	// Space is rendered apart from the game plate but still needs lighting
+	render_relay_planes = list(RENDER_PLANE_GAME, RENDER_PLANE_SPACE)
 
-/atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/lighting/show_to(mob/mymob)
 	. = ..()
+	// Fullscreens only exist on the main map
+	if(home.map)
+		return
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 	if (isliving(mymob))
 		mymob.overlay_fullscreen("lighting_backdrop_seenear", /atom/movable/screen/fullscreen/see_through_darkness)
+
+/atom/movable/screen/plane_master/lighting/update_effects(mob/mymob)
+	. = ..()
+	remove_filter("emissives")
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if (!low_graphics_quality)
 		add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
@@ -130,7 +202,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
 
-/atom/movable/screen/plane_master/additive_lighting/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/additive_lighting/update_effects(mob/mymob)
 	. = ..()
 	// Disable this as a plane master when using low graphics quality, the stuff does not render at all
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
@@ -147,11 +219,11 @@
 	name = "starlight plane master"
 	plane = STARLIGHT_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_relay_plane = LIGHTING_PLANE
+	render_relay_planes = list(LIGHTING_PLANE)
 	blend_mode_override = BLEND_OVERLAY
 	color = COLOR_STARLIGHT
 
-/atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/starlight/show_to(mob/mymob)
 	. = ..()
 	// Default the colour to whatever the parallax is currently
 	transition_colour(src, GLOB.starlight_colour, 0.1 SECONDS)
@@ -173,10 +245,12 @@
 	plane = EMISSIVE_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = EMISSIVE_RENDER_TARGET
-	render_relay_plane = null
+	render_relay_planes = list()
 
-/atom/movable/screen/plane_master/emissive/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/emissive/show_to(mob/mymob)
 	. = ..()
+	if(home.map)
+		return
 	mymob.overlay_fullscreen("emissive_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/emissive_backdrop)
 
 /atom/movable/screen/plane_master/above_lighting
@@ -191,10 +265,41 @@
 	plane = PLANE_SPACE_PARALLAX
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_planes = list(RENDER_PLANE_SPACE)
 
 /atom/movable/screen/plane_master/parallax_white
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
+	render_relay_planes = list(RENDER_PLANE_SPACE)
+
+/// Kept off the game plate, its lighting would light lower levels twice
+/atom/movable/screen/plane_master/zmimic
+	name = "zmimic plane master"
+	plane = ZMIMIC_MAX_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	render_relay_planes = list(RENDER_PLANE_BELOW_GAME)
+
+/// Holds the lighting copied from below for one z-mimic plane.
+/// Multiplied over that plane and everything deeper, since each z-mimic plane is composited on its own.
+/atom/movable/screen/plane_master/zmimic_shadow
+	name = "zmimic shadow plane master"
+	plane = ZMIMIC_SHADOW_PLANE(ZMIMIC_MAX_PLANE)
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	blend_mode_override = BLEND_MULTIPLY
+	render_relay_planes = list(RENDER_PLANE_BELOW_GAME)
+
+/atom/movable/screen/plane_master/zmimic_shadow/get_relay_layer()
+	// Just above the z-mimic plane we darken
+	return ..() - ZMIMIC_SHADOW_PLANE_OFFSET * 0.5 + 0.25
+
+/// Fades copied lighting, but keeps depth darkening
+/atom/movable/screen/plane_master/zmimic_shadow/proc/set_lighting_alpha(lighting_alpha)
+	if(lighting_alpha >= 255)
+		color = null
+		return
+	var/lit = lighting_alpha / 255
+	var/dark = (1 - lit) * SHADOWER_DARKENING_FACTOR
+	color = list(lit,0,0,0, 0,lit,0,0, 0,0,lit,0, dark,dark,dark,1, 0,0,0,0)
 
 /atom/movable/screen/plane_master/pipecrawl
 	name = "pipecrawl plane master"
@@ -207,6 +312,12 @@
 	// Makes everything on this plane slightly brighter
 	// Has a nice effect, makes thing stand out
 	color = list(1.2,0,0,0, 0,1.2,0,0, 0,0,1.2,0, 0,0,0,1, 0,0,0,0)
+
+/atom/movable/screen/plane_master/pipecrawl/update_effects(mob/mymob)
+	. = ..()
+	remove_filter("pipe_dropshadow")
+	if (mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality))
+		return
 	// This serves a similar purpose, I want the pipes to pop
 	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = "#0000007A"))
 
@@ -223,17 +334,18 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY
 	blend_mode_override = BLEND_MULTIPLY
-	render_relay_plane = RENDER_PLANE_GAME
+	render_relay_planes = list(RENDER_PLANE_GAME, RENDER_PLANE_SPACE)
 
 /atom/movable/screen/plane_master/runechat
 	name = "runechat plane master"
 	plane = RUNECHAT_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
-/atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/runechat/update_effects(mob/mymob)
 	. = ..()
+	remove_filter("AO")
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if (low_graphics_quality)
 		return
@@ -247,7 +359,7 @@
 	blend_mode = BLEND_ADD
 	blend_mode_override = BLEND_ADD
 	render_target = GRAVITY_PULSE_RENDER_TARGET
-	render_relay_plane = null
+	render_relay_planes = list()
 
 /atom/movable/screen/plane_master/area
 	name = "area plane"
@@ -256,17 +368,17 @@
 /atom/movable/screen/plane_master/text_effect
 	name = "text effect plane"
 	plane = TEXT_EFFECT_PLANE
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
 /atom/movable/screen/plane_master/balloon_chat
 	name = "balloon alert plane"
 	plane = BALLOON_CHAT_PLANE
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
 /atom/movable/screen/plane_master/fullscreen
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
 //Psychic & Blind stuff
 /atom/movable/screen/plane_master/psychic
@@ -275,10 +387,11 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = PLANE_MASTER
 	render_target = PSYCHIC_PLANE_RENDER_TARGET
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
-/atom/movable/screen/plane_master/psychic/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/psychic/update_effects(mob/mymob)
 	. = ..()
+	remove_filter(list("psychic_bloom", "psychic_alpha_mask", "psychic_radial_blur", "psychic_blur"))
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if (low_graphics_quality)
 		return
@@ -293,10 +406,11 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = PLANE_MASTER
 	render_target = ANTI_PSYCHIC_PLANE_RENDER_TARGET
-	render_relay_plane = null
+	render_relay_planes = list()
 
-/atom/movable/screen/plane_master/anti_psychic/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/anti_psychic/update_effects(mob/mymob)
 	. = ..()
+	remove_filter("hide_outline")
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if (low_graphics_quality)
 		return
@@ -308,10 +422,11 @@
 	plane = BLIND_FEATURE_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = PLANE_MASTER
-	render_relay_plane = RENDER_PLANE_NON_GAME
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
-/atom/movable/screen/plane_master/blind_feature/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/blind_feature/update_effects(mob/mymob)
 	. = ..()
+	remove_filter(list("glow", "mask"))
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
 	if (low_graphics_quality)
 		return
