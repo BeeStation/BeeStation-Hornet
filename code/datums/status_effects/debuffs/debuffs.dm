@@ -211,7 +211,7 @@
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
-	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
 	owner.remove_filter("stasis_status_ripple")
 	update_time_of_death()
 	owner.update_incapacitated()
