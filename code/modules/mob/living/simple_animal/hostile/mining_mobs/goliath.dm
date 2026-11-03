@@ -8,7 +8,7 @@
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 2 SECONDS
 	ranged = 1

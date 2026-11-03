@@ -15,7 +15,6 @@
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
 	inhand_icon_state = "welding"
-	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
@@ -25,7 +24,9 @@
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	resistance_flags = FIRE_PROOF
+	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 
 
 /datum/armor/utility_welding
@@ -35,7 +36,12 @@
 	stamina = 5
 
 /obj/item/clothing/head/utility/welding/attack_self(mob/user)
-	weldingvisortoggle(user)
+	adjust_visor(user)
+
+/obj/item/clothing/head/utility/welding/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
+	inhand_icon_state = "[initial(inhand_icon_state)][up ? "off" : ""]"
 
 /obj/item/clothing/head/costume/speedwagon
 	name = "hat of ultimate masculinity"
@@ -47,9 +53,9 @@
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
-	icon_state = "speedwagon_cursed"
-	inhand_icon_state = "speedwagon_cursed"
-	worn_y_offset = 18
+	icon_state = "speedwagon"
+	inhand_icon_state = "speedwagon"
+	worn_y_offset = 6
 
 /obj/item/clothing/head/franks_hat
 	name = "Frank's Hat"

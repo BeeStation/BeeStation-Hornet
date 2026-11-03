@@ -13,8 +13,10 @@
 	max_stamina_damage = 120
 	grind_results = null
 	bodypart_trait_source = CHEST_TRAIT
+	///The bodyshape(s) allowed to attach to this chest.
+	var/acceptable_bodyshape = BODYSHAPE_HUMANOID
 	///The bodytype(s) allowed to attach to this chest.
-	var/acceptable_bodytype = BODYTYPE_HUMANOID
+	var/acceptable_bodytype = ALL
 
 	var/obj/item/cavity_item
 
@@ -32,6 +34,8 @@
 	var/datum/worn_feature_offset/worn_suit_offset
 	/// Offset to apply to equipment worn on the neck
 	var/datum/worn_feature_offset/worn_neck_offset
+	/// Which functional (i.e. flightpotion) wing types (if any) does this bodypart support? If count is >1 a radial menu is used to choose between all icons in list
+	var/list/wing_types = list(/obj/item/organ/wings/angel)
 
 /obj/item/bodypart/chest/forced_removal(dismembered, special, move_to_floor)
 	var/mob/living/carbon/old_owner = owner
@@ -72,8 +76,8 @@
 	limb_id = SPECIES_MONKEY
 	should_draw_greyscale = FALSE
 	is_dimorphic = FALSE
-	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
-	acceptable_bodytype = BODYTYPE_MONKEY
+	bodyshape = BODYSHAPE_MONKEY
+	acceptable_bodyshape = BODYSHAPE_MONKEY
 	dmg_overlay_type = SPECIES_MONKEY
 
 /obj/item/bodypart/chest/monkey/teratoma
@@ -85,12 +89,14 @@
 	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_chest"
 	limb_id = BODYPART_ID_ALIEN
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodytype = BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_HUMANOID
 	is_dimorphic = FALSE //All of them are girls
 	should_draw_greyscale = FALSE
 	bodypart_flags = BODYPART_UNREMOVABLE
 	max_damage = 500
-	acceptable_bodytype = BODYTYPE_HUMANOID
+	acceptable_bodyshape = BODYSHAPE_HUMANOID
+	wing_types = NONE
 
 /obj/item/bodypart/chest/larva
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'
@@ -103,6 +109,7 @@
 	max_damage = 50
 	bodytype = BODYTYPE_LARVA_PLACEHOLDER | BODYTYPE_ORGANIC
 	acceptable_bodytype = BODYTYPE_LARVA_PLACEHOLDER
+	wing_types = NONE
 
 /obj/item/bodypart/arm
 	abstract_type = /obj/item/bodypart/arm
@@ -129,6 +136,7 @@
 	QDEL_NULL(worn_glove_offset)
 	QDEL_NULL(held_hand_offset)
 	return ..()
+
 
 /// We need to clear out hand hud items and appearance, so do that here
 /obj/item/bodypart/arm/clear_ownership(mob/living/carbon/old_owner)
@@ -236,7 +244,7 @@
 	icon_static = 'icons/mob/animal_parts.dmi'
 	limb_id = SPECIES_MONKEY
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_MONKEY
 	px_x = -5
 	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
@@ -251,7 +259,8 @@
 	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_l_arm"
 	limb_id = BODYPART_ID_ALIEN
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodytype = BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_HUMANOID
 	px_x = 0
 	px_y = 0
 	bodypart_flags = BODYPART_UNREMOVABLE
@@ -329,7 +338,7 @@
 	icon_state = "default_monkey_r_arm"
 	icon_static = 'icons/mob/animal_parts.dmi'
 	limb_id = SPECIES_MONKEY
-	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_MONKEY
 	should_draw_greyscale = FALSE
 	px_x = 5
 	px_y = -3
@@ -346,7 +355,8 @@
 	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_r_arm"
 	limb_id = BODYPART_ID_ALIEN
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodytype = BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_HUMANOID
 	px_x = 0
 	px_y = 0
 	bodypart_flags = BODYPART_UNREMOVABLE
@@ -438,7 +448,7 @@
 	icon_state = "default_monkey_l_leg"
 	limb_id = SPECIES_MONKEY
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_MONKEY
 	px_y = 4
 	dmg_overlay_type = SPECIES_MONKEY
 	unarmed_damage = 3
@@ -452,7 +462,8 @@
 	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_l_leg"
 	limb_id = BODYPART_ID_ALIEN
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodytype = BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_HUMANOID
 	px_x = 0
 	px_y = 0
 	bodypart_flags = BODYPART_UNREMOVABLE
@@ -525,7 +536,7 @@
 	icon_state = "default_monkey_r_leg"
 	limb_id = SPECIES_MONKEY
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_MONKEY
 	px_y = 4
 	dmg_overlay_type = SPECIES_MONKEY
 	unarmed_damage = 3
@@ -539,7 +550,8 @@
 	icon_static = 'icons/mob/human/species/alien/bodyparts.dmi'
 	icon_state = "alien_r_leg"
 	limb_id = BODYPART_ID_ALIEN
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodytype = BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_HUMANOID
 	px_x = 0
 	px_y = 0
 	bodypart_flags = BODYPART_UNREMOVABLE

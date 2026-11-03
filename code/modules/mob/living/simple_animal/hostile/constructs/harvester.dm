@@ -50,7 +50,7 @@
 	for(var/obj/item/bodypart/limb as anything in victim.bodyparts)
 		if(limb.body_part == HEAD || limb.body_part == CHEST)
 			continue
-		if(limb.bodypart_flags & BODYPART_UNREMOVABLE)
+		if(!(limb.bodypart_flags & BODYPART_UNREMOVABLE))
 			parts += limb
 		else
 			strong_limbs++

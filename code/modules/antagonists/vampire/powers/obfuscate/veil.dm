@@ -37,7 +37,7 @@
 	// Store Prev Appearance
 	prev_gender = user.gender
 	prev_skin_tone = user.skin_tone
-	prev_hair_style = user.hair_style
+	prev_hair_style = user.hairstyle
 	prev_facial_hairstyle = user.facial_hairstyle
 	prev_hair_color = user.hair_color
 	prev_facial_hair_color = user.facial_hair_color
@@ -57,7 +57,7 @@
 	// Change Appearance
 	user.gender = pick(MALE, FEMALE, PLURAL)
 	user.skin_tone = pick(GLOB.skin_tones)
-	user.set_hairstyle(random_hair_style(user.gender), update = FALSE)
+	user.set_hairstyle(random_hairstyle(user.gender), update = FALSE)
 	user.set_facial_hairstyle(pick(random_facial_hairstyle(user.gender), "Shaved"), update = FALSE)
 	user.set_haircolor("#[random_color()]", update = FALSE)
 	user.set_facial_haircolor(user.hair_color, update = FALSE)
@@ -70,7 +70,7 @@
 
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)
-	user.dna.features = random_features()
+	user.dna.features = user.dna.species.randomize_features()
 
 	// Apply Appearance
 	user.override_voice = user.name

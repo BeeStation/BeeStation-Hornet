@@ -129,7 +129,7 @@
 /mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, forced = TRUE)
+		adjustStaminaLoss(amount = -stamina_recovery * delta_time, forced = TRUE)
 
 /mob/living/basic/get_default_say_verb()
 	return length(speak_emote) ? pick(speak_emote) : ..()

@@ -4,6 +4,8 @@
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
 	inherent_traits = list(
+		TRAIT_AGENDER,
+		TRAIT_MUTANT_COLORS,
 		TRAIT_PSYCHIC_SENSE,
 		TRAIT_MUTANT_COLORS,
 		TRAIT_AGENDER,
@@ -19,7 +21,11 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = COLOR_WHITE)
+	mutant_bodyparts = list(
+		"psyphoza_cap" = "Portobello",
+		"body_size" = "Normal",
+		"mcolor" = COLOR_WHITE
+	)
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 
 	bodypart_overrides = list(

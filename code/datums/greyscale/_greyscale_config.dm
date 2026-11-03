@@ -106,7 +106,7 @@
 		var/changed = FALSE
 
 		json_config = file(string_json_config)
-		var/json_hash = rustg_hash_file("md5", json_config)
+		var/json_hash = rustg_hash_file(RUSTG_HASH_MD5, json_config)
 		if(json_config_hash != json_hash)
 			json_config_hash = json_hash
 			changed = TRUE

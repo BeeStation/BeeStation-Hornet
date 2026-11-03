@@ -23,7 +23,7 @@
 	return OXYLOSS
 
 /obj/item/clothing/mask/breath/attack_self(mob/user)
-	adjustmask(user)
+	adjust_visor(user)
 
 /obj/item/clothing/mask/breath/examine(mob/user)
 	. = ..()

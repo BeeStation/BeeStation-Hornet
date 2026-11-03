@@ -31,9 +31,8 @@
 	/// Flags related to appearance, such as hair, lips, etc
 	var/head_flags = HEAD_ALL_FEATURES
 
-
 	/// Hair style
-	var/hair_style = "Bald"
+	var/hairstyle = "Bald"
 	/// Hair colour and style
 	var/hair_color = COLOR_BLACK
 	/// Hair alpha
@@ -43,14 +42,15 @@
 	/// Lazy initialized hashset of all hair masks that should be applied
 	var/list/hair_masks
 
-	/// Facial hair style
+	///Facial hair style
 	var/facial_hairstyle = "Shaved"
-	/// Facial hair color
+	///Facial hair color
 	var/facial_hair_color = COLOR_BLACK
 	///Facial hair alpha
 	var/facial_hair_alpha = 255
 	///Is the facial hair currently hidden by something?
 	var/facial_hair_hidden = FALSE
+
 	/// Gradient styles, if any
 	var/list/gradient_styles = list(
 		"None",	//Hair gradient style
@@ -67,13 +67,19 @@
 	/// An override that cannot be cleared under any circumstances, affects both hair and facial hair
 	var/fixed_hair_color = null
 
+	///Type of lipstick being used, basically
 	var/lip_style
+	///Lipstick color
 	var/lip_color
+	///Current lipstick trait, if any (such as TRAIT_KISS_OF_DEATH)
 	var/stored_lipstick_trait
 
 	var/mouth = TRUE
 
-	var/is_blushing = FALSE
+	/// Draw this head as "debrained"
+	VAR_PROTECTED/show_debrained = FALSE
+	/// Draw this head as missing eyes
+	VAR_PROTECTED/show_eyeless = FALSE
 
 	/// Offset to apply to equipment worn on the ears
 	var/datum/worn_feature_offset/worn_ears_offset
@@ -86,12 +92,6 @@
 	/// Offset to apply to overlays placed on the face
 	var/datum/worn_feature_offset/worn_face_offset
 
-	/// Draw this head as "debrained"
-	VAR_PROTECTED/show_debrained = FALSE
-
-	/// Draw this head as missing eyes
-	VAR_PROTECTED/show_eyeless = FALSE
-
 /obj/item/bodypart/head/Destroy()
 	QDEL_NULL(worn_ears_offset)
 	QDEL_NULL(worn_glasses_offset)
@@ -102,13 +102,13 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(IS_ORGANIC_LIMB(src) && show_organs_on_examine)
+	if(show_organs_on_examine && IS_ORGANIC_LIMB(src))
 		var/obj/item/organ/brain/brain = locate(/obj/item/organ/brain) in src
 		if(!brain)
 			. += span_info("The brain has been removed from [src].")
 		else if(brain.suicided || brain.brainmob?.suiciding)
 			. += span_info("There's a pretty dumb expression on [real_name]'s face; they must have really hated life. There is no hope of recovery.")
-		else if(brain.brainmob) //We only care about the head's brainmob here
+		else if(brain.brainmob)
 			if(brain.brain_death || brain.brainmob?.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's leaking some kind of... clear fluid? The brain inside must be in pretty bad shape.")
 
@@ -154,30 +154,16 @@
 			real_name = "Unknown"
 		else
 			real_name = owner.real_name
+
 	if(ishuman(owner)) //No MONKEYS!!!
 		update_hair_and_lips(dropping_limb, is_creating)
 
-	if(owner)
-		is_blushing = HAS_TRAIT(owner, TRAIT_BLUSHING) // Caused by either the *blush emote or the "drunk" mood event
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/item/bodypart/head/get_limb_icon(dropped)
 	. = ..()
 
-	// Blush emote overlay
-	if (is_blushing)
-		var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_ADJ_LAYER)) //should appear behind the eyes
-		var/blush_color = COLOR_BLUSH_PINK
-		if(ishuman(owner))
-			var/mob/living/carbon/human/species_human = owner
-			if(species_human?.dna?.species.blush_color)
-				blush_color = species_human.dna.species.blush_color
-
-		blush_overlay.color = blush_color
-		worn_face_offset?.apply_offset(blush_overlay)
-		. += blush_overlay
-
 	. += get_hair_and_lips_icon(dropped)
-
 	// We need to get the eyes if we are dropped (ugh)
 	if(dropped)
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
@@ -220,7 +206,7 @@
 	icon_static = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_head"
 	limb_id = SPECIES_MONKEY
-	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_MONKEY
 	should_draw_greyscale = FALSE
 	dmg_overlay_type = SPECIES_MONKEY
 	is_dimorphic = FALSE
@@ -242,7 +228,8 @@
 	px_y = 0
 	bodypart_flags = BODYPART_UNREMOVABLE
 	max_damage = 500
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodytype = BODYTYPE_ALIEN | BODYTYPE_ORGANIC
+	bodyshape = BODYSHAPE_HUMANOID
 
 /obj/item/bodypart/head/larva
 	icon = 'icons/mob/human/species/alien/bodyparts.dmi'

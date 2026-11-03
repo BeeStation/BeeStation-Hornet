@@ -36,7 +36,7 @@ GLOBAL_LIST(chemical_reactions_list_reactant_index)
 GLOBAL_LIST(chemical_reagents_list)
 
 /// list of all surgeries by name, associated with their path.
-GLOBAL_LIST_EMPTY(surgeries_list)
+GLOBAL_LIST_INIT(surgeries_list, init_surgeries())
 
 /// list of all surgery steps, associated by their path.
 GLOBAL_LIST_INIT(surgery_steps, init_subtypes_w_path_keys(/datum/surgery_step, list()))
@@ -93,4 +93,22 @@ GLOBAL_LIST_INIT(prototype_organs, typecacheof(list(
 	/obj/item/organ/cyberimp/chest,
 	/obj/item/organ/cyberimp/eyes,
 	/obj/item/organ/alien,
+	/obj/item/organ/nymph_organ,
+	/obj/item/organ/nymph_organ/chest,
+	/obj/item/organ/nymph_organ/r_arm,
+	/obj/item/organ/nymph_organ/l_arm,
+	/obj/item/organ/nymph_organ/r_leg,
+	/obj/item/organ/nymph_organ/l_leg,
 ), only_root_path = TRUE))
+
+// List of organ typepaths similiar to prototype_organs, but including subtypes
+GLOBAL_LIST_INIT(blacklist_organs, typecacheof(list(
+	//initilization check these at some point
+	/obj/item/organ/wings,
+	/obj/item/organ/ears/cat,
+	/obj/item/organ/horns,
+	/obj/item/organ/frills,
+	/obj/item/organ/tail,
+	/obj/item/organ/spines,
+	/obj/item/organ/snout,
+), only_root_path = FALSE))

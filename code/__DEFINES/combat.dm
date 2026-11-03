@@ -259,6 +259,18 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
 
+/// Base brute damage dealt to augmented limbs by EMPs
+#define AUGGED_LIMB_EMP_BRUTE_DAMAGE 2
+/// Base burn damage dealt to augmented limbs by EMPs
+#define AUGGED_LIMB_EMP_BURN_DAMAGE 1.5
+/// Base time augmented limbs are disabled by EMPs (stamina damage lasts this long)
+#define AUGGED_LIMB_EMP_PARALYZE_TIME (10 SECONDS)
+/// Augmented limbs only get stamina-disabled if they're above this damage threshold (0-1 scale)
+#define ROBOTIC_EMP_PARALYZE_DAMAGE_THRESHOLD 0.3
+
+/// When hit by an EMP, the time an augged head will make vision fucky for.
+#define AUGGED_HEAD_EMP_GLITCH_DURATION 6 SECONDS
+
 #define GRENADE_CLUMSY_FUMBLE 1
 #define GRENADE_NONCLUMSY_FUMBLE 2
 #define GRENADE_NO_FUMBLE 3

@@ -48,7 +48,7 @@
 
 	var/mob/living/L = chamber.occupant
 
-	if(!(L.mob_biotypes & MOB_ORGANIC) && !(L.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
+	if(!(L.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD)) && !HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
 		data["status_msg"] = "Occupant not compatible with nanites."
 		return data
 

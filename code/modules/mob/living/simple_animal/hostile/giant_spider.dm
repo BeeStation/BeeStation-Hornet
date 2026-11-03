@@ -24,7 +24,7 @@
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
-	mob_biotypes = MOB_ORGANIC | MOB_BUG
+	mob_biotypes = MOB_ORGANIC|MOB_BUG
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5

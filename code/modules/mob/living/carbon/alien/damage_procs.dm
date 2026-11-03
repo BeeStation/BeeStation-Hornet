@@ -1,4 +1,4 @@
-
+///alien immune to tox damage
 /mob/living/carbon/alien/getToxLoss()
 	return FALSE
 
@@ -10,5 +10,6 @@
 /mob/living/carbon/alien/adjustStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)
 	return FALSE
 
+///aliens are immune to stamina damage.
 /mob/living/carbon/alien/setStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)
 	return FALSE

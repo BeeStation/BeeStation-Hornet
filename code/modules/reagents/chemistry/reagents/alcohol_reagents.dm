@@ -76,19 +76,19 @@
 
 /datum/reagent/consumable/ethanol/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
 	. = ..()
-	if(!isliving(exposed_mob))
+
+	if(!(method in list(TOUCH, VAPOR, PATCH)))
 		return
 
-	if(method in list(TOUCH, VAPOR, PATCH))
-		exposed_mob.adjust_fire_stacks(reac_volume / 15)
+	exposed_mob.adjust_fire_stacks(reac_volume / 15)
 
-		if(iscarbon(exposed_mob))
-			var/mob/living/carbon/exposed_carbon = exposed_mob
-			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+	if(!iscarbon(exposed_mob))
+		return
 
-			for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
-				surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+	var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+	for(var/datum/surgery/surgery as anything in exposed_mob.surgeries)
+		surgery.speed_modifier = max(0.1 * power_multiplier, surgery.speed_modifier)
+		// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 
 /datum/reagent/consumable/ethanol/beer
 	name = "Beer"

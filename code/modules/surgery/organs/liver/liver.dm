@@ -5,7 +5,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
-	visual = FALSE
+
 	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
@@ -46,7 +46,7 @@
 	SIGNAL_HANDLER
 
 /obj/item/organ/liver/on_life(delta_time, times_fired)
-	. = ..() //perform general on_life()
+	. = ..()
 	//If your liver is failing or you lack a metabolism then we use the liverless version of metabolize
 	if((organ_flags & ORGAN_FAILING) || HAS_TRAIT(owner, TRAIT_LIVERLESS_METABOLISM))
 		owner.reagents.end_metabolization(keep_liverless = TRUE)

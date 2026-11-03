@@ -267,6 +267,6 @@
 /obj/machinery/door/poddoor/try_to_activate_door(obj/item/I, mob/user)
 	return
 
-/obj/machinery/door/poddoor/try_to_crowbar(obj/item/acting_object, mob/user, forced = FALSE)
+/obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)
 	if(machine_stat & NOPOWER)
 		open(TRUE)

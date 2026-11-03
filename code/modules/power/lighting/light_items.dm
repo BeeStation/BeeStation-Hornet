@@ -66,6 +66,7 @@
 
 /obj/item/light/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	update()
 	AddComponent(/datum/component/caltrop, min_damage = force)
 	var/static/list/loc_connections = list(

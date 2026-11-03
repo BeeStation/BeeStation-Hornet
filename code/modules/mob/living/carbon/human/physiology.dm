@@ -10,7 +10,7 @@
 	var/tox_mod = 1
 	/// Multiplier to oxygen damage received
 	var/oxy_mod = 1
-	/// Multiplier to stamina damage received
+	/// Multiplier to clone damage received
 	var/clone_mod = 1
 	/// Multiplier to stamina damage received
 	var/stamina_mod = 1

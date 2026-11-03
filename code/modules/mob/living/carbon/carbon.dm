@@ -18,14 +18,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
 
 	QDEL_LIST(hand_bodyparts)
-	QDEL_LIST(internal_organs)
+	QDEL_LIST(organs)
 	QDEL_LIST(bodyparts)
 	QDEL_LIST(implants)
 	remove_from_all_data_huds()
 	QDEL_NULL(dna)
 	GLOB.carbon_list -= src
 
-/mob/living/carbon/swap_hand(held_index)
+/mob/living/carbon/perform_hand_swap(held_index)
 	. = ..()
 	if(!.)
 		var/obj/item/held_item = get_active_held_item()
@@ -523,9 +523,9 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	for(var/i in 1 to amt)
-		if(!internal_organs.len)
+		if(!organs.len)
 			break //Guess we're out of organs!
-		var/obj/item/organ/guts = pick(internal_organs)
+		var/obj/item/organ/guts = pick(organs)
 		var/turf/T = get_turf(src)
 		guts.Remove(src)
 		guts.forceMove(T)
@@ -534,9 +534,12 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 
 /mob/living/carbon/fully_replace_character_name(oldname,newname)
-	..()
+	. = ..()
 	if(dna)
 		dna.real_name = real_name
+	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+	if(my_head)
+		my_head.real_name = real_name
 
 /mob/living/carbon/set_body_position(new_value)
 	. = ..()
@@ -644,6 +647,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	sight = new_sight
 	. = ..()
 
+
 /**
  * Calculates how visually impaired the mob is by their equipment and other factors
  *
@@ -651,12 +655,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
  */
 /mob/living/carbon/proc/update_tint()
 	var/tint = 0
-	if(isclothing(head))
-		tint += head.tint
-	if(isclothing(wear_mask))
-		tint += wear_mask.tint
-	if(isclothing(glasses))
-		tint += glasses.tint
+	for(var/obj/item/clothing/worn_item in get_equipped_items())
+		tint += worn_item.tint
 
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(eyes)
@@ -892,7 +892,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		if(dna && !HAS_TRAIT(src, TRAIT_NOBLOOD))
 			blood_volume += (excess_healing * 2) //1 excess = 10 blood
 
-		for(var/obj/item/organ/target_organ as anything in internal_organs)
+		for(var/obj/item/organ/target_organ as anything in organs)
 			if(!target_organ.damage)
 				continue
 
@@ -973,14 +973,14 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(QDELETED(src))
 		return
 	var/organs_amt = 0
-	for(var/X in internal_organs)
-		var/obj/item/organ/O = X
+	for(var/obj/item/organ/organ as anything in organs)
 		if(prob(50))
 			organs_amt++
-			O.Remove(src)
-			O.forceMove(drop_location())
+			organ.Remove(src)
+			organ.forceMove(drop_location())
 	if(organs_amt)
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
+	remove_all_embedded_objects()
 
 /// Creates body parts for this carbon completely from scratch.
 /// Optionally takes a map of body zones to what type to instantiate instead of them.
@@ -1027,6 +1027,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands + 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Proc to hook behavior on bodypart removals.  Do not directly call. You're looking for [/obj/item/bodypart/proc/drop_limb()].
 /mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart, special)
@@ -1053,6 +1054,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 				set_usable_hands(usable_hands - 1)
 
 	synchronize_bodytypes()
+	synchronize_bodyshapes()
 
 ///Updates the bodypart speed modifier based on our bodyparts.
 /mob/living/carbon/proc/update_bodypart_movespeed_contribution()
@@ -1062,9 +1064,8 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bodypart, update = TRUE, multiplicative_slowdown = final_modification)
 
 /mob/living/carbon/proc/create_internal_organs()
-	for(var/X in internal_organs)
-		var/obj/item/organ/I = X
-		I.Insert(src)
+	for(var/obj/item/organ/internal_organ in organs)
+		internal_organ.Insert(src)
 
 /proc/cmp_organ_slot_asc(slot_a, slot_b)
 	return GLOB.organ_process_order.Find(slot_a) - GLOB.organ_process_order.Find(slot_b)
@@ -1269,63 +1270,21 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 /mob/living/carbon/wash(clean_types)
 	. = ..()
-
 	// Wash equipped stuff that cannot be covered
 	for(var/obj/item/held_thing in held_items)
 		if(held_thing.wash(clean_types))
 			. = TRUE
 
-	if(back?.wash(clean_types))
-		update_worn_back(0)
-		. = TRUE
-
-	// Check and wash stuff that can be covered
-	var/obscured = check_obscured_slots()
-
-	if(!(obscured & ITEM_SLOT_HEAD) && head?.wash(clean_types))
-		update_worn_head()
-		. = TRUE
-
-	if(is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses?.wash(clean_types))
-		update_worn_glasses()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_MASK) && wear_mask?.wash(clean_types))
-		update_worn_mask()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_EARS) && ears?.wash(clean_types))
-		update_worn_ears()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_NECK) && wear_neck?.wash(clean_types))
-		update_worn_neck()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_FEET) && shoes?.wash(clean_types))
-		update_worn_shoes()
-		. = TRUE
-
-	if(!(obscured & ITEM_SLOT_GLOVES) && gloves?.wash(clean_types))
-		update_worn_gloves()
-		. = TRUE
-
-/mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	var/opposite_gender = gender != ngender
-	. = ..()
-	if(!.)
-		return
-	if(dna && opposite_gender)
-		if(ngender == MALE || ngender == FEMALE)
-			dna.features["body_model"] = ngender
-			if(!silent)
-				var/adj = ngender == MALE ? "masculine" : "feminine"
-				visible_message(span_boldnotice("[src] suddenly looks more [adj]!"), span_boldwarning("You suddenly feel more [adj]!"))
-		else if(ngender == NEUTER)
-			dna.features["body_model"] = MALE
-	if(update_icon)
-		update_body()
-		update_body_parts(TRUE)
+	// Check and wash stuff that isn't covered
+	var/covered = check_covered_slots()
+	for(var/obj/item/worn as anything in get_equipped_items())
+		var/slot = get_slot_by_item(worn)
+		// Don't wash glasses if something other than them is covering our eyes
+		if(slot == ITEM_SLOT_EYES && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD))
+			continue
+		if(!(covered & slot))
+			// /obj/item/wash() already updates our clothing slot
+			. = worn.wash(clean_types) || .
 
 /// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
 /mob/living/carbon/proc/set_handcuffed(new_value)
@@ -1400,6 +1359,28 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/proc/wearing_shock_proof_gloves()
 	return gloves?.siemens_coefficient == 0
 
+/mob/living/carbon/dropItemToGround(obj/item/item, force = FALSE, silent = FALSE, invdrop = TRUE)
+	if(item && ((item in organs) || (item in bodyparts))) //let's not do this, aight?
+		return FALSE
+	return ..()
+
+/// Helper to cleanly trigger tail wagging
+/// Accepts an optional timeout after which we remove the tail wagging
+/// Returns true if successful, false otherwise
+/mob/living/carbon/proc/wag_tail(timeout = INFINITY)
+	var/obj/item/organ/tail/wagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(!wagged)
+		return FALSE
+	return wagged.start_wag(src, timeout)
+
+/// Helper to cleanly stop all tail wagging
+/// Returns true if successful, false otherwise
+/mob/living/carbon/proc/unwag_tail() // can't unwag a tail
+	var/obj/item/organ/tail/unwagged = get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL)
+	if(!unwagged)
+		return FALSE
+	return unwagged.stop_wag(src)
+
 /mob/living/carbon/proc/add_unarmed_damage_to_arms(amount)
 	for(var/obj/item/bodypart/arm in bodyparts)
 		if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
@@ -1413,7 +1394,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			if(isnum(arm.unarmed_damage))
 				total_damage += arm.unarmed_damage
 	return (total_damage/2) // average the two arms together
-
 /**
  * This proc is used to determine whether or not the mob can handle touching a burning object.
  */
@@ -1426,8 +1406,3 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(gloves?.max_heat_protection_temperature >= BURNING_ITEM_MINIMUM_TEMPERATURE)
 		return TRUE
 	return FALSE
-
-/mob/living/carbon/dropItemToGround(obj/item/item, force = FALSE, silent = FALSE, invdrop = TRUE)
-	if(item && ((item in internal_organs) || (item in bodyparts))) //let's not do this, aight?
-		return FALSE
-	return ..()

@@ -278,7 +278,7 @@
 			if(!get_location_accessible(H, location))
 				to_chat(user, span_warning("The headgear is in the way!"))
 				return
-			if(H.hair_style == "Bald" || H.hair_style == "Balding Hair" || H.hair_style == "Skinhead")
+			if(H.hairstyle == "Bald" || H.hairstyle == "Balding Hair" || H.hairstyle == "Skinhead")
 				to_chat(user, span_warning("There is not enough hair left to shave!"))
 				return
 
@@ -305,7 +305,7 @@
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hairstyles_list
+	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in SSaccessories.hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_HEAD))
 		to_chat(user, span_warning("The headgear is in the way!"))
 		return
@@ -320,7 +320,7 @@
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hairstyles_list
+	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in SSaccessories.facial_hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
 		to_chat(user, span_warning("The mask is in the way!"))
 		return
@@ -391,7 +391,9 @@
 /obj/item/handmirror/attack_self(mob/user)
 	ADD_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
 	to_chat(user, span_notice("You look into the mirror"))
-	sleep(150)
+	addtimer(CALLBACK(src, PROC_REF(remove_mirror_trait), user), 15 SECONDS)
+
+/obj/item/handmirror/proc/remove_mirror_trait(mob/user)
 	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
 
 #undef UPPER_LIP

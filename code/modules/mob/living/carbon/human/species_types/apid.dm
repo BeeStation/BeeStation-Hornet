@@ -12,13 +12,15 @@
 		"apid_headstripes" = "thick",
 		"apid_antenna" = "curled"
 	)
+	mutant_organs = list(
+		/obj/item/organ/wings/bee = "Bee",
+		/obj/item/organ/apid_stinger = ""
+	)
 	hair_color_mode = USE_FIXED_MUTANT_COLOR
 	meat = /obj/item/food/meat/slab/human/mutant/apid
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
-	mutantwings = /obj/item/organ/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
-	mutant_organs = list(/obj/item/organ/apid_stinger)
 	toxmod = 0.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
@@ -54,20 +56,6 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species)
-	. = ..()
-	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
-
-/datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
-	. = ..()
-	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
-
-/datum/species/apid/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
-	SIGNAL_HANDLER
-
-	if(istype(attacking_item, /obj/item/melee/flyswatter))
-		damage_mods += 30 // Yes, a 30x damage modifier
-
 /datum/species/apid/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
 	. = ..()
 	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
@@ -79,13 +67,21 @@
 	. = ..()
 	equipping.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
-/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species) // For transformations
-	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
+/datum/species/apid/on_species_gain(mob/living/carbon/human_who_gained_species, datum/species/old_species)
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+	human_who_gained_species.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 
 /datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	return ..()
+
+/datum/species/apid/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 30 // Yes, a 30x damage modifier
 
 /datum/species/apid/get_species_description()
 	return "Beepeople, god damn it. It's hip, and alive! Buzz buzz!"

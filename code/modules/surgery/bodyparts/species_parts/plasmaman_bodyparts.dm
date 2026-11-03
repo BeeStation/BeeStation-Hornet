@@ -21,6 +21,7 @@
 	dmg_overlay_type = null
 	burn_modifier = 1.5
 	brute_modifier = 1.5
+	wing_types = NONE
 
 /obj/item/bodypart/arm/left/plasmaman
 	icon = 'icons/mob/human/species/plasmaman/bodyparts.dmi'

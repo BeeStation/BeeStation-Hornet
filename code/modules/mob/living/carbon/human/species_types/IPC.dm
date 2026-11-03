@@ -51,7 +51,7 @@
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	allow_numbers_in_name = TRUE
-	deathsound = "sound/voice/borg_deathsound.ogg"
+	death_sound = "sound/voice/borg_deathsound.ogg"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
@@ -75,7 +75,7 @@
 
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
-/datum/species/ipc/on_species_gain(mob/living/carbon/C)
+/datum/species/ipc/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	if(ishuman(C) && !change_screen)
 		change_screen = new
@@ -154,7 +154,7 @@
 	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/on_activate()
-	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", GLOB.ipc_screens_list)
+	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", SSaccessories.ipc_screens_list)
 	var/color_choice = tgui_color_picker(usr, "Which color do you want your screen to be?", "Color Change")
 	if(!screen_choice)
 		return
@@ -286,7 +286,7 @@
 
 /// Restyles the target's limbs to match their "ipc_chassis" feature
 /datum/species/ipc/proc/apply_chassis(mob/living/carbon/C)
-	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]] || GLOB.ipc_chassis_list[mutant_bodyparts["ipc_chassis"]]
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = SSaccessories.ipc_chassis_list[C.dna.features["ipc_chassis"]] || SSaccessories.ipc_chassis_list[mutant_bodyparts["ipc_chassis"]]
 
 	for(var/obj/item/bodypart/BP as anything in C.bodyparts)
 		if((BP.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES) || (BP.bodypart_flags & BODYPART_IMPLANTED))

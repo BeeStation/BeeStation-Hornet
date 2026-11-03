@@ -51,6 +51,8 @@
 #define COMSIG_ITEM_OFFER_TAKEN "item_offer_taken"
 	///Interrupts the offer acceptance
 	#define COMPONENT_OFFER_TAKE_INTERRUPT (1<<0)
+/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
+#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 
 /// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with an item
 /// Sent from the very beginning of the click chain, intended for generic atom-item interactions
@@ -82,8 +84,6 @@
 //not widely used yet, but has lot of potential
 
 #define COMSIG_ITEM_ATTACK_EFFECT "item_effect_attacked"
-/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
-#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 
 //////////////////////////////
 

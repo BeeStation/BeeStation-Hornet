@@ -102,6 +102,11 @@
 
 /obj/structure/platform/Initialize(mapload)
 	. = ..()
+	if(!blocking_dir)
+		if(reverse)
+			blocking_dir = (NORTH | SOUTH | EAST | WEST) - REVERSE_DIR(dir)
+		else
+			blocking_dir = dir
 	if(climbable)
 		AddElement(/datum/element/climbable)
 
@@ -110,43 +115,33 @@
 			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
-	compute_blocking_directions()
+
+	if(!climbable) //janky way of distinguishing corners from everything else
+		if(dir == WEST || dir == SOUTH)
+			layer = ABOVE_MOB_LAYER
+	else
+		var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
+		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
+			if(SOUTH)
+				layer = ABOVE_MOB_LAYER
+			if(EAST,NORTHEAST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = EAST))
+			if(WEST,NORTHWEST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = WEST))
+			if(SOUTHEAST, NORTH|SOUTH|EAST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHEAST))
+			if(SOUTHWEST, NORTH|SOUTH|WEST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHWEST))
+			if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray_end", dir = SOUTH))
+		if(overlay.filters.len)
+			add_overlay(overlay)
 
 /obj/structure/platform/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(border_dir & blocking_dir)
 		return . || mover.throwing || mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND
 	return TRUE
-
-/obj/structure/platform/update_icon_state()
-	. = ..()
-	layer = initial(layer)
-	if(!climbable) //janky way of distinguishing corners from everything else
-		if(dir == WEST || dir == SOUTH)
-			layer = ABOVE_MOB_LAYER
-	else
-		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
-			if(SOUTH)
-				layer = ABOVE_MOB_LAYER
-
-/obj/structure/platform/update_overlays()
-	. = ..()
-	if (!climbable)
-		return
-	var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
-	switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
-		if(EAST,NORTHEAST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = EAST))
-		if(WEST,NORTHWEST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = WEST))
-		if(SOUTHEAST, NORTH|SOUTH|EAST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHEAST))
-		if(SOUTHWEST, NORTH|SOUTH|WEST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHWEST))
-		if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray_end", dir = SOUTH))
-	if(overlay.filters.len)
-		. += overlay
 
 /obj/structure/platform/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -171,15 +166,3 @@
 
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
-
-/obj/structure/platform/proc/compute_blocking_directions()
-	if(reverse)
-		blocking_dir = (NORTH | SOUTH | EAST | WEST) - REVERSE_DIR(dir)
-	else
-		blocking_dir = dir
-
-	update_appearance(UPDATE_ICON)
-
-/obj/structure/platform/setDir(ndir)
-	. = ..()
-	compute_blocking_directions()

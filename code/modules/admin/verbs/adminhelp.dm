@@ -174,7 +174,7 @@ AUTH_CLIENT_VERB(adminhelp)
 	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/admin/get_ticket_additional_data(mob/user, list/data)
-	data["antag_status"] = "None"
+	data["antag_status"] = SPRITE_ACCESSORY_NONE
 	if(initiator)
 		var/mob/living/M = initiator.mob
 		if(M?.mind?.antag_datums)

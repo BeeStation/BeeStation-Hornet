@@ -25,6 +25,7 @@
 /obj/item/organ/heart/gland/Initialize(mapload)
 	. = ..()
 	icon_state = pick(list("health", "spider", "slime", "emp", "species", "egg", "vent", "mindshock", "viral"))
+	AddElement(/datum/element/update_icon_blocker)
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
@@ -86,7 +87,7 @@
 	hud.remove_atom_from_hud(gland_owner)
 	clear_mind_control()
 
-/obj/item/organ/heart/gland/on_mob_insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
+/obj/item/organ/heart/gland/on_mob_insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags)
 	. = ..()
 
 	if(!(movement_flags & FROM_ABDUCTOR_SURGERY) && uses)
@@ -96,7 +97,6 @@
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
-	SHOULD_CALL_PARENT(FALSE)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
@@ -198,7 +198,7 @@
 
 /obj/item/organ/heart/gland/pop/activate()
 	to_chat(owner, span_notice("You feel unlike yourself."))
-	randomize_human(owner, TRUE)
+	randomize_human(owner)
 	var/species = pick(list(/datum/species/human, /datum/species/lizard, /datum/species/moth, /datum/species/fly))
 	owner.set_species(species)
 

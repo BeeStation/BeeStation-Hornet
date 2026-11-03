@@ -23,20 +23,23 @@
 		return
 
 	. = ..()
-
 	if(QDELETED(src))
 		return FALSE
 
 	//Body temperature stability and damage
 	dna.species.handle_body_temperature(src, delta_time, times_fired)
-	if(!IS_IN_STASIS(src))
-		if(stat != DEAD)
-			//heart attack stuff
-			handle_heart(delta_time)
-			//handles liver failure effects, if we lack a liver
-			handle_liver(delta_time)
+	if(HAS_TRAIT(src, TRAIT_STASIS))
+		return stat != DEAD
 
-		dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
+	if(stat == DEAD)
+		return FALSE
+
+	//heart attack stuff
+	handle_heart(delta_time)
+	//handles liver failure effects, if we lack a liver
+	handle_liver(delta_time)
+
+	dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -61,33 +64,29 @@
 		return ..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
+	var/obj/item/organ/lungs/human_lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
+	if(human_lungs)
+		return human_lungs.check_breath(breath, src)
 
-	var/L = get_organ_slot(ORGAN_SLOT_LUNGS)
+	if(health >= crit_threshold)
+		adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
+	else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
+		adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
-	if(!L)
-		if(health >= crit_threshold)
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
-			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
+	failed_last_breath = TRUE
 
-		failed_last_breath = 1
+	var/datum/species/human_species = dna.species
 
-		var/datum/species/S = dna.species
-
-		if(S.breathid == GAS_O2)
+	switch(human_species.breathid)
+		if(GAS_O2)
 			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
-		else if(S.breathid == GAS_PLASMA)
+		if(GAS_PLASMA)
 			throw_alert(ALERT_NOT_ENOUGH_PLASMA, /atom/movable/screen/alert/not_enough_plas)
-		else if(S.breathid == "co2")
+		if(GAS_CO2)
 			throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
-		else if(S.breathid == "n2")
+		if(GAS_N2)
 			throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
-
-		return FALSE
-	else
-		if(istype(L, /obj/item/organ/lungs))
-			var/obj/item/organ/lungs/lun = L
-			lun.check_breath(breath,src)
+	return FALSE
 
 /// Environment handlers for species
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)

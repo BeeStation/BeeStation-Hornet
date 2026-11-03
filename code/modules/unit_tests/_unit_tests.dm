@@ -23,6 +23,7 @@
 #include "blindness.dm"
 #include "bloody_footprints.dm"
 #include "breath.dm"
+#include "changeling.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "combat.dm"
@@ -32,6 +33,7 @@
 #include "create_and_destroy.dm"
 */
 #include "dcs_get_id_from_elements.dm"
+#include "dismemberment.dm"
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "emissive_worn_overlays.dm"
@@ -121,6 +123,7 @@
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"
 #include "surgery_linking.dm"
+#include "tail_wag.dm"
 #include "techweb_sanity.dm"
 #include "teleporters.dm"
 #include "tgui_create_message.dm"

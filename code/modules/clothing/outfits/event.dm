@@ -20,7 +20,7 @@
 		H.mind.set_assigned_role(SSjob.get_job_type(/datum/job/santa))
 		H.mind.special_role = ROLE_SANTA
 
-	H.hair_style = "Long Hair 3"
+	H.hairstyle = "Long Hair 3"
 	H.facial_hairstyle = "Beard (Full)"
 	H.hair_color = COLOR_WHITE
 	H.facial_hair_color = COLOR_WHITE

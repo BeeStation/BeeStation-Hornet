@@ -10,7 +10,6 @@
 	default_installs = FALSE
 	custom_price = 100
 	max_demand = 20
-	power_usage = 0
 	var/list/progs_to_store = list()
 	/// Job disk will ignore programs to instal if this is TRUE
 	var/dont_instal = FALSE

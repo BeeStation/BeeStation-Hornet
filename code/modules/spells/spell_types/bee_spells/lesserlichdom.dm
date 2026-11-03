@@ -139,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/lesserphylactery)
 			var/mob/living/carbon/C = old_body
 			for(var/obj/item/W in C)
 				C.dropItemToGround(W)
-			for(var/X in C.internal_organs)
+			for(var/X in C.organs)
 				var/obj/item/organ/I = X
 				I.Remove(C)
 				I.forceMove(body_turf)

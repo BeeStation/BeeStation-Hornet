@@ -24,6 +24,7 @@
 
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	START_PROCESSING(SSobj, src)
 	update_appearance(UPDATE_ICON_STATE)
 
