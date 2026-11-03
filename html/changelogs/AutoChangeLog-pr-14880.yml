@@ -1,0 +1,6 @@
+author: Isaac
+delete-after: true
+changes:
+  - balance: Revenant Blight can be cured by sleeping at stage 5
+  - bugfix: C4/X4 should work if placed on a window or door again
+  - bugfix: Vampires are shown in the round end window again
