@@ -7,3 +7,8 @@
   - map: Fixed the RadStation command airlock not requiring command access.
   - map: Fixed the RadStation command airlock not automatically closing one of the
       doors when the other one was opened.
+2026-11-03:
+  Isaac:
+  - balance: Revenant Blight can be cured by sleeping at stage 5
+  - bugfix: C4/X4 should work if placed on a window or door again
+  - bugfix: Vampires are shown in the round end window again
