@@ -38,14 +38,14 @@
 	RegisterSignal(plant_item, COMSIG_ATOM_AFTER_ATTACKEDBY, PROC_REF(catch_attackby))
 	// Setup for investigation
 	RegisterSignal(plant_item, COMSIG_ATOM_EXAMINE, PROC_REF(catch_observer))
+	//Plant features
+	if(length(_plant_features))
+		populate_features(_plant_features)
 	//Species ID setup
 	if(!_species_id)
 		compile_species_id()
 	else
 		species_id = _species_id
-	//Plant features
-	if(length(_plant_features))
-		populate_features(_plant_features)
 	//Discoverable
 	plant_item.AddComponent(/datum/component/discoverable/plant, discovery_reward)
 	//Genes
@@ -77,11 +77,11 @@
 	to_chat(looker, span_notice(dialogue))
 
 ///Item interactions for plants that aren't covered by the individual plant_features
-/datum/component/plant/proc/catch_attackby(datum/source, obj/item, mob/living/user, proximity_flag, click_parameters)
+/datum/component/plant/proc/catch_attackby(datum/source, obj/item, mob/living/user, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 
 //Spade interaction, allows us to dig up plants
-	if((proximity_flag || get_dist(user, plant_item) <= 1) && !spading && istype(item, /obj/item/shovel))
+	if(proximity_flag && !spading && istype(item, /obj/item/shovel))
 		INVOKE_ASYNC(src, PROC_REF(async_catch_attackby), item, user)
 
 /datum/component/plant/proc/async_catch_attackby(obj/item, mob/living/user)

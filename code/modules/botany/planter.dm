@@ -54,12 +54,11 @@
 	obj_parent.visible_message(span_warning("The [parent] is overtaken by some [weed.name_override]!"))
 	qdel(weed)
 
-/datum/component/planter/proc/catch_attack(datum/source, obj/item/I, mob/living/attacker, proximity_flag, click_parameters)
+/datum/component/planter/proc/catch_attack(datum/source, obj/item/I, mob/living/attacker, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!proximity_flag)
 		return
-	var/list/modifiers = params2list(click_parameters)
 //Hasty remove plants
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && istype(I, /obj/item/shovel) && length(plants))
 		to_chat(attacker, span_warning("You begin to hastily remove [parent]'s plants! (This will destroy them)"))
@@ -156,7 +155,7 @@
 	if(!result)
 		return
 	var/datum/component/plant/plant = pick_links[result]
-	I.afterattack(plant.plant_item, user)
+	I.afterattack(plant.plant_item, user, plant.plant_item.IsReachableBy(user))
 
 /datum/component/planter/proc/catch_examine(datum/source, mob/looker, list/examine_text)
 	SIGNAL_HANDLER

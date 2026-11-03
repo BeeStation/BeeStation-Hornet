@@ -71,9 +71,9 @@
 	else
 		desc_override = input
 
-/obj/item/plant_seeds/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/plant_seeds/afterattack_secondary(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
-	var/info = plant(target, user, proximity_flag, click_parameters)
+	var/info = plant(target, user, proximity_flag, modifiers)
 	if(istext(info))
 		to_chat(user, info)
 
@@ -95,7 +95,7 @@
 	copy.update_plant_name()
 	return copy
 
-/obj/item/plant_seeds/proc/plant(atom/target, mob/user, proximity_flag, click_parameters, logic)
+/obj/item/plant_seeds/proc/plant(atom/target, mob/user, proximity_flag, list/modifiers, logic)
 //Flight checks
 	// How close is close?
 	if(!proximity_flag && user)
@@ -136,7 +136,6 @@
 	//Mouse offset
 	if(!plant_component?.use_mouse_offset)
 		return
-	var/list/modifiers = params2list(click_parameters)
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return
 	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the planting turf)
