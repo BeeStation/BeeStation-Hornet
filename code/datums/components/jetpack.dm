@@ -60,7 +60,7 @@
 	src.return_flag = return_flag
 	src.effect_type = effect_type
 
-	if(trail && trail.effect_type != effect_type)
+	if(trail && trail.type != effect_type)
 		setup_trail(trail.holder)
 
 /datum/component/jetpack/Destroy(force, silent)

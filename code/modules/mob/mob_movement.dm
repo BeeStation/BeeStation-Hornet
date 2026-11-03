@@ -320,7 +320,7 @@
 	// last pushoff exists for one reason
 	// to ensure pushing a mob doesn't just lead to it considering us as backup, and failing
 	last_pushoff = world.time
-	if(backup.newtonian_move(dir2angle(REVERSE_DIR(movement_dir)), instant = TRUE)) //You're pushing off something movable, so it moves
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE)) //You're pushing off something movable, so it moves
 		// We set it down here so future calls to Process_Spacemove by the same pair in the same tick don't lead to fucky
 		backup.last_pushoff = world.time
 		to_chat(src, span_info("You push off of [backup] to propel yourself."))

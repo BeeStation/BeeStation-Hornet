@@ -140,11 +140,11 @@
 	gas_type = null //it starts empty
 	full_speed = FALSE //moves at hardsuit jetpack speeds
 
-/obj/item/tank/jetpack/improvised/allow_thrust(num)
+/obj/item/tank/jetpack/improvised/allow_thrust(num, use_fuel = TRUE)
 	if(!ismob(loc))
 		return FALSE
 	var/mob/user = loc
-	if(rand(0,250) == 0)
+	if(use_fuel && rand(0,250) == 0)
 		to_chat(user, span_notice("You feel your jetpack's engines cut out."))
 		turn_off(user)
 		return

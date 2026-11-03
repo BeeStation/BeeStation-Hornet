@@ -180,7 +180,7 @@
 	return ..()
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
-	if(!on || !owner)
+	if(!owner)
 		return FALSE
 
 	var/turf/T = get_turf(owner)

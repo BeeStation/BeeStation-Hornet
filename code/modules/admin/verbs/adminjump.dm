@@ -117,7 +117,8 @@
 		forceMove(new_location)
 
 /mob/admin_teleport(atom/new_location)
-	var/msg = "[key_name_admin(usr)] teleported [ADMIN_LOOKUPFLW(src)] to [isnull(new_location) ? "nullspace" : ADMIN_VERBOSEJMP(loc)]"
+	var/turf/location = get_turf(new_location)
+	var/msg = "[key_name_admin(usr)] teleported [ADMIN_LOOKUPFLW(src)] to [isnull(new_location) ? "nullspace" : ADMIN_VERBOSEJMP(location)]"
 	message_admins(msg)
 	admin_ticket_log(src, msg, color="orange")
 	return ..()
