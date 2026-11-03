@@ -538,6 +538,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	// if the vomit combined, apply toxicity and reagents to the old vomit
 	if (QDELETED(throw_up))
 		throw_up = locate() in src
+
 	if(isnull(throw_up))
 		return
 
@@ -546,19 +547,28 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 	clear_reagents_to_vomit_pool(vomiter, throw_up, purge_ratio)
 
-/proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V, purge = FALSE)
-	var/obj/item/organ/stomach/belly = M.get_organ_slot(ORGAN_SLOT_STOMACH)
+/proc/clear_reagents_to_vomit_pool(mob/living/carbon/owner, obj/effect/decal/cleanable/vomit/vomit, purge_ratio = 0.1)
+	var/obj/item/organ/stomach/belly = owner.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(!belly?.reagents.total_volume)
 		return
-	var/chemicals_lost = M.reagents.total_volume / 10
-	if(purge)
-		chemicals_lost = (2 * M.reagents.total_volume)/3 //For detoxification surgery, we're manually pumping the stomach out of chemcials, so it's far more efficient.
-	M.reagents.trans_to(V, chemicals_lost, transfered_by = M)
-	for(var/datum/reagent/R in M.reagents.reagent_list) //clears the stomach of anything that might be digested as food
-		if(istype(R, /datum/reagent/consumable) || purge)
-			var/datum/reagent/consumable/nutri_check = R
-			if(nutri_check.nutriment_factor >0)
-				M.reagents.remove_reagent(R.type, min(R.volume, 10))
+
+	var/chemicals_lost = belly.reagents.total_volume * purge_ratio
+	if (vomit.reagents)
+		vomit.reagents.maximum_volume += chemicals_lost
+	else
+		vomit.create_reagents(chemicals_lost)
+
+	belly.reagents.trans_to(vomit, chemicals_lost, transfered_by = owner)
+	// Clear the stomach of anything even not food
+	for(var/bile in belly.reagents.reagent_list)
+		var/datum/reagent/reagent = bile
+		if(!belly.food_reagents[reagent.type])
+			belly.reagents.remove_reagent(reagent.type, min(reagent.volume, 10))
+			continue
+
+		var/bit_vol = reagent.volume - belly.food_reagents[reagent.type]
+		if(bit_vol > 0)
+			belly.reagents.remove_reagent(reagent.type, min(bit_vol, 10))
 
 /turf/proc/check_gravity()
 	return TRUE
