@@ -23,6 +23,7 @@
 		/obj/item/reagent_containers/cup/bucket,
 		/obj/structure/janitorialcart,
 		/obj/structure/mop_bucket,
+		/obj/structure/sink,
 	))
 
 /obj/item/mop/Initialize(mapload)

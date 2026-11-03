@@ -25,7 +25,7 @@
 	. = ..()
 	if(resource_delay > world.time)
 		return
-	flick("blob_resource_glow", src)
+	z_flick("blob_resource_glow", src)
 	if(overmind)
 		overmind.add_points(BLOB_RESOURCE_GATHER_AMOUNT)
 		balloon_alert(overmind, "+[BLOB_RESOURCE_GATHER_AMOUNT] resource\s")

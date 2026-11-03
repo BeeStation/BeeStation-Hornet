@@ -518,3 +518,6 @@
 	if (x_offset || y_offset)
 		holder.pixel_x += x_offset
 		holder.pixel_y += y_offset
+	if (ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_state(hud_type, hud_state, x_offset, y_offset)

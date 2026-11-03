@@ -36,34 +36,36 @@
 	if(can_hack_open)
 		. += "The service panel is currently <b>[open ? "unscrewed" : "screwed shut"]</b>."
 
-/obj/item/storage/secure/attackby(obj/item/W, mob/user, list/modifiers)
-	if(can_hack_open && atom_storage.locked)
-		if (W.tool_behaviour == TOOL_SCREWDRIVER)
-			if (W.use_tool(src, user, 20))
-				open = !open
-				to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
-			return
-		if (W.tool_behaviour == TOOL_WIRECUTTER)
-			to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
-			return
-		if ((W.tool_behaviour == TOOL_MULTITOOL))
-			if(l_hacking)
-				to_chat(user, span_danger("This safe is already being hacked."))
-				return
-			if(open)
-				to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
-				l_hacking = TRUE
-				if (W.use_tool(src, user, 400))
-					to_chat(user, span_danger("Internal memory reset - lock has been disengaged."))
-					l_set = FALSE
+/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/tool)
+	if(!can_hack_open || !atom_storage.locked)
+		return NONE
+	if(tool.use_tool(src, user, 20))
+		open = !open
+		to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
+	return ITEM_INTERACT_SUCCESS
 
-				l_hacking = FALSE
-				return
-			to_chat(user, span_notice("You must <b>unscrew</b> the service panel before you can pulse the wiring."))
-			return
+/obj/item/storage/secure/wirecutter_act(mob/living/user, obj/item/tool)
+	if(!can_hack_open || !atom_storage.locked)
+		return NONE
+	to_chat(user, span_danger("[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>."))
+	return ITEM_INTERACT_BLOCKING
 
-	// -> storage/attackby() what with handle insertion, etc
-	return ..()
+/obj/item/storage/secure/multitool_act(mob/living/user, obj/item/tool)
+	if(!can_hack_open || !atom_storage.locked)
+		return NONE
+	if(l_hacking)
+		to_chat(user, span_danger("This safe is already being hacked."))
+		return ITEM_INTERACT_BLOCKING
+	if(!open)
+		to_chat(user, span_notice("You must <b>unscrew</b> the service panel before you can pulse the wiring."))
+		return ITEM_INTERACT_BLOCKING
+	to_chat(user, span_danger("Now attempting to reset internal memory, please hold."))
+	l_hacking = TRUE
+	if(tool.use_tool(src, user, 400))
+		to_chat(user, span_danger("Internal memory reset - lock has been disengaged."))
+		l_set = FALSE
+	l_hacking = FALSE
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/storage/secure/attack_self(mob/user)
 	var/locked = atom_storage.locked

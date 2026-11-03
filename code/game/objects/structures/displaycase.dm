@@ -508,7 +508,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/showpiece_dummy)
 				usr.put_in_hands(showpiece)
 				to_chat(usr, span_notice("You purchase [showpiece] for [sale_price] credits."))
 				playsound(src, 'sound/effects/cashregister.ogg', 40, TRUE)
-				flick("[initial(icon_state)]_vend", src)
+				z_flick("[initial(icon_state)]_vend", src)
 				showpiece = null
 				update_icon()
 				. = TRUE

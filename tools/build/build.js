@@ -85,6 +85,25 @@ export const DmTarget = new Juke.Target({
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
+  inputs: [
+    '_maps/map_files/generic/**',
+    '_maps/**/*.dm',
+    'code/**',
+    'html/**',
+    'icons/**',
+    'interface/**',
+    'sound/**',
+    'tgui/public/tgui.html',
+    `${DME_NAME}.dme`,
+    NamedVersionFile,
+  ],
+  outputs: ({ get }) => {
+    if (get(DmVersionParameter) || get(DefineParameter).length > 0) {
+      // Always rebuild when a dm version or explicit CLI defines are provided to ensure juke re-runs
+      return [];
+    }
+    return [`${DME_NAME}.dmb`, `${DME_NAME}.rsc`];
+  },
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
       defines: ['CBT', ...get(DefineParameter)],

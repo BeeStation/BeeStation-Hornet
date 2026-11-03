@@ -374,7 +374,7 @@
 		if(shell)
 			to_chat(user, "You cannot seem to open the radio compartment.")	//Prevent AI radio key theft
 		else if(radio)
-			radio.attackby(attacking_item,user)//Push it to the radio to let it handle everything
+			radio.screwdriver_act(user, attacking_item) // Push it to the radio to let it handle everything
 		else
 			to_chat(user, span_warning("Unable to locate a radio!"))
 		update_icons()
