@@ -44,11 +44,16 @@ type Controls = {
 
 export const SimpleBot = (_) => {
   const { data } = useBackend<SimpleBotContext>();
-  const { can_hack, locked } = data;
+  const { can_hack, locked, custom_controls } = data;
   const access = !locked || can_hack;
+  const hasThresholds =
+    !!custom_controls && 'heal_threshold' in custom_controls;
 
   return (
-    <Window width={550} height={400}>
+    <Window
+      width={hasThresholds ? 550 : 450}
+      height={hasThresholds ? 400 : 320}
+    >
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -277,7 +282,7 @@ const ControlsDisplay = (_) => {
           </LabeledControls>
         </Section>
       )}
-      <LabeledControls wrap>
+      <LabeledControls wrap justify="flex-start">
         {others.map((control) => {
           if (control[0] === 'scrub_gasses') {
             return <ControlHelper key={control[0]} control={control} />;
@@ -383,10 +388,14 @@ const MedbotThreshold = (props) => {
         width="50px"
         minValue={10}
         maxValue={100}
-        ranges={{
-          [style.dim]: [-Infinity, 50],
-          [style.color]: [50, Infinity],
-        }}
+        ranges={
+          damageType === 'brute'
+            ? { red: [-Infinity, Infinity] }
+            : {
+                [style.dim]: [-Infinity, 50],
+                [style.color]: [50, Infinity],
+              }
+        }
         step={5}
         value={control[1]}
         onChange={(_, value) =>
