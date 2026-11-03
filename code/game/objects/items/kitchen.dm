@@ -51,8 +51,8 @@
 /obj/item/kitchen/fork/update_overlays()
 	. = ..()
 	if(foodload)
-	 var/mutable_appearance/blob = mutable_appearance(icon, food_overlay_state,
-	appearance_flags = RESET_COLOR, color = foodload_color)
+		var/mutable_appearance/blob = mutable_appearance(icon, food_overlay_state,
+			appearance_flags = RESET_COLOR, color = foodload_color)
 		. += blob
 
 /obj/item/kitchen/fork/attack(mob/living/carbon/eating_person, mob/living/carbon/user)
