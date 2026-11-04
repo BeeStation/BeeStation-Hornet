@@ -371,7 +371,7 @@
 		newstruct.drops_shard = FALSE
 	var/makeicon = newstruct.icon_state
 	var/theme = newstruct.theme
-	flick("make_[makeicon][theme]", newstruct)
+	z_flick("make_[makeicon][theme]", newstruct)
 	playsound(newstruct, 'sound/effects/constructform.ogg', 50)
 	if(stoner)
 		newstruct.faction |= "[REF(stoner)]"

@@ -79,7 +79,7 @@
 		return TRUE
 
 	say("ERROR: Security staff is present. Gear dispensary inactive.")
-	flick(icon_deny, src)
+	z_flick(icon_deny, src)
 	return FALSE
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
@@ -127,7 +127,7 @@
 
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	say("ERROR: Security staff is present. Gear dispensary inactive.")
-	flick(icon_deny, src)
+	z_flick(icon_deny, src)
 	return FALSE
 
 /obj/machinery/vending/deputy/Destroy()

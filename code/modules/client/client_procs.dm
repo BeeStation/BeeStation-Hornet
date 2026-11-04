@@ -292,6 +292,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return ..()
 
 /client/Destroy()
+	if(mob)
+		mob.become_uncliented()
+
 	GLOB.clients_unsafe -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
@@ -627,6 +630,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		CRASH("change_view called without argument.")
 
 	view = new_size
+	SEND_SIGNAL(src, COMSIG_VIEW_SET, new_size)
 	apply_clickcatcher()
 	mob.reload_fullscreen()
 	if (isliving(mob))

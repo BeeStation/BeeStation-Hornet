@@ -36,7 +36,7 @@
 	marked_atom = target
 	RegisterSignal(marked_atom, COMSIG_QDELETING, PROC_REF(cleanup_marked_atom))
 	update_icon()
-	flick("multitool_circuit_flick", src)
+	z_flick("multitool_circuit_flick", src)
 	playsound(src.loc, 'sound/misc/compiler-stage2.ogg', 30, TRUE)
 	return TRUE
 

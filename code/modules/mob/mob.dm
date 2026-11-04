@@ -121,6 +121,11 @@
 
 	LAZYSET(active_hud_list, hud_category, hud_list[hud_category])
 
+	// Mimics have their own copy of any exclusive hud
+	if(!exclusive_hud && ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_active(hud_category, update_huds)
+
 	if(!update_huds)
 		return TRUE
 
@@ -136,6 +141,10 @@
 /atom/proc/set_hud_image_inactive(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
 	if(!istext(hud_category))
 		return FALSE
+
+	if(!exclusive_hud && ismovable(src))
+		var/atom/movable/movable_source = src
+		movable_source.bound_overlay?.set_hud_image_inactive(hud_category, update_huds)
 
 	if(!update_huds)
 		LAZYREMOVE(active_hud_list, hud_category)
@@ -243,6 +252,12 @@
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(vision_distance, src)) //caches the hearers and then removes ignored mobs.
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(blind_message && ismovable(src))
+		var/atom/movable/movable_source = src
+		if(movable_source.bound_overlay)
+			hearers += mob_only_listeners(get_hearers_in_view(vision_distance, movable_source.bound_overlay))
+	#endif
 	hearers -= ignored_mobs
 
 	var/raw_msg = message
@@ -322,6 +337,12 @@
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ")
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src))
+	#ifdef ZMIMIC_MULTIZ_SPEECH
+	if(ismovable(src))
+		var/atom/movable/movable_source = src
+		if(movable_source.bound_overlay)
+			hearers += mob_only_listeners(get_hearers_in_view(hearing_distance, movable_source.bound_overlay))
+	#endif
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
@@ -1401,15 +1422,19 @@
 ///Set the lighting plane hud alpha to the mobs lighting_alpha var
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
-		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		var/atom/movable/screen/plane_master/lighting/L = hud_used.get_plane_master(LIGHTING_PLANE)
 		if (L)
 			L.alpha = lighting_alpha
-		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
+		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.get_plane_master(LIGHTING_PLANE_ADDITIVE)
 		if(LA)
 			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
 			if(client?.prefs) //If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
 				bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
 			LA.alpha = lighting_alpha * (bloom / 255)
+		// Lower levels are lit through the z-mimic shadow planes
+		var/datum/plane_master_group/main_group = hud_used.get_plane_group(PLANE_GROUP_MAIN)
+		for(var/atom/movable/screen/plane_master/zmimic_shadow/shadow as anything in main_group?.zmimic_shadow_planes)
+			shadow.set_lighting_alpha(lighting_alpha)
 
 
 
@@ -1598,7 +1623,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
   */
 /mob/vv_get_var(var_name)
 	switch(var_name)
-		if("logging")
+		if(NAMEOF(src, logging))
 			return debug_variable(var_name, logging, 0, src, FALSE)
 	. = ..()
 
@@ -1646,6 +1671,52 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
+
+/mob/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, control_object))
+			var/obj/O = var_value
+			if(!istype(O) || (O.obj_flags & DANGEROUS_POSSESSION))
+				return FALSE
+		if(NAMEOF(src, machine))
+			set_machine(var_value)
+			. =  TRUE
+		if(NAMEOF(src, focus))
+			set_focus(var_value)
+			. =  TRUE
+		if(NAMEOF(src, nutrition))
+			set_nutrition(var_value)
+			. =  TRUE
+		if(NAMEOF(src, stat))
+			set_stat(var_value)
+			. =  TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	var/slowdown_edit = (var_name == NAMEOF(src, cached_multiplicative_slowdown))
+	var/diff
+	if(slowdown_edit && isnum(cached_multiplicative_slowdown) && isnum(var_value))
+		remove_movespeed_modifier(/datum/movespeed_modifier/admin_varedit)
+		diff = var_value - cached_multiplicative_slowdown
+
+	. = ..()
+
+	if(. && slowdown_edit && isnum(diff))
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/admin_varedit, multiplicative_slowdown = diff)
+
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	for(var/datum/callback/CB as anything in canon_client.player_details.post_logout_callbacks)
+		CB.Invoke()
+
+	clear_important_client_contents()
+	canon_client = null
 
 /mob/key_down(key, client/client, full_key)
 	..()

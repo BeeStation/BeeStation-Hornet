@@ -201,7 +201,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation()
 	setDir(SOUTH)
-	flick("narsie_spawn_anim", src)
+	z_flick("narsie_spawn_anim", src)
 	addtimer(CALLBACK(src, PROC_REF(narsie_spawn_animation_end)), 3.5 SECONDS)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation_end()
@@ -223,7 +223,7 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 		sound_to_playing_players('sound/machines/alarm.ogg')
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper)), 120)
 
-/obj/eldritch/narsie/Process_Spacemove()
+/obj/eldritch/narsie/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return clashing
 
 /proc/ending_helper()
