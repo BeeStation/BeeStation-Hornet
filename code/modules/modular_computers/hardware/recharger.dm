@@ -50,12 +50,8 @@
 	return 0
 
 /obj/item/computer_hardware/recharger/APC/update_overclocking(mob/living/user, obj/item/tool)
-	if(hacked)
-		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#ff2600'>Disengaged</font>")
-		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Rate Limiter // <span class='cfc_red'>Disengaged</span>")
-	else
-		balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // <font color='#17c011'>Engaged</font>")
-		to_chat(user, "<span class='cfc_magenta'>Update:</span> // Rate Limiter // <span class='cfc_green'>Engaged</span>")
+	balloon_alert(user, "<font color='#e06eb1'>Update:</font> // Rate Limiter // [hacked ? "<font color='#ff2600'>Disengaged</font>" : "<font color='#17c011'>Engaged</font>"]", show_in_chat = FALSE)
+	to_chat(user, "<span class='cfc_magenta'>Update:</span> // Rate Limiter // [hacked ? "<span class='cfc_red'>Disengaged</span>" : "<span class='cfc_green'>Engaged</span>"]")
 
 /obj/item/computer_hardware/recharger/APC/pda
 	name = "micro area recharger"

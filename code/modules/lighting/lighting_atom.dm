@@ -97,55 +97,6 @@
 		return
 	recalculate_directional_opacity()
 
-/atom/vv_edit_var(var_name, var_value)
-	var/old_light_flags = light_flags
-	// Disable frozen lights for now, so we can actually modify it
-	light_flags &= ~LIGHT_FROZEN
-	switch (var_name)
-		if (NAMEOF(src, light_range))
-			if(light_system == COMPLEX_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			. = TRUE
-
-		if (NAMEOF(src, light_power))
-			if(light_system == COMPLEX_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			. = TRUE
-
-		if (NAMEOF(src, light_color))
-			if(light_system == COMPLEX_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_angle))
-			if(light_system == COMPLEX_LIGHT)
-				set_light(l_angle = var_value)
-				. = TRUE
-
-		if(NAMEOF(src, light_dir))
-			if(light_system == COMPLEX_LIGHT)
-				set_light(l_dir = var_value)
-				. = TRUE
-
-		// The parent proc applies the edit, we just keep it from being reverted below
-		if(NAMEOF(src, light_flags))
-			old_light_flags = var_value
-
-	if(!isnull(.))
-		light_flags = old_light_flags
-		datum_flags |= DF_VAR_EDITED
-		return
-
-	. = ..()
-	light_flags = old_light_flags
-
-
 /atom/proc/flash_lighting_fx(range = FLASH_LIGHT_RANGE, power = FLASH_LIGHT_POWER, color = COLOR_WHITE, duration = FLASH_LIGHT_DURATION, light_type = /obj/effect/dummy/lighting_obj)
 	if(!duration)
 		stack_trace("Lighting FX obj created on \[[type]\] without a duration")

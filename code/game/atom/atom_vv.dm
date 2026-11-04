@@ -181,15 +181,36 @@
  * the object has been admin edited
  */
 /atom/vv_edit_var(var_name, var_value)
+	var/old_light_flags = light_flags
+	// Disable frozen lights for now, so we can actually modify it
+	light_flags &= ~LIGHT_FROZEN
 	switch(var_name)
-		if(NAMEOF(src, base_pixel_x))
-			set_base_pixel_x(var_value)
+		if(NAMEOF(src, light_range))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
 			. = TRUE
-		if(NAMEOF(src, base_pixel_y))
-			set_base_pixel_y(var_value)
+		if(NAMEOF(src, light_power))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
 			. = TRUE
-		if (NAMEOF(src, _emissive_count))
-			. = FALSE
+		if(NAMEOF(src, light_color))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
+		if(NAMEOF(src, light_angle))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_angle = var_value)
+				. = TRUE
+		if(NAMEOF(src, light_dir))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_dir = var_value)
+				. = TRUE
 		if(NAMEOF(src, light_height))
 			if(light_system == COMPLEX_LIGHT)
 				set_light(l_height = var_value)
@@ -202,8 +223,25 @@
 			. = TRUE
 		if(NAMEOF(src, light_flags))
 			set_light_flags(var_value)
+			// I'm sorry
+			old_light_flags = var_value
 			. = TRUE
+		if(NAMEOF(src, smoothing_junction))
+			set_smoothed_icon_state(var_value)
+			. = TRUE
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+		if (NAMEOF(src, _emissive_count))
+			. = FALSE
 
+	light_flags = old_light_flags
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED
 		return

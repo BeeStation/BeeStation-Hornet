@@ -256,12 +256,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
 
 	camera_observers -= user
 	user.set_mob_eye_to(MOB_EYE_SELF)
-	if(user.client)
+	var/client/user_client = user.canon_client
+	if(user_client)
 		for(var/datum/camerachunk/camerachunk as anything in eyeobj.visibleCameraChunks)
-			camerachunk.single_remove(eyeobj, user.client)
-		user.client.view_size.unsupress()
+			camerachunk.single_remove(eyeobj, user_client)
+		user_client.view_size.unsupress()
 		if(camera_sprite_for_observers)
-			user.client.images -= camera_sprite_for_observers
+			user_client.images -= camera_sprite_for_observers
 		eyeobj.send_observers_back_to_original_orbit(user) // return my ghosts back, leaving others there.
 	UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED))
 

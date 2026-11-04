@@ -1,0 +1,24 @@
+2026-11-02:
+  mrmanlikesbt:
+  - bugfix: Fixed things which can have goliath hide plates applied as armor throwing
+      a runtime if they were deleted without ever having any goliath plates added.
+  - bugfix: Fixed doubled up modular PC messages when you had your balloon alert preference
+      set to send alerts to your chat box.
+  - map: Fixed the RadStation command airlock not requiring command access.
+  - map: Fixed the RadStation command airlock not automatically closing one of the
+      doors when the other one was opened.
+2026-11-03:
+  Isaac:
+  - balance: Revenant Blight can be cured by sleeping at stage 5
+  - bugfix: C4/X4 should work if placed on a window or door again
+  - bugfix: Vampires are shown in the round end window again
+2026-11-04:
+  rkz, Rohesie, Fikou, ShizCalev, VinylSpiders, Lemon, SyncIt21:
+  - rscadd: adds nicer stepwise spacedrifting
+  - refactor: parallax should look reasonably less terrible, whilst remaining a client-based
+      process
+  - refactor: cleaned up jetpack code
+  - admin: more vars have proper vv setters
+  - rscdel: deletes syndicate, wizard, and ERT variants of hardsuits. any current
+      pointers have been replaced with respective modsuits
+  - bugfix: fixes jetpacks being nonfunctional in the station
