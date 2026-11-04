@@ -654,7 +654,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/shieldwall)
 	hardshield = FALSE
 	layer = ABOVE_MOB_LAYER
 	light_color = "#f6e384"
-	light_system = MOVABLE_LIGHT //for instant visual feedback regardless of lag
+	light_system = OVERLAY_LIGHT //for instant visual feedback regardless of lag
 	//Atmos shields suck more power
 	active_power_usage = 500
 

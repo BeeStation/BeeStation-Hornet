@@ -7,11 +7,17 @@
 	/// The atom that we belong to.
 	var/atom/source_atom
 
-	/// The turf under the above.
+	///The turf under the source atom.
 	var/turf/source_turf
-	/// The turf the top_atom appears to over.
-	var/turf/pixel_turf
-	/// Intensity of the emitter light.
+	/// How much to x shift our light by when displaying it
+	var/offset_x = 0
+	/// How much to y shift our light by when displaying it
+	var/offset_y = 0
+	/// How much larger our light sheet should be, based off offset_x and y
+	/// We clamp to at least 1, so if offset_x is 0.1, then this'll be 1
+	var/visual_offset
+
+	///Intensity of the emitter light.
 	var/light_power
 	/// The range of the emitted light.
 	var/light_range
@@ -25,24 +31,25 @@
 	var/lum_g
 	var/lum_b
 
+	/// What direction our angled light is pointed
+	var/light_dir = NONE
+	/// How many degrees of a circle should our light show. 360 is all of it, 180 is half, etc
+	var/light_angle = 360
+
 	// The lumcount values used to apply the light.
 	var/tmp/applied_lum_r
 	var/tmp/applied_lum_g
 	var/tmp/applied_lum_b
 
-	var/list/datum/lighting_corner/effect_str     // List used to store how much we're affecting corners.
+	/// List used to store how much we're affecting corners.
+	var/list/datum/lighting_corner/effect_str
 	var/list/datum/lighting_corner/multiz_match
 	var/list/multiz_level
 
-	var/applied = FALSE // Whether we have applied our light yet or not.
-
-	var/needs_update = LIGHTING_NO_UPDATE    // Whether we are queued for an update.
-
-// Thanks to Lohikar for flinging this tiny bit of code at me, increasing my brain cell count from 1 to 2 in the process.
-// This macro will only offset up to 1 tile, but anything with a greater offset is an outlier and probably should handle its own lighting offsets.
-// Anything pixelshifted 16px or more will be considered on the next tile.
-#define GET_APPROXIMATE_PIXEL_DIR(PX, PY) ((!(PX) ? 0 : ((PX >= 16 ? EAST : (PX <= -16 ? WEST : 0)))) | (!PY ? 0 : (PY >= 16 ? NORTH : (PY <= -16 ? SOUTH : 0))))
-#define UPDATE_APPROXIMATE_PIXEL_TURF var/_mask = GET_APPROXIMATE_PIXEL_DIR(top_atom.pixel_x, top_atom.pixel_y); pixel_turf = _mask ? (get_step(source_turf, _mask) || source_turf) : source_turf
+	/// Whether we have applied our light yet or not.
+	var/applied = FALSE
+	/// whether we are to be added to SSlighting's sources_queue list for an update
+	var/needs_update = LIGHTING_NO_UPDATE
 
 /datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
@@ -52,7 +59,6 @@
 		add_to_light_sources(top_atom)
 
 	source_turf = top_atom
-	UPDATE_APPROXIMATE_PIXEL_TURF
 
 	light_power = source_atom.light_power
 	light_range = source_atom.light_range
@@ -61,6 +67,8 @@
 	PARSE_LIGHT_COLOR(src)
 
 	update()
+	if(GLOB.light_debug_enabled)
+		source_atom.debug_lights()
 
 /datum/light_source/Destroy(force)
 	remove_lum()
@@ -77,7 +85,6 @@
 	top_atom = null
 	source_atom = null
 	source_turf = null
-	pixel_turf = null
 
 	return ..()
 
@@ -90,6 +97,7 @@
 	//yes, we register the signal to the top atom too, this is intentional and ensures contained lighting updates properly
 	if(ismovable(new_atom_host))
 		RegisterSignal(new_atom_host, COMSIG_MOVABLE_MOVED, PROC_REF(update_host_lights))
+	RegisterSignal(new_atom_host, COMSIG_TURF_NO_LONGER_BLOCK_LIGHT, PROC_REF(force_update))
 	return TRUE
 
 ///remove this light source from old_atom_host's light_sources list, unsetting movement registrations
@@ -100,16 +108,8 @@
 	LAZYREMOVE(old_atom_host.light_sources, src)
 	if(ismovable(old_atom_host))
 		UnregisterSignal(old_atom_host, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(old_atom_host, COMSIG_TURF_NO_LONGER_BLOCK_LIGHT)
 	return TRUE
-
-///signal handler for when our host atom moves and we need to update our effects
-/datum/light_source/proc/update_host_lights(atom/movable/host)
-	SIGNAL_HANDLER
-
-	if(QDELETED(host))
-		return
-
-	host.update_light()
 
 // Yes this doesn't align correctly on anything other than 4 width tabs.
 // If you want it to go switch everybody to elastic tab stops.
@@ -120,6 +120,19 @@
 	if (needs_update < level)               \
 		needs_update            = level;    \
 
+///signal handler for when our host atom moves and we need to update our effects
+/datum/light_source/proc/update_host_lights(atom/movable/host)
+	SIGNAL_HANDLER
+	if(QDELETED(host))
+		return
+
+	// If the host is our owner, we want to call their update so they can decide who the top atom should be
+	if(host == source_atom)
+		host.update_light()
+		return
+
+	// Otherwise, our top atom just moved, so we trigger a normal rebuild
+	EFFECT_UPDATE(LIGHTING_CHECK_UPDATE)
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
 /datum/light_source/proc/update(atom/new_top_atom)
@@ -148,8 +161,8 @@
 // Most of this is saving off datum var accesses, tho some of it does actually cache computation
 // You will NEED to call this before you call APPLY_CORNER
 #define SETUP_CORNERS_CACHE(lighting_source)                               \
-	var/_turf_x = lighting_source.pixel_turf.x;                            \
-	var/_turf_y = lighting_source.pixel_turf.y;                            \
+	var/_turf_x = lighting_source.source_turf.x;                            \
+	var/_turf_y = lighting_source.source_turf.y;                            \
 	var/list/_sheet = get_sheet();                                         \
 	var/list/_multiz_sheet = list();                                       \
 	var/list/_multiz_match = lighting_source.multiz_match;                 \
@@ -157,7 +170,7 @@
 	if(_multiz_level) {                                                    \
 		_multiz_sheet = get_sheet(multiz = TRUE);                          \
 	}                                                                      \
-	var/_range_offset = CEILING(lighting_source.light_range, 1) + 0.5 + 2; \
+	var/_range_offset = CEILING(lighting_source.light_range, 1) + 0.5 + 1 + lighting_source.visual_offset; \
 	var/_multiz_offset = ZMIMIC_MAX_DEPTH + 1;                             \
 	var/_light_power = lighting_source.light_power;                        \
 	var/_applied_lum_r = lighting_source.applied_lum_r;                    \
@@ -173,7 +186,7 @@
 	var/_applied_lum_b = lighting_source.applied_lum_b;
 
 // Read out of our sources light sheet, a map of offsets -> the luminosity to use
-#define LUM_FALLOFF(C)  _sheet[C.x - _turf_x + _range_offset][C.y - _turf_y + _range_offset]
+#define LUM_FALLOFF(C) _sheet[C.x - _turf_x + _range_offset][C.y - _turf_y + _range_offset]
 #define LUM_FALLOFF_MULTIZ(C, M) _multiz_sheet[_multiz_level[C] + _multiz_offset][M.x - _turf_x + _range_offset][M.y - _turf_y + _range_offset]
 
 // Macro that applies light to a new corner.
@@ -214,49 +227,107 @@
 /datum/light_source/proc/get_sheet(multiz = FALSE)
 	var/static/list/key_to_sheet = list()
 	var/range = max(1, light_range);
-	var/key = "[range]-[light_height]-[multiz]"
+	var/key = "[range]-[visual_offset]-[offset_x]-[offset_y]-[light_dir]-[light_angle]-[light_height]-[multiz]"
 	var/list/hand_back = key_to_sheet[key]
 	if(!hand_back)
 		if(multiz)
-			hand_back = generate_sheet_multiz(range, light_height)
+			hand_back = generate_sheet_multiz(range, visual_offset, offset_x, offset_y, light_dir, light_angle, light_height)
 		else
-			hand_back = generate_sheet(range, light_height)
+			hand_back = generate_sheet(range, visual_offset, offset_x, offset_y, light_dir, light_angle, light_height)
 		key_to_sheet[key] = hand_back
 	return hand_back
 
 /// Returns a list of lists that encodes the light falloff of our source
 /// Takes anything that impacts our generation as input
 /// This function should be "pure", no side effects or reads from the source object
-/datum/light_source/proc/generate_sheet(range, height, z_level = 0)
+/datum/light_source/proc/generate_sheet(range, visual_offset, x_offset, y_offset, center_dir, angle, height, z_level = 0)
 	var/list/encode = list()
-	var/bound_range = CEILING(range, 1) + 1
+	// How far away the turfs we get are, and how many there are are often not the same calculation
+	// So we need to include the visual offset, so we can ensure our sheet is large enough to accept all the distance differences
+	var/bound_range = CEILING(range, 1) + visual_offset
+
 	// Corners are placed at 0.5 offsets
-	// We need our coords to reflect that
-	for(var/x in (-bound_range - 0.5) to (bound_range + 0.5))
+	// We need our coords to reflect that (though x_offsets that change the basis for how things are calculated are fine too)
+	for(var/x in (-(bound_range) + x_offset - 0.5) to (bound_range + x_offset + 0.5))
 		var/list/row = list()
-		for(var/y in (-bound_range - 0.5) to (bound_range + 0.5))
-			row += falloff_at_coord(x, y, z_level, range, height)
+		for(var/y in (-(bound_range) + y_offset - 0.5) to (bound_range + y_offset + 0.5))
+			row += falloff_at_coord(x, y, z_level, range, height, center_dir, angle)
 		encode += list(row)
 	return encode
 
 /// Returns a THREE dimensional list of lists that encodes the lighting falloff of our source
 /// Takes anything that impacts our generation as input
 /// This function should be "pure", no side effects or reads from the passed object
-/datum/light_source/proc/generate_sheet_multiz(range, height)
+/datum/light_source/proc/generate_sheet_multiz(range, visual_offset, x_offset, y_offset, center_dir, angle, height)
 	var/list/encode = list()
 	var/z_range = ZMIMIC_MAX_DEPTH
 	for(var/z in -z_range to z_range)
-		var/list/sheet = generate_sheet(range, height, z)
+		var/list/sheet = generate_sheet(range, visual_offset, x_offset, y_offset, center_dir, angle, height, z)
 		encode += list(sheet)
 	return encode
 
 /// Takes x y and z offsets from the source as input, alongside our source's range
 /// Returns a value between 0 and 1, 0 being dark on that tile, 1 being fully lit
-/datum/light_source/proc/falloff_at_coord(x, y, z, range, height)
-	var/_range_divisor = max(1, range)
+/datum/light_source/proc/falloff_at_coord(x, y, z, range, height, center_dir, angle)
+	var/range_divisor = max(1, range)
 	// You may notice we use squares here even though there are three components
 	// Because z diffs are so functionally small, cubes and cube roots are too aggressive
-	return 1 - CLAMP01(sqrt(x ** 2 + y ** 2 + z ** 2 + height) / _range_divisor)
+	// The larger the distance is, the less bright our light will be
+	var/multiplier = 1 - CLAMP01(sqrt(x ** 2 + y ** 2 + z ** 2 + height) / range_divisor)
+	if(angle >= 360 || angle <= 0)
+		return multiplier
+
+	// Turn our positional offset into an angle
+	var/coord_angle = delta_to_angle(x, y)
+	// Get the difference between the angle we want, and the angle we have
+	var/center_angle = dir2angle(center_dir)
+	var/angle_delta = abs(center_angle - coord_angle)
+	// Now we have to normalize the angle delta to be between 0 and 180, instead of 0 and 360
+	// This ensures removing say, 15 degrees removes it from both sides, rather then just one
+	// Turns an unfurling fan into a pair of scissors
+	if(angle_delta > 180)
+		angle_delta = 180 - (angle_delta - 180)
+	// We allow angle deltas to a certian amount, angle / 2
+	// If we pass that, then it starts effecting the visuals
+	// Oh and we'll scale it so 30 degrees is the "0" point, where things become fully dark
+	// This could be variable, it just isn't yet yaknow?
+	return max(multiplier * (1 - max(angle_delta - (angle / 2), 0) / 30), 0)
+
+/// Dumps the content of a lighting sheet to chat, for debugging
+/datum/light_source/proc/print_sheet()
+	var/list/sheet = get_sheet()
+	var/list/output = list()
+	var/multiz_depth = 1
+	// If we have a list 3 layers down we're multiz
+	if(length(sheet[1][1]))
+		multiz_depth = length(sheet)
+	var/column_seperator = ""
+	for(var/i in 1 to length(sheet))
+		column_seperator += "----"
+	output += column_seperator
+	for(var/i in 1 to multiz_depth)
+		for(var/list/column in sheet)
+			var/list/print_column = list()
+			for(var/row in column)
+				print_column += round(row, 0.1)
+			output += print_column.Join(", ")
+		output += column_seperator
+	to_chat(usr, "\n[output.Join("\n")]")
+
+/// Debug proc, for when lighting sheets fuck up
+/// Accepts the sheet (2 or 3 (multiz) dimensional list of lighting values at some offset)
+/// alongside x and y delta values and the sheet's "offset", which is the amount required to ensure everything indexes at 1
+/// Optionally, you can pass similar values for multiz stuff
+/proc/read_sheet(list/sheet, x, y, offset, z, z_offset)
+	var/list/working = sheet
+	var/offset_x = x + offset
+	var/offset_y = y + offset
+	var/offset_z = z + z_offset
+	if(z)
+		working = sheet[offset_z]
+	var/list/line = working[offset_x]
+	var/word = line[offset_y]
+	return word
 
 /datum/light_source/proc/remove_lum()
 	SETUP_CORNERS_REMOVAL_CACHE(src)
@@ -322,6 +393,7 @@
 /datum/light_source/proc/refresh_values()
 	var/update = FALSE
 	var/atom/source_atom = src.source_atom
+	var/turf/old_source_turf = source_turf
 
 	if (QDELETED(source_atom))
 		qdel(src)
@@ -343,15 +415,17 @@
 		qdel(src)
 		return FALSE
 
-	if (isturf(top_atom))
-		if (source_turf != top_atom)
+	var/atom/visual_source = source_atom
+	if(isturf(top_atom))
+		visual_source = source_atom
+		if(source_turf != top_atom)
 			source_turf = top_atom
-			UPDATE_APPROXIMATE_PIXEL_TURF
 			update = TRUE
-	else if (top_atom.loc != source_turf)
-		source_turf = top_atom.loc
-		UPDATE_APPROXIMATE_PIXEL_TURF
-		update = TRUE
+	else
+		visual_source = top_atom
+		if(top_atom.loc != source_turf)
+			source_turf = top_atom.loc
+			update = TRUE
 
 	if (!isturf(source_turf))
 		if (applied)
@@ -369,8 +443,23 @@
 	else if (applied_lum_r != lum_r || applied_lum_g != lum_g || applied_lum_b != lum_b)
 		update = TRUE
 
+	if(source_atom.light_dir != light_dir)
+		light_dir = source_atom.light_dir
+		update = TRUE
+
+	if (source_atom.light_angle != light_angle)
+		light_angle = source_atom.light_angle
+		update = TRUE
+
 	if(source_atom.light_height != light_height)
 		light_height = source_atom.light_height
+		update = TRUE
+
+	var/list/visual_offsets = calculate_light_offset(visual_source)
+	if(visual_offsets[1] != offset_x || visual_offsets[2] != offset_y || source_turf != old_source_turf)
+		offset_x = visual_offsets[1]
+		offset_y = visual_offsets[2]
+		visual_offset = max(CEILING(abs(offset_x), 1), CEILING(abs(offset_y), 1))
 		update = TRUE
 
 	// If we need to update, well, update
@@ -393,9 +482,10 @@
 		return list()
 
 	var/oldlum = source_turf.luminosity
-	source_turf.luminosity = CEILING(light_range, 1)
+	var/working_range = CEILING(light_range + visual_offset, 1)
+	source_turf.luminosity = working_range
 
-	for(var/turf/T in view(CEILING(light_range, 1), source_turf))
+	for(var/turf/T in view(working_range, source_turf))
 		if(IS_OPAQUE_TURF(T))
 			continue
 		INSERT_CORNERS(corners, T)
@@ -477,6 +567,3 @@
 #undef REMOVE_CORNER
 #undef SETUP_CORNERS_CACHE
 #undef SETUP_CORNERS_REMOVAL_CACHE
-
-#undef GET_APPROXIMATE_PIXEL_DIR
-#undef UPDATE_APPROXIMATE_PIXEL_TURF

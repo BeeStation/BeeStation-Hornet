@@ -56,3 +56,9 @@
 /// Called on tablet (PDA) when the user changes the ringtone: (mob/living/user, new_ringtone)
 #define COMSIG_GLOB_TABLET_CHANGE_RINGTONE "!global_comsig_tablet_change_ringtone"
 //	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
+
+/// a client (re)connected, after all /client/New() checks have passed : (client/connected_client)
+#define COMSIG_GLOB_CLIENT_CONNECT "!client_connect"
+
+/// Global signal when light debugging is canceled
+#define COMSIG_LIGHT_DEBUG_DISABLED "!light_debug_disabled"

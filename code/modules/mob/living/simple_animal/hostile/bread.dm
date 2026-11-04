@@ -10,7 +10,6 @@
 	turns_per_move = 5
 	maxHealth = 30
 	health = 30
-	see_in_dark = 3
 	butcher_results = list(/obj/item/food/breadslice/plain = 2)
 	melee_damage = 10
 	attack_sound = 'sound/weapons/bite.ogg'

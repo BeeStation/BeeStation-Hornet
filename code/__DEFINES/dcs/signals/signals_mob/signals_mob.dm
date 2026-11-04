@@ -150,6 +150,8 @@
 
 ///sent when a mob/login() finishes: (client)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
+/// Called after a client logs into a mob: (mob)
+#define COMSIG_CLIENT_MOB_LOGIN "client_mob_changed"
 //from base of client/MouseDown(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
 //from base of client/MouseUp(): (/client, object, location, control, params)

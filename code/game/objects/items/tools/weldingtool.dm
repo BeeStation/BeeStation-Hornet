@@ -19,9 +19,9 @@
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
-	light_power = 0.75
+	light_power = 1.5
 	light_on = FALSE
 	throw_speed = 3
 	throw_range = 5

@@ -70,6 +70,7 @@
 #define COLOR_MODERATE_BLUE "#555CC2"
 #define COLOR_BLUE_LIGHT "#33CCFF"
 #define COLOR_NAVY "#000080"
+#define COLOR_CENTCOM_BLUE "#134975"
 #define COLOR_BLUE_GRAY "#75A2BB"
 
 ///Colors for blood greyscale sprites
@@ -148,6 +149,8 @@
  */
 /// Bright but quickly dissipating neon green. rgb(100, 200, 100)
 #define LIGHT_COLOR_GREEN "#64C864"
+/// Bright, pale "nuclear" green. rgb(120, 255, 120)
+#define LIGHT_COLOR_NUCLEAR "#78FF78"
 /// Vivid, slightly blue green. rgb(60, 240, 70)
 #define LIGHT_COLOR_VIVID_GREEN "#3CF046"
 /// Electric green. rgb(0, 255, 0)

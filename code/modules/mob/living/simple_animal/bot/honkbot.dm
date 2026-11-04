@@ -3,6 +3,8 @@
 	desc = "A little robot. It looks happy with its bike horn."
 	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "honkbot"
+	light_color = "#e084f7"
+	light_power = 1
 	density = FALSE
 	anchored = FALSE
 	health = 25

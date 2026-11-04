@@ -26,6 +26,8 @@
 /obj/structure/etherealball/Initialize(mapload)
 	. = ..()
 	update_icon()
+	if(TurnedOn)
+		TurnOn()
 
 /obj/structure/etherealball/attack_hand(mob/living/carbon/human/user)
 	. = ..()

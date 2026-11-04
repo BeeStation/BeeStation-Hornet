@@ -11,7 +11,7 @@
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
 	clicksound = "keyboard"
-	light_system = STATIC_LIGHT
+	light_system = COMPLEX_LIGHT
 	light_range = 1
 	light_power = 0.5
 	light_on = TRUE

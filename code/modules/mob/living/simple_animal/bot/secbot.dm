@@ -3,6 +3,8 @@
 	desc = "A little security robot.  He looks less than thrilled."
 	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "secbot"
+	light_color = "#f56275"
+	light_power = 0.8
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -58,6 +60,7 @@
 /mob/living/simple_animal/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
+	light_color = "#62baf5"
 	radio_channel = RADIO_CHANNEL_AI_PRIVATE
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)

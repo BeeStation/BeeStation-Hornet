@@ -138,7 +138,8 @@
 	invis_override = null
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	// Going for an orange color here
+	color_cutoffs = list(25, 8, 5)
 	glass_colour_type = /datum/client_colour/glass_colour/yellow
 	var/mob/living/wearer
 	var/applied_eye_damage

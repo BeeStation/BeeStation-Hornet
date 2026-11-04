@@ -2,7 +2,6 @@
 	abstract_type = /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
-	see_in_dark = 2
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
 	zmm_flags = ZMM_NO_CACHE_ROOT
 	pressure_resistance = 10

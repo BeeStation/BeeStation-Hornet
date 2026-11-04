@@ -150,14 +150,6 @@
 // ------------- action skills ---------------
 // -------------------------------------------
 
-//Toggle night vision: lets the revenant toggle its night vision
-/datum/action/spell/night_vision/revenant
-	name = "Toggle Darkvision"
-	background_icon_state = "bg_revenant"
-	button_icon = 'icons/hud/actions/actions_revenant.dmi'
-	button_icon_state = "r_nightvision"
-	toggle_span = "revennotice"
-
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /datum/action/spell/telepathy/revenant
 	name = "Revenant Transmit"

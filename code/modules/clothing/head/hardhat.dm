@@ -14,9 +14,10 @@
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 0.8
+	light_color = "#ffcc99"
 	light_on = FALSE
 	dog_fashion = /datum/dog_fashion/head
 

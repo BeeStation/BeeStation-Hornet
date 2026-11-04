@@ -1,21 +1,31 @@
-///Object doesn't use any of the light systems. Should be changed to add a light source to the object.
+/// Object doesn't use any of the light systems. Should be changed to add a light source to the object.
 #define NO_LIGHT_SUPPORT 0
-///Light made with the lighting datums, applying a matrix.
-#define STATIC_LIGHT 1
-///Light made by masking the lighting darkness plane.
-#define MOVABLE_LIGHT 2
-///Light made by masking the lighting darkness plane, and is directional.
-#define MOVABLE_LIGHT_DIRECTIONAL 3
+/// Light made with the lighting datums, applying a matrix.
+#define COMPLEX_LIGHT 1
+/// Light made by masking the lighting darkness plane.
+#define OVERLAY_LIGHT 2
+/// Light made by masking the lighting darkness plane, and is directional.
+#define OVERLAY_LIGHT_DIRECTIONAL 3
 ///Light made by masking the lighting darkness plane, and is a directionally focused beam.
-#define MOVABLE_LIGHT_BEAM 4
+#define OVERLAY_LIGHT_BEAM 4
 
-///Is a movable light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
+/// Is our overlay light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
 #define LIGHT_ATTACHED (1<<0)
+/// Freezes a light in its current state, blocking any attempts at modification
+#define LIGHT_FROZEN (1<<1)
+/// Does this light ignore inherent offsets? (Pixels, transforms, etc)
+#define LIGHT_IGNORE_OFFSET (1<<2)
 
 ///This light doesn't affect turf's lumcount calculations. Set to 1<<15 to ignore conflicts
 #define LIGHT_NO_LUMCOUNT (1<<15)
 
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
+
+// Status values shared between lighting fixtures and items
+#define LIGHT_OK 0
+#define LIGHT_EMPTY 1
+#define LIGHT_BROKEN 2
+#define LIGHT_BURNED 3
 
 /// light UNDER the floor. primarily used for starlight, shouldn't fuck with this
 #define LIGHTING_HEIGHT_SPACE -0.5
@@ -50,11 +60,16 @@
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 77
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
-#define LIGHTING_PLANE_ALPHA_VISIBLE 255
-#define LIGHTING_PLANE_ALPHA_NV_TRAIT 250
-#define LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE 192
-#define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128 //! For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
-#define LIGHTING_PLANE_ALPHA_INVISIBLE 0
+// Lighting cutoff defines
+// These are a percentage of how much darkness to cut off (in rgb)
+#define LIGHTING_CUTOFF_VISIBLE 0
+#define LIGHTING_CUTOFF_REAL_LOW 4.5
+#define LIGHTING_CUTOFF_MEDIUM 15
+#define LIGHTING_CUTOFF_HIGH 30
+#define LIGHTING_CUTOFF_FULLBRIGHT 100
+
+/// What counts as being able to see in the dark
+#define LIGHTING_NIGHTVISION_THRESHOLD 10
 
 // Fullbright lighting defines
 /// Use the default fullbright overlay of just 100% lighting
@@ -74,7 +89,7 @@
 #define LIGHTING_FORCE_UPDATE 3
 
 #define FLASH_LIGHT_DURATION 2
-#define FLASH_LIGHT_POWER 3
+#define FLASH_LIGHT_POWER 2
 #define FLASH_LIGHT_RANGE 3.8
 
 /// Uses vis_overlays to leverage caching so that very few new items need to be made for the overlay. For anything that doesn't change outline or opaque area much or at all.

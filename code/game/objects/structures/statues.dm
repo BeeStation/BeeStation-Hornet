@@ -58,7 +58,10 @@
 
 /obj/structure/statue/uranium
 	max_integrity = 300
-	light_range = 2
+	// largish, dim green glow
+	light_range = 3
+	light_power = 0.7
+	light_color = LIGHT_COLOR_NUCLEAR
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	impressiveness = 25 // radiation makes an impression
 

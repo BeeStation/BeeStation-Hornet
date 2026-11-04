@@ -697,7 +697,7 @@ GLOBAL_LIST_EMPTY(baton_hit_counts)
 	active = FALSE
 	context_living_rmb_active = "Harmful Stun"
 	light_range = 1.5
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	light_color = LIGHT_COLOR_ORANGE
 	light_power = 0.5

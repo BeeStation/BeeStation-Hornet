@@ -44,7 +44,6 @@
 		/obj/item/organ/adamantine_resonator,
 		/obj/item/organ/ears/penguin,
 		/obj/item/organ/heart/gland/viral,
-		/obj/item/organ/eyes/night_vision,
 		/obj/item/organ/liver/plasmaman,
 		/obj/item/organ/liver/alien,
 		/obj/item/organ/stomach/bone/plasmaman,

@@ -8,6 +8,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 	uses_integrity = TRUE
+	light_height = LIGHTING_HEIGHT_FLOOR
 
 	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
 	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
@@ -72,9 +73,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg'
 	/// Used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf. ex: If the turf is supposed to be water, set TRUE.
 	var/bullet_sizzle = FALSE
-
-	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
-	var/dynamic_lumcount = 0
 
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE

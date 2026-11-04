@@ -1851,6 +1851,43 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		result += static_virus
 	return result
 
+/// Sight for mobs without eyes or glasses
+/mob/living/proc/update_innate_sight()
+	if(stat == DEAD)
+		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
+		return FALSE
+
+	set_invis_see(initial(see_invisible))
+	var/new_sight = initial(sight)
+	lighting_cutoff = default_lighting_cutoff()
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
+
+	if(HAS_TRAIT(src, TRAIT_TRUE_NIGHT_VISION))
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_HIGH)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
+
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		new_sight |= SEE_TURFS
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
+
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		new_sight |= SEE_MOBS
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
+		new_sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+
+	if(client.eye != src)
+		var/atom/remote_eye = client.eye
+		if(remote_eye.update_remote_sight(src))
+			return FALSE
+
+	set_sight(new_sight)
+	return TRUE
+
 /mob/living/set_mob_eye_to(atom/A)
 	. = ..()
 	update_eye_features()
@@ -1918,8 +1955,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	switch(var_name)
 		if(NAMEOF(src, maxHealth))
 			updatehealth()
-		if(NAMEOF(src, lighting_alpha))
-			sync_lighting_plane_alpha()
+		if(NAMEOF(src, lighting_cutoff))
+			sync_lighting_plane_cutoff()
 
 /mob/living/vv_get_header()
 	. = ..()

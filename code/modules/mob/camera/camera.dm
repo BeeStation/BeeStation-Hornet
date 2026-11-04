@@ -7,7 +7,6 @@
 	move_resist = INFINITY
 	status_flags = NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	see_in_dark = 7
 	invisibility = INVISIBILITY_ABSTRACT // No one can see us. Use 'INVISIBILITY_OBSERVER' for subtypes
 	sight = SEE_SELF
 	move_on_shuttle = FALSE
@@ -33,3 +32,7 @@
 // Cameras can't fall
 /mob/camera/has_gravity(turf/T)
 	return FALSE
+
+/mob/camera/update_sight()
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
+	return ..()

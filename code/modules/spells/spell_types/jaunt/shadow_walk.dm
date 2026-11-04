@@ -8,6 +8,9 @@
 	spell_requirements = NONE
 	jaunt_type = /obj/effect/dummy/phased_mob/shadow
 
+	/// The max amount of lumens on a turf allowed before we can no longer enter jaunt with this
+	var/light_threshold = SHADOW_SPECIES_LIGHT_THRESHOLD
+
 /datum/action/spell/jaunt/shadow_walk/on_cast(mob/living/user, atom/target)
 	. = ..()
 	if(is_jaunting(user))
@@ -15,8 +18,8 @@
 		return
 
 	var/turf/cast_turf = get_turf(user)
-	if(cast_turf.get_lumcount() >= SHADOW_SPECIES_LIGHT_THRESHOLD)
-		to_chat(user, ("<span class='warning'>It isn't dark enough here!</span>"))
+	if(!cast_turf.check_lumcount_below(light_threshold))
+		to_chat(owner, span_warning("It isn't dark enough here!"))
 		return
 
 	playsound(cast_turf, 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
@@ -27,7 +30,9 @@
 
 /obj/effect/dummy/phased_mob/shadow
 	name = "shadows"
-	/// The amount that shadow heals us per SSobj tick (times delta_time)
+	/// Max amount of light permitted before being kicked out
+	var/light_max = SHADOW_SPECIES_LIGHT_THRESHOLD
+	/// The amount that shadow heals us per SSobj tick (times seconds_per_tick)
 	var/healing_rate = 1.5
 
 /obj/effect/dummy/phased_mob/shadow/Initialize(mapload)
@@ -73,7 +78,7 @@
  */
 /obj/effect/dummy/phased_mob/shadow/proc/check_light_level(atom/location_to_check)
 	var/turf/light_turf = get_turf(location_to_check)
-	return light_turf.get_lumcount() > SHADOW_SPECIES_LIGHT_THRESHOLD // jaunt ends on TRUE
+	return light_turf.check_lumcount_above(light_max) // jaunt ends on TRUE
 
 /obj/effect/dummy/phased_mob/shadow/eject_jaunter(forced_out = FALSE)
 	var/turf/reveal_turf = get_turf(src)

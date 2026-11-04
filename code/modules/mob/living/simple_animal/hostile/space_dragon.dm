@@ -43,8 +43,9 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	melee_damage = 35
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff_red = 12
+	lighting_cutoff_green = 15
+	lighting_cutoff_blue = 34
 	armour_penetration = 30
 	pixel_x = -16
 	turns_per_move = 5
@@ -90,7 +91,6 @@
 	small_sprite = new
 	small_sprite.Grant(src)
 	add_traits(list(TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SPACEWALK), INNATE_TRAIT)
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER

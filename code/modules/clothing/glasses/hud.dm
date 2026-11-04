@@ -100,8 +100,10 @@
 	icon_state = "healthhudnight"
 	emissive_state = "nvg_emissive"
 	inhand_icon_state = "glasses"
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	flags_cover = GLASSESCOVERSEYES
+	// Blue green, dark
+	color_cutoffs = list(20, 20, 45)
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/hud/health/night/science
@@ -116,8 +118,8 @@
 	desc = "Sunglasses with a medical HUD."
 	icon_state = "sunhudmed"
 	emissive_state = "sun_emissive"
-	darkness_view = 1
 	flash_protect = FLASH_PROTECTION_FLASH
+	flags_cover = GLASSESCOVERSEYES
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/blue
 
@@ -147,8 +149,10 @@
 	icon_state = "diagnostichudnight"
 	emissive_state = "nvg_emissive"
 	inhand_icon_state = "glasses"
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	flags_cover = GLASSESCOVERSEYES
+	// Pale yellow
+	color_cutoffs = list(25, 15, 5)
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
@@ -159,6 +163,7 @@
 	emissive_state = "sun_emissive"
 	inhand_icon_state = "glasses"
 	flash_protect = FLASH_PROTECTION_FLASH
+	flags_cover = GLASSESCOVERSEYES
 	tint = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded
@@ -212,7 +217,6 @@
 	desc = "Sunglasses with a security HUD."
 	icon_state = "sunhudsec"
 	emissive_state = "sechud_emissive"
-	darkness_view = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/darkred
@@ -227,8 +231,10 @@
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
 	emissive_state = "nvg_emissive"
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	flags_cover = GLASSESCOVERSEYES
+	// Red with a tint of green
+	color_cutoffs = list(40, 15, 10)
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/hud/security/prescription
@@ -300,7 +306,7 @@
 	icon_state = "thermal"
 	emissive_state = "meson_emissive"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	color_cutoffs = list(25, 8, 5)
 	glass_colour_type = /datum/client_colour/glass_colour/red
 	clothing_traits = list(TRAIT_SECURITY_HUD)
 
@@ -312,13 +318,17 @@
 	switch (hud_type)
 		if (TRAIT_MEDICAL_HUD)
 			icon_state = "meson"
+			color_cutoffs = list(5, 15, 5)
 			change_glass_color(user, /datum/client_colour/glass_colour/green)
 		if (TRAIT_SECURITY_HUD)
 			icon_state = "thermal"
+			color_cutoffs = list(25, 8, 5)
 			change_glass_color(user, /datum/client_colour/glass_colour/red)
 		else
 			icon_state = "purple"
+			color_cutoffs = list(15, 0, 25)
 			change_glass_color(user, /datum/client_colour/glass_colour/purple)
+	user.update_sight()
 	user.update_worn_glasses()
 
 /obj/item/clothing/glasses/hud/toggle/thermal/emp_act(severity)
@@ -333,10 +343,10 @@
 	icon_state = "doublegodeye"
 	inhand_icon_state = "doublegodeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	darkness_view = 8
+	// Blue, light blue
+	color_cutoffs = list(15, 30, 40)
 	flash_protect = FLASH_PROTECTION_WELDER
 	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_SECURITY_HUD, TRAIT_DIAGNOSTIC_HUD, TRAIT_BOT_PATH_HUD, TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER, TRAIT_NEARSIGHTED_CORRECTED)
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = INDESTRUCTIBLE
 	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)
 	var/xray = TRUE

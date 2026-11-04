@@ -67,6 +67,9 @@
 	start_with_cell = FALSE
 	status = LIGHT_EMPTY
 
+/obj/machinery/light/small/dim
+	brightness = 2.4
+
 /obj/machinery/light/small/red
 	bulb_colour = COLOR_VIVID_RED
 	nightshift_allowed = FALSE

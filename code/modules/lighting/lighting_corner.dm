@@ -2,7 +2,6 @@
 // And corners get shared between multiple turfs (unless you're on the corners of the map, then 1 corner doesn't).
 // For the record: these should never ever ever be deleted, even if the turf doesn't have dynamic lighting.
 
-
 /datum/lighting_corner
 	var/list/datum/light_source/affecting // Light sources affecting us.
 
@@ -18,8 +17,6 @@
 	var/sum_g = 0
 	var/sum_b = 0
 
-	var/needs_update = FALSE
-
 	var/cache_r = LIGHTING_SOFT_THRESHOLD
 	var/cache_g = LIGHTING_SOFT_THRESHOLD
 	var/cache_b = LIGHTING_SOFT_THRESHOLD
@@ -32,6 +29,9 @@
 
 	///the maximum of sum_r, sum_g, and sum_b. if this is > 1 then the three cached color values are divided by this
 	var/largest_color_luminosity = 0
+
+	///whether we are to be added to SSlighting's corners_queue list for an update
+	var/needs_update = FALSE
 
 // Takes as an argument the coords to use as the bottom left (south west) of our corner
 /datum/lighting_corner/New(x, y, z)
@@ -174,7 +174,6 @@
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object
 
-
 /datum/lighting_corner/dummy/New()
 	return
 
@@ -183,3 +182,38 @@
 	stack_trace("QDEL CALLED ON LIGHTING CORNER. DO NOT DO THAT. PLEASE. \
 	THERE WAS A VERY RUDE AND NOT COOL COMMENT HERE TELLING YOU BAD THINGS, BUT I DON'T WANT TO PORT IT")
 	return QDEL_HINT_LETMELIVE
+
+/// Debug proc to aid in understanding how corners work
+/datum/lighting_corner/proc/display(max_lum)
+	if(QDELETED(src))
+		return
+
+	var/turf/draw_to = master_SW || master_NE || master_SE || master_NW
+	var/mutable_appearance/display = mutable_appearance('icons/turf/debug.dmi', "corner_color", LIGHT_DEBUG_LAYER, draw_to, BALLOON_CHAT_PLANE)
+	if(x > draw_to.x)
+		display.pixel_x = 16
+	else
+		display.pixel_x = -16
+	if(y > draw_to.y)
+		display.pixel_y = 16
+	else
+		display.pixel_y = -16
+
+	display.color = rgb(cache_r * 255, cache_g * 255, cache_b * 255)
+
+	draw_to.add_overlay(display)
+
+/datum/lighting_corner/dummy/display()
+	return
+
+/// Makes all lighting corners visible, debug to aid in understanding
+/proc/display_corners()
+	var/list/corners = list()
+	var/max_lum = 0
+	for(var/datum/lighting_corner/corner) // I am so sorry
+		corners += corner
+		max_lum = max(max_lum, corner.largest_color_luminosity)
+
+
+	for(var/datum/lighting_corner/corner as anything in corners)
+		corner.display(max_lum)

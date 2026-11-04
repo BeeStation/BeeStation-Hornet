@@ -23,9 +23,9 @@
 	speech_span = SPAN_ROBOT
 	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
 	hardattacks = TRUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 3
-	light_power = 0.9
+	light_power = 0.6
 
 	mobchatspan = "mime"
 	discovery_points = 0

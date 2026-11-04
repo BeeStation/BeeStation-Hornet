@@ -21,3 +21,7 @@
 #define COMSIG_TURF_EXPOSE "turf_expose"
 ///from /turf/proc/immediate_calculate_adjacent_turfs()
 #define COMSIG_TURF_CALCULATED_ADJACENT_ATMOS "turf_calculated_adjacent_atmos"
+
+
+///Called when turf no longer blocks light from passing through
+#define COMSIG_TURF_NO_LONGER_BLOCK_LIGHT "turf_no_longer_block_light"

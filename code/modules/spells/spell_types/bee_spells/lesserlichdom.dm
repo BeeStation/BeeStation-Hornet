@@ -82,7 +82,7 @@
 	icon_state = "bluespace"
 	color = "#187918"
 	light_color = "#187918"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 3
 	var/lon_range = 3
 	var/resurrections = 0

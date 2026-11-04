@@ -20,6 +20,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	/// list of current relays this plane is utilizing to render
 	var/list/atom/movable/render_plane_relay/relays = list()
 
+	/// The cutoffs set_light_cutoff() last applied, as list(mass, red, green, blue)
+	var/list/light_cutoffs
+	/// Multiplier on the cutoffs set_light_cutoff() applies
+	var/light_cutoff_scale = 1
+
 /atom/movable/screen/plane_master/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, plane_override)
 	. = ..()
 	// Set before the relays exist, the generated render target is named after us
@@ -89,6 +94,27 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /atom/movable/screen/plane_master/proc/update_effects(mob/mymob)
 	SHOULD_CALL_PARENT(TRUE)
 	return
+
+/// Brightens darkness on this plane up to light_cutoff (0-100) without washing out brighter colors.
+/// color_cutoffs is an optional list(red, green, blue) on the same scale, used to tint that darkness.
+/// We darken by the cutoff and then add it back, so anything brighter than it comes out unchanged.
+/atom/movable/screen/plane_master/proc/set_light_cutoff(light_cutoff, list/color_cutoffs)
+	var/list/new_cutoffs = list(light_cutoff)
+	new_cutoffs += color_cutoffs
+	if(new_cutoffs ~= light_cutoffs)
+		return
+	light_cutoffs = new_cutoffs
+
+	remove_filter(list("light_cutdown", "light_cutup"))
+	if(!color_cutoffs)
+		color_cutoffs = list(0, 0, 0)
+	var/red = (light_cutoff + color_cutoffs[1]) / 100 * light_cutoff_scale
+	var/green = (light_cutoff + color_cutoffs[2]) / 100 * light_cutoff_scale
+	var/blue = (light_cutoff + color_cutoffs[3]) / 100 * light_cutoff_scale
+	if(!red && !green && !blue)
+		return
+	add_filter("light_cutdown", 4, color_matrix_filter(list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, -red,-green,-blue,0)))
+	add_filter("light_cutup", 5, color_matrix_filter(list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, red,green,blue,0)))
 
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor
@@ -182,8 +208,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	// Fullscreens only exist on the main map
 	if(home.map)
 		return
-	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
-	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
+	set_light_cutoff(mymob.lighting_cutoff, mymob.lighting_color_cutoffs)
+	mymob.overlay_fullscreen("lighting_backdrop_lit_[home.key]", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
+	mymob.overlay_fullscreen("lighting_backdrop_unlit_[home.key]", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 	if (isliving(mymob))
 		mymob.overlay_fullscreen("lighting_backdrop_seenear", /atom/movable/screen/fullscreen/see_through_darkness)
 
@@ -191,7 +218,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	. = ..()
 	remove_filter("emissives")
 	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
-	if (!low_graphics_quality)
+	if (!low_graphics_quality && !home.map)
 		add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 
@@ -287,19 +314,12 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode_override = BLEND_MULTIPLY
 	render_relay_planes = list(RENDER_PLANE_BELOW_GAME)
+	// Lower levels keep their depth darkening under nightvision
+	light_cutoff_scale = SHADOWER_DARKENING_FACTOR
 
 /atom/movable/screen/plane_master/zmimic_shadow/get_relay_layer()
 	// Just above the z-mimic plane we darken
 	return ..() - ZMIMIC_SHADOW_PLANE_OFFSET * 0.5 + 0.25
-
-/// Fades copied lighting, but keeps depth darkening
-/atom/movable/screen/plane_master/zmimic_shadow/proc/set_lighting_alpha(lighting_alpha)
-	if(lighting_alpha >= 255)
-		color = null
-		return
-	var/lit = lighting_alpha / 255
-	var/dark = (1 - lit) * SHADOWER_DARKENING_FACTOR
-	color = list(lit,0,0,0, 0,lit,0,0, 0,0,lit,0, dark,dark,dark,1, 0,0,0,0)
 
 /atom/movable/screen/plane_master/pipecrawl
 	name = "pipecrawl plane master"

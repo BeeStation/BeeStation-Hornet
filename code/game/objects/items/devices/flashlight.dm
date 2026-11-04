@@ -12,7 +12,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_color = COLOR_LIGHT_ORANGE
 	light_range = 4
 	light_power = 1
@@ -44,7 +44,7 @@
 
 /obj/item/flashlight/proc/update_brightness()
 	update_appearance(UPDATE_ICON)
-	if(light_system == STATIC_LIGHT)
+	if(light_system == COMPLEX_LIGHT)
 		update_light()
 
 /obj/item/flashlight/proc/toggle_light(mob/user)
@@ -207,6 +207,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	obj_flags = CONDUCTS_ELECTRICITY
 	light_range = 2
+	light_power = 0.8
+	light_color = "#CCFFFF"
 	var/holo_cooldown = 0
 
 /obj/item/flashlight/pen/afterattack(atom/target, mob/user, proximity_flag)
@@ -246,6 +248,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
+	light_power = 0.8
+	light_color = "#99ccff"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	custom_price = 45
 
@@ -259,7 +263,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	light_range = 5
-	light_system = STATIC_LIGHT
+	light_system = COMPLEX_LIGHT
 	w_class = WEIGHT_CLASS_BULKY
 	obj_flags = CONDUCTS_ELECTRICITY
 	custom_materials = null
@@ -291,7 +295,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	actions_types = list()
 	heat = 1000
 	light_color = LIGHT_COLOR_FLARE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
+	light_power = 2
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
@@ -366,6 +371,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = WEIGHT_CLASS_BULKY
 	light_range = 4
+	light_power = 1.3
 	icon_state = "torch"
 	inhand_icon_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -381,20 +387,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	desc = "A mining lantern."
-	light_range = 6			// luminosity when on
-	light_system = MOVABLE_LIGHT
+	light_range = 5 // luminosity when on
+	light_power = 1.5
+	light_color = "#ffcc66"
+	light_system = OVERLAY_LIGHT
 
 /obj/item/flashlight/lantern/heirloom_moth
 	name = "old lantern"
 	desc = "An old lantern that has seen plenty of use."
-	light_range = 4
+	light_range = 3.5
 
 /obj/item/flashlight/lantern/syndicate
 	name = "suspicious lantern"
 	desc = "A suspicious looking lantern."
 	icon_state = "syndilantern"
 	inhand_icon_state = "syndilantern"
-	light_range = 10
+	light_range = 6
+	light_power = 2
+	light_color = "#ffffe6"
 
 /obj/item/flashlight/slime
 	gender = PLURAL
@@ -407,6 +417,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = null
 	light_range = 6 //luminosity when on
+	light_color = "#ffff66"
 
 /obj/item/flashlight/emp
 	var/emp_max_charges = 4
@@ -468,8 +479,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	desc = "A military-grade glowstick."
 	custom_price = 10
 	w_class = WEIGHT_CLASS_SMALL
-	light_range = 4
-	light_system = MOVABLE_LIGHT
+	light_range = 3.5
+	light_power = 2
+	light_system = OVERLAY_LIGHT
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	base_icon_state = "glowstick"
@@ -584,9 +596,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 4
-	light_power = 10
+	light_power = 2
 	alpha = 0
 	layer = 0
 	anchored = TRUE
@@ -615,7 +627,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	desc = "A strange device manufactured with mysterious elements that somehow emits darkness. Or maybe it just sucks in light? Nobody knows for sure."
 	icon_state = "flashdark"
 	inhand_icon_state = "flashdark"
-	light_system = STATIC_LIGHT //The overlay light component is not yet ready to produce darkness.
+	light_system = COMPLEX_LIGHT //The overlay light component is not yet ready to produce darkness.
 	light_range = 0
 	///Variable to preserve old lighting behavior in flashlights, to handle darkness.
 	var/dark_light_range = 2.5
@@ -633,14 +645,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 /obj/item/flashlight/eyelight
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
-	light_system = MOVABLE_LIGHT
-	light_range = 15
-	light_power = 1
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = DROPDEL
 	actions_types = list()
 
 /obj/item/flashlight/eyelight/glow
-	light_system = MOVABLE_LIGHT_BEAM
+	light_system = OVERLAY_LIGHT_BEAM
 	light_range = 4
 	light_power = 2

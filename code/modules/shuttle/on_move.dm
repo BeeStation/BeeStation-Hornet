@@ -114,6 +114,12 @@ All ShuttleMove procs go here
 	if(rotation)
 		shuttleRotate(rotation) //see shuttle_rotate.dm
 
+	// if we have a lighting object that needs to be updated
+	if(lighting_object?.needs_update)
+		lighting_object.update()
+		lighting_object.needs_update = FALSE
+		SSlighting.objects_queue -= lighting_object
+
 	return TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)

@@ -84,6 +84,9 @@
 		//Show the window and focus on the textbox
 		winshow(src, id, TRUE)
 		winset(src, "[id].input", "focus=true")
+	else
+		// wine fix
+		winshow(src, id, FALSE)
 
 /// Centers a window on the main game window for this client
 /// Arguments: id - the id of the window to set the position of

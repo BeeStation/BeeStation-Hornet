@@ -25,7 +25,7 @@
 	held_rh = 'icons/mob/pai_item_rh.dmi'
 	head_icon = 'icons/mob/pai_item_head.dmi'
 	var/obj/machinery/camera/current = null
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_power = 1
 	light_range = 5
 	light_on = FALSE

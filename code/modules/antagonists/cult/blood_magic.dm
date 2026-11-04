@@ -390,7 +390,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		var/effect_coef = 1 - (cult_team?.cult_risen ? 0.4 : 0) - (cult_team?.cult_ascendent ? 0.5 : 0) // The bigger the cult is, the less the stun
 		user.visible_message(span_warning("[user] floods [L]'s mind with an eldritch energy!"), \
 							span_cultitalic("You attempt to stun [L] with the spell!"))
-		user.mob_light(range = 3, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
+		user.mob_light(range = 1.1, power = 2, color = LIGHT_COLOR_BLOOD_MAGIC, duration = 0.2 SECONDS)
 
 		var/anti_magic_source = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		if(anti_magic_source)

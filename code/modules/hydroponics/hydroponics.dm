@@ -116,7 +116,7 @@
 		myseed.forceMove(src)
 
 	if(!powered() && self_sustaining)
-		visible_message("<span class='warning'>[name]'s auto-grow functionality shuts off!</span>")
+		visible_message(span_warning("[name]'s auto-grow functionality shuts off!"))
 		update_use_power(NO_POWER_USE)
 		self_sustaining = FALSE
 		update_appearance()
@@ -131,6 +131,7 @@
 	if(world.time > (lastcycle + cycledelay))
 		lastcycle = world.time
 		if(myseed && !dead)
+			var/is_fungus = myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 			// Advance age
 			age++
 			if(age < myseed.maturation)
@@ -150,15 +151,8 @@
 
 //Photosynthesis/////////////////////////////////////////////////////////
 			// Lack of light hurts non-mushrooms
-			if(isturf(loc))
-				var/turf/currentTurf = loc
-				var/lightAmt = currentTurf.get_lumcount()
-				if(myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
-					if(lightAmt < 0.2)
-						adjustHealth(-1 / rating)
-				else // Non-mushroom
-					if(lightAmt < 0.4)
-						adjustHealth(-2 / rating)
+			if(astype(loc, /turf)?.check_lumcount_below(is_fungus ? 0.2 : 0.4))
+				adjustHealth((is_fungus ? -1 : -2) / rating)
 
 //Water//////////////////////////////////////////////////////////////////
 			// Drink random amount of water

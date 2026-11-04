@@ -1,32 +1,38 @@
+// Owned by turfs
+CREATION_TEST_IGNORE_SELF(/atom/movable/lighting_object)
+
 /atom/movable/lighting_object
 	name = ""
-
 	anchored = TRUE
-
+	plane = LIGHTING_PLANE
 	icon = LIGHTING_ICON
 	icon_state = "transparent"
 	color = LIGHTING_BASE_MATRIX
-	plane = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
+	move_resist = INFINITY
 
 	///the underlay we are currently applying to our turf to apply light
 	var/mutable_appearance/additive_underlay
 	///whether additive_underlay is currently on our turf
 	var/applying_additive = FALSE
 
-	/// whether we are already in the SSlighting.objects_queue list
+	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
 
 	///the turf that our light is applied to
 	var/turf/affected_turf
 
 /atom/movable/lighting_object/Initialize(mapload)
-	. = ..()
-	verbs.Cut()
-	atom_colours.Cut()
+	if(!isturf(loc))
+		stack_trace("Lighting object created in [loc?.type || "nullspace"]")
+		return INITIALIZE_HINT_QDEL
 
 	affected_turf = loc
+	. = ..()
+	verbs.Cut()
+	atom_colours?.Cut()
+
 	if (affected_turf.lighting_object)
 		qdel(affected_turf.lighting_object, force = TRUE)
 		stack_trace("a lighting object was assigned to a turf that already had a lighting object!")
@@ -39,20 +45,22 @@
 	SSlighting.objects_queue += src
 
 /atom/movable/lighting_object/Destroy(force)
-	if (!force)
+	if (!force && !isnull(affected_turf))
 		return QDEL_HINT_LETMELIVE
 	SSlighting.objects_queue -= src
-	if (loc != affected_turf)
+	if (affected_turf && loc != affected_turf)
 		var/turf/oldturf = get_turf(affected_turf)
 		var/turf/newturf = get_turf(loc)
 		stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
-	if (isturf(affected_turf))
+	if (affected_turf)
 		affected_turf.lighting_object = null
 		affected_turf.underlays -= additive_underlay
 	affected_turf = null
 	return ..()
 
 /atom/movable/lighting_object/proc/update()
+	var/turf/affected_turf = src.affected_turf
+
 #ifdef VISUALIZE_LIGHT_UPDATES
 	affected_turf.add_atom_colour(COLOR_BLUE_LIGHT, ADMIN_COLOUR_PRIORITY)
 	animate(affected_turf, 10, color = null)
@@ -122,8 +130,6 @@
 		affected_turf.underlays -= additive_underlay
 		applying_additive = FALSE
 
-	// Use luminosity directly because we are the lighting object
-	// and not the turf
 	luminosity = set_luminosity
 
 	if (affected_turf.above)
@@ -138,7 +144,7 @@
 	return
 
 /atom/movable/lighting_object/ex_act(severity)
-	return 0
+	return FALSE
 
 /atom/movable/lighting_object/singularity_act()
 	return
@@ -153,10 +159,13 @@
 	return
 
 /atom/movable/lighting_object/wash(clean_types)
-	SHOULD_CALL_PARENT(FALSE)
+	SHOULD_CALL_PARENT(FALSE) // lighting objects are dirty, confirmed
 	return
 
 // Override here to prevent things accidentally moving around overlays.
-/atom/movable/lighting_object/forceMove(atom/destination, no_tp=FALSE, harderforce = FALSE)
+/atom/movable/lighting_object/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
 	if(harderforce)
-		. = ..()
+		return ..()
+
+/atom/movable/lighting_object/ref_search_details()
+	return "[text_ref(src)] (turf: [affected_turf ? "[affected_turf.type] @ [AREACOORD(affected_turf)]" : "null"] needs_update: [needs_update ? "true" : "false"])"

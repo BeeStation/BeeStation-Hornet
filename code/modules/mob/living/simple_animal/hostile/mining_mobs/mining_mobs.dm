@@ -15,8 +15,10 @@
 	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/fromtendril = FALSE
-	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	// Pale purple, should be red enough to see stuff on lavaland
+	lighting_cutoff_red = 25
+	lighting_cutoff_green = 15
+	lighting_cutoff_blue = 35
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE //nasty_blocks wont help you here
 	var/icon_aggro = null

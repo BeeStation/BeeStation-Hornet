@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug_mapping, list(
 	/client/proc/test_tgui_inputs,
 	/client/proc/analyze_openturf,
 	/client/proc/update_all_openturf,
+	/client/proc/modify_lights,
+	/client/proc/visualize_lights,
 ))
 GLOBAL_PROTECT(admin_verbs_debug_mapping)
 
@@ -422,3 +424,27 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 		var/turf/BBL = locate(mob.x + (i - 1) * 10 + 1, mob.y, mob.z)
 		var/turf/ABL = locate(mob.x + (i) * 10 + 1, mob.y, mob.z)
 		link_region(BBL, ABL, 9, 9)
+
+/client/proc/modify_lights()
+	set name = "Toggle Light Debug"
+	set category = "Mapping"
+	if(!check_rights(R_DEBUG))
+		return
+	if(GLOB.light_debug_enabled)
+		undebug_light_sources()
+		return
+
+	for(var/obj/machinery/light/fix_up as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
+		// Only fix lights that started out fixed
+		if(initial(fix_up.status) == LIGHT_OK)
+			fix_up.fix()
+		CHECK_TICK
+	debug_sources()
+
+/client/proc/visualize_lights()
+	set name = "Visualize Lighting Corners"
+	set category = "Mapping"
+	if(!check_rights(R_DEBUG))
+		return
+
+	display_corners()

@@ -16,3 +16,5 @@
 
 	update_icon(new_form = preferred_form)
 	updateghostimages()
+	lighting_cutoff = default_lighting_cutoff()
+	update_sight()

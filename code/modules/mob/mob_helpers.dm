@@ -460,6 +460,12 @@
 /mob/proc/can_hold_items(obj/item/I)
 	return length(held_items)
 
+/// Returns this mob's default lighting alpha
+/mob/proc/default_lighting_cutoff()
+	if(client?.combo_hud_enabled && client?.prefs?.read_player_preference(/datum/preference/toggle/combohud_lighting))
+		return LIGHTING_CUTOFF_FULLBRIGHT
+	return initial(lighting_cutoff)
+
 /**
  * Zone selection helpers.
  *

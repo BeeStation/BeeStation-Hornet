@@ -5231,7 +5231,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},

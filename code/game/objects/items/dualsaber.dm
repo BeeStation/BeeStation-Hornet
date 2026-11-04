@@ -30,7 +30,7 @@
 	max_integrity = 200
 	armor_type = /datum/armor/item_dualsaber
 	resistance_flags = FIRE_PROOF
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 6
 	light_power = 1
 	light_on = FALSE

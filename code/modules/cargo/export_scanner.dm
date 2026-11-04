@@ -52,7 +52,7 @@
 		var/maximum = demand.max_demand
 		var/stock = max(maximum - current, 0)
 		var/obj/effect/dummy/lighting_obj/glow = new(get_turf(current_object))
-		glow.light_system = STATIC_LIGHT
+		glow.light_system = COMPLEX_LIGHT
 		QDEL_IN(glow, 0.25 SECONDS)
 		if(price)
 			glow.set_light(1, 0.6, LIGHT_COLOR_GREEN)

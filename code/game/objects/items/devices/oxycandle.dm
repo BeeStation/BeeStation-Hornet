@@ -15,7 +15,7 @@
 	var/gasmix = "o2=3;co2=1;n2=1.1;water_vapor=0.2;TEMP=345"
 	heat = 1000
 	light_color = LIGHT_COLOR_TUNGSTEN
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	grind_results = list(/datum/reagent/sulfur = 4, /datum/reagent/chlorine = 7, /datum/reagent/sodium = 11)
 	custom_materials = list(/datum/material/iron=50, /datum/material/copper=10)
 	sound_on = 'sound/items/match_strike.ogg'

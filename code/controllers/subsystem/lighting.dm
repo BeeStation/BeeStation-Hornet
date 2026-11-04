@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(lighting)
 	name = "Lighting"
-	wait = 2
+	wait = 1
 	dependencies = list(
 		/datum/controller/subsystem/atoms,
 		/datum/controller/subsystem/mapping,
@@ -59,6 +59,7 @@ SUBSYSTEM_DEF(lighting)
 
 	// UPDATE SOURCE QUEUE
 	var/i = 0
+	// something something cache locally for sonic speed
 	var/list/queue = current_sources
 	while(i < length(queue)) //we don't use for loop here because i cannot be changed during an iteration
 		i += 1

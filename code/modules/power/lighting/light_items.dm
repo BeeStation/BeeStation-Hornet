@@ -28,7 +28,7 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	inhand_icon_state = "c_tube"
-	brightness = 11
+	brightness = 8
 
 /obj/item/light/tube/broken
 	status = LIGHT_BROKEN
@@ -41,7 +41,7 @@
 	inhand_icon_state = "contvapour"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	brightness = 6
+	brightness = 4
 
 /obj/item/light/bulb/broken
 	status = LIGHT_BROKEN

@@ -13,9 +13,9 @@
 	setLoc(get_turf(source_turf))
 
 /mob/camera/ai_eye/remote/shuttle_creation/update_remote_sight(mob/living/user)
-	user.sight = BLIND|SEE_TURFS
-	user.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	user.sync_lighting_plane_alpha()
+	user.set_sight(BLIND|SEE_TURFS)
+	user.lighting_cutoff = LIGHTING_CUTOFF_FULLBRIGHT
+	user.sync_lighting_plane_cutoff()
 	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_creation/relaymove(mob/user, direct)

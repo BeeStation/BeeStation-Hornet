@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	light_color = LIGHT_COLOR_FIRE
 	heat = 1000
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = CANDLE_LUMINOSITY
 	light_power = 2
 	light_on = FALSE
@@ -62,7 +62,7 @@
 
 /obj/item/candle/proc/update_brightness()
 	set_light_on(lit)
-	if(light_system == STATIC_LIGHT)
+	if(light_system == COMPLEX_LIGHT)
 		update_light()
 
 /obj/item/candle/extinguish()

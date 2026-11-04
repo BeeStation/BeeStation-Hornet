@@ -26,12 +26,13 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		var/obj/O
-		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
+		if(underlays.len) //we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
-			O.underlays.Add(T)
+			O.underlays += T
 		T.ChangeTurf(type)
 		if(underlays.len)
-			T.underlays = O.underlays
+			T.underlays.Cut()
+			T.underlays += O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
 	if(T.icon != icon)
@@ -93,7 +94,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
-	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_rcd_memory = rcd_memory
 	var/old_opacity = opacity
 
@@ -168,15 +168,14 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	lighting_corner_SW = old_lighting_corner_SW
 	lighting_corner_NW = old_lighting_corner_NW
 
-	dynamic_lumcount = old_dynamic_lumcount
-
 	if(SSlighting.initialized)
 		// Fullbright tiles should never have lighting objects
 		if(fullbright_type == FULLBRIGHT_NONE)
-			// Should have a lighting object if we never had one
 			if(old_lighting_object)
 				lighting_object = old_lighting_object
-			else
+			// Should have a lighting object if we never had one
+			// New turf init could have ALSO created a lighting object so we have to double check
+			else if(!lighting_object)
 				new /atom/movable/lighting_object(src)
 		else if (old_lighting_object)
 			qdel(old_lighting_object, force = TRUE)

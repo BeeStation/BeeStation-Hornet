@@ -31,8 +31,6 @@
 	healable = 0
 	gender = NEUTER
 
-	see_in_dark = NIGHTVISION_FOV_RANGE
-
 	verb_say = "blorbles"
 	verb_ask = "inquisitively blorbles"
 	verb_exclaim = "loudly blorbles"

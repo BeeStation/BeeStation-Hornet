@@ -13,7 +13,6 @@
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	see_in_dark     = 5
 	speak_chance    = 1
 	turns_per_move  = 3
 	response_help_continuous = "pets"

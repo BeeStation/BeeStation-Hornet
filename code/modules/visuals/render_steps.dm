@@ -46,6 +46,20 @@
 		qdel(src)
 
 /**
+ * Render step that modfies an atom's color
+ * Useful for creating coherent emissive blockers out of things like glass floors by lowering alpha statically using matrixes
+ * Other stuff too I'm sure
+ */
+/atom/movable/render_step/color
+	name = "color step"
+	//RESET_COLOR is obvious I hope
+	appearance_flags = KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM
+
+/atom/movable/render_step/color/Initialize(mapload, atom/source, color)
+	. = ..()
+	src.color = color
+
+/**
  * Render step that makes the passed in render source block emissives
  *
  * Copies an appearance vis render_target and render_source on to the emissive blocking plane.

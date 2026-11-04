@@ -15,6 +15,7 @@
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.02
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
+	light_angle = 170
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/brightness = 10			// luminosity when on, also used in power calculation
@@ -84,10 +85,8 @@
 	if(bulb_colour == initial(bulb_colour))
 		if(istype(src, /obj/machinery/light/small))
 			bulb_colour = A.lighting_colour_bulb
-			brightness = A.lighting_brightness_bulb
 		else
 			bulb_colour = A.lighting_colour_tube
-			brightness = A.lighting_brightness_tube
 
 	if(mapload || !SSticker.HasRoundStarted())
 		smooth_transition = TRUE
@@ -103,27 +102,14 @@
 	if(!start_with_cell || no_emergency)
 		has_mock_cell = FALSE
 
-	spawn(2)
-		switch(fitting)
-			if("tube")
-				brightness = A.lighting_brightness_tube
-				if(prob(2))
-					break_light_tube(1)
-			if("bulb")
-				brightness = A.lighting_brightness_bulb
-				if(prob(5))
-					break_light_tube(1)
-		if(!mapload)
-			spawn(1)
-				update(FALSE, FALSE, FALSE)
-
-	AddElement(/datum/element/atmos_sensitive)
-
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
+	// Light projects out backwards from the dir of the light
+	set_light(l_dir = REVERSE_DIR(dir))
+	AddElement(/datum/element/atmos_sensitive, mapload)
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/light/LateInitialize()
 	. = ..()
+	reset_brightness()
 	var/area/A = get_area(src)
 	if(A.apc)
 		var/obj/machinery/power/apc/temp_apc = A.apc
@@ -131,16 +117,50 @@
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
 
+	switch(fitting)
+		if("tube")
+			if(prob(2))
+				break_light_tube(TRUE)
+		if("bulb")
+			if(prob(5))
+				break_light_tube(TRUE)
+	update(trigger = FALSE)
+
+/// Area lighting picks our brightness, unless our subtype set its own
+/obj/machinery/light/proc/reset_brightness()
+	var/area/our_area = get_area(src)
+	brightness = initial(brightness)
+	switch(fitting)
+		if("tube")
+			if(brightness == /obj/machinery/light::brightness)
+				brightness = our_area.lighting_brightness_tube
+		if("bulb")
+			if(brightness == /obj/machinery/light/small::brightness)
+				brightness = our_area.lighting_brightness_bulb
+
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
 		on = FALSE
-//		A.update_lights()
 	QDEL_NULL(cell)
 	return ..()
 
+/obj/machinery/light/setDir(newdir)
+	. = ..()
+	set_light(l_dir = REVERSE_DIR(dir))
+
+// If we're adjacent to the source, we make this sorta indentation for our light to ensure it stays lit (and to make distances look right)
+// By shifting the light position we use forward a bit, towards something that isn't off by 0.5 from being in angle
+// Because angle calculation is kinda harsh it's hard to find a happy point between fulldark and fullbright for the corners behind the light. this is good enough tho
+/obj/machinery/light/get_light_offset()
+	var/list/hand_back = ..()
+	var/list/dir_offset = dir2offset(turn(dir, 180))
+	hand_back[1] += dir_offset[1] * 0.5
+	hand_back[2] += dir_offset[2] * 0.5
+	return hand_back
+
 /obj/machinery/light/update_icon_state()
-	switch(status)		// set icon_states
+	switch(status) // set icon_states
 		if(LIGHT_OK)
 			var/area/A = get_area(src)
 			if(emergency_mode || (A?.fire))
@@ -250,7 +270,7 @@
 		CO = bulb_vacuum_colour
 		BR = bulb_vacuum_brightness
 	else if (nightshift_enabled)
-		BR = nightshift_brightness
+		BR = min(nightshift_brightness, brightness)
 		PO = nightshift_light_power
 		if(!color)
 			CO = nightshift_light_color
@@ -626,7 +646,7 @@
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
-	brightness = initial(brightness)
+	reset_brightness()
 	on = TRUE
 	update()
 
@@ -666,14 +686,23 @@
 /obj/machinery/light/floor
 	name = "floor light"
 	icon = 'icons/obj/lighting.dmi'
-	base_state = "floor"		// base description and icon_state
+	base_state = "floor" // base description and icon_state
 	icon_state = "floor"
 	brightness = 6
+	light_angle = 360
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.014
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.014 // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
+	nightshift_brightness = 3
+
+/obj/machinery/light/floor/get_light_offset()
+	return list(0, 0)
+
+/obj/machinery/light/floor/broken
+	status = LIGHT_BROKEN
+	icon_state = "floor-broken"
 
 GLOBAL_VAR_INIT(s_flickering_lights, FALSE)
 

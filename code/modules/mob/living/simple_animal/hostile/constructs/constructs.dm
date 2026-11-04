@@ -19,8 +19,10 @@
 	status_flags = CANPUSH
 	attack_sound = 'sound/weapons/punch1.ogg'
 	attack_vis_effect = ATTACK_EFFECT_SLASH
-	see_in_dark = 7
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	// Vivid red, cause cult theme
+	lighting_cutoff_red = 30
+	lighting_cutoff_green = 5
+	lighting_cutoff_blue = 20
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

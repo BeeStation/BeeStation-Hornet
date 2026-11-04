@@ -810,45 +810,41 @@
 	if(!client)
 		return
 	if(stat == DEAD)
-		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = NIGHTVISION_FOV_RANGE
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 		return
 
-	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
-	sight = initial(sight)
-	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	set_invis_see(initial(see_invisible))
+	var/new_sight = initial(sight)
+	lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
+
 	if(sight_mode & BORGMESON)
-		sight |= SEE_TURFS
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-		see_in_dark = 1
+		new_sight |= SEE_TURFS
+		lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, list(5, 15, 5))
 
 	if(sight_mode & BORGMATERIAL)
-		sight |= SEE_OBJS
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		see_in_dark = 1
+		new_sight |= SEE_OBJS
+		lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, list(20, 25, 40))
 
 	if(sight_mode & BORGXRAY)
-		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_invisible = SEE_INVISIBLE_LIVING
-		see_in_dark = NIGHTVISION_FOV_RANGE
+		new_sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		set_invis_see(SEE_INVISIBLE_LIVING)
 
 	if(sight_mode & BORGTHERM)
-		sight |= SEE_MOBS
-		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
-		see_in_dark = NIGHTVISION_FOV_RANGE
+		new_sight |= SEE_MOBS
+		lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, list(25, 8, 5))
+		set_invis_see(min(see_invisible, SEE_INVISIBLE_LIVING))
 
-	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-		see_in_dark = max(see_in_dark, 8)
-
+	set_sight(new_sight)
 	return ..()
 
 /mob/living/silicon/robot/update_stat()

@@ -59,13 +59,29 @@
 	var/rad_insulation = RAD_NO_INSULATION
 
 	///Light systems, both shouldn't be active at the same time.
-	var/light_system = STATIC_LIGHT
+	var/light_system = COMPLEX_LIGHT
+	///Range of the light in tiles. Zero means no light.
+	var/light_range = 0
+	///Intensity of the light. The stronger, the less shadows you will see on the lit area.
+	var/light_power = 1
+	///Hexadecimal RGB string representing the colour of the light. White by default.
+	var/light_color = COLOR_WHITE
 	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
 	var/light_on = TRUE
-	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
-	var/light_height = LIGHTING_HEIGHT
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
+
+	/// Angle of light to show in light_dir
+	/// 360 is a circle, 90 is a cone, etc.
+	var/light_angle = 360
+	/// What angle to project light in
+	var/light_dir = NORTH
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
+	///Our light source. Don't fuck with this directly unless you have a good reason!
+	var/tmp/datum/light_source/light
+	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
+	var/tmp/list/light_sources
 
 	var/flags_ricochet = NONE
 	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
@@ -856,6 +872,8 @@
 	var/filter = get_filter(name)
 	if(!filter)
 		return
+	// This can get injected by the filter procs, we want to support them so bye byeeeee
+	new_params -= "type"
 	animate(filter, new_params, time = time, easing = easing, loop = loop)
 	modify_filter(name, new_params)
 

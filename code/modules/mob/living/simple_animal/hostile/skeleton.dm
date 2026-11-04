@@ -28,8 +28,10 @@
 	stat_attack = HARD_CRIT
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list(FACTION_SKELETON)
-	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	// Going for a sort of pale bluegreen here, shooting for boneish
+	lighting_cutoff_red = 15
+	lighting_cutoff_green = 25
+	lighting_cutoff_blue = 35
 	death_message = "collapses into a pile of bones!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)

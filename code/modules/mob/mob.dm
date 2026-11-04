@@ -269,6 +269,7 @@
 		is_emote = TRUE
 
 	var/list/show_to = list()
+	var/source_in_darkness = null
 
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
@@ -286,9 +287,12 @@
 			if(!allow_inside_usr || hearing_mob != loc)
 				msg = blind_message
 				msg_type = MSG_AUDIBLE
-		else if(!HAS_TRAIT(hearing_mob, TRAIT_HEAR_THROUGH_DARKNESS) && T.lighting_object && T.lighting_object.invisibility <= hearing_mob.see_invisible && T.is_softly_lit() && !in_range(T,hearing_mob)) //if it is too dark.
-			msg = blind_message
-			msg_type = MSG_AUDIBLE
+		else if(!in_range(T, hearing_mob) && !HAS_TRAIT(hearing_mob, TRAIT_HEAR_THROUGH_DARKNESS) && !hearing_mob.has_nightvision())
+			if(isnull(source_in_darkness))
+				source_in_darkness = T.is_softly_lit()
+			if(source_in_darkness)
+				msg = blind_message
+				msg_type = MSG_AUDIBLE
 		if(!msg)
 			continue
 
@@ -674,7 +678,13 @@
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind() && !blind_examine_check(examinify)) //blind people see things differently (through touch)
+	var/turf/examine_turf = get_turf(examinify)
+	if(is_blind()) //blind people see things differently (through touch)
+		if(!blind_examine_check(examinify))
+			return
+	else if(examine_turf?.is_softly_lit() && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
 
 	face_atom(examinify)
@@ -702,7 +712,13 @@
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind() && !blind_examine_check(examinify)) //blind people see things differently (through touch)
+	var/turf/examine_turf = get_turf(examinify)
+	if(is_blind()) //blind people see things differently (through touch)
+		if(!blind_examine_check(examinify))
+			return
+	else if(examine_turf?.is_softly_lit() && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
 
 	face_atom(examinify)
@@ -1237,7 +1253,7 @@
 		antimagic_color = LIGHT_COLOR_DARK_BLUE
 		playsound(src, 'sound/magic/magic_block_mind.ogg', 50, TRUE)
 
-	mob_light(range = 2, color = antimagic_color, duration = 5 SECONDS)
+	mob_light(range = 2, power = 2, color = antimagic_color, duration = 5 SECONDS)
 	add_overlay(antimagic_effect)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)
 
@@ -1417,26 +1433,25 @@
 /mob/proc/update_sight()
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	sync_lighting_plane_cutoff()
 
-///Set the lighting plane hud alpha to the mobs lighting_alpha var
-/mob/proc/sync_lighting_plane_alpha()
-	if(hud_used)
-		var/atom/movable/screen/plane_master/lighting/L = hud_used.get_plane_master(LIGHTING_PLANE)
-		if (L)
-			L.alpha = lighting_alpha
-		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.get_plane_master(LIGHTING_PLANE_ADDITIVE)
-		if(LA)
-			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
-			if(client?.prefs) //If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
-				bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
-			LA.alpha = lighting_alpha * (bloom / 255)
-		// Lower levels are lit through the z-mimic shadow planes
-		var/datum/plane_master_group/main_group = hud_used.get_plane_group(PLANE_GROUP_MAIN)
-		for(var/atom/movable/screen/plane_master/zmimic_shadow/shadow as anything in main_group?.zmimic_shadow_planes)
-			shadow.set_lighting_alpha(lighting_alpha)
-
-
+///Set the lighting plane hud filters to the mobs lighting_cutoff var
+/mob/proc/sync_lighting_plane_cutoff()
+	if(!hud_used)
+		return
+	var/atom/movable/screen/plane_master/lighting/light_plane = hud_used.get_plane_master(LIGHTING_PLANE)
+	light_plane?.set_light_cutoff(lighting_cutoff, lighting_color_cutoffs)
+	var/atom/movable/screen/plane_master/additive_lighting/bloom_plane = hud_used.get_plane_master(LIGHTING_PLANE_ADDITIVE)
+	if(bloom_plane)
+		var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
+		if(client?.prefs) //If this ever doesn't work for some reason add update_sight() to /mob/living/Login()
+			bloom = client.prefs.read_preference(/datum/preference/numeric/bloom) * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
+		// Bloom fades out as darkness is cut away, so fullbright has none
+		bloom_plane.alpha = bloom * (1 - clamp(lighting_cutoff, 0, 100) / 100)
+	// Lower levels are lit through the z-mimic shadow planes
+	var/datum/plane_master_group/main_group = hud_used.get_plane_group(PLANE_GROUP_MAIN)
+	for(var/atom/movable/screen/plane_master/zmimic_shadow/shadow as anything in main_group?.zmimic_shadow_planes)
+		shadow.set_light_cutoff(lighting_cutoff, lighting_color_cutoffs)
 
 ///Update the mouse pointer of the attached client in this mob
 /mob/proc/update_mouse_pointer()
@@ -1531,16 +1546,27 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 **/
 /mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
 	var/turf/mob_location = get_turf(src)
-	return mob_location.get_lumcount() > light_amount
+	var/area/mob_area = get_area(src)
+
+	if(mob_location.check_lumcount_above(light_amount))
+		return TRUE
+	else if(!mob_area.static_lighting)
+		return TRUE
+
+	return FALSE
 
 /**
  * Can this mob see in the dark
  *
  * This checks all traits, glasses, and robotic eyeball implants to see if the mob can see in the dark
- * this does NOT check if the mob is missing it's eyeballs. Also see_in_dark is a BYOND mob var (that defaults to 2)
+ * this does NOT check if the mob is missing it's eyeballs.
 **/
 /mob/proc/has_nightvision()
-	return see_in_dark >= NIGHTVISION_FOV_RANGE
+	// Somewhat conservative, basically is your lighting plane bright enough that you the user can see stuff
+	var/light_offset = lighting_cutoff
+	if(length(lighting_color_cutoffs) == 3)
+		light_offset += (lighting_color_cutoffs[1] + lighting_color_cutoffs[2] + lighting_color_cutoffs[3]) / 3
+	return light_offset >= LIGHTING_NIGHTVISION_THRESHOLD
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O, check_for_light = TRUE)

@@ -36,8 +36,10 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 50
 	melee_damage = 30
-	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	// You KNOW we're doing a lightly purple red
+	lighting_cutoff_red = 30
+	lighting_cutoff_green = 10
+	lighting_cutoff_blue = 20
 	hardattacks = TRUE
 	var/playstyle_string = span_bigbold("You are a slaughter demon,") + "<B> a terrible creature from another realm. You have a single desire: To kill.  \
 	You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \

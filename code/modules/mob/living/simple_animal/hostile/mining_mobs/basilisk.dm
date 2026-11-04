@@ -104,7 +104,7 @@
 	icon_dead = "watcher_magmawing_dead"
 	maxHealth = 108 //Compensate for the lack of slowdown on projectiles with a bit of extra health
 	health = 108
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 3
 	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA

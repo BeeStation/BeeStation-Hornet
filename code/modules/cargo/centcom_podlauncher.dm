@@ -37,6 +37,7 @@
 		/obj/effect/particle_effect/sparks,
 		/obj/effect/pod_landingzone,
 		/obj/effect/client_image_holder,
+		/obj/effect/light_emitter/podbay,
 	))
 	var/turf/oldTurf //Keeps track of where the user was at if they use the "teleport to centcom" button, so they can go back
 	var/client/owner_client //client of whoever is using this datum

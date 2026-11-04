@@ -204,8 +204,7 @@
 	if(current_eyes)
 		current_eyes.flash_protect = max(initial(current_eyes.flash_protect) - 1, - 1)
 		current_eyes.sight_flags = SEE_MOBS
-		current_eyes.see_in_dark = NIGHTVISION_FOV_RANGE
-		current_eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		current_eyes.lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 		carbon_user.update_sight()
 
 	// Get rid of icky organs. From `panacea.dm`

@@ -274,7 +274,6 @@
 	lights_always_start_on = TRUE
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
-	lighting_brightness_tube = 8
 	area_flags = parent_type::area_flags | XENOBIOLOGY_CONSOLE_DISALLOWED
 
 /area/station/hallway/get_area_textures()
@@ -381,7 +380,6 @@
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
-	lighting_brightness_tube = 8
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
@@ -469,7 +467,6 @@
 	area_flags = HIDDEN_STASH_LOCATION | BLOBS_ALLOWED | UNIQUE_AREA | CULT_PERMITTED
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
-	lighting_brightness_tube = 8
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/warm_ish
@@ -739,7 +736,6 @@
 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
-	lighting_brightness_tube = 8
 	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/station/service/library/lounge

@@ -71,14 +71,11 @@
 	diag_hud_set_status()
 
 /mob/living/silicon/ai/update_sight()
-	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
-	sight = initial(sight)
+	set_invis_see(initial(see_invisible))
+	set_sight(initial(sight))
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 	if(aiRestorePowerRoutine)
-		sight = sight&~SEE_TURFS
-		sight = sight&~SEE_MOBS
-		sight = sight&~SEE_OBJS
-		see_in_dark = 0
+		clear_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
 	return ..()
 

@@ -36,8 +36,11 @@
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
 
-	see_in_dark = 13
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	// Dim purple, I want it to be possible to miss people in the dark but not easy to
+	lighting_cutoff_red = 15
+	lighting_cutoff_green = 10
+	lighting_cutoff_blue = 25
+
 	vision_range = 12
 	aggro_vision_range = 12
 
@@ -66,8 +69,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/statue)
 	flicker.Grant(src)
 	var/datum/action/spell/aoe/blindness/blind = new(src)
 	blind.Grant(src)
-	var/datum/action/spell/night_vision/night_vision = new(src)
-	night_vision.Grant(src)
 
 	// Set creator
 	if(creator)

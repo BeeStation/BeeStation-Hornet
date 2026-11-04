@@ -24,6 +24,8 @@
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define STATUS_EFFECT_TRAIT "status-effect"
+// Trait from light debugging
+#define LIGHT_DEBUG_TRAIT "light-debug"
 #define CLOTHING_TRAIT "clothing"
 #define MASK_TRAIT "mask" //inherited from the mask
 #define SHOES_TRAIT "shoes" //inherited from your sweet kicks

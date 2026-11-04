@@ -14,7 +14,6 @@
 	speak_chance = 0
 	maxHealth = 15
 	health = 15
-	see_in_dark = 10
 	melee_damage = 6
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"

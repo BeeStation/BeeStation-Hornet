@@ -9,8 +9,8 @@
 	inhand_icon_state = "camera"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	light_system = MOVABLE_LIGHT //Used as a flash here.
-	light_range = 8
+	light_system = OVERLAY_LIGHT_DIRECTIONAL //Used as a flash here.
+	light_range = 6
 	light_color = COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE

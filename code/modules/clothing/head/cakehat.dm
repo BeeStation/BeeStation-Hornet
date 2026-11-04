@@ -11,7 +11,10 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor_type = /datum/armor/none
+	light_system = OVERLAY_LIGHT
 	light_range = 2 //luminosity when on
+	light_power = 1.3
+	light_color = "#FF964E"
 	flags_cover = HEADCOVERSEYES
 	heat = 1000 //use round numbers, guh
 

@@ -458,6 +458,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			message_admins("[key_name_admin(usr)] broke all lights")
 			for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 				L.break_light_tube()
+				CHECK_TICK
 
 		if("anime")
 			if(!check_rights(R_FUN))
@@ -506,6 +507,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			message_admins("[key_name_admin(usr)] fixed all lights")
 			for(var/obj/machinery/light/L as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 				L.fix()
+				CHECK_TICK
 
 		if("floorlava")
 			SSweather.run_weather(/datum/weather/floor_is_lava)

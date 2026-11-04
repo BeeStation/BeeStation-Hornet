@@ -27,8 +27,10 @@
 	healable = FALSE
 	sight = SEE_SELF
 	throwforce = 0
-	see_in_dark = NIGHTVISION_FOV_RANGE
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	// Going for faint purple spoopy ghost
+	lighting_cutoff_red = 20
+	lighting_cutoff_green = 15
+	lighting_cutoff_blue = 35
 	response_help_continuous = "passes through"
 	response_help_simple = "pass through"
 	response_disarm_continuous = "swings through"
@@ -77,8 +79,6 @@
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
-	var/datum/action/spell/night_vision/revenant/night_vision = new(src)
-	night_vision.Grant(src)
 	var/datum/action/revenant_phase_shift/revenant_phase_shift = new(src)
 	revenant_phase_shift.Grant(src)
 	var/datum/action/spell/telepathy/revenant/telepathy = new(src)

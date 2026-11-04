@@ -107,7 +107,7 @@
 	var/max_resources = 100
 	var/building_something = FALSE // Used for anti-cheese mechanism for building more things in  a single tile
 	discovery_points = TECHWEB_TIER_1_POINTS
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 3
 	light_on = TRUE
 	light_color = LIGHT_COLOR_CYAN

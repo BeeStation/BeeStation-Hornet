@@ -260,13 +260,16 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
+	light_range = 6
+	light_power = 1.2
+	light_color = "#79f1ff"
 	light_range = 7
 	light_flags = LIGHT_ATTACHED
 	layer = ABOVE_ALL_MOB_LAYER
 	var/obj/item/wisp_lantern/home
 	var/sight_flags = SEE_MOBS
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	var/list/color_cutoffs = list(10, 25, 25)
 	COOLDOWN_DECLARE(wisp_tired)
 	var/time
 
@@ -294,9 +297,9 @@
 /obj/effect/wisp/proc/update_user_sight(mob/user)
 	SIGNAL_HANDLER
 
-	user.sight |= sight_flags
-	if(!isnull(lighting_alpha))
-		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
+	user.add_sight(sight_flags)
+	if(!isnull(color_cutoffs))
+		user.lighting_color_cutoffs = blend_cutoff_colors(user.lighting_color_cutoffs, color_cutoffs)
 
 /obj/effect/wisp/proc/on_lighteater_act(obj/item/light_eater/light_eater)
 	SIGNAL_HANDLER

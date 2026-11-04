@@ -73,7 +73,7 @@
 	id = SPECIES_ZOMBIE_INFECTIOUS
 	examine_limb_id = SPECIES_ZOMBIE
 	damage_modifier = 20 // 120 damage to KO a zombie, which kills it
-	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanteyes = /obj/item/organ/eyes/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	inherent_traits = list(
@@ -168,7 +168,7 @@
 	id = "memezombiesfast"
 	damage_modifier = 0
 	inherent_biotypes = MOB_ORGANIC | MOB_UNDEAD |  MOB_HUMANOID //mob organic, so still susceptible to the disease that created it
-	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanteyes = /obj/item/organ/eyes/zombie
 	muthands_path = /obj/item/mutant_hand/zombie/infectious
 
 	bodypart_overrides = list(

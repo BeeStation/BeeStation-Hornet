@@ -540,8 +540,7 @@
 	if(user_eyes)
 		user_eyes.flash_protect = initial(user_eyes.flash_protect)
 		user_eyes.sight_flags = initial(user_eyes.sight_flags)
-		user_eyes.see_in_dark = initial(user_eyes.see_in_dark)
-		user_eyes.lighting_alpha = initial(user_eyes.lighting_alpha)
+		user_eyes.lighting_cutoff = initial(user_eyes.lighting_cutoff)
 	user.update_sight()
 
 /datum/antagonist/vampire/proc/claim_coffin(obj/structure/closet/crate/claimed)
@@ -701,5 +700,4 @@
 /datum/antagonist/vampire/proc/on_update_sight(mob/user)
 	SIGNAL_HANDLER
 	user.sight |= SEE_MOBS
-	user.see_in_dark = max(NIGHTVISION_FOV_RANGE, user.see_in_dark)
-	user.lighting_alpha = min(LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE, user.lighting_alpha)
+	user.lighting_cutoff = max(LIGHTING_CUTOFF_MEDIUM, user.lighting_cutoff)

@@ -30,7 +30,6 @@
 	speak_chance = 5
 	speed = 1
 	turns_per_move = 5
-	see_in_dark = 10
 	butcher_results = list(/obj/item/food/meat/slab/spider = 2, /obj/item/food/spiderleg = 8)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -52,8 +51,11 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	unique_name = 1
-	gold_core_spawnable = HOSTILE_SPAWN
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
+	// VERY red, to fit the eyes
+	lighting_cutoff_red = 22
+	lighting_cutoff_green = 5
+	lighting_cutoff_blue = 5
 	footstep_type = FOOTSTEP_MOB_CLAW
 	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
@@ -75,7 +77,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	discovery_points = TECHWEB_TIER_1_POINTS
-	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
 /mob/living/simple_animal/hostile/poison/giant_spider/update_overlays() //Makes spiders eyes emissive, applies to all.
 	. = ..()

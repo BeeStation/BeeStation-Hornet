@@ -8,11 +8,12 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	desc = "A small portable microcomputer."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "laptop"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_range = 3
 	light_power = 0.6
 	light_color = COLOR_WHITE
 	light_on = FALSE
+	light_power = 1.2
 
 	// Whether the computer is turned on.
 	var/enabled = FALSE

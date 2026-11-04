@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
@@ -47,8 +47,9 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	mobchatspan = "holoparasite"
 	faction = list()
 	discovery_points = TECHWEB_TIER_4_POINTS
-	see_in_dark = 10
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff_red = 10
+	lighting_cutoff_green = 10
+	lighting_cutoff_blue = 15
 	/**
 	 * The name of the holoparasite, formatted with the [accent_color] in a <font> tag.
 	 * Automatically set by [set_name()].

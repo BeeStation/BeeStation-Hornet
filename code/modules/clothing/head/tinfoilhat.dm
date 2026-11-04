@@ -59,7 +59,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | EFFECT_HAT | SNUG_FIT | HEADINTERNALS
 	armor_type = /datum/armor/foilhat_plasmaman
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 4
 	light_power = 1
 	light_on = TRUE

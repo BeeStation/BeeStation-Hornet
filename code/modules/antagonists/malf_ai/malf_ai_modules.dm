@@ -804,7 +804,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 
 /datum/ai_module/malf/upgrade/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
 	// Sets up nightvision
-	AI.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	RegisterSignal(AI, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(on_update_sight))
 	AI.update_sight()
 
 	var/upgraded_cameras = 0
@@ -824,6 +824,11 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 		if(upgraded)
 			upgraded_cameras++
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
+
+/datum/ai_module/malf/upgrade/upgrade_cameras/proc/on_update_sight(mob/source)
+	SIGNAL_HANDLER
+	// Dim blue, pretty
+	source.lighting_color_cutoffs = blend_cutoff_colors(source.lighting_color_cutoffs, list(5, 25, 35))
 
 /// AI Turret Upgrade: Increases the health and damage of all turrets.
 /datum/ai_module/malf/upgrade/upgrade_turrets

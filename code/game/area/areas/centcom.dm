@@ -123,9 +123,6 @@
 /area/centcom/tdome
 	name = "Thunderdome"
 	icon_state = "thunder"
-	requires_power = FALSE
-	default_gravity = STANDARD_GRAVITY
-	flags_1 = NONE
 	camera_networks = list(CAMERA_NETWORK_THUNDERDOME)
 
 /area/centcom/tdome/arena

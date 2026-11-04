@@ -106,11 +106,14 @@ GLOBAL_PROTECT(href_token)
 	GLOB.admin_datums -= target
 	QDEL_NULL(path_debug)
 	deadmined = TRUE
-	var/client/C
-	if ((C = owner) || (C = GLOB.directory[target]))
+
+	var/client/client = owner || GLOB.directory[target]
+
+	if (!isnull(client))
 		disassociate()
-		C.add_verb(/client/proc/readmin)
-		C.update_special_keybinds()
+		client.add_verb(/client/proc/readmin)
+		client.disable_combo_hud()
+		client.update_special_keybinds()
 	load_mentors()
 
 /datum/admins/proc/associate(client/C)

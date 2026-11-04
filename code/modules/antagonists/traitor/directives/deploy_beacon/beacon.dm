@@ -41,7 +41,7 @@
 	desc = "A small beacon attempting to establish communication with an unknown source."
 	icon = 'icons/obj/traitor_beacon.dmi'
 	icon_state = "base"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_power = 0.7
 	light_range = 1.4
 	anchored = TRUE

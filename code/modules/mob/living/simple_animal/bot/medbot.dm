@@ -24,7 +24,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	anchored = FALSE
 	health = 20
 	maxHealth = 20
-	pass_flags = PASSMOB
+	light_power = 0.8
+	light_color = "#99ccff"
+	pass_flags = PASSMOB | PASSFLAPS
 
 	status_flags = (CANPUSH | CANSTUN)
 

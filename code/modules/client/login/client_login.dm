@@ -81,6 +81,7 @@
 	if(!client_post_login(logged_in, TRUE, logged_in && !!(holder || GLOB.deadmins[ckey])) || QDELETED(src))
 		return null
 	fully_created = TRUE
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CLIENT_CONNECT, src)
 	if(logged_in)
 		remove_verb(/client/verb/get_token)
 		remove_verb(/client/verb/use_token)

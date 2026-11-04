@@ -11,13 +11,20 @@
 	resistance_flags = NONE
 	custom_materials = list(/datum/material/glass = 250)
 	var/vision_flags = 0
-	var/darkness_view = 2//Base human is 2
-	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
-	var/invis_override = 0 //Override to allow glasses to set higher than normal see_invis
-	var/lighting_alpha
-	var/list/icon/current = list() //the current hud icons
-	var/glass_colour_type //colors your vision when worn
-	var/force_glass_colour = FALSE	//Should the user be forced to see the colour?
+	var/invis_view = SEE_INVISIBLE_LIVING //admin only for now
+	/// Override to allow glasses to set higher than normal see_invis
+	var/invis_override = 0
+	/// A percentage of how much rgb to "max" on the lighting plane
+	/// This lets us brighten darkness without washing out bright color
+	var/lighting_cutoff = null
+	/// Similar to lighting_cutoff, except it has individual r g and b components in the same 0-100 scale
+	var/list/color_cutoffs = null
+	/// The current hud icons
+	var/list/icon/current = list()
+	/// Colors your vision when worn
+	var/glass_colour_type
+	/// Whether or not vision coloring is forcing
+	var/forced_glass_color = FALSE
 	var/emissive_state = null
 
 /obj/item/clothing/glasses/Initialize(mapload)
@@ -51,8 +58,6 @@
 	alternate_worn_layer = up ? ABOVE_BODY_FRONT_HEAD_LAYER : null
 	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
 		vision_flags ^= initial(vision_flags)
-	if(visor_vars_to_toggle & VISOR_DARKNESSVIEW)
-		darkness_view ^= initial(darkness_view)
 	if(visor_vars_to_toggle & VISOR_INVISVIEW)
 		invis_view ^= initial(invis_view)
 
@@ -81,9 +86,9 @@
 	inhand_icon_state = "meson"
 	emissive_state = "meson_emissive"
 	clothing_traits = list(TRAIT_MADNESS_IMMUNE)
-	darkness_view = 2
 	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	// Mesons get to be lightly green
+	color_cutoffs = list(5, 15, 5)
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
@@ -96,8 +101,9 @@
 	icon_state = "nvgmeson"
 	inhand_icon_state = "nvgmeson"
 	emissive_state = "nvgmeson_emissive"
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	// Night vision mesons get the same but more intense
+	color_cutoffs = list(10, 35, 10)
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/meson/gar
@@ -177,8 +183,11 @@
 	icon_state = "purplenight"
 	inhand_icon_state = "purplenight"
 	emissive_state = "nvgmeson_emissive"
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flags_cover = GLASSESCOVERSEYES
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	// Dark green
+	color_cutoffs = list(10, 25, 10)
+	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -186,8 +195,10 @@
 	icon_state = "night"
 	inhand_icon_state = "glasses"
 	emissive_state = "nvg_emissive"
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flags_cover = GLASSESCOVERSEYES
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	// Dark green
+	color_cutoffs = list(10, 25, 10)
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
@@ -213,6 +224,7 @@
 	desc = "Very confusing glasses."
 	icon_state = "material"
 	inhand_icon_state = "glasses"
+	flags_cover = GLASSESCOVERSEYES
 	vision_flags = SEE_OBJS
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
 
@@ -221,7 +233,6 @@
 	desc = "Used by miners to detect ores deep within the rock."
 	icon_state = "material"
 	inhand_icon_state = "glasses"
-	darkness_view = 0
 
 /obj/item/clothing/glasses/material/mining/gar
 	name = "gar material scanner"
@@ -298,7 +309,7 @@
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. They do not provide flash protection."
 	icon_state = "sun"
 	inhand_icon_state = "sunglasses"
-	darkness_view = 1
+	flags_cover = GLASSESCOVERSEYES
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
@@ -385,7 +396,6 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	glass_colour_type = /datum/client_colour/glass_colour/green
-	force_glass_colour = TRUE
 	var/next_use_time = 0
 
 /obj/item/clothing/glasses/welding/ghostbuster/Initialize(mapload)
@@ -452,7 +462,10 @@
 	icon_state = "thermal"
 	inhand_icon_state = "glasses"
 	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	// Going for an orange color here
+	color_cutoffs = list(25, 8, 5)
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	flags_cover = GLASSESCOVERSEYES
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
@@ -523,8 +536,8 @@
 	name = "glasses of truesight"
 	desc = "A pair of glasses that allow you to see those that would hide from you"
 	vision_flags = SEE_MOBS
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	// Going for an orange color here
+	color_cutoffs = list(25, 8, 5)
 
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"
@@ -532,9 +545,10 @@
 	icon_state = "godeye"
 	inhand_icon_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	darkness_view = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	// Blue, light blue
+	color_cutoffs = list(15, 30, 40)
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	custom_materials = null
 	custom_price = 10000
 	max_demand = 10
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER, TRAIT_NEARSIGHTED_CORRECTED)	// why should the eye of a god have bad vision?
@@ -623,7 +637,7 @@
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
-	if(glass_colour_type && !force_glass_colour && ishuman(user))
+	if(glass_colour_type && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.client)
 			if(H.client.prefs)
@@ -650,7 +664,7 @@
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
 	if(!client)
 		return
-	if((client.prefs?.read_player_preference(/datum/preference/toggle/glasses_color) || G.force_glass_colour) && glasses_equipped)
+	if((client.prefs?.read_player_preference(/datum/preference/toggle/glasses_color)) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

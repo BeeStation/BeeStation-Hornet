@@ -376,7 +376,7 @@
 	actions_types = list(/datum/action/item_action/kindleKicks)
 	var/lightCycle = 0
 	var/active = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_power = 3
 	light_on = FALSE

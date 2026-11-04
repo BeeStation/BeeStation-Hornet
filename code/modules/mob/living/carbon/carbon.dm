@@ -589,21 +589,22 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	if(!client)
 		return
 	if(stat == DEAD)
-		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = NIGHTVISION_FOV_RANGE
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 		return
 
 	var/new_sight = initial(sight)
-	lighting_alpha = initial(lighting_alpha)
+	lighting_cutoff = initial(lighting_cutoff)
+	lighting_color_cutoffs = list(lighting_cutoff_red, lighting_cutoff_green, lighting_cutoff_blue)
 
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(eyes)
-		see_invisible = eyes.see_invisible
-		see_in_dark = eyes.see_in_dark
+		set_invis_see(eyes.see_invisible)
 		new_sight |= eyes.sight_flags
-		if(!isnull(eyes.lighting_alpha))
-			lighting_alpha = eyes.lighting_alpha
+		if(!isnull(eyes.lighting_cutoff))
+			lighting_cutoff = eyes.lighting_cutoff
+		if(!isnull(eyes.color_cutoffs))
+			lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, eyes.color_cutoffs)
 
 	if(client.eye && client.eye != src)
 		var/atom/A = client.eye
@@ -611,38 +612,35 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			return
 
 	if(glasses)
-		var/obj/item/clothing/glasses/G = glasses
-		new_sight |= G.vision_flags
-		see_in_dark = max(G.darkness_view, see_in_dark)
-		if(G.invis_override)
-			see_invisible = G.invis_override
+		new_sight |= glasses.vision_flags
+		if(glasses.invis_override)
+			set_invis_see(glasses.invis_override)
 		else
-			see_invisible = max(G.invis_view, see_invisible)
-		if(!isnull(G.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, G.lighting_alpha)
+			set_invis_see(max(glasses.invis_view, see_invisible))
+		if(!isnull(glasses.lighting_cutoff))
+			lighting_cutoff = max(lighting_cutoff, glasses.lighting_cutoff)
+		if(length(glasses.color_cutoffs))
+			lighting_color_cutoffs = blend_cutoff_colors(lighting_color_cutoffs, glasses.color_cutoffs)
 
 	if(HAS_TRAIT(src, TRAIT_TRUE_NIGHT_VISION))
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-		see_in_dark = max(see_in_dark, 8)
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_HIGH)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
 		new_sight |= SEE_TURFS
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		new_sight |= SEE_MOBS
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		lighting_cutoff = max(lighting_cutoff, LIGHTING_CUTOFF_MEDIUM)
 
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		new_sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-		see_in_dark = max(see_in_dark, 8)
 
-	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-		see_in_dark = max(see_in_dark, 8)
-
-	sight = new_sight
-	. = ..()
+	set_sight(new_sight)
+	return ..()
 
 /**
  * Calculates how visually impaired the mob is by their equipment and other factors

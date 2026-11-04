@@ -11,8 +11,10 @@
 	pass_flags = PASSTABLE
 	combat_mode = TRUE
 	melee_damage = 10
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	// idk
+	lighting_cutoff_red = 25
+	lighting_cutoff_green = 15
+	lighting_cutoff_blue = 35
 	death_message = "splatters into a pile of black gunk!"
 	del_on_death = TRUE
 

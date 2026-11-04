@@ -72,7 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/map_view/character_preview_vi
 
 /atom/movable/screen/map_view/character_preview_view/display_to_client(client/show_to)
 	var/datum/plane_master_group/popup/pop_planes = ..()
-	var/atom/lighting_plane = pop_planes?.get_plane(LIGHTING_PLANE)
-	lighting_plane?.alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	var/atom/movable/screen/plane_master/lighting_plane = pop_planes?.get_plane(LIGHTING_PLANE)
+	lighting_plane?.set_light_cutoff(LIGHTING_CUTOFF_FULLBRIGHT)
 	return pop_planes
 

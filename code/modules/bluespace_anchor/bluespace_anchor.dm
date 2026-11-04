@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 
 	light_range = 1.8
 	light_color = "#aeebe6"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 	var/obj/item/stock_parts/cell/power_cell
 	var/range = 8

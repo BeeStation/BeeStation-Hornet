@@ -375,8 +375,7 @@
 	alert_type = null
 
 /datum/status_effect/cultghost/on_apply()
-	owner.see_invisible = SEE_INVISIBLE_SPIRIT
-	owner.see_in_dark = 2
+	owner.set_invis_see(SEE_INVISIBLE_SPIRIT)
 	return ..()
 
 /datum/status_effect/cultghost/tick(seconds_between_ticks)

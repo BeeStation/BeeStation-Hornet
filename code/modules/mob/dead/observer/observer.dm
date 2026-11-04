@@ -12,15 +12,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	stat = DEAD
 	density = FALSE
 	see_invisible = SEE_INVISIBLE_OBSERVER
-	see_in_dark = 100
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
 	invisibility = INVISIBILITY_SPIRIT
 	//appearance_flags = LONG_GLIDE
 	hud_type = /datum/hud/ghost
 	movement_type = FLYING | FLOATING
-	light_system = MOVABLE_LIGHT
-	light_range = 1
-	light_power = 2
+	light_system = OVERLAY_LIGHT
+	light_range = 2.5
+	light_power = 0.6
 	light_on = FALSE
 	shift_to_open_context_menu = FALSE
 	var/can_reenter_corpse
@@ -148,6 +147,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		remove_verb(/mob/dead/observer/verb/boo)
 		remove_verb(/mob/dead/observer/verb/possess)
 
+	AddElement(/datum/element/movetype_handler)
+
 	add_to_dead_mob_list()
 
 	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
@@ -162,8 +163,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 
 	SSpoints_of_interest.make_point_of_interest(src)
+	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, ref(src))
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
-	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 
 	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
@@ -589,15 +590,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/toggle_darkness()
 	set name = "Toggle Darkness"
 	set category = "Ghost"
-	switch(lighting_alpha)
-		if (LIGHTING_PLANE_ALPHA_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	switch(lighting_cutoff)
+		if (LIGHTING_CUTOFF_VISIBLE)
+			lighting_cutoff = LIGHTING_CUTOFF_MEDIUM
+		if (LIGHTING_CUTOFF_MEDIUM)
+			lighting_cutoff = LIGHTING_CUTOFF_HIGH
+		if (LIGHTING_CUTOFF_HIGH)
+			lighting_cutoff = LIGHTING_CUTOFF_FULLBRIGHT
 		else
-			lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+			lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
 
 	update_sight()
 
@@ -1047,6 +1048,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.images += t_ray_images
 		else
 			client.images -= stored_t_ray_images
+
+
+
+/mob/dead/observer/default_lighting_cutoff()
+	var/datum/preferences/prefs = client?.prefs
+	if(!prefs || (client?.combo_hud_enabled && prefs?.read_player_preference(/datum/preference/toggle/combohud_lighting)))
+		return ..()
+	return GLOB.ghost_lighting_options[prefs.read_preference(/datum/preference/choiced/ghost_lighting)]
 
 /mob/dead/observer/can_examine_in_detail(atom/examinify, silent)
 	return TRUE
