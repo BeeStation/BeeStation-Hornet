@@ -13,6 +13,16 @@
   - bugfix: C4/X4 should work if placed on a window or door again
   - bugfix: Vampires are shown in the round end window again
 2026-11-04:
+  BotTierPC:
+  - rscadd: Adds Trash Cart, and Trash Bin crafting to the Structures Menu of the
+      Crafting Menu.
+  - tweak: Plant Shovel's now spawn inside Hydroponic Lockers with the other departmental
+      tools instead of a hydroponics crate.
+  - tweak: Tweaks seafood recipies, accepting more fish meat while keeping carp dishes
+      carp meat elusive.
+  - map: Fixes a handful of overlapping, and displaced items + Gives Radstation Ian
+      A Bone
+  - bugfix: Bronze Floor Tiles now pry up Bronze Floor Tiles, not Bronze Tiles
   Tsar-Salat:
   - balance: Ninja cloaking is back to partial-invisibility, with a 3 second cooldown
       and no limit on its use. It breaks on bump, attacking, or throwing
