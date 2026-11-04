@@ -54,9 +54,7 @@ export class TextArea extends Component {
     this.handleKeyDown = (e) => {
       const { editing } = this.state;
       const { onChange, onInput, onEnter, onKey } = this.props;
-      // Shift+Enter makes a new line instead of sending.
-      if (e.key === KEY.Enter && onEnter && !e.shiftKey) {
-        e.preventDefault();
+      if (e.key === KEY.Enter) {
         this.setEditing(false);
         if (onChange) {
           onChange(e, e.target.value);

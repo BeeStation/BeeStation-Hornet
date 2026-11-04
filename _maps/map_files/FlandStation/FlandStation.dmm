@@ -11730,7 +11730,6 @@
 /obj/item/cultivator,
 /obj/item/hatchet,
 /obj/item/wirecutters,
-/obj/item/shovel/spade,
 /obj/effect/turf_decal/bot,
 /obj/machinery/airalarm/directional/east{
 	pixel_x = 22
