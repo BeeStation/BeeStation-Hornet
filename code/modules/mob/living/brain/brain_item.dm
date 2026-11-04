@@ -8,7 +8,7 @@
 	layer = ABOVE_MOB_LAYER
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
-	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
+	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE|ORGAN_VIRGIN
 	attack_verb_continuous = list("attacks", "slaps", "whacks")
 	attack_verb_simple = list("attack", "slap", "whack")
 
@@ -62,10 +62,8 @@
 	if(variant_traits_added)
 		organ_traits |= variant_traits_added
 
-/obj/item/organ/brain/Insert(mob/living/carbon/brain_owner, special = FALSE, drop_if_replaced = TRUE, no_id_transfer = FALSE, pref_load = FALSE)
+/obj/item/organ/brain/on_mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
 
 	name = initial(name)
 	if(brain_owner?.has_dna() && isnull(brain_dna)) // if "brain_dna = FALSE", we do not copy.
@@ -73,7 +71,7 @@
 		brain_owner.dna.copy_dna_to(brain_dna)
 
 	// Special check for if you're trapped in a body you can't control because it's owned by a ling.
-	if(brain_owner?.mind?.has_antag_datum(/datum/antagonist/changeling) && !no_id_transfer)	//congrats, you're trapped in a body you don't control
+	if(brain_owner?.mind?.has_antag_datum(/datum/antagonist/changeling) && !(movement_flags & NO_ID_TRANSFER)) //congrats, you're trapped in a body you don't control
 		if(brainmob && !(brain_owner.stat == DEAD || (HAS_TRAIT(brain_owner, TRAIT_DEATHCOMA))))
 			to_chat(brainmob, span_danger("You can't feel your body! You're still just a brain!"))
 		forceMove(brain_owner)
@@ -116,24 +114,10 @@
 		trauma.on_gain()
 
 	//Update the body's icon so it doesnt appear debrained anymore
-	brain_owner.update_body_parts()
+	if(!special && !(brain_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+		brain_owner.update_body_parts()
 
-/obj/item/organ/brain/on_insert(mob/living/carbon/organ_owner, special)
-	// Are we inserting into a new mob from a head?
-	// If yes, we want to quickly steal the brainmob from the head before we do anything else.
-	// This is usually stuff like reattaching dismembered/amputated heads.
-	if(istype(loc, /obj/item/bodypart/head))
-		var/obj/item/bodypart/head/brain_holder = loc
-		if(brain_holder.brainmob)
-			brainmob = brain_holder.brainmob
-			brain_holder.brainmob = null
-			brainmob.container = null
-			brainmob.forceMove(src)
-
-	return ..()
-
-/obj/item/organ/brain/Remove(mob/living/carbon/brain_owner, special = 0, no_id_transfer = FALSE, pref_load = FALSE)
-
+/obj/item/organ/brain/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 
 	for(var/X in traumas)
@@ -141,19 +125,18 @@
 		BT.on_lose(TRUE)
 		BT.owner = null
 
-	if(brain_owner.ai_controller && !special) //special is called in humanisation/dehumanisation
-		brain_owner.ai_controller.set_ai_status(AI_STATUS_OFF)
-		src.ai_controller = brain_owner.ai_controller //AI is stored in the brain but doesn't control it.
-		brain_owner.ai_controller.UnpossessPawn(FALSE) //The body no longer has AI.
+	if(organ_owner.ai_controller && !special) //special is called in humanisation/dehumanisation
+		organ_owner.ai_controller.set_ai_status(AI_STATUS_OFF)
+		src.ai_controller = organ_owner.ai_controller //AI is stored in the brain but doesn't control it.
+		organ_owner.ai_controller.UnpossessPawn(FALSE) //The body no longer has AI.
 
-	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
-		if(brain_owner.mind)
-			transfer_identity(brain_owner)
-			if(brain_owner.mind.current && !decoy_override)
-				brain_owner.mind.transfer_to(brainmob)
-		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
-	brain_owner.update_body_parts()
-	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
+	if((!QDELETED(src) || !QDELETED(owner)) && !(movement_flags & NO_ID_TRANSFER))
+		transfer_identity(organ_owner)
+
+	if(!special)
+		if(!(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
+			organ_owner.update_body_parts()
+		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /obj/item/organ/brain/set_organ_damage(d)
 	. = ..()
@@ -162,10 +145,16 @@
 		brainmob?.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
-	name = "[L.name]'s brain"
-	if(brainmob || decoy_override)
-		return
+	name = "[L.name]'s [initial(name)]"
+	if(brainmob)
+		if(!decoy_override)
+			return
 
+		// it's just a dummy, throw it out
+		QDEL_NULL(brainmob)
+
+	if(!L.mind)
+		return
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
@@ -177,11 +166,16 @@
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna_to(brainmob.stored_dna)
-		if(HAS_TRAIT(L, TRAIT_BADDNA))
-			LAZYSET(brainmob.status_traits, TRAIT_BADDNA, L.status_traits[TRAIT_BADDNA])
+		for(var/source in GET_TRAIT_SOURCES(L, TRAIT_BADDNA))
+			ADD_TRAIT(brainmob, TRAIT_BADDNA, source)
+
 		var/obj/item/organ/zombie_infection/ZI = L.get_organ_slot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
-			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
+			brainmob.set_species(ZI.old_species) //For if the brain is cloned
+
+	if(L.mind && L.mind.current && !decoy_override)
+		L.mind.transfer_to(brainmob)
+		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 
 /obj/item/organ/brain/feel_for_damage(self_aware)
 	if(damage < low_threshold)
@@ -343,11 +337,11 @@
 	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
 	variant_traits_added = list(TRAIT_PRIMITIVE)
 
-/obj/item/organ/brain/primate/on_insert(mob/living/carbon/primate)
+/obj/item/organ/brain/primate/on_mob_insert(mob/living/carbon/primate)
 	. = ..()
 	primate.AddElement(/datum/element/human_biter)
 
-/obj/item/organ/brain/primate/on_remove(mob/living/carbon/primate)
+/obj/item/organ/brain/primate/on_mob_remove(mob/living/carbon/primate)
 	. = ..()
 	primate.RemoveElement(/datum/element/human_biter)
 
@@ -362,7 +356,7 @@
 	icon_state = "diona_brain"
 	decoy_override = TRUE
 
-/obj/item/organ/brain/diona/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/brain/diona/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	if(special)
 		return
@@ -386,7 +380,7 @@
 	text_no_soul_but_damaged = "The S.O.U.L. light is red, and it is blinking unsteadily"
 	text_no_soul_but_alive = "The S.O.U.L. light is red."
 
-/obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
+/obj/item/organ/brain/positron/on_mob_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
 	if(ishuman(brain_owner))
 		var/mob/living/carbon/human/H = brain_owner
@@ -580,3 +574,10 @@
 		var/obj/item/bodypart/found_bodypart = owner.get_bodypart((active_hand.held_index % 2) ? BODY_ZONE_L_LEG : BODY_ZONE_R_LEG)
 		return found_bodypart || active_hand
 	return active_hand
+
+/// Brains REALLY like ghosting people. we need special tricks to avoid that, namely removing the old brain with no_id_transfer
+/obj/item/organ/brain/replace_into(mob/living/carbon/new_owner)
+	var/obj/item/organ/brain/old_brain = new_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
+	old_brain.Remove(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER)
+	qdel(old_brain)
+	return Insert(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER | DELETE_IF_REPLACED)

@@ -89,6 +89,7 @@ SUBSYSTEM_DEF(overlays)
 /atom/movable/cut_overlays()
 	..()
 	zmm_flags &= ~ZMM_AUTOMANGLE
+	UPDATE_OO_IF_PRESENT
 
 /atom/proc/cut_overlay(list/remove_overlays)
 	if(!overlays)
@@ -102,6 +103,7 @@ SUBSYSTEM_DEF(overlays)
 
 /atom/movable/cut_overlay(list/remove_overlays)
 	..()
+	UPDATE_OO_IF_PRESENT
 	// If we removed an automangle-eligible overlay and have automangle enabled, reevaluate automangling.
 	if (!SSoverlays.context_needs_automangle || !(zmm_flags & ZMM_AUTOMANGLE))
 		return
@@ -134,9 +136,11 @@ SUBSYSTEM_DEF(overlays)
 	STAT_START_STOPWATCH
 	overlays += build_appearance_list(add_overlays)
 	VALIDATE_OVERLAY_LIMIT(src)
-	if (SSoverlays.context_needs_automangle && is_movable)
-		// This is a movable flag.
-		src:zmm_flags |= ZMM_AUTOMANGLE
+	if (is_movable)
+		if (SSoverlays.context_needs_automangle)
+			// This is a movable flag.
+			src:zmm_flags |= ZMM_AUTOMANGLE
+		UPDATE_OO_IF_PRESENT
 
 	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
@@ -171,6 +175,8 @@ SUBSYSTEM_DEF(overlays)
 		POST_OVERLAY_CHANGE(src)
 		STAT_STOP_STOPWATCH
 		STAT_LOG_ENTRY(SSoverlays.stats, type)
+	if(ismovable(src))
+		UPDATE_OO_IF_PRESENT
 
 //TODO: Better solution for these?
 /image/proc/add_overlay(x)

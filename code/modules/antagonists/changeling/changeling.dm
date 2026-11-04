@@ -158,12 +158,20 @@
 
 	var/mob/living/carbon/carbon_mob = mob_to_tweak
 	RegisterSignals(carbon_mob, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(on_click_sting))
+	RegisterSignal(carbon_mob, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_gained_organ))
 
-	// Brains are optional for lings.
 	var/obj/item/organ/brain/our_ling_brain = carbon_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(our_ling_brain)
-		our_ling_brain.organ_flags &= ~ORGAN_VITAL
-		our_ling_brain.decoy_override = TRUE
+		on_gained_organ(carbon_mob, our_ling_brain)
+
+/// Brains are optional for lings, including ones gained later from species changes.
+/datum/antagonist/changeling/proc/on_gained_organ(mob/living/carbon/source, obj/item/organ/new_organ)
+	SIGNAL_HANDLER
+	if(!istype(new_organ, /obj/item/organ/brain))
+		return
+	var/obj/item/organ/brain/new_brain = new_organ
+	new_brain.organ_flags &= ~ORGAN_VITAL
+	new_brain.decoy_override = TRUE
 
 /datum/antagonist/changeling/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER
@@ -189,7 +197,7 @@
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
 	handle_clown_mutation(living_mob, removing = FALSE)
-	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON, COMSIG_MOB_HUD_CREATED))
+	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON, COMSIG_MOB_HUD_CREATED, COMSIG_CARBON_GAIN_ORGAN))
 	living_mob?.hud_used?.lingchemdisplay?.invisibility = INVISIBILITY_ABSTRACT
 
 /datum/antagonist/changeling/on_removal()

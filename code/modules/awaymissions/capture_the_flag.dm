@@ -52,6 +52,9 @@
 /obj/item/ctf/proc/reset_flag(capture = FALSE)
 	SIGNAL_HANDLER
 
+	if(!reset)
+		return FALSE
+
 	forceMove(get_turf(src.reset))
 	for(var/mob/M in GLOB.player_list)
 		var/area/mob_area = get_area(M)

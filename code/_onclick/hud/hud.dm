@@ -55,7 +55,9 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/list/hand_slots // /atom/movable/screen/inventory/hand objects, assoc list of "[held_index]" = object
 	/// storages (and its content) currently open by mob
 	var/list/open_containers = list()
-	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	/// Assoc list of key => "plane master groups"
+	/// This is normally just the main window, but it'll occasionally contain things like spyglasses windows
+	var/list/datum/plane_master_group/master_groups = list()
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 	var/list/team_finder_arrows = list()
@@ -94,10 +96,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	hand_slots = list()
 
-	for(var/mytype in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/rendering_plate)
-		var/atom/movable/screen/plane_master/instance = new mytype()
-		plane_masters["[instance.plane]"] = instance
-		instance.backdrop(mymob)
+	var/datum/plane_master_group/main/main_group = new(PLANE_GROUP_MAIN)
+	main_group.set_hud(src)
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	alien_queen_finder = null
 	combo_display = null
 
-	QDEL_LIST_ASSOC_VAL(plane_masters)
+	QDEL_LIST_ASSOC_VAL(master_groups)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 	QDEL_LIST(screenoverlays)
 	mymob = null
@@ -252,10 +252,19 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 /datum/hud/proc/plane_masters_update()
 	// Plane masters are always shown to OUR mob, never to observers
-	for(var/thing in plane_masters)
-		var/atom/movable/screen/plane_master/PM = plane_masters[thing]
-		PM.backdrop(mymob)
-		mymob.client.screen += PM
+	// show_hud() wipes the screen, so popup groups need showing again too
+	for(var/key in master_groups)
+		var/datum/plane_master_group/group = master_groups[key]
+		group.show_hud()
+
+/// Returns the plane master group with the passed in key, if one exists
+/datum/hud/proc/get_plane_group(key)
+	return master_groups[key]
+
+/// Returns the plane master for the passed in plane, from the main group by default
+/datum/hud/proc/get_plane_master(plane, group_key = PLANE_GROUP_MAIN)
+	var/datum/plane_master_group/group = master_groups[group_key]
+	return group?.get_plane(plane)
 
 /datum/hud/human/show_hud(version = 0,mob/viewmob)
 	. = ..()

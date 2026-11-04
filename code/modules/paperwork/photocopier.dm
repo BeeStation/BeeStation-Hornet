@@ -364,7 +364,7 @@
 /obj/machinery/photocopier/proc/do_insertion(obj/item/object, mob/user)
 	object.forceMove(src)
 	to_chat(user, span_notice("You insert [object] into [src]."))
-	flick("photocopier1", src)
+	z_flick("photocopier1", src)
 
 /**
  * Called when someone hits the "remove item" button on the copier UI.

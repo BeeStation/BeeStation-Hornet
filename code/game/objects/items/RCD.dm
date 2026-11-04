@@ -147,7 +147,7 @@ RLD
 	if(!silo_mats || !silo_link)
 		if(matter < amount)
 			if(has_ammobar)
-				flick("[icon_state]_empty", src)
+				z_flick("[icon_state]_empty", src)
 			if(user)
 				to_chat(user, no_ammo_message)
 			return FALSE

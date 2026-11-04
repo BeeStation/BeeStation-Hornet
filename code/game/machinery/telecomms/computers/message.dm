@@ -13,12 +13,12 @@
 	/// If the console is currently being hacked by a silicon
 	var/hacking = FALSE
 
-/obj/machinery/computer/message_monitor/attackby(obj/item/O, mob/living/user, list/modifiers)
-	if(O.tool_behaviour == TOOL_SCREWDRIVER && (obj_flags & EMAGGED))
+/obj/machinery/computer/message_monitor/screwdriver_act(mob/living/user, obj/item/I)
+	if(obj_flags & EMAGGED)
 		//Stops people from just unscrewing the monitor and putting it back to get the console working again.
 		to_chat(user, span_warning("It is too hot to mess with!"))
-	else
-		return ..()
+		return TRUE
+	return ..()
 
 /obj/machinery/computer/message_monitor/should_emag(mob/user)
 	if(!..())

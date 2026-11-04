@@ -602,14 +602,13 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/arm/left/golem/durathread/set_owner(mob/living/carbon/new_owner)
+/obj/item/bodypart/arm/left/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
 	. = ..()
-	if(. == FALSE)
-		return
-	var/mob/living/carbon/old_owner = .
-	if(!isnull(old_owner))
-		UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/left/golem/durathread/clear_ownership(mob/living/carbon/old_owner)
+	. = ..()
+	UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 
 /obj/item/bodypart/arm/left/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
 	SIGNAL_HANDLER
@@ -622,14 +621,13 @@
 	limb_id = "d_golem"
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/arm/right/golem/durathread/set_owner(mob/living/carbon/new_owner)
+/obj/item/bodypart/arm/right/golem/durathread/apply_ownership(mob/living/carbon/new_owner)
 	. = ..()
-	if(. == FALSE)
-		return
-	var/mob/living/carbon/old_owner = .
-	if(!isnull(old_owner))
-		UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 	RegisterSignal(new_owner, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
+
+/obj/item/bodypart/arm/right/golem/durathread/clear_ownership(mob/living/carbon/old_owner)
+	. = ..()
+	UnregisterSignal(old_owner, COMSIG_LIVING_UNARMED_ATTACK)
 
 /obj/item/bodypart/arm/right/golem/durathread/proc/on_owner_unarmed_attack(mob/living/source, atom/target, proximity, list/modifiers)
 	SIGNAL_HANDLER

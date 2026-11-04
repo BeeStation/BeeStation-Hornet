@@ -200,12 +200,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	if(_codeword)
 		codeword = _codeword
 	else
-		codeword = pick(strings(ION_LAWS_FILE, "ionabstract")\
-			| strings(ION_LAWS_FILE, "ionobjects")\
-			| strings(ION_LAWS_FILE, "ionadjectives")\
-			| strings(ION_LAWS_FILE, "ionthreats")\
-			| strings(ION_LAWS_FILE, "ionfood")\
-			| strings(ION_LAWS_FILE, "iondrinks"))
+		codeword = pick(strings(ION_FILE, "ionabstract")\
+			| strings(ION_FILE, "ionobjects")\
+			| strings(ION_FILE, "ionadjectives")\
+			| strings(ION_FILE, "ionthreats")\
+			| strings(ION_FILE, "ionfood")\
+			| strings(ION_FILE, "iondrinks"))
 
 /datum/brain_trauma/severe/split_personality/brainwashing/on_gain()
 	..()

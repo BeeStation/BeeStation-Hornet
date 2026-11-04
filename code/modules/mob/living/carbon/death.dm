@@ -3,9 +3,7 @@
 		return
 
 	losebreath = 0
-
-	if(!gibbed)
-		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
+	reagents.end_metabolization(src)
 
 	. = ..()
 
@@ -13,12 +11,17 @@
 		var/datum/brain_trauma/BT = T
 		BT.on_death()
 
-/mob/living/carbon/gib(no_brain, no_organs, no_bodyparts)
+/mob/living/carbon/gib(no_brain, no_organs, no_bodyparts, safe_gib = FALSE)
+	if(safe_gib)
+		for(var/obj/item/W in src)
+			if(dropItemToGround(W))
+				if(prob(50))
+					step(W, pick(GLOB.alldirs))
 	var/atom/Tsec = drop_location()
 	for(var/mob/M in src)
 		M.forceMove(Tsec)
 		visible_message(span_danger("[M] bursts out of [src]!"))
-	..()
+	return ..()
 
 /mob/living/carbon/spill_organs(no_brain, no_organs, no_bodyparts)
 	var/atom/Tsec = drop_location()
@@ -28,8 +31,7 @@
 				if(no_brain || !istype(X, /obj/item/organ/brain))
 					qdel(X)
 		else //we're going to drop all bodyparts except chest, so the only organs that needs spilling are those inside it.
-			for(var/X in internal_organs)
-				var/obj/item/organ/O = X
+			for(var/obj/item/organ/O as anything in internal_organs)
 				if(no_brain && istype(O, /obj/item/organ/brain))
 					qdel(O) //so the brain isn't transfered to the head when the head drops.
 					continue

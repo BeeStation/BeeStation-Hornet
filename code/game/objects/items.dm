@@ -1600,10 +1600,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED_AS_OUTFIT, outfit_wearer, visuals_only, item_slot)
 
-/// Whether or not this item can be put into a storage item through attackby
-/obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
-	return TRUE
-
 /**
  * * Overridden to generate icons for monkey clothing
  */

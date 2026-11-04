@@ -27,7 +27,7 @@
 	// Set up the blacklist for types we don't want to test here. See above for reasons.
 	var/list/blacklist_typecache = typecacheof(list(
 		/datum/heretic_knowledge/summon,
-		/datum/heretic_knowledge/final,
+		/datum/heretic_knowledge/ultimate,
 		/datum/heretic_knowledge/hunt_and_sacrifice,
 	))
 	var/list/all_ritual_knowledge = list()
@@ -64,7 +64,10 @@
 		for(var/ritual_item_path in knowledge.required_atoms)
 			var/amount_to_create = knowledge.required_atoms[ritual_item_path]
 			for(var/i in 1 to amount_to_create)
-				created_atoms += new ritual_item_path(get_turf(our_heretic))
+				var/obj/item/item = new ritual_item_path(get_turf(our_heretic))
+				if(isitem(item))
+					item.item_flags &= ~ABSTRACT
+				created_atoms += item
 
 		// Now, we can ACTUALLY run the ritual. Let's do it.
 		// Attempt to run the knowledge via the sacrifice rune.
@@ -104,6 +107,10 @@
 		for(var/atom/thing as anything in nearby_atoms)
 			if(!ismovable(thing))
 				continue
+			if(isitem(thing))
+				var/obj/item/item = thing
+				if(item.item_flags & ABSTRACT) //bodyparts and stuff will get registered otherwise
+					continue
 			if(istype(thing, /atom/movable/lighting_object)) // Ignore lighting objects
 				continue
 

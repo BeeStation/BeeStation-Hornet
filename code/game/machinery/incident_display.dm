@@ -157,7 +157,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	live_display = TRUE
 	update_appearance()
 	sleep(0.1 SECONDS)
-	flick(advert, src)
+	z_flick(advert, src)
 
 /obj/machinery/incident_display/update_appearance(updates = ALL)
 	. = ..()

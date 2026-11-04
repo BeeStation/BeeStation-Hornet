@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	required_organ = ORGAN_SLOT_EARS
 	prefixes = list("Aural ")
 	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
