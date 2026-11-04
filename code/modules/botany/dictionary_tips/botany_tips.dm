@@ -85,7 +85,7 @@
 
 /datum/dictionary_entry/parasites
 	title = "Parasites"
-	body = "(Small plants like mushrooms and flowers can be given helpful traits, and planted alongside other plants to benehfit them.)\n\
+	body = "(Small plants like mushrooms and flowers can be given helpful traits, and planted alongside other plants to benefit them.)\n\
 	\n\
 	Story goes here.\n\
 	\n\

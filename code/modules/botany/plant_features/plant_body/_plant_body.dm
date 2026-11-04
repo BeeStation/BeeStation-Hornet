@@ -161,7 +161,7 @@
 	//Appearance
 	if(parent.use_body_appearance && parent.plant_item)
 		//Setup plant appearance to reflect the correct age - Don't do this before, we might need the cully grown icon by default
-		//This also has the benehfit of letting us spawn plants at a specific stage
+		//This also has the benefit of letting us spawn plants at a specific stage
 		feature_appearance.icon_state = current_stage >= growth_stages ? "[icon_state]" : growth_prefix ? "[growth_prefix]-[current_stage]" : "[icon_state]"
 		parent.plant_item.add_overlay(feature_appearance)
 	//Draw settings

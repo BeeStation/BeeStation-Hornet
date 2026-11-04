@@ -1,9 +1,9 @@
 /*
-	Makes this plant benehfit from polination, like nectar, but doesn't share the reward like nectar, offset by cost
+	Makes this plant benefit from polination, like nectar, but doesn't share the reward like nectar, offset by cost
 */
 /datum/plant_trait/body/sap
 	name = "Sap"
-	desc = "Makes this plant benehfit from bee polination, this buff is not shared.\n	Polinated plants will regain over half their missing health, and all their buffs\
+	desc = "Makes this plant benefit from bee polination, this buff is not shared.\n	Polinated plants will regain over half their missing health, and all their buffs \
 	will be active for a short duration."
 	genetic_cost = 3
 	///Quick reference to our parent's component parent
