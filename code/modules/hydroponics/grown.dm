@@ -45,8 +45,10 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
-/obj/item/food/grown/Initialize(mapload, skip_genes)
+/obj/item/food/grown/Initialize(mapload, skip_genes, auto_consumption)
 	. = ..()
+	if(auto_consumption)
+		bite_consumption = max(FRUIT_MINIMUM_BITES, reagents.maximum_volume / (bite_consumption_mod + FRUIT_MINIMUM_BITES))
 	if(!tastes)
 		tastes = list("[name]" = 1) //This happens first else the component already inits
 	if(!pixel_y && !pixel_x)

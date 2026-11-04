@@ -1,3 +1,5 @@
+#define FRUIT_MINIMUM_BITES 2
+
 /// How many turfs are required to generate atleast 1 maint flora
 #define MAINT_FLORA_COST 30
 

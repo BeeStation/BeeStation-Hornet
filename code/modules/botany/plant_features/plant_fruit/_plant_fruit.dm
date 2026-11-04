@@ -1,5 +1,3 @@
-#define FRUIT_MINIMUM_BITES 2
-
 /datum/plant_feature/fruit
 	species_name = "testus testium"
 	name = "fruit"
@@ -185,13 +183,11 @@
 	if(!fruit_product || !parent?.plant_item || !parent)
 		return
 //Fruit setup
-	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item, TRUE)
+	// Fruit init
+	var/obj/item/food/grown/new_fruit = new fruit_product(parent.plant_item, TRUE, TRUE)
 	if(istype(new_fruit))
 		new_fruit.seed = null //Otherwise this will overwrite our inherited genes
 	new_fruit.create_reagents(total_volume)
-	// Bite amounts
-	var/datum/component/edible/edible = new_fruit.GetComponent(/datum/component/edible)
-	edible?.bite_consumption = new_fruit.reagents.maximum_volume / (new_fruit.bite_consumption_mod + FRUIT_MINIMUM_BITES)
 	// Visuals
 	var/trait_scale = max(trait_power*0.5, 1) //Scale size with trait power
 	var/matrix/n_transform = matrix(new_fruit.transform)
@@ -262,5 +258,3 @@
 		fruit.forceMove(T)
 	SEND_SIGNAL(parent, COMSIG_PLANT_ACTION_HARVEST, null, temp_fruits, TRUE)
 	return TRUE
-
-#undef FRUIT_MINIMUM_BITES
