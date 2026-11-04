@@ -4323,6 +4323,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "bFW" = (
@@ -4609,6 +4612,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "bLQ" = (
@@ -19709,6 +19713,7 @@
 "hFb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/sepia,
 /area/station/cargo/office)
 "hFq" = (
@@ -22739,7 +22744,7 @@
 	pixel_x = 1;
 	pixel_y = -28
 	},
-/obj/machinery/light,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron/sepia,
 /area/station/cargo/office)
 "iSe" = (
@@ -44701,6 +44706,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/guideline/guideline_in/blue,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "qVr" = (
@@ -52289,6 +52297,7 @@
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/ruinloot/security,
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/dark,
 /area/station/cargo/storage)
 "tRi" = (
