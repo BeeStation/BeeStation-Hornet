@@ -153,6 +153,8 @@
 	var/power_bill_department_ID
 	/// Do we get an extra forgiveness on our power bills?
 	var/extra_overdraft = 0
+	/// Reference to our billing agent, for access debunk
+	var/datum/component/bill_agent/scheduled/door_rent/agent
 
 /**
   * A list of teleport locations
@@ -236,6 +238,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	reg_in_areas_in_z()
 
 	update_base_lighting()
+
+	if(is_station_level(z)) // TODO: hacky solution for now. Ignore the station override shit - Racc
+		agent = AddComponent(/datum/component/bill_agent/scheduled/door_rent, ACCOUNT_SEC_ID, TRUE)
 
 	return INITIALIZE_HINT_LATELOAD
 

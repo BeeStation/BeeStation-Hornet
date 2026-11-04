@@ -123,3 +123,27 @@
 //TODO: make this shared if you cleanup the code - Racc
 /datum/billing_setting/number/vending_rental/proc/update_desc()
 	desc = "Vending machine rent costs [number*3]cr every quarter hour." // TODO: This is dependant on knowing the rent interval, bad coder - Racc
+
+/*
+	Doors
+*/
+// door rental - The cost of using secuirty's access system on that door
+/datum/billing_setting/number/door_rental
+	name = "Airlock Access License"
+	number = BILLING_COST_DOOR_RENT
+	upper = 200
+	lower = 25
+	step = 0.1
+	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_SEC_ID)
+
+/datum/billing_setting/number/door_rental/New()
+	. = ..()
+	update_desc()
+
+/datum/billing_setting/number/door_rental/set_number(_number)
+	. = ..()
+	update_desc()
+
+//TODO: make this shared if you cleanup the code - Racc
+/datum/billing_setting/number/door_rental/proc/update_desc()
+	desc = "Access licensing costs [number*7.5]cr every hour." // TODO: This is dependant on knowing the rent interval, bad coder - Racc

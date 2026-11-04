@@ -7,6 +7,8 @@
 #define BILLING_COST_ELECTRICITY 0.00023
 /// Vending rent
 #define BILLING_COST_VENDING_RENT 5
+/// Door rent
+#define BILLING_COST_DOOR_RENT 50
 
 /// Generic services cost
 #define BILLING_UPKEEP_GENERIC 100
@@ -24,6 +26,8 @@
 #define BILLING_PERIOD_VENDING_RENT 5 MINUTES
 /// Generic billing report period
 #define BILLING_PERIOD_REPORT 16.2 MINUTES
+/// Door rent
+#define BILLING_PERIOD_DOOR_RENT 8 MINUTES
 
 // Max outstanding bills for gated agents
 /// Techfab
@@ -34,6 +38,8 @@
 #define BILLING_MAX_OUTSTANDING_SENSORS 2
 /// Vending Rent
 #define BILLING_MAX_OUTSTANDING_VENDING_RENT 1
+/// Door Rent
+#define BILLING_MAX_OUTSTANDING_DOOR_RENT 1
 
 // Tags / bitflags for bills
 #define BILL_TAG_PAID (1<<0)
@@ -45,6 +51,7 @@
 #define BILL_TAG_VENDING (1<<6)
 #define BILL_TAG_SENSORS (1<<7)
 #define BILL_TAG_CHARGEBACK (1<<8)
+#define BILL_TAG_ACCESS (1<<9)
 
 //TODO: Move this to a signals file - Racc
 

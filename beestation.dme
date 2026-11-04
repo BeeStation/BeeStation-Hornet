@@ -1506,6 +1506,7 @@
 #include "code\game\machinery\billing\bill_agent\_generic.dm"
 #include "code\game\machinery\billing\bill_agent\_scheduled.dm"
 #include "code\game\machinery\billing\bill_agent\department_coefs.dm"
+#include "code\game\machinery\billing\bill_agent\door_rent.dm"
 #include "code\game\machinery\billing\bill_agent\suit_sensors.dm"
 #include "code\game\machinery\billing\bill_agent\upkeep.dm"
 #include "code\game\machinery\billing\bill_agent\vendor_rent.dm"

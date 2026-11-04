@@ -193,6 +193,11 @@
 		return TRUE
 	if(unrestricted_side(M))
 		return TRUE
+	// Billing check
+	var/area/A = get_area(src)
+	var/datum/component/bill_agent/scheduled/door_rent/rent = A?.agent
+	if(rent && !rent.check_forgiveness())
+		return TRUE
 	return ..()
 
 /obj/machinery/door/proc/unrestricted_side(mob/opener) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)

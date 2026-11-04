@@ -40,7 +40,7 @@ TODO
 	var/list/ignored_bills = list()
 	var/show_ignored = FALSE
 	/// Autopay filter
-	var/autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_SENSORS | BILL_TAG_VENDING | BILL_TAG_CHARGEBACK | BILL_TAG_FEE
+	var/autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_SENSORS | BILL_TAG_VENDING | BILL_TAG_CHARGEBACK | BILL_TAG_FEE | BILL_TAG_ACCESS
 	/// Do we have a scheduled bill component
 	var/bill_schedule_path
 	/// Do we chargeback power bills
@@ -103,6 +103,8 @@ TODO
 			message = "[message] suit sensors\n"
 		if(autopay_filter & BILL_TAG_VENDING)
 			message = "[message] vending\n"
+		if(autopay_filter & BILL_TAG_ACCESS)
+			message = "[message] door access"
 // Transmission
 		radio.talk_into(src, message, radio_channel)
 
@@ -444,6 +446,6 @@ TODO
 /obj/machinery/computer/billing/command
 	chargeback = FALSE
 	//TODO: This is mostly a testing feature - Racc
-	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE | BILL_TAG_CUSTOM | BILL_TAG_VENDING | BILL_TAG_SENSORS | BILL_TAG_CHARGEBACK
+	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE | BILL_TAG_CUSTOM | BILL_TAG_VENDING | BILL_TAG_SENSORS | BILL_TAG_CHARGEBACK | BILL_TAG_ACCESS
 	radio_channel = RADIO_CHANNEL_COMMAND
 	chargeback = FALSE

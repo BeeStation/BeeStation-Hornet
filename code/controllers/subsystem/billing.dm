@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(billing)
 	var/list/bill_tags = list("Power" = BILL_TAG_POWER, "Custom" = BILL_TAG_CUSTOM,
 	"Paid" = BILL_TAG_PAID, "Unpaid" = BILL_TAG_UNPAID, "Vending" = BILL_TAG_VENDING,
 	"Suit Sensors" = BILL_TAG_SENSORS, "Charge Back" = BILL_TAG_CHARGEBACK,
-	"Fee" = BILL_TAG_FEE)
+	"Fee" = BILL_TAG_FEE, "Door Access" = BILL_TAG_ACCESS)
 	/// keep track of how much money each department has made this round
 	var/list/profit = list()
 
