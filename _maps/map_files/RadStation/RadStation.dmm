@@ -751,6 +751,11 @@
 /obj/effect/turf_decal/alphabet/letter_y,
 /turf/open/floor/iron,
 /area/station/maintenance/department/security)
+"apJ" = (
+/obj/structure/cable/yellow,
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/iron/tech,
+/area/station/engineering/main)
 "apM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -13371,11 +13376,10 @@
 /obj/machinery/door/airlock/external{
 	name = "Bridge External Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "eZa" = (
@@ -14993,9 +14997,6 @@
 /area/station/science/robotics)
 "fGf" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -15004,6 +15005,7 @@
 	pixel_x = -32;
 	pixel_y = -2
 	},
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "fGy" = (
@@ -16382,15 +16384,13 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/light/cold/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "gqU" = (
@@ -16880,6 +16880,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "gAX" = (
@@ -22214,14 +22215,12 @@
 /area/station/tcommsat/computer)
 "iFk" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/item/radio/intercom{
 	pixel_x = 34;
 	pixel_y = -3
 	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "iFE" = (
@@ -25808,6 +25807,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/brown{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "jXC" = (
@@ -28391,13 +28391,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/light,
 /obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "kXA" = (
@@ -29484,6 +29484,16 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/techmaint,
 /area/station/science/xenobiology)
+"lsi" = (
+/obj/effect/turf_decal/guideline/guideline_edge/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/light/cold/directional/west,
+/turf/open/floor/iron,
+/area/station/hallway/primary/port)
 "lsp" = (
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment,
@@ -34416,6 +34426,7 @@
 	amount = 5
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/light/cold/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
 "ngx" = (
@@ -36093,6 +36104,7 @@
 /area/station/hallway/primary/central)
 "nII" = (
 /obj/machinery/camera/directional/north,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/plating,
 /area/station/engineering/supermatter)
 "nIW" = (
@@ -36982,6 +36994,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
 "nZT" = (
@@ -41195,6 +41208,14 @@
 	},
 /turf/open/floor/iron,
 /area/station/commons/dorms)
+"pHr" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/directional/west,
+/turf/open/floor/iron,
+/area/station/engineering/atmos)
 "pHA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -41303,6 +41324,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/light/cold/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "pIC" = (
@@ -41509,6 +41531,7 @@
 	dir = 8
 	},
 /obj/structure/reagent_dispensers/watertank/high,
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pNu" = (
@@ -42755,6 +42778,10 @@
 /obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/station/maintenance/department/engine)
+"qpy" = (
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/plating,
+/area/station/engineering/supermatter)
 "qpC" = (
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -42970,9 +42997,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "qsP" = (
@@ -43664,6 +43689,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/brown{
 	dir = 8
 	},
+/obj/machinery/light/small/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "qGI" = (
@@ -48502,12 +48528,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/machinery/light/cold/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "syU" = (
@@ -50492,11 +50516,10 @@
 /obj/machinery/door/airlock/external{
 	name = "Bridge External Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi,
 /turf/open/floor/plating,
 /area/station/maintenance/department/bridge)
 "tju" = (
@@ -55174,6 +55197,7 @@
 	pixel_x = -16;
 	pixel_y = 7
 	},
+/obj/machinery/light/cold/directional/north,
 /turf/open/floor/iron/dark,
 /area/station/science/robotics)
 "vaf" = (
@@ -58688,8 +58712,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 9
 	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/misc/space/nearstation)
 "wuU" = (
 /obj/effect/spawner/random/decoration/glowstick/lit,
@@ -62740,6 +62763,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/brown{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "xUQ" = (
@@ -87316,7 +87340,7 @@ qrC
 aLB
 kha
 lnZ
-lnZ
+lsi
 lnZ
 gXU
 lnZ
@@ -96882,7 +96906,7 @@ nOP
 ilB
 cav
 hPJ
-oxe
+qpy
 fSm
 oxe
 hPJ
@@ -99710,7 +99734,7 @@ gCb
 hOX
 xAT
 ptH
-xAT
+apJ
 xAT
 bUf
 kbH
@@ -101753,7 +101777,7 @@ xqV
 yct
 fhV
 klf
-wgE
+pHr
 sHh
 qso
 lMj
