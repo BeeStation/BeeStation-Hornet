@@ -1,0 +1,11 @@
+author: rkz, Rohesie, Fikou, ShizCalev, VinylSpiders, Lemon, SyncIt21
+delete-after: true
+changes:
+  - rscadd: adds nicer stepwise spacedrifting
+  - refactor: parallax should look reasonably less terrible, whilst remaining a client-based
+      process
+  - refactor: cleaned up jetpack code
+  - admin: more vars have proper vv setters
+  - rscdel: deletes syndicate, wizard, and ERT variants of hardsuits. any current
+      pointers have been replaced with respective modsuits
+  - bugfix: fixes jetpacks being nonfunctional in the station
