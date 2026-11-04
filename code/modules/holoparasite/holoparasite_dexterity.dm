@@ -8,7 +8,7 @@
 	 */
 	var/static/internal_storage_slot_aliases = ITEM_SLOT_DEX_STORAGE | ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
-/mob/living/simple_animal/hostile/holoparasite/doUnEquip(obj/item/equipped_item, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/doUnEquip(obj/item/equipped_item, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	if(!is_manifested() || !can_use_abilities)
 		return FALSE
 	. = ..()
@@ -39,7 +39,7 @@
 	if(!QDELETED(dexterity.internal_storage))
 		return list(dexterity.internal_storage)
 
-/mob/living/simple_animal/hostile/holoparasite/can_equip(obj/item/equipped_item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
+/mob/living/simple_animal/hostile/holoparasite/can_equip(obj/item/equipped_item, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 	if(!istype(dexterity) || !can_use_abilities)
 		return FALSE

@@ -28,9 +28,9 @@
 		ratvar_modules -= path
 
 /obj/item/robot_model/Destroy()
-	basic_modules.Cut()
-	emag_modules.Cut()
-	ratvar_modules.Cut()
+	QDEL_LIST(basic_modules)
+	QDEL_LIST(emag_modules)
+	QDEL_LIST(ratvar_modules)
 	modules.Cut()
 	added_modules.Cut()
 	storages.Cut()
@@ -38,15 +38,6 @@
 
 /obj/item/robot_model/proc/get_usable_modules()
 	. = modules.Copy()
-
-/obj/item/robot_model/proc/get_inactive_modules()
-	. = list()
-	var/mob/living/silicon/robot/cyborg = loc
-	for(var/module in get_usable_modules())
-		if(!(module in cyborg.held_items))
-			. += module
-	if(!cyborg.emagged)
-		. += emag_modules
 
 /obj/item/robot_model/proc/add_module(obj/item/item, nonstandard, requires_rebuild)
 	if(istype(item, /obj/item/stack))
@@ -62,7 +53,7 @@
 		item.forceMove(src)
 	modules += item
 	item.mouse_opacity = MOUSE_OPACITY_OPAQUE
-	item.obj_flags |= ABSTRACT
+	item.item_flags |= ABSTRACT
 	if(nonstandard)
 		added_modules += item
 	if(requires_rebuild)
@@ -153,6 +144,7 @@
 	if(!new_model.be_transformed_to(src))
 		qdel(new_model)
 		return
+	robot.drop_all_held_items()
 	robot.model = new_model
 	robot.update_module_innate()
 	new_model.rebuild_modules()
@@ -373,6 +365,12 @@
 	borg.update_sight()
 	to_chat(borg, span_notice("You toggle your [name] [(borg.sight_mode & vision_flag) ? "on" : "off"]."))
 
+/datum/action/innate/borg_vision/Remove(mob/living/silicon/robot/remove_from)
+	if(iscyborg(remove_from) && (remove_from.sight_mode & vision_flag))
+		remove_from.sight_mode &= ~vision_flag
+		remove_from.update_sight()
+	return ..()
+
 /datum/action/innate/borg_vision/meson
 	name = "Meson Vision"
 	vision_flag = BORGMESON
@@ -543,12 +541,6 @@
 	var/datum/weakref/night_vision_ref
 
 /obj/item/robot_model/miner/be_transformed_to(obj/item/robot_model/old_module)
-	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
-	. = ..()
-	if(!.)
-		return
-	night_vision.Grant(loc)
-	night_vision_ref = WEAKREF(night_vision)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/miner_icons = list(
 		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
@@ -566,6 +558,12 @@
 			cyborg_base_icon = "spidermin"
 		else
 			return FALSE
+	. = ..()
+	if(!.)
+		return
+	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
+	night_vision.Grant(loc)
+	night_vision_ref = WEAKREF(night_vision)
 
 /obj/item/robot_model/miner/Destroy()
 	QDEL_NULL(night_vision_ref)

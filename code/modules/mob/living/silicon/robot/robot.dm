@@ -398,11 +398,12 @@
 		if(locate(/obj/item/borg/upgrade/rped) in src)
 			balloon_alert(user, "already has a RPED!")
 			return
-		qdel(attacking_item)
 		var/obj/item/borg/upgrade/smallrped/lilrped = new
 		if(apply_upgrade(lilrped, user))
 			balloon_alert(user, "[replacer] installed")
+			qdel(attacking_item)
 			return
+		qdel(lilrped)
 		return
 
 	else if(istype(attacking_item, /obj/item/ai_module))
@@ -1182,9 +1183,10 @@
 
 /mob/living/silicon/robot/proc/charge(datum/source, datum/callback/charge_cell, seconds_per_tick, repairs)
 	SIGNAL_HANDLER
+	
 	if(cell)
 		charge_cell.Invoke(cell, seconds_per_tick)
 		if(model)
-			model.respawn_consumable(src, cell.use(cell.chargerate * 0.005))
+			model.respawn_consumable(src, cell.chargerate * 0.005)
 	if(repairs)
 		heal_bodypart_damage(repairs, repairs - 1)

@@ -1,4 +1,4 @@
-/mob/living/carbon/monkey/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/mob/living/carbon/monkey/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
 			if(get_empty_held_indexes())
@@ -55,7 +55,7 @@
 	return not_handled //For future deeper overrides
 
 //Hopefully this doesn't fuck with anything
-/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
+/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return

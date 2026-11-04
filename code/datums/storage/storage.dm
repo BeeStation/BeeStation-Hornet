@@ -1117,14 +1117,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(to_hide.active_storage == src)
 		to_hide.active_storage = null
 
+	is_using -= to_hide
+
 	if(!length(is_using) && ismovable(real_location))
 		var/atom/movable/movable_loc = real_location
 		movable_loc.lose_active_storage(src)
 
 	if (!length(storage_interfaces) || isnull(storage_interfaces[to_hide]))
 		return TRUE
-
-	is_using -= to_hide
 
 	if(to_hide.client)
 		to_hide.client.screen -= storage_interfaces[to_hide].list_ui_elements()
