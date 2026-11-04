@@ -53,7 +53,7 @@
 	// Billing
 	var/turf/T = get_turf(src)
 	if(T && is_station_level(T.z))
-		bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_FEE)
+		bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_SENSORS)
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
@@ -183,7 +183,7 @@
 		// TODO: This feels a little dumb. Fix for outfits that get made in the void then worn - Racc
 		var/turf/T = get_turf(src)
 		if(!bill_agent_sensors && T && is_station_level(T.z))
-			bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_FEE)
+			bill_agent_sensors = AddComponent(/datum/component/bill_agent/scheduled/suit_sensors, ACCOUNT_MED_ID, TRUE, BILL_TAG_SENSORS)
 		bill_agent_sensors?.toggle_disabled(FALSE)
 
 /obj/item/clothing/under/dropped(mob/user)

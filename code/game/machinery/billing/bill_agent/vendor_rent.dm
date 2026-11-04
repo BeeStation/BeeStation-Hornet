@@ -1,6 +1,6 @@
 /datum/component/bill_agent/scheduled/vendor_rent
 	name = "Vending Machine Rent Agent"
-	tags = BILL_TAG_FEE
+	tags = BILL_TAG_VENDING
 	bill_time = BILLING_PERIOD_VENDING_RENT
 	setting_path = /datum/billing_setting/number/vending_rental
 	upper_outstanding = BILLING_MAX_OUTSTANDING_VENDING_RENT

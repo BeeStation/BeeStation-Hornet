@@ -40,16 +40,25 @@ TODO
 	var/list/ignored_bills = list()
 	var/show_ignored = FALSE
 	/// Autopay filter
-	var/autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE
+	var/autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_SENSORS | BILL_TAG_VENDING | BILL_TAG_CHARGEBACK | BILL_TAG_FEE
 	/// Do we have a scheduled bill component
 	var/bill_schedule_path
 	/// Do we chargeback power bills
 	var/chargeback = TRUE
+	/// Our current profit, for this terminal - used for regular doom posting
+	var/profit = 0
+	///radio used by the console to doom post //TODO: make this the departments headset - Racc
+	var/obj/item/radio/headset/radio = /obj/item/radio/headset/headset_cent/debug
+	var/radio_channel = RADIO_CHANNEL_COMMON
+	/// How many crew members we need in a department before we turn off chargeback
+	var/chargeback_crew_limit = 3
 
 	COOLDOWN_DECLARE(ping_notification)
+	COOLDOWN_DECLARE(doom_post)
 
 /obj/machinery/computer/billing/Initialize(mapload)
 	. = ..()
+	radio = new radio(src)
 	// Auto insert cards
 	if(mapload)
 		roundstart = TRUE
@@ -74,6 +83,30 @@ TODO
 		server?.billables -= budget_card?.department_ID
 		UnregisterSignal(server, COMSIG_QDELETING, COMSIG_BILLING_NEW_BILL)
 	UnregisterSignal(SSjob, COMSIG_JOB_RECEIVED)
+	QDEL_NULL(radio)
+	STOP_PROCESSING(SSobj, src)
+
+/obj/machinery/computer/billing/process()
+	if(COOLDOWN_FINISHED(src, doom_post) && radio)
+		COOLDOWN_START(src, doom_post, BILLING_PERIOD_REPORT)
+		if(floor(profit) == 0)
+			return
+// Message
+		var/message = "The [budget_card.department_name] has [profit > 0 ? "made" : "lost"] a [profit > 0 ? "profit" : "deficit"] of [profit]cr this period.\n"
+		// Autopay filters
+		//TODO: add the rest or improve the code / format - racc
+		if(autopay_filter != 0)
+			message = "[message] [budget_card.department_name] is auto-paying for-\n"
+		if(autopay_filter & BILL_TAG_POWER)
+			message = "[message] power\n"
+		if(autopay_filter & BILL_TAG_SENSORS)
+			message = "[message] suit sensors\n"
+		if(autopay_filter & BILL_TAG_VENDING)
+			message = "[message] vending\n"
+// Transmission
+		radio.talk_into(src, message, radio_channel)
+
+		profit = 0
 
 /obj/machinery/computer/billing/examine(mob/user)
 	. = ..()
@@ -225,7 +258,9 @@ TODO
 			if(!budget_card)
 				to_chat(usr, span_warning("ERROR: No Department ID to draft from!"))
 				return
-			server.create_new_bill(null, budget_card.department_ID, null, TRUE, TRUE, BILL_TAG_CUSTOM)
+			var/datum/bill/bill = server.create_new_bill(null, budget_card.department_ID, null, TRUE, TRUE, BILL_TAG_CUSTOM)
+			RegisterSignal(bill, COMSIG_BILLING_BILL_PAID, PROC_REF(catch_bill_paid))
+			RegisterSignal(bill, COMSIG_QDELETING, PROC_REF(catch_bill_del))
 			. = TRUE
 		if("set_draft_whom")
 			var/datum/bill/bill= locate(params["ref"])
@@ -267,6 +302,7 @@ TODO
 			. = TRUE
 
 /// If a head joins, disable autopay, make them set it up again
+// TODO: testing just chargeback for now - Racc
 /obj/machinery/computer/billing/proc/catch_job(datum/source, datum/job/job)
 	SIGNAL_HANDLER
 
@@ -277,27 +313,30 @@ TODO
 	var/our_bit = account.department_bitflag
 	// Command
 	if(account_bit & ACCOUNT_COM_BITFLAG && our_bit & ACCOUNT_COM_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Engineering
 	if(account_bit & ACCOUNT_ENG_BITFLAG && our_bit & ACCOUNT_ENG_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Service
 	if(account_bit & ACCOUNT_SRV_BITFLAG && our_bit & ACCOUNT_SRV_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Security
 	if(account_bit & ACCOUNT_SEC_BITFLAG && our_bit & ACCOUNT_SEC_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Civilian
 	if(account_bit & ACCOUNT_CIV_BITFLAG && our_bit & ACCOUNT_CIV_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Medical
 	if(account_bit & ACCOUNT_MED_BITFLAG && our_bit & ACCOUNT_MED_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Cargo
 	if(account_bit & ACCOUNT_CAR_BITFLAG && our_bit & ACCOUNT_CAR_BITFLAG)
-		chargeback = FALSE
+		chargeback_crew_limit -= 1
 	// Cargo
 	if(account_bit & ACCOUNT_SCI_BITFLAG && our_bit & ACCOUNT_SCI_BITFLAG)
+		chargeback_crew_limit -= 1
+
+	if(chargeback_crew_limit <= 0)
 		chargeback = FALSE
 
 /// Set this terminal to manage a new budget card
@@ -307,10 +346,13 @@ TODO
 		name = "[src::name]"
 		budget_card = null
 		account = null
+		COOLDOWN_RESET(src, doom_post)
+		STOP_PROCESSING(SSobj, src)
 		return
 	budget_card = new_card
 	budget_card.forceMove(src)
 	account = SSeconomy.get_budget_account(budget_card.department_ID)
+	START_PROCESSING(SSobj, src)
 	// Update our identity
 	name = "[src::name] ([budget_card.department_name])"
 	// update the server
@@ -341,23 +383,31 @@ TODO
 			ui_update()
 		if(new_bill.bill_tags & autopay_filter)
 			pay_bill(new_bill)
-	// If we have no staff, make a chargeback
-		// Power
-		if(new_bill.from == ACCOUNT_ENG_ID && new_bill.bill_tags & BILL_TAG_POWER && chargeback)
-			var/datum/bill/back_bill = server.create_new_bill(ACCOUNT_ENG_ID, budget_card.department_ID, new_bill.amount, FALSE, TRUE, BILL_TAG_FEE)
-			back_bill.title = "Power Chargeback"
-			back_bill.body = "Power chargeback for [budget_card.department_ID], under the circumstance of no present [budget_card.department_ID] staff."
-		// Utility
-		if(new_bill.bill_tags & BILL_TAG_UPKEEP && chargeback)
-			var/datum/bill/back_bill = server.create_new_bill(new_bill.from, budget_card.department_ID, new_bill.amount, FALSE, TRUE, BILL_TAG_FEE)
-			back_bill.title = "Utility Chargeback"
-			back_bill.body = "Utility chargeback for [budget_card.department_ID], under the circumstance of no present [budget_card.department_ID] staff."
+		// If we have no / low staff, make a chargeback
+		if(!chargeback || new_bill.bill_tags & BILL_TAG_CUSTOM || new_bill.bill_tags & BILL_TAG_CHARGEBACK)
+			return
+		var/chargeback_amount = (chargeback_crew_limit/initial(chargeback_crew_limit)) * new_bill.amount
+		var/datum/bill/back_bill = server.create_new_bill(new_bill.from, budget_card.department_ID, chargeback_amount, FALSE, TRUE, BILL_TAG_CHARGEBACK)
+		back_bill.title = "(Chargeback) [new_bill.title]"
+		back_bill.body = "Chargeback from [budget_card.department_ID], under the circumstance of none or insufficient present [budget_card.department_ID] staff."
 
-//TODO: move all this logic to the bill datum - Racc
 /obj/machinery/computer/billing/proc/pay_bill(datum/bill/pay_bill)
 	if(pay_bill?.pay())
 		ignored_bills -= REF(pay_bill)
+		profit -= pay_bill.amount
 	//TODO: Signals and other shit in here - Racc
+
+/obj/machinery/computer/billing/proc/catch_bill_paid(datum/source, amount)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_BILLING_BILL_PAID)
+	profit += amount
+
+/obj/machinery/computer/billing/proc/catch_bill_del(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_BILLING_BILL_PAID)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /obj/item/circuitboard/computer/billing
 	name = "Billing Terminal"
@@ -365,16 +415,35 @@ TODO
 	build_path = /obj/machinery/computer/billing
 
 /obj/machinery/computer/billing/engineering
+	radio_channel = RADIO_CHANNEL_ENGINEERING
+	chargeback = FALSE
 
 /obj/machinery/computer/billing/medical
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/medical
+	radio_channel = RADIO_CHANNEL_MEDICAL
 
 /obj/machinery/computer/billing/secuirty
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/security
+	radio_channel = RADIO_CHANNEL_SECURITY
 
 /obj/machinery/computer/billing/service
 	bill_schedule_path = /datum/component/bill_agent/scheduled/bill_all/service
+	radio_channel = RADIO_CHANNEL_SERVICE
+
+/obj/machinery/computer/billing/cargo
+	radio_channel = RADIO_CHANNEL_SUPPLY
+
+/obj/machinery/computer/billing/science
+	radio_channel = RADIO_CHANNEL_SCIENCE
+	chargeback_crew_limit = 2 // Fuck 'em
+
+/obj/machinery/computer/billing/civ
+	radio_channel = RADIO_CHANNEL_COMMON
+	chargeback = FALSE
 
 /obj/machinery/computer/billing/command
 	chargeback = FALSE
-	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE | BILL_TAG_CUSTOM
+	//TODO: This is mostly a testing feature - Racc
+	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE | BILL_TAG_CUSTOM | BILL_TAG_VENDING | BILL_TAG_SENSORS | BILL_TAG_CHARGEBACK
+	radio_channel = RADIO_CHANNEL_COMMAND
+	chargeback = FALSE

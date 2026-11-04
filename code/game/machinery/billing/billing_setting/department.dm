@@ -33,10 +33,12 @@
 /datum/billing_setting/number/upkeep/medical
 	name = "Medical Upkeep"
 	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_MED_ID)
+	number = BILLING_UPKEEP_MEDICAL
 
 /datum/billing_setting/number/upkeep/security
 	name = "Secuirty Upkeep"
 	department_ID = list(ACCOUNT_COM_ID, ACCOUNT_SEC_ID)
+	number = BILLING_UPKEEP_SECURITY
 
 /datum/billing_setting/number/upkeep/service
 	name = "Service Upkeep"

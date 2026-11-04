@@ -24036,8 +24036,8 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/computer/billing,
 /obj/item/card/id/departmental_budget/car,
+/obj/machinery/computer/billing/cargo,
 /turf/open/floor/iron,
 /area/station/cargo/qm)
 "iLs" = (
@@ -50727,10 +50727,10 @@
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/computer/billing{
+/obj/item/card/id/departmental_budget/sci,
+/obj/machinery/computer/billing/science{
 	dir = 1
 	},
-/obj/item/card/id/departmental_budget/sci,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
 "rCd" = (
@@ -69700,10 +69700,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/computer/billing{
+/obj/item/card/id/departmental_budget/civ,
+/obj/machinery/computer/billing/civ{
 	dir = 1
 	},
-/obj/item/card/id/departmental_budget/civ,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hop)
 "yeV" = (

@@ -4,12 +4,14 @@
 /// Generic Techfab material
 #define BILLING_COST_FAB_MATERIAL 0.025
 /// Electricity in whatever unit
-#define BILLING_COST_ELECTRICITY 0.0003
+#define BILLING_COST_ELECTRICITY 0.00023
 /// Vending rent
 #define BILLING_COST_VENDING_RENT 5
 
 /// Generic services cost
 #define BILLING_UPKEEP_GENERIC 100
+#define BILLING_UPKEEP_MEDICAL 200
+#define BILLING_UPKEEP_SECURITY 300
 
 // Billing periods
 /// Generic billing period for power
@@ -20,6 +22,8 @@
 #define BILLING_PERIOD_SUIT_SENSORS 5 MINUTES
 /// Vendor rent
 #define BILLING_PERIOD_VENDING_RENT 5 MINUTES
+/// Generic billing report period
+#define BILLING_PERIOD_REPORT 16.2 MINUTES
 
 // Max outstanding bills for gated agents
 /// Techfab
@@ -38,6 +42,9 @@
 #define BILL_TAG_CUSTOM (1<<3)
 #define BILL_TAG_UPKEEP (1<<4)
 #define BILL_TAG_FEE (1<<5)
+#define BILL_TAG_VENDING (1<<6)
+#define BILL_TAG_SENSORS (1<<7)
+#define BILL_TAG_CHARGEBACK (1<<8)
 
 //TODO: Move this to a signals file - Racc
 

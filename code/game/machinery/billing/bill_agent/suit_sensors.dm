@@ -1,6 +1,6 @@
 /datum/component/bill_agent/scheduled/suit_sensors
 	name = "Suit Sensors Agent"
-	tags = BILL_TAG_FEE
+	tags = BILL_TAG_SENSORS
 	bill_time = BILLING_PERIOD_SUIT_SENSORS
 	setting_path = /datum/billing_setting/number/suit_sensor_upkeep
 	upper_outstanding = BILLING_MAX_OUTSTANDING_SENSORS
