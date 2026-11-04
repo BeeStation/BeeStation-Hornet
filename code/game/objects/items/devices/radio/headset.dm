@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot2 = null
 
 /obj/item/radio/headset/headset_cent/commander
-	keyslot = /obj/item/encryptionkey/heads/captain
+	keyslot2 = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/headset_cent/debug
 	keyslot = /obj/item/encryptionkey/debug
