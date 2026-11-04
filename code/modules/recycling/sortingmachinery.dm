@@ -113,11 +113,10 @@
 			update_appearance(UPDATE_OVERLAYS)
 
 	else if(istype(item, /obj/item/pen))
-		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on the side of [src]!"))
+		if(!user.can_write(item))
 			return
-		var/str = stripped_input(user, "Label text?", "Set label", "", MAX_NAME_LEN)
-		if(!user.canUseTopic(src, BE_CLOSE))
+		var/str = tgui_input_text(user, "Label text?", "Set label", max_length = MAX_NAME_LEN)
+		if(!user.can_perform_action(src))
 			return
 		if(!str || !length(str))
 			to_chat(user, span_warning("Invalid text!"))

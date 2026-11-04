@@ -54,10 +54,10 @@
 			. += span_notice("It has [L] inside.")
 	else
 		. += span_notice("It has nothing inside.")
-	if(user.canUseTopic(src))
-		. += span_notice("Activate it in your hand to [open ? "close" : "open"] its door.")
-		if(!open)
-			. += span_notice("Alt-click to [locked ? "unlock" : "lock"] its door.")
+
+	. += span_notice("Activate it in your hand to [open ? "close" : "open"] its door.")
+	if(!open)
+		. += span_notice("Alt-click to [locked ? "unlock" : "lock"] its door.")
 
 /obj/item/pet_carrier/attack_self(mob/living/user)
 	if(open)

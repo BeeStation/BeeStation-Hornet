@@ -233,8 +233,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
-	if(!user.canUseTopic(src, !issilicon(user)))
+	. = ..()
+	if(!can_interact(user))
 		return
+	if(!user.can_perform_action(src, ALLOW_SILICON_REACH))
+		return
+		
 	eject_disk(user)
 
 /obj/machinery/computer/scan_consolenew/proc/calculate_timeouts()

@@ -81,7 +81,7 @@
 		call(object_to_rotate, post_rotation_proccall)(user, degrees)
 
 /datum/element/simple_rotation/proc/can_user_rotate(mob/user, obj/object_to_rotate, degrees)
-	if(isliving(user) && user.canUseTopic(object_to_rotate, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
+	if(isliving(user) && user.can_perform_action(object_to_rotate, NEED_DEXTERITY))
 		return TRUE
 	if((rotation_flags & ROTATION_GHOSTS_ALLOWED) && isobserver(user) && CONFIG_GET(flag/ghost_interaction))
 		return TRUE

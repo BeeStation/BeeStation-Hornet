@@ -268,40 +268,39 @@
 /obj/item/firing_pin/paywall/pin_auth(mob/living/user)
 	if(!istype(user))//nice try commie
 		return FALSE
-	if(ishuman(user))
-		var/datum/bank_account/credit_card_details
-		var/mob/living/carbon/human/H = user
-		if(H.get_bank_account())
-			credit_card_details = H.get_bank_account()
-		if(H in gun_owners)
-			if(multi_payment && credit_card_details)
+	var/datum/bank_account/credit_card_details
+	var/mob/living/carbon/human/H = user
+	if(H.get_bank_account())
+		credit_card_details = H.get_bank_account()
+	if(H in gun_owners)
+		if(multi_payment && credit_card_details)
+			if(credit_card_details.adjust_money(-payment_amount))
+				pin_owner.registered_account.adjust_money(payment_amount)
+				return TRUE
+			to_chat(user, span_warning("ERROR: User balance insufficent for successful transaction!"))
+			return FALSE
+		return TRUE
+	if(credit_card_details && !active_prompt)
+		var/license_request = tgui_alert(user, "Do you wish to pay [payment_amount] credit[( payment_amount > 1 ) ? "s" : ""] for [( multi_payment ) ? "each shot of [gun.name]" : "usage license of [gun.name]"]?", "Weapon Purchase", list("Yes", "No"))
+		active_prompt = TRUE
+		if(!user.can_perform_action(src))
+			active_prompt = FALSE
+			return FALSE
+		switch(license_request)
+			if("Yes")
 				if(credit_card_details.adjust_money(-payment_amount))
 					pin_owner.registered_account.adjust_money(payment_amount)
-					return TRUE
+					gun_owners += H
+					to_chat(user, span_notice("Gun license purchased, have a secure day!"))
+					active_prompt = FALSE
+					return FALSE //we return false here so you don't click initially to fire, get the prompt, accept the prompt, and THEN the gun
 				to_chat(user, span_warning("ERROR: User balance insufficent for successful transaction!"))
 				return FALSE
-			return TRUE
-		if(credit_card_details && !active_prompt)
-			var/license_request = alert(usr, "Do you wish to pay [payment_amount] credit[( payment_amount > 1 ) ? "s" : ""] for [( multi_payment ) ? "each shot of [gun.name]" : "usage license of [gun.name]"]?", "Weapon Purchase", "Yes", "No")
-			active_prompt = TRUE
-			if(!user.canUseTopic(src, BE_CLOSE))
-				active_prompt = FALSE
+			if("No")
+				to_chat(user, span_warning("ERROR: User has declined to purchase gun license!"))
 				return FALSE
-			switch(license_request)
-				if("Yes")
-					if(credit_card_details.adjust_money(-payment_amount))
-						pin_owner.registered_account.adjust_money(payment_amount)
-						gun_owners += H
-						to_chat(user, span_notice("Gun license purchased, have a secure day!"))
-						active_prompt = FALSE
-						return FALSE //we return false here so you don't click initially to fire, get the prompt, accept the prompt, and THEN the gun
-					to_chat(user, span_warning("ERROR: User balance insufficent for successful transaction!"))
-					return FALSE
-				if("No")
-					to_chat(user, span_warning("ERROR: User has declined to purchase gun license!"))
-					return FALSE
-		to_chat(user, span_warning("ERROR: User has no valid bank account to substract neccesary funds from!"))
-		return FALSE
+	to_chat(user, span_warning("ERROR: User has no valid bank account to substract neccesary funds from!"))
+	return FALSE
 
 
 // Laser tag pins

@@ -756,7 +756,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return NONE
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
-		if(resolve_location.loc != user || !user.canUseTopic(resolve_parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+		if(resolve_location.loc != user || !user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
 
 		if(isitem(resolve_parent))
@@ -770,7 +770,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 	if(over_object == user)
-		if(!user.canUseTopic(resolve_parent, be_close = TRUE, no_dexterity = TRUE, no_tk = TRUE, floor_okay = TRUE))
+		if(!user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
 
 		resolve_parent.add_fingerprint(user)
@@ -780,7 +780,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(istype(over_object, /atom/movable/screen) || ismob(over_object))
 		return NONE
 
-	if(!user.canUseTopic(over_object, be_close = TRUE, no_tk = TRUE))
+	if(!user.can_perform_action(over_object, FORBID_TELEKINESIS_REACH))
 		return NONE
 
 	resolve_parent.add_fingerprint(user)

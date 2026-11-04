@@ -138,7 +138,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/defibrillator_mount, "Use")
 	return TRUE
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
+	if(!istype(user) || !user.can_perform_action(src))
 		return
 	if(!defib)
 		to_chat(user, span_warning("It'd be hard to remove a defib unit from a mount that has none."))

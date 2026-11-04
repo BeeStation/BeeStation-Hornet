@@ -792,26 +792,6 @@
 		set_electrified(MACHINE_ELECTRIFIED_PERMANENT)
 	ui_update()
 
-//This code might be completely unused, but I'm too afraid to touch it.
-//That said, commenting it out didn't seem to break anything.
-/obj/machinery/door/airlock/Topic(href, href_list, nowindow = 0)
-	// If you add an if(..()) check you must first remove the var/nowindow parameter.
-	// Otherwise it will runtime with this kind of error: null.Topic()
-	if(!nowindow)
-		..()
-	if(!usr.canUseTopic(src) && !IsAdminGhost(usr))
-		return
-	add_fingerprint(usr)
-
-	if((in_range(src, usr) && isturf(loc)) && panel_open)
-		usr.set_machine(src)
-
-	add_fingerprint(usr)
-	if(!nowindow)
-		updateUsrDialog()
-	else
-		updateDialog()
-
 /obj/machinery/door/airlock/screwdriver_act(mob/living/user, obj/item/tool)
 	if(charge && !panel_open && !detonated)
 		to_chat(user, span_notice("You start carefully unscrewing the maintenance panel to disarm the hidden charge..."))

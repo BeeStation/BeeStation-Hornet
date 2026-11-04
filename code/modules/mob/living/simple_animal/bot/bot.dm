@@ -1009,7 +1009,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	//Silicons cannot remotely interfact with robots while the robot is jammed
 	if(issilicon(user) && is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return TRUE
-	if(!user.canUseTopic(src, !issilicon(user)))
+	if(!user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return TRUE
 	// 0 for access, 1 for denied.
 	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.

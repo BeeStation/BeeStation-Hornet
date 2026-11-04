@@ -692,7 +692,7 @@
 	..()
 	if(!can_interact(usr))
 		return TRUE
-	if(!usr.canUseTopic(src))
+	if(!usr.can_perform_action(src))
 		return TRUE
 	add_fingerprint(usr)
 	return FALSE

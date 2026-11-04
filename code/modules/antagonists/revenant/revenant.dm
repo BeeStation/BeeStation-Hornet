@@ -108,7 +108,7 @@
 	if(beacon)
 		qdel(beacon)
 
-/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, no_hands = FALSE, floor_okay=FALSE)
+/mob/living/simple_animal/revenant/can_perform_action(atom/target, action_bitflags)
 	return FALSE
 
 /mob/living/simple_animal/revenant/generate_random_mob_name()
