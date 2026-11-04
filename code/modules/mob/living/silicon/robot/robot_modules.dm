@@ -76,6 +76,7 @@
 		return
 	var/list/held_modules = cyborg.held_items.Copy()
 	var/active_module = cyborg.module_active
+	cyborg.drop_all_held_items()
 	//move everything out of the model's inventory
 	for(var/obj/item/module as anything in modules)
 		module.forceMove(robot)
@@ -128,14 +129,6 @@
 
 /obj/item/robot_model/proc/get_or_create_estorage(storage_type)
 	return (locate(storage_type) in storages) || new storage_type(src)
-
-/obj/item/robot_model/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_CONTENTS)
-		return
-	for(var/obj/object in modules)
-		object.emp_act(severity)
-	..()
 
 // --------------------- Transformations
 /obj/item/robot_model/proc/transform_to(new_module_type)
@@ -380,10 +373,10 @@
 	vision_flag = BORGTHERM
 
 /obj/item/robot_model/engineering/be_transformed_to(obj/item/robot_model/old_module)
-	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
 	. = ..()
 	if(!.)
 		return
+	var/datum/action/innate/borg_vision/meson/night_vision = new(loc)
 	night_vision.Grant(loc)
 	night_vision_ref = WEAKREF(night_vision)
 
@@ -867,10 +860,10 @@
 	var/datum/weakref/thermal_vision_ref
 
 /obj/item/robot_model/saboteur/be_transformed_to(obj/item/robot_model/old_module)
-	var/datum/action/innate/borg_vision/thermal/thermal_vision = new(loc)
 	. = ..()
 	if(!.)
 		return
+	var/datum/action/innate/borg_vision/thermal/thermal_vision = new(loc)
 	thermal_vision.Grant(loc)
 	thermal_vision_ref = WEAKREF(thermal_vision)
 

@@ -69,7 +69,7 @@
 	for(var/item_to_remove in items)
 		var/obj/item/module_item = locate(item_to_remove) in borg.model.modules
 		if (module_item)
-			borg.model.remove_module(module_item, TRUE)
+			borg.model.remove_module(module_item)
 	return TRUE
 
 /obj/item/borg/upgrade/rename
@@ -197,7 +197,7 @@
 	. = ..()
 	if (.)
 		var/obj/item/gun/energy/plasmacutter/cyborg/P = locate() in robot.model
-		robot.model.remove_module(P, TRUE)
+		robot.model.remove_module(P)
 
 /obj/item/borg/upgrade/tboh
 	name = "janitor cyborg trash bag of holding"
@@ -642,7 +642,7 @@
 	if (.)
 		var/obj/item/lightreplacer/bluespace/cyborg/BSLR = locate() in robot.model
 		if (BSLR)
-			robot.model.remove_module(BSLR, TRUE)
+			robot.model.remove_module(BSLR)
 
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
@@ -785,7 +785,7 @@
 		for(var/module in src.addmodules)
 			var/dmod = locate(module) in robot.model.modules
 			if (dmod)
-				robot.model.remove_module(dmod, TRUE)
+				robot.model.remove_module(dmod)
 		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in robot.model.modules)
 			for(var/re in additional_reagents)
 				H.del_reagent(re)

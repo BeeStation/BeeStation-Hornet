@@ -61,7 +61,8 @@
 	reagents.remove_all(1) //reaction() doesn't use up the reagents
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.put_in_cart(src, user)
+	if(!J.put_in_cart(src, user))
+		return
 	J.mymop=src
 	J.update_icon()
 

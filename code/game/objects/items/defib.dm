@@ -404,8 +404,8 @@
 	UnregisterSignal(defib, COMSIG_MOVABLE_MOVED)
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-		to_chat(user, span_notice("The paddles snap back into the main unit."))
-	snap_back()
+	if(!ismob(loc) && loc != defib)
+		snap_back()
 	return ..()
 
 /obj/item/shockpaddles/proc/snap_back(cause=SNAP_DROP, silent=FALSE)

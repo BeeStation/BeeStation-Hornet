@@ -12,6 +12,10 @@
 	obj_flags = INDESTRUCTIBLE
 	storage_type = /datum/storage/deaddrop
 
+/obj/item/storage/deaddrop_box/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_CONTENTS)
+
 /obj/item/storage/deaddrop_box/proc/unlock()
 	// You can now break it to your hearts desire
 	obj_flags &= ~INDESTRUCTIBLE

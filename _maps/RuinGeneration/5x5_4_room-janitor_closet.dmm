@@ -16,7 +16,7 @@
 /area/ruin/powered)
 "l" = (
 /obj/structure/mop_bucket,
-/obj/item/mop/cyborg,
+/obj/item/mop,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/ruin/powered)

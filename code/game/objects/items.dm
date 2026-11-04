@@ -582,9 +582,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	attack_paw(A)
 
 /obj/item/attack_robot(mob/living/silicon/robot/user)
-
 	if(!istype(loc, /obj/item/robot_model))
-		return
+		return ..()
 	if(user.low_power_mode) //can't equip modules with an empty cell.
 		return
 	user.activate_module(src)

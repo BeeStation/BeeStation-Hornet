@@ -38,11 +38,11 @@
 
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	if(!user.transferItemToLoc(I, src))
-		return
+		return FALSE
 	updateUsrDialog()
 	balloon_alert(user, "Put [I] into [src]")
 	to_chat(user, span_notice("You put [I] into [src]."))
-	return
+	return TRUE
 
 /obj/structure/janitorialcart/AltClick(mob/user)
 	if(!mymop)

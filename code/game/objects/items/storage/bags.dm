@@ -95,7 +95,8 @@
 
 /obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)
-		J.put_in_cart(src, user)
+		if(!J.put_in_cart(src, user))
+			return
 		J.mybag=src
 		J.update_icon()
 	else

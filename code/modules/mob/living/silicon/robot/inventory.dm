@@ -59,7 +59,7 @@
 	if(isnull(model) || !(item_dropping in model.modules))
 		return ..()
 
-	if(newloc != model)
+	if(newloc != model && !QDELING(item_dropping))
 		to_chat(src, span_notice("You can't drop your [item_dropping.name] module."))
 		return FALSE
 
@@ -70,7 +70,8 @@
 	item_dropping.mouse_opacity = MOUSE_OPACITY_OPAQUE
 	//this is the cyborg equivalent of dropped(), though we call that too in doUnEquip.
 	item_dropping.cyborg_unequip(src)
-	deselect_module(module_num)
+	if(item_dropping == module_active)
+		deselect_module(module_num)
 
 
 /mob/living/silicon/robot/update_held_items()
