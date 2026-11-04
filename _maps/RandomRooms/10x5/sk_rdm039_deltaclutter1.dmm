@@ -31,7 +31,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "f" = (
@@ -63,7 +63,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
@@ -107,7 +107,7 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "t" = (
@@ -228,7 +228,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)

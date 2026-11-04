@@ -247,13 +247,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
-"dt" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "ea" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -268,9 +261,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ey" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-05"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
@@ -287,13 +278,6 @@
 "gX" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"hx" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "iZ" = (
 /obj/machinery/light{
@@ -388,13 +372,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"sk" = (
-/obj/item/kirbyplants{
-	icon_state = "applebush"
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "sQ" = (
 /obj/structure/chair/fancy/shuttle{
@@ -497,9 +474,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "zx" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -528,9 +503,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Cq" = (
-/obj/item/kirbyplants{
-	icon_state = "applebush"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -1216,7 +1189,7 @@ Dv
 Dv
 Dv
 Dv
-sk
+zx
 ac
 zx
 Dv
@@ -1233,7 +1206,7 @@ Pw
 ox
 AY
 sf
-dt
+Cq
 bh
 bo
 Dv
@@ -1371,13 +1344,13 @@ cQ
 ba
 bl
 ac
-hx
+zx
 UF
 ME
 ME
 ME
 KF
-hx
+zx
 ac
 ey
 MA

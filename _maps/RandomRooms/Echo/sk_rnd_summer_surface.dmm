@@ -541,13 +541,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -885,6 +878,13 @@
 /obj/structure/frame,
 /turf/open/floor/plating/dirt/planetary,
 /area/template_noop)
+"oO" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
 "oS" = (
 /obj/structure/railing{
 	dir = 4
@@ -1132,10 +1132,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/template_noop)
-"tb" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1261,22 +1257,6 @@
 "wi" = (
 /obj/structure/railing,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/turf/open/floor/wood,
 /area/template_noop)
 "wl" = (
 /obj/structure/bonfire/prelit,
@@ -1493,17 +1473,6 @@
 /obj/item/storage/basket/easter,
 /obj/item/storage/basket/easter,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east{
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -2085,6 +2054,22 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"Kj" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
+/area/template_noop)
 "Ku" = (
 /obj/structure/desk_bell{
 	anchored = 1;
@@ -2277,6 +2262,17 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"Ob" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "Of" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2356,6 +2352,10 @@
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
+/area/template_noop)
+"PC" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
 /area/template_noop)
 "PJ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2521,12 +2521,6 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"RO" = (
-/obj/item/kirbyplants{
-	pixel_x = -7
-	},
-/turf/open/floor/wood,
 /area/template_noop)
 "RZ" = (
 /obj/effect/turf_decal/sand/plating,
@@ -2928,6 +2922,10 @@
 /obj/effect/landmark/start/randommaint/vip,
 /obj/structure/chair/stool/directional/west,
 /turf/open/floor/plating/beach/sand,
+/area/template_noop)
+"XU" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "XV" = (
 /obj/effect/turf_decal/stripes/line,
@@ -6445,9 +6443,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+oO
+XU
+XU
 yT
 yT
 yT
@@ -6579,9 +6577,9 @@ gf
 bj
 PO
 HX
-iD
+oO
 yW
-tb
+XU
 yT
 yT
 yT
@@ -6713,9 +6711,9 @@ gf
 gf
 gf
 HX
-iD
-tb
-tb
+oO
+XU
+XU
 yT
 yT
 yT
@@ -6844,7 +6842,7 @@ yT
 yT
 gf
 bE
-RO
+PC
 gf
 HX
 Du
@@ -7114,7 +7112,7 @@ gf
 tf
 sV
 gf
-wk
+Kj
 Du
 DS
 yT
@@ -10907,7 +10905,7 @@ VX
 VX
 yb
 rw
-Ae
+Ob
 an
 yb
 vy

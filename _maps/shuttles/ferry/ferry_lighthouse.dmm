@@ -185,10 +185,7 @@
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bd" = (
-/obj/item/kirbyplants/dead{
-	desc = "It doesn't look very healthy...";
-	name = "potted plant"
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "be" = (
