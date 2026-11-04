@@ -132,6 +132,9 @@
 	/// Reference to our blindness apperance, essentially just a copy of our apperance but everything is on a specific plane
 	var/mutable_appearance/blind_appearance
 
+	/// Flags to check for in can_perform_action. Used in alt-click checks
+	var/interaction_flags_click = NONE
+
 /**
   * Top level of the destroy chain for most atoms
   *

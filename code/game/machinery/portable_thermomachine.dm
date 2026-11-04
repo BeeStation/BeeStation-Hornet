@@ -15,6 +15,7 @@
 	max_integrity = 250
 	armor_type = /datum/armor/machinery_portable_thermomachine
 	circuit = /obj/item/circuitboard/machine/portable_thermomachine
+	interaction_flags_click = ALLOW_SILICON_REACH
 	//We don't use area power, we always use the cell
 	use_power = NO_POWER_USE
 

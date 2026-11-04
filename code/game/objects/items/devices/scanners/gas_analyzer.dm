@@ -17,10 +17,16 @@
 	tool_behaviour = TOOL_ANALYZER
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 	grind_results = list(/datum/reagent/mercury = 5, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
+	interaction_flags_click = NEED_LITERACY|NEED_LIGHT
+	/// Boolean whether this has a CD
 	var/cooldown = FALSE
-	var/cooldown_time = 250
-	var/barometer_accuracy // 0 is the best accuracy.
+	/// The time in deciseconds
+	var/cooldown_time = 25 SECONDS
+	/// 0 is best accuracy
+	var/barometer_accuracy
+	/// Cached gasmix data from ui_interact
 	var/list/last_gasmix_data
+	/// Max scan distance
 	var/ranged_scan_distance = 1
 
 /obj/item/analyzer/Initialize(mapload)
@@ -36,26 +42,21 @@
 	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
 	return BRUTELOSS
 
-/obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	..()
-
-	if(!user.canUseTopic(src, BE_CLOSE) || !user.can_read(src))
-		return
-
+/obj/item/analyzer/click_alt(mob/user) //Barometer output for measuring when the next storm happens
 	if(cooldown)
 		to_chat(user, span_warning("[src]'s barometer function is preparing itself."))
-		return
+		return CLICK_ACTION_BLOCKING
 
 	var/turf/T = get_turf(user)
 	if(!T)
-		return
+		return CLICK_ACTION_BLOCKING
 
 	playsound(src, 'sound/effects/pop.ogg', 100)
 	var/area/user_area = T.loc
 
 	if(!user_area.outdoors)
 		to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
-		return
+		return CLICK_ACTION_BLOCKING
 
 	var/datum/weather/ongoing_weather = null
 	for(var/datum/weather/possible_weather as anything in SSweather.processing)
@@ -74,7 +75,7 @@
 	if(ongoing_weather)
 		if(ongoing_weather.stage == MAIN_STAGE || ongoing_weather.stage == WIND_DOWN_STAGE)
 			to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
-			return
+			return CLICK_ACTION_BLOCKING
 
 		to_chat(user, span_notice("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(!(ongoing_weather.weather_flags & WEATHER_MOBS))
@@ -89,6 +90,7 @@
 
 	cooldown = TRUE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))

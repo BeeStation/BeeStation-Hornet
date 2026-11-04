@@ -73,9 +73,9 @@
 		open = TRUE
 	update_icon()
 
-/obj/item/pet_carrier/AltClick(mob/living/user)
-	if(open || !user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/pet_carrier/click_alt(mob/living/user)
+	if(open)
+		return CLICK_ACTION_BLOCKING
 	locked = !locked
 	to_chat(user, span_notice("You flip the lock switch [locked ? "down" : "up"]."))
 	if(locked)
@@ -83,6 +83,7 @@
 	else
 		playsound(user, 'sound/machines/boltsup.ogg', 30, TRUE)
 	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/pet_carrier/attack(mob/living/target, mob/living/user)
 	if(user.combat_mode)

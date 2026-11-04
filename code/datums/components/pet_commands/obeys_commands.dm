@@ -110,6 +110,7 @@
 	if(!can_see(friend, parent, DEFAULT_RADIAL_VIEWING_DISTANCE))
 		return
 	INVOKE_ASYNC(src, PROC_REF(display_radial_menu), friend)
+	return CLICK_ACTION_SUCCESS
 
 /// Actually display the radial menu and then do something with the result
 /datum/component/obeys_commands/proc/display_radial_menu(mob/living/friend)

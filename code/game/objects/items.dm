@@ -245,6 +245,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// How many charges get restored, when using this item to restore shield
 	var/added_shield = 0
 
+	/// Has the item been reskinned?
+	var/current_skin
+	///// List of options to reskin.
+	var/list/unique_reskin
+
 /obj/item/Initialize(mapload)
 	if(attack_verb_continuous)
 		attack_verb_continuous = typelist("attack_verb_continuous", attack_verb_continuous)
@@ -292,6 +297,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
+	if(unique_reskin)
+		RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(on_click_alt_reskin))
+		register_context()
+
+
 /obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
@@ -303,6 +313,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		remove_item_action(action)
 	QDEL_NULL(rpg_loot)
 	return ..()
+
+/obj/item/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	if(!unique_reskin)
+		return
+
+	if(current_skin && !(item_flags & INFINITE_RESKIN))
+		return
+
+	context[SCREENTIP_CONTEXT_ALT_LMB] = "Reskin"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /// Called when an action associated with our item is deleted
 /obj/item/proc/on_action_deleted(datum/source)

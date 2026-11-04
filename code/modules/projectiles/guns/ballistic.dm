@@ -389,20 +389,18 @@
 	weight_class_up() //so pistols do not fit in pockets when suppressed
 	update_icon()
 
-/obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
-		reskin_obj(user)
-		return
-	if(loc == user)
-		if(suppressed && can_unsuppress)
-			if(!user.is_holding(src))
-				return
-			to_chat(user, span_notice("You unscrew \the [suppressed] from \the [src]."))
-			user.put_in_hands(suppressed)
-			weight_class_down()
-			suppressed = null
-			update_icon()
-			return
+/obj/item/gun/ballistic/click_alt(mob/user)
+	if(!suppressed || !can_unsuppress)
+		return CLICK_ACTION_BLOCKING
+	var/obj/item/suppressor/S = suppressed
+	if(!user.is_holding(src))
+		return CLICK_ACTION_BLOCKING
+	balloon_alert(user, "[S.name] removed")
+	user.put_in_hands(S)
+	weight_class_down()
+	suppressed = null
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/CtrlClick(mob/user)
 	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user && !bolt_locked)

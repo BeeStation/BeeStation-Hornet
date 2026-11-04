@@ -125,6 +125,7 @@
 	icon_state = "cycler"
 	worn_icon_state = "cshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
@@ -160,10 +161,9 @@
 	else
 		balloon_alert(user, "switched to tube A")
 
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	if(!user.can_perform_action(src, NEED_DEXTERITY|NEED_HANDS))
-		return
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	rack()
+	return CLICK_ACTION_SUCCESS
 
 // Bulldog shotgun //
 

@@ -71,12 +71,11 @@
  */
 /obj/item/circuit_component/controller/proc/send_alternate_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
-	if(!user.Adjacent(source))
-		return
 	source.balloon_alert(user, "Clicked the second button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	entity.set_output(user)
 	alt.set_output(COMPONENT_SIGNAL)
+	return CLICK_ACTION_SUCCESS
 
 /**
  * Called when the shell item is right-clicked in active hand

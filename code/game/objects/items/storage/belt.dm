@@ -941,6 +941,7 @@
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_SUITSTORE
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS
 
 	//Sheathes made to hold swords can block too
 	force = 8
@@ -966,16 +967,15 @@
 	if(length(contents))
 		. += span_notice("Alt-click it to quickly draw the blade.")
 
-/obj/item/storage/belt/sabre/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		return
+/obj/item/storage/belt/sabre/click_alt(mob/user)
 	if(length(contents))
 		var/obj/item/I = contents[1]
 		user.visible_message("[user] takes [I] out of [src].", span_notice("You take [I] out of [src]."))
 		user.put_in_hands(I)
 		update_appearance()
 	else
-		to_chat(user, "[src] is empty.")
+		balloon_alert(user, "it's empty!")
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/belt/sabre/update_icon_state()
 	icon_state = initial(icon_state)

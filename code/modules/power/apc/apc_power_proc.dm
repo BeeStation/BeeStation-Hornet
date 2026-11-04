@@ -150,22 +150,22 @@
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(obj_flags & EMAGGED)
-		to_chat(user, span_warning("The interface is broken!"))
+		balloon_alert(user, "interface is broken!")
 	else if(opened)
-		to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
+		balloon_alert(user, "close the cover first!")
 	else if(panel_open)
-		to_chat(user, span_warning("You must close the panel!"))
+		balloon_alert(user, "close the panel first!")
 	else if(machine_stat & (BROKEN|MAINT))
-		to_chat(user, span_warning("Nothing happens!"))
+		balloon_alert(user, "nothing happens!")
 	else
 		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
 			wires.ui_update()
-			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the APC interface."))
+			balloon_alert(user, locked ? "locked" : "unlocked")
 			update_appearance()
 			updateUsrDialog()
 		else
-			to_chat(user, span_warning("Access denied."))
+			balloon_alert(user, "access denied!")
 
 /obj/machinery/power/apc/proc/toggle_nightshift_lights(mob/living/user)
 	if(last_nightshift_switch > world.time - 100) //~10 seconds between each toggle to prevent spamming

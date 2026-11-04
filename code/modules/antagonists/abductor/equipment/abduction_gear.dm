@@ -419,8 +419,8 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/guides/antag/abductor/AltClick()
-	return //otherwise it would fold into a paperplane.
+/obj/item/paper/guides/antag/abductor/click_alt()
+	return CLICK_ACTION_BLOCKING //otherwise it would fold into a paperplane.
 
 #define BATON_STUN 0
 #define BATON_SLEEP 1

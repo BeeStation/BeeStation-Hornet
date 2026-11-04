@@ -29,6 +29,7 @@
 
 	mobchatspan = "mime"
 	discovery_points = 0
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
@@ -372,11 +373,9 @@
 				do_sparks(5, TRUE, src)
 			..()
 
-/mob/living/simple_animal/bot/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/mob/living/simple_animal/bot/click_alt(mob/user)
 	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))

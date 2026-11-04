@@ -83,8 +83,12 @@
 		add_overlay("broken")
 
 /obj/machinery/modular_computer/AltClick(mob/user)
-	if(cpu)
-		cpu.AltClick(user)
+	if(!can_interact(user))
+		return NONE
+	if(!cpu)
+		return CLICK_ACTION_BLOCKING
+	cpu.click_alt(user)
+	return CLICK_ACTION_SUCCESS
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 // On-click handling. Turns on the computer if it's off and opens the GUI.

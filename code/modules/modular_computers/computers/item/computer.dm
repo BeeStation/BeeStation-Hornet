@@ -205,14 +205,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/proc/play_ping()
 	playsound(loc, 'sound/machines/ping.ogg', get_clamped_volume(), FALSE, -1)
 
-/obj/item/modular_computer/AltClick(mob/user)
-	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return FALSE
+/obj/item/modular_computer/click_alt(mob/user)
+	if(issilicon(user))
+		return NONE
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(!card_slot2?.try_eject(user))
 		return card_slot?.try_eject(user)
-	return TRUE
+	return CLICK_ACTION_SUCCESS
 
 // Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
 /obj/item/modular_computer/GetAccess()

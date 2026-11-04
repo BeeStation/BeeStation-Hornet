@@ -156,6 +156,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	desc = "Used to keep bodies in until someone fetches them. Now includes a high-tech alert system."
 	icon_state = "morgue1"
 	dir = EAST
+	interaction_flags_click = ALLOW_SILICON_REACH|ALLOW_RESTING
 	var/beeper = TRUE
 	COOLDOWN_DECLARE(beep_timer)
 	var/beep_cooldown = 5 SECONDS
@@ -169,11 +170,10 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	. = ..()
 	. += span_notice("The speaker is [beeper ? "enabled" : "disabled"]. Alt-click to toggle it.")
 
-/obj/structure/bodycontainer/morgue/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/structure/bodycontainer/morgue/click_alt(mob/user)
 	beeper = !beeper
 	to_chat(user, span_notice("You turn the speaker function [beeper ? "on" : "off"]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/bodycontainer/morgue/update_icon()
 	if (!connected || connected.loc != src) // Open or tray is gone.

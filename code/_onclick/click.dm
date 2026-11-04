@@ -100,7 +100,7 @@
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			alt_click_on_secondary(A)
 		else
-			AltClickOn(A)
+			base_click_alt(A)
 		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
@@ -444,24 +444,6 @@
 		return
 	A.CtrlClick(src) // this assumes you did CtrlClick instead of MiddleClick
 	return
-
-/**
-  * Alt click
-  * Unused except for AI
-  */
-/mob/proc/AltClickOn(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A)
-	if(. & COMSIG_MOB_CANCEL_CLICKON)
-		return
-	A.AltClick(src)
-
-/atom/proc/AltClick(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_CLICK_ALT)
-		return
-	var/turf/T = get_turf(src)
-	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.set_stat_tab(T.name)
 
 ///The base proc of when something is right clicked on when alt is held - generally use alt_click_secondary instead
 /atom/proc/alt_click_on_secondary(atom/A)

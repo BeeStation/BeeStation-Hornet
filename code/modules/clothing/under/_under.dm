@@ -399,13 +399,13 @@
 			return
 	return ..()
 
-/obj/item/clothing/under/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		return
+/obj/item/clothing/under/click_alt(mob/user)
 	if(length(attached_accessories))
 		remove_accessory(user)
+		return CLICK_ACTION_SUCCESS
 	else
 		rolldown()
+		return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/under/verb/jumpsuit_adjust()
 	set name = "Adjust Jumpsuit Style"
