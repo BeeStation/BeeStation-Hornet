@@ -407,8 +407,8 @@
 	return ..()
 
 /obj/item/mod/module/adrenaline_boost/on_use()
-	//if(IS_SPACE_NINJA(mod.wearer))
-	//	mod.wearer.say(pick_list_replacements(NINJA_FILE, "lines"), forced = type)
+	if(IS_SPACE_NINJA(mod.wearer))
+		INVOKE_ASYNC(mod.wearer, TYPE_PROC_REF(/atom/movable, say), pick_list_replacements(NINJA_FILE, "lines"), forced = type)
 	to_chat(mod.wearer, span_notice("You have used the adrenaline boost."))
 	mod.wearer.SetAllImmobility(0)
 	mod.wearer.adjustStaminaLoss(-200)
