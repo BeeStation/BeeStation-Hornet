@@ -12,3 +12,13 @@
   - balance: Revenant Blight can be cured by sleeping at stage 5
   - bugfix: C4/X4 should work if placed on a window or door again
   - bugfix: Vampires are shown in the round end window again
+2026-11-04:
+  rkz, Rohesie, Fikou, ShizCalev, VinylSpiders, Lemon, SyncIt21:
+  - rscadd: adds nicer stepwise spacedrifting
+  - refactor: parallax should look reasonably less terrible, whilst remaining a client-based
+      process
+  - refactor: cleaned up jetpack code
+  - admin: more vars have proper vv setters
+  - rscdel: deletes syndicate, wizard, and ERT variants of hardsuits. any current
+      pointers have been replaced with respective modsuits
+  - bugfix: fixes jetpacks being nonfunctional in the station
