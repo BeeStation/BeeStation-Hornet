@@ -176,7 +176,7 @@
 	armor_mod = /datum/armor/mecha_equipment_ccw_boost
 
 /datum/armor/mecha_equipment_ccw_boost
-	melee = 15
+	melee = 20
 	acid = 15
 
 /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
@@ -188,8 +188,8 @@
 	armor_mod = /datum/armor/mecha_equipment_ranged_boost
 
 /datum/armor/mecha_equipment_ranged_boost
-	bullet = 10
-	laser = 10
+	bullet = 15
+	laser = 15
 
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
@@ -199,6 +199,7 @@
 	name = "exosuit repair droid"
 	desc = "An automated repair droid for exosuits. Scans for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
+	unstackable = TRUE
 	energy_drain = 50
 	range = 0
 	can_be_toggled = TRUE
