@@ -214,6 +214,8 @@
 				say("ERROR: Tank lacks adequate moles!")
 				return TRUE
 			var/datum/plant_feature/feature = locate(current_feature_ref)
+			if(!feature)
+				return TRUE
 			if(!length(feature.mutations))
 				playsound(controller, 'sound/machines/terminal_error.ogg', 60)
 				say("ERROR: Feature lacks genetic avenues!")

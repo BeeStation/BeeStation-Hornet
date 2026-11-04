@@ -189,12 +189,15 @@
 	if(istype(new_fruit))
 		new_fruit.seed = null //Otherwise this will overwrite our inherited genes
 	new_fruit.create_reagents(total_volume)
-	if(istype(new_fruit))
-		new_fruit.bite_consumption = new_fruit.reagents.maximum_volume / (new_fruit.bite_consumption_mod + FRUIT_MINIMUM_BITES)
+	// Bite amounts
+	var/datum/component/edible/edible = new_fruit.GetComponent(/datum/component/edible)
+	edible?.bite_consumption = new_fruit.reagents.maximum_volume / (new_fruit.bite_consumption_mod + FRUIT_MINIMUM_BITES)
+	// Visuals
 	var/trait_scale = max(trait_power*0.5, 1) //Scale size with trait power
 	var/matrix/n_transform = matrix(new_fruit.transform)
 	n_transform.Scale(trait_scale, trait_scale)
 	new_fruit.transform = n_transform //Weirdly enough, just scaling the transform doesn't work here
+	// Trigger traits
 	SEND_SIGNAL(parent, COMSIG_FRUIT_PREPARE, new_fruit) //Used to prepare fruit characteristics, like making the reagents NO_REACT
 //Genes
 	new_fruit.AddElement(/datum/element/plant_genes, SSbotany.gene_cache["[parent.species_id]"], parent.species_id, parent.name_override, parent.desc_override)

@@ -125,7 +125,7 @@
 			return TRUE
 		if("remove_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
-			if(!feature.can_remove)
+			if(!feature?.can_remove)
 				return
 			//If it's a disk feature
 			if(feature == disk?.saved)
@@ -144,7 +144,7 @@
 			return TRUE
 		if("remove_trait")
 			var/datum/plant_trait/trait = locate(params["key"])
-			if(!trait.can_remove)
+			if(!trait?.can_remove)
 				return
 			//If it's a disk trait
 			if(trait == disk?.saved)
@@ -162,6 +162,8 @@
 			if(!current_feature)
 				return
 			var/datum/plant_trait/trait = locate(params["key"])
+			if(!trait)
+				return
 			//Flight checks
 			for(var/datum/plant_trait/local_trait as anything in current_feature.plant_traits)
 				//Don't allow trait duplication
@@ -195,6 +197,8 @@
 			return TRUE
 		if("add_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
+			if(!feature)
+				return
 		//Generic compatibility checking
 			for(var/datum/plant_feature/current_feature as anything in seeds.plant_features)
 				//Does this plant already have this kind of feature>

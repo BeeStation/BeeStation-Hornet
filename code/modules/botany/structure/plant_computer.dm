@@ -43,7 +43,12 @@
 	locate_machines()
 	selected_entry = REF(pick(SSbotany.chapters["Features"]))
 
-/obj/machinery/plant_machine/plant_mutator/add_context_self(datum/screentip_context/context, mob/user)
+/obj/machinery/computer/plant_machine_controller/Destroy()
+	. = ..()
+	for(var/obj/machinery/plant_machine/machine as anything in machines)
+		machine.controller = null
+
+/obj/machinery/plant_machine/plant_machine_controller/add_context_self(datum/screentip_context/context, mob/user)
 	if(!isliving(user))
 		return
 	context.add_alt_click_action("Re-Link Nearby Machines")
@@ -196,17 +201,18 @@
 /obj/machinery/computer/plant_machine_controller/proc/catch_qdel(datum/source)
 	SIGNAL_HANDLER
 
+	UnregisterSignal(source, COMSIG_QDELETING)
 	machines -= source
 
 /obj/machinery/computer/plant_machine_controller/proc/catch_move(datum/source, atom/newloc, dir)
 	SIGNAL_HANDLER
 
 	if(get_dist(src, source) > PC_LINK_RANGE)
+		UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 		machines -= source
 
 /obj/machinery/computer/plant_machine_controller/proc/encrypt_ref(ref_string)
 	return "0x[copytext(md5(ref_string), 1, 8)]"
-
 
 //Circuitboard
 /obj/item/circuitboard/computer/plant_machine_controller

@@ -47,7 +47,9 @@
 		for(var/seed_index in stored_seeds)
 			var/obj/item/plant_seeds/seeds = stored_seeds[seed_index]
 			seeds.seeds = min(stored_seeds_amount[seed_index], initial(seeds.seeds))
-			seeds.forceMove(get_turf(src))
+			if(!loc)
+				continue
+			seeds.forceMove(loc)
 		return
 //Turn spade plant into seeds
 	if(istype(C, /obj/item/shovel))

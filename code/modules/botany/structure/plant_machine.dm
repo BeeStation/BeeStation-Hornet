@@ -7,12 +7,12 @@
 
 /obj/machinery/plant_machine/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
 	. = ..()
-	if(controller?.Adjacent(neighbor))
+	if(controller?.Adjacent(neighbor) || issilicon(mover))
 		return TRUE
 
 /obj/machinery/plant_machine/ui_status(mob/user)
 	. = ..()
-	if(controller?.Adjacent(user))
+	if(controller?.can_interact(user))
 		return UI_INTERACTIVE
 	else
 		return UI_DISABLED
