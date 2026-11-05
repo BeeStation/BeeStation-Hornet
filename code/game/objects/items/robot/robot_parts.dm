@@ -99,7 +99,7 @@
 		if(l_arm || r_arm || l_leg || r_leg || chest || head)
 			return ITEM_INTERACT_BLOCKING
 		if (!iron_sheet.use(1))
-			to_chat(user, span_warning("You need one sheet of iron to start building ED-209!"))
+			to_chat(user, span_warning("You need one sheet of iron to start building an ED-209!"))
 			return ITEM_INTERACT_BLOCKING
 		var/obj/item/bot_assembly/ed209/assembly = new(drop_location())
 		to_chat(user, span_notice("You arm the robot frame."))
