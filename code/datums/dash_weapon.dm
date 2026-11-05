@@ -111,6 +111,9 @@
 	if(!istype(dashing_item))
 		return
 
+	if(current_charges != max_charges) // Whoopsie! our ninja threw us at someone, we still need to recharge though
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
+
 	if(!owner)
 		return
 	if(recharge_sound)
@@ -120,5 +123,3 @@
 			playsound(dashing_item, recharge_sound, 50, TRUE)
 	owner.update_action_buttons_icon()
 	dashing_item.balloon_alert(owner, "[current_charges]/[max_charges] dash charges")
-	if (current_charges != max_charges)
-		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
