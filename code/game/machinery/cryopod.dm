@@ -377,7 +377,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
-		if(!istype(R)) return
 
 		R.contents -= R.mmi
 		QDEL_NULL(R.mmi)
