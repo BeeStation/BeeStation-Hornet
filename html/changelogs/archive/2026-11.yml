@@ -46,3 +46,8 @@
   - rscdel: deletes syndicate, wizard, and ERT variants of hardsuits. any current
       pointers have been replaced with respective modsuits
   - bugfix: fixes jetpacks being nonfunctional in the station
+2026-11-05:
+  VmpOS2NHSkhkejA9:
+  - balance: the weak variant of improvised 7.62 ammo now destroys the gun firing
+      it slower, additionally, the mosin is more durable, allowing it to handle twice
+      as many of your homemade munitions as the pipe rifle before breaking entirely.
