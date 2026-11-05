@@ -752,12 +752,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_parent || !resolve_location)
 		return NONE
 
-	. = COMPONENT_CANCEL_MOUSEDROP_ONTO
 	if(ismecha(user.loc) || !user.canUseStorage())
 		return NONE
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
-		if(resolve_location.loc != user || !user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+		if(resolve_location.loc != user || !user.can_perform_action(resolve_parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
 
 		if(isitem(resolve_parent))
@@ -771,7 +770,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 	if(over_object == user)
-		if(!user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+		if(!user.can_perform_action(resolve_parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 			return NONE
 
 		resolve_parent.add_fingerprint(user)
@@ -850,7 +849,6 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_parent)
 		return
 
-	. = COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(!istype(dropping))
 		return
 	if(dropping != user.get_active_held_item())
@@ -1010,7 +1008,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		show_contents(to_show)
 		return FALSE
 
-	if(!isliving(to_show) || !to_show.can_perform_action(resolve_parent))
+	if(!isliving(to_show) || !to_show.can_perform_action(resolve_parent, ALLOW_RESTING | FORBID_TELEKINESIS_REACH))
 		return FALSE
 
 	if(locked)
