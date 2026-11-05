@@ -149,7 +149,7 @@
 /obj/structure/chess_board/MouseDrop(over_object)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+		if(!ishuman(usr) || !usr.can_perform_action(src))
 			return FALSE
 		usr.visible_message("[usr] folds \the [src.name].", span_notice("You fold \the [src.name]."))
 		var/obj/item/chess_board/board = new folded_type ()

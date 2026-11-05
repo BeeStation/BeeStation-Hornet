@@ -421,7 +421,7 @@
 					"Give it a name!",
 					name_default,
 					MAX_NAME_LEN)
-			if(!name || !reagents.total_volume || !src || QDELETED(src) || !usr.canUseTopic(src, !issilicon(usr)))
+			if(!name || !reagents.total_volume || !src || QDELETED(src) || !usr.can_perform_action(src, ALLOW_SILICON_REACH))
 				return
 			// Start filling
 			switch(item_type)

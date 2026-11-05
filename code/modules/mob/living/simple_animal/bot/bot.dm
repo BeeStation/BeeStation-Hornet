@@ -976,7 +976,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+		if(!ishuman(usr) || !usr.can_perform_action(src))
 			return FALSE
 		if(!carryable)
 			to_chat(usr, span_notice("[src] too large to carry!"))

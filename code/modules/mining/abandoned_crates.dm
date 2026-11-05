@@ -28,7 +28,7 @@
 
 	to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
 	var/input = capped_input(usr, "Enter [codelen] digits. All digits must be unique.", "Deca-Code Lock")
-	if(user.canUseTopic(src, BE_CLOSE) && locked)
+	if(user.can_perform_action(src) && locked)
 		var/list/sanitised = list()
 		var/sanitycheck = TRUE
 		var/char = ""

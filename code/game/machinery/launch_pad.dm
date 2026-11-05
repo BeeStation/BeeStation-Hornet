@@ -253,7 +253,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 	. = ..()
 	if(!briefcase || !user.can_hold_items())
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+	if(!user.can_perform_action(src))
 		return
 	user.visible_message(span_notice("[user] starts closing [src]..."), span_notice("You start closing [src]..."))
 	if(do_after(user, 30, target = user))

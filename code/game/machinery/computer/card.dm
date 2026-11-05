@@ -572,7 +572,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(..())
 		return
 
-	if(!usr.canUseTopic(src, !issilicon(usr)) || !is_operational)
+	if(!usr.can_perform_action(src, ALLOW_SILICON_REACH) || !is_operational)
 		usr.unset_machine()
 		usr << browse(null, "window=id_com")
 		return

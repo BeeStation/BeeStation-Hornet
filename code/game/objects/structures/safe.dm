@@ -92,7 +92,7 @@ FLOOR SAFES
 		return
 	var/mob/living/carbon/human/user = usr
 
-	if(!user.canUseTopic(src, BE_CLOSE))
+	if(!user.can_perform_action(src))
 		return
 
 	var/canhear = FALSE

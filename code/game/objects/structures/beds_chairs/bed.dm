@@ -72,7 +72,7 @@
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+		if(!ishuman(usr) || !usr.can_perform_action(src))
 			return 0
 		if(has_buckled_mobs())
 			return 0

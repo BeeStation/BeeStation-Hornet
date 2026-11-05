@@ -161,7 +161,7 @@
 
 		to_chat(viewer, examine_block(span_info(id_examine)))
 
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+	if(href_list["embedded_object"] && usr.can_perform_action(src, NEED_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return
@@ -171,7 +171,7 @@
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
-	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
+	if(href_list["item"])
 		var/slot = text2num(href_list["item"])
 		if(check_obscured_slots(TRUE) & slot)
 			to_chat(usr, span_warning("You can't reach that! Something is covering it."))

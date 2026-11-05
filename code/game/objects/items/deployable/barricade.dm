@@ -91,7 +91,7 @@
 /obj/structure/barricade/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+		if(!ishuman(usr) || !usr.can_perform_action(src))
 			return
 		if(!pickup_damaged && atom_integrity < max_integrity)
 			to_chat(usr, span_warning("[src] is damaged! You'll have to repair it before you can relocate it."))

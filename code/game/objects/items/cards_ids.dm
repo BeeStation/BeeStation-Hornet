@@ -222,7 +222,7 @@
 
 /obj/item/card/id/Topic(href, href_list)
 	. = ..()
-	if(!usr.canUseTopic(src, BE_CLOSE))
+	if(!usr.can_perform_action(src))
 		return
 
 	if(href_list["look_at_id"])

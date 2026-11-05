@@ -1130,7 +1130,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+	if(!ishuman(usr) || !usr.can_perform_action(src))
 		return
 	if(!flipped)
 		src.flipped = 1

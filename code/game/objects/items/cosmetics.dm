@@ -298,7 +298,7 @@
 	if (H == user && !mirror)
 		to_chat(user, span_warning("You need a mirror to properly style your own hair!"))
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_HEAD))
@@ -313,7 +313,7 @@
 	if(H == user && !mirror)
 		to_chat(user, span_warning("You need a mirror to properly style your own facial hair!"))
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
