@@ -14,14 +14,14 @@
 ///from base of atom/ShiftClick(): (/mob)
 #define COMSIG_CLICK_SHIFT "shift_click"
 	#define COMPONENT_ALLOW_EXAMINATE (1<<0) //Allows the user to examinate regardless of client.eye.
-///from base of atom/CtrlClickOn(): (/mob)
+///from base of mob/base_click_ctrl(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
-///from base of atom/AltClick(): (/mob)
+///from base of mob/base_click_alt(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"
-///from base of atom/alt_click_secondary(): (/mob)
+///from base of mob/base_click_alt_secondary(): (/mob)
 #define COMSIG_CLICK_ALT_SECONDARY "alt_click_secondary"
 	#define COMPONENT_CANCEL_CLICK_ALT_SECONDARY (1<<0)
-///from base of atom/CtrlShiftClick(/mob)
+///from base of mob/base_click_ctrl_shift(): (/mob)
 #define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"
 ///from base of atom/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"

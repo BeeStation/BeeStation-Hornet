@@ -333,11 +333,11 @@
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
-		return
-	else
-		togglelock(user)
+/obj/machinery/power/apc/click_alt(mob/user)
+	if(!isturf(loc))
+		return NONE
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

@@ -142,14 +142,11 @@
 	else
 		return ..()
 
-/obj/structure/closet/secure_closet/genpop/AltClick(user)
-	var/mob/living/carbon/human/H = user
-	var/obj/item/card/id/I = H.get_idcard()
-	if(!registered_name)
-		if(allowed(user) && !istype(I, /obj/item/card/id/prisoner))
-			say("Invalid, please assign this locker to prisoners first before handling it!") // Prevents officers from "forgetting" to assign lockers to the prisoners they are handling.
-			return
-	..()
+/obj/structure/closet/secure_closet/genpop/attack_hand_secondary(mob/user, list/modifiers)
+	if(!registered_name && !opened && allowed(user) && !istype(user.get_idcard(), /obj/item/card/id/prisoner))
+		say("Invalid, please assign this locker to prisoners first before handling it!") // Prevents officers from "forgetting" to assign lockers to the prisoners they are handling.
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ..()
 
 
 /obj/machinery/turnstile/Initialize(mapload)

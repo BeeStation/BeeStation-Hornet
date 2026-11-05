@@ -17,6 +17,7 @@
 	req_access = list(ACCESS_CLONING) //FOR PREMATURE UNLOCKING.
 	verb_say = "states"
 	circuit = /obj/item/circuitboard/machine/clonepod
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected //So we remember the connected clone machine.
@@ -98,14 +99,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 		return
 	user.examinate(src)
 
-/obj/machinery/clonepod/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/machinery/clonepod/click_alt(mob/user)
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
-		return
+		return CLICK_ACTION_BLOCKING
 	to_chat(user, span_notice("You empty \the [src]'s release valve onto the floor."))
 	reagents.expose(user.loc)
 	src.reagents.clear_reagents()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/clonepod/attack_silicon(mob/user)
 	return attack_hand(user)

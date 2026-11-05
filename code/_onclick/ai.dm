@@ -308,7 +308,7 @@
 /obj/machinery/atmospherics/components/AICtrlClick(mob/living/silicon/ai/user)
 	if(!allowed(user))
 		return
-	CtrlClick(user)
+	click_ctrl(user)
 
 //
 // Override TurfAdjacent for AltClicking

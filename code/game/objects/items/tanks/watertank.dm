@@ -413,16 +413,18 @@
 		. += "handle_overlay"
 
 
-/obj/item/extinguisher/mini/nozzle/AltClick(mob/user)
-	if((upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM) && user.canUseTopic(src, BE_CLOSE))
-		toggled = !toggled
-		balloon_alert(user, "[toggled ? "Advanced" : "Normal"] foam mode")
-		playsound(src, 'sound/machines/click.ogg', 50)
-		update_icon()
-		if (istype(tank.loc, /mob/living/carbon))
-			tank.update_icon()
-			var/mob/living/carbon/wearer = tank.loc
-			wearer.update_worn_back()
+/obj/item/extinguisher/mini/nozzle/click_alt(mob/user)
+	if(!(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM))
+		return NONE
+	toggled = !toggled
+	balloon_alert(user, "[toggled ? "Advanced" : "Normal"] foam mode")
+	playsound(src, 'sound/machines/click.ogg', 50)
+	update_icon()
+	if (istype(tank.loc, /mob/living/carbon))
+		tank.update_icon()
+		var/mob/living/carbon/wearer = tank.loc
+		wearer.update_worn_back()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null

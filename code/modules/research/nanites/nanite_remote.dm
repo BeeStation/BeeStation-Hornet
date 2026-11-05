@@ -25,17 +25,17 @@
 	if(locked)
 		. += span_notice("Alt-click to unlock.")
 
-/obj/item/nanite_remote/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(locked)
-		if(allowed(user))
-			to_chat(user, span_notice("You unlock [src]."))
-			locked = FALSE
-			update_icon()
-			ui_update()
-		else
-			to_chat(user, span_warning("Access denied."))
+/obj/item/nanite_remote/click_alt(mob/user)
+	if(!locked)
+		return NONE
+	if(!allowed(user))
+		to_chat(user, span_warning("Access denied."))
+		return CLICK_ACTION_BLOCKING
+	to_chat(user, span_notice("You unlock [src]."))
+	locked = FALSE
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/nanite_remote/on_emag(mob/user)
 	..()

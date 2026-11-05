@@ -110,10 +110,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/origami)
 	. = ..()
 	. += span_notice("Alt-click [src] to fold it into origami.")
 
-/obj/item/paper/AltClick(mob/living/user, obj/item/I)
-	if(!user.can_perform_action(src, NEED_DEXTERITY|NEED_HANDS))
-		return
-
+/obj/item/paper/click_alt(mob/living/user)
 	var/list/radial_list = list(
 		"Paper plane" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paperplane"),
 		"Paper crane" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "papercrane"),
@@ -129,15 +126,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/origami)
 
 	var/origami_selected = show_radial_menu(user, src, radial_list, require_near = TRUE, tooltips = TRUE)
 	if(!origami_selected || !user || user.stat)
-		return
+		return CLICK_ACTION_BLOCKING
 
 	var/origami_type = origami_nametotype(origami_selected)
 	if(!origami_type)
-		return
+		return CLICK_ACTION_BLOCKING
 	user.temporarilyRemoveItemFromInventory(src)
-	I = new origami_type(user, src)
-	to_chat(user, span_notice("You fold [src] into the shape of a [I.name]!"))
-	user.put_in_hands(I)
+	var/obj/item/origami = new origami_type(user, src)
+	to_chat(user, span_notice("You fold [src] into the shape of a [origami.name]!"))
+	user.put_in_hands(origami)
+	return CLICK_ACTION_SUCCESS
 
 //God I wish radial menu just took types. It would clean up rcd code too.
 /proc/origami_nametotype(name)

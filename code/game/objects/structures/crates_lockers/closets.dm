@@ -583,12 +583,11 @@
 		togglelock(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/structure/closet/CtrlShiftClick(mob/living/user)
-	if(!(divable && HAS_TRAIT(user, TRAIT_SKITTISH)))
-		return ..()
-	if(!user.canUseTopic(src, BE_CLOSE) || !isturf(user.loc))
-		return
+/obj/structure/closet/click_ctrl_shift(mob/living/user)
+	if(!divable || !HAS_TRAIT(user, TRAIT_SKITTISH) || !isturf(user.loc))
+		return NONE
 	dive_into(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/proc/togglelock(mob/living/user, silent)
 	if(secure && !broken)

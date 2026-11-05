@@ -40,17 +40,16 @@
 		return
 	. = ..()
 
-/obj/machinery/anesthetic_machine/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(attached_tank)// If attached tank, remove it.
-		attached_tank.forceMove(loc)
-		to_chat(user, span_notice("You remove \the [attached_tank]."))
-		attached_tank = null
-		update_icon()
-		if(mask_out)
-			retract_mask()
+/obj/machinery/anesthetic_machine/click_alt(mob/user)
+	if(!attached_tank)
+		return NONE
+	attached_tank.forceMove(loc)
+	to_chat(user, span_notice("You remove \the [attached_tank]."))
+	attached_tank = null
+	update_icon()
+	if(mask_out)
+		retract_mask()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/anesthetic_machine/proc/retract_mask()
 	if(mask_out)

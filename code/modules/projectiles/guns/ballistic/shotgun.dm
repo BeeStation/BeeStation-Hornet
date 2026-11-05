@@ -79,13 +79,13 @@
 	w_class = WEIGHT_CLASS_HUGE
 	custom_price = 300
 
-/obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
-	if(loc == user)
-		if(!user.is_holding(src))
-			return
-		semi_auto = !semi_auto
-		playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
-		to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+/obj/item/gun/ballistic/shotgun/automatic/combat/click_alt(mob/user)
+	if(!user.is_holding(src))
+		return CLICK_ACTION_BLOCKING
+	semi_auto = !semi_auto
+	playsound(src, 'sound/weapons/effects/ballistic_click.ogg', 20, FALSE)
+	to_chat(user, span_notice("You toggle \the [src] to [semi_auto ? "automatic" : "manual"] operation."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/examine(mob/user)
 	. = ..()

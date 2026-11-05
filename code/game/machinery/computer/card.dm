@@ -11,6 +11,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_keyboard = "generic_key"
 	req_one_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/computer/card
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/mode = 0
 	var/printing = null
 	var/department_bitflag = NONE // NONE = All department, or department bitflag. Only access for that department will be shown
@@ -192,20 +193,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/update_modify_manifest()
 	GLOB.manifest.modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
 
-/obj/machinery/computer/card/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational)
-		return
-	if(inserted_modify_id)
-		if(id_eject(user, inserted_modify_id))
-			inserted_modify_id = null
-			updateUsrDialog()
-			return
-	if(inserted_scan_id)
-		if(id_eject(user, inserted_scan_id))
-			inserted_scan_id = null
-			updateUsrDialog()
-			return
+/obj/machinery/computer/card/click_alt(mob/user)
+	if(!is_operational)
+		return NONE
+	if(inserted_modify_id && id_eject(user, inserted_modify_id))
+		inserted_modify_id = null
+		updateUsrDialog()
+		return CLICK_ACTION_SUCCESS
+	if(inserted_scan_id && id_eject(user, inserted_scan_id))
+		inserted_scan_id = null
+		updateUsrDialog()
+		return CLICK_ACTION_SUCCESS
+	return NONE
 
 /obj/machinery/computer/card/ui_interact(mob/user)
 	. = ..()

@@ -5,6 +5,7 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/cloning
 	req_access = list(ACCESS_GENETICS) //for modifying records
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/clonepod_type = /obj/machinery/clonepod
 	var/list/connected_pods //Linked cloning pods
@@ -130,11 +131,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECEIVED
 
-/obj/machinery/computer/cloning/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/machinery/computer/cloning/click_alt(mob/user)
 	eject_disk(user)
+	return CLICK_ACTION_SUCCESS
 
 // --------------------------------------
 // Manages record and disk

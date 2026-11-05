@@ -402,18 +402,18 @@
 	update_icon()
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/gun/ballistic/CtrlClick(mob/user)
-	if(bolt_type == BOLT_TYPE_PUMP && is_wielded && loc == user && !bolt_locked)
-		to_chat(user, span_notice("You lock open the [bolt_wording] of \the [src]."))
-		playsound(src, half_rack_sound, rack_sound_volume, rack_sound_vary)
-		if (chambered)
-			eject_chamber()
-		else
-			chamber_round()
-		bolt_locked = TRUE
-		update_icon()
-		return
-	..()
+/obj/item/gun/ballistic/item_ctrl_click(mob/user)
+	if(bolt_type != BOLT_TYPE_PUMP || !is_wielded || loc != user || bolt_locked)
+		return NONE
+	to_chat(user, span_notice("You lock open the [bolt_wording] of \the [src]."))
+	playsound(src, half_rack_sound, rack_sound_volume, rack_sound_vary)
+	if (chambered)
+		eject_chamber()
+	else
+		chamber_round()
+	bolt_locked = TRUE
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/ballistic/proc/prefire_empty_checks()
 	if (!chambered && !get_ammo())

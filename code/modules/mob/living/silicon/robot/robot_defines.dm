@@ -13,6 +13,7 @@
 	maxHealth = 100
 	health = 100
 	bubble_icon = "robot"
+	interaction_flags_click = parent_type::interaction_flags_click | ALLOW_SILICON_REACH
 	designation = "Default" //used for displaying the prefix & getting the current model of cyborg
 	has_limbs = TRUE
 	hud_type = /datum/hud/robot

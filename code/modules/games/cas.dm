@@ -130,10 +130,11 @@
 	flipped = !flipped
 	update_icon()
 
-/obj/item/toy/cards/singlecard/cas/AltClick(mob/living/user)
-	if(!ishuman(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
+/obj/item/toy/cards/singlecard/cas/click_alt(mob/user)
+	if(!ishuman(user))
+		return NONE
 	Flip()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/cards/singlecard/cas/update_icon()
 	if(flipped)

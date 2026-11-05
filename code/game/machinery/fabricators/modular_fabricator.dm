@@ -156,16 +156,16 @@
 	output_direction = direction
 	balloon_alert(usr, "dropping [dir2text(output_direction)]")
 
-/obj/machinery/modular_fabricator/AltClick(mob/user)
-	. = ..()
+/obj/machinery/modular_fabricator/click_alt(mob/user)
 	if(!output_direction || !can_interact(user))
-		return
+		return NONE
 	if(operating)
 		balloon_alert(user, "busy printing!")
-		return
+		return CLICK_ACTION_BLOCKING
 	balloon_alert(user, "drop direction reset")
 	output_direction = 0
 	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/modular_fabricator/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(can_be_hacked_or_unlocked && (ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))

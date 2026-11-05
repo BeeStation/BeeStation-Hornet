@@ -1748,13 +1748,15 @@
 /obj/item/toy/cards/deck/cyborg/update_icon()
 	icon_state = "deck_[deckstyle]_full"
 
-/obj/item/toy/cards/deck/cyborg/CtrlClick(mob/user)
-	..()
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		if(R.cell?.use(300))
-			populate_deck()
-			to_chat(user, span_notice("You fabricate a new set of cards."))
+/obj/item/toy/cards/deck/cyborg/item_ctrl_click(mob/user)
+	if(!iscyborg(user))
+		return NONE
+	var/mob/living/silicon/robot/R = user
+	if(!R.cell?.use(300))
+		return CLICK_ACTION_BLOCKING
+	populate_deck()
+	to_chat(user, span_notice("You fabricate a new set of cards."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/cards/deck/cyborg/afterattack(atom/A, mob/user, proximity)
 	. = ..()

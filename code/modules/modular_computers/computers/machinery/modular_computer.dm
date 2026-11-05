@@ -81,7 +81,7 @@
 		add_overlay("bsod")
 		add_overlay("broken")
 
-/obj/machinery/modular_computer/AltClick(mob/user)
+/obj/machinery/modular_computer/click_alt(mob/user)
 	if(!can_interact(user))
 		return NONE
 	if(!cpu)
