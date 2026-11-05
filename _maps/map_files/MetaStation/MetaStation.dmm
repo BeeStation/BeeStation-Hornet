@@ -6801,11 +6801,8 @@
 /area/station/maintenance/starboard/aft)
 "cLv" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Atmos to Loop"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "cMb" = (
@@ -13067,6 +13064,15 @@
 /turf/open/floor/iron{
 	dir = 1
 	},
+/area/station/engineering/main)
+"eSs" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Atmos to Loop";
+	dir = 8
+	},
+/turf/open/floor/engine,
 /area/station/engineering/main)
 "eSv" = (
 /obj/effect/spawner/structure/window,
@@ -33341,6 +33347,9 @@
 	name = "Gas to Cooling Loop"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "lQQ" = (
@@ -33418,6 +33427,7 @@
 	dir = 4;
 	name = "Cooling Loop bypass"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "lTq" = (
@@ -38153,6 +38163,12 @@
 /obj/machinery/light,
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/cmo)
+"nsB" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "nsE" = (
 /obj/structure/table,
 /obj/item/folder/red,
@@ -57653,6 +57669,7 @@
 	c_tag = "Engineering Supermatter Aft"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "tWX" = (
@@ -68894,6 +68911,10 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "Atmos to Loop"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "xQm" = (
@@ -112737,7 +112758,7 @@ xpL
 rit
 cHt
 qoj
-ubd
+nsB
 rFb
 hdB
 hdB
@@ -112994,7 +113015,7 @@ iIp
 jGi
 glg
 qdj
-ubd
+eSs
 hQS
 nHe
 pXC
@@ -114022,7 +114043,7 @@ fQa
 fQa
 xQk
 lTi
-ubd
+cLv
 mhL
 feE
 iTC

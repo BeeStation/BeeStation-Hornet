@@ -2833,6 +2833,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "bhB" = (
@@ -11817,15 +11818,12 @@
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation)
 "exh" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 4
-	},
-/obj/machinery/meter,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "ext" = (
@@ -20764,6 +20762,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "htx" = (
@@ -21740,6 +21739,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "hHj" = (
@@ -25228,6 +25228,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "iUT" = (
@@ -27858,6 +27859,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "jNi" = (
@@ -30459,6 +30461,15 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/construction/mining/aux_base)
+"kBC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 10
+	},
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "kBF" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
@@ -34447,6 +34458,16 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/chief)
+"lXz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 4;
+	name = "Atmos to Loop"
+	},
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "lXC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
@@ -44551,6 +44572,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "plD" = (
@@ -46682,9 +46704,7 @@
 /obj/structure/cable,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "pZW" = (
@@ -50600,13 +50620,10 @@
 	},
 /area/station/maintenance/port/fore)
 "roK" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Atmos to Loop"
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "roO" = (
@@ -53764,6 +53781,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "sAp" = (
@@ -56314,9 +56332,7 @@
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "tvT" = (
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "tvW" = (
@@ -56696,6 +56712,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "tBB" = (
@@ -58236,6 +58253,7 @@
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Mix to Gas"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "tYA" = (
@@ -61642,6 +61660,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/break_room)
+"vhl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "vhn" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
@@ -62144,6 +62169,7 @@
 /obj/structure/sign/warning/xeno_mining{
 	pixel_x = -32
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "vrL" = (
@@ -62946,6 +62972,18 @@
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
+"vFY" = (
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
+	dir = 4
+	},
+/obj/machinery/meter,
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "vGg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -66268,6 +66306,16 @@
 /obj/item/wrench,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
+"wON" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 4;
+	name = "Atmos to Loop"
+	},
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "wOQ" = (
 /turf/closed/wall,
 /area/station/security/execution/transfer)
@@ -68384,6 +68432,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "xBt" = (
@@ -104707,10 +104756,10 @@ uqo
 szX
 htp
 bhv
-gkD
+vhl
 tBy
 roK
-gkD
+lXz
 gxC
 gkD
 lIb
@@ -104967,7 +105016,7 @@ xZF
 xZF
 arc
 exh
-xZF
+vFY
 maF
 tRw
 bGZ
@@ -107017,7 +107066,7 @@ lGP
 wLm
 mPP
 xvT
-jMY
+wON
 fjk
 ukw
 cUb
@@ -107274,7 +107323,7 @@ cHl
 wLm
 mPP
 xvT
-jMY
+kBC
 pZN
 cwS
 qFA
