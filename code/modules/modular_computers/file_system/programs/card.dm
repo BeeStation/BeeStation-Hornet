@@ -172,7 +172,10 @@
 				// tablet program doesn't change bank status. check 'card.dm' for the detail
 				var/assign_source = get_log_source(user_id_card)
 				if(target_id_card.needs_acting_head_for(jobdatum))
-					target_id_card.grant_acting_head(jobdatum, assign_source, usr)
+					if(!target_id_card.grant_acting_head(jobdatum, assign_source, usr))
+						to_chat(usr, span_warning("Someone is already Acting [jobdatum.title]."))
+						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+						return
 				else
 					target_id_card.assign_job(jobdatum, usr)
 					log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")

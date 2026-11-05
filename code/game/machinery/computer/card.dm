@@ -674,8 +674,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 					var/assign_source = "[inserted_scan_id]"
 					if(inserted_modify_id.needs_acting_head_for(jobdatum))
-						inserted_modify_id.grant_acting_head(jobdatum, assign_source, usr)
-						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+						if(inserted_modify_id.grant_acting_head(jobdatum, assign_source, usr))
+							playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+						else
+							to_chat(usr, span_warning("Someone is already Acting [jobdatum.title]."))
+							playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 						updateUsrDialog()
 						return
 					inserted_modify_id.assign_job(jobdatum, usr)

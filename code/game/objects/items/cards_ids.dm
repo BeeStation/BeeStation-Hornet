@@ -345,12 +345,14 @@
 	withheld_skeleton_access = null
 	job_title = null
 
-/// Replaces any current acting role
+/// Replaces any current acting role. null if existing acting head on that job
 /obj/item/card/id/proc/grant_acting_head(datum/job/head_job, source, mob/user, announce = TRUE)
 	RETURN_TYPE(/datum/access_grant/acting_head)
 	// Replacing it would restart skeleton crew handovers for this job
 	if(acting_head?.job.type == head_job.type && !acting_head.revoking)
 		return acting_head
+	if(acting_head?.job.type != head_job.type && SSjob.has_acting_head(head_job.title))
+		return null
 	acting_head?.revoke("replaced", user)
 	var/list/held_before = GetAccess()
 	new /datum/access_grant/acting_head(src, head_job, source)
