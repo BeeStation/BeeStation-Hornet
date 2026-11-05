@@ -236,6 +236,8 @@
 /obj/item/card/id/proc/add_access(list/access_to_add, source, mob/user)
 	if(isnull(access_to_add))
 		return FALSE
+	if(!islist(access_to_add))
+		access_to_add = list(access_to_add)
 	var/list/added = access_to_add - access
 	access |= access_to_add
 	if(source && length(added))

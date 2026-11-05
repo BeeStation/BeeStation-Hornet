@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
 	for(var/obj/item/card/id/id_card as anything in idcards)
 		if(length(id_card.access))
 			id_card.remove_access(list(pick(id_card.access)))
-			id_card.add_access(list(pick(accesses_to_add)))
+			id_card.add_access(pick(accesses_to_add))
 
 //===================
 // Reality Destabilizer
