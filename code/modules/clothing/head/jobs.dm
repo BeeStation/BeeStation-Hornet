@@ -143,22 +143,21 @@
 	. = ..()
 	. += span_notice("Alt-click to take a candy corn. Control-click to adjust it.")
 
-/obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
-	. = ..()
-	if(loc != user || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-		return
-	if(candy_cooldown < world.time)
-		var/obj/item/food/candy_corn/CC = new /obj/item/food/candy_corn(src)
-		user.put_in_hands(CC)
-		to_chat(user, "You slip a candy corn from your hat.")
-		candy_cooldown = world.time+1200
-	else
-		to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
+/// Now to solve where all these keep coming from
+/obj/item/clothing/head/fedora/det_hat/click_alt(mob/user)
+	if(!COOLDOWN_FINISHED(src, candy_cooldown))
+		to_chat(user, span_warning("A candy corn was just taken! You should wait a couple minutes, lest you burn through the stash."))
+		return CLICK_ACTION_BLOCKING
 
-/obj/item/clothing/head/fedora/det_hat/CtrlClick(mob/user)
-	..()
-	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		flip(user)
+	var/obj/item/food/candy_corn/sweets = new /obj/item/food/candy_corn(src)
+	user.put_in_hands(sweets)
+	to_chat(user, span_notice("You slip a candy corn from \the [src]."))
+	COOLDOWN_START(src, candy_cooldown, CANDY_CD_TIME)
+
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/clothing/head/fedora/det_hat/click_
+	flip(user)
 
 /obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
 	if(!user.incapacitated && adjustable == TRUE)

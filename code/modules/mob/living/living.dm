@@ -1254,9 +1254,9 @@
 	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
 		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
-			ignore_flags |= IGNORE_RESTRAINTS
+			ignore_flags |= INCAPABLE_RESTRAINTS
 		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
-			ignore_flags |= IGNORE_GRAB
+			ignore_flags |= INCAPABLE_GRAB
 
 		if(INCAPACITATED_IGNORING(src, ignore_flags))
 			to_chat(src, span_warning("You are incapacitated at the moment!"))
@@ -1320,6 +1320,15 @@
 		to_chat(src, span_warning("You need gravity to do this!"))
 		return FALSE
 
+	return TRUE
+
+/mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, span_warning("You are unable to fire this!"))
+		return FALSE
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && (!ISADVANCEDTOOLUSER(src) && !HAS_TRAIT(src, TRAIT_GUN_NATURAL)))
+		to_chat(src, span_warning("You try to fire [G], but can't use the trigger!"))
+		return FALSE
 	return TRUE
 
 /mob/living/proc/update_stamina()

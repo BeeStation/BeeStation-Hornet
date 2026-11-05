@@ -165,6 +165,7 @@
 	return
 
 /atom/proc/ai_click_alt(mob/living/silicon/ai/user)
+	SHOULD_CALL_PARENT(FALSE)
 	return
 
 /atom/proc/AIShiftClick(mob/living/silicon/ai/user)
@@ -186,15 +187,16 @@
 
 /obj/machinery/door/airlock/ai_click_alt(mob/living/silicon/ai/user)
 	if(obj_flags & EMAGGED)
-		return
+		return NONE
 
 	if(!allowed(user))
-		return
+		return NONE
 
 	if(!secondsElectrified)
 		shock_perm(user)
 	else
 		shock_restore(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/door/airlock/AIShiftClick(mob/living/silicon/ai/user)  // Opens and closes doors!
 	if(obj_flags & EMAGGED)
@@ -258,16 +260,17 @@
 /// Toggle APC equipment settings
 /obj/machinery/power/apc/ai_click_alt(mob/living/silicon/ai/user)
 	if(!can_use(user, loud = TRUE))
-		return
+		return NONE
 
 	if(!is_operational || failure_timer)
-		return
+		return CLICK_ACTION_BLOCKING
 
 	add_hiddenprint(user)
 	equipment = equipment ? APC_CHANNEL_OFF : APC_CHANNEL_ON
 	user.log_message("turned [equipment ? "on" : "off"] the [src] equipment settings", LOG_GAME)
 	update_appearance()
 	update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/power/apc/attack_ai_secondary(mob/living/silicon/user, list/modifiers)
 	if(!can_use(user, loud = TRUE))
@@ -280,10 +283,11 @@
 /* AI Turrets */
 /obj/machinery/turretid/ai_click_alt(mob/living/silicon/ai/user) //toggles lethal on turrets
 	if(!allowed(user))
-		return
+		return CLICK_ACTION_BLOCKING
 	if(ailock)
 		return
 	toggle_lethal(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
 	if(!allowed(user))
@@ -298,6 +302,7 @@
 		return
 	hangup_all_calls()
 	add_hiddenprint(user)
+	return CLICK_ACTION_SUCCESS
 
 /* Atmos machines */
 /obj/machinery/atmospherics/components/AICtrlClick(mob/living/silicon/ai/user)

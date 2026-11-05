@@ -56,7 +56,7 @@
 		return CLICK_ACTION_BLOCKING
 
 	activate(user)
-	to_chat(user, span_notice("Sound emitter activated."), confidential = TRUE)
+	to_chat(user, span_notice("Sound emitter activated."))
 	return CLICK_ACTION_SUCCESS
 
 /obj/effect/sound_emitter/proc/edit_emitter(mob/user)

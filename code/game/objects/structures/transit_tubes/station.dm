@@ -46,8 +46,8 @@
 	pod.update_appearance(UPDATE_ICON_STATE)
 
 //pod insertion
-/obj/structure/transit_tube/station/mouse_drop_receive(obj/structure/c_transit_tube_pod/R, mob/user, params)
-	if (!istype(R) || get_dist(user, src) > 1 || get_dist(src, R) > 1)
+/obj/structure/transit_tube/station/mouse_drop_receive(obj/structure/c_transit_tube_pod/unattached_pod, mob/user, params)
+	if (!istype(unattached_pod) || get_dist(user, src) > 1 || get_dist(src, unattached_pod) > 1)
 		return
 	if(locate(/obj/structure/transit_tube_pod) in loc)
 		return //no fun allowed

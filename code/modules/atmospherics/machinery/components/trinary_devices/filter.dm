@@ -26,14 +26,16 @@
 		return CLICK_ACTION_SUCCESS
 	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/trinary/filter/AltClick(mob/user)
-	if(can_interact(user))
-		transfer_rate = MAX_TRANSFER_RATE
-		investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
-		balloon_alert(user, "volume output set to [transfer_rate] L/s")
-		update_icon()
-		ui_update()
-	return
+/obj/machinery/atmospherics/components/trinary/filter/click_alt(mob/user)
+	if(transfer_rate == MAX_TRANSFER_RATE)
+		return CLICK_ACTION_BLOCKING
+
+	transfer_rate = MAX_TRANSFER_RATE
+	investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
+	balloon_alert(user, "volume output set to [transfer_rate] L/s")
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/trinary/filter/update_overlays()
 	. = ..()

@@ -32,10 +32,9 @@
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
 
-/obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/machinery/computer/mouse_drop_receive(mob/living/dropping, mob/user, params)
 	. = ..()
-
-	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	// We add the component only once here & not in Initialize() because there are tons of computers & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/computer/Destroy()

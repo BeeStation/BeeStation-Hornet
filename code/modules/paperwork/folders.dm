@@ -50,12 +50,11 @@
 		update_icon()
 		ui_update()
 
-/obj/item/folder/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(length(contents))
+/obj/item/folder/attack_hand(mob/user, list/modifiers)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		remove_item(contents[1], user)
+		return TRUE
+	. = ..()
 
 /obj/item/folder/update_overlays()
 	. = ..()

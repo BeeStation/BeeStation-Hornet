@@ -54,6 +54,7 @@
 	)
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	///The type of door frame to drop during deconstruction
 	var/assemblytype = /obj/structure/door_assembly
@@ -661,10 +662,10 @@
 		. += span_notice("Alt-click [src] to [ secondsElectrified ? "un-electrify" : "permanently electrify"] it.")
 		. += span_notice("Ctrl-Shift-click [src] to [ emergency ? "disable" : "enable"] emergency access.")
 
-/obj/machinery/door/airlock/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/machinery/door/airlock/mouse_drop_receive(mob/living/dropping, mob/user, params)
 	. = ..()
-
-	//Adds the component only once. We do it here & not in Initialize() because there are tons of airlocks & we don't want to add to their init times
+	// We add the component only once here & not in Initialize() because there are tons of airlocks & we don't want to add to their init times
+	// This is on airlock rather than on door because windoors are door and leaning looks whack on windoors
 	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/door/airlock/attack_silicon(mob/user)

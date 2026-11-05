@@ -98,7 +98,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/structure/window/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
 	if (flags_1 & ON_BORDER_1)
 		return

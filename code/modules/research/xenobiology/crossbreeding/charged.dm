@@ -171,7 +171,7 @@ Charged extracts:
 	var/list/choice_list = list()
 	for(var/datum/species/species_type as anything in subtypesof(/datum/species/oozeling))
 		choice_list[initial(species_type.name)] = species_type
-	var/racechoice = tgui_input_list(human_user, "Choose your slime subspecies", "Slime Selection", sort_list(choice_list))
+	var/racechoice = tgui_input_list(H, "Choose your slime subspecies", "Slime Selection", sort_list(choice_list))
 	if(isnull(racechoice))
 		to_chat(user, span_notice("You decide not to become a slime for now."))
 		return

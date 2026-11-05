@@ -1,5 +1,5 @@
 /obj/machinery/computer/prisoner
-	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_REQUIRES_LITERACY
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON
 	var/obj/item/card/id/gulag/contained_id
 	interaction_flags_click = ALLOW_SILICON_REACH
 

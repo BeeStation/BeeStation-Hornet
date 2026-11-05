@@ -288,7 +288,7 @@
 	var/choice = show_radial_menu(user, src, isAI(user) ? ai_radial_options : radial_options, require_near = !issilicon(user))
 
 	// post choice verification
-	if(operating || panel_open || (!vampire_charging_capable && !anchored) || !user.can_perform_action(src, ALLOW_SILICON_REACH))
+	if(operating || panel_open || !anchored || !user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return
 	if(isAI(user) && (machine_stat & NOPOWER))
 		return

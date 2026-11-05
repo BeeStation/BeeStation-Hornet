@@ -136,12 +136,12 @@
 	setDir(SOUTH)
 	return ..()
 
-/obj/vehicle/sealed/mecha/add_occupant(mob/M, control_flags)
+/obj/vehicle/sealed/mecha/add_occupant(mob/driver, control_flags)
 	RegisterSignal(driver, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick), TRUE)
 	RegisterSignal(driver, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble), TRUE)
 	RegisterSignal(driver, COMSIG_MOVABLE_KEYBIND_FACE_DIR, PROC_REF(on_turn), TRUE)
 	RegisterSignal(driver, COMSIG_MOB_ALTCLICKON, PROC_REF(on_click_alt))
-	RegisterSignal(M, COMSIG_MOB_STATCHANGE, PROC_REF(on_occupant_statchange), TRUE)
+	RegisterSignal(driver, COMSIG_MOB_STATCHANGE, PROC_REF(on_occupant_statchange), TRUE)
 	. = ..()
 	update_appearance()
 
