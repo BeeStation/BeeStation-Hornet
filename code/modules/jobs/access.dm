@@ -173,7 +173,7 @@
 /proc/get_all_accesses()
 	var/list/access_list = list() // do not do this as a static - SSdepartment might return a modified station access list
 	for(var/datum/department_group/dept_datum as anything in SSdepartment.get_department_by_bitflag(DEPT_BITFLAG_STATIONS))
-		access_list += dept_datum.access_list
+		access_list |= dept_datum.access_list
 	return access_list
 
 /proc/get_all_centcom_access()

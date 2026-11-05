@@ -261,16 +261,15 @@
 		log_access_change(removed, source, user, granting = FALSE)
 	return TRUE
 
-/// Head-only access goes on as a temporary grant, the rest permanently
+/// Head-only access goes on as a temporary grant
+/// Remaining are added permanently, including crew access the card only held temporarily! (dont fuck that part up)
 /obj/item/card/id/proc/add_console_access(list/access_to_add, source, mob/user)
-	var/list/head_only = _get_head_only(access_to_add)
-	var/list/restored = _restore_skeleton_access(access_to_add) | _restore_acting_head_access(head_only, source, user)
-	// Don't edit the caller's list. It can be a department's access list
-	access_to_add = access_to_add - restored
-	head_only -= restored
+	var/list/head_only = get_head_only(access_to_add)
+	LAZYREMOVE(withheld_skeleton_access, access_to_add)
+	_restore_acting_head_access(head_only, source, user)
 	add_access(access_to_add - head_only, source, user)
-	// Skeleton crew and acting head access don't count as held, so the console grant outlives them
-	var/list/temporary = head_only - get_non_skeleton_access(except = acting_head)
+	// leave alone head access the card has already
+	var/list/temporary = head_only - GetAccess()
 	if(length(temporary))
 		grant_temporary_access(temporary, source, user)
 
@@ -284,27 +283,18 @@
 	remove_access(access_to_remove, user = user)
 	log_access_change(removed, source, user, granting = FALSE)
 
-/// Stops withholding these skeleton access. Returns the ones skeleton crew rules cover again
-/obj/item/card/id/proc/_restore_skeleton_access(list/access_list)
-	PRIVATE_PROC(TRUE)
-	if(!withheld_skeleton_access)
-		return list()
-	var/list/restored = access_list & withheld_skeleton_access
-	LAZYREMOVE(withheld_skeleton_access, access_list)
-	return restored & get_skeleton_access()
-
-/// Gives the acting head back access its job grants that a console removed. Returns what it gave back
+/// Gives the acting head back access its job grants that a console removed
 /obj/item/card/id/proc/_restore_acting_head_access(list/access_list, source, mob/user)
 	PRIVATE_PROC(TRUE)
 	if(!acting_head)
-		return list()
+		return
 	var/list/restored = access_list & (acting_head.job.get_access() - acting_head.access)
 	if(length(restored))
 		log_access_change(restored, "[source] (restored to acting [acting_head.job.title] appointment)", user, granting = TRUE)
 		acting_head.access |= restored
-	return restored
 
-/obj/item/card/id/proc/_get_head_only(list/access_list)
+/// Accesses that consoles can only grant temporarily
+/obj/item/card/id/proc/get_head_only(list/access_list)
 	PRIVATE_PROC(TRUE)
 	. = access_list & SSdepartment.get_head_only_access()
 	var/datum/job/own_job = SSjob.get_job(job_title)

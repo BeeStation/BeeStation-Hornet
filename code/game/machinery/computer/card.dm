@@ -493,6 +493,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return ""
 	var/list/access_cards = list()
 	var/list/card_access = inserted_modify_id.GetAccess()
+	var/list/head_only = inserted_modify_id.get_head_only(card_access)
 	for(var/datum/department_group/each_dept in SSdepartment.sorted_department_for_access)
 		if(authenticated == 1 && !(each_dept.department_bitflags & accessible_region_bitflag))
 			continue
@@ -503,7 +504,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		for(var/each_access in each_dept.access_list)
 			if(each_access in card_access)
 				var/temporary = !(each_access in inserted_modify_id.access)
-				card_html += "<a class='idc-access-item granted[temporary ? " temporary" : ""]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'>[get_access_desc(each_access)]</a>"
+				// upgrade temp access to permanent
+				var/make_permanent = temporary && !(each_access in head_only)
+				card_html += "<a class='idc-access-item granted[temporary ? " temporary" : ""]'[make_permanent ? " title='Click to make permanent'" : ""] href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=[make_permanent]'>[get_access_desc(each_access)]</a>"
 			else
 				card_html += "<a class='idc-access-item' style='border-left-color:[each_dept.dept_colour]' href='byond://?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[get_access_desc(each_access)]</a>"
 		card_html += "</div>"

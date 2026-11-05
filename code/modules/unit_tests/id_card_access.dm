@@ -138,6 +138,8 @@
 	card.grant_acting_head(chief, "unit test")
 	card.add_console_access(get_all_accesses(), "unit test")
 	TEST_ASSERT(!length(card.access & head_only), "Grant all made acting CE access permanent")
+	card.acting_head.revoke()
+	TEST_ASSERT(!length(card.get_non_skeleton_access() & head_only), "Grant all kept acting CE access after the appointment")
 
 	var/obj/item/card/id/chief_card = allocate(/obj/item/card/id)
 	chief_card.job_title = JOB_NAME_CHIEFENGINEER
@@ -358,7 +360,7 @@
 	withheld_card.add_console_access(list(ACCESS_CE, ACCESS_ATMOSPHERICS), "unit test")
 	TEST_ASSERT(ACCESS_CE in withheld_card.GetAccess(), "Turned back on CE skeleton access missing")
 	TEST_ASSERT(ACCESS_ATMOSPHERICS in withheld_card.GetAccess(), "Turned back on atmos skeleton access missing")
-	TEST_ASSERT(!(ACCESS_ATMOSPHERICS in withheld_card.access), "Turned back on atmos skeleton access is permanent")
+	TEST_ASSERT(ACCESS_ATMOSPHERICS in withheld_card.access, "Turned back on atmos skeleton access not permanent")
 
 	var/obj/item/card/id/transfer_card = allocate(/obj/item/card/id)
 	transfer_card.assign_job(atmos_tech)
