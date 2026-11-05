@@ -20575,6 +20575,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "External Gas to Loop"
+	},
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "hTG" = (
@@ -23400,14 +23405,6 @@
 	},
 /turf/open/floor/engine,
 /area/station/engineering/atmos)
-"jce" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "External Gas to Loop"
-	},
-/turf/open/floor/iron,
-/area/station/engineering/main)
 "jcf" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -41863,6 +41860,13 @@
 /obj/structure/wall_closet/generic/directional/south,
 /turf/open/floor/prison,
 /area/station/security/prison)
+"pJF" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/station/engineering/main)
 "pJS" = (
 /obj/structure/sign/poster/official/cleanliness,
 /turf/closed/wall,
@@ -59999,6 +60003,14 @@
 	dir = 4
 	},
 /area/station/cargo/miningdock)
+"wIf" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/engineering/main)
 "wIg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62195,6 +62207,13 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/security)
+"xzR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/station/engineering/main)
 "xzX" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/solar{
@@ -95648,9 +95667,9 @@ wxW
 ajW
 mfu
 akq
-fSq
-jce
-xAu
+pJF
+sYK
+fop
 hPJ
 nRE
 sPg
@@ -97447,9 +97466,9 @@ xUV
 iCV
 mfu
 cSK
-ijC
+xzR
 hTF
-fop
+wIf
 hPJ
 oxe
 fSm

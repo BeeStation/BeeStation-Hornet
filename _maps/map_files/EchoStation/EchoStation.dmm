@@ -38341,7 +38341,7 @@
 /area/station/service/janitor)
 "xfX" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},

@@ -7177,6 +7177,14 @@
 	burnt = 1
 	},
 /area/station/maintenance/port/aft)
+"cUb" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/station/engineering/main)
 "cUc" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -14393,8 +14401,8 @@
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 1
 	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
@@ -18312,6 +18320,15 @@
 "gzL" = (
 /turf/closed/wall/rust,
 /area/station/service/library)
+"gzO" = (
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "gzR" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/sink/kitchen/directional/south{
@@ -31522,14 +31539,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/bar/atrium)
-"kWM" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/effect/turf_decal/box,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/open/floor/iron/dark,
-/area/station/engineering/main)
 "kXi" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/airalarm/directional/east,
@@ -105210,9 +105219,9 @@ uDE
 dWS
 xxJ
 hGY
-uew
-ukw
-kWM
+gzO
+meU
+hsi
 cNh
 xKo
 qDw
@@ -107010,8 +107019,8 @@ mPP
 xvT
 jMY
 fjk
-meU
-hsi
+ukw
+cUb
 iNJ
 dCe
 gZF

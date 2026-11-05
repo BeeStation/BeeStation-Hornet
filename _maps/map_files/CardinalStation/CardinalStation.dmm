@@ -7182,8 +7182,8 @@
 /area/station/service/theater)
 "bKt" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 1
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/main)
@@ -24721,8 +24721,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 8
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/main)
@@ -53338,10 +53338,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/main)
 "mxN" = (
@@ -59481,10 +59478,6 @@
 "nUs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "External Gas to Loop"
 	},
 /turf/open/floor/iron/techmaint,
 /area/station/engineering/main)
@@ -79670,10 +79663,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/catwalk_floor/iron,
 /area/station/maintenance/department/chapel)
-"sIB" = (
-/obj/structure/cable,
-/turf/open/floor/iron/techmaint,
-/area/station/engineering/main)
 "sIP" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Quarters"
@@ -87329,12 +87318,6 @@
 	dir = 1
 	},
 /area/station/science/robotics/lab)
-"uzj" = (
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/portable_thermomachine,
-/turf/open/floor/iron/techmaint,
-/area/station/engineering/main)
 "uzm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/closed/wall,
@@ -136468,8 +136451,8 @@ cKp
 dgn
 ofv
 bKt
-sIB
-uzj
+vYh
+rZm
 mjZ
 afK
 afK

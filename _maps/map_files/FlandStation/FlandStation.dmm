@@ -15012,14 +15012,11 @@
 /turf/open/floor/iron/techmaint,
 /area/station/science/robotics/mechbay)
 "evP" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "ewh" = (
@@ -22888,12 +22885,10 @@
 /area/station/hallway/primary/central)
 "gQB" = (
 /obj/machinery/meter,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 6
 	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "gQL" = (
@@ -26853,12 +26848,6 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/station/hallway/primary/port)
-"hXo" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/ameridiner,
-/area/station/engineering/supermatter/room)
 "hXx" = (
 /obj/item/shuttle_creator,
 /turf/open/floor/dock/drydock,
@@ -29997,14 +29986,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/station/security/execution/transfer)
-"iRH" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "External Gas to Loop"
-	},
-/turf/open/floor/iron/dark,
-/area/station/engineering/supermatter/room)
 "iRT" = (
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
 /obj/effect/turf_decal/guideline/guideline_in/blue,
@@ -32521,10 +32502,10 @@
 	},
 /area/docking/arrival)
 "jzT" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "jAe" = (
@@ -36262,11 +36243,12 @@
 /turf/open/floor/prison,
 /area/station/security/prison)
 "kCJ" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 9
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "kCL" = (
 /obj/machinery/door/firedoor,
@@ -55513,7 +55495,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "qpM" = (
@@ -64386,7 +64371,6 @@
 /turf/open/floor/circuit/red,
 /area/station/ai_monitored/turret_protected/ai)
 "sYD" = (
-/obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/ameridiner,
@@ -65051,9 +65035,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "tiE" = (
@@ -69816,6 +69798,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"uFq" = (
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/ameridiner,
+/area/station/engineering/supermatter/room)
 "uFR" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -72065,6 +72054,11 @@
 "vmR" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8;
+	name = "External Gas to Loop"
+	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "vmT" = (
@@ -130548,7 +130542,7 @@ rms
 lgu
 vJS
 sYD
-hXo
+wmU
 gQB
 sSY
 xCi
@@ -130805,7 +130799,7 @@ rms
 dUt
 aeM
 jzT
-lEn
+uFq
 kCJ
 aaw
 lTa
@@ -131070,7 +131064,7 @@ uMF
 izO
 aaw
 aOL
-iRH
+tsV
 cic
 pWG
 nsv

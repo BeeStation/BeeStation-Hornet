@@ -3245,6 +3245,13 @@
 /obj/machinery/computer/slot_machine,
 /turf/open/floor/prison,
 /area/station/security/prison)
+"bBj" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/station/engineering/main)
 "bBx" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -5518,6 +5525,11 @@
 /area/station/service/chapel/office)
 "cJj" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "External Gas to Loop"
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "cJo" = (
@@ -30393,11 +30405,6 @@
 /area/station/security/checkpoint/engineering)
 "mGb" = (
 /obj/item/wrench,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "External Gas to Loop"
-	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/main)
 "mGo" = (
@@ -33626,8 +33633,8 @@
 "nWZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
@@ -39449,6 +39456,14 @@
 	},
 /turf/open/floor/wood,
 /area/station/security/prison)
+"qtr" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/open/floor/iron/dark,
+/area/station/engineering/main)
 "qtB" = (
 /obj/structure/chair/office,
 /obj/machinery/camera/directional/north,
@@ -86768,7 +86783,7 @@ qPN
 dVH
 nWZ
 mGb
-cQG
+oNK
 vem
 byO
 xlQ
@@ -88565,9 +88580,9 @@ bhG
 oDX
 poF
 iMo
-uhj
+bBj
 cJj
-oNK
+qtr
 ozi
 mLA
 xHz
