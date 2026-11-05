@@ -4029,7 +4029,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/shovel/spade,
 /obj/item/wrench,
 /obj/item/crowbar/red,
 /obj/item/cultivator,

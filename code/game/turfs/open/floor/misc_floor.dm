@@ -214,7 +214,7 @@
 	name = "bronze floor"
 	desc = "Some heavy bronze tiles."
 	icon_state = "clockwork_floor"
-	floor_tile = /obj/item/stack/sheet/bronze
+	floor_tile = /obj/item/stack/tile/mineral/bronze
 
 /turf/open/floor/bronze/flat
 	icon_state = "reebe"

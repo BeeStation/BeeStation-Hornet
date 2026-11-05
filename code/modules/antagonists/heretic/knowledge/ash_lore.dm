@@ -35,9 +35,9 @@
 		/datum/heretic_knowledge/limited_amount/base_rust,
 		/datum/heretic_knowledge/limited_amount/base_flesh,
 		/datum/heretic_knowledge/limited_amount/base_void,
-		/datum/heretic_knowledge/final/rust_final,
-		/datum/heretic_knowledge/final/flesh_final,
-		/datum/heretic_knowledge/final/void_final,
+		/datum/heretic_knowledge/ultimate/rust_final,
+		/datum/heretic_knowledge/ultimate/flesh_final,
+		/datum/heretic_knowledge/ultimate/void_final,
 	)
 	required_atoms = list(
 		/obj/item/knife = 1,
@@ -206,7 +206,7 @@
 	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
 		The Nightwatcher was a particular man, always watching."
 	next_knowledge = list(
-		/datum/heretic_knowledge/final/ash_final,
+		/datum/heretic_knowledge/ultimate/ash_final,
 		/datum/heretic_knowledge/summon/ashy,
 		/datum/heretic_knowledge/spell/cleave,
 	)
@@ -214,7 +214,7 @@
 	cost = 1
 	route = HERETIC_PATH_ASH
 
-/datum/heretic_knowledge/final/ash_final
+/datum/heretic_knowledge/ultimate/ash_final
 	name = "Ashlord's Rite"
 	desc = "The ascension ritual of the Path of Ash. \
 		Bring three burning or husked corpses to a transumation rune to complete the ritual. \
@@ -238,7 +238,7 @@
 		TRAIT_NOFIRE,
 	)
 
-/datum/heretic_knowledge/final/ash_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
+/datum/heretic_knowledge/ultimate/ash_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	. = ..()
 	if(!.)
 		return
@@ -249,7 +249,7 @@
 		return TRUE
 	return FALSE
 
-/datum/heretic_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	priority_announce("[generate_heretic_text()] Fear the blaze, for the Ashlord, [user.real_name] has ascended! The flames shall consume all! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	var/datum/action/spell/fire_sworn/circle_spell = new(user.mind)
@@ -260,5 +260,5 @@
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)
 	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
-/datum/heretic_knowledge/final/ash_final/on_lose(mob/user)
+/datum/heretic_knowledge/ultimate/ash_final/on_lose(mob/user)
 	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
