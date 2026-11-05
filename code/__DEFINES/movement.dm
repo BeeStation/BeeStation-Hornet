@@ -108,18 +108,3 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define GRAVITY_JOULE_REQUIREMENT 100
 /// Amount to increase consumption by
 #define JETPACK_COMBUSTION_CONSUMPTION_ADJUSTMENT 500
-
-// The pressure at which jetpacks begin to slowdown
-#define JETPACK_FAST_PRESSURE_MIN 20
-// The pressure at which jetpacks reach their min speed
-#define JETPACK_FAST_PRESSURE_MAX 80
-
-#define JETPACK_SPEED_CHECK(user, movespeed_id, speed, full_speed) \
-	var/datum/gas_mixture/__env = loc.return_air();\
-	if(full_speed && __env.return_pressure() < JETPACK_FAST_PRESSURE_MAX) {\
-		var/__proportion = CLAMP01(1 - ((__env.return_pressure() - JETPACK_FAST_PRESSURE_MIN) / (JETPACK_FAST_PRESSURE_MAX - JETPACK_FAST_PRESSURE_MIN)));\
-		user.add_or_update_variable_movespeed_modifier(movespeed_id, multiplicative_slowdown=speed * __proportion);\
-	} else {\
-		user.remove_movespeed_modifier(movespeed_id);\
-	}
-

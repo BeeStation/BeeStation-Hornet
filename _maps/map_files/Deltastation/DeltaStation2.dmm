@@ -2396,7 +2396,6 @@
 /obj/item/cultivator,
 /obj/item/hatchet,
 /obj/item/wirecutters,
-/obj/item/shovel/spade,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/station/service/hydroponics)
