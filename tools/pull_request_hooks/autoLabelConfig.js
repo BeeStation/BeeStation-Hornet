@@ -37,6 +37,10 @@ export const file_labels = {
     filepaths: ['tgui/'],
     add_only: true,
   },
+  Administration: {
+    filepaths: ['code/modules/admin/'],
+    add_only: true,
+  },
 };
 
 // Title Labels
