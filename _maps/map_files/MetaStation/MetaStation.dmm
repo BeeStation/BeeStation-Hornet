@@ -33427,7 +33427,7 @@
 	dir = 4;
 	name = "Cooling Loop bypass"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible,
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "lTq" = (
