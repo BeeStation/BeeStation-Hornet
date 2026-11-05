@@ -46,7 +46,7 @@
 		return
 	if(over != user)
 		return
-	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH))
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 		return
 
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.

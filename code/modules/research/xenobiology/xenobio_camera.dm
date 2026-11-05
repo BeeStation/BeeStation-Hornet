@@ -112,7 +112,7 @@
 	..()
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/user)
-	..()
+	. = ..()
 
 	if(slime_up_action)
 		slime_up_action.Grant(user)
@@ -143,7 +143,7 @@
 		actions += hotkey_help
 
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, PROC_REF(XenoSlimeClickCtrl))
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, PROC_REF(XenoSlimeClickAlt))
+	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(XenoSlimeClickAlt))
 	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, PROC_REF(XenoSlimeClickShift))
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, PROC_REF(XenoTurfClickShift))
 	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, PROC_REF(XenoTurfClickCtrl))
@@ -157,13 +157,15 @@
 				connected_recycler.connected += src
 
 /obj/machinery/computer/camera_advanced/xenobio/remove_eye_control(mob/living/user)
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL)
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT)
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT)
-	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT)
-	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL)
-	UnregisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL)
-	..()
+	UnregisterSignal(user, list(
+		COMSIG_XENO_SLIME_CLICK_CTRL,
+		COMSIG_MOB_ALTCLICKON,
+		COMSIG_XENO_SLIME_CLICK_SHIFT,
+		COMSIG_XENO_TURF_CLICK_SHIFT,
+		COMSIG_XENO_TURF_CLICK_CTRL,
+		COMSIG_XENO_MONKEY_CLICK_CTRL,
+		))
+	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/on_contents_del(datum/source, atom/deleted)
 	SIGNAL_HANDLER
@@ -374,11 +376,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_CTRL, src)
 	..()
 
-//Feeds a potion to slime
-/mob/living/simple_animal/slime/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, src)
-	..()
-
 //Picks up slime
 /mob/living/simple_animal/slime/ShiftClick(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_SHIFT, src)
@@ -418,6 +415,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 //Feeds a potion to slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickAlt(mob/living/user, mob/living/simple_animal/slime/S)
 	SIGNAL_HANDLER
+
+	. = COMSIG_MOB_CANCEL_CLICKON
+	if(!isslime(target_slime))
+		return
 
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, span_warning("Target is not near a camera. Cannot proceed."))

@@ -101,7 +101,7 @@
 /datum/component/obeys_commands/proc/display_menu(mob/living/friend)
 
 	var/mob/living/living_parent = parent
-	if (IS_DEAD_OR_INCAP(living_parent) || friend.stat != CONSCIOUS)
+	if (IS_DEAD_OR_INCAP(living_parent) || !clicker.can_perform_action(living_parent))
 		return
 	if (!(friend in living_parent.ai_controller?.blackboard[BB_FRIENDS_LIST]))
 		return // Not our friend, can't boss us around

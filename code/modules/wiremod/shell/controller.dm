@@ -82,9 +82,11 @@
  */
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
-	if(!user.Adjacent(source))
+	if(!user.can_perform_action(source))
 		return
+
 	source.balloon_alert(user, "Clicked the third button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	entity.set_output(user)
 	ctrl.set_output(COMPONENT_SIGNAL)
+	return CLICK_ACTION_SUCCESS

@@ -1010,11 +1010,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		show_contents(to_show)
 		return FALSE
 
-	if(!resolve_parent.IsReachableBy(to_show))
-		resolve_parent.balloon_alert(to_show, "can't reach!")
-		return FALSE
-
-	if(!isliving(to_show) || to_show.incapacitated)
+	if(!isliving(to_show) || !to_show.can_perform_action(resolve_parent))
 		return FALSE
 
 	if(locked)
