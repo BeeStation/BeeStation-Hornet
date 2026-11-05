@@ -1,4 +1,4 @@
-name: Add Extra PR labels
+name: Check Merge Conflicts
 
 on:
   push:
@@ -16,10 +16,3 @@ jobs:
           dirtyLabel: "Merge Conflict"
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
-      - name: Apply labels based on changed files
-        if: github.event_name != 'push'
-        uses: actions/labeler@v4.3.0
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          sync-labels: true
-          configuration-path: .github/file_labeler.yml
