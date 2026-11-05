@@ -390,88 +390,11 @@
 		user.examinate(src)
 	return
 
-/**
-  * Ctrl click
-  * For most objects, pull
-  */
-/mob/proc/CtrlClickOn(atom/A)
-	A.CtrlClick(src)
-	return
-
-/atom/proc/CtrlClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
-	var/mob/living/ML = user
-	if(istype(ML))
-		ML.pulled(src)
-
-/mob/living/CtrlClick(mob/user)
-	if(!isliving(user) || !IsReachableBy(user) || user.incapacitated)
-		return ..()
-
-	if(world.time < user.next_move)
-		return FALSE
-
-	var/mob/living/user_living = user
-	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == MARTIAL_ATTACK_SUCCESS)
-		user_living.changeNext_move(CLICK_CD_MELEE)
-		return TRUE
-
-	return ..()
-
-/mob/living/carbon/CtrlClick(mob/user)
-
-	if(!iscarbon(user) || !IsReachableBy(user) || user.incapacitated)
-		return ..()
-
-	if(world.time < user.next_move)
-		return FALSE
-
-	if(ishuman(src) && ishuman(user))
-		var/mob/living/carbon/human_user = user
-		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-			human_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
-
-	else
-		var/mob/living/carbon/carbon_user = user
-		if(carbon_user.grab(carbon_user, src, carbon_user.mind.martial_art))
-			carbon_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
-
-	return ..()
-
-/mob/proc/CtrlMiddleClickOn(atom/A)
-	// specifically made for admin feature.
-	if(check_rights_for(client, R_ADMIN))
-		client.toggle_tag_datum(A)
-		return
-	A.CtrlClick(src) // this assumes you did CtrlClick instead of MiddleClick
-	return
-
-/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
-/atom/proc/AltClickNoInteract(mob/user, atom/A)
-	var/turf/T = get_turf(A)
-	if(T && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.set_stat_tab(T.name)
-
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
 
-/**
-  * Control+Shift click
-  * Used for AI and Give code
-  */
-/mob/proc/CtrlShiftClickOn(atom/A)
-	A.CtrlShiftClick(src)
-	return
-
 /mob/proc/ShiftMiddleClickOn(atom/A, params)
 	src._pointed(A, params)
-	return
-
-/atom/proc/CtrlShiftClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_CTRL_SHIFT)
 	return
 
 /*

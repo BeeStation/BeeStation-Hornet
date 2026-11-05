@@ -18,3 +18,8 @@
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 /// from base of /mob/RangedAttack(): (atom/A, modifiers)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
+
+///From base of /mob/base_click_ctrl: (atom/A)
+#define COMSIG_MOB_CTRL_CLICKED "mob_ctrl_clicked"
+///From base of /mob/base_click_ctrl_shift: (atom/A)
+#define COMSIG_MOB_CTRL_SHIFT_CLICKED "mob_ctrl_shift_clicked"

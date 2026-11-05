@@ -17,13 +17,14 @@
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize transfer rate")
 
-/obj/machinery/atmospherics/components/binary/temperature_pump/CtrlClick(mob/user)
-	if(can_interact(user))
+/objmachinery/atmospherics/components/binary/temperature_pump/click_ctrl(mob/user)
+	if(is_operational)
 		on = !on
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/click_alt(mob/user)
 	if(heat_transfer_rate == max_heat_transfer_rate)

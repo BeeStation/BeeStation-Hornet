@@ -35,14 +35,15 @@
 		/obj/item/circuit_component/atmos_volume_pump,
 	))
 
-/obj/machinery/atmospherics/components/binary/volume_pump/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/volume_pump/click_ctrl(mob/user)
+	if(is_operational)
 		set_on(!on)
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 /obj/machinery/atmospherics/components/binary/volume_pump/click_alt(mob/user)
 	if(transfer_rate == MAX_TRANSFER_RATE)

@@ -140,9 +140,13 @@
 		. += span_notice("Heat capacity at <b>[heat_capacity] Joules per Kelvin</b>.")
 		. += span_notice("Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C-min_temperature)*-1]C - [(T0C-max_temperature)*-1]C)</b>.")
 
-/obj/machinery/atmospherics/components/unary/thermomachine/click_alt(mob/living/user)
+/obj/machinery/atmospherics/components/unary/thermomachine/click_ctrl(mob/user)
+	if(!anchored)
+		return NONE
 	if(panel_open)
 		balloon_alert(user, "close panel!")
+		return CLICK_ACTION_BLOCKING
+	if(!is_operational)
 		return CLICK_ACTION_BLOCKING
 
 	if(target_temperature == T20C)

@@ -74,8 +74,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 
 	return ..()
 
-/mob/living/carbon/CtrlShiftClick(mob/user)
-	..()
+/mob/living/carbon/click_ctrl_shift(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		carbon_user.give(src)

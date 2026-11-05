@@ -561,14 +561,12 @@
 					beaker.forceMove(drop_location())
 				return TRUE
 
-/obj/machinery/cryo_cell/CtrlClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || occupant == user)
-		return
-	if(!is_operational || state_open)
-		return
-
-	set_on(!on)
-	balloon_alert(user, "turned [on ? "on" : "off"]")
+/obj/machinery/cryo_cell/click_ctrl(mob/user)
+	if(is_operational && !state_open)
+		set_on(!on)
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 /obj/machinery/cryo_cell/click_alt(mob/user)
 	//Required so players don't close the cryo on themselves without a doctor's help
