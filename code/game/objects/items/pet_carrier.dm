@@ -160,10 +160,9 @@
 	if(!open)
 		. += "[locked ? "" : "un"]locked"
 
-/obj/item/pet_carrier/MouseDrop(atom/over_atom)
-	. = ..()
-	if(isopenturf(over_atom) && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(usr)) && usr.Adjacent(over_atom) && open && occupants.len)
-		usr.visible_message(span_notice("[usr] unloads [src]."), \
+/obj/item/pet_carrier/mouse_drop_dragged(atom/over_atom, mob/user, src_location, over_location, params)
+	if(isopenturf(over_atom) && open && occupants.len)
+		user.visible_message(span_notice("[user] unloads [src]."), \
 		span_notice("You unload [src] onto [over_atom]."))
 		for(var/V in occupants)
 			remove_occupant(V, over_atom)

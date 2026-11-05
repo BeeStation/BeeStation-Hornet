@@ -143,9 +143,8 @@
 			sparks.start() //the most radical way to start plasma fires
 		addtimer(CALLBACK(src, PROC_REF(grind)), 2)
 
-/obj/vehicle/ridden/scooter/skateboard/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/carbon/skater = usr
+/obj/vehicle/ridden/scooter/skateboard/mouse_drop_dragged(atom/over_object, mob/user)
+	var/mob/living/carbon/skater = user
 	if(!istype(skater))
 		return
 	if (over_object == skater)

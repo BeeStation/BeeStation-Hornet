@@ -26,11 +26,11 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
-	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
-
+	interaction_flags_mouse_drop = FORBID_TELEKINESIS_REACH
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null
 	var/obj/item/encryptionkey/keyslot2 = null
+	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 	var/callout_capable = FALSE
 
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
@@ -98,6 +98,10 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/ui_data(mob/user)
 	. = ..()
 	.["headset"] = TRUE
+
+/obj/item/radio/headset/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(user == over)
+		return attack_self(user)
 
 /obj/item/radio/headset/syndicate //disguised to look like a normal headset for stealth ops
 

@@ -12,6 +12,7 @@
 	density = FALSE
 	obj_flags = BLOCKS_CONSTRUCTION
 	state_open = TRUE
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	circuit = /obj/item/circuitboard/machine/sleeper
 	clicksound = 'sound/machines/pda_button1.ogg'
 
@@ -158,12 +159,9 @@
 		open_machine()
 
 
-/obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
-	if(..())
+/obj/machinery/sleeper/mouse_drop_receive(atom/target, mob/user, params)
+	if(!iscarbon(target))
 		return
-	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
-		return
-
 	close_machine(target)
 
 

@@ -674,8 +674,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define ALLOW_RESTING (1<<7)
 /// If this is accessible to creatures with ventcrawl capabilities
 #define NEED_VENTCRAWL (1<<8)
+/// Skips adjacency checks
+#define BYPASS_ADJACENCY (1<<9)
 /// Checks for base adjacency, but silences the error
-#define SILENT_ADJACENCY (1<<9)
+#define SILENT_ADJACENCY (1<<10)
 /// Allows pAIs to perform an action
 #define ALLOW_PAI (1<<12)
 

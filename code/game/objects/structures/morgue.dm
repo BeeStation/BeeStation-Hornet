@@ -21,10 +21,13 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 400
-
-	var/obj/structure/tray/connected = null
-	var/locked = FALSE
+	pass_flags_self = LETPASSTHROW | PASSSTRUCTURE
 	dir = SOUTH
+
+	///The morgue tray this container will open/close to put/take things in/out.
+	var/obj/structure/tray/connected
+	///Boolean on whether we're locked and will not allow the tray to be opened.
+	var/locked = FALSE
 	var/message_cooldown
 	var/breakout_time = 600
 	radiation_shield = TRUE   // Blocks external radiation when closed
@@ -325,10 +328,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
-	var/obj/structure/bodycontainer/connected = null
 	anchored = TRUE
-	pass_flags_self = LETPASSTHROW
+	pass_flags_self = PASSTABLE | LETPASSTHROW
+
 	max_integrity = 350
+
+	///The bodycontainer we are a tray to.
+	var/obj/structure/bodycontainer/connected
 
 /obj/structure/tray/Destroy()
 	if(connected)
@@ -341,8 +347,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
-/obj/structure/tray/attack_paw(mob/user)
-	return attack_hand(user)
+/obj/structure/tray/attack_paw(mob/user, list/modifiers)
+	return attack_hand(user, modifiers)
 
 /obj/structure/tray/attack_robot(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
@@ -351,7 +357,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	. = ..()
 	if(.)
 		return
-	if (src.connected)
+	if (connected)
 		connected.close()
 		add_fingerprint(user)
 	else
@@ -371,12 +377,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(carried_mob == user) //Piggyback user.
 		return
 	user.unbuckle_mob(carried_mob)
-	MouseDrop_T(carried_mob, user)
+	mouse_drop_receive(carried_mob, user)
 
-/obj/structure/tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
-	if(..())
-		return
-	if(!ismovable(O) || O.anchored || !Adjacent(user) || !user.Adjacent(O) || O.loc == user)
+/obj/structure/tray/mouse_drop_receive(atom/movable/O as mob|obj, mob/user, params)
+	if(!ismovable(O) || O.anchored || O.loc == user)
 		return
 	if(!ismob(O))
 		if(!istype(O, /obj/structure/closet/body_bag))
@@ -385,16 +389,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		var/mob/M = O
 		if(M.buckled)
 			return
-	if(!ismob(user) || user.incapacitated)
-		return
-	if(isliving(user))
-		var/mob/living/L = user
-		if(L.body_position == LYING_DOWN)
-			return
 	O.forceMove(src.loc)
 	if (user != O)
 		visible_message(span_warning("[user] stuffs [O] into [src]."))
-	return
 
 /*
  * Crematorium tray
@@ -415,7 +412,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "morgue tray"
 	desc = "Apply corpse before closing."
 	icon_state = "morguet"
-	pass_flags_self = PASSTABLE|LETPASSTHROW
+	pass_flags_self = PASSTABLE | LETPASSTHROW
 
 /obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

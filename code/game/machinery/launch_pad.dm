@@ -251,25 +251,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 
 /obj/machinery/launchpad/briefcase/attack_hand(mob/living/user)
 	. = ..()
-	if(!briefcase || !usr.can_hold_items())
+	if(!briefcase || !user.can_hold_items())
 		return
-	if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
-	usr.visible_message(span_notice("[usr] starts closing [src]..."), span_notice("You start closing [src]..."))
-	if(do_after(usr, 30, target = usr))
-		usr.put_in_hands(briefcase)
+	user.visible_message(span_notice("[user] starts closing [src]..."), span_notice("You start closing [src]..."))
+	if(do_after(user, 30, target = user))
+		user.put_in_hands(briefcase)
 		moveToNullspace() //hides it from suitcase contents
 		closed = TRUE
 		update_indicator()
 
-/obj/machinery/launchpad/briefcase/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr)
-		if(!briefcase || !usr.can_perform_action(src, NEED_DEXTERITY|NEED_HANDS))
+/obj/machinery/launchpad/briefcase/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(over_object == user)
+		if(!briefcase)
 			return
-		usr.visible_message(span_notice("[usr] starts closing [src]..."), span_notice("You start closing [src]..."))
-		if(do_after(usr, 30, target = usr))
-			usr.put_in_hands(briefcase)
+		user.visible_message(span_notice("[user] starts closing [src]..."), span_notice("You start closing [src]..."))
+		if(do_after(user, 30, target = user))
+			user.put_in_hands(briefcase)
 			moveToNullspace() //hides it from suitcase contents
 			closed = TRUE
 			update_indicator()

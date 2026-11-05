@@ -110,6 +110,8 @@
 ///Handles climbing onto the atom when you click-drag
 /datum/element/climbable/proc/mousedrop_receive(atom/climbed_thing, atom/movable/dropped_atom, mob/user, params)
 	SIGNAL_HANDLER
+
+	. = COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(user != dropped_atom || !isliving(dropped_atom))
 		return
 

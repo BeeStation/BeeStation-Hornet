@@ -1266,8 +1266,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else
 				apply_outline()
 
-/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+/obj/item/base_mouse_drop_handler(atom/over, src_location, over_location, params)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	. = ..()
+	
 	remove_outline()
 
 /obj/item/MouseExited()

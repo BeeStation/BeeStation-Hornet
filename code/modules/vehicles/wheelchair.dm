@@ -7,7 +7,8 @@
 	max_integrity = 100
 	armor_type = /datum/armor/ridden_wheelchair
 	canmove = TRUE
-	density = FALSE		//Thought I couldn't fix this one easily, phew
+	density = FALSE
+	interaction_flags_mouse_drop = ALLOW_RESTING
 	move_resist = MOVE_FORCE_WEAK
 	// Run speed delay is multiplied with this for vehicle move delay.
 	var/delay_multiplier = 6.7

@@ -1,5 +1,7 @@
 /obj/vehicle/sealed
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
+	interaction_flags_mouse_drop = NEED_HANDS
+
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
 	/// Is combat indicator on for this vehicle? Boolean.
@@ -57,7 +59,7 @@
 	. = ..()
 	disable_ci(occupant_exiting)
 
-/obj/vehicle/sealed/MouseDrop_T(atom/dropping, mob/M)
+/obj/vehicle/sealed/mouse_drop_receive(atom/dropping, mob/M, params)
 	if(!istype(dropping) || !istype(M))
 		return ..()
 	if(M != dropping)

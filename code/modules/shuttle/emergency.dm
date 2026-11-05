@@ -759,10 +759,6 @@
 		atom_storage?.show_contents(user)
 	return TRUE
 
-/obj/item/storage/pod/MouseDrop(over_object, src_location, over_location)
-	if(can_interact(usr))
-		return ..()
-
 /obj/item/storage/pod/click_alt(mob/user)
 	return CLICK_ACTION_SUCCESS
 

@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	integrity_failure = 0.5
 	max_integrity = 100
 	armor_type = /datum/armor/item_modular_computer
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -265,11 +266,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return TRUE
 	return FALSE
 
-/obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /atom/movable/screen)) && usr.canUseTopic(src, BE_CLOSE))
-		return attack_self(M)
-	return ..()
+/obj/item/modular_computer/mouse_drop_dragged(atom/over_object, mob/user)
+	if(!istype(over_object, /atom/movable/screen))
+		return attack_self(user)
 
 /obj/item/modular_computer/attack_silicon(mob/user)
 	return attack_self(user)

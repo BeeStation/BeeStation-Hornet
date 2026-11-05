@@ -10,9 +10,11 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	circuit = /obj/item/circuitboard/machine/monkey_recycler
 	var/stored_matter = 0
 	var/cube_production = 0.2
+
 	var/list/connected = list()			//Keeps track of connected xenobio consoles, for deletion in /Destroy()
 
 /obj/machinery/monkey_recycler/Initialize(mapload)
@@ -61,9 +63,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	else
 		return ..()
 
-/obj/machinery/monkey_recycler/MouseDrop_T(mob/living/target, mob/living/user)
-	if(..())
-		return
+/obj/machinery/monkey_recycler/mouse_drop_receive(mob/living/target, mob/living/user, params)
 	if(!istype(target))
 		return
 	if(ismonkey(target))

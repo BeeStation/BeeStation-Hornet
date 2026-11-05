@@ -435,12 +435,8 @@
 /obj/structure/closet/proc/after_weld(weld_state)
 	return
 
-/obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
+/obj/structure/closet/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
-		return
-	if(!istype(user) || user.incapacitated || user.body_position == LYING_DOWN)
-		return
-	if(!Adjacent(user) || !user.Adjacent(O))
 		return
 	if(user == O) //try to climb onto it
 		return ..()
@@ -456,14 +452,18 @@
 		return
 	var/turf/T = get_turf(src)
 	add_fingerprint(user)
-	user.visible_message(span_warning("[user] [actuallyismob ? "tries to " : ""]stuff [O] into [src]."), \
-						span_warning("You [actuallyismob ? "try to " : ""]stuff [O] into [src]."), \
-						span_italics("You hear clanging."))
+	user.visible_message(
+		span_warning("[user] [actuallyismob ? "tries to " : ""]stuff [O] into [src]."),
+		span_warning("You [actuallyismob ? "try to " : ""]stuff [O] into [src]."),
+		span_hear("You hear clanging.")
+	)
 	if(actuallyismob)
 		if(do_after(user, 4 SECONDS, O))
-			user.visible_message(span_notice("[user] stuffs [O] into [src]."), \
-								span_notice("You stuff [O] into [src]."), \
-								span_italics("You hear a loud metal bang."))
+			user.visible_message(
+				span_notice("[user] stuffs [O] into [src]."),
+				span_notice("You stuff [O] into [src]."),
+				span_hear("You hear a loud metal bang.")
+			)
 			var/mob/living/L = O
 			if(!issilicon(L))
 				L.Paralyze(4 SECONDS)
@@ -472,9 +472,9 @@
 			else
 				O.forceMove(T)
 				close()
+			log_combat(user, O, "stuffed", addition = "inside of [src]")
 	else
 		O.forceMove(T)
-	return TRUE
 
 /obj/structure/closet/relaymove(mob/living/user, direction)
 	if(user.stat || !isturf(loc))

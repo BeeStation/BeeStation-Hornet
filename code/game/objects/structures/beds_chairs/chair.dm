@@ -12,6 +12,8 @@
 	custom_materials = list(/datum/material/iron = 2000)
 	move_resist = MOVE_FORCE_WEAK
 	layer = OBJ_LAYER
+	interaction_flags_mouse_drop = NEED_HANDS | NEED_DEXTERITY
+
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -383,18 +385,18 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/chair/stool, 0)
 /obj/structure/chair/stool/narsie_act()
 	return
 
-/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
+/obj/structure/chair/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(over_object == user)
 		if(!item_chair || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
-			return
-		usr.visible_message(span_notice("[usr] grabs \the [src.name]."), span_notice("You grab \the [src.name]."))
+		user.visible_message(
+			span_notice("[user] grabs \the [src.name]."),
+			span_notice("You grab \the [src.name].")
+		)
 		var/obj/item/C = new item_chair(loc)
 		C.set_custom_materials(custom_materials)
 		TransferComponents(C)
-		usr.put_in_hands(C)
+		user.put_in_hands(C)
 		qdel(src)
 
 /obj/structure/chair/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)

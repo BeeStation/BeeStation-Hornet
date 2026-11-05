@@ -752,7 +752,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_parent || !resolve_location)
 		return NONE
 
-	if(ismecha(user.loc) || user.incapacitated || !user.canUseStorage())
+	. = COMPONENT_CANCEL_MOUSEDROP_ONTO
+	if(ismecha(user.loc) || !user.canUseStorage())
 		return NONE
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
@@ -849,17 +850,16 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(!resolve_parent)
 		return
 
+	. = COMPONENT_CANCEL_MOUSEDROPPED_ONTO
 	if(!istype(dropping))
 		return
 	if(dropping != user.get_active_held_item())
 		return
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH))
+		return
 	if(dropping.atom_storage) // If it has storage it should be trying to dump, not insert.
 		return
-
 	if(!iscarbon(user) && !isdrone(user))
-		return
-	var/mob/living/user_living = user
-	if(user_living.incapacitated)
 		return
 
 	attempt_insert(dropping, user)

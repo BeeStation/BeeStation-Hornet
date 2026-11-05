@@ -10,6 +10,8 @@
 	can_save_id = TRUE
 	custom_price = PAYCHECK_MEDIUM * 3
 
+	interaction_flags_mouse_drop = NEED_HANDS
+
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND
 
