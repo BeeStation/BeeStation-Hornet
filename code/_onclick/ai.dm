@@ -152,7 +152,7 @@
 		if(target.ai_click_alt(src) & CLICK_ACTION_ANY)
 			return
 
-	client.loot_panel.open(get_turf(target))
+	list_turf_contents(target)
 
 /*
 	The following criminally helpful code is just the previous code cleaned up;

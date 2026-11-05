@@ -7,6 +7,7 @@
 	density = TRUE
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.5
 	layer = BELOW_OBJ_LAYER
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 
 	/// If we are currently running through the design queue or not
 	var/operating = FALSE
@@ -140,21 +141,17 @@
 		else
 			. += span_notice("<b>Drag</b> it towards a direction, while next to it, to change where they drop.")
 
-/obj/machinery/modular_fabricator/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
-	. = ..()
-	if(isobserver(usr))
-		if(!IsAdminGhost(usr))
-			return
-	else if(!issilicon(usr) && !Adjacent(usr))
+/obj/machinery/modular_fabricator/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(!can_interact(user) || (!issilicon(user) && !IsAdminGhost(user)) && !Adjacent(user))
 		return
 	if(operating)
-		balloon_alert(usr, "busy printing!")
+		balloon_alert(user, "busy printing!")
 		return
 	var/direction = get_dir(src, over_location)
 	if(!direction || direction == output_direction)
 		return
 	output_direction = direction
-	balloon_alert(usr, "dropping [dir2text(output_direction)]")
+	balloon_alert(user, "dropping [dir2text(output_direction)]")
 
 /obj/machinery/modular_fabricator/click_alt(mob/user)
 	if(!output_direction || !can_interact(user))

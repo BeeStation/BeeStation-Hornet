@@ -38,10 +38,24 @@
 		return
 
 	. = TRUE
-	if(grab(target))
+	if(ctrl_click_grab(target))
 		changeNext_move(CLICK_CD_MELEE)
 		return
 	pulled(target)
+
+/// Tries a species or martial art grab instead of a plain pull. Returns TRUE if one happened.
+/mob/living/proc/ctrl_click_grab(atom/target)
+	if(!isliving(target))
+		return FALSE
+	if(ishuman(src) && ishuman(target))
+		var/mob/living/carbon/human/human_user = src
+		if(human_user.dna.species.grab(human_user, target, mind?.martial_art))
+			return TRUE
+	else if(iscarbon(src) && iscarbon(target))
+		var/mob/living/carbon/carbon_user = src
+		if(carbon_user.grab(carbon_user, target, mind?.martial_art))
+			return TRUE
+	return apply_martial_art(target, null, is_grab = TRUE) == MARTIAL_ATTACK_SUCCESS
 
 /**
  * Ctrl mouse wheel click

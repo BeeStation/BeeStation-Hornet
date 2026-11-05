@@ -973,25 +973,24 @@ Pass a positive integer as an argument to override a bot's default speed.
 	icon_state = "[initial(icon_state)][on]"
 
 
-/mob/living/simple_animal/bot/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.can_perform_action(src))
-			return FALSE
+/mob/living/simple_animal/bot/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
+			return
 		if(!carryable)
-			to_chat(usr, span_notice("[src] too large to carry!"))
-			return FALSE
+			to_chat(user, span_notice("[src] too large to carry!"))
+			return
 		if(on || booting)
-			to_chat(usr, span_notice("You need to turn [src] off before carrying it around."))
-			return FALSE
-		usr.visible_message(span_notice("[usr] picks up the [src]."), span_notice("You pick up [src]."))
+			to_chat(user, span_notice("You need to turn [src] off before carrying it around."))
+			return
+		user.visible_message(span_notice("[user] picks up the [src]."), span_notice("You pick up [src]."))
 		var/obj/item/carried_bot/carried = new(loc)
 		carried.name = name
 		carried.desc = desc
 		carried.icon = icon
 		carried.icon_state = icon_state
 		carried.update_icon()
-		usr.put_in_hands(carried)
+		user.put_in_hands(carried)
 		forceMove(carried)
 
 // Machinery to simplify topic and access calls

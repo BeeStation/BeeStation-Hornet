@@ -40,7 +40,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/emissive_blocker)
 /atom/movable/emissive_blocker/blob_act()
 	return
 
-/atom/movable/emissive_blocker/transitZ(turf/old_turf, turf/new_turf)
+/atom/movable/emissive_blocker/onTransitZ()
 	return
 
 //Prevents people from moving these after creation, because they shouldn't be.

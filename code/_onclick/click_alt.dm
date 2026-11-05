@@ -125,10 +125,8 @@
 	if(HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING))
 		return FALSE
 
-	/// No loot panel if it's on our person
-	if(isobj(target) && (target in get_all_gear()))
-		to_chat(src, span_warning("You can't search for this item, it's already in your inventory! Take it off first."))
+	// Only things lying on a turf, not inside something
+	if(!isturf(target) && !isturf(target.loc))
 		return FALSE
 
-	client.loot_panel.open(get_turf(target))
-	return TRUE
+	return list_turf_contents(target)

@@ -222,7 +222,7 @@
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	if(!user.can_perform_action(src, ALLOW_SILICON_REACH) || !user.can_interact_with(src))
 		return
-	var/new_timer = tgui_input_number(user, "Set the timer[add_boom_wires ? " (the longer the timer, the harder to defuse!)" : ""]", "Countdown", timer_set, maximum_timer, minimum_timer)
+	var/new_timer = tgui_input_number(user, "Set the timer", "Countdown", timer_set, maximum_timer, minimum_timer)
 	if(!new_timer || QDELETED(user) || QDELETED(src) || !user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	timer_set = new_timer
@@ -254,7 +254,9 @@
 		header = "Bomb Planted",
 	)
 	log_bomber(user, "has primed a", src, "for detonation (Payload: [payload.name])")
-	payload.adminlog = "The [name] that [key_name(user)] had primed detonated!"
+	if(istype(payload, /obj/item/bombcore))
+		var/obj/item/bombcore/payload_core = payload
+		payload_core.adminlog = "The [name] that [key_name(user)] had primed detonated!"
 	user.log_message("primed the [src]. (Payload: [payload.name])", LOG_GAME, log_globally = FALSE)
 
 ///Bomb Subtypes///

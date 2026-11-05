@@ -251,7 +251,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(!istype(M))
 		return ..()
 
-	if(!istype(user) || !user.can_perform_action(target))
+	if(!istype(user) || !user.can_perform_action(M))
 		return
 
 	if(M.stat != DEAD)

@@ -117,7 +117,7 @@
 	armor_type = /datum/armor/fedora_det_hat
 	icon_state = "detective"
 	inhand_icon_state = "det_hat"
-	var/candy_cooldown = 0
+	COOLDOWN_DECLARE(candy_cooldown)
 	var/adjusted = FALSE
 	var/adjustable = TRUE
 	var/aura_icon_on = "detective_aura"
@@ -143,8 +143,9 @@
 	. = ..()
 	. += span_notice("Alt-click to take a candy corn. Control-click to adjust it.")
 
-/// Now to solve where all these keep coming from
 /obj/item/clothing/head/fedora/det_hat/click_alt(mob/user)
+	if(loc != user)
+		return NONE
 	if(!COOLDOWN_FINISHED(src, candy_cooldown))
 		to_chat(user, span_warning("A candy corn was just taken! You should wait a couple minutes, lest you burn through the stash."))
 		return CLICK_ACTION_BLOCKING
@@ -152,12 +153,12 @@
 	var/obj/item/food/candy_corn/sweets = new /obj/item/food/candy_corn(src)
 	user.put_in_hands(sweets)
 	to_chat(user, span_notice("You slip a candy corn from \the [src]."))
-	COOLDOWN_START(src, candy_cooldown, CANDY_CD_TIME)
-
+	COOLDOWN_START(src, candy_cooldown, 2 MINUTES)
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/clothing/head/fedora/det_hat/click_
+/obj/item/clothing/head/fedora/det_hat/item_ctrl_click(mob/user)
 	flip(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/head/fedora/det_hat/proc/flip(mob/user)
 	if(!user.incapacitated && adjustable == TRUE)

@@ -17,7 +17,7 @@
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize transfer rate")
 
-/objmachinery/atmospherics/components/binary/temperature_pump/click_ctrl(mob/user)
+/obj/machinery/atmospherics/components/binary/temperature_pump/click_ctrl(mob/user)
 	if(is_operational)
 		on = !on
 		balloon_alert(user, "turned [on ? "on" : "off"]")

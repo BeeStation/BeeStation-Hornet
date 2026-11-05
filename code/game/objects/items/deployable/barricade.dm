@@ -88,31 +88,30 @@
 			return TRUE
 		return FALSE
 
-/obj/structure/barricade/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.can_perform_action(src))
+/obj/structure/barricade/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
 			return
 		if(!pickup_damaged && atom_integrity < max_integrity)
-			to_chat(usr, span_warning("[src] is damaged! You'll have to repair it before you can relocate it."))
+			to_chat(user, span_warning("[src] is damaged! You'll have to repair it before you can relocate it."))
 			return
 		if(locked_down)
-			to_chat(usr, span_warning("[src] is still locked down! Swipe your ID to unlock it."))
+			to_chat(user, span_warning("[src] is still locked down! Swipe your ID to unlock it."))
 			return
 
-		usr.visible_message(span_notice("[usr] begins breaking down [src]"), span_notice("You begin breaking down [src]."))
-		if(do_after(usr, pickup_delay, src))
+		user.visible_message(span_notice("[user] begins breaking down [src]"), span_notice("You begin breaking down [src]."))
+		if(do_after(user, pickup_delay, src))
 
 			//If the barricade is made of parts, some of them are damaged when the barricade is damaged so we set how many are being returned here
 			if(initial(drop_amount) > 1)
 				drop_amount = round(drop_amount * (atom_integrity/max_integrity))
 			//If we are only picking up one item at most, it has a chance to fall apart based on damage the barricade accrued. Will always succeed if pickup_damaged is false.
 			else if(!prob(round((atom_integrity/max_integrity), 0.01) * 100))
-				usr.visible_message(span_notice("[usr] tries to pick up [src] but it falls apart!"), span_notice("[src] is too damaged and falls apart!"))
+				user.visible_message(span_notice("[user] tries to pick up [src] but it falls apart!"), span_notice("[src] is too damaged and falls apart!"))
 				qdel(src)
 				return
 
-			usr.visible_message(span_notice("[usr] picks up [src]."), span_notice("You pick up [src]."))
+			user.visible_message(span_notice("[user] picks up [src]."), span_notice("You pick up [src]."))
 			qdel(src)
 			pick_up_barricade()
 

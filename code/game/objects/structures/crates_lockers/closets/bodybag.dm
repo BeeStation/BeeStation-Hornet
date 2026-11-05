@@ -66,20 +66,19 @@
 		set_density(FALSE)
 		mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
-/obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
-		if(!ishuman(usr))
+/obj/structure/closet/body_bag/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
 			return
 		if(opened && !close())
-			to_chat(usr, span_warning("You wrestle with [src], but it won't fold while unzipped."))
+			to_chat(user, span_warning("You wrestle with [src], but it won't fold while unzipped."))
 			return
 		if(contents.len)
-			to_chat(usr, span_warning("There are too many things inside of [src] to fold it up!"))
+			to_chat(user, span_warning("There are too many things inside of [src] to fold it up!"))
 			return
-		visible_message(span_notice("[usr] folds up [src]."))
+		visible_message(span_notice("[user] folds up [src]."))
 		var/obj/item/bodybag/B = foldedbag_instance || new foldedbag_path
-		usr.put_in_hands(B)
+		user.put_in_hands(B)
 		qdel(src)
 
 
@@ -92,23 +91,22 @@
 	mob_storage_capacity = 15
 	max_mob_size = MOB_SIZE_LARGE
 
-/obj/structure/closet/body_bag/bluespace/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
-		if(!ishuman(usr))
+/obj/structure/closet/body_bag/bluespace/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
 			return
 		if(opened)
-			to_chat(usr, span_warning("You wrestle with [src], but it won't fold while unzipped."))
+			to_chat(user, span_warning("You wrestle with [src], but it won't fold while unzipped."))
 			return
 		if(contents.len >= mob_storage_capacity / 2)
-			to_chat(usr, span_warning("There are too many things inside of [src] to fold it up!"))
+			to_chat(user, span_warning("There are too many things inside of [src] to fold it up!"))
 			return
 		for(var/obj/item/bodybag/bluespace/B in src)
-			to_chat(usr, span_warning("You can't recursively fold bluespace body bags!") )
+			to_chat(user, span_warning("You can't recursively fold bluespace body bags!") )
 			return
-		visible_message(span_notice("[usr] folds up [src]."))
+		visible_message(span_notice("[user] folds up [src]."))
 		var/obj/item/bodybag/B = foldedbag_instance || new foldedbag_path
-		usr.put_in_hands(B)
+		user.put_in_hands(B)
 		for(var/atom/movable/A in contents)
 			A.forceMove(B)
 			if(isliving(A))

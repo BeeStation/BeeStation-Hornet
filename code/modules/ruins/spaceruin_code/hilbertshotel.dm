@@ -322,16 +322,14 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	var/datum/action/peepholeCancel/PHC = new
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 	PHC.Grant(user)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_eye))
 	return CLICK_ACTION_SUCCESS
 
-/turf/closed/indestructible/hoteldoor/proc/check_eye(mob/user, atom/oldloc, direction)
-	SIGNAL_HANDLER
+/turf/closed/indestructible/hoteldoor/check_eye(mob/user)
 	if(get_dist(get_turf(src), get_turf(user)) < 2)
 		return
 	user.unset_machine()
 	for(var/datum/action/peepholeCancel/PHC in user.actions)
-		INVOKE_ASYNC(PHC, TYPE_PROC_REF(/datum/action/peepholeCancel, on_activate))
+		PHC.trigger()
 
 /datum/action/peepholeCancel
 	name = "Cancel View"

@@ -131,9 +131,7 @@
 	new /obj/item/stack/rods(loc, 4)
 	qdel(src)
 
-/obj/structure/vampire/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
-	if(..())
-		return
+/obj/structure/vampire/vassalrack/mouse_drop_receive(atom/movable/movable_atom, mob/user, params)
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))

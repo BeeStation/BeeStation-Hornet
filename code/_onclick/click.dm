@@ -393,6 +393,15 @@
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
 
+/// Lists the contents of the target's turf in the stat panel.
+/mob/proc/list_turf_contents(atom/target)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf || !TurfAdjacent(target_turf))
+		return FALSE
+	listed_turf = target_turf
+	set_stat_tab(target_turf.name)
+	return TRUE
+
 /mob/proc/ShiftMiddleClickOn(atom/A, params)
 	src._pointed(A, params)
 	return

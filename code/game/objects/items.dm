@@ -247,8 +247,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	/// Has the item been reskinned?
 	var/current_skin
-	///// List of options to reskin.
+	/// Radial menu options for reskinning, usually built when first needed.
 	var/list/unique_reskin
+	/// Icon states for each reskin option. Items with this set can be reskinned by alt-clicking.
+	var/list/unique_reskin_icon
 
 /obj/item/Initialize(mapload)
 	if(attack_verb_continuous)
@@ -297,9 +299,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
-	if(unique_reskin)
+	if(unique_reskin_icon)
 		RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(on_click_alt_reskin))
-		register_context()
 
 
 /obj/item/Destroy(force)
@@ -314,17 +315,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	QDEL_NULL(rpg_loot)
 	return ..()
 
-/obj/item/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+/obj/item/examine(mob/user)
 	. = ..()
-
-	if(!unique_reskin)
-		return
-
-	if(current_skin && !(item_flags & INFINITE_RESKIN))
-		return
-
-	context[SCREENTIP_CONTEXT_ALT_LMB] = "Reskin"
-	return CONTEXTUAL_SCREENTIP_SET
+	if(unique_reskin_icon && !current_skin)
+		. += span_notice("Alt-click it to reskin it.")
 
 /obj/item/click_ctrl(mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)

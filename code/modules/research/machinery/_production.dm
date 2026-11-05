@@ -91,7 +91,7 @@
 	return release_turf
 
 /obj/machinery/rnd/production/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
-	if(!can_interact(user) || (!issilicon(user) && !isAdminGhost(user)) && !Adjacent(user))
+	if(!can_interact(user) || (!issilicon(user) && !IsAdminGhost(user)) && !Adjacent(user))
 		return
 	if(busy)
 		balloon_alert(user, "busy printing!")
@@ -103,7 +103,7 @@
 	balloon_alert(user, "dropping [dir2text(output_direction)]")
 
 /obj/machinery/rnd/production/click_alt(mob/user)
-	if(drop_direction == 0)
+	if(output_direction == 0)
 		return CLICK_ACTION_BLOCKING
 	if(busy)
 		balloon_alert(user, "busy printing!")

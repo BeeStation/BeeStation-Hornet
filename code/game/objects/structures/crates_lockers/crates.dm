@@ -110,9 +110,7 @@
 		tear_manifest(user)
 	return ..()
 
-/obj/structure/closet/crate/MouseDrop(atom/drop_atom, src_location, over_location)
-	. = ..()
-	var/mob/living/user = usr
+/obj/structure/closet/crate/mouse_drop_dragged(atom/drop_atom, mob/living/user, src_location, over_location, params)
 	if(!isliving(user))
 		return // Ghosts busted.
 	if(!isturf(user.loc) || user.incapacitated || !(user.mobility_flags & MOBILITY_STAND))

@@ -85,9 +85,11 @@
 			filling_overlay.color = list("#0000", "#0000", "#0000", "#000f", mix_color_from_reagents(beaker.reagents.reagent_list))
 			add_overlay(filling_overlay)
 
-/obj/machinery/iv_drip/mouse_drop_dragged(atom/target, mob/user)
+/obj/machinery/iv_drip/mouse_drop_dragged(mob/living/target, mob/user)
 	if(!isliving(user))
 		to_chat(user, span_warning("You can't do that!"))
+		return
+	if(!isliving(target))
 		return
 	if(attached)
 		visible_message(span_warning("[attached] is detached from [src]."))

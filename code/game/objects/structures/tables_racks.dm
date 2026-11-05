@@ -713,8 +713,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
 		return TRUE
 
-/obj/structure/rack/MouseDrop_T(atom/dropping, mob/user, params)
-	. = ..()
+/obj/structure/rack/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!isitem(dropping) || user.get_active_held_item() != dropping)
 		return
 	if(!user.dropItemToGround(dropping))

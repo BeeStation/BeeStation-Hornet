@@ -382,7 +382,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 	SIGNAL_HANDLER
 
 	. = COMSIG_MOB_CANCEL_CLICKON
-	if(!isslime(target_slime))
+	if(!isslime(S))
 		return
 
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
@@ -462,7 +462,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 
 //Place monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickCtrl(mob/living/user, turf/open/T)
-	if(!isopenturf(target_turf))
+	if(!isopenturf(T))
 		return
 
 	if(!GLOB.cameranet.checkTurfVis(T))
@@ -487,7 +487,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 
 //Pick up monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/M)
-	if(!ismonkey(target_mob))
+	if(!ismonkey(M))
 		return
 
 	if(!GLOB.cameranet.checkTurfVis(M.loc))
@@ -513,15 +513,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		qdel(M)
 		to_chat(C, "[X] now has [X.monkeys] monkeys available.")
 
-/// Scans the target slime
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickCtrl(mob/living/user, mob/living/simple_animal/slime/target_slime)
-	if(!isslime(target_slime))
+// Scans slime
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickCtrl(mob/living/user, mob/living/simple_animal/slime/S)
+	if(!GLOB.cameranet.checkTurfVis(S.loc))
+		to_chat(user, span_warning("Target is not near a camera. Cannot proceed."))
 		return
-
-	var/mob/camera/ai_eye/remote/xenobio/remote_eye = user.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/xeno_console = remote_eye.origin
-
-	if(!xeno_console.validate_area(user, remote_eye, target_slime.loc))
+	var/mob/camera/ai_eye/remote/xenobio/E = user.remote_control
+	var/area/mobarea = get_area(S.loc)
+	if(mobarea.area_flags & XENOBIOLOGY_CONSOLE_DISALLOWED)
+		to_chat(user, span_warning("This area does not support xenobiological manipulation."))
 		return
-
-	slime_scan(target_slime, user)
+	if(mobarea.name == E.allowed_area || (mobarea.area_flags & XENOBIOLOGY_COMPATIBLE))
+		slime_scan(S, user)
