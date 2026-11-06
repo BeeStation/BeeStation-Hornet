@@ -42,7 +42,7 @@ AUTH_CLIENT_VERB(rules)
 AUTH_CLIENT_VERB(github)
 	set name = "github"
 	set desc = "Visit GitHub"
-	set hidden = TRUEs
+	set hidden = TRUE
 
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(!githuburl)
@@ -77,6 +77,8 @@ AUTH_CLIENT_VERB(reportissue)
 
 	// version
 	concatable += "&reporting-version=[byond_version].[byond_build]"
+	// date
+	concatable += "&round-date=[time2text(world.timeofday, "YYYY/MM/DD")]"
 	// round id
 	if(GLOB.round_id)
 		concatable += "&round-id=[GLOB.round_id]"
