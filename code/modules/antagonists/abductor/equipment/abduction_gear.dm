@@ -450,6 +450,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	var/mode = BATON_STUN
 
+	var/stun_stamina_damage = 140
 	var/sleep_time = 2 MINUTES
 	var/time_to_cuff = 3 SECONDS
 
@@ -465,12 +466,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		return
 	mode = (mode+1)%BATON_MODES
 	var/txt
-	//Reset stamina damage to baseline
-	charged_stamina_damage = initial(charged_stamina_damage)
 	switch(mode)
 		if(BATON_STUN)
 			txt = "stunning"
-			charged_stamina_damage = 140
 		if(BATON_SLEEP)
 			txt = "sleep inducement"
 		if(BATON_CUFF)
@@ -534,8 +532,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			target.set_confusion_if_lower(10 SECONDS)
 			target.set_stutter_if_lower(16 SECONDS)
 			SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-			target.stamina.adjust(-charged_stamina_damage)
-			target.Knockdown(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
+			target.stamina.adjust(-stun_stamina_damage)
+			target.Paralyze(knockdown_time * (HAS_TRAIT(target, TRAIT_BATON_RESISTANCE) ? 0.1 : 1))
 		if(BATON_SLEEP)
 			SleepAttack(target,user)
 		if(BATON_CUFF)
