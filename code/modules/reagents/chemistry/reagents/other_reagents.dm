@@ -389,7 +389,6 @@
 		need_mob_update += affected_mob.adjust_drowsiness(-10 SECONDS * REM * delta_time)
 		need_mob_update += affected_mob.AdjustAllImmobility(-40 * REM * delta_time)
 		affected_mob.stamina.adjust(10 * REM * delta_time)
-		affected_mob.stamina.adjust(10 * REM * delta_time)
 		need_mob_update += affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE, forced = TRUE)
 		need_mob_update += affected_mob.adjustOxyLoss(-2 * REM * delta_time, updating_health = FALSE)
 		need_mob_update += affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)

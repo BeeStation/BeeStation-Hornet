@@ -286,7 +286,7 @@
 	worn_icon_state = "tele_baton"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_flags = NONE
+	item_flags = ISWEAPON
 	force = 0
 	charged_stamina_damage = 50
 	knockdown_time = 3 SECONDS
@@ -357,7 +357,7 @@
 	inhand_icon_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_flags = NONE
+	item_flags = ISWEAPON
 	force = 5
 	var/datum/antagonist/traitor/owner_data = null
 

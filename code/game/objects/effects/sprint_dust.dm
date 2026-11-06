@@ -7,9 +7,7 @@
 /obj/effect/sprint_dust/proc/appear(state, dir, turf/T, duration)
 	if(!T)
 		return
-	if(state == "sprint_cloud")
-		src.dir = SOUTH
-	src.dir ||= dir
+	src.dir = (state == "sprint_cloud") ? SOUTH : dir
 	abstract_move(T)
 	flick(state, src)
 	addtimer(CALLBACK(src, /atom/movable/proc/moveToNullspace), duration)

@@ -42,8 +42,6 @@
 	///Harm-intent verb in present simple tense.
 	var/response_harm_simple = "hit"
 	var/force_threshold = 0 //Minimum force required to deal any damage
-	///Maximum amount of stamina damage the mob can be inflicted with total
-	var/max_staminaloss = 200
 
 	//Temperature effect
 	var/minbodytemp = 250

@@ -289,14 +289,8 @@
 	return
 
 
-/mob/living/proc/IsDisoriented() //If we're paralyzed
+/mob/living/proc/IsDisoriented()
 	return has_status_effect(/datum/status_effect/incapacitating/disoriented)
-
-/mob/living/proc/AmountDisoriented() //How many deciseconds remain in our Paralyzed status effect
-	var/datum/status_effect/incapacitating/disoriented/P = IsDisoriented()
-	if(P)
-		return P.duration - world.time
-	return 0
 
 //Blanket
 /mob/living/proc/AllImmobility(amount)

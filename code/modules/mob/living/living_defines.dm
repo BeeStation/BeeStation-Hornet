@@ -36,8 +36,6 @@
 	var/fireloss = 0
 	/// Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/cloneloss = 0
-	/// Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
-	var/staminaloss = 0
 
 	/// The movement intent of the mob
 	var/datum/move_intent/move_intent = /datum/move_intent/run

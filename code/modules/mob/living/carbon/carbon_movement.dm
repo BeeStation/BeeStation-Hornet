@@ -8,9 +8,6 @@
 
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
-	if(!(usr == src))
-		return
-
 	if(. && !(movement_type & FLOATING)) //floating is easy
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 			set_nutrition(NUTRITION_LEVEL_FED - 1)	//just less than feeling vigorous
