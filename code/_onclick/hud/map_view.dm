@@ -66,8 +66,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view)
 	return pop_planes
 
 /atom/movable/screen/map_view/proc/hide_from(mob/hide_from)
-	if(hide_from?.client)
-		hide_from_client(hide_from.client)
+	if(hide_from?.canon_client)
+		hide_from_client(hide_from.canon_client)
 		return
 	// The client has moved on, find it by the hud we gave it
 	var/datum/hud/old_hud = hide_from?.hud_used

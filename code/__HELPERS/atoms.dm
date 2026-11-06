@@ -78,6 +78,16 @@
 		steps++
 	return TRUE
 
+/// Draws a line of turfs between two atoms and determines if there's dense objects or turfs in the way.
+/proc/clear_line_of_sight(atom/source, atom/target)
+	for(var/turf/checked_turf in get_line(source, target))
+		if(checked_turf.density)
+			return FALSE
+		for(var/obj/blocking_object in checked_turf)
+			if(blocking_object.density)
+				return FALSE
+	return TRUE
+
 ///Get the cardinal direction between two atoms
 /proc/get_cardinal_dir(atom/start, atom/end)
 	var/dx = abs(end.x - start.x)

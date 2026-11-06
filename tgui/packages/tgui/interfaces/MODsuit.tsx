@@ -432,6 +432,14 @@ const SuitStatusSection = (props) => {
                 : `Call (${link_id})`
               : 'Frequency Unset'}
           </Button>
+          <Button
+            color={link_call ? 'good' : 'default'}
+            disabled={!link_freq}
+            tooltip={link_freq ? '' : 'Set a frequency with a multitool!'}
+            onClick={() => act('change_label')}
+          >
+            Change label
+          </Button>
         </LabeledList.Item>
         {!!open && (
           <LabeledList.Item label="Cover">

@@ -299,7 +299,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	smoothing_groups = list(SMOOTH_GROUP_GLASS_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_TABLES)
 	buildstack = /obj/item/stack/sheet/glass
-	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor_type = /datum/armor/table_glass
