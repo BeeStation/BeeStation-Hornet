@@ -38,7 +38,7 @@
 
 ///Checks whether or not we should clean.
 /obj/item/mop/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
-	if(cleaner.combat_mode && isliving(atom_to_clean))
+	if(cleaner.combat_mode)
 		return CLEAN_BLOCKED|CLEAN_DONT_BLOCK_INTERACTION
 	if(clean_blacklist[atom_to_clean.type])
 		return CLEAN_BLOCKED|CLEAN_DONT_BLOCK_INTERACTION
