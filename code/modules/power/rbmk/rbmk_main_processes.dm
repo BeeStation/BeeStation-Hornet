@@ -15,7 +15,7 @@
 		deactivate()
 		return
 	// Run the reaction if it is either live or being started
-	if (start_power || power)
+	if (active || power)
 		atmos_process(delta_time)
 		damage_handler(delta_time)
 		check_alert()
@@ -146,17 +146,15 @@
 		coolant_output.merge(removed)
 
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
-	else
-		if(has_fuel())
-			no_coolant_ticks++
-			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
-				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
-				critical_threshold_proximity += ((temperature / 200) * delta_time) //Think fast loser.
-				check_alert()
-				playsound(src, 'sound/weapons/smash.ogg', 50, TRUE) //Just for the sound effect, to let you know you've fucked up.
+	else if(has_fuel())
+		no_coolant_ticks++
+		if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
+			temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
+			critical_threshold_proximity += ((temperature / 200) * delta_time) //Think fast loser.
+			check_alert()
+			playsound(src, 'sound/weapons/smash.ogg', 50, TRUE) //Just for the sound effect, to let you know you've fucked up.
 
-
-	update_icon()
+	update_appearance()
 	radiation_pulse(src, max_range = 6, threshold = RAD_EXTREME_INSULATION, intensity = clamp(temperature * radioactivity_spice_multiplier / 100, 0, DEFAULT_RADIATION_INTENSITY))
 
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
@@ -164,16 +162,15 @@
 		for(var/obj/machinery/light/light as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light))
 			if(DT_PROB(75, delta_time)) //If youre running the reactor cold though, no need to flicker the lights.
 				light.flicker()
-	for(var/atom/movable/object in get_turf(src))
-		if(isliving(object) && temperature > 0)
-			var/mob/living/living_mob = object
+
+	for(var/mob/living/living_mob in get_turf(src))
+		if(temperature > 0)
 			living_mob.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+
 	if(grilled_item)
 		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, grilled_item, delta_time)
 		grill_time += delta_time
 		grilled_item.AddComponent(/datum/component/sizzle)
-
-
 
 	last_power_produced *= 5*fuel_power //Finally, we turn it into actual usable numbers. more fuel power => more power (push people towards using more than 1 fuel rod, otherwise it's boring). 5x scales one new fuel rod = 1.0 multiplier
 	last_power_produced = min(RBMK_POWER_FLAVOURISER_LOW * (last_power_produced ** 2), RBMK_POWER_FLAVOURISER_HIGH * last_power_produced) // scale according to square law up until linear relationship takes over
