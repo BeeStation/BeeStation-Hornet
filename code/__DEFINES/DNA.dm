@@ -104,6 +104,8 @@
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
 #define ORGAN_SLOT_THRUSTERS "thrusters"
 #define ORGAN_SLOT_HUD "eye_hud"
+#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
+#define ORGAN_SLOT_MONSTER_CORE "monstercore"
 #define ORGAN_SLOT_LIVER "liver"
 #define ORGAN_SLOT_TONGUE "tongue"
 #define ORGAN_SLOT_VOICE "vocal_cords"
@@ -120,6 +122,14 @@
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
+
+/// Xenomorph organ slots
+#define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
+#define ORGAN_SLOT_XENO_EGGSAC "eggsac"
+#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
+#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
+#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
+#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100
@@ -161,5 +171,12 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 	ORGAN_SLOT_HEART_AID,
 	ORGAN_SLOT_BRAIN_ANTIDROP,
 	ORGAN_SLOT_BRAIN_ANTISTUN,
-	ORGAN_SLOT_TAIL
+	ORGAN_SLOT_PARASITE_EGG,
+	ORGAN_SLOT_MONSTER_CORE,
+	ORGAN_SLOT_XENO_PLASMAVESSEL,
+	ORGAN_SLOT_XENO_HIVENODE,
+	ORGAN_SLOT_XENO_RESINSPINNER,
+	ORGAN_SLOT_XENO_ACIDGLAND,
+	ORGAN_SLOT_XENO_NEUROTOXINGLAND,
+	ORGAN_SLOT_XENO_EGGSAC,
 	))

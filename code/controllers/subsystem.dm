@@ -43,9 +43,15 @@
 	///Bitmap of what game states can this subsystem fire at. See [RUNLEVELS_DEFAULT] for more details.
 	var/runlevels = RUNLEVELS_DEFAULT //points of the game at which the SS can fire
 
+	/// Names of list vars on this subsystem checked before queueing it. See [SS_HIBERNATE].
+	var/list/hibernate_checks
+
 	/*
 	 * The following variables are managed by the MC and should not be modified directly.
 	 */
+
+	/// The subsystem had no work during CheckQueue and was not queued
+	var/hibernating = FALSE
 
 	/// Last world.time the subsystem completed a run (as in wasn't paused by [MC_TICK_CHECK])
 	var/last_fire = 0
@@ -171,6 +177,7 @@
 //	(we loop thru a linked list until we get to the end or find the right point)
 //	(this lets us sort our run order correctly without having to re-sort the entire already sorted list)
 /datum/controller/subsystem/proc/enqueue()
+	hibernating = FALSE
 	var/SS_priority = priority
 	var/SS_flags = ss_flags
 	var/datum/controller/subsystem/queue_node
@@ -284,6 +291,8 @@
 	return tab_data
 
 /datum/controller/subsystem/proc/state_letter()
+	if (hibernating)
+		return "H"
 	switch (state)
 		if (SS_RUNNING)
 			. = "R"

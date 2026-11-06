@@ -30,6 +30,8 @@
 	var/datum/beam/kinesis_beam
 	/// Overlay we add to each grabbed atom.
 	var/mutable_appearance/kinesis_icon
+	/// Emissive overlay we add to each grabbed atom.
+	var/mutable_appearance/kinesis_emissive
 	/// Our mouse movement catcher.
 	var/atom/movable/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
@@ -159,19 +161,19 @@
 /obj/item/mod/module/anomaly_locked/kinesis/proc/grab_atom(atom/movable/target)
 	grabbed_atom = target
 	if(isliving(grabbed_atom))
-		ADD_TRAIT(grabbed_atom, TRAIT_IMMOBILIZED, REF(src))
-		ADD_TRAIT(grabbed_atom, TRAIT_HANDS_BLOCKED, REF(src))
+		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), REF(src))
 		RegisterSignal(grabbed_atom, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
 	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, REF(src))
 	RegisterSignal(grabbed_atom, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_setanchored))
 	playsound(grabbed_atom, 'sound/effects/contractorbatonhit.ogg', 75, TRUE)
 	kinesis_icon = mutable_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1)
 	kinesis_icon.appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM
-	kinesis_icon.overlays += emissive_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis")
-	grabbed_atom.add_overlay(kinesis_icon)
+	kinesis_emissive = emissive_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1, appearance_flags = RESET_ALPHA|RESET_TRANSFORM)
+	grabbed_atom.add_overlay(list(kinesis_icon, kinesis_emissive))
 	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
 	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
 	kinesis_catcher.assign_to_mob(mod.wearer)
+	RegisterSignal(kinesis_catcher, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(on_catcher_click))
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -185,11 +187,10 @@
 	UnregisterSignal(grabbed_atom, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_SET_ANCHORED))
 	kinesis_catcher = null
 	mod.wearer.clear_fullscreen("kinesis")
-	grabbed_atom.cut_overlay(kinesis_icon)
+	grabbed_atom.cut_overlay(list(kinesis_icon, kinesis_emissive))
 	QDEL_NULL(kinesis_beam)
 	if(isliving(grabbed_atom))
-		REMOVE_TRAIT(grabbed_atom, TRAIT_IMMOBILIZED, REF(src))
-		REMOVE_TRAIT(grabbed_atom, TRAIT_HANDS_BLOCKED, REF(src))
+		grabbed_atom.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), REF(src))
 	REMOVE_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, REF(src))
 	if(!isitem(grabbed_atom))
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = grabbed_atom.base_pixel_x, pixel_y = grabbed_atom.base_pixel_y)
@@ -204,6 +205,13 @@
 	if(!can_see(mod.wearer, target, grab_range))
 		return FALSE
 	return TRUE
+
+/obj/item/mod/module/anomaly_locked/kinesis/proc/on_catcher_click(atom/source, location, control, params, user)
+	SIGNAL_HANDLER
+
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		clear_grab()
 
 /obj/item/mod/module/anomaly_locked/kinesis/proc/on_statchange(mob/grabbed_mob, new_stat)
 	SIGNAL_HANDLER

@@ -47,6 +47,8 @@
 
 //pod insertion
 /obj/structure/transit_tube/station/MouseDrop_T(obj/structure/c_transit_tube_pod/unattached_pod, mob/user)
+	if(..())
+		return
 	if (astype(user, /mob/living)?.incapacitated || !istype(unattached_pod) || !in_range(user, src) || !in_range(src, unattached_pod))
 		return
 	if(locate(/obj/structure/transit_tube_pod) in loc)

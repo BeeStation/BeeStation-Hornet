@@ -68,10 +68,9 @@
 	tackle.thrower = WEAKREF(user)
 
 ///See if we can tackle or not. If we can, leap!
-/datum/component/tackler/proc/checkTackle(mob/living/carbon/user, atom/clicked_atom, params)
+/datum/component/tackler/proc/checkTackle(mob/living/carbon/user, atom/clicked_atom, list/modifiers)
 	SIGNAL_HANDLER
 
-	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, ALT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 

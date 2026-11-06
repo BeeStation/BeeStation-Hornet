@@ -620,7 +620,7 @@
 			smoker_lungs = /obj/item/organ/lungs/smoker_lungs
 	if(!isnull(smoker_lungs))
 		smoker_lungs = new smoker_lungs
-		smoker_lungs.Insert(carbon_holder, special = TRUE, drop_if_replaced = FALSE)
+		smoker_lungs.Insert(carbon_holder, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 
 /datum/quirk/junkie/smoker/announce_drugs()
 	to_chat(quirk_target, span_boldnotice("There is a [initial(drug_container_type.name)] [where_drug], and a lighter [where_accessory]. Make sure you get your favorite brand when you run out."))

@@ -53,7 +53,7 @@
 /mob/living/simple_animal/shade/attack_animal(mob/user, list/modifiers)
 	if(isconstruct(user))
 		var/mob/living/simple_animal/hostile/construct/construct = user
-		if(!construct.can_repair_constructs)
+		if(!construct.can_repair)
 			return
 		if(health < maxHealth)
 			adjustHealth(-25)

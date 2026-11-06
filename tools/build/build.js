@@ -70,13 +70,8 @@ export const NoWarningParameter = new Juke.Parameter({
 export const DmMapsIncludeTarget = new Juke.Target({
   executes: async () => {
     const folders = [
-      ...Juke.glob('_maps/map_files/**/modular_pieces/*.dmm'),
-      ...Juke.glob('_maps/RandomRooms/**/*.dmm'),
-      ...Juke.glob('_maps/RandomRuins/**/*.dmm'),
-      ...Juke.glob('_maps/RandomZLevels/**/*.dmm'),
-      ...Juke.glob('_maps/shuttles/**/*.dmm'),
-      ...Juke.glob('_maps/templates/**/*.dmm'),
-    ];
+      ...Juke.glob('_maps/**/*.dmm'),
+    ].filter((file) => !file.startsWith('_maps/map_files/'));
     const content = folders
       .map((file) => file.replace('_maps/', ''))
       .map((file) => `#include "${file}"`)
@@ -90,6 +85,25 @@ export const DmTarget = new Juke.Target({
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
+  inputs: [
+    '_maps/map_files/generic/**',
+    '_maps/**/*.dm',
+    'code/**',
+    'html/**',
+    'icons/**',
+    'interface/**',
+    'sound/**',
+    'tgui/public/tgui.html',
+    `${DME_NAME}.dme`,
+    NamedVersionFile,
+  ],
+  outputs: ({ get }) => {
+    if (get(DmVersionParameter) || get(DefineParameter).length > 0) {
+      // Always rebuild when a dm version or explicit CLI defines are provided to ensure juke re-runs
+      return [];
+    }
+    return [`${DME_NAME}.dmb`, `${DME_NAME}.rsc`];
+  },
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
       defines: ['CBT', ...get(DefineParameter)],

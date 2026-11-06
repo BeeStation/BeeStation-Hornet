@@ -3,9 +3,13 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "insect_type"
+	priority = PREFERENCE_PRIORITY_BODYPARTS
 
 /datum/preference/choiced/insect_type/init_possible_values()
 	return assoc_to_keys(GLOB.insect_type_list)
 
 /datum/preference/choiced/insect_type/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["insect_type"] = value
+	if(isflyperson(target))
+		var/datum/species/fly/fly_species = target.dna.species
+		fly_species.apply_insect_type(target)

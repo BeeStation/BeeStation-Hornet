@@ -22,20 +22,20 @@
 		icon_state = "[inhand_icon_state]_closed"
 	return ..()
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, list/modifiers)
-	if(istype(W, /obj/item/pen))
+/obj/item/storage/box/papersack/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/pen))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, span_warning("You can't modify [src] with items still inside!"))
-			return
+			return ITEM_INTERACT_BLOCKING
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILEY, "Cancel")
 		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) in sort_list(designs)
 		if(get_dist(usr, src) > 1)
 			to_chat(usr, span_warning("You have moved too far away!"))
-			return
+			return ITEM_INTERACT_BLOCKING
 		var/choice = designs.Find(switchDesign)
 		if(design == designs[choice] || designs[choice] == "Cancel")
-			return 0
+			return ITEM_INTERACT_BLOCKING
 		to_chat(usr, span_notice("You make some modifications to [src] using your pen."))
 		design = designs[choice]
 		icon_state = "paperbag_[design]"
@@ -51,19 +51,19 @@
 				desc = "A paper sack with a heart etched onto the side."
 			if(SMILEY)
 				desc = "A paper sack with a crude smile etched onto the side."
-		return 0
-	else if(W.get_sharpness())
+		return ITEM_INTERACT_SUCCESS
+	else if(tool.get_sharpness())
 		if(!contents.len)
 			if(inhand_icon_state == "paperbag_None")
 				user.show_message(span_notice("You cut eyeholes into [src]."), MSG_VISUAL)
 				new /obj/item/clothing/head/costume/papersack(user.loc)
 				qdel(src)
-				return 0
+				return ITEM_INTERACT_SUCCESS
 			else if(inhand_icon_state == "paperbag_SmileyFace")
 				user.show_message(span_notice("You cut eyeholes into [src] and modify the design."), MSG_VISUAL)
 				new /obj/item/clothing/head/costume/papersack/smiley(user.loc)
 				qdel(src)
-				return 0
+				return ITEM_INTERACT_SUCCESS
 	return ..()
 
 #undef NODESIGN

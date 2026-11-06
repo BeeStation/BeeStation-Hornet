@@ -33,6 +33,7 @@
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
+	AddElement(/datum/element/drag_pickup)
 	update_icon()
 
 /obj/item/watertank/ui_action_click(mob/user)
@@ -148,14 +149,6 @@
 		toggle_mister(user)
 	else
 		return ..()
-
-/obj/item/watertank/MouseDrop(obj/over_object)
-	var/mob/M = loc
-	if(istype(M) && istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-		update_icon()
-	return ..()
 
 /obj/item/watertank/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(attacking_item == noz)
@@ -573,7 +566,8 @@
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
 
-/obj/effect/resin_container/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+// Please don't spacedrift thanks
+/obj/effect/resin_container/newtonian_move(direction, instant = FALSE, start_delay = 0)
 	return TRUE
 
 /obj/effect/resin_container/chainreact

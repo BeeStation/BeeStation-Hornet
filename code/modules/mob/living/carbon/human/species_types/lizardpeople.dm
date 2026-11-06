@@ -14,7 +14,6 @@
 		"frills" = SPRITE_ACCESSORY_NONE,
 		"spines" = SPRITE_ACCESSORY_NONE,
 		"body_markings" = SPRITE_ACCESSORY_NONE,
-		"legs" = "Normal Legs",
 		"body_size" = "Normal"
 	)
 	mutanttongue = /obj/item/organ/tongue/lizard

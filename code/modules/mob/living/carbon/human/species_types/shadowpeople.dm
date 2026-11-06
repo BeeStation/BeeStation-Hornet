@@ -157,8 +157,9 @@
 	icon_state = "brain-x-d"
 	var/datum/action/spell/jaunt/shadow_walk/our_jaunt
 
-/obj/item/organ/brain/nightmare/on_insert(mob/living/carbon/brain_owner)
-	..()
+/obj/item/organ/brain/nightmare/on_mob_insert(mob/living/carbon/brain_owner)
+	. = ..()
+
 	if(brain_owner.dna.species.id != SPECIES_NIGHTMARE)
 		brain_owner.set_species(/datum/species/shadow/nightmare)
 		visible_message(span_warning("[brain_owner] thrashes as [src] takes root in [brain_owner.p_their()] body!"))
@@ -167,9 +168,9 @@
 	our_jaunt.Grant(brain_owner)
 
 
-/obj/item/organ/brain/nightmare/on_remove(mob/living/carbon/brain_owner)
+/obj/item/organ/brain/nightmare/on_mob_remove(mob/living/carbon/brain_owner)
+	. = ..()
 	QDEL_NULL(our_jaunt)
-	return ..()
 
 /obj/item/organ/heart/nightmare
 	name = "heart of darkness"
@@ -196,13 +197,13 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	Insert(user)
 
-/obj/item/organ/heart/nightmare/on_insert(mob/living/carbon/heart_owner, special)
+/obj/item/organ/heart/nightmare/on_mob_insert(mob/living/carbon/heart_owner, special)
 	. = ..()
 	if(special != HEART_SPECIAL_SHADOWIFY)
 		blade = new/obj/item/light_eater
 		heart_owner.put_in_hands(blade)
 
-/obj/item/organ/heart/nightmare/on_remove(mob/living/carbon/heart_owner, special)
+/obj/item/organ/heart/nightmare/on_mob_remove(mob/living/carbon/heart_owner, special)
 	. = ..()
 	respawn_progress = 0
 	if(blade && special != HEART_SPECIAL_SHADOWIFY)
@@ -468,7 +469,7 @@
 /obj/item/organ/heart/shadow_ritual/update_icon()
 	return
 
-/obj/item/organ/heart/shadow_ritual/on_insert(mob/living/carbon/heart_owner)
+/obj/item/organ/heart/shadow_ritual/on_mob_insert(mob/living/carbon/heart_owner)
 	. = ..()
 	if(isblessedshadow(heart_owner))
 		var/mob/living/carbon/human/O = heart_owner
@@ -480,7 +481,7 @@
 		to_chat(heart_owner, span_userdanger("You feel a chill spreading throughout your body..."))
 
 
-/obj/item/organ/heart/shadow_ritual/on_remove(mob/living/carbon/heart_owner)
+/obj/item/organ/heart/shadow_ritual/on_mob_remove(mob/living/carbon/heart_owner)
 	. = ..()
 	if(isblessedshadow(heart_owner))
 		var/mob/living/carbon/human/O = heart_owner
@@ -494,7 +495,7 @@
 		to_chat(heart_owner, span_bigboldinfo("You feel warmth returning to you once more."))
 		shadow_conversion = 0
 
-/obj/item/organ/heart/shadow_ritual/third/on_remove(mob/living/carbon/heart_owner)
+/obj/item/organ/heart/shadow_ritual/third/on_mob_remove(mob/living/carbon/heart_owner)
 	..()
 	respawn_progress = 0
 
@@ -552,7 +553,7 @@
 /datum/action/innate/shadow_comms
 	button_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 
 /datum/action/innate/shadow_comms/is_available()
 	if(!isblessedshadow(owner))

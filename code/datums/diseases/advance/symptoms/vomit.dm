@@ -32,6 +32,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	required_organ = ORGAN_SLOT_STOMACH
 	prefixes = list("Digestive ")
 	bodies = list("Vomit")
 	suffixes = list(" Emission")

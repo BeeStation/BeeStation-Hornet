@@ -96,7 +96,7 @@
 		knowledge_data["disabled"] = (initial(knowledge.cost) > knowledge_points)
 
 		// Final knowledge can't be learned until all objectives are complete.
-		if(ispath(knowledge, /datum/heretic_knowledge/final))
+		if(ispath(knowledge, /datum/heretic_knowledge/ultimate))
 			knowledge_data["disabled"] = !can_ascend()
 
 		knowledge_data["hereticPath"] = initial(knowledge.route)
@@ -548,7 +548,7 @@
 
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		if(istype(knowledge, /datum/heretic_knowledge/final))
+		if(istype(knowledge, /datum/heretic_knowledge/ultimate))
 			string_of_knowledge += span_bold("[knowledge.name]")
 		else
 			string_of_knowledge += knowledge.name
@@ -668,7 +668,7 @@
 /datum/antagonist/heretic/proc/finish_manus_dream_cooldown()
 	var/mob/living/living_current = owner?.current
 	if(!QDELETED(living_current))
-		to_chat(living_current, span_hypnophrase("You feel ready to walk the forest of the manus again..."))
+		to_chat(living_current, span_hypnophrase("You feel ready to walk the forest of the mansus again..."))
 		living_current.balloon_alert(living_current, "You are ready to dream again")
 
 	manus_dream_allowed = TRUE

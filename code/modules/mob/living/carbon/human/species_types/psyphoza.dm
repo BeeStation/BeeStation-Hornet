@@ -36,11 +36,11 @@
 	/// Weakref to the psychic highlight action given by our eyes
 	var/datum/weakref/ability_weakref
 
-/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	ability_weakref = WEAKREF(locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions)
 
-/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	ability_weakref = null
 

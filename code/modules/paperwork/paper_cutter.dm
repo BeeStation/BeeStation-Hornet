@@ -15,6 +15,7 @@
 /obj/item/papercutter/Initialize(mapload)
 	. = ..()
 	storedcutter = new /obj/item/hatchet/cutterblade(src)
+	AddElement(/datum/element/drag_pickup)
 	update_icon()
 
 
@@ -89,20 +90,6 @@
 		new /obj/item/paperslip(get_turf(src))
 		new /obj/item/paperslip(get_turf(src))
 		update_icon()
-
-/obj/item/papercutter/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/M = usr
-	if(M.incapacitated || !Adjacent(M))
-		return
-
-	if(over_object == M)
-		M.put_in_hands(src)
-
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-	add_fingerprint(M)
 
 /obj/item/paperslip
 	name = "paper slip"

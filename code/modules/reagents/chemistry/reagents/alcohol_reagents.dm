@@ -227,17 +227,17 @@
 
 	if(DT_PROB(2.5, delta_time))
 		var/obj/item/organ/eyes/eyes = affected_mob.get_organ_slot(ORGAN_SLOT_EYES)
-		if(affected_mob.is_blind())
-			if(istype(eyes))
+		if(eyes && IS_ORGANIC_ORGAN(eyes)) // doesn't affect robotic eyes
+			if(affected_mob.is_blind())
 				eyes.Remove(affected_mob)
 				eyes.forceMove(get_turf(affected_mob))
 				to_chat(affected_mob, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
 				affected_mob.emote("scream")
 				affected_mob.adjustBruteLoss(15, required_bodytype = affected_bodytype)
-		else
-			to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
-			eyes.apply_organ_damage(eyes.maxHealth)
-			affected_mob.emote("scream")
+			else
+				to_chat(affected_mob, span_userdanger("You scream in terror as you go blind!"))
+				eyes.apply_organ_damage(eyes.maxHealth)
+				affected_mob.emote("scream")
 
 	if(DT_PROB(1.5, delta_time))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))

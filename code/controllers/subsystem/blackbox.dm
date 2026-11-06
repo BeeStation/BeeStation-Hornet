@@ -41,10 +41,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	if(!SSdbcore.Connect())
 		return
-	var/playercount = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			playercount += 1
+	var/playercount = LAZYLEN(GLOB.player_list)
 	var/admincount = GLOB.admins.len
 
 
@@ -69,7 +66,7 @@ SUBSYSTEM_DEF(blackbox)
 
 //no touchie
 /datum/controller/subsystem/blackbox/vv_get_var(var_name)
-	if(var_name == "feedback")
+	if(var_name == NAMEOF(src, feedback))
 		return debug_variable(var_name, deep_copy_list(feedback), 0, src)
 	return ..()
 

@@ -30,7 +30,7 @@
 	visual = FALSE
 	item_flags = NOBLUDGEON
 	organ_flags = null
-	slot = "hivecore"
+	slot = ORGAN_SLOT_MONSTER_CORE
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0
@@ -112,17 +112,21 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/Insert(mob/living/carbon/target_carbon, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/target_carbon, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
-	if(!preserved && !inert)
-		preserved(TRUE)
-		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
 
-/obj/item/organ/regenerative_core/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+	if(preserved && inert)
+		to_chat(target_carbon, span_notice("[src] breaks down as you try to insert it."))
+		qdel(src)
+		return FALSE
+
+	preserved(TRUE)
+	owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
+	return TRUE
+
+/obj/item/organ/regenerative_core/on_mob_remove(mob/living/carbon/M, special = FALSE)
 	if(!inert && !special)
-		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
+		M?.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()
 	return ..()
 

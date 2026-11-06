@@ -91,7 +91,16 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/attack_hand, "Toggle Open")
 /obj/machinery/harvester/proc/start_harvest()
 	if(!occupant || !iscarbon(occupant))
 		return
+
 	var/mob/living/carbon/C = occupant
+
+	if(C.stat < UNCONSCIOUS)
+		notify_ghosts(
+			"[occupant] is about to be ground up by a malfunctioning organ harvester!",
+			source = src,
+			header = "Gruesome!",
+		)
+
 	operation_order = reverseList(C.bodyparts)   //Chest and head are first in bodyparts, so we invert it to make them suffer more
 	warming_up = TRUE
 	harvesting = TRUE

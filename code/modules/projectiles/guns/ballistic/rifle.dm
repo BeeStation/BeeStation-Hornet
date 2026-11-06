@@ -159,6 +159,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 8
 	recoil = 0.8
+	max_integrity = 250
 	var/slung = FALSE
 
 /obj/item/gun/ballistic/rifle/pipe/examine(mob/user)

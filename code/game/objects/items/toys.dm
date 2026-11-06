@@ -913,6 +913,7 @@
 /obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
 	populate_deck()
+	AddElement(/datum/element/drag_pickup)
 
 ///Generates all the cards within the deck.
 /obj/item/toy/cards/deck/proc/populate_deck()
@@ -999,26 +1000,6 @@
 		update_icon()
 	else
 		return ..()
-
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || !(M.mobility_flags & MOBILITY_PICKUP))
-		return
-	if(Adjacent(usr))
-		if(over_object == M && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, span_notice("You pick up the deck."))
-
-		else if(istype(over_object, /atom/movable/screen/inventory/hand))
-			var/atom/movable/screen/inventory/hand/H = over_object
-			if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-				to_chat(usr, span_notice("You pick up the deck."))
-
-	else
-		to_chat(usr, span_warning("You can't reach it from here!"))
-
-
 
 /obj/item/toy/cards/cardhand
 	name = "hand of cards"
