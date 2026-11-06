@@ -51,3 +51,6 @@
   - balance: the weak variant of improvised 7.62 ammo now destroys the gun firing
       it slower, additionally, the mosin is more durable, allowing it to handle twice
       as many of your homemade munitions as the pipe rifle before breaking entirely.
+2026-11-06:
+  DrDuckedGoose:
+  - bugfix: Fix math & APC files
