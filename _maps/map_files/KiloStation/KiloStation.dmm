@@ -220,12 +220,12 @@
 /turf/open/floor/plating,
 /area/station/medical/medbay/central)
 "agm" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4;
-	name = "Cold Loop to Gas"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
+	dir = 4;
+	name = "Cooling Loop Valve"
 	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
@@ -18241,14 +18241,14 @@
 /turf/open/floor/iron/dark,
 /area/station/commons/fitness/recreation)
 "gxC" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 8;
-	name = "Gas to Cold Loop"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
+	dir = 4;
+	name = "Cooling Loop Valve"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "gxK" = (
@@ -46416,13 +46416,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Gas to Filter"
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -49276,12 +49273,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Gas to Chamber"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -57703,9 +57698,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/station/cargo/exploration_prep)
 "tRw" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Cooling Loop Bypass"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -57713,6 +57705,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Cooling Bypass Valve"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "tRy" = (

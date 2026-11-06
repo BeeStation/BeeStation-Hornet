@@ -4431,10 +4431,6 @@
 /turf/open/floor/plating,
 /area/station/maintenance/aft)
 "brR" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Filter to Gas"
-	},
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 22
 	},
@@ -4442,7 +4438,9 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
-/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 4
+	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "bsa" = (
@@ -15781,11 +15779,11 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Gas to Loop"
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Cooling Bypass Valve";
+	dir = 4
+	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "eHK" = (
@@ -28708,9 +28706,8 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "izO" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Gas to Filter"
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
@@ -40724,11 +40721,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Thermoelectric Generator loop"
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Cooling Bypass Valve";
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "lUG" = (
@@ -56021,12 +56018,11 @@
 /turf/open/floor/plating,
 /area/station/cargo/storage)
 "qyS" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Gas to Chamber"
-	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "qzb" = (
@@ -59674,11 +59670,10 @@
 /turf/open/floor/plating,
 /area/station/security/checkpoint/escape)
 "rCK" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Thermo to Gas"
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Supplemental Cooling Valve"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
 "rCR" = (
@@ -67998,10 +67993,10 @@
 /area/station/maintenance/port/aft)
 "udi" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Gas to Thermo"
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Supplemental Cooling Valve"
+	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "udk" = (
@@ -77470,11 +77465,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Gas to Cooling Loop";
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	dir = 4;
+	name = "Supplemental Cooling Valve"
+	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "wRy" = (
@@ -78633,11 +78628,11 @@
 /area/station/security/brig)
 "xkZ" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Thermoelectric Generator Input"
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	dir = 4;
+	name = "TEG Feed Valve"
+	},
 /turf/open/floor/iron/ameridiner,
 /area/station/engineering/supermatter/room)
 "xla" = (

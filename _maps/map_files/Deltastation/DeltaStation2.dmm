@@ -3369,11 +3369,10 @@
 /turf/open/floor/plating,
 /area/station/security/warden)
 "bnU" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Gas to Loop"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Cooling Bypass Valve"
+	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "boi" = (
@@ -33257,10 +33256,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port)
 "kHA" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Filter to Gas"
-	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
 "kHF" = (
@@ -35182,10 +35179,7 @@
 /turf/open/floor/iron,
 /area/station/science/research)
 "lhr" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Gas to Chamber"
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "lhx" = (
@@ -37757,9 +37751,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Thermo to Gas"
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Supplemental Cooling Valve"
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
@@ -38021,12 +38014,12 @@
 /turf/open/floor/iron/white,
 /area/station/science/misc_lab/range)
 "lZz" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 8;
-	name = "Gas to Cooling Loop"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
+	dir = 4;
+	name = "Cooling Loop Valve"
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)
@@ -68983,9 +68976,7 @@
 /turf/open/floor/plating,
 /area/station/science/xenobiology)
 "vrz" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Gas to Filter"
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "vrB" = (
@@ -72282,9 +72273,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
 	dir = 4;
-	name = "Cooling to Unfiltered"
+	name = "Cooling Loop Valve"
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmospherics_engine)

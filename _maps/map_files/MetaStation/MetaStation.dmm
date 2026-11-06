@@ -21390,12 +21390,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Gas to Thermo"
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Supplemental Cooling Valve"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "hSx" = (
@@ -30803,10 +30802,7 @@
 /turf/open/floor/iron/chapel,
 /area/station/service/chapel)
 "kWO" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Gas to Chamber"
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "kXh" = (
@@ -33343,12 +33339,12 @@
 /area/station/security/execution/education)
 "lQO" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Gas to Cooling Loop"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
+	name = "Cooling Loop Valve"
 	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
@@ -33423,11 +33419,11 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "Cooling Loop bypass"
-	},
 /obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Cooling Bypass Valve";
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "lTq" = (
@@ -36578,8 +36574,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Thermo to Gas"
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Supplemental Cooling Valve"
 	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
@@ -41337,11 +41333,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "Cooling to Unfiltered"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
+	name = "Cooling Loop Valve"
+	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
 "otQ" = (
@@ -51162,11 +51157,10 @@
 /turf/open/floor/iron/dark,
 /area/station/command/bridge)
 "rLj" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Gas to Filter"
-	},
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "rLz" = (
@@ -67008,8 +67002,9 @@
 /area/station/hallway/primary/port)
 "xgH" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/valve/digital/on{
+	name = "Thermomachine Bypass Valve";
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/station/engineering/main)
