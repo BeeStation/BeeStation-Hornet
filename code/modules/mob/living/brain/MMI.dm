@@ -40,14 +40,16 @@
 
 /obj/item/mmi/update_overlays()
 	. = ..()
-	. += add_mmi_overlay()
+	var/new_overlay = add_mmi_overlay()
+	if(new_overlay)
+		. += new_overlay
 
 /obj/item/mmi/proc/add_mmi_overlay()
-	if(brainmob && brainmob.stat != DEAD)
-		. += "mmi_alive"
+	if(!brain)
 		return
-	if(brain)
-		. += "mmi_dead"
+	if(brainmob?.client && brainmob.stat != DEAD)
+		return "mmi_alive"
+	return "mmi_dead"
 
 /obj/item/mmi/attackby(obj/item/O, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -235,22 +237,28 @@
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
-	. += span_notice("There is a switch to toggle the radio system [radio.is_on() ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : null]")
-	if(brainmob)
-		if(!brainmob.key || !brainmob.mind || brainmob.stat == DEAD)
-			. += span_warning("The MMI indicates the brain is completely unresponsive.")
+	. += span_notice("There is a switch to toggle the radio system [radio.is_on() ? "off" : "on"].[brain ? " It is currently being covered by [brain]." : ""]")
 
-		else if(!brainmob.client)
-			. += span_warning("The MMI indicates the brain is currently inactive; it might change.")
+	if(!brain)
+		return
 
-		else
-			. += span_notice("The MMI indicates the brain is active.")
+	// no associated client, ckey, or ghost
+	if(!brain.decoy_override && !brainmob?.client && !brainmob.key && !brainmob.get_ghost())
+		. += span_warning("The MMI indicates that the brain is completely unresponsive.")
+	// brain damage
+	else if((brain.organ_flags & ORGAN_FAILING) || brainmob?.stat >= DEAD)
+		. += span_warning("The MMI indicates that the brain is damaged!")
+	// no associated client, but they do have either a ckey or ghost
+	else if(!brain.decoy_override && !brainmob?.client)
+		. += span_notice("The MMI indicates that the brain is currently inactive; it might change.")
+	else
+		. += span_notice("The MMI indicates that the brain is active.")
 
 /obj/item/mmi/relaymove(mob/living/user, direction)
 	return //so that the MMI won't get a warning about not being able to move if it tries to move
 
 /obj/item/mmi/proc/brain_check(mob/user)
-	if(!brainmob)
+	if(!brainmob || !brain)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that there is no brain present!"))
 		return FALSE
@@ -262,7 +270,7 @@
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind is currently inactive."))
 		return FALSE
-	if(brainmob.suiciding || brain?.suicided)
+	if(brainmob.suiciding || brain.suicided)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind has no will to live!"))
 		return FALSE
@@ -270,7 +278,7 @@
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that the brain is dead!"))
 		return FALSE
-	if(brain?.organ_flags & ORGAN_FAILING)
+	if(brain.organ_flags & ORGAN_FAILING)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that the brain is damaged!"))
 		return FALSE
