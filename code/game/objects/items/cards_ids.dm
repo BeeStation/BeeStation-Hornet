@@ -295,7 +295,6 @@
 
 /// Accesses that consoles can only grant temporarily
 /obj/item/card/id/proc/get_head_only(list/access_list)
-	PRIVATE_PROC(TRUE)
 	. = access_list & SSdepartment.get_head_only_access()
 	var/datum/job/own_job = SSjob.get_job(job_title)
 	if(own_job)
