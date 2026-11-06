@@ -151,7 +151,8 @@
 		COMSIG_MODULE_DEACTIVATED, \
 		MOD_ABORT_USE, \
 		thrust_callback, \
-		/datum/effect_system/trail_follow/ion/grav_allowed \
+		thrust_callback, \
+		/datum/effect_system/trail_follow/ion/grav_allowed, \
 	)
 
 /obj/item/mod/module/jetpack/on_activation()

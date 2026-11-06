@@ -21,12 +21,10 @@
 	. = ..()
 	RegisterSignal(receiver, COMSIG_HUMAN_BURNING, PROC_REF(try_burn_wings))
 	RegisterSignal(receiver, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(heal_wings))
-	RegisterSignal(receiver, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(update_float_move))
 
 /obj/item/organ/wings/moth/on_mob_remove(mob/living/carbon/organ_owner)
 	. = ..()
-	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOVABLE_PRE_MOVE))
-	REMOVE_TRAIT(organ_owner, TRAIT_FREE_FLOAT_MOVEMENT, REF(src))
+	UnregisterSignal(organ_owner, list(COMSIG_HUMAN_BURNING, COMSIG_LIVING_POST_FULLY_HEAL))
 
 /obj/item/organ/wings/moth/make_flap_sound(mob/living/carbon/wing_owner)
 	playsound(wing_owner, 'sound/emotes/moth/moth_flutter.ogg', 50, TRUE)
@@ -34,24 +32,15 @@
 /obj/item/organ/wings/moth/can_soften_fall()
 	return !burnt
 
-/obj/item/organ/wings/moth/can_fly(mob/living/carbon/human/human)
+/obj/item/organ/wings/moth/can_fly()
+	return !burnt && ..()
+
+/obj/item/organ/wings/moth/allow_flight()
 	return !burnt && ..()
 
 /obj/item/organ/wings/moth/can_open()
 	var/datum/bodypart_overlay/mutant/wings/moth/wings = bodypart_overlay
 	return !burnt && (wings.sprite_datum.name in GLOB.moth_wingsopen_list) && ..()
-
-///Check if we can flutter around
-/obj/item/organ/wings/moth/proc/update_float_move()
-	SIGNAL_HANDLER
-
-	if(!isspaceturf(owner.loc) && !burnt)
-		var/datum/gas_mixture/current = owner.loc.return_air()
-		if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
-			ADD_TRAIT(owner, TRAIT_FREE_FLOAT_MOVEMENT, REF(src))
-			return
-
-	REMOVE_TRAIT(owner, TRAIT_FREE_FLOAT_MOVEMENT, REF(src))
 
 ///check if our wings can burn off ;_;
 /obj/item/organ/wings/moth/proc/try_burn_wings(mob/living/carbon/human/human)

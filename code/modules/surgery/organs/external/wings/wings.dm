@@ -17,6 +17,8 @@
 
 	///The flight action object
 	var/datum/action/innate/flight/fly
+	///almost a getcomponent, but not one :)
+	var/datum/component/jetpack/jetpack
 
 	///Are our wings open or closed?
 	var/wings_open = FALSE
@@ -40,14 +42,45 @@
 	playsound(wing_owner, flap_sound, 50, TRUE)
 
 /obj/item/organ/wings/Initialize(mapload)
+	setup_jetpack()
 	if(flight_level > WINGS_FLIGHTLESS)
 		// only flightful wings get orange juice
 		food_reagents = list(/datum/reagent/flightpotion = 5)
 		grind_results = list(/datum/reagent/flightpotion = 5)
 	. = ..()
 
+/**
+ * update proc to kick our jetpack component whenever circumstances change
+ *
+ * Flightless wings never generate lift of their own.
+ * Anything airworthy flies under its own power, so we hook the wings being opened/closed instead
+ */
+/obj/item/organ/wings/proc/setup_jetpack()
+	if(flight_level <= WINGS_FLIGHTLESS)
+		jetpack = AddComponent( \
+			/datum/component/jetpack, \
+			TRUE, \
+			COMSIG_ORGAN_IMPLANTED, \
+			COMSIG_ORGAN_REMOVED, \
+			null, \
+			CALLBACK(src, PROC_REF(allow_flight)), \
+			null, \
+		)
+		return
+
+	jetpack = AddComponent( \
+		/datum/component/jetpack, \
+		TRUE, \
+		COMSIG_WINGS_OPENED, \
+		COMSIG_WINGS_CLOSED, \
+		null, \
+		CALLBACK(src, PROC_REF(can_fly)), \
+		CALLBACK(src, PROC_REF(can_fly)), \
+	)
+
 /obj/item/organ/wings/Destroy()
 	QDEL_NULL(fly)
+	jetpack = null
 	return ..()
 
 /obj/item/organ/wings/on_mob_insert(mob/living/carbon/receiver, special, movement_flags)
@@ -55,12 +88,12 @@
 	update_flight(receiver)
 
 /obj/item/organ/wings/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	. = ..()
+	fly?.Remove(organ_owner)
 	if(HAS_TRAIT_FROM(organ_owner, TRAIT_MOVE_FLOATING, SPECIES_FLIGHT_TRAIT))
 		toggle_flight(organ_owner)
 	else if(wings_open)
-		close_wings()
-	fly?.Remove(organ_owner)
-	return ..()
+		close_wings(organ_owner)
 
 //If some goober tries to varedit the flight_level instead of running the set_flight() proc, we take care of that
 /obj/item/organ/wings/vv_edit_var(var_name, var_value)
@@ -75,7 +108,12 @@
 		//Force landing while old binds are still live
 		if(!isnull(organ_owner) && HAS_TRAIT_FROM(organ_owner, TRAIT_MOVE_FLOATING, SPECIES_FLIGHT_TRAIT))
 			toggle_flight(organ_owner)
+		if(!isnull(organ_owner))
+			jetpack.deactivate(src, organ_owner)
 		flight_level = state
+		setup_jetpack()
+		if(!isnull(organ_owner) && flight_level <= WINGS_FLIGHTLESS)
+			jetpack.activate(src, organ_owner)
 	update_flight(organ_owner)
 
 /obj/item/organ/wings/proc/update_flight(mob/living/carbon/organ_owner)
@@ -101,21 +139,21 @@
 /obj/item/organ/wings/proc/handle_flight(mob/living/carbon/human/human)
 	if(!HAS_TRAIT_FROM(human, TRAIT_MOVE_FLOATING, SPECIES_FLIGHT_TRAIT))
 		return FALSE
-	if(!can_fly(human))
+	if(!can_fly())
 		toggle_flight(human)
 		return FALSE
 	return TRUE
 
-///Check if we're still eligible for flight (wings covered, atmosphere too thin, etc)
-/obj/item/organ/wings/proc/can_fly(mob/living/carbon/human/human)
-	if(human.stat || human.body_position == LYING_DOWN)
+///Check if still eligible for active flight (wings covered, atmosphere too thin, etc)
+/obj/item/organ/wings/proc/can_fly()
+	var/mob/living/carbon/human/human = owner
+	if(IS_UNCONSCIOUS_OR_CRIT(human) || human.body_position == LYING_DOWN || isnull(human.client))
 		return FALSE
 	if(flight_level < WINGS_AIRWORTHY) //Them wings are useless!
 		return FALSE
-	//Jumpsuits have tail holes, so it makes sense they have wing holes too
 	var/datum/bodypart_overlay/mutant/wings/wing_overlay = bodypart_overlay
-	if(!cant_hide && wing_overlay && (human.obscured_slots  & wing_overlay.slot_blocker) && !is_type_in_list(src, human.wear_suit?.species_exception))
-		to_chat(human, span_warning("Your suit blocks your wings from extending!"))
+	if(!cant_hide && wing_overlay && (human.obscured_slots & wing_overlay.slot_blocker))
+		to_chat(human, span_warning("Your clothing blocks your wings from extending!"))
 		return FALSE
 	var/turf/location = get_turf(human)
 	if(!location)
@@ -126,6 +164,20 @@
 			to_chat(human, span_warning("The atmosphere is too thin for you to fly!"))
 			return FALSE
 	return TRUE
+
+///Check if we can passively drift in low-gravity. Used by WINGS_FLIGHTLESS jetpack component
+/obj/item/organ/wings/proc/allow_flight()
+	if(!owner || !owner.client)
+		return FALSE
+	if(owner.has_gravity())
+		return FALSE
+	var/datum/bodypart_overlay/mutant/wings/wing_overlay = bodypart_overlay
+	if(!cant_hide && wing_overlay && (owner.obscured_slots & wing_overlay.slot_blocker))
+		return FALSE
+	var/datum/gas_mixture/current = owner.loc?.return_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
+		return TRUE
+	return FALSE
 
 ///Slipping but in the air?
 /obj/item/organ/wings/proc/fly_slip(mob/living/carbon/human/human)
@@ -158,7 +210,7 @@
 		human.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/wings)
 		human.AddElement(/datum/element/forced_gravity, 0)
 		passtable_on(human, SPECIES_FLIGHT_TRAIT)
-		open_wings()
+		open_wings(human)
 		to_chat(human, span_notice("You beat your wings and begin to hover gently above the ground..."))
 		human.set_resting(FALSE, TRUE)
 		human.refresh_gravity()
@@ -170,7 +222,7 @@
 	human.RemoveElement(/datum/element/forced_gravity, 0)
 	passtable_off(human, SPECIES_FLIGHT_TRAIT)
 	to_chat(human, span_notice("You settle gently back onto the ground..."))
-	close_wings()
+	close_wings(human)
 	human.refresh_gravity()
 
 ///Whether the wings have an open sprite to switch to right now
@@ -178,25 +230,25 @@
 	return has_open_sprite
 
 ///Spread wings
-/obj/item/organ/wings/proc/open_wings()
+/obj/item/organ/wings/proc/open_wings(mob/living/carbon/wing_owner = owner)
 	wings_open = TRUE
 	if(can_open())
 		var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 		overlay?.open_wings()
-		owner?.update_body_parts()
-	SEND_SIGNAL(src, COMSIG_WINGS_OPENED, owner)
+		wing_owner?.update_body_parts()
+	SEND_SIGNAL(src, COMSIG_WINGS_OPENED, wing_owner)
 
-///Close wings
-/obj/item/organ/wings/proc/close_wings()
+///Close wings. Takes the mob since owner is already null during removal
+/obj/item/organ/wings/proc/close_wings(mob/living/carbon/wing_owner = owner)
 	wings_open = FALSE
 	if(has_open_sprite)
 		var/datum/bodypart_overlay/mutant/wings/overlay = bodypart_overlay
 		overlay?.close_wings()
-		owner?.update_body_parts()
-	if(isturf(owner?.loc))
-		var/turf/location = owner.loc
-		location.Entered(owner, NONE)
-	SEND_SIGNAL(src, COMSIG_WINGS_CLOSED, owner)
+		wing_owner?.update_body_parts()
+	if(isturf(wing_owner?.loc))
+		var/turf/location = wing_owner.loc
+		location.Entered(wing_owner, NONE)
+	SEND_SIGNAL(src, COMSIG_WINGS_CLOSED, wing_owner)
 
 ///hud action for starting and stopping flight
 /datum/action/innate/flight
@@ -208,7 +260,7 @@
 /datum/action/innate/flight/on_activate()
 	var/mob/living/carbon/human/human = owner
 	var/obj/item/organ/wings/wings = human.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
-	if(wings?.can_fly(human))
+	if(wings?.can_fly())
 		wings.toggle_flight(human)
 
 ///Bodypart overlay of default wings. Does not have any wing functionality
