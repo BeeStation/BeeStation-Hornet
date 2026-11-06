@@ -1277,7 +1277,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(user, span_warning("Your attack at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.harm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
-		return ATTACK_HANDLED
+		return ATTACK_HANDLED | ATTACK_CONSUME_STAMINA
 
 	var/obj/item/organ/brain/brain = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 	var/obj/item/bodypart/attacking_bodypart
@@ -1360,6 +1360,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		to_chat(user, span_warning("Your shove at [target] was blocked!"))
 		return FALSE
 	if(attacker_style?.disarm_act(user,target) == MARTIAL_ATTACK_SUCCESS)
+		user.stamina_swing(STAMINA_SWING_COST_UNARMED)
 		user.animate_interact(target, INTERACT_DISARM)
 		return TRUE
 	if(user.resting || user.IsKnockdown())

@@ -38,9 +38,9 @@
 	D.visible_message(span_danger("[A] [atk_verb]ed [D]!"), \
 			span_userdanger("[A] [atk_verb]ed you!"), null, COMBAT_MESSAGE_RANGE)
 
-	D.stamina.adjust(-damage)
+	D.stamina.adjust(-(damage + STAMINA_DAMAGE_UNARMED))
 	log_combat(A, D, "punched (boxing) ", name)
-	if(D.stamina.current < 150 && istype(D.mind?.martial_art, /datum/martial_art/boxing))
+	if(HAS_TRAIT(D, TRAIT_EXHAUSTED) && istype(D.mind?.martial_art, /datum/martial_art/boxing))
 		var/knockout_prob = D.stamina.loss_as_percent + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message(span_danger("[A] knocks [D] out with a haymaker!"), \

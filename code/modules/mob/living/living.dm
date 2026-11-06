@@ -2224,12 +2224,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if (is_grab)
 		return style.grab_act(src, target)
 	if (LAZYACCESS(modifiers, RIGHT_CLICK))
-		return style.disarm_act(src, target)
-	if(combat_mode)
+		. = style.disarm_act(src, target)
+	else if(combat_mode)
 		if (HAS_TRAIT(src, TRAIT_PACIFISM))
 			return FALSE
-		return style.harm_act(src, target)
-	return style.help_act(src, target)
+		. = style.harm_act(src, target)
+	else
+		return style.help_act(src, target)
+	if(. == MARTIAL_ATTACK_SUCCESS)
+		stamina_swing(STAMINA_SWING_COST_UNARMED)
 
 /**
  * Returns an assoc list of assignments and minutes for updating a client's exp time in the databse.
