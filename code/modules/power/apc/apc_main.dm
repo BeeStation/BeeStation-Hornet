@@ -25,10 +25,8 @@
 	light_power = 0.85
 
 	FASTDMM_PROP(\
-		set_instance_vars(\
-			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
-			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
-		),\
+		pixel_x = (dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT)),\
+		pixel_y = (dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)),\
 		dir_amount = 4\
 	)
 
