@@ -564,24 +564,31 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE)
 	if(QDELETED(src))
 		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
-	if(mrace && has_dna())
-		var/datum/species/new_race
-		if(ispath(mrace))
-			new_race = new mrace
-		else if(istype(mrace))
-			new_race = mrace
-		else
-			return
-		death_sound = new_race.deathsound
+	if(isnull(mrace))
+		CRASH("set_species called without a species to set to")
+	if(!has_dna())
+		return
 
-		var/datum/species/old_species = dna.species
-		dna.update_species(new_race)
+	var/datum/species/new_race
+	if(ispath(mrace))
+		new_race = new mrace
+	else if(istype(mrace))
+		if(QDELING(mrace))
+			CRASH("someone is calling set_species() and is passing it a qdeling species datum, this is VERY bad, stop it")
+		new_race = mrace
+	else
+		CRASH("set_species called with an invalid mrace [mrace]")
 
-		if(old_species.properly_gained)
-			old_species.on_species_loss(src, new_race)
+	death_sound = new_race.deathsound
 
-		dna.species.on_species_gain(src, old_species)
-		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
+	var/datum/species/old_species = dna.species
+	dna.update_species(new_race)
+
+	if(old_species.properly_gained)
+		old_species.on_species_loss(src, new_race)
+
+	dna.species.on_species_gain(src, old_species)
+	SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
 	..()

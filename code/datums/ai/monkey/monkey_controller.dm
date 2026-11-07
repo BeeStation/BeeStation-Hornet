@@ -82,6 +82,7 @@ have ways of interacting with a specific mob and control it.
 	update_able_to_run()
 
 /datum/ai_controller/monkey/setup_able_to_run()
+	. = ..()
 	RegisterSignal(pawn, COMSIG_MOB_INCAPACITATE_CHANGED, PROC_REF(update_able_to_run))
 
 /datum/ai_controller/monkey/clear_able_to_run()
