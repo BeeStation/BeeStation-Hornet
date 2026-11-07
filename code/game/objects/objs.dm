@@ -127,11 +127,11 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 		// check for TK users
 
-		if(usr?.has_dna())
-			var/mob/living/carbon/C = usr
+		if(ishuman(usr))
+			var/mob/living/carbon/human/H = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
-					if(C.dna.check_mutation(/datum/mutation/telekinesis))
+					if(H.dna.check_mutation(/datum/mutation/telekinesis))
 						is_in_use = TRUE
 						ui_interact(usr)
 		if (is_in_use)

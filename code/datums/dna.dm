@@ -934,7 +934,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /////////////////////////// DNA HELPER-PROCS
 
-/mob/living/carbon/proc/something_horrible(ignore_stability)
+/mob/living/carbon/human/proc/something_horrible(ignore_stability)
 	if(!has_dna()) //shouldn't ever happen anyway so it's just in really weird cases
 		return
 	if(!ignore_stability && (dna.stability > 0))
@@ -945,7 +945,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(prob(max(70-instability,0)))
 		switch(rand(0,10)) //not complete and utter death
 			if(0)
-				teratomize()
+				monkeyize()
 			if(1)
 				gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 				new/obj/vehicle/ridden/wheelchair(get_turf(src)) //don't buckle, because I can't imagine to plethora of things to go through that could otherwise break
@@ -956,9 +956,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 			if(4)
 				to_chat(src, span_notice("Oh, I actually feel quite alright!")) //you thought
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					H.physiology.damage_resistance -= 20000 //you thought
+				physiology.damage_resistance -= 20000 //you thought
 			if(5)
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
@@ -1012,7 +1010,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				to_chat(src, span_phobia("LOOK UP!"))
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
 
-/mob/living/carbon/proc/something_horrible_mindmelt()
+/mob/living/carbon/human/proc/something_horrible_mindmelt()
 	if(!is_blind())
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in internal_organs
 		if(!eyes)

@@ -127,13 +127,10 @@
 /datum/mutation/proc/get_visual_indicator()
 	return
 
-/datum/mutation/proc/on_ranged_attack(mob/living/carbon/human/source, atom/target, modifiers)
-	return
-
 /datum/mutation/proc/on_life(delta_time, times_fired)
 	return
 
-/datum/mutation/proc/on_losing(mob/living/carbon/owner)
+/datum/mutation/proc/on_losing(mob/living/carbon/human/owner)
 	if(!istype(owner) || !(owner.dna.mutations.Remove(src)))
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_MUTATION_LOST, owner)

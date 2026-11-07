@@ -31,6 +31,8 @@
 	dna.species.handle_body_temperature(src, delta_time, times_fired)
 	if(!IS_IN_STASIS(src))
 		if(stat != DEAD)
+			for(var/datum/mutation/mutation as anything in dna.mutations)
+				mutation.on_life(delta_time, times_fired)
 			//heart attack stuff
 			handle_heart(delta_time, times_fired)
 			//handles liver failure effects, if we lack a liver

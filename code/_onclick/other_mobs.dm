@@ -139,13 +139,6 @@
 		return ui_interact(user)
 	return FALSE
 
-/mob/living/carbon/RangedAttack(atom/A, mouseparams)
-	. = ..()
-	if(!dna)
-		return
-	for(var/datum/mutation/HM as anything in dna.mutations)
-		HM.on_ranged_attack(A, mouseparams)
-
 /mob/living/carbon/human/RangedAttack(atom/A, modifiers)
 	. = ..()
 	if(.)

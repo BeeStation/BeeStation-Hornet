@@ -25,10 +25,6 @@
 				GLOB.addictions[key].process_addiction(src, delta_time)
 			handle_brain_damage(delta_time, times_fired)
 
-		if(stat != DEAD && has_dna())
-			for(var/datum/mutation/HM as anything in dna.mutations)
-				HM.on_life(delta_time, times_fired)
-
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else

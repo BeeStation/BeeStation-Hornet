@@ -15,12 +15,12 @@
 	desc = "A mutation that causes the user to talk in an odd manner."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/wacky/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/wacky/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/wacky/on_losing(mob/living/carbon/owner)
+/datum/mutation/wacky/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -41,12 +41,12 @@
 	desc = "Hereditary mutation reminiscent of Bipolar Disorder. Characterized by a near constant state of mania and an apathy towards negative stimuli."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/smile/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/smile/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/smile/on_losing(mob/living/carbon/owner)
+/datum/mutation/smile/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -153,12 +153,12 @@
 	quality = NEGATIVE
 	locked = TRUE
 
-/datum/mutation/stoner/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/stoner/on_acquiring(mob/living/carbon/human/owner)
 	..()
 	owner.grant_language(/datum/language/beachbum, source = LANGUAGE_STONER)
 	owner.add_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)
 
-/datum/mutation/stoner/on_losing(mob/living/carbon/owner)
+/datum/mutation/stoner/on_losing(mob/living/carbon/human/owner)
 	..()
 	owner.remove_language(/datum/language/beachbum, source = LANGUAGE_STONER)
 	owner.remove_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)

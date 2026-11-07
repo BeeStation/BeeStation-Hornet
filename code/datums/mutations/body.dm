@@ -30,7 +30,7 @@
 	quality = NEGATIVE
 	locked = TRUE
 
-/datum/mutation/bad_dna/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/bad_dna/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	var/mob/new_mob
@@ -88,7 +88,7 @@
 	conflicts = list(/datum/mutation/gigantism)
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
-/datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/dwarfism/on_acquiring(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
@@ -97,7 +97,7 @@
 	passtable_on(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
-/datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
+/datum/mutation/dwarfism/on_losing(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
@@ -140,7 +140,7 @@
 	quality = NEGATIVE
 	traits = TRAIT_DEAF
 
-/datum/mutation/deaf/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/deaf/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	SEND_SOUND(owner, sound(null))
@@ -189,7 +189,7 @@
 	var/glow_color
 	var/obj/effect/dummy/lighting_obj/moblight/glow
 
-/datum/mutation/glow/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/glow/on_acquiring(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
@@ -207,7 +207,7 @@
 /datum/mutation/glow/proc/glow_color()
 	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
 
-/datum/mutation/glow/on_losing(mob/living/carbon/owner)
+/datum/mutation/glow/on_losing(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
@@ -254,19 +254,15 @@
 		owner.adjust_fire_stacks(2 * GET_MUTATION_POWER(src))
 		owner.ignite_mob()
 
-/datum/mutation/fire/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/fire/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.physiology.burn_mod *= 0.5
+	owner.physiology.burn_mod *= 0.5
 
-/datum/mutation/fire/on_losing(mob/living/carbon/owner)
+/datum/mutation/fire/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.physiology.burn_mod *= 2
+	owner.physiology.burn_mod *= 2
 
 /datum/mutation/badblink
 	name = "Spatial Instability"
@@ -321,7 +317,7 @@
 	difficulty = 12
 	conflicts = list(/datum/mutation/dwarfism)
 
-/datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/gigantism/on_acquiring(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return
@@ -329,7 +325,7 @@
 	owner.update_transform(1.25)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 
-/datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
+/datum/mutation/gigantism/on_losing(mob/living/carbon/human/owner)
 	. = ..()
 	if(.)
 		return

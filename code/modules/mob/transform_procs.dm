@@ -259,7 +259,7 @@
 	qdel(src)
 
 
-/mob/living/carbon/proc/corgize()
+/mob/living/carbon/human/proc/corgize()
 	if(pre_transform())
 		return
 

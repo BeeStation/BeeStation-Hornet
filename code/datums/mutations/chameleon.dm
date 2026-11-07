@@ -9,7 +9,7 @@
 	/// How much the user's alpha is reduced every life tick they are not moving.
 	var/effect_speed = 12.5
 
-/datum/mutation/chameleon/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/chameleon/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
@@ -51,7 +51,7 @@
 	..()
 	effect_speed = round(initial(effect_speed) * GET_MUTATION_POWER(src))
 
-/datum/mutation/chameleon/on_losing(mob/living/carbon/owner)
+/datum/mutation/chameleon/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.alpha = 255
