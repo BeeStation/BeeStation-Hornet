@@ -1,0 +1,257 @@
+/datum/borer_secretion_menu
+	var/mob/living/simple_animal/borer/borer
+
+/datum/borer_secretion_menu/New(mob/living/simple_animal/borer/new_borer)
+	. = ..()
+	borer = new_borer
+
+/datum/borer_secretion_menu/Destroy()
+	borer = null
+	return ..()
+
+/datum/borer_secretion_menu/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/borer_secretion_menu/ui_status(mob/user, datum/ui_state/state)
+	return borer && user == borer && borer.stat == CONSCIOUS && borer.host && borer.host.stat != DEAD && !borer.controlling_host ? UI_INTERACTIVE : UI_CLOSE
+
+/datum/borer_secretion_menu/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "BorerChemicals", "Chemical Secretion")
+		ui.open()
+		ui.set_autoupdate(TRUE)
+
+/datum/borer_secretion_menu/ui_data(mob/user)
+	var/list/data = list()
+	data["chemicals"] = borer.chemicals
+	data["max_chemicals"] = borer.max_chemicals
+	data["host_name"] = borer.host?.name
+	data["host_zone"] = borer.cyst ? parse_zone(borer.cyst.zone) : null
+	data["dose_amounts"] = list(5, 10, 15)
+	data["host_full"] = !borer.host?.reagents || borer.host.reagents.maximum_volume - borer.host.reagents.total_volume <= CHEMICAL_QUANTISATION_LEVEL
+	var/list/secretions = list()
+	for(var/datum/borer_secretion/secretion as anything in borer.available_secretions)
+		if(!secretion.can_secrete(borer))
+			continue
+		secretions += list(list(
+			"name" = secretion.name,
+			"path" = secretion.type,
+			"cost" = secretion.chemical_cost,
+			"dose_size" = secretion.dose_size,
+		))
+	data["secretions"] = secretions
+	data["can_purge"] = FALSE
+	for(var/datum/borer_evolution/chest/metabolic_purge/purge_evolution in borer.available_evolutions)
+		if(!purge_evolution.purchased || !purge_evolution.is_active(borer))
+			continue
+		data["can_purge"] = TRUE
+		data["purge_ready"] = purge_evolution.purge_action?.is_available()
+	var/can_analyze_host = borer.has_active_evolution(/datum/borer_evolution/taste_blood)
+	data["can_analyze_host"] = can_analyze_host
+	if(can_analyze_host && borer.host?.reagents)
+		var/list/host_reagents = list()
+		for(var/datum/reagent/reagent as anything in borer.host.reagents.reagent_list)
+			host_reagents += list(list(
+				"name" = reagent.name,
+				"volume" = round(reagent.volume, 0.1),
+				"path" = reagent.type,
+			))
+		data["host_reagents"] = host_reagents
+		data["host_current_volume"] = round(borer.host.reagents.total_volume, 0.1)
+		data["host_max_volume"] = borer.host.reagents.maximum_volume
+	return data
+
+/datum/borer_secretion_menu/ui_act(action, list/params)
+	if(..())
+		return
+	if(action == "purge")
+		if(!borer || usr != borer || borer.controlling_host)
+			return FALSE
+		for(var/datum/borer_evolution/chest/metabolic_purge/purge_evolution in borer.available_evolutions)
+			if(!purge_evolution.purchased || !purge_evolution.is_active(borer) || purge_evolution.purge_action?.owner != borer)
+				continue
+			purge_evolution.purge_action.trigger()
+			return TRUE
+		return FALSE
+	if(action != "secrete")
+		return FALSE
+	var/secretion_path = text2path(params["path"])
+	if(!ispath(secretion_path, /datum/borer_secretion))
+		return FALSE
+	return borer.secrete_chemical(secretion_path, text2num(params["dose"]))
+
+/datum/borer_secretion
+	var/name = "chemical secretion"
+	var/reagent_type
+	var/chemical_cost = 10
+	var/dose_size = 5
+	/// Required body zone, or null for any.
+	var/required_zone
+	/// Alternative body zones.
+	var/list/required_zones
+	/// Required evolution.
+	var/unlock_type
+
+/datum/borer_secretion/proc/can_secrete(mob/living/simple_animal/borer/borer)
+	if(!borer?.host || (required_zone && borer.cyst?.zone != required_zone) || (required_zones && !(borer.cyst?.zone in required_zones)))
+		return FALSE
+	return !unlock_type || borer.has_active_evolution(unlock_type)
+
+// Baseline secretions
+/datum/borer_secretion/bicaridine
+	name = "Bicaridine"
+	reagent_type = /datum/reagent/medicine/bicaridine
+
+/datum/borer_secretion/kelotane
+	name = "Kelotane"
+	reagent_type = /datum/reagent/medicine/kelotane
+
+/datum/borer_secretion/charcoal
+	name = "Charcoal"
+	reagent_type = /datum/reagent/medicine/charcoal
+
+/datum/borer_secretion/epinephrine
+	name = "Epinephrine"
+	reagent_type = /datum/reagent/medicine/epinephrine
+
+// Zone-specific secretions
+/datum/borer_secretion/head
+	required_zone = BODY_ZONE_HEAD
+
+/datum/borer_secretion/head/mannitol
+	name = "Mannitol"
+	reagent_type = /datum/reagent/medicine/mannitol
+
+/datum/borer_secretion/head/oculine
+	name = "Oculine"
+	reagent_type = /datum/reagent/medicine/oculine
+
+/datum/borer_secretion/head/inacusiate
+	name = "Inacusiate"
+	reagent_type = /datum/reagent/medicine/inacusiate
+
+/datum/borer_secretion/chest
+	required_zone = BODY_ZONE_CHEST
+
+/datum/borer_secretion/chest/blood
+	name = "Blood"
+	reagent_type = /datum/reagent/blood
+
+/datum/borer_secretion/chest/dexalin
+	name = "Dexalin"
+	reagent_type = /datum/reagent/medicine/dexalin
+
+/datum/borer_secretion/chest/leporazine
+	name = "Leporazine"
+	reagent_type = /datum/reagent/medicine/leporazine
+
+/datum/borer_secretion/chest/nutriment
+	name = "Nutriment"
+	reagent_type = /datum/reagent/consumable/nutriment
+
+/datum/borer_secretion/arm
+	required_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+
+/datum/borer_secretion/arm/iron
+	name = "Iron"
+	reagent_type = /datum/reagent/iron
+
+/datum/borer_secretion/leg
+	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+
+/datum/borer_secretion/leg/ephedrine
+	name = "Ephedrine"
+	reagent_type = /datum/reagent/medicine/ephedrine
+
+// Advanced head secretions
+/datum/borer_secretion/head/mutadone
+	name = "Mutadone"
+	reagent_type = /datum/reagent/medicine/mutadone
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/head/genetic_restoration
+
+/datum/borer_secretion/head/rezadone
+	name = "Rezadone"
+	reagent_type = /datum/reagent/medicine/rezadone
+	chemical_cost = 20
+	unlock_type = /datum/borer_evolution/chemical/head/genetic_restoration
+
+/datum/borer_secretion/head/morphine
+	name = "Morphine"
+	reagent_type = /datum/reagent/medicine/morphine
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/head/neurochemical_control
+
+/datum/borer_secretion/head/space_drugs
+	name = "Space Drugs"
+	reagent_type = /datum/reagent/drug/space_drugs
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/head/neurochemical_control
+
+/datum/borer_secretion/head/nicotine
+	name = "Nicotine"
+	reagent_type = /datum/reagent/drug/nicotine
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/head/neurochemical_control
+
+/datum/borer_secretion/head/ethanol
+	name = "Ethanol"
+	reagent_type = /datum/reagent/consumable/ethanol
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/head/neurochemical_control
+
+/datum/borer_secretion/head/synaptizine
+	name = "Synaptizine"
+	reagent_type = /datum/reagent/medicine/synaptizine
+	chemical_cost = 20
+	unlock_type = /datum/borer_evolution/chemical/head/neurochemical_control
+
+// Advanced chest secretions
+/datum/borer_secretion/chest/dexalinp
+	name = "Dexalin Plus"
+	reagent_type = /datum/reagent/medicine/dexalinp
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/chest/respiratory_radiation_care
+
+/datum/borer_secretion/chest/potass_iodide
+	name = "Potassium Iodide"
+	reagent_type = /datum/reagent/medicine/potass_iodide
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/chest/respiratory_radiation_care
+
+/datum/borer_secretion/chest/capsaicin
+	name = "Capsaicin Oil"
+	reagent_type = /datum/reagent/consumable/capsaicin
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/chest/metabolic_disruption
+
+/datum/borer_secretion/chest/frostoil
+	name = "Frostoil"
+	reagent_type = /datum/reagent/consumable/frostoil
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/chest/metabolic_disruption
+
+/datum/borer_secretion/chest/lipolicide
+	name = "Lipolicide"
+	reagent_type = /datum/reagent/toxin/lipolicide
+	chemical_cost = 15
+	unlock_type = /datum/borer_evolution/chemical/chest/metabolic_disruption
+
+/datum/borer_secretion/chest/omnizine
+	name = "Omnizine"
+	reagent_type = /datum/reagent/medicine/omnizine
+	chemical_cost = 25
+	unlock_type = /datum/borer_evolution/chemical/chest/advanced_critical_care
+
+/datum/borer_secretion/chest/stabilizing_nanites
+	name = "Stabilizing Nanites"
+	reagent_type = /datum/reagent/medicine/stabilizing_nanites
+	chemical_cost = 25
+	unlock_type = /datum/borer_evolution/chemical/chest/advanced_critical_care
+
+/datum/borer_secretion/chest/atropine
+	name = "Atropine"
+	reagent_type = /datum/reagent/medicine/atropine
+	chemical_cost = 25
+	unlock_type = /datum/borer_evolution/chemical/chest/advanced_critical_care

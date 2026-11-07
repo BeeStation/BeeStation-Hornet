@@ -1,6 +1,7 @@
 /datum/element/digital_camo
 	element_flags = ELEMENT_DETACH
 	var/list/attached_mobs = list()
+	var/show_examine_message = TRUE
 
 /datum/element/digital_camo/New()
 	. = ..()
@@ -62,6 +63,8 @@
 
 /datum/element/digital_camo/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
+	if(!show_examine_message)
+		return
 	examine_list += span_warning("[source.p_Their()] skin seems to be shifting like something is moving below it.")
 
 /datum/element/digital_camo/proc/can_track(datum/source)

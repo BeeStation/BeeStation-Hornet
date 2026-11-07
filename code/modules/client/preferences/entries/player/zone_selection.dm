@@ -19,7 +19,7 @@
 
 /datum/preference/choiced/zone_select/apply_to_client(client/client, value)
 	var/atom/movable/screen/zone_sel/selector = client.mob?.hud_used?.zone_select
-	if (!selector)
+	if (!selector || selector.force_precise)
 		return
 	// Reset zone selected to a sane value
 	if (value == PREFERENCE_BODYZONE_SIMPLIFIED)
