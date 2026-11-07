@@ -43,6 +43,8 @@
 	var/cell_type = /obj/item/stock_parts/cell/high/plus	//Base cell has 150 kW. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
 	///State of the cover (closed, opened, removed)
 	var/opened = APC_COVER_CLOSED
+	/// Whether closing the replacement cover should restart the APC.
+	var/restart_on_cover_close = FALSE
 	///Is the APC shorted and not working?
 	var/shorted = 0
 	///State of the lighting channel (off, auto off, on, auto on)
@@ -302,6 +304,10 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			. += "The broken cover can be pried off with a crowbar."
+		else if(has_electronics && terminal)
+			. += "The missing cover can be replaced using a new APC frame."
 		return
 	if(opened)
 		if(has_electronics && terminal)
