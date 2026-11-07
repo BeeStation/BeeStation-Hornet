@@ -67,6 +67,8 @@
 	smallsprite.Grant(src)
 	var/datum/action/alien/promote/promotion = new(src)
 	promotion.Grant(src)
+	var/datum/action/alien/crack_open/crack_open = new(src)
+	crack_open.Grant(src)
 	return ..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/create_internal_organs()
