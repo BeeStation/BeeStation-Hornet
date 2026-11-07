@@ -396,6 +396,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	inhand_icon_state = "syndilantern"
 	light_range = 10
 
+/obj/item/flashlight/lantern/paper
+	name = "paper lantern"
+	desc = "A delicate lantern carefully covered in folded paper."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "paperlantern"
+	light_range = 3
+
 /obj/item/flashlight/slime
 	gender = PLURAL
 	name = "glowing slime extract"
