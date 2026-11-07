@@ -5,30 +5,18 @@
 	alert_type = /atom/movable/screen/alert/status_effect/italian_speech
 
 /datum/status_effect/food/speech/italian/on_apply()
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/status_effect/food/speech/italian/on_remove()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-/datum/status_effect/food/speech/italian/proc/handle_speech(datum/source, list/speech_args)	//Did not change this due to the ridiculous append that is perhaps okay? (I dislike it personally)
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/italian_words = strings(ITALIAN_TALK_FILE, "words")
-
-		for(var/key in italian_words)
-			var/value = italian_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-		if(prob(3))
-			message += pick(" Ravioli, ravioli, give me the formuoli!"," Mamma-mia!"," Mamma-mia! That's a spicy meat-ball!", " La la la la la funiculi funicula!")
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	AddComponent( \
+		/datum/component/speechmod, \
+		file_path = ITALIAN_TALK_FILE, \
+		end_string = list(
+			" Ravioli, ravioli, give me the formuoli!",
+			" Mamma-mia!",
+			" Mamma-mia! That's a spicy meat-ball!",
+			" La la la la la funiculi funicula!"
+			), \
+		end_string_chance = 3 \
+		)
+	return ..()
 
 /atom/movable/screen/alert/status_effect/italian_speech
 	name = "Linguini Embrace"
@@ -41,31 +29,17 @@
 	alert_type = /atom/movable/screen/alert/status_effect/french_speech
 
 /datum/status_effect/food/speech/french/on_apply()
-	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/status_effect/food/speech/french/on_remove()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-
-/datum/status_effect/food/speech/french/proc/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/french_words = strings(FRENCH_TALK_FILE, "french")
-
-		for(var/key in french_words)
-			var/value = french_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-		if(prob(3))
-			message += pick(" Honh honh honh!"," Honh!"," Zut Alors!")
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	AddComponent( \
+		/datum/component/speechmod, \
+		file_path = FRENCH_TALK_FILE, \
+		end_string = list(
+			" Honh honh honh!",
+			" Honh!",
+			" Zut Alors!"
+			), \
+		end_string_chance = 3, \
+		)
+	return ..()
 
 /atom/movable/screen/alert/status_effect/french_speech
 	name = "Café Chic"

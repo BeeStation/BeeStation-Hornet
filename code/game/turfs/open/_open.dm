@@ -230,7 +230,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 		else
 			if(!(lube & SLIP_WHEN_CRAWLING) && slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)) // can't slip unbuckled mob if they're lying or can't fall.
 				return 0
-			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
+			if(slipper.move_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
 				return 0
 		if(!(lube&SLIDE_ICE))
 			to_chat(slipper, span_notice("You slipped[ O ? " on the [O.name]" : ""]!"))

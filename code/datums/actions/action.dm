@@ -12,7 +12,7 @@
 	/// The datum the action is attached to. If the master datum is deleted, the action is as well.
 	/// Set in New() via the proc link_to().
 	/// DO NOT ASSIGN TO THIS VARIABLE, ASSIGN IT ON /NEW()
-	VAR_PRIVATE/datum/master
+	VAR_FINAL/datum/master
 	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
 	var/default_button_position = SCRN_OBJ_IN_LIST
 	/// This is who currently owns the action, and most often, this is who is using the action if it is triggered
@@ -35,6 +35,9 @@
 	var/toggleable = FALSE
 	/// full key we are bound to
 	var/full_key
+	/// Toggles whether this action is usable or not
+	var/action_disabled = FALSE
+
 	// =====================================
 	// Action Appearance
 	// =====================================
@@ -320,6 +323,8 @@
 /datum/action/proc/is_available(feedback = FALSE)
 	if(!owner)
 		return FALSE
+	if(action_disabled)
+		return FALSE
 	if (next_use_time && world.time < next_use_time)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
@@ -335,14 +340,18 @@
 			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
-		var/mob/living/action_user = owner
-		if(action_user.body_position == LYING_DOWN)
+		var/mob/living/action_owner = owner
+		if(action_owner.body_position == LYING_DOWN)
 			if (feedback)
 				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
 		if (feedback)
 			owner.balloon_alert(owner, "unconscious!")
+		return FALSE
+	if((check_flags & AB_CHECK_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
+		if (feedback)
+			owner.balloon_alert(owner, "incorporeal!")
 		return FALSE
 	if ((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
 		if (feedback)
@@ -351,8 +360,7 @@
 	return TRUE
 
 /datum/action/proc/update_buttons(status_only, force)
-	for(var/datum/hud/hud in viewers)
-		var/atom/movable/screen/movable/button = viewers[hud]
+	for(var/datum/hud/hud, button in viewers)
 		update_button(button, status_only, force)
 
 /datum/action/proc/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
@@ -407,7 +415,7 @@
 		timer_overlay.maptext_height = 64
 		timer_overlay.maptext_x = -8
 		timer_overlay.maptext_y = -6
-	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[FLOOR((next_use_time - world.time)/10, 1)]</span></center>"
+	var/new_maptext = "<center><span class='maptext' style='font-weight: bold;color: #eeeeee;'>[floor((next_use_time - world.time)/10)]</span></center>"
 	if (new_maptext != timer_overlay.maptext || force)
 		button.cut_overlay(timer_overlay)
 		timer_overlay.maptext = new_maptext

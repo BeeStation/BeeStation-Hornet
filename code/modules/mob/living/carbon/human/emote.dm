@@ -9,6 +9,7 @@
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries"
+	message_mime = "sobs silently."
 	emote_type = EMOTE_VISIBLE //Cry in silence as you should.
 
 /datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
@@ -155,8 +156,9 @@
 	key_third_person = "salutes"
 	message = "salutes"
 	message_param = "salutes to %t"
-	emote_type = EMOTE_VISIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	hands_use_check = TRUE
+	sound = 'sound/emotes/salute.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
@@ -222,14 +224,14 @@
 			return TRUE
 	return FALSE
 
-/mob/living/carbon/proc/Togglewings()
+/mob/living/carbon/proc/Togglewings(silent = FALSE)
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = get_organ_slot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
 		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
 			return FALSE
-		if(wings.toggleopen(src))
+		if(wings.toggleopen(src, silent))
 			return TRUE
 	return FALSE
 
@@ -376,7 +378,7 @@
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	if(user.mind.assigned_role == JOB_NAME_CLOWN)
+	if(user.mind.assigned_role.title == JOB_NAME_CLOWN)
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk

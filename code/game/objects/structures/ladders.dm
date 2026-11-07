@@ -26,18 +26,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 		down.up = src
 		down.update_appearance()
 
-	//register_context()
-
 	return INITIALIZE_HINT_LATELOAD
 
-/*
-/obj/structure/ladder/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+/obj/structure/ladder/add_context_self(datum/screentip_context/context, mob/user)
 	if(up)
-		context[SCREENTIP_CONTEXT_LMB] = "Climb up"
+		context.add_left_click_action("Climb up")
 	if(down)
-		context[SCREENTIP_CONTEXT_RMB] = "Climb down"
-	return CONTEXTUAL_SCREENTIP_SET
-*/
+		context.add_right_click_action("Climb down")
 
 /obj/structure/ladder/examine(mob/user)
 	. = ..()
@@ -219,7 +214,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE
 
-/obj/structure/ladder/attackby(obj/item/I, mob/user, params)
+/obj/structure/ladder/attackby(obj/item/I, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -288,11 +283,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 	use(user, going_up = FALSE)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/structure/ladder/attackby(obj/item/item, mob/user, params)
+/obj/structure/ladder/attackby(obj/item/item, mob/user, list/modifiers)
 	use(user)
 	return TRUE
 
-/obj/structure/ladder/attackby_secondary(obj/item/item, mob/user, params)
+/obj/structure/ladder/attackby_secondary(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return

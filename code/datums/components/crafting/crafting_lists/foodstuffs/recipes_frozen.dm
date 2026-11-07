@@ -2,12 +2,12 @@
 /// Misc. foodstuff crafting
 
 /datum/crafting_recipe/food/icecreamsandwich
-	name = "Icecream sandwich"
+	name = "Ice cream sandwich"
 	result = /obj/item/food/icecreamsandwich
 	reqs = list(
 		/datum/reagent/consumable/cream = 5,
 		/datum/reagent/consumable/ice = 5,
-		/obj/item/food/icecream = 1
+		/obj/item/food/chocolatebar = 1,
 	)
 	category = CAT_ICE
 

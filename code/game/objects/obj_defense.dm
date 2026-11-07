@@ -29,7 +29,7 @@
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!"), null, null, COMBAT_MESSAGE_RANGE)
 
-/obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+/obj/attack_hulk(mob/living/carbon/human/user)
 	..()
 	if(density)
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -129,31 +129,21 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 //// FIRE
 
 /obj/fire_act(exposed_temperature, exposed_volume)
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
-			return
-	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
+		return
+	var/potential_damage = 0.02 * exposed_temperature
+	if(exposed_temperature && !(resistance_flags & FIRE_PROOF) && (potential_damage > damage_deflection))
+		take_damage(clamp(potential_damage, 0, 20), BURN, FIRE, 0)
+	if(QDELETED(src))
+		return
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
-		resistance_flags |= ON_FIRE
-		SSfire_burning.processing[src] = src
-		update_appearance()
-		return 1
+		AddComponent(/datum/component/burning, custom_fire_overlay || GLOB.fire_overlay, burning_particles)
+		return TRUE
 	return ..()
 
-//called when the obj is destroyed by fire
+/// Should be called when the atom is destroyed by fire, comparable to acid_melt() proc
 /obj/proc/burn()
-	if(resistance_flags & ON_FIRE)
-		SSfire_burning.processing -= src
 	deconstruct(FALSE)
-
-/obj/extinguish()
-	. = ..()
-	if(resistance_flags & ON_FIRE)
-		resistance_flags &= ~ON_FIRE
-		update_icon()
-		SSfire_burning.processing -= src
 
 ///Called when the obj is hit by a tesla bolt.
 /obj/zap_act(power, zap_flags)

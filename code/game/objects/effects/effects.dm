@@ -6,12 +6,13 @@
 	icon = 'icons/effects/effects.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-	obj_flags = 0
+	obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE
+	uses_integrity = FALSE
 	var/forensic_protected = FALSE
 
-/obj/effect/attackby(obj/item/weapon, mob/user, params)
-	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, params) & COMPONENT_NO_AFTERATTACK)
+/obj/effect/attackby(obj/item/weapon, mob/user, list/modifiers)
+	if(SEND_SIGNAL(weapon, COMSIG_ITEM_ATTACK_EFFECT, src, user, modifiers) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 
 	// I'm not sure why these are snowflaked to early return but they are

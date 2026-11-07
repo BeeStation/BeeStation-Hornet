@@ -29,7 +29,7 @@
 
 	open_animation()
 
-/obj/item/codex_cicatrix/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/codex_cicatrix/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -47,7 +47,7 @@
  */
 /obj/item/codex_cicatrix/proc/open_animation()
 	icon_state = "[inhand_icon_state]_open"
-	flick("[inhand_icon_state]_opening", src)
+	z_flick("[inhand_icon_state]_opening", src)
 
 	addtimer(CALLBACK(src, PROC_REF(close_animation)), 5 SECONDS)
 
@@ -56,4 +56,4 @@
  */
 /obj/item/codex_cicatrix/proc/close_animation()
 	icon_state = inhand_icon_state
-	flick("[inhand_icon_state]_closing", src)
+	z_flick("[inhand_icon_state]_closing", src)

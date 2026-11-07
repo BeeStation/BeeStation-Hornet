@@ -60,6 +60,9 @@
   * colour_type - a typepath (subtyped from /datum/client_colour)
   */
 /mob/proc/add_client_colour(colour_type)
+	if (QDELING(src))
+		return
+
 	if(!ispath(colour_type, /datum/client_colour))
 		return
 

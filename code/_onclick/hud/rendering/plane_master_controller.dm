@@ -18,7 +18,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
 	owner_hud = hud
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
-		var/atom/movable/screen/plane_master/instance = owner_hud.plane_masters["[i]"]
+		var/atom/movable/screen/plane_master/instance = owner_hud.get_plane_master(i)
 		if(!instance) //If we looked for a hud that isn't instanced, just keep going
 			stack_trace("[i] isn't a valid plane master layer for [owner_hud.type], are you sure it exists in the first place?")
 			continue
@@ -63,7 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
 	. = ..()
 	for(var/i in controlled_planes)
 		var/atom/movable/screen/plane_master/pm_iterator = controlled_planes[i]
-		pm_iterator.transition_filter(name, time, new_params, easing, loop)
+		pm_iterator.transition_filter(name, new_params, time, easing, loop)
 
 ///Full override so we can just use filterrific
 /atom/movable/plane_master_controller/add_atom_colour(coloration, colour_priority)
@@ -93,9 +93,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
 	controlled_planes = list(
 		FLOOR_PLANE,
 		GAME_PLANE,
+		ABOVE_GAME_PLANE,
 		MASSIVE_OBJ_PLANE,
 		GHOST_PLANE,
 		POINT_PLANE,
 		LIGHTING_PLANE,
 		LIGHTING_PLANE_ADDITIVE,
 	)
+
+/atom/movable/plane_master_controller/game/Initialize(mapload, datum/hud/hud)
+	for(var/plane in ZMIMIC_MAX_PLANE to ZMIMIC_MAX_PLANE - ZMIMIC_MAX_DEPTH step -1)
+		controlled_planes += plane
+		controlled_planes += ZMIMIC_SHADOW_PLANE(plane)
+	return ..()

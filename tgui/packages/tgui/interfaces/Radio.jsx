@@ -1,5 +1,5 @@
-import { map } from 'common/collections';
 import { toFixed } from 'common/math';
+import { map } from 'es-toolkit/compat';
 
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';

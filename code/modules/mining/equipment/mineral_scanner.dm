@@ -34,7 +34,7 @@
 /obj/item/mining_scanner/admin
 
 /obj/item/mining_scanner/admin/attack_self(mob/user)
-	for(var/area/A as() in get_areas(/area, user.z))
+	for(var/area/A as anything in get_areas(/area, user.z))
 		for(var/turf/closed/mineral/M in A)
 			if(M.scan_state)
 				var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(M)

@@ -28,7 +28,7 @@
 /obj/item/grenade/exploration/attack_self(mob/user)
 	return
 
-/obj/item/grenade/exploration/attackby(obj/item/W, mob/user, params)
+/obj/item/grenade/exploration/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/exploration_detonator))
 		var/obj/item/exploration_detonator/detonator = W
 		detonator.linked_explosives |= src
@@ -59,7 +59,12 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_VERBOSEJMP(target)]")
 		log_game("[key_name(user)] planted [name] on [target.name] at [AREACOORD(user)]")
 
-		notify_ghosts("[user] has planted \a [src] on [target]!", source = target, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Explosive Planted")
+		notify_ghosts(
+			"[user] has planted \a [src] on [target]!",
+			source = target,
+			header = "Explosive Planted",
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 
 		moveToNullspace()	//Yep
 

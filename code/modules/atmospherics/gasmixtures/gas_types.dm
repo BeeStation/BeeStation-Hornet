@@ -1,25 +1,26 @@
-GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)) //the main four gases, which were at one time hardcoded
-
 /proc/meta_gas_list()
-	. = subtypesof(/datum/gas)
-	for(var/gas_path in .)
-		var/list/gas_info = new(15)
-		var/datum/gas/gas = gas_path
+	var/list/gas_info = new (META_GAS_LENGTH)
+	for (var/array_idx in 1 to length(gas_info))
+		gas_info[array_idx] = list()
 
-		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
-		gas_info[META_GAS_NAME] = initial(gas.name)
+	var/list/gas_types = subtypesof(/datum/gas)
+	ASSERT(GAS_TYPE_COUNT == length(gas_types),\
+		"GAS_TYPE_COUNT != length(subtypesof(gas_types)), if you added new gas please increment GAS_TYPE_COUNT")
+	for(var/datum/gas/gas_path as anything in gas_types)
+		gas_info[META_GAS_SPECIFIC_HEAT][gas_path] = initial(gas_path.specific_heat)
+		gas_info[META_GAS_NAME][gas_path] = initial(gas_path.name)
+		gas_info[META_GAS_MOLES_VISIBLE][gas_path] = initial(gas_path.moles_visible)
+		if (gas_info[META_GAS_MOLES_VISIBLE][gas_path])
+			gas_info[META_GAS_OVERLAY][gas_path] = generate_gas_overlay(gas_path)
+		gas_info[META_GAS_FUSION_POWER][gas_path] = initial(gas_path.fusion_power)
+		gas_info[META_GAS_DANGER][gas_path] = initial(gas_path.dangerous)
+		gas_info[META_GAS_ID][gas_path] = initial(gas_path.id)
+		gas_info[META_GAS_DESC][gas_path] = initial(gas_path.desc)
+		gas_info[META_GAS_RIG_SHIELDING_POWER][gas_path] = initial(gas_path.gasrig_shielding_power)
+		gas_info[META_GAS_RIG_SHIELDING_MODIFIER][gas_path] = initial(gas_path.gasrig_shielding_modifier)
 
-		gas_info[META_GAS_MOLES_VISIBLE] = initial(gas.moles_visible)
-		gas_info[META_GAS_RIG_SHIELDING_POWER] = initial(gas.gasrig_shielding_power)
-		gas_info[META_GAS_RIG_SHIELDING_MODIFIER] = initial(gas.gasrig_shielding_modifier)
-		if(initial(gas.moles_visible) != null)
-			gas_info[META_GAS_OVERLAY] = generate_gas_overlay(gas)
-
-		gas_info[META_GAS_FUSION_POWER] = initial(gas.fusion_power)
-		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
-		gas_info[META_GAS_ID] = initial(gas.id)
-		gas_info[META_GAS_DESC] = initial(gas.desc)
-		.[gas_path] = gas_info
+	/datum/gas_mixture::gas_meta = gas_info // save the reference to the list
+	return gas_info
 
 /proc/generate_gas_overlay(datum/gas/gas_type)
 	var/fill = list()
@@ -29,11 +30,11 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	return fill
 
 /proc/gas_id2path(id)
-	var/list/meta_gas = GLOB.meta_gas_info
-	if(id in meta_gas)
+	var/list/meta_gas_id = GLOB.meta_gas_info[META_GAS_ID]
+	if(id in meta_gas_id)
 		return id
-	for(var/path in meta_gas)
-		if(meta_gas[path][META_GAS_ID] == id)
+	for(var/path, meta_id in meta_gas_id)
+		if(meta_id == id)
 			return path
 	return ""
 

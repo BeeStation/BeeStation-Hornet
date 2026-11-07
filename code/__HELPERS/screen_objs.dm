@@ -13,11 +13,11 @@
 	if(findtext(screen_loc, "EAST")) // If you're starting from the east, we start from the east too
 		x += view_size[1]
 	if(findtext(screen_loc, "WEST")) // HHHHHHHHHHHHHHHHHHHHHH WEST is technically a 1 tile offset from the start. Shoot me please
-		x += world.icon_size
+		x += ICON_SIZE_X
 	if(findtext(screen_loc, "NORTH"))
 		y += view_size[2]
 	if(findtext(screen_loc, "SOUTH"))
-		y += world.icon_size
+		y += ICON_SIZE_Y
 
 	var/list/x_and_y = splittext(screen_loc, ",")
 
@@ -36,8 +36,8 @@
 	x_coord = text2num(cut_relative_direction(x_coord))
 	y_coord = text2num(cut_relative_direction(y_coord))
 
-	x += x_coord * world.icon_size
-	y += y_coord * world.icon_size
+	x += x_coord * ICON_SIZE_X
+	y += y_coord * ICON_SIZE_Y
 
 	if(length(x_pack) > 1)
 		x += text2num(x_pack[2])
@@ -51,14 +51,14 @@
 /proc/offset_to_screen_loc(x_offset, y_offset, view = null)
 	if(view)
 		var/list/view_bounds = view_to_pixels(view)
-		x_offset = clamp(x_offset, world.icon_size, view_bounds[1])
-		y_offset = clamp(y_offset, world.icon_size, view_bounds[2])
+		x_offset = clamp(x_offset, ICON_SIZE_X, view_bounds[1])
+		y_offset = clamp(y_offset, ICON_SIZE_Y, view_bounds[2])
 
 	// Round with no argument is floor, so we get the non pixel offset here
-	var/x = round(x_offset / world.icon_size)
-	var/pixel_x = x_offset % world.icon_size
-	var/y = round(y_offset / world.icon_size)
-	var/pixel_y = y_offset % world.icon_size
+	var/x = round(x_offset / ICON_SIZE_X)
+	var/pixel_x = x_offset % ICON_SIZE_X
+	var/y = round(y_offset / ICON_SIZE_Y)
+	var/pixel_y = y_offset % ICON_SIZE_Y
 
 	var/list/generated_loc = list()
 	generated_loc += "[x]"
@@ -88,9 +88,9 @@
 	// Bias to the right, down, left, and then finally up
 	if(base_x + target_offset < view_size[1])
 		return offset_to_screen_loc(base_x + target_offset, base_y, view)
-	if(base_y - target_offset > world.icon_size)
+	if(base_y - target_offset > ICON_SIZE_Y)
 		return offset_to_screen_loc(base_x, base_y - target_offset, view)
-	if(base_x - target_offset > world.icon_size)
+	if(base_x - target_offset > ICON_SIZE_X)
 		return offset_to_screen_loc(base_x - target_offset, base_y, view)
 	if(base_y + target_offset < view_size[2])
 		return offset_to_screen_loc(base_x, base_y + target_offset, view)

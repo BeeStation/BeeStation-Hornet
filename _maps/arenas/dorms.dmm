@@ -19,7 +19,7 @@
 /area/centcom/tdome/arena)
 "ad" = (
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "ah" = (
@@ -28,7 +28,7 @@
 /area/centcom/tdome/arena)
 "ai" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/open/floor/plating,
 /area/centcom/tdome/arena)
 "aj" = (

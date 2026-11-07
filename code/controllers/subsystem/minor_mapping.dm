@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(minor_mapping)
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/atoms,
 	)
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 /datum/controller/subsystem/minor_mapping/Initialize()
 #ifndef UNIT_TESTS

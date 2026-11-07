@@ -60,7 +60,7 @@
 			if(vval == initial(I.vars[varname]))
 				continue
 			//Only text/numbers and icons variables to make it less weirdness prone.
-			if(!istext(vval) && !isnum_safe(vval) && !isicon(vval))
+			if(!istext(vval) && !IS_FINITE(vval) && !isicon(vval))
 				continue
 			vedits[varname] = I.vars[varname]
 		return vedits
@@ -159,7 +159,7 @@
 		var/list/vedits = vv_values[slot]
 		var/list/stripped_edits = list()
 		for(var/edit in vedits)
-			if(istext(vedits[edit]) || isnum_safe(vedits[edit]) || isnull(vedits[edit]))
+			if(istext(vedits[edit]) || IS_FINITE(vedits[edit]) || isnull(vedits[edit]))
 				stripped_edits[edit] = vedits[edit]
 		if(stripped_edits.len)
 			stripped_vv[slot] = stripped_edits

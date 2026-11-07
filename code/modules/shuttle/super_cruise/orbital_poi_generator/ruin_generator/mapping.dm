@@ -144,7 +144,7 @@
 		/obj/item/clothing/suit/armor/vest = 2,
 		/obj/item/clothing/suit/armor/bulletproof = 1,
 		/obj/item/storage/secure/briefcase = 1,
-		/obj/item/reagent_containers/cup/rag = 1,
+		/obj/item/rag = 1,
 		/obj/item/reagent_containers/cup/bottle/chloralhydrate = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,

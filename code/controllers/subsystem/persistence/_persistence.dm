@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(persistence)
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/atoms,
 	)
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 
 	/// Soapstone messages
 	var/list/obj/structure/chisel_message/chisel_messages = list()

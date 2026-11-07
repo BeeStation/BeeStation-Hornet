@@ -27,7 +27,7 @@
 		return
 
 	var/list/parts = list()
-	for(var/obj/item/bodypart/to_remove as anything in user.bodyparts)
+	for(var/obj/item/bodypart/to_remove as anything in user.get_bodyparts())
 		if(to_remove.body_zone == BODY_ZONE_HEAD || to_remove.body_zone == BODY_ZONE_CHEST)
 			continue
 		if(to_remove.bodypart_flags & BODYPART_UNREMOVABLE)

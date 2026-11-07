@@ -28,10 +28,13 @@
 
 	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
 
+/datum/component/squashable/Destroy(force)
+	on_squash_callback = null
+	return ..()
+
 /datum/component/squashable/UnregisterFromParent()
 	. = ..()
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
-
 
 ///Handles the squashing of the mob
 /datum/component/squashable/proc/on_entered(datum/source, atom/movable/crossing_movable, atom/old_loc, list/atom/old_locs)

@@ -30,17 +30,19 @@
 /obj/machinery/food_cart/proc/isFull()
 	return food_stored >= STORAGE_CAPACITY
 
-/obj/machinery/food_cart/attackby(obj/item/O, mob/user, params)
+/obj/machinery/food_cart/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/reagent_containers/cup/glass/drinkingglass) || tool.reagents.total_volume)
+		return ..()
+	qdel(tool)
+	glasses++
+	to_chat(user, span_notice("[src] accepts the drinking glass, sterilizing it."))
+	return ITEM_INTERACT_SUCCESS
+
+/obj/machinery/food_cart/attackby(obj/item/O, mob/user, list/modifiers)
 	if(O.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, O, 0)
 		return TRUE
-	if(istype(O, /obj/item/reagent_containers/cup/glass/drinkingglass))
-		var/obj/item/reagent_containers/cup/glass/drinkingglass/DG = O
-		if(!DG.reagents.total_volume) //glass is empty
-			qdel(DG)
-			glasses++
-			to_chat(user, span_notice("[src] accepts the drinking glass, sterilizing it."))
-	else if(IS_EDIBLE(O))
+	if(IS_EDIBLE(O))
 		if(isFull())
 			to_chat(user, span_warning("[src] is at full capacity."))
 		else
@@ -166,7 +168,7 @@
 	portion = 20
 
 /obj/machinery/food_cart/coffee/Initialize(mapload)
-	..()
+	. = ..()
 	var/A = rand(0,3)
 	var/B = rand(0,3)
 	var/C = rand(0,3)

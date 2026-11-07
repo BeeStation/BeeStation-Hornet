@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(circuit_component)
 	name = "Circuit Components"
 	wait = 0.1 SECONDS
 	priority = FIRE_PRIORITY_DEFAULT
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 
 	var/list/callbacks_to_invoke = list()
 	var/list/currentrun = list()
@@ -21,13 +21,8 @@ SUBSYSTEM_DEF(circuit_component)
 		var/datum/callback/to_call = currentrun[1]
 		currentrun.Cut(1,2)
 
-		if(QDELETED(to_call))
-			continue
-
 		to_call.user = null
 		to_call.InvokeAsync()
-		qdel(to_call)
-
 
 		if(MC_TICK_CHECK)
 			return

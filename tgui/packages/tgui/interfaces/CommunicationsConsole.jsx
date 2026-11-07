@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { capitalize } from 'common/string';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend, useLocalState } from '../backend';
 import {
@@ -32,11 +32,10 @@ const ILLEGAL_SHUTTLE_NOTICE =
   'Warning: Safety features disabled. This shuttle is uncertified. Order at your own peril.';
 
 const sortShuttles = (shuttles) =>
-  sortBy(
-    shuttles,
+  sortBy(shuttles, [
     (shuttle) => !shuttle.illegal,
     (shuttle) => shuttle.creditCost,
-  );
+  ]);
 
 const AlertButton = (props) => {
   const { act, data } = useBackend();

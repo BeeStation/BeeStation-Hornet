@@ -39,6 +39,7 @@
 #define span_bolddanger(str) ("<span class='bold danger'>" + (str) + "</span>")
 #define span_boldinathneqsmall(str) ("<span class='bold inathneq_small'>" + (str) + "</span>")
 #define span_bolditalics(str) ("<span class='bold italics'>" + (str) + "</span>")
+#define span_boldnicegreen(str) ("<span class='boldnicegreen'>" + (str) + "</span>")
 #define span_boldmessage(str) ("<span class='bold message'>" + (str) + "</span>")
 #define span_boldname(str) ("<span class='bold name'>" + (str) + "</span>")
 #define span_boldnotice(str) ("<span class='boldnotice'>" + (str) + "</span>")
@@ -82,6 +83,7 @@
 #define span_greenannounce(str) ("<span class='greenannounce'>" + (str) + "</span>")
 #define span_greentext(str) ("<span class='greentext'>" + (str) + "</span>")
 #define span_greentextbig(str) ("<span class='greentext big'>" + (str) + "</span>")
+#define span_grey(str) ("<span class='grey'>" + (str) + "</span>")
 #define span_grippy(str) ("<span class='grippy'>" + (str) + "</span>")
 #define span_header(str) ("<span class='header'>" + (str) + "</span>")
 #define span_hear(str) ("<span class='hear'>" + (str) + "</span>")
@@ -136,7 +138,6 @@
 #define span_mindcontrol(str) ("<span class='mind_control'>" + (str) + "</span>")
 #define span_minorannouncementtext(str) ("<span class='minor_announcement_text'>" + (str) + "</span>")
 #define span_minorannouncementtitle(str) ("<span class='minor_announcement_title'>" + (str) + "</span>")
-#define span_moodneutral(str) ("<span class='mood_neutral'>" + (str) + "</span>")
 #define span_name(str) ("<span class='name'>" + (str) + "</span>")
 #define span_nameitalics(str) ("<span class='name italics'>" + (str) + "</span>")
 #define span_nameunassigned(str) ("<span class='name unassigned'>" + (str) + "</span>")
@@ -219,7 +220,6 @@
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")
 #define span_usernotice(str) ("<span class='usernotice'>" + (str) + "</span>")
 #define span_subtlenotice(str) ("<span class='subtlenotice'>" + (str) + "</span>")
-#define span_value(str) ("<span class='value'>" + (str) + "</span>")
 #define span_warn(str) ("<span class='warn'>" + (str) + "</span>")
 #define span_warner(str) ("<span class='warner'>" + (str) + "</span>")
 #define span_warning(str) ("<span class='warning'>" + (str) + "</span>")
@@ -230,6 +230,10 @@
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
 #define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
 #define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
+
+// Debug spans
+#define span_value(str) ("<span class='value'>" + (str) + "</span>")
+#define span_value_top(str) ("<span class='value align_top'>" + (str) + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

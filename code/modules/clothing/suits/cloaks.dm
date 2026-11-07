@@ -239,7 +239,7 @@
 			if(carbon_user.overlays_standing[HALO_LAYER])
 				to_chat(carbon_user, span_warning("You already have a halo!"))
 				return
-			carbon_user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+			carbon_user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/mob/effects/halo.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
 			carbon_user.apply_overlay(HALO_LAYER)
 	return ..()
 

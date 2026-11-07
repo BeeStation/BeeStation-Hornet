@@ -8,6 +8,7 @@ GLOBAL_VAR(round_default_lawset)
  * A getter that sets up the round default if it has not been yet.
  *
  * round_default_lawset is what is considered the default for the round. Aka, new AI and other silicons would get this.
+ * This is usually a typepath, but admins can set it to a datum instance for one-off custom roundstart laws.
  * You might recognize the fact that 99% of the time it is asimov.
  *
  * This requires config, so it is generated at the first request to use this var.
@@ -163,6 +164,8 @@ GLOBAL_VAR(round_default_lawset)
 /// Makes a copy of the lawset and returns a new law datum.
 /datum/ai_laws/proc/copy_lawset()
 	var/datum/ai_laws/new_lawset = new type()
+	new_lawset.name = name
+	new_lawset.id = id
 	new_lawset.protected_zeroth = protected_zeroth
 	new_lawset.zeroth = zeroth
 	new_lawset.zeroth_borg = zeroth_borg
@@ -200,8 +203,24 @@ GLOBAL_VAR(round_default_lawset)
 
 /datum/ai_laws/proc/set_laws_config()
 	var/datum/ai_laws/default_laws = get_round_default_lawset()
-	default_laws = new default_laws()
-	inherent = default_laws.inherent
+	// get_round_default_lawset() can return an instance if an admin set it to a custom lawset
+	if(ispath(default_laws))
+		default_laws = new default_laws()
+	else if(istype(default_laws))
+		default_laws = default_laws.copy_lawset()
+	else
+		stack_trace("Invalid round default lawset, falling back to Asimov.")
+		default_laws = new /datum/ai_laws/default/asimov()
+
+	name = default_laws.name
+	id = default_laws.id
+	protected_zeroth = default_laws.protected_zeroth
+	zeroth = default_laws.zeroth
+	zeroth_borg = default_laws.zeroth_borg
+	inherent = default_laws.inherent.Copy()
+	supplied = default_laws.supplied.Copy()
+	ion = default_laws.ion.Copy()
+	hacked = default_laws.hacked.Copy()
 
 /**
  * Gets the number of how many laws this AI has

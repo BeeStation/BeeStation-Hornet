@@ -118,7 +118,7 @@
 	if(default > max_value)
 		CRASH("Default value is greater than max value.")
 
-/datum/tgui_input_number/Destroy(force, ...)
+/datum/tgui_input_number/Destroy(force)
 	SStgui.close_uis(src)
 	. = ..()
 
@@ -197,9 +197,9 @@
 	..(user, message, title, default, max_value, min_value, timeout)
 	src.callback = callback
 
-/datum/tgui_input_number/async/Destroy(force, ...)
-	QDEL_NULL(callback)
-	. = ..()
+/datum/tgui_input_number/async/Destroy(force)
+	callback = null
+	return ..()
 
 /datum/tgui_input_number/async/set_entry(entry)
 	. = ..()

@@ -2,7 +2,7 @@
 #define MIN_GLIDE_SIZE 1
 /// The maximum for glide_size to be clamped to.
 /// This shouldn't be higher than the icon size, and generally you shouldn't be changing this, but it's here just in case.
-#define MAX_GLIDE_SIZE 32
+#define MAX_GLIDE_SIZE ICON_SIZE_ALL
 
 /// Compensating for time dilation
 GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
@@ -13,10 +13,10 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 /// Then that's multiplied by the global glide size multiplier. 1.25 by default feels pretty close to spot on. This is just to try to get byond to behave.
 /// The whole result is then clamped to within the range above.
 /// Not very readable but it works
-#define DELAY_TO_GLIDE_SIZE(delay) (clamp(((world.icon_size / max((delay) / world.tick_lag, 1)) * GLOB.glide_size_multiplier), MIN_GLIDE_SIZE, MAX_GLIDE_SIZE))
+#define DELAY_TO_GLIDE_SIZE(delay) (clamp(((ICON_SIZE_ALL / max((delay) / world.tick_lag, 1)) * GLOB.glide_size_multiplier), MIN_GLIDE_SIZE, MAX_GLIDE_SIZE))
 
 ///Similar to DELAY_TO_GLIDE_SIZE, except without the clamping, and it supports piping in an unrelated scalar
-#define MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, movement_disparity) (world.icon_size / ((delay) / world.tick_lag) * movement_disparity * GLOB.glide_size_multiplier)
+#define MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, movement_disparity) (ICON_SIZE_ALL / ((delay) / world.tick_lag) * movement_disparity * GLOB.glide_size_multiplier)
 
 //Movement loop priority. Only one loop can run at a time, this dictates that
 // Higher numbers beat lower numbers
@@ -36,6 +36,14 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define MOVEMENT_LOOP_IGNORE_GLIDE (1<<2)
 ///Should we not update our movables dir on move?
 #define MOVEMENT_LOOP_NO_DIR_UPDATE (1<<3)
+
+// Movement loop status flags
+/// Has the loop been paused, soon to be resumed?
+#define MOVELOOP_STATUS_PAUSED (1<<0)
+/// Is the loop running? (Is true even when paused)
+#define MOVELOOP_STATUS_RUNNING (1<<1)
+/// Is the loop queued in a subsystem?
+#define MOVELOOP_STATUS_QUEUED (1<<2)
 
 //Index defines for movement bucket data packets
 #define MOVEMENT_BUCKET_TIME 1
@@ -100,20 +108,3 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define GRAVITY_JOULE_REQUIREMENT 100
 /// Amount to increase consumption by
 #define JETPACK_COMBUSTION_CONSUMPTION_ADJUSTMENT 500
-
-// The pressure at which jetpacks begin to slowdown
-#define JETPACK_FAST_PRESSURE_MIN 20
-// The pressure at which jetpacks reach their min speed
-#define JETPACK_FAST_PRESSURE_MAX 80
-
-#define JETPACK_SPEED_CHECK(user, movespeed_id, speed, full_speed) \
-	var/datum/gas_mixture/__env = loc.return_air();\
-	if(full_speed && __env.return_pressure() < JETPACK_FAST_PRESSURE_MAX) {\
-		var/__proportion = CLAMP01(1 - ((__env.return_pressure() - JETPACK_FAST_PRESSURE_MIN) / (JETPACK_FAST_PRESSURE_MAX - JETPACK_FAST_PRESSURE_MIN)));\
-		user.add_or_update_variable_movespeed_modifier(movespeed_id, multiplicative_slowdown=speed * __proportion);\
-	} else {\
-		user.remove_movespeed_modifier(movespeed_id);\
-	}
-
-/// Generic position of user offset for /datum/component/riding
-#define RIDING_OFFSET_ALL "ALL"

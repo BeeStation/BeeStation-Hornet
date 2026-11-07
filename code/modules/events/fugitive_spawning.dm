@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 
 /proc/spawn_fugitives(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/list/possible_backstories = list()
-	for(var/type_key as() in GLOB.fugitive_types)
+	for(var/type_key as anything in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
 		// without this second check it will filter out "safe" backstories even if there are enough players to fill it
 		if(length(candidates) > F.max_amount_allowed && F.max_amount_allowed < MAXIMUM_TOTAL_FUGITIVES)
@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.set_assigned_role(ROLE_FUGITIVE)
+	player_mind.set_assigned_role(SSjob.get_job_type(/datum/job/fugitive))
 	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	// Leader goes first, so this is the first one taken
 	if(istype(leader_spawn))
 		announce_fugitive_pod(leader_spawn, candidates)
-	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as() in spawners)
+	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as anything in spawners)
 		announce_fugitive_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
@@ -142,9 +142,15 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	if(length(candidates))
 		var/mob/M = pick_n_take(candidates)
 		spawner.create(M.ckey)
-		notify_ghosts("The fugitive hunter ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts(
+			"The fugitive hunter ship has an object of interest: [M]!",
+			source=M,
+		)
 	else
-		notify_ghosts("The fugitive hunter ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts(
+			"The fugitive hunter ship has an object of interest: [spawner]!",
+			source=spawner,
+		)
 
 /proc/admin_select_backstory(list/backstory_keys)
 	GLOB.fugitive_backstory_selection = backstory_keys

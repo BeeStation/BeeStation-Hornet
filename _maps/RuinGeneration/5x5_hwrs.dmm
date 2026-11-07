@@ -2,31 +2,31 @@
 "h" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "F" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "U" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "Z" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 F

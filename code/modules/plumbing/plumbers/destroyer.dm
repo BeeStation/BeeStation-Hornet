@@ -16,6 +16,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/plumbing/disposer)
 /obj/machinery/plumbing/disposer/process(delta_time)
 	if(machine_stat & NOPOWER)
 		return
+	update_use_power(reagents.total_volume ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	if(reagents.total_volume)
 		if(icon_state != initial(icon_state) + "_working") //threw it here instead of update icon since it only has two states
 			icon_state = initial(icon_state) + "_working"

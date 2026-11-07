@@ -6,9 +6,14 @@
 	multiplicative_slowdown = 2
 	flags = IGNORE_NOSLOW
 
-/datum/movespeed_modifier/species
-	movetypes = ~FLYING
+// no reason for leg loss (or gain) to affect speed if drifting
+/datum/movespeed_modifier/bodypart
+	blacklisted_movetypes = (FLYING|FLOATING)
 	variable = TRUE
+
+/datum/movespeed_modifier/species_flight
+	blacklisted_movetypes = (GROUND|VENTCRAWLING)
+	multiplicative_slowdown = -0.35
 
 /datum/movespeed_modifier/dna_vault_speedup
 	blacklisted_movetypes = (FLYING|FLOATING)

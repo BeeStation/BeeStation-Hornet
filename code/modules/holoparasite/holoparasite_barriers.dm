@@ -55,7 +55,7 @@
 	ADD_BARRIER_IMAGE(locate(min(sx + range + 1, world.maxx), max(sy - range - 1, 1), sz), NORTHWEST)
 	ADD_BARRIER_IMAGE(locate(max(sx - range - 1, 1), max(sy - range - 1, 1), sz), NORTHEAST)
 
-	for(var/image/barrier_part as() in barrier_images)
+	for(var/image/barrier_part as anything in barrier_images)
 		barrier_part.plane = ABOVE_LIGHTING_PLANE
 		client.images += barrier_part
 

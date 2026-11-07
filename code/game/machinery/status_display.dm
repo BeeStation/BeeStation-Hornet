@@ -17,8 +17,6 @@
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
 	density = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
 	layer = ABOVE_WINDOW_LAYER
 
 	var/obj/effect/overlay/status_display_text/message1_overlay
@@ -439,14 +437,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/evac, 32)
 	)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
-
-/obj/machinery/status_display/ai/Initialize(mapload)
-	. = ..()
-	GLOB.ai_status_displays.Add(src)
-
-/obj/machinery/status_display/ai/Destroy()
-	GLOB.ai_status_displays.Remove(src)
-	. = ..()
 
 /obj/machinery/status_display/ai/attack_ai(mob/living/silicon/ai/user)
 	var/list/choices = list()

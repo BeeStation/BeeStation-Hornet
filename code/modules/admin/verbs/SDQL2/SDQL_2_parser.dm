@@ -605,11 +605,11 @@
 		node += "null"
 		i++
 
-	else if(LOWER_TEXT(copytext(token(i), 1, 3)) == "0x" && isnum_safe(hex2num(copytext(token(i), 3))))//3 == length("0x") + 1
+	else if(LOWER_TEXT(copytext(token(i), 1, 3)) == "0x" && IS_FINITE(hex2num(copytext(token(i), 3))))//3 == length("0x") + 1
 		node += hex2num(copytext(token(i), 3))
 		i++
 
-	else if(isnum_safe(text2num(token(i))))
+	else if(IS_FINITE(text2num(token(i))))
 		node += text2num(token(i))
 		i++
 

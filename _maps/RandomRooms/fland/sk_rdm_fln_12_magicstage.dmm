@@ -46,10 +46,8 @@
 /area/template_noop)
 "u" = (
 /obj/structure/chair/stool/bar,
-/obj/structure/mirror{
-	pixel_y = 26
-	},
 /obj/machinery/light/small,
+/obj/structure/mirror/directional/north,
 /turf/open/floor/carpet,
 /area/template_noop)
 "v" = (

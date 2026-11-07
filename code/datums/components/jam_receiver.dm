@@ -28,7 +28,7 @@
 	// See if we are starting off jammed
 	check_jammed()
 
-/datum/component/jam_receiver/Destroy(force, silent)
+/datum/component/jam_receiver/Destroy(force)
 	. = ..()
 	// Cleanup the moved relay if we need to
 	var/datum/component/moved_relay/move_relay = associated_relay

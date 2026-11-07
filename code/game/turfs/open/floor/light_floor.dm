@@ -78,7 +78,7 @@
 /turf/open/floor/light/attack_silicon(mob/user)
 	return attack_hand(user)
 
-/turf/open/floor/light/attackby(obj/item/C, mob/user, params)
+/turf/open/floor/light/attackby(obj/item/C, mob/user, list/modifiers)
 	if(..())
 		return
 	if(istype(C, /obj/item/light/bulb)) //only for light tiles

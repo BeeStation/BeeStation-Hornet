@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "c" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -18,14 +18,14 @@
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "l" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop/open,
@@ -42,25 +42,25 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "q" = (
 /turf/template_noop/open,
 /area/template_noop)
 "r" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "s" = (
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/item/stack/rods,
 /turf/template_noop/open,
 /area/template_noop)
 "u" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -79,7 +79,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "D" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -93,7 +93,7 @@
 	},
 /obj/item/multitool,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil,
@@ -110,7 +110,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "K" = (
 /obj/machinery/power/solar_control{
 	id = "auxsolareast";
@@ -118,17 +118,17 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "M" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/smes,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "O" = (
 /obj/structure/sign/warning/electric_shock,
 /turf/closed/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "W" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -147,7 +147,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 q

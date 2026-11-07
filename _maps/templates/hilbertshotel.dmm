@@ -36,12 +36,10 @@
 /area/misc/hilbertshotel)
 "i" = (
 /obj/structure/table/wood/fancy,
-/obj/structure/mirror{
-	pixel_y = 24
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/mirror/directional/north,
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "j" = (
@@ -141,9 +139,7 @@
 /turf/open/indestructible/hotelwood,
 /area/misc/hilbertshotel)
 "A" = (
-/obj/structure/mirror{
-	pixel_x = -32
-	},
+/obj/structure/mirror/directional/west,
 /obj/structure/sink/directional/east,
 /turf/open/indestructible/hoteltile,
 /area/misc/hilbertshotel)

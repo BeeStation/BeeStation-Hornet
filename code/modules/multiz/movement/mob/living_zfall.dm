@@ -1,9 +1,7 @@
 /mob/living/can_zFall(turf/source, turf/target, direction)
-	if(!..())
-		return FALSE
 	if(buckled && !buckled.can_zFall(source, target, direction))
 		return FALSE
-	return TRUE
+	return ..()
 
 /mob/living/onZImpact(turf/T, levels)
 	if(!isgroundlessturf(T))

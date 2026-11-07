@@ -291,8 +291,10 @@ export const StatTextAtom = (props) => {
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
             {
-              <Flex.Item mr={1}>
-                <img width="32px" height="32px" src={atom_icon} />
+              <Flex.Item mr={1} width="32px" height="32px">
+                {!!atom_icon && (
+                  <img width="32px" height="32px" src={atom_icon} />
+                )}
               </Flex.Item>
             }
             <Flex.Item grow={1} className="StatWordWrap">

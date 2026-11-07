@@ -9,6 +9,9 @@
 	var/keep_cached_map = FALSE
 	var/station_id = null // used to override the root id when generating
 
+	///Default area associated with the map template
+	var/default_area
+
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
 
@@ -48,17 +51,9 @@
 	var/list/area/areas = list()
 
 	var/list/turfs = block(
-		locate(
-			bounds[MAP_MINX],
-			bounds[MAP_MINY],
-			bounds[MAP_MINZ]
-			),
-		locate(
-			bounds[MAP_MAXX],
-			bounds[MAP_MAXY],
-			bounds[MAP_MAXZ]
-			)
-		)
+		bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ],
+		bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ]
+	)
 	for(var/turf/current_turf as anything in turfs)
 		var/area/current_turfs_area = current_turf.loc
 		areas |= current_turfs_area
@@ -91,16 +86,8 @@
 	if(init_atmos)
 		//calculate all turfs inside the border
 		var/list/template_and_bordering_turfs = block(
-			locate(
-				max(bounds[MAP_MINX]-1, 1),
-				max(bounds[MAP_MINY]-1, 1),
-				bounds[MAP_MINZ]
-				),
-			locate(
-				min(bounds[MAP_MAXX]+1, world.maxx),
-				min(bounds[MAP_MAXY]+1, world.maxy),
-				bounds[MAP_MAXZ]
-				)
+			bounds[MAP_MINX]-1, bounds[MAP_MINY]-1, bounds[MAP_MINZ],
+			bounds[MAP_MAXX]+1, bounds[MAP_MAXY]+1, bounds[MAP_MAXZ]
 		)
 		for(var/turf/affected_turf as anything in template_and_bordering_turfs)
 			affected_turf.air_update_turf(TRUE, TRUE)
@@ -111,7 +98,15 @@
 	var/y = round((world.maxy - height)/2)
 
 	var/datum/space_level/level = SSmapping.add_new_zlevel(name, level_traits, orbital_body_type = orbital_body_type, contain_turfs = FALSE)
-	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top, new_z = TRUE)
+	var/datum/parsed_map/parsed = load_map(
+		file(mappath),
+		x,
+		y,
+		level.z_value,
+		no_changeturf = (SSatoms.initialized == INITIALIZATION_INSSATOMS),
+		place_on_top = should_place_on_top,
+		new_z = TRUE,
+	)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return FALSE
@@ -143,12 +138,10 @@
 	if(T.y+height > world.maxy)
 		return
 
-	var/list/border = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
-							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
 	// Cache for sonic speed
 	var/list/to_rebuild = SSair.adjacent_rebuild
 	// iterate over turfs in the border and clear them from active atmos processing
-	for(var/turf/border_turf as anything in border)
+	for(var/turf/border_turf as anything in CORNER_BLOCK_OFFSET(T, width + 2, height + 2, -1, -1))
 		SSair.remove_from_active(border_turf)
 		to_rebuild -= border_turf
 		for(var/turf/sub_turf as anything in border_turf.atmos_adjacent_turfs)

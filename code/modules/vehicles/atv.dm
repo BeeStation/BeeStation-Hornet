@@ -44,7 +44,7 @@
 	turret = new(loc)
 	turret.base = src
 
-/obj/vehicle/ridden/atv/turret/Moved()
+/obj/vehicle/ridden/atv/turret/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(turret)
 		turret.forceMove(get_turf(src))
@@ -66,7 +66,7 @@
 				turret.pixel_y = base_pixel_y + 4
 				turret.layer = OBJ_LAYER
 
-/obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/living/user as mob, params)
+/obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/living/user as mob, list/modifiers)
 	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		if(atom_integrity < max_integrity)
 			if(W.use_tool(src, user, 0, volume=50, amount=1))

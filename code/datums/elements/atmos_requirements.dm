@@ -29,10 +29,10 @@
 /datum/element/atmos_requirements/proc/on_non_stasis_life(mob/living/target, delta_time = SSMOBS_DT)
 	SIGNAL_HANDLER
 	if(is_breathable_atmos(target))
-		target.clear_alert("not_enough_oxy")
+		target.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		return
 	target.adjustBruteLoss(unsuitable_atmos_damage * delta_time)
-	target.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+	target.throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 /datum/element/atmos_requirements/proc/is_breathable_atmos(mob/living/target)
 	if(target.pulledby && target.pulledby.grab_state >= GRAB_KILL && atmos_requirements["min_oxy"])
@@ -41,29 +41,34 @@
 	if(!isopenturf(target.loc))
 		return TRUE
 
-	var/turf/open/ST = target.loc
-	if(!ST.air && (atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"]))
+	var/min_oxy = 0
+	var/min_plasma = 0
+	var/min_n2 = 0
+	var/min_co2 = 0
+
+	var/can_breathe_vacuum = HAS_TRAIT(target, TRAIT_NOBREATH)
+	if(!can_breathe_vacuum)
+		min_oxy = atmos_requirements["min_oxy"]
+		min_plasma = atmos_requirements["min_plas"]
+		min_n2 = atmos_requirements["min_n2"]
+		min_co2 = atmos_requirements["min_co2"]
+
+	var/turf/open/open_turf = target.loc
+	if(isnull(open_turf.air))
+		if (can_breathe_vacuum)
+			return TRUE
+		if(min_oxy || min_plasma || min_n2 || min_co2)
+			return FALSE
+		return TRUE
+
+	var/list/cached_moles = open_turf.air.moles
+
+	if(!ISINRANGE(cached_moles[/datum/gas/oxygen], min_oxy, (atmos_requirements["max_oxy"] || INFINITY)))
 		return FALSE
-
-	var/plas = GET_MOLES(/datum/gas/plasma, ST.air)
-	var/oxy = GET_MOLES(/datum/gas/oxygen, ST.air)
-	var/n2  = GET_MOLES(/datum/gas/nitrogen, ST.air)
-	var/co2 = GET_MOLES(/datum/gas/carbon_dioxide, ST.air)
-
-	. = TRUE
-	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
-		. = FALSE
-	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
-		. = FALSE
-	else if(atmos_requirements["min_plas"] && plas < atmos_requirements["min_plas"])
-		. = FALSE
-	else if(atmos_requirements["max_plas"] && plas > atmos_requirements["max_plas"])
-		. = FALSE
-	else if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
-		. = FALSE
-	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
-		. = FALSE
-	else if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
-		. = FALSE
-	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
-		. = FALSE
+	if(!ISINRANGE(cached_moles[/datum/gas/plasma], min_plasma, (atmos_requirements["max_plas"] || INFINITY)))
+		return FALSE
+	if(!ISINRANGE(cached_moles[/datum/gas/nitrogen], min_n2, (atmos_requirements["max_n2"] || INFINITY)))
+		return FALSE
+	if(!ISINRANGE(cached_moles[/datum/gas/carbon_dioxide], min_co2, (atmos_requirements["max_co2"] || INFINITY)))
+		return FALSE
+	return TRUE

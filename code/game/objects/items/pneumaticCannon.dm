@@ -77,7 +77,7 @@
 		out += span_notice("[icon2html(tank, user)] It has \a [tank] mounted onto it.")
 	. += out.Join("\n")
 
-/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/living/user, params)
+/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return ..()
 	if(istype(W, /obj/item/tank/internals))
@@ -137,7 +137,7 @@
 	loadedWeightClass += I.w_class
 	return TRUE
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/user, flag, list/modifiers)
 	. = ..()
 	if(flag && user.combat_mode)//melee attack
 		return
@@ -347,6 +347,7 @@
 	desc = "A quiver for holding magspears."
 	icon_state = "quiver"
 	inhand_icon_state = "quiver"
+	worn_icon = 'icons/mob/clothing/back.dmi'
 
 /obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
@@ -355,8 +356,8 @@
 	atom_storage.max_total_storage = atom_storage.max_specific_storage * atom_storage.max_slots
 	atom_storage.numerical_stacking = TRUE
 	atom_storage.set_holdable(list(
-		/obj/item/throwing_star/magspear
-		))
+		/obj/item/throwing_star/magspear,
+	))
 
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)

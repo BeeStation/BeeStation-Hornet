@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(ipintel)
 	name = "XKeyScore"
-	flags = SS_NO_FIRE
+	ss_flags = SS_NO_FIRE
 	var/enabled = 0 //disable at round start to avoid checking reconnects
 	var/throttle = 0
 	var/errors = 0

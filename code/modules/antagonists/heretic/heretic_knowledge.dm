@@ -192,7 +192,7 @@
 	// Destroys the item furthest from user if over the amount limit
 	var/destroy_if_over_limit = FALSE
 
-/datum/heretic_knowledge/limited_amount/Destroy(force, ...)
+/datum/heretic_knowledge/limited_amount/Destroy(force)
 	LAZYCLEARLIST(created_items)
 	return ..()
 
@@ -305,7 +305,7 @@
 	// Fade in the summon while the ghost poll is ongoing.
 	// Also don't let them mess with the summon while waiting
 	summoned.alpha = 0
-	summoned.notransform = TRUE
+	ADD_TRAIT(summoned, TRAIT_NO_TRANSFORM, REF(src))
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
 	animate(summoned, 10 SECONDS, alpha = 155)
 
@@ -327,7 +327,7 @@
 
 	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
-	summoned.notransform = FALSE
+	REMOVE_TRAIT(summoned, TRAIT_NO_TRANSFORM, REF(src))
 	summoned.move_resist = initial(summoned.move_resist)
 
 	summoned.ghostize(FALSE)
@@ -438,8 +438,8 @@
 /*
  * The special final tier of knowledges that unlocks ASCENSION.
  */
-/datum/heretic_knowledge/final
-	abstract_type = /datum/heretic_knowledge/final
+/datum/heretic_knowledge/ultimate
+	abstract_type = /datum/heretic_knowledge/ultimate
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
@@ -448,13 +448,13 @@
 	/// The sound to use for the announcement.
 	var/announcement_sound
 
-/datum/heretic_knowledge/final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
+/datum/heretic_knowledge/ultimate/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	var/total_points = 0
 	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(our_heretic.researched_knowledge))
 		total_points += knowledge.cost
 
-/datum/heretic_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
+/datum/heretic_knowledge/ultimate/can_be_invoked(datum/antagonist/heretic/invoker)
 	if(invoker.ascended)
 		return FALSE
 
@@ -463,7 +463,7 @@
 
 	return TRUE
 
-/datum/heretic_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!can_be_invoked(heretic_datum))
 		to_chat(user, span_warning("You need at least 3 sacrifices to invoke this ritual!"))
@@ -482,10 +482,10 @@
 /**
  * Checks if the passed human is a valid sacrifice for our ritual.
  */
-/datum/heretic_knowledge/final/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
+/datum/heretic_knowledge/ultimate/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	return (sacrifice.stat == DEAD) && !ismonkey(sacrifice)
 
-/datum/heretic_knowledge/final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	heretic_datum.ascended = TRUE
 
@@ -497,6 +497,11 @@
 		human_user.physiology.brute_mod *= 0.5
 		human_user.physiology.burn_mod *= 0.5
 
+	notify_ghosts(
+		"[user] has completed an ascension ritual!",
+		source = user,
+		header = "A Heretic is Ascending!",
+	)
 	priority_announce(
 		text = "[generate_heretic_text()] [replacetext_char(announcement_text, "%USER%", "[user.real_name]")] [generate_heretic_text()]",
 		title = "[generate_heretic_text()]",
@@ -505,7 +510,7 @@
 
 	return TRUE
 
-/datum/heretic_knowledge/final/cleanup_atoms(list/selected_atoms)
+/datum/heretic_knowledge/ultimate/cleanup_atoms(list/selected_atoms)
 	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
 		selected_atoms -= sacrifice
 		sacrifice.gib()

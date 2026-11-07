@@ -9,12 +9,12 @@
 /obj/machinery/telecomms/server
 	name = "telecommunication server"
 	icon_state = "comm_server"
+	base_icon_state = "comm_server"
 	desc = "A machine used to store data and network statistics."
 	telecomms_type = /obj/machinery/telecomms/server
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 10
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.01
 	circuit = /obj/item/circuitboard/machine/telecomms/server
 	/// A list of previous entries on the network. It will not exceed
 	/// `MAX_LOG_ENTRIES` entries in length, flushing the oldest entries
@@ -64,6 +64,7 @@
 	if(!can_send)
 		relay_information(signal, /obj/machinery/telecomms/broadcaster)
 
+	use_power(idle_power_usage)
 
 #undef MAX_LOG_ENTRIES
 

@@ -1,7 +1,8 @@
 /datum/preference/choiced/skin_tone
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	preference_type = PREFERENCE_CHARACTER
 	db_key = "skin_tone"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	relevant_inherent_trait = TRAIT_USES_SKINTONES
 
 /datum/preference/choiced/skin_tone/init_possible_values()
 	return GLOB.skin_tones
@@ -27,10 +28,3 @@
 
 /datum/preference/choiced/skin_tone/apply_to_human(mob/living/carbon/human/target, value)
 	target.skin_tone = value
-
-/datum/preference/choiced/skin_tone/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
-	if (!..())
-		return FALSE
-
-	var/datum/species/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
-	return initial(species_type.use_skintones)

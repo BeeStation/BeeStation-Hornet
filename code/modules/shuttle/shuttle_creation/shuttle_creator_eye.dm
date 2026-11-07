@@ -48,7 +48,7 @@
 	..()
 	if(eye_user?.client)
 		eye_user.client.images -= user_image
-		var/image/I = image(icon, loc, icon_state, FLY_LAYER, dir)
+		var/image/I = image(icon, loc, icon_state, FLY_LAYER, dir) // this isn't actually for remote eye. The image is drawn over turf.
 		I.plane = MASSIVE_OBJ_PLANE
 		user_image = I
 		eye_user.client.images += user_image

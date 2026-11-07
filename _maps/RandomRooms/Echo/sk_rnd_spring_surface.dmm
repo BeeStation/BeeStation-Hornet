@@ -96,6 +96,7 @@
 "bP" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/lowpop/smes_configurer,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
 "bU" = (
@@ -1544,8 +1545,7 @@
 /area/template_noop)
 "Ae" = (
 /obj/structure/sink/directional/west,
-/obj/structure/mirror{
-	pixel_x = 32;
+/obj/structure/mirror/directional/east{
 	pixel_y = -1
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -2462,6 +2462,7 @@
 /obj/structure/cable/yellow,
 /obj/structure/cable,
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/lowpop/solar_console,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "Qt" = (

@@ -16,23 +16,30 @@ GLOBAL_LIST_EMPTY(wall_runes)
 
 	return runes
 
-/proc/is_convertable_to_cult(mob/living/M,datum/team/cult/specific_cult)
-	if(!istype(M))
+/proc/is_convertable_to_cult(mob/living/target, datum/team/cult/specific_cult)
+	if(!istype(target))
 		return FALSE
-	if(M.mind)
-		if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
-			return FALSE
-		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
-			return FALSE
-		if(IS_SERVANT_OF_RATVAR(M))
-			return FALSE
-		if(M.mind.enslaved_to && !M.mind.enslaved_to.has_antag_datum(/datum/antagonist/cult))
-			return FALSE
-		if(M.mind.unconvertable)
-			return FALSE
-	else
+	if(isnull(target.mind))
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
+
+// disables client checks if testing for easier debugging
+#ifndef TESTING
+	if(!target.client)
+		return FALSE
+#endif
+
+	if(ishuman(target) && target.mind.holy_role)
+		return FALSE
+	if(specific_cult?.is_sacrifice_target(target.mind))
+		return FALSE
+	if(IS_SERVANT_OF_RATVAR(target))
+		return FALSE
+	if(target.mind.enslaved_to && !IS_CULTIST(target.mind.enslaved_to.current))
+		return FALSE
+	if(target.mind.unconvertable)
+		return FALSE
+
+	if(HAS_TRAIT(target, TRAIT_MINDSHIELD) || issilicon(target) || isbot(target) || isdrone(target))
 		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
 	return TRUE
 
@@ -244,6 +251,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 /obj/effect/rune/convert/do_invoke_glow()
 	return
 
+/obj/effect/rune/convert/proc/can_convert(mob/living/target, datum/team/cult/cult_team, list/invokers)
+	if(!is_convertable_to_cult(target, cult_team))
+		return FALSE
+	if(target.stat == DEAD && !(target.client || target.mind?.get_ghost()))
+		return FALSE
+	if(target.can_block_magic(MAGIC_RESISTANCE_HOLY) || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
+		for(var/mob/living/M in invokers)
+			to_chat(M, span_warning("Something is shielding [target]'s mind!"))
+		log_game("Offer rune failed - convertee had anti-magic")
+		return FALSE
+	if(length(invokers) < 2)
+		return FALSE
+	return TRUE
+
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
 		return
@@ -263,37 +284,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	var/mob/living/L = pick(myriad_targets)
 
 	var/mob/living/F = invokers[1]
-	var/datum/antagonist/cult/C = F.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/antagonist/cult/C = F.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
 	var/datum/team/cult/Cult_team = C.cult_team
-	var/is_convertable = is_convertable_to_cult(L,C.cult_team)
-	if(L.stat != DEAD && (is_convertable))
+
+	if(can_convert(L, Cult_team, invokers))
 		invocation = "Mah'weyh pleggh at e'ntrath!"
 		..()
-		if(is_convertable)
-			do_convert(L, invokers)
+		do_convert(L, invokers)
 	else
 		invocation = "Barhah hra zar'garis!"
 		..()
 		do_sacrifice(L, invokers)
 	animate(src, color = oldcolor, time = 5)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
-	Cult_team.check_size() // Triggers the eye glow or aura effects if the cult has grown large enough relative to the crew
+	Cult_team?.check_size() // Triggers the eye glow or aura effects if the cult has grown large enough relative to the crew
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
-	if(length(invokers) < 2)
-		for(var/M in invokers)
-			to_chat(M, span_danger("You need at least two invokers to convert [convertee]!"))
-		log_game("Offer rune failed - tried conversion with one invoker")
-		return 0
-	if(convertee.can_block_magic(MAGIC_RESISTANCE_HOLY) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat)) //Not major because it can be spammed
-		for(var/M in invokers)
-			to_chat(M, span_warning("Something is shielding [convertee]'s mind!"))
-		log_game("Offer rune failed - convertee had anti-magic")
-		return 0
 	var/brutedamage = convertee.getBruteLoss()
 	var/burndamage = convertee.getFireLoss()
-	if(brutedamage || burndamage)
+
+	if(convertee.stat == DEAD)
+		convertee.grab_ghost()
+		if(!convertee.mind)
+			return FALSE
+		convertee.heal_and_revive(50)
+		if(iscarbon(convertee))
+			var/mob/living/carbon/C = convertee
+			C.blood_volume = max(C.blood_volume, BLOOD_VOLUME_SAFE)
+	else if(brutedamage || burndamage)
 		convertee.adjustBruteLoss(-(brutedamage * 0.75))
 		convertee.adjustFireLoss(-(burndamage * 0.75))
 	convertee.visible_message(span_warning("[convertee] writhes in pain [brutedamage || burndamage ? "even as [convertee.p_their()] wounds heal and close" : "as the markings below [convertee.p_them()] glow a bloody red"]!"), span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
@@ -310,7 +329,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 		H.uncuff()
 		H.remove_status_effect(/datum/status_effect/speech/slurring/cult)
 		H.remove_status_effect(/datum/status_effect/speech/stutter)
-	return 1
+	return TRUE
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)
 	var/mob/living/first_invoker = invokers[1]
@@ -376,8 +395,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 			sacrificial.investigate_log("has been sacrificially gibbed by the cult.", INVESTIGATE_DEATHS)
 			sacrificial.gib()
 	return TRUE
-
-
 
 /obj/effect/rune/empower
 	cultist_name = "Empower"
@@ -546,7 +563,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 
 /obj/effect/rune/narsie/Initialize(mapload, set_keyword)
 	. = ..()
-	AddElement(/datum/element/point_of_interest)
+	SSpoints_of_interest.make_point_of_interest(src)
 
 /obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
 	return
@@ -563,7 +580,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	if(!(place in summon_objective.summon_spots))
 		to_chat(user, span_cultlarge("The Geometer can only be summoned where the veil is weak - in [english_list(summon_objective.summon_spots)]!"))
 		return
-	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in SSpoints_of_interest.narsies)
 		for(var/M in invokers)
 			to_chat(M, span_warning("Nar'Sie is already on this plane!"))
 		log_game("Nar'Sie rune failed - already summoned")
@@ -586,7 +603,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 	else
 		new /obj/eldritch/narsie(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+/obj/effect/rune/narsie/attackby(obj/I, mob/user, list/modifiers)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)))
 		user.visible_message(span_warning("[user.name] begins erasing [src]..."), span_notice("You begin erasing [src]..."))
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
@@ -676,7 +693,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 		else
 			fail_invoke()
 			return
-	SEND_SOUND(mob_to_revive, 'sound/ambience/antag/bloodcult_gain.ogg')
+	SEND_SOUND(mob_to_revive, 'sound/effects/antag/bloodcult/bloodcult_gain.ogg')
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
 	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
 									span_cultlarge("You awaken suddenly from the void. You're alive!"))
@@ -740,11 +757,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	if(density)
 		spread_density()
 	var/carbon_user = iscarbon(user)
-	user.visible_message(span_warning("[user] [carbon_user ? "places [user.p_their()] hands on":"stares intently at"] [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"]."), \
-						span_cultitalic("You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it."))
+	user.visible_message(
+		span_warning("[user] [carbon_user ? "places [user.p_their()] hands on":"stares intently at"] [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"]."),
+		span_cultitalic("You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it.")
+	)
 	if(carbon_user)
 		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		C.apply_damage(2, BRUTE, pick(GLOB.arm_zones))
 
 /obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
@@ -950,7 +969,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			fail_invoke()
 			log_game("Manifest rune failed - too many summoned ghosts")
 			return list()
-		notify_ghosts("Manifest rune invoked in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src, header = "Manifest rune")
+		notify_ghosts(
+			"Manifest rune invoked in [get_area(src)].",
+			source = src,
+			header = "Manifest rune",
+			ghost_sound = 'sound/effects/ghost2.ogg',
+		)
 		var/list/ghosts_on_rune = list()
 		for(var/mob/dead/observer/O in T)
 			if(O.client && !is_banned_from(O.ckey, ROLE_CULTIST) && !QDELETED(src) && !QDELETED(O))
@@ -1081,20 +1105,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 	empulse(T, 0.42*(intensity), 1, holy=TRUE)
 	var/list/images = list()
 	var/zmatch = T.get_virtual_z_level()
-	var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		if(M.get_virtual_z_level() != zmatch)
 			continue
 		if(ishuman(M))
 			if(!IS_CULTIST(M))
-				AH.remove_hud_from(M)
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hudFix), M), duration)
+				ADD_TRAIT(M, TRAIT_BLOCK_SECHUD, CULT_TRAIT)
+				addtimer(TRAIT_CALLBACK_REMOVE(M, TRAIT_BLOCK_SECHUD, CULT_TRAIT), duration)
 			var/image/A = image('icons/mob/cult.dmi', M,"cultist", ABOVE_MOB_LAYER)
 			A.override = 1
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "human_apoc", A, NONE)
 			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"human_apoc",TRUE), duration)
 			images += A
-			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult_gain.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
+			SEND_SOUND(M, pick(sound('sound/effects/antag/bloodcult/bloodcult_gain.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
 		else
 			var/construct = pick("floater","artificer","behemoth")
 			var/image/B = image('icons/mob/mob.dmi',M,construct, ABOVE_MOB_LAYER)
@@ -1171,13 +1194,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 			if(I.icon_state != "bloodsparkles")
 				I.override = TRUE
 		sleep(190)
-
-
-
-/proc/hudFix(mob/living/carbon/human/target)
-	if(!target || !target.client)
-		return
-	var/obj/O = target.get_item_by_slot(ITEM_SLOT_EYES)
-	if(istype(O, /obj/item/clothing/glasses/hud/security))
-		var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		AH.add_hud_to(target)

@@ -140,7 +140,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	pixel_y += rand(-5, 5)
 
 	//Flipping handled manually due to custom handling for trinary pipes
-	AddComponent(/datum/component/simple_rotation, ROTATION_NO_FLIPPING)
+	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING)
 
 	// Only 'normal' pipes
 	if(type != /obj/item/pipe/quaternary)
@@ -377,7 +377,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		for(var/i in 1 to 20)
-			C.vomit(0, TRUE, FALSE, 4, FALSE)
+			C.vomit(MOB_VOMIT_BLOOD | MOB_VOMIT_HARM, lost_nutrition = 0, distance = 4)
 			if(prob(20))
 				C.spew_organ()
 			sleep(0.5 SECONDS)
@@ -397,9 +397,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pipe)
 	set_piping_layer(layer_to_set)
 	balloon_alert(user, "pipe layer set to [piping_layer]")
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
-/obj/item/pipe/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/item/pipe/trinary/flippable/examine(mob/user)
 	. = ..()

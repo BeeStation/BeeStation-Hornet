@@ -49,10 +49,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "z" = (
-/obj/item/storage/pod{
-	pixel_x = -25;
-	unlocked = 1
-	},
 /obj/structure/closet/crate/miningcar{
 	pixel_x = 1;
 	pixel_y = 2
@@ -60,6 +56,9 @@
 /obj/machinery/camera/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/loading_area,
+/obj/item/storage/pod/unlocked{
+	pixel_x = -25
+	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "C" = (

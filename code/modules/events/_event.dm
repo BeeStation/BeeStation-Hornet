@@ -35,8 +35,8 @@
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs
-		earliest_start = CEILING(earliest_start * CONFIG_GET(number/events_min_time_mul), 1)
-		min_players = CEILING(min_players * CONFIG_GET(number/events_min_players_mul), 1)
+		earliest_start = ceil(earliest_start * CONFIG_GET(number/events_min_time_mul))
+		min_players = ceil(min_players * CONFIG_GET(number/events_min_players_mul))
 	if(max_occurrences <= 0)
 		name = "\[Admin only\] [name]"
 
@@ -150,7 +150,10 @@
 //Only called once.
 /datum/round_event/proc/announce_to_ghosts(atom/atom_of_interest)
 	if(control.alert_observers && atom_of_interest)
-		notify_ghosts("[control.name] has an object of interest: [atom_of_interest]!", source=atom_of_interest, action=NOTIFY_ORBIT, header="Something's Interesting!")
+		notify_ghosts(
+			"[control.name] has an object of interest: [atom_of_interest]!",
+			source = atom_of_interest,
+		)
 	return
 
 //Called when the tick is equal to the announceWhen variable.

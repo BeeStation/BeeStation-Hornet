@@ -145,7 +145,7 @@
 	SSblackbox.record_feedback("tally", "holoparasite_warped", 1, "[target.type]")
 	new /obj/effect/temp_visual/holoparasite/phase/out(target_turf)
 	if(leaves_tear_behind)
-		for(var/obj/effect/holopara_bluespace_tear/bs_tear as() in list(new /obj/effect/holopara_bluespace_tear(target_turf, beacon_turf), new /obj/effect/holopara_bluespace_tear(beacon_turf, target_turf)))
+		for(var/obj/effect/holopara_bluespace_tear/bs_tear as anything in list(new /obj/effect/holopara_bluespace_tear(target_turf, beacon_turf), new /obj/effect/holopara_bluespace_tear(beacon_turf, target_turf)))
 			QDEL_IN(bs_tear, HOLOPARA_TELEPORT_BLUESPACE_TEAR_TIME)
 			animate(bs_tear, alpha = 255, time = 1 MINUTES)
 	log_game("[key_name(owner)] teleported [isliving(target) ? key_name(target) : "[target] ([target.type])"] from [AREACOORD(target_turf)] to the bluespace beacon at [AREACOORD(beacon_turf)]")

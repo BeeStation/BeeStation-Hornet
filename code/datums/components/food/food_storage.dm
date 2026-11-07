@@ -29,7 +29,7 @@
 	bad_chance_of_discovery = _bad_chance
 	good_chance_of_discovery = _good_chance
 
-/datum/component/food_storage/Destroy(force, silent)
+/datum/component/food_storage/Destroy(force)
 	if(stored_item)
 		stored_item.forceMove(stored_item.drop_location())
 		stored_item.dropped()
@@ -44,7 +44,7 @@
   *	inserted_item - the item being placed into the food
   *	user - the person inserting the item
   */
-/datum/component/food_storage/proc/try_inserting_item(datum/source, obj/item/inserted_item, mob/living/user, params)
+/datum/component/food_storage/proc/try_inserting_item(datum/source, obj/item/inserted_item, mob/living/user, list/modifiers)
 	SIGNAL_HANDLER
 
 	// No matryoshka-ing food storage

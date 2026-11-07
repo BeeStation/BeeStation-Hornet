@@ -54,7 +54,6 @@
 		/obj/item/clothing/shoes/laceup = 1,
 		/obj/item/storage/belt/military/army = 1,
 		/obj/item/tank/jetpack/carbondioxide = 1,
-		/obj/item/tank/jetpack/suit = 1,
 		/obj/item/clothing/ears/headphones = 1,
 		/obj/item/camera = 1,
 		/obj/item/gps = 1,
@@ -147,7 +146,7 @@
 		postmark_image.appearance_flags |= RESET_COLOR
 		add_overlay(postmark_image)
 
-/obj/item/mail/attackby(obj/item/W, mob/user, params)
+/obj/item/mail/attackby(obj/item/W, mob/user, list/modifiers)
 	// Destination tagging
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/destination_tag = W
@@ -194,9 +193,9 @@
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient, list/received_report)
 	switch(rand(1,5))
 		if(5)
-			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
+			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role.title])"
 		else
-			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
+			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role.title])"
 	recipient_ref = WEAKREF(recipient)
 
 	//Recipients
@@ -205,7 +204,7 @@
 	var/list/goodies = generic_goodies.Copy()
 
 	//Load the job the player have
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role.title] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
 		var/datum/record/crew/R = find_record(recipient.name, GLOB.manifest.general)
@@ -248,7 +247,9 @@
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Mail is not routed to anyone who isn't present on the manifest, since how would we know
 		// to send their mail here?
-		if(!human.mind || !find_record(human.mind.name, GLOB.manifest.general))
+		if(human.stat == DEAD || !human.mind)
+			continue
+		if(!(human.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
 			continue
 
 		mail_recipients += human.mind
@@ -307,7 +308,7 @@
 		add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'")
 		return ..()
 	var/code = random_code(5)
-	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke in GLOB.nuke_list)
+	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb/selfdestruct))
 		if(nuke)
 			if(nuke.r_code == "ADMIN")
 				nuke.r_code = code

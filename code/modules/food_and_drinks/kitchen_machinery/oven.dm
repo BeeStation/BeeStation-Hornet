@@ -16,11 +16,12 @@
 	density = TRUE
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
 	layer = BELOW_OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/oven
 	processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = FIRE_PROOF
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.1
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.8
 
 	///The tray inside of this oven, if there is one.
 	var/obj/item/plate/oven_tray/used_tray
@@ -30,6 +31,8 @@
 	var/datum/looping_sound/oven/oven_loop
 	///Current state of smoke coming from the oven
 	var/smoke_state = OVEN_SMOKE_STATE_NONE
+	///Currently used particle type, if any
+	var/particle_type
 
 /obj/machinery/oven/Initialize(mapload)
 	. = ..()
@@ -40,8 +43,12 @@
 /obj/machinery/oven/Destroy()
 	used_tray?.invisibility = 0
 	QDEL_NULL(oven_loop)
-	QDEL_NULL(particles)
-	. = ..()
+	if (particle_type)
+		remove_shared_particles(particle_type)
+	return ..()
+
+/obj/machinery/oven/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return ..() || istype(contained, /obj/item/plate/oven_tray)
 
 /obj/machinery/oven/update_icon_state()
 	if(!open && used_tray?.contents.len)
@@ -89,9 +96,9 @@
 			visible_message(span_danger("You smell a burnt smell coming from [src]!"))
 	set_smoke_state(worst_cooked_food_state)
 	update_appearance()
+	use_power(active_power_usage)
 
-
-/obj/machinery/oven/attackby(obj/item/I, mob/user, params)
+/obj/machinery/oven/attackby(obj/item/I, mob/user, list/modifiers)
 	if(open && !used_tray && istype(I, /obj/item/plate/oven_tray))
 		if(user.transferItemToLoc(I, src, silent = FALSE))
 			to_chat(user, span_notice("You put [I] in [src]."))
@@ -106,7 +113,6 @@
 	if(!open)
 		oven_tray.vis_flags |= VIS_HIDE
 	vis_contents += oven_tray
-	oven_tray.flags_1 |= IS_ONTOP_1
 	oven_tray.vis_flags |= VIS_INHERIT_PLANE
 	oven_tray.pixel_y = OVEN_TRAY_Y_OFFSET
 	oven_tray.pixel_x = OVEN_TRAY_X_OFFSET
@@ -123,7 +129,6 @@
 
 /obj/machinery/oven/proc/tray_removed_from_oven(obj/item/oven_tray)
 	SIGNAL_HANDLER
-	oven_tray.flags_1 &= ~IS_ONTOP_1
 	oven_tray.vis_flags &= ~VIS_INHERIT_PLANE
 	vis_contents -= oven_tray
 	oven_tray.invisibility = 0
@@ -157,7 +162,9 @@
 	return TRUE
 
 /obj/machinery/oven/proc/update_baking_audio()
-	if(!open && used_tray?.contents.len)
+	if(!oven_loop)
+		return
+	if(!open && length(used_tray?.contents))
 		oven_loop.start()
 	else
 		oven_loop.stop()
@@ -166,16 +173,22 @@
 /obj/machinery/oven/proc/set_smoke_state(new_state)
 	if(new_state == smoke_state)
 		return
-	smoke_state = new_state
 
-	QDEL_NULL(particles)
+	smoke_state = new_state
+	if (particle_type)
+		remove_shared_particles(particle_type)
+		particle_type = null
+
 	switch(smoke_state)
 		if(OVEN_SMOKE_STATE_BAD)
-			particles = new /particles/smoke()
+			particle_type = /particles/smoke
 		if(OVEN_SMOKE_STATE_NEUTRAL)
-			particles = new /particles/smoke/steam()
+			particle_type = /particles/smoke/steam
 		if(OVEN_SMOKE_STATE_GOOD)
-			particles = new /particles/smoke/steam/mild
+			particle_type = /particles/smoke/steam/mild
+
+	if (particle_type)
+		add_shared_particles(particle_type)
 
 /obj/machinery/oven/crowbar_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -195,34 +208,6 @@
 	desc = "Time to bake cookies!"
 	icon_state = "oven_tray"
 	max_items = 6
-
-
-/particles/smoke
-	icon = 'icons/effects/particles/smoke.dmi'
-	icon_state = list("smoke_1" = 1, "smoke_2" = 1, "smoke_3" = 2)
-	width = 100
-	height = 100
-	count = 1000
-	spawning = 4
-	lifespan = 1.5 SECONDS
-	fade = 1 SECONDS
-	velocity = list(0, 0.4, 0)
-	position = list(6, 0, 0)
-	drift = generator("sphere", 0, 2, NORMAL_RAND)
-	friction = 0.2
-	gravity = list(0, 0.95)
-	grow = 0.05
-
-/particles/smoke/steam/mild
-	spawning = 1
-	velocity = list(0, 0.3, 0)
-	friction = 0.25
-
-
-/particles/smoke/steam
-	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
-	fade = 1.5 SECONDS
-
 
 #undef OVEN_SMOKE_STATE_NONE
 #undef OVEN_SMOKE_STATE_GOOD

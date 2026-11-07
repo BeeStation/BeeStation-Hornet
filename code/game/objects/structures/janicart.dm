@@ -30,7 +30,7 @@
 		return 0
 	else
 		var/obj/item/mop/M = mop
-		reagents.trans_to(mop, M.mopcap, transfered_by = user)
+		reagents.trans_to(mop, M.max_reagent_volume, transfered_by = user)
 		balloon_alert(user, "Wet the [mop]")
 		to_chat(user, span_notice("You wet [mop] in [src]."))
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
@@ -52,7 +52,7 @@
 	mymop = null
 	update_icon()
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, list/modifiers)
 
 	if(istype(I, /obj/item/mop))
 		var/obj/item/mop/m=I
@@ -102,7 +102,7 @@
 			balloon_alert(user, "The sign rack is full!")
 			to_chat(user, span_notice("The [src] can't hold any more signs!"))
 	else if(mybag)
-		mybag.attackby(I, user)
+		mybag.atom_storage.attempt_insert(I, user)
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		user.balloon_alert_to_viewers("Starts dumping [src]...", "Started dumping [src]...")
 		user.visible_message("[user] begins to dump the contents of [src].", span_notice("You begin to dump the contents of [src]..."))

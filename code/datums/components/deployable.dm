@@ -47,7 +47,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(on_update_icon_state))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
-/datum/component/deployable/Destroy(force, silent)
+/datum/component/deployable/Destroy(force)
 	item_parent = null
 	return ..()
 
@@ -66,7 +66,7 @@
 	INVOKE_ASYNC(src, PROC_REF(try_deploy), user, user.loc)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, params)
+/datum/component/deployable/proc/on_afterattack(datum/source, atom/movable/target, mob/user, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 	if(!proximity_flag)
 		return

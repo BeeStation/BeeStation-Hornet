@@ -1,6 +1,8 @@
 /datum/deathrattle_group
+	/// The name of our deathrattle group.
 	var/name
-	var/list/implants = list()
+	/// The associated implants in this deathrattle group.
+	var/list/obj/item/implant/deathrattle/implants = list()
 
 /datum/deathrattle_group/New(name)
 	if(name)
@@ -50,23 +52,29 @@
 	if(new_stat != DEAD)
 		return
 
-	var/name = owner.mind ? owner.mind.name : owner.real_name
-	var/area = get_area_name(get_turf(owner))
+	var/name = owner.mind?.name || owner.real_name
+	var/area_name = get_area_name(owner)
+	// All "hearers" hear the same sound.
+	var/sound = pick(
+		'sound/items/knell/knell1.ogg',
+		'sound/items/knell/knell2.ogg',
+		'sound/items/knell/knell3.ogg',
+		'sound/items/knell/knell4.ogg',
+	)
 
-	for(var/_implant in implants)
-		var/obj/item/implant/deathrattle/implant = _implant
-
+	for(var/obj/item/implant/deathrattle/implant as anything in implants)
 		// Skip the unfortunate soul, and any unimplanted implants
 		if(implant.imp_in == owner || !implant.imp_in)
 			continue
 
-		// Deliberately the same message framing as nanite message + ghost deathrattle
-		to_chat(implant.imp_in, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("<b>[name]</b> has died at <b>[area]</b>.")]\"")
+		// Deliberately the same message framing as ghost deathrattle
+		var/mob/living/recipient = implant.imp_in
+		to_chat(recipient, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("<b>[name]</b> has died at <b>[area_name]</b>.")]\"")
+		recipient.playsound_local(get_turf(recipient), sound, vol = 75, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /obj/item/implant/deathrattle
 	name = "deathrattle implant"
 	desc = "Hope no one else dies, prepare for when they do."
-
 	actions_types = null
 
 /obj/item/implant/deathrattle/can_be_implanted_in(mob/living/target)

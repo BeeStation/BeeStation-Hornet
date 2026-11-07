@@ -197,7 +197,7 @@
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterFront";
 	name = "Scooter Rental";
-	id = "ScooterFront"
+	id_tag = "ScooterFront"
 	},
 /turf/open/floor/iron/dark,
 /area/template_noop)

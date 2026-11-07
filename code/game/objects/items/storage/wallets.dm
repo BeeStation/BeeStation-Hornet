@@ -9,6 +9,7 @@
 
 	var/obj/item/card/id/front_id = null
 	var/list/combined_access
+	var/cached_flat_icon
 	var/overlay_icon_state = "wallet_overlay"
 
 /obj/item/storage/wallet/Exited(atom/movable/gone, direction)
@@ -43,11 +44,20 @@
 
 /obj/item/storage/wallet/update_overlays()
 	. = ..()
+	cached_flat_icon = null
 	if(!front_id)
 		return
 	. += mutable_appearance(front_id.icon, front_id.icon_state)
 	. += front_id.overlays
 	. += mutable_appearance(icon, overlay_icon_state)
+
+/obj/item/storage/wallet/proc/get_cached_flat_icon()
+	if(!cached_flat_icon)
+		cached_flat_icon = getFlatIcon(src)
+	return cached_flat_icon
+
+/obj/item/storage/wallet/get_examine_icon(mob/user)
+	return icon2html(get_cached_flat_icon(), user)
 
 /obj/item/storage/wallet/proc/update_label()
 	if(front_id)
@@ -78,10 +88,7 @@
 	var/obj/item/card/inserting_id = inserting_item.RemoveID()
 	if(!inserting_id)
 		return FALSE
-	attackby(inserting_id)
-	if(inserting_id in contents)
-		return TRUE
-	return FALSE
+	return atom_storage.attempt_insert(inserting_id, override = TRUE)
 
 /obj/item/storage/wallet/GetAccess()
 	if(LAZYLEN(combined_access))

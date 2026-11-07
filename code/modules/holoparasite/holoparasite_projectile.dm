@@ -22,8 +22,8 @@
 			var/mob/living/simple_animal/hostile/holoparasite/other_holopara = target
 			other_holopara.degrade_projectile(src)
 		else
-			damage = max(FLOOR(damage * 0.8, 1), max(round(initial(damage) * 0.1), 1))
-			armour_penetration = FLOOR(armour_penetration * 0.85, 1)
+			damage = max(floor(damage * 0.8), max(round(initial(damage) * 0.1), 1))
+			armour_penetration = floor(armour_penetration * 0.85)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
@@ -45,5 +45,5 @@
  * Weakens a friendly projectile phasing through a holoparasite, proportional to the defense of the holoparasite.
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/degrade_projectile(obj/projectile/projectile)
-	projectile.damage = max(FLOOR(projectile.damage * (stats.defense * 0.15), 1), max(round(initial(projectile.damage) * 0.1), 1))
-	projectile.armour_penetration = FLOOR(projectile.armour_penetration * (stats.defense * 0.1), 1)
+	projectile.damage = max(floor(projectile.damage * (stats.defense * 0.15)), max(round(initial(projectile.damage) * 0.1), 1))
+	projectile.armour_penetration = floor(projectile.armour_penetration * (stats.defense * 0.1))

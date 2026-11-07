@@ -42,7 +42,7 @@
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
-	flick("ecto_sniffer_flick", src)
+	z_flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
 
 	if(COOLDOWN_FINISHED(src, radio_cooldown))
@@ -50,7 +50,7 @@
 		radio.talk_into(src, "Ectoplasm has been detected! There may be additional positronic brain matrices available!", RADIO_CHANNEL_SCIENCE)
 	visible_message(span_notice("[src] has detected ectoplasm! There may be additional positronic brain matrices available!"))
 
-	use_power(10)
+	use_power(active_power_usage)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
 		activator.log_message("activated an ecto sniffer", LOG_ATTACK)

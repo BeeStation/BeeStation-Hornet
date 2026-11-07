@@ -154,7 +154,7 @@
 //ACTION DATUMS
 
 /datum/action/vehicle
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	button_icon = 'icons/hud/actions/actions_vehicle.dmi'
 	button_icon_state = null
 	var/obj/vehicle/vehicle_target
@@ -164,7 +164,7 @@
 	return ..()
 
 /datum/action/vehicle/sealed
-	check_flags = AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
 
 /datum/action/vehicle/sealed/Destroy()
@@ -285,8 +285,10 @@
 		V.visible_message(span_danger("[L] misses the landing and falls on [L.p_their()] face!"))
 	else
 		L.spin(4, 1)
-		animate(L, pixel_y = -6, time = 4)
-		animate(V, pixel_y = -6, time = 3)
+		animate(L, pixel_y = 6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(pixel_y = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+		animate(V, pixel_y = 6, time = 0.3 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(pixel_y = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
 		passtable_on(L, VEHICLE_TRAIT)
 		V.pass_flags |= PASSTABLE
@@ -325,7 +327,9 @@
 		L.visible_message(span_notice("[L] does a sick kickflip and catches [L.p_their()] board in midair."), span_notice("You do a sick kickflip, catching the board in midair! Stylish."))
 		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
 		L.spin(4, 1)
-		animate(L, pixel_y = -6, time = 4)
-		animate(V, pixel_y = -6, time = 3)
+		animate(L, pixel_z = 6, time = 0.4 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(pixel_z = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
+		animate(V, pixel_z = 6, time = 0.3 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+		animate(pixel_z = -6, time = 0.1 SECONDS, flags = ANIMATION_RELATIVE)
 		V.unbuckle_mob(L)
 		addtimer(CALLBACK(V, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, pick_up_board), L), 2)

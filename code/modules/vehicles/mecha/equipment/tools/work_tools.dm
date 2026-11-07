@@ -314,13 +314,13 @@
 				to_chat(source, "[icon2html(src, source)][span_notice("Building Floor...")]")
 				if(!do_after_cooldown(S, source))
 					return
-				S.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+				S.place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else if(isfloorturf(target))
 				var/turf/open/floor/F = target
 				to_chat(source, "[icon2html(src, source)][span_notice("Building Wall...")]")
 				if(!do_after_cooldown(F, source))
 					return
-				F.PlaceOnTop(/turf/closed/wall)
+				F.place_on_top(/turf/closed/wall)
 		if(MODE_AIRLOCK)
 			if(isfloorturf(target))
 				to_chat(source, "[icon2html(src, source)][span_notice("Building Airlock...")]")
@@ -380,6 +380,11 @@
 		marktwo.capacitor = markone.capacitor
 		markone.capacitor.forceMove(marktwo)
 		markone.capacitor = null
+	QDEL_NULL(marktwo.manipulator)
+	if (markone.manipulator)
+		marktwo.manipulator = markone.manipulator
+		markone.manipulator.forceMove(marktwo)
+		markone.manipulator = null
 	marktwo.update_part_values()
 	for(var/obj/item/mecha_parts/mecha_equipment/equipment in markone.flat_equipment) //Move the equipment over...
 		var/righthandgun = markone.equip_by_category[MECHA_R_ARM] == equipment

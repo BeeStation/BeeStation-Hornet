@@ -66,6 +66,7 @@
 
 	preferences.all_quirks = new_quirks
 	preferences.mark_undatumized_dirty_character()
+	preferences.character_preview_view?.update_body()
 	return TRUE
 
 /datum/preference_middleware/quirks/proc/remove_quirk(list/params, mob/user)
@@ -84,6 +85,7 @@
 
 	preferences.all_quirks = new_quirks
 	preferences.mark_undatumized_dirty_character()
+	preferences.character_preview_view?.update_body()
 	return TRUE
 
 /datum/preference_middleware/quirks/proc/get_selected_quirks()

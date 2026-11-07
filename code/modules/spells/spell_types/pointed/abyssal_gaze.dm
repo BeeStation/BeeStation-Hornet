@@ -36,7 +36,7 @@
 	to_chat(target, ("<span class='userdanger'>A freezing darkness surrounds you...</span>"))
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	owner.playsound_local(get_turf(owner), 'sound/effects/ghost2.ogg', 50, 1)
-	target.set_blindness(blind_duration)
+	target.adjust_temp_blindness(blind_duration)
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_cast_on = target
 		human_cast_on.adjust_coretemperature(-amount_to_cool)

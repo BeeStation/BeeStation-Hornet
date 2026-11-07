@@ -72,6 +72,10 @@
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 	START_PROCESSING(SSobj, src)
 
+/datum/xenoartifact_trait/activator/sturdy/timed/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /datum/xenoartifact_trait/activator/sturdy/timed/trigger_artifact(atom/target, type, force, do_real_trigger)
 	if(do_real_trigger)
 		return ..()

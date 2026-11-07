@@ -17,7 +17,9 @@
 		add_overlay(overlay)
 	return ..()
 
-
+/obj/item/organ/cyberimp/feel_for_damage(self_aware)
+	// No feeling in implants (yet?)
+	return ""
 
 //[[[[BRAIN]]]]
 
@@ -80,7 +82,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special, movement_flags)
 	if(active)
 		ui_action_click()
 	..()
@@ -100,11 +102,11 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
+/obj/item/organ/cyberimp/brain/anti_stun/on_mob_remove(mob/living/carbon/implant_owner)
 	. = ..()
 	UnregisterSignal(implant_owner, signalCache)
 
-/obj/item/organ/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/cyberimp/brain/anti_stun/on_mob_insert(mob/living/carbon/receiver)
 	. = ..()
 	RegisterSignals(receiver, signalCache, PROC_REF(on_signal))
 
@@ -134,9 +136,13 @@
 	var/static/datum/techweb/linked_techweb
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/LateInitialize()
 	. = ..()
-	if(isnull(linked_techweb))
-		linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
 	for(var/i in linked_techweb.researched_designs)

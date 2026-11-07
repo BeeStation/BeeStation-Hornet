@@ -445,9 +445,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bN" = (
-/obj/structure/mirror/directional/north{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -616,9 +614,7 @@
 	},
 /area/shuttle/escape)
 "Cf" = (
-/obj/structure/mirror/directional/north{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /obj/effect/turf_decal/trimline/neutral/filled/end{
 	dir = 4

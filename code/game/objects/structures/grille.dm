@@ -162,8 +162,8 @@ WANTS_POWER_NODE(/obj/structure/grille)
 
 /obj/structure/grille/attack_hulk(mob/living/carbon/human/user)
 	if(shock(user, 70))
-		return
-	. = ..()
+		return TRUE
+	return ..()
 
 /obj/structure/grille/attack_hand(mob/living/user)
 	. = ..()
@@ -195,7 +195,7 @@ WANTS_POWER_NODE(/obj/structure/grille)
 		return TRUE
 	return FALSE
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
+/obj/structure/grille/attackby(obj/item/W, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
@@ -397,7 +397,7 @@ WANTS_POWER_NODE(/obj/structure/grille)
 		var/datum/powernet/P = C.powernet
 		if(initialized_device && P.avail != 0)
 			src.device.activate()
-		..()
+	..()
 
 /obj/structure/grille/prison/atom_break()
 	var/turf/T = get_turf(src)

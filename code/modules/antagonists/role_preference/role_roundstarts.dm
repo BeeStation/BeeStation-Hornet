@@ -19,9 +19,8 @@
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_held_items()
-	H.hair_style = "Messy"
-	H.hair_color = "#443311"
-	H.update_hair()
+	H.set_hairstyle("Messy", update = FALSE)
+	H.set_haircolor("#443311", update = TRUE)
 
 /datum/role_preference/roundstart/changeling
 	name = "Changeling"
@@ -35,11 +34,11 @@
 	var/icon/final_icon = render_preview_outfit(/datum/outfit/medical_doctor_changeling_preview)
 	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)
 
-	final_icon.Shift(WEST, world.icon_size / 2)
-	final_icon.Shift(EAST, world.icon_size / 2)
+	final_icon.Shift(WEST, ICON_SIZE_ALL / 2)
+	final_icon.Shift(EAST, ICON_SIZE_ALL / 2)
 
-	split_icon.Shift(EAST, world.icon_size / 2)
-	split_icon.Shift(WEST, world.icon_size / 2)
+	split_icon.Shift(EAST, ICON_SIZE_ALL / 2)
+	split_icon.Shift(WEST, ICON_SIZE_ALL / 2)
 
 	final_icon.Blend(split_icon, ICON_OVERLAY)
 
@@ -96,7 +95,8 @@
 	l_hand = /obj/item/shield/mirror
 
 /datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
-	H.eye_color = BLOODCULT_EYE
+	H.eye_color_left = BLOODCULT_EYE
+	H.eye_color_right = BLOODCULT_EYE
 	H.update_body()
 
 /datum/role_preference/roundstart/clock_cultist
@@ -142,7 +142,7 @@
 	// Otherwise, the R gets cut off.
 	final_icon.Scale(64, 64)
 
-	var/icon/rev_head_icon = icon('icons/mob/hud.dmi', "rev_head")
+	var/icon/rev_head_icon = icon('icons/mob/huds/hud.dmi', "rev_head")
 	rev_head_icon.Scale(48, 48)
 	rev_head_icon.Crop(1, 1, 64, 64)
 	rev_head_icon.Shift(EAST, 10)
@@ -153,8 +153,7 @@
 
 /datum/role_preference/roundstart/revolutionary/proc/make_assistant_icon(hair_style)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
-	assistant.hair_style = hair_style
-	assistant.update_hair()
+	assistant.set_hairstyle(hair_style, update = TRUE)
 
 	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)
 	assistant_icon.ChangeOpacity(0.5)
@@ -213,8 +212,8 @@
 	var/icon/background = icon(foreground)
 	background.Blend(rgb(206, 206, 206, 220), ICON_MULTIPLY)
 
-	final_icon.Blend(background, ICON_OVERLAY, -world.icon_size / 4, 0)
-	final_icon.Blend(background, ICON_OVERLAY, world.icon_size / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, -ICON_SIZE_X / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, ICON_SIZE_X / 4, 0)
 	final_icon.Blend(foreground, ICON_OVERLAY, 0, 0)
 
 	return finish_preview_icon(final_icon)

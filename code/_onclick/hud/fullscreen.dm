@@ -213,8 +213,6 @@
 	///Who we're disabling from right clicking - handled elsewhere
 	var/client/owner
 	var/mob/mob_owner
-	///How close can the mosue be before we disable it - extra check
-	var/context_distance = 3 //tiles
 
 /atom/movable/screen/fullscreen/blind_context_disable/Initialize(mapload)
 	. = ..()

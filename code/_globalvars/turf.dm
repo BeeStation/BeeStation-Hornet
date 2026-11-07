@@ -36,6 +36,6 @@ GLOBAL_LIST_INIT(turf_underlay_blacklist, load_underlay_blacklist())
 //For the love of god don't call this anywhere else
 /proc/load_underlay_blacklist()
 	. = list()
-	for(var/turf/T as() in subtypesof(/turf))
+	for(var/turf/T as anything in subtypesof(/turf))
 		if(!initial(T.can_underlay))
 			. += T

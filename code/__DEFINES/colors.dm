@@ -48,8 +48,6 @@
 #define COLOR_SECURITY_RED "#CB0000"
 #define COLOR_VIVID_RED "#FF3232"
 #define COLOR_SOFT_RED "#FA8282"
-/// Color used for default blood
-#define COLOR_BLOOD "#CC0000"
 
 #define COLOR_YELLOW "#FFFF00"
 #define COLOR_VIVID_YELLOW "#FBFF23"
@@ -57,22 +55,28 @@
 
 #define COLOR_OLIVE "#808000"
 #define COLOR_VIBRANT_LIME "#00FF00"
-#define COLOR_PALE_GREEN "#20e28e"
+#define COLOR_JADE "#5EFB6E"
 #define COLOR_LIME "#32CD32"
 #define COLOR_DARK_LIME "#00aa00"
 #define COLOR_GREEN "#008000"
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
 #define COLOR_VERY_DARK_LIME_GREEN "#003300"
+#define COLOR_PALE_GREEN "#20e28e"
 
 #define COLOR_CYAN "#00FFFF"
 #define COLOR_DARK_CYAN "#00A2FF"
 #define COLOR_TEAL "#008080"
-#define COLOR_BLUSH_TEAL "#009696"
 #define COLOR_BLUE "#0000FF"
 #define COLOR_MODERATE_BLUE "#555CC2"
 #define COLOR_BLUE_LIGHT "#33CCFF"
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75A2BB"
+
+///Colors for blood greyscale sprites
+#define BLOOD_COLOR_RED "#CC0000"
+#define BLOOD_COLOR_LIZARD "#009696"
+#define BLOOD_COLOR_ETHEREAL "#7fff7f"
+#define BLOOD_COLOR_SYNTHETIC "#dddeff"
 
 /// Starlight!
 #define COLOR_STARLIGHT "#8589fa"
@@ -186,13 +190,21 @@
 #define LIGHT_COLOR_RED "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
 #define LIGHT_COLOR_CLOCKWORK "#BE8700"
 
-//These ones aren't a direct colour like the ones above, because nothing would fit
-#define LIGHT_COLOR_FIRE "#FAA019" //! Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
-#define LIGHT_COLOR_LAVA "#C48A18" //! Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
-#define LIGHT_COLOR_FLARE "#FA644B" //! Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
-#define LIGHT_COLOR_SLIME_LAMP "#AFC84B" //! Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
-#define LIGHT_COLOR_TUNGSTEN "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
-#define LIGHT_COLOR_HALOGEN "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
+/* These ones aren't a direct colour like the ones above, because nothing would fit */
+/// Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
+#define LIGHT_COLOR_FIRE "#FAA019"
+/// Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
+#define LIGHT_COLOR_LAVA "#C48A18"
+/// Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
+#define LIGHT_COLOR_FLARE "#FA644B"
+/// Vivid red. Leans a bit darker to accentuate red colors and leave other channels a bit dry.  rgb(200, 25, 25)
+#define LIGHT_COLOR_INTENSE_RED "#C81919"
+/// Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
+#define LIGHT_COLOR_SLIME_LAMP "#AFC84B"
+/// Extremely diluted yellow, close to skin color (for some reason). rgb(255, 214, 170)
+#define LIGHT_COLOR_TUNGSTEN "#FFD6AA"
+/// Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
+#define LIGHT_COLOR_HALOGEN "#F0FAFA"
 
 /// Colors for incident displays
 #define COLOR_DISPLAY_RED "#BE3455"
@@ -280,3 +292,11 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define CM_COLOR_SAT_MAX 0.7
 #define CM_COLOR_LUM_MIN 0.65
 #define CM_COLOR_LUM_MAX 0.75
+
+// Lowest priority
+#define EYE_COLOR_ORGAN_PRIORITY 1
+#define EYE_COLOR_SPECIES_PRIORITY 10
+#define EYE_COLOR_WEED_PRIORITY 20
+#define EYE_COLOR_CULT_PRIORITY 30
+
+#define HUSK_COLOR_TONE rgb(96, 88, 80)

@@ -7,14 +7,14 @@
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "j" = (
 /obj/machinery/cryopod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -23,18 +23,18 @@
 	dir = 5
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "x" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "C" = (
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -43,29 +43,29 @@
 	dir = 6
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "L" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "P" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "R" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "T" = (
 /obj/machinery/cryopod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 L

@@ -21,9 +21,10 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/magic/demon_attack1.ogg'
+	attack_vis_effect = ATTACK_EFFECT_CLAW
 	var/feast_sound = 'sound/magic/demon_consume.ogg'
 	death_sound = 'sound/magic/demon_dies.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list(FACTION_HELL)
@@ -36,7 +37,6 @@
 	melee_damage = 30
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	bloodcrawl = BLOODCRAWL_EAT
 	hardattacks = TRUE
 	var/playstyle_string = span_bigbold("You are a slaughter demon,") + "<B> a terrible creature from another realm. You have a single desire: To kill.  \
 	You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
@@ -54,7 +54,7 @@
 	del_on_death = TRUE
 	var/crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon
 	death_message = "screams in anger as it collapses into a puddle of viscera!"
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/revive_eject = FALSE
 
@@ -96,18 +96,15 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 	gender = NEUTER
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "innards"
 	random_icon_states = null
-
-
-
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/organ/heart/demon
 	name = "demon heart"
 	desc = "Still it beats furiously, emanating an aura of utter hate."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "demon_heart-on"
 	decay_factor = 0
 
@@ -131,13 +128,13 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/heart/demon/on_insert(mob/living/carbon/heart_owner)
+/obj/item/organ/heart/demon/on_mob_insert(mob/living/carbon/heart_owner)
 	..()
 	// Gives a non-eat-people crawl to the new owner
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = new(heart_owner)
 	crawl.Grant(heart_owner)
 
-/obj/item/organ/heart/demon/on_remove(mob/living/carbon/heart_owner, special = FALSE)
+/obj/item/organ/heart/demon/on_mob_remove(mob/living/carbon/heart_owner, special = FALSE, movement_flags)
 	..()
 	var/datum/action/spell/jaunt/bloodcrawl/crawl = locate() in heart_owner.actions
 	qdel(crawl)
@@ -158,6 +155,7 @@
 	attack_verb_simple = "wildly tickle"
 
 	attack_sound = 'sound/items/bikehorn.ogg'
+	attack_vis_effect = null
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'
 	death_sound = 'sound/misc/sadtrombone.ogg'
 

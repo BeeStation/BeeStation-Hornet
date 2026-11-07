@@ -8,7 +8,7 @@
 SUBSYSTEM_DEF(enumeration)
 	name = "Enumeration"
 	wait = 1
-	flags = SS_NO_INIT | SS_TICKER
+	ss_flags = SS_NO_INIT | SS_TICKER
 
 	/// Enumerators we are tick check enumerating over
 	var/list/datum/enumerator/tick_enumerations = list()

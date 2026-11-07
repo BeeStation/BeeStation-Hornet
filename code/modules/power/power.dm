@@ -55,7 +55,8 @@ WANTS_POWER_NODE(/obj/machinery/power)
 /obj/machinery/power/proc/surplus()
 	if(!powernet)
 		return 0
-	return powernet.avail - powernet.load
+	// Clamp to prevent negative value. It breaks stuff
+	return clamp(powernet.avail - powernet.load, 0, powernet.avail)
 
 /obj/machinery/power/proc/avail(amount)
 	if(powernet)
@@ -84,40 +85,48 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
-/obj/machinery/proc/powered(chan = power_channel)
-	if(!use_power)
+/obj/machinery/proc/powered(chan = power_channel, ignore_use_power = FALSE)
+	if(!use_power && !ignore_use_power)
 		return TRUE
 	if(!loc)
 		return FALSE
 	if(machine_stat & (EMPED|OVERHEATED))
 		return FALSE
-	var/area/A = get_area(src)		// make sure it's in an area
+
+	var/area/A = get_area(src) // make sure it's in an area
 	if(!A)
-		return FALSE					// if not, then not powered
+		return FALSE // if not, then not powered
+
 	return A.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(amount, chan = power_channel)
+	if(amount <= 0)
+		return FALSE
 	var/area/A = get_area(src) // make sure it's in an area
-	A?.use_power(amount, chan)
+	if(isnull(A))
+		return FALSE
+	A.use_power(amount, chan)
 	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
+	return amount
 
 /**
   * An alternative to 'use_power', this proc directly costs the APC in direct charge, as opposed to being calculated periodically.
   * - Amount: How much power the APC's cell is to be costed.
   */
 /obj/machinery/proc/directly_use_power(amount)
-	var/area/A = get_area(src)
-	var/obj/machinery/power/apc/local_apc
-	if(!A)
+	var/area/my_area = get_area(src)
+	if(isnull(my_area))
+		stack_trace("machinery is somehow not in an area, nullspace?")
 		return FALSE
-	local_apc = A.apc
-	if(!local_apc)
+	if(!my_area.requires_power)
+		return amount
+
+	var/obj/machinery/power/apc/my_apc = my_area.apc
+	if(isnull(my_apc) || !my_apc.operating || QDELETED(my_apc.cell))
 		return FALSE
-	if(!local_apc.cell)
-		return FALSE
-	local_apc.cell.use(amount)
-	return TRUE
+	return my_apc.cell.use(amount)
+
 
 /**
   * Attempts to draw power directly from the APC's Powernet rather than the APC's battery. For high-draw machines, like the cell charger
@@ -190,15 +199,14 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network(turf/turf = loc)
-	var/turf/T = turf
-	if(!T || !istype(T))
+	if(!istype(turf))
 		return FALSE
 
-	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
-	if(!C || !C.powernet)
+	var/obj/structure/cable/connected_cable = turf.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
+	if(!connected_cable?.powernet)
 		return FALSE
 
-	C.powernet.add_machine(src)
+	connected_cable.powernet.add_machine(src)
 	return TRUE
 
 // remove and disconnect the machine from its current powernet
@@ -210,7 +218,7 @@ WANTS_POWER_NODE(/obj/machinery/power)
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
-/obj/machinery/power/attackby(obj/item/attacking_item, mob/user, params)
+/obj/machinery/power/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = attacking_item
 		var/turf/user_turf = user.loc

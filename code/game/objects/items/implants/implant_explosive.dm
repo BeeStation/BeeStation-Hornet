@@ -10,6 +10,8 @@
 	var/delay = 7
 	var/popup = FALSE // is the DOUWANNABLOWUP window open?
 	var/active = FALSE
+	///Will this implant notify ghosts when activated?
+	var/notify_ghosts = TRUE
 
 /obj/item/implant/explosive/proc/on_death(datum/source, gibbed)
 	SIGNAL_HANDLER
@@ -42,6 +44,8 @@
 		popup = FALSE
 		if(response != "Yes")
 			return FALSE
+	if(cause == "death" && HAS_TRAIT(imp_in, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)) // prevent the bomb from activating automatically if the trait is present
+		return FALSE
 	heavy = round(heavy)
 	medium = round(medium)
 	weak = round(weak)
@@ -80,17 +84,31 @@
 		UnregisterSignal(target, COMSIG_LIVING_DEATH)
 
 /obj/item/implant/explosive/proc/timed_explosion()
-	imp_in.visible_message(span_warning("[imp_in] starts beeping ominously!"))
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
+	if (isnull(imp_in))
+		visible_message(span_warning("[src] starts beeping ominously!"))
+	else
+		imp_in.visible_message(span_warning("[imp_in] starts beeping ominously!"))
+		if(notify_ghosts)
+			notify_ghosts(
+				"[imp_in] is about to detonate their explosive implant!",
+				source = src,
+				header = "Tick Tick Tick...",
+				notify_flags = NOTIFY_CATEGORY_NOFLASH,
+				ghost_sound = 'sound/machines/warning-buzzer.ogg',
+				notify_volume = 75,
+			)
+
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
 	sleep(delay*0.25)
 	if(imp_in && !imp_in.stat)
 		imp_in.visible_message(span_warning("[imp_in] doubles over in pain!"))
-		imp_in.Paralyze(140)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
+		imp_in.Paralyze(14 SECONDS)
+
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
 	sleep(delay*0.25)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
 	sleep(delay*0.25)
-	playsound(loc, 'sound/items/timer.ogg', 30, 0)
+	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
 	sleep(delay*0.25)
 	explosion(src,heavy,medium,weak,weak, flame_range = weak)
 	if(imp_in)

@@ -8,25 +8,14 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/nanite_program_hub
 
-
-
 	var/obj/item/disk/nanite_program/disk
 	var/datum/techweb/linked_techweb
-	var/current_category = "Main"
 	var/detail_view = TRUE
-	var/categories = list(
-						list(name = "Utility Nanites"),
-						list(name = "Medical Nanites"),
-						list(name = "Sensor Nanites"),
-						list(name = "Augmentation Nanites"),
-						list(name = "Suppression Nanites"),
-						list(name = "Weaponized Nanites"),
-						list(name = "Protocols")
-						)
 
-/obj/machinery/nanite_program_hub/Initialize(mapload)
+/obj/machinery/nanite_program_hub/LateInitialize()
 	. = ..()
-	linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/machinery/nanite_program_hub/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
@@ -80,9 +69,13 @@
 			data["has_program"] = TRUE
 			disk_data["name"] = P.name
 			disk_data["desc"] = P.desc
+		else
+			data["has_program"] = FALSE
+
 		data["disk"] = disk_data
 	else
 		data["has_disk"] = FALSE
+		data["has_program"] = FALSE
 
 	data["detail_view"] = detail_view
 
@@ -103,9 +96,6 @@
 		program_design["name"] = D.name
 		program_design["desc"] = D.desc
 		data["programs"][cat_name] += list(program_design)
-
-	if(!length(data["programs"]))
-		data["programs"] = null
 
 	return data
 

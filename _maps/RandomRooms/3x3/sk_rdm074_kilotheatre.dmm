@@ -20,10 +20,8 @@
 /obj/item/toy/katana,
 /obj/item/clothing/shoes/sandal,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/mirror{
-	pixel_y = 26
-	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/mirror/directional/north,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "u" = (

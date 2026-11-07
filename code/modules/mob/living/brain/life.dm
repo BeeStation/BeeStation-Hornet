@@ -1,7 +1,6 @@
 
 /mob/living/brain/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-	if (notransform)
+	if (HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	if(!loc)
 		return
@@ -31,6 +30,3 @@
 		emp_damage = 0
 	else
 		emp_damage = max(emp_damage - (0.5 * delta_time), 0)
-
-/mob/living/brain/handle_traits(delta_time, times_fired)
-	return

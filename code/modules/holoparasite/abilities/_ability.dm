@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 /datum/holoparasite_ability/New(datum/holoparasite_stats/_master_stats)
 	// Convert single-stat format to the multi-stat format.
 	// I'm too lazy to just change all the threshold defines to use the new format, and doing so would make the code less readable, so this is the best solution.
-	for(var/list/threshold as() in thresholds)
+	for(var/list/threshold as anything in thresholds)
 		var/old_stat = threshold["stat"]
 		var/old_minimum = threshold["minimum"]
 		if(old_stat)

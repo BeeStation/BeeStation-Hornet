@@ -123,7 +123,6 @@
 		var/mob/living/hitmob = pick(occupants)
 		return hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) //If the sides are open, the occupant can be hit
 
-	. = ..()
 	log_message("Hit by projectile. Type: [hitting_projectile]([hitting_projectile.damage_type]).", LOG_MECHA, color="red")
 	// yes we *have* to run the armor calc proc here I love tg projectile code too
 	try_damage_component(run_atom_armor(
@@ -196,14 +195,14 @@
 			cookedalive.adjust_fire_stacks(1)
 			cookedalive.ignite_mob()
 
-/obj/vehicle/sealed/mecha/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/vehicle/sealed/mecha/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	if(istype(weapon, /obj/item/mecha_parts))
 		var/obj/item/mecha_parts/parts = weapon
 		parts.try_attach_part(user, src, TRUE)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
-/obj/vehicle/sealed/mecha/attackby(obj/item/weapon, mob/living/user, params)
+/obj/vehicle/sealed/mecha/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return ..()
 	if(istype(weapon, /obj/item/mmi))
@@ -294,11 +293,11 @@
 		return
 
 	if(istype(weapon, /obj/item/stock_parts/manipulator))
-		if(!servo)
+		if(!manipulator)
 			if(!user.transferItemToLoc(weapon, src, silent = FALSE))
 				return
-			servo = weapon
-			balloon_alert(user, "intalled servo")
+			manipulator = weapon
+			balloon_alert(user, "intalled manipulator")
 			playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 			log_message("[weapon] installed", LOG_MECHA)
 			update_part_values()
@@ -366,8 +365,8 @@
 		stock_parts += scanmod
 	if(capacitor)
 		stock_parts += capacitor
-	if(servo)
-		stock_parts += servo
+	if(manipulator)
+		stock_parts += manipulator
 
 	if(length(stock_parts))
 		var/obj/item/stock_parts/part_to_remove = tgui_input_list(user, "Which part to remove?", "Part Removal", stock_parts)

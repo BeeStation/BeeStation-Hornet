@@ -259,45 +259,38 @@ export class IntegratedCircuit extends Component {
         width={600}
         height={600}
         buttons={
-          <Box width="160px" position="absolute" top="5px" height="22px">
-            <Stack>
-              <Stack.Item grow basis="content">
-                <Input
-                  fluid
-                  placeholder="Circuit Name"
-                  value={display_name}
-                  onChange={(e, value) =>
-                    act('set_display_name', { display_name: value })
-                  }
-                />
-              </Stack.Item>
-              <Stack.Item basis="24px">
+          <Stack>
+            <Stack.Item grow basis="content">
+              <Input
+                placeholder="Circuit Name"
+                value={display_name}
+                onChange={(e, value) =>
+                  act('set_display_name', { display_name: value })
+                }
+              />
+            </Stack.Item>
+            <Stack.Item basis="24px">
+              <Button
+                color="transparent"
+                icon="cog"
+                selected={menuOpen}
+                onClick={() =>
+                  this.setState((state) => ({
+                    menuOpen: !state.menuOpen,
+                  }))
+                }
+              />
+            </Stack.Item>
+            {!!is_admin && (
+              <Stack.Item>
                 <Button
-                  position="absolute"
-                  top={0}
                   color="transparent"
-                  icon="cog"
-                  selected={menuOpen}
-                  onClick={() =>
-                    this.setState((state) => ({
-                      menuOpen: !state.menuOpen,
-                    }))
-                  }
+                  onClick={() => act('save_circuit')}
+                  icon="save"
                 />
               </Stack.Item>
-              {!!is_admin && (
-                <Stack.Item>
-                  <Button
-                    position="absolute"
-                    top={0}
-                    color="transparent"
-                    onClick={() => act('save_circuit')}
-                    icon="save"
-                  />
-                </Stack.Item>
-              )}
-            </Stack>
-          </Box>
+            )}
+          </Stack>
         }
       >
         <Window.Content

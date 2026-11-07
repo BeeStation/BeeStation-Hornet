@@ -5,7 +5,7 @@
 		return
 
 	var/datum/map_template/reebe_template = new("_maps/templates/city_of_cogs.dmm", "Reebe")
-	var/datum/turf_reservation/reebe_reservation = SSmapping.RequestBlockReservation(reebe_template.width, reebe_template.height)
+	var/datum/turf_reservation/reebe_reservation = SSmapping.request_turf_block_reservation(reebe_template.width, reebe_template.height)
 	var/datum/async_map_generator/map_place/reebe_placer = reebe_template.load(locate(reebe_reservation.bottom_left_coords[1], reebe_reservation.bottom_left_coords[2], reebe_reservation.bottom_left_coords[3]))
 	reebe_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(teleport_all_servants_to_reebe)))
 	reebe_loaded = TRUE

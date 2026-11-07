@@ -19,8 +19,7 @@
 		return FALSE
 	return TRUE
 
-
-/// Installs component.
+/// Installs a component.
 /obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/install, mob/living/user = null)
 	if(!can_install_component(install, user))
 		return FALSE
@@ -35,15 +34,20 @@
 			install.forceMove(get_turf(user))
 			return FALSE
 
+	force_install_component(install, user)
+	to_chat(user, span_notice("You install \the [install] into \the [src]."))
+	ui_update()
+
+	return TRUE
+
+/// Installs a component. Now without sleeping!
+/obj/item/modular_computer/proc/force_install_component(obj/item/computer_hardware/install, mob/living/user)
 	if(install.expansion_hw)
 		LAZYSET(expansion_bays, install.device_type, install)
 	all_components[install.device_type] = install
-
-	to_chat(user, span_notice("You install \the [install] into \the [src]."))
 	install.holder = src
 	install.forceMove(src)
 	install.on_install(src, user)
-	return TRUE
 
 /// Uninstalls component.
 /obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/yeet, mob/living/user = null, put_in_hands)

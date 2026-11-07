@@ -8,15 +8,16 @@
 
 /turf/open/space/transit/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	RegisterSignal(src, COMSIG_TURF_RESERVATION_RELEASED, PROC_REF(launch_contents))
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(initialize_drifting))
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(initialize_drifting_but_from_initialize))
 
-	for(var/atom/movable/movable in src)
-		throw_atom(movable)
-
-/turf/open/space/transit/clear_signal_refs()
+/turf/open/space/transit/Destroy()
 	//Signals are NOT removed from turfs upon replacement, and we get replaced ALOT, so unregister our signal
-	UnregisterSignal(src, COMSIG_TURF_RESERVATION_RELEASED)
+	UnregisterSignal(src, list(COMSIG_TURF_RESERVATION_RELEASED, COMSIG_ATOM_ENTERED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON))
+
+	return ..()
 
 /turf/open/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	. = ..()
@@ -31,10 +32,17 @@
 	icon_state = "speedspace_ns_[get_transit_state(src)]"
 	return ..()
 
-/turf/open/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	. = ..()
-	if(!HAS_TRAIT(arrived, TRAIT_HYPERSPACED) && !HAS_TRAIT(arrived, TRAIT_FREE_HYPERSPACE_MOVEMENT))
-		arrived.AddComponent(/datum/component/shuttle_cling, turn(dir, 180), old_loc)
+/turf/open/space/transit/proc/initialize_drifting(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(arrived && !HAS_TRAIT(arrived, TRAIT_HYPERSPACED) && !HAS_TRAIT(src, TRAIT_HYPERSPACE_STOPPED))
+		arrived.AddComponent(/datum/component/shuttle_cling, REVERSE_DIR(dir))
+
+/turf/open/space/transit/proc/initialize_drifting_but_from_initialize(atom/movable/location, atom/movable/enterer, mapload)
+	SIGNAL_HANDLER
+
+	if(!mapload && !enterer.anchored)
+		INVOKE_ASYNC(src, PROC_REF(initialize_drifting), src, enterer)
 
 /turf/open/space/transit/Exited(atom/movable/gone, direction)
 	. = ..()

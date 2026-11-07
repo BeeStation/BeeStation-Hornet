@@ -1,6 +1,6 @@
-import { filter } from 'common/collections';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
+import { filter } from 'es-toolkit/compat';
 
 import { useBackend, useLocalState } from '../backend';
 import { Button, ByondUi, Flex, Input, Section } from '../components';

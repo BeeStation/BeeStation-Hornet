@@ -89,13 +89,13 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/fireaxe,
 		/obj/item/stack/sheet/telecrystal/five,
 		/obj/item/stack/sheet/telecrystal/twenty,
-		/obj/item/clothing/suit/space/hardsuit/syndi
+		/obj/item/mod/control/pre_equipped/traitor,
 	))
 
 GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
 		/obj/item/energy_katana,
-		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
+		/obj/item/mod/control/pre_equipped/traitor_elite,
 		/obj/item/his_grace,
 		/obj/vehicle/sealed/mecha/marauder/mauler/loaded,
 		/obj/item/holoparasite_creator/tech,
@@ -197,7 +197,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/debug_mode = FALSE
 	var/datum/action/spell/aoe/knock/knock = new /datum/action/spell/aoe/knock
 
-/datum/battle_royale_controller/Destroy(force, ...)
+/datum/battle_royale_controller/Destroy(force)
 	QDEL_LIST(death_wall)
 	for(var/client/C in GLOB.admins)
 		C.remove_verb(BATTLE_ROYALE_AVERBS)
@@ -220,7 +220,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		generate_good_drop()
 	var/living_victims = 0
 	var/mob/winner
-	for(var/mob/living/M as() in players)
+	for(var/mob/living/M as anything in players)
 		if(QDELETED(M))
 			players -= M
 			continue
@@ -249,7 +249,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	if(!field_delay) //Division by 0 protection
 		field_delay = 1
 	if(process_num % (field_delay) == 0)
-		for(var/obj/effect/death_wall/wall as() in death_wall)
+		for(var/obj/effect/death_wall/wall as anything in death_wall)
 			wall.decrease_size()
 			if(QDELETED(wall))
 				death_wall -= wall
@@ -293,7 +293,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	sleep(50)
 	//Clear all living mobs
 	to_chat(world, span_boldannounce("Battle Royale: Clearing world mobs."))
-	for(var/mob/living/M as() in GLOB.mob_living_list)
+	for(var/mob/living/M as anything in GLOB.mob_living_list)
 		qdel(M)
 		CHECK_TICK
 	sleep(50)
@@ -332,6 +332,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/participants = SSpolling.poll_ghost_candidates(config)
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	if(!spawn_turf)
+		to_chat(usr, span_warning("Failed to find valid spawn location for Battle Royale."))
 		return
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
@@ -430,7 +431,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob/living/carbon, gib))
 		to_chat(M, span_warning("You left the zone!"))
 
-/obj/effect/death_wall/Moved(atom/OldLoc, Dir)
+/obj/effect/death_wall/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/mob/living/M in get_turf(src))
 		M.gib()

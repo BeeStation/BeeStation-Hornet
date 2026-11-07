@@ -28,7 +28,7 @@
 		ears = locate(/obj/item/organ/ears) in C.internal_organs
 		RegisterSignal(ears, COMSIG_QDELETING, PROC_REF(handle_ears))
 
-/datum/component/blind_sense/Destroy(force, silent)
+/datum/component/blind_sense/Destroy(force)
 	owner_client = null
 	ears = null
 	return ..()

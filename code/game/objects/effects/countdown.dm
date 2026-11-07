@@ -139,12 +139,11 @@
 	name = "anomaly countdown"
 
 /obj/effect/countdown/anomaly/get_value()
-	var/obj/effect/anomaly/A = attached_to
-	if(!istype(A))
+	var/obj/effect/anomaly/anomaly = attached_to
+	if(!istype(anomaly))
 		return
-	else
-		var/time_left = max(0, (A.death_time - world.time) / 10)
-		return round(time_left)
+	var/time_left = max(0, (anomaly.death_time - world.time) / 10)
+	return round(time_left)
 
 /obj/effect/countdown/hourglass
 	name = "hourglass countdown"

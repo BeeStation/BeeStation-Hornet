@@ -48,25 +48,27 @@
 /// Returns a random turf in a ring around the hallucinator mob.
 /// Useful for sound hallucinations.
 /datum/hallucination/proc/random_far_turf()
-	var/first_offset = pick(-8, -7, -6, -5, 5, 6, 7, 8)
-	var/second_offset = rand(-8, 8)
-	var/x_offset
-	var/y_offset
-	if(prob(50))
-		x_offset = first_offset
-		y_offset = second_offset
-	else
-		x_offset = second_offset
-		y_offset = first_offset
+	var/list/turf/valid_turfs = list()
 
-	return locate(hallucinator.x + x_offset, hallucinator.y + y_offset, hallucinator.z)
+	var/used_view = hallucinator.client?.view || world.view
+	var/list/turf/valid_range = range(getexpandedview(used_view, extra_x = 2, extra_y = 2), hallucinator) - range(used_view, hallucinator)
+
+	for(var/turf/out_of_view in valid_range)
+		if(!isspaceturf(out_of_view)) // Sound based hallucinations won't do anything in space
+			valid_turfs += out_of_view
+
+	if(!length(valid_turfs))
+		for(var/turf/out_of_view in valid_range) // But better than nothing
+			valid_turfs += out_of_view
+
+	return pick(valid_turfs)
 
 /// Gets a random non-security member of the crew that is at least 8 tiles away.
 /datum/hallucination/proc/random_non_sec_crewmember()
 	var/list/possible_fakes = list()
 	for(var/datum/mind/possible_fake as anything in get_crewmember_minds())
 		// Sec won't make sense. (Neither will cap but we'll just let it slide)
-		if(possible_fake.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+		if(possible_fake.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPARTMENT_NAME_SECURITY))
 			continue
 		// Look for minds on the manifest in control of humans
 		var/mob/living/carbon/human/fake_body = possible_fake.current

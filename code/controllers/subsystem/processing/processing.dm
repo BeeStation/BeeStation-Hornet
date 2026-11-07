@@ -3,7 +3,7 @@
 SUBSYSTEM_DEF(processing)
 	name = "Processing"
 	priority = FIRE_PRIORITY_PROCESS
-	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT
+	ss_flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT
 	wait = 1 SECONDS
 
 	var/stat_tag = "P" //Used for logging
@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(processing)
 		current_run.len--
 		if(QDELETED(thing))
 			processing -= thing
-		else if(thing.process(((flags & SS_KEEP_TIMING) ? continuous_delta_time : wait) * 0.1) == PROCESS_KILL)
+		else if(thing.process(((ss_flags & SS_KEEP_TIMING) ? continuous_delta_time : wait) * 0.1) == PROCESS_KILL)
 			// fully stop so that a future START_PROCESSING will work
 			STOP_PROCESSING(src, thing)
 		if (MC_TICK_CHECK)

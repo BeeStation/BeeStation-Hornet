@@ -2,9 +2,6 @@
 	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
-	species_traits = list(
-		NOEYESPRITES,
-	)
 	inherent_traits = list(
 		TRAIT_TACKLING_FRAIL_ATTACKER,
 		TRAIT_NO_UNDERWEAR,
@@ -18,7 +15,6 @@
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
 	mutant_bodyparts = list("insect_type" = "fly", "body_size" = "Normal")
-	speedmod = 0.7
 
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/fly,
@@ -31,47 +27,35 @@
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
-/datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
+/datum/species/fly/handle_chemical(datum/reagent/chem, mob/living/carbon/human/affected, delta_time, times_fired)
+	. = ..()
+	if(. & COMSIG_MOB_STOP_REAGENT_CHECK)
+		return
 	if(chem.type == /datum/reagent/toxin/pestkiller)
-		H.adjustToxLoss(3 * REM * delta_time)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-		return TRUE
-	if(istype(chem, /datum/reagent/consumable))
-		var/datum/reagent/consumable/nutri_check = chem
-		if(nutri_check.nutriment_factor > 0)
-			var/turf/pos = get_turf(H)
-			H.vomit(10, FALSE, FALSE, 2, TRUE)
-			H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * delta_time)
-			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
-			H.visible_message(span_danger("[H] vomits on the floor!"), \
-						span_userdanger("You throw up on the floor!"))
-		return TRUE
-	return ..()
+		affected.adjustToxLoss(3 * REM * delta_time)
 
 /datum/species/fly/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
+	apply_insect_type(C)
 
+/// Restyles the target's limbs to match their "insect_type" feature
+/datum/species/fly/proc/apply_insect_type(mob/living/carbon/C)
 	var/datum/sprite_accessory/insect_type/type_selection = GLOB.insect_type_list[C.dna.features["insect_type"]]
 	if(!istype(type_selection))
 		return
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
-		BP.uses_mutcolor = !!type_selection.color_src
-		if(BP.uses_mutcolor)
-			BP.should_draw_greyscale = TRUE
-			BP.species_color = C.dna?.features["mcolor"]
-		// Hardcoded bullshit that will probably break. Woo shitcode. Bee insect_type has dimorphic parts while flies do not.
-		BP.is_dimorphic = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
-
-		BP.limb_id = type_selection.limbs_id
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts) //Override bodypart data as necessary
+		BP.species_color = C.dna?.features["mcolor"]
 		BP.name = "\improper[type_selection.name] [parse_zone(BP.body_zone)]"
-		BP.update_limb()
+		// Bee insect_type has dimorphic parts while flies do not.
+		var/is_dimorphic_part = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
+		BP.change_appearance(icon = BP.icon_static, id = type_selection.limbs_id, greyscale = !!type_selection.color_src, dimorphic = is_dimorphic_part)
 
-/datum/species/fly/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+/datum/species/fly/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species)
 	. = ..()
 	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
-/datum/species/fly/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/fly/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 

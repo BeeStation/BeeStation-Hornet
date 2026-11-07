@@ -10,11 +10,11 @@
 	return considering
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube, paralyze, forcedrop)
-	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))
 		return FALSE
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/CS = shoes
-		if ((CS.clothing_flags & NOSLIP_ALL_WALKING) && src.m_intent == MOVE_INTENT_WALK)
+		if ((CS.clothing_flags & NOSLIP_ALL_WALKING) && src.move_intent == MOVE_INTENT_WALK)
 			return FALSE
 	if (lube & GALOSHES_DONT_HELP)
 		return ..()
@@ -24,7 +24,7 @@
 		var/obj/item/clothing/CS = shoes
 		if (CS.clothing_flags & NOSLIP)
 			return FALSE
-		if ((CS.clothing_flags & NOSLIP_WALKING) && src.m_intent == MOVE_INTENT_WALK)
+		if ((CS.clothing_flags & NOSLIP_WALKING) && src.move_intent == MOVE_INTENT_WALK)
 			return FALSE
 	return ..()
 
@@ -36,7 +36,7 @@
 	if(shoes && body_position == STANDING_UP && loc == NewLoc && has_gravity(loc))
 		SEND_SIGNAL(shoes, COMSIG_SHOES_STEP_ACTION)
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = 0) //Temporary laziness thing. Will change to handles by species reee.
+/mob/living/carbon/human/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(dna.species.space_move(src))
 		return TRUE
 	return ..()

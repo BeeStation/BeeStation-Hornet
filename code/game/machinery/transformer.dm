@@ -114,4 +114,4 @@
 	sleep(3 SECONDS)
 	if(new_borg)
 		new_borg.SetLockdown(FALSE)
-		new_borg.notify_ai(NEW_BORG)
+		new_borg.notify_ai(AI_NOTIFICATION_NEW_BORG)

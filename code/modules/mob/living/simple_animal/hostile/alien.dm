@@ -20,7 +20,8 @@
 	bubble_icon = "alien"
 	combat_mode = TRUE
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	attack_vis_effect = ATTACK_EFFECT_SLASH
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 7.5
 	faction = list(FACTION_ALIEN)
 	status_flags = CANPUSH
@@ -34,7 +35,7 @@
 	chat_color = "#9EE08F"
 	mobchatspan = "alienmobsay"
 
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone

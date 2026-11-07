@@ -47,11 +47,12 @@
 	. = ..()
 	UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
 
-/datum/component/egg_layer/Destroy(force, silent)
+/datum/component/egg_layer/Destroy(force)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
+	egg_laid_callback = null
 
-/datum/component/egg_layer/proc/feed_food(datum/source, obj/item/food, mob/living/attacker, params)
+/datum/component/egg_layer/proc/feed_food(datum/source, obj/item/food, mob/living/attacker, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/atom/at_least_atom = parent

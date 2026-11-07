@@ -501,7 +501,7 @@
 			var/alphatext = ""
 			var/nsd = CONFIG_GET(number/note_stale_days)
 			var/nfd = CONFIG_GET(number/note_fresh_days)
-			if (agegate && type == "note" && isnum_safe(nsd) && isnum_safe(nfd) && nsd > nfd)
+			if (agegate && type == "note" && IS_FINITE(nsd) && IS_FINITE(nfd) && nsd > nfd)
 				var/alpha = clamp(100 - (age - nfd) * (85 / (nsd - nfd)), 15, 100)
 				if (alpha < 100)
 					if (alpha <= 15)

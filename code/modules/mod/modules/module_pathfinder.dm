@@ -43,7 +43,7 @@
 	else
 		. += span_warning("The implant is missing.")
 
-/obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, params)
+/obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, list/modifiers)
 	if(!ishuman(target) || !implant)
 		return
 	if(!do_after(user, 1.5 SECONDS, target = target))
@@ -83,7 +83,7 @@
 	balloon_alert(mod.wearer, "implanted")
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	module_type = MODULE_PASSIVE
-	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[REF(mod.wearer)]
+	var/datum/action/item_action/mod/pinnable/module/existing_action = pinned_to[REF(mod.wearer)]
 	if(existing_action)
 		//mod.remove_item_action(existing_action)
 		qdel(existing_action)

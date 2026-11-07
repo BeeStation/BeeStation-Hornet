@@ -104,8 +104,8 @@
 		/obj/item/clothing/gloves/botanic_leather,
 		/obj/item/rollingpaper,//dudeweed
 		/obj/item/lighter,
-		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
-		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/cigarette/pipe/cobpipe,
+		/obj/item/cigarette/rollie,//dudeweedlmao
 		/obj/item/gun/energy/floragun
 		))
 
@@ -289,7 +289,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
-		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/medspray,
 		/obj/item/lighter,
@@ -470,7 +470,7 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/survivalcapsule,
 		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/cup/glass,
@@ -957,6 +957,8 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
 	atom_storage.set_holdable(list(
 		/obj/item/melee/sabre
+		), list(
+		/obj/item/melee/sabre/mime
 		))
 
 /obj/item/storage/belt/sabre/examine(mob/user)
@@ -997,17 +999,6 @@
 		hitby.forceMove(src)
 		return TRUE
 	. = ..()
-
-/obj/item/storage/belt/sabre/carbon_fiber
-	name = "carbon fiber sabre sheath"
-	desc = "A military grade sabre sheath. This one has special hooks to interface with the suit storage system of common armor classes."
-	icon_state = "sheath_fiber"
-	inhand_icon_state = "sheath_fiber"
-	worn_icon_state = "sheath_fiber"
-
-/obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
-	new /obj/item/melee/sabre/carbon_fiber(src)
-	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"

@@ -42,7 +42,7 @@
 	///How much extra value does this trait apply to the artifact - It's important this is applied before anyone can use stickers on the artifact
 	var/extra_value = 0
 	///How many discovery points does this trait give?
-	var/discovery_reward = 100
+	var/discovery_reward = TECHWEB_TIER_2_POINTS
 
 	///Does this trait contribute to calibration
 	var/contribute_calibration = TRUE
@@ -62,7 +62,7 @@
 	if(_parent)
 		register_parent(_parent)
 
-/datum/xenoartifact_trait/Destroy(force, ...)
+/datum/xenoartifact_trait/Destroy(force)
 	. = ..()
 	dump_targets()
 	remove_parent(component_parent, FALSE)
@@ -191,7 +191,7 @@
 	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACK_HAND)
 	UnregisterSignal(component_parent.parent, COMSIG_ATOM_ATTACKBY)
 
-/datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
+/datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, list/modifiers)
 	SIGNAL_HANDLER
 
 	do_hint(living, item)

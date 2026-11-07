@@ -8,8 +8,12 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 	taste_mult = 1.2
-	/// How much toxin we deal
+	///The amount of toxin damage this will cause when metabolized (also used to calculate liver damage)
 	var/toxpwr = 1.5
+	///The amount to multiply the liver damage this toxin does by (Handled solely in liver code)
+	var/liver_damage_multiplier = 1
+	///The multiplier of the liver toxin tolerance, below which any amount toxin will be simply metabolized out with no effect.
+	var/liver_tolerance_multiplier = 1
 	/// Won't produce a pain message when processed by liver/life() if there isn't another non-silent toxin present.
 	var/silent_toxin = FALSE
 	///The afflicted must be above this health value in order for the toxin to deal damage
@@ -75,16 +79,25 @@
 
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
-		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+		affected_mob.reagents.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
 	affected_mob.adjustPlasma(20 * REM * delta_time)
+
+/datum/reagent/toxin/plasma/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_PLASMA_LOVER_METABOLISM)) // sometimes mobs can temporarily metabolize plasma (e.g. plasma fixation disease symptom)
+		toxpwr = 0
+
+/datum/reagent/toxin/plasma/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	toxpwr = initial(toxpwr)
 
 /datum/reagent/toxin/plasma/expose_turf(turf/exposed_turf, volume)
 	. = ..()
 	if(!istype(exposed_turf))
 		return
 
-	exposed_turf.atmos_spawn_air("[GAS_PLASMA]=[volume];[TURF_TEMPERATURE(holder ? holder.chem_temp : T20C)]")
+	exposed_turf.atmos_spawn_air("[GAS_PLASMA]=[volume];[TURF_TEMPERATURE(holder?.chem_temp || T20C)]")
 
 /datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	. = ..()
@@ -103,8 +116,8 @@
 
 /datum/reagent/toxin/hot_ice/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
-		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+		affected_mob.reagents.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
 
 	affected_mob.adjustPlasma(20 * REM * delta_time)
 	affected_mob.adjust_bodytemperature(-7 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * delta_time, affected_mob.get_body_temp_normal())
@@ -112,6 +125,14 @@
 		var/mob/living/carbon/human/human = affected_mob
 		human.adjust_coretemperature(-7 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
+/datum/reagent/toxin/hot_ice/on_mob_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	if(HAS_TRAIT(affected_mob, TRAIT_PLASMA_LOVER_METABOLISM))
+		toxpwr = 0
+
+/datum/reagent/toxin/hot_ice/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+	. = ..()
+	toxpwr = initial(toxpwr)
 
 /datum/reagent/toxin/lexorin
 	name = "Lexorin"
@@ -233,15 +254,8 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "sourness"
-	addiction_types = list(/datum/addiction/hallucinogens = 18) //7.2 per 2 seconds
-
-/datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
-	. = ..()
-	ADD_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
-
-/datum/reagent/toxin/mindbreaker/on_mob_end_metabolize(mob/living/metabolizer)
-	. = ..()
-	REMOVE_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+	addiction_types = list(/datum/addiction/hallucinogens = 60)
+	metabolized_traits = list(TRAIT_HALLUCINATION_SUPPRESSED)
 
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -508,8 +522,8 @@
 /datum/reagent/toxin/formaldehyde/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(DT_PROB(2.5, delta_time))
-		holder.add_reagent(/datum/reagent/toxin/histamine, pick(5,15))
-		holder.remove_reagent(/datum/reagent/toxin/formaldehyde, 1.2)
+		affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, pick(5,15))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/formaldehyde, 1.2)
 
 /datum/reagent/toxin/venom
 	name = "Venom"
@@ -527,8 +541,8 @@
 		. = UPDATE_MOB_HEALTH
 
 	if(DT_PROB(8, delta_time))
-		holder.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
-		holder.remove_reagent(/datum/reagent/toxin/venom, 1.1)
+		affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, pick(5,10))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/venom, 1.1)
 
 //Very similar to heparin, but causes toxin damage instead of brute
 /datum/reagent/toxin/apidvenom
@@ -568,7 +582,7 @@
 		affected_mob.Paralyze(3 SECONDS * REM * delta_time, 0)
 		toxpwr += 0.1 //The venom gets stronger until completely purged.
 
-	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal) || holder.has_reagent(/datum/reagent/medicine/carthatoline))
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/calomel) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/pen_acid) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/charcoal) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5 // Prevents using purgatives while in combat
 
 	if(affected_mob.getStaminaLoss() <= 70) //Will never stamcrit
@@ -649,8 +663,8 @@
 		. = UPDATE_MOB_HEALTH
 
 	if(DT_PROB(1.5, delta_time))
-		holder.add_reagent(/datum/reagent/toxin/histamine, rand(1, 3))
-		holder.remove_reagent(/datum/reagent/toxin/itching_powder, 1.2)
+		affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, rand(1, 3))
+		affected_mob.reagents.remove_reagent(/datum/reagent/toxin/itching_powder, 1.2)
 		return
 	else
 		return ..() || .
@@ -800,18 +814,23 @@
 /datum/reagent/toxin/spewium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(current_cycle >= 11 && DT_PROB(min(30, current_cycle), delta_time))
-		affected_mob.vomit(10, prob(10), prob(50), rand(0, 4), TRUE, prob(30))
+		var/constructed_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM)
+		if(prob(10))
+			constructed_flags |= MOB_VOMIT_BLOOD
+		if(prob(50))
+			constructed_flags |= MOB_VOMIT_STUN
+		affected_mob.vomit(vomit_flags = constructed_flags, distance = rand(0,4))
 		for(var/datum/reagent/toxin/toxin in holder.reagent_list)
 			if(toxin == src)
 				continue
 
-			holder.remove_reagent(toxin.type, 1)
+			affected_mob.reagents.remove_reagent(toxin.type, 1)
 
 /datum/reagent/toxin/spewium/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(current_cycle >= 33 && DT_PROB(7.5, delta_time))
 		affected_mob.spew_organ()
-		affected_mob.vomit(0, TRUE, TRUE, 4)
+		affected_mob.vomit(VOMIT_CATEGORY_BLOOD, lost_nutrition = 0, distance = 4)
 		to_chat(affected_mob, span_userdanger("You feel something lumpy come up as you vomit."))
 
 /datum/reagent/toxin/curare
@@ -887,11 +906,11 @@
 /datum/reagent/toxin/anacea/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/remove_amt = 5
-	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid))
+	if(affected_mob.reagents.has_reagent(/datum/reagent/medicine/calomel) || affected_mob.reagents.has_reagent(/datum/reagent/medicine/pen_acid))
 		remove_amt = 0.5
 
-	for(var/datum/reagent/medicine/medicine in holder.reagent_list)
-		holder.remove_reagent(medicine.type, remove_amt * REM * delta_time)
+	for(var/datum/reagent/medicine/medicine in affected_mob.reagents.reagent_list)
+		affected_mob.reagents.remove_reagent(medicine.type, remove_amt * REM * delta_time)
 
 //ACID
 
@@ -963,13 +982,14 @@
 
 /datum/reagent/toxin/delayed/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(current_cycle > delay)
-		if(holder)
-			holder.remove_reagent(type, actual_metaboliztion_rate * affected_mob.metabolism_efficiency * delta_time)
-		if(affected_mob.adjustToxLoss(actual_toxpwr * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
-			. = UPDATE_MOB_HEALTH
-		if(DT_PROB(5, delta_time))
-			affected_mob.Paralyze(20)
+	if(current_cycle <= delay)
+		return
+	if(holder)
+		affected_mob.reagents.remove_reagent(type, actual_metaboliztion_rate * affected_mob.metabolism_efficiency * delta_time)
+	if(affected_mob.adjustToxLoss(actual_toxpwr * REM * delta_time, updating_health = FALSE, required_biotype = affected_biotype))
+		. = UPDATE_MOB_HEALTH
+	if(DT_PROB(5, delta_time))
+		affected_mob.Paralyze(2 SECONDS)
 
 /datum/reagent/toxin/mimesbane
 	name = "Mime's Bane"
@@ -1025,19 +1045,19 @@
 		var/obj/item/bodypart/limb = affected_mob.get_bodypart(selected_part)
 		if(affected_mob.dna.species.type != /datum/species/skeleton && affected_mob.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
 			if(limb)
-				limb.receive_damage(0, 0, 200)
+				affected_mob.apply_damage(20, BRUTE, limb)
 				playsound(affected_mob, get_sfx("desecration"), 50, TRUE, -1)
 				affected_mob.visible_message(span_warning("[affected_mob]'s bones hurt too much!!"), span_danger("Your bones hurt too much!!"))
-				affected_mob.say("OOF!!", forced = /datum/reagent/toxin/bonehurtingjuice)
+				affected_mob.say("OOF!!", forced = type)
 			else //SUCH A LUST FOR REVENGE!!!
 				to_chat(affected_mob, span_warning("A phantom limb hurts!"))
-				affected_mob.say("Why are we still here, just to suffer?", forced = /datum/reagent/toxin/bonehurtingjuice)
+				affected_mob.say("Why are we still here, just to suffer?", forced = type)
 		else //you just want to socialize
 			if(limb)
 				playsound(affected_mob, get_sfx("desecration"), 50, TRUE, -1)
 				affected_mob.visible_message(span_warning("[affected_mob] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
-				affected_mob.say("OOF!!", forced=/datum/reagent/toxin/bonehurtingjuice)
-				limb.receive_damage(200, 0, 0) //But I don't think we should
+				affected_mob.say("OOF!!", forced = type)
+				affected_mob.apply_damage(200, BRUTE, limb)
 			else
 				to_chat(affected_mob, span_warning("Your missing arm aches from wherever you left it."))
 				affected_mob.emote("sigh")
@@ -1117,7 +1137,12 @@
 	affected_mob.adjustToxLoss(min(0.5 * current_cycle, 5))
 	affected_mob.adjustOxyLoss(min(0.5 * current_cycle, 5))
 	if (current_cycle > 20 && DT_PROB(10, delta_time))
-		affected_mob.vomit(10, prob(10), prob(50), 1, TRUE)
+		var/constructed_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM)
+		if(prob(10))
+			constructed_flags |= MOB_VOMIT_BLOOD
+		if(prob(50))
+			constructed_flags |= MOB_VOMIT_STUN
+		affected_mob.vomit(vomit_flags = constructed_flags, distance = rand(0,4))
 	// You die
 	if (current_cycle > 50)
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_LUNGS, 5)

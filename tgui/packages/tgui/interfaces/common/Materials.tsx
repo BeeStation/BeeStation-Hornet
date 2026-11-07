@@ -93,8 +93,8 @@ export const Materials = (props: {
         <Flex.Item key={material.name} grow={1} shrink={1}>
           <MaterialAmount
             name={material.name}
-            amount={material.amount}
-            formatting={MaterialFormatting.SIUnits}
+            amount={material.sheets}
+            formatting={MaterialFormatting.Locale}
           />
           <Box mt={1} textAlign="center">
             <EjectMaterial

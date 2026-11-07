@@ -67,10 +67,10 @@
 
 /datum/gear/misc/cigarettes/cohiba
 	display_name = "cigar, Cohiba Robusto"
-	path = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	path = /obj/item/cigarette/cigar/cohiba
 	cost = 2400
 
 /datum/gear/misc/cigarettes/havana
 	display_name = "cigar, premium Havanian"
-	path = /obj/item/clothing/mask/cigarette/cigar/havana
+	path = /obj/item/cigarette/cigar/havana
 	cost = 2400

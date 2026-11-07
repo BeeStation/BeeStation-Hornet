@@ -1,4 +1,4 @@
-/obj/item/clothing/mask/cluwne
+/obj/item/clothing/mask/animal/cluwne
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	flags_cover = MASKCOVERSEYES
@@ -8,58 +8,47 @@
 	flags_1 = MASKINTERNALS
 	item_flags = ABSTRACT | DROPDEL
 	flags_inv = HIDEEARS|HIDEEYES
-	var/voicechange = TRUE
+	animal_sounds = list("HEEEENKKKKKK!!", "HONK HONK HONK HONK!!","HONK HONK!!","HOOOOOONKKKK!!")
+	animal_sounds_alt = list("HOOOOINKKKKKKK!!", "HOINK HOINK HOINK HOINK!!","HOINK HOINK!!","HOOOOOOIIINKKKK!!")
+	animal_sounds_alt_probability = 3
 	var/last_sound = 0
 	var/delay = 15
 
-/obj/item/clothing/mask/cluwne/Initialize(mapload)
-	.=..()
+/obj/item/clothing/mask/animal/cluwne/Initialize(mapload)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
-/obj/item/clothing/mask/cluwne/proc/play_laugh1()
-	if(world.time - delay > last_sound)
-		playsound (src, 'sound/voice/cluwnelaugh1.ogg', 30, 1)
-		last_sound = world.time
-
-/obj/item/clothing/mask/cluwne/proc/play_laugh2()
-	if(world.time - delay > last_sound)
-		playsound (src, 'sound/voice/cluwnelaugh2.ogg', 30, 1)
-		last_sound = world.time
-
-/obj/item/clothing/mask/cluwne/proc/play_laugh3()
-	if(world.time - delay > last_sound)
-		playsound (src, 'sound/voice/cluwnelaugh3.ogg', 30, 1)
-		last_sound = world.time
-
-/obj/item/clothing/mask/cluwne/equipped(mob/user, slot) //when you put it on
-	var/mob/living/carbon/C = user
-	if((C.wear_mask == src) && (voicechange))
-		play_laugh1()
-	return ..()
-
-/obj/item/clothing/mask/cluwne/handle_speech(datum/source, list/speech_args)
-	if(voicechange)
-		if(prob(5)) //the brain isn't fully gone yet...
-			speech_args[SPEECH_MESSAGE] = pick("HELP ME!!","PLEASE KILL ME!!","I WANT TO DIE!!", "END MY SUFFERING", "I CANT TAKE THIS ANYMORE!!" ,"SOMEBODY STOP ME!!")
-			play_laugh2()
-		if(prob(3))
-			speech_args[SPEECH_MESSAGE] = pick("HOOOOINKKKKKKK!!", "HOINK HOINK HOINK HOINK!!","HOINK HOINK!!","HOOOOOOIIINKKKK!!") //but most of the time they cant speak,
-			play_laugh3()
-		else
-			speech_args[SPEECH_MESSAGE] = pick("HEEEENKKKKKK!!", "HONK HONK HONK HONK!!","HONK HONK!!","HOOOOOONKKKK!!") //More sounds,
-			play_laugh1()
-	return SPEECH_MESSAGE
-
-/obj/item/clothing/mask/cluwne/equipped(mob/user, slot)
+/obj/item/clothing/mask/animal/cluwne/equipped(mob/user, slot)
 	. = ..()
 	if(!user.has_dna())
 		return
 	if(slot == ITEM_SLOT_MASK)
 		var/mob/living/carbon/C = user
 		C.dna.add_mutation(/datum/mutation/cluwne)
-	return
 
-/obj/item/clothing/mask/cluwne/happy_cluwne
+/obj/item/clothing/mask/animal/cluwne/handle_speech(datum/source, list/speech_args)
+	if(prob(animal_sounds_alt_probability) && LAZYLEN(animal_sounds_alt))
+		play_laugh3()
+	else
+		play_laugh1()
+	return ..()
+
+/obj/item/clothing/mask/animal/cluwne/proc/play_laugh1()
+	if(world.time - delay > last_sound)
+		playsound(src, 'sound/voice/cluwnelaugh1.ogg', 30, 1)
+		last_sound = world.time
+
+/obj/item/clothing/mask/animal/cluwne/proc/play_laugh2()
+	if(world.time - delay > last_sound)
+		playsound(src, 'sound/voice/cluwnelaugh2.ogg', 30, 1)
+		last_sound = world.time
+
+/obj/item/clothing/mask/animal/cluwne/proc/play_laugh3()
+	if(world.time - delay > last_sound)
+		playsound(src, 'sound/voice/cluwnelaugh3.ogg', 30, 1)
+		last_sound = world.time
+
+/obj/item/clothing/mask/animal/cluwne/happy_cluwne
 	name = "Happy Cluwne Mask"
 	desc = "The mask of a poor cluwne that has been scrubbed of its curse by the Nanotrasen supernatural machinations division. Guaranteed to be %99 curse free and %99.9 not haunted. "
 	flags_1 = MASKINTERNALS
@@ -68,8 +57,8 @@
 	var/is_cursed = FALSE //i don't care that this is *slightly* memory wasteful, it's just one more byte and it's not like some madman is going to spawn thousands of these
 	var/is_very_cursed = FALSE
 
-/obj/item/clothing/mask/cluwne/happy_cluwne/Initialize(mapload)
-	.=..()
+/obj/item/clothing/mask/animal/cluwne/happy_cluwne/Initialize(mapload)
+	. = ..()
 	if(prob(1)) //this function pre-determines the logic of the cluwne mask. applying and reapplying the mask does not alter or change anything
 		is_cursed = TRUE
 		is_very_cursed = FALSE
@@ -77,13 +66,13 @@
 		is_cursed = FALSE
 		is_very_cursed = TRUE
 
-/obj/item/clothing/mask/cluwne/happy_cluwne/attack_self(mob/user)
-	voicechange = !voicechange
-	to_chat(user, span_notice("You turn the voice box [voicechange ? "on" : "off"]!"))
-	if(voicechange)
+/obj/item/clothing/mask/animal/cluwne/happy_cluwne/attack_self(mob/user)
+	modifies_speech = !modifies_speech
+	to_chat(user, span_notice("You turn the voice box [modifies_speech ? "on" : "off"]!"))
+	if(modifies_speech)
 		play_laugh1()
 
-/obj/item/clothing/mask/cluwne/happy_cluwne/equipped(mob/user, slot)
+/obj/item/clothing/mask/animal/cluwne/happy_cluwne/equipped(mob/user, slot)
 	. = ..()
 	if(!ishuman(user))
 		return

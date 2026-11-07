@@ -22,7 +22,7 @@
 
 // Only called if mappers set an ID
 /obj/machinery/mineral/stacking_unit_console/LateInitialize()
-	for(var/obj/machinery/mineral/stacking_machine/SM in GLOB.machines)
+	for(var/obj/machinery/mineral/stacking_machine/SM as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/mineral/stacking_machine))
 		if(SM.link_id == link_id)
 			machine = SM
 			machine.console = src
@@ -151,8 +151,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_machine)
 	var/key = inp.merge_type
 	var/obj/item/stack/sheet/storage = stack_list[key]
 	if(!storage) //It's the first of this sheet added
-		stack_list[key] = storage = new inp.type(src, 0)
-	storage.amount += inp.amount //Stack the sheets
+		stack_list[key] = storage = new inp.type(src, inp.amount)
 	qdel(inp)
 
 	if(materials.silo && !materials.on_hold()) //Dump the sheets to the silo

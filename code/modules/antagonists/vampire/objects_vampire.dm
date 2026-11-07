@@ -22,7 +22,7 @@
 		. += span_cult(vampire_desc)
 	if(IS_VASSAL(user) && vassal_desc)
 		. += span_cult(vassal_desc)
-	if(IS_CURATOR(user) && curator_desc)
+	if(is_curator_job(user?.mind?.assigned_role) && curator_desc)
 		. += span_cult(curator_desc)
 
 /// This handles bolting down the structure.
@@ -43,7 +43,7 @@
 	set_anchored(FALSE)
 	owner = null
 
-/obj/structure/vampire/attackby(obj/item/item, mob/living/user, params)
+/obj/structure/vampire/attackby(obj/item/item, mob/living/user, list/modifiers)
 	/// If a Vampire tries to wrench it in place, yell at them.
 	if(item.tool_behaviour == TOOL_WRENCH && !anchored && IS_VAMPIRE(user))
 		user.playsound_local(null, 'sound/machines/buzz-sigh.ogg', 40, FALSE, pressure_affected = FALSE)
@@ -131,6 +131,8 @@
 	qdel(src)
 
 /obj/structure/vampire/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
+	if(..())
+		return
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))
@@ -228,7 +230,7 @@
 		else
 			user_unbuckle_mob(buckled_carbons, user)
 
-/obj/structure/vampire/vassalrack/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/structure/vampire/vassalrack/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(IS_VAMPIRE(user) && has_buckled_mobs() && !user.combat_mode)
 		return try_to_torture(user, pick(buckled_mobs), attacking_item)
 	return ..()
@@ -290,7 +292,7 @@
 
 		// Find Mind Implant & Destroy
 		for(var/obj/item/implant/mindshield/mindshield in living_target.implants)
-			mindshield.Destroy()
+			qdel(mindshield)
 
 		// We've made a vassal the proper way, do clan stuff
 		vampiredatum.my_clan?.on_vassal_made(living_vampire, living_target)
@@ -402,7 +404,7 @@
 		return
 	for(var/mob/living/carbon/nearby_people in viewers(7, src))
 		/// We don't want vampires or vassals affected by this
-		if(HAS_MIND_TRAIT(nearby_people, TRAIT_VAMPIRE_ALIGNED) || IS_CURATOR(nearby_people))
+		if(HAS_MIND_TRAIT(nearby_people, TRAIT_VAMPIRE_ALIGNED) || is_curator_job(nearby_people?.mind?.assigned_role))
 			continue
 		nearby_people.set_hallucinations_if_lower(10 SECONDS)
 		SEND_SIGNAL(nearby_people, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
@@ -426,7 +428,7 @@
 
 // Add rotating and armrest
 /obj/structure/vampire/bloodthrone/Initialize(mapload)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()

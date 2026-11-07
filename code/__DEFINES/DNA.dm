@@ -25,16 +25,20 @@
 #define DNA_BLOCK_SIZE 3
 #define DNA_BLOCK_SIZE_COLOR DEFAULT_HEX_COLOR_LEN
 
-#define DNA_UNI_IDENTITY_BLOCKS 9
-#define DNA_HAIR_COLOR_BLOCK 1
-#define DNA_FACIAL_HAIR_COLOR_BLOCK 2
-#define DNA_SKIN_TONE_BLOCK 3
-#define DNA_EYE_COLOR_BLOCK 4
-#define DNA_GENDER_BLOCK 5
-#define DNA_FACIAL_HAIR_STYLE_BLOCK 6
-#define DNA_HAIR_STYLE_BLOCK 7
-#define DNA_HAIR_GRADIENT_COLOR_BLOCK 8
-#define DNA_HAIR_GRADIENT_STYLE_BLOCK 9
+#define DNA_GENDER_BLOCK 1
+#define DNA_SKIN_TONE_BLOCK 2
+#define DNA_EYE_COLOR_LEFT_BLOCK 3
+#define DNA_EYE_COLOR_RIGHT_BLOCK 4
+#define DNA_HAIRSTYLE_BLOCK 5
+#define DNA_HAIR_COLOR_BLOCK 6
+#define DNA_FACIAL_HAIRSTYLE_BLOCK 7
+#define DNA_FACIAL_HAIR_COLOR_BLOCK 8
+#define DNA_HAIRSTYLE_GRADIENT_BLOCK 9
+#define DNA_HAIR_COLOR_GRADIENT_BLOCK 10
+#define DNA_FACIAL_HAIRSTYLE_GRADIENT_BLOCK 11
+#define DNA_FACIAL_HAIR_COLOR_GRADIENT_BLOCK 12
+
+#define DNA_UNI_IDENTITY_BLOCKS 12
 
 #define DNA_FEATURE_BLOCKS 29
 #define DNA_MUTANT_COLOR_BLOCK 1
@@ -74,42 +78,6 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//! ## species traits for mutantraces
-#define MUTCOLORS 1
-#define HAIR 2
-#define FACEHAIR 3
-#define EYECOLOR 4
-#define LIPS 5
-//Flashing has no effect
-#define NOFLASH 11
-// Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define DYNCOLORS 12
-// No sex!
-#define AGENDER 13
-// Do not draw eyes or eyeless overlay
-#define NOEYESPRITES 14
-// DO NOT PROCESS REAGENTS
-#define NOREAGENTS 15
-// Will revive on heal when healing and total HP > 0.
-#define REVIVESBYHEALING 16
-// Can't be husked.
-#define NOHUSK 17
-#define NOMOUTH 18
-// You cannot wear socks.
-#define NOSOCKS 19
-// spawns with an envirosuit
-#define ENVIROSUIT 20
-/// Do not draw blood overlay
-#define NOBLOODOVERLAY 22
-
-/// Used for determining which wounds are applicable to this species.
-/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
-// #define HAS_FLESH 23 [add if we ever port TGs wound system]
-/// if we have bones (can suffer bone wounds)
-// #define HAS_BONE 24 [add if we ever port TGs wound system]
-/// If we have a limb-specific overlay sprite
-#define HAS_MARKINGS 25
-
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
 #define ORGAN_SLOT_APPENDIX "appendix"
@@ -125,6 +93,8 @@
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
 #define ORGAN_SLOT_THRUSTERS "thrusters"
 #define ORGAN_SLOT_HUD "eye_hud"
+#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
+#define ORGAN_SLOT_MONSTER_CORE "monstercore"
 #define ORGAN_SLOT_LIVER "liver"
 #define ORGAN_SLOT_TONGUE "tongue"
 #define ORGAN_SLOT_VOICE "vocal_cords"
@@ -133,6 +103,7 @@
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
+#define ORGAN_SLOT_UPGRADE_CONTROL "upgrade_control"
 #define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_WINGS "wings"
 #define ORGAN_SLOT_R_ARM_NYMPH "r_arm_nymph" //I can't think of any way of doing this better, please tell me if there is a better way.
@@ -140,6 +111,14 @@
 #define ORGAN_SLOT_R_LEG_NYMPH "r_leg_nymph"
 #define ORGAN_SLOT_L_LEG_NYMPH "l_leg_nymph"
 #define ORGAN_SLOT_CHEST_NYMPH "chest_nymph"
+
+/// Xenomorph organ slots
+#define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
+#define ORGAN_SLOT_XENO_EGGSAC "eggsac"
+#define ORGAN_SLOT_XENO_HIVENODE "hive_node"
+#define ORGAN_SLOT_XENO_NEUROTOXINGLAND "neurotoxin_gland"
+#define ORGAN_SLOT_XENO_PLASMAVESSEL "plasma_vessel"
+#define ORGAN_SLOT_XENO_RESINSPINNER "resin_spinner"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 100
@@ -157,3 +136,36 @@
 
 //Size / height stuff
 #define SPECIES_HEIGHTS(x, y, z) list("Short" = x, "Normal" = y, "Tall" = z)
+
+///Organ slot processing order for life proc
+GLOBAL_LIST_INIT(organ_process_order, list(
+	ORGAN_SLOT_BRAIN,
+	ORGAN_SLOT_APPENDIX,
+	ORGAN_SLOT_RIGHT_ARM_AUG,
+	ORGAN_SLOT_LEFT_ARM_AUG,
+	ORGAN_SLOT_STOMACH,
+	ORGAN_SLOT_STOMACH_AID,
+	ORGAN_SLOT_BREATHING_TUBE,
+	ORGAN_SLOT_EARS,
+	ORGAN_SLOT_EYES,
+	ORGAN_SLOT_LUNGS,
+	ORGAN_SLOT_HEART,
+	ORGAN_SLOT_ZOMBIE,
+	ORGAN_SLOT_THRUSTERS,
+	ORGAN_SLOT_HUD,
+	ORGAN_SLOT_LIVER,
+	ORGAN_SLOT_TONGUE,
+	ORGAN_SLOT_VOICE,
+	ORGAN_SLOT_ADAMANTINE_RESONATOR,
+	ORGAN_SLOT_HEART_AID,
+	ORGAN_SLOT_BRAIN_ANTIDROP,
+	ORGAN_SLOT_BRAIN_ANTISTUN,
+	ORGAN_SLOT_PARASITE_EGG,
+	ORGAN_SLOT_MONSTER_CORE,
+	ORGAN_SLOT_XENO_PLASMAVESSEL,
+	ORGAN_SLOT_XENO_HIVENODE,
+	ORGAN_SLOT_XENO_RESINSPINNER,
+	ORGAN_SLOT_XENO_ACIDGLAND,
+	ORGAN_SLOT_XENO_NEUROTOXINGLAND,
+	ORGAN_SLOT_XENO_EGGSAC,
+	))

@@ -3,34 +3,20 @@
 	desc = "Manufactures circuit boards for the construction of machines."
 	icon_state = "circuit_imprinter"
 	circuit = /obj/item/circuitboard/machine/circuit_imprinter
-	categories = list(
-								"AI Modules",
-								"Computer Boards",
-								"Teleportation Machinery",
-								"Medical Machinery",
-								"Engineering Machinery",
-								"Exosuit Modules",
-								"Hydroponics Machinery",
-								"Subspace Telecomms",
-								"Research Machinery",
-								"Misc. Machinery",
-								"Computer Parts",
-								"Shuttle Machinery",
-								"Circuitry"
-								)
 	production_animation = "circuit_imprinter_ani"
 	allowed_buildtypes = IMPRINTER
-	consoleless_interface = TRUE
-	requires_console = FALSE
-
-/obj/machinery/rnd/production/circuit_imprinter/disconnect_console()
-	linked_console.linked_imprinter = null
-	..()
 
 /obj/machinery/rnd/production/circuit_imprinter/calculate_efficiency()
 	. = ..()
-	var/total_rating = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating += M.rating * 2			//There is only one.
-	total_rating = max(1, total_rating)
-	efficiency_coeff = total_rating
+	// Same curve as the parent, but a circuit imprinter only has one manipulator, where a protolathe has two, so its tier counts double.
+	var/total_rating = 1.2
+	var/manipulator_upgrades = 0
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		total_rating -= M.tier * 0.2
+		manipulator_upgrades += (M.tier - 1) * 2
+	total_rating = clamp(total_rating, 0, 1.2)
+	if(total_rating == 0)
+		efficiency_coeff = INFINITY
+	else
+		efficiency_coeff = 1/total_rating
+	build_time_coeff = round(clamp(1 - (manipulator_upgrades / 15), 0.6, 1), 0.05)

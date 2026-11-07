@@ -40,6 +40,7 @@
 	paddles = make_paddles()
 	update_power()
 	RegisterSignal(paddles, COMSIG_DEFIBRILLATOR_SUCCESS, PROC_REF(on_defib_success))
+	AddElement(/datum/element/drag_pickup)
 
 /obj/item/defibrillator/loaded/Initialize(mapload) //starts with hicap
 	. = ..()
@@ -77,7 +78,7 @@
 	if(powered)
 		. += "[initial(icon_state)]-powered"
 		var/ratio = cell.charge / cell.maxcharge
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[initial(icon_state)]-charge[ratio]"
 	if(!cell)
 		. += "[initial(icon_state)]-nocell"
@@ -111,15 +112,7 @@
 		ui_action_click() //checks for this are handled in defibrillator.mount.dm
 	return ..()
 
-/obj/item/defibrillator/MouseDrop(obj/over_object)
-	. = ..()
-	if(ismob(loc))
-		var/mob/M = loc
-		if(!M.incapacitated && istype(over_object, /atom/movable/screen/inventory/hand))
-			var/atom/movable/screen/inventory/hand/H = over_object
-			M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-
-/obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W == paddles)
 		toggle_paddles()
 	else if(istype(W, /obj/item/stock_parts/cell))
@@ -288,7 +281,7 @@
 	cell = new /obj/item/stock_parts/cell/infinite(src)
 	update_power()
 
-/obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, params)
+/obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, list/modifiers)
 	if(W == paddles)
 		toggle_paddles()
 		return
@@ -323,7 +316,7 @@
 	var/recharge_time = 6 SECONDS // Only applies to defibs that do not require a defibrilator. See: do_success
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
 	var/grab_ghost = TRUE
-	var/tlimit = DEFIB_TIME_LIMIT * 10
+	var/tlimit = DEFIB_TIME_LIMIT
 
 	var/mob/listeningTo
 
@@ -344,7 +337,7 @@
 	listeningTo = user
 	check_range()
 
-/obj/item/shockpaddles/Moved()
+/obj/item/shockpaddles/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!istype(loc, /mob/living))
 		check_range()
@@ -382,7 +375,7 @@
 
 /obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, GENERIC_ITEM_TRAIT) //stops shockpaddles from being inserted in BoH
+	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, INNATE_TRAIT) //stops shockpaddles from being inserted in BoH
 
 	// Defib-specific initialization
 	if(req_defib)
@@ -449,7 +442,7 @@
 	listeningTo = null
 	defib.update_power()
 
-/obj/item/shockpaddles/attack(mob/M, mob/living/user, params)
+/obj/item/shockpaddles/attack(mob/M, mob/living/user, list/modifiers)
 	if(busy)
 		return
 	if(req_defib && !defib.powered)
@@ -469,7 +462,6 @@
 			to_chat(user, span_warning("[src] are recharging!"))
 		return
 
-	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		do_disarm(M, user)
 		return

@@ -161,8 +161,8 @@
 		return
 
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
-	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
-		CM.override_cooldown()
+	for(var/obj/machinery/computer/communications/communications_console in GLOB.shuttle_caller_list)
+		communications_console.override_cooldown()
 	statuscode = 200
 	response = "Message received"
 
@@ -209,7 +209,7 @@
 /datum/world_topic/playerlist/Run(list/input)
 	. = ..()
 	data = list()
-	for(var/client/C as() in GLOB.clients_unsafe)
+	for(var/client/C as anything in GLOB.clients_unsafe)
 		data += C.ckey
 	statuscode = 200
 	response = "Player list fetched"

@@ -84,7 +84,7 @@
 	var/objective_count = 1
 	var/list/objectives
 	var/list/antag_info
-	for(var/datum/objective/objective as() in holder.owner.get_all_antag_objectives())
+	for(var/datum/objective/objective as anything in holder.owner.get_all_antag_objectives())
 		var/objective_info = list(
 			"count" = objective_count,
 			"name" = objective.name,

@@ -30,6 +30,8 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/human/equip/Click()
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
+		return TRUE
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
@@ -77,7 +79,7 @@
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = ui_style
-	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	using.icon_state = (owner.move_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	using.screen_loc = ui_movi
 	static_inventory += using
 

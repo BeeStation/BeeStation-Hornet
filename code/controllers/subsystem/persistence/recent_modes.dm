@@ -31,7 +31,7 @@
 
 /datum/controller/subsystem/persistence/proc/get_rounds_since_execution(datum/dynamic_ruleset/gamemode/gamemode)
 	var/located = gamemode_data["[gamemode.type]"]
-	if (!isnum_safe(located))
+	if (!IS_FINITE(located))
 		return 0
 	return located
 

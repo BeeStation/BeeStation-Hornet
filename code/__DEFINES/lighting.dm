@@ -6,6 +6,8 @@
 #define MOVABLE_LIGHT 2
 ///Light made by masking the lighting darkness plane, and is directional.
 #define MOVABLE_LIGHT_DIRECTIONAL 3
+///Light made by masking the lighting darkness plane, and is a directionally focused beam.
+#define MOVABLE_LIGHT_BEAM 4
 
 ///Is a movable light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
 #define LIGHT_ATTACHED (1<<0)
@@ -45,7 +47,7 @@
 #define LIGHT_RANGE_FIRE		3 //! How many tiles standard fires glow.
 
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_MAX 255
-#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 128
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 77
 #define ADDITIVE_LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
@@ -85,7 +87,7 @@
 /// A globaly cached version of [EMISSIVE_COLOR] for quick access. Indexed by alpha value
 GLOBAL_LIST_INIT(emissive_color, new(256))
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
-#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|RESET_COLOR|NO_CLIENT_COLOR|PIXEL_SCALE)
+#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR)
 
 /// Colour matrix used to convert items into blockers. The only thing that should be taken into account is the alpha value, and
 /// alpha of 1 should be fully black and an alpha of 0 should be black but transparent
@@ -95,9 +97,11 @@ GLOBAL_LIST_INIT(emissive_color, new(256))
 /// Blue = 0
 /// Green = 0
 /// Alpha = alpha
-#define EM_BLOCKER_MATRIX list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-/// A globaly cached version of [EM_BLOCKER_MATRIX] for quick access.
-GLOBAL_LIST_INIT(em_blocker_matrix, EM_BLOCKER_MATRIX)
+#define _EM_BLOCK_COLOR(val) list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,val, 0,0,0,0)
+/// The color matrix applied to all emissive blockers. Should be solely dependent on alpha and not have RGB overlap with [EMISSIVE_COLOR].
+#define EM_BLOCK_COLOR _EM_BLOCK_COLOR(1)
+/// A globaly cached version of [EM_BLOCK_COLOR] for quick access.
+GLOBAL_LIST_INIT(em_block_color, EM_BLOCK_COLOR)
 
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \

@@ -1,9 +1,3 @@
-#define SENSORS_OFF 0
-#define SENSORS_BINARY 1
-#define SENSORS_VITALS 2
-#define SENSORS_TRACKING 3
-#define SENSOR_CHANGE_DELAY 1.5 SECONDS
-
 #define MOTH_EATING_CLOTHING_DAMAGE 15
 
 /obj/item/clothing
@@ -45,12 +39,6 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
-	//These allow head/mask items to dynamically alter the user's hair
-	// and facial hair, checking hair_extensions.dmi and facialhair_extensions.dmi
-	// for a state matching hair_state+dynamic_hair_suffix
-	// THESE OVERRIDE THE HIDEHAIR FLAGS
-	var/dynamic_hair_suffix = ""//head > mask for head hair
-	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
@@ -75,17 +63,12 @@
 	if(!icon_state)
 		item_flags |= ABSTRACT
 
-/obj/item/clothing/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/M = usr
+	AddElement(/datum/element/drag_pickup)
 
-	if(ismecha(M.loc)) // stops inventory actions in a mech
-		return
-
-	if(!M.incapacitated && loc == M && istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
-			add_fingerprint(usr)
+/obj/item/clothing/can_mob_unequip(mob/user)
+	if(ismecha(user.loc))
+		return FALSE
+	return ..()
 
 /obj/item/food/clothing // fuck you
 	name = "temporary moth clothing snack item"
@@ -125,7 +108,7 @@
 /obj/item/food/clothing/proc/after_eat(mob/eater)
 	var/resolved_item = clothing.resolve()
 
-	if(istype(resolved_item, /obj/item/clothing))
+	if(isclothing(resolved_item))
 		var/obj/item/clothing/resolved_clothing = resolved_item
 		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE, damage_flag = CONSUME)
 		return
@@ -136,7 +119,7 @@
 			return
 	qdel(resolved_item)
 
-/obj/item/clothing/attack(mob/living/target, mob/living/user, params)
+/obj/item/clothing/attack(mob/living/target, mob/living/user, list/modifiers)
 	if(user.combat_mode)
 		return //combat mode doesnt eat
 	var/obj/item/organ/tongue/tongue = target.get_organ_slot(ORGAN_SLOT_TONGUE)
@@ -149,35 +132,34 @@
 		moth_snack = new
 		moth_snack.name = name
 		moth_snack.clothing = WEAKREF(src)
-	moth_snack.attack(target, user, params)
+	moth_snack.attack(target, user, modifiers)
 
-/obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, repairable_by))
-		return ..()
+/obj/item/clothing/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	. = NONE
+	if(!istype(tool, repairable_by))
+		return
 
 	switch(damaged_clothes)
 		if(CLOTHING_PRISTINE)
-			return..()
+			return
 		if(CLOTHING_DAMAGED)
-			var/obj/item/stack/cloth_repair = W
+			var/obj/item/stack/cloth_repair = tool
 			cloth_repair.use(1)
-			repair(user, params)
-			return TRUE
+			repair(user)
+			return ITEM_INTERACT_SUCCESS
 		if(CLOTHING_SHREDDED)
-			var/obj/item/stack/cloth_repair = W
+			var/obj/item/stack/cloth_repair = tool
 			if(cloth_repair.amount < 3)
 				to_chat(user, span_warning("You require 3 [cloth_repair.name] to repair [src]."))
-				return TRUE
+				return ITEM_INTERACT_BLOCKING
 			to_chat(user, span_notice("You begin fixing the damage to [src] with [cloth_repair]..."))
 			if(!do_after(user, 6 SECONDS, src) || !cloth_repair.use(3))
-				return TRUE
-			repair(user, params)
-			return TRUE
-
-	return ..()
+				return ITEM_INTERACT_BLOCKING
+			repair(user)
+			return ITEM_INTERACT_SUCCESS
 
 /// Set the clothing's integrity back to 100%, remove all damage to bodyparts, and generally fix it up
-/obj/item/clothing/proc/repair(mob/user, params)
+/obj/item/clothing/proc/repair(mob/user)
 	update_clothes_damaged_state(CLOTHING_PRISTINE)
 	atom_integrity = max_integrity
 	name = initial(name) // remove "tattered" or "shredded" if there's a prefix
@@ -304,6 +286,17 @@
 	if(get_armor_for_examination(user).has_any_armor() || (flags_cover & (HEADCOVERSMOUTH)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		. += span_notice("It has a <a href='byond://?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.")
 
+// If the item is a piece of clothing and is being worn, make sure it updates on the player
+/obj/item/clothing/update_greyscale()
+	. = ..()
+
+	var/mob/living/carbon/human/wearer = loc
+
+	if(!istype(wearer))
+		return
+
+	wearer.update_clothing(slot_flags)
+
 /**
  * Inserts a trait (or multiple traits) into the clothing traits list
  *
@@ -315,7 +308,11 @@
 	if(!islist(trait_or_traits))
 		trait_or_traits = list(trait_or_traits)
 
+	// Use a temporary list so we don't mutate the cached version
+	clothing_traits = LAZYLISTDUPLICATE(clothing_traits)
 	LAZYOR(clothing_traits, trait_or_traits)
+	if(clothing_traits) // because we might be null
+		clothing_traits = string_list(clothing_traits)
 	var/mob/wearer = loc
 	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
 		for(var/new_trait in trait_or_traits)
@@ -332,22 +329,15 @@
 	if(!islist(trait_or_traits))
 		trait_or_traits = list(trait_or_traits)
 
+	// Use a temporary list so we don't mutate the cached version
+	clothing_traits = LAZYLISTDUPLICATE(clothing_traits)
 	LAZYREMOVE(clothing_traits, trait_or_traits)
+	if(clothing_traits) // because we might be null
+		clothing_traits = string_list(clothing_traits)
 	var/mob/wearer = loc
 	if(istype(wearer))
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
-
-// If the item is a piece of clothing and is being worn, make sure it updates on the player
-/obj/item/clothing/update_greyscale()
-	. = ..()
-
-	var/mob/living/carbon/human/wearer = loc
-
-	if(!istype(wearer))
-		return
-
-	wearer.update_clothing(slot_flags)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -508,7 +498,7 @@
 	RETURN_TYPE(/datum/armor)
 	if (ismob(loc) && loc != examiner && HAS_TRAIT(src, TRAIT_VALUE_MIMIC_PATH))
 		var/atom/mimic_path = GET_TRAIT_VALUE(src, TRAIT_VALUE_MIMIC_PATH)
-		return get_armor_by_type(mimic_path:armor_type)
+		return get_armor_by_type(mimic_path::armor_type)
 	return get_armor()
 
 /**
@@ -580,67 +570,6 @@ BLIND	 // can't see anything
 	female_clothing_icon.Blend(female_cropping_mask, ICON_MULTIPLY)
 	female_clothing_icon = fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
-
-/obj/item/clothing/under/proc/set_sensors(mob/user)
-	var/mob/M = user
-	if(M.stat)
-		return
-	if(!can_use(M))
-		return
-	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(user, span_warning("The controls are locked."))
-		return FALSE
-	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(user, span_warning("The sensors have shorted out!"))
-		return FALSE
-	if(src.has_sensor <= NO_SENSORS)
-		to_chat(user, span_warning("This suit does not have any sensors."))
-		return FALSE
-
-	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
-	var/switchMode = tgui_input_list(M, "Select a sensor mode", "Suit Sensors", modes, modes[sensor_mode + 1])
-	if(isnull(switchMode))
-		return
-	if(get_dist(user, src) > 1)
-		to_chat(user, span_warning("You have moved too far away!"))
-		return
-
-	var/sensor_selection = modes.Find(switchMode) - 1
-	if (src.loc == user)
-		switch(sensor_selection)
-			if(SENSORS_OFF)
-				to_chat(user, span_notice("You disable your suit's remote sensing equipment."))
-			if(SENSORS_BINARY)
-				to_chat(user, span_notice("Your suit will now only report whether you are alive or dead."))
-			if(SENSORS_VITALS)
-				to_chat(user, span_notice("Your suit will now only report your exact vital lifesigns."))
-			if(SENSORS_TRACKING)
-				to_chat(user, span_notice("Your suit will now report your exact vital lifesigns as well as your coordinate position."))
-		update_sensors(sensor_selection)
-	else if(istype(src.loc, /mob))
-		var/mob/living/carbon/human/wearer = src.loc
-		wearer.visible_message(span_notice("[user] tries to set [wearer]'s sensors."), \
-						span_warning("[user] is trying to set your sensors."), null, COMBAT_MESSAGE_RANGE)
-		if(do_after(user, SENSOR_CHANGE_DELAY, wearer))
-			switch(sensor_selection)
-				if(SENSORS_OFF)
-					wearer.visible_message(span_warning("[user] disables [wearer]'s remote sensing equipment."), \
-						span_warning("[user] disables your remote sensing equipment."), null, COMBAT_MESSAGE_RANGE)
-				if(SENSORS_BINARY)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to binary."), \
-						span_notice("[user] turns your remote sensors to binary."), null, COMBAT_MESSAGE_RANGE)
-				if(SENSORS_VITALS)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to track vitals."), \
-						span_notice("[user] turns your remote sensors to track vitals."), null, COMBAT_MESSAGE_RANGE)
-				if(SENSORS_TRACKING)
-					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to maximum."), \
-						span_notice("[user] turns your remote sensors to maximum."), null, COMBAT_MESSAGE_RANGE)
-			update_sensors(sensor_selection)
-			log_combat(user, wearer, "changed sensors to [switchMode]")
-	if(ishuman(loc) || ismonkey(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.w_uniform == src)
-			H.update_suit_sensors()
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -732,11 +661,5 @@ BLIND	 // can't see anything
 		return
 	if (!is_mining_level(T.z))
 		return . * high_pressure_multiplier
-
-#undef SENSORS_OFF
-#undef SENSORS_BINARY
-#undef SENSORS_VITALS
-#undef SENSORS_TRACKING
-#undef SENSOR_CHANGE_DELAY
 
 #undef MOTH_EATING_CLOTHING_DAMAGE

@@ -121,6 +121,7 @@
 	else if(!was_on_fire && owner.on_fire)
 		owner.throw_alert(ALERT_FIRE, /atom/movable/screen/alert/fire)
 	owner.update_appearance(UPDATE_OVERLAYS)
+	update_particles()
 
 /datum/status_effect/fire_handler/fire_stacks
 	id = "fire_stacks" //fire_stacks and wet_stacks should have different IDs or else has_status_effect won't work
@@ -135,6 +136,8 @@
 	var/obj/effect/dummy/lighting_obj/moblight
 	/// Type of mob light emitter we use when on fire
 	var/moblight_type = /obj/effect/dummy/lighting_obj/moblight/fire
+	/// Cached particle type
+	var/cached_state
 
 /datum/status_effect/fire_handler/fire_stacks/get_examine_text()
 	if(owner.on_fire)
@@ -158,7 +161,7 @@
 		return TRUE
 
 	var/datum/gas_mixture/air = owner.loc.return_air()
-	if(!air.gases[/datum/gas/oxygen] || air.gases[/datum/gas/oxygen][MOLES] < 1)
+	if(air.moles[/datum/gas/oxygen] < 1)
 		qdel(src)
 		return TRUE
 
@@ -166,7 +169,12 @@
 
 /**
  * Proc that handles damage dealing and all special effects
+ *
+ * Arguments:
+ * - seconds_between_ticks
+ *
  */
+
 /datum/status_effect/fire_handler/fire_stacks/proc/deal_damage(delta_time)
 	owner.on_fire_stack(delta_time, src)
 
@@ -179,7 +187,9 @@
  * Arguments:
  * - seconds_between_ticks
  * - no_protection: When set to TRUE, fire will ignore any possible fire protection
+ *
  */
+
 /datum/status_effect/fire_handler/fire_stacks/proc/harm_human(delta_time, no_protection = FALSE)
 	var/mob/living/carbon/human/victim = owner
 	var/thermal_protection = victim.get_thermal_protection()
@@ -269,6 +279,16 @@
 
 	enemy_types = list(/datum/status_effect/fire_handler/fire_stacks)
 	stack_modifier = -1
+
+/datum/status_effect/fire_handler/wet_stacks/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_IS_WET,  TRAIT_STATUS_EFFECT(id))
+	owner.add_shared_particles(/particles/droplets)
+
+/datum/status_effect/fire_handler/wet_stacks/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_IS_WET, TRAIT_STATUS_EFFECT(id))
+	owner.remove_shared_particles(/particles/droplets)
 
 /datum/status_effect/fire_handler/wet_stacks/get_examine_text()
 	return "[owner.p_They()] look[owner.p_s()] a little soaked."

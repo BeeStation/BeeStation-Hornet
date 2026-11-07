@@ -118,7 +118,7 @@
 	sections += generate_section(holoparasite, "Weapon: [stats.weapon.name]", stats.weapon.ui_icon, stats.weapon.desc, "section-weapon")
 	if(stats.ability)
 		sections += generate_section(holoparasite, "Ability: [stats.ability.name]", stats.ability.ui_icon, stats.ability.desc, "section-ability")
-	for(var/datum/holoparasite_ability/lesser/ability as() in stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/ability as anything in stats.lesser_abilities)
 		sections += generate_section(holoparasite, "Lesser Ability: [ability.name]", ability.ui_icon, ability.desc, "section-lesser-ability")
 	return {"
 		<div class="holopara-info-container">

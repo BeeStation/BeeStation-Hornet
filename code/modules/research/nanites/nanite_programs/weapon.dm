@@ -28,7 +28,7 @@
 		to_chat(host_mob, span_warning("You feel nauseous."))
 		if(iscarbon(host_mob))
 			var/mob/living/carbon/C = host_mob
-			C.vomit(20)
+			C.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 /datum/nanite_program/memory_leak
 	name = "Memory Leak"
@@ -89,9 +89,9 @@
 /datum/nanite_program/explosive/proc/boom()
 	var/nanite_amount = nanites.nanite_volume
 	var/max_nanites = nanites.max_nanites
-	var/dev_range = FLOOR(nanite_amount/(max_nanites * 0.4), 1) - 1
-	var/heavy_range = FLOOR(nanite_amount/(max_nanites * 0.2), 1) - 1
-	var/light_range = FLOOR(nanite_amount/(max_nanites * 0.1), 1) - 1
+	var/dev_range = floor(nanite_amount/(max_nanites * 0.4)) - 1
+	var/heavy_range = floor(nanite_amount/(max_nanites * 0.2)) - 1
+	var/light_range = floor(nanite_amount/(max_nanites * 0.1)) - 1
 	explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 

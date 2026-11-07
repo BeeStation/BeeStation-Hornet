@@ -20,11 +20,9 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
 	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
-/obj/structure/destructible/clockwork/wall_gear/emp_act(severity)
-	return
-
-/obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
+/obj/structure/destructible/clockwork/wall_gear/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		default_unfasten_wrench(user, I, 10)
 		return 1
@@ -59,9 +57,9 @@
 				brass_floor = TRUE
 			if(W.use(2 - brass_floor))
 				if(anchored)
-					T.PlaceOnTop(/turf/closed/wall/clockwork)
+					T.place_on_top(/turf/closed/wall/clockwork)
 				else
-					T.PlaceOnTop(/turf/open/floor/clockwork, flags = CHANGETURF_INHERIT_AIR)
+					T.place_on_top(/turf/open/floor/clockwork, flags = CHANGETURF_INHERIT_AIR)
 					new /obj/structure/falsewall/brass(T)
 				qdel(src)
 			else

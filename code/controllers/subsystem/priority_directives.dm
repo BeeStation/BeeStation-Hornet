@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(directives)
 	// Bring on the mission
 	var/list/valid_directives = list()
 	for (var/datum/priority_directive/directive as anything in directive_types)
-		if (!directive:shared)
+		if (!directive::shared)
 			continue
 		var/datum/priority_directive/instance = new directive
 		if (!instance.can_run(filtered_uplinks, player_minds))

@@ -109,20 +109,20 @@
 	W.update_appearance()
 	return W
 
-/turf/open/floor/attackby(obj/item/object, mob/living/user, params)
+/turf/open/floor/attackby(obj/item/object, mob/living/user, list/modifiers)
 	if(!object || !user)
 		return TRUE
 	if(..())
 		return 1
 	if(overfloor_placed && istype(object, /obj/item/stack/tile))
-		try_replace_tile(object, user, params)
+		try_replace_tile(object, user, modifiers)
 	return FALSE
 
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)
 	if(overfloor_placed && pry_tile(I, user))
 		return TRUE
 
-/turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, list/modifiers)
 	if(T.turf_type == type && T.turf_dir == dir)
 		return
 	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
@@ -131,7 +131,7 @@
 	var/turf/open/floor/plating/P = pry_tile(CB, user, TRUE)
 	if(!istype(P))
 		return
-	P.attackby(T, user, params)
+	P.attackby(T, user, modifiers)
 
 /turf/open/floor/proc/pry_tile(obj/item/I, mob/user, silent = FALSE)
 	I.play_tool_sound(src, 80)
@@ -234,7 +234,7 @@
 			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
 			if(overlapping_lattice)
 				qdel(overlapping_lattice) // Don't need lattice burried under the wall, or in the case of catwalk - on top of it.
-			PlaceOnTop(/turf/closed/wall)
+			place_on_top(/turf/closed/wall)
 			return TRUE
 		if(RCD_LADDER)
 			to_chat(user, span_notice("You build a ladder."))

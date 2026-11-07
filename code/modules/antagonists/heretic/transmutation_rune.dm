@@ -77,6 +77,10 @@
 	for(var/atom/close_atom as anything in range(1, src))
 		if(!ismovable(close_atom))
 			continue
+		if(isitem(close_atom))
+			var/obj/item/close_item = close_atom
+			if(close_item.item_flags & ABSTRACT) //woops sacrificed your own head
+				continue
 		if(close_atom.invisibility)
 			continue
 		if(close_atom == user)
@@ -144,7 +148,7 @@
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
-	flick("[icon_state]_active", src)
+	z_flick("[icon_state]_active", src)
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// - We temporarily make all of our chosen atoms invisible, as some rituals may sleep,

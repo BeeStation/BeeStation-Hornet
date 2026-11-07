@@ -29,8 +29,8 @@
 	desc = "For those departed who are not so dear."
 	icon_state = "blackcoffin"
 	icon = 'icons/vampires/vamp_obj.dmi'
-	open_sound = 'sound/vampires/coffin_open.ogg'
-	close_sound = 'sound/vampires/coffin_close.ogg'
+	open_sound = 'sound/effects/antag/vampire/coffin_open.ogg'
+	close_sound = 'sound/effects/antag/vampire/coffin_close.ogg'
 	breakout_time = 30 SECONDS
 	pry_lid_timer = 20 SECONDS
 	resistance_flags = NONE
@@ -52,8 +52,8 @@
 	desc = "For those too scared of having their place of rest disturbed."
 	icon_state = "securecoffin"
 	icon = 'icons/vampires/vamp_obj.dmi'
-	open_sound = 'sound/vampires/coffin_open.ogg'
-	close_sound = 'sound/vampires/coffin_close.ogg'
+	open_sound = 'sound/effects/antag/vampire/coffin_open.ogg'
+	close_sound = 'sound/effects/antag/vampire/coffin_close.ogg'
 	breakout_time = 35 SECONDS
 	pry_lid_timer = 35 SECONDS
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
@@ -213,7 +213,7 @@
 		vampire.check_begin_torpor()
 
 /// You cannot weld or deconstruct an owned coffin. Only the owner can destroy their own coffin.
-/obj/structure/closet/crate/coffin/attackby(obj/item/item, mob/user, params)
+/obj/structure/closet/crate/coffin/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!resident)
 		return ..()
 	if(user != resident)
@@ -226,7 +226,7 @@
 		return
 
 	if(locked && item.tool_behaviour == TOOL_CROWBAR)
-		var/pry_time = pry_lid_timer * item.toolspeed // Pry speed must be affected by the speed of the tool.
+		var/pry_time = pry_lid_timer * item.get_toolspeed(user) // Pry speed must be affected by the speed of the tool.
 		user.visible_message(
 			span_notice("[user] tries to pry the lid off of [src] with [item]."),
 			span_notice("You begin prying the lid off of [src] with [item]. This should take about [DisplayTimeText(pry_time)]."),

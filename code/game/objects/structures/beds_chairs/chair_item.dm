@@ -33,19 +33,32 @@
 	plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
-	for(var/obj/A in get_turf(loc))
-		if(istype(A, /obj/structure/chair))
-			to_chat(user, span_danger("There is already a chair here."))
+	var/turf/turf = user.loc
+	if(!istype(turf) || isgroundlessturf(turf))
+		to_chat(user, span_warning("You need ground to plant this on!"))
+		return
+	if(!user.dropItemToGround(src))
+		to_chat(user, span_warning("[src] is stuck to your hand!"))
+		return
+	if(flags_1 & HOLOGRAM_1)
+		to_chat(user, span_notice("You try to place down \the [src], but it fades away!"))
+		qdel(src)
+		return
+
+	for(var/obj/object in turf)
+		if(istype(object, /obj/structure/chair))
+			to_chat(user, span_warning("There is already a chair here!"))
 			return
-		if(A.density && !(A.flags_1 & ON_BORDER_1))
-			to_chat(user, span_danger("There is already something here."))
+		if(object.density && !(object.flags_1 & ON_BORDER_1))
+			to_chat(user, span_warning("There is already something here!"))
 			return
 
 	user.visible_message(span_notice("[user] rights \the [src.name]."), span_notice("You right \the [name]."))
-	var/obj/structure/chair/C = new origin_type(get_turf(loc))
-	C.set_custom_materials(custom_materials)
-	TransferComponents(C)
-	C.setDir(dir)
+	var/obj/structure/chair/chair = new origin_type(turf)
+	chair.set_custom_materials(custom_materials)
+	TransferComponents(chair)
+	chair.setDir(user.dir)
+	chair.update_integrity(get_integrity())
 	qdel(src)
 
 /obj/item/chair/proc/smash(mob/living/user)

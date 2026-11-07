@@ -112,7 +112,7 @@
 /turf/closed/wall/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return
 
-/turf/closed/wall/clockwork/attack_hulk(mob/user, does_attack_animation)
+/turf/closed/wall/clockwork/attack_hulk(mob/user)
 	if(prob(10))
 		return ..()
 	to_chat(user, span_warning("Your fists barely dent [src]. You need to try HARDER!"))
@@ -196,7 +196,7 @@
 	for(var/obj/structure/lattice/L in src)
 		L.ratvar_act()
 
-/turf/open/floor/clockwork/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/clockwork/try_replace_tile(obj/item/stack/tile/T, mob/user, list/modifiers)
 	return
 
 /turf/open/floor/clockwork/crowbar_act(mob/living/user, obj/item/I)
@@ -342,7 +342,7 @@
 	hackProof = TRUE
 	aiControlDisabled = 1
 	req_access = list(ACCESS_CLOCKCULT)
-	use_power = FALSE
+	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	damage_deflection = 30
 	normal_integrity = 240
@@ -370,6 +370,9 @@
 	. += gear_text
 
 /obj/machinery/door/airlock/clockwork/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(prob(80/severity))
 		open()
 
@@ -384,7 +387,7 @@
 /obj/machinery/door/airlock/clockwork/ratvar_act()
 	return 0
 
-/obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(!attempt_construction(I, user))
 		return ..()
 

@@ -68,7 +68,7 @@
 	if(active_timer)
 		return
 
-	try_apply_effects(target_atom)
+	INVOKE_ASYNC(src, PROC_REF(try_apply_effects), target_atom)
 
 /**
  * An atom has moved off the sigil

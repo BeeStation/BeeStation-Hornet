@@ -1,6 +1,6 @@
 //From NSV13
 //Credit to oraclestation for the idea! This just a recode...
-// Recode CanAllowThrough() at some point, it won't allow ridden vehicles
+// Recode CanAllowThrough() at some point, it won't allow ridden vehicles //no
 
 /obj/machinery/turnstile
 	name = "turnstile"
@@ -41,7 +41,7 @@
 	build_path = /obj/machinery/turnstile
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/micro_laser = 2,
+		/datum/stock_part/micro_laser = 2,
 		/obj/item/stack/ore/bluespace_crystal = 1,
 		/obj/item/stack/rods = 12
 	)
@@ -72,7 +72,7 @@
 	var/registered_name = null
 	var/assigned_id = null
 
-/obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/I = W
 		if(broken)
@@ -161,13 +161,13 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 	if(!istype(arrived, /mob))
 		return
-	flick("operate", src)
+	z_flick("operate", src)
 	playsound(src,'sound/items/ratchet.ogg',50,0,3)
 	if(arrived.pulledby) // don't do anything else for prisoners that are being escorted.
 		return
@@ -193,7 +193,7 @@
 	if(!ismob(movable)) //Try to mimmick how airlocks act when bumped by items and the likes. Except when pulled (for crates and beds etc.)
 		if(movable.pulledby)
 			return
-		flick("deny", src)
+		z_flick("deny", src)
 		playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 		return
 	if(machine_stat & BROKEN) //try to shock mobs if we're broken
@@ -201,11 +201,11 @@
 		return
 	//pretend to be an airlock if a mob bumps us
 	//(which means they tried to move through but didn't have access)
-	flick("deny", src)
+	z_flick("deny", src)
 	playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 
 ///Shock attacker if we're broken
-/obj/machinery/turnstile/attackby(obj/item/I, mob/user, params)
+/obj/machinery/turnstile/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", I))
 		update_appearance()//add proper panel icons
 		state = TURNSTILE_CIRCUIT_EXPOSED
@@ -285,9 +285,13 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	// Let everything through in 1 direction
+
+	// Nerds get to go one way
 	if(mover.dir == dir)
-		return TRUE
+		// But only if they're actually facing the turnstile
+		if(is_source_facing_target(mover, src))
+			return TRUE
+
 	// Call the default allowed functionality, handles:
 	// - Mobs with security access
 	// - Mobs with security access that are buckled to a vehicle
@@ -416,7 +420,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	crime_list = list()
 	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
 	message_admins(span_boldannounce("Failed to read the space_law config file! Defaulting to hardcoded datums.")) //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+	for (var/datum/crime/crime_path as anything in subtypesof(/datum/crime))
 		// Ignore this crime, it is abstract
 		if (isnull(initial(crime_path.name)))
 			continue

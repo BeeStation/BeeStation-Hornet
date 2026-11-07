@@ -85,6 +85,11 @@
 	if(traits && !islist(traits))
 		traits = list(traits)
 
+/datum/mutation/Destroy()
+	dna = null
+	owner = null
+	return ..()
+
 /datum/mutation/proc/on_acquiring(mob/living/carbon/human/acquirer)
 	if(!istype(acquirer) || acquirer.stat == DEAD || !acquirer.has_dna() || (src in acquirer.dna.mutations))
 		return TRUE
@@ -102,6 +107,7 @@
 	owner = acquirer
 	dna = acquirer.dna
 	dna.mutations += src
+	SEND_SIGNAL(src, COMSIG_MUTATION_GAINED, acquirer)
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		for (var/mutable_appearance/ma in mut_overlay)
@@ -130,6 +136,7 @@
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
 	if(!istype(owner) || !(owner.dna.mutations.Remove(src)))
 		return TRUE
+	SEND_SIGNAL(src, COMSIG_MUTATION_LOST, owner)
 	. = FALSE
 	if(length(visual_indicators))
 		var/list/mut_overlay = list()
@@ -144,6 +151,7 @@
 	// so deleting ourself will also delete it and remove it
 	// ...Why don't all mutations delete on loss? Not sure.
 		qdel(src)
+	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	REMOVE_TRAITS_IN(owner, "[type]")
 
 /mob/living/carbon/proc/update_mutations_overlay()

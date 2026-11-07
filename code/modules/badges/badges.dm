@@ -26,12 +26,12 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Load and parse data
 	GLOB.badge_data = json_decode(rustg_file_read("[global.config.directory]/badges.json"))
 	//Associate badges with admin ranks
-	for(var/datum/admin_rank/rank as() in GLOB.admin_ranks)
+	for(var/datum/admin_rank/rank as anything in GLOB.admin_ranks)
 		rank.badge_icon = GLOB.badge_data[rank.name]
 	//Yay
 	log_game("[LAZYLEN(GLOB.badge_data)] badges loaded successfully.")
 	//Reset everyones badges so they get reloaded.
-	for(var/client/C as() in GLOB.clients)
+	for(var/client/C as anything in GLOB.clients)
 		C.reset_badges()
 
 //Gets the badges attached to a client.

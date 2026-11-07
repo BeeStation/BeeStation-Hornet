@@ -1,7 +1,11 @@
-#define TRANSFORMATION_DURATION 22
+#define TRANSFORMATION_DURATION (2.2 SECONDS)
+/// Considered "temporary" as we'll be removing the trait once the transformation is complete
+#define TEMPORARY_TRANSFORMATION_TRAIT "temporary_transformation"
+/// Considered "permanent" since we'll be deleting the old mob and the client will be inserted into a new one (without this trait)
+#define PERMANENT_TRANSFORMATION_TRAIT "permanent_transformation"
 
 /mob/living/carbon/proc/monkeyize(instant = FALSE)
-	if (notransform || transformation_timer)
+	if (transformation_timer || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(ismonkey(src))
@@ -12,7 +16,7 @@
 		return
 
 	//Make mob invisible and spawn animation
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	Stun(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
@@ -25,7 +29,7 @@
 
 /mob/living/carbon/proc/finish_monkeyize()
 	transformation_timer = null
-	notransform = FALSE
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	icon = initial(icon)
 	invisibility = 0
 	set_species(/datum/species/monkey)
@@ -41,7 +45,7 @@
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
 /mob/living/carbon/proc/humanize(species = /datum/species/human, instant = FALSE)
-	if (notransform || transformation_timer)
+	if (transformation_timer || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(!ismonkey(src))
@@ -52,7 +56,7 @@
 		return
 
 	//Make mob invisible and spawn animation
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	Stun(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
@@ -64,7 +68,7 @@
 
 /mob/living/carbon/proc/finish_humanize(species = /datum/species/human)
 	transformation_timer = null
-	notransform = FALSE
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	icon = initial(icon)
 	invisibility = 0
 	set_species(species)
@@ -76,15 +80,13 @@
 
 //A common proc to start an -ize transformation
 /mob/living/carbon/proc/pre_transform(delete_items = FALSE)
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return TRUE
-	notransform = TRUE
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_GENERIC)
+	add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), PERMANENT_TRANSFORMATION_TRAIT)
 	Paralyze(1, ignore_canstun = TRUE)
 
 	if(delete_items)
-		for(var/obj/item/W in get_equipped_items(INCLUDE_POCKETS) | held_items)
+		for(var/obj/item/W in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			qdel(W)
 	else
 		unequip_everything()
@@ -93,14 +95,14 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 /mob/living/carbon/proc/teratomize()
-	if (notransform || transformation_timer)
+	if (transformation_timer || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(isteratoma(src))
 		return
 
 	//Make mob invisible and spawn animation
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	Stun(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
@@ -113,7 +115,7 @@
 /mob/living/carbon/proc/finish_teratomize()
 	transformation_timer = null
 	to_chat(src, "<B>You are now a disgusting little cancer baby.</B>")
-	notransform = FALSE
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	icon = initial(icon)
 	invisibility = 0
 	set_species(/datum/species/monkey/teratoma)
@@ -179,7 +181,7 @@
 	if(R.mmi)
 		R.mmi.transfer_identity(src)
 
-	R.notify_ai(NEW_BORG)
+	R.notify_ai(AI_NOTIFICATION_NEW_BORG)
 
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
@@ -282,21 +284,6 @@
 	. = new_gorilla
 	qdel(src)
 
-/mob/living/carbon/proc/junglegorillize()
-	if(pre_transform())
-		return
-	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
-	new_gorilla.set_combat_mode(TRUE)
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(new_gorilla)
-	if(mind)
-		mind.transfer_to(new_gorilla)
-	else
-		new_gorilla.key = key
-	to_chat(new_gorilla, "<B>You are now a gorilla. Ooga ooga!</B>")
-	. = new_gorilla
-	qdel(src)
-
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
@@ -338,4 +325,6 @@
 	. = new_mob
 	qdel(src)
 
+#undef PERMANENT_TRANSFORMATION_TRAIT
+#undef TEMPORARY_TRANSFORMATION_TRAIT
 #undef TRANSFORMATION_DURATION

@@ -76,12 +76,11 @@
 	#define COMPONENT_CANT_TRACK 1
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
-/// from /mob/living/*/UnarmedAttack(), before sending [COMSIG_LIVING_UNARMED_ATTACK]: (mob/living/source, atom/target, proximity, modifiers)
+/// from /mob/living/UnarmedAttack(), before sending [COMSIG_LIVING_UNARMED_ATTACK]: (mob/living/source, atom/target, proximity, list/modifiers)
 /// The only reason this exists is so hulk can fire before Fists of the North Star.
 /// Note that this is called before [/mob/living/proc/can_unarmed_attack] is called, so be wary of that.
 #define COMSIG_LIVING_EARLY_UNARMED_ATTACK "human_pre_attack_hand"
-/// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
-///(NOT on humans) from mob/living/*/UnarmedAttack(): (atom/target, proximity, modifiers)
+/// from mob/living/UnarmedAttack(): (mob/living/source, atom/target, proximity, list/modifiers)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
@@ -98,7 +97,9 @@
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
-	#define COMPONENT_NO_STUN (1<<0)		//For all of them
+/// from mob/living/check_stun_immunity(): (check_flags)
+#define COMSIG_LIVING_GENERIC_STUN_CHECK "living_check_stun"
+	#define COMPONENT_NO_STUN (1<<0) //For all of them
 ///from end of fully_heal(): (heal_flags)
 #define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
 ///from /obj/item/hand_item/attack(): (source=mob/living/attacker, mob/living/attacked)
@@ -107,14 +108,18 @@
 ///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
 #define COMSIG_LIVING_SLAPPED "living_slapped"
 
-#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
+///from base of mob/living/Stagger() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"
 
-#define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
-#define COMSIG_LIVING_EXIT_STASIS	"living_exit_stasis"		//! sent when a mob exits stasis.
+#define COMSIG_LIVING_ENTER_STASIS "living_enter_stasis" //! sent when a mob is put into stasis.
+#define COMSIG_LIVING_EXIT_STASIS "living_exit_stasis" //! sent when a mob exits stasis.
 
 // basic mob signals
 /// Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
+
+///from base of mob/living/update_transform()
+#define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
 
 /// from /datum/status_effect/incapacitating/stamcrit/on_apply()
 #define COMSIG_LIVING_ENTER_STAMCRIT "living_enter_stamcrit"
@@ -185,6 +190,9 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+
+/// From /mob/living/update_offsets(animate) : (new_x, new_y, new_w, new_z, animate)
+#define COMSIG_LIVING_UPDATE_OFFSETS "living_update_offsets"
 
 ///from mob/living/befriend()
 #define COMSIG_LIVING_MADE_NEW_FRIEND "made_new_friend"

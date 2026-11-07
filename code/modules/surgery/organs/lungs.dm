@@ -16,8 +16,10 @@
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY
 
+	low_threshold_passed = span_warning("You feel short of breath.")
 	high_threshold_passed = span_warning("You feel some sort of constriction around your chest as your breathing becomes shallow and rapid.")
 	now_fixed = span_warning("Your lungs seem to once again be able to hold air.")
+	low_threshold_cleared = span_info("You can breathe normally again.")
 	high_threshold_cleared = span_info("The constriction around your chest loosens as your breathing calms down.")
 
 
@@ -94,7 +96,7 @@
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
 	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		H.failed_last_breath = FALSE //clear oxy issues
-		H.clear_alert("not_enough_oxy")
+		H.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return
@@ -114,23 +116,19 @@
 			var/datum/breathing_class/class = GLOB.breathing_class_info[breathing_class]
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
-		else
-			var/list/alert = GLOB.meta_gas_info[breathing_class][META_GAS_BREATH_ALERT_INFO]?["not_enough_alert"]
-			if(alert)
-				alert_category = alert["alert_category"]
-				alert_type = alert["alert_type"]
 		if(alert_category)
 			H.throw_alert(alert_category, alert_type)
 		return FALSE
 
 	#define PP_MOLES(X) ((X / total_moles) * pressure)
 
-	#define PP(air, gas) PP_MOLES(GET_MOLES(gas, air))
+	#define PP(air, gas) PP_MOLES(air.moles[gas])
 
 	var/gas_breathed = 0
 
 	var/pressure = breath.return_pressure()
 	var/total_moles = breath.total_moles()
+	var/list/cached_moles = breath.moles
 	var/list/breathing_classes = GLOB.breathing_class_info
 	var/list/mole_adjustments = list()
 	for(var/entry in gas_min)
@@ -146,9 +144,9 @@
 			alert_category = class.low_alert_category
 			alert_type = class.low_alert_datum
 			for(var/gas in gases)
-				if (!(gas in breath.gases))
+				if (!(gas in cached_moles))
 					continue
-				var/moles = breath.gases[gas][MOLES]
+				var/moles = cached_moles[gas]
 				var/multiplier = gases[gas]
 				mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - moles : -moles
 				required_pp += PP_MOLES(moles) * multiplier
@@ -158,14 +156,9 @@
 					for(var/product in products)
 						mole_adjustments[product] = (product in mole_adjustments) ? mole_adjustments[product] + to_add : to_add
 		else
-			required_moles = GET_MOLES(entry, breath)
+			required_moles = cached_moles[entry]
 			required_pp = PP_MOLES(required_moles)
-			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["not_enough_alert"]
-			if(alert)
-				alert_category = alert["alert_category"]
-				alert_type = alert["alert_type"]
 			mole_adjustments[entry] = -required_moles
-			mole_adjustments[GLOB.meta_gas_info[entry][META_GAS_BREATH_RESULTS]] = required_moles
 		if(required_pp < safe_min)
 			var/multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles)
 			if(required_moles > 0)
@@ -192,11 +185,6 @@
 			danger_reagent = breathing_class.danger_reagent
 			found_pp = breathing_class.get_effective_pp(breath)
 		else
-			danger_reagent = GLOB.meta_gas_info[entry][META_GAS_BREATH_REAGENT_DANGEROUS]
-			var/list/alert = GLOB.meta_gas_info[entry][META_GAS_BREATH_ALERT_INFO]?["too_much_alert"]
-			if(alert)
-				alert_category = alert["alert_category"]
-				alert_type = alert["alert_type"]
 			found_pp = PP(breath, entry)
 		if(found_pp > gas_max[entry])
 			if(danger_reagent && istype(danger_reagent))
@@ -204,36 +192,31 @@
 			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
 			H.apply_damage(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"], spread_damage = TRUE)
-			if(alert_category && alert_type)
+			if(alert_category)
 				H.throw_alert(alert_category, alert_type)
-		else if(alert_category)
-			H.clear_alert(alert_category)
-	for(var/gas in breath.gases)
-		var/datum/reagent/R = GLOB.meta_gas_info[gas][META_GAS_BREATH_REAGENT]
-		if(R)
-			//H.reagents.add_reagent(R, breath.gases[gas][MOLES] * R.molarity) // See next line
-			H.reagents.add_reagent(R, breath.gases[gas][MOLES] * 2) // 2 represents molarity of O2, we don't have citadel molarity
-			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.gases[gas][MOLES] : -breath.gases[gas][MOLES]
+		else
+			if(alert_category)
+				H.clear_alert(alert_category)
 
-	for(var/gas in mole_adjustments)
-		ADJUST_MOLES(gas, breath, mole_adjustments[gas])
+	for(var/gas_type, gas_amount in mole_adjustments)
+		cached_moles[gas_type] += gas_amount
+	breath.garbage_collect()
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 
 	// N2O
-
 		var/SA_pp = PP(breath, /datum/gas/nitrous_oxide)
 		if(SA_pp > SA_para_min) // Enough to make us stunned for a bit
-			H.Unconscious(60) // 60 gives them one second to wake up and run away a bit!
-			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-				H.Sleeping(max(H.AmountSleeping() + 40, 200))
-		else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
+			if(!HAS_TRAIT(H, TRAIT_SLEEPIMMUNE))
+				H.Unconscious(6 SECONDS) // 60 gives them one second to wake up and run away a bit!
+				if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
+					H.Sleeping(max(H.AmountSleeping() + 40, 200))
+		else if(SA_pp > 0.01) // There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))
 				SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "chemical_euphoria", /datum/mood_event/chemical_euphoria)
 		else
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
-
 	// BZ
 
 		var/bz_pp = PP(breath, /datum/gas/bz)
@@ -261,7 +244,7 @@
 			H.reagents.add_reagent(/datum/reagent/nitrosyl_plasmide, max(0, 4 - existing))
 			H.reagents.add_reagent(/datum/reagent/nitrium, 2) //Triggers overdose message primarily, so players aren't stuck in extreme slowdown for too long.
 
-		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
+		breath.adjust_gas(/datum/gas/nitrium, -gas_breathed)
 
 		handle_breath_temperature(breath, H)
 
@@ -314,22 +297,44 @@
 	breath.temperature = H.bodytemperature
 
 /obj/item/organ/lungs/on_life(delta_time, times_fired)
-	..()
-	if((!failed) && ((organ_flags & ORGAN_FAILING)))
-		if(owner.stat == CONSCIOUS)
-			owner.visible_message(span_userdanger("[owner] grabs [owner.p_their()] throat, struggling for breath!"))
-		failed = TRUE
-	else if(!(organ_flags & ORGAN_FAILING))
+	. = ..()
+	if(failed && !(organ_flags & ORGAN_FAILING))
 		failed = FALSE
-	return
+		return
+	if(damage >= low_threshold)
+		var/do_i_cough = DT_PROB((damage < high_threshold) ? 2.5 : 5, delta_time) // between : past high
+		if(do_i_cough)
+			owner.emote("cough")
+	if(organ_flags & ORGAN_FAILING && owner.stat == CONSCIOUS)
+		owner.visible_message(span_danger("[owner] grabs [owner.p_their()] throat, struggling for breath!"), span_userdanger("You suddenly feel like you can't breathe!"))
+		failed = TRUE
 
 /obj/item/organ/lungs/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantlungs
+
+/obj/item/organ/lungs/feel_for_damage(self_aware)
+	if(organ_flags & ORGAN_FAILING)
+		if(self_aware)
+			return span_boldwarning("Your lungs hurt madly[HAS_TRAIT(owner, TRAIT_NOBREATH) ? "" : ", and you can't breathe"]!")
+		return span_boldwarning("It hurts madly[HAS_TRAIT(owner, TRAIT_NOBREATH) ? "" : ", and you can't breathe"]!")
+	if(damage < low_threshold)
+		return ""
+	if(damage < high_threshold)
+		if(self_aware)
+			return span_warning("Your lungs feel tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and breathing is harder"].")
+		return span_warning("It feels tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and breathing is harder"].")
+	if(self_aware)
+		return span_boldwarning("Your lungs feel extremely tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and every breath is a struggle"].")
+	return span_boldwarning("It feels extremely tight[HAS_TRAIT(owner, TRAIT_NOBREATH) ?  "" : ", and every breath is a struggle"].")
+
+#define SMOKER_ORGAN_HEALTH (STANDARD_ORGAN_THRESHOLD * 0.75)
+#define SMOKER_LUNG_HEALING (STANDARD_ORGAN_HEALING * 0.75)
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
+	organ_traits = list(TRAIT_NOHUNGER) // A fresh breakfast of plasma is a great start to any morning.
 
 	breathing_class = BREATH_PLASMA
 
@@ -337,9 +342,25 @@
 	..()
 	gas_max -= /datum/breathing_class/plasma
 
+/obj/item/organ/lungs/plasmaman/plasmaman_smoker
+	name = "smoker plasma filter"
+	desc = "A plasma filter that look discolored, a result from smoking a lot."
+	icon_state = "lungs_plasma_smoker"
+
+	maxHealth = SMOKER_ORGAN_HEALTH
+	healing_factor = SMOKER_LUNG_HEALING
+
 /obj/item/organ/lungs/slime
 	name = "vacuole"
 	desc = "A large organelle designed to store oxygen and filter toxins."
+
+/obj/item/organ/lungs/smoker_lungs
+	name = "smoker lungs"
+	desc = "A pair of lungs that look sickly, a result from smoking a lot."
+	icon_state = "lungs_smoker"
+
+	maxHealth = SMOKER_ORGAN_HEALTH
+	healing_factor = SMOKER_LUNG_HEALING
 
 /obj/item/organ/lungs/cybernetic
 	name = "cybernetic lungs"
@@ -350,13 +371,7 @@
 	safe_breath_min = 13
 	safe_breath_max = 100
 
-/obj/item/organ/lungs/cybernetic/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(30/severity))
-		owner.losebreath += 10
-
+	var/emp_vulnerability = 60
 
 /obj/item/organ/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
@@ -373,6 +388,18 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+	emp_vulnerability = 40
+
+/obj/item/organ/lungs/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!COOLDOWN_FINISHED(src, emp_cooldown)) //To fight against two emp guns
+		owner.losebreath += 10
+		COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+	if(prob(emp_vulnerability/severity))
+		organ_flags |= ORGAN_EMP
 
 /obj/item/organ/lungs/apid
 	name = "apid lungs"
@@ -406,3 +433,5 @@
 
 #undef BREATH_OXY
 #undef BREATH_PLASMA
+#undef SMOKER_ORGAN_HEALTH
+#undef SMOKER_LUNG_HEALING

@@ -49,7 +49,7 @@
 		var/potion_string = span_info("\tThe " + initial(trap.name) + " - " + initial(trap.carver_tip) + "")
 		. += potion_string
 
-/obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/rune_carver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers)
 	. = ..()
 	if(!proximity_flag)
 		return
@@ -244,6 +244,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 	carbon_victim.adjust_stutter(1 MINUTES)
 	carbon_victim.set_jitter_if_lower(20 SECONDS)
 	carbon_victim.set_dizzy_if_lower(40 SECONDS)
-	carbon_victim.adjust_blindness(2)
+	carbon_victim.adjust_temp_blindness(4 SECONDS)
 	SEND_SIGNAL(carbon_victim, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

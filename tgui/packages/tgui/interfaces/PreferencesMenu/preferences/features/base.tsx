@@ -1,16 +1,29 @@
-import { sortBy } from 'common/collections';
-import { BooleanLike } from 'common/react';
-import { ComponentType, createElement, ReactNode, useState } from 'react';
-import { Dropdown } from 'tgui-core/components';
+import { sortBy } from 'es-toolkit';
+import {
+  type ComponentType,
+  createElement,
+  type ReactNode,
+  useState,
+} from 'react';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Input,
+  NumberInput,
+  Slider,
+  Stack,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
-import { sendAct, useBackend } from '../../../../backend';
-import { Box, Button, Input, NumberInput, Stack } from '../../../../components';
-import { createSetPreference, PreferencesMenuData } from '../../data';
+import { sendAct } from '../../../../backend';
+import { createSetPreference } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
 
-export const sortChoices = (array: [string, ReactNode][]) =>
-  sortBy(array, ([name]) => name);
+export function sortChoices(array: [string, ReactNode][]) {
+  return sortBy(array, [([name]) => name]);
+}
 
 export type Feature<
   TReceiving,
@@ -53,7 +66,7 @@ export type FeatureValueProps<
   value?: TReceiving;
 }>;
 
-export const FeatureColorInput = (props: FeatureValueProps<string>) => {
+export function FeatureColorInput(props: FeatureValueProps<string>) {
   return (
     <Button
       tooltip={features[props.featureId].name}
@@ -87,45 +100,49 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
       </Stack>
     </Button>
   );
-};
+}
 
 export type FeatureToggle = Feature<BooleanLike, boolean>;
 
-export const TextInput = (props: FeatureValueProps<string, string>) => {
+export function TextInput(props: FeatureValueProps<string, string>) {
+  const { handleSetValue, value } = props;
+
   return (
     <Input
-      value={props.value}
-      onInput={(_, newValue) => props.handleSetValue(newValue)}
+      value={value}
+      onChange={(e, newValue) => handleSetValue(newValue)}
       width="100%"
     />
   );
-};
+}
 
-export const CheckboxInput = (
-  props: FeatureValueProps<BooleanLike, boolean>,
-) => {
+export function CheckboxInput(props: FeatureValueProps<BooleanLike, boolean>) {
+  const { handleSetValue, value } = props;
+
   return (
     <Button.Checkbox
-      checked={!!props.value}
+      checked={!!value}
       onClick={() => {
-        props.handleSetValue(!props.value);
+        handleSetValue(!value);
       }}
     />
   );
-};
+}
 
-export const CheckboxInputInverse = (
+export function CheckboxInputInverse(
   props: FeatureValueProps<BooleanLike, boolean>,
-) => {
+) {
+  const { handleSetValue, value } = props;
+
   return (
     <Button.Checkbox
-      checked={!props.value}
+      checked={!value}
       onClick={() => {
-        props.handleSetValue(!props.value);
+        handleSetValue(!value);
       }}
     />
   );
-};
+}
 
 export function createDropdownInput<T extends string | number = string>(
   // Map of value to display texts
@@ -133,10 +150,12 @@ export function createDropdownInput<T extends string | number = string>(
   dropdownProps?: Record<T, unknown>,
 ): FeatureValue<T> {
   return (props: FeatureValueProps<T>) => {
+    const { handleSetValue, value } = props;
+
     return (
       <Dropdown
-        selected={choices[props.value] as string}
-        onSelected={props.handleSetValue}
+        selected={choices[value] as string}
+        onSelected={handleSetValue}
         width="100%"
         options={sortChoices(Object.entries(choices)).map(
           ([dataValue, label]) => {
@@ -169,36 +188,58 @@ export type FeatureNumericData = {
 
 export type FeatureNumeric = Feature<number, number, FeatureNumericData>;
 
-export const FeatureNumberInput = (
+export function FeatureNumberInput(
   props: FeatureValueProps<number, number, FeatureNumericData>,
-) => {
-  if (!props.serverData) {
+) {
+  const { serverData, handleSetValue, value } = props;
+
+  if (!serverData) {
     return <Box>Loading...</Box>;
   }
 
   return (
     <NumberInput
-      onChange={(value) => {
-        props.handleSetValue(value);
-      }}
-      minValue={props.serverData.minimum}
-      maxValue={props.serverData.maximum}
-      step={props.serverData.step}
-      value={props.value || props.serverData.minimum}
+      onChange={(value) => handleSetValue(value)}
+      minValue={serverData.minimum}
+      maxValue={serverData.maximum}
+      step={serverData.step}
+      value={value || serverData.minimum}
     />
   );
-};
+}
 
-export const FeatureValueInput = (props: {
+export function FeatureSliderInput(
+  props: FeatureValueProps<number, number, FeatureNumericData>,
+) {
+  const { serverData, handleSetValue, value = 0 } = props;
+
+  if (!serverData) {
+    return <Box>Loading...</Box>;
+  }
+
+  return (
+    <Slider
+      onChange={(e, value) => {
+        handleSetValue(value);
+      }}
+      disabled={!serverData}
+      minValue={serverData.minimum}
+      maxValue={serverData.maximum}
+      step={serverData.step}
+      value={value}
+      stepPixelSize={5}
+    />
+  );
+}
+
+export function FeatureValueInput(props: {
   feature: Feature<unknown>;
   featureId: string;
   shrink?: boolean;
   value: unknown;
 
   act: typeof sendAct;
-}) => {
-  const { data } = useBackend<PreferencesMenuData>();
-
+}) {
   const feature = props.feature;
 
   const [predictedValue, setPredictedValue] =
@@ -206,10 +247,10 @@ export const FeatureValueInput = (props: {
       ? useState(props.value)
       : [props.value, () => {}];
 
-  const changeValue = (newValue: unknown) => {
+  function changeValue(newValue: unknown) {
     setPredictedValue(newValue);
     createSetPreference(props.act, props.featureId)(newValue);
-  };
+  }
 
   return (
     <ServerPreferencesFetcher
@@ -226,4 +267,4 @@ export const FeatureValueInput = (props: {
       }}
     />
   );
-};
+}

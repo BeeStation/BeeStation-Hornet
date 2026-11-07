@@ -190,43 +190,43 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/getNonShuttleDirection(turf/targetTurf)
 	var/position = null
 	if(!(get_offset_target_turf(targetTurf, 0, 1) in loggedTurfs))
-		if(position != null)
+		if(!isnull(position))
 			return null
 		position = NORTH
 	if(!(get_offset_target_turf(targetTurf, 0, -1) in loggedTurfs))
-		if(position != null)
+		if(!isnull(position))
 			return null
 		position = SOUTH
 	if(!(get_offset_target_turf(targetTurf, 1, 0) in loggedTurfs))
-		if(position != null)
+		if(!isnull(position))
 			return null
 		position = EAST
 	if(!(get_offset_target_turf(targetTurf, -1, 0) in loggedTurfs))
-		if(position != null)
+		if(!isnull(position))
 			return null
 		position = WEST
 	return position
 
 /obj/item/shuttle_creator/proc/shuttle_create_docking_port(atom/target, mob/user)
-
 	if(!create_shuttle_area(user))
 		return FALSE
-	if(loggedTurfs.len == 0 || !recorded_shuttle_area)
+	if(!length(loggedTurfs) || !recorded_shuttle_area)
 		to_chat(user, span_warning("Invalid shuttle, restarting bluespace systems..."))
 		return FALSE
 
-	var/datum/map_template/shuttle/new_shuttle = new /datum/map_template/shuttle()
+	var/turf/target_turf = get_turf(target)
 
-	var/obj/docking_port/stationary/stationary_port = new /obj/docking_port/stationary(get_turf(target))
+	var/obj/docking_port/stationary/stationary_port = new(target_turf)
 	stationary_port.delete_after = TRUE
 	stationary_port.name = "[recorded_shuttle_area.name] Custom Shuttle construction site"
-	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile(get_turf(target))
+
+	var/obj/docking_port/mobile/port = new(target_turf)
 	port.shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle
-	port.callTime = 50
-	port.dir = 1	//Point away from space.
+	port.callTime = 5 SECONDS
+	port.dir = NORTH //Point away from space.
 	port.id = "custom_[GLOB.custom_shuttle_count]"
 	linkedShuttleId = port.id
-	port.ignitionTime = 25
+	port.ignitionTime = 2.5 SECONDS
 	port.port_direction = 2
 	port.preferred_direction = EAST
 	port.name = "[recorded_shuttle_area.name] Custom Shuttle"
@@ -236,8 +236,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/invertedDir = invertDir(portDirection)
 	if(!portDirection || !invertedDir)
 		to_chat(usr, span_warning("Shuttle creation aborted, docking airlock must be on an external wall. Please select a new airlock."))
-		port.Destroy()
-		stationary_port.Destroy()
+		qdel(port)
+		qdel(stationary_port)
 		linkedShuttleId = null
 		return FALSE
 	port.dir = invertedDir
@@ -246,8 +246,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	if(!calculate_bounds(port))
 		to_chat(usr, span_warning("Bluespace calculations failed, please select a new airlock."))
-		port.Destroy()
-		stationary_port.Destroy()
+		qdel(port)
+		qdel(stationary_port)
 		linkedShuttleId = null
 		return FALSE
 
@@ -258,6 +258,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		port.add_turf(T, recorded_shuttle_area)
 	recorded_shuttle_area.reg_in_areas_in_z()
 	recorded_shuttle_area.link_to_shuttle(port)
+
+	var/datum/map_template/shuttle/new_shuttle = new()
 	port.linkup(new_shuttle, stationary_port)
 
 	//Update doors
@@ -266,9 +268,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		if(!islist(oldArea.firedoors))
 			continue
 		firedoors |= oldArea.firedoors
-	for(var/door in firedoors)
-		var/obj/machinery/door/firedoor/FD = door
-		FD.calculate_affecting_areas()
+	for(var/obj/machinery/door/firedoor/firelock as anything in firedoors)
+		firelock.calculate_affecting_areas()
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	port.initiate_docking(stationary_port)
@@ -373,9 +374,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		if(!islist(oldArea.firedoors))
 			continue
 		firedoors |= oldArea.firedoors
-	for(var/door in firedoors)
-		var/obj/machinery/door/firedoor/FD = door
-		FD.calculate_affecting_areas()
+	for(var/obj/machinery/door/firedoor/firelock as anything in firedoors)
+		firelock.calculate_affecting_areas()
 
 	//Redraw highlights
 	reset_saved_area(FALSE)

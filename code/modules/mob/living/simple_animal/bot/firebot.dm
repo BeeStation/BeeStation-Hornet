@@ -7,7 +7,7 @@
 /mob/living/simple_animal/bot/firebot
 	name = "\improper Firebot"
 	desc = "A little fire extinguishing bot. He looks rather anxious."
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "firebot0"
 	density = FALSE
 	anchored = FALSE
@@ -43,7 +43,7 @@
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	update_icon()
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	var/datum/job/J = SSjob.get_job(JOB_NAME_STATIONENGINEER)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
 
@@ -210,7 +210,7 @@
 				playsound(src, "sound/voice/firebot/extinguishing.ogg", 50, 0)
 			speech_cooldown = world.time
 
-			flick("firebot1_use", src)
+			z_flick("firebot1_use", src)
 			spray_water(target_fire, src)
 
 		soft_reset()
@@ -276,9 +276,9 @@
 
 /mob/living/simple_animal/bot/firebot/proc/spray_water(atom/target, mob/user)
 	if(stationary_mode)
-		flick("firebots_use", user)
+		z_flick("firebots_use", user)
 	else
-		flick("firebot1_use", user)
+		z_flick("firebot1_use", user)
 	internal_ext.afterattack(target, user, null)
 
 /mob/living/simple_animal/bot/firebot/update_icon()

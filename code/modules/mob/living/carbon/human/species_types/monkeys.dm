@@ -2,7 +2,6 @@
 /datum/species/monkey
 	name = "\improper Monkey"
 	id = SPECIES_MONKEY
-	species_traits = list(EYECOLOR)
 	mutanttongue = /obj/item/organ/tongue/monkey
 	mutantbrain = /obj/item/organ/brain/primate
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -156,11 +155,11 @@
 		to_chat(monkey_brain.owner, span_notice("You will now stumble while while colliding with people who are in combat mode."))
 	update_buttons()
 
-/obj/item/organ/brain/primate/on_insert(mob/living/carbon/primate)
+/obj/item/organ/brain/primate/on_mob_insert(mob/living/carbon/primate)
 	. = ..()
 	RegisterSignal(primate, COMSIG_LIVING_MOB_BUMPED, PROC_REF(on_mob_bump))
 
-/obj/item/organ/brain/primate/on_remove(mob/living/carbon/primate)
+/obj/item/organ/brain/primate/on_mob_remove(mob/living/carbon/primate)
 	. = ..()
 	UnregisterSignal(primate, COMSIG_LIVING_MOB_BUMPED)
 
@@ -202,12 +201,6 @@
 /datum/species/monkey/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(
-		HAIR,
-		FACEHAIR,
-		LIPS,
-		NOEYESPRITES, //teratomas already have eyes baked-in
-	)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
@@ -216,7 +209,6 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_UNDERWEAR,
 	)
-	use_skintones = FALSE
 	mutantbrain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma
 	mutant_organs = list()
@@ -233,7 +225,7 @@
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"
 
-/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, movement_flags)
 	. = ..()
 	//Removing it deletes it
 	if(!QDELETED(src))

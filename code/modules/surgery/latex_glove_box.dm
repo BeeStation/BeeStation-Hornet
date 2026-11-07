@@ -1,7 +1,7 @@
 /obj/item/glove_box
 	name = "box of latex gloves"
 	desc = "A box of latex gloves, useful for quick cleanup after surgery."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "latex_glove_box"
 	inhand_icon_state = "deliverypackage"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -16,22 +16,8 @@
 /obj/item/glove_box/Initialize(mapload)
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
+	AddElement(/datum/element/drag_pickup)
 	update_icon()
-
-/obj/item/glove_box/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || M.incapacitated || !Adjacent(M))
-		return
-
-	if(over_object == M)
-		M.put_in_hands(src)
-
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-
-	add_fingerprint(M)
 
 /obj/item/glove_box/attack_paw(mob/user)
 	return attack_hand(user)

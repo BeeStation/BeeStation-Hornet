@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
+import { sortBy } from 'es-toolkit';
 
 import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
@@ -10,10 +10,10 @@ export const ForbiddenLore = (props) => {
   // Extract `health` and `color` variables from the `data` object.
   const { charges, to_know = {} } = data;
   const SortByPath = flow([
-    sortBy(
+    sortBy([
       (to_know) => to_know.state !== 'Research',
       (to_know) => to_know.path === 'Side',
-    ),
+    ]),
   ])(data.to_know || []);
 
   return (

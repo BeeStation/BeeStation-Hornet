@@ -1,5 +1,5 @@
-import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
+import { sortBy } from 'es-toolkit';
 import { PropsWithChildren, ReactNode } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
@@ -16,11 +16,7 @@ import {
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
 const sortJobs = (entries: [string, Job][], head?: string) =>
-  sortBy(
-    entries,
-    ([key, _]) => (key === head ? -1 : 1),
-    ([key, _]) => key,
-  );
+  sortBy(entries, [([key, _]) => (key === head ? -1 : 1), ([key, _]) => key]);
 
 const PriorityButton = (props: {
   name: string;

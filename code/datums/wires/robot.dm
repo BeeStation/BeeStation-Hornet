@@ -38,13 +38,13 @@
 					new_ai = select_active_ai(user)
 				else
 					new_ai = select_active_ai(robot)
-				robot.notify_ai(DISCONNECT)
+				robot.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if(new_ai && (new_ai != robot.connected_ai))
 					log_combat(usr, robot, "synced cyborg [robot.connected_ai ? "from [ADMIN_LOOKUP(robot.connected_ai)]": "false"] to [ADMIN_LOOKUP(new_ai)]", important = FALSE)
 					robot.connected_ai = new_ai
 					if(robot.shell)
 						robot.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
-						robot.notify_ai(AI_SHELL)
+						robot.notify_ai(AI_NOTIFICATION_AI_SHELL)
 					else
 						robot.notify_ai(TRUE)
 		if(WIRE_CAMERA) // Pulse to disable the camera.
@@ -74,7 +74,7 @@
 	switch(wire)
 		if(WIRE_AI) // Cut the AI wire to reset AI control.
 			if(!mend)
-				robot.notify_ai(DISCONNECT)
+				robot.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if (user)
 					log_combat(user, robot, "cut AI wire on cyborg[robot.connected_ai ? " and disconnected from [ADMIN_LOOKUP(robot.connected_ai)]": ""]", important = FALSE)
 				if(robot.shell)

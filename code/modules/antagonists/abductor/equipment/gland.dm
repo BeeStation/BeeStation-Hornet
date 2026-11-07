@@ -48,15 +48,12 @@
 /obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
-	var/image/holder = owner.hud_list[GLAND_HUD]
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(active_mind_control)
-		holder.icon_state = "hudgland_active"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_active")
 	else if(mind_control_uses)
-		holder.icon_state = "hudgland_ready"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_ready")
 	else
-		holder.icon_state = "hudgland_spent"
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_spent")
 
 /obj/item/organ/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
@@ -79,25 +76,23 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE, pref_load = FALSE)
+/obj/item/organ/heart/gland/on_mob_remove(mob/living/carbon/gland_owner, special, movement_flags)
 	. = ..()
 	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
+	gland_owner.mind?.remove_antag_datum(/datum/antagonist/abductee)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	gland_owner?.mind?.remove_antag_datum(/datum/antagonist/abductee)
-	hud.remove_from_hud(gland_owner)
+	hud.remove_atom_from_hud(gland_owner)
 	clear_mind_control()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/heart/gland/on_mob_insert(mob/living/carbon/gland_owner, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
-	if(!.)
-		return
 
-	if(special != 2 && uses) // Special 2 means abductor surgery
+	if(!(movement_flags & FROM_ABDUCTOR_SURGERY) && uses)
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(gland_owner)
+	hud.add_atom_to_hud(gland_owner)
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
@@ -144,12 +139,12 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/slime/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/slime/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	if(!owner) // Add null check
 		return
@@ -158,7 +153,7 @@
 
 /obj/item/organ/heart/gland/slime/activate()
 	to_chat(owner, span_warning("You feel nauseated!"))
-	owner.vomit(20)
+	owner.vomit(VOMIT_CATEGORY_DEFAULT, lost_nutrition = 20)
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
 	Slime.set_friends(list(owner))
@@ -313,11 +308,11 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/heart/gland/electric/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/electric/on_mob_insert(mob/living/carbon/gland_owner)
 	. = ..()
 	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/heart/gland/electric/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/heart/gland/electric/on_mob_remove(mob/living/carbon/gland_owner)
 	. = ..()
 	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
@@ -370,5 +365,5 @@
 	owner.visible_message(span_danger("[owner] vomits a cloud of plasma!"))
 	var/turf/open/T = get_turf(owner)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=50;TEMP=[T20C]")
-	owner.vomit()
+		T.atmos_spawn_air("[GAS_PLASMA]=50;TEMP=[T20C]")
+	owner.vomit(VOMIT_CATEGORY_DEFAULT)

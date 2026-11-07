@@ -26,7 +26,7 @@
 		stored_dna.species = new rando_race()
 
 /mob/living/brain/Destroy()
-	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
+	if(key) //If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
 		if(stat != DEAD)
 			death(TRUE)
 		if(mind)	//You aren't allowed to return to brains that don't exist

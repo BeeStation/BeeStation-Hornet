@@ -15,7 +15,7 @@
 	if(!istext(link))
 		return null
 	var/port_data = ""
-	if(isnum_safe(seeker_port))
+	if(IS_FINITE(seeker_port))
 		port_data = "&seeker_port=[seeker_port]"
 	return "[link]?ip=[url_encode(ip)]&nonce=[session_creation_nonce][port_data]"
 

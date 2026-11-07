@@ -1,7 +1,8 @@
 import { BooleanLike, classes } from 'common/react';
 import { toTitleCase } from 'common/string';
+import { useState } from 'react';
 
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -287,11 +288,9 @@ const PreviewSelect = (props) => {
 
 const PipeTypeSection = (props) => {
   const { act, data } = useBackend<Data>();
-  const { categories = [], selected_category, selected_recipe } = data;
-  const [categoryName, setCategoryName] = useLocalState(
-    'selected_category',
-    selected_category,
-  );
+  const { categories = [], selected_category } = data;
+  const [categoryName, setCategoryName] = useState(selected_category);
+
   const shownCategory =
     categories.find((category) => category.cat_name === categoryName) ||
     categories[0];

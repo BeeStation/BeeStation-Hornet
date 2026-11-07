@@ -183,6 +183,7 @@
 			return TRUE
 		if("reload_storytellers")
 			SSdynamic.load_storytellers()
+			SSdynamic.configure_variables()
 			return TRUE
 		if("toggle_forced_extended")
 			SSdynamic.forced_extended = !SSdynamic.forced_extended

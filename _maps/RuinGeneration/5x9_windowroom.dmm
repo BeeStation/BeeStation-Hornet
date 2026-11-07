@@ -2,42 +2,42 @@
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "k" = (
 /obj/structure/table,
 /obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "m" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "u" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "B" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "E" = (
 /obj/structure/table,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "R" = (
 /obj/structure/filingcabinet/security,
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 X

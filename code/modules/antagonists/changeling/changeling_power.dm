@@ -56,7 +56,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(changeling.chem_charges < chemical_cost)
 		user.balloon_alert(user, "needs [chemical_cost] chemicals!")
 		return FALSE
-	if(changeling.absorbed_count < req_dna)
+	if(changeling.absorbed_genomes < req_dna)
 		user.balloon_alert(user, "needs [req_dna] dna sample\s!")
 		return FALSE
 	if((HAS_TRAIT(user, TRAIT_DEATHCOMA)) && (!ignores_fakedeath))

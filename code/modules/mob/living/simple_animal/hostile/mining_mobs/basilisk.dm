@@ -33,7 +33,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /obj/projectile/temp/basilisk
 	name = "freezing blast"
@@ -78,6 +78,7 @@
 	combat_mode = TRUE
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_vis_effect = null // doesn't bite unlike the parent type.
 	stat_attack = HARD_CRIT
 	is_flying_animal = TRUE
 	robust_searching = 1

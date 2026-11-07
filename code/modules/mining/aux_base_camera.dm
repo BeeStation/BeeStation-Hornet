@@ -30,7 +30,7 @@
 /obj/machinery/computer/camera_advanced/base_construction
 	name = "base construction console"
 	desc = "An industrial computer integrated with a camera-assisted rapid construction drone."
-	networks = list("ss13")
+	compatible_camera_networks = list(CAMERA_NETWORK_STATION)
 	var/obj/item/construction/rcd/internal/RCD //Internal RCD. The computer passes user commands to this in order to avoid massive copypaste.
 	circuit = /obj/item/circuitboard/computer/base_construction
 	off_action = new/datum/action/innate/camera_off/base_construction
@@ -72,7 +72,7 @@
 /obj/machinery/computer/camera_advanced/base_construction/CreateEye()
 
 	var/spawn_spot
-	for(var/obj/machinery/computer/auxiliary_base/ABC in GLOB.machines)
+	for(var/obj/machinery/computer/auxiliary_base/ABC as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/auxiliary_base))
 		if(istype(get_area(ABC), /area/shuttle/auxiliary_base))
 			found_aux_console = ABC
 			break
@@ -85,11 +85,12 @@
 
 	eyeobj = new /mob/camera/ai_eye/remote/base_construction(get_turf(spawn_spot))
 	eyeobj.origin = src
+	eyeobj.eye_initialized = TRUE
 
 
-/obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, params)
+/obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/rcd_ammo) || istype(W, /obj/item/stack/sheet))
-		RCD.attackby(W, user, params) //If trying to feed the console more materials, pass it along to the RCD.
+		RCD.attackby(W, user, modifiers) //If trying to feed the console more materials, pass it along to the RCD.
 	else
 		return ..()
 

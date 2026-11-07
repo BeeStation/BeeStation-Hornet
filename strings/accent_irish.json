@@ -1,0 +1,56 @@
+{
+	"words": {
+		"hello": ["howiya", "well"],
+		"hi": ["howiya", "well"],
+		"goodbye": ["see ya", "cheerio"],
+		"yes": ["ah yeah", "aye"],
+		"no": "nah",
+		"very": "fierce",
+		"great": ["deadly", "class", "gas"],
+		"good": ["grand", "sound"],
+		"okay": "grand",
+		"ok": "grand",
+		"thing": "yoke",
+		"object": "yoke",
+		"friend": ["fella", "mucker", "pal"],
+		"bro": ["fella", "mucker"],
+		"thanks": ["cheers", "thanks a million"],
+		"thank you": ["cheers", "thanks a million"],
+		"fun": "craic",
+		"drunk": "locked",
+		"tired": "wrecked",
+		"crazy": "mental",
+		"fuck": "feck",
+		"damn": "feck",
+		"captain": "gaffer",
+		"bar": "pub",
+		"beautiful": "deadly",
+		"awful": "desperate",
+		"terrible": "desperate",
+		"security": "the guards",
+		"sec": "the guards",
+		"shitsec": "useless guards",
+		"shitcurity": "useless guards",
+		"secoff": "guard",
+		"officer": "guard",
+		"traitor": "tout",
+		"changeling": "pooka",
+		"brig": "the nick",
+		"prison": "the nick",
+		"perma": "the nick",
+		"credit": "few bob",
+		"money": "few bob",
+		"holochip": "few bob",
+		"dollar": "few bob"
+	},
+	"end": {
+		"th": "t"
+	},
+	"syllables": {
+		"th": "d"
+	},
+	"appends": [
+		"like.",
+		"sure."
+	]
+}

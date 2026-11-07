@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(screentips)
 	wait = 1
 	// Allocated a relatively small amount of processing time
 	priority = FIRE_PRIORITY_SCREENTIPS
-	flags = SS_NO_INIT | SS_TICKER
+	ss_flags = SS_NO_INIT | SS_TICKER
 	// Head of the scanning loop
 	var/client/head = null
 	/// Diagnostics/Performance tracking: Keep track of how many atoms had to dereference their user

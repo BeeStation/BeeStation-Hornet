@@ -106,10 +106,10 @@
 
 	GLOB.singularities |= src
 
-/datum/component/singularity/Destroy(force, silent)
+/datum/component/singularity/Destroy(force)
 	GLOB.singularities -= src
-	QDEL_NULL(consume_callback)
-	QDEL_NULL(admin_investigate_callback)
+	consume_callback = null
+	admin_investigate_callback = null
 	target = null
 
 	return ..()

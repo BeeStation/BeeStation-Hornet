@@ -44,7 +44,6 @@
 		SSxenoarchaeology.register_console(src)
 	RegisterSignal(SSxenoarchaeology, COMSIG_XENOA_REQUEST_NEW_CONSOLE, PROC_REF(be_the_guy))
 	//Link relevant stuff
-	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	var/list/new_sellers = sellers.Copy()
 	sellers = list()
@@ -55,6 +54,11 @@
 	//Look for sold artifacts
 	RegisterSignal(SSdcs, COMSIG_GLOB_ATOM_SOLD, PROC_REF(check_sold))
 
+/obj/machinery/computer/xenoarchaeology_console/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+
 /obj/machinery/computer/xenoarchaeology_console/Destroy()
 	. = ..()
 	QDEL_LIST(sellers)
@@ -62,6 +66,7 @@
 	QDEL_NULL(radio)
 
 /obj/machinery/computer/xenoarchaeology_console/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "XenoartifactConsole")
@@ -222,7 +227,7 @@
 		//Discovery Points
 	var/dp_reward = round(max(0, (artifact.item_price*artifact_component.artifact_material.dp_rate)*success_rate) * bonus_rate, 1)
 		//Money
-	var/monetary_reward = round(FLOOR(((artifact.item_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate, 1), 1)
+	var/monetary_reward = round(floor(((artifact.item_price * success_rate * 1.5)^1.1) * (success_rate >= 0.5 ? 1 : 0) * bonus_rate), 1)
 	//Alloctae
 	if(is_main_console)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
@@ -241,7 +246,7 @@
 			success_type = prob(99) ? "scientific failure." : "who let the clown in?"
 	if(radio_solved_notice)
 		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-		[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\
+		[attempted_bonus ? "with a bonus achieved of [100 * (bonus_rate - 1)]%, " : ""]\
 		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.",\
 	RADIO_CHANNEL_SCIENCE)
 	history += "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \

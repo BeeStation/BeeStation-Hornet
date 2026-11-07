@@ -2,7 +2,7 @@
 "i" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "t" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -12,7 +12,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "v" = (
 /turf/template_noop,
 /area/template_noop)
@@ -21,16 +21,16 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "G" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "I" = (
 /turf/open/floor/iron,
-/area/ruin/unpowered)
+/area/ruin/powered)
 "X" = (
 /turf/open/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/powered)
 
 (1,1,1) = {"
 G

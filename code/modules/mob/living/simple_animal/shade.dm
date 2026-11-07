@@ -23,7 +23,7 @@
 	attack_verb_simple = "metaphysically strike"
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	stop_automated_movement = 1
 	status_flags = 0
 	faction = list(FACTION_CULT)
@@ -34,7 +34,7 @@
 	initial_language_holder = /datum/language_holder/construct
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/shade/Initialize(mapload)
 	. = ..()
@@ -52,7 +52,7 @@
 /mob/living/simple_animal/shade/attack_animal(mob/user, list/modifiers)
 	if(isconstruct(user))
 		var/mob/living/simple_animal/hostile/construct/construct = user
-		if(!construct.can_repair_constructs)
+		if(!construct.can_repair)
 			return
 		if(health < maxHealth)
 			adjustHealth(-25)
@@ -66,7 +66,7 @@
 	else if(user != src)
 		return ..()
 
-/mob/living/simple_animal/shade/attackby(obj/item/attacking_item, mob/user, params)  //Marker -Agouri
+/mob/living/simple_animal/shade/attackby(obj/item/attacking_item, mob/user, list/modifiers)  //Marker -Agouri
 	if(!istype(attacking_item, /obj/item/soulstone))
 		return ..()
 	var/obj/item/soulstone/stone = attacking_item

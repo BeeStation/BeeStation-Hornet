@@ -1,0 +1,12 @@
+/obj/item/clothing/mask/rat/bee : /obj/item/clothing/mask/animal/small/bee{@OLD}
+/obj/item/clothing/mask/rat/bear : /obj/item/clothing/mask/animal/small/bear{@OLD}
+/obj/item/clothing/mask/rat/bat : /obj/item/clothing/mask/animal/small/bat{@OLD}
+/obj/item/clothing/mask/rat/raven : /obj/item/clothing/mask/animal/small/raven{@OLD}
+/obj/item/clothing/mask/rat/jackal : /obj/item/clothing/mask/animal/small/jackal{@OLD}
+/obj/item/clothing/mask/rat/fox : /obj/item/clothing/mask/animal/small/fox{@OLD}
+/obj/item/clothing/mask/rat/tribal : /obj/item/clothing/mask/animal/small/tribal{@OLD}
+/obj/item/clothing/mask/rat : /obj/item/clothing/mask/animal/small/rat{@OLD}
+/obj/item/clothing/mask/frog/@SUBTYPES : /obj/item/clothing/mask/animal/frog/@SUBTYPES{@OLD}
+/obj/item/clothing/mask/pig/@SUBTYPES : /obj/item/clothing/mask/animal/pig/@SUBTYPES{@OLD}
+/obj/item/clothing/mask/cowmask/@SUBTYPES : /obj/item/clothing/mask/animal/cowmask/@SUBTYPES{@OLD}
+/obj/item/clothing/mask/horsehead/@SUBTYPES : /obj/item/clothing/mask/animal/horsehead/@SUBTYPES{@OLD}

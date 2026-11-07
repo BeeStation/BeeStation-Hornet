@@ -1,5 +1,5 @@
-import { range, sortBy } from 'common/collections';
 import { isEscape, KEY } from 'common/keys';
+import { range, sortBy } from 'es-toolkit';
 import { Component } from 'react';
 
 import { resolveAsset } from '../../assets';
@@ -83,13 +83,15 @@ const KEY_CODE_TO_BYOND: Record<string, string> = {
 const DOM_KEY_LOCATION_NUMPAD = 3;
 
 const sortKeybindings = (array: [string, Keybinding][]) =>
-  sortBy(array, ([_, keybinding]) => {
-    return keybinding.name;
-  });
+  sortBy(array, [
+    ([_, keybinding]) => {
+      return keybinding.name;
+    },
+  ]);
 
 const sortKeybindingsByCategory = (
   array: [string, Record<string, Keybinding>][],
-) => sortBy(array, ([category, _]) => category);
+) => sortBy(array, [([category, _]) => category]);
 
 const formatKeyboardEvent = (event: KeyboardEvent): string => {
   let text = '';

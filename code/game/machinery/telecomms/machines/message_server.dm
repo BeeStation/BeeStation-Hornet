@@ -3,6 +3,7 @@
 	name = "Blackbox Recorder"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
+	base_icon_state = "blackbox"
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -34,7 +35,7 @@
 	else
 		to_chat(user, span_warning("It seems that the blackbox is missing..."))
 
-/obj/machinery/blackbox_recorder/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/blackbox_recorder/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/blackbox))
 		if(HAS_TRAIT(attacking_item, TRAIT_NODROP) || !user.transferItemToLoc(attacking_item, src))
 			to_chat(user, span_warning("[attacking_item] is stuck to your hand!"))
@@ -54,11 +55,11 @@
 	return ..()
 
 /obj/machinery/blackbox_recorder/update_icon_state()
+	. = ..()
 	if(stored)
-		icon_state = "blackbox"
+		icon_state = base_icon_state
 	else
-		icon_state = "blackbox_b"
-	return ..()
+		icon_state = "[base_icon_state]_b"
 
 /obj/item/blackbox
 	name = "the blackbox"
@@ -86,6 +87,7 @@
 	name = "Messaging Server"
 	desc = "A machine that processes and routes PDA and request console messages."
 	icon_state = "message_server"
+	base_icon_state = "message_server"
 	telecomms_type = /obj/machinery/telecomms/message_server
 	density = TRUE
 	use_power = IDLE_POWER_USE

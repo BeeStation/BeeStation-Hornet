@@ -8,7 +8,7 @@
 
 /datum/element/digital_camo/Destroy(force)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN)
-	. = ..()
+	return ..()
 
 /datum/element/digital_camo/Attach(datum/target)
 	. = ..()
@@ -22,49 +22,47 @@
 	img.override = TRUE
 	attached_mobs[target] = img
 	//Hide from currently existing siliocon huds
-	HideFromSiliconHuds(target)
+	hide_from_silicons(target)
 
 /datum/element/digital_camo/Detach(datum/target)
 	. = ..()
 	//Cleanup signal registers that we used
 	UnregisterSignal(target, list(COMSIG_ATOM_EXAMINE, COMSIG_LIVING_CAN_TRACK))
 	//Remove the images
-	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
+	for(var/mob/living/silicon/silicon as anything in GLOB.silicon_mobs)
 		silicon.client?.images -= attached_mobs[target]
 	attached_mobs -= target
 	//Show to silicon huds again
-	UnhideFromSiliconHuds(target)
+	show_to_silicons(target)
 
-/datum/element/digital_camo/proc/on_mob_login(datum/source, mob/new_login)
+/datum/element/digital_camo/proc/on_mob_login(datum/source, mob/living/silicon/new_login)
 	SIGNAL_HANDLER
-	if(issilicon(new_login))
-		for(var/mob/target as() in attached_mobs)
-			var/mob/living/silicon/silicon = new_login
-			//Hide the mob
-			silicon.client.images |= attached_mobs[target]
-			//Hide from HUD
-			var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
-			var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
-			M.hide_single_atomhud_from(silicon, target)
-			S.hide_single_atomhud_from(silicon, target)
+	if(!istype(new_login))
+		return
 
-/datum/element/digital_camo/proc/HideFromSiliconHuds(mob/living/target)
-	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
-		var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
-		var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
-		M.hide_single_atomhud_from(silicon, target)
-		S.hide_single_atomhud_from(silicon, target)
+	for(var/mob/target as anything in attached_mobs)
+		//Hide the mob
+		new_login.client.images |= attached_mobs[target]
+		//Hide from HUD
+		for (var/hud_trait in new_login.silicon_huds)
+			var/datum/atom_hud/silicon_hud = GLOB.huds[GLOB.trait_to_hud[hud_trait]]
+			silicon_hud.hide_single_atomhud_from(new_login, target)
 
-/datum/element/digital_camo/proc/UnhideFromSiliconHuds(mob/living/target)
-	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
-		var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
-		var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
-		M.unhide_single_atomhud_from(silicon, target)
-		S.unhide_single_atomhud_from(silicon, target)
+/datum/element/digital_camo/proc/hide_from_silicons(mob/living/target)
+	for(var/mob/living/silicon/silicon as anything in GLOB.silicon_mobs)
+		for (var/hud_trait in silicon.silicon_huds)
+			var/datum/atom_hud/silicon_hud = GLOB.huds[GLOB.trait_to_hud[hud_trait]]
+			silicon_hud.hide_single_atomhud_from(silicon, target)
+
+/datum/element/digital_camo/proc/show_to_silicons(mob/living/target)
+	for(var/mob/living/silicon/silicon as anything in GLOB.silicon_mobs)
+		for (var/hud_trait in silicon.silicon_huds)
+			var/datum/atom_hud/silicon_hud = GLOB.huds[GLOB.trait_to_hud[hud_trait]]
+			silicon_hud.unhide_single_atomhud_from(silicon, target)
 
 /datum/element/digital_camo/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += span_warning("[source.p_their()] skin seems to be shifting and morphing like is moving around below it.")
+	examine_list += span_warning("[source.p_Their()] skin seems to be shifting like something is moving below it.")
 
 /datum/element/digital_camo/proc/can_track(datum/source)
 	SIGNAL_HANDLER

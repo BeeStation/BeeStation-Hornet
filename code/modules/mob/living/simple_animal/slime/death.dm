@@ -33,7 +33,7 @@
 
 
 /mob/living/simple_animal/slime/Destroy()
-	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/X as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/camera_advanced/xenobio))
 		if(src in X.stored_slimes)
 			X.stored_slimes -= src
 	if(stat != DEAD)

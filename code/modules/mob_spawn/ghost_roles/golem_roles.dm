@@ -29,7 +29,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
-		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_GOLEM)
+		notify_ghosts(
+			"\A [initial(species.prefix)] golem shell has been completed in \the [A.name].",
+			source = src,
+			header = "Golem Shell",
+			click_interact = TRUE,
+			ignore_key = POLL_IGNORE_GOLEM,
+			notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		)
 	if(has_owner && creator)
 		short_desc = "You are a golem."
 		flavour_text = "You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools."
@@ -61,9 +68,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 		else
 			H.fully_replace_character_name(null, name)
 	if(has_owner)
-		new_spawn.mind.set_assigned_role("Servant Golem")
+		new_spawn.mind.set_assigned_role(SSjob.get_job_type(/datum/job/servant_golem))
 	else
-		new_spawn.mind.set_assigned_role("Free Golem")
+		new_spawn.mind.set_assigned_role(SSjob.get_job_type(/datum/job/free_golem))
 		var/obj/item/card/id/I = new_spawn.get_idcard()
 		if(I)
 			I.registered_name = new_spawn.name

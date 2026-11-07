@@ -149,10 +149,10 @@
 
 	// Update power usage:
 	if(on)
-		use_power = ACTIVE_POWER_USE
-		active_power_usage = electricity_level*15
+		update_use_power(ACTIVE_POWER_USE)
+		update_mode_power_usage(ACTIVE_POWER_USE, electricity_level * 15)
 	else
-		use_power = NO_POWER_USE
+		update_use_power(NO_POWER_USE)
 
 	update_icon()
 
@@ -209,7 +209,7 @@
 /obj/machinery/magnetic_controller/Initialize(mapload)
 	. = ..()
 	if(autolink)
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
+		for(var/obj/machinery/magnetic_module/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/magnetic_module))
 			if(M.freq == frequency && M.code == code)
 				magnets.Add(M)
 
@@ -225,7 +225,7 @@
 
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
+		for(var/obj/machinery/magnetic_module/M as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/magnetic_module))
 			if(M.freq == frequency && M.code == code)
 				magnets.Add(M)
 

@@ -213,7 +213,7 @@
 		"A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n"+\
 		"A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.")
 
-/obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
+/obj/structure/constructshell/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		if(!IS_CULTIST(user) && !IS_WIZARD(user) && !SS.theme == THEME_HOLY)
@@ -314,9 +314,6 @@
 
 				make_new_construct_from_class(construct_class, theme, contained_shade, user, FALSE, T.loc)
 
-				for(var/datum/antagonist/cult/cultist in GLOB.active_antagonists)
-					if(cultist.owner == contained_shade.mind)
-						cultist.remove_antag_hud(ANTAG_HUD_CULT, cultist.owner.current)
 				qdel(T)
 				contained_shade = null
 				qdel(src)
@@ -370,9 +367,11 @@
 	if(QDELETED(target))
 		return
 	var/mob/living/simple_animal/hostile/construct/newstruct = new ctype((loc_override) ? (loc_override) : (get_turf(target)))
+	if(cultoverride)
+		newstruct.drops_shard = FALSE
 	var/makeicon = newstruct.icon_state
 	var/theme = newstruct.theme
-	flick("make_[makeicon][theme]", newstruct)
+	z_flick("make_[makeicon][theme]", newstruct)
 	playsound(newstruct, 'sound/effects/constructform.ogg', 50)
 	if(stoner)
 		newstruct.faction |= "[REF(stoner)]"
@@ -385,7 +384,7 @@
 	newstruct.key = target.key
 	var/atom/movable/screen/alert/bloodsense/BS
 	if(newstruct.mind && ((stoner && IS_CULTIST(stoner)) || cultoverride))
-		newstruct.mind.add_antag_datum(/datum/antagonist/cult)
+		newstruct.mind.add_antag_datum(/datum/antagonist/cult/construct)
 	if(IS_CULTIST(stoner) || cultoverride)
 		to_chat(newstruct, "<b>You are still bound to serve the cult[stoner ? " and [stoner]":""], follow [stoner ? stoner.p_their() : "their"] orders and help [stoner ? stoner.p_them() : "them"] complete [stoner ? stoner.p_their() : "their"] goals at all costs.</b>")
 	else if(stoner)

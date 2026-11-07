@@ -22,12 +22,28 @@ GLOBAL_VAR(station_level_z_scratch)
 
 #define is_mining_level(z) SSmapping.level_trait(z, ZTRAIT_MINING)
 
-#define is_dynamic_level(z) SSmapping.level_trait(z, ZTRAIT_DYNAMIC_LEVEL)
+#define is_empty_level(z) SSmapping.level_trait(z, ZTRAIT_EMPTY)
 
 #define is_reserved_level(z) SSmapping.level_trait(z, ZTRAIT_RESERVED)
 
 #define is_away_level(z) SSmapping.level_trait(z, ZTRAIT_AWAY)
 
-#define is_pocketdim_level(z) SSmapping.level_trait(z, ZTRAIT_POCKETDIM)
-
-#define is_debug_level(z) SSmapping.level_trait(z, ZTRAIT_DEBUG)
+/**
+ * A more complicated form of layer_a > layer_b, taking into account topdown layers
+ *
+ * - If both layers are topdown, checks if layer_a is greater than layer_b
+ * - If neither layer is topdown, checks if layer_a is greater than layer_b
+ * - If layer_a is topdown and layer_b is not, returns FALSE
+ * - If layer_b is topdown and layer_a is not, returns TRUE
+ */
+#define COMPARE_LAYERS(layer_a, layer_b) \
+	((layer_a) >= TOPDOWN_LAYER \
+		? ((layer_b) >= TOPDOWN_LAYER \
+			? ((layer_a) > (layer_b)) \
+			: FALSE \
+		) \
+		: ((layer_b) >= TOPDOWN_LAYER \
+			? TRUE \
+			: ((layer_a) > (layer_b)) \
+		) \
+	)

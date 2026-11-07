@@ -52,7 +52,7 @@
 	if(brain)
 		. += "mmi_dead"
 
-/obj/item/mmi/attackby(obj/item/O, mob/user, params)
+/obj/item/mmi/attackby(obj/item/O, mob/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(istype(O, /obj/item/organ/brain)) //Time to stick a brain in it --NEO
 		var/obj/item/organ/brain/newbrain = O
@@ -87,8 +87,6 @@
 		var/fubar_brain = newbrain.brain_death && newbrain.suicided && brainmob.suiciding //brain is damaged beyond repair or from a suicider
 		if(!fubar_brain && !(newbrain.organ_flags & ORGAN_FAILING)) // the brain organ hasn't been beaten to death, nor was from a suicider.
 			brainmob.set_stat(CONSCIOUS) //we manually revive the brain mob
-			brainmob.remove_from_dead_mob_list()
-			brainmob.add_to_alive_mob_list()
 		else if(!fubar_brain && newbrain.organ_flags & ORGAN_FAILING) // the brain is damaged, but not from a suicider
 			to_chat(user, span_warning("[src]'s indicator light turns yellow and its brain integrity alarm beeps softly. Perhaps you should check [newbrain] for damage."))
 			playsound(src, "sound/machines/synth_no.ogg", 5, TRUE)
@@ -96,7 +94,7 @@
 			to_chat(user, span_warning("[src]'s indicator light turns red and its brainwave activity alarm beeps softly. Perhaps you should check [newbrain] again."))
 			playsound(src, "sound/weapons/smg_empty_alarm.ogg", 5, TRUE)
 
-		brainmob.reset_perspective()
+		brainmob.set_mob_eye_to(MOB_EYE_SELF)
 		brain = newbrain
 		brain.organ_flags |= ORGAN_FROZEN
 
@@ -132,9 +130,7 @@
 		brainmob.forceMove(brain) //Throw mob into brain.
 		brainmob.set_stat(DEAD)
 		brainmob.emp_damage = 0
-		brainmob.reset_perspective() //so the brainmob follows the brain organ instead of the mmi. And to update our vision
-		brainmob.remove_from_alive_mob_list() //Get outta here
-		brainmob.add_to_dead_mob_list()
+		brainmob.set_mob_eye_to(MOB_EYE_SELF) //so the brainmob follows the brain organ instead of the mmi. And to update our vision
 		brain.brainmob = brainmob //Set the brain to use the brainmob
 		brainmob = null //Set mmi brainmob var to null
 	brain.forceMove(drop_location())

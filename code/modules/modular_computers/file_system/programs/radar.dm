@@ -349,26 +349,26 @@
 	power_consumption = 0 WATT
 
 /datum/computer_file/program/radar/fission360/find_atom()
-	return locate(selected) in GLOB.poi_list
+	return SSpoints_of_interest.get_poi_atom_by_ref(selected)
 
 /datum/computer_file/program/radar/fission360/scan()
 	if(!COOLDOWN_FINISHED(src, last_scan))
 		return
 	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
-	objects = list()
-	for(var/i in GLOB.nuke_list)
-		var/obj/machinery/nuclearbomb/nuke = i
 
+	objects = list()
+	for(var/obj/machinery/nuclearbomb/nuke as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/nuclearbomb))
 		var/list/nukeinfo = list(
-			ref = REF(nuke),
-			name = nuke.name,
-			)
-		objects += list(nukeinfo)
-	var/obj/item/disk/nuclear/disk = locate() in GLOB.poi_list
-	var/list/nukeinfo = list(
-		ref = REF(disk),
-		name = "Nuke Auth. Disk",
+			"ref" = REF(nuke),
+			"name" = nuke.name,
 		)
+		objects += list(nukeinfo)
+
+	var/obj/item/disk/nuclear/disk = locate() in SSpoints_of_interest.real_nuclear_disks
+	var/list/nukeinfo = list(
+		"ref" = REF(disk),
+		"name" = "Nuke Auth. Disk",
+	)
 	objects += list(nukeinfo)
 
 #undef SCAN_COOLDOWN

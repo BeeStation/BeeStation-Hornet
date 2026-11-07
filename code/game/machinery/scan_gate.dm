@@ -23,8 +23,6 @@
 	desc = "A gate able to perform mid-depth scans on any organisms who pass under it."
 	icon = 'icons/obj/machines/scangate.dmi'
 	icon_state = "scangate"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/scanner_gate
 
 
@@ -70,7 +68,7 @@
 	if(duration)
 		scanline_timer = addtimer(CALLBACK(src, PROC_REF(set_scanline), "passive"), duration, TIMER_STOPPABLE)
 
-/obj/machinery/scanner_gate/attackby(obj/item/W, mob/user, params)
+/obj/machinery/scanner_gate/attackby(obj/item/W, mob/user, list/modifiers)
 	var/obj/item/card/id/card = W.GetID()
 	if(card)
 		if(locked)
@@ -175,6 +173,8 @@
 		alarm_beep()
 	else
 		set_scanline("scanning", 10)
+
+	use_power(active_power_usage)
 
 /obj/machinery/scanner_gate/proc/alarm_beep()
 	if(next_beep <= world.time)

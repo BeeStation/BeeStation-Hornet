@@ -57,7 +57,7 @@
 		to_chat(loc, span_warning("You lose control of the beam!"))
 	LoseTarget()
 
-/obj/item/gun/medbeam/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+/obj/item/gun/medbeam/fire_shot_at(mob/living/user, atom/target, message, list/modifiers, zone_override, aimed)
 	if(isliving(user))
 		add_fingerprint(user)
 
@@ -160,3 +160,11 @@
 /obj/item/gun/medbeam/mech/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj
+
+//////////////////////////////Low-power Version///////////////////////////////
+/obj/item/gun/medbeam/weak
+	name = "low-power medical beamgun"
+
+/obj/item/gun/medbeam/weak/on_beam_tick(mob/living/target)
+	if(target.health < 20)
+		..()

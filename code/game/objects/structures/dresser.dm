@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 
-/obj/structure/dresser/attackby(obj/item/I, mob/user, params)
+/obj/structure/dresser/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
 		if(I.use_tool(src, user, 20, volume=50))
@@ -29,6 +29,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/dressing_human = user
+
 	if(HAS_TRAIT(dressing_human, TRAIT_NO_UNDERWEAR))
 		to_chat(dressing_human, span_warning("You are not capable of wearing underwear."))
 		return

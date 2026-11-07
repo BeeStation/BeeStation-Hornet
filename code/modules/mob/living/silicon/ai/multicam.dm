@@ -33,7 +33,7 @@
 	if((width > 0) && (height > 0))
 		var/matrix/M = matrix()
 		M.Scale(width + 0.5, height + 0.5)
-		M.Translate((width-1)/2 * world.icon_size, (height-1)/2 * world.icon_size)
+		M.Translate((width-1)/2 * ICON_SIZE_X, (height-1)/2 * ICON_SIZE_Y)
 		highlighted_background.transform = M
 		standard_background.transform = M
 		add_overlay(highlighted ? highlighted_background : standard_background)
@@ -140,7 +140,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	if(screen && screen.ai)
 		screen.ai.camera_visibility(src)
 	else
-		GLOB.cameranet.visibility(src)
+		GLOB.cameranet.update_camera_visibility(src)
 	update_camera_telegraphing()
 	update_ai_detect_hud()
 
@@ -239,7 +239,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	to_chat(src, span_notice("Multiple-camera viewing mode activated."))
 
 /mob/living/silicon/ai/proc/refresh_multicam()
-	reset_perspective(GLOB.ai_camera_room_landmark)
+	set_mob_eye_to(GLOB.ai_camera_room_landmark)
 	if(client)
 		for(var/V in multicam_screens)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
@@ -255,7 +255,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		for(var/V in multicam_screens)
 			var/atom/movable/screen/movable/pic_in_pic/P = V
 			P.unshow_to(client)
-	reset_perspective()
+	set_mob_eye_to(MOB_EYE_SELF)
 	to_chat(src, span_notice("Multiple-camera viewing mode deactivated."))
 
 /mob/living/silicon/ai/proc/refresh_camera_obj_visibility()

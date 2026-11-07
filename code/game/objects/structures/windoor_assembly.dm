@@ -45,7 +45,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM)
+	AddElement(/datum/element/simple_rotation, ROTATION_NEEDS_ROOM)
 
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
@@ -97,7 +97,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
+/obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, list/modifiers)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
 	switch(state)
@@ -373,10 +373,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/windoor_assembly)
 
 			else
 				return ..()
-
-
-/obj/structure/windoor_assembly/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()

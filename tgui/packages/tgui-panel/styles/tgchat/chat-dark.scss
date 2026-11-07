@@ -740,6 +740,11 @@ em {
 .green {
   color: hsl(132.8, 93.4%, 29.6%);
 }
+
+.grey {
+  color: hsl(0, 0%, 51.4%);
+}
+
 .red {
   color: hsl(0, 100%, 50%);
 }
@@ -749,6 +754,12 @@ em {
 .nicegreen {
   color: hsl(132.8, 93.4%, 29.6%);
 }
+
+.boldnicegreen {
+  color: hsl(132.8, 93.4%, 29.6%);
+  font-weight: bold;
+}
+
 .shadowling {
   color: hsl(256, 6.8%, 57.1%);
 }

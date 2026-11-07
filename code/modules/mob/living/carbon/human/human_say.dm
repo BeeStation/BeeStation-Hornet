@@ -43,34 +43,15 @@
 		return "gurgles excitedly"
 	return tongue.exclaim_mod || ..()
 
-/mob/living/carbon/human/GetVoice()
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
-		return ("Unknown")
-
-	var/current_name = real_name
-	if(GetSpecialVoice())
-		current_name = GetSpecialVoice()
-
-	if(mind)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling && changeling.mimicing )
-			current_name = changeling.mimicing
-	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/modulator = wear_mask
-		current_name = modulator.get_name(src, current_name)
-	return current_name
-
-/mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
-	if(new_voice)
-		special_voice = new_voice
-	return
-
-/mob/living/carbon/human/proc/UnsetSpecialVoice()
-	special_voice = ""
-	return
-
-/mob/living/carbon/human/proc/GetSpecialVoice()
-	return special_voice
+/mob/living/carbon/human/get_voice()
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_VOICE))
+		return "Unknown"
+	var/id_name = get_id_name("")
+	if(HAS_TRAIT(src, TRAIT_VOICE_MATCHES_ID) && id_name)
+		return id_name
+	if(override_voice)
+		return override_voice
+	return real_name
 
 /mob/living/carbon/human/binarycheck()
 	if(stat >= SOFT_CRIT || !ears)
@@ -97,5 +78,5 @@
 	return FALSE
 
 /mob/living/carbon/human/get_alt_name()
-	if(name != GetVoice())
+	if(name != get_voice())
 		return " (as [get_id_name("Unknown")])"

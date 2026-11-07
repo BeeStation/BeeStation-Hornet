@@ -269,7 +269,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/item/clothing/mask/cigarette,
+/obj/item/cigarette,
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (

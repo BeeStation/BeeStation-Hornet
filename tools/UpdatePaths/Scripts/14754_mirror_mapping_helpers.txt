@@ -1,0 +1,13 @@
+/obj/structure/mirror/@SUBTYPES{pixel_y = 28} : /obj/structure/mirror/directional/north{@OLD;pixel_y=@SKIP}
+/obj/structure/mirror/@SUBTYPES{pixel_y = -28} : /obj/structure/mirror/directional/south{@OLD;pixel_y=@SKIP}
+
+/obj/structure/mirror/@SUBTYPES{pixel_x = 28} : /obj/structure/mirror/directional/east{@OLD;pixel_x=@SKIP}
+/obj/structure/mirror/@SUBTYPES{pixel_x = -28} : /obj/structure/mirror/directional/west{@OLD;pixel_x=@SKIP}
+
+/obj/structure/mirror/@SUBTYPES{pixel_y = 32} : /obj/structure/mirror/directional/north{@OLD;pixel_y=@SKIP}
+/obj/structure/mirror/@SUBTYPES{pixel_y = -32} : /obj/structure/mirror/directional/south{@OLD;pixel_y=@SKIP}
+
+/obj/structure/mirror/@SUBTYPES{pixel_x = 32} : /obj/structure/mirror/directional/east{@OLD;pixel_x=@SKIP}
+/obj/structure/mirror/@SUBTYPES{pixel_x = -32} : /obj/structure/mirror/directional/west{@OLD;pixel_x=@SKIP}
+
+/obj/structure/mirror/@SUBTYPES{icon_state = "mirror_broke"} : /obj/structure/mirror/broken/@SUBTYPES{@OLD; icon_state = @SKIP; broken = @SKIP}

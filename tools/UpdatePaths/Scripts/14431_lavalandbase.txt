@@ -1,0 +1,2 @@
+# Lavaland Base update
+/area/ruin/unpowered/syndicate_lava_base/@SUBTYPES : /area/ruin/syndicate_lava_base{@OLD}

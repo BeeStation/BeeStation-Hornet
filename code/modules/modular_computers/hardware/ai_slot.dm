@@ -21,24 +21,22 @@
 	if(stored_card)
 		. += "There appears to be an intelliCard loaded. There appears to be a pinhole protecting a manual eject button. A screwdriver could probably press it."
 
-/obj/item/computer_hardware/ai_slot/try_insert(obj/item/I, mob/living/user = null)
+/obj/item/computer_hardware/ai_slot/application_attackby(obj/item/attacking_item, mob/living/user)
 	if(!holder)
 		return FALSE
 
-	if(!istype(I, /obj/item/aicard))
+	if(!istype(attacking_item, /obj/item/aicard))
 		return FALSE
 
 	if(stored_card)
-		to_chat(user, span_warning("You try to insert \the [I] into \the [src], but the slot is occupied."))
+		to_chat(user, span_warning("You try to insert \the [attacking_item] into \the [src], but the slot is occupied."))
 		return FALSE
-	if(user && !user.transferItemToLoc(I, src))
+	if(user && !user.transferItemToLoc(attacking_item, src))
 		return FALSE
 
-	stored_card = I
-	to_chat(user, span_notice("You insert \the [I] into \the [src]."))
-
+	stored_card = attacking_item
+	to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
 	return TRUE
-
 
 /obj/item/computer_hardware/ai_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)

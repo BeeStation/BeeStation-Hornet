@@ -36,8 +36,8 @@
  * since it calls on process rather than instantly which handles spamming.
  */
 /datum/proc/ui_update()
-	for(var/datum/tgui/ui as() in SStgui.get_all_open_uis(src))
-		ui.needs_update = TRUE
+	for(var/datum/tgui/open_ui as anything in open_uis)
+		open_ui.needs_update = TRUE
 
 /**
  * public
@@ -64,7 +64,7 @@
  *
  * required user mob The mob interacting with the UI.
  *
- * return list Statuic Data to be sent to the UI.
+ * return list Static Data to be sent to the UI.
  */
 /datum/proc/ui_static_data(mob/user)
 	SHOULD_NOT_SLEEP(TRUE) // Optional, but good code practice. Remove this if you have a valid use case.
@@ -93,7 +93,7 @@
  * change static data.
  */
 /datum/proc/update_static_data_for_all_viewers()
-	for (var/datum/tgui/window as anything in SStgui.open_uis_by_src[REF(src)])
+	for (var/datum/tgui/window as anything in open_uis)
 		window.send_full_update()
 
 /**

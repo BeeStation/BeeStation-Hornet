@@ -83,6 +83,7 @@
 	.["user"]["job"] = "No Job"
 	.["user"]["points"] = 0
 	.["user"]["currency_type"] = currency_type
+	.["stock"] = list()
 
 	if(isliving(user))
 		var/mob/living/carbon/human/H = user
@@ -139,29 +140,29 @@
 				var/obj/item/card/id/I = M.get_idcard(TRUE)
 				if(!istype(I))
 					to_chat(usr, span_alert("Error: An ID is required!"))
-					flick(icon_deny, src)
+					z_flick(icon_deny, src)
 					return
 				if(!I.registered_account)
 					to_chat(usr, span_alert("Error: Bank account is required on your card!"))
-					flick(icon_deny, src)
+					z_flick(icon_deny, src)
 					return
 				target_account = I.registered_account
 			if(!target_account)
 				to_chat(usr, span_alert("Error: Something's bugged. Tell a coder!"))
-				flick(icon_deny, src)
+				z_flick(icon_deny, src)
 				CRASH("the mining vendor failed to find a target account for purchase.")
 			var/datum/data/requisition_equipment/prize = locate(params["ref"]) in prize_list
 			if(!prize || !(prize in prize_list))
 				to_chat(usr, span_alert("Error: Invalid choice!"))
-				flick(icon_deny, src)
+				z_flick(icon_deny, src)
 				return
 			if(!target_account.adjust_currency(currency_type, -prize.cost)) // this checks if you can buy it first. if you have points, you buy it. if not, this error message comes.
 				to_chat(usr, span_alert("Error: Insufficient points for [prize.equipment_name] on [target_account.account_holder]'s bank account!"))
-				flick(icon_deny, src)
+				z_flick(icon_deny, src)
 				return
 			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			var/obj/created = new prize.equipment_path(loc)
-			if (M.CanReach(src) && isitem(created))
+			if (IsReachableBy(M) && isitem(created))
 				M.put_in_hands(created)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
@@ -171,7 +172,7 @@
 /obj/machinery/gear_requisition/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	return
 
-/obj/machinery/gear_requisition/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gear_requisition/attackby(obj/item/I, mob/user, list/modifiers)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
 		return
 	if(default_deconstruction_crowbar(I))
@@ -264,7 +265,7 @@
 		new /datum/data/requisition_equipment("Minebot Upgrade: Armor", /obj/item/minebot_upgrade/health, 400, "Mining Bot"),
 		new /datum/data/requisition_equipment("Minebot Upgrade: Ore Scoop", /obj/item/minebot_upgrade/ore_pickup, 400, "Mining Bot"),
 		new /datum/data/requisition_equipment("Minebot Upgrade: Medical", /obj/item/minebot_upgrade/medical, 800, "Mining Bot"),
-		new /datum/data/requisition_equipment("Minebot Upgrade: A.I.", /obj/item/slimepotion/slime/sentience/mining, 1000, "Mining Bot"),
+		new /datum/data/requisition_equipment("Minebot Upgrade: A.I.", /obj/item/slimepotion/sentience/mining, 1000, "Mining Bot"),
 		new /datum/data/requisition_equipment("Minebot Weatherproof Chassis", /obj/item/minebot_upgrade/antiweather, 1200, "Mining Bot"),
 	//Various novelty items
 		new /datum/data/requisition_equipment("1000 Space Cash", /obj/item/stack/spacecash/c1000, 2000, "Novelty"),
@@ -273,7 +274,7 @@
 		new /datum/data/requisition_equipment("Pizza", /obj/item/pizzabox/margherita, 200, "Novelty"),
 		new /datum/data/requisition_equipment("Whiskey", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 100, "Novelty"),
 		new /datum/data/requisition_equipment("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 100, "Novelty"),
-		new /datum/data/requisition_equipment("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150, "Novelty"),
+		new /datum/data/requisition_equipment("Cigar", /obj/item/cigarette/cigar/havana, 150, "Novelty"),
 		new /datum/data/requisition_equipment("Soap", /obj/item/soap/nanotrasen, 200, "Novelty"),
 		new /datum/data/requisition_equipment("Laser Pointer", /obj/item/laser_pointer, 300, "Novelty"),
 		new /datum/data/requisition_equipment("Toy Alien", /obj/item/clothing/mask/facehugger/toy, 300, "Novelty"),
@@ -292,7 +293,7 @@
 	src.cost = cost
 	src.category = category
 
-/obj/machinery/gear_requisition/mining/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gear_requisition/mining/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/mining_voucher))
 		var/obj/item/mining_voucher/V = I
 		if(src.vendor_type == V.voucher_type)
@@ -374,7 +375,7 @@
 	icon_state = "data_1"
 	var/points = 500
 
-/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card/id))
 		if(points)
 			var/obj/item/card/id/C = I

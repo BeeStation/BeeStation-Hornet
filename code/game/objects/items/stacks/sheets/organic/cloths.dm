@@ -25,12 +25,12 @@ Various Cloths
 	/// A lazily initiated "food" version of the cloth for moths
 	var/obj/item/food/clothing/moth_snack
 
-/obj/item/stack/sheet/cotton/attack(mob/living/target_mob, mob/living/user, params)
+/obj/item/stack/sheet/cotton/attack(mob/living/target_mob, mob/living/user, list/modifiers)
 	if(isnull(moth_snack))
 		moth_snack = new
 		moth_snack.name = name
 		moth_snack.clothing = WEAKREF(src)
-	moth_snack.attack(target_mob, user, params)
+	moth_snack.attack(target_mob, user, modifiers)
 
 /obj/item/stack/sheet/cotton/Destroy()
 	QDEL_NULL(moth_snack)

@@ -45,6 +45,7 @@
  * on_detach: Called when removed from an assembly holder or wiring datum
  */
 /obj/item/assembly/proc/on_detach()
+	SHOULD_CALL_PARENT(TRUE)
 	if(connected)
 		connected = null
 	if(!holder)
@@ -107,7 +108,7 @@
 		return
 	. = ..()
 
-/obj/item/assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/assembly/attackby(obj/item/W, mob/user, list/modifiers)
 	if(isassembly(W))
 		var/obj/item/assembly/new_assembly = W
 

@@ -11,10 +11,6 @@
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "m" = (
-/obj/structure/mirror{
-	pixel_x = 15;
-	pixel_y = 30
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -57,6 +53,7 @@
 /obj/item/reagent_containers/medspray/dye{
 	pixel_x = -3
 	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "O" = (

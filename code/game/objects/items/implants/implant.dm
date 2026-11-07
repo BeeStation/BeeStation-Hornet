@@ -35,7 +35,7 @@
 	if(!isanimal_or_basicmob(target))
 		return TRUE
 
-	return !(target.mob_biotypes & (MOB_ROBOTIC|MOB_INORGANIC|MOB_SPIRIT))
+	return !(target.mob_biotypes & (MOB_ROBOTIC|MOB_MINERAL|MOB_SPIRIT))
 
 /obj/item/implant/proc/on_implanted(mob/living/user)
 

@@ -15,6 +15,8 @@
 	var/reagent_id = /datum/reagent/water
 	var/reaction_volume = 200
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16))
+
 /obj/structure/showerframe
 	name = "shower frame"
 	icon = 'icons/obj/watercloset.dmi'
@@ -24,9 +26,9 @@
 
 /obj/structure/showerframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddElement(/datum/element/simple_rotation)
 
-/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a shower...")
 		if(do_after(user, 4 SECONDS, target = src))
@@ -37,9 +39,6 @@
 			qdel(src)
 			return
 	return ..()
-
-/obj/structure/showerframe/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 /obj/machinery/shower/Initialize(mapload)
 	. = ..()
@@ -74,7 +73,7 @@
 			var/turf/open/tile = loc
 			tile.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shower/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		to_chat(user, span_notice("The water temperature seems to be [current_temperature]."))
 	else
@@ -131,7 +130,6 @@
 		INVOKE_ASYNC(src, PROC_REF(wash_atom), AM)
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
-	A.wash(CLEAN_RAD | CLEAN_TYPE_WEAK) // Clean radiation non-instantly
 	A.wash(CLEAN_WASH)
 	SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
 	reagents.expose(A, TOUCH, reaction_volume)

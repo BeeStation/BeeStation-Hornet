@@ -54,7 +54,7 @@
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
-/turf/open/floor/plating/attackby(obj/item/C, mob/user, params)
+/turf/open/floor/plating/attackby(obj/item/C, mob/user, list/modifiers)
 	if(..())
 		return
 	if(istype(C, /obj/item/stack/rods) && attachment_holes)
@@ -70,7 +70,7 @@
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
 				return
-	var/is_left_cliking = LAZYACCESS(params2list(params), LEFT_CLICK)
+	var/is_left_cliking = LAZYACCESS(modifiers, LEFT_CLICK)
 	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes && is_left_cliking)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
@@ -83,7 +83,7 @@
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
-					PlaceOnTop(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
+					place_on_top(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 					R.use(1)
 					to_chat(user, span_notice("You reinforce the floor."))
@@ -100,7 +100,7 @@
 			to_chat(user, span_notice("You begin reinforcing the floor to secure the plating.."))
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/prison))
-					PlaceOnTop(/turf/open/floor/prison, flags = CHANGETURF_INHERIT_AIR)
+					place_on_top(/turf/open/floor/prison, flags = CHANGETURF_INHERIT_AIR)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 					R.use(1)
 					to_chat(user, span_notice("You secure the plating."))
@@ -145,7 +145,7 @@
 /turf/open/floor/plating/foam/break_tile()
 	return //jetfuel can't break steel foam...
 
-/turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, params)
+/turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/tile/iron))
 		var/obj/item/stack/tile/iron/P = I
 		if(P.use(1))
@@ -182,8 +182,8 @@
 	..()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
-/turf/open/floor/plating/foam/tool_act(mob/living/user, obj/item/I, tool_type)
-	return
+/turf/open/floor/plating/foam/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	return NONE
 
 /turf/open/floor/plating/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

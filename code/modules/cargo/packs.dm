@@ -885,7 +885,7 @@
 		/obj/item/clothing/gloves/tackler/combat,
 		/obj/item/clothing/under/syndicate/rus_army,
 		/obj/item/clothing/under/costume/soviet,
-		/obj/item/clothing/mask/russian_balaclava,
+		/obj/item/clothing/mask/balaclava/russian_balaclava,
 		/obj/item/clothing/head/helmet/rus_ushanka,
 		/obj/item/clothing/suit/armor/vest/russian_coat,
 		/obj/item/gun/ballistic/rifle/boltaction,
@@ -1907,7 +1907,7 @@
 		/obj/item/reagent_containers/cup/bottle/morphine,
 		/obj/item/reagent_containers/cup/bottle/toxin,
 		/obj/item/reagent_containers/cup/beaker/large,
-		/obj/item/reagent_containers/pill/insulin,
+		/obj/item/reagent_containers/applicator/pill/insulin,
 		/obj/item/stack/medical/gauze,
 		/obj/item/storage/box/beakers,
 		/obj/item/storage/box/medsprays,
@@ -1921,7 +1921,7 @@
 		/obj/item/defibrillator/loaded,
 		/obj/item/reagent_containers/blood/o_minus,
 		/obj/item/storage/pill_bottle/mining,
-		/obj/item/reagent_containers/pill/neurine,
+		/obj/item/reagent_containers/applicator/pill/neurine,
 		/obj/item/vending_refill/medical,
 	)
 	crate_name = "medical supplies crate"
@@ -2271,7 +2271,7 @@
 					/obj/item/clothing/suit/caution,
 					/obj/item/storage/bag/trash,
 					/obj/item/reagent_containers/spray/cleaner,
-					/obj/item/reagent_containers/cup/rag,
+					/obj/item/rag,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner,
 					/obj/item/grenade/chem_grenade/cleaner)
@@ -3562,8 +3562,8 @@
 
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
-	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.assigned_role == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role == JOB_NAME_CARGOTECHNICIAN)
+	for(var/client/C as anything in GLOB.clients)
+		if(C?.mob.mind.assigned_role.title == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role.title == JOB_NAME_CARGOTECHNICIAN)
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband

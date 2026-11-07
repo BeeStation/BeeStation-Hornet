@@ -230,6 +230,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 		front.icon_state = "armsy_end"
 		front.icon_living = "armsy_end"
 		front.back = null
+		front = null
 	if(back)
 		QDEL_NULL(back) // chain destruction baby
 	return ..()
@@ -338,7 +339,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	else if(newdir == SOUTH)
 		icon_state = "rust_walker_s"
 
-/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/Moved()
+/mob/living/simple_animal/hostile/heretic_summon/rust_spirit/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	playsound(src, 'sound/effects/footstep/rustystep1.ogg', 100, TRUE)
 

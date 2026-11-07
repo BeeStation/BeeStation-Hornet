@@ -9,6 +9,6 @@
 	if(!istype(target) || target.stat != CONSCIOUS)
 		return
 	var/obj/item/parentItem = parent
-	var/health_back = CEILING(level * parentItem.force * 0.1, 1)
+	var/health_back = ceil(level * parentItem.force * 0.1)
 	user.heal_overall_damage(health_back, health_back)
 	new /obj/effect/temp_visual/heal(get_turf(user), "#eeba6b")

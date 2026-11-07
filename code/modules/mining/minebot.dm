@@ -7,7 +7,7 @@
 	name = "minebot"
 	desc = "A small robot used to support miners. It can be set to search and collect loose ore, mine any ore it detects, or help fend off wildlife. It is equipped with a mining drill and kinetic accelerator, with mounting points for a plasma cutter."
 	gender = NEUTER
-	icon = 'icons/mob/aibots.dmi'
+	icon = 'icons/mob/silicon/aibots.dmi'
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	icon_dead = "mining_drone_disabled"
@@ -18,7 +18,7 @@
 	combat_mode = TRUE
 	hud_type = /datum/hud/minebot
 	// Atmos
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	// Health/damage
 	health = 125
@@ -92,7 +92,7 @@
 
 	// Setup access
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/M = SSjob.GetJob(JOB_NAME_SHAFTMINER)
+	var/datum/job/M = SSjob.get_job(JOB_NAME_SHAFTMINER)
 	access_card.access = M.get_access()
 
 
@@ -193,7 +193,7 @@
 	check_friendly_fire = FALSE
 
 /// Handles installing new tools/upgrades and interacting with the minebot
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/living/user, params)
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
 	if(user.combat_mode)
@@ -217,7 +217,7 @@
 	if(istype(item, /obj/item/borg/upgrade/modkit))
 		if(!do_after(user, 20, src))
 			return TRUE
-		item.melee_attack_chain(user, stored_pka, params) // This handles any install messages
+		item.melee_attack_chain(user, stored_pka, modifiers) // This handles any install messages
 		return TRUE
 	if(item.tool_behaviour == TOOL_CROWBAR)
 		uninstall_upgrades()
@@ -677,7 +677,7 @@
 	return list("Stored Medipen", "None")
 
 // Handles manually loading/unloading medipens.
-/obj/item/minebot_upgrade/medical/attackby(obj/item/item, mob/living/user, params)
+/obj/item/minebot_upgrade/medical/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/reagent_containers/hypospray/medipen))
 		if(stored_medipen)
 			to_chat(user, span_notice("You replace [stored_medipen] with [item]."))
@@ -728,7 +728,7 @@
 
 // Minebot Sentience
 
-/obj/item/slimepotion/slime/sentience/mining
+/obj/item/slimepotion/sentience/mining
 	name = "minebot AI upgrade"
 	desc = "Can be used to grant sentience to minebots."
 	icon_state = "door_electronics"
@@ -737,7 +737,7 @@
 	var/cooldown_time = 600
 	var/timer
 
-/obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
+/obj/item/slimepotion/sentience/mining/attack(mob/living/M, mob/user)
 	if(timer > world.time)
 		to_chat(user, span_warning("Please wait [(timer - world.time)/10] seconds before trying again."))
 		return

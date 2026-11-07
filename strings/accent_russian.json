@@ -1,0 +1,55 @@
+{
+	"words": {
+		"yes": "da",
+		"no": "nyet",
+		"hello": "privet",
+		"hi": "privet",
+		"goodbye": "poka",
+		"friend": "tovarisch",
+		"comrade": "tovarisch",
+		"please": "pozhaluysta",
+		"thanks": "spasibo",
+		"thank you": "spasibo",
+		"okay": "khorosho",
+		"ok": "khorosho",
+		"of course": "konechno",
+		"very": "ochen",
+		"great": "otlichno",
+		"captain": "kapitan",
+		"security": "militsiya",
+		"traitor": "predatel",
+		"sec": "militsiya",
+		"shitsec": "militsiya",
+		"shitcurity": "militsiya",
+		"secoff": "militsioner",
+		"officer": "militsioner",
+		"hos": "komissar",
+		"head of security": "komissar",
+		"brig": "gulag",
+		"prison": "gulag",
+		"perma": "gulag",
+		"syndicate": "the enemy",
+		"space": "kosmos",
+		"credit": "rubl",
+		"money": "rubl",
+		"holochip": "rubl",
+		"dollar": "rubl",
+		"id": "dokumenty"
+	},
+	"start": {
+		"wh": "v",
+		"w": "v",
+		"th": "z",
+		"y": "j"
+	},
+	"end": {
+		"b": "p",
+		"g": "k"
+	},
+	"syllables": {
+		"th": "z"
+	},
+	"appends": [
+		"da."
+	]
+}

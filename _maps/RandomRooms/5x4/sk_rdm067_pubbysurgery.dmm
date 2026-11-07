@@ -18,10 +18,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/mirror{
-	icon_state = "mirror_broke";
-	pixel_y = 28
-	},
+/obj/structure/mirror/broken/directional/north,
 /obj/item/shard{
 	icon_state = "medium"
 	},

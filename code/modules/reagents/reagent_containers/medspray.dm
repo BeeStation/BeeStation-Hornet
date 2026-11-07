@@ -9,7 +9,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	item_flags = NOBLUDGEON
 	obj_flags = UNIQUE_RENAME
-	reagent_flags = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -24,6 +24,16 @@
 	var/self_delay = 30
 	var/squirt_mode = 0
 	custom_price = 40
+
+/obj/item/reagent_containers/medspray/examine(mob/user)
+	. = ..()
+	switch(apply_type)
+		if(PATCH)
+			. += span_notice("Any chemicals sprayed with this would be applied to the target similar to a patch.")
+		if(TOUCH)
+			. += span_notice("Any chemicals sprayed with this would be applied as a messy pour rather than a precise patch.")
+		if(VAPOR)
+			. += span_notice("Any chemicals sprayed by this aerosolize into a vapour")
 
 /obj/item/reagent_containers/medspray/attack_self(mob/user)
 	squirt_mode = !squirt_mode
@@ -119,6 +129,8 @@
 	desc = "Spray bottle loaded with non-toxic sterilizer. Useful in preparation for surgery."
 	list_reagents = list(/datum/reagent/space_cleaner/sterilizine = 60)
 
+// The Barber's Section
+
 /obj/item/reagent_containers/medspray/barber
 	name = "hair spray"
 	desc = "Spray bottle loaded with an unknown hair growth agent."
@@ -126,6 +138,18 @@
 	apply_type = TOUCH
 	list_reagents = list(/datum/reagent/barbers_aid = 60)
 	squirt_mode = 1
+
+/obj/item/reagent_containers/medspray/barber/afro
+	name = "afro hair spray"
+	list_reagents = list(/datum/reagent/barbers_afro_mania = 60)
+
+/obj/item/reagent_containers/medspray/barber/long
+	name = "concentrated hair spray"
+	list_reagents = list(/datum/reagent/concentrated_barbers_aid = 60)
+
+/obj/item/reagent_containers/medspray/barber/bald
+	name = "hair-b-gone"
+	list_reagents = list(/datum/reagent/barbers_shaving_aid = 60)
 
 /obj/item/reagent_containers/medspray/dye
 	name = "hair dye"

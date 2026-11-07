@@ -45,6 +45,8 @@
 		z = target_turf?.z
 	if(!z)
 		return
+	if(!GLOB.hostile_machines_by_z[z])
+		return
 	GLOB.hostile_machines_by_z[z] -= target
 	if(!length(GLOB.hostile_machines_by_z[z]))
 		GLOB.hostile_machines_by_z -= z

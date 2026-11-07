@@ -17,7 +17,7 @@
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = HARD_CRIT
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -31,7 +31,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
-	discovery_points = 10000
+	discovery_points = TECHWEB_TIER_5_POINTS * 2
 	var/achievement_type
 	var/crusher_achievement_type
 	var/score_achievement_type
@@ -60,7 +60,7 @@
 		var/datum/action/small_sprite/small_action = new small_sprite_type()
 		small_action.Grant(src)
 
-/mob/living/simple_animal/hostile/megafauna/Moved()
+/mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	//Safety check
 	if(!loc)
 		return ..()

@@ -26,9 +26,11 @@
 		GSATCHEL,
 		LSATCHEL,
 		GDUFFELBAG,
+		GMESSENGER,
 		DBACKPACK,
 		DSATCHEL,
 		DDUFFELBAG,
+		DMESSENGER,
 	)
 
 /datum/preference/choiced/backpack/create_default_value()
@@ -44,6 +46,8 @@
 			return /obj/item/storage/backpack/satchel/leather
 		if (GDUFFELBAG)
 			return /obj/item/storage/backpack/duffelbag
+		if (GMESSENGER)
+			return /obj/item/storage/backpack/messenger
 
 		// In a perfect world, these would be your department's backpack.
 		// However, this doesn't factor in assistants, or no high slot, and would
@@ -55,9 +59,11 @@
 			return /obj/item/storage/backpack/satchel/med
 		if (DDUFFELBAG)
 			return /obj/item/storage/backpack/duffelbag/med
+		if (DMESSENGER)
+			return /obj/item/storage/backpack/messenger/med
 
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
-	target.backbag = value
+	target.backpack = value
 
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit_style
@@ -67,7 +73,7 @@
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_JUMPSUIT
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/choiced/jumpsuit_style/init_possible_values()
 	return list(
@@ -100,7 +106,6 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_SOCKS
 
 /datum/preference/choiced/socks/init_possible_values()
 	return assoc_to_keys_features(GLOB.socks_list)
@@ -132,7 +137,7 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_UNDERSHIRT
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 
 /datum/preference/choiced/undershirt/init_possible_values()
 	return assoc_to_keys_features(GLOB.undershirt_list)
@@ -174,7 +179,6 @@
 	should_generate_icons = TRUE
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 	informed = TRUE
-	priority = PREFERENCE_PRIORITY_UNDERWEAR
 
 /datum/preference/choiced/underwear/init_possible_values()
 	return assoc_to_keys_features(GLOB.underwear_list)

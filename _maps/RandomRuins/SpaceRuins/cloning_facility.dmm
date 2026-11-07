@@ -136,9 +136,7 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "aM" = (
-/obj/structure/fluff/broken_flooring{
-	dir = 8;
-	icon_state = "plating";
+/obj/structure/broken_flooring/plating/directional/west{
 	name = "broken plating"
 	},
 /turf/template_noop,

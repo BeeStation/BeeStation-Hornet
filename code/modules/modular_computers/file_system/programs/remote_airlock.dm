@@ -20,7 +20,7 @@
 	drive = computer.all_components[MC_HDD_JOB]
 	if(istype(drive) && length(drive.controllable_airlocks))
 		all_controllable += drive.controllable_airlocks
-	for(var/obj/machinery/door/poddoor/airlock in GLOB.airlocks)
+	for(var/obj/machinery/door/poddoor/airlock as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor))
 		if((airlock.id in all_controllable) && airlock.get_virtual_z_level() == computer.get_virtual_z_level() && !QDELETED(airlock))
 			var/turf/L = get_turf(airlock)
 			airlocks += list(list("id" = airlock.id,
@@ -47,7 +47,7 @@
 			drive = computer.all_components[MC_HDD_JOB]
 			if(istype(drive) && length(drive.controllable_airlocks))
 				all_controllable += drive.controllable_airlocks
-			for(var/obj/machinery/door/poddoor/airlock in GLOB.airlocks)
+			for(var/obj/machinery/door/poddoor/airlock as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/door/poddoor))
 				if(airlock.id == params["id"])
 					if(!(airlock.id in all_controllable))
 						log_href_exploit(usr, " Attempted control of airlock: [params["id"]] which they do not have access to (access: [english_list(all_controllable)]).")

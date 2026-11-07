@@ -38,7 +38,7 @@
 				else
 					to_chat(user, span_warning("[src] fails to implant [M]."))
 
-/obj/item/implanter/attackby(obj/item/W, mob/user, params)
+/obj/item/implanter/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You prod at [src] with [W]!"))

@@ -4,7 +4,7 @@
 SUBSYSTEM_DEF(combat_logging)
 	name = "Combat Logging"
 	wait = 10 SECONDS
-	flags = SS_NO_INIT | SS_KEEP_TIMING
+	ss_flags = SS_NO_INIT | SS_KEEP_TIMING
 
 	var/list/current_run = list()
 	var/list/active_combat_instances = list()
@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(combat_logging)
 	most_recent_entry = world.time
 	SScombat_logging.active_combat_instances += src
 
-/datum/combat_log/Destroy(force, ...)
+/datum/combat_log/Destroy(force)
 	SScombat_logging.active_combat_instances -= src
 	return ..()
 

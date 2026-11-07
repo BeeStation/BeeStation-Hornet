@@ -43,9 +43,14 @@
 
 	if(user == source)
 		return
-
 	if(over != user)
 		return
+
+	// We're dragging a pet, dont open the menu to strip them
+	if(ishuman(user) && isliving(source))
+		var/mob/living/pet = source
+		if(pet.can_be_held && user.pulling == pet)
+			return
 
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
@@ -63,6 +68,7 @@
 		LAZYSET(strip_menus, source, strip_menu)
 
 	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /datum/strippable_item_layout
 	/// The STRIPPABLE_ITEM_* key
@@ -425,7 +431,7 @@
 		for(var/section in strippable.layout)
 			var/section_result = list()
 
-			for(var/datum/strippable_item_layout/slot as() in section)
+			for(var/datum/strippable_item_layout/slot as anything in section)
 				section_result += list(list(
 					"id" = slot.key,
 					"indented" = slot.indented,

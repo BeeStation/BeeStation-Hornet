@@ -9,12 +9,10 @@
 	name = "Golem Creation Disk"
 	desc = "A gift from the Liberator."
 	icon_state = "datadisk1"
-	max_blueprints = 1
 
 /obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
-	var/datum/design/golem_shell/G = new
-	blueprints[1] = G
+	blueprints += new /datum/design/golem_shell()
 
 /datum/design/golem_shell
 	name = "Golem Shell Construction"
@@ -23,7 +21,19 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 40000)
 	build_path = /obj/item/golem_shell
-	category = list("Imported")
+	category = list(RND_CATEGORY_IMPORTED)
+
+/obj/machinery/rnd/server/golem
+	name = "\improper Ancient R&D Server"
+	circuit = /obj/item/circuitboard/machine/rdserver/golem
+	req_access = null
+	generates_heat = FALSE
+
+/obj/machinery/rnd/server/golem/Initialize(mapload)
+	var/datum/techweb/golem/golem_web = locate() in SSresearch.techwebs
+	golem_web ||= new /datum/techweb/golem()
+	stored_research = golem_web
+	return ..()
 
 /obj/item/golem_shell
 	name = "incomplete free golem shell"
@@ -34,7 +44,7 @@
 	var/has_owner = FALSE //if the resulting golem obeys someone
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/golem_shell/attackby(obj/item/I, mob/user, list/modifiers)
 	..()
 	var/static/list/golem_shell_species_types = list(
 		/obj/item/stack/sheet/iron	                = /datum/species/golem,
@@ -96,7 +106,7 @@
 	to_chat(user, span_warning("The shell is far too heavy to lift."))
 	return TRUE
 
-/obj/item/golem_shell/runic/attackby(obj/item/O, mob/user, params)
+/obj/item/golem_shell/runic/attackby(obj/item/O, mob/user, list/modifiers)
 	if(istype(O, /obj/item/stack))
 		to_chat(user, span_warning("The shell refuses the material you are putting on it.")) // Otherwise they could place metal into it and turn it into a regular golem
 		return TRUE

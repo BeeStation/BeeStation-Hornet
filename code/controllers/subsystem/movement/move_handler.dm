@@ -22,7 +22,7 @@
 **/
 SUBSYSTEM_DEF(move_manager)
 	name = "Movement Handler"
-	flags = SS_NO_INIT | SS_NO_FIRE
+	ss_flags = SS_NO_INIT | SS_NO_FIRE
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 ///Adds a movable thing to a movement subsystem. Returns TRUE if it all worked, FALSE if it failed somehow
@@ -114,9 +114,12 @@ SUBSYSTEM_DEF(move_manager)
 
 	var/datum/controller/subsystem/movement/current_subsystem = running_loop.controller
 
-	current_subsystem.remove_loop(running_loop)
-	contesting_subsystem.add_loop(contestant)
+	var/current_running_loop = running_loop
 	running_loop = contestant
+	current_subsystem.remove_loop(current_running_loop)
+	if(running_loop != contestant) // A signal registrant could have messed with things
+		return FALSE
+	contesting_subsystem.add_loop(contestant)
 	return TRUE
 
 ///Tries to figure out the current favorite loop to run. More complex then just deciding between two different loops, assumes no running loop currently exists
@@ -131,7 +134,7 @@ SUBSYSTEM_DEF(move_manager)
 		var/datum/move_loop/checking = existing_loops[owner]
 		if(checking.flags & MOVEMENT_LOOP_IGNORE_PRIORITY)
 			continue
-		if(favorite && favorite.priority < checking.priority)
+		if(favorite && favorite.priority > checking.priority)
 			continue
 		favorite = checking
 
@@ -145,8 +148,8 @@ SUBSYSTEM_DEF(move_manager)
 
 /datum/movement_packet/proc/remove_loop(datum/controller/subsystem/movement/remove_from, datum/move_loop/loop_to_remove)
 	if(loop_to_remove == running_loop)
-		remove_from.remove_loop(loop_to_remove)
 		running_loop = null
+		remove_from.remove_loop(loop_to_remove)
 	if(loop_to_remove.flags & MOVEMENT_LOOP_IGNORE_PRIORITY)
 		remove_from.remove_loop(loop_to_remove)
 	if(QDELETED(src))

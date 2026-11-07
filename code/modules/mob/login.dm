@@ -2,10 +2,10 @@
   * Run when a client is put in this mob or reconnets to byond and their client was on this mob
   *
   * Things it does:
-  * * call set_eye() to manually manage atom/list/eye_users
   * * Adds player to player_list
   * * sets lastKnownIP
   * * sets computer_id
+  * * calls set_client_eye_to()/OR/_on_setting_mob_eye() to manually manage /atom/list/eye_users AND /eye_mobs
   * * logs the login
   * * tells the world to update it's status (for player count)
   * * create mob huds for the mob if needed
@@ -29,6 +29,9 @@
 /mob/Login()
 	if(!client)
 		return FALSE
+
+	canon_client = client
+		
 	// This can happen in some cases, mainly when a client logs in with the same CKEY as another client
 	// Both clients will get deleted which should ensure nobody uses a mob they don't have access to...
 	if(!istype(src, /mob/dead/new_player/pre_auth) && !client.logged_in)
@@ -48,16 +51,23 @@
 			qdel(client)
 		. = FALSE
 		CRASH(msg)
-	// set_eye() is important here, because your eye doesn't know if you're using them as your eye
-	// FALSE when weakref doesn't exist, to prevent using their current eye
-	client.set_eye(client.eye, client.eye_weakref?.resolve() || FALSE)
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
+
+	// eye, hud, images
 	client.screen = list() //remove hud items just in case
 	client.images = list()
+	client.perspective = EYE_PERSPECTIVE
+	if(!current_mob_eye) // in case when your mob isn't ready for client eye
+		_on_setting_mob_eye(get_my_eye())
+	else
+		// set_client_eye_to() is important here, because your eye doesn't know if you're using them as your eye
+		// FALSE when weakref doesn't exist, to prevent using their current eye
+		client.set_client_eye_to(current_mob_eye)
+	update_eye_features()
 	client.set_right_click_menu_mode(shift_to_open_context_menu)
 
 	if(!hud_used)
@@ -90,15 +100,13 @@
 	if(!client)
 		return FALSE
 
-	//We do this here to prevent hanging refs from ghostize or whatever, since if we were in another mob before this'll take care of it
-	clear_important_client_contents(client)
 	enable_client_mobs_in_contents(client)
 
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 
 	if (key != client.key)
 		key = client.key
-	reset_perspective(loc)
+	// set_mob_eye_to(MOB_EYE_SELF) // DO NOT REVIVE. Bee code works differently.
 
 	if(loc)
 		loc.on_log(TRUE)
@@ -113,11 +121,8 @@
 	sync_mind()
 
 	//Reload alternate appearances
-	for(var/v in GLOB.active_alternate_appearances)
-		if(!v)
-			continue
-		var/datum/atom_hud/alternate_appearance/AA = v
-		AA.onNewMob(src)
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.check_hud(src)
 
 	update_client_colour()
 	update_mouse_pointer()

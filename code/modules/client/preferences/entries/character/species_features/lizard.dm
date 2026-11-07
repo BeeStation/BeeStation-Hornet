@@ -4,7 +4,7 @@
 
 	if (isnull(lizard))
 		lizard = uni_icon('icons/mob/human/species/lizard/bodyparts.dmi', "lizard_head", dir = EAST)
-		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_face.dmi', "eyes_l", dir = EAST)
+		var/datum/universal_icon/eyes = uni_icon('icons/mob/human/human_eyes.dmi', "eyes_l", dir = EAST)
 		eyes.blend_color(COLOR_GRAY, ICON_MULTIPLY)
 		lizard.blend_icon(eyes, ICON_OVERLAY)
 
@@ -97,13 +97,40 @@
 	db_key = "feature_lizard_legs"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	relevant_mutant_bodypart = "legs"
 
 /datum/preference/choiced/lizard_legs/init_possible_values()
-	return assoc_to_keys(GLOB.legs_list)
+	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)
 
 /datum/preference/choiced/lizard_legs/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["legs"] = value
+	// Hack to update the dummy in the preference menu
+	// (Because digi legs are ONLY handled on species change)
+	if(!isdummy(target) || target.dna.species.digitigrade_customization == DIGITIGRADE_NEVER)
+		return
+
+	var/list/correct_legs = target.dna.species.bodypart_overrides.Copy() & list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+
+	if(value == DIGITIGRADE_LEGS)
+		correct_legs[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
+		correct_legs[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
+
+	for(var/obj/item/bodypart/old_part as anything in target.get_bodyparts())
+		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
+			continue
+
+		var/path = correct_legs[old_part.body_zone]
+		if(!path)
+			continue
+		var/obj/item/bodypart/new_part = new path()
+		new_part.replace_limb(target)
+		new_part.update_limb(is_creating = TRUE)
+		qdel(old_part)
+
+/datum/preference/choiced/lizard_legs/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if(!..())
+		return FALSE
+	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	return initial(species_type.digitigrade_customization) == DIGITIGRADE_OPTIONAL
 
 /datum/preference/choiced/lizard_snout
 	db_key = "feature_lizard_snout"

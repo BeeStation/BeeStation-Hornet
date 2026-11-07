@@ -1,6 +1,7 @@
-import { filter, sortBy } from 'common/collections';
 import { toFixed } from 'common/math';
 import type { BooleanLike } from 'common/react';
+import { sortBy } from 'es-toolkit';
+import { filter } from 'es-toolkit/compat';
 import { ReactNode, useState } from 'react';
 
 import { useBackend } from '../backend';
@@ -124,9 +125,12 @@ export const SupermatterContent = (props: SupermatterProps) => {
   const [allGasActive, setAllGasActive] = useState(false);
   let gas_composition = Object.entries(props.gas_composition);
   if (!allGasActive) {
-    gas_composition = filter(gas_composition, ([, amount]) => amount !== 0);
+    gas_composition = filter(
+      gas_composition,
+      ([gas_path, amount]) => amount !== 0,
+    );
   }
-  gas_composition = sortBy(gas_composition, ([, amount]) => -amount);
+  gas_composition = sortBy(gas_composition, [([, amount]) => -amount]);
 
   return (
     <Stack height="100%">

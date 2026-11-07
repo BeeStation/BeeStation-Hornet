@@ -62,6 +62,8 @@ validPrefixes = [
     "sound",
     "image",
     "map",
+    "qol",
+    "github",
 ]
 
 

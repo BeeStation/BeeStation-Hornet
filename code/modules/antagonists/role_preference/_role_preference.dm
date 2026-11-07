@@ -23,7 +23,7 @@
 /datum/role_preference/proc/render_preview_outfit(datum/outfit/outfit, mob/living/carbon/human/dummy)
 	dummy = dummy || new /mob/living/carbon/human/dummy/consistent
 	dummy.equipOutfit(outfit, visuals_only = TRUE)
-	COMPILE_OVERLAYS(dummy)
+	dummy.wear_suit?.update_greyscale()
 	var/icon = getFlatIcon(dummy)
 
 	// We don't want to qdel the dummy right away, since its items haven't initialized yet.

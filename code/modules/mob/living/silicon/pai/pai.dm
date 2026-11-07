@@ -24,7 +24,6 @@
 	held_lh = 'icons/mob/pai_item_lh.dmi'
 	held_rh = 'icons/mob/pai_item_rh.dmi'
 	head_icon = 'icons/mob/pai_item_head.dmi'
-	var/network = "ss13"
 	var/obj/machinery/camera/current = null
 	light_system = MOVABLE_LIGHT
 	light_power = 1
@@ -247,13 +246,9 @@
 	if(!. || !client)
 		return FALSE
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
-	mind.set_assigned_role(JOB_NAME_PAI)
+	mind.set_assigned_role(SSjob.get_job_type(/datum/job/personal_ai))
 	notes_assets.send(client)
-	client.perspective = EYE_PERSPECTIVE
-	if(holoform)
-		client.set_eye(src)
-	else
-		client.set_eye(card)
+	set_mob_eye_to(holoform ? MOB_EYE_SELF : card)
 
 /mob/living/silicon/pai/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -277,7 +272,7 @@
 	if(delold)
 		qdel(src)
 
-/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
+/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	. = ..()
 	if(!.)
 		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
@@ -349,13 +344,13 @@
 
 	return ..()
 
-/obj/item/pai_card/attackby(obj/item/used, mob/user, params)
+/obj/item/pai_card/attackby(obj/item/used, mob/user, list/modifiers)
 	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
 		if(!pai.encryptmod)
 			to_chat(user, span_alert("Encryption Key ports not configured."))
 			return
 		user.set_machine(src)
-		pai.radio.attackby(used, user, params)
+		pai.radio.attackby(used, user, modifiers)
 		to_chat(user, span_notice("You insert [used] into the [src]."))
 		return
 

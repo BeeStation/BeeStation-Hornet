@@ -20,6 +20,8 @@
 	maxHealth = 20
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
+	attack_sound = 'sound/weapons/bite.ogg'
+	attack_vis_effect = ATTACK_EFFECT_BITE
 	melee_damage = 6
 	response_help_continuous = "pets"
 	response_help_simple = "pet"

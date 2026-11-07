@@ -1,0 +1,251 @@
+2026-06-01:
+  The-Moon-Itself:
+  - rscadd: Readded the blast cannon to the traitor uplink
+  - bugfix: Fixed the blast cannon being unable to compute bomb strength
+2026-06-02:
+  EvilDragonfiend:
+  - code_imp: improved /icon vv
+  Isaacnml:
+  - bugfix: Lavaland syndicate base is no longer unpowered 24/7
+  - rscadd: You can buy the springlock module from the Uplink at the cost of 2 TC
+2026-06-03:
+  BotTierPC:
+  - rscadd: Added a toggle for moth players to join with burnt and crippled wings.
+  - tweak: Swapped the "Domestic" and "Default" moth eyes, Plus Shaped Eyes are now
+      the Default.
+  WhiskeyMarten:
+  - bugfix: fixed explorer access across several maps
+2026-06-04:
+  Isaac:
+  - bugfix: Ores placed by hand on the ORM will give points
+  - bugfix: Fixed lasers not contributing to the ORM's ore multiplier bonus. It can
+      now go up to 3x with fully upgraded parts.
+  - bugfix: Runtime has it's own sprite when held again
+  - bugfix: Express Cargo Console uses it's own UI again
+  - balance: Express Cargo Beacons will last about 6 drop-pods instead of 3
+  Isaacnml:
+  - rscadd: RPED has the functionality to drop certain tiered parts once again
+  mrmanlikesbt:
+  - rscadd: Volume sliders have been added in your preference menu. Because of this,
+      if you had any sounds disabled before they will now be reset to 100% volume.
+  - tweak: The Aurora Caelus event now uses the soundtrack preference instead of the
+      admin music one.
+  - code_imp: Some documentation has been added to /client.
+  - code_imp: Weather code has been optimized a bit.
+  - bugfix: Fixed the ambient magma bubbling sound not increasing in volume when leaving
+      the lavaland base.
+  - bugfix: Fixed several radiation related traits not showing up in the add/remove
+      traits VV dropdown.
+  mrmanlikesbt, Absolucy:
+  - code_imp: Turret processing has been optimized substantially
+  - bugfix: Fixed turrets not targeting basic mobs
+  ? mrmanlikesbt, Ghommie, Jacquerel, san7890, Majkl-J, MrMelbert, SmArtKar, tontyGH,
+    MX0739, Mothblocks, LemonInTheDark, kawoppi, JohnFulpWillard, GoldenAlpharex,
+    strandsofivy, vinylspiders
+  : - code_imp: Rags are now standalone items instead of being under the /obj/item/reagent_containers
+        typepath (they can still hold reagents)
+    - code_imp: All uses of world.icon_size have been replaced with their respective
+        ICON_SIZE... defines
+    - code_imp: The notransform mob var is now a trait
+    - code_imp: TRAIT_SUIT_SENSORS and TRAIT_NANITE_SENSORS have been merged into
+        TRAIT_TRACKED_SENSORS
+    - code_imp: All cleaning items have been refactored to use a /datum/component/cleaner
+    - code_imp: Added /datum/element/give_turf_traits. Whenever an atom with this
+        element is on a turf, its turf will have the configured traits, when the atom
+        leaves the turf, the turf will lose the traits
+    - refactor: Refactored atom huds, they are faster and easier to work with now
+    - refactor: Pixel offsets are now sourced instead of everything sharing the same
+        two pixel offset vars
+    - bugfix: Fixed cyborg soap being deleted when runs out of uses, to refill it,
+        use a cyborg recharger
+    - bugfix: Fixed people with the Monitoring nanite program not showing up on basic
+        health HUDs (only the AI has a basic health HUD)
+    - bugfix: 'HUD colors are now independent of their owner''s color. For example:
+        a purple guy''s HUD elements will no longer be purple as well'
+    - bugfix: People no longer continue to float in the air when the noose they are
+        being hung by is cut
+    - bugfix: Fixed people not having the correct pixel offset applied when aggressively
+        grabbed
+    - bugfix: Fixed some sinks pointing the wrong direction
+    - rscadd: If a person has multiple antag datums, their antag icon will now cycle
+        through all of them instead of it being locked to the most recent antag datum.
+        This can only be seen at roundend or by admins
+    - rscadd: Items in water (or lava) now appear immersed
+    - rscadd: It takes a little bit longer for clowns to realize that they're about
+        to die when they enter a chasm
+  mrmanlikesbt, LemonInTheDark:
+  - code_imp: Subsystem flags now have VV bitfield support.
+  - code_imp: Renamed /datum/controller/subsystem/var/flags to /datum/controller/subsystem/var/ss_flags.
+  - code_imp: GLOB.vv_special_lists is now dynamically generated with specific lists
+      having special editing rights. For example, the "vars" special list is read
+      only.
+  - server: Subsystem flags are now unit tested to ensure there are no conflicts.
+  mrmanlikesbt, MrMelbert, RikuTheKiller:
+  - bugfix: Fixed various runtimes & harddels
+  - bugfix: Fixed autolathes not dropping their materials on destruction
+  - bugfix: Fixed circuit floors not emitting light
+  - bugfix: Status effects should now tick more consistently
+  - bugfix: Fixed two alert sounds playing when becoming a changeling
+  - code_imp: Stun absorptions have been refactored into a status effect
+2026-06-05:
+  DrDuckedGoose:
+  - bugfix: Fix particles smoking, again
+  EvilDragonfiend:
+  - code_imp: VV'ing mobs no longer throws a runtime unnecessarily. Also changed some
+      VV code
+2026-06-06:
+  Tsar-Salat:
+  - bugfix: fix slimepeople eye misapplication
+  WhiskeyMarten:
+  - spellcheck: Fixed a few minor misspellings.
+2026-06-07:
+  mrmanlikesbt:
+  - code_imp: The Grid TGUI component has been deprecated.
+  - tweak: Slightly reorganized the bluespace launchpad UI.
+  - bugfix: Fixed some issues with the nanite UIs.
+  - bugfix: Fixed the DNA console UI being a little too small
+2026-06-08:
+  BotTierPC:
+  - admin: Mass Antag Conversion Secret Now Allows For Vampire Conversion
+2026-06-10:
+  EvilDragonfiend:
+  - code_imp: some special list varbs (verbs, locs, vis_locs) are now properly protected
+      in live servers
+  Programs-The-Station:
+  - bugfix: Skinsuits can no longer have their cells removed and suit temperature
+      regulator adjusted
+  mrmanlikesbt:
+  - bugfix: Fixed the nanite program hub causing an NTOS error if no programs were
+      researched
+  - bugfix: Fixed donator accents
+2026-06-11:
+  BotTierPC:
+  - rscadd: Adds a new Telescreen to observe Science Artifact Labs
+  - rscadd: Adds a Artifact Telescreen to Radstation, Flandstation, Cardinalstation,
+      Deltastation, and Boxstation
+  - tweak: The science/explab area gives new artsci network to its camera
+2026-06-13:
+  Isaacnml:
+  - rscadd: Nukies have their stolen medibot back
+  - bugfix: Uplink wont give you an energy lens instead of a miniature energy crossbow
+      anymore
+  MadmanMartian:
+  - tweak: Medsprays now explain how they function in their description, describing
+      if they're patch-application or spray-application. No way to change them manually
+      is currently implemented.
+  - bugfix: Fixes Barber's Aid not working at all
+  llol111:
+  - rscadd: Adds a verb for admins to change what laws the AI will spawn with
+  mrmanlikesbt, TealSeer:
+  - code_imp: The codebase now supports compilation on the latest byond version
+2026-06-14:
+  BotTierPC:
+  - bugfix: 'Fixes Custom Vendor''s: They should use the correct image and sell items
+      properly once again.'
+  DrDuckedGoose:
+  - rscadd: Adds a new round end sound
+  Isaacnml:
+  - bugfix: Cloud Controller TGUI wont crash anymore, hopefully
+  PowerfulBacon:
+  - bugfix: Fixes some unexpected behaviours in reagent code caused by floating point
+      arithmetic errors.
+  Programs-The-Station:
+  - rscadd: Engineering Cyborgs can now wield the power of the BS RPED
+  - bugfix: Engineering Cyborgs can no longer get infinite RPEDs installed
+  - rscadd: Janitor Cyborgs can now wield the power of the BS Light Replacer
+  WhiskeyMarten:
+  - bugfix: Fixed the CardStation Supermatter area being set to rooms around the SM
+      chamber as well.
+  mrmanlikesbt:
+  - code_imp: Sleeping in Initialize() is banned now.
+2026-06-15:
+  mrmanlikesbt:
+  - code_imp: Fixed the codebase not compiling, again
+2026-06-16:
+  mrmanlikesbt:
+  - bugfix: Fixed a horrible random room spawner harddel
+2026-06-17:
+  MadmanMartian:
+  - tweak: Dispensers, such as Chemical, Booze, Soda, and Mutagen Dispensers, now
+      tell you when they can not be operated due to their maintenance panel being
+      open.
+2026-06-18:
+  EvilDragonfiend:
+  - bugfix: Cloning works correctly - it has been something buggy indescribably.
+  - code_imp: improved(maybe) record code. My code comrades, codewise internally,
+      it might look awful but it's good for you...
+2026-06-19:
+  MadmanMartian:
+  - bugfix: You can now examine emitters again to ascertain their stats, and whether
+      or not they're wired/powered properly.
+2026-06-20:
+  mrmanlikesbt:
+  - bugfix: Fixed the spaceproof directional windows mapping helper sometimes breaking
+      the entire game
+2026-06-22:
+  Isaac:
+  - bugfix: ED209's no longer use old beepsky stun mechanics, they now follow the
+      new ones
+  - bugfix: Glue cant be applied to the modsuit control unit, preventing cases where
+      it literally cant be taken out of your back
+  - bugfix: Energy Shield MOD is vulnerable to EMP's  once again, how it was supposed
+      to be in the first place
+  WhiskeyMarten:
+  - rscadd: Added cell chargers to the prison of each map, making some minor adjustments
+      to fit them in.
+  - bugfix: Fixed some backwards chairs.
+  - bugfix: Changed the contents of the fridges in Box's kitchen so it has a balanced
+      variety of ingredients.
+  - bugfix: Fixed the marker beacons on FlandStation so they should be the properly
+      placed version.
+  mrmanlikesbt:
+  - code_imp: Replaced some bad Destroy() calls with the proper qdel() calls.
+2026-06-23:
+  mrmanlikesbt, LemonInTheDark, vinylspiders:
+  - code_imp: Callbacks can no longer be qdeleted. When you are done with a callback,
+      clear your references to it. The byond garbage collector will deal with it.
+  - code_imp: Removed some leftover instances of the `silent` argument in `Destroy()`.
+      We deprecated this roughly two years back.
+  - refactor: The simple rotation component is now an element. This should save a
+      few megabytes of memory. Oh the joys of 32bit programming!
+  - admin: The dynamic panel now refreshes configured variables as well when you press
+      the reload storytellers button.
+  - bugfix: Fixed full-tile windows showing up as being rotatable when examining them
+  - bugfix: Fixed a runtime when examining a hydroponics tray
+  - bugfix: Fixed a runtime when a crewmember who had their manifest photo retaken
+      from a photobooth entered cryo.
+  - bugfix: Fixed not being able to easily insert the ID from a PDA into an ID modification
+      console
+  - bugfix: Fixed the ethereal disco ball not glowing valid colors
+2026-06-25:
+  MadmanMartian:
+  - tweak: You can now examine solar panels to infer their power multiplier coefficient,
+      their maximum output, their glass type, and what tools to use on them
+2026-06-27:
+  Isaacnml:
+  - bugfix: Some RnD nodes aren't fully hidden forever, now they can be researched
+      if it's prerequisites are also researched
+  - bugfix: Nanite Chambers will now give the research to the server they're linked
+      to
+  - rscadd: You can link nanite chambers using a multitool with a server buffer on
+      it, it'll change where nanite research is given to
+  - rscadd: You can examine nanite chambers and it'll tell you what server it's linked
+      to and a hint how you can change that
+  Nildo1:
+  - balance: Lowers the amount of discovery points the notes given by experimental
+      dissection give for aliens.
+  - bugfix: Fixes experimental dissection for Charlie Station.
+  Programs-The-Station:
+  - balance: Holofan projectors now have a maxcapacity of 6
+  WhiskeyMarten:
+  - tweak: Removed the minpop requirement to play the Prisoner role. It no longer
+      requires 9 ready-ups at round start to be available.
+  mrmanlikesbt, zxaber, Arkatos1, Tastyfish, ShizCalev, lelandkemble:
+  - rscadd: Added holopad TGUI
+  - rscadd: Heads of staff can now forcibly connect to holopads. Head of staff rooms
+      & AI facilities are immune from this. You can use a multitool on a holopad board
+      to make it immune as well.
+  - bugfix: Fixed holocalls.
+2026-06-28:
+  mrmanlikesbt:
+  - bugfix: Fixed shuttles hard deleting when exiting supercruise

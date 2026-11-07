@@ -17,21 +17,21 @@
 /obj/item/reagent_containers/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!.) //if the bottle wasn't caught
-		var/mob/thrower = throwingdatum?.get_thrower()
-		smash(hit_atom, thrower, TRUE)
+		smash(hit_atom, throwingdatum?.get_thrower(), throwingdatum)
 
-/obj/item/reagent_containers/cup/glass/proc/smash(atom/target, mob/thrower, ranged = FALSE)
+/obj/item/reagent_containers/cup/glass/proc/smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum)
 	if(!isGlass)
-		return
+		return FALSE
 	if(QDELING(src) || !target) //Invalid loc
-		return
-	if(bartender_check(target) && ranged)
-		return
-	SplashReagents(target, ranged, override_spillable = TRUE)
-	var/obj/item/broken_bottle/B = new (loc)
-	B.mimic_broken(src, target)
+		return FALSE
+	if(ismob(thrower) && bartender_check(target, thrower) && throwingdatum)
+		return FALSE
+	var/splash_target = QDELETED(target) ? target.drop_location() : target
+	splash_reagents(splash_target, astype(thrower, /mob), allow_closed_splash = TRUE)
+	var/obj/item/broken_bottle/broken = new (loc)
+	broken.mimic_broken(src, target)
 	qdel(src)
-	target.Bumped(B)
+	return TRUE
 
 /obj/item/reagent_containers/cup/glass/bullet_act(obj/projectile/P)
 	. = ..()
@@ -53,7 +53,6 @@
 	has_variable_transfer_amount = FALSE
 	volume = 5
 	obj_flags = parent_type::obj_flags | CONDUCTS_ELECTRICITY
-	spillable = TRUE
 	resistance_flags = FIRE_PROOF
 	isGlass = FALSE
 
@@ -106,7 +105,6 @@
 	icon_state = "coffee"
 	base_icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)
-	spillable = TRUE
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	drink_type = BREAKFAST
@@ -117,7 +115,6 @@
 	icon_state = "bubble_tea"
 	list_reagents = list(/datum/reagent/consumable/bubble_tea = 50)
 	drink_type = SUGAR
-	spillable = TRUE
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/ice
@@ -126,7 +123,6 @@
 	custom_price = PAYCHECK_EASY * 0.6
 	icon_state = "iceglass"
 	list_reagents = list(/datum/reagent/consumable/ice = 30)
-	spillable = TRUE
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/ice/prison
@@ -142,7 +138,6 @@
 	icon_state = "tea_empty"
 	base_icon_state = "tea"
 	inhand_icon_state = "coffee"
-	spillable = TRUE
 
 /obj/item/reagent_containers/cup/glass/mug/update_icon_state()
 	icon_state = "[base_icon_state][reagents.total_volume ? null : "_empty"]"
@@ -186,7 +181,7 @@
 	isGlass = FALSE
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
 	var/cap_icon_state = "bottle_cap_small"
-	var/cap_on = TRUE
+	var/start_capped = TRUE
 	var/cap_lost = FALSE
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
@@ -195,20 +190,21 @@
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()
 	cap_overlay = mutable_appearance(icon, cap_icon_state)
-	if(cap_on)
-		spillable = FALSE
+	if(start_capped)
+		// this is not done via initial_reagent_flags because it represents state
+		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
 		update_appearance()
 
 /obj/item/reagent_containers/cup/glass/waterbottle/update_overlays()
 	. = ..()
-	if(cap_on)
+	if(!is_open_container())
 		. += cap_overlay
 
 /obj/item/reagent_containers/cup/glass/waterbottle/examine(mob/user)
 	. = ..()
 	if(cap_lost)
 		. += span_notice("The cap seems to be missing.")
-	else if(cap_on)
+	else if(!is_open_container())
 		. += span_notice("The cap is firmly on to prevent spilling. Alt-click to remove the cap.")
 	else
 		. += span_notice("The cap has been taken off. Alt-click to put a cap on.")
@@ -222,9 +218,8 @@
 		return
 
 	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
-	if(cap_on || fumbled)
-		cap_on = FALSE
-		spillable = TRUE
+	if(!is_open_container() || fumbled)
+		reset_container_flags()
 		animate(src, transform = null, time = 2, loop = 0)
 		if(fumbled)
 			to_chat(user, span_warning("You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?"))
@@ -232,50 +227,16 @@
 		else
 			to_chat(user, span_notice("You remove the cap from [src]."))
 	else
-		cap_on = TRUE
-		spillable = FALSE
+		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
 		to_chat(user, span_notice("You put the cap on [src]."))
 	update_appearance()
-
-/obj/item/reagent_containers/cup/glass/waterbottle/is_refillable()
-	if(cap_on)
-		return FALSE
-	return ..()
-
-/obj/item/reagent_containers/cup/glass/waterbottle/is_drainable()
-	if(cap_on)
-		return FALSE
-	return ..()
-
-/obj/item/reagent_containers/cup/glass/waterbottle/attack(mob/target, mob/living/user, def_zone)
-	if(!target)
-		return
-
-	if(cap_on && reagents.total_volume && istype(target))
-		to_chat(user, span_warning("You must remove the cap before you can do that!"))
-		return
-
-	return ..()
-
-/obj/item/reagent_containers/cup/glass/waterbottle/afterattack(obj/target, mob/living/user, proximity)
-	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.combat_mode)))
-		to_chat(user, span_warning("You must remove the cap before you can do that!"))
-		return
-
-	else if(istype(target, /obj/item/reagent_containers/cup/glass/waterbottle))
-		var/obj/item/reagent_containers/cup/glass/waterbottle/other_bottle = target
-		if(other_bottle.cap_on)
-			to_chat(user, span_warning("[other_bottle] has a cap firmly twisted on!"))
-			return
-
-	return ..()
 
 // heehoo bottle flipping
 /obj/item/reagent_containers/cup/glass/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(QDELETED(src))
 		return
-	if(!cap_on || !reagents.total_volume)
+	if(is_open_container() || !reagents.total_volume)
 		return
 	if(prob(flip_chance)) // landed upright
 		src.visible_message(span_notice("[src] lands upright!"))
@@ -291,7 +252,7 @@
 
 /obj/item/reagent_containers/cup/glass/waterbottle/empty
 	list_reagents = list()
-	cap_on = FALSE
+	start_capped = FALSE
 
 /obj/item/reagent_containers/cup/glass/waterbottle/large
 	desc = "A fresh commercial-sized bottle of water."
@@ -306,7 +267,7 @@
 
 /obj/item/reagent_containers/cup/glass/waterbottle/large/empty
 	list_reagents = list()
-	cap_on = FALSE
+	start_capped = FALSE
 
 // Admin spawn
 /obj/item/reagent_containers/cup/glass/waterbottle/random
@@ -325,7 +286,6 @@
 	icon_state = "water_cup_e"
 	possible_transfer_amounts = list(10)
 	volume = 10
-	spillable = TRUE
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/sillycup/update_icon_state()
@@ -348,15 +308,6 @@
 		on_icon_reset = CALLBACK(src, PROC_REF(on_cup_reset)), \
 		base_container_type = /obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton, \
 	)
-
-/obj/item/reagent_containers/cup/glass/bottle/juice/smallcarton/smash(atom/target, mob/thrower, ranged = FALSE)
-	if(bartender_check(target) && ranged)
-		return
-	SplashReagents(target, ranged, override_spillable = TRUE)
-	var/obj/item/broken_bottle/bottle_shard = new (loc)
-	bottle_shard.mimic_broken(src, target)
-	qdel(src)
-	target.Bumped(bottle_shard)
 
 /obj/item/reagent_containers/cup/glass/colocup
 	name = "colo cup"
@@ -427,4 +378,3 @@
 	icon_state = "britcup_empty"
 	base_icon_state = "britcup"
 	volume = 30
-	spillable = TRUE

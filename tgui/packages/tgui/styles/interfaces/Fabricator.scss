@@ -1,0 +1,268 @@
+@use '../base.scss';
+@use '../colors.scss';
+
+// Button.scss is configured with "with" by the themes, so it can't be used here. These mirror its transparent-button colouring.
+$transparent-text: rgba(255, 255, 255, 0.5);
+$transparent-hover-bg: rgba(255, 255, 255, 0.05);
+
+.Fabricator__Recipe {
+  position: relative;
+  padding: 0.25em 0;
+  border-bottom: 1px solid #000;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.Fabricator__PrintAmount {
+  min-height: 100%;
+  transition: opacity 0.5s ease-out;
+
+  &--disabled {
+    opacity: 0.5;
+    background-color: transparent;
+    text-decoration: line-through;
+  }
+}
+
+.MaterialDock {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 4.25em;
+  padding: 0.5em;
+  border-radius: 0 0 0.25em 0.25em;
+  transition: opacity 0.5s ease-in-out;
+  user-select: none; // This is here for the reason, double clicking would highlight the number/text
+
+  &--active {
+    background-color: #111;
+    transition: background-color 0.125s ease-out;
+  }
+
+  &__Label {
+    transition: opacity 0.5s ease-out;
+  }
+
+  &--disabled &__Label {
+    opacity: 0.5;
+  }
+
+  &__Dock {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 0.25em 0.25em 0 0;
+    background-color: #111;
+    text-align: center;
+    box-shadow: 0 0 3px #000;
+  }
+}
+
+.FabricatorRecipe {
+  position: relative;
+  display: flex;
+  width: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  user-select: none;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__Progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.25);
+    transition: width 1s linear;
+  }
+
+  &__Title,
+  &__Button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0.25em 0.5em;
+    border-radius: 0;
+    background-color: rgba(base.$color-bg, 0);
+    color: $transparent-text;
+    transition:
+      opacity 0.5s ease-out,
+      background-color 50ms;
+
+    &:hover {
+      background-color: $transparent-hover-bg;
+      color: #fff;
+    }
+
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+    }
+  }
+
+  &__Title {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  &__Icon {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    margin-right: 1em;
+  }
+
+  &__Label {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  &__Button {
+    flex: none;
+    justify-self: flex-end;
+
+    &:not(.FabricatorRecipe__Button--icon) {
+      min-width: 4em;
+      justify-content: center;
+    }
+
+    &--icon {
+      padding: 0 1em;
+    }
+
+    &--disabled:not(.FabricatorRecipe__Button--icon) {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.FabricatorMaterialIcon {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+
+  &__Icon {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+
+    &--active {
+      opacity: 1;
+    }
+  }
+}
+
+.FabricatorTabs {
+  .FabricatorTabs {
+    margin-top: 0.5em;
+    padding-left: 0.25em;
+  }
+
+  &__Tab {
+    padding: 0.5em;
+    border-right: 2px solid transparent;
+    border-radius: 0.25em 0 0 0.25em;
+    background-color: rgba(base.$color-bg, 0);
+    color: $transparent-text;
+    transition:
+      border-color 0.125s ease-out,
+      background-color 0.0625s ease-out;
+
+    &:hover,
+    &--active {
+      background-color: $transparent-hover-bg;
+    }
+
+    &--active {
+      border-right-color: colors.$primary;
+      color: #fff;
+    }
+  }
+
+  &__Label {
+    display: flex;
+    gap: 0.25em;
+    justify-content: space-between;
+  }
+
+  &__CategoryName {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__CategoryCount {
+    flex: none;
+  }
+}
+
+.Fabricator__Browser,
+.Fabricator__Browser .Stack__item,
+.Fabricator__Browser .Section,
+.Fabricator__Browser .Section__rest,
+.Fabricator__QueuePanel,
+.Fabricator__QueuePanel .Stack__item,
+.Fabricator__QueuePanel .Section,
+.Fabricator__QueuePanel .Section__rest {
+  min-height: 0;
+  min-width: 0;
+}
+
+.Fabricator__Categories,
+.Fabricator__Queue {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.Fabricator__Designs {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .Section {
+    margin: 0;
+    background-color: transparent;
+
+    & > .Section__rest > .Section__content {
+      padding: 0;
+    }
+  }
+
+  .Section,
+  .Fabricator__CategoryAnchor {
+    margin-top: 0.5em;
+  }
+
+  .Section:first-child,
+  .Fabricator__CategoryAnchor:first-child {
+    margin-top: 0;
+  }
+}
+
+.Fabricator__Browser,
+.Fabricator__QueuePanel {
+  .Section__buttons {
+    top: 50%;
+    margin-top: 0;
+    transform: translateY(-50%);
+  }
+}

@@ -126,8 +126,8 @@
 					to_chat(morph, span_danger("[item] cannot be digested."))
 				else
 					if(item.reagents?.total_volume)
-						var/nutriment_healing = clamp(CEILING(item.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 0.4, 1), 0, 5)
-						var/vitamin_healing = clamp(CEILING(item.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/vitamin) * 0.6, 1), 0, 5)
+						var/nutriment_healing = clamp(ceil(item.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 0.4), 0, 5)
+						var/vitamin_healing = clamp(ceil(item.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/vitamin) * 0.6), 0, 5)
 						if(max(nutriment_healing, vitamin_healing) <= 0)
 							to_chat(morph, span_warning("There are not enough nutrients in [item] to heal from it!"))
 						else

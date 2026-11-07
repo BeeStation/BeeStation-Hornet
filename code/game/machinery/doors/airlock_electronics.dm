@@ -46,7 +46,7 @@
 
 		regions += list(list(
 			"name" = each_dept.access_group_name,
-			"regid" = each_dept.dept_bitflag,
+			"regid" = each_dept.department_bitflags,
 			"accesses" = accesses
 		))
 

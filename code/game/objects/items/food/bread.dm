@@ -75,6 +75,9 @@
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_STACK)
 
+/obj/item/food/breadslice/plain/make_grillable()
+	AddComponent(/datum/component/grillable, /obj/item/food/griddle_toast, rand(15 SECONDS, 25 SECONDS), TRUE, TRUE)
+
 /obj/item/food/breadslice/moldy
 	name = "moldy 'bread' slice"
 	desc = "Entire stations have been ripped apart arguing whether this is still good to eat."

@@ -19,18 +19,18 @@
 	var/breakout_time = 600
 
 	var/next_fact = 10 //in ticks, so about 20 seconds
-	var/static/list/fat_facts = list(\
-	"Fats are triglycerides made up of a combination of different building blocks; glycerol and fatty acids.", \
-	"Adults should get a recommended 20-35% of their energy intake from fat.", \
-	"Being overweight or obese puts you at an increased risk of chronic diseases, such as cardiovascular diseases, metabolic syndrome, type 2 diabetes and some types of cancers.", \
-	"Not all fats are bad. A certain amount of fat is an essential part of a healthy balanced diet. " , \
-	"Saturated fat should form no more than 11% of your daily calories.", \
-	"Unsaturated fat, that is monounsaturated fats, polyunsaturated fats and omega-3 fatty acids, is found in plant foods and fish." \
+	var/static/list/fat_facts = list(
+		"Fats are triglycerides made up of a combination of different building blocks; glycerol and fatty acids.",
+		"Adults should get a recommended 20-35% of their energy intake from fat.",
+		"Being overweight or obese puts you at an increased risk of chronic diseases, such as cardiovascular diseases, metabolic syndrome, type 2 diabetes and some types of cancers.",
+		"Not all fats are bad. A certain amount of fat is an essential part of a healthy balanced diet. ",
+		"Saturated fat should form no more than 11% of your daily calories.",
+		"Unsaturated fat, that is monounsaturated fats, polyunsaturated fats and omega-3 fatty acids, is found in plant foods and fish.",
 	)
 
 /obj/machinery/fat_sucker/Initialize(mapload)
 	. = ..()
-	soundloop = new(src,  FALSE)
+	soundloop = new(src, FALSE)
 	update_icon()
 
 /obj/machinery/fat_sucker/Destroy()
@@ -38,23 +38,23 @@
 	return ..()
 
 /obj/machinery/fat_sucker/RefreshParts()
-	..()
+	. = ..()
 	var/rating = 0
 	var/nutriment_rating
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		rating += L.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		nutriment_rating += M.rating
+	for(var/datum/stock_part/micro_laser/L in component_parts)
+		rating += L.tier
+	for(var/datum/stock_part/manipulator/M in component_parts)
+		nutriment_rating += M.tier
 	bite_size = initial(bite_size) + rating * 2.5
 	nutrient_to_meat = initial(nutrient_to_meat) - nutriment_rating * 5
 
 /obj/machinery/fat_sucker/examine(mob/user)
 	. = ..()
-	. += "[span_notice("Alt-Click to toggle the safety hatch.")]\n"+\
-			"[span_notice("Removing [bite_size] nutritional units per operation.")]\n"+\
-			span_notice("Requires [nutrient_to_meat] nutritional units per meat slab.")
+	. += span_notice("Alt-Click to toggle the safety hatch.")
+	. += span_notice("Removing [bite_size] nutritional units per operation.")
+	. += span_notice("Requires [nutrient_to_meat] nutritional units per meat slab.")
 
-/obj/machinery/fat_sucker/close_machine(mob/user)
+/obj/machinery/fat_sucker/close_machine(mob/user, density_to_set = TRUE)
 	if(panel_open)
 		to_chat(user, span_warning("You need to close the maintenance hatch first!"))
 		return
@@ -62,7 +62,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		var/mob/living/L = occupant
-		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(L?.mob_biotypes & MOB_ORGANIC))
+		if(!iscarbon(L) || !(L?.mob_biotypes & MOB_ORGANIC))
 			occupant.forceMove(drop_location())
 			set_occupant(null)
 			return
@@ -158,7 +158,7 @@
 		playsound(loc, 'sound/machines/chime.ogg', 30, FALSE)
 	else
 		next_fact--
-	use_power(500)
+	use_power(active_power_usage)
 
 /obj/machinery/fat_sucker/proc/start_extracting()
 	if(state_open || !occupant || processing || !is_operational)

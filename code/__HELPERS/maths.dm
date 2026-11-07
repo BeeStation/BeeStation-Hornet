@@ -64,8 +64,8 @@
 	var/abs_x_distance = abs(x_distance)//Absolute value of x distance
 	var/abs_y_distance = abs(y_distance)
 
-	var/x_distance_sign = SIGN(x_distance) //Sign of x distance (+ or -)
-	var/y_distance_sign = SIGN(y_distance)
+	var/x_distance_sign = sign(x_distance) //Sign of x distance (+ or -)
+	var/y_distance_sign = sign(y_distance)
 
 	var/x = abs_x_distance >> 1 //Counters for steps taken, setting to distance/2
 	var/y = abs_y_distance >> 1 //Bit-shifting makes me l33t.  It also makes get_line() unnecessarily fast.

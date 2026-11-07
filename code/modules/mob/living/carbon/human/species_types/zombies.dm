@@ -2,7 +2,6 @@
 	// 1spooky
 	name = "High-Functioning Zombie"
 	id = SPECIES_ZOMBIE
-	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	inherent_traits = list(
@@ -11,6 +10,7 @@
 		TRAIT_FAKEDEATH,
 		TRAIT_FAST_CUFF_REMOVAL,
 		TRAIT_LIMBATTACHMENT,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOT_TRANSMORPHIC,
@@ -24,6 +24,7 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_TOXIMMUNE,
+		TRAIT_NO_ZOMBIFY,
 		// HIGH FUNCTIONING UNIQUE
 		TRAIT_NOBLOOD,
 	)
@@ -73,10 +74,8 @@
 	name = "Infectious Zombie"
 	id = SPECIES_ZOMBIE_INFECTIOUS
 	examine_limb_id = SPECIES_ZOMBIE
-	speedmod = 1.6
 	damage_modifier = 20 // 120 damage to KO a zombie, which kills it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
-	var/muthands_path = /obj/item/mutant_hand/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	inherent_traits = list(
@@ -85,6 +84,7 @@
 		TRAIT_FAKEDEATH,
 		TRAIT_FAST_CUFF_REMOVAL,
 		TRAIT_LIMBATTACHMENT,
+		TRAIT_LIVERLESS_METABOLISM,
 		TRAIT_NOBREATH,
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOT_TRANSMORPHIC,
@@ -100,6 +100,7 @@
 		// INFECTIOUS UNIQUE
 		TRAIT_STABLEHEART, // Replacement for noblood. Infectious zombies can bleed but don't need their heart.
 		TRAIT_STABLELIVER, // Not necessary but for consistency with above
+		TRAIT_NOBLOOD,
 	)
 	// Infectious zombies have slow legs
 	bodypart_overrides = list(
@@ -111,7 +112,9 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/zombie/infectious,
 	)
 
-/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species, pref_load)
+	var/muthands_path = /obj/item/mutant_hand/zombie
+
+/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/human/new_zombie, datum/species/old_species)
 	. = ..()
 
 	new_zombie.set_combat_mode(TRUE)
@@ -137,7 +140,7 @@
 		infection = new()
 		infection.Insert(new_zombie)
 
-/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/was_zombie, datum/species/new_species, pref_load)
+/datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/was_zombie, datum/species/new_species)
 	. = ..()
 	qdel(was_zombie.GetComponent(/datum/component/mutant_hands))
 	qdel(was_zombie.GetComponent(/datum/component/regenerator))
@@ -167,7 +170,6 @@
 	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
 	damage_modifier = 0
-	speedmod = 0
 	inherent_biotypes = MOB_ORGANIC | MOB_UNDEAD |  MOB_HUMANOID //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 	muthands_path = /obj/item/mutant_hand/zombie/infectious
@@ -208,7 +210,7 @@
 		var/mob/living/carbon/human/H = C
 		skintone = H.skin_tone
 
-	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+	for(var/obj/item/bodypart/BP as anything in C.bodyparts)
 		if(IS_ORGANIC_LIMB(BP))
 			if(BP.body_zone == BODY_ZONE_HEAD || BP.body_zone == BODY_ZONE_CHEST)
 				BP.is_dimorphic = TRUE

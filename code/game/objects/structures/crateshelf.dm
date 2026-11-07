@@ -45,7 +45,7 @@
 		for(var/obj/structure/closet/crate/crate in shelf_contents)
 			. += "	[icon2html(crate, user)] [crate]"
 
-/obj/structure/crate_shelf/attackby(obj/item/item, mob/living/user, params)
+/obj/structure/crate_shelf/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if (item.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		item.play_tool_sound(src)
 		if(do_after(user, 3 SECONDS, target = src))

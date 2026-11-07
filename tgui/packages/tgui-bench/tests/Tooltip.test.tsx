@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react';
 import { Box, Tooltip } from 'tgui/components';
-import { createRenderer } from 'tgui/renderer';
-
-const render = createRenderer();
+import { render } from 'tgui/renderer';
 
 export const ListOfTooltips = () => {
   const nodes: ReactNode[] = [];

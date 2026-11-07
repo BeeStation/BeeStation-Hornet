@@ -81,7 +81,7 @@
 	if(owner?.current?.contents)
 		for(var/obj/item/reagent_containers/container in owner.current.get_contents())
 			units_total += container.reagents?.get_reagent_amount(target_chemical)
-	for(var/obj/machinery/smartfridge/chemistry/fridge in GLOB.machines)
+	for(var/obj/machinery/smartfridge/chemistry/fridge as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/smartfridge/chemistry))
 		for(var/obj/item/reagent_containers/container in fridge.contents)
 			units_total += container.reagents?.get_reagent_amount(target_chemical)
 	return units_total >= target_amount

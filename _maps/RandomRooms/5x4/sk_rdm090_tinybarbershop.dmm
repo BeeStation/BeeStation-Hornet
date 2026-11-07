@@ -22,9 +22,7 @@
 /area/template_noop)
 "b" = (
 /obj/structure/table,
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /obj/item/razor{
 	pixel_x = -5
 	},

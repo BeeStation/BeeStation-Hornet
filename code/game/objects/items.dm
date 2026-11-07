@@ -2,8 +2,6 @@ GLOBAL_VAR_INIT(stickpocalypse, FALSE) // if true, all non-embeddable items will
 
 GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to embed in people, takes precedence over stickpocalypse
 
-GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/effects/fire.dmi', "fire"))
-
 GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, ABOVE_LIGHTING_PLANE))
 
 GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
@@ -15,6 +13,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	burning_particles = /particles/smoke/burning/small
 	/// The icon state for the icons that appear in the players hand while holding it. Gotten from /client/var/lefthand_file and /client/var/righthand_file
 	var/inhand_icon_state = null
 	/// The icon for holding in hand icon states for the left hand.
@@ -109,6 +108,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/flags_inv
 	/// This flag is used to determine when items in someone's inventory cover others, however you can still see through that item and know what it covers. ex: You can see someone's mask through their transparent visor, but you can't reach it.
 	var/transparent_protection = NONE
+	///Path of type /datum/hair_mask to apply to hair when this item is worn
+	///Used by certain hats to give the appearance of squishing down tall hairstyles without hiding the hair completely
+	var/hair_mask = null
 
 	/// Flags for clicking the item with your hand. See _DEFINES/interaction_flags.dm
 	var/interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
@@ -171,7 +173,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// What this thing does when used like a tool. NONE if it isn't a tool. If I give a piece of paper TOOL_WRENCH I can use it to unwrench tables. See _DEFINES/tools.dm
 	var/tool_behaviour = NONE
 	/// The tool speed multiplier of how long it takes to do the tool action.
-	var/toolspeed = 1
+	VAR_PROTECTED/toolspeed = 1
 
 	/// Whether or not an item can block attacks
 	var/canblock = FALSE
@@ -250,7 +252,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		attack_verb_simple = typelist("attack_verb_simple", attack_verb_simple)
 
 	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * toolspeed)
+		AddComponent(/datum/component/butchering, _speed = 8 SECONDS * get_toolspeed())
 
 	. = ..()
 	for(var/path in actions_types)
@@ -288,7 +290,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	updateEmbedding()
 
 	if(sharpness) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, 80 * toolspeed)
+		AddComponent(/datum/component/butchering, 80 * get_toolspeed())
 
 /obj/item/Destroy(force)
 	master = null
@@ -451,7 +453,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	// Deliver to a console to know whether the boosts have already been used.
 	var/list/research_msg = list("<font color='purple'>Research prospects:</font> ")
 	var/sep = ""
-	var/list/boostable_nodes = techweb_item_boost_check(src)
+	var/list/boostable_nodes = techweb_item_unlock_check(src)
 	if (boostable_nodes)
 		for(var/id in boostable_nodes)
 			var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
@@ -503,26 +505,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/attempt_pickup(mob/user)
 	. = TRUE
 
-	if(resistance_flags & ON_FIRE)
-		var/mob/living/carbon/C = user
-		var/can_handle_hot = FALSE
-		if(!istype(C))
-			can_handle_hot = TRUE
-		else if(C.gloves && (C.gloves.max_heat_protection_temperature > 360))
-			can_handle_hot = TRUE
-		else if(HAS_TRAIT(C, TRAIT_RESISTHEAT) || HAS_TRAIT(C, TRAIT_RESISTHEATHANDS))
-			can_handle_hot = TRUE
-
-		if(can_handle_hot)
-			extinguish()
-			to_chat(user, span_notice("You put out the fire on [src]."))
-		else
-			to_chat(user, span_warning("You burn your hand on [src]!"))
-			var/obj/item/bodypart/affecting = C.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
-			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				C.update_damage_overlays()
-			return
-
 	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
 		var/mob/living/carbon/C = user
 		if(istype(C))
@@ -562,7 +544,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user && outside_storage)
-		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
+		if(!can_mob_unequip(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
 	. = FALSE
@@ -578,7 +560,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (. == SECONDARY_ATTACK_CALL_NORMAL)
 		. = SECONDARY_ATTACK_CONTINUE_CHAIN
 
-/obj/item/proc/allow_attack_hand_drop(mob/user)
+/// Called when a mob is manually attempting to unequip the item
+/// Returning FALSE will prevent the unequip from happening
+/obj/item/proc/can_mob_unequip(mob/user)
 	return TRUE
 
 /obj/item/attack_paw(mob/user, list/modifiers)
@@ -607,9 +591,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()
-
-/obj/item/proc/GetDeconstructableContents()
-	return GetAllContents() - src
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -643,10 +624,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!blockhand)
 		return FALSE
 	if(blockhand?.bodypart_disabled)
-		to_chat(owner, span_danger("You're too exausted to block the attack!"))
+		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	else if(owner.getStaminaLoss() >= 45)
-		to_chat(owner, span_danger("You're too exausted to block the attack!"))
+		to_chat(owner, span_danger("You're too exhausted to block the attack!"))
 		return FALSE
 	if((block_flags & BLOCKING_ACTIVE) && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return FALSE
@@ -705,7 +686,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
-		else if(!I.damtype == BRUTE)
+		else if(I.damtype != BRUTE)
 			attackforce = (attackforce * 0.8)
 
 		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
@@ -812,6 +793,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)
 	return
+
+/**
+ * Returns the toolspeed for this item modified by it's users tool proficiency. If there is no user, it simply returns the toolspeed.
+ * * user the mob to check for tool proficiency
+ */
+/obj/item/proc/get_toolspeed(mob/user)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		return toolspeed * living_user.tool_proficiency
+	return toolspeed
 
 /**
  * To be overwritten to only perform visual tasks;
@@ -989,7 +980,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		M.adjust_eye_blur(30 SECONDS)
 		if(M.stat != DEAD)
 			to_chat(M, span_danger("Your eyes start to bleed profusely!"))
-		if(!M.is_blind() || HAS_TRAIT(M, TRAIT_NEARSIGHT))
+		if(!M.is_blind() || M.is_nearsighted_from(EYE_DAMAGE))
 			to_chat(M, span_danger("You become nearsighted!"))
 		M.become_nearsighted(EYE_DAMAGE)
 		if (eyes.damage >= 60)
@@ -1284,7 +1275,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!delay && !tool_start_check(user, amount))
 		return
 
-	delay *= toolspeed
+	delay *= get_toolspeed(user)
 
 	// Play tool sound at the beginning of tool usage.
 	play_tool_sound(target, volume)
@@ -1538,7 +1529,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		/// victim's chest (for cavity implanting the item)
 		var/obj/item/bodypart/chest/victim_cavity = victim.get_bodypart(BODY_ZONE_CHEST)
 		if(victim_cavity.cavity_item)
-			victim.vomit(5, FALSE, FALSE, distance = 0)
+			victim.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_HARM), lost_nutrition = 5, distance = 0)
 			forceMove(drop_location())
 			to_chat(victim, span_warning("You vomit up a [name]! [source_item? "Was that in \the [source_item]?" : ""]"))
 		else
@@ -1594,10 +1585,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
 	return
 
-/// Whether or not this item can be put into a storage item through attackby
-/obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
-	return TRUE
-
 /**
  * * Overridden to generate icons for monkey clothing
  */
@@ -1605,7 +1592,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
-/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
 	CRASH("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
 /**
@@ -1710,3 +1697,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
 		else
 			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+
+/**
+ * Returns the atom(either itself or an internal module) that will interact/attack the target on behalf of us
+ * For example an object can have different `tool_behaviours` (e.g borg omni tool) but will return an internal reference of that tool to attack for us
+ * You can use it for general purpose polymorphism if you need a proxy atom to interact in a specific way
+ * with a target on behalf on this atom
+ *
+ * Currently used only in the object melee attack chain but can be used anywhere else or even moved up to the atom level if required
+ */
+/obj/item/proc/get_proxy_attacker_for(atom/target, mob/user)
+	RETURN_TYPE(/obj/item)
+
+	return src

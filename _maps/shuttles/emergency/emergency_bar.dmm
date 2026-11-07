@@ -698,9 +698,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "PN" = (
-/obj/structure/mirror/directional/north{
-	pixel_y = 32
-	},
+/obj/structure/mirror/directional/north,
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
 /area/shuttle/escape)

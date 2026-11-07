@@ -24,6 +24,8 @@
 #define ORGAN_UNREMOVABLE (1<<8)
 /// Can't be seen by scanners, doesn't anger body purists
 #define ORGAN_HIDDEN (1<<9)
+/// Has the organ already been inserted inside someone
+#define ORGAN_VIRGIN (1<<10)
 
 /// Helper to figure out if a limb is organic
 #define IS_ORGANIC_LIMB(limb) (limb.bodytype & BODYTYPE_ORGANIC)
@@ -37,7 +39,51 @@
 #define BODYPART_PSEUDOPART (1<<1)
 /// Bodypart did not match the owner's default bodypart limb_id when surgically implanted
 #define BODYPART_IMPLANTED (1<<2)
+/// Bodypart never displays as a husk
+#define BODYPART_UNHUSKABLE (1<<3)
 
 // Bodypart change blocking flags
 ///Bodypart does not get replaced during set_species()
 #define BP_BLOCK_CHANGE_SPECIES (1<<0)
+
+/// When the surgery step fails :(
+#define SURGERY_STEP_FAIL -1
+
+// Flags for surgery_flags on surgery datums
+///Will allow the surgery to bypass clothes
+#define SURGERY_IGNORE_CLOTHES (1<<0)
+///Will allow the surgery to be performed by the user on themselves.
+#define SURGERY_SELF_OPERABLE (1<<1)
+///Will allow the surgery to work on mobs that aren't lying down.
+#define SURGERY_REQUIRE_RESTING (1<<2)
+///Will allow the surgery to work only if there's a limb.
+#define SURGERY_REQUIRE_LIMB (1<<3)
+///Will allow the surgery to work only if there's a real (eg. not pseudopart) limb.
+#define SURGERY_REQUIRES_REAL_LIMB (1<<4)
+/**
+ * Instead of checking if the tool used is an actual surgery tool to avoid accidentally whacking patients with the wrong tool,
+ * it'll check if it has a defined tool behaviour instead. Useful for surgeries that use mechanical tools instead of medical ones,
+ * like hardware manipulation.
+ */
+#define SURGERY_CHECK_TOOL_BEHAVIOUR (1<<5)
+
+///Return true if target is not in a valid body position for the surgery
+#define IS_IN_INVALID_SURGICAL_POSITION(target, surgery) ((surgery.surgery_flags & SURGERY_REQUIRE_RESTING) && (target.mobility_flags & MOBILITY_LIEDOWN && target.body_position != LYING_DOWN))
+
+// Flags for the head_flags var on /obj/item/bodypart/head
+/// Head can have hair
+#define HEAD_HAIR (1<<0)
+/// Head can have facial hair
+#define HEAD_FACIAL_HAIR (1<<1)
+/// Head can have lips
+#define HEAD_LIPS (1<<2)
+/// Head can have eye sprites
+#define HEAD_EYESPRITES (1<<3)
+/// Head will have colored eye sprites
+#define HEAD_EYECOLOR (1<<4)
+/// Head can have eyeholes when missing eyes
+#define HEAD_EYEHOLES (1<<5)
+/// Head can have debrain overlay
+#define HEAD_DEBRAIN (1<<6)
+/// All head flags, default for most heads
+#define HEAD_ALL_FEATURES (HEAD_HAIR|HEAD_FACIAL_HAIR|HEAD_LIPS|HEAD_EYESPRITES|HEAD_EYECOLOR|HEAD_EYEHOLES|HEAD_DEBRAIN)

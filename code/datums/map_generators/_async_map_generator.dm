@@ -33,8 +33,8 @@
 	var/list/arguments = list(src)
 	if (callback_args)
 		arguments += callback_args
-	for (var/datum/callback/on_completion as() in completion_callbacks)
+	for (var/datum/callback/on_completion as anything in completion_callbacks)
 		on_completion.Invoke(arglist(arguments))
-	for (var/datum/callback/on_completion as() in late_completion_callbacks)
+	for (var/datum/callback/on_completion as anything in late_completion_callbacks)
 		on_completion.Invoke(arglist(arguments))
 	//to_chat(world, span_announce("[get_name()] completed and loaded successfully."))

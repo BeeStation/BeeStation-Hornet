@@ -115,7 +115,7 @@
 			return FALSE
 	return TRUE
 
-/atom/ui_status(mob/user)
+/atom/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
 	//Check if both user and atom are at the same location
 	if(!can_interact(user))
@@ -143,31 +143,27 @@
 	. = ..()
 	if(!dna)
 		return
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/HM as anything in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
 /mob/living/carbon/human/RangedAttack(atom/A, modifiers)
 	. = ..()
 	if(.)
 		return
-	if(gloves)
-		var/obj/item/clothing/gloves/G = gloves
-		if(istype(G) && G.Touch(A,0,modifiers)) // for magic gloves
-			return TRUE
 
 	if(isturf(A) && get_dist(src,A) <= 1)
 		Move_Pulled(A)
 		return TRUE
 
 /**
- * Called when the unarmed attack hasn't been stopped by the LIVING_UNARMED_ATTACK_BLOCKED macro or the right_click_attack_chain proc.
+ * Called when the unarmed attack hasn't been stopped by COMSIG_LIVING_UNARMED_ATTACK or the right_click_attack_chain proc.
  * This will call an attack proc that can vary from mob type to mob type on the target.
  */
 /mob/living/proc/resolve_unarmed_attack(atom/attack_target, list/modifiers)
 	attack_target.attack_animal(src, modifiers)
 
 /**
- * Called when an unarmed attack performed with right click hasn't been stopped by the LIVING_UNARMED_ATTACK_BLOCKED macro.
+ * Called when an unarmed attack performed with right click hasn't been stopped by COMSIG_LIVING_UNARMED_ATTACK.
  * This will call a secondary attack proc that can vary from mob type to mob type on the target.
  * Sometimes, a target is interacted differently when right_clicked, in that case the secondary attack proc should return
  * a SECONDARY_ATTACK_* value that's not SECONDARY_ATTACK_CALL_NORMAL.
@@ -230,6 +226,9 @@
 
 /mob/living/carbon/alien/larva/resolve_right_click_attack(atom/target, list/modifiers)
 	return target.attack_larva_secondary(src, modifiers)
+
+/mob/living/carbon/alien/larva/can_unarmed_attack() //We bite stuff, and our head is always free.
+	return TRUE
 
 /atom/proc/attack_larva(mob/user, list/modifiers)
 	return

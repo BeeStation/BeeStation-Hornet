@@ -3,8 +3,10 @@
 #define BALLMER_PEAK_HIGH_END 13.8
 #define BALLMER_PEAK_WINDOWS_ME 26
 
-/// The threshld which determine if someone is tipsy vs drunk
+/// The threshold which determine if someone is tipsy vs drunk
 #define TIPSY_THRESHOLD 6
+/// How far we have to sober up before dropping back to tipsy
+#define SOBERING_THRESHOLD 5
 
 /**
  * The drunk status effect.
@@ -130,8 +132,8 @@
 	. = ..()
 	if(QDELETED(src))
 		return
-	// Return to "tipsyness" when we're below 6.
-	if(drunk_value < TIPSY_THRESHOLD)
+	// Return to tipsy once we've sobered up past the threshold.
+	if(drunk_value < SOBERING_THRESHOLD)
 		owner.apply_status_effect(/datum/status_effect/inebriated/tipsy, drunk_value)
 		return
 
@@ -175,7 +177,7 @@
 			owner.adjust_confusion(15 SECONDS)
 			if(iscarbon(owner))
 				var/mob/living/carbon/carbon_owner = owner
-				carbon_owner.vomit() // Vomiting clears toxloss - consider this a blessing
+				carbon_owner.vomit(VOMIT_CATEGORY_DEFAULT) // Vomiting clears toxloss - consider this a blessing
 		ADD_TRAIT(owner, TRAIT_FEARLESS, TRAIT_STATUS_EFFECT(id))
 	else
 		REMOVE_TRAIT(owner, TRAIT_FEARLESS, TRAIT_STATUS_EFFECT(id))
@@ -219,3 +221,4 @@
 #undef BALLMER_PEAK_WINDOWS_ME
 
 #undef TIPSY_THRESHOLD
+#undef SOBERING_THRESHOLD

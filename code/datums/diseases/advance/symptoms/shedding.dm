@@ -46,14 +46,13 @@ BONUS
 					to_chat(H, span_notice("Your hair starts to fall out in clumps."))
 					addtimer(CALLBACK(src, PROC_REF(Shed), H, FALSE), 50)
 			if(5)
-				if(!(H.facial_hair_style == "Shaved") || !(H.hair_style == "Bald"))
+				if(!(H.facial_hairstyle == "Shaved") || !(H.hair_style == "Bald"))
 					to_chat(H, span_notice("Your hair starts to fall out in clumps."))
 					addtimer(CALLBACK(src, PROC_REF(Shed), H, TRUE), 50)
 
 /datum/symptom/shedding/proc/Shed(mob/living/carbon/human/H, fullbald)
 	if(fullbald)
-		H.facial_hair_style = "Shaved"
-		H.hair_style = "Bald"
+		H.set_facial_hairstyle("Shaved", update = FALSE)
+		H.set_hairstyle("Bald") //this will call update_body_parts()
 	else
-		H.hair_style = "Balding Hair"
-	H.update_hair()
+		H.set_hairstyle("Balding Hair")

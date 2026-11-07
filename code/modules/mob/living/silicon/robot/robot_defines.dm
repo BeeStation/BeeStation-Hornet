@@ -74,7 +74,7 @@
 	var/atom/movable/screen/robot/modpc/interfaceButton
 
 	var/sight_mode = 0
-	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
+	hud_possible = list(DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
 
 // ------------------------------------------ Modules (tool slots)
 	var/obj/item/module_active = null
@@ -137,7 +137,6 @@
 	)
 
 	///What types of mobs are allowed to ride/buckle to this mob
-	var/static/list/can_ride_typecache = typecacheof(/mob/living/carbon/human)
 	can_buckle = TRUE
 	buckle_lying = 0
 
@@ -233,8 +232,7 @@
 /mob/living/silicon/robot/model/syndicate/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-		modularInterface.saved_identification = real_name
-		modularInterface.saved_job = JOB_NAME_CYBORG
+		modularInterface.imprint_id(job_name = JOB_NAME_CYBORG)
 	return ..()
 
 /mob/living/silicon/robot/model/syndicate/proc/show_playstyle()

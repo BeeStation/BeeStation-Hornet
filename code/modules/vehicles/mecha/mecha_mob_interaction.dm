@@ -79,7 +79,7 @@
 	add_occupant(brain_mob)//Note this forcemoves the brain into the mech to allow relaymove
 	mecha_flags &= ~PANEL_OPEN //Close panel if open
 	mecha_flags |= SILICON_PILOT
-	brain_mob.reset_perspective(src)
+	brain_mob.set_mob_eye_to(src)
 	brain_mob.remote_control = src
 	brain_mob.update_mouse_pointer()
 	setDir(SOUTH)
@@ -129,7 +129,7 @@
 		var/obj/item/mmi/mmi = mob_container
 		if(mmi.brainmob)
 			ejector.forceMove(mmi)
-			ejector.reset_perspective()
+			ejector.set_mob_eye_to(src)
 			remove_occupant(ejector)
 		mmi.set_mecha(null)
 		mmi.update_appearance()
@@ -140,6 +140,7 @@
 	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick), TRUE)
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble), TRUE)
 	RegisterSignal(M, COMSIG_MOVABLE_KEYBIND_FACE_DIR, PROC_REF(on_turn), TRUE)
+	RegisterSignal(M, COMSIG_MOB_STATCHANGE, PROC_REF(on_occupant_statchange), TRUE)
 	. = ..()
 	update_appearance()
 
@@ -148,6 +149,7 @@
 		COMSIG_MOB_CLICKON,
 		COMSIG_MOB_SAY,
 		COMSIG_MOVABLE_KEYBIND_FACE_DIR,
+		COMSIG_MOB_STATCHANGE,
 	))
 	M.clear_alert("charge")
 	M.clear_alert("mech damage")
@@ -157,6 +159,14 @@
 		zoom_mode = FALSE
 	. = ..()
 	update_appearance()
+
+/obj/vehicle/sealed/mecha/proc/on_occupant_statchange(mob/living/source, new_stat)
+	SIGNAL_HANDLER
+	if(new_stat < SOFT_CRIT)
+		return
+	if(!(source in occupants))
+		return
+	INVOKE_ASYNC(src, PROC_REF(mob_exit), source, TRUE, TRUE)
 
 /obj/vehicle/sealed/mecha/container_resist(mob/living/user)
 	if(isAI(user))

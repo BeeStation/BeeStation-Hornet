@@ -13,6 +13,7 @@
 	new /obj/item/storage/backpack/captain(src)
 	new /obj/item/storage/backpack/satchel/cap(src)
 	new /obj/item/storage/backpack/duffelbag/captain(src)
+	new /obj/item/storage/backpack/messenger/cap(src)
 	new	/obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/captains_formal(src)
@@ -126,6 +127,7 @@
 /obj/structure/closet/secure_closet/brig_physician/PopulateContents()
 	..()
 	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/storage/box/suitbox/brigphys(src)
 	new /obj/item/radio/headset/headset_medsec(src)
 	new	/obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/toxin(src)
@@ -134,10 +136,23 @@
 	new /obj/item/storage/firstaid/fire(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/wallframe/defib_mount(src)
+	new /obj/item/storage/box/bodybags(src)
+
+/obj/item/storage/box/suitbox/brigphys
+	name = "compression box of brig physician outfits"
+
+/obj/item/storage/box/suitbox/brigphys/PopulateContents()
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
+	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
-	new /obj/item/wallframe/defib_mount(src)
+	new /obj/item/clothing/suit/hazardvest/brig_physician(src)
+	new /obj/item/clothing/suit/toggle/labcoat/brig_physician(src)
+	new /obj/item/clothing/suit/toggle/labcoat/brig_physician2(src)
+	new /obj/item/clothing/shoes/sneakers/white(src)
+	new /obj/item/clothing/head/soft/sec/brig_physician(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -233,7 +248,6 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
 	new /obj/item/storage/box/deputy(src)
-	new /obj/item/storage/box/vouchers(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
