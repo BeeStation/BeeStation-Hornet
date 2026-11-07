@@ -208,9 +208,9 @@
 			return ITEM_INTERACT_BLOCKING
 
 		var/mob/living/brain/brainmob = potential_brain.brainmob
-		if(is_banned_from(brainmob.ckey, JOB_NAME_CYBORG) || QDELETED(src) || QDELETED(brainmob) || QDELETED(user) || QDELETED(potential_brain) || !Adjacent(user))
+		if(is_banned_from(brainmob.ckey, JOB_NAME_CYBORG) || brainmob.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC || QDELETED(src) || QDELETED(brainmob) || QDELETED(user) || QDELETED(potential_brain) || !Adjacent(user))
 			if(!QDELETED(potential_brain))
-				to_chat(user, span_warning("This [potential_brain.name] does not seem to fit!"))
+				to_chat(user, span_warning("[potential_brain] doesn't seem to fit!"))
 			return ITEM_INTERACT_BLOCKING
 		if(!user.temporarilyRemoveItemFromInventory(tool))
 			return ITEM_INTERACT_BLOCKING
