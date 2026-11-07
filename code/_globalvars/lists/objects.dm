@@ -86,6 +86,7 @@ GLOBAL_LIST_EMPTY(mob_spawners)
 GLOBAL_LIST_INIT(prototype_organs, typecacheof(list(
 	/obj/item/organ,
 	/obj/item/organ/wings,
+	/obj/item/organ/diona_growth,
 	/obj/item/organ/cyberimp,
 	/obj/item/organ/cyberimp/brain,
 	/obj/item/organ/cyberimp/mouth,

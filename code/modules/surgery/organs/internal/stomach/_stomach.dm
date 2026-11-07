@@ -279,6 +279,9 @@
 /obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantstomach
 
+/obj/item/organ/stomach/proc/after_eat(atom/edible)
+	return
+
 /obj/item/organ/stomach/feel_for_damage(self_aware)
 	if(damage < low_threshold)
 		return ""
@@ -350,14 +353,16 @@
 	icon_state = "stomach-x"
 	desc = "A mutant stomach designed to handle the unique diet of a flyperson."
 
-/obj/item/organ/stomach/fly/on_life(delta_time, times_fired)
-	if(locate(/datum/reagent/consumable) in reagents.reagent_list)
-		var/mob/living/carbon/body = owner
-		// we do not loss any nutrition as a fly when vomiting out food
-		body.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_FORCE | MOB_VOMIT_HARM), lost_nutrition = 0, distance = 2, purge_ratio = 0.67)
-		playsound(get_turf(owner), 'sound/effects/splat.ogg', 50, TRUE)
-		body.visible_message(span_danger("[body] vomits on the floor!"), \
-					span_userdanger("You throw up on the floor!"))
+/obj/item/organ/stomach/fly/after_eat(edible)
+	var/mob/living/carbon/body = owner
+	ASSERT(istype(body))
+	// we do not lose any nutrition as a fly when vomiting out food
+	body.vomit(vomit_flags = (MOB_VOMIT_MESSAGE | MOB_VOMIT_FORCE | MOB_VOMIT_HARM), lost_nutrition = 0, distance = 2, purge_ratio = 0.67)
+	playsound(get_turf(owner), 'sound/effects/splat.ogg', 50, TRUE)
+	body.visible_message(
+		span_danger("[body] vomits on the floor!"),
+		span_userdanger("You throw up on the floor!")
+	)
 	return ..()
 
 /obj/item/organ/stomach/bone

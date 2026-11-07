@@ -919,10 +919,10 @@ SUBSYSTEM_DEF(job)
 
 	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK,
-		"in your hands" = ITEM_SLOT_HANDS
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 

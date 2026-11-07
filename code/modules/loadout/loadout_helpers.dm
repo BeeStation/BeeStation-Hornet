@@ -80,7 +80,7 @@
 	spawned_box.name = "compression box of standard gear"
 	for(var/gear_path in gear_paths)
 		new gear_path(spawned_box)
-	equip_to_slot_or_del(spawned_box, ITEM_SLOT_BACKPACK, TRUE)
+	equip_to_storage(spawned_box, ITEM_SLOT_BACK, del_on_fail = TRUE)
 	if(client)
 		to_chat(src, span_notice("A box with your standard-issue equipment was stashed in your inventory!"))
 

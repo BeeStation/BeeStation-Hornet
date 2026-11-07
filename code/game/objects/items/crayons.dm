@@ -605,7 +605,6 @@
 
 
 /obj/item/toy/crayon/spraycan/suicide_act(mob/living/user)
-	var/mob/living/carbon/human/H = user
 	if(is_capped || !actually_paints)
 		user.visible_message(span_suicide("[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, but nothing happens!"))
 		user.say("MEDIOCRE!!", forced="spraycan suicide")
@@ -619,7 +618,7 @@
 		set_painting_tool_color(COLOR_SILVER)
 	update_icon()
 	if(actually_paints)
-		H.update_lips("spray_face", paint_color)
+		user.AddComponent(/datum/component/face_decal, "spray", list("" = BODY_ADJ_LAYER), paint_color)
 	var/used = use_charges(user, 10, FALSE)
 	var/fraction = min(1, used / reagents.maximum_volume)
 	reagents.expose(user, VAPOR, fraction * volume_multiplier)
@@ -709,7 +708,7 @@
 			C.Paralyze(60)
 		if(ishuman(C) && actually_paints)
 			var/mob/living/carbon/human/human_target = C
-			human_target.update_lips("spray_face", paint_color)
+			human_target.AddComponent(/datum/component/face_decal, "spray", list("" = BODY_ADJ_LAYER), paint_color)
 
 		. = use_charges(user, 10, FALSE)
 		var/fraction = min(1, . / reagents.maximum_volume)

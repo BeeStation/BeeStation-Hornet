@@ -314,27 +314,30 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	to_chat(user, span_notice("You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it."))
 	return FALSE
 
-/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // Teleporting for hacked CPU's
+/obj/item/modular_computer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!.)
+		hacked_throw_blink(src)
+
+/obj/item/modular_computer/proc/hacked_throw_blink(atom/movable/thrown)
 	var/obj/item/computer_hardware/processor_unit/cpu = all_components[MC_CPU]
-	if(!cpu)
-		return
-	var/turf/target = get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-	var/turf/start = get_turf(src)
-	if(!target)
-		return
-	if(!cpu.hacked)
-		return
+	if(!cpu?.hacked)
+		return FALSE
+	var/turf/start = get_turf(thrown)
 	if(!enabled)
 		new /obj/effect/particle_effect/sparks(start)
 		playsound(start, "sparks", 50, 1)
-		return
+		return TRUE
+	var/turf/target = get_blink_destination(start, thrown.dir, (cpu.max_idle_programs * 2))
+	if(!target)
+		return TRUE
 	// The better the CPU the farther it goes, and the more battery it needs
 	playsound(target, 'sound/effects/phasein.ogg', 25, 1)
 	playsound(start, "sparks", 50, 1)
 	playsound(target, "sparks", 50, 1)
-	do_dash(src, start, target, 0, TRUE)
+	do_dash(thrown, start, target, 0, TRUE)
 	use_power((250 * cpu.max_idle_programs))
-	return
+	return TRUE
 
 /obj/item/modular_computer/proc/get_blink_destination(turf/start, direction, range)
 	var/turf/t = start

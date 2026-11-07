@@ -37,10 +37,11 @@
 	shatter(source, impacted_turf)
 
 /// Tells the parent to shatter if we are thrown and impact something
-/datum/element/shatters_when_thrown/proc/on_throw_impact(datum/source, atom/hit_atom)
+/datum/element/shatters_when_thrown/proc/on_throw_impact(datum/source, atom/hit_atom, datum/thrownthing/throwingdatum, caught)
 	SIGNAL_HANDLER
 
-	shatter(source, hit_atom)
+	if(!caught)
+		shatter(source, hit_atom)
 
 /// Handles the actual shattering part, throwing shards of whatever is defined on the component everywhere
 /datum/element/shatters_when_thrown/proc/shatter(atom/movable/source, atom/hit_atom)

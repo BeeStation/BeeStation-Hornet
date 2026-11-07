@@ -314,6 +314,7 @@
 	liked_foodtypes = GROSS | MEAT | RAW | GORE
 	disliked_foodtypes = NONE // why would they care
 	toxic_foodtypes = NONE
+	organ_flags = ORGAN_MINERAL
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
 	var/list/phomeme_types = list("sans", "papyrus")

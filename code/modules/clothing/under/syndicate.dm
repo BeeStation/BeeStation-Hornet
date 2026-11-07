@@ -54,6 +54,7 @@
 	icon_state = "tactifool"
 	inhand_icon_state = "bl_suit"
 	armor_type = /datum/armor/syndicate_tacticool
+	bodyshapes_with_variations = BODYSHAPE_DIGITIGRADE
 
 /datum/armor/syndicate_tacticool
 	bio = 10
