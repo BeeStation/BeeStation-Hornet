@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 		playsound(get_turf(src), pick('sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg'), 50, FALSE, -5)
 	return ..()
 
-/mob/living/carbon/alien/adult/proc/grab(mob/living/carbon/human/target)
+/mob/living/carbon/alien/humanoid/proc/grab(mob/living/carbon/human/target)
 	if(target.check_block())
 		target.visible_message(span_warning("[target] blocks [src]'s grab!"), \
 						span_userdanger("You block [src]'s grab!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, src)

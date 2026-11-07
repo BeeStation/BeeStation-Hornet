@@ -180,25 +180,6 @@
 	return ..()
 */
 
-/// Virtual monkeys that crave virtual bananas. Everything about them is ephemeral (except that bite).
-/datum/species/monkey/holodeck
-	id = SPECIES_MONKEY_HOLODECK
-	knife_butcher_results = list()
-	meat = null
-	skinned_type = null
-	inherent_traits = list(
-		TRAIT_GENELESS,
-		TRAIT_GUN_NATURAL,
-		TRAIT_NO_AUGMENTS,
-		TRAIT_NO_BLOOD_OVERLAY,
-		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_UNDERWEAR,
-		TRAIT_NO_ZOMBIFY,
-		TRAIT_NOBLOOD,
-		TRAIT_NOHUNGER,
-		TRAIT_VENTCRAWLER_NUDE,
-	)
-
 /datum/dna/tumor
 	species = new /datum/species/monkey/teratoma
 

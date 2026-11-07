@@ -11,6 +11,8 @@
 	new /obj/effect/temp_visual/dust_animation(loc, dna.species.dust_anim)
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
+	if(flags_1 & HOLOGRAM_1)
+		return
 	if(!dna)
 		new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
 		return

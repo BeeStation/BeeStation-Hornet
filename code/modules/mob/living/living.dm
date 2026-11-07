@@ -980,7 +980,7 @@
 	else if(direct & WEST)
 		set_lying_angle(LYING_ANGLE_WEST)
 
-/mob/living/carbon/alien/adult/lying_angle_on_movement(direct)
+/mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
 	return
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)

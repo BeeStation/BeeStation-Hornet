@@ -22,7 +22,7 @@
 	cut_overlays()
 
 	var/obj/effect = new /obj/effect/temp_visual/monkeyify(loc)
-	effect.invisibility = INVISIBILITY_MAXIMUM
+	effect.invisibility = invisibility
 	invisibility = INVISIBILITY_MAXIMUM
 
 	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_monkeyize)), TRANSFORMATION_DURATION, TIMER_UNIQUE)
@@ -62,8 +62,9 @@
 	cut_overlays()
 
 	var/obj/effect = new /obj/effect/temp_visual/monkeyify/humanify(loc)
-	effect.invisibility = INVISIBILITY_MAXIMUM
+	effect.invisibility = invisibility
 	invisibility = INVISIBILITY_MAXIMUM
+
 	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_humanize), species), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
 /mob/living/carbon/proc/finish_humanize(species = /datum/species/human)

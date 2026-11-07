@@ -82,14 +82,17 @@
 	var/mob/living/carbon/human/H = target
 	var/typeofmeat = /obj/item/food/meat/slab/human
 
-	if(H.dna?.species)
+	if(target.flags_1 & HOLOGRAM_1)
+		typeofmeat = null
+	else if(H.dna?.species)
 		typeofmeat = H.dna.species.meat
 
-	var/obj/item/food/meat/slab/human/newmeat = new typeofmeat
-	newmeat.name = "fatty meat"
-	newmeat.desc = "Extremely fatty tissue taken from a patient."
-	newmeat.subjectname = H.real_name
-	newmeat.subjectjob = H.job
-	newmeat.reagents.add_reagent (/datum/reagent/consumable/nutriment, (removednutriment / 15)) //To balance with nutriment_factor of nutriment
-	newmeat.forceMove(target.loc)
+	if(typeofmeat)
+		var/obj/item/food/meat/slab/human/newmeat = new typeofmeat
+		newmeat.name = "fatty meat"
+		newmeat.desc = "Extremely fatty tissue taken from a patient."
+		newmeat.subjectname = H.real_name
+		newmeat.subjectjob = H.job
+		newmeat.reagents.add_reagent (/datum/reagent/consumable/nutriment, (removednutriment / 15)) //To balance with nutriment_factor of nutriment
+		newmeat.forceMove(target.loc)
 	return ..()

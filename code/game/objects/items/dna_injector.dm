@@ -41,12 +41,7 @@
 			target.real_name = fields["name"]
 			target.dna.unique_enzymes = fields["UE"]
 			target.name = target.real_name
-		// Handle both datum (new) and string (old injector data) blood types
-		var/blood_type_data = fields["blood_type"]
-		if(istext(blood_type_data))
-			target.dna.blood_type = get_blood_type(blood_type_data)
-		else
-			target.dna.blood_type = blood_type_data
+			target.dna.blood_type = istext(fields["blood_type"]) ? get_blood_type(fields["blood_type"]) : fields["blood_type"]
 		if(fields["UI"])	//UI+UE
 			target.dna.unique_identity = merge_text(target.dna.unique_identity, fields["UI"])
 		if(fields["UF"])
