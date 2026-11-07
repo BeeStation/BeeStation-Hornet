@@ -2,81 +2,94 @@
 AUTH_CLIENT_VERB(wiki, query as text)
 	set name = "wiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser. Type nothing to go to the main page."
-	set hidden = 1
+	set hidden = TRUE
+
 	var/wikiurl = CONFIG_GET(string/wikiurl)
-	if(wikiurl)
-		if(query)
-			var/output = wikiurl + "/Special:Search/" + query
-			src << link(output)
-		else if (query != null)
-			src << link(wikiurl)
-	else
+	if(!wikiurl)
 		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
-	return
+		return
+	if(query)
+		DIRECT_OUTPUT(src, link("[wikiurl]/Special:Search/[query]"))
+	else if (!isnull(query))
+		DIRECT_OUTPUT(src, link(wikiurl))
 
 AUTH_CLIENT_VERB(forum)
 	set name = "forum"
 	set desc = "Visit the forum."
-	set hidden = 1
+	set hidden = TRUE
+
 	var/forumurl = CONFIG_GET(string/forumurl)
-	if(forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(forumurl)
-	else
+	if(!forumurl)
 		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
-	return
+		return
+	if(alert("This will open the forum in your browser. Are you sure?", "Forum Redirect", "Yes", "No") != "Yes")
+		return
+	DIRECT_OUTPUT(src, link(forumurl))
 
 AUTH_CLIENT_VERB(rules)
 	set name = "rules"
 	set desc = "Show Server Rules."
-	set hidden = 1
+	set hidden = TRUE
+
 	var/rulesurl = CONFIG_GET(string/rulesurl)
-	if(rulesurl)
-		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(rulesurl)
-	else
+	if(!rulesurl)
 		to_chat(src, span_danger("The rules URL is not set in the server configuration."))
-	return
+		return
+	if(alert("This will open the rules in your browser. Are you sure?", "Rules Redirect", "Yes", "No") != "Yes")
+		return
+	DIRECT_OUTPUT(src, link(rulesurl))
 
 AUTH_CLIENT_VERB(github)
 	set name = "github"
-	set desc = "Visit Github"
-	set hidden = 1
+	set desc = "Visit GitHub"
+	set hidden = TRUE
+
 	var/githuburl = CONFIG_GET(string/githuburl)
-	if(githuburl)
-		if(alert("This will open the Github repository in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(githuburl)
-	else
-		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
-	return
+	if(!githuburl)
+		to_chat(src, span_danger("The GitHub URL is not set in the server configuration."))
+		return
+	if(alert("This will open the GitHub repository in your browser. Are you sure?", "GitHub Redirect", "Yes", "No") != "Yes")
+		return
+	DIRECT_OUTPUT(src, link(githuburl))
 
 AUTH_CLIENT_VERB(reportissue)
 	set name = "report-issue"
 	set desc = "Report an issue"
-	set hidden = 1
+	set hidden = TRUE
+
 	var/githuburl = CONFIG_GET(string/githuburl)
-	if(githuburl)
-		var/message = "This will open the Github issue reporter in your browser. Are you sure?"
-		if(GLOB.revdata.testmerge.len)
-			message += "<br>The following experimental changes are active and are probably the cause of any new or sudden issues you may experience. If possible, please try to find a specific thread for your issue instead of posting to the general issue tracker:<br>"
-			message += GLOB.revdata.GetTestMergeInfo(FALSE)
-		// We still use tgalert here because some people were concerned that if someone wanted to report that tgui wasn't working
-		// then the report issue button being tgui-based would be problematic.
-		if(tg_alert(src, message, "Report Issue", "Yes", "No") != "Yes")
-			return
-		var/static/issue_template = rustg_file_read(".github/ISSUE_TEMPLATE.md")
-		var/servername = CONFIG_GET(string/servername)
-		var/url_params = "Reporting client version: [byond_version].[byond_build]\n\n[issue_template]"
-		if(GLOB.round_id || servername)
-			url_params = "Issue reported from [GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]\n\n[url_params]"
-		var/issue_label = CONFIG_GET(string/issue_label)
-		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[rustg_url_encode(url_params)][issue_label ? "&labels=[rustg_url_encode(issue_label)]" : ""]"))
-	else
-		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
-	return
+	if(!githuburl)
+		to_chat(src, span_danger("The GitHub URL is not set in the server configuration."))
+		return
+
+	var/message = "This will open the GitHub issue reporter in your browser. Are you sure?"
+	if(length(GLOB.revdata.testmerge))
+		message += "<br>The following experimental changes are active and are probably the cause of any new or sudden issues you may experience. If possible, please try to find a specific thread for your issue instead of posting to the general issue tracker:<br>"
+		message += GLOB.revdata.GetTestMergeInfo(FALSE)
+
+	// We still use tgalert here because some people were concerned that if someone wanted to report that tgui wasn't working
+	// then the report issue button being tgui-based would be problematic.
+	if(tg_alert(src, message, "Report Issue", "Yes", "No") != "Yes")
+		return
+
+	var/base_link = "[githuburl]/issues/new?template=bug_report.yml"
+	var/list/concatable = list(base_link)
+
+	// version
+	concatable += "&reporting-version=[byond_version].[byond_build]"
+	// date
+	concatable += "&round-date=[time2text(world.timeofday, "YYYY/MM/DD")]"
+	// round id
+	if(GLOB.round_id)
+		concatable += "&round-id=[GLOB.round_id]"
+	// testmerges
+	if(length(GLOB.revdata.testmerge))
+		var/list/all_tms = list()
+		for(var/datum/tgs_revision_information/test_merge/tm as anything in GLOB.revdata.testmerge)
+			all_tms += "- #[tm.number]"
+		concatable += ("&test-merges=[url_encode(jointext(all_tms, "\n"))]")
+
+	DIRECT_OUTPUT(src, link(jointext(concatable, "")))
 
 AUTH_CLIENT_VERB(hotkeys_help)
 	set name = "hotkeys-help"
@@ -101,15 +114,13 @@ Admin:
 AUTH_CLIENT_VERB(changelog)
 	set name = "Changelog"
 	set category = "OOC"
-	if(!GLOB.changelog_tgui)
-		GLOB.changelog_tgui = new /datum/changelog()
 
+	GLOB.changelog_tgui ||= new /datum/changelog()
 	GLOB.changelog_tgui.ui_interact(mob)
 	if(prefs && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.mark_undatumized_dirty_player()
 		winset(src, "infowindow.changelog", "font-style=;")
-
 
 /mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
@@ -227,44 +238,43 @@ Any-Mode: (hotkey doesn't need to be on)
 	to_chat(src, hotkey_mode)
 	to_chat(src, other)
 
-
-
-
 AUTH_CLIENT_VERB(donate)
 	set name = "donate"
 	set desc = "Donate to the server"
-	set hidden = 1
+	set hidden = TRUE
+
 	var/donateurl = CONFIG_GET(string/donateurl)
-	if(donateurl)
-		if(alert("This will open the Donation page in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(donateurl)
-	else
+	if(!donateurl)
 		to_chat(src, span_danger("The Donation URL is not set in the server configuration."))
-	return
+		return
+	if(alert("This will open the Donation page in your browser. Are you sure?",,"Yes","No")!="Yes")
+		return
+	DIRECT_OUTPUT(src, link(donateurl))
 
 AUTH_CLIENT_VERB(discord)
 	set name = "discord"
 	set desc = "Join the Discord"
-	set hidden = 1
+	set hidden = TRUE
+
 	var/discordurl = CONFIG_GET(string/discordurl)
-	if(discordurl)
-		if(alert("This will open the Discord invite in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link(discordurl)
-	else
+	if(!discordurl)
 		to_chat(src, span_danger("The Discord invite is not set in the server configuration."))
-	return
+		return
+
+	if(alert("This will open the Discord invite in your browser. Are you sure?",,"Yes","No")!="Yes")
+		return
+	DIRECT_OUTPUT(src, link(discordurl))
 
 AUTH_CLIENT_VERB(map)
 	set name = "View Webmap"
 	set desc = "View the current map in the webviewer"
 	set category = "OOC"
+
 	if(SSmapping.current_map.map_link == "None")
 		to_chat(src,span_danger("The current map does not have a webmap. "))
 	else if(SSmapping.current_map.map_link)
 		if(tgui_alert(src, "This will open the current map in your browser. Are you sure?", "", list("Yes","No"))!="Yes")
 			return
-		src << link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.current_map.map_link]")
+		DIRECT_OUTPUT(src, link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.current_map.map_link]"))
 	else
-		to_chat(src, span_danger("The current map is either invalid or unavailable. Open an issue on the github. "))
+		to_chat(src, span_danger("The current map is either invalid or unavailable. Open an issue on the GitHub. "))

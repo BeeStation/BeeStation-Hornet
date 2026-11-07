@@ -34149,6 +34149,10 @@
 	pixel_x = 1;
 	pixel_y = 33
 	},
+/obj/item/dog_bone{
+	pixel_x = 11;
+	pixel_y = 10
+	},
 /turf/open/floor/carpet/blue,
 /area/station/command/heads_quarters/hop)
 "mUo" = (

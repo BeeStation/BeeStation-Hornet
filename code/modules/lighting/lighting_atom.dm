@@ -90,35 +90,6 @@
 		return
 	recalculate_directional_opacity()
 
-/atom/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if (NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-		if (NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-		if (NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-	return ..()
-
-
 /atom/proc/flash_lighting_fx(range = FLASH_LIGHT_RANGE, power = FLASH_LIGHT_POWER, color = COLOR_WHITE, duration = FLASH_LIGHT_DURATION, light_type = /obj/effect/dummy/lighting_obj)
 	if(!duration)
 		stack_trace("Lighting FX obj created on \[[type]\] without a duration")

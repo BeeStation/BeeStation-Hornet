@@ -111,14 +111,14 @@ CREATION_TEST_IGNORE_SELF(/turf)
 #endif
 
 /turf/vv_edit_var(var_name, new_value)
-	var/static/list/banned_edits = list("x", "y", "z")
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, x), NAMEOF_STATIC(src, y), NAMEOF_STATIC(src, z))
 	if(var_name in banned_edits)
 		return FALSE
 	switch (var_name)
-		if ("above")
+		if (NAMEOF(src, above))
 			set_above(new_value, TRUE)
 			return TRUE
-		if ("below")
+		if (NAMEOF(src, below))
 			set_below(new_value, TRUE)
 			return TRUE
 	. = ..()
