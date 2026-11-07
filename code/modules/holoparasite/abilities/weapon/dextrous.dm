@@ -98,6 +98,7 @@
 	if(!can_use_most_guns)
 		add_owner_trait(TRAIT_POOR_AIM)
 	owner.dextrous = TRUE
+	add_owner_trait(TRAIT_CAN_HOLD_ITEMS)
 	owner.combat_mode = FALSE
 	owner.LoadComponent(/datum/component/personal_crafting)
 	if(!length(owner.held_items))

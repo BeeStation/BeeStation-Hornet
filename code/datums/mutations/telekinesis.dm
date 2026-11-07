@@ -26,7 +26,7 @@
 
 /datum/mutation/telekinesis/get_visual_indicator()
 	return visual_indicators[type][1]
-
+ 
 /datum/mutation/telekinesis/proc/on_ranged_attack(mob/source, atom/target)
 	SIGNAL_HANDLER
 

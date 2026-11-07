@@ -550,7 +550,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = FALSE
 	remove_outline()
 	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, FALSE))
+	if(!user.put_in_active_hand(src, ignore_animation = !outside_storage))
 		user.dropItemToGround(src)
 		return TRUE
 

@@ -33,10 +33,7 @@
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	var/datum/changeling_profile/chosen_form = select_form(changeling, user)
 	if(!chosen_form)
-		// If no profile stored, transform to default human
-		user.humanize(species = /datum/species/human, instant = transform_instantly)
-		user.regenerate_icons()
-		return TRUE
+		return FALSE
 	to_chat(user, span_notice("We transform our appearance."))
 	var/datum/dna/chosen_dna = chosen_form.dna
 	var/datum/species/chosen_species = chosen_dna.species

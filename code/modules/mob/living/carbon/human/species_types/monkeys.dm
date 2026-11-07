@@ -43,6 +43,10 @@
 	passtable_on(H, SPECIES_TRAIT)
 	H.dna.add_mutation(/datum/mutation/race, MUT_NORMAL)
 	H.dna.activate_mutation(/datum/mutation/race)
+	var/datum/mutation/race/monkey_gene = H.dna.get_mutation(/datum/mutation/race)
+	if(!monkey_gene.original_name && !istype(old_species, /datum/species/monkey))
+		monkey_gene.original_name = H.real_name
+		monkey_gene.original_species = old_species.type
 	H.AddElement(/datum/element/human_biter)
 	H.melee_damage = 3
 

@@ -11,7 +11,13 @@
 				to_chat(spawner, span_warning("Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!"))
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
-	return ..()
+	. = ..()
+	// Mutadone only turns monkeyized people
+	var/datum/mutation/race/monkey_gene = dna.get_mutation(/datum/mutation/race)
+	if(monkey_gene) // teratomas shitcode
+		monkey_gene.mutadone_proof = TRUE
+	if(mapload)
+		give_random_dormant_disease(30, min_symptoms = 1, max_symptoms = 3)
 
 /mob/living/carbon/human/species/monkey/Destroy()
 	SSmobs.cubemonkeys -= src

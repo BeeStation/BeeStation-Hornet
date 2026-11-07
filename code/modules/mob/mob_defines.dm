@@ -205,7 +205,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
 
-	var/interaction_range = 1 //how far a mob has to be to interact with something, defaulted to 1 tile
+	var/interaction_range = 0 //how far a mob has to be to interact with something without caring about obsctruction, defaulted to 0 tiles
 
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE

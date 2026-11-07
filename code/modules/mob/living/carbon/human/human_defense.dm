@@ -249,8 +249,13 @@
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
 	if(check_shields(user, 20, "the [user.name]", UNARMED_ATTACK))
-		visible_message(span_danger("[user] attempts to touch [src]!"), \
-						span_danger("[user] attempts to touch you!"), span_hear("You hear a swoosh!"), null, user)
+		visible_message(
+			span_danger("[user] attempts to touch [src]!"),
+			span_danger("[user] attempts to touch you!"),
+			span_hear("You hear a swoosh!"),
+			null,
+			user
+		)
 		to_chat(user, span_warning("You attempt to touch [src]!"))
 		return FALSE
 	. = ..()
@@ -261,8 +266,13 @@
 		var/obj/item/held_item = get_active_held_item()
 		if(held_item && dropItemToGround(held_item))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
-			visible_message(span_danger("[user] disarms [src]!"), \
-							span_userdanger("[user] disarms you!"), span_hear("You hear aggressive shuffling!"), null, user)
+			visible_message(
+				span_danger("[user] disarms [src]!"),
+				span_userdanger("[user] disarms you!"),
+				span_hear("You hear aggressive shuffling!"),
+				null,
+				user
+			)
 			to_chat(user, span_danger("You disarm [src]!"))
 		else
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
@@ -270,15 +280,20 @@
 			var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.get_combat_bodyzone(src)))
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 			apply_damage(45, STAMINA, affecting, armor_block)
-			visible_message(span_danger("[user] tackles [src] down!"), \
-					span_userdanger("[user] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
+			visible_message(
+				span_danger("[user] tackles [src] down!"),
+				span_userdanger("[user] tackles you down!"),
+				span_hear("You hear aggressive shuffling followed by a loud thud!"),
+				null,
+				user
+			)
 			to_chat(user, span_danger("You tackle [src] down!"))
 		return TRUE
 
 	if(user.combat_mode)
 		if (w_uniform)
 			w_uniform.add_fingerprint(user)
-		var/damage = melee_damage
+		var/damage = user.melee_damage
 		if(!damage)
 			playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
 			visible_message(
@@ -294,20 +309,25 @@
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 
 		playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-		visible_message(span_danger("[user] slashes at [src]!"), \
-						span_userdanger("[user] slashes at you!"), span_hear("You hear a sickening sound of a slice!"), null, user)
+		visible_message(
+			span_danger("[user] slashes at [src]!"),
+			span_userdanger("[user] slashes at you!"),
+			span_hear("You hear a sickening sound of a slice!"),
+			null,
+			user
+		)
 		to_chat(user, span_danger("You slash at [src]!"))
 		log_combat(user, src, "attacked", user)
 		if(!dismembering_strike(user, user.get_combat_bodyzone(src))) //Dismemberment successful
 			return TRUE
-		apply_damage(melee_damage, BRUTE, affecting, armor_block)
-
+		apply_damage(damage, BRUTE, affecting, armor_block)
+		return TRUE
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	. = ..()
 	if(!.)
 		return //successful larva bite.
-	var/damage = melee_damage
+	var/damage = L.melee_damage
 	if(!damage)
 		return
 	if(check_shields(L, damage, "the [L.name]"))
@@ -322,9 +342,9 @@
 	. = ..()
 	if(!.)
 		return //successful slime attack
-	var/damage = melee_damage
+	var/damage = 20
 	if(M.is_adult)
-		damage = melee_damage
+		damage = 30
 
 	if(M.transformeffects & SLIME_EFFECT_RED)
 		damage *= 1.1

@@ -11,12 +11,15 @@
 
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "shoos"
-	response_disarm_simple = "shoo"
-	response_harm_continuous = "stomps on"
-	response_harm_simple = "stomp on"
+
+	attack_sound = 'sound/weapons/bite.ogg'
+
+	maxHealth = 150
+	health = 150
+	mob_biotypes = MOB_SLIME
+	melee_damage = 13
+	can_buckle_to = FALSE
+
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
@@ -26,10 +29,12 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	maxHealth = 150
-	health = 150
-	mob_biotypes = MOB_SLIME
-	gender = NEUTER
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomp on"
 
 	see_in_dark = NIGHTVISION_FOV_RANGE
 

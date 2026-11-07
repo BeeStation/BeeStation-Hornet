@@ -12,9 +12,9 @@
 	grind_results = null
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
+	bodypart_trait_source = CHEST_TRAIT
 	///The bodyshape(s) allowed to attach to this chest.
 	var/acceptable_bodyshape = BODYSHAPE_HUMANOID
-	bodypart_trait_source = CHEST_TRAIT
 	///The bodytype(s) allowed to attach to this chest.
 	var/acceptable_bodytype = ALL
 
