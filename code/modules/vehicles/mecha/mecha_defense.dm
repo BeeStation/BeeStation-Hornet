@@ -116,12 +116,18 @@
 	return ..()
 
 /obj/vehicle/sealed/mecha/bullet_act(obj/projectile/hitting_projectile, def_zone, piercing_hit) //wrapper
-	if(!(mecha_flags & IS_ENCLOSED) \
+	var/bypasses_cockpit = (hitting_projectile.pass_flags | hitting_projectile.projectile_piercing | hitting_projectile.projectile_phasing) & PASSSTRUCTURE
+	if(istype(hitting_projectile, /obj/projectile/bullet/p50) && !istype(hitting_projectile, /obj/projectile/bullet/p50/penetrator)) // This might be a bit dumb, but technically regular .50 could shoot directly into the mech since it penetrated mostly everything
+		bypasses_cockpit = FALSE
+	var/penetration_chance = clamp(hitting_projectile.armour_penetration - get_armor_rating(hitting_projectile.armor_flag), 0, 100) // You can hit the pilot directly in an open cockpit, otherwise the shot needs to beat the armor or pass through structures
+	if((!(mecha_flags & IS_ENCLOSED) \
+		|| (!(mecha_flags & CANNOT_OVERPENETRATE) && penetration_chance && prob(penetration_chance)) \
+		|| bypasses_cockpit) \
 		&& LAZYLEN(occupants) \
 		&& !(mecha_flags & SILICON_PILOT) \
 		&& (def_zone == BODY_ZONE_HEAD || def_zone == BODY_ZONE_CHEST))
 		var/mob/living/hitmob = pick(occupants)
-		return hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) //If the sides are open, the occupant can be hit
+		return hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) // The shot reaches the pilot instead of the chassis
 
 	log_message("Hit by projectile. Type: [hitting_projectile]([hitting_projectile.damage_type]).", LOG_MECHA, color="red")
 	// yes we *have* to run the armor calc proc here I love tg projectile code too
@@ -204,6 +210,16 @@
 
 /obj/vehicle/sealed/mecha/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(user.combat_mode)
+		var/penetration_chance = clamp(weapon.armour_penetration - get_armor_rating(MELEE) / 2, 0, 100)
+		if(!(mecha_flags & (CANNOT_OVERPENETRATE | SILICON_PILOT)) && length(occupants) \
+			&& !(weapon.item_flags & NOBLUDGEON) && !HAS_TRAIT(user, TRAIT_PACIFISM) \
+			&& penetration_chance && prob(penetration_chance))
+			var/mob/living/hitmob = pick(occupants)
+			var/hit_zone = user.get_combat_bodyzone(hitmob)
+			var/armor_block = hitmob.run_armor_check(hit_zone, MELEE, armour_penetration = weapon.armour_penetration)
+			hitmob.apply_damage(weapon.force * penetration_chance / 100, weapon.damtype, hit_zone, armor_block, sharpness = weapon.get_sharpness(), attack_direction = get_dir(user, hitmob), attacking_item = weapon)
+			to_chat(hitmob, span_userdanger("[user]'s [weapon.name] pierces [src]'s cockpit and hits you!"))
+			log_combat(user, hitmob, "hit through [src]'s cockpit with", weapon)
 		return ..()
 	if(istype(weapon, /obj/item/mmi))
 		var/obj/item/mmi/mmi_item = weapon

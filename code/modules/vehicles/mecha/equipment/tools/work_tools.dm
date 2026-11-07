@@ -289,6 +289,8 @@
 		target = get_turf(target)
 	if(!action_checks(target) || get_dist(chassis, target)>3 || istype(target, /turf/open/space/transit))
 		return
+	if(!(target in view(3, get_turf(chassis))))
+		return
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
 
 	switch(mode)
@@ -296,7 +298,7 @@
 			to_chat(source, "[icon2html(src, source)][span_notice("Deconstructing [target]...")]")
 			if(iswallturf(target))
 				var/turf/closed/wall/W = target
-				if(!do_after_cooldown(W, source))
+				if(!do_after_cooldown(W, source, delay_multiplier = istype(W, /turf/closed/wall/r_wall) ? RCD_RWALL_DELAY_MULT : 1))
 					return
 				W.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 			else if(isfloorturf(target))
