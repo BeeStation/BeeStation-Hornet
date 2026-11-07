@@ -990,9 +990,7 @@
 /area/ruin/powered/animal_hospital)
 "Vj" = (
 /mob/living/simple_animal/bot/medbot{
-	desc = "A little medical robot. It's programmed to only act in emergencies.";
-	heal_threshold = 40;
-	name = "emergency Medibot"
+	desc = "A little medical robot. It's programmed to only act in emergencies."
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
