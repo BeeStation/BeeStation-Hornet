@@ -2,6 +2,14 @@
 
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
 	. = TRUE
+	if((machine_stat & BROKEN) && opened != APC_COVER_REMOVED)
+		balloon_alert(user, "prying off cover")
+		if(W.use_tool(src, user, 5 SECONDS, volume = 50) && (machine_stat & BROKEN) && opened != APC_COVER_REMOVED)
+			opened = APC_COVER_REMOVED
+			balloon_alert(user, "cover removed")
+			update_appearance()
+		return
+
 	if (opened)
 		if(integration_cog)
 			to_chat(user, span_notice("You begin prying something out of the APC."))
@@ -46,6 +54,10 @@
 		else if (opened!=APC_COVER_REMOVED)
 			opened = APC_COVER_CLOSED
 			coverlocked = TRUE //closing cover relocks it
+			if(restart_on_cover_close)
+				restart_on_cover_close = FALSE
+				if(!operating && has_electronics == APC_ELECTRONICS_SECURED && terminal)
+					toggle_breaker(user)
 			update_appearance()
 			return
 	else if (!(machine_stat & BROKEN))
@@ -104,6 +116,27 @@
 		return TRUE
 
 /obj/machinery/power/apc/welder_act(mob/living/user, obj/item/W)
+	if(has_electronics)
+		if(opened == APC_COVER_REMOVED)
+			balloon_alert(user, "no cover to repair!")
+			return TRUE
+		if(machine_stat & BROKEN)
+			balloon_alert(user, "too damaged to repair!")
+			return TRUE
+		if(get_integrity() >= max_integrity)
+			return
+		if(!W.tool_start_check(user, amount = 0))
+			return TRUE
+		balloon_alert(user, "repairing")
+		while(get_integrity() < max_integrity)
+			if(!W.use_tool(src, user, 4 SECONDS, volume = 50))
+				return TRUE
+			if(!has_electronics || (machine_stat & BROKEN) || opened == APC_COVER_REMOVED)
+				return TRUE
+			repair_damage(50)
+		balloon_alert(user, "repaired")
+		return TRUE
+
 	if (opened && !has_electronics && !terminal)
 		if(!W.tool_start_check(user, amount=3))
 			return
