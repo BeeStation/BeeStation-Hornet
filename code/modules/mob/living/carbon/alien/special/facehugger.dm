@@ -37,14 +37,6 @@
 	AddElement(/datum/element/atmos_sensitive)
 	AddElement(/datum/element/muffles_speech)
 
-/obj/item/clothing/mask/facehugger/compile_monkey_icon()
-	//If the icon, for this type of item, is already made by something else, don't make it again
-	if(GLOB.monkey_icon_cache[type])
-		monkey_icon = GLOB.monkey_icon_cache[type]
-		return
-	monkey_icon = icon('icons/obj/clothing/monkey_alt.dmi', "facehugger")
-	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
-
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
 	sterile = TRUE
@@ -104,7 +96,6 @@
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	. = ..()
 	Attach(M)
-	compile_monkey_icon()
 
 /obj/item/clothing/mask/facehugger/proc/on_entered(datum/source, atom/target)
 	SIGNAL_HANDLER

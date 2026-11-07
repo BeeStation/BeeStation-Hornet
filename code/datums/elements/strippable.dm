@@ -120,9 +120,6 @@
 	if (equipping.item_flags & ABSTRACT)
 		return FALSE
 
-	//This is important due to the fact otherwise it will be equipped without a proper existing icon, because it's forced on through the strip menu
-	if(ismonkey(source))
-		equipping.compile_monkey_icon()
 	return TRUE
 
 /// Start the equipping process. This is the proc you should yield in.

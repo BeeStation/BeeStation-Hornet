@@ -985,7 +985,7 @@
 	return (istype(target) && target.stat == CONSCIOUS && target.body_position == STANDING_UP)
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
-	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
+	return ishuman(target) && target.body_position == LYING_DOWN
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))

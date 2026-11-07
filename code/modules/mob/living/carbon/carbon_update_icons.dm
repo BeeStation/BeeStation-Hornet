@@ -220,9 +220,8 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
 /mob/living/carbon/update_body(is_creating = FALSE)
-	if(!ismonkey(src))
-		dna.species.handle_body(src)
-		dna.update_body_size()
+	dna.species.handle_body(src)
+	dna.update_body_size()
 	update_body_parts(is_creating)
 
 ///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.

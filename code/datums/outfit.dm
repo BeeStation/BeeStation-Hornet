@@ -274,7 +274,7 @@
   *
   */
 /datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/user)
-	if(!istype(user) && !ismonkey(user))
+	if(!istype(user))
 		return
 	if(user.back)
 		user.back.add_fingerprint(user, ignoregloves = TRUE)

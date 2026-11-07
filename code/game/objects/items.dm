@@ -833,8 +833,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
-	if(ismonkey(user)) //Only generate icons if we have to
-		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 	if(!initial)
@@ -1583,12 +1581,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	return
-
-/**
- * * Overridden to generate icons for monkey clothing
- */
-/obj/item/proc/compile_monkey_icon()
 	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
