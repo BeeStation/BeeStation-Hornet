@@ -48,13 +48,6 @@
 		JOB_NAME_CHEMIST // why not
 	)
 
-/datum/job/medical_doctor/get_access()
-	. = ..()
-	LOWPOP_GRANT_ACCESS(JOB_NAME_CHEMIST, ACCESS_CHEMISTRY)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_GENETICIST, ACCESS_GENETICS)
-	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
-		. |= ACCESS_CMO
-
 /datum/outfit/job/medical_doctor
 	name = JOB_NAME_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor

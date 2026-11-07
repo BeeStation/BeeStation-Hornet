@@ -64,7 +64,6 @@
 		ACCESS_AUX_BASE,
 		ACCESS_SERVICE,
 	)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/service,

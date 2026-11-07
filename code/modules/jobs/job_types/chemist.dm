@@ -15,7 +15,6 @@
 	outfit = /datum/outfit/job/chemist
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_SURGERY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_CLONING)
 
 	departments_list = list(
 		/datum/department_group/medical,

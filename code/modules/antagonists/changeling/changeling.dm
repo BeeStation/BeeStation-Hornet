@@ -493,8 +493,8 @@
 
 	var/obj/item/card/id/id_card = target.wear_id?.GetID()
 	if (istype(id_card))
-		new_profile.id_job_name = id_card.assignment
-		new_profile.id_hud_state = id_card.hud_state
+		new_profile.id_job_name = id_card.get_assignment()
+		new_profile.id_hud_state = id_card.get_hud_state()
 
 	// Hair and facial hair gradients, alongside their colours.
 	//new_profile.gradient_style = LAZYLISTDUPLICATE(target.gradient_style)

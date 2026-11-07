@@ -360,6 +360,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		. += span_warning("It is damaged.")
 
 	. += get_modular_computer_parts_examine(user)
+	var/obj/item/card/id/stored_id = GetID()
+	if(stored_id)
+		. += stored_id.get_temporary_access_examine()
 
 /obj/item/modular_computer/update_overlays()
 	. = ..()
@@ -674,7 +677,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
 	saved_identification = name || card_slot?.stored_card.registered_name || saved_identification
-	saved_job = job_name || card_slot?.stored_card?.assignment || saved_job
+	saved_job = job_name || card_slot?.stored_card?.get_assignment() || saved_job
 	id?.UpdateDisplay()
 
 /**

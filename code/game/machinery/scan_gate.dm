@@ -80,8 +80,12 @@
 				ui_update()
 		else if(!(obj_flags & EMAGGED))
 			to_chat(user, span_notice("You lock [src] with [W]."))
-			var/list/access = W.GetAccess()
-			req_access = access
+			// Permanent access only
+			var/list/lock_access = list()
+			var/list/lock_cards = istype(W, /obj/item/storage/wallet) ? W.contents : list(card)
+			for(var/obj/item/card/id/lock_card in lock_cards)
+				lock_access |= lock_card.access
+			req_access = lock_access
 			locked = TRUE
 			//Update to viewers
 			ui_update()
