@@ -215,7 +215,7 @@
 		if(!user.temporarilyRemoveItemFromInventory(tool))
 			return ITEM_INTERACT_BLOCKING
 
-		var/mob/living/silicon/robot/final_product = new /mob/living/silicon/robot/nocell(get_turf(loc), user)
+		var/mob/living/silicon/robot/nocell/final_product = new(get_turf(src))
 		if(!final_product)
 			return ITEM_INTERACT_BLOCKING
 		if(potential_brain.laws && potential_brain.laws.id != DEFAULT_AI_LAWID)
@@ -228,14 +228,17 @@
 		//Transfer debug settings to new mob
 		final_product.custom_name = created_name
 		final_product.locked = panel_locked
+
 		if(!aisync)
 			lawsync = FALSE
 			final_product.set_connected_ai(null)
-		else
+		else if(forced_ai)
+			final_product.set_connected_ai(forced_ai)
 			final_product.notify_ai(AI_NOTIFICATION_NEW_BORG)
-			if(forced_ai)
-				final_product.set_connected_ai(forced_ai)
-		if(!lawsync)
+
+		if(lawsync)
+			final_product.lawsync()
+		else
 			final_product.lawupdate = FALSE
 			if(potential_brain.laws.id == DEFAULT_AI_LAWID)
 				final_product.make_laws()
@@ -286,10 +289,10 @@
 		if(!aisync)
 			lawsync = FALSE
 			final_product.set_connected_ai(null)
-		else
-			if(forced_ai)
-				final_product.set_connected_ai(forced_ai)
+		else if(forced_ai)
+			final_product.set_connected_ai(forced_ai)
 			final_product.notify_ai(AI_NOTIFICATION_AI_SHELL)
+
 		if(!lawsync)
 			final_product.lawupdate = FALSE
 			final_product.make_laws()
