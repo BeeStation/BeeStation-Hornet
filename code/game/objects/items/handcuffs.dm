@@ -45,6 +45,8 @@
 
 	SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
 
+	user.do_item_attack_animation(C, used_item = src)
+
 	if(iscarbon(user) && (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50)))
 		to_chat(user, span_warning("Uh... how do those things work?!"))
 		apply_cuffs(user,user)

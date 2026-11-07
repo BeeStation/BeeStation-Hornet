@@ -11,7 +11,7 @@
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = ui_style
-	using.icon_state = (owner.move_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	using.icon_state = owner.move_intent.hud_icon_state
 	using.screen_loc = ui_movi
 	static_inventory += using
 
@@ -88,6 +88,9 @@
 
 	healths = new /atom/movable/screen/healths(null, src)
 	infodisplay += healths
+
+	stamina = new /atom/movable/screen/stamina(null, src)
+	infodisplay += stamina
 
 	pull_icon = new /atom/movable/screen/pull(null, src)
 	pull_icon.icon = ui_style

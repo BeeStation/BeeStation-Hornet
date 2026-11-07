@@ -73,8 +73,8 @@
 				L.visible_message(span_danger("[src] pounces on [L]!"), span_userdanger("[src] pounces on you!"))
 				var/obj/item/bodypart/chest = L.get_bodypart(BODY_ZONE_CHEST)
 				var/armor_block = L.run_armor_check(chest, MELEE, "", "")
-				// Apply 200 stamina damage to cause stamcrit, and knock down
-				L.apply_damage(200, STAMINA, chest, armor_block)
+				// Drain a full bar of stamina to cause stamcrit, and knock down
+				L.apply_damage(L.stamina.maximum, STAMINA, chest, armor_block)
 				L.Knockdown(3 SECONDS)
 
 				sleep(0.2 SECONDS)//Runtime prevention (infinite bump() calls on hulks)

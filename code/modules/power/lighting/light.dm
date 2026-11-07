@@ -575,6 +575,7 @@
 		return
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
+	return TRUE
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
 	var/obj/item/light/L = new light_type()

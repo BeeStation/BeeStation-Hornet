@@ -276,8 +276,8 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(L, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	L.adjustStaminaLoss(V.instability * multiplier * 2)
-	if (L.getStaminaLoss() >= 100)
+	L.stamina.adjust(-V.instability * multiplier * 2)
+	if (HAS_TRAIT(L, TRAIT_EXHAUSTED))
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		V.unbuckle_mob(L)
 		L.throw_at(landing_turf, 2, 2)
@@ -312,8 +312,8 @@
 	var/multiplier = 1
 	if(HAS_TRAIT(L, TRAIT_PROSKATER))
 		multiplier = 0.3 //70% reduction
-	L.adjustStaminaLoss(V.instability * multiplier)
-	if (L.getStaminaLoss() >= 100)
+	L.stamina.adjust(-V.instability * multiplier)
+	if (HAS_TRAIT(L, TRAIT_EXHAUSTED))
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		V.unbuckle_mob(L)
 		L.Paralyze(50 * multiplier)

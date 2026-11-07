@@ -1030,6 +1030,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	custom_price = 100
 	var/breakforce = 30
 	var/stamforce = 15
+	stamina_damage = 0
 
 /obj/item/club/attack(mob/living/M, mob/living/user)
 	if(ishuman(M))
@@ -1057,7 +1058,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		last_force_string_check = force
 		return ..()
 
-/obj/item/club/set_force_string()
+/obj/item/club/force2text()
 	// If we do need to calculate the new force string, make sure we are using the original force
 	force = initial(force)
 	return ..()

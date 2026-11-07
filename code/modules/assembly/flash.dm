@@ -1,4 +1,3 @@
-#define CONFUSION_STACK_MAX_MULTIPLIER 2
 #define FLASH_USE 2
 #define FLASH_USE_BURNOUT 1
 #define FLASH_FAIL 0
@@ -242,8 +241,10 @@
 		log_combat(user, M, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
 	else //caused by emp/remote signal
 		M.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
+
 	if(generic_message && M != user)
 		to_chat(M, span_disarm("[src] emits a blinding light!"))
+
 	if(targeted)
 		//No flash protection, blind and stun
 		if(M.flash_act(1))
@@ -254,15 +255,7 @@
 				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
 			else
 				to_chat(M, span_userdanger("You are blinded by [src]!"))
-			//Will be 0 if the user has no stamina loss, will be 1 if they are in stamcrit
-			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
-			if (M.body_position == LYING_DOWN)
-				flash_proportion = 1
-			if(flash_proportion > 0.4)
-				M.Paralyze(70 * flash_proportion)
-			else
-				M.Knockdown(max(70 * flash_proportion, 5))
-			M.set_confusion_if_lower(4 SECONDS)
+			M.Disorient(7 SECONDS, 90, paralyze = 4 SECONDS, stack_status = FALSE)
 
 		//Basic flash protection, only blind
 		else if(M.flash_act(2, TRUE))
@@ -451,5 +444,3 @@
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT
 #undef FLASH_FAIL
-
-#undef CONFUSION_STACK_MAX_MULTIPLIER

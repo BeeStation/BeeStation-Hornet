@@ -68,8 +68,7 @@
 			final_mod *= physiology.oxy_mod
 		if(CLONE)
 			final_mod *= physiology.clone_mod
-		if(STAMINA)
-			final_mod *= physiology.stamina_mod
+		// STAMINA is skipped here, stamina_mod is applied in pre_stamina_change()
 		if(BRAIN)
 			final_mod *= physiology.brain_mod
 
@@ -137,26 +136,6 @@
 		amount = min(amount, 0)
 	return ..()
 
-/mob/living/carbon/getStaminaLoss()
-	. = 0
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		. += round(BP.stamina_dam * BP.stam_damage_coeff, DAMAGE_PRECISION)
-
-/mob/living/carbon/adjustStaminaLoss(amount, updating_stamina, forced, required_biotype = ALL)
-	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
-		return FALSE
-	if(amount > 0)
-		. = take_overall_damage(stamina = amount, updating_health = updating_stamina, forced = forced)
-	else
-		. = heal_overall_damage(stamina = abs(amount), updating_health = updating_stamina, forced = forced)
-
-/mob/living/carbon/setStaminaLoss(amount, updating_stamina = TRUE, forced = FALSE, required_biotype)
-	var/current = getStaminaLoss()
-	var/diff = amount - current
-	if(!diff)
-		return 0
-	return adjustStaminaLoss(diff, updating_stamina, forced)
-
 /**
  * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [GODMODE] on), call the damage proc on that organ.
  *
@@ -211,14 +190,14 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged bodyparts
-/mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, required_bodytype = NONE, target_zone = null)
+/mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, required_bodytype = NONE, target_zone = null)
 	var/list/obj/item/bodypart/parts = list()
 	for(var/obj/item/bodypart/BP as anything in get_bodyparts())
 		if(required_bodytype && !(BP.bodytype & required_bodytype))
 			continue
 		if(!isnull(target_zone) && BP.body_zone != target_zone)
 			continue
-		if((brute && BP.brute_dam) || (burn && BP.burn_dam) || (stamina && BP.stamina_dam))
+		if((brute && BP.brute_dam) || (burn && BP.burn_dam))
 			parts += BP
 	return parts
 
@@ -241,15 +220,17 @@
  */
 /mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
 	. = FALSE
-	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, stamina, required_bodytype, target_zone)
+	if(stamina)
+		stack_trace("heal_bodypart_damage tried to heal stamina damage!")
+	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, required_bodytype, target_zone)
 	if(!parts.len)
 		return
 
 	var/obj/item/bodypart/picked = pick(parts)
-	var/damage_calculator = picked.get_damage(TRUE) //heal_damage returns update status T/F instead of amount healed so we dance gracefully around this
-	if(picked.heal_damage(abs(brute), abs(burn), abs(stamina), required_bodytype = required_bodytype))
+	var/damage_calculator = picked.get_damage() //heal_damage returns update status T/F instead of amount healed so we dance gracefully around this
+	if(picked.heal_damage(abs(brute), abs(burn), required_bodytype = required_bodytype))
 		update_damage_overlays()
-	return (damage_calculator - picked.get_damage(TRUE))
+	return (damage_calculator - picked.get_damage())
 
 
 /**
@@ -275,29 +256,28 @@
 
 /mob/living/carbon/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_bodytype, updating_health = TRUE, forced = FALSE)
 	. = FALSE
+	if(stamina)
+		stack_trace("heal_overall_damage tried to heal stamina damage!")
 	// treat negative args as positive
 	brute = abs(brute)
 	burn = abs(burn)
-	stamina = abs(stamina)
 
-	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, stamina, required_bodytype)
+	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, required_bodytype)
 
 	var/update = NONE
-	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
+	while(parts.len && (brute > 0 || burn > 0))
 		var/obj/item/bodypart/picked = pick(parts)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
-		var/stamina_was = picked.stamina_dam
-		var/damage_before = picked.get_damage(TRUE)
+		var/damage_before = picked.get_damage()
 
-		update |= picked.heal_damage(brute, burn, stamina, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
+		update |= picked.heal_damage(brute, burn, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
 
-		. += damage_before - picked.get_damage(TRUE)
+		. += damage_before - picked.get_damage()
 
 		brute = round(brute - (brute_was - picked.brute_dam), DAMAGE_PRECISION)
 		burn = round(burn - (burn_was - picked.burn_dam), DAMAGE_PRECISION)
-		stamina = round(stamina - (stamina_was - picked.stamina_dam), DAMAGE_PRECISION)
 
 		parts -= picked
 
@@ -306,40 +286,37 @@
 
 	if(updating_health)
 		updatehealth()
-		update_stamina(stamina >= DAMAGE_PRECISION)
 	if(update)
 		update_damage_overlays()
 
 /mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, forced = FALSE, required_bodytype)
 	. = FALSE
+	if(stamina)
+		stack_trace("take_overall_damage tried to deal stamina damage!")
 	if(!forced && (HAS_TRAIT(src, TRAIT_GODMODE)))
 		return
 	// treat negative args as positive
 	brute = abs(brute)
 	burn = abs(burn)
-	stamina = abs(stamina)
 
 	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_bodytype)
 	var/update = NONE
-	while(parts.len && (brute > 0 || burn > 0 || stamina > 0))
+	while(parts.len && (brute > 0 || burn > 0))
 		var/obj/item/bodypart/picked = pick(parts)
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
-		var/stamina_per_part = round(stamina/parts.len, DAMAGE_PRECISION)
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
-		var/stamina_was = picked.stamina_dam
-		var/damage_before = picked.get_damage(TRUE)
+		var/damage_before = picked.get_damage()
 
 		// disabling wounds from these for now cuz your entire body snapping cause your heart stopped would suck
-		update |= picked.receive_damage(brute = brute_per_part, burn = burn_per_part, stamina = stamina_per_part, blocked = FALSE, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
+		update |= picked.receive_damage(brute = brute_per_part, burn = burn_per_part, blocked = FALSE, updating_health = FALSE, forced = forced, required_bodytype = required_bodytype)
 
-		. -= picked.get_damage(TRUE) - damage_before
+		. -= picked.get_damage() - damage_before
 
 		brute = round(brute - (picked.brute_dam - brute_was), DAMAGE_PRECISION)
 		burn = round(burn - (picked.burn_dam - burn_was), DAMAGE_PRECISION)
-		stamina = round(stamina - (picked.stamina_dam - stamina_was), DAMAGE_PRECISION)
 
 		parts -= picked
 
@@ -350,4 +327,3 @@
 		updatehealth()
 	if(update)
 		update_damage_overlays()
-	update_stamina(stamina >= DAMAGE_PRECISION)

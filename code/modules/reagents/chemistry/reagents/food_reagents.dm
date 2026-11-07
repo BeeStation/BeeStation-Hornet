@@ -699,7 +699,7 @@
 		affected_mob.losebreath += 4
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150, affected_biotype)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE, required_biotype = affected_biotype)
-		affected_mob.adjustStaminaLoss(10 * REM, updating_stamina = FALSE, required_biotype = affected_biotype)
+		affected_mob.stamina.adjust(-10 * REM)
 		affected_mob.set_eye_blur_if_lower(10 SECONDS)
 		need_mob_update = TRUE
 	if(need_mob_update)

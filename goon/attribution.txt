@@ -1,0 +1,49 @@
+All files in this folder (excluding LICENSE.md and this file) are derived from Goonstation
+(https://github.com/goonstation), and are licensed under CC-BY-NC-SA 3.0 (see LICENSE.md).
+They are NOT covered by the repository's CC-BY-SA 3.0 asset license.
+
+Assets marked "Goonstation team" predate Goonstation's public repository and were added in its initial
+open-source commit (https://github.com/goonstation/goonstation, 2020-04-01), which does not record individual authors.
+
+## October 2026 DaedalusDock to BeeStation Goon assets :P
+
+Assets were ported to BeeStation via Daedalus Dock (https://github.com/DaedalusDock/daedalusdock), from its goon/ folder.
+Any modifications made for BeeStation are licensed under the same license as the original Goonstation files.
+
+goon/icons/assets/stamina.png
+	Source: browserassets/images/tooltips/stamina.png
+	Author: mybluecorners - https://github.com/goonstation/goonstation/commit/bfc72c086cac880491ab92496784aa73457e2f96 (#1157)
+
+goon/icons/assets/attack.png
+goon/icons/assets/stamcost.png
+	Source: browserassets/images/tooltips/attack.png, stamcost.png
+	Author: Goonstation team
+
+goon/icons/obj/effects.dmi
+	Source: icons/mob/mob.dmi
+	Author: mybluecorners
+		sprint_cloud - https://github.com/goonstation/goonstation/commit/67d8fff42fd189a7f5b2755466761f80dec0fc54 (#854)
+		sprint_cloud_small - https://github.com/goonstation/goonstation/commit/981f992e23f1d19f4ad544e772a1bf97a17a686c (#878)
+		sprint_cloud_tiny - https://github.com/goonstation/goonstation/commit/d12d1056ceef5d7618d9175265c37719f9dad9b5 (#899)
+
+goon/icons/mob/interact.dmi
+	Source: icons/mob/mob.dmi (interact, help, disarm, grab, harm, pull, unpull)
+	Author: Goonstation team
+
+goon/icons/hud/dither.dmi
+	Source: icons/mob/hud_common.dmi (dither)
+	Author: Goonstation team
+
+goon/sounds/footstep/floor1.ogg - floor5.ogg
+	Source: sound/misc/step/step_default_1.ogg - step_default_5.ogg
+	Author: Goonstation team
+
+goon/sounds/voice/gasp/female_gasp_1.ogg - female_gasp_5.ogg
+goon/sounds/voice/gasp/male_gasp_1.ogg - male_gasp_5.ogg
+	Source: sound/voice/gasps/
+	Author: Goonstation team
+
+- rkz
+
+
+## Sample Entry

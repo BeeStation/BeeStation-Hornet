@@ -71,13 +71,13 @@
 	for(var/mob/living/nearby in range(4, src))
 		if(!IS_SERVANT_OF_RATVAR(nearby))
 			continue
-		if(!nearby.toxloss && !nearby.staminaloss && !nearby.bruteloss && !nearby.fireloss)
+		if(!nearby.toxloss && !nearby.stamina.loss && !nearby.bruteloss && !nearby.fireloss)
 			continue
 
 		if(use_power(2))
 			// Heal the servant
 			nearby.adjustToxLoss(-50 * delta_time, FALSE, TRUE)
-			nearby.adjustStaminaLoss(-50 * delta_time)
+			nearby.stamina.adjust(50 * delta_time)
 			nearby.adjustBruteLoss(-10 * delta_time)
 			nearby.adjustFireLoss(-10 * delta_time)
 

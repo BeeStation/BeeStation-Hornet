@@ -73,10 +73,16 @@
 	name = "rolling pin"
 	desc = "Used to knock out the Bartender."
 	icon_state = "rolling_pin"
+	worn_icon_state = "rolling_pin"
+
 	force = 8
-	throwforce = 5
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
+	stamina_damage = 40
+	stamina_cost = 15
+	stamina_critical_chance = 2
+
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.5)
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
