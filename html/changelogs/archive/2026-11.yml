@@ -54,3 +54,23 @@
 2026-11-06:
   DrDuckedGoose:
   - bugfix: Fix math & APC files
+2026-11-07:
+  Isaacnml:
+  - bugfix: "Fixed stray markup and team colors in CTF flag capture and victory announcements.\xBF"
+  - qol: CTF now tells players how long they have left before they can respawn
+  - balance: Doubled CTF team shield integrity.
+  - bugfix: Fixed crowbar deconstruction of quantum pads with an open maintenance
+      panel
+  - bugfix: "Picking up a pet you\u2019re already pulling no longer opens its strip\
+      \ menu"
+  - bugfix: Mop attacks now go through against living targets in combat mode
+  - bugfix: Newly spawned swarmers now have real names that match their displayed
+      names
+  - bugfix: Fixed initialization of the auxiliary base construction camera at its
+      starting location
+  - bugfix: Nanite dermal buttons now use their configured color and refresh their
+      appearance when settings sync
+  - image: Added a green plus HUD action icon
+  - bugfix: Xenoarchaeology radio announcements now report the bonus applied to the
+      reward, CORRECTLY
+  - bugfix: Compact NTOS radar now supports scanning and selecting targets
