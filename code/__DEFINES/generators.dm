@@ -4,6 +4,7 @@
 #define GEN_BOX "box"
 #define GEN_CIRCLE "circle"
 #define GEN_SPHERE "sphere"
+#define GEN_COLOR "color"
 
 ///particle editor var modifiers
 #define P_DATA_GENERATOR "generator"

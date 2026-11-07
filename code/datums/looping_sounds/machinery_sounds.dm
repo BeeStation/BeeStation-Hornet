@@ -167,6 +167,17 @@
 	falloff_distance = 2
 	falloff_exponent = 5
 
+/datum/looping_sound/cdr
+	start_sound = 'sound/machines/cdr_start.ogg'
+	start_length = 2 SECONDS
+	mid_sounds = list('sound/machines/cdr_mid.ogg')
+	mid_length = 2 SECONDS
+	end_sound = 'sound/machines/cdr_end.ogg'
+	extra_range = 10
+	volume = 40
+	falloff_distance = 5
+	falloff_exponent = 20
+
 /datum/looping_sound/rbmk
 	mid_sounds = list('sound/effects/rbmk/alarm.ogg')
 	volume = 100
