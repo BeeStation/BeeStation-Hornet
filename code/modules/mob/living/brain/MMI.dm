@@ -258,7 +258,7 @@
 	return //so that the MMI won't get a warning about not being able to move if it tries to move
 
 /obj/item/mmi/proc/brain_check(mob/user)
-	if(!brainmob || !brain)
+	if(!brainmob)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that there is no brain present!"))
 		return FALSE
@@ -270,7 +270,7 @@
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind is currently inactive."))
 		return FALSE
-	if(brainmob.suiciding || brain.suicided)
+	if(brainmob.suiciding || brain?.suicided)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that their mind has no will to live!"))
 		return FALSE
@@ -278,7 +278,7 @@
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that the brain is dead!"))
 		return FALSE
-	if(brain.organ_flags & ORGAN_FAILING)
+	if(brain?.organ_flags & ORGAN_FAILING)
 		if(user)
 			to_chat(user, span_warning("\The [src] indicates that the brain is damaged!"))
 		return FALSE
