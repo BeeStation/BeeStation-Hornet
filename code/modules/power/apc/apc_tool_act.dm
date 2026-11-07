@@ -133,8 +133,8 @@
 				return TRUE
 			if(!has_electronics || (machine_stat & BROKEN) || opened == APC_COVER_REMOVED)
 				return TRUE
-			repair_damage(50)
-		balloon_alert(user, "repaired")
+			if(repair_damage(50))
+				balloon_alert(user, "repaired")
 		return TRUE
 
 	if (opened && !has_electronics && !terminal)
