@@ -301,6 +301,20 @@
 		addtimer(CALLBACK(V, TYPE_PROC_REF(/obj/vehicle/ridden/scooter/skateboard, grind)), 2)
 	start_cooldown()
 
+/datum/action/vehicle/ridden/scooter/skateboard/brace
+	name = "Wall Bounce"
+	desc = "Pop a wheelie, bracing for impact! Time it just right to bounce off walls!."
+	button_icon_state = "skateboard_ollie"
+	cooldown_time = 6 SECONDS
+
+/datum/action/vehicle/ridden/scooter/skateboard/brace/on_activate(mob/user, atom/target)
+	var/obj/vehicle/ridden/scooter/skateboard/board = vehicle_target
+	if(board.bounce || !iscarbon(owner))
+		return
+	new /datum/skate_bounce(board, owner)
+	board.visible_message(span_notice("[owner] shifts [owner.p_their()] weight lifting the front of the board, ready to bounce."))
+	start_cooldown()
+
 /datum/action/vehicle/ridden/scooter/skateboard/kflip
 	name = "Kick Flip"
 	desc = "Do a sweet kickflip to dismount... in style."
