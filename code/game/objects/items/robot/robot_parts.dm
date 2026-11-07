@@ -344,7 +344,6 @@
 		if(!tool.use_tool(src, user, 0.5 SECONDS, volume = 50))
 			return ITEM_INTERACT_BLOCKING
 		drop_all_parts()
-		update_appearance()
 		to_chat(user, span_notice("You disassemble the cyborg shell."))
 		return ITEM_INTERACT_SUCCESS
 
@@ -371,13 +370,16 @@
 	l_arm?.forceMove(drop_to)
 	r_arm?.forceMove(drop_to)
 
-	if(chest)
-		chest.forceMove(drop_to)
-		chest.drop_organs()
+	var/obj/item/bodypart/chest/robot/removed_chest = chest
+	if(removed_chest)
+		removed_chest.forceMove(drop_to)
+		removed_chest.drop_organs()
 
-	if(head)
-		head.forceMove(drop_to)
-		head.drop_organs()
+	var/obj/item/bodypart/head/robot/removed_head = head
+	if(removed_head)
+		removed_head.forceMove(drop_to)
+		removed_head.drop_organs()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/robot_suit/proc/put_in_hand_or_drop(mob/living/user, obj/item/I) //normal put_in_hands() drops the item ontop of the player, this drops it at the suit's loc
 	if(!user.put_in_hands(I))

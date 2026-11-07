@@ -16,9 +16,7 @@
 /mob/living/silicon/robot/death(gibbed)
 	if(stat == DEAD)
 		return
-	if(gibbed)
-		dump_into_mmi()
-	else
+	if(!gibbed)
 		logevent("FATAL -- SYSTEM HALT")
 		modularInterface.shutdown_computer()
 	. = ..()
@@ -36,3 +34,7 @@
 	unbuckle_all_mobs(TRUE)
 
 	SSblackbox.ReportDeath(src)
+
+/mob/living/silicon/robot/gib(no_brain, no_organs, no_bodyparts)
+	dump_into_mmi()
+	return ..()
