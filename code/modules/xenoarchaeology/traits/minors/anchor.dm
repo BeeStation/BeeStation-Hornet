@@ -42,6 +42,6 @@
 	//Anchor
 	if(ismovable(movable) && isturf(movable.loc))
 		movable.anchored = !movable.anchored
-		playsound(get_turf(component_parent?.parent), 'sound/items/handling/wrench_pickup.ogg', 50, TRUE)
+		playsound(get_turf(component_parent?.parent), 'sound/items/handling/tools/wrench_pickup.ogg', 50, TRUE)
 	//Message
 	movable.visible_message("<span class='warning'>[movable] [movable.anchored ? "anchors to" : "unanchors from"] [get_turf(movable)]!</span>", allow_inside_usr = TRUE)

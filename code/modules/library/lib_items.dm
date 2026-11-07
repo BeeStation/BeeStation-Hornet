@@ -222,8 +222,8 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	item_flags = ISWEAPON
-	drop_sound = 'sound/items/handling/book_drop.ogg'
-	pickup_sound =  'sound/items/handling/book_pickup.ogg'
+	drop_sound = 'sound/items/handling/book/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book/book_pickup.ogg'
 	attack_verb_continuous = list("bashes", "whacks", "educates")
 	attack_verb_simple = list("bash", "whack", "educate")
 	resistance_flags = FLAMMABLE

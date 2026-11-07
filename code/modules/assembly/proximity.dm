@@ -4,8 +4,8 @@
 	icon_state = "prox"
 	custom_materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
-	drop_sound = 'sound/items/handling/component_drop.ogg'
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component/component_pickup.ogg'
 	var/scanning = FALSE
 	var/timing = FALSE
 	var/time = 20

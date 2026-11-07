@@ -467,8 +467,8 @@
 	volume = 50
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
-	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
-	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
+	drop_sound = 'sound/items/handling/drink/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drink/drinkglass_pickup.ogg'
 
 /obj/item/reagent_containers/cup/coconutcup/on_reagent_change(changetype)
 	if (reagents && reagents.total_volume > 0)

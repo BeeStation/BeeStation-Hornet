@@ -34,8 +34,8 @@
 	resistance_flags = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/illustration = "writing"
-	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboard_box/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboard_box/cardboardbox_pickup.ogg'
 	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/Initialize(mapload)
@@ -870,8 +870,8 @@
 	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
-	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/matchbox/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox/matchbox_pickup.ogg'
 
 /obj/item/storage/box/matches/Initialize(mapload)
 	. = ..()

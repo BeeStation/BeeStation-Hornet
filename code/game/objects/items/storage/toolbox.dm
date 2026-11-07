@@ -20,8 +20,8 @@
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	var/latches = "single_latch"
 	var/has_latches = TRUE
-	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox/toolbox_pickup.ogg'
 	custom_price = 50
 
 /obj/item/storage/toolbox/Initialize(mapload)
@@ -255,8 +255,8 @@
 	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "ammobox"
 	inhand_icon_state = "ammobox"
-	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
-	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/ammobox/ammobox_drop.ogg'
+	pickup_sound =  'sound/items/handling/ammobox/ammobox_pickup.ogg'
 
 /obj/item/storage/toolbox/ammo/PopulateContents()
 	new /obj/item/ammo_box/a762(src)
