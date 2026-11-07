@@ -195,6 +195,9 @@
 	///Name of lighting mask for the vending machine
 	var/light_mask
 
+	/// Reference to our billing agent, for lockout
+	var/datum/component/bill_agent/scheduled/vendor_rent/agent
+
 
 /datum/armor/machinery_vending
 	melee = 20
@@ -241,6 +244,9 @@
 				circuit.all_products_free = all_products_free //sync up the circuit so the pricing schema is carried over if it's reconstructed.
 	else if(circuit)
 		all_products_free = circuit.all_products_free //if it was constructed outside mapload, sync the vendor up with the circuit's var so you can't bypass price requirements by moving / reconstructing it off station.
+	// Billing
+	if(is_station_level(z)) // TODO: hacky solution for now. Ignore the station override shit - Racc
+		agent = AddComponent(/datum/component/bill_agent/scheduled/vendor_rent, ACCOUNT_SRV_ID, TRUE)
 
 /obj/machinery/vending/Destroy()
 	QDEL_NULL(wires)
@@ -974,6 +980,9 @@
 		return
 	if(panel_open)
 		to_chat(user, span_warning("The vending machine cannot dispense products while its service panel is open!"))
+		return
+	if(agent && !agent.check_forgiveness())
+		say("Too many outstanding invoices. Access restricted.")
 		return
 	return TRUE
 
