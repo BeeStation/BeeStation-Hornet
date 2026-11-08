@@ -54,10 +54,8 @@
 			icon_state = GLOB.bible_icon_state
 			inhand_icon_state = GLOB.bible_inhand_icon_state
 			if(icon_state == "honk1" || icon_state == "honk2")
-				var/mob/living/carbon/C = H
-				if(C.has_dna())
-					C.dna.add_mutation(/datum/mutation/clumsy)
-				C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
+				H.dna.add_mutation(/datum/mutation/clumsy)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), ITEM_SLOT_MASK)
 			src.update_icon()
 			return
 		if(isnull(unique_reskin_icon))
@@ -102,7 +100,7 @@
 			)
 		reskin_bible(H)
 
-/obj/item/storage/book/bible/proc/reskin_bible(mob/M)//Total override of the proc because I need some new things added to it
+/obj/item/storage/book/bible/proc/reskin_bible(mob/living/carbon/human/M)//Total override of the proc because I need some new things added to it
 	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated && in_range(M,src))
 		if(!unique_reskin[choice])
@@ -113,10 +111,8 @@
 		inhand_icon_state = unique_reskin_icon[choice]
 		GLOB.bible_inhand_icon_state = inhand_icon_state
 		if(choice == "Clown Bible" || choice == "Banana Bible")
-			var/mob/living/carbon/C = M
-			if(C.has_dna())
-				C.dna.add_mutation(/datum/mutation/clumsy)
-			C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
+			M.dna.add_mutation(/datum/mutation/clumsy)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), ITEM_SLOT_MASK)
 		to_chat(M, "[src] is now skinned as '[choice].'")
 		src.update_icon()
 		SSblackbox.record_feedback("text", "religion_book", 1, "[choice]")//I don't know why it's here but I'm keeping it in case it breaks something

@@ -51,6 +51,8 @@
 
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
+	if(!.)
+		return
 	adjustBruteLoss(rand(10, 15))
 	playsound(loc, "punch", 25, 1, -1)
 	visible_message(

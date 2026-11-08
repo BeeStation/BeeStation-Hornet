@@ -1,4 +1,4 @@
-/mob/living/simple_animal/attack_hand(mob/living/carbon/human/user, modifiers)
+/mob/living/simple_animal/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	// so that martial arts don't double dip
 	if (..())
 		return TRUE
@@ -53,17 +53,22 @@
 	adjustBruteLoss(15)
 	return TRUE
 
-/mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/simple_animal/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
 		if(stat != DEAD)
 			var/damage = rand(1, 3)
 			attack_threshold_check(damage)
 			return 1
-	if (!M.combat_mode)
+	if (!user.combat_mode)
 		if (health > 0)
-			visible_message(span_notice("[M.name] [response_help_continuous] [src]."), \
-							span_notice("[M.name] [response_help_continuous] you."), null, COMBAT_MESSAGE_RANGE, M)
-			to_chat(M, span_notice("You [response_help_simple] [src]."))
+			visible_message(
+				span_notice("[user.name] [response_help_continuous] [src]."),
+				span_notice("[user.name] [response_help_continuous] you."),
+			null,
+			COMBAT_MESSAGE_RANGE,
+			user
+			)
+			to_chat(user, span_notice("You [response_help_simple] [src]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 

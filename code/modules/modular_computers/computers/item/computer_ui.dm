@@ -27,7 +27,7 @@
 			ui.close()
 		return FALSE
 
-	if(!user.can_read(src, check_for_light = FALSE))
+	if(!user.can_read(src, READING_CHECK_LITERACY))
 		return
 
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.

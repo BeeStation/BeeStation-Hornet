@@ -11,8 +11,8 @@
 	. = FALSE
 
 	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && isopenturf(user.loc) && !user.legcuffed && !user.pulledby)
-		to_chat(user, span_warning("We are already free!"))
-		return
+		user.balloon_alert(user, "already free!")
+		return FALSE
 
 	if(user.legcuffed)
 		qdel(user.legcuffed)

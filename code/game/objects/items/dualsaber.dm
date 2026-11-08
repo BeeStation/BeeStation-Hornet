@@ -131,7 +131,7 @@
 		user.visible_message(span_suicide("[user] begins beating [user.p_them()]self to death with \the [src]'s handle! It probably would've been cooler if [user.p_they()] turned it on first!"))
 	return BRUTELOSS
 
-/obj/item/dualsaber/attack(mob/target, mob/living/carbon/user)
+/obj/item/dualsaber/attack(mob/target, mob/living/carbon/human/user)
 	var/wielded = ISWIELDED(src)
 	if(user.has_dna())
 		if(user.dna.check_mutation(/datum/mutation/hulk))

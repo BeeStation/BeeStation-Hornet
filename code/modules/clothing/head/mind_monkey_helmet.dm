@@ -12,7 +12,6 @@
 
 /obj/item/clothing/head/helmet/monkey_sentience_helmet/update_icon()
 	. = ..()
-	compile_monkey_icon()
 	if(ismob(loc))
 		var/mob/mob = loc
 		mob.update_worn_head()
@@ -37,7 +36,7 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/user)
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/poll(mob/living/carbon/human/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
 	if (user.stat) //Checks if the monkey is dead.
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE) //If so, buzz and do not poll ghosts
 		return
@@ -70,6 +69,7 @@
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	RegisterSignal(magnification.current, COMSIG_MOB_LOGOUT, PROC_REF(disconnect))
+	RegisterSignal(magnification.current, COMSIG_LIVING_DEATH, PROC_REF(on_mob_death))
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 
 	update_icon()
@@ -80,9 +80,9 @@
 	disconnect()
 	. = ..()
 
-/obj/item/clothing/head/helmet/monkey_sentience_helmet/on_mob_death(mob/living/L, gibbed)
-	if(magnification.current == L)
-		disconnect()
+/obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/on_mob_death(mob/living/L, gibbed)
+	SIGNAL_HANDLER
+	disconnect()
 
 /obj/item/clothing/head/helmet/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old_mob, mob/new_mob)
 	SIGNAL_HANDLER
@@ -90,6 +90,7 @@
 		return
 	UnregisterSignal(magnification, COMSIG_MIND_TRANSFER_TO)
 	UnregisterSignal(magnification.current, COMSIG_MOB_LOGOUT)
+	UnregisterSignal(magnification.current, COMSIG_LIVING_DEATH)
 	var/mob/living/monkey = new_mob || magnification.current
 	if (!monkey)
 		CRASH("A mind registered to a disconnecting monkey sentience helmet doesn't have a current mob!")
@@ -113,9 +114,9 @@
 
 /obj/item/clothing/head/helmet/monkey_sentience_helmet/attack_paw(mob/user)
 	//Typecasting to monkey just to see if we're on the user's head
-	if (!istype(user, /mob/living/carbon/monkey))
+	if (!istype(user, /mob/living/carbon/human/species/monkey))
 		return ..()
-	var/mob/living/carbon/monkey/M = user
+	var/mob/living/carbon/human/species/monkey/M = user
 	if(src!=M.head)
 		return ..()
 	if(!magnification)

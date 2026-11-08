@@ -751,7 +751,7 @@
 /mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
 	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
 		for(var/datum/mutation/existing_mutation in dna.mutations)
-			if(existing_mutation.quality != POSITIVE)
+			if(existing_mutation.quality != POSITIVE && existing_mutation.remove_on_aheal)
 				dna.remove_mutation(existing_mutation.name)
 
 	if(heal_flags & HEAL_TEMP)
@@ -985,7 +985,7 @@
 	return (istype(target) && target.stat == CONSCIOUS && target.body_position == STANDING_UP)
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
-	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
+	return ishuman(target) && target.body_position == LYING_DOWN
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
@@ -1128,6 +1128,7 @@
 
 /mob/living/carbon/human/species
 	var/race = null
+	var/use_random_name = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 
@@ -1135,6 +1136,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/human/species)
 	dna = new /datum/dna(src)
 	if (!isnull(race))
 		dna.species = new race
+
+/mob/living/carbon/human/species/set_species(datum/species/mrace, icon_update)
+	. = ..()
+	if(use_random_name)
+		fully_replace_character_name(real_name, generate_random_mob_name())
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor

@@ -37,7 +37,8 @@
 	mutantlungs = null
 	species_language_holder = /datum/language_holder/synthetic
 	reagent_tag = PROCESS_SYNTHETIC
-	species_gibs = GIB_TYPE_ROBOTIC
+	gib_anim = "gibbed-r"
+	dust_anim = "dust-r"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	bodypart_overrides = list(

@@ -6,7 +6,7 @@
 	mob_size = MOB_SIZE_SMALL
 	density = FALSE
 	hud_type = /datum/hud/larva
-
+	melee_damage = 2
 	maxHealth = 25
 	health = 25
 	hardcrit_threshold = HEALTH_THRESHOLD_CRIT

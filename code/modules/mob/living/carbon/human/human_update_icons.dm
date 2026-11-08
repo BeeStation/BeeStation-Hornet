@@ -157,9 +157,9 @@ There are several things that need to be remembered:
 		var/icon_file
 		var/woman
 		//BEGIN SPECIES HANDLING
-		if((bodytype & BODYTYPE_DIGITIGRADE) && (uniform.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION))
+		if((bodyshape & BODYSHAPE_DIGITIGRADE) && (uniform.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION))
 			icon_file = DIGITIGRADE_UNIFORM_FILE
-		else if(dna?.species.sexes && (bodytype & BODYTYPE_HUMANOID) && (dna.features["body_model"] == FEMALE) && !(uniform.female_sprite_flags & NO_FEMALE_UNIFORM))
+		else if(dna?.species.sexes && (bodyshape & BODYSHAPE_HUMANOID) && (dna.features["body_model"] == FEMALE) && !(uniform.female_sprite_flags & NO_FEMALE_UNIFORM))
 			woman = TRUE
 
 		if(!icon_exists(icon_file, RESOLVE_ICON_STATE(uniform)))

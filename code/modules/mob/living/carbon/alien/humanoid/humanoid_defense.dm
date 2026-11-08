@@ -1,11 +1,11 @@
 /mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
+	if(!.)
+		return
 	adjustBruteLoss(15)
 	var/hitverb = "hit"
 	if(mob_size < MOB_SIZE_LARGE)
-		step_away(src,user,15)
-		sleep(1)
-		step_away(src,user,15)
+		safe_throw_at(get_edge_target_turf(src, get_dir(user, src)), 2, 1, user)
 		hitverb = "slam"
 	playsound(loc, "punch", 25, 1, -1)
 	visible_message(span_danger("[user] [hitverb]s [src]!"), \

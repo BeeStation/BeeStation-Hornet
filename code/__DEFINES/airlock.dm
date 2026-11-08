@@ -34,3 +34,4 @@
 #define AIRLOCK_DAMAGE_DEFLECTION_R 30 // Reinforced airlock damage deflection
 
 #define AIRLOCK_DENY_ANIMATION_TIME (0.6 SECONDS) /// The amount of time for the airlock deny animation to show
+#define DOOR_CLOSE_WAIT 60 /// Time before a door closes, if not overridden

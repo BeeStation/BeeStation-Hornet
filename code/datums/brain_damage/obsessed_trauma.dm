@@ -40,6 +40,7 @@
 	//antag stuff//
 	antagonist.forge_objectives(obsession)
 	antagonist.greet()
+	RegisterSignal(owner, COMSIG_CARBON_HELPED, PROC_REF(on_hug))
 
 /datum/brain_trauma/special/obsessed/on_life(delta_time, times_fired)
 	var/mob/living/obsession_body = obsession.current
@@ -74,9 +75,11 @@
 	if(obsession)
 		UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
 	antagonist?.trauma = null
+	UnregisterSignal(owner, COMSIG_CARBON_HELPED)
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 
-/datum/brain_trauma/special/obsessed/on_hug(mob/living/hugger, mob/living/hugged)
+/datum/brain_trauma/special/obsessed/proc/on_hug(mob/living/hugger, mob/living/hugged)
+	SIGNAL_HANDLER
 	if(hugged == obsession.current)
 		obsession_hug_count++
 

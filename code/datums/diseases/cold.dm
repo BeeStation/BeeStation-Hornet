@@ -4,7 +4,7 @@
 	cure_text = "Rest & Spaceacillin"
 	cures = list(/datum/reagent/medicine/spaceacillin)
 	agent = "XY-rhinovirus"
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	viable_mobtypes = list(/mob/living/carbon/human)
 	spreading_modifier = 0.5
 	desc = "If left untreated, the subject will contract the flu."
 	danger = DISEASE_NONTHREAT

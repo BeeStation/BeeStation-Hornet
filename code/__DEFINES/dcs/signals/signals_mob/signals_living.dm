@@ -102,6 +102,8 @@
 	#define COMPONENT_NO_STUN (1<<0) //For all of them
 ///from end of fully_heal(): (heal_flags)
 #define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
+///from /obj/item/hand_item/attack(): (source=mob/living/attacker, mob/living/attacked)
+#define COMSIG_LIVING_HAND_ITEM_ATTACK "living_hand_item_attack"
 
 ///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
 #define COMSIG_LIVING_SLAPPED "living_slapped"
@@ -148,6 +150,8 @@
 
 ///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMPED "living_mob_bumped"
 ///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
 #define COMSIG_LIVING_Z_IMPACT "living_z_impact"
 	#define NO_Z_IMPACT_DAMAGE (1<<0)
@@ -194,6 +198,10 @@
 #define COMSIG_LIVING_MADE_NEW_FRIEND "made_new_friend"
 /// From /mob/living/befriend() : (mob/living/new_friend)
 #define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /obj/item/proc/pickup(): (/obj/item/picked_up_item)
+#define COMSIG_LIVING_PICKED_UP_ITEM "living_picked_up_item"
+
 /// From /mob/living/unfriend() : (mob/living/old_friend)
 #define COMSIG_LIVING_UNFRIENDED "living_unfriended"
 

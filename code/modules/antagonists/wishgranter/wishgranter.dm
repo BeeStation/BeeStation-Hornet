@@ -23,10 +23,10 @@
 		"Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!")
 
 /datum/antagonist/wishgranter/proc/give_powers()
-	var/mob/living/carbon/C = owner.current
-	if(!C.has_dna())
+	var/mob/living/carbon/human/H = owner.current
+	if(!istype(H))
 		return
-	C.dna.add_mutation(/datum/mutation/hulk)
-	C.dna.add_mutation(/datum/mutation/thermal/x_ray)
-	C.dna.add_mutation(/datum/mutation/space_adaptation)
-	C.dna.add_mutation(/datum/mutation/telekinesis)
+	H.dna.add_mutation(/datum/mutation/hulk)
+	H.dna.add_mutation(/datum/mutation/thermal/x_ray)
+	H.dna.add_mutation(/datum/mutation/space_adaptation)
+	H.dna.add_mutation(/datum/mutation/telekinesis)

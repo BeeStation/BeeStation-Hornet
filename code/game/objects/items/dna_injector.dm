@@ -41,7 +41,7 @@
 			target.real_name = fields["name"]
 			target.dna.unique_enzymes = fields["UE"]
 			target.name = target.real_name
-			target.dna.blood_type = fields["blood_type"]
+			target.dna.blood_type = istext(fields["blood_type"]) ? get_blood_type(fields["blood_type"]) : fields["blood_type"]
 		if(fields["UI"])	//UI+UE
 			target.dna.unique_identity = merge_text(target.dna.unique_identity, fields["UI"])
 		if(fields["UF"])
@@ -519,7 +519,7 @@
 	var/endtime = world.time+duration
 	for(var/mutation in remove_mutations)
 		if(mutation == /datum/mutation/race)
-			if(ishuman(target))
+			if(!ismonkey(target))
 				continue
 			target.dna.remove_mutation(mutation)
 		else
@@ -527,7 +527,7 @@
 	for(var/mutation in add_mutations)
 		if(target.dna.get_mutation(mutation))
 			continue //Skip permanent mutations we already have.
-		if(mutation == /datum/mutation/race && ishuman(target))
+		if(mutation == /datum/mutation/race && !ismonkey(target))
 			message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the [name] [span_danger("(MONKEY)")]")
 			log_msg += " (MONKEY)"
 			target.dna.add_mutation(mutation, MUT_OTHER, endtime)
@@ -544,7 +544,12 @@
 			target.real_name = fields["name"]
 			target.dna.unique_enzymes = fields["UE"]
 			target.name = target.real_name
-			target.dna.blood_type = fields["blood_type"]
+			// Handle both datum (new) and string (old injector data) blood types
+			var/blood_type_data = fields["blood_type"]
+			if(istext(blood_type_data))
+				target.dna.blood_type = get_blood_type(blood_type_data)
+			else
+				target.dna.blood_type = blood_type_data
 			target.dna.temporary_mutations[UE_CHANGED] = endtime
 		if(fields["UI"])	//UI+UE
 			target.dna.unique_identity = merge_text(target.dna.unique_identity, fields["UI"])

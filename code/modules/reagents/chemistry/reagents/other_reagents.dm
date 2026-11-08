@@ -1928,7 +1928,7 @@
 
 /datum/reagent/magillitis/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if((ismonkey(affected_mob) || ishuman(affected_mob)) && current_cycle >= 10)
+	if((ishuman(affected_mob)) && current_cycle > 10)
 		affected_mob.gorillize()
 
 /datum/reagent/growthserum

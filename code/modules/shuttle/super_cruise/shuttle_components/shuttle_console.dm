@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list()
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_SET_MACHINE
 	var/shuttleId
 
 	//Interdiction range

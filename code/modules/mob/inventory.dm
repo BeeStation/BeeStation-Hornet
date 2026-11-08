@@ -207,7 +207,7 @@
 //Puts the item our active hand if possible. Failing that it tries other hands. Returns TRUE on success.
 //If both fail it drops it on the floor and returns FALSE.
 //This is probably the main one you need to know :)
-/mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE)
+/mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE, ignore_animation = TRUE)
 	if(QDELETED(I))
 		return FALSE
 
@@ -231,14 +231,14 @@
 						to_chat(usr, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
 						return TRUE
 
-	if(put_in_active_hand(I, forced))
+	if(put_in_active_hand(I, forced, ignore_animation))
 		return TRUE
 
 	var/hand = get_empty_held_index_for_side(LEFT_HANDS)
 	if(!hand)
 		hand =  get_empty_held_index_for_side(RIGHT_HANDS)
 	if(hand)
-		if(put_in_hand(I, hand, forced))
+		if(put_in_hand(I, hand, forced, ignore_animation))
 			return TRUE
 	if(del_on_fail)
 		qdel(I)
@@ -248,6 +248,10 @@
 	I.plane = initial(I.plane)
 	I.dropped(src)
 	return FALSE
+
+/// Returns true if a mob is holding something
+/mob/proc/is_holding_items()
+	return !!locate(/obj/item) in held_items
 
 /mob/proc/drop_all_held_items()
 	. = FALSE
@@ -279,9 +283,15 @@
 //for when you want the item to end up on the ground
 //will force move the item to the ground and call the turf's Entered
 /mob/proc/dropItemToGround(obj/item/I, force = FALSE, silent = FALSE)
+	if (isnull(I))
+		return TRUE
+
+	SEND_SIGNAL(src, COMSIG_MOB_DROPPING_ITEM)
 	. = doUnEquip(I, force, drop_location(), FALSE, silent = silent)
+
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
+
 	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP))
 		I.pixel_x = rand(-6, 6)
 		I.pixel_y = rand(-6, 6)

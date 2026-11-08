@@ -3,7 +3,6 @@
 	surgery_flags = SURGERY_REQUIRE_RESTING | SURGERY_REQUIRE_LIMB | SURGERY_REQUIRES_REAL_LIMB
 	organ_to_manipulate = ORGAN_SLOT_LIVER
 	possible_locs = list(BODY_ZONE_CHEST)
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,

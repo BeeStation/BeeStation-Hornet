@@ -78,6 +78,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/defibrillator_mount, "Use")
 
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
+	. = ..()
 	if(!defib)
 		to_chat(user, span_warning("There's no defibrillator unit loaded!"))
 		return

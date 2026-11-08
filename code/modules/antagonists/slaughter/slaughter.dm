@@ -32,7 +32,6 @@
 	attack_verb_simple = "wildly tear into"
 	maxHealth = 200
 	health = 200
-	healable = 0
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 50
 	melee_damage = 30

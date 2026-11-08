@@ -4,12 +4,12 @@
 	desc = "A hereditary mutation causing Myopia and poor vision."
 	quality = MINOR_NEGATIVE
 
-/datum/mutation/nearsight/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/nearsight/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.become_nearsighted(GENETIC_MUTATION)
 
-/datum/mutation/nearsight/on_losing(mob/living/carbon/owner)
+/datum/mutation/nearsight/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.cure_nearsighted(GENETIC_MUTATION)
@@ -21,12 +21,12 @@
 	desc = "A hereditary mutation which renders the optic nerves of the individual inert, making them effectively blind. No amount of corrective surgery can fix this."
 	quality = NEGATIVE
 
-/datum/mutation/blind/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/blind/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.become_blind(GENETIC_MUTATION)
 
-/datum/mutation/blind/on_losing(mob/living/carbon/owner)
+/datum/mutation/blind/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.cure_blind(GENETIC_MUTATION)
@@ -128,9 +128,21 @@
 	if(!(type in visual_indicators))
 		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "lasereyes"))
 
+/datum/mutation/laser_eyes/on_acquiring(mob/living/carbon/human/owner)
+	if(..())
+		return
+	RegisterSignal(owner, COMSIG_MOB_ATTACK_RANGED, PROC_REF(on_ranged_attack))
+
+/datum/mutation/laser_eyes/on_losing(mob/living/carbon/human/owner)
+	if(..())
+		return
+	UnregisterSignal(owner, COMSIG_MOB_ATTACK_RANGED)
+
 /datum/mutation/laser_eyes/get_visual_indicator()
 	return visual_indicators[type][1]
 
-/datum/mutation/laser_eyes/on_ranged_attack(mob/living/carbon/human/source, atom/target, modifiers)
-	if(owner.combat_mode)
-		owner.LaserEyes(target, modifiers)
+/datum/mutation/laser_eyes/proc/on_ranged_attack(mob/living/carbon/human/source, atom/target, modifiers)
+	SIGNAL_HANDLER
+
+	if(source.combat_mode)
+		source.LaserEyes(target, modifiers)

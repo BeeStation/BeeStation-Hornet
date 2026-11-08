@@ -285,11 +285,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	mutation_index.Cut()
 	default_mutation_genes.Cut()
 	shuffle_inplace(mutations_temp)
-	if(ismonkey(holder))
-		mutations |= new /datum/mutation/race(MUT_NORMAL)
-		mutation_index[/datum/mutation/race] = GET_SEQUENCE(/datum/mutation/race)
-	else
-		mutation_index[/datum/mutation/race] = create_sequence(/datum/mutation/race, FALSE)
+	mutation_index[/datum/mutation/race] = create_sequence(/datum/mutation/race, FALSE)
 	default_mutation_genes[/datum/mutation/race] = mutation_index[/datum/mutation/race]
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)
 		var/datum/mutation/M = mutations_temp[i]
@@ -568,31 +564,37 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE)
 	if(QDELETED(src))
 		CRASH("You're trying to change your species post deletion, this is a recipe for madness")
-	if(mrace && has_dna())
-		var/datum/species/new_race
-		if(ispath(mrace))
-			new_race = new mrace
-		else if(istype(mrace))
-			new_race = mrace
-		else
-			return
-		death_sound = new_race.deathsound
+	if(isnull(mrace))
+		CRASH("set_species called without a species to set to")
+	if(!has_dna())
+		return
 
-		if (dna.species.properly_gained)
-			dna.species.on_species_loss(src, new_race)
+	var/datum/species/new_race
+	if(ispath(mrace))
+		new_race = new mrace
+	else if(istype(mrace))
+		if(QDELING(mrace))
+			CRASH("someone is calling set_species() and is passing it a qdeling species datum, this is VERY bad, stop it")
+		new_race = mrace
+	else
+		CRASH("set_species called with an invalid mrace [mrace]")
 
-		var/datum/species/old_species = dna.species
-		dna.update_species(new_race)
+	death_sound = new_race.deathsound
 
-		dna.species.on_species_gain(src, old_species)
-		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
-		if(icon_update)
-			update_mutations_overlay()// no lizard with human hulk overlay please.
+	var/datum/species/old_species = dna.species
+	dna.update_species(new_race)
+
+	if(old_species.properly_gained)
+		old_species.on_species_loss(src, new_race)
+
+	dna.species.on_species_gain(src, old_species)
+	SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE)
 	..()
 	if(icon_update)
 		update_body(is_creating = TRUE)
+		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 /mob/proc/has_dna()
 	return
@@ -779,8 +781,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 		return
 
 	for(var/mutation in dna.mutation_index)
-		if(ismob(dna.check_block(mutation)))
-			return //we got monkeyized/humanized, this mob will be deleted, no need to continue.
+		dna.check_block(mutation)
 
 	update_mutations_overlay()
 
@@ -941,7 +942,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 /////////////////////////// DNA HELPER-PROCS
 
-/mob/living/carbon/proc/something_horrible(ignore_stability)
+/mob/living/carbon/human/proc/something_horrible(ignore_stability)
 	if(!has_dna()) //shouldn't ever happen anyway so it's just in really weird cases
 		return
 	if(!ignore_stability && (dna.stability > 0))
@@ -952,7 +953,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	if(prob(max(70-instability,0)))
 		switch(rand(0,10)) //not complete and utter death
 			if(0)
-				teratomize()
+				monkeyize()
 			if(1)
 				gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 				new/obj/vehicle/ridden/wheelchair(get_turf(src)) //don't buckle, because I can't imagine to plethora of things to go through that could otherwise break
@@ -963,9 +964,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 			if(4)
 				to_chat(src, span_notice("Oh, I actually feel quite alright!")) //you thought
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					H.physiology.damage_resistance -= 20000 //you thought
+				physiology.damage_resistance -= 20000 //you thought
 			if(5)
 				to_chat(src, span_notice("Oh, I actually feel quite alright!"))
 				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
@@ -1019,7 +1018,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				to_chat(src, span_phobia("LOOK UP!"))
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
 
-/mob/living/carbon/proc/something_horrible_mindmelt()
+/mob/living/carbon/human/proc/something_horrible_mindmelt()
 	if(!is_blind())
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in internal_organs
 		if(!eyes)

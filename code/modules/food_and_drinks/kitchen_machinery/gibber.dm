@@ -141,10 +141,17 @@
 	if(operating)
 		return
 	if(!occupant)
-		visible_message(span_italics("You hear a loud metallic grinding sound."))
+		visible_message(span_hear("You hear a loud metallic grinding sound."))
 		return
+	if(occupant.flags_1 & HOLOGRAM_1)
+		audible_message(span_hear("You hear a very short metallic grinding sound."))
+		playsound(loc, 'sound/machines/hiss.ogg', 20, TRUE)
+		qdel(occupant)
+		set_occupant(null)
+		return
+
 	use_power(1000)
-	visible_message(span_italics("You hear a loud squelchy grinding sound."))
+	visible_message(span_hear("You hear a loud squelchy grinding sound."))
 	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 	operating = TRUE
 	update_use_power(ACTIVE_POWER_USE)
@@ -177,9 +184,7 @@
 		var/mob/living/carbon/C = occupant
 		typeofmeat = C.type_of_meat
 		gibtype = C.gib_type
-		if(ismonkey(C))
-			typeofskin = /obj/item/stack/sheet/animalhide/monkey
-		else if(isalien(C))
+		if(isalien(C))
 			typeofskin = /obj/item/stack/sheet/animalhide/xeno
 	var/occupant_volume
 	if(occupant?.reagents)

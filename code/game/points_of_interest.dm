@@ -22,8 +22,6 @@
 		moblist += mob_to_sort
 	for(var/mob/dead/new_player/pre_auth/mob_to_sort in sortmob)
 		moblist += mob_to_sort
-	for(var/mob/living/carbon/monkey/mob_to_sort in sortmob)
-		moblist += mob_to_sort
 	for(var/mob/living/simple_animal/slime/mob_to_sort in sortmob)
 		moblist += mob_to_sort
 	for(var/mob/living/simple_animal/mob_to_sort in sortmob)

@@ -62,7 +62,7 @@
 	apply_overlay(HANDS_LAYER)
 
 /mob/living/carbon/get_fire_overlay(stacks, on_fire)
-	var/fire_icon = "human_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
+	var/fire_icon = "[dna?.species.fire_overlay || "human"]_[stacks > MOB_BIG_FIRE_STACK_THRESHOLD ? "big_fire" : "small_fire"]"
 
 	if(!GLOB.fire_appearances[fire_icon])
 		GLOB.fire_appearances[fire_icon] = mutable_appearance(
@@ -220,9 +220,8 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_GET_WORN_OVERLAYS, ., standing, isinhands, icon_file)
 
 /mob/living/carbon/update_body(is_creating = FALSE)
-	if(!ismonkey(src))
-		dna.species.handle_body(src)
-		dna.update_body_size()
+	dna.species.handle_body(src)
+	dna.update_body_size()
 	update_body_parts(is_creating)
 
 ///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.

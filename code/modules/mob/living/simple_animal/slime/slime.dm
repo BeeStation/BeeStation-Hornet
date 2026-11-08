@@ -11,12 +11,15 @@
 
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "shoos"
-	response_disarm_simple = "shoo"
-	response_harm_continuous = "stomps on"
-	response_harm_simple = "stomp on"
+
+	attack_sound = 'sound/weapons/bite.ogg'
+
+	maxHealth = 150
+	health = 150
+	mob_biotypes = MOB_SLIME
+	melee_damage = 13
+	can_buckle_to = FALSE
+
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
@@ -26,10 +29,12 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	maxHealth = 150
-	health = 150
-	healable = 0
-	gender = NEUTER
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomp on"
 
 	see_in_dark = NIGHTVISION_FOV_RANGE
 
@@ -332,7 +337,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		attacked += 10
 
 
-/mob/living/simple_animal/slime/attack_paw(mob/living/carbon/monkey/M)
+/mob/living/simple_animal/slime/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
 		attacked += 10
 
@@ -532,18 +537,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/pet
 	docile = 1
 
-/mob/living/simple_animal/slime/can_be_implanted()
-	return TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
 
-/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
+/mob/living/simple_animal/slime/apply_damage(damage, damagetype, def_zone, blocked, forced, spread_damage, sharpness, attack_direction, attacking_item)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
 		blocked += 50
-	. = ..(damage, damagetype, def_zone, blocked, forced, spread_damage)
+	. = ..()
 
 /mob/living/simple_animal/slime/get_discovery_id()
 	return "[colour] slime"

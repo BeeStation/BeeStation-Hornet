@@ -6,18 +6,19 @@
 	locked = TRUE
 	difficulty = 16
 	species_allowed = list(SPECIES_HUMAN) //no skeleton/lizard hulk
-	mobtypes_allowed = list(/mob/living/carbon/human)
 	health_req = 25
 	instability = 40
-	locked = TRUE
 	traits = list(
 		TRAIT_STUNIMMUNE,
 		TRAIT_PUSHIMMUNE,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NOSTAMCRIT,
 		TRAIT_NOLIMBDISABLE,
-		TRAIT_FAST_CUFF_REMOVAL
+		TRAIT_FAST_CUFF_REMOVAL,
+		TRAIT_CHUNKYFINGERS
 	)
+	var/scream_delay = 50
+	var/last_scream = 0
 
 /datum/mutation/hulk/New(class, timer, datum/mutation/copymut)
 	. = ..()
@@ -26,22 +27,33 @@
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.get_bodyparts())
 		part.variable_color = COLOR_DARK_LIME
-	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	owner.update_body_parts()
+	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
+	RegisterSignal(owner, COMSIG_LIVING_EARLY_UNARMED_ATTACK, PROC_REF(on_attack_hand))
 
-/datum/mutation/hulk/on_attack_hand(atom/target, proximity)
-	if(!owner.combat_mode || !proximity) //no telekinetic hulk attack
-		return
+/datum/mutation/hulk/proc/on_attack_hand(mob/living/carbon/human/source, atom/target, proximity, modifiers)
+	SIGNAL_HANDLER
+
+	if(!source.combat_mode || !proximity || LAZYACCESS(modifiers, RIGHT_CLICK))
+		return NONE
+	if(!source.can_unarmed_attack())
+		return COMPONENT_SKIP_ATTACK
 	if(!target.attack_hulk(owner))
-		return
+		return NONE
 
-	owner.changeNext_move(CLICK_CD_MELEE)
-	log_combat(owner, src, "punched", "hulk powers")
-	owner.do_attack_animation(src, ATTACK_EFFECT_SMASH)
+	if(world.time > (last_scream + scream_delay))
+		last_scream = world.time
+		INVOKE_ASYNC(src, PROC_REF(scream_attack), source)
+	log_combat(source, target, "punched", "hulk powers")
+	source.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+	source.changeNext_move(CLICK_CD_MELEE)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/mutation/hulk/proc/scream_attack(mob/living/carbon/human/source)
+	source.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 
 /datum/mutation/hulk/on_life(delta_time, times_fired)
 	if(owner.health < owner.crit_threshold)
@@ -53,8 +65,8 @@
 	if(..())
 		return
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
-	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
 	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.get_bodyparts())
 		part.variable_color = null
 	owner.update_body_parts()
+	UnregisterSignal(owner, COMSIG_LIVING_EARLY_UNARMED_ATTACK)

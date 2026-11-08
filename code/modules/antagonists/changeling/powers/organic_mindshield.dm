@@ -5,7 +5,7 @@
 	helptext = "Will cause you to appear to have a mindshield on security HUDs. Maintaining uses 1 chemical every 3 seconds. Does not work while on fire."
 	chemical_cost = 0
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 
 /datum/action/changeling/organic_mindshield/sting_action(mob/living/user)
 	..()

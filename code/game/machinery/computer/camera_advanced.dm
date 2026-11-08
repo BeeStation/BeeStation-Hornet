@@ -6,6 +6,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_SET_MACHINE | INTERACT_MACHINE_REQUIRES_SIGHT
 	var/list/allowed_z = list() // Lock use to these z levels
 	var/lock_override = NONE
 	var/mob/camera/ai_eye/remote/eyeobj

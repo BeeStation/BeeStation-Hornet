@@ -67,7 +67,7 @@
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HUSK))
-		to_chat(user, span_warning("This body is too damaged to revive!."))
+		user.balloon_alert(user, "already reviving!")
 		return
 	if(HAS_TRAIT_FROM(user, TRAIT_DEATHCOMA, "changeling") && !revive_ready)
 		to_chat(user, span_warning("We are already reviving."))

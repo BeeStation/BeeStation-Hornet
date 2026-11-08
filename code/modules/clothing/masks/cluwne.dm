@@ -20,11 +20,11 @@
 
 /obj/item/clothing/mask/animal/cluwne/equipped(mob/user, slot)
 	. = ..()
-	if(!user.has_dna())
+	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_MASK)
-		var/mob/living/carbon/C = user
-		C.dna.add_mutation(/datum/mutation/cluwne)
+		var/mob/living/carbon/human/H = user
+		H.dna.add_mutation(/datum/mutation/cluwne)
 
 /obj/item/clothing/mask/animal/cluwne/handle_speech(datum/source, list/speech_args)
 	if(prob(animal_sounds_alt_probability) && LAZYLEN(animal_sounds_alt))

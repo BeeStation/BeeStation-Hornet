@@ -13,8 +13,14 @@
 	///Will this implant notify ghosts when activated?
 	var/notify_ghosts = TRUE
 
-/obj/item/implant/explosive/on_mob_death(mob/living/L, gibbed)
-	activate("death")
+/obj/item/implant/explosive/proc/on_death(datum/source, gibbed)
+	SIGNAL_HANDLER
+
+	// There may be other signals that want to handle mob's death
+	// and the process of activating destroys the body, so let the other
+	// signal handlers at least finish. Also, the "delayed explosion"
+	// uses sleeps, which is bad for signal handlers to do.
+	INVOKE_ASYNC(src, PROC_REF(activate), "death")
 
 /obj/item/implant/explosive/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -66,9 +72,16 @@
 			imp_e.weak += weak
 			imp_e.delay += delay
 			qdel(src)
-			return 1
+			return TRUE
 
-	return ..()
+	. = ..()
+	if(.)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+
+/obj/item/implant/explosive/removed(mob/target, silent = FALSE, destroyed = FALSE)
+	. = ..()
+	if(.)
+		UnregisterSignal(target, COMSIG_LIVING_DEATH)
 
 /obj/item/implant/explosive/proc/timed_explosion()
 	if (isnull(imp_in))

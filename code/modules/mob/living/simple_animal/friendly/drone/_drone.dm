@@ -26,7 +26,6 @@
 	unsuitable_atmos_damage = 0
 	wander = FALSE
 	speed = 0
-	healable = 0
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	sight = (SEE_TURFS | SEE_OBJS)
@@ -44,7 +43,7 @@
 	unique_name = TRUE
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 	dextrous = TRUE
-	dextrous_hud_type = /datum/hud/dextrous/drone
+	hud_type = /datum/hud/dextrous/drone
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 7
 	can_be_held = TRUE

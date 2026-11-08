@@ -1,6 +1,7 @@
 /datum/species/oozeling
 	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
+	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_SLIME
 	inherent_traits = list(
 		TRAIT_TOXINLOVER,
 		TRAIT_NOHAIRLOSS,

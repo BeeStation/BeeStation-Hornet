@@ -10,7 +10,6 @@
 		/datum/surgery_step/close
 	)
 
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
 /datum/surgery/stomach_pump/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/stomach/target_stomach = target.get_organ_slot(ORGAN_SLOT_STOMACH)

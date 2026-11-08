@@ -14,7 +14,6 @@
 	response_harm_continuous = "punches through"
 	response_harm_simple = "punch through"
 	combat_mode = TRUE
-	healable = 0
 	speed = 0
 	maxHealth = 40
 	health = 40

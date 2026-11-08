@@ -31,12 +31,15 @@
 	dna.species.handle_body_temperature(src, delta_time, times_fired)
 	if(!IS_IN_STASIS(src))
 		if(stat != DEAD)
+			for(var/datum/mutation/mutation as anything in dna.mutations)
+				mutation.on_life(delta_time, times_fired)
 			//heart attack stuff
-			handle_heart(delta_time)
+			handle_heart(delta_time, times_fired)
 			//handles liver failure effects, if we lack a liver
-			handle_liver(delta_time)
+			handle_liver(delta_time, times_fired)
 
-		dna.species.spec_life(src, delta_time, times_fired) // for mutantraces
+		// for special species interactions
+		dna.species.spec_life(src, delta_time, times_fired)
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -282,7 +285,7 @@
 			return TRUE
 	return ..()
 
-/mob/living/carbon/human/proc/handle_heart(delta_time)
+/mob/living/carbon/human/proc/handle_heart(delta_time, times_fired)
 	var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
 	if(!undergoing_cardiac_arrest())
@@ -291,7 +294,6 @@
 	if(we_breath)
 		adjustOxyLoss(4 * delta_time)
 		Unconscious(80)
-
 	// Tissues die without blood circulation, machines burn without coolant circulation
 	if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
 		adjustFireLoss(0.5 * delta_time)

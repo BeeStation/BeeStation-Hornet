@@ -11,9 +11,9 @@
 	button_icon_state = "cluwne"
 
 /datum/action/spell/pointed/cluwnecurse/is_valid_spell(mob/user, atom/target)
-	return ..() && istype(target, /mob/living/carbon)
+	return ..() && ishuman(target)
 
-/datum/action/spell/pointed/cluwnecurse/on_cast(mob/user, mob/living/carbon/target)
+/datum/action/spell/pointed/cluwnecurse/on_cast(mob/user, mob/living/carbon/human/target)
 	. = ..()
 	if(target.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND))
 		return

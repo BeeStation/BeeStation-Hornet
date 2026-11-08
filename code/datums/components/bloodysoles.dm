@@ -255,10 +255,6 @@
 		wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
-	if(ismonkey(wielder))
-		FP.species_types |= "monkey"
-		return
-
 	if(!ishuman(wielder))
 		FP.species_types |= "unknown"
 		return

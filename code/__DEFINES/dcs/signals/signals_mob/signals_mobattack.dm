@@ -4,6 +4,8 @@
 
 /* Attack signals. They should share the returned flags, to standardize the attack chain. */
 
+///from base of turf/attack_hand
+#define COMSIG_MOB_ATTACK_HAND_TURF "mob_attack_hand_turf"
 /// from base of /obj/item/attack(): (mob/living/target_mob, mob/living/user, list/modifiers)
 #define COMSIG_ITEM_ATTACK "item_attack"
 /// from base of /obj/item/attack(): (mob/living/target_mob, mob/living/user, list/modifiers)
@@ -18,3 +20,8 @@
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 /// from base of /mob/RangedAttack(): (atom/A, modifiers)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
+///From base of atom/ctrl_click(): (atom/A)
+#define COMSIG_MOB_CTRL_CLICKED "mob_ctrl_clicked"
+
+/// from mob/proc/dropItemToGround()
+#define COMSIG_MOB_DROPPING_ITEM "mob_dropping_item"

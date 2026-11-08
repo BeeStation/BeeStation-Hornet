@@ -90,6 +90,15 @@
 	var/turf/T = meat.drop_location()
 	var/final_effectiveness = effectiveness - meat.butcher_difficulty
 	var/bonus_chance = max(0, (final_effectiveness - 100) + bonus_modifier) //so 125 total effectiveness = 25% extra chance
+
+	if(meat.flags_1 & HOLOGRAM_1)
+		butcher.visible_message(
+			span_notice("[butcher] tries to butcher [meat], but it vanishes."),
+			span_notice("You try to butcher [meat], but it vanishes.")
+		)
+		qdel(meat)
+		return
+
 	for(var/V in meat.butcher_results)
 		var/obj/bones = V
 		var/amount = meat.butcher_results[bones]

@@ -12,6 +12,7 @@
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NOT_TRANSMORPHIC,
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_AGENDER,
 		TRAIT_NO_SOCKS,
 		TRAIT_UNHUSKABLE,
@@ -32,7 +33,6 @@
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/consumable/chlorophyll
-	species_gibs = null //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
@@ -155,10 +155,12 @@
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species)
 	. = ..()
-	split_ability.Remove(H)
-	QDEL_NULL(split_ability)
-	partition_ability.Remove(H)
-	QDEL_NULL(partition_ability)
+	if(split_ability)
+		split_ability.Remove(H)
+		QDEL_NULL(split_ability)
+	if(partition_ability)
+		partition_ability.Remove(H)
+		QDEL_NULL(partition_ability)
 	qdel(drone_ref?.resolve())
 	drone_ref = null
 	H.remove_status_effect(/datum/status_effect/planthealing)

@@ -107,7 +107,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
-	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	/// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/outfit/outfit_important_for_life
@@ -125,6 +124,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///Does our species have colors for its damage overlays?
 	var/use_damage_color = TRUE
 
+	/// The icon_state of the fire overlay added when sufficently ablaze and standing. see onfire.dmi
+	var/fire_overlay = "human"
+
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits = list()
 	/// Bitflags of biotypes the mob belongs to. Used by diseases.
@@ -135,7 +137,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///What gas does this species breathe? Used by suffocation screen alerts, most of actual gas breathing is handled by mutantlungs. See [life.dm][code/modules/mob/living/carbon/human/life.dm]
 	var/breathid = GAS_O2
 
-	//Do NOT remove by setting to null. use OR make an ASSOCIATED TRAIT.
+	///What anim to use for dusting
+	var/dust_anim = "dust-h"
+	///What anim to use for gibbing
+	var/gib_anim = "gibbed-h"
+
+	//Do NOT remove by setting to null. use OR make a RESPECTIVE TRAIT (removing stomach? add the NOSTOMACH trait to your species)
 	//why does it work this way? because traits also disable the downsides of not having an organ, removing organs but not having the trait will make your species die
 
 	///Replaces default brain with a different organ
@@ -164,6 +171,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//in __DEFINES/mobs.dm, defaults to NONE, so people actually have to think about it
 	var/changesource_flags = NONE
 
+	///List of results you get from knife-butchering. null means you cant butcher it. Associated by resulting type - value of amount
+	var/list/knife_butcher_results
+
 	//The component to add when swimming
 	var/swimming_component = /datum/component/swimming
 
@@ -178,11 +188,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = /datum/status_effect/bleeding
 
+	/// Should we preload this species's organs?
+	var/preload = TRUE
+
 	/// Do we try to prevent set_mob_eye_to(MOB_EYE_SELF) from working?
 	var/prevent_perspective_change = FALSE
 
-	//Should we preload this species's organs?
-	var/preload = TRUE
+	/// This supresses the "dosen't appear to be himself" examine text for if the mob is run by an AI controller. Should be used on any NPC human subtypes. Monkeys are the prime example.
+	var/ai_controlled_species = FALSE
 
 	/// The name key for the species, if the user changes from one species
 	/// to another which has a different name key, their name will be reset
@@ -425,57 +438,69 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		override_limbs += bodypart_overrides[bodypart]
 	target.create_bodyparts(override_limbs)
 
-/datum/species/proc/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+/**
+ * Proc called when a carbon becomes this species.
+ *
+ * This sets up and adds/changes/removes things, qualities, abilities, and traits so that the transformation is as smooth and bugfree as possible.
+ * Produces a [COMSIG_SPECIES_GAIN] signal.
+ * Arguments:
+ * * human_who_gained_species - Carbon, this is whoever became the new species.
+ * * old_species - The species that the carbon used to be before becoming this race, used for regenerating organs.
+ */
+/datum/species/proc/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species)
 	SHOULD_CALL_PARENT(TRUE)
 
-	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
+	human_who_gained_species.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
 
-	C.mob_biotypes = inherent_biotypes
+	human_who_gained_species.mob_biotypes = inherent_biotypes
+	human_who_gained_species.butcher_results = knife_butcher_results?.Copy()
 
 	if(old_species.type != type)
-		replace_body(C, src)
+		replace_body(human_who_gained_species, src)
 
-	regenerate_organs(C, old_species, replace_current = FALSE, visual_only = C.visual_only_organs)
+	regenerate_organs(human_who_gained_species, old_species, replace_current = FALSE, visual_only = human_who_gained_species.visual_only_organs)
+
 	// Update locked slots AFTER all organ and body stuff is handled
-	C.hud_used?.update_locked_slots()
+	human_who_gained_species.hud_used?.update_locked_slots()
+
 	// Drop the items the new species can't wear
-	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
+	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), human_who_gained_species, TRUE)
 
 	//Assigns exotic blood type if the species has one
-	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
-		C.dna.blood_type = get_blood_type(exotic_bloodtype)
+	if(exotic_bloodtype && human_who_gained_species.dna.blood_type?.name != exotic_bloodtype)
+		human_who_gained_species.dna.blood_type = get_blood_type(exotic_bloodtype)
 	//Otherwise, check if the previous species had an exotic bloodtype and we do not have one and assign a random blood type
-	//(why the fuck is blood type not tied to a DNA block?)
+	//(why the fuck is blood type not tied to a fucking DNA block?)
 	else if(old_species.exotic_bloodtype && !exotic_bloodtype)
-		C.dna.blood_type = random_blood_type()
+		human_who_gained_species.dna.blood_type = random_blood_type()
 
 	if(length(inherent_traits))
-		C.add_traits(inherent_traits, SPECIES_TRAIT)
+		human_who_gained_species.add_traits(inherent_traits, SPECIES_TRAIT)
 
 	//if we can't have the disease, dont keep it
-	for(var/datum/disease/disease in C.diseases)
+	for(var/datum/disease/disease in human_who_gained_species.diseases)
 		if(!(disease.infectable_biotypes & inherent_biotypes))
 			disease.cure(FALSE)
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
-			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+			human_who_gained_species.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 	// All languages associated with this language holder are added with source [LANGUAGE_SPECIES]
 	// rather than source [LANGUAGE_ATOM], so we can track what to remove if our species changes again
 	var/datum/language_holder/gaining_holder = GLOB.prototype_language_holders[species_language_holder]
 	for(var/language in gaining_holder.understood_languages)
-		C.grant_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
+		human_who_gained_species.grant_language(language, UNDERSTOOD_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in gaining_holder.spoken_languages)
-		C.grant_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
+		human_who_gained_species.grant_language(language, SPOKEN_LANGUAGE, LANGUAGE_SPECIES)
 	for(var/language in gaining_holder.blocked_languages)
-		C.add_blocked_language(language, LANGUAGE_SPECIES)
+		human_who_gained_species.add_blocked_language(language, LANGUAGE_SPECIES)
 
-	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
+	SEND_SIGNAL(human_who_gained_species, COMSIG_SPECIES_GAIN, src, old_species)
 
 	properly_gained = TRUE
 
-	C.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
+	human_who_gained_species.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species)
 	SHOULD_CALL_PARENT(TRUE)
@@ -572,7 +597,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Underwear, Undershirts & Socks
 	if(!(HAS_TRAIT(species_human, TRAIT_NO_UNDERWEAR)))
-		if(species_human.underwear && !(species_human.bodytype & BODYTYPE_DIGITIGRADE))
+		if(species_human.underwear && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE))
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[species_human.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
@@ -592,7 +617,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 
-		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodytype & BODYTYPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
+		if(species_human.socks && species_human.num_legs >= 2 && !(species_human.bodyshape & BODYSHAPE_DIGITIGRADE) && !(HAS_TRAIT(species_human, TRAIT_NO_SOCKS)))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[species_human.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
@@ -622,6 +647,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(mutant_bodyparts["tail_lizard"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_lizard"
+
+	if("tail_monkey" in mutant_bodyparts)
+		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
+			bodyparts_to_add -= "tail_monkey"
 
 	if(mutant_bodyparts["waggingtail_lizard"])
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
@@ -739,7 +768,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
-	if(H.bodytype & BODYTYPE_DIGITIGRADE)
+	if(H.bodyshape & BODYSHAPE_DIGITIGRADE)
 		var/uniform_compatible = FALSE
 		var/suit_compatible = FALSE
 		if(!(H.w_uniform) || (H.w_uniform.supports_variations_flags & (CLOTHING_DIGITIGRADE_VARIATION|CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON))) //Checks uniform compatibility
@@ -749,12 +778,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
 			for(var/obj/item/bodypart/BP as anything in H.bodyparts)
-				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
+				if(BP.bodyshape & BODYSHAPE_DIGITIGRADE)
 					BP.limb_id = BODYPART_ID_DIGITIGRADE
 
 		else
 			for(var/obj/item/bodypart/BP as anything in H.bodyparts)
-				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
+				if(BP.bodyshape & BODYSHAPE_DIGITIGRADE)
 					BP.limb_id = "lizard"
 	///End digi handling
 
@@ -782,6 +811,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.tails_list_human[H.dna.features["tail_human"]]
 				if("waggingtail_human")
 					S = GLOB.animated_tails_list_human[H.dna.features["tail_human"]]
+				if("tail_monkey")
+					S = GLOB.tails_list_monkey[H.dna.features["tail_monkey"]]
 				if("spines")
 					S = GLOB.spines_list[H.dna.features["spines"]]
 				if("waggingspines")
@@ -861,7 +892,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			accessory_overlay.alpha = S.overlay_alpha
 
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
-			if(bodypart == "tail_lizard" || bodypart == "tail_human")
+			if(bodypart == "tail_lizard" || bodypart == "tail_human" || bodypart == "tail_monkey")
 				bodypart = "tail"
 			else if(bodypart == "waggingtail_lizard" || bodypart == "waggingtail_human")
 				bodypart = "waggingtail"
@@ -1006,7 +1037,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(ITEM_SLOT_FEET)
 			if(H.num_legs < 2)
 				return FALSE
-			if((H.bodytype & BODYTYPE_DIGITIGRADE) && !(I.item_flags & IGNORE_DIGITIGRADE))
+			if((H.bodyshape & BODYSHAPE_DIGITIGRADE) && !(I.item_flags & IGNORE_DIGITIGRADE))
 				if(!(I.supports_variations_flags & (CLOTHING_DIGITIGRADE_VARIATION|CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON)))
 					if(!disable_warning)
 						to_chat(H, span_warning("The footwear around here isn't compatible with your feet!"))
@@ -1230,16 +1261,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //////////////////
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(SEND_SIGNAL(target, COMSIG_CARBON_PRE_HELP, user, attacker_style) & COMPONENT_BLOCK_HELP_ACT)
+		return TRUE
+
 	if(attacker_style?.help_act(user, target) == MARTIAL_ATTACK_SUCCESS)
 		return TRUE
 
-	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
+	if(target.body_position == STANDING_UP || (target.appears_alive() && target.stat != SOFT_CRIT && target.stat != HARD_CRIT))
 		target.help_shake_act(user)
 		if(target != user)
 			log_combat(user, target, "shaken")
 		return TRUE
-	else
-		user.do_cpr(target)
+
+	user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -1359,8 +1393,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE
 	if(user.loc == target.loc)
 		return FALSE
-	else
-		user.disarm(target)
+	user.disarm(target)
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
@@ -1399,8 +1432,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(human.check_shields(weapon, weapon.force, "the [weapon.name]", MELEE_ATTACK, weapon.armour_penetration))
 			return FALSE
 	if(human.check_block())
-		human.visible_message(span_warning("[human] blocks [weapon]!"), \
-						span_userdanger("You block [weapon]!"))
+		human.visible_message(
+			span_warning("[human] blocks [weapon]!"),
+			span_userdanger("You block [weapon]!")
+		)
 		return FALSE
 
 	affecting ||= human.bodyparts[1] //Something went wrong. Maybe the limb is missing?

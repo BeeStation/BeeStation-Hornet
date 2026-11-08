@@ -2234,6 +2234,11 @@ GLOBAL_LIST_EMPTY(blended_hair_icons_cache)
 	icon_state = "cat"
 	color_src = HAIR_COLOR
 
+/datum/sprite_accessory/tails/monkey/default
+	name = "Monkey"
+	icon_state = "monkey"
+	color_src = FALSE
+
 /datum/sprite_accessory/tails/human/clock
 	name = "Clockwork"
 	icon_state = "clockwork"

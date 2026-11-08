@@ -6,7 +6,7 @@
 	mutadone_proof = TRUE
 	var/list/datum/weakref/clothing_weakrefs = list()
 
-/datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/cluwne/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	owner.dna.add_mutation(/datum/mutation/clumsy)
@@ -34,7 +34,7 @@
 				owner.Knockdown(20)
 				owner.set_jitter_if_lower(1000)
 
-/datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
+/datum/mutation/cluwne/on_losing(mob/living/carbon/human/owner)
 	owner.emote("scream")
 	owner.visible_message(span_warning("[span_name("[owner]")] faints as [owner.p_their()] cursed cluwne clothing melts away!"))
 	owner.Unconscious(rand(45 SECONDS, 70 SECONDS))
@@ -58,7 +58,7 @@
 	if(owner.equip_to_slot_or_del(cursed_clothing, slot))
 		clothing_weakrefs += WEAKREF(cursed_clothing)
 
-/mob/living/carbon/proc/cluwneify(cursed = FALSE)
+/mob/living/carbon/human/proc/cluwneify(cursed = FALSE)
 	dna.add_mutation(cursed ? /datum/mutation/cluwne/cursed : /datum/mutation/cluwne)
 	emote("scream")
 	regenerate_icons()

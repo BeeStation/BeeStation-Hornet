@@ -550,7 +550,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = FALSE
 	remove_outline()
 	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, FALSE))
+	if(!user.put_in_active_hand(src, ignore_animation = !outside_storage))
 		user.dropItemToGround(src)
 		return TRUE
 
@@ -781,6 +781,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	SEND_SIGNAL(user, COMSIG_LIVING_PICKED_UP_ITEM, src)
 	item_flags |= PICKED_UP
 	if(item_flags & WAS_THROWN)
 		item_flags &= ~WAS_THROWN
@@ -832,8 +833,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
-	if(ismonkey(user)) //Only generate icons if we have to
-		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 	if(!initial)
@@ -1168,8 +1167,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				battery.explode()
 			else
 				explosion(src, 0, 0, 3, 4)
-
-/obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
 	return TRUE
@@ -1584,12 +1581,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	return
-
-/**
- * * Overridden to generate icons for monkey clothing
- */
-/obj/item/proc/compile_monkey_icon()
 	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.

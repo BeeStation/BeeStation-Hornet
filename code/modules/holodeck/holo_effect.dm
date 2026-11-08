@@ -90,8 +90,7 @@
 	our_mob.flags_1 |= HOLOGRAM_1
 
 	// these vars are not really standardized but all would theoretically create stuff on death
-	for(var/v in list("butcher_results","corpse","weapon1","weapon2","blood_volume") & our_mob.vars)
-		our_mob.vars[v] = null
+	our_mob.add_traits(list(TRAIT_NO_BLOOD_OVERLAY, TRAIT_NOBLOOD, TRAIT_NOHUNGER), INNATE_TRAIT)
 	RegisterSignal(our_mob, COMSIG_QDELETING, PROC_REF(handle_mob_delete))
 	return our_mob
 
@@ -126,7 +125,14 @@
 	mobtype = /mob/living/simple_animal/hostile/poison/bees/toxin
 
 /obj/effect/holodeck_effect/mobspawner/monkey
-	mobtype = /mob/living/simple_animal/holodeck_monkey
+	mobtype = /mob/living/carbon/human/species/monkey
+
+/obj/effect/holodeck_effect/mobspawner/monkey/activate(obj/machinery/computer/holodeck/computer)
+	var/mob/living/carbon/human/monkey = ..()
+	. = list() + monkey
+
+	for(var/atom/atom as anything in monkey.contents + monkey.internal_organs)
+		. += atom
 
 /obj/effect/holodeck_effect/mobspawner/penguin
 	mobtype = /mob/living/simple_animal/pet/penguin/emperor

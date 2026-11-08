@@ -851,7 +851,7 @@ const ChromosomeInfo = (props) => {
 const DnaConsoleSequencer = (props) => {
   const { data, act } = useBackend();
   const mutations = data.storage?.occupant ?? [];
-  const { isJokerReady, jokerSeconds, subjectStatus } = data;
+  const { isJokerReady, isMonkey, jokerSeconds, subjectStatus } = data;
   const { sequencerMutation, jokerActive } = data.view;
   const mutation = mutations.find(
     (mutation) => mutation.Alias === sequencerMutation,
@@ -893,6 +893,11 @@ const DnaConsoleSequencer = (props) => {
           Genetic sequence corrupted. Subject diagnostic report: DECEASED.
         </Section>
       )) ||
+        (isMonkey && mutation?.Name !== 'Monkified' && (
+          <Section color="bad">
+            Genetic sequence corrupted. Subject diagnostic report: MONKEY.
+          </Section>
+        )) ||
         (subjectStatus === SUBJECT_TRANSFORMING && (
           <Section color="bad">
             Genetic sequence corrupted. Subject diagnostic report: TRANSFORMING.

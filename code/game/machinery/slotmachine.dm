@@ -31,6 +31,7 @@
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_SET_MACHINE // don't need to be literate to play slots
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0

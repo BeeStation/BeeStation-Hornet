@@ -13,10 +13,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
-/obj/item/clothing/under/cluwne/equipped(mob/living/carbon/user, slot)
-	if(!user.has_dna())
+/obj/item/clothing/under/cluwne/equipped(mob/user, slot)
+	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_ICLOTHING)
-		var/mob/living/carbon/C = user
-		C.dna.add_mutation(/datum/mutation/cluwne)
+		var/mob/living/carbon/human/H = user
+		H.dna.add_mutation(/datum/mutation/cluwne)
 	return ..()

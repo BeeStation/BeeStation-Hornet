@@ -139,13 +139,6 @@
 		return ui_interact(user)
 	return FALSE
 
-/mob/living/carbon/RangedAttack(atom/A, mouseparams)
-	. = ..()
-	if(!dna)
-		return
-	for(var/datum/mutation/HM as anything in dna.mutations)
-		HM.on_ranged_attack(A, mouseparams)
-
 /mob/living/carbon/human/RangedAttack(atom/A, modifiers)
 	. = ..()
 	if(.)
@@ -154,10 +147,6 @@
 	if(isturf(A) && get_dist(src,A) <= 1)
 		Move_Pulled(A)
 		return TRUE
-
-/*
-	Animals & All Unspecified
-*/
 
 /**
  * Called when the unarmed attack hasn't been stopped by COMSIG_LIVING_UNARMED_ATTACK or the right_click_attack_chain proc.
@@ -197,44 +186,17 @@
 /atom/proc/handle_basic_attack(user, modifiers)
 	return attack_animal(user, modifiers)
 
-/*
-	Monkeys
-*/
-/mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity_flag, modifiers)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		if(!combat_mode)
-			return
-		if(!iscarbon(A))
-			return
-		var/mob/living/carbon/victim = A
-		var/obj/item/bodypart/affecting = null
-		if(ishuman(victim))
-			var/mob/living/carbon/human/human_victim = victim
-			affecting = human_victim.get_bodypart(pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		var/armor = victim.run_armor_check(affecting, MELEE)
-		if(prob(25))
-			victim.visible_message(span_danger("[src]'s bite misses [victim]!"),
-				span_danger("You avoid [src]'s bite!"), span_hear("You hear jaws snapping shut!"), COMBAT_MESSAGE_RANGE, src)
-			to_chat(src, span_danger("Your bite misses [victim]!"))
-			return
-		victim.apply_damage(rand(1, 3), BRUTE, affecting, armor)
-		victim.visible_message(span_danger("[name] bites [victim]!"),
-			span_userdanger("[name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, name)
-		to_chat(name, span_danger("You bite [victim]!"))
-		if(armor >= 2)
-			return
-		for(var/d in diseases)
-			var/datum/disease/bite_infection = d
-			victim.ForceContractDisease(bite_infection)
-		return
-	A.attack_paw(src, modifiers)
-
 ///Attacked by monkey. It doesn't need its own *_secondary proc as it just uses attack_hand_secondary instead.
 /atom/proc/attack_paw(mob/user, list/modifiers)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return FALSE
 
+
+/*
+	Aliens
+	Defaults to same as monkey in most places
+*/
 /mob/living/carbon/alien/resolve_unarmed_attack(atom/attack_target, list/modifiers)
 	attack_target.attack_alien(src, modifiers)
 
@@ -336,29 +298,11 @@
 	return
 
 /*
-	Simple animals
-*/
-
-/mob/living/simple_animal/resolve_unarmed_attack(atom/attack_target, list/modifiers)
-	if(dextrous && (isitem(attack_target) || !combat_mode))
-		attack_target.attack_hand(src, modifiers)
-		update_held_items()
-	else
-		return ..()
-
-/mob/living/simple_animal/resolve_right_click_attack(atom/target, list/modifiers)
-	if(dextrous && (isitem(target) || !combat_mode))
-		. = target.attack_hand_secondary(src, modifiers)
-		update_held_items()
-	else
-		return ..()
-
-/*
 	Hostile animals
 */
 
 /mob/living/simple_animal/hostile/resolve_unarmed_attack(atom/attack_target, list/modifiers)
-	target = attack_target
+	GiveTarget(attack_target)
 	if(dextrous && (isitem(attack_target) || !combat_mode))
 		return ..()
 	else

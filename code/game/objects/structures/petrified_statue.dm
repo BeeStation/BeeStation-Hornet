@@ -85,14 +85,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/statue/petrified)
 	S.add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
 	return 1
 
-/mob/living/carbon/monkey/petrify(statue_timer)
-	if(!isturf(loc))
-		return 0
-	var/obj/structure/statue/petrified/S = new(loc, src, statue_timer)
-	S.name = "statue of a monkey"
-	S.icon_state = "monkey"
-	return 1
-
 /mob/living/basic/pet/dog/corgi/petrify(statue_timer)
 	if(!isturf(loc))
 		return 0

@@ -107,7 +107,7 @@
 			var/mob/living/carbon/human/H = C
 			equipment_items += list(H.wear_suit, H.w_uniform, H.belt, H.s_store, H.wear_id)
 		if(ismonkey(C))
-			var/mob/living/carbon/monkey/H = C
+			var/mob/living/carbon/human/species/monkey/H = C
 			equipment_items += list(H.w_uniform)
 
 	for(var/bp in equipment_items)

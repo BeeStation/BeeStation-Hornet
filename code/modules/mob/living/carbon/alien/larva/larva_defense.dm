@@ -8,15 +8,15 @@
 		visible_message(span_danger("[M] kicks [src]!"), \
 			span_userdanger("[M] kicks you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)
 		to_chat(M, span_danger("You kick [src]!"))
-
 		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(M.get_combat_bodyzone(src)))
 		apply_damage(damage, BRUTE, affecting)
 
 /mob/living/carbon/alien/larva/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
+	if(!.)
+		return
 	adjustBruteLoss(5 + rand(1,9))
 	user.AddComponent(/datum/component/force_move, get_step_away(user,src, 30))
-	return TRUE
 
 /mob/living/carbon/alien/larva/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && !visual_effect_icon)
