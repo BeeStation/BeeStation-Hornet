@@ -182,6 +182,24 @@
 		meat.AddComponent(/datum/component/infective, grub_diseases)
 	return ..()
 
+/mob/living/simple_animal/hostile/redgrub/attack_animal(mob/living/simple_animal/user)
+	if(!isslime(user))
+		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("You don't want to hurt anyone!"))
+		return FALSE
+	var/datum/status_effect/slimegrub/status = user.has_status_effect(/datum/status_effect/slimegrub)
+	if(status)
+		status.diseases += grub_diseases
+		status.deathcounter -= (40 * growthstage)
+		status.spawnbonus += 1
+	else
+		var/datum/status_effect/slimegrub/new_status = user.apply_status_effect(/datum/status_effect/slimegrub)
+		new_status.diseases += grub_diseases
+	user.visible_message(span_warning("[user] swallows [src] whole!"), span_userdanger("[src] burrows into your cytoplasm when you bite it!"))
+	qdel(src)
+	return TRUE
+
 /mob/living/simple_animal/hostile/redgrub/environment_temperature_is_safe(datum/gas_mixture/environment)
 	if(isliving(loc))
 		var/mob/living/L = loc

@@ -275,7 +275,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 	if(!target_mob.stat)
 		return
 
-	target_mob.visible_message(span_notice("[target_mob] vanishes as [p_theyre()] reclaimed for recycling!"))
+	target_mob.visible_message(span_notice("[target_mob] vanishes as [target_mob.p_theyre()] reclaimed for recycling!"))
 	connected_recycler.use_power(500)
 	monkeys += connected_recycler.cube_production
 	monkeys = round(monkeys, 0.1) //Prevents rounding errors
@@ -356,7 +356,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 	if(!recycler)
 		to_chat(owner, span_notice("There is no connected monkey recycler. Use a multitool to link one."))
 		return
-	for(var/mob/living/carbon/human/target_mob in remote_eye.loc)
+	for(var/mob/living/carbon/monkey/target_mob in remote_eye.loc)
 		xeno_console.monkey_recycle(owner, target_mob)
 
 /datum/action/innate/slime_scan
@@ -398,7 +398,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 		return
 
 	for(var/mob/living/simple_animal/slime/potioned_slime in remote_eye.loc)
-		xeno_console.current_potion.attack(potioned_slime, owner_mob)
+		xeno_console.current_potion.interact_with_atom(potioned_slime, owner_mob)
 		break
 
 /datum/action/innate/hotkey_help
@@ -472,7 +472,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 		to_chat(user, span_warning("No potion loaded."))
 		return
 
-	INVOKE_ASYNC(xeno_console.current_potion, TYPE_PROC_REF(/obj/item/slimepotion/slime, attack), target_slime, user)
+	INVOKE_ASYNC(xeno_console.current_potion, TYPE_PROC_REF(/obj/item/slimepotion/slime, interact_with_atom), target_slime, user)
 
 ///Picks up a slime, and places them in the internal storage
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/target_slime)
@@ -513,7 +513,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 
 
 ///Picks up a dead monkey for recycling
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/target_mob)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/target_mob)
 	SIGNAL_HANDLER
 	if(!ismonkey(target_mob))
 		return

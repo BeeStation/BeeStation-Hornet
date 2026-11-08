@@ -31,7 +31,7 @@
 	handle_speech(delta_time, times_fired)
 	if(slime_type.colour == SLIME_TYPE_RED && burn_damage_stored > 80 * delta_time)
 		special_mutation = TRUE
-		special_mutation_type = SLIME_TYPE_CRIMSON
+		special_mutation_type = /datum/slime_type/crimson
 		visible_message(span_danger("[src] shudders, their red core deepening into an abyssal crimson."))
 	burn_damage_stored = 0
 
@@ -55,14 +55,15 @@
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 		slime_on_target = 1
 
-	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && attack_cooldown < world.time && get_dist(Target, src) <= 1)
+	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && !is_attack_on_cooldown && get_dist(Target, src) <= 1)
 		if(!slime_on_target && can_feed_on(Target))
 			if(!Target.client || prob(20))
 				start_feeding(Target)
 				return PROCESS_KILL
 		if((attacked_stacks || rabid) && Adjacent(Target))
 			Target.attack_animal(src)
-			attack_cooldown = world.time + attack_cooldown_time
+			is_attack_on_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, is_attack_on_cooldown, FALSE), attack_cooldown_time)
 	else if(src in viewers(7, Target))
 		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
 			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)

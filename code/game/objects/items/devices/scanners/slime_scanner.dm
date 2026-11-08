@@ -104,5 +104,6 @@
 			slimeeffect += "rainbow"
 		to_render += span_notice("\n[slimeeffect].")
 	if(scanned_slime.special_mutation == TRUE)
-		to_render += span_notice("\n This slime has achieved the criteria for a special mutation! On split, it will become four [scanned_slime.special_mutation_type] slimes")
+		var/datum/slime_type/special_type = scanned_slime.special_mutation_type
+		to_render += span_notice("\n This slime has achieved the criteria for a special mutation! On split, it will become four [initial(special_type.colour)] slimes")
 	to_chat(user, examine_block(jointext(to_render,"")))

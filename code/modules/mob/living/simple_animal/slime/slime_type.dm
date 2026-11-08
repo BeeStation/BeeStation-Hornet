@@ -8,6 +8,14 @@
 	///The hexcode used by the slime to colour their victims
 	var/rgb_code
 
+/// Slime types that can be picked at random. Special mutations are left out.
+GLOBAL_LIST_INIT(random_slime_types, subtypesof(/datum/slime_type) - list(
+	/datum/slime_type/cobalt,
+	/datum/slime_type/crimson,
+	/datum/slime_type/darkgreen,
+	/datum/slime_type/darkgrey,
+))
+
 //TIER 0
 
 /datum/slime_type/grey
@@ -222,3 +230,31 @@
 		/datum/slime_type/rainbow = 1,
 	)
 	rgb_code = COLOR_SLIME_RAINBOW
+
+/datum/slime_type/cobalt
+	colour = SLIME_TYPE_COBALT
+	core_type = /obj/item/slime_extract/cobalt
+	mutations = list(
+		/datum/slime_type/cobalt = 1,
+	)
+
+/datum/slime_type/crimson
+	colour = SLIME_TYPE_CRIMSON
+	core_type = /obj/item/slime_extract/crimson
+	mutations = list(
+		/datum/slime_type/crimson = 1,
+	)
+
+/datum/slime_type/darkgreen
+	colour = SLIME_TYPE_DARK_GREEN
+	core_type = /obj/item/slime_extract/darkgreen
+	mutations = list(
+		/datum/slime_type/darkgreen = 1,
+	)
+
+/datum/slime_type/darkgrey
+	colour = SLIME_TYPE_DARK_GREY
+	core_type = /obj/item/slime_extract/darkgrey
+	mutations = list(
+		/datum/slime_type/darkgrey = 1,
+	)

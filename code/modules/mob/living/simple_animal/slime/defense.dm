@@ -72,7 +72,7 @@
 	if(istype(W, /obj/item/organ/regenerative_core) && !stat && slime_type.colour == SLIME_TYPE_PINK)
 		to_chat(user, span_warning("The slime absorbs the regenerative core, pink darkening to an ominous grey"))
 		special_mutation = TRUE
-		special_mutation_type = SLIME_TYPE_DARK_GREY
+		special_mutation_type = /datum/slime_type/darkgrey
 		var/obj/item/organ/regenerative_core/R = W
 		qdel(R)
 		return

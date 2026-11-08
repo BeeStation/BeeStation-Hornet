@@ -135,7 +135,7 @@
 		balloon_alert(src, "feeding started")
 		if(slime_type.colour == SLIME_TYPE_GREEN && istype(get_turf(target_mob), /turf/open/floor/grass))
 			special_mutation = TRUE
-			special_mutation_type = SLIME_TYPE_DARK_GREEN
+			special_mutation_type = /datum/slime_type/darkgreen
 			target_mob.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		balloon_alert(src, "latch failed!")
@@ -171,6 +171,8 @@
 	set_life_stage(SLIME_LIFE_STAGE_ADULT)
 	if(transformeffects & SLIME_EFFECT_METAL)
 		maxHealth = round(maxHealth * 1.3)
+	if(transformeffects & SLIME_EFFECT_RED)
+		melee_damage *= 1.1
 	amount_grown = 0
 
 	regenerate_icons()
@@ -184,9 +186,6 @@
 /datum/action/innate/slime/evolve/on_activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
-	if(S.life_stage == SLIME_LIFE_STAGE_ADULT)
-		var/datum/action/innate/slime/reproduce/A = new
-		A.Grant(S)
 
 /mob/living/simple_animal/slime/verb/Reproduce()
 	set category = "Slime"
@@ -198,6 +197,7 @@
 
 	if(!isopenturf(loc))
 		balloon_alert(src, "can't reproduce here!")
+		return
 
 	if(life_stage != SLIME_LIFE_STAGE_ADULT)
 		balloon_alert(src, "not old enough to reproduce!")
@@ -260,21 +260,22 @@
 	slime_owner.Reproduce()
 
 /mob/living/simple_animal/slime/proc/make_baby(drop_loc, new_adult, new_nutrition, new_powerlevel, force_original_colour=FALSE, step_away=TRUE,datum/component/nanites/original_nanites=null)
-	var/child_colour = slime_type.colour
+	var/child_type = slime_type.type
 
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
-			child_colour = /datum/slime_type/rainbow
+			child_type = /datum/slime_type/rainbow
 		else if(special_mutation == TRUE)
-			child_colour = special_mutation_type
+			child_type = special_mutation_type
 		else if(prob(mutation_chance))
+			var/list/possible_mutations = slime_type.mutations
 			if(transformeffects & SLIME_EFFECT_PYRITE)
-				slime_mutation = mutation_table(pick(slime_colours - SLIME_TYPE_RAINBOW))
-			child_colour = pick_weight(slime_type.mutations)
-		else
-			child_colour = slime_type
+				var/random_path = pick(GLOB.random_slime_types - /datum/slime_type/rainbow)
+				var/datum/slime_type/random_type = new random_path
+				possible_mutations = random_type.mutations
+			child_type = pick_weight(possible_mutations)
 
-	var/mob/living/simple_animal/slime/M = new(drop_loc, child_colour, new_adult)
+	var/mob/living/simple_animal/slime/M = new(drop_loc, child_type, new_adult ? SLIME_LIFE_STAGE_ADULT : SLIME_LIFE_STAGE_BABY)
 	M.transformeffects = transformeffects
 	M.set_nutrition(new_nutrition)
 	M.powerlevel = new_powerlevel
@@ -282,6 +283,8 @@
 	if(transformeffects & SLIME_EFFECT_METAL)
 		M.maxHealth = round(M.maxHealth * 1.3)
 		M.health = M.maxHealth
+	if(transformeffects & SLIME_EFFECT_RED)
+		M.melee_damage *= 1.1
 	if(transformeffects & SLIME_EFFECT_PINK)
 		M.grant_language(/datum/language/common)
 		var/datum/language_holder/LH = M.get_language_holder()

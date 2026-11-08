@@ -30,6 +30,8 @@ transformative extracts:
 		S.master = null
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
+	if(S.transformeffects & SLIME_EFFECT_RED)
+		S.melee_damage /= 1.1
 	if(S.transformeffects & SLIME_EFFECT_BLUESPACE)
 		S.remove_verb(/mob/living/simple_animal/slime/proc/teleport)
 	if(S.transformeffects & SLIME_EFFECT_PINK)
@@ -115,6 +117,10 @@ transformative extracts:
 	colour = SLIME_TYPE_RED
 	effect_applied = SLIME_EFFECT_RED
 	effect_desc = "Slimes does 10% more damage when feeding and attacking."
+
+/obj/item/slimecross/transformative/red/do_effect(mob/living/simple_animal/slime/S)
+	..()
+	S.melee_damage *= 1.1
 
 /obj/item/slimecross/transformative/green
 	colour = SLIME_TYPE_GREEN

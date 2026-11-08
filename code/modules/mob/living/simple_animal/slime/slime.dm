@@ -15,6 +15,7 @@
 	icon_dead = "grey baby slime dead"
 	attack_verb_simple = "glomp"
 	attack_verb_continuous = "glomps"
+	melee_damage = 15
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "shoos"
@@ -160,7 +161,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 ///Random slime subtype
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_life_stage)
-	. = ..(mapload, pick(subtypesof(/datum/slime_type)), prob(50) ? SLIME_LIFE_STAGE_ADULT : SLIME_LIFE_STAGE_BABY)
+	. = ..(mapload, pick(GLOB.random_slime_types), prob(50) ? SLIME_LIFE_STAGE_ADULT : SLIME_LIFE_STAGE_BABY)
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
@@ -170,8 +171,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
-/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour = SLIME_TYPE_RAINBOW, new_is_adult)
-	. = ..(mapload, new_colour, new_is_adult)
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_type = /datum/slime_type/rainbow, new_life_stage = SLIME_LIFE_STAGE_BABY)
+	. = ..(mapload, new_type, new_life_stage)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -228,7 +229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 	var/grav = has_gravity()
 	if(slime_type.colour == SLIME_TYPE_GOLD && grav > STANDARD_GRAVITY)
 		special_mutation = TRUE
-		special_mutation_type = SLIME_TYPE_COBALT
+		special_mutation_type = /datum/slime_type/cobalt
 		visible_message(span_danger("[src] shudders under the intense gravity, flecks of blue swirling in their membrane."))
 
 /mob/living/simple_animal/slime/ObjBump(obj/bumped_object)
@@ -254,7 +255,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 			accidental_attack_probability = 95
 	if(!prob(accidental_attack_probability))
 		return
-	if(prob(accidental_attack_probability))
 
 	if(!istype(bumped_object, /obj/structure/window) && !istype(bumped_object, /obj/structure/grille))
 		return
@@ -264,7 +264,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
 	bumped_object.attack_animal(src)
 	is_attack_on_cooldown = TRUE
-	is_attack_on_cooldown = world.time + attack_cooldown_time
+	addtimer(VARSET_CALLBACK(src, is_attack_on_cooldown, FALSE), attack_cooldown_time)
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 2
@@ -402,7 +402,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 
 ///randomizes the colour of a slime
 /mob/living/simple_animal/slime/proc/random_colour()
-	set_slime_type(pick(subtypesof(/datum/slime_type)))
+	set_slime_type(pick(GLOB.random_slime_types))
 
 ///Makes a slime not attack people for a while
 /mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
@@ -494,6 +494,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 		var/power = our_slime.powerlevel + rand(0,3)
 		carbon_target.Paralyze(power * 2 SECONDS)
 		carbon_target.set_stutter_if_lower(power * 2 SECONDS)
+		if(our_slime.transformeffects & SLIME_EFFECT_ORANGE)
+			carbon_target.adjust_fire_stacks(2)
+			carbon_target.ignite_mob()
 		if (prob(stunprob) && our_slime.powerlevel >= SLIME_EXTRA_SHOCK_COST)
 			our_slime.powerlevel = clamp(our_slime.powerlevel - SLIME_EXTRA_SHOCK_COST, SLIME_MIN_POWER, SLIME_MAX_POWER)
 			carbon_target.apply_damage(our_slime.powerlevel * rand(6, 10), BURN, spread_damage = TRUE)
