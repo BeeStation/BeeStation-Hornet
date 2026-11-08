@@ -5,8 +5,6 @@
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE | PASSGRILLE
 	gender = NEUTER
-	var/is_adult = 0
-	var/docile = 0
 	faction = list(FACTION_SLIME,FACTION_NEUTRAL)
 
 	icon_living = "grey baby slime"
@@ -48,77 +46,79 @@
 
 	discovery_points = TECHWEB_TIER_1_POINTS
 
-	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
-	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
+	//Physiology
 
-	var/powerlevel = 0 // 1-10 controls how much electricity they are generating
-	var/amount_grown = 0 // controls how long the slime has been overfed, if 10, grows or reproduces
+	///Is the slime an adult slime?
+	var/is_adult = TRUE
 
-	var/number = 0 // Used to understand when someone is talking to it
+	///The number of /obj/item/slime_extract's the slime has left inside
+	var/cores = 1
+	///Chance of mutating, should be between 25 and 35
+	var/mutation_chance = 30
+	///1-10 controls how much electricity they are generating
+	var/powerlevel = 0
+	///Controls how long the slime has been overfed, if 10, grows or reproduces
+	var/amount_grown = 0
 
-	var/mob/living/Target // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader // AI variable - tells the slime to follow this person
-
-	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
-	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
-	var/holding_still = 0 // AI variable, cooloff-ish for how long it's going to stay in one place
-	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
-	var/bucklestrength = 5 //rng replacement var for wrestling slimes off
-
-	var/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
-
-	var/list/speech_buffer = list() // Last phrase said near it and person who said it
-
-	var/mood = "" // To show its face
-	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
+	///Has a mutator been used on the slime? Only one is allowed
+	var/mutator_used = FALSE
+	///Is the slime forced into being immobile, despite the gases present?
 	var/force_stasis = FALSE
 
-	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
-	///////////TIME FOR SUBSPECIES
+	//The datum that handles the slime colour's core and possible mutations
+	var/datum/slime_type/slime_type
 
-	var/colour = SLIME_TYPE_GREY
-	var/coretype = /obj/item/slime_extract/grey
-	var/list/slime_mutation[4]
+	//CORE-CROSSING CODE
 
-	var/static/list/slime_colours = list(
-		SLIME_TYPE_RAINBOW,
-		SLIME_TYPE_GREY,
-		SLIME_TYPE_PURPLE,
-		SLIME_TYPE_METAL,
-		SLIME_TYPE_ORANGE,
-		SLIME_TYPE_BLUE,
-		SLIME_TYPE_DARK_BLUE,
-		SLIME_TYPE_DARK_PURPLE,
-		SLIME_TYPE_YELLOW,
-		SLIME_TYPE_SILVER,
-		SLIME_TYPE_PINK,
-		SLIME_TYPE_RED,
-		SLIME_TYPE_GOLD,
-		SLIME_TYPE_GREEN,
-		SLIME_TYPE_ADAMANTINE,
-		SLIME_TYPE_OIL,
-		SLIME_TYPE_LIGHT_PINK,
-		SLIME_TYPE_BLUESPACE,
-		SLIME_TYPE_CERULEAN,
-		SLIME_TYPE_SEPIA,
-		SLIME_TYPE_BLACK,
-		SLIME_TYPE_PYRITE,
-/* While these are technically colors, they are only obtained under special circumstances
-		SLIME_TYPE_DARK_GREEN,
-		SLIME_TYPE_COBALT,
-		SLIME_TYPE_DARK_GREY,
-		SLIME_TYPE_CRIMSON,
-*/
-	)
+	///What cross core modification is being used.
+	var/crossbreed_modification
+	///How many extracts of the modtype have been applied.
+	var/applied_crossbreed_amount = 0
+
+	//AI related traits
+
+	///The current mood of the slime, set randomly or through emotes (if sentient).
+	var/current_mood
+
+	///Attack cooldown
+	var/is_attack_on_cooldown = FALSE
+	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
+
+	///If a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
+	var/discipline_stacks = 0
+	///Stored the world time when the slime's stun wears off
+	var/stunned_until = 0
+
+	///Is the slime docile?
+	var/docile = FALSE
+
+	///Used to understand when someone is talking to it
+	var/slime_id = 0
+	///AI variable - tells the slime to hunt this down
+	var/mob/living/Target = null
+	///AI variable - tells the slime to follow this person
+	var/mob/living/Leader = null
+
+	///Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
+	var/attacked_stacks = 0
+	///If set to 1, the slime will attack and eat anything it comes in contact with
+	var/rabid = FALSE
+	///AI variable, cooloff-ish for how long it's going to stay in one place
+	var/holding_still = 0
+	///AI variable, cooloff-ish for how long it's going to follow its target
+	var/target_patience = 0
+	///A list of friends; they are not considered targets for feeding; passed down after splitting
+	var/list/Friends = list()
+	///Last phrase said near it and person who said it
+	var/list/speech_buffer = list()
+
+	var/bucklestrength = 5 //rng replacement var for wrestling slimes off
+	var/monkey_bonus_damage = 2
+	COOLDOWN_DECLARE(chase_step_cooldown)
 
 	var/special_mutation = FALSE
 	var/special_mutation_type = null
 	var/burn_damage_stored
-
-	///////////CORE-CROSSING CODE
-
-	var/effectmod //What core modification is being used.
-	var/applied = 0 //How many extracts of the modtype have been applied.
 
 	// Transformative extract effects - get passed down
 	var/transformeffects = SLIME_EFFECT_DEFAULT
@@ -126,29 +126,44 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
-/mob/living/simple_animal/slime/Initialize(mapload, new_colour = SLIME_TYPE_GREY, new_is_adult=FALSE)
+/mob/living/simple_animal/slime/Initialize(mapload, new_type=/datum/slime_type/grey, new_is_adult=FALSE)
 	GLOB.total_slimes++
-	var/datum/action/innate/slime/feed/F = new
-	F.Grant(src)
+	var/datum/action/innate/slime/feed/feeding_action = new
+	feeding_action.Grant(src)
 
 	is_adult = new_is_adult
 
 	if(is_adult)
-		var/datum/action/innate/slime/reproduce/R = new
-		R.Grant(src)
+		var/datum/action/innate/slime/reproduce/reproduce_action = new
+		reproduce_action.Grant(src)
 		health = 200
 		maxHealth = 200
 	else
-		var/datum/action/innate/slime/evolve/E = new
-		E.Grant(src)
-	create_reagents(100)
-	set_colour(new_colour)
+		var/datum/action/innate/slime/evolve/evolve_action = new
+		evolve_action.Grant(src)
+	set_slime_type(new_type)
 	. = ..()
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		set_playable(ROLE_SENTIENCE)
 
 	add_traits(list(TRAIT_CAN_MOUNT_HUMANS, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
+	AddElement(/datum/element/trackable)
+
+///Random slime subtype
+/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
+	. = ..(mapload, pick(subtypesof(/datum/slime_type)), prob(50))
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
+
+///Friendly docile subtype
+/mob/living/simple_animal/slime/pet
+	docile = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
+
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour = SLIME_TYPE_RAINBOW, new_is_adult)
+	. = ..(mapload, new_colour, new_is_adult)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -157,46 +172,35 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	remove_from_spawner_menu()
 	return ..()
 
-/mob/living/simple_animal/slime/proc/set_colour(new_colour)
-	colour = new_colour
+/mob/living/simple_animal/slime/proc/set_slime_type(new_type)
+	slime_type = new new_type
 	update_name()
-	slime_mutation = mutation_table(colour)
-	var/sanitizedcolour = replacetext(colour, " ", "")
-	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
 
 /mob/living/simple_animal/slime/update_name()
 	. = ..()
+	///Checks if the slime has a generic name, in the format of baby/adult slime (123)
+	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	if(slime_name_regex.Find(name))
-		number = rand(1, 1000)
-		name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
+		slime_id = rand(1, 1000)
+		name = "[slime_type.colour] [is_adult ? "adult" : "baby"] slime ([slime_id])"
 		real_name = name
 
+///randomizes the colour of a slime
 /mob/living/simple_animal/slime/proc/random_colour()
-	set_colour(pick(slime_colours))
+	set_slime_type(pick(subtypesof(/datum/slime_type)))
 
 /mob/living/simple_animal/slime/regenerate_icons()
 	cut_overlays()
-	var/icon_text = "[colour] [is_adult ? "adult" : "baby"] slime"
+	var/icon_text = "[slime_type.colour] [is_adult ? "adult" : "baby"] slime"
 	icon_dead = "[icon_text] dead"
 	if(stat != DEAD)
 		icon_state = icon_text
-		if(mood && !stat)
-			add_overlay("aslime-[mood]")
+		if(current_mood && !stat)
+			add_overlay("aslime-[current_mood]")
 	else
 		icon_state = icon_dead
 	..()
-
-/mob/living/simple_animal/slime/on_reagent_change()
-	. = ..()
-	remove_movespeed_modifier(/datum/movespeed_modifier/slime_reagentmod)
-	var/amount = 0
-	if(reagents.has_reagent(/datum/reagent/medicine/morphine)) // morphine slows slimes down
-		amount = 2
-	if(reagents.has_reagent(/datum/reagent/consumable/frostoil)) // Frostoil also makes them move VEEERRYYYYY slow
-		amount = 5
-	if(amount)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_reagentmod, multiplicative_slowdown = amount)
 
 /mob/living/simple_animal/slime/updatehealth()
 	. = ..()
@@ -223,7 +227,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/refresh_gravity()
 	. = ..()
 	var/grav = has_gravity()
-	if(colour == SLIME_TYPE_GOLD && grav > STANDARD_GRAVITY)
+	if(slime_type.colour == SLIME_TYPE_GOLD && grav > STANDARD_GRAVITY)
 		special_mutation = TRUE
 		special_mutation_type = SLIME_TYPE_COBALT
 		visible_message(span_danger("[src] shudders under the intense gravity, flecks of blue swirling in their membrane."))
@@ -246,10 +250,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 				probab = 95
 		if(prob(probab))
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
-				if(attack_cooldown < world.time && nutrition <= get_hunger_nutrition())
+				if(nutrition <= get_hunger_nutrition() && !is_attack_on_cooldown)
 					if (is_adult || prob(5))
 						O.attack_slime(src)
-						attack_cooldown = world.time + attack_cooldown_time
+						is_attack_on_cooldown = TRUE
+						is_attack_on_cooldown = world.time + attack_cooldown_time
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 2
@@ -278,7 +283,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	return ..() //Heals them
 
 /mob/living/simple_animal/slime/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	attacked += 10
+	attacked_stacks += 10
 	if((Proj.damage_type == BURN))
 		burn_damage_stored += abs(Proj.damage)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
@@ -293,11 +298,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		return
 	powerlevel = 0 // oh no, the power!
 
-/mob/living/simple_animal/slime/MouseDrop(atom/movable/A as mob|obj)
-	if(isliving(A) && A != src && usr == src)
-		var/mob/living/Food = A
-		if(CanFeedon(Food))
-			Feedon(Food)
+/mob/living/simple_animal/slime/MouseDrop(atom/movable/target_atom as mob|obj)
+	if(isliving(target_atom) && target_atom != src && usr == src)
+		var/mob/living/Food = target_atom
+		if(can_feed_on(Food))
+			start_feeding(Food)
 	return ..()
 
 /mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE, silent = FALSE)
@@ -314,11 +319,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		if(M == src)
 			return
 		if(buckled)
-			Feedstop(silent = TRUE)
+			stop_feeding(silent = TRUE)
 			visible_message(span_danger("[M] pulls [src] off!"), \
 				span_danger("You pull [src] off!"))
 			return
-		attacked += 5
+		attacked_stacks += 5
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
 			adjust_nutrition(-(50 + (40 * M.is_adult)))
 			M.add_nutrition(25 + (20 * M.is_adult))
@@ -329,16 +334,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
-		attacked += 10
+		attacked_stacks += 10
 
 
 /mob/living/simple_animal/slime/attack_paw(mob/living/carbon/monkey/M)
 	if(..()) //successful monkey bite.
-		attacked += 10
+		attacked_stacks += 10
 
 /mob/living/simple_animal/slime/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(..()) //successful larva bite.
-		attacked += 10
+		attacked_stacks += 10
 
 /mob/living/simple_animal/slime/attack_hulk(mob/living/carbon/human/user)
 	discipline_slime(user)
@@ -366,11 +371,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 					if(operations.next_step(M, modifiers))
 						return TRUE
 		if(..()) //successful attack
-			attacked += 10
+			attacked_stacks += 10
 
 /mob/living/simple_animal/slime/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
-		attacked += 10
+		attacked_stacks += 10
 		discipline_slime(M)
 
 
@@ -386,7 +391,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
-	if(istype(W, /obj/item/organ/regenerative_core) && !stat && colour == SLIME_TYPE_PINK)
+	if(istype(W, /obj/item/organ/regenerative_core) && !stat && slime_type.colour == SLIME_TYPE_PINK)
 		to_chat(user, span_warning("The slime absorbs the regenerative core, pink darkening to an ominous grey"))
 		special_mutation = TRUE
 		special_mutation_type = SLIME_TYPE_DARK_GREY
@@ -394,68 +399,71 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		qdel(R)
 		return
 	if(W.force > 0)
-		attacked += 10
+		attacked_stacks += 10
 		if(prob(25))
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, span_danger("[W] passes right through [src]!"))
 			return
-		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
-			Discipline = 0
+		if(discipline_stacks && prob(50)) // wow, buddy, why am I getting attacked??
+			discipline_stacks = 0
 	if(W.force >= 3)
 		var/force_effect = 2 * W.force
 		if(is_adult)
 			force_effect = round(W.force/2)
 		if(prob(10 + force_effect))
 			discipline_slime(user)
-	if(istype(W, /obj/item/storage/bag/bio))
-		var/obj/item/storage/P = W
-		if(!effectmod)
-			to_chat(user, span_warning("The slime is not currently being mutated."))
-			return
-		var/hasOutput = FALSE //Have we outputted text?
-		var/hasFound = FALSE //Have we found an extract to be added?
-		for(var/obj/item/slime_extract/S in P.contents)
-			if(S.effectmod == effectmod)
-				P.atom_storage.attempt_remove(S, get_turf(src), silent = TRUE)
-				qdel(S)
-				applied++
-				hasFound = TRUE
-			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-				to_chat(user, span_notice("You feed the slime as many of the extracts from the bag as you can, and it mutates!"))
-				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
-				spawn_corecross(user)
-				hasOutput = TRUE
-				break
-		if(!hasOutput)
-			if(!hasFound)
-				to_chat(user, span_warning("There are no extracts in the bag that this slime will accept!"))
-			else
-				to_chat(user, span_notice("You feed the slime some extracts from the bag."))
-				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
+	if(!istype(W, /obj/item/storage/bag/bio))
+		return ..()
+
+	var/obj/item/storage/xeno_bag = W
+	if(!crossbreed_modification)
+		to_chat(user, span_warning("The slime is not currently being mutated."))
 		return
-	..()
+	var/has_output = FALSE //Have we outputted text?
+	var/has_found = FALSE //Have we found an extract to be added?
+	for(var/obj/item/slime_extract/extract in xeno_bag.contents)
+		if(extract.crossbreed_modification == crossbreed_modification)
+			xeno_bag.atom_storage.attempt_remove(extract, get_turf(src), silent = TRUE)
+			qdel(extract)
+			applied_crossbreed_amount++
+			has_found = TRUE
+		if(applied_crossbreed_amount >= SLIME_EXTRACT_CROSSING_REQUIRED)
+			to_chat(user, span_notice("You feed the slime as many of the extracts from the bag as you can, and it mutates!"))
+			playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
+			spawn_corecross(user)
+			has_output = TRUE
+			break
+
+	if(has_output)
+		return
+
+	if(!has_found)
+		to_chat(user, span_warning("There are no extracts in the bag that this slime will accept!"))
+	else
+		to_chat(user, span_notice("You feed the slime some extracts from the bag."))
+		playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 /mob/living/simple_animal/slime/proc/spawn_corecross(mob/living/user)
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
 	visible_message(span_danger("[src] shudders, its mutated core consuming the rest of its body!"))
-	playsound(src, 'sound/magic/smoke.ogg', 50, 1)
-	var/crosspath
+	playsound(src, 'sound/magic/smoke.ogg', 50, TRUE)
+	var/selected_crossbreed_path
 	var/crosspath_dangerous = FALSE
 	var/crosspath_name = "crossbred slime extract"
-	for(var/X in crossbreeds)
-		var/obj/item/slimecross/S = X
-		if(initial(S.colour) == colour && initial(S.effect) == effectmod)
-			crosspath = S
-			if(initial(S.dangerous))
+	for(var/crossbreed_path in crossbreeds)
+		var/obj/item/slimecross/cross_item = crossbreed_path
+		if(initial(cross_item.colour) ==slime_type.colour && initial(cross_item.effect) == crossbreed_modification)
+			selected_crossbreed_path = cross_item
+			if(initial(cross_item.dangerous))
 				crosspath_dangerous = TRUE
-			crosspath_name =  initial(S.effect) + " " + initial(S.colour) + " extract"
+			crosspath_name =  initial(cross_item.effect) + " " + initial(cross_item.colour) + " extract"
 			break
-	if(crosspath)
+	if(selected_crossbreed_path)
 		log_game("A [crosspath_name] was created at [AREACOORD(src)] by [key_name(user)]")
 		if(crosspath_dangerous)
 			message_admins("A [crosspath_name] was created at [ADMIN_VERBOSEJMP(src)] by [ADMIN_LOOKUPFLW(user)]")
-		new crosspath(loc)
+		new selected_crossbreed_path(loc)
 	else
 		visible_message(span_warning("The mutated core shudders, and collapses into a puddle, unable to maintain its form."))
 	qdel(src)
@@ -465,11 +473,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
 		new_damage *= 0.5
 	adjustBruteLoss(new_damage)
-	if(!client)
-		if(Target) // Like cats
-			set_target(null)
-			++Discipline
-	return
+	if(client)
+		return
+
+	if(Target) // Like cats
+		set_target(null)
+		++discipline_stacks
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = list(span_info("This is [icon2html(src, user)] \a <EM>[src]</EM>!"))
@@ -501,23 +510,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 	. += "</span>"
 
+///Makes a slime not attack people for a while
 /mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
 	if(stat)
 		return
 
 	if(prob(80) && !client)
-		Discipline++
+		discipline_stacks++
 
-		if(!is_adult)
-			if(Discipline == 1)
-				attacked = 0
+		if(!is_adult && discipline_stacks == 1) //if the slime is a baby and has not been overly disciplined, it will give up its grudge
+			attacked_stacks = 0
 
 	set_target(null)
 	if(buckled)
-		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
+		stop_feeding(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
 		bucklestrength = initial(bucklestrength)
 
-	SStun = world.time + rand(20,60)
+	stunned_until = world.time + rand(2 SECONDS, 6 SECONDS)
 
 	Stun(3)
 	if(user)
@@ -525,20 +534,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 
 	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 0.3 SECONDS)
 
+///Makes a slime move away, used for a timed callback
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
 		step_away(src,user,15)
 
-/mob/living/simple_animal/slime/pet
-	docile = 1
-
 /mob/living/simple_animal/slime/can_be_implanted()
 	return TRUE
-
-CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
-
-/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(slime_colours), prob(50))
 
 /mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
@@ -546,7 +548,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 	. = ..(damage, damagetype, def_zone, blocked, forced, spread_damage)
 
 /mob/living/simple_animal/slime/get_discovery_id()
-	return "[colour] slime"
+	return "[slime_type.colour] slime"
 
 /mob/living/simple_animal/slime/give_mind(mob/user)
 	. = ..()
@@ -569,7 +571,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 /mob/living/simple_animal/slime/proc/set_playable_slime(ban_type = null, poll_ignore_key = null)
 	playable = TRUE
 	playable_bantype = ban_type
-	LAZYADD(GLOB.mob_spawners["[master ? "[src.master.real_name]'s slime" : "free [src.colour] slime"]"], src)
+	LAZYADD(GLOB.mob_spawners["[master ? "[src.master.real_name]'s slime" : "free [src.slime_type.colour] slime"]"], src)
 	SSmobs.update_spawners()
 	if (!key)	//ping only if there is no one inhabiting this mob
 		notify_ghosts(
@@ -579,11 +581,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/random)
 		)
 		AddElement(/datum/element/point_of_interest)
 
-CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
-
-/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour = SLIME_TYPE_RAINBOW, new_is_adult)
-	. = ..(mapload, new_colour, new_is_adult)
-
 /mob/living/simple_animal/slime/proc/set_target(new_target)
 	var/old_target = Target
 	Target = new_target
@@ -591,6 +588,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime/rainbow)
 		UnregisterSignal(old_target, COMSIG_QDELETING)
 	if(Target)
 		RegisterSignal(Target, COMSIG_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
+		START_PROCESSING(SSfastprocess, src)
 
 /mob/living/simple_animal/slime/proc/set_leader(new_leader)
 	var/old_leader = Leader

@@ -50,7 +50,7 @@ Slimecrossing Mobs
 /datum/action/spell/oozeling_evolve/on_cast(mob/living/user)
 	..()
 	var/mob/living/simple_animal/slime/evolver = owner
-	var/colour = evolver.colour
+	var/colour = evolver.slime_type.colour
 	var/ooze_colour = null
 	switch((colour))
 		if(SLIME_TYPE_ORANGE)

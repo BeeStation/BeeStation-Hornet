@@ -39,35 +39,36 @@
 
 /datum/emote/slime/mood
 	key = "moodnone"
-	var/mood = null
 	emote_type = EMOTE_VISIBLE
+	///Mood key, will set the slime's emote to this.
+	var/mood_key
 
 /datum/emote/slime/mood/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/simple_animal/slime/S = user
-	S.mood = mood
-	S.regenerate_icons()
+	var/mob/living/simple_animal/slime/slime_user = user
+	slime_user.current_mood = mood_key
+	slime_user.regenerate_icons()
 
 /datum/emote/slime/mood/sneaky
 	key = "moodsneaky"
-	mood = "mischievous"
+	mood_key = "mischievous"
 
 /datum/emote/slime/mood/smile
 	key = "moodsmile"
-	mood = ":3"
+	mood_key = ":3"
 
 /datum/emote/slime/mood/cat
 	key = "moodcat"
-	mood = ":33"
+	mood_key = ":33"
 
 /datum/emote/slime/mood/pout
 	key = "moodpout"
-	mood = "pout"
+	mood_key = "pout"
 
 /datum/emote/slime/mood/sad
 	key = "moodsad"
-	mood = "sad"
+	mood_key = "sad"
 
 /datum/emote/slime/mood/angry
 	key = "moodangry"
-	mood = "angry"
+	mood_key = "angry"

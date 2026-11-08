@@ -1,5 +1,5 @@
-#define NO_GROWTH_NEEDED	0
-#define GROWTH_NEEDED		1
+#define NO_GROWTH_NEEDED 0
+#define GROWTH_NEEDED 1
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
@@ -9,32 +9,35 @@
 	var/needs_growth = NO_GROWTH_NEEDED
 
 /datum/action/innate/slime/is_available()
-	if(..())
-		var/mob/living/simple_animal/slime/S = owner
-		if(needs_growth == GROWTH_NEEDED)
-			if(S.amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-				return 1
-			return 0
-		return 1
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/simple_animal/slime/slime_owner  = owner
+	if(needs_growth == GROWTH_NEEDED)
+		if(slime_owner.amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+			return TRUE
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/slime/verb/Feed()
 	set category = "Slime"
 	set desc = "This will let you feed on any valid creature in the surrounding area. This should also be used to halt the feeding process."
 
 	if(stat)
-		return 0
+		return FALSE
 
 	var/list/choices = list()
 	for(var/mob/living/C in oview(1,src))
 		if(Adjacent(C))
 			choices += C
 
-	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feed", sort_names(choices))
-	if(!M)
-		return 0
-	if(CanFeedon(M))
-		Feedon(M)
-		return 1
+	var/choice = tgui_input_list(src, "Who do you wish to feed on?", "Feed", sort_names(choices))
+	if(isnull(choice))
+		return FALSE
+	if(can_feed_on(choice))
+		start_feeding(choice)
+		return TRUE
+	return FALSE
 
 /datum/action/innate/slime/feed
 	name = "Feed"
@@ -45,15 +48,20 @@
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()
 
-/mob/living/simple_animal/slime/proc/CanFeedon(mob/living/M, silent = FALSE)
+///Can the slime leech life energy from the target?
+/mob/living/simple_animal/slime/proc/can_feed_on(mob/living/M, silent = FALSE)
 	if(!Adjacent(M))
 		return FALSE
 
 	if(buckled)
-		Feedstop()
+		stop_feeding()
 		return FALSE
 
 	if(issilicon(M) || (M.mob_biotypes & MOB_ROBOTIC))
+		return FALSE
+
+	if(M.flags_1 & HOLOGRAM_1)
+		M.balloon_alert(src, "no life energy!")
 		return FALSE
 
 	if(isanimal(M))
@@ -112,8 +120,9 @@
 
 #define FEEDING_OFFSET "feeding"
 
-/mob/living/simple_animal/slime/proc/Feedon(mob/living/target_mob)
-	target_mob.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
+///The slime will start feeding on the target
+/mob/living/simple_animal/slime/proc/start_feeding(mob/living/target_mob)
+	target_mob.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in can_feed_on())
 	if(target_mob.buckle_mob(src, force = TRUE))
 		add_offsets(FEEDING_OFFSET, y_add = target_mob.mob_size <= MOB_SIZE_SMALL ? 0 : 3)
 		layer = MOB_ABOVE_PIGGYBACK_LAYER //appear above the target mob
@@ -124,14 +133,15 @@
 		)
 		to_chat(src, span_notice("<i>I start feeding on [target_mob]...</i>"))
 		balloon_alert(src, "feeding started")
-		if(colour == SLIME_TYPE_GREEN && istype(get_turf(target_mob), /turf/open/floor/grass))
+		if(slime_type.colour == SLIME_TYPE_GREEN && istype(get_turf(target_mob), /turf/open/floor/grass))
 			special_mutation = TRUE
 			special_mutation_type = SLIME_TYPE_DARK_GREEN
 			target_mob.visible_message(span_danger("[name] absorbs vitality from the surrounding grass, green membrane darkening at the touch."))
 	else
 		balloon_alert(src, "latch failed!")
 
-/mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE)
+///The slime will stop feeding on the target
+/mob/living/simple_animal/slime/proc/stop_feeding(silent = FALSE)
 	if(!buckled)
 		return
 
@@ -151,21 +161,22 @@
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
-	if(!is_adult)
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			is_adult = TRUE
-			maxHealth = 200
-			if(transformeffects & SLIME_EFFECT_METAL)
-				maxHealth = round(maxHealth * 1.3)
-			amount_grown = 0
-			for(var/datum/action/innate/slime/evolve/E in actions)
-				qdel(E)
-			regenerate_icons()
-			update_name()
-		else
-			to_chat(src, "<i>I am not ready to evolve yet...</i>")
-	else
+	if(is_adult)
 		to_chat(src, "<i>I have already evolved...</i>")
+		return
+	if(amount_grown < SLIME_EVOLUTION_THRESHOLD)
+		to_chat(src, "<i>I am not ready to evolve yet...</i>")
+		return
+
+	is_adult = TRUE
+	maxHealth = 200
+	if(transformeffects & SLIME_EFFECT_METAL)
+		maxHealth = round(maxHealth * 1.3)
+	amount_grown = 0
+	for(var/datum/action/innate/slime/evolve/evolve_action in actions)
+		qdel(evolve_action)
+	regenerate_icons()
+	update_name()
 
 /datum/action/innate/slime/evolve
 	name = "Evolve"
@@ -181,57 +192,65 @@
 
 /mob/living/simple_animal/slime/verb/Reproduce()
 	set category = "Slime"
-	set desc = "This will make you split into four Slimes."
+	set desc = "This will make you split into four slimes."
 
-	if(stat)
-		to_chat(src, "<i>I must be conscious to do this...</i>")
+	if(stat != CONSCIOUS)
+		balloon_alert(src, "need to be conscious to split!")
 		return
 
-	if(is_adult)
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			if(stat)
-				to_chat(src, "<i>I must be conscious to do this...</i>")
-				return
-			if(GLOB.total_slimes >= CONFIG_GET(number/max_slimes))
-				to_chat(src, "<i>There are too many of us...</i>")
-				return
-			var/list/babies = list()
-			var/new_nutrition = SLIME_DEFAULT_NUTRITION
-			var/new_powerlevel = round(powerlevel / 4)
-			var/datum/component/nanites/original_nanites = GetComponent(/datum/component/nanites)
-			var/turf/drop_loc = drop_location()
-			var/childamount = 4
-			var/new_adult = FALSE
-			if(transformeffects & SLIME_EFFECT_GREY)
-				childamount++
-			if(transformeffects & SLIME_EFFECT_CERULEAN)
-				childamount = 2
-				new_nutrition = round(nutrition * 0.5)
-				new_powerlevel = round(powerlevel / 2)
-				new_adult = TRUE
-			for(var/i=1, i<=childamount, i++)
-				var/force_colour = FALSE
-				var/step_away = TRUE
-				if(i == 1)
-					step_away = FALSE
-					if(transformeffects & SLIME_EFFECT_BLUE)
-						force_colour = TRUE
-				if(transformeffects & SLIME_EFFECT_CERULEAN)
-					force_colour = TRUE
-				var/mob/living/simple_animal/slime/M = make_baby(drop_loc, new_adult, new_nutrition, new_powerlevel, force_colour, step_away, original_nanites)
-				babies += M
+	if(!isopenturf(loc))
+		balloon_alert(src, "can't reproduce here!")
 
-			var/mob/living/simple_animal/slime/new_slime = pick(babies)
-			new_slime.set_combat_mode(TRUE)
-			if(src.mind)
-				src.mind.transfer_to(new_slime)
-			else
-				new_slime.key = src.key
-			qdel(src)
-		else
-			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
+	if(!is_adult)
+		balloon_alert(src, "not old enough to reproduce!")
+		return
+
+	if(amount_grown < SLIME_EVOLUTION_THRESHOLD)
+		to_chat(src, "<i>I need to grow myself more before I can reproduce...</i>")
+		return
+
+	if(stat != CONSCIOUS)
+		balloon_alert(src, "need to be conscious to split!")
+		return
+
+	if(GLOB.total_slimes >= CONFIG_GET(number/max_slimes))
+		to_chat(src, "<i>There are too many of us...</i>")
+		return
+
+	var/list/babies = list()
+	var/new_nutrition = SLIME_DEFAULT_NUTRITION
+	var/new_powerlevel = round(powerlevel / 4)
+	var/datum/component/nanites/original_nanites = GetComponent(/datum/component/nanites)
+	var/turf/drop_loc = drop_location()
+	var/childamount = 4
+	var/new_adult = FALSE
+
+	if(transformeffects & SLIME_EFFECT_GREY)
+		childamount++
+	if(transformeffects & SLIME_EFFECT_CERULEAN)
+		childamount = 2
+		new_nutrition = round(nutrition * 0.5)
+		new_powerlevel = round(powerlevel / 2)
+		new_adult = TRUE
+	for(var/i=1, i<=childamount, i++)
+		var/force_colour = FALSE
+		var/step_away = TRUE
+		if(i == 1)
+			step_away = FALSE
+			if(transformeffects & SLIME_EFFECT_BLUE)
+				force_colour = TRUE
+		if(transformeffects & SLIME_EFFECT_CERULEAN)
+			force_colour = TRUE
+		var/mob/living/simple_animal/slime/M = make_baby(drop_loc, new_adult, new_nutrition, new_powerlevel, force_colour, step_away, original_nanites)
+		babies += M
+
+	var/mob/living/simple_animal/slime/new_slime = pick(babies) // slime that the OG slime will move into.
+	new_slime.set_combat_mode(TRUE)
+	if(isnull(src.mind))
+		new_slime.key = src.key
 	else
-		to_chat(src, "<i>I am not old enough to reproduce yet...</i>")
+		src.mind.transfer_to(new_slime)
+	qdel(src)
 
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"
@@ -239,22 +258,24 @@
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/reproduce/on_activate()
-	var/mob/living/simple_animal/slime/S = owner
-	S.Reproduce()
+	var/mob/living/simple_animal/slime/slime_owner = owner
+	slime_owner.Reproduce()
 
 /mob/living/simple_animal/slime/proc/make_baby(drop_loc, new_adult, new_nutrition, new_powerlevel, force_original_colour=FALSE, step_away=TRUE,datum/component/nanites/original_nanites=null)
-	var/child_colour = colour
+	var/child_colour = slime_type.colour
+
 	if(!force_original_colour)
 		if(mutation_chance >= 100)
-			child_colour = SLIME_TYPE_RAINBOW
+			child_colour = /datum/slime_type/rainbow
 		else if(special_mutation == TRUE)
 			child_colour = special_mutation_type
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
 				slime_mutation = mutation_table(pick(slime_colours - SLIME_TYPE_RAINBOW))
-			child_colour = slime_mutation[rand(1,4)]
+			child_colour = pick_weight(slime_type.mutations)
 		else
-			child_colour = colour
+			child_colour = slime_type
+
 	var/mob/living/simple_animal/slime/M = new(drop_loc, child_colour, new_adult)
 	M.transformeffects = transformeffects
 	M.set_nutrition(new_nutrition)
@@ -277,7 +298,7 @@
 	if(step_away)
 		step_away(M,src)
 	M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
-	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
+	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.slime_type.colour)
 	if(original_nanites)
 		M.AddComponent(/datum/component/nanites, original_nanites.nanite_volume*0.25)
 		SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well

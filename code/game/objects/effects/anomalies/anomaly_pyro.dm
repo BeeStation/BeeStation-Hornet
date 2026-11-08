@@ -20,7 +20,7 @@
 	our_turf.atmos_spawn_air("[GAS_O2]=500;[GAS_PLASMA]=500;TEMP=1000") //Make it hot and burny for the new slime
 	log_game("A pyroclastic anomaly has detonated at [AREACOORD(loc)].")
 	message_admins("A pyroclastic anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
-	var/new_colour = pick(SLIME_TYPE_ORANGE, SLIME_TYPE_RED)
+	var/new_colour = pick(/datum/slime_type/red, /datum/slime_type/orange)
 	var/mob/living/simple_animal/slime/pyro = new(our_turf, new_colour)
 	pyro.rabid = TRUE
 	pyro.amount_grown = SLIME_EVOLUTION_THRESHOLD

@@ -3,7 +3,7 @@
 		return
 	if(!gibbed)
 		if(is_adult)
-			var/mob/living/simple_animal/slime/M = new(loc, colour)
+			var/mob/living/simple_animal/slime/M = new(drop_location(), slime_type)
 			M.rabid = TRUE
 			M.regenerate_icons()
 
@@ -19,7 +19,7 @@
 			return
 
 	if(buckled)
-		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
+		stop_feeding(silent = TRUE) //releases ourselves from the mob we fed on.
 
 	GLOB.total_slimes--
 	set_stat(DEAD)

@@ -36,20 +36,20 @@
 	)
 
 /datum/surgery_step/extract_core/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
-	var/mob/living/simple_animal/slime/slime = target
-	if(slime.cores > 0)
-		slime.cores--
+	var/mob/living/simple_animal/slime/target_slime = target
+	if(target_slime.cores > 0)
+		target_slime.cores--
 		display_results(
 			user,
 			target,
-			span_notice("You successfully extract a core from [target]. [slime.cores] core\s remaining."),
+			span_notice("You successfully extract a core from [target]. [target_slime.cores] core\s remaining."),
 			span_notice("[user] successfully extracts a core from [target]!"),
 			span_notice("[user] successfully extracts a core from [target]!"),
 		)
 
-		new slime.coretype(slime.loc)
-		if(slime.cores <= 0)
-			slime.icon_state = "[slime.colour] baby slime dead-nocore"
+		new target_slime.slime_type.core_type(target_slime.loc)
+		if(target_slime.cores <= 0)
+			target_slime.icon_state = "[target_slime.slime_type.colour] baby slime dead-nocore"
 			return ..()
 		else
 			return FALSE

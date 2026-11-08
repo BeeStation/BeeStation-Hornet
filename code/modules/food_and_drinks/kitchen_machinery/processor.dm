@@ -205,7 +205,7 @@
 	if (istype(S))
 		var/C = S.cores
 		for(var/i in 1 to (C+rating_amount-1))
-			var/obj/item/slime_extract/item = new S.coretype(drop_location())
+			var/obj/item/slime_extract/item = new S.slime_type.core_type(drop_location())
 			adjust_item_drop_location(item)
-			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
+			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.slime_type.colour)
 	..()

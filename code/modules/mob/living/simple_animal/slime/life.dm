@@ -1,17 +1,8 @@
-/mob/living/simple_animal/slime
-	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
-	var/SStun = 0 // stun variable
-
-	var/monkey_bonus_damage = 2
-	var/attack_cooldown = 0
-	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
-
-/mob/living/simple_animal/slime/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/trackable)
+#define SLIME_HUNGER_NONE 0
+#define SLIME_HUNGER_HUNGRY 1
+#define SLIME_HUNGER_STARVING 2
 
 /mob/living/simple_animal/slime/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	alpha = 255
@@ -36,13 +27,12 @@
 	handle_nutrition(delta_time, times_fired)
 	if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 		return
-	reagents.remove_all(0.5 * REAGENTS_METABOLISM * reagents.reagent_list.len * delta_time) //Slimes are such snowflakes
 	handle_targets(delta_time, times_fired)
 	if(ckey)
 		return
 	handle_mood(delta_time, times_fired)
 	handle_speech(delta_time, times_fired)
-	if(colour == SLIME_TYPE_RED && burn_damage_stored > 80 * delta_time)
+	if(slime_type.colour == SLIME_TYPE_RED && burn_damage_stored > 80 * delta_time)
 		special_mutation = TRUE
 		special_mutation_type = SLIME_TYPE_CRIMSON
 		visible_message(span_danger("[src] shudders, their red core deepening into an abyssal crimson."))
@@ -56,23 +46,24 @@
 				return
 	return ..()
 
+/// Runs on SSfastprocess while the slime has a target. Started by set_target() and handle_targets().
 /mob/living/simple_animal/slime/process()
 	if(stat == DEAD || !Target || client || buckled)
+		return PROCESS_KILL
+	if(!COOLDOWN_FINISHED(src, chase_step_cooldown))
 		return
-	special_process = FALSE
+	COOLDOWN_START(src, chase_step_cooldown, (cached_multiplicative_slowdown > 0 ? cached_multiplicative_slowdown : 1) + 2)
 
 	var/slime_on_target = 0
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 		slime_on_target = 1
 
 	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && attack_cooldown < world.time && get_dist(Target, src) <= 1)
-		if(!slime_on_target && CanFeedon(Target))
+		if(!slime_on_target && can_feed_on(Target))
 			if(!Target.client || prob(20))
-				Feedon(Target)
-				special_process = FALSE
-				reset_processing()
-				return
-		if((attacked || rabid) && Adjacent(Target))
+				start_feeding(Target)
+				return PROCESS_KILL
+		if((attacked_stacks || rabid) && Adjacent(Target))
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(src in viewers(7, Target))
@@ -82,19 +73,10 @@
 		else
 			step_to(src, Target)
 	else
-		special_process = FALSE
 		set_target(null)
-
-	reset_processing()
-
-/mob/living/simple_animal/slime/proc/reset_processing()
-	var/sleeptime = cached_multiplicative_slowdown
-	if(sleeptime <= 0)
-		sleeptime = 1
-	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
+		return PROCESS_KILL
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)
-
 	var/loc_temp = get_temperature(environment)
 	var/divisor = 10 /// The divisor controls how fast body temperature changes, lower causes faster changes
 
@@ -144,7 +126,7 @@
 
 	updatehealth()
 
-
+///Handles the slime draining the target it is attached to
 /mob/living/simple_animal/slime/proc/handle_feeding(delta_time, times_fired)
 	alpha = 255
 	var/mob/living/M = buckled
@@ -157,11 +139,10 @@
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
-			rabid = 1
+			rabid = TRUE
 
 		set_target(null)
-		special_process = FALSE
-		Feedstop()
+		stop_feeding()
 		return
 
 	if(DT_PROB(5, delta_time) && M.client)
@@ -188,6 +169,7 @@
 	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-2.5 * delta_time)
 
+///Handles the slime's nutirion level
 /mob/living/simple_animal/slime/proc/handle_nutrition(delta_time, times_fired)
 	if(docile) //God as my witness, I will never go hungry again
 		set_nutrition(700) //fuck you for using the base nutrition var
@@ -205,11 +187,12 @@
 		update_action_buttons_icon()
 
 	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD && !buckled && !Target && !ckey)
-		if(is_adult)
+		if(is_adult && loc.AllowDrop())
 			Reproduce()
 		else
 			Evolve()
 
+///Adds nutrition to the slime's nutrition level. Has a chance to increase its electric levels.
 /mob/living/simple_animal/slime/proc/add_nutrition(nutrition_to_add = 0)
 	var/gainpower = (transformeffects & SLIME_EFFECT_YELLOW) ? 3 : 1
 	set_nutrition(min((nutrition + nutrition_to_add), get_max_nutrition()))
@@ -222,43 +205,50 @@
 			if(prob(25-powerlevel*5))
 				powerlevel += gainpower
 
+///Handles selecting targets
 /mob/living/simple_animal/slime/proc/handle_targets(delta_time, times_fired)
-	if(attacked > 50)
-		attacked = 50
+	if(attacked_stacks > 50)
+		attacked_stacks = 50
 
-	if(attacked > 0)
-		attacked--
+	if(attacked_stacks > 0)
+		attacked_stacks--
 
-	if(Discipline > 0)
-		if(Discipline >= 5 && rabid && DT_PROB(37, delta_time))
-			rabid = 0
+	if(discipline_stacks > 0)
+		if(discipline_stacks >= 5 && rabid && DT_PROB(37, delta_time))
+			rabid = FALSE
 		if(DT_PROB(5, delta_time))
-			Discipline--
+			discipline_stacks--
 
-	if(buckled || client)
+
+	if(client) //player controlled slimes can decide for themselves
 		return
+
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return
+
+	if(buckled)
+		return // if it's eating someone already, continue eating!
 
 	if(Target)
 		--target_patience
-		if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile)
+		if (target_patience <= 0 || stunned_until > world.time || discipline_stacks || attacked_stacks || docile)
 			target_patience = 0
 			set_target(null)
-			special_process = FALSE
 
-	var/hungry = 0
+	var/hungry = SLIME_HUNGER_NONE
 
 	if (nutrition < get_starve_nutrition())
-		hungry = 2
+		hungry = SLIME_HUNGER_STARVING
 	else if (nutrition < get_grow_nutrition() || nutrition < get_hunger_nutrition())
-		hungry = 1
+		hungry = SLIME_HUNGER_HUNGRY
 
-	if(hungry == 2)
+	if(hungry == SLIME_HUNGER_STARVING)
 		if(Friends.len > 0 && DT_PROB(0.5, delta_time))
 			var/mob/nofriend = pick(Friends)
 			add_friendship(nofriend, -1)
 
 	if(!Target)
-		if(will_hunt() && hungry || attacked || rabid)
+		if(will_hunt() && hungry || attacked_stacks || rabid)
 			for(var/mob/living/L in view(7,src))
 				if(isslime(L) || L.stat == DEAD)
 					continue
@@ -266,11 +256,11 @@
 				if(L in Friends)
 					continue
 
-				if((locate(/mob/living/simple_animal/slime) in L.buckled_mobs || issilicon(L)) && !(attacked || rabid))
+				if((locate(/mob/living/simple_animal/slime) in L.buckled_mobs || issilicon(L)) && !(attacked_stacks || rabid))
 					continue
 
 				if(ishuman(L))
-					if(!Discipline && prob(5) || attacked || rabid)
+					if(!discipline_stacks && prob(5) || attacked_stacks || rabid)
 						set_target(L)
 				else
 					set_target(L)
@@ -299,8 +289,8 @@
 				holding_still = 10
 			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(33))
 				step(src, pick(GLOB.cardinals))
-	else if(!special_process)
-		special_process = TRUE
+	else
+		START_PROCESSING(SSfastprocess, src)
 
 /mob/living/simple_animal/slime/handle_automated_movement()
 	return //slime random movement is currently handled in handle_targets()
@@ -308,36 +298,52 @@
 /mob/living/simple_animal/slime/handle_automated_speech()
 	return //slime random speech is currently handled in handle_speech()
 
+///Handles slime mood
 /mob/living/simple_animal/slime/proc/handle_mood(delta_time, times_fired)
-	var/newmood = ""
-	if (rabid || attacked)
-		newmood = "angry"
+	#define SLIME_MOOD_NONE ""
+	#define SLIME_MOOD_ANGRY "angry"
+	#define SLIME_MOOD_MISCHIEVOUS "mischievous"
+	#define SLIME_MOOD_POUT "pout"
+	#define SLIME_MOOD_SAD "sad"
+	#define SLIME_MOOD_SMILE ":3"
+
+	var/newmood = SLIME_MOOD_NONE
+	if (rabid || attacked_stacks)
+		newmood = SLIME_MOOD_ANGRY
 	else if (docile)
-		newmood = ":3"
+		newmood = SLIME_MOOD_SMILE
 	else if (Target)
-		newmood = "mischievous"
+		newmood = SLIME_MOOD_MISCHIEVOUS
 
 	if (!newmood)
-		if (Discipline && DT_PROB(13, delta_time))
-			newmood = "pout"
+		if (discipline_stacks && DT_PROB(13, delta_time))
+			newmood = SLIME_MOOD_POUT
 		else if (DT_PROB(0.5, delta_time))
-			newmood = pick("sad", ":3", "pout")
+			newmood = pick(SLIME_MOOD_SAD, SLIME_MOOD_SMILE, SLIME_MOOD_POUT)
 
-	if ((mood == "sad" || mood == ":3" || mood == "pout") && !newmood)
+	if ((current_mood == SLIME_MOOD_SAD || current_mood == SLIME_MOOD_SMILE || current_mood == SLIME_MOOD_POUT) && !newmood)
 		if(prob(75))
-			newmood = mood
+			newmood = current_mood
 
-	if (newmood != mood) // This is so we don't redraw them every time
-		mood = newmood
+	if (newmood != current_mood) // This is so we don't redraw them every time
+		current_mood = newmood
 		regenerate_icons()
 
+	#undef SLIME_MOOD_NONE
+	#undef SLIME_MOOD_ANGRY
+	#undef SLIME_MOOD_MISCHIEVOUS
+	#undef SLIME_MOOD_POUT
+	#undef SLIME_MOOD_SAD
+	#undef SLIME_MOOD_SMILE
+
+///Handles the slime understanding commends spoken to it
 /mob/living/simple_animal/slime/proc/handle_speech(delta_time, times_fired)
 	//Speech understanding starts here
 	var/to_say
 	if (speech_buffer.len > 0)
 		var/who = speech_buffer[1] // Who said it?
 		var/phrase = speech_buffer[2] // What did they say?
-		if ((findtext(phrase, num2text(number)) || findtext(phrase, "slimes"))) // Talking to us
+		if ((findtext(phrase, num2text(slime_id)) || findtext(phrase, "slimes"))) // Talking to us
 			if (findtext(phrase, "hello") || findtext(phrase, "hi"))
 				to_say = pick("Hello...", "Hi...")
 			else if (findtext(phrase, "follow"))
@@ -358,7 +364,7 @@
 			else if (findtext(phrase, "stop"))
 				if (buckled) // We are asked to stop feeding
 					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
-						Feedstop()
+						stop_feeding()
 						set_target(null)
 						if (Friends[who] < SLIME_FRIENDSHIP_STOPEAT_NOANGRY)
 							add_friendship(who, -1)
@@ -402,7 +408,6 @@
 			else if (findtext(phrase, "attack"))
 				if (rabid && prob(20))
 					set_target(who)
-					special_process = TRUE
 					to_say = "ATTACK!?!?"
 				else if (Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 					for (var/mob/living/L in view(7,src)-list(src,who))
@@ -412,7 +417,6 @@
 								add_friendship(who, -1) //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
 								set_target(L)
-								special_process = TRUE
 								to_say = "Ok... I attack [Target]"
 							else
 								to_say = "No... like [L] ..."
@@ -429,7 +433,7 @@
 	else if(DT_PROB(0.5, delta_time))
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), pick("bounce","sway","light","vibrate","jiggle"))
 	else
-		var/t = 10
+		var/speech_chance = 10
 		var/slimes_near = 0
 		var/dead_slimes = 0
 		var/friends_near = list()
@@ -439,13 +443,13 @@
 				if (L.stat == DEAD)
 					++dead_slimes
 			if(L in Friends)
-				t += 20
+				speech_chance += 20
 				friends_near += L
 		if (nutrition < get_hunger_nutrition())
-			t += 10
+			speech_chance += 10
 		if (nutrition < get_starve_nutrition())
-			t += 10
-		if (DT_PROB(1, delta_time) && prob(t))
+			speech_chance += 10
+		if (DT_PROB(1, delta_time) && prob(speech_chance))
 			var/phrases = list()
 			if (Target)
 				phrases += "[Target]... look yummy..."
@@ -461,13 +465,13 @@
 			phrases += "Rawr..."
 			phrases += "Blop..."
 			phrases += "Blorble..."
-			if (rabid || attacked)
+			if (rabid || attacked_stacks)
 				phrases += "Hrr..."
 				phrases += "Nhuu..."
 				phrases += "Unn..."
-			if (mood == ":3")
+			if (current_mood == ":3")
 				phrases += "Purr..."
-			if (attacked)
+			if (attacked_stacks)
 				phrases += "Grrr..."
 			if (bodytemperature < T0C)
 				phrases += "Cold..."
@@ -486,7 +490,7 @@
 				phrases += "Zap..."
 			if (powerlevel > 8)
 				phrases += "Zap... Bzz..."
-			if (mood == "sad")
+			if (current_mood == "sad")
 				phrases += "Bored..."
 			if (slimes_near)
 				phrases += "Slime friend..."
@@ -496,45 +500,53 @@
 				phrases += "What happened?"
 			if (!slimes_near)
 				phrases += "Lonely..."
-			for (var/M in friends_near)
-				phrases += "[M]... friend..."
+			for (var/friend in friends_near)
+				phrases += "[friend]... friend..."
 				if (nutrition < get_hunger_nutrition())
-					phrases += "[M]... feed me..."
+					phrases += "[friend]... feed me..."
 			if(!stat)
 				INVOKE_ASYNC(src, /atom/movable/proc/say, pick(phrases))
 
-/mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
+/// Can't go above it
+/mob/living/simple_animal/slime/proc/get_max_nutrition()
 	if (is_adult)
 		return 1200
 	else
 		return 1000
 
-/mob/living/simple_animal/slime/proc/get_grow_nutrition() // Above it we grow, below it we can eat
+/// Above it we grow, below it we can eat
+/mob/living/simple_animal/slime/proc/get_grow_nutrition()
 	if (is_adult)
 		return 1000
 	else
 		return 800
 
-/mob/living/simple_animal/slime/proc/get_hunger_nutrition() // Below it we will always eat
+/// Below it we will always eat
+/mob/living/simple_animal/slime/proc/get_hunger_nutrition()
 	if (is_adult)
 		return 600
 	else
 		return 500
 
-/mob/living/simple_animal/slime/proc/get_starve_nutrition() // Below it we will eat before everything else
+/// Below it we will eat before everything else
+/mob/living/simple_animal/slime/proc/get_starve_nutrition()
 	if(is_adult)
 		return 300
 	else
 		return 200
 
-/mob/living/simple_animal/slime/proc/will_hunt(hunger = -1) // Check for being stopped from feeding and chasing
+/// Check for being stopped from feeding and chasing
+/mob/living/simple_animal/slime/proc/will_hunt(hunger = -1)
 	if (docile)
-		return 0
-	if (hunger == 2 || rabid || attacked)
-		return 1
+		return FALSE
+	if (hunger == SLIME_HUNGER_STARVING || rabid || attacked_stacks)
+		return TRUE
 	if (Leader)
-		return 0
+		return FALSE
 	if (holding_still)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
+#undef SLIME_HUNGER_NONE
+#undef SLIME_HUNGER_HUNGRY
+#undef SLIME_HUNGER_STARVING

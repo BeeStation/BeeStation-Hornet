@@ -32,8 +32,8 @@
 	required_container = /obj/item/slime_extract/grey
 
 /datum/chemical_reaction/slime/slimespawn/on_reaction(datum/reagents/holder)
-	var/mob/living/simple_animal/slime/S = new(get_turf(holder.my_atom), "grey")
-	S.visible_message(span_danger("Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!"))
+	var/mob/living/simple_animal/slime/spawning_slime = new(get_turf(holder.my_atom), /datum/slime_type/grey)
+	spawning_slime.visible_message(span_danger("Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!"))
 	..()
 
 /datum/chemical_reaction/slime/slimeinaprov
@@ -322,7 +322,7 @@
 			slime.docile = FALSE
 			slime.update_name()
 			continue
-		slime.rabid = 1
+		slime.rabid = TRUE
 		slime.visible_message(span_danger("The [slime] is driven into a frenzy!"))
 	..()
 

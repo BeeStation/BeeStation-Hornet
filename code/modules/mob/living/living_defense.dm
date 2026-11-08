@@ -261,7 +261,7 @@
 
 	if(M.buckled)
 		if(M in buckled_mobs)
-			M.Feedstop()
+			M.stop_feeding()
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
