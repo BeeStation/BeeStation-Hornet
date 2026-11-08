@@ -1084,7 +1084,7 @@
 	. = ..()
 	if(isslime(new_owner))
 		var/mob/living/simple_animal/slime/S = new_owner
-		if(S.is_adult)
+		if(S.life_stage == SLIME_LIFE_STAGE_ADULT)
 			adult = TRUE
 			duration = world.time + 120 SECONDS
 			if(S.amount_grown >= 9)

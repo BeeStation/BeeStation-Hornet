@@ -70,7 +70,7 @@
 	if(target_slime.stat != CONSCIOUS)
 		to_chat(user, span_warning("The slime is dead!"))
 		return ITEM_INTERACT_BLOCKING
-	if(!target_slime.is_adult)
+	if(target_slime.life_stage != SLIME_LIFE_STAGE_ADULT)
 		to_chat(user, span_warning("The slime must be an adult to cross its core!"))
 		return ITEM_INTERACT_BLOCKING
 	if(target_slime.crossbreed_modification && target_slime.crossbreed_modification != crossbreed_modification)
@@ -963,7 +963,7 @@
 	icon_state = "potred"
 
 /obj/item/slimepotion/slime/steroid/interact_with_slime(mob/living/simple_animal/slime/interacting_slime, mob/living/user, list/modifiers)
-	if(interacting_slime.is_adult) //Can't steroidify adults
+	if(interacting_slime.life_stage == SLIME_LIFE_STAGE_ADULT) //Can't steroidify adults
 		to_chat(user, span_warning("Only baby slimes can use the steroid!"))
 		return ITEM_INTERACT_BLOCKING
 	if(interacting_slime.stat != CONSCIOUS)
