@@ -300,14 +300,17 @@
 	context.add_alt_click_action("Unlock interface")
 	if (context.accept_silicons())
 		context.add_ctrl_click_action("Toggle Power")
-	if((machine_stat & BROKEN) && opened != APC_COVER_REMOVED)
-		context.add_left_click_tool_action("Pry Off Cover", TOOL_CROWBAR)
-	if(has_electronics && !(machine_stat & BROKEN) && opened != APC_COVER_REMOVED && get_integrity() < max_integrity)
-		context.add_left_click_tool_action("Repair Cover", TOOL_WELDER)
-	if(opened == APC_COVER_REMOVED && (!(machine_stat & BROKEN) || (has_electronics && terminal)))
-		context.add_left_click_item_action("Replace Cover", /obj/item/wallframe/apc)
-	if(opened == APC_COVER_OPENED && !(machine_stat & BROKEN) && !integration_cog && has_electronics != APC_ELECTRONICS_INSTALLED)
-		context.add_left_click_tool_action("Close Cover", TOOL_CROWBAR)
+
+	if(machine_stat & BROKEN)
+		if(opened != APC_COVER_REMOVED)
+			context.add_left_click_tool_action("Pry Off Cover", TOOL_CROWBAR)
+	else
+		if(has_electronics && opened != APC_COVER_REMOVED && get_integrity() < max_integrity)
+			context.add_left_click_tool_action("Repair Cover", TOOL_WELDER)
+		if(opened == APC_COVER_REMOVED && has_electronics && terminal)
+			context.add_left_click_item_action("Replace Cover", /obj/item/wallframe/apc)
+		if(opened == APC_COVER_OPENED && !integration_cog && has_electronics != APC_ELECTRONICS_INSTALLED)
+			context.add_left_click_tool_action("Close Cover", TOOL_CROWBAR)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
@@ -339,7 +342,7 @@
 		else
 			. += "The cover is closed."
 
-	. += span_notice("Alt-Click the APC to [ locked ? "unlock" : "lock"] the interface.")
+	. += span_notice("Alt-Click the APC to [locked ? "unlock" : "lock"] the interface.")
 
 	if(issilicon(user))
 		. += span_notice("Ctrl-Click the APC to switch the breaker [ operating ? "off" : "on"].")
