@@ -64,7 +64,7 @@
 
 #define ISABOUTEQUAL(a, b, deviation) (deviation ? abs((a) - (b)) <= deviation : abs((a) - (b)) <= 0.1)
 
-#define ISEVEN(x) (!(ISODD(x))
+#define ISEVEN(x) (!(ISODD(x)))
 
 #define ISODD(x) ((x) & 1)
 
@@ -97,7 +97,7 @@
 /proc/SolveQuadratic(a, b, c)
 	ASSERT(a)
 	. = list()
-	var/d		= b*b - 4 * a * c
+	var/d = b*b - 4 * a * c
 	var/bottom  = 2 * a
 	if(d < 0 || !IS_FINITE__UNSAFE(d) || !IS_FINITE__UNSAFE(bottom))
 		return
