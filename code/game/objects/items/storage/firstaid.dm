@@ -583,6 +583,9 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	pickup_sound = 'sound/items/handling/pill_bottle/pill_bottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/pill_bottle/pill_bottle_place.ogg'
+	storage_type = /datum/storage/pillbottle
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
@@ -590,9 +593,6 @@
 	. = ..()
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
-
-	atom_storage.allow_quick_gather = TRUE
-	atom_storage.set_holdable(list(/obj/item/reagent_containers/applicator/pill, /obj/item/reagent_containers/applicator/patch))
 
 /obj/item/storage/pill_bottle/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	if(!istype(tool, /obj/item/pen))
