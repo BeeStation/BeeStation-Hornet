@@ -1,0 +1,16 @@
+author: mrmanlikesbt, Arkatos, Melbert, Sealed101, vinylspiders
+delete-after: true
+changes:
+  - qol: Interacting with a cyborg chassis now uses TGUI instead of a HTML menu.
+  - qol: Added screentips for cyborg chassis.
+  - qol: Examining a MMI now gives more detailed information on the status of the
+      brain.
+  - bugfix: Fixed cyborgs being ghosted when they dropped an MMI (when gibbed or deconstructed).
+  - bugfix: Fixed cyborgs not being disconnected when their parent AI was deleted.
+  - bugfix: Fixed a runtime when a person was transformed into a cyborg by either
+      wabbajack or adminbus.
+  - bugfix: Fixed various potential harddels related to cyborg construction.
+  - bugfix: Fixed objects sometimes appearing as being a few levels below you when
+      they were on the same level.
+  - bugfix: Fixed silicons playing two death gasps when they died.
+  - bugfix: Fixed silicons not having their HUDs updated on death.
