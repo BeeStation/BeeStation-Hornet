@@ -46,6 +46,12 @@
 	if(over != user)
 		return
 
+	// We're dragging a pet, dont open the menu to strip them
+	if(ishuman(user) && isliving(source))
+		var/mob/living/pet = source
+		if(pet.can_be_held && user.pulling == pet)
+			return
+
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/cyborg_user = user
