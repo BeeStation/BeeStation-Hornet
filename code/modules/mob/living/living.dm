@@ -1308,8 +1308,7 @@
 		// Disconnect AI's in shells
 		if(Robot.connected_ai)
 			Robot.undeploy() // disconnect any AI shells first
-		if(Robot.mmi)
-			qdel(Robot.mmi)
+		QDEL_NULL(Robot.mmi)
 		Robot.notify_ai(AI_NOTIFICATION_NEW_BORG)
 	else
 		for(var/obj/item/item in src)
@@ -1347,7 +1346,7 @@
 				new_mob.invisibility = 0
 				new_mob.job = JOB_NAME_CYBORG
 				created_robot.lawupdate = FALSE
-				created_robot.connected_ai = null
+				created_robot.set_connected_ai(null)
 				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
 				created_robot.clear_inherent_laws(announce = FALSE)
 				created_robot.clear_zeroth_law(announce = FALSE)

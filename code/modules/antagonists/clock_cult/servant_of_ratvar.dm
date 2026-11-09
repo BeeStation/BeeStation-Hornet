@@ -148,14 +148,14 @@ GLOBAL_VAR(clockcult_eminence)
 		// Disconnect borgs
 		ai.disconnect_shell()
 		for(var/mob/living/silicon/robot/robot in ai.connected_robots)
-			robot.connected_ai = null
+			robot.set_connected_ai(null)
 
 		// Flavor
 		var/mutable_appearance/ai_clock = mutable_appearance('icons/mob/clockwork_mobs.dmi', "aiframe")
 		ai.add_overlay(ai_clock)
 	else if(iscyborg(silicon))
 		var/mob/living/silicon/robot/robot = silicon
-		robot.connected_ai = null
+		robot.set_connected_ai(null)
 		robot.SetRatvar(TRUE)
 
 	// Give laws

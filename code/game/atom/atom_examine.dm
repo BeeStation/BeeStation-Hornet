@@ -20,15 +20,17 @@
 	if(desc)
 		. += "<i>[desc]</i>"
 
-	if(z && user.z != z) // Z-mimic
-		var/diff = abs(user.z - z)
-		. += span_boldnotice("[p_Theyre()] [diff] level\s below you.")
+	var/our_virtual_z = get_virtual_z_level()
+	var/their_virtual_z = user.get_virtual_z_level()
+	if(our_virtual_z && their_virtual_z != our_virtual_z) // Z-mimic
+		var/diff = our_virtual_z - their_virtual_z
+		. += span_boldnotice("[p_Theyre()] [diff] level[abs(diff) == 1 ? "" : "s"] [diff > 0 ? "below" : "above"] you.")
 
 	var/list/tags_list = examine_tags(user)
 	if (length(tags_list))
 		var/tag_string = list()
-		for (var/atom_tag in tags_list)
-			tag_string += (isnull(tags_list[atom_tag]) ? atom_tag : span_tooltip(tags_list[atom_tag], atom_tag))
+		for (var/atom_tag, tag_info in tags_list)
+			tag_string += (isnull(tag_info) ? atom_tag : span_tooltip(tag_info, atom_tag))
 		// Weird bit but ensures that if the final element has its own "and" we don't add another one
 		tag_string = english_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], " and ")) ? ", " : " and ")
 		var/post_descriptor = examine_post_descriptor(user)
