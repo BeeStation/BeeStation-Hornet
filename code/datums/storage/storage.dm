@@ -478,7 +478,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		return
 
 	if(do_rustle && rustle_sound)
-		playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
+		playsound(resolve_parent, rustle_sound, 50, rustle_vary, -5)
 
 	if(!silent_for_user)
 		to_chat(user, span_notice("You put [thing] [insert_preposition]to [resolve_parent]."))
