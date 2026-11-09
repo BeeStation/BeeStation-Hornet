@@ -74,3 +74,9 @@
   - bugfix: Xenoarchaeology radio announcements now report the bonus applied to the
       reward, CORRECTLY
   - bugfix: Compact NTOS radar now supports scanning and selecting targets
+2026-11-09:
+  Isaac, moocowswag:
+  - rscadd: "Welders keep repairing APC covers until they\u2019re fixed or welding\
+      \ is interrupted."
+  - rscadd: Broken APC covers can be replaced with a new frame, closing the panel,
+      will turn on the power, Engineering borgs can fit the frame with a screwdriver
