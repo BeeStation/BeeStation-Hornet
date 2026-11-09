@@ -5,6 +5,8 @@
 	icon_state = "fire_extinguisher0"
 	inhand_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
+	pickup_sound = 'sound/items/handling/gas_tank/gas_tank_pick_up.ogg'
+	drop_sound = 'sound/items/handling/gas_tank/gas_tank_drop.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	throwforce = 10
 	w_class = WEIGHT_CLASS_LARGE
