@@ -62,8 +62,19 @@
 	var/silent = FALSE
 	/// same as above but only for the user, useful to cut on chat spam without removing feedback for other players
 	var/silent_for_user = FALSE
-	/// play a rustling sound when interacting with the bag
-	var/rustle_sound = TRUE
+
+	/// Determines whether we play a rustle sound when inserting/removing items.
+	var/do_rustle = TRUE
+	/// Should our rustle sound frequency vary
+	var/rustle_vary = TRUE
+	/// Path for the item's rustle sound.
+	var/rustle_sound = "rustle"
+	/// Path for the item's rustle sound when removing items.
+	var/remove_rustle_sound = null
+	/// The sound to play when we open/access the storage
+	var/open_sound = "rustle"
+	/// Should our open sound frequency vary
+	var/open_sound_vary = TRUE
 
 	/// alt click takes an item out instead of opening up storage
 	var/quickdraw = FALSE
@@ -466,8 +477,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(silent)
 		return
 
-	if(rustle_sound)
-		playsound(resolve_parent, "rustle", 50, TRUE, -5)
+	if(do_rustle && rustle_sound)
+		playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 
 	if(!silent_for_user)
 		to_chat(user, span_notice("You put [thing] [insert_preposition]to [resolve_parent]."))
@@ -501,8 +512,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		reset_item(thing)
 		thing.forceMove(newLoc)
 
-		if(rustle_sound && !silent)
-			playsound(resolve_parent, "rustle", 50, TRUE, -5)
+		if(!silent && do_rustle)
+			if(remove_rustle_sound)
+				playsound(resolve_parent, remove_rustle_sound, 50, TRUE, -5)
+			else if(rustle_sound)
+				playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 	else
 		thing.moveToNullspace()
 
@@ -819,8 +833,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(dest_object.atom_storage)
 		to_chat(user, span_notice("You dump the contents of [resolve_parent] into [dest_object]."))
 
-		if(rustle_sound)
-			playsound(resolve_parent, "rustle", 50, TRUE, -5)
+		if(do_rustle && rustle_sound)
+			playsound(resolve_parent, rustle_sound, 50, TRUE, -5)
 
 		for(var/obj/item/to_dump in resolve_location)
 			if(to_dump.loc != resolve_location)
@@ -1043,8 +1057,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(animated)
 		animate_parent()
 
-	if(rustle_sound)
-		playsound(resolve_parent, "rustle", 50, TRUE, -5)
+	if(do_rustle && open_sound && !silent)
+		playsound(parent, open_sound, 50, open_sound_vary, -5)
 
 	return TRUE
 
