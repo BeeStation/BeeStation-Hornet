@@ -845,6 +845,10 @@ function checkchangelog($payload, $compile = true) {
 				if($item != 'something server ops should know')
 					$currentchangelogblock[] = array('type' => 'server', 'body' => $item);
 				break;
+			case 'github':
+				if($item != 'changed something on github')
+					$currentchangelogblock[] = array('type' => 'github', 'body' => $item);
+				break;
 			default:
 				//we add it to the last changelog entry as a separate line
 				if (count($currentchangelogblock) > 0)
