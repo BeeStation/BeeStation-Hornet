@@ -80,6 +80,7 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 	RegisterSignal(parent, COMSIG_FOOD_FEED_ITEM, PROC_REF(feed_to_item))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(scoop_with_utensil))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
@@ -195,6 +196,25 @@ Behavior that's still missing from this component that original food items had t
 	SIGNAL_HANDLER
 
 	return TryToEat(M, user)
+
+///Loads bite onto utensil
+/datum/component/edible/proc/scoop_with_utensil(datum/source, obj/item/kitchen/fork/utensil, mob/living/user)
+	SIGNAL_HANDLER
+
+	if(!istype(utensil))
+		return
+	. = COMPONENT_NO_AFTERATTACK
+	var/atom/owner = parent
+	if(IsFoodGone(owner, user) || !utensil.can_scoop(owner, user))
+		return
+
+	owner.reagents.trans_to(utensil, bite_consumption)
+	bitecount++
+	utensil.update_appearance()
+	user.do_item_attack_animation(owner, used_item = utensil)
+	user.visible_message(span_notice("[user] scoops a [utensil.bite_word] of [owner] with [user.p_their()] [utensil.name]."), span_notice("You scoop a [utensil.bite_word] of [owner] with your [utensil.name]."))
+	if(!owner.reagents.total_volume)
+		on_consume(user, user)
 
 /datum/component/edible/proc/GrillFood(datum/source, atom/fry_object, grill_time)
 	SIGNAL_HANDLER

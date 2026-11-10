@@ -32,11 +32,11 @@
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
-	var/foodload // the main reagent in a food becomes the foodload for utensil eating
-	var/foodload_color // the main reagents color is applied to the foodload overlay
-	var/food_overlay_state = "forkloaded" // Iconstate for foodload overlay ontop a utensil
-	var/bite_word = "forkful" // Term for eating messages
-	var/eat_sound = 'sound/items/eatfood.ogg' // Sound used when eating from the utensil
+	/// overlay ontop a utensil
+	var/food_overlay_state = "forkloaded"
+	var/bite_word = "forkful"
+	var/eat_sound = 'sound/items/eatfood.ogg'
+	var/scoops_soup = FALSE
 
 
 /datum/armor/kitchen_fork
@@ -48,32 +48,48 @@
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1)
 	return BRUTELOSS
 
+/obj/item/kitchen/fork/Initialize(mapload)
+	create_reagents(5, NO_REACT)
+	return ..()
+
 /obj/item/kitchen/fork/update_overlays()
 	. = ..()
-	if(foodload)
-		var/mutable_appearance/blob = mutable_appearance(icon, food_overlay_state,
-			appearance_flags = RESET_COLOR, color = foodload_color)
-		. += blob
+	if(reagents.total_volume)
+		. += mutable_appearance(icon, food_overlay_state, appearance_flags = RESET_COLOR, color = mix_color_from_reagents(reagents.reagent_list))
+
+/obj/item/kitchen/fork/proc/can_scoop(atom/food, mob/user)
+	if(reagents.total_volume)
+		to_chat(user, span_warning("You already have food on your [name]!"))
+		return FALSE
+	if(istype(food, /obj/item/food/soup) == scoops_soup)
+		return TRUE
+	if(scoops_soup)
+		to_chat(user, span_warning("[food] doesn't seem to fit on your [name]! Maybe try a fork."))
+	else
+		to_chat(user, span_warning("You try to scoop up [food] with your [name], but it slips through the prongs! Maybe try a spoon."))
+	return FALSE
 
 /obj/item/kitchen/fork/attack(mob/living/carbon/eating_person, mob/living/carbon/user)
 	if(!istype(eating_person))
 		return ..()
 
-	if(foodload)
+	if(reagents.total_volume)
+		var/obj/item/covering = eating_person.is_mouth_covered()
+		if(covering)
+			to_chat(user, span_warning("You have to remove [eating_person == user ? "your" : "[eating_person.p_their()]"] [covering.name] first!"))
+			return
 		if(eating_person != user)
 			eating_person.visible_message(span_notice("[user] starts feeding [eating_person] a [bite_word] of food..."), span_userdanger("[user] starts feeding you a [bite_word]..."))
-			if(!do_after(user, 1.5 SECONDS, eating_person, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded)))) // Feeding Others Has A Delay Similar To Self Eating
+			if(!do_after(user, 1.5 SECONDS, eating_person, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded))))
 				return
-		if(eating_person == user)
-			eating_person.visible_message(span_notice("[user] eats a [bite_word] of food!"), span_notice("You eat a [bite_word] of food!"))
-		else
+			log_combat(user, eating_person, "fed", reagents.log_list(), important = FALSE)
 			eating_person.visible_message(span_notice("[user] feeds [eating_person] a [bite_word] of food!"))
+		else
+			eating_person.visible_message(span_notice("[user] eats a [bite_word] of food!"), span_notice("You eat a [bite_word] of food!"))
 		playsound(eating_person, eat_sound, 25, TRUE)
-		eating_person.reagents.add_reagent(foodload, 1)
-		foodload = null
-		foodload_color = null
+		reagents.trans_to(eating_person, reagents.total_volume, transfered_by = user, method = INGEST)
 		update_appearance()
-		return // skip damage when eating
+		return
 	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			eating_person = user
@@ -82,7 +98,7 @@
 	return ..()
 
 /obj/item/kitchen/fork/proc/can_feed_loaded()
-	return !!foodload
+	return reagents.total_volume > 0
 
 /obj/item/kitchen/fork/spoon
 	name = "spoon"
@@ -91,6 +107,7 @@
 	food_overlay_state = "spoonloaded"
 	bite_word = "spoonful"
 	eat_sound = 'sound/items/drink.ogg'
+	scoops_soup = TRUE
 	attack_verb_continuous = list("attacks", "slaps", "pokes")
 	attack_verb_simple = list("attack", "slap", "poke")
 
