@@ -468,7 +468,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 		return
 	if(ai_controller.blackboard[BB_CURRENT_HUNTING_TARGET] == new_friend)
 		ai_controller.clear_blackboard_key(BB_CURRENT_HUNTING_TARGET)
-	ai_controller.remove_thing_from_blackboard_key(BB_BASIC_MOB_RETALIATE_LIST, new_friend)
 
 /mob/living/basic/slime/proc/make_master(mob/user)
 	befriend(user)

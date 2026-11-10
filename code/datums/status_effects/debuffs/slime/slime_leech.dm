@@ -51,6 +51,8 @@
 			to_chat(our_slime, span_info("This subject does not have a strong enough life energy anymore..."))
 
 		SEND_SIGNAL(owner, COMSIG_SLIME_DRAINED, our_slime)
+		if(QDELETED(src)) // befriend sanity check
+			return
 
 		if(prob(60) && ishuman(owner) && owner.client && !our_slime.ai_controller.blackboard[BB_SLIME_RABID])
 			our_slime.ai_controller?.set_blackboard_key(BB_SLIME_RABID, TRUE) //we might go rabid after finishing to feed on a human with a client.
