@@ -1,0 +1,25 @@
+author: rkz/tsar-salat
+delete-after: true
+changes:
+  - rscadd: adds temporary access system to IDs
+  - tweak: Lowpop skeleton crew access has been significantly reworked. The access
+      provided by skeleton access is now dynamic and based on current population rather
+      than population at roundstart. Skeleton access is also now temporary and per
+      department. It ends 5 minutes after the covered job is filled (i.e. Medical
+      Doctors with Chemistry access) or enough crew arrive, and comes back if they
+      leave
+  - rscadd: Promoting someone to a head job at an ID console makes them an Acting
+      head (title, HUD, access, command pay) on top of their own job. Only people
+      who join as the head (latejoin/join from lobby) are full heads
+  - bugfix: giving a head or acting head a custom job title no longer breaks that
+      job in the manifest or elsewhere in the code (that ended up being really important)
+  - rscadd: An acting head's access, title, and command pay ends 5 minutes after a
+      real head of that job arrives. The jobber who was acting head reverts to their
+      previous title and access.
+  - rscadd: ID cards announce access changes. They will brief the jobber if they have
+      a mantle/acting role and skeleton access after they spawn
+  - rscadd: Examining an ID card will show its current mantle (if any) and list its
+      temporary access
+  - tweak: Agent ID cards steal temp access as permanent access.
+  - bugfix: cryo reopens job slots again
+  - bugfix: a second ID in a PDA no longer mutates the access of the first ID
