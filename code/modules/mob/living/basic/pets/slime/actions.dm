@@ -93,60 +93,56 @@
 		balloon_alert(src, "need growth!")
 		return
 
+	var/list/friends_list = list()
+	for(var/mob/living/basic/slime/friend in loc)
+		if(QDELETED(friend))
+			continue
+		if(friend == src)
+			continue
+		friends_list += friend
+
+	overcrowded = length(friends_list) >= SLIME_OVERCROWD_AMOUNT
+	if(overcrowded)
+		balloon_alert(src, "overcrowded!")
+		return
+
 	if(GLOB.total_slimes >= CONFIG_GET(number/max_slimes))
 		balloon_alert(src, "too many slimes!")
 		return
 
-	var/list/babies = list()
-	var/new_nutrition = round(nutrition * 0.9)
-	var/new_powerlevel = round(powerlevel / 4)
+	var/new_nutrition = floor(nutrition * 0.9)
+	var/new_powerlevel = floor(powerlevel * 0.25)
 	var/new_life_stage = SLIME_LIFE_STAGE_BABY
-	var/child_amount = 4
+	var/child_amount = 3
 	var/turf/drop_loc = drop_location()
 	var/datum/component/nanites/original_nanites = GetComponent(/datum/component/nanites)
 
 	if(transformeffects & SLIME_EFFECT_GREY)
 		child_amount++
 	if(transformeffects & SLIME_EFFECT_CERULEAN)
-		child_amount = 2
-		new_nutrition = round(nutrition * 0.5)
-		new_powerlevel = round(powerlevel / 2)
+		child_amount = 1
+		new_nutrition = floor(nutrition * 0.5)
+		new_powerlevel = floor(powerlevel * 0.5)
 		new_life_stage = SLIME_LIFE_STAGE_ADULT
 
+	var/list/created_slimes = list()
 	var/list/slime_friends = ai_controller?.blackboard[BB_FRIENDS_LIST]
 
 	for(var/i in 1 to child_amount)
-		var/child_colour = slime_type.type
-		var/keep_colour = (transformeffects & SLIME_EFFECT_CERULEAN) || (i == 1 && (transformeffects & SLIME_EFFECT_BLUE))
-
-		if(!keep_colour)
-			if(mutation_chance >= 100)
-				child_colour = /datum/slime_type/rainbow
-			else if(special_mutation_type)
-				child_colour = special_mutation_type
-			else if(prob(mutation_chance))
-				var/list/possible_mutations = slime_type.mutations
-				if(transformeffects & SLIME_EFFECT_PYRITE)
-					var/random_path = pick(GLOB.random_slime_types - /datum/slime_type/rainbow)
-					var/datum/slime_type/random_type = new random_path
-					possible_mutations = random_type.mutations
-				child_colour = pick_weight(possible_mutations)
-
+		var/child_colour = (transformeffects & SLIME_EFFECT_CERULEAN) ? slime_type.type : get_random_mutation()
 		var/mob/living/basic/slime/baby = new(drop_loc, child_colour, new_life_stage)
-
-		baby.transformeffects = transformeffects
-		baby.set_life_stage(new_life_stage)
-
-		if(ckey || (transformeffects & SLIME_EFFECT_CERULEAN))
-			baby.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
-
-		baby.powerlevel = new_powerlevel
-		if(i != 1)
-			step_away(baby, src)
+		created_slimes += baby
+		step_away(baby, src)
 
 		for(var/slime_friend in slime_friends)
 			baby.befriend(slime_friend)
 
+		baby.transformeffects = transformeffects
+		if(transformeffects & SLIME_EFFECT_METAL)
+			baby.maxHealth = round(baby.maxHealth * 1.3)
+			baby.health = baby.maxHealth
+		if(transformeffects & SLIME_EFFECT_RED)
+			baby.melee_damage *= 1.1
 		if(transformeffects & SLIME_EFFECT_PINK)
 			baby.grant_language(/datum/language/common)
 			var/datum/language_holder/language_holder = baby.get_language_holder()
@@ -161,19 +157,47 @@
 			baby.AddComponent(/datum/component/nanites, original_nanites.nanite_volume * 0.25)
 			SEND_SIGNAL(baby, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well
 
-		babies += baby
-		baby.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
 		SSblackbox.record_feedback("tally", "slime_babies_born", 1, baby.slime_type.colour)
 
-	var/mob/living/basic/slime/new_slime = pick(babies) // slime that the OG slime will move into.
-	new_slime.set_combat_mode(TRUE)
+	if(original_nanites)
+		original_nanites.nanite_volume *= 0.25
 
-	if(isnull(mind))
-		new_slime.key = key
-	else
-		mind.transfer_to(new_slime)
+	var/new_colour = (transformeffects & (SLIME_EFFECT_CERULEAN | SLIME_EFFECT_BLUE)) ? slime_type.type : get_random_mutation()
 
-	qdel(src)
+	// The parent goes last so the children roll their mutation chance off its old value
+	created_slimes += src
+	set_nutrition(SLIME_STARTING_NUTRITION)
+	for(var/mob/living/basic/slime/split_slime as anything in created_slimes)
+		if(ckey || (transformeffects & SLIME_EFFECT_CERULEAN))
+			split_slime.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+		split_slime.powerlevel = new_powerlevel
+		if(mutation_chance)
+			split_slime.mutation_chance = clamp(mutation_chance + rand(-5, 5), 0, 100)
+		else
+			split_slime.mutation_chance = 0
+
+	set_life_stage(new_life_stage)
+	set_slime_type(new_colour)
+	amount_grown = 0
+	mutator_used = FALSE
+	cores = initial(cores)
+	special_mutation_type = null
+	crossbreed_modification = null
+	applied_crossbreed_amount = 0
+
+///Picks the colour of a child of this slime
+/mob/living/basic/slime/proc/get_random_mutation()
+	if(mutation_chance >= 100)
+		return /datum/slime_type/rainbow
+	if(special_mutation_type)
+		return special_mutation_type
+	if(!prob(mutation_chance))
+		return slime_type.type
+	var/list/possible_mutations = slime_type.mutations
+	if(transformeffects & SLIME_EFFECT_PYRITE)
+		var/datum/slime_type/random_type = possible_slime_types[pick(GLOB.random_slime_types - /datum/slime_type/rainbow)]
+		possible_mutations = random_type.mutations
+	return pick_weight(possible_mutations)
 
 ///Bluespace transformative effect, teleports a random distance at the cost of charge
 /mob/living/basic/slime/proc/teleport()

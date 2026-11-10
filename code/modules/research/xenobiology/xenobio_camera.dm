@@ -236,10 +236,16 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 		stored_slime.forceMove(target_turf)
 		stored_slime.visible_message(span_notice("[stored_slime] warps in!"))
 		stored_slimes -= stored_slime
+		REMOVE_TRAIT(stored_slime, TRAIT_STASIS, XENOBIO_CONSOLE_TRAIT)
+		stored_slime.handle_slime_stasis()
 
 ///Places every slime not controlled by a player into the internal storage, respecting its limits
 ///Returns TRUE to signal it hitting the limit, in case its being called from a loop and we want it to stop
 /obj/machinery/computer/camera_advanced/xenobio/proc/slime_pickup(mob/living/user, mob/living/basic/slime/target_slime)
+	if(target_slime in stored_slimes)
+		// It's possible for this proc to be called on a slime that's already being picked up,
+		// so we need to check whether we already have to avoid duplicate entries.
+		return FALSE
 	if(stored_slimes.len >= max_slimes)
 		to_chat(user, span_warning("Slime storage is full."))
 		return TRUE
@@ -251,6 +257,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 	target_slime.visible_message(span_notice("[target_slime] vanishes in a flash of light!"))
 	target_slime.forceMove(src)
 	stored_slimes += target_slime
+	ADD_TRAIT(target_slime, TRAIT_STASIS, XENOBIO_CONSOLE_TRAIT)
 
 	return FALSE
 

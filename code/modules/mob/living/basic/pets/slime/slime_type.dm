@@ -8,6 +8,12 @@
 	///The hexcode used by the slime to colour their victims
 	var/rgb_code
 
+/datum/slime_type/Destroy(force)
+	if(!force)
+		stack_trace("Something tried to delete a \"/datum/slime_type\", this should never happen as could lead to slime colors being broken!")
+		return QDEL_HINT_LETMELIVE
+	return ..()
+
 /// Slime types that can be picked at random. Special mutations are left out.
 GLOBAL_LIST_INIT(random_slime_types, subtypesof(/datum/slime_type) - list(
 	/datum/slime_type/cobalt,

@@ -314,6 +314,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
+//How many slimes can be on the same tile before it can no longer reproduce.
+#define SLIME_OVERCROWD_AMOUNT 2
+
 //Slime transformative extract effects
 #define SLIME_EFFECT_DEFAULT		(1<<0)
 #define SLIME_EFFECT_GREY			(1<<1)

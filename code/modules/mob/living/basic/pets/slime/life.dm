@@ -11,7 +11,7 @@
 		if((transformeffects & SLIME_EFFECT_PURPLE) && DT_PROB(16, delta_time))
 			adjustBruteLoss(-0.25 * delta_time)
 		if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
-			random_colour()
+			set_slime_type(pick(GLOB.random_slime_types))
 
 	handle_slime_stasis()
 

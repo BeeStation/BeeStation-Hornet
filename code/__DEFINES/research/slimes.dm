@@ -62,6 +62,9 @@
 #define SLIME_TYPE_SILVER "silver"
 #define SLIME_TYPE_YELLOW "yellow"
 
+// Not a real slime type, used to create random slimes
+#define SLIME_TYPE_RANDOM "random"
+
 // Below are unique slime colors
 
 #define SLIME_TYPE_DARK_GREEN "dark green"

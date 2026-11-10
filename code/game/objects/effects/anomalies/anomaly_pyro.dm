@@ -26,6 +26,4 @@
 	pyro.flavor_text = FLAVOR_TEXT_EVIL
 	pyro.transformeffects = SLIME_EFFECT_LIGHT_PINK
 	pyro.set_playable_slime(ROLE_PYROCLASTIC_SLIME)
-	pyro.mind.special_role = ROLE_PYROCLASTIC_SLIME
-	pyro.mind.add_antag_datum(/datum/antagonist/pyro_slime)
 	pyro.log_message("was made into a slime by pyroclastic anomaly", LOG_GAME)

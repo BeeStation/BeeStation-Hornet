@@ -22,7 +22,7 @@
 	health = 150
 	speed = 2 //simple_animal speed 1 plus the simple_animal config slowdown
 	mob_biotypes = MOB_SLIME
-	melee_damage = 15
+	melee_damage = 12
 	can_buckle_to = FALSE
 	see_in_dark = NIGHTVISION_FOV_RANGE
 
@@ -68,6 +68,9 @@
 	///Our slime's current mood
 	var/current_mood = SLIME_MOOD_NONE
 
+	///If the slime is currently overcrowded and unable to reproduce.
+	var/overcrowded = FALSE
+
 	///The number of /obj/item/slime_extract's the slime has left inside
 	var/cores = 1
 	///Chance of mutating, should be between 25 and 35
@@ -82,8 +85,10 @@
 	///Has a mutator been used on the slime? Only one is allowed
 	var/mutator_used = FALSE
 
-	//The datum that handles the slime colour's core and possible mutations
-	var/datum/slime_type/slime_type
+	// The datum that handles the slime colour's core and possible mutations
+	var/datum/slime_type/slime_type = null
+	// After a slime is initialized, a list of all possible initialized datums of slime_types
+	var/static/list/possible_slime_types = null
 
 	///Slime type every non-colour-locked child becomes, set by environmental triggers
 	var/datum/slime_type/special_mutation_type
@@ -119,8 +124,13 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime)
 
-/mob/living/basic/slime/Initialize(mapload, new_type=/datum/slime_type/grey, new_life_stage=SLIME_LIFE_STAGE_BABY)
+/mob/living/basic/slime/Initialize(mapload, new_type = /datum/slime_type/grey, new_life_stage = SLIME_LIFE_STAGE_BABY)
 	GLOB.total_slimes++
+	if(isnull(possible_slime_types))
+		possible_slime_types = list()
+		for(var/datum/slime_type/slime_type as anything in subtypesof(/datum/slime_type))
+			possible_slime_types[slime_type] = new slime_type
+
 	set_slime_type(new_type) //refresh_gravity() in the parent reads it
 	. = ..()
 
@@ -131,8 +141,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime)
 	reproduce_action.Grant(src)
 
 	set_life_stage(new_life_stage)
-	update_name()
-	regenerate_icons()
+	if(life_stage == SLIME_LIFE_STAGE_ADULT) //set_slime_type() named and drew us as a baby
+		update_name()
+		regenerate_icons()
 
 	set_nutrition(SLIME_STARTING_NUTRITION)
 
@@ -164,6 +175,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime)
 	master = null
 	QDEL_NULL(evolve_action)
 	QDEL_NULL(reproduce_action)
+	slime_type = null
 	return ..()
 
 ///Random slime subtype
@@ -172,7 +184,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime)
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 
 /mob/living/basic/slime/random/Initialize(mapload, new_colour, new_life_stage)
-	return ..(mapload, pick(GLOB.random_slime_types), prob(50) ? SLIME_LIFE_STAGE_ADULT : SLIME_LIFE_STAGE_BABY)
+	return ..(mapload, SLIME_TYPE_RANDOM, prob(50) ? SLIME_LIFE_STAGE_ADULT : SLIME_LIFE_STAGE_BABY)
 
 ///Friendly docile subtype
 /mob/living/basic/slime/pet
@@ -270,14 +282,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 
 		if(SLIME_MAX_POWER)
 			. += span_boldwarning("It is radiating with massive levels of electrical activity!")
+	if(overcrowded)
+		. += span_warning("It seems too overcroweded to properly reproduce!")
 
 /mob/living/basic/slime/proc/get_discovery_id()
 	return "[slime_type.colour] slime"
 
 /mob/living/basic/slime/give_mind(mob/user)
 	. = ..()
-	if(. && master)
+	if(!.)
+		return
+	if(master)
 		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	if(playable_bantype == ROLE_PYROCLASTIC_SLIME)
+		mind.special_role = ROLE_PYROCLASTIC_SLIME
+		mind.add_antag_datum(/datum/antagonist/pyro_slime)
 
 /mob/living/basic/slime/get_spawner_desc()
 	return "be a slime[master ? " under the command of [master.real_name]" : " with free will"]."
@@ -287,41 +306,30 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 
 ///Changes the slime's current life state
 /mob/living/basic/slime/proc/set_life_stage(new_life_stage = SLIME_LIFE_STAGE_BABY)
-	life_stage = new_life_stage
-
-	switch(life_stage)
-		if(SLIME_LIFE_STAGE_BABY)
-
-			health = initial(health)
-			maxHealth = initial(maxHealth)
-
-			obj_damage = initial(obj_damage)
-			melee_damage = initial(melee_damage)
-
-		if(SLIME_LIFE_STAGE_ADULT)
-
-			health = 200
-			maxHealth = 200
-
+	if(new_life_stage != life_stage)
+		life_stage = new_life_stage
+		// Scaled rather than reset, so bonuses like transformative extracts carry across stages
+		if(life_stage == SLIME_LIFE_STAGE_ADULT)
+			health /= 0.75
+			maxHealth /= 0.75
+			melee_damage *= 2
 			obj_damage = 15
-			melee_damage = initial(melee_damage) + 10
-
-	if(transformeffects & SLIME_EFFECT_METAL)
-		maxHealth = round(maxHealth * 1.3)
-		health = maxHealth
-	if(transformeffects & SLIME_EFFECT_RED)
-		melee_damage *= 1.1
+		else
+			health *= 0.75
+			maxHealth *= 0.75
+			melee_damage *= 0.5
+			obj_damage = initial(obj_damage)
 
 	ai_controller.set_blackboard_key(BB_SLIME_LIFE_STAGE, life_stage)
 	update_action_buttons_icon()
 
-///Sets the slime's type, name and its icons
-/mob/living/basic/slime/proc/set_slime_type(new_type)
-	slime_type = new new_type
+/// Sets the slime's type, name and its icons.
+/// If not provided with a type it will instead be random
+/mob/living/basic/slime/proc/set_slime_type(new_type = SLIME_TYPE_RANDOM)
+	if(new_type == SLIME_TYPE_RANDOM)
+		new_type = pick(subtypesof(/datum/slime_type))
 
-///randomizes the colour of a slime
-/mob/living/basic/slime/proc/random_colour()
-	set_slime_type(pick(GLOB.random_slime_types))
+	slime_type = possible_slime_types[new_type]
 	update_name()
 	regenerate_icons()
 
