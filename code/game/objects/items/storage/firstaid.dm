@@ -20,6 +20,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
+	drop_sound = 'sound/items/handling/medkit/medkit_drop.ogg'
+	pickup_sound = 'sound/items/handling/medkit/medkit_pick_up.ogg'
 	w_class = WEIGHT_CLASS_LARGE
 	storage_type = /datum/storage/firstaid
 	var/skin_type = MEDBOT_SKIN_DEFAULT

@@ -1,5 +1,7 @@
 /// First-aid kit
 /datum/storage/firstaid
+	open_sound = 'sound/items/handling/medkit/medkit_open.ogg'
+	rustle_sound = 'sound/items/handling/medkit/medkit_rustle.ogg'
 
 /// Medical first-aid kit
 /datum/storage/firstaid/medical
