@@ -1,5 +1,7 @@
 /// Normal toolbox
 /datum/storage/toolbox
+	open_sound = 'sound/items/handling/toolbox/toolbox_open.ogg'
+	rustle_sound = 'sound/items/handling/toolbox/toolbox_rustle.ogg'
 
 /// Syndicate toolbox
 /datum/storage/toolbox/syndicate
