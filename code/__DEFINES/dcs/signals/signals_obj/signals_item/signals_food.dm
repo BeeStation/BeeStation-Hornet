@@ -7,6 +7,9 @@
 #define COMSIG_FOOD_CROSSED "food_crossed"
 /// From base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
 #define COMSIG_FOOD_CONSUMED "food_consumed"
+/// From datum/component/edible/proc/on_attackby
+#define COMSIG_ITEM_UTENSIL_SCOOP "item_utensil_scoop"
+	#define COMPONENT_UTENSIL_SCOOPED (1<<0)
 ///called when an atom with /datum/component/customizable_reagent_holder is customized (obj/item/I)
 #define COMSIG_ATOM_CUSTOMIZED "atom_customized"
 /// called when an item is used as an ingredient: (atom/customized)

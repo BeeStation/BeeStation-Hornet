@@ -1,6 +1,7 @@
 /* Kitchen tools
  * Contains:
  *		Fork
+ *		Spoon
  *		Kitchen knives
  *		Ritual Knife
  *		Butcher's cleaver
@@ -32,11 +33,6 @@
 	attack_verb_simple = list("attack", "stab", "poke")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_type = /datum/armor/kitchen_fork
-	/// overlay ontop a utensil
-	var/food_overlay_state = "forkloaded"
-	var/bite_word = "forkful"
-	var/eat_sound = 'sound/items/eatfood.ogg'
-	var/scoops_soup = FALSE
 
 
 /datum/armor/kitchen_fork
@@ -49,67 +45,39 @@
 	return BRUTELOSS
 
 /obj/item/kitchen/fork/Initialize(mapload)
-	create_reagents(5, NO_REACT)
-	return ..()
-
-/obj/item/kitchen/fork/update_overlays()
 	. = ..()
-	if(reagents.total_volume)
-		. += mutable_appearance(icon, food_overlay_state, appearance_flags = RESET_COLOR, color = mix_color_from_reagents(reagents.reagent_list))
+	AddElement(/datum/element/utensil, "forkloaded", "forkful", 'sound/items/eatfood.ogg')
 
-/obj/item/kitchen/fork/proc/can_scoop(atom/food, mob/user)
-	if(reagents.total_volume)
-		to_chat(user, span_warning("You already have food on your [name]!"))
-		return FALSE
-	if(istype(food, /obj/item/food/soup) == scoops_soup)
-		return TRUE
-	if(scoops_soup)
-		to_chat(user, span_warning("[food] doesn't seem to fit on your [name]! Maybe try a fork."))
-	else
-		to_chat(user, span_warning("You try to scoop up [food] with your [name], but it slips through the prongs! Maybe try a spoon."))
-	return FALSE
-
-/obj/item/kitchen/fork/attack(mob/living/carbon/eating_person, mob/living/carbon/user)
-	if(!istype(eating_person))
+/obj/item/kitchen/fork/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!istype(M))
 		return ..()
 
-	if(reagents.total_volume)
-		var/obj/item/covering = eating_person.is_mouth_covered()
-		if(covering)
-			to_chat(user, span_warning("You have to remove [eating_person == user ? "your" : "[eating_person.p_their()]"] [covering.name] first!"))
-			return
-		if(eating_person != user)
-			eating_person.visible_message(span_notice("[user] starts feeding [eating_person] a [bite_word] of food..."), span_userdanger("[user] starts feeding you a [bite_word]..."))
-			if(!do_after(user, 1.5 SECONDS, eating_person, extra_checks = CALLBACK(src, PROC_REF(can_feed_loaded))))
-				return
-			log_combat(user, eating_person, "fed", reagents.log_list(), important = FALSE)
-			eating_person.visible_message(span_notice("[user] feeds [eating_person] a [bite_word] of food!"))
-		else
-			eating_person.visible_message(span_notice("[user] eats a [bite_word] of food!"), span_notice("You eat a [bite_word] of food!"))
-		playsound(eating_person, eat_sound, 25, TRUE)
-		reagents.trans_to(eating_person, reagents.total_volume, transfered_by = user, method = INGEST)
-		update_appearance()
-		return
-	else if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
+	if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && user.is_zone_selected(BODY_GROUP_CHEST_HEAD))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-			eating_person = user
-		if (eyestab(eating_person, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
+			M = user
+		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
 	return ..()
 
-/obj/item/kitchen/fork/proc/can_feed_loaded()
-	return reagents.total_volume > 0
-
-/obj/item/kitchen/fork/spoon
+/obj/item/kitchen/spoon
 	name = "spoon"
 	desc = "Like a fork, but more round and shallow."
 	icon_state = "spoon"
-	food_overlay_state = "spoonloaded"
-	bite_word = "spoonful"
-	eat_sound = 'sound/items/drink.ogg'
-	scoops_soup = TRUE
+	force = 5
+	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 5
+	custom_price = 5
+	custom_materials = list(/datum/material/iron=80)
+	obj_flags = CONDUCTS_ELECTRICITY
 	attack_verb_continuous = list("attacks", "slaps", "pokes")
 	attack_verb_simple = list("attack", "slap", "poke")
+	armor_type = /datum/armor/kitchen_fork
+
+/obj/item/kitchen/spoon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/utensil, "spoonloaded", "spoonful", 'sound/items/drink.ogg', TRUE)
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"

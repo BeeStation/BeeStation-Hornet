@@ -360,7 +360,7 @@
 	id = "spoon"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 80)
-	build_path = /obj/item/kitchen/fork/spoon
+	build_path = /obj/item/kitchen/spoon
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_DINNERWARE)
 
 /datum/design/tray
