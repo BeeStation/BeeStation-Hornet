@@ -3,6 +3,8 @@
 	max_slots = 8
 	max_total_storage = 8
 	max_specific_storage = WEIGHT_CLASS_NORMAL
+	open_sound = 'sound/items/handling/cardboard_box/cardboard_box_open.ogg'
+	rustle_sound = 'sound/items/handling/cardboard_box/cardboard_box_rustle.ogg'
 
 /// Debug box
 /datum/storage/box/debug

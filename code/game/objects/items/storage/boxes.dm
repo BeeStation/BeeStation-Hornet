@@ -32,8 +32,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/cardboard_box/cardboardbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/cardboard_box/cardboardbox_pickup.ogg'
+	drop_sound = 'sound/items/handling/cardboard_box/cardboard_box_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboard_box/cardboard_box_pickup.ogg'
 	storage_type = /datum/storage/box
 	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
