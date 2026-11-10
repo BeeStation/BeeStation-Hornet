@@ -127,7 +127,11 @@
 		&& !(mecha_flags & SILICON_PILOT) \
 		&& (def_zone == BODY_ZONE_HEAD || def_zone == BODY_ZONE_CHEST))
 		var/mob/living/hitmob = pick(occupants)
-		return hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) // The shot reaches the pilot instead of the chassis
+		var/atom/movable/shooter = hitting_projectile.firer
+		. = hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) // The shot reaches the pilot instead of the chassis
+		if(. == BULLET_ACT_HIT && ismob(shooter))
+			to_chat(shooter, span_danger("Your shot hits the pilot inside [src]!"))
+		return
 
 	log_message("Hit by projectile. Type: [hitting_projectile]([hitting_projectile.damage_type]).", LOG_MECHA, color="red")
 	// yes we *have* to run the armor calc proc here I love tg projectile code too
@@ -210,16 +214,6 @@
 
 /obj/vehicle/sealed/mecha/attackby(obj/item/weapon, mob/living/user, list/modifiers)
 	if(user.combat_mode)
-		var/penetration_chance = clamp(weapon.armour_penetration - get_armor_rating(MELEE) / 2, 0, 100)
-		if(!(mecha_flags & (CANNOT_OVERPENETRATE | SILICON_PILOT)) && length(occupants) \
-			&& !(weapon.item_flags & NOBLUDGEON) && !HAS_TRAIT(user, TRAIT_PACIFISM) \
-			&& penetration_chance && prob(penetration_chance))
-			var/mob/living/hitmob = pick(occupants)
-			var/hit_zone = user.get_combat_bodyzone(hitmob)
-			var/armor_block = hitmob.run_armor_check(hit_zone, MELEE, armour_penetration = weapon.armour_penetration)
-			hitmob.apply_damage(weapon.force * penetration_chance / 100, weapon.damtype, hit_zone, armor_block, sharpness = weapon.get_sharpness(), attack_direction = get_dir(user, hitmob), attacking_item = weapon)
-			to_chat(hitmob, span_userdanger("[user]'s [weapon.name] pierces [src]'s cockpit and hits you!"))
-			log_combat(user, hitmob, "hit through [src]'s cockpit with", weapon)
 		return ..()
 	if(istype(weapon, /obj/item/mmi))
 		var/obj/item/mmi/mmi_item = weapon
@@ -325,13 +319,36 @@
 	if(!attacking_item.force)
 		return
 
+	var/hit_pilot = FALSE
+	if(user.combat_mode)
+		var/penetration_chance = clamp(attacking_item.armour_penetration - get_armor_rating(MELEE) / 2, 0, 100)
+		if(!(mecha_flags & (CANNOT_OVERPENETRATE | SILICON_PILOT)) && length(occupants) \
+			&& !(attacking_item.item_flags & NOBLUDGEON) && !HAS_TRAIT(user, TRAIT_PACIFISM) \
+			&& penetration_chance && prob(penetration_chance))
+			var/mob/living/hitmob = pick(occupants)
+			var/hit_zone = user.get_combat_bodyzone(hitmob)
+			var/armor_block = hitmob.run_armor_check(hit_zone, MELEE, armour_penetration = attacking_item.armour_penetration)
+			hitmob.apply_damage(attacking_item.force * penetration_chance / 100, attacking_item.damtype, hit_zone, armor_block, sharpness = attacking_item.get_sharpness(), attack_direction = get_dir(user, hitmob), attacking_item = attacking_item)
+			if(attacking_item.bleed_force && iscarbon(hitmob))
+				var/mob/living/carbon/pilot = hitmob
+				var/obj/item/bodypart/affected_limb = pilot.get_bodypart(check_zone(hit_zone))
+				if(affected_limb)
+					var/bleed_block = pilot.run_armor_check(affected_limb, BLEED, armour_penetration = attacking_item.armour_penetration, silent = TRUE)
+					var/bleed_amount = attacking_item.bleed_force * penetration_chance / 100 * (100 - bleed_block) / 100
+					if(bleed_amount > 0)
+						pilot.add_bleeding(bleed_amount)
+			hit_pilot = TRUE
+			to_chat(hitmob, span_userdanger("[user]'s [attacking_item.name] pierces [src]'s cockpit and hits you!"))
+			log_combat(user, hitmob, "hit through [src]'s cockpit with", attacking_item)
+
 	var/damage_taken = take_damage(attacking_item.force, attacking_item.damtype, MELEE, 1, get_dir(src, user))
 	try_damage_component(damage_taken, user.get_combat_bodyzone(user))
 
 	var/hit_verb = length(attacking_item.attack_verb_simple) ? "[pick(attacking_item.attack_verb_simple)]" : "hit"
+	var/hit_ending = hit_pilot ? ", also hitting the pilot!" : (damage_taken ? "." : ", without leaving a mark!")
 	user.visible_message(
-		span_danger("[user] [hit_verb][plural_s(hit_verb)] [src] with [attacking_item][damage_taken ? "." : ", without leaving a mark!"]"),
-		span_danger("You [hit_verb] [src] with [attacking_item][damage_taken ? "." : ", without leaving a mark!"]"),
+		span_danger("[user] [hit_verb][plural_s(hit_verb)] [src] with [attacking_item][hit_ending]"),
+		span_danger("You [hit_verb] [src] with [attacking_item][hit_ending]"),
 		span_hear("You hear a [hit_verb]."),
 		COMBAT_MESSAGE_RANGE,
 	)
