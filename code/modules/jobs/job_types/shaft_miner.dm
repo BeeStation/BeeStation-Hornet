@@ -24,11 +24,6 @@
 		ACCESS_AUX_BASE,
 		ACCESS_GATEWAY
 	)
-	extra_access = list(
-		ACCESS_QM,
-		ACCESS_CARGO,
-		ACCESS_MAINT_TUNNELS
-	)
 
 	departments_list = list(
 		/datum/department_group/cargo,

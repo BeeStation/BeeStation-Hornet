@@ -24,8 +24,7 @@
 			if(their_card.registered_name != old_real_name)
 				continue
 
-			their_card.registered_name = user.real_name
-			their_card.update_label()
+			their_card.set_registered_name(user.real_name)
 
 	// NOT EVEN DEATH WILL TAKE AWAY THE STAIN
 	user.mind.name += " (suicide)"
