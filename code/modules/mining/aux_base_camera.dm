@@ -85,6 +85,7 @@
 
 	eyeobj = new /mob/camera/ai_eye/remote/base_construction(get_turf(spawn_spot))
 	eyeobj.origin = src
+	eyeobj.eye_initialized = TRUE
 
 
 /obj/machinery/computer/camera_advanced/base_construction/attackby(obj/item/W, mob/user, list/modifiers)

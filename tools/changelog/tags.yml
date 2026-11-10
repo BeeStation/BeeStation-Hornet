@@ -28,8 +28,9 @@ tags:
     server: server
     map: map
     qol: qol
-    sound : sound
-    image : image
+    sound: sound
+    image: image
+    github: github
 
 defaults:
     admin: messed with admin stuff
@@ -39,6 +40,7 @@ defaults:
     config: changed some config setting
     imageadd: added some icons and images
     imagedel: deleted some icons and images
+    image: added/modified/removed some icons or images
     refactor: refactored some code
     rscadd: Added new things
     rscadd2: Added more things
@@ -46,6 +48,9 @@ defaults:
     server: something server ops should know
     soundadd: added a new sound thingy
     sounddel: removed an old sound thingy
+    sound: added/modified/removed audio or sound effects
     spellcheck: fixed a few typos
     tweak: tweaked a few things
-
+    map: added/modified/removed map content
+    qol: made something easier to use
+    github: changed something on github

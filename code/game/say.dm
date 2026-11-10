@@ -154,10 +154,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(!radio_freq)
 			if(H.wear_id?.GetID())
 				var/obj/item/card/id/idcard = H.wear_id.GetID()
-				if(idcard.hud_state == JOB_HUD_UNKNOWN)
+				if(idcard.get_hud_state() == JOB_HUD_UNKNOWN)
 					spanpart2 = "<span class='name unassigned'>"
 				else
-					spanpart2 = "<span class='name [idcard.hud_state]'>"
+					spanpart2 = "<span class='name [idcard.get_hud_state()]'>"
 			else
 				spanpart2 = "<span class='name unknown'>"
 	else if(isliving(speaker) && !radio_freq)

@@ -758,7 +758,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += borg
 
 /// Returns a list of AI's
-/proc/active_ais(check_mind = FALSE)
+/proc/active_ais(check_mind = FALSE, virtual_z)
 	. = list()
 	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		if(ai.stat == DEAD)
@@ -767,37 +767,31 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		if(check_mind && !ai.mind)
 			continue
+		if(virtual_z && ai.get_virtual_z_level() != virtual_z)
+			continue
 		. += ai
 
-/// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
-/proc/select_active_ai_with_fewest_borgs()
+//Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
+/proc/select_active_ai_with_fewest_borgs(virtual_z)
 	var/mob/living/silicon/ai/selected
-	var/list/active = active_ais()
-	for(var/mob/living/silicon/ai/A in active)
-		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !IS_SERVANT_OF_RATVAR(A))
-			selected = A
-
+	for(var/mob/living/silicon/ai/ai as anything in active_ais(FALSE, virtual_z))
+		if(!selected || length(selected.connected_robots) > length(ai.connected_robots))
+			selected = ai
 	return selected
 
 /// Select a random active and free borg
 /proc/select_active_free_borg(mob/user)
 	var/list/borgs = active_free_borgs()
-	if(borgs.len)
-		if(user)
-			. = tgui_input_list(user,"Unshackled cyborg signals detected:", "Cyborg Selection", sort_list(borgs))
-		else
-			. = pick(borgs)
-	return .
+	if(!length(borgs))
+		return
+	return user ? tgui_input_list(user, "Unshackled cyborg signals detected:", "Cyborg Selection", sort_list(borgs)) : pick(borgs)
 
 /// Select a random and active free AI
-/proc/select_active_ai(mob/user)
-	var/list/ais = active_ais()
-	if(ais.len)
-		if(user)
-			. = tgui_input_list(user,"AI signals detected:", "AI Selection", sort_list(ais))
-		else
-			. = pick(ais)
-	return .
+/proc/select_active_ai(mob/user, virtual_z)
+	var/list/ais = active_ais(FALSE, virtual_z)
+	if(!length(ais))
+		return
+	return user ? tgui_input_list(user, "AI signals detected:", "AI Selection", sort_list(ais)) : pick(ais)
 
 /**
  * Used to get the amount of change between two body temperatures

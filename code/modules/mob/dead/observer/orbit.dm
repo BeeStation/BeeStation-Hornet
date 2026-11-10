@@ -238,9 +238,9 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 		return serialized
 
 	var/obj/item/card/id/id_card = player.get_idcard(hand_first = FALSE)
-	serialized["job"] = id_card?.assignment
-	if(id_card?.hud_state)
-		serialized["icon"] = "hud[id_card.hud_state]"
+	serialized["job"] = id_card?.get_assignment()
+	if(id_card?.get_hud_state())
+		serialized["icon"] = "hud[id_card.get_hud_state()]"
 
 	var/datum/job/mind_job = player.mind?.assigned_role
 	if (mind_job)

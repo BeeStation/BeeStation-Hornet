@@ -570,7 +570,7 @@
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if (istype(R))
-					R.SetEmagged(0)
+					R.SetEmagged(FALSE)
 					message_admins("[key_name_admin(usr)] has unemag'ed [R].")
 					log_admin("[key_name(usr)] has unemag'ed [R].")
 
@@ -578,7 +578,7 @@
 				if(isAI(current))
 					var/mob/living/silicon/ai/ai = current
 					for (var/mob/living/silicon/robot/R in ai.connected_robots)
-						R.SetEmagged(0)
+						R.SetEmagged(FALSE)
 					message_admins("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
 					log_admin("[key_name(usr)] has unemag'ed [ai]'s Cyborgs.")
 

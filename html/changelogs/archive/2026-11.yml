@@ -51,3 +51,70 @@
   - balance: the weak variant of improvised 7.62 ammo now destroys the gun firing
       it slower, additionally, the mosin is more durable, allowing it to handle twice
       as many of your homemade munitions as the pipe rifle before breaking entirely.
+2026-11-06:
+  DrDuckedGoose:
+  - bugfix: Fix math & APC files
+2026-11-07:
+  Isaacnml:
+  - bugfix: "Fixed stray markup and team colors in CTF flag capture and victory announcements.\xBF"
+  - qol: CTF now tells players how long they have left before they can respawn
+  - balance: Doubled CTF team shield integrity.
+  - bugfix: Fixed crowbar deconstruction of quantum pads with an open maintenance
+      panel
+  - bugfix: "Picking up a pet you\u2019re already pulling no longer opens its strip\
+      \ menu"
+  - bugfix: Mop attacks now go through against living targets in combat mode
+  - bugfix: Newly spawned swarmers now have real names that match their displayed
+      names
+  - bugfix: Fixed initialization of the auxiliary base construction camera at its
+      starting location
+  - bugfix: Nanite dermal buttons now use their configured color and refresh their
+      appearance when settings sync
+  - image: Added a green plus HUD action icon
+  - bugfix: Xenoarchaeology radio announcements now report the bonus applied to the
+      reward, CORRECTLY
+  - bugfix: Compact NTOS radar now supports scanning and selecting targets
+2026-11-09:
+  Isaac, moocowswag:
+  - rscadd: "Welders keep repairing APC covers until they\u2019re fixed or welding\
+      \ is interrupted."
+  - rscadd: Broken APC covers can be replaced with a new frame, closing the panel,
+      will turn on the power, Engineering borgs can fit the frame with a screwdriver
+  mrmanlikesbt, Arkatos, Melbert, Sealed101, vinylspiders:
+  - qol: Interacting with a cyborg chassis now uses TGUI instead of a HTML menu.
+  - qol: Added screentips for cyborg chassis.
+  - qol: Examining a MMI now gives more detailed information on the status of the
+      brain.
+  - bugfix: Fixed cyborgs being ghosted when they dropped an MMI (when gibbed or deconstructed).
+  - bugfix: Fixed cyborgs not being disconnected when their parent AI was deleted.
+  - bugfix: Fixed a runtime when a person was transformed into a cyborg by either
+      wabbajack or adminbus.
+  - bugfix: Fixed various potential harddels related to cyborg construction.
+  - bugfix: Fixed objects sometimes appearing as being a few levels below you when
+      they were on the same level.
+  - bugfix: Fixed silicons playing two death gasps when they died.
+  - bugfix: Fixed silicons not having their HUDs updated on death.
+2026-11-10:
+  rkz/tsar-salat:
+  - rscadd: adds temporary access system to IDs
+  - tweak: Lowpop skeleton crew access has been significantly reworked. The access
+      provided by skeleton access is now dynamic and based on current population rather
+      than population at roundstart. Skeleton access is also now temporary and per
+      department. It ends 5 minutes after the covered job is filled (i.e. Medical
+      Doctors with Chemistry access) or enough crew arrive, and comes back if they
+      leave
+  - rscadd: Promoting someone to a head job at an ID console makes them an Acting
+      head (title, HUD, access, command pay) on top of their own job. Only people
+      who join as the head (latejoin/join from lobby) are full heads
+  - bugfix: giving a head or acting head a custom job title no longer breaks that
+      job in the manifest or elsewhere in the code (that ended up being really important)
+  - rscadd: An acting head's access, title, and command pay ends 5 minutes after a
+      real head of that job arrives. The jobber who was acting head reverts to their
+      previous title and access.
+  - rscadd: ID cards announce access changes. They will brief the jobber if they have
+      a mantle/acting role and skeleton access after they spawn
+  - rscadd: Examining an ID card will show its current mantle (if any) and list its
+      temporary access
+  - tweak: Agent ID cards steal temp access as permanent access.
+  - bugfix: cryo reopens job slots again
+  - bugfix: a second ID in a PDA no longer mutates the access of the first ID

@@ -12,7 +12,6 @@
 	outfit = /datum/outfit/job/lawyer
 
 	base_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/service,

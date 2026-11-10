@@ -582,7 +582,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					make_new_construct_from_class(construct_class, THEME_CULT, candidate, user, FALSE, T)
 					SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 					uses--
-					candidate.mmi = null
 					qdel(candidate)
 					channeling = FALSE
 				else

@@ -47,9 +47,6 @@ export const file_labels = {
 //
 // Add a label based on keywords in the title
 export const title_labels = {
-  Logging: {
-    keywords: ['log', 'logging'],
-  },
   Removal: {
     keywords: ['remove', 'delete'],
   },
