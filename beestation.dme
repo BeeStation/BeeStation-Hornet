@@ -1356,6 +1356,7 @@
 #include "code\datums\storage\subtypes\misc.dm"
 #include "code\datums\storage\subtypes\pockets.dm"
 #include "code\datums\storage\subtypes\rped.dm"
+#include "code\datums\storage\subtypes\toolboxes.dm"
 #include "code\datums\storage\subtypes\trash.dm"
 #include "code\datums\traits\_quirk.dm"
 #include "code\datums\traits\negative_quirk.dm"
