@@ -57,10 +57,14 @@
 	/// For space, the asteroid, lavaland, etc. Used with blueprints or with weather to determine if we are adding a new area (vs editing a station room)
 	var/outdoors = FALSE
 
-	var/areasize = 0 //Size of the area in open turfs, only calculated for indoors areas.
+	///Size of the area in open turfs, only calculated for indoors areas.
+	var/areasize = 0
 
-	var/mood_bonus = 0 //Mood for being here
-	var/mood_message = span_nicegreen("This area is pretty nice!\n") //Mood message for being here, only shows up if mood_bonus != 0
+	//Mood for being here
+	var/mood_bonus = 0
+	///Mood message for being here, only shows up if mood_bonus != 0
+	var/mood_message = span_nicegreen("This area is pretty nice!\n")
+
 	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
 	var/list/mood_job_allowed = null
 	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
@@ -105,6 +109,7 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	///Whatever the hell is this flag...
 	flags_1 = CAN_BE_DIRTY_1
 
 	var/list/cameras
@@ -117,11 +122,11 @@
 
 	var/list/power_usage
 
-	var/lighting_colour_tube = "#FFF6ED"
-	var/lighting_colour_bulb = "#FFE6CC"
-	var/lighting_colour_night = "#FFDBB5"
+	var/lighting_colour_tube = COLOR_TUBE
 	var/lighting_brightness_tube = 11
+	var/lighting_colour_bulb = COLOR_BULB
 	var/lighting_brightness_bulb = 6
+	var/lighting_colour_night = COLOR_NIGHT
 	var/lighting_brightness_night = 6
 
 	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.

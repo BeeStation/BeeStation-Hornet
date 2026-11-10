@@ -288,6 +288,12 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define COLOR_GNOME_GREY "#a9a9a9"
 #define COLOR_GNOME_BLACK "#303030"
 
+//todo after the zone resorting is merged - color sorting, curse you atomization rule!
+
+#define COLOR_TUBE	"#FFF6ED"
+#define COLOR_BULB	"#FFE6CC"
+#define COLOR_NIGHT	"#FFDBB5"
+
 #define CM_COLOR_SAT_MIN 0.6
 #define CM_COLOR_SAT_MAX 0.7
 #define CM_COLOR_LUM_MIN 0.65
