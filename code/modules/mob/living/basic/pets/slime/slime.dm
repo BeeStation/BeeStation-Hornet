@@ -6,13 +6,13 @@
 /mob/living/basic/slime
 	name = "grey baby slime (123)"
 	icon = 'icons/mob/slimes.dmi'
-	icon_state = "grey baby slime"
+	icon_state = "grey-baby"
 	pass_flags = PASSTABLE | PASSGRILLE
 	gender = NEUTER
 	faction = list(FACTION_SLIME, FACTION_NEUTRAL)
 
-	icon_living = "grey baby slime"
-	icon_dead = "grey baby slime dead"
+	icon_living = "grey-baby"
+	icon_dead = "grey-baby-dead"
 
 	attack_sound = 'sound/weapons/bite.ogg'
 
@@ -218,10 +218,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 
 /mob/living/basic/slime/regenerate_icons()
 	cut_overlays()
-	var/icon_text = "[slime_type.colour] [life_stage] slime"
-	icon_dead = "[icon_text] dead"
+	alpha = slime_type.transparent ? SLIME_TRANSPARENCY_ALPHA : initial(alpha)
+
+	icon_living = "[slime_type.colour]-[life_stage]"
+	icon_dead = !cores ? "[slime_type.colour]-cut" : "[slime_type.colour]-[life_stage]-dead"
+
 	if(stat != DEAD)
-		icon_state = icon_text
+		icon_state = icon_living
 		if(current_mood && current_mood != SLIME_MOOD_NONE && !stat)
 			add_overlay("aslime-[current_mood]")
 	else
@@ -423,6 +426,22 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/basic/slime/random)
 	else
 		visible_message(span_warning("The mutated core shudders, and collapses into a puddle, unable to maintain its form."))
 	qdel(src)
+
+///Proc for slime core removal surgery, tries to remove cores from a dead slime.
+/mob/living/basic/slime/proc/try_extract_cores(count = 1)
+	if(stat != DEAD)
+		return FALSE
+	if(count <= 0 || cores < count)
+		return FALSE
+
+	var/core_count = min(count, cores)
+	for(var/i in 1 to core_count)
+		new slime_type.core_type(loc)
+		cores--
+
+	regenerate_icons()
+
+	return TRUE
 
 ///Makes the slime peaceful and content
 /mob/living/basic/slime/proc/set_pacified_behaviour()

@@ -201,11 +201,19 @@
 			AM.forceMove(src)
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
-	var/mob/living/basic/slime/S = what
-	if (istype(S))
-		var/C = S.cores
-		for(var/i in 1 to (C+rating_amount-1))
-			var/obj/item/slime_extract/item = new S.slime_type.core_type(drop_location())
-			adjust_item_drop_location(item)
-			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.slime_type.colour)
-	..()
+	var/mob/living/basic/slime/processed_slime = what
+	if (!istype(processed_slime))
+		return
+
+	if(processed_slime.stat != DEAD)
+		processed_slime.forceMove(drop_location())
+		processed_slime.balloon_alert_to_viewers("crawls free")
+		return
+
+	var/core_count = processed_slime.cores
+	var/extra_cores = rating_amount - 1 // 0-3 bonus cores above what slime already has with upgraded parts
+	for(var/i in 1 to (core_count + extra_cores))
+		var/atom/movable/item = new processed_slime.slime_type.core_type(drop_location())
+		adjust_item_drop_location(item)
+		SSblackbox.record_feedback("tally", "slime_core_harvested", 1, processed_slime.slime_type.colour)
+	return ..()

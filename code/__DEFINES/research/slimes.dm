@@ -37,19 +37,19 @@
 
 // Just slimin' here.
 // Warning: These defines are used for slime icon states, so if you
-// touch these names, remember to update icons/mob/simple/slimes.dmi!
+// touch these names, remember to update icons/mob/slimes.dmi!
 
 #define SLIME_TYPE_ADAMANTINE "adamantine"
 #define SLIME_TYPE_BLACK "black"
 #define SLIME_TYPE_BLUE "blue"
 #define SLIME_TYPE_BLUESPACE "bluespace"
 #define SLIME_TYPE_CERULEAN "cerulean"
-#define SLIME_TYPE_DARK_BLUE "dark blue"
-#define SLIME_TYPE_DARK_PURPLE "dark purple"
+#define SLIME_TYPE_DARK_BLUE "dark-blue"
+#define SLIME_TYPE_DARK_PURPLE "dark-purple"
 #define SLIME_TYPE_GOLD "gold"
 #define SLIME_TYPE_GREEN "green"
 #define SLIME_TYPE_GREY "grey"
-#define SLIME_TYPE_LIGHT_PINK "light pink"
+#define SLIME_TYPE_LIGHT_PINK "light-pink"
 #define SLIME_TYPE_METAL "metal"
 #define SLIME_TYPE_OIL "oil"
 #define SLIME_TYPE_ORANGE "orange"
@@ -65,9 +65,12 @@
 // Not a real slime type, used to create random slimes
 #define SLIME_TYPE_RANDOM "random"
 
+/// The alpha value of transperent slime types
+#define SLIME_TRANSPARENCY_ALPHA 180
+
 // Below are unique slime colors
 
-#define SLIME_TYPE_DARK_GREEN "dark green"
+#define SLIME_TYPE_DARK_GREEN "dark-green"
 #define SLIME_TYPE_COBALT "cobalt"
-#define SLIME_TYPE_DARK_GREY "dark grey"
+#define SLIME_TYPE_DARK_GREY "dark-grey"
 #define SLIME_TYPE_CRIMSON "crimson"

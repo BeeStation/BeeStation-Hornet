@@ -236,7 +236,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 		stored_slime.forceMove(target_turf)
 		stored_slime.visible_message(span_notice("[stored_slime] warps in!"))
 		stored_slimes -= stored_slime
-		REMOVE_TRAIT(stored_slime, TRAIT_STASIS, XENOBIO_CONSOLE_TRAIT)
+		stored_slime.remove_status_effect(/datum/status_effect/grouped/stasis, XENOBIO_CONSOLE_TRAIT)
 		stored_slime.handle_slime_stasis()
 
 ///Places every slime not controlled by a player into the internal storage, respecting its limits
@@ -257,7 +257,7 @@ Due to keyboard shortcuts, the second one is not necessarily the remote eye's lo
 	target_slime.visible_message(span_notice("[target_slime] vanishes in a flash of light!"))
 	target_slime.forceMove(src)
 	stored_slimes += target_slime
-	ADD_TRAIT(target_slime, TRAIT_STASIS, XENOBIO_CONSOLE_TRAIT)
+	target_slime.apply_status_effect(/datum/status_effect/grouped/stasis, XENOBIO_CONSOLE_TRAIT)
 
 	return FALSE
 

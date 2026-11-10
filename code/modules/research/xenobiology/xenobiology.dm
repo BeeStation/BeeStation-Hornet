@@ -4,7 +4,7 @@
 	name = "slime extract"
 	desc = "Goo extracted from a slime. Legends claim these to have \"magical powers\"."
 	icon = 'icons/mob/slimes.dmi'
-	icon_state = "grey slime extract"
+	icon_state = "grey-core"
 	force = 0
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
@@ -90,7 +90,7 @@
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
-	icon_state = "grey slime extract"
+	icon_state = "grey-core"
 	crossbreed_modification = "reproductive"
 	color_slime = SLIME_TYPE_GREY
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -115,7 +115,7 @@
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
-	icon_state = "gold slime extract"
+	icon_state = "gold-core"
 	crossbreed_modification = "symbiont"
 	color_slime = SLIME_TYPE_GOLD
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -147,7 +147,7 @@
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
-	icon_state = "silver slime extract"
+	icon_state = "silver-core"
 	crossbreed_modification = "consuming"
 	color_slime = SLIME_TYPE_SILVER
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -173,7 +173,7 @@
 
 /obj/item/slime_extract/metal
 	name = "metal slime extract"
-	icon_state = "metal slime extract"
+	icon_state = "metal-core"
 	crossbreed_modification = "industrial"
 	color_slime = SLIME_TYPE_METAL
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -198,7 +198,7 @@
 
 /obj/item/slime_extract/purple
 	name = "purple slime extract"
-	icon_state = "purple slime extract"
+	icon_state = "purple-core"
 	crossbreed_modification = "regenerative"
 	color_slime = SLIME_TYPE_PURPLE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -220,7 +220,7 @@
 
 /obj/item/slime_extract/darkpurple
 	name = "dark purple slime extract"
-	icon_state = "dark purple slime extract"
+	icon_state = "dark-purple-core"
 	crossbreed_modification = "self-sustaining"
 	color_slime = SLIME_TYPE_DARK_PURPLE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
@@ -245,7 +245,7 @@
 
 /obj/item/slime_extract/orange
 	name = "orange slime extract"
-	icon_state = "orange slime extract"
+	icon_state = "orange-core"
 	crossbreed_modification = "burning"
 	color_slime = SLIME_TYPE_ORANGE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -268,7 +268,7 @@
 
 /obj/item/slime_extract/yellow
 	name = "yellow slime extract"
-	icon_state = "yellow slime extract"
+	icon_state = "yellow-core"
 	crossbreed_modification = "charged"
 	color_slime = SLIME_TYPE_YELLOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -302,7 +302,7 @@
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
-	icon_state = "red slime extract"
+	icon_state = "red-core"
 	crossbreed_modification = "sanguine"
 	color_slime = SLIME_TYPE_RED
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -325,7 +325,7 @@
 
 /obj/item/slime_extract/blue
 	name = "blue slime extract"
-	icon_state = "blue slime extract"
+	icon_state = "blue-core"
 	crossbreed_modification = "stabilized"
 	color_slime = SLIME_TYPE_BLUE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -352,7 +352,7 @@
 
 /obj/item/slime_extract/darkblue
 	name = "dark blue slime extract"
-	icon_state = "dark blue slime extract"
+	icon_state = "dark-blue-core"
 	crossbreed_modification = "chilling"
 	color_slime = SLIME_TYPE_DARK_BLUE
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -378,7 +378,7 @@
 
 /obj/item/slime_extract/pink
 	name = "pink slime extract"
-	icon_state = "pink slime extract"
+	icon_state = "pink-core"
 	crossbreed_modification = "gentle"
 	color_slime = SLIME_TYPE_PINK
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -403,7 +403,7 @@
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
-	icon_state = "green slime extract"
+	icon_state = "green-core"
 	crossbreed_modification = "mutative"
 	color_slime = SLIME_TYPE_GREEN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/uranium/radium)
@@ -430,7 +430,7 @@
 
 /obj/item/slime_extract/lightpink
 	name = "light pink slime extract"
-	icon_state = "light pink slime extract"
+	icon_state = "light-pink-core"
 	crossbreed_modification = "loyal"
 	color_slime = SLIME_TYPE_LIGHT_PINK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
@@ -455,7 +455,7 @@
 
 /obj/item/slime_extract/black
 	name = "black slime extract"
-	icon_state = "black slime extract"
+	icon_state = "black-core"
 	crossbreed_modification = "transformative"
 	color_slime = SLIME_TYPE_BLACK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
@@ -479,7 +479,7 @@
 
 /obj/item/slime_extract/oil
 	name = "oil slime extract"
-	icon_state = "oil slime extract"
+	icon_state = "oil-core"
 	crossbreed_modification = "detonating"
 	color_slime = SLIME_TYPE_OIL
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -506,7 +506,7 @@
 
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
-	icon_state = "adamantine slime extract"
+	icon_state = "adamantine-core"
 	crossbreed_modification = "crystalline"
 	color_slime = SLIME_TYPE_ADAMANTINE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
@@ -539,7 +539,7 @@
 
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
-	icon_state = "bluespace slime extract"
+	icon_state = "bluespace-core"
 	crossbreed_modification = "warping"
 	color_slime = SLIME_TYPE_BLUESPACE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -590,7 +590,7 @@
 
 /obj/item/slime_extract/pyrite
 	name = "pyrite slime extract"
-	icon_state = "pyrite slime extract"
+	icon_state = "pyrite-core"
 	crossbreed_modification = "prismatic"
 	color_slime = SLIME_TYPE_PYRITE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -633,7 +633,7 @@
 
 /obj/item/slime_extract/cerulean
 	name = "cerulean slime extract"
-	icon_state = "cerulean slime extract"
+	icon_state = "cerulean-core"
 	crossbreed_modification = "recurring"
 	color_slime = SLIME_TYPE_CERULEAN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -656,7 +656,7 @@
 
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"
-	icon_state = "sepia slime extract"
+	icon_state = "sepia-core"
 	crossbreed_modification = "lengthened"
 	color_slime = SLIME_TYPE_SEPIA
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
@@ -679,7 +679,7 @@
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
-	icon_state = "rainbow slime extract"
+	icon_state = "rainbow-core"
 	crossbreed_modification = "hyperchromatic"
 	color_slime = SLIME_TYPE_RAINBOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,"lesser plasma",/datum/reagent/toxin/slimejelly,"holy water and uranium") //Curse this snowflake reagent list.
@@ -731,7 +731,7 @@
 
 /obj/item/slime_extract/darkgreen
 	name = "dark green slime extract"
-	icon_state = "dark green slime extract"
+	icon_state = "dark-green-core"
 	crossbreed_modification = "verdant"
 	color_slime = SLIME_TYPE_DARK_GREEN
 	activate_reagents = list(/datum/reagent/water,/datum/reagent/medicine/earthsblood)
@@ -740,7 +740,7 @@
 
 /obj/item/slime_extract/cobalt
 	name = "cobalt slime extract"
-	icon_state = "cobalt slime extract"
+	icon_state = "cobalt-core"
 	crossbreed_modification = "hypercompressed"
 	color_slime = SLIME_TYPE_COBALT
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -749,7 +749,7 @@
 
 /obj/item/slime_extract/darkgrey
 	name = "dark grey slime extract"
-	icon_state = "dark grey slime extract"
+	icon_state = "dark-grey-core"
 	crossbreed_modification = "multitudinous"
 	color_slime = SLIME_TYPE_DARK_GREY
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
@@ -758,7 +758,7 @@
 
 /obj/item/slime_extract/crimson
 	name = "crimson slime extract"
-	icon_state = "crimson slime extract"
+	icon_state = "crimson-core"
 	crossbreed_modification = "furious"
 	color_slime = SLIME_TYPE_CRIMSON
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
