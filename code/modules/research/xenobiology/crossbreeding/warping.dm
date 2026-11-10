@@ -380,7 +380,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(!GLOB.blue_storage)
 		GLOB.blue_storage = new
 	GLOB.blue_storage.loc = loc
-	GLOB.blue_storage.atom_storage.refresh_views()
+	GLOB.blue_storage.atom_storage.show_contents(user)
 	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
