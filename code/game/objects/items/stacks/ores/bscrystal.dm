@@ -67,6 +67,8 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal)
 	refined_type = null
 	grind_results = list(/datum/reagent/bluespace = 10, /datum/reagent/silicon = 20)
 	merge_type = /obj/item/stack/ore/bluespace_crystal/artificial
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/artificial)
 
@@ -77,5 +79,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/artificial)
 	points = 1
 	refined_type = null
 	merge_type = /obj/item/stack/ore/bluespace_crystal/refined
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/refined)

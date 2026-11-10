@@ -30,6 +30,8 @@ Mineral Sheets
 	throw_range = 5
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
+	pickup_sound = 'sound/items/handling/materials/snow_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/snow_drop.ogg'
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/closed/wall/mineral/sandstone
 
@@ -44,6 +46,8 @@ Mineral Sheets
 	inhand_icon_state = "sheet-diamond"
 	singular_name = "diamond"
 	sheettype = "diamond"
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/carbon = 20)
 	point_value = 25
