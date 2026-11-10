@@ -211,7 +211,7 @@ Regenerative extracts:
 	..()
 	if(isslime(target))
 		target.visible_message(span_warning("The [target] suddenly changes color!"))
-		var/mob/living/simple_animal/slime/S = target
+		var/mob/living/basic/slime/S = target
 		S.random_colour()
 	if(isoozeling(target))
 		target.reagents.add_reagent(/datum/reagent/mutationtoxin/jelly,5)

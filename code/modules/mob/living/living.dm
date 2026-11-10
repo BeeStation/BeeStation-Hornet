@@ -1388,7 +1388,7 @@
 				/mob/living/simple_animal/butterfly,
 				/mob/living/basic/pet/cat/cak,
 				/mob/living/simple_animal/chick,
-				/mob/living/simple_animal/slime/random,
+				/mob/living/basic/slime/random,
 				/mob/living/carbon/monkey,
 				/mob/living/carbon/alien/humanoid/hunter,
 				/mob/living/carbon/alien/humanoid/sentinel,

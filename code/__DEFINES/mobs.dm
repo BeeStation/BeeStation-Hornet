@@ -80,6 +80,8 @@
 #define MOB_REPTILE (1 << 8)
 /// The mob is a spooky phantasm or an evil ghast of such nature.
 #define MOB_SPIRIT (1 << 9)
+///The mob is a goopy creature, probably coming from xenobiology.
+#define MOB_SLIME (1 << 11)
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -303,23 +305,14 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 // Charge gained per unit of liquid electricity ingested.
 #define ETHEREAL_LIQUID_ELECTRICITY_GAIN (0.03 * STANDARD_ETHEREAL_CHARGE)
 
-//Base nutrition value used for newly initialized slimes
-#define SLIME_DEFAULT_NUTRITION 700
-
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
 
+//Slime evolution cost in nutrition
+#define SLIME_EVOLUTION_COST 200
+
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
-
-//Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //! Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //! Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //! Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //! Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //! Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //! Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //! Min friendship to order it to attack
 
 //Slime transformative extract effects
 #define SLIME_EFFECT_DEFAULT		(1<<0)

@@ -225,7 +225,7 @@
 	. = ..()
 	if(reac_volume < 5)
 		return
-	for(var/mob/living/simple_animal/slime/slime in exposed_turf)
+	for(var/mob/living/basic/slime/slime in exposed_turf)
 		slime.adjustToxLoss(rand(15, 30))
 
 /datum/reagent/pyrosium

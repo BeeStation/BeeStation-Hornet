@@ -16,7 +16,7 @@ Slimecrossing Mobs
 
 	convert_damage = TRUE
 	convert_damage_type = CLONE
-	possible_shapes = list(/mob/living/simple_animal/slime/transformed_slime)
+	possible_shapes = list(/mob/living/basic/slime/transformed_slime)
 
 	/// If TRUE, we self-delete (remove ourselves) the next time we turn back into a human
 	var/remove_on_restore = FALSE
@@ -30,10 +30,10 @@ Slimecrossing Mobs
 		qdel(src)
 
 /// Transformed slime - from Burning Black
-/mob/living/simple_animal/slime/transformed_slime
+/mob/living/basic/slime/transformed_slime
 
 // Just in case.
-/mob/living/simple_animal/slime/transformed_slime/Reproduce()
+/mob/living/basic/slime/transformed_slime/reproduce()
 	to_chat(src, span_warning("I can't reproduce..."))
 	return
 
@@ -49,7 +49,7 @@ Slimecrossing Mobs
 //i think i hate this proc. abandon all hope ye who refactor here.
 /datum/action/spell/oozeling_evolve/on_cast(mob/living/user)
 	..()
-	var/mob/living/simple_animal/slime/evolver = owner
+	var/mob/living/basic/slime/evolver = owner
 	var/colour = evolver.slime_type.colour
 	var/ooze_colour = null
 	switch((colour))

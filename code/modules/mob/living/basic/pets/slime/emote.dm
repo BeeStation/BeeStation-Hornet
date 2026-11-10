@@ -1,6 +1,6 @@
 /datum/emote/slime
 	abstract_type = /datum/emote/slime
-	mob_type_allowed_typecache = /mob/living/simple_animal/slime
+	mob_type_allowed_typecache = /mob/living/basic/slime
 	mob_type_blacklist_typecache = list()
 
 /datum/emote/slime/bounce
@@ -45,7 +45,7 @@
 
 /datum/emote/slime/mood/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/mob/living/simple_animal/slime/slime_user = user
+	var/mob/living/basic/slime/slime_user = user
 	slime_user.current_mood = mood_key
 	slime_user.regenerate_icons()
 

@@ -40372,7 +40372,7 @@
 /turf/open/floor/prison/dark,
 /area/station/security/prison)
 "mNJ" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/circuit/green,
 /area/station/science/xenobiology)
 "mNN" = (

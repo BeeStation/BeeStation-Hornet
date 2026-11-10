@@ -11129,7 +11129,7 @@
 /area/station/engineering/main)
 "gPN" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "gQb" = (
@@ -18525,7 +18525,7 @@
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
-/mob/living/simple_animal/slime/random,
+/mob/living/basic/slime/random,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "lvz" = (
@@ -35746,7 +35746,7 @@
 	req_access_txt = "47"
 	},
 /obj/structure/window/reinforced/spawner/directional/south,
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "vGd" = (
@@ -39219,7 +39219,7 @@
 /area/station/maintenance/department/engine/atmos)
 "xJy" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "xJB" = (

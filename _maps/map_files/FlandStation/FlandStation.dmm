@@ -42114,9 +42114,8 @@
 /turf/open/floor/engine/co2/light,
 /area/station/engineering/atmos)
 "mnY" = (
-/mob/living/simple_animal/slime/pet{
+/mob/living/basic/slime/pet{
 	desc = "The rare case of a friendly slime.";
-	emote_see = list("jiggles","bounces in place","wobble around");
 	name = "George"
 	},
 /turf/open/floor/carpet/purple,
@@ -78550,7 +78549,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/central)
 "xkz" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/circuit/green,
 /area/station/science/xenobiology)
 "xkC" = (

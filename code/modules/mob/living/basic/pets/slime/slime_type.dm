@@ -237,6 +237,7 @@ GLOBAL_LIST_INIT(random_slime_types, subtypesof(/datum/slime_type) - list(
 	mutations = list(
 		/datum/slime_type/cobalt = 1,
 	)
+	rgb_code = COLOR_SLIME_COBALT
 
 /datum/slime_type/crimson
 	colour = SLIME_TYPE_CRIMSON
@@ -244,6 +245,7 @@ GLOBAL_LIST_INIT(random_slime_types, subtypesof(/datum/slime_type) - list(
 	mutations = list(
 		/datum/slime_type/crimson = 1,
 	)
+	rgb_code = COLOR_SLIME_CRIMSON
 
 /datum/slime_type/darkgreen
 	colour = SLIME_TYPE_DARK_GREEN
@@ -251,6 +253,7 @@ GLOBAL_LIST_INIT(random_slime_types, subtypesof(/datum/slime_type) - list(
 	mutations = list(
 		/datum/slime_type/darkgreen = 1,
 	)
+	rgb_code = COLOR_SLIME_DARK_GREEN
 
 /datum/slime_type/darkgrey
 	colour = SLIME_TYPE_DARK_GREY
@@ -258,3 +261,4 @@ GLOBAL_LIST_INIT(random_slime_types, subtypesof(/datum/slime_type) - list(
 	mutations = list(
 		/datum/slime_type/darkgrey = 1,
 	)
+	rgb_code = COLOR_SLIME_DARK_GREY

@@ -21,17 +21,17 @@
 	if(!isslime(living_mob))
 		to_chat(user, span_warning("This device can only scan slimes!"))
 		return
-	var/mob/living/simple_animal/slime/scanned_slime = living_mob
+	var/mob/living/basic/slime/scanned_slime = living_mob
 	slime_scan(scanned_slime, user)
 
-/proc/slime_scan(mob/living/simple_animal/slime/scanned_slime, mob/living/user)
+/proc/slime_scan(mob/living/basic/slime/scanned_slime, mob/living/user)
 	var/to_render = "<b>Slime scan results:</b>\
 					\n[span_notice("[scanned_slime.slime_type.colour] [scanned_slime.life_stage] slime")]\
-					\nNutrition: [scanned_slime.nutrition]/[scanned_slime.max_nutrition]"
+					\nNutrition: [scanned_slime.nutrition]/[SLIME_MAX_NUTRITION]"
 
-	if (scanned_slime.nutrition < scanned_slime.starve_nutrition)
+	if (scanned_slime.nutrition < SLIME_STARVE_NUTRITION)
 		to_render += "\n[span_warning("Warning: slime is starving!")]"
-	else if (scanned_slime.nutrition < scanned_slime.hunger_nutrition)
+	else if (scanned_slime.nutrition < SLIME_HUNGER_NUTRITION)
 		to_render += "\n[span_warning("Warning: slime is hungry")]"
 
 	to_render += "\nElectric charge strength: [scanned_slime.powerlevel]\nHealth: [round(scanned_slime.health/scanned_slime.maxHealth,0.01)*100]%"
@@ -103,7 +103,7 @@
 		if(scanned_slime.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
 		to_render += span_notice("\n[slimeeffect].")
-	if(scanned_slime.special_mutation == TRUE)
+	if(scanned_slime.special_mutation_type)
 		var/datum/slime_type/special_type = scanned_slime.special_mutation_type
 		to_render += span_notice("\n This slime has achieved the criteria for a special mutation! On split, it will become four [initial(special_type.colour)] slimes")
 	to_chat(user, examine_block(jointext(to_render,"")))

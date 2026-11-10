@@ -8563,7 +8563,7 @@
 /turf/closed/wall,
 /area/station/engineering/main)
 "dQc" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "dQk" = (

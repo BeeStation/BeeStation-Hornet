@@ -163,7 +163,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 			if(req_extracts <= 0)
 				for(var/datum/slime_type/slime_type_path as anything in subtypesof(/datum/slime_type))
 					if(initial(slime_type_path.colour) == extracttype)
-						new /mob/living/simple_animal/slime(rune_turf, slime_type_path) //spawn a slime from the extract's color
+						new /mob/living/basic/slime(rune_turf, slime_type_path) //spawn a slime from the extract's color
 						break
 				req_extracts = initial(req_extracts)
 				extracttype = null // reset extracttype to FALSE to allow a new extract type

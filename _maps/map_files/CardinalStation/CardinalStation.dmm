@@ -12577,7 +12577,7 @@
 /obj/effect/turf_decal/trimline/white/mid_joiner{
 	dir = 8
 	},
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/science/xenobiology)
 "cYr" = (
@@ -43482,7 +43482,7 @@
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 8
 	},
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /obj/effect/turf_decal/trimline/white/mid_joiner{
 	dir = 8
 	},
@@ -75768,7 +75768,7 @@
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
 	},
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /obj/effect/turf_decal/trimline/white/mid_joiner{
 	dir = 4
 	},
