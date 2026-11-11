@@ -11,7 +11,7 @@
 		{
 			"type": "auxtools",
 			"request": "launch",
-			"name": "Debug DreamSeeker",
+			"name": "Debug DreamSeeker (hot-reloading)",
 			"preLaunchTask": "Build All",
 			"dmb": "${workspaceFolder}/beestation.dmb",
 			"server": "dreamseeker"
