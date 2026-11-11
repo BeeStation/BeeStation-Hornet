@@ -166,7 +166,6 @@ SUBSYSTEM_DEF(stat)
 		remove_job_estimation(player)
 		return
 
-	// Assigning to an existing key keeps the player's place in the ready order
 	job_estimation_entries[REF(player)] = list(job, get_job_estimation_name(player.client.prefs, job))
 	rebuild_job_estimation()
 
