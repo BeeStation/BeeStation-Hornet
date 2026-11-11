@@ -72,6 +72,7 @@
 	if(!do_after(user, 3 SECONDS, src))
 		return
 	flags_inv ^= HIDEHAIR
+	user.refresh_obscured()
 	balloon_alert(user, "[flags_inv & HIDEHAIR ? "tightened" : "loosened"] straps")
 	return TRUE
 
@@ -135,6 +136,7 @@
 	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
+		carbon_user.refresh_obscured()
 		carbon_user.head_update(src, forced = TRUE)
 
 ///Attempt to toggle the visor. Returns true if it does the thing.

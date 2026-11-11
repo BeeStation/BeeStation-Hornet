@@ -140,7 +140,7 @@
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(dna && dna.species)
-		var/spec_return = dna.species.spec_hitby(AM, src)
+		var/spec_return = dna.species.spec_hitby(AM, src, throwingdatum)
 		if(spec_return)
 			return spec_return
 	var/obj/item/I
@@ -148,7 +148,7 @@
 	if(istype(AM, /obj/item))
 		I = AM
 		throwpower = I.throwforce
-		if(I.thrownby == WEAKREF(src)) //No throwing stuff at yourself to trigger hit reactions
+		if(throwingdatum?.get_thrower() == src) //No throwing stuff at yourself to trigger hit reactions
 			return ..()
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = FALSE
@@ -754,29 +754,28 @@
 
 /mob/living/carbon/human/proc/burn_clothing(delta_time, stacks)
 	var/list/burning_items = list()
-	var/covered = check_covered_slots()
 	//HEAD//
 
-	if(glasses && !(covered & ITEM_SLOT_EYES))
+	if(glasses && !(covered_slots & HIDEEYES))
 		burning_items += glasses
-	if(wear_mask && !(covered & ITEM_SLOT_MASK))
+	if(wear_mask && !(covered_slots & HIDEMASK))
 		burning_items += wear_mask
-	if(wear_neck && !(covered & ITEM_SLOT_NECK))
+	if(wear_neck && !(covered_slots & HIDENECK))
 		burning_items += wear_neck
-	if(ears && !(covered & ITEM_SLOT_EARS))
+	if(ears && !(covered_slots & HIDEEARS))
 		burning_items += ears
 	if(head)
 		burning_items += head
 
 	//CHEST//
-	if(w_uniform && !(covered & ITEM_SLOT_ICLOTHING))
+	if(w_uniform && !(covered_slots & HIDEJUMPSUIT))
 		burning_items += w_uniform
 	if(wear_suit)
 		burning_items += wear_suit
 
 	//ARMS & HANDS//
 	var/obj/item/clothing/arm_clothes = null
-	if(gloves && !(covered & ITEM_SLOT_GLOVES))
+	if(gloves && !(covered_slots & HIDEGLOVES))
 		arm_clothes = gloves
 	else if(wear_suit && ((wear_suit.body_parts_covered & HANDS) || (wear_suit.body_parts_covered & ARMS)))
 		arm_clothes = wear_suit
@@ -787,7 +786,7 @@
 
 	//LEGS & FEET//
 	var/obj/item/clothing/leg_clothes = null
-	if(shoes && !(covered & ITEM_SLOT_FEET))
+	if(shoes && !(covered_slots & HIDESHOES))
 		leg_clothes = shoes
 	else if(wear_suit && ((wear_suit.body_parts_covered & FEET) || (wear_suit.body_parts_covered & LEGS)))
 		leg_clothes = wear_suit

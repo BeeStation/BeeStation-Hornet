@@ -204,7 +204,7 @@
 	active_item.slot_flags = null
 	active_item.set_custom_materials(null)
 
-	var/side = zone == BODY_ZONE_R_ARM ? "right" : "left"
+	var/side = zone == BODY_ZONE_R_ARM ? RIGHT_HANDS : LEFT_HANDS
 	var/hand = owner.get_empty_held_index_for_side(side)
 	if(hand)
 		owner.put_in_hand(active_item, hand)
@@ -386,7 +386,8 @@
 	name = "power cord implant"
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	items_to_create = list(/obj/item/apc_powercord)
-	zone = "l_arm"
+	zone = BODY_ZONE_L_ARM
+	slot = ORGAN_SLOT_LEFT_ARM_AUG
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"

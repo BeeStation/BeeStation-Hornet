@@ -3,8 +3,10 @@
 // So propulsion through space on move, that sort of thing
 /datum/component/jetpack
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
-	/// Checks to ensure if we can move & if we can activate
+	/// Checks to ensure if we can move
 	var/datum/callback/check_on_move
+	/// Checks to ensure we can activate
+	var/datum/callback/check_on_activation
 	/// If we should stabilize ourselves when not drifting
 	var/stabilize = FALSE
 	/// The signal we listen for as an activation
@@ -18,6 +20,8 @@
 	/// The typepath to instansiate our trail as, when we need it
 	var/effect_type
 
+	VAR_PRIVATE/active = FALSE
+
 /**
  * Arguments:
  * * stabilize - If we should drift when we finish moving, or sit stable in space]
@@ -27,7 +31,15 @@
  * * check_on_move - Callback we call each time we attempt a move, we expect it to retun true if the move is ok, false otherwise. It expects an arg, TRUE if fuel should be consumed, FALSE othewise
  * * effect_type - Type of trail_follow to spawn
  */
-/datum/component/jetpack/Initialize(stabilize, activation_signal, deactivation_signal, return_flag, datum/callback/check_on_move, datum/effect_system/trail_follow/effect_type)
+/datum/component/jetpack/Initialize(
+	stabilize = FALSE,
+	activation_signal,
+	deactivation_signal,
+	return_flag,
+	datum/callback/check_on_move,
+	datum/callback/check_on_activation,
+	datum/effect_system/trail_follow/effect_type
+)
 	. = ..()
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -40,12 +52,13 @@
 
 	src.stabilize = stabilize
 	src.check_on_move = check_on_move
+	src.check_on_activation = check_on_activation
 	src.activation_signal = activation_signal
 	src.deactivation_signal = deactivation_signal
 	src.return_flag = return_flag
 	src.effect_type = effect_type
 
-/datum/component/jetpack/InheritComponent(datum/component/component, original, stabilize, activation_signal, deactivation_signal, return_flag, datum/callback/check_on_move, datum/effect_system/trail_follow/effect_type)
+/datum/component/jetpack/InheritComponent(datum/component/component, original, stabilize, activation_signal, deactivation_signal, return_flag, datum/callback/check_on_move, datum/callback/check_on_activation, datum/effect_system/trail_follow/effect_type)
 	UnregisterSignal(parent, src.activation_signal)
 	if(src.deactivation_signal)
 		UnregisterSignal(parent, src.deactivation_signal)
@@ -55,6 +68,7 @@
 
 	src.stabilize = stabilize
 	src.check_on_move = check_on_move
+	src.check_on_activation = check_on_activation
 	src.activation_signal = activation_signal
 	src.deactivation_signal = deactivation_signal
 	src.return_flag = return_flag
@@ -67,6 +81,7 @@
 	if(trail)
 		QDEL_NULL(trail)
 	check_on_move = null
+	check_on_activation = null
 	return ..()
 
 /datum/component/jetpack/proc/setup_trail(mob/user)
@@ -83,43 +98,75 @@
 /datum/component/jetpack/proc/activate(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	if(!check_on_move.Invoke(TRUE))
+	if(!isnull(check_on_activation) && !check_on_activation.Invoke())
 		return return_flag
 
+	active = TRUE
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
 	RegisterSignal(user, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(pre_move_react))
-	RegisterSignal(user, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(spacemove_react))
 	RegisterSignal(user, COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT, PROC_REF(block_starting_visuals))
-	RegisterSignal(user, COMSIG_MOVABLE_DRIFT_BLOCK_INPUT, PROC_REF(ignore_ending_block))
-
-	setup_trail(user)
+	RegisterSignal(user, COMSIG_MOVABLE_DRIFT_BLOCK_INPUT, PROC_REF(on_input_block))
+	RegisterSignal(user, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(stabilize))
+	if (effect_type)
+		setup_trail(user)
 
 /datum/component/jetpack/proc/deactivate(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(user, COMSIG_MOVABLE_PRE_MOVE)
-	UnregisterSignal(user, COMSIG_MOVABLE_SPACEMOVE)
-	UnregisterSignal(user, COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT)
-	UnregisterSignal(user, COMSIG_MOVABLE_DRIFT_BLOCK_INPUT)
+	if(!active)
+		return
+
+	active = FALSE
+	UnregisterSignal(user, list(
+		COMSIG_MOVABLE_MOVED,
+		COMSIG_MOVABLE_PRE_MOVE,
+		COMSIG_MOVABLE_SPACEMOVE,
+		COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT,
+		COMSIG_MOVABLE_DRIFT_BLOCK_INPUT
+	))
 
 	if(trail)
 		QDEL_NULL(trail)
 
-/datum/component/jetpack/proc/move_react(mob/user)
+/datum/component/jetpack/proc/move_react(mob/source)
 	SIGNAL_HANDLER
-	if(!user || !user.client)//Don't allow jet self using
+	if (!should_trigger(source))
 		return
-	if(!isturf(user.loc))//You can't use jet in nowhere or from mecha/closet
-		return
-	if(!(user.movement_type & FLOATING) || user.buckled)//You don't want use jet in gravity or while buckled.
-		return
-	if(user.pulledby)//You don't must use jet if someone pull you
-		return
-	if(user.throwing)//You don't must use jet if you thrown
-		return
-	if(length(user.client.keys_held & SSinput.movement_keys))//You use jet when press keys. yes.
-		thrust()
+
+	if(length(source.client.keys_held & SSinput.movement_keys) && check_on_move.Invoke(TRUE)) //You use jet when press keys. yes.
+		trail?.generate_effect()
+
+/// Handles all active 0g movement, including both manual (trying to move a direction in 0g) and automatic (drifting idly in 0g)
+/datum/component/jetpack/proc/stabilize(mob/source, movement_dir, continuous_move, backup)
+	SIGNAL_HANDLER
+	/*
+	 * Checks if we should stop any active movement
+	 *
+	 * Obviously we stop all forms of drifting if we have stabilizers active (allowing free space movement)
+	 * Less obviously, we stop need to stop drift if we are trying to move *while passively drifting*
+	 * (Without checking the latter, jetpacks will act very weird and jank. As you move in one direction,
+	 * you will simultaneously drift in that direction, causing you to jump/skip a tile every so often.)
+	 *
+	 * Either way, we need to check that we have the "fuel" to stop this
+	 * DO NOT CONSUME FUEL HERE, just check if we have it
+	 * This is done because things other then us can use our fuel
+	 */
+	if((stabilize || (!continuous_move && movement_dir)) && check_on_move.Invoke(FALSE))
+		return COMSIG_MOVABLE_STOP_SPACEMOVE
+	return NONE
+
+/datum/component/jetpack/proc/should_trigger(mob/source)
+	if(!source || !source.client)//Don't allow jet self using
+		return FALSE
+	if(!isturf(source.loc))//You can't use jet in nowhere or from mecha/closet
+		return FALSE
+	if(!(source.movement_type & FLOATING) || source.buckled)//You don't want use jet in gravity or while buckled.
+		return FALSE
+	if(source.pulledby)//You don't must use jet if someone pull you
+		return FALSE
+	if(source.throwing)//You don't must use jet if you thrown
+		return FALSE
+	return TRUE
 
 /datum/component/jetpack/proc/pre_move_react(mob/user)
 	SIGNAL_HANDLER
@@ -127,28 +174,18 @@
 		return FALSE
 	trail.oldposition = get_turf(user)
 
-/datum/component/jetpack/proc/spacemove_react(mob/user, movement_dir, continuous_move)
+/datum/component/jetpack/proc/on_input_block(mob/source)
 	SIGNAL_HANDLER
-	if(!continuous_move && movement_dir)
-		return COMSIG_MOVABLE_STOP_SPACEMOVE
-	// Check if we have the fuel to stop this. Do NOT cosume any fuel, just check
-	// This is done because things other then us can use our fuel
-	if(stabilize && check_on_move.Invoke(FALSE))
-		return COMSIG_MOVABLE_STOP_SPACEMOVE
 
-/// Returns true if the thrust went well, false otherwise
-/datum/component/jetpack/proc/thrust()
-	if(!check_on_move.Invoke(TRUE))
-		return FALSE
-	trail?.generate_effect()
-	return TRUE
+	if (!should_trigger(source))
+		return NONE
+
+	if (!check_on_move.Invoke(TRUE))
+		return NONE
+
+	return DRIFT_ALLOW_INPUT
 
 /// Basically, tell the drift component not to do its starting visuals, because they look dumb for us
 /datum/component/jetpack/proc/block_starting_visuals(datum/source)
 	SIGNAL_HANDLER
 	return DRIFT_VISUAL_FAILED
-
-/// If we're on, don't let the drift component block movements at the end since we can speed
-/datum/component/jetpack/proc/ignore_ending_block(datum/source)
-	SIGNAL_HANDLER
-	return DRIFT_ALLOW_INPUT

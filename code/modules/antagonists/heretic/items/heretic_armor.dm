@@ -8,6 +8,16 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = FLASH_PROTECTION_WELDER
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	clothing_flags = THICKMATERIAL | SNUG_FIT
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/heretic
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
+	. = ..()
+	if(texture_type)
+		AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, texture_type)
+
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/equipped(mob/user, slot)
 	..()
@@ -26,13 +36,24 @@
 	desc = "A ragged, dusty set of robes. Strange eyes line the inside."
 	icon_state = "eldritch_armor"
 	inhand_icon_state = null
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDEBELT
+	body_parts_covered = CHEST | GROIN | LEGS | FEET | ARMS
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	clothing_flags = THICKMATERIAL
+	transparent_protection = HIDEGLOVES | HIDESUITSTORAGE | HIDEJUMPSUIT | HIDESHOES | HIDENECK
+	cold_protection = FULL_BODY
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
 	armor_type = /datum/armor/cultrobes_eldritch
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/heretic
 
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/Initialize(mapload)
+	. = ..()
+	if(texture_type)
+		AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, texture_type)
 
 /datum/armor/cultrobes_eldritch
 	melee = 50

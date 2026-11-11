@@ -2,8 +2,10 @@
 	db_key = "feature_insect_type"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	relevant_mutant_bodypart = "insect_type"
 	priority = PREFERENCE_PRIORITY_BODYPARTS
+
+/datum/preference/choiced/insect_type/has_relevant_feature(datum/preferences/preferences)
+	return current_species_has_savekey(preferences)
 
 /datum/preference/choiced/insect_type/init_possible_values()
 	return assoc_to_keys(GLOB.insect_type_list)

@@ -127,7 +127,7 @@
 
 /datum/gear/donator/item
 	subtype_path = /datum/gear/donator/item
-	slot = ITEM_SLOT_BACKPACK
+	slot = LOADOUT_SLOT_BACKPACK
 	cost = 5000
 
 /datum/gear/donator/item/plush_ian
