@@ -145,7 +145,7 @@
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
 			ready = tready
 		//if it's post initialisation and they're trying to observe we do the needful
-		if(!SSticker.current_state < GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
+		if(SSticker.current_state >= GAME_STATE_SETTING_UP && tready == PLAYER_READY_TO_OBSERVE)
 			ready = tready
 			SSstat.update_job_estimation(src)
 			make_me_an_observer()

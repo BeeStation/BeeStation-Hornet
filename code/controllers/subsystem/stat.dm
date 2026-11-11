@@ -18,11 +18,9 @@ SUBSYSTEM_DEF(stat)
 	//List of people who need re-updating after icon requests are processed
 	var/list/currentrun_aftericon = list()
 
-	/// Readied command and silicon players. List first
-	var/list/job_estimation_command = list()
-	/// Every other readied player
-	var/list/job_estimation_crew = list()
-	/// stat tab row built from above two lists
+	/// Readied players in ready order
+	var/list/job_estimation_entries = list()
+	/// Stat tab rows from job_estimation_entries
 	var/list/job_estimation_rows = list()
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
@@ -163,20 +161,13 @@ SUBSYSTEM_DEF(stat)
 /datum/controller/subsystem/stat/proc/update_job_estimation(mob/dead/new_player/authenticated/player)
 	if(!istype(player))
 		return
-	var/player_ref = REF(player)
 	var/datum/job/job = get_job_estimation_job(player)
 	if(!job)
 		remove_job_estimation(player)
 		return
 
-	var/list/entry = list(job.title, get_job_estimation_name(player.client.prefs, job))
 	// Assigning to an existing key keeps the player's place in the ready order
-	if(job.departments_bitflags & (DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SILICON))
-		job_estimation_crew -= player_ref
-		job_estimation_command[player_ref] = entry
-	else
-		job_estimation_command -= player_ref
-		job_estimation_crew[player_ref] = entry
+	job_estimation_entries[REF(player)] = list(job, get_job_estimation_name(player.client.prefs, job))
 	rebuild_job_estimation()
 
 /// job to be listed under, null if should not be listed
@@ -194,53 +185,62 @@ SUBSYSTEM_DEF(stat)
 	var/always_named = (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) || job.title == JOB_NAME_AI
 	if(!always_named && !prefs.read_player_preference(/datum/preference/toggle/job_estimation_name))
 		return
-	switch(job.title)
-		if(JOB_NAME_AI)
-			return prefs.read_character_preference(/datum/preference/name/ai)
-		if(JOB_NAME_CLOWN)
-			return prefs.read_character_preference(/datum/preference/name/clown)
-		if(JOB_NAME_MIME)
-			return prefs.read_character_preference(/datum/preference/name/mime)
-		if(JOB_NAME_CYBORG)
-			var/cyborg_name = prefs.read_character_preference(/datum/preference/name/cyborg)
-			return cyborg_name == DEFAULT_CYBORG_NAME ? null : cyborg_name
+	// Jobs like clown and AI are snowflake
+	for(var/preference_type in GLOB.preference_entries)
+		var/datum/preference/name/name_pref = GLOB.preference_entries[preference_type]
+		if(!istype(name_pref) || !name_pref.relevant_job || !istype(job, name_pref.relevant_job))
+			continue
+		var/job_name = prefs.read_character_preference(preference_type)
+		if(istype(name_pref, /datum/preference/name/cyborg) && job_name == DEFAULT_CYBORG_NAME)
+			return
+		return job_name
 	if(CONFIG_GET(flag/force_random_names) || prefs.read_character_preference(/datum/preference/choiced/random_name) != RANDOM_DISABLED)
 		return
 	return prefs.read_character_preference(/datum/preference/name/real_name)
 
 /// Groups readied players by job
 /datum/controller/subsystem/stat/proc/rebuild_job_estimation()
+	job_estimation_rows = list()
+	if(!length(job_estimation_entries))
+		return
+
 	var/list/names_by_job = list()
 	var/list/anonymous_by_job = list()
-	var/list/entries = job_estimation_command + job_estimation_crew
-	for(var/player_ref in entries)
-		var/list/entry = entries[player_ref]
-		var/title = entry[1]
+	for(var/player_ref in job_estimation_entries)
+		var/list/entry = job_estimation_entries[player_ref]
+		var/datum/job/job = entry[1]
 		var/name = entry[2]
-		if(!names_by_job[title])
-			names_by_job[title] = list()
+		if(!names_by_job[job.title])
+			names_by_job[job.title] = list()
 		if(name)
-			names_by_job[title] += name
+			names_by_job[job.title] += name
 		else
-			anonymous_by_job[title] += 1
+			anonymous_by_job[job.title] += 1
 
-	job_estimation_rows = list()
-	if(!length(names_by_job))
-		return
+	// Command and silicons first
+	var/list/command_titles = list()
+	var/list/crew_titles = list()
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
+		if(!names_by_job[job.title])
+			continue
+		if(job.departments_bitflags & (DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SILICON))
+			command_titles += job.title
+		else
+			crew_titles += job.title
+
 	job_estimation_rows["divider_job_estimation"] = GENERATE_STAT_DIVIDER
 	job_estimation_rows["Job Estimation"] = GENERATE_STAT_TEXT("")
-	for(var/title in names_by_job)
+	for(var/title in command_titles + crew_titles)
 		var/list/names = names_by_job[title]
 		if(anonymous_by_job[title])
-			names = names + "[anonymous_by_job[title]] anonymous"
+			names += "[anonymous_by_job[title]] anonymous"
 		job_estimation_rows[title] = GENERATE_STAT_TEXT(jointext(names, ", "))
 
 /datum/controller/subsystem/stat/proc/remove_job_estimation(mob/dead/new_player/authenticated/player)
 	var/player_ref = REF(player)
-	if(!job_estimation_command[player_ref] && !job_estimation_crew[player_ref])
+	if(!job_estimation_entries[player_ref])
 		return
-	job_estimation_command -= player_ref
-	job_estimation_crew -= player_ref
+	job_estimation_entries -= player_ref
 	rebuild_job_estimation()
 
 #undef FLAT_ICON_CACHE_MAX_SIZE
