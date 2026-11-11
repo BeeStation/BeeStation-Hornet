@@ -82,7 +82,6 @@ GLOBAL_LIST_INIT(fancy_type_replacements, list(
 	/obj/machinery/door/airlock = "AIRLOCK",
 	/obj/machinery/rnd/production = "RND_FABRICATOR",
 	/obj/machinery/computer = "COMPUTER",
-	//obj/machinery/computer/camera_advanced/shuttle_docker = "DOCKING_COMPUTER",
 	/obj/machinery/vending = "VENDING",
 	/obj/machinery/vending/wardrobe = "JOBDROBE",
 	/obj/effect = "EFFECT",
