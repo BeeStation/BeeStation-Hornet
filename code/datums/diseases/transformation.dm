@@ -84,24 +84,26 @@
 /datum/disease/transformation/proc/replace_banned_player(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
-	affected_mob.playable_bantype = bantype
-	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
-	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
-
 	var/datum/poll_config/config = new(
 		check_jobban = bantype,
 		poll_time = 10 SECONDS,
-		jump_target = affected_mob,
-		alert_pic = affected_mob,
-		role_name_text = affected_mob.name,
+		jump_target = new_mob,
+		alert_pic = new_mob,
+		role_name_text = affected_mob.real_name,
 		amount_to_pick = 1,
 	)
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, affected_mob)
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, new_mob)
+	if(QDELETED(new_mob))
+		return
 	if(candidate)
-		affected_mob.key = candidate.key
-		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
+		to_chat(new_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+		new_mob.ghostize(FALSE)
+		new_mob.key = candidate.key
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(new_mob)]) to replace a jobbanned player.")
 	else
 		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
+		new_mob.playable_bantype = bantype
+		new_mob.ghostize(FALSE, SENTIENCE_FORCE)
 
 /datum/disease/transformation/robot
 
