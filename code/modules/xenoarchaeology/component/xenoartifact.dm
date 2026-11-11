@@ -315,6 +315,7 @@
 	atom_parent.item_price /= 2
 	//Disable artifact
 	cooldown_override = TRUE
+	atom_parent.visible_message(span_warning("[atom_parent] cracks and goes dull, it has calcified!"), allow_inside_usr = TRUE)
 
 	SEND_SIGNAL(src, COMSIG_XENOA_CALCIFIED)
 
