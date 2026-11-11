@@ -118,3 +118,10 @@
   - tweak: Agent ID cards steal temp access as permanent access.
   - bugfix: cryo reopens job slots again
   - bugfix: a second ID in a PDA no longer mutates the access of the first ID
+2026-11-11:
+  SergeiKoralev:
+  - map: Supermatter gas input from connectors now pumps into the waste loop.
+  - map: Removed redundant filters in the supermatter waste/exhaust loop
+  - map: Supermatter gas harvesting position adjusted on all stations.
+  - map: Tweaked positions of supermatter gas meters, decals, and some portable atmos
+      equipment.
