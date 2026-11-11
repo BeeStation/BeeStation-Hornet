@@ -1,0 +1,5 @@
+author: Kubsius
+delete-after: true
+changes:
+  - tweak: allowed speech component to have language options
+  - code_imp: added the station_languages global list for common station languages
