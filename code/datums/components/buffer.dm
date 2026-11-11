@@ -12,8 +12,6 @@
 
 #define FLUSH_BUFFER(target) SEND_SIGNAL(target, COMSIG_ITEM_FLUSH_BUFFER)
 
-#define GET_BUFFER(target) SEND_SIGNAL(target, COMSIG_ITEM_GET_BUFFER)
-
 /datum/component/buffer
 	/// The buffer contained by this component. Private to prevent people from manually assigning it.
 	VAR_PRIVATE/datum/contained_buffer
@@ -24,7 +22,6 @@
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(self_flush_buffer))
 	RegisterSignal(parent, COMSIG_ITEM_FLUSH_BUFFER, PROC_REF(self_flush_buffer))
 	RegisterSignal(parent, COMSIG_ITEM_PUSH_BUFFER, PROC_REF(populate_buffer))
-	RegisterSignal(parent, COMSIG_ITEM_GET_BUFFER, PROC_REF(get_buffer))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
 /datum/component/buffer/proc/on_interaction(datum/source, mob/living/user, atom/target, list/modifiers)
@@ -65,5 +62,9 @@
 	contained_buffer = null
 
 /datum/component/buffer/proc/get_buffer()
-	SIGNAL_HANDLER
 	return contained_buffer
+
+/// Returns whatever is stored in the target's buffer component, if it has one.
+/proc/get_buffer_contents(datum/target)
+	var/datum/component/buffer/buffer_comp = target?.GetComponent(/datum/component/buffer)
+	return buffer_comp?.get_buffer()
