@@ -94,8 +94,12 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define DEADMIN_POSITION_SILICON	(1<<2)
 
 /// State when an interview has been approved
-#define INTERVIEW_APPROVED	"interview_approved"
+#define INTERVIEW_APPROVED "interview_approved"
 /// State when an interview as been denied
-#define INTERVIEW_DENIED 	"interview_denied"
+#define INTERVIEW_DENIED "interview_denied"
 /// State when an interview has had no action on it yet
-#define INTERVIEW_PENDING	"interview_pending"
+#define INTERVIEW_PENDING "interview_pending"
+
+
+//How many things you can spawn at once with spawn verb/create panel
+#define ADMIN_SPAWN_CAP 100
