@@ -218,31 +218,30 @@
 /datum/xenoartifact_trait/proc/get_dictionary_hint()
 	return list()
 
-//Check the artifact, item, moves to see if we open up for 'pearling'
-/datum/xenoartifact_trait/proc/catch_move(datum/source, atom/target, dir)
-	SIGNAL_HANDLER
-
-	if(!component_parent.calibrated)
-		return
-	//Check if we're at our heart location, which is based on our weight-x and conductivity-y
+///is the calibrated artifact sitting on our heart tile
+/datum/xenoartifact_trait/proc/at_heart_location()
+	if(!component_parent?.calibrated)
+		return FALSE
 	var/atom/atom_parent = component_parent.parent
 	if(!isturf(atom_parent?.loc))
+		return FALSE
+	return atom_parent.x % (weight || atom_parent.x || 1) == 0 && atom_parent.y % (conductivity || atom_parent.y || 1) == 0
+
+//Check the artifact, item, moves to see if we open up for 'pearling'
+/datum/xenoartifact_trait/proc/catch_move(datum/source, atom/old_loc, dir)
+	SIGNAL_HANDLER
+
+	if(!at_heart_location())
 		return
-	if(target.x % (weight || target.x || 1) == 0 && target.y % (conductivity || target.y || 1) == 0)
-		var/atom/target_loc = atom_parent.loc
-		target_loc.visible_message("<span class='warning'>[atom_parent] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [atom_parent]!</span>", allow_inside_usr = TRUE)
-		//Do effects
-		playsound(atom_parent, 'sound/machines/clockcult/ark_damage.ogg', 50, TRUE)
+	var/atom/atom_parent = component_parent.parent
+	var/atom/target_loc = atom_parent.loc
+	target_loc.visible_message("<span class='warning'>[atom_parent] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [atom_parent]!</span>", allow_inside_usr = TRUE)
+	playsound(atom_parent, 'sound/machines/clockcult/ark_damage.ogg', 50, TRUE)
 
 /datum/xenoartifact_trait/proc/catch_pearl_tool(datum/source, mob/living/user, obj/item/I, list/recipes)
 	SIGNAL_HANDLER
 
-	if(!component_parent.calibrated)
-		return
-	var/atom/atom_parent = component_parent.parent
-	if(!isturf(atom_parent?.loc))
-		return
-	if(atom_parent.x % (weight || atom_parent.x || 1) != 0 || atom_parent.y % (conductivity || atom_parent.y || 1) != 0)
+	if(!at_heart_location())
 		return
 	INVOKE_ASYNC(src, PROC_REF(pry_action), user, I)
 
