@@ -6,7 +6,6 @@ import {
   Icon,
   Input,
   Section,
-  Stack,
   VirtualList,
 } from 'tgui-core/components';
 import { fetchRetry } from 'tgui-core/http';
@@ -20,8 +19,10 @@ import {
   KEY_UP,
 } from 'tgui-core/keycodes';
 import type { BooleanLike } from 'tgui-core/react';
+
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
+import { Stack } from '../components';
 import { Window } from '../layouts';
 import { logger } from '../logging';
 
@@ -127,8 +128,9 @@ export function SpawnSearch() {
     }
 
     const finalizer = filterQuery.slice(filterQuery.length - 1);
-    if (finalizer === '*' || finalizer === '!')
+    if (finalizer === '*' || finalizer === '!') {
       filterQuery = filterQuery.slice(0, filterQuery.length - 1);
+    }
     filterQuery = filterQuery.toLowerCase();
 
     let searchLambda = (x: string) => x.toLowerCase().includes(filterQuery);
@@ -338,7 +340,7 @@ export function SpawnSearch() {
                     expensive
                     fluid
                     onEnter={() => handleSelect(filteredItems[selected])}
-                    onChange={handleSearch}
+                    onInput={(e, value) => handleSearch(value)}
                     placeholder="Search..."
                     value={query}
                     style={{

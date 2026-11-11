@@ -11,8 +11,8 @@
 		/obj/effect/mob_spawn,
 		/obj/effect/holodeck_effect,
 		/obj/docking_port,
-		/obj/modular_map_connector,
-		/obj/modular_map_root,
+		//obj/modular_map_connector,
+		//obj/modular_map_root,
 		/obj/pathfind_guy,
 	))
 

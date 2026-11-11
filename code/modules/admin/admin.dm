@@ -513,7 +513,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom(input as null|text)
+/datum/admins/proc/spawn_atom(object as null|text)
 	set category = "Debug"
 	set desc = "Spawn an atom"
 	set name = "Spawn"
@@ -534,12 +534,10 @@
 			chosen_path = matches[1]
 
 	if(!chosen_path)
-		var/datum/spawn_menu/menu = usr.holder.spawn_menu
-		if (!menu)
-			menu = new()
-			usr.holder.spawn_menu = menu
-		menu.init_value = object
-		menu.ui_interact(usr.mob)
+		if (!spawn_menu)
+			spawn_menu = new()
+		spawn_menu.init_value = object
+		spawn_menu.ui_interact(usr)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return TRUE
 
@@ -547,7 +545,7 @@
 	if (length(preparsed) > 1)
 		amount = clamp(text2num(preparsed[2]), 1, ADMIN_SPAWN_CAP)
 
-	var/turf/target_turf = get_turf(usr.mob)
+	var/turf/target_turf = get_turf(usr)
 	if (ispath(chosen_path, /turf))
 		target_turf.ChangeTurf(chosen_path)
 	else
@@ -555,8 +553,21 @@
 			var/atom/spawned = new chosen_path(target_turf)
 			spawned.flags_1 |= ADMIN_SPAWNED_1
 
-	log_admin("[key_name(usr.mob)] spawned [amount] x [chosen_path] at [AREACOORD(usr.mob)]")
+	log_admin("[key_name(usr)] spawned [amount] x [chosen_path] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/open_spawn_panel()
+	set category = "Admin.Game"
+	set desc = "Spawn Panel (TGUI)."
+	set name = "Spawn Panel"
+
+	if(!check_rights(R_SPAWN))
+		return
+
+	if(!spawn_panel)
+		spawn_panel = new()
+	spawn_panel.ui_interact(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/podspawn_atom(object as text)
 	set category = "Debug"

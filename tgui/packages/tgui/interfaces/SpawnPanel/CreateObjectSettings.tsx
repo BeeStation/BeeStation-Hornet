@@ -6,12 +6,12 @@ import {
   Icon,
   Input,
   NumberInput,
-  Slider,
   Stack,
   Table,
 } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
+import { Slider } from '../../components';
 import {
   directionNames,
   directionRotation,
@@ -315,8 +315,10 @@ export function CreateObjectSettings(props: CreateObjectSettingsProps) {
                       lineHeight={1}
                       stepPixelSize={25}
                       value={direction}
-                      format={(value) => dirValues[value].toString()}
-                      onChange={(e, value) => updateDirection(value)}
+                      format={(value: number) => dirValues[value].toString()}
+                      onChange={(e: Event, value: number) =>
+                        updateDirection(value)
+                      }
                       disabled={isAnyPreciseModeActive}
                     />
                   </Stack.Item>
@@ -352,7 +354,8 @@ export function CreateObjectSettings(props: CreateObjectSettingsProps) {
                     <Input
                       placeholder="x, y, z"
                       value={offset}
-                      onChange={(value: string) => updateOffset(value)}
+                      updateOnPropsChange
+                      onChange={(e, value: string) => updateOffset(value)}
                       width="100%"
                       disabled={
                         isTargetMode ||
@@ -371,8 +374,9 @@ export function CreateObjectSettings(props: CreateObjectSettingsProps) {
               </Table.Cell>
               <Table.Cell>
                 <Input
-                  onChange={(value: string) => updateObjectName(value)}
+                  onChange={(e, value: string) => updateObjectName(value)}
                   value={objectName}
+                  updateOnPropsChange
                   width="100%"
                   placeholder="leave empty for initial"
                   disabled={isAnyPreciseModeActive}

@@ -80,7 +80,7 @@
 
 /**
  * Make sure we can interact with the target and then apply effects
- * Called from /datum/action/spell/pointed/slab/InterceptClickOn()
+ * Called from /datum/action/spell/pointed/slab/proc/InterceptClickOn()
  */
 /datum/clockcult/scripture/slab/proc/click_on(atom/clicked_on)
 	if(!invoker.can_interact_with(clicked_on))

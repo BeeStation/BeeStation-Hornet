@@ -9,11 +9,11 @@ import {
   Stack,
   VirtualList,
 } from 'tgui-core/components';
-import { useFuzzySearch } from 'tgui-core/fuzzysearch';
 
 import { useBackend } from '../../backend';
-import { CreateObjectSettings } from './CreateObjectSettings';
+import { useFuzzySearch } from '../../fuzzysearch';
 import { listNames, listTypes } from './constants';
+import { CreateObjectSettings } from './CreateObjectSettings';
 import type {
   AtomData,
   CreateObjectProps,
@@ -207,7 +207,7 @@ export function CreateObject(props: CreateObjectProps) {
       if (!offsetStr.trim()) return [0, 0, 0];
 
       const parts = offsetStr.split(',').map((part) => {
-        return parseInt(part.trim());
+        return parseInt(part.trim(), 10);
       });
 
       while (parts.length < 3) {
@@ -400,7 +400,9 @@ export function CreateObject(props: CreateObjectProps) {
               <Input
                 placeholder="Search here..."
                 value={query}
-                onChange={(value) => updateSearchText(value)}
+                updateOnPropsChange
+                expensive
+                onInput={(e, value) => updateSearchText(value)}
                 fluid
               />
             </Stack.Item>
