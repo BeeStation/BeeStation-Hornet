@@ -7,7 +7,7 @@ Each object in the loop is checked for applies_to() of various export datums, ex
 /* The rule in figuring out item export cost:
 Export cost of goods in the shipping crate must be always equal or lower than:
 	packcage cost - crate cost - manifest cost
-Crate cost is 500cr for a regular plasteel crate and 100cr for a large wooden one. Manifest cost is always 200cr.
+Crate cost is 200cr for a regular plasteel crate and 100cr for a large wooden one. Manifest cost is always 200cr.
 This is to avoid easy cargo points dupes.
 
 Credit dupes that require a lot of manual work shouldn't be removed, unless they yield too much profit for too little work.
@@ -224,7 +224,7 @@ then the player gets the profit from selling his own wasted time.
 
 	// Count occurrences using associative list
 	var/list/counts = list()
-	for(var/atom/thing in report.exported_atoms)
+	for(var/atom/thing in report.exported_atoms[src])
 		if(thing.name)
 			counts[thing.name] = (counts[thing.name] || 0) + 1
 
