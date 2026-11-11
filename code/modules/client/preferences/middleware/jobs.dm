@@ -8,6 +8,7 @@
 	preferences.job_preferences = list()
 	preferences.character_preview_view?.update_body()
 	preferences.mark_undatumized_dirty_character()
+	SSstat.update_job_estimation(user)
 	return TRUE
 
 /datum/preference_middleware/jobs/proc/set_job_preference(list/params, mob/user)
@@ -32,8 +33,12 @@
 		return FALSE
 
 	preferences.character_preview_view?.update_body()
+	SSstat.update_job_estimation(user)
 
 	return TRUE
+
+/datum/preference_middleware/jobs/on_new_character(mob/user)
+	SSstat.update_job_estimation(user)
 
 /datum/preference_middleware/jobs/get_constant_data()
 	var/list/data = list()

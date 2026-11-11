@@ -18,6 +18,13 @@ SUBSYSTEM_DEF(stat)
 	//List of people who need re-updating after icon requests are processed
 	var/list/currentrun_aftericon = list()
 
+	/// Readied command and silicon players. List first
+	var/list/job_estimation_command = list()
+	/// Every other readied player
+	var/list/job_estimation_crew = list()
+	/// stat tab row built from above two lists
+	var/list/job_estimation_rows = list()
+
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)
 		src.currentrun = GLOB.clients_unsafe.Copy()
@@ -150,5 +157,90 @@ SUBSYSTEM_DEF(stat)
 	for(var/client/C in GLOB.clients_unsafe)
 		if(C?.tgui_panel)
 			C.tgui_panel.clear_alert_popup()
+
+// Job estimation code
+
+/datum/controller/subsystem/stat/proc/update_job_estimation(mob/dead/new_player/authenticated/player)
+	if(!istype(player))
+		return
+	var/player_ref = REF(player)
+	var/datum/job/job = get_job_estimation_job(player)
+	if(!job)
+		remove_job_estimation(player)
+		return
+
+	var/list/entry = list(job.title, get_job_estimation_name(player.client.prefs, job))
+	// Assigning to an existing key keeps the player's place in the ready order
+	if(job.departments_bitflags & (DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SILICON))
+		job_estimation_crew -= player_ref
+		job_estimation_command[player_ref] = entry
+	else
+		job_estimation_command -= player_ref
+		job_estimation_crew[player_ref] = entry
+	rebuild_job_estimation()
+
+/// job to be listed under, null if should not be listed
+/datum/controller/subsystem/stat/proc/get_job_estimation_job(mob/dead/new_player/authenticated/player)
+	if(SSticker.HasRoundStarted() || !CONFIG_GET(flag/show_job_estimation))
+		return
+	if(!player.client || player.ready != PLAYER_READY_TO_PLAY)
+		return
+	var/datum/job/job = player.client.prefs.get_highest_priority_job()
+	if(!job || job.title == JOB_NAME_ASSISTANT || job.title == JOB_NAME_PRISONER)
+		return
+	return job
+
+/datum/controller/subsystem/stat/proc/get_job_estimation_name(datum/preferences/prefs, datum/job/job)
+	var/always_named = (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) || job.title == JOB_NAME_AI
+	if(!always_named && !prefs.read_player_preference(/datum/preference/toggle/job_estimation_name))
+		return
+	switch(job.title)
+		if(JOB_NAME_AI)
+			return prefs.read_character_preference(/datum/preference/name/ai)
+		if(JOB_NAME_CLOWN)
+			return prefs.read_character_preference(/datum/preference/name/clown)
+		if(JOB_NAME_MIME)
+			return prefs.read_character_preference(/datum/preference/name/mime)
+		if(JOB_NAME_CYBORG)
+			var/cyborg_name = prefs.read_character_preference(/datum/preference/name/cyborg)
+			return cyborg_name == DEFAULT_CYBORG_NAME ? null : cyborg_name
+	if(CONFIG_GET(flag/force_random_names) || prefs.read_character_preference(/datum/preference/choiced/random_name) != RANDOM_DISABLED)
+		return
+	return prefs.read_character_preference(/datum/preference/name/real_name)
+
+/// Groups readied players by job
+/datum/controller/subsystem/stat/proc/rebuild_job_estimation()
+	var/list/names_by_job = list()
+	var/list/anonymous_by_job = list()
+	var/list/entries = job_estimation_command + job_estimation_crew
+	for(var/player_ref in entries)
+		var/list/entry = entries[player_ref]
+		var/title = entry[1]
+		var/name = entry[2]
+		if(!names_by_job[title])
+			names_by_job[title] = list()
+		if(name)
+			names_by_job[title] += name
+		else
+			anonymous_by_job[title] += 1
+
+	job_estimation_rows = list()
+	if(!length(names_by_job))
+		return
+	job_estimation_rows["divider_job_estimation"] = GENERATE_STAT_DIVIDER
+	job_estimation_rows["Job Estimation"] = GENERATE_STAT_TEXT("")
+	for(var/title in names_by_job)
+		var/list/names = names_by_job[title]
+		if(anonymous_by_job[title])
+			names = names + "[anonymous_by_job[title]] anonymous"
+		job_estimation_rows[title] = GENERATE_STAT_TEXT(jointext(names, ", "))
+
+/datum/controller/subsystem/stat/proc/remove_job_estimation(mob/dead/new_player/authenticated/player)
+	var/player_ref = REF(player)
+	if(!job_estimation_command[player_ref] && !job_estimation_crew[player_ref])
+		return
+	job_estimation_command -= player_ref
+	job_estimation_crew -= player_ref
+	rebuild_job_estimation()
 
 #undef FLAT_ICON_CACHE_MAX_SIZE

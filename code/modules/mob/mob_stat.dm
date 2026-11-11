@@ -253,6 +253,7 @@
 	if(!SSticker.HasRoundStarted())
 		var/pre_auth = SSticker.totalPlayersPreAuth ? " ([SSticker.totalPlayersPreAuth] pre-auth)" : ""
 		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[SSticker.totalPlayers][pre_auth]")
+		tab_data += SSstat.job_estimation_rows
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients_unsafe.len]")
 	if(SSticker.round_start_time)
