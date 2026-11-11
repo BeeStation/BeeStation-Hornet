@@ -54,7 +54,8 @@
 	else if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		var/obj/item/held_item = carbon_user.get_active_held_item()
-		if(held_item && istype(GET_BUFFER(held_item), /datum/techweb))
+		var/datum/component/buffer/buffer_component = held_item.GetComponent(/datum/component/buffer)
+		if(istype(buffer_component?.contained_buffer, /datum/techweb))
 			context.add_left_click_action("Upload Techweb")
 
 /// Called when attempting to connect the machine to a techweb, forgetting the old.
