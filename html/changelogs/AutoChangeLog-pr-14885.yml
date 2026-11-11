@@ -1,0 +1,8 @@
+author: SergeiKoralev
+delete-after: true
+changes:
+  - map: Supermatter gas input from connectors now pumps into the waste loop.
+  - map: Removed redundant filters in the supermatter waste/exhaust loop
+  - map: Supermatter gas harvesting position adjusted on all stations.
+  - map: Tweaked positions of supermatter gas meters, decals, and some portable atmos
+      equipment.
