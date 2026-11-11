@@ -557,7 +557,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/open_spawn_panel()
-	set category = "Admin.Game"
+	set category = "Admin"
 	set desc = "Spawn Panel (TGUI)."
 	set name = "Spawn Panel"
 
