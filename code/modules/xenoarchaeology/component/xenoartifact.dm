@@ -278,9 +278,15 @@
 	if((locate(trait) in blacklisted_traits) && !force)
 		return FALSE
 	//Double check our material restrictions
-	var/list/trait_type = list(/datum/xenoartifact_trait/activator, /datum/xenoartifact_trait/minor, /datum/xenoartifact_trait/major, /datum/xenoartifact_trait/malfunction)
-	for(var/datum/xenoartifact_trait/i in trait_type)
-		if(istype(trait, i) && length(traits_catagories[initial(i.priority)]) >= artifact_material)
+	var/list/category_caps = list(
+		/datum/xenoartifact_trait/activator = artifact_material.trait_activators,
+		/datum/xenoartifact_trait/minor = artifact_material.trait_minors,
+		/datum/xenoartifact_trait/major = artifact_material.trait_majors,
+		/datum/xenoartifact_trait/malfunction = artifact_material.max_trait_malfunctions,
+	)
+	var/trait_path = ispath(trait) ? trait : trait.type
+	for(var/datum/xenoartifact_trait/category as anything in category_caps)
+		if(ispath(trait_path, category) && length(traits_catagories[initial(category.priority)]) >= category_caps[category])
 			return FALSE
 	//We can either pass paths, or initialized traits
 	if(ispath(trait))

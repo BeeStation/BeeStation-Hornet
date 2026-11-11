@@ -68,3 +68,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/artifact)
 /obj/structure/closet/artifact/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, list(/datum/xenoartifact_trait/activator/weighted/closet, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/minor/capacitive, /datum/xenoartifact_trait/major/animalize), FALSE, FALSE)
+
+/obj/structure/closet/artifact/after_open(mob/living/user, force)
+	. = ..()
+	var/datum/component/xenoartifact/artifact = GetComponent(/datum/component/xenoartifact)
+	if(!artifact)
+		return
+	for(var/datum/xenoartifact_trait/activator/weighted/closet/trait in artifact.traits_catagories[TRAIT_PRIORITY_ACTIVATOR])
+		trait.trigger_artifact(user)

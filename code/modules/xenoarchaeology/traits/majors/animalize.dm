@@ -41,8 +41,9 @@
 	//Restore every swap holder
 	for(var/mob/living/target in focus)
 		var/mob/living/form = target.loc
-		form.forceMove(get_turf(form))
-		form?.do_unshapeshift()
+		if(isliving(form))
+			form.forceMove(get_turf(form))
+			form.do_unshapeshift()
 		target.Knockdown(2 SECONDS)
 	return ..()
 
