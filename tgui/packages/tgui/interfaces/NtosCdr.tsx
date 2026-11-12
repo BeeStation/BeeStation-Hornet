@@ -62,10 +62,6 @@ export const NtosCdr = (props) => {
           >
             <Table>
               {Object.values(cdr_data).map((cdr) => {
-                const cdrOverhead =
-                  ((cdr.core_instability - cdr.core_stability) /
-                    cdr.core_instability) *
-                  100;
                 return (
                   <Table.Row key={cdr.uid}>
                     <Table.Cell>{`${cdr.uid}. ${cdr.area}`}</Table.Cell>
@@ -75,10 +71,12 @@ export const NtosCdr = (props) => {
                         maxValue={100}
                         minValue={0}
                         value={
-                          cdr.core_instability === cdr.core_stability
-                            ? 0
-                            : cdrOverhead
-                        } // if they're both 0 then that means the CDR is inactive and the overhead will not-a-number
+                          cdr.core_instability
+                            ? ((cdr.core_instability - cdr.core_stability) /
+                                cdr.core_instability) *
+                              100
+                            : 0
+                        }
                         ranges={{
                           good: [25, Infinity],
                           average: [-25, 25],

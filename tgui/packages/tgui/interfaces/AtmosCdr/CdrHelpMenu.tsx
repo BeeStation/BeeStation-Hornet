@@ -2,7 +2,6 @@ import { Box, Section } from 'tgui-core/components';
 
 export const CdrHelpMenu = () => {
   return (
-    // I do not think this help menu text is great but I am not knowledgeable enough in the CDR to write a better one.
     <Box>
       <Section>
         <Box fontSize={1.1} mb={2} textAlign="center">
