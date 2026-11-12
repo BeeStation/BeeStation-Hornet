@@ -104,8 +104,8 @@
 				R = find_record(id_card.registered_account.account_holder, GLOB.manifest.general)
 			if(R)
 				.["user"]["job"] = R.rank
-			else if(id_card.assignment)
-				.["user"]["job"] = id_card.assignment
+			else if(id_card.get_assignment())
+				.["user"]["job"] = id_card.get_assignment()
 			else if(id_card.registered_account?.account_job)
 				.["user"]["job"] = id_card.registered_account.account_job.title
 

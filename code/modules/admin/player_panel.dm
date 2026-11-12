@@ -51,9 +51,9 @@
 					data_entry["job"] = player.job
 					var/obj/item/card/id/I = tracked_human.wear_id?.GetID()
 					if (I)
-						data_entry["job"] = I.assignment ? I.assignment : player.job
-						if(GLOB.crewmonitor.jobs[I.hud_state] != null)
-							data_entry["ijob"] = GLOB.crewmonitor.jobs[I.hud_state]
+						data_entry["job"] = I.get_assignment() || player.job
+						if(GLOB.crewmonitor.jobs[I.get_hud_state()] != null)
+							data_entry["ijob"] = GLOB.crewmonitor.jobs[I.get_hud_state()]
 				else
 					data_entry["job"] = initial(player.name) // get the name of their mob type
 			else if(issilicon(player))

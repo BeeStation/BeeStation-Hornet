@@ -173,9 +173,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 
 /mob/dead/observer/narsie_act()
 	var/old_color = color
-	color = "#960000"
+	color = COLOR_CULT_RED
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 1 SECONDS)
 
 /mob/dead/observer/Destroy()
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)
@@ -999,7 +999,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
+/mob/dead/observer/Process_Spacemove(movement_dir, continuous_move = FALSE)
 	return TRUE
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)

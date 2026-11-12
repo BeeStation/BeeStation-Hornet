@@ -29,6 +29,8 @@
 /mob/Login()
 	if(!client)
 		return FALSE
+
+	canon_client = client
 		
 	// This can happen in some cases, mainly when a client logs in with the same CKEY as another client
 	// Both clients will get deleted which should ensure nobody uses a mob they don't have access to...
@@ -98,8 +100,6 @@
 	if(!client)
 		return FALSE
 
-	//We do this here to prevent hanging refs from ghostize or whatever, since if we were in another mob before this'll take care of it
-	clear_important_client_contents(client)
 	enable_client_mobs_in_contents(client)
 
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
@@ -144,7 +144,8 @@
 			for(var/foo in client.player_details.post_login_callbacks)
 				var/datum/callback/CB = foo
 				CB.Invoke()
-			log_played_names(client.ckey,name,real_name)
+			if(!isdead(src))
+				log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
 
 	//Sort verbs

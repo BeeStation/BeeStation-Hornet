@@ -15,7 +15,7 @@
 	name = "Fish and chips"
 	reqs = list(
 		/obj/item/food/fries = 1,
-		/obj/item/food/fishmeat/carp = 1
+		/obj/item/food/fishmeat = 1
 	)
 	result = /obj/item/food/fishandchips
 	category = CAT_SEAFOOD
@@ -25,7 +25,7 @@
 	reqs = list(
 		/datum/reagent/consumable/flour = 5,
 		/obj/item/food/bun = 1,
-		/obj/item/food/fishmeat/carp = 1
+		/obj/item/food/fishmeat = 1
 	)
 	result = /obj/item/food/fishfingers
 	category = CAT_SEAFOOD
@@ -35,7 +35,7 @@
 	reqs = list(
 		/datum/reagent/consumable/soysauce = 5,
 		/obj/item/food/spidereggs = 1,
-		/obj/item/food/fishmeat/carp = 1
+		/obj/item/food/fishmeat = 1
 	)
 	result = /obj/item/food/sashimi
 	category = CAT_SEAFOOD
@@ -56,7 +56,7 @@
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/boiledrice = 1,
-		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/fishmeat = 1,
 		/obj/item/food/grown/chili = 1,
 		/obj/item/food/grown/onion = 1
 	)
@@ -69,7 +69,7 @@
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
-		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/fishmeat = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
 	result = /obj/item/food/sushi_roll/futomaki
@@ -81,7 +81,7 @@
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/cheese/wedge = 1,
-		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/fishmeat = 1,
 		/obj/item/food/grown/cabbage = 1,
 	)
 	result = /obj/item/food/sushi_roll/philadelphia
@@ -92,7 +92,7 @@
 	reqs = list(
 		/obj/item/food/seaweed_sheet = 1,
 		/obj/item/food/boiledrice = 1,
-		/obj/item/food/fishmeat/carp = 1,
+		/obj/item/food/fishmeat = 1,
 		/datum/reagent/consumable/soysauce = 2
 	)
 	result = /obj/item/food/nigiri_sushi

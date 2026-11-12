@@ -15,6 +15,8 @@
 	var/mob/living/new_character
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
 	var/ineligible_for_roles = FALSE
+	/// Used to track if the player's jobs menu sent a message saying it successfully mounted.
+	var/jobs_menu_mounted = FALSE
 
 
 /mob/dead/new_player/Initialize(mapload)
@@ -151,18 +153,13 @@
 		new_player_panel()
 
 	if(href_list["late_join"])
-		if(!SSticker || !SSticker.IsRoundInProgress())
+		if(!SSticker?.IsRoundInProgress())
 			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
 			return
 
-		if(href_list["late_join"] == "override")
-			LateChoices()
-			return
+		var/use_fallback = href_list["late_join"] == "fallback"
 
-		if(SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap))
-			if(IS_PATRON(src.ckey) || is_admin(src.ckey))
-				LateChoices()
-				return
+		if(href_list["late_join"] != "override" && (SSticker.queued_players.len || (relevant_cap && living_player_count() >= relevant_cap)) && !IS_PATRON(ckey) && !is_admin(ckey))
 			to_chat(usr, span_danger("[CONFIG_GET(string/hard_popcap_message)]"))
 
 			var/queue_position = SSticker.queued_players.Find(usr)
@@ -174,30 +171,18 @@
 				SSticker.queued_players += usr
 				to_chat(usr, span_notice("You have been added to the queue to join the game. Your position in queue is [SSticker.queued_players.len]."))
 			return
-		LateChoices()
+
+		if(use_fallback)
+			to_chat(usr, span_warning("Opening emergency fallback late join menu! If THIS doesn't show, ahelp immediately!"))
+			GLOB.latejoin_menu.fallback_ui(src)
+		else
+			GLOB.latejoin_menu.ui_interact(src)
+		return
 
 	if(href_list["manifest"])
 		ViewManifest()
 
-	if(href_list["SelectedJob"])
-		if(!SSticker || !SSticker.IsRoundInProgress())
-			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
-			return
-
-		if(!GLOB.enter_allowed)
-			to_chat(usr, span_notice("There is an administrative lock on entering the game!"))
-			return
-
-		if(SSticker.queued_players.len && !is_admin(ckey(key)) && !IS_PATRON(ckey(key)))
-			if((living_player_count() >= relevant_cap) || (src != SSticker.queued_players[1]))
-				to_chat(usr, span_warning("Server is full."))
-				return
-
-		AttemptLateSpawn(href_list["SelectedJob"])
-		return
-
-	else if(!href_list["late_join"])
-		new_player_panel()
+	new_player_panel()
 
 	if(href_list["showpoll"])
 		handle_player_polling()
@@ -283,7 +268,10 @@
 			return "[jobtitle] is not compatible with some antagonist role assigned to you."
 		if(JOB_UNAVAILABLE_LOCKED)
 			return "[jobtitle] is locked by the system."
-	return "Error: Unknown job availability."
+		if(JOB_UNAVAILABLE_POPULATION)
+			return "[jobtitle] is closed at the current crew size."
+
+	return GENERIC_JOB_UNAVAILABLE_ERROR
 
 /mob/dead/new_player/authenticated/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.get_job(rank)
@@ -291,6 +279,8 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if(!(job.job_flags & JOB_NEW_PLAYER_JOINABLE))
 		return JOB_UNAVAILABLE_LOCKED
+	if(job.is_population_locked())
+		return JOB_UNAVAILABLE_POPULATION
 	if(!job.has_space())
 		if(is_assistant_job(job))
 			//Newbies can always be assistants
@@ -440,56 +430,6 @@
 		if(!employmentCabinet.virgin)
 			employmentCabinet.addFile(employee)
 
-
-/*
-	Ported from yogs: https://github.com/yogstation13/Yogstation-TG/blob/master/yogstation/code/modules/mob/dead/new_player/new_player.dm
-*/
-
-/mob/dead/new_player/authenticated/proc/LateChoices()
-	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
-	if(SSjob.prioritized_jobs.len > 0)
-		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
-	if(SSshuttle.emergency)
-		switch(SSshuttle.emergency.mode)
-			if(SHUTTLE_ESCAPE)
-				dat += "<div class='notice red'>The station has been evacuated.</div><br>"
-			if(SHUTTLE_CALL)
-				if(!SSshuttle.canRecall())
-					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
-	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
-		if(!prioritized_job.has_space())
-			SSjob.prioritized_jobs -= prioritized_job
-	dat += "<table><tr><td valign='top'>"
-	var/column_counter = 0
-	for(var/datum/department_group/each_dept as anything in SSdepartment.sorted_department_for_latejoin)
-		var/department_name = each_dept.pref_category_name
-		var/cat_color = each_dept.dept_colour || "#ff46c7" // failsafe colour
-		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[department_name]</legend>"
-		var/list/valid_jobs = list()
-		for(var/datum/job/job_datum in each_dept.department_jobs)
-			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
-				var/command_bold = ""
-				if(each_dept.dept_id == DEPARTMENT_NAME_COMMAND || job_datum.title == each_dept.department_head)
-					command_bold = " command"
-				if(job_datum in SSjob.prioritized_jobs)
-					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[span_priority("[job_datum.title] ([job_datum.current_positions])")]</a>"
-				else
-					valid_jobs += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
-		if(!valid_jobs.len)
-			valid_jobs += span_nopositions("No positions open.")
-		dat += jointext(valid_jobs, "")
-		dat += "</fieldset><br>"
-		column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
-			dat += "</td><td valign='top'>"
-	dat += "</td></tr></table></center>"
-	dat += "</div></div>"
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 680, 580)
-	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
-	popup.set_content(jointext(dat, ""))
-	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
-
 /// Creates, assigns and returns the new_character to spawn as. Assumes a valid mind.assigned_role exists.
 /mob/dead/new_player/authenticated/proc/create_character(atom/destination)
 	spawning = TRUE
@@ -536,14 +476,11 @@
 /mob/dead/new_player/Move()
 	return 0
 
-
 /mob/dead/new_player/authenticated/proc/close_spawn_windows()
-
-	src << browse(null, "window=latechoices") //closes late choices window
 	src << browse(null, "window=playersetup") //closes the player setup window
 	src << browse(null, "window=preferences") //closes job selection
 	src << browse(null, "window=mob_occupation")
-	src << browse(null, "window=latechoices") //closes late job selection
+	SStgui.close_user_uis(src, GLOB.latejoin_menu)
 
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
 // A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled

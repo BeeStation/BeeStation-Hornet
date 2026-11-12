@@ -89,7 +89,7 @@ GLOBAL_VAR(clockcult_eminence)
 	transmit_spell.Grant(current_mob)
 	if(GLOB.gateway_opening && iscarbon(current_mob))
 		var/mob/living/carbon/owner_mob = current_mob
-		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 		owner_mob.add_overlay(forbearance)
 	current_mob.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
 	add_team_hud(current_mob)
@@ -148,14 +148,14 @@ GLOBAL_VAR(clockcult_eminence)
 		// Disconnect borgs
 		ai.disconnect_shell()
 		for(var/mob/living/silicon/robot/robot in ai.connected_robots)
-			robot.connected_ai = null
+			robot.set_connected_ai(null)
 
 		// Flavor
 		var/mutable_appearance/ai_clock = mutable_appearance('icons/mob/clockwork_mobs.dmi', "aiframe")
 		ai.add_overlay(ai_clock)
 	else if(iscyborg(silicon))
 		var/mob/living/silicon/robot/robot = silicon
-		robot.connected_ai = null
+		robot.set_connected_ai(null)
 		robot.SetRatvar(TRUE)
 
 	// Give laws

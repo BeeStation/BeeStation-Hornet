@@ -17,7 +17,6 @@
 	outfit = /datum/outfit/job/exploration_crew
 
 	base_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
-	extra_access = list(ACCESS_MAINT_TUNNELS, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY)
 
 	departments_list = list(
 		/datum/department_group/science,

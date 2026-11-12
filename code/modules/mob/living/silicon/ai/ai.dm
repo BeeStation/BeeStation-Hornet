@@ -28,7 +28,9 @@
 	can_buckle_to = FALSE
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list(CAMERA_NETWORK_STATION)
-	var/list/connected_robots = list()
+
+	/// Lazy List of robots currently synced to the AI
+	VAR_FINAL/list/mob/living/silicon/robot/connected_robots
 
 	/// Station alert datum for showing alerts UI
 	var/datum/station_alert/alert_control
@@ -211,6 +213,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
+
+	// Release linked cyborgs before deleting the resources they access through us.
+	for(var/mob/living/silicon/robot/cyborg in connected_robots)
+		if(cyborg.connected_ai == src)
+			cyborg.set_connected_ai(null)
+	LAZYNULL(connected_robots)
+
 	SSshuttle.autoEvac()
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	QDEL_NULL(spark_system)
@@ -282,7 +291,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		tab_data["System integrity"] = GENERATE_STAT_TEXT("[(health+100)/2]%")
 		if(isturf(loc)) //only show if we're "in" a core
 			tab_data["Backup Power"] = GENERATE_STAT_TEXT("[battery/2]%")
-		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[connected_robots.len]")
+		tab_data["Connected cyborgs"] = GENERATE_STAT_TEXT("[LAZYLEN(connected_robots)]")
 		var/index = 0
 		for(var/mob/living/silicon/robot/R in connected_robots)
 			var/robot_status = "Nominal"
@@ -808,7 +817,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			if(living_speaker.wear_id)
 				var/obj/item/card/id/has_id = living_speaker.wear_id.GetID()
 				if(has_id)
-					jobpart = has_id.assignment
+					jobpart = has_id.get_assignment()
 		if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
 			var/obj/effect/overlay/holo_pad_hologram/holo = speaker
 			if(holo.Impersonation?.job)
@@ -846,7 +855,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		if(S.wear_id)
 			var/obj/item/card/id/I = S.wear_id.GetID()
 			if(I)
-				jobpart = "[I.assignment]"
+				jobpart = "[I.get_assignment()]"
 
 	// duplication part from `game/say.dm` to make a language icon
 	var/language_icon = ""

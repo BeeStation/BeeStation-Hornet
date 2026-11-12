@@ -18,10 +18,6 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SERVICE,
 	)
-	extra_access = list(
-		ACCESS_HYDROPONICS,
-		ACCESS_BAR,
-	)
 
 	departments_list = list(
 		/datum/department_group/service,
@@ -77,7 +73,7 @@
 	var/list/possible_boxes = subtypesof(/obj/item/storage/box/ingredients)
 	var/chosen_box = pick(possible_boxes)
 	var/obj/item/storage/box/I = new chosen_box(src)
-	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(I, ITEM_SLOT_BACK, del_on_fail = TRUE)
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 

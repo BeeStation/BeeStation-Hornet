@@ -72,9 +72,12 @@ export class DraggableControl extends Component {
       }, 250);
       this.dragInterval = setInterval(() => {
         const { dragging, value } = this.state;
-        const { onDrag } = this.props;
+        const { onChange, onDrag, tickWhileDragging } = this.props;
         if (dragging && onDrag) {
           onDrag(e, value);
+        }
+        if (dragging && tickWhileDragging) {
+          onChange?.(e, value);
         }
       }, this.props.updateRate || DEFAULT_UPDATE_RATE);
       document.addEventListener('mousemove', this.handleDragMove);

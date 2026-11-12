@@ -17,17 +17,21 @@
 		TRAIT_UNHUSKABLE,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
-	mutant_bodyparts = list(
-		"diona_leaves",
-		"diona_thorns",
-		"diona_flowers",
-		"diona_moss",
-		"diona_mushroom",
-		"diona_antennae",
-		"diona_eyes",
-		"diona_pbody"
+	mutant_organs = list(
+		/obj/item/organ/nymph_organ/r_arm,
+		/obj/item/organ/nymph_organ/l_arm,
+		/obj/item/organ/nymph_organ/l_leg,
+		/obj/item/organ/nymph_organ/r_leg,
+		/obj/item/organ/nymph_organ/chest,
+		/obj/item/organ/diona_growth/leaves = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/thorns = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/flowers = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/moss = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/pbody = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/mushroom = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/antennae = SPRITE_ACCESSORY_NONE,
+		/obj/item/organ/diona_growth/eyes = SPRITE_ACCESSORY_NONE,
 	)
-	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona

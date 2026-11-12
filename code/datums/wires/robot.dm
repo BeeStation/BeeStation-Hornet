@@ -22,7 +22,7 @@
 	var/mob/living/silicon/robot/robot = holder
 	var/list/status = list()
 	status += "The law sync module is [robot.lawupdate ? "on" : "off"]."
-	status += "The intelligence link display shows [robot.connected_ai ? robot.connected_ai.name : "NULL"]."
+	status += "The intelligence link display shows [robot.connected_ai?.name || "NULL"]."
 	status += "The camera light is [!isnull(robot.builtInCamera) && robot.builtInCamera.status ? "on" : "off"]."
 	status += "The lockdown indicator is [robot.lockcharge ? "on" : "off"]."
 	status += "The [get_color_of_wire(WIRE_RESET_MODEL)] wire is marked 'reset'."
@@ -33,15 +33,11 @@
 	switch(wire)
 		if(WIRE_AI) // Pulse to pick a new AI.
 			if(!robot.emagged)
-				var/new_ai
-				if(user)
-					new_ai = select_active_ai(user)
-				else
-					new_ai = select_active_ai(robot)
+				var/mob/living/silicon/ai/new_ai = select_active_ai(user || robot)
 				robot.notify_ai(AI_NOTIFICATION_CYBORG_DISCONNECTED)
 				if(new_ai && (new_ai != robot.connected_ai))
 					log_combat(usr, robot, "synced cyborg [robot.connected_ai ? "from [ADMIN_LOOKUP(robot.connected_ai)]": "false"] to [ADMIN_LOOKUP(new_ai)]", important = FALSE)
-					robot.connected_ai = new_ai
+					robot.set_connected_ai(new_ai)
 					if(robot.shell)
 						robot.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
 						robot.notify_ai(AI_NOTIFICATION_AI_SHELL)
@@ -79,7 +75,7 @@
 					log_combat(user, robot, "cut AI wire on cyborg[robot.connected_ai ? " and disconnected from [ADMIN_LOOKUP(robot.connected_ai)]": ""]", important = FALSE)
 				if(robot.shell)
 					robot.undeploy()
-				robot.connected_ai = null
+				robot.set_connected_ai(null)
 			robot.logevent("AI connection fault [mend?"cleared":"detected"]")
 		if(WIRE_LAWSYNC) // Cut the law wire, and the borg will no longer receive law updates from its AI. Repair and it will re-sync.
 			if(mend)

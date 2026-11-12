@@ -30,18 +30,18 @@
 	if(!.)
 		return
 
-	affected_mob.adjustStaminaLoss(1) //Provides gradual exhaustion, but mostly to prevent regeneration and set an upper limit on disease duration to about five minutes
+	affected_mob.adjustStaminaLoss(1)
 
-	// Cure requires actual sleep (IsSleeping), not merely lying down.
-	// This ensures nobody is left in permanent stamcrit, and also enables players to sleep in a safe location to cure themselves.
-	if(affected_mob.IsSleeping() && !finalstage)   // only pre-stage-5 can be cured by sleep
+	if(affected_mob.IsSleeping()) // Sleeping cures at any stage, as long as the sleep is continuous
 		if(!start_sleeping || sleeping_at != get_turf(affected_mob))
 			start_sleeping = world.time
 			sleeping_at = get_turf(affected_mob)
 		else if(world.time - start_sleeping >= 30 SECONDS)
 			cure()
+			return
 	else
 		start_sleeping = null
+		sleeping_at = null
 
 	if(DT_PROB(1.5 * stage, delta_time) && !finalstage && affected_mob.staminaloss <= stage * 25) //no more lesser flavor messages and sparkles after stage 5
 		to_chat(affected_mob, span_revennotice("You suddenly feel [pick("like you need to rest", "disoriented", "tired and confused", "nauseated", "faint", "dizzy")]..."))

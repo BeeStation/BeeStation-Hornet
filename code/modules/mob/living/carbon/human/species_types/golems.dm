@@ -562,15 +562,10 @@
 	do_teleport(H, get_turf(H), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 	last_teleport = world.time
 
-/datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+/datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H, datum/thrownthing/throwingdatum)
 	..()
-	var/obj/item/I
-	if(istype(AM, /obj/item))
-		I = AM
-		if(I.thrownby == WEAKREF(H)) //No throwing stuff at yourself to trigger the teleport
-			return 0
-		else
-			reactive_teleport(H)
+	if(isitem(AM) && throwingdatum?.get_thrower() != H) //No throwing stuff at yourself to trigger the teleport
+		reactive_teleport(H)
 
 /datum/species/golem/bluespace/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
@@ -705,16 +700,11 @@
 		new /obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
-/datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+/datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H, datum/thrownthing/throwingdatum)
 	..()
-	var/obj/item/I
-	if(istype(AM, /obj/item))
-		I = AM
-		if(I.thrownby == WEAKREF(H)) //No throwing stuff at yourself to make bananas
-			return 0
-		else
-			new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-			COOLDOWN_START(src, banana_cooldown, banana_delay)
+	if(isitem(AM) && throwingdatum?.get_thrower() != H) //No throwing stuff at yourself to make bananas
+		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
+		COOLDOWN_START(src, banana_cooldown, banana_delay)
 
 /datum/species/golem/bananium/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	if(!active && COOLDOWN_FINISHED(src, honkooldown))
@@ -1128,7 +1118,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		gong(H)
 		return ..()
 
-/datum/species/golem/bronze/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+/datum/species/golem/bronze/spec_hitby(atom/movable/AM, mob/living/carbon/human/H, datum/thrownthing/throwingdatum)
 	..()
 	if(world.time > last_gong_time + gong_cooldown)
 		gong(H)
