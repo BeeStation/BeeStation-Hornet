@@ -235,7 +235,7 @@
 		return
 	var/atom/atom_parent = component_parent.parent
 	var/atom/target_loc = atom_parent.loc
-	target_loc.visible_message("<span class='warning'>[atom_parent] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [atom_parent]!</span>", allow_inside_usr = TRUE)
+	target_loc.visible_message(span_warning("[atom_parent] develops a slight opening!") + "\n" + span_notice("You could probably use a screwdriver on [atom_parent]!"), allow_inside_usr = TRUE)
 	playsound(atom_parent, 'sound/machines/clockcult/ark_damage.ogg', 50, TRUE)
 
 /datum/xenoartifact_trait/proc/catch_pearl_tool(datum/source, mob/living/user, obj/item/I, list/recipes)
