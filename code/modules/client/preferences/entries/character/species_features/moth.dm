@@ -4,7 +4,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antennae"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "moth_antennae"
+	relevant_organ = /obj/item/organ/antennae
 
 /datum/preference/choiced/moth_antennae/init_possible_values()
 	return assoc_to_keys_features(GLOB.moth_antennae_list)
@@ -35,7 +35,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Body Markings"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "moth_markings"
+	relevant_body_markings = /datum/bodypart_overlay/simple/body_marking/moth
 
 /datum/preference/choiced/moth_markings/init_possible_values()
 	return assoc_to_keys_features(GLOB.moth_markings_list)
@@ -88,7 +88,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Moth Wings"
 	should_generate_icons = TRUE
-	relevant_mutant_bodypart = "moth_wings"
+	relevant_organ = /obj/item/organ/wings/moth
 
 /datum/preference/choiced/moth_wings/init_possible_values()
 	return assoc_to_keys_features(GLOB.moth_wings_list)
@@ -105,7 +105,9 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	main_feature_name = "Eye Type"
-	relevant_mutant_bodypart = "moth_eyes"
+
+/datum/preference/choiced/moth_eyes/has_relevant_feature(datum/preferences/preferences)
+	return current_species_has_savekey(preferences)
 
 /datum/preference/choiced/moth_eyes/init_possible_values()
 	return list("Default", "Domestic")

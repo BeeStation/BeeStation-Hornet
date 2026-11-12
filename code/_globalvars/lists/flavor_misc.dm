@@ -11,15 +11,15 @@ GLOBAL_LIST_EMPTY(facial_hair_gradients_list)
 GLOBAL_LIST_EMPTY(hair_masks_list)
 
 	//Underwear
-GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
+GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/clothing/underwear indexed by name
 GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
 GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
 	//Undershirts
-GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/undershirt indexed by name
+GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/clothing/undershirt indexed by name
 GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
-GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
+GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/clothing/socks indexed by name
 /// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
@@ -27,19 +27,18 @@ GLOBAL_LIST_INIT(body_sizes, list(
 	"Tall" = BODY_SIZE_TALL
 ))
 	//Lizard Bits (all datum lists indexed by name)
-GLOBAL_LIST_EMPTY(body_markings_list)
+GLOBAL_LIST_EMPTY(lizard_markings_list)
 GLOBAL_LIST_EMPTY(tails_list_lizard)
-GLOBAL_LIST_EMPTY(animated_tails_list_lizard)
+GLOBAL_LIST_EMPTY(tail_spines_list)
 GLOBAL_LIST_EMPTY(snouts_list)
 GLOBAL_LIST_EMPTY(horns_list)
 GLOBAL_LIST_EMPTY(frills_list)
 GLOBAL_LIST_EMPTY(spines_list)
-GLOBAL_LIST_EMPTY(animated_spines_list)
+
 
 	//Mutant Human bits
-GLOBAL_LIST_EMPTY(tails_list_human)
-GLOBAL_LIST_EMPTY(animated_tails_list_human)
-GLOBAL_LIST_EMPTY(tails_roundstart_list_human)
+GLOBAL_LIST_EMPTY(tails_list_felinid)
+GLOBAL_LIST_EMPTY(tails_list_monkey)
 GLOBAL_LIST_EMPTY(ears_list)
 GLOBAL_LIST_EMPTY(wings_list)
 GLOBAL_LIST_EMPTY(wings_open_list)

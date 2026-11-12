@@ -67,6 +67,7 @@
 	if(!istype(user))
 		return
 	if(user.wear_mask == src)
+		user.refresh_obscured()
 		user.wear_mask_update(src, toggle_off = mask_adjusted)
 	if(loc == user)
 		// Update action button icon for adjusted mask, if someone is holding it.

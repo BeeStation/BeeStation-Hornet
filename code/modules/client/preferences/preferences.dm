@@ -293,8 +293,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return TRUE
 		if ("rotate")
 			var/direction = !!params["direction"]
-			if(isatom(character_preview_view.body))
-				character_preview_view.body.dir = turn(character_preview_view.body.dir, (direction ? 1 : -1) * 90)
+			var/new_dir = turn(character_preview_view.dir, (direction ? 1 : -1) * 90)
+			character_preview_view.setDir(new_dir)
+			character_preview_view.body.dir = new_dir
 
 			return TRUE
 		if ("set_preference")

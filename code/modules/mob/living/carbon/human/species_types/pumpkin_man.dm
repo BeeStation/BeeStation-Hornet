@@ -122,10 +122,9 @@
 			for(var/i in 0 to 8)
 				face_options += list("face[i]" = image('icons/mob/pumpkin_faces.dmi', "face[i]"))
 			var/face_choosen = show_radial_menu(_user, _source, face_options, require_near = TRUE)
-			//Reset overlays
-			M.cut_overlay(head.carved_overlay) //This is needed in addition to the head icon getter's - for some reason?
-			head.carved_overlay.icon_state = face_choosen
-			M.update_body_parts_head_only()
+			if(!face_choosen)
+				return
+			head.set_carved_face(face_choosen)
 			to_chat(_user, span_notice("You carve a face into [_source]."))
 			//Adjust the tongue
 			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]

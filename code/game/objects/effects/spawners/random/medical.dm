@@ -176,8 +176,7 @@
 		/obj/effect/gibspawner/human = 1,
 		/obj/item/organ/wings = 1,
 		/obj/item/organ/wings/moth = 1,
-		/obj/item/organ/wings/bee = 1,
-		/obj/item/organ/wings/dragon/fake = 1
+		/obj/item/organ/wings/bee = 1
 	)
 
 /obj/effect/spawner/random/medical/teratoma/major

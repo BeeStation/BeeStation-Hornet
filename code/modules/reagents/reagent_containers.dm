@@ -177,11 +177,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 
 /obj/item/reagent_containers/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	splash_reagents(hit_atom, throwingdatum?.get_thrower(), was_thrown = TRUE, allow_closed_splash = FALSE)
+	if(!.)
+		splash_reagents(hit_atom, throwingdatum?.get_thrower(), was_thrown = TRUE, allow_closed_splash = FALSE)
 
-/obj/item/reagent_containers/proc/bartender_check(atom/target)
+/obj/item/reagent_containers/proc/bartender_check(atom/target, mob/thrown_by)
 	. = FALSE
-	var/mob/thrown_by = thrownby?.resolve()
 	if(target.CanPass(src, get_dir(target, src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 

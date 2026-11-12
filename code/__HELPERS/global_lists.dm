@@ -8,18 +8,16 @@
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hairstyles_list, GLOB.facial_hairstyles_male_list, GLOB.facial_hairstyles_female_list)
 	//underwear
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
 	//socks
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/socks, GLOB.socks_list)
 	//bodypart accessories (blizzard intensifies)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.body_markings_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/lizard_markings, GLOB.lizard_markings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails_animated/lizard, GLOB.animated_tails_list_lizard)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human, roundstart = TRUE)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails_animated/human, GLOB.animated_tails_list_human)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/felinid, GLOB.tails_list_felinid)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey, GLOB.tails_list_monkey)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/horns,GLOB.horns_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ears, GLOB.ears_list)
@@ -27,7 +25,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings_open, GLOB.wings_open_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines_animated, GLOB.animated_spines_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tail_spines, GLOB.tail_spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)

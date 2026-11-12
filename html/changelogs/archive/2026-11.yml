@@ -118,3 +118,51 @@
   - tweak: Agent ID cards steal temp access as permanent access.
   - bugfix: cryo reopens job slots again
   - bugfix: a second ID in a PDA no longer mutates the access of the first ID
+2026-11-11:
+  Kubsius:
+  - tweak: allowed speech component to have language options
+  - code_imp: added the station_languages global list for common station languages
+  SergeiKoralev:
+  - map: Supermatter gas input from connectors now pumps into the waste loop.
+  - map: Removed redundant filters in the supermatter waste/exhaust loop
+  - map: Supermatter gas harvesting position adjusted on all stations.
+  - map: Tweaked positions of supermatter gas meters, decals, and some portable atmos
+      equipment.
+2026-11-12:
+  mrmanlikesbt, vinylspiders:
+  - github: Tool installation, .NET setup, and artifact downloading have been removed
+      from the GitHub CI Suite workflow. This should hopefully make status checks
+      less flaky, requiring less manual workflow restarts from maintainers.
+  ? rkz, GoldenAlpharex, vinylspiders, falconignite, lizardqueenlexi, LemonInTheDark,
+    Time-Green, Melbert, SmArtKar, Runi-c, ghommie, TealSeer
+  : - imageadd: Lizards have been resprited, as well as Digitigrade sprites. Please
+        remember to update your colors to account for this.
+    - rscadd: Digitigrade lizards now get auto-generated clothing sprites for most
+        jumpsuits, and can wear certain shoes and oversuits (sneakers, some boots,
+        and the shaft miner's explorer suit) without hiding their legs.
+    - image: Added digitigrade shoe and oversuit sprite templates.
+    - image: Monkeys and lizards now have their own face spraypaint overlays.
+    - bugfix: Left and right legs no longer render on top of one another, so characters
+        look the same facing east and west.
+    - bugfix: The preference dummy now properly updates when changing species features.
+    - refactor: Lizard and moth body markings, creampies, and spray paint now all
+        run through the bodypart overlay system.
+    - code_imp: Cleaned up tail, leg, and body marking rendering code, and cut a large
+        number of redundant sprite update calls for better performance.
+    - qol: Cult pylons, rod of asclepius, and space dragon rifts will now give you
+        an alert as feedback for when you are being healed by them.
+    - rscadd: Adds the flesh reshaper to genetics and the Gene Engineering techweb!
+        Restyle all those visual organs! Don't like your moth coworkers' wings? Restyle
+        them to your liking!
+    - refactor: Refactored clothing obscurity entirely. Items should be a loooot more
+        consistent and what covers what, and should update a lot snappier. As always,
+        report any oddities, like mysteriously disappearing articles of clothing,
+        hair, or species parts
+    - bugfix: Some masks no longer hide lizard frills.
+    - rscadd: Hats that flatten hair now also flatten lizard frills a bit.
+    - rscdel: Spacesuits no longer fully conceal lizard tails
+    - rscadd: Species features like wings and tails will appear "meshed over" when
+        wearing certain equipment like spacesuits or biosuits.
+    - rscadd: Biosuits and beekeeper suit sprites now altar when worn by digitigrade
+        mobs.
+    - rscadd: Aprons and overalls sprites now altar when worn by digitigrade mobs.

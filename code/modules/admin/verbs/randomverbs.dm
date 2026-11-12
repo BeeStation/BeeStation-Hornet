@@ -357,7 +357,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.hardset_dna(found_dna.unique_identity, found_dna.mutation_index.Copy(), record_found.name, found_dna.blood_type, found_dna.species, found_dna.features.Copy())
 		new_character.dna.unique_enzymes = record_found.unique_enzymes
 	else
-		randomize_human(new_character)
+		randomize_human_normie(new_character)
 		//Whats the point of this?
 		//new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
 		new_character.name = new_character.real_name

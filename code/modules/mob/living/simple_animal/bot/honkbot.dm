@@ -149,7 +149,7 @@
 	if(istype(AM, /obj/item))
 		playsound(src, honksound, 50, TRUE, -1)
 		var/obj/item/I = AM
-		var/mob/thrown_by = I.thrownby?.resolve()
+		var/mob/thrown_by = throwingdatum?.get_thrower()
 		if(I.throwforce < health && thrown_by && (istype(thrown_by, /mob/living/carbon/human)))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)

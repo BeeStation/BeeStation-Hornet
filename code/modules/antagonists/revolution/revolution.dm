@@ -236,16 +236,16 @@
 
 	if(give_flash)
 		var/obj/item/assembly/flash/handheld/T = new(H)
-		var/list/slots = list (
-			"backpack" = ITEM_SLOT_BACKPACK,
-			"left pocket" = ITEM_SLOT_LPOCKET,
-			"right pocket" = ITEM_SLOT_RPOCKET
+		var/list/slots = list(
+			LOCATION_BACKPACK,
+			LOCATION_LPOCKET,
+			LOCATION_RPOCKET,
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if (!where)
 			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
 		else
-			to_chat(H, "The flash in your [where] will help you to persuade the crew to join your cause.")
+			to_chat(H, "The flash [where] will help you to persuade the crew to join your cause.")
 
 	if(give_hud)
 		var/obj/item/organ/cyberimp/eyes/hud/security/syndicate/S = new(H)
