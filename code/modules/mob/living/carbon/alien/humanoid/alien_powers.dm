@@ -283,8 +283,8 @@ Doesn't work on other aliens/AI.*/
 
 	var/modifiers = params2list(params)
 	clicker.visible_message(
-		("<span class='danger'>[clicker] spits neurotoxin!</span>"),
-		("<span class='alienalert'>You spit neurotoxin.</span>"),
+		span_danger("[clicker] spits neurotoxin!"),
+		span_alertalien("You spit neurotoxin."),
 	)
 	var/obj/projectile/bullet/neurotoxin/neurotoxin = new /obj/projectile/bullet/neurotoxin(clicker.loc)
 	neurotoxin.preparePixelProjectile(target, clicker, modifiers)
