@@ -564,9 +564,10 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	if(!spawn_panel)
-		spawn_panel = new()
-	spawn_panel.ui_interact(usr)
+	var/datum/admins/holder = usr.client.holder
+	if(!holder.spawn_panel)
+		holder.spawn_panel = new()
+	holder.spawn_panel.ui_interact(usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/podspawn_atom(object as text)
