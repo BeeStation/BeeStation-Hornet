@@ -195,6 +195,16 @@
 	// Return true otherwise
 	return TRUE
 
+/// Returns TRUE if the roundstart population is outside min_pop or max_pop
+/datum/job/proc/is_population_locked()
+	var/player_count = SSjob.initial_players_to_assign
+	// SSjob has not been allocated yet
+	if (!player_count)
+		player_count = length(GLOB.clients)
+	if (player_count < min_pop && CONFIG_GET(flag/restricted_lowpop_command_spawns))
+		return TRUE
+	return player_count > max_pop
+
 /datum/job/proc/count_players_in_group()
 	return current_positions * dynamic_spawn_group_multiplier - total_position_delta
 
@@ -205,13 +215,7 @@
 /// If a dynamic spawn group is set, then it will compute the number of positions available based off of how
 /// populated the other jobs in the group are.
 /datum/job/proc/get_spawn_position_count()
-	var/player_count = SSjob.initial_players_to_assign
-	// SSjob has not been allocated yet
-	if (!player_count)
-		player_count = length(GLOB.clients)
-	if (player_count < min_pop && CONFIG_GET(flag/restricted_lowpop_command_spawns))
-		return 0
-	if (player_count > max_pop)
+	if (is_population_locked())
 		return 0
 	if (total_positions == -1 && !dynamic_spawn_group)
 		return -1

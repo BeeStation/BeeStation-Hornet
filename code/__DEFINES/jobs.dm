@@ -23,6 +23,11 @@
 #define JOB_UNAVAILABLE_LOCKED 6
 /// Job unavailable due to incompatibility with an antag role.
 #define JOB_UNAVAILABLE_ANTAG_INCOMPAT 7
+/// Job closed because the roundstart population is outside its min_pop or max_pop.
+#define JOB_UNAVAILABLE_POPULATION 8
+
+/// Used when the `get_job_unavailable_error_message` proc can't make sense of a given code.
+#define GENERIC_JOB_UNAVAILABLE_ERROR "Error: Unknown job availability."
 
 // Job spawn groups
 // Spawn group representing the primary roles of a department
