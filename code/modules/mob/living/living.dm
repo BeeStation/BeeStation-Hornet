@@ -55,6 +55,8 @@
 
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	if(playable)
+		remove_from_spawner_menu()
 	QDEL_LIST(diseases)
 	return ..()
 

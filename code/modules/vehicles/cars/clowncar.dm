@@ -38,15 +38,6 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/sealed/car/clowncar/relaymove(mob/living/user, direction)
-	if(upgraded)
-		if(!ishuman(user))
-			return FALSE
-		var/mob/living/carbon/human/rider = user
-		if(!is_clown_job(rider.mind?.assigned_role)) //Only clowns can drive the syndicate version of the clown car.
-			return FALSE
-	return ..()
-
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M

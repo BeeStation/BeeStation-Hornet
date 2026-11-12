@@ -23,6 +23,7 @@
 		var/mob/living/L = movable.loc
 		L.dropItemToGround(movable)
 	//Get the fuck outta dodge
+	var/old_override = component_parent.cooldown_override
 	component_parent.cooldown_override = TRUE
 	movable.throw_at(T, max_force*(component_parent.trait_strength/100), 4)
-	component_parent.cooldown_override = FALSE
+	component_parent.cooldown_override = old_override

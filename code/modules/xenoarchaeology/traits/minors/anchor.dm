@@ -23,6 +23,7 @@
 	var/atom/movable/movable = component_parent.parent
 	if(ismovable(movable))
 		movable.anchored = FALSE
+	UnregisterSignal(movable, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH))
 	return ..()
 
 /datum/xenoartifact_trait/minor/anchor/trigger(datum/source, _priority, atom/override)
