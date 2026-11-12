@@ -5,7 +5,7 @@
 	var/enabled = FALSE
 
 /datum/debugger/New()
-		enable_debugger()
+	enable_debugger()
 
 /datum/debugger/proc/enable_debugger()
 	var/dll = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
