@@ -18,6 +18,8 @@
 		this["important_warning"] = ""
 		this["refs"] = list()
 		for(var/spawner_obj in GLOB.mob_spawners[spawner])
+			if(!spawner_obj)
+				continue
 			this["refs"] += "[REF(spawner_obj)]"
 			if(!this["desc"])
 				if(istype(spawner_obj, /obj/effect/mob_spawn))

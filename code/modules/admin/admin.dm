@@ -518,6 +518,12 @@
 	set desc = "Spawn an atom"
 	set name = "Spawn"
 
+	if(!istype(src, /datum/admins))
+		src = usr.client.holder
+	if(!istype(src, /datum/admins))
+		to_chat(usr, span_warning("Error: you are not an admin!"))
+		return
+
 	if(!check_rights(R_SPAWN))
 		return
 
@@ -560,6 +566,12 @@
 	set category = "Admin"
 	set desc = "Spawn Panel (TGUI)."
 	set name = "Spawn Panel"
+
+	if(!istype(src, /datum/admins))
+		src = usr.client.holder
+	if(!istype(src, /datum/admins))
+		to_chat(usr, span_warning("Error: you are not an admin!"))
+		return
 
 	if(!check_rights(R_SPAWN))
 		return
