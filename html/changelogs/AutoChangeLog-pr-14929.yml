@@ -1,6 +1,0 @@
-author: mrmanlikesbt, vinylspiders
-delete-after: true
-changes:
-  - github: Tool installation, .NET setup, and artifact downloading have been removed
-      from the GitHub CI Suite workflow. This should hopefully make status checks
-      less flaky, requiring less manual workflow restarts from maintainers.
