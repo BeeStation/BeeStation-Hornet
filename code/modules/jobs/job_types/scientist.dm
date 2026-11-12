@@ -48,16 +48,6 @@
 		JOB_NAME_ATMOSPHERICTECHNICIAN // thanks to maxcap, they're knowledgeable.
 	)
 
-/datum/job/scientist/get_access()
-	. = ..()
-	LOWPOP_GRANT_ACCESS(JOB_NAME_ROBOTICIST, ACCESS_ROBOTICS)
-	LOWPOP_GRANT_ACCESS(JOB_NAME_EXPLORATIONCREW, ACCESS_EXPLORATION)
-	if (SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT)
-		. |= ACCESS_TECH_STORAGE
-	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
-		. |= ACCESS_RD
-		. |= ACCESS_RD_SERVER
-
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST
 	jobtype = /datum/job/scientist

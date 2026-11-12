@@ -1650,7 +1650,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/scan_consolenew)
 			scanner_occupant.real_name = buffer_slot["name"]
 			scanner_occupant.name = buffer_slot["name"]
 			scanner_occupant.dna.unique_enzymes = buffer_slot["UE"]
-			scanner_occupant.dna.blood_type = buffer_slot["blood_type"]
+			scanner_occupant.set_blood_type(buffer_slot["blood_type"])
 			. = TRUE
 
 	if(.)

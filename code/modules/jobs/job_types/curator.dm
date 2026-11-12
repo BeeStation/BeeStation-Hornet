@@ -13,7 +13,6 @@
 	outfit = /datum/outfit/job/curator
 
 	base_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/service,

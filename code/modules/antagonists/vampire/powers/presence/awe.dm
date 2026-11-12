@@ -78,7 +78,7 @@
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/awed)
 
 /datum/status_effect/awed/refresh()
-	duration = world.time + initial(duration)
+	duration = initial(duration)
 
 /datum/status_effect/awed/tick(seconds_between_ticks)
 	if(QDELETED(source_vampire) || source_vampire.stat == DEAD)

@@ -33,9 +33,7 @@
 	// Having your face covered conceals your drunkness
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		if(carbon_owner.wear_mask?.flags_inv & HIDEFACE)
-			return null
-		if(carbon_owner.head?.flags_inv & HIDEFACE)
+		if(carbon_owner.obscured_slots & HIDEFACE)
 			return null
 
 	// .01s are used in case the drunk value ends up to be a small decimal.
@@ -64,9 +62,9 @@
 	if(drunk_value <= 0)
 		qdel(src)
 
-/datum/status_effect/inebriated/tick()
+/datum/status_effect/inebriated/tick(seconds_between_ticks)
 	// Drunk value does not decrease while dead or in stasis
-	if(owner.stat == DEAD || IS_IN_STASIS(owner))
+	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_STASIS))
 		return
 
 	// Every tick, the drunk value decrases by

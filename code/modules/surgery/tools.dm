@@ -253,7 +253,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	item_flags = SURGICAL_TOOL
 
@@ -284,7 +284,7 @@
 	icon = 'icons/obj/medical/surgery.dmi'
 	icon_state = "saw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	obj_flags = CONDUCTS_ELECTRICITY
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -304,7 +304,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "hacksaw"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound = 'sound/weapons/pierce.ogg'
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	inhand_icon_state = "wrench"
