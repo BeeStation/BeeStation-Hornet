@@ -430,6 +430,10 @@
 				soundin = pick('sound/machines/switch1.ogg','sound/machines/switch2.ogg','sound/machines/switch3.ogg')
 			if("liquid_pour")
 				soundin = pick('sound/effects/liquid_pour/liquid_pour1.ogg', 'sound/effects/liquid_pour/liquid_pour2.ogg', 'sound/effects/liquid_pour/liquid_pour3.ogg')
+			if("buckle")
+				soundin = pick('sound/machines/buckle/buckle1.ogg', 'sound/machines/buckle/buckle2.ogg', 'sound/machines/buckle/buckle3.ogg')
+			if("unbuckle")
+				soundin = pick('sound/machines/buckle/unbuckle1.ogg', 'sound/machines/buckle/unbuckle2.ogg', 'sound/machines/buckle/unbuckle3.ogg')
 	return soundin
 
 /client/proc/get_playing_channel(channel)

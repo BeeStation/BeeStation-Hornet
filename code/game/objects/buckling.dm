@@ -142,12 +142,19 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
-/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags = NONE, needs_anchored = FALSE)
+/obj/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags = NONE)
 	. = ..()
 	if(.)
 		if(resistance_flags & ON_FIRE) //Sets the mob on fire if you buckle them to a burning atom/movableect
 			M.adjust_fire_stacks(1)
 			M.ignite_mob()
+		if(buckle_sound)
+			playsound(src, buckle_sound, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, pressure_affected = TRUE, ignore_walls = FALSE)
+
+/obj/unbuckle_mob(mob/living/buckled_mob, force)
+	. = ..()
+	if(. && unbuckle_sound)
+		playsound(src, unbuckle_sound, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, pressure_affected = TRUE, ignore_walls = FALSE)
 
 /**
   * Set a mob as unbuckled from src

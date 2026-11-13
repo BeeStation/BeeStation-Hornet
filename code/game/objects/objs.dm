@@ -50,6 +50,12 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// broadcasted to as long as the other guys network is on the same branch or above.
 	var/network_id = null
 
+	/// The sound this obj makes when something is buckled to it
+	var/buckle_sound = null
+
+	/// The sound this obj makes when something is unbuckled from it
+	var/unbuckle_sound = null
+
 	uses_integrity = TRUE
 
 	var/investigate_flags = NONE
