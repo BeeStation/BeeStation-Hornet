@@ -12,7 +12,6 @@ Peanut Posting
 	Arrestinbg a person bills the department
 
 TODO
-	Add shutoff / billing for sec outside upkeep
 	add a tool to link terminals to servers. Same tool can be used to setup agents and settings
 	improve apc control for AI
 */
@@ -389,9 +388,12 @@ TODO
 		if(!chargeback || new_bill.bill_tags & BILL_TAG_CUSTOM || new_bill.bill_tags & BILL_TAG_CHARGEBACK)
 			return
 		var/chargeback_amount = (chargeback_crew_limit/initial(chargeback_crew_limit)) * new_bill.amount
-		var/datum/bill/back_bill = server.create_new_bill(new_bill.from, budget_card.department_ID, chargeback_amount, FALSE, TRUE, BILL_TAG_CHARGEBACK)
+		var/datum/bill/back_bill = server.create_new_bill(new_bill.from, budget_card.department_ID, chargeback_amount, TRUE, TRUE, BILL_TAG_CHARGEBACK)
 		back_bill.title = "(Chargeback) [new_bill.title]"
 		back_bill.body = "Chargeback from [budget_card.department_ID], under the circumstance of none or insufficient present [budget_card.department_ID] staff."
+		RegisterSignal(back_bill, COMSIG_BILLING_BILL_PAID, PROC_REF(catch_bill_paid))
+		RegisterSignal(back_bill, COMSIG_QDELETING, PROC_REF(catch_bill_del))
+		back_bill.undraft() // Undraft it after we've setup signals
 
 /obj/machinery/computer/billing/proc/pay_bill(datum/bill/pay_bill)
 	if(pay_bill?.pay())
@@ -445,7 +447,7 @@ TODO
 
 /obj/machinery/computer/billing/command
 	chargeback = FALSE
-	//TODO: This is mostly a testing feature - Racc
+	//TODO: This is mostly a testing feature, paying custom out the box - Racc
 	autopay_filter = BILL_TAG_POWER | BILL_TAG_UPKEEP | BILL_TAG_FEE | BILL_TAG_CUSTOM | BILL_TAG_VENDING | BILL_TAG_SENSORS | BILL_TAG_CHARGEBACK | BILL_TAG_ACCESS
 	radio_channel = RADIO_CHANNEL_COMMAND
 	chargeback = FALSE

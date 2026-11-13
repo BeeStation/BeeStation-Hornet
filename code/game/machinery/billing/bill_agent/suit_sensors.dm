@@ -41,7 +41,7 @@
 		timed_bill.body = "For the continued use of [department_ID]'s suit sensor program on [parent]."
 		add_bill(timed_bill)
 		// Lock out
-		if(!check_forgiveness())
+		if(!check_forgiveness() && suit.sensor_mode != SENSOR_OFF)
 			suit.say("Outstanding invoices, disabling sensors...")
 			suit.set_sensor_mode(SENSOR_OFF)
 			// If we can't be paid, watch the bill so we can turn back on later

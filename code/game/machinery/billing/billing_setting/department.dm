@@ -98,7 +98,7 @@
 	update_desc()
 
 /datum/billing_setting/number/suit_sensor_upkeep/proc/update_desc()
-	desc = "Suit sensors costs [number*3]cr every quarter hour." // TODO: This is dependant on knowing the suit sensor interval, bad coder - Racc
+	desc = "Suit sensors costs [number*3]cr every quarter hour, per agent." // TODO: This is dependant on knowing the suit sensor interval, bad coder - Racc
 
 /*
 	Vending
@@ -122,7 +122,7 @@
 
 //TODO: make this shared if you cleanup the code - Racc
 /datum/billing_setting/number/vending_rental/proc/update_desc()
-	desc = "Vending machine rent costs [number*3]cr every quarter hour." // TODO: This is dependant on knowing the rent interval, bad coder - Racc
+	desc = "Vending machine rent costs [number*3]cr every quarter hour, per agent." // TODO: This is dependant on knowing the rent interval, bad coder - Racc
 
 /*
 	Doors
@@ -146,4 +146,4 @@
 
 //TODO: make this shared if you cleanup the code - Racc
 /datum/billing_setting/number/door_rental/proc/update_desc()
-	desc = "Access licensing costs [number*7.5]cr every hour." // TODO: This is dependant on knowing the rent interval, bad coder - Racc
+	desc = "Access licensing costs [number*7.5]cr every hour, per agent." // TODO: This is dependant on knowing the rent interval, bad coder - Racc

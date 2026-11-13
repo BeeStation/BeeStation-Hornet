@@ -12,7 +12,7 @@
 
 /// Generic services cost
 #define BILLING_UPKEEP_GENERIC 100
-#define BILLING_UPKEEP_MEDICAL 200
+#define BILLING_UPKEEP_MEDICAL 350
 #define BILLING_UPKEEP_SECURITY 80
 
 // Billing periods
