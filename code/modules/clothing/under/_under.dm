@@ -6,6 +6,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	slot_flags = ITEM_SLOT_ICLOTHING
 	armor_type = /datum/armor/clothing_under
+	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth/cloth_pickup.ogg'
 	dying_key = DYE_REGISTRY_UNDER
