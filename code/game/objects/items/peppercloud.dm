@@ -10,6 +10,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	volume = 75
 	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 75)
+	pickup_sound = 'sound/items/handling/pepper_spray/pepper_spray_pick_up.ogg'
+	drop_sound = 'sound/items/handling/pepper_spray/pepper_spray_drop.ogg'
 
 	item_flags = NOBLUDGEON | ISWEAPON
 	initial_reagent_flags = OPENCONTAINER | NO_SPLASH

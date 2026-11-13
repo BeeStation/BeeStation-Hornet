@@ -163,6 +163,8 @@
 
 /// Security belt
 /datum/storage/belt/security
+	open_sound = 'sound/items/handling/holster_open.ogg'
+	rustle_sound = null
 
 /datum/storage/belt/security/New(atom/parent, max_slots, max_specific_storage, max_total_storage, numerical_stacking, allow_quick_gather, allow_quick_empty, collection_mode, attack_hand_interact)
 	. = ..()
