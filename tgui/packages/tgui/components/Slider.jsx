@@ -14,6 +14,7 @@ export const Slider = (props) => {
   const {
     // Draggable props (passthrough)
     animated,
+    tickWhileDragging,
     format,
     maxValue,
     minValue,
@@ -38,6 +39,7 @@ export const Slider = (props) => {
       dragMatrix={[1, 0]}
       {...{
         animated,
+        tickWhileDragging,
         format,
         maxValue,
         minValue,

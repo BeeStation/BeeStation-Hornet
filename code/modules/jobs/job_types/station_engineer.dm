@@ -38,12 +38,6 @@
 		JOB_NAME_ATMOSPHERICTECHNICIAN // they're identical in some way
 	)
 
-/datum/job/station_engineer/get_access()
-	. = ..()
-	LOWPOP_GRANT_ACCESS(JOB_NAME_ATMOSPHERICTECHNICIAN, ACCESS_ATMOSPHERICS)
-	if (SSjob.initial_players_to_assign < COMMAND_POPULATION_MINIMUM)
-		. |= ACCESS_CE
-
 /datum/outfit/job/engineer
 	name = JOB_NAME_STATIONENGINEER
 	jobtype = /datum/job/station_engineer

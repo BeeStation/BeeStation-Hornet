@@ -117,6 +117,14 @@ SUBSYSTEM_DEF(department)
 		titles |= job.title
 	return titles
 
+/datum/controller/subsystem/department/proc/get_head_only_access()
+	RETURN_TYPE(/list)
+	var/list/crew_access = list()
+	for(var/datum/job/job as anything in SSjob.all_occupations)
+		if(!(job.job_flags & JOB_HEAD_OF_STAFF))
+			crew_access |= job.base_access
+	return get_all_accesses() - crew_access
+
 /// Returns a nation name for this department.
 /datum/department_group/proc/generate_nation_name()
 	var/static/list/nation_suffixes = list("stan", "topia", "land", "nia", "ca", "tova", "dor", "ador", "tia", "sia", "ano", "tica", "tide", "cis", "marea", "co", "taoide", "slavia", "stotzka")
@@ -137,6 +145,12 @@ SUBSYSTEM_DEF(department)
 	// job related variables
 	/// Typepath of the job datum leading this department.
 	var/datum/job/department_head = null
+	/// Access that lets an ID manage this department at ID consoles
+	var/manager_access
+	/// Budget account this department's manager sets pay from
+	var/budget_account_id
+	/// Department whose manager sets our pay instead of our own head. Command pay is set by the HoP
+	var/datum/department_group/budget_managed_by
 	/// job singleton datums associated to this department. Populated dynamically by setup_occupations().
 	var/list/department_jobs = list()
 	/// experience type granted by playing a job in this department
@@ -192,7 +206,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_COMMAND
 	dept_id = DEPARTMENT_NAME_COMMAND
 	department_bitflags = DEPARTMENT_BITFLAG_COMMAND
-	dept_colour = "#ddddff"
+	dept_colour = "#a9c4f5"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_COMMAND
@@ -200,6 +214,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "command"
 
 	department_head = /datum/job/captain
+	budget_account_id = ACCOUNT_COM_ID
+	budget_managed_by = /datum/department_group/service
 
 	access_group_name = "Command"
 	access_list = list(
@@ -230,7 +246,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SERVICE
 	dept_id = DEPARTMENT_NAME_SERVICE
 	department_bitflags = DEPARTMENT_BITFLAG_SERVICE
-	dept_colour = "#bbe291"
+	dept_colour = "#addf86"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SERVICE
@@ -238,6 +254,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "service"
 
 	department_head = /datum/job/head_of_personnel
+	manager_access = ACCESS_HOP
+	budget_account_id = ACCOUNT_SRV_ID
 
 	nation_prefixes = list("Honka", "Boozo", "Fatu", "Danka", "Mimi", "Libra", "Jani", "Religi")
 
@@ -270,11 +288,13 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_CIVILIAN
 	dept_id = DEPARTMENT_NAME_CIVILIAN
 	department_bitflags = DEPARTMENT_BITFLAG_CIVILIAN
-	dept_colour = "#bbe291"
+	dept_colour = "#f2eb9a"
 	is_station = TRUE
 	display_order = 9
 
 	department_head = /datum/job/head_of_personnel
+	manager_access = ACCESS_HOP
+	budget_account_id = ACCOUNT_CIV_ID
 
 	access_group_name = "Residential" // in case when it's used
 	// access_list = list() // check service
@@ -292,7 +312,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_CARGO
 	dept_id = DEPARTMENT_NAME_CARGO
 	department_bitflags = DEPARTMENT_BITFLAG_CARGO
-	dept_colour = "#d7b088"
+	dept_colour = "#d9b08a"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SUPPLY
@@ -300,6 +320,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "supply"
 
 	department_head = /datum/job/head_of_personnel
+	manager_access = ACCESS_HOP
+	budget_account_id = ACCOUNT_CAR_ID
 
 	nation_prefixes = list("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 
@@ -329,7 +351,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SCIENCE
 	dept_id = DEPARTMENT_NAME_SCIENCE
 	department_bitflags = DEPARTMENT_BITFLAG_SCIENCE
-	dept_colour = "#ffddff"
+	dept_colour = "#d9a6f2"
 	dept_radio_channel = FREQ_SCIENCE
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SCIENCE
@@ -337,6 +359,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "science"
 
 	department_head = /datum/job/research_director
+	manager_access = ACCESS_RD
+	budget_account_id = ACCOUNT_SCI_ID
 
 	nation_prefixes = list("Scien", "Techno", "Xeno", "Quantu", "Chemi", "Geneti")
 
@@ -368,7 +392,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_ENGINEERING
 	dept_id = DEPARTMENT_NAME_ENGINEERING
 	department_bitflags = DEPARTMENT_BITFLAG_ENGINEERING
-	dept_colour = "#ffeeaa"
+	dept_colour = "#ffbe73"
 	dept_radio_channel = FREQ_ENGINEERING
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_ENGINEERING
@@ -376,6 +400,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "engineering"
 
 	department_head = /datum/job/chief_engineer
+	manager_access = ACCESS_CE
+	budget_account_id = ACCOUNT_ENG_ID
 
 	nation_prefixes = list("Atomo", "Engino", "Power", "Teleco", "Volt")
 
@@ -408,7 +434,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_MEDICAL
 	dept_id = DEPARTMENT_NAME_MEDICAL
 	department_bitflags = DEPARTMENT_BITFLAG_MEDICAL
-	dept_colour = "#c1e1ec"
+	dept_colour = "#8de3ef"
 	dept_radio_channel = FREQ_MEDICAL
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_MEDICAL
@@ -416,6 +442,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "medical"
 
 	department_head = /datum/job/chief_medical_officer
+	manager_access = ACCESS_CMO
+	budget_account_id = ACCOUNT_MED_ID
 
 	nation_prefixes = list("Mede", "Healtha", "Recova", "Chemi", "Viro", "Psych")
 
@@ -445,7 +473,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SECURITY
 	dept_id = DEPARTMENT_NAME_SECURITY
 	department_bitflags = DEPARTMENT_BITFLAG_SECURITY
-	dept_colour = "#ffdddd"
+	dept_colour = "#ff9c9c"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SECURITY
@@ -453,6 +481,8 @@ SUBSYSTEM_DEF(department)
 	label_class = "security"
 
 	department_head = /datum/job/head_of_security
+	manager_access = ACCESS_HOS
+	budget_account_id = ACCOUNT_SEC_ID
 
 	nation_prefixes = list("Securi", "Beepski", "Shitcuri", "Red", "Stunba", "Flashbango", "Flasha", "Stanfordi")
 
@@ -498,7 +528,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SILICON
 	dept_id = DEPARTMENT_NAME_SILICON
 	department_bitflags = DEPARTMENT_BITFLAG_SILICON
-	dept_colour = "#ccffcc"
+	dept_colour = "#9cf2cf"
 	department_experience_type = EXP_TYPE_SILICON
 	display_order = 8
 	label_class = "silicon"

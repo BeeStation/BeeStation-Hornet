@@ -37,7 +37,7 @@
 	if(target?.ckey == fruit_parent.fingerprintslast) //Dont log self harm
 		return
 	if(isliving(target))
-		log_combat(fruit_parent.thrownby, target, "hit", fruit_parent, "at [AREACOORD(T)] shocking them for [damage] damage!")
+		log_combat(fruit_parent, target, "hit", fruit_parent, "at [AREACOORD(T)] shocking them for [damage] damage!")
 		target.investigate_log("has been hit by an eletric plant at [AREACOORD(T)] shocking them for [damage] damage. Last fingerprint: [fruit_parent.fingerprintslast].", INVESTIGATE_BOTANY)
 	qdel(fruit_parent)
 

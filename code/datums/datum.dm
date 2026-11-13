@@ -59,6 +59,9 @@
 	*/
 	var/list/cooldowns
 
+	/// List for handling persistent filters
+	var/list/filter_data
+
 #ifdef REFERENCE_TRACKING
 	/// When was this datum last touched by a reftracker?
 	/// If this value doesn't match with the start of the search
@@ -315,8 +318,3 @@
 		return
 	harddel_deets_dumped = TRUE
 	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"
-
-/// Intercept click on when registered as a click intercept
-/datum/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
-	SHOULD_NOT_SLEEP(TRUE)
-	return FALSE

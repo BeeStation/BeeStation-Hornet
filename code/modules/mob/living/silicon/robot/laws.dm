@@ -37,44 +37,50 @@
 
 /mob/living/silicon/robot/proc/lawsync()
 	laws_sanity_check()
-	var/datum/ai_laws/master = connected_ai?.laws
-	var/temp
-	if (master)
-		laws.ion.len = master.ion.len
-		for (var/index in 1 to master.ion.len)
-			temp = master.ion[index]
-			if (length(temp) > 0)
-				laws.ion[index] = temp
 
-		laws.hacked.len = master.hacked.len
-		for (var/index in 1 to master.hacked.len)
-			temp = master.hacked[index]
-			if (length(temp) > 0)
-				laws.hacked[index] = temp
-
-		if(master.zeroth_borg) //If the AI has a defined law zero specifically for its borgs, give it that one, otherwise give it the same one. --NEO
-			temp = master.zeroth_borg
-		else
-			temp = master.zeroth
-		laws.zeroth = temp
-
-		laws.inherent.len = master.inherent.len
-		for (var/index in 1 to master.inherent.len)
-			temp = master.inherent[index]
-			if (length(temp) > 0)
-				laws.inherent[index] = temp
-
-		laws.supplied.len = master.supplied.len
-		for (var/index in 1 to master.supplied.len)
-			temp = master.supplied[index]
-			if (length(temp) > 0)
-				laws.supplied[index] = temp
-
-		var/datum/computer_file/program/borg_self_monitor/program = modularInterface.get_self_monitoring()
-		if(program)
-			program.force_full_update()
+	if(!connected_ai)
+		return
 
 	picturesync()
+
+	var/datum/ai_laws/master = connected_ai.laws
+	if (!master)
+		return
+
+	var/temp
+
+	laws.ion.len = master.ion.len
+	for (var/index in 1 to master.ion.len)
+		temp = master.ion[index]
+		if (length(temp) > 0)
+			laws.ion[index] = temp
+
+	laws.hacked.len = master.hacked.len
+	for (var/index in 1 to master.hacked.len)
+		temp = master.hacked[index]
+		if (length(temp) > 0)
+			laws.hacked[index] = temp
+
+	if(master.zeroth_borg) //If the AI has a defined law zero specifically for its borgs, give it that one, otherwise give it the same one. --NEO
+		temp = master.zeroth_borg
+	else
+		temp = master.zeroth
+	laws.zeroth = temp
+
+	laws.inherent.len = master.inherent.len
+	for (var/index in 1 to master.inherent.len)
+		temp = master.inherent[index]
+		if (length(temp) > 0)
+			laws.inherent[index] = temp
+
+	laws.supplied.len = master.supplied.len
+	for (var/index in 1 to master.supplied.len)
+		temp = master.supplied[index]
+		if (length(temp) > 0)
+			laws.supplied[index] = temp
+
+	var/datum/computer_file/program/borg_self_monitor/program = modularInterface.get_self_monitoring()
+	program?.force_full_update()
 
 /mob/living/silicon/robot/post_lawchange(announce = TRUE)
 	. = ..()

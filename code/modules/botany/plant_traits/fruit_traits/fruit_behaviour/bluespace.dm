@@ -30,5 +30,5 @@
 	if(target?.ckey == fruit_parent.fingerprintslast) //Dont log self harm
 		return
 	if(isliving(target))
-		log_combat(fruit_parent.thrownby, target, "hit", fruit_parent, "at [AREACOORD(T)] teleporting them to [AREACOORD(target)]")
+		log_combat(fruit_parent, target, "hit", fruit_parent, "at [AREACOORD(T)] teleporting them to [AREACOORD(target)]")
 		target.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(target)]. Last fingerprint: [fruit_parent.fingerprintslast].", INVESTIGATE_BOTANY)

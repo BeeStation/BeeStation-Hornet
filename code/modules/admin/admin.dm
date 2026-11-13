@@ -239,12 +239,7 @@
 
 	var/dat
 
-	dat += {"
-		<A href='byond://?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
-		<A href='byond://?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
-		<A href='byond://?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
-		<A href='byond://?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
-		"}
+	dat += "<a href='byond://?src=[REF(src)];[HrefToken()];spawn_panel=1'>Spawn Panel</a><br>"
 
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<A href='byond://?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
@@ -518,29 +513,73 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom(input as null|text)
+/datum/admins/proc/spawn_atom(object as null|text)
 	set category = "Debug"
-	set desc = "(atom path) Spawn an atom"
+	set desc = "Spawn an atom"
 	set name = "Spawn"
+
+	if(!istype(src, /datum/admins))
+		src = usr.client.holder
+	if(!istype(src, /datum/admins))
+		to_chat(usr, span_warning("Error: you are not an admin!"))
+		return
 
 	if(!check_rights(R_SPAWN))
 		return
 
-	if (!input)
-		input = tgui_input_text(usr, "Spawn an atom:", "Spawn")
-	var/chosen = pick_closest_path(input)
-	if(!chosen)
-		return
-	var/turf/T = get_turf(usr)
+	var/static/list/atom_types
+	if (isnull(atom_types))
+		atom_types = subtypesof(/atom)
 
-	if(ispath(chosen, /turf))
-		T.ChangeTurf(chosen)
+	var/chosen_path = null
+	var/list/preparsed = null
+	if (object)
+		preparsed = splittext(object, ":")
+		var/list/matches = filter_fancy_list(atom_types, preparsed[1])
+		if (length(matches) == 1)
+			chosen_path = matches[1]
+
+	if(!chosen_path)
+		if (!spawn_menu)
+			spawn_menu = new()
+		spawn_menu.init_value = object
+		spawn_menu.ui_interact(usr)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		return TRUE
+
+	var/amount = 1
+	if (length(preparsed) > 1)
+		amount = clamp(text2num(preparsed[2]), 1, ADMIN_SPAWN_CAP)
+
+	var/turf/target_turf = get_turf(usr)
+	if (ispath(chosen_path, /turf))
+		target_turf.ChangeTurf(chosen_path)
 	else
-		var/atom/A = new chosen(T)
-		A.flags_1 |= ADMIN_SPAWNED_1
+		for (var/i in 1 to amount)
+			var/atom/spawned = new chosen_path(target_turf)
+			spawned.flags_1 |= ADMIN_SPAWNED_1
 
-	log_admin("[key_name(usr)] spawned [chosen] at [AREACOORD(usr)]")
+	log_admin("[key_name(usr)] spawned [amount] x [chosen_path] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/open_spawn_panel()
+	set category = "Admin"
+	set desc = "Spawn Panel (TGUI)."
+	set name = "Spawn Panel"
+
+	if(!istype(src, /datum/admins))
+		src = usr.client.holder
+	if(!istype(src, /datum/admins))
+		to_chat(usr, span_warning("Error: you are not an admin!"))
+		return
+
+	if(!check_rights(R_SPAWN))
+		return
+
+	if(!spawn_panel)
+		spawn_panel = new()
+	spawn_panel.ui_interact(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/podspawn_atom(object as text)
 	set category = "Debug"

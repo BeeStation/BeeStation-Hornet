@@ -187,6 +187,6 @@
 
 /turf/open/floor/plating/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 

@@ -1,6 +1,0 @@
-author: Isaac, moocowswag
-delete-after: true
-changes:
-  - rscadd: Welders keep repairing APC covers until they’re fixed or welding is interrupted.
-  - rscadd: Broken APC covers can be replaced with a new frame, closing the panel,
-      will turn on the power, Engineering borgs can fit the frame with a screwdriver
