@@ -174,7 +174,7 @@
 		return
 	var/turf/T = get_turf(src)
 	T.visible_message(span_boldwarning("[src] slowly stops rattling and falls still, His latch snapping shut."))
-	playsound(loc, 'sound/weapons/batonextend.ogg', 100, 1)
+	playsound(loc, 'sound/items/baton/batonextend.ogg', 100, 1)
 	name = initial(name)
 	desc = initial(desc)
 	icon_state = initial(icon_state)
