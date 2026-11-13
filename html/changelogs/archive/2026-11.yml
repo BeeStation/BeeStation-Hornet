@@ -166,3 +166,6 @@
     - rscadd: Biosuits and beekeeper suit sprites now altar when worn by digitigrade
         mobs.
     - rscadd: Aprons and overalls sprites now altar when worn by digitigrade mobs.
+2026-11-13:
+  Tsar-Salat:
+  - bugfix: prisoners no longer get skeleton access or are considered in its pop counter
