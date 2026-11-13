@@ -250,6 +250,54 @@
 	audible_message(span_italics("You hear a click from the bottom of the door."), null,  1)
 	update_appearance()
 
+// Right Click To Knock with an empty hand, Combat Mode Changes it to Aggresive Kicking
+/obj/machinery/door/airlock/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. != SECONDARY_ATTACK_CALL_NORMAL || !isliving(user))
+		return
+	var/mob/living/living_user = user
+	living_user.changeNext_move(CLICK_CD_MELEE)
+	if(living_user.combat_mode)
+		kick_door(living_user)
+	else
+		knock_on_door(living_user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+// Kicks use feet! They dont need empty hands like Knocking
+/obj/machinery/door/airlock/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
+	. = ..()
+	if(. != SECONDARY_ATTACK_CALL_NORMAL || !isliving(user))
+		return
+	var/mob/living/living_user = user
+	if(!living_user.combat_mode)
+		return
+	living_user.changeNext_move(CLICK_CD_MELEE)
+	kick_door(living_user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/door/airlock/proc/knock_on_door(mob/living/user)
+	if(iscarbon(user) && !user.get_bodypart(BODY_ZONE_L_ARM) && !user.get_bodypart(BODY_ZONE_R_ARM))
+		to_chat(user, span_warning("You are missing the arm required to knock on [src]!"))
+		return
+
+	playsound(src, 'sound/effects/glassknock.ogg', 60, TRUE)
+	audible_message(span_notice("You hear a knock on [src]."), null, 5)
+	new /obj/effect/temp_visual/door_impact(get_turf(src))
+
+/obj/machinery/door/airlock/proc/kick_door(mob/living/user)
+	if(iscarbon(user) && !user.get_bodypart(BODY_ZONE_L_LEG) && !user.get_bodypart(BODY_ZONE_R_LEG))
+		to_chat(user, span_warning("You are missing the leg required to kick [src]!"))
+		return
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(human_user.shoes)
+			human_user.do_attack_animation(src, used_item = human_user.shoes)
+
+	playsound(src, 'sound/effects/loud_bang.ogg', 80, TRUE)
+	audible_message(span_warning("You hear a loud kick against [src]!"), null, 7)
+	Shake(1, 1, 0.3 SECONDS)
+
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
 	var/obj/machinery/door/airlock/cult/A
@@ -1707,6 +1755,12 @@
 
 	if(!isliving(user))
 		return
+
+	var/mob/living/living_user = user
+	if(living_user.combat_mode)
+		context.add_right_click_action("Kick", accessible = TRUE)
+	else if(!context.held_item)
+		context.add_right_click_action("Knock", accessible = TRUE)
 
 	//Tools
 	if(has_access_panel)

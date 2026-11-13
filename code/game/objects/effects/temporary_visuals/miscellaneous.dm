@@ -420,6 +420,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/impact_effect)
 	icon_state = "shieldsparkles"
 	duration = 6
 
+/obj/effect/temp_visual/door_impact
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "impact1"
+	duration = 4
+	randomdir = FALSE
+
+/obj/effect/temp_visual/door_impact/Initialize(mapload)
+	. = ..()
+	addtimer(VARSET_CALLBACK(src, icon_state, "impact3"), 2)
+
 /obj/effect/temp_visual/heart
 	name = "heart"
 	icon = 'icons/mob/animal.dmi'
