@@ -53,10 +53,6 @@
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
-"r" = (
-/obj/machinery/power/generator,
-/turf/open/floor/oldshuttle,
-/area/ruin/powered/shuttle/medium_4)
 "s" = (
 /obj/machinery/power/smes,
 /turf/open/floor/oldshuttle,
@@ -243,7 +239,7 @@ g
 g
 g
 c
-r
+g
 g
 g
 d
