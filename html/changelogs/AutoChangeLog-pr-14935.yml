@@ -1,0 +1,4 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: prisoners no longer get skeleton access or are considered in its pop counter
