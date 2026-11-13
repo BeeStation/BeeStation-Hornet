@@ -55,12 +55,8 @@
 	. = str
 
 /proc/get_random_seed()
-	var/list/blocked = list(
-		/obj/item/seeds/banana/bombanana,
-		/obj/item/seeds/lavaland,
-		/obj/item/seeds/flower,
-		/obj/item/seeds/sample,
-		/obj/item/seeds/sample/alienweed,
-		/obj/item/seeds/cherry/bomb
+	var/static/list/blocked = list(
+		/obj/item/plant_seeds/preset/bombanana,
+		/obj/item/plant_seeds/preset/cherry_bomb
 		)
-	return pick(subtypesof(/obj/item/seeds) - blocked)
+	return pick(subtypesof(/obj/item/plant_seeds/preset) - blocked)

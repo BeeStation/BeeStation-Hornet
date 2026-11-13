@@ -27,11 +27,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ci" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -1;
-	pixel_y = 20
-	},
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "cq" = (

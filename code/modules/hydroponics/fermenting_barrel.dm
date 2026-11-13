@@ -22,7 +22,7 @@
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/food/grown/fruit)
 	if(fruit.reagents)
 		fruit.reagents.trans_to(src, fruit.reagents.total_volume)
-	var/amount = fruit.seed.potency / 4
+	var/amount = (get_fruit_trait_power(fruit)*50) / 4 //The old converison was ``fruit.seed.potency / 4``
 	if(fruit.distill_reagent)
 		reagents.add_reagent(fruit.distill_reagent, amount)
 	else

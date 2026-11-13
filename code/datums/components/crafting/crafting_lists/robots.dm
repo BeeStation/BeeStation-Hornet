@@ -114,3 +114,15 @@
 		/obj/item/tank/internals = 1
 	)
 	category = CAT_ROBOT
+
+/datum/crafting_recipe/turtle
+	name = "Turtle"
+	result = /mob/living/simple_animal/bot/turtle
+	time = 10 SECONDS
+	reqs = list(
+		/obj/item/reagent_containers/cup/bucket = 1,
+		/obj/item/assembly/prox_sensor = 1,
+		/obj/item/bodypart/leg/right/robot = 1,
+		/obj/item/bodypart/leg/left/robot = 1
+		)
+	category = CAT_ROBOT

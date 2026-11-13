@@ -162,7 +162,7 @@
 			for(var/i in 1 to 3)
 				new /obj/item/reagent_containers/cup/beaker/noreact(src)
 		if(31 to 35)
-			new /obj/item/seeds/firelemon(src)
+			new /obj/item/plant_seeds/preset/firelemon(src)
 		if(36 to 40)
 			new /obj/item/melee/baton(src)
 		if(41 to 45)

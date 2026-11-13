@@ -471,15 +471,6 @@
 /obj/item/soap,
 /turf/open/floor/iron/freezer,
 /area/shuttle/abandoned/crew)
-"bG" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/sink/directional/west,
-/obj/structure/toilet{
-	dir = 1
-	},
-/obj/structure/mirror/directional/east,
-/turf/open/floor/iron/freezer,
-/area/shuttle/abandoned/crew)
 "bH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1334,6 +1325,15 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
+"fR" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/sink/directional/west,
+/obj/structure/toilet{
+	dir = 1
+	},
+/obj/structure/mirror/directional/east,
+/turf/open/floor/iron/freezer,
+/area/shuttle/abandoned/crew)
 "gf" = (
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1413,15 +1413,29 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
-"lY" = (
+"lD" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/hydroponics/constructable,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/structure/table,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/shovel/spade,
+/obj/item/cultivator,
+/obj/item/plant_scanner,
+/obj/item/reagent_containers/cup/bucket,
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned/bar)
+"ms" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/plant_tray,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
@@ -1616,18 +1630,6 @@
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
-"tY" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small/built{
-	dir = 8
-	},
-/obj/machinery/hydroponics/constructable,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned/bar)
 "ud" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -1858,20 +1860,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bridge)
-"EZ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/item/shovel/spade,
-/obj/item/cultivator,
-/obj/item/plant_analyzer,
-/obj/item/reagent_containers/cup/bucket,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned/bar)
 "Fb" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 8
@@ -2053,23 +2041,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
-"MW" = (
+"Nz" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/hydroponics/constructable,
+/obj/item/plant_tray,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/shuttle/abandoned/bar)
-"Nd" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/hydroponics/constructable,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
@@ -2291,6 +2267,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
+"Ws" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/obj/item/plant_tray,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned/bar)
 "WL" = (
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2381,6 +2369,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/crew)
+"ZT" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/plant_tray,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/shuttle/abandoned/bar)
 "ZZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2773,7 +2773,7 @@ uV
 Yl
 zM
 bt
-bG
+fR
 bQ
 ce
 eZ
@@ -2818,10 +2818,10 @@ vc
 oo
 bR
 bD
-Nd
+ms
 dE
 dT
-tY
+Ws
 eb
 "}
 (24,1,1) = {"
@@ -2837,10 +2837,10 @@ bR
 bR
 bR
 bD
-MW
+Nz
 Qj
 dU
-lY
+ZT
 bD
 "}
 (25,1,1) = {"
@@ -2858,7 +2858,7 @@ aa
 cW
 bD
 tu
-EZ
+lD
 bD
 cW
 "}

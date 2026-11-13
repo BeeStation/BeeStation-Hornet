@@ -585,13 +585,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/template_noop)
-"iD" = (
-/obj/effect/turf_decal/siding/wideplating/terracotta{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "iJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -998,6 +991,10 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"pT" = (
+/obj/item/plant_tray/pot/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "pW" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
@@ -1182,10 +1179,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/template_noop)
-"tb" = (
-/obj/machinery/hydroponics/soil,
-/turf/open/floor/plating/grass,
-/area/template_noop)
 "tf" = (
 /obj/structure/fireplace,
 /obj/structure/bed/dogbed,
@@ -1313,22 +1306,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/techmaint/planetary,
-/area/template_noop)
-"wk" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket{
-	pixel_x = 12;
-	pixel_y = 7
-	},
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/obj/item/seeds/carrot/parsnip,
-/turf/open/floor/wood,
 /area/template_noop)
 "wm" = (
 /obj/machinery/door/airlock{
@@ -1529,6 +1506,17 @@
 	slowdown = 0
 	},
 /area/template_noop)
+"zE" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror/directional/east{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron/freezer,
+/area/template_noop)
 "zM" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1542,17 +1530,6 @@
 "zX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/planetary,
-/area/template_noop)
-"Ae" = (
-/obj/structure/sink/directional/west,
-/obj/structure/mirror/directional/east{
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Ah" = (
 /obj/structure/extinguisher_cabinet{
@@ -2256,6 +2233,22 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/planetary,
 /area/template_noop)
+"Mb" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/obj/item/plant_seeds/preset/whitebeet,
+/turf/open/floor/wood,
+/area/template_noop)
 "Me" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/cable/yellow,
@@ -2593,12 +2586,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
-"RO" = (
-/obj/item/kirbyplants{
-	pixel_x = -7
-	},
-/turf/open/floor/wood,
-/area/template_noop)
 "RT" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/grass,
@@ -2860,6 +2847,17 @@
 /obj/structure/window/reinforced/survival_pod/spawner/directional/south,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
+/area/template_noop)
+"VP" = (
+/obj/effect/turf_decal/siding/wideplating/terracotta{
+	dir = 1
+	},
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
+/area/template_noop)
+"VQ" = (
+/obj/item/plant_tray/soil,
+/turf/open/floor/plating/grass,
 /area/template_noop)
 "VR" = (
 /obj/effect/turf_decal/sand/plating,
@@ -6519,9 +6517,9 @@ gf
 gf
 gf
 Kg
-iD
-tb
-tb
+VP
+VQ
+VQ
 IM
 IM
 IM
@@ -6653,9 +6651,9 @@ gf
 bj
 PO
 FH
-iD
+VP
 yW
-tb
+VQ
 IM
 IM
 IM
@@ -6787,9 +6785,9 @@ gf
 gf
 gf
 FH
-iD
-tb
-tb
+VP
+VQ
+VQ
 IM
 IM
 IM
@@ -6918,7 +6916,7 @@ IM
 IM
 gf
 bE
-RO
+pT
 gf
 FH
 Du
@@ -7188,7 +7186,7 @@ gf
 tf
 sV
 gf
-wk
+Mb
 Du
 DS
 IM
@@ -10981,7 +10979,7 @@ VX
 VX
 iU
 rw
-Ae
+zE
 an
 iU
 vy

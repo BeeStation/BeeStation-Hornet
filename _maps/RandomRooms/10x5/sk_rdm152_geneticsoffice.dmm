@@ -7,7 +7,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/item/kirbyplants/random,
+/obj/item/plant_tray/pot/random,
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},

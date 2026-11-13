@@ -204,6 +204,7 @@
 			/mob/living/basic/cockroach,
 			/mob/living/basic/mouse,
 			/obj/effect/decal/cleanable/ants,
+			/mob/living/simple_animal/friendly_fruit,
 		)
 
 	if(drawn)

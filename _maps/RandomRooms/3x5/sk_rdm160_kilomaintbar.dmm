@@ -61,9 +61,7 @@
 /area/template_noop)
 "w" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/kirbyplants{
-	icon_state = "plant-03"
-	},
+/obj/item/plant_tray/pot/random,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
