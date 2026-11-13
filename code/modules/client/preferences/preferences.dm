@@ -326,6 +326,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (istype(requested_preference, /datum/preference/name/real_name))
 				update_current_character_profile()
 
+			SSstat.update_job_estimation(usr)
+
 			return TRUE
 		if ("set_color_preference")
 			var/requested_preference_key = params["preference"]
