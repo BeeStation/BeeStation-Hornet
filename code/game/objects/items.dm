@@ -648,12 +648,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
-				playsound(src, block_sound, 50, 1)
+				playsound(src, block_sound, 50, TRUE)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				return TRUE
 		if(135, 225, -135, -225) //Check for forward diagonals
 			if(canblock)
-				playsound(src, block_sound, 50, 1)
+				playsound(src, block_sound, 50, TRUE)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				return TRUE
 	return FALSE
@@ -935,7 +935,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	add_fingerprint(user)
 
-	playsound(loc, src.hitsound, 30, 1, -1)
+	playsound(loc, src.hitsound, 30, TRUE, -1)
 
 	user.do_attack_animation(M)
 
@@ -1017,7 +1017,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			else if(hitsound)
 				playsound(hit_atom, hitsound, volume, TRUE, -1)
 			else
-				playsound(hit_atom, 'sound/weapons/genhit.ogg',volume, TRUE, -1)
+				playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
 		else
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 	var/obj/item/modular_computer/comp
@@ -1034,14 +1034,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/turf/start = get_turf(src)
 		if(!comp.enabled)
 			new /obj/effect/particle_effect/sparks(start)
-			playsound(start, "sparks", 50, 1)
+			playsound(start, "sparks", 50, TRUE)
 			return
 		if(!target)
 			return
 		// The better the CPU the farther it goes, and the more battery it needs
-		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(start, "sparks", 50, 1)
-		playsound(target, "sparks", 50, 1)
+		playsound(target, 'sound/effects/phasein.ogg', 25, TRUE)
+		playsound(start, "sparks", 50, TRUE)
+		playsound(target, "sparks", 50, TRUE)
 		do_dash(src, start, target, 0, TRUE)
 		comp.use_power((250 * cpu.max_idle_programs))
 	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
@@ -1330,7 +1330,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(islist(usesound))
 			played_sound = pick(usesound)
 
-		playsound(target, played_sound, volume, 1)
+		playsound(target, played_sound, volume, TRUE)
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
 /obj/item/proc/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
@@ -1441,18 +1441,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 
 	AddElement(/datum/element/embed,\
-		embed_chance = (!isnull(embedding["embed_chance"]) ? embedding["embed_chance"] : EMBED_CHANCE),\
-		fall_chance = (!isnull(embedding["fall_chance"]) ? embedding["fall_chance"] : EMBEDDED_ITEM_FALLOUT),\
-		pain_chance = (!isnull(embedding["pain_chance"]) ? embedding["pain_chance"] : EMBEDDED_PAIN_CHANCE),\
-		pain_mult = (!isnull(embedding["pain_mult"]) ? embedding["pain_mult"] : EMBEDDED_PAIN_MULTIPLIER),\
-		max_damage_mult = (!isnull(embedding["max_damage_mult"]) ? embedding["max_damage_mult"] : EMBEDDED_MAX_DAMAGE_MULTIPLIER),\
-		remove_pain_mult = (!isnull(embedding["remove_pain_mult"]) ? embedding["remove_pain_mult"] : EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
-		rip_time = (!isnull(embedding["rip_time"]) ? embedding["rip_time"] : EMBEDDED_UNSAFE_REMOVAL_TIME),\
-		ignore_throwspeed_threshold = (!isnull(embedding["ignore_throwspeed_threshold"]) ? embedding["ignore_throwspeed_threshold"] : FALSE),\
-		jostle_chance = (!isnull(embedding["jostle_chance"]) ? embedding["jostle_chance"] : EMBEDDED_JOSTLE_CHANCE),\
-		jostle_pain_mult = (!isnull(embedding["jostle_pain_mult"]) ? embedding["jostle_pain_mult"] : EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
-		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT),\
-		armour_block = (!isnull(embedding["armour_block"]) ? embedding["armour_block"] : EMBEDDED_ARMOUR_BLOCK))
+		embed_chance = (embedding["embed_chance"] || EMBED_CHANCE),\
+		fall_chance = (embedding["fall_chance"] || EMBEDDED_ITEM_FALLOUT),\
+		pain_chance = (embedding["pain_chance"] || EMBEDDED_PAIN_CHANCE),\
+		pain_mult = (embedding["pain_mult"] || EMBEDDED_PAIN_MULTIPLIER),\
+		max_damage_mult = (embedding["max_damage_mult"] || EMBEDDED_MAX_DAMAGE_MULTIPLIER),\
+		remove_pain_mult = (embedding["remove_pain_mult"] || EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
+		rip_time = (embedding["rip_time"] || EMBEDDED_UNSAFE_REMOVAL_TIME),\
+		ignore_throwspeed_threshold = (embedding["ignore_throwspeed_threshold"] || FALSE),\
+		jostle_chance = (embedding["jostle_chance"] || EMBEDDED_JOSTLE_CHANCE),\
+		jostle_pain_mult = (embedding["jostle_pain_mult"] || EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
+		pain_stam_pct = (embedding["pain_stam_pct"] || EMBEDDED_PAIN_STAM_PCT),\
+		armour_block = (embedding["armour_block"] || EMBEDDED_ARMOUR_BLOCK))
 	return TRUE
 
 /// How many different types of mats will be counted in a bite?
