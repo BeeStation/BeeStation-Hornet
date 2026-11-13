@@ -9,8 +9,8 @@
 	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	bodyshapes_with_variations = BODYSHAPE_DIGITIGRADE
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
-	drop_sound = 'sound/items/handling/cloth_drop.ogg'
-	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	drop_sound = 'sound/items/handling/cloth/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth/cloth_pickup.ogg'
 	dying_key = DYE_REGISTRY_UNDER
 
 	/// Has this undersuit been freshly laundered and, as such, imparts a mood bonus for wearing
