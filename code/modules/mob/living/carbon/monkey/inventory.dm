@@ -1,4 +1,4 @@
-/mob/living/carbon/monkey/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/mob/living/carbon/monkey/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE, indirect_action = FALSE)
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
 			if(get_empty_held_indexes())
@@ -36,7 +36,7 @@
 			return TRUE
 	return FALSE //Unsupported slot
 
-/mob/living/carbon/monkey/equip_to_slot(obj/item/I, slot)
+/mob/living/carbon/monkey/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE, indirect_action = FALSE)
 	if(!..()) //a check failed or the item has already found its slot
 		return
 
@@ -50,7 +50,7 @@
 
 	//Item is handled and in slot, valid to call callback, for this proc should always be true
 	if(!not_handled)
-		I.equipped(src, slot)
+		has_equipped(I, slot, initial)
 
 	return not_handled //For future deeper overrides
 

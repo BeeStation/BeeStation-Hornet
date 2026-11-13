@@ -369,7 +369,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(M.client?.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 			speech_bubble_recipients.Add(M.client)
 
-	var/image/say_popup = image('icons/mob/talk.dmi', src, "[bubble_type][talk_icon_state]", (-TYPING_LAYER))
+	var/image/say_popup = image('icons/mob/talk.dmi', src, "[bubble_type][talk_icon_state]", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER))
 	say_popup.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(animate_speechbubble), say_popup, speech_bubble_recipients, 30)
 

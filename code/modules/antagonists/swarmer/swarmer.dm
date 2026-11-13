@@ -36,6 +36,9 @@
 			notify_flags = NOTIFY_CATEGORY_NOFLASH,
 		)
 
+/obj/effect/mob_spawn/swarmer/equip(mob/new_swarmer)
+	new_swarmer.real_name = new_swarmer.name
+
 /obj/effect/mob_spawn/swarmer/attack_hand(mob/living/user)
 	. = ..()
 	if(.)

@@ -193,7 +193,7 @@
 	inhand_icon_state = null
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	hair_mask = ""
+	hair_mask = null
 	clothing_flags = SNUG_FIT
 	armor_type = /datum/armor/hardhat_pumpkinhead
 	light_range = 2 //luminosity when on
@@ -213,7 +213,7 @@
 	inhand_icon_state = null
 	hat_type = "reindeer"
 	flags_inv = 0
-	hair_mask = ""
+	hair_mask = null
 	armor_type = /datum/armor/none
 	light_range = 1 //luminosity when on
 

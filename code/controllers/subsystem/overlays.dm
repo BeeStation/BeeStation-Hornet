@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(overlays)
 // If the overlay has a planeset (e.g., emissive), mark for ZM mangle. This won't catch overlays on overlays, but the flag can just manually be set in that case.
 #define ZM_AUTOMANGLE(target) if ((target):plane != FLOAT_PLANE) { SSoverlays.context_needs_automangle = TRUE; }
 
-/atom/proc/build_appearance_list(build_overlays)
+/atom/proc/build_appearance_list(list/build_overlays)
 	if (!islist(build_overlays))
 		build_overlays = list(build_overlays)
 	for (var/overlay in build_overlays)
@@ -52,15 +52,15 @@ SUBSYSTEM_DEF(overlays)
 			build_overlays -= overlay
 			continue
 		if (istext(overlay))
-			build_overlays -= overlay
-			build_overlays += iconstate2appearance(icon, overlay)
+			var/index = build_overlays.Find(overlay)
+			build_overlays[index] = iconstate2appearance(icon, overlay)
 		else if(isicon(overlay))
-			build_overlays -= overlay
-			build_overlays += icon2appearance(overlay)
+			var/index = build_overlays.Find(overlay)
+			build_overlays[index] = icon2appearance(overlay)
 	return build_overlays
 
 // The same as the above, but with ZM_AUTOMANGLE.
-/atom/movable/build_appearance_list(build_overlays)
+/atom/movable/build_appearance_list(list/build_overlays)
 	if (!islist(build_overlays))
 		build_overlays = list(build_overlays)
 	for (var/overlay in build_overlays)
@@ -68,13 +68,13 @@ SUBSYSTEM_DEF(overlays)
 			build_overlays -= overlay
 			continue
 		if (istext(overlay))
-			build_overlays -= overlay
+			var/index = build_overlays.Find(overlay)
 			overlay = iconstate2appearance(icon, overlay)
-			build_overlays += overlay
+			build_overlays[index] = overlay
 		else if(isicon(overlay))
-			build_overlays -= overlay
+			var/index = build_overlays.Find(overlay)
 			overlay = icon2appearance(overlay)
-			build_overlays += overlay
+			build_overlays[index] = overlay
 		ZM_AUTOMANGLE(overlay)
 	return build_overlays
 

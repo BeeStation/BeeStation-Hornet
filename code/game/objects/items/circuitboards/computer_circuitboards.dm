@@ -234,7 +234,7 @@
 /obj/item/circuitboard/computer/control_rods
 	name = "RBMK Reactor Control Rod Console"
 	icon_state = "engineering"
-	build_path = /obj/machinery/computer/reactor/control_rods
+	build_path = /obj/machinery/computer/reactor_control_rods
 
 //Generic
 

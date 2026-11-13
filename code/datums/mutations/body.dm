@@ -378,14 +378,13 @@
 /datum/mutation/strongwings/on_acquiring()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(!wings)
 		to_chat(owner, span_warning("You don't have wings to strengthen!"))
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
 		var/obj/item/organ/wings/moth/moth_wings = wings
-		moth_wings.flight_level += 1
-		moth_wings.Refresh(owner)
+		moth_wings.set_flight(owner, moth_wings.flight_level + 1)
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
@@ -397,13 +396,12 @@
 /datum/mutation/strongwings/on_losing()
 	if(..())
 		return
-	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(!wings)
 		return
 	if(istype(wings, /obj/item/organ/wings/moth))
 		var/obj/item/organ/wings/moth/moth_wings = wings
-		moth_wings.flight_level -= 1
-		moth_wings.Refresh(owner)
+		moth_wings.set_flight(owner, moth_wings.flight_level - 1)
 		to_chat(owner, span_warning("Your wings feel weak."))
 	else if(istype(wings, /obj/item/organ/wings/bee))
 		var/obj/item/organ/wings/bee/bee_wings = wings
@@ -412,9 +410,10 @@
 
 /datum/mutation/strongwings/modify()
 	..()
-	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_WINGS)
+	var/obj/item/organ/wings/bee/bee_wings = owner.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
+
 /datum/mutation/catclaws
 	name = "Cat Claws"
 	desc = "Subject's hands grow sharpened claws."

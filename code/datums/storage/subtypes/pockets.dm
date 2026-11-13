@@ -4,7 +4,7 @@
 	max_total_storage = 50
 	do_rustle = FALSE
 
-/datum/storage/pockets/attempt_insert(obj/item/to_insert, mob/user, override, force)
+/datum/storage/pockets/attempt_insert(obj/item/to_insert, mob/user, override = FALSE, force = FALSE, messages = TRUE)
 	. = ..()
 	if(!.)
 		return

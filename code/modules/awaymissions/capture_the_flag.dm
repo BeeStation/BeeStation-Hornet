@@ -1,10 +1,10 @@
 #define WHITE_TEAM "White"
 #define RED_TEAM "Red"
 #define BLUE_TEAM "Blue"
-#define FLAG_RETURN_TIME 200 // 20 seconds
-#define INSTAGIB_RESPAWN 50 //5 seconds
-#define DEFAULT_RESPAWN 150 //15 seconds
-#define AMMO_DROP_LIFETIME 300
+#define FLAG_RETURN_TIME (20 SECONDS)
+#define INSTAGIB_RESPAWN (5 SECONDS)
+#define DEFAULT_RESPAWN (15 SECONDS)
+#define AMMO_DROP_LIFETIME (30 SECONDS)
 #define CTF_REQUIRED_PLAYERS 4
 
 /obj/item/ctf
@@ -195,7 +195,8 @@
 	var/list/team_members = list()
 	///assoc list: mob = outfit datum (class)
 	var/list/spawned_mobs = list()
-	var/list/recently_dead_ckeys = list()
+	/// Active respawn timer IDs per player ckey.
+	var/list/respawn_timers = list()
 	var/ctf_enabled = FALSE
 	///assoc list for classes. If there's only one, it'll just equip. Otherwise, it lets you pick which outfit!
 	var/list/ctf_gear = list("white" = /datum/outfit/ctf)
@@ -285,8 +286,10 @@
 	if(!SSticker.HasRoundStarted())
 		return
 	if(user.ckey in team_members)
-		if(user.ckey in recently_dead_ckeys)
-			to_chat(user, "It must be more than [DisplayTimeText(respawn_cooldown)] from your last death to respawn!")
+		var/respawn_timer = respawn_timers[user.ckey]
+		if(respawn_timer)
+			var/time_remaining = max(1 SECONDS, CEILING(timeleft(respawn_timer), 1 SECONDS))
+			to_chat(user, "You can respawn in [DisplayTimeText(time_remaining)].")
 			return
 		var/client/new_team_member = user.client
 		if(user.mind && user.mind.current)
@@ -319,11 +322,12 @@
 /obj/machinery/capture_the_flag/proc/ctf_qdelled_player(mob/living/body)
 	SIGNAL_HANDLER
 
-	recently_dead_ckeys += body.ckey
-	addtimer(CALLBACK(src, PROC_REF(clear_cooldown), body.ckey), respawn_cooldown, TIMER_UNIQUE)
+	var/player_ckey = body.ckey
+	if(player_ckey)
+		respawn_timers[player_ckey] = addtimer(CALLBACK(src, PROC_REF(clear_cooldown), player_ckey), respawn_cooldown, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 /obj/machinery/capture_the_flag/proc/clear_cooldown(ckey)
-	recently_dead_ckeys -= ckey
+	respawn_timers -= ckey
 
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
 	var/datum/outfit/chosen_class
@@ -334,14 +338,14 @@
 
 	else if(ctf_gear.len > 3) //a lot of choices, so much that we can't use a basic alert
 		var/result = input(new_team_member, "Select a class.", "CTF") as null|anything in sort_list(ctf_gear)
-		if(!result || !(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME) || (new_team_member.ckey in recently_dead_ckeys) || !isobserver(new_team_member.mob))
+		if(!result || !(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME) || respawn_timers[new_team_member.ckey] || !isobserver(new_team_member.mob))
 			return //picked nothing, admin disabled it, cheating to respawn faster, cheating to respawn... while in game?
 		chosen_class = ctf_gear[result]
 	else //2-3 choices
 		var/list/names_only = assoc_to_keys(ctf_gear)
 		names_only.len += 1 //create a new null entry so if it's a 2-sized list, names_only[3] is null instead of out of bounds
 		var/result = tgui_alert(new_team_member, "Select a class.", "CTF", list(names_only[1], names_only[2], names_only[3]))
-		if(!result || !(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME) || (new_team_member.ckey in recently_dead_ckeys) || !isobserver(new_team_member.mob))
+		if(!result || !(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME) || respawn_timers[new_team_member.ckey] || !isobserver(new_team_member.mob))
 			return //picked nothing, admin disabled it, cheating to respawn faster, cheating to respawn... while in game?
 		chosen_class = ctf_gear[result]
 	var/mob/living/carbon/human/M = new /mob/living/carbon/human(get_turf(src))
@@ -365,7 +369,7 @@
 			for(var/mob/ctf_player in GLOB.player_list)
 				var/area/mob_area = get_area(ctf_player)
 				if(istype(mob_area, game_area))
-					to_chat(ctf_player, span_userdanger("[team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!"))
+					to_chat(ctf_player, span_userdanger("<span class='[team_span]'>[user.real_name] has captured \the [flag], scoring a point for [team] team! They now have [points]/[points_to_win] points!</span>"))
 			if(points >= points_to_win)
 				victory()
 
@@ -374,7 +378,7 @@
 		var/mob/living/competitor = _competitor
 		var/area/mob_area = get_area(competitor)
 		if(istype(mob_area, game_area))
-			to_chat(competitor, span_narsie("[team_span]'>[team] team wins!"))
+			to_chat(competitor, span_narsie("<span class='[team_span]'>[team] team wins!</span>"))
 			to_chat(competitor, victory_rejoin_text)
 			for(var/obj/item/ctf/W in competitor)
 				competitor.dropItemToGround(W)
@@ -444,7 +448,9 @@
 			competitor.dust()
 	team_members.Cut()
 	spawned_mobs.Cut()
-	recently_dead_ckeys.Cut()
+	for(var/player_ckey in respawn_timers)
+		deltimer(respawn_timers[player_ckey])
+	respawn_timers.Cut()
 
 /obj/machinery/capture_the_flag/proc/instagib_mode()
 	for(var/obj/machinery/capture_the_flag/CTF as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/capture_the_flag))

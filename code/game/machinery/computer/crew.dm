@@ -273,9 +273,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		if (I)
 			entry["name"] = I.registered_name ? I.registered_name : "Unknown"
-			entry["assignment"] = I.assignment ? I.assignment : "Unknown"
-			if(jobs[I.hud_state] != null)
-				entry["ijob"] = jobs[I.hud_state]
+			entry["assignment"] = I.get_assignment() || "Unknown"
+			if(jobs[I.get_hud_state()] != null)
+				entry["ijob"] = jobs[I.get_hud_state()]
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)

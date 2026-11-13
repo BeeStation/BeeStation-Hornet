@@ -122,7 +122,7 @@
 	var/mob/living/carbon/human/outstanding_crewmember = interacting_with
 
 	//Check if the jumpsuit is covered or doesn't exist
-	if(!outstanding_crewmember.w_uniform || (outstanding_crewmember.wear_suit?.flags_inv & HIDEJUMPSUIT))
+	if(!outstanding_crewmember.w_uniform || (outstanding_crewmember.obscured_slots & HIDEJUMPSUIT))
 		to_chat(user, span_warning("Medals can only be pinned on jumpsuits."))
 		return ITEM_INTERACT_BLOCKING
 

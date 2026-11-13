@@ -39,7 +39,7 @@
 
 /mob/living/simple_animal/shade/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
+	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_SPACEWALK, TRAIT_VENTCRAWLER_ALWAYS), INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/death()
 	death_message = "lets out a contented sigh as [p_their()] form unwinds."

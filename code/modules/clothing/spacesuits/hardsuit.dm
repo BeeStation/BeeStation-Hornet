@@ -741,7 +741,7 @@
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
-	var/shield_integrity = 150
+	var/shield_integrity = 300 // Enough for 2 regular rifle shots or 5 pistol shots
 	var/charge_recovery = 30
 	var/recharge_start_delay = 20 SECONDS
 	var/charge_increment_delay = 1 SECONDS

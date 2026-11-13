@@ -52,7 +52,7 @@
 			var/obj/item/organ/tail/tail = M.get_organ_by_type(/obj/item/organ/tail)
 			if(tail && !istype(tail, /obj/item/organ/tail/cat))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
-				M.adjustOrganLoss(ORGAN_SLOT_TAIL, 30, 200)
+				M.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, 30, 200)
 				M.visible_message(span_hypnophrase("This tail is disgusting! you have to get rid of it!"), span_warning("[M] pulls viciously at their own tail!"))
 				if(tail.organ_flags & ORGAN_FAILING)
 					M.visible_message(span_hypnophrase("You finally manage to rip your tail out!"), span_warning("[M] pulls their own tail out!"))
@@ -106,7 +106,7 @@
 			var/obj/item/organ/ears/cat/targetears = target.get_organ_by_type(/obj/item/organ/ears/cat)
 			var/obj/item/organ/tail/cat/targettail = target.get_organ_by_type(/obj/item/organ/tail/cat)
 			if(!H.get_organ_by_type(/obj/item/organ/tail/cat) && targettail)
-				target.adjustOrganLoss(ORGAN_SLOT_TAIL, 20, 200)
+				target.adjustOrganLoss(ORGAN_SLOT_EXTERNAL_TAIL, 20, 200)
 				dnacounter += 1
 				if(targettail.organ_flags & ORGAN_FAILING)
 					to_chat(target, span_userdanger("[H] rips your tail from its socket!"))

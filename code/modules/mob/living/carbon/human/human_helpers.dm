@@ -10,7 +10,7 @@
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_id
 	if(id)
-		. = id.assignment
+		. = id.get_assignment()
 	else
 		var/obj/item/modular_computer/pda = wear_id
 		if(istype(pda))
@@ -32,6 +32,11 @@
 	if(istype(pda))
 		return pda.saved_identification
 	return if_no_id
+
+/// Used to update our name based on whether our face is obscured/disfigured
+/mob/living/carbon/human/proc/update_visible_name()
+	SIGNAL_HANDLER
+	name = get_visible_name()
 
 /// Combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
@@ -70,10 +75,8 @@
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))
 		return if_no_face //We're Unknown, no face information for you
-	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
+	if(obscured_slots & HIDEFACE)
 		return if_no_face
-	if( head && (head.flags_inv&HIDEFACE) )
-		return if_no_face		//Likewise for hats
 	var/obj/item/bodypart/O = get_bodypart(BODY_ZONE_HEAD)
 	if( !O || (HAS_TRAIT(src, TRAIT_DISFIGURED)) || (O.brutestate+O.burnstate)>2 || cloneloss>50 || !real_name )	//disfigured. use id-name if possible
 		return if_no_face
@@ -249,7 +252,7 @@
 	var/obj/item/card/id/I = wear_id.GetID()
 	if(!I)
 		return
-	var/I_hud = I.hud_state
+	var/I_hud = I.get_hud_state()
 	if(I_hud)
 		return I_hud
 	return "unknown"
