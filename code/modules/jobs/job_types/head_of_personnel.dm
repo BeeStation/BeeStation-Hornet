@@ -69,7 +69,7 @@
 		/datum/department_group/service,
 		/datum/department_group/command,
 		)
-	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
+	bank_account_department = ACCOUNT_CIV_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
