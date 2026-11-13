@@ -679,3 +679,7 @@
  */
 /datum/config_entry/number/tgui_max_chunk_count
 	config_entry_value = 32
+
+/// If enabled, all Debugger.enabled checks are also satisfied by this config.
+/// For example: sending runtimes to chat, muting lobby music, etc.
+/datum/config_entry/flag/mimic_debugger
