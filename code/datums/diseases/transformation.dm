@@ -187,7 +187,7 @@
 	stage3	= list(span_danger("Your appendages are melting away."), span_danger("Your limbs begin to lose their shape."))
 	stage4	= list(span_danger("You are turning into a slime."))
 	stage5	= list(span_danger("You have become a slime."))
-	new_form = /mob/living/simple_animal/slime
+	new_form = /mob/living/basic/slime
 
 /datum/disease/transformation/slime/stage_act(delta_time, times_fired)
 	. = ..()

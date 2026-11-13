@@ -228,3 +228,6 @@
 #define FROM_CHAMELEON "from_chameleon"
 /// Source for innate toggleable silicon HUDs
 #define SILICON_HUD_TRAIT "silicon_hud"
+
+/// Trait added by a xenobio console
+#define XENOBIO_CONSOLE_TRAIT "xenobio_console_trait"

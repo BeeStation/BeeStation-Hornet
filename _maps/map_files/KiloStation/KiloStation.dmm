@@ -48953,7 +48953,7 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/morgue)
 "qKI" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /turf/open/floor/engine,
 /area/station/science/xenobiology)
 "qLc" = (

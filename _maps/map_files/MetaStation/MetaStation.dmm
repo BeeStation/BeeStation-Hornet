@@ -24781,7 +24781,7 @@
 /turf/open/floor/iron/dark,
 /area/station/science/nanite)
 "iWX" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /obj/machinery/camera/directional/west{
 	c_tag = "Xenobiology Lab - Pen #5"
 	},
@@ -28196,7 +28196,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/starboard)
 "kda" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -41747,7 +41747,7 @@
 /turf/open/floor/carpet/red,
 /area/station/security/detectives_office)
 "oCu" = (
-/mob/living/simple_animal/slime,
+/mob/living/basic/slime,
 /obj/machinery/light/small{
 	dir = 8
 	},

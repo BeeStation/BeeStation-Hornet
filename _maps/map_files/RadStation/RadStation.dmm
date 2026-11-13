@@ -14217,7 +14217,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/security)
 "fkL" = (
-/mob/living/simple_animal/slime{
+/mob/living/basic/slime{
 	name = "yucca"
 	},
 /turf/open/floor/engine,
@@ -15004,7 +15004,7 @@
 /turf/open/floor/iron/tech,
 /area/station/engineering/atmos)
 "fCd" = (
-/mob/living/simple_animal/slime{
+/mob/living/basic/slime{
 	name = "havana"
 	},
 /turf/open/floor/engine,
@@ -42255,7 +42255,7 @@
 /area/station/security/brig)
 "pUt" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/slime{
+/mob/living/basic/slime{
 	name = "cholula"
 	},
 /turf/open/floor/engine,
@@ -48384,7 +48384,7 @@
 /turf/open/floor/catwalk_floor,
 /area/station/maintenance/department/engine)
 "skn" = (
-/mob/living/simple_animal/slime{
+/mob/living/basic/slime{
 	name = "sycamore"
 	},
 /turf/open/floor/engine,
@@ -59878,7 +59878,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/department/science)
 "wGA" = (
-/mob/living/simple_animal/slime{
+/mob/living/basic/slime{
 	name = "alizee"
 	},
 /turf/open/floor/engine,

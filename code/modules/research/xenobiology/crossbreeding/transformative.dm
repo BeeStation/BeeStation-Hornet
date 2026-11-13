@@ -12,7 +12,7 @@ transformative extracts:
 /obj/item/slimecross/transformative/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !isslime(target))
 		return FALSE
-	var/mob/living/simple_animal/slime/S = target
+	var/mob/living/basic/slime/S = target
 	if(S.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 	if(S.transformeffects & effect_applied)
@@ -23,15 +23,17 @@ transformative extracts:
 	S.transformeffects = effect_applied //S.transformeffects |= effect_applied
 	qdel(src)
 
-/obj/item/slimecross/transformative/proc/do_effect(mob/living/simple_animal/slime/S, mob/user)
+/obj/item/slimecross/transformative/proc/do_effect(mob/living/basic/slime/S, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	if(S.transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		S.remove_from_spawner_menu()
 		S.master = null
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
+	if(S.transformeffects & SLIME_EFFECT_RED)
+		S.melee_damage /= 1.1
 	if(S.transformeffects & SLIME_EFFECT_BLUESPACE)
-		S.remove_verb(/mob/living/simple_animal/slime/proc/teleport)
+		S.remove_verb(/mob/living/basic/slime/proc/teleport)
 	if(S.transformeffects & SLIME_EFFECT_PINK)
 		var/datum/language_holder/LH = S.get_language_holder()
 		LH.selected_language = /datum/language/slime
@@ -63,7 +65,7 @@ transformative extracts:
 	effect_applied = SLIME_EFFECT_METAL
 	effect_desc = "Slimes will be able to sustain more damage before dying."
 
-/obj/item/slimecross/transformative/metal/do_effect(mob/living/simple_animal/slime/S)
+/obj/item/slimecross/transformative/metal/do_effect(mob/living/basic/slime/S)
 	..()
 	S.maxHealth = round(S.maxHealth*1.3)
 
@@ -92,9 +94,9 @@ transformative extracts:
 	effect_applied = SLIME_EFFECT_BLUESPACE
 	effect_desc = "Slimes will teleport to targets when they are at full electric charge."
 
-/obj/item/slimecross/transformative/bluespace/do_effect(mob/living/simple_animal/slime/S, mob/user)
+/obj/item/slimecross/transformative/bluespace/do_effect(mob/living/basic/slime/S, mob/user)
 	..()
-	S.add_verb(/mob/living/simple_animal/slime/proc/teleport)
+	S.add_verb(/mob/living/basic/slime/proc/teleport)
 
 /obj/item/slimecross/transformative/sepia
 	colour = SLIME_TYPE_SEPIA
@@ -116,12 +118,16 @@ transformative extracts:
 	effect_applied = SLIME_EFFECT_RED
 	effect_desc = "Slimes does 10% more damage when feeding and attacking."
 
+/obj/item/slimecross/transformative/red/do_effect(mob/living/basic/slime/S)
+	..()
+	S.melee_damage *= 1.1
+
 /obj/item/slimecross/transformative/green
 	colour = SLIME_TYPE_GREEN
 	effect_applied = SLIME_EFFECT_GREEN
 	effect_desc = "Grants sentient slimes the ability to become oozelings at will, once."
 
-/obj/item/slimecross/transformative/green/do_effect(mob/living/simple_animal/slime/S)
+/obj/item/slimecross/transformative/green/do_effect(mob/living/basic/slime/S)
 	..()
 	var/datum/action/spell/oozeling_evolve/transform = new(S)
 	transform.Grant(S)
@@ -131,7 +137,7 @@ transformative extracts:
 	effect_applied = SLIME_EFFECT_PINK
 	effect_desc = "Slimes will speak in common rather than in slime."
 
-/obj/item/slimecross/transformative/pink/do_effect(mob/living/simple_animal/slime/S)
+/obj/item/slimecross/transformative/pink/do_effect(mob/living/basic/slime/S)
 	..()
 	S.grant_language(/datum/language/common)
 	var/datum/language_holder/LH = S.get_language_holder()
@@ -157,7 +163,7 @@ transformative extracts:
 	effect_applied = SLIME_EFFECT_LIGHT_PINK
 	effect_desc = "Slimes may become possessed by supernatural forces."
 
-/obj/item/slimecross/transformative/lightpink/do_effect(mob/living/simple_animal/slime/S, mob/user)
+/obj/item/slimecross/transformative/lightpink/do_effect(mob/living/basic/slime/S, mob/user)
 	..()
 	SSpoints_of_interest.make_point_of_interest(S)
 	S.make_master(user)

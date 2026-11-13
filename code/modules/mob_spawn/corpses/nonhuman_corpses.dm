@@ -10,13 +10,13 @@
 	qdel(src)
 
 /obj/effect/mob_spawn/slime
-	mob_type = 	/mob/living/simple_animal/slime
-	var/mobcolour = "grey"
+	mob_type = /mob/living/basic/slime
 	icon = 'icons/mob/slimes.dmi'
-	icon_state = "grey baby slime" //sets the icon in the map editor
+	icon_state = "grey-baby-dead" //sets the icon in the map editor
+	var/slime_species = /datum/slime_type/grey
 
-/obj/effect/mob_spawn/slime/equip(mob/living/simple_animal/slime/S)
-	S.colour = mobcolour
+/obj/effect/mob_spawn/slime/equip(mob/living/basic/slime/S)
+	S.set_slime_type(slime_species)
 
 /obj/effect/mob_spawn/facehugger/create(ckey) //Creates a squashed facehugger
 	var/obj/item/clothing/mask/facehugger/O = new(src.loc) //variable O is a new facehugger at the location of the landmark

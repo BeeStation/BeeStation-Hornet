@@ -50,45 +50,45 @@ To add a crossbreed:
 	name = effect + " " + colour + " extract"
 	var/itemcolor = COLOR_WHITE
 	switch(colour)
-		if("orange")
+		if(SLIME_TYPE_ORANGE)
 			itemcolor = "#FFA500"
-		if("purple")
+		if(SLIME_TYPE_PURPLE)
 			itemcolor = "#B19CD9"
-		if("blue")
+		if(SLIME_TYPE_BLUE)
 			itemcolor = "#ADD8E6"
-		if("metal")
+		if(SLIME_TYPE_METAL)
 			itemcolor = "#7E7E7E"
-		if("yellow")
+		if(SLIME_TYPE_YELLOW)
 			itemcolor = COLOR_YELLOW
-		if("dark purple")
+		if(SLIME_TYPE_DARK_PURPLE)
 			itemcolor = COLOR_DARK_PURPLE
-		if("dark blue")
+		if(SLIME_TYPE_DARK_BLUE)
 			itemcolor = COLOR_BLUE
-		if("silver")
+		if(SLIME_TYPE_SILVER)
 			itemcolor = "#D3D3D3"
-		if("bluespace")
+		if(SLIME_TYPE_BLUESPACE)
 			itemcolor = COLOR_LIME
-		if("sepia")
+		if(SLIME_TYPE_SEPIA)
 			itemcolor = "#704214"
-		if("cerulean")
+		if(SLIME_TYPE_CERULEAN)
 			itemcolor = "#2956B2"
-		if("pyrite")
+		if(SLIME_TYPE_PYRITE)
 			itemcolor = "#FAFAD2"
-		if("red")
+		if(SLIME_TYPE_RED)
 			itemcolor = COLOR_RED
-		if("green")
+		if(SLIME_TYPE_GREEN)
 			itemcolor = COLOR_VIBRANT_LIME
-		if("pink")
+		if(SLIME_TYPE_PINK)
 			itemcolor = "#FF69B4"
-		if("gold")
+		if(SLIME_TYPE_GOLD)
 			itemcolor = COLOR_GOLD
-		if("oil")
+		if(SLIME_TYPE_OIL)
 			itemcolor = "#505050"
-		if("black")
+		if(SLIME_TYPE_BLACK)
 			itemcolor = COLOR_BLACK
-		if("light pink")
+		if(SLIME_TYPE_LIGHT_PINK)
 			itemcolor = "#FFB6C1"
-		if("adamantine")
+		if(SLIME_TYPE_ADAMANTINE)
 			itemcolor = "#008B8B"
 	add_atom_colour(itemcolor, FIXED_COLOUR_PRIORITY)
 

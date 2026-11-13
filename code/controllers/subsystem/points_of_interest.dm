@@ -246,10 +246,10 @@ if(istype(M, /mob/dead/new_player/pre_auth)) // don't show preauth players in or
 		return 7
 	if(istype(target, /mob/dead/new_player))
 		return 8
-	if(istype(target, /mob/living/simple_animal/slime))
+	if(isslime(target))
 		return 9
-	if(istype(target, /mob/living/simple_animal))
+	if(isanimal(target))
 		return 10
-	if(istype(target, /mob/living/basic))
+	if(isbasicmob(target))
 		return 11
 	return 12
