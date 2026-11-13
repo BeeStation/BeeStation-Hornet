@@ -32,10 +32,7 @@
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 	else
-		var/bprv = handle_bodyparts()
-		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
-			update_stamina() //needs to go before updatehealth to remove stamcrit
-			updatehealth()
+		update_stamina_nutrition()
 
 	if(stat != DEAD)
 		return TRUE
@@ -80,7 +77,7 @@
 	var/datum/gas_mixture/breath
 
 	if(!get_organ_slot(ORGAN_SLOT_BREATHING_TUBE))
-		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
+		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby?.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || (lungs?.organ_flags & ORGAN_FAILING))
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
 		else if(health <= crit_threshold)
@@ -167,8 +164,6 @@
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
-		if(prob(20))
-			emote("gasp")
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
@@ -275,34 +270,6 @@
 /mob/living/carbon/proc/handle_blood(delta_time, times_fired)
 	return
 
-/mob/living/carbon/proc/handle_bodyparts(delta_time, times_fired)
-	var/stam_regen = FALSE
-	if(stam_regen_start_time <= world.time)
-		stam_regen = TRUE
-		if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
-			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
-	var/bodyparts_with_stam = 0
-	var/stam_heal_multiplier = 1
-	var/total_stamina_loss = 0	//Quicker to put it here too than do it again with getStaminaLoss
-	var/force_heal = 0
-	//Find how many bodyparts we have with stamina damage
-	if(stam_regen)
-		for(var/obj/item/bodypart/BP as anything in bodyparts)
-			if(BP.stamina_dam >= DAMAGE_PRECISION)
-				bodyparts_with_stam++
-				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
-		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
-		force_heal = max(0, total_stamina_loss - 120) / max(bodyparts_with_stam, 1)
-	//Increase damage the more stam damage
-	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
-	stam_heal_multiplier = clamp(total_stamina_loss / 50, 1, 2)
-	//How well fed we are scales natural recovery. Never touch forced stamcrit however
-	var/nutrition_coeff = bodyparts_with_stam ? get_stamina_nutrition_coeff() : 1
-	//Heal bodypart stamina damage
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		if(BP.needs_processing)
-			. |= BP.on_life(delta_time, times_fired, stam_regen = (force_heal + ((stam_regen * stam_heal * stam_heal_multiplier * nutrition_coeff) / max(bodyparts_with_stam, 1))))
-
 /**
  * Multiplier on natural stamina regeneration from how well fed we are
  * Returns 1 for anything with no stomach(or non-traditional hunger), since nothing would ever refill nutrition
@@ -313,6 +280,14 @@
 	. = min(STAMINA_HUNGER_FLOOR + ((1 - STAMINA_HUNGER_FLOOR) * nutrition / NUTRITION_LEVEL_FED), 1)
 	if(satiety > SATIETY_WELL_NOURISHED)
 		. *= STAMINA_SATIETY_BONUS
+
+/// Scales natural stamina regeneration by [/mob/living/carbon/proc/get_stamina_nutrition_coeff]
+/mob/living/carbon/proc/update_stamina_nutrition()
+	var/nutrition_coeff = get_stamina_nutrition_coeff()
+	if(nutrition_coeff == 1)
+		stamina.remove_regen_multiplier("nutrition")
+	else
+		stamina.add_regen_multiplier("nutrition", nutrition_coeff)
 
 /mob/living/carbon/proc/handle_organs(delta_time, times_fired)
 	if(stat == DEAD)

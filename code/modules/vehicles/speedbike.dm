@@ -68,7 +68,7 @@
 			if(HAS_TRAIT(H, TRAIT_PROSKATER))
 				multiplier = 0.3 //70% reduction
 			H.Paralyze(multiplier * 100)
-			H.adjustStaminaLoss(multiplier * 30)
+			H.stamina.adjust(multiplier * -30)
 			if(prob(multiplier * 100))
 				H.apply_damage(rand(20,35), BRUTE)
 			if(!crash_all)

@@ -37,3 +37,6 @@
 
 /datum/movespeed_modifier/medbeam_heal
 	multiplicative_slowdown = 0.7
+
+/datum/movespeed_modifier/status_effect/disorient
+	multiplicative_slowdown = 1

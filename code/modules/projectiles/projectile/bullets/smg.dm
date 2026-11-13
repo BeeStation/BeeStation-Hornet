@@ -24,7 +24,10 @@
 /obj/projectile/bullet/c46x30mm_rubber
 	name = "4.6x30mm rubber bullet"
 	damage = 4
-	stamina = 18
+	disorient_length = 0.5 SECONDS
+	disorient_damage = 18
+	disorient_status_length = 4 SECONDS
+	disorient_stack_status = FALSE
 	ricochets_max = 2
 	ricochet_chance = 110
 	ricochet_incidence_leeway = 55

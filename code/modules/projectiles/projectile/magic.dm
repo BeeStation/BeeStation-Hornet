@@ -200,13 +200,15 @@
 
 	if(HAS_TRAIT(owner, TRAIT_INCAPACITATED) || owner.stat)
 		//If the victim is incapacitated, drain their health
-		owner.take_overall_damage(1, 1, 5, updating_health = TRUE)
+		owner.take_overall_damage(1, 1)
+		owner.stamina.adjust(-5)
 	else
 		//If they aren't incapacitated yet, drain only their stamina
-		owner.take_overall_damage(0, 0, 7, updating_health = TRUE)
+		owner.stamina.adjust(-7)
 
 	//Wizard heals at a steady rate over the duration of the spell regardless of the victim's state
-	wizard.heal_overall_damage(1, 1, 5, updating_health = TRUE)
+	wizard.heal_overall_damage(1, 1)
+	wizard.stamina.adjust(5)
 
 	//Weird beam visuals if it isn't redrawn due to the beam sending players into crit
 	drain_beam.redrawing()
@@ -285,7 +287,7 @@
 	target.adjustFireLoss(-amount_healed)
 	target.adjustToxLoss(-amount_healed)
 	target.adjustCloneLoss(-amount_healed)
-	target.adjustStaminaLoss(-amount_healed*2)
+	target.stamina.adjust(amount_healed*2)
 	target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
 
 /obj/projectile/magic/potential

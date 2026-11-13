@@ -340,13 +340,14 @@
 		for(var/obj/item/bodypart/arm in human_new_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage) + 2
+		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	if(ishuman(human_old_body))
 		human_old_body.dna.species.inherent_traits -= TRAIT_DRINKSBLOOD
 		for(var/obj/item/bodypart/arm in human_old_body.bodyparts)
 			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
 				arm.unarmed_damage = initial(arm.unarmed_damage)
-		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
+		human_old_body.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 
 	// Vampire Traits

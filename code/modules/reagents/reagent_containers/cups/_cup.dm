@@ -409,7 +409,7 @@
 		if(!grinded)
 			to_chat(user, span_warning("There is nothing to grind!"))
 			return ITEM_INTERACT_BLOCKING
-		if(user.getStaminaLoss() > 50)
+		if(HAS_TRAIT(user, TRAIT_EXHAUSTED))
 			to_chat(user, span_warning("You are too tired to work!"))
 			return ITEM_INTERACT_BLOCKING
 
@@ -417,7 +417,7 @@
 		if(!do_after(user, 2.5 SECONDS, target = src))
 			return ITEM_INTERACT_BLOCKING
 
-		user.adjustStaminaLoss(40)
+		user.stamina.adjust(-40, TRUE)
 
 		//food and pills
 		grinded.reagents?.trans_to(src, grinded.reagents.total_volume, transfered_by = user)

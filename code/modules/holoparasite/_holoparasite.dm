@@ -194,7 +194,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		var/mob/living/current = summoner.current
 		var/health_percent
 		if(iscarbon(current))
-			health_percent = round((abs(HEALTH_THRESHOLD_DEAD - current.health) / abs(HEALTH_THRESHOLD_DEAD - current.maxHealth)) * 100)
+			health_percent = round((abs(current.death_threshold - current.health) / abs(current.death_threshold - current.maxHealth)) * 100)
 		else
 			health_percent = round((current.health / current.maxHealth) * 100, 0.5)
 		var/stat_text = "[health_percent]%"

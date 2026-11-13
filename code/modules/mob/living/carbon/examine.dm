@@ -136,6 +136,11 @@
 				. += span_hypnophrase("[t_He] [t_is] plump and delicious looking - Like a fat little piggy. A tasty piggy.")
 			else
 				. += "<b>[t_He] [t_is] quite chubby.</b>"
+	if(!appears_dead)
+		if(HAS_TRAIT(src, TRAIT_EXHAUSTED))
+			. += span_warning("[t_He] look[p_s()] exhausted.")
+		else if(stamina.current < stamina.maximum * STAMINA_EXHAUSTION_WARNING_MODIFIER && !HAS_TRAIT(src, TRAIT_NOBREATH))
+			. += span_notice("[t_He] [t_is] breathing heavily.")
 	switch(disgust)
 		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
 			. += "[t_He] look[p_s()] a bit grossed out."
