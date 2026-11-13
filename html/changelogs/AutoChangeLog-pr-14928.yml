@@ -1,7 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - github: auxtools 3.0 is now included as a recommended VScode extension and a new
-      launch task has been created to use it. It's primary features include hot-reloading.
-      This means that you can make changes to the game's code in real-time without
-      having to recompile the whole project and start a new server.
