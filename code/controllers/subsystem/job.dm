@@ -891,10 +891,11 @@ SUBSYSTEM_DEF(job)
 		rule.refresh(arrival)
 
 /// Counts filled job slots, so deaths don't lower it
-/datum/controller/subsystem/job/proc/get_crew_count()
+/datum/controller/subsystem/job/proc/get_crew_count(list/excluded_jobs)
 	. = 0
 	for(var/datum/job/job as anything in all_occupations)
-		. += job.current_positions
+		if(!(job.title in excluded_jobs))
+			. += job.current_positions
 
 /// Ends acting appointments on cards registered to this name
 /datum/controller/subsystem/job/proc/end_acting_heads_for(name, cause)

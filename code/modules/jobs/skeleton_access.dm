@@ -4,6 +4,8 @@
 	var/datum/department_group/department
 	/// Titles of the jobs that get the access. Null means everyone
 	var/list/recipients
+	/// Titles left out
+	var/list/excluded_jobs = list(JOB_NAME_PRISONER)
 	/// Titles of the jobs being covered for. The rule is off while any of them is filled
 	var/list/covered_jobs = list()
 	/// Covers every job in this department instead of covered_jobs
@@ -33,13 +35,13 @@
 			return "[title] reported for duty"
 		if(SSjob.has_acting_head(title))
 			return "Acting [title] appointed"
-	if(SSjob.get_crew_count() >= population_limit)
+	if(SSjob.get_crew_count(excluded_jobs) >= population_limit)
 		return "Crew levels restored"
 	return null
 
 /// Whether the card gets this rule's access while the rule is on
 /datum/skeleton_access/proc/gives_to(obj/item/card/id/card)
-	if(!card.job_title || (!isnull(recipients) && !(card.job_title in recipients)))
+	if(!card.job_title || (card.job_title in excluded_jobs) || (!isnull(recipients) && !(card.job_title in recipients)))
 		return FALSE
 	// Someone hired after the handover started shouldn't get access that's already ending
 	return isnull(revoke_after_assignment) || card.job_assignment_id <= revoke_after_assignment
