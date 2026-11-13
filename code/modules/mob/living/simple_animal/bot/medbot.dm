@@ -218,6 +218,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 			"total_volume" = reagent_glass?.reagents.total_volume,
 			"maximum_volume" = reagent_glass?.reagents.maximum_volume
 		)
+		data["custom_controls"]["injection_amount"] = injection_amount
 		data["custom_controls"]["heal_threshold"] = heal_threshold
 		data["custom_controls"]["heal_threshold_brute"] = heal_threshold_brute
 		data["custom_controls"]["heal_threshold_burn"] = heal_threshold_burn

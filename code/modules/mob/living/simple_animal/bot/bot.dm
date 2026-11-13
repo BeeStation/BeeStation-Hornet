@@ -902,6 +902,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/list/data = list()
 	data["can_hack"] = (issilicon(user) || IsAdminGhost(user))
 	data["custom_controls"] = list()
+	data["model"] = model
+	data["ui_colour"] = path_image_color
 	data["emagged"] = emagged
 	data["locked"] = locked
 	data["pai"] = list()

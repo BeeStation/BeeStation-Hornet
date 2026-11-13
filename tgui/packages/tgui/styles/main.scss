@@ -68,6 +68,7 @@
 @include meta.load-css('./interfaces/Fabricator.scss');
 @include meta.load-css('./interfaces/WallCloset.scss');
 @include meta.load-css('./interfaces/ChessBoard.scss');
+@include meta.load-css('./interfaces/SimpleBot.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
