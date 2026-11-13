@@ -434,6 +434,10 @@
 				soundin = pick('sound/machines/buckle/buckle1.ogg', 'sound/machines/buckle/buckle2.ogg', 'sound/machines/buckle/buckle3.ogg')
 			if("unbuckle")
 				soundin = pick('sound/machines/buckle/unbuckle1.ogg', 'sound/machines/buckle/unbuckle2.ogg', 'sound/machines/buckle/unbuckle3.ogg')
+			if("headset_equip")
+				soundin = pick('sound/items/equip/headset_equip1.ogg', 'sound/items/equip/headset_equip2.ogg')
+			if("headset_pickup")
+				soundin = pick('sound/items/handling/headset/headset_pickup1.ogg', 'sound/items/handling/headset/headset_pickup2.ogg', 'sound/items/handling/headset/headset_pickup3.ogg',)
 	return soundin
 
 /client/proc/get_playing_channel(channel)

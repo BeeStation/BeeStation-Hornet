@@ -26,6 +26,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
+	equip_sound = "headset_equip"
+	pickup_sound = "headset_pickup"
+	drop_sound = 'sound/items/handling/headset/headset_drop.ogg'
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 
 	slot_flags = ITEM_SLOT_EARS
