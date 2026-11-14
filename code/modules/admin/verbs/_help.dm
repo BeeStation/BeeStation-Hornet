@@ -353,7 +353,7 @@
 	/// The help verb that is used to open this ticket type
 	var/verb_name = "Adminhelp"
 	/// The sound used for ticket actions and replies (bwoink!)
-	var/reply_sound = "sound/effects/adminhelp.ogg"
+	var/reply_sound = 'sound/effects/adminhelp.ogg'
 	/// The message type used for resolve messages
 	var/message_type = MESSAGE_TYPE_ADMINPM
 

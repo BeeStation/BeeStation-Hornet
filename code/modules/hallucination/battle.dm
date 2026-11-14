@@ -40,7 +40,7 @@
 	/// The upper end to how many shots we'll fire.
 	var/shots_to_fire_upper_range = 6
 	/// The sound effect or list of sound effects we play when we "fire" a shot. If a list, one is picked at start.
-	var/fire_sound = 'sound/weapons/shotgunshot.ogg'
+	var/fire_sound = 'sound/weapons/gun/shotgun/shot.ogg'
 	/// The sound we make when our shot actually "hits" "someone".
 	var/hit_person_sound = 'sound/weapons/pierce.ogg'
 	/// The sound we make when our shot misses someone and "hits" a "wall".
@@ -102,11 +102,11 @@
 	shots_to_fire_lower_range = 3
 	shots_to_fire_upper_range = 6
 	fire_sound = list( // someone port sound keys
-		'sound/weapons/shotgunshot.ogg',
-		'sound/weapons/revolver38shot.ogg',
-		'sound/weapons/revolver357shot.ogg',
-		'sound/weapons/rifleshot.ogg',
-		'sound/weapons/smgshot.ogg',
+		'sound/weapons/gun/shotgun/shot.ogg',
+		'sound/weapons/gun/revolver/shot.ogg',
+		'sound/weapons/gun/revolver/shot_alt.ogg',
+		'sound/weapons/gun/rifle/shot.ogg',
+		'sound/weapons/gun/smg/shot.ogg',
 		'sound/weapons/nps10/NPS-fire.ogg',
 	)
 	hit_person_sound = 'sound/weapons/pierce.ogg'

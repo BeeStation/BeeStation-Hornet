@@ -43,7 +43,7 @@
 	species_height = SPECIES_HEIGHTS(0, -1, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
-	deathsound = "sound/emotes/diona/death.ogg"
+	deathsound = 'sound/emotes/diona/death.ogg'
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite

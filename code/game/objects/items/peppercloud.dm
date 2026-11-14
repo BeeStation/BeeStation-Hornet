@@ -102,7 +102,7 @@
 	reagents.trans_to(R, 25)
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, 1, center, silent = TRUE, circle = FALSE)
-	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
+	playsound(src, 'sound/weapons/gun/general/grenade_launch.ogg', 70, FALSE, -2)
 	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -2)
 	smoke.start()
 	user.investigate_log("deployed a peppercloud at [COORD(center)].", INVESTIGATE_PEPPERSPRAY)

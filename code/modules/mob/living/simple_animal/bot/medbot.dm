@@ -459,7 +459,7 @@ DEFINE_BUFFER_HANDLER(/mob/living/simple_animal/bot/medbot)
 		update_icon()
 		if(COOLDOWN_FINISHED(src, synth_cooldown) && synth_epi && reagent_glass)
 			reagent_glass.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
-			playsound(src, "sound/effects/bubbles.ogg", 40)
+			playsound(src, 'sound/effects/bubbles.ogg', 40)
 			COOLDOWN_START(src, synth_cooldown, 5 MINUTES)
 		return
 	if(tipped)

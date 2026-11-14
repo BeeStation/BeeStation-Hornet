@@ -5,10 +5,11 @@
 	can_suppress = TRUE
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	semi_auto = TRUE
-	fire_sound = "sound/weapons/smgshot.ogg"
-	fire_sound_volume = 80
+	fire_sound = 'sound/weapons/gun/smg/shot.ogg'
+	fire_sound_volume = 90
 	automatic = 1
-	rack_sound = "sound/weapons/smgrack.ogg"
+	rack_sound = 'sound/weapons/gun/smg/smgrack.ogg'
+	suppressed_sound = 'sound/weapons/gun/smg/shot_suppressed.ogg'
 	weapon_weight = WEAPON_MEDIUM
 	drop_sound = 'sound/items/handling/gun/ballistics/smg/smg_drop1.ogg'
 	pickup_sound = 'sound/items/handling/gun/ballistics/smg/smg_pickup1.ogg'
@@ -116,7 +117,7 @@
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	fire_rate = 4
-	rack_sound = "sound/weapons/pistollock.ogg"
+	rack_sound = 'sound/weapons/gun/pistol/slide_lock.ogg'
 
 /obj/item/gun/ballistic/automatic/m90
 	name = "\improper M-90gl Carbine"
@@ -125,7 +126,7 @@
 	icon_state = "m90"
 	inhand_icon_state = "m90"
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gun/smg/shot_alt.ogg'
 	can_suppress = FALSE
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/underbarrel
 	burst_size = 3
@@ -188,7 +189,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
-	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	fire_rate = 5
 	can_suppress = FALSE
 	bolt_type = BOLT_TYPE_OPEN
@@ -200,11 +200,9 @@
 	inhand_icon_state = "arg"
 	slot_flags = 0
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
 	fire_rate = 4
 	custom_price = 300
-
 
 // L6 SAW //
 
@@ -226,8 +224,9 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	tac_reloads = FALSE
-	fire_sound = 'sound/weapons/rifleshot.ogg'
-	rack_sound = 'sound/weapons/chunkyrack.ogg'
+	fire_sound = 'sound/weapons/gun/l6/shot.ogg'
+	rack_sound = 'sound/weapons/gun/l6/l6_rack.ogg'
+	suppressed_sound = 'sound/weapons/gun/general/heavy_shot_suppressed.ogg'
 	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/l6_saw/unrestricted
@@ -246,10 +245,7 @@
 		return
 	cover_open = !cover_open
 	to_chat(user, span_notice("You [cover_open ? "open" : "close"] [src]'s cover."))
-	if(cover_open)
-		playsound(user, 'sound/weapons/sawopen.ogg', 60, 1)
-	else
-		playsound(user, 'sound/weapons/sawopen.ogg', 60, 1)
+	playsound(user, 'sound/weapons/gun/l6/l6_door.ogg', 60, TRUE)
 	update_appearance()
 
 /obj/item/gun/ballistic/automatic/l6_saw/update_overlays()

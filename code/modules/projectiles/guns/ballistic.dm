@@ -8,24 +8,24 @@
 	drop_sound = 'sound/items/handling/gun/gun_drop.ogg'
 
 	//sound info vars
-	var/load_sound = "gun_insert_full_magazine"
-	var/load_empty_sound = "gun_insert_empty_magazine"
+	var/load_sound = 'sound/weapons/gun/general/magazine_insert_full.ogg'
+	var/load_empty_sound = 'sound/weapons/gun/general/magazine_insert_empty.ogg'
 	var/load_sound_volume = 40
 	var/load_sound_vary = TRUE
-	var/rack_sound = "gun_slide_lock"
-	var/half_rack_sound = "gun_slide_lock" //Only needs to be used on BOLT_TYPE_PUMP guns, for Ctrl-Click functionality
+	var/rack_sound = 'sound/weapons/gun/general/bolt_rack.ogg'
+	var/half_rack_sound = 'sound/weapons/gun/general/bolt_rack.ogg' //Only needs to be used on BOLT_TYPE_PUMP guns, for Ctrl-Click functionality
 	var/rack_sound_volume = 60
 	var/rack_sound_vary = TRUE
-	var/lock_back_sound = "sound/weapons/pistollock.ogg"
+	var/lock_back_sound = 'sound/weapons/gun/general/slide_lock_1.ogg'
 	var/lock_back_sound_volume = 60
 	var/lock_back_sound_vary = TRUE
-	var/eject_sound = "gun_remove_empty_magazine"
-	var/eject_empty_sound = "gun_remove_full_magazine"
+	var/eject_sound = 'sound/weapons/gun/general/magazine_remove_full.ogg'
+	var/eject_empty_sound = 'sound/weapons/gun/general/magazine_remove_empty.ogg'
 	var/eject_sound_volume = 40
 	var/eject_sound_vary = TRUE
-	var/bolt_drop_sound = 'sound/weapons/gun_chamber_round.ogg'
+	var/bolt_drop_sound = 'sound/weapons/gun/general/bolt_drop.ogg'
 	var/bolt_drop_sound_volume = 60
-	var/empty_alarm_sound = 'sound/weapons/smg_empty_alarm.ogg'
+	var/empty_alarm_sound = 'sound/weapons/gun/general/empty_alarm.ogg'
 	var/empty_alarm_volume = 70
 	var/empty_alarm_vary = TRUE
 
@@ -37,7 +37,6 @@
 	var/empty_indicator = FALSE //Whether the sprite has an indicator for being empty or not.
 	var/empty_alarm = FALSE //Whether the gun alarms when empty or not.
 	var/special_mags = FALSE //Whether the gun supports multiple special mag types
-	var/alarmed = FALSE
 	//Additional info related to the actual chambering, and to allow loading bullets directly into battery / into var/chambered
 	//Copies the caliber of the magazine in the gun during Initialize() | Must be explicitly set on the gun if it spawns without a magazine ;)
 	var/list/caliber = list()
@@ -269,7 +268,6 @@
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
 			chamber_round()
 		update_icon()
-		alarmed = FALSE
 		return TRUE
 	else
 		to_chat(user, span_warning("You cannot seem to get \the [src] out of your hands!"))
@@ -429,9 +427,8 @@
 
 /obj/item/gun/ballistic/proc/postfire_empty_checks()
 	if (!chambered && !get_ammo())
-		if (!alarmed && empty_alarm)
+		if (empty_alarm)
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
-			alarmed = TRUE
 			update_icon()
 		if (bolt_type == BOLT_TYPE_LOCKING && semi_auto)
 			bolt_locked = TRUE

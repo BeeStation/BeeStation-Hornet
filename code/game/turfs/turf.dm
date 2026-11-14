@@ -69,7 +69,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/changing_turf = FALSE
 
 	/// Sound played when a shell casing is ejected ontop of the turf.
-	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg'
+	var/bullet_bounce_sound = 'sound/weapons/gun/general/mag_bullet_remove.ogg'
 	/// Used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf. ex: If the turf is supposed to be water, set TRUE.
 	var/bullet_sizzle = FALSE
 

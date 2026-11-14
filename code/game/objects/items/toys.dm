@@ -262,13 +262,15 @@
 	add_fingerprint(user)
 	if (src.bullets < 1)
 		user.show_message(span_warning("*click*"), MSG_AUDIBLE)
-		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
+		playsound(src, 'sound/weapons/gun/revolver/dry_fire.ogg', 30, TRUE)
 		return
-	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
+	playsound(user, 'sound/weapons/gun/pistol/shot.ogg', 100, TRUE)
 	src.bullets--
-	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
-						span_danger("You fire [src] at [target]!"), \
-						span_italics("You hear a gunshot!"))
+	user.visible_message(
+		span_danger("[user] fires [src] at [target]!"),
+		span_danger("You fire [src] at [target]!"),
+		span_italics("You hear a gunshot!"),
+	)
 
 /obj/item/toy/ammo
 	abstract_type = /obj/item/toy/ammo
