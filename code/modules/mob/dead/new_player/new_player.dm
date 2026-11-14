@@ -41,7 +41,7 @@
 
 /mob/dead/new_player/authenticated/become_uncliented()
 	. = ..()
-	SSstat.remove_job_estimation(src)
+	SSjob.remove_job_estimation(src)
 
 /mob/dead/new_player/mob_negates_gravity()
 	return TRUE //no need to calculate if they have gravity.
@@ -149,10 +149,10 @@
 		//if it's post initialisation and they're trying to observe we do the needful
 		if(SSticker.current_state >= GAME_STATE_SETTING_UP && tready == PLAYER_READY_TO_OBSERVE)
 			ready = tready
-			SSstat.update_job_estimation(src)
+			SSjob.update_job_estimation(src)
 			make_me_an_observer()
 			return
-		SSstat.update_job_estimation(src)
+		SSjob.update_job_estimation(src)
 
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window

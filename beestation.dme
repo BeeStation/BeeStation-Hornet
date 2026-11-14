@@ -3379,6 +3379,7 @@
 #include "code\modules\interview\interview_manager.dm"
 #include "code\modules\jobs\access.dm"
 #include "code\modules\jobs\access_grant.dm"
+#include "code\modules\jobs\job_estimation.dm"
 #include "code\modules\jobs\job_exp.dm"
 #include "code\modules\jobs\job_mail.dm"
 #include "code\modules\jobs\job_report.dm"
