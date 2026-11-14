@@ -12,51 +12,51 @@
 	/// Cached server policy; hot atom paths must not resolve config datums.
 	var/enabled = TRUE
 
-	proc/prepare()
-		if(aliases)
-			return
-		aliases = list()
-		for(var/list/entry as anything in brandish_prebuilt_icons())
-			aliases[entry["source"]] = entry
-			for(var/kind in list("surface", "smooth", "corner"))
-				var/list/banks = entry[kind]
-				for(var/direction in banks)
-					aliases[banks[direction]] = entry
-		if(!length(aliases))
-			enabled = FALSE
+/datum/brandish_asset_registry/proc/prepare()
+	if(aliases)
+		return
+	aliases = list()
+	for(var/list/entry as anything in brandish_prebuilt_icons())
+		aliases[entry["source"]] = entry
+		for(var/kind in list("surface", "smooth", "corner"))
+			var/list/banks = entry[kind]
+			for(var/direction in banks)
+				aliases[banks[direction]] = entry
+	if(!length(aliases))
+		enabled = FALSE
 
-	proc/configure(allow)
-		enabled = allow && has_catalog()
+/datum/brandish_asset_registry/proc/configure(allow)
+	enabled = allow && has_catalog()
 
-	proc/icon_for(source, kind, direction, prefix)
-		prepare()
-		var/list/entry = aliases[source]
-		if(!entry || !enabled)
-			return entry ? entry["source"] : source
-		var/list/banks = entry[kind]
-		if(kind == "smooth")
-			var/list/prefixes = entry["prefixes"]
-			if(!prefixes || !prefixes[prefix])
-				return entry["source"]
-		// Preserve non-cardinal/zero physical dirs by leaving their original art.
-		return banks?["[direction]"] || entry["source"]
+/datum/brandish_asset_registry/proc/icon_for(source, kind, direction, prefix)
+	prepare()
+	var/list/entry = aliases[source]
+	if(!entry || !enabled)
+		return entry ? entry["source"] : source
+	var/list/banks = entry[kind]
+	if(kind == "smooth")
+		var/list/prefixes = entry["prefixes"]
+		if(!prefixes || !prefixes[prefix])
+			return entry["source"]
+	// Preserve non-cardinal/zero physical dirs by leaving their original art.
+	return banks?["[direction]"] || entry["source"]
 
-	/// Resource families such as view gates/masks require an explicit branch
-	/// when absent; icon_for alone always preserves the caller's original art.
-	proc/supports(resource, kind)
-		prepare()
-		var/list/entry = aliases[resource]
-		return enabled && !!entry?[kind]
+/// Resource families such as view gates/masks require an explicit branch
+/// when absent; icon_for alone always preserves the caller's original art.
+/datum/brandish_asset_registry/proc/supports(resource, kind)
+	prepare()
+	var/list/entry = aliases[resource]
+	return enabled && !!entry?[kind]
 
-	proc/has_catalog()
-		prepare()
-		return length(aliases) > 0
+/datum/brandish_asset_registry/proc/has_catalog()
+	prepare()
+	return length(aliases) > 0
 
-	/// Recover the logical resource for serializers, recipes and reattachments.
-	proc/source_for(resource)
-		prepare()
-		var/list/entry = aliases[resource]
-		return entry ? entry["source"] : resource
+/// Recover the logical resource for serializers, recipes and reattachments.
+/datum/brandish_asset_registry/proc/source_for(resource)
+	prepare()
+	var/list/entry = aliases[resource]
+	return entry ? entry["source"] : resource
 
 /// Move a known sprite-origin correction to screen coordinates. Call once at
 /// initialization; any additional map placement remains in world pixel_x/y.
