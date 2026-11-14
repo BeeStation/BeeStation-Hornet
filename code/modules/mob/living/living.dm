@@ -55,6 +55,8 @@
 
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	if(playable)
+		remove_from_spawner_menu()
 	QDEL_LIST(diseases)
 	return ..()
 
@@ -485,7 +487,7 @@
 		incap_status |= INCAPABLE_RESTRAINTS
 	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE)
 		incap_status |= INCAPABLE_GRAB
-	if(IS_IN_STASIS(src))
+	if(HAS_TRAIT(src, TRAIT_STASIS))
 		incap_status |= INCAPABLE_STASIS
 
 	return incap_status
@@ -1308,8 +1310,7 @@
 		// Disconnect AI's in shells
 		if(Robot.connected_ai)
 			Robot.undeploy() // disconnect any AI shells first
-		if(Robot.mmi)
-			qdel(Robot.mmi)
+		QDEL_NULL(Robot.mmi)
 		Robot.notify_ai(AI_NOTIFICATION_NEW_BORG)
 	else
 		for(var/obj/item/item in src)
@@ -1347,7 +1348,7 @@
 				new_mob.invisibility = 0
 				new_mob.job = JOB_NAME_CYBORG
 				created_robot.lawupdate = FALSE
-				created_robot.connected_ai = null
+				created_robot.set_connected_ai(null)
 				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
 				created_robot.clear_inherent_laws(announce = FALSE)
 				created_robot.clear_zeroth_law(announce = FALSE)
@@ -1969,12 +1970,6 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(IS_SERVANT_OF_RATVAR(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, span_brass("You select [src]."))
-
-/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	if(forced)
-		gender = ngender
-		return TRUE
-	return FALSE
 
 /**
   * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.

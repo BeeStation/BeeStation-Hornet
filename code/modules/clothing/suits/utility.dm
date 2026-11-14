@@ -42,6 +42,9 @@
 	equip_delay_other = 60
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/suit/utility/fire/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/firesuit)
 
 /datum/armor/utility_fire
 	melee = 15
@@ -92,9 +95,14 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/bombsuit
 	custom_price = 50
 
-
+/obj/item/clothing/head/utility/bomb_hood/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, texture_type)
 
 /datum/armor/utility_bomb_hood
 	melee = 20
@@ -125,8 +133,13 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
+	/// Type of texture applied by this
+	var/texture_type = /datum/bodypart_texture/mesh/bombsuit
 	custom_price = 100
 
+/obj/item/clothing/suit/utility/bomb_suit/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, texture_type)
 
 /datum/armor/utility_bomb_suit
 	melee = 20
@@ -141,21 +154,24 @@
 
 /obj/item/clothing/head/utility/bomb_hood/security
 	icon_state = "bombsuit_sec"
-	inhand_icon_state = "bombsuit_sec"
+	inhand_icon_state = null
+	texture_type = /datum/bodypart_texture/mesh/bombsuit_red
 
 /obj/item/clothing/suit/utility/bomb_suit/security
 	icon_state = "bombsuit_sec"
-	inhand_icon_state = "bombsuit_sec"
+	inhand_icon_state = null
 	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
-
+	texture_type = /datum/bodypart_texture/mesh/bombsuit_red
 
 /obj/item/clothing/head/utility/bomb_hood/white
 	icon_state = "bombsuit_white"
-	inhand_icon_state = "bombsuit_white"
+	inhand_icon_state = null
+	texture_type = /datum/bodypart_texture/mesh/bombsuit_white
 
 /obj/item/clothing/suit/utility/bomb_suit/white
 	icon_state = "bombsuit_white"
-	inhand_icon_state = "bombsuit_white"
+	inhand_icon_state = null
+	texture_type = /datum/bodypart_texture/mesh/bombsuit_white
 
 /*
 * Radiation protection
@@ -175,7 +191,9 @@
 
 /obj/item/clothing/head/utility/radiation/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/hat_stabilizer, loose_hat = TRUE)
 	AddElement(/datum/element/radiation_protected_clothing)
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_HEAD, /datum/bodypart_texture/mesh/black)
 
 /datum/armor/utility_radiation
 	bio = 60
@@ -204,3 +222,4 @@
 	. = ..()
 	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
+	AddElement(/datum/element/equipment_bodypart_texture, BODY_ZONE_CHEST, /datum/bodypart_texture/mesh/black)

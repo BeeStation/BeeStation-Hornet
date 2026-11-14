@@ -41,27 +41,26 @@
 
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.underwear_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Nude"
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.undershirt_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Nude"
 
 /proc/random_socks(gender)
 	if(!GLOB.socks_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/clothing/socks, GLOB.socks_list)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.socks_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Nude"
 
+/*
 /proc/random_features(gender)
-	if(!GLOB.tails_list_human.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
-	if(!GLOB.tails_roundstart_list_human.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human)
+	if(!GLOB.tails_list_felinid.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/felinid, GLOB.tails_list_felinid)
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	if(!GLOB.snouts_list.len)
@@ -74,8 +73,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	if(!GLOB.spines_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
-	if(!GLOB.body_markings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.body_markings_list)
+	if(!GLOB.lizard_markings_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/lizard_markings, GLOB.lizard_markings_list)
 	if(!GLOB.wings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
 	if(!GLOB.moth_wings_list.len)
@@ -132,7 +131,7 @@
 		"ears" = SPRITE_ACCESSORY_NONE,
 		"frills" = pick(GLOB.frills_list),
 		"spines" = pick(GLOB.spines_list),
-		"body_markings" = pick(GLOB.body_markings_list),
+		"lizard_markings" = pick(GLOB.lizard_markings_list),
 		"moth_wings" = pick(GLOB.moth_wings_list),
 		"moth_antennae" = pick(GLOB.moth_antennae_list),
 		"moth_markings" = pick(GLOB.moth_markings_list),
@@ -143,7 +142,6 @@
 		"apid_antenna" = pick(GLOB.apid_antenna_list),
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
-		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
 		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
 		"diona_leaves" = pick(GLOB.diona_leaves_list),
 		"diona_thorns" = pick(GLOB.diona_thorns_list),
@@ -155,14 +153,15 @@
 		"diona_pbody" = pick(GLOB.diona_pbody_list)
 		)
 	)
+*/
 
 /proc/random_hair_style(gender)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.hairstyles_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Bald"
 
 /proc/random_facial_hairstyle(gender)
 	var/datum/sprite_accessory/picked = pick_default_accessory(GLOB.facial_hairstyles_list, required_gender = gender)
-	return picked.name
+	return picked?.name || "Shaved"
 
 GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",
@@ -614,8 +613,6 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		slot_strings += "hand"
 	if(slot_flags & ITEM_SLOT_DEX_STORAGE)
 		slot_strings += "dextrous storage"
-	if(slot_flags & ITEM_SLOT_BACKPACK)
-		slot_strings += "backpack"
 	return slot_strings
 ///Takes a zone and returns it's "parent" zone, if it has one.
 /proc/deprecise_zone(precise_zone)
@@ -761,7 +758,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += borg
 
 /// Returns a list of AI's
-/proc/active_ais(check_mind = FALSE)
+/proc/active_ais(check_mind = FALSE, virtual_z)
 	. = list()
 	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		if(ai.stat == DEAD)
@@ -770,37 +767,31 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		if(check_mind && !ai.mind)
 			continue
+		if(virtual_z && ai.get_virtual_z_level() != virtual_z)
+			continue
 		. += ai
 
-/// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
-/proc/select_active_ai_with_fewest_borgs()
+//Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
+/proc/select_active_ai_with_fewest_borgs(virtual_z)
 	var/mob/living/silicon/ai/selected
-	var/list/active = active_ais()
-	for(var/mob/living/silicon/ai/A in active)
-		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !IS_SERVANT_OF_RATVAR(A))
-			selected = A
-
+	for(var/mob/living/silicon/ai/ai as anything in active_ais(FALSE, virtual_z))
+		if(!selected || length(selected.connected_robots) > length(ai.connected_robots))
+			selected = ai
 	return selected
 
 /// Select a random active and free borg
 /proc/select_active_free_borg(mob/user)
 	var/list/borgs = active_free_borgs()
-	if(borgs.len)
-		if(user)
-			. = tgui_input_list(user,"Unshackled cyborg signals detected:", "Cyborg Selection", sort_list(borgs))
-		else
-			. = pick(borgs)
-	return .
+	if(!length(borgs))
+		return
+	return user ? tgui_input_list(user, "Unshackled cyborg signals detected:", "Cyborg Selection", sort_list(borgs)) : pick(borgs)
 
 /// Select a random and active free AI
-/proc/select_active_ai(mob/user)
-	var/list/ais = active_ais()
-	if(ais.len)
-		if(user)
-			. = tgui_input_list(user,"AI signals detected:", "AI Selection", sort_list(ais))
-		else
-			. = pick(ais)
-	return .
+/proc/select_active_ai(mob/user, virtual_z)
+	var/list/ais = active_ais(FALSE, virtual_z)
+	if(!length(ais))
+		return
+	return user ? tgui_input_list(user, "AI signals detected:", "AI Selection", sort_list(ais)) : pick(ais)
 
 /**
  * Used to get the amount of change between two body temperatures

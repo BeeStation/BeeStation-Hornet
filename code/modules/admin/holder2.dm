@@ -34,6 +34,8 @@ GLOBAL_PROTECT(href_token)
 	var/datum/particle_editor/particool
 
 	var/datum/pathfind_debug/path_debug
+	var/datum/spawn_menu/spawn_menu
+	var/datum/spawnpanel/spawn_panel
 
 	/// Player panel
 	var/datum/admin_player_panel/player_panel

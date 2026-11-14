@@ -1,24 +1,18 @@
 
-// If the roundstart population was below this value, then jobs
-// will be merged inside their departments. At this population,
-// all roles get shared access to their department.
 // At or below this value, certain jobs may also be disabled.
 #define MINPOP_JOB_LIMIT 9
 /// Minimum roundstart population required for command roles to spawn
-/// Below this population, every member of the department is given
-/// access to their department's command office.
+/// Head office skeleton rules also end at this crew count
 #define COMMAND_POPULATION_MINIMUM 6
 /// The population at which the station enters into an open mode, where
 /// access restrictions are significantly diminished.
 #define STATION_UNLOCK_POPULATION 6
-// If the roundstart population is below this value, then
-// additional access requirements will be granted if there is nobody that
-// has that access requirement in the department.
+// Roundstart population below this is lowpop
 #define LOWPOP_JOB_LIMIT 14
-
-#define LOWPOP_GRANT_ACCESS(job_name, access) if ((SSjob.is_job_empty(job_name) && SSjob.initial_players_to_assign < LOWPOP_JOB_LIMIT) || SSjob.initial_players_to_assign < MINPOP_JOB_LIMIT) {\
-	. |= access;\
-}
+/// Most non-departmental skeleton rulesets apply when below this pop
+#define SKELETON_CREW_LIMIT 10
+/// How long skeleton crew and acting head access lasts after the real staff arrive
+#define HANDOVER_GRACE_PERIOD (5 MINUTES)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
@@ -29,6 +23,11 @@
 #define JOB_UNAVAILABLE_LOCKED 6
 /// Job unavailable due to incompatibility with an antag role.
 #define JOB_UNAVAILABLE_ANTAG_INCOMPAT 7
+/// Job closed because the roundstart population is outside its min_pop or max_pop.
+#define JOB_UNAVAILABLE_POPULATION 8
+
+/// Used when the `get_job_unavailable_error_message` proc can't make sense of a given code.
+#define GENERIC_JOB_UNAVAILABLE_ERROR "Error: Unknown job availability."
 
 // Job spawn groups
 // Spawn group representing the primary roles of a department

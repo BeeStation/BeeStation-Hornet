@@ -52,6 +52,12 @@ export type BoxProps = {
   pb?: string | BooleanLike;
   pl?: string | BooleanLike;
   pr?: string | BooleanLike;
+  /** Gap on all sides. */
+  g?: string | BooleanLike;
+  /** Row gap. */
+  gr?: string | BooleanLike;
+  /** Column gap. */
+  gc?: string | BooleanLike;
   color?: string | BooleanLike;
   textColor?: string | BooleanLike;
   backgroundColor?: string | BooleanLike;
@@ -153,6 +159,10 @@ const stringStyleMap = {
       style['lineHeight'] = unit(value);
     }
   },
+  // Gap
+  g: mapUnitPropTo('gap', halfUnit),
+  gc: mapUnitPropTo('columnGap', halfUnit),
+  gr: mapUnitPropTo('rowGap', halfUnit),
   // Margin
   m: mapDirectionalUnitPropTo('margin', halfUnit, [
     'top',

@@ -604,7 +604,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			if(do_after(user, time_to_cuff, C) && C.canBeHandcuffed())
 				if(!C.handcuffed)
 					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-					C.update_handcuffed()
 					to_chat(user, span_notice("You restrain [C]."))
 					log_combat(user, C, "handcuffed")
 			else

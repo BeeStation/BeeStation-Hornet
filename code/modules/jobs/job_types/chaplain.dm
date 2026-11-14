@@ -13,7 +13,6 @@
 	outfit = /datum/outfit/job/chaplain
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
-	extra_access = list()
 
 	departments_list = list(
 		/datum/department_group/service,
@@ -59,7 +58,7 @@
 		B.icon_state = GLOB.bible_icon_state
 		B.inhand_icon_state = GLOB.bible_inhand_icon_state
 		to_chat(H, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
-		H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
+		H.equip_to_storage(B, ITEM_SLOT_BACK, del_on_fail = TRUE)
 		GLOB.religious_sect?.on_conversion(H)
 		return
 	if(H.mind)
@@ -125,7 +124,7 @@
 	GLOB.bible_name = B.name
 	GLOB.deity = B.deity_name
 
-	H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(B, ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)

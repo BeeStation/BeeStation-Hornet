@@ -135,9 +135,9 @@
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
+	var/list/slots = list(
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
@@ -161,9 +161,9 @@
 /datum/quirk/plushielover/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/choice_beacon/radial/plushie/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
+	var/list/slots = list(
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
@@ -179,8 +179,8 @@
 
 /datum/quirk/spiritual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
-	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
+	H.equip_to_storage(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
+	H.equip_to_storage(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACK, del_on_fail = TRUE)
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE

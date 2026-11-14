@@ -52,7 +52,8 @@
 	data["multitool"] = buffer_item
 
 	if(buffer_item)
-		data["multibuff"] = GET_BUFFER(buffer_item)
+		var/datum/component/buffer/buffer_component = buffer_item.GetComponent(/datum/component/buffer)
+		data["multibuff"] = buffer_component.contained_buffer
 
 	data["toggled"] = toggled
 	data["id"] = id
@@ -142,7 +143,8 @@
 				. = remove_link(machine_to_unlink, current_user)
 		if("link")
 			if(buffer_item)
-				. = add_new_link(GET_BUFFER(buffer_item), current_user)
+				var/datum/component/buffer/buffer_component = buffer_item.GetComponent(/datum/component/buffer)
+				. = add_new_link(buffer_component.contained_buffer, current_user)
 		if("buffer")
 			STORE_IN_BUFFER(buffer_item, src)
 			. = TRUE

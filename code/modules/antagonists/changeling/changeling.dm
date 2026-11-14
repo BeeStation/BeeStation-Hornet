@@ -483,7 +483,7 @@
 	new_profile.protected = protect
 
 	new_profile.age = target.age
-	//new_profile.physique = target.physique
+	new_profile.physique = target.physique
 
 	// Clothes, of course
 	new_profile.underwear = target.underwear
@@ -493,8 +493,8 @@
 
 	var/obj/item/card/id/id_card = target.wear_id?.GetID()
 	if (istype(id_card))
-		new_profile.id_job_name = id_card.assignment
-		new_profile.id_hud_state = id_card.hud_state
+		new_profile.id_job_name = id_card.get_assignment()
+		new_profile.id_hud_state = id_card.get_hud_state()
 
 	// Hair and facial hair gradients, alongside their colours.
 	//new_profile.gradient_style = LAZYLISTDUPLICATE(target.gradient_style)
@@ -671,7 +671,7 @@
 	user.undershirt = chosen_profile.undershirt
 	user.socks = chosen_profile.socks
 	user.age = chosen_profile.age
-	//user.physique = chosen_profile.physique
+	user.physique = chosen_profile.physique
 	user.gradient_style = LAZYLISTDUPLICATE(chosen_profile.gradient_style)
 	user.gradient_color = LAZYLISTDUPLICATE(chosen_profile.gradient_color)
 

@@ -399,13 +399,21 @@ Behavior that's still missing from this component that original food items had t
 	var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
 	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
 	bitecount++
+	
 	check_liked(fraction, eater)
+
 	if(!owner.reagents.total_volume)
 		on_consume(eater, feeder)
 
 	//Invoke our after eat callback if it is valid
-	if(after_eat)
-		after_eat.Invoke(eater, feeder, bitecount)
+	after_eat?.Invoke(eater, feeder, bitecount)
+
+	//Invoke the eater's stomach's after_eat callback if valid
+	if(iscarbon(eater))
+		var/mob/living/carbon/carbon_eater = eater
+		var/obj/item/organ/stomach/stomach = carbon_eater.get_organ_slot(ORGAN_SLOT_STOMACH)
+		if(istype(stomach))
+			stomach.after_eat(owner)
 
 	return TRUE
 

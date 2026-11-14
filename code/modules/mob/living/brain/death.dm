@@ -3,12 +3,13 @@
 		return
 	set_stat(DEAD)
 
-	if(!gibbed && container)//If not gibbed but in a container.
-		var/obj/item/mmi = container
-		mmi.visible_message(span_warning("[src]'s MMI flatlines!"), \
-					span_italics("You hear something flatline."))
-		mmi.update_icon()
-
+	//If not gibbed but in a container.
+	if(!gibbed && container)
+		container.visible_message(
+			span_warning("[src]'s MMI flatlines!"),
+			span_italics("You hear something flatline.")
+		)
+		container.update_appearance()
 	return ..()
 
 /mob/living/brain/gib()

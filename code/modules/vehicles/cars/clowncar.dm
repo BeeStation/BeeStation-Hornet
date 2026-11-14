@@ -137,7 +137,6 @@
 			return
 		if(C.canBeHandcuffed())
 			C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
-			C.update_handcuffed()
 			to_chat(C, span_danger("Your hands are restrained by the sheer volume of occupants in the car!"))
 
 /obj/item/restraints/handcuffs/energy/used/clown

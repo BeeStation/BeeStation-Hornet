@@ -68,6 +68,8 @@
 /datum/record/crew
 	/// Unique ID generated that is used to fetch lock record
 	var/lock_ref
+	/// Title of the crewmember's own job
+	var/job_title
 	/// List of medical notes
 	var/list/medical_notes = list()
 	/// Names of major disabilities
@@ -158,6 +160,10 @@
 	QDEL_LIST_ASSOC_VAL(record_photos)
 	return ..()
 
+
+/datum/record/crew/proc/get_acting_job()
+	RETURN_TYPE(/datum/job)
+	return SSjob.get_acting_head_for(name)?.job
 
 /datum/record/crew/proc/get_info_list()
 	var/list/list_of_medical_notes

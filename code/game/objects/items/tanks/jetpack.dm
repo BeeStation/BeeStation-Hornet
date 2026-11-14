@@ -8,11 +8,17 @@
 	w_class = WEIGHT_CLASS_BULKY
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
+	/// What gas our jetpack is filled with on initialize
 	var/gas_type = /datum/gas/oxygen
+	/// If the jetpack is currently active
 	var/on = FALSE
-	var/full_speed = TRUE // If the jetpack will have a speedboost in space/nograv or not
+	/// If the jetpack will stop when you stop moving
 	var/stabilize = FALSE
+	/// If the jetpack will have a speedboost in space/nograv or not
+	var/full_speed = TRUE
+	/// Callback for the jetpack component
 	var/thrust_callback
+
 	var/use_ion_trail = TRUE
 
 /obj/item/tank/jetpack/Initialize(mapload)
@@ -40,6 +46,7 @@
 		COMSIG_JETPACK_ACTIVATED, \
 		COMSIG_JETPACK_DEACTIVATED, \
 		JETPACK_ACTIVATION_FAILED, \
+		thrust_callback, \
 		thrust_callback, \
 		use_ion_trail ? /datum/effect_system/trail_follow/ion : null \
 	)
