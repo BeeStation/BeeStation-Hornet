@@ -6,7 +6,7 @@
 	if(transformeffects & SLIME_EFFECT_BLACK)
 		alpha = buckled ? 255 : 64
 
-	if(!IS_IN_STASIS(src)) //No hunger in stasis
+	if(!HAS_TRAIT(src, TRAIT_STASIS)) //No hunger in stasis
 		handle_nutrition(delta_time)
 		if((transformeffects & SLIME_EFFECT_PURPLE) && DT_PROB(16, delta_time))
 			adjustBruteLoss(-0.25 * delta_time)
@@ -44,12 +44,12 @@
 	var/bz_percentage = environment?.total_moles() ? environment.moles[/datum/gas/bz] / environment.total_moles() : 0
 
 	if(bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) //Check if we should be in stasis
-		if(!IS_IN_STASIS(src))
+		if(!has_status_effect(/datum/status_effect/grouped/stasis)) //Check if we don't have the status effect yet
 			to_chat(src, span_danger("Nerve gas in the air has put you in stasis!"))
 			apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_SLIME_BZ)
 			powerlevel = 0
 			ai_controller?.set_blackboard_key(BB_SLIME_RABID, FALSE)
-	else if(IS_IN_STASIS(src))
+	else if(has_status_effect(/datum/status_effect/grouped/stasis)) //Check if we still have the status effect
 		to_chat(src, span_notice("You wake up from the stasis."))
 		remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_SLIME_BZ)
 

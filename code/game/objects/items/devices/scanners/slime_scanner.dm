@@ -1,10 +1,8 @@
-//slime scanner
-
 /obj/item/slime_scanner
 	name = "slime scanner"
 	desc = "A device that analyzes a slime's internal composition and measures its stats."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "adv_spectrometer"
+	icon_state = "slime_scanner"
 	inhand_icon_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -15,14 +13,17 @@
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
-/obj/item/slime_scanner/attack(mob/living/living_mob, mob/living/user)
-	if(user.stat || !user.can_read(src))
-		return
-	if(!isslime(living_mob))
+/obj/item/slime_scanner/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isliving(interacting_with))
+		return NONE
+	if(!user.can_read(src) || user.is_blind())
+		return ITEM_INTERACT_BLOCKING
+	if(!isslime(interacting_with))
 		to_chat(user, span_warning("This device can only scan slimes!"))
-		return
-	var/mob/living/basic/slime/scanned_slime = living_mob
+		return ITEM_INTERACT_BLOCKING
+	var/mob/living/basic/slime/scanned_slime = interacting_with
 	slime_scan(scanned_slime, user)
+	return ITEM_INTERACT_SUCCESS
 
 /proc/slime_scan(mob/living/basic/slime/scanned_slime, mob/living/user)
 	var/to_render = "<b>Slime scan results:</b>\
@@ -50,12 +51,15 @@
 	if (scanned_slime.cores > 1)
 		to_render += "\nMultiple cores detected"
 	to_render += "\nGrowth progress: [scanned_slime.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]"
+
 	if(scanned_slime.has_status_effect(/datum/status_effect/slimegrub))
 		to_render += "\n<b>Redgrub infestation detected. Quarantine immediately.</b>"
 		to_render += "\nRedgrubs can be purged from a slime using capsaicin oil or extreme heat"
+
 	if(scanned_slime.crossbreed_modification)
 		to_render += "\n[span_notice("Core mutation in progress: [scanned_slime.crossbreed_modification]")]\
 					  \n[span_notice("Progress in core mutation: [scanned_slime.applied_crossbreed_amount] / [SLIME_EXTRACT_CROSSING_REQUIRED]")]"
+
 	if(scanned_slime.transformeffects != SLIME_EFFECT_DEFAULT)
 		var/slimeeffect = "\nTransformative extract effect detected: "
 		if(scanned_slime.transformeffects & SLIME_EFFECT_GREY)
@@ -103,7 +107,9 @@
 		if(scanned_slime.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
 		to_render += span_notice("\n[slimeeffect].")
+
 	if(scanned_slime.special_mutation_type)
 		var/datum/slime_type/special_type = scanned_slime.special_mutation_type
 		to_render += span_notice("\n This slime has achieved the criteria for a special mutation! On split, it will become four [initial(special_type.colour)] slimes")
+
 	to_chat(user, examine_block(jointext(to_render,"")))
