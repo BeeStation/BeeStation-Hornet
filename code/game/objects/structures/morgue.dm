@@ -363,11 +363,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	else
 		to_chat(user, span_warning("That's not connected to anything!"))
 
-/obj/structure/tray/attack_robot(mob/user)
-	if(!user.Adjacent(src))
-		return
-	return attack_hand(user)
-
 /obj/structure/tray/attackby(obj/P, mob/user, list/modifiers)
 	if(!istype(P, /obj/item/riding_offhand))
 		return ..()
