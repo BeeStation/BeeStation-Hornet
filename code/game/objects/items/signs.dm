@@ -28,6 +28,7 @@
 		label = txt
 		name = "[label] sign"
 		desc =	"It reads: [label]"
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
 /obj/item/picket_sign/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))

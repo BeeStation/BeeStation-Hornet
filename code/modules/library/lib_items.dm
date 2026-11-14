@@ -308,6 +308,7 @@
 					author = newauthor
 			else
 				return
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I

@@ -160,7 +160,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	trade_flags = TRADE_NOT_SELLABLE
 	flags_1 = UNPAINTABLE_1
-	
+
 	/// The name registered on the card (for example: Dr Bryan See)
 	var/registered_name = null
 	/// Registered owner's age.
@@ -1240,6 +1240,7 @@ do { \
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
 		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
 		assignment = target_job || assignment
+		playsound(src, "writing_pen", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
 		update_label()
 

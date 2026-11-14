@@ -472,6 +472,16 @@
 					'sound/items/glasses/glasses_equip1.ogg',
 					'sound/items/glasses/glasses_equip2.ogg',
 				)
+			if("writing_pen")
+				soundin = pick(
+					'sound/effects/writing_pen/writing_pen1.ogg',
+					'sound/effects/writing_pen/writing_pen2.ogg',
+					'sound/effects/writing_pen/writing_pen3.ogg',
+					'sound/effects/writing_pen/writing_pen4.ogg',
+					'sound/effects/writing_pen/writing_pen5.ogg',
+					'sound/effects/writing_pen/writing_pen6.ogg',
+					'sound/effects/writing_pen/writing_pen7.ogg',
+				)
 	return soundin
 
 /client/proc/get_playing_channel(channel)
