@@ -494,7 +494,7 @@
 /obj/item/circuitboard/computer/prisoner
 	name = "Prisoner Management Console"
 	icon_state = "security"
-	build_path = /obj/machinery/computer/prisoner
+	build_path = /obj/machinery/computer/prisoner/management
 
 /obj/item/circuitboard/computer/records/security
 	name = "Security Records Console"
