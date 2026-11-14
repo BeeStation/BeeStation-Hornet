@@ -49,10 +49,8 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 /obj/effect/portal/wormhole
 	name = "wormhole"
 	desc = "It looks highly unstable; It could close at any moment."
-	icon = 'icons/obj/objects.dmi'
 	icon_state = "anom"
 	mech_sized = TRUE
-
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/portal/wormhole)
 
