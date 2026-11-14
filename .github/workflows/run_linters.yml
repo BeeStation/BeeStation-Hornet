@@ -75,6 +75,9 @@ jobs:
           bash tools/ci/install_ripgrep.sh
           tools/bootstrap/python -c ''
 
+      - name: Prepare directional icon resources
+        run: node tools/brandish-camera/generate-icons.mjs .
+
       - name: Run grep checks
         if: ${{ !cancelled() }}
         background: true
@@ -106,7 +109,7 @@ jobs:
       - name: Run OpenDream
         if: ${{ !cancelled() }}
         background: true
-        run: ./DMCompiler_linux-x64/DMCompiler beestation.dme --suppress-unimplemented --define=CIBUILDING --version=515.1642 | bash tools/ci/annotate_od.sh
+        run: ./DMCompiler_linux-x64/DMCompiler beestation.dme --suppress-unimplemented --define=CIBUILDING --define=BRANDISH_GENERATED_ICONS --version=515.1642 | bash tools/ci/annotate_od.sh
 
       - name: Check Icon Cutter
         id: icon-cutter

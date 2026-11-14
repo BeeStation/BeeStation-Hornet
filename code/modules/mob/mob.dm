@@ -801,14 +801,20 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
+/mob/var/tmp/direction_animation_depth = 0
+
 ///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
 	var/D = dir
+	var/client/spin_owner = client
 	if((spintime < 1)||(speed < 1)||!spintime||!speed)
 		return
+	direction_animation_depth++
 	while(spintime >= speed)
 		sleep(speed)
+		if(QDELETED(src) || client != spin_owner)
+			break
 		switch(D)
 			if(NORTH)
 				D = EAST
@@ -820,6 +826,9 @@
 				D = NORTH
 		setDir(D)
 		spintime -= speed
+	direction_animation_depth--
+	if(!QDELETED(src) && !direction_animation_depth && client == spin_owner && client?.brandish_camera)
+		setDir(client.dir)
 
 ///Update the pulling hud icon
 /mob/proc/update_pull_hud_icon()
@@ -1596,6 +1605,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .) // this is sent after stat is assigned so anything reading src.stat will see the value
+	client?.queue_brandish_camera_sync()
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1603,6 +1613,11 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 			var/obj/O = var_value
 			if(!istype(O) || (O.obj_flags & DANGEROUS_POSSESSION))
 				return FALSE
+			set_control_object(O)
+			. = TRUE
+		if(NAMEOF(src, remote_control))
+			set_remote_control(var_value)
+			. = TRUE
 		if(NAMEOF(src, machine))
 			set_machine(var_value)
 			. =  TRUE

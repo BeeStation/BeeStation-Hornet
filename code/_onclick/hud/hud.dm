@@ -157,6 +157,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 /mob/proc/set_hud_used(datum/hud/new_hud)
 	hud_used = new_hud
 	new_hud.build_action_groups()
+	client?.queue_brandish_camera_sync()
 
 //Version denotes which style should be displayed. blank or 0 means "next version"
 /datum/hud/proc/show_hud(version = 0, mob/viewmob)

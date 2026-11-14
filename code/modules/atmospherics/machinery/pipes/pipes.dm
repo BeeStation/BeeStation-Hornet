@@ -1,4 +1,6 @@
 /obj/machinery/atmospherics/pipe
+	brandish_icon_mode = "surface"
+	var/image/brandish_pipe_image
 	icon = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
 	damage_deflection = 12
 	/// Temporary holder for gases in the absence of a pipenet
@@ -141,8 +143,25 @@
 // APPEARANCE STUFF
 
 /obj/machinery/atmospherics/pipe/update_icon()
+	if(brandish_pipe_image)
+		cut_overlay(brandish_pipe_image)
+		brandish_pipe_image = null
 	update_pipe_icon()
 	update_layer()
+	return ..()
+
+/obj/machinery/atmospherics/pipe/apply_brandish_icon()
+	if(!GLOB.brandish_assets.enabled)
+		return ..()
+	if(GLOB.brandish_assets.source_for(icon) == 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi')
+		var/image/geometry = GLOB.brandish_assets.fixed_surface_overlay('icons/obj/atmospherics/pipes/!pipes_bitmask.dmi', icon_state)
+		if(geometry)
+			if(brandish_pipe_image != geometry)
+				cut_overlay(brandish_pipe_image)
+				brandish_pipe_image = geometry
+				add_overlay(geometry)
+			icon = null
+			return
 	return ..()
 
 /obj/machinery/atmospherics/pipe/proc/update_pipe_icon()

@@ -110,6 +110,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 //do not use, use QUEUE_SMOOTH(atom)
 /atom/proc/smooth_icon()
+	apply_brandish_icon()
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
 		CRASH("[type] called smooth_icon() without being on a z-level")
@@ -361,12 +362,14 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 ///Changes the icon state based on the new junction bitmask. Returns the old junction value.
 /atom/proc/set_smoothed_icon_state(new_junction)
+	apply_brandish_icon()
 	. = smoothing_junction
 	smoothing_junction = new_junction
 	icon_state = "[base_icon_state]-[smoothing_junction]"
 
 
 /turf/closed/set_smoothed_icon_state(new_junction)
+	apply_brandish_icon()
 	// Avoid calling ..() here to avoid setting icon_state twice, which is expensive given how hot this proc is
 	. = smoothing_junction
 	smoothing_junction = new_junction
@@ -404,6 +407,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 						if(!get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency)) //if all else fails, ask our own turf
 							underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
 							underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE
+			underlay_appearance.icon = GLOB.brandish_assets.appearance_icon(underlay_appearance.icon, underlay_appearance.icon_state, underlay_appearance.dir)
 			underlays += underlay_appearance
 		else
 			icon_state = "[base_icon_state]-[smoothing_junction]"

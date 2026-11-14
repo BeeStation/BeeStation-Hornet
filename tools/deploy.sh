@@ -32,6 +32,13 @@ cp -r sound/runtime/* $1/sound/runtime/
 cp -r strings/* $1/strings/
 cp -r tgui/public/* $1/tgui/public/
 
+# Generated directional icons are compiled into the rsc, but rust-g metadata
+# readers resolve them from disk relative to the run directory.
+if [ -d "tmp/brandish-icons/assets" ]; then
+  mkdir -p $1/tmp/brandish-icons/assets
+  cp -r tmp/brandish-icons/assets/* $1/tmp/brandish-icons/assets/
+fi
+
 #remove .dm files from _maps
 
 #this regrettably doesn't work with windows find

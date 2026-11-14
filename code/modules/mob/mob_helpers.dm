@@ -138,18 +138,11 @@
 /proc/shake_camera(mob/M, duration, strength=1)
 	if(!M || !M.client || duration < 1)
 		return
-	var/client/C = M.client
-	var/oldx = C.pixel_x
-	var/oldy = C.pixel_y
-	var/max = strength*ICON_SIZE_ALL
-	var/min = -(strength*ICON_SIZE_ALL)
-
-	for(var/i in 0 to duration-1)
-		if (i == 0)
-			animate(C, pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
-		else
-			animate(pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
-	animate(pixel_x=oldx, pixel_y=oldy, time=1)
+	if(!M.client.brandish_camera)
+		shake_camera_original(M, duration, strength)
+		return
+	var/datum/camera_shake/shake = new(M.client)
+	shake.start(duration, strength)
 
 
 ///Find if the message has the real name of any user mob in the mob_list
@@ -610,3 +603,20 @@
 		if(ITEM_SLOT_SUITSTORE)
 			return /obj/item
 	return null
+
+/// Preserve native interpolation when the directional camera is inactive.
+/proc/shake_camera_original(mob/M, duration, strength)
+	if(!M || !M.client || duration < 1)
+		return
+	var/client/C = M.client
+	var/oldx = C.pixel_x
+	var/oldy = C.pixel_y
+	var/max = strength*ICON_SIZE_ALL
+	var/min = -(strength*ICON_SIZE_ALL)
+
+	for(var/i in 0 to duration-1)
+		if (i == 0)
+			animate(C, pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
+		else
+			animate(pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
+	animate(pixel_x=oldx, pixel_y=oldy, time=1)

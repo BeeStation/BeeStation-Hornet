@@ -1,4 +1,6 @@
 /obj/machinery/hydroponics
+	brandish_icon_mode = "smooth"
+	base_icon_state = "hoses"
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
@@ -75,6 +77,10 @@
 			return
 
 	return ..()
+
+/obj/machinery/hydroponics/Initialize(mapload)
+	. = ..()
+	brandish_screen_origin(0, initial(pixel_y))
 
 /obj/machinery/hydroponics/proc/FindConnected()
 	var/list/connected = list()
@@ -278,6 +284,7 @@
 	return
 
 /obj/machinery/hydroponics/update_icon()
+	apply_brandish_icon()
 	//Refreshes the icon and sets the luminosity
 	cut_overlays()
 

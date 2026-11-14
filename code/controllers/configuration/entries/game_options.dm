@@ -2,6 +2,17 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT
 
+/// Retained for config compatibility; test merges always enable Brandish.
+/datum/config_entry/flag/brandish_camera
+	config_entry_value = TRUE
+
+/datum/config_entry/flag/brandish_camera/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		GLOB.brandish_assets.configure(TRUE)
+		for(var/client/viewer in GLOB.clients)
+			viewer.queue_brandish_camera_sync()
+
 /datum/config_entry/number/damage_multiplier
 	config_entry_value = 1
 	integer = FALSE

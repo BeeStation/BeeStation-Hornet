@@ -97,7 +97,9 @@ multiple modular subtrees with behaviors
 ///Sets the current movement target, with an optional param to override the movement behavior
 /datum/ai_controller/proc/set_movement_target(source, atom/target, datum/ai_movement/new_movement)
 	if(current_movement_target)
-		UnregisterSignal(current_movement_target, list(COMSIG_MOVABLE_MOVED, COMSIG_PREQDELETED))
+		if(current_movement_target != pawn)
+			UnregisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(current_movement_target, COMSIG_PREQDELETED)
 	if(!isnull(target) && !isatom(target))
 		stack_trace("[pawn]'s current movement target is not an atom, rather a [target.type]! Did you accidentally set it to a weakref?")
 		CancelActions()
@@ -105,7 +107,10 @@ multiple modular subtrees with behaviors
 	movement_target_source = source
 	current_movement_target = target
 	if(!isnull(current_movement_target))
-		RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move))
+		// update_grid already checks distance when our pawn moves. Registering
+		// a second handler on the same source would replace that subscription.
+		if(current_movement_target != pawn)
+			RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move))
 		RegisterSignal(current_movement_target, COMSIG_PREQDELETED, PROC_REF(on_movement_target_delete))
 	if(new_movement)
 		change_ai_movement_type(new_movement)
@@ -304,8 +309,9 @@ multiple modular subtrees with behaviors
 		return // instantiated without an applicable pawn, fine
 
 	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_UNPOSSESSED_PAWN)
+	set_movement_target(type, null)
 	set_ai_status(AI_STATUS_OFF)
-	UnregisterSignal(pawn, list(COMSIG_MOVABLE_Z_CHANGED, COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE, COMSIG_QDELETING))
+	UnregisterSignal(pawn, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_Z_CHANGED, COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_STATCHANGE, COMSIG_QDELETING))
 	clear_able_to_run()
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)

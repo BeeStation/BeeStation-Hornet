@@ -1,3 +1,8 @@
+## CAMERA ###
+## Automatically enable the forward-facing camera for living players, never ghosts.
+## Test merge: this option is ignored; Brandish is always enabled.
+BRANDISH_CAMERA 1
+
 ## HEALTH ###
 
 ##Damage multiplier, effects both weapons and healing on all mobs. For example, 1.25 would result in 25% higher damage.

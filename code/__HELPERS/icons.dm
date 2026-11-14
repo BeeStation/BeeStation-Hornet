@@ -457,7 +457,7 @@ world
 			var/list/process = process_set ? appearance.overlays : appearance.underlays
 			process = process.Copy()
 			var/i = 1
-			while (i < length(process))
+			while (i <= length(process))
 				if (i > 10000)
 					CRASH("Number of overlays/underlays exceeded 10000, infinite loop possible. Aborting to avoid server crash.")
 				var/image/current = process[i]
@@ -518,17 +518,21 @@ world
 			if(!add)
 				continue
 
+			// Include sprite-space offsets, just as the native renderer does.
+			var/list/layer_offset = appearance_pixel_offset(layer_image)
+			var/layer_pixel_x = layer_offset[1]
+			var/layer_pixel_y = layer_offset[2]
 			// Find the new dimensions of the flat icon to fit the added overlay
-			addX1 = min(flatX1, layer_image.pixel_x + 1)
-			addX2 = max(flatX2, layer_image.pixel_x + add.Width())
-			addY1 = min(flatY1, layer_image.pixel_y + 1)
-			addY2 = max(flatY2, layer_image.pixel_y + add.Height())
+			addX1 = min(flatX1, layer_pixel_x + 1)
+			addX2 = max(flatX2, layer_pixel_x + add.Width())
+			addY1 = min(flatY1, layer_pixel_y + 1)
+			addY2 = max(flatY2, layer_pixel_y + add.Height())
 
 			if (
 				addX1 != flatX1 \
-				&& addX2 != flatX2 \
-				&& addY1 != flatY1 \
-				&& addY2 != flatY2 \
+				|| addX2 != flatX2 \
+				|| addY1 != flatY1 \
+				|| addY2 != flatY2 \
 			)
 				// Resize the flattened icon so the new icon fits
 				flat.Crop(
@@ -544,7 +548,7 @@ world
 				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
-			flat.Blend(add, blendMode2iconMode(curblend), layer_image.pixel_x + 2 - flatX1, layer_image.pixel_y + 2 - flatY1)
+			flat.Blend(add, blendMode2iconMode(curblend), layer_pixel_x + 2 - flatX1, layer_pixel_y + 2 - flatY1)
 
 		if(appearance.alpha < 255)
 			flat.Blend(rgb(255, 255, 255, appearance.alpha), ICON_MULTIPLY)
@@ -1043,6 +1047,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
+		// Connection bitfields live in dir; their visible art is an overlay.
+		// HTML thumbnails still need the canonical pipe sheet.
+		if(istype(thing, /obj/machinery/atmospherics/pipe))
+			var/obj/machinery/atmospherics/pipe/pipe = thing
+			if(pipe.brandish_pipe_image)
+				icon2collapse = 'icons/obj/atmospherics/pipes/!pipes_bitmask.dmi'
 		if (isnull(icon_state))
 			icon_state = thing.icon_state
 
@@ -1142,6 +1152,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/list/cached_metadata = icon_metadata_cache[file_string]
 	if(islist(cached_metadata))
 		return cached_metadata
+
+	// Generated Brandish banks are compiled into the rsc, but rust-g reads from
+	// disk. Runs that omit tmp/brandish-icons use the callers' BYOND fallbacks.
+	if(findtext(file_string, "tmp/brandish-icons/") == 1 && !fexists(file_string))
+		failed_metadata[file_string] = TRUE
+		return null
 
 	// it will decode to text, trust
 	var/list/metadata_result = rustg_dmi_read_metadata(file_string)

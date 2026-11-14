@@ -7,6 +7,7 @@
 	density = FALSE
 	var/deflector_icon_state
 	var/image/deflector_overlay
+	var/datum/world_space_icon/deflector_projection
 	var/finished = FALSE
 	var/admin = FALSE //Can't be rotated or deconstructed
 	var/can_rotate = TRUE
@@ -23,6 +24,8 @@
 	allowed_projectile_typecache = typecacheof(allowed_projectile_typecache)
 	if(deflector_icon_state)
 		deflector_overlay = image(icon, deflector_icon_state)
+		if(GLOB.brandish_assets.supports(icon, "viewGates"))
+			deflector_projection = new(deflector_overlay)
 		add_overlay(deflector_overlay)
 
 	if(rotation_angle == -1)
@@ -32,6 +35,11 @@
 
 	if(admin)
 		can_rotate = FALSE
+
+/obj/structure/reflector/Destroy()
+	QDEL_NULL(deflector_projection)
+	deflector_overlay = null
+	return ..()
 
 /obj/structure/reflector/examine(mob/user)
 	. = ..()
@@ -50,6 +58,7 @@
 		if(deflector_overlay)
 			cut_overlay(deflector_overlay)
 			deflector_overlay.transform = turn(matrix(), new_angle)
+			deflector_projection?.refresh()
 			add_overlay(deflector_overlay)
 
 /obj/structure/reflector/shuttleRotate(rotation, params=ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)

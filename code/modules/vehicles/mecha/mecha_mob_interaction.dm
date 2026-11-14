@@ -80,7 +80,7 @@
 	mecha_flags &= ~PANEL_OPEN //Close panel if open
 	mecha_flags |= SILICON_PILOT
 	brain_mob.set_mob_eye_to(src)
-	brain_mob.remote_control = src
+	brain_mob.set_remote_control(src)
 	brain_mob.update_mouse_pointer()
 	setDir(SOUTH)
 	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
@@ -114,7 +114,7 @@
 			if(!silent)
 				to_chat(AI, span_notice("Returning to core..."))
 			AI.controlled_equipment = null
-			AI.remote_control = null
+			AI.set_remote_control(null)
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
 			qdel(AI.linked_core)

@@ -119,34 +119,22 @@
 	return TRUE
 
 /obj/structure/platform/update_icon_state()
+	if(!GLOB.brandish_assets.supports(icon, "foreground"))
+		. = ..()
+		update_icon_state_original()
+		return .
+
 	. = ..()
 	layer = initial(layer)
-	if(!climbable) //janky way of distinguishing corners from everything else
-		if(dir == WEST || dir == SOUTH)
-			layer = ABOVE_MOB_LAYER
-	else
-		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
-			if(SOUTH)
-				layer = ABOVE_MOB_LAYER
 
 /obj/structure/platform/update_overlays()
+	if(!GLOB.brandish_assets.supports(icon, "foreground"))
+		return ..() + update_overlays_original()
+
 	. = ..()
-	if (!climbable)
-		return
-	var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
-	switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
-		if(EAST,NORTHEAST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = EAST))
-		if(WEST,NORTHWEST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = WEST))
-		if(SOUTHEAST, NORTH|SOUTH|EAST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHEAST))
-		if(SOUTHWEST, NORTH|SOUTH|WEST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHWEST))
-		if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
-			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray_end", dir = SOUTH))
-	if(overlay.filters.len)
-		. += overlay
+	var/mutable_appearance/foreground = GLOB.brandish_assets.foreground_for(icon, icon_state, ABOVE_MOB_LAYER)
+	if(foreground)
+		. += foreground
 
 /obj/structure/platform/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
@@ -183,3 +171,34 @@
 /obj/structure/platform/setDir(ndir)
 	. = ..()
 	compute_blocking_directions()
+
+
+/obj/structure/platform/proc/update_icon_state_original()
+	layer = initial(layer)
+	if(!climbable) //janky way of distinguishing corners from everything else
+		if(dir == WEST || dir == SOUTH)
+			layer = ABOVE_MOB_LAYER
+	else
+		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
+			if(SOUTH)
+				layer = ABOVE_MOB_LAYER
+
+
+/obj/structure/platform/proc/update_overlays_original()
+	. = list()
+	if (!climbable)
+		return
+	var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
+	switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
+		if(EAST,NORTHEAST)
+			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = EAST))
+		if(WEST,NORTHWEST)
+			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = WEST))
+		if(SOUTHEAST, NORTH|SOUTH|EAST)
+			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHEAST))
+		if(SOUTHWEST, NORTH|SOUTH|WEST)
+			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray", dir = SOUTHWEST))
+		if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
+			overlay.filters += filter(type="alpha",icon=icon(icon, "platform_gray_end", dir = SOUTH))
+	if(overlay.filters.len)
+		. += overlay

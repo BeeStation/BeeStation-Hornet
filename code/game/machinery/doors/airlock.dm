@@ -504,23 +504,7 @@
 					animate(part, transform = matrix(), time = part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
 					animate(transform = T, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
 		else
-			switch(airlock_state)
-				if(AIRLOCK_CLOSED, AIRLOCK_DENY, AIRLOCK_EMAG)
-					part.pixel_x = 0
-					part.pixel_y = 0
-				if(AIRLOCK_OPEN)
-					part.pixel_x = part.open_px
-					part.pixel_y = part.open_py
-				if(AIRLOCK_CLOSING)
-					part.pixel_x = part.open_px
-					part.pixel_y = part.open_py
-					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time, easing = CIRCULAR_EASING)
-					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING)
-				if(AIRLOCK_OPENING)
-					part.pixel_x = 0
-					part.pixel_y = 0
-					animate(part, pixel_x = 0, pixel_y = 0, time = part.move_start_time, easing = CIRCULAR_EASING)
-					animate(pixel_x = part.open_px, pixel_y = part.open_py, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING)
+			part.update_slide(airlock_state, open_speed)
 
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 

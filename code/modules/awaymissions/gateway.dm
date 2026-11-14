@@ -46,6 +46,10 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	/// Cooldown for says and buzz-sigh
 	COOLDOWN_DECLARE(telegraph_cooldown)
 
+/obj/machinery/gateway/Initialize(mapload)
+	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
+
 /obj/machinery/gateway/Destroy()
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null

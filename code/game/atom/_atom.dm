@@ -143,6 +143,7 @@
   * * clears the light object
   */
 /atom/Destroy()
+	QDEL_NULL(world_space_icon)
 	if(istype(src, /mob/dead/new_player/pre_auth)) // This mob type is buggy. Only happens when a player logs in.
 		LAZYCLEARLIST(eye_mobs)
 		eye_mobs = null
@@ -558,6 +559,8 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	. = dir != newdir
 	dir = newdir
+	apply_brandish_icon()
+	world_space_icon?.refresh()
 	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.

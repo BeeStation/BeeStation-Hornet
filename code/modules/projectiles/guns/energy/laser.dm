@@ -169,7 +169,7 @@
 /obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage += 7
-	transform *= 1 + ((damage/7) * 0.2)//20% larger per tile
+	set_world_transform(transform * (1 + ((damage/7) * 0.2))) //20% larger per tile
 
 /obj/item/gun/energy/xray
 	name = "\improper X-ray laser gun"

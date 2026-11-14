@@ -165,6 +165,9 @@
 	update_mouse_pointer()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
+	if(client)
+		client.brandish_camera_suppressed = FALSE
+		client.queue_brandish_camera_sync()
 
 	return TRUE
 

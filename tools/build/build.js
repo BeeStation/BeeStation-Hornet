@@ -80,9 +80,19 @@ export const DmMapsIncludeTarget = new Juke.Target({
   },
 });
 
+export const BrandishIconsTarget = new Juke.Target({
+  // The generator verifies a content fingerprint and every cached output.
+  // Always invoke this inexpensive check so deletions/corrupt caches are caught.
+  outputs: [],
+  executes: async () => {
+    await Juke.exec(process.execPath, ['tools/brandish-camera/generate-icons.mjs', '.']);
+  },
+});
+
 export const DmTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    BrandishIconsTarget,
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
   inputs: [
@@ -95,6 +105,7 @@ export const DmTarget = new Juke.Target({
     'sound/**',
     'tgui/public/tgui.html',
     `${DME_NAME}.dme`,
+    'tmp/brandish-icons/manifest.dm',
     NamedVersionFile,
   ],
   outputs: ({ get }) => {
@@ -106,7 +117,7 @@ export const DmTarget = new Juke.Target({
   },
   executes: async ({ get }) => {
     await DreamMaker(`${DME_NAME}.dme`, {
-      defines: ['CBT', ...get(DefineParameter)],
+      defines: ['CBT', 'BRANDISH_GENERATED_ICONS', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
       ignoreWarningCodes: get(NoWarningParameter),
       namedDmVersion: get(DmVersionParameter),
@@ -117,12 +128,13 @@ export const DmTarget = new Juke.Target({
 export const DmTestTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    BrandishIconsTarget,
     get(DefineParameter).includes('ALL_MAPS') && DmMapsIncludeTarget,
   ],
   executes: async ({ get }) => {
     fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
     await DreamMaker(`${DME_NAME}.test.dme`, {
-      defines: ['CBT', 'CIBUILDING', ...get(DefineParameter)],
+      defines: ['CBT', 'CIBUILDING', 'BRANDISH_GENERATED_ICONS', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
       ignoreWarningCodes: get(NoWarningParameter),
       namedDmVersion: get(DmVersionParameter),
@@ -152,6 +164,7 @@ export const DmTestTarget = new Juke.Target({
 export const AutowikiTarget = new Juke.Target({
   parameters: [DefineParameter, DmVersionParameter, WarningParameter, NoWarningParameter],
   dependsOn: ({ get }) => [
+    BrandishIconsTarget,
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
   ],
   outputs: [
@@ -160,7 +173,7 @@ export const AutowikiTarget = new Juke.Target({
   executes: async ({ get }) => {
     fs.copyFileSync(`${DME_NAME}.dme`, `${DME_NAME}.test.dme`);
     await DreamMaker(`${DME_NAME}.test.dme`, {
-      defines: ['CBT', 'AUTOWIKI', ...get(DefineParameter)],
+      defines: ['CBT', 'AUTOWIKI', 'BRANDISH_GENERATED_ICONS', ...get(DefineParameter)],
       warningsAsErrors: get(WarningParameter).includes('error'),
       ignoreWarningCodes: get(NoWarningParameter),
       namedDmVersion: get(DmVersionParameter),
@@ -355,15 +368,15 @@ export const CleanAllTarget = new Juke.Target({
  */
 const prependDefines = (...defines) => {
   const dmeContents = fs.readFileSync(`${DME_NAME}.dme`);
-  const textToWrite = defines.map(define => `#define ${define}\n`);
+  const textToWrite = defines.map(define => `#define ${define}\n`).join('');
   fs.writeFileSync(`${DME_NAME}.dme`, `${textToWrite}\n${dmeContents}`);
 };
 
 export const TgsTarget = new Juke.Target({
-  dependsOn: [TguiTarget, TgFontTarget],
+  dependsOn: [TguiTarget, TgFontTarget, BrandishIconsTarget],
   executes: async () => {
     Juke.logger.info('Prepending TGS define');
-    prependDefines('TGS');
+    prependDefines('TGS', 'BRANDISH_GENERATED_ICONS');
   },
 });
 

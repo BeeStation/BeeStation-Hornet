@@ -339,6 +339,9 @@
 #include "code\__HELPERS\atmospherics.dm"
 #include "code\__HELPERS\atoms.dm"
 #include "code\__HELPERS\bitflag_list.dm"
+#include "code\__HELPERS\brandish_appearances.dm"
+#include "code\__HELPERS\brandish_camera.dm"
+#include "code\__HELPERS\camera_coordinates.dm"
 #include "code\__HELPERS\chat.dm"
 #include "code\__HELPERS\cmp.dm"
 #include "code\__HELPERS\colors.dm"
@@ -403,6 +406,7 @@
 #include "code\__HELPERS\virtual_z_level.dm"
 #include "code\__HELPERS\visual_effects.dm"
 #include "code\__HELPERS\weakref.dm"
+#include "code\__HELPERS\world_space_icon.dm"
 #include "code\__HELPERS\logging\admin.dm"
 #include "code\__HELPERS\logging\antagonists.dm"
 #include "code\__HELPERS\logging\atmos.dm"
@@ -2861,6 +2865,8 @@
 #include "code\modules\cargo\exports\tools.dm"
 #include "code\modules\chatter\chatter.dm"
 #include "code\modules\client\antag_tokens.dm"
+#include "code\modules\client\brandish_camera.dm"
+#include "code\modules\client\camera_state.dm"
 #include "code\modules\client\client_colour.dm"
 #include "code\modules\client\client_defines.dm"
 #include "code\modules\client\client_procs.dm"
@@ -5157,3 +5163,8 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
+
+// The build-generated catalog is outside the editor-managed include list.
+#ifdef BRANDISH_GENERATED_ICONS
+#include "tmp/brandish-icons/manifest.dm"
+#endif

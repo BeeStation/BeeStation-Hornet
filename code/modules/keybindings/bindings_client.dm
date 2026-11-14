@@ -55,6 +55,9 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	if(input_sanity_check(src, _key))
 		return
 
+	if(brandish_camera?.handle_key_down(_key))
+		return
+
 	keys_held[_key] = world.time
 	var/movement = SSinput.movement_keys[_key]
 	if(!(next_move_dir_sub & movement) && !movement_locked)
@@ -103,6 +106,9 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	set hidden = TRUE
 
 	if(input_sanity_check(src, _key))
+		return
+
+	if(brandish_camera?.handle_key_up(_key))
 		return
 
 	var/key_combo = key_combos_held[_key]

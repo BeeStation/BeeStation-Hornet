@@ -156,28 +156,18 @@
 	update_perspective()
 
 /obj/structure/railing/perspective/proc/update_perspective()
+	if(!GLOB.brandish_assets.supports(icon, "foreground"))
+		update_perspective_original()
+		return
+
 	layer = LOW_OBJ_LAYER
 	cut_overlays()
-	if(!climbable) //janky way of distinguishing corners from everything else
-		if(pixel_y <= -16 || dir == WEST || dir == SOUTH) //pixel_y for when a mapper wants to pixelshift them to look cool
-			layer = ABOVE_MOB_LAYER
+	// Keep the mapper's explicit lowered corner in front. Other occlusion
+	// follows the native screen direction independently for each viewer.
+	if(!climbable && pixel_y <= -16)
+		add_overlay(mutable_appearance(icon, icon_state, ABOVE_MOB_LAYER))
 	else
-		var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
-		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
-			if(SOUTH)
-				layer = ABOVE_MOB_LAYER
-			if(EAST,NORTHEAST)
-				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = EAST))
-			if(WEST,NORTHWEST)
-				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = WEST))
-			if(SOUTHEAST, NORTH|SOUTH|EAST)
-				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = SOUTHEAST))
-			if(SOUTHWEST, NORTH|SOUTH|WEST)
-				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = SOUTHWEST))
-			if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
-				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray_end", dir = SOUTH))
-		if(overlay.filters.len)
-			add_overlay(overlay)
+		add_overlay(GLOB.brandish_assets.foreground_for(icon, icon_state, ABOVE_MOB_LAYER))
 
 /obj/structure/railing/setDir()
 	. = ..()
@@ -237,3 +227,28 @@
 	icon_state = "railing_wood_end"
 	reverse = TRUE
 	diagonals_possible = FALSE
+
+
+/obj/structure/railing/perspective/proc/update_perspective_original()
+	layer = LOW_OBJ_LAYER
+	cut_overlays()
+	if(!climbable) //janky way of distinguishing corners from everything else
+		if(pixel_y <= -16 || dir == WEST || dir == SOUTH) //pixel_y for when a mapper wants to pixelshift them to look cool
+			layer = ABOVE_MOB_LAYER
+	else
+		var/mutable_appearance/overlay = mutable_appearance(initial(icon), icon_state, ABOVE_MOB_LAYER)
+		switch(blocking_dir) //depending on the direction, either sets the layer of the whole object to above the mob or adds a partial overlay so some parts may still be blow the mob
+			if(SOUTH)
+				layer = ABOVE_MOB_LAYER
+			if(EAST,NORTHEAST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = EAST))
+			if(WEST,NORTHWEST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = WEST))
+			if(SOUTHEAST, NORTH|SOUTH|EAST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = SOUTHEAST))
+			if(SOUTHWEST, NORTH|SOUTH|WEST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray", dir = SOUTHWEST))
+			if(SOUTH|WEST|EAST, NORTH|WEST|EAST)
+				overlay.filters += filter(type="alpha",icon=icon(icon, "railing_gray_end", dir = SOUTH))
+		if(overlay.filters.len)
+			add_overlay(overlay)

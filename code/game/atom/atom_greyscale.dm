@@ -24,6 +24,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(greyscale_colors && greyscale_config)
 		icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+	apply_brandish_icon()
 	if(!smoothing_flags) // This is a bitfield but we're just checking that some sort of smoothing is happening
 		return
 	update_atom_colour()

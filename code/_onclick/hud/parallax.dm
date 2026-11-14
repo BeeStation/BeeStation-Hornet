@@ -102,13 +102,13 @@
 	update_parallax(viewmob)
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
-/datum/hud/proc/set_parallax_movedir(new_parallax_movedir = 0, skip_windups, mob/viewmob)
+/datum/hud/proc/set_parallax_movedir(new_parallax_movedir = 0, skip_windups, mob/viewmob, force = FALSE)
 	. = FALSE
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
-	if(new_parallax_movedir == C.parallax_movedir)
+	if(new_parallax_movedir == C.parallax_movedir && !force)
 		return
-	var/animatedir = new_parallax_movedir
+	var/animatedir = new_parallax_movedir ? turn(new_parallax_movedir, dir2angle(C.dir)) : 0
 	if(new_parallax_movedir == FALSE)
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
@@ -119,7 +119,7 @@
 			if (T > animate_time)
 				animate_time = T
 		C.dont_animate_parallax = world.time + min(animate_time, PARALLAX_LOOP_TIME)
-		animatedir = C.parallax_movedir
+		animatedir = turn(C.parallax_movedir, dir2angle(C.dir))
 
 	var/matrix/newtransform
 	switch(animatedir)
@@ -216,6 +216,9 @@
 	//Doing it this way prevents parallax layers from "jumping" when you change Z-Levels.
 	var/offset_x = posobj.x - C.previous_turf.x
 	var/offset_y = posobj.y - C.previous_turf.y
+	var/list/camera_delta = camera_world_to_screen(offset_x, offset_y, C.dir)
+	offset_x = camera_delta[1]
+	offset_y = camera_delta[2]
 
 	if(!offset_x && !offset_y && !force)
 		return
@@ -234,8 +237,9 @@
 		var/change_y
 		if(parallax_layer.absolute)
 			// We use change here so the typically large absolute objects (just lavaland for now) don't jitter so much
-			change_x = (posobj.x - SSparallax.planet_x_offset) * our_speed + parallax_layer.offset_x
-			change_y = (posobj.y - SSparallax.planet_y_offset) * our_speed + parallax_layer.offset_y
+			var/list/position = camera_world_to_screen(posobj.x - SSparallax.planet_x_offset, posobj.y - SSparallax.planet_y_offset, C.dir)
+			change_x = position[1] * our_speed + parallax_layer.offset_x
+			change_y = position[2] * our_speed + parallax_layer.offset_y
 		else
 			change_x = offset_x * our_speed
 			change_y = offset_y * our_speed
@@ -379,7 +383,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_g
 /atom/movable/screen/parallax_layer/planet/proc/on_mob_logout(mob/source)
 	SIGNAL_HANDLER
 	var/client/boss = source.canon_client
-	on_z_change(boss.mob)
+	// Client destruction clears canon_client before emitting mob logout.
+	if(boss?.mob)
+		on_z_change(boss.mob)
 
 /atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
 	SIGNAL_HANDLER
@@ -391,3 +397,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_g
 
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
+
+/// Reproject cached screen offsets when only the camera heading changes.
+/client/proc/rotate_camera_parallax(old_dir, new_dir)
+	for(var/atom/movable/screen/parallax_layer/layer as anything in parallax_layers)
+		var/list/world_offset = camera_screen_to_world(layer.offset_x, layer.offset_y, old_dir)
+		var/list/screen_offset = camera_world_to_screen(world_offset[1], world_offset[2], new_dir)
+		layer.offset_x = screen_offset[1]
+		layer.offset_y = screen_offset[2]
+		layer.screen_loc = "CENTER-7:[round(layer.offset_x, 1)],CENTER-7:[round(layer.offset_y, 1)]"
+		animate(layer)
+		layer.transform = matrix()
+	if(length(parallax_layers))
+		mob?.hud_used?.set_parallax_movedir(parallax_movedir, TRUE, force = TRUE)

@@ -24,7 +24,7 @@
 
 /obj/machinery/atmospherics/pipe/bridge_pipe/update_overlays()
 	. = ..()
-	var/mutable_appearance/center = mutable_appearance('icons/obj/atmospherics/pipes/bridge_pipe.dmi', "bridge_center")
+	var/mutable_appearance/center = mutable_appearance(GLOB.brandish_assets.icon_for('icons/obj/atmospherics/pipes/bridge_pipe.dmi', "surface", dir), "bridge_center")
 	PIPING_LAYER_DOUBLE_SHIFT(center, piping_layer)
 	. += center
 

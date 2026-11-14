@@ -1,4 +1,5 @@
 /client/New(TopicData)
+	ensure_camera_state()
 	temp_topicdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 

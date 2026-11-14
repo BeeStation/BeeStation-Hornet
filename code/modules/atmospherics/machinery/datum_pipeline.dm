@@ -309,6 +309,10 @@
 
 	var/obj/effect/abstract/gas_visual/new_overlay = new()
 	new_overlay.icon = icon_file
+	// State names encode WORLD connections; the shared visual must not
+	// inherit an individual pipe's (sometimes non-cardinal) gameplay dir.
+	new_overlay.dir = NORTH
+	new_overlay.icon = GLOB.brandish_assets.icon_for(icon_file, "surface", NORTH) || icon_file
 	new_overlay.change_color(gasmix_color)
 
 	gas_visuals[icon_file] = new_overlay

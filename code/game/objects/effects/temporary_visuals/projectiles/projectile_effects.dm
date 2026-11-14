@@ -20,7 +20,7 @@
 	else
 		M = new
 	M.Scale(nx,ny)
-	transform = M
+	set_world_transform(M)
 
 /obj/effect/projectile/proc/turn_to(angle,override=TRUE)
 	var/matrix/M
@@ -29,7 +29,7 @@
 	else
 		M = new
 	M.Turn(angle)
-	transform = M
+	set_world_transform(M)
 
 /obj/effect/projectile/New(angle_override, p_x, p_y, color_override, scaling = 1)
 	if(angle_override && p_x && p_y && color_override && scaling)

@@ -126,7 +126,7 @@
 	current_user.client.view_size.setTo(zoom_target_view_increase)
 	zoom_current_view_increase = zoom_target_view_increase
 	set_autozoom_pixel_offsets_immediate(zooming_angle)
-	animate(current_user.client, pixel_x = current_zoom_x, pixel_y = current_zoom_y)
+	current_user.client.set_camera_effect(src, offset_x = current_zoom_x, offset_y = current_zoom_y)
 
 /obj/item/gun/energy/beam_rifle/proc/start_zooming()
 	if(zoom_lock == ZOOM_LOCK_OFF)
@@ -144,6 +144,7 @@
 	if(!user || !user.client)
 		return FALSE
 	user.client.view_size.zoomIn()
+	user.client.clear_camera_effect(src)
 	zoom_current_view_increase = 0
 	zooming_angle = 0
 	current_zoom_x = 0

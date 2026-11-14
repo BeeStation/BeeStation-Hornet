@@ -79,7 +79,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	air_update_turf(TRUE, TRUE)
 
 	if(fulltile)
-		setDir()
+		// Full-tile windows have no collision-facing edge. A cardinal dir lets
+		// native directional smoothing art follow each client's camera.
+		setDir(GLOB.brandish_assets.enabled ? SOUTH : NONE)
 		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
 		obj_flags &= ~IGNORE_DENSITY
 	else
