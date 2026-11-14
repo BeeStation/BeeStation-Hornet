@@ -33,20 +33,8 @@
 	return data
 
 /datum/preference_middleware/names/proc/get_name_to_use()
-	var/highest_priority_job = preferences.get_highest_priority_job()
-
-	for (var/preference_type in GLOB.preference_entries)
-		var/datum/preference/name/name_preference = GLOB.preference_entries[preference_type]
-		if (!istype(name_preference))
-			continue
-
-		if (isnull(name_preference.relevant_job))
-			continue
-
-		if (istype(highest_priority_job, name_preference.relevant_job))
-			return name_preference.db_key
-
-	return "real_name"
+	var/datum/preference/name/name_preference = preferences.get_job_name_preference(preferences.get_highest_priority_job())
+	return name_preference?.db_key || "real_name"
 
 /datum/preference_middleware/names/proc/randomize_name(list/params, mob/user)
 	var/datum/preference/name/name_preference = GLOB.preference_entries_by_key[params["preference"]]

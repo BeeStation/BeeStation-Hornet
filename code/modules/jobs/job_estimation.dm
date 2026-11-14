@@ -1,41 +1,48 @@
+#define JOB_ESTIMATION_MAX_NAMES 3
+
 /datum/controller/subsystem/job
-	/// Readied players in ready order
-	var/list/job_estimation_entries = list()
-	/// Stat tab rows from job_estimation_entries
+	/// High priority job
+	var/list/job_estimation_jobs = list()
+	/// players listed by name
+	var/list/job_estimation_names = list()
+	/// Stat tab rows
 	var/list/job_estimation_rows = list()
 
 /datum/controller/subsystem/job/proc/update_job_estimation(mob/dead/new_player/authenticated/player)
 	if(!istype(player))
 		return
-	var/datum/job/job = get_job_estimation_job(player)
-	if(!job)
+	if(SSticker.HasRoundStarted() || !CONFIG_GET(flag/show_job_estimation))
+		remove_job_estimation(player)
+		return
+	if(!player.client || player.ready != PLAYER_READY_TO_PLAY)
 		remove_job_estimation(player)
 		return
 
-	job_estimation_entries[REF(player)] = list(job, get_job_estimation_name(player.client.prefs, job))
-	rebuild_job_estimation()
+	var/datum/preferences/prefs = player.client.prefs
+	var/datum/job/job = prefs.get_highest_priority_job()
+	if(job && prefs.job_preferences[job.title] != JP_HIGH)
+		job = null
+	if(job?.title == JOB_NAME_ASSISTANT || job?.title == JOB_NAME_PRISONER)
+		remove_job_estimation(player)
+		return
 
-/// job to be listed under, null if should not be listed
-/datum/controller/subsystem/job/proc/get_job_estimation_job(mob/dead/new_player/authenticated/player)
-	if(SSticker.HasRoundStarted() || !CONFIG_GET(flag/show_job_estimation))
-		return
-	if(!player.client || player.ready != PLAYER_READY_TO_PLAY)
-		return
-	var/datum/job/job = player.client.prefs.get_highest_priority_job()
-	if(!job || job.title == JOB_NAME_ASSISTANT || job.title == JOB_NAME_PRISONER)
-		return
-	return job
+	var/name = job ? get_job_estimation_name(prefs, job) : null
+	var/player_ref = REF(player)
+	job_estimation_jobs[player_ref] = job
+	if(name)
+		job_estimation_names[player_ref] = name
+	else
+		job_estimation_names -= player_ref
+	rebuild_job_estimation()
 
 /datum/controller/subsystem/job/proc/get_job_estimation_name(datum/preferences/prefs, datum/job/job)
 	var/always_named = (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) || job.title == JOB_NAME_AI
 	if(!always_named && !prefs.read_player_preference(/datum/preference/toggle/job_estimation_name))
 		return
 	// Jobs like clown and AI are snowflake
-	for(var/preference_type in GLOB.preference_entries)
-		var/datum/preference/name/name_pref = GLOB.preference_entries[preference_type]
-		if(!istype(name_pref) || !name_pref.relevant_job || !istype(job, name_pref.relevant_job))
-			continue
-		var/job_name = prefs.read_character_preference(preference_type)
+	var/datum/preference/name/name_pref = prefs.get_job_name_preference(job)
+	if(name_pref)
+		var/job_name = prefs.read_character_preference(name_pref.type)
 		if(istype(name_pref, /datum/preference/name/cyborg) && job_name == DEFAULT_CYBORG_NAME)
 			return
 		return job_name
@@ -46,17 +53,20 @@
 /// Groups readied players by job
 /datum/controller/subsystem/job/proc/rebuild_job_estimation()
 	job_estimation_rows = list()
-	if(!length(job_estimation_entries))
+	if(!length(job_estimation_jobs))
 		return
 
 	var/list/names_by_job = list()
 	var/list/anonymous_by_job = list()
-	for(var/player_ref in job_estimation_entries)
-		var/list/entry = job_estimation_entries[player_ref]
-		var/datum/job/job = entry[1]
-		var/name = entry[2]
+	var/flexible = 0
+	for(var/player_ref in job_estimation_jobs)
+		var/datum/job/job = job_estimation_jobs[player_ref]
+		if(!job)
+			flexible++
+			continue
 		if(!names_by_job[job.title])
 			names_by_job[job.title] = list()
+		var/name = job_estimation_names[player_ref]
 		if(name)
 			names_by_job[job.title] += name
 		else
@@ -77,13 +87,20 @@
 	job_estimation_rows["Job Estimation"] = GENERATE_STAT_TEXT("")
 	for(var/title in command_titles + crew_titles)
 		var/list/names = names_by_job[title]
-		if(anonymous_by_job[title])
-			names += "[anonymous_by_job[title]] anonymous"
+		var/others = anonymous_by_job[title] + max(length(names) - JOB_ESTIMATION_MAX_NAMES, 0)
+		names = names.Copy(1, min(length(names), JOB_ESTIMATION_MAX_NAMES) + 1)
+		if(others)
+			names += length(names) ? "+[others] more" : "[others] anonymous"
 		job_estimation_rows[title] = GENERATE_STAT_TEXT(jointext(names, ", "))
+	if(flexible)
+		job_estimation_rows["Flexible"] = GENERATE_STAT_TEXT("[flexible]")
 
 /datum/controller/subsystem/job/proc/remove_job_estimation(mob/dead/new_player/authenticated/player)
 	var/player_ref = REF(player)
-	if(!job_estimation_entries[player_ref])
+	if(!(player_ref in job_estimation_jobs))
 		return
-	job_estimation_entries -= player_ref
+	job_estimation_jobs -= player_ref
+	job_estimation_names -= player_ref
 	rebuild_job_estimation()
+
+#undef JOB_ESTIMATION_MAX_NAMES
