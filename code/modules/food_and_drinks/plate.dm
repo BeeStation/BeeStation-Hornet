@@ -3,6 +3,8 @@
 	desc = "Holds food. Powerful. Good for morale when you're not eating your spaghetti off of a desk."
 	icon = 'icons/obj/service/kitchen.dmi'
 	icon_state = "plate"
+	pickup_sound = "food_plate_pickup"
+	drop_sound = "food_plate_drop"
 	w_class = WEIGHT_CLASS_BULKY //No backpack.
 	custom_price = 5
 	///How many things fit on this plate?

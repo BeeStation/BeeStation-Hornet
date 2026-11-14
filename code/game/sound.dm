@@ -482,6 +482,91 @@
 					'sound/effects/writing_pen/writing_pen6.ogg',
 					'sound/effects/writing_pen/writing_pen7.ogg',
 				)
+			if("food_plate_pickup")
+				soundin = pick(
+					'sound/items/food_plate/food_plate_pickup1.ogg',
+					'sound/items/food_plate/food_plate_pickup2.ogg',
+					'sound/items/food_plate/food_plate_pickup3.ogg',
+				)
+			if("food_plate_drop")
+				soundin = pick(
+					'sound/items/food_plate/food_plate_drop1.ogg',
+					'sound/items/food_plate/food_plate_drop2.ogg',
+					'sound/items/food_plate/food_plate_drop3.ogg',
+				)
+			if("cutlery_pickup")
+				soundin = pick(
+					'sound/items/cutlery/cutlery_pickup1.ogg',
+					'sound/items/cutlery/cutlery_pickup2.ogg',
+					'sound/items/cutlery/cutlery_pickup3.ogg',
+				)
+			if("cutlery_drop")
+				soundin = pick(
+					'sound/items/cutlery/cutlery_drop1.ogg',
+					'sound/items/cutlery/cutlery_drop2.ogg',
+					'sound/items/cutlery/cutlery_drop3.ogg',
+				)
+			if("knife_pickup")
+				soundin = pick(
+					'sound/items/knife/knife_pickup1.ogg',
+					'sound/items/knife/knife_pickup2.ogg',
+					'sound/items/knife/knife_pickup3.ogg',
+				)
+			if("knife_drop")
+				soundin = pick(
+					'sound/items/knife/knife_drop1.ogg',
+					'sound/items/knife/knife_drop2.ogg',
+					'sound/items/knife/knife_drop3.ogg',
+				)
+			if("knife_slice")
+				soundin = pick(
+					'sound/items/knife/knife_slice1.ogg',
+					'sound/items/knife/knife_slice2.ogg',
+					'sound/items/knife/knife_slice3.ogg',
+					'sound/items/knife/knife_slice4.ogg',
+					'sound/items/knife/knife_slice5.ogg',
+					'sound/items/knife/knife_slice6.ogg',
+				)
+			if("tray_pickup")
+				soundin = pick(
+					'sound/items/tray/tray_pickup1.ogg',
+					'sound/items/tray/tray_pickup2.ogg',
+					'sound/items/tray/tray_pickup3.ogg',
+				)
+			if("tray_drop")
+				soundin = pick(
+					'sound/items/tray/tray_drop1.ogg',
+					'sound/items/tray/tray_drop2.ogg',
+					'sound/items/tray/tray_drop3.ogg',
+				)
+			if("tray_insert")
+				soundin = pick(
+					'sound/items/tray/tray_insert1.ogg',
+					'sound/items/tray/tray_insert2.ogg',
+					'sound/items/tray/tray_insert3.ogg',
+				)
+			if("rolling_pin_pickup")
+				soundin = pick(
+					'sound/items/rolling_pin/rolling_pin_pickup1.ogg',
+					'sound/items/rolling_pin/rolling_pin_pickup2.ogg',
+					'sound/items/rolling_pin/rolling_pin_pickup3.ogg',
+				)
+			if("rolling_pin_drop")
+				soundin = pick(
+					'sound/items/rolling_pin/rolling_pin_drop1.ogg',
+					'sound/items/rolling_pin/rolling_pin_drop2.ogg',
+					'sound/items/rolling_pin/rolling_pin_drop3.ogg',
+				)
+			if("rolling_pin_rolling")
+				soundin = pick(
+					'sound/items/rolling_pin/rolling_pin_rolling1.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling2.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling3.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling4.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling5.ogg',
+					'sound/items/rolling_pin/rolling_pin_rolling6.ogg',
+				)
+
 	return soundin
 
 /client/proc/get_playing_channel(channel)
