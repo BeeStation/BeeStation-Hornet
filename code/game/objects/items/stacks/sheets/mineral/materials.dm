@@ -30,8 +30,8 @@ Mineral Sheets
 	throw_range = 5
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
-	pickup_sound = 'sound/items/handling/materials/snow_pick_up.ogg'
-	drop_sound = 'sound/items/handling/materials/snow_drop.ogg'
+	drop_sound = "stone_drop"
+	pickup_sound = "stone_pickup"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/closed/wall/mineral/sandstone
 

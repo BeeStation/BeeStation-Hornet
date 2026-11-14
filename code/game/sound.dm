@@ -432,6 +432,10 @@
 				soundin = pick('sound/items/handling/headset/headset_pickup1.ogg', 'sound/items/handling/headset/headset_pickup2.ogg', 'sound/items/handling/headset/headset_pickup3.ogg',)
 			if("portal_created")
 				soundin = pick('sound/effects/portal/portal_open_1.ogg', 'sound/effects/portal/portal_open_2.ogg', 'sound/effects/portal/portal_open_3.ogg')
+			if("stone_drop")
+				soundin = pick('sound/items/stones/stone_drop1.ogg', 'sound/items/stones/stone_drop2.ogg', 'sound/items/stones/stone_drop3.ogg')
+			if("stone_pickup")
+				soundin = pick('sound/items/stones/stone_pick_up1.ogg', 'sound/items/stones/stone_pick_up2.ogg')
 	return soundin
 
 /client/proc/get_playing_channel(channel)
