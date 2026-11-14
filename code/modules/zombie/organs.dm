@@ -41,7 +41,8 @@
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	if(iszombie(M) && old_species && !special)
-		M.set_species(old_species)
+		// Could runtime and drop organs in null loc land, time unti after
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, set_species), old_species), 0)
 	if(timer_id)
 		deltimer(timer_id)
 

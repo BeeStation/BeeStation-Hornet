@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_COMMAND
 	dept_id = DEPARTMENT_NAME_COMMAND
 	department_bitflags = DEPARTMENT_BITFLAG_COMMAND
-	dept_colour = "#ddddff"
+	dept_colour = "#a9c4f5"
 	dept_radio_channel = FREQ_COMMAND
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_COMMAND
@@ -246,7 +246,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SERVICE
 	dept_id = DEPARTMENT_NAME_SERVICE
 	department_bitflags = DEPARTMENT_BITFLAG_SERVICE
-	dept_colour = "#bbe291"
+	dept_colour = "#addf86"
 	dept_radio_channel = FREQ_SERVICE
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SERVICE
@@ -288,7 +288,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_CIVILIAN
 	dept_id = DEPARTMENT_NAME_CIVILIAN
 	department_bitflags = DEPARTMENT_BITFLAG_CIVILIAN
-	dept_colour = "#bbe291"
+	dept_colour = "#f2eb9a"
 	is_station = TRUE
 	display_order = 9
 
@@ -312,7 +312,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_CARGO
 	dept_id = DEPARTMENT_NAME_CARGO
 	department_bitflags = DEPARTMENT_BITFLAG_CARGO
-	dept_colour = "#d7b088"
+	dept_colour = "#d9b08a"
 	dept_radio_channel = FREQ_SUPPLY
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SUPPLY
@@ -351,7 +351,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SCIENCE
 	dept_id = DEPARTMENT_NAME_SCIENCE
 	department_bitflags = DEPARTMENT_BITFLAG_SCIENCE
-	dept_colour = "#ffddff"
+	dept_colour = "#d9a6f2"
 	dept_radio_channel = FREQ_SCIENCE
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SCIENCE
@@ -392,7 +392,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_ENGINEERING
 	dept_id = DEPARTMENT_NAME_ENGINEERING
 	department_bitflags = DEPARTMENT_BITFLAG_ENGINEERING
-	dept_colour = "#ffeeaa"
+	dept_colour = "#ffbe73"
 	dept_radio_channel = FREQ_ENGINEERING
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_ENGINEERING
@@ -434,7 +434,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_MEDICAL
 	dept_id = DEPARTMENT_NAME_MEDICAL
 	department_bitflags = DEPARTMENT_BITFLAG_MEDICAL
-	dept_colour = "#c1e1ec"
+	dept_colour = "#8de3ef"
 	dept_radio_channel = FREQ_MEDICAL
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_MEDICAL
@@ -473,7 +473,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SECURITY
 	dept_id = DEPARTMENT_NAME_SECURITY
 	department_bitflags = DEPARTMENT_BITFLAG_SECURITY
-	dept_colour = "#ffdddd"
+	dept_colour = "#ff9c9c"
 	dept_radio_channel = FREQ_SECURITY
 	is_station = TRUE
 	department_experience_type = EXP_TYPE_SECURITY
@@ -528,7 +528,7 @@ SUBSYSTEM_DEF(department)
 	department_name = DEPARTMENT_NAME_SILICON
 	dept_id = DEPARTMENT_NAME_SILICON
 	department_bitflags = DEPARTMENT_BITFLAG_SILICON
-	dept_colour = "#ccffcc"
+	dept_colour = "#9cf2cf"
 	department_experience_type = EXP_TYPE_SILICON
 	display_order = 8
 	label_class = "silicon"

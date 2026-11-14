@@ -1,6 +1,6 @@
 
 /// Typing
-GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", (-TYPING_LAYER), BLIND_FEATURE_PLANE, appearance_flags = KEEP_TOGETHER))
+GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER), BLIND_FEATURE_PLANE, appearance_flags = KEEP_TOGETHER))
 
 /** Creates a thinking indicator over the mob. */
 /mob/proc/create_thinking_indicator()
@@ -67,7 +67,7 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 /mob/living/create_thinking_indicator()
 	if(active_thinking_indicator || active_typing_indicator || stat != CONSCIOUS || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER))
 		return FALSE
-	active_thinking_indicator = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]3", TYPING_LAYER)
+	active_thinking_indicator = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]3", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER))
 	add_overlay(active_thinking_indicator)
 
 /mob/living/remove_thinking_indicator()
@@ -79,7 +79,7 @@ GLOBAL_DATUM_INIT(blind_typing_indicator, /mutable_appearance, mutable_appearanc
 /mob/living/create_typing_indicator(override = FALSE)
 	if(active_typing_indicator || ((active_thinking_indicator || !HAS_TRAIT(src, TRAIT_THINKING_IN_CHARACTER)) && !override) || stat != CONSCIOUS)
 		return FALSE
-	active_typing_indicator = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]0", TYPING_LAYER)
+	active_typing_indicator = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]0", CALCULATE_MOB_OVERLAY_LAYER(TYPING_LAYER))
 	add_overlay(active_typing_indicator)
 	add_overlay(GLOB.blind_typing_indicator)
 

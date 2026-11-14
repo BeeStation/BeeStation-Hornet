@@ -24,6 +24,12 @@
 		/obj/item/hatchet,
 		/obj/item/storage/bag/plants
 	)
+	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
+	bodyshapes_with_variations = BODYSHAPE_DIGITIGRADE
+
+/obj/item/clothing/suit/apron/generate_digitigrade_icons(icon/base_icon, greyscale_colors)
+	var/icon/legs = icon(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/digitigrade, greyscale_colors), "apron_worn")
+	return replace_icon_legs(base_icon, legs)
 
 /obj/item/clothing/suit/apron/Initialize(mapload)
 	create_storage(storage_type = /datum/storage/pockets/exo/large)
