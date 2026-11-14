@@ -47,6 +47,7 @@
 
 /obj/vehicle/ridden/space/speedwagon/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	if(isnull(overlay))
 		overlay = mutable_appearance(icon, "speedwagon_cover", ABOVE_MOB_LAYER)
 	add_overlay(overlay)

@@ -129,8 +129,7 @@
 	. = ..()
 	if(!initial(icon))
 		return
-	var/mutable_appearance/thermo_overlay = new(initial(icon))
-	. += get_pipe_image(thermo_overlay, "pipe", dir, pipe_color, piping_layer)
+	. += get_pipe_image(initial(icon), "pipe", dir, pipe_color, piping_layer)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
 	. = ..()

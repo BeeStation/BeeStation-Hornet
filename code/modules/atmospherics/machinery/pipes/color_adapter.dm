@@ -34,11 +34,12 @@
 
 /obj/machinery/atmospherics/pipe/color_adapter/update_overlays()
 	. = ..()
-	var/mutable_appearance/center = center_cache["[piping_layer]"]
+	var/cache_key = "[piping_layer]-[dir]"
+	var/mutable_appearance/center = center_cache[cache_key]
 	if(!center)
-		center = mutable_appearance(initial(icon), "adapter_center")
+		center = mutable_appearance(GLOB.brandish_assets.icon_for(initial(icon), "surface", dir), "adapter_center")
 		PIPING_LAYER_DOUBLE_SHIFT(center, piping_layer)
-		center_cache["[piping_layer]"] = center
+		center_cache[cache_key] = center
 	. += center
 
 	update_layer()

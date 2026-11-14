@@ -30,6 +30,7 @@
 		. |= update_desc(updates)
 	if(updates & UPDATE_ICON)
 		. |= update_icon(updates)
+	world_space_icon?.refresh(TRUE)
 
 	if (ismovable(src))
 		UPDATE_OO_IF_PRESENT
@@ -58,6 +59,9 @@
 		update_icon_state()
 		. |= UPDATE_ICON_STATE
 
+	// Child overlay builders must see the same resource bank as the base sprite.
+	apply_brandish_icon()
+	var/resource_before_overlays = icon
 	if(updates & UPDATE_OVERLAYS)
 		if(LAZYLEN(managed_vis_overlays))
 			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
@@ -81,6 +85,8 @@
 			add_overlay(new_overlays)
 		. |= UPDATE_OVERLAYS
 
+	if(icon != resource_before_overlays)
+		apply_brandish_icon()
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
 		UPDATE_OO_IF_PRESENT

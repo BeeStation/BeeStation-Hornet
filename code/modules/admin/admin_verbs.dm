@@ -161,6 +161,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 GLOBAL_PROTECT(admin_verbs_server)
 
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
+	/client/proc/toggle_brandish_camera,
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,

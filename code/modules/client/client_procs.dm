@@ -292,6 +292,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return ..()
 
 /client/Destroy()
+	brandish_disconnecting = TRUE
+	QDEL_NULL(brandish_camera)
+	QDEL_NULL(camera_state)
 	if(mob)
 		mob.become_uncliented()
 
@@ -497,7 +500,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, span_danger("Your previous click was ignored because you've done too many in a second"))
 			return
 
-	if (hotkeys)
+	if (hotkeys || brandish_camera)
 		// If hotkey mode is enabled, then clicking the map will automatically
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
@@ -524,6 +527,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	eye = new_eye
 	eye_weakref = WEAKREF(eye)
+	camera_state?.apply()
+	if(logged_in)
+		queue_brandish_camera_sync()
 
 	if(isatom(new_eye))
 		LAZYADD(new_eye.eye_users, src)
@@ -578,7 +584,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK
 /client/proc/setDir(newdir)
+	var/old_dir = dir
 	dir = newdir
+	if(old_dir != newdir)
+		rotate_camera_parallax(old_dir, newdir)
+		var/atom/movable/screen/fullscreen/near_light = mob?.screens["lighting_backdrop_seenear"]
+		near_light?.update_for_camera(src)
 
 /client/vv_edit_var(var_name, var_value)
 	switch (var_name)
@@ -626,6 +637,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
 
 /client/proc/change_view(new_size)
+	if(camera_state)
+		camera_state.requested_view = new_size
+		camera_state.apply()
+		return
+	apply_camera_view(new_size)
+
+/// Apply an already composed view. Camera effects must use change_view/effects.
+/client/proc/apply_camera_view(new_size)
 	if (isnull(new_size))
 		CRASH("change_view called without argument.")
 

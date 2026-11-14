@@ -3,6 +3,7 @@
 	tick_interval = 2 SECONDS
 	alert_type = null
 	remove_on_fullheal = TRUE
+	var/list/sway_timers = list()
 
 /datum/status_effect/dizziness/on_creation(mob/living/new_owner, duration = 10 SECONDS)
 	src.duration = duration
@@ -14,9 +15,10 @@
 
 /datum/status_effect/dizziness/on_remove()
 	UnregisterSignal(owner, COMSIG_LIVING_DEATH)
-	// In case our client's offset is somewhere wacky from the dizziness effect
-	owner.client?.pixel_x = initial(owner.client?.pixel_x)
-	owner.client?.pixel_y = initial(owner.client?.pixel_y)
+	for(var/timer in sway_timers)
+		deltimer(timer)
+	sway_timers.Cut()
+	owner.client?.clear_camera_effect(src)
 
 /// Signal proc that self deletes our dizziness effect
 /datum/status_effect/dizziness/proc/clear_dizziness(datum/source)
@@ -47,6 +49,26 @@
 	if(!owner.client)
 		return
 
+	for(var/timer in sway_timers)
+		deltimer(timer)
+	sway_timers.Cut()
+	if(!owner.client.brandish_camera)
+		animate_original(amount, next_amount)
+		return
+	var/time = world.time
+	var/amplitude = amount * (sin(amount * time) + 1)
+	var/x_diff = clamp(amplitude * sin(amount * time), -32, 32)
+	var/y_diff = clamp(amplitude * cos(amount * time), -32, 32)
+	sway_timers += addtimer(CALLBACK(src, PROC_REF(set_camera_sway), x_diff, y_diff), 0.3 SECONDS, TIMER_STOPPABLE)
+	x_diff += clamp(amplitude * sin(next_amount * (time + 3)), -32, 32)
+	y_diff += clamp(amplitude * cos(next_amount * (time + 3)), -32, 32)
+	sway_timers += addtimer(CALLBACK(src, PROC_REF(set_camera_sway), x_diff, y_diff), 0.6 SECONDS, TIMER_STOPPABLE)
+	sway_timers += addtimer(CALLBACK(src, PROC_REF(set_camera_sway), 0, 0), 0.9 SECONDS, TIMER_STOPPABLE)
+
+/datum/status_effect/dizziness/proc/set_camera_sway(x_offset, y_offset)
+	owner.client?.set_camera_effect(src, offset_w = x_offset, offset_z = y_offset)
+
+/datum/status_effect/dizziness/proc/animate_original(amount, next_amount)
 	// Want to be able to offset things by the time the animation should be "playing" at
 	var/time = world.time
 	var/delay = 0

@@ -56,14 +56,49 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	return ..()
 
 /obj/effect/overlay/solar_panel
-	vis_flags = VIS_INHERIT_ID | VIS_INHERIT_ICON
-	appearance_flags = TILE_BOUND
+	vis_flags = VIS_INHERIT_ID
+	appearance_flags = TILE_BOUND | KEEP_TOGETHER
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	var/list/angle_views = list()
+
+/obj/effect/overlay/solar_panel/Destroy()
+	QDEL_LIST(angle_views)
+	return ..()
+
+/obj/effect/overlay/solar_panel/proc/set_panel_state(state)
+	icon_state = state
+	for(var/obj/effect/overlay/solar_panel_view/view as anything in angle_views)
+		view.icon_state = "[state]@[SOUTH]"
+
+/// Native direction gates expose one shared world view per client. These are
+/// visual children so the original five-second tracking animation stays live.
+/obj/effect/overlay/solar_panel_view
+	vis_flags = VIS_INHERIT_ID
+	dir = NORTH
+	appearance_flags = RESET_TRANSFORM
+	var/camera_heading
 
 /obj/machinery/power/solar/proc/add_panel_overlay(icon_state, y_offset)
 	var/obj/effect/overlay/solar_panel/overlay = new(src)
-	overlay.icon_state = icon_state
-	overlay.pixel_y = y_offset
+	if(!GLOB.brandish_assets.supports(icon, "viewGates"))
+		overlay.vis_flags |= VIS_INHERIT_ICON
+		overlay.appearance_flags = TILE_BOUND
+		overlay.icon_state = icon_state
+		overlay.pixel_y = y_offset
+		vis_contents += overlay
+		return overlay
+	overlay.pixel_z = y_offset
+	GLOB.brandish_assets.prepare()
+	var/list/entry = GLOB.brandish_assets.aliases[icon]
+	var/list/gates = entry["viewGates"]
+	for(var/facing in GLOB.cardinals)
+		var/obj/effect/overlay/solar_panel_view/view = new(overlay)
+		view.camera_heading = facing
+		view.icon = gates["[facing]"]
+		view.transform = get_panel_transform(azimuth_current - dir2angle(facing))
+		overlay.angle_views += view
+		overlay.vis_contents += view
+	overlay.set_panel_state(icon_state)
 	vis_contents += overlay
 	return overlay
 
@@ -139,8 +174,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
-	panel.icon_state = "solar_panel_[material_type.name][(machine_stat & BROKEN) ? "-b" : null]"
-	panel_edge.icon_state = "solar_panel_[material_type.name][(machine_stat & BROKEN) ? "-b" : "_edge"]"
+	var/obj/effect/overlay/solar_panel/panel_art = panel
+	var/obj/effect/overlay/solar_panel/edge_art = panel_edge
+	panel_art.set_panel_state("solar_panel_[material_type.name][(machine_stat & BROKEN) ? "-b" : null]")
+	edge_art.set_panel_state("solar_panel_[material_type.name][(machine_stat & BROKEN) ? "-b" : "_edge"]")
 
 
 /obj/machinery/power/solar/proc/queue_turn(azimuth)
@@ -169,22 +206,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 
 	return turner
 
-/obj/machinery/power/solar/proc/visually_turn_part(part, angle)
+/obj/machinery/power/solar/proc/visually_turn_part(obj/effect/overlay/solar_panel/part, angle)
 	var/mid_azimuth = (azimuth_current + angle) / 2
 
 	// actually flip to other direction?
 	if(abs(angle - azimuth_current) > 180)
 		mid_azimuth = REVERSE_ANGLE(mid_azimuth)
+	if(!length(part.angle_views))
+		animate(part, transform = get_panel_transform(mid_azimuth), time = 2.5 SECONDS, easing = CUBIC_EASING|EASE_IN)
+		animate(transform = get_panel_transform(angle), time = 2.5 SECONDS, easing = CUBIC_EASING|EASE_OUT)
+		return
 
-	// Split into 2 parts so it doesn't distort on large changes
-	animate(part,
-		transform = get_panel_transform(mid_azimuth),
-		time = 2.5 SECONDS, easing = CUBIC_EASING|EASE_IN
-	)
-	animate(
-		transform = get_panel_transform(angle),
-		time = 2.5 SECONDS, easing = CUBIC_EASING|EASE_OUT
-	)
+	// Recompute the 2.5D tilt from each viewing angle, rather than rotating
+	// an already flattened panel and its vertical height in the map plane.
+	for(var/obj/effect/overlay/solar_panel_view/view as anything in part.angle_views)
+		var/camera_angle = dir2angle(view.camera_heading)
+		animate(view,
+			transform = get_panel_transform(mid_azimuth - camera_angle),
+			time = 2.5 SECONDS, easing = CUBIC_EASING|EASE_IN
+		)
+		animate(
+			transform = get_panel_transform(angle - camera_angle),
+			time = 2.5 SECONDS, easing = CUBIC_EASING|EASE_OUT
+		)
 
 /obj/machinery/power/solar/proc/visually_turn(angle)
 	visually_turn_part(panel, angle)

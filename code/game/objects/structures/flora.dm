@@ -14,6 +14,7 @@
 
 /obj/structure/flora/tree/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -59,6 +60,10 @@
 	icon_state = "tree_stump"
 	density = FALSE
 	pixel_x = -16
+
+/obj/structure/flora/stump/Initialize(mapload)
+	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 
 /obj/structure/flora/tree/pine
 	name = "pine tree"
@@ -130,6 +135,7 @@
 	. = ..()
 	icon_state = pick("palm1","palm2")
 	pixel_x = 0
+	pixel_w = 0
 
 /obj/structure/festivus
 	name = "festivus pole"
@@ -222,6 +228,7 @@
 /obj/structure/flora/bigplant/Initialize(mapload)
 	icon_state = "bigplant[rand(1, 2)]"
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 
 //newbushes
 
@@ -465,6 +472,7 @@
 /obj/structure/flora/junglebush/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 3)]"
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 
 /obj/structure/flora/junglebush/b
 	icon_state = "bushb"
@@ -489,6 +497,7 @@
 
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	icon_state = "[initial(icon_state)][rand(1,3)]"
 
 /obj/structure/flora/rock/icy

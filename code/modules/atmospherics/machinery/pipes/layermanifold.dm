@@ -77,8 +77,8 @@
 	. += get_attached_image(get_dir(src, machine_check), machine_check.piping_layer, machine_check.pipe_color)
 
 /obj/machinery/atmospherics/pipe/layer_manifold/proc/get_attached_image(p_dir, p_layer, p_color)
-	var/mutable_appearance/muta = mutable_appearance('icons/obj/atmospherics/pipes/layer_manifold_underlays.dmi', "intact_[p_dir]_[p_layer]", layer = layer - 0.01, appearance_flags = RESET_COLOR)
-	muta.color = p_color
+	var/image/muta = GLOB.brandish_assets.world_surface_appearance('icons/obj/atmospherics/pipes/layer_manifold_underlays.dmi', "intact_[p_dir]_[p_layer]", p_color, layer - 0.01)
+	muta.appearance_flags = RESET_COLOR
 	return muta
 
 /obj/machinery/atmospherics/pipe/layer_manifold/set_init_directions()

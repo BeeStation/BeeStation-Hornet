@@ -18,7 +18,7 @@
 	icon_state = "mask_bg"
 	layer = ABOVE_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	pixel_y = 22
+	pixel_z = 22
 	appearance_flags = KEEP_TOGETHER
 	/// The current occupant being presented
 	var/mob/living/occupant
@@ -45,7 +45,7 @@
 
 	occupant.setDir(SOUTH)
 	vis_contents += occupant
-	pixel_y = 22
+	pixel_z = 22
 	// Keep them standing! They'll go sideways in the tube when they fall asleep otherwise.
 	occupant.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_FORCED_STANDING), CRYO_TRAIT)
 
@@ -54,8 +54,8 @@
 	SIGNAL_HANDLER
 
 	if(on)
-		animate(src, pixel_y = 24, time = 20, loop = -1)
-		animate(pixel_y = 22, time = 20)
+		animate(src, pixel_z = 24, time = 20, loop = -1)
+		animate(pixel_z = 22, time = 20)
 	else
 		animate(src)
 

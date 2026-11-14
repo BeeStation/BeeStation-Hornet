@@ -11,7 +11,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 
 	///the underlay we are currently applying to our turf to apply light
-	var/mutable_appearance/additive_underlay
+	var/image/additive_underlay
 	///whether additive_underlay is currently on our turf
 	var/applying_additive = FALSE
 
@@ -32,7 +32,14 @@
 		stack_trace("a lighting object was assigned to a turf that already had a lighting object!")
 	affected_turf.lighting_object = src
 
-	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
+	// The color matrix stores WORLD corners. Rotate the channel basis along
+	// with the map, not the calculated colors, including the additive pass.
+	if(GLOB.brandish_assets.supports(LIGHTING_ICON, "basis"))
+		additive_underlay = image(icon = GLOB.brandish_assets.icon_for(LIGHTING_ICON, "basis", NORTH), icon_state = "", dir = NORTH, layer = FLOAT_LAYER)
+	else
+		additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER)
+	additive_underlay.plane = LIGHTING_PLANE_ADDITIVE
+	additive_underlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	additive_underlay.blend_mode = BLEND_ADD
 
 	needs_update = TRUE
@@ -106,7 +113,7 @@
 
 	if(red_corner.applying_additive || green_corner.applying_additive || blue_corner.applying_additive || alpha_corner.applying_additive)
 		affected_turf.underlays -= additive_underlay
-		additive_underlay.icon_state = "light"
+		additive_underlay.icon_state = GLOB.brandish_assets.supports(LIGHTING_ICON, "basis") ? "" : "light"
 
 		additive_underlay.color = list(
 			red_corner.add_r, red_corner.add_g, red_corner.add_b, 00,

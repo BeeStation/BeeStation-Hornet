@@ -15,6 +15,7 @@
 	screen.severity = severity
 	if (client && screen.should_show_to(src))
 		screen.update_for_view(client.view)
+		screen.update_for_camera(client)
 		client.screen += screen
 
 	return screen
@@ -55,6 +56,7 @@
 			screen = screens[category]
 			if(screen.should_show_to(src))
 				screen.update_for_view(client.view)
+				screen.update_for_camera(client)
 				client.screen |= screen
 			else
 				client.screen -= screen
@@ -80,6 +82,9 @@
 	if(!show_when_dead && mymob.stat == DEAD)
 		return FALSE
 	return TRUE
+
+/atom/movable/screen/fullscreen/proc/update_for_camera(client/viewer)
+	return
 
 /atom/movable/screen/fullscreen/Destroy()
 	severity = 0
@@ -202,6 +207,13 @@
 	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
+
+/atom/movable/screen/fullscreen/see_through_darkness/update_for_camera(client/viewer)
+	var/list/offset = camera_world_to_screen(viewer.pixel_x, viewer.pixel_y, viewer.dir)
+	// screen_loc objects ignore pixel offsets. Translate their view-sized
+	// transform instead, without extending the HUD's map borders.
+	var/list/size = getviewsize(viewer.view)
+	transform = matrix(size[1] / FULLSCREEN_OVERLAY_RESOLUTION_X, 0, -offset[1] - viewer.pixel_w, 0, size[2] / FULLSCREEN_OVERLAY_RESOLUTION_Y, -offset[2] - viewer.pixel_z)
 
 /atom/movable/screen/fullscreen/blind_context_disable
 	name = "???"

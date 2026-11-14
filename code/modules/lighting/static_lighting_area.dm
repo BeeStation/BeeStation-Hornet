@@ -12,8 +12,8 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 	var/image/lighting_effect = image(icon = 'icons/effects/96x96.dmi', icon_state = "starlight", layer = LIGHTING_ABOVE_ALL)
 	lighting_effect.plane = STARLIGHT_PLANE
 	lighting_effect.blend_mode = BLEND_ADD
-	lighting_effect.pixel_x = -32
-	lighting_effect.pixel_y = -32
+	lighting_effect.pixel_w = -32
+	lighting_effect.pixel_z = -32
 	return lighting_effect
 
 /area

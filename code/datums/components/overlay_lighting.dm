@@ -54,6 +54,7 @@
 
 	///Overlay effect to cut into the darkness and provide light.
 	var/image/visible_mask
+	var/datum/world_space_icon/beam_projection
 	///Lazy list to track the turfs being affected by our light, to determine their visibility.
 	var/list/turf/affected_turfs
 	///Movable atom currently holding the light. Parent might be a flashlight, for example, but that might be held by a mob or something else.
@@ -100,6 +101,7 @@
 		set_direction(movable_parent.dir)
 	if(is_beam)
 		beam = TRUE
+		beam_projection = new(visible_mask)
 	if(!isnull(_range))
 		movable_parent.set_light_range(_range)
 	set_range(parent, movable_parent.light_range)
@@ -160,6 +162,7 @@
 	set_parent_attached_to(null)
 	set_holder(null)
 	clean_old_turfs()
+	QDEL_NULL(beam_projection)
 	visible_mask = null
 	cone = null
 	parent_attached_to = null
@@ -350,15 +353,14 @@
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays -= visible_mask
 	visible_mask.icon = light_overlays["[pixel_bounds]"]
-	if(pixel_bounds == 32)
-		if(!directional) // it's important that we make it to the end of this function if we are a directional light
-			visible_mask.transform = null
-			return
-	else
-		var/offset = (pixel_bounds - 32) * 0.5
-		var/matrix/transform = new
-		transform.Translate(-offset, -offset)
-		visible_mask.transform = transform
+	// Centering belongs to the sprite; directional displacement belongs to
+	// the map. Keeping both in transform translated light along screen axes.
+	var/offset = (pixel_bounds - 32) * 0.5
+	visible_mask.pixel_w = -offset
+	visible_mask.pixel_z = -offset
+	visible_mask.transform = null
+	directional_offset_x = null
+	directional_offset_y = null
 	if(current_holder && overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask
 		current_holder.update_above()
@@ -492,8 +494,8 @@
 
 	current_holder.underlays -= visible_mask
 
-	var/translate_x = -((range - 1) * 32)
-	var/translate_y = translate_x
+	var/translate_x = 0
+	var/translate_y = 0
 	var/scale_x = 1
 	var/scale_y = 1
 	switch(current_direction)
@@ -521,8 +523,10 @@
 		var/matrix/transform = matrix()
 		if(beam && range > 1)
 			transform.Scale(scale_x, scale_y)
-		transform.Translate(translate_x, translate_y)
 		visible_mask.transform = transform
+		visible_mask.pixel_x = translate_x
+		visible_mask.pixel_y = translate_y
+		beam_projection?.refresh()
 		mask_changed = TRUE
 	if(overlay_lighting_flags & LIGHTING_ON)
 		current_holder.underlays += visible_mask

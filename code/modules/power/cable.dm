@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(cable_colors, list(
 ////////////////////////////////
 
 /obj/structure/cable
+	brandish_icon_mode = "surface"
 	name = "power cable"
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer."
 	icon = 'icons/obj/power_cond/cables.dmi'

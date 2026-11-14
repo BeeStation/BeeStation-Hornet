@@ -18,6 +18,7 @@
 
 /obj/structure/fireplace/Initialize(mapload)
 	. = ..()
+	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/fireplace/Destroy()

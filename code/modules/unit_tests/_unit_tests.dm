@@ -22,6 +22,7 @@
 #include "autowiki.dm"
 #include "blindness.dm"
 #include "bloody_footprints.dm"
+#include "brandish_camera.dm"
 #include "breath.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"

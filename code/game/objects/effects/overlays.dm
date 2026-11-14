@@ -81,6 +81,25 @@
 	var/move_start_time = 0 // for opening; closing uses reversed.
 	var/move_end_time = 3.5
 	var/aperture_angle = 0
+	/// Multi-tile geometry slides in map space; single-tile doors stay upright.
+	var/world_space_slide = FALSE
+
+/obj/effect/overlay/airlock_part/proc/update_slide(airlock_state, open_speed)
+	var/x_var = world_space_slide ? "pixel_x" : "pixel_w"
+	var/y_var = world_space_slide ? "pixel_y" : "pixel_z"
+	var/start_open = airlock_state == AIRLOCK_OPEN || airlock_state == AIRLOCK_CLOSING
+	vars[x_var] = start_open ? open_px : 0
+	vars[y_var] = start_open ? open_py : 0
+	if(airlock_state != AIRLOCK_OPENING && airlock_state != AIRLOCK_CLOSING)
+		return
+	var/list/start = list(src, time = start_open ? open_speed - move_end_time : move_start_time, easing = CIRCULAR_EASING)
+	start[x_var] = vars[x_var]
+	start[y_var] = vars[y_var]
+	var/list/finish = list(time = move_end_time - move_start_time, easing = CIRCULAR_EASING)
+	finish[x_var] = start_open ? 0 : open_px
+	finish[y_var] = start_open ? 0 : open_py
+	animate(arglist(start))
+	animate(arglist(finish))
 
 /obj/effect/overlay/timer
 	name = "timer overlay"

@@ -331,11 +331,14 @@ AUTH_CLIENT_VERB(fit_viewport)
 	set desc = "Fit the width of the map window to match the viewport"
 
 	// Fetch aspect ratio
+	var/expected_view = view
 	var/view_size = getviewsize(view)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
 	var/list/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
+	if(view != expected_view)
+		return // A newer camera request owns the layout after this UI round-trip.
 
 	// Client closed the window? Some other error? This is unexpected behaviour, let's
 	// CRASH with some info.
@@ -377,6 +380,8 @@ AUTH_CLIENT_VERB(fit_viewport)
 	var/delta
 	for(var/safety in 1 to 10)
 		var/after_size = winget(src, "mapwindow", "size")
+		if(view != expected_view)
+			return
 		map_size = splittext(after_size, "x")
 		var/got_width = text2num(map_size[1])
 

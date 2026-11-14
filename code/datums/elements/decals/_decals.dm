@@ -63,12 +63,30 @@
 	pic.appearance_flags |= RESET_COLOR
 	return TRUE
 
+/// A separate bespoke element type keeps ground appearances from sharing an
+/// item decal's cached appearance. Map decals use shared directional resources.
+/datum/element/decal/ground/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, source)
+	if(!isturf(source))
+		return FALSE
+	. = ..()
+	if(!. || !GLOB?.brandish_assets)
+		return
+	var/decal_dir = _dir || SOUTH
+	var/resource = GLOB.brandish_assets.icon_for(_icon, "surface", decal_dir)
+	if(resource)
+		pic.icon = resource
+		pic.dir = decal_dir
+
 /datum/element/decal/Detach(atom/source, force)
 	UnregisterSignal(source, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_ATOM_EXAMINE, COMSIG_ATOM_UPDATE_OVERLAYS,COMSIG_TURF_AFTER_SHUTTLE_MOVE))
 	source.update_appearance()
 	if(isitem(source))
 		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, update_slot_icon))
 	return ..()
+
+/// All floor-paint creation paths share one rendering policy.
+/turf/proc/add_ground_decal(icon_file, state, direction = SOUTH, cleanable = FALSE, colour, decal_layer = TURF_LAYER, description, decal_alpha = 255, rotated = FALSE, px = 0, py = 0)
+	AddElement(/datum/element/decal/ground, icon_file, state, direction, cleanable, colour, decal_layer, description, decal_alpha, rotated, px, py)
 
 /datum/element/decal/proc/late_update_icon(atom/source)
 	SIGNAL_HANDLER
@@ -88,7 +106,7 @@
 /datum/element/decal/proc/shuttlemove_react(datum/source, turf/newT)
 	SIGNAL_HANDLER
 	Detach(source)
-	newT.AddElement(/datum/element/decal, pic.icon, pic.icon_state, pic.dir, cleanable, pic.color, pic.layer, description, pic.alpha, rotated)
+	newT.AddElement(type, GLOB.brandish_assets.source_for(pic.icon), pic.icon_state, pic.dir, cleanable, pic.color, pic.layer, description, pic.alpha, rotated, pixel_x, pixel_y)
 
 /datum/element/decal/proc/rotate_react(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
@@ -96,7 +114,8 @@
 	if(old_dir == new_dir)
 		return
 	Detach(source)
-	source.AddElement(/datum/element/decal, pic.icon, pic.icon_state, angle2dir(dir2angle(pic.dir)+dir2angle(new_dir)-dir2angle(old_dir)), cleanable, pic.color, pic.layer, description, pic.alpha, !rotated)
+	var/list/offset = camera_screen_to_world(pixel_x, pixel_y, angle2dir(dir2angle(new_dir)-dir2angle(old_dir)))
+	source.AddElement(type, GLOB.brandish_assets.source_for(pic.icon), pic.icon_state, angle2dir(dir2angle(pic.dir)+dir2angle(new_dir)-dir2angle(old_dir)), cleanable, pic.color, pic.layer, description, pic.alpha, !rotated, offset[1], offset[2])
 
 /datum/element/decal/proc/clean_react(datum/source, clean_types)
 	SIGNAL_HANDLER

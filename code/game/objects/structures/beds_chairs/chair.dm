@@ -18,6 +18,8 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	var/colorable = FALSE
+	/// Native directional backrest; its layer must not depend on world NORTH.
+	var/mutable_appearance/occupied_backrest
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -98,7 +100,14 @@
 			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-	if(has_buckled_mobs() && dir == NORTH)
+	cut_overlay(occupied_backrest)
+	occupied_backrest = null
+	if(has_buckled_mobs())
+		occupied_backrest = GLOB.brandish_assets.foreground_for(icon, icon_state, ABOVE_MOB_LAYER)
+	if(occupied_backrest)
+		layer = OBJ_LAYER
+		add_overlay(occupied_backrest)
+	else if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER

@@ -699,7 +699,7 @@
 	if(!nondirectional_sprite)
 		var/matrix/M = new
 		M.Turn(Angle)
-		transform = M
+		set_world_transform(M)
 	trajectory_ignore_forcemove = TRUE
 	forceMove(starting)
 	trajectory_ignore_forcemove = FALSE
@@ -717,7 +717,7 @@
 	if(!nondirectional_sprite)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
-		transform = matrix
+		set_world_transform(matrix)
 	if(trajectory)
 		trajectory.set_angle(new_angle)
 	if(fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
@@ -733,7 +733,7 @@
 	if(!nondirectional_sprite)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
-		transform = matrix
+		set_world_transform(matrix)
 	if(trajectory)
 		trajectory.set_angle(new_angle)
 
@@ -813,7 +813,7 @@
 	if(!nondirectional_sprite && !hitscanning)
 		var/matrix/M = new
 		M.Turn(Angle)
-		transform = M
+		set_world_transform(M)
 	if(homing)
 		process_homing()
 	var/forcemoved = FALSE
@@ -943,11 +943,18 @@
 	if(target)
 		var/turf/source_loc = get_turf(source)
 		var/turf/target_loc = get_turf(target)
-		var/dx = ((target_loc.x - source_loc.x) * ICON_SIZE_X) + (target.pixel_x - source.pixel_x) + (p_x - (ICON_SIZE_X / 2))
-		var/dy = ((target_loc.y - source_loc.y) * ICON_SIZE_Y) + (target.pixel_y - source.pixel_y) + (p_y - (ICON_SIZE_Y / 2))
+		var/facing = NORTH
+		if(ismob(source))
+			var/mob/shooter = source
+			facing = shooter.client?.dir || NORTH
+		var/list/target_offset = camera_screen_to_world(p_x - ICON_SIZE_X / 2 + target.pixel_w, p_y - ICON_SIZE_Y / 2 + target.pixel_z, facing)
+		var/list/source_offset = camera_screen_to_world(source.pixel_w, source.pixel_z, facing)
+		var/dx = ((target_loc.x - source_loc.x) * ICON_SIZE_X) + target.pixel_x - source.pixel_x + target_offset[1] - source_offset[1]
+		var/dy = ((target_loc.y - source_loc.y) * ICON_SIZE_Y) + target.pixel_y - source.pixel_y + target_offset[2] - source_offset[2]
 
 		angle = ATAN2(dy, dx)
-		return list(angle, p_x, p_y)
+		// on_hit uses these offsets in world coordinates for dents/impact effects.
+		return list(angle, target_offset[1] + ICON_SIZE_X / 2, target_offset[2] + ICON_SIZE_Y / 2)
 
 	if(!ismob(source) || !LAZYACCESS(modifiers, SCREEN_LOC))
 		CRASH("Can't make trajectory calculations without a target or click modifiers and a client.")
@@ -956,22 +963,10 @@
 	if(!user.client)
 		CRASH("Can't make trajectory calculations without a target or click modifiers and a client.")
 
-	//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-	var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-	//Split X+Pixel_X up into list(X, Pixel_X)
-	var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-	//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-	var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-
-	var/tx = (text2num(screen_loc_X[1]) - 1) * ICON_SIZE_X + text2num(screen_loc_X[2])
-	var/ty = (text2num(screen_loc_Y[1]) - 1) * ICON_SIZE_Y + text2num(screen_loc_Y[2])
-
-	//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
-	var/list/screenview = view_to_pixels(user.client.view)
-
-	var/ox = round(screenview[1] / 2) - user.client.pixel_x //"origin" x
-	var/oy = round(screenview[2] / 2) - user.client.pixel_y //"origin" y
-	angle = ATAN2(ty - oy, tx - ox)
+	var/list/vector = user.client.camera_click_vector(modifiers, source)
+	if(!vector)
+		return list(angle, p_x, p_y)
+	angle = ATAN2(vector[2], vector[1])
 	return list(angle, p_x, p_y)
 
 /obj/projectile/proc/on_entered(datum/source, atom/movable/AM)
@@ -1012,7 +1007,7 @@
 		p.move_atom_to_src(thing)
 		var/matrix/M = new
 		M.Turn(original_angle)
-		thing.transform = M
+		thing.set_world_transform(M)
 		thing.color = color
 		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
 		QDEL_IN(thing, duration)
@@ -1022,7 +1017,7 @@
 		p.move_atom_to_src(thing)
 		var/matrix/M = new
 		M.Turn(Angle)
-		thing.transform = M
+		thing.set_world_transform(M)
 		thing.color = color
 		thing.set_light(impact_light_range, impact_light_intensity, impact_light_color_override? impact_light_color_override : color)
 		QDEL_IN(thing, duration)

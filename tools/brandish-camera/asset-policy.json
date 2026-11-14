@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "description": "Geometry policies, not a blanket rotation of all sprites. Large smoothing reuses painted junction art at its original pivot.",
+  "rules": [
+    {
+      "prefix": "icons/turf/",
+      "modes": [
+        "surface",
+        "smooth",
+        "corner"
+      ]
+    },
+    {
+      "prefix": "icons/obj/",
+      "modes": [
+        "smooth",
+        "corner"
+      ]
+    },
+    {
+      "prefix": "icons/misc/Beach/",
+      "modes": [
+        "surface",
+        "smooth",
+        "corner"
+      ]
+    },
+    {
+      "prefix": "icons/obj/atmospherics/pipes/",
+      "modes": [
+        "surface"
+      ]
+    }
+  ],
+  "files": {
+    "icons/effects/lighting_object.dmi": [
+      "basis"
+    ],
+    "icons/obj/doors/airlocks/glass_large/glass_large.dmi": [
+      "surface"
+    ],
+    "icons/obj/doors/airlocks/glass_large/overlays.dmi": [
+      "surface"
+    ],
+    "icons/obj/clockwork_objects.dmi": [
+      "surface"
+    ],
+    "icons/effects/blood.dmi": [
+      "surface"
+    ],
+    "icons/effects/crayondecal.dmi": [
+      "surface"
+    ],
+    "icons/effects/tomatodecal.dmi": [
+      "surface"
+    ],
+    "icons/effects/footprints.dmi": [
+      "surface"
+    ],
+    "icons/effects/dirt.dmi": [
+      "surface",
+      "smooth",
+      "corner"
+    ],
+    "icons/effects/navigation.dmi": [
+      "smooth"
+    ],
+    "icons/obj/machines/gasrig.dmi": [
+      "surface"
+    ],
+    "icons/obj/decals.dmi": [
+      "surface"
+    ],
+    "icons/obj/power_cond/cables.dmi": [
+      "surface"
+    ],
+    "icons/obj/2x2.dmi": [
+      "surface"
+    ],
+    "icons/obj/3x3.dmi": [
+      "surface"
+    ],
+    "icons/obj/4x7.dmi": [
+      "surface"
+    ],
+    "icons/obj/engine_chopped.dmi": [
+      "surface"
+    ],
+    "icons/obj/atmospherics/components/binary_devices.dmi": [
+      "surface"
+    ],
+    "icons/obj/atmospherics/components/thermomachine.dmi": [
+      "surface"
+    ],
+    "icons/obj/atmospherics/components/trinary_devices.dmi": [
+      "surface"
+    ],
+    "icons/obj/atmospherics/components/unary_devices.dmi": [
+      "surface"
+    ]
+  },
+  "rectangularSurfaces": [
+    "icons/obj/doors/airlocks/glass_large/glass_large.dmi",
+    "icons/obj/doors/airlocks/glass_large/overlays.dmi",
+    "icons/obj/2x2.dmi",
+    "icons/obj/3x3.dmi",
+    "icons/obj/4x7.dmi"
+  ],
+  "directionalSurfaces": [
+    "icons/obj/atmospherics/pipes/manifold.dmi",
+    "icons/obj/atmospherics/pipes/bridge_pipe.dmi",
+    "icons/obj/atmospherics/pipes/color_adapter.dmi",
+    "icons/obj/2x2.dmi",
+    "icons/obj/3x3.dmi",
+    "icons/obj/4x7.dmi",
+    "icons/obj/atmospherics/pipes/he-simple.dmi",
+    "icons/obj/atmospherics/pipes/he-manifold.dmi",
+    "icons/obj/atmospherics/pipes/he-junction.dmi",
+    "icons/obj/atmospherics/pipes/multiz.dmi",
+    "icons/obj/atmospherics/components/binary_devices.dmi",
+    "icons/obj/atmospherics/components/thermomachine.dmi",
+    "icons/obj/atmospherics/components/trinary_devices.dmi",
+    "icons/obj/atmospherics/components/unary_devices.dmi"
+  ],
+  "foreground": {
+    "icons/obj/beds_chairs/chairs.dmi": "chair",
+    "icons/obj/beds_chairs/benches.dmi": "chair",
+    "icons/obj/beds_chairs/sofa.dmi": "chair",
+    "icons/obj/fluff.dmi": "railing",
+    "icons/obj/platforms.dmi": "platform"
+  },
+  "worldTransforms": [
+    "icons/obj/projectiles.dmi",
+    "icons/obj/projectiles_tracer.dmi",
+    "icons/obj/projectiles_muzzle.dmi",
+    "icons/obj/projectiles_impact.dmi",
+    "icons/effects/effects.dmi",
+    "icons/effects/beam.dmi",
+    "icons/obj/machines/particle_accelerator.dmi",
+    "icons/obj/food/food.dmi",
+    "icons/obj/meteor.dmi",
+    "icons/obj/guns/toy.dmi",
+    "icons/obj/food/burgerbread.dmi",
+    "icons/obj/hydroponics/harvest.dmi",
+    "icons/obj/structures.dmi",
+    "icons/effects/light_overlays/light_32.dmi",
+    "icons/effects/light_overlays/light_64.dmi",
+    "icons/effects/light_overlays/light_96.dmi",
+    "icons/effects/light_overlays/light_128.dmi",
+    "icons/effects/light_overlays/light_160.dmi",
+    "icons/effects/light_overlays/light_192.dmi",
+    "icons/effects/light_overlays/light_224.dmi",
+    "icons/effects/light_overlays/light_256.dmi",
+    "icons/effects/light_overlays/light_288.dmi",
+    "icons/effects/light_overlays/light_320.dmi",
+    "icons/effects/light_overlays/light_352.dmi",
+    "icons/obj/solar.dmi"
+  ],
+  "maxGeometrySize": 256,
+  "maxSurfaceSize": 32,
+  "surfaceStates": {
+    "icons/misc/Beach/beach.dmi": [
+      "Water-0"
+    ],
+    "icons/obj/2x2.dmi": [
+      "large_engine"
+    ],
+    "icons/obj/atmospherics/components/binary_devices.dmi": [
+      "pipe_intact",
+      "pipe_exposed"
+    ],
+    "icons/obj/atmospherics/components/thermomachine.dmi": [
+      "pipe"
+    ],
+    "icons/obj/atmospherics/components/trinary_devices.dmi": [
+      "cap"
+    ],
+    "icons/obj/atmospherics/components/unary_devices.dmi": [
+      "inje_cap",
+      "connector_cap",
+      "vent_cap",
+      "scrub_cap",
+      "dpvent_cap",
+      "pipe_intact",
+      "pipe_exposed"
+    ],
+    "icons/obj/atmospherics/pipes/multiz.dmi": [
+      "pipe-1",
+      "pipe-2",
+      "pipe-3",
+      "pipe-4",
+      "pipe-5"
+    ]
+  }
+}

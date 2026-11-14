@@ -614,6 +614,40 @@
 	glass = TRUE
 	bound_width = 64 // 2x1
 	allow_repaint = FALSE
+	brandish_icon_mode = "surface"
+	var/obj/effect/overlay/geometry_mask
+
+/obj/machinery/door/airlock/glass_large/Initialize(mapload)
+	// Native surface frames align to BYOND's rotated physical bounding box.
+	overlays_file = GLOB.brandish_assets.icon_for(overlays_file, "surface", dir)
+	return ..()
+
+/obj/machinery/door/airlock/glass_large/rebuild_parts()
+	. = ..()
+	if(!GLOB.brandish_assets.supports(initial(icon), "footprint"))
+		if(geometry_mask)
+			vis_contents -= geometry_mask
+			QDEL_NULL(geometry_mask)
+		return
+	for(var/obj/effect/overlay/airlock_part/part as anything in part_overlays)
+		part.world_space_slide = TRUE
+		part.setDir(dir)
+	if(!geometry_mask)
+		geometry_mask = new
+		geometry_mask.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+		geometry_mask.render_target = "*airlock-mask-[REF(src)]"
+		vis_contents += geometry_mask
+	geometry_mask.icon = GLOB.brandish_assets.icon_for(initial(icon), "footprint", dir)
+	geometry_mask.icon_state = "closed"
+	geometry_mask.dir = dir
+	remove_filter("mask_filter")
+	// Render-source alpha masks are anchored to the base tile; align the
+	// 64x64 canvas center with that 32x32 anchor on both screen axes.
+	add_filter("mask_filter", 1, list(type = "alpha", render_source = geometry_mask.render_target, x = 16, y = 16))
+
+/obj/machinery/door/airlock/glass_large/Destroy()
+	QDEL_NULL(geometry_mask)
+	return ..()
 
 /obj/machinery/door/airlock/glass_large/narsie_act()
 	return

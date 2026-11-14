@@ -113,6 +113,8 @@
 
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
+	if(brandish_camera?.body == mob)
+		add_delay *= brandish_camera.movement_delay_multiplier(direct)
 	var/glide_delay = add_delay
 	if(NSCOMPONENT(direct) && EWCOMPONENT(direct))
 		glide_delay = FLOOR(glide_delay * sqrt(2), world.tick_lag)

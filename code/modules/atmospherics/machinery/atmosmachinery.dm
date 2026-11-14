@@ -496,6 +496,7 @@
  * * trinary - if TRUE we also use PIPING_FORWARD_SHIFT on layer 1 and 5 for trinary devices (filters and mixers)
  */
 /obj/machinery/atmospherics/proc/get_pipe_image(iconfile, iconstate, direction, color = COLOR_VERY_LIGHT_GRAY, piping_layer = 3, trinary = FALSE)
+	iconfile = GLOB.brandish_assets.icon_for(iconfile, "surface", direction) || iconfile
 	var/image/pipe_overlay = image(iconfile, iconstate, dir = direction)
 	pipe_overlay.color = color
 	PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
@@ -588,9 +589,11 @@
 	our_client.mob.set_mob_eye_to(target_move)
 	// Let's smooth out that movement with an animate yeah?
 	// If the new x is greater (move is left to right) we get a negative offset. vis versa
-	our_client.pixel_x = (x - target_move.x) * ICON_SIZE_X
-	our_client.pixel_y = (y - target_move.y) * ICON_SIZE_Y
-	animate(our_client, pixel_x = 0, pixel_y = 0, time = 0.05 SECONDS)
+	var/rest_x = our_client.pixel_x
+	var/rest_y = our_client.pixel_y
+	our_client.pixel_x = rest_x + (x - target_move.x) * ICON_SIZE_X
+	our_client.pixel_y = rest_y + (y - target_move.y) * ICON_SIZE_Y
+	animate(our_client, pixel_x = rest_x, pixel_y = rest_y, time = 0.05 SECONDS)
 	our_client.move_delay = world.time + 0.05 SECONDS
 
 /obj/machinery/atmospherics/AltClick(mob/living/L)

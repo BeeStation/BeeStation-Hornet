@@ -53,13 +53,21 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 		winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
-	if(hotkeys)
+	update_special_keybinds()
+	update_macro_mode()
+
+/// Switching local/remote cameras only changes the active macro set and focus.
+/// Rebuilding every macro here would round-trip winget and resend all bindings.
+/client/proc/update_macro_mode()
+	if(hotkeys || brandish_camera)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
 
-	update_special_keybinds()
-	winset(src, "tgui_say.browser", "focus=true")
+	if(brandish_camera || mob?.remote_control)
+		winset(src, null, "map.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
+	else
+		winset(src, "tgui_say.browser", "focus=true")
 
 
 /**

@@ -11,6 +11,9 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 
 	var/list/datum/greyscale_config/configurations = list()
 	var/list/datum/greyscale_layer/layer_types = list()
+	/// Shared colour recipes using build-generated geometry, never viewer copies.
+	var/list/datum/greyscale_config/directional_configs = list()
+	var/list/directional_icons = list()
 #ifdef USE_RUSTG_ICONFORGE_GAGS
 	/// Cache containing a list of [UID (config path + colors)] -> [DMI file / RSC object] in the tmp directory from iconforge
 	var/list/gags_cache = list()
@@ -85,10 +88,62 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	// We'll just explicitly do fcopy_rsc here, so the game doesn't have to do it again later from the cached file.
 	var/rsc_gags_icon = fcopy_rsc(file(output_path))
 	gags_cache[uid] = rsc_gags_icon
+	GLOB.brandish_assets.register_greyscale(rsc_gags_icon, text2path(type), colors)
 	return rsc_gags_icon
 #else
-	return configurations[type].Generate(colors)
+	var/resource = configurations[type].Generate(colors)
+	GLOB.brandish_assets.register_greyscale(resource, text2path(type), colors)
+	return resource
 #endif
+
+/// Recolour an existing native geometry bank. Ordinary clothing/machines keep
+/// their normal GAGS output; only a caller with an explicit geometry policy
+/// reaches this path. The cache is shared across all atoms and clients.
+/datum/controller/subsystem/processing/greyscale/proc/GetColoredGeometryIcon(config_type, colors, kind, direction, prefix)
+	var/datum/greyscale_config/original = configurations["[config_type]"]
+	var/replacement = GLOB.brandish_assets.icon_for(original.icon_file, kind, direction, prefix)
+	if(!replacement || replacement == original.icon_file)
+		return GetColoredIconByType(config_type, colors)
+	var/key = geometry_config(config_type, kind, direction, prefix)
+	var/uid = md5("[key]|[colors]")
+	if(directional_icons[uid])
+		return directional_icons[uid]
+	var/resource
+#ifdef USE_RUSTG_ICONFORGE_GAGS
+	var/output_path = "tmp/gags/icons/geometry-[uid].dmi"
+	var/result = rustg_iconforge_gags(key, colors, output_path)
+	if(result != "OK")
+		CRASH(result)
+	resource = fcopy_rsc(file(output_path))
+#else
+	resource = directional_configs[key].Generate(colors)
+#endif
+	directional_icons[uid] = resource
+	GLOB.brandish_assets.register_greyscale(resource, config_type, colors)
+	return resource
+
+/// Clone references as well as the top-level recipe, so nested layers use the
+/// same coordinate policy. Original editor recipes and their caches stay intact.
+/datum/controller/subsystem/processing/greyscale/proc/geometry_config(config_type, kind, direction, prefix)
+	var/datum/greyscale_config/original = configurations["[config_type]"]
+	var/key = "geometry-[md5("[config_type]|[kind]|[direction]|[prefix]|[original.raw_json_string]|[original.icon_file_hash]")]"
+	if(directional_configs[key])
+		return key
+	var/datum/greyscale_config/converted = new config_type
+	converted.icon_file = GLOB.brandish_assets.icon_for(original.icon_file, kind, direction, prefix) || original.icon_file
+	converted.string_icon_file = "[converted.icon_file]"
+	converted.Refresh()
+	directional_configs[key] = converted
+	for(var/datum/greyscale_layer/reference/reference in converted.flat_all_layers)
+		var/reference_key = geometry_config(reference.reference_type.type, kind, direction, prefix)
+		converted.raw_json_string = replacetext(converted.raw_json_string, json_encode("[reference.reference_type.type]"), json_encode(reference_key))
+		reference.reference_type = directional_configs[reference_key]
+#ifdef USE_RUSTG_ICONFORGE_GAGS
+	var/result = rustg_iconforge_load_gags_config(key, converted.raw_json_string, converted.string_icon_file)
+	if(result != "OK")
+		CRASH(result)
+#endif
+	return key
 
 /datum/controller/subsystem/processing/greyscale/proc/GetColoredIconByTypeUniversalIcon(type, list/colors, target_icon_state)
 	if(!ispath(type, /datum/greyscale_config))
