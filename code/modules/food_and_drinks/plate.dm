@@ -24,7 +24,7 @@
 		AddElement(/datum/element/shatters_when_thrown)
 
 /obj/item/plate/attackby(obj/item/I, mob/user, list/modifiers)
-	if(!IS_EDIBLE(I) && !istype(I, /obj/item/kitchen/fork))
+	if(!IS_EDIBLE(I) && !HAS_TRAIT(I, TRAIT_UTENSIL))
 		to_chat(user, span_notice("[src] is made for food, and food alone!"))
 		return
 	if(contents.len >= max_items)
@@ -44,11 +44,10 @@
 /obj/item/plate/pre_attack(atom/A, mob/living/user, list/modifiers)
 	if(!iscarbon(A))
 		return
-	if(!contents.len)
-		return
-	var/obj/item/object_to_eat = contents[1]
-	A.attackby(object_to_eat, user)
-	return TRUE //No normal attack
+	for(var/obj/item/object_to_eat in contents)
+		if(IS_EDIBLE(object_to_eat))
+			A.attackby(object_to_eat, user)
+			return TRUE //No normal attack
 
 /obj/item/plate/IsContainedAtomAccessible(atom/contained, atom/movable/user)
 	return TRUE

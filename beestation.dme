@@ -1154,6 +1154,7 @@
 #include "code\datums\elements\food\food_trash.dm"
 #include "code\datums\elements\food\fried_item.dm"
 #include "code\datums\elements\food\processable.dm"
+#include "code\datums\elements\food\utensil.dm"
 #include "code\datums\enumeration\callback_enumerator.dm"
 #include "code\datums\enumeration\enumeration_operations.dm"
 #include "code\datums\enumeration\enumerator.dm"
