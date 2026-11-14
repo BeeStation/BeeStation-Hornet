@@ -9,11 +9,19 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=250, /datum/material/glass=500)
-	var/max_duration = 3000
-	var/duration = 300
+	interaction_flags_click = NEED_DEXTERITY|ALLOW_RESTING
+	/// Max time this can be set
+	var/max_duration = 300 SECONDS
+	/// Currently set time
+	var/duration = 30 SECONDS
+	/// Last world time
 	var/last_use = 0
+	/// world.time + (world.time - last_use)
 	var/next_use = 0
+	/// The current space time rift
 	var/obj/effect/abstract/sync_holder/sync_holder
+	/// Timer obj for calling resync
+	var/resync_timer
 
 /obj/item/desynchronizer/attack_self(mob/living/user)
 	if(world.time < next_use)
@@ -31,15 +39,13 @@
 	. += span_notice("Alt-click to customize the duration. Current duration: [DisplayTimeText(duration)].")
 	. += span_notice("Can be used again to interrupt the effect early. The recharge time is the same as the time spent in desync.")
 
-/obj/item/desynchronizer/AltClick(mob/living/user)
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		return
-	var/new_duration = input(user, "Set the duration (5-300):", "Desynchronizer", duration / 10) as null|num
-	if(new_duration)
-		new_duration = new_duration SECONDS
-		new_duration = clamp(new_duration, 50, max_duration)
-		duration = new_duration
-		to_chat(user, span_notice("You set the duration to [DisplayTimeText(duration)]."))
+/obj/item/desynchronizer/click_alt(mob/living/user)
+	var/new_duration = tgui_input_number(user, "Set the duration", "Desynchronizer", duration / 10, max_duration, 5)
+	if(!new_duration || QDELETED(user) || QDELETED(src) || !usr.can_perform_action(src, NEED_DEXTERITY))
+		return CLICK_ACTION_BLOCKING
+	duration = new_duration
+	to_chat(user, span_notice("You set the duration to [DisplayTimeText(duration)]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/desynchronizer/proc/desync(mob/living/user)
 	if(sync_holder)
@@ -54,17 +60,20 @@
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_SECLUDED_LOCATION)
 	last_use = world.time
 	icon_state = "desynchronizer-on"
-	addtimer(CALLBACK(src, PROC_REF(resync)), duration)
+	resync_timer = addtimer(CALLBACK(src, PROC_REF(resync)), duration, TIMER_STOPPABLE)
 
 /obj/item/desynchronizer/proc/resync()
-	if(sync_holder)
-		new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
-		QDEL_NULL(sync_holder)
+	new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
+	QDEL_NULL(sync_holder)
+	if(resync_timer)
+		deltimer(resync_timer)
+		resync_timer = null
 	icon_state = initial(icon_state)
 	next_use = world.time + (world.time - last_use) // Could be 2*world.time-last_use but that would just be confusing
 
 /obj/item/desynchronizer/Destroy()
-	resync()
+	if(sync_holder)
+		resync()
 	return ..()
 
 /obj/effect/abstract/sync_holder

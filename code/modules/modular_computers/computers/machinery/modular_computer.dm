@@ -43,10 +43,9 @@
 	. = ..()
 	. += get_modular_computer_parts_examine(user)
 
-/obj/machinery/modular_computer/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/machinery/modular_computer/mouse_drop_receive(mob/living/dropping, mob/user, params)
 	. = ..()
-
-	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	// We add the component only once here & not in Initialize() because there are tons of computers & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/modular_computer/attack_ghost(mob/dead/observer/user)
@@ -82,9 +81,13 @@
 		add_overlay("bsod")
 		add_overlay("broken")
 
-/obj/machinery/modular_computer/AltClick(mob/user)
-	if(cpu)
-		cpu.AltClick(user)
+/obj/machinery/modular_computer/click_alt(mob/user)
+	if(!can_interact(user))
+		return NONE
+	if(!cpu)
+		return CLICK_ACTION_BLOCKING
+	cpu.click_alt(user)
+	return CLICK_ACTION_SUCCESS
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 // On-click handling. Turns on the computer if it's off and opens the GUI.

@@ -69,13 +69,11 @@
 		A.attack_animal(M)
 	return attack_hand(M)
 
-/obj/item/sticker/CtrlClick(mob/living/user)
-	. = ..()
-	if(user.combat_mode && sticker_state == STICKER_STATE_STUCK)
-		var/atom/A = loc
-		A.CtrlClick(user)
-		return
-	return ..()
+/obj/item/sticker/item_ctrl_click(mob/living/user)
+	if(!user.combat_mode || sticker_state != STICKER_STATE_STUCK)
+		return NONE
+	user.CtrlClickOn(loc)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/sticker/attackby(obj/item/I, mob/living/user, list/modifiers)
 	//If we're stuck to something, pass the attack to our loc

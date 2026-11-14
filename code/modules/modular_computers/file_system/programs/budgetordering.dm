@@ -29,9 +29,9 @@
 
 /datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user) //gets access from id on person or inserted one
 	var/obj/item/card/id/id
-	if(ishuman(user))
-		var/mob/living/carbon/human/U = user
-		id = U.get_idcard(TRUE)
+	if(isliving(user) && !issilicon(user))
+		var/mob/living/living_user = user
+		id = living_user.get_idcard(TRUE)
 	else if(computer)
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
@@ -189,7 +189,7 @@
 				rank = "Silicon"
 
 			var/datum/bank_account/account
-			if(self_paid && ishuman(usr))
+			if(self_paid)
 				var/obj/item/card/id/id_card = get_buyer_id(usr)
 				if(!istype(id_card))
 					computer.say("No ID card detected.")

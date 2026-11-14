@@ -11,6 +11,7 @@
 	base_icon_state = "lipstick"
 	inhand_icon_state = "lipstick"
 	w_class = WEIGHT_CLASS_TINY
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	var/open = FALSE
 	/// Actual color of the lipstick, also gets applied to the human
 	var/lipstick_color = COLOR_RED
@@ -44,15 +45,9 @@
 	colored_overlay.color = lipstick_color
 	. += colored_overlay
 
-/obj/item/lipstick/AltClick(mob/user)
-	. = ..()
-	if(.)
-		return TRUE
-
-	if(!user.canUseTopic(src))
-		return FALSE
-
-	return display_radial_menu(user)
+/obj/item/lipstick/click_alt(mob/user)
+	display_radial_menu(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/lipstick/proc/display_radial_menu(mob/living/carbon/human/user)
 	var/style_options = list(
@@ -303,7 +298,7 @@
 	if (H == user && !mirror)
 		to_chat(user, span_warning("You need a mirror to properly style your own hair!"))
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_HEAD))
@@ -318,7 +313,7 @@
 	if(H == user && !mirror)
 		to_chat(user, span_warning("You need a mirror to properly style your own facial hair!"))
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hairstyles_list
 	if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))

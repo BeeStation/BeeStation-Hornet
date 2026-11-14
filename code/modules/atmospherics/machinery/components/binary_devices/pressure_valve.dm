@@ -18,21 +18,24 @@
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize target pressure")
 
-/obj/machinery/atmospherics/components/binary/pressure_valve/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/pressure_valve/click_ctrl(mob/user)
+	if(is_operational)
 		on = !on
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/binary/pressure_valve/AltClick(mob/user)
-	if(can_interact(user))
-		target_pressure = MAX_OUTPUT_PRESSURE
-		balloon_alert(user, "You set the target pressure to [target_pressure] kPa.")
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
-		update_icon()
-	return ..()
+/obj/machinery/atmospherics/components/binary/pressure_valve/click_alt(mob/user)
+	if(target_pressure == MAX_OUTPUT_PRESSURE)
+		return CLICK_ACTION_BLOCKING
+
+	target_pressure = MAX_OUTPUT_PRESSURE
+	balloon_alert(user, "You set the target pressure to [target_pressure] kPa.")
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/relaymove(mob/living/user, direction)
 	if(!on || direction != dir)

@@ -7,7 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/biogenerator
-
+	interaction_flags_click = FORBID_TELEKINESIS_REACH
 
 	var/processing = FALSE
 	var/obj/item/reagent_containers/cup/beaker = null
@@ -160,9 +160,9 @@
 	else
 		to_chat(user, span_warning("You cannot put this in [src.name]!"))
 
-/obj/machinery/biogenerator/AltClick(mob/living/user)
-	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) && can_interact(user))
-		detach(user)
+/obj/machinery/biogenerator/click_alt(mob/living/user)
+	detach(user)
+	return CLICK_ACTION_SUCCESS
 
 /**
   * activate: Activates biomass processing and converts all inserted grown products into biomass

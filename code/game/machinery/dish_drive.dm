@@ -10,6 +10,7 @@
 	density = FALSE
 	circuit = /obj/item/circuitboard/machine/dish_drive
 	pass_flags = PASSTABLE
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/static/list/collectable_items = list(
 		/obj/item/trash/waffles,
 		/obj/item/trash/tray,
@@ -108,9 +109,9 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
 	do_the_dishes(TRUE)
 	return TRUE
 
-/obj/machinery/dish_drive/AltClick(mob/living/user)
-	if(user.canUseTopic(src, !issilicon(user)))
-		do_the_dishes(TRUE)
+/obj/machinery/dish_drive/click_alt(mob/living/user)
+	do_the_dishes(TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/dish_drive/proc/do_the_dishes(manual)
 	if(!LAZYLEN(dish_drive_contents))

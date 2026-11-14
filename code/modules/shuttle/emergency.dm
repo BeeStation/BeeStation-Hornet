@@ -87,7 +87,10 @@
 	if(!IS_DOCKED) // shuttle computer only has uses when onstation
 		return
 
-	var/mob/user = usr
+	if(!isliving(usr))
+		return
+
+	var/mob/living/user = usr
 	. = FALSE
 
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
@@ -136,7 +139,7 @@
 			log_game("Early launch authorization revoked, [remaining] authorizations needed.")
 	acted_recently += user
 
-/obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
+/obj/machinery/computer/emergency_shuttle/proc/authorize(mob/living/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
 
 	if(ID in authorized)
@@ -194,9 +197,11 @@
 			shuttle.setTimer(shuttle.timeLeft(1) + hijack_flight_time_increase)		//give the guy more time to hijack if it's already in flight.
 	return shuttle.hijack_status
 
-/obj/machinery/computer/emergency_shuttle/AltClick(user)
-	if(isliving(user))
-		attempt_hijack_stage(user)
+/obj/machinery/computer/emergency_shuttle/click_alt(mob/living/user)
+	if(!isliving(user))
+		return NONE
+	attempt_hijack_stage(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
 	if(!IsReachableBy(user))
@@ -757,13 +762,8 @@
 		atom_storage?.show_contents(user)
 	return TRUE
 
-/obj/item/storage/pod/MouseDrop(over_object, src_location, over_location)
-	if(can_interact(usr))
-		return ..()
-
-/obj/item/storage/pod/AltClick(mob/user)
-	if(!can_interact(user))
-		return
+/obj/item/storage/pod/click_alt(mob/user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/pod/emp_act(severity)
 	. = ..()

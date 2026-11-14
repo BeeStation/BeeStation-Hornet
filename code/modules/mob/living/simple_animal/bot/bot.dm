@@ -29,6 +29,7 @@
 
 	mobchatspan = "mime"
 	discovery_points = 0
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
@@ -372,11 +373,9 @@
 				do_sparks(5, TRUE, src)
 			..()
 
-/mob/living/simple_animal/bot/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/mob/living/simple_animal/bot/click_alt(mob/user)
 	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
@@ -974,25 +973,24 @@ Pass a positive integer as an argument to override a bot's default speed.
 	icon_state = "[initial(icon_state)][on]"
 
 
-/mob/living/simple_animal/bot/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
-			return FALSE
+/mob/living/simple_animal/bot/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(over == user)
+		if(!ishuman(user))
+			return
 		if(!carryable)
-			to_chat(usr, span_notice("[src] too large to carry!"))
-			return FALSE
+			to_chat(user, span_notice("[src] too large to carry!"))
+			return
 		if(on || booting)
-			to_chat(usr, span_notice("You need to turn [src] off before carrying it around."))
-			return FALSE
-		usr.visible_message(span_notice("[usr] picks up the [src]."), span_notice("You pick up [src]."))
+			to_chat(user, span_notice("You need to turn [src] off before carrying it around."))
+			return
+		user.visible_message(span_notice("[user] picks up the [src]."), span_notice("You pick up [src]."))
 		var/obj/item/carried_bot/carried = new(loc)
 		carried.name = name
 		carried.desc = desc
 		carried.icon = icon
 		carried.icon_state = icon_state
 		carried.update_icon()
-		usr.put_in_hands(carried)
+		user.put_in_hands(carried)
 		forceMove(carried)
 
 // Machinery to simplify topic and access calls
@@ -1009,7 +1007,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	//Silicons cannot remotely interfact with robots while the robot is jammed
 	if(issilicon(user) && is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return TRUE
-	if(!user.canUseTopic(src, !issilicon(user)))
+	if(!user.can_perform_action(src, ALLOW_SILICON_REACH))
 		return TRUE
 	// 0 for access, 1 for denied.
 	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.

@@ -10,6 +10,8 @@
 	can_save_id = TRUE
 	custom_price = PAYCHECK_MEDIUM * 3
 
+	interaction_flags_mouse_drop = NEED_HANDS
+
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND
 
@@ -67,17 +69,17 @@
 		return
 	if(!isturf(loc) && !ismob(loc)) // No opening it in backpack.
 		return
-	if(!user.canUseTopic(src, BE_CLOSE))
+	if(!user.can_perform_action(src))
 		return
 
 	toggle_open(user)
 
 
-/obj/item/modular_computer/laptop/AltClick(mob/user)
-	if(screen_on) // Close it.
-		try_toggle_open(user)
-	else
-		..()
+/obj/item/modular_computer/laptop/click_alt(mob/user)
+	if(!screen_on)
+		return CLICK_ACTION_BLOCKING
+	try_toggle_open(user) // Close it.
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user)
 	if(screen_on)

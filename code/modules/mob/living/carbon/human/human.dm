@@ -159,7 +159,7 @@
 
 		to_chat(viewer, examine_block(span_info(id_examine)))
 
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
+	if(href_list["embedded_object"] && usr.can_perform_action(src, NEED_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return
@@ -169,7 +169,7 @@
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
-	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
+	if(href_list["item"])
 		var/slot = text2num(href_list["item"])
 		if(hidden_slots_to_inventory_slots(obscured_slots) & slot)
 			to_chat(usr, span_warning("You can't reach that! Something is covering it."))
@@ -862,8 +862,7 @@
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 
-/mob/living/carbon/human/MouseDrop(mob/over)
-	. = ..()
+/mob/living/carbon/human/mouse_drop_dragged(mob/over, mob/user, src_location, over_location, params)
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
 		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && (T.body_position == LYING_DOWN) && src.combat_mode && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp

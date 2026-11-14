@@ -5,6 +5,7 @@
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "mimesoft"
 	dying_key = DYE_REGISTRY_CAP
+	interaction_flags_click = NEED_DEXTERITY|ALLOW_RESTING
 
 	///Is the hat flipped?
 	var/flipped = FALSE
@@ -13,10 +14,9 @@
 	///The color of the hat. Another knockoff item_color. Nice. Make this into GAGS sprites at some point, please.
 	var/soft_color = "mime"
 
-/obj/item/clothing/head/soft/AltClick(mob/user)
-	..()
-	if(user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		flip(user)
+/obj/item/clothing/head/soft/click_alt(mob/user)
+	flip(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
 	if(!user.incapacitated && flippable == TRUE)

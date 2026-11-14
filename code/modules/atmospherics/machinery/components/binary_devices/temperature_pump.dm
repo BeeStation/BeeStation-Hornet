@@ -17,21 +17,24 @@
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize transfer rate")
 
-/obj/machinery/atmospherics/components/binary/temperature_pump/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/temperature_pump/click_ctrl(mob/user)
+	if(is_operational)
 		on = !on
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/binary/temperature_pump/AltClick(mob/user)
-	if(can_interact(user) && !(heat_transfer_rate == max_heat_transfer_rate))
-		heat_transfer_rate = max_heat_transfer_rate
-		balloon_alert(user, "transfer rate set to [heat_transfer_rate]%")
-		investigate_log("was set to [heat_transfer_rate]% by [key_name(user)]", INVESTIGATE_ATMOS)
-		update_icon()
-	return ..()
+/obj/machinery/atmospherics/components/binary/temperature_pump/click_alt(mob/user)
+	if(heat_transfer_rate == max_heat_transfer_rate)
+		return CLICK_ACTION_BLOCKING
+
+	heat_transfer_rate = max_heat_transfer_rate
+	balloon_alert(user, "transfer rate set to [heat_transfer_rate]%")
+	investigate_log("was set to [heat_transfer_rate]% by [key_name(user)]", INVESTIGATE_ATMOS)
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/update_icon_nopipes()
 	icon_state = "tpump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"

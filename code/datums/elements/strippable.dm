@@ -41,9 +41,12 @@
 /datum/element/strippable/proc/mouse_drop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
 
+	. = COMPONENT_CANCEL_MOUSEDROP_ONTO
 	if(user == source)
 		return
 	if(over != user)
+		return
+	if(!user.can_perform_action(source, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
 		return
 
 	// We're dragging a pet, dont open the menu to strip them

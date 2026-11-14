@@ -907,13 +907,12 @@
 		return ..()
 	stored.attack_self(user, modifiers)
 
-//Alt click drops stored item
-/obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(!stored)
-		return ..()
-	stored.forceMove(get_turf(user))
+//Alt click drops the stored item.
+/obj/item/borg/apparatus/click_alt(mob/living/silicon/robot/user)
+	if(!stored || !issilicon(user))
+		return CLICK_ACTION_BLOCKING
+	stored.forceMove(user.drop_location())
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/borg/apparatus/pre_attack(atom/target, mob/living/user, list/modifiers)
 	if(istype(target.loc, /mob/living/silicon/robot) || istype(target.loc, /obj/item/robot_model) || HAS_TRAIT(target, TRAIT_NODROP))

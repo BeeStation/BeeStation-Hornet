@@ -44,27 +44,26 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/outlet_inject
 	. = ..()
 	. += span_notice("You can link it with an air sensor using a multitool.")
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/CtrlClick(mob/user)
-	if(can_interact(user))
-		if(is_operational)
-			on = !on
-			balloon_alert(user, "turned [on ? "on" : "off"]")
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
-			update_icon()
-			ui_update()
-		return TRUE
-
-/obj/machinery/atmospherics/components/unary/outlet_injector/AltClick(mob/user)
-
-	if(volume_rate == MAX_TRANSFER_RATE)
-		return TRUE
-	if(can_interact(user))
-		volume_rate = MAX_TRANSFER_RATE
-		investigate_log("was set to [volume_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
-		balloon_alert(user, "You set the volume rate to [volume_rate] L/s.")
+/obj/machinery/atmospherics/components/unary/outlet_injector/click_ctrl(mob/user)
+	if(is_operational)
+		on = !on
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
-		return TRUE
+		return CLICK_ACTION_BLOCKING
+	return CLICK_ACTION_SUCCESS
+
+/obj/machinery/atmospherics/components/unary/outlet_injector/click_alt(mob/user)
+	if(volume_rate == MAX_TRANSFER_RATE)
+		return CLICK_ACTION_BLOCKING
+
+	volume_rate = MAX_TRANSFER_RATE
+	investigate_log("was set to [volume_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
+	balloon_alert(user, "You set the volume rate to [volume_rate] L/s.")
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/update_icon_nopipes()
 	cut_overlays()

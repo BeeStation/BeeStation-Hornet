@@ -2,6 +2,7 @@
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 
 	/// The material cost divisor. Material costs are divided by this number, so bigger means cheaper
 	var/efficiency_coeff = 1
@@ -89,31 +90,27 @@
 		release_turf = get_turf(src)
 	return release_turf
 
-/obj/machinery/rnd/production/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
-	. = ..()
-	if(isobserver(usr))
-		if(!IsAdminGhost(usr))
-			return
-	else if(!issilicon(usr) && !Adjacent(usr))
+/obj/machinery/rnd/production/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	if(!can_interact(user) || (!issilicon(user) && !IsAdminGhost(user)) && !Adjacent(user))
 		return
 	if(busy)
-		balloon_alert(usr, "busy printing!")
+		balloon_alert(user, "busy printing!")
 		return
 	var/direction = get_dir(src, over_location)
 	if(!direction || direction == output_direction)
 		return
 	output_direction = direction
-	balloon_alert(usr, "dropping [dir2text(output_direction)]")
+	balloon_alert(user, "dropping [dir2text(output_direction)]")
 
-/obj/machinery/rnd/production/AltClick(mob/user)
-	. = ..()
-	if(!output_direction || !can_interact(user))
-		return
+/obj/machinery/rnd/production/click_alt(mob/user)
+	if(output_direction == 0)
+		return CLICK_ACTION_BLOCKING
 	if(busy)
 		balloon_alert(user, "busy printing!")
-		return
+		return CLICK_ACTION_BLOCKING
 	balloon_alert(user, "drop direction reset")
 	output_direction = 0
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/rnd/production/connect_techweb(datum/techweb/new_techweb)
 	if(stored_research)

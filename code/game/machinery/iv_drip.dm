@@ -85,11 +85,12 @@
 			filling_overlay.color = list("#0000", "#0000", "#0000", "#000f", mix_color_from_reagents(beaker.reagents.reagent_list))
 			add_overlay(filling_overlay)
 
-/obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	. = ..()
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE) || !isliving(target))
+/obj/machinery/iv_drip/mouse_drop_dragged(mob/living/target, mob/user)
+	if(!isliving(user))
+		to_chat(user, span_warning("You can't do that!"))
 		return
-
+	if(!isliving(target))
+		return
 	if(attached)
 		visible_message(span_warning("[attached] is detached from [src]."))
 		attached = null
@@ -97,19 +98,19 @@
 		return
 
 	if(!target.has_dna())
-		to_chat(usr, span_danger("The drip beeps: Warning, incompatible creature!"))
+		to_chat(user, span_danger("The drip beeps: Warning, incompatible creature!"))
 		return
 
-	if(Adjacent(target) && usr.Adjacent(target))
+	if(Adjacent(target) && user.Adjacent(target))
 		if(beaker)
-			usr.visible_message(span_warning("[usr] attaches [src] to [target]."), span_notice("You attach [src] to [target]."))
-			log_combat(usr, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.log_list()])", important = FALSE)
-			add_fingerprint(usr)
+			user.visible_message(span_warning("[user] attaches [src] to [target]."), span_notice("You attach [src] to [target]."))
+			log_combat(user, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.log_list()])", important = FALSE)
+			add_fingerprint(user)
 			attached = target
 			START_PROCESSING(SSmachines, src)
 			update_icon()
 		else
-			to_chat(usr, span_warning("There's nothing attached to the IV drip!"))
+			to_chat(user, span_warning("There's nothing attached to the IV drip!"))
 
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, list/modifiers)
@@ -204,7 +205,7 @@
 	if(!isliving(usr))
 		to_chat(usr, span_warning("You can't do that!"))
 		return
-	if (!usr.canUseTopic())
+	if(!usr.can_perform_action(src))
 		return
 	if(usr.incapacitated)
 		return
@@ -221,7 +222,7 @@
 	if(!isliving(usr))
 		to_chat(usr, span_warning("You can't do that!"))
 		return
-	if (!usr.canUseTopic())
+	if(!usr.can_perform_action(src))
 		return
 	if(usr.incapacitated)
 		return

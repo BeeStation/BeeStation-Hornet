@@ -27,23 +27,26 @@ Passive gate is similar to the regular pump except:
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize target pressure")
 
-/obj/machinery/atmospherics/components/binary/passive_gate/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/passive_gate/click_ctrl(mob/user)
+	if(is_operational)
 		on = !on
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/binary/passive_gate/AltClick(mob/user)
-	if(can_interact(user))
-		target_pressure = ONE_ATMOSPHERE*100
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
-		balloon_alert(user, "pressure output set to [target_pressure] kPa")
-		update_icon()
-		ui_update()
-	return
+/obj/machinery/atmospherics/components/binary/passive_gate/click_alt(mob/user)
+	if(target_pressure == MAX_OUTPUT_PRESSURE)
+		return CLICK_ACTION_BLOCKING
+
+	target_pressure = MAX_OUTPUT_PRESSURE
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+	balloon_alert(user, "pressure output set to [target_pressure] kPa")
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/binary/passive_gate/update_icon_nopipes()
 	cut_overlays()
@@ -78,7 +81,7 @@ Passive gate is similar to the regular pump except:
 	var/data = list()
 	data["on"] = on
 	data["pressure"] = round(target_pressure)
-	data["max_pressure"] = round(ONE_ATMOSPHERE*100)
+	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
 	return data
 
 /obj/machinery/atmospherics/components/binary/passive_gate/ui_act(action, params)
@@ -92,13 +95,13 @@ Passive gate is similar to the regular pump except:
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "max")
-				pressure = ONE_ATMOSPHERE*100
+				pressure = MAX_OUTPUT_PRESSURE
 				. = TRUE
 			else if(text2num(pressure) != null)
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				target_pressure = clamp(pressure, 0, ONE_ATMOSPHERE*100)
+				target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 	if(.)
 		update_icon()

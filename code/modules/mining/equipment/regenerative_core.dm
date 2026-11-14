@@ -109,7 +109,7 @@
 		applyto(target, user)
 
 /obj/item/organ/regenerative_core/attack_self(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		applyto(user, user)
 
 /obj/item/organ/regenerative_core/on_mob_insert(mob/living/carbon/target_carbon, special = FALSE, movement_flags)

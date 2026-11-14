@@ -32,23 +32,26 @@
 	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
 	context.add_alt_click_action("Maximize target pressure")
 
-/obj/machinery/atmospherics/components/binary/pump/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/pump/click_ctrl(mob/user)
+	if(is_operational)
 		set_on(!on)
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/binary/pump/AltClick(mob/user)
-	if(can_interact(user))
-		target_pressure = MAX_OUTPUT_PRESSURE
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
-		balloon_alert(user, "pressure output set to [target_pressure] kPa")
-		update_icon()
-		ui_update()
-	return
+/obj/machinery/atmospherics/components/binary/pump/click_alt(mob/user)
+	if(target_pressure == MAX_OUTPUT_PRESSURE)
+		return CLICK_ACTION_BLOCKING
+
+	target_pressure = MAX_OUTPUT_PRESSURE
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+	balloon_alert(user, "pressure output set to [target_pressure] kPa")
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/binary/pump/update_icon_nopipes()
 	icon_state = "pump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"

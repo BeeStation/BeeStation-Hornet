@@ -54,7 +54,7 @@
 /obj/item/sequence_scanner/proc/gene_scan(mob/living/carbon/C, mob/living/user)
 	if(!iscarbon(C) || !C.has_dna())
 		return
-		
+
 	buffer = C.dna.mutation_index
 	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
 	genescan(C, user, discovered)
@@ -69,7 +69,7 @@
 	var/answer = tgui_input_list(user, "Analyze Potential", "Sequence Analyzer", sort_list(options))
 	if(isnull(answer))
 		return
-	if(!ready || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!ready || !user.can_perform_action(src, NEED_LITERACY|FORBID_TELEKINESIS_REACH))
 		return
 
 	var/sequence

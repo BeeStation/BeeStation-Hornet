@@ -138,9 +138,9 @@
 	. = ..()
 	update_appearance()
 
-/obj/item/clothing/head/utility/hardhat/welding/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		toggle_welding_screen(user)
+/obj/item/clothing/head/utility/hardhat/welding/click_alt(mob/user)
+	toggle_welding_screen(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/head/utility/hardhat/welding/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_welding_screen))

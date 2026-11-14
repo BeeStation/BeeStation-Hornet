@@ -11,6 +11,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_keyboard = "generic_key"
 	req_one_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/computer/card
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/mode = 0
 	var/printing = null
 	var/department_bitflag = NONE // NONE = All department, or department bitflag. Only access for that department will be shown
@@ -185,20 +186,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		updateUsrDialog()
 		return TRUE
 
-/obj/machinery/computer/card/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational)
-		return
-	if(inserted_modify_id)
-		if(id_eject(user, inserted_modify_id))
-			inserted_modify_id = null
-			updateUsrDialog()
-			return
-	if(inserted_scan_id)
-		if(id_eject(user, inserted_scan_id))
-			inserted_scan_id = null
-			updateUsrDialog()
-			return
+/obj/machinery/computer/card/click_alt(mob/user)
+	if(!is_operational)
+		return NONE
+	if(inserted_modify_id && id_eject(user, inserted_modify_id))
+		inserted_modify_id = null
+		updateUsrDialog()
+		return CLICK_ACTION_SUCCESS
+	if(inserted_scan_id && id_eject(user, inserted_scan_id))
+		inserted_scan_id = null
+		updateUsrDialog()
+		return CLICK_ACTION_SUCCESS
+	return NONE
 
 /obj/machinery/computer/card/ui_interact(mob/user)
 	. = ..()
@@ -556,7 +555,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(..())
 		return
 
-	if(!usr.canUseTopic(src, !issilicon(usr)) || !is_operational)
+	if(!usr.can_perform_action(src, ALLOW_SILICON_REACH) || !is_operational)
 		usr.unset_machine()
 		usr << browse(null, "window=id_com")
 		return
@@ -569,7 +568,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					inserted_modify_id = null
 					updateUsrDialog()
 					return
-			if(usr.get_id_in_hand())
+			var/mob/living/living_user = usr
+			if(isliving(usr) && living_user.get_id_in_hand())
 				var/obj/item/held_item = usr.get_active_held_item()
 				var/obj/item/card/id/id_to_insert = held_item.GetID()
 				if(id_insert(usr, held_item, inserted_modify_id))
@@ -581,7 +581,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					inserted_scan_id = null
 					updateUsrDialog()
 					return
-			if(usr.get_id_in_hand())
+			var/mob/living/living_user = usr
+			if(isliving(usr) && living_user.get_id_in_hand())
 				var/obj/item/held_item = usr.get_active_held_item()
 				var/obj/item/card/id/id_to_insert = held_item.GetID()
 				if(id_insert(usr, held_item, inserted_scan_id))

@@ -285,8 +285,9 @@
 	now_pushing = FALSE
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
-	if(!AM || !src)
+	if(!src)
 		return FALSE
+	ASSERT(ismovable(AM), "[src] attempted to pull [AM ? "[AM], a nonmovable atom" : "a null object"]")
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
 	if(throwing || !(mobility_flags & MOBILITY_PULL))
@@ -309,8 +310,13 @@
 
 	if(AM.pulledby)
 		if(!supress_message)
-			AM.visible_message(span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."), \
-							span_danger("[src] has pulled you from [AM.pulledby]'s grip."), null, null, src)
+			AM.visible_message(
+				span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."),
+				span_danger("[src] has pulled you from [AM.pulledby]'s grip."),
+				null,
+				null,
+				src
+			)
 			to_chat(src, span_notice("You pull [AM] from [AM.pulledby]'s grip!"))
 		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
@@ -328,7 +334,7 @@
 				sound_to_play = H.dna.species.grab_sound
 			if(HAS_TRAIT(H, TRAIT_STRONG_GRABBER))
 				sound_to_play = null
-		playsound(src.loc, sound_to_play, 50, 1, -1)
+		playsound(src.loc, sound_to_play, 50, TRUE, -1)
 	update_pull_hud_icon()
 
 	if(ismob(AM))
@@ -547,6 +553,25 @@
 
 
 /mob/proc/get_contents()
+	return
+
+
+/**
+ * Gets ID card from a mob.
+ * Argument:
+ * * hand_first - boolean that checks the hands of the mob first if TRUE.
+ */
+/mob/living/proc/get_idcard(hand_first)
+	if(!length(held_items)) //Early return for mobs without hands.
+		return
+	//Check hands
+	var/obj/item/held_item = get_active_held_item()
+	if(held_item) //Check active hand
+		. = held_item.GetID()
+	if(!.) //If there is no id, check the other hand
+		held_item = get_inactive_held_item()
+		if(held_item)
+			. = held_item.GetID()
 
 /**
  * Returns the access list for this mob
@@ -557,12 +582,108 @@
 		return list()
 	return id.GetAccess()
 
+/mob/living/proc/get_bank_account()
+	RETURN_TYPE(/datum/bank_account)
+	var/obj/item/card/id/id_card = get_idcard()
+	return id_card?.registered_account
+
+/mob/living/proc/get_id_in_hand()
+	var/obj/item/held_item = get_active_held_item()
+	if(!held_item)
+		return
+	return held_item.GetID()
+
+/**
+ * Used to fetch all the cash a vendor can access from the mob
+ * See /mob/living/proc/get_cash_list() proc for the list of items and inventory slots it searches through
+ */
+/mob/living/proc/get_accessible_cash(list/cash_list = null)
+	var/available_cash = 0
+	if(!cash_list)
+		cash_list = get_cash_list()
+	if(!length(cash_list))
+		return 0
+	for(var/found_item in cash_list)
+		if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/chip_stack = found_item
+			available_cash += chip_stack.credits
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/id_card = found_item
+			available_cash += id_card.registered_account.account_balance
+	return available_cash
+
+/**
+ * Used by vendors to see if the mob can spend a certain amount of cash.
+ * Returns FALSE if they cannot, TRUE if they can and withdraws the cash.
+ * Arguments:
+ * * to_spend = how much cash needs to be deducted
+ */
+/mob/living/proc/spend_cash(to_spend)
+	if(!to_spend)
+		return FALSE
+	var/list/cash_list = get_cash_list()
+	if(!length(cash_list)) //We have no accessible cash items, early return
+		return FALSE
+	if(to_spend > get_accessible_cash(cash_list)) //If we don't have enough money, early return
+		return FALSE
+	for(var/obj/item/holochip/chip_stack in cash_list)//Loops are separate because we prioritize taking cash from holochips first, then ID cards
+		if(chip_stack.credits >= to_spend)
+			chip_stack.spend(to_spend, TRUE)
+			return TRUE
+		else
+			var/temp_value_holder = to_spend
+			to_spend -= chip_stack.credits
+			chip_stack.spend(temp_value_holder, TRUE)
+	for(var/obj/item/card/id/id_card in cash_list)
+		var/temp_cash_holder = id_card.registered_account.account_balance
+		if(temp_cash_holder >= to_spend)
+			id_card.registered_account.adjust_money(-to_spend)
+			return TRUE
+		else
+			id_card.registered_account.adjust_money(-to_spend)
+			to_spend -= temp_cash_holder
+	return FALSE
+
+/**
+ * Used to find which 'cash holding items' the mob has that are accessible by a vendor.
+ * Searches through both hands by default. Looks inside of wallets and PDAs.
+ * Returns a list consisting of IDs and chip stacks.
+ */
+/mob/living/proc/get_cash_list(list/search_through = null)
+	var/list/found_list = list()
+	if(!search_through)
+		search_through = list(get_active_held_item(), get_inactive_held_item())
+	for(var/obj/item/found_item in search_through)
+		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
+			var/obj/item/modular_computer/found_PDA = found_item
+			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
+			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
+			if(!found_item) //Empty ID slot, skip it
+				continue
+
+		// we store detected cards and holochips into the returning list
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/found_id = found_item
+			if(found_id?.registered_account)
+				found_list += found_id
+		else if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/found_chip = found_item
+			if(found_chip.credits > 0)
+				found_list += found_chip
+		else if(istype(found_item, /obj/item/storage/wallet)) // if it's a wallet, find other cards and holochips recursively through this proc.
+			var/obj/item/storage/wallet/found_wallet = found_item
+			if(length(found_wallet.contents))
+				found_list += get_cash_list(found_wallet.contents)
+	if(length(found_list))
+		return found_list
+	else
+		return null
+
 /mob/living/proc/toggle_resting()
 	set name = "Rest"
 	set category = "IC"
 
 	set_resting(!resting, FALSE)
-
 
 ///Proc to hook behavior to the change of value in the resting variable.
 /mob/living/proc/set_resting(new_resting, silent = TRUE, instant = FALSE)
@@ -1245,29 +1366,88 @@
 /mob/living/can_hold_items(obj/item/I)
 	return usable_hands && ..()
 
-/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
-	if(!(mobility_flags & MOBILITY_UI) && !floor_okay)
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
+/mob/living/can_perform_action(atom/target, action_bitflags)
+	if(!istype(target))
+		CRASH("Missing target arg for can_perform_action")
+
+	if(stat != CONSCIOUS)
+		to_chat(src, span_warning("You are not conscious enough for this action!"))
 		return FALSE
-	if(be_close && !Adjacent(M) && (M.loc != src))
-		if(no_tk)
-			to_chat(src, "<span class='warning'>You are too far away!</span>")
+
+	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
+		var/ignore_flags = NONE
+		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
+			ignore_flags |= INCAPABLE_RESTRAINTS
+		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+			ignore_flags |= INCAPABLE_GRAB
+
+		if(INCAPACITATED_IGNORING(src, ignore_flags))
+			to_chat(src, span_warning("You are incapacitated at the moment!"))
 			return FALSE
-		var/datum/dna/D = has_dna()
-		if(!D || !D.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, M))
-			to_chat(src, "<span class='warning'>You are too far away!</span>")
+
+	// If the MOBILITY_UI bitflag is not set it indicates the mob's hands are cutoff, blocked, or handcuffed
+	// Note - AI's and borgs have the MOBILITY_UI bitflag set even though they don't have hands
+	// Also if it is not set, the mob could be incapcitated, knocked out, unconscious, asleep, EMP'd, etc.
+	if(!(mobility_flags & MOBILITY_UI) && !(action_bitflags & ALLOW_RESTING))
+		to_chat(src, span_warning("You don't have the mobility for this!"))
+		return FALSE
+
+	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
+	if((action_bitflags & NEED_HANDS))
+		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+			to_chat(src, span_warning("You hands are blocked for this action!"))
 			return FALSE
-	if(need_hands && !can_hold_items(isitem(M) ? M : null)) //almost redundant if it weren't for mobs,
-		to_chat(src, "<span class='warning'>You don't have the physical ability to do this!</span>")
+		if(!can_hold_items(isitem(target) ? target : null)) // almost redundant if it weren't for mobs
+			to_chat(src, span_warning("You don't have the hands for this action!"))
+			return FALSE
+
+	if(!(action_bitflags & ALLOW_PAI) && ispAI(src))
+		to_chat(src, span_warning("Your holochasis does not allow you to do this!"))
 		return FALSE
-	if(!no_dexterity && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+
+	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !recursive_loc_check(src, target)) && !target.IsReachableBy(src))
+		if(issilicon(src) && !ispAI(src))
+			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+		else // just a normal carbon mob
+			if((action_bitflags & FORBID_TELEKINESIS_REACH))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+			var/datum/dna/mob_DNA = has_dna()
+			if(!mob_DNA || !mob_DNA.check_mutation(/datum/mutation/telekinesis) || !tkMaxRangeCheck(src, target))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+	if((action_bitflags & NEED_VENTCRAWL) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS))
+		to_chat(src, span_warning("You wouldn't fit!"))
 		return FALSE
+
+	if((action_bitflags & NEED_DEXTERITY) && !ISADVANCEDTOOLUSER(src))
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_LITERACY) && !is_literate())
+		to_chat(src, span_warning("You can't comprehend any of this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_LIGHT) && !has_light_nearby() && !has_nightvision())
+		to_chat(src, span_warning("You need more light to do this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_GRAVITY) && !has_gravity())
+		to_chat(src, span_warning("You need gravity to do this!"))
+		return FALSE
+
 	return TRUE
 
 /mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !ISADVANCEDTOOLUSER(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
 		return FALSE
 	return TRUE
 
@@ -1809,7 +1989,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	..()
 	update_z(new_z)
 
-/mob/living/MouseDrop_T(atom/dropping, atom/user)
+/mob/living/mouse_drop_receive(atom/dropping, atom/user, params)
 	var/mob/living/U = user
 	if(isliving(dropping))
 		var/mob/living/M = dropping

@@ -46,13 +46,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/processor)
 	if(machinery_computer)
 		return machinery_computer.update_icon()
 
-// This thing is not meant to be used on it's own, get topic data from our machinery owner.
-//obj/item/modular_computer/processor/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
-//	if(!machinery_computer)
-//		return 0
-
-//	return machinery_computer.canUseTopic(user, state)
-
 /obj/item/modular_computer/processor/shutdown_computer()
 	if(!machinery_computer)
 		return

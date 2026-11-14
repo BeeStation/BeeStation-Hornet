@@ -131,7 +131,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!usr.canUseTopic(src, !issilicon(usr)))
+	if(!usr.can_perform_action(src, ALLOW_SILICON_REACH))
 		return
 	if(machine_stat & EMPED)
 		visible_message(span_warning("[src] buzzes."), span_hear("You hear a faint buzz."))

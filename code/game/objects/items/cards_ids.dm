@@ -154,6 +154,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
+	interaction_flags_click = FORBID_TELEKINESIS_REACH
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	trade_flags = TRADE_NOT_SELLABLE
@@ -516,7 +517,7 @@
 
 /obj/item/card/id/Topic(href, href_list)
 	. = ..()
-	if(!usr.canUseTopic(src, BE_CLOSE))
+	if(!usr.can_perform_action(src))
 		return
 
 	if(href_list["look_at_id"])
@@ -625,8 +626,6 @@
 /obj/item/card/id/proc/alt_click_can_use_id(mob/living/user)
 	if(!isliving(user))
 		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
 
 	return TRUE
 
@@ -655,35 +654,35 @@
 	to_chat(user, span_warning("The account ID number provided is invalid."))
 	return
 
-/obj/item/card/id/AltClick(mob/living/user)
+/obj/item/card/id/click_alt(mob/living/user)
 	if(!alt_click_can_use_id(user))
-		return
+		return NONE
 
 	if(!registered_account)
 		set_new_account(user)
-		return
+		return CLICK_ACTION_SUCCESS
 
 	if (world.time < registered_account.withdrawDelay)
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
-		return
+		return CLICK_ACTION_BLOCKING
 
-	//var/current_balance = registered_account.account_balance
 	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
 	if(isnull(amount_to_remove) || amount_to_remove <= 0)
-		return
+		return CLICK_ACTION_BLOCKING
 	if(!alt_click_can_use_id(user))
-		return
+		return CLICK_ACTION_BLOCKING
 	if(registered_account.adjust_money(-amount_to_remove))
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
 		to_chat(user, span_notice("You withdraw [amount_to_remove] credits into a holochip."))
 		SSblackbox.record_feedback("amount", "credits_removed", amount_to_remove)
 		log_econ("[amount_to_remove] credits were removed from [src] owned by [src.registered_name]")
-		return
+		return CLICK_ACTION_SUCCESS
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
 		registered_account.bank_card_talk(span_warning("ERROR: The linked account requires [difference] more credit\s to perform that withdrawal."), TRUE)
+		return CLICK_ACTION_BLOCKING
 
 /obj/item/card/id/proc/get_temporary_access_examine()
 	. = list()

@@ -74,6 +74,7 @@
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.75
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 1.5
 	flags_1 = PREVENT_CLICK_UNDER_1
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	seller_department = ACCOUNT_MED_BITFLAG
 	fair_market_price = 10
 
@@ -560,32 +561,33 @@
 					beaker.forceMove(drop_location())
 				return TRUE
 
-/obj/machinery/cryo_cell/CtrlClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || occupant == user)
-		return
-	if(!is_operational || state_open)
-		return
+/obj/machinery/cryo_cell/click_ctrl(mob/user)
+	if(is_operational && !state_open)
+		set_on(!on)
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-	set_on(!on)
-	balloon_alert(user, "turned [on ? "on" : "off"]")
+/obj/machinery/cryo_cell/click_alt(mob/user)
+	//Required so players don't close the cryo on themselves without a doctor's help
+	if(get_turf(user) == get_turf(src))
+		return CLICK_ACTION_BLOCKING
 
-/obj/machinery/cryo_cell/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || occupant == user)
-		return
-
-	if(state_open)
+	if(state_open )
 		close_machine()
 	else
 		open_machine()
 	balloon_alert(user, "door [state_open ? "opened" : "closed"]")
+	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/cryo_cell/MouseDrop_T(mob/target, mob/user, params)
-	if(..())
-		return
-	if(user.incapacitated || !Adjacent(user) || !user.Adjacent(target) || !isliving(target) || !ISADVANCEDTOOLUSER(user) || !state_open)
+/obj/machinery/cryo_cell/mouse_drop_receive(mob/target, mob/user, params)
+	if(!iscarbon(target) || !state_open)
 		return
 
-	user.visible_message(span_notice("[user] starts shoving [target] inside [src]."), span_notice("You start shoving [target] inside [src]."))
+	user.visible_message(
+		span_notice("[user] starts shoving [target] inside [src]."),
+		span_notice("You start shoving [target] inside [src].")
+	)
 	if (do_after(user, 2.5 SECONDS, target = target))
 		close_machine(target)
 

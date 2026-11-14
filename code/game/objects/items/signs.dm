@@ -10,7 +10,7 @@
 
 
 	var/label = ""
-	var/last_wave = 0
+	COOLDOWN_DECLARE(picket_sign_cooldown)
 
 /obj/item/picket_sign/cyborg
 	name = "metallic nano-sign"
@@ -19,30 +19,30 @@
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/nano_picket_sign)
 
-/obj/item/picket_sign/proc/retext(mob/user)
-	if(!user.is_literate())
-		to_chat(user, span_notice("You scribble illegibly on [src]!"))
+/obj/item/picket_sign/proc/retext(mob/user, obj/item/writing_instrument)
+	if(!user.can_write(writing_instrument))
 		return
-	var/txt = stripped_input(user, "What would you like to write on the sign?", "Sign Label", null , 30)
-	if(txt && user.canUseTopic(src, BE_CLOSE))
+	var/txt = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
+	if(txt && user.can_perform_action(src))
 		label = txt
 		name = "[label] sign"
-		desc =	"It reads: [label]"
+		desc = "It reads: [label]"
 
 /obj/item/picket_sign/attackby(obj/item/W, mob/user, list/modifiers)
 	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
-		retext(user)
+		retext(user, W)
 	else
 		return ..()
 
 /obj/item/picket_sign/attack_self(mob/living/carbon/human/user)
-	if( last_wave + 20 < world.time )
-		last_wave = world.time
-		if(label)
-			user.visible_message(span_warning("[user] waves around \the \"[label]\" sign."))
-		else
-			user.visible_message(span_warning("[user] waves around blank sign."))
-		user.changeNext_move(CLICK_CD_MELEE)
+	if(!COOLDOWN_FINISHED(src, picket_sign_cooldown))
+		return
+	COOLDOWN_START(src, picket_sign_cooldown, 5 SECONDS)
+	if(label)
+		user.manual_emote("waves around \the \"[label]\" sign.")
+	else
+		user.manual_emote("waves around a blank sign.")
+	user.changeNext_move(CLICK_CD_MELEE)
 
 /datum/crafting_recipe/picket_sign
 	name = "Picket Sign"
@@ -59,4 +59,4 @@
 	if(!istype(target, /obj/item/picket_sign))
 		return
 	var/obj/item/picket_sign/sign = target
-	sign.retext(owner)
+	sign.retext(user, user.get_active_hand())

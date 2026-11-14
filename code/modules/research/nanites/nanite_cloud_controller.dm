@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "nanite_cloud_controller"
 	circuit = /obj/item/circuitboard/computer/nanite_cloud_controller
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
@@ -33,11 +34,12 @@
 	else
 		..()
 
-/obj/machinery/computer/nanite_cloud_controller/AltClick(mob/user)
-	if(disk && user.canUseTopic(src, !issilicon(user)))
-		to_chat(user, span_notice("You take out [disk] from [src]."))
-		eject(user)
-	return
+/obj/machinery/computer/nanite_cloud_controller/click_alt(mob/user)
+	if(!disk)
+		return NONE
+	to_chat(user, span_notice("You take out [disk] from [src]."))
+	eject(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/computer/nanite_cloud_controller/proc/eject(mob/living/user)
 	if(!disk)

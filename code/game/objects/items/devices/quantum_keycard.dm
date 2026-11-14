@@ -7,6 +7,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	interaction_flags_click = NEED_DEXTERITY|ALLOW_RESTING
+	/// The linked quantum pad
 	var/obj/machinery/quantumpad/qpad
 
 /obj/item/quantum_keycard/examine(mob/user)
@@ -17,13 +19,12 @@
 	else
 		. += span_notice("Insert [src] into an active quantum pad to link it.")
 
-/obj/item/quantum_keycard/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		return
+/obj/item/quantum_keycard/click_alt(mob/living/user)
 	to_chat(user, span_notice("You start pressing [src]'s unlink button..."))
 	if(do_after(user, 40, target = src))
 		to_chat(user, span_notice("The keycard beeps twice and disconnects the quantum link."))
 		qpad = null
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/quantum_keycard/update_icon_state()
 	icon_state = qpad ? "quantum_keycard_on" : initial(icon_state)

@@ -155,8 +155,8 @@
 	skip_label = TRUE
 	return ..()
 
-/obj/item/xenoarchaeology_labeler/debug/AltClick(mob/user)
-	. = ..()
+/obj/item/xenoarchaeology_labeler/debug/click_alt(mob/user)
+	. = CLICK_ACTION_SUCCESS
 	var/choice = tgui_alert(user, "Select Action", "Select Action", list("Toggle Patch", "Change Material"))
 	switch(choice)
 		if("Toggle Patch")

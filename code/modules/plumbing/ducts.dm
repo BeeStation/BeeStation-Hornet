@@ -314,9 +314,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 	disconnect_duct()
 	return ..()
 
-/obj/machinery/duct/MouseDrop_T(atom/A, mob/living/user)
-	if(..())
-		return
+/obj/machinery/duct/mouse_drop_receive(atom/A, mob/living/user, params)
 	if(!istype(A, /obj/machinery/duct))
 		return
 	var/obj/machinery/duct/D = A

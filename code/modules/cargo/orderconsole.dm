@@ -195,9 +195,9 @@
 				rank = "Silicon"
 
 			var/datum/bank_account/account
-			if(self_paid && ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+			if(self_paid && isliving(usr))
+				var/mob/living/living_user = usr
+				var/obj/item/card/id/id_card = living_user.get_idcard(TRUE)
 				if(!istype(id_card))
 					say("No ID card detected.")
 					return

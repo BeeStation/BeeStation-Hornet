@@ -165,7 +165,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 	if(!droppable_parts.len)
 		return
 	var/obj/item/choice = tgui_input_list(user, "Select a part to remove:", src, sort_names(droppable_parts))
-	if(!choice || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+	if(!user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
 		return
 	to_chat(user, span_notice("You remove [choice] from [src]."))
 	drop_upgrade(choice)

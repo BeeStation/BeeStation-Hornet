@@ -35,23 +35,26 @@
 		/obj/item/circuit_component/atmos_volume_pump,
 	))
 
-/obj/machinery/atmospherics/components/binary/volume_pump/CtrlClick(mob/user)
-	if(can_interact(user))
+/obj/machinery/atmospherics/components/binary/volume_pump/click_ctrl(mob/user)
+	if(is_operational)
 		set_on(!on)
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
-	return ..()
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
-/obj/machinery/atmospherics/components/binary/volume_pump/AltClick(mob/user)
-	if(can_interact(user))
-		transfer_rate = MAX_TRANSFER_RATE
-		investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
-		balloon_alert(user, "volume output set to [transfer_rate] L/s")
-		update_icon()
-		ui_update()
-	return
+/obj/machinery/atmospherics/components/binary/volume_pump/click_alt(mob/user)
+	if(transfer_rate == MAX_TRANSFER_RATE)
+		return CLICK_ACTION_BLOCKING
+
+	transfer_rate = MAX_TRANSFER_RATE
+	investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
+	balloon_alert(user, "volume output set to [transfer_rate] L/s")
+	update_icon()
+	ui_update()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/components/binary/volume_pump/update_icon_nopipes()
 	icon_state = "volpump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"

@@ -293,12 +293,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/slime)
 		return
 	powerlevel = 0 // oh no, the power!
 
-/mob/living/simple_animal/slime/MouseDrop(atom/movable/A as mob|obj)
-	if(isliving(A) && A != src && usr == src)
+/mob/living/simple_animal/slime/mouse_drop_dragged(atom/A, mob/user, src_location, over_location, params)
+	if(isliving(A) && A != src && user == src)
 		var/mob/living/Food = A
 		if(CanFeedon(Food))
 			Feedon(Food)
-	return ..()
 
 /mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE, silent = FALSE)
 	return

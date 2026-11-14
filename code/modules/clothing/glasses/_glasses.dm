@@ -620,21 +620,20 @@
 	start_cooldown()
 	return TRUE
 */
-/obj/item/clothing/glasses/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE))
-		return
-	if(glass_colour_type && !force_glass_colour && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.client)
-			if(H.client.prefs)
-				if(src == H.glasses)
-					var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
-					H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
-					if(!current_color)
-						to_chat(H, "You will now see glasses colors.")
-					else
-						to_chat(H, "You will no longer see glasses colors.")
-					H.update_glasses_color(src, TRUE)
+/obj/item/clothing/glasses/click_alt(mob/user)
+	if(!glass_colour_type || force_glass_colour || !ishuman(user))
+		return NONE
+	var/mob/living/carbon/human/H = user
+	if(src != H.glasses || !H.client?.prefs)
+		return NONE
+	var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
+	H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
+	if(!current_color)
+		to_chat(H, "You will now see glasses colors.")
+	else
+		to_chat(H, "You will no longer see glasses colors.")
+	H.update_glasses_color(src, TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type

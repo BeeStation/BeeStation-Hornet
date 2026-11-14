@@ -21,10 +21,13 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 400
-
-	var/obj/structure/tray/connected = null
-	var/locked = FALSE
+	pass_flags_self = LETPASSTHROW | PASSSTRUCTURE
 	dir = SOUTH
+
+	///The morgue tray this container will open/close to put/take things in/out.
+	var/obj/structure/tray/connected
+	///Boolean on whether we're locked and will not allow the tray to be opened.
+	var/locked = FALSE
 	var/message_cooldown
 	var/breakout_time = 600
 	radiation_shield = TRUE   // Blocks external radiation when closed
@@ -92,7 +95,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		var/t = stripped_input(user, "What would you like the label to be?", "[name]", null)
 		if (user.get_active_held_item() != P)
 			return
-		if(!user.canUseTopic(src, BE_CLOSE))
+		if(!user.can_perform_action(src))
 			return
 		if (t)
 			name = "[initial(name)]- '[t]'"
@@ -156,9 +159,13 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	desc = "Used to keep bodies in until someone fetches them. Now includes a high-tech alert system."
 	icon_state = "morgue1"
 	dir = EAST
+	interaction_flags_click = ALLOW_SILICON_REACH|ALLOW_RESTING
+
+	/// Whether or not this morgue beeps to alert parameds of revivable corpses.
 	var/beeper = TRUE
-	COOLDOWN_DECLARE(beep_timer)
+	/// The minimum time between beeps.
 	var/beep_cooldown = 5 SECONDS
+	COOLDOWN_DECLARE(beep_timer)
 
 /obj/structure/bodycontainer/morgue/Initialize(mapload)
 	. = ..()
@@ -169,11 +176,10 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	. = ..()
 	. += span_notice("The speaker is [beeper ? "enabled" : "disabled"]. Alt-click to toggle it.")
 
-/obj/structure/bodycontainer/morgue/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
+/obj/structure/bodycontainer/morgue/click_alt(mob/user)
 	beeper = !beeper
 	to_chat(user, span_notice("You turn the speaker function [beeper ? "on" : "off"]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/bodycontainer/morgue/update_icon()
 	if (!connected || connected.loc != src) // Open or tray is gone.
@@ -325,10 +331,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
-	var/obj/structure/bodycontainer/connected = null
 	anchored = TRUE
-	pass_flags_self = LETPASSTHROW
+	pass_flags_self = PASSTABLE | LETPASSTHROW
+
 	max_integrity = 350
+
+	///The bodycontainer we are a tray to.
+	var/obj/structure/bodycontainer/connected
 
 /obj/structure/tray/Destroy()
 	if(connected)
@@ -341,8 +350,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
-/obj/structure/tray/attack_paw(mob/user)
-	return attack_hand(user)
+/obj/structure/tray/attack_paw(mob/user, list/modifiers)
+	return attack_hand(user, modifiers)
 
 /obj/structure/tray/attack_robot(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
@@ -351,16 +360,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	. = ..()
 	if(.)
 		return
-	if (src.connected)
+	if (connected)
 		connected.close()
 		add_fingerprint(user)
 	else
 		to_chat(user, span_warning("That's not connected to anything!"))
-
-/obj/structure/tray/attack_robot(mob/user)
-	if(!user.Adjacent(src))
-		return
-	return attack_hand(user)
 
 /obj/structure/tray/attackby(obj/P, mob/user, list/modifiers)
 	if(!istype(P, /obj/item/riding_offhand))
@@ -371,12 +375,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(carried_mob == user) //Piggyback user.
 		return
 	user.unbuckle_mob(carried_mob)
-	MouseDrop_T(carried_mob, user)
+	mouse_drop_receive(carried_mob, user)
 
-/obj/structure/tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
-	if(..())
-		return
-	if(!ismovable(O) || O.anchored || !Adjacent(user) || !user.Adjacent(O) || O.loc == user)
+/obj/structure/tray/mouse_drop_receive(atom/movable/O as mob|obj, mob/user, params)
+	if(!ismovable(O) || O.anchored || O.loc == user)
 		return
 	if(!ismob(O))
 		if(!istype(O, /obj/structure/closet/body_bag))
@@ -385,16 +387,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		var/mob/M = O
 		if(M.buckled)
 			return
-	if(!ismob(user) || user.incapacitated)
-		return
-	if(isliving(user))
-		var/mob/living/L = user
-		if(L.body_position == LYING_DOWN)
-			return
 	O.forceMove(src.loc)
 	if (user != O)
 		visible_message(span_warning("[user] stuffs [O] into [src]."))
-	return
 
 /*
  * Crematorium tray
@@ -415,7 +410,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "morgue tray"
 	desc = "Apply corpse before closing."
 	icon_state = "morguet"
-	pass_flags_self = PASSTABLE|LETPASSTHROW
+	pass_flags_self = PASSTABLE | LETPASSTHROW
 
 /obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

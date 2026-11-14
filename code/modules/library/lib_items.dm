@@ -115,10 +115,10 @@
 				to_chat(user, span_notice("You empty \the [I] into \the [src]."))
 				update_appearance()
 			else if(istype(I, /obj/item/pen))
-				if(!user.canUseTopic(src, BE_CLOSE) || !user.can_write(I))
+				if(!user.can_perform_action(src) || !user.can_write(I))
 					return
 				var/newname = stripped_input(user, "What would you like to title this bookshelf?")
-				if(!user.canUseTopic(src, BE_CLOSE) || !user.can_write(I))
+				if(!user.can_perform_action(src) || !user.can_write(I))
 					return
 				if(!newname)
 					return
@@ -265,17 +265,16 @@
 		if(unique)
 			to_chat(user, span_warning("These pages don't seem to take the ink well! Looks like you can't modify it."))
 			return
-		var/literate = user.is_literate()
-		if(!literate)
+		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on the cover of [src]!"))
 			return
 		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
-		if(!user.canUseTopic(src, BE_CLOSE, literate))
+		if(!user.can_perform_action(src))
 			return
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
-				if(!user.canUseTopic(src, BE_CLOSE, literate))
+				if(!user.can_perform_action(src))
 					return
 				if (length(newtitle) > 50)
 					to_chat(user, "That title won't fit on the cover!")
@@ -288,7 +287,7 @@
 					title = newtitle
 			if("Contents")
 				var/content = stripped_input(user, "Write your book's contents (HTML NOT allowed):","","",8192)
-				if(!user.canUseTopic(src, BE_CLOSE, literate))
+				if(!user.can_perform_action(src))
 					return
 				if(!content)
 					to_chat(user, "The content is invalid.")
@@ -297,7 +296,7 @@
 					dat += content
 			if("Author")
 				var/newauthor = stripped_input(user, "Write the author's name:")
-				if(!user.canUseTopic(src, BE_CLOSE, literate))
+				if(!user.can_perform_action(src))
 					return
 				if(!newauthor)
 					to_chat(user, "The name is invalid.")

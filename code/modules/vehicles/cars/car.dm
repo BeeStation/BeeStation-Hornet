@@ -1,6 +1,7 @@
 /obj/vehicle/sealed/car
 	layer = ABOVE_MOB_LAYER
 	move_resist = MOVE_FORCE_OVERPOWERING
+
 	var/car_traits = NONE //Bitflag for special behavior such as kidnapping
 	var/engine_sound = 'sound/vehicles/carrev.ogg'
 	var/last_enginesound_time
@@ -19,8 +20,10 @@
 
 /obj/vehicle/sealed/car/proc/RunOver(mob/living/carbon/human/H) //pasted right out of mulebot code
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message(span_danger("[src] drives over [H]!"), \
-					span_userdanger("[src] drives over you!"))
+	H.visible_message(
+		span_danger("[src] drives over [H]!"),
+		span_userdanger("[src] drives over you!")
+	)
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = 10
@@ -34,9 +37,9 @@
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)
 
-/obj/vehicle/sealed/car/MouseDrop_T(atom/dropping, mob/M)
-	if(M.incapacitated || (HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !is_driver(M)))
-		return FALSE
+/obj/vehicle/sealed/car/mouse_drop_receive(atom/dropping, mob/M, params)
+	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !is_driver(M))
+		return
 	if((car_traits & CAN_KIDNAP) && isliving(dropping) && M != dropping)
 		var/mob/living/L = dropping
 		L.visible_message(span_warning("[M] starts forcing [L] into [src]!"))

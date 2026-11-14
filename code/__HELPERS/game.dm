@@ -312,18 +312,30 @@
 		return
 	winset(C, "mainwindow", "flash=5")
 
-//Recursively checks if an item is inside a given type, even through layers of storage. Returns the atom if it finds it.
+///Recursively checks if an item is inside a given type/atom, even through layers of storage. Returns the atom if it finds it.
 /proc/recursive_loc_check(atom/movable/target, type)
-	var/atom/A = target
-	if(istype(A, type))
-		return A
+	var/atom/atom_to_find = null
 
-	while(!istype(A.loc, type))
-		if(!A.loc)
-			return
-		A = A.loc
+	if(ispath(type))
+		atom_to_find = target
+		if(istype(atom_to_find, type))
+			return atom_to_find
 
-	return A.loc
+		while(!istype(atom_to_find.loc, type))
+			if(!atom_to_find.loc)
+				return
+			atom_to_find = atom_to_find.loc
+	else if(isatom(type))
+		atom_to_find = target
+		if(atom_to_find.loc == type)
+			return atom_to_find
+
+		while(atom_to_find.loc != type)
+			if(!atom_to_find.loc)
+				return
+			atom_to_find = atom_to_find.loc
+
+	return atom_to_find
 
 ///Send a message in common radio when a player arrives
 /proc/announce_arrival(mob/living/carbon/human/character, rank)

@@ -57,11 +57,8 @@
 		else
 			return user_unbuckle_mob(buckled_mobs[1], user)
 
-/atom/movable/MouseDrop_T(atom/dropping, mob/user, params)
-	. = ..()
-	if(.)
-		return
-	return mouse_buckle_handling(dropping, user)
+/atom/movable/mouse_drop_receive(mob/living/M, mob/user, params)
+	return mouse_buckle_handling(M, user)
 
 /**
   * Does some typechecks and then calls user_buckle_mob

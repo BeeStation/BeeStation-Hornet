@@ -166,10 +166,10 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 		if(scribble_page == curr_page)
 			to_chat(user, span_warning("There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?"))
 		else
-			var/s = stripped_input(user, "Write something", "Newspaper")
+			var/s = tgui_input_text(user, "Write something", "Newspaper")
 			if (!s)
 				return
-			if(!user.canUseTopic(src, BE_CLOSE))
+			if(!user.can_perform_action(src))
 				return
 			scribble_page = curr_page
 			scribble = s
