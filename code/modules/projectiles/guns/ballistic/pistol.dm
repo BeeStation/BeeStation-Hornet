@@ -12,6 +12,8 @@
 	fire_sound_volume = 80
 	rack_sound = "sound/weapons/pistolrack.ogg"
 	bolt_drop_sound = "sound/weapons/pistolslidedrop.ogg"
+	drop_sound = 'sound/items/handling/gun/ballistics/pistol/pistol_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/pistol/pistol_pickup1.ogg'
 	bolt_wording = "slide"
 	fire_rate = 3
 	automatic = 0

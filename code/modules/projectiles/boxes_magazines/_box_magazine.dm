@@ -181,6 +181,13 @@
 		set_custom_materials(temp_materials)
 
 //Behavior for magazines
+/obj/item/ammo_box/magazine
+	abstract_type = /obj/item/ammo_box/magazine
+	name = "A magazine (what?)"
+	desc = "A magazine of rounds, they look like error signs... this should probably be reported somewhere."
+	drop_sound = 'sound/items/handling/gun/ballistics/magazine/magazine_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/magazine/magazine_pickup1.ogg'
+
 /obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)
 	var/boolets = 0
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)

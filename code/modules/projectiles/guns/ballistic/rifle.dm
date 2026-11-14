@@ -13,6 +13,8 @@
 	fire_sound_volume = 80
 	rack_sound = "sound/weapons/mosinboltout.ogg"
 	bolt_drop_sound = "sound/weapons/mosinboltin.ogg"
+	drop_sound = 'sound/items/handling/gun/ballistics/rifle/rifle_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/rifle/rifle_pickup1.ogg'
 	tac_reloads = FALSE
 	weapon_weight = WEAPON_MEDIUM
 

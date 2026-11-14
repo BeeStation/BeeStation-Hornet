@@ -1,4 +1,5 @@
 /obj/item/gun/ballistic/automatic
+	abstract_type = /obj/item/gun/ballistic/automatic
 	w_class = WEIGHT_CLASS_LARGE
 	var/select = 1
 	can_suppress = TRUE
@@ -9,6 +10,8 @@
 	automatic = 1
 	rack_sound = "sound/weapons/smgrack.ogg"
 	weapon_weight = WEAPON_MEDIUM
+	drop_sound = 'sound/items/handling/gun/ballistics/smg/smg_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/smg/smg_pickup1.ogg'
 
 /obj/item/gun/ballistic/automatic/proto
 	name = "\improper Nanotrasen Saber SMG"
