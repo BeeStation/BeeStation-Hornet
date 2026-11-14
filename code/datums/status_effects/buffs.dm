@@ -305,6 +305,8 @@
 	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = 2.6 SECONDS
 	alert_type = null
+
+	var/datum/component/aura_healing/aura_healing
 	var/hand
 	var/deathTick = 0
 
@@ -312,12 +314,34 @@
 	return span_notice("[owner.p_They()] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
+	var/static/list/organ_healing = list(
+		ORGAN_SLOT_BRAIN = 1.4,
+	)
+
+	aura_healing = owner.AddComponent( \
+		/datum/component/aura_healing, \
+		range = 7, \
+		brute_heal = 1.4, \
+		burn_heal = 1.4, \
+		toxin_heal = 1.4, \
+		suffocation_heal = 1.4, \
+		stamina_heal = 1.4, \
+		simple_heal = 1.4, \
+		organ_healing = organ_healing, \
+		healing_color = "#375637", \
+	)
+
 	//Makes the user passive, it's in their oath not to harm!
 	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.show_to(owner)
 	return TRUE
 
 /datum/status_effect/hippocratic_oath/on_remove()
+	QDEL_NULL(aura_healing)
 	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MEDICAL_HUD), TRAIT_STATUS_EFFECT(id))
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.hide_from(owner)
 
 /datum/status_effect/hippocratic_oath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
@@ -354,32 +378,10 @@
 			need_mob_update += itemUser.adjustFireLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
 			need_mob_update += itemUser.adjustToxLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE) //Because Slime People are people too
 			need_mob_update += itemUser.adjustOxyLoss(-0.6 * seconds_between_ticks, updating_health = FALSE, forced = TRUE)
-			need_mob_update += itemUser.adjustStaminaLoss(-0.6 * seconds_between_ticks, updating_stamina = FALSE, forced = TRUE)
+			need_mob_update += itemUser.adjustStaminaLoss(-3 * seconds_between_ticks, updating_stamina = FALSE, forced = TRUE)
 			need_mob_update += itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.6 * seconds_between_ticks)
-			need_mob_update += itemUser.adjustCloneLoss(-0.2 * seconds_between_ticks, updating_health = FALSE, forced = TRUE) //Because apparently clone damage is the bastion of all health
 			if(need_mob_update)
 				itemUser.updatehealth()
-
-		//Heal all those around you, unbiased
-		for(var/mob/living/L in hearers(7, owner))
-			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
-			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5, FALSE, TRUE) //Because Slime People are people too
-				L.adjustOxyLoss(-3.5)
-				L.adjustStaminaLoss(-3.5)
-				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
-			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-			else if(isanimal(L))
-				var/mob/living/simple_animal/SM = L
-				// Check if the mob is NOT a spirit AND NOT an undead.
-				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
-					SM.adjustHealth(-3.5, forced = TRUE)
 
 /datum/status_effect/hippocratic_oath/proc/consume_owner()
 	owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
@@ -535,34 +537,22 @@
 	id = "invisibility"
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
 	tick_interval = STATUS_EFFECT_AUTO_TICK
-	duration = 40 SECONDS
-	show_duration = TRUE
-	var/can_see_self = FALSE
-	var/last_time_update = 0
+	duration = STATUS_EFFECT_PERMANENT
+	/// Lowest alpha the cloak fades the owner to
+	var/min_alpha = 0
+	/// Whether bumping into a mob breaks the cloak
+	var/break_on_bump = FALSE
+
+/datum/status_effect/cloaked/on_creation(mob/living/new_owner, min_alpha = 0, break_on_bump = FALSE)
+	src.min_alpha = min_alpha
+	src.break_on_bump = break_on_bump
+	return ..()
 
 /datum/status_effect/cloaked/tick(delta_time)
 	if(owner.on_fire)
 		terminate_effect()
 		return
-	owner.alpha = max(owner.alpha - 50 * delta_time, 0)
-	if (owner.alpha <= 100 && !can_see_self)
-		// Make it so the user can always see themselves while cloaked
-		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
-		self_appearance.alpha = 100
-		self_appearance.override = TRUE
-		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), null, owner)
-		can_see_self = TRUE
-	if (owner.alpha > 100 && can_see_self)
-		owner.remove_alt_appearance(REF(src))
-	// Check for restoring the duration
-	var/turf/location = get_turf(owner)
-	if (location.get_lumcount() < LIGHTING_TILE_IS_DARK)
-		var/time_left = duration - world.time
-		// Calculate how much real time has passed
-		// Add on tick interval + 1 to make it never stutter when increasing
-		var/new_time = min(time_left + ((world.time - last_time_update) / (1 SECONDS)) * 2 SECONDS, initial(duration))
-		duration = world.time + new_time
-	last_time_update = world.time
+	owner.alpha = max(owner.alpha - 50 * delta_time, min_alpha)
 
 /datum/status_effect/cloaked/on_apply()
 	if(!..())
@@ -572,7 +562,6 @@
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
 	// Effects that terminate the cloak
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
-	RegisterSignal(owner, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_MOB_THROW, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_HAND, PROC_REF(terminate_effect))
@@ -580,11 +569,12 @@
 	RegisterSignal(owner, COMSIG_ATOM_HULK_ATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_PAW, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(terminate_effect))
-	RegisterSignal(owner, COMSIG_MOB_ABILITY_STARTED, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
+	if(break_on_bump)
+		RegisterSignal(owner, COMSIG_LIVING_MOB_BUMP, PROC_REF(terminate_effect))
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()
-	owner.remove_alt_appearance(REF(src))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()
@@ -592,6 +582,12 @@
 
 /datum/status_effect/cloaked/proc/terminate_effect()
 	qdel(src)
+
+/datum/status_effect/cloaked/proc/on_bullet_act(datum/source, obj/projectile/projectile)
+	SIGNAL_HANDLER
+	if(projectile.nodamage)
+		return
+	terminate_effect()
 
 /atom/movable/screen/alert/status_effect/cloaked
 	name = "Cloaked"

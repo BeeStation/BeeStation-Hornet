@@ -7,6 +7,14 @@
 			"name": "Launch DreamSeeker",
 			"preLaunchTask": "Build All",
 			"dmb": "${workspaceFolder}/${command:CurrentDMB}"
+		},
+		{
+			"type": "auxtools",
+			"request": "launch",
+			"name": "Debug DreamSeeker (hot-reloading)",
+			"preLaunchTask": "Build All",
+			"dmb": "${workspaceFolder}/beestation.dmb",
+			"server": "dreamseeker"
 		}
 	]
 }

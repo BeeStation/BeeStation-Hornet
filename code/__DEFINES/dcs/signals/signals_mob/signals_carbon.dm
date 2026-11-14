@@ -14,9 +14,6 @@
 #define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"
 ///from /item/organ/proc/Remove() (/obj/item/organ/)
 #define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"
-///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)
-#define COMSIG_CARBON_UNEQUIP_SHOECOVER "carbon_unequip_shoecover"
-#define COMSIG_CARBON_EQUIP_SHOECOVER "carbon_equip_shoecover"
 ///defined twice, in carbon and human's topics, fired when interacting with a valid embedded_object to pull it out (mob/living/carbon/target, /obj/item, /obj/item/bodypart/L)
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
@@ -68,7 +65,15 @@
 /// Called from bodypart being removed /obj/item/bodypart/proc/drop_limb(mob/living/carbon/old_owner, special, dismembered)
 #define COMSIG_BODYPART_REMOVED "bodypart_removed"
 
-#define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
+/// From /obj/item/bodypart/proc/update_limb(): (dropping_limb, is_creating)
+#define COMSIG_BODYPART_UPDATED "bodypart_updated"
+/// From /datum/component/butchering/create_replacement_limb(): (replacement limb)
+#define COMSIG_BODYPART_BUTCHERED "bodypart_butchered"
+
+/// From /mob/living/carbon/item_coverage_changed: (added_slots, removed_slots)
+#define COMSIG_CARBON_ITEM_COVERAGE_CHANGED "carbon_item_coverage_changed"
+/// Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
+#define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"
 
 ///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN_APPEARANCE: (identity)
 #define COMSIG_HUMAN_GET_VISIBLE_NAME "human_get_visible_name"

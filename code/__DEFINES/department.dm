@@ -61,7 +61,7 @@ DEFINE_BITFIELD(departments_bitflags, list(
 #define DEPT_MANIFEST_ORDER_UNASSIGNED 666 // dummy department for people with no department
 
 
-// used for /mob/dead/new_player/authenticated/proc/LateChoices()
+// used for the latejoin menu (/datum/latejoin_menu)
 #define DEPT_PREF_ORDER_COMMAND 	10
 #define DEPT_PREF_ORDER_SECURITY 	20
 #define DEPT_PREF_ORDER_ENGINEERING 30

@@ -12,31 +12,17 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
-	cooldown_time = 30 SECONDS
+	cooldown_time = 5 SECONDS
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
+	/// Whether or not the cloak turns off on bumping.
+	var/bumpoff = TRUE
+	/// The alpha applied when the cloak is on.
+	var/stealth_alpha = 50
 
 /obj/item/mod/module/stealth/on_activation()
 	drain_power(use_power_cost)
-	mod.wearer.say(pick(\
-		"Watch your back...",\
-		"They never see me coming.",\
-		"Don't drop your guard.",\
-		"Knowing is half the battle.",\
-		"See you soon...",\
-		"Be seeing you.",\
-		"Not if I see you first.",\
-		"Can't hit what you can't see.",\
-		"Behind you..."\
-	))
-	mod.wearer.transfer_messages_to(get_turf(mod.wearer))
-	for (var/obj/machinery/light/light in view(7, mod.wearer))
-		light.break_light_tube()
-	var/datum/effect_system/smoke_spread/smoke = new()
-	smoke.set_up(3, mod.wearer.loc)
-	smoke.start()
-	playsound(mod.wearer.loc, 'sound/effects/bamf.ogg', 50, 2)
-	animate(mod.wearer, time = 1 SECONDS, alpha = 0)
-	mod.wearer.apply_status_effect(/datum/status_effect/cloaked)
+	animate(mod.wearer, time = 1.5 SECONDS, alpha = stealth_alpha)
+	mod.wearer.apply_status_effect(/datum/status_effect/cloaked, stealth_alpha, bumpoff)
 	start_cooldown()
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
@@ -56,9 +42,11 @@
 		The power draw has been reduced drastically, making this perfect for activities like \
 		standing near sentry turrets for extended periods of time."
 	icon_state = "cloak_ninja"
+	bumpoff = FALSE
+	stealth_alpha = 20
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
-	cooldown_time = 30 SECONDS
+	cooldown_time = 3 SECONDS
 
 /obj/item/mod/module/stealth/ninja/on_activation()
 	. = ..()
@@ -212,7 +200,7 @@
 
 /obj/item/mod/module/weapon_recall/proc/set_weapon(obj/item/weapon)
 	linked_weapon = weapon
-	RegisterSignal(linked_weapon, COMSIG_MOVABLE_IMPACT, PROC_REF(catch_weapon))
+	RegisterSignal(linked_weapon, COMSIG_MOVABLE_PRE_IMPACT, PROC_REF(catch_weapon))
 	RegisterSignal(linked_weapon, COMSIG_QDELETING, PROC_REF(deleted_weapon))
 
 /obj/item/mod/module/weapon_recall/proc/recall_weapon(caught = FALSE)
@@ -419,8 +407,8 @@
 	return ..()
 
 /obj/item/mod/module/adrenaline_boost/on_use()
-	//if(IS_SPACE_NINJA(mod.wearer))
-	//	mod.wearer.say(pick_list_replacements(NINJA_FILE, "lines"), forced = type)
+	if(IS_SPACE_NINJA(mod.wearer))
+		INVOKE_ASYNC(mod.wearer, TYPE_PROC_REF(/atom/movable, say), pick_list_replacements(NINJA_FILE, "lines"), forced = type)
 	to_chat(mod.wearer, span_notice("You have used the adrenaline boost."))
 	mod.wearer.SetAllImmobility(0)
 	mod.wearer.adjustStaminaLoss(-200)

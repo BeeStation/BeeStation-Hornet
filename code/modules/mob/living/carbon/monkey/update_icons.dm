@@ -22,17 +22,7 @@
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		return
 
-	var/hair_hidden = 0
-
-	if(head)
-		var/obj/item/I = head
-		if(I.flags_inv & HIDEHAIR)
-			hair_hidden = 1
-	if(wear_mask)
-		var/obj/item/clothing/mask/M = wear_mask
-		if(M.flags_inv & HIDEHAIR)
-			hair_hidden = 1
-	if(!hair_hidden)
+	if(!(obscured_slots & HIDEHAIR))
 		if(!get_organ_by_type(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
 			overlays_standing[HAIR_LAYER] = mutable_appearance('icons/mob/human/human_face.dmi', "debrained", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 			apply_overlay(HAIR_LAYER)

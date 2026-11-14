@@ -495,7 +495,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 		if(do_after(user, 3 SECONDS, C))
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
-				C.update_handcuffed()
 				C.adjust_silence(10 SECONDS)
 				to_chat(user, span_notice("You shackle [C]."))
 				log_combat(user, C, "shackled", src)
@@ -583,7 +582,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					make_new_construct_from_class(construct_class, THEME_CULT, candidate, user, FALSE, T)
 					SEND_SOUND(user, sound('sound/effects/magic.ogg',0,1,25))
 					uses--
-					candidate.mmi = null
 					qdel(candidate)
 					channeling = FALSE
 				else

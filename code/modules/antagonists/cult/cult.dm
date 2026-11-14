@@ -87,9 +87,9 @@
 
 /datum/antagonist/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
 	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET
+		LOCATION_BACKPACK,
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
 	)
 
 	var/T = new item_path(mob)
@@ -106,8 +106,8 @@
 			message_admins("[ADMIN_FULLMONTY(mob)] the cultist couldn't be equipped.")
 			return FALSE
 	else
-		to_chat(mob, span_danger("You have a [item_name] in your [where]."))
-		if(where == "backpack")
+		to_chat(mob, span_danger("You have a [item_name] [where]."))
+		if(where == LOCATION_BACKPACK)
 			mob.back.atom_storage?.show_contents(mob)
 		return TRUE
 
@@ -135,6 +135,7 @@
 	if(cult_team.cult_ascendent)
 		current.AddElement(/datum/element/cult_halo, initial_delay = 0 SECONDS)
 
+	ADD_TRAIT(current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 	add_team_hud(current, /datum/antagonist/cult)
 
 /datum/antagonist/cult/remove_innate_effects(mob/living/mob_override)
@@ -155,6 +156,8 @@
 		current.RemoveElement(/datum/element/cult_eyes)
 	if (HAS_TRAIT(current, TRAIT_CULT_HALO))
 		current.RemoveElement(/datum/element/cult_halo)
+
+	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 /datum/antagonist/cult/on_removal()
 	if(!silent)

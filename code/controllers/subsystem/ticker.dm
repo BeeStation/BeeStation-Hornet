@@ -448,14 +448,6 @@ SUBSYSTEM_DEF(ticker)
 						spare_id_candidates += new_player_mob
 		CHECK_TICK
 
-	if(length(spare_id_candidates))
-		if(!enforce_coc)
-			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
-				SSjob.promote_to_captain(candidate.new_character, captainless)
-		else
-			var/mob/dead/new_player/authenticated/candidate = pick(spare_id_candidates)
-			SSjob.promote_to_captain(candidate.new_character, captainless)
-
 	for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
 		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
 			CHECK_TICK
@@ -471,6 +463,14 @@ SUBSYSTEM_DEF(ticker)
 		if((player_assigned_role?.job_flags & JOB_ASSIGN_QUIRKS) && CONFIG_GET(flag/roundstart_traits))
 			SSquirks.AssignQuirks(new_player_living.mind, new_player_mob.client, TRUE)
 		CHECK_TICK
+
+	if(length(spare_id_candidates))
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/authenticated/candidate in spare_id_candidates)
+				SSjob.promote_to_captain(candidate.new_character, captainless)
+		else
+			var/mob/dead/new_player/authenticated/candidate = pick(spare_id_candidates)
+			SSjob.promote_to_captain(candidate.new_character, captainless)
 
 	if(captainless && !length(spare_id_candidates))
 		for(var/mob/dead/new_player/authenticated/new_player_mob as anything in GLOB.auth_new_player_list)
@@ -539,13 +539,13 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/check_queue()
 	if(!queued_players.len)
 		return
-	var/hpc = CONFIG_GET(number/hard_popcap)
-	if(!hpc)
+	var/hard_popcap = CONFIG_GET(number/hard_popcap)
+	if(!hard_popcap)
 		list_clear_nulls(queued_players)
-		for (var/mob/dead/new_player/authenticated/NP in queued_players)
-			to_chat(NP, span_userdanger("The alive players limit has been released!<br><a href='byond://?src=[REF(NP)];late_join=override'>[html_encode(">>Join Game<<")]</a>"))
-			SEND_SOUND(NP, sound('sound/misc/notice1.ogg'))
-			NP.LateChoices()
+		for (var/mob/dead/new_player/authenticated/new_player in queued_players)
+			to_chat(new_player, span_userdanger("The alive players limit has been released!<br><a href='byond://?src=[REF(new_player)];late_join=override'>[html_encode(">>Join Game<<")]</a>"))
+			SEND_SOUND(new_player, sound('sound/misc/notice1.ogg'))
+			GLOB.latejoin_menu.ui_interact(new_player)
 		queued_players.len = 0
 		queue_delay = 0
 		return
@@ -556,11 +556,11 @@ SUBSYSTEM_DEF(ticker)
 	switch(queue_delay)
 		if(5) //every 5 ticks check if there is a slot available
 			list_clear_nulls(queued_players)
-			if(living_player_count() < hpc)
+			if(living_player_count() < hard_popcap)
 				if(next_in_line && next_in_line.client)
 					to_chat(next_in_line, span_userdanger("A slot has opened! You have approximately 20 seconds to join. <a href='byond://?src=[REF(next_in_line)];late_join=override'>\>\>Join Game\<\<</a>"))
 					SEND_SOUND(next_in_line, sound('sound/misc/notice1.ogg'))
-					next_in_line.LateChoices()
+					GLOB.latejoin_menu.ui_interact(next_in_line)
 					return
 				queued_players -= next_in_line //Client disconnected, remove he
 			queue_delay = 0 //No vacancy: restart timer

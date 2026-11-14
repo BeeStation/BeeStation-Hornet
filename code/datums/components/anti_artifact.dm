@@ -4,7 +4,7 @@
 	///Whether you can / cant target yourself
 	var/blocks_self = TRUE
 	///Allowed item slots
-	var/allowed_slots = ~ITEM_SLOT_BACKPACK
+	var/allowed_slots = ALL
 	///Chance to block
 	var/chance = 100
 	///Override, turning this on will disable this component

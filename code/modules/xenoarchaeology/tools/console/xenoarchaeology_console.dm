@@ -246,7 +246,7 @@
 			success_type = prob(99) ? "scientific failure." : "who let the clown in?"
 	if(radio_solved_notice)
 		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-		[attempted_bonus ? "with a bonus achieved of [100 * (bonus / (max_bonus||1))]%, " : ""]\
+		[attempted_bonus ? "with a bonus achieved of [100 * (bonus_rate - 1)]%, " : ""]\
 		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of [monetary_reward] credits.",\
 	RADIO_CHANNEL_SCIENCE)
 	history += "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
