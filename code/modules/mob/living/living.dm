@@ -285,8 +285,9 @@
 	now_pushing = FALSE
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
-	if(!AM || !src)
+	if(!src)
 		return FALSE
+	ASSERT(ismovable(AM), "[src] attempted to pull [AM ? "[AM], a nonmovable atom" : "a null object"]")
 	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
 	if(throwing || !(mobility_flags & MOBILITY_PULL))
@@ -309,8 +310,13 @@
 
 	if(AM.pulledby)
 		if(!supress_message)
-			AM.visible_message(span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."), \
-							span_danger("[src] has pulled you from [AM.pulledby]'s grip."), null, null, src)
+			AM.visible_message(
+				span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."),
+				span_danger("[src] has pulled you from [AM.pulledby]'s grip."),
+				null,
+				null,
+				src
+			)
 			to_chat(src, span_notice("You pull [AM] from [AM.pulledby]'s grip!"))
 		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
@@ -328,7 +334,7 @@
 				sound_to_play = H.dna.species.grab_sound
 			if(HAS_TRAIT(H, TRAIT_STRONG_GRABBER))
 				sound_to_play = null
-		playsound(src.loc, sound_to_play, 50, 1, -1)
+		playsound(src.loc, sound_to_play, 50, TRUE, -1)
 	update_pull_hud_icon()
 
 	if(ismob(AM))

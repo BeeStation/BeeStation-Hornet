@@ -581,13 +581,7 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/cryo_cell/mouse_drop_receive(mob/target, mob/user, params)
-	if(!iscarbon(target))
-		return
-
-	if(isliving(target))
-		var/mob/living/living_mob = target
-		if(living_mob.incapacitated)
-			close_machine(target)
+	if(!iscarbon(target) || !state_open)
 		return
 
 	user.visible_message(

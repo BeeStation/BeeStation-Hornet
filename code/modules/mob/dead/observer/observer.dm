@@ -980,11 +980,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Can't become a pAI candidate while not dead!")
 
 /mob/dead/observer/AltClickOn(atom/target)
-	list_turf_contents(target)
+	if(!base_click_alt(target))
+		list_turf_contents(target)
 
 /mob/dead/observer/AltClickSecondaryOn(atom/target)
 	if(client && check_rights_for(client, R_DEBUG))
-		client.toggle_tag_datum(src)
+		client.toggle_tag_datum(target)
 
 /mob/dead/observer/examine(mob/user)
 	. = ..()

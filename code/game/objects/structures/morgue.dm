@@ -160,9 +160,12 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	icon_state = "morgue1"
 	dir = EAST
 	interaction_flags_click = ALLOW_SILICON_REACH|ALLOW_RESTING
+
+	/// Whether or not this morgue beeps to alert parameds of revivable corpses.
 	var/beeper = TRUE
-	COOLDOWN_DECLARE(beep_timer)
+	/// The minimum time between beeps.
 	var/beep_cooldown = 5 SECONDS
+	COOLDOWN_DECLARE(beep_timer)
 
 /obj/structure/bodycontainer/morgue/Initialize(mapload)
 	. = ..()

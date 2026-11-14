@@ -39,7 +39,10 @@
 			MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK))
-		base_click_alt(A)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			AltClickSecondaryOn(A)
+		else
+			AltClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
@@ -77,6 +80,8 @@
 		context.add_ctrl_shift_click_action("Spawn as human")
 	else if(check_rights_for(user.client, R_DEBUG))
 		context.add_ctrl_shift_click_action("View variables")
+	if(check_rights_for(user.client, R_DEBUG))
+		context.add_alt_right_click_action("Tag datum")
 
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
 /atom/proc/attack_ghost(mob/dead/observer/user)

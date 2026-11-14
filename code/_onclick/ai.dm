@@ -237,9 +237,10 @@
 	if(!is_operational || failure_timer)
 		return
 
-	add_hiddenprint(user)
 	environ = environ ? APC_CHANNEL_OFF : APC_CHANNEL_ON
-	user.log_message("turned [environ ? "on" : "off"] the [src] environment settings", LOG_GAME)
+	if (user)
+		add_hiddenprint(user)
+		user.log_message("turned [environ ? "on" : "off"] the [src] environment settings", LOG_GAME)
 	update_appearance()
 	update()
 
@@ -251,9 +252,10 @@
 	if(!is_operational || failure_timer)
 		return
 
-	add_hiddenprint(user)
 	lighting = lighting ? APC_CHANNEL_OFF : APC_CHANNEL_ON
-	user.log_message("turned [lighting ? "on" : "off"] the [src] lighting settings", LOG_GAME)
+	if (user)
+		add_hiddenprint(user)
+		user.log_message("turned [lighting ? "on" : "off"] the [src] lighting settings", LOG_GAME)
 	update_appearance()
 	update()
 
@@ -265,9 +267,10 @@
 	if(!is_operational || failure_timer)
 		return CLICK_ACTION_BLOCKING
 
-	add_hiddenprint(user)
 	equipment = equipment ? APC_CHANNEL_OFF : APC_CHANNEL_ON
-	user.log_message("turned [equipment ? "on" : "off"] the [src] equipment settings", LOG_GAME)
+	if (user)
+		add_hiddenprint(user)
+		user.log_message("turned [equipment ? "on" : "off"] the [src] equipment settings", LOG_GAME)
 	update_appearance()
 	update()
 	return CLICK_ACTION_SUCCESS
@@ -300,8 +303,8 @@
 /obj/machinery/holopad/ai_click_alt(mob/living/silicon/ai/user)
 	if(!allowed(user))
 		return
-	hangup_all_calls()
 	add_hiddenprint(user)
+	hangup_all_calls()
 	return CLICK_ACTION_SUCCESS
 
 /* Atmos machines */

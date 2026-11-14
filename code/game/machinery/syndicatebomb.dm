@@ -218,6 +218,12 @@
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
 	playsound(loc, 'sound/machines/click.ogg', 30, TRUE)
+	if(!isnull(payload) && !istype(payload, /obj/item/bombcore/training))
+		notify_ghosts(
+			"\A [src] has been activated at [get_area(src)]!",
+			source = src,
+			header = "Bomb Planted",
+		)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	if(!user.can_perform_action(src, ALLOW_SILICON_REACH) || !user.can_interact_with(src))
@@ -248,11 +254,6 @@
 	if(isnull(payload) || istype(payload, /obj/item/bombcore/training))
 		return
 
-	notify_ghosts(
-		"\A [src] has been activated at [get_area(src)]!",
-		source = src,
-		header = "Bomb Planted",
-	)
 	log_bomber(user, "has primed a", src, "for detonation (Payload: [payload.name])")
 	if(istype(payload, /obj/item/bombcore))
 		var/obj/item/bombcore/payload_core = payload
