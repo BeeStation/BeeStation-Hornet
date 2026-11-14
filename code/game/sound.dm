@@ -436,6 +436,42 @@
 				soundin = pick('sound/items/stones/stone_drop1.ogg', 'sound/items/stones/stone_drop2.ogg', 'sound/items/stones/stone_drop3.ogg')
 			if("stone_pickup")
 				soundin = pick('sound/items/stones/stone_pick_up1.ogg', 'sound/items/stones/stone_pick_up2.ogg')
+			if("goggles_pickup")
+				soundin = pick(
+					'sound/items/goggles/goggles_pickup1.ogg',
+					'sound/items/goggles/goggles_pickup2.ogg',
+					'sound/items/goggles/goggles_pickup3.ogg',
+				)
+			if("goggles_drop")
+				soundin = pick(
+					'sound/items/goggles/goggles_drop1.ogg',
+					'sound/items/goggles/goggles_drop2.ogg',
+					'sound/items/goggles/goggles_drop3.ogg',
+				)
+			if("goggles_equip")
+				soundin = pick(
+					'sound/items/goggles/goggles_equip1.ogg',
+					'sound/items/goggles/goggles_equip2.ogg',
+					'sound/items/goggles/goggles_equip3.ogg',
+					'sound/items/goggles/goggles_equip4.ogg',
+				)
+			if("glasses_pickup")
+				soundin = pick(
+					'sound/items/glasses/glasses_pickup1.ogg',
+					'sound/items/glasses/glasses_pickup2.ogg',
+					'sound/items/glasses/glasses_pickup3.ogg',
+				)
+			if("glasses_drop")
+				soundin = pick(
+					'sound/items/glasses/glasses_drop1.ogg',
+					'sound/items/glasses/glasses_drop2.ogg',
+					'sound/items/glasses/glasses_drop3.ogg',
+				)
+			if("glasses_equip")
+				soundin = pick(
+					'sound/items/glasses/glasses_equip1.ogg',
+					'sound/items/glasses/glasses_equip2.ogg',
+				)
 	return soundin
 
 /client/proc/get_playing_channel(channel)
