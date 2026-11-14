@@ -16,6 +16,7 @@
 		/obj/item/reagent_containers/cup/bowl,
 		/obj/item/reagent_containers/cup/glass/drinkingglass,
 		/obj/item/kitchen/fork,
+		/obj/item/kitchen/spoon,
 		/obj/item/shard,
 		/obj/item/broken_bottle
 	)
