@@ -566,6 +566,19 @@
 					'sound/items/rolling_pin/rolling_pin_rolling5.ogg',
 					'sound/items/rolling_pin/rolling_pin_rolling6.ogg',
 				)
+			if("default_liquid_slosh")
+				soundin = pick(
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh1.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh2.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh3.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh4.ogg',
+					'sound/items/handling/reagent_containers/default/default_liquid_slosh5.ogg',
+				)
+			if("plastic_liquid_slosh")
+				soundin = pick(
+					'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh1.ogg',
+					'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh2.ogg',
+				)
 
 	return soundin
 

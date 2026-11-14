@@ -179,13 +179,14 @@
 	amount_per_transfer_from_this = 10
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	isGlass = FALSE
+	custom_price = PAYCHECK_EASY * 0.8
+	reagent_container_liquid_sound = "plastic_liquid_slosh"
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
 	var/cap_icon_state = "bottle_cap_small"
 	var/start_capped = TRUE
 	var/cap_lost = FALSE
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
-	custom_price = PAYCHECK_EASY * 0.8
 
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()
