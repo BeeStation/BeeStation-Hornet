@@ -113,7 +113,9 @@
 		return ..()
 	if(item_category == "Kit")
 		var/obj/item/card/id/card
-		card = user_mob.get_idcard(TRUE)
+		if(isliving(user_mob))
+			var/mob/living/living_user = user_mob
+			card = living_user.get_idcard(TRUE)
 		var/buyer = card?.registered_account?.account_holder
 
 		vend_reply = "APS thanks you for enlisting in our volunteer program!"

@@ -568,7 +568,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					inserted_modify_id = null
 					updateUsrDialog()
 					return
-			if(usr.get_id_in_hand())
+			var/mob/living/living_user = usr
+			if(isliving(usr) && living_user.get_id_in_hand())
 				var/obj/item/held_item = usr.get_active_held_item()
 				var/obj/item/card/id/id_to_insert = held_item.GetID()
 				if(id_insert(usr, held_item, inserted_modify_id))
@@ -580,7 +581,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					inserted_scan_id = null
 					updateUsrDialog()
 					return
-			if(usr.get_id_in_hand())
+			var/mob/living/living_user = usr
+			if(isliving(usr) && living_user.get_id_in_hand())
 				var/obj/item/held_item = usr.get_active_held_item()
 				var/obj/item/card/id/id_to_insert = held_item.GetID()
 				if(id_insert(usr, held_item, inserted_scan_id))

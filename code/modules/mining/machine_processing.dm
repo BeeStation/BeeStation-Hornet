@@ -128,8 +128,10 @@
 				to_chat(usr, span_warning("No points to claim."))
 				return
 
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			var/obj/item/card/id/I
+			if(isliving(usr))
+				var/mob/living/living_user = usr
+				I = living_user.get_idcard(TRUE)
 			if(!I)
 				to_chat(usr, span_warning("No ID detected."))
 				return

@@ -318,8 +318,9 @@
 				authorize_name = "Unknown"
 				to_chat(usr, span_warning("[src] lets out a quiet alarm as its login is overridden."))
 				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
-			else
-				var/obj/item/card/id/id_card = usr.get_idcard(hand_first = TRUE)
+			else if(isliving(usr))
+				var/mob/living/living_user = usr
+				var/obj/item/card/id/id_card = living_user.get_idcard(hand_first = TRUE)
 				if (check_access(id_card))
 					authenticated = TRUE
 					authorize_access = id_card.GetAccess()

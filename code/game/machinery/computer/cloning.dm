@@ -138,7 +138,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 // --------------------------------------
 // Manages record and disk
 /obj/machinery/computer/cloning/proc/delete_record(mob/user, target_record)
-	var/obj/item/card/id/idcard_for_auth = user.get_idcard(hand_first = TRUE)
+	var/obj/item/card/id/idcard_for_auth
+	if(isliving(user))
+		var/mob/living/living_user = user
+		idcard_for_auth = living_user.get_idcard(hand_first = TRUE)
 	if(!istype(idcard_for_auth) || !check_access(idcard_for_auth))
 		scantemp = "Cannot delete: Access Denied."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)

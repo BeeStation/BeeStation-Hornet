@@ -107,126 +107,15 @@
 		. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 
-//Gets ID card from a human. If hand_first is false the one in the id slot is prioritized, otherwise inventory slots go first.
 /mob/living/carbon/human/get_idcard(hand_first = TRUE)
-	//Check hands
-	var/obj/item/card/id/id_card
-	var/obj/item/held_item
-	held_item = get_active_held_item()
-	if(held_item) //Check active hand
-		id_card = held_item.GetID()
-	if(!id_card) //If there is no id, check the other hand
-		held_item = get_inactive_held_item()
-		if(held_item)
-			id_card = held_item.GetID()
-
-	if(id_card)
-		if(hand_first)
-			return id_card
-		else
-			. = id_card
-
-	//Check inventory slots
-	if(wear_id && !isnull(wear_id?.GetID()))//worn wallets return null if they don't have an ID
-		id_card = wear_id.GetID()
-		if(id_card)
-			return id_card
-	else if(belt)
-		id_card = belt.GetID()
-		if(id_card)
-			return id_card
-
-/mob/living/carbon/human/get_id_in_hand()
-	var/obj/item/held_item = get_active_held_item()
-	if(!held_item)
+	. = ..()
+	if(. && hand_first)
 		return
-	return held_item.GetID()
+	//Check inventory slots
+	return wear_id?.GetID() || belt?.GetID() || .
 
-/**
- * Used to fetch all the cash a vendor can access from the human
- * See /mob/living/carbon/human/proc/get_cash_list() proc for the list of items and inventory slots it searches through
- */
-/mob/living/carbon/human/proc/get_accessible_cash(list/cash_list = null)
-	var/available_cash = 0
-	if(!cash_list)
-		cash_list = get_cash_list()
-	if(!length(cash_list))
-		return 0
-	for(var/found_item in cash_list)
-		if(istype(found_item, /obj/item/holochip))
-			var/obj/item/holochip/chip_stack = found_item
-			available_cash += chip_stack.credits
-		if(istype(found_item, /obj/item/card/id))
-			var/obj/item/card/id/id_card = found_item
-			available_cash += id_card.registered_account.account_balance
-	return available_cash
-
-/**
- * Used by vendors to see if the human can spend a certain amount of cash.
- * Returns FALSE if they cannot, TRUE if they can and withdraws the cash.
- * Arguments:
- * * to_spend = how much cash needs to be deducted
- */
-/mob/living/carbon/human/proc/spend_cash(to_spend)
-	if(!to_spend)
-		return FALSE
-	var/list/cash_list = get_cash_list()
-	if(!length(cash_list)) //We have no accessible cash items, early return
-		return FALSE
-	if(to_spend > get_accessible_cash(cash_list)) //If we don't have enough money, early return
-		return FALSE
-	for(var/obj/item/holochip/chip_stack in cash_list)//Loops are separate because we prioritize taking cash from holochips first, then ID cards
-		if(chip_stack.credits >= to_spend)
-			chip_stack.spend(to_spend, TRUE)
-			return TRUE
-		else
-			var/temp_value_holder = to_spend
-			to_spend -= chip_stack.credits
-			chip_stack.spend(temp_value_holder, TRUE)
-	for(var/obj/item/card/id/id_card in cash_list)
-		var/temp_cash_holder = id_card.registered_account.account_balance
-		if(temp_cash_holder >= to_spend)
-			id_card.registered_account.adjust_money(-to_spend)
-			return TRUE
-		else
-			id_card.registered_account.adjust_money(-to_spend)
-			to_spend -= temp_cash_holder
-	return FALSE
-
-/**
- * Used to find which 'cash holding items' the human has that are accessible by a vendor.
- * Searches through both hands, ID and belt slots. Looks inside of wallets and PDAs.
- * Returns a list consisting of IDs and chip stacks.
- */
-/mob/living/carbon/human/proc/get_cash_list(list/search_through = null)
-	var/list/found_list = list()
-	if(!search_through)
-		search_through = list(get_active_held_item(), get_inactive_held_item(), wear_id, belt)
-	for(var/obj/item/found_item in search_through)
-		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
-			var/obj/item/modular_computer/found_PDA = found_item
-			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
-			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
-			if(!found_item) //Empty ID slot, skip it
-				continue
-
-		// we store detected cards and holochips into the returning list
-		if(istype(found_item, /obj/item/card/id))
-			var/obj/item/card/id/found_id = found_item
-			if(found_id?.registered_account)
-				found_list += found_id
-		else if(istype(found_item, /obj/item/holochip))
-			var/obj/item/holochip/found_chip = found_item
-			if(found_chip.credits > 0)
-				found_list += found_chip
-		else if(istype(found_item, /obj/item/storage/wallet)) // if it's a wallet, find other cards and holochips recursively through this proc.
-			var/obj/item/storage/wallet/found_wallet = found_item
-			if(length(found_wallet.contents))
-				found_list += get_cash_list(found_wallet.contents)
-	if(length(found_list))
-		return found_list
-	else
-		return null
+/mob/living/carbon/human/get_cash_list(list/search_through = null)
+	return ..(search_through || list(get_active_held_item(), get_inactive_held_item(), wear_id, belt))
 
 /mob/living/carbon/human/can_use_guns(obj/item/G)
 	. = ..()
@@ -242,11 +131,6 @@
 	if(HAS_TRAIT_NOT_FROM(src, TRAIT_CHUNKYFINGERS, RIGHT_ARM_TRAIT) && HAS_TRAIT_NOT_FROM(src, TRAIT_CHUNKYFINGERS, LEFT_ARM_TRAIT))
 		return TRUE
 	return IS_LEFT_INDEX(active_hand_index) ? HAS_TRAIT_FROM(src, TRAIT_CHUNKYFINGERS, LEFT_ARM_TRAIT) : HAS_TRAIT_FROM(src, TRAIT_CHUNKYFINGERS, RIGHT_ARM_TRAIT)
-
-/mob/living/carbon/human/proc/get_bank_account()
-	RETURN_TYPE(/datum/bank_account)
-	var/obj/item/card/id/I = get_idcard()
-	return I?.registered_account
 
 /mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
 	var/obj/item/card/id/I = wear_id.GetID()

@@ -41,7 +41,7 @@
 	max_integrity = 600
 	/// when this gets at this hp, it will run away! oh no!
 	var/next_health_to_teleport
-	var/mob/living/carbon/human/bogdanoff
+	var/mob/living/bogdanoff
 	var/canwalk = FALSE
 	var/static/existing_machines = 0
 	var/protected_accounts = list()
@@ -267,7 +267,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/checkoutmachine)
 	light_range = 2
 	var/obj/effect/dumpeetFall/DF
 	var/obj/structure/checkoutmachine/dump
-	var/mob/living/carbon/human/bogdanoff
+	var/mob/living/bogdanoff
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/dumpeetTarget)
 
