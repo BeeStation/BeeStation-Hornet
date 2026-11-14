@@ -182,6 +182,7 @@
 	custom_price = PAYCHECK_EASY * 0.8
 	reagent_container_liquid_sound = "plastic_liquid_slosh"
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
+	var/cap_icon = 'icons/obj/drinks/drink_effects.dmi'
 	var/cap_icon_state = "bottle_cap_small"
 	var/start_capped = TRUE
 	var/cap_lost = FALSE
@@ -190,7 +191,7 @@
 
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()
-	cap_overlay = mutable_appearance(icon, cap_icon_state)
+	cap_overlay = mutable_appearance(cap_icon, cap_icon_state)
 	if(start_capped)
 		// this is not done via initial_reagent_flags because it represents state
 		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
@@ -221,15 +222,17 @@
 	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
 	if(!is_open_container() || fumbled)
 		reset_container_flags()
-		animate(src, transform = null, time = 2, loop = 0)
+		animate(src, transform = null, time = 0.2 SECONDS, loop = 0)
 		if(fumbled)
 			to_chat(user, span_warning("You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?"))
 			cap_lost = TRUE
 		else
 			to_chat(user, span_notice("You remove the cap from [src]."))
+			playsound(src, 'sound/items/handling/reagent_containers/plastic_bottle/bottle_cap_open.ogg', 50, TRUE)
 	else
 		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
 		to_chat(user, span_notice("You put the cap on [src]."))
+		playsound(loc, 'sound/items/handling/reagent_containers/plastic_bottle/bottle_cap_close.ogg', 50, TRUE)
 	update_appearance()
 
 // heehoo bottle flipping
