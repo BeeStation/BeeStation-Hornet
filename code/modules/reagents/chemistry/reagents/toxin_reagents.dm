@@ -1038,7 +1038,7 @@
 		if(affected_mob.dna.species.type != /datum/species/skeleton && affected_mob.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
 			if(limb)
 				affected_mob.apply_damage(20, BRUTE, limb)
-				playsound(affected_mob, get_sfx("desecration"), 50, TRUE, -1)
+				playsound(affected_mob, "desecration", 50, TRUE, -1)
 				affected_mob.visible_message(span_warning("[affected_mob]'s bones hurt too much!!"), span_danger("Your bones hurt too much!!"))
 				affected_mob.say("OOF!!", forced = type)
 			else //SUCH A LUST FOR REVENGE!!!
@@ -1046,7 +1046,7 @@
 				affected_mob.say("Why are we still here, just to suffer?", forced = type)
 		else //you just want to socialize
 			if(limb)
-				playsound(affected_mob, get_sfx("desecration"), 50, TRUE, -1)
+				playsound(affected_mob, "desecration", 50, TRUE, -1)
 				affected_mob.visible_message(span_warning("[affected_mob] rattles loudly and flails around!!"), span_danger("Your bones hurt so much that your missing muscles spasm!!"))
 				affected_mob.say("OOF!!", forced = type)
 				affected_mob.apply_damage(200, BRUTE, limb)

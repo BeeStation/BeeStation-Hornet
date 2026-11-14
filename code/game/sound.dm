@@ -438,6 +438,8 @@
 				soundin = pick('sound/items/equip/headset_equip1.ogg', 'sound/items/equip/headset_equip2.ogg')
 			if("headset_pickup")
 				soundin = pick('sound/items/handling/headset/headset_pickup1.ogg', 'sound/items/handling/headset/headset_pickup2.ogg', 'sound/items/handling/headset/headset_pickup3.ogg',)
+			if("portal_created")
+				soundin = pick('sound/effects/portal/portal_open_1.ogg', 'sound/effects/portal/portal_open_2.ogg', 'sound/effects/portal/portal_open_3.ogg')
 	return soundin
 
 /client/proc/get_playing_channel(channel)
