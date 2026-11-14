@@ -67,6 +67,17 @@
 		return ..()
 	client.holder.show_player_panel(target)
 
+/mob/add_context_self(datum/screentip_context/context, mob/user)
+	SHOULD_CALL_PARENT(FALSE) //NO CACHING
+	if(!context.accept_mob_type(/mob/dead/observer))
+		return
+	if(check_rights_for(user.client, R_ADMIN))
+		context.add_ctrl_click_action("Player panel")
+	if(isobserver(src) && check_rights_for(user.client, R_SPAWN))
+		context.add_ctrl_shift_click_action("Spawn as human")
+	else if(check_rights_for(user.client, R_DEBUG))
+		context.add_ctrl_shift_click_action("View variables")
+
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
 /atom/proc/attack_ghost(mob/dead/observer/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
