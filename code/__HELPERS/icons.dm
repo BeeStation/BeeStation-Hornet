@@ -1153,6 +1153,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	if(islist(cached_metadata))
 		return cached_metadata
 
+	// Generated Brandish banks are compiled into the rsc, but rust-g reads from
+	// disk. Runs that omit tmp/brandish-icons use the callers' BYOND fallbacks.
+	if(findtext(file_string, "tmp/brandish-icons/") == 1 && !fexists(file_string))
+		failed_metadata[file_string] = TRUE
+		return null
+
 	// it will decode to text, trust
 	var/list/metadata_result = rustg_dmi_read_metadata(file_string)
 	if(!islist(metadata_result) || !length(metadata_result))
