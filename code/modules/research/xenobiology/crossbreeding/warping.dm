@@ -380,7 +380,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	if(!GLOB.blue_storage)
 		GLOB.blue_storage = new
 	GLOB.blue_storage.loc = loc
-	GLOB.blue_storage.atom_storage.refresh_views()
+	GLOB.blue_storage.atom_storage.show_contents(user)
 	playsound(rune_turf, dir_sound, 20, TRUE)
 	. = ..()
 
@@ -537,7 +537,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
-		randomize_human(AM, TRUE)
+		randomize_human(AM)
 		activated_on_step = TRUE
 	. = ..()
 

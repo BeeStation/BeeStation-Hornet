@@ -86,9 +86,9 @@
 	var/obj/item/silly_little_scarf = humanspawned.wear_neck
 	if(silly_little_scarf)
 		var/list/backup_slots = list(
-			"in your left pocket" = ITEM_SLOT_LPOCKET,
-			"in your right pocket" = ITEM_SLOT_RPOCKET,
-			"in your backpack" = ITEM_SLOT_BACKPACK
+			LOCATION_LPOCKET,
+			LOCATION_RPOCKET,
+			LOCATION_BACKPACK,
 		)
 		humanspawned.temporarilyRemoveItemFromInventory(silly_little_scarf)
 		silly_little_scarf.forceMove(get_turf(humanspawned))

@@ -3,6 +3,7 @@
   "name": "tgui",
   "version": "6.0.0",
   "dependencies": {
+    "@nozbe/microfuzz": "^1.0.0",
     "@popperjs/core": "^2.11.8",
     "@types/marked": "4.3.2",
     "@types/react": "^18.3.12",

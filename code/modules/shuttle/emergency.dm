@@ -67,7 +67,7 @@
 	for(var/i in authorized)
 		var/obj/item/card/id/ID = i
 		var/name = ID.registered_name
-		var/job = ID.assignment
+		var/job = ID.get_assignment()
 
 		if(obj_flags & EMAGGED)
 			name = Gibberish(name, 0)
@@ -95,7 +95,7 @@
 	if(!ID)
 		to_chat(user, span_warning("You don't have an ID."))
 		return
-	if(!(ACCESS_HEADS in ID.access))
+	if(!(ACCESS_HEADS in ID.GetAccess()))
 		to_chat(user, span_warning("The access level of your card is not high enough."))
 		return
 

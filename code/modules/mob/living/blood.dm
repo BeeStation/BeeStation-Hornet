@@ -112,7 +112,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately![ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed_heavy"
 
-	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || IS_IN_STASIS(owner))
+	if (HAS_TRAIT(owner, TRAIT_NO_BLEEDING) || HAS_TRAIT(owner, TRAIT_STASIS))
 		linked_alert.maptext = MAPTEXT("<s>[owner.get_bleed_rate_string()]</s>")
 	else
 		linked_alert.maptext = MAPTEXT(owner.get_bleed_rate_string())
@@ -167,7 +167,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		set_eye_blur_if_lower(2 SECONDS)
 		var/datum/reagent/blood = get_blood_id() //Not every race has "BLOOD" rushing from the wound
-		to_chat(src, "[span_userdanger("[blood.name] starts rushing out of the open wound!")]")
+		if(blood)
+			to_chat(src, span_userdanger("[initial(blood.name)] starts rushing out of the open wound!"))
 
 /mob/living/carbon/human/add_bleeding(bleed_level)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
@@ -350,7 +351,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
-	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !IS_IN_STASIS(src))
+	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && !HAS_TRAIT(src, TRAIT_NO_BLEEDING) && !HAS_TRAIT(src, TRAIT_STASIS))
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
@@ -481,6 +482,33 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	return /datum/reagent/blood
 
+/// Goes through the organs and bodyparts of the mob and updates their blood_dna_info, in case their blood type has changed (via set_species() or otherwise)
+/mob/living/carbon/proc/update_cached_blood_dna_info()
+	var/list/blood_dna_info = get_blood_dna_list()
+	for(var/obj/item/organ/organ as anything in internal_organs)
+		organ.blood_dna_info = blood_dna_info
+
+/// Setter for changing a mob's blood type
+/mob/living/carbon/proc/set_blood_type(datum/blood_type/new_blood_type, update_cached_blood_dna_info = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(isnull(dna))
+		return
+
+	if(ispath(new_blood_type, /datum/blood_type))
+		new_blood_type = initial(new_blood_type.name)
+	if(istext(new_blood_type))
+		new_blood_type = get_blood_type(new_blood_type)
+	if(!istype(new_blood_type))
+		return
+		
+	if(dna.blood_type == new_blood_type)
+		return
+
+	dna.blood_type = new_blood_type
+	if(update_cached_blood_dna_info)
+		update_cached_blood_dna_info()
+
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/random_blood_type()
 	return get_blood_type(pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+"))
@@ -501,7 +529,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
-	if (HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || IS_IN_STASIS(src))
+	if (HAS_TRAIT(src, TRAIT_NO_BLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEEDING) || HAS_TRAIT(src, TRAIT_STASIS))
 		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return

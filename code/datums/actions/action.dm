@@ -293,7 +293,7 @@
 /// Intercepts client owner clicks to activate the ability
 /// This proc is called via reflection, do not change the name if you do
 /// not know what that means.
-/datum/action/InterceptClickOn(mob/living/clicker, params, atom/target)
+/datum/action/proc/InterceptClickOn(mob/living/clicker, params, atom/target)
 	return _internal_InterceptClickOn(clicker, params, target)
 
 /datum/action/proc/_internal_InterceptClickOn(mob/living/clicker, params, atom/target)

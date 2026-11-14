@@ -5,9 +5,6 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(/mob/living/brain)
 
-/// The time it takes for the blush visual to be removed
-#define BLUSH_DURATION 5.2 SECONDS
-
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
@@ -16,23 +13,10 @@
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(ishuman(user)) // Give them a visual blush effect if they're human
-		var/mob/living/carbon/human/human_user = user
-		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body_parts()
-
-		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
-		var/list/key_emotes = GLOB.emote_list["blush"]
-		for(var/datum/emote/living/blush/living_emote in key_emotes)
-			// The existing timer restarts if it is already running
-			addtimer(CALLBACK(living_emote, PROC_REF(end_blush), human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
-	if(!QDELETED(human_user))
-		REMOVE_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body_parts()
-
-#undef BLUSH_DURATION
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	human_user.show_emote_overlay(/datum/bodypart_overlay/simple/emote/blush, 5.2 SECONDS)
 
 /datum/emote/living/bow
 	key = "bow"
@@ -146,16 +130,22 @@
 	. = ..()
 	if(!ishuman(user))
 		return
-
 	var/mob/living/carbon/human/human_user = user
-	if(!human_user.Togglewings(silent = TRUE))
-		return
-	addtimer(CALLBACK(human_user, TYPE_PROC_REF(/mob/living/carbon/human, Togglewings), TRUE), wing_time)
+	var/obj/item/organ/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_EXTERNAL_WINGS)
 
-	// play flutter noise
-	var/obj/item/organ/wings/wings = human_user.get_organ_slot(ORGAN_SLOT_WINGS)
-	if(wings.flapsound)
-		playsound(human_user, wings.flapsound, 50, TRUE)
+	// play a flapping noise if the wing has this implemented
+	if(!istype(wings))
+		return
+	wings.make_flap_sound(human_user)
+
+	if(!wings.can_open())
+		return
+	var/open = wings.wings_open
+	if(open)
+		wings.close_wings()
+	else
+		wings.open_wings()
+	addtimer(CALLBACK(wings, open ? TYPE_PROC_REF(/obj/item/organ/wings, open_wings) : TYPE_PROC_REF(/obj/item/organ/wings, close_wings)), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -715,7 +705,7 @@
 		return FALSE
 	if(islizard(user))
 		var/mob/living/carbon/human/H = user
-		return istype(H?.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
+		return istype(H?.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAIL), /obj/item/organ/tail)
 
 /// Breathing required + audible emotes
 

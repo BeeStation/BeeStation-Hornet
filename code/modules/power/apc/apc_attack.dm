@@ -103,29 +103,38 @@
 			to_chat(user, span_warning("[src] has both electronics and a cell."))
 			return
 	else if (istype(W, /obj/item/wallframe/apc) && opened)
-		if (!(machine_stat & BROKEN || opened==APC_COVER_REMOVED || atom_integrity < max_integrity)) // There is nothing to repair
+		if (!(machine_stat & BROKEN || opened == APC_COVER_REMOVED || get_integrity() < max_integrity))
 			to_chat(user, span_warning("You find no reason for repairing this APC."))
 			return
-		if (!(machine_stat & BROKEN) && opened==APC_COVER_REMOVED)
-		// Cover is the only thing broken, we do not need to remove elctronicks to replace cover
+		var/replacing_cover = (machine_stat & BROKEN) && has_electronics && terminal
+		if(opened == APC_COVER_REMOVED && (!(machine_stat & BROKEN) || replacing_cover))
 			user.visible_message("[user.name] replaces missing APC's cover.",\
 							span_notice("You begin to replace the APC's cover."))
-			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
-				to_chat(user, span_notice("You replace the missing APC cover."))
-				qdel(W)
-				opened = APC_COVER_OPENED
-				update_appearance()
+			if(!do_after(user, 2 SECONDS, target = src) || QDELETED(W) || opened != APC_COVER_REMOVED)
+				return
+			if(replacing_cover)
+				if(!(machine_stat & BROKEN) || !has_electronics || !terminal)
+					return
+				set_machine_stat(machine_stat & ~BROKEN)
+				restart_on_cover_close = TRUE
+			else if(machine_stat & BROKEN)
+				return
+			update_integrity(max_integrity)
+			to_chat(user, span_notice("You replace the missing APC cover."))
+			qdel(W)
+			opened = APC_COVER_OPENED
+			update_appearance()
 			return
 		if (has_electronics)
 			to_chat(user, span_warning("You cannot repair this APC until you remove the electronics still inside!"))
 			return
 		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
 							span_notice("You begin to replace the damaged APC frame."))
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, target = src) && !QDELETED(W) && opened && !has_electronics && (machine_stat & BROKEN || opened == APC_COVER_REMOVED || get_integrity() < max_integrity))
 			to_chat(user, span_notice("You replace the damaged APC frame with a new one."))
 			qdel(W)
 			set_machine_stat(machine_stat & ~BROKEN)
-			atom_integrity = max_integrity
+			update_integrity(max_integrity)
 			if (opened==APC_COVER_REMOVED)
 				opened = APC_COVER_OPENED
 			update_appearance()
@@ -356,6 +365,7 @@
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	operating = FALSE
+	restart_on_cover_close = FALSE
 	atom_break()
 	if(occupier)
 		malfvacate(1)

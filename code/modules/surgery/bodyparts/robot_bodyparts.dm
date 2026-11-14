@@ -23,7 +23,8 @@
 	icon_state = "borg_l_arm"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -53,7 +54,8 @@
 	icon_state = "borg_r_arm"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -83,7 +85,8 @@
 	icon_state = "borg_l_leg"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -113,7 +116,8 @@
 	icon_state = "borg_r_leg"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -141,7 +145,8 @@
 	icon_state = "borg_chest"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	dmg_overlay_type = "robotic"
 
@@ -173,47 +178,47 @@
 /obj/item/bodypart/chest/robot/get_cell()
 	return cell
 
-/obj/item/bodypart/chest/robot/attackby(obj/item/W, mob/user, list/modifiers)
-	if(istype(W, /obj/item/stock_parts/cell))
+/obj/item/bodypart/chest/robot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/stock_parts/cell))
 		if(cell)
-			to_chat(user, span_warning("You have already inserted a cell!"))
-			return
-		else
-			if(!user.transferItemToLoc(W, src))
-				return
-			cell = W
-			to_chat(user, span_notice("You insert the cell."))
-	else if(istype(W, /obj/item/stack/cable_coil))
-		if(wired)
-			to_chat(user, span_warning("You have already inserted wire!"))
-			return
-		var/obj/item/stack/cable_coil/coil = W
-		if (coil.use(1))
-			wired = TRUE
-			to_chat(user, span_notice("You insert the wire."))
-		else
-			to_chat(user, span_warning("You need one length of coil to wire it!"))
-	else
-		return ..()
+			to_chat(user, span_warning("A cell is already present in [src]!"))
+			return ITEM_INTERACT_BLOCKING
+		if(!user.transferItemToLoc(tool, src))
+			return ITEM_INTERACT_BLOCKING
+		cell = tool
+		to_chat(user, span_notice("You insert [cell] into [src]."))
+		return ITEM_INTERACT_SUCCESS
 
-/obj/item/bodypart/chest/robot/wirecutter_act(mob/living/user, obj/item/I)
+	if(istype(tool, /obj/item/stack/cable_coil))
+		if(wired)
+			to_chat(user, span_warning("[src] is already wired up!"))
+			return ITEM_INTERACT_BLOCKING
+		var/obj/item/stack/cable_coil/coil = tool
+		if (!coil.use(1))
+			to_chat(user, span_warning("You need one length of coil to wire it!"))
+			return ITEM_INTERACT_BLOCKING
+		wired = TRUE
+		to_chat(user, span_notice("You wire the cell inside of [src]."))
+		return ITEM_INTERACT_SUCCESS
+	return NONE
+
+/obj/item/bodypart/chest/robot/wirecutter_act(mob/living/user, obj/item/tool)
 	if(!wired)
 		return
-	. = TRUE
-	I.play_tool_sound(src)
+	tool.play_tool_sound(src)
 	to_chat(user, span_notice("You cut the wires out of [src]."))
 	new /obj/item/stack/cable_coil(drop_location(), 1)
 	wired = FALSE
+	return ITEM_INTERACT_SUCCESS
 
-/obj/item/bodypart/chest/robot/screwdriver_act(mob/living/user, obj/item/I)
-	..()
-	. = TRUE
+/obj/item/bodypart/chest/robot/screwdriver_act(mob/living/user, obj/item/tool)
 	if(!cell)
 		to_chat(user, span_warning("There's no power cell installed in [src]!"))
-		return
-	I.play_tool_sound(src)
+		return ITEM_INTERACT_BLOCKING
+	tool.play_tool_sound(src)
 	to_chat(user, span_notice("Remove [cell] from [src]."))
 	cell.forceMove(drop_location())
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/bodypart/chest/robot/examine(mob/user)
 	. = ..()
@@ -247,7 +252,8 @@
 	icon_state = "borg_head"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	bodytype = BODYTYPE_ROBOTIC
+	bodyshape = BODYSHAPE_HUMANOID
 	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 	w_class = WEIGHT_CLASS_NORMAL
 	dmg_overlay_type = "robotic"
@@ -295,36 +301,39 @@
 	if(gone == flash2)
 		flash2 = null
 
-/obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, list/modifiers)
-	if(istype(W, /obj/item/assembly/flash/handheld))
-		var/obj/item/assembly/flash/handheld/F = W
-		if(flash1 && flash2)
-			to_chat(user, span_warning("You have already inserted the eyes!"))
-			return
-		else if(F.burnt_out || !F.bulb)
-			to_chat(user, span_warning("You need a functional flash!"))
-			return
-		else
-			if(!user.transferItemToLoc(F, src))
-				return
-			if(flash1)
-				flash2 = F
-			else
-				flash1 = F
-			to_chat(user, span_notice("You insert the flash into the eye socket."))
-			return
-	return ..()
+/obj/item/bodypart/head/robot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/assembly/flash/handheld))
+		return NONE
+
+	var/obj/item/assembly/flash/handheld/flash = tool
+	if(flash1 && flash2)
+		to_chat(user, span_warning("[src] already has both flash-eyes present!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(flash.burnt_out)
+		to_chat(user, span_warning("You can't use a broken flash!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(!user.transferItemToLoc(flash, src))
+		return ITEM_INTERACT_BLOCKING
+
+	if(flash1)
+		flash2 = flash
+	else
+		flash1 = flash
+	to_chat(user, span_notice("You insert the flash into the eye socket."))
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/bodypart/head/robot/crowbar_act(mob/living/user, obj/item/tool)
-	if(flash1 || flash2)
-		tool.play_tool_sound(src)
-		to_chat(user, span_notice("You remove the flash from [src]."))
-		var/atom/drop_loc = drop_location()
-		flash1?.forceMove(drop_loc)
-		flash2?.forceMove(drop_loc)
-	else
+	if(!flash1 && !flash2)
 		to_chat(user, span_warning("There is no flash to remove from [src]."))
-	return TRUE
+		return ITEM_INTERACT_BLOCKING
+
+	tool.play_tool_sound(src)
+	to_chat(user, span_notice("You remove the flash[flash1 && flash2 ? "es" : ""] from [src]."))
+	var/atom/drop_loc = drop_location()
+	flash1?.forceMove(drop_loc)
+	flash2?.forceMove(drop_loc)
 
 /obj/item/bodypart/head/robot/drop_organs(mob/user, violent_removal)
 	var/atom/drop_loc = drop_location()
@@ -363,8 +372,6 @@
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 20
-
-
 
 /obj/item/bodypart/head/robot/android
 	change_exempt_flags = NONE

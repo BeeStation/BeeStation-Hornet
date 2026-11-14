@@ -8,7 +8,6 @@
 	storage_type = /datum/storage/wallet
 
 	var/obj/item/card/id/front_id = null
-	var/list/combined_access
 	var/cached_flat_icon
 	var/overlay_icon_state = "wallet_overlay"
 
@@ -18,15 +17,7 @@
 		refresh_id()
 
 /obj/item/storage/wallet/proc/refresh_id()
-	LAZYCLEARLIST(combined_access)
-
-	front_id = null
-	for(var/obj/item/card/id/id_card in contents)
-		if(!front_id)
-			front_id = id_card
-
-		LAZYINITLIST(combined_access)
-		combined_access |= id_card.access
+	front_id = locate(/obj/item/card/id) in contents
 
 	if(ishuman(loc))
 		var/mob/living/carbon/human/wearing_human = loc
@@ -68,6 +59,7 @@
 /obj/item/storage/wallet/examine()
 	. = ..()
 	if(front_id)
+		. += front_id.get_temporary_access_examine()
 		. += span_notice("Alt-click to remove the id.")
 
 /obj/item/storage/wallet/get_id_examine_strings(mob/user)
@@ -91,10 +83,12 @@
 	return atom_storage.attempt_insert(inserting_id, override = TRUE)
 
 /obj/item/storage/wallet/GetAccess()
-	if(LAZYLEN(combined_access))
-		return combined_access
-	else
-		return ..()
+	if(length(contents) == 1)
+		var/obj/item/card/id/only_card = contents[1]
+		return istype(only_card) ? only_card.GetAccess() : list()
+	. = list()
+	for(var/obj/item/card/id/id_card in contents)
+		. |= id_card.GetAccess()
 
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"

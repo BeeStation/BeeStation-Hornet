@@ -31,7 +31,7 @@
 		explanation_text = "Free Objective"
 
 /datum/objective/destroy/admin_edit(mob/admin)
-	var/list/possible_targets = active_ais(1)
+	var/list/possible_targets = active_ais(TRUE)
 	if(possible_targets.len)
 		var/mob/new_target = input(admin,"Select target:", "Objective target") as null|anything in sort_names(possible_targets)
 		set_target(new_target.mind)
