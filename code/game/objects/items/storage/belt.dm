@@ -942,7 +942,7 @@
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_SUITSTORE
-	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS
+	interaction_flags_click = parent_type::interaction_flags_click | NEED_DEXTERITY | NEED_HANDS
 
 	//Sheathes made to hold swords can block too
 	force = 8

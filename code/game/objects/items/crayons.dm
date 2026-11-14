@@ -590,7 +590,7 @@
 
 	pre_noise = TRUE
 	post_noise = FALSE
-	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 
 	var/static/list/spraycan_touch_normally
 

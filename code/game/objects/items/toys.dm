@@ -877,6 +877,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	item_flags = ISWEAPON
+	interaction_flags_click = NEED_DEXTERITY|FORBID_TELEKINESIS_REACH|ALLOW_RESTING
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null

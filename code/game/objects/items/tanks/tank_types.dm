@@ -8,7 +8,7 @@
  */
 /obj/item/tank/internals
 	icon_state = "oxygen"
-	interaction_flags_click = FORBID_TELEKINESIS_REACH|NEED_HANDS
+	interaction_flags_click = FORBID_TELEKINESIS_REACH|NEED_HANDS|ALLOW_RESTING
 
 /// Allows carbon to toggle internals via AltClick of the equipped tank.
 /obj/item/tank/internals/click_alt(mob/user)

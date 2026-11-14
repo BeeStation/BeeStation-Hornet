@@ -20,7 +20,7 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_color = LIGHT_COLOR_FIRE
-	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	var/status = FALSE
 	var/lit = FALSE	//on or off
 	var/operating = FALSE//cooldown

@@ -23,7 +23,7 @@
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
 	custom_price = 100
-	interaction_flags_click = NEED_LITERACY|NEED_LIGHT
+	interaction_flags_click = NEED_LITERACY|NEED_LIGHT|ALLOW_RESTING
 	/// Verbose/condensed
 	var/mode = SCANNER_VERBOSE
 	/// HEALTH/WOUND

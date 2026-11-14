@@ -117,6 +117,7 @@
 	armor_type = /datum/armor/fedora_det_hat
 	icon_state = "detective"
 	inhand_icon_state = "det_hat"
+	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	COOLDOWN_DECLARE(candy_cooldown)
 	var/adjusted = FALSE
 	var/adjustable = TRUE

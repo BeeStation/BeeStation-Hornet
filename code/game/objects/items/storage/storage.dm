@@ -3,6 +3,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	interaction_flags_click = ALLOW_RESTING|FORBID_TELEKINESIS_REACH
 	var/rummage_if_nodrop = TRUE
 	var/empty = FALSE
 	/// Should we preload the contents of this type?
