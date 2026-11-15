@@ -1,0 +1,5 @@
+author: Baherain
+delete-after: true
+changes:
+  - bugfix: Changed addiction tolerance of Morphine from 10u to 25u, to match the
+      wiki page
