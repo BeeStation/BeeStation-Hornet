@@ -1,0 +1,4 @@
+author: Ucksus
+delete-after: true
+changes:
+  - bugfix: fixed Clock component not using Clock divider correctly
