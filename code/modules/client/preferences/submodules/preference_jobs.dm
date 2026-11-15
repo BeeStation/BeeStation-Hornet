@@ -37,11 +37,6 @@
 
 	return preview_job
 
-/datum/preferences/proc/get_job_set_to_high()
-	var/datum/job/job = get_highest_priority_job()
-	if(job && job_preferences[job.title] == JP_HIGH)
-		return job
-
 /datum/preferences/proc/get_job_name_preference(datum/job/job)
 	for(var/preference_type in GLOB.preference_entries)
 		var/datum/preference/name/name_preference = GLOB.preference_entries[preference_type]

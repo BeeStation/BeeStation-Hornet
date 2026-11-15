@@ -19,7 +19,7 @@
 		return
 
 	var/datum/preferences/prefs = player.client.prefs
-	var/datum/job/job = prefs.get_job_set_to_high()
+	var/datum/job/job = get_estimated_job(prefs)
 	if(job?.title == JOB_NAME_ASSISTANT || job?.title == JOB_NAME_PRISONER)
 		remove_job_estimation(player)
 		return
@@ -37,6 +37,19 @@
 	else
 		job_estimation_names -= player_ref
 	rebuild_job_estimation()
+
+/// Returns job set to high if it can be taken, otherwise null
+/datum/controller/subsystem/job/proc/get_estimated_job(datum/preferences/prefs)
+	var/datum/job/job = prefs.get_highest_priority_job()
+	if(!job || prefs.job_preferences[job.title] != JP_HIGH)
+		return
+	var/client/player_client = prefs.parent
+	if(!job.player_old_enough(player_client) || job.required_playtime_remaining(player_client))
+		return
+	// you'd think god would have made life easy and we can just access via is_banned_from(), but that can SLEEP
+	if(player_client.ban_cache && check_role_ban(player_client.ban_cache, job.title))
+		return
+	return job
 
 /datum/controller/subsystem/job/proc/get_job_listed_by_name(mob/player)
 	var/player_ref = REF(player)
@@ -57,7 +70,7 @@
 /datum/controller/subsystem/job/proc/get_antag_restricted_job(datum/preferences/prefs)
 	if(!CONFIG_GET(flag/show_job_estimation))
 		return
-	var/datum/job/job = prefs.get_job_set_to_high()
+	var/datum/job/job = get_estimated_job(prefs)
 	if(!job || !get_job_estimation_name(prefs, job))
 		return
 	if(job.title == JOB_NAME_ASSISTANT || job.title == JOB_NAME_PRISONER)
