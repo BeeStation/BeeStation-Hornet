@@ -1,7 +1,0 @@
-author: Isaac, BotTierPC
-delete-after: true
-changes:
-  - rscadd: New sliders in the medibot for brute, burn, toxin, suffocation make your
-      own medibot!
-  - rscadd: New UI design for all bots
-  - bugfix: You wont hit a medibot when trying to insert a bag inside

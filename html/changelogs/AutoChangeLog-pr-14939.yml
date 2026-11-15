@@ -1,5 +1,0 @@
-author: afonsofpuga-a11y
-delete-after: true
-changes:
-  - bugfix: Fixed your chat being spammed with errors when trying to craft something
-      with cable coils.
