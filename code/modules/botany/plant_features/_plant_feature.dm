@@ -232,7 +232,7 @@
 	//If we're overdrawing, add needs
 	if(amount < 0 && remaining_genetic_budget < 0)
 		var/datum/plant_need/need = SSbotany.previous_needs["[parent.species_id]"]["[source.get_id()]"] || SSbotany.get_random_need()
-		SSbotany.previous_needs["[parent.species_id]"] |= list("[source.type]" = need.type)
+		SSbotany.previous_needs["[parent.species_id]"] |= list("[source.type]" = need)
 		need = new need(src, TRUE)
 		overdraw_needs += list(REF(source) = need)
 		plant_needs += need

@@ -112,7 +112,6 @@
 	else if(istype(reagent_source, /obj/item/reagent_containers/spray))
 		var/obj/item/reagent_containers/spray/spray = reagent_source
 		obj_parent.visible_message(span_notice("[attacker] sprays [obj_parent] with [reagent_source]"))
-		playsound(obj_parent)
 		if(reagent_source.reagents.total_volume >= reagent_source.reagents.maximum_volume)
 			reagent_source.reagents?.remove_any(spray.amount_per_transfer_from_this)
 		reagent_source.reagents?.trans_to(obj_parent, spray.amount_per_transfer_from_this, transfered_by = attacker)

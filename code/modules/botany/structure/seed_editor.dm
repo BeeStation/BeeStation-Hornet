@@ -197,7 +197,7 @@
 			return TRUE
 		if("add_feature")
 			var/datum/plant_feature/feature = locate(params["key"])
-			if(!feature)
+			if(!feature || !istype(feature))
 				return
 		//Generic compatibility checking
 			for(var/datum/plant_feature/current_feature as anything in seeds.plant_features)

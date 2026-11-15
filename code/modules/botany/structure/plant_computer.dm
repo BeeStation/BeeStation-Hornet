@@ -46,6 +46,8 @@
 /obj/machinery/computer/plant_machine_controller/Destroy()
 	. = ..()
 	for(var/obj/machinery/plant_machine/machine as anything in machines)
+		UnregisterSignal(machine, COMSIG_QDELETING)
+		UnregisterSignal(machine, COMSIG_MOVABLE_MOVED)
 		machine.controller = null
 
 /obj/machinery/plant_machine/plant_machine_controller/add_context_self(datum/screentip_context/context, mob/user)
@@ -202,14 +204,18 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_QDELETING)
+	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 	machines -= source
+	option_links["[source]"] = null
 
 /obj/machinery/computer/plant_machine_controller/proc/catch_move(datum/source, atom/newloc, dir)
 	SIGNAL_HANDLER
 
 	if(get_dist(src, source) > PC_LINK_RANGE)
 		UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(source, COMSIG_QDELETING)
 		machines -= source
+		option_links["[source]"] = null
 
 /obj/machinery/computer/plant_machine_controller/proc/encrypt_ref(ref_string)
 	return "0x[copytext(md5(ref_string), 1, 8)]"
