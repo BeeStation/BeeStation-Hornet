@@ -19,18 +19,18 @@
 		return
 
 	var/datum/preferences/prefs = player.client.prefs
-	var/datum/job/job = prefs.get_highest_priority_job()
-	if(job && prefs.job_preferences[job.title] != JP_HIGH)
-		job = null
+	var/datum/job/job = prefs.get_job_set_to_high()
 	if(job?.title == JOB_NAME_ASSISTANT || job?.title == JOB_NAME_PRISONER)
 		remove_job_estimation(player)
 		return
 
-	var/name = job ? get_job_estimation_name(prefs, job) : null
+	var/name
+	if(job && prefs.read_character_preference(/datum/preference/toggle/job_estimation_name))
+		name = get_job_estimation_name(prefs, job)
 	var/player_ref = REF(player)
 	var/already_named_as_job = job_estimation_names[player_ref] && job_estimation_jobs[player_ref] == job
 	if(name && !already_named_as_job)
-		warn_excluded_from_antag(player, job)
+		warn_excluded_from_antag(player)
 	job_estimation_jobs[player_ref] = job
 	if(name)
 		job_estimation_names[player_ref] = name
@@ -49,15 +49,24 @@
 			return TRUE
 	return FALSE
 
-/datum/controller/subsystem/job/proc/warn_excluded_from_antag(mob/player, datum/job/job)
+/datum/controller/subsystem/job/proc/warn_excluded_from_antag(mob/player)
+	var/datum/job/job = get_antag_restricted_job(player.client.prefs)
+	if(job)
+		to_chat(player, span_notice("Job Estimation shows your name as [job.title], so antagonists that can't be [job.title] won't pick you at roundstart."))
+
+/datum/controller/subsystem/job/proc/get_antag_restricted_job(datum/preferences/prefs)
+	if(!CONFIG_GET(flag/show_job_estimation))
+		return
+	var/datum/job/job = prefs.get_job_set_to_high()
+	if(!job || !get_job_estimation_name(prefs, job))
+		return
+	if(job.title == JOB_NAME_ASSISTANT || job.title == JOB_NAME_PRISONER)
+		return
 	for(var/datum/dynamic_ruleset/ruleset as anything in SSdynamic.gamemode_configured_rulesets + SSdynamic.supplementary_configured_rulesets)
 		if(job.title in ruleset.restricted_roles)
-			to_chat(player, span_notice("While your name is shown as [job.title], some roundstart antagonists can't pick you."))
-			return
+			return job
 
 /datum/controller/subsystem/job/proc/get_job_estimation_name(datum/preferences/prefs, datum/job/job)
-	if(!prefs.read_player_preference(/datum/preference/toggle/job_estimation_name))
-		return
 	// Jobs like clown and AI are snowflake
 	var/datum/preference/name/name_pref = prefs.get_job_name_preference(job)
 	if(name_pref)

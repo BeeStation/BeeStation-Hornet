@@ -90,7 +90,8 @@
 	var/list/data = list()
 
 	data["job_preferences"] = preferences.job_preferences
-
+	var/datum/job/antag_restricted_job = SSjob.get_antag_restricted_job(preferences)
+	data["antag_restricted_job"] = antag_restricted_job?.title
 	return data
 
 /datum/preference_middleware/jobs/get_ui_static_data(mob/user)
