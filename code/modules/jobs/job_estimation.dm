@@ -1,7 +1,7 @@
 #define JOB_ESTIMATION_MAX_NAMES 3
 
 /datum/controller/subsystem/job
-	/// High priority job
+	/// Estimated job, null if flexible
 	var/list/job_estimation_jobs = list()
 	/// players listed by name
 	var/list/job_estimation_names = list()
@@ -24,9 +24,7 @@
 		remove_job_estimation(player)
 		return
 
-	var/name
-	if(job && prefs.read_character_preference(/datum/preference/toggle/job_estimation_name))
-		name = get_job_estimation_name(prefs, job)
+	var/name = job ? get_job_estimation_listed_name(prefs, job) : null
 	var/player_ref = REF(player)
 	var/already_named_as_job = job_estimation_names[player_ref] && job_estimation_jobs[player_ref] == job
 	if(name && !already_named_as_job)
@@ -38,18 +36,40 @@
 		job_estimation_names -= player_ref
 	rebuild_job_estimation()
 
-/// Returns job set to high if it can be taken, otherwise null
+/// Returns high priority job, else the only medium job
 /datum/controller/subsystem/job/proc/get_estimated_job(datum/preferences/prefs)
-	var/datum/job/job = prefs.get_highest_priority_job()
-	if(!job || prefs.job_preferences[job.title] != JP_HIGH)
-		return
-	var/client/player_client = prefs.parent
+	var/list/medium_jobs = list()
+	for(var/title in prefs.job_preferences)
+		var/datum/job/job = get_job(title)
+		if(!job || !can_estimate_job(prefs.parent, job))
+			continue
+		if(prefs.job_preferences[title] == JP_HIGH)
+			return job
+		if(prefs.job_preferences[title] == JP_MEDIUM)
+			medium_jobs += job
+	if(length(medium_jobs) == 1)
+		return medium_jobs[1]
+
+/datum/controller/subsystem/job/proc/can_estimate_job(client/player_client, datum/job/job)
 	if(!job.player_old_enough(player_client) || job.required_playtime_remaining(player_client))
-		return
+		return FALSE
 	// you'd think god would have made life easy and we can just access via is_banned_from(), but that can SLEEP
 	if(player_client.ban_cache && check_role_ban(player_client.ban_cache, job.title))
+		return FALSE
+	return TRUE
+
+/datum/controller/subsystem/job/proc/get_job_estimation_listed_name(datum/preferences/prefs, datum/job/job)
+	if(!prefs.read_character_preference(/datum/preference/toggle/job_estimation_name))
 		return
-	return job
+	if(prefs.job_preferences[job.title] != JP_HIGH && is_antag_restricted_job(job))
+		return
+	return get_job_estimation_name(prefs, job)
+
+/datum/controller/subsystem/job/proc/is_antag_restricted_job(datum/job/job)
+	for(var/datum/dynamic_ruleset/ruleset as anything in SSdynamic.gamemode_configured_rulesets + SSdynamic.supplementary_configured_rulesets)
+		if(job.title in ruleset.restricted_roles)
+			return TRUE
+	return FALSE
 
 /datum/controller/subsystem/job/proc/get_job_listed_by_name(mob/player)
 	var/player_ref = REF(player)
@@ -71,13 +91,12 @@
 	if(!CONFIG_GET(flag/show_job_estimation))
 		return
 	var/datum/job/job = get_estimated_job(prefs)
-	if(!job || !get_job_estimation_name(prefs, job))
+	if(!job || prefs.job_preferences[job.title] != JP_HIGH)
 		return
 	if(job.title == JOB_NAME_ASSISTANT || job.title == JOB_NAME_PRISONER)
 		return
-	for(var/datum/dynamic_ruleset/ruleset as anything in SSdynamic.gamemode_configured_rulesets + SSdynamic.supplementary_configured_rulesets)
-		if(job.title in ruleset.restricted_roles)
-			return job
+	if(get_job_estimation_name(prefs, job) && is_antag_restricted_job(job))
+		return job
 
 /datum/controller/subsystem/job/proc/get_job_estimation_name(datum/preferences/prefs, datum/job/job)
 	// Jobs like clown and AI are snowflake
