@@ -300,13 +300,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 		return INITIALIZE_HINT_QDEL
 
 	// I do not want to know bestie
-	var/view = boss.view || world.view
+	var/view = boss.screen_view() || world.view
 	update_o(view)
 	RegisterSignal(boss, COMSIG_VIEW_SET, PROC_REF(on_view_change))
 
-/atom/movable/screen/parallax_layer/proc/on_view_change(datum/source, new_size)
+/atom/movable/screen/parallax_layer/proc/on_view_change(client/source, new_size)
 	SIGNAL_HANDLER
-	update_o(new_size)
+	update_o(source.screen_view())
 
 /atom/movable/screen/parallax_layer/proc/update_o(view)
 	if (!view)

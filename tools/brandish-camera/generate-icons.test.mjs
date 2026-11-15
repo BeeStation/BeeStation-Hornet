@@ -360,3 +360,33 @@ test('native multi-tile bounds and rotated frames preserve every pixel world pos
     }
   }
 });
+
+test('disposal connections and conveyor corners retain physical directions and animated frames',()=>{
+  const policy=JSON.parse(fs.readFileSync(new URL('./asset-policy.json',import.meta.url)));
+  for(const [file,names] of [
+    ['icons/obj/atmospherics/pipes/disposal.dmi',['pipe','pipe-j1','pipe-r1','pipe-toggle0flick']],
+    ['icons/obj/recycling.dmi',['conveyor_map_inverted','conveyor1','conveyor-1']],
+  ]) {
+    assert.equal(isDirectionalSurface(file,policy),true);
+    const png=readPng(fs.readFileSync(file)), dmi=parseDmi(png), pixels=decodePng(png);
+    const plan=conversionPlan(dmi,'surface',true);
+    for(const anchor of allDirections) {
+      const out=readPng(generateVariant(png,pixels,dmi,'surface',anchor,plan));
+      const od=parseDmi(out), data=decodePng(out);
+      for(const name of names) {
+        const state=dmi.states.find(s=>s.name===name), target=od.states.find(s=>s.name===name);
+        assert.equal(target.frames,state.frames);
+        if(state.dirs===4 && !directions.includes(anchor)) continue;
+        const sourceSlot=state.dirs===1?0:(state.dirs===8?allDirections:directions).indexOf(anchor);
+        const slots=target.dirs===8?allDirections:directions;
+        for(let frame=0;frame<state.frames;frame++) {
+          const baseline=tile(png,pixels,dmi,state.firstTile+frame*state.dirs+sourceSlot);
+          for(const quarter of [0,90,180,270]) {
+            const slot=turnJunction(anchor,quarter);
+            assert.deepEqual(tile(out,data,od,target.firstTile+frame*target.dirs+slots.indexOf(slot)),rotatePixels(baseline,32,png.pixelBytes,360-quarter));
+          }
+        }
+      }
+    }
+  }
+});

@@ -245,11 +245,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(!user.combat_mode && !(I.item_flags & ABSTRACT))
 		if(user.transferItemToLoc(I, drop_location(), silent = FALSE))
 			//Center the icon where the user clicked.
-			if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
+			var/list/click_offset = camera_click_offset(modifiers, user.client?.dir || NORTH)
+			if(!click_offset)
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
-			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
+			I.pixel_x = clamp(click_offset[1], -(ICON_SIZE_X/2), ICON_SIZE_X/2)
+			I.pixel_y = clamp(click_offset[2], -(ICON_SIZE_Y/2), ICON_SIZE_Y/2)
 			return TRUE
 	else
 		return ..()

@@ -167,6 +167,9 @@
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
 	if(client)
 		client.brandish_camera_suppressed = FALSE
+		// A mirrored heading from a previous ghost must not carry into this body.
+		client.clear_brandish_observe()
+		client.apply_default_client_dir()
 		client.queue_brandish_camera_sync()
 
 	return TRUE

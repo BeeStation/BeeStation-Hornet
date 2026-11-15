@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/matrix/rotationMatrix = matrix()
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
-	rotationMatrix.Turn(get_angle(target_turf, parent_turf))
+	rotationMatrix.Turn(camera_world_angle_to_screen(get_angle(target_turf, parent_turf), updating.client?.dir || NORTH))
 	var/new_alpha = 240
 	if(share_z)
 		switch(get_dist(target_turf, parent_turf))

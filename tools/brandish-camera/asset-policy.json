@@ -101,6 +101,30 @@
     ],
     "icons/obj/barsigns.dmi": [
       "surface"
+    ],
+    "icons/obj/machines/gravity_generator.dmi": [
+      "surface"
+    ],
+    "icons/obj/machines/gateway.dmi": [
+      "surface"
+    ],
+    "icons/effects/96x96.dmi": [
+      "surface"
+    ],
+    "icons/effects/160x160.dmi": [
+      "surface"
+    ],
+    "icons/obj/machines/incident_display.dmi": [
+      "surface"
+    ],
+    "icons/obj/plumbing/fluid_ducts.dmi": [
+      "surface"
+    ],
+    "icons/obj/plumbing/plumbers.dmi": [
+      "surface"
+    ],
+    "icons/obj/recycling.dmi": [
+      "surface"
     ]
   },
   "rectangularSurfaces": [
@@ -109,7 +133,11 @@
     "icons/obj/2x2.dmi",
     "icons/obj/3x3.dmi",
     "icons/obj/4x7.dmi",
-    "icons/obj/barsigns.dmi"
+    "icons/obj/barsigns.dmi",
+    "icons/obj/machines/gateway.dmi",
+    "icons/effects/96x96.dmi",
+    "icons/effects/160x160.dmi",
+    "icons/obj/machines/incident_display.dmi"
   ],
   "directionalSurfaces": [
     "icons/obj/atmospherics/pipes/manifold.dmi",
@@ -126,7 +154,10 @@
     "icons/obj/atmospherics/components/thermomachine.dmi",
     "icons/obj/atmospherics/components/trinary_devices.dmi",
     "icons/obj/atmospherics/components/unary_devices.dmi",
-    "icons/obj/barsigns.dmi"
+    "icons/obj/barsigns.dmi",
+    "icons/obj/plumbing/fluid_ducts.dmi",
+    "icons/obj/atmospherics/pipes/disposal.dmi",
+    "icons/obj/recycling.dmi"
   ],
   "foreground": {
     "icons/obj/beds_chairs/chairs.dmi": "chair",
@@ -160,7 +191,8 @@
     "icons/effects/light_overlays/light_288.dmi",
     "icons/effects/light_overlays/light_320.dmi",
     "icons/effects/light_overlays/light_352.dmi",
-    "icons/obj/solar.dmi"
+    "icons/obj/solar.dmi",
+    "icons/obj/xenoarchaeology/xenoartifact.dmi"
   ],
   "maxGeometrySize": 256,
   "maxSurfaceSize": 32,
@@ -169,7 +201,8 @@
       "Water-0"
     ],
     "icons/obj/2x2.dmi": [
-      "large_engine"
+      "large_engine",
+      "multiduct"
     ],
     "icons/obj/atmospherics/components/binary_devices.dmi": [
       "pipe_intact",
@@ -207,6 +240,69 @@
       "map-pubby",
       "map-CS",
       "map-echo"
+    ],
+    "icons/effects/96x96.dmi": [
+      "gate_full",
+      "gate_bottom",
+      "gate_dais",
+      "gate_top",
+      "gate_blocker",
+      "door",
+      "door_opening",
+      "door_closing"
+    ],
+    "icons/effects/160x160.dmi": [
+      "arch_full",
+      "arch_bottom",
+      "arch_top"
+    ],
+    "icons/obj/plumbing/plumbers.dmi": [
+      "north-red-s",
+      "north-blue-s",
+      "south-red-s",
+      "south-blue-s",
+      "east-red-s",
+      "east-blue-s",
+      "west-red-s",
+      "west-blue-s"
+    ],
+    "icons/obj/atmospherics/pipes/disposal.dmi": [
+      "pipe",
+      "pipe-j1",
+      "pipe-j2",
+      "pipe-y",
+      "pipe-t",
+      "pipe-b",
+      "pipe-j1s",
+      "pipe-j2s",
+      "pipe-toggle0",
+      "pipe-toggle1",
+      "pipe-toggle0flick",
+      "pipe-toggle1flick",
+      "conpipe",
+      "conpipe-j1",
+      "conpipe-j2",
+      "conpipe-y",
+      "conpipe-t",
+      "conpipe-j1s",
+      "conpipe-j2s",
+      "conpipe-toggle0",
+      "pipe-down",
+      "pipe-up",
+      "conpipe-down",
+      "conpipe-up",
+      "pipe-r1",
+      "pipe-r2",
+      "conpipe-r1",
+      "conpipe-r2"
+    ],
+    "icons/obj/recycling.dmi": [
+      "conveyor0",
+      "conveyor_map",
+      "conveyor_map_inverted",
+      "conveyor1",
+      "conveyor-1",
+      "conveyor-broken"
     ]
   },
   "assetClasses": {
@@ -245,9 +341,11 @@
   },
   "compactSurfaces": [
     "icons/misc/Beach/beach.dmi",
-    "icons/obj/decals.dmi"
+    "icons/obj/decals.dmi",
+    "icons/effects/96x96.dmi",
+    "icons/effects/160x160.dmi"
   ],
-  "compactSurfaceContract": "Only fixed beach sand and connected wall maps use compact surface banks. Selected states are listed in surfaceStates; callers pass the current state, and missing or unspecified states resolve to the original file. Beach water smoothing retains the complete source state set. Decal/underlay/vis appearances are created with explicit states.",
+  "compactSurfaceContract": "Compact banks cover fixed sand, connected wall maps and necropolis gate/arch states. All gate body/door/transition/blocker/arch states used by their bound types are included; their other effect users remain unbound. Callers pass state and omitted states resolve to the original. Other animated/directly-mutated families retain complete banks.",
   "footprintMasks": [
     "icons/obj/doors/airlocks/glass_large/glass_large.dmi"
   ]

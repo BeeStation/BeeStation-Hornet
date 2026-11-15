@@ -1,4 +1,4 @@
-/// Round-local acknowledgement survives reconnects and body transfers. There
+/// Activation-local acknowledgement survives reconnects and body transfers. There
 /// is deliberately no permanent opt-out while the perspective is experimental.
 GLOBAL_LIST_EMPTY(brandish_intro_shown)
 
@@ -6,13 +6,18 @@ GLOBAL_LIST_EMPTY(brandish_intro_shown)
 	set name = "Brandish Perspective Guide"
 	set category = "OOC"
 	set desc = "Show the directional camera controls and your current movement keys."
-	if(!brandish_camera)
+	if(!mob?.brandish_perspective_allowed() || mob.stat == DEAD)
+		to_chat(src, span_notice("This character cannot use the Brandish perspective. The guide requires a supported living body outside an item."))
+		return
+	if(!brandish_camera?.is_available())
 		to_chat(src, span_notice("This guide is available while using the Brandish perspective as a living character."))
 		return
 	brandish_camera.ui_interact(mob)
 
 /datum/brandish_camera/proc/show_intro()
-	if(!is_available() || !CONFIG_GET(flag/brandish_camera) || (owner.ckey in GLOB.brandish_intro_shown))
+	// Recheck ownership and eligibility when the delayed callback runs: death,
+	// body transfers and global disable may all happen during the first second.
+	if(!is_available() || !owner.ckey || (owner.ckey in GLOB.brandish_intro_shown))
 		return
 	GLOB.brandish_intro_shown += owner.ckey
 	ui_interact(body)

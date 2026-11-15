@@ -1,5 +1,20 @@
 /// Composes camera effects without restoring stale snapshots over newer settings.
 /// Logical view requests remain owned by view_data/their original callers.
+/// BYOND rotates the world rectangle with client.dir. Quarter turns exchange
+/// its axes; the same transform converts the applied rectangle back to screen.
+/proc/camera_view_for_direction(view_size, facing)
+	if(facing != EAST && facing != WEST)
+		return view_size
+	var/list/size = getviewsize(view_size)
+	if(size[1] == size[2])
+		return view_size
+	return "[size[2]]x[size[1]]"
+
+/// Screen/HUD dimensions. client.view itself remains the native world rectangle
+/// for view(), visibility, AI camera coverage and other world-space queries.
+/client/proc/screen_view()
+	return camera_view_for_direction(view, dir)
+
 /datum/client_camera_state
 	var/client/owner
 	var/requested_view
@@ -11,7 +26,7 @@
 
 /datum/client_camera_state/New(client/viewer)
 	owner = viewer
-	requested_view = viewer ? viewer.view : world.view
+	requested_view = viewer ? viewer.screen_view() : world.view
 	if(viewer)
 		base_x = viewer.pixel_x
 		base_y = viewer.pixel_y
@@ -71,8 +86,7 @@
 	var/atom/movable/screen/fullscreen/near_light = owner.mob?.screens["lighting_backdrop_seenear"]
 	near_light?.update_for_camera(owner)
 	// Layout calls can yield to the client. Commit every camera coordinate first.
-	if(owner.view != composed[1])
-		owner.apply_camera_view(composed[1])
+	owner.apply_camera_view(composed[1])
 
 /client
 	var/datum/client_camera_state/camera_state

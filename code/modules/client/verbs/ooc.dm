@@ -332,7 +332,7 @@ AUTH_CLIENT_VERB(fit_viewport)
 
 	// Fetch aspect ratio
 	var/expected_view = view
-	var/view_size = getviewsize(view)
+	var/view_size = getviewsize(screen_view())
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio

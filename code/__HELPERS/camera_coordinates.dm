@@ -20,6 +20,19 @@
 			return list(-y, x)
 	return list(x, y)
 
+/// ICON_X/Y are screen axes even when a surface uses a rotated icon bank.
+/// Use this for a click offset that will be stored in world pixel_x/y. Offsets
+/// inside upright artwork should instead remain in screen pixel_w/z.
+/proc/camera_click_offset(list/modifiers, facing = NORTH)
+	if(isnull(LAZYACCESS(modifiers, ICON_X)) || isnull(LAZYACCESS(modifiers, ICON_Y)))
+		return
+	return camera_screen_to_world(text2num(modifiers[ICON_X]) - ICON_SIZE_X / 2, text2num(modifiers[ICON_Y]) - ICON_SIZE_Y / 2, facing)
+
+/// HUD transforms do not receive the map's rotation. Project the world angle
+/// for the viewer that owns the screen object, without changing shared atoms.
+/proc/camera_world_angle_to_screen(angle, facing = NORTH)
+	return angle - dir2angle(facing)
+
 /// screen-loc pixel coordinates measured from the map's bottom-left corner.
 /proc/camera_screen_pixels(list/modifiers)
 	var/location = LAZYACCESS(modifiers, SCREEN_LOC)
@@ -41,7 +54,7 @@
 	var/turf/origin_turf = get_turf(origin)
 	if(!point || !eye_turf || !origin_turf)
 		return
-	var/list/size = view_to_pixels(view)
+	var/list/size = view_to_pixels(screen_view())
 	var/list/vector = camera_screen_to_world(point[1] - size[1] / 2 + pixel_w, point[2] - size[2] / 2 + pixel_z, dir)
 	vector[1] += (eye_turf.x - origin_turf.x) * ICON_SIZE_X + pixel_x
 	vector[2] += (eye_turf.y - origin_turf.y) * ICON_SIZE_Y + pixel_y

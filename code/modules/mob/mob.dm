@@ -75,6 +75,11 @@
   * * Intialize the movespeed of the mob
   */
 /mob/Initialize(mapload)
+	// A mob's base offsets align its upright sprite to its tile. Keep runtime
+	// placement (including mapper offsets and riding) in world coordinates.
+	brandish_screen_origin(base_pixel_x, base_pixel_y)
+	base_pixel_x = 0
+	base_pixel_y = 0
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
 	mob_properties = list()
 	add_to_mob_list()

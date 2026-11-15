@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
+	brandish_icon_mode = "surface"
 	icon_state = "conveyor_map"
 	base_icon_state = "conveyor"
 	name = "conveyor belt"

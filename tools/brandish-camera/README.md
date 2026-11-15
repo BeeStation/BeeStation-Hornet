@@ -3,7 +3,17 @@
 The perspective is experimental and **off when a round starts**. An admin
 (`R_ADMIN`) or coder (`R_DEBUG`) runs **Debug > Toggle Brandish Perspective**
 to switch every eligible player at once; running it again restores the normal
-view. The verb flips the `brandish_camera` config flag at runtime. The flag is
+view. **Debug > Set Default Client Direction** sets the round's baseline heading
+for current and future clients. Pass `NORTH`/`SOUTH`/`EAST`/`WEST` (or
+`1`/`2`/`4`/`8`) on the command line, or run it without arguments to choose.
+Active Brandish cameras and Observe mirrors retain their heading, then return
+to the latest baseline when released. Ordinary movement already follows the
+screen direction at every baseline heading.
+Logical view sizes stay screen-relative: a requested `17x15` is applied to
+BYOND as `15x17` at EAST/WEST so the displayed viewport stays `17x15`.
+HUD layout and mouse projection use screen dimensions; visibility uses the
+applied world rectangle. Preferences and zoom requests retain their logical axes.
+The toggle verb flips the `brandish_camera` config flag at runtime. The flag is
 not read from the config files for now, so there is no `BRANDISH_CAMERA` line
 in `config/game_options.txt`.
 
@@ -23,7 +33,7 @@ view direction and offset. Remote control releases the camera; returning to
 direct control creates it again. A native eye on the body's containing locker,
 cryo cell, carrier or vehicle remains a local view and preserves the camera.
 
-Debug administrators can opt their current body out through **Debug > Brandish
+Administrators and coders can opt their current body out through **Debug > Brandish
 Camera** while the perspective is enabled. Generated artwork stays bound whether
 the flag is on or off: it is pixel-identical at the default heading, so the
 switch needs no world rebuild.
@@ -50,13 +60,15 @@ classic input mode. Two Brandish actions cannot share a key. Rebinding clears
 held movement immediately; a physical key-up also releases an explicit modifier
 combo. The original movement actions remain independent when Brandish is off.
 
-On the first living-body activation in a round, a tgui guide shows the current
+On the first eligible living-body activation after each global off-to-on switch,
+a tgui guide shows the current
 six bindings, movement delays, seat/spin behavior and the square view. There is
 deliberately no "don't show again" option while the feature is experimental:
-every player sees it once each round. Reopen it with **OOC > Brandish
-Perspective Guide**. A round-local ckey acknowledgement prevents repeated
+every eligible player sees it once per enabled interval. Reopen it with **OOC > Brandish
+Perspective Guide**. An activation-local ckey acknowledgement prevents repeated
 automatic openings on body transfers, camera recreation or reconnects. Lobby
-players, ghosts, excluded bodies and disabled cameras do not open it.
+players, ghosts, excluded bodies and disabled cameras do not open it. Delayed
+openings recheck the current body and camera ownership before acknowledging it.
 
 ### Preference storage and migration
 
@@ -294,6 +306,9 @@ Remove or change one only together with a four-heading review.
 | Static lighting underlay | J | Uses the `basis` bank with an empty state and `dir = NORTH` | `lighting/lighting_object.dm` |
 | Space background | A | Explicitly excluded from the `icons/turf/` surface rule | `billboardFiles` |
 | Ash walker nest | A | 32x64 upright; not padded or rotated | `largeAssetPolicy.billboards` |
+| Disposal pipes and construction pieces | C/E | `dir` is a physical dominant direction, unlike atmos bitfields; `dpdir` retains connectivity. Directional surface banks preserve bends, sorting states and flick animations; upright bin/chute/outlet states stay native | `recycling/disposal/pipe.dm`, `construction.dm`, `surfaceStates` |
+| Conveyor belts | C/E | Directional surface banks include diagonal and inverted bends plus both animated movement states; control switches stay upright | `recycling/conveyor.dm`, `surfaceStates["icons/obj/recycling.dmi"]` |
+| Pinpointer | C | Map and inventory arrows use native eight-direction artwork and are selected per viewer by BYOND; do not rewrite the shared world direction for one client. Inhand artwork is the original generic electronic device | `items/pinpointer.dm`, `icons/obj/device.dmi` |
 
 ### Offset exceptions (case H)
 
@@ -315,6 +330,10 @@ space. Each entry states which part belongs to which.
 | Near-darkness HUD light | not applicable | `screen_loc` objects ignore pixel offsets; the view-sized `transform` is translated | `_onclick/hud/fullscreen.dm` |
 | Parallax | not applicable | Layer offsets are reprojected when only the heading changes | `_onclick/hud/parallax.dm` |
 | Camera zoom (binoculars, auspex, beam rifle, view zoom) | Zoom look-ahead in a world direction; the third Brandish look-ahead tile | The first two Brandish look-ahead tiles, shake, dizziness | `client/camera_state.dm` |
+| Mob base sprite origin | Runtime placement and riding offsets; base world offsets reset to zero at initialization | The declared `base_pixel_x/y` origin, migrated once for every mob | `mob/mob.dm` |
+| Table click placement | `camera_click_offset()` converts screen ICON_X/Y into the viewing client's world axes before clamping | Click coordinates remain screen-relative input | `structures/tables_racks.dm`, `camera_coordinates.dm` |
+| Team monitor HUD bearing | Target positions stay in world coordinates | `camera_world_angle_to_screen()` projects the owning viewer's angle, including the radial HUD translation | `components/team_monitor.dm` |
+| Shiver, sway, tremble and twitch emotes | none | Horizontal sprite motion uses `pixel_w` so EAST/WEST views do not turn it into vertical movement | `mob/living/emote.dm` |
 
 Exporters that flatten appearances (`getFlatIcon`, photos) add both pairs.
 `get_oversized_icon_offsets()` treats either pair as an origin correction.

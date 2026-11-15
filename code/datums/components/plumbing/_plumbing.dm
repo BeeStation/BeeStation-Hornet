@@ -129,8 +129,9 @@
 			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]", layer = AM.layer - 1)
 
 		else
-			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]-s", layer = AM.layer - 1) //color is not color as in the var, it's just the name
-			I.dir = D
+			// This state already encodes a world direction. Pin it independently
+			// of the upright machine, just like a duct's connection bitfield.
+			I = GLOB.brandish_assets.world_surface_appearance('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]-s", layer = AM.layer - 1)
 
 		overlays += I
 

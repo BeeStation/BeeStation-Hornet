@@ -1,5 +1,6 @@
 //The necropolis gate is used to call forth Legion from the Necropolis.
 /obj/structure/necropolis_gate
+	brandish_icon_mode = "surface"
 	name = "necropolis gate"
 	desc = "A massive stone gateway."
 	icon = 'icons/effects/96x96.dmi'
@@ -17,14 +18,17 @@
 	var/open = FALSE
 	var/changing_openness = FALSE
 	var/locked = FALSE
-	var/static/mutable_appearance/top_overlay
-	var/static/mutable_appearance/door_overlay
-	var/static/mutable_appearance/dais_overlay
+	var/static/image/top_overlay
+	var/static/image/door_overlay
+	var/static/image/dais_overlay
 	var/obj/structure/opacity_blocker/sight_blocker
 	var/sight_blocker_distance = 1
 
 /obj/structure/necropolis_gate/Initialize(mapload)
 	. = ..()
+	// The 96px canvas is centred on this one-tile collision anchor. Its
+	// centre stays on the map; only the canvas origin is screen-relative.
+	brandish_screen_origin(-32, -32)
 	setDir(SOUTH)
 	var/turf/sight_blocker_turf = get_turf(src)
 	if(sight_blocker_distance)
@@ -34,15 +38,15 @@
 			sight_blocker_turf = get_step(sight_blocker_turf, NORTH)
 	if(sight_blocker_turf)
 		sight_blocker = new (sight_blocker_turf) //we need to block sight in a different spot than most things do
-		sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
+		sight_blocker.pixel_y = -(ICON_SIZE_Y * sight_blocker_distance)
 	icon_state = "gate_bottom"
-	top_overlay = mutable_appearance('icons/effects/96x96.dmi', "gate_top")
+	top_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/96x96.dmi', "gate_top")
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
-	door_overlay = mutable_appearance('icons/effects/96x96.dmi', "door")
+	door_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/96x96.dmi', "door")
 	door_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(door_overlay)
-	dais_overlay = mutable_appearance('icons/effects/96x96.dmi', "gate_dais")
+	dais_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/96x96.dmi', "gate_dais")
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
@@ -81,6 +85,7 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/opacity_blocker
+	brandish_icon_mode = "surface"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_blocker"
 	layer = EDGED_TURF_LAYER
@@ -89,6 +94,10 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	opacity = TRUE
 	anchored = TRUE
+
+/obj/structure/opacity_blocker/Initialize(mapload)
+	. = ..()
+	brandish_screen_origin(-32, -32)
 
 /obj/structure/opacity_blocker/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return 0
@@ -127,7 +136,7 @@
 					break
 				sight_blocker_turf = get_step(sight_blocker_turf, NORTH)
 		if(sight_blocker_turf)
-			sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
+			sight_blocker.pixel_y = -(ICON_SIZE_Y * sight_blocker_distance)
 			sight_blocker.forceMove(sight_blocker_turf)
 		sleep(0.25 SECONDS)
 		playsound(T, 'sound/magic/clockwork/invoke_general.ogg', 30, TRUE, frequency = 15000)
@@ -209,6 +218,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		)
 
 /obj/effect/temp_visual/necropolis
+	brandish_icon_mode = "surface"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "door_closing"
 	appearance_flags = NONE
@@ -217,11 +227,16 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	pixel_x = -32
 	pixel_y = -32
 
+/obj/effect/temp_visual/necropolis/Initialize(mapload)
+	. = ..()
+	brandish_screen_origin(-32, -32)
+
 /obj/effect/temp_visual/necropolis/open
 	icon_state = "door_opening"
 	duration = 38
 
 /obj/structure/necropolis_arch
+	brandish_icon_mode = "surface"
 	name = "necropolis arch"
 	desc = "A massive arch over the necropolis gate, set into a massive tower of stone."
 	icon = 'icons/effects/160x160.dmi'
@@ -233,12 +248,14 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	pixel_y = -40
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/open = FALSE
-	var/static/mutable_appearance/top_overlay
+	var/static/image/top_overlay
 
 /obj/structure/necropolis_arch/Initialize(mapload)
 	. = ..()
+	// Keep the extra 24px map elevation while centring the 160px canvas.
+	brandish_screen_origin(-64, -64)
 	icon_state = "arch_bottom"
-	top_overlay = mutable_appearance('icons/effects/160x160.dmi', "arch_top")
+	top_overlay = GLOB.brandish_assets.world_surface_appearance('icons/effects/160x160.dmi', "arch_top")
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
 

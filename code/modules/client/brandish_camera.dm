@@ -46,6 +46,12 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 
 /// Server-wide switch. The round starts in the normal perspective; an admin or
 /// coder turns the experimental perspective on for every eligible living body.
+/proc/set_brandish_perspective(enable)
+	var/was_enabled = CONFIG_GET(flag/brandish_camera)
+	. = CONFIG_SET(flag/brandish_camera, enable)
+	if(. && enable && !was_enabled)
+		GLOB.brandish_intro_shown.Cut()
+
 /client/proc/toggle_brandish_perspective()
 	set name = "Toggle Brandish Perspective"
 	set category = "Debug"
@@ -56,7 +62,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	if(enable && !GLOB.brandish_assets.has_catalog())
 		to_chat(src, span_warning("This build uses original artwork. Build with tools/build/build to enable the Brandish perspective."))
 		return
-	CONFIG_SET(flag/brandish_camera, enable)
+	set_brandish_perspective(enable)
 	log_admin("[key_name(src)] [enable ? "enabled" : "disabled"] the Brandish perspective for all players.")
 	message_admins("[key_name_admin(src)] [enable ? "enabled" : "disabled"] the Brandish perspective for all players.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Brandish Perspective")
@@ -65,7 +71,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	set name = "Brandish Camera"
 	set category = "Debug"
 	set desc = "Toggle W forward, A/D turn, S backpedal, Shift+A/D strafe and a forward-offset camera."
-	var/allowed = holder && (holder.rank.rights & R_DEBUG)
+	var/allowed = holder && (holder.rank.rights & (R_ADMIN | R_DEBUG))
 	if(!allowed)
 		return
 	if(!CONFIG_GET(flag/brandish_camera))
@@ -89,7 +95,6 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 /datum/brandish_camera
 	var/client/owner
 	var/mob/living/body
-	var/previous_dir
 	var/previous_body_dir
 	var/list/held = list()
 	var/pending = NONE
@@ -104,7 +109,6 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 /datum/brandish_camera/New(client/viewer)
 	owner = viewer
 	body = viewer.mob
-	previous_dir = viewer.dir
 	previous_body_dir = body.dir
 	viewer.ensure_camera_state()
 	viewer.brandish_camera = src
@@ -124,6 +128,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	viewer.update_special_keybinds()
 	viewer.update_macro_mode()
 	addtimer(CALLBACK(src, PROC_REF(show_intro)), 1 SECONDS)
+	body.sync_brandish_observers()
 	return ..()
 
 /datum/brandish_camera/Destroy()
@@ -137,14 +142,17 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		owner.brandish_camera = null
 		owner.clear_camera_effect(src)
 		if(!owner.brandish_disconnecting)
-			owner.setDir(previous_dir)
+			owner.apply_default_client_dir()
 			owner.update_special_keybinds()
 			owner.update_macro_mode()
 			if(!QDELETED(body) && owner.mob == body)
 				body.setDir(followed_seat && body.buckled == followed_seat ? followed_seat.dir : previous_body_dir)
+	var/mob/living/watched = body
 	owner = null
 	body = null
 	followed_seat = null
+	if(!QDELETED(watched))
+		watched.sync_brandish_observers()
 	return ..()
 
 /datum/brandish_camera/proc/clear_movement()
@@ -189,7 +197,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	qdel(src)
 
 /datum/brandish_camera/proc/is_available()
-	return GLOB.brandish_assets.enabled && owner && !owner.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && body.brandish_perspective_allowed() && owner.mob == body && owner.brandish_has_local_eye() && !body.remote_control && !body.control_object
+	return CONFIG_GET(flag/brandish_camera) && GLOB.brandish_assets.enabled && owner && owner.brandish_camera == src && !owner.brandish_camera_suppressed && !owner.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && body.brandish_perspective_allowed() && owner.mob == body && owner.brandish_has_local_eye() && !body.remote_control && !body.control_object
 
 /// Incapacitation pauses input, not the camera's orientation or composition.
 /// SOFT_CRIT can still crawl through the ordinary client.Move path.
@@ -338,14 +346,54 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		return 4 / 3
 	return 1
 
-/datum/brandish_camera/proc/update_offset()
+/// Look-ahead as list(world x, world y, screen z) for a given heading.
+/datum/brandish_camera/proc/lead_offsets(facing)
 	// BYOND clips the outer row in rotated views when pixel_z alone exceeds
 	// two tiles. Put the extra look-ahead in world axes so it requests those
 	// tiles too, while keeping the same total screen-space displacement.
 	var/screen_tiles = min(lead_tiles, 2)
-	var/list/world_offset = camera_screen_to_world(0, (lead_tiles - screen_tiles) * world.icon_size, owner.dir)
-	owner.set_camera_effect(src, offset_x = world_offset[1], offset_y = world_offset[2], offset_z = screen_tiles * world.icon_size)
+	var/list/world_offset = camera_screen_to_world(0, (lead_tiles - screen_tiles) * world.icon_size, facing)
+	return list(world_offset[1], world_offset[2], screen_tiles * world.icon_size)
 
+/datum/brandish_camera/proc/update_offset()
+	var/list/lead = lead_offsets(owner.dir)
+	owner.set_camera_effect(src, offset_x = lead[1], offset_y = lead[2], offset_z = lead[3])
+
+/// Ghosts using Observe see the watched player's heading, look-ahead and view
+/// size. The mirror lives on the client so it cannot outlive a body transfer.
+/datum/brandish_observe_mirror
+
+/client
+	var/datum/brandish_observe_mirror/brandish_mirror
+
+/client/proc/clear_brandish_observe()
+	if(!brandish_mirror)
+		return
+	clear_camera_effect(brandish_mirror)
+	QDEL_NULL(brandish_mirror)
+	if(!brandish_disconnecting)
+		apply_default_client_dir()
+
+/mob/proc/sync_brandish_observers()
+	for(var/mob/dead/observer/watcher in observers)
+		watcher.sync_brandish_observe()
+
+/// Call whenever the observed target, its camera or its heading changes.
+/mob/dead/observer/proc/sync_brandish_observe()
+	if(!client)
+		return
+	var/client/watched = observetarget?.client
+	var/datum/brandish_camera/camera = watched?.brandish_camera
+	if(!camera || camera.body != observetarget)
+		client.clear_brandish_observe()
+		return
+	if(!client.brandish_mirror)
+		client.brandish_mirror = new
+	if(client.dir != watched.dir)
+		client.setDir(watched.dir)
+	var/list/lead = camera.lead_offsets(watched.dir)
+	// Not local_only: the observer's eye is the watched body, not its own mob.
+	client.set_camera_effect(client.brandish_mirror, watched.screen_view(), lead[1], lead[2], FALSE, 0, lead[3])
 
 // Keep a backpedalling character's existing NORTH/back sprite selected in the
 // camera's coordinates, including their existing equipment/body overlays.

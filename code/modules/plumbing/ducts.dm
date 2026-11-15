@@ -4,6 +4,7 @@ All the important duct code:
 /code/datums/ductnet.dm
 */
 /obj/machinery/duct
+	brandish_icon_mode = "fixed_surface"
 	name = "fluid duct"
 	icon = 'icons/obj/plumbing/fluid_ducts.dmi'
 	icon_state = "nduct"
@@ -32,6 +33,8 @@ All the important duct code:
 	var/active = TRUE
 	///track ducts we're connected to. Mainly for ducts we connect to that we normally wouldn't, like different layers and colors, for when we regenerate the ducts
 	var/list/neighbours = list()
+	/// Connection directions are encoded in icon_state, independently of dir.
+	var/image/brandish_duct_image
 	///wheter we just unanchored or drop whatever is in the variable. either is safe
 	var/drop_on_wrench = /obj/item/stack/ducts
 
@@ -256,6 +259,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 			if(D == WEST)
 				temp_icon += "_w"
 	icon_state = temp_icon
+	APPLY_BRANDISH_ICON(src)
+
+/obj/machinery/duct/apply_brandish_icon()
+	if(brandish_icon_mode != "fixed_surface" || !GLOB.brandish_assets.enabled)
+		return ..()
+	var/image/geometry = GLOB.brandish_assets.fixed_surface_overlay(initial(icon), icon_state)
+	if(!geometry)
+		return ..()
+	if(brandish_duct_image != geometry)
+		cut_overlay(brandish_duct_image)
+		brandish_duct_image = geometry
+		add_overlay(geometry)
+	icon = null
 ///update the layer we are on
 /obj/machinery/duct/proc/handle_layer()
 	var/offset
@@ -339,6 +355,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct)
 
 ///has a total of 5 layers and doesnt give a shit about color. its also dumb so doesnt autoconnect.
 /obj/machinery/duct/multilayered
+	brandish_icon_mode = "surface"
 	name = "duct layer-manifold"
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "multiduct"
@@ -361,6 +378,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/duct/multilayered)
 
 /obj/machinery/duct/multilayered/Initialize(mapload, no_anchor, color_of_duct, layer_of_duct = DUCT_LAYER_DEFAULT, force_connects)
 	. = ..()
+	brandish_screen_origin(-16, -16)
 	update_connects()
 
 /obj/machinery/duct/multilayered/update_icon()

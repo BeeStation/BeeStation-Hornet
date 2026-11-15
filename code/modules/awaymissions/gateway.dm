@@ -15,6 +15,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	return ..()
 
 /obj/machinery/gateway
+	brandish_icon_mode = "surface"
 	name = "gateway"
 	desc = "A gateway built for quick travel between linked destinations."
 	icon = 'icons/obj/machines/gateway.dmi'
@@ -37,6 +38,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	active_power_usage = 1000
 
 	var/obj/effect/gateway_portal_bumper/bumper
+	/// Rendering uses a tile-sized anchor; collision remains the original 3x2.
+	var/obj/effect/overlay/gateway_art/brandish_gateway_art
 
 	var/active = FALSE
 
@@ -46,11 +49,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	/// Cooldown for says and buzz-sigh
 	COOLDOWN_DECLARE(telegraph_cooldown)
 
-/obj/machinery/gateway/Initialize(mapload)
-	. = ..()
-	brandish_screen_origin(initial(pixel_x), initial(pixel_y))
-
 /obj/machinery/gateway/Destroy()
+	QDEL_NULL(brandish_gateway_art)
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null
 	if(linked_gateway)
@@ -59,6 +59,30 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/station)
 	if(!isnull(bumper))
 		QDEL_NULL(bumper)
 	return ..()
+
+/obj/machinery/gateway/apply_brandish_icon()
+	if(!GLOB.brandish_assets.supports(initial(icon), "surface"))
+		return ..()
+	if(!brandish_gateway_art)
+		// Multi-dir artwork on this asymmetric collision box is re-anchored by
+		// BYOND when it turns. A visual child keeps the picture centred without
+		// widening the collision box or moving the portal's entry row.
+		brandish_gateway_art = new(src)
+		vis_contents += brandish_gateway_art
+		pixel_x += ICON_SIZE_X
+		pixel_y += ICON_SIZE_Y
+	brandish_gateway_art.icon_state = icon_state
+	brandish_gateway_art.setDir(dir)
+	APPLY_BRANDISH_ICON(brandish_gateway_art)
+	icon = null
+
+/obj/effect/overlay/gateway_art
+	icon = 'icons/obj/machines/gateway.dmi'
+	icon_state = "off"
+	brandish_icon_mode = "surface"
+	pixel_w = -32
+	pixel_z = -32
+	vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE
 
 /obj/machinery/gateway/examine(mob/user)
 	. = ..()

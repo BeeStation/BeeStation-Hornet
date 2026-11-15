@@ -23,6 +23,224 @@
 	TEST_ASSERT_EQUAL(east[1], -64, "East-facing camera rotates world Y to negative screen X")
 	TEST_ASSERT_EQUAL(east[2], 32, "East-facing camera rotates world X to screen Y")
 
+/datum/unit_test/brandish_view_dimensions/Run()
+	var/datum/client_camera_state/state = allocate(/datum/client_camera_state)
+	state.requested_view = "17x15"
+	var/datum/zoom = allocate(/datum)
+	for(var/facing in GLOB.cardinals)
+		var/expected = (facing == EAST || facing == WEST) ? "15x17" : "17x15"
+		var/list/resolved = state.resolve(TRUE, FALSE)
+		TEST_ASSERT_EQUAL(resolved[1], "17x15", "Composition retains the logical view at [facing]")
+		TEST_ASSERT_EQUAL(camera_view_for_direction(resolved[1], facing), expected, "Only quarter turns exchange the applied axes")
+		TEST_ASSERT_EQUAL(camera_view_for_direction(expected, facing), "17x15", "HUD dimensions recover the screen axes")
+		TEST_ASSERT_EQUAL(camera_view_for_direction("15x15", facing), "15x15", "Square string views are unchanged")
+		TEST_ASSERT_EQUAL(camera_view_for_direction(7, facing), 7, "Numeric square views are unchanged")
+		var/list/brandish = state.resolve(TRUE, TRUE)
+		TEST_ASSERT_EQUAL(camera_view_for_direction(brandish[1], facing), "15x15", "Brandish remains square")
+		state.set_effect(zoom, "23x19", 0, 0, TRUE, 0, 0)
+		var/list/zoomed = state.resolve(TRUE, FALSE)
+		TEST_ASSERT_EQUAL(zoomed[1], "23x19", "Zoom requests retain their logical axes")
+		TEST_ASSERT_EQUAL(camera_view_for_direction(zoomed[1], facing), (facing == EAST || facing == WEST) ? "19x23" : "23x19", "Zoom projects once at application")
+		var/list/square_zoom = state.resolve(TRUE, TRUE)
+		TEST_ASSERT_EQUAL(square_zoom[1], "19x19", "Even a rectangular zoom remains square under Brandish")
+		state.remove_effect(zoom)
+
+/// A socket-free viewer. Dispatch policy through the real client proc while
+/// recording native direction/UI calls, which require a connected BYOND client.
+/datum/brandish_test_viewer
+	var/mob/mob
+	var/atom/eye
+	var/view = "17x15"
+	var/pixel_x = 0
+	var/pixel_y = 0
+	var/pixel_w = 0
+	var/pixel_z = 0
+	var/ckey = "brandish_unit_test"
+	var/dir = NORTH
+	var/datum/brandish_camera/brandish_camera
+	var/datum/brandish_observe_mirror/brandish_mirror
+	var/brandish_disconnecting = FALSE
+	var/brandish_camera_suppressed = FALSE
+	var/local_eye = TRUE
+	var/list/keys_held = list()
+	var/list/key_combos_held = list()
+	var/next_move_dir_add = NONE
+	var/next_move_dir_sub = NONE
+
+/datum/brandish_test_viewer/proc/setDir(newdir)
+	dir = newdir
+
+/datum/brandish_test_viewer/proc/screen_view()
+	return call(src, /client/proc/screen_view)()
+
+/datum/brandish_test_viewer/proc/camera_click_vector(list/modifiers, atom/origin)
+	return call(src, /client/proc/camera_click_vector)(modifiers, origin)
+
+/datum/unit_test/brandish_rectangular_clicks/Run()
+	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+	var/mob/body = allocate(/mob/living/carbon/human/consistent)
+	viewer.mob = body
+	viewer.eye = body
+	for(var/facing in GLOB.cardinals)
+		viewer.dir = facing
+		viewer.view = camera_view_for_direction("17x15", facing)
+		var/list/center = viewer.camera_click_vector(list(SCREEN_LOC = "9:16,8:16"), body)
+		TEST_ASSERT_EQUAL(center[1], 0, "Screen center stays on the eye's world X at [facing]")
+		TEST_ASSERT_EQUAL(center[2], 0, "Screen center stays on the eye's world Y at [facing]")
+		var/list/click = list(SCREEN_LOC = "10:16,8:16")
+		var/list/vector = viewer.camera_click_vector(click, body)
+		var/list/expected = camera_screen_to_world(ICON_SIZE_X, 0, facing)
+		TEST_ASSERT_EQUAL(vector[1], expected[1], "Rightward click projects to world X at [facing]")
+		TEST_ASSERT_EQUAL(vector[2], expected[2], "Rightward click projects to world Y at [facing]")
+		var/turf/origin = get_turf(body)
+		var/turf/caught = parse_caught_click_modifiers(click, origin, viewer)
+		TEST_ASSERT_EQUAL(caught.x, origin.x + expected[1] / ICON_SIZE_X, "Forwarded click finds the projected turf X")
+		TEST_ASSERT_EQUAL(caught.y, origin.y + expected[2] / ICON_SIZE_Y, "Forwarded click finds the projected turf Y")
+		TEST_ASSERT_EQUAL(click[ICON_X], "16", "Forwarded sprite-local X remains screen-relative")
+		TEST_ASSERT_EQUAL(click[ICON_Y], "16", "Forwarded sprite-local Y remains screen-relative")
+
+/datum/brandish_test_viewer/proc/apply_default_client_dir()
+	call(src, /client/proc/apply_default_client_dir)()
+
+/datum/brandish_test_viewer/proc/brandish_has_local_eye()
+	return local_eye
+
+/datum/brandish_test_viewer/proc/clear_camera_effect(datum/source)
+	return
+
+/datum/brandish_test_viewer/proc/update_special_keybinds()
+	return
+
+/datum/brandish_test_viewer/proc/update_macro_mode()
+	return
+
+/// Skip native view initialization; use the real availability/intro/teardown.
+/datum/brandish_camera/policy_test
+	var/openings = 0
+
+/datum/brandish_camera/policy_test/New(datum/brandish_test_viewer/viewer)
+	owner = viewer
+	body = viewer.mob
+	previous_body_dir = body.dir
+	viewer.brandish_camera = src
+
+/datum/brandish_camera/policy_test/ui_interact(mob/user, datum/tgui/ui)
+	openings++
+
+/datum/unit_test/brandish_camera_policy
+	abstract_type = /datum/unit_test/brandish_camera_policy
+	var/saved_default
+	var/saved_enabled
+	var/saved_assets_enabled
+	var/list/saved_intro
+
+/datum/unit_test/brandish_camera_policy/New()
+	. = ..()
+	saved_default = GLOB.default_client_dir
+	saved_enabled = CONFIG_GET(flag/brandish_camera)
+	saved_assets_enabled = GLOB.brandish_assets.enabled
+	saved_intro = GLOB.brandish_intro_shown.Copy()
+	set_brandish_perspective(FALSE)
+	set_brandish_perspective(TRUE)
+	GLOB.brandish_assets.enabled = TRUE
+
+/datum/unit_test/brandish_camera_policy/Destroy()
+	. = ..()
+	set_default_client_dir(saved_default)
+	set_brandish_perspective(saved_enabled)
+	GLOB.brandish_assets.enabled = saved_assets_enabled
+	GLOB.brandish_intro_shown = saved_intro
+
+/datum/unit_test/brandish_camera_policy/default_direction/Run()
+	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+	viewer.mob = allocate(/mob/living/carbon/human/consistent)
+	for(var/facing in GLOB.cardinals)
+		TEST_ASSERT(set_default_client_dir(facing), "Cardinal default is accepted")
+		TEST_ASSERT_EQUAL(GLOB.default_client_dir, facing, "Default persists for later logins")
+		viewer.apply_default_client_dir()
+		TEST_ASSERT_EQUAL(viewer.dir, facing, "An unowned view takes the current default")
+	for(var/invalid in list(NONE, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, 16, -1, 1.5, "NORTH", null))
+		var/before = GLOB.default_client_dir
+		TEST_ASSERT(!set_default_client_dir(invalid), "Non-cardinal default is rejected: [invalid]")
+		TEST_ASSERT_EQUAL(GLOB.default_client_dir, before, "Rejected input preserves the previous default")
+	var/datum/brandish_camera/camera = allocate(/datum/brandish_camera/policy_test, viewer)
+	viewer.dir = EAST
+	set_default_client_dir(SOUTH)
+	viewer.apply_default_client_dir()
+	TEST_ASSERT_EQUAL(viewer.dir, EAST, "Active camera retains ownership when default changes")
+	qdel(camera)
+	TEST_ASSERT_EQUAL(viewer.dir, SOUTH, "Camera teardown uses the latest default rather than its original heading")
+	viewer.brandish_mirror = allocate(/datum/brandish_observe_mirror)
+	viewer.dir = EAST
+	set_default_client_dir(WEST)
+	viewer.apply_default_client_dir()
+	TEST_ASSERT_EQUAL(viewer.dir, EAST, "An Observe mirror retains its watched heading")
+	call(viewer, /client/proc/clear_brandish_observe)()
+	TEST_ASSERT_EQUAL(viewer.dir, WEST, "Ending Observe restores the latest default")
+
+/datum/unit_test/brandish_camera_policy/guide/Run()
+	var/mob/living/carbon/human/consistent/body = allocate(/mob/living/carbon/human/consistent)
+	var/datum/brandish_test_viewer/viewer = allocate(/datum/brandish_test_viewer)
+	viewer.mob = body
+	var/datum/brandish_camera/policy_test/camera = allocate(/datum/brandish_camera/policy_test, viewer)
+	camera.show_intro()
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "An eligible player sees the intro once per activation")
+	qdel(camera)
+	camera = allocate(/datum/brandish_camera/policy_test, viewer)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 0, "Recreating the camera does not repeat the guide")
+	// A new socket with the same ckey shares the activation acknowledgement.
+	var/datum/brandish_test_viewer/reconnected = allocate(/datum/brandish_test_viewer)
+	reconnected.mob = body
+	qdel(camera)
+	camera = allocate(/datum/brandish_camera/policy_test, reconnected)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 0, "Reconnecting does not repeat the guide")
+	set_brandish_perspective(FALSE)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 0, "A callback after global disable cannot open the guide")
+	set_brandish_perspective(TRUE)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "Off then on allows the same player to see the guide again")
+	set_brandish_perspective(TRUE)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "An unchanged enabled flag preserves acknowledgement")
+	for(var/body_type in list(/mob/living/silicon/robot, /mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/brain, /mob/living/simple_animal/shade, /mob/dead/observer, /mob/dead/new_player))
+		var/mob/excluded = allocate(body_type)
+		TEST_ASSERT(!excluded.brandish_perspective_allowed(), "[body_type] is ineligible")
+		reconnected.mob = excluded
+		camera.body = excluded
+		GLOB.brandish_intro_shown.Cut()
+		camera.show_intro()
+		TEST_ASSERT_EQUAL(camera.openings, 1, "A delayed callback cannot open for [body_type]")
+		TEST_ASSERT(!length(GLOB.brandish_intro_shown), "An excluded body is not marked as having seen the guide")
+	reconnected.mob = body
+	camera.body = body
+	body.stat = DEAD
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "Dying during the delay prevents the guide")
+	body.stat = CONSCIOUS
+	var/obj/item/container = allocate(/obj/item)
+	body.forceMove(container)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "Moving inside an item during the delay prevents the guide")
+	body.forceMove(run_loc_floor_bottom_left)
+	reconnected.mob = allocate(/mob/living/carbon/human/consistent)
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "A stale camera cannot show its guide after a body transfer")
+	reconnected.mob = body
+	reconnected.brandish_camera_suppressed = TRUE
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 1, "Debug opt-out prevents a pending guide")
+	reconnected.brandish_camera_suppressed = FALSE
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 2, "Becoming eligible later shows the intro for this activation")
+	reconnected.brandish_camera_suppressed = TRUE
+	reconnected.brandish_camera_suppressed = FALSE
+	camera.show_intro()
+	TEST_ASSERT_EQUAL(camera.openings, 2, "Debug opt-in does not repeat an acknowledged guide")
+
 /datum/unit_test/brandish_registry_fallback/Run()
 	var/datum/brandish_asset_registry/registry = allocate(/datum/brandish_asset_registry)
 	registry.aliases = list()

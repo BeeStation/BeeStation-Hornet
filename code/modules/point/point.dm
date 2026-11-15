@@ -30,10 +30,10 @@
 		animate(visual, pixel_x = (tile.x - our_tile.x) * ICON_SIZE_X + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * ICON_SIZE_Y + pointed_atom.pixel_y, time = 0.17 SECONDS, easing = EASE_OUT)
 		return TRUE
 	else
-		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
-		var/list/split_coords = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * ICON_SIZE_X + (text2num(splittext(split_coords[1], ":")[2]) - ICON_SIZE_X)
-		final_y = (text2num(splittext(split_coords[2], ":")[1]) - actual_view[2] / 2) * ICON_SIZE_Y + (text2num(splittext(split_coords[2], ":")[2]) - ICON_SIZE_Y)
+		var/list/vector = M?.client?.camera_click_vector(modifiers, our_tile)
+		if(vector)
+			final_x = vector[1]
+			final_y = vector[2]
 	//
 
 	/// Set rotation
