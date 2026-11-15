@@ -144,15 +144,13 @@
 		//Avoid updating ready if we're after PREGAME (they should use latejoin instead)
 		//This is likely not an actual issue but I don't have time to prove that this
 		//no longer is required
-		if(SSticker.current_state <= GAME_STATE_PREGAME)
+		if(SSticker.current_state <= GAME_STATE_PREGAME || tready == PLAYER_READY_TO_OBSERVE)
 			ready = tready
+		SSjob.update_job_estimation(src)
 		//if it's post initialisation and they're trying to observe we do the needful
-		if(SSticker.current_state >= GAME_STATE_SETTING_UP && tready == PLAYER_READY_TO_OBSERVE)
-			ready = tready
-			SSjob.update_job_estimation(src)
+		if(SSticker.current_state >= GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
 			make_me_an_observer()
 			return
-		SSjob.update_job_estimation(src)
 
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window
