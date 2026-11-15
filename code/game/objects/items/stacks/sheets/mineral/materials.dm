@@ -92,6 +92,8 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/plasma
 	material_type = /datum/material/plasma
 	walltype = /turf/closed/wall/mineral/plasma
+	pickup_sound = 'sound/items/handling/materials/glass_pick_up.ogg'
+	drop_sound = 'sound/items/handling/materials/glass_drop.ogg'
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
