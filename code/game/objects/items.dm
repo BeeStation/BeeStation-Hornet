@@ -1036,7 +1036,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
 	else
-		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(hit_atom, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
