@@ -37,6 +37,11 @@
 
 	return TRUE
 
+/datum/preference_middleware/jobs/post_set_preference(mob/user, preference, previous_value, value)
+	if(preference != /datum/preference/toggle/job_estimation_name::db_key)
+		return
+	preferences.job_estimation_name_by_slot["[preferences.default_slot]"] = value
+
 /datum/preference_middleware/jobs/on_new_character(mob/user)
 	SSjob.update_job_estimation(user)
 
