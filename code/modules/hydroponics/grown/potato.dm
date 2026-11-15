@@ -27,6 +27,8 @@
 	foodtypes = VEGETABLES
 	juice_typepath = /datum/reagent/consumable/potato_juice
 	distill_reagent = /datum/reagent/consumable/ethanol/vodka
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /obj/item/food/grown/potato/wedges
 	name = "potato wedges"

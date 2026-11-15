@@ -23,6 +23,8 @@
 	icon_state = "onion"
 	tastes = list("onions" = 1)
 	wine_power = 30
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /obj/item/food/grown/onion/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/onion_slice, 2, 15, screentip_verb = "Cut", sound_to_play = "knife_slice")

@@ -94,8 +94,10 @@
 	on = !on
 	if(on)
 		begin_processing()
+		playsound(src, "griddle_on", 50, TRUE)
 	else
 		end_processing()
+		playsound(src, "griddle_off", 50, TRUE)
 	update_appearance()
 	update_grill_audio()
 

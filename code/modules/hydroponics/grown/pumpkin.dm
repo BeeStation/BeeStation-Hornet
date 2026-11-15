@@ -25,6 +25,8 @@
 	foodtypes = FRUIT
 	juice_typepath = /datum/reagent/consumable/pumpkinjuice
 	wine_power = 20
+	pickup_sound = "cucumba_pickup"
+	drop_sound = "cucumba_drop"
 
 /obj/item/food/grown/pumpkin/attackby(obj/item/W as obj, mob/user as mob, list/modifiers)
 	if(W.get_sharpness())

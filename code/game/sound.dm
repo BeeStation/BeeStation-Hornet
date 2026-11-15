@@ -579,6 +579,49 @@
 					'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh1.ogg',
 					'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh2.ogg',
 				)
+			if("griddle_on")
+				soundin = pick(
+					'sound/machines/griddle/griddle_turn_on1.ogg',
+					'sound/machines/griddle/griddle_turn_on2.ogg',
+				)
+			if("griddle_off")
+				soundin = pick(
+					'sound/machines/griddle/griddle_turn_off1.ogg',
+					'sound/machines/griddle/griddle_turn_off2.ogg',
+				)
+			if("seasoning_shaker_pickup")
+				soundin = pick(
+					'sound/items/seasoning_shaker/seasoning_shaker_pickup1.ogg',
+					'sound/items/seasoning_shaker/seasoning_shaker_pickup2.ogg',
+					'sound/items/seasoning_shaker/seasoning_shaker_pickup3.ogg',
+				)
+			if("seasoning_shaker_drop")
+				soundin = pick(
+					'sound/items/seasoning_shaker/seasoning_shaker_drop1.ogg',
+					'sound/items/seasoning_shaker/seasoning_shaker_drop2.ogg',
+				)
+			if("towel_pickup")
+				soundin = pick(
+					'sound/items/towel/towel_pickup1.ogg',
+					'sound/items/towel/towel_pickup2.ogg',
+				)
+			if("towel_drop")
+				soundin = pick(
+					'sound/items/towel/towel_drop1.ogg',
+					'sound/items/towel/towel_drop2.ogg',
+				)
+			if("cucumba_pickup")
+				soundin = pick(
+					'sound/items/cucumba/cucumba_pickup1.ogg',
+					'sound/items/cucumba/cucumba_pickup2.ogg',
+					'sound/items/cucumba/cucumba_pickup3.ogg',
+				)
+			if("cucumba_drop")
+				soundin = pick(
+					'sound/items/cucumba/cucumba_drop1.ogg',
+					'sound/items/cucumba/cucumba_drop2.ogg',
+					'sound/items/cucumba/cucumba_drop3.ogg',
+				)
 
 	return soundin
 

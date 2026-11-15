@@ -297,7 +297,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/reagent_containers)
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS
 
-
 /obj/item/reagent_containers/dropped(mob/user, silent)
 	. = ..()
 	if(reagent_container_liquid_sound && reagents.total_volume > 0)
