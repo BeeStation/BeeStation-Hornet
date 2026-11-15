@@ -30,8 +30,8 @@
 	)
 
 /obj/machinery/limbgrower/Initialize(mapload)
-	. = ..()
 	create_reagents(100, OPENCONTAINER)
+	. = ..()
 	GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower] ||= new /datum/techweb/autounlocking/limbgrower()
 	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower]
 

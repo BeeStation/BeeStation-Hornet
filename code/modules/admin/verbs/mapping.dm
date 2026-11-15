@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 			else
 				for(var/obj/item/I in D)
 					qdel(I)
-				randomize_human(D)
+				randomize_human_normie(D)
 				D.dress_up_as_job(equipping = JB, visual_only = TRUE)
 				var/icon/I = icon(getFlatIcon(D), frame = 1)
 				final.Insert(I, JB.title)

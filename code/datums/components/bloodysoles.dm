@@ -43,7 +43,20 @@
   * Returns true if the parent item is obscured by something else that the wielder is wearing
   */
 /datum/component/bloodysoles/proc/is_obscured()
-	return wielder.check_obscured_slots(TRUE) & equipped_slot
+	return (hidden_slots_to_inventory_slots(wielder.covered_slots) & equipped_slot) || is_under_feet_covered()
+
+/**
+ * Returns true if the parent item is worn in the ITEM_SLOT_ICLOTHING slot and the
+ * wielder is wearing something on their shoes.
+ *
+ * Allows for jumpsuits to cover feet without getting all bloodied when their wearer
+ * is wearing shoes.
+ */
+/datum/component/bloodysoles/proc/is_under_feet_covered()
+	if(!(equipped_slot & ITEM_SLOT_ICLOTHING))
+		return FALSE
+
+	return !isnull(wielder.shoes)
 
 /**
   * Run to update the icon of the parent
@@ -237,8 +250,7 @@
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD, PROC_REF(on_step_blood))
-	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER, PROC_REF(unequip_shoecover))
-	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER, PROC_REF(equip_shoecover))
+	RegisterSignals(parent, list(COMSIG_MOB_EQUIPPED_ITEM, COMSIG_MOB_UNEQUIPPED_ITEM), PROC_REF(shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
@@ -268,10 +280,8 @@
 		if(!affecting.bodypart_disabled)
 			FP.species_types |= affecting.limb_id
 
-/datum/component/bloodysoles/feet/is_obscured()
-	if(wielder.shoes)
-		return TRUE
-	return wielder.check_obscured_slots(TRUE) & ITEM_SLOT_FEET
+/datum/component/bloodysoles/feet/is_under_feet_covered()
+	return wielder.shoes?.item_flags & IN_INVENTORY
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)
@@ -285,12 +295,7 @@
 
 	..()
 
-/datum/component/bloodysoles/feet/proc/unequip_shoecover(datum/source)
+/datum/component/bloodysoles/feet/proc/shoecover(datum/source, obj/item/item)
 	SIGNAL_HANDLER
-
-	update_icon()
-
-/datum/component/bloodysoles/feet/proc/equip_shoecover(datum/source)
-	SIGNAL_HANDLER
-
-	update_icon()
+	if ((item.body_parts_covered & FEET) || (item.flags_inv & HIDESHOES))
+		update_icon()

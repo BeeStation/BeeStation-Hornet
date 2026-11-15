@@ -14,7 +14,7 @@
 
 /datum/component/buffer
 	/// The buffer contained by this component. Private to prevent people from manually assigning it.
-	VAR_PRIVATE/datum/contained_buffer
+	var/datum/contained_buffer
 
 /datum/component/buffer/Initialize(...)
 	. = ..()

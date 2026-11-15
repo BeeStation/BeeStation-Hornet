@@ -44,9 +44,11 @@
 /datum/mood_event/warmhug
 	description = span_grey("Warm cozy hugs are the best!")
 	timeout = 1 MINUTES
+
 /datum/mood_event/book_nerd
 	description = span_grey("I have recently read a book.")
 	timeout = 1 MINUTES
+
 /datum/mood_event/exercise
 	description = span_grey("Working out releases those endorphins!")
 	timeout = 1 MINUTES

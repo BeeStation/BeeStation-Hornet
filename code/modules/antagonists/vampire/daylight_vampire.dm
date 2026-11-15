@@ -59,7 +59,7 @@
 	if(istype(current.loc, /obj/structure/closet) || istype(current.loc, /obj/machinery))
 		shielded = TRUE
 
-	if(IS_IN_STASIS(current))
+	if(HAS_TRAIT(current, TRAIT_STASIS))
 		shielded = TRUE
 
 	if(is_type_in_list(get_area(current), VAMPIRE_SOL_SHIELDED))

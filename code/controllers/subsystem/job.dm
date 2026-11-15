@@ -891,10 +891,11 @@ SUBSYSTEM_DEF(job)
 		rule.refresh(arrival)
 
 /// Counts filled job slots, so deaths don't lower it
-/datum/controller/subsystem/job/proc/get_crew_count()
+/datum/controller/subsystem/job/proc/get_crew_count(list/excluded_jobs)
 	. = 0
 	for(var/datum/job/job as anything in all_occupations)
-		. += job.current_positions
+		if(!(job.title in excluded_jobs))
+			. += job.current_positions
 
 /// Ends acting appointments on cards registered to this name
 /datum/controller/subsystem/job/proc/end_acting_heads_for(name, cause)
@@ -972,10 +973,10 @@ SUBSYSTEM_DEF(job)
 
 	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
-		"in your backpack" = ITEM_SLOT_BACKPACK,
-		"in your hands" = ITEM_SLOT_HANDS
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
 	)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 

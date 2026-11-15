@@ -139,7 +139,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]", file = E.file, line = E.line)
 #endif
 
-	if (Debugger?.enabled)
+	if (Debugger?.enabled || (config?.entries && CONFIG_GET(flag/mimic_debugger)))
 		to_chat(world, span_alertwarning("[main_line]"), MESSAGE_TYPE_DEBUG)
 
 

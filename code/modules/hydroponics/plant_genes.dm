@@ -196,7 +196,7 @@
 /datum/plant_gene/trait/proc/on_slip(obj/item/food/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_squash(obj/item/food/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_squash(obj/item/food/grown/G, atom/target, datum/thrownthing/throwingdatum)
 	return
 
 /datum/plant_gene/trait/proc/on_squashreact(obj/item/food/grown/G, atom/target)
@@ -205,7 +205,7 @@
 /datum/plant_gene/trait/proc/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
 	return
 
-/datum/plant_gene/trait/proc/on_throw_impact(obj/item/food/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_throw_impact(obj/item/food/grown/G, atom/target, datum/thrownthing/throwingdatum)
 	return
 
 ///This proc triggers when the tray processes and a roll is sucessful, the success chance scales with production.
@@ -263,14 +263,14 @@
 			C.investigate_log("[C] has slipped on an electric plant at [AREACOORD(T)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 			log_combat(C, G, "slipped on and got electrocuted by", null, "with the power of 10. Last fingerprint: [G.fingerprintslast]")
 
-/datum/plant_gene/trait/cell_charge/on_squash(obj/item/food/grown/G, atom/target)
+/datum/plant_gene/trait/cell_charge/on_squash(obj/item/food/grown/G, atom/target, datum/thrownthing/throwingdatum)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
 			C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 			if(C.ckey != G.fingerprintslast)
-				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
+				log_combat(throwingdatum?.get_thrower(), C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
 				C.investigate_log("[C] has been hit by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/food/grown/G, mob/living/carbon/target)
@@ -365,7 +365,7 @@
 	name = "Bluespace Activity"
 	rate = 0.1
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/food/grown/G, atom/target)
+/datum/plant_gene/trait/teleport/on_squash(obj/item/food/grown/G, atom/target, datum/thrownthing/throwingdatum)
 	if(isliving(target))
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(target)
@@ -374,7 +374,7 @@
 		do_teleport(target, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 		if(C.ckey == G.fingerprintslast)		//what's the point of logging someone attacking himself
 			return
-		log_combat(G.thrownby, C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
+		log_combat(throwingdatum?.get_thrower(), C, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(C)]")
 		C.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
@@ -452,14 +452,14 @@
 			L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 			log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].")
 
-/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/food/grown/G, atom/target)
+/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/food/grown/G, atom/target, datum/thrownthing/throwingdatum)
 	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
 		return
 	var/mob/living/L = target
 	if(prick(G, L))
 		if(L.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
 			var/turf/T = get_turf(L)
-			log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
+			log_combat(throwingdatum?.get_thrower(), L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
 			L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/stinging/proc/prick(obj/item/food/grown/G, mob/living/L)
