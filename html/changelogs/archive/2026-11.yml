@@ -174,3 +174,17 @@
       launch task has been created to use it. It's primary features include hot-reloading.
       This means that you can make changes to the game's code in real-time without
       having to recompile the whole project and start a new server.
+2026-11-15:
+  Baherain:
+  - bugfix: Changed addiction tolerance of Morphine from 10u to 25u, to match the
+      wiki page
+  Isaac, BotTierPC:
+  - rscadd: New sliders in the medibot for brute, burn, toxin, suffocation make your
+      own medibot!
+  - rscadd: New UI design for all bots
+  - bugfix: You wont hit a medibot when trying to insert a bag inside
+  Ucksus:
+  - bugfix: fixed Clock component not using Clock divider correctly
+  afonsofpuga-a11y:
+  - bugfix: Fixed your chat being spammed with errors when trying to craft something
+      with cable coils.
