@@ -351,13 +351,13 @@ SUBSYSTEM_DEF(shuttle)
 	var/security_num = SSsecurity_level.get_current_level_as_number()
 	switch(security_num)
 		if(SEC_LEVEL_GREEN)
-			if(emergency.timeLeft(1) < emergency_call_time)
+			if(emergency.timeLeft(1) < emergency_call_time * ALERT_COEFF_GREEN * 0.5)
 				return
 		if(SEC_LEVEL_BLUE)
-			if(emergency.timeLeft(1) < emergency_call_time * 0.5)
+			if(emergency.timeLeft(1) < emergency_call_time * ALERT_COEFF_BLUE * 0.5)
 				return
 		else
-			if(emergency.timeLeft(1) < emergency_call_time * 0.25)
+			if(emergency.timeLeft(1) < emergency_call_time * ALERT_COEFF_RED * 0.5)
 				return
 	return 1
 
