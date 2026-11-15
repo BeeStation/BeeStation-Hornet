@@ -845,7 +845,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 	if(!initial)
-		if(equip_sound && slot_flags)
+		if(equip_sound && (slot_flags & slot))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
