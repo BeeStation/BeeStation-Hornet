@@ -130,11 +130,19 @@
 	var/list/names_by_job = list()
 	var/list/anonymous_by_job = list()
 	var/flexible = 0
+	var/listed_departments = NONE
+	var/list/flexible_department_sets = list()
 	for(var/player_ref in job_estimation_jobs)
 		var/datum/job/job = job_estimation_jobs[player_ref]
 		if(!job)
 			flexible++
+			var/flexible_departments = NONE
+			for(var/title in job_estimation_interest[player_ref])
+				var/datum/job/interested_job = get_job(title)
+				flexible_departments |= interested_job.departments_bitflags
+			flexible_department_sets += flexible_departments
 			continue
+		listed_departments |= job.departments_bitflags
 		if(!names_by_job[job.title])
 			names_by_job[job.title] = list()
 		var/name = job_estimation_names[player_ref]
@@ -173,6 +181,35 @@
 		job_estimation_rows[title] = GENERATE_STAT_TEXT(row_text)
 	if(flexible)
 		job_estimation_rows["Flexible"] = GENERATE_STAT_TEXT("[flexible]")
+
+	var/static/list/station_departments = list(
+		DEPARTMENT_NAME_COMMAND = DEPARTMENT_BITFLAG_COMMAND,
+		DEPARTMENT_NAME_SECURITY = DEPARTMENT_BITFLAG_SECURITY,
+		DEPARTMENT_NAME_ENGINEERING = DEPARTMENT_BITFLAG_ENGINEERING,
+		DEPARTMENT_NAME_MEDICAL = DEPARTMENT_BITFLAG_MEDICAL,
+		DEPARTMENT_NAME_SCIENCE = DEPARTMENT_BITFLAG_SCIENCE,
+		DEPARTMENT_NAME_SERVICE = DEPARTMENT_BITFLAG_SERVICE,
+		DEPARTMENT_NAME_CARGO = DEPARTMENT_BITFLAG_CARGO,
+		DEPARTMENT_NAME_SILICON = DEPARTMENT_BITFLAG_SILICON,
+	)
+	var/list/coverable_departments = list()
+	var/list/empty_departments = list()
+	for(var/department_name in station_departments)
+		var/department_flag = station_departments[department_name]
+		if(listed_departments & department_flag)
+			continue
+		var/flexible_count = 0
+		for(var/flexible_departments in flexible_department_sets)
+			if(flexible_departments & department_flag)
+				flexible_count++
+		if(flexible_count)
+			coverable_departments += "[department_name] ([flexible_count])"
+		else
+			empty_departments += department_name
+	if(length(coverable_departments))
+		job_estimation_rows["Flexible could cover"] = GENERATE_STAT_TEXT(jointext(coverable_departments, ", "))
+	if(length(empty_departments))
+		job_estimation_rows["Nobody listed"] = GENERATE_STAT_TEXT(jointext(empty_departments, ", "))
 
 /datum/controller/subsystem/job/proc/remove_job_estimation(mob/dead/new_player/authenticated/player)
 	var/player_ref = REF(player)
