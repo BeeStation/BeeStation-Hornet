@@ -338,7 +338,7 @@ const AntagRestrictionNotice = (_) => {
         }
       />{' '}
       While shown, antagonists that can&apos;t be {job} won&apos;t pick you at
-      roundstart.
+      roundstart, even if someone else ends up as {job}.
     </Box>
   );
 };

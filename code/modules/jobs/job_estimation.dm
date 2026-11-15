@@ -5,6 +5,8 @@
 	var/list/job_estimation_jobs = list()
 	/// players listed by name
 	var/list/job_estimation_names = list()
+	/// aggregate titles players have at medium or high
+	var/list/job_estimation_interest = list()
 	/// Stat tab rows
 	var/list/job_estimation_rows = list()
 
@@ -34,6 +36,15 @@
 		job_estimation_names[player_ref] = name
 	else
 		job_estimation_names -= player_ref
+
+	var/list/interested_titles = list()
+	for(var/title in prefs.job_preferences)
+		if(prefs.job_preferences[title] < JP_MEDIUM || title == job?.title)
+			continue
+		var/datum/job/other_job = get_job(title)
+		if(other_job && can_estimate_job(prefs.parent, other_job))
+			interested_titles += title
+	job_estimation_interest[player_ref] = interested_titles
 	rebuild_job_estimation()
 
 /// Returns high priority job, else the only medium job
@@ -85,7 +96,7 @@
 /datum/controller/subsystem/job/proc/warn_excluded_from_antag(mob/player)
 	var/datum/job/job = get_antag_restricted_job(player.client.prefs)
 	if(job)
-		to_chat(player, span_notice("Job Estimation shows your name as [job.title], so antagonists that can't be [job.title] won't pick you at roundstart."))
+		to_chat(player, span_notice("Job Estimation shows your name as [job.title], so antagonists that can't be [job.title] won't pick you at roundstart, even if someone else gets the job."))
 
 /datum/controller/subsystem/job/proc/get_antag_restricted_job(datum/preferences/prefs)
 	if(!CONFIG_GET(flag/show_job_estimation))
@@ -132,6 +143,11 @@
 		else
 			anonymous_by_job[job.title] += 1
 
+	var/list/interested_by_job = list()
+	for(var/player_ref in job_estimation_interest)
+		for(var/title in job_estimation_interest[player_ref])
+			interested_by_job[title] += 1
+
 	// Command and silicons first
 	var/list/command_titles = list()
 	var/list/crew_titles = list()
@@ -151,7 +167,10 @@
 		names = names.Copy(1, min(length(names), JOB_ESTIMATION_MAX_NAMES) + 1)
 		if(others)
 			names += length(names) ? "+[others] more" : "[others] anonymous"
-		job_estimation_rows[title] = GENERATE_STAT_TEXT(jointext(names, ", "))
+		var/row_text = jointext(names, ", ")
+		if(interested_by_job[title])
+			row_text += " ([interested_by_job[title]] also interested)"
+		job_estimation_rows[title] = GENERATE_STAT_TEXT(row_text)
 	if(flexible)
 		job_estimation_rows["Flexible"] = GENERATE_STAT_TEXT("[flexible]")
 
@@ -161,6 +180,7 @@
 		return
 	job_estimation_jobs -= player_ref
 	job_estimation_names -= player_ref
+	job_estimation_interest -= player_ref
 	rebuild_job_estimation()
 
 #undef JOB_ESTIMATION_MAX_NAMES
