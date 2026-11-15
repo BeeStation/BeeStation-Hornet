@@ -4,7 +4,6 @@ export const job_estimation_name: FeatureToggle = {
   name: 'Show name in job estimation',
   category: 'GAMEPLAY',
   description:
-    'Toggles whether your name shows in the pre-game Job Estimation panel. \
-    Note: Command roles and AI will show with your name regardless of this pref.',
+    'Shows character name in the pre-game Job Estimation panel, which keeps roundstart antagonists that restrict your listed job from picking you.',
   component: CheckboxInput,
 };

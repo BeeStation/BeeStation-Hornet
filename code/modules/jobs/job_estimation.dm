@@ -28,6 +28,9 @@
 
 	var/name = job ? get_job_estimation_name(prefs, job) : null
 	var/player_ref = REF(player)
+	var/already_named_as_job = job_estimation_names[player_ref] && job_estimation_jobs[player_ref] == job
+	if(name && !already_named_as_job)
+		warn_excluded_from_antag(player, job)
 	job_estimation_jobs[player_ref] = job
 	if(name)
 		job_estimation_names[player_ref] = name
@@ -35,9 +38,25 @@
 		job_estimation_names -= player_ref
 	rebuild_job_estimation()
 
+/datum/controller/subsystem/job/proc/get_job_listed_by_name(mob/player)
+	var/player_ref = REF(player)
+	if(job_estimation_names[player_ref])
+		return job_estimation_jobs[player_ref]
+
+/datum/controller/subsystem/job/proc/is_job_listed_by_name(datum/job/job)
+	for(var/player_ref in job_estimation_names)
+		if(job_estimation_jobs[player_ref] == job)
+			return TRUE
+	return FALSE
+
+/datum/controller/subsystem/job/proc/warn_excluded_from_antag(mob/player, datum/job/job)
+	for(var/datum/dynamic_ruleset/ruleset as anything in SSdynamic.gamemode_configured_rulesets + SSdynamic.supplementary_configured_rulesets)
+		if(job.title in ruleset.restricted_roles)
+			to_chat(player, span_notice("While your name is shown as [job.title], some roundstart antagonists can't pick you."))
+			return
+
 /datum/controller/subsystem/job/proc/get_job_estimation_name(datum/preferences/prefs, datum/job/job)
-	var/always_named = (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) || job.title == JOB_NAME_AI
-	if(!always_named && !prefs.read_player_preference(/datum/preference/toggle/job_estimation_name))
+	if(!prefs.read_player_preference(/datum/preference/toggle/job_estimation_name))
 		return
 	// Jobs like clown and AI are snowflake
 	var/datum/preference/name/name_pref = prefs.get_job_name_preference(job)

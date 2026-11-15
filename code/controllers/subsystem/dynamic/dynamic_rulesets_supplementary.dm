@@ -48,6 +48,11 @@
 			candidates -= candidate
 			continue
 
+		var/datum/job/named_job = SSjob.get_job_listed_by_name(candidate)
+		if(named_job && (named_job.title in restricted_roles))
+			candidates -= candidate
+			continue
+
 /**
  * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
  */
