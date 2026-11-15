@@ -170,6 +170,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	connected.Cut()
 
 	update_power_node()
+	linked_dirs = NONE
+	omni_dirs = NONE
 
 	down?.set_up(null)
 	up?.set_down(null)
@@ -560,8 +562,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 /obj/structure/cable/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	clear_connections()
-	linked_dirs = NONE
-	omni_dirs = NONE
 	reform_connections()
 	linkup_adjacent(TRUE)
 

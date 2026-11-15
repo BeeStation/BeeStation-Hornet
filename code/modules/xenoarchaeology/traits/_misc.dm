@@ -42,6 +42,18 @@
 	if(!component_parent?.parent || !istype(component_parent.parent, /obj/structure/closet))
 		return FALSE
 
+/datum/xenoartifact_trait/activator/weighted/closet/register_parent(datum/source)
+	. = ..()
+	if(!component_parent?.parent)
+		return
+	RegisterSignal(component_parent.parent, COMSIG_CLOSET_POST_OPEN, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+
+/datum/xenoartifact_trait/activator/weighted/closet/remove_parent(datum/source, pensive)
+	if(!component_parent?.parent)
+		return ..()
+	UnregisterSignal(component_parent.parent, COMSIG_CLOSET_POST_OPEN)
+	return ..()
+
 /datum/xenoartifact_trait/activator/weighted/closet/trigger_artifact(atom/target, type = XENOA_ACTIVATION_CONTACT, force)
 	var/obj/structure/closet/C = component_parent.parent
 	//Trait check - This is different from an anti artifact check and should be done here to avoid activations, this trait is a helper essentially
@@ -68,11 +80,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/artifact)
 /obj/structure/closet/artifact/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, list(/datum/xenoartifact_trait/activator/weighted/closet, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/minor/capacitive, /datum/xenoartifact_trait/major/animalize), FALSE, FALSE)
-
-/obj/structure/closet/artifact/after_open(mob/living/user, force)
-	. = ..()
-	var/datum/component/xenoartifact/artifact = GetComponent(/datum/component/xenoartifact)
-	if(!artifact)
-		return
-	for(var/datum/xenoartifact_trait/activator/weighted/closet/trait in artifact.traits_catagories[TRAIT_PRIORITY_ACTIVATOR])
-		trait.trigger_artifact(user)
