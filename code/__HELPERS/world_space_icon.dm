@@ -7,7 +7,22 @@
 	var/image/owner
 	var/source_icon
 	var/list/layers = list()
-	var/last_signature
+	/// Catalog lookups, resolved once per source icon rather than per refresh.
+	var/resolved_icon
+	var/list/gates
+	var/list/state_dirs
+	/// Whether the gated layers are currently shown in place of the source icon.
+	var/projected = FALSE
+	/// Last projected inputs. Compared numerically: projectiles refresh every
+	/// movement step, so a formatted signature string per call is wasteful.
+	var/last_state
+	var/last_dir
+	var/last_a
+	var/last_b
+	var/last_c
+	var/last_d
+	var/last_e
+	var/last_f
 
 /datum/world_space_icon/New(image/target)
 	owner = target
@@ -35,19 +50,24 @@
 		owner.overlays += layers
 
 /datum/world_space_icon/proc/refresh(force = FALSE)
-	var/blank = 'icons/blanks/32x32.dmi'
+	var/static/blank = 'icons/blanks/32x32.dmi'
 	if(owner.icon != blank)
 		source_icon = owner.icon
-	GLOB.brandish_assets.prepare()
-	var/list/entry = GLOB.brandish_assets.aliases[source_icon]
-	var/list/gates = entry?["viewGates"]
-	var/list/state_dirs = entry?["stateDirs"]
-	var/num_dirs = state_dirs?[owner.icon_state]
+	if(resolved_icon != source_icon)
+		resolved_icon = source_icon
+		GLOB.brandish_assets.prepare()
+		var/list/entry = GLOB.brandish_assets.aliases[source_icon]
+		gates = entry?["viewGates"]
+		state_dirs = entry?["stateDirs"]
+		force = TRUE
+	var/state = owner.icon_state
+	var/num_dirs = state_dirs?[state]
 	if(!GLOB.brandish_assets.enabled || !gates || !num_dirs)
-		clear_layers()
-		layers.Cut()
-		owner.icon = source_icon
-		last_signature = null
+		if(projected)
+			clear_layers()
+			layers.Cut()
+			owner.icon = source_icon
+			projected = FALSE
 		return
 	var/art_dir = owner.dir
 	if(num_dirs == 1 || !art_dir)
@@ -55,12 +75,19 @@
 	else if(num_dirs == 4 && !(art_dir in GLOB.cardinals))
 		art_dir = (art_dir & EAST) ? EAST : WEST
 	var/matrix/world_transform = owner.transform || matrix()
-	var/signature = "[source_icon]|[owner.icon_state]|[art_dir]|[world_transform.a],[world_transform.b],[world_transform.c],[world_transform.d],[world_transform.e],[world_transform.f]"
-	if(!force && signature == last_signature)
+	if(!force && projected && state == last_state && art_dir == last_dir 		&& world_transform.a == last_a && world_transform.b == last_b && world_transform.c == last_c 		&& world_transform.d == last_d && world_transform.e == last_e && world_transform.f == last_f)
 		return
-	last_signature = signature
+	last_state = state
+	last_dir = art_dir
+	last_a = world_transform.a
+	last_b = world_transform.b
+	last_c = world_transform.c
+	last_d = world_transform.d
+	last_e = world_transform.e
+	last_f = world_transform.f
 	clear_layers()
 	owner.icon = blank
+	projected = TRUE
 	var/index = 0
 	for(var/facing in GLOB.cardinals)
 		index++
@@ -74,10 +101,10 @@
 			layer.appearance_flags = RESET_TRANSFORM
 			layers += layer
 		layer.icon = gates["[facing]"]
-		layer.icon_state = "[owner.icon_state]@[art_dir]"
-		var/matrix/projected = matrix(world_transform)
-		projected.Turn(-dir2angle(facing))
-		layer.transform = projected
+		layer.icon_state = "[state]@[art_dir]"
+		var/matrix/projection = matrix(world_transform)
+		projection.Turn(-dir2angle(facing))
+		layer.transform = projection
 	show_layers()
 
 /atom

@@ -18,7 +18,7 @@
 /datum/brandish_asset_registry/runtime/proc/world_surface_appearance(resource, state, tint = null, layer = FLOAT_LAYER)
 	if(!supports(resource, "surface"))
 		return mutable_appearance(resource, state, layer, color = tint)
-	var/image/appearance = image(icon = icon_for(resource, "surface", NORTH) || resource, icon_state = state, dir = NORTH, layer = layer)
+	var/image/appearance = image(icon = icon_for(resource, "surface", NORTH, state = state) || resource, icon_state = state, dir = NORTH, layer = layer)
 	appearance.color = tint
 	return appearance
 
@@ -30,14 +30,14 @@
 	var/key = "[resource]|[state]"
 	if(fixed_surface_overlays[key])
 		return fixed_surface_overlays[key]
-	var/bank = icon_for(resource, "surface", NORTH)
+	var/bank = icon_for(resource, "surface", NORTH, state = state)
 	if(!bank || bank == resource)
 		return null
 	var/image/appearance = image(icon = bank, icon_state = state, dir = NORTH, layer = FLOAT_LAYER)
 	fixed_surface_overlays[key] = appearance
 	return appearance
 
-/datum/brandish_asset_registry/runtime/icon_for(source, kind, direction, prefix)
+/datum/brandish_asset_registry/runtime/icon_for(source, kind, direction, prefix, state)
 	if(!enabled)
 		return source_for(source)
 	var/list/recipe = greyscale_sources[source]
@@ -73,7 +73,7 @@
 			return icon_for(resource, "smooth", direction, prefix) || resource
 	if(entry["corner"] && (findtext(state, "d-") == 1 || (length(state) > 2 && copytext(state, 2, 3) == "-")))
 		return icon_for(resource, "corner", direction) || resource
-	return icon_for(resource, "surface", direction) || resource
+	return icon_for(resource, "surface", direction, state = state) || resource
 
 /// A shared native-direction overlay, selected by the renderer per viewer.
 /datum/brandish_asset_registry/runtime/proc/foreground_for(resource, state, layer)

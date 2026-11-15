@@ -1,6 +1,6 @@
 {
-  "schema": 1,
-  "description": "Geometry policies, not a blanket rotation of all sprites. Large smoothing reuses painted junction art at its original pivot.",
+  "schema": 2,
+  "description": "Artwork classes 1 (single-dir upright), 2 (single-dir world geometry), 3 (native directional art). Generation modes implement geometry only; native directional billboards already follow client.dir.",
   "rules": [
     {
       "prefix": "icons/turf/",
@@ -8,7 +8,8 @@
         "surface",
         "smooth",
         "corner"
-      ]
+      ],
+      "directionalSurface": true
     },
     {
       "prefix": "icons/obj/",
@@ -68,9 +69,6 @@
     "icons/obj/machines/gasrig.dmi": [
       "surface"
     ],
-    "icons/obj/decals.dmi": [
-      "surface"
-    ],
     "icons/obj/power_cond/cables.dmi": [
       "surface"
     ],
@@ -97,6 +95,12 @@
     ],
     "icons/obj/atmospherics/components/unary_devices.dmi": [
       "surface"
+    ],
+    "icons/obj/decals.dmi": [
+      "surface"
+    ],
+    "icons/obj/barsigns.dmi": [
+      "surface"
     ]
   },
   "rectangularSurfaces": [
@@ -104,7 +108,8 @@
     "icons/obj/doors/airlocks/glass_large/overlays.dmi",
     "icons/obj/2x2.dmi",
     "icons/obj/3x3.dmi",
-    "icons/obj/4x7.dmi"
+    "icons/obj/4x7.dmi",
+    "icons/obj/barsigns.dmi"
   ],
   "directionalSurfaces": [
     "icons/obj/atmospherics/pipes/manifold.dmi",
@@ -120,7 +125,8 @@
     "icons/obj/atmospherics/components/binary_devices.dmi",
     "icons/obj/atmospherics/components/thermomachine.dmi",
     "icons/obj/atmospherics/components/trinary_devices.dmi",
-    "icons/obj/atmospherics/components/unary_devices.dmi"
+    "icons/obj/atmospherics/components/unary_devices.dmi",
+    "icons/obj/barsigns.dmi"
   ],
   "foreground": {
     "icons/obj/beds_chairs/chairs.dmi": "chair",
@@ -190,6 +196,59 @@
       "pipe-3",
       "pipe-4",
       "pipe-5"
+    ],
+    "icons/obj/decals.dmi": [
+      "map-left",
+      "map-right",
+      "map-left-MS",
+      "map-right-MS",
+      "map-left-fland",
+      "map-right-fland",
+      "map-pubby",
+      "map-CS",
+      "map-echo"
     ]
-  }
+  },
+  "assetClasses": {
+    "1": {
+      "name": "singleDirectionBillboard",
+      "directions": [
+        1
+      ],
+      "handling": "Keep original. Wall lettering, paintings, posters, characters, UI and scene backgrounds stay upright."
+    },
+    "2": {
+      "name": "singleDirectionWorldGeometry",
+      "directions": [
+        1
+      ],
+      "handling": "Generate surface/smoothing/corner/basis banks or view gates. Tile connections, ground art and world transforms must rotate with the map."
+    },
+    "3": {
+      "name": "directionalArtwork",
+      "directions": [
+        4,
+        8
+      ],
+      "handling": "Native dir selection for upright sprites; directional surface banks for floor geometry/pipes. Eight-dir files extend the same class to diagonal connections."
+    }
+  },
+  "billboardFiles": {
+    "icons/turf/space.dmi": "Scene background and speedspace art; not bound as floor geometry. Keep original single-direction states instead of generating unused surface banks."
+  },
+  "largeAssetPolicy": {
+    "billboards": "No square padding or rotation for upright large artwork (e.g. 32x64 ash walker nest and 64x64 talk bubbles). Sprite-origin offsets use screen pixel_w/z; wall mounting/ground placement uses world pixel_x/y.",
+    "geometry": "Only rectangularSurfaces are padded to square geometry with a matching footprint at the original pivot. Unlisted rectangular/multi-tile geometry is excluded and reported for review. Two-tile barsigns use their full 64x32 native bounds and complete state banks, including direct set_sign/flick changes."
+  },
+  "billboardStates": {
+    "icons/obj/decals.dmi": "Wall lettering, plaques and frames except explicitly selected connected station-map surfaceStates remain native upright artwork."
+  },
+  "compactSurfaces": [
+    "icons/misc/Beach/beach.dmi",
+    "icons/obj/decals.dmi"
+  ],
+  "compactSurfaceContract": "Only fixed beach sand and connected wall maps use compact surface banks. Selected states are listed in surfaceStates; callers pass the current state, and missing or unspecified states resolve to the original file. Beach water smoothing retains the complete source state set. Decal/underlay/vis appearances are created with explicit states.",
+  "footprintMasks": [
+    "icons/obj/doors/airlocks/glass_large/glass_large.dmi"
+  ]
 }

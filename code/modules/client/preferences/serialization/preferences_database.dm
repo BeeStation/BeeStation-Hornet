@@ -126,7 +126,14 @@
 	favorite_outfits = unique_list(parsed_favs)
 
 	// Custom hotkeys
-	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
+	var/list/stored_key_bindings
+	READPREF_JSONDEC(stored_key_bindings, PREFERENCE_TAG_KEYBINDS)
+	if(islist(stored_key_bindings))
+		key_bindings = stored_key_bindings
+	else
+		// Existing accounts without a key_bindings record also need their
+		// defaults persisted, even if their other player preferences exist.
+		mark_undatumized_dirty_player()
 
 	//Sanitize
 	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))
@@ -139,6 +146,10 @@
 	pai_description = sanitize_text(pai_description, initial(pai_description))
 	pai_comment = sanitize_text(pai_comment, initial(pai_comment))
 
+	// Existing movement actions are stored in this same JSON preference. Copy
+	// them before the generic missing-binding pass assigns fresh defaults.
+	if(migrate_brandish_keybindings(key_bindings))
+		mark_undatumized_dirty_player()
 	sanitize_keybinds()
 
 	// Remove any invalid role preference entries

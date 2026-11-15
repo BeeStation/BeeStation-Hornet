@@ -14,6 +14,7 @@
 	/// The blank image that overlaps the cog - hides it from the source user
 	var/image/blank
 	/// The offset of the icon
+	var/offset_x
 	var/offset_y
 
 
@@ -22,6 +23,7 @@
 	src.user_client = user.client
 
 	var/list/icon_offsets = user.get_oversized_icon_offsets()
+	offset_x = icon_offsets["x"]
 	offset_y = icon_offsets["y"]
 
 	add_cog_to_user()
@@ -31,7 +33,7 @@
 
 /datum/cogbar/Destroy()
 	if(user)
-		SSvis_overlays.remove_vis_overlay(user, user.managed_vis_overlays)
+		SSvis_overlays.remove_vis_overlay(user, list(cog))
 		user_client?.images -= blank
 
 	user = null
@@ -52,7 +54,9 @@
 		unique = TRUE,
 		alpha = 0,
 	)
-	cog.pixel_y = ICON_SIZE_Y + offset_y
+	// This is above the sprite in each viewer's camera, not north of its tile.
+	cog.pixel_w = offset_x
+	cog.pixel_z = ICON_SIZE_Y + offset_y
 	animate(cog, alpha = 255, time = COGBAR_ANIMATION_TIME)
 
 	if(isnull(user_client))

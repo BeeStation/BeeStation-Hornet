@@ -60,7 +60,7 @@
 		. |= UPDATE_ICON_STATE
 
 	// Child overlay builders must see the same resource bank as the base sprite.
-	apply_brandish_icon()
+	APPLY_BRANDISH_ICON(src)
 	var/resource_before_overlays = icon
 	if(updates & UPDATE_OVERLAYS)
 		if(LAZYLEN(managed_vis_overlays))
@@ -86,7 +86,7 @@
 		. |= UPDATE_OVERLAYS
 
 	if(icon != resource_before_overlays)
-		apply_brandish_icon()
+		APPLY_BRANDISH_ICON(src)
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
 		UPDATE_OO_IF_PRESENT

@@ -17,11 +17,49 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	return mob && eye && (eye == mob || (ismovable(eye) && eye == mob.loc))
 
 /client/proc/sync_brandish_camera()
-	var/available = !brandish_camera_suppressed && !brandish_disconnecting && logged_in && isliving(mob) && mob.stat != DEAD && mob.hud_used && brandish_has_local_eye() && !mob.remote_control && !mob.control_object
+	var/available = CONFIG_GET(flag/brandish_camera) && !brandish_camera_suppressed && !brandish_disconnecting && logged_in && mob?.brandish_perspective_allowed() && mob.stat != DEAD && mob.hud_used && brandish_has_local_eye() && !mob.remote_control && !mob.control_object
 	if(brandish_camera && (!available || brandish_camera.body != mob))
 		QDEL_NULL(brandish_camera)
 	if(available && !brandish_camera && GLOB.brandish_assets.has_catalog())
 		brandish_camera = new(src)
+
+/// Bodies that never use the perspective, even while it is enabled globally.
+/// Ghosts, lobby players and other non-living mobs are excluded here.
+/mob/proc/brandish_perspective_allowed()
+	return FALSE
+
+/mob/living/brandish_perspective_allowed()
+	// A mind housed inside a carried object (soulstone shade, possessed blade,
+	// sentient artifact, pAI card, MMI) has no body to steer or face forward.
+	return !isitem(loc)
+
+/// Cyborgs, AIs and pAIs keep their own cameras and controls.
+/mob/living/silicon/brandish_perspective_allowed()
+	return FALSE
+
+/mob/living/brain/brandish_perspective_allowed()
+	return FALSE
+
+/// Shades exist only inside a container: soulstones and sentient artifacts.
+/mob/living/simple_animal/shade/brandish_perspective_allowed()
+	return FALSE
+
+/// Server-wide switch. The round starts in the normal perspective; an admin or
+/// coder turns the experimental perspective on for every eligible living body.
+/client/proc/toggle_brandish_perspective()
+	set name = "Toggle Brandish Perspective"
+	set category = "Debug"
+	set desc = "Switch every living player between the normal view and the experimental Brandish perspective."
+	if(!holder || !(holder.rank.rights & (R_ADMIN | R_DEBUG)))
+		return
+	var/enable = !CONFIG_GET(flag/brandish_camera)
+	if(enable && !GLOB.brandish_assets.has_catalog())
+		to_chat(src, span_warning("This build uses original artwork. Build with tools/build/build to enable the Brandish perspective."))
+		return
+	CONFIG_SET(flag/brandish_camera, enable)
+	log_admin("[key_name(src)] [enable ? "enabled" : "disabled"] the Brandish perspective for all players.")
+	message_admins("[key_name_admin(src)] [enable ? "enabled" : "disabled"] the Brandish perspective for all players.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Brandish Perspective")
 
 /client/proc/toggle_brandish_camera()
 	set name = "Brandish Camera"
@@ -29,6 +67,9 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	set desc = "Toggle W forward, A/D turn, S backpedal, Shift+A/D strafe and a forward-offset camera."
 	var/allowed = holder && (holder.rank.rights & R_DEBUG)
 	if(!allowed)
+		return
+	if(!CONFIG_GET(flag/brandish_camera))
+		to_chat(src, span_notice("The Brandish perspective is off. Use Toggle Brandish Perspective to enable it for everyone."))
 		return
 	if(!GLOB.brandish_assets.has_catalog())
 		to_chat(src, span_warning("This build uses original artwork. Build with tools/build/build to enable the Brandish camera."))
@@ -38,8 +79,8 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		QDEL_NULL(brandish_camera)
 		to_chat(src, span_notice("Brandish camera disabled. Normal view and controls restored."))
 		return
-	if(!isliving(mob) || !brandish_has_local_eye() || mob.remote_control || mob.control_object)
-		to_chat(src, span_warning("Use this camera while controlling a living character directly."))
+	if(!mob?.brandish_perspective_allowed() || !brandish_has_local_eye() || mob.remote_control || mob.control_object)
+		to_chat(src, span_warning("Use this camera while directly controlling a living character that supports it."))
 		return
 	brandish_camera_suppressed = FALSE
 	sync_brandish_camera()
@@ -51,16 +92,14 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	var/previous_dir
 	var/previous_body_dir
 	var/list/held = list()
-	var/list/shifted_actions = list()
 	var/pending = NONE
 	/// Suppress movement-facing only inside this camera's own movement dispatch.
 	var/movement_input_depth = 0
 	var/atom/movable/followed_seat
 	/// Keep a held seat movement command stable when the chair turns mid-step.
 	var/seat_input_basis = NONE
-	/// Stay within BYOND 516's two-tile screen-offset rendering margin. A larger
-	/// pixel_z exposes an unrendered top row after moving (including buckling).
-	var/lead_tiles = 2
+	/// Keep the player three tiles below the viewport center.
+	var/lead_tiles = 3
 
 /datum/brandish_camera/New(client/viewer)
 	owner = viewer
@@ -82,10 +121,13 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	update_offset()
 	// WASD must reach keyDown in classic input mode too. Only switch the live
 	// macro/focus; saved preferences are untouched and restored on disable.
+	viewer.update_special_keybinds()
 	viewer.update_macro_mode()
+	addtimer(CALLBACK(src, PROC_REF(show_intro)), 1 SECONDS)
 	return ..()
 
 /datum/brandish_camera/Destroy()
+	SStgui.close_uis(src)
 	if(body)
 		UnregisterSignal(body, list(COMSIG_LIVING_SET_BUCKLED, COMSIG_MOB_SET_MOB_EYE, COMSIG_MOB_STATCHANGE, COMSIG_MOB_LOGOUT))
 	if(followed_seat)
@@ -96,6 +138,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		owner.clear_camera_effect(src)
 		if(!owner.brandish_disconnecting)
 			owner.setDir(previous_dir)
+			owner.update_special_keybinds()
 			owner.update_macro_mode()
 			if(!QDELETED(body) && owner.mob == body)
 				body.setDir(followed_seat && body.buckled == followed_seat ? followed_seat.dir : previous_body_dir)
@@ -105,13 +148,17 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	return ..()
 
 /datum/brandish_camera/proc/clear_movement()
-	owner.keys_held -= list("W", "A", "S", "D", "North", "South", "East", "West")
-	for(var/key in list("W", "A", "S", "D", "North", "South", "East", "West"))
+	for(var/key in held)
+		owner.keys_held -= key
 		owner.key_combos_held -= key
+	// Normal movement may already be held when control ownership changes.
+	for(var/key in owner.keys_held.Copy())
+		if(SSinput.movement_keys[key])
+			owner.keys_held -= key
+			owner.key_combos_held -= key
 	owner.next_move_dir_add = NONE
 	owner.next_move_dir_sub = NONE
 	held.Cut()
-	shifted_actions.Cut()
 	pending = NONE
 	seat_input_basis = NONE
 
@@ -142,7 +189,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	qdel(src)
 
 /datum/brandish_camera/proc/is_available()
-	return owner && !owner.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && owner.mob == body && owner.brandish_has_local_eye() && !body.remote_control && !body.control_object
+	return GLOB.brandish_assets.enabled && owner && !owner.brandish_disconnecting && !QDELETED(body) && body.stat != DEAD && body.brandish_perspective_allowed() && owner.mob == body && owner.brandish_has_local_eye() && !body.remote_control && !body.control_object
 
 /// Incapacitation pauses input, not the camera's orientation or composition.
 /// SOFT_CRIT can still crawl through the ordinary client.Move path.
@@ -159,42 +206,52 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	if(owner.dir != camera_direction)
 		owner.setDir(camera_direction)
 
+/datum/brandish_camera/proc/action_for_key(key)
+	var/base_key = keybinding_base_key(key)
+	if(base_key != key)
+		return brandish_action_for_key(owner.prefs.key_bindings_by_key, base_key, key)
+	var/alt = owner.keys_held["Alt"] ? "Alt" : ""
+	var/ctrl = owner.keys_held["Ctrl"] ? "Ctrl" : ""
+	var/shift = owner.keys_held["Shift"] ? "Shift" : ""
+	var/full_key = (key in list("Alt", "Ctrl", "Shift")) ? key : "[alt][ctrl][shift][key]"
+	return brandish_action_for_key(owner.prefs.key_bindings_by_key, key, full_key)
+
+/datum/brandish_camera/proc/direction_for_action(action)
+	switch(action)
+		if("brandish_forward")
+			return NORTH
+		if("brandish_backward")
+			return SOUTH
+		if("brandish_strafe_left")
+			return WEST
+		if("brandish_strafe_right")
+			return EAST
+	return NONE
+
 /datum/brandish_camera/proc/handle_key_down(key)
 	if(!is_available())
 		return FALSE
-	if(key == "Shift")
+	var/action = action_for_key(key)
+	if(!action && (key in list("Alt", "Ctrl", "Shift")))
+		owner.keys_held[key] = world.time
+		for(var/physical_key in held)
+			pending &= ~direction_for_action(held[physical_key])
+			held[physical_key] = action_for_key(physical_key)
 		return FALSE
-	var/shifted = owner.keys_held["Shift"]
-	if(copytext(key, 1, 6) == "Shift")
-		shifted = TRUE
-		key = copytext(key, 6)
-	// Physical keys go through the normal rebindable keybinding dispatch.
-	if(!(key in list("North", "South", "East", "West")))
+	if(!action)
 		return FALSE
-	if(key in held)
+	key = keybinding_base_key(key)
+	if(held[key] == action)
 		return TRUE
+	pending &= ~direction_for_action(held[key])
 	owner.keys_held[key] = world.time
-	if(shifted)
-		shifted_actions[key] = TRUE
-	var/direction = NONE
-	switch(key)
-		if("North")
-			direction = NORTH
-		if("South")
-			direction = SOUTH
-		if("West")
-			if(shifted)
-				direction = WEST
-			else
-				rotate(90)
-		if("East")
-			if(shifted)
-				direction = EAST
-			else
-				rotate(-90)
-	held[key] = direction
-	// A short tap survives key-up until Move accepts the next input tick.
-	// A new opposite tap replaces an older buffered tap rather than cancelling it.
+	held[key] = action
+	var/direction = direction_for_action(action)
+	if(action == "brandish_turn_left")
+		rotate(90)
+	else if(action == "brandish_turn_right")
+		rotate(-90)
+	// Preserve taps until the native Move timing gate accepts them.
 	if(direction && can_accept_input())
 		if(followed_seat && !seat_input_basis)
 			seat_input_basis = owner.dir
@@ -202,17 +259,19 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	return TRUE
 
 /datum/brandish_camera/proc/handle_key_up(key)
-	if(key == "Shift")
-		shifted_actions.Cut()
-		pending &= ~(EAST|WEST)
-		return FALSE
-	if(copytext(key, 1, 6) == "Shift")
-		key = copytext(key, 6)
-	if(!(key in list("North", "South", "East", "West")))
+	key = keybinding_base_key(key)
+	if(key in list("Alt", "Ctrl", "Shift"))
+		owner.keys_held -= key
+		for(var/physical_key in held)
+			if(physical_key == key)
+				continue
+			pending &= ~direction_for_action(held[physical_key])
+			held[physical_key] = action_for_key(physical_key)
+	if(!(key in held))
 		return FALSE
 	held -= key
-	shifted_actions -= key
 	owner.keys_held -= key
+	owner.key_combos_held -= key
 	if(!length(held) && !pending)
 		seat_input_basis = NONE
 	return TRUE
@@ -224,11 +283,10 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		return
 	var/relative_dir = pending
 	for(var/key in held)
-		if(key == "West" || key == "East")
-			if(owner.keys_held["Shift"] || shifted_actions[key])
-				relative_dir |= (key == "West" ? WEST : EAST)
-		else
-			relative_dir |= held[key]
+		// Explicit combo macros retain their action even when BYOND doesn't
+		// deliver a separate modifier-down event. Either physical or combo-up
+		// releases the same key. Modifier events update held actions above.
+		relative_dir |= direction_for_action(held[key])
 	if((relative_dir & NORTH) && (relative_dir & SOUTH))
 		relative_dir &= ~(NORTH|SOUTH)
 	if((relative_dir & EAST) && (relative_dir & WEST))
@@ -281,9 +339,12 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 	return 1
 
 /datum/brandish_camera/proc/update_offset()
-	// The look-ahead is constant in screen space. Rotating world-space pixel
-	// offsets as well as client.dir makes the client interpolate an old view.
-	owner.set_camera_effect(src, offset_z = lead_tiles * world.icon_size)
+	// BYOND clips the outer row in rotated views when pixel_z alone exceeds
+	// two tiles. Put the extra look-ahead in world axes so it requests those
+	// tiles too, while keeping the same total screen-space displacement.
+	var/screen_tiles = min(lead_tiles, 2)
+	var/list/world_offset = camera_screen_to_world(0, (lead_tiles - screen_tiles) * world.icon_size, owner.dir)
+	owner.set_camera_effect(src, offset_x = world_offset[1], offset_y = world_offset[2], offset_z = screen_tiles * world.icon_size)
 
 
 // Keep a backpedalling character's existing NORTH/back sprite selected in the
@@ -320,7 +381,7 @@ GLOBAL_DATUM_INIT(brandish_assets, /datum/brandish_asset_registry/runtime, new)
 		kind = "corner"
 	else if(!kind)
 		return
-	var/replacement = GLOB.brandish_assets.icon_for(icon, kind, dir, base_icon_state)
+	var/replacement = GLOB.brandish_assets.icon_for(icon, kind, dir, base_icon_state, icon_state)
 	if(replacement && replacement != icon)
 		if(kind == "corner")
 			clear_smooth_overlays()

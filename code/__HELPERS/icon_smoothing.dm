@@ -110,7 +110,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 //do not use, use QUEUE_SMOOTH(atom)
 /atom/proc/smooth_icon()
-	apply_brandish_icon()
+	APPLY_BRANDISH_ICON(src)
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
 		CRASH("[type] called smooth_icon() without being on a z-level")
@@ -362,14 +362,12 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 ///Changes the icon state based on the new junction bitmask. Returns the old junction value.
 /atom/proc/set_smoothed_icon_state(new_junction)
-	apply_brandish_icon()
 	. = smoothing_junction
 	smoothing_junction = new_junction
 	icon_state = "[base_icon_state]-[smoothing_junction]"
 
 
 /turf/closed/set_smoothed_icon_state(new_junction)
-	apply_brandish_icon()
 	// Avoid calling ..() here to avoid setting icon_state twice, which is expensive given how hot this proc is
 	. = smoothing_junction
 	smoothing_junction = new_junction
@@ -601,6 +599,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		each.smoothing_groups = target.smoothing_groups.Copy()
 		each.canSmoothWith = target.canSmoothWith.Copy()
 	for(var/atom/each in family)
+		// This path bypasses smooth_icon(); bind the copied icon's bank first.
+		APPLY_BRANDISH_ICON(each)
 		each.bitmask_smooth()
 	if(isturf(target))
 		var/turf/T = target

@@ -2,14 +2,17 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT
 
-/// Retained for config compatibility; test merges always enable Brandish.
+/// Runtime switch for the experimental Brandish perspective. It is off at
+/// round start and is not read from the config files for now; admins and
+/// coders flip it with the "Toggle Brandish Perspective" verb. Generated art
+/// stays bound either way (it is pixel-identical at the default heading), so
+/// flipping this mid-round needs no world rebuild.
 /datum/config_entry/flag/brandish_camera
-	config_entry_value = TRUE
+	config_entry_value = FALSE
 
 /datum/config_entry/flag/brandish_camera/ValidateAndSet(str_val)
 	. = ..()
 	if(.)
-		GLOB.brandish_assets.configure(TRUE)
 		for(var/client/viewer in GLOB.clients)
 			viewer.queue_brandish_camera_sync()
 

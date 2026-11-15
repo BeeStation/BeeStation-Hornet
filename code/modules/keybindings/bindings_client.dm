@@ -39,6 +39,11 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		return TRUE
 	if(GLOB.valid_keys[key])
 		return FALSE
+	// Explicit Brandish macros must carry their full modifier combination.
+	// Validate the physical key too, rather than extending the global key list
+	// for every possible user-selected combination.
+	if(C.brandish_camera && GLOB.valid_keys[keybinding_base_key(key)] && brandish_action_for_key(C.prefs.key_bindings_by_key, key, key))
+		return FALSE
 
 	if(length(key) > 32)
 		log_admin("[key_name(C)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")

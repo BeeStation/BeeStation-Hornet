@@ -170,6 +170,19 @@ export function conversionPlan(dmi, mode, directionalSurface = false) {
   }
   return { plan, prefixes: [...prefixes].sort() };
 }
+
+/// The user's three classes describe artwork, separately from the mechanism
+/// used to render it. Native directional billboards need no generated bank.
+export function assetClass(source, state, policy, converted = false) {
+  if (state.dirs > 1) return 3;
+  if (policy.billboardFiles?.[source]) return 1;
+  return converted ? 2 : 1;
+}
+
+export function isDirectionalSurface(source, policy) {
+  return !!policy.directionalSurfaces?.includes(source) ||
+    policy.rules.some(rule => source.startsWith(rule.prefix) && rule.directionalSurface);
+}
 export function tile(png, pixels, dmi, index) {
   const out = Buffer.alloc(dmi.width*dmi.height*png.pixelBytes);
   const cols = png.width/dmi.width, sx = index%cols*dmi.width, sy = Math.floor(index/cols)*dmi.height;
@@ -222,14 +235,21 @@ export function alignFootprint(pixels,size,bytes,width,height,cw) {
 export function generateVariant(png, pixels, dmi, mode, anchor, conversion = conversionPlan(dmi,mode)) {
   const frames = [], blocks = [];
   for (const state of dmi.states) {
-    const converted = conversion.plan.has(state);
-    blocks.push(converted ? state.block.replace(/(^\s*dirs\s*=\s*)1\b/m,'$14') : state.block);
+    // Native four-dir diagonal selection depends on the previous orientation.
+    // Preserve that undefined physical-diagonal case instead of reading a tile
+    // past the state's four frames. Cardinal physical directions still bake.
+    const converted = conversion.plan.has(state) && !(state.dirs===4 && !directions.includes(anchor));
+    if(!converted && conversion.omitUnconverted) continue;
+    // Single-dir art in a diagonal bank needs eight explicit slots so native
+    // four-dir fallback cannot change its basis when the camera turns.
+    const outputDirections = state.dirs===8 || !directions.includes(anchor) ? allDirections : directions;
+    blocks.push(converted ? state.block.replace(/(^\s*dirs\s*=\s*)\d+/m,`$1${outputDirections.length}`) : state.block);
     for(let frame=0;frame<state.frames;frame++) {
       if (!converted) {
         for(let dir=0;dir<state.dirs;dir++) frames.push(tile(png,pixels,dmi,state.firstTile+frame*state.dirs+dir));
         continue;
       }
-      for (const direction of (state.dirs===8 ? allDirections : directions)) {
+      for (const direction of outputDirections) {
         const ccw = (angle[direction]-angle[anchor]+360)%360;
         const targets = conversion.plan.get(state);
         const source = targets ? targets[ccw/90] : state;
@@ -351,6 +371,10 @@ export function generate(root) {
   let variants=0, bytes=0;
   for(const file of candidates) {
     const source = path.relative(root,file).replaceAll('\\','/');
+    if(policy.billboardFiles?.[source]) {
+      excluded.push({source,assetClass:1,reason:policy.billboardFiles[source]});
+      continue;
+    }
     let modes=[...new Set([...policy.rules.filter(r=>source.startsWith(r.prefix)).flatMap(r=>r.modes),...(policy.files[source]??[])])];
     const worldTransform=policy.worldTransforms?.includes(source);
     if(!modes.length && !worldTransform) continue;
@@ -365,17 +389,21 @@ export function generate(root) {
     if(dmi.width!==dmi.height || (dmi.width>policy.maxGeometrySize && !worldTransform)) {excluded.push({source,reason:'non-square or exceeds geometry limit',width:dmi.width,height:dmi.height});continue;}
     if(dmi.width>policy.maxSurfaceSize && !rectangle) modes=modes.filter(m=>m!=='surface');
     const entry = {source}, plans = modes.map(mode => {
-      const plan=conversionPlan(dmi,mode,mode==='surface' && policy.directionalSurfaces?.includes(source));
+      const plan=conversionPlan(dmi,mode,mode==='surface' && isDirectionalSurface(source,policy));
       if(rectangle && mode==='surface') plan.footprint=footprintSize;
       const allowed=mode==='surface' && policy.surfaceStates?.[source];
       if(allowed) for(const state of plan.plan.keys()) if(!allowed.includes(state.name)) plan.plan.delete(state);
+      if(allowed && policy.compactSurfaces?.includes(source)) {
+        plan.omitUnconverted=true;
+        entry.surfaceStates=Object.fromEntries([...plan.plan.keys()].map(state=>[state.name,1]));
+      }
       return [mode,plan];
     }).filter(([,p])=>p.plan.size);
     const foregroundFamily=policy.foreground?.[source];
     if(!plans.length && !foregroundFamily && !worldTransform) {excluded.push({source,reason:'no convertible states for declared policy',width:dmi.width,height:dmi.height});continue;}
-    if(footprint) {
+    if(footprintSize) entry.footprintSize=footprintSize;
+    if(footprint && (!policy.footprintMasks || policy.footprintMasks.includes(source))) {
       entry.footprint={};
-      entry.footprintSize=footprintSize;
       const maskPlan=conversionPlan(dmi,'surface',true);
       maskPlan.footprint=footprintSize;
       for(const anchor of directions) {
@@ -404,7 +432,7 @@ export function generate(root) {
     }
     for(const [mode,plan] of plans) {
       entry[mode]={}; if(mode==='smooth') entry.prefixes=plan.prefixes;
-      for(const anchor of (mode==='surface' && policy.directionalSurfaces?.includes(source) && dmi.states.some(s=>s.dirs===8) ? allDirections : directions)) {
+      for(const anchor of (mode==='surface' && isDirectionalSurface(source,policy) && dmi.states.some(s=>s.dirs===8) ? allDirections : directions)) {
         const encoded=generateVariant(png,pixels,dmi,mode,anchor,plan);
         const hash=crypto.createHash('sha256').update(encoded).digest('hex').slice(0,24);
         const relative=`tmp/brandish-icons/assets/${hash}.dmi`;
@@ -424,6 +452,7 @@ export function generate(root) {
     }
     for(const mode of ['surface','smooth','corner','basis','footprint']) if(entry[mode]) fields.push(`${quote(mode)} = list(${Object.entries(entry[mode]).map(([d,file])=>`${quote(d)} = ${resource(file)}`).join(', ')})`);
     if(entry.prefixes) fields.push(`${quote('prefixes')} = list(${entry.prefixes.map(s=>`${quote(Buffer.from(s,'latin1').toString('utf8'))} = 1`).join(', ')})`);
+    if(entry.surfaceStates) fields.push(`${quote('surfaceStates')} = list(${Object.keys(entry.surfaceStates).map(s=>`${quote(s)} = 1`).join(', ')})`);
     lines.push(`\t\tlist(${fields.join(', ')}),`);
   }
   lines.push('\t)','\treturn catalog','');

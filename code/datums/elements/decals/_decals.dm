@@ -72,7 +72,7 @@
 	if(!. || !GLOB?.brandish_assets)
 		return
 	var/decal_dir = _dir || SOUTH
-	var/resource = GLOB.brandish_assets.icon_for(_icon, "surface", decal_dir)
+	var/resource = GLOB.brandish_assets.icon_for(_icon, "surface", decal_dir, state = _icon_state)
 	if(resource)
 		pic.icon = resource
 		pic.dir = decal_dir

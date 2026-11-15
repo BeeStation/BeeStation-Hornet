@@ -247,6 +247,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 //stone tiles for boss arenas
 /obj/structure/stone_tile
+	brandish_icon_mode = "surface"
 	name = "stone tile"
 	icon = 'icons/turf/boss_floors.dmi'
 	icon_state = "pristine_tile1"

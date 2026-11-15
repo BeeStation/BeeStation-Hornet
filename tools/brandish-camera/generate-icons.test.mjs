@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { readPng, decodePng, encodePng, parseDmi, conversionPlan, generateVariant, generateForeground, generateViewGate, generate, directions, turnJunction, tile, squareGeometry, rotatePixels, allDirections, alignFootprint } from './generate-icons.mjs';
+import { readPng, decodePng, encodePng, parseDmi, conversionPlan, generateVariant, generateForeground, generateViewGate, generate, directions, turnJunction, tile, squareGeometry, rotatePixels, allDirections, alignFootprint, assetClass, isDirectionalSurface } from './generate-icons.mjs';
 
 function fixture(description, frames, depth=8, color=6, chunks=[]) {
   const pixelBytes = color===6 ? 4 : 1;
@@ -13,6 +13,48 @@ function fixture(description, frames, depth=8, color=6, chunks=[]) {
 }
 const colored=Buffer.from([255,0,0,255, 0,255,0,255, 0,0,255,255, 255,255,0,255]);
 const description='state = "arrow"\n dirs = 1\n frames = 1\n';
+
+test('artwork classes separate upright single-dir, world single-dir and native directional art',()=>{
+  const policy=JSON.parse(fs.readFileSync(new URL('./asset-policy.json',import.meta.url)));
+  assert.equal(assetClass('icons/obj/artstuff.dmi',{dirs:1},policy),1);
+  assert.equal(assetClass('icons/obj/decals.dmi',{dirs:1},policy,false),1);
+  assert.equal(assetClass('icons/turf/floors.dmi',{dirs:1},policy,true),2);
+  assert.equal(assetClass('icons/turf/decals.dmi',{dirs:4},policy,true),3);
+  assert.equal(assetClass('icons/mob/human.dmi',{dirs:4},policy),3);
+  assert.equal(assetClass('icons/turf/decals.dmi',{dirs:8},policy,true),3);
+  assert.equal(isDirectionalSurface('icons/turf/decals.dmi',policy),true);
+  assert.equal(isDirectionalSurface('icons/turf/boss_floors.dmi',policy),true);
+  assert.equal(isDirectionalSurface('icons/obj/artstuff.dmi',policy),false);
+});
+
+test('floor decals and ash walker stone tiles preserve physical art in all four camera views',()=>{
+  for(const [file,names] of [
+    ['icons/turf/decals.dmi',['tile_half_contrasted','siding_line','warningline']],
+    ['icons/turf/boss_floors.dmi',['pristine_tile1','pristine_block1','cracked_block1']],
+  ]) {
+    const png=readPng(fs.readFileSync(file)),dmi=parseDmi(png),pixels=decodePng(png);
+    const plan=conversionPlan(dmi,'surface',true);
+    for(const anchor of allDirections) {
+      const out=readPng(generateVariant(png,pixels,dmi,'surface',anchor,plan)),od=parseDmi(out),data=decodePng(out);
+      for(const name of names) {
+        const state=dmi.states.find(s=>s.name===name),target=od.states.find(s=>s.name===name);
+        if(state.dirs===4 && !directions.includes(anchor)) {
+          assert.equal(target.dirs,4);
+          for(let slot=0;slot<4;slot++) assert.deepEqual(tile(out,data,od,target.firstTile+slot),tile(png,pixels,dmi,state.firstTile+slot));
+          continue;
+        }
+        const physical=state.dirs===8?anchor:directions.includes(anchor)?anchor:directions.find(d=>anchor&d);
+        const baseline=tile(png,pixels,dmi,state.firstTile+(state.dirs===8?allDirections:directions).indexOf(physical));
+        for(const quarter of [0,90,180,270]) {
+          const slot=turnJunction(anchor,quarter);
+          const slots=target.dirs===8?allDirections:directions;
+          if(!slots.includes(slot)) continue;
+          assert.deepEqual(tile(out,data,od,target.firstTile+slots.indexOf(slot)),rotatePixels(baseline,32,png.pixelBytes,360-quarter));
+        }
+      }
+    }
+  }
+});
 
 test('surface directions rotate known asymmetric pixels and preserve every physical dir baseline',()=>{
   const png=readPng(fixture(description,[colored])), pixels=decodePng(png), dmi=parseDmi(png);
@@ -80,20 +122,39 @@ test('all real prebuilt variants retain source names, timing and exact normal-vi
     const originals=original.states.map(s=>Array.from({length:s.dirs*s.frames},(_,i)=>entry.footprintSize ? alignFootprint(tile(source,pixels,original,s.firstTile+i),original.width,source.pixelBytes,...entry.footprintSize,0) : tile(source,pixels,original,s.firstTile+i)));
     for(const kind of ['surface','smooth','corner']) for(const [anchor,file] of Object.entries(entry[kind]??{})) {
       const out=readPng(fs.readFileSync(path.join(root,file))), dmi=parseDmi(out), data=decodePng(out);
-      const plan=conversionPlan(original,kind,kind==='surface' && manifest.policy.directionalSurfaces?.includes(entry.source)).plan;
+      const plan=conversionPlan(original,kind,kind==='surface' && isDirectionalSurface(entry.source,manifest.policy)).plan;
+      if(!directions.includes(Number(anchor))) for(const state of plan.keys()) if(state.dirs===4) plan.delete(state);
       const allowed=kind==='surface' && manifest.policy.surfaceStates?.[entry.source];
       if(allowed) for(const state of plan.keys()) if(!allowed.includes(state.name)) plan.delete(state);
-      assert.equal(dmi.states.length,original.states.length,file);
-      dmi.states.forEach((state,i)=>{
-        const old=original.states[i];
+      const compact=kind==='surface' && entry.surfaceStates;
+      assert.equal(dmi.states.length,compact?Object.keys(entry.surfaceStates).length:original.states.length,file);
+      dmi.states.forEach(state=>{
+        const i=original.states.findIndex(old=>old.name===state.name && old.movement===state.movement),old=original.states[i];
         assert.equal(state.name,old.name);assert.equal(state.frames,old.frames);assert.equal(state.movement,old.movement);
         assert.equal(state.block.replace(/(^\s*dirs\s*=\s*)\d+/m,'$1X'),old.block.replace(/(^\s*dirs\s*=\s*)\d+/m,'$1X'));
         if(!plan.has(old)) for(let n=0;n<old.dirs*old.frames;n++) assert.deepEqual(tile(out,data,dmi,state.firstTile+n),originals[i][n],`${file}:${state.name}:${n}`);
-        else for(let frame=0;frame<old.frames;frame++) assert.deepEqual(tile(out,data,dmi,state.firstTile+frame*state.dirs+allDirections.indexOf(Number(anchor))),originals[i][frame*old.dirs+(old.dirs===1?0:allDirections.indexOf(Number(anchor)))],`${file}:${state.name}:normal`);
+        else for(let frame=0;frame<old.frames;frame++) assert.deepEqual(tile(out,data,dmi,state.firstTile+frame*state.dirs+allDirections.indexOf(Number(anchor))),originals[i][frame*old.dirs+(old.dirs===1?0:allDirections.indexOf(old.dirs===4 && !directions.includes(Number(anchor)) ? Number(anchor)&3 : Number(anchor)))],`${file}:${state.name}:normal`);
       });checked++;
     }
   }
   assert(checked>100);console.log(`Preserved baseline and state metadata across ${checked} real resource variants`);
+});
+
+test('compact surface banks omit unselected upright states',()=>{
+  const p=readPng(fixture(description+'state = "upright"\n dirs = 1\n frames = 1\n',[colored,colored]));
+  const d=parseDmi(p),plan=conversionPlan(d,'surface');
+  plan.plan.delete(d.states[1]);plan.omitUnconverted=true;
+  const out=readPng(generateVariant(p,decodePng(p),d,'surface',1,plan)),od=parseDmi(out);
+  assert.deepEqual(od.states.map(state=>state.name),['arrow']);
+  assert.equal(od.states[0].dirs,4);
+});
+
+test('rectangular geometry only emits masks consumed by the large-airlock renderer',()=>{
+  const manifest=JSON.parse(fs.readFileSync('tmp/brandish-icons/manifest.json'));
+  const bar=manifest.entries.find(entry=>entry.source==='icons/obj/barsigns.dmi');
+  assert.deepEqual(bar.footprintSize,[64,32]);
+  assert.equal(bar.footprint,undefined);
+  assert.ok(manifest.entries.find(entry=>entry.source==='icons/obj/doors/airlocks/glass_large/glass_large.dmi').footprint);
 });
 
 test('all fourteen Runtime Station plaque pieces rotate as one connected bitmap',()=>{

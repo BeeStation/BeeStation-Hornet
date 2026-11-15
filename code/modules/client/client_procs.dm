@@ -587,6 +587,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/old_dir = dir
 	dir = newdir
 	if(old_dir != newdir)
+		brandish_camera?.update_offset()
 		rotate_camera_parallax(old_dir, newdir)
 		var/atom/movable/screen/fullscreen/near_light = mob?.screens["lighting_backdrop_seenear"]
 		near_light?.update_for_camera(src)

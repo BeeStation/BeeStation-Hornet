@@ -28,11 +28,17 @@
 /datum/brandish_asset_registry/proc/configure(allow)
 	enabled = allow && has_catalog()
 
-/datum/brandish_asset_registry/proc/icon_for(source, kind, direction, prefix)
+/datum/brandish_asset_registry/proc/icon_for(source, kind, direction, prefix, state)
 	prepare()
 	var/list/entry = aliases[source]
 	if(!entry || !enabled)
 		return entry ? entry["source"] : source
+	// Compact banks contain only selected geometry. Upright states (and
+	// callers without a known state) retain the original resource.
+	if(kind == "surface")
+		var/list/surface_states = entry["surfaceStates"]
+		if(surface_states && !surface_states[state])
+			return entry["source"]
 	var/list/banks = entry[kind]
 	if(kind == "smooth")
 		var/list/prefixes = entry["prefixes"]

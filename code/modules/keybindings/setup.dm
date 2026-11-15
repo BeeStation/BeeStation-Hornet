@@ -3,6 +3,8 @@
 	var/list/keys_held = list()
 	/// A buffer for combinations such of modifiers + keys (ex: CtrlD, AltE, ShiftT). Format: ["key"] -> ["combo"] (ex: ["D"] -> ["CtrlD"])
 	var/list/key_combos_held = list()
+	/// Explicit movement macros override special chat macros only in Brandish.
+	var/list/brandish_macro_ids = list()
 	// These next two vars are to apply movement for keypresses and releases made while move delayed.
 	// Because discarding that input makes the game less responsive.
 	var/next_move_dir_add // On next move, add this dir to the move that would otherwise be done
@@ -86,6 +88,10 @@
 	var/list/macro_sets = SSinput.macro_sets
 	if(!length(macro_sets))
 		return
+	for(var/id in brandish_macro_ids)
+		winset(src, id, "parent=null")
+	brandish_macro_ids.Cut()
+	brandish_camera?.clear_movement()
 
 	var/use_tgui_say = !prefs || prefs.read_player_preference(/datum/preference/toggle/tgui_say)
 	var/use_tgui_asay = !prefs || prefs.read_player_preference(/datum/preference/toggle/tgui_asay)
@@ -140,3 +146,21 @@
 						winset(src, "[setname]-msay", "parent=[setname];name=[key];command=[msay]")
 					else
 						winset(src, "[setname]-msay", "parent=null")
+
+	if(!brandish_camera)
+		return
+	// Any does not receive a key claimed by a specific macro, e.g. Say on T.
+	// Install these last so a rebound movement key has the promised priority.
+	for(var/name in D.key_bindings)
+		if(!istype(GLOB.keybindings_by_name[name], /datum/keybinding/brandish))
+			continue
+		for(var/key in D.key_bindings[name])
+			if(key == "Unbound")
+				continue
+			var/macro_key = replacetext(replacetext(replacetext(key, "Alt", "Alt+"), "Ctrl", "Ctrl+"), "Shift", "Shift+")
+			if(key in list("Alt", "Ctrl", "Shift"))
+				macro_key = key
+			var/id = "default-brandish-[REF(key)]"
+			winset(src, id, "parent=default;name=[macro_key];command=\"KeyDown [key]\"")
+			winset(src, "[id]-up", "parent=default;name=[macro_key]+UP;command=\"KeyUp [key]\"")
+			brandish_macro_ids += list(id, "[id]-up")

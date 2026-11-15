@@ -530,6 +530,10 @@
 
 /// Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(atom/A)
+	// Clicking still targets A; only the camera's movement/turn controls own
+	// voluntary facing while this perspective is active.
+	if(client?.brandish_camera?.body == src)
+		return
 	if( buckled || stat != CONSCIOUS || !A || !x || !y || !A.x || !A.y )
 		return
 	var/dx = A.x - x
