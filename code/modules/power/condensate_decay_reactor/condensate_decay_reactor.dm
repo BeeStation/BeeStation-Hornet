@@ -376,7 +376,7 @@
 	playsound(src, 'sound/weapons/graviton_impact.ogg', 65, TRUE)
 	return BULLET_ACT_BLOCK
 
-/obj/machinery/power/energy_accumulator/graviton_target/attackby(obj/item/attacking_item, mob/user, params)
-	if(default_unfasten_wrench(user, attacking_item))
-		return
-	return ..()
+/obj/machinery/power/energy_accumulator/graviton_target/wrench_act(mob/living/user, obj/item/tool)
+	if(default_unfasten_wrench(user, tool))
+		return TRUE
+	return FALSE
