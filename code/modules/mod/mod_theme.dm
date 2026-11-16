@@ -1229,7 +1229,7 @@
 	bullet = 50
 	laser = 30
 	energy = 55
-	bomb = 35
+	bomb = 60
 	bio = 100
 	fire = 50
 	acid = 100
@@ -1303,7 +1303,7 @@
 	bullet = 60
 	laser = 50
 	energy = 70
-	bomb = 55
+	bomb = 100
 	bio = 100
 	fire = 100
 	acid = 100
