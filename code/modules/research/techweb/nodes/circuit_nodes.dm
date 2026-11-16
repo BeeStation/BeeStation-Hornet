@@ -106,6 +106,7 @@
 	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_DATATHEORY)
 	design_ids = list(
 		"comp_append",
+		"comp_foreach",
 		"comp_index",
 		"comp_length",
 		"comp_list_constructor",
