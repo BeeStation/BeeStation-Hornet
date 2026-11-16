@@ -131,6 +131,7 @@
 	var/datum/client_camera_state/camera_state
 
 /client/proc/ensure_camera_state()
+	RETURN_TYPE(/datum/client_camera_state)
 	if(!camera_state)
 		camera_state = new(src)
 	return camera_state

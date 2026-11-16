@@ -140,7 +140,7 @@
 
 /datum/unit_test/brandish_riding_height/Run()
 	var/obj/vehicle/ridden/atv/seat = allocate(/obj/vehicle/ridden/atv, run_loc_floor_bottom_left)
-	var/mob/living/carbon/human/rider = allocate(/mob/living/carbon/human, run_loc_floor_bottom_left)
+	var/mob/living/carbon/human/rider = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 	TEST_ASSERT(seat.buckle_mob(rider, TRUE), "The rider must actually buckle")
 	for(var/facing in GLOB.cardinals)
 		seat.setDir(facing)
@@ -153,8 +153,8 @@
 
 /datum/unit_test/brandish_double_bed_height/Run()
 	var/obj/structure/bed/double/bed = allocate(/obj/structure/bed/double, run_loc_floor_bottom_left)
-	var/mob/living/carbon/human/first = allocate(/mob/living/carbon/human, run_loc_floor_bottom_left)
-	var/mob/living/carbon/human/second = allocate(/mob/living/carbon/human, run_loc_floor_bottom_left)
+	var/mob/living/carbon/human/first = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
+	var/mob/living/carbon/human/second = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 	// Exercise the second-sleeper placement independently of turf collision.
 	bed.buckled_mobs = list(first, second)
 	second.set_body_position(LYING_DOWN)
@@ -168,22 +168,27 @@
 	TEST_ASSERT_EQUAL(second.pixel_z, 0, "Removing the sleeper clears both screen-height sources")
 	bed.buckled_mobs.Cut()
 
+/// Filters have no static type to read fields from.
+/datum/unit_test/brandish_immersion_height/proc/mask_y(atom/movable/actor)
+	var/mask = actor.get_filter("immerse_mask")
+	return mask:y
+
 /datum/unit_test/brandish_immersion_height/Run()
 	var/turf/location = run_loc_floor_bottom_left
 	location.AddElement(/datum/element/immerse, "immerse", 180)
-	var/mob/living/carbon/human/actor = allocate(/mob/living/carbon/human, location)
+	var/mob/living/carbon/human/actor = allocate(/mob/living/carbon/human/consistent, location)
 	TEST_ASSERT(actor.get_filter("immerse_mask"), "The actual immerse element must attach a mask")
 	actor.set_body_position(LYING_DOWN)
 	sleep(4)
-	TEST_ASSERT_EQUAL(actor.get_filter("immerse_mask").y, 6, "The mask follows screen lying height")
+	TEST_ASSERT_EQUAL(mask_y(actor), 6, "The mask follows screen lying height")
 	actor.add_offsets(BRANDISH_MODE_WORLD, 7, 9, FALSE)
-	TEST_ASSERT_EQUAL(actor.get_filter("immerse_mask").y, 6, "Map placement cannot alter the local waterline")
+	TEST_ASSERT_EQUAL(mask_y(actor), 6, "Map placement cannot alter the local waterline")
 	actor.add_offsets("height", z_add = 8, animate = FALSE)
-	TEST_ASSERT_EQUAL(actor.get_filter("immerse_mask").y, -2, "Changing screen height updates the waterline")
+	TEST_ASSERT_EQUAL(mask_y(actor), -2, "Changing screen height updates the waterline")
 	actor.remove_offsets("height", FALSE)
 	actor.set_body_position(STANDING_UP)
 	sleep(4)
-	TEST_ASSERT_EQUAL(actor.get_filter("immerse_mask").y, 0, "Standing restores the mask independently of map offsets")
+	TEST_ASSERT_EQUAL(mask_y(actor), 0, "Standing restores the mask independently of map offsets")
 	location.RemoveElement(/datum/element/immerse, "immerse", 180)
 
 /datum/unit_test/brandish_offset_mimics/Run()
@@ -336,7 +341,7 @@
 
 /datum/unit_test/brandish_riding_parent_origin/Run()
 	var/obj/vehicle/ridden/space/speedwagon/car = allocate(/obj/vehicle/ridden/space/speedwagon, run_loc_floor_bottom_left)
-	var/mob/living/carbon/human/rider = allocate(/mob/living/carbon/human, run_loc_floor_bottom_left)
+	var/mob/living/carbon/human/rider = allocate(/mob/living/carbon/human/consistent, run_loc_floor_bottom_left)
 	TEST_ASSERT(car.buckle_mob(rider, TRUE), "The rider must actually buckle to create the riding component")
 	for(var/facing in GLOB.cardinals)
 		car.setDir(facing)
